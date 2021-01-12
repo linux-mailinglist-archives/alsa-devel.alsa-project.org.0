@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839042F3B87
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 21:34:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FF8A2F3B88
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 21:34:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE35D1709;
-	Tue, 12 Jan 2021 21:33:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE35D1709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 184E41725;
+	Tue, 12 Jan 2021 21:33:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 184E41725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610483638;
-	bh=/0rZ+dfpND1Yu6VMXcp+GJvrEb+3Tl5ZOFjKSaNslPw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eIZ5soIo52P2U/bw6p1oFq8Z3kEP+K2YP4nj/ZJhCycB11xrl6eAB2hpoeUnyfase
-	 Foras4hhjekoKnUQU7QourjM1sw4x7oHilDp7XtfC6jbZH5HBsV3Xsz9vhjlG+T42f
-	 I8ekFd+ywGT0Z3H7qt9LIe222sYkSC1GWbtbBY9U=
+	s=default; t=1610483666;
+	bh=TYGoP0e4lWzfWMsLEoepcVFfraVvg0SxO3S88gQBLrc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=d3qlcSNxKTWhaTReR7cxNIkiY0/7K/V5dl1TV0yPni9EJAZqjICOkrUPR7h/ldcn/
+	 nuUOJayLRrQb3G5qJ21iXz7NIUI1JnW6hSHlYoi9bDRAs27T/XSjSMAjNpirfl4OP4
+	 b7MW1BrPuLLQnihgJLjMhHOiugsraSLAOATA64T0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FE7CF804AA;
-	Tue, 12 Jan 2021 21:33:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92C86F804C1;
+	Tue, 12 Jan 2021 21:33:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B09CAF80279; Tue, 12 Jan 2021 21:33:05 +0100 (CET)
+ id 6A0ADF804AB; Tue, 12 Jan 2021 21:33:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,24 +34,24 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DED6EF80475;
- Tue, 12 Jan 2021 21:32:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DED6EF80475
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5DA5F80249;
+ Tue, 12 Jan 2021 21:33:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5DA5F80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iq9c6nJJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F04472311F;
- Tue, 12 Jan 2021 20:32:52 +0000 (UTC)
+ header.b="nNWek36z"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9635823120;
+ Tue, 12 Jan 2021 20:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610483575;
- bh=/0rZ+dfpND1Yu6VMXcp+GJvrEb+3Tl5ZOFjKSaNslPw=;
- h=From:To:Cc:Subject:Date:From;
- b=iq9c6nJJXeqP3twGXrAAW9uoeo4UAnyzjLsz6oxUWktl5FZDycduPdfMe4pYQDKaZ
- hpJn+BY8jLjJd6gFEohcGS559XjIW0cwBVDZLSvYSeSo91kgDmy3OAHMHS2kawxkm4
- gfjVSsLXv0uDxJ71DLslVwHXYIjIuH5xSmx7E4lwEr3SUNLZfrVhCOT5o3IZ6LkHYu
- YpZRas7t5n6d46XCIfld8ZFb7C+BeFK1xf81Rp+lwruu6VZiCjzLszPJ84sqXokwl1
- UbgYZgIUcSury4yRsbUBlj0je3C4g72I7i0ADn+FtXaDMbrm3g8dDsJ6A8Krnp0PeO
- Cz50I4CaBxI9A==
+ s=k20201202; t=1610483589;
+ bh=TYGoP0e4lWzfWMsLEoepcVFfraVvg0SxO3S88gQBLrc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nNWek36zVFKo7ntNqeLSZASuPLtqfR4fzqFvMignoc0GasY2x7F10w65qOdBK/mMH
+ C1jQOpecLerK3l5C4M3CWDE6fTvijR6uEekAI9JJO0QXAJS0TXHMm93l1Dc4a9ei6I
+ YgrnFuTK0/8loApW5DcBP4UNCM+CXXgIM5YXONM/R31t3eTmyjWdwwSL32IDmYR9v7
+ qrsQD4rJNvEIGOvs/vNZz84lgdQbEjC06nSCfOvSNXz7A+A01qMMx7Sb+dzLy0l9za
+ y5HWz1opIog26drQO1/7SfQqi3shJblHxgCXiyCo5ssKzqX5yF+d+jvPVX+dtVe8WW
+ xhyphVLsf95ng==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -58,15 +59,17 @@ To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/2] [v2] ALSA: hda: fix SND_INTEL_DSP_CONFIG dependency
-Date: Tue, 12 Jan 2021 21:32:17 +0100
-Message-Id: <20210112203250.2576775-1-arnd@kernel.org>
+Subject: [PATCH 2/2] ASoC: intel: fix soundwire dependencies
+Date: Tue, 12 Jan 2021 21:32:18 +0100
+Message-Id: <20210112203250.2576775-2-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210112203250.2576775-1-arnd@kernel.org>
+References: <20210112203250.2576775-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Arnd Bergmann <arnd@arndb.de>,
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Arnd Bergmann <arnd@arndb.de>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Rander Wang <rander.wang@linux.intel.com>,
  sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -85,117 +88,83 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The sof-pci-dev driver fails to link when built into the kernel
-and CONFIG_SND_INTEL_DSP_CONFIG is set to =m:
+The Kconfig logic around SND_SOC_SOF_INTEL_SOUNDWIRE tries to
+ensure that all sound modules can be built with the minimal
+dependencies, but this fails in some configurations:
 
-arm-linux-gnueabi-ld: sound/soc/sof/sof-pci-dev.o: in function `sof_pci_probe':
-sof-pci-dev.c:(.text+0x1c): undefined reference to `snd_intel_dsp_driver_probe'
+x86_64-linux-ld: sound/hda/intel-dsp-config.o: in function `snd_intel_dsp_driver_probe':
+intel-dsp-config.c:(.text+0x134): undefined reference to `sdw_intel_acpi_scan'
 
-All other drivers using this interface already use a 'select
-SND_INTEL_DSP_CONFIG' statement to force the it to be present, so it
-seems reasonable to do the same here.
+Specifically, this happens if the dsp-config driver is built-in but does
+not need to use soundwire, while CONFIG_SOUNDWIRE_INTEL is enabled as
+a loadable module.
 
-The stub implementation in the header makes the problem harder to find,
-as it avoids the link error when SND_INTEL_DSP_CONFIG is completely
-disabled, without any obvious upsides. Remove these stubs to make it
-clearer that the driver is in fact needed here.
+An easier and more correct way to do this is to remove
+CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE_LINK and instead have
+the two drivers that can link against SOUNDWIRE_INTEL,
+i.e. DSP_CONFIG and SND_SOC_SOF_HDA, select that driver whenever
+SND_SOC_SOF_INTEL_SOUNDWIRE_LINK is set.
 
-Fixes: 82d9d54a6c0e ("ALSA: hda: add Intel DSP configuration / probe code")
+This however means that SND_SOC_SOF_INTEL_SOUNDWIRE cannot be selected
+by users when SOUNDWIRE is only usable by loadable modules and one or
+more drivers using SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE is built-in.
+
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-v2: fix various build issues in the first version, now passes
-    all randconfig builds I tried
----
- include/sound/intel-dsp-config.h | 17 -----------------
- sound/soc/sof/Kconfig            |  2 ++
- sound/soc/sof/intel/Kconfig      |  4 ++--
- sound/soc/sof/intel/byt.c        |  2 +-
- 4 files changed, 5 insertions(+), 20 deletions(-)
+ sound/hda/Kconfig           |  1 +
+ sound/soc/sof/intel/Kconfig | 16 ++++++----------
+ 2 files changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/include/sound/intel-dsp-config.h b/include/sound/intel-dsp-config.h
-index d4609077c258..94667e870029 100644
---- a/include/sound/intel-dsp-config.h
-+++ b/include/sound/intel-dsp-config.h
-@@ -18,24 +18,7 @@ enum {
- 	SND_INTEL_DSP_DRIVER_LAST = SND_INTEL_DSP_DRIVER_SOF
- };
- 
--#if IS_ENABLED(CONFIG_SND_INTEL_DSP_CONFIG)
--
- int snd_intel_dsp_driver_probe(struct pci_dev *pci);
- int snd_intel_acpi_dsp_driver_probe(struct device *dev, const u8 acpi_hid[ACPI_ID_LEN]);
- 
--#else
--
--static inline int snd_intel_dsp_driver_probe(struct pci_dev *pci)
--{
--	return SND_INTEL_DSP_DRIVER_ANY;
--}
--
--static inline
--int snd_intel_acpi_dsp_driver_probe(struct device *dev, const u8 acpi_hid[ACPI_ID_LEN])
--{
--	return SND_INTEL_DSP_DRIVER_ANY;
--}
--
--#endif
--
- #endif
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index 031dad5fc4c7..051fd3d27047 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -12,6 +12,7 @@ if SND_SOC_SOF_TOPLEVEL
- config SND_SOC_SOF_PCI
- 	tristate "SOF PCI enumeration support"
- 	depends on PCI
-+	select SND_INTEL_DSP_CONFIG
- 	select SND_SOC_SOF
- 	select SND_SOC_ACPI if ACPI
- 	help
-@@ -23,6 +24,7 @@ config SND_SOC_SOF_PCI
- config SND_SOC_SOF_ACPI
- 	tristate "SOF ACPI enumeration support"
- 	depends on ACPI || COMPILE_TEST
-+	select SND_INTEL_DSP_CONFIG
- 	select SND_SOC_SOF
- 	select SND_SOC_ACPI if ACPI
- 	select IOSF_MBI if X86 && PCI
+diff --git a/sound/hda/Kconfig b/sound/hda/Kconfig
+index 3bc9224d5e4f..ecab814d7698 100644
+--- a/sound/hda/Kconfig
++++ b/sound/hda/Kconfig
+@@ -44,5 +44,6 @@ config SND_INTEL_NHLT
+ config SND_INTEL_DSP_CONFIG
+ 	tristate
+ 	select SND_INTEL_NHLT if ACPI
++	select SOUNDWIRE_INTEL if SND_SOC_SOF_INTEL_SOUNDWIRE
+ 	# this config should be selected only for Intel DSP platforms.
+ 	# A fallback is provided so that the code compiles in all cases.
 diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index ff9266413a06..67365ce0d86d 100644
+index 67365ce0d86d..df8f9760870e 100644
 --- a/sound/soc/sof/intel/Kconfig
 +++ b/sound/soc/sof/intel/Kconfig
-@@ -53,7 +53,7 @@ config SND_SOC_SOF_INTEL_COMMON
- if SND_SOC_SOF_ACPI
- 
- config SND_SOC_SOF_BAYTRAIL
--	bool "SOF support for Baytrail, Braswell and Cherrytrail"
-+	tristate "SOF support for Baytrail, Braswell and Cherrytrail"
- 	select SND_SOC_SOF_INTEL_ATOM_HIFI_EP
- 	select SND_INTEL_DSP_CONFIG
+@@ -330,13 +330,17 @@ config SND_SOC_SOF_HDA
+ 	tristate
+ 	select SND_HDA_EXT_CORE if SND_SOC_SOF_HDA_LINK
+ 	select SND_SOC_HDAC_HDA if SND_SOC_SOF_HDA_AUDIO_CODEC
++	select SOUNDWIRE_INTEL if SND_SOC_SOF_INTEL_SOUNDWIRE
  	help
-@@ -70,7 +70,7 @@ config SND_SOC_SOF_BAYTRAIL
- 	  If unsure select "N".
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level.
  
- config SND_SOC_SOF_BROADWELL
--	bool "SOF support for Broadwell"
-+	tristate "SOF support for Broadwell"
- 	select SND_INTEL_DSP_CONFIG
- 	select SND_SOC_SOF_INTEL_COMMON
- 	select SND_SOC_SOF_INTEL_HIFI_EP_IPC
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 65abcca94521..42dba3da1ca3 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -660,7 +660,7 @@ EXPORT_SYMBOL_NS(tng_chip_info, SND_SOC_SOF_MERRIFIELD);
+-config SND_SOC_SOF_INTEL_SOUNDWIRE_LINK
++config SND_SOC_SOF_INTEL_SOUNDWIRE
+ 	bool "SOF support for SoundWire"
+-	depends on SOUNDWIRE && ACPI
++	depends on SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
++	depends on SOUNDWIRE
++	depends on ACPI
++	depends on !(SOUNDWIRE=m && SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE=y)
+ 	help
+ 	  This adds support for SoundWire with Sound Open Firmware
+ 	  for Intel(R) platforms.
+@@ -345,14 +349,6 @@ config SND_SOC_SOF_INTEL_SOUNDWIRE_LINK
  
- #endif /* CONFIG_SND_SOC_SOF_MERRIFIELD */
- 
--#ifdef CONFIG_SND_SOC_SOF_BAYTRAIL
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
- static void byt_reset_dsp_disable_int(struct snd_sof_dev *sdev)
- {
- 	/* Disable Interrupt from both sides */
+ config SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
+ 	tristate
+-	select SND_SOC_SOF_INTEL_SOUNDWIRE if SND_SOC_SOF_INTEL_SOUNDWIRE_LINK
+-	help
+-	  This option is not user-selectable but automagically handled by
+-	  'select' statements at a higher level.
+-
+-config SND_SOC_SOF_INTEL_SOUNDWIRE
+-	tristate
+-	select SOUNDWIRE_INTEL
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level.
 -- 
 2.29.2
 

@@ -2,110 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9D112F3240
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 14:54:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6BB2F3253
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 14:57:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6207E1668;
-	Tue, 12 Jan 2021 14:54:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6207E1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D9351698;
+	Tue, 12 Jan 2021 14:56:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D9351698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610459695;
-	bh=J2IMBoItDuCdZfgJs9+lgg2Cj2pLKMKgW4yJclzWr/M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610459837;
+	bh=yJ6ij6dkqXQWN87kA5/GcS4MxHPMjelWV7OmYl0WKj8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DX5FAJkZY+0LCr8uLK0Dz8dry88OZcs1T7B8lUyOxn4t8+yPkOsD89yiuXATnNHaU
-	 ZFKjCfqyqDupR87LTbbo3p/U8PgPiBiBmir8R2XKxr+6Flba5MFS6HuzDggVl2LnYh
-	 9JT7h5Pi17wzRK+xdeIB8o9WWEbGayjYDnfd8QxA=
+	b=TwWi3Ye7igW7Jdtsx/p5nQVRkYpImpEtHI3iIHXUiE8O9oUVNcXpD9Y40J82aVX40
+	 w6HLQbaioaAc4HwQ+dDx3kHk7h6usss45CK/aT226q8ovYnqUCtAvKhNaTR0QddzZw
+	 5RAfARixyrHHQ5mn+n1TlXfgiPGyHgEIWBJkBdqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEDE8F800B9;
-	Tue, 12 Jan 2021 14:53:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24D8CF80249;
+	Tue, 12 Jan 2021 14:55:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80572F8025E; Tue, 12 Jan 2021 14:53:20 +0100 (CET)
+ id 099AAF8025E; Tue, 12 Jan 2021 14:55:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20B42F800EB
- for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 14:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20B42F800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="V3pcoxQU"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="pBe707M/"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 97DD85C022A;
- Tue, 12 Jan 2021 08:53:12 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 12 Jan 2021 08:53:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=wQHIBUX95kd7FYyqstLD3bY3Dfr
- sn25GzthoZs7X/Ac=; b=V3pcoxQUY0rNSzsaAGAOloFEq5Kotrg6LPGKrQ19BVF
- dUVtjFJpcSPZ1FwJUOohF9HssfcrtJqkAN2pH77HJJAfoxlFBA4RPhMBY5f+7u7w
- qONdTzBh3NC1dQFTuJoO4cXZhoVxIkPmR/LZsK9D9GU/sbFCHmp7T5gtgCTd3KOw
- IwDm17LPmK6Mn+ATY8HsPuT7WaDBZ+dkYH3hjWiL0E7YSC7WYwNI6X94gQ2SQWsh
- y/Wad4yjdaX0c/GXAE/Zrrcjfj7UDp/ANAft0O2YCTM2FZT84PRBTupiFop3zrJS
- pvqLUK6IoMh4JwJSWhOwHSosPHapvcEA2EnMjJgBXLQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=wQHIBU
- X95kd7FYyqstLD3bY3Dfrsn25GzthoZs7X/Ac=; b=pBe707M//5xjdT8ZRSsjYE
- LkvmOU+vZuy1W4idgKBGkLkBIuIrhqQRCj3UYm+Kw3oJvJsGeZy7krfjmzeQTIcE
- HNz10EnTdcO/9PwEDQjGnvFsaTyctl1UfMkgiA2slP+zVDStnB7FmnFsEGL1K7Ua
- SNDy5bUPGFknT3CwbcGPCr58gCR6rsK5hJxD+iiPXmJ5fhZo7nkZ43DyeyyJK3x3
- 7mseWsmxZuAbu3Mq6TDmhEEQrqkFVoQmszejCz1XenLhTAEQm7eU2jPZ4oR4BO7I
- BNQ45yTR2P8tZER9h9b7hIU5PFEPKCYW/TfWniO3qMweYxfKPYFb54j5GoKuvnsQ
- ==
-X-ME-Sender: <xms:x6n9XzvUfpg0fwn8fVLWE68C5GEpeuEBQ8rw_Cp52yQmZlYcj5nxQQ>
- <xme:x6n9X0d7B_knLaOTdUr6rbdw2WP2fZPWWKHcCrDhJ3u9ASVl91h1rUx3PySEJXWR2
- _LEh6MHztMsoG2W-9w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedukedrtddtgddvhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
- ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- eqnecuggftrfgrthhtvghrnheplefhueegvdejgfejgfdukeefudetvddtuddtueeivedt
- tdegteejkedvfeegfefhnecukfhppeduudekrddvgeefrdejkedrheeknecuvehluhhsth
- gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihes
- shgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:x6n9X2yfxe9W3LbFBicMNaJgOTmuRhKIJ_SAEwxXNIOekUD-ywRefw>
- <xmx:x6n9XyNV04gig9rmkPyzBMpxWJ-PFQH8Ag4RCfKOVb5KM_mrmkroiw>
- <xmx:x6n9Xz92ADNDaoWaCNBZ1LhrHR-4dWXwOkx9gnaBrI0li8H8eJcG6w>
- <xmx:yKn9X2bUhDQhG-oiwzBAh0FKL8JCFoRYbY24rCDSspXmU6qqjBt4lg>
-Received: from workstation (y078058.dynamic.ppp.asahi-net.or.jp
- [118.243.78.58])
- by mail.messagingengine.com (Postfix) with ESMTPA id A60C924005D;
- Tue, 12 Jan 2021 08:53:09 -0500 (EST)
-Date: Tue, 12 Jan 2021 22:53:06 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH/RFC 1/2] ALSA: fireface: Fix integer overflow in
- transmit_midi_msg()
-Message-ID: <20210112135306.GB44140@workstation>
-Mail-Followup-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Clemens Ladisch <clemens@ladisch.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20210111130251.361335-1-geert+renesas@glider.be>
- <20210111130251.361335-2-geert+renesas@glider.be>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210111130251.361335-2-geert+renesas@glider.be>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BB76F800B9;
+ Tue, 12 Jan 2021 14:55:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB76F800B9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5B24AAC8F;
+ Tue, 12 Jan 2021 13:55:32 +0000 (UTC)
+Date: Tue, 12 Jan 2021 14:55:31 +0100
+Message-ID: <s5hv9c2qmy4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: avoid reverse module dependency
+In-Reply-To: <59a36212-2412-2dd3-62f2-69c6f65312b1@linux.intel.com>
+References: <CAK8P3a0PXXHXLK36SB_4eia6z0u3nbBPanATwZEhposKOScqcw@mail.gmail.com>
+ <20210105190808.613050-1-arnd@kernel.org>
+ <59a36212-2412-2dd3-62f2-69c6f65312b1@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Arnd Bergmann <arnd@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ "linux-kernel @ vger . kernel . org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,57 +77,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Mon, Jan 11, 2021 at 02:02:50PM +0100, Geert Uytterhoeven wrote:
-> As snd_ff.rx_bytes[] is unsigned int, and NSEC_PER_SEC is 1000000000L,
-> the second multiplication in
+On Mon, 11 Jan 2021 20:54:17 +0100,
+Pierre-Louis Bossart wrote:
 > 
->     ff->rx_bytes[port] * 8 * NSEC_PER_SEC / 31250
 > 
-> always overflows on 32-bit platforms, truncating the result.  Fix this
-> by precalculating "NSEC_PER_SEC / 31250", which is an integer constant.
 > 
-> Note that this assumes ff->rx_bytes[port] <= 16777.
+> On 1/5/21 1:07 PM, Arnd Bergmann wrote:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > The SOF-ACPI driver is backwards from the normal Linux model, it has a
+> > generic driver that knows about all the specific drivers, as opposed to
+> > having hardware specific drivers that link against a common framework.
+> >
+> > This requires ugly Kconfig magic and leads to missed dependencies as
+> > seen in this link error:
+> >
+> > arm-linux-gnueabi-ld: sound/soc/sof/sof-pci-dev.o: in function `sof_acpi_probe':
+> > sof-pci-dev.c:(.text+0x1c): undefined reference to `snd_intel_dsp_driver_probe'
+> >
+> > Change it to use the normal probe order of starting with a specific
+> > device in a driver, turning the sof-acpi-dev.c driver into a library.
 > 
-> Fixes: 19174295788de77d ("ALSA: fireface: add transaction support")
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
-> Compile-tested only.
+> Thanks Arnd for reporting all this, much appreciated.
 > 
-> I don't know the maximum transfer length of MIDI, but given it's an old
-> standard, I guess it's rather small.  If it is larger than 16777, the
-> constant "8" should be replaced by "8ULL", to force 64-bit arithmetic.
-> ---
->  sound/firewire/fireface/ff-transaction.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> The initial design was that we would have one generic platform_driver
+> (ACPI) and one generic PCI driver that would deal with all known IDs,
+> with descriptors that would point ops and callbacks defined in
+> device-specific drivers. It's how all Intel drivers worked so far,
+> from HDaudio to Atom/SST and Skylake.
+> 
+> It's not that ugly, but to Arnd's point we do have a lot of #if
+> IS_ENABLED at the top level with a larger and larger table of IDs,
+> along with Kconfig magic indeed to propagate constraints from
+> top-level to device-specific drivers. The error with DSP_CONFIG comes
+> from the fact that this never belonged at the top-level, or should
+> have been conditionally invoked, as noted by Takashi.
+> 
+> That said, the initial design which dates from 2017 can be revisited
+> now that we start having quite a few platforms and more coming. What
+> Arnd suggests isn't without merits, it would indeed turn the generic
+> code into generic helpers, and have all the platform IDs maintained in
+> device-specific drivers. It's a more distributed/scalable solution,
+> the only minor drawback I see is that it would require multiple
+> instances of the 'platform_driver' and 'pci_driver' structures.
+> 
+> I would also want to keep the top-level selection so that ACPI/PCI/DT
+> modules can be disabled in one shot, that would mean an additional
+> change to the Makefiles since e.g.
+> obj-$(CONFIG_SND_SOC_SOF_ACPI) += snd-sof-acpi.o
+> would need to be set somehow.
+> 
+> Since this is going to be a really invasive change, and past
+> experience shows that mucking with Kconfigs will invariably raise a
+> number of broken corner cases, if there is support from
+> Mark/Takashi/Jaroslav on this idea, we should first test it in the SOF
+> tree so that we get a good test coverage and don't break too many eggs
+> in Mark's tree. We would also need to concurrently change our CI
+> scripts which are dependent on module names.
 
-The rx_bytes member has value for the length of byte messages to
-process. The range of value differs depending on Fireface protocol
-version. For former protocol, the value is equals to or less than
-SND_FF_MAXIMIM_MIDI_QUADS (= 9). For latter protocol, the value is
-equals to or less than 3. Anyway, the value should not be larger
-than 16777 and the calculation can be done without ULL suffix.
+I'm in favor of the way Arnd proposed.  It's more straightforward and
+less code.
 
-Reviewd-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+If you find the number of modules or the too much cutting out being
+problematic, you can create a module snd-sof-intel-acpi and
+snd-sof-intel-pci containing the driver table entries for all Intel
+devices, too.  In the case, you'll still need some conditional calls
+of intel-dsp-config there, but it's a good step for reducing the
+Kconfig complexity.
 
-> diff --git a/sound/firewire/fireface/ff-transaction.c b/sound/firewire/fireface/ff-transaction.c
-> index 7f82762ccc8c80ba..ee7122c461d46f44 100644
-> --- a/sound/firewire/fireface/ff-transaction.c
-> +++ b/sound/firewire/fireface/ff-transaction.c
-> @@ -88,7 +88,7 @@ static void transmit_midi_msg(struct snd_ff *ff, unsigned int port)
->  
->  	/* Set interval to next transaction. */
->  	ff->next_ktime[port] = ktime_add_ns(ktime_get(),
-> -				ff->rx_bytes[port] * 8 * NSEC_PER_SEC / 31250);
-> +			ff->rx_bytes[port] * 8 * (NSEC_PER_SEC / 31250));
->  
->  	if (quad_count == 1)
->  		tcode = TCODE_WRITE_QUADLET_REQUEST;
-> -- 
-> 2.25.1
+> Also maybe in a first pass we can remove the compilation error with
+> IS_REACHABLE and in a second pass do more invasive surgery?
+
+Agreed, we'd like to keep less changes for 5.11 for now.
 
 
-Thanks
+thanks,
 
-Takashi Sakamoto
+Takashi

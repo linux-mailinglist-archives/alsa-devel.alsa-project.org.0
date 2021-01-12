@@ -2,63 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46582F29EF
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 09:24:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F03F12F2C79
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 11:19:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1197A16D2;
-	Tue, 12 Jan 2021 09:23:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1197A16D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66E7016B0;
+	Tue, 12 Jan 2021 11:18:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66E7016B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610439864;
-	bh=TI6V/WYTwrvlC5FU6HrzyDpN71p8oVe4gtm7skR5QRQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pmL9byg2j/+C6XxIT8SA3/we0fzBb8CBd50+3E7TnIvUDK+Va/XCosqqqvvuup62+
-	 QRCF9Zoz8giL2YTGgOGFclGM54eBaIFrhZU72PT4he9r/h+rOKwLZyQP1saBVjwc7O
-	 lu+FxXJPRjZm6ykSpKrVNLq7hYytzdZOUBG265KE=
+	s=default; t=1610446764;
+	bh=XC4x5R0AW8FkGhvfoDvjCDJummIDFXQcbI/HKYsx3S8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VNkvXsqUJ/1Efs2luY/phKiS2vIaGB1hcOZPVXP4nXuBudM8RYrOIIFolc8HVLl86
+	 pT0u6c1diKosspvvz4BwMIXLSSeEAeGRPyHAGWxcyebQgjyoWGo7IgVIhC95wEoOmg
+	 ZKKFN+5R4u1b+0C61k4CUBNsJUW9wijFxXuFhfoA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47C87F8025E;
-	Tue, 12 Jan 2021 09:22:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2937F8026F;
+	Tue, 12 Jan 2021 11:17:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E90EF8025E; Tue, 12 Jan 2021 09:22:48 +0100 (CET)
+ id D6A50F8025E; Tue, 12 Jan 2021 11:17:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62F69F800EB
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 11:17:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62F69F800EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Jl1EsuTv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610446654;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=0Udz9vn84uwwXcBik+uTtDwfov9SaSVSotavmrBrWdQ=;
+ b=Jl1EsuTvdwzvDtMOUN/QfOlLEIl6kXHqLWFEhNMLKFtnmLwLaSVqZocGyKFKPMpyqvXnKd
+ Bo4LoFAmp/X0yK/OJs1xsSsWImaW1kuw9+982DpAyhd23oJrtM6eThCEyGClktmmBgzytk
+ Yvgns6eZXUbRzgZFMV4vUwIMdRG5YQ4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-355-8L5CEGtTOsKSzc_j7ftApw-1; Tue, 12 Jan 2021 05:17:30 -0500
+X-MC-Unique: 8L5CEGtTOsKSzc_j7ftApw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89F8FF800EB
- for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 09:22:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F8FF800EB
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 91D36AC8F;
- Tue, 12 Jan 2021 08:22:38 +0000 (UTC)
-Date: Tue, 12 Jan 2021 09:22:38 +0100
-Message-ID: <s5hv9c2sgxd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Peter Geis <pgwipeout@gmail.com>
-Subject: Re: [PATCH v2 0/2] fix tegra-hda on tegra30 devices
-In-Reply-To: <20210108135913.2421585-1-pgwipeout@gmail.com>
-References: <20210108135913.2421585-1-pgwipeout@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Prashant Gaikwad <pgaikwad@nvidia.com>,
- Sameer Pujar <spujar@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
- linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- linux-clk@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org,
- Mohan Kumar <mkumard@nvidia.com>, Peter De Schrijver <pdeschrijver@nvidia.com>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DE2D58015D0;
+ Tue, 12 Jan 2021 10:17:28 +0000 (UTC)
+Received: from x1.localdomain (ovpn-115-212.ams2.redhat.com [10.36.115.212])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B921660BE5;
+ Tue, 12 Jan 2021 10:17:26 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: es8316: Fix possible NULL pointer deref in
+ es8316_disable_jack_detect()
+Date: Tue, 12 Jan 2021 11:17:25 +0100
+Message-Id: <20210112101725.44200-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ russianneuromancer <russianneuromancer@ya.ru>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,45 +96,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 08 Jan 2021 14:59:11 +0100,
-Peter Geis wrote:
-> 
-> The following patches fix tegra-hda on legacy tegra devices.
-> Two issues were discovered preventing tegra-hda from functioning:
-> -The hda clocks on tegra30 were assigned to clk_m and running at too low
-> of a rate to function.
-> -The tegra-hda encounters an input/output error when opening a stream.
-> 
-> Since the only mainline device that used tegra-hda until recently was the
-> t124, it is unknown exactly when this was broken. Fortunately a recent
-> patch was submitted that fixed the issue only on t194 devices. We can
-> apply it to the tegra30-hda device to resolve the issue across the board.
-> Note that downstream devices used the spdif device instead of hda for hdmi
-> audio. The spdif device lacks a driver on mainline.
-> 
-> -Checkpatch seems to have issues finding [1], but git show has no issue.
-> [1] commit 60019d8c650d ("ALSA: hda/tegra: workaround playback failure on
-> Tegra194")
-> 
-> Changelog:
-> 
-> v2:
-> -Added ack and reviewed-by from Jon
-> -Updated fix to apply to tegra30-hda vice universally (Thanks Jon)
-> -Updated commit to include comments from hardware team (Thanks Sameer)
-> -Cleaned up commit messages
-> 
-> Peter Geis (2):
->   clk: tegra30: Add hda clock default rates to clock driver
->   ALSA: hda/tegra: fix tegra-hda on tegra30 soc
+sound/soc/soc-core.c: soc_remove_component() unconditionally calls
+snd_soc_component_set_jack(component, NULL, NULL); on any components
+being removed.
 
-Shall I apply both patches via sound git tree?
+This means that on machines where the machine-driver does not provide
+a jack through snd_soc_component_set_jack() es8316_disable_jack_detect()
+will still get called and at this time es8316->jack will be NULL and
+the es8316->jack->status check in es8316_disable_jack_detect() will
+lead to a NULL pointer deref.
 
-Or, if you want to take through clk tree, let me know.  In that case,
-feel free to take my ack:
-Acked-by: Takashi Iwai <tiwai@suse.de>
+Fix this by checking for es8316->jack bein NULL at the start of
+es8316_disable_jack_detect() and turn the function into a no-op in
+that case.
 
+Cc: russianneuromancer <russianneuromancer@ya.ru>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/codecs/es8316.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-thanks,
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index f9ec5cf82599..1ce84f12a4cf 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -681,6 +681,9 @@ static void es8316_disable_jack_detect(struct snd_soc_component *component)
+ {
+ 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
+ 
++	if (!es8316->jack)
++		return; /* Already disabled (or never enabled) */
++
+ 	disable_irq(es8316->irq);
+ 
+ 	mutex_lock(&es8316->lock);
+-- 
+2.28.0
 
-Takashi

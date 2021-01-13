@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AA3F2F4EAE
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:30:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03D5A2F4E97
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:29:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C68CF1725;
-	Wed, 13 Jan 2021 16:30:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C68CF1725
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D08B172D;
+	Wed, 13 Jan 2021 16:28:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D08B172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610551855;
-	bh=BTCdFa/gvjTyKB3m7kRq1C8tfhpWS0HPZMfSql1L5mM=;
+	s=default; t=1610551752;
+	bh=eEcbkRzk8bWXVOlfj158dOfEWwEYLSTHoyanoSEtP88=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mSIUYLaqJ+u7D4FC10Iw7opP5u24OrhFOpQNVDnTr3fenebJgocopWYjqOBMauQHc
-	 4Lt4Jmr+bmt48z0f7h0aTw48xtxif+zKiDbDT/OENRZrb0mp1AWhpCaAawa5nW1KSh
-	 bvTKw3eKT7sZJV1uCcK+dMUO7KSpEGYA16nIwgxs=
+	b=aIH5lqSNqjor1cJfcn1RiJh744PCTBcjaJ9nrzbTJsSPsg086C5SCb6Vc3JItsbBm
+	 04LJSUnq/B4ZAX9krV4AExPim0JXVGjliM6iCjjiKshGFIgdS74JN5tfEc6vc8iPn7
+	 8fEm7CsWGzMIsSaBZLhTVOI7fKlyO+j4cmSdPZZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C58CAF804ED;
-	Wed, 13 Jan 2021 16:27:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A80AEF8025F;
+	Wed, 13 Jan 2021 16:27:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B549F804F2; Wed, 13 Jan 2021 16:27:55 +0100 (CET)
+ id 93A8FF8026D; Wed, 13 Jan 2021 16:27:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,35 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C88DCF804ED
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:27:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C88DCF804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE65EF80085
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:27:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE65EF80085
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hDnXQW9g"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 997A023382;
- Wed, 13 Jan 2021 15:27:50 +0000 (UTC)
+ header.b="NAsT1SH6"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B9CF623382;
+ Wed, 13 Jan 2021 15:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610551671;
- bh=BTCdFa/gvjTyKB3m7kRq1C8tfhpWS0HPZMfSql1L5mM=;
+ s=k20201202; t=1610551648;
+ bh=eEcbkRzk8bWXVOlfj158dOfEWwEYLSTHoyanoSEtP88=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=hDnXQW9gqkZehUDjG3Ev6r/r4gi0VF/birGSGvQev7LjUU8sgIRtkDt1KSwPlpEuY
- YDQvTmdRkttlLIORr61dXJTL739xEezmasL+5weCc4rgyOIQUYIrY6MYblhhssEPxl
- ZQ3R8fh1Q49R/+bhy8eHba/2lS+XCPPIBS/K3xxgbfi+QK2Tz1MfDAQ3314pgXlGEi
- 3QlAy31d8IHu8OqZdBAHfgbfxZjIl2IrJ8K8tfWS1n1PXvSWFpkpQ8GC4ONRW2m363
- kLri1u7VpZMlMdC7myxQX5DcJSQOsoSiZqCVRw7UDzUQRpIHNxucPPumDMw6RKVQLR
- R+xpSE0YfZSNw==
+ b=NAsT1SH66xRMBLoY2fCXoXUlEgYlBdXlnSUSTKi8lj90ogVFla84CXJvXZ/e0YzI2
+ eHYqSv5t1g3w1KMaf39U78W78Euq1cNAZgTpuglx1L60QuXtthy+10du1YDt80dDW6
+ bfbQTt16wCkz9o7o3o6O30dsMPj6uUBLwVDVDANZP9rh+1y7QDphoRnTnZoDn+nng3
+ QDZ5wVscedLusUInZH2OhG2q56PzLnPDExq8REsPkKWgoc7uiUReR90LnZ/I4qW1oG
+ Hc0CpO5gka6n/cdiDndvF1tnGRC4FmBQGYcMNh2S3cIM/83ykLLW94yV1UE0GvM1VJ
+ hX204D/7fjs5g==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87360c99kb.wl-kuninori.morimoto.gx@renesas.com>
-References: <87360c99kb.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: (subset) [PATCH 0/6] ASoC: soc-pcm: cleanup code
-Message-Id: <161055160365.21623.15982485347249643370.b4-ty@kernel.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+In-Reply-To: <20201211203255.148246-1-stephan@gerhold.net>
+References: <20201211203255.148246-1-stephan@gerhold.net>
+Subject: Re: [PATCH] ASoC: qcom: qdsp6: Move frontend AIFs to q6asm-dai
+Message-Id: <161055160365.21623.6334522297634428774.b4-ty@kernel.org>
 Date: Wed, 13 Jan 2021 15:26:43 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: Patrick Lai <plai@codeaurora.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,17 +80,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11 Dec 2020 14:54:53 +0900, Kuninori Morimoto wrote:
-> These are not so important, but for
-> soc-pcm cleanup patches.
+On Fri, 11 Dec 2020 21:32:55 +0100, Stephan Gerhold wrote:
+> At the moment it is necessary to set up the DAPM routes between
+> front-end AIF<->DAI explicitly in the device tree, e.g. using
 > 
-> Kuninori Morimoto (6):
->   ASoC: soc-pcm: move dpcm_set_fe_update_state()
->   ASoC: soc-pcm: add dpcm_set_be_update_state()
->   ASoC: soc-pcm: add soc_pcm_set_dai_params()
->   ASoC: soc-pcm: cleanup soc_pcm_apply_symmetry()
->   ASoC: soc-pcm: cleanup soc_pcm_params_symmetry()
->   ASoC: soc-pcm: setup pcm at one place in soc_new_pcm()
+> 	audio-routing =
+> 		"MM_DL1", "MultiMedia1 Playback",
+> 		"MM_DL3", "MultiMedia3 Playback",
+> 		"MM_DL4", "MultiMedia4 Playback",
+> 		"MultiMedia2 Capture", "MM_UL2";
 > 
 > [...]
 
@@ -97,14 +98,8 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: soc-pcm: move dpcm_set_fe_update_state()
-      commit: 9c6d7f9346b1526136dc142eb82085737112a3fe
-[2/6] ASoC: soc-pcm: add dpcm_set_be_update_state()
-      commit: a7e20444ef5e7ab74aec34f34eb0e53024c349e1
-[3/6] ASoC: soc-pcm: add soc_pcm_set_dai_params()
-      commit: 2805b8bd3e0bdda15b3458ab9818d80f5d5b157f
-[4/6] ASoC: soc-pcm: cleanup soc_pcm_apply_symmetry()
-      commit: a39748d03cbc7c0a55d217731c7e16a22a2d2bed
+[1/1] ASoC: qcom: qdsp6: Move frontend AIFs to q6asm-dai
+      commit: 6fd8d2d275f74baa7ac17b2656da1235f56dab99
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

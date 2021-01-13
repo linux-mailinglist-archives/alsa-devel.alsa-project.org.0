@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0431A2F4690
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 09:36:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF812F46A6
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 09:41:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D04A16CD;
-	Wed, 13 Jan 2021 09:18:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D04A16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF0516CD;
+	Wed, 13 Jan 2021 09:40:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF0516CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610525984;
-	bh=gZIRajXX5YNojtQIQKJVXoLAyoilxVgCJCy2kNLp3QM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fMBWC//WndKoX50PhKcH3UQeQwsUO+ym/DJOpuYLD76Yh9+EwKij6p8f9KX4dhukx
-	 ROjBkHBBsh1/4yhppoE5Y0lTNGc4P06ByoWcR++6eeVwSI54+MQR+rqIqGEbCDzMhk
-	 0C76G6g2Pi4HNUrWYdp1NoQR8Zq+L6kziTB1sBL4=
+	s=default; t=1610527266;
+	bh=gNk8YtfAr6BS/7aY8N9rTnfuqu++fHdTS821z4IB40Y=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AMcRn/fwBle5g5nsy5uh9TMDk688E1wcRHyP3m93ux+Ai/v1mVALBnATCI5fZmmlR
+	 ksRkCMUyhYp/0F3yZbcXXFxWpUzY/C3p6EhZWEOc3aCTzXJVdYK4v5jnm7k6qZQOYn
+	 HVLHX7n9NyUdJ5E5g4wiw5hse+29GwvRuLxW7C3k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBFA2F801ED;
-	Wed, 13 Jan 2021 09:18:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A7D8F8025F;
+	Wed, 13 Jan 2021 09:39:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE6B2F801ED; Wed, 13 Jan 2021 09:18:06 +0100 (CET)
+ id 5A0EAF8016D; Wed, 13 Jan 2021 09:39:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A874F80085
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 09:17:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A874F80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="XWuA0GqQ"
-Received: by mail-pf1-x432.google.com with SMTP id m6so781617pfk.1
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 00:17:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eSwrQDNKHkzE/dLDIoYSI3CUIjVfpzTys6BbyA061tg=;
- b=XWuA0GqQJlv9CPO1QVW/xD81wP6jUTcdIxtE7xUYoRhYAFViBwsw3vxHmiEJp6kUms
- Zf2iphER7VLdMPL9ISdkGh8XyH5marNYSPFcGwGlonvueHUD7FO2n9T/soP/jRTH1h1h
- F54mfyb5irhszfs0p/byYQnbDl6d8dXcoFyY0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eSwrQDNKHkzE/dLDIoYSI3CUIjVfpzTys6BbyA061tg=;
- b=aUfaQsT1VwY4R5DD8XdlfbACCIP1i6F+35xRXXpPkVAJD5Fu/ihYcGvj67uAWFPwUH
- /lG7CoJWivFCP+i6f7s82IFZeJLiU+x6uy7U8N70i5E4shsD6ESvWWMXdtIgQMTDBFzJ
- yctk+IPVJ3hB2aywGkeP10rF37XQnMM80maa9gGtiAjTxU1ZCVpiwUFjQbWm4/XtG8K6
- 4EaLTAXA6ZEa8Z3Su2ZKJwmZ01Y0I1lAs1fE/+QVAmNcVsiCC6d07ZmQRyU/NjAzVfDx
- fO5Zhc20rmdcwBoLMwNa8J4wgfBXo1BozeUpJcrngP2M6VVW0NWTO9Y19+Ol1XUk7wKZ
- NWQw==
-X-Gm-Message-State: AOAM530mP059m2rrlasZmPC2MqNlE9sSXrny6eD1egwVdb+iBW+Rc2qh
- 72ylecZohq3Avvh+T7BNoWji3A==
-X-Google-Smtp-Source: ABdhPJwhI66piFVQyHBpPG6KmSS1fIvEVrO+IxPb3NcF8YnYVW5iAr4z92ZPdkY5o3LV+5JWa5aYzQ==
-X-Received: by 2002:a63:9dc1:: with SMTP id i184mr1010816pgd.409.1610525875259; 
- Wed, 13 Jan 2021 00:17:55 -0800 (PST)
-Received: from localhost ([2401:fa00:1:10:725a:fff:fe46:44eb])
- by smtp.gmail.com with ESMTPSA id i67sm1675487pfc.153.2021.01.13.00.17.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Jan 2021 00:17:54 -0800 (PST)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v5] ASoC: cros_ec_codec: Reset I2S RX when probing
-Date: Wed, 13 Jan 2021 16:17:45 +0800
-Message-Id: <20210113081745.2543882-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.30.0.284.gd98b1dd5eaa7-goog
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18F70F80085;
+ Wed, 13 Jan 2021 09:39:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18F70F80085
+IronPort-SDR: pGsAV7XEa8L6knMdYnNSbob51kOgiWc+2OXuF4/bn7fUGi3gN12U2r2qSiyVqGiukrfoL+/EWI
+ klNC+ckFoC9A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="178263621"
+X-IronPort-AV: E=Sophos;i="5.79,343,1602572400"; d="scan'208";a="178263621"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 00:39:32 -0800
+IronPort-SDR: y6c/uPMlHWU9i8L6dyLaduYNUjuU3S2kRoIXIr/sJfBiIbfWdEm4uJVPTAkDrACCwaLPpAaBUv
+ FYPYQ0WaOB6A==
+X-IronPort-AV: E=Sophos;i="5.79,343,1602572400"; d="scan'208";a="353374255"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 00:39:28 -0800
+Date: Wed, 13 Jan 2021 10:36:25 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v4 3/3] ASoC: SOF: Intel: hda: Avoid checking jack on
+ system suspend
+In-Reply-To: <20210112181128.1229827-3-kai.heng.feng@canonical.com>
+Message-ID: <alpine.DEB.2.22.394.2101130932480.864696@eliteleevi.tm.intel.com>
+References: <20210112181128.1229827-1-kai.heng.feng@canonical.com>
+ <20210112181128.1229827-3-kai.heng.feng@canonical.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- "Gustavo A . R . Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
- Mark Brown <broonie@kernel.org>, Prashant Malani <pmalani@chromium.org>,
- Pi-Hsun Shih <pihsun@chromium.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Content-Type: text/plain; charset=US-ASCII
+Cc: pierre-louis.bossart@linux.intel.com,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ kai.vehmanen@linux.intel.com, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Keyon Jie <yang.jie@linux.intel.com>, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, broonie@kernel.org,
+ Payal Kshirsagar <payalskshirsagar1234@gmail.com>, daniel.baluta@nxp.com,
+ Marcin Rajwa <marcin.rajwa@linux.intel.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE SOF DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,64 +89,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It is not guaranteed that I2S RX is disabled when the kernel booting.
-For example, if the kernel crashes while it is enabled, it will keep
-enabled until the next time EC reboots. Reset I2S RX when probing to
-fix this issue.
+Hi,
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
-This patch checks the return value. If it is -ENOPROTOOPT
-(EC_RES_INVALID_VERSION), it will ask clients to update EC firmware.
+On Wed, 13 Jan 2021, Kai-Heng Feng wrote:
 
-Previous patches
+> System takes a very long time to suspend after commit 215a22ed31a1
+> ("ALSA: hda: Refactor codec PM to use direct-complete optimization"):
+[...]
+> [  321.262505] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> [  328.426919] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> [  329.490933] ACPI: EC: interrupt blocked
+> 
+> That commit keeps the codec suspended during the system suspend. However,
+> mute/micmute LED will clear codec's direct-complete flag by
+> dpm_clear_superiors_direct_complete().
 
-v1: https://patchwork.kernel.org/project/alsa-devel/patch/20200708071117.3070707-1-yuhsuan@chromium.org/
+thanks Kai-Heng. This indeed explains why the regression is only seen on 
+some systems (those with mute/micmute LED).
 
-v2: https://patchwork.kernel.org/project/alsa-devel/patch/20200716170914.3623060-1-yuhsuan@chromium.org/
+> This doesn't play well with SOF driver. When its runtime resume is
+> called for system suspend, hda_codec_jack_check() schedules
+> jackpoll_work which uses snd_hdac_is_power_on() to check whether codec
 
-v3: https://patchwork.kernel.org/project/alsa-devel/patch/20210106050559.1459027-1-yuhsuan@chromium.org/
+The commit explanation is a bit long, but this is indeed the problem. 
+jackpoll_work() is common code (also used by snd-hda-intel) and SOF should 
+align to snd-hda-intel and not call this directly to check jack status,
+and especially not when going to system suspend.
 
-v4: https://patchwork.kernel.org/project/alsa-devel/patch/20210107085942.2891525-2-yuhsuan@chromium.org/
-
- include/linux/platform_data/cros_ec_commands.h |  1 +
- sound/soc/codecs/cros_ec_codec.c               | 11 +++++++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
-index 86376779ab31..95889ada83a3 100644
---- a/include/linux/platform_data/cros_ec_commands.h
-+++ b/include/linux/platform_data/cros_ec_commands.h
-@@ -4600,6 +4600,7 @@ enum ec_codec_i2s_rx_subcmd {
- 	EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
- 	EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
- 	EC_CODEC_I2S_RX_SET_BCLK = 0x4,
-+	EC_CODEC_I2S_RX_RESET = 0x5,
- 	EC_CODEC_I2S_RX_SUBCMD_COUNT,
- };
+There are a lot of details related to exact conditions when this problem 
+triggers, but in the end, this is the main point.
  
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index f33a2a9654e7..d35c57724b45 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -1011,6 +1011,17 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
- 	}
- 	priv->ec_capabilities = r.capabilities;
- 
-+	/* Reset EC codec i2s rx. */
-+	p.cmd = EC_CODEC_I2S_RX_RESET;
-+	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
-+				   (uint8_t *)&p, sizeof(p), NULL, 0);
-+	if (ret == -ENOPROTOOPT) {
-+		dev_info(dev,
-+			 "Command not found. Please update the EC firmware.\n");
-+	} else if (ret) {
-+		dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
-+	}
-+
- 	platform_set_drvdata(pdev, priv);
- 
- 	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
--- 
-2.30.0.284.gd98b1dd5eaa7-goog
+> When direct-complete path is taken, snd_hdac_is_power_on() returns true
+> and hda_jackpoll_work() is skipped by accident. So this is still not
+> correct.
 
+This doesn't really affect correctness of the patch, but I'm not sure if 
+"accident" is the best characterization. This just explains why the bug 
+was not hit in all cases.
+
+snd_hdac_is_power_on() is called in a few places:
+ - hda_jackpoll_work()
+ - snd_hda_bus_reset_codecs()
+ - snd_hda_update_power_acct()
+
+In first two, the current logic seems appropriate (if runtime-pm is 
+disabled, the action guarded by is_power_on() should not be taken). The 
+third case seems suspicious and not sure if current is_power_on()
+is appropriate.
+
+So it's not quite clear whether hdaudio.h:snd_hdac_is_power_on() is
+wrong or not. But that's now a separate discussion to have, and not 
+related to this patchset anymore.
+
+> Because devices suspend in reverse order (i.e. child first), it doesn't
+> make much sense to resume an already suspended codec from audio
+> controller. So avoid the issue by making sure jackpoll isn't used in
+> system PM process.
+
+The commit explanation is a bit long, but it is probably useful to have 
+the background included. 
+
+For the whole series:
+
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+
+Br, Kai

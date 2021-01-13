@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4534C2F4143
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 02:37:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8862F4144
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 02:37:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8DA71725;
-	Wed, 13 Jan 2021 02:36:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8DA71725
+	by alsa0.perex.cz (Postfix) with ESMTPS id C84F9172E;
+	Wed, 13 Jan 2021 02:37:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C84F9172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610501858;
-	bh=V3BWRk2VASgKQMla3F09MBHd4/B/xkxVTK5FccgOdMU=;
+	s=default; t=1610501871;
+	bh=Q69lXpDMurRXziyUiX5M+1RunsUCz1DXhVYKHgSXHDA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dX8i9+nrSiCA4jVeY9HNabmOFFiT2/ZuS7hixBBu7SlyBi5bSxSR9+YrXS7X0Lz1E
-	 ZMkZ+mqeG0zDYCDAa2OUYHpEogwT/gsqv2m9NL6WPxIqYYQ5y0Es2TDpLPqF5xwF0Z
-	 wB9BHkUphEGMkZ3WqvlwRSjKUPUPxav41u6eUwBU=
+	b=NxWjYknMxTKhLt1JIHR7pEWZsxrZHedHx3EOYR9Rq3T/95IWlgfGRWAghxsqjFOly
+	 CVGbBoT8ZSzHUQTwxg2s+SBhKJKCo18b98nrggLV6uLW6rygXtntbdD2M8XzvOpZ/L
+	 At7YzQck3DUQm5+SCNAI62Fuo2//XcpatACAA4Sc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3948AF804AB;
-	Wed, 13 Jan 2021 02:35:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CD36F800EB;
+	Wed, 13 Jan 2021 02:36:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 354C0F804C2; Wed, 13 Jan 2021 02:35:50 +0100 (CET)
+ id C34A6F804CA; Wed, 13 Jan 2021 02:36:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 41AF9F804AB
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 02:35:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41AF9F804AB
-Date: 13 Jan 2021 10:35:41 +0900
-X-IronPort-AV: E=Sophos;i="5.79,343,1602514800"; d="scan'208";a="68812901"
+ by alsa1.perex.cz (Postfix) with ESMTP id 52F29F800EB
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 02:36:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52F29F800EB
+Date: 13 Jan 2021 10:36:00 +0900
+X-IronPort-AV: E=Sophos;i="5.79,343,1602514800"; d="scan'208";a="68812962"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 13 Jan 2021 10:35:41 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 13 Jan 2021 10:36:00 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 55063400F4F3;
- Wed, 13 Jan 2021 10:35:41 +0900 (JST)
-Message-ID: <877dohr5fg.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 297E1400F4F1;
+ Wed, 13 Jan 2021 10:36:00 +0900 (JST)
+Message-ID: <875z41r5ex.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/3] ASoC: soc-pcm: add dpcm_set_be_update_state()
+Subject: [PATCH 3/3] ASoC: soc-pcm: add soc_pcm_set_dai_params()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a6tdr5gw.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,64 +70,131 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-pcm has dpcm_set_fe_update_state() to update FE's runtime_update
-(except dpcm_fe_dai_do_trigger() which needs to update it without it).
-OTOH, it doesn't have BE's update function.
-
-	O: dpcm_set_fe_update_state()
-	X: dpcm_set_be_update_state()
-
-This patch add BE's dpcm_set_fe_update_state()
+Getting rate/channels/sample_bits from param needs fixed method.
+This patch adds new soc_pcm_set_dai_params() and replace existing code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ sound/soc/soc-pcm.c | 52 +++++++++++++++++++++++----------------------
+ 1 file changed, 27 insertions(+), 25 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 1cc8d0b6ec3d..54b460f08373 100644
+index 54b460f08373..6e9f14d482ab 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -225,6 +225,12 @@ static void dpcm_set_fe_update_state(struct snd_soc_pcm_runtime *fe,
- 	snd_pcm_stream_unlock_irq(substream);
+@@ -329,6 +329,20 @@ int dpcm_dapm_stream_event(struct snd_soc_pcm_runtime *fe, int dir,
+ 	return 0;
  }
  
-+static void dpcm_set_be_update_state(struct snd_soc_pcm_runtime *be,
-+				     int stream, enum snd_soc_dpcm_update state)
++static void soc_pcm_set_dai_params(struct snd_soc_dai *dai,
++				   struct snd_pcm_hw_params *params)
 +{
-+	be->dpcm[stream].runtime_update = state;
++	if (params) {
++		dai->rate	 = params_rate(params);
++		dai->channels	 = params_channels(params);
++		dai->sample_bits = snd_pcm_format_physical_width(params_format(params));
++	} else {
++		dai->rate	 = 0;
++		dai->channels	 = 0;
++		dai->sample_bits = 0;
++	}
 +}
 +
- /**
-  * snd_soc_runtime_action() - Increment/Decrement active count for
-  * PCM runtime components
-@@ -1357,7 +1363,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 			stream ? "capture" : "playback",
- 			dpcm->be->dai_link->name, fe->dai_link->name);
- 		dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
--		dpcm->be->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_BE;
-+		dpcm_set_be_update_state(dpcm->be, stream, SND_SOC_DPCM_UPDATE_BE);
- 		prune++;
+ static int soc_pcm_apply_symmetry(struct snd_pcm_substream *substream,
+ 					struct snd_soc_dai *soc_dai)
+ {
+@@ -390,13 +404,12 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_dai d;
+ 	struct snd_soc_dai *dai;
+ 	struct snd_soc_dai *cpu_dai;
+-	unsigned int rate, channels, sample_bits, symmetry, i;
++	unsigned int symmetry, i;
+ 
+-	rate = params_rate(params);
+-	channels = params_channels(params);
+-	sample_bits = snd_pcm_format_physical_width(params_format(params));
++	soc_pcm_set_dai_params(&d, params);
+ 
+ 	/* reject unmatched parameters when applying symmetry */
+ 	symmetry = rtd->dai_link->symmetric_rates;
+@@ -406,9 +419,9 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+ 
+ 	if (symmetry) {
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+-			if (cpu_dai->rate && cpu_dai->rate != rate) {
++			if (cpu_dai->rate && cpu_dai->rate != d.rate) {
+ 				dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
+-					cpu_dai->rate, rate);
++					cpu_dai->rate, d.rate);
+ 				return -EINVAL;
+ 			}
+ 		}
+@@ -422,9 +435,9 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+ 	if (symmetry) {
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+ 			if (cpu_dai->channels &&
+-			    cpu_dai->channels != channels) {
++			    cpu_dai->channels != d.channels) {
+ 				dev_err(rtd->dev, "ASoC: unmatched channel symmetry: %d - %d\n",
+-					cpu_dai->channels, channels);
++					cpu_dai->channels, d.channels);
+ 				return -EINVAL;
+ 			}
+ 		}
+@@ -438,9 +451,9 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+ 	if (symmetry) {
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+ 			if (cpu_dai->sample_bits &&
+-			    cpu_dai->sample_bits != sample_bits) {
++			    cpu_dai->sample_bits != d.sample_bits) {
+ 				dev_err(rtd->dev, "ASoC: unmatched sample bits symmetry: %d - %d\n",
+-					cpu_dai->sample_bits, sample_bits);
++					cpu_dai->sample_bits, d.sample_bits);
+ 				return -EINVAL;
+ 			}
+ 		}
+@@ -898,11 +911,8 @@ static int soc_pcm_hw_clean(struct snd_pcm_substream *substream, int rollback)
+ 	for_each_rtd_dais(rtd, i, dai) {
+ 		int active = snd_soc_dai_stream_active(dai, substream->stream);
+ 
+-		if (snd_soc_dai_active(dai) == 1) {
+-			dai->rate = 0;
+-			dai->channels = 0;
+-			dai->sample_bits = 0;
+-		}
++		if (snd_soc_dai_active(dai) == 1)
++			soc_pcm_set_dai_params(dai, NULL);
+ 
+ 		if (active == 1)
+ 			snd_soc_dai_digital_mute(dai, 1, substream->stream);
+@@ -999,11 +1009,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		if(ret < 0)
+ 			goto out;
+ 
+-		codec_dai->rate = params_rate(&codec_params);
+-		codec_dai->channels = params_channels(&codec_params);
+-		codec_dai->sample_bits = snd_pcm_format_physical_width(
+-						params_format(&codec_params));
+-
++		soc_pcm_set_dai_params(codec_dai, &codec_params);
+ 		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
  	}
  
-@@ -1412,7 +1418,7 @@ static int dpcm_add_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 			continue;
+@@ -1020,11 +1026,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 			goto out;
  
- 		/* new */
--		be->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_BE;
-+		dpcm_set_be_update_state(be, stream, SND_SOC_DPCM_UPDATE_BE);
- 		new++;
+ 		/* store the parameters for each DAI */
+-		cpu_dai->rate = params_rate(params);
+-		cpu_dai->channels = params_channels(params);
+-		cpu_dai->sample_bits =
+-			snd_pcm_format_physical_width(params_format(params));
+-
++		soc_pcm_set_dai_params(cpu_dai, params);
+ 		snd_soc_dapm_update_dai(substream, params, cpu_dai);
  	}
- 
-@@ -1440,8 +1446,7 @@ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream)
- 
- 	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 	for_each_dpcm_be(fe, stream, dpcm)
--		dpcm->be->dpcm[stream].runtime_update =
--						SND_SOC_DPCM_UPDATE_NO;
-+		dpcm_set_be_update_state(dpcm->be, stream, SND_SOC_DPCM_UPDATE_NO);
- 	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- }
  
 -- 
 2.25.1

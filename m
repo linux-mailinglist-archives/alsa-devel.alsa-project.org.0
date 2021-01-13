@@ -2,66 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0130A2F4E0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:03:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8301B2F4E1C
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:05:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E9AD16D0;
-	Wed, 13 Jan 2021 16:02:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E9AD16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E50B16EA;
+	Wed, 13 Jan 2021 16:04:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E50B16EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610550186;
-	bh=T+vRA3FAhlPg1LKZ1Cr1vsqEsz6NP9iPsMFWfMUA1m0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610550336;
+	bh=mdZ9xaK93T9xg2/cC8R0G7sEHqKCi2sF6l3ld9KnZUc=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NQxvpUWrVe1Gx5x/KNkJslOF6fXW0toEPrHCTB/jmNZa/EqI98rivAfknT6MN5fEW
-	 AWZKbIFXkZurQStAXGFCZe6fgXbiMLZYStFwuuMIs9mb05ABWglGZl8T7S+DIySDUY
-	 5ApOwZpW58jms+1/XJJxE/99qv5g4lGQuSxpI+sA=
+	b=VTnP97KF7BhlUh0culeJtITn/mLhy9BEVs2nGhY0sEHBUUhCksRLnx/vaZbSBUVja
+	 v5Gr45U9NSuFS0jO0OiU2KZIRkLPVdBENaTeb94KcQK/xC3JYn3/kelYs9pewIhef9
+	 nAJ8BaA0raus/GljNWFFR0edOXpchgHa6lW9jmPY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B33BF80254;
-	Wed, 13 Jan 2021 16:01:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B20AF80254;
+	Wed, 13 Jan 2021 16:04:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 591A4F801ED; Wed, 13 Jan 2021 16:01:31 +0100 (CET)
+ id 5E617F801ED; Wed, 13 Jan 2021 16:03:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E48D7F80085
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:01:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48D7F80085
-IronPort-SDR: 0r98i2bEBv7rGLKRay3f0ASM6W145ZHiJAJV9XTfnQpiU9/xV9uvWvwZKE0jhD3Y1o/BVfvpVV
- RqYBeW0vnccQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="165887975"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="165887975"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 07:01:09 -0800
-IronPort-SDR: 6crpaSpDFenJkpsAJQgSbezS6LS9WgEXcNRUChxgfRstq7FQNM+WJHvDiRhFIVBX5PYadcrccu
- AYnoCebKq9MA==
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="348846046"
-Received: from kekkonen.fi.intel.com ([10.237.72.68])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 07:01:08 -0800
-Date: Wed, 13 Jan 2021 16:53:14 +0200
-From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [RFC PATCH 1/3] ALSA: control: add kcontrol_type to control
-Message-ID: <20210113145314.GA2115387@kekkonen.fi.intel.com>
-References: <20210108112355.2053917-1-jaska.uimonen@linux.intel.com>
- <20210108112355.2053917-2-jaska.uimonen@linux.intel.com>
- <1272f71c-c736-d267-563e-c2bf43b740da@perex.cz>
- <20210108140659.GA44940@workstation>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28D7FF80085
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:03:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28D7FF80085
+X-Originating-IP: 82.255.60.242
+Received: from [192.168.1.150] (lns-bzn-39-82-255-60-242.adsl.proxad.net
+ [82.255.60.242]) (Authenticated sender: hadess@hadess.net)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id A40FFFF811;
+ Wed, 13 Jan 2021 15:03:40 +0000 (UTC)
+Message-ID: <8adebcef15874187b18b930d5a71e79c6297ee80.camel@hadess.net>
+Subject: Re: USB Wireless device support
+From: Bastien Nocera <hadess@hadess.net>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 13 Jan 2021 16:03:39 +0100
+In-Reply-To: <s5h4kjkopsu.wl-tiwai@suse.de>
+References: <e1e944b48ae44106a57c74de19dd74d6193495fe.camel@hadess.net>
+ <3b322bb54a1df4b2a45586bc687fba3be5f9e3d8.camel@hadess.net>
+ <s5h4kjkopsu.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.38.2 (3.38.2-1.fc33) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210108140659.GA44940@workstation>
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -78,69 +71,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 08, 2021 at 11:06:59PM +0900, Takashi Sakamoto wrote:
-> Hi,
-> 
-> On Fri, Jan 08, 2021 at 12:40:28PM +0100, Jaroslav Kysela wrote:
-> > Dne 08. 01. 21 v 12:23 Jaska Uimonen napsal(a):
-> > > Current kcontrol structs don't have a member to describe the control
-> > > type. The type is present in the widget which contains the control. As
-> > > there can be many controls in one widget it is inherently presumed that
-> > > the control types are the same.
+On Wed, 2021-01-13 at 15:49 +0100, Takashi Iwai wrote:
+> On Wed, 13 Jan 2021 15:36:19 +0100,
+> Bastien Nocera wrote:
+> > 
+> > Hey,
+> > 
+> > On Wed, 2020-12-09 at 14:30 +0100, Bastien Nocera wrote:
+> > > Hey,
 > > > 
-> > > Lately there has been use cases where different types of controls would
-> > > be needed for single widget. Thus enable this by adding the control type
-> > > to kcontrol and kcontrol_new structs.
+> > > I've recently bought a SteelSeries Arctis 1 wireless headset:
+> > > https://steelseries.com/gaming-headsets/arctis-1-wireless-xbox
+> > > and wanted to write a kernel driver to export a few features of
+> > > the
+> > > device, and needed some help getting started.
+> > > 
+> > > The receiver shows up as a audio class USB device, with extra
+> > > features
+> > > on a separate USB interface.[1]
+> > > 
+> > > The extra features that can be accessed are:
+> > > - Presence detection. I wanted to use that so PulseAudio or
+> > > Pipewire
+> > > could make routing decisions based on whether the headset is
+> > > available,
+> > > or probably better, implementing a "jack detection" emulation for
+> > > the
+> > > main audio interface?
+> > > - A slider to change the sidetone volume
+> > > - Export the battery level
+> > > 
+> > > The latter is the only one I know how to do, so I'd be happy with
+> > > any
+> > > pointers or examples about the first two items.
 > > 
-> > It looks like a SoC only extension. Use private_data to carry this
-> > information. It has no value for the toplevel code.
 > > 
-> > 				Jaroslav
+> > I sent this in December and didn't get any answers, and I would
+> > appreciate any guidance/examples if you have any into implementing
+> > this.
 > 
-> In current design of ALSA control core, the type of control element is
-> firstly determined by driver in callback of snd_kcontrol.info(). The
-> callback is done when userspace applications call ioctl(2) with
-> SNDRV_CTL_IOCTL_ELEM_INFO request.
+> Judging from the link, is it controlled through HID?  If so, it's
+> primarily done by a HID driver, and it doesn't belong to the sound
+> card stuff, so far.
+> Though....
 > 
-> The patch doesn't touch to the above processing. It means that the type
-> information is just for kernel-land implementation and is not exposed to
-> userspace application.
+> > I would imagine that the new features would be implemented through
+> > a
+> > separate ALSA device with few features, which PulseAudio/Pipewire
+> > could
+> > merge with the existing USB audio device.
 > 
-> Essentially, driver is dominant to determine the type of control element
-> in control element set which the driver adds. It's possible to achieve
-> your intension without changing ALSA control core itself, in my opinion.
-> 
-> As Jaroslav said, it's better to change core of ALSA SoC part according
-> to your intention. If you'd like to change ALSA control core, I'd like
-> to request for the check of mismatch between the value of added member
-> in snd_kcontrol and the value of type of control element returned from
-> driver, like:
-> 
-> ```
-> diff --git a/sound/core/control.c b/sound/core/control.c
-> index 809b0a62e..c3ae70574 100644
-> --- a/sound/core/control.c
-> +++ b/sound/core/control.c
-> @@ -973,6 +973,7 @@ static int __snd_ctl_elem_info(struct snd_card *card,
->         result = kctl->info(kctl, info);
->         if (result >= 0) {
->                 snd_BUG_ON(info->access);
-> +               snd_BUG_ON(info->type == kctl->kcontrol_type);
->                 index_offset = snd_ctl_get_ioff(kctl, &info->id);
->                 vd = &kctl->vd[index_offset];
->                 snd_ctl_build_ioff(&info->id, kctl, index_offset);
-> ```
-> 
-> 
-> Regards
-> 
-> Takashi Sakamoto
+> ... given that it's implemented in a HID driver, the integration to
+> the system is a different question.  But unless it's implemented as a
+> sound card device, the rest will become a totally different,
+> e.g. another PA or PW module.
 
-Hi,
+I think that it might be good to have the sidetone configuration
+implemented as a channel mixer, so it could be shown along with the
+device volume in sound settings.
 
-Thanks for the comments, I tried to do the same thing now in asoc level, 
-will send v2.
+I believe there's already a device group feature in PulseAudio that
+could be used to merge the sidetone level with the rest of the USB
+audio mixers.
 
-br,
-Jaska
+Is there an example of a mixer like that implemented in a hid or
+another type of non-ALSA/sound driver?
 

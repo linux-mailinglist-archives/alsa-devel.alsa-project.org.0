@@ -2,58 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D81A2F4EDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:35:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28E262F4EDB
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:35:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABA51171A;
-	Wed, 13 Jan 2021 16:34:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABA51171A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEC5E1747;
+	Wed, 13 Jan 2021 16:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC5E1747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610552141;
-	bh=kwULFix9G7pbW0wVEOfUIeEVZgL0bDNVUPPElIw2L5I=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FWGVDMjBO3bn6rYsofYMHiPzTkeMF9RSNVPT1hyaXltTHu3Cnf+Si4OykgXHcmWJl
-	 +rxjAYRGp0BNjgZknx3K2viSxdCTfE9BE4OyAaFH5g//RiZ+wC+Tn1vqsQqF1VBHLu
-	 zvrAv8QXC2dmmsuTGVinnT8ur3IGo/nr+UxqgtNQ=
+	s=default; t=1610552152;
+	bh=teYvDwNIagYTiwpPWr+Z7NR/0v2x4Yzpv+cGSfO7m+8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=k+P+7GGoiwpTJdQIzKsQCIOfE5jlmDIzzjFIeiOrTXfTIuEvp7dRttGRXGvuNJCq6
+	 oNaGF1kcbkN+Q1Te+mvc0aTzdwHlyH5gmEqspK7+YAvbLwaw+AbklvpEiIQ/38Wn1L
+	 xxYc3hWv2F99wU9inHx49iMJjWP0UU5fg9hq4Fm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAA06F8025F;
-	Wed, 13 Jan 2021 16:34:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01691F8029B;
+	Wed, 13 Jan 2021 16:34:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7678AF801ED; Wed, 13 Jan 2021 16:34:05 +0100 (CET)
+ id E4656F8026D; Wed, 13 Jan 2021 16:34:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D7C5F8014D
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:33:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D7C5F8014D
-IronPort-SDR: KfJSPo4Fbwj5x03zUqLBv37IlRa1TlgYxS9K5r2939nsmPCaR4L6YwOIODyxxm+Tpxo7ZNljGf
- OdxjuMPu7YYg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="239759102"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="239759102"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 871B3F8016D
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:34:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 871B3F8016D
+IronPort-SDR: UoGRT4S2bMmBI1U2NKBbTwbY4Llpqb2D11MAm9NXjmDVWNhlNV/nuthkGHC5RJAvD6QnBUXWCx
+ Q4ng+jLdjiWg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="157401366"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="157401366"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 07:33:56 -0800
-IronPort-SDR: hjMEXaxfebTLlTXbTXzD+7BCsh6JSp020H2wQBESIl1uklTjbQvwP4c2kuSh67t3f9xq4j2owl
- usP0MTcdj9Ew==
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 07:34:04 -0800
+IronPort-SDR: +2SmcvPRmQMHTGO0WqfR8GGi4YBgXI6FMNgrlze/I+51fs3otZDr/riVXSIjIooZMPeEMQXO2Z
+ wHku98AvmSUw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="348856443"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="348856476"
 Received: from kekkonen.fi.intel.com ([10.237.72.68])
- by orsmga003.jf.intel.com with ESMTP; 13 Jan 2021 07:33:55 -0800
+ by orsmga003.jf.intel.com with ESMTP; 13 Jan 2021 07:34:02 -0800
 From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH v2 0/2] Enable using multiple kcontrol types in a widget
-Date: Wed, 13 Jan 2021 17:25:38 +0200
-Message-Id: <20210113152540.2116439-1-jaska.uimonen@linux.intel.com>
+Subject: [RFC PATCH v2 1/2] ASoC: soc-dapm: enable use of multiple control
+ types
+Date: Wed, 13 Jan 2021 17:25:39 +0200
+Message-Id: <20210113152540.2116439-2-jaska.uimonen@linux.intel.com>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20210113152540.2116439-1-jaska.uimonen@linux.intel.com>
+References: <20210113152540.2116439-1-jaska.uimonen@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Jaska Uimonen <jaska.uimonen@linux.intel.com>
@@ -72,44 +76,593 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Current dapm widget has a single variable to describe its kcontrols'
+type. As there can be many kcontrols in one widget it is inherently
+presumed that the types are the same.
 
-I'm requesting comments to this small series to enable multiple
-different kcontrol types for a single widget.
+Lately there has been use cases where different types of kcontrols would
+be needed for a single widget. Thus add pointer to dapm widget to hold
+an array for different kcontrol types and modify the kcontrol creation
+to operate in a loop based on individual kcontrol type.
 
-Currently asoc allows to define and parse multiple same type kcontrols
-for single widget. So you can have for example two volume controls in a
-widget but not for example one byte and one enum control. I personally
-had this kind of use case where I wanted to set filter coefficients with
-bytes and something else with an enum in one processing widget.
-
-I don't have that good perspective on the asoc history on this part so I
-don't know is there some reason for the existing logic or is it just ok
-to change it like in this series. I've been told some drivers use
-virtual widget for this kind of situation, so they define two widget's
-(one virtual) with separate controls, but in reality bind the controls
-into the same component in lower level. Or can we just actually use
-separate types in one widget?
-
-First patch is changing the kcontrol_type uint in dapm widget to a
-pointer to hold an array of kcontrol types and then creating these
-different types in a loop in dapm widget load. Second patch is me
-utilizing this in sof driver.
-
-Changes since v1:
-- don't add kcontrol type to core i.e. to kcontrol and kcontrol_news
-- extend existing dapm widget kcontrol_type into holding an array of
-  types
-
-Jaska Uimonen (2):
-  ASoC: soc-dapm: enable use of multiple control types
-  ASoC: SOF: topology: use individual kcontrol types
-
+Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+---
  include/sound/soc-topology.h |   2 +-
  sound/soc/soc-topology.c     | 466 +++++++++++++++++------------------
- sound/soc/sof/topology.c     |  13 +-
- 3 files changed, 232 insertions(+), 249 deletions(-)
+ 2 files changed, 224 insertions(+), 244 deletions(-)
 
+diff --git a/include/sound/soc-topology.h b/include/sound/soc-topology.h
+index 328cf763d9b4..4afd667e124c 100644
+--- a/include/sound/soc-topology.h
++++ b/include/sound/soc-topology.h
+@@ -54,7 +54,7 @@ struct snd_soc_dobj_control {
+ 
+ /* dynamic widget object */
+ struct snd_soc_dobj_widget {
+-	unsigned int kcontrol_type;	/* kcontrol type: mixer, enum, bytes */
++	unsigned int *kcontrol_type;	/* kcontrol type: mixer, enum, bytes */
+ };
+ 
+ /* generic dynamic object - all dynamic objects belong to this struct */
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index eb2633dd6454..3d62fee316b7 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -1194,249 +1194,216 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+ 	return ret;
+ }
+ 
+-static struct snd_kcontrol_new *soc_tplg_dapm_widget_dmixer_create(
+-	struct soc_tplg *tplg, int num_kcontrols)
++static int soc_tplg_dapm_widget_dmixer_create(struct soc_tplg *tplg, struct snd_kcontrol_new *kc)
+ {
+-	struct snd_kcontrol_new *kc;
+ 	struct soc_mixer_control *sm;
+ 	struct snd_soc_tplg_mixer_control *mc;
+-	int i, err;
+-
+-	kc = devm_kcalloc(tplg->dev, num_kcontrols, sizeof(*kc), GFP_KERNEL);
+-	if (kc == NULL)
+-		return NULL;
+-
+-	for (i = 0; i < num_kcontrols; i++) {
+-		mc = (struct snd_soc_tplg_mixer_control *)tplg->pos;
+-
+-		/* validate kcontrol */
+-		if (strnlen(mc->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
+-			SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
+-			goto err_sm;
++	int err;
+ 
+-		sm = devm_kzalloc(tplg->dev, sizeof(*sm), GFP_KERNEL);
+-		if (sm == NULL)
+-			goto err_sm;
++	mc = (struct snd_soc_tplg_mixer_control *)tplg->pos;
+ 
+-		tplg->pos += (sizeof(struct snd_soc_tplg_mixer_control) +
+-			      le32_to_cpu(mc->priv.size));
++	/* validate kcontrol */
++	if (strnlen(mc->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
++	    SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
++		return -EINVAL;
+ 
+-		dev_dbg(tplg->dev, " adding DAPM widget mixer control %s at %d\n",
+-			mc->hdr.name, i);
++	sm = devm_kzalloc(tplg->dev, sizeof(*sm), GFP_KERNEL);
++	if (!sm)
++		return -ENOMEM;
+ 
+-		kc[i].private_value = (long)sm;
+-		kc[i].name = devm_kstrdup(tplg->dev, mc->hdr.name, GFP_KERNEL);
+-		if (kc[i].name == NULL)
+-			goto err_sm;
+-		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = le32_to_cpu(mc->hdr.access);
++	tplg->pos += sizeof(struct snd_soc_tplg_mixer_control) +
++		le32_to_cpu(mc->priv.size);
+ 
+-		/* we only support FL/FR channel mapping atm */
+-		sm->reg = tplc_chan_get_reg(tplg, mc->channel,
+-			SNDRV_CHMAP_FL);
+-		sm->rreg = tplc_chan_get_reg(tplg, mc->channel,
+-			SNDRV_CHMAP_FR);
+-		sm->shift = tplc_chan_get_shift(tplg, mc->channel,
+-			SNDRV_CHMAP_FL);
+-		sm->rshift = tplc_chan_get_shift(tplg, mc->channel,
+-			SNDRV_CHMAP_FR);
++	dev_dbg(tplg->dev, " adding DAPM widget mixer control %s\n",
++		mc->hdr.name);
+ 
+-		sm->max = le32_to_cpu(mc->max);
+-		sm->min = le32_to_cpu(mc->min);
+-		sm->invert = le32_to_cpu(mc->invert);
+-		sm->platform_max = le32_to_cpu(mc->platform_max);
+-		sm->dobj.index = tplg->index;
+-		INIT_LIST_HEAD(&sm->dobj.list);
+-
+-		/* map io handlers */
+-		err = soc_tplg_kcontrol_bind_io(&mc->hdr, &kc[i], tplg);
+-		if (err) {
+-			soc_control_err(tplg, &mc->hdr, mc->hdr.name);
+-			goto err_sm;
+-		}
++	kc->private_value = (long)sm;
++	kc->name = devm_kstrdup(tplg->dev, mc->hdr.name, GFP_KERNEL);
++	if (!kc->name)
++		return -ENOMEM;
++	kc->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
++	kc->access = le32_to_cpu(mc->hdr.access);
++
++	/* we only support FL/FR channel mapping atm */
++	sm->reg = tplc_chan_get_reg(tplg, mc->channel,
++				    SNDRV_CHMAP_FL);
++	sm->rreg = tplc_chan_get_reg(tplg, mc->channel,
++				     SNDRV_CHMAP_FR);
++	sm->shift = tplc_chan_get_shift(tplg, mc->channel,
++					SNDRV_CHMAP_FL);
++	sm->rshift = tplc_chan_get_shift(tplg, mc->channel,
++					 SNDRV_CHMAP_FR);
++
++	sm->max = le32_to_cpu(mc->max);
++	sm->min = le32_to_cpu(mc->min);
++	sm->invert = le32_to_cpu(mc->invert);
++	sm->platform_max = le32_to_cpu(mc->platform_max);
++	sm->dobj.index = tplg->index;
++	INIT_LIST_HEAD(&sm->dobj.list);
++
++	/* map io handlers */
++	err = soc_tplg_kcontrol_bind_io(&mc->hdr, kc, tplg);
++	if (err) {
++		soc_control_err(tplg, &mc->hdr, mc->hdr.name);
++		return err;
++	}
+ 
+-		/* create any TLV data */
+-		err = soc_tplg_create_tlv(tplg, &kc[i], &mc->hdr);
+-		if (err < 0) {
+-			dev_err(tplg->dev, "ASoC: failed to create TLV %s\n",
+-				mc->hdr.name);
+-			goto err_sm;
+-		}
++	/* create any TLV data */
++	err = soc_tplg_create_tlv(tplg, kc, &mc->hdr);
++	if (err < 0) {
++		dev_err(tplg->dev, "ASoC: failed to create TLV %s\n",
++			mc->hdr.name);
++		return err;
++	}
+ 
+-		/* pass control to driver for optional further init */
+-		err = soc_tplg_init_kcontrol(tplg, &kc[i],
+-			(struct snd_soc_tplg_ctl_hdr *)mc);
+-		if (err < 0) {
+-			dev_err(tplg->dev, "ASoC: failed to init %s\n",
+-				mc->hdr.name);
+-			goto err_sm;
+-		}
++	/* pass control to driver for optional further init */
++	err = soc_tplg_init_kcontrol(tplg, kc,
++				     (struct snd_soc_tplg_ctl_hdr *)mc);
++	if (err < 0) {
++		dev_err(tplg->dev, "ASoC: failed to init %s\n",
++			mc->hdr.name);
++		return err;
+ 	}
+-	return kc;
+ 
+-err_sm:
+-	return NULL;
++	return 0;
+ }
+ 
+-static struct snd_kcontrol_new *soc_tplg_dapm_widget_denum_create(
+-	struct soc_tplg *tplg, int num_kcontrols)
++static int soc_tplg_dapm_widget_denum_create(struct soc_tplg *tplg, struct snd_kcontrol_new *kc)
+ {
+-	struct snd_kcontrol_new *kc;
+ 	struct snd_soc_tplg_enum_control *ec;
+ 	struct soc_enum *se;
+-	int i, err;
+-
+-	kc = devm_kcalloc(tplg->dev, num_kcontrols, sizeof(*kc), GFP_KERNEL);
+-	if (kc == NULL)
+-		return NULL;
+-
+-	for (i = 0; i < num_kcontrols; i++) {
+-		ec = (struct snd_soc_tplg_enum_control *)tplg->pos;
+-		/* validate kcontrol */
+-		if (strnlen(ec->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
+-			    SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
+-			goto err_se;
++	int err;
+ 
+-		se = devm_kzalloc(tplg->dev, sizeof(*se), GFP_KERNEL);
+-		if (se == NULL)
+-			goto err_se;
++	ec = (struct snd_soc_tplg_enum_control *)tplg->pos;
++	/* validate kcontrol */
++	if (strnlen(ec->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
++	    SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
++		return -EINVAL;
+ 
+-		tplg->pos += (sizeof(struct snd_soc_tplg_enum_control) +
+-			      le32_to_cpu(ec->priv.size));
++	se = devm_kzalloc(tplg->dev, sizeof(*se), GFP_KERNEL);
++	if (!se)
++		return -ENOMEM;
+ 
+-		dev_dbg(tplg->dev, " adding DAPM widget enum control %s\n",
+-			ec->hdr.name);
++	tplg->pos += (sizeof(struct snd_soc_tplg_enum_control) +
++		      le32_to_cpu(ec->priv.size));
+ 
+-		kc[i].private_value = (long)se;
+-		kc[i].name = devm_kstrdup(tplg->dev, ec->hdr.name, GFP_KERNEL);
+-		if (kc[i].name == NULL)
+-			goto err_se;
+-		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = le32_to_cpu(ec->hdr.access);
++	dev_dbg(tplg->dev, " adding DAPM widget enum control %s\n",
++		ec->hdr.name);
+ 
+-		/* we only support FL/FR channel mapping atm */
+-		se->reg = tplc_chan_get_reg(tplg, ec->channel, SNDRV_CHMAP_FL);
+-		se->shift_l = tplc_chan_get_shift(tplg, ec->channel,
+-						  SNDRV_CHMAP_FL);
+-		se->shift_r = tplc_chan_get_shift(tplg, ec->channel,
+-						  SNDRV_CHMAP_FR);
++	kc->private_value = (long)se;
++	kc->name = devm_kstrdup(tplg->dev, ec->hdr.name, GFP_KERNEL);
++	if (!kc->name)
++		return -ENOMEM;
++	kc->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
++	kc->access = le32_to_cpu(ec->hdr.access);
+ 
+-		se->items = le32_to_cpu(ec->items);
+-		se->mask = le32_to_cpu(ec->mask);
+-		se->dobj.index = tplg->index;
++	/* we only support FL/FR channel mapping atm */
++	se->reg = tplc_chan_get_reg(tplg, ec->channel, SNDRV_CHMAP_FL);
++	se->shift_l = tplc_chan_get_shift(tplg, ec->channel,
++					  SNDRV_CHMAP_FL);
++	se->shift_r = tplc_chan_get_shift(tplg, ec->channel,
++					  SNDRV_CHMAP_FR);
+ 
+-		switch (le32_to_cpu(ec->hdr.ops.info)) {
+-		case SND_SOC_TPLG_CTL_ENUM_VALUE:
+-		case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
+-			err = soc_tplg_denum_create_values(tplg, se, ec);
+-			if (err < 0) {
+-				dev_err(tplg->dev, "ASoC: could not create values for %s\n",
+-					ec->hdr.name);
+-				goto err_se;
+-			}
+-			fallthrough;
+-		case SND_SOC_TPLG_CTL_ENUM:
+-		case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
+-		case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
+-			err = soc_tplg_denum_create_texts(tplg, se, ec);
+-			if (err < 0) {
+-				dev_err(tplg->dev, "ASoC: could not create texts for %s\n",
+-					ec->hdr.name);
+-				goto err_se;
+-			}
+-			break;
+-		default:
+-			dev_err(tplg->dev, "ASoC: invalid enum control type %d for %s\n",
+-				ec->hdr.ops.info, ec->hdr.name);
+-			goto err_se;
+-		}
++	se->items = le32_to_cpu(ec->items);
++	se->mask = le32_to_cpu(ec->mask);
++	se->dobj.index = tplg->index;
+ 
+-		/* map io handlers */
+-		err = soc_tplg_kcontrol_bind_io(&ec->hdr, &kc[i], tplg);
+-		if (err) {
+-			soc_control_err(tplg, &ec->hdr, ec->hdr.name);
+-			goto err_se;
++	switch (le32_to_cpu(ec->hdr.ops.info)) {
++	case SND_SOC_TPLG_CTL_ENUM_VALUE:
++	case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
++		err = soc_tplg_denum_create_values(tplg, se, ec);
++		if (err < 0) {
++			dev_err(tplg->dev, "ASoC: could not create values for %s\n",
++				ec->hdr.name);
++			return err;
+ 		}
+-
+-		/* pass control to driver for optional further init */
+-		err = soc_tplg_init_kcontrol(tplg, &kc[i],
+-			(struct snd_soc_tplg_ctl_hdr *)ec);
++		fallthrough;
++	case SND_SOC_TPLG_CTL_ENUM:
++	case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
++	case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
++		err = soc_tplg_denum_create_texts(tplg, se, ec);
+ 		if (err < 0) {
+-			dev_err(tplg->dev, "ASoC: failed to init %s\n",
++			dev_err(tplg->dev, "ASoC: could not create texts for %s\n",
+ 				ec->hdr.name);
+-			goto err_se;
++			return err;
+ 		}
++		break;
++	default:
++		dev_err(tplg->dev, "ASoC: invalid enum control type %d for %s\n",
++			ec->hdr.ops.info, ec->hdr.name);
++		return -EINVAL;
+ 	}
+ 
+-	return kc;
++	/* map io handlers */
++	err = soc_tplg_kcontrol_bind_io(&ec->hdr, kc, tplg);
++	if (err) {
++		soc_control_err(tplg, &ec->hdr, ec->hdr.name);
++		return err;
++	}
+ 
+-err_se:
+-	return NULL;
++	/* pass control to driver for optional further init */
++	err = soc_tplg_init_kcontrol(tplg, kc,
++				     (struct snd_soc_tplg_ctl_hdr *)ec);
++	if (err < 0) {
++		dev_err(tplg->dev, "ASoC: failed to init %s\n",
++			ec->hdr.name);
++		return err;
++	}
++
++	return 0;
+ }
+ 
+-static struct snd_kcontrol_new *soc_tplg_dapm_widget_dbytes_create(
+-	struct soc_tplg *tplg, int num_kcontrols)
++static int soc_tplg_dapm_widget_dbytes_create(struct soc_tplg *tplg, struct snd_kcontrol_new *kc)
+ {
+ 	struct snd_soc_tplg_bytes_control *be;
+ 	struct soc_bytes_ext *sbe;
+-	struct snd_kcontrol_new *kc;
+-	int i, err;
+-
+-	kc = devm_kcalloc(tplg->dev, num_kcontrols, sizeof(*kc), GFP_KERNEL);
+-	if (!kc)
+-		return NULL;
++	int err;
+ 
+-	for (i = 0; i < num_kcontrols; i++) {
+-		be = (struct snd_soc_tplg_bytes_control *)tplg->pos;
++	be = (struct snd_soc_tplg_bytes_control *)tplg->pos;
+ 
+-		/* validate kcontrol */
+-		if (strnlen(be->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
+-			SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
+-			goto err_sbe;
++	/* validate kcontrol */
++	if (strnlen(be->hdr.name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
++	    SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
++		return -EINVAL;
+ 
+-		sbe = devm_kzalloc(tplg->dev, sizeof(*sbe), GFP_KERNEL);
+-		if (sbe == NULL)
+-			goto err_sbe;
++	sbe = devm_kzalloc(tplg->dev, sizeof(*sbe), GFP_KERNEL);
++	if (!sbe)
++		return -ENOMEM;
+ 
+-		tplg->pos += (sizeof(struct snd_soc_tplg_bytes_control) +
+-			      le32_to_cpu(be->priv.size));
++	tplg->pos += (sizeof(struct snd_soc_tplg_bytes_control) +
++		      le32_to_cpu(be->priv.size));
+ 
+-		dev_dbg(tplg->dev,
+-			"ASoC: adding bytes kcontrol %s with access 0x%x\n",
+-			be->hdr.name, be->hdr.access);
++	dev_dbg(tplg->dev,
++		"ASoC: adding bytes kcontrol %s with access 0x%x\n",
++		be->hdr.name, be->hdr.access);
+ 
+-		kc[i].private_value = (long)sbe;
+-		kc[i].name = devm_kstrdup(tplg->dev, be->hdr.name, GFP_KERNEL);
+-		if (kc[i].name == NULL)
+-			goto err_sbe;
+-		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = le32_to_cpu(be->hdr.access);
++	kc->private_value = (long)sbe;
++	kc->name = devm_kstrdup(tplg->dev, be->hdr.name, GFP_KERNEL);
++	if (!kc->name)
++		return -ENOMEM;
++	kc->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
++	kc->access = le32_to_cpu(be->hdr.access);
+ 
+-		sbe->max = le32_to_cpu(be->max);
+-		INIT_LIST_HEAD(&sbe->dobj.list);
++	sbe->max = le32_to_cpu(be->max);
++	INIT_LIST_HEAD(&sbe->dobj.list);
+ 
+-		/* map standard io handlers and check for external handlers */
+-		err = soc_tplg_kcontrol_bind_io(&be->hdr, &kc[i], tplg);
+-		if (err) {
+-			soc_control_err(tplg, &be->hdr, be->hdr.name);
+-			goto err_sbe;
+-		}
+-
+-		/* pass control to driver for optional further init */
+-		err = soc_tplg_init_kcontrol(tplg, &kc[i],
+-			(struct snd_soc_tplg_ctl_hdr *)be);
+-		if (err < 0) {
+-			dev_err(tplg->dev, "ASoC: failed to init %s\n",
+-				be->hdr.name);
+-			goto err_sbe;
+-		}
++	/* map standard io handlers and check for external handlers */
++	err = soc_tplg_kcontrol_bind_io(&be->hdr, kc, tplg);
++	if (err) {
++		soc_control_err(tplg, &be->hdr, be->hdr.name);
++		return err;
+ 	}
+ 
+-	return kc;
+-
+-err_sbe:
++	/* pass control to driver for optional further init */
++	err = soc_tplg_init_kcontrol(tplg, kc,
++				     (struct snd_soc_tplg_ctl_hdr *)be);
++	if (err < 0) {
++		dev_err(tplg->dev, "ASoC: failed to init %s\n",
++			be->hdr.name);
++		return err;
++	}
+ 
+-	return NULL;
++	return 0;
+ }
+ 
+ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
+@@ -1446,8 +1413,13 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
+ 	struct snd_soc_dapm_widget template, *widget;
+ 	struct snd_soc_tplg_ctl_hdr *control_hdr;
+ 	struct snd_soc_card *card = tplg->comp->card;
+-	unsigned int kcontrol_type;
++	unsigned int *kcontrol_type;
++	struct snd_kcontrol_new *kc;
++	int mixer_count = 0;
++	int bytes_count = 0;
++	int enum_count = 0;
+ 	int ret = 0;
++	int i;
+ 
+ 	if (strnlen(w->name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
+ 		SNDRV_CTL_ELEM_ID_NAME_MAXLEN)
+@@ -1490,7 +1462,6 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
+ 		 le32_to_cpu(w->priv.size));
+ 
+ 	if (w->num_kcontrols == 0) {
+-		kcontrol_type = 0;
+ 		template.num_kcontrols = 0;
+ 		goto widget;
+ 	}
+@@ -1499,57 +1470,65 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
+ 	dev_dbg(tplg->dev, "ASoC: template %s has %d controls of type %x\n",
+ 		w->name, w->num_kcontrols, control_hdr->type);
+ 
+-	switch (le32_to_cpu(control_hdr->ops.info)) {
+-	case SND_SOC_TPLG_CTL_VOLSW:
+-	case SND_SOC_TPLG_CTL_STROBE:
+-	case SND_SOC_TPLG_CTL_VOLSW_SX:
+-	case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
+-	case SND_SOC_TPLG_CTL_RANGE:
+-	case SND_SOC_TPLG_DAPM_CTL_VOLSW:
+-		kcontrol_type = SND_SOC_TPLG_TYPE_MIXER;  /* volume mixer */
+-		template.num_kcontrols = le32_to_cpu(w->num_kcontrols);
+-		template.kcontrol_news =
+-			soc_tplg_dapm_widget_dmixer_create(tplg,
+-			template.num_kcontrols);
+-		if (!template.kcontrol_news) {
+-			ret = -ENOMEM;
+-			goto hdr_err;
+-		}
+-		break;
+-	case SND_SOC_TPLG_CTL_ENUM:
+-	case SND_SOC_TPLG_CTL_ENUM_VALUE:
+-	case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
+-	case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
+-	case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
+-		kcontrol_type = SND_SOC_TPLG_TYPE_ENUM;	/* enumerated mixer */
+-		template.num_kcontrols = le32_to_cpu(w->num_kcontrols);
+-		template.kcontrol_news =
+-			soc_tplg_dapm_widget_denum_create(tplg,
+-			template.num_kcontrols);
+-		if (!template.kcontrol_news) {
+-			ret = -ENOMEM;
+-			goto hdr_err;
+-		}
+-		break;
+-	case SND_SOC_TPLG_CTL_BYTES:
+-		kcontrol_type = SND_SOC_TPLG_TYPE_BYTES; /* bytes control */
+-		template.num_kcontrols = le32_to_cpu(w->num_kcontrols);
+-		template.kcontrol_news =
+-			soc_tplg_dapm_widget_dbytes_create(tplg,
+-				template.num_kcontrols);
+-		if (!template.kcontrol_news) {
+-			ret = -ENOMEM;
++	template.num_kcontrols = le32_to_cpu(w->num_kcontrols);
++	kc = devm_kcalloc(tplg->dev, w->num_kcontrols, sizeof(*kc), GFP_KERNEL);
++	if (!kc)
++		goto err;
++
++	kcontrol_type = devm_kcalloc(tplg->dev, w->num_kcontrols, sizeof(unsigned int), GFP_KERNEL);
++	if (!kcontrol_type)
++		goto err;
++
++	for (i = 0; i < w->num_kcontrols; i++) {
++		control_hdr = (struct snd_soc_tplg_ctl_hdr *)tplg->pos;
++		switch (le32_to_cpu(control_hdr->ops.info)) {
++		case SND_SOC_TPLG_CTL_VOLSW:
++		case SND_SOC_TPLG_CTL_STROBE:
++		case SND_SOC_TPLG_CTL_VOLSW_SX:
++		case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
++		case SND_SOC_TPLG_CTL_RANGE:
++		case SND_SOC_TPLG_DAPM_CTL_VOLSW:
++			/* volume mixer */
++			kc[i].index = mixer_count;
++			kcontrol_type[i] = SND_SOC_TPLG_TYPE_MIXER;
++			mixer_count++;
++			ret = soc_tplg_dapm_widget_dmixer_create(tplg, &kc[i]);
++			if (ret < 0)
++				goto hdr_err;
++			break;
++		case SND_SOC_TPLG_CTL_ENUM:
++		case SND_SOC_TPLG_CTL_ENUM_VALUE:
++		case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
++		case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
++		case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
++			/* enumerated mixer */
++			kc[i].index = enum_count;
++			kcontrol_type[i] = SND_SOC_TPLG_TYPE_ENUM;
++			enum_count++;
++			ret = soc_tplg_dapm_widget_denum_create(tplg, &kc[i]);
++			if (ret < 0)
++				goto hdr_err;
++			break;
++		case SND_SOC_TPLG_CTL_BYTES:
++			/* bytes control */
++			kc[i].index = bytes_count;
++			kcontrol_type[i] = SND_SOC_TPLG_TYPE_BYTES;
++			bytes_count++;
++			ret = soc_tplg_dapm_widget_dbytes_create(tplg, &kc[i]);
++			if (ret < 0)
++				goto hdr_err;
++			break;
++		default:
++			dev_err(tplg->dev, "ASoC: invalid widget control type %d:%d:%d\n",
++				control_hdr->ops.get, control_hdr->ops.put,
++				le32_to_cpu(control_hdr->ops.info));
++			ret = -EINVAL;
+ 			goto hdr_err;
+ 		}
+-		break;
+-	default:
+-		dev_err(tplg->dev, "ASoC: invalid widget control type %d:%d:%d\n",
+-			control_hdr->ops.get, control_hdr->ops.put,
+-			le32_to_cpu(control_hdr->ops.info));
+-		ret = -EINVAL;
+-		goto hdr_err;
+ 	}
+ 
++	template.kcontrol_news = kc;
++
+ widget:
+ 	ret = soc_tplg_widget_load(tplg, &template, w);
+ 	if (ret < 0)
+@@ -1586,6 +1565,7 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
+ 	snd_soc_dapm_free_widget(widget);
+ hdr_err:
+ 	kfree(template.sname);
++	kfree(kc);
+ err:
+ 	kfree(template.name);
+ 	return ret;
 -- 
 2.24.1
 

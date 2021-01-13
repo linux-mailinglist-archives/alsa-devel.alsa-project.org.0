@@ -2,69 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D5A2F4E97
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:29:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D81A2F4EDA
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:35:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D08B172D;
-	Wed, 13 Jan 2021 16:28:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D08B172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABA51171A;
+	Wed, 13 Jan 2021 16:34:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABA51171A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610551752;
-	bh=eEcbkRzk8bWXVOlfj158dOfEWwEYLSTHoyanoSEtP88=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aIH5lqSNqjor1cJfcn1RiJh744PCTBcjaJ9nrzbTJsSPsg086C5SCb6Vc3JItsbBm
-	 04LJSUnq/B4ZAX9krV4AExPim0JXVGjliM6iCjjiKshGFIgdS74JN5tfEc6vc8iPn7
-	 8fEm7CsWGzMIsSaBZLhTVOI7fKlyO+j4cmSdPZZo=
+	s=default; t=1610552141;
+	bh=kwULFix9G7pbW0wVEOfUIeEVZgL0bDNVUPPElIw2L5I=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FWGVDMjBO3bn6rYsofYMHiPzTkeMF9RSNVPT1hyaXltTHu3Cnf+Si4OykgXHcmWJl
+	 +rxjAYRGp0BNjgZknx3K2viSxdCTfE9BE4OyAaFH5g//RiZ+wC+Tn1vqsQqF1VBHLu
+	 zvrAv8QXC2dmmsuTGVinnT8ur3IGo/nr+UxqgtNQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A80AEF8025F;
-	Wed, 13 Jan 2021 16:27:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAA06F8025F;
+	Wed, 13 Jan 2021 16:34:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93A8FF8026D; Wed, 13 Jan 2021 16:27:32 +0100 (CET)
+ id 7678AF801ED; Wed, 13 Jan 2021 16:34:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE65EF80085
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:27:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE65EF80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NAsT1SH6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B9CF623382;
- Wed, 13 Jan 2021 15:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610551648;
- bh=eEcbkRzk8bWXVOlfj158dOfEWwEYLSTHoyanoSEtP88=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=NAsT1SH66xRMBLoY2fCXoXUlEgYlBdXlnSUSTKi8lj90ogVFla84CXJvXZ/e0YzI2
- eHYqSv5t1g3w1KMaf39U78W78Euq1cNAZgTpuglx1L60QuXtthy+10du1YDt80dDW6
- bfbQTt16wCkz9o7o3o6O30dsMPj6uUBLwVDVDANZP9rh+1y7QDphoRnTnZoDn+nng3
- QDZ5wVscedLusUInZH2OhG2q56PzLnPDExq8REsPkKWgoc7uiUReR90LnZ/I4qW1oG
- Hc0CpO5gka6n/cdiDndvF1tnGRC4FmBQGYcMNh2S3cIM/83ykLLW94yV1UE0GvM1VJ
- hX204D/7fjs5g==
-From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-In-Reply-To: <20201211203255.148246-1-stephan@gerhold.net>
-References: <20201211203255.148246-1-stephan@gerhold.net>
-Subject: Re: [PATCH] ASoC: qcom: qdsp6: Move frontend AIFs to q6asm-dai
-Message-Id: <161055160365.21623.6334522297634428774.b4-ty@kernel.org>
-Date: Wed, 13 Jan 2021 15:26:43 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D7C5F8014D
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:33:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D7C5F8014D
+IronPort-SDR: KfJSPo4Fbwj5x03zUqLBv37IlRa1TlgYxS9K5r2939nsmPCaR4L6YwOIODyxxm+Tpxo7ZNljGf
+ OdxjuMPu7YYg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="239759102"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="239759102"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 07:33:56 -0800
+IronPort-SDR: hjMEXaxfebTLlTXbTXzD+7BCsh6JSp020H2wQBESIl1uklTjbQvwP4c2kuSh67t3f9xq4j2owl
+ usP0MTcdj9Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="348856443"
+Received: from kekkonen.fi.intel.com ([10.237.72.68])
+ by orsmga003.jf.intel.com with ESMTP; 13 Jan 2021 07:33:55 -0800
+From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [RFC PATCH v2 0/2] Enable using multiple kcontrol types in a widget
+Date: Wed, 13 Jan 2021 17:25:38 +0200
+Message-Id: <20210113152540.2116439-1-jaska.uimonen@linux.intel.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Patrick Lai <plai@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
+Cc: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,42 +72,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Dec 2020 21:32:55 +0100, Stephan Gerhold wrote:
-> At the moment it is necessary to set up the DAPM routes between
-> front-end AIF<->DAI explicitly in the device tree, e.g. using
-> 
-> 	audio-routing =
-> 		"MM_DL1", "MultiMedia1 Playback",
-> 		"MM_DL3", "MultiMedia3 Playback",
-> 		"MM_DL4", "MultiMedia4 Playback",
-> 		"MultiMedia2 Capture", "MM_UL2";
-> 
-> [...]
+Hi,
 
-Applied to
+I'm requesting comments to this small series to enable multiple
+different kcontrol types for a single widget.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Currently asoc allows to define and parse multiple same type kcontrols
+for single widget. So you can have for example two volume controls in a
+widget but not for example one byte and one enum control. I personally
+had this kind of use case where I wanted to set filter coefficients with
+bytes and something else with an enum in one processing widget.
 
-Thanks!
+I don't have that good perspective on the asoc history on this part so I
+don't know is there some reason for the existing logic or is it just ok
+to change it like in this series. I've been told some drivers use
+virtual widget for this kind of situation, so they define two widget's
+(one virtual) with separate controls, but in reality bind the controls
+into the same component in lower level. Or can we just actually use
+separate types in one widget?
 
-[1/1] ASoC: qcom: qdsp6: Move frontend AIFs to q6asm-dai
-      commit: 6fd8d2d275f74baa7ac17b2656da1235f56dab99
+First patch is changing the kcontrol_type uint in dapm widget to a
+pointer to hold an array of kcontrol types and then creating these
+different types in a loop in dapm widget load. Second patch is me
+utilizing this in sof driver.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Changes since v1:
+- don't add kcontrol type to core i.e. to kcontrol and kcontrol_news
+- extend existing dapm widget kcontrol_type into holding an array of
+  types
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Jaska Uimonen (2):
+  ASoC: soc-dapm: enable use of multiple control types
+  ASoC: SOF: topology: use individual kcontrol types
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ include/sound/soc-topology.h |   2 +-
+ sound/soc/soc-topology.c     | 466 +++++++++++++++++------------------
+ sound/soc/sof/topology.c     |  13 +-
+ 3 files changed, 232 insertions(+), 249 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-- 
+2.24.1
 
-Thanks,
-Mark

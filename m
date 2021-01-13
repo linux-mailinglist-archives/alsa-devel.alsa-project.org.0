@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896532F4E89
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:29:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 054EB2F4EA8
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 16:29:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D87601709;
-	Wed, 13 Jan 2021 16:28:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D87601709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87F2416E9;
+	Wed, 13 Jan 2021 16:29:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87F2416E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610551743;
-	bh=sRSmZIMopolf+hIOOox7P85hYxa+y4mYLvhVskZdWpE=;
+	s=default; t=1610551796;
+	bh=vxd/kqSo8bN8c/zk/ku4UDlXJMGZVRAHdZAV8MksMrE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DYnccW+/VKaeySFJv8D5lCoPFTXqYq89gVMXQJ2fhKhhFaLoJVwgKqgCLav4VWsrd
-	 3MCLBgFC0KsaXYUIvsQs4YijjbfmnonkHqPAeSiFhoglhWOGHIMkVMSRjC/OghfhLl
-	 6KrRlsqFy1egXRz7zvyfisaI/The5H8uT7MLqqgQ=
+	b=jg2jcV4Yld5gTBcsAfVBT3zvQ8cvEE+JSgoM2gs3XzLkXMkLYKmK8JgsMpYbIttVi
+	 vn0AoqxWniSGdoopeg27HuQQ8rlUUEu8hoE6KUnn6O7ZrZaoyMROsI8gQN2gOs1YiJ
+	 +PbQku4QDuPt48zcsq5IcznfE7vA9k13ceaTM3Zk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C73F8014D;
-	Wed, 13 Jan 2021 16:27:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B949F804D8;
+	Wed, 13 Jan 2021 16:27:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41D75F801ED; Wed, 13 Jan 2021 16:27:27 +0100 (CET)
+ id 0A923F8026B; Wed, 13 Jan 2021 16:27:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47A1DF8014D
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 16:27:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A1DF8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9A43F80254;
+ Wed, 13 Jan 2021 16:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A43F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ibJihYQ+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AE2872339F;
- Wed, 13 Jan 2021 15:27:16 +0000 (UTC)
+ header.b="RNF09ngm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 360F9233EA;
+ Wed, 13 Jan 2021 15:27:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610551637;
- bh=sRSmZIMopolf+hIOOox7P85hYxa+y4mYLvhVskZdWpE=;
+ s=k20201202; t=1610551642;
+ bh=vxd/kqSo8bN8c/zk/ku4UDlXJMGZVRAHdZAV8MksMrE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ibJihYQ+kNAGzbw2GNFXhkXBq/B+ZvHAk9qRGwb7NyhGv8FHyiCFaHBtgwd2xJqB6
- NRT3AaziqELqQbWydHrul1KQa+SZybk3dSnqktYak9Jk96BAMZ7a2Da6/VVPTOO0o0
- 1gpTsY1i9fvvZX/FulGMWISz0YTHfKt9SvSitXEs3xl5xsfmCMjoa8ycJBKFWS/bBK
- 9YpwLZ7ALLHpbFA5RAi+SHgZxX4cmJ6TbdDqXNUHk3v3zJbAzSZpXCY/+vtqKfTQ6I
- zzmR4tukUCXmk1c95JxjHEVN9vTK3FKztArHwuF0x7NM2IBnV+LyO6gtNhX22BXRSJ
- 16QM/bb5SiwxA==
+ b=RNF09ngmseI9UabNoK5Vo4YTXrl8bOw2HXJhQ4ZYMb5ecL6c8XfI88+cB96dahPOq
+ cH7MNioULHXyycATFBQzr/Y9PMNna4r1+OEq9uiyQN1KleHubpBAKgqj9plbRDC6C5
+ lcMI1SDA67xZvCEqsxB0BWVLG693n/tqDMsL9igXqTeP0vkMFCVfDoY8GfIZ7zOzdy
+ zxPpmDRkE7HMHbg426eQp9IUSsH7oK6zT13QXTnULG7hN2T9V1E2vkgNf1oYsk77Tl
+ CNAOVgEW1dZxvX5qvJCiLVR0/xPF8co0R+nae5+9KtgRzF2+2Qn7q16sj2STyAPziR
+ hEXS4ngRJ0qDg==
 From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>
-In-Reply-To: <20210106133650.13509-1-lars@metafoo.de>
-References: <20210106133650.13509-1-lars@metafoo.de>
-Subject: Re: [PATCH 1/3] ASoC: atmel-pdc: Use managed DMA buffer allocation
-Message-Id: <161055160364.21623.458670653671904989.b4-ty@kernel.org>
+To: pierre-louis.bossart@linux.intel.com,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, kai.vehmanen@linux.intel.com,
+ daniel.baluta@nxp.com, tiwai@suse.com, ranjani.sridharan@linux.intel.com,
+ lgirdwood@gmail.com
+In-Reply-To: <20210112181128.1229827-1-kai.heng.feng@canonical.com>
+References: <20210112181128.1229827-1-kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v4 1/3] ASoC: SOF: Intel: hda: Resume codec to do jack
+ detection
+Message-Id: <161055160366.21623.4212588433578007556.b4-ty@kernel.org>
 Date: Wed, 13 Jan 2021 15:26:43 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Scott Branden <sbranden@broadcom.com>,
- Ray Jui <rjui@broadcom.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Simran Rai <ssimran@broadcom.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Rander Wang <rander.wang@intel.com>,
+ Payal Kshirsagar <payalskshirsagar1234@gmail.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE SOF DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,15 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 Jan 2021 14:36:48 +0100, Lars-Peter Clausen wrote:
-> Instead of manually managing its DMA buffers using
-> dma_{alloc,free}_coherent() lets the sound core take care of this using
-> managed buffers.
+On Wed, 13 Jan 2021 02:11:23 +0800, Kai-Heng Feng wrote:
+> Instead of queueing jackpoll_work, runtime resume the codec to let it
+> use different jack detection methods based on jackpoll_interval.
 > 
-> On one hand this reduces the amount of boiler plate code, but the main
-> motivation for the change is to use the shared code where possible. This
-> makes it easier to argue about correctness and that the code does not
-> contain subtle bugs like data leakage or similar.
+> This partially matches SOF driver's behavior with commit a6e7d0a4bdb0
+> ("ALSA: hda: fix jack detection with Realtek codecs when in D3"), the
+> difference is SOF unconditionally resumes the codec.
 
 Applied to
 
@@ -96,12 +101,12 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: atmel-pdc: Use managed DMA buffer allocation
-      commit: 22eee4d3efe370fedf71ee6a9e4dead3f32ad461
-[2/3] ASoC: bcm: cygnus: Use managed DMA buffer allocation
-      commit: 5ac813c83483e97a13b59aab34b89cebf9d5dcb8
-[3/3] ASoC: kirkwood: Use managed DMA buffer allocation
-      commit: b3c0ae75f5d3efa40174230b8c9c01848e03d4d0
+[1/3] ASoC: SOF: Intel: hda: Resume codec to do jack detection
+      commit: bcd7059abc19e6ec5b2260dff6a008fb99c4eef9
+[2/3] ASoC: SOF: Intel: hda: Modify existing helper to disable WAKEEN
+      commit: 31ba0c0776027896553bd8477baff7c8b5d95699
+[3/3] ASoC: SOF: Intel: hda: Avoid checking jack on system suspend
+      commit: ef4d764c99f792b725d4754a3628830f094f5c58
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

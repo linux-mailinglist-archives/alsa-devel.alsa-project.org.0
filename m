@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DC262F4A32
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 12:31:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7677E2F4B1B
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 13:19:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C84FE16E8;
-	Wed, 13 Jan 2021 12:30:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C84FE16E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB06B16CE;
+	Wed, 13 Jan 2021 13:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB06B16CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610537502;
-	bh=Pr7ftSzEqQFBRyhav+VqvsVYCOqSGrjRiOX48WdaDb4=;
+	s=default; t=1610540344;
+	bh=wX9BlQ49mVV5wxe3RXJuQZccCnLVIg1KmRvyFiW4pX8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g1jInkOJqPZlD/5f2qRj3P9UsoA6TvB7nQciwifX783ElJvWyDfbFJAAZEeg6VFCz
-	 JxJJzHxnJx6L8820+bS8YKvF+IoGloT4jeuZgkm+V97FHU+RXUc2kobFZInk/ytFBi
-	 FmLj8mMeFG8l0FtnSYmA5A4KDSjM8Cl0rjpdJwPE=
+	b=VVC8PcLYmQPKoBMwBNCYnGpRNhWvxHHxC/QRdANfB/2zRTb4o/bcoVdQ1LjleN6X8
+	 3SdTpIQoPiq5NefpFHi0Qys78wcZc4StZKAedjF3haOxYsmaKixOuBBgMBc+iEg1k2
+	 E/al5tlFtMCShjKgHwcYWSMEoCXeFKEFDw9QpQ9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C903AF80113;
-	Wed, 13 Jan 2021 12:30:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4ACFF8016D;
+	Wed, 13 Jan 2021 13:17:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4635F801ED; Wed, 13 Jan 2021 12:30:07 +0100 (CET)
+ id CDE88F801ED; Wed, 13 Jan 2021 13:17:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,49 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3798CF8014D;
- Wed, 13 Jan 2021 12:30:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3798CF8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEE3AF80113
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 13:17:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEE3AF80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rhrVfXZC"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 53D11233E2;
- Wed, 13 Jan 2021 11:29:56 +0000 (UTC)
+ header.b="Yt0GBfpZ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 40841233FD;
+ Wed, 13 Jan 2021 12:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610537396;
- bh=Pr7ftSzEqQFBRyhav+VqvsVYCOqSGrjRiOX48WdaDb4=;
+ s=k20201202; t=1610540243;
+ bh=wX9BlQ49mVV5wxe3RXJuQZccCnLVIg1KmRvyFiW4pX8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rhrVfXZCs65OzdDtMVbfheKemMz0Or+aNf7/XFlLpV8LaL2mMNiM8nIx6vbfR97iC
- kRmOPP4IKMKSG5QwBt/NXI2B4YFNX6gim2HExyJeslQ0tVYurU8LU2UDlRC+dw9F0e
- Gm9EinpEPfKIRQNU2v/j2eTLfF0eSI3fUNyW9DIqDj4Vu/yNI3h4r7GVrNpri8+GzV
- adWFgwjMsMrByEWYtVc+Ld/nG8e2G/QGYGLJf6pyK6Jd9aZnACX1yltRpEy94/DwMb
- SflW1+ReYdLx3o0e+Pv+avejf15YU+BbzAn1aml9fuqsSKxPBzYvkRJjB6m93NDf7D
- BqEEP+B03xbAQ==
-Date: Wed, 13 Jan 2021 11:29:23 +0000
+ b=Yt0GBfpZ1Szbi1WZDTGtdlW7ElX3q2MrgIJSoV763Ry/eJ7FvKhkaDUqIm8nEbrm6
+ CxI2VdLpH419MEQOz+Y4fQvbPBNlfMxp4w6+mb+8UgXTONinDVG/WCd6KsvzbHVpmr
+ MpqwjfSMwI0DAUZWdK9K6otokVY5EkXmKMOHOEjg9Pmwoq/awhmkYeZhnO3tSIuIKi
+ 73FHAFEf73qYFnv4DlpSeiWvhbSDseMzEsakFlMdA/0pjJ2vTx8/2wibt6zwi58OWM
+ W+7M46P8HCnciwe5UWdi55q7FKvJQ89O3baP/Ou5ZI31XkszuAyPnoaNBVU4EPRJ4X
+ IC4Y7SajrJUwg==
+Date: Wed, 13 Jan 2021 12:16:49 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH 2/2] ASoC: intel: fix soundwire dependencies
-Message-ID: <20210113112923.GA4641@sirena.org.uk>
-References: <20210112203250.2576775-1-arnd@kernel.org>
- <20210112203250.2576775-2-arnd@kernel.org>
- <cde511d6-fa14-0cab-f00c-f75ad2d8281c@linux.intel.com>
- <CAK8P3a3rOG8eCNQbk01-_t7RtyJknWbo-9tKo3959KhU5tcXsg@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 0/3] ASoC: soc-pcm: cleanup code
+Message-ID: <20210113121649.GC4641@sirena.org.uk>
+References: <87a6tdr5gw.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="k1lZvvs/B4yU6o8G"
+ protocol="application/pgp-signature"; boundary="yVhtmJPUSI46BTXb"
 Content-Disposition: inline
-In-Reply-To: <CAK8P3a3rOG8eCNQbk01-_t7RtyJknWbo-9tKo3959KhU5tcXsg@mail.gmail.com>
+In-Reply-To: <87a6tdr5gw.wl-kuninori.morimoto.gx@renesas.com>
 X-Cookie: Ignore previous fortune.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,36 +81,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---k1lZvvs/B4yU6o8G
+--yVhtmJPUSI46BTXb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jan 12, 2021 at 11:36:15PM +0100, Arnd Bergmann wrote:
+On Wed, Jan 13, 2021 at 10:34:49AM +0900, Kuninori Morimoto wrote:
 
-> I was indeed wondering whether the intel-dsp-config.c is just
-> another layering violation: this is another generic piece
-> of code that seems to contain too much knowledge about
-> specific hardware implementations.
+> These are v2 of soc-pcm cleanup code.
+> v1 had 6 patches, but I separated into 2 parts.
+> This is 1st part of it.
 
-The purpose of that code is to try to figure out which of the multiple
-sets of drivers and firmwares available for Intel systems it's best to
-run on any given system by default and choose between them at runtime
-(or allow that choice to be overridden by users) so it's all about
-knowing about specific hardware implementations.
+I actually already queued patches 1-4 of v1 - it's testing ATM.  Are
+there any changes here or is it just splitting things up?
 
---k1lZvvs/B4yU6o8G
+--yVhtmJPUSI46BTXb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/+2ZIACgkQJNaLcl1U
-h9D4awf/f/riblTLLLU0M4zy8SvdlZaC8UIH+GjOit2GLE0GyR4zgWkE9BGrNO6U
-qE31bCPBZ2Yl4juHbKwSX8eaun32fPa9KlcNTcs8VNHiBfHx6Z8umGuXglsfqnbk
-U3iKit1fa+Gf82OABwAnl9EVsGIKrFMPqGU97B064/vByeEqlNlQdN7XdIIq9b0b
-RLUaBEMZ8aBgXGZ1TiUCeMi1VaIvJI/YiqwqwNDhkhvb91yUNyVwDwjGtmWr0MEd
-mrruFa/tgd35ngWgZ2/k/RoZUHFvKWr/dvQ52/Yh4qLfRwrouLkd9QtqNeBXgWmd
-KTjwCczLvKzMe1znK8tKq4d+LVF7tA==
-=pwE+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/+5LAACgkQJNaLcl1U
+h9B6Cwf/ULuOqnPkY66+j/AJXHswe0FDLEyy5QgrsjjUo4OnqF1KOvS/lMKQUXqR
+rZQZUvG0FM97FLcCofr7I6WRqxqxfDV0ETwTLcVEoXEb/yX9rFRWCgGah3ryqgiU
+3yPY+8oK2M2AWoGmcJCJPYjoZgke0c6ohT5JvHveMCAJ2fslkJLbe6a4/rHqiMb8
+2iGGFBEs9pR4TX9EbmI/8nRDjmLvsulfSAaD2r1R/JJ/S8AhY/8DcRYkIQTMRMvs
+ImTdGbbXfsUz8Boymn4bmTiUcqRhqxs9LUbyJch7NX+s9cc4pxeEpvPZ5sFUCAJr
+LO8ELbF4gFs5MZUyOM+0Z2/FdXprpg==
+=GVpu
 -----END PGP SIGNATURE-----
 
---k1lZvvs/B4yU6o8G--
+--yVhtmJPUSI46BTXb--

@@ -2,109 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88C572F46CF
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 09:50:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A652F470C
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jan 2021 10:05:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28889170F;
-	Wed, 13 Jan 2021 09:49:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28889170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E640E16C3;
+	Wed, 13 Jan 2021 10:04:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E640E16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610527812;
-	bh=bVJT/Q8IBEuVeFQlj2dlnwHwIZl116udo6yzVQtdFgk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610528716;
+	bh=cn0uFD3/E9RSlfgVn+XI8ejaQ0irehXz2vuWGpYyA0A=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NVW6jxsFi2WMqs5t3UCEkCEk6EhC246fsG0teJ8Tlwp8vzAw9ThpAFHVhej1kwaAm
-	 q/VdlHjMLRcIk8ZgbU5mgSUcy0R1DWKGy5L8puF3MIVNma3MynM6pQr4YngM9Ap1qD
-	 sr262xOJ3IqKh8SAG7j3Qgyum+2mHQJWzrQx3nu4=
+	b=daJZZ3ty+YmyLVZieeXUPza6DOn2Q+YyC/fFrcS1j0sxzrBV1Sswqb9iWVkYGc76V
+	 1rxMGTepdzp5B+wArK6E8xkrvBLlsIBVaWbEUjuDqFGLc7lgmVkoic4mk+CFDtjNza
+	 nLOLsb9ztwfmr0sFt+JsVJ9QA/RHKfUv+6fXnMH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88AA6F801ED;
-	Wed, 13 Jan 2021 09:48:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F75FF8014D;
+	Wed, 13 Jan 2021 10:03:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A630AF801ED; Wed, 13 Jan 2021 09:48:37 +0100 (CET)
+ id 4FB99F8016D; Wed, 13 Jan 2021 10:03:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C329AF8014D
- for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 09:48:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C329AF8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="L7YQ88jS"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="mXEHiI89"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 4A8AC5C03A6;
- Wed, 13 Jan 2021 03:48:26 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Wed, 13 Jan 2021 03:48:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=54FC/UrhpoPn3dwBbob71WsFOF+
- RG/zilAC6ndIFeJ4=; b=L7YQ88jSPHsL/s4rPZKDqgzSM2gfSRsNNuTWy7XXlhd
- 9EjF22n8DAhKKOdM3fnWSOAEhZVSqHuDUwJzDQKJT3iGw/DnkZlIL2rVRqJvDM4i
- wdaHhfN/WFBrIV092d+NbPR/qVNm4udMSQX+O5VT+h+hVpPraXE/Gmi5er1fMOEb
- +FtJfoRR+oOtGjpNt9PN9qxjpBhuW2lPM+ufD9F8YLbUoOZlDD83mF7y33IhOOw7
- AKJJ8UOBGCTdLTuYYpAEJSaP+hNtqloCfZqrJFuUWHsyZD1A+pig8NxhrDtrSmSP
- UpOj+pj4Zaf/74DJZ/sW8U5M4lLdlqEfK5nBhAscovA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=54FC/U
- rhpoPn3dwBbob71WsFOF+RG/zilAC6ndIFeJ4=; b=mXEHiI89sGndK5hA5yvBFz
- eUI/0EMjHhvuy7YX7G+NR3Q1E3qhGcH27F/6WbJVH4PCkpipMGw/DndwbKiApsEM
- it+6Oh+0Ta90T4GiTrLsER1gJ8SGqIUXAqAP5qLxNj8Qy+RV+ntr8UPpFFuL/b9a
- aFyPreWQP2uMWcR4bPuSxmDwTxgkMLE/JS3OUYDmgQ/LF85ukT4IvYji1ihKfL2k
- 8qP/IfWdJeQyOiakV99okrTw0c46t9uNOwhpztYyFjarl6Cues4RBaJutKY78IZq
- 15v5W7y49MjjzS90oeuS6PlUu33yhgXt1AQoVD9L96V5DhT5xZSbLSkuKA214jlQ
- ==
-X-ME-Sender: <xms:2bP-X3lDszcVZIVkAIOUmFHxhFYdD9DT5xXF4XhIEy8a2U7T8k2rvQ>
- <xme:2bP-X62MdC-M8B3TcyO0-TcjZUQi1bksQTea35ffYUVGyp8duE_-83zjufOzaS2OJ
- Sc0h9aT-dYx_JUxYJ0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedukedrtddvucetufdoteggodetrfdotffvucfrrh
- hofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgenuceurghi
- lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
- epfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhmvgcutfhi
- phgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvghrnh
- epleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieehgedunecu
- kfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
- hmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:2bP-X9qr35cc5YDK8ndamD0soQU46HD2IPKJR68oYA1wZjzcoWYFTw>
- <xmx:2bP-X_lzfVzvfl_SbUWDLUKCWz6nvYMQBoZRi7do7St1GUDqj6xPWA>
- <xmx:2bP-X13baytSsObXiZAv78PPL2sfNyAEfxjfcARaYTNABd2PdveqWQ>
- <xmx:2rP-XymcfobYvEEAMVGm6s-0dMAempdOxKVTim2bN5zTzBh6eibl_Q>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id E17ED240062;
- Wed, 13 Jan 2021 03:48:24 -0500 (EST)
-Date: Wed, 13 Jan 2021 09:48:22 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: sun8i-codec: Increase
- #sound-dai-cells
-Message-ID: <20210113084822.4rx67gcgqnb63agu@gilmour>
-References: <20210113060615.53088-1-samuel@sholland.org>
- <20210113060615.53088-2-samuel@sholland.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6111CF8014D
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jan 2021 10:03:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6111CF8014D
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: eballetbo) with ESMTPSA id 6EE6E1F44790
+Subject: Re: [PATCH v5] ASoC: cros_ec_codec: Reset I2S RX when probing
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>, linux-kernel@vger.kernel.org
+References: <20210113081745.2543882-1-yuhsuan@chromium.org>
+From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <d5a36f72-82a1-450c-3763-a27df31b8da4@collabora.com>
+Date: Wed, 13 Jan 2021 10:03:16 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="voku56fj7iadly7o"
-Content-Disposition: inline
-In-Reply-To: <20210113060615.53088-2-samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20210113081745.2543882-1-yuhsuan@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org,
+ "Gustavo A . R . Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Prashant Malani <pmalani@chromium.org>, Pi-Hsun Shih <pihsun@chromium.org>,
+ Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,63 +73,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Yu-Hsun,
 
---voku56fj7iadly7o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your patch. Some comments below.
 
-Hi,
 
-On Wed, Jan 13, 2021 at 12:06:09AM -0600, Samuel Holland wrote:
-> Increase sound-dai-cells to 1 to allow using the DAIs in the codec
-> corresponding to AIF2 and AIF3.
->=20
-> The generic ASoC OF code supports a #sound-dai-cells value of 0 or 1
-> with no impact to the driver, so this is a backward-compatible change.
->=20
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
+On 13/1/21 9:17, Yu-Hsuan Hsu wrote:
+> It is not guaranteed that I2S RX is disabled when the kernel booting.
+> For example, if the kernel crashes while it is enabled, it will keep
+> enabled until the next time EC reboots. Reset I2S RX when probing to
+> fix this issue.
+> 
+> Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
 > ---
->  .../devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml  | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-=
-codec.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-co=
-dec.yaml
-> index 67405e6d8168..3e02baa1d9ce 100644
-> --- a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.y=
-aml
-> +++ b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.y=
-aml
-> @@ -12,7 +12,7 @@ maintainers:
-> =20
->  properties:
->    "#sound-dai-cells":
-> -    const: 0
-> +    const: 1
+> This patch checks the return value. If it is -ENOPROTOOPT
+> (EC_RES_INVALID_VERSION), it will ask clients to update EC firmware.
+> 
+> Previous patches
+> 
+> v1: https://patchwork.kernel.org/project/alsa-devel/patch/20200708071117.3070707-1-yuhsuan@chromium.org/
+> 
+> v2: https://patchwork.kernel.org/project/alsa-devel/patch/20200716170914.3623060-1-yuhsuan@chromium.org/
+> 
+> v3: https://patchwork.kernel.org/project/alsa-devel/patch/20210106050559.1459027-1-yuhsuan@chromium.org/
+> 
+> v4: https://patchwork.kernel.org/project/alsa-devel/patch/20210107085942.2891525-2-yuhsuan@chromium.org/
+> 
+>  include/linux/platform_data/cros_ec_commands.h |  1 +
 
-We should make it clearer that 0 is still ok, but is deprecated
+Sorry if I confused you with my last comments, but this should be a separate patch.
 
-You can do it with:
+>  sound/soc/codecs/cros_ec_codec.c               | 11 +++++++++++
+>  2 files changed, 12 insertions(+)
+> 
+> diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+> index 86376779ab31..95889ada83a3 100644
+> --- a/include/linux/platform_data/cros_ec_commands.h
+> +++ b/include/linux/platform_data/cros_ec_commands.h
+> @@ -4600,6 +4600,7 @@ enum ec_codec_i2s_rx_subcmd {
+>  	EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
+>  	EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
+>  	EC_CODEC_I2S_RX_SET_BCLK = 0x4,
+> +	EC_CODEC_I2S_RX_RESET = 0x5,
+>  	EC_CODEC_I2S_RX_SUBCMD_COUNT,
+>  };
+>  
+> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+> index f33a2a9654e7..d35c57724b45 100644
+> --- a/sound/soc/codecs/cros_ec_codec.c
+> +++ b/sound/soc/codecs/cros_ec_codec.c
+> @@ -1011,6 +1011,17 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+>  	}
+>  	priv->ec_capabilities = r.capabilities;
+>  
+> +	/* Reset EC codec i2s rx. */
+> +	p.cmd = EC_CODEC_I2S_RX_RESET;
+> +	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+> +				   (uint8_t *)&p, sizeof(p), NULL, 0);
+> +	if (ret == -ENOPROTOOPT) {
+> +		dev_info(dev,
+> +			 "Command not found. Please update the EC firmware.\n");
+> +	} else if (ret) {
+> +		dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
 
-oneOf:
-  - const: 1
-  - const: 0
-    deprecated: true
-    description: >
-      Whatever
+On an error you should return the error and don't continue.
 
-Maxime
+Thanks,
+  Enric
 
---voku56fj7iadly7o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX/6z1gAKCRDj7w1vZxhR
-xbcAAQD8BOXQ4mhrW8k34p2W/LdnOcWWWyDGx6stQULk2BU7VwD/X5vR9Bpz5gzT
-EYllDxi05aukw+nSebapy6q+jWFy/wk=
-=SsHU
------END PGP SIGNATURE-----
-
---voku56fj7iadly7o--
+> +	}
+> +
+>  	platform_set_drvdata(pdev, priv);
+>  
+>  	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+> 

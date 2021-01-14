@@ -2,64 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327452F58C9
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jan 2021 04:04:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAF22F59E5
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jan 2021 05:26:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFC541684;
-	Thu, 14 Jan 2021 04:03:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFC541684
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB4BC1684;
+	Thu, 14 Jan 2021 05:25:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB4BC1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610593473;
-	bh=eHyXWYh/dw13YxwVZygs4icW3Ut4lFx5VetsmF29N8w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1610598357;
+	bh=S5c1KKkfEKP7Eld8ppSc/m4omodF3HQ/4HP3gqOEenU=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fbs/oYhG6Pciuq2XagLO1Rh963UXuW8SR6TDPMBQiCCF+Kr1gzoCsDF3o8VxfjZ9a
-	 EWFOqfKeICvOLOSbn2Uf3/VFISmgB8CTLsyhqixwkf2dJh90TMwtzQj4EUZiKdqTrG
-	 su4Sz0mq2uXNty3oQHTUm7/jiH0vLosnUI/OT784=
+	b=uRwq9iBbvmSh2EXhUbJ91CDj6bpLEmMh55+mQf1cI4YEG+y57MJ8wyK4rY+tJGOIL
+	 BKaKpkzN0lVf5O6Y+FoPkYp2rRhAQgX6FDjdf2TMdRwmGWqRbbd8Dg9YE75mK+IOHT
+	 rRA4tbdCO7D8ceq4ZZ6VBB+v933/n7C3vt9Y1eGs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2493FF80134;
-	Thu, 14 Jan 2021 04:03:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32EAAF80113;
+	Thu, 14 Jan 2021 05:24:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 122C3F8025E; Thu, 14 Jan 2021 04:02:58 +0100 (CET)
+ id 929EEF80249; Thu, 14 Jan 2021 05:24:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 533DCF80118
- for <alsa-devel@alsa-project.org>; Thu, 14 Jan 2021 04:02:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 533DCF80118
-IronPort-SDR: xfkMX9EtqKECZi0X4DH10zmt/U0JC1ft8iN6pJt4hWL4rlygTk+RtCNVpNFIZxlZVxivFvJuvd
- vNVGlo4qGo/Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="165388936"
-X-IronPort-AV: E=Sophos;i="5.79,346,1602572400"; d="scan'208";a="165388936"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 19:02:46 -0800
-IronPort-SDR: hAwrv6X7KX6ipNg11iCmAaRWauiNhWvyIBFDk9zpNBbic3yVa+WRdaD9KQQRb6WAzzB+qCFxXr
- dfgBbvrlvPuA==
-X-IronPort-AV: E=Sophos;i="5.79,346,1602572400"; d="scan'208";a="382106774"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 19:02:43 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH] soundwire: intel: don't return error when clock stop failed
-Date: Thu, 14 Jan 2021 11:02:48 +0800
-Message-Id: <20210114030248.9005-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
- srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id A8FFAF80134
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jan 2021 05:24:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8FFAF80134
+Date: 14 Jan 2021 13:24:04 +0900
+X-IronPort-AV: E=Sophos;i="5.79,346,1602514800"; d="scan'208";a="68738169"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 14 Jan 2021 13:24:04 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5995340078A6;
+ Thu, 14 Jan 2021 13:24:04 +0900 (JST)
+Message-ID: <87bldsp2yt.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>, Jyri Sarha <jsarha@ti.com>
+Subject: Question about daifmt of legacy DT on simple-card
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,61 +64,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-dev->power.runtime_error will be set to the return value of the runtime
-suspend callback function, and runtime resume function will return
--EINVAL if dev->power.runtime_error is not 0.
 
-Somehow the codec rarely doesn't return an ACK to the clock prepare
-command. If we stop the runtime suspend process and return error, we
-will not be able to resume again. Likewise, if the codec lost sync and
-did not rejoin, the resume operation will also fail. As a result, the
-SoundWire bus can not be used anymore.
+Hi ALSA SoC
+Cc Jyri
 
-This patch suggests to finish the runtime suspend process even if we fail
-to stop sdw bus clock. In the case where we do a hardware reset, the codecs
-will be reconfigured completely. In the case where we use the regular clock
-stop, the codecs keep their state and worst case will fall off the bus and
-reattach.
+For historical reason, simple-card supports legacy DT daifmt
+settings. Then, I noticed one strange code.
 
-The only drawback is that the power consumption may be higher and
-device-initiated interrupts may be lost, but at least audio function can
-still work after resume.
+	-- simple-card-utils.c ---
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+	asoc_simple_parse_daifmt(xxx)
+	{
+(A)		daifmt = snd_soc_of_parse_daifmt(...);
+		daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
+
+		if (!bitclkmaster && !framemaster) {
+			/*
+			 * No dai-link level and master setting was not found from
+			 * sound node level, revert back to legacy DT parsing and
+			 * take the settings from codec node.
+			 */
+(B)			daifmt = snd_soc_of_parse_daifmt(codec, NULL, NULL, NULL) |
+				(daifmt & ~SND_SOC_DAIFMT_CLOCK_MASK);
+		} ...
+		...
+	}
+
+It rollbacks to legacy DT parsing at (B) if (A) didn't have
+master settings.
+Here, (B) re-try to get daifmt, and use "or" with (daifmt & ~CLOCK mask).
+Why CLOCK mask ? and shouldn't it use mask when "or" ?
+Otherwise FORMAT and INV part will be duplicated, I think.
+for example
+	daifmt = (snd_soc_of_parse_daifmt() &  SND_SOC_DAIFMT_CLOCK_MASK) |
+		 (daifmt                    & ~SND_SOC_DAIFMT_CLOCK_MASK)
+
+I think using snd_soc_of_parse_daifmt() only is very enough at (B),
+but am I misunderstanding ??
+
+The original code was from
+
+	b3ca11ff59bc5842b01f13421a17e6d9a8936784
+	("ASoC: simple-card: Move dai-link level properties away from dai subnodes")
+
+Thank you for your help !!
+
+Best regards
 ---
- drivers/soundwire/intel.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 10b60b7b17bb..a2d5cdaa9998 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1673,10 +1673,12 @@ static int __maybe_unused intel_suspend_runtime(struct device *dev)
- 
- 	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET ||
- 		   !clock_stop_quirks) {
-+		bool wake_enable = true;
-+
- 		ret = sdw_cdns_clock_stop(cdns, true);
- 		if (ret < 0) {
- 			dev_err(dev, "cannot enable clock stop on suspend\n");
--			return ret;
-+			wake_enable = false;
- 		}
- 
- 		ret = sdw_cdns_enable_interrupt(cdns, false);
-@@ -1691,7 +1693,7 @@ static int __maybe_unused intel_suspend_runtime(struct device *dev)
- 			return ret;
- 		}
- 
--		intel_shim_wake(sdw, true);
-+		intel_shim_wake(sdw, wake_enable);
- 	} else {
- 		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
- 			__func__, clock_stop_quirks);
--- 
-2.17.1
-
+Kuninori Morimoto

@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FFE2F6255
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jan 2021 14:50:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E45532F6266
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jan 2021 14:52:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C41816BF;
-	Thu, 14 Jan 2021 14:49:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C41816BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E36516B2;
+	Thu, 14 Jan 2021 14:51:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E36516B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610632205;
-	bh=zdrGa6V4aDBkKB9y0gpsAi0fUOhHIG8zYDhtoSH3ziM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610632339;
+	bh=DnFIJriu2NQJ3DPbFgi7Hv3d4fRixKoXDF2V4R9eYE4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bt3ezf0RT7n5ko2mg6fT24M9xAHNfTyJVBHH+QE0Db/ceOe5WBiHjob3AgmcisbOB
-	 ZcEmHd70eHO3G0ofvygIcQIEB5DnJ0mFW99mi/jdgFRKN4EgyQo307C2rnDRjnCLlH
-	 Xod88eo4g4vQ/3VLj8bhQOeUimug2vzYZSlTo1Ko=
+	b=L7GY2jTmWj2WF01p7lqEeHuZYH3TMqs1ZU37DTOGknJEGYYLjgfEeJznPoXCQU8E3
+	 UmLm7U6+VsrYynnX1BzqCTgZ+mlW0i+cqhgW6lzzq60xtPx96bX3Npz8FDrRnG7h6t
+	 HyKkqs//oGAJjd8AiuydcNhIPNPgfdM3T4RBlYpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A2C5F8026F;
-	Thu, 14 Jan 2021 14:48:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC3DEF80134;
+	Thu, 14 Jan 2021 14:50:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CE2EF8025E; Thu, 14 Jan 2021 14:48:29 +0100 (CET)
+ id 9A9E6F8025E; Thu, 14 Jan 2021 14:50:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8B04F80113
- for <alsa-devel@alsa-project.org>; Thu, 14 Jan 2021 14:48:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8B04F80113
-IronPort-SDR: rzljR9gL4ApGnY8AIO/VgWYVCaL4xPOMC0BIl1Kt4LzCu3wAt+VzZdd/yA6S9Kl5DPCHDWFH4E
- /3Ald+tjtyJw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="242437253"
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="242437253"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 05:48:17 -0800
-IronPort-SDR: LPXGK75AcHx/Pw60m1Qwqa8V/KlU6stote91NRPfRrm6Uh5kqhg/guHs1njl+vRWifKi5MYVKb
- PK95daUiwMBg==
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="382270627"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 05:48:14 -0800
-Date: Thu, 14 Jan 2021 15:45:10 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2] ASoC: SOF: Intel: initial support to AlderLake-P
-In-Reply-To: <s5h1renpv43.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2101141534270.864696@eliteleevi.tm.intel.com>
-References: <20210114115558.52699-1-kai.vehmanen@linux.intel.com>
- <s5h1renpv43.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E3B0F80134
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jan 2021 14:50:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E3B0F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Egx5gGNY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 26A4323A6A;
+ Thu, 14 Jan 2021 13:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1610632239;
+ bh=DnFIJriu2NQJ3DPbFgi7Hv3d4fRixKoXDF2V4R9eYE4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Egx5gGNYW3DKyeR8qsMGJSttarAm72aEx3wtT/MTfk6fonlFd1OH1rzPDH59mNJS6
+ G5RYLP3pjh1CDTYEh9s22olfyugNqZ8sdwdWBU69v5iH/dgOh76r1zjZf94lTj15Yn
+ RzixV3iRDitz6TTrRjCeXVQ3mutKXxXD7GosTKNt6ZleyWcuhOqAieVPelb1yTKadl
+ jPrdOwbTfjUj4FTz3Cyy6i7ggh7otW4htp1Xw111QxazrMhpyWryHfT5wKltM7eayN
+ NYm6axLN75dizIZBTEaNlKBHLxlTCv55stbZnX1FH4phhgzapt0jwKj52FmvVoJBc1
+ pkV/QanNKEwQQ==
+Date: Thu, 14 Jan 2021 13:50:06 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: Question about daifmt of legacy DT on simple-card
+Message-ID: <20210114135006.GE4854@sirena.org.uk>
+References: <87bldsp2yt.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FN+gV9K+162wdwwF"
+Content-Disposition: inline
+In-Reply-To: <87bldsp2yt.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: You have taken yourself too seriously.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Jyri Sarha <jsarha@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,37 +80,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Thu, 14 Jan 2021, Takashi Iwai wrote:
+--FN+gV9K+162wdwwF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> On Thu, 14 Jan 2021 12:55:58 +0100, Kai Vehmanen wrote:
-> > --- a/sound/soc/sof/sof-pci-dev.c
-> > +++ b/sound/soc/sof/sof-pci-dev.c
-[...]
-> > -#if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
-> > +#if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE) || IS_ENABLED(CONFIG_SND_SOC_SOF_ALDERLAKE)
-> >  static const struct sof_dev_desc tgl_desc = {
-> >  	.machines               = snd_soc_acpi_intel_tgl_machines,
-> >  	.alt_machines		= snd_soc_acpi_intel_tgl_sdw_machines,
-> 
-> I guess snd_soc_acpi_intel_tgl_* would be missing even by this patch
-> alone if TIGERLAKE=n and ALDERLAKE=y.
+On Thu, Jan 14, 2021 at 01:24:04PM +0900, Kuninori Morimoto wrote:
 
-The ACPI matching tables soc-acpi-intel-match.h are not behind Kconfig 
-ifdefs, so this is ok. I did actually test all the build combinations this 
-time :) and the builds go through.
- 
-> IMO, the easiest fix would be to select CONFIG_SND_SOC_SOF_TIGERLAKE
-> from CONFIG_SND_SOC_SOF_ALDERLAKE forcibly in Kconfig instead.  Then
-> no tweak of ifdef is needed.
+> It rollbacks to legacy DT parsing at (B) if (A) didn't have
+> master settings.
+> Here, (B) re-try to get daifmt, and use "or" with (daifmt & ~CLOCK mask).
+> Why CLOCK mask ? and shouldn't it use mask when "or" ?
+> Otherwise FORMAT and INV part will be duplicated, I think.
+> for example
+> 	daifmt = (snd_soc_of_parse_daifmt() &  SND_SOC_DAIFMT_CLOCK_MASK) |
+> 		 (daifmt                    & ~SND_SOC_DAIFMT_CLOCK_MASK)
 
-I'd rather keep this here. We may later update sof_dev_desc for ADL and no 
-longer reuse tgl_desc, and then it's easier to cleanup if the #ifdef is 
-only here, close to where the dependency is.
+> I think using snd_soc_of_parse_daifmt() only is very enough at (B),
+> but am I misunderstanding ??
 
-I too think the ifdefs are too finegrained, so maybe the next step is to 
-just drop these, and/or reduce their number. We can review and discuss 
-this when we refactor sof-pci-dev to address the concern Arnd raised.
+I have to confess I'm not entirely clear on what the intent is behind
+the code; we can work out what it *does* but looking at it again I'd be
+hard pressed to say what the actual intent is.  At the very least it
+needs more comments :/
 
-Br, Kai
+--FN+gV9K+162wdwwF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAATA0ACgkQJNaLcl1U
+h9CPmAf/S3lfGWBR/QjX9kezwVelTeGm5S8Dy21xFceYinrpPXowArkFpxaJuMSs
+HGO4NHAc6OSL0Aj+o37QvoQpyv9ENCj0fQ8HIoOAvEBy/TKE0CHpPmScwB4q7Lok
+JuDIcbJ+Q8QDWOP65++JXXxulz+MJg5tz5ft09zKUSGFB0GWyxNFOhz+GioaUoW8
+MwtuqAloM+/aYY/T1T00gXW/eq+lwbxXMUrqiYwTRkJEld1UyOAYVhEY6yXvhEHB
+4addEmfY7zYwzS/6U7awGyVPDC1IbWQQb8JWuepqhYIpMKLpPtPpg0MP6RIfUC/+
+51QORv5SyrcbLuQuqkVZ3xXs3eArcg==
+=BRwt
+-----END PGP SIGNATURE-----
+
+--FN+gV9K+162wdwwF--

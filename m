@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16C72F71DF
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:02:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E7392F71E0
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:02:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4334F179A;
-	Fri, 15 Jan 2021 06:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4334F179A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 894FF1780;
+	Fri, 15 Jan 2021 06:01:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 894FF1780
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610686933;
-	bh=PchD95BIKDbFHVDlj17+5I79lmjey79LvjOtocOwmLo=;
+	s=default; t=1610686955;
+	bh=b+iWyWhbNaoKWMlSAatjOH9PZt4VhY97b1jkwr3c7QM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qYqJS/eGhvWiRV8DAbFYRT38K8X2qTvvDZCzWkh/puUOium54BEW3aKF2Fgl1DJbb
-	 ju6TNeVt61TryK/WUdlYkctDQ9S/0ep3QXv/GvhKfyLWA5HDi9lmGNucycKkqAIcEn
-	 9qiqeGkQ81pMsXREu19U3VENki/seq6Ks5d7LsfE=
+	b=jh+Y/t70PT5R2Ngs3peG9FE44ik8JiSal9D6uMem8YlYS5+h1RBcaiJ1wXXWXFbdm
+	 T5jU4Ri62XW/EqUu3cQabLHw/Bcq3duedDVCdhIsWyVcfCduLLwo5mkraGvAhpxUmX
+	 CSCs8hCDlsQWnvBeNRw++eO2x1o8ltz3phqxSk20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41272F80563;
-	Fri, 15 Jan 2021 05:54:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 320A3F80570;
+	Fri, 15 Jan 2021 05:54:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6918CF80567; Fri, 15 Jan 2021 05:54:43 +0100 (CET)
+ id 06B75F80570; Fri, 15 Jan 2021 05:54:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 8D976F80563
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D976F80563
-Date: 15 Jan 2021 13:54:39 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080457"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6D18AF80566
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D18AF80566
+Date: 15 Jan 2021 13:54:44 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860962"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:39 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:44 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 35D03401658E;
- Fri, 15 Jan 2021 13:54:39 +0900 (JST)
-Message-ID: <874kjiolga.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 32E33401658E;
+ Fri, 15 Jan 2021 13:54:44 +0900 (JST)
+Message-ID: <8735z2olg5.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 22/44] ASoC: es*: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 23/44] ASoC: max*: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,36 +80,36 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/es8316.c | 2 +-
- sound/soc/codecs/es8328.c | 2 +-
+ sound/soc/codecs/max9860.c | 2 +-
+ sound/soc/codecs/max9867.c | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 1ce84f12a4cf..d632055370e0 100644
---- a/sound/soc/codecs/es8316.c
-+++ b/sound/soc/codecs/es8316.c
-@@ -543,7 +543,7 @@ static struct snd_soc_dai_driver es8316_dai = {
- 		.formats = ES8316_FORMATS,
+diff --git a/sound/soc/codecs/max9860.c b/sound/soc/codecs/max9860.c
+index d5925c42b4b5..dd29b183ecd6 100644
+--- a/sound/soc/codecs/max9860.c
++++ b/sound/soc/codecs/max9860.c
+@@ -489,7 +489,7 @@ static struct snd_soc_dai_driver max9860_dai = {
+ 			   SNDRV_PCM_FMTBIT_S32_LE,
  	},
- 	.ops = &es8316_ops,
+ 	.ops = &max9860_dai_ops,
 -	.symmetric_rates = 1,
 +	.symmetric_rate = 1,
  };
  
- static void es8316_enable_micbias_for_mic_gnd_short_detect(
-diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
-index b537300d0ce8..9632afc2d4d6 100644
---- a/sound/soc/codecs/es8328.c
-+++ b/sound/soc/codecs/es8328.c
-@@ -715,7 +715,7 @@ static struct snd_soc_dai_driver es8328_dai = {
- 		.formats = ES8328_FORMATS,
+ static int max9860_set_bias_level(struct snd_soc_component *component,
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index 512e6f2513d3..09b2d730e9fd 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -520,7 +520,7 @@ static struct snd_soc_dai_driver max9867_dai[] = {
+ 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
  	},
- 	.ops = &es8328_dai_ops,
+ 	.ops = &max9867_dai_ops,
 -	.symmetric_rates = 1,
 +	.symmetric_rate = 1,
+ 	}
  };
  
- static int es8328_suspend(struct snd_soc_component *component)
 -- 
 2.25.1
 

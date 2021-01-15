@@ -2,77 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD432F813A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 17:51:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C872F8150
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 17:57:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07E211827;
-	Fri, 15 Jan 2021 17:50:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E211827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8466B182D;
+	Fri, 15 Jan 2021 17:56:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8466B182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610729507;
-	bh=SWpj2XgdzHNr8tZWUV/07/8gWoJsTqOO6FB0z9pFSkk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vIRIZnoAVyBTHxzpIDzeeeQGxtfTt6w1KJRkmsSnkktiAwcKHXz5PwCJWzLLqTB4B
-	 azvGsdQAS3hEiA8gpL2LTG4vpn3Jv3JHPDYnYZgvhFk/Yehn/B8FpYzD76pFw55yoD
-	 2OjbuV9cEo2RBtK3FoRtIdicD6nDjyjJ8rxRLvuk=
+	s=default; t=1610729837;
+	bh=O59yLeSbKGVSH4XkPhypOnmEXA+t8tiI0vmMhFCW8+E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lYMk7VZzuYj1hW7L6SAQ13X7/vd47LVOnG8XG/YDg5/FBhUaARTytACbUAmDWbR3U
+	 n91CDA91TRfwMvRaTZMv+MlLLX0tXeMc2FtFvEkzRFgzf3dJc/aC552Kd4lyTXbjxl
+	 KAdbffNn8Ytc9brQiD7KHi4YPQbuFfBcgoWIxdZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5D52F80254;
-	Fri, 15 Jan 2021 17:50:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E528BF80134;
+	Fri, 15 Jan 2021 17:55:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB40BF801ED; Fri, 15 Jan 2021 17:50:10 +0100 (CET)
+ id 81E6CF80254; Fri, 15 Jan 2021 17:55:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.164])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08492F80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 17:50:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08492F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B228F80113
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 17:55:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B228F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="nA6QuNAT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610729404;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:From:
- Subject:Sender;
- bh=bnq8rv1k3mm+/qdYaU41apCzjRUj7JEz0HH/JJ/53pQ=;
- b=nA6QuNATJa1Yutu0Tdv59mw97bLVbzrEZTOWmUFcL6BGxsuiEVd/MWX6IHU/P4+TtM
- 0faV6Jw1jFN5OtJrlDEN3rVj1IcwP39osBI5xLbH2p7xDE9Qb0AAQSNL7NJ6VQxVb4RA
- NRsIRwXRkuF5nJWmdIlBvDGoKFg1dlozd+PkqX0S3OqsKoIg793wZtuDQVagNrUpL3+I
- mCE2pge9GVJMsyXtDBPj+J1sW9LjyDEVQmTQF41rWX16eny7ZUF/sw57X7ZW8lzv+chK
- z2kTCsG+Z1kZ3rMnA2M4cllYAaxsus7H6nqBJwZZXnooxrl1vf+8CKjs4yPCNS6K8zC3
- Gkcw==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j5Icup"
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
- with ESMTPSA id R0a218x0FGo3rl4
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 15 Jan 2021 17:50:03 +0100 (CET)
-Date: Fri, 15 Jan 2021 17:49:58 +0100
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: qcom: lpass: Fix hardcoded SC7810 DAI IDs
-Message-ID: <YAHHtup8hgfdf1qm@gerhold.net>
-References: <20210114094615.58191-1-stephan@gerhold.net>
- <68691a9f-f65d-da1a-a413-b624567ccc5f@linaro.org>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="RGTAeXPw"
+Received: by mail-wr1-x430.google.com with SMTP id l12so4741945wry.2
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 08:55:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8WFi24hS9BNe0YKy3AUzwISCsIab6xsbI/zt4Uj4n4M=;
+ b=RGTAeXPwLoRI5axLLhf3PPE4LhQNT+hG/v0Fe9qCHoom3h1snDAkwXPWEZkWkFHCXA
+ BGIX5l7irJT1sTHqfDuwF31F1M23Ox8hDOV04PlIopCgt5eryrj7HAlTTXJNTQhSyJJT
+ BH00gVnEhBx1kBY/YMxD4HpPF4IyyqFzgFvSv3BlGSjZirDH25vdIe4uuwPhmUEGOwfp
+ PzZhnrBdDTAjTt9AT7/5CUKnwmu7A232xqTxXIuwJB0Oo4Jgya7sZZgr5L7FSeZSfaTQ
+ HaJtSKi6aNERpI3FPoPlwCTobkfKfWo9BWFPhZ7NRGzsoHt8Svtg0Hez+OHZIQnuvpiY
+ 6UOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8WFi24hS9BNe0YKy3AUzwISCsIab6xsbI/zt4Uj4n4M=;
+ b=TI0W4BrZmjYGLbkmQIGVwKMaQPKg0SJwTPea6CzKfuRFe0yvLuOETTID/ZxPwlhJ9r
+ /30KDUwgxUYlSTqsIHcmLvB6gBixUBovYhqfLQp72YktNKk0SCeBYKlE1sHZ2pgEkyzq
+ Zs0M+6rbXg5Z4hNqREc0me8MiorOpulxYvUKcCcwLQF8vKClkOvr9qIbIVtMs5CbKCnU
+ d34r0sOlOYh4pmMXVcVRrpheoDodsJlQWtg0twNqr5f2LGwoZK+VUU+rNi091Us6jAzR
+ 4RlWreh3Ef+3+pPwWfpGJDJ2B+bt1l+bMcaWn0N0q5t/ZSA6UX3DRQFgJaoNHDYR/Zw9
+ rb5w==
+X-Gm-Message-State: AOAM5329rj5LfaU7DzFfgSjzs0O46fUUol6EaLCsgpRhL2xlNEqM8p84
+ /aVDvX6bCB0EDRAUPCRDLcHfCYWzbkkAcQ==
+X-Google-Smtp-Source: ABdhPJxMp8ldC7Meu2zkgPjbbc72MuqlTbTnF7gLAuy832IUr9pwzFN3mZPm939YAdfGx9sPRq4MzA==
+X-Received: by 2002:a5d:50c3:: with SMTP id f3mr13913611wrt.287.1610729731954; 
+ Fri, 15 Jan 2021 08:55:31 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id b7sm14655045wru.33.2021.01.15.08.55.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Jan 2021 08:55:30 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: linux-kernel@vger.kernel.org,
+	broonie@kernel.org
+Subject: [PATCH 1/2] MAINTAINERS: update maintainers of qcom audio
+Date: Fri, 15 Jan 2021 16:55:19 +0000
+Message-Id: <20210115165520.6023-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68691a9f-f65d-da1a-a413-b624567ccc5f@linaro.org>
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: plai@codeaurora.org, bgoswami@codeaurora.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,85 +100,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Srinivas,
+Add myself as maintainer of qcom audio drivers, as Patrick
+has very little time to look at the patches.
 
-On Fri, Jan 15, 2021 at 04:14:05PM +0000, Srinivas Kandagatla wrote:
-> On 14/01/2021 09:46, Stephan Gerhold wrote:
-> > [...]
-> > The problem was introduced in commit 7cb37b7bd0d3 ("ASoC: qcom: Add support
-> > for lpass hdmi driver"). The mistake made there is that lpass.h now contains
-> > 
-> >    #include <dt-bindings/sound/sc7180-lpass.h>
-> > 
-> 
-> This thing was obviously missed in the review and testing, and its really
-> bad idea to have multiple header files based on different SOC for the same
-> driver. We are planning to add some basic tests in ciloop to catch such
-> issues!
-> 
-> IMO, Its better to sort it out now, before this gets complicated!
-> 
-> Am thinking of making a common header file ("lpass,h") and include that in
-> the existing SoC specific header for compatibility reasons only.
-> 
-> In future we should just keep adding new DAI index in incremental fashion to
-> common header file rather than creating SoC specific one!
-> 
-> 
-> > [...]
-> > ---
-> > Srinivas mentioned a potential different fix here:
-> > https://lore.kernel.org/alsa-devel/4b34bd4f-e7bc-84f9-5e8a-b2348c17b7aa@linaro.org/
-> > 
-> > Instead of this patch, we could change the dt-bindings for LPASS,
-> > so that all SoCs use consistent DAI IDs.
-> 
-> TBH, Am inclined to do the right thing and make DAI ID's consistent!
-> Like we do at the dsp afe interfaces.
-> 
-> This will also bring in the need to add .of_xlate_dai_name callback along
-> with fixing sc7180_lpass_cpu_dai_driver array index.
-> 
-> Without this the code will end up very confusing!
-> 
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Banajit Goswami <bgoswami@codeaurora.org>
+Acked-by: Patrick Lai <plai@codeaurora.org>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I agree that this would be cleaner, as I mentioned here:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6eff4f720c72..b1545817c899 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14512,7 +14512,7 @@ S:	Supported
+ F:	drivers/crypto/qat/
+ 
+ QCOM AUDIO (ASoC) DRIVERS
+-M:	Patrick Lai <plai@codeaurora.org>
++M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ M:	Banajit Goswami <bgoswami@codeaurora.org>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+ S:	Supported
+-- 
+2.21.0
 
-> 
-> > 
-> > In general, I think this might be cleaner, especially in case more special
-> > DAIs are added in the future. However, when I made this patch (before Srinivas
-> > mentioned it) I tried to avoid changing the dt-bindings because:
-> > 
-> >    - Changing dt-bindings after they are added is generally discouraged.
-> > 
-> > but more importantly:
-> > 
-> >    - lpass-ipq806x.c does not seem to have PRIMARY, SECONDARY, ...
-> >      but something completely different. I know nothing about that
-> >      platform so I don't know how to handle it.
->
-
-... but it's still not clear to me how to handle ipq806x. The DAIs it
-has don't really look similar to what MSM8916 and SC7180 have.
-
-Right now it declares just a single DAI, but multiple "ports":
-
-enum lpaif_i2s_ports {
-	IPQ806X_LPAIF_I2S_PORT_CODEC_SPK,
-	IPQ806X_LPAIF_I2S_PORT_CODEC_MIC,
-	IPQ806X_LPAIF_I2S_PORT_SEC_SPK,
-	IPQ806X_LPAIF_I2S_PORT_SEC_MIC,
-	IPQ806X_LPAIF_I2S_PORT_MI2S,
-};
-
-static struct snd_soc_dai_driver ipq806x_lpass_cpu_dai_driver = {
-	.id	= IPQ806X_LPAIF_I2S_PORT_MI2S,
-	/* ... */
-};
-
-I suppose we could just declare this as MI2S_PRIMARY but not sure if
-that is accurate. Do you have more information about this platform?
-
-Thanks,
-Stephan

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1FD2F71EA
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:05:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FC302F71EB
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:05:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D6B91711;
-	Fri, 15 Jan 2021 06:04:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D6B91711
+	by alsa0.perex.cz (Postfix) with ESMTPS id D806317D3;
+	Fri, 15 Jan 2021 06:05:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D806317D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610687140;
-	bh=mUcSl4riVGdImy33FPnImY8hk+OaC9oZUr5PWuxsEl0=;
+	s=default; t=1610687158;
+	bh=erLV2i3Bz8/5QNAYrYn/eW0UENTT8BqdZEI+yoP3gG0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G6bKD90Hid/So00+3DCYGR1NVrFgv/dwt9+H8XTfOBVQqc1oRSEMXoydp9dEy3+NV
-	 FmDePqkKadmNhoV/0NV6/zk3UbmxpP7Hf3a0lzvwb9P5mfITTOfZWBtEnKcfWCpj/A
-	 11OkN0mgETrOyxj3mMuPwenJ4I5oW40WSFvvEm/U=
+	b=R/fBW7b0Y8cnA3uv04hUsI4zGJSZCUKyMmqcMnJKNSxPVi9RaVn11BAnopJC17ri5
+	 wRWMKpcBqEkac9o45EP8HMZmnTewHivanBlBKdJ0cSV8FO2OGk8KUEZtIQSwKH5wIi
+	 2vHC6k72x3n7gzQ3s6sQuApFbW+9Xx3T+na41K58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 067CFF805C0;
-	Fri, 15 Jan 2021 05:55:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3242F805C3;
+	Fri, 15 Jan 2021 05:55:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02A4DF805AF; Fri, 15 Jan 2021 05:55:38 +0100 (CET)
+ id E4ECBF805B1; Fri, 15 Jan 2021 05:55:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id F1E87F804E6
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:55:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E87F804E6
-Date: 15 Jan 2021 13:55:34 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080555"
+ by alsa1.perex.cz (Postfix) with ESMTP id 59186F804F2
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:55:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59186F804F2
+Date: 15 Jan 2021 13:55:40 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080570"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:55:34 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:55:40 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 75E4141A78B9;
- Fri, 15 Jan 2021 13:55:34 +0900 (JST)
-Message-ID: <87r1mmn6ub.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D112041A78B9;
+ Fri, 15 Jan 2021 13:55:40 +0900 (JST)
+Message-ID: <87pn26n6u4.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 31/44] ASoC: ssm2602: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 32/44] ASoC: sgtl5000: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,7 +67,6 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch syncs naming rule.
@@ -80,24 +79,22 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/ssm2602.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/sgtl5000.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
-index 905160246614..7964e922b07f 100644
---- a/sound/soc/codecs/ssm2602.c
-+++ b/sound/soc/codecs/ssm2602.c
-@@ -526,8 +526,8 @@ static struct snd_soc_dai_driver ssm2602_dai = {
- 		.rates = SSM2602_RATES,
- 		.formats = SSM2602_FORMATS,},
- 	.ops = &ssm2602_dai_ops,
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index 4d6ff8114622..73551e36695e 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1187,7 +1187,7 @@ static struct snd_soc_dai_driver sgtl5000_dai = {
+ 		.formats = SGTL5000_FORMATS,
+ 	},
+ 	.ops = &sgtl5000_ops,
 -	.symmetric_rates = 1,
--	.symmetric_samplebits = 1,
 +	.symmetric_rate = 1,
-+	.symmetric_sample_bits = 1,
  };
  
- static int ssm2602_resume(struct snd_soc_component *component)
+ static bool sgtl5000_volatile(struct device *dev, unsigned int reg)
 -- 
 2.25.1
 

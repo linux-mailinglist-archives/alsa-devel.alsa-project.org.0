@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C872F8150
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 17:57:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B372F8151
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 17:57:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8466B182D;
-	Fri, 15 Jan 2021 17:56:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8466B182D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 856A51835;
+	Fri, 15 Jan 2021 17:56:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 856A51835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610729837;
-	bh=O59yLeSbKGVSH4XkPhypOnmEXA+t8tiI0vmMhFCW8+E=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=lYMk7VZzuYj1hW7L6SAQ13X7/vd47LVOnG8XG/YDg5/FBhUaARTytACbUAmDWbR3U
-	 n91CDA91TRfwMvRaTZMv+MlLLX0tXeMc2FtFvEkzRFgzf3dJc/aC552Kd4lyTXbjxl
-	 KAdbffNn8Ytc9brQiD7KHi4YPQbuFfBcgoWIxdZo=
+	s=default; t=1610729847;
+	bh=QpBQddm8uxBszssbJdZ84soxqw9Tu9qDUll/PQ4yAx4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=r29OvEqvzhdo8vn7jCMoJlDoHKa02SG9WsvepgziZB1NLkU8D5v5nWHsilA6DhZ8v
+	 jUctpKkcTiHNrr23OMQPWwRkAr4Uc71zMK63VrqpWKGQoTOrowi52qxlBrLDM692HM
+	 i2npisPlCXfWqWyzBxHrou367P+cthTt4UoroFSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E528BF80134;
-	Fri, 15 Jan 2021 17:55:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3781F8016D;
+	Fri, 15 Jan 2021 17:55:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81E6CF80254; Fri, 15 Jan 2021 17:55:41 +0100 (CET)
+ id DC9C9F8026B; Fri, 15 Jan 2021 17:55:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B228F80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 17:55:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B228F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30B10F80134
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 17:55:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30B10F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="RGTAeXPw"
-Received: by mail-wr1-x430.google.com with SMTP id l12so4741945wry.2
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 08:55:32 -0800 (PST)
+ header.b="JyOzx4Fv"
+Received: by mail-wr1-x432.google.com with SMTP id q18so9983830wrn.1
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 08:55:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8WFi24hS9BNe0YKy3AUzwISCsIab6xsbI/zt4Uj4n4M=;
- b=RGTAeXPwLoRI5axLLhf3PPE4LhQNT+hG/v0Fe9qCHoom3h1snDAkwXPWEZkWkFHCXA
- BGIX5l7irJT1sTHqfDuwF31F1M23Ox8hDOV04PlIopCgt5eryrj7HAlTTXJNTQhSyJJT
- BH00gVnEhBx1kBY/YMxD4HpPF4IyyqFzgFvSv3BlGSjZirDH25vdIe4uuwPhmUEGOwfp
- PzZhnrBdDTAjTt9AT7/5CUKnwmu7A232xqTxXIuwJB0Oo4Jgya7sZZgr5L7FSeZSfaTQ
- HaJtSKi6aNERpI3FPoPlwCTobkfKfWo9BWFPhZ7NRGzsoHt8Svtg0Hez+OHZIQnuvpiY
- 6UOA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=qpoU5fqNwBrgG+uQnSKsFtoenWMjs1fcRQ3GYXtUAfw=;
+ b=JyOzx4Fv8jpmSqjzz6uWttvy15gDpPwhLvBE47Jl3j6+4seX77+kh+s4z7qdkB9XZv
+ 1m5mBd6QIBVByhFMCsF4auzJ5pFw0xD2bg+jljTwtbDE8dBxE2ak4Z249fFIHrQKqJJq
+ fckoWR4/PauSu9ShyA+gryhbfUNV7Nd3M1Po56yCIHeP9DiRjbWkELJP7mt88CNxMi5L
+ JJKeO5A/skGVOdJ9K44j1OEM2uSW+hCw5xZMgjt/16rThqkag4TM3TZArH1mV7+GWF5G
+ CAEaMR5JUQK9H+FVGM4ggZjFKevYm4RgYBlp7wzKspfqfFNfB2Bc+Ep//R26wR2p+33+
+ 3MfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8WFi24hS9BNe0YKy3AUzwISCsIab6xsbI/zt4Uj4n4M=;
- b=TI0W4BrZmjYGLbkmQIGVwKMaQPKg0SJwTPea6CzKfuRFe0yvLuOETTID/ZxPwlhJ9r
- /30KDUwgxUYlSTqsIHcmLvB6gBixUBovYhqfLQp72YktNKk0SCeBYKlE1sHZ2pgEkyzq
- Zs0M+6rbXg5Z4hNqREc0me8MiorOpulxYvUKcCcwLQF8vKClkOvr9qIbIVtMs5CbKCnU
- d34r0sOlOYh4pmMXVcVRrpheoDodsJlQWtg0twNqr5f2LGwoZK+VUU+rNi091Us6jAzR
- 4RlWreh3Ef+3+pPwWfpGJDJ2B+bt1l+bMcaWn0N0q5t/ZSA6UX3DRQFgJaoNHDYR/Zw9
- rb5w==
-X-Gm-Message-State: AOAM5329rj5LfaU7DzFfgSjzs0O46fUUol6EaLCsgpRhL2xlNEqM8p84
- /aVDvX6bCB0EDRAUPCRDLcHfCYWzbkkAcQ==
-X-Google-Smtp-Source: ABdhPJxMp8ldC7Meu2zkgPjbbc72MuqlTbTnF7gLAuy832IUr9pwzFN3mZPm939YAdfGx9sPRq4MzA==
-X-Received: by 2002:a5d:50c3:: with SMTP id f3mr13913611wrt.287.1610729731954; 
- Fri, 15 Jan 2021 08:55:31 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=qpoU5fqNwBrgG+uQnSKsFtoenWMjs1fcRQ3GYXtUAfw=;
+ b=DzisxpofrZUux+VEP1opfzcGFBKd6GHtVCqDGbYxqMAuImd3h8Oc/l6BgGUQpyLq4E
+ OJyzf20i86eeY4i+CIp0D7xCvPfQ6VQM1Ke9smqBJ4iUw0xp7ChPFRwbnHxN/ElouI55
+ ODdAnqKUQOMzdM1KJxAuyoGjICL10oHPB++LKJcc/Wy89zavCeIAil+dJ7swKLHLGJDy
+ fhhENPN1VqbKg2QVl4yhuPn0qvldPas3MGrVrbLynxMm+K2iSBlRNO7QbhDCndfZpZCB
+ 9ZwlOGo4fw6/uXrNEMuua3RYEMxlhhbViVc6SwembahexMOBj8dwu4BoAO5q6BPIiRJ4
+ vUGw==
+X-Gm-Message-State: AOAM531iSmA8jGiTZtvkPhE1DDmseVn1TOacl9YUB12nvre1tnpoG5F9
+ vkIAvJyKoibeHwLTv8x4HURErg==
+X-Google-Smtp-Source: ABdhPJyLPxRwkrI+zHOIgoHA0e737MQMy5mIKOsHajXwgWnZq2enQJ0S7G1aMQrecyoNBQzsgdsyAQ==
+X-Received: by 2002:adf:bc92:: with SMTP id g18mr13731534wrh.160.1610729733129; 
+ Fri, 15 Jan 2021 08:55:33 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b7sm14655045wru.33.2021.01.15.08.55.30
+ by smtp.gmail.com with ESMTPSA id b7sm14655045wru.33.2021.01.15.08.55.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Jan 2021 08:55:30 -0800 (PST)
+ Fri, 15 Jan 2021 08:55:32 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: linux-kernel@vger.kernel.org,
 	broonie@kernel.org
-Subject: [PATCH 1/2] MAINTAINERS: update maintainers of qcom audio
-Date: Fri, 15 Jan 2021 16:55:19 +0000
-Message-Id: <20210115165520.6023-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 2/2] MAINTAINERS: update qcom ASoC drivers list
+Date: Fri, 15 Jan 2021 16:55:20 +0000
+Message-Id: <20210115165520.6023-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20210115165520.6023-1-srinivas.kandagatla@linaro.org>
+References: <20210115165520.6023-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: plai@codeaurora.org, bgoswami@codeaurora.org,
@@ -100,29 +102,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add myself as maintainer of qcom audio drivers, as Patrick
-has very little time to look at the patches.
+Add full list of ASoC drivers that are maintained!
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Reviewed-by: Banajit Goswami <bgoswami@codeaurora.org>
-Acked-by: Patrick Lai <plai@codeaurora.org>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 6eff4f720c72..b1545817c899 100644
+index b1545817c899..7699d9d94a49 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -14512,7 +14512,7 @@ S:	Supported
- F:	drivers/crypto/qat/
- 
- QCOM AUDIO (ASoC) DRIVERS
--M:	Patrick Lai <plai@codeaurora.org>
-+M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+@@ -14516,6 +14516,14 @@ M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
  M:	Banajit Goswami <bgoswami@codeaurora.org>
  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
  S:	Supported
++F:	sound/soc/codecs/lpass-va-macro.c
++F:	sound/soc/codecs/lpass-wsa-macro.*
++F:	sound/soc/codecs/msm8916-wcd-analog.c
++F:	sound/soc/codecs/msm8916-wcd-digital.c
++F:	sound/soc/codecs/wcd9335.*
++F:	sound/soc/codecs/wcd934x.c
++F:	sound/soc/codecs/wcd-clsh-v2.*
++F:	sound/soc/codecs/wsa881x.c
+ F:	sound/soc/qcom/
+ 
+ QCOM IPA DRIVER
 -- 
 2.21.0
 

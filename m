@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 110E42F71E4
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:03:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F212A2F71E7
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:04:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 927DA17AC;
-	Fri, 15 Jan 2021 06:02:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927DA17AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D4C1790;
+	Fri, 15 Jan 2021 06:03:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D4C1790
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610687006;
-	bh=P7DvVF9ebxxBN1p8dEDjan4g8AKWu4NUa7cHAT8F+zM=;
+	s=default; t=1610687074;
+	bh=k2Inax/91gw5jH+nOlkrK6LXNX6fAWlDJ114/mZUxRo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aRzfdb/pFBBAqKwLdY07chXxHJBcvc0jdMof9d4tZQYoTRF9E6BshgpFn2dXpO1VC
-	 EgIY8coE8fnTeh/xbLI3U9HUlyueP7x0z9oDlPpF0DPd5AqS7kjeOOOQDX2CuexR4k
-	 UsP4/9haF/kk8F23xiJnOGmV5hGEVZ9UVwk2W90Q=
+	b=PUjTvgS267vN9x9TNc9wwtcTYh0I7Q0ZNO5cJ1TpZ3mCnmfN0R34nDtOvG79MvHeu
+	 MT/VHaiuqyzZqCkVa8NAzXWa+nAug03lXzwyucKesmIGZeOllHYUu9lTrSP2WlCmAy
+	 MHB7btn/P+e0ZnJEm2CZpFdr1/B9WoH3s3wkFlZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7EC6F8058C;
-	Fri, 15 Jan 2021 05:55:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1334BF805A0;
+	Fri, 15 Jan 2021 05:55:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A877EF8057C; Fri, 15 Jan 2021 05:55:00 +0100 (CET)
+ id 0F394F804E4; Fri, 15 Jan 2021 05:55:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 48620F804E7
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48620F804E7
-Date: 15 Jan 2021 13:54:56 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860979"
+ by alsa1.perex.cz (Postfix) with ESMTP id A75BFF8057B
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:55:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A75BFF8057B
+Date: 15 Jan 2021 13:55:01 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860986"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:56 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:55:01 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id CA1CF41A6658;
- Fri, 15 Jan 2021 13:54:56 +0900 (JST)
-Message-ID: <87y2gun6vc.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3244941A6658;
+ Fri, 15 Jan 2021 13:55:01 +0900 (JST)
+Message-ID: <87wnwen6v8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 26/44] ASoC: ak*: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 27/44] ASoC: adau*: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,73 +80,68 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/ak4554.c | 2 +-
- sound/soc/codecs/ak4613.c | 2 +-
- sound/soc/codecs/ak4641.c | 4 ++--
- sound/soc/codecs/ak4642.c | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/codecs/adau1372.c | 2 +-
+ sound/soc/codecs/adau1373.c | 6 +++---
+ sound/soc/codecs/adau1701.c | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/ak4554.c b/sound/soc/codecs/ak4554.c
-index 2fa83a1a84cf..8e60e2b56ad6 100644
---- a/sound/soc/codecs/ak4554.c
-+++ b/sound/soc/codecs/ak4554.c
-@@ -56,7 +56,7 @@ static struct snd_soc_dai_driver ak4554_dai = {
- 		.rates = SNDRV_PCM_RATE_8000_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+diff --git a/sound/soc/codecs/adau1372.c b/sound/soc/codecs/adau1372.c
+index 5ccbf1b6bcf5..6811a8b3866d 100644
+--- a/sound/soc/codecs/adau1372.c
++++ b/sound/soc/codecs/adau1372.c
+@@ -890,7 +890,7 @@ static struct snd_soc_dai_driver adau1372_dai_driver = {
+ 		.sig_bits = 24,
  	},
+ 	.ops = &adau1372_dai_ops,
 -	.symmetric_rates = 1,
 +	.symmetric_rate = 1,
  };
  
- static const struct snd_soc_component_driver soc_component_dev_ak4554 = {
-diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
-index 8d663e8d64c4..fe208cfdd3ba 100644
---- a/sound/soc/codecs/ak4613.c
-+++ b/sound/soc/codecs/ak4613.c
-@@ -575,7 +575,7 @@ static struct snd_soc_dai_driver ak4613_dai = {
- 		.formats	= AK4613_PCM_FMTBIT,
+ static int adau1372_setup_pll(struct adau1372 *adau1372, unsigned int rate)
+diff --git a/sound/soc/codecs/adau1373.c b/sound/soc/codecs/adau1373.c
+index e71fde001b46..9887aa6f0be5 100644
+--- a/sound/soc/codecs/adau1373.c
++++ b/sound/soc/codecs/adau1373.c
+@@ -1205,7 +1205,7 @@ static struct snd_soc_dai_driver adau1373_dai_driver[] = {
+ 			.formats = ADAU1373_FORMATS,
+ 		},
+ 		.ops = &adau1373_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
  	},
- 	.ops = &ak4613_dai_ops,
+ 	{
+ 		.id = 1,
+@@ -1225,7 +1225,7 @@ static struct snd_soc_dai_driver adau1373_dai_driver[] = {
+ 			.formats = ADAU1373_FORMATS,
+ 		},
+ 		.ops = &adau1373_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.id = 2,
+@@ -1245,7 +1245,7 @@ static struct snd_soc_dai_driver adau1373_dai_driver[] = {
+ 			.formats = ADAU1373_FORMATS,
+ 		},
+ 		.ops = &adau1373_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ };
+ 
+diff --git a/sound/soc/codecs/adau1701.c b/sound/soc/codecs/adau1701.c
+index 68130eaa64a4..5ce74697564a 100644
+--- a/sound/soc/codecs/adau1701.c
++++ b/sound/soc/codecs/adau1701.c
+@@ -653,7 +653,7 @@ static struct snd_soc_dai_driver adau1701_dai = {
+ 		.formats = ADAU1701_FORMATS,
+ 	},
+ 	.ops = &adau1701_dai_ops,
 -	.symmetric_rates = 1,
 +	.symmetric_rate = 1,
  };
  
- static int ak4613_suspend(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/ak4641.c b/sound/soc/codecs/ak4641.c
-index 77004cd7caa3..04aef0e72aa5 100644
---- a/sound/soc/codecs/ak4641.c
-+++ b/sound/soc/codecs/ak4641.c
-@@ -499,7 +499,7 @@ static struct snd_soc_dai_driver ak4641_dai[] = {
- 		.formats = AK4641_FORMATS,
- 	},
- 	.ops = &ak4641_i2s_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- },
- {
- 	.name = "ak4641-voice",
-@@ -519,7 +519,7 @@ static struct snd_soc_dai_driver ak4641_dai[] = {
- 		.formats = AK4641_FORMATS,
- 	},
- 	.ops = &ak4641_pcm_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- },
- };
- 
-diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
-index 353237025514..c49c58eeb476 100644
---- a/sound/soc/codecs/ak4642.c
-+++ b/sound/soc/codecs/ak4642.c
-@@ -516,7 +516,7 @@ static struct snd_soc_dai_driver ak4642_dai = {
- 		.rates = SNDRV_PCM_RATE_8000_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE },
- 	.ops = &ak4642_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int ak4642_suspend(struct snd_soc_component *component)
+ #ifdef CONFIG_OF
 -- 
 2.25.1
 

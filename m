@@ -2,84 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 331A12F848E
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 19:37:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290B92F84A1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 19:43:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B62491832;
-	Fri, 15 Jan 2021 19:36:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B62491832
+	by alsa0.perex.cz (Postfix) with ESMTPS id B029F183B;
+	Fri, 15 Jan 2021 19:42:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B029F183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610735867;
-	bh=nrEh5qKyFfcqrhQvojtYrOk8oDWspF+B8YHetNxIp/I=;
+	s=default; t=1610736193;
+	bh=F4kLAf9R0ghx49EeJvRjtIFFPVO7b3uHP1ijB7EELjg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KKXsV1S8iq8VXSEPiat6p88o72YoSoI+kbqvYrf7YEZ/8nVjuM5SnYQDhSIwWFKmx
-	 xNQ4kwMjKP+2vtHYJmAQd/hcufG2ljnp6LIlWzOFAP9YAQ2T6X9XWZE3XoOq9Ff8Dv
-	 smasnun6cS0Ky9/kUPPB+7sxQkm4B4QHGVuTEg6g=
+	b=UjfYMqH/w2Lgj9vKCVaaUVSrHx/XOeXZkhZ+VcRLhwqHARj18Jw3963wJ30nIF7k1
+	 Fin5w3PBo5XO/Tj36SDh+cEfDXrdedEDcWL0bYi5M3rFsfsbkajuR2N5Oey8FzHVPT
+	 g9IwEYEXhwENdVwFdSl1F5PGtNGawROwxu7zxvv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BF71F80113;
-	Fri, 15 Jan 2021 19:36:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92274F801ED;
+	Fri, 15 Jan 2021 19:41:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 354BDF801ED; Fri, 15 Jan 2021 19:36:12 +0100 (CET)
+ id 6939CF801ED; Fri, 15 Jan 2021 19:41:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [81.169.146.165])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D02ECF80134
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 19:36:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D02ECF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB13FF80134
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 19:41:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB13FF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iud4H4qh"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CBF892371F;
- Fri, 15 Jan 2021 18:36:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610735762;
- bh=nrEh5qKyFfcqrhQvojtYrOk8oDWspF+B8YHetNxIp/I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iud4H4qhXR7cQadVrAZeKW3YsK9FY+a6ESBYwIDqPuHCrVo1FTirO4xZK11ZOcx4w
- lhdZ3iWiiuaAn4db+D3/pACYwfMX4PgMM+8a8xbdgSVUg7jiPuTF7k5ib0JRsxJSKN
- KVHM0ZKAqeNP8SirE7ocjw16rqeDu9UblTqtmNxE9ILFVn6VZm8ZouQno8BaYniDS9
- w5JgP0NzqNUtXEwrQWs06NtyLpp7p+YZE71C0qfm6seHnuP4bmj6AzuO4Xr9H03IIh
- efYdqRW3fXg/wbTZooTu8cCrpK04KhjyeRoNQ4YCcqFFboCllOz7SB/nZ5LhcnH2wM
- T2NdtCgMzFaIQ==
-Date: Fri, 15 Jan 2021 18:35:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH v4 2/6] dt-bindings: audio-graph-card: Add plls and
- sysclks properties
-Message-ID: <20210115183527.GG4384@sirena.org.uk>
-References: <20210108160501.7638-1-rf@opensource.cirrus.com>
- <20210108160501.7638-3-rf@opensource.cirrus.com>
- <20210113152225.GA2334778@robh.at.kernel.org>
- <20210113160917.GF4641@sirena.org.uk>
- <ee3d0b75-dc2f-9994-19a4-a3c3f21a2c65@opensource.cirrus.com>
- <20210115131142.GA4384@sirena.org.uk>
- <1ec5e5f4-f672-2c60-23a5-9d985b943379@opensource.cirrus.com>
- <20210115152004.GD4384@sirena.org.uk>
- <d67f805f-2813-14e9-0c4f-5948ec73f7b0@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="Mb4qmN7j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610736092;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Subject:Sender;
+ bh=n5j/PCsBiI+eTqeB1Vv28jfg7d9qKU2MR3f363gYRJo=;
+ b=Mb4qmN7jEKbOEPl9Pjc+uUJDW1d8oqtnBEQW/pEbvmwsUrWeShvqENpjqw3C0mXsfY
+ 90J99yf/PyL7T6TRLDnuAxwFqvmkLMn8hDCoVbCMRr7uRXj+CC8V6Z15Dc9ggA3Xnt8u
+ C5f4nAyt2cOgu0i9ofRueky83VdCXpMmrrgw35sdr4Xx2uGlIUx1IB6KRcFEt5xjTP0X
+ cqF/+9UDkAHTdeWWbZP40DS0FbdnxQHBC+wpdwXmWmdB5a6PFfocxS2fvOUqTDNQl4pr
+ 22rdO/PAy/8mdMLVZJ84b8QTNvdHJe/zbw944foQwAFLykOiebBGVjNSPTwDmcgyIm9w
+ W0vg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j4IczHa4o="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
+ with ESMTPSA id R0a218x0FIfVs6F
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 15 Jan 2021 19:41:31 +0100 (CET)
+Date: Fri, 15 Jan 2021 19:41:25 +0100
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 1/2] ASoC: qcom: lpass: Fix hardcoded SC7810 DAI IDs
+Message-ID: <YAHh1d1Xs7c+MwJM@gerhold.net>
+References: <20210114094615.58191-1-stephan@gerhold.net>
+ <68691a9f-f65d-da1a-a413-b624567ccc5f@linaro.org>
+ <YAHHtup8hgfdf1qm@gerhold.net>
+ <9349c21b-7cd3-3c7b-91a9-9bbf0d5c4f15@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="reI/iBAAp9kzkmX4"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d67f805f-2813-14e9-0c4f-5948ec73f7b0@opensource.cirrus.com>
-X-Cookie: Debug is human, de-fix divine.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- alsa-devel@alsa-project.org, f.fainelli@gmail.com,
- kuninori.morimoto.gx@renesas.com, devicetree@vger.kernel.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- nsaenzjulienne@suse.de
+In-Reply-To: <9349c21b-7cd3-3c7b-91a9-9bbf0d5c4f15@linaro.org>
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,77 +90,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 15, 2021 at 05:15:53PM +0000, Srinivas Kandagatla wrote:
+> On 15/01/2021 16:49, Stephan Gerhold wrote:
+> > Right now it declares just a single DAI, but multiple "ports":
+> > 
+> > enum lpaif_i2s_ports {
+> > 	IPQ806X_LPAIF_I2S_PORT_CODEC_SPK,
+> > 	IPQ806X_LPAIF_I2S_PORT_CODEC_MIC,
+> > 	IPQ806X_LPAIF_I2S_PORT_SEC_SPK,
+> > 	IPQ806X_LPAIF_I2S_PORT_SEC_MIC,
+> > 	IPQ806X_LPAIF_I2S_PORT_MI2S,
+> > };
+> > 
+> > static struct snd_soc_dai_driver ipq806x_lpass_cpu_dai_driver = {
+> > 	.id	= IPQ806X_LPAIF_I2S_PORT_MI2S,
+> > 	/* ... */
+> > };
+> > 
+> > I suppose we could just declare this as MI2S_PRIMARY but not sure if
+> > that is accurate. Do you have more information about this platform?
+> 
+> Looking at the specs it does show that it has 0-4 total 5 I2S interfaces,
+> however Am unable to find a  proper name similar to other MI2S.
+> This one is the last one (4)!
+> 
 
---reI/iBAAp9kzkmX4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm still a bit unsure how this would fit into the shared lpass.h
+dt-bindings, given that we need MI2S_PRIMARY, etc for MSM8916/SC7810
+but some different ones for IPQ806X.
 
-On Fri, Jan 15, 2021 at 04:15:21PM +0000, Richard Fitzgerald wrote:
+But I would also need to check how to implement .of_xlate_dai_name first
+for example, so I think it's easier if you can prepare a patch to
+implement your idea. I would be happy to test it. :)
 
-> If I do:
->  	sound {
->  		clocks =3D <&clock>;
->  	};
->=20
-> 	clock: clock {
-> 		compatible =3D "fixed-clock";
-> 		clock-frequency =3D <98304000>;
-> 	};
->=20
-> I can clk_bulk_get_all().
-> But if I remove the 'compatible' from the clock node, clk_bulk_get_all()
-> will return -EPROBE_DEFER and log:
+Then we can just drop this patch set, I don't mind.
 
-OK, so if this is only supposed to represent a fixed clock on the board
-separate to the CODEC then yes, of course you do need to instantiate a
-driver for it like you do for every device on the board.  However it
-shouldn't be a subdevice of the CODEC as you had it originally, it
-should be a distinct device as the above has it since that is what
-physically exists.  This obviously won't configure the FLL at all though
-(which was what the binding you were proposing was for, the above is
-definitely not a direct substitute for the binding you originally
-proposed).
-
-> > When we say to use the clock binding what we are saying is to use the
-> > actual clock bindings to describe the clocks, not make a custom binding
-> > that looks kind of like them - making a custom binding doesn't address
-> > the problem.
-
-> But I don't know what you mean by "use the actual clock bindings to
-> describe the clocks".
-
-> What is not clear to me is how you want me to use a clock binding to
-> describe something that isn't a clk-framework clk. If you know what you
-> want, then please.. an example would help explain.
-
-The concept of a clock framework is an implementation detail of Linux
-which should not affect how the DT bindings for a device or system are
-written, DT bindings should be clear and idiomatic as DT bindings.  The
-goal is to represent the system in a clear and standardized fashion
-which is useful to OSs in general, not just something convenient for
-Linux as it happens to be implemented right now.  Current Linux
-internals are not a constraint for DT bindings.
-
-In this case if you can't figure out how to parse clock bindings without
-moving the clocks over to standard Linux clock APIs (which seems likely)
-then it follows that if you want to describe the clock configuration in
-DT then the driver support for these clocks should use the standard
-Linux clock framework.  This seems like a good idea in general anyway.
-
---reI/iBAAp9kzkmX4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAB4G4ACgkQJNaLcl1U
-h9Ajugf/V/c7kkx7kjE3+tn6nJNrg21PFVDm4St0hGGrFYbLX5tp94E++n7e+0S4
-1O72CIgQcws/PAoj49e1eR9ucRcZztKs5ahuZNxEtGti7ASiGaVfsP63/496zQZN
-VPW5tOl/xrSw4kNiMkoCSZXT4Izm05XeLtLvV2SQxeVevR2ifnp38Ms5KTEG9PXT
-q5Kecf+CmTuIXlFFvyY3eD5Pqdvqe7F7obdoOxUET3NEEfuPYtRCA7YLHmFu/EfH
-Co3vKlM5RmSi8s4RJ4jXplNFEGMDSjfdLbvrIUPFl/fC4aHMIRk0sAQnKftj9vkO
-rs0GP4a8Qfuiyb0YYpMLrw2ora7WTQ==
-=sFv+
------END PGP SIGNATURE-----
-
---reI/iBAAp9kzkmX4--
+Thanks!
+Stephan

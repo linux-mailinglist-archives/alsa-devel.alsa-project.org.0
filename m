@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E44A2F71D9
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:00:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58792F71DA
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:01:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4B951781;
-	Fri, 15 Jan 2021 05:59:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4B951781
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47049177D;
+	Fri, 15 Jan 2021 06:00:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47049177D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610686844;
-	bh=fqSwLlHtcM9NedFUf75omQk/rLMZYQEDZEdCDMHdz3A=;
+	s=default; t=1610686876;
+	bh=1DvKU78wSdLzb1nsFnysybe7wqZy/LtV95cN5V5f2DY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DJwmWiYKWr/uP0DL2NUj4+tMRzowVOjuRyWaEx5rWC811k+vvxSYHK1vGquFClG1N
-	 PcbLOY2ur9UUSQ/yChraZCFIE2zd2N9urrIuKnPPld7Hi9xCal421YD5LbWXPoltR7
-	 q8i5uMMDpzjLQZO0m/6rAVsswum02fUYP7QPO2g4=
+	b=lnUO7H0mcen+Xsv2S5QRw7nOzL+FFxlKB2yGNrnZuyH9wYqORvDIiILspRVgt/efN
+	 ZvHWw8Wa8saSR7OautbO+d2YYJ3QR2GpwBvFCyR6lDhvbfw1BwOkjBvj0RihlOnRbL
+	 bLtNBHujPxLM9nE3DvWthpGOmGZ+zgPktVMXw4+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F230F80536;
-	Fri, 15 Jan 2021 05:54:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3081DF80559;
+	Fri, 15 Jan 2021 05:54:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5FC1F80536; Fri, 15 Jan 2021 05:54:29 +0100 (CET)
+ id 845ABF80525; Fri, 15 Jan 2021 05:54:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7D050F804D8
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D050F804D8
-Date: 15 Jan 2021 13:54:25 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860937"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B37AF80534
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B37AF80534
+Date: 15 Jan 2021 13:54:21 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080432"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:25 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:21 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4167A401658E;
- Fri, 15 Jan 2021 13:54:25 +0900 (JST)
-Message-ID: <878s8uolgo.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D033401658E;
+ Fri, 15 Jan 2021 13:54:21 +0900 (JST)
+Message-ID: <87a6taolgs.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 19/44] ASoC: nau*: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 18/44] ASoC: rt*: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,36 +80,91 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/nau8810.c | 2 +-
- sound/soc/codecs/nau8822.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt274.c  | 2 +-
+ sound/soc/codecs/rt286.c  | 4 ++--
+ sound/soc/codecs/rt298.c  | 4 ++--
+ sound/soc/codecs/rt5670.c | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8810.c b/sound/soc/codecs/nau8810.c
-index 33ebc6398426..13676b544f58 100644
---- a/sound/soc/codecs/nau8810.c
-+++ b/sound/soc/codecs/nau8810.c
-@@ -837,7 +837,7 @@ static struct snd_soc_dai_driver nau8810_dai = {
- 		.formats = NAU8810_FORMATS,
+diff --git a/sound/soc/codecs/rt274.c b/sound/soc/codecs/rt274.c
+index 70cf17c0aa99..0d3773c576f8 100644
+--- a/sound/soc/codecs/rt274.c
++++ b/sound/soc/codecs/rt274.c
+@@ -1056,7 +1056,7 @@ static struct snd_soc_dai_driver rt274_dai[] = {
+ 			.formats = RT274_FORMATS,
+ 		},
+ 		.ops = &rt274_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
  	},
- 	.ops = &nau8810_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
  };
  
- static const struct regmap_config nau8810_regmap_config = {
-diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
-index 609aeeb27818..58123390c7a3 100644
---- a/sound/soc/codecs/nau8822.c
-+++ b/sound/soc/codecs/nau8822.c
-@@ -991,7 +991,7 @@ static struct snd_soc_dai_driver nau8822_dai = {
- 		.formats = NAU8822_FORMATS,
+diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+index 5fb9653d9131..8abe232ca4a4 100644
+--- a/sound/soc/codecs/rt286.c
++++ b/sound/soc/codecs/rt286.c
+@@ -1017,7 +1017,7 @@ static struct snd_soc_dai_driver rt286_dai[] = {
+ 			.formats = RT286_FORMATS,
+ 		},
+ 		.ops = &rt286_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
  	},
- 	.ops = &nau8822_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
+ 	{
+ 		.name = "rt286-aif2",
+@@ -1037,7 +1037,7 @@ static struct snd_soc_dai_driver rt286_dai[] = {
+ 			.formats = RT286_FORMATS,
+ 		},
+ 		.ops = &rt286_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 
+ };
+diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
+index dc0273a5a11f..32cc9b6287d2 100644
+--- a/sound/soc/codecs/rt298.c
++++ b/sound/soc/codecs/rt298.c
+@@ -1084,7 +1084,7 @@ static struct snd_soc_dai_driver rt298_dai[] = {
+ 			.formats = RT298_FORMATS,
+ 		},
+ 		.ops = &rt298_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "rt298-aif2",
+@@ -1104,7 +1104,7 @@ static struct snd_soc_dai_driver rt298_dai[] = {
+ 			.formats = RT298_FORMATS,
+ 		},
+ 		.ops = &rt298_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 
+ };
+diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
+index a0c8f58d729b..c29317ea5df2 100644
+--- a/sound/soc/codecs/rt5670.c
++++ b/sound/soc/codecs/rt5670.c
+@@ -2741,7 +2741,7 @@ static struct snd_soc_dai_driver rt5670_dai[] = {
+ 			.formats = RT5670_FORMATS,
+ 		},
+ 		.ops = &rt5670_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "rt5670-aif2",
+@@ -2761,7 +2761,7 @@ static struct snd_soc_dai_driver rt5670_dai[] = {
+ 			.formats = RT5670_FORMATS,
+ 		},
+ 		.ops = &rt5670_aif_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
  };
  
- static int nau8822_suspend(struct snd_soc_component *component)
 -- 
 2.25.1
 

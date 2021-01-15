@@ -2,57 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A0A2F9AEF
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:04:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7FC32F9AF0
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:04:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDF0917D4;
-	Mon, 18 Jan 2021 09:03:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDF0917D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F13417F5;
+	Mon, 18 Jan 2021 09:03:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F13417F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610957065;
-	bh=EJxhoyEmSaqCRdcWrU1VnsIyeaqiRGWrmIGfOsH/p8A=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1610957076;
+	bh=frkx990uiPqLk3CW/JmtkCy//HVLlEh4b0LtVFu+k8s=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=MFOLAVemogj80+KvDPhf487+Vc613mKiXxEpsbSTZzHGGj73fno5gT5tNLdplB0Bk
-	 vSx17MGM69q15bSVh7LMTxP+gHXlOkgk4XmCEA5ho1M4MDxMBs3Zka0Zkp8vO2vZhy
-	 zek7a3MwI24MuxVGTzPb89SfOhXYBVw/hl2CcRbU=
+	b=u3QRzucVwkWrGXSUDfIzbS7xG9Sh+BAnVXfMBQ5YjOFN2fBdf2mU267jYnbXlutBY
+	 Y5XJEQ1Vhg8HLsBkPESd5ULrqhL3CIIVdB2Kjud9tnwDejOkcCI9VXs8koTYGEs15d
+	 XvaGEV6NP/WDleenY8tlNTEEpXtlIelZd5ZSCoBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50B9BF80166;
+	by alsa1.perex.cz (Postfix) with ESMTP id EF5CEF8026B;
 	Mon, 18 Jan 2021 09:02:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF4C1F801ED; Fri, 15 Jan 2021 04:15:26 +0100 (CET)
+ id 5F2B8F801ED; Fri, 15 Jan 2021 09:48:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9D4CF80132
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 04:15:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D4CF80132
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=canonical.com) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kaichuan.hsieh@canonical.com>)
- id 1l0Fa1-0004Zi-VE; Fri, 15 Jan 2021 03:15:18 +0000
-From: Kai-Chuan Hsieh <kaichuan.hsieh@canonical.com>
-To: alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com,
- guennadi.liakhovetski@linux.intel.com, kai.heng.feng@canonical.com,
- kai.vehmanen@linux.intel.com, rppt@kernel.org,
- linux-kernel@vger.kernel.org, kaichuan.hsieh@canonical.com
-Subject: [PATCH] ALSA: hda: Add Cometlake-R PCI ID
-Date: Fri, 15 Jan 2021 11:15:15 +0800
-Message-Id: <20210115031515.13100-1-kaichuan.hsieh@canonical.com>
-X-Mailer: git-send-email 2.27.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57705F80132
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 09:47:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57705F80132
+Received: by mail-io1-f72.google.com with SMTP id m3so13052980ioy.0
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 00:47:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=3ckr1Mfn/YY+HNQ+AHLOJlRAcQoosqzSNDPBWIcaTtY=;
+ b=ttB5ke4tQbFEfz3UsNzozp+AHnu/P7ut7Wn3VPj5hJac2PS/MsiDYsVho7YpDThnX7
+ CwdSIxLM3+YqCWPztGJBrzjEbvInFBBnWmXCdwGtjJIDHq1VYwfWQaWWsi255TMOMxK4
+ mReIKFlHwYyfGBBaIdXYAlmdfx8cXPN2lskhWrEHkCvoOqdEgGPupIHILqd+RAp20DV5
+ 5EqXSwfraBJGMYUpozD9/9sNjopjELQVIlSgjixFvRMdZ7LYRMbZ8qYIYUJ9TIgTg9T4
+ 5FGz2QxARi1913+4zqVJKEKyQwLAalwH1siJ44KkJ2LpoYdHC3d1Hzmw2fig8/RFCSuc
+ ui/A==
+X-Gm-Message-State: AOAM532zOTkv1EALc9dCGbDj52nzb3QDUM0EvfykiWEcZDyY7s1me9Pn
+ xTTXc6awoxg4d8ZJGFNtPxTvGSH156tkgxfi2yLXz1SQiuFm
+X-Google-Smtp-Source: ABdhPJzptic/hQVbC4RZn0b9E2+GUjLcLL/KforQ9fhnZiLUTe4Efxou5W3MviG+iKNFS8sgoZyos4sskWf5MPAbMMw7EJvRxuGo
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a6b:5018:: with SMTP id e24mr7746963iob.184.1610700445592; 
+ Fri, 15 Jan 2021 00:47:25 -0800 (PST)
+Date: Fri, 15 Jan 2021 00:47:25 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000e635df05b8ec6b6e@google.com>
+Subject: KMSAN: uninit-value in snd_seq_oss_synth_make_info (2)
+From: syzbot <syzbot+e42504ff21cff05a595f@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, glider@google.com, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, syzkaller-bugs@googlegroups.com, 
+ tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 18 Jan 2021 09:02:51 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -69,28 +81,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add HD Audio Device PCI ID for the Intel Cometlake-R platform
+Hello,
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Kai-Chuan Hsieh <kaichuan.hsieh@canonical.com>
+syzbot found the following issue on:
+
+HEAD commit:    73d62e81 kmsan: random: prevent boot-time reports in _mix_..
+git tree:       https://github.com/google/kmsan.git master
+console output: https://syzkaller.appspot.com/x/log.txt?x=10284200d00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2cdf4151c9653e32
+dashboard link: https://syzkaller.appspot.com/bug?extid=e42504ff21cff05a595f
+compiler:       clang version 11.0.0 (https://github.com/llvm/llvm-project.git ca2dcbd030eadbf0aa9b660efe864ff08af6e18b)
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e42504ff21cff05a595f@syzkaller.appspotmail.com
+
+=====================================================
+BUG: KMSAN: uninit-value in strlen lib/string.c:576 [inline]
+BUG: KMSAN: uninit-value in strlcpy+0x8c/0x1c0 lib/string.c:143
+CPU: 1 PID: 10203 Comm: syz-executor.3 Not tainted 5.10.0-rc4-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x21c/0x280 lib/dump_stack.c:118
+ kmsan_report+0xf7/0x1e0 mm/kmsan/kmsan_report.c:118
+ __msan_warning+0x5f/0xa0 mm/kmsan/kmsan_instr.c:197
+ strlen lib/string.c:576 [inline]
+ strlcpy+0x8c/0x1c0 lib/string.c:143
+ snd_seq_oss_synth_make_info+0x381/0x820 sound/core/seq/oss/seq_oss_synth.c:619
+ snd_seq_oss_synth_info_user sound/core/seq/oss/seq_oss_ioctl.c:24 [inline]
+ snd_seq_oss_ioctl+0x12b4/0x2530 sound/core/seq/oss/seq_oss_ioctl.c:139
+ odev_ioctl sound/core/seq/oss/seq_oss.c:180 [inline]
+ odev_ioctl_compat+0x247/0x290 sound/core/seq/oss/seq_oss.c:190
+ __do_compat_sys_ioctl fs/ioctl.c:842 [inline]
+ __se_compat_sys_ioctl+0x53d/0x1100 fs/ioctl.c:793
+ __ia32_compat_sys_ioctl+0x4a/0x70 fs/ioctl.c:793
+ do_syscall_32_irqs_on arch/x86/entry/common.c:80 [inline]
+ __do_fast_syscall_32+0x102/0x160 arch/x86/entry/common.c:139
+ do_fast_syscall_32+0x6a/0xc0 arch/x86/entry/common.c:162
+ do_SYSENTER_32+0x73/0x90 arch/x86/entry/common.c:205
+ entry_SYSENTER_compat_after_hwframe+0x4d/0x5c
+RIP: 0023:0xf7f8c549
+Code: b8 01 10 06 03 74 b4 01 10 07 03 74 b0 01 10 08 03 74 d8 01 00 00 00 00 00 00 00 00 00 00 00 00 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 eb 0d 90 90 90 90 90 90 90 90 90 90 90 90
+RSP: 002b:00000000f55860cc EFLAGS: 00000296 ORIG_RAX: 0000000000000036
+RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00000000c08c5114
+RDX: 0000000020000080 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+
+Local variable ----minf@snd_seq_oss_synth_make_info created at:
+ snd_seq_oss_synth_make_info+0x22a/0x820 sound/core/seq/oss/seq_oss_synth.c:613
+ snd_seq_oss_synth_make_info+0x22a/0x820 sound/core/seq/oss/seq_oss_synth.c:613
+=====================================================
+
+
 ---
- sound/pci/hda/hda_intel.c | 3 +++
- 1 file changed, 3 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 83a4a6290070..313d2c9fb35d 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2482,6 +2482,9 @@ static const struct pci_device_id azx_ids[] = {
- 	/* CometLake-S */
- 	{ PCI_DEVICE(0x8086, 0xa3f0),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-+	/* CometLake-R */
-+	{ PCI_DEVICE(0x8086, 0xf0c8),
-+	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
- 	/* Icelake */
- 	{ PCI_DEVICE(0x8086, 0x34c8),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
--- 
-2.25.1
-
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

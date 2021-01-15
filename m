@@ -2,98 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6D62F714A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 04:58:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B0B2F71BD
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 05:53:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D012716EA;
-	Fri, 15 Jan 2021 04:57:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D012716EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CB0416EC;
+	Fri, 15 Jan 2021 05:52:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CB0416EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610683093;
-	bh=qdi3vD2CGT5FgFeWhai8/Cdz2N85nV76880A3F5cN3w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1610686421;
+	bh=gGtQgC0tOpKKKSXU+fWc/xeeVXHLD1Oj6EXZCEUpBLc=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YmsxS8VvjM/aV7e6JnMjfxvpsmGDiNW4gfi/EnQDDA4AnP/MNEDJPyMSU2ceAm0vM
-	 u+zMzrwSvTHCO5qfVOs52Xe3993+feSzdYx31pfeUZJKzdOyZn0zxGlcRUvmVwOW90
-	 AQGdethIRw9RKVkg11JP/wn8PDytTi9LaMqGgAac=
+	b=FxIqw2iVnoKsUVWZcgZPl6c1frsktPLakMn4HhD5UG879wj7TLf5uGJ2bKNogM/L6
+	 Fy40OjT5enzd4oeIokZLVyY+ufFRTeu4KXeKUALJiOI7ShU2YBJOB5JuJ5AsdAn1Ze
+	 WOT7VHxjPgdHWPm4j2OA3BEYN8g44+CIWMTVRdEw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C93AF80113;
-	Fri, 15 Jan 2021 04:56:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1EDCF80254;
+	Fri, 15 Jan 2021 05:52:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 810D0F801ED; Fri, 15 Jan 2021 04:56:37 +0100 (CET)
+ id 17B98F801ED; Fri, 15 Jan 2021 05:52:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAED4F80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 04:56:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAED4F80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="WMoXVE7a"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Z4385neT"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4FBC15C00C6;
- Thu, 14 Jan 2021 22:56:28 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 14 Jan 2021 22:56:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=nZ5U2VXhrdG9UY+UIVhPFqerdo
- akNxOHCRVsnHjs3Cc=; b=WMoXVE7a4P2u5qP5piOIFjV/W4LwMfybrBXBY5z2Ld
- GlH6BbzCrzJ3eiapotn4AehRTCEiIxIiNFevLYQoWljjSDa9/XiKK3ytptqH/qjh
- Ryh085aS2aUaSA1PmaVcC8FYSq4Q+ynYjGtSebmiCr0xcNWH2qN3jY40B1FYlAVH
- +MV0qrkFsGIPfzO5pEr4xozlMh6z/8DXJ8J1tIAyCGsEAhXjKCY5JwTqR/1E2lqo
- qcitsARimPG084Rx70Sgt87J170fF/w3dwa2DRs4Un7frCXTse5DokqN6vGHMTC0
- J3ZP+8znjl+XjQFuxoFP/H3YkWDOi0l2fpnQsmCXp6/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nZ5U2VXhrdG9UY+UI
- VhPFqerdoakNxOHCRVsnHjs3Cc=; b=Z4385neTecSRaKFXMfu4DQMzhqeEpMagc
- zMvlA9/Z6jiXVVFK2+lqAVeFf5Vs74jPveZQt6AQBd6rSOdcl/Fc3B2xt5xdHe35
- yl/yItBC8ocIuSKwoH3fu3dNLf3bSuHRMJN4yReRvOCoHRlclIrp/XnHpN8U+sZw
- SkIEiFZQtpwZ4TXrlIBrOqdAdKpXmedoxBsVSR4+fdoJK/Xnxq5qXhTAmnJQsCn9
- x8DiYjn21qoWWug2K6iEeQ77Q3QPr4E9V079dE+WPj2epd98ecC3JLbUluEIgePc
- 3usdzFkDVzTtDS8d8p/DwlXk6wBG2HD6tqUPP0KIV6PefGZS/Kv6g==
-X-ME-Sender: <xms:axIBYFnIcnLDHmnRK_bWd0jYkW6OVDqf-nOuRANsE0asBDDOd8zcsw>
- <xme:axIBYA1g4QImyVaWHfTzk_uOEBMiRr-zg3EN3GCKDyh7e1Z9Pw40Ku-TzeqK1mZJn
- Zwq5NcfiBGUK6LKVss>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrtddugdeigecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtddtke
- fgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucfkphepuddukedrvdeg
- fedrjeekrdehkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
- hrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:axIBYLrrnX-mblDQD_1mMd5s1cqZfZmd3DLJcMnOFd7jte1nsCOMUA>
- <xmx:axIBYFnmYRhlbgIyAMJUm4k1WUCk8p3Dgb-st5CV8woPBc_JKKcT8g>
- <xmx:axIBYD3O8hqScsJJEzL_MXQw4l-VI17C8MBCQyl90g10TQa8nZquog>
- <xmx:bBIBYA8G80hZwFiQCLZT7-yXAYhKlxVM_VT94JbfrX7cy2_E_ny0gg>
-Received: from workstation.flets-east.jp (y078058.dynamic.ppp.asahi-net.or.jp
- [118.243.78.58])
- by mail.messagingengine.com (Postfix) with ESMTPA id 665551080067;
- Thu, 14 Jan 2021 22:56:26 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: dice: add support for Lexicon I-ONIX FW810s
-Date: Fri, 15 Jan 2021 12:56:23 +0900
-Message-Id: <20210115035623.148580-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+X-Spam-Status: No, score=0.8 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7CB34F80113
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:52:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CB34F80113
+Date: 15 Jan 2021 13:51:56 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080173"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:51:56 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6359C41A3B04;
+ Fri, 15 Jan 2021 13:51:56 +0900 (JST)
+Message-ID: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/44] ASoC: sync parameter naming : rate / sample_bits
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,172 +64,217 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I-ONIX FW810s was shipped in Lexicon brand of HARMAN International
-industries, Inc 2009. The model uses TCD2220 ASIC as its communication
-engine. TCAT general protocol is supported, its extension isn't.
 
-This patch adds support for the model with hard-coded stream formats.
+Hi Mark
 
-$ python3 ~/git/linux-firewire-utils/src/crpp < /sys/bus/firewire/devices/fw1/config_rom
-               ROM header and bus information block
-               -----------------------------------------------------------------
-400  04042b91  bus_info_length 4, crc_length 4, crc 11153
-404  31333934  bus_name "1394"
-408  e0008102  irmc 1, cmc 1, isc 1, bmc 0, cyc_clk_acc 0, max_rec 8 (512)
-40c  000fd720  company_id 000fd7     |
-410  007d7ecf  device_id 20007d7ecf  | EUI-64 000fd720007d7ecf
+snd_pcm_runtime / snd_soc_dai / snd_soc_dai_driver / snd_soc_dai_link
+have related parameter which is similar but not same naming.
 
-               root directory
-               -----------------------------------------------------------------
-414  00064c2d  directory_length 6, crc 19501
-418  03000fd7  vendor
-41c  8100000a  --> descriptor leaf at 444
-420  17000001  model
-424  8100000d  --> descriptor leaf at 458
-428  0c0087c0  node capabilities per IEEE 1394
-42c  d1000001  --> unit directory at 430
+	struct snd_pcm_runtime {
+		...
+(A)		unsigned int rate;
+		...
+(B)		unsigned int sample_bits;
+		...
+	};
 
-               unit directory at 430
-               -----------------------------------------------------------------
-430  000438f2  directory_length 4, crc 14578
-434  12000fd7  specifier id
-438  13000001  version
-43c  17000001  model
-440  8100000d  --> descriptor leaf at 474
+	struct snd_soc_dai {
+		...
+(A)		unsigned int rate;
+(B)		unsigned int sample_bits;
+		...
+	};
 
-               descriptor leaf at 444
-               -----------------------------------------------------------------
-444  000489d5  leaf_length 4, crc 35285
-448  00000000  textual descriptor
-44c  00000000  minimal ASCII
-450  4c657869  "Lexi"
-454  636f6e00  "con"
+	struct snd_soc_dai_driver {
+		...
+(A)		unsigned int symmetric_rates:1;
+(B)		unsigned int symmetric_samplebits:1;
+		...
+	};
 
-               descriptor leaf at 458
-               -----------------------------------------------------------------
-458  0006594b  leaf_length 6, crc 22859
-45c  00000000  textual descriptor
-460  00000000  minimal ASCII
-464  492d4f4e  "I-ON"
-468  49585f46  "IX_F"
-46c  57383130  "W810"
-470  53000000  "S"
+	struct snd_soc_dai_link {
+		...
+(A)		unsigned int symmetric_rates:1;
+(B)		unsigned int symmetric_samplebits:1;
+		...
+	};
 
-               descriptor leaf at 474
-               -----------------------------------------------------------------
-474  0006594b  leaf_length 6, crc 22859
-478  00000000  textual descriptor
-47c  00000000  minimal ASCII
-480  492d4f4e  "I-ON"
-484  49585f46  "IX_F"
-488  57383130  "W810"
-48c  53000000  "S"
+Because it is similar but not same naming rule,
+code can be verbose / can't share macro.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/dice/Makefile      |  3 ++-
- sound/firewire/dice/dice-harman.c | 26 ++++++++++++++++++++++++++
- sound/firewire/dice/dice.c        | 12 ++++++++++++
- sound/firewire/dice/dice.h        |  1 +
- 4 files changed, 41 insertions(+), 1 deletion(-)
- create mode 100644 sound/firewire/dice/dice-harman.c
+This patch-set sync naming rule
+to struct snd_pcm_runtime base.
 
-diff --git a/sound/firewire/dice/Makefile b/sound/firewire/dice/Makefile
-index 7a62dafd0f78..9bf7b960a720 100644
---- a/sound/firewire/dice/Makefile
-+++ b/sound/firewire/dice/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- snd-dice-objs := dice-transaction.o dice-stream.o dice-proc.o dice-midi.o \
- 		 dice-pcm.o dice-hwdep.o dice.o dice-tcelectronic.o \
--		 dice-alesis.o dice-extension.o dice-mytek.o dice-presonus.o
-+		 dice-alesis.o dice-extension.o dice-mytek.o dice-presonus.o \
-+		 dice-harman.o
- obj-$(CONFIG_SND_DICE) += snd-dice.o
-diff --git a/sound/firewire/dice/dice-harman.c b/sound/firewire/dice/dice-harman.c
-new file mode 100644
-index 000000000000..a8ca00c397e8
---- /dev/null
-+++ b/sound/firewire/dice/dice-harman.c
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// dice-harman.c - a part of driver for DICE based devices
-+//
-+// Copyright (c) 2021 Takashi Sakamoto
-+//
-+// Licensed under the terms of the GNU General Public License, version 2.
-+
-+#include "dice.h"
-+
-+int snd_dice_detect_harman_formats(struct snd_dice *dice)
-+{
-+	int i;
-+
-+	// Lexicon I-ONYX FW810s supports sampling transfer frequency up to
-+	// 96.0 kHz, 12 PCM channels and 1 MIDI channel in its first tx stream
-+	// , 10 PCM channels and 1 MIDI channel in its first rx stream for all
-+	// of the frequencies.
-+	for (i = 0; i < 2; ++i) {
-+		dice->tx_pcm_chs[0][i] = 12;
-+		dice->tx_midi_ports[0] = 1;
-+		dice->rx_pcm_chs[0][i] = 10;
-+		dice->rx_midi_ports[0] = 1;
-+	}
-+
-+	return 0;
-+}
-diff --git a/sound/firewire/dice/dice.c b/sound/firewire/dice/dice.c
-index 06c94f009dfb..107a81691f0e 100644
---- a/sound/firewire/dice/dice.c
-+++ b/sound/firewire/dice/dice.c
-@@ -20,10 +20,12 @@ MODULE_LICENSE("GPL v2");
- #define OUI_MYTEK		0x001ee8
- #define OUI_SSL			0x0050c2	// Actually ID reserved by IEEE.
- #define OUI_PRESONUS		0x000a92
-+#define OUI_HARMAN		0x000fd7
- 
- #define DICE_CATEGORY_ID	0x04
- #define WEISS_CATEGORY_ID	0x00
- #define LOUD_CATEGORY_ID	0x10
-+#define HARMAN_CATEGORY_ID	0x20
- 
- #define MODEL_ALESIS_IO_BOTH	0x000001
- 
-@@ -56,6 +58,8 @@ static int check_dice_category(struct fw_unit *unit)
- 		category = WEISS_CATEGORY_ID;
- 	else if (vendor == OUI_LOUD)
- 		category = LOUD_CATEGORY_ID;
-+	else if (vendor == OUI_HARMAN)
-+		category = HARMAN_CATEGORY_ID;
- 	else
- 		category = DICE_CATEGORY_ID;
- 	if (device->config_rom[3] != ((vendor << 8) | category) ||
-@@ -388,6 +392,14 @@ static const struct ieee1394_device_id dice_id_table[] = {
- 		.model_id	= 0x000008,
- 		.driver_data	= (kernel_ulong_t)snd_dice_detect_presonus_formats,
- 	},
-+	// Lexicon I-ONYX FW810S.
-+	{
-+		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
-+				  IEEE1394_MATCH_MODEL_ID,
-+		.vendor_id	= OUI_HARMAN,
-+		.model_id	= 0x000001,
-+		.driver_data	= (kernel_ulong_t)snd_dice_detect_harman_formats,
-+	},
- 	{
- 		.match_flags = IEEE1394_MATCH_VERSION,
- 		.version     = DICE_INTERFACE,
-diff --git a/sound/firewire/dice/dice.h b/sound/firewire/dice/dice.h
-index 7fbffcab94c2..adc6f7c84460 100644
---- a/sound/firewire/dice/dice.h
-+++ b/sound/firewire/dice/dice.h
-@@ -233,5 +233,6 @@ int snd_dice_detect_alesis_mastercontrol_formats(struct snd_dice *dice);
- int snd_dice_detect_extension_formats(struct snd_dice *dice);
- int snd_dice_detect_mytek_formats(struct snd_dice *dice);
- int snd_dice_detect_presonus_formats(struct snd_dice *dice);
-+int snd_dice_detect_harman_formats(struct snd_dice *dice);
- 
- #endif
+	- xxx_rates;
+	+ xxx_rate;
+
+	- xxx_samplebits;
+	+ xxx_sample_bits;
+
+Kuninori Morimoto (44):
+  ASoC: soc-pcm: revert soc_pcm_apply_symmetry()
+  ASoC: sync parameter naming : rate / sample_bits
+  ASoC: adi: sync parameter naming (rate/sample_bits)
+  ASoC: atmel: sync parameter naming (rate/sample_bits)
+  ASoC: au1x: sync parameter naming (rate/sample_bits)
+  ASoC: bcm: sync parameter naming (rate/sample_bits)
+  ASoC: cirrus: sync parameter naming (rate/sample_bits)
+  ASoC: tegra: sync parameter naming (rate/sample_bits)
+  ASoC: rockchip: sync parameter naming (rate/sample_bits)
+  ASoC: samsung: sync parameter naming (rate/sample_bits)
+  ASoC: sh: sync parameter naming (rate/sample_bits)
+  ASoC: ti: sync parameter naming (rate/sample_bits)
+  ASoC: pxa: sync parameter naming (rate/sample_bits)
+  ASoC: mediatek: sync parameter naming (rate/sample_bits)
+  ASoC: fsl: sync parameter naming (rate/sample_bits)
+  ASoC: wm*: sync parameter naming (rate/sample_bits)
+  ASoC: tlv*: sync parameter naming (rate/sample_bits)
+  ASoC: rt*: sync parameter naming (rate/sample_bits)
+  ASoC: nau*: sync parameter naming (rate/sample_bits)
+  ASoC: tas*: sync parameter naming (rate/sample_bits)
+  ASoC: da*: sync parameter naming (rate/sample_bits)
+  ASoC: es*: sync parameter naming (rate/sample_bits)
+  ASoC: max*: sync parameter naming (rate/sample_bits)
+  ASoC: cs*: sync parameter naming (rate/sample_bits)
+  ASoC: tscs*: sync parameter naming (rate/sample_bits)
+  ASoC: ak*: sync parameter naming (rate/sample_bits)
+  ASoC: adau*: sync parameter naming (rate/sample_bits)
+  ASoC: jz4740: sync parameter naming (rate/sample_bits)
+  ASoC: sunxi: sync parameter naming (rate/sample_bits)
+  ASoC: zl38060: sync parameter naming (rate/sample_bits)
+  ASoC: ssm2602: sync parameter naming (rate/sample_bits)
+  ASoC: sgtl5000: sync parameter naming (rate/sample_bits)
+  ASoC: mc13783: sync parameter naming (rate/sample_bits)
+  ASoC: mt6660: sync parameter naming (rate/sample_bits)
+  ASoC: lochnagar-sc: sync parameter naming (rate/sample_bits)
+  ASoC: ab8500: sync parameter naming (rate/sample_bits)
+  ASoC: alc5632: sync parameter naming (rate/sample_bits)
+  ASoC: cx2072x: sync parameter naming (rate/sample_bits)
+  ASoC: inno_rk3036: sync parameter naming (rate/sample_bits)
+  ASoC: lm49453: sync parameter naming (rate/sample_bits)
+  ASoC: ml26124: sync parameter naming (rate/sample_bits)
+  ASoC: soc-dai.h: remove symmetric_rates/samplebits
+  ASoC: soc-pcm: cleanup soc_pcm_apply_symmetry()
+  ASoC: soc-pcm: cleanup soc_pcm_params_symmetry()
+
+ include/sound/soc-dai.h                    |  4 +-
+ include/sound/soc.h                        |  4 +-
+ sound/soc/adi/axi-i2s.c                    |  2 +-
+ sound/soc/atmel/atmel-i2s.c                |  2 +-
+ sound/soc/atmel/mchp-i2s-mcc.c             |  4 +-
+ sound/soc/au1x/i2sc.c                      |  2 +-
+ sound/soc/bcm/bcm2835-i2s.c                |  4 +-
+ sound/soc/bcm/bcm63xx-i2s-whistler.c       |  2 +-
+ sound/soc/cirrus/ep93xx-i2s.c              |  2 +-
+ sound/soc/codecs/ab8500-codec.c            |  4 +-
+ sound/soc/codecs/adau1372.c                |  2 +-
+ sound/soc/codecs/adau1373.c                |  6 +-
+ sound/soc/codecs/adau1701.c                |  2 +-
+ sound/soc/codecs/ak4554.c                  |  2 +-
+ sound/soc/codecs/ak4613.c                  |  2 +-
+ sound/soc/codecs/ak4641.c                  |  4 +-
+ sound/soc/codecs/ak4642.c                  |  2 +-
+ sound/soc/codecs/alc5632.c                 |  2 +-
+ sound/soc/codecs/cs35l32.c                 |  2 +-
+ sound/soc/codecs/cs35l33.c                 |  2 +-
+ sound/soc/codecs/cs35l34.c                 |  2 +-
+ sound/soc/codecs/cs35l35.c                 |  2 +-
+ sound/soc/codecs/cs35l36.c                 |  2 +-
+ sound/soc/codecs/cs4234.c                  |  2 +-
+ sound/soc/codecs/cs4271.c                  |  2 +-
+ sound/soc/codecs/cs42l73.c                 |  6 +-
+ sound/soc/codecs/cs43130.c                 |  6 +-
+ sound/soc/codecs/cs4341.c                  |  2 +-
+ sound/soc/codecs/cs4349.c                  |  2 +-
+ sound/soc/codecs/cs47l15.c                 | 12 ++--
+ sound/soc/codecs/cs47l24.c                 | 12 ++--
+ sound/soc/codecs/cs47l35.c                 | 12 ++--
+ sound/soc/codecs/cs47l85.c                 | 16 ++---
+ sound/soc/codecs/cs47l90.c                 | 16 ++---
+ sound/soc/codecs/cs47l92.c                 | 12 ++--
+ sound/soc/codecs/cs53l30.c                 |  2 +-
+ sound/soc/codecs/cx2072x.c                 |  2 +-
+ sound/soc/codecs/da7210.c                  |  2 +-
+ sound/soc/codecs/da7213.c                  |  2 +-
+ sound/soc/codecs/da7218.c                  |  4 +-
+ sound/soc/codecs/da7219.c                  |  4 +-
+ sound/soc/codecs/da9055.c                  |  2 +-
+ sound/soc/codecs/es8316.c                  |  2 +-
+ sound/soc/codecs/es8328.c                  |  2 +-
+ sound/soc/codecs/inno_rk3036.c             |  2 +-
+ sound/soc/codecs/jz4740.c                  |  2 +-
+ sound/soc/codecs/lm49453.c                 |  2 +-
+ sound/soc/codecs/lochnagar-sc.c            | 12 ++--
+ sound/soc/codecs/max9860.c                 |  2 +-
+ sound/soc/codecs/max9867.c                 |  2 +-
+ sound/soc/codecs/mc13783.c                 |  2 +-
+ sound/soc/codecs/ml26124.c                 |  2 +-
+ sound/soc/codecs/mt6660.c                  |  4 +-
+ sound/soc/codecs/nau8810.c                 |  2 +-
+ sound/soc/codecs/nau8822.c                 |  2 +-
+ sound/soc/codecs/rt274.c                   |  2 +-
+ sound/soc/codecs/rt286.c                   |  4 +-
+ sound/soc/codecs/rt298.c                   |  4 +-
+ sound/soc/codecs/rt5670.c                  |  4 +-
+ sound/soc/codecs/sgtl5000.c                |  2 +-
+ sound/soc/codecs/ssm2602.c                 |  4 +-
+ sound/soc/codecs/tas2764.c                 |  2 +-
+ sound/soc/codecs/tas2770.c                 |  2 +-
+ sound/soc/codecs/tlv320adcx140.c           |  2 +-
+ sound/soc/codecs/tlv320aic31xx.c           |  4 +-
+ sound/soc/codecs/tlv320aic32x4.c           |  2 +-
+ sound/soc/codecs/tlv320aic3x.c             |  2 +-
+ sound/soc/codecs/tscs42xx.c                |  4 +-
+ sound/soc/codecs/tscs454.c                 | 12 ++--
+ sound/soc/codecs/wm5102.c                  | 12 ++--
+ sound/soc/codecs/wm5110.c                  | 12 ++--
+ sound/soc/codecs/wm8510.c                  |  2 +-
+ sound/soc/codecs/wm8731.c                  |  2 +-
+ sound/soc/codecs/wm8770.c                  |  2 +-
+ sound/soc/codecs/wm8804.c                  |  2 +-
+ sound/soc/codecs/wm8903.c                  |  2 +-
+ sound/soc/codecs/wm8904.c                  |  2 +-
+ sound/soc/codecs/wm8940.c                  |  2 +-
+ sound/soc/codecs/wm8960.c                  |  2 +-
+ sound/soc/codecs/wm8962.c                  |  2 +-
+ sound/soc/codecs/wm8974.c                  |  2 +-
+ sound/soc/codecs/wm8978.c                  |  2 +-
+ sound/soc/codecs/wm8983.c                  |  2 +-
+ sound/soc/codecs/wm8985.c                  |  2 +-
+ sound/soc/codecs/wm8988.c                  |  2 +-
+ sound/soc/codecs/wm8993.c                  |  2 +-
+ sound/soc/codecs/wm8994.c                  |  4 +-
+ sound/soc/codecs/wm8997.c                  |  8 +--
+ sound/soc/codecs/wm8998.c                  | 12 ++--
+ sound/soc/codecs/wm9713.c                  |  2 +-
+ sound/soc/codecs/zl38060.c                 |  4 +-
+ sound/soc/fsl/fsl_esai.c                   |  4 +-
+ sound/soc/fsl/fsl_sai.c                    |  8 +--
+ sound/soc/fsl/fsl_ssi.c                    |  4 +-
+ sound/soc/jz4740/jz4740-i2s.c              |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c | 10 +--
+ sound/soc/mediatek/mt6797/mt6797-dai-pcm.c |  8 +--
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c |  2 +-
+ sound/soc/mediatek/mt8183/mt8183-dai-pcm.c |  8 +--
+ sound/soc/mediatek/mt8192/mt8192-dai-pcm.c |  8 +--
+ sound/soc/pxa/pxa2xx-i2s.c                 |  2 +-
+ sound/soc/rockchip/rockchip_i2s.c          |  4 +-
+ sound/soc/rockchip/rockchip_pdm.c          |  2 +-
+ sound/soc/samsung/i2s.c                    |  2 +-
+ sound/soc/samsung/pcm.c                    |  2 +-
+ sound/soc/sh/rcar/core.c                   |  4 +-
+ sound/soc/soc-pcm.c                        | 80 +++++++---------------
+ sound/soc/soc-topology.c                   |  8 +--
+ sound/soc/sunxi/sun4i-i2s.c                |  2 +-
+ sound/soc/sunxi/sun8i-codec.c              | 12 ++--
+ sound/soc/tegra/tegra186_dspk.c            |  2 +-
+ sound/soc/tegra/tegra20_i2s.c              |  2 +-
+ sound/soc/tegra/tegra210_dmic.c            |  2 +-
+ sound/soc/tegra/tegra210_i2s.c             |  2 +-
+ sound/soc/tegra/tegra30_i2s.c              |  2 +-
+ sound/soc/ti/davinci-mcasp.c               |  2 +-
+ 116 files changed, 253 insertions(+), 283 deletions(-)
+
 -- 
-2.27.0
+2.25.1
 

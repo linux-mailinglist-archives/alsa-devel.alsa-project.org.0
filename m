@@ -2,99 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44BC02F7BA8
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 14:04:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3E12F7C42
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 14:14:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEBBB17AB;
-	Fri, 15 Jan 2021 14:03:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEBBB17AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 076F517AE;
+	Fri, 15 Jan 2021 14:13:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 076F517AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610715871;
-	bh=1sSmbT74MAWdX3F/HVg+EzumTjxaXJpTjyVPLaBS/XA=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1610716465;
+	bh=/pOnbiJh8C5AScCuERBndwrdoUImzTZwz+BjkazkJSk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WAnDSuB6S3MNkAOoATppP++oqXIRP/P9QGQIppkzVJNKuM7s0ba96wVhXaXqwyqR1
-	 4l4M5F37m6am+vidfewr+34Nqo4Z/gOF95G7mZ/4TscI4CnenwgtPsW2IpPSr7JQmM
-	 NBmY31kLkC8fgoLiyU4wXpdLK74S6ApibHsxcMjM=
+	b=GmboQ32ZMzozFQGIB4ykDmamzRZLjNxHwaN6O2tQRFLVZLxlLXE5ELUAVJL8kyaMF
+	 AMlcNrXPYSfweQBprAA86xy4ZMYwkK2yqcrx4XJvf7Utw7rPc8l/F2T1JkFsh3eJwL
+	 kG3JlxzfsjL5f82SMl/AZuEOxs+3TnVMI0XJOSfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4BD7F80254;
-	Fri, 15 Jan 2021 14:02:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 965DEF80113;
+	Fri, 15 Jan 2021 14:12:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6EE5F801ED; Fri, 15 Jan 2021 14:02:56 +0100 (CET)
+ id 8D5BEF801ED; Fri, 15 Jan 2021 14:12:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F6D2F80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 14:02:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F6D2F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A675F80132
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 14:12:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A675F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hucXtmX2"
-Received: by mail-lj1-x231.google.com with SMTP id m13so10237346ljo.11
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:02:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Ced3NxvYK3fUREKoo4RuGKO8nItMO6rbOL9yPMeNSOA=;
- b=hucXtmX2CLjSjXIeLSPOZ5kLbLG4UtSP8wR/Weha9hA+jClqCuD1CGIg1DAS4NAIVS
- 8b+lrciqxAGBr2MJnz5JrRaUc9cGb7AY9E+XRihDqQd/5EYG8xoJ5BJY9Dk4/u4OiEp5
- Udo5JPNQiHQbdP63KJGNhSvQ2pKNCvLiWshOj2XZjFk/73ulW9g5YglPv9n3KQhSd6fR
- GOtp9b/ALqb5L5zm+1ZTYylQeGnuAkanfAjdke63gsHywW70CWSr3eH76r8akVfzhLbw
- N5GHY8YaabL2Apmh50ZOKiMWw6zlZ/oG1djh1V3GSqJl3Of8/hBsww2uW7PuN/il7FUb
- 80jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Ced3NxvYK3fUREKoo4RuGKO8nItMO6rbOL9yPMeNSOA=;
- b=Ho/L+aoHq+Cjhhz0VSUnafAN3QwYH2bf7UaONxkJQpb4EE6vzBkV5wBnIP02Qxszv/
- 2TXsD4yq3u4hPm7e+9UyWVc+93wSOtF+gwyc9YCQyqfiP7VLYYwjz528Yu8Nqwv5MQou
- wTY9QL3a1mq2YwbVkuH6I/4JyjI7BKeXG7j4cm/LaqxW0tg3BAkLvau3ZhJI/r1cDO4J
- M0rzi1tK7FBXbVDxG7zBjxk88w/LP758w3K1c9ykcLxxTAVTJDC7gqvW7ds/aWLOwbh1
- t+ycOh/COH48nMoftoKB5H8nAHTu3Agr3pkPIUl89mdhRKY4GKlJVTCBDijbF4jKet2w
- JnmA==
-X-Gm-Message-State: AOAM530nNd7ic9pdevM7F5lxVoFjEI0XWd4S0tGvkNYDnymUxv4GNQ5p
- BgGe/zGNY6zeArCU0+CQFew=
-X-Google-Smtp-Source: ABdhPJy1VyYGCB2G9pvcPq97w0TzAlqZ2ViCpO83g6XVhyil0OoITD43h7+sCiO7pF/mO4Td/ZQ4wQ==
-X-Received: by 2002:a05:651c:1282:: with SMTP id
- 2mr5260045ljc.383.1610715771914; 
- Fri, 15 Jan 2021 05:02:51 -0800 (PST)
-Received: from [192.168.2.145] (109-252-192-57.dynamic.spd-mgts.ru.
- [109.252.192.57])
- by smtp.googlemail.com with ESMTPSA id z9sm892667lfs.183.2021.01.15.05.02.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Jan 2021 05:02:51 -0800 (PST)
-Subject: Re: [PATCH v1 5/5] ASoC: tegra: ahub: Reset hardware properly
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
- Peter Geis <pgwipeout@gmail.com>, Nicolas Chauvet <kwizart@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-References: <20210112125834.21545-1-digetx@gmail.com>
- <20210112125834.21545-6-digetx@gmail.com>
-Message-ID: <5d99eba8-a169-1dc1-c7ab-0734c67c50b7@gmail.com>
-Date: Fri, 15 Jan 2021 16:02:50 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.2
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="W1A9eyEe"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AC2D82256F;
+ Fri, 15 Jan 2021 13:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1610716337;
+ bh=/pOnbiJh8C5AScCuERBndwrdoUImzTZwz+BjkazkJSk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=W1A9eyEeghxG1xu1NXHmeM5jdKyYsMTWyjGjEPzU3Qt+zw820bLH01AR+pO3WHXlz
+ OPmNP8wlAovbpkvhjC5E1IriHEC7U+5sv45dDxR2t04sQVGzZ7OR4gg0lUb/hCxemR
+ QzGu52Bd9/Bq8BgZ4AEx8+44Tjxs66DH4dKM6ha3PWUjtITDHqXlV/q/qmQXL8PmqB
+ BLyjV7vXMmHlk37iFS7vTmGaS4sWhAlbR+eVRSY+207l5ljs1gdpeNjlMEUDWeXS8l
+ 80pY0mJomBDIgeuNWjZLgQO9k0eUS94e0BfxbQmCzV+5jJpYtDaJ1UCH4LBMSM6X3V
+ m2RP42hyRiDFg==
+Date: Fri, 15 Jan 2021 13:11:42 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH v4 2/6] dt-bindings: audio-graph-card: Add plls and
+ sysclks properties
+Message-ID: <20210115131142.GA4384@sirena.org.uk>
+References: <20210108160501.7638-1-rf@opensource.cirrus.com>
+ <20210108160501.7638-3-rf@opensource.cirrus.com>
+ <20210113152225.GA2334778@robh.at.kernel.org>
+ <20210113160917.GF4641@sirena.org.uk>
+ <ee3d0b75-dc2f-9994-19a4-a3c3f21a2c65@opensource.cirrus.com>
 MIME-Version: 1.0
-In-Reply-To: <20210112125834.21545-6-digetx@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LQksG6bCIzRHxTLp"
+Content-Disposition: inline
+In-Reply-To: <ee3d0b75-dc2f-9994-19a4-a3c3f21a2c65@opensource.cirrus.com>
+X-Cookie: Debug is human, de-fix divine.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
+ alsa-devel@alsa-project.org, f.fainelli@gmail.com,
+ kuninori.morimoto.gx@renesas.com, devicetree@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
+ nsaenzjulienne@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,44 +91,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-12.01.2021 15:58, Dmitry Osipenko пишет:
-> Assert hardware reset before clocks are enabled and then de-assert it
-> after clocks are enabled. This brings hardware into a predictable state
-> and removes relying on implicit de-assertion of resets which is done by
-> the clk driver.
-> 
-> Tested-by: Peter Geis <pgwipeout@gmail.com>
-> Tested-by: Nicolas Chauvet <kwizart@gmail.com>
-> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
-> ---
->  sound/soc/tegra/tegra30_ahub.c | 33 ++++++++++++++++-----------------
->  sound/soc/tegra/tegra30_ahub.h |  1 +
->  2 files changed, 17 insertions(+), 17 deletions(-)
-> 
-> diff --git a/sound/soc/tegra/tegra30_ahub.c b/sound/soc/tegra/tegra30_ahub.c
-> index 4dbb58f7ea36..246cf6a373a1 100644
-> --- a/sound/soc/tegra/tegra30_ahub.c
-> +++ b/sound/soc/tegra/tegra30_ahub.c
-> @@ -65,10 +65,20 @@ static int tegra30_ahub_runtime_resume(struct device *dev)
->  {
->  	int ret;
->  
-> +	ret = reset_control_assert(ahub->reset);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = clk_bulk_prepare_enable(ahub->nclocks, ahub->clocks);
->  	if (ret)
->  		return ret;
->  
-> +	ret = reset_control_reset(ahub->reset);
-> +	if (ret) {
-> +		clk_bulk_disable_unprepare(ahub->nclocks, ahub->clocks);
-> +		return ret;
-> +	}
-> +
->  	regcache_cache_only(ahub->regmap_apbif, false);
->  	regcache_cache_only(ahub->regmap_ahub, false);
 
-I just realized that this is incorrect version of the patch which misses
-the regcache syncing after the h/w reset. I'll make a v2.
+--LQksG6bCIzRHxTLp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jan 15, 2021 at 10:35:23AM +0000, Richard Fitzgerald wrote:
+> On 13/01/2021 16:09, Mark Brown wrote:
+> > On Wed, Jan 13, 2021 at 09:22:25AM -0600, Rob Herring wrote:
+
+> some_codec {
+> 	pll: pll {
+> 		compatible = "fixed-clock";
+> 		clocks = <&audio_mclk>;
+> 		clock-frequency = <98304000>;
+> 	}
+
+A PLL is not a fixed clock, why would you define a fixed clock here?
+Are you confusing the selection of rates on existing clocks with the use
+of the assigned-* properties that the clock binding provides?
+
+> For this to work the clock binding must be a real clock object (so needs
+> a valid compatible=). But I need to somehow specify the PLL ID and
+
+That seems like a *very* surprising requirement - why would the clock
+binding have that requirement?  It would seem to create issues for a
+single device providing multiple clocks which should be a pretty common
+coase.
+
+> > > > +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> > > > +    description: |
+> > > > +      A list of clock names giving the source clock for each setting
+> > > > +      in the sysclks property.
+> > > > +
+
+
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
+--LQksG6bCIzRHxTLp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmABlI0ACgkQJNaLcl1U
+h9Ad4wf+NpbjhW4qXIhAE/mkqs7cQ7UrZ5RbD3y9XQxnUyiF4huBFqAnfcKRy+RU
+Rbv5BkqxDJm6VcvlGqzZ9Uq16JOFFXNxN9ovQItAl5T0UkIksMm8WHxYWC34ckaq
+cOrgHsEUvFsgRO0SwwBSl/0Miyndfy5kdppsML2bxC3bu+h/P/BX0dsAen67aNbG
+LbhemYBmgjMIU41DtfaKHd9qtKULmX8OUgB4h2aaHOQP3pXVdSs0FhYYazqgRHZJ
+7rUqEG4zvt7sJ9AsSZllA95Nqg2KQ2LYAuugSVER+GIIoWtVoqjgeBwKkNnu2dYo
+4RzIeg4/17T68RY72c0AmwGDOkFVTg==
+=klrm
+-----END PGP SIGNATURE-----
+
+--LQksG6bCIzRHxTLp--

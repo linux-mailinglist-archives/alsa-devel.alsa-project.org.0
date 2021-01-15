@@ -2,59 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79BBC2F7248
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:39:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C222F7249
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:40:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A5D3179E;
-	Fri, 15 Jan 2021 06:38:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A5D3179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEB9E17AB;
+	Fri, 15 Jan 2021 06:39:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEB9E17AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610689179;
-	bh=7UUScoDG6HtTKK3D9RmvcMg+7AfbrVDSuUnfys/ewwA=;
+	s=default; t=1610689223;
+	bh=xDdaMpsrhypGgPrbwSWXy9SXsnGx822B3kjVDXEQaVc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gU4w7V99kqdst3oDBklzPRxUERp/1X9JRZat/a0Gd2gJDt4TZRzzqobLkqH6yET3J
-	 FZwQnl6SbPTM2XdnuktnkWYg2s8CG++K24L8z767M5atrfQxNgv675tDYcZwyllmI9
-	 4s6mI0uEkyUrwV1YbQ3xluKSo4oa+E/wOIpLwLCA=
+	b=V+t+HbgXtXM0MMGEII+7ZXeb++X1/FPDJ44OZnsxjrdmfIGDyfm72bLGzw1Q8r/3v
+	 +gI1eMSKPSoohGR7tByZUSwXRbaa0TqJinpFG2NpCrOWdR+Ba0/8zGaUTMd3QWhyBx
+	 h5mJv/cuSput8ULdVH7iu4YAEP8w/Far9vwrRWjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F7A5F8026B;
-	Fri, 15 Jan 2021 06:37:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06F2CF8026D;
+	Fri, 15 Jan 2021 06:38:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B90EF8029B; Fri, 15 Jan 2021 06:37:53 +0100 (CET)
+ id 952C0F8026D; Fri, 15 Jan 2021 06:37:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECA56F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 118ADF8016D
  for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 06:37:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECA56F80113
-IronPort-SDR: fKwTp407d9vPOf2ZOQjTrG+sIVsD9kQKEEOTl6I5DzU2gsFW3mPAFxIjItxdittHNAeNbbCwBA
- 9+s/clItMIvw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="240046281"
-X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="240046281"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 118ADF8016D
+IronPort-SDR: 4+Io7e8buTpH9+ypAYvZFZL+fzZ9ANCSBAsMK9KqATX9QaS4ZbFbLmE2+Ew5xYBqgrPJAiIDbv
+ MZU+5Jd9OP4A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="240046286"
+X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="240046286"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 21:37:41 -0800
-IronPort-SDR: g0hzGoynIz+FAkoIGrwwCuXmSbhF3yQ5TnAYMEaf90rJ3Vq1dBiWDddkCmaKD9z/u5JOLbAn9B
- P+deQjwnk49w==
-X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="382542427"
+ 14 Jan 2021 21:37:44 -0800
+IronPort-SDR: /GwyB3ZhDVFPjQQD538msaTKkPOXuHPagHUk6ZCzHmQjuFKgZq1raBT/Ab1QrxHrdW/lyUJA93
+ sccCqziEf4/Q==
+X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="382542441"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 21:37:38 -0800
+ 14 Jan 2021 21:37:41 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 1/5] soundwire: use consistent format for Slave devID logs
-Date: Fri, 15 Jan 2021 13:37:34 +0800
-Message-Id: <20210115053738.22630-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 2/5] soundwire: cadence: add status in dev_dbg 'State change'
+ log
+Date: Fri, 15 Jan 2021 13:37:35 +0800
+Message-Id: <20210115053738.22630-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210115053738.22630-1-yung-chuan.liao@linux.intel.com>
 References: <20210115053738.22630-1-yung-chuan.liao@linux.intel.com>
@@ -79,58 +80,91 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-We mix decimal and hexadecimal values, this leads to confusions in
-dmesg logs and bug reports. Let's add a 0x prefix for all hexadecimal
-values and a format when more than 4 bits are used.
+The existing debug log only mentions a state change, without providing
+any details. For integration and stress-tests, it's helpful to see in
+the dmesg log the reason for the state change.
+
+The value is intended for power users and isn't converted as
+human-readable values. But for the record each device has a 4-bit
+status:
+
+BIT(0): Unattached
+BIT(1): Attached
+BIT(2): Alert
+BIT(3): Reserved (should not happen)
+
+Example:
+
+[  121.891288] intel-sdw intel-sdw.0: Slave status change: 0x2
+
+<< this shows a Device0 Attached
+
+[  121.891295] soundwire sdw-master-0: Slave attached, programming device number
+[  121.891629] soundwire sdw-master-0: SDW Slave Addr: 30025d071101
+[  121.891632] soundwire sdw-master-0: SDW Slave class_id 1, part_id 711, mfg_id 25d, unique_id 0, version 3
+[  121.892011] intel-sdw intel-sdw.0: Msg ignored for Slave 0
+[  121.892013] soundwire sdw-master-0: No more devices to enumerate
+[  121.892200] intel-sdw intel-sdw.0: Slave status change: 0x21
+
+<< this shows the device now Attached as Device1 and Unattached as
+Device0, i.e. a successful enumeration.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/bus.c   |  5 ++---
- drivers/soundwire/slave.c | 10 ++++------
- 2 files changed, 6 insertions(+), 9 deletions(-)
+ drivers/soundwire/cadence_master.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index d1e8c3a54976..3cc006bfae71 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -679,9 +679,8 @@ void sdw_extract_slave_id(struct sdw_bus *bus,
- 	id->class_id = SDW_CLASS_ID(addr);
- 
- 	dev_dbg(bus->dev,
--		"SDW Slave class_id %x, part_id %x, mfg_id %x, unique_id %x, version %x\n",
--				id->class_id, id->part_id, id->mfg_id,
--				id->unique_id, id->sdw_version);
-+		"SDW Slave class_id 0x%02x, mfg_id 0x%04x, part_id 0x%04x, unique_id 0x%x, version 0x%x\n",
-+		id->class_id, id->mfg_id, id->part_id, id->unique_id, id->sdw_version);
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index 9fa55164354a..801e1fef59d8 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -734,21 +734,18 @@ static void cdns_read_response(struct sdw_cdns *cdns)
  }
  
- static int sdw_program_device_num(struct sdw_bus *bus)
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index a08f4081c1c4..180f38bd003b 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -163,15 +163,13 @@ int sdw_acpi_find_slaves(struct sdw_bus *bus)
+ static int cdns_update_slave_status(struct sdw_cdns *cdns,
+-				    u32 slave0, u32 slave1)
++				    u64 slave_intstat)
+ {
+ 	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
+ 	bool is_slave = false;
+-	u64 slave;
+ 	u32 mask;
+ 	int i, set_status;
  
- 			if (id.unique_id != id2.unique_id) {
- 				dev_dbg(bus->dev,
--					"Valid unique IDs %x %x for Slave mfg %x part %d\n",
--					id.unique_id, id2.unique_id,
--					id.mfg_id, id.part_id);
-+					"Valid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-+					id.unique_id, id2.unique_id, id.mfg_id, id.part_id);
- 				ignore_unique_id = false;
- 			} else {
- 				dev_err(bus->dev,
--					"Invalid unique IDs %x %x for Slave mfg %x part %d\n",
--					id.unique_id, id2.unique_id,
--					id.mfg_id, id.part_id);
-+					"Invalid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-+					id.unique_id, id2.unique_id, id.mfg_id, id.part_id);
- 				return -ENODEV;
- 			}
- 		}
+-	/* combine the two status */
+-	slave = ((u64)slave1 << 32) | slave0;
+ 	memset(status, 0, sizeof(status));
+ 
+ 	for (i = 0; i <= SDW_MAX_DEVICES; i++) {
+-		mask = (slave >> (i * CDNS_MCP_SLAVE_STATUS_NUM)) &
+-				CDNS_MCP_SLAVE_STATUS_BITS;
++		mask = (slave_intstat >> (i * CDNS_MCP_SLAVE_STATUS_NUM)) &
++			CDNS_MCP_SLAVE_STATUS_BITS;
+ 		if (!mask)
+ 			continue;
+ 
+@@ -918,13 +915,17 @@ static void cdns_update_slave_status_work(struct work_struct *work)
+ 	struct sdw_cdns *cdns =
+ 		container_of(work, struct sdw_cdns, work);
+ 	u32 slave0, slave1;
+-
+-	dev_dbg_ratelimited(cdns->dev, "Slave status change\n");
++	u64 slave_intstat;
+ 
+ 	slave0 = cdns_readl(cdns, CDNS_MCP_SLAVE_INTSTAT0);
+ 	slave1 = cdns_readl(cdns, CDNS_MCP_SLAVE_INTSTAT1);
+ 
+-	cdns_update_slave_status(cdns, slave0, slave1);
++	/* combine the two status */
++	slave_intstat = ((u64)slave1 << 32) | slave0;
++
++	dev_dbg_ratelimited(cdns->dev, "Slave status change: 0x%llx\n", slave_intstat);
++
++	cdns_update_slave_status(cdns, slave_intstat);
+ 	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT0, slave0);
+ 	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT1, slave1);
+ 
 -- 
 2.17.1
 

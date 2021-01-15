@@ -2,83 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD672F81A9
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 18:09:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B94942F81ED
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 18:17:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3046D1831;
-	Fri, 15 Jan 2021 18:09:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3046D1831
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C9D71835;
+	Fri, 15 Jan 2021 18:16:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C9D71835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610730594;
-	bh=TTxGRW3tiG7LwSjTKZStrgp68+J+/ZsXQqui4SyalIY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610731053;
+	bh=M0OpjfipidPeJSw4GU3ptiI9ejH/g6igSl7m+FaPmQo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J5/EdqU41aawxX5Rvb7QtS9wCqOJclwuMAlcW2GwXs71c2XHY4DROtTKCF4QZTS0K
-	 Ncqsl7SXr9XGFggZBWi/xI221uJwBldVaPxWA3Jqa/WEHqJkYoRtQ12/JzGufFVMyJ
-	 ZYHp2o1tRU5JRGAQxAUoRvtBzDVBm8MNvwM5NC2E=
+	b=oJxghQLy3tEMFcN1v2x0F1eg2hpRWTmyj+zEALDcOkXIkUkCkAoroqQoTwwOW1QwA
+	 5h4QQgWkYtyvaRWpibudwsUdJIRkIxxldDexlrJn8//S2rEVtmDqAB7GlfHuxVghIP
+	 4Fi0QyHEhtm4twdlJ8k17SyYFBrhREW7862R+ACg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D43AF8016D;
-	Fri, 15 Jan 2021 18:08:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6A5FF80113;
+	Fri, 15 Jan 2021 18:16:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8011F801ED; Fri, 15 Jan 2021 18:08:18 +0100 (CET)
+ id D3A44F801ED; Fri, 15 Jan 2021 18:15:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D11CFF80132
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 18:08:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D11CFF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8866AF80113
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 18:15:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8866AF80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Gj5MA1Qh"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 69460222B3;
- Fri, 15 Jan 2021 17:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610730491;
- bh=TTxGRW3tiG7LwSjTKZStrgp68+J+/ZsXQqui4SyalIY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Gj5MA1QhIl6mv38/JorSQaBuTdgK7JhRQ8W4zqkwTY2LHofctJYuQC/F7ATNbm3q7
- J4z7W/PZKj4xzlJ7DnKO8070MiSiVtC6o/vJbUPNn42rfa3iEJq5ZhcIum2t5RiRqG
- WZ0J28wSu6CQtFLrZnKxueolRqXU0WBQYtqzXc/wDVQuftGXwKsQlG2bttiSIik1UV
- DoKyndUiOV9u7prRSzT6D/ahQ3wRtTTkFaQutL1lc/URgSVKjkkm3AKdgsKON3GzpS
- uf2xyFYGeD06X3z0195kB3GOim7nUK8uRoXRyHLuJRGVVT7cCWcG+GtEI1YnYd6Anr
- GZfk7L3DWyYGg==
-Date: Fri, 15 Jan 2021 17:07:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Argus Lin <argus.lin@mediatek.com>
-Subject: Re: [PATCH 2/2] ASoC: mediatek: mt6359: add MT6359 accdet driver
-Message-ID: <20210115170737.GE4384@sirena.org.uk>
-References: <1609935546-11722-1-git-send-email-argus.lin@mediatek.com>
- <1609935546-11722-3-git-send-email-argus.lin@mediatek.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ybXuFlg5"
+Received: by mail-wr1-x432.google.com with SMTP id v15so6371409wrx.4
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 09:15:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=9cCon940OgqH9BwLEYIXgCLMcaubAFed3K6utIi7sn4=;
+ b=ybXuFlg5xOJA8Qyj/EPdVjUngATyknIqqS8x+xKRz61tH6pcWzcWgJhjjdqkIEiPab
+ EqJAxiekZhgDu1J2wFMwwPwfhvnnIzD+7nknMP2t5L+1lojyH+/a/0LjeDsxeQcXjrzo
+ HSm5u/7mtlXQAowOFibGa4cXGoDB99nRMHbQevbscJQuRxFhoIWy+qpbbLlPiCDcBbGO
+ HPW5VoErpvzmaf9r6A+7kA0hOZveTU+n6w390Yg1DiLC5ua+sgU8eNe3N9uevRhkGdXv
+ 32QxXwdwSVOne+omtdxahiss4wkKsS9nsyJn2U3uPhraz4fVcJ4IDDdImpA2wdtQWpV6
+ /Zuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9cCon940OgqH9BwLEYIXgCLMcaubAFed3K6utIi7sn4=;
+ b=k3twyepShhNA5K0h+6dNiFj4Qwu9BtSzznc7xZdsv9d5JVtUdRaa2qsOvff0F66BAk
+ 4Cq3ExHEAkTVQaQ1kudzTBUDrtbKenPIPOfJ9EkdAkMEdlcK1h0I9xr1GJJjM6HGQSMx
+ d/03ixdfq5YkJLMIH6bolV8ePXYB13Zv7njtdBpe9Z9jyB2oA3+Ctwad2czJfUQ8U5jk
+ +VqiHRF41Ii7UFvA/s3KWmzWCpV4UOR2sYiIxkOfxFhKeZ+ExKpUx2mQ9S+BHM0Ui20e
+ f/F1bpeXScUFB0aXj1XJhBS0PwNFb0wN5a4vvUMbs+BGcN/s5Soxv9bwjk+M8bwTB1J7
+ H1QA==
+X-Gm-Message-State: AOAM533kbaIJqx6R3zGlws3R5NGXAEa5eEef/n8flKSnhhBnIAPmLHA/
+ XxHjvyNCmRFC2GlxwUTz6J6XRQ==
+X-Google-Smtp-Source: ABdhPJxcQ1mE4zyYA5LEJeEViavgyfugxgIA9umC5TsMUOcOMv+byLRfOiRNcedKDu4aLvjpKVnzAA==
+X-Received: by 2002:adf:cc8f:: with SMTP id p15mr14312838wrj.199.1610730955351; 
+ Fri, 15 Jan 2021 09:15:55 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id f9sm17379246wrw.81.2021.01.15.09.15.53
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 15 Jan 2021 09:15:54 -0800 (PST)
+Subject: Re: [PATCH 1/2] ASoC: qcom: lpass: Fix hardcoded SC7810 DAI IDs
+To: Stephan Gerhold <stephan@gerhold.net>
+References: <20210114094615.58191-1-stephan@gerhold.net>
+ <68691a9f-f65d-da1a-a413-b624567ccc5f@linaro.org>
+ <YAHHtup8hgfdf1qm@gerhold.net>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <9349c21b-7cd3-3c7b-91a9-9bbf0d5c4f15@linaro.org>
+Date: Fri, 15 Jan 2021 17:15:53 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n+lFg1Zro7sl44OB"
-Content-Disposition: inline
-In-Reply-To: <1609935546-11722-3-git-send-email-argus.lin@mediatek.com>
-X-Cookie: Debug is human, de-fix divine.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Arnd Bergmann <arnd@arndb.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Tzung-Bi Shih <tzungbi@google.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, devicetree@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Chipeng Chang <chipeng.chang@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Dan Murphy <dmurphy@ti.com>,
- Shuming Fan <shumingf@realtek.com>, linux-arm-kernel@lists.infradead.org,
- Jack Yu <jack.yu@realtek.com>, "Shane.Chien" <shane.chien@mediatek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <YAHHtup8hgfdf1qm@gerhold.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,229 +110,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---n+lFg1Zro7sl44OB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Jan 06, 2021 at 08:19:06PM +0800, Argus Lin wrote:
-> MT6359 audio codec support accessory detect features, adds MT6359
-> accdet driver to support plug detection and key detection.
+On 15/01/2021 16:49, Stephan Gerhold wrote:
+> Right now it declares just a single DAI, but multiple "ports":
+> 
+> enum lpaif_i2s_ports {
+> 	IPQ806X_LPAIF_I2S_PORT_CODEC_SPK,
+> 	IPQ806X_LPAIF_I2S_PORT_CODEC_MIC,
+> 	IPQ806X_LPAIF_I2S_PORT_SEC_SPK,
+> 	IPQ806X_LPAIF_I2S_PORT_SEC_MIC,
+> 	IPQ806X_LPAIF_I2S_PORT_MI2S,
+> };
+> 
+> static struct snd_soc_dai_driver ipq806x_lpass_cpu_dai_driver = {
+> 	.id	= IPQ806X_LPAIF_I2S_PORT_MI2S,
+> 	/* ... */
+> };
+> 
+> I suppose we could just declare this as MI2S_PRIMARY but not sure if
+> that is accurate. Do you have more information about this platform?
 
-> ---
->  sound/soc/codecs/Kconfig         |    7 +
->  sound/soc/codecs/Makefile        |    2 +
->  sound/soc/codecs/mt6359-accdet.c | 1951 ++++++++++++++++++++++++++++++++++++++
->  sound/soc/codecs/mt6359-accdet.h |  136 +++
->  sound/soc/codecs/mt6359.h        | 1863 +++++++++++++++++++++++++++++++++---
+Looking at the specs it does show that it has 0-4 total 5 I2S 
+interfaces, however Am unable to find a  proper name similar to other MI2S.
+This one is the last one (4)!
 
-This driver is *huge*.  Looking through the code it feels like there's a
-lot of things that are written with mostly duplicated code that differs
-only in data so you could shrink things down a lot by refactoring things
-to have one copy of the code and pass different data into it.
 
->  	  Enable support for the platform which uses MT6359 as
->  	  external codec device.
-> +config SND_SOC_MT6359_ACCDET
-
-Missing blank line here.
-
-> +++ b/sound/soc/codecs/mt6359-accdet.c
-> @@ -0,0 +1,1951 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2021 MediaTek Inc.
-
-Please make the entire comment a C++ one so things look more
-intentional.
-
-> +#include "mt6359-accdet.h"
-> +#include "mt6359.h"
-> +/* grobal variable definitions */
-
-Spelling mistake and you need more blank lines here.
-
-> +#define REGISTER_VAL(x)	((x) - 1)
-> +#define HAS_CAP(_c, _x)	\
-> +	({typeof(_c)c = (_c); \
-> +	typeof(_x)x = (_x); \
-> +	(((c) & (x)) == (x)); })
-
-These need namepsacing.
-
-> +static struct mt63xx_accdet_data *accdet;
-> +
-> +static struct head_dts_data accdet_dts;
-> +struct pwm_deb_settings *cust_pwm_deb;
-
-You'd need a *very* good reason to be using global data rather than
-storing anything in the device's driver data like most drivers.  There's
-extensive use of global data here, and lots of raw pr_ prints rather
-than dev_ prints as well - this doesn't look like how a Linux driver is
-supposed to be written.
-
-> +
-> +const struct of_device_id mt6359_accdet_of_match[] = {
-> +	{
-> +		.compatible = "mediatek,mt6359-accdet",
-> +		.data = &mt6359_accdet,
-
-Given that this is specific to a particular PMIC why does this need a
-compatible string?
-
-> +/* global function declaration */
-> +
-> +static u64 mt6359_accdet_get_current_time(void)
-> +{
-> +	return sched_clock();
-> +}
-
-It is probably best to remove this wrapper.
-
-> +static bool mt6359_accdet_timeout_ns(u64 start_time_ns, u64 timeout_time_ns)
-> +{
-> +	u64 cur_time = 0;
-> +	u64 elapse_time = 0;
-> +
-> +	/* get current tick, ns */
-> +	cur_time = mt6359_accdet_get_current_time();
-> +	if (cur_time < start_time_ns) {
-> +		start_time_ns = cur_time;
-> +		/* 400us */
-> +		timeout_time_ns = 400 * 1000;
-> +	}
-> +	elapse_time = cur_time - start_time_ns;
-> +
-> +	/* check if timeout */
-> +	if (timeout_time_ns <= elapse_time)
-> +		return false;
-> +
-> +	return true;
-> +}
-
-There must be a generic implementation of this already surely?
-
-> +static unsigned int check_key(unsigned int v)
-> +{
-
-This looks a lot like open coding of the functionality of the extcon
-adc_jack functionality.
-
-> +static void send_key_event(unsigned int keycode, unsigned int flag)
-> +{
-> +	int report = 0;
-> +
-> +	switch (keycode) {
-> +	case DW_KEY:
-> +		if (flag != 0)
-> +			report = SND_JACK_BTN_1;
-
-What does flag mean?  At the very least it needs renaming.
-
-> +static void send_status_event(unsigned int cable_type, unsigned int status)
-> +{
-> +	int report = 0;
-
-This is one of those places that looks like it could be code with
-different data passed in.
-
-> +
-> +	switch (cable_type) {
-> +	case HEADSET_NO_MIC:
-> +		if (status)
-> +			report = SND_JACK_HEADPHONE;
-> +		else
-> +			report = 0;
-> +		snd_soc_jack_report(&accdet->jack, report, SND_JACK_HEADPHONE);
-> +		/* when plug 4-pole out, if both AB=3 AB=0 happen,3-pole plug
-> +		 * in will be incorrectly reported, then 3-pole plug-out is
-> +		 * reported,if no mantory 4-pole plug-out, icon would be
-> +		 * visible.
-> +		 */
-> +		if (status == 0) {
-> +			report = 0;
-> +			snd_soc_jack_report(&accdet->jack, report, SND_JACK_MICROPHONE);
-> +		}
-> +		pr_info("accdet HEADPHONE(3-pole) %s\n",
-> +			status ? "PlugIn" : "PlugOut");
-
-You shouldn't be spamming the logs for normal events like this.
-
-> +	regmap_read(accdet->regmap, ACCDET_IRQ_ADDR, &val);
-> +	while (val & ACCDET_IRQ_MASK_SFT &&
-> +	       mt6359_accdet_timeout_ns(cur_time, ACCDET_TIME_OUT))
-> +		;
-
-This is open coding regmap_read_poll_timeout(), this pattern is repeated
-in several places.
-
-> +static inline void clear_accdet_eint(unsigned int eintid)
-> +{
-> +	if ((eintid & PMIC_EINT0) == PMIC_EINT0) {
-
-The == part is redundant here, and again this is another place where it
-feels like there's duplicated code that should be using data.  All this
-interrupt handling code is really extremely difficult to follow, there's
-*lots* of functions all open coding many individual register bits
-sometimes redundantly and it's very hard to follow what it's supposed to
-be doing.  I can't help but think that in addition to making things data
-driven writing more linear code without these abstraction layers would
-help a lot with comprehensibility.
-
-> +static irqreturn_t mtk_accdet_irq_handler_thread(int irq, void *data)
-> +{
-> +	accdet_irq_handle();
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-Why does this wrapper function exist - AFAICT it's just introducing a
-bug given that the called function is able to detect spurious interrupts
-but this unconditionally reports IRQ_HANDLED.
-
-> +int mt6359_accdet_init(struct snd_soc_component *component,
-> +		       struct snd_soc_card *card)
-> +{
-> +	int ret = 0;
-> +	struct mt63xx_accdet_data *priv =
-> +			snd_soc_card_get_drvdata(component->card);
-
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(mt6359_accdet_init);
-
-This is a weird interface, what's going on here?
-
-> +int mt6359_accdet_set_drvdata(struct snd_soc_card *card)
-> +{
-> +	snd_soc_card_set_drvdata(card, accdet);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(mt6359_accdet_set_drvdata);
-
-This is setting off *massive* alarm bells in that it seems to try to
-claim the card level driver data for this specific driver, again what's
-going on here?
-
-> +module_init(mt6359_accdet_soc_init);
-> +module_exit(mt6359_accdet_soc_exit);
-
-module_platform_driver()
-
---n+lFg1Zro7sl44OB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmABy9gACgkQJNaLcl1U
-h9DY/gf/fHBtIfQbXuCCr1+QvKa57mk9zIvrlJKMEtVByp+AvZkXaTLoyMIg1JcO
-4rAyQrhsqr3HcLdUVrzQqljjDGREnMvwZOUB9EeEnREwj+vtYm/ogs4ccXmpmCES
-tIhNW4JpGfVxCVhM0XfUz8s86Y7mo4bv0pDy6aZMop4p2wG4lZvOcdXDdqVFXVyG
-YkT3A7fNgJ5Hi7K3BGViNNLEvCjkXt6KmFjNTPpyc4zUXoOJNkqHv5gUn/NhW9Lv
-BYOuUVlwjlJC4SANqXz/5WYI0aux1tFpgnkASGWV1K7TyFyjzEJklB1vmGHE/e+6
-WDE6B01vYILmCPElPN8uHzwXEYzv6Q==
-=azMJ
------END PGP SIGNATURE-----
-
---n+lFg1Zro7sl44OB--
+--srini

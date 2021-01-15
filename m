@@ -2,82 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A2342F7F69
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 16:22:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B412F7F6F
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 16:23:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 892C717E3;
-	Fri, 15 Jan 2021 16:21:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892C717E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2676B17ED;
+	Fri, 15 Jan 2021 16:22:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2676B17ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610724149;
-	bh=7+nF2l9TtNjF6HXmyJWfi6x41zb59s8IRwjRZniglYs=;
+	s=default; t=1610724205;
+	bh=+PO7Z7h5SRWORBDsI4+WSffmCJdEXkbZUApHlXk33ho=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uGFnwiog53Lgnc25l46bE5gRThYe9rXoRStTrfIUceR5tKO82I1P6lprWs8mkBhlo
-	 QK6oc1ksStqYqOLsCKyEtSSpczKLxE/A7fFKxAgoZzl/IvL5JjV8b/UsMSvwCDCn1L
-	 uWBdVyZqu/fcyLzd1rZPIMtAjrWhh01QKPBZyoKk=
+	b=Ra4+UGpUIrD/EhXHRCE2qLF8zjiaY71VSQzqz+h1f52Z7iQ/crH7M+mNAmR1Lrc3D
+	 1ouy+uL7boVDSJxKkYvRaDMiqShhSCgNJpsZYJ4SYC9Fg0eiqUVai99oQkNTMKlwSv
+	 ddBLzFBhN+ImXMF1GebfmzxEwNWyhxGOYGAnI3qU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0900F80113;
-	Fri, 15 Jan 2021 16:20:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2915FF80254;
+	Fri, 15 Jan 2021 16:22:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C4A9F801ED; Fri, 15 Jan 2021 16:20:50 +0100 (CET)
+ id 778F5F80254; Fri, 15 Jan 2021 16:22:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=BIGNUM_EMAILS,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21BCCF80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 16:20:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21BCCF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id A01ADF80132
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 16:22:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A01ADF80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NT9bamE7"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7DF902389B;
- Fri, 15 Jan 2021 15:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610724039;
- bh=7+nF2l9TtNjF6HXmyJWfi6x41zb59s8IRwjRZniglYs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NT9bamE7cphEMa59UXgq5aSSmzjPkDxEc6wajUhyD3LeEwpPjmOVt/sWF4ok96KDQ
- T3Dk3yXadr5+L9Vd0GEO6pAifTTVFDCS3eRsSRXwYpVwSrjbO1SgNFxtATLJj1hxtH
- bpnqehb3VdtZiD0AUmhzD9RbzMogVTiqdvnZELwFLHGV4edteDE/mqXjFgbVkSeXM+
- RqV+pjw/G/YVXa2fsFhmTxBu/GGi0Vwzbif2d/CGPoOkUtMDB2ixyAMH2fIv6mLmNj
- zwr8AIuMdW2EPzHgbOoZkYlzBDhgwkDk4EnYTi0LwtG10eT1TAhIIDVECokl4999Mf
- Ti2rRgiuqeAsQ==
-Date: Fri, 15 Jan 2021 15:20:04 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH v4 2/6] dt-bindings: audio-graph-card: Add plls and
- sysclks properties
-Message-ID: <20210115152004.GD4384@sirena.org.uk>
-References: <20210108160501.7638-1-rf@opensource.cirrus.com>
- <20210108160501.7638-3-rf@opensource.cirrus.com>
- <20210113152225.GA2334778@robh.at.kernel.org>
- <20210113160917.GF4641@sirena.org.uk>
- <ee3d0b75-dc2f-9994-19a4-a3c3f21a2c65@opensource.cirrus.com>
- <20210115131142.GA4384@sirena.org.uk>
- <1ec5e5f4-f672-2c60-23a5-9d985b943379@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="utqjm9qz"
+Received: by mail-wr1-x42f.google.com with SMTP id y17so9641922wrr.10
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 07:22:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=Tnfm7gtEx0dAkvKQ5TuqitkxF+T0R813w6cmMs8GDJo=;
+ b=utqjm9qz9J3H29otHUpKGdu8lVrAt8+InF3X8ZZ/LGCQ0AV83RVue+M0xUaRGbiLXq
+ u0aTdRK8SX3cLjGzLe+CVUzoON1DTM8vSFJCljdw1DDF0+yNdx4Id5OgYn8K7NI6CEsM
+ 64JdJkwMlsrHUrcxzrF3CvrySSprZfrw+bl3X4ZBwthSVtWFeXRhY9b3+ejEwwJcutPv
+ B5udzGuwhebNP2LAawPaz0Xh5bqwOcikTQTKp12SKL/MGfHuXgjXYZUbXIu3ZH3OPCVH
+ +K/m3Iw618n5JXyp8mmkum8DktQ9U9I+Y3RDY2c+oQ7iFP4cXs1t5EP3WVa/5aHRwBxJ
+ d8PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=Tnfm7gtEx0dAkvKQ5TuqitkxF+T0R813w6cmMs8GDJo=;
+ b=nwyTagcTuYNmERrYgQx7dBlVUqdvEGh14UvM9bR28596vBE8EEr7WJRz82IiYym5LM
+ 3qlKDiS/UCvov2sH18Sy/wKhcX1t5qK9aX/RgpiVk7Snxkb4tbSFiBT/nxUwtNpb2sUI
+ kUkVGs6rSEcDmRtPe6D/ZLZtG7OokaEWkeSRgyPUnJMklzm430P7UKAyr5VZxUhVm804
+ 1lt/wjEiZ3vUoIATJKb1hjJQOjb6eg33bgUCO0VQR9UkvnK/CjCc1sLldeg06dUk1zzd
+ 82ghZodFx7x2eRjZ3SAjMoYW0XAXUTThiaSPoaSmtCJ2FXGYBC9bKWJuyyAkzuNI0YYF
+ ADWg==
+X-Gm-Message-State: AOAM533KN226/mXhSiiB/Pa3lNakC1mAA4REKfOJ9aLrPyWbD1axV4R0
+ hezDc2VCSluVyK7XhL/lZjg=
+X-Google-Smtp-Source: ABdhPJypwvseEG8WGwKHgyd9YL/CM33D3wv7YiExANdkO1CSjgs9Zmr28/I0ns+6zYRhg0NAKWT7Aw==
+X-Received: by 2002:a5d:5049:: with SMTP id h9mr14168287wrt.404.1610724135173; 
+ Fri, 15 Jan 2021 07:22:15 -0800 (PST)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id f9sm17020621wrw.81.2021.01.15.07.22.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Jan 2021 07:22:14 -0800 (PST)
+Date: Fri, 15 Jan 2021 16:22:12 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Re: [PATCH v1 1/5] ALSA: hda/tegra: Use clk_bulk helpers
+Message-ID: <YAGzJM7BJqLV0xxY@ulmo>
+References: <20210112125834.21545-1-digetx@gmail.com>
+ <20210112125834.21545-2-digetx@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YToU2i3Vx8H2dn7O"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="Au/hUgr6VFbvitZL"
 Content-Disposition: inline
-In-Reply-To: <1ec5e5f4-f672-2c60-23a5-9d985b943379@opensource.cirrus.com>
-X-Cookie: Debug is human, de-fix divine.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- alsa-devel@alsa-project.org, f.fainelli@gmail.com,
- kuninori.morimoto.gx@renesas.com, devicetree@vger.kernel.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- nsaenzjulienne@suse.de
+In-Reply-To: <20210112125834.21545-2-digetx@gmail.com>
+User-Agent: Mutt/2.0.4 (26f41dd1) (2020-12-30)
+Cc: alsa-devel@alsa-project.org, Nicolas Chauvet <kwizart@gmail.com>,
+ linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
+ Takashi Iwai <tiwai@suse.com>, Peter Geis <pgwipeout@gmail.com>,
+ linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,95 +106,165 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---YToU2i3Vx8H2dn7O
+--Au/hUgr6VFbvitZL
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 15, 2021 at 02:42:12PM +0000, Richard Fitzgerald wrote:
-> On 15/01/2021 13:11, Mark Brown wrote:
-> > On Fri, Jan 15, 2021 at 10:35:23AM +0000, Richard Fitzgerald wrote:
-> > > On 13/01/2021 16:09, Mark Brown wrote:
-> > > > On Wed, Jan 13, 2021 at 09:22:25AM -0600, Rob Herring wrote:
+On Tue, Jan 12, 2021 at 03:58:30PM +0300, Dmitry Osipenko wrote:
+> Use clk_bulk helpers to make code cleaner.
+>=20
+> Tested-by: Peter Geis <pgwipeout@gmail.com>
+> Tested-by: Nicolas Chauvet <kwizart@gmail.com>
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
+>  sound/pci/hda/hda_tegra.c | 68 ++++++---------------------------------
+>  1 file changed, 9 insertions(+), 59 deletions(-)
 
-> > > some_codec {
-> > > 	pll: pll {
-> > > 		compatible =3D "fixed-clock";
-> > > 		clocks =3D <&audio_mclk>;
-> > > 		clock-frequency =3D <98304000>;
-> > > 	}
+Heh... I have a branch samewhere with this same patch. Glad I can cross
+that off my list. One thing jumped out at me, see below.
 
-> > A PLL is not a fixed clock, why would you define a fixed clock here?
+> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+> index 70164d1428d4..4c799661c2f6 100644
+> --- a/sound/pci/hda/hda_tegra.c
+> +++ b/sound/pci/hda/hda_tegra.c
+> @@ -70,9 +70,8 @@
+>  struct hda_tegra {
+>  	struct azx chip;
+>  	struct device *dev;
+> -	struct clk *hda_clk;
+> -	struct clk *hda2codec_2x_clk;
+> -	struct clk *hda2hdmi_clk;
+> +	struct clk_bulk_data clocks[3];
+> +	unsigned int nclocks;
+>  	void __iomem *regs;
+>  	struct work_struct probe_work;
+>  };
+> @@ -113,36 +112,6 @@ static void hda_tegra_init(struct hda_tegra *hda)
+>  	writel(v, hda->regs + HDA_IPFS_INTR_MASK);
+>  }
+> =20
+> -static int hda_tegra_enable_clocks(struct hda_tegra *data)
+> -{
+> -	int rc;
+> -
+> -	rc =3D clk_prepare_enable(data->hda_clk);
+> -	if (rc)
+> -		return rc;
+> -	rc =3D clk_prepare_enable(data->hda2codec_2x_clk);
+> -	if (rc)
+> -		goto disable_hda;
+> -	rc =3D clk_prepare_enable(data->hda2hdmi_clk);
+> -	if (rc)
+> -		goto disable_codec_2x;
+> -
+> -	return 0;
+> -
+> -disable_codec_2x:
+> -	clk_disable_unprepare(data->hda2codec_2x_clk);
+> -disable_hda:
+> -	clk_disable_unprepare(data->hda_clk);
+> -	return rc;
+> -}
+> -
+> -static void hda_tegra_disable_clocks(struct hda_tegra *data)
+> -{
+> -	clk_disable_unprepare(data->hda2hdmi_clk);
+> -	clk_disable_unprepare(data->hda2codec_2x_clk);
+> -	clk_disable_unprepare(data->hda_clk);
+> -}
+> -
+>  /*
+>   * power management
+>   */
+> @@ -186,7 +155,7 @@ static int __maybe_unused hda_tegra_runtime_suspend(s=
+truct device *dev)
+>  		azx_stop_chip(chip);
+>  		azx_enter_link_reset(chip);
+>  	}
+> -	hda_tegra_disable_clocks(hda);
+> +	clk_bulk_disable_unprepare(hda->nclocks, hda->clocks);
+> =20
+>  	return 0;
+>  }
+> @@ -198,7 +167,7 @@ static int __maybe_unused hda_tegra_runtime_resume(st=
+ruct device *dev)
+>  	struct hda_tegra *hda =3D container_of(chip, struct hda_tegra, chip);
+>  	int rc;
+> =20
+> -	rc =3D hda_tegra_enable_clocks(hda);
+> +	rc =3D clk_bulk_prepare_enable(hda->nclocks, hda->clocks);
+>  	if (rc !=3D 0)
+>  		return rc;
+>  	if (chip && chip->running) {
+> @@ -268,29 +237,6 @@ static int hda_tegra_init_chip(struct azx *chip, str=
+uct platform_device *pdev)
+>  	return 0;
+>  }
+> =20
+> -static int hda_tegra_init_clk(struct hda_tegra *hda)
+> -{
+> -	struct device *dev =3D hda->dev;
+> -
+> -	hda->hda_clk =3D devm_clk_get(dev, "hda");
+> -	if (IS_ERR(hda->hda_clk)) {
+> -		dev_err(dev, "failed to get hda clock\n");
+> -		return PTR_ERR(hda->hda_clk);
+> -	}
+> -	hda->hda2codec_2x_clk =3D devm_clk_get(dev, "hda2codec_2x");
+> -	if (IS_ERR(hda->hda2codec_2x_clk)) {
+> -		dev_err(dev, "failed to get hda2codec_2x clock\n");
+> -		return PTR_ERR(hda->hda2codec_2x_clk);
+> -	}
+> -	hda->hda2hdmi_clk =3D devm_clk_get(dev, "hda2hdmi");
+> -	if (IS_ERR(hda->hda2hdmi_clk)) {
+> -		dev_err(dev, "failed to get hda2hdmi clock\n");
+> -		return PTR_ERR(hda->hda2hdmi_clk);
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  static int hda_tegra_first_init(struct azx *chip, struct platform_device=
+ *pdev)
+>  {
+>  	struct hda_tegra *hda =3D container_of(chip, struct hda_tegra, chip);
+> @@ -495,7 +441,11 @@ static int hda_tegra_probe(struct platform_device *p=
+dev)
+>  		return err;
+>  	}
+> =20
+> -	err =3D hda_tegra_init_clk(hda);
+> +	hda->clocks[hda->nclocks++].id =3D "hda";
+> +	hda->clocks[hda->nclocks++].id =3D "hda2hdmi";
+> +	hda->clocks[hda->nclocks++].id =3D "hda2codec_2x";
 
-> It's a fixed clock if you are only setting one configuration. Call it
-> compatible=3D"any-other-dummy-clock-type" if you like, it doesn't matter
-> what it is for the purposes of what I was describing.
+Originally the code did this in this order: "hda", "hda2codec_2x" and
+"hda2hdmi". I don't expect the exact order to be very relevant, but was
+there any particular reason to change it?
 
-> This isn't a clk driver for a pll, it's just a setting to be passed to
-> snd_soc_component_set_pll() using a clock binding to specify it.
+In either case, this should be fine:
 
-So you're trying to describe a crystal on the board?  Why would this be
-a subnode of the CODEC then?  Surely it's just a standard fixed clock
-which provides some input to the CODEC in the same way you'd describe
-any other input to the CODEC.  The above doesn't look anything like the
-hardware.  But if that's what you're doing how is that related to
-configuring the FLL except possibly as the input clock you'd reference?
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-> > Are you confusing the selection of rates on existing clocks with the use
-> > of the assigned-* properties that the clock binding provides?
-
-> I'm not at all sure what you and Rob have in mind here. Perhaps you
-> could give an example of what you are thinking the .dts would look like
-> to define some pll/sysclk settings for audio-graph-card to apply. An
-> example is worth a thousand emails.
-
-As far as I can tell you are trying to configure the FLL in the CODEC,
-telling it to take an input clock and produce a fixed output clock rate
-=66rom that.  The FLL is a fairly basic clock, there are examples for both
-that and choosing a configuration for a clock in the clock bindings. =20
-
-> > That seems like a *very* surprising requirement - why would the clock
-> > binding have that requirement?  It would seem to create issues for a
-> > single device providing multiple clocks which should be a pretty common
-> > coase.
-
-> You misunderstand me. What I'm saying is that to do this:
-
-> 	sound {
-> 		clocks =3D <&pll>;
-> 	}
-
-> The node 'pll' must correspond to a clock provider driver. It can't be
-> just a bare node with some properties pick-n-mixed from the clock
-> binding, like this:
-
-I'm pretty sure I understand you perfectly; again, what makes you say
-that a description of a clock in the device tree has any requirement
-for a separate compatible string?
-
-> So the question I'm trying to ask is: when you and Rob said use
-> the clock binding, did you mean pointing to that binding from
-> clocks=3D<...>, or from a custom property like my audio-graph-card,plls
-> example above.
-
-When we say to use the clock binding what we are saying is to use the
-actual clock bindings to describe the clocks, not make a custom binding
-that looks kind of like them - making a custom binding doesn't address
-the problem.
-
---YToU2i3Vx8H2dn7O
+--Au/hUgr6VFbvitZL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmABsqMACgkQJNaLcl1U
-h9A0MQf9FqJR9Ff8vWBFntAW6Bpppj//aQxSRdj8Hf9cUqOn3izt8QDVsNc5+UwG
-i0qQPlRQ4+so1rwDVyI11eNTbTNu0fepzlCPw9e1Q5mxwHqIHqZNTr+HctdgiIEa
-41PDMPv5NXFoeED7b/q0D+u+0Wzjpt1ydDnvcv4sSZehkLjjQ+B7B7HFuwt0QY8g
-1n7EiinZIaQkMnkx7krT7NzJqqR7F8PeGr40/HJkZtUwT54iwTJce9fT5HR4CUdZ
-1Q2BOz4RuXrd3Frmef6SYLKNA3+z7IAvd/Qbvb/siCDaZU8FlNIEFQYR8sMtEpYS
-FfOJHFjeekGzQr+MgiArBkNUW9NuCg==
-=m3Ta
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmABsyQACgkQ3SOs138+
+s6FoyRAAkCUvQ9bydbIYbQCgIODgmtk4NEpFc9gLUNSaSU1q6Rosi0xLJ73jJw2q
+8w4X6TL9a1kc91y4DuIt+iMfP35eG/OY1fz5FsWfHZkGSwytqKZeiOZWq6mlOJ47
+KT2LXeqiuDao04vW5USXuhvp9kNLlGOwDFZ32suVw1cOfKZYBG3gYTzMZetHfd2g
+Ey+/quceJjpaOOPqCja7Fzysz0xTMfPuLZjy533q/qOwpLH1HSiiOQZXlEzruU1w
+niOa7lo9z5kYplb+ubMq2JD3nP2oFMQ1BjZxPQeaZwFWtrCKUTDRa4upv3fEyDB1
+l+v9loObsYuLxJrVTTIKaOh1vXr875Lv2DItLCXj+qPd1r+dvHwz3Ccf7XxlK0/n
+XdWXa+CTUHY6DAGHlg3EWaaeYUcRfLP/v8Kw1Ydm6SCKIh8XapVNrfxqaEmDRSV9
+yzJI0VTQw8ZHDAJ4W9Rb+vRiUcOeXiuJSbvoEW+72/5asspEiJIMyQfUtQUyibqS
+eYgLmYk9Lp88dobozS9DexoP7xVwE9S66+alZ7k3+MxymWimmBoyRDwFUh2NatxB
+9f3/aGwQ1+q0PZti2vpmUZfpPbB3xJxv1w1WnNAvA6Rpcef1RoRpkwXXiTt4lFVs
+1OTsiV1mbKlCRos1I7DR+d7BIG8UhtBEBFw/EK2wBEA/J1uM7Ic=
+=AaZO
 -----END PGP SIGNATURE-----
 
---YToU2i3Vx8H2dn7O--
+--Au/hUgr6VFbvitZL--

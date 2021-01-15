@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7392F71E0
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:02:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55A62F71E1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:02:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 894FF1780;
-	Fri, 15 Jan 2021 06:01:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 894FF1780
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7423917A5;
+	Fri, 15 Jan 2021 06:02:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7423917A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610686955;
-	bh=b+iWyWhbNaoKWMlSAatjOH9PZt4VhY97b1jkwr3c7QM=;
+	s=default; t=1610686978;
+	bh=6j/4RscAvEytzm47AbP+V7IInFKEGv/Yz/9ixLtD4Z4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jh+Y/t70PT5R2Ngs3peG9FE44ik8JiSal9D6uMem8YlYS5+h1RBcaiJ1wXXWXFbdm
-	 T5jU4Ri62XW/EqUu3cQabLHw/Bcq3duedDVCdhIsWyVcfCduLLwo5mkraGvAhpxUmX
-	 CSCs8hCDlsQWnvBeNRw++eO2x1o8ltz3phqxSk20=
+	b=I93XVvJ/eZzFhNO5LRdXDxm3UdIhCWIV9a8c2WuYqj4kSCM1XIPyTgvbgOvylN9DE
+	 HqRseok5zDrM/nho0RJRJmmYr6wlX3QUXTEfIiaQ6BFsdEFZEcitR5T1zR9tKsTkZX
+	 7t1TlaE8XOJp5KSTrOHXQx0nqiXNj6TZIqnq7omo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 320A3F80570;
-	Fri, 15 Jan 2021 05:54:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5BB4F8057A;
+	Fri, 15 Jan 2021 05:54:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06B75F80570; Fri, 15 Jan 2021 05:54:48 +0100 (CET)
+ id 15DAFF80578; Fri, 15 Jan 2021 05:54:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 6D18AF80566
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D18AF80566
-Date: 15 Jan 2021 13:54:44 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860962"
+ by alsa1.perex.cz (Postfix) with ESMTP id EF0B8F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF0B8F8016D
+Date: 15 Jan 2021 13:54:48 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860966"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:44 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 32E33401658E;
- Fri, 15 Jan 2021 13:54:44 +0900 (JST)
-Message-ID: <8735z2olg5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7986F401658C;
+ Fri, 15 Jan 2021 13:54:48 +0900 (JST)
+Message-ID: <871remolg1.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 23/44] ASoC: max*: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 24/44] ASoC: cs*: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,36 +80,462 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/max9860.c | 2 +-
- sound/soc/codecs/max9867.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs35l32.c |  2 +-
+ sound/soc/codecs/cs35l33.c |  2 +-
+ sound/soc/codecs/cs35l34.c |  2 +-
+ sound/soc/codecs/cs35l35.c |  2 +-
+ sound/soc/codecs/cs35l36.c |  2 +-
+ sound/soc/codecs/cs4234.c  |  2 +-
+ sound/soc/codecs/cs4271.c  |  2 +-
+ sound/soc/codecs/cs42l73.c |  6 +++---
+ sound/soc/codecs/cs43130.c |  6 +++---
+ sound/soc/codecs/cs4341.c  |  2 +-
+ sound/soc/codecs/cs4349.c  |  2 +-
+ sound/soc/codecs/cs47l15.c | 12 ++++++------
+ sound/soc/codecs/cs47l24.c | 12 ++++++------
+ sound/soc/codecs/cs47l35.c | 12 ++++++------
+ sound/soc/codecs/cs47l85.c | 16 ++++++++--------
+ sound/soc/codecs/cs47l90.c | 16 ++++++++--------
+ sound/soc/codecs/cs47l92.c | 12 ++++++------
+ sound/soc/codecs/cs53l30.c |  2 +-
+ 18 files changed, 56 insertions(+), 56 deletions(-)
 
-diff --git a/sound/soc/codecs/max9860.c b/sound/soc/codecs/max9860.c
-index d5925c42b4b5..dd29b183ecd6 100644
---- a/sound/soc/codecs/max9860.c
-+++ b/sound/soc/codecs/max9860.c
-@@ -489,7 +489,7 @@ static struct snd_soc_dai_driver max9860_dai = {
- 			   SNDRV_PCM_FMTBIT_S32_LE,
- 	},
- 	.ops = &max9860_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int max9860_set_bias_level(struct snd_soc_component *component,
-diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
-index 512e6f2513d3..09b2d730e9fd 100644
---- a/sound/soc/codecs/max9867.c
-+++ b/sound/soc/codecs/max9867.c
-@@ -520,7 +520,7 @@ static struct snd_soc_dai_driver max9867_dai[] = {
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.ops = &max9867_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
+diff --git a/sound/soc/codecs/cs35l32.c b/sound/soc/codecs/cs35l32.c
+index 3a644a35c464..f4067230ac42 100644
+--- a/sound/soc/codecs/cs35l32.c
++++ b/sound/soc/codecs/cs35l32.c
+@@ -194,7 +194,7 @@ static struct snd_soc_dai_driver cs35l32_dai[] = {
+ 			.formats = CS35L32_FORMATS,
+ 		},
+ 		.ops = &cs35l32_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
  	}
  };
  
+diff --git a/sound/soc/codecs/cs35l33.c b/sound/soc/codecs/cs35l33.c
+index 6042194d95d3..7ad7b733af9b 100644
+--- a/sound/soc/codecs/cs35l33.c
++++ b/sound/soc/codecs/cs35l33.c
+@@ -691,7 +691,7 @@ static struct snd_soc_dai_driver cs35l33_dai = {
+ 			.formats = CS35L33_FORMATS,
+ 		},
+ 		.ops = &cs35l33_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ };
+ 
+ static int cs35l33_set_hg_data(struct snd_soc_component *component,
+diff --git a/sound/soc/codecs/cs35l34.c b/sound/soc/codecs/cs35l34.c
+index b792c006e530..110ee2d06358 100644
+--- a/sound/soc/codecs/cs35l34.c
++++ b/sound/soc/codecs/cs35l34.c
+@@ -666,7 +666,7 @@ static struct snd_soc_dai_driver cs35l34_dai = {
+ 			.formats = CS35L34_FORMATS,
+ 		},
+ 		.ops = &cs35l34_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ };
+ 
+ static int cs35l34_boost_inductor(struct cs35l34_private *cs35l34,
+diff --git a/sound/soc/codecs/cs35l35.c b/sound/soc/codecs/cs35l35.c
+index e330427a4314..55d529aa0011 100644
+--- a/sound/soc/codecs/cs35l35.c
++++ b/sound/soc/codecs/cs35l35.c
+@@ -692,7 +692,7 @@ static struct snd_soc_dai_driver cs35l35_dai[] = {
+ 			.formats = CS35L35_FORMATS,
+ 		},
+ 		.ops = &cs35l35_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "cs35l35-pdm",
+diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+index e9b5f76f27a8..4451ca9f4916 100644
+--- a/sound/soc/codecs/cs35l36.c
++++ b/sound/soc/codecs/cs35l36.c
+@@ -995,7 +995,7 @@ static struct snd_soc_dai_driver cs35l36_dai[] = {
+ 			.formats = CS35L36_TX_FORMATS,
+ 		},
+ 		.ops = &cs35l36_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ };
+ 
+diff --git a/sound/soc/codecs/cs4234.c b/sound/soc/codecs/cs4234.c
+index 2ea83233c3f1..20126cc675b1 100644
+--- a/sound/soc/codecs/cs4234.c
++++ b/sound/soc/codecs/cs4234.c
+@@ -585,7 +585,7 @@ static struct snd_soc_dai_driver cs4234_dai[] = {
+ 			.formats = CS4234_FORMATS,
+ 		},
+ 		.ops = &cs4234_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ };
+ 
+diff --git a/sound/soc/codecs/cs4271.c b/sound/soc/codecs/cs4271.c
+index d43762ae8f3d..7663f89ac6a2 100644
+--- a/sound/soc/codecs/cs4271.c
++++ b/sound/soc/codecs/cs4271.c
+@@ -481,7 +481,7 @@ static struct snd_soc_dai_driver cs4271_dai = {
+ 		.formats	= CS4271_PCM_FORMATS,
+ 	},
+ 	.ops = &cs4271_dai_ops,
+-	.symmetric_rates = 1,
++	.symmetric_rate = 1,
+ };
+ 
+ static int cs4271_reset(struct snd_soc_component *component)
+diff --git a/sound/soc/codecs/cs42l73.c b/sound/soc/codecs/cs42l73.c
+index 988ca7e19821..c3f974ec78e5 100644
+--- a/sound/soc/codecs/cs42l73.c
++++ b/sound/soc/codecs/cs42l73.c
+@@ -1181,7 +1181,7 @@ static struct snd_soc_dai_driver cs42l73_dai[] = {
+ 			.formats = CS42L73_FORMATS,
+ 		},
+ 		.ops = &cs42l73_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	 },
+ 	{
+ 		.name = "cs42l73-asp",
+@@ -1201,7 +1201,7 @@ static struct snd_soc_dai_driver cs42l73_dai[] = {
+ 			.formats = CS42L73_FORMATS,
+ 		},
+ 		.ops = &cs42l73_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	 },
+ 	{
+ 		.name = "cs42l73-vsp",
+@@ -1221,7 +1221,7 @@ static struct snd_soc_dai_driver cs42l73_dai[] = {
+ 			.formats = CS42L73_FORMATS,
+ 		},
+ 		.ops = &cs42l73_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	 }
+ };
+ 
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index 7fb34422a2a4..80bc7c10ed75 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -1581,7 +1581,7 @@ static struct snd_soc_dai_driver cs43130_dai[] = {
+ 			.formats = CS43130_PCM_FORMATS,
+ 		},
+ 		.ops = &cs43130_pcm_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "cs43130-asp-dop",
+@@ -1594,7 +1594,7 @@ static struct snd_soc_dai_driver cs43130_dai[] = {
+ 			.formats = CS43130_DOP_FORMATS,
+ 		},
+ 		.ops = &cs43130_dop_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "cs43130-xsp-dop",
+@@ -1607,7 +1607,7 @@ static struct snd_soc_dai_driver cs43130_dai[] = {
+ 			.formats = CS43130_DOP_FORMATS,
+ 		},
+ 		.ops = &cs43130_dop_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	},
+ 	{
+ 		.name = "cs43130-xsp-dsd",
+diff --git a/sound/soc/codecs/cs4341.c b/sound/soc/codecs/cs4341.c
+index f566604de78c..7d3e54d8eef3 100644
+--- a/sound/soc/codecs/cs4341.c
++++ b/sound/soc/codecs/cs4341.c
+@@ -189,7 +189,7 @@ static struct snd_soc_dai_driver cs4341_dai = {
+ 				  SNDRV_PCM_FMTBIT_S24_LE,
+ 	},
+ 	.ops			= &cs4341_dai_ops,
+-	.symmetric_rates	= 1,
++	.symmetric_rate		= 1,
+ };
+ 
+ static const struct snd_soc_component_driver soc_component_cs4341 = {
+diff --git a/sound/soc/codecs/cs4349.c b/sound/soc/codecs/cs4349.c
+index fd5526319779..786c69a8ec4a 100644
+--- a/sound/soc/codecs/cs4349.c
++++ b/sound/soc/codecs/cs4349.c
+@@ -250,7 +250,7 @@ static struct snd_soc_dai_driver cs4349_dai = {
+ 		.formats	= CS4349_PCM_FORMATS,
+ 	},
+ 	.ops = &cs4349_dai_ops,
+-	.symmetric_rates = 1,
++	.symmetric_rate = 1,
+ };
+ 
+ static const struct snd_soc_component_driver soc_component_dev_cs4349 = {
+diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
+index 254f9d96e766..1ee83160b83f 100644
+--- a/sound/soc/codecs/cs47l15.c
++++ b/sound/soc/codecs/cs47l15.c
+@@ -1160,8 +1160,8 @@ static struct snd_soc_dai_driver cs47l15_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l15-aif2",
+@@ -1182,8 +1182,8 @@ static struct snd_soc_dai_driver cs47l15_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l15-aif3",
+@@ -1204,8 +1204,8 @@ static struct snd_soc_dai_driver cs47l15_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l15-cpu-trace",
+diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
+index f6d173d0120e..eaabbb56a173 100644
+--- a/sound/soc/codecs/cs47l24.c
++++ b/sound/soc/codecs/cs47l24.c
+@@ -977,8 +977,8 @@ static struct snd_soc_dai_driver cs47l24_dai[] = {
+ 			 .formats = CS47L24_FORMATS,
+ 		 },
+ 		.ops = &arizona_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l24-aif2",
+@@ -999,8 +999,8 @@ static struct snd_soc_dai_driver cs47l24_dai[] = {
+ 			 .formats = CS47L24_FORMATS,
+ 		 },
+ 		.ops = &arizona_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l24-aif3",
+@@ -1021,8 +1021,8 @@ static struct snd_soc_dai_driver cs47l24_dai[] = {
+ 			 .formats = CS47L24_FORMATS,
+ 		 },
+ 		.ops = &arizona_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l24-cpu-voicectrl",
+diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
+index e967609da8a3..3f04a2a74521 100644
+--- a/sound/soc/codecs/cs47l35.c
++++ b/sound/soc/codecs/cs47l35.c
+@@ -1368,8 +1368,8 @@ static struct snd_soc_dai_driver cs47l35_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l35-aif2",
+@@ -1390,8 +1390,8 @@ static struct snd_soc_dai_driver cs47l35_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l35-aif3",
+@@ -1412,8 +1412,8 @@ static struct snd_soc_dai_driver cs47l35_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l35-slim1",
+diff --git a/sound/soc/codecs/cs47l85.c b/sound/soc/codecs/cs47l85.c
+index 47b16466b6c1..748a180870bc 100644
+--- a/sound/soc/codecs/cs47l85.c
++++ b/sound/soc/codecs/cs47l85.c
+@@ -2269,8 +2269,8 @@ static struct snd_soc_dai_driver cs47l85_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l85-aif2",
+@@ -2291,8 +2291,8 @@ static struct snd_soc_dai_driver cs47l85_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l85-aif3",
+@@ -2313,8 +2313,8 @@ static struct snd_soc_dai_driver cs47l85_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l85-aif4",
+@@ -2335,8 +2335,8 @@ static struct snd_soc_dai_driver cs47l85_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l85-slim1",
+diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
+index 8838dd557321..d2911c014b86 100644
+--- a/sound/soc/codecs/cs47l90.c
++++ b/sound/soc/codecs/cs47l90.c
+@@ -2188,8 +2188,8 @@ static struct snd_soc_dai_driver cs47l90_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l90-aif2",
+@@ -2210,8 +2210,8 @@ static struct snd_soc_dai_driver cs47l90_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l90-aif3",
+@@ -2232,8 +2232,8 @@ static struct snd_soc_dai_driver cs47l90_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l90-aif4",
+@@ -2254,8 +2254,8 @@ static struct snd_soc_dai_driver cs47l90_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l90-slim1",
+diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
+index 52dc29942ec2..1a0280416d92 100644
+--- a/sound/soc/codecs/cs47l92.c
++++ b/sound/soc/codecs/cs47l92.c
+@@ -1704,8 +1704,8 @@ static struct snd_soc_dai_driver cs47l92_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l92-aif2",
+@@ -1726,8 +1726,8 @@ static struct snd_soc_dai_driver cs47l92_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l92-aif3",
+@@ -1748,8 +1748,8 @@ static struct snd_soc_dai_driver cs47l92_dai[] = {
+ 			.formats = MADERA_FORMATS,
+ 		 },
+ 		.ops = &madera_dai_ops,
+-		.symmetric_rates = 1,
+-		.symmetric_samplebits = 1,
++		.symmetric_rate = 1,
++		.symmetric_sample_bits = 1,
+ 	},
+ 	{
+ 		.name = "cs47l92-slim1",
+diff --git a/sound/soc/codecs/cs53l30.c b/sound/soc/codecs/cs53l30.c
+index ed22361b35c1..3d67cbf9eaaa 100644
+--- a/sound/soc/codecs/cs53l30.c
++++ b/sound/soc/codecs/cs53l30.c
+@@ -869,7 +869,7 @@ static struct snd_soc_dai_driver cs53l30_dai = {
+ 		.formats = CS53L30_FORMATS,
+ 	},
+ 	.ops = &cs53l30_ops,
+-	.symmetric_rates = 1,
++	.symmetric_rate = 1,
+ };
+ 
+ static int cs53l30_component_probe(struct snd_soc_component *component)
 -- 
 2.25.1
 

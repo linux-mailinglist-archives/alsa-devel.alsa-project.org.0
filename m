@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB9AE2F71D3
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 05:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC2F2F71D4
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 05:59:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D67E1753;
-	Fri, 15 Jan 2021 05:58:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D67E1753
+	by alsa0.perex.cz (Postfix) with ESMTPS id B97C8175B;
+	Fri, 15 Jan 2021 05:58:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B97C8175B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610686747;
-	bh=k9ISkEfIo2cGoYdbhxjI4riDKVRlDOFE5rMG8iUyhBY=;
+	s=default; t=1610686776;
+	bh=q2dIM8eqfDSLMGcP8tKga3v1iFxcV0JBirQDyOYPNXs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j02zisWrnEDoKWawjsIX/3Re/9/BIODkU9IVLi5AhzdoE9frVBz72x1cDgkNDyKPV
-	 o58jSGJFqZ13HV57v/ftj8rG9i2xFJF0h8qZm/yJs6Kk65qgx+sUIoe3UPKCDhPx/W
-	 grevkLygGwsm63j8h92hQvHetRbh7PgnO3sSrAnM=
+	b=S6ib+xahQtLkktBpBV5ZBqDarwaM/o7UePVmtwpn8yTxsHmjumq/9ZNr2A8NE9rRe
+	 dtfl2IzDBHnUg/wnHn9MphAu7nLpfu1k4Ppnpz7ihn6o9eV9HTmVhvcWQmrYHar9of
+	 7DpaaiI7xvSNqktBkM8Dk6vnAOT7Vefxg37WxFdA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1477F80524;
-	Fri, 15 Jan 2021 05:54:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B9DBF80529;
+	Fri, 15 Jan 2021 05:54:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58027F8051E; Fri, 15 Jan 2021 05:54:09 +0100 (CET)
+ id 0989BF80527; Fri, 15 Jan 2021 05:54:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EE92CF8025F
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE92CF8025F
-Date: 15 Jan 2021 13:54:03 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860910"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:03 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id A1C2CF80526
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C2CF80526
+Date: 15 Jan 2021 13:54:08 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="69080417"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:08 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 74C0C401658C;
- Fri, 15 Jan 2021 13:54:03 +0900 (JST)
-Message-ID: <87ft32olha.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A8A1541A6658;
+ Fri, 15 Jan 2021 13:54:08 +0900 (JST)
+Message-ID: <87eeimolh5.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 14/44] ASoC: mediatek: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 15/44] ASoC: fsl: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,6 +67,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch syncs naming rule.
@@ -79,153 +80,71 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/mediatek/mt2701/mt2701-afe-pcm.c | 10 +++++-----
- sound/soc/mediatek/mt6797/mt6797-dai-pcm.c |  8 ++++----
- sound/soc/mediatek/mt8173/mt8173-afe-pcm.c |  2 +-
- sound/soc/mediatek/mt8183/mt8183-dai-pcm.c |  8 ++++----
- sound/soc/mediatek/mt8192/mt8192-dai-pcm.c |  8 ++++----
- 5 files changed, 18 insertions(+), 18 deletions(-)
+ sound/soc/fsl/fsl_esai.c | 4 ++--
+ sound/soc/fsl/fsl_sai.c  | 8 ++++----
+ sound/soc/fsl/fsl_ssi.c  | 4 ++--
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-index df29641c74aa..d5cffe7a7e15 100644
---- a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-+++ b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-@@ -655,7 +655,7 @@ static struct snd_soc_dai_driver mt2701_afe_pcm_dais[] = {
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index 39637ca78cdb..5a65cccdad22 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -1042,9 +1042,9 @@ static int fsl_esai_probe(struct platform_device *pdev)
  
- 		},
- 		.ops = &mt2701_afe_i2s_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
- 	},
- 	{
- 		.name = "I2S1",
-@@ -679,7 +679,7 @@ static struct snd_soc_dai_driver mt2701_afe_pcm_dais[] = {
- 				| SNDRV_PCM_FMTBIT_S32_LE)
- 			},
- 		.ops = &mt2701_afe_i2s_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
- 	},
- 	{
- 		.name = "I2S2",
-@@ -703,7 +703,7 @@ static struct snd_soc_dai_driver mt2701_afe_pcm_dais[] = {
- 				| SNDRV_PCM_FMTBIT_S32_LE)
- 			},
- 		.ops = &mt2701_afe_i2s_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
- 	},
- 	{
- 		.name = "I2S3",
-@@ -727,7 +727,7 @@ static struct snd_soc_dai_driver mt2701_afe_pcm_dais[] = {
- 				| SNDRV_PCM_FMTBIT_S32_LE)
- 			},
- 		.ops = &mt2701_afe_i2s_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
- 	},
- 	{
- 		.name = "MRG BT",
-@@ -749,7 +749,7 @@ static struct snd_soc_dai_driver mt2701_afe_pcm_dais[] = {
- 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 		},
- 		.ops = &mt2701_btmrg_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
+ 	/* Implement full symmetry for synchronous mode */
+ 	if (esai_priv->synchronous) {
+-		fsl_esai_dai.symmetric_rates = 1;
++		fsl_esai_dai.symmetric_rate = 1;
+ 		fsl_esai_dai.symmetric_channels = 1;
+-		fsl_esai_dai.symmetric_samplebits = 1;
++		fsl_esai_dai.symmetric_sample_bits = 1;
  	}
- };
  
-diff --git a/sound/soc/mediatek/mt6797/mt6797-dai-pcm.c b/sound/soc/mediatek/mt6797/mt6797-dai-pcm.c
-index 3136f0bc7827..51f736f319e4 100644
---- a/sound/soc/mediatek/mt6797/mt6797-dai-pcm.c
-+++ b/sound/soc/mediatek/mt6797/mt6797-dai-pcm.c
-@@ -270,8 +270,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "PCM 2",
-@@ -291,8 +291,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- };
+ 	dev_set_drvdata(&pdev->dev, esai_priv);
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index f3d3d20d35d7..5e65b456d3e2 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1079,9 +1079,9 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	/* Sync Tx with Rx as default by following old DT binding */
+ 	sai->synchronous[RX] = true;
+ 	sai->synchronous[TX] = false;
+-	sai->cpu_dai_drv.symmetric_rates = 1;
++	sai->cpu_dai_drv.symmetric_rate = 1;
+ 	sai->cpu_dai_drv.symmetric_channels = 1;
+-	sai->cpu_dai_drv.symmetric_samplebits = 1;
++	sai->cpu_dai_drv.symmetric_sample_bits = 1;
  
-diff --git a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-index 7e7bda70d12e..685f4074b4e0 100644
---- a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-@@ -571,7 +571,7 @@ static struct snd_soc_dai_driver mt8173_afe_pcm_dais[] = {
- 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 		},
- 		.ops = &mt8173_afe_i2s_ops,
--		.symmetric_rates = 1,
-+		.symmetric_rate = 1,
- 	},
- };
+ 	if (of_find_property(np, "fsl,sai-synchronous-rx", NULL) &&
+ 	    of_find_property(np, "fsl,sai-asynchronous", NULL)) {
+@@ -1098,9 +1098,9 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 		/* Discard all settings for asynchronous mode */
+ 		sai->synchronous[RX] = false;
+ 		sai->synchronous[TX] = false;
+-		sai->cpu_dai_drv.symmetric_rates = 0;
++		sai->cpu_dai_drv.symmetric_rate = 0;
+ 		sai->cpu_dai_drv.symmetric_channels = 0;
+-		sai->cpu_dai_drv.symmetric_samplebits = 0;
++		sai->cpu_dai_drv.symmetric_sample_bits = 0;
+ 	}
  
-diff --git a/sound/soc/mediatek/mt8183/mt8183-dai-pcm.c b/sound/soc/mediatek/mt8183/mt8183-dai-pcm.c
-index bc3ba3228f08..38ce0e36cdb4 100644
---- a/sound/soc/mediatek/mt8183/mt8183-dai-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-dai-pcm.c
-@@ -270,8 +270,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "PCM 2",
-@@ -291,8 +291,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- };
+ 	if (of_find_property(np, "fsl,sai-mclk-direction-output", NULL) &&
+diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
+index 404be27c15fe..41d10f7e7411 100644
+--- a/sound/soc/fsl/fsl_ssi.c
++++ b/sound/soc/fsl/fsl_ssi.c
+@@ -1537,9 +1537,9 @@ static int fsl_ssi_probe(struct platform_device *pdev)
  
-diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-pcm.c b/sound/soc/mediatek/mt8192/mt8192-dai-pcm.c
-index 6e94cfdf06fc..239e3f5b53d3 100644
---- a/sound/soc/mediatek/mt8192/mt8192-dai-pcm.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-dai-pcm.c
-@@ -360,8 +360,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "PCM 2",
-@@ -381,8 +381,8 @@ static struct snd_soc_dai_driver mtk_dai_pcm_driver[] = {
- 			.formats = MTK_PCM_FORMATS,
- 		},
- 		.ops = &mtk_dai_pcm_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- };
+ 	/* Set software limitations for synchronous mode except AC97 */
+ 	if (ssi->synchronous && !fsl_ssi_is_ac97(ssi)) {
+-		ssi->cpu_dai_drv.symmetric_rates = 1;
++		ssi->cpu_dai_drv.symmetric_rate = 1;
+ 		ssi->cpu_dai_drv.symmetric_channels = 1;
+-		ssi->cpu_dai_drv.symmetric_samplebits = 1;
++		ssi->cpu_dai_drv.symmetric_sample_bits = 1;
+ 	}
  
+ 	/*
 -- 
 2.25.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18EA92F758C
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 10:36:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B676D2F761C
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 10:59:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A18861799;
-	Fri, 15 Jan 2021 10:35:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18861799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50A671791;
+	Fri, 15 Jan 2021 10:58:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A671791
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610703382;
-	bh=NPFFFaYUBLeVicUPmlt4N/hbYaYsM90x8OaZqA1+mRI=;
+	s=default; t=1610704789;
+	bh=A4JGvYLcE7XSaqIBzMe6GVrFCc5QBfz2+9h6yUyFwuU=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Ik0JwIL2SyM879E3spWtkHovv7xmq8RDO4lSY8UWclPORrDGrNIQFccUSlvzb3ROs
-	 Ek+JoUOoBvdOc8lVoUToaRIG0t0adB5aKXVali1C4yOnmkAZPFYuimsX8itMdVmqC/
-	 cip2J7Bj2ja3Yq/k1ma1V7u2vj6Sp41SMuJa5Ve0=
+	b=AD0PH17ymahaAqwCS81+Qw5CksEKH7wOBCs8dLd8mtq6oH89qxZKy1pcCq3MU7YUy
+	 oiWBt0tDprvmgpAYy8yXBxrsV+YvcPyRI1u/zAGdFd/vTYvQqKDFiEtEYdVVYjJFT5
+	 VPJ9SfHesWFvVtcWzREiVQoNgrIHWiXXCt0ioWg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4B20F80254;
-	Fri, 15 Jan 2021 10:34:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE246F80113;
+	Fri, 15 Jan 2021 10:58:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72D9BF801ED; Fri, 15 Jan 2021 10:34:45 +0100 (CET)
+ id 496C5F801ED; Fri, 15 Jan 2021 10:58:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,19 +32,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCFEFF80134
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 10:34:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCFEFF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0456CF80134
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 10:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0456CF80134
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 99D98B1C4
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 09:34:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 076FFB7C6
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 09:57:59 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: seq: oss: Fix missing error check in
- snd_seq_oss_synth_make_info()
-Date: Fri, 15 Jan 2021 10:34:28 +0100
-Message-Id: <20210115093428.15882-1-tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Convert remaining strlcpy() to strscpy()
+Date: Fri, 15 Jan 2021 10:57:58 +0100
+Message-Id: <20210115095758.19707-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -63,34 +62,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_seq_oss_synth_make_info() didn't check the error code from
-snd_seq_oss_midi_make_info(), and this leads to the call of strlcpy()
-with the uninitialized string as the source, which may lead to the
-access over the limit.
+USB-audio driver still contains two calls of strlcpy() because the
+return size is evaluated.  Basically it just checks whether the string
+is copied or not, but since strcpy() may return a negative error code,
+we should check the negative value and treat as filled.
 
-Add the proper error check for avoiding the failure.
-
-Reported-by: syzbot+e42504ff21cff05a595f@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/seq/oss/seq_oss_synth.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/usb/mixer.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/sound/core/seq/oss/seq_oss_synth.c b/sound/core/seq/oss/seq_oss_synth.c
-index 11554d0412f0..1b8409ec2c97 100644
---- a/sound/core/seq/oss/seq_oss_synth.c
-+++ b/sound/core/seq/oss/seq_oss_synth.c
-@@ -611,7 +611,8 @@ snd_seq_oss_synth_make_info(struct seq_oss_devinfo *dp, int dev, struct synth_in
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 85fed017710e..c7da38348035 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -115,11 +115,14 @@ find_map(const struct usbmix_name_map *p, int unitid, int control)
+ static int
+ check_mapped_name(const struct usbmix_name_map *p, char *buf, int buflen)
+ {
++	int len;
++
+ 	if (!p || !p->name)
+ 		return 0;
  
- 	if (info->is_midi) {
- 		struct midi_info minf;
--		snd_seq_oss_midi_make_info(dp, info->midi_mapped, &minf);
-+		if (snd_seq_oss_midi_make_info(dp, info->midi_mapped, &minf))
-+			return -ENXIO;
- 		inf->synth_type = SYNTH_TYPE_MIDI;
- 		inf->synth_subtype = 0;
- 		inf->nr_voices = 16;
+ 	buflen--;
+-	return strlcpy(buf, p->name, buflen);
++	len = strscpy(buf, p->name, buflen);
++	return len < 0 ? buflen : len;
+ }
+ 
+ /* ignore the error value if ignore_ctl_error flag is set */
+@@ -151,12 +154,15 @@ static int check_mapped_selector_name(struct mixer_build *state, int unitid,
+ 				      int index, char *buf, int buflen)
+ {
+ 	const struct usbmix_selector_map *p;
++	int len;
+ 
+ 	if (!state->selector_map)
+ 		return 0;
+ 	for (p = state->selector_map; p->id; p++) {
+-		if (p->id == unitid && index < p->count)
+-			return strlcpy(buf, p->names[index], buflen);
++		if (p->id == unitid && index < p->count) {
++			len = strscpy(buf, p->names[index], buflen);
++			return len < 0 ? buflen : len;
++		}
+ 	}
+ 	return 0;
+ }
 -- 
 2.26.2
 

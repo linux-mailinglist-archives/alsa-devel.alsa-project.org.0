@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127382F71D8
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 06:00:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB682F71D5
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 05:59:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A38111779;
-	Fri, 15 Jan 2021 05:59:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A38111779
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5673F16D5;
+	Fri, 15 Jan 2021 05:59:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5673F16D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610686825;
-	bh=Cq4jTFQPDDNxh5kmvDjYk2cK2Iv8Jk7Mxi3ewiA+HEI=;
+	s=default; t=1610686794;
+	bh=G2WIXPISe/y07dKtq/3G86pspTWTaUOc9aeIWrCVOT8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hNxQlHmYvzS3HFmDH+nIqDyKU9xtLA4LL6M+1pWKZza5COEsf3WQGHQ2Nee0kukms
-	 IptcwYwcxv+LWaSNDjGoXnabL6PKLNDDCcQuYDaTa+o34NngBy9mznG/rXGHk4hKF3
-	 fP2nh0J4BHhFCL4C5AS/c0EmG9UPuJQRKEk6+kA8=
+	b=X0QbwCHgauYe1HIudaKDBPWdOgyuIxb3A9s66kGWwMN3HAig3l+0HUyOEzyyEu8kk
+	 sXetUvEfpYxdgtJT0hhadK+Fa9+EDKmeWE60J0pIVgoQNq1W5WC+38sK1Pvgupidyy
+	 dJVT238cNGBwyxFxt0OR31trEOig9f+qc5bHqlRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C271FF8053C;
-	Fri, 15 Jan 2021 05:54:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8939FF80539;
+	Fri, 15 Jan 2021 05:54:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76D35F80535; Fri, 15 Jan 2021 05:54:26 +0100 (CET)
+ id 0088CF80536; Fri, 15 Jan 2021 05:54:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E602DF804D8
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E602DF804D8
-Date: 15 Jan 2021 13:54:13 +0900
-X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860922"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:13 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B8EAF80525
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 05:54:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B8EAF80525
+Date: 15 Jan 2021 13:54:17 +0900
+X-IronPort-AV: E=Sophos;i="5.79,348,1602514800"; d="scan'208";a="68860929"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2021 13:54:17 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id EF245401658C;
- Fri, 15 Jan 2021 13:54:12 +0900 (JST)
-Message-ID: <87czy6olh0.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0BA7841A6911;
+ Fri, 15 Jan 2021 13:54:17 +0900 (JST)
+Message-ID: <87bldqolgw.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 16/44] ASoC: wm*: sync parameter naming (rate/sample_bits)
+Subject: [PATCH 17/44] ASoC: tlv*: sync parameter naming (rate/sample_bits)
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh1aolkt.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,396 +80,73 @@ This patch syncs naming rule.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/wm5102.c | 12 ++++++------
- sound/soc/codecs/wm5110.c | 12 ++++++------
- sound/soc/codecs/wm8510.c |  2 +-
- sound/soc/codecs/wm8731.c |  2 +-
- sound/soc/codecs/wm8770.c |  2 +-
- sound/soc/codecs/wm8804.c |  2 +-
- sound/soc/codecs/wm8903.c |  2 +-
- sound/soc/codecs/wm8904.c |  2 +-
- sound/soc/codecs/wm8940.c |  2 +-
- sound/soc/codecs/wm8960.c |  2 +-
- sound/soc/codecs/wm8962.c |  2 +-
- sound/soc/codecs/wm8974.c |  2 +-
- sound/soc/codecs/wm8978.c |  2 +-
- sound/soc/codecs/wm8983.c |  2 +-
- sound/soc/codecs/wm8985.c |  2 +-
- sound/soc/codecs/wm8988.c |  2 +-
- sound/soc/codecs/wm8993.c |  2 +-
- sound/soc/codecs/wm8994.c |  4 ++--
- sound/soc/codecs/wm8997.c |  8 ++++----
- sound/soc/codecs/wm8998.c | 12 ++++++------
- sound/soc/codecs/wm9713.c |  2 +-
- 21 files changed, 40 insertions(+), 40 deletions(-)
+ sound/soc/codecs/tlv320adcx140.c | 2 +-
+ sound/soc/codecs/tlv320aic31xx.c | 4 ++--
+ sound/soc/codecs/tlv320aic32x4.c | 2 +-
+ sound/soc/codecs/tlv320aic3x.c   | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
-index 70d353b63fe0..fe33f2d88f55 100644
---- a/sound/soc/codecs/wm5102.c
-+++ b/sound/soc/codecs/wm5102.c
-@@ -1780,8 +1780,8 @@ static struct snd_soc_dai_driver wm5102_dai[] = {
- 			 .formats = WM5102_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index 3f027c8234a6..32b120d624b2 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -1069,7 +1069,7 @@ static struct snd_soc_dai_driver adcx140_dai_driver[] = {
+ 			.formats	 = ADCX140_FORMATS,
+ 		},
+ 		.ops = &adcx140_dai_ops,
 -		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
 +		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5102-aif2",
-@@ -1802,8 +1802,8 @@ static struct snd_soc_dai_driver wm5102_dai[] = {
- 			 .formats = WM5102_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5102-aif3",
-@@ -1824,8 +1824,8 @@ static struct snd_soc_dai_driver wm5102_dai[] = {
- 			 .formats = WM5102_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5102-slim1",
-diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
-index 4238929b2375..52c0a575cc4f 100644
---- a/sound/soc/codecs/wm5110.c
-+++ b/sound/soc/codecs/wm5110.c
-@@ -2089,8 +2089,8 @@ static struct snd_soc_dai_driver wm5110_dai[] = {
- 			 .formats = WM5110_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5110-aif2",
-@@ -2111,8 +2111,8 @@ static struct snd_soc_dai_driver wm5110_dai[] = {
- 			 .formats = WM5110_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5110-aif3",
-@@ -2133,8 +2133,8 @@ static struct snd_soc_dai_driver wm5110_dai[] = {
- 			 .formats = WM5110_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm5110-slim1",
-diff --git a/sound/soc/codecs/wm8510.c b/sound/soc/codecs/wm8510.c
-index 73c4a8b9f59e..a18e2290b8c8 100644
---- a/sound/soc/codecs/wm8510.c
-+++ b/sound/soc/codecs/wm8510.c
-@@ -569,7 +569,7 @@ static struct snd_soc_dai_driver wm8510_dai = {
- 		.rates = WM8510_RATES,
- 		.formats = WM8510_FORMATS,},
- 	.ops = &wm8510_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8510_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
-index 304bf725a613..dcee7b2bd3d7 100644
---- a/sound/soc/codecs/wm8731.c
-+++ b/sound/soc/codecs/wm8731.c
-@@ -567,7 +567,7 @@ static struct snd_soc_dai_driver wm8731_dai = {
- 		.rates = WM8731_RATES,
- 		.formats = WM8731_FORMATS,},
- 	.ops = &wm8731_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8731_request_supplies(struct device *dev,
-diff --git a/sound/soc/codecs/wm8770.c b/sound/soc/codecs/wm8770.c
-index 1176a6ad269d..5f394065030d 100644
---- a/sound/soc/codecs/wm8770.c
-+++ b/sound/soc/codecs/wm8770.c
-@@ -562,7 +562,7 @@ static struct snd_soc_dai_driver wm8770_dai = {
- 		.formats = WM8770_FORMATS
- 	},
- 	.ops = &wm8770_dai_ops,
--	.symmetric_rates = 1
-+	.symmetric_rate = 1
- };
- 
- static int wm8770_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8804.c b/sound/soc/codecs/wm8804.c
-index 4ddb5e32df5d..21bf0cfa1e7e 100644
---- a/sound/soc/codecs/wm8804.c
-+++ b/sound/soc/codecs/wm8804.c
-@@ -536,7 +536,7 @@ static struct snd_soc_dai_driver wm8804_dai = {
- 		.formats = WM8804_FORMATS,
- 	},
- 	.ops = &wm8804_dai_ops,
--	.symmetric_rates = 1
-+	.symmetric_rate = 1
- };
- 
- static const struct snd_soc_component_driver soc_component_dev_wm8804 = {
-diff --git a/sound/soc/codecs/wm8903.c b/sound/soc/codecs/wm8903.c
-index 09f4980630c7..026603ae44ce 100644
---- a/sound/soc/codecs/wm8903.c
-+++ b/sound/soc/codecs/wm8903.c
-@@ -1760,7 +1760,7 @@ static struct snd_soc_dai_driver wm8903_dai = {
- 		 .formats = WM8903_FORMATS,
- 	 },
- 	.ops = &wm8903_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8903_resume(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index 1c360bae5652..a02a77fef360 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -1983,7 +1983,7 @@ static struct snd_soc_dai_driver wm8904_dai = {
- 		.formats = WM8904_FORMATS,
- 	},
- 	.ops = &wm8904_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static void wm8904_handle_retune_mobile_pdata(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
-index 016cd8aeef37..440d048ef0c0 100644
---- a/sound/soc/codecs/wm8940.c
-+++ b/sound/soc/codecs/wm8940.c
-@@ -688,7 +688,7 @@ static struct snd_soc_dai_driver wm8940_dai = {
- 		.formats = WM8940_FORMATS,
- 	},
- 	.ops = &wm8940_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8940_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
-index 660ec46eecf2..df351519a3a6 100644
---- a/sound/soc/codecs/wm8960.c
-+++ b/sound/soc/codecs/wm8960.c
-@@ -1338,7 +1338,7 @@ static struct snd_soc_dai_driver wm8960_dai = {
- 		.rates = WM8960_RATES,
- 		.formats = WM8960_FORMATS,},
- 	.ops = &wm8960_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8960_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 3af456010b9c..ce4666a74793 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -2973,7 +2973,7 @@ static struct snd_soc_dai_driver wm8962_dai = {
- 		.formats = WM8962_FORMATS,
- 	},
- 	.ops = &wm8962_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static void wm8962_mic_work(struct work_struct *work)
-diff --git a/sound/soc/codecs/wm8974.c b/sound/soc/codecs/wm8974.c
-index c86231dfcf4f..fdc68ab49742 100644
---- a/sound/soc/codecs/wm8974.c
-+++ b/sound/soc/codecs/wm8974.c
-@@ -643,7 +643,7 @@ static struct snd_soc_dai_driver wm8974_dai = {
- 		.rates = WM8974_RATES,
- 		.formats = WM8974_FORMATS,},
- 	.ops = &wm8974_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static const struct regmap_config wm8974_regmap = {
-diff --git a/sound/soc/codecs/wm8978.c b/sound/soc/codecs/wm8978.c
-index a7acb8981715..4b5ecd142249 100644
---- a/sound/soc/codecs/wm8978.c
-+++ b/sound/soc/codecs/wm8978.c
-@@ -918,7 +918,7 @@ static struct snd_soc_dai_driver wm8978_dai = {
- 		.formats = WM8978_FORMATS,
- 	},
- 	.ops = &wm8978_dai_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8978_suspend(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8983.c b/sound/soc/codecs/wm8983.c
-index d1d2d408ad95..d8ed22a9caac 100644
---- a/sound/soc/codecs/wm8983.c
-+++ b/sound/soc/codecs/wm8983.c
-@@ -971,7 +971,7 @@ static struct snd_soc_dai_driver wm8983_dai = {
- 		.formats = WM8983_FORMATS,
- 	},
- 	.ops = &wm8983_dai_ops,
--	.symmetric_rates = 1
-+	.symmetric_rate = 1
- };
- 
- static const struct snd_soc_component_driver soc_component_dev_wm8983 = {
-diff --git a/sound/soc/codecs/wm8985.c b/sound/soc/codecs/wm8985.c
-index 3f27482349b2..a7e01106fbc0 100644
---- a/sound/soc/codecs/wm8985.c
-+++ b/sound/soc/codecs/wm8985.c
-@@ -1100,7 +1100,7 @@ static struct snd_soc_dai_driver wm8985_dai = {
- 		.formats = WM8985_FORMATS,
- 	},
- 	.ops = &wm8985_dai_ops,
--	.symmetric_rates = 1
-+	.symmetric_rate = 1
- };
- 
- static const struct snd_soc_component_driver soc_component_dev_wm8985 = {
-diff --git a/sound/soc/codecs/wm8988.c b/sound/soc/codecs/wm8988.c
-index d2c2d0d943f0..1d2f881bbcae 100644
---- a/sound/soc/codecs/wm8988.c
-+++ b/sound/soc/codecs/wm8988.c
-@@ -787,7 +787,7 @@ static struct snd_soc_dai_driver wm8988_dai = {
- 		.formats = WM8988_FORMATS,
- 	 },
- 	.ops = &wm8988_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8988_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8993.c b/sound/soc/codecs/wm8993.c
-index 9f310082e3c1..c4f41692b806 100644
---- a/sound/soc/codecs/wm8993.c
-+++ b/sound/soc/codecs/wm8993.c
-@@ -1476,7 +1476,7 @@ static struct snd_soc_dai_driver wm8993_dai = {
- 		 .sig_bits = 24,
- 	 },
- 	.ops = &wm8993_ops,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- };
- 
- static int wm8993_probe(struct snd_soc_component *component)
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index f57884113406..f117ec0c489f 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -4351,7 +4351,7 @@ static int wm8994_component_probe(struct snd_soc_component *component)
  	}
- 	if ((reg & WM8994_GPN_FN_MASK) != WM8994_GP_FN_PIN_SPECIFIC) {
- 		wm8994->lrclk_shared[0] = 1;
--		wm8994_dai[0].symmetric_rates = 1;
-+		wm8994_dai[0].symmetric_rate = 1;
- 	} else {
- 		wm8994->lrclk_shared[0] = 0;
- 	}
-@@ -4363,7 +4363,7 @@ static int wm8994_component_probe(struct snd_soc_component *component)
- 	}
- 	if ((reg & WM8994_GPN_FN_MASK) != WM8994_GP_FN_PIN_SPECIFIC) {
- 		wm8994->lrclk_shared[1] = 1;
--		wm8994_dai[1].symmetric_rates = 1;
-+		wm8994_dai[1].symmetric_rate = 1;
- 	} else {
- 		wm8994->lrclk_shared[1] = 0;
- 	}
-diff --git a/sound/soc/codecs/wm8997.c b/sound/soc/codecs/wm8997.c
-index 229f2986cd96..99c3ebae6ba6 100644
---- a/sound/soc/codecs/wm8997.c
-+++ b/sound/soc/codecs/wm8997.c
-@@ -969,8 +969,8 @@ static struct snd_soc_dai_driver wm8997_dai[] = {
- 			 .formats = WM8997_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm8997-aif2",
-@@ -991,8 +991,8 @@ static struct snd_soc_dai_driver wm8997_dai[] = {
- 			 .formats = WM8997_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm8997-slim1",
-diff --git a/sound/soc/codecs/wm8998.c b/sound/soc/codecs/wm8998.c
-index 5413254295b7..b6f717aa5478 100644
---- a/sound/soc/codecs/wm8998.c
-+++ b/sound/soc/codecs/wm8998.c
-@@ -1161,8 +1161,8 @@ static struct snd_soc_dai_driver wm8998_dai[] = {
- 			 .formats = WM8998_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm8998-aif2",
-@@ -1183,8 +1183,8 @@ static struct snd_soc_dai_driver wm8998_dai[] = {
- 			 .formats = WM8998_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm8998-aif3",
-@@ -1205,8 +1205,8 @@ static struct snd_soc_dai_driver wm8998_dai[] = {
- 			 .formats = WM8998_FORMATS,
- 		 },
- 		.ops = &arizona_dai_ops,
--		.symmetric_rates = 1,
--		.symmetric_samplebits = 1,
-+		.symmetric_rate = 1,
-+		.symmetric_sample_bits = 1,
- 	},
- 	{
- 		.name = "wm8998-slim1",
-diff --git a/sound/soc/codecs/wm9713.c b/sound/soc/codecs/wm9713.c
-index f333e2ff4a16..e0ce32dd4a81 100644
---- a/sound/soc/codecs/wm9713.c
-+++ b/sound/soc/codecs/wm9713.c
-@@ -1134,7 +1134,7 @@ static struct snd_soc_dai_driver wm9713_dai[] = {
- 		.rates = WM9713_PCM_RATES,
- 		.formats = WM9713_PCM_FORMATS,},
- 	.ops = &wm9713_dai_ops_voice,
--	.symmetric_rates = 1,
-+	.symmetric_rate = 1,
- 	},
  };
  
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 5ac7ce264431..51870d50f419 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -1395,7 +1395,7 @@ static struct snd_soc_dai_driver dac31xx_dai_driver[] = {
+ 			.formats	 = AIC31XX_FORMATS,
+ 		},
+ 		.ops = &aic31xx_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	}
+ };
+ 
+@@ -1417,7 +1417,7 @@ static struct snd_soc_dai_driver aic31xx_dai_driver[] = {
+ 			.formats	 = AIC31XX_FORMATS,
+ 		},
+ 		.ops = &aic31xx_dai_ops,
+-		.symmetric_rates = 1,
++		.symmetric_rate = 1,
+ 	}
+ };
+ 
+diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
+index 9e3de9ded0ef..f04f88c8d425 100644
+--- a/sound/soc/codecs/tlv320aic32x4.c
++++ b/sound/soc/codecs/tlv320aic32x4.c
+@@ -916,7 +916,7 @@ static struct snd_soc_dai_driver aic32x4_dai = {
+ 			.rates = AIC32X4_RATES,
+ 			.formats = AIC32X4_FORMATS,},
+ 	.ops = &aic32x4_ops,
+-	.symmetric_rates = 1,
++	.symmetric_rate = 1,
+ };
+ 
+ static void aic32x4_setup_gpios(struct snd_soc_component *component)
+diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
+index 6d066bc58ac8..db1444127444 100644
+--- a/sound/soc/codecs/tlv320aic3x.c
++++ b/sound/soc/codecs/tlv320aic3x.c
+@@ -1503,7 +1503,7 @@ static struct snd_soc_dai_driver aic3x_dai = {
+ 		.rates = AIC3X_RATES,
+ 		.formats = AIC3X_FORMATS,},
+ 	.ops = &aic3x_dai_ops,
+-	.symmetric_rates = 1,
++	.symmetric_rate = 1,
+ };
+ 
+ static void aic3x_mono_init(struct snd_soc_component *component)
 -- 
 2.25.1
 

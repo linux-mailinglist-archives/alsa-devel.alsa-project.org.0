@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8642F7FC8
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 16:39:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404682F7FC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jan 2021 16:40:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A119D17B3;
-	Fri, 15 Jan 2021 16:38:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A119D17B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64E7180A;
+	Fri, 15 Jan 2021 16:39:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64E7180A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610725187;
-	bh=jmiMKqUhYgUV56CEyqWEjaONy44S8J4R6IkZiIQ8H78=;
+	s=default; t=1610725201;
+	bh=ToC4sCji7STRArg9oAQ0hXV2XlnAyt/+LtTjped/oLg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pumLtLylF0bt87CP4U4VxxR7xmH52SGiMHedEg+4w/dIU0ftLahVyGwqa0ptxBriY
-	 Y46+zKAZwT+wjQndvueyebsHBjIPKhgncJnpd1OBK1QFtxgL8SjSy9F4qCjtrA00zy
-	 58TZs1/NFrkAXTIn3wWc2t/wrt5n5qFhGmz2aJP4=
+	b=S+eM9WbcWI+G0RTYRrAU8GbBQKajdcGGniPUpAl9IFSl94w1XbL23JDHGjGyMcgBd
+	 HbGgUUauqqjD2K+pBDwqKtTiJ5RBSoAG5MqvQTJ9wAOCqiBHHT5GnE2/wkS0hhWqre
+	 lEmB7lIDPMjL0N9Og83ysFqDlA/H/sCYoKb2c8PA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54F85F80254;
-	Fri, 15 Jan 2021 16:38:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3AFBF8026B;
+	Fri, 15 Jan 2021 16:39:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27EEBF801ED; Fri, 15 Jan 2021 16:38:13 +0100 (CET)
+ id 5F260F8025F; Fri, 15 Jan 2021 16:39:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 888A8F80113
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 16:38:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 888A8F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id C93D7F80132
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 16:38:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C93D7F80132
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EPKVdwJu"
-Received: by mail-wm1-x335.google.com with SMTP id g10so7965070wmh.2
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 07:38:07 -0800 (PST)
+ header.b="pJXdW7QQ"
+Received: by mail-wr1-x42c.google.com with SMTP id y17so9698284wrr.10
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 07:38:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=5b7DPgSBw+PLnFB212Irl5YVoOfLu+csPTf9O74uU/M=;
- b=EPKVdwJuGj1VbFdUBazgO69B0h7687NLe68MSO6ZUmJ2AUPqvk2UvJR/8aym7qx+Xq
- QNvWPyBXd1Yr1p8sxrFBgyNoxOM+5/+b2Cr479WsrGlmTGbw5otUGgrF5OMOqFSYZvo3
- HpXjNryDtPgEqSTw4ImcUvbKzPTXYr3yyttmn2Alag5pMWJ6J1BH7RKEynSal+p0NlbY
- 91wH+/7nM4mbn2CxxLBWZxtzfNBESM0oW4QfM9TEbzPzGFnRvH0X2ojoLrow021mM10V
- YQ2RQi55F4+Fhnf0efMGlxs6yk3Cchyq3O/DcwLHS6+4ohLtIQGFbQNw2+gMD16aflFv
- G66A==
+ bh=/h5xi6JSFXxPDZmDPtNhEjnaFAoil7BDNGSWIjoSRoM=;
+ b=pJXdW7QQ6kBYF8E6jkwXjiwlpczTZMomcQ04mL60/18nqX0w5xWqKp0y6vjSsf20Wa
+ xIbJL8iFtWzN05rRIHBoqsUZ8faOtY+UUk6ef57PkuhmAmQvUBpbpa6t4sNYSM+nm6UL
+ Bb0O35QKgdIRGM0sjLb1wvxX3ELDT9vR51+63asVN2h2Ojv6GrKx9OXJyh7j75DhPBoY
+ 2msMADcTGzf2fE0cIf8OckmCkLb+lMzG/QazjBxBNEYaJ3diYS5lTDUBesZLjUICo2X2
+ SpsRbYzCEVkFIWnvecE03UmhAIVnys86m9JAcE6ZGHa5zL/uFiIlXXne/9IdRTHhTnCv
+ 4BKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=5b7DPgSBw+PLnFB212Irl5YVoOfLu+csPTf9O74uU/M=;
- b=ndT7b3VcE0Z5D5pQMxIr+bWtVePSr+P3h9ssgA6VnZVzTbprI0A+TUg9+T+DkcK1Na
- tb+iSAO77wSOg17mrMfqoT6iraY4byAqlsoL7FDAyXlBOlql2Gfcv+5zANiogAKqTHq2
- 2L7cvAYSMKkS2wc9XdEutdT35P4XqT38UCPkNsAMnCErt6RmxGhtZ9zsc/sgvRpdou2p
- W+dn0QiORI9/Z8Nz5Nd/qK9FNd2LNTI2nsSI3fpztlqoUzI0rcZewaphtB7/PUwl5VyK
- DZKjingIjghV9Me4DxkhltWzWlxRoQMY/H4HvqXzq+ITrirY40vBswWwfqY5RT5dr9JA
- V91w==
-X-Gm-Message-State: AOAM533998315UvVVDI0odvRogeGIDhuz/FnitUHwX3Qo+6cw3HAx3o5
- DoP9goWmKA/76fJCa3SFulE=
-X-Google-Smtp-Source: ABdhPJxWwidm1sFec4GvA6yW6u8YSo5YyUE8W3w2dV2S30E8EVsCGAfkW69GmHs8RCQNFbbiO9kx7Q==
-X-Received: by 2002:a1c:4d12:: with SMTP id o18mr9502162wmh.114.1610725082263; 
- Fri, 15 Jan 2021 07:38:02 -0800 (PST)
+ bh=/h5xi6JSFXxPDZmDPtNhEjnaFAoil7BDNGSWIjoSRoM=;
+ b=Qh+om1Hw8TBzoHF55LQc65XCzDoDx0aoAW2miVt16Pd0ZtGKcDK/ETlrNwWlfL7Z25
+ 5kjVzgSVG5w4pdzhO6djyGAYHBM5KTX9j2L6NTqyNyfmC2i7zpZXbDPvtDZogSpFalwh
+ OSJwFdh0L55SDPRg7Hf4IIasK40vEauuH6lMU0t1zjWOiec9TocFb0Siz77jjkbUGCsU
+ zLl4QpJX5sVxEoTpoGj4RfoEGwXug4KTcCdAFpXhtK95z8eIDXQip3LAdILTQcWX+fH5
+ F+D99uA7pOxzic/8hawZIG6vtKwZ+juSwcWekRlVjRmUh+rl5LZePl6IglBErfP4tz5d
+ +TXg==
+X-Gm-Message-State: AOAM530Z6Gfn/CtFRA5BQlEr5aarSDOhRdXoBXuj9hIdLKaTQnUl49at
+ Bwayf2avUCbHCzjJ33rDq6c=
+X-Google-Smtp-Source: ABdhPJyr5c/xCE7surzCbS9UR0ERv60lBS3fVhlOpAAjR/c6cgAhH+Fx7zLb4Yl0IABW5O9RArCdXQ==
+X-Received: by 2002:adf:e9d0:: with SMTP id l16mr13063091wrn.376.1610725131875; 
+ Fri, 15 Jan 2021 07:38:51 -0800 (PST)
 Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id s24sm8499895wmh.22.2021.01.15.07.38.00
+ by smtp.gmail.com with ESMTPSA id a17sm15069939wrs.20.2021.01.15.07.38.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Jan 2021 07:38:00 -0800 (PST)
-Date: Fri, 15 Jan 2021 16:37:59 +0100
+ Fri, 15 Jan 2021 07:38:50 -0800 (PST)
+Date: Fri, 15 Jan 2021 16:38:49 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v1 3/5] ASoC: tegra: ahub: Use
- of_reset_control_array_get_exclusive()
-Message-ID: <YAG211gFXExjp7Zh@ulmo>
+Subject: Re: [PATCH v1 4/5] ASoC: tegra: ahub: Use clk_bulk helpers
+Message-ID: <YAG3CeBI5h5VKqQL@ulmo>
 References: <20210112125834.21545-1-digetx@gmail.com>
- <20210112125834.21545-4-digetx@gmail.com>
+ <20210112125834.21545-5-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="6qgUbVpa47g3Oipy"
+ protocol="application/pgp-signature"; boundary="pLk3yZKzSBt2opqn"
 Content-Disposition: inline
-In-Reply-To: <20210112125834.21545-4-digetx@gmail.com>
+In-Reply-To: <20210112125834.21545-5-digetx@gmail.com>
 User-Agent: Mutt/2.0.4 (26f41dd1) (2020-12-30)
 Cc: alsa-devel@alsa-project.org, Nicolas Chauvet <kwizart@gmail.com>,
  linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
@@ -107,51 +106,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---6qgUbVpa47g3Oipy
+--pLk3yZKzSBt2opqn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jan 12, 2021 at 03:58:32PM +0300, Dmitry Osipenko wrote:
-> Some of resets are erroneously missed in the configlink_mods[], like APBIF
-> for example. Use of_reset_control_array_get_exclusive() which requests all
-> the resets. The problem was hidden by the clk driver which implicitly
-> de-asserts the missing resets.
+On Tue, Jan 12, 2021 at 03:58:33PM +0300, Dmitry Osipenko wrote:
+> Use clk_bulk helpers to make code cleaner.
 >=20
 > Tested-by: Peter Geis <pgwipeout@gmail.com>
 > Tested-by: Nicolas Chauvet <kwizart@gmail.com>
 > Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 > ---
->  sound/soc/tegra/tegra30_ahub.c | 66 +++++-----------------------------
->  sound/soc/tegra/tegra30_ahub.h |  1 -
->  2 files changed, 9 insertions(+), 58 deletions(-)
+>  sound/soc/tegra/tegra30_ahub.c | 30 +++++++-----------------------
+>  sound/soc/tegra/tegra30_ahub.h |  4 ++--
+>  2 files changed, 9 insertions(+), 25 deletions(-)
 
-Doing it this way is slightly suboptimal because now we don't actually
-have a way of checking that the DT has all the necessary resets listed.
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-Can we not just make the list complete instead to keep the checks in
-place? That should be a much smaller patch, too.
-
-Thierry
-
---6qgUbVpa47g3Oipy
+--pLk3yZKzSBt2opqn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmABttcACgkQ3SOs138+
-s6FOVQ/7BeBBehhdaXuUwv219Wjebbw/decMS8FGhASCSSzdze7p8hQxkCpiVr0T
-MPH1HJnwZQqBZUjQciF+Kp3/hycuFo8PO2zvvITuiO1eUIGMX3RKgket4TITv4I8
-EAIkPYFRxcTjj7Tzc2mzD/f06OkxeMqsInlhXP8rNkswDnpOi8rSK13Cd2reVrh3
-MKnc9gtV9pj4qi6r+epzFZNKP5+hAYRtCiC/Z7EnNfCAwWPmS1ApeZEPk36cwifY
-6/PxzhGtsSvWqnPcjfV+6SzlZvNtwcOg0nYC3+VvTq1bxHdfdR3dvdRmWGy8vGQc
-pb2T+TdnAVwFsYovqzNaPjM9iM5s6plj4saCGat5DLJprjvxAiTnKdMeckhT57pL
-Li4rAOp3ZsW09VxD59PNZHkG7ERRv3gBfOEggxtxU4B+aijVgkhPq4kAaXjXMSSu
-tP+Ss/y6vSQnP40HeHfysjrGZqtPfmvnrFo3jYz3HTZE1k6p4vc3Pv1EbYQAswhC
-/gReNDddh5cxPYHSYP9Q1f98e33Ix+lEUFENZgVx8hmxE4ofxNAHx16t7K7CeV5F
-eDS0UOtCreFMcYp0Fb1j+LM1gS6xrGhJaIu/REIdftamhF97Ch0GTURwhJhRKVKi
-ef+PQEbSzK5gUb1KccngSAENnPKKahyhnxYLJfHyBvvs9LAYuB8=
-=yHt+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmABtwkACgkQ3SOs138+
+s6F3FA/9HwpxJ6Gd0bLJNkzt97n9mABHQPT74u3ZzTK3+ubXqhb2oKBavGzauqv2
+TvkFVI4DevDVhC7Hx6DxSFXcqdScwUk25FPcnsQD7TztY/kHu99NnnZ2gd5xfmoh
+SgdxLNi70d/9t+6p96iTsVxURF3i7YxwtISUmxKnIPdShFJSRMaYu5ci+0vnobS0
+3RffcDPumaDF+kWY2ZRv8QNqAYpfXhl5z31GlWfcohS0G5QsEGmwK+leu9s62WXU
+DiNxytgaVMH2wnMTUxT0rdhfRlWN+alY9Aac9EMwVlAvlSP6KZTuk8kOtHgVwQXK
+ujJWO2n4UWRRyk7cm/euk+eyAtmcd1MM7CzRwWM8ezXZEi1qBsQqNH+zw7z3ZJTT
+dUMWDGWUIDCyTJoNZIOg+vJt/p1FXRsA5oeTlVqx5jrSOO1FAcuDdOu68jeoiTVU
+9Rtbh/gc0MpZEzQ6OUcQEfR1g3A/ojud4dkpVvpvrNTL/t09BpOxZAN5+QrmOXm3
+9WO5BCGAZoEp8trnBTYO9DTrelcp0r8iDpXjyhgSlXkQNFgY4j+pEfaBglTqr6zI
+LfQ0reT+3OuhxCgADYjRow9NSb0xc+a0pCYogu46O9mkk+gDsGE0IplviMqdo9LN
+QsYAK4mE2LFFqArbiJA9DvcuFs89Ma8CdQ4HBonIi+zpDVzX4JY=
+=MMnc
 -----END PGP SIGNATURE-----
 
---6qgUbVpa47g3Oipy--
+--pLk3yZKzSBt2opqn--

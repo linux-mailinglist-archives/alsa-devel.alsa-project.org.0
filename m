@@ -2,57 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC5F2F9AE3
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:00:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A0A2F9AEF
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:04:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DA3417D7;
-	Mon, 18 Jan 2021 08:59:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DA3417D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDF0917D4;
+	Mon, 18 Jan 2021 09:03:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDF0917D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610956818;
-	bh=4Aj57nA/nSaRgNaq2TKdelYPNp1vcrFat+ZR4fQt7sI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FQbUuANXo1zUiIngayCy/MtwHO4myZYdyGqSESsmMEyRTtjzwHCqWKMA+0R2HpfNd
-	 x4obhYC8NiXoGnHlvnm975mmFb0kiRm3Fgiy+L9o4+pM3M3zTKHhyv35cM2yiO9FsE
-	 ee50Ay+l53WqqpjpqTRLJx3MJvpDPU1tEpldeSpg=
+	s=default; t=1610957065;
+	bh=EJxhoyEmSaqCRdcWrU1VnsIyeaqiRGWrmIGfOsH/p8A=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MFOLAVemogj80+KvDPhf487+Vc613mKiXxEpsbSTZzHGGj73fno5gT5tNLdplB0Bk
+	 vSx17MGM69q15bSVh7LMTxP+gHXlOkgk4XmCEA5ho1M4MDxMBs3Zka0Zkp8vO2vZhy
+	 zek7a3MwI24MuxVGTzPb89SfOhXYBVw/hl2CcRbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 774B3F80253;
-	Mon, 18 Jan 2021 08:58:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50B9BF80166;
+	Mon, 18 Jan 2021 09:02:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F34A6F804BD; Mon, 18 Jan 2021 08:58:31 +0100 (CET)
+ id CF4C1F801ED; Fri, 15 Jan 2021 04:15:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86B1EF800C0
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 08:58:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86B1EF800C0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 98A11ACAD;
- Mon, 18 Jan 2021 07:58:19 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: usb-audio: Avoid implicit feedback on Pioneer
- devices
-Date: Mon, 18 Jan 2021 08:58:16 +0100
-Message-Id: <20210118075816.25068-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210118075816.25068-1-tiwai@suse.de>
-References: <20210118075816.25068-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9D4CF80132
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 04:15:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D4CF80132
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=canonical.com) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kaichuan.hsieh@canonical.com>)
+ id 1l0Fa1-0004Zi-VE; Fri, 15 Jan 2021 03:15:18 +0000
+From: Kai-Chuan Hsieh <kaichuan.hsieh@canonical.com>
+To: alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com,
+ guennadi.liakhovetski@linux.intel.com, kai.heng.feng@canonical.com,
+ kai.vehmanen@linux.intel.com, rppt@kernel.org,
+ linux-kernel@vger.kernel.org, kaichuan.hsieh@canonical.com
+Subject: [PATCH] ALSA: hda: Add Cometlake-R PCI ID
+Date: Fri, 15 Jan 2021 11:15:15 +0800
+Message-Id: <20210115031515.13100-1-kaichuan.hsieh@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <konference@frantovo.cz>,
- Geraldo <geraldogabriel@gmail.com>
+X-Mailman-Approved-At: Mon, 18 Jan 2021 09:02:51 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,80 +69,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For addressing the regression on Pioneer devices, we recently
-corrected the quirk code to enable the implicit feedback mode on those
-devices properly.  However, the devices still showed problems with the
-full duplex operations with JACK, and after debug sessions, we figured
-out that the older kernels that had worked with JACK also didn't use
-the implicit feedback mode at all although they had the quirk code to
-enable it; instead, the old code worked just to skip the normal sync
-endpoint setup that would have been detected without it.  IOW, what
-broke without the implicit-fb quirk in the past was the application of
-the normal sync endpoint that is actually the capture data endpoint on
-these devices.
+Add HD Audio Device PCI ID for the Intel Cometlake-R platform
 
-This patch covers the overseen piece: it modifies the quirk code again
-not to enable the implicit feedback mode but just to make the driver
-skipping the sync endpoint detection.  This made the driver working
-with JACK full-duplex mode again.
-
-Still it's not quite clear why the implicit feedback doesn't work on
-those devices yet; maybe it's about some issues in the URB setup.  But
-at least, with this patch, the driver should work in the level of the
-older kernels again.
-
-Fixes: 167c9dc84ec3 ("ALSA: usb-audio: Fix implicit feedback sync setup for Pioneer devices")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Kai-Chuan Hsieh <kaichuan.hsieh@canonical.com>
 ---
- sound/usb/implicit.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ sound/pci/hda/hda_intel.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
-index 1ac2cc6c33fb..521cc846d9d9 100644
---- a/sound/usb/implicit.c
-+++ b/sound/usb/implicit.c
-@@ -175,11 +175,13 @@ static int add_roland_implicit_fb(struct snd_usb_audio *chip,
- 				       ifnum, alts);
- }
- 
--/* Pioneer devices: playback and capture streams sharing the same iface/altset
-+/* Playback and capture EPs on Pioneer devices share the same iface/altset,
-+ * but they don't seem working with the implicit fb mode well, hence we
-+ * just return as if the sync were already set up.
-  */
--static int add_pioneer_implicit_fb(struct snd_usb_audio *chip,
--				   struct audioformat *fmt,
--				   struct usb_host_interface *alts)
-+static int skip_pioneer_sync_ep(struct snd_usb_audio *chip,
-+				struct audioformat *fmt,
-+				struct usb_host_interface *alts)
- {
- 	struct usb_endpoint_descriptor *epd;
- 
-@@ -194,8 +196,7 @@ static int add_pioneer_implicit_fb(struct snd_usb_audio *chip,
- 	     (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
- 	     USB_ENDPOINT_USAGE_IMPLICIT_FB))
- 		return 0;
--	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 1,
--				       alts->desc.bInterfaceNumber, alts);
-+	return 1; /* don't handle with the implicit fb, just skip sync EP */
- }
- 
- static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
-@@ -298,11 +299,11 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
- 			return 1;
- 	}
- 
--	/* Pioneer devices implicit feedback with vendor spec class */
-+	/* Pioneer devices with vendor spec class */
- 	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
- 	    alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
- 	    USB_ID_VENDOR(chip->usb_id) == 0x2b73 /* Pioneer */) {
--		if (add_pioneer_implicit_fb(chip, fmt, alts))
-+		if (skip_pioneer_sync_ep(chip, fmt, alts))
- 			return 1;
- 	}
- 
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 83a4a6290070..313d2c9fb35d 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2482,6 +2482,9 @@ static const struct pci_device_id azx_ids[] = {
+ 	/* CometLake-S */
+ 	{ PCI_DEVICE(0x8086, 0xa3f0),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	/* CometLake-R */
++	{ PCI_DEVICE(0x8086, 0xf0c8),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+ 	/* Icelake */
+ 	{ PCI_DEVICE(0x8086, 0x34c8),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
 -- 
-2.26.2
+2.25.1
 

@@ -2,70 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7FC32F9AF0
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC2E62F9AF6
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 09:05:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F13417F5;
-	Mon, 18 Jan 2021 09:03:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F13417F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63D6617CD;
+	Mon, 18 Jan 2021 09:04:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D6617CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610957076;
-	bh=frkx990uiPqLk3CW/JmtkCy//HVLlEh4b0LtVFu+k8s=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=u3QRzucVwkWrGXSUDfIzbS7xG9Sh+BAnVXfMBQ5YjOFN2fBdf2mU267jYnbXlutBY
-	 Y5XJEQ1Vhg8HLsBkPESd5ULrqhL3CIIVdB2Kjud9tnwDejOkcCI9VXs8koTYGEs15d
-	 XvaGEV6NP/WDleenY8tlNTEEpXtlIelZd5ZSCoBs=
+	s=default; t=1610957116;
+	bh=rOoCe9k7WI3U/907c5Ij7qR3va689lnKu5S00ROi5GY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nIY1rQhaEMjLlIQDu/KAsQFMBhGiY6xivWxEqzgS26fD0ogMcoYKWKTEq9sj0SUfr
+	 mkzKnb7tf+lpwmCU2buGuzxc7hJoPwwJWfxmRv/PxOXId0Ith/9WBiPZtPPqXeDJu8
+	 O/b+sFcWn1AHsuju3rTSFJKgXfahqHwZpnlNONkg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF5CEF8026B;
-	Mon, 18 Jan 2021 09:02:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B11A1F804CA;
+	Mon, 18 Jan 2021 09:02:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F2B8F801ED; Fri, 15 Jan 2021 09:48:05 +0100 (CET)
+ id 98259F8025E; Sat, 16 Jan 2021 16:10:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57705F80132
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 09:47:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57705F80132
-Received: by mail-io1-f72.google.com with SMTP id m3so13052980ioy.0
- for <alsa-devel@alsa-project.org>; Fri, 15 Jan 2021 00:47:27 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B60F9F8010B
+ for <alsa-devel@alsa-project.org>; Sat, 16 Jan 2021 16:10:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B60F9F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TAKZGD1o"
+Received: by mail-pl1-x632.google.com with SMTP id x12so6211684plr.10
+ for <alsa-devel@alsa-project.org>; Sat, 16 Jan 2021 07:10:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding;
+ bh=XVfRC3VS1iJhQ2u3rXKF8OukI6C4/RaKCNwIeoBnNA8=;
+ b=TAKZGD1onxE+hqw2liMiAR6pLAy2OjUK6G6N0Iidv5+wyIrqq6OfaTex58tm9r6+vk
+ zSvUuS8DOWFmwLGjS2vakEq7mSSb8Fq7cw1sySU2K0eUItU1a/9KVo8oCk1o3QpwFlCc
+ Egcy6UnFsYM0RSTkRFL+OcymaaSjAO/3klT/VAYStQlabJbGIuuzlmDLR34X2NNYf35Y
+ qLFgIAV8aX9J8JYWSSX8oDN9dQ/XcGJAo28V9dcwPV5vVFkNNueb9pUxrQ3KDeL2bSjX
+ K7Ek8sWxMv7eHvuhcUAV1Bq7qkOWznHWiZdSyQPIMR53FNKXZfi4NQVaGr9j9dV93H9q
+ +vZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=3ckr1Mfn/YY+HNQ+AHLOJlRAcQoosqzSNDPBWIcaTtY=;
- b=ttB5ke4tQbFEfz3UsNzozp+AHnu/P7ut7Wn3VPj5hJac2PS/MsiDYsVho7YpDThnX7
- CwdSIxLM3+YqCWPztGJBrzjEbvInFBBnWmXCdwGtjJIDHq1VYwfWQaWWsi255TMOMxK4
- mReIKFlHwYyfGBBaIdXYAlmdfx8cXPN2lskhWrEHkCvoOqdEgGPupIHILqd+RAp20DV5
- 5EqXSwfraBJGMYUpozD9/9sNjopjELQVIlSgjixFvRMdZ7LYRMbZ8qYIYUJ9TIgTg9T4
- 5FGz2QxARi1913+4zqVJKEKyQwLAalwH1siJ44KkJ2LpoYdHC3d1Hzmw2fig8/RFCSuc
- ui/A==
-X-Gm-Message-State: AOAM532zOTkv1EALc9dCGbDj52nzb3QDUM0EvfykiWEcZDyY7s1me9Pn
- xTTXc6awoxg4d8ZJGFNtPxTvGSH156tkgxfi2yLXz1SQiuFm
-X-Google-Smtp-Source: ABdhPJzptic/hQVbC4RZn0b9E2+GUjLcLL/KforQ9fhnZiLUTe4Efxou5W3MviG+iKNFS8sgoZyos4sskWf5MPAbMMw7EJvRxuGo
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding;
+ bh=XVfRC3VS1iJhQ2u3rXKF8OukI6C4/RaKCNwIeoBnNA8=;
+ b=kM/HDjjeSw/3LonryiFEhifMnh+5WIH3xtdTwYg2EvCDY1efaPPierZA+898NyXc8r
+ Q+9aDIWn2o7hafA5uqa4vrr4jvcdEOYuMy0bv7/BWu6hJa8f8ap3/+3EwSi53XYO6t8i
+ I+nod1lSF8ZEPKu3LuFAn3A32Z9s2HMop+HOphCY5Y3GqW2187RDQ/xig5pbg/5FjGcW
+ ojFsVtUBtd13k5GNe44K9vxr/qFyAGE3j1mSB9UabgQE5ietSotzq+DtBQDryolpzGQj
+ KvdHwIiPeC6UvOT1Hil792yPzrqBecUKgjt0dGfFrWKlBtEAeXtA69e6DZ8KK1xEKK5R
+ Eebw==
+X-Gm-Message-State: AOAM530iC3DWYPe+3rzrjoPcElZlCsiplz1AwmihwbMXWACuSnJjmAm6
+ VoOB93CmCxvNu9x848Tjugw=
+X-Google-Smtp-Source: ABdhPJzzJXE8U3cCbdWQMpki+05Mne2wHUEjtbfMSLerP6XdOZocWIyN/QPq8DEDMPKCHW0rIFYQqQ==
+X-Received: by 2002:a17:90a:d70e:: with SMTP id
+ y14mr16163154pju.9.1610809818836; 
+ Sat, 16 Jan 2021 07:10:18 -0800 (PST)
+Received: from [0.0.0.0] (n218250008152.netvigator.com. [218.250.8.152])
+ by smtp.gmail.com with ESMTPSA id n195sm11391438pfd.169.2021.01.16.07.10.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 16 Jan 2021 07:10:18 -0800 (PST)
+Subject: Re: [PATCH v3 1/3] platform/x86: dell-privacy: Add support for Dell
+ hardware privacy
+To: Randy Dunlap <rdunlap@infradead.org>, Perry Yuan <Perry.Yuan@dell.com>,
+ oder_chiou@realtek.com, perex@perex.cz, tiwai@suse.com, hdegoede@redhat.com,
+ mgross@linux.intel.com
+References: <20210112171723.19484-1-Perry_Yuan@Dell.com>
+ <cc83351b-a19a-9a3e-d511-4553cf4d7ef0@infradead.org>
+From: Perry Yuan <perry979106@gmail.com>
+Message-ID: <578023b1-ae22-f21a-3969-62f06557baf1@gmail.com>
+Date: Sat, 16 Jan 2021 23:10:02 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-X-Received: by 2002:a6b:5018:: with SMTP id e24mr7746963iob.184.1610700445592; 
- Fri, 15 Jan 2021 00:47:25 -0800 (PST)
-Date: Fri, 15 Jan 2021 00:47:25 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000e635df05b8ec6b6e@google.com>
-Subject: KMSAN: uninit-value in snd_seq_oss_synth_make_info (2)
-From: syzbot <syzbot+e42504ff21cff05a595f@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, glider@google.com, 
- linux-kernel@vger.kernel.org, perex@perex.cz, syzkaller-bugs@googlegroups.com, 
- tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <cc83351b-a19a-9a3e-d511-4553cf4d7ef0@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 18 Jan 2021 09:02:51 +0100
+Cc: alsa-devel@alsa-project.org, Mario.Limonciello@dell.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ platform-driver-x86@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,67 +109,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On 2021/1/13 1:39, Randy Dunlap wrote:
 
-syzbot found the following issue on:
+> On 1/12/21 9:17 AM, Perry Yuan wrote:
+>> +config DELL_PRIVACY
+>> +	tristate "Dell Hardware Privacy Support"
+>> +	depends on ACPI
+>> +	depends on ACPI_WMI
+>> +	depends on INPUT
+>> +	depends on DELL_LAPTOP
+>> +	depends on LEDS_TRIGGER_AUDIO
+>> +	select DELL_WMI
+>> +	help
+>> +	This driver provides support for the "Dell Hardware Privacy" feature
+>> +	of Dell laptops.
+>> +	Support for a micmute and camera mute privacy will be provided as
+>> +	hardware button Ctrl+F4 and Ctrl+F9 hotkey
+> 	End above with a period '.' please.
+>
+>> +
+>> +	To compile this driver as a module, choose M here: the module will
+>> +	be called dell_privacy.
+> Please follow coding-style for Kconfig files:
+>
+> from Documentation/process/coding-style.rst, section 10):
+>
+> For all of the Kconfig* configuration files throughout the source tree,
+> the indentation is somewhat different.  Lines under a ``config`` definition
+> are indented with one tab, while help text is indented an additional two
+> spaces.
+>
+>
+> thanks.
 
-HEAD commit:    73d62e81 kmsan: random: prevent boot-time reports in _mix_..
-git tree:       https://github.com/google/kmsan.git master
-console output: https://syzkaller.appspot.com/x/log.txt?x=10284200d00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2cdf4151c9653e32
-dashboard link: https://syzkaller.appspot.com/bug?extid=e42504ff21cff05a595f
-compiler:       clang version 11.0.0 (https://github.com/llvm/llvm-project.git ca2dcbd030eadbf0aa9b660efe864ff08af6e18b)
-userspace arch: i386
+Thanks for your review feedback.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+I will fix this in V4 patch.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e42504ff21cff05a595f@syzkaller.appspotmail.com
-
-=====================================================
-BUG: KMSAN: uninit-value in strlen lib/string.c:576 [inline]
-BUG: KMSAN: uninit-value in strlcpy+0x8c/0x1c0 lib/string.c:143
-CPU: 1 PID: 10203 Comm: syz-executor.3 Not tainted 5.10.0-rc4-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:77 [inline]
- dump_stack+0x21c/0x280 lib/dump_stack.c:118
- kmsan_report+0xf7/0x1e0 mm/kmsan/kmsan_report.c:118
- __msan_warning+0x5f/0xa0 mm/kmsan/kmsan_instr.c:197
- strlen lib/string.c:576 [inline]
- strlcpy+0x8c/0x1c0 lib/string.c:143
- snd_seq_oss_synth_make_info+0x381/0x820 sound/core/seq/oss/seq_oss_synth.c:619
- snd_seq_oss_synth_info_user sound/core/seq/oss/seq_oss_ioctl.c:24 [inline]
- snd_seq_oss_ioctl+0x12b4/0x2530 sound/core/seq/oss/seq_oss_ioctl.c:139
- odev_ioctl sound/core/seq/oss/seq_oss.c:180 [inline]
- odev_ioctl_compat+0x247/0x290 sound/core/seq/oss/seq_oss.c:190
- __do_compat_sys_ioctl fs/ioctl.c:842 [inline]
- __se_compat_sys_ioctl+0x53d/0x1100 fs/ioctl.c:793
- __ia32_compat_sys_ioctl+0x4a/0x70 fs/ioctl.c:793
- do_syscall_32_irqs_on arch/x86/entry/common.c:80 [inline]
- __do_fast_syscall_32+0x102/0x160 arch/x86/entry/common.c:139
- do_fast_syscall_32+0x6a/0xc0 arch/x86/entry/common.c:162
- do_SYSENTER_32+0x73/0x90 arch/x86/entry/common.c:205
- entry_SYSENTER_compat_after_hwframe+0x4d/0x5c
-RIP: 0023:0xf7f8c549
-Code: b8 01 10 06 03 74 b4 01 10 07 03 74 b0 01 10 08 03 74 d8 01 00 00 00 00 00 00 00 00 00 00 00 00 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 eb 0d 90 90 90 90 90 90 90 90 90 90 90 90
-RSP: 002b:00000000f55860cc EFLAGS: 00000296 ORIG_RAX: 0000000000000036
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00000000c08c5114
-RDX: 0000000020000080 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-
-Local variable ----minf@snd_seq_oss_synth_make_info created at:
- snd_seq_oss_synth_make_info+0x22a/0x820 sound/core/seq/oss/seq_oss_synth.c:613
- snd_seq_oss_synth_make_info+0x22a/0x820 sound/core/seq/oss/seq_oss_synth.c:613
-=====================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

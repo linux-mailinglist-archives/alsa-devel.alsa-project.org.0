@@ -2,92 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7842FA76E
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 18:25:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A43162FA783
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 18:28:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B69C0172C;
-	Mon, 18 Jan 2021 18:24:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69C0172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28EFD184D;
+	Mon, 18 Jan 2021 18:28:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28EFD184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610990715;
-	bh=vL2Q3fMkuv15u8DKEPcndnCArRvWjWoeKmNZlB7vghQ=;
+	s=default; t=1610990939;
+	bh=MUNjxMEV0ic18SVDfKWNJHh/+Asw34YN0a7BcHo4aZw=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kASJoBnMRWWLHbJPdmJaJrSUrZ0TN7Qd0N/Wf+xQOHy7Ri7LHcygAuPCY8eThaVWY
-	 +ozwB1j8LOlXxABhwqcqOxmmoc2k9NopfNx77zUo5HxpbM7y1n7b8t4JgwR/2/RIy5
-	 yzhPNIdUqYt7XvO6VwEGrL3eEgs/uxrgPtEVsrxQ=
+	b=ZLksuBIu5Kt0BiEUUaOv9iFlhMja5dMU0gaqWQNu4Pn0ln7W+I0xZHG+gTdkCOYA4
+	 55aUlXlQpGNRRWvzvl4UiL4z4S80YMS/sO5lG6OY8dr7nkGE8YGGnY45BgQEtvowH+
+	 +K2ikUS4JG/YX8emz+UAh4ZblAWsZbxuwr0EN9rI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78120F8019D;
-	Mon, 18 Jan 2021 18:23:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B188F800E7;
+	Mon, 18 Jan 2021 18:27:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0583F8016E; Mon, 18 Jan 2021 18:23:38 +0100 (CET)
+ id 5954AF80137; Mon, 18 Jan 2021 18:27:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAAB1F80137
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 18:23:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAAB1F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="n86qYIu9"
-Received: by mail-pg1-x529.google.com with SMTP id c132so11330472pga.3
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 09:23:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1m+rUUQDdIhjKXOvL3hkSq8B9mPmn1aBAZoQylBeiLM=;
- b=n86qYIu9xLuWzYbv5gShTHRXcjqMDjkM0L7Ez6qeDZBDJjTSBGiYMV1VuMcQmn3CW2
- HmJauxMzu8xcDFCy8yhRj5ANa+eWQMVPQ40RwNdXfjCjkVZlrheJgNY0Y4AONsglytIS
- Ia3fQW7QcfHW4epgVInXoNKquJdCEkflv15WFP3LAJzYmUXefNozboNUAhp8SM7/cUOY
- 7ggLCPvOFIiO38HSZxVVnfDqD4QcnsBekwwVApOQawixQiITtTRkHKHs9ms+8Befx5r+
- nUJErvetE0dCReRQgqIxy8pPTV1u4noYEzL2/ZqCK8fjtOx3+nZK33SVaVbCpLrK1Jcp
- ePCg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5AD90F80137
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 18:27:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AD90F80137
+Received: from mail-lf1-f71.google.com ([209.85.167.71])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1l1YJA-00033B-4X
+ for alsa-devel@alsa-project.org; Mon, 18 Jan 2021 17:27:16 +0000
+Received: by mail-lf1-f71.google.com with SMTP id 198so6874387lfj.19
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 09:27:16 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=1m+rUUQDdIhjKXOvL3hkSq8B9mPmn1aBAZoQylBeiLM=;
- b=WycMs/xGv47FfR6daTC1TpkU5nReaI3e1qZrm6nVL2UkNCI1B3FgfVqKZviw/rCPuM
- Kbu+vJ5IYSYZ+ClcUm8G3/HSLSU3sXiZ8I7GBh9F7FUbFxfwSwJuy3k9r0ioSeGmwWK9
- U/qKl6E3E8gJWkL4rauSvlpEl43i7tfDTkPw9dqBTY+4qXDp4j9waZYx4sWNe9ygUF3Q
- XHlyEbOgJzMbL2qkVxrMBnVF9Iw57GGrbNgwmhVbWSh7OH+HLxkM21tFeVyuXA+nT3O2
- xB7KKS5xcY71hdqtlB0W4U3d4DGGU/4HM2IpnBub3xdzr5WXzN/zbtcRF/yRZLB3rEs3
- IJFQ==
-X-Gm-Message-State: AOAM532CoHnKz3i2mAwOpbN5s5WV2WE5C10+qtsyOPLLxvp77FYHoWoj
- 2KicyNsk6bVD2LaBBpBI/suEo0ReXcYoe4x/0Mc=
-X-Google-Smtp-Source: ABdhPJycCXTt6CPDhf5rSe5BpyIHmuyVLqOnWDvQyfIQJk/8LVbuHSNzR2+YhxDf2Aqi/p7Kc+CLxDrXgStx3ExNV7U=
-X-Received: by 2002:a05:6a00:854:b029:1b7:6233:c5f with SMTP id
- q20-20020a056a000854b02901b762330c5fmr217722pfk.73.1610990611337; Mon, 18 Jan
- 2021 09:23:31 -0800 (PST)
+ bh=y+F3xum/Kfc0s4a7NIXADFe5DKglu0DQNppY8qILCAo=;
+ b=QTA1Z1y4Z7jCXHFjzGi2AjTmAlxMfJ6eJaTFYi7Gt3KuStsuaa6AS/ty/rEsc8WWZ3
+ 86ObC1nPIkQ5NlJKTN/5jntXS5A3LlOy6ZniYXV0YsAOwhEQSuLf+xpu61oaVJAwOfNj
+ fl3DuMLnf9DrJdhM6biQkfRxHbkI2chVwV/ZoReuP1j0Kd6bBJP8tBVFM5G7WsM7GFca
+ bslnZT1MKl7FxhADSQFYVpmIca+V9vvt+QtXC84AvJeOQFWGgjQTZhQjkJVDz/7VEPnl
+ n0ktEmJNJVjZ9cFYVnmaHLhXPR7r8nfHrqcVjcc20xmz70g1mYlzNu/0MjY/MjnQdj5i
+ UuRg==
+X-Gm-Message-State: AOAM532vfaQwZQ2Ogl27n7ri4Bu1MBsylMwWaRDU74xjHkyoHHXMWelt
+ Cv47paaZxX8hDZ37Js51npKo/wcm8dNvLwZVDGZ6QrjZo6gj6WNFvU1CgO+nHU/BNbSBncOiF7W
+ n8PAr7BB/5MMe5sN0Y6pn7TQ/enNkfTmHp80ZPzypkjzWuS7QJog5mrn7
+X-Received: by 2002:ac2:561b:: with SMTP id v27mr68206lfd.425.1610990835602;
+ Mon, 18 Jan 2021 09:27:15 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyYmaz7Mag/kez3M93Cx3y078QCv8AQVETwR/huIC1MYo4C13IX0QrWoS1GnvkepFD5e7x9Ed3noF1EGli4q+w=
+X-Received: by 2002:ac2:561b:: with SMTP id v27mr68191lfd.425.1610990835325;
+ Mon, 18 Jan 2021 09:27:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20210117160555.78376-1-hdegoede@redhat.com>
- <20210117160555.78376-9-hdegoede@redhat.com>
-In-Reply-To: <20210117160555.78376-9-hdegoede@redhat.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 18 Jan 2021 19:24:20 +0200
-Message-ID: <CAHp75VeSqVYWE9o-6JwY+pmjU7nfBJwZvaSk0v-ngjeGMMxQAQ@mail.gmail.com>
-Subject: Re: [PATCH v2 08/12] ASoC: arizona-jack: convert into a helper
- library for codec drivers
-To: Hans de Goede <hdegoede@redhat.com>
+References: <20210118130937.164650-1-kai.heng.feng@canonical.com>
+ <s5hzh16idnj.wl-tiwai@suse.de>
+In-Reply-To: <s5hzh16idnj.wl-tiwai@suse.de>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Tue, 19 Jan 2021 01:27:03 +0800
+Message-ID: <CAAd53p7ipG7wnRjYmhm0P0Tm893QDfN+TjzeFkTf23CL_0220w@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda: Balance runtime/system PM if direct-complete
+ is disabled
+To: Takashi Iwai <tiwai@suse.de>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Harsha Priya <harshapriya.n@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "Kenneth R . Crudup" <kenny@panix.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,89 +97,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Jan 17, 2021 at 6:06 PM Hans de Goede <hdegoede@redhat.com> wrote:
+On Mon, Jan 18, 2021 at 9:21 PM Takashi Iwai <tiwai@suse.de> wrote:
 >
-> Convert the arizona extcon driver into a helper library for direct use
-> from the arizona codec-drivers, rather then being bound to a separate
-> MFD cell.
+> On Mon, 18 Jan 2021 14:09:36 +0100,
+> Kai-Heng Feng wrote:
+> >
+> > HDA controller can't be runtime-suspended after commit 215a22ed31a1
+> > ("ALSA: hda: Refactor codjc PM to use direct-complete optimization"),
+> > which enables direct-complete for HDA codec.
+> >
+> > The HDA codec driver didn't expect direct-complete will be disabled
+> > after it returns a positive value from prepare() callback. However,
+> > there are some places that PM core can disable direct-complete. For
+> > instance, system hibernation or when codec has subordinates like LEDs.
 >
-> Note the probe (and remove) sequence is split into 2 parts:
+> Hmm.  This sounds rather like the approach using the direct-complete
+> isn't well suited for the purpose? The increasing number of
+> regression reports worries me.
+
+Direct-complete works fine on HDA controller but so far not so on HDA codec.
+I think the main reason is that the codec doesn't have the middle
+layer to handle the detail, while HDA controller has PCI bus to deal
+with them.
+
 >
-> 1. The arizona_jack_codec_dev_probe() function inits a bunch of
-> jack-detect specific variables in struct arizona_priv and tries to get
-> a number of resources where getting them may fail with -EPROBE_DEFER.
+> > So if a device is prepared for direct-complete but PM core still calls
+> > codec's suspend or freeze callback, resume the device to keep PM
+> > operations balanced.
 >
-> 2. Then once the machine driver has create a snd_sock_jack through
-> snd_soc_card_jack_new() it calls snd_soc_component_set_jack() on
-> the codec component, which will call the new arizona_jack_set_jack(),
-> which sets up jack-detection and requests the IRQs.
+> I find the ping-pong of the resume/suspend there a bit odd.  It's no
+> refcount management but it invokes the real resume there, which is
+> involved with lots of operations.
+
+Yes. I'll find a better approach to address this.
+
 >
-> This split is necessary, because the IRQ handlers need access to the
-> arizona->dapm pointer and the snd_sock_jack which are not available
-> when the codec-driver's probe function runs.
+> Can we rather skip the hda_codec_suspend() call instead (while
+> changing dev->power.power_state)?
+
+Maybe we can revert the most of the commit, and just leave
+hda_codec_pm_complete(), which is the most relevant part of the patch.
+Let me test a bit and send a new patch. Let me know if you don't like
+this approach.
+
+A question a bit unrelated to the discussion - how does
+snd_hdac_power_up_pm() work for concurrent resume?
+It can work for recursive call, but what if there are concurrent
+resume request, but pm_runtime_get_sync() is still running?
+The second call may access the codec which hasn't completed resume.
+
+Kai-Heng
+
 >
-> Note this requires that machine-drivers for codecs which are converted
-> to use the new helper functions from arizona-jack.c are modified to
-> create a snd_soc_jack through snd_soc_card_jack_new() and register
-> this jack with the codec through snd_soc_component_set_jack().
-
-...
-
-> +int arizona_jack_codec_dev_probe(struct arizona_priv *info, struct device *dev)
->  {
-> -       struct arizona *arizona = dev_get_drvdata(pdev->dev.parent);
-> +       struct arizona *arizona = info->arizona;
->         struct arizona_pdata *pdata = &arizona->pdata;
-
-> +       int ret, mode;
 >
->         if (!dev_get_platdata(arizona->dev))
-> -               arizona_extcon_device_get_pdata(&pdev->dev, arizona);
-> +               arizona_extcon_device_get_pdata(dev, arizona);
+> thanks,
 >
-> -       info->micvdd = devm_regulator_get(&pdev->dev, "MICVDD");
-> +       info->micvdd = devm_regulator_get(arizona->dev, "MICVDD");
-
-I'm wondering if arizona->dev == dev here. if no, can this function
-get a comment / kernel-doc explaining what dev is?
-
->         if (IS_ERR(info->micvdd)) {
-
->                 ret = PTR_ERR(info->micvdd);
->                 dev_err(arizona->dev, "Failed to get MICVDD: %d\n", ret);
-
-Side note: at some point perhaps consider to use dev_err_probe() with
-functions which may return deferred probe error code.
-
-...
-
-> +       info->edev = devm_extcon_dev_allocate(dev, arizona_cable);
->         if (IS_ERR(info->edev)) {
-> -               dev_err(&pdev->dev, "failed to allocate extcon device\n");
-> +               dev_err(arizona->dev, "failed to allocate extcon device\n");
-
-Ditto about dev.
-
->                 return -ENOMEM;
->         }
-
-...
-
-> +               ret = devm_gpio_request_one(dev, arizona->pdata.hpdet_id_gpio,
->                                             GPIOF_OUT_INIT_LOW,
->                                             "HPDET");
->                 if (ret != 0) {
->                         dev_err(arizona->dev, "Failed to request GPIO%d: %d\n",
->                                 arizona->pdata.hpdet_id_gpio, ret);
-> -                       goto err_gpio;
-> +                       gpiod_put(info->micd_pol_gpio);
-
-Perhaps move before dev_err() ?
-Side comment: Do we need dev_err_probe() here?
-
-> +                       return ret;
->                 }
-
--- 
-With Best Regards,
-Andy Shevchenko
+> Takashi
+>
+> > Reported-by: Kenneth R. Crudup <kenny@panix.com>
+> > Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
+> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > ---
+> >  sound/pci/hda/hda_codec.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+> > index 687216e74526..0afbced979df 100644
+> > --- a/sound/pci/hda/hda_codec.c
+> > +++ b/sound/pci/hda/hda_codec.c
+> > @@ -2997,6 +2997,9 @@ static void hda_codec_pm_complete(struct device *dev)
+> >
+> >  static int hda_codec_pm_suspend(struct device *dev)
+> >  {
+> > +     if (pm_runtime_status_suspended(dev))
+> > +             pm_runtime_resume(dev);
+> > +
+> >       dev->power.power_state = PMSG_SUSPEND;
+> >       return hda_codec_suspend(dev);
+> >  }
+> > @@ -3009,6 +3012,9 @@ static int hda_codec_pm_resume(struct device *dev)
+> >
+> >  static int hda_codec_pm_freeze(struct device *dev)
+> >  {
+> > +     if (pm_runtime_status_suspended(dev))
+> > +             pm_runtime_resume(dev);
+> > +
+> >       dev->power.power_state = PMSG_FREEZE;
+> >       return hda_codec_suspend(dev);
+> >  }
+> > --
+> > 2.29.2
+> >

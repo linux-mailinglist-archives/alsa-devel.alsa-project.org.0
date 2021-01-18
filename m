@@ -2,119 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2461E2FAC39
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 22:10:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D02922FAC67
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 22:17:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FECB1858;
-	Mon, 18 Jan 2021 22:10:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FECB1858
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E55717AB;
+	Mon, 18 Jan 2021 22:16:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E55717AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611004253;
-	bh=eVRPrruFA0zEhl5JABUs35xrJ8SpQhtj2JHPZikky2U=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611004641;
+	bh=jNOenBIUletLVGQ6/VHRj02rqgA6EYKwBQfRPvsePMs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rbi4xUpHKRm3hiZcVfOviMF4TaA8AJaysD6W4LJTawvujqejUpYykycQ17VGGmp18
-	 PT3CuE/P2H/2Xq5VkmrDMuG7+jskfiFReN8FWSvD3d6vv7NT2j8DC58cmnqoZktr3j
-	 tS92EaqTlaW4aupwZXmtFFsFTyy1/3t2yRKDQfZU=
+	b=fpqSzl1kmhegR5vC5RRAakUvlpa/ciEwGrUHhUtwN7/tXVSCl+2mdaTGTYznlCvpO
+	 i5gXmvwHpuvjAsfv+8xqiPWsS3j0JPmegzHjYDnM7bET7IoAt9xOtWs27nryPai59o
+	 ZlGZE8buQjkQRVU7agYSSdEUStYpLoe9AtZvIn2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAD4CF8019D;
-	Mon, 18 Jan 2021 22:09:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E4D5F8019D;
+	Mon, 18 Jan 2021 22:15:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 106CBF8016E; Mon, 18 Jan 2021 22:09:18 +0100 (CET)
+ id 33E0EF8016E; Mon, 18 Jan 2021 22:15:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
+ [IPv6:2607:f8b0:4864:20::b2e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E54EF80137
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 22:09:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E54EF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49E14F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 22:15:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49E14F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="TMA06ytb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611004148;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DRu+4fjUNV4j7WF9rBOha65f9F3VebQfanWyObjLWHc=;
- b=TMA06ytbBQFTGofA/Zn3BFTy2Z/n+FykAVpsm5P+wHJWo6ntAx94prsgFZ0xC9BFbYUb2K
- EIrEqFr3khFBS+7x27uhnFVYgrk8XaSBHPPv4kK3+UICkhNLQn9f+0uS8GICbsb7vj9Lg/
- a/nM8A+kPw/f+da3t9aZ+uvcUxqssbU=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-408-bHPHkPY7PBOnWdYDGFpPuQ-1; Mon, 18 Jan 2021 16:09:06 -0500
-X-MC-Unique: bHPHkPY7PBOnWdYDGFpPuQ-1
-Received: by mail-ed1-f70.google.com with SMTP id a24so3081456eda.14
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 13:09:06 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
+ header.i=@nostatic-org.20150623.gappssmtp.com header.b="UwNWtGiq"
+Received: by mail-yb1-xb2e.google.com with SMTP id f6so13939310ybq.13
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 13:15:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nostatic-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=u+rCVubhdqwgf7S4ZPgAdZm/ivoJ8k05eNoDpLD5RjI=;
+ b=UwNWtGiqF8ge27dgW5k/6Mv673fkWXl8ywnj7NUoGN/KniOmB4Woq0OwlWwOnrPQ8w
+ GegHwalx0f3PAsUN9LoiFQVCAM0tubCVB6x/hTkw/VLIp8jMdyYP6pnIJobSmbu8ui7l
+ 4pJs/Eesh5A6OX0VxD5kpa1i1Y/QJ0JYlcGruwDOBrWfFmic7tRSyACFehH/2WI/WiFM
+ jDx1lBXKfLFFBLJ598eOvXWNnyMlAGZDwcqGzN54WD8AD9OGMSrAIbYDHt7+2pXtDRlW
+ dd59bZxyT9pA1XruKgf7hK6s/JqI4rf47yFl3U+QuEAxJynXdAQDmuccfjl5CaFja7ov
+ SIdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=DRu+4fjUNV4j7WF9rBOha65f9F3VebQfanWyObjLWHc=;
- b=Z2Qc5SQTfOvcrtJOusQtRgE+2lXZHp6QqlGaS97cBtL95YldBE8QyPEMykebjOxFvn
- Pa+6Lq2CdWv8htCgNqLTQDR0mKAZqxp6u1ShkDzpXfeEQMbQyMmOGn21cacpc1YlOc4W
- o27hTz8R0HyEnQTX5pkT44ZiEnSeGakkopNAhhFFErE0n7VIzAjm+0FTX5er8vCqxDm8
- K4Rqsnr2zzTQUiyliGxOPtV7ccpI18OJU2r+y46jVKvKOBxrcLzFen/GCNp+14ZPF0Lt
- RViGsroOdc77e5dFW+GrcQU5Ax5awkpdwFW7mb3Xs+y3XGuoEigg6Q+QzAoo2Ldk3IfG
- 0swg==
-X-Gm-Message-State: AOAM531+QbcmLlpOUpf08dJu7D+3Su62yfVvN4OLPOUmTDKDF9d4GXbY
- l3U2ORIWBomPUAMZrXhsQdS+nMebbYDoC3YQkvs6ml2Kb0ZBPSAtsawWs+H9UtXvVQivHkvvGQD
- dcxzOo6Kfv5n+GaN8SNW8/VuqSBRsRbLj+uDwWhEmQYtKnrYj3eMHwziJxyekbPMNSdVKxOHMsM
- c=
-X-Received: by 2002:a17:906:48f:: with SMTP id
- f15mr997107eja.392.1611004144687; 
- Mon, 18 Jan 2021 13:09:04 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxHW6WBucH1SRSE0CdG+9v/ERqwCCoxS+YMlDBKT4TwHLyE0uiCnKJ8orXYLts7p7VnQ1x+OQ==
-X-Received: by 2002:a17:906:48f:: with SMTP id
- f15mr997084eja.392.1611004144467; 
- Mon, 18 Jan 2021 13:09:04 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
- by smtp.gmail.com with ESMTPSA id m26sm4865344ejr.54.2021.01.18.13.09.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Jan 2021 13:09:03 -0800 (PST)
-Subject: Re: [PATCH] cfg80211: Fix "suspicious RCU usage in
- wiphy_apply_custom_regulatory" warning/backtrace
-To: "Peer, Ilan" <ilan.peer@intel.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20210104170713.66956-1-hdegoede@redhat.com>
- <BN7PR11MB2610DDFBC90739A9D1FAED52E9D10@BN7PR11MB2610.namprd11.prod.outlook.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <391ac436-9981-0f12-6e00-7a1bbe4d5c20@redhat.com>
-Date: Mon, 18 Jan 2021 22:09:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=u+rCVubhdqwgf7S4ZPgAdZm/ivoJ8k05eNoDpLD5RjI=;
+ b=U7/6Rzgv+UWmeJb9nm2JTKkAwORJeqmG5wte3z3aUI/rAm/T+Mqu/KRNo+ZuRB2aqm
+ CXHcT/7bJYjeuoU7/3rRJrbqaWMUtYryfVXu9FcnO+UTA2z8eUmp6G3JbTvKc8qqG/9I
+ pGMhJc6WVwQvU/FFAgchJ6IxgOBlJUPh5zzDM3V5+mUEuePxebJZr4+er7UyZsVJHeoS
+ 5rmO54CfpneaL4tKYG7iOBp2+TtXZTcgFQVIVivvhKyerCAu+eA+qzyw9Dvk7NRqsSsl
+ T36DMRy+Q/3Kx+wzmCGgz7gz8dIMQO2dNmebMmsto9GZ0h6AEXsBvNdNBPNilMlxvaIq
+ x/1Q==
+X-Gm-Message-State: AOAM5312/7UB3r3ekbhIUJCFZT01uJTCBLYRDVYxw1WQqCR/Sf1woBxQ
+ ak+BJHHBo7wiXG8WKPONcgOJe56aXWHZTTqziEyoJA==
+X-Google-Smtp-Source: ABdhPJzKPvdq+ojK9BDumT4GLB7v+E2e5VfNFh8nTM+q5bmvAFnP0oYBWTYvi1VqEj79cIlVlBHEJF8FbUi1epMmycI=
+X-Received: by 2002:a25:2a56:: with SMTP id q83mr1503516ybq.144.1611004537065; 
+ Mon, 18 Jan 2021 13:15:37 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <BN7PR11MB2610DDFBC90739A9D1FAED52E9D10@BN7PR11MB2610.namprd11.prod.outlook.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
+ <s5hr1mik7vu.wl-tiwai@suse.de>
+ <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
+ <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
+ <s5hr1migiie.wl-tiwai@suse.de>
+In-Reply-To: <s5hr1migiie.wl-tiwai@suse.de>
+From: Mike Oliphant <oliphant@nostatic.org>
+Date: Mon, 18 Jan 2021 13:15:26 -0800
+Message-ID: <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
+Subject: Re: Support for NUX MG-300 USB interface
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,120 +99,247 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Progress - thanks for the patch!
 
-On 1/5/21 10:24 AM, Peer, Ilan wrote:
-> Hi,
-> 
->> -----Original Message-----
->> From: Hans de Goede <hdegoede@redhat.com>
->> Sent: Monday, January 04, 2021 19:07
->> To: Johannes Berg <johannes@sipsolutions.net>; David S . Miller
->> <davem@davemloft.net>; Jakub Kicinski <kuba@kernel.org>; Rojewski,
->> Cezary <cezary.rojewski@intel.com>; Pierre-Louis Bossart <pierre-
->> louis.bossart@linux.intel.com>; Liam Girdwood
->> <liam.r.girdwood@linux.intel.com>; Jie Yang <yang.jie@linux.intel.com>;
->> Mark Brown <broonie@kernel.org>
->> Cc: Hans de Goede <hdegoede@redhat.com>; linux-
->> wireless@vger.kernel.org; netdev@vger.kernel.org; linux-
->> kernel@vger.kernel.org; alsa-devel@alsa-project.org; Peer, Ilan
->> <ilan.peer@intel.com>
->> Subject: [PATCH] cfg80211: Fix "suspicious RCU usage in
->> wiphy_apply_custom_regulatory" warning/backtrace
->>
->> Commit beee24695157 ("cfg80211: Save the regulatory domain when setting
->> custom regulatory") adds a get_wiphy_regdom call to
->> wiphy_apply_custom_regulatory. But as the comment above
->> wiphy_apply_custom_regulatory says:
->> "/* Used by drivers prior to wiphy registration */"
->> this function is used by driver's probe function before the wiphy is registered
->> and at this point wiphy->regd will typically by NULL and calling
->> rcu_dereference_rtnl on a NULL pointer causes the following
->> warning/backtrace:
->>
->> =============================
->> WARNING: suspicious RCU usage
->> 5.11.0-rc1+ #19 Tainted: G        W
->> -----------------------------
->> net/wireless/reg.c:144 suspicious rcu_dereference_check() usage!
->>
->> other info that might help us debug this:
->>
->> rcu_scheduler_active = 2, debug_locks = 1
->> 2 locks held by kworker/2:0/22:
->>  #0: ffff9a4bc104df38 ((wq_completion)events){+.+.}-{0:0}, at:
->> process_one_work+0x1ee/0x570
->>  #1: ffffb6e94010be78 ((work_completion)(&fw_work->work)){+.+.}-{0:0},
->> at: process_one_work+0x1ee/0x570
->>
->> stack backtrace:
->> CPU: 2 PID: 22 Comm: kworker/2:0 Tainted: G        W         5.11.0-rc1+ #19
->> Hardware name: LENOVO 60073/INVALID, BIOS 01WT17WW 08/01/2014
->> Workqueue: events request_firmware_work_func Call Trace:
->>  dump_stack+0x8b/0xb0
->>  get_wiphy_regdom+0x57/0x60 [cfg80211]
->>  wiphy_apply_custom_regulatory+0xa0/0xf0 [cfg80211]
->>  brcmf_cfg80211_attach+0xb02/0x1360 [brcmfmac]
->>  brcmf_attach+0x189/0x460 [brcmfmac]
->>  brcmf_sdio_firmware_callback+0x78a/0x8f0 [brcmfmac]
->>  brcmf_fw_request_done+0x67/0xf0 [brcmfmac]
->>  request_firmware_work_func+0x3d/0x70
->>  process_one_work+0x26e/0x570
->>  worker_thread+0x55/0x3c0
->>  ? process_one_work+0x570/0x570
->>  kthread+0x137/0x150
->>  ? __kthread_bind_mask+0x60/0x60
->>  ret_from_fork+0x22/0x30
->>
->> Add a check for wiphy->regd being NULL before calling get_wiphy_regdom
->> (as is already done in other places) to fix this.
->>
->> wiphy->regd will likely always be NULL when
->> wiphy->wiphy_apply_custom_regulatory
->> gets called, so arguably the tmp = get_wiphy_regdom() and
->> rcu_free_regdom(tmp) calls should simply be dropped, this patch keeps the
->> 2 calls, to allow drivers to call wiphy_apply_custom_regulatory more then
->> once if necessary.
->>
->> Cc: Ilan Peer <ilan.peer@intel.com>
->> Fixes: beee24695157 ("cfg80211: Save the regulatory domain when setting
->> custom regulator")
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  net/wireless/reg.c | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/net/wireless/reg.c b/net/wireless/reg.c index
->> bb72447ad960..9254b9cbaa21 100644
->> --- a/net/wireless/reg.c
->> +++ b/net/wireless/reg.c
->> @@ -2547,7 +2547,7 @@ static void handle_band_custom(struct wiphy
->> *wiphy,  void wiphy_apply_custom_regulatory(struct wiphy *wiphy,
->>  				   const struct ieee80211_regdomain *regd)  {
->> -	const struct ieee80211_regdomain *new_regd, *tmp;
->> +	const struct ieee80211_regdomain *new_regd, *tmp = NULL;
->>  	enum nl80211_band band;
->>  	unsigned int bands_set = 0;
->>
->> @@ -2571,7 +2571,8 @@ void wiphy_apply_custom_regulatory(struct wiphy
->> *wiphy,
->>  	if (IS_ERR(new_regd))
->>  		return;
->>
->> -	tmp = get_wiphy_regdom(wiphy);
->> +	if (wiphy->regd)
->> +		tmp = get_wiphy_regdom(wiphy);
->>  	rcu_assign_pointer(wiphy->regd, new_regd);
->>  	rcu_free_regdom(tmp);
-> 
-> This only fixes the first case where the pointer in NULL and does not handle the wrong RCU usage in other cases.
-> 
-> I'll prepare a fix for this.
+That got rid of the clock errors, and the the device now reports a 48000
+sample rate, which is correct.
 
-Any luck with this? This is a regression in 5.11, so this really should
-be fixed in a future 5.11-rc and the clock is running out.
+Unfortunately, it still isn't working properly. Playback doesn't seem to
+work at all. Capture kind of works - it does record, but the audio is
+extremely noisy.
 
-Regards,
+Here is the current dmesg output when the device is connected.
 
-Hans
+Notable is the error "No valid sample rate available for 1:1, assuming a
+firmware bug".
 
+Also notable is "1:1 Set sample rate 48000, clock 40" - where "40" is the
+id of the clock selector - "41" is the id of the actual clock source. So
+maybe something is still getting wired up wrong?
+
+
+[  418.366449] usb 3-1.2: new high-speed USB device number 6 using ehci-pci
+[  418.479099] usb 3-1.2: config 1 interface 3 altsetting 0 bulk endpoint
+0x4 has invalid maxpacket 256
+[  418.479118] usb 3-1.2: config 1 interface 3 altsetting 0 bulk endpoint
+0x83 has invalid maxpacket 256
+[  418.480085] usb 3-1.2: New USB device found, idVendor=1fc9,
+idProduct=8260, bcdDevice= 1.00
+[  418.480100] usb 3-1.2: New USB device strings: Mfr=1, Product=2,
+SerialNumber=3
+[  418.480107] usb 3-1.2: Product: NUX MG-300 AUDIO
+[  418.480112] usb 3-1.2: Manufacturer: NUX
+[  418.480117] usb 3-1.2: SerialNumber: 2008101346
+[  418.482025] usb 3-1.2: No valid sample rate available for 1:1, assuming
+a firmware bug
+[  418.482041] usb 3-1.2: 1:1: found sync_ep=0x81, iface=1, alt=1,
+implicit_fb=0
+[  418.482049] usb 3-1.2: 1:1: add audio endpoint 0x1
+[  418.482078] usb 3-1.2: Creating new data endpoint #1
+[  418.482086] usb 3-1.2: Creating new sync endpoint #81
+[  418.482666] usb 3-1.2: 1:1 Set sample rate 48000, clock 40
+[  418.484525] usb 3-1.2: No valid sample rate available for 2:1, assuming
+a firmware bug
+[  418.484545] usb 3-1.2: 2:1: add audio endpoint 0x82
+[  418.484584] usb 3-1.2: Creating new data endpoint #82
+[  418.484899] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.485800] usb 3-1.2: [10] FU [PCM Playback Switch] ch = 2, val = 0/1/1
+[  418.485822] usb 3-1.2: [10] FU [PCM Playback Switch] ch = 1, val = 0/1/1
+[  418.486484] usb 3-1.2: RANGE setting not yet supported
+[  418.487402] usb 3-1.2: [10] FU [PCM Playback Volume] ch = 2, val =
+-16384/0/256
+[  418.487899] usb 3-1.2: RANGE setting not yet supported
+[  418.488774] usb 3-1.2: [10] FU [PCM Playback Volume] ch = 1, val =
+-16384/0/256
+[  418.541357] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.541363] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.541367] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.541524] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.542000] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.542007] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.542009] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.545012] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.545018] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.545157] usb 3-1.2: EP 0x82 closed
+[  418.545620] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.545624] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.545627] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.545893] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.546257] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.546263] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.546266] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.546841] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.546845] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.547052] usb 3-1.2: EP 0x82 closed
+[  418.547467] usb 3-1.2: Open EP 0x1, iface=1:1, idx=0
+[  418.547470] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.547473] usb 3-1.2: Open EP 0x81, iface=1:1, idx=1
+[  418.547476] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.547478] usb 3-1.2: Setting usb interface 1:0 for EP 0x1
+[  418.547643] usb 3-1.2: 1:1 Set sample rate 48000, clock 40
+[  418.548129] usb 3-1.2: Setting params for data EP 0x1, pipe 0x8600
+[  418.548143] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.548146] usb 3-1.2: Setting usb interface 1:1 for EP 0x1
+[  418.548420] usb 3-1.2: Setting params for sync EP 0x81, pipe 0x8680
+[  418.548425] usb 3-1.2: Set up 4 URBS, ret=0
+[  418.548443] usb 3-1.2: Starting data EP 0x1 (running 0)
+[  418.548474] usb 3-1.2: 12 URBs submitted for EP 0x1
+[  418.548477] usb 3-1.2: Starting sync EP 0x81 (running 0)
+[  418.548487] usb 3-1.2: 4 URBs submitted for EP 0x81
+[  418.549724] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.549729] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.549732] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.549888] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.550256] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.550259] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.550261] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.550455] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.550460] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.550659] usb 3-1.2: EP 0x82 closed
+[  418.551298] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.551303] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.551307] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.551528] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.552021] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.552028] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.552031] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.552168] usb 3-1.2: Stopping sync EP 0x81 (running 1)
+[  418.552174] usb 3-1.2: Stopping data EP 0x1 (running 1)
+[  418.566466] usb 3-1.2: Closing EP 0x1 (count 1)
+[  418.566472] usb 3-1.2: Setting usb interface 1:0 for EP 0x1
+[  418.566772] usb 3-1.2: EP 0x1 closed
+[  418.566775] usb 3-1.2: Closing EP 0x81 (count 1)
+[  418.566777] usb 3-1.2: Setting usb interface 1:0 for EP 0x81
+[  418.566954] usb 3-1.2: EP 0x81 closed
+[  418.567038] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.567040] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.567257] usb 3-1.2: EP 0x82 closed
+[  418.573720] usb 3-1.2: Open EP 0x1, iface=1:1, idx=0
+[  418.573724] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.573727] usb 3-1.2: Open EP 0x81, iface=1:1, idx=1
+[  418.573729] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.573732] usb 3-1.2: Setting usb interface 1:0 for EP 0x1
+[  418.573927] usb 3-1.2: 1:1 Set sample rate 48000, clock 40
+[  418.574564] usb 3-1.2: Setting params for data EP 0x1, pipe 0x8600
+[  418.574570] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.574572] usb 3-1.2: Setting usb interface 1:1 for EP 0x1
+[  418.574659] usb 3-1.2: Setting params for sync EP 0x81, pipe 0x8680
+[  418.574662] usb 3-1.2: Set up 4 URBS, ret=0
+[  418.574676] usb 3-1.2: Starting data EP 0x1 (running 0)
+[  418.574700] usb 3-1.2: 12 URBs submitted for EP 0x1
+[  418.574701] usb 3-1.2: Starting sync EP 0x81 (running 0)
+[  418.574709] usb 3-1.2: 4 URBs submitted for EP 0x81
+[  418.575117] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.575120] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.575123] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.575384] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.575916] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.575926] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.575928] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.576065] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.576069] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.576171] usb 3-1.2: EP 0x82 closed
+[  418.576574] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.576578] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=9592, periods=4, implicit_fb=0
+[  418.576581] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.576632] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.577128] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.577132] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.577134] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.577404] usb 3-1.2: Stopping sync EP 0x81 (running 1)
+[  418.577408] usb 3-1.2: Stopping data EP 0x1 (running 1)
+[  418.594462] usb 3-1.2: Closing EP 0x1 (count 1)
+[  418.594469] usb 3-1.2: Setting usb interface 1:0 for EP 0x1
+[  418.594806] usb 3-1.2: EP 0x1 closed
+[  418.594810] usb 3-1.2: Closing EP 0x81 (count 1)
+[  418.594812] usb 3-1.2: Setting usb interface 1:0 for EP 0x81
+[  418.595093] usb 3-1.2: EP 0x81 closed
+[  418.595187] usb 3-1.2: Closing EP 0x82 (count 1)
+[  418.595189] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.595520] usb 3-1.2: EP 0x82 closed
+[  418.610935] usb 3-1.2: Open EP 0x1, iface=1:1, idx=0
+[  418.610943] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=384000, periods=2, implicit_fb=0
+[  418.610946] usb 3-1.2: Open EP 0x81, iface=1:1, idx=1
+[  418.610949] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=384000, periods=2, implicit_fb=0
+[  418.610952] usb 3-1.2: Setting usb interface 1:0 for EP 0x1
+[  418.611223] usb 3-1.2: 1:1 Set sample rate 48000, clock 40
+[  418.611990] usb 3-1.2: Setting params for data EP 0x1, pipe 0x8600
+[  418.612013] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.612020] usb 3-1.2: Setting usb interface 1:1 for EP 0x1
+[  418.612281] usb 3-1.2: Setting params for sync EP 0x81, pipe 0x8680
+[  418.612285] usb 3-1.2: Set up 4 URBS, ret=0
+[  418.612363] usb 3-1.2: Starting data EP 0x1 (running 0)
+[  418.612389] usb 3-1.2: 12 URBs submitted for EP 0x1
+[  418.612390] usb 3-1.2: Starting sync EP 0x81 (running 0)
+[  418.612397] usb 3-1.2: 4 URBs submitted for EP 0x81
+[  418.613337] usb 3-1.2: 1:1 Start Playback PCM
+[  418.613810] usb 3-1.2: Open EP 0x82, iface=2:1, idx=0
+[  418.613813] usb 3-1.2:   channels=2, rate=48000, format=S32_LE,
+period_bytes=384000, periods=2, implicit_fb=0
+[  418.613815] usb 3-1.2: Setting usb interface 2:0 for EP 0x82
+[  418.614078] usb 3-1.2: 2:1 Set sample rate 48000, clock 40
+[  418.614639] usb 3-1.2: Setting params for data EP 0x82, pipe 0x10680
+[  418.614648] usb 3-1.2: Set up 12 URBS, ret=0
+[  418.614653] usb 3-1.2: Setting usb interface 2:1 for EP 0x82
+[  418.615844] usb 3-1.2: Starting data EP 0x82 (running 0)
+[  418.615879] usb 3-1.2: 12 URBs submitted for EP 0x82
+[  418.615882] usb 3-1.2: 2:1 Start Capture PCM
+
+On Mon, Jan 18, 2021 at 11:19 AM Takashi Iwai <tiwai@suse.de> wrote:
+
+> On Mon, 18 Jan 2021 18:54:57 +0100,
+> Mike Oliphant wrote:
+> >
+> > Here is the dmesg output with dyndbg enabled. It looks like it is failing
+> > to find the clock source, and hence cannot obtain the valid sample rates.
+> >
+> > It looks like it is finding the clock selector (id: 40), but
+> > "uac_clock_selector_get_val()" is returning zero, and it never gets the
+> > clock source (id: 41).
+>
+> Aha.  Maybe the firmware doesn't expect it being asked as it's the
+> single connection.
+>
+> Does the patch below help anything?
+>
+>
+> Takashi
+>
+> --- a/sound/usb/clock.c
+> +++ b/sound/usb/clock.c
+> @@ -298,6 +298,11 @@ static int __uac_clock_find_source(struct
+> snd_usb_audio *chip,
+>         if (selector) {
+>                 int ret, i, cur;
+>
+> +               if (selector->bNrInPins == 1) {
+> +                       ret = 1;
+> +                       goto find_source;
+> +               }
+> +
+>                 /* the entity ID we are looking for is a selector.
+>                  * find out what it currently selects */
+>                 ret = uac_clock_selector_get_val(chip, selector->bClockID);
+> @@ -314,6 +319,7 @@ static int __uac_clock_find_source(struct
+> snd_usb_audio *chip,
+>                         return -EINVAL;
+>                 }
+>
+> +       find_source:
+>                 cur = ret;
+>                 ret = __uac_clock_find_source(chip, fmt,
+>                                               selector->baCSourceID[ret -
+> 1],
+>

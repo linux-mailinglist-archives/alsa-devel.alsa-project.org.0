@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643AB2FA588
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 17:05:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0D82FA59A
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 17:06:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C4C61835;
-	Mon, 18 Jan 2021 17:04:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C4C61835
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC143186A;
+	Mon, 18 Jan 2021 17:06:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC143186A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610985902;
-	bh=JJ+xu3Acn6PcB1BsK1BVa7sOixxHgq0EUlCHCpoLFMY=;
+	s=default; t=1610986013;
+	bh=NKrF/BuuFHZqAKAf2snGOmWzdSW1uEQY3u9jkJEsYVs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uXXNjtdf17w7c08pt9rcVI6n+itbwOv/GS3/vg2Xa4Moh7TK8FiBgO4+IhzDIS5FM
-	 B3M1SkC2xIitgmfi3Am9p5NQdEHYNh5zpT7tF7WRxdgbrhsmaz8gZ9G7YWFWfXCqmp
-	 Zr066T1/IMUGa/T3ZoRvVq2UUtk62xpdnz4bYcY0=
+	b=sZ+uIFJIDife7H5bXHIurbJlNd4AfZjCota7CkACAdJKNfE2ur6isYLLdFXmDwOfG
+	 PpMfcCqBRz+mo4BhqeOpLOr3/2nTAD1rKsPy87JTrugTmQGIcQjoKJcBmXuZ86Ip6V
+	 3dtFcGn/ftNKdQA/zoL5S07wImwKu9CRdmhkbCXQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDBD9F80137;
-	Mon, 18 Jan 2021 17:03:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D857F804D6;
+	Mon, 18 Jan 2021 17:03:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A704CF80137; Mon, 18 Jan 2021 17:03:26 +0100 (CET)
+ id E88FAF804E3; Mon, 18 Jan 2021 17:03:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CD86F800C0
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 17:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CD86F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9653DF804D6
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 17:03:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9653DF804D6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i67Advaw"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A3AF822C9C;
- Mon, 18 Jan 2021 16:03:18 +0000 (UTC)
+ header.b="Mn/rLgmI"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A08222C9C;
+ Mon, 18 Jan 2021 16:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610985799;
- bh=JJ+xu3Acn6PcB1BsK1BVa7sOixxHgq0EUlCHCpoLFMY=;
+ s=k20201202; t=1610985826;
+ bh=NKrF/BuuFHZqAKAf2snGOmWzdSW1uEQY3u9jkJEsYVs=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=i67AdvawR9AYxj5n71j5eB96nhufax/TaqyW+R1OesuI1NlBP6bHQvD+N0Fa377UE
- XBEXhQg3CO/s+XHLcc6APw0taLOTcc3dSMqlS1BRSxoFsKeSkH1/UHRbyf8dC7qEDP
- lRgNfOLuhGBOc8dW1QWZ1L15UHVKMjp5XdMkchjdRHyqBIjw1HKAzhSzKxyrWI9b3G
- ONV92z4uHqzwJDa/E5g3anfM2094RfFc43mlmtXuF+wpXARx8wZtclz+r/zda8H7vd
- Uacj7zoxtmMz9UFYBpNqhDKAIFXWMBn/mYV3YD4XEXLE/Ly3GtkVCHrD8e4OT1Lkmk
- qezj6zTdOrlYw==
+ b=Mn/rLgmIIN+/LUttAg2HehHlQxLm1u4r2/ZN9ACDbFsvYD410t9vVJ5lH+SOgjU+6
+ hEKneBn/C0+lflnJcCIn10+vA61qS0tqYKo1xT7ZcKcsvS6Ivd/oNfV5qKc2u3237I
+ ynUrkpwBEm3wyU+LJVvCIiGSeYHH7D3aCTAc1GZ/N7mPVCzFbdM4hLs5jET0XSw36k
+ kecXtQA5Kk7Xg9YnESWHu0vowjh+xzMgUOl6D+9QxABRXCWwPXL6E17XLou6k/RgvI
+ Woj9zXM2p2QqEomH98ligrRAOS/90twSJX9MqaYMlYs6Ksq7UuX0ZYBZ+I4Zuyz5qp
+ UbBfmiIQRNnMA==
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20210113160704.4106353-1-kai.vehmanen@linux.intel.com>
-References: <20210113160704.4106353-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: initial support to AlderLake-P
-Message-Id: <161098576157.26872.10578316079174457589.b4-ty@kernel.org>
+In-Reply-To: <20210114115558.52699-1-kai.vehmanen@linux.intel.com>
+References: <20210114115558.52699-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: Intel: initial support to AlderLake-P
+Message-Id: <161098576158.26872.13121036654198792015.b4-ty@kernel.org>
 Date: Mon, 18 Jan 2021 16:02:41 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -80,7 +80,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 Jan 2021 18:07:04 +0200, Kai Vehmanen wrote:
+On Thu, 14 Jan 2021 13:55:58 +0200, Kai Vehmanen wrote:
 > Add PCI id for the AlderLake-P.
 
 Applied to

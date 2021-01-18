@@ -2,58 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C042FA0B9
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 14:07:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE6E2FA0E1
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 14:12:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D01C1822;
-	Mon, 18 Jan 2021 14:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D01C1822
+	by alsa0.perex.cz (Postfix) with ESMTPS id C191117FE;
+	Mon, 18 Jan 2021 14:11:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C191117FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610975249;
-	bh=BHYyQ6Kf/irn+tZILkPoHeWQk4T0WW8lDJ0t2q6s6iI=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1610975532;
+	bh=cRVa3c27xZO5WyeB8yyZWbP053+sFN355aGU+6TbT4M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=eoxghoD+qN/F/TSIRZ0PmT9/jVzvwntOxkZGUhjdl7uNqOBvLE7td5Efgvc+Sh4JF
-	 xnDs+scVgY7d8QKPmk8enVL8ASfkEAhNNUCSs3Yby0Tu2cIu4StWuJaVMkbiaG1cvQ
-	 2YHCelm64pxEKB5tjtobY+MxMze+KgTQ4W4hiVhw=
+	b=er1dL0BLOUZb6psR2+ccM/wOvczrzbKnWD+bziX+XRXTg7tqVjfwROIbnD/MO7NgI
+	 moLUZ/aKS6lso50yySxAUCvCJmMbhSvckJUfdPmRpjc7D6imhx9kIjmmuDBhoT8BuA
+	 y3XknyEdPVprozBMvS0jtye4xLaH0F8vLNWg36Ic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43D2CF80137;
-	Mon, 18 Jan 2021 14:06:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F446F8019D;
+	Mon, 18 Jan 2021 14:10:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8871F80137; Mon, 18 Jan 2021 14:06:35 +0100 (CET)
+ id 99906F8016E; Mon, 18 Jan 2021 14:10:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from hellmouth.base.nu (hellmouth.base.nu [192.248.168.186])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85254F80137
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 14:06:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85254F80137
-Received: from baphomet.hell (<unknown> [192.168.179.1])
- by hellmouth.base.nu (OpenSMTPD) with ESMTP id 6055990b
- for <alsa-devel@alsa-project.org>;
- Mon, 18 Jan 2021 13:06:27 +0000 (UTC)
-Received: from baphomet.hell (localhost.hell [127.0.0.1])
- by baphomet.hell (OpenSMTPD) with ESMTP id 1dc5dcf5
- for <alsa-devel@alsa-project.org>;
- Mon, 18 Jan 2021 13:06:27 +0000 (GMT)
-Received: from base.nu ([192.168.178.2]) by baphomet.hell with ESMTPSA
- id 1lMXAdOHBWBXbwEAnQSWfg (envelope-from <livvy@base.nu>)
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 13:06:26 +0000
-Date: Mon, 18 Jan 2021 13:06:21 +0000
-From: Olivia Mackintosh <livvy@base.nu>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add support for Pioneer DJM-750
-Message-ID: <20210118130621.77miiie47wp7mump@base.nu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8FF7F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 14:10:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8FF7F800C0
+Received: from 1.general.khfeng.us.vpn ([10.172.68.174] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1l1UHy-0005VN-Be; Mon, 18 Jan 2021 13:09:47 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda: Balance runtime/system PM if direct-complete is
+ disabled
+Date: Mon, 18 Jan 2021 21:09:36 +0800
+Message-Id: <20210118130937.164650-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Harsha Priya <harshapriya.n@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ "Kenneth R . Crudup" <kenny@panix.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,105 +73,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds the Pioneer DJ DJM-750 to the quirks table and ensures
-skip_pioneer_sync_ep() is (also) called: this device uses the vendor
-ID of 0x08e4 (I'm not sure why they use multiple vendor IDs but many
-just like to be awkward it seems).
+HDA controller can't be runtime-suspended after commit 215a22ed31a1
+("ALSA: hda: Refactor codjc PM to use direct-complete optimization"),
+which enables direct-complete for HDA codec.
 
-Playback on all 8 channels works. I'll likely keep this working in the
-future and submit futher patches and improvements as necessary.
+The HDA codec driver didn't expect direct-complete will be disabled
+after it returns a positive value from prepare() callback. However,
+there are some places that PM core can disable direct-complete. For
+instance, system hibernation or when codec has subordinates like LEDs.
 
-Signed-off-by: Olivia Mackintosh <livvy@base.nu>
+So if a device is prepared for direct-complete but PM core still calls
+codec's suspend or freeze callback, resume the device to keep PM
+operations balanced.
+
+Reported-by: Kenneth R. Crudup <kenny@panix.com>
+Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 ---
- sound/usb/implicit.c     |  3 +-
- sound/usb/quirks-table.h | 60 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 62 insertions(+), 1 deletion(-)
+ sound/pci/hda/hda_codec.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
-index 521cc846d9d9..e7216d0b860d 100644
---- a/sound/usb/implicit.c
-+++ b/sound/usb/implicit.c
-@@ -302,7 +302,8 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
- 	/* Pioneer devices with vendor spec class */
- 	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
- 	    alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
--	    USB_ID_VENDOR(chip->usb_id) == 0x2b73 /* Pioneer */) {
-+	    (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
-+	     USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */)) {
- 		if (skip_pioneer_sync_ep(chip, fmt, alts))
- 			return 1;
- 	}
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index c8a4bdf18207..98b31c3160ad 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3757,6 +3757,66 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 		}
- 	}
- },
-+{
-+	/*
-+	 * Pioneer DJ DJM-750
-+	 * 8 channels playback & 8 channels capture @ 44.1/48/96kHz S24LE
-+	 */
-+	USB_DEVICE_VENDOR_SPEC(0x08e4, 0x017f),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = (const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 8,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x05,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+					    USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_44100|
-+						SNDRV_PCM_RATE_48000|
-+						SNDRV_PCM_RATE_96000,
-+					.rate_min = 44100,
-+					.rate_max = 96000,
-+					.nr_rates = 3,
-+					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
-+				}
-+			},
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 8,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x86,
-+					.ep_idx = 1,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+						USB_ENDPOINT_SYNC_ASYNC|
-+					        USB_ENDPOINT_USAGE_IMPLICIT_FB,
-+					.rates = SNDRV_PCM_RATE_44100|
-+						SNDRV_PCM_RATE_48000|
-+						SNDRV_PCM_RATE_96000,
-+					.rate_min = 44100,
-+					.rate_max = 96000,
-+					.nr_rates = 3,
-+					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 687216e74526..0afbced979df 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -2997,6 +2997,9 @@ static void hda_codec_pm_complete(struct device *dev)
  
- #undef USB_DEVICE_VENDOR_SPEC
- #undef USB_AUDIO_DEVICE
+ static int hda_codec_pm_suspend(struct device *dev)
+ {
++	if (pm_runtime_status_suspended(dev))
++		pm_runtime_resume(dev);
++
+ 	dev->power.power_state = PMSG_SUSPEND;
+ 	return hda_codec_suspend(dev);
+ }
+@@ -3009,6 +3012,9 @@ static int hda_codec_pm_resume(struct device *dev)
+ 
+ static int hda_codec_pm_freeze(struct device *dev)
+ {
++	if (pm_runtime_status_suspended(dev))
++		pm_runtime_resume(dev);
++
+ 	dev->power.power_state = PMSG_FREEZE;
+ 	return hda_codec_suspend(dev);
+ }
 -- 
-2.30.0
+2.29.2
 

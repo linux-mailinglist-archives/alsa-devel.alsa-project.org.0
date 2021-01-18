@@ -2,48 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7C42FA340
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 15:40:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8330C2FA353
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 15:42:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 141A21832;
-	Mon, 18 Jan 2021 15:39:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 141A21832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23102183B;
+	Mon, 18 Jan 2021 15:41:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23102183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610980802;
-	bh=km2mBrQImcI4BrI+utdNg4TKMiLeAxeP0I3vcppUG3Q=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1610980951;
+	bh=dovklxNTQVdgkflXnpRCiV1PTF2ZcxuOwY5BZsHjDPg=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P+/nRS7LpH53wLMdBnemDJtoaw9TcNg6nf52GtWGoQX2Qlx4xsB844zw6WBBCiVHr
-	 wttbvUs9ZQ3+h98XJGXRn/otRe0qtYiTNOQdiPaUCNiRF9Eev2F7APVzKFVM0amiUl
-	 69lW8DzFUozxpwfkPA52POPetneVAzfJI1oijrSg=
+	b=stNKvZE3jF936ltNYC4I8MYB2TPAGKR/1mKPAldNxzFu2VSLKPdhXIXqs1SkogSHc
+	 4OZHh9jW7MIH5X4XcvhMTCGiDa+QWg41EdEwXj2A09XHXkzrbTvWv7CuT/1bTFNcde
+	 0mT88Gqo2J9fDQEr1XpckVB6JNNO1uDw5wx/pn5M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B01EF800C0;
-	Mon, 18 Jan 2021 15:38:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E5B6F8019D;
+	Mon, 18 Jan 2021 15:40:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFE1CF8016E; Mon, 18 Jan 2021 15:38:24 +0100 (CET)
+ id 1E376F8016E; Mon, 18 Jan 2021 15:40:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id C9A9CF800E7
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 15:38:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9A9CF800E7
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6DF8F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 15:40:50 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 82576A0040;
+ Mon, 18 Jan 2021 15:40:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 82576A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1610980844; bh=Fu+3X2LEs1KKohiOmbSShBNc9sfyCFpVED+4xWu8VUs=;
+ h=Subject:From:To:Cc:References:Date:In-Reply-To:From;
+ b=Mo0LWd3qOaLqgs9mgOawkWcVcVGt6tSSN1tk4z7MnDfdZcCHj0ux0EDx2m2e+zVvK
+ LE2E4537O5DdlNFQmblOS0no0qripWEGaF6Wkmh/L+EzxTobxOB9YL6WoxiWHYVWdk
+ zAA8Gq7a6hgn9kndbDfas5upzwMVSfpF9mwG+/V4=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 18 Jan 2021 15:40:41 +0100 (CET)
+Subject: Re: [PATCH alsa-ucm-conf 1/3] chtnau8824: Move DAC Channel Source
+ selection to Speaker/Headphones EnableSeq
+From: Jaroslav Kysela <perex@perex.cz>
+To: Hans de Goede <hdegoede@redhat.com>
+References: <20201216153838.34945-1-hdegoede@redhat.com>
+ <7c075e59-8576-99e9-3688-1ab858e59716@redhat.com>
+ <90f18f8a-192e-fa2c-8975-93acd70006ee@perex.cz>
+Message-ID: <78e29bab-1b9f-b57e-0d2a-46a6838018db@perex.cz>
+Date: Mon, 18 Jan 2021 15:40:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <90f18f8a-192e-fa2c-8975-93acd70006ee@perex.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1610980695620155096-webhooks-bot@alsa-project.org>
-References: <1610980695620155096-webhooks-bot@alsa-project.org>
-Subject: chtnau8824: Add support for using the SOF driver
-Message-Id: <20210118143824.EFE1CF8016E@alsa1.perex.cz>
-Date: Mon, 18 Jan 2021 15:38:24 +0100 (CET)
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +84,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #74 was opened from perexg:
+Dne 17. 01. 21 v 17:52 Jaroslav Kysela napsal(a):
+> Dne 17. 01. 21 v 17:09 Hans de Goede napsal(a):
+>> Hi,
+>>
+>> On 12/16/20 4:38 PM, Hans de Goede wrote:
+>>> Move DAC Channel Source selection to Speaker/Headphones EnableSeq.
+>>>
+>>> The main reason for doing this is to make it easier to allow using
+>>> variables, as the Speaker/Headphones conf files are evaluated after
+>>> the main HiFi.conf had a chance to set them.
+>>>
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>
+>> ping? It would be nice to get this series merged for proper SOF
+>> support.
+>>
+>> Maybe this got confused with my other UCM chtnau8824 series which
+>> I send 10 days before t
+> 
+> Hi,
+> 
+> Thanks for the reminder. I though that this one was resolved. I don't think
+> that we need the first change - the evaluation for If and Include sequences is
+> executed before SectionVerb {} parsing. So the If...Define.RightOutputChannel
+> should be valid for SectionVerb...Include...File
+> "/codecs/nau8824/EnableSeq.conf". The 'DACR Channel Source' control seems to
+> require a static settings so keeping it in the verb init sequence has sense.
+> 
+> I applied the second (SST variable) patch for now. It's nice cleanup. Thanks.
 
-The old (and currently the default) SST driver uses TDM 4 slots 24 bit
-as wire format to the codec. Where as the new SOF driver uses standard
-I2S 2 channel 24 bit.
+Hans,
 
-Normally this should not impact the UCM settings, but on the NAU8824
-the "DAC Right Channel Source" mixer setting must be set to 1 when
-using TDM 4 slots and to 0 when using I2S 2 channel mode.
+	could you test https://github.com/alsa-project/alsa-ucm-conf/pull/74 ?
 
-Getting this wrong (in either case) results in the right channel not
-outputting any sound.
+					Thank you,
+						Jaroslav
 
-This commit introduces a RightOutputChannel variable which gets
-set to 0/1 depending on the driver and then uses that for the
-"DAC Right Channel Source" mixer setting so that we do the right
-thing depending on the driver.
-
-This has been tested on the following devices:
-
-Medion E2215T:    Stereo speakers, analog mic
-Medion E2228T:    Stereo speakers, stereo digital mics
-Cube iWork 8 Air: Mono speaker, analog mic
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/74
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/74.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

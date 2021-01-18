@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4950F2FA0AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 14:04:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290BE2FA0B2
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 14:06:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA6F717FE;
-	Mon, 18 Jan 2021 14:03:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6F717FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B61A21805;
+	Mon, 18 Jan 2021 14:05:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B61A21805
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610975089;
-	bh=RbUnzS/4nrd4iAPnXubrFVzey/trFbxTEw8uynBL4vo=;
+	s=default; t=1610975200;
+	bh=Ea7zAeD0W2JXkKfuviF+qzxlHAccbXfdUv0SX8nfKeQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AoPzBRT5XXuua3haB3A4938Mr8XFEkrL/AwFmDLdhzOXTF7rFcpiv7o/WUUTP8IFu
-	 zdBnHFbYY0x8An6LIK0YBRz51YuszNGJP2Yuw3rQRTiEvx2dqwFgJ9G7z+f4vTDEgr
-	 2QIWNsItn7sTZykdjq/5kfvsZMYmRiTDBLpFnpio=
+	b=K40XEelUcGRx8qmeki9mGDAsLtAmu13h42XLVZCvartXIr/MbhU9u7tLAEPyjkvfh
+	 Ge/n1bBrbnsuXYyLiaWISrgm7l9raS10szHRyixbYDzQCLLGv1S540iIFZS5Ns+nAh
+	 RHT9AuAcPgAePdEzKo3nbPRfmMawohd7vdtKoLmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59427F80137;
-	Mon, 18 Jan 2021 14:03:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CC58F800C0;
+	Mon, 18 Jan 2021 14:05:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29653F80166; Mon, 18 Jan 2021 14:03:15 +0100 (CET)
+ id 98030F8016E; Mon, 18 Jan 2021 14:05:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63EBAF800C0
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 14:03:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63EBAF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C47D8F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 14:05:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C47D8F800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="URept8pF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E0B2722571;
- Mon, 18 Jan 2021 13:03:03 +0000 (UTC)
+ header.b="a39Hi06L"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 36D6420829;
+ Mon, 18 Jan 2021 13:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610974984;
- bh=RbUnzS/4nrd4iAPnXubrFVzey/trFbxTEw8uynBL4vo=;
+ s=k20201202; t=1610975101;
+ bh=Ea7zAeD0W2JXkKfuviF+qzxlHAccbXfdUv0SX8nfKeQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=URept8pFVDB9rwLoEwDMKPFgawKQQErcGW+41JY9ajp9+488Qm62OqabuqQXQayyM
- AWv1aDQVmufIWjRqhW6SYCN1zq+Z/RMy1S+5tfVEZwFv6MGqVCSqPlFLE1DzKSNqct
- gTErdRypZnsa4alg1jpx5XVVP0zUGUjXEuLthu8jLLhsQkoAee1gMh9oOGsD/VT2US
- DqDxxdD6BrDsHt+Y8dO9xNnFATFZpRVgHLW50hDgslMDU2rnAtTHvklw544Q8xCq84
- IJDPbfbAcynYwCtHLwv6hLnvKIblOsY7+ASWQxUZ1g1nQmrjyBMxrB2DBGQqAFXFyv
- 50n/WYEB4CCaQ==
-Date: Mon, 18 Jan 2021 13:02:27 +0000
+ b=a39Hi06L6q6v3p+C6WGHvD0UofceBo//87oBfeypqbjmdV4e2/y1m9mcSF07uH0RP
+ rCHWzJrJaTCnoZLzHjcOgjqrYIyo4A2an5tQJ3WUFLSHo2VxO6198O2sglNPEhS4UZ
+ B9jd2CwHlVLc/LWPztVJocvWyFZOquHw5fFlYGQzYF3FGrRIWr2X9FOLlKAREGDfYw
+ QIAOjtsF4tlcoxenWXyUP6XazsOKC1SNIeEiiDhdyttcp7hXHMNHpJrtgkIpl94zjN
+ WEzEzoF9txOAmJUSUGnvsnflbo1Lwh6AY+dHAuHlxsPORuLcqOzlvpUzyEqMS+LVLt
+ Nl85IafZ/Srlw==
+Date: Mon, 18 Jan 2021 13:04:24 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v3 3/5] mfd: arizona: Add support for ACPI enumeration of
- WM5102 connected over SPI
-Message-ID: <20210118130227.GI4455@sirena.org.uk>
-References: <20210117212252.206115-1-hdegoede@redhat.com>
- <20210117212252.206115-4-hdegoede@redhat.com>
+To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Subject: Re: [PATCH] dt-bindings: sound: intel, keembay-i2s: Fix dt binding
+ errors
+Message-ID: <20210118130424.GJ4455@sirena.org.uk>
+References: <20210118102706.6125-1-michael.wei.hong.sit@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CNK/L7dwKXQ4Ub8J"
+ protocol="application/pgp-signature"; boundary="cDtQGJ/EJIRf/Cpq"
 Content-Disposition: inline
-In-Reply-To: <20210117212252.206115-4-hdegoede@redhat.com>
+In-Reply-To: <20210118102706.6125-1-michael.wei.hong.sit@intel.com>
 X-Cookie: Huh?
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Christian Hartmann <cornogle@googlemail.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Lee Jones <lee.jones@linaro.org>
+Cc: alsa-devel@alsa-project.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ jee.heng.sia@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,103 +83,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---CNK/L7dwKXQ4Ub8J
+--cDtQGJ/EJIRf/Cpq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jan 17, 2021 at 10:22:50PM +0100, Hans de Goede wrote:
+On Mon, Jan 18, 2021 at 06:27:06PM +0800, Michael Sit Wei Hong wrote:
+> Fix devicetree binding errors caused by newly added parameters
 
-> +	/*
-> +	 * Some DSDTs wrongly declare the IRQ trigger-type as IRQF_TRIGGER_FALL=
-ING
-> +	 * The IRQ line will stay low when a new IRQ event happens between read=
-ing
-> +	 * the IRQ status flags and acknowledging them. When the IRQ line stays
-> +	 * low like this the IRQ will never trigger again when its type is set
-> +	 * to IRQF_TRIGGER_FALLING. Correct the IRQ trigger-type to fix this.
-> +	 */
-> +	arizona->pdata.irq_flags =3D IRQF_TRIGGER_LOW;
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Are you sure that all the relevant interrupt controllers support active
-low interrupts?  There were issues on some systems with missing support
-for active low interrupts (see the bodge in wm8994-irq.c to work around
-them) - it's entirely likely that there are DSDTs that are just plain
-buggy here but if someone's copying and pasting it smells like there may
-be some systems that actually need an edge triggered interrupt that
-they're getting it from.
-
-> +
-> +	/* Wait 200 ms after jack insertion */
-> +	arizona->pdata.micd_detect_debounce =3D 200;
-> +
-> +	/* Use standard AOSP values for headset-button mappings */
-> +	arizona->pdata.micd_ranges =3D arizona_micd_aosp_ranges;
-> +	arizona->pdata.num_micd_ranges =3D ARRAY_SIZE(arizona_micd_aosp_ranges);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct acpi_device_id arizona_acpi_match[] =3D {
-> +	{
-> +		.id =3D "WM510204",
-> +		.driver_data =3D WM5102,
-> +	},
-> +	{
-> +		.id =3D "WM510205",
-> +		.driver_data =3D WM5102,
-> +	},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, arizona_acpi_match);
-> +#else
-> +static int arizona_spi_acpi_probe(struct arizona *arizona)
-> +{
-> +	return -ENODEV;
-> +}
-> +#endif
-> +
->  static int arizona_spi_probe(struct spi_device *spi)
->  {
->  	const struct spi_device_id *id =3D spi_get_device_id(spi);
-> @@ -77,6 +191,12 @@ static int arizona_spi_probe(struct spi_device *spi)
->  	arizona->dev =3D &spi->dev;
->  	arizona->irq =3D spi->irq;
-> =20
-> +	if (has_acpi_companion(&spi->dev)) {
-> +		ret =3D arizona_spi_acpi_probe(arizona);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	return arizona_dev_init(arizona);
->  }
-> =20
-> @@ -104,6 +224,7 @@ static struct spi_driver arizona_spi_driver =3D {
->  		.name	=3D "arizona",
->  		.pm	=3D &arizona_pm_ops,
->  		.of_match_table	=3D of_match_ptr(arizona_of_match),
-> +		.acpi_match_table =3D ACPI_PTR(arizona_acpi_match),
->  	},
->  	.probe		=3D arizona_spi_probe,
->  	.remove		=3D arizona_spi_remove,
-> --=20
-> 2.28.0
->=20
-
---CNK/L7dwKXQ4Ub8J
+--cDtQGJ/EJIRf/Cpq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAFhuIACgkQJNaLcl1U
-h9DDuQf+K/1+R35NC7d0uVDYwSsGKNopg9Q3xtbFzKERm2cKHfqao/bdeSkrbhhD
-kSUm+L9X1I/LHkGzdao5920MXJ9gmzbIeolpSH6ygVv8KZ7odJPV+H+Bkly+ZTe7
-ZRAoBiuUFSVpe/3lZV7YBMlbH1j8U8lIeJ3SFPzz0dokrgezToTeBJopK/kI1z7k
-7GHKPF00b/CDy2A5abeXIE7pn2fUwVascc95pz9aVgtO638joDZiczuKmlrOiv/v
-g83/Wc36+jmZqVR7ptTGKXK6KyQzScNYlTWCnZBeWzkhx3KE0PAe1Ez2kyozu6Vw
-wG3vYuzhX/7yelouc25AU/i3lruPkQ==
-=lhY6
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAFh1cACgkQJNaLcl1U
+h9A6XQf9GtZjCWlI7YfCn62jV4IPQkLrSMGEvmvesAWCZJ8bZsUfl+PS6hRItois
+gUfRN0jalhE0YhxW2WLocyfrZlZ6MYD5ECLJr1pMKFYjjKZnzW+IGQqeqiuhpmHk
+7mxll4TGGIAEjKy2G79D6cMEEun6F52eymq4l/zc/2iNcTjFHUnBT6+CvikbGSLw
+mjD6FnG3EF4XAt/EgAmhdYcaaqn2QimbyZ1pK8IF77aFwyUXO8ZNVYeJpxcZiAjH
+YYxl+AyYjD47XV/bnQ4X+XtIqitDEON2w3nORHaUtZwTKiKa/HST6111sLag6Qi3
+afhkKCeoziIpUiHKWF1dKQdRjm+n3Q==
+=DWAh
 -----END PGP SIGNATURE-----
 
---CNK/L7dwKXQ4Ub8J--
+--cDtQGJ/EJIRf/Cpq--

@@ -2,98 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB6E2F9D22
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 11:49:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07172F9EC0
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 12:52:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EB9B17DF;
-	Mon, 18 Jan 2021 11:48:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EB9B17DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4339C17D4;
+	Mon, 18 Jan 2021 12:51:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4339C17D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610966941;
-	bh=lYxgT7aQ1m0uJquOF0DifNIYVFcdSPBmtbrpbNqEP4g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610970758;
+	bh=u+/Lvmx82fHsPTJNJ4qh18z7nI4LE6d6U8U51an8MqU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SRHolLk04AiCkkobFKqGWHxnciYuKNVSzsaqEVHr2+weFjOebN+Q+OeayCuvjrhxX
-	 xENmB7yOVmRqOYKb+KgVmBe7OdDwFxNdWXpHDGWSD41jOWE2oKoILvtf7yP4Xbzgbk
-	 BLF5PIUgcDZeLRzUBKG6fGyfXXgNBOFnKoAcQrFQ=
+	b=gjnqu03M6JNX78ZE8CiJy1CU17MLbA0mtsp2osAqllnYU5YCeqwY0JJW9X3+GfY7T
+	 AaHpAHqRWdvmsqdWvSaamiY/EUFsJDLonnnP62LE4rBwEmDPsbSnqZu8iunj45AisP
+	 kvm/vhZNTFhiQiIXRDPV+aR7M+qrpJ0n+XHcXM/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F04AF80137;
-	Mon, 18 Jan 2021 11:47:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E18EF8019D;
+	Mon, 18 Jan 2021 12:51:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD0A1F8016E; Mon, 18 Jan 2021 11:47:26 +0100 (CET)
+ id C6890F8016E; Mon, 18 Jan 2021 12:51:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D675F800C0
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 11:47:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D675F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56C30F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 12:50:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56C30F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="GIDQCTkW"
-Received: by mail-wm1-x32d.google.com with SMTP id o10so5632554wmc.1
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 02:47:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=nHf20OOCMo8x4Qdkj9BcWGoZ1gfgVypLNOIWfvt4zr0=;
- b=GIDQCTkWdAQcVU5Y65kMWYXGOSSZ6ywq+wJSQGrBn28lZM3s438IHY/LWhXAc3zsPK
- fhYbP0Ev37Ve0xrjNZInpO1RAuuc/ffmthMvZnnVU/2JtZ/vkp6+3SZWAq1oH8e/W+Oh
- oOa7MpT0iKokhtW2+8rVyShUiYTbrI4O5RYahLFt21kK7lbX9KNDojzOSspNyGXTXr9V
- TlHawqeTvr3VRoSEsCPX2xnmlVjTrowr1QkPAube3MF5ahZks6FwjYA7IGT2gSKLQvDb
- kQ9s152UkO1YFgk44pvdQ0ZrHCnB9iFweh1swp8kyj14o5j/kt3PkkB2qHBNnMtJkDXK
- AWvg==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="VWQddsAF"
+Received: by mail-pl1-x633.google.com with SMTP id s15so8519689plr.9
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 03:50:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bekUkQFAhgR2QZLCVYSsef2aZeUwNBoiuL9ybwHmiio=;
+ b=VWQddsAFzbpSpQUIq3J6j6x9XgpGG/Ga/of9rwwoDXfZgrTL6sJe6gXAW+z+nsmXr6
+ c6qWsSjtv9YcSkdMV0uKBcd+AyL1XZezomb9WRy3efKHFxGPsYpYhVBPGmh+FAoB+CRw
+ S9dpWBn0VXxLfdXcdWpTR7wSoWBYYQD6TEqU+0S8NuuUprFMslz0CgJwYeK3R6ucCdbI
+ vv0mXXBSQzxZykhIRmQi70QzKAHATHrKXuXWqmLzkvAq5SRBTLkW6459e6bh5QeM9Roc
+ YcSK6jYMDgzTV7msGQhiSMhHqtGG+HNruiyf74dwfjzN5uYsu8/CtXnFvmium0ZTrYpq
+ jIRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=nHf20OOCMo8x4Qdkj9BcWGoZ1gfgVypLNOIWfvt4zr0=;
- b=iER1hnAmB4YSK0Kc3KHXbwv+yOH3qS//nkseKlcASKJcPSvu6c65/+BzBbPXS71nlt
- n50zp702s7aFndM1O2UvLWT4Y+ZSVzEs1npSff7rWwqryyEjGTkYPLsH2BrLywJGLbso
- zRPRQgaPITJvNf3D9oJstXi7tU94AcRT0uMPQ5eJQWH4ET8jWP4alP5MD0BB1rvfTF/Y
- CIs98yTW7Ro7WkOPLLG3TmezRSmAIBbVBW4hl4j6k9lrcHUbhFZ4d8WgSf/UcAae+lk/
- +fJmz/UKAgPA0lCLS9IvjK6cFP/sIwSmKl454j2zIiDvCwIVRM7L/WoPBz/okKZ3XdLb
- F3bg==
-X-Gm-Message-State: AOAM530Ht9VSRzAskBFkJ0802DWJc7vqIUHaOYf6/7hrBSDpX7DZE3TU
- 1w3PyRWSS5Of6cR1hb2BUA0VIQ==
-X-Google-Smtp-Source: ABdhPJx2SuIaE0os9zlqBPDDM6QMp5/GqngUcm6CMXsxuZJeI3DyE+gGaJ44JUHFhPAomftdX+aSow==
-X-Received: by 2002:a1c:730f:: with SMTP id d15mr20124727wmb.135.1610966834579; 
- Mon, 18 Jan 2021 02:47:14 -0800 (PST)
-Received: from dell ([91.110.221.158])
- by smtp.gmail.com with ESMTPSA id p12sm1868057wmi.3.2021.01.18.02.47.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jan 2021 02:47:13 -0800 (PST)
-Date: Mon, 18 Jan 2021 10:47:12 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v2 00/12] MFD/extcon/ASoC: Rework arizona codec
- jack-detect support
-Message-ID: <20210118104712.GD4903@dell>
-References: <20210117160555.78376-1-hdegoede@redhat.com>
- <20210118095509.GA4903@dell>
- <8905f9f2-1c1c-1b64-d70d-374f84568ccb@redhat.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bekUkQFAhgR2QZLCVYSsef2aZeUwNBoiuL9ybwHmiio=;
+ b=t8ufhYhm/9Dxd4l3U5OurVgDB0hRFJOwnb1q9bNPQWcvFoqRXghiR7PK3SGezMgiVp
+ C8mYq36W1bOqjD6Aml2GDeLhfFEZiQm0A93qxRIqea8YGao+ETaynPlHh7d1/XfLGM+8
+ 1oIVMe8dJaETMn4Os13UfXYHekEswvJl+zUYIAy9Tythh7Mj6t2oeal+1UyGtHuKk2+A
+ ZGAFm6blf638Y5q+cm2Crm2ajky5JyPv2uDMKhbCBVfkEVy+3D7qOAyoZDwyI53o2ILX
+ Yt4v4LPJawmSBWxdR7FCDyn3w/z+GUFm+jLQIuSoUm6rFwgd8fQzQ1S7pd02nQzW0gQY
+ YVBg==
+X-Gm-Message-State: AOAM530bryb9FINQTJkXgK6H3r/kBfaadD4N6oSNPTziZxM/E9H/1Nik
+ Jd4wf7K7lHmmnoFzcXMHAc7I5dU8t2dcz7xHRuA=
+X-Google-Smtp-Source: ABdhPJztWxrnFhIDxax+TDiNWYYjEBwfNua/MlG7dhmQhveS21GiH0bsf3SXDCd4sUen5lDYfBRSzGsUABLCUXX3Qa0=
+X-Received: by 2002:a17:90a:6c90:: with SMTP id
+ y16mr26644109pjj.129.1610970655499; 
+ Mon, 18 Jan 2021 03:50:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8905f9f2-1c1c-1b64-d70d-374f84568ccb@redhat.com>
+References: <20210117212252.206115-1-hdegoede@redhat.com>
+ <20210117212252.206115-3-hdegoede@redhat.com>
+In-Reply-To: <20210117212252.206115-3-hdegoede@redhat.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 18 Jan 2021 13:51:44 +0200
+Message-ID: <CAHp75VcKjx7+=+n7xjOE4sL_gOt5h7HzQGdvzYhC5x=EmeXLtA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] mfd: arizona: Replace arizona_of_get_type() with
+ device_get_match_data()
+To: Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,60 +103,126 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Jan 2021, Hans de Goede wrote:
+On Sun, Jan 17, 2021 at 11:23 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>
+> Replace the custom arizona_of_get_type() function with the generic
+> device_get_match_data() helper. Besides being a nice cleanup this
+> also makes it easier to add support for binding to ACPI enumerated
+> devices.
+>
+> While at it also fix a possible NULL pointer deref of the id
+> argument to the probe functions (this could happen on e.g. manual
+> driver binding through sysfs).
 
-> Hi,
-> 
-> On 1/18/21 10:55 AM, Lee Jones wrote:
-> > On Sun, 17 Jan 2021, Hans de Goede wrote:
-> > 
-> >> Hi All,
-> >>
-> >> This series reworks the arizona codec jack-detect support to use
-> >> the snd_soc_jack helpers instead of direct extcon reporting.
-> >>
-> >> This is done by reworking the extcon driver into an arizona-jackdet
-> >> library and then modifying the codec drivers to use that directly,
-> >> replacing the old separate extcon child-devices and extcon-driver.
-> >>
-> >> This brings the arizona-codec jack-detect handling inline with how
-> >> all other ASoC codec driver do this.
-> >>
-> >> This was developed and tested on a Lenovo Yoga Tablet 1051L with
-> >> a WM5102 codec.
-> >>
-> >> The MFD, ASoC and extcon parts can be merged independent from each-other
-> >> although that could lead to a case where both the extcon driver and
-> >> the new arizona-jackdet library will try to do jack-detection. If we
-> >> end up with a git tree in that state then one of the 2 will fail to
-> >> load because the other will already have claimed the IRQs, so this
-> >> is not a problem really.
-> >>
-> >> Or the entire series could be merged through the MFD tree if people
-> >> prefer that.
-> >>
-> >> Note that this series also paves the way for some further cleanups,
-> >> removing some jackdetect related variables like hp_ena and hp_clamp
-> >> from the arizona data struct shared between all the MFD child devices.
-> >> I've deliberately not done that cleanup as part of this patch-series,
-> >> since IMHO the series is big enough as is. These cleanups can be done
-> >> in a follow-up series once this series has landed.
-> > 
-> > Would you mind using `git format-patch` to create your cover-letters
-> > in the future please?  This one is missing useful information such as
-> > the diff-stat and patch list.
-> 
-> I never heard about that git feature until today, so I learn something
-> new every day :)
-> 
-> I just tested it and it seems useful. I will try to use it next time.
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
-After all these years... That's so funny. :D
+> Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+> Changes in v2:
+> - New patch in v2 of this patchset
+> ---
+>  drivers/mfd/arizona-core.c | 11 -----------
+>  drivers/mfd/arizona-i2c.c  | 10 ++++++----
+>  drivers/mfd/arizona-spi.c  | 10 ++++++----
+>  drivers/mfd/arizona.h      |  9 ---------
+>  4 files changed, 12 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/mfd/arizona-core.c b/drivers/mfd/arizona-core.c
+> index 000cb82023e3..75f1bc671d59 100644
+> --- a/drivers/mfd/arizona-core.c
+> +++ b/drivers/mfd/arizona-core.c
+> @@ -797,17 +797,6 @@ const struct dev_pm_ops arizona_pm_ops = {
+>  EXPORT_SYMBOL_GPL(arizona_pm_ops);
+>
+>  #ifdef CONFIG_OF
+> -unsigned long arizona_of_get_type(struct device *dev)
+> -{
+> -       const struct of_device_id *id = of_match_device(arizona_of_match, dev);
+> -
+> -       if (id)
+> -               return (unsigned long)id->data;
+> -       else
+> -               return 0;
+> -}
+> -EXPORT_SYMBOL_GPL(arizona_of_get_type);
+> -
+>  static int arizona_of_get_core_pdata(struct arizona *arizona)
+>  {
+>         struct arizona_pdata *pdata = &arizona->pdata;
+> diff --git a/drivers/mfd/arizona-i2c.c b/drivers/mfd/arizona-i2c.c
+> index 2a4a3a164d0a..5e83b730c4ce 100644
+> --- a/drivers/mfd/arizona-i2c.c
+> +++ b/drivers/mfd/arizona-i2c.c
+> @@ -23,14 +23,16 @@
+>  static int arizona_i2c_probe(struct i2c_client *i2c,
+>                              const struct i2c_device_id *id)
+>  {
+> +       const void *match_data;
+>         struct arizona *arizona;
+>         const struct regmap_config *regmap_config = NULL;
+> -       unsigned long type;
+> +       unsigned long type = 0;
+>         int ret;
+>
+> -       if (i2c->dev.of_node)
+> -               type = arizona_of_get_type(&i2c->dev);
+> -       else
+> +       match_data = device_get_match_data(&i2c->dev);
+> +       if (match_data)
+> +               type = (unsigned long)match_data;
+> +       else if (id)
+>                 type = id->driver_data;
+>
+>         switch (type) {
+> diff --git a/drivers/mfd/arizona-spi.c b/drivers/mfd/arizona-spi.c
+> index 704f214d2614..798b88295c77 100644
+> --- a/drivers/mfd/arizona-spi.c
+> +++ b/drivers/mfd/arizona-spi.c
+> @@ -23,14 +23,16 @@
+>  static int arizona_spi_probe(struct spi_device *spi)
+>  {
+>         const struct spi_device_id *id = spi_get_device_id(spi);
+> +       const void *match_data;
+>         struct arizona *arizona;
+>         const struct regmap_config *regmap_config = NULL;
+> -       unsigned long type;
+> +       unsigned long type = 0;
+>         int ret;
+>
+> -       if (spi->dev.of_node)
+> -               type = arizona_of_get_type(&spi->dev);
+> -       else
+> +       match_data = device_get_match_data(&spi->dev);
+> +       if (match_data)
+> +               type = (unsigned long)match_data;
+> +       else if (id)
+>                 type = id->driver_data;
+>
+>         switch (type) {
+> diff --git a/drivers/mfd/arizona.h b/drivers/mfd/arizona.h
+> index 995efc6d7f32..801cbbcd71cb 100644
+> --- a/drivers/mfd/arizona.h
+> +++ b/drivers/mfd/arizona.h
+> @@ -50,13 +50,4 @@ int arizona_dev_exit(struct arizona *arizona);
+>  int arizona_irq_init(struct arizona *arizona);
+>  int arizona_irq_exit(struct arizona *arizona);
+>
+> -#ifdef CONFIG_OF
+> -unsigned long arizona_of_get_type(struct device *dev);
+> -#else
+> -static inline unsigned long arizona_of_get_type(struct device *dev)
+> -{
+> -       return 0;
+> -}
+> -#endif
+> -
+>  #endif
+> --
+> 2.28.0
+>
 
-Happy to be of service.
 
 -- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+With Best Regards,
+Andy Shevchenko

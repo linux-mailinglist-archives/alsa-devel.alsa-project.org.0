@@ -2,115 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13AF12F9C56
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 11:30:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2CA2F9CAA
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jan 2021 11:36:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91E0517D2;
-	Mon, 18 Jan 2021 11:29:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E0517D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8EB617BA;
+	Mon, 18 Jan 2021 11:35:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8EB617BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610965819;
-	bh=sFzbU1WxECcKCOdA6lc9poOlSWFpN3mLKj9jVdS6TWg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kCy3yazr4dXFo9jqdD84nJPT4+qFijovzAwDoH69B7S+4OE0NRPEu9V0NDuSJAXYh
-	 CgshXxNTTJiLInPip0tjfR6XoSxNma9SwI+KTuIlGeUdmR/gYn95Vi9qadxBbPhrFk
-	 jbCCLBXOehFO7PwuVu7OTaWaYL1Y5s5Or5KhBUfE=
+	s=default; t=1610966176;
+	bh=+CBCSN9YJnA/iCesfZkr43LG6ee7kj0hZYmBoGttR3k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DV8H4lOo4cJ+CoZuYnJFrOgC9FqKwVT30OrVN5FoGvVPuaA7f/DIxttWEsSWm8HF3
+	 QUfQkUdbEECCLhgLIdlmdnEp9cIJGrDYIlWYraUseBAaUBNT7dutkHGqRb2z3gFYyd
+	 FSbyFxhEaxCQfT8pUMIRvjB+Lvih3NrE4SIkf6yY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3641F8019D;
-	Mon, 18 Jan 2021 11:28:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86B56F8019D;
+	Mon, 18 Jan 2021 11:34:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 822E3F8016E; Mon, 18 Jan 2021 11:28:30 +0100 (CET)
+ id 9E01CF8016E; Mon, 18 Jan 2021 11:34:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4946BF800C0
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 11:28:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4946BF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="FsL5gumO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610965698;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DcioXB/UdMlsYBZivaxmZD1my4PTiLM/bF+IXbZJzro=;
- b=FsL5gumOhSkxDO+RDPW/x0dmd71MOu7RapSvzD3IEdmX7abND5KDK6MO82ZywEKID1UUaj
- o6cCcARf6ebf5Nnfav91NTS/SERgNomiRmv70bX3JMUTDA/1v4PGFMmiW2P0hHRKRw2v4V
- Gcx2VP/0T0lrZ/Aost569T/RvO0wMxo=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-405-JASEXZXjNYysk0CuCnVaAg-1; Mon, 18 Jan 2021 05:28:12 -0500
-X-MC-Unique: JASEXZXjNYysk0CuCnVaAg-1
-Received: by mail-ej1-f69.google.com with SMTP id jg11so4435734ejc.23
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 02:28:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=DcioXB/UdMlsYBZivaxmZD1my4PTiLM/bF+IXbZJzro=;
- b=rEdai5QXg5kcm/eryFMyl97iB9muxkENkek1xOmoyqXVAeFLSPdua/7B3Ac0+OJdAm
- FBvZ7LImbmMu9dHQdVVaDfi8Zuv0LM9VGzxih/xsrflo1yjfj2EUpPwmzjnV0TsMcftp
- wWSAeucdR/0LBu/Al3T65Wo6VaBuOtrTm+czsg1/LreZ+1A2DJ+r6zwWzXDPZSb5Ai28
- 6ZuhK1Vyb/afYMpTg1ovzVnp2G9qM6NKRsagLQfJ2NKF5zP5W6WUfOvHG5lgr4Bf8Oi5
- LBx5t12/7/6wouQIGk9eUqxuSaK3KLtn1QrKv8ylbzMWk9KKprb8EGRmqIZ9O1/uWQLS
- rG2w==
-X-Gm-Message-State: AOAM530I1m2LqeqWFmnnd1BmQfMgYIuSy5Q9LkKVJIytvDJDMRqmX/3c
- SzqWa0xA3QTPHtbTF1gcr8HGSzIXbbVjaEm/yB+NbUWxHLWqmBtR+K4RIHhydmDOyhmRo5R3c/j
- oCTdLBsS5mrKZUaGjmHPQ+7bArUVtYDCeDtfYxTKYaQm3W1Wr67ulT0KlymImmAwXHgme6TqVHQ
- 4=
-X-Received: by 2002:a05:6402:30ac:: with SMTP id
- df12mr19641491edb.175.1610965691401; 
- Mon, 18 Jan 2021 02:28:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzKjZRu6y7Eez6K9LchcmhzoZWqgCU36cr2SlmBxQJtlWrydRl+v98Thet1XSfWUW/hCuozkQ==
-X-Received: by 2002:a05:6402:30ac:: with SMTP id
- df12mr19641475edb.175.1610965691206; 
- Mon, 18 Jan 2021 02:28:11 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
- by smtp.gmail.com with ESMTPSA id q9sm5667939ejd.113.2021.01.18.02.28.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Jan 2021 02:28:10 -0800 (PST)
-Subject: Re: [PATCH v2 00/12] MFD/extcon/ASoC: Rework arizona codec
- jack-detect support
-To: Lee Jones <lee.jones@linaro.org>
-References: <20210117160555.78376-1-hdegoede@redhat.com>
- <20210118095509.GA4903@dell>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <8905f9f2-1c1c-1b64-d70d-374f84568ccb@redhat.com>
-Date: Mon, 18 Jan 2021 11:28:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <20210118095509.GA4903@dell>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1640F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 11:34:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1640F800E7
+IronPort-SDR: FSf2BmyUIQzTT92nmNchAxsE6aanGeRLI3CBCrtWFw7g2pM6xtPm29X1aOrd152uZrgPNVkXel
+ tGjgnR1SLWyQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="178872088"
+X-IronPort-AV: E=Sophos;i="5.79,356,1602572400"; d="scan'208";a="178872088"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2021 02:34:25 -0800
+IronPort-SDR: QJaEC6pc7e/BKk/6HUMEPmM2E8mIegX2R5dFk+Amp5Myg9uefSr1O7zUpDnRBg91P8qKfudwIG
+ Xmuhi4mdxCVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,356,1602572400"; d="scan'208";a="365299894"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by orsmga002.jf.intel.com with ESMTP; 18 Jan 2021 02:34:22 -0800
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] dt-bindings: sound: intel, keembay-i2s: Fix dt binding errors
+Date: Mon, 18 Jan 2021 18:27:06 +0800
+Message-Id: <20210118102706.6125-1-michael.wei.hong.sit@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: jee.heng.sia@intel.com, broonie@kernel.org, lgirdwood@gmail.com,
+ robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,53 +71,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Fix devicetree binding errors caused by newly added parameters
 
-On 1/18/21 10:55 AM, Lee Jones wrote:
-> On Sun, 17 Jan 2021, Hans de Goede wrote:
-> 
->> Hi All,
->>
->> This series reworks the arizona codec jack-detect support to use
->> the snd_soc_jack helpers instead of direct extcon reporting.
->>
->> This is done by reworking the extcon driver into an arizona-jackdet
->> library and then modifying the codec drivers to use that directly,
->> replacing the old separate extcon child-devices and extcon-driver.
->>
->> This brings the arizona-codec jack-detect handling inline with how
->> all other ASoC codec driver do this.
->>
->> This was developed and tested on a Lenovo Yoga Tablet 1051L with
->> a WM5102 codec.
->>
->> The MFD, ASoC and extcon parts can be merged independent from each-other
->> although that could lead to a case where both the extcon driver and
->> the new arizona-jackdet library will try to do jack-detection. If we
->> end up with a git tree in that state then one of the 2 will fail to
->> load because the other will already have claimed the IRQs, so this
->> is not a problem really.
->>
->> Or the entire series could be merged through the MFD tree if people
->> prefer that.
->>
->> Note that this series also paves the way for some further cleanups,
->> removing some jackdetect related variables like hp_ena and hp_clamp
->> from the arizona data struct shared between all the MFD child devices.
->> I've deliberately not done that cleanup as part of this patch-series,
->> since IMHO the series is big enough as is. These cleanups can be done
->> in a follow-up series once this series has landed.
-> 
-> Would you mind using `git format-patch` to create your cover-letters
-> in the future please?  This one is missing useful information such as
-> the diff-stat and patch list.
+Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+---
+ .../devicetree/bindings/sound/intel,keembay-i2s.yaml        | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-I never heard about that git feature until today, so I learn something
-new every day :)
-
-I just tested it and it seems useful. I will try to use it next time.
-
-Regards,
-
-Hans
+diff --git a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
+index e0658f122cbb..dba25c33f0b0 100644
+--- a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
+@@ -47,13 +47,11 @@ properties:
+ 
+   dmas:
+     items:
+-      - description: DMA controller phandle and DMA channel
+-                     for TX and RX
++      - description: DMA TX channel
++      - description: DMA RX channel
+ 
+   dma-names:
+     items:
+-      - description: "tx" for the transmit channel
+-                     "rx" for the receive channel
+       - const: tx
+       - const: rx
+ 
+-- 
+2.17.1
 

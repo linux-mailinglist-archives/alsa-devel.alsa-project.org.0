@@ -2,111 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06A32FB975
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 15:36:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED912FB9D0
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 15:53:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB38F1889;
-	Tue, 19 Jan 2021 15:27:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB38F1889
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CDA81877;
+	Tue, 19 Jan 2021 15:52:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CDA81877
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611066489;
-	bh=15gKzl/71d8C0rn1C9v4/6FftZHKqq9tzSnnht1a5i8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611068002;
+	bh=5eQUqo35H7Bc70t3PZ/r+dVaPIenZbDCpuM9ic622SM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A6JfmkR5Q/OhXEou4DmgIy3o35hntQBYtK7DxUvFa2rgtU9gcRRiV2UoZiFYICZpN
-	 3Wm+2E2fMtyOaDyu7yXiNmYmbXh06CUqrxhFxouQkuFa8AyvuMMRSAB7tvRcaKdj2+
-	 8TZxpoEY1zrCSpKPzEHO31DnEqQ7wLlQ7Pmjt4Vg=
+	b=YsFo0F7u3l8LomFF2N0uS0e12KZHqTiGjA+P6MeHY2E2kQ8Sp/M1FnmDR3iFL4BjN
+	 7XJqxPlir2FDeDHT+5HAdx38OaAGDVUGapWs2s7wi+Oc6al23bbx18cQP+JSe6bJdn
+	 sW4zaYK8SWijDLmJ/eI7xgaUoWpCx0i6jXjcZ9GI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01970F80257;
-	Tue, 19 Jan 2021 15:26:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7402DF8026A;
+	Tue, 19 Jan 2021 15:51:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7406F80257; Tue, 19 Jan 2021 15:26:37 +0100 (CET)
+ id BE183F80257; Tue, 19 Jan 2021 15:51:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from posta.frantovo.cz (czf.frantovo.cz [91.219.244.97])
- (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97F54F80117
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 15:26:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F54F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCAE5F80117
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 15:51:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCAE5F80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=frantovo.cz header.i=@frantovo.cz
- header.b="Lc2VqprT"
-Received: from [192.168.1.4] (osma.doma.frantovo.cz [192.168.1.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: fiki@frantovo.cz)
- by posta.frantovo.cz (Postfix) with ESMTPSA id 8D9211A9C11;
- Tue, 19 Jan 2021 15:24:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=frantovo.cz;
- s=default; t=1611066306;
- bh=15gKzl/71d8C0rn1C9v4/6FftZHKqq9tzSnnht1a5i8=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To;
- b=Lc2VqprTQmdbia+SZ8Zxaws1rRKvKfYMvCc8fQbhF89ejVLSq0ZM1sbGMNSrCky9G
- 3bnhQIJNli1FUxPdIj2Y5RVSkjKiRLGoAsQNs/n75ytfR6hw6Gv0SDm6Yf+ZmgXV4g
- Jfgncuzz4pHXwHcmx73wtfog96wAS7Z4/C7Kmt5g=
-Subject: Re: MIDI handshake for Pioneer DJ DJM-250MK2 to enable recording
- LINE/PHONO channels
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200825153113.6352-1-konference@frantovo.cz>
- <1b3af11b-939e-1822-2d87-fd1f64dd7200@frantovo.cz>
- <191a2803-f049-f73e-14b9-74c6b038e213@frantovo.cz>
- <s5heeihgvdc.wl-tiwai@suse.de>
-From: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
-Autocrypt: addr=konference@frantovo.cz; prefer-encrypt=mutual; keydata=
- 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
- hW6mcblB0mov13r3UFNF1TB7
-Message-ID: <435f4228-e323-5caf-9209-1372221e12fb@frantovo.cz>
-Date: Tue, 19 Jan 2021 15:26:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ccw9Y4bb"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 23A7321D1B;
+ Tue, 19 Jan 2021 14:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611067901;
+ bh=5eQUqo35H7Bc70t3PZ/r+dVaPIenZbDCpuM9ic622SM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ccw9Y4bbntd0K+FTaVUEotLQDh+oix5coXndu0/+ASsrKkeKgl6zklakxcLvzGrwn
+ 9cw2WMXw0JeUgSy9V2MZHeam1SUU9j6YoNtyp0P98CCDYbaRZMNgUq2dHB1yMrjus9
+ RB6b6XkibhfpnNsKnr1R0lK1id8XOel81lmdFrwt+j7phuY2txv1dt/F+56Sf3dMOU
+ b8KzzTvycJ6hzzeIotSdjuJ7PyUb/pXp8HcLNX6EMgP24Z2KgOBrYDSqAyav+1t1gj
+ 4gV6W6uJXnDWpS2iMkQt8CH8FpJDv+zWyZsFU265xNTkl3HJXQHvwBD262X14W27KF
+ ynFQiQOWMVrVQ==
+Date: Tue, 19 Jan 2021 20:21:35 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] soundwire: intel: don't return error when clock stop
+ failed
+Message-ID: <20210119145135.GR2771@vkoul-mobl>
+References: <20210114030248.9005-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <s5heeihgvdc.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.98.1 at posta
-X-Virus-Status: Clean
-Cc: alsa-devel@alsa-project.org, Dmitry Panchenko <dmitry@d-systems.ee>,
- Fabian Lesniak <fabian@lesniak-it.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210114030248.9005-1-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,35 +82,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 19. 01. 21 v 9:54 Takashi Iwai napsal(a):
-> I haven't looked closely, but if it's about MIDI messaging, it can be
-> implemented in the kernel, too (only if it fits better than
-> user-space), yes.  If it's over HID, it's a different story, though.
+On 14-01-21, 11:02, Bard Liao wrote:
+> dev->power.runtime_error will be set to the return value of the runtime
+> suspend callback function, and runtime resume function will return
+> -EINVAL if dev->power.runtime_error is not 0.
+> 
+> Somehow the codec rarely doesn't return an ACK to the clock prepare
+> command. If we stop the runtime suspend process and return error, we
+> will not be able to resume again. Likewise, if the codec lost sync and
+> did not rejoin, the resume operation will also fail. As a result, the
+> SoundWire bus can not be used anymore.
+> 
+> This patch suggests to finish the runtime suspend process even if we fail
+> to stop sdw bus clock. In the case where we do a hardware reset, the codecs
+> will be reconfigured completely. In the case where we use the regular clock
+> stop, the codecs keep their state and worst case will fall off the bus and
+> reattach.
+> 
+> The only drawback is that the power consumption may be higher and
+> device-initiated interrupts may be lost, but at least audio function can
+> still work after resume.
 
-Yes, it is only MIDI. The scenario is:
+Applied, thanks
 
-1) send a greeting message to the mixer
-
-2) receive a greeting message
-
-3) send another constant message
-
-4) receive the response
-
-5) compute something and send it back
-
-6) receive the confirmation message
-
-7) start sending a keep-alive message each 200 ms
-
-Specific received messages might be consumed by kernel (invisible for use=
-r-space), but others should flow undisturbed to the user-space. The sent =
-messages should be injected and intermixed with normal messages coming fr=
-om user-space. The kernel should not claim exclusive access to the MIDI d=
-evice, because user-space tools might want to use it too.
-
-Is there already anything similar, for inspiration?
-
-Franta
-
-
+-- 
+~Vinod

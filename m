@@ -2,93 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39DE52FBD52
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:18:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4612FBD53
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:18:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C596618C6;
-	Tue, 19 Jan 2021 18:17:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C596618C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEC4418CE;
+	Tue, 19 Jan 2021 18:17:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEC4418CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611076691;
-	bh=2Nm3OhJd7SqwgowW/wgUOnsdCQ6I3skmiZCS1brxuME=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611076705;
+	bh=vH6ify53jJZxp0r9WrGZFsNLOsIkb4JC1wf2N253h2M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ONUb8Y8dik/KEtWpA7ZxDqcBEw8hztMpgDvqDCryBsJWcWnUArkpp2fgW4AnpNOG8
-	 SexqHSsh8G3UTV4KfNGJ4uaPvl1VzEQChnuzDcnEKStFPOjQU+8aSok0HlG3yhjqQS
-	 ofva9N49wEH14YozZ9ZCvdARwS4x2eTtH+DaTEpw=
+	b=pW+KL7azkmTTn9hY2BKohmLLHqK8pC7Wdgl8rYlk1LY8oMXALSQ00zY40zKBaC62R
+	 Du/e/3daQ62BHDSQpkp23rysJPo8+p2mCHuXfk+Cw44TTdLPPVsCcwZJ03TKP2ivdi
+	 8sc0oI4dylYgqzj8UHf53l468JZdCipYW+DN4R38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37AA2F804C2;
-	Tue, 19 Jan 2021 18:15:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16195F804CC;
+	Tue, 19 Jan 2021 18:16:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 587ABF80272; Tue, 19 Jan 2021 18:15:48 +0100 (CET)
+ id 3C276F804CB; Tue, 19 Jan 2021 18:16:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69512F80117
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:15:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69512F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DB6AF804BD
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:15:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DB6AF804BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="k0p5MJow"
-Received: by mail-wr1-x430.google.com with SMTP id y17so20498677wrr.10
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:15:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4UPEBqfaefkPq1YYF/lxiReSr4VDehjPvW+E069OjHM=;
- b=k0p5MJow6DmxYg7E8SrqHlPpxHer3kS4GJyXukAg+c9jcxyNp5B+neAVxsRD8cCD2H
- IGDmk+GnPRhZvaX6ty4QfChzd3xZ+AC87q95T+SQcS/Z/zNbdZ7CAyakO3HoNKZBc8kQ
- LOuJjlWECA09sZoRqRyUGep8tp4dByDPJzeoWJghHhyEgGf8dEYpMzFMDVt/wNws+3lq
- XZUZm/GiZ+4oidO1yl9hB118214oKIsOGhDp3JMyMrCXLR8pebnGko268CtHBQf+2jwx
- BPCiTnjMdSby6GwILd7C4ApUSlgS28quhZuuN+/OQNEVZaxk5lHIsrs2lfONocj6SUgH
- 8nxw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="JFx2kpR6"
+Received: by mail-qk1-x72a.google.com with SMTP id z11so22549965qkj.7
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:15:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=/Wq4qZjE/3PIn7FnaG2ZyC5WlhiHEngk1+PS8fgItLE=;
+ b=JFx2kpR6qED4GlcB1JBdL5pzb/N3debM49RiAn3r7cD6kOxykr8h2jV+oZtcfVmtDv
+ bl/NyyyYuuaeH/1X5rZ+hzMOFCj1R3DC5fRote5OwHhGCh+6sXR0tLGauMdV/2ZMJLZg
+ XlM1/CS1QvD/r1jDrwt/QRyvGdBkp4eXu44ypOEoLpwsKKgZyxZyDWzI/GdmzIdyvml4
+ 3sU6NxKqDlAJvEfceK2wGe/Tp1i+BKjl6vt2y8i+IXD0z8Se2skSl36xrWsLyr65k6Z4
+ h4uVH0458HyM/qP9HCFsQJseKhbIEkeuBIILcLiE1SJGlfIjGkqHkazxbKE775/8sZZ+
+ wj/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4UPEBqfaefkPq1YYF/lxiReSr4VDehjPvW+E069OjHM=;
- b=lhRWLK3lxHm/O8rtyH56on2/F1+o3bm6RdWhfivOd+oWp/th8imQ8CtA4GrbK8wctI
- asv3K9H4cocruIWcNb23dRx1Ro1bJ+3eX/m/Kakg6UuWqBPQVU3X/uLr1WJJyjceNSik
- KIknrACcBKUuTGEZyGSAVpw5VbvNETcYj2t+jV3VVCnlcs51fAMNFNgOc5A/SrJgb8yA
- 2EwnCPTnnEBxFHr/ZKtZMS1OYZIXGyKF80JrE9fSh+ZAv3iIhHy08uDkiAkGc1kdXpwY
- Gw5+RldbkuSfvUO8bwH+qGN1WFh7hWYrbVE6080YXqweK+KvVSyG5AbG2F4EQJegptwp
- 7lTQ==
-X-Gm-Message-State: AOAM530CO3vn+mH5YhA7ajSma130b6dKSV8bXmhq4arERbzHUM4ZMtSd
- 9W/j+LbbcsWRN+EUB2fHLvCX+A==
-X-Google-Smtp-Source: ABdhPJxZ6bkSJFnjIvSc9ba5CZO+PNNJP+Ua40XsQOS6FjIVIj2lzcCfAbAk6x2YYG3ZnjhBab1zng==
-X-Received: by 2002:a5d:4241:: with SMTP id s1mr5385455wrr.269.1611076541494; 
- Tue, 19 Jan 2021 09:15:41 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id x18sm41649358wrg.55.2021.01.19.09.15.39
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=/Wq4qZjE/3PIn7FnaG2ZyC5WlhiHEngk1+PS8fgItLE=;
+ b=dGdueNs4gvYHcJJzKuYlptJpoaJ5VjlH5IEwo8yd0/GYwdov66oYxJWWmb03IxDwU5
+ omGBY/l/W0kelOzyhR4vgW/dRLNB1JKiRGMkWz4gTbLKA6QN1yTBlDPDk1mjmKdSztTo
+ YUyS4exLbTiLOhZrR+4D/FCWWBeNI3AumKk28RnTPWziuoLTsF1bExh/wn4jzmwxrWWK
+ Z6YlnNbRSO3PAvT6lqoVNpJ9lTLv6o0jS4BjyLXDAXNUxW4If5b4A4F1D4oq5UAt2JX0
+ JEDnRzjVjp4pOOAcFTMO4PUbmZ4jbB0GYirIJEsp5wERMrxaaXoziGSN3S2qwXMzSlUY
+ mLbw==
+X-Gm-Message-State: AOAM532Th2QW5simA70K3l5P2f/h9DA2qfNcwIykws2ifylKkKB+V5Kq
+ NeWJO3FVktynsXfKHH+Bqg0=
+X-Google-Smtp-Source: ABdhPJycqx06CLHOtr8yYwKPAeyRnNsWmzo5DsVRoLEFQGnY+lx39eEbN/524ikbpYu5IHC3qNi4Kw==
+X-Received: by 2002:a05:620a:12ed:: with SMTP id
+ f13mr5362033qkl.497.1611076554637; 
+ Tue, 19 Jan 2021 09:15:54 -0800 (PST)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id k64sm13500696qkc.110.2021.01.19.09.15.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Jan 2021 09:15:39 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH v2 2/2] ASoC: qcom: Fix broken support to MI2S TERTIARY and
- QUATERNARY
-Date: Tue, 19 Jan 2021 17:15:27 +0000
-Message-Id: <20210119171527.32145-3-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20210119171527.32145-1-srinivas.kandagatla@linaro.org>
-References: <20210119171527.32145-1-srinivas.kandagatla@linaro.org>
+ Tue, 19 Jan 2021 09:15:53 -0800 (PST)
+Date: Tue, 19 Jan 2021 18:15:51 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [RESEND PATCH v6 5/6] arm64: tegra: Audio graph header for
+ Tegra210
+Message-ID: <YAcTxxyogVgfN1uw@ulmo>
+References: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
+ <1611048496-24650-6-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- srivasam@codeaurora.org, stephan@gerhold.net, lgirdwood@gmail.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Jun Nie <jun.nie@linaro.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="V/me9ht3Hy4FdSi0"
+Content-Disposition: inline
+In-Reply-To: <1611048496-24650-6-git-send-email-spujar@nvidia.com>
+User-Agent: Mutt/2.0.4 (26f41dd1) (2020-12-30)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ broonie@kernel.org, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,159 +107,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-lpass hdmi support patch totally removed support for MI2S TERTIARY
-and QUATERNARY.
 
-One of the major issue was spotted with the design of having
-separate SoC specific header files for the common lpass driver.
-This design is prone to break as an when new SoC header is added
-as the common DAI ids of other SoCs will be overwritten by the
-new ones.
+--V/me9ht3Hy4FdSi0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Having a common header qcom,lpass.h should fix the issue and any new
-DAI ids should be added to the common header.
+On Tue, Jan 19, 2021 at 02:58:15PM +0530, Sameer Pujar wrote:
+> Expose a header which describes DT bindings required to use audio-graph
+> based sound card. All Tegra210 based platforms can include this header
+> and add platform specific information. Currently, from SoC point of view,
+> all links are exposed for ADMAIF, AHUB, I2S and DMIC components.
+>=20
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+>  .../boot/dts/nvidia/tegra210-audio-graph.dtsi      | 153 +++++++++++++++=
+++++++
+>  1 file changed, 153 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/nvidia/tegra210-audio-graph.dtsi
 
-With this change lpass also needs a new of_xlate function to resolve
-dai name.
+I prefer keeping everything in tegra210.dtsi, but I can do that merge
+when I apply, after the DT bindings have been acked, so no need to
+resend just because of that.
 
-Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
-Reported-by: Jun Nie <jun.nie@linaro.org>
-Reported-by: Stephan Gerhold <stephan@gerhold.net>
-Tested-by: Srinivasa Rao <srivasam@codeaurora.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/lpass-cpu.c      | 22 ++++++++++++++++++++++
- sound/soc/qcom/lpass-platform.c | 12 ++++++++++++
- sound/soc/qcom/lpass-sc7180.c   |  9 +++------
- sound/soc/qcom/lpass.h          |  2 +-
- 4 files changed, 38 insertions(+), 7 deletions(-)
+Thierry
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index af539e0d7e56..ae8efbc89af2 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -344,8 +344,30 @@ int asoc_qcom_lpass_cpu_dai_probe(struct snd_soc_dai *dai)
- }
- EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_probe);
- 
-+static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
-+				   struct of_phandle_args *args,
-+				   const char **dai_name)
-+{
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct lpass_variant *variant = drvdata->variant;
-+	int id = args->args[0];
-+	int ret = -EINVAL;
-+	int i;
-+
-+	for (i = 0; i  < variant->num_dai; i++) {
-+		if (variant->dai_driver[i].id == id) {
-+			*dai_name = variant->dai_driver[i].name;
-+			ret = 0;
-+			break;
-+		}
-+	}
-+
-+	return ret;
-+}
-+
- static const struct snd_soc_component_driver lpass_cpu_comp_driver = {
- 	.name = "lpass-cpu",
-+	.of_xlate_dai_name = asoc_qcom_of_xlate_dai_name,
- };
- 
- static bool lpass_cpu_regmap_writeable(struct device *dev, unsigned int reg)
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index d1c248590f3a..0074b7f2dbc1 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -257,6 +257,9 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
- 		break;
- 	case MI2S_PRIMARY:
- 	case MI2S_SECONDARY:
-+	case MI2S_TERTIARY:
-+	case MI2S_QUATERNARY:
-+	case MI2S_QUINARY:
- 		ret = regmap_fields_write(dmactl->intf, id,
- 						LPAIF_DMACTL_AUDINTF(dma_port));
- 		if (ret) {
-@@ -507,6 +510,9 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
- 			break;
- 		case MI2S_PRIMARY:
- 		case MI2S_SECONDARY:
-+		case MI2S_TERTIARY:
-+		case MI2S_QUATERNARY:
-+		case MI2S_QUINARY:
- 			reg_irqclr = LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
- 			val_irqclr = LPAIF_IRQ_ALL(ch);
- 
-@@ -559,6 +565,9 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
- 			break;
- 		case MI2S_PRIMARY:
- 		case MI2S_SECONDARY:
-+		case MI2S_TERTIARY:
-+		case MI2S_QUATERNARY:
-+		case MI2S_QUINARY:
- 			reg_irqen = LPAIF_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST);
- 			val_mask = LPAIF_IRQ_ALL(ch);
- 			val_irqen = 0;
-@@ -655,6 +664,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 	break;
- 	case MI2S_PRIMARY:
- 	case MI2S_SECONDARY:
-+	case MI2S_TERTIARY:
-+	case MI2S_QUATERNARY:
-+	case MI2S_QUINARY:
- 		map = drvdata->lpaif_map;
- 		reg = LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
- 		val = 0;
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index 85db650c2169..8c168d3c589e 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -20,7 +20,7 @@
- #include "lpass.h"
- 
- static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
--	[MI2S_PRIMARY] = {
-+	{
- 		.id = MI2S_PRIMARY,
- 		.name = "Primary MI2S",
- 		.playback = {
-@@ -44,9 +44,7 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
- 		},
- 		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
- 		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
--	},
--
--	[MI2S_SECONDARY] = {
-+	}, {
- 		.id = MI2S_SECONDARY,
- 		.name = "Secondary MI2S",
- 		.playback = {
-@@ -60,8 +58,7 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
- 		},
- 		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
- 		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
--	},
--	[LPASS_DP_RX] = {
-+	}, {
- 		.id = LPASS_DP_RX,
- 		.name = "Hdmi",
- 		.playback = {
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 0195372905ed..2d68af0da34d 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -12,7 +12,7 @@
- #include <linux/compiler.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
--#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <dt-bindings/sound/qcom,lpass.h>
- #include "lpass-hdmi.h"
- 
- #define LPASS_AHBIX_CLOCK_FREQUENCY		131072000
--- 
-2.21.0
+--V/me9ht3Hy4FdSi0
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmAHE8QACgkQ3SOs138+
+s6HyRRAAr5aaieN+iwicZO0lllDEMbxrMSPQLW5lRPP/IsqHcVcSaInc2Xuoyeks
+Q36vwKPpeHV4mWLwAPgunERnusPLI705z88oTVJnV1mXMiduyW2yfyBHdd6tpMZS
+KX2rPHf1AoiBrvh170nem+ZCxjfqcMR4+YL58JjIpyXaPbfJ2qwnOuBDFKLU2uiS
+yG3k6wyYsBBJWsS41rOya4dqNi+YpzGaQ7IE7r5YP3R0Or9RiEhwjE8xgXiLPVhM
+YilIjWyv3Csc9yPsliO1WCriNboKL+BgClNQ4YELltr+mYbsSZwIzqXrApRwXJP3
+6tuZA67Cmhmk9ghCxI2dljX+fkEks5lEIVpChT4GmF6vSbfF0kp8Sc+sIiGtkCRH
+wx+30v+iqYLXN407FCL5gqiqzZPfIeAAKJ1pv7vDL+p4kqdiFHF0UTCvZoZKG4R5
+FCsmesbdBCk8VjgfoHG2oFZ764r7uMdhrO1sTOryYEzqaUpEPh4dfHGye8OM9vYd
+JvvEtllWM2nNLQ32sSKbvYZaRLVpqP3njGXp8qvTZ+TGkYDpTuHqYI2jpQmciq5f
+gYN6k2z12Za8D82/QzEDwtgyLYayRmbFFIuaX7+eAjQBYSH6j2nEgwY4aOAUyXZF
+Zmuw02HfH1lGSwdKNvQ60ynTniWrIfqxSlUVZQ9emj56wlkz8WE=
+=if1e
+-----END PGP SIGNATURE-----
+
+--V/me9ht3Hy4FdSi0--

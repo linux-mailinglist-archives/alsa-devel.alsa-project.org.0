@@ -2,90 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BF82FB484
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 09:49:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED9632FB4A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 09:55:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32C2B186A;
-	Tue, 19 Jan 2021 09:48:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32C2B186A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 783811875;
+	Tue, 19 Jan 2021 09:55:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 783811875
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611046171;
-	bh=Lj+Z+mxDfZB0RuveYEYbsIsX0NUClAg4/r5CGXbi4b4=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=di0SYXpBcrYZBami8K22OhRkX3lMIdgzdV5/F2gmMi/z6hSXarkBiuNIB5hCl3kRA
-	 7QpqAIxjlFDANhnoAzQQBIcrzDT2DDXaOLZGQSbJ5btlVYhBFeTql9VYIDcZXOelfD
-	 0LXiLByedrEwBKLy74pzDs073n7TK8kXhtcMOSbM=
+	s=default; t=1611046555;
+	bh=BBmP22Z1CXbk/ge5jj3MHDNEWgfdL8wviA0syNtPDTA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=C90MZSoXzDMWzKfAINQcvIW8Q/qzIRWZQT21pLtGaIFGKMOjb7paNyC8VdIpe9tbR
+	 8Wcu2m7V5lGVCKEykB9XB7PdbuoozZatC+01s6RwozOYXoTPB8NCCeXMFFh3ZuHCpc
+	 qUhYOBsRWe6JZjnsv+wX+LIjci6/Rv4GGLcqjU+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EF66F80255;
-	Tue, 19 Jan 2021 09:47:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6BEFF8026A;
+	Tue, 19 Jan 2021 09:54:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DD1CF80257; Tue, 19 Jan 2021 09:47:54 +0100 (CET)
+ id 23574F80257; Tue, 19 Jan 2021 09:54:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BE14F80137
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:47:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE14F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bRytbEod"
-Received: by mail-wr1-x434.google.com with SMTP id a9so15402119wrt.5
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 00:47:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=ZD/8V+qKI9Qc+OXbrKiuj7HYjfxF3fqGQd5JxDVshzI=;
- b=bRytbEodGV6bzu7oKTMUdKi2IIOTX4butuvTNeJoTubg4xQRbGmyw8jzHDmxWeSpuR
- UNPjvW9t6CUuUKSw8HiRqY+RyZYdgi+zAv57ieJuDOsl7qvbef8G0PLTz1W8qcF3d9ZQ
- J+Kx4pUV012IrWTxCY/kn2scXAahQO2mWCUtr/GKPKlnlDi5U2ocvaShYsiSlvFZUA/6
- CTtGJl0d/8bfgQsvB3F1GjJPYm698Kst8IN0huY5UjDHM8FYjqRpozTxYCzsv1N6tmdo
- qCqst474S5hFdNxDjBQ57h7WATwind0zb75eQ8SL2w/O6sKktTd3RbSUndbpWfAnN04V
- e47A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=ZD/8V+qKI9Qc+OXbrKiuj7HYjfxF3fqGQd5JxDVshzI=;
- b=OVf6OJ1kRFwEKGskHWsaR7EeaUcNlWZKtqj0vXv5PfPCz7oqOWmrsKTkCJuqXplDDF
- Q3Nyipm1SyqURYpnlFMGBIVkLmMUQ4Jlw8DT0LqUftjmmMcqtRTsQ4Qv2lWxn9Kim2Pm
- d/jJpkPR7/lFfT0UlFpqb5qo+Fd0YDxIZik59e/Y29A6Kwx+ZCmCe2bKQ2vuijg6ni42
- P2cW/NlDqwTX8llb68/MRDhzFi3Sk9TGqeKA8n7nND5QmNHg3MZm7uKgoXIr5O32LHsV
- YfcAV5xyzY4tpuQ5VczlvEgT6QhflMNkOzWlheBHJSuCiwIYw8vO4ixzPMJiToxqeFGH
- lEXg==
-X-Gm-Message-State: AOAM533KAKfoTVlotY8gvCWurjt5uX+ebnN1SZ8n05agcGn2H12hFsfo
- M/xc0LNoDoI5r3mz6rJcquRTOE5B8Jijgg==
-X-Google-Smtp-Source: ABdhPJyGrH0dnnWDmY5oR1AxtzWGoqZcySFtJZuDtjn7x8vNjqz0EZh7crIhRrJUJLagF7d0w5AJLw==
-X-Received: by 2002:adf:f7d2:: with SMTP id a18mr3159738wrq.47.1611046066459; 
- Tue, 19 Jan 2021 00:47:46 -0800 (PST)
-Received: from u89958f1b516b5e.ant.amazon.com (54-240-197-232.amazon.com.
- [54.240.197.232])
- by smtp.gmail.com with ESMTPSA id o9sm2116862wrw.81.2021.01.19.00.47.45
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jan 2021 00:47:45 -0800 (PST)
-To: alsa-devel@alsa-project.org
-From: Andrea Fagiani <andfagiani@gmail.com>
-Subject: [PATCH] ALSA: usb-audio: use Corsair Virtuoso mapping for Corsair
- Virtuoso SE.
-Message-ID: <40bbdf55-f854-e2ee-87b4-183e6451352c@gmail.com>
-Date: Tue, 19 Jan 2021 08:47:44 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB86CF800FE
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:54:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB86CF800FE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D4515AB9F;
+ Tue, 19 Jan 2021 08:54:07 +0000 (UTC)
+Date: Tue, 19 Jan 2021 09:54:07 +0100
+Message-ID: <s5heeihgvdc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
+Subject: Re: MIDI handshake for Pioneer DJ DJM-250MK2 to enable recording
+ LINE/PHONO channels
+In-Reply-To: <191a2803-f049-f73e-14b9-74c6b038e213@frantovo.cz>
+References: <20200825153113.6352-1-konference@frantovo.cz>
+ <1b3af11b-939e-1822-2d87-fd1f64dd7200@frantovo.cz>
+ <191a2803-f049-f73e-14b9-74c6b038e213@frantovo.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Dmitry Panchenko <dmitry@d-systems.ee>,
+ Fabian Lesniak <fabian@lesniak-it.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,38 +73,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Corsair Virtuoso SE RGB Wireless is a USB headset with a mic and a
-sidetone feature. Assign the Corsair Virtuoso name map to the SE product
-ids as well, in order to label its mixer appropriately and allow
-userspace to pick the correct volume controls.
+On Mon, 18 Jan 2021 23:41:35 +0100,
+František Kučera wrote:
+> 
+> Dne 25. 08. 20 v 17:36 František Kučera napsal(a):
+> > 1) The direct (before fader) PHONO/LINE recording channels are silent until some (yet unknown) special command is send to the mixer. There is quite a lot communication over USB in both directions and I have to dig through the dumps. This would be a separate commit and I do not know, how long it could take.
+> 
+> As mentioned earlier, the Pioneer DJM devices are somehow broken and by default they produce only silence on LINE/PHONO recording channels.
+> 
+> It was really challenging but it is no more hopeless – in the meantime, someone described, how it works inside, and I wrote a standalone program called djm-fix that fixes the device and enables the LINE/PHONO channels (so the mixer is usable e.g. for DVS). Details are described here: <https://blog.frantovo.cz/c/387/>. The djm-fix tool is still a bit raw, but it works for me and at least one more DJM-250MK2 owner confirmed, that it works.
+> 
+> Is it possible to move this fix to the kernel level? Or should it stay rather as a standalone tool? I think that it would be nice to have Pioneer DJM devices fully working out of the box without additional tools.
+> 
+> The fix consists of a MIDI handshake – we need to send and receive some messages, compute some hash and then periodically send a keep-alive message (when we stop, the LINE/PHONO channels become silent again).
 
-Signed-off-by: Andrea Fagiani <andfagiani@gmail.com>
----
-  sound/usb/mixer_maps.c | 10 ++++++++++
-  1 file changed, 10 insertions(+)
+I haven't looked closely, but if it's about MIDI messaging, it can be
+implemented in the kernel, too (only if it fits better than
+user-space), yes.  If it's over HID, it's a different story, though.
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index a7212f16660e..646deb6244b1 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -536,6 +536,16 @@ static const struct usbmix_ctl_map 
-usbmix_ctl_maps[] = {
-  		.id = USB_ID(0x05a7, 0x1020),
-  		.map = bose_companion5_map,
-  	},
-+	{
-+		/* Corsair Virtuoso SE (wired mode) */
-+		.id = USB_ID(0x1b1c, 0x0a3d),
-+		.map = corsair_virtuoso_map,
-+	},
-+	{
-+		/* Corsair Virtuoso SE (wireless mode) */
-+		.id = USB_ID(0x1b1c, 0x0a3e),
-+		.map = corsair_virtuoso_map,
-+	},
-  	{
-  		/* Corsair Virtuoso (wired mode) */
-  		.id = USB_ID(0x1b1c, 0x0a41),
--- 
-2.25.1
 
+Takashi

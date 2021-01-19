@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286E62FAE05
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 01:28:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EC552FAF90
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 05:44:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1DB41860;
-	Tue, 19 Jan 2021 01:27:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DB41860
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27AD8185E;
+	Tue, 19 Jan 2021 05:43:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27AD8185E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611016129;
-	bh=Tgj7jExjLGl1+7M3FfCpRWtqdO9WrY+Oj90L0hkxV+s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qubqLBZBN+lX5Pq792g53qdsb7h5VK5fCv5D0yx5dOnepmokjHVxevKRNyQMCLBrP
-	 MHz+jUVZWOCtREcwvS3WNY8Wf2PL9gfKSp514oYnxupISwlKPbOU5yLAFnq6t4HPvf
-	 r8EI93Sr+WsvFAcFVVslGb/YBa1gkTiYjhaWPaLM=
+	s=default; t=1611031464;
+	bh=vtl47ou48k7trYzbPp8vEBkmaGWR+nm7PtZI+sV/u1o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ie64oEnSKSf3XW/9Km/dclJuvAEgJ2Ka/6qYB70BTXzEpShot8QS6uOfgI2cJeEf4
+	 ovppjn5HkFISrOl86M1P52M9ECfSrZ4dwFdBcBDutdGTho8Rd0O9Pmd+916Pu/Pkkz
+	 oa/No/AKfFoUhXY+2SPl5ys3ZskyVTDGUcCm+5VM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DADFF8016E;
-	Tue, 19 Jan 2021 01:27:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B48DF8026A;
+	Tue, 19 Jan 2021 05:42:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47C1AF8016E; Tue, 19 Jan 2021 01:27:14 +0100 (CET)
+ id 6D73BF80257; Tue, 19 Jan 2021 05:42:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD878F800C0
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 01:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD878F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBE0AF80117
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 05:42:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBE0AF80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
- header.i=@nostatic-org.20150623.gappssmtp.com header.b="LGr6+Xz9"
-Received: by mail-yb1-xb2a.google.com with SMTP id x78so9869289ybe.11
- for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 16:27:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nostatic-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XRaF4AcjIBU0yuwEAUkTt15vHcbut6PNHtOlpD0pOR0=;
- b=LGr6+Xz9MQa2JPHa+2KVvrVumSFcczxPQJcyF9H4JTzVO4lReraTRXhHW6XGnCeeZD
- SPGT6mVRFnUfKG0K1h8vseX4OD603uMCKH28rjj+Vq1RL1dKAdLo9R8sFELJEE6NX18j
- wEcMoW6QrWxQRnppFKpGiwOlByw1lXt3MyxOkHpMBN1H55yDfquydJTtKwVInQpcDtfl
- Ak8M2e1T3Z2NIwdhMNKdRgEjTPxwOs15ZEQiduzujhvqUeK0HI1k21ydlF5QAbqzRneY
- 4OUfrXPh67QZrKIdG+lsz9IeppQeBgtgW5sxU788fUPyO3TVRpPaugcy2hT1fX5wlsY9
- zYdQ==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="xPxjbryp"
+Received: by mail-ot1-x333.google.com with SMTP id i30so5686096ota.6
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jan 2021 20:42:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lEGHa/fw+pXIBREv347tt5onnQ/KqN9oFmmcQKWLUbk=;
+ b=xPxjbryp22HRmb8+ZYS9I7l0hi8pYHA5ePzpgkS6UYYEpN/jiV88/B+3gx3BuxiYoy
+ GrwapJ3pmku3FfPj1n74s9jhefYdICmKIEZ3zsdWzcLgXSqk2ZHAtlkrBFcBFJSOS9Ti
+ 6IJuuIkPPFYJzVfwdtrCSO47BCyraDTdYEr2EY94v5mSQ2awnssGxkUapkJYTCodHODA
+ 1BrEDMh3sSGoINMl7w8HlZEZxy6FU068TI5p+2ngPpjYdyejQx4vKkP/jMLv8l8nq6Yd
+ lUwb6YilPWhhc+wK3Q4UpRrkmorMcmC47Cs4YO5ILjVLsTckR+6kwmliEMFmaglxpnPt
+ AX7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XRaF4AcjIBU0yuwEAUkTt15vHcbut6PNHtOlpD0pOR0=;
- b=Y8P2n5bxexYDCF9D4f7V8QN5BZ1WsiD/3V3lsnM4KQElgyKLJoRzgY0CnxbrkbNOkZ
- zCrt0vuXhFQXMDHr1wWPOYLqa68zxwN+0SgtaJopLGQ6+roKp2cpx85oRoD7bG9s64gE
- vDYqdHHSJdIMqeDylkGF2tZTk1ypAWpL2tT0oK7agINGYe5TVmxb93Fu4yyV4XyiFIVY
- Ya3fe71jroTf++wEs+kf7krdNqELUCkcRt1EUmvnzre07eQr7MAIHRcPnl1mCa3xFUET
- XAEWUNrVLgDLmqLVYUUXik2JQDGrdVw099NiiBAFGqGbj//cqkXSzBuYnAMfQXhgs+o/
- 1w0A==
-X-Gm-Message-State: AOAM530P+pFu3k/EmjGTAgP/zP+oUoi9K0TAKD1nuGVg82j+pAWjInHd
- oxd7nlcd1yk6gw/Y5oJD86ukkPZyuSh5P5luNAUgtQ==
-X-Google-Smtp-Source: ABdhPJznom3St1jSHe5wpvvdfOk53rUR6fwbonxis7trnbI16RimpVkER6Bb/R5Fc4+SsUS0IrR6rEK/UG1OEKqZmHs=
-X-Received: by 2002:a25:1d5:: with SMTP id 204mr2223107ybb.417.1611016021398; 
- Mon, 18 Jan 2021 16:27:01 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lEGHa/fw+pXIBREv347tt5onnQ/KqN9oFmmcQKWLUbk=;
+ b=Z5/qjGvmNDQfCbSzZ0/safwzhGhvDtfvpxTaAtDwayCoC7BGyFzFPPfLgqBvrlGhAe
+ HLEsb1FktYmH46zSpsk55OkZo5a8s/nqusFRvAagimnj+xXOeMZ/IxyCE+iulWOphRRK
+ CdspTaRNbse+GWqKsAo+GXodDxz25KypW9yv5x9xd8Md/BpJegpv6tVr11Ov72ExY3XO
+ QFzw3eQ7TZdHzxO7qeAaQovJ6DRlKFr1MOYmRyKT0/qWDnu10NRl/QX+2vxBSv1lMD2E
+ SGXAh80XkYm3kP+1B7K3027gtek1ch5KSb9lvYK8blkswKxnPzwuCnMLsKxB0T5U9Wpq
+ Qr0A==
+X-Gm-Message-State: AOAM5315bJU8DVbEzidyzNZL+j1qZ0YjvvqXG0F2bYTnH5Me32qO4fxH
+ JxsI/GyN4RDI1xesgxAe8x546w==
+X-Google-Smtp-Source: ABdhPJytkVwYJyjW3NPbkDVvL8+Dw0n40mrQBKACtAcutScv90A86ExydUH6m4vm8AS+/cwkWGubyw==
+X-Received: by 2002:a9d:22a6:: with SMTP id y35mr2134126ota.20.1611031356353; 
+ Mon, 18 Jan 2021 20:42:36 -0800 (PST)
+Received: from localhost.localdomain (li519-153.members.linode.com.
+ [66.175.222.153])
+ by smtp.gmail.com with ESMTPSA id r26sm2236901oij.3.2021.01.18.20.42.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Jan 2021 20:42:05 -0800 (PST)
+From: Jun Nie <jun.nie@linaro.org>
+To: a.hajda@samsung.com,
+	john.stultz@linaro.org
+Subject: [PATCH] drm: bridge: adv7511: Add set_jack handler
+Date: Tue, 19 Jan 2021 12:41:57 +0800
+Message-Id: <20210119044157.3801598-1-jun.nie@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
- <s5hr1mik7vu.wl-tiwai@suse.de>
- <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
- <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
- <s5hr1migiie.wl-tiwai@suse.de>
- <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
- <s5him7thpoz.wl-tiwai@suse.de>
-In-Reply-To: <s5him7thpoz.wl-tiwai@suse.de>
-From: Mike Oliphant <oliphant@nostatic.org>
-Date: Mon, 18 Jan 2021 16:26:51 -0800
-Message-ID: <CAHXb3bd8zHFmHxDp=4dNKa90eAT568yCwTWo_5L0Zry1EY45UA@mail.gmail.com>
-Subject: Re: Support for NUX MG-300 USB interface
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: architt@codeaurora.org, lars@metafoo.de, kuninori.morimoto.gx@renesas.com,
+ airlied@linux.ie, broonie@kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, robh+dt@kernel.org,
+ bogdan.togorean@analog.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,113 +101,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Unfortunately, the "uac_clock_selector_set_val()" call does not seem to
-change anything.
+With commit 55c5cc63ab, the hdmi_codec_set_jack() will report unsupport
+failure if set_jack handler is missing. Add set_jack handler to resolve
+this failure.
 
-From doing some more testing, I think that the references to clock id "40"
-are ok - it has "40" stored in fmt->clock, but when it uses it,
-"__uac_clock_find_source()" gets called and it resolved to the actual clock
-source - "41".
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+ .../gpu/drm/bridge/adv7511/adv7511_audio.c    | 27 ++++++++++++++-----
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-Not sure about the "No valid sample rate available for 1:1, assuming a
-firmware bug" error, but I suspect it is spurious.
-"check_valid_altsetting_v2v3()" is failing for some reason, but it is
-ignoring the error.
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_audio.c b/drivers/gpu/drm/bridge/adv7511/adv7511_audio.c
+index f101dd2819b5..16de1a8ca7a0 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_audio.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_audio.c
+@@ -217,22 +217,35 @@ static int adv7511_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+ 	return -EINVAL;
+ }
+ 
++static int adv7511_hdmi_i2s_hook_plugged_cb(struct device *dev, void *data,
++					    hdmi_codec_plugged_cb fn,
++					    struct device *codec_dev)
++{
++	struct adv7511 *adv7511 = data;
++	bool plugged = adv7511->connector.status == connector_status_connected;
++
++	fn(codec_dev, plugged);
++	return 0;
++}
++
+ static const struct hdmi_codec_ops adv7511_codec_ops = {
+ 	.hw_params	= adv7511_hdmi_hw_params,
+ 	.audio_shutdown = audio_shutdown,
+ 	.audio_startup	= audio_startup,
+ 	.get_dai_id	= adv7511_hdmi_i2s_get_dai_id,
+-};
+-
+-static const struct hdmi_codec_pdata codec_data = {
+-	.ops = &adv7511_codec_ops,
+-	.max_i2s_channels = 2,
+-	.i2s = 1,
+-	.spdif = 1,
++	.hook_plugged_cb = adv7511_hdmi_i2s_hook_plugged_cb,
+ };
+ 
+ int adv7511_audio_init(struct device *dev, struct adv7511 *adv7511)
+ {
++	struct hdmi_codec_pdata codec_data = {
++		.ops = &adv7511_codec_ops,
++		.max_i2s_channels = 2,
++		.i2s = 1,
++		.spdif = 1,
++		.data = adv7511,
++	};
++
+ 	adv7511->audio_pdev = platform_device_register_data(dev,
+ 					HDMI_CODEC_DRV_NAME,
+ 					PLATFORM_DEVID_AUTO,
+-- 
+2.25.1
 
-Playback is completely silent, but the system seems to think it is working.
-No apparent errors, and a play operation seems to take the correct amount
-of time. Just no audio.
-
-Maybe it is a mixer issue? mixer.c is putting out "RANGE setting not yet
-supported" errors on startup.
-
-Here is a sample of dmesg output for a playback session:
-
-[ 4748.260975] usb 1-1.3: Open EP 0x1, iface=1:1, idx=0
-[ 4748.260983] usb 1-1.3:   channels=2, rate=48000, format=S32_LE,
-period_bytes=48000, periods=4, implicit_fb=0
-[ 4748.260988] usb 1-1.3: Open EP 0x81, iface=1:1, idx=1
-[ 4748.260992] usb 1-1.3:   channels=2, rate=48000, format=S32_LE,
-period_bytes=48000, periods=4, implicit_fb=0
-[ 4748.260996] usb 1-1.3: Setting usb interface 1:0 for EP 0x1
-[ 4748.261320] usb 1-1.3: 1:1 Set sample rate 48000, clock 40
-[ 4748.261873] usb 1-1.3: Setting params for data EP 0x1, pipe 0x9d00
-[ 4748.261890] usb 1-1.3: Set up 12 URBS, ret=0
-[ 4748.261897] usb 1-1.3: Setting usb interface 1:1 for EP 0x1
-[ 4748.262097] usb 1-1.3: Setting params for sync EP 0x81, pipe 0x9d80
-[ 4748.262105] usb 1-1.3: Set up 4 URBS, ret=0
-[ 4748.262147] usb 1-1.3: Starting data EP 0x1 (running 0)
-[ 4748.262180] usb 1-1.3: 12 URBs submitted for EP 0x1
-[ 4748.262183] usb 1-1.3: Starting sync EP 0x81 (running 0)
-[ 4748.262193] usb 1-1.3: 4 URBs submitted for EP 0x81
-[ 4748.262311] usb 1-1.3: 1:1 Start Playback PCM
-[ 4762.887812] usb 1-1.3: Stopping sync EP 0x81 (running 1)
-[ 4762.887836] usb 1-1.3: Stopping data EP 0x1 (running 1)
-[ 4762.887849] usb 1-1.3: 1:1 Stop Playback PCM
-[ 4762.902542] usb 1-1.3: Closing EP 0x1 (count 1)
-[ 4762.902549] usb 1-1.3: Setting usb interface 1:0 for EP 0x1
-[ 4762.902915] usb 1-1.3: EP 0x1 closed
-[ 4762.902928] usb 1-1.3: Closing EP 0x81 (count 1)
-[ 4762.902935] usb 1-1.3: Setting usb interface 1:0 for EP 0x81
-[ 4762.903179] usb 1-1.3: EP 0x81 closed
-
-On Mon, Jan 18, 2021 at 1:59 PM Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Mon, 18 Jan 2021 22:15:26 +0100,
-> Mike Oliphant wrote:
-> >
-> > Progress - thanks for the patch!
-> >
-> > That got rid of the clock errors, and the the device now reports a 48000
-> > sample rate, which is correct.
-> >
-> > Unfortunately, it still isn't working properly. Playback doesn't seem to
-> work
-> > at all. Capture kind of works - it does record, but the audio is
-> extremely
-> > noisy.
-> >
-> > Here is the current dmesg output when the device is connected.
-> >
-> > Notable is the error "No valid sample rate available for 1:1, assuming a
-> > firmware bug".
-> >
-> > Also notable is "1:1 Set sample rate 48000, clock 40" - where "40" is
-> the id
-> > of the clock selector - "41" is the id of the actual clock source. So
-> maybe
-> > something is still getting wired up wrong?
->
-> OK, how about the one below instead?
->
->
-> Takashi
->
-> --- a/sound/usb/clock.c
-> +++ b/sound/usb/clock.c
-> @@ -298,6 +298,12 @@ static int __uac_clock_find_source(struct
-> snd_usb_audio *chip,
->         if (selector) {
->                 int ret, i, cur;
->
-> +               if (selector->bNrInPins == 1) {
-> +                       uac_clock_selector_set_val(chip,
-> selector->bClockID, 1);
-> +                       ret = 1;
-> +                       goto find_source;
-> +               }
-> +
->                 /* the entity ID we are looking for is a selector.
->                  * find out what it currently selects */
->                 ret = uac_clock_selector_get_val(chip, selector->bClockID);
-> @@ -314,6 +320,7 @@ static int __uac_clock_find_source(struct
-> snd_usb_audio *chip,
->                         return -EINVAL;
->                 }
->
-> +       find_source:
->                 cur = ret;
->                 ret = __uac_clock_find_source(chip, fmt,
->                                               selector->baCSourceID[ret -
-> 1],
->

@@ -2,93 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3602FBDE2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:41:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F9E92FBDF5
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:44:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D83318DF;
-	Tue, 19 Jan 2021 18:40:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D83318DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A234918DA;
+	Tue, 19 Jan 2021 18:44:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A234918DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611078094;
-	bh=qO2uKzblCvgFsKAaloOWJCqrpKIwkDOJrQ9cieAobxI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1611078293;
+	bh=Ygo7po+AAt06+o6JWkVV0C5SxRw/1gifJcMB0XGQKh0=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ATzxjPI1yWjocRZe8DENvaqyXMNMTaPR2qhTGeEkSK9F7jivZjIhi3NTD7wGcoo3q
-	 iIt7eV4m1iT33fntQ0+Fij2fjpzBnlfvdYK341LGiN9NiZRBCwVnxiOdsRlss4EWth
-	 ZJQiU7IyTtovBLB9Ap0/6S6lKxmtH9MRv9YW6Axk=
+	b=ulfAvwzEvWF45PTE8yzDl2dgKQeTnvJeJUowQZSxw5pCAXHlrvF/zsRjVSv513qkC
+	 OK6JtQnPK3ltSFunvpsIkY31Ui3bINZPw44XyqgBWpNO6j9gXyyjxlQWBGoBD/8sW4
+	 XyPafkfYGPfnSF7W0Eaykpn+CH8x7eYd9C2sxzjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23F77F800FE;
-	Tue, 19 Jan 2021 18:40:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15F25F80117;
+	Tue, 19 Jan 2021 18:43:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13FC3F80273; Tue, 19 Jan 2021 18:40:23 +0100 (CET)
+ id 0223CF80117; Tue, 19 Jan 2021 18:43:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA607F800FE
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:40:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA607F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBA7CF80117
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:43:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBA7CF80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
- header.i=@nostatic-org.20150623.gappssmtp.com header.b="H3skCMbC"
-Received: by mail-ed1-x533.google.com with SMTP id g24so22486328edw.9
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:40:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nostatic-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=513zVfaKy3+HgGBty/QhEpqxM2N3SuYNgNrXRwMsy6o=;
- b=H3skCMbCgz1uueh0AD9XUPgl7WJr3d20tGo6SYH44GiLGvNAZhFXYTfYxzJDcjuLFe
- +yuNTF+sCamOsU9tfK+UHvl/GesW9uQW+2/nCg2QfkX4AYTFwMbt4WRoEPxtSc9jxgSs
- ZdCjyLojGCV8y2zW7LJVGwN+/+d6+FSlalkvIhl4S/NJRMT11SNGN8PRDjvp4+aNAjNu
- cV4b+O9PnHSJzR8jAE2FRgqEQt+ceC+XbaI4Rvz91C6mtGSBaWaNMFcWwFX5loXH0kCc
- /8QaMEsMQZcCIDXP/p1LZCiiocVAalIbrxcJkrvm3/T20Z+wCupXGdTrErhqs5/G0P2H
- JEcg==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="p4j/1K5X"
+Received: by mail-wm1-x32c.google.com with SMTP id c124so547782wma.5
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:43:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=NreVrBzRdjWUMhnpyW0Laz51KK4BAiOJ7sHL2lFW67M=;
+ b=p4j/1K5XStmkuE8kCFJC9Iu4VM5mc/KqUVyHqFTwQZTyhZGjLUOm0inZYAlIlIEsP0
+ kPWxPMb7UsKq0ZxeGvee+GsDlApIcnHwIs3tVGd4QAPqGKAwOsiVhzyN0KEc8zCueW+M
+ og/rcV8p4r8twJzW5NEOFf7zPAcTkgiu7bcDH6CN68AzlUevJlgXWJJUWBAo0lWXYLBU
+ 7+DVDwHsRtjh2sDogCgDR0RUx+65ePkrunOd0vjfZeYP3UHbUnaE70RQqbpcia6uTmyV
+ uWcVJVFLHUsMf4vnU7xIkqHuJngx7xQ68lwywkWs75PDAqcpXuo6AbcjBCd+8KFZEwiZ
+ PnUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=513zVfaKy3+HgGBty/QhEpqxM2N3SuYNgNrXRwMsy6o=;
- b=eidUluamwNEiY2kU2hfIuSbSLFm9qtzVGPamvrETkAUd2HZi7g9PaHx4bAa90Clhn3
- xav+Up9fh9RVUuxWQ0/eiVoT0teYgn4UorsJ6GDhGd4VTkKj0MQDqeoJ0TGopD+y0yOV
- C8YQXsTXJj6CE64dQNI+dfCkmWU6Q62klIsdMzDPjaXbvJHCBfxm8qjgdoK96WGORmTe
- wTn+FDAnWQyocPZqQzJV3fXgso9bIkrgJllZjHBLAlAxZEIHastM2tImcZqnKB0A+Nuq
- QRLecwAnfsCuJCv2FUzZ3NZW+zaX3vZM0b/+QTnsMWl82TJFmJpw7GLo8jjEsvui4oNk
- IAJg==
-X-Gm-Message-State: AOAM530HUzdw771t5fOJvdf5MG/s1ZvJDWf0K5SqO6XTavToeuXfykoJ
- Dya+itSc+5jobEpbyYxJdIeTkbi6eyilSUGenSG6crH4jw6UyQ==
-X-Google-Smtp-Source: ABdhPJyFWhOjSlRuTfBCX/vBBvcwS/8APyR5CaCp/JJ5ZRwtfp5qNGNakaC6PpnEY8H9hiAWYP1ghHNgXJLDAIe/ab4=
-X-Received: by 2002:a05:6402:4d2:: with SMTP id
- n18mr4317266edw.309.1611078013375; 
- Tue, 19 Jan 2021 09:40:13 -0800 (PST)
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=NreVrBzRdjWUMhnpyW0Laz51KK4BAiOJ7sHL2lFW67M=;
+ b=VYk3iNoK6S2VYU6AJPMqZWSNeE0kNl0OYs6V2m2jQN04xAGOhA4j0rEPQqKzXz0lgv
+ VTXF0byKIJu6pFEPNHCnLBAdm0BqQptB1QhpB3OENSWHEh1Ao8LasdnEJEWMJUnnez+O
+ ZhEkoS2QPDbqge1D5uktQWQwMKHshOa4PjnT9RaNbPus5b4lfjL5DodxwSrgDUmeZ16G
+ a6f8u1VMlq05YO10PCi6doCvBCdjEBi/9dvfsf1Uu2Cfv7rEBL8lXH0XeERbKSjxOnyH
+ VxzeoxvcY90rpYGCnBv2pKDHHbKZDCjS81Qrq90dx6SVAU1z0u0fo3ooGEAvLfnRBGJv
+ Tv1w==
+X-Gm-Message-State: AOAM531ZbtTOzgo+h31tTPmLDCGFURdSAlPkuzpJR4b3l0yZpELJKyUy
+ a55sc5RABvIl/GY+eKl8zOX+v9e2ehxYhQ==
+X-Google-Smtp-Source: ABdhPJxii8CrSvXRLdl73y2ckjlcDzUwFF3pGoJKBcpvEHZTa1jtaaKK5mF0pBGw3FG+DUznIxqXZg==
+X-Received: by 2002:a1c:608b:: with SMTP id u133mr689338wmb.140.1611078192354; 
+ Tue, 19 Jan 2021 09:43:12 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id k16sm5463871wmj.45.2021.01.19.09.43.11
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 19 Jan 2021 09:43:11 -0800 (PST)
+Subject: Re: [PATCH] ASoC: qcom: lpass: Fix i2s ctl register bit map
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: Jun Nie <jun.nie@linaro.org>
+References: <20210119071718.3867961-1-jun.nie@linaro.org>
+ <875d9fbc-ddad-b62d-0374-2a77bc9d6d83@linaro.org>
+Message-ID: <a9e5b6d5-742a-9814-353f-c979543fcb9c@linaro.org>
+Date: Tue, 19 Jan 2021 17:43:10 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
- <s5hr1mik7vu.wl-tiwai@suse.de>
- <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
- <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
- <s5hr1migiie.wl-tiwai@suse.de>
- <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
- <s5him7thpoz.wl-tiwai@suse.de>
- <CAHXb3bd8zHFmHxDp=4dNKa90eAT568yCwTWo_5L0Zry1EY45UA@mail.gmail.com>
- <s5hczy1guto.wl-tiwai@suse.de>
-In-Reply-To: <s5hczy1guto.wl-tiwai@suse.de>
-From: Mike Oliphant <oliphant@nostatic.org>
-Date: Tue, 19 Jan 2021 09:40:04 -0800
-Message-ID: <CAHXb3bfUv7QzvgOmtV3LxJXaY=Uk+pKhWZmU0M+YkgB0kNrXmA@mail.gmail.com>
-Subject: Re: Support for NUX MG-300 USB interface
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <875d9fbc-ddad-b62d-0374-2a77bc9d6d83@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: plai@codeaurora.org, bgoswami@codeaurora.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,148 +105,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Your mixer.c patch does get rid of the RANGE errors. No change to behavior,
-though.
 
-I'd already tried setting "implicit_fb=1" even though I didn't expect it to
-work, since there is a separate feedback endpoint. I just tried it again -
-it doesn't seem to hurt anything, but it doesn't help either.
 
-Capture seems to be working perfectly with the clock patch - I'm not sure
-why I was initially getting noisy input.
+On 19/01/2021 17:37, Srinivas Kandagatla wrote:
+> Thanks for the Patch Jun,
+> 
+> On 19/01/2021 07:17, Jun Nie wrote:
+>> Fix bitwidth mapping in i2s ctl register per APQ8016 document.
+>>
+>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> 
+> 
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-I checked "/proc/asound/card*/pcm*/sub*/status" during playback, and the
-pointer seems to be moving forward as it should. All indications are that
-the system thinks playback is working fine.
 
-One interesting piece of information - alsamixer shows two stereo outputs
-("pcm" and "pcm1"). Not sure why there are two - maybe output is going to
-the wrong one?
+I sent reply too quickly, just realized that this was a regression from
 
-Here is the output from "/proc/asound/AUDIO/usbmixer":
+  b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and 
+dmactl registers")
 
-USB Mixer: usb_id=0x1fc98260, ctrlif=0, ctlerr=0
-Card: NUX NUX MG-300 AUDIO at usb-0000:00:1a.7-1.3, high speed
-  Unit: 10
-    Control: name="PCM Playback Volume", index=1
-    Info: id=10, control=2, cmask=0x0, channels=1, type="S16"
-    Volume: min=-16384, max=0, dBmin=-6400, dBmax=0
-  Unit: 10
-    Control: name="PCM Playback Volume", index=0
-    Info: id=10, control=2, cmask=0x3, channels=2, type="S16"
-    Volume: min=-16384, max=0, dBmin=-6400, dBmax=0
-  Unit: 10
-    Control: name="PCM Playback Switch", index=1
-    Info: id=10, control=1, cmask=0x0, channels=1, type="INV_BOOLEAN"
-    Volume: min=0, max=1, dBmin=0, dBmax=0
-  Unit: 10
-    Control: name="PCM Playback Switch", index=0
-    Info: id=10, control=1, cmask=0x3, channels=2, type="INV_BOOLEAN"
-    Volume: min=0, max=1, dBmin=0, dBmax=0
-  Unit: 41
-    Control: name="Clock Source 41 Validity", index=0
-    Info: id=41, control=2, cmask=0x0, channels=1, type="BOOLEAN"
-    Volume: min=0, max=1, dBmin=0, dBmax=0
+So can you add Fixes tag and resend your patch!
 
-Mike
+--srini
 
-On Tue, Jan 19, 2021 at 1:05 AM Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Tue, 19 Jan 2021 01:26:51 +0100,
-> Mike Oliphant wrote:
-> >
-> > Unfortunately, the "uac_clock_selector_set_val()" call does not seem to
-> > change anything.
->
-> OK,
->
-> > >From doing some more testing, I think that the references to clock id
-> "40"
-> > are ok - it has "40" stored in fmt->clock, but when it uses it,
-> > "__uac_clock_find_source()" gets called and it resolved to the actual
-> clock
-> > source - "41".
-> >
-> > Not sure about the "No valid sample rate available for 1:1, assuming a
-> > firmware bug" error, but I suspect it is spurious.
-> > "check_valid_altsetting_v2v3()" is failing for some reason, but it is
-> > ignoring the error.
->
-> Yes, that's the part where verifying the altsetting for the given
-> rate.  The UAC2 device must return the valid altsetting bit mask for
-> the current rate in the request, but your device didn't seem returning
-> it.  The code is there for devices like MOTU that have multiple
-> altsets where each one has one sample rate exclusively.
->
-> > Playback is completely silent, but the system seems to think it is
-> working.
-> > No apparent errors, and a play operation seems to take the correct amount
-> > of time. Just no audio.
->
-> Check the status in /proc/asound/card*/pcm*/sub*/status.  If the
-> pointer moves forward and the position is expected, at least the data
-> feed is done, and the problem must be something else.
->
-> What about the capture?  Do you get also only silence?
->
-> > Maybe it is a mixer issue? mixer.c is putting out "RANGE setting not yet
-> > supported" errors on startup.
->
-> That's probably no problem, I guess it comes from the code trying to
-> get the resolution.  The patch below may paper over it.
->
-> > Here is a sample of dmesg output for a playback session:
-> >
-> > [ 4748.260975] usb 1-1.3: Open EP 0x1, iface=1:1, idx=0
-> > [ 4748.260983] usb 1-1.3:   channels=2, rate=48000, format=S32_LE,
-> > period_bytes=48000, periods=4, implicit_fb=0
-> > [ 4748.260988] usb 1-1.3: Open EP 0x81, iface=1:1, idx=1
-> > [ 4748.260992] usb 1-1.3:   channels=2, rate=48000, format=S32_LE,
-> > period_bytes=48000, periods=4, implicit_fb=0
-> > [ 4748.260996] usb 1-1.3: Setting usb interface 1:0 for EP 0x1
-> > [ 4748.261320] usb 1-1.3: 1:1 Set sample rate 48000, clock 40
-> > [ 4748.261873] usb 1-1.3: Setting params for data EP 0x1, pipe 0x9d00
-> > [ 4748.261890] usb 1-1.3: Set up 12 URBS, ret=0
-> > [ 4748.261897] usb 1-1.3: Setting usb interface 1:1 for EP 0x1
-> > [ 4748.262097] usb 1-1.3: Setting params for sync EP 0x81, pipe 0x9d80
-> > [ 4748.262105] usb 1-1.3: Set up 4 URBS, ret=0
-> > [ 4748.262147] usb 1-1.3: Starting data EP 0x1 (running 0)
-> > [ 4748.262180] usb 1-1.3: 12 URBs submitted for EP 0x1
-> > [ 4748.262183] usb 1-1.3: Starting sync EP 0x81 (running 0)
-> > [ 4748.262193] usb 1-1.3: 4 URBs submitted for EP 0x81
-> > [ 4748.262311] usb 1-1.3: 1:1 Start Playback PCM
-> > [ 4762.887812] usb 1-1.3: Stopping sync EP 0x81 (running 1)
-> > [ 4762.887836] usb 1-1.3: Stopping data EP 0x1 (running 1)
-> > [ 4762.887849] usb 1-1.3: 1:1 Stop Playback PCM
-> > [ 4762.902542] usb 1-1.3: Closing EP 0x1 (count 1)
-> > [ 4762.902549] usb 1-1.3: Setting usb interface 1:0 for EP 0x1
-> > [ 4762.902915] usb 1-1.3: EP 0x1 closed
-> > [ 4762.902928] usb 1-1.3: Closing EP 0x81 (count 1)
-> > [ 4762.902935] usb 1-1.3: Setting usb interface 1:0 for EP 0x81
-> > [ 4762.903179] usb 1-1.3: EP 0x81 closed
->
-> The flow looks good judging from this log, at least.
->
-> The device is configured with the dedicated sync endpoint, but it's
-> not with the implicit feedback mode.  It's interesting whether the
-> device behaves differently if you load snd-usb-audio module with
-> implicit_fb=1 boot option.  I don't expect it working better, but
-> anyway...
->
->
-> Takashi
->
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -1238,7 +1238,7 @@ static int get_min_max_with_quirks(struct
-> usb_mixer_elem_info *cval,
->                                   (cval->control << 8) | minchn,
->                                   &cval->res) < 0) {
->                         cval->res = 1;
-> -               } else {
-> +               } else if (cval->head.mixer->protocol == UAC_VERSION_1) {
->                         int last_valid_res = cval->res;
->
->                         while (cval->res > 1) {
->
->
+> 
+> 
+> --srini
+> 
+>> ---
+>>   sound/soc/qcom/lpass-apq8016.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/sound/soc/qcom/lpass-apq8016.c 
+>> b/sound/soc/qcom/lpass-apq8016.c
+>> index 0aedb3a0a798..7c0e774ad062 100644
+>> --- a/sound/soc/qcom/lpass-apq8016.c
+>> +++ b/sound/soc/qcom/lpass-apq8016.c
+>> @@ -250,7 +250,7 @@ static struct lpass_variant apq8016_data = {
+>>       .micmode        = REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
+>>       .micmono        = REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
+>>       .wssrc            = REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
+>> -    .bitwidth        = REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
+>> +    .bitwidth        = REG_FIELD_ID(0x1000, 0, 1, 4, 0x1000),
+>>       .rdma_dyncclk        = REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
+>>       .rdma_bursten        = REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
+>>

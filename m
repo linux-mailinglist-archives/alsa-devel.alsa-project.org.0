@@ -2,93 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 508882FBDD5
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444122FBDE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 18:41:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7B52187B;
-	Tue, 19 Jan 2021 18:38:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7B52187B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D311418D3;
+	Tue, 19 Jan 2021 18:40:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D311418D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611077951;
-	bh=Y0nTdUdSe6SKas+xuptPnfsK5VdGetd7TYzNfsRJ6HE=;
+	s=default; t=1611078082;
+	bh=g5s2pe27q/SxkjfTGAsH1Ja+K1l6zO9rkLBnVs14Es4=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PMtNOLRDWzNn5ha+2FdcMW2JDjYFqC4/GxuMcg9X1QXL5XJcThYShk5/i6bul8+V2
-	 8p8lpnL6Y+Ns++PvSCqJ+kFq7x352NWOrKYKcdGZCDEnHJzEAIAlfaW6G/Qxkt3uv0
-	 HJfvjmSB6xQ4RYDLnczzqS2wpTnoPdW9inhZwF88=
+	b=OFe/H7yEC4hdL/RVdOPFi+fC/GHM5JHSY03shJmX+ULMBDoTHId/GvV7ZqqOdFexW
+	 /B8rfs4Yhb6C3gKinObUA75KemiUY4iQgjg6SYJ5IqLhZWd/t2v1TwNqw9fqZcmM+9
+	 XAPqjQv6YfYl2p3h5ut1Wxfhpdoe7caXzFcYqtag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71389F80255;
-	Tue, 19 Jan 2021 18:37:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50BDBF8026A;
+	Tue, 19 Jan 2021 18:39:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C836F8026A; Tue, 19 Jan 2021 18:37:37 +0100 (CET)
+ id 9A184F80117; Tue, 19 Jan 2021 18:39:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77C2BF800FE
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:37:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77C2BF800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44044F80117
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:39:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44044F80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rSuO0maI"
-Received: by mail-wm1-x336.google.com with SMTP id m187so551493wme.2
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 09:37:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=5Qwto4TVFkHpNhIEZF8SfXeW3whxAf344f9CxvijAF4=;
- b=rSuO0maItdi9yppDSCpJTZo2lG078s5AHj5JBFRnHhqLzF7EagTuMM6aV1KkjrGTlY
- iRGmRJMYKE5ESJf92o4R89rljAmmJIi0Yq3ta8+yk7QRDLTUs7pELG5Mjn7lliCfWcAM
- aYioMzXcoK+JNKcBU4N15g6Ocwt1SxqlFvylsh+mp2sjWer/fNgPX4hpdjH5V7EYJQSm
- JMzqDmkWzKoTumAz0eRGlyXTlFyrjCgm35XQg+gKGY/oYMVe3eopUnHJq3NhfGvkSW+f
- RO4wOVDUaBCNma1DsoTUtMjtI8qw9/LNx/VVouilZk28iDbfA3+mq3J5WwnPOWdnIZTV
- VOoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=5Qwto4TVFkHpNhIEZF8SfXeW3whxAf344f9CxvijAF4=;
- b=ActLzMoIgVbpVXCZd1MSffujcVwlytrWs//om6ihb4dZu6YGE8t+CQhzhdHYpiB+Yb
- FZDXOJnBhU7VqtHuW0nbpR3cRh8g/o7IVPLXzi0Xjc0GO8K1Rl6VhoPto14QetFMREmk
- 9lD4t3F19NDiPiGJntqYlZCavcMe6GzBKECFvey1a5KkdIpHx7sWMNnrz1xpPzSL2hCS
- cqOXBBhUfF5aGH1mDuE6rM3zBwspmL/Qhlre+T/R5M5ShPNvW5ZiAuKQ2uy5JvgsQia1
- /aCiIQ7MaJZ4OCGABiF7p7+5JSPv2MN2Norcix7lBrwN9ClM8xZzwA+nHZ0tQ9cIAPQd
- yNsA==
-X-Gm-Message-State: AOAM531gqeOwBJ/2OPbTtooQmtUi8VOSEXgAmdM8xebRZaeTcKveus+7
- OlxoICqYMZQBeFWcid53X6suL/VUg8yehg==
-X-Google-Smtp-Source: ABdhPJwlUd2P0lJuajo7BzhStBJzeiEMdjYrleggFglKcl2hOp9yGkS3V4BdyUKXgenLHTm+jHsozQ==
-X-Received: by 2002:a1c:a145:: with SMTP id k66mr700670wme.18.1611077850072;
- Tue, 19 Jan 2021 09:37:30 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id g12sm5533518wmh.14.2021.01.19.09.37.29
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 19 Jan 2021 09:37:29 -0800 (PST)
-Subject: Re: [PATCH] ASoC: qcom: lpass: Fix i2s ctl register bit map
-To: Jun Nie <jun.nie@linaro.org>
-References: <20210119071718.3867961-1-jun.nie@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <875d9fbc-ddad-b62d-0374-2a77bc9d6d83@linaro.org>
-Date: Tue, 19 Jan 2021 17:37:28 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="BkfBjCUi"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B6007195c0000>; Tue, 19 Jan 2021 09:39:40 -0800
+Received: from [10.25.99.10] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 19 Jan
+ 2021 17:39:36 +0000
+Subject: Re: Re: [RESEND PATCH v6 5/6] arm64: tegra: Audio graph header for
+ Tegra210
+To: Thierry Reding <thierry.reding@gmail.com>
+References: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
+ <1611048496-24650-6-git-send-email-spujar@nvidia.com> <YAcTxxyogVgfN1uw@ulmo>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <b83eb795-328e-acc5-4555-7befd919a136@nvidia.com>
+Date: Tue, 19 Jan 2021 23:09:32 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210119071718.3867961-1-jun.nie@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <YAcTxxyogVgfN1uw@ulmo>
+Content-Type: text/plain; charset="windows-1252"; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: plai@codeaurora.org, bgoswami@codeaurora.org, alsa-devel@alsa-project.org
+Content-Language: en-GB
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1611077980; bh=NYSuQvptGwglsg6hwhbeZo+P6a5iRvHlv/Ac5X3wq0E=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=BkfBjCUirmEPSHaImywpIfpgV7kphUGUianmqeHjkbZ0ygzEmqlRasO7Hwd/L4VPy
+ KOO2kYKtrdPTiV4eFWv2p4PUvcSY07KI0LiQ2CZaQQtGpJXn8EjBnfOmzwobA1RVdZ
+ MSxH3StnoqYMehpSI9CqmNvITcT7VpsxCqSErtSmKkGgyaqQL90TXladEbNVJGOybg
+ PLS6JMYhVbDNvmgjUEg2rAaCoqv08+3EKa/mlMh+SnOTuWQP1v06KTpRg6mHxSlIgK
+ uvz8RO5GxtqnZGHBIbwoekZLCd/ajzehQG7HgxkAZy5fj5SXzTAaaFR0QZ9pBUlM7S
+ 8VOFBzSnarVhQ==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ broonie@kernel.org, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,34 +95,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the Patch Jun,
-
-On 19/01/2021 07:17, Jun Nie wrote:
-> Fix bitwidth mapping in i2s ctl register per APQ8016 document.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+On 1/19/2021 10:45 PM, Thierry Reding wrote:
+> On Tue, Jan 19, 2021 at 02:58:15PM +0530, Sameer Pujar wrote:
+>> Expose a header which describes DT bindings required to use audio-graph
+>> based sound card. All Tegra210 based platforms can include this header
+>> and add platform specific information. Currently, from SoC point of view,
+>> all links are exposed for ADMAIF, AHUB, I2S and DMIC components.
+>>
+>> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+>> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+>> ---
+>>   .../boot/dts/nvidia/tegra210-audio-graph.dtsi      | 153 +++++++++++++++++++++
+>>   1 file changed, 153 insertions(+)
+>>   create mode 100644 arch/arm64/boot/dts/nvidia/tegra210-audio-graph.dtsi
+> I prefer keeping everything in tegra210.dtsi, but I can do that merge
+> when I apply, after the DT bindings have been acked, so no need to
+> resend just because of that.
 
-
---srini
-
-> ---
->   sound/soc/qcom/lpass-apq8016.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-> index 0aedb3a0a798..7c0e774ad062 100644
-> --- a/sound/soc/qcom/lpass-apq8016.c
-> +++ b/sound/soc/qcom/lpass-apq8016.c
-> @@ -250,7 +250,7 @@ static struct lpass_variant apq8016_data = {
->   	.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
->   	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
->   	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
-> -	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
-> +	.bitwidth		= REG_FIELD_ID(0x1000, 0, 1, 4, 0x1000),
->   
->   	.rdma_dyncclk		= REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
->   	.rdma_bursten		= REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
-> 
+I think this may be fine for Tegra210 based boards. But for Tegra186 and 
+Tegra194, whenever we add support for it, can rely on a common 
+audio-graph dtsi because there is no change w.r.t APE. This can help us 
+to avoid duplication of the bindings. This most likely applies to future 
+chips as well (where Tegra186 audio-graph bindings can be considered as 
+base) when there is no significant change in APE.

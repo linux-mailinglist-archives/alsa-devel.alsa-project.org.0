@@ -2,102 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064A72FB50F
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 10:53:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF5D2FB57E
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jan 2021 11:57:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 803B1187D;
-	Tue, 19 Jan 2021 10:52:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 803B1187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E24B1887;
+	Tue, 19 Jan 2021 11:56:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E24B1887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611050010;
-	bh=u6vd0WH8Jkh2ZtT/Km3GMAnv6EYJMf8Jei5+9GKAl68=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611053863;
+	bh=IuFjz0dhSeLpghs99Y3MR46yXCo/6z+KhoZZlSo/rZs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G4q00iLItSYfMHGxLH+ioWmCh9mZizPPyDffxjZnheOYedHAZeg82w5HttN1zrRTk
-	 EMXjE+VjaYs8tx5xv2+1nIT2IVBKNDIi+a9/Vuo4UV1agcwwyHDv+7UF1EHkKw9s4i
-	 eZd5D46O6YYS0qvQ5DBHAqeHR6YhceGMCNUyvIqc=
+	b=NN2CyCB2fYAyCcjjAtdslROM/UJKCgThzxwRfZZRnRIW1kXaYhd4XHHaG9kITqLnV
+	 mPShOSsnYzW9qp0uc489HA9HMrfnOd5VQ7KgzJlUEGtrN37cCv4rO7QUVUfyGYlclB
+	 z7e89aZopMmShcllwu1v5LfBe7QvBDq2Hk6HUJqk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05B57F80137;
-	Tue, 19 Jan 2021 10:51:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0ABFAF8026A;
+	Tue, 19 Jan 2021 11:56:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07A9FF80257; Tue, 19 Jan 2021 10:51:57 +0100 (CET)
+ id B18B5F80257; Tue, 19 Jan 2021 11:56:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C158F80137
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 10:51:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C158F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90B56F80117
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 11:56:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90B56F80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="E0FLQ5IM"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10J9poiF017510; Tue, 19 Jan 2021 03:51:50 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=ZGcMmV8ud8RsHGVG+9fWIXTvDt1zAVWYEvH2Lib4jVI=;
- b=E0FLQ5IMWCry+Mfo6u3aruWZbOGbkgCf5ivhN9bPBatcRSsUC23rbZ/0dEjXNZWThb9w
- wZi8T0ROP1rZ9E0mqKjoU19GwrVHFtFfF2kcepgO6LuFzeva57UYD/XhAISQIe5olW1I
- aX5+WU8g/4hur2QF4ISPcjdgXx0WMXdY73NzYedr5dq199O9Nc/gB8FlIuzxEuNjMesX
- 1+haR7jWn0j9o00um2j/6DXTf3qcTiG9R4Dd986tFzHlG0SSUZt18WM3onJ0vqRZZPV2
- j1NNVT/6qMCTI450P9AFWCfKUJbWu8O7Mua0kl1Mdt6XkQq5f9JtANGOtvrXlgOXYF4v 3w== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 363xe7avy7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 19 Jan 2021 03:51:50 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 19 Jan
- 2021 09:51:48 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Tue, 19 Jan 2021 09:51:48 +0000
-Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.61.64.215])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 84AA311CB;
- Tue, 19 Jan 2021 09:51:41 +0000 (UTC)
-Subject: Re: [PATCH v2 08/12] ASoC: arizona-jack: convert into a helper
- library for codec drivers
-To: Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de Goede
- <hdegoede@redhat.com>
-References: <20210117160555.78376-1-hdegoede@redhat.com>
- <20210117160555.78376-9-hdegoede@redhat.com>
- <CAHp75VeSqVYWE9o-6JwY+pmjU7nfBJwZvaSk0v-ngjeGMMxQAQ@mail.gmail.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <e902dc43-42d1-c90b-98df-d054a72a5558@opensource.cirrus.com>
-Date: Tue, 19 Jan 2021 09:51:42 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="cZweJB9R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1611053763;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Subject:Sender;
+ bh=Rv61Um1d4FAKciw1OVSLbZ2ZbyY9rCTN0LhE6dc1i/4=;
+ b=cZweJB9RxInf/6Qa8lg9Azdsz/JR7aUNl9ybFWVNCFb0bmbUnTxdxvNWy0FGhaYbGh
+ MAu1HmT0wlBV4XZVUXksGLLCtnwJBhzZvkvK+o51/4kCCrN8AhIzPIbiAAIuc+1xzG+H
+ ipOjly/uoFszELJa6PDvkXn7sHYqchrtW0OC7I0OF7cyVwISGueEOv6F+f/6Pegc2+AK
+ LWejTFNjF6YBGlZZoR9xP5CRAmhfZaAmGsUaMdVlOMq5p0l1rXeuuQopOCjxUxC5or/e
+ AvLWRXbkX7bIHqwQLBmI2bcjMfgQTkWOWUTlmv4dd7T+PPrqPl4532Gb4+nZk+AEq0+3
+ LUHA==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j7Ic3ABg=="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
+ with ESMTPSA id R0a218x0JAu2CPR
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 19 Jan 2021 11:56:02 +0100 (CET)
+Date: Tue, 19 Jan 2021 11:55:56 +0100
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 2/2] ASoC: qcom: Fix broken support to MI2S TERTIARY and
+ QUATERNARY
+Message-ID: <YAa6vCPGZXxqXXao@gerhold.net>
+References: <20210118164509.32307-1-srinivas.kandagatla@linaro.org>
+ <20210118164509.32307-3-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <CAHp75VeSqVYWE9o-6JwY+pmjU7nfBJwZvaSk0v-ngjeGMMxQAQ@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0
- mlxlogscore=937 mlxscore=0 adultscore=0 impostorscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101190059
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210118164509.32307-3-srinivas.kandagatla@linaro.org>
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ srivasam@codeaurora.org, lgirdwood@gmail.com, broonie@kernel.org,
+ Jun Nie <jun.nie@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,58 +89,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/01/2021 17:24, Andy Shevchenko wrote:
-> On Sun, Jan 17, 2021 at 6:06 PM Hans de Goede <hdegoede@redhat.com> wrote:
->>
->> Convert the arizona extcon driver into a helper library for direct use
->> from the arizona codec-drivers, rather then being bound to a separate
->> MFD cell.
->>
->> Note the probe (and remove) sequence is split into 2 parts:
->>
->> 1. The arizona_jack_codec_dev_probe() function inits a bunch of
->> jack-detect specific variables in struct arizona_priv and tries to get
->> a number of resources where getting them may fail with -EPROBE_DEFER.
->>
->> 2. Then once the machine driver has create a snd_sock_jack through
->> snd_soc_card_jack_new() it calls snd_soc_component_set_jack() on
->> the codec component, which will call the new arizona_jack_set_jack(),
->> which sets up jack-detection and requests the IRQs.
->>
->> This split is necessary, because the IRQ handlers need access to the
->> arizona->dapm pointer and the snd_sock_jack which are not available
->> when the codec-driver's probe function runs.
->>
->> Note this requires that machine-drivers for codecs which are converted
->> to use the new helper functions from arizona-jack.c are modified to
->> create a snd_soc_jack through snd_soc_card_jack_new() and register
->> this jack with the codec through snd_soc_component_set_jack().
-> 
-> ...
-> 
->> +int arizona_jack_codec_dev_probe(struct arizona_priv *info, struct device *dev)
->>   {
->> -       struct arizona *arizona = dev_get_drvdata(pdev->dev.parent);
->> +       struct arizona *arizona = info->arizona;
->>          struct arizona_pdata *pdata = &arizona->pdata;
-> 
->> +       int ret, mode;
->>
->>          if (!dev_get_platdata(arizona->dev))
->> -               arizona_extcon_device_get_pdata(&pdev->dev, arizona);
->> +               arizona_extcon_device_get_pdata(dev, arizona);
->>
->> -       info->micvdd = devm_regulator_get(&pdev->dev, "MICVDD");
->> +       info->micvdd = devm_regulator_get(arizona->dev, "MICVDD");
-> 
-> I'm wondering if arizona->dev == dev here. if no, can this function
-> get a comment / kernel-doc explaining what dev is?
-> 
+Hi Srinivas,
 
-pdev->dev would be *this* driver.
-arizona->dev should be the MFD parent driver.
+Thanks a lot for the patch!
 
-I think these gets should be against the dev passed in as argument
-(I assume that is the caller's pdev->dev). So they are owned by this
-driver, not its parent.
+On Mon, Jan 18, 2021 at 04:45:09PM +0000, Srinivas Kandagatla wrote:
+> lpass hdmi support patch totally removed support for MI2S TERTIARY
+> and QUATERNARY.
+> 
+> One of the major issue was spotted with the design of having
+> separate SoC specific header files for the common lpass driver.
+> This design is prone to break as an when new SoC header is added
+> as the common DAI ids of other SoCs will be overwritten by the
+> new ones.
+> 
+> Having a common header qcom,lpass.h should fix the issue and any new
+> DAI ids should be added to the common header.
+> 
+> With this change lpass also needs a new of_xlate function to resolve
+> dai name.
+> 
+> Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
+> Reported-by: Jun Nie <jun.nie@linaro.org>
+> Reported-by: Stephan Gerhold <stephan@gerhold.net>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
+For some reason this does not seem to apply to asoc/for-next or
+asoc/for-linus:
+
+Applying: ASoC: qcom: Fix broken support to MI2S TERTIARY and QUATERNARY
+error: patch failed: sound/soc/qcom/lpass-platform.c:519
+error: sound/soc/qcom/lpass-platform.c: patch does not apply
+Patch failed at 0001 ASoC: qcom: Fix broken support to MI2S TERTIARY and QUATERNARY
+
+Can you check if you need to rebase this patch?
+Also small comment below in case you re-send:
+
+> ---
+>  sound/soc/qcom/lpass-cpu.c      | 22 ++++++++++++++++++++++
+>  sound/soc/qcom/lpass-platform.c | 12 ++++++++++++
+>  sound/soc/qcom/lpass-sc7180.c   |  6 +++---
+>  sound/soc/qcom/lpass.h          |  2 +-
+>  4 files changed, 38 insertions(+), 4 deletions(-)
+> 
+> [...]
+> diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+> index 85db650c2169..eff5de918e3a 100644
+> --- a/sound/soc/qcom/lpass-sc7180.c
+> +++ b/sound/soc/qcom/lpass-sc7180.c
+> @@ -20,7 +20,7 @@
+>  #include "lpass.h"
+>  
+>  static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
+> -	[MI2S_PRIMARY] = {
+> +	[0] = {
+>  		.id = MI2S_PRIMARY,
+>  		.name = "Primary MI2S",
+>  		.playback = {
+> @@ -46,7 +46,7 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
+>  		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
+>  	},
+>  
+> -	[MI2S_SECONDARY] = {
+> +	[1] = {
+>  		.id = MI2S_SECONDARY,
+>  		.name = "Secondary MI2S",
+>  		.playback = {
+> @@ -61,7 +61,7 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
+>  		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
+>  		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
+>  	},
+> -	[LPASS_DP_RX] = {
+> +	[2] = {
+>  		.id = LPASS_DP_RX,
+>  		.name = "Hdmi",
+>  		.playback = {
+
+Specifying the indexes here explicitly seems pointless now,
+perhaps change this to just
+
+	{
+		.id = MI2S_PRIMARY,
+		/* ... */
+	},
+	{
+		.id = MI2S_SECONDARY,
+		/* ... */
+	}
+
+Thanks,
+Stephan

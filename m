@@ -2,53 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D88562FD348
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:57:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F412FD353
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:59:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 577E61809;
-	Wed, 20 Jan 2021 15:56:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 577E61809
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54B2E182C;
+	Wed, 20 Jan 2021 15:58:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54B2E182C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611154669;
-	bh=KeqquzMDxJ7MhTbjk4lXjo/lGbVwqHqbFzCIbGg+jNM=;
+	s=default; t=1611154786;
+	bh=VYtok4FqjcbKLE32HkvmMBDtKt5Mc83dT8jmZsKFtZE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PcA6M+foXftXEUtnFPGlxKznJFB88mxjJQR8Zekj3Lpk1otxknANCAPMx4MhzsDzq
-	 tvtpzSvTH05/PXjMU7ko+S4X3MWl7go0VtpKHsJXb+hjFdDLcclsmuxatiZZ59J3OL
-	 aO8kEORa/8fbAfQoz4VThB2zSwHII4DGNlnP8bKk=
+	b=rOIl/rZbP8Om6m2rNiaKvSnTIWbWEHcOvpWzlySds2r0OgUst+96Fi9ygIoHpMMKm
+	 L/rFK13su2ccsKY2eQtjikCrXSkK00ZyJuilY40feDkCZ2Szd4MsLZucNv+TSKzLZh
+	 oUh1Lx1tgySefhGyuvMOm76pUH9jE3OMmH5wi0ak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9106F8012C;
-	Wed, 20 Jan 2021 15:56:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E72ACF80164;
+	Wed, 20 Jan 2021 15:58:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1BADF8016E; Wed, 20 Jan 2021 15:55:57 +0100 (CET)
+ id 5BA66F80166; Wed, 20 Jan 2021 15:58:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76542F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:55:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76542F8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A5EFF80164
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:58:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A5EFF80164
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D9704AAAE;
- Wed, 20 Jan 2021 14:55:54 +0000 (UTC)
-Date: Wed, 20 Jan 2021 15:55:54 +0100
-Message-ID: <s5h4kjbejyd.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0F5C2B8F8;
+ Wed, 20 Jan 2021 14:58:08 +0000 (UTC)
+Date: Wed, 20 Jan 2021 15:58:02 +0100
+Message-ID: <s5h35yvejut.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Hui Wang <hui.wang@canonical.com>
-Subject: Re: [RFC][PATCH v4 2/4] alsa: jack: adjust jack_kctl debugfs folder's
- name
-In-Reply-To: <20210111130557.90208-3-hui.wang@canonical.com>
+Subject: Re: [RFC][PATCH v4 3/4] alsa: jack: add more jack_kctl debugfs nodes
+In-Reply-To: <20210111130557.90208-4-hui.wang@canonical.com>
 References: <20210111130557.90208-1-hui.wang@canonical.com>
- <20210111130557.90208-3-hui.wang@canonical.com>
+ <20210111130557.90208-4-hui.wang@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,72 +69,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Jan 2021 14:05:55 +0100,
+On Mon, 11 Jan 2021 14:05:56 +0100,
 Hui Wang wrote:
 > 
-> We used jack_kctl->kctl.id as the folder's name, but there are some
-> characters which are not suitable for foler's name, for example, a
-> HDMI/DP audio jack id contains '/', ',', '=' and ' ', this patch will
-> remove them from folder's name.
+> Adding 4 more debugfs nodes, users could get more information about
+> the jack_kctl from them:
+>  - kctl_id, read-only, get jack_kctl->kctl's id
+>    sound/card0/HeadphoneJack# cat kctl_id
+>    Headphone Jack
 > 
-> Before applying patch, the folders look like:
-> 'HDMI!DP,pcm=3 Jack'  'Headphone Jack'  'Mic Jack'
+>  - mask_bits, read-only, get jack_kctl's events mask_bits
+>    sound/card0/HeadphoneJack# cat mask_bits
+>    0x0001 HEADPHONE(0x0001)
 > 
-> After applying the patch, the folders look like:
-> HDMIDPpcm3Jack  HeadphoneJack  MicJack
+>  - status, read-only, get jack_kctl's current status
+>    headphone unplugged:
+>    sound/card0/HeadphoneJack# cat status
+>    0x0000
+>    headphone plugged:
+>    sound/card0/HeadphoneJack# cat status
+>    0x0001 HEADPHONE(0x0001)
 > 
-> Signed-off-by: Hui Wang <hui.wang@canonical.com>
-> ---
->  sound/core/jack.c | 26 ++++++++++++++++++++++----
->  1 file changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/core/jack.c b/sound/core/jack.c
-> index 0092cb6b5b79..e1d1b26f3a5e 100644
-> --- a/sound/core/jack.c
-> +++ b/sound/core/jack.c
-> @@ -243,18 +243,36 @@ static const struct file_operations jackin_inject_fops = {
->  	.llseek = default_llseek,
->  };
->  
-> +/* The substrings in the jack's name but not suitable for folder's name */
-> +static const char * const dropped_chars[] = {
-> +	"/", "=", ",", " ",
-> +};
-> +
-> +static char *strremove(char *s, const char *c)
-> +{
-> +	char *p;
-> +
-> +	while ((p = strstr(s, c))) {
-> +		*p = '\0';
-> +		strcat(s, p+strlen(c));
-> +	}
-> +
-> +	return s;
-> +}
-> +
->  static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
->  					    struct snd_jack_kctl *jack_kctl)
->  {
->  	char *tname;
-> +	int i;
->  
-> -	/* the folder's name can't contains '/', need to replace it with '!'
-> -	 * as lib/kobject.c does
-> -	 */
->  	tname = kstrdup(jack_kctl->kctl->id.name, GFP_KERNEL);
->  	if (!tname)
->  		return -ENOMEM;
-> -	strreplace(tname, '/', '!');
-> +
-> +	for (i = 0; i < ARRAY_SIZE(dropped_chars); i++)
-> +		tname = strremove(tname, dropped_chars[i]);
-> +
->  	jack_kctl->jack_debugfs_root = debugfs_create_dir(tname, jack->card->debugfs_root);
->  	kfree(tname);
+>  - type, read-only, get jack's supported events type
+>    sound/card0/HeadphoneJack# cat type
+>    0x0001 HEADPHONE(0x0001)
 
-We can take a simpler approach, e.g. just replace the chars that are
-!isalnum() to '_'.
+I believe we should have a proper documentation in Documentation/ to
+describe all those.
 
+And the debugfs callbacks could be optimized without malloc as I
+mentioned in another mail, too.
+
+
+thanks,
 
 Takashi

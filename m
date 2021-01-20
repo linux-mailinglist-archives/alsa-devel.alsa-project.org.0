@@ -2,96 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B44252FDC0D
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 22:49:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55DCE2FDC16
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 22:51:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4709617F9;
-	Wed, 20 Jan 2021 22:49:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4709617F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E818C1806;
+	Wed, 20 Jan 2021 22:50:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E818C1806
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611179390;
-	bh=ojHWopJcjYilzS8B+Ta4P8ErngFG3wusl2vlqyPzOLI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EXpHgh5hoYGEdUErIYwpYcmugfd3hGEck0iizc2b6M2YyzcAOh+0Ul4OcJXY0lOjH
-	 Cf4hlNA35bNYBEGxTh8WU/28DYP6Zmtu5XN2s9bKHndKyb593wVXImzq5Mb8hlo6z8
-	 jpJbNLO/VfR63auENlqdVvSqrRKonFhzGZY9kyHE=
+	s=default; t=1611179506;
+	bh=JJ272Mz2xUU2jYCTsfwKS/0/h7H/269gHec1LuT1ArQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OQ0UwXEx3gtlkazqGy/aR0MMVqTcruhfXaUMSDihKJU8m0paW28CkSFNiZ9gLrKEU
+	 Mu++zwr0yyOvq2RpPSa41PfMoKikBQqwO8n33Gs075qGyW+gUeaIcsuX3dmT0awB1s
+	 5smmukbVhkfo0ztp2CKsSz0nABgjj6rz5chJeRaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBC27F8019B;
-	Wed, 20 Jan 2021 22:48:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFD2BF80227;
+	Wed, 20 Jan 2021 22:50:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3AE0F8012C; Wed, 20 Jan 2021 22:48:12 +0100 (CET)
+ id E5E16F80137; Wed, 20 Jan 2021 22:50:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [IPv6:2607:f8b0:4864:20::b2f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 846A2F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 22:48:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 846A2F8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4850CF80137
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 22:50:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4850CF80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
- header.i=@nostatic-org.20150623.gappssmtp.com header.b="h2V3gMe4"
-Received: by mail-yb1-xb2f.google.com with SMTP id b11so63073ybj.9
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 13:48:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nostatic-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Gu+e6+Bcq3f9l/61UEZ0DuRBwRxOWeBI9gnHzb+uhhI=;
- b=h2V3gMe4wL7NzosITl/HJYhsruDWb4z0NSbhAzyfH0hyVrWhXsrfXA0LjTOPTOMhYI
- pm3K11Re3vAtW+0lHSYJiaXHb/xrH6JRhEF0nYBK9RcNrn3o20UBo8MUo/kFJhPRXbJl
- RrurZ6ta3GINEkRbTRVZ7RKQdbusIsSqGvlAlabK7pb4PY4l2cP2bm48wm10lDQwHqnk
- GRJUZEh52qy0HyOwO8rJiaNcvOr0+PTeLaNWvlxpsb3bnhScI2b7acnYXJZqbAMl5WS3
- BwOV0mlmfRW7pAE+6MVVNzSsR5x+opIlcSUEOdopB6Kizk/Qgg+qVliFmSTg6IleJp4R
- xCtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Gu+e6+Bcq3f9l/61UEZ0DuRBwRxOWeBI9gnHzb+uhhI=;
- b=RVcJ2avBxmNuxMhEapVGFfVCtxrprXHEsNPCA9pEP0rcHbir6bRs89A/QwmBhgh4WH
- yoYzJJPevQ0TYSC9Gbl9xu/EDNjdlAydJFY21KW7rYMhSDUFcULjxAYa6ingQ++gNBVD
- w1BR6CUtT3jOqDJHBQr+rjkl8Dt6DjbBQKhJlaTnQlaFzzmjiCYS2YVpqjAiEPBPSTKb
- 0xH5RkIOXp2D1qh3DXGV7IaEUv4cmorx4IYLzX7wUi9qL7ViAmuHrNVZJ0V9jK953mR1
- z1FeiY0hx2FaL5A2LhSOPeM9y7zHy1WFQczDJ3c4xbSxdwk4MPwiwAbcsH4MaQlZinTb
- YYxw==
-X-Gm-Message-State: AOAM531FxF6UjKZGcVLlsnMVKvEXC+BC29RSBfuUi0IOR0fsz15xfH2K
- Z7zf9ZBLyPqxXjiNgRaDK1Hv+S8yZIqLtlTrXor6ZA==
-X-Google-Smtp-Source: ABdhPJzPa8yK3auQyR/TBNcfESjnPGmafZoH5ZHNSdy0oSQi/2J8Xd0/tjy7TM01q+vTCKXWt7AUkXEXiDS2DyrLkHs=
-X-Received: by 2002:a25:2a56:: with SMTP id q83mr16726302ybq.144.1611179284363; 
- Wed, 20 Jan 2021 13:48:04 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="UXTQ1CQb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611179406;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=q5Tk07cOyzSuWC8UtiKXVVn3bXHByT7HLLQP4dV6lj4=;
+ b=UXTQ1CQbqGnep17tlrEENcz8RFB3xoH/KqrUl54RF9qZg4K+D5AVyxtLVwMxvLzZhU2oIH
+ jbuKmlLJE6URRlkAnxQDSLo0miI07WzYB+xu3W7njNyNtMx2lRZxUANYYIjxSw2J1tBDO8
+ i+tB3vmkaAPzmEHi5JxbSAR+cFyf3r0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-458-Y9rzyxF8MWeuZg_DsNGdJw-1; Wed, 20 Jan 2021 16:50:02 -0500
+X-MC-Unique: Y9rzyxF8MWeuZg_DsNGdJw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22A5015725;
+ Wed, 20 Jan 2021 21:50:01 +0000 (UTC)
+Received: from x1.localdomain (ovpn-114-1.ams2.redhat.com [10.36.114.1])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 610CE61F38;
+ Wed, 20 Jan 2021 21:49:58 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Lee Jones <lee.jones@linaro.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards with
+ WM5102 codec
+Date: Wed, 20 Jan 2021 22:49:52 +0100
+Message-Id: <20210120214957.140232-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
- <s5hr1mik7vu.wl-tiwai@suse.de>
- <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
- <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
- <s5hr1migiie.wl-tiwai@suse.de>
- <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
- <s5him7thpoz.wl-tiwai@suse.de>
- <CAHXb3bd8zHFmHxDp=4dNKa90eAT568yCwTWo_5L0Zry1EY45UA@mail.gmail.com>
- <s5hczy1guto.wl-tiwai@suse.de>
- <CAHXb3bfUv7QzvgOmtV3LxJXaY=Uk+pKhWZmU0M+YkgB0kNrXmA@mail.gmail.com>
- <s5ha6t3el07.wl-tiwai@suse.de>
- <CAHXb3bcucvF63itp6+R8aC6hByBJs4AorQg5KAa1YkunCB89tw@mail.gmail.com>
- <s5h4kjbcmql.wl-tiwai@suse.de>
-In-Reply-To: <s5h4kjbcmql.wl-tiwai@suse.de>
-From: Mike Oliphant <oliphant@nostatic.org>
-Date: Wed, 20 Jan 2021 13:47:53 -0800
-Message-ID: <CAHXb3be5Va8_K9YmObjTg+KGH3HZO9y_L4YrXvprbMY5J4fpsw@mail.gmail.com>
-Subject: Re: Support for NUX MG-300 USB interface
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,39 +93,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Yeah, I tried every possible permutation of mute/volumes on the mixer
-controls.
+Hi All,
 
-Thanks for submitting the patches. Maybe someone else will have better luck
-down the road.
+Here is v4 of my series to add support for Intel Bay Trail based devices
+which use a WM5102 codec for audio output/input.
 
-Mike
+This was developed and tested on a Lenovo Yoga Tablet 1051L.
 
-On Wed, Jan 20, 2021 at 1:38 PM Takashi Iwai <tiwai@suse.de> wrote:
+The MFD and ASoC parts do not have any build-time dependencies
+on each other. But the follow-up jack-detect series does have
+patches depending on each-other and on this series. So IMHO it
+would be best if this entire series would be merged through the
+MFD tree to make merging the follow-up series easier.
 
-> On Wed, 20 Jan 2021 22:17:35 +0100,
-> Mike Oliphant wrote:
-> >
-> > I spent a fair bit of time debugging the code setting/getting mixer
-> control
-> > values, and I can't see anything that seems to be operating incorrectly.
->
-> So, even if you unmute and raise both mixers, it didn't help, right?
-> I took a look at the lsusb output, but I couldn't find anything else
-> suspicious.
->
-> > Unless you have any other suggestions, I'm going to admit defeat and
-> return
-> > the audio interface.
-> >
-> > It is probably worth committing the clock selector patch - it at least
-> made
-> > capture work, and it may help with other audio interfaces.
->
-> OK, I'll submit two fix patches.
->
->
-> thanks,
->
-> Takashi
->
+Mark, if that is ok with you (and you are happy with the ASoC
+changes) can you please Ack this ?
+
+Changes in v4:
+- Add a comment to the irq-flags override explaining that theoretically
+  DSDTs using IRQF_TRIGGER_FALLING could be correct on boards where the
+  IRQ controller does not support active low level interrupts
+
+Changes in v3:
+- Fix compilation error when CONFIG_ACPI is not set
+
+Changes in v2:
+- Split my WM5102 work into 2 series, one series adding basic support
+  for Bay Trail boards with a WM5102 codec and a second series with
+  the jack-detect work
+- Various other minor code tweaks
+
+Hans de Goede (4):
+  mfd: arizona: Add MODULE_SOFTDEP("pre: arizona_ldo1")
+  mfd: arizona: Replace arizona_of_get_type() with
+    device_get_match_data()
+  mfd: arizona: Add support for ACPI enumeration of WM5102 connected
+    over SPI
+  ASoC: Intel: Add DMI quirk table to soc_intel_is_byt_cr()
+
+Pierre-Louis Bossart (1):
+  ASoC: Intel: bytcr_wm5102: Add machine driver for BYT/WM5102
+
+ drivers/mfd/arizona-core.c                    |  11 -
+ drivers/mfd/arizona-i2c.c                     |  11 +-
+ drivers/mfd/arizona-spi.c                     | 138 +++++-
+ drivers/mfd/arizona.h                         |   9 -
+ sound/soc/intel/boards/Kconfig                |  12 +
+ sound/soc/intel/boards/Makefile               |   2 +
+ sound/soc/intel/boards/bytcr_wm5102.c         | 465 ++++++++++++++++++
+ .../intel/common/soc-acpi-intel-byt-match.c   |  16 +
+ sound/soc/intel/common/soc-intel-quirks.h     |  25 +
+ 9 files changed, 661 insertions(+), 28 deletions(-)
+ create mode 100644 sound/soc/intel/boards/bytcr_wm5102.c
+
+Regards,
+
+Hans
+

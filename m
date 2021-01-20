@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5812FD2FA
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:48:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D4A02FD30D
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:53:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A099917DA;
-	Wed, 20 Jan 2021 15:48:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A099917DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A80C17EA;
+	Wed, 20 Jan 2021 15:52:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A80C17EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611154137;
-	bh=MvTN6MgR+vWLP+6h1hEORAiYeKiiOqak2TK4MiOdR9w=;
+	s=default; t=1611154394;
+	bh=tR9GihusTCYlU8Lu9EeiE3pqKULuzZgHKd1rxnnOErY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mOHETrIUewR6JX5+xdQt1a6MqElq68vg1J0VKkSD7nYhsmEibi6pMjHn/0Y5gCbjt
-	 StLZsfEPKD6Dje7V72zvsqg8MzkMPqoI/RGKGbXc2zfgJw0CPIjmqJB2k0T7CAPbeX
-	 2Sp8NWYrh/XcLrw8Icb3qXYA/hHFjSC1c+M5jHpk=
+	b=E43C8zNDlSISZjOuql8/ixFG/+iYlwZIWqNKBAjFnPlxNOJhm7GK6JH/WUw42crCq
+	 54BYDubLjJu0OCiFGpsS8VsFI/zsXPfH8lyJth5AIZbIUOClvk3rOMMkKtZgvd5ixN
+	 yb06bt9X/PZpL1OxQ8d/Tb3gCFOsioBSNt9ASjdU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03866F8019B;
-	Wed, 20 Jan 2021 15:47:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CDA2F80164;
+	Wed, 20 Jan 2021 15:51:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4C10F8016E; Wed, 20 Jan 2021 15:47:23 +0100 (CET)
+ id C3E57F8016E; Wed, 20 Jan 2021 15:51:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D7FCF8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:47:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D7FCF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 897C0F8012C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:51:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897C0F8012C
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 74E74AB7F;
- Wed, 20 Jan 2021 14:47:19 +0000 (UTC)
-Date: Wed, 20 Jan 2021 15:47:19 +0100
-Message-ID: <s5h7do7ekco.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id D9FE4ACAC;
+ Wed, 20 Jan 2021 14:51:36 +0000 (UTC)
+Date: Wed, 20 Jan 2021 15:51:36 +0100
+Message-ID: <s5h5z3rek5j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Hui Wang <hui.wang@canonical.com>
-Subject: Re: [RFC][PATCH v4 0/4] design a way to change audio Jack state by
- software
-In-Reply-To: <e4f811c2-6845-529f-0e21-fc3bb1fb8a84@canonical.com>
+Subject: Re: [RFC][PATCH v4 1/4] alsa: jack: implement software jack injection
+ via debugfs
+In-Reply-To: <20210111130557.90208-2-hui.wang@canonical.com>
 References: <20210111130557.90208-1-hui.wang@canonical.com>
- <e4f811c2-6845-529f-0e21-fc3bb1fb8a84@canonical.com>
+ <20210111130557.90208-2-hui.wang@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,87 +70,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Jan 2021 09:58:25 +0100,
+On Mon, 11 Jan 2021 14:05:54 +0100,
 Hui Wang wrote:
-> 
-> Hi Takashi,
-> 
-> Looks like no more comment from others, what is your opinion on the
-> patchset, is it ok to merge or need to do some change?
+> +static ssize_t sw_inject_enable_read(struct file *file,
+> +				     char __user *to, size_t count, loff_t *ppos)
+> +{
+> +	struct snd_jack_kctl *jack_kctl = file->private_data;
+> +	char *buf;
+> +	int len, ret;
+> +
+> +	buf = kvzalloc(PAGE_SIZE, GFP_KERNEL);
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	len = scnprintf(buf, PAGE_SIZE, "%s: %s\t\t%s: %i\n", "Jack", jack_kctl->kctl->id.name,
+> +			"Inject Enabled", jack_kctl->sw_inject_enable);
+> +	ret = simple_read_from_buffer(to, count, ppos, buf, len);
 
-I think the basic concept is OK.  Maybe we want to have a Kconfig to
-enable/disable this feature for users who want a slim kernel.
+For this size of a string buffer, you don't need to allocate via
+kvmalloc().  It can be on stack.
 
-And, it'd be better to reorganize the series.  It's not necessarily
-incremental form; e.g. patch 2 doesn't have to be an individual
-patch.
 
-I'll take a deeper look for each patch, too.
+> +static ssize_t sw_inject_enable_write(struct file *file,
+> +				      const char __user *from, size_t count, loff_t *ppos)
+> +{
+> +	struct snd_jack_kctl *jack_kctl = file->private_data;
+> +	char *buf;
+> +	int ret, err;
+> +	unsigned long enable;
+> +
+> +	buf = kvzalloc(count, GFP_KERNEL);
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	ret = simple_write_to_buffer(buf, count, ppos, from, count);
+> +	err = kstrtoul(buf, 0, &enable);
+
+Ditto, it's just a single number and cannot be that big.
+(Also jackin_inject_write(), too.)
 
 
 thanks,
 
 Takashi
-
-
-
-
-
-> 
-> Thanks,
-> 
-> Hui.
-> 
-> On 1/11/21 9:05 PM, Hui Wang wrote:
-> > the changes in the v4:
-> >   - change the sound-core to sound and change the sound_core_debugfs_root
-> >     to sound_debugfs_root in the 0001-xxx.patch
-> >   - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
-> >     0001-xxx.patch and 0003-xxx.patch
-> >   - And if needed, I could squash 4 patches into 1 patch before merging.
-> >
-> > the changes in the v3 (for easy to review, divide change into 4 patches):
-> >   - address the comment about the snd_jack_report() and _snd_jack_report(),
-> >     the v2 design is hard to understand and is hard to review, in the v3,
-> >     separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
-> >     hw jack events call snd_jack_report() as before, if a jack contains multi
-> >     jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
-> >     related input-dev's events will not be reproted. The injection events call
-> >     snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
-> >     rest part of 0001-xxx.patch is same as v2.
-> >
-> >   - address the comment about folders'name in the 0002-xxx.patch, so far, drop
-> >     the '/', ',', '=' and ' ' from the folders' name.
-> >
-> >   - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
-> >     it adds kctl_id, mask_bits, status and type.
-> >
-> >   - address the comment about save-n-restore jack's hw status in the
-> >     0004-xxx.patch, adding a hw_status_cache and save the last reported jack
-> >     hw event, once the sw_inject is disabled, will restore all jack_kctl's
-> >     state under the same snd_jack with hw_status_cache.
-> > [snip]
-> >
-> >
-> > the changes in the V2:
-> >   - using debugfs instead of sysfs
-> >   - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
-> >     could create multi jack_ctrls within a snd_jack
-> >   - create a folder for each jack_ctrl instead for all jack_ctrls
-> > [ snip ]
-> >
-> >
-> > Hui Wang (4):
-> >    alsa: jack: implement software jack injection via debugfs
-> >    alsa: jack: adjust jack_kctl debugfs folder's name
-> >    alsa: jack: add more jack_kctl debugfs nodes
-> >    alsa: jack: implement save-and-restore for jack's hw status
-> >
-> >   include/sound/core.h |   2 +
-> >   include/sound/jack.h |   1 +
-> >   sound/core/init.c    |   7 +
-> >   sound/core/jack.c    | 352 ++++++++++++++++++++++++++++++++++++++++++-
-> >   sound/core/sound.c   |   8 +
-> >   5 files changed, 366 insertions(+), 4 deletions(-)
-> >
-> 

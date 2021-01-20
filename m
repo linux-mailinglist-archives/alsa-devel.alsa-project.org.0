@@ -2,87 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F1F2FCD61
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 10:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA022FCD70
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 10:29:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE4291864;
-	Wed, 20 Jan 2021 10:24:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE4291864
+	by alsa0.perex.cz (Postfix) with ESMTPS id D56641852;
+	Wed, 20 Jan 2021 10:28:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D56641852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611134718;
-	bh=CciW1P1/nXfoHnf5jefh+AbJWTFycGlo4cOKyw5anZQ=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1611134968;
+	bh=YUDdni26u1FiQjAobfnygX84sdXc6dRWfaE8N0rmPO8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mDqOO3IZizqVbsPnT4Wpjq1h/SYLsMRtFdVvkW3zNs3WjHvre3A8rdP9Jiz6KGmnh
-	 Nm0ePUqxaX6kOO7rX3fZkNW9TBqNji+HVm/P0VGItnv7cpX9Woxw9CdQshK+r4jGy0
-	 tDycGTG8S+RjPV3SPks8ynmX8QOccJmd8B2FhLc8=
+	b=dGKmFbhhf8OYF4kvITuSkT6ndO08QozLUR42TrGGAU7QpoWaCP4RTUS56GqcwWJxg
+	 p5HQXfa0rNEv+XYDAnSj1LX6YM5lAfYbSqXkquofk9AeM7p5/zKCsJ9D5+mlPVslW4
+	 ZTNzq3KCkRiySsIwYB4x7bXknv59HvcnVukzUQcw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94A16F804D6;
-	Wed, 20 Jan 2021 10:23:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F333F8019B;
+	Wed, 20 Jan 2021 10:27:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18AA1F804D2; Wed, 20 Jan 2021 10:23:03 +0100 (CET)
+ id 729C5F8016E; Wed, 20 Jan 2021 10:27:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F2E2F804CA
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 10:22:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F2E2F804CA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="AWQhkHrl"
-Received: by mail-pl1-x64a.google.com with SMTP id 98so16124076pla.12
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 01:22:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=tc/R+CinKu1ch13hojWSasQwGtQKWPAxE07/EUndZq0=;
- b=AWQhkHrlM1MoVG+pEi2evm5iJghqp7tBazX6fzoOz5z6CC7r0hrGcaWBluvz7TYVb2
- iGyK3q3grkUUIvcCRWSf2zcii9TrhN1Qas3lIlCQYnl2d+/qi8l1jYb+brcKxPM1CTj3
- Yz9rdDmaOcT9X+YilhkgCEFfT+Zf+o0NzGDApSji/OAPjXDCXUlwPVZu0pijIA4DOBi3
- zr+uKQR/sBDF4Y5DHHqLaLpNs5NyuQ3Gg6Xf3gUoiKqER3IAhcpP2U5PfuKZqW0g6EvX
- n2BhOfQoX36WlJi19diggHoDdPp0y6i2T/wixPZt9JmF49YkktabEe300Pji+vM6RxBv
- VGdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=tc/R+CinKu1ch13hojWSasQwGtQKWPAxE07/EUndZq0=;
- b=ZQxFssTdCMRLrsKGRztQ8naAXK4VZrlUwtRBQ1EHyX9nuJqd4EBZCmQhtabxPgVTww
- GAxdJ2OZScXZtwdGuIpUUaBh/QrguLcPzvwNsTgTmN5ABQa9F/CWxpl8Wxk/bEVjnugS
- yZ9BzVpMMzTpZBrJK8UMZA3uWm9/S6K619HS8N16uPAnL1n1C8FY5vL5WsMO/YJLP+ay
- xEtObI1y8Smn/M1XPAOXdlbLkU9tHGg1F3nzWcNeA25y8qfClgJUukMmW+pR8+48rslK
- vgNDt80rRN4vz4lzUsQvejq4KeF4ono82fDc/izpiMdssPjCfXZy3s0XkqNsTKF/RE00
- +4Dg==
-X-Gm-Message-State: AOAM533l29gvxCZE/VYH4RqgZell9e3jN3f2uxY0n0l5Ldd6ZUJqdRln
- csDh2JzOgwvx0TBsB3CX2rNDv/oy8KsZ
-X-Google-Smtp-Source: ABdhPJwmNfrvZTIMVZHVRLOTc3W2V8TVVcY8sVbo5j3iBy2nDDW1g2XCv8qy/cGejyoEwjRcPRMxNQmV8bXI
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:1164:8893:969a:b338])
- (user=tzungbi job=sendgmr) by 2002:a17:902:9309:b029:db:c725:d19c with SMTP
- id bc9-20020a1709029309b02900dbc725d19cmr9236708plb.39.1611134577701; Wed, 20
- Jan 2021 01:22:57 -0800 (PST)
-Date: Wed, 20 Jan 2021 17:22:37 +0800
-In-Reply-To: <20210120092237.1553938-1-tzungbi@google.com>
-Message-Id: <20210120092237.1553938-3-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20210120092237.1553938-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.30.0.284.gd98b1dd5eaa7-goog
-Subject: [PATCH 2/2] ASoC: mediatek: mt8183-da7219: ignore TDM DAI link by
- default
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77DACF8012C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 10:27:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77DACF8012C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E6DE1AAAE;
+ Wed, 20 Jan 2021 09:27:43 +0000 (UTC)
+Date: Wed, 20 Jan 2021 10:27:43 +0100
+Message-ID: <s5hwnw8dkkw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: control: remove limitation on the number of
+ user-defined control element set per card
+In-Reply-To: <20210120085541.28607-1-o-takashi@sakamocchi.jp>
+References: <20210120085541.28607-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,39 +69,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hdmi-codec is an optional property.  Ignore to bind TDM DAI link
-if the property isn't specified.
+On Wed, 20 Jan 2021 09:55:41 +0100,
+Takashi Sakamoto wrote:
+> 
+> ALSA control core allows usespace application to register control element
+> set by call of ioctl(2) with SNDRV_CTL_IOCTL_ELEM_ADD request. The added
+> control element set is called as 'user-defined'. Currently sound card has
+> limitation on the number of the user-defined control element set up
+> to 32.
+> 
+> The limitation is inconvenient to drivers in ALSA firewire stack since
+> the drivers expect userspace applications to implement function to
+> control device functionalities such as mixing and routing. As the
+> userspace application, snd-firewire-ctl-services project starts:
+> https://github.com/alsa-project/snd-firewire-ctl-services/
+> 
+> The project supports many devices supported by ALSA firewire stack. The
+> limitation is mostly good since routing and mixing controls can be
+> represented by control element set, which includes control element with
+> the same parameters. Nevertheless, it's actually inconvenient to device
+> which has many varied functionalities. For example, plugin effect such as
+> channel strip and reverb has many parameters. For the case, many control
+> elements are required to configure the parameters and control element set
+> cannot aggregates controls for the parameters. At present, below models
+> are implemented with the control elements and actually add control element
+> sets over 32:
+> 
+>  * Apogee Emsemble (snd-bebob-ctl-service)
+>  * TC Electronic Konnekt 24d (snd-dice-ctl-service)
+>  * TC Electronic Studio Konnekt 48 (snd-dice-ctl-service)
+>  * TC Electronic Konnekt Live (snd-dice-ctl-service)
+>  * TC Electronic Impact Twin (snd-dice-ctl-service)
+> 
+> It could be investigated to increase the number; e.g. quadruple to the
+> current (=128), however it's hard to find criteria about the number for
+> existent sound card. This commit just removes the limitation for the
+> reason. ALSA control core uses UINT_MAX as the maximum number of control
+> elements added to a sound card. It's limitation for both in-kernel driver
+> and userspace application.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Fixes: 5bdbe9771177 ("ASoC: mediatek: mt8183-da7219: use hdmi-codec")
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I'm still worried by the unlimited number of possible additions.
+Did you check what would happen if you run a test program to add
+user-space ctls (with the max count) in a loop repeatedly?  If that
+doesn't blow up too much, it might be OK.  Otherwise we have to add
+some practical limits.
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-index 870cdfd17fff..a4d26a6fc849 100644
---- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-@@ -526,6 +526,7 @@ static struct snd_soc_dai_link mt8183_da7219_dai_links[] = {
- 		.dpcm_playback = 1,
- 		.ignore_suspend = 1,
- 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
-+		.ignore = 1,
- 		.init = mt8183_da7219_max98357_hdmi_init,
- 		SND_SOC_DAILINK_REG(tdm),
- 	},
-@@ -748,8 +749,10 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
- 			}
- 		}
- 
--		if (hdmi_codec && strcmp(dai_link->name, "TDM") == 0)
-+		if (hdmi_codec && strcmp(dai_link->name, "TDM") == 0) {
- 			dai_link->codecs->of_node = hdmi_codec;
-+			dai_link->ignore = 0;
-+		}
- 
- 		if (!dai_link->platforms->name)
- 			dai_link->platforms->of_node = platform_node;
--- 
-2.30.0.284.gd98b1dd5eaa7-goog
+So, let's prove that it's absolutely safe to release the limit at
+first.
 
+
+thanks,
+
+Takashi

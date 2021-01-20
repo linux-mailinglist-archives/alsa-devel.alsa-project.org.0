@@ -2,96 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D885E2FCDB8
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 11:04:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99B82FCDBF
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 11:12:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60BF3186F;
-	Wed, 20 Jan 2021 11:03:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60BF3186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ED2E1893;
+	Wed, 20 Jan 2021 11:11:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ED2E1893
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611137080;
-	bh=UM/Q2grqGnIapierNb1yYfNEHQvSJMGUuvNA3cJd9+M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1611137554;
+	bh=9AMGkg3kio8YHx5boWSmIAOxgqW8LgWEBkXZykNsZ+o=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=siGlKh+bprt4YTPtZj+MbIDOD1teBTRWo7jVH3X1v+KT1LBsrL7sU0MvPmPfbKe5g
-	 Qa63QQ3lpbqexkIsbTKqKqiH8+oOsB5f0pYxYrtg9tKxxaU7IrvrUoBlMLJdvQMwKf
-	 80zs4ntoW69cG1vp6LXwuUCer55OtUigLNwTAk9Q=
+	b=ojPRljZGCPyjOxB7EQF647T1a3+qKq2j0ev3RUHZhXpwp4oM/zbWwRhPZreHfO9aO
+	 EW+jY7rLvrqAGh3VWnaMkX4C6ml+8L5t1V1JgxbibrRrlqDbyh4lQttNO6WMVsj+ra
+	 XAvO4UQpG1W/JhcalJB5Q4MiMHlrpw72Lumr+skU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBDD8F80137;
-	Wed, 20 Jan 2021 11:03:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEEBFF8016E;
+	Wed, 20 Jan 2021 11:11:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07044F8016E; Wed, 20 Jan 2021 11:03:06 +0100 (CET)
+ id AD5CCF8016E; Wed, 20 Jan 2021 11:10:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84DC2F80164
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 11:02:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84DC2F80164
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="eP2mmFyM"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10K9voSf022653; Wed, 20 Jan 2021 04:02:53 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=3cMPXgGKn9KcSz1orpznqtODBy5qNer/ihVn8Z7C4bU=;
- b=eP2mmFyMdNKz+7w5BAOD6hIfBQ/4n08GaWSnkNEN5zoDKLurzm2xqv5+ZnJPAYaK1/3v
- 8G8U+OdfOYTpI2lD7abf1aRFYyzjL/9s3YGRAYs3eBqf7To7RcEPjhpXxToe0f+YbWR1
- JC/qUUR71k3OdtnRczL5eIz4qb5kJqcm2LX9+WLO57HeR7/Vk1o3Pxw9vb2IOgzFznG9
- hEVq/O8qtrw8TXiRkda2hT2GR1NmKs1Eqd+fudWAz1+9IoXqfebAHCx5ao0d8Y3kIiOQ
- GpFruTEd3rKMapFPImUWZwQYA9Bb1KuSTB6MN44TUkqIo0uErOIEQ+6miATtlbgLQAnc rA== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 36692r8gfp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 20 Jan 2021 04:02:53 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Wed, 20 Jan
- 2021 10:02:51 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Wed, 20 Jan 2021 10:02:51 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 907C045;
- Wed, 20 Jan 2021 10:02:51 +0000 (UTC)
-Date: Wed, 20 Jan 2021 10:02:51 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v3 2/5] mfd: arizona: Replace arizona_of_get_type() with
- device_get_match_data()
-Message-ID: <20210120100251.GC106851@ediswmail.ad.cirrus.com>
-References: <20210117212252.206115-1-hdegoede@redhat.com>
- <20210117212252.206115-3-hdegoede@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEA88F80164
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 11:10:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEA88F80164
+IronPort-SDR: mHUDBICkKm3ThUG3gjLQTxd1j1WaknV7xzO/NvqUeSFPS6ck6jQmnAYuyOObsy1J5q62f32DP6
+ IuYOlUqOjsIw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="179228309"
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="179228309"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 02:10:50 -0800
+IronPort-SDR: Y3q4iHQ39GKdIRFZJuHQUZndvahXpGhqws8lMBncjHvIY87iG83soE++lcwWFCbYh4Sg5tKHWb
+ mAaau6gwipwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="355996544"
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
+ by fmsmga008.fm.intel.com with ESMTP; 20 Jan 2021 02:10:48 -0800
+Received: from irsmsx602.ger.corp.intel.com (163.33.146.8) by
+ irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 20 Jan 2021 10:10:47 +0000
+Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8]) by
+ irsmsx602.ger.corp.intel.com ([163.33.146.8]) with mapi id 15.01.1713.004;
+ Wed, 20 Jan 2021 10:10:47 +0000
+From: "Girdwood, Liam R" <liam.r.girdwood@intel.com>
+To: "anton.yakovlev@opensynergy.com" <anton.yakovlev@opensynergy.com>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH 0/7] ALSA: add virtio sound driver
+Thread-Topic: [PATCH 0/7] ALSA: add virtio sound driver
+Thread-Index: AQHW7xSF5+25jD6v60GKV9bYQ1UsAw==
+Date: Wed, 20 Jan 2021 10:10:47 +0000
+Message-ID: <3ac230040630c3b6695f8a091e000f5b4f90b3ce.camel@intel.com>
+References: <20210120003638.3339987-1-anton.yakovlev@opensynergy.com>
+In-Reply-To: <20210120003638.3339987-1-anton.yakovlev@opensynergy.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [163.33.253.164]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A8799E9B4388B3499FBC9D607BD6246A@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210117212252.206115-3-hdegoede@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 mlxscore=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 mlxlogscore=743 priorityscore=1501 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101200056
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
- Lee Jones <lee.jones@linaro.org>
+Content-Transfer-Encoding: base64
+Cc: "jasowang@redhat.com" <jasowang@redhat.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mst@redhat.com" <mst@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,21 +97,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Jan 17, 2021 at 10:22:49PM +0100, Hans de Goede wrote:
-> Replace the custom arizona_of_get_type() function with the generic
-> device_get_match_data() helper. Besides being a nice cleanup this
-> also makes it easier to add support for binding to ACPI enumerated
-> devices.
-> 
-> While at it also fix a possible NULL pointer deref of the id
-> argument to the probe functions (this could happen on e.g. manual
-> driver binding through sysfs).
-> 
-> Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
+SGkgQW50b24sDQoNCk9uIFdlZCwgMjAyMS0wMS0yMCBhdCAwMTozNiArMDEwMCwgQW50b24gWWFr
+b3ZsZXYgd3JvdGU6DQo+IFRoaXMgc2VyaWVzIGltcGxlbWVudHMgYSBkcml2ZXIgcGFydCBvZiB0
+aGUgdmlydGlvIHNvdW5kIGRldmljZQ0KPiBzcGVjaWZpY2F0aW9uIHY4IFsxXS4NCj4gDQo+IFRo
+ZSBkcml2ZXIgc3VwcG9ydHMgUENNIHBsYXliYWNrIGFuZCBjYXB0dXJlIHN1YnN0cmVhbXMsIGph
+Y2sgYW5kDQo+IGNoYW5uZWwgbWFwIGNvbnRyb2xzLiBBIG1lc3NhZ2UtYmFzZWQgdHJhbnNwb3J0
+IGlzIHVzZWQgdG8gd3JpdGUvcmVhZA0KPiBQQ00gZnJhbWVzIHRvL2Zyb20gYSBkZXZpY2UuDQo+
+IA0KPiBUaGUgc2VyaWVzIGlzIGJhc2VkIChhbmQgd2FzIGFjdHVhbGx5IHRlc3RlZCkgb24gTGlu
+dXMncyBtYXN0ZXINCj4gYnJhbmNoIFsyXSwgb24gdG9wIG9mDQo+IA0KPiBjb21taXQgMWUyYTE5
+OWY2Y2NkICgiTWVyZ2UgdGFnICdzcGktZml4LXY1LjExLXJjNCcgb2YgLi4uIikNCj4gDQo+IEFz
+IGEgZGV2aWNlIHBhcnQgd2FzIHVzZWQgT3BlblN5bmVyZ3kgcHJvcHJpZXRhcnkgaW1wbGVtZW50
+YXRpb24uDQo+IA0KPiBBbnkgY29tbWVudHMgYXJlIHZlcnkgd2VsY29tZS4NCj4gDQoNClRoaXMg
+anVzdCBsb29rcyBsaWtlIHRoZSBndWVzdCBmcm9udCBlbmQgaGVyZSwgZG8geW91IGhhdmUgYSBm
+b2xsb3cgdXANCnNlcmllcyBmb3IgdGhlIGhvc3QgYmFja2VuZCA/DQoNClRoYW5rcw0KDQpMaWFt
+ICANCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQpJbnRlbCBDb3Jwb3JhdGlvbiAoVUspIExpbWl0ZWQKUmVnaXN0ZXJl
+ZCBOby4gMTEzNDk0NSAoRW5nbGFuZCkKUmVnaXN0ZXJlZCBPZmZpY2U6IFBpcGVycyBXYXksIFN3
+aW5kb24gU04zIDFSSgpWQVQgTm86IDg2MCAyMTczIDQ3CgpUaGlzIGUtbWFpbCBhbmQgYW55IGF0
+dGFjaG1lbnRzIG1heSBjb250YWluIGNvbmZpZGVudGlhbCBtYXRlcmlhbCBmb3IKdGhlIHNvbGUg
+dXNlIG9mIHRoZSBpbnRlbmRlZCByZWNpcGllbnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0
+aW9uCmJ5IG90aGVycyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgYXJlIG5vdCB0aGUg
+aW50ZW5kZWQKcmVjaXBpZW50LCBwbGVhc2UgY29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxldGUg
+YWxsIGNvcGllcy4K
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles

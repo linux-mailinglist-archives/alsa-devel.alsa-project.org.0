@@ -2,64 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21FA42FD2EC
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:44:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E5812FD2FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 15:48:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A10F51795;
-	Wed, 20 Jan 2021 15:43:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A10F51795
+	by alsa0.perex.cz (Postfix) with ESMTPS id A099917DA;
+	Wed, 20 Jan 2021 15:48:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A099917DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611153849;
-	bh=86k/MhCGSrJKkip7llvxzh7qujn8rsp+6Wwt4jyxvDQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=cCL4JMxXImRMEAyeoGEutOwV9qSNtvlgzYi4oMEuxFZJYpGuKh1mjP+X1+5UtkwWO
-	 0FC9aLsQcq+FU9p3IO8BZ9Z5Wdn8hvWtTEQq5Mz7749FrHE1nGYc0mJMs8XaOIwvEa
-	 W58O70N+/jgKS1byAFoZyQSLahxp81X140W902fA=
+	s=default; t=1611154137;
+	bh=MvTN6MgR+vWLP+6h1hEORAiYeKiiOqak2TK4MiOdR9w=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mOHETrIUewR6JX5+xdQt1a6MqElq68vg1J0VKkSD7nYhsmEibi6pMjHn/0Y5gCbjt
+	 StLZsfEPKD6Dje7V72zvsqg8MzkMPqoI/RGKGbXc2zfgJw0CPIjmqJB2k0T7CAPbeX
+	 2Sp8NWYrh/XcLrw8Icb3qXYA/hHFjSC1c+M5jHpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01B4BF8019B;
-	Wed, 20 Jan 2021 15:42:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03866F8019B;
+	Wed, 20 Jan 2021 15:47:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 436BAF8016E; Wed, 20 Jan 2021 15:42:34 +0100 (CET)
+ id A4C10F8016E; Wed, 20 Jan 2021 15:47:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAEA2F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:42:29 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BBB97A0046;
- Wed, 20 Jan 2021 15:42:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BBB97A0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1611153748; bh=5+CO6EYjJLO0X0s5gywNEhBjjj1gJ/sEzV50VqcgNQE=;
- h=From:To:Cc:Subject:Date:From;
- b=JwVlomU0CThUMYXMboRh9BSo7EA4t67TBUB4/fwoKY3D3SW1pFKKIgjXMK5VBdckM
- lzC31zG34p7Bm2+A6EpStz8hbB/XXa0mdD3wLeXPZDMoAYHd808Nw0JRMAndyynJPS
- ZnjV310D1Bay56TYR4ySKaMgg4m1GfV3DolM8DCg=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 20 Jan 2021 15:42:23 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: AMD Renoir - refine DMI entries for some Lenovo products
-Date: Wed, 20 Jan 2021 15:42:11 +0100
-Message-Id: <20210120144211.817937-1-perex@perex.cz>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- stable@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D7FCF8012C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 15:47:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D7FCF8012C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 74E74AB7F;
+ Wed, 20 Jan 2021 14:47:19 +0000 (UTC)
+Date: Wed, 20 Jan 2021 15:47:19 +0100
+Message-ID: <s5h7do7ekco.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [RFC][PATCH v4 0/4] design a way to change audio Jack state by
+ software
+In-Reply-To: <e4f811c2-6845-529f-0e21-fc3bb1fb8a84@canonical.com>
+References: <20210111130557.90208-1-hui.wang@canonical.com>
+ <e4f811c2-6845-529f-0e21-fc3bb1fb8a84@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,51 +70,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apparently, the DMI board name LNVNB161216 is also used also
-for products with the digital microphones connected to the AMD's
-audio bridge. Refine the DMI table - use product name identifiers
-extracted from https://bugzilla.redhat.com/show_bug.cgi?id=1892115 .
+On Wed, 20 Jan 2021 09:58:25 +0100,
+Hui Wang wrote:
+> 
+> Hi Takashi,
+> 
+> Looks like no more comment from others, what is your opinion on the
+> patchset, is it ok to merge or need to do some change?
 
-The report for Lenovo Yoga Slim 7 14ARE05 (82A2) is in buglink.
+I think the basic concept is OK.  Maybe we want to have a Kconfig to
+enable/disable this feature for users who want a slim kernel.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211299
-Cc: <stable@kernel.org>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-Cc: Mark Brown <broonie@kernel.org>
----
- sound/soc/amd/renoir/rn-pci-acp3x.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+And, it'd be better to reorganize the series.  It's not necessarily
+incremental form; e.g. patch 2 doesn't have to be an individual
+patch.
 
-diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
-index deca8c7a0e87..050a61fe9693 100644
---- a/sound/soc/amd/renoir/rn-pci-acp3x.c
-+++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-@@ -165,10 +165,24 @@ static int rn_acp_deinit(void __iomem *acp_base)
- 
- static const struct dmi_system_id rn_acp_quirk_table[] = {
- 	{
--		/* Lenovo IdeaPad Flex 5 14ARE05, IdeaPad 5 15ARE05 */
-+		/* Lenovo IdeaPad S340-14API */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
--			DMI_EXACT_MATCH(DMI_BOARD_NAME, "LNVNB161216"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "81NB"),
-+		}
-+	},
-+	{
-+		/* Lenovo IdeaPad Flex 5 14ARE05 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "81X2"),
-+		}
-+	},
-+	{
-+		/* Lenovo IdeaPad 5 15ARE05 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "81YQ"),
- 		}
- 	},
- 	{
--- 
-2.29.2
+I'll take a deeper look for each patch, too.
+
+
+thanks,
+
+Takashi
+
+
+
+
+
+> 
+> Thanks,
+> 
+> Hui.
+> 
+> On 1/11/21 9:05 PM, Hui Wang wrote:
+> > the changes in the v4:
+> >   - change the sound-core to sound and change the sound_core_debugfs_root
+> >     to sound_debugfs_root in the 0001-xxx.patch
+> >   - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
+> >     0001-xxx.patch and 0003-xxx.patch
+> >   - And if needed, I could squash 4 patches into 1 patch before merging.
+> >
+> > the changes in the v3 (for easy to review, divide change into 4 patches):
+> >   - address the comment about the snd_jack_report() and _snd_jack_report(),
+> >     the v2 design is hard to understand and is hard to review, in the v3,
+> >     separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
+> >     hw jack events call snd_jack_report() as before, if a jack contains multi
+> >     jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
+> >     related input-dev's events will not be reproted. The injection events call
+> >     snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
+> >     rest part of 0001-xxx.patch is same as v2.
+> >
+> >   - address the comment about folders'name in the 0002-xxx.patch, so far, drop
+> >     the '/', ',', '=' and ' ' from the folders' name.
+> >
+> >   - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
+> >     it adds kctl_id, mask_bits, status and type.
+> >
+> >   - address the comment about save-n-restore jack's hw status in the
+> >     0004-xxx.patch, adding a hw_status_cache and save the last reported jack
+> >     hw event, once the sw_inject is disabled, will restore all jack_kctl's
+> >     state under the same snd_jack with hw_status_cache.
+> > [snip]
+> >
+> >
+> > the changes in the V2:
+> >   - using debugfs instead of sysfs
+> >   - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
+> >     could create multi jack_ctrls within a snd_jack
+> >   - create a folder for each jack_ctrl instead for all jack_ctrls
+> > [ snip ]
+> >
+> >
+> > Hui Wang (4):
+> >    alsa: jack: implement software jack injection via debugfs
+> >    alsa: jack: adjust jack_kctl debugfs folder's name
+> >    alsa: jack: add more jack_kctl debugfs nodes
+> >    alsa: jack: implement save-and-restore for jack's hw status
+> >
+> >   include/sound/core.h |   2 +
+> >   include/sound/jack.h |   1 +
+> >   sound/core/init.c    |   7 +
+> >   sound/core/jack.c    | 352 ++++++++++++++++++++++++++++++++++++++++++-
+> >   sound/core/sound.c   |   8 +
+> >   5 files changed, 366 insertions(+), 4 deletions(-)
+> >
+> 

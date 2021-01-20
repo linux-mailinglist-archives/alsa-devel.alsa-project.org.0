@@ -2,95 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F8D2FC832
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 03:48:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCAB2FC845
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 03:51:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CCFF18E3;
-	Wed, 20 Jan 2021 03:47:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CCFF18E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id D94F418EF;
+	Wed, 20 Jan 2021 03:51:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D94F418EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611110881;
-	bh=F7HMPhtnx3pSsrIBzQovHis+rjIFYltTmH0p5Dj4k1I=;
-	h=To:References:Subject:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jl/C3oGVJeR9KRfHfAqiNTVMzX4jQJlXFbM7ghkvZiJ4FRQUBm9TgFNfkBAuwNrDa
-	 5XsrPBihtGtaUk5tpcvfIsVeFFGzWNL0Y5lecrshwTIhDbhW0qBPkhwYRHXudsHM2q
-	 lqzlTYZc24eeiC5XWpOweo1uuwmP4HQYZi4ExaDQ=
+	s=default; t=1611111118;
+	bh=461Yv8iivppi/trH756BYgdgwZ/DxDiwNtdN5kHiRd4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jTPFOHJHYBwla8yY+u4BUG1CLJVnlc4ZWO/dqVCTE1lpytzX+Z5UWm7puNUReah96
+	 MTIS+OIKTSR9xDo9Em5ptWnEa4gU/k/cC/uz4MF9M3zV5jTDBmkecfHlurXrJZlO0n
+	 NjDg0f5jeqIKMAuqUC7u5mgQ3dAFOkPHwBb2zWJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 052FEF8026A;
-	Wed, 20 Jan 2021 03:46:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 480D4F8019B;
+	Wed, 20 Jan 2021 03:50:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0664CF80257; Wed, 20 Jan 2021 03:46:21 +0100 (CET)
+ id 92DD0F8016E; Wed, 20 Jan 2021 03:50:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31C13F80117
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 03:46:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C13F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32260F80164
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 03:50:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32260F80164
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=mixxx-org.20150623.gappssmtp.com
- header.i=@mixxx-org.20150623.gappssmtp.com header.b="cceUUK/E"
-Received: by mail-io1-xd2b.google.com with SMTP id x21so25863430iog.10
- for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:46:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mixxx-org.20150623.gappssmtp.com; s=20150623;
- h=to:references:subject:cc:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=w6lJWcUeIrWdLxn4W6lfCqC5lXiBMDQSlgSrIFZMGmY=;
- b=cceUUK/EYMF1LnAJ5myl9SuAPDp35yn2DPOhC4Xm3sk+atgMYw0qpzvUauOezLot8c
- EYSikbtHUKdx4j+KofNODPARz2zu9GmwpmElKgBvkvT2voimRBQAq2ldo1/08aN9oYF4
- TSRgoLEZijaVOAnnw8YQSl19V9fl/vkwTbH6LqZqz72wp4ME+8eqnvqbJZe6bv7ZnVys
- cTW3Hp0/x/9TDSYed1D7KcuwrMwQKAsMUEENAJ6AyAJrLas33kzYcYCVaFk3VB9/Fo2C
- +aTE/X9h2tMuLjxbU3TqOgbSDqDIzkTiQSXOiD/k+7J5GMo0lltL0piH9xKgseg2a8dV
- vrig==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="EYgJCgJ6"
+Received: by mail-pj1-x102e.google.com with SMTP id l23so1224763pjg.1
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 18:50:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SK2/ipjT+YWcNiCuZHl6puNjdEQtTBsEWCQa8Yqn+os=;
+ b=EYgJCgJ6ad9Lk9PYlOAjm7F1h6zhESGELOdCsPibR961IXoLCcls++SqkQWq6a0dgo
+ KmbMZyxeh+V4WZz4uMhY6GQyYR/HRAgsND3K3620xeIn9K5DGwrpBe9CaB22hZG/f+kl
+ jxw9UHn9bNYw/tEvRBSVKuSuROM8UItQsbfjOzcfWWb60dnHWEZaTzRK35t+lLBwusgM
+ 8s5j+GajwK2tqyk+1QH7L5h/Qw2VKcQDN82lHhRK1kJXCO1eH4uocFBiv2bDvvl8l7YK
+ wbaOmBkFVqpamca98G08OX16brt7yz7KJy32oD8rbqvakkOS/EpqYSxTD7HZKT57iAli
+ yQBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:references:subject:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=w6lJWcUeIrWdLxn4W6lfCqC5lXiBMDQSlgSrIFZMGmY=;
- b=iYxyIxvdjyeAU5tKcFKVDPGuAXRs5FcOGHXDnZ6oFAlSOrNL2J77Z5H6YpxOasAA20
- Ym1nbFYCXkj4VXaS+J2SfVauDDszWcyXMSMlU3bYB0uNlx9GhDhCmz2wB37rQKQJQfEd
- otWXa7aPyXU+NoMSVHGYDmt34wu5tS1g+hOSVL9qiUFSeuf/zaOQPzdZsmHL4rk8lRmC
- Pqiqf4SGp1qsV0dhZiaKpfmX/Git23rJ8UAAei+9+16dWUVrdE5umyGa6G7IOgrgm97d
- tqxhtuP1UYqx/USQIFPstXSMIHVlklF2Ya1B6ehj0Oilb+VtMOB+KOz6S/0156H0WGit
- snCw==
-X-Gm-Message-State: AOAM530mgYfNJ0JvsVZ53mevTcmgQM6GLVW/mKr+/wi2g2rQA/+zdgxM
- 0fNUZzSq9qpEMm6pQAYATmJ+2w==
-X-Google-Smtp-Source: ABdhPJzPRImCtYjk21aw2FDEyMe+AKqp1//QwqTXENo+n4HWpEKrVjuWU0Ovo47/+qWCzDdj13F1dQ==
-X-Received: by 2002:a92:c102:: with SMTP id p2mr6009607ile.254.1611110768128; 
- Tue, 19 Jan 2021 18:46:08 -0800 (PST)
-Received: from localhost.localdomain (mobile-166-175-59-115.mycingular.net.
- [166.175.59.115])
- by smtp.gmail.com with ESMTPSA id c10sm415646ils.46.2021.01.19.18.46.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jan 2021 18:46:07 -0800 (PST)
-To: alsa-devel@alsa-project.org
-References: <435f4228-e323-5caf-9209-1372221e12fb@frantovo.cz>
-Subject: Re: MIDI handshake for Pioneer DJ DJM-250MK2 to enable recording
- LINE/PHONO channels
-From: Be <be@mixxx.org>
-Message-ID: <acafdceb-6e84-2166-2e99-150a2ea89f56@mixxx.org>
-Date: Tue, 19 Jan 2021 20:46:03 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SK2/ipjT+YWcNiCuZHl6puNjdEQtTBsEWCQa8Yqn+os=;
+ b=MqiguH9MpIG2jqpP1hRkwRCdfjdDLBXPHD/PADaTpXBxUplvvjMeLhqSrMJSPlrDea
+ sLOpb/PYyXxXHW4Zn9fF4x+1v4lmBZjMAOPz9UZOeIy2NoAlCJSz090a3Bjjs9ml/RY9
+ AJjFnjBusqYY/qXOYmgP3XwF15qsFqZYXJid4oornq4hRSP/1yIIbdcsTqhjIZdY3C6i
+ s9sRFKi0hzyLSGDC74Hsn/Wlfpah0DLsc5P2cUPWnn6aSk+iA2xQUbc05abWx1dL5LyI
+ DZ7YqUotuvWHvyD7xDI23X1O+kgJ/35W7joQWzKHUqA3VW46rK/VbFD9kT3otybnNGm2
+ Va5A==
+X-Gm-Message-State: AOAM530goklvK60XaeLXX/dQ16XVa1RJgpjatMbbTzzlDOPkjhVh4vxP
+ RJP6qyCtNyZLM/JRXN2aWz4pmQ==
+X-Google-Smtp-Source: ABdhPJwl1OkPaQFtK/WZSUHsFCEBRE54cOCbVfI6PSgVBm6pbwN1/9abp1xLwAgmR8N1gU6NNvofLA==
+X-Received: by 2002:a17:90b:690:: with SMTP id
+ m16mr3071499pjz.74.1611111015332; 
+ Tue, 19 Jan 2021 18:50:15 -0800 (PST)
+Received: from localhost.localdomain (li519-153.members.linode.com.
+ [66.175.222.153])
+ by smtp.gmail.com with ESMTPSA id k25sm420987pfi.10.2021.01.19.18.50.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jan 2021 18:50:14 -0800 (PST)
+From: Jun Nie <jun.nie@linaro.org>
+To: srinivas.kandagatla@linaro.org
+Subject: [PATCH v2] ASoC: qcom: lpass: Fix i2s ctl register bit map
+Date: Wed, 20 Jan 2021 10:49:55 +0800
+Message-Id: <20210120024955.3911891-1-jun.nie@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <435f4228-e323-5caf-9209-1372221e12fb@frantovo.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: livvy@base.nu
+Content-Transfer-Encoding: 8bit
+Cc: Jun Nie <jun.nie@linaro.org>, plai@codeaurora.org, bgoswami@codeaurora.org,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,35 +99,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I discourage doing this in the kernel. If Pioneer did this in their drivers on Windows and macOS, I would recommend doing it in the kernel. But they do not; Rekordbox does it at the application level. Mixxx users are currently unable to use the phono inputs of these devices regardless of OS (see https://mixxx.discourse.group/t/pioneer-djm-250-mk2/17001/29 ). The best way to implement this would be through Mixxx's MIDI controller mapping system so that it works across Linux, Windows, and macOS.
+Fix bitwidth mapping in i2s ctl register per APQ8016 document.
+Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and
+dmactl registers")
 
-I am CCing Olivia Mackintosh because the Pioneer DJM 750 likely uses the same or very similar MIDI signals. They could probably share one MIDI script in Mixxx. The Pioneer DJM 900 NXS2 probably uses the same or very similar signals too.
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+ sound/soc/qcom/lpass-apq8016.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If you're interested in implementing this in Mixxx, let's continue the discussion in Mixxx's Zulip chat: https://mixxx.zulipchat.com/
+diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+index 8507ef8f6679..3efa133d1c64 100644
+--- a/sound/soc/qcom/lpass-apq8016.c
++++ b/sound/soc/qcom/lpass-apq8016.c
+@@ -250,7 +250,7 @@ static struct lpass_variant apq8016_data = {
+ 	.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
+ 	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
+ 	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
+-	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
++	.bitwidth		= REG_FIELD_ID(0x1000, 0, 1, 4, 0x1000),
+ 
+ 	.rdma_dyncclk		= REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
+ 	.rdma_bursten		= REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
+-- 
+2.25.1
 
-> Dne 19. 01. 21 v 9:54 Takashi Iwai napsal(a):
-> >/I haven't looked closely, but if it's about MIDI messaging, it can be /> >/implemented in the kernel, too (only if it fits better than /> >/user-space), yes. If it's over HID, it's a different story, though. />
-> Yes, it is only MIDI. The scenario is:
->
-> 1) send a greeting message to the mixer
->
-> 2) receive a greeting message
->
-> 3) send another constant message
->
-> 4) receive the response
->
-> 5) compute something and send it back
->
-> 6) receive the confirmation message
->
-> 7) start sending a keep-alive message each 200 ms
->
-> Specific received messages might be consumed by kernel (invisible for user-space), but others should flow undisturbed to the user-space. The sent messages should be injected and intermixed with normal messages coming from user-space. The kernel should not claim exclusive access to the MIDI device, because user-space tools might want to use it too.
-> 
-> Is there already anything similar, for inspiration?
->
-> Franta
-
-
-------------------------------------------------------------------------

@@ -2,85 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC862FCC6B
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:12:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EADE2FCC95
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:21:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8F1E17F6;
-	Wed, 20 Jan 2021 09:11:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8F1E17F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAFBD17CD;
+	Wed, 20 Jan 2021 09:20:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAFBD17CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611130365;
-	bh=Df24PrR4ZHSTi17K/cmXn/adg/JFPFc//H80xDdjKaU=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1611130902;
+	bh=QCgZFNwqLRflbEMSj/Z/hoGrQDbFoGH+RfHyTjTi0eE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QZygiaAJTfbTgXpu+xjs7zPguZeK7UYdK0oZ9cu9xIZ1v+8eqEokR+pWTySk4izvf
-	 iUUa7i0pOGUnURKmTIJG4IVBuDrzdp+yrqI+LSuqJ96J6Y9uoKnabGN9vhcp+1mQeh
-	 2i4mI3sjn1fK0GKY3YBma5INpRFmHjtfsvXwm+tI=
+	b=PKE0/adBIc0ay+fL0qMgyE2esYOgrFM5XqG2b8IsVY8hSug5cmGnQK6vs4UisVIX/
+	 GYUKdWfH7WEBs31lfB+AkI30LI1tWmWZNIWahOQw34qTcpmCOm0UGMKdVOAkeIHh9s
+	 +ycUd0x+u2CTAqIb5Pp6k5ugbwids3UE6TLEiVh4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6766F804EC;
-	Wed, 20 Jan 2021 09:09:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31AD3F8019B;
+	Wed, 20 Jan 2021 09:20:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47EFBF804D6; Wed, 20 Jan 2021 09:09:32 +0100 (CET)
+ id 68F18F8016E; Wed, 20 Jan 2021 09:20:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x849.google.com (mail-qt1-x849.google.com
- [IPv6:2607:f8b0:4864:20::849])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_47,PRX_BODY_64,PRX_BODY_65,PRX_BODY_78,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A16CF804D6
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:09:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A16CF804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 822A7F80137
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:20:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 822A7F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="XHin27U/"
-Received: by mail-qt1-x849.google.com with SMTP id 22so20582410qty.14
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:09:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=sQhmAabxwvCN6VVpbop+UBorAEcNt9ytsxAM/0+JvF8=;
- b=XHin27U/N0fQ34PIArxAW2shOw/rjlWwDl3nOAM2NMubmTTzcW1XTDK74gQ1R7RMEn
- 0aa47E5WiPHsN90DZqMoVTSTOV08s7sQ19nN53hYxydGfm6dhzAMlaG3+yIFqub69tcx
- q+DRAUhp8hQ7PFUV1nS+QZT91phyTujh4P56fcQXiwRQRyF3lQIpUjAmcz+oMUK4FnNW
- zQxJ9H5GWUx/uyuccaQsFx1a9wFkGDuklQiNxKQf8cuvSrp8S1Qz1z4iTNme3UdcoiwF
- 4OaMlf0ltrlbVm5XpTIlWa6vO/e0tAmw86z0AmM3QnLQtLHN0hZE28oWI1YOvnOLeorc
- v01w==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="FzfSqq4j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611130800;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=iB9CZ7e+nNRLOdaYJPit2SgCEWU/AVOuwEo9CHK9FyM=;
+ b=FzfSqq4jvph1VDBgdPiyea6kNTsEa6Dr8B6ApwL9+CI2ufm/PF5gfJaYOPAB9p0Tw2nuKI
+ BdiOfnLtr7YlJn4MMKuchTkpqBSfsRYqiKoeyuscwsYlEQTN5oFNaEG8HOfbnxl1sPk+MN
+ Uyz/7/gb5ihFMAMiR0h9HkWVImEuRSo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-459-wBW7ShYlNbakRqNbgmyx5Q-1; Wed, 20 Jan 2021 03:19:56 -0500
+X-MC-Unique: wBW7ShYlNbakRqNbgmyx5Q-1
+Received: by mail-wm1-f70.google.com with SMTP id j133so597132wma.4
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:19:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=sQhmAabxwvCN6VVpbop+UBorAEcNt9ytsxAM/0+JvF8=;
- b=B5VsOo1YYPiqyuc3qws1S7h6WLP32MF2wPVFQylvQpwIm0v71gJW07rzOO7pBvfENe
- WZylrMWgTTiBKYyxSVJg25HfIToc9+UfqwmI+2OgoHLc+CEpZztV3NRpcnmZfx8hP4S3
- 8d/zAJXj44lkbmKsH38TJ8Wobafw+3IW6OGCSn2w3XJzYpYTsx0qnWhYt8zyJO9uImDv
- Jfb8TI5bmuTGu/kTPrsdDlxiArNfgL3PlbFNXe73GLyGMO3MWufrMBzAtf9rz4+a3Kvu
- VXfEJvlDwEAWOXvoxirvoVqUaiZs5atW5XhRa1T47JXNiaKWdNz6Rv6b/EePPA24zXPh
- vGKQ==
-X-Gm-Message-State: AOAM530RQB2bIuqLCbfJlTzMN5O+FQysWPQOLKMrFNt+o4qc1fDo8ztl
- 29iRWRN1AeZbnnDftlZCJ8w5ehmP0u9i
-X-Google-Smtp-Source: ABdhPJxehndhb8u41XwHipFb3V90nONbfNuOZLuAMKwJz+KEqMbLrtwgT3VtjA53R1Q3SW2jghvJY22UV08P
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:1164:8893:969a:b338])
- (user=tzungbi job=sendgmr) by 2002:a05:6214:14ae:: with SMTP id
- bo14mr8437792qvb.16.1611130161829; Wed, 20 Jan 2021 00:09:21 -0800 (PST)
-Date: Wed, 20 Jan 2021 16:08:50 +0800
-In-Reply-To: <20210120080850.699354-1-tzungbi@google.com>
-Message-Id: <20210120080850.699354-6-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20210120080850.699354-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.30.0.284.gd98b1dd5eaa7-goog
-Subject: [PATCH 5/5] ASoC: mediatek: mt8192-mt6359: support audio over DP
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=iB9CZ7e+nNRLOdaYJPit2SgCEWU/AVOuwEo9CHK9FyM=;
+ b=f9ruE7HuM2jqFC7nxYhvZle8rq8i8r2jQRMITfsHvKLQrjJ2bkJxyg3Or/JaxCGOlP
+ 33wCjFWXNb2Ih9K99OvLuoNhI9LvVOMqRgawT2LS9+bbYN1dYTb+791pquAyzzFOzJwI
+ 09ev9nOYpYEEhiIw4ATDq0ijbJfvDU2zAGxwdpJ4cOd+c74EObkkFi+8biO9R57iZdkv
+ 3kpeFUvkxZ+0+xCNRIVWCkKdH20kJa6TwT7CG7QNGeAYyF/GeU8EWDopi+Uu1UKn2VD/
+ 43n1mKaPtsvTf2E2Ve54jx+Ov8RXhMF3iOkhSOCSX7P9RGANIwt2qs6Wkul6leEeYbn/
+ dDyw==
+X-Gm-Message-State: AOAM530asGIBMhrTQ7hZ5u1fSRhWDY7UbYGQsyXWf/bvfgigQR+NV3Pk
+ sjmqSSJCh40in1q/XgcaV83X0sSb9ahiztNZHuhrlyV7skRh1thrCdq72b20Ulmuv47Wfmv6Nr/
+ 9XGcjWFpW+ZIVQScmVuOgFt0=
+X-Received: by 2002:a1c:2155:: with SMTP id h82mr1326561wmh.132.1611130795459; 
+ Wed, 20 Jan 2021 00:19:55 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxw8F1y8tM2i50NZrvxAqb0fmPBioG07/YhVEr0Xuhuk3j2tC/h//XZcSVvqkhFwCTS/qQ+qg==
+X-Received: by 2002:a1c:2155:: with SMTP id h82mr1326543wmh.132.1611130795188; 
+ Wed, 20 Jan 2021 00:19:55 -0800 (PST)
+Received: from redhat.com (bzq-79-177-39-148.red.bezeqint.net. [79.177.39.148])
+ by smtp.gmail.com with ESMTPSA id w1sm2360284wrr.84.2021.01.20.00.19.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Jan 2021 00:19:54 -0800 (PST)
+Date: Wed, 20 Jan 2021 03:19:51 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Subject: Re: [PATCH 2/7] uapi: virtio_snd: add the sound device header file
+Message-ID: <20210120031818-mutt-send-email-mst@kernel.org>
+References: <20210120003638.3339987-1-anton.yakovlev@opensynergy.com>
+ <20210120003638.3339987-3-anton.yakovlev@opensynergy.com>
+MIME-Version: 1.0
+In-Reply-To: <20210120003638.3339987-3-anton.yakovlev@opensynergy.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mst@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
+ Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,127 +112,406 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the DTS property is specified, the DP bridge should populate a
-"hdmi-codec" platform device (sound/soc/codecs/hdmi-codec.c).
+On Wed, Jan 20, 2021 at 01:36:30AM +0100, Anton Yakovlev wrote:
+> The file contains the definitions for the sound device from the OASIS
+> virtio spec.
+> 
+> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> ---
+>  MAINTAINERS                     |   6 +
+>  include/uapi/linux/virtio_snd.h | 361 ++++++++++++++++++++++++++++++++
+>  2 files changed, 367 insertions(+)
+>  create mode 100644 include/uapi/linux/virtio_snd.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 00836f6452f0..6dfd59eafe82 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18936,6 +18936,12 @@ W:	https://virtio-mem.gitlab.io/
+>  F:	drivers/virtio/virtio_mem.c
+>  F:	include/uapi/linux/virtio_mem.h
+>  
+> +VIRTIO SOUND DRIVER
+> +M:	Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> +L:	virtualization@lists.linux-foundation.org
+> +S:	Maintained
+> +F:	include/uapi/linux/virtio_snd.h
+> +
+>  VIRTUAL BOX GUEST DEVICE DRIVER
+>  M:	Hans de Goede <hdegoede@redhat.com>
+>  M:	Arnd Bergmann <arnd@arndb.de>
 
-The "hdmi-codec" device is the communication relayer between the ASoC
-machine driver and the DP bridge.  For example:
-- Notifies DP bridge when setting hw_param.
-- Notifies ASoC when jack detection events.
+You want sound/virtio here too, right?
+I'd just squash this with the next patch in series.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 39 ++++++++++++++++++-
- 1 file changed, 37 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index 8ea24b32a535..cc0fc72305d2 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -33,6 +33,7 @@
- 
- struct mt8192_mt6359_priv {
- 	struct snd_soc_jack headset_jack;
-+	struct snd_soc_jack hdmi_jack;
- };
- 
- static int mt8192_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
-@@ -329,6 +330,23 @@ static int mt8192_rt5682_init(struct snd_soc_pcm_runtime *rtd)
- 	return snd_soc_component_set_jack(cmpnt_codec, jack, NULL);
- };
- 
-+static int mt8192_mt6359_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_component *cmpnt_codec =
-+		asoc_rtd_to_codec(rtd, 0)->component;
-+	struct mt8192_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	int ret;
-+
-+	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &priv->hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return snd_soc_component_set_jack(cmpnt_codec, &priv->hdmi_jack, NULL);
-+}
-+
- static int mt8192_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 				      struct snd_pcm_hw_params *params)
- {
-@@ -600,7 +618,7 @@ SND_SOC_DAILINK_DEFS(pcm2,
- 
- SND_SOC_DAILINK_DEFS(tdm,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("TDM")),
--		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "i2s-hifi")),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
- static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
-@@ -936,8 +954,14 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 	{
- 		.name = "TDM",
- 		.no_pcm = 1,
-+		.dai_fmt = SND_SOC_DAIFMT_DSP_A |
-+			   SND_SOC_DAIFMT_IB_NF |
-+			   SND_SOC_DAIFMT_CBM_CFM,
- 		.dpcm_playback = 1,
- 		.ignore_suspend = 1,
-+		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
-+		.ignore = 1,
-+		.init = mt8192_mt6359_hdmi_init,
- 		SND_SOC_DAILINK_REG(tdm),
- 	},
- };
-@@ -948,6 +972,7 @@ mt8192_mt6359_rt1015_rt5682_widgets[] = {
- 	SND_SOC_DAPM_SPK("Right Spk", NULL),
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_OUTPUT("TDM Out"),
- };
- 
- static const struct snd_soc_dapm_route mt8192_mt6359_rt1015_rt5682_routes[] = {
-@@ -958,6 +983,8 @@ static const struct snd_soc_dapm_route mt8192_mt6359_rt1015_rt5682_routes[] = {
- 	{ "Headphone Jack", NULL, "HPOL" },
- 	{ "Headphone Jack", NULL, "HPOR" },
- 	{ "IN1P", NULL, "Headset Mic" },
-+	/* TDM */
-+	{ "TDM Out", NULL, "TDM" },
- };
- 
- static const struct snd_kcontrol_new mt8192_mt6359_rt1015_rt5682_controls[] = {
-@@ -1031,7 +1058,7 @@ static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682_card = {
- static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card;
--	struct device_node *platform_node;
-+	struct device_node *platform_node, *hdmi_codec;
- 	int ret, i;
- 	struct snd_soc_dai_link *dai_link;
- 	const struct of_device_id *match;
-@@ -1051,6 +1078,9 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 	card = (struct snd_soc_card *)match->data;
- 	card->dev = &pdev->dev;
- 
-+	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
-+				      "mediatek,hdmi-codec", 0);
-+
- 	for_each_card_prelinks(card, i, dai_link) {
- 		if (strcmp(dai_link->name, "I2S3") == 0) {
- 			if (card == &mt8192_mt6359_rt1015_rt5682_card) {
-@@ -1077,6 +1107,11 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 			}
- 		}
- 
-+		if (hdmi_codec && strcmp(dai_link->name, "TDM") == 0) {
-+			dai_link->codecs->of_node = hdmi_codec;
-+			dai_link->ignore = 0;
-+		}
-+
- 		if (!dai_link->platforms->name)
- 			dai_link->platforms->of_node = platform_node;
- 	}
--- 
-2.30.0.284.gd98b1dd5eaa7-goog
+> diff --git a/include/uapi/linux/virtio_snd.h b/include/uapi/linux/virtio_snd.h
+> new file mode 100644
+> index 000000000000..1ff6310e54d6
+> --- /dev/null
+> +++ b/include/uapi/linux/virtio_snd.h
+> @@ -0,0 +1,361 @@
+> +/* SPDX-License-Identifier: BSD-3-Clause */
+> +/*
+> + * Copyright (C) 2020  OpenSynergy GmbH
+> + *
+> + * This header is BSD licensed so anyone can use the definitions to
+> + * implement compatible drivers/servers.
+> + *
+> + * Redistribution and use in source and binary forms, with or without
+> + * modification, are permitted provided that the following conditions
+> + * are met:
+> + * 1. Redistributions of source code must retain the above copyright
+> + *    notice, this list of conditions and the following disclaimer.
+> + * 2. Redistributions in binary form must reproduce the above copyright
+> + *    notice, this list of conditions and the following disclaimer in the
+> + *    documentation and/or other materials provided with the distribution.
+> + * 3. Neither the name of OpenSynergy GmbH nor the names of its contributors
+> + *    may be used to endorse or promote products derived from this software
+> + *    without specific prior written permission.
+> + * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+> + * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+> + * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+> + * FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL IBM OR
+> + * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+> + * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+> + * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+> + * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+> + * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+> + * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+> + * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+> + * SUCH DAMAGE.
+> + */
+> +#ifndef VIRTIO_SND_IF_H
+> +#define VIRTIO_SND_IF_H
+> +
+> +#include <linux/virtio_types.h>
+> +
+> +/*******************************************************************************
+> + * CONFIGURATION SPACE
+> + */
+> +struct virtio_snd_config {
+> +	/* # of available physical jacks */
+> +	__le32 jacks;
+> +	/* # of available PCM streams */
+> +	__le32 streams;
+> +	/* # of available channel maps */
+> +	__le32 chmaps;
+> +};
+> +
+> +enum {
+> +	/* device virtqueue indexes */
+> +	VIRTIO_SND_VQ_CONTROL = 0,
+> +	VIRTIO_SND_VQ_EVENT,
+> +	VIRTIO_SND_VQ_TX,
+> +	VIRTIO_SND_VQ_RX,
+> +	/* # of device virtqueues */
+> +	VIRTIO_SND_VQ_MAX
+> +};
+> +
+> +/*******************************************************************************
+> + * COMMON DEFINITIONS
+> + */
+> +
+> +/* supported dataflow directions */
+> +enum {
+> +	VIRTIO_SND_D_OUTPUT = 0,
+> +	VIRTIO_SND_D_INPUT
+> +};
+> +
+> +enum {
+> +	/* jack control request types */
+> +	VIRTIO_SND_R_JACK_INFO = 1,
+> +	VIRTIO_SND_R_JACK_REMAP,
+> +
+> +	/* PCM control request types */
+> +	VIRTIO_SND_R_PCM_INFO = 0x0100,
+> +	VIRTIO_SND_R_PCM_SET_PARAMS,
+> +	VIRTIO_SND_R_PCM_PREPARE,
+> +	VIRTIO_SND_R_PCM_RELEASE,
+> +	VIRTIO_SND_R_PCM_START,
+> +	VIRTIO_SND_R_PCM_STOP,
+> +
+> +	/* channel map control request types */
+> +	VIRTIO_SND_R_CHMAP_INFO = 0x0200,
+> +
+> +	/* jack event types */
+> +	VIRTIO_SND_EVT_JACK_CONNECTED = 0x1000,
+> +	VIRTIO_SND_EVT_JACK_DISCONNECTED,
+> +
+> +	/* PCM event types */
+> +	VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED = 0x1100,
+> +	VIRTIO_SND_EVT_PCM_XRUN,
+> +
+> +	/* common status codes */
+> +	VIRTIO_SND_S_OK = 0x8000,
+> +	VIRTIO_SND_S_BAD_MSG,
+> +	VIRTIO_SND_S_NOT_SUPP,
+> +	VIRTIO_SND_S_IO_ERR
+> +};
+> +
+> +/* common header */
+> +struct virtio_snd_hdr {
+> +	__le32 code;
+> +};
+> +
+> +/* event notification */
+> +struct virtio_snd_event {
+> +	/* VIRTIO_SND_EVT_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* optional event data */
+> +	__le32 data;
+> +};
+> +
+> +/* common control request to query an item information */
+> +struct virtio_snd_query_info {
+> +	/* VIRTIO_SND_R_XXX_INFO */
+> +	struct virtio_snd_hdr hdr;
+> +	/* item start identifier */
+> +	__le32 start_id;
+> +	/* item count to query */
+> +	__le32 count;
+> +	/* item information size in bytes */
+> +	__le32 size;
+> +};
+> +
+> +/* common item information header */
+> +struct virtio_snd_info {
+> +	/* function group node id (High Definition Audio Specification 7.1.2) */
+> +	__le32 hda_fn_nid;
+> +};
+> +
+> +/*******************************************************************************
+> + * JACK CONTROL MESSAGES
+> + */
+> +struct virtio_snd_jack_hdr {
+> +	/* VIRTIO_SND_R_JACK_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::jacks - 1 */
+> +	__le32 jack_id;
+> +};
+> +
+> +/* supported jack features */
+> +enum {
+> +	VIRTIO_SND_JACK_F_REMAP = 0
+> +};
+> +
+> +struct virtio_snd_jack_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* supported feature bit map (1 << VIRTIO_SND_JACK_F_XXX) */
+> +	__le32 features;
+> +	/* pin configuration (High Definition Audio Specification 7.3.3.31) */
+> +	__le32 hda_reg_defconf;
+> +	/* pin capabilities (High Definition Audio Specification 7.3.4.9) */
+> +	__le32 hda_reg_caps;
+> +	/* current jack connection status (0: disconnected, 1: connected) */
+> +	__u8 connected;
+> +
+> +	__u8 padding[7];
+> +};
+> +
+> +/* jack remapping control request */
+> +struct virtio_snd_jack_remap {
+> +	/* .code = VIRTIO_SND_R_JACK_REMAP */
+> +	struct virtio_snd_jack_hdr hdr;
+> +	/* selected association number */
+> +	__le32 association;
+> +	/* selected sequence number */
+> +	__le32 sequence;
+> +};
+> +
+> +/*******************************************************************************
+> + * PCM CONTROL MESSAGES
+> + */
+> +struct virtio_snd_pcm_hdr {
+> +	/* VIRTIO_SND_R_PCM_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::streams - 1 */
+> +	__le32 stream_id;
+> +};
+> +
+> +/* supported PCM stream features */
+> +enum {
+> +	VIRTIO_SND_PCM_F_SHMEM_HOST = 0,
+> +	VIRTIO_SND_PCM_F_SHMEM_GUEST,
+> +	VIRTIO_SND_PCM_F_MSG_POLLING,
+> +	VIRTIO_SND_PCM_F_EVT_SHMEM_PERIODS,
+> +	VIRTIO_SND_PCM_F_EVT_XRUNS
+> +};
+> +
+> +/* supported PCM sample formats */
+> +enum {
+> +	/* analog formats (width / physical width) */
+> +	VIRTIO_SND_PCM_FMT_IMA_ADPCM = 0,	/*  4 /  4 bits */
+> +	VIRTIO_SND_PCM_FMT_MU_LAW,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_A_LAW,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_S8,			/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_U8,			/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_S16,			/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_U16,			/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_S18_3,		/* 18 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U18_3,		/* 18 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S20_3,		/* 20 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U20_3,		/* 20 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S24_3,		/* 24 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U24_3,		/* 24 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S20,			/* 20 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U20,			/* 20 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_S24,			/* 24 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U24,			/* 24 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_S32,			/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U32,			/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_FLOAT,		/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_FLOAT64,		/* 64 / 64 bits */
+> +	/* digital formats (width / physical width) */
+> +	VIRTIO_SND_PCM_FMT_DSD_U8,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_DSD_U16,		/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_DSD_U32,		/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_IEC958_SUBFRAME	/* 32 / 32 bits */
+> +};
+> +
+> +/* supported PCM frame rates */
+> +enum {
+> +	VIRTIO_SND_PCM_RATE_5512 = 0,
+> +	VIRTIO_SND_PCM_RATE_8000,
+> +	VIRTIO_SND_PCM_RATE_11025,
+> +	VIRTIO_SND_PCM_RATE_16000,
+> +	VIRTIO_SND_PCM_RATE_22050,
+> +	VIRTIO_SND_PCM_RATE_32000,
+> +	VIRTIO_SND_PCM_RATE_44100,
+> +	VIRTIO_SND_PCM_RATE_48000,
+> +	VIRTIO_SND_PCM_RATE_64000,
+> +	VIRTIO_SND_PCM_RATE_88200,
+> +	VIRTIO_SND_PCM_RATE_96000,
+> +	VIRTIO_SND_PCM_RATE_176400,
+> +	VIRTIO_SND_PCM_RATE_192000,
+> +	VIRTIO_SND_PCM_RATE_384000
+> +};
+> +
+> +struct virtio_snd_pcm_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* supported feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
+> +	__le32 features;
+> +	/* supported sample format bit map (1 << VIRTIO_SND_PCM_FMT_XXX) */
+> +	__le64 formats;
+> +	/* supported frame rate bit map (1 << VIRTIO_SND_PCM_RATE_XXX) */
+> +	__le64 rates;
+> +	/* dataflow direction (VIRTIO_SND_D_XXX) */
+> +	__u8 direction;
+> +	/* minimum # of supported channels */
+> +	__u8 channels_min;
+> +	/* maximum # of supported channels */
+> +	__u8 channels_max;
+> +
+> +	__u8 padding[5];
+> +};
+> +
+> +/* set PCM stream format */
+> +struct virtio_snd_pcm_set_params {
+> +	/* .code = VIRTIO_SND_R_PCM_SET_PARAMS */
+> +	struct virtio_snd_pcm_hdr hdr;
+> +	/* size of the hardware buffer */
+> +	__le32 buffer_bytes;
+> +	/* size of the hardware period */
+> +	__le32 period_bytes;
+> +	/* selected feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
+> +	__le32 features;
+> +	/* selected # of channels */
+> +	__u8 channels;
+> +	/* selected sample format (VIRTIO_SND_PCM_FMT_XXX) */
+> +	__u8 format;
+> +	/* selected frame rate (VIRTIO_SND_PCM_RATE_XXX) */
+> +	__u8 rate;
+> +
+> +	__u8 padding;
+> +};
+> +
+> +/*******************************************************************************
+> + * PCM I/O MESSAGES
+> + */
+> +
+> +/* I/O request header */
+> +struct virtio_snd_pcm_xfer {
+> +	/* 0 ... virtio_snd_config::streams - 1 */
+> +	__le32 stream_id;
+> +};
+> +
+> +/* I/O request status */
+> +struct virtio_snd_pcm_status {
+> +	/* VIRTIO_SND_S_XXX */
+> +	__le32 status;
+> +	/* current device latency */
+> +	__le32 latency_bytes;
+> +};
+> +
+> +/*******************************************************************************
+> + * CHANNEL MAP CONTROL MESSAGES
+> + */
+> +struct virtio_snd_chmap_hdr {
+> +	/* VIRTIO_SND_R_CHMAP_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::chmaps - 1 */
+> +	__le32 chmap_id;
+> +};
+> +
+> +/* standard channel position definition */
+> +enum {
+> +	VIRTIO_SND_CHMAP_NONE = 0,	/* undefined */
+> +	VIRTIO_SND_CHMAP_NA,		/* silent */
+> +	VIRTIO_SND_CHMAP_MONO,		/* mono stream */
+> +	VIRTIO_SND_CHMAP_FL,		/* front left */
+> +	VIRTIO_SND_CHMAP_FR,		/* front right */
+> +	VIRTIO_SND_CHMAP_RL,		/* rear left */
+> +	VIRTIO_SND_CHMAP_RR,		/* rear right */
+> +	VIRTIO_SND_CHMAP_FC,		/* front center */
+> +	VIRTIO_SND_CHMAP_LFE,		/* low frequency (LFE) */
+> +	VIRTIO_SND_CHMAP_SL,		/* side left */
+> +	VIRTIO_SND_CHMAP_SR,		/* side right */
+> +	VIRTIO_SND_CHMAP_RC,		/* rear center */
+> +	VIRTIO_SND_CHMAP_FLC,		/* front left center */
+> +	VIRTIO_SND_CHMAP_FRC,		/* front right center */
+> +	VIRTIO_SND_CHMAP_RLC,		/* rear left center */
+> +	VIRTIO_SND_CHMAP_RRC,		/* rear right center */
+> +	VIRTIO_SND_CHMAP_FLW,		/* front left wide */
+> +	VIRTIO_SND_CHMAP_FRW,		/* front right wide */
+> +	VIRTIO_SND_CHMAP_FLH,		/* front left high */
+> +	VIRTIO_SND_CHMAP_FCH,		/* front center high */
+> +	VIRTIO_SND_CHMAP_FRH,		/* front right high */
+> +	VIRTIO_SND_CHMAP_TC,		/* top center */
+> +	VIRTIO_SND_CHMAP_TFL,		/* top front left */
+> +	VIRTIO_SND_CHMAP_TFR,		/* top front right */
+> +	VIRTIO_SND_CHMAP_TFC,		/* top front center */
+> +	VIRTIO_SND_CHMAP_TRL,		/* top rear left */
+> +	VIRTIO_SND_CHMAP_TRR,		/* top rear right */
+> +	VIRTIO_SND_CHMAP_TRC,		/* top rear center */
+> +	VIRTIO_SND_CHMAP_TFLC,		/* top front left center */
+> +	VIRTIO_SND_CHMAP_TFRC,		/* top front right center */
+> +	VIRTIO_SND_CHMAP_TSL,		/* top side left */
+> +	VIRTIO_SND_CHMAP_TSR,		/* top side right */
+> +	VIRTIO_SND_CHMAP_LLFE,		/* left LFE */
+> +	VIRTIO_SND_CHMAP_RLFE,		/* right LFE */
+> +	VIRTIO_SND_CHMAP_BC,		/* bottom center */
+> +	VIRTIO_SND_CHMAP_BLC,		/* bottom left center */
+> +	VIRTIO_SND_CHMAP_BRC		/* bottom right center */
+> +};
+> +
+> +/* maximum possible number of channels */
+> +#define VIRTIO_SND_CHMAP_MAX_SIZE	18
+> +
+> +struct virtio_snd_chmap_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* dataflow direction (VIRTIO_SND_D_XXX) */
+> +	__u8 direction;
+> +	/* # of valid channel position values */
+> +	__u8 channels;
+> +	/* channel position values (VIRTIO_SND_CHMAP_XXX) */
+> +	__u8 positions[VIRTIO_SND_CHMAP_MAX_SIZE];
+> +};
+> +
+> +#endif /* VIRTIO_SND_IF_H */
+> -- 
+> 2.30.0
+> 
 

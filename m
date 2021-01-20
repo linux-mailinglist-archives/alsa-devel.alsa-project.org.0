@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C8312FCCC9
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:37:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51D92FCCCA
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:37:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CE4017DA;
-	Wed, 20 Jan 2021 09:36:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CE4017DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB90D1813;
+	Wed, 20 Jan 2021 09:37:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB90D1813
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611131845;
-	bh=XqaFR2f/f/NM7KcH6DiDeRrbopYSsy+iAa/dWbGt6qI=;
+	s=default; t=1611131875;
+	bh=GFBH5Kzp2/Axln5qC/ho4gBF9V1+zq2CnLOamrLfOyc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gR7vYfJTI4poOIZzIAGZ7Ryvqh3t9MoTyaFWwtTXUOTAKeWItiJ3IrENxP/BWS8H9
-	 c6owhOuZk443nw4EOaqBd1lfNkvrYBTFjwGZ4c8EVFhZC0KUkydTgCsHpqfeyL/Ggo
-	 H3NJEkAZQVCt7vgdBo+AF4SS91/ZFuHiO2Xr4kNI=
+	b=TAMn7Uq14VPP55rR/cuw6lA7xBy//IirpItWINois66lbklSA4yzzQLrfK2ez7QoE
+	 4IH10/DNzs3+UUlJyxdAJAAQqQEMV1ozjVgc+BB/noglwvacJ4rD5ryK4TTeM11AsQ
+	 X8xzoLDpf2zpn57kzYuy+Cf4jjQH0vdXi8ruVnpg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A917CF80137;
-	Wed, 20 Jan 2021 09:35:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F833F8012C;
+	Wed, 20 Jan 2021 09:37:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86995F8016E; Wed, 20 Jan 2021 09:35:50 +0100 (CET)
+ id B0EA4F8012C; Wed, 20 Jan 2021 09:37:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_47,PRX_BODY_64,PRX_BODY_65,PRX_BODY_78,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD216F80137
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:35:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD216F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F721F8012C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:36:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F721F8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="e8Y3wPbP"
+ header.b="GHiLYya6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611131743;
+ s=mimecast20190719; t=1611131809;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fDiu0LYzqjBA0XyCZdBrNYHq9lRQCvVQU+8ElFKfNrc=;
- b=e8Y3wPbP+BXVzpY2LWH+saR3SSOJTDTiTZSCeEv2LYAWmnUp6aP6DmXMI5Gjx2BmXSxLsd
- tvWsIut5O4/3eco5MgObuDjDBOvUQB9JDRQUqT5eRZ5pSs76bNoAkEcE0z3ny/bZtezmH1
- 62/1521SBKd6oeQ1l47tXs1C5sIjWOY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-117-PY5ukyMUOnOvY4zUUTicTA-1; Wed, 20 Jan 2021 03:35:41 -0500
-X-MC-Unique: PY5ukyMUOnOvY4zUUTicTA-1
-Received: by mail-wr1-f70.google.com with SMTP id q2so11102918wrp.4
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:35:41 -0800 (PST)
+ bh=zwS404B1Dcmsx4Tsw8dtJy/TCAa1KdbUtsl+N+yEyqE=;
+ b=GHiLYya6yAiS8db0K8D0SVQ7SWEEgJLM6KiH8iku4A5jwXXhSWp/C+Z2bVVAyj9dvH+ts/
+ oyuk5PnzLSOZbEkO79/JHX/JJODdknlxGykQyNokYO4+sDLM9XZ7YIkh/511GG1uLkGD0b
+ Vn1K/4f82la4V/kCXbj9qoEuSEYeUYI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-424-S62qeOrBOayQR7Z5Wekzxg-1; Wed, 20 Jan 2021 03:36:47 -0500
+X-MC-Unique: S62qeOrBOayQR7Z5Wekzxg-1
+Received: by mail-wr1-f69.google.com with SMTP id q18so11103845wrc.20
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:36:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=fDiu0LYzqjBA0XyCZdBrNYHq9lRQCvVQU+8ElFKfNrc=;
- b=bDqOe+NOQHN3h01JdVBvykucGwI19if6v6Q+Jh9soRbH1mLnEGH34PBTamLYltb3tV
- W5yhCftkppOL2S9fBEN9Hcte/atBOhOXqN9th8e1K8rtUijejaPJdo1kGREvYYL20vhM
- VISuK35Yh9pWbmj71tmSpFeRotqLTHevXqN5qOZOZylZEG9jUEmofUwjBeO04L1zYUMD
- FUKV0zA9xk4/d9vFFlbkFv2rW5F4tNveQuSFkxiNGoQAKUWyrav9ZJtjEvMeJTGZVWTn
- QVVOvLraPxask9fUtUzyZIt95/4l+nCrJxF+ePsID0SLfjh/JI7bL3SKLfF9lQOamYkO
- u2TQ==
-X-Gm-Message-State: AOAM533lrArOSKsxloAIQnXHn4JYaxjdIUDHmMz6A/ZMRAPb5DSAkEB+
- XpYdmtfHi3QgzU0Sr4t5H1kpDToVdJ41uneUbD3Y5csdSDEdoHmVmiX/cqhx7baQ8Ja++36ALrm
- 9BcenKFa2d4DBLS2EPiuwgbI=
-X-Received: by 2002:a5d:6944:: with SMTP id r4mr7963532wrw.134.1611131740151; 
- Wed, 20 Jan 2021 00:35:40 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJySj56mdGMvqfZNC3pySTyrl/8DBKvBrBsdX32GU6UVasWOFSgzCZH1KboxkGp7xBEXVawSRQ==
-X-Received: by 2002:a5d:6944:: with SMTP id r4mr7963513wrw.134.1611131739947; 
- Wed, 20 Jan 2021 00:35:39 -0800 (PST)
+ bh=zwS404B1Dcmsx4Tsw8dtJy/TCAa1KdbUtsl+N+yEyqE=;
+ b=G+QZEryqBuyeq27UFQ2WX1pTUmSV1N1sTOVR4M/I07DdiSQoM8aAQQCFO7vLGSOtc9
+ 77bvCNE75FHAZPdvisyGCKPOAENhKDjA6a4FnBxm/GdlNB3Z82YQcX7WsYbi8kx5KF8h
+ VPXd61b/H+Byf1eAylAqssnCK7YenKKTotg2N6LT5G9WLlbh/q8P2eYT5dZ/xr6ur+bg
+ gHnnTdBJtbdvri+yDSF0lQtrjTlfclh+gLkeZzfq5dCVtI52OXV92wF/G8cS0hnRm5Om
+ A6jeWWsob8bLddeeoYDZZVh55dss/4o7yUkEXM8UpemQApozj+jKoyTILb/IqH12FwaW
+ p9Lw==
+X-Gm-Message-State: AOAM533eqCR/K+aqbW1uJrXpXTTgPTygqLCr/rT+IwaAixklmK2KqETn
+ ZY1Isi2DMezThGJfPEWih8tSQZPR3e1USrakx6b35wkzu+CclxnLBEWUysaA4dNZtUjpf3uZyUG
+ 0vROsx8buqpjptLamuzHJ8gk=
+X-Received: by 2002:a7b:c188:: with SMTP id y8mr3044848wmi.173.1611131805453; 
+ Wed, 20 Jan 2021 00:36:45 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxgS9tc/3Xpal7nfL8cFydPCCTxJcrfIF0ATbB4E4i1/qKDYzUvPJd43uFwbYr4k7Y4maLMwQ==
+X-Received: by 2002:a7b:c188:: with SMTP id y8mr3044826wmi.173.1611131805086; 
+ Wed, 20 Jan 2021 00:36:45 -0800 (PST)
 Received: from redhat.com (bzq-79-177-39-148.red.bezeqint.net. [79.177.39.148])
- by smtp.gmail.com with ESMTPSA id n16sm2470113wmi.5.2021.01.20.00.35.38
+ by smtp.gmail.com with ESMTPSA id z6sm2494010wrw.58.2021.01.20.00.36.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jan 2021 00:35:39 -0800 (PST)
-Date: Wed, 20 Jan 2021 03:35:36 -0500
+ Wed, 20 Jan 2021 00:36:44 -0800 (PST)
+Date: Wed, 20 Jan 2021 03:36:42 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH 2/7] uapi: virtio_snd: add the sound device header file
-Message-ID: <20210120033452-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH 5/7] ALSA: virtio: PCM substream operators
+Message-ID: <20210120033334-mutt-send-email-mst@kernel.org>
 References: <20210120003638.3339987-1-anton.yakovlev@opensynergy.com>
- <20210120003638.3339987-3-anton.yakovlev@opensynergy.com>
- <20210120031818-mutt-send-email-mst@kernel.org>
+ <20210120003638.3339987-6-anton.yakovlev@opensynergy.com>
 MIME-Version: 1.0
-In-Reply-To: <20210120031818-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20210120003638.3339987-6-anton.yakovlev@opensynergy.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mst@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,7 +95,7 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
- Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
  virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -113,411 +112,587 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 20, 2021 at 03:19:55AM -0500, Michael S. Tsirkin wrote:
-> On Wed, Jan 20, 2021 at 01:36:30AM +0100, Anton Yakovlev wrote:
-> > The file contains the definitions for the sound device from the OASIS
-> > virtio spec.
-> > 
-> > Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> > ---
-> >  MAINTAINERS                     |   6 +
-> >  include/uapi/linux/virtio_snd.h | 361 ++++++++++++++++++++++++++++++++
-> >  2 files changed, 367 insertions(+)
-> >  create mode 100644 include/uapi/linux/virtio_snd.h
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 00836f6452f0..6dfd59eafe82 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -18936,6 +18936,12 @@ W:	https://virtio-mem.gitlab.io/
-> >  F:	drivers/virtio/virtio_mem.c
-> >  F:	include/uapi/linux/virtio_mem.h
-> >  
-> > +VIRTIO SOUND DRIVER
-> > +M:	Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> > +L:	virtualization@lists.linux-foundation.org
-> > +S:	Maintained
-> > +F:	include/uapi/linux/virtio_snd.h
-> > +
-> >  VIRTUAL BOX GUEST DEVICE DRIVER
-> >  M:	Hans de Goede <hdegoede@redhat.com>
-> >  M:	Arnd Bergmann <arnd@arndb.de>
+On Wed, Jan 20, 2021 at 01:36:33AM +0100, Anton Yakovlev wrote:
+> Introduce the operators required for the operation of substreams.
 > 
-> You want sound/virtio here too, right?
-> I'd just squash this with the next patch in series.
-
-
-I meant just the MAINTAINERS part. Not a big deal, admittedly ...
-
+> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> ---
+>  sound/virtio/Makefile         |   3 +-
+>  sound/virtio/virtio_pcm.c     |   5 +-
+>  sound/virtio/virtio_pcm.h     |   2 +
+>  sound/virtio/virtio_pcm_ops.c | 509 ++++++++++++++++++++++++++++++++++
+>  4 files changed, 517 insertions(+), 2 deletions(-)
+>  create mode 100644 sound/virtio/virtio_pcm_ops.c
 > 
-> > diff --git a/include/uapi/linux/virtio_snd.h b/include/uapi/linux/virtio_snd.h
-> > new file mode 100644
-> > index 000000000000..1ff6310e54d6
-> > --- /dev/null
-> > +++ b/include/uapi/linux/virtio_snd.h
-> > @@ -0,0 +1,361 @@
-> > +/* SPDX-License-Identifier: BSD-3-Clause */
-> > +/*
-> > + * Copyright (C) 2020  OpenSynergy GmbH
-> > + *
-> > + * This header is BSD licensed so anyone can use the definitions to
-> > + * implement compatible drivers/servers.
-> > + *
-> > + * Redistribution and use in source and binary forms, with or without
-> > + * modification, are permitted provided that the following conditions
-> > + * are met:
-> > + * 1. Redistributions of source code must retain the above copyright
-> > + *    notice, this list of conditions and the following disclaimer.
-> > + * 2. Redistributions in binary form must reproduce the above copyright
-> > + *    notice, this list of conditions and the following disclaimer in the
-> > + *    documentation and/or other materials provided with the distribution.
-> > + * 3. Neither the name of OpenSynergy GmbH nor the names of its contributors
-> > + *    may be used to endorse or promote products derived from this software
-> > + *    without specific prior written permission.
-> > + * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-> > + * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-> > + * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-> > + * FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL IBM OR
-> > + * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-> > + * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-> > + * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
-> > + * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-> > + * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-> > + * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-> > + * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-> > + * SUCH DAMAGE.
-> > + */
-> > +#ifndef VIRTIO_SND_IF_H
-> > +#define VIRTIO_SND_IF_H
-> > +
-> > +#include <linux/virtio_types.h>
-> > +
-> > +/*******************************************************************************
-> > + * CONFIGURATION SPACE
-> > + */
-> > +struct virtio_snd_config {
-> > +	/* # of available physical jacks */
-> > +	__le32 jacks;
-> > +	/* # of available PCM streams */
-> > +	__le32 streams;
-> > +	/* # of available channel maps */
-> > +	__le32 chmaps;
-> > +};
-> > +
-> > +enum {
-> > +	/* device virtqueue indexes */
-> > +	VIRTIO_SND_VQ_CONTROL = 0,
-> > +	VIRTIO_SND_VQ_EVENT,
-> > +	VIRTIO_SND_VQ_TX,
-> > +	VIRTIO_SND_VQ_RX,
-> > +	/* # of device virtqueues */
-> > +	VIRTIO_SND_VQ_MAX
-> > +};
-> > +
-> > +/*******************************************************************************
-> > + * COMMON DEFINITIONS
-> > + */
-> > +
-> > +/* supported dataflow directions */
-> > +enum {
-> > +	VIRTIO_SND_D_OUTPUT = 0,
-> > +	VIRTIO_SND_D_INPUT
-> > +};
-> > +
-> > +enum {
-> > +	/* jack control request types */
-> > +	VIRTIO_SND_R_JACK_INFO = 1,
-> > +	VIRTIO_SND_R_JACK_REMAP,
-> > +
-> > +	/* PCM control request types */
-> > +	VIRTIO_SND_R_PCM_INFO = 0x0100,
-> > +	VIRTIO_SND_R_PCM_SET_PARAMS,
-> > +	VIRTIO_SND_R_PCM_PREPARE,
-> > +	VIRTIO_SND_R_PCM_RELEASE,
-> > +	VIRTIO_SND_R_PCM_START,
-> > +	VIRTIO_SND_R_PCM_STOP,
-> > +
-> > +	/* channel map control request types */
-> > +	VIRTIO_SND_R_CHMAP_INFO = 0x0200,
-> > +
-> > +	/* jack event types */
-> > +	VIRTIO_SND_EVT_JACK_CONNECTED = 0x1000,
-> > +	VIRTIO_SND_EVT_JACK_DISCONNECTED,
-> > +
-> > +	/* PCM event types */
-> > +	VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED = 0x1100,
-> > +	VIRTIO_SND_EVT_PCM_XRUN,
-> > +
-> > +	/* common status codes */
-> > +	VIRTIO_SND_S_OK = 0x8000,
-> > +	VIRTIO_SND_S_BAD_MSG,
-> > +	VIRTIO_SND_S_NOT_SUPP,
-> > +	VIRTIO_SND_S_IO_ERR
-> > +};
-> > +
-> > +/* common header */
-> > +struct virtio_snd_hdr {
-> > +	__le32 code;
-> > +};
-> > +
-> > +/* event notification */
-> > +struct virtio_snd_event {
-> > +	/* VIRTIO_SND_EVT_XXX */
-> > +	struct virtio_snd_hdr hdr;
-> > +	/* optional event data */
-> > +	__le32 data;
-> > +};
-> > +
-> > +/* common control request to query an item information */
-> > +struct virtio_snd_query_info {
-> > +	/* VIRTIO_SND_R_XXX_INFO */
-> > +	struct virtio_snd_hdr hdr;
-> > +	/* item start identifier */
-> > +	__le32 start_id;
-> > +	/* item count to query */
-> > +	__le32 count;
-> > +	/* item information size in bytes */
-> > +	__le32 size;
-> > +};
-> > +
-> > +/* common item information header */
-> > +struct virtio_snd_info {
-> > +	/* function group node id (High Definition Audio Specification 7.1.2) */
-> > +	__le32 hda_fn_nid;
-> > +};
-> > +
-> > +/*******************************************************************************
-> > + * JACK CONTROL MESSAGES
-> > + */
-> > +struct virtio_snd_jack_hdr {
-> > +	/* VIRTIO_SND_R_JACK_XXX */
-> > +	struct virtio_snd_hdr hdr;
-> > +	/* 0 ... virtio_snd_config::jacks - 1 */
-> > +	__le32 jack_id;
-> > +};
-> > +
-> > +/* supported jack features */
-> > +enum {
-> > +	VIRTIO_SND_JACK_F_REMAP = 0
-> > +};
-> > +
-> > +struct virtio_snd_jack_info {
-> > +	/* common header */
-> > +	struct virtio_snd_info hdr;
-> > +	/* supported feature bit map (1 << VIRTIO_SND_JACK_F_XXX) */
-> > +	__le32 features;
-> > +	/* pin configuration (High Definition Audio Specification 7.3.3.31) */
-> > +	__le32 hda_reg_defconf;
-> > +	/* pin capabilities (High Definition Audio Specification 7.3.4.9) */
-> > +	__le32 hda_reg_caps;
-> > +	/* current jack connection status (0: disconnected, 1: connected) */
-> > +	__u8 connected;
-> > +
-> > +	__u8 padding[7];
-> > +};
-> > +
-> > +/* jack remapping control request */
-> > +struct virtio_snd_jack_remap {
-> > +	/* .code = VIRTIO_SND_R_JACK_REMAP */
-> > +	struct virtio_snd_jack_hdr hdr;
-> > +	/* selected association number */
-> > +	__le32 association;
-> > +	/* selected sequence number */
-> > +	__le32 sequence;
-> > +};
-> > +
-> > +/*******************************************************************************
-> > + * PCM CONTROL MESSAGES
-> > + */
-> > +struct virtio_snd_pcm_hdr {
-> > +	/* VIRTIO_SND_R_PCM_XXX */
-> > +	struct virtio_snd_hdr hdr;
-> > +	/* 0 ... virtio_snd_config::streams - 1 */
-> > +	__le32 stream_id;
-> > +};
-> > +
-> > +/* supported PCM stream features */
-> > +enum {
-> > +	VIRTIO_SND_PCM_F_SHMEM_HOST = 0,
-> > +	VIRTIO_SND_PCM_F_SHMEM_GUEST,
-> > +	VIRTIO_SND_PCM_F_MSG_POLLING,
-> > +	VIRTIO_SND_PCM_F_EVT_SHMEM_PERIODS,
-> > +	VIRTIO_SND_PCM_F_EVT_XRUNS
-> > +};
-> > +
-> > +/* supported PCM sample formats */
-> > +enum {
-> > +	/* analog formats (width / physical width) */
-> > +	VIRTIO_SND_PCM_FMT_IMA_ADPCM = 0,	/*  4 /  4 bits */
-> > +	VIRTIO_SND_PCM_FMT_MU_LAW,		/*  8 /  8 bits */
-> > +	VIRTIO_SND_PCM_FMT_A_LAW,		/*  8 /  8 bits */
-> > +	VIRTIO_SND_PCM_FMT_S8,			/*  8 /  8 bits */
-> > +	VIRTIO_SND_PCM_FMT_U8,			/*  8 /  8 bits */
-> > +	VIRTIO_SND_PCM_FMT_S16,			/* 16 / 16 bits */
-> > +	VIRTIO_SND_PCM_FMT_U16,			/* 16 / 16 bits */
-> > +	VIRTIO_SND_PCM_FMT_S18_3,		/* 18 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_U18_3,		/* 18 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_S20_3,		/* 20 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_U20_3,		/* 20 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_S24_3,		/* 24 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_U24_3,		/* 24 / 24 bits */
-> > +	VIRTIO_SND_PCM_FMT_S20,			/* 20 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_U20,			/* 20 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_S24,			/* 24 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_U24,			/* 24 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_S32,			/* 32 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_U32,			/* 32 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_FLOAT,		/* 32 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_FLOAT64,		/* 64 / 64 bits */
-> > +	/* digital formats (width / physical width) */
-> > +	VIRTIO_SND_PCM_FMT_DSD_U8,		/*  8 /  8 bits */
-> > +	VIRTIO_SND_PCM_FMT_DSD_U16,		/* 16 / 16 bits */
-> > +	VIRTIO_SND_PCM_FMT_DSD_U32,		/* 32 / 32 bits */
-> > +	VIRTIO_SND_PCM_FMT_IEC958_SUBFRAME	/* 32 / 32 bits */
-> > +};
-> > +
-> > +/* supported PCM frame rates */
-> > +enum {
-> > +	VIRTIO_SND_PCM_RATE_5512 = 0,
-> > +	VIRTIO_SND_PCM_RATE_8000,
-> > +	VIRTIO_SND_PCM_RATE_11025,
-> > +	VIRTIO_SND_PCM_RATE_16000,
-> > +	VIRTIO_SND_PCM_RATE_22050,
-> > +	VIRTIO_SND_PCM_RATE_32000,
-> > +	VIRTIO_SND_PCM_RATE_44100,
-> > +	VIRTIO_SND_PCM_RATE_48000,
-> > +	VIRTIO_SND_PCM_RATE_64000,
-> > +	VIRTIO_SND_PCM_RATE_88200,
-> > +	VIRTIO_SND_PCM_RATE_96000,
-> > +	VIRTIO_SND_PCM_RATE_176400,
-> > +	VIRTIO_SND_PCM_RATE_192000,
-> > +	VIRTIO_SND_PCM_RATE_384000
-> > +};
-> > +
-> > +struct virtio_snd_pcm_info {
-> > +	/* common header */
-> > +	struct virtio_snd_info hdr;
-> > +	/* supported feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
-> > +	__le32 features;
-> > +	/* supported sample format bit map (1 << VIRTIO_SND_PCM_FMT_XXX) */
-> > +	__le64 formats;
-> > +	/* supported frame rate bit map (1 << VIRTIO_SND_PCM_RATE_XXX) */
-> > +	__le64 rates;
-> > +	/* dataflow direction (VIRTIO_SND_D_XXX) */
-> > +	__u8 direction;
-> > +	/* minimum # of supported channels */
-> > +	__u8 channels_min;
-> > +	/* maximum # of supported channels */
-> > +	__u8 channels_max;
-> > +
-> > +	__u8 padding[5];
-> > +};
-> > +
-> > +/* set PCM stream format */
-> > +struct virtio_snd_pcm_set_params {
-> > +	/* .code = VIRTIO_SND_R_PCM_SET_PARAMS */
-> > +	struct virtio_snd_pcm_hdr hdr;
-> > +	/* size of the hardware buffer */
-> > +	__le32 buffer_bytes;
-> > +	/* size of the hardware period */
-> > +	__le32 period_bytes;
-> > +	/* selected feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
-> > +	__le32 features;
-> > +	/* selected # of channels */
-> > +	__u8 channels;
-> > +	/* selected sample format (VIRTIO_SND_PCM_FMT_XXX) */
-> > +	__u8 format;
-> > +	/* selected frame rate (VIRTIO_SND_PCM_RATE_XXX) */
-> > +	__u8 rate;
-> > +
-> > +	__u8 padding;
-> > +};
-> > +
-> > +/*******************************************************************************
-> > + * PCM I/O MESSAGES
-> > + */
-> > +
-> > +/* I/O request header */
-> > +struct virtio_snd_pcm_xfer {
-> > +	/* 0 ... virtio_snd_config::streams - 1 */
-> > +	__le32 stream_id;
-> > +};
-> > +
-> > +/* I/O request status */
-> > +struct virtio_snd_pcm_status {
-> > +	/* VIRTIO_SND_S_XXX */
-> > +	__le32 status;
-> > +	/* current device latency */
-> > +	__le32 latency_bytes;
-> > +};
-> > +
-> > +/*******************************************************************************
-> > + * CHANNEL MAP CONTROL MESSAGES
-> > + */
-> > +struct virtio_snd_chmap_hdr {
-> > +	/* VIRTIO_SND_R_CHMAP_XXX */
-> > +	struct virtio_snd_hdr hdr;
-> > +	/* 0 ... virtio_snd_config::chmaps - 1 */
-> > +	__le32 chmap_id;
-> > +};
-> > +
-> > +/* standard channel position definition */
-> > +enum {
-> > +	VIRTIO_SND_CHMAP_NONE = 0,	/* undefined */
-> > +	VIRTIO_SND_CHMAP_NA,		/* silent */
-> > +	VIRTIO_SND_CHMAP_MONO,		/* mono stream */
-> > +	VIRTIO_SND_CHMAP_FL,		/* front left */
-> > +	VIRTIO_SND_CHMAP_FR,		/* front right */
-> > +	VIRTIO_SND_CHMAP_RL,		/* rear left */
-> > +	VIRTIO_SND_CHMAP_RR,		/* rear right */
-> > +	VIRTIO_SND_CHMAP_FC,		/* front center */
-> > +	VIRTIO_SND_CHMAP_LFE,		/* low frequency (LFE) */
-> > +	VIRTIO_SND_CHMAP_SL,		/* side left */
-> > +	VIRTIO_SND_CHMAP_SR,		/* side right */
-> > +	VIRTIO_SND_CHMAP_RC,		/* rear center */
-> > +	VIRTIO_SND_CHMAP_FLC,		/* front left center */
-> > +	VIRTIO_SND_CHMAP_FRC,		/* front right center */
-> > +	VIRTIO_SND_CHMAP_RLC,		/* rear left center */
-> > +	VIRTIO_SND_CHMAP_RRC,		/* rear right center */
-> > +	VIRTIO_SND_CHMAP_FLW,		/* front left wide */
-> > +	VIRTIO_SND_CHMAP_FRW,		/* front right wide */
-> > +	VIRTIO_SND_CHMAP_FLH,		/* front left high */
-> > +	VIRTIO_SND_CHMAP_FCH,		/* front center high */
-> > +	VIRTIO_SND_CHMAP_FRH,		/* front right high */
-> > +	VIRTIO_SND_CHMAP_TC,		/* top center */
-> > +	VIRTIO_SND_CHMAP_TFL,		/* top front left */
-> > +	VIRTIO_SND_CHMAP_TFR,		/* top front right */
-> > +	VIRTIO_SND_CHMAP_TFC,		/* top front center */
-> > +	VIRTIO_SND_CHMAP_TRL,		/* top rear left */
-> > +	VIRTIO_SND_CHMAP_TRR,		/* top rear right */
-> > +	VIRTIO_SND_CHMAP_TRC,		/* top rear center */
-> > +	VIRTIO_SND_CHMAP_TFLC,		/* top front left center */
-> > +	VIRTIO_SND_CHMAP_TFRC,		/* top front right center */
-> > +	VIRTIO_SND_CHMAP_TSL,		/* top side left */
-> > +	VIRTIO_SND_CHMAP_TSR,		/* top side right */
-> > +	VIRTIO_SND_CHMAP_LLFE,		/* left LFE */
-> > +	VIRTIO_SND_CHMAP_RLFE,		/* right LFE */
-> > +	VIRTIO_SND_CHMAP_BC,		/* bottom center */
-> > +	VIRTIO_SND_CHMAP_BLC,		/* bottom left center */
-> > +	VIRTIO_SND_CHMAP_BRC		/* bottom right center */
-> > +};
-> > +
-> > +/* maximum possible number of channels */
-> > +#define VIRTIO_SND_CHMAP_MAX_SIZE	18
-> > +
-> > +struct virtio_snd_chmap_info {
-> > +	/* common header */
-> > +	struct virtio_snd_info hdr;
-> > +	/* dataflow direction (VIRTIO_SND_D_XXX) */
-> > +	__u8 direction;
-> > +	/* # of valid channel position values */
-> > +	__u8 channels;
-> > +	/* channel position values (VIRTIO_SND_CHMAP_XXX) */
-> > +	__u8 positions[VIRTIO_SND_CHMAP_MAX_SIZE];
-> > +};
-> > +
-> > +#endif /* VIRTIO_SND_IF_H */
-> > -- 
-> > 2.30.0
-> > 
+> diff --git a/sound/virtio/Makefile b/sound/virtio/Makefile
+> index 626af3cc3ed7..34493226793f 100644
+> --- a/sound/virtio/Makefile
+> +++ b/sound/virtio/Makefile
+> @@ -6,5 +6,6 @@ virtio_snd-objs := \
+>  	virtio_card.o \
+>  	virtio_ctl_msg.o \
+>  	virtio_pcm.o \
+> -	virtio_pcm_msg.o
+> +	virtio_pcm_msg.o \
+> +	virtio_pcm_ops.o
+>  
+> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
+> index 1ab50dcc88c8..6a1ca6b2c3ca 100644
+> --- a/sound/virtio/virtio_pcm.c
+> +++ b/sound/virtio/virtio_pcm.c
+> @@ -121,7 +121,8 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *substream,
+>  		SNDRV_PCM_INFO_MMAP_VALID |
+>  		SNDRV_PCM_INFO_BATCH |
+>  		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+> -		SNDRV_PCM_INFO_INTERLEAVED;
+> +		SNDRV_PCM_INFO_INTERLEAVED |
+> +		SNDRV_PCM_INFO_PAUSE;
+>  
+>  	if (!info->channels_min || info->channels_min > info->channels_max) {
+>  		dev_err(&vdev->dev,
+> @@ -503,6 +504,8 @@ int virtsnd_pcm_build_devs(struct virtio_snd *snd)
+>  				if (rc)
+>  					return rc;
+>  			}
+> +
+> +			snd_pcm_set_ops(pcm->pcm, i, &virtsnd_pcm_ops);
+>  		}
+>  
+>  	return 0;
+> diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+> index d011b7e1d18d..fe467bc05d8b 100644
+> --- a/sound/virtio/virtio_pcm.h
+> +++ b/sound/virtio/virtio_pcm.h
+> @@ -90,6 +90,8 @@ struct virtio_pcm {
+>  	struct virtio_pcm_stream streams[SNDRV_PCM_STREAM_LAST + 1];
+>  };
+>  
+> +extern const struct snd_pcm_ops virtsnd_pcm_ops;
+> +
+>  int virtsnd_pcm_validate(struct virtio_device *vdev);
+>  
+>  int virtsnd_pcm_parse_cfg(struct virtio_snd *snd);
+> diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+> new file mode 100644
+> index 000000000000..8d26c1144ad6
+> --- /dev/null
+> +++ b/sound/virtio/virtio_pcm_ops.c
+> @@ -0,0 +1,509 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Sound card driver for virtio
+> + * Copyright (C) 2020  OpenSynergy GmbH
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program; if not, see <http://www.gnu.org/licenses/>.
+> + */
+> +#include <sound/pcm_params.h>
+> +
+> +#include "virtio_card.h"
+> +
+> +/*
+> + * Our main concern here is maintaining the correct state of the underlying I/O
+> + * virtqueues. Thus, operators are implemented to support all of the following
+> + * possible control paths (excluding all trivial ones):
+> + *
+> + *                        +---------+
+> + *                        | open()  |<------------------+
+> + *                        +----+----+                   |
+> + *                             v                        |
+> + *                      +------+------+                 |
+> + *       +------------->| hw_params() |<-------------+  |
+> + *       |              +-------------+              |  |
+> + *       |                     v                     |  |
+> + *       |               +-----------+               |  |
+> + *       |               | prepare() |<-----------+  |  |
+> + *       |               +-----------+            |  |  |
+> + *       |                     v                  |  |  |
+> + *       |        +-------------------------+     |  |  |
+> + * +-----------+  | trigger(START/          |     |  |  |
+> + * | restore() |  |         PAUSE_RELEASE/  |<-+  |  |  |
+> + * +-----------+  |         RESUME)         |  |  |  |  |
+> + *       ^        +-------------------------+  |  |  |  |
+> + *       |                     v               |  |  |  |
+> + *       |               +-----------+         |  |  |  |
+> + *       |               | pointer() |         |  |  |  |
+> + *       |               +-----------+         |  |  |  |
+> + *       |                     v               |  |  |  |
+> + *       |          +---------------------+    |  |  |  |
+> + * +-----------+    | trigger(STOP/       |----+  |  |  |
+> + * | freeze()  |<---|         PAUSE_PUSH/ |-------+  |  |
+> + * +-----------+    |         SUSPEND)    |          |  |
+> + *                  +---------------------+          |  |
+> + *                             v                     |  |
+> + *                       +-----------+               |  |
+> + *                       | hw_free() |---------------+  |
+> + *                       +-----------+                  |
+> + *                             v                        |
+> + *                        +---------+                   |
+> + *                        | close() |-------------------+
+> + *                        +---------+
+> + */
+> +
+> +/* Map for converting ALSA format to VirtIO format. */
+> +struct virtsnd_a2v_format {
+> +	unsigned int alsa_bit;
+> +	unsigned int vio_bit;
+> +};
+> +
+> +static const struct virtsnd_a2v_format g_a2v_format_map[] = {
+> +	{ SNDRV_PCM_FORMAT_IMA_ADPCM, VIRTIO_SND_PCM_FMT_IMA_ADPCM },
+> +	{ SNDRV_PCM_FORMAT_MU_LAW, VIRTIO_SND_PCM_FMT_MU_LAW },
+> +	{ SNDRV_PCM_FORMAT_A_LAW, VIRTIO_SND_PCM_FMT_A_LAW },
+> +	{ SNDRV_PCM_FORMAT_S8, VIRTIO_SND_PCM_FMT_S8 },
+> +	{ SNDRV_PCM_FORMAT_U8, VIRTIO_SND_PCM_FMT_U8 },
+> +	{ SNDRV_PCM_FORMAT_S16_LE, VIRTIO_SND_PCM_FMT_S16 },
+> +	{ SNDRV_PCM_FORMAT_U16_LE, VIRTIO_SND_PCM_FMT_U16 },
+> +	{ SNDRV_PCM_FORMAT_S18_3LE, VIRTIO_SND_PCM_FMT_S18_3 },
+> +	{ SNDRV_PCM_FORMAT_U18_3LE, VIRTIO_SND_PCM_FMT_U18_3 },
+> +	{ SNDRV_PCM_FORMAT_S20_3LE, VIRTIO_SND_PCM_FMT_S20_3 },
+> +	{ SNDRV_PCM_FORMAT_U20_3LE, VIRTIO_SND_PCM_FMT_U20_3 },
+> +	{ SNDRV_PCM_FORMAT_S24_3LE, VIRTIO_SND_PCM_FMT_S24_3 },
+> +	{ SNDRV_PCM_FORMAT_U24_3LE, VIRTIO_SND_PCM_FMT_U24_3 },
+> +	{ SNDRV_PCM_FORMAT_S20_LE, VIRTIO_SND_PCM_FMT_S20 },
+> +	{ SNDRV_PCM_FORMAT_U20_LE, VIRTIO_SND_PCM_FMT_U20 },
+> +	{ SNDRV_PCM_FORMAT_S24_LE, VIRTIO_SND_PCM_FMT_S24 },
+> +	{ SNDRV_PCM_FORMAT_U24_LE, VIRTIO_SND_PCM_FMT_U24 },
+> +	{ SNDRV_PCM_FORMAT_S32_LE, VIRTIO_SND_PCM_FMT_S32 },
+> +	{ SNDRV_PCM_FORMAT_U32_LE, VIRTIO_SND_PCM_FMT_U32 },
+> +	{ SNDRV_PCM_FORMAT_FLOAT_LE, VIRTIO_SND_PCM_FMT_FLOAT },
+> +	{ SNDRV_PCM_FORMAT_FLOAT64_LE, VIRTIO_SND_PCM_FMT_FLOAT64 },
+> +	{ SNDRV_PCM_FORMAT_DSD_U8, VIRTIO_SND_PCM_FMT_DSD_U8 },
+> +	{ SNDRV_PCM_FORMAT_DSD_U16_LE, VIRTIO_SND_PCM_FMT_DSD_U16 },
+> +	{ SNDRV_PCM_FORMAT_DSD_U32_LE, VIRTIO_SND_PCM_FMT_DSD_U32 },
+> +	{ SNDRV_PCM_FORMAT_IEC958_SUBFRAME_LE,
+> +	  VIRTIO_SND_PCM_FMT_IEC958_SUBFRAME }
+> +};
+> +
+> +/* Map for converting ALSA frame rate to VirtIO frame rate. */
+> +struct virtsnd_a2v_rate {
+> +	unsigned int rate;
+> +	unsigned int vio_bit;
+> +};
+> +
+> +static const struct virtsnd_a2v_rate g_a2v_rate_map[] = {
+> +	{ 5512, VIRTIO_SND_PCM_RATE_5512 },
+> +	{ 8000, VIRTIO_SND_PCM_RATE_8000 },
+> +	{ 11025, VIRTIO_SND_PCM_RATE_11025 },
+> +	{ 16000, VIRTIO_SND_PCM_RATE_16000 },
+> +	{ 22050, VIRTIO_SND_PCM_RATE_22050 },
+> +	{ 32000, VIRTIO_SND_PCM_RATE_32000 },
+> +	{ 44100, VIRTIO_SND_PCM_RATE_44100 },
+> +	{ 48000, VIRTIO_SND_PCM_RATE_48000 },
+> +	{ 64000, VIRTIO_SND_PCM_RATE_64000 },
+> +	{ 88200, VIRTIO_SND_PCM_RATE_88200 },
+> +	{ 96000, VIRTIO_SND_PCM_RATE_96000 },
+> +	{ 176400, VIRTIO_SND_PCM_RATE_176400 },
+> +	{ 192000, VIRTIO_SND_PCM_RATE_192000 }
+> +};
+> +
+> +/**
+> + * virtsnd_pcm_release() - Release the PCM substream on the device side.
+> + * @substream: VirtIO substream.
+> + *
+> + * The function waits for all pending I/O messages to complete.
+> + *
+> + * Context: Any context that permits to sleep.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static inline bool virtsnd_pcm_released(struct virtio_pcm_substream *substream)
+> +{
+> +	return atomic_read(&substream->msg_count) == 0;
+
+All this use of atomic_read/atomic_set all over the place makes me pause.
+Could you add documentation explaining the use rules for these atomic fields?
+
+> +}
+> +
+> +static int virtsnd_pcm_release(struct virtio_pcm_substream *substream)
+> +{
+> +	struct virtio_snd *snd = substream->snd;
+> +	struct virtio_snd_msg *msg;
+> +	unsigned int js = msecs_to_jiffies(msg_timeout_ms);
+> +	int rc;
+> +
+> +	msg = virtsnd_pcm_ctl_msg_alloc(substream, VIRTIO_SND_R_PCM_RELEASE,
+> +					GFP_KERNEL);
+> +	if (IS_ERR(msg))
+> +		return PTR_ERR(msg);
+> +
+> +	rc = virtsnd_ctl_msg_send_sync(snd, msg);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return wait_event_interruptible_timeout(substream->msg_empty,
+> +						virtsnd_pcm_released(substream),
+> +						js);
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_open() - Open the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + *
+> + * Context: Any context.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
+> +{
+> +	struct virtio_pcm *pcm = snd_pcm_substream_chip(substream);
+> +	struct virtio_pcm_substream *ss = NULL;
+> +
+> +	if (pcm) {
+> +		switch (substream->stream) {
+> +		case SNDRV_PCM_STREAM_PLAYBACK:
+> +		case SNDRV_PCM_STREAM_CAPTURE: {
+> +			struct virtio_pcm_stream *stream =
+> +				&pcm->streams[substream->stream];
+> +
+> +			if (substream->number < stream->nsubstreams)
+> +				ss = stream->substreams[substream->number];
+> +			break;
+> +		}
+> +		}
+> +	}
+> +
+> +	if (!ss)
+> +		return -EBADFD;
+> +
+> +	substream->runtime->hw = ss->hw;
+> +	substream->private_data = ss;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_close() - Close the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + *
+> + * Context: Any context.
+> + * Return: 0.
+> + */
+> +static int virtsnd_pcm_close(struct snd_pcm_substream *substream)
+> +{
+> +	return 0;
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_hw_params() - Set the parameters of the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + * @hw_params: Hardware parameters (can be NULL).
+> + *
+> + * The function can be called both from the upper level (in this case,
+> + * @hw_params is not NULL) or from the driver itself (in this case, @hw_params
+> + * is NULL, and the parameter values are taken from the runtime structure).
+> + *
+> + * In all cases, the function:
+> + *   1. checks the state of the virtqueue and, if necessary, tries to fix it,
+> + *   2. sets the parameters on the device side,
+> + *   3. allocates a hardware buffer and I/O messages.
+> + *
+> + * Context: Any context that permits to sleep.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *hw_params)
+> +{
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	struct virtio_pcm_substream *ss = snd_pcm_substream_chip(substream);
+> +	struct virtio_device *vdev = ss->snd->vdev;
+> +	struct virtio_snd_msg *msg;
+> +	struct virtio_snd_pcm_set_params *request;
+> +	snd_pcm_format_t format;
+> +	unsigned int channels;
+> +	unsigned int rate;
+> +	unsigned int buffer_bytes;
+> +	unsigned int period_bytes;
+> +	unsigned int periods;
+> +	unsigned int i;
+> +	int vformat = -1;
+> +	int vrate = -1;
+> +	int rc;
+> +
+> +	/*
+> +	 * If we got here after ops->trigger() was called, the queue may
+> +	 * still contain messages. In this case, we need to release the
+> +	 * substream first.
+> +	 */
+> +	if (atomic_read(&ss->msg_count)) {
+> +		rc = virtsnd_pcm_release(ss);
+> +		if (rc) {
+> +			dev_err(&vdev->dev,
+> +				"SID %u: invalid I/O queue state\n",
+> +				ss->sid);
+> +			return rc;
+> +		}
+> +	}
+> +
+> +	/* Set hardware parameters in device */
+> +	if (hw_params) {
+> +		format = params_format(hw_params);
+> +		channels = params_channels(hw_params);
+> +		rate = params_rate(hw_params);
+> +		buffer_bytes = params_buffer_bytes(hw_params);
+> +		period_bytes = params_period_bytes(hw_params);
+> +		periods = params_periods(hw_params);
+> +	} else {
+> +		format = runtime->format;
+> +		channels = runtime->channels;
+> +		rate = runtime->rate;
+> +		buffer_bytes = frames_to_bytes(runtime, runtime->buffer_size);
+> +		period_bytes = frames_to_bytes(runtime, runtime->period_size);
+> +		periods = runtime->periods;
+> +	}
+> +
+> +	for (i = 0; i < ARRAY_SIZE(g_a2v_format_map); ++i)
+> +		if (g_a2v_format_map[i].alsa_bit == format) {
+> +			vformat = g_a2v_format_map[i].vio_bit;
+> +
+> +			break;
+> +		}
+> +
+> +	for (i = 0; i < ARRAY_SIZE(g_a2v_rate_map); ++i)
+> +		if (g_a2v_rate_map[i].rate == rate) {
+> +			vrate = g_a2v_rate_map[i].vio_bit;
+> +
+> +			break;
+> +		}
+> +
+> +	if (vformat == -1 || vrate == -1)
+> +		return -EINVAL;
+> +
+> +	msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_SET_PARAMS,
+> +					GFP_KERNEL);
+> +	if (IS_ERR(msg))
+> +		return PTR_ERR(msg);
+> +
+> +	request = sg_virt(&msg->sg_request);
+> +
+> +	request->buffer_bytes = cpu_to_virtio32(vdev, buffer_bytes);
+> +	request->period_bytes = cpu_to_virtio32(vdev, period_bytes);
+> +	request->channels = channels;
+> +	request->format = vformat;
+> +	request->rate = vrate;
+> +
+> +	if (ss->features & (1U << VIRTIO_SND_PCM_F_MSG_POLLING))
+> +		request->features |=
+> +			cpu_to_virtio32(vdev,
+> +					1U << VIRTIO_SND_PCM_F_MSG_POLLING);
+> +
+> +	if (ss->features & (1U << VIRTIO_SND_PCM_F_EVT_XRUNS))
+> +		request->features |=
+> +			cpu_to_virtio32(vdev,
+> +					1U << VIRTIO_SND_PCM_F_EVT_XRUNS);
+> +
+> +	rc = virtsnd_ctl_msg_send_sync(ss->snd, msg);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* If the buffer was already allocated earlier, do nothing. */
+> +	if (runtime->dma_area)
+> +		return 0;
+> +
+> +	/* Allocate hardware buffer */
+> +	rc = snd_pcm_lib_malloc_pages(substream, buffer_bytes);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	/* Allocate and initialize I/O messages */
+> +	rc = virtsnd_pcm_msg_alloc(ss, periods, runtime->dma_area,
+> +				   period_bytes);
+> +	if (rc)
+> +		snd_pcm_lib_free_pages(substream);
+> +
+> +	return rc;
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_hw_free() - Reset the parameters of the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + *
+> + * The function does the following:
+> + *   1. tries to release the PCM substream on the device side,
+> + *   2. frees the hardware buffer.
+> + *
+> + * Context: Any context that permits to sleep.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+> +{
+> +	struct virtio_pcm_substream *ss = snd_pcm_substream_chip(substream);
+> +	int rc;
+> +
+> +	rc = virtsnd_pcm_release(ss);
+> +
+> +	/*
+> +	 * Even if we failed to send the RELEASE message or wait for the queue
+> +	 * flush to complete, we can safely delete the buffer. Because after
+> +	 * receiving the STOP command, the device must stop all I/O message
+> +	 * processing. If there are still pending messages in the queue, the
+> +	 * next ops->hw_params() call should deal with this.
+> +	 */
+> +	snd_pcm_lib_free_pages(substream);
+> +
+> +	return rc;
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_hw_params() - Prepare the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + *
+> + * The function can be called both from the upper level or from the driver
+> + * itself.
+> + *
+> + * In all cases, the function:
+> + *   1. checks the state of the virtqueue and, if necessary, tries to fix it,
+> + *   2. prepares the substream on the device side.
+> + *
+> + * Context: Any context that permits to sleep. May take and release the tx/rx
+> + *          queue spinlock.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
+> +{
+> +	struct virtio_pcm_substream *ss = snd_pcm_substream_chip(substream);
+> +	struct virtio_snd_queue *queue = virtsnd_pcm_queue(ss);
+> +	struct virtio_snd_msg *msg;
+> +	unsigned long flags;
+> +	int rc;
+> +
+> +	/*
+> +	 * If we got here after ops->trigger() was called, the queue may
+> +	 * still contain messages. In this case, we need to reset the
+> +	 * substream first.
+> +	 */
+> +	if (atomic_read(&ss->msg_count)) {
+> +		rc = virtsnd_pcm_hw_params(substream, NULL);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	spin_lock_irqsave(&queue->lock, flags);
+> +	ss->msg_last_enqueued = -1;
+> +	spin_unlock_irqrestore(&queue->lock, flags);
+> +
+> +	/*
+> +	 * Since I/O messages are asynchronous, they can be completed
+> +	 * when the runtime structure no longer exists. Since each
+> +	 * completion implies incrementing the hw_ptr, we cache all the
+> +	 * current values needed to compute the new hw_ptr value.
+> +	 */
+> +	ss->frame_bytes = substream->runtime->frame_bits >> 3;
+> +	ss->period_size = substream->runtime->period_size;
+> +	ss->buffer_size = substream->runtime->buffer_size;
+> +
+> +	atomic_set(&ss->hw_ptr, 0);
+> +	atomic_set(&ss->xfer_xrun, 0);
+> +	atomic_set(&ss->msg_count, 0);
+> +
+> +	msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_PREPARE,
+> +					GFP_KERNEL);
+> +	if (IS_ERR(msg))
+> +		return PTR_ERR(msg);
+> +
+> +	return virtsnd_ctl_msg_send_sync(ss->snd, msg);
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_trigger() - Process command for the PCM substream.
+> + * @substream: Kernel ALSA substream.
+> + * @command: Substream command (SNDRV_PCM_TRIGGER_XXX).
+> + *
+> + * Depending on the command, the function does the following:
+> + *   1. enables/disables data transmission,
+> + *   2. starts/stops the substream on the device side.
+> + *
+> + * Context: Atomic context. May take and release the tx/rx queue spinlock.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
+> +{
+> +	struct virtio_pcm_substream *ss = snd_pcm_substream_chip(substream);
+> +	struct virtio_snd *snd = ss->snd;
+> +	struct virtio_snd_queue *queue = virtsnd_pcm_queue(ss);
+> +	struct virtio_snd_msg *msg;
+> +
+> +	switch (command) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE: {
+> +		int rc;
+> +
+> +		spin_lock(&queue->lock);
+> +		rc = virtsnd_pcm_msg_send(ss);
+> +		spin_unlock(&queue->lock);
+> +		if (rc)
+> +			return rc;
+> +
+> +		atomic_set(&ss->xfer_enabled, 1);
+> +
+> +		msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_START,
+> +						GFP_ATOMIC);
+> +		if (IS_ERR(msg))
+> +			return PTR_ERR(msg);
+> +
+> +		return virtsnd_ctl_msg_send(snd, msg);
+> +	}
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH: {
+> +		atomic_set(&ss->xfer_enabled, 0);
+> +
+> +		msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_STOP,
+> +						GFP_ATOMIC);
+> +		if (IS_ERR(msg))
+> +			return PTR_ERR(msg);
+> +
+> +		return virtsnd_ctl_msg_send(snd, msg);
+> +	}
+> +	default: {
+> +		return -EINVAL;
+> +	}
+> +	}
+> +}
+> +
+> +/**
+> + * virtsnd_pcm_pointer() - Get the current hardware position for the PCM
+> + *                         substream.
+> + * @substream: Kernel ALSA substream.
+> + *
+> + * Context: Atomic context.
+> + * Return: Hardware position in frames inside [0 ... buffer_size) range.
+> + */
+> +static snd_pcm_uframes_t
+> +virtsnd_pcm_pointer(struct snd_pcm_substream *substream)
+> +{
+> +	struct virtio_pcm_substream *ss = snd_pcm_substream_chip(substream);
+> +
+> +	if (atomic_read(&ss->xfer_xrun))
+> +		return SNDRV_PCM_POS_XRUN;
+> +
+> +	return (snd_pcm_uframes_t)atomic_read(&ss->hw_ptr);
+> +}
+> +
+> +/* PCM substream operators map. */
+> +const struct snd_pcm_ops virtsnd_pcm_ops = {
+> +	.open = virtsnd_pcm_open,
+> +	.close = virtsnd_pcm_close,
+> +	.ioctl = snd_pcm_lib_ioctl,
+> +	.hw_params = virtsnd_pcm_hw_params,
+> +	.hw_free = virtsnd_pcm_hw_free,
+> +	.prepare = virtsnd_pcm_prepare,
+> +	.trigger = virtsnd_pcm_trigger,
+> +	.pointer = virtsnd_pcm_pointer,
+> +};
+> -- 
+> 2.30.0
+> 
+> 
 

@@ -2,71 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3C0B2FCD84
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 10:40:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840D12FCDB4
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 11:01:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88D321861;
-	Wed, 20 Jan 2021 10:39:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88D321861
+	by alsa0.perex.cz (Postfix) with ESMTPS id 189D81858;
+	Wed, 20 Jan 2021 11:00:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189D81858
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611135628;
-	bh=l5Knx/9HNMrNtZZjksG1PMtWMeS8BA2FctWqwadgNh4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=a0rPpNULSHizmZyEUwSY7RV9m7X45Fy/vOQq7LVsamOKH7bGoIXdqQedDCNXEvny8
-	 qthxL2cYQAp54uxM6uSLl3w8CI4gT1LjF/CPmexmkWUtzpej2LEX/m/ki1EhfFv5qE
-	 8X1ph05snz/7QW7hC6VaCotJm7e5fMRDngphh07Y=
+	s=default; t=1611136875;
+	bh=kbwa+cMCRO1Q0T7J57b75gUeVzEJDdEl1vstFEXUYbU=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZHPljDgfUjbjovM9HdJ0qjFMOQ8g6ifToD6SwwQkcJI5TU/gtas3Q3b2FNBUJGtKJ
+	 6vBE/3t3lj2rETsWynlo2Zf42QKch61jj1xvI4byJ49wF4SCDSxJTCQgE9f9GLYmNN
+	 yq5NOmDDAnxaehHRtM01ZTjd2025/KFFSk2Ew5SM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 034F1F80137;
-	Wed, 20 Jan 2021 10:38:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 760A9F80164;
+	Wed, 20 Jan 2021 10:59:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B49CDF8016E; Wed, 20 Jan 2021 10:38:53 +0100 (CET)
+ id D9E92F8016E; Wed, 20 Jan 2021 10:59:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE194F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 10:38:41 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 96A56A003F;
- Wed, 20 Jan 2021 10:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 96A56A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1611135519; bh=rDfRGOGZxQMBEHSK7LEWJdURvFgrmt3piBwXiIuMqBQ=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=FAXhobHpMYPmtrmAaMj4knn5y3N20YFZ3Oz8xDg42fkREbkrbYFad0N30GKHfQ4uY
- ogk5BBGrP6BqO9OJXl8FfyDf0zRlx/MbPIa2BXUrkeI278Sac+88Ym78L/HbCte4hm
- kA7GH25bYC19l/ZZTig9J727gguUcbz1d8ZLzpkk=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 20 Jan 2021 10:38:36 +0100 (CET)
-Subject: Re: [PATCH] ALSA: control: remove limitation on the number of
- user-defined control element set per card
-To: Takashi Iwai <tiwai@suse.de>, Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20210120085541.28607-1-o-takashi@sakamocchi.jp>
- <s5hwnw8dkkw.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <0fbe411d-0fbe-b337-c93e-d8788ee6b67a@perex.cz>
-Date: Wed, 20 Jan 2021 10:38:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F75AF80137
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 10:59:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F75AF80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="VSrx8klN"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K9oF7t193341;
+ Wed, 20 Jan 2021 09:59:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=XCc1VDD4/Cd613sC4Bo4DtbwqBpJQiWj8GB6xMClUl4=;
+ b=VSrx8klNJPidglCtWhsHGzhQA6KTZZRf/jAnRUbrTCIXhgmwPXlcnyTg2sAC9TywM1wH
+ daNa/e2sN7mgXMqZ2qoYiO+aSw5e6RSivXyyqpkHb4k6y79AMqDcsxsmhy/thBuX7u4G
+ Pa3rn0seHdF2IZ5DuwHKnZAU9rTpOrvQzBo/0MbS5gNg5K7PWGqzCXlHrl9ymoaU66ez
+ 9L8Rdx1IaSZxSZ6miEB/709xaEjA5fpE6KRV9AZzi2rRb4SpJ0p+FE9PsTPVHO+LJFCC
+ hWV54eZ6SOJFnFriDgWYCgrkD16lVf8pZEqwtD0ufwLYwshcGyYaDb0zdrgyJSAQz5Xr 5Q== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2120.oracle.com with ESMTP id 3668qmspyu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Jan 2021 09:59:29 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K9sdTx125900;
+ Wed, 20 Jan 2021 09:59:27 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3030.oracle.com with ESMTP id 3668quxxje-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Jan 2021 09:59:27 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 10K9xLFj000887;
+ Wed, 20 Jan 2021 09:59:21 GMT
+Received: from mwanda (/10.175.34.136) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 20 Jan 2021 01:59:20 -0800
+Date: Wed, 20 Jan 2021 12:59:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: topology: Fix memory corruption in
+ soc_tplg_denum_create_values()
+Message-ID: <YAf+8QZoOv+ct526@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <s5hwnw8dkkw.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0 bulkscore=0
+ mlxlogscore=999 spamscore=0 suspectscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101200056
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ priorityscore=1501
+ adultscore=0 impostorscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 mlxscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101200055
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,63 +110,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 20. 01. 21 v 10:27 Takashi Iwai napsal(a):
-> On Wed, 20 Jan 2021 09:55:41 +0100,
-> Takashi Sakamoto wrote:
->>
->> ALSA control core allows usespace application to register control element
->> set by call of ioctl(2) with SNDRV_CTL_IOCTL_ELEM_ADD request. The added
->> control element set is called as 'user-defined'. Currently sound card has
->> limitation on the number of the user-defined control element set up
->> to 32.
->>
->> The limitation is inconvenient to drivers in ALSA firewire stack since
->> the drivers expect userspace applications to implement function to
->> control device functionalities such as mixing and routing. As the
->> userspace application, snd-firewire-ctl-services project starts:
->> https://github.com/alsa-project/snd-firewire-ctl-services/
->>
->> The project supports many devices supported by ALSA firewire stack. The
->> limitation is mostly good since routing and mixing controls can be
->> represented by control element set, which includes control element with
->> the same parameters. Nevertheless, it's actually inconvenient to device
->> which has many varied functionalities. For example, plugin effect such as
->> channel strip and reverb has many parameters. For the case, many control
->> elements are required to configure the parameters and control element set
->> cannot aggregates controls for the parameters. At present, below models
->> are implemented with the control elements and actually add control element
->> sets over 32:
->>
->>  * Apogee Emsemble (snd-bebob-ctl-service)
->>  * TC Electronic Konnekt 24d (snd-dice-ctl-service)
->>  * TC Electronic Studio Konnekt 48 (snd-dice-ctl-service)
->>  * TC Electronic Konnekt Live (snd-dice-ctl-service)
->>  * TC Electronic Impact Twin (snd-dice-ctl-service)
->>
->> It could be investigated to increase the number; e.g. quadruple to the
->> current (=128), however it's hard to find criteria about the number for
->> existent sound card. This commit just removes the limitation for the
->> reason. ALSA control core uses UINT_MAX as the maximum number of control
->> elements added to a sound card. It's limitation for both in-kernel driver
->> and userspace application.
->>
->> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> 
-> I'm still worried by the unlimited number of possible additions.
-> Did you check what would happen if you run a test program to add
-> user-space ctls (with the max count) in a loop repeatedly?  If that
-> doesn't blow up too much, it might be OK.  Otherwise we have to add
-> some practical limits.
-> 
-> So, let's prove that it's absolutely safe to release the limit at
-> first.
+The allocation uses sizeof(u32) when it should use sizeof(unsigned long)
+so it leads to memory corruption later in the function when the data is
+initialized.
 
-I agree. The UINT_MAX limit is really big in my eyes. The condition was added
-to check for the insane allocations. I basically agree to increase this limit
-(512, 1024?), but it should not be UINT_MAX.
+Fixes: 5aebe7c7f9c2 ("ASoC: topology: fix endianness issues")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+This is from static analysis, not from testing.  Obviously we don't
+want memory corruption, so my patch is an improvement.  But I feel like
+a better approach might be to change the type of dvalues[] to u32.  I
+took the less risky approach because I'm not an expert and can't test
+it.  But if someone else can take a look at it, then I'll redo the
+patch.
 
-						Jaroslav
+ sound/soc/soc-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 950c45008e24..37a5d73e643b 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -902,7 +902,7 @@ static int soc_tplg_denum_create_values(struct soc_tplg *tplg, struct soc_enum *
+ 		return -EINVAL;
+ 
+ 	se->dobj.control.dvalues = devm_kcalloc(tplg->dev, le32_to_cpu(ec->items),
+-					   sizeof(u32),
++					   sizeof(*se->dobj.control.dvalues),
+ 					   GFP_KERNEL);
+ 	if (!se->dobj.control.dvalues)
+ 		return -ENOMEM;
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.29.2
+

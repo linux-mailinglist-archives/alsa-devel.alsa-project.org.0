@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC2E2FC6C5
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 02:29:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D9672FC6C7
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 02:29:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 797B718FB;
-	Wed, 20 Jan 2021 02:28:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 797B718FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 127E218E1;
+	Wed, 20 Jan 2021 02:28:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 127E218E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611106170;
-	bh=PGuMs4WIllYlMcEsKh2EnKnF4jCyBPRhs34xat9Jk1g=;
+	s=default; t=1611106185;
+	bh=4a17WWqCWMg+33SgzqVc9aR8rOqnpBy9FNYj0IklNsA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fE5Sp/ultcWMZkFxCMCxMqQTH5ah4xONvsO30N6PTY+MYRzFXAh9eFQtPpgXk1N3I
-	 5vvxzCF1/NJ3jh7I409FgidYUkqonjs4wTkFDioKMyFowPDIEjnsinK68NT62N9Fyc
-	 rMeXJf/pcazCYiBIwhIQY7HzG1EIyd1lT3rD5iyI=
+	b=UGfnMc0w+diQ+SulXm6ikE2LSMvCnO4V70WJ0v13QQvhXvoGXD0M0/L8i9r95k9vv
+	 9lPcGam1sS+RsE4j5hvv+qRzId1fb8I5tUbiHh1xkBCPRCIQ2u31WQxbyc3piSbQsK
+	 GFelbdN8POiu+pnXYmvlXLTiul3VlQm89sozbN3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2C75F804E3;
-	Wed, 20 Jan 2021 02:27:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F8B7F804E5;
+	Wed, 20 Jan 2021 02:27:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1ECFF80255; Wed, 20 Jan 2021 02:27:14 +0100 (CET)
+ id 44B2FF804E4; Wed, 20 Jan 2021 02:27:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CF8DF80255
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 02:27:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CF8DF80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8098F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 02:27:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8098F8026A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YC+MPEIM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5F87223359;
- Wed, 20 Jan 2021 01:27:05 +0000 (UTC)
+ header.b="uPSOA72g"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 12C1423437;
+ Wed, 20 Jan 2021 01:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611106026;
- bh=PGuMs4WIllYlMcEsKh2EnKnF4jCyBPRhs34xat9Jk1g=;
+ s=k20201202; t=1611106062;
+ bh=4a17WWqCWMg+33SgzqVc9aR8rOqnpBy9FNYj0IklNsA=;
  h=From:To:Cc:Subject:Date:From;
- b=YC+MPEIMLU1fW1KWtO58W4/EObZUN0gMLrplqUeeSGaM9XhsI3x7LFiwHfm2cdOAk
- QZNORmO55b3mIurY2qdCVz3R/X4aKF4apYwMCpSr85192patOd3iNt3gd/FLmRgDM7
- 2UnldqnjHxOmeL5pbELsvT9+nyT+V4z8K3gTHoXol4bWsJ6VEBSQJNU8so5pLy3PY+
- eS+8FKEw5E42nrDuHXuytp1JtrwDKO0NpAxP6h2V6PHQACYPwOLhWk6yflXgwNUgmR
- GWrZMs9BYrH0NfEsQ6PjK19AHmSHKdY55nOx5tRT1GdZG6swJ85J9QeKmQVss3Exif
- 9G1n0TlJ4m9Zg==
+ b=uPSOA72gW7aM+LbjHGTMCLR5WwP5h8DBd2K8ac5+W2QXDyulqvQMhkl9RkgFWkxDS
+ Ou3by9fb2bfuMXKDB9AOZJVOIx5X7PuUVszXStSPU0iafr0cBckDAYMa81UYdH9Nhj
+ 5uZ5j4/GqlLTxlrvj/BGlME2eslv5acEx3/Coel3KMCju331xTEAwYeXYJDsK3ALsH
+ zIYloqcmYZljxv9+TRpzvJ2PnfdytTvi/v838Jp3RfxRi7hN/miIvfy5FZUJPaeMPK
+ p6nD5MHYv+a3ksdv3diGqyj3cHIOqPVl+Gs1qfn3PnkQZz93DccvLjW349f7OlJKol
+ ySrxH+Q1l1ICA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 01/26] ASoC: Intel: haswell: Add missing pm_ops
-Date: Tue, 19 Jan 2021 20:26:38 -0500
-Message-Id: <20210120012704.770095-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 01/15] ASoC: Intel: haswell: Add missing pm_ops
+Date: Tue, 19 Jan 2021 20:27:26 -0500
+Message-Id: <20210120012740.770354-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 X-stable: review
@@ -97,10 +97,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/intel/boards/haswell.c b/sound/soc/intel/boards/haswell.c
-index 3dadf9bff796a..cf47fd9cd506b 100644
+index a4022983a7ce0..67eb4a446c3cb 100644
 --- a/sound/soc/intel/boards/haswell.c
 +++ b/sound/soc/intel/boards/haswell.c
-@@ -206,6 +206,7 @@ static struct platform_driver haswell_audio = {
+@@ -198,6 +198,7 @@ static struct platform_driver haswell_audio = {
  	.probe = haswell_audio_probe,
  	.driver = {
  		.name = "haswell-audio",

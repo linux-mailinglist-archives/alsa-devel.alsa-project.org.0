@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F382FC6A2
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 02:28:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AB6C2FC697
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 02:27:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 279AB18DB;
-	Wed, 20 Jan 2021 02:27:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 279AB18DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B67A418D1;
+	Wed, 20 Jan 2021 02:26:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B67A418D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611106085;
-	bh=HmkN0mm9wbN/TCVJTimhHdMI1XEsCsdxLiIIZk5t0hQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=crUUqe3QIWfYLmlX7V2yrsVNKROClBROxnGUjDmj8z+4CrrQDpjC9AAJ5/dhw15uX
-	 gip9tRM4oUaokjKoTkp+dYpilZsZCezmNo9EqghxkR5nTx0VAQl/UZuJxZI93yypp3
-	 P3ko6/UtR3oCEVOMYIlWfRbjk62dbhfTXcz+f/L8=
+	s=default; t=1611106069;
+	bh=Zgo+Eu0ONQsyiqmfFfZYOd5kp7Y4SaoXFo9SIbMhikc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IaIAuEKgGfJlE+g2SC9iZJ2JJ5imPwuDyLjZiqzuQKjk6gfiz3hGUote7IfJmcWiQ
+	 lwTLiSri1QjzL3OJK3Bja7uEaNcbSyJtNuxGD2ASRGE2xHdV//d3y2afsQOHqSNpX4
+	 uvufYSbtBlMgPTXoiKLDJc0MU+/YC1yCHAdWWWUA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C435CF80273;
+	by alsa1.perex.cz (Postfix) with ESMTP id 1492CF80137;
 	Wed, 20 Jan 2021 02:26:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E34FF800FE; Wed, 20 Jan 2021 02:26:16 +0100 (CET)
+ id 6692AF80273; Wed, 20 Jan 2021 02:26:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F280F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id A29C9F800FE
  for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 02:26:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F280F80137
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A29C9F800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gGhhP42z"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9664223109;
- Wed, 20 Jan 2021 01:26:03 +0000 (UTC)
+ header.b="iQTgPSkD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B291B2311C;
+ Wed, 20 Jan 2021 01:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611105964;
- bh=HmkN0mm9wbN/TCVJTimhHdMI1XEsCsdxLiIIZk5t0hQ=;
- h=From:To:Cc:Subject:Date:From;
- b=gGhhP42zJgjqLRPVs79DVu3aXg0iu5vMzBO+51S1vhqWpfX2cUHxb0vKO5u696JRX
- mfHcrYAU+nEzAgp1+udbwg14OJP8XfXtvDpnM22HEn8pG2xHZEmhKPGTa4OVVtugbo
- ToxAxu8ebqPadsA1HgEUPS6MF3uRy1W/RWBWM+lmMqUlPjqC5xRVcmRWyBGUG32kXM
- Chtx+ec4rc/nQ2PJYXCB7XZ3D+IKT06hnxjmR4dTh5bJw0PFwd3aDjNB0dCBTmZnq3
- vEU6ybA1s2HK+nxRtuDSSmlyJw2O5sgUOr8UWGEnLDi8G+ksuuDKyG2tdXunaZw8N0
- ReQBwrnXc2K9g==
+ s=k20201202; t=1611105965;
+ bh=Zgo+Eu0ONQsyiqmfFfZYOd5kp7Y4SaoXFo9SIbMhikc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=iQTgPSkDXD2XGBV51bqnnGia53i4mqGktyvR39ch7S47YP1Xf8C8d7NeI7Mh2xtPJ
+ 60ruQHF4tf3Mvh/55lNWFPfw/ri2YfafA6iO6OQPrrmEnRDJtFy6Pjq9yfc+Wo/Hqp
+ HcQfokKbtM2nJHJj4O/Qv2v5uflchYgLwRnjYS9O+u84o+c9itVIWq9fdowwQof8jF
+ Ig6S6Q2IXaDoyPHbpzepgjxnZOTXazIzJBZZncHCrTtECadYFR2jcShHQinldk5f8x
+ M6+KFKapuGJyoasCH3rHqRVPZPoPS/iS5FC8P5F+QctS4sTxTB96NvDxKh7cNCB2iP
+ 7n7/M9UCXR3Og==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 01/45] ASoC: Intel: haswell: Add missing pm_ops
-Date: Tue, 19 Jan 2021 20:25:18 -0500
-Message-Id: <20210120012602.769683-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 02/45] ASoC: rt711: mutex between calibration and
+ power state changes
+Date: Tue, 19 Jan 2021 20:25:19 -0500
+Message-Id: <20210120012602.769683-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210120012602.769683-1-sashal@kernel.org>
+References: <20210120012602.769683-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Shuming Fan <shumingf@realtek.com>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +83,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Shuming Fan <shumingf@realtek.com>
 
-[ Upstream commit bb224c3e3e41d940612d4cc9573289cdbd5cb8f5 ]
+[ Upstream commit 6108f990c0887d3e8f1db2d13c7012e40a061f28 ]
 
-haswell machine board is missing pm_ops what prevents it from undergoing
-suspend-resume procedure successfully. Assign default snd_soc_pm_ops so
-this is no longer the case.
+To avoid calibration time-out, this patch adds the mutex between calibration and power state changes
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://lore.kernel.org/r/20201217105401.27865-1-cezary.rojewski@intel.com
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Link: https://lore.kernel.org/r/20201217085651.24580-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/haswell.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/rt711.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/intel/boards/haswell.c b/sound/soc/intel/boards/haswell.c
-index c55d1239e705b..c763bfeb1f38f 100644
---- a/sound/soc/intel/boards/haswell.c
-+++ b/sound/soc/intel/boards/haswell.c
-@@ -189,6 +189,7 @@ static struct platform_driver haswell_audio = {
- 	.probe = haswell_audio_probe,
- 	.driver = {
- 		.name = "haswell-audio",
-+		.pm = &snd_soc_pm_ops,
- 	},
- };
+diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
+index 65b59dbfb43c8..a9b1b4180c471 100644
+--- a/sound/soc/codecs/rt711.c
++++ b/sound/soc/codecs/rt711.c
+@@ -462,6 +462,8 @@ static int rt711_set_amp_gain_put(struct snd_kcontrol *kcontrol,
+ 	unsigned int read_ll, read_rl;
+ 	int i;
  
++	mutex_lock(&rt711->calibrate_mutex);
++
+ 	/* Can't use update bit function, so read the original value first */
+ 	addr_h = mc->reg;
+ 	addr_l = mc->rreg;
+@@ -547,6 +549,8 @@ static int rt711_set_amp_gain_put(struct snd_kcontrol *kcontrol,
+ 	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
+ 		regmap_write(rt711->regmap,
+ 				RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
++
++	mutex_unlock(&rt711->calibrate_mutex);
+ 	return 0;
+ }
+ 
+@@ -859,9 +863,11 @@ static int rt711_set_bias_level(struct snd_soc_component *component,
+ 		break;
+ 
+ 	case SND_SOC_BIAS_STANDBY:
++		mutex_lock(&rt711->calibrate_mutex);
+ 		regmap_write(rt711->regmap,
+ 			RT711_SET_AUDIO_POWER_STATE,
+ 			AC_PWRST_D3);
++		mutex_unlock(&rt711->calibrate_mutex);
+ 		break;
+ 
+ 	default:
 -- 
 2.27.0
 

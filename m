@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B522FFDB4
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:57:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974212FFDB5
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:58:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81D491AB0;
-	Fri, 22 Jan 2021 08:57:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81D491AB0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0634C1ACE;
+	Fri, 22 Jan 2021 08:57:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0634C1ACE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611302270;
-	bh=jfpr94LlQXM1bzQaxL1G71+kNIMkzVpuheV5Gh7HaZE=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Roffd4bEERzaoPTLy0pKKWxrJV/4ARzuNYnKwz76d8CDUZDw9Aho7WpZkAG+2togH
-	 WNJPD7hHb0M3JRu5mtMOAdDiWeINyf26C3cndrv7pPaf6COH4HscTwkBJsFCsD9yHM
-	 99YF7Y6olb3yLhgXwJXddtU8nBIRq1m0uPuDeEAA=
+	s=default; t=1611302293;
+	bh=GJ/aa3jITA+iJw08j/JPDoA0jaJJHC2tggC8gsLSnQE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Rvf/WcrFwGZ1dYMbe70soM5BHMuxhYeFRAZOVNGq2sZuQN9+KK1bEkH4tyO8cwFza
+	 Ad7wJaeTf/1iwGpDchJFNzq6R2B185Pxr0JKA+NI9nTlslSE1T1bZxevdTBAX9b9PO
+	 tLsrxIyI24Bi+9gJkIsd445MAK10/EwDwztm4YJY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDA3BF804DF;
-	Fri, 22 Jan 2021 08:54:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81137F804E3;
+	Fri, 22 Jan 2021 08:54:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC3D4F8016E; Wed, 20 Jan 2021 20:57:12 +0100 (CET)
+ id 850F8F80227; Wed, 20 Jan 2021 22:18:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, FREEMAIL_REPLY, PRX_BODY_13, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 396A4F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 20:57:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 396A4F8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TlPSYT0e"
-Received: by mail-wr1-x42e.google.com with SMTP id v15so20608192wrx.4
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 11:57:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=7fY1YnH7ikXqfCJe0iJqTLLPitg8xUDuDcSMfe8CDtA=;
- b=TlPSYT0eseVURoiykW+wV1g+gps/yurpLaogN73c0dKwdGdVUfs1tet0AiQpxCwrTs
- At5Ul5ALgPQb43aD/qgzPXNB/AIEOZ796bCUrcoiLgNpaMeaMY+G43m3oiiJtnuz7bKP
- 4nySnyYx1urLmL+g/DU4y6qGdpOCoLKVmelGMQn4y1n2ih00FwJsh8C3Uo4cH+4aDxwt
- s6ZFc2rUGug4DVlPzKqpuQNTxYpwftOH4px8JktdSvuID957wGoVM+oflLBGQocvcIom
- utFTZ1irHb+LVHKBwR68wJAxbHMIpQBKZM0eTBLImosqKQ5VkYtrqB/USXW8IS8i6Qk0
- pG4A==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84A44F80164
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 22:18:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84A44F80164
+Received: by mail-ed1-f44.google.com with SMTP id g1so23338edu.4
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 13:18:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=7fY1YnH7ikXqfCJe0iJqTLLPitg8xUDuDcSMfe8CDtA=;
- b=RwUGjaLLoJTbYUcE34MI3jN6AShl0k2eZEh4KtPoMirQCUQwWhbKnc3zX8PEwwMXMx
- Ulfs2yO9wH3M+iLI7g3hPi7g8u/buhZOaizEU16BsCA/kof36t5yvcnJ5DtH2jDI2zzt
- JKj1DU2dqA/uxp7s0JcCPrPNkg3mUYyddo4Zw1t9/EvBtRtF+BhF2cOga8QMTg57KxX4
- U9z4QLsRn4RQD46IdNN6knyWo3Af2/tHKZvoKNXiA8H360KOe4sAzVKDMDBmXrnnpn4+
- cLB7zCL+k0FRVKcDRWBl0M4YZlLEF95nJPO0QIfridBuhJtMLSPbsRU9wc8ojPGRIUzd
- 5C2g==
-X-Gm-Message-State: AOAM531RBZMMCcjeVaOgxofSq0/rs1qkNO8InUJ5NskdDi1V7zObB9U/
- GK/kp8C0ld6Q1eJ/ax061YWV30OQmbFVIXp/4NU=
-X-Google-Smtp-Source: ABdhPJzhdUBjaTobCYEHeYMg/LNSN4A/iHCIq43TFMDNRpUEv7qFcSw3G1DAFiiK2ZE4XknpD/SuICkYyohPN3ps6hI=
-X-Received: by 2002:adf:c5d3:: with SMTP id v19mr10743419wrg.365.1611172618326; 
- Wed, 20 Jan 2021 11:56:58 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=R+sF0wg3r8XINJntKCq2KV4V+mR8u2K7/6NUXxJfJmY=;
+ b=VAzDIOtmPO/H6G4cTJEJYqb9fIb6/nb9W0gFwjLuarRmdMp36ppef7PcrAJMPWRQa7
+ XClaStjW4J22YAEvRzOdhUQMRmj2SxtyJhzozEYWwKmvofkIubWKj34zXzw94RI1IXck
+ VH/lYYWUtlYp9bOO68T/vMMUBnK9DlevKj4y/Zj0JIigT2SstCoJMQ/wmFiC/Imme4eR
+ i+dmHFBBI151HCCoHdbn5sa6BG3bRm9CiwAARYCzu39XG9BkXVr7Lc4C0+4nPmQ5lKIz
+ K7kSLzTujBqejR5M0WQ0YxbJr/zMarcy56zvI2J1UjmL3uVh9eGtbDJAOX2RW9GYC8tp
+ 1IVA==
+X-Gm-Message-State: AOAM533VHlFoETcAt9OaraGJxCiNYGXszet28f7JGlcRczWDuVYIbrK5
+ BGBSqf4IlbIlbgdnpQpKddmJt9IDPb97W9dJZGA=
+X-Google-Smtp-Source: ABdhPJyGTRiNEqKZLpSpnoiPmaNeBKxr+8eBMLUjTU/s0fvSxkLQC2K59RrITmCTRRVl6rkbG4LkKiaBDcH7KAkIKWQ=
+X-Received: by 2002:a50:fd84:: with SMTP id o4mr6474874edt.340.1611177504958; 
+ Wed, 20 Jan 2021 13:18:24 -0800 (PST)
 MIME-Version: 1.0
-From: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
-Date: Wed, 20 Jan 2021 20:56:46 +0100
-Message-ID: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
-Subject: Crash in acpi_ns_validate_handle triggered by soundwire on Linux 5.10
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
+References: <20210120162553.21666-1-arnd@kernel.org>
+ <20210120162553.21666-2-arnd@kernel.org>
+In-Reply-To: <20210120162553.21666-2-arnd@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 21 Jan 2021 10:18:13 +1300
+Message-ID: <CAGsJ_4xm3AZ9o7VGeCWSrgpLK8e4Ui6YHvpLpq_4irj11+3Bzw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: remove sirf prima/atlas drivers
+To: Arnd Bergmann <arnd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 22 Jan 2021 08:54:44 +0100
-Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 22 Jan 2021 08:54:42 +0100
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ LKML <linux-kernel@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,1345 +86,1879 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
+Arnd Bergmann <arnd@kernel.org> =E4=BA=8E2021=E5=B9=B41=E6=9C=8821=E6=97=A5=
+=E5=91=A8=E5=9B=9B =E4=B8=8A=E5=8D=885:26=E5=86=99=E9=81=93=EF=BC=9A
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The CSR SiRF prima2/atlas platforms are getting removed, so this driver
+> is no longer needed.
+>
+> Cc: Barry Song <baohua@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Linux 5.10 fails to boot on my IceLake laptop, where 5.9 worked fine.
-I'm not sure whether it's a bug in ACPI or Soundwire subsystem, so I'm
-sending this to both
-lists. The W taint flag is because of an unrelated nouveau failure (It
-was busted on 5.9, and is
-still on 5.10). Full kernel log down below.
-It's from a distro kernel, but I can build my own kernel with patches if needed.
+Acked-by: Barry Song <baohua@kernel.org>
 
-snd_hda_intel 0000:00:1f.3: DSP detected with PCI
-class/subclass/prog-if info 0x040380
-BUG: kernel NULL pointer dereference, address: 0000000000000050
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 0 P4D 0
-Oops: 0000 [#1] SMP NOPTI
-CPU: 6 PID: 472 Comm: systemd-udevd Tainted: G        W
-5.10.0-1-amd64 #1 Debian 5.10.4-1
-Hardware name: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
-RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
-Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00
-48 8d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f
-08 0f 74 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
-RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
-RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
-RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
-R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
-FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
-PKRU: 55555554
-Call Trace:
- acpi_get_data_full+0x4d/0x92
- acpi_bus_get_device+0x1f/0x40
- sdw_intel_acpi_scan+0x59/0x230 [soundwire_intel]
- ? strstr+0x22/0x60
- ? dmi_matches+0x76/0xe0
- snd_intel_dsp_driver_probe.cold+0xaf/0x163 [snd_intel_dspcfg]
- azx_probe+0x7a/0x970 [snd_hda_intel]
- local_pci_probe+0x42/0x80
- ? _cond_resched+0x16/0x40
- pci_device_probe+0xfd/0x1b0
- really_probe+0x205/0x460
- driver_probe_device+0xe1/0x150
- device_driver_attach+0xa1/0xb0
- __driver_attach+0x8a/0x150
- ? device_driver_attach+0xb0/0xb0
- ? device_driver_attach+0xb0/0xb0
- bus_for_each_dev+0x78/0xc0
- bus_add_driver+0x12b/0x1e0
- driver_register+0x8b/0xe0
- ? 0xffffffffc0f65000
- do_one_initcall+0x44/0x1d0
- ? do_init_module+0x23/0x250
- ? kmem_cache_alloc_trace+0xf5/0x200
- do_init_module+0x5c/0x250
- __do_sys_finit_module+0xb1/0x110
- do_syscall_64+0x33/0x80
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x7f2454ce19b9
-Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 8b 0d a7 54 0c 00 f7 d8 64 89 01 48
-RSP: 002b:00007fff0b66be58 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 0000557d20c7a8b0 RCX: 00007f2454ce19b9
-RDX: 0000000000000000 RSI: 00007f2454e6ce2d RDI: 000000000000001c
-RBP: 0000000000020000 R08: 0000000000000000 R09: 0000557d20c80d50
-R10: 000000000000001c R11: 0000000000000246 R12: 00007f2454e6ce2d
-R13: 0000000000000000 R14: 0000557d20ae9c00 R15: 0000557d20c7a8b0
-Modules linked in: snd_hda_intel(+) snd_intel_dspcfg soundwire_intel
-soundwire_generic_allocation kvm snd_soc_core snd_compress
-pcc_cpufreq(-) irqbypass soundwire_cadence acpi_cpufreq(-) rapl
-snd_hda_codec jitterentropy_rng uvcvideo intel_cstate cfg80211
-snd_hda_core videobuf2_vmalloc videobuf2_memops videobuf2_v4l2
-snd_hwdep videobuf2_common soundwire_bus intel_uncore videodev snd_pcm
-drbg snd_timer iTCO_wdt snd ansi_cprng joydev binfmt_misc hp_wmi(+)
-intel_pmc_bxt sparse_keymap mc pcspkr ecdh_generic serio_raw wmi_bmof
-intel_wmi_thunderbolt iTCO_vendor_support ecc soundcore watchdog
-rfkill libarc4 processor_thermal_device mei_me intel_rapl_common mei
-intel_soc_dts_iosf int3403_thermal int340x_thermal_zone hp_accel
-lis3lv02d hp_wireless int3400_thermal evdev acpi_thermal_rel
-intel_pmc_core acpi_pad ac acpi_tad parport_pc ppdev lp parport fuse
-configfs ip_tables x_tables autofs4 ext4 crc16 mbcache jbd2
-crc32c_generic dm_crypt dm_mod nouveau i915 crc32_pclmul crc32c_intel
- ghash_clmulni_intel nvme aesni_intel libaes crypto_simd mxm_wmi ttm
-ahci nvme_core xhci_pci i2c_algo_bit libahci xhci_hcd drm_kms_helper
-t10_pi crc_t10dif libata psmouse cryptd glue_helper cec usbcore r8169
-drm crct10dif_generic scsi_mod realtek mdio_devres i2c_i801 libphy
-i2c_smbus crct10dif_pclmul intel_lpss_pci crct10dif_common intel_lpss
-usb_common idma64 battery video wmi button
-CR2: 0000000000000050
----[ end trace cf1844e25a37ee58 ]---
-RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
-Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00
-48 8d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f
-08 0f 74 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
-RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
-RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
-RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
-R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
-FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
-PKRU: 55555554
-
-
-Full kernel log:
------
-microcode: microcode updated early to revision 0xa0, date = 2020-07-30
-Linux version 5.10.0-1-amd64 (debian-kernel@lists.debian.org) (gcc-10
-(Debian 10.2.1-3) 10.2.1 20201224, GNU ld (GNU Binutils for Debian)
-2.35.1) #1 SMP Debian 5.10.4-1 (2020-12-31)
-Command line: BOOT_IMAGE=/vmlinuz-5.10.0-1-amd64
-root=/dev/mapper/debian--vg-root ro quiet
-x86/split lock detection: warning about user-space split_locks
-x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
-x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
-x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
-x86/fpu: Supporting XSAVE feature 0x020: 'AVX-512 opmask'
-x86/fpu: Supporting XSAVE feature 0x040: 'AVX-512 Hi256'
-x86/fpu: Supporting XSAVE feature 0x080: 'AVX-512 ZMM_Hi256'
-x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
-x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
-x86/fpu: xstate_offset[5]:  832, xstate_sizes[5]:   64
-x86/fpu: xstate_offset[6]:  896, xstate_sizes[6]:  512
-x86/fpu: xstate_offset[7]: 1408, xstate_sizes[7]: 1024
-x86/fpu: xstate_offset[9]: 2432, xstate_sizes[9]:    8
-x86/fpu: Enabled xstate features 0x2e7, context size is 2440 bytes,
-using 'compacted' format.
-BIOS-provided physical RAM map:
-BIOS-e820: [mem 0x0000000000000000-0x000000000009f7ff] usable
-BIOS-e820: [mem 0x000000000009f800-0x000000000009ffff] reserved
-BIOS-e820: [mem 0x00000000000e0000-0x00000000000fffff] reserved
-BIOS-e820: [mem 0x0000000000100000-0x0000000023902fff] usable
-BIOS-e820: [mem 0x0000000023903000-0x0000000023903fff] ACPI NVS
-BIOS-e820: [mem 0x0000000023904000-0x0000000023959fff] usable
-BIOS-e820: [mem 0x000000002395a000-0x000000002395afff] reserved
-BIOS-e820: [mem 0x000000002395b000-0x0000000032a2efff] usable
-BIOS-e820: [mem 0x0000000032a2f000-0x000000003518efff] reserved
-BIOS-e820: [mem 0x000000003518f000-0x0000000035f7efff] ACPI NVS
-BIOS-e820: [mem 0x0000000035f7f000-0x0000000035ffefff] ACPI data
-BIOS-e820: [mem 0x0000000035fff000-0x0000000035ffffff] usable
-BIOS-e820: [mem 0x0000000036000000-0x0000000039ffffff] reserved
-BIOS-e820: [mem 0x000000003a200000-0x000000003a3fffff] reserved
-BIOS-e820: [mem 0x000000003b000000-0x00000000cfffffff] reserved
-BIOS-e820: [mem 0x00000000fc800000-0x00000000fe7fffff] reserved
-BIOS-e820: [mem 0x00000000fec00000-0x00000000fec00fff] reserved
-BIOS-e820: [mem 0x00000000fed00000-0x00000000fed00fff] reserved
-BIOS-e820: [mem 0x00000000fed10000-0x00000000fed17fff] reserved
-BIOS-e820: [mem 0x00000000fed20000-0x00000000fed7ffff] reserved
-BIOS-e820: [mem 0x00000000feda0000-0x00000000feda1fff] reserved
-BIOS-e820: [mem 0x00000000fee00000-0x00000000fee00fff] reserved
-BIOS-e820: [mem 0x00000000ff400000-0x00000000ffffffff] reserved
-BIOS-e820: [mem 0x0000000100000000-0x00000008bfbfffff] usable
-NX (Execute Disable) protection: active
-SMBIOS 3.2 present.
-DMI: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
-tsc: Detected 1500.000 MHz processor
-tsc: Detected 1497.600 MHz TSC
-e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
-e820: remove [mem 0x000a0000-0x000fffff] usable
-last_pfn = 0x8bfc00 max_arch_pfn = 0x400000000
-MTRR default type: write-back
-MTRR fixed ranges enabled:
-  00000-9FFFF write-back
-  A0000-BFFFF uncachable
-  C0000-FFFFF write-protect
-MTRR variable ranges enabled:
-  0 base 0080000000 mask 7F80000000 uncachable
-  1 base 0040000000 mask 7FC0000000 uncachable
-  2 base 003C000000 mask 7FFC000000 uncachable
-  3 base 003B000000 mask 7FFF000000 uncachable
-  4 base 2000000000 mask 6000000000 uncachable
-  5 base 1000000000 mask 7000000000 uncachable
-  6 base 4000000000 mask 4000000000 uncachable
-  7 disabled
-  8 disabled
-  9 disabled
-x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT
-last_pfn = 0x36000 max_arch_pfn = 0x400000000
-found SMP MP-table at [mem 0x000fe1b0-0x000fe1bf]
-Using GB pages for direct mapping
-RAMDISK: [mem 0x2d18f000-0x31342fff]
-ACPI: Early table checksum verification disabled
-ACPI: RSDP 0x00000000000FE020 000024 (v02 HPQOEM)
-ACPI: XSDT 0x0000000035FCF188 0000FC (v01 HPQOEM SLIC-MPC 00000002 HP
- 01000013)
-ACPI: FACP 0x0000000035FD4000 00010C (v05 HPQOEM SLIC-MPC 00000002 HP
- 00040000)
-ACPI: DSDT 0x0000000035F9C000 032D1B (v02 HPQOEM 86E2     00000002
-ACPI 00040000)
-ACPI: FACS 0x0000000035F19000 000040
-ACPI: UEFI 0x0000000035F7E000 000236 (v01 HPQOEM 86E2     00000001 HP
- 00040000)
-ACPI: SSDT 0x0000000035FF9000 003DF8 (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035FF7000 001B60 (v02 HPQOEM 86E2     00003000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035FF3000 003389 (v02 HPQOEM 86E2     00003000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035FE7000 00B259 (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035FE6000 0001D2 (v01 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035FDE000 007166 (v01 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: LPIT 0x0000000035FDC000 000094 (v01 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: WSMT 0x0000000035FDB000 000028 (v01 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: SSDT 0x0000000035FDA000 000B70 (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: DBGP 0x0000000035FD9000 000034 (v01 HPQOEM SLIC-MPC 00000002 HP
- 00040000)
-ACPI: DBG2 0x0000000035FD8000 000054 (v00 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: SSDT 0x0000000035FD7000 0007EA (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: NHLT 0x0000000035FD6000 00002D (v00 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: ECDT 0x0000000035FD5000 000069 (v01 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: HPET 0x0000000035FD3000 000038 (v01 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: APIC 0x0000000035FD2000 00012C (v03 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: MCFG 0x0000000035FD1000 00003C (v01 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: SSDT 0x0000000035FFD000 0000F5 (v01 HPQOEM 86E2     00000002
-ACPI 00040000)
-ACPI: DMAR 0x0000000035F9B000 0000A8 (v02 HPQOEM 86E2     00000002 HP
- 00040000)
-ACPI: SSDT 0x0000000035F97000 00333E (v01 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035F96000 000987 (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035F95000 000164 (v01 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035F94000 00005C (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: SSDT 0x0000000035F93000 00005C (v02 HPQOEM 86E2     00001000
-ACPI 00040000)
-ACPI: FPDT 0x0000000035F92000 000044 (v01 HPQOEM SLIC-MPC 00000002 HP
- 00040000)
-ACPI: Local APIC address 0xfee00000
-No NUMA configuration found
-Faking a node at [mem 0x0000000000000000-0x00000008bfbfffff]
-NODE_DATA(0) allocated [mem 0x8bfbd6000-0x8bfbfffff]
-Zone ranges:
-  DMA      [mem 0x0000000000001000-0x0000000000ffffff]
-  DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
-  Normal   [mem 0x0000000100000000-0x00000008bfbfffff]
-  Device   empty
-Movable zone start for each node
-Early memory node ranges
-  node   0: [mem 0x0000000000001000-0x000000000009efff]
-  node   0: [mem 0x0000000000100000-0x0000000023902fff]
-  node   0: [mem 0x0000000023904000-0x0000000023959fff]
-  node   0: [mem 0x000000002395b000-0x0000000032a2efff]
-  node   0: [mem 0x0000000035fff000-0x0000000035ffffff]
-  node   0: [mem 0x0000000100000000-0x00000008bfbfffff]
-Zeroed struct page in unavailable ranges: 23092 pages
-Initmem setup node 0 [mem 0x0000000000001000-0x00000008bfbfffff]
-On node 0 totalpages: 8332748
-  DMA zone: 64 pages used for memmap
-  DMA zone: 21 pages reserved
-  DMA zone: 3998 pages, LIFO batch:0
-  DMA32 zone: 3177 pages used for memmap
-  DMA32 zone: 203310 pages, LIFO batch:63
-  Normal zone: 126960 pages used for memmap
-  Normal zone: 8125440 pages, LIFO batch:63
-x86/hpet: Will disable the HPET for this platform because it's not reliable
-Reserving Intel graphics memory at [mem 0x3c800000-0x403fffff]
-ACPI: PM-Timer IO Port: 0x1808
-ACPI: Local APIC address 0xfee00000
-ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x02] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x03] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x04] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x05] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x06] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x07] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x08] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x09] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0a] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0b] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0c] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0d] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0e] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x0f] high edge lint[0x1])
-ACPI: LAPIC_NMI (acpi_id[0x10] high edge lint[0x1])
-IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
-ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
-ACPI: IRQ0 used by override.
-ACPI: IRQ9 used by override.
-Using ACPI (MADT) for SMP configuration information
-ACPI: HPET id: 0x8086a201 base: 0xfed00000
-TSC deadline timer available
-smpboot: Allowing 8 CPUs, 0 hotplug CPUs
-PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
-PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x0009ffff]
-PM: hibernation: Registered nosave memory: [mem 0x000a0000-0x000dffff]
-PM: hibernation: Registered nosave memory: [mem 0x000e0000-0x000fffff]
-PM: hibernation: Registered nosave memory: [mem 0x23903000-0x23903fff]
-PM: hibernation: Registered nosave memory: [mem 0x2395a000-0x2395afff]
-PM: hibernation: Registered nosave memory: [mem 0x32a2f000-0x3518efff]
-PM: hibernation: Registered nosave memory: [mem 0x3518f000-0x35f7efff]
-PM: hibernation: Registered nosave memory: [mem 0x35f7f000-0x35ffefff]
-PM: hibernation: Registered nosave memory: [mem 0x36000000-0x39ffffff]
-PM: hibernation: Registered nosave memory: [mem 0x3a000000-0x3a1fffff]
-PM: hibernation: Registered nosave memory: [mem 0x3a200000-0x3a3fffff]
-PM: hibernation: Registered nosave memory: [mem 0x3a400000-0x3affffff]
-PM: hibernation: Registered nosave memory: [mem 0x3b000000-0xcfffffff]
-PM: hibernation: Registered nosave memory: [mem 0xd0000000-0xfc7fffff]
-PM: hibernation: Registered nosave memory: [mem 0xfc800000-0xfe7fffff]
-PM: hibernation: Registered nosave memory: [mem 0xfe800000-0xfebfffff]
-PM: hibernation: Registered nosave memory: [mem 0xfec00000-0xfec00fff]
-PM: hibernation: Registered nosave memory: [mem 0xfec01000-0xfecfffff]
-PM: hibernation: Registered nosave memory: [mem 0xfed00000-0xfed00fff]
-PM: hibernation: Registered nosave memory: [mem 0xfed01000-0xfed0ffff]
-PM: hibernation: Registered nosave memory: [mem 0xfed10000-0xfed17fff]
-PM: hibernation: Registered nosave memory: [mem 0xfed18000-0xfed1ffff]
-PM: hibernation: Registered nosave memory: [mem 0xfed20000-0xfed7ffff]
-PM: hibernation: Registered nosave memory: [mem 0xfed80000-0xfed9ffff]
-PM: hibernation: Registered nosave memory: [mem 0xfeda0000-0xfeda1fff]
-PM: hibernation: Registered nosave memory: [mem 0xfeda2000-0xfedfffff]
-PM: hibernation: Registered nosave memory: [mem 0xfee00000-0xfee00fff]
-PM: hibernation: Registered nosave memory: [mem 0xfee01000-0xff3fffff]
-PM: hibernation: Registered nosave memory: [mem 0xff400000-0xffffffff]
-[mem 0xd0000000-0xfc7fffff] available for PCI devices
-Booting paravirtualized kernel on bare hardware
-clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff,
-max_idle_ns: 7645519600211568 ns
-setup_percpu: NR_CPUS:8192 nr_cpumask_bits:8 nr_cpu_ids:8 nr_node_ids:1
-percpu: Embedded 54 pages/cpu s183960 r8192 d29032 u262144
-pcpu-alloc: s183960 r8192 d29032 u262144 alloc=1*2097152
-pcpu-alloc: [0] 0 1 2 3 4 5 6 7
-Built 1 zonelists, mobility grouping on.  Total pages: 8202526
-Policy zone: Normal
-Kernel command line: BOOT_IMAGE=/vmlinuz-5.10.0-1-amd64
-root=/dev/mapper/debian--vg-root ro quiet
-Dentry cache hash table entries: 4194304 (order: 13, 33554432 bytes, linear)
-Inode-cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
-mem auto-init: stack:off, heap alloc:on, heap free:off
-Memory: 827144K/33330992K available (12295K kernel code, 2540K rwdata,
-4060K rodata, 2380K init, 1692K bss, 735384K reserved, 0K
-cma-reserved)
-random: get_random_u64 called from __kmem_cache_create+0x2e/0x550 with
-crng_init=0
-SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
-ftrace: allocating 35988 entries in 141 pages
-ftrace: allocated 141 pages with 4 groups
-rcu: Hierarchical RCU implementation.
-rcu: RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=8.
-Rude variant of Tasks RCU enabled.
-Tracing variant of Tasks RCU enabled.
-rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
-rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
-NR_IRQS: 524544, nr_irqs: 2048, preallocated irqs: 16
-random: crng done (trusting CPU's manufacturer)
-Console: colour VGA+ 80x25
-printk: console [tty0] enabled
-ACPI: Core revision 20200925
-APIC: Switch to symmetric I/O mode setup
-DMAR: Host address width 39
-DMAR: DRHD base: 0x000000fed90000 flags: 0x0
-DMAR: dmar0: reg_base_addr fed90000 ver 4:0 cap 1c0000c40660462 ecap 49e2ff0505e
-DMAR: DRHD base: 0x000000fed91000 flags: 0x1
-DMAR: dmar1: reg_base_addr fed91000 ver 1:0 cap d2008c40660462 ecap f050da
-DMAR: RMRR base: 0x00000035041000 end: 0x00000035060fff
-DMAR: RMRR base: 0x0000003c000000 end: 0x000000403fffff
-DMAR-IR: IOAPIC id 2 under DRHD base  0xfed91000 IOMMU 1
-DMAR-IR: HPET id 0 under DRHD base 0xfed91000
-DMAR-IR: x2apic is disabled because BIOS sets x2apic opt out bit.
-DMAR-IR: Use 'intremap=no_x2apic_optout' to override the BIOS setting.
-DMAR-IR: Enabled IRQ remapping in xapic mode
-x2apic: IRQ remapping doesn't support X2APIC mode
-clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles:
-0x159647815e3, max_idle_ns: 440795269835 ns
-Calibrating delay loop (skipped), value calculated using timer
-frequency.. 2995.20 BogoMIPS (lpj=5990400)
-pid_max: default: 32768 minimum: 301
-LSM: Security Framework initializing
-Yama: disabled by default; enable with sysctl kernel.yama.*
-AppArmor: AppArmor initialized
-TOMOYO Linux initialized
-Mount-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
-Mountpoint-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
-x86/cpu: User Mode Instruction Prevention (UMIP) activated
-mce: CPU0: Thermal monitoring enabled (TM1)
-process: using mwait in idle threads
-Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
-Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
-Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer
-sanitization
-Spectre V2 : Mitigation: Enhanced IBRS
-Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
-Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
-Speculative Store Bypass: Mitigation: Speculative Store Bypass
-disabled via prctl and seccomp
-Freeing SMP alternatives memory: 32K
-smpboot: CPU0: Intel(R) Core(TM) i7-1065G7 CPU @ 1.30GHz (family: 0x6,
-model: 0x7e, stepping: 0x5)
-Performance Events: PEBS fmt4+-baseline,  AnyThread deprecated,
-Icelake events, 32-deep LBR, full-width counters, Intel PMU driver.
-... version:                5
-... bit width:              48
-... generic registers:      8
-... value mask:             0000ffffffffffff
-... max period:             00007fffffffffff
-... fixed-purpose events:   4
-... event mask:             0001000f000000ff
-rcu: Hierarchical SRCU implementation.
-NMI watchdog: Enabled. Permanently consumes one hw-PMU counter.
-smp: Bringing up secondary CPUs ...
-x86: Booting SMP configuration:
-.... node  #0, CPUs:      #1 #2 #3 #4 #5 #6 #7
-smp: Brought up 1 node, 8 CPUs
-smpboot: Max logical packages: 1
-smpboot: Total of 8 processors activated (23961.60 BogoMIPS)
-node 0 deferred pages initialised in 32ms
-devtmpfs: initialized
-x86/mm: Memory block size: 128MB
-PM: Registering ACPI NVS region [mem 0x23903000-0x23903fff] (4096 bytes)
-PM: Registering ACPI NVS region [mem 0x3518f000-0x35f7efff] (14614528 bytes)
-clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff,
-max_idle_ns: 7645041785100000 ns
-futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
-pinctrl core: initialized pinctrl subsystem
-NET: Registered protocol family 16
-audit: initializing netlink subsys (disabled)
-audit: type=2000 audit(1611164511.048:1): state=initialized
-audit_enabled=0 res=1
-thermal_sys: Registered thermal governor 'fair_share'
-thermal_sys: Registered thermal governor 'bang_bang'
-thermal_sys: Registered thermal governor 'step_wise'
-thermal_sys: Registered thermal governor 'user_space'
-cpuidle: using governor ladder
-cpuidle: using governor menu
-ACPI FADT declares the system doesn't support PCIe ASPM, so disable it
-ACPI: bus type PCI registered
-acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
-PCI: MMCONFIG for domain 0000 [bus 00-ff] at [mem
-0xc0000000-0xcfffffff] (base 0xc0000000)
-PCI: MMCONFIG at [mem 0xc0000000-0xcfffffff] reserved in E820
-PCI: Using configuration type 1 for base access
-ENERGY_PERF_BIAS: Set to 'normal', was 'performance'
-HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
-HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
-ACPI: Added _OSI(Module Device)
-ACPI: Added _OSI(Processor Device)
-ACPI: Added _OSI(3.0 _SCP Extensions)
-ACPI: Added _OSI(Processor Aggregator Device)
-ACPI: Added _OSI(Linux-Dell-Video)
-ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
-ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
-ACPI: 14 ACPI AML tables successfully acquired and loaded
-ACPI: EC: EC started
-ACPI: EC: interrupt blocked
-ACPI: EC: EC_CMD/EC_SC=0x66, EC_DATA=0x62
-ACPI: EC: Boot ECDT EC used to handle transactions
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F733E5DC000 0000F4 (v02 PmRef  Cpu0Psd  00003000
-INTL 20160422)
-ACPI: \_SB_.PR00: _OSC native thermal LVT Acked
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F733E547C00 000386 (v02 PmRef  Cpu0Cst  00003001
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F70811CF800 000437 (v02 PmRef  Cpu0Ist  00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F733E59F200 00012C (v02 PmRef  Cpu0Hwp  00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F70811CE800 000724 (v02 PmRef  HwpLvt   00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F70811CE000 0005FC (v02 PmRef  ApIst    00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F733E543400 000317 (v02 PmRef  ApHwp    00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F7080140000 000AB0 (v02 PmRef  ApPsd    00003000
-INTL 20160422)
-ACPI: Dynamic OEM Table Load:
-ACPI: SSDT 0xFFFF9F733E540800 00030A (v02 PmRef  ApCst    00003000
-INTL 20160422)
-ACPI: Interpreter enabled
-ACPI: (supports S0 S3 S4 S5)
-ACPI: Using IOAPIC for interrupt routing
-PCI: Using host bridge windows from ACPI; if necessary, use
-"pci=nocrs" and report a bug
-ACPI: Enabled 10 GPEs in block 00 to 7F
-ACPI: Power Resource [PC01] (on)
-ACPI: Power Resource [V0PR] (on)
-ACPI: Power Resource [V1PR] (on)
-ACPI: Power Resource [V2PR] (on)
-ACPI: Power Resource [WRST] (on)
-acpi ABCD0000:00: ACPI dock station (docks/bays count: 1)
-ACPI: Power Resource [TBT0] (on)
-ACPI: Power Resource [TBT1] (on)
-ACPI BIOS Error (bug): Could not resolve symbol [\_SB.IPPF._STA.POS1],
-AE_NOT_FOUND (20200925/psargs-330)
-ACPI Error: Aborting method \_SB.IPPF._STA due to previous error
-(AE_NOT_FOUND) (20200925/psparse-529)
-ACPI: Power Resource [PIN] (off)
-ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-fe])
-acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM
-Segments MSI HPX-Type3]
-acpi PNP0A08:00: _OSC: platform does not support [AER]
-acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME
-PCIeCapability LTR]
-acpi PNP0A08:00: FADT indicates ASPM is unsupported, using BIOS configuration
-PCI host bridge to bus 0000:00
-pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
-pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
-pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
-pci_bus 0000:00: root bus resource [mem 0x40400000-0xbfffffff window]
-pci_bus 0000:00: root bus resource [bus 00-fe]
-pci 0000:00:00.0: [8086:8a12] type 00 class 0x060000
-pci 0000:00:02.0: [8086:8a52] type 00 class 0x030000
-pci 0000:00:02.0: reg 0x10: [mem 0x6b000000-0x6bffffff 64bit]
-pci 0000:00:02.0: reg 0x18: [mem 0x70000000-0x7fffffff 64bit pref]
-pci 0000:00:02.0: reg 0x20: [io  0x8000-0x803f]
-pci 0000:00:02.0: DMAR: Skip IOMMU disabling for graphics
-pci 0000:00:04.0: [8086:8a03] type 00 class 0x118000
-pci 0000:00:04.0: reg 0x10: [mem 0x6c100000-0x6c10ffff 64bit]
-pci 0000:00:14.0: [8086:34ed] type 00 class 0x0c0330
-pci 0000:00:14.0: reg 0x10: [mem 0x6c110000-0x6c11ffff 64bit]
-pci 0000:00:14.0: PME# supported from D3hot D3cold
-pci 0000:00:14.2: [8086:34ef] type 00 class 0x050000
-pci 0000:00:14.2: reg 0x10: [mem 0x6c124000-0x6c125fff 64bit]
-pci 0000:00:14.2: reg 0x18: [mem 0x6c128000-0x6c128fff 64bit]
-pci 0000:00:15.0: [8086:34e8] type 00 class 0x0c8000
-pci 0000:00:15.0: reg 0x10: [mem 0x00000000-0x00000fff 64bit]
-pci 0000:00:15.1: [8086:34e9] type 00 class 0x0c8000
-pci 0000:00:15.1: reg 0x10: [mem 0x00000000-0x00000fff 64bit]
-pci 0000:00:16.0: [8086:34e0] type 00 class 0x078000
-pci 0000:00:16.0: reg 0x10: [mem 0x6c12b000-0x6c12bfff 64bit]
-pci 0000:00:16.0: PME# supported from D3hot
-pci 0000:00:17.0: [8086:282a] type 00 class 0x010400
-pci 0000:00:17.0: reg 0x10: [mem 0x6c126000-0x6c127fff]
-pci 0000:00:17.0: reg 0x14: [mem 0x6c131000-0x6c1310ff]
-pci 0000:00:17.0: reg 0x18: [io  0x8080-0x8087]
-pci 0000:00:17.0: reg 0x1c: [io  0x8088-0x808b]
-pci 0000:00:17.0: reg 0x20: [io  0x8060-0x807f]
-pci 0000:00:17.0: reg 0x24: [mem 0x6c130000-0x6c1307ff]
-pci 0000:00:17.0: PME# supported from D3hot
-pci 0000:00:1c.0: [8086:34b8] type 01 class 0x060400
-pci 0000:00:1c.0: PME# supported from D0 D3hot D3cold
-pci 0000:00:1c.4: [8086:34bc] type 01 class 0x060400
-pci 0000:00:1c.4: PME# supported from D0 D3hot D3cold
-pci 0000:00:1c.4: PTM enabled (root), 4ns granularity
-pci 0000:00:1d.0: [8086:34b0] type 01 class 0x060400
-pci 0000:00:1d.0: PME# supported from D0 D3hot D3cold
-pci 0000:00:1d.0: PTM enabled (root), 4ns granularity
-pci 0000:00:1d.1: [8086:34b1] type 01 class 0x060400
-pci 0000:00:1d.1: PME# supported from D0 D3hot D3cold
-pci 0000:00:1d.1: PTM enabled (root), 4ns granularity
-pci 0000:00:1d.4: [8086:34b4] type 01 class 0x060400
-pci 0000:00:1d.4: PME# supported from D0 D3hot D3cold
-pci 0000:00:1d.4: PTM enabled (root), 4ns granularity
-pci 0000:00:1e.0: [8086:34a8] type 00 class 0x078000
-pci 0000:00:1e.0: reg 0x10: [mem 0x00000000-0x00000fff 64bit]
-pci 0000:00:1e.2: [8086:34aa] type 00 class 0x0c8000
-pci 0000:00:1e.2: reg 0x10: [mem 0x00000000-0x00000fff 64bit]
-pci 0000:00:1f.0: [8086:3482] type 00 class 0x060100
-pci 0000:00:1f.3: [8086:34c8] type 00 class 0x040380
-pci 0000:00:1f.3: reg 0x10: [mem 0x6c120000-0x6c123fff 64bit]
-pci 0000:00:1f.3: reg 0x20: [mem 0x6c000000-0x6c0fffff 64bit]
-pci 0000:00:1f.3: PME# supported from D3hot D3cold
-pci 0000:00:1f.4: [8086:34a3] type 00 class 0x0c0500
-pci 0000:00:1f.4: reg 0x10: [mem 0x6c12e000-0x6c12e0ff 64bit]
-pci 0000:00:1f.4: reg 0x20: [io  0x8040-0x805f]
-pci 0000:00:1f.5: [8086:34a4] type 00 class 0x0c8000
-pci 0000:00:1f.5: reg 0x10: [mem 0xfe010000-0xfe010fff]
-pci 0000:00:1c.0: PCI bridge to [bus 01-05]
-pci 0000:00:1c.0:   bridge window [io  0x7000-0x7fff]
-pci 0000:00:1c.0:   bridge window [mem 0x6a000000-0x6affffff]
-pci 0000:00:1c.0:   bridge window [mem 0x62000000-0x62ffffff 64bit pref]
-pci 0000:06:00.0: [10de:1d13] type 00 class 0x030200
-pci 0000:06:00.0: reg 0x10: [mem 0x69000000-0x69ffffff]
-pci 0000:06:00.0: reg 0x14: [mem 0x50000000-0x5fffffff 64bit pref]
-pci 0000:06:00.0: reg 0x1c: [mem 0x60000000-0x61ffffff 64bit pref]
-pci 0000:06:00.0: reg 0x24: [io  0x6000-0x607f]
-pci 0000:06:00.0: reg 0x30: [mem 0xfff80000-0xffffffff pref]
-pci 0000:06:00.0: Enabling HDA controller
-pci 0000:00:1c.4: PCI bridge to [bus 06-0a]
-pci 0000:00:1c.4:   bridge window [io  0x6000-0x6fff]
-pci 0000:00:1c.4:   bridge window [mem 0x69000000-0x69ffffff]
-pci 0000:00:1c.4:   bridge window [mem 0x50000000-0x61ffffff 64bit pref]
-pci 0000:0b:00.0: [10ec:c822] type 00 class 0x028000
-pci 0000:0b:00.0: reg 0x10: [io  0x5000-0x50ff]
-pci 0000:0b:00.0: reg 0x18: [mem 0x68000000-0x6800ffff 64bit]
-pci 0000:0b:00.0: supports D1 D2
-pci 0000:0b:00.0: PME# supported from D0 D1 D2 D3hot D3cold
-pci 0000:00:1d.0: PCI bridge to [bus 0b-0f]
-pci 0000:00:1d.0:   bridge window [io  0x5000-0x5fff]
-pci 0000:00:1d.0:   bridge window [mem 0x68000000-0x68ffffff]
-pci 0000:00:1d.0:   bridge window [mem 0x63000000-0x63ffffff 64bit pref]
-pci 0000:10:00.0: [10ec:8168] type 00 class 0x020000
-pci 0000:10:00.0: reg 0x10: [io  0x4000-0x40ff]
-pci 0000:10:00.0: reg 0x18: [mem 0x67004000-0x67004fff 64bit]
-pci 0000:10:00.0: reg 0x20: [mem 0x67000000-0x67003fff 64bit]
-pci 0000:10:00.0: supports D1 D2
-pci 0000:10:00.0: PME# supported from D0 D1 D2 D3hot D3cold
-pci 0000:00:1d.1: PCI bridge to [bus 10-14]
-pci 0000:00:1d.1:   bridge window [io  0x4000-0x4fff]
-pci 0000:00:1d.1:   bridge window [mem 0x67000000-0x67ffffff]
-pci 0000:00:1d.1:   bridge window [mem 0x64000000-0x64ffffff 64bit pref]
-pci 0000:15:00.0: [15b7:5003] type 00 class 0x010802
-pci 0000:15:00.0: reg 0x10: [mem 0x66000000-0x66003fff 64bit]
-pci 0000:00:1d.4: PCI bridge to [bus 15]
-pci 0000:00:1d.4:   bridge window [io  0x3000-0x3fff]
-pci 0000:00:1d.4:   bridge window [mem 0x66000000-0x66ffffff]
-pci 0000:00:1d.4:   bridge window [mem 0x65000000-0x65ffffff 64bit pref]
-ACPI BIOS Error (bug): Could not resolve symbol [\_SB.IPPF._STA.POS1],
-AE_NOT_FOUND (20200925/psargs-330)
-ACPI Error: Aborting method \_SB.IPPF._STA due to previous error
-(AE_NOT_FOUND) (20200925/psparse-529)
-ACPI: EC: interrupt unblocked
-ACPI: EC: event unblocked
-ACPI: EC: EC_CMD/EC_SC=0x66, EC_DATA=0x62
-ACPI: EC: GPE=0x6e
-ACPI: \_SB_.PCI0.LPCB.EC0_: Boot ECDT EC initialization complete
-ACPI: \_SB_.PCI0.LPCB.EC0_: EC: Used to handle transactions and events
-iommu: Default domain type: Translated
-pci 0000:00:02.0: vgaarb: setting as boot VGA device
-pci 0000:00:02.0: vgaarb: VGA device added:
-decodes=io+mem,owns=io+mem,locks=none
-pci 0000:00:02.0: vgaarb: bridge control possible
-vgaarb: loaded
-EDAC MC: Ver: 3.0.0
-NetLabel: Initializing
-NetLabel:  domain hash size = 128
-NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
-NetLabel:  unlabeled traffic allowed by default
-PCI: Using ACPI for IRQ routing
-PCI: pci_cache_line_size set to 64 bytes
-pci 0000:00:1f.5: can't claim BAR 0 [mem 0xfe010000-0xfe010fff]: no
-compatible bridge window
-e820: reserve RAM buffer [mem 0x0009f800-0x0009ffff]
-e820: reserve RAM buffer [mem 0x23903000-0x23ffffff]
-e820: reserve RAM buffer [mem 0x2395a000-0x23ffffff]
-e820: reserve RAM buffer [mem 0x32a2f000-0x33ffffff]
-e820: reserve RAM buffer [mem 0x36000000-0x37ffffff]
-e820: reserve RAM buffer [mem 0x8bfc00000-0x8bfffffff]
-clocksource: Switched to clocksource tsc-early
-VFS: Disk quotas dquot_6.6.0
-VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
-AppArmor: AppArmor Filesystem Enabled
-pnp: PnP ACPI init
-system 00:00: [io  0x0680-0x069f] has been reserved
-system 00:00: [io  0x164e-0x164f] has been reserved
-system 00:00: Plug and Play ACPI device, IDs PNP0c02 (active)
-pnp 00:01: Plug and Play ACPI device, IDs HPQ8001 PNP0303 (active)
-pnp 00:02: Plug and Play ACPI device, IDs ETD074c SYN1e00 SYN0002
-PNP0f13 (active)
-system 00:03: [mem 0xfed10000-0xfed17fff] has been reserved
-system 00:03: [mem 0xfeda0000-0xfeda0fff] has been reserved
-system 00:03: [mem 0xfeda1000-0xfeda1fff] has been reserved
-system 00:03: [mem 0xc0000000-0xcfffffff] has been reserved
-system 00:03: [mem 0xfed20000-0xfed7ffff] has been reserved
-system 00:03: [mem 0xfed90000-0xfed93fff] could not be reserved
-system 00:03: [mem 0xfee00000-0xfeefffff] could not be reserved
-system 00:03: Plug and Play ACPI device, IDs PNP0c02 (active)
-system 00:04: [io  0x1800-0x18fe] has been reserved
-system 00:04: [mem 0xfd000000-0xfd68ffff] has been reserved
-system 00:04: [mem 0xfd6b0000-0xfd6cffff] has been reserved
-system 00:04: [mem 0xfd6f0000-0xfdffffff] has been reserved
-system 00:04: [mem 0xfe000000-0xfe01ffff] has been reserved
-system 00:04: [mem 0xfe200000-0xfe7fffff] has been reserved
-system 00:04: [mem 0xff000000-0xffffffff] could not be reserved
-system 00:04: Plug and Play ACPI device, IDs PNP0c02 (active)
-system 00:05: [io  0x2000-0x20fe] has been reserved
-system 00:05: Plug and Play ACPI device, IDs PNP0c02 (active)
-system 00:06: [mem 0xfe038000-0xfe038fff] has been reserved
-system 00:06: Plug and Play ACPI device, IDs PNP0c02 (active)
-ACPI BIOS Error (bug): Could not resolve symbol [\_SB.IPPF._STA.POS1],
-AE_NOT_FOUND (20200925/psargs-330)
-ACPI Error: Aborting method \_SB.IPPF._STA due to previous error
-(AE_NOT_FOUND) (20200925/psparse-529)
-pnp: PnP ACPI: found 7 devices
-clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff,
-max_idle_ns: 2085701024 ns
-NET: Registered protocol family 2
-tcp_listen_portaddr_hash hash table entries: 16384 (order: 6, 262144
-bytes, linear)
-TCP established hash table entries: 262144 (order: 9, 2097152 bytes, linear)
-TCP bind hash table entries: 65536 (order: 8, 1048576 bytes, linear)
-TCP: Hash tables configured (established 262144 bind 65536)
-UDP hash table entries: 16384 (order: 7, 524288 bytes, linear)
-UDP-Lite hash table entries: 16384 (order: 7, 524288 bytes, linear)
-NET: Registered protocol family 1
-NET: Registered protocol family 44
-pci 0000:06:00.0: can't claim BAR 6 [mem 0xfff80000-0xffffffff pref]:
-no compatible bridge window
-pci 0000:00:15.0: BAR 0: no space for [mem size 0x00001000 64bit]
-pci 0000:00:15.0: BAR 0: failed to assign [mem size 0x00001000 64bit]
-pci 0000:00:15.1: BAR 0: no space for [mem size 0x00001000 64bit]
-pci 0000:00:15.1: BAR 0: failed to assign [mem size 0x00001000 64bit]
-pci 0000:00:1e.0: BAR 0: no space for [mem size 0x00001000 64bit]
-pci 0000:00:1e.0: BAR 0: failed to assign [mem size 0x00001000 64bit]
-pci 0000:00:1e.2: BAR 0: no space for [mem size 0x00001000 64bit]
-pci 0000:00:1e.2: BAR 0: failed to assign [mem size 0x00001000 64bit]
-pci 0000:00:1f.5: BAR 0: no space for [mem size 0x00001000]
-pci 0000:00:1f.5: BAR 0: trying firmware assignment [mem 0xfe010000-0xfe010fff]
-pci 0000:00:1f.5: BAR 0: [mem 0xfe010000-0xfe010fff] conflicts with
-Reserved [mem 0xfc800000-0xfe7fffff]
-pci 0000:00:1f.5: BAR 0: failed to assign [mem size 0x00001000]
-pci 0000:00:1c.0: PCI bridge to [bus 01-05]
-pci 0000:00:1c.0:   bridge window [io  0x7000-0x7fff]
-pci 0000:00:1c.0:   bridge window [mem 0x6a000000-0x6affffff]
-pci 0000:00:1c.0:   bridge window [mem 0x62000000-0x62ffffff 64bit pref]
-pci 0000:06:00.0: BAR 6: no space for [mem size 0x00080000 pref]
-pci 0000:06:00.0: BAR 6: failed to assign [mem size 0x00080000 pref]
-pci 0000:00:1c.4: PCI bridge to [bus 06-0a]
-pci 0000:00:1c.4:   bridge window [io  0x6000-0x6fff]
-pci 0000:00:1c.4:   bridge window [mem 0x69000000-0x69ffffff]
-pci 0000:00:1c.4:   bridge window [mem 0x50000000-0x61ffffff 64bit pref]
-pci 0000:00:1d.0: PCI bridge to [bus 0b-0f]
-pci 0000:00:1d.0:   bridge window [io  0x5000-0x5fff]
-pci 0000:00:1d.0:   bridge window [mem 0x68000000-0x68ffffff]
-pci 0000:00:1d.0:   bridge window [mem 0x63000000-0x63ffffff 64bit pref]
-pci 0000:00:1d.1: PCI bridge to [bus 10-14]
-pci 0000:00:1d.1:   bridge window [io  0x4000-0x4fff]
-pci 0000:00:1d.1:   bridge window [mem 0x67000000-0x67ffffff]
-pci 0000:00:1d.1:   bridge window [mem 0x64000000-0x64ffffff 64bit pref]
-pci 0000:00:1d.4: PCI bridge to [bus 15]
-pci 0000:00:1d.4:   bridge window [io  0x3000-0x3fff]
-pci 0000:00:1d.4:   bridge window [mem 0x66000000-0x66ffffff]
-pci 0000:00:1d.4:   bridge window [mem 0x65000000-0x65ffffff 64bit pref]
-pci_bus 0000:00: Some PCI device resources are unassigned, try booting
-with pci=realloc
-pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
-pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
-pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
-pci_bus 0000:00: resource 7 [mem 0x40400000-0xbfffffff window]
-pci_bus 0000:01: resource 0 [io  0x7000-0x7fff]
-pci_bus 0000:01: resource 1 [mem 0x6a000000-0x6affffff]
-pci_bus 0000:01: resource 2 [mem 0x62000000-0x62ffffff 64bit pref]
-pci_bus 0000:06: resource 0 [io  0x6000-0x6fff]
-pci_bus 0000:06: resource 1 [mem 0x69000000-0x69ffffff]
-pci_bus 0000:06: resource 2 [mem 0x50000000-0x61ffffff 64bit pref]
-pci_bus 0000:0b: resource 0 [io  0x5000-0x5fff]
-pci_bus 0000:0b: resource 1 [mem 0x68000000-0x68ffffff]
-pci_bus 0000:0b: resource 2 [mem 0x63000000-0x63ffffff 64bit pref]
-pci_bus 0000:10: resource 0 [io  0x4000-0x4fff]
-pci_bus 0000:10: resource 1 [mem 0x67000000-0x67ffffff]
-pci_bus 0000:10: resource 2 [mem 0x64000000-0x64ffffff 64bit pref]
-pci_bus 0000:15: resource 0 [io  0x3000-0x3fff]
-pci_bus 0000:15: resource 1 [mem 0x66000000-0x66ffffff]
-pci_bus 0000:15: resource 2 [mem 0x65000000-0x65ffffff 64bit pref]
-pci 0000:00:02.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
-PCI: CLS 64 bytes, default 64
-Trying to unpack rootfs image as initramfs...
-Freeing initrd memory: 67280K
-DMAR: No ATSR found
-DMAR: dmar0: Using Queued invalidation
-DMAR: dmar1: Using Queued invalidation
-pci 0000:00:00.0: Adding to iommu group 0
-pci 0000:00:02.0: Adding to iommu group 1
-pci 0000:00:04.0: Adding to iommu group 2
-pci 0000:00:14.0: Adding to iommu group 3
-pci 0000:00:14.2: Adding to iommu group 3
-pci 0000:00:15.0: Adding to iommu group 4
-pci 0000:00:15.1: Adding to iommu group 4
-pci 0000:00:16.0: Adding to iommu group 5
-pci 0000:00:17.0: Adding to iommu group 6
-pci 0000:00:1c.0: Adding to iommu group 7
-pci 0000:00:1c.4: Adding to iommu group 8
-pci 0000:00:1d.0: Adding to iommu group 9
-pci 0000:00:1d.1: Adding to iommu group 10
-pci 0000:00:1d.4: Adding to iommu group 11
-pci 0000:00:1e.0: Adding to iommu group 12
-pci 0000:00:1e.2: Adding to iommu group 12
-pci 0000:00:1f.0: Adding to iommu group 13
-pci 0000:00:1f.3: Adding to iommu group 13
-pci 0000:00:1f.4: Adding to iommu group 13
-pci 0000:00:1f.5: Adding to iommu group 13
-pci 0000:06:00.0: Adding to iommu group 14
-pci 0000:0b:00.0: Adding to iommu group 15
-pci 0000:10:00.0: Adding to iommu group 16
-pci 0000:15:00.0: Adding to iommu group 17
-DMAR: Intel(R) Virtualization Technology for Directed I/O
-PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
-software IO TLB: mapped [mem 0x000000002918f000-0x000000002d18f000] (64MB)
-clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x159647815e3,
-max_idle_ns: 440795269835 ns
-clocksource: Switched to clocksource tsc
-platform rtc_cmos: registered platform RTC device (no PNP device found)
-Initialise system trusted keyrings
-Key type blacklist registered
-workingset: timestamp_bits=36 max_order=23 bucket_order=0
-zbud: loaded
-integrity: Platform Keyring initialized
-Key type asymmetric registered
-Asymmetric key parser 'x509' registered
-Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
-io scheduler mq-deadline registered
-pcieport 0000:00:1c.0: PME: Signaling with IRQ 122
-pcieport 0000:00:1c.0: pciehp: Slot #0 AttnBtn- PwrCtrl- MRL- AttnInd-
-PwrInd- HotPlug+ Surprise+ Interlock- NoCompl+ IbPresDis- LLActRep+
-pcieport 0000:00:1c.4: PME: Signaling with IRQ 123
-pcieport 0000:00:1d.0: PME: Signaling with IRQ 124
-pcieport 0000:00:1d.1: PME: Signaling with IRQ 125
-pcieport 0000:00:1d.4: PME: Signaling with IRQ 126
-shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
-intel_idle: MWAIT substates: 0x11121020
-Monitor-Mwait will be used to enter C-1 state
-Monitor-Mwait will be used to enter C-2 state
-Monitor-Mwait will be used to enter C-3 state
-ACPI: \_SB_.PR00: Found 3 idle states
-intel_idle: v0.5.1 model 0x7E
-intel_idle: Local APIC timer is reliable in all C-states
-[Firmware Bug]: Invalid critical threshold (0)
-thermal LNXTHERM:00: registered as thermal_zone0
-ACPI: Thermal Zone [TZ01] (58 C)
-Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
-hpet_acpi_add: no address or irqs in _CRS
-Linux agpgart interface v0.103
-AMD-Vi: AMD IOMMUv2 driver by Joerg Roedel <jroedel@suse.de>
-AMD-Vi: AMD IOMMUv2 functionality not available on this system
-i8042: PNP: PS/2 Controller [PNP0303:PS2K,PNP0f13:PS2M] at 0x60,0x64 irq 1,12
-serio: i8042 KBD port at 0x60,0x64 irq 1
-serio: i8042 AUX port at 0x60,0x64 irq 12
-mousedev: PS/2 mouse device common for all mice
-rtc_cmos rtc_cmos: RTC can wake from S4
-rtc_cmos rtc_cmos: registered as rtc0
-rtc_cmos rtc_cmos: setting system clock to 2021-01-20T17:41:52 UTC (1611164512)
-rtc_cmos rtc_cmos: alarms up to one month, y3k, 114 bytes nvram
-intel_pstate: Intel P-state driver initializing
-intel_pstate: HWP enabled
-ledtrig-cpu: registered to indicate activity on CPUs
-NET: Registered protocol family 10
-Segment Routing with IPv6
-mip6: Mobile IPv6
-NET: Registered protocol family 17
-mpls_gso: MPLS GSO support
-microcode: sig=0x706e5, pf=0x80, revision=0xa0
-microcode: Microcode Update Driver: v2.2.
-IPI shorthand broadcast: enabled
-sched_clock: Marking stable (1117818972, 8996860)->(1171767835, -44952003)
-registered taskstats version 1
-Loading compiled-in X.509 certificates
-Loaded X.509 cert 'Debian Secure Boot CA:
-6ccece7e4c6c0d1f6149f3dd27dfcc5cbb419ea1'
-Loaded X.509 cert 'Debian Secure Boot Signer 2020: 00b55eb3b9'
-zswap: loaded using pool lzo/zbud
-Key type ._fscrypt registered
-Key type .fscrypt registered
-Key type fscrypt-provisioning registered
-AppArmor: AppArmor sha1 policy hashing enabled
-Freeing unused kernel image (initmem) memory: 2380K
-input: AT Translated Set 2 keyboard as
-/devices/platform/i8042/serio0/input/input0
-Write protecting the kernel read-only data: 18432k
-Freeing unused kernel image (text/rodata gap) memory: 2040K
-Freeing unused kernel image (rodata/data gap) memory: 36K
-x86/mm: Checked W+X mappings: passed, no W+X pages found.
-Run /init as init process
-  with arguments:
-    /init
-  with environment:
-    HOME=/
-    TERM=linux
-    BOOT_IMAGE=/vmlinuz-5.10.0-1-amd64
-input: Lid Switch as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0D:00/input/input2
-ACPI: Lid Switch [LID0]
-input: Power Button as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0C:00/input/input3
-ACPI: Power Button [PWRB]
-input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input4
-wmi_bus wmi_bus-PNP0C14:01: WQ data block query control method not found
-wmi_bus wmi_bus-PNP0C14:01: WQ data block query control method not found
-wmi_bus wmi_bus-PNP0C14:01: WQ data block query control method not found
-wmi_bus wmi_bus-PNP0C14:01: WQ data block query control method not found
-acpi PNP0C14:04: duplicate WMI GUID
-05901221-D566-11D1-B2F0-00A0C9062910 (first instance was on
-PNP0C14:03)
-acpi PNP0C14:05: duplicate WMI GUID
-05901221-D566-11D1-B2F0-00A0C9062910 (first instance was on
-PNP0C14:03)
-wmi_bus wmi_bus-PNP0C14:05: WQBJ data block query control method not found
-wmi_bus wmi_bus-PNP0C14:05: WQBK data block query control method not found
-i801_smbus 0000:00:1f.4: SPD Write Disable is set
-i801_smbus 0000:00:1f.4: SMBus using PCI interrupt
-i2c i2c-0: 2/2 memory slots populated (from DMI)
-i2c i2c-0: Successfully instantiated SPD at 0x50
-SCSI subsystem initialized
-r8169 0000:10:00.0: can't disable ASPM; OS doesn't have ASPM control
-ACPI: bus type USB registered
-usbcore: registered new interface driver usbfs
-usbcore: registered new interface driver hub
-usbcore: registered new device driver usb
-libata version 3.00 loaded.
-ACPI: Power Button [PWRF]
-xhci_hcd 0000:00:14.0: xHCI Host Controller
-xhci_hcd 0000:00:14.0: new USB bus registered, assigned bus number 1
-ahci 0000:00:17.0: version 3.0
-xhci_hcd 0000:00:14.0: hcc params 0x20007fc1 hci version 0x110 quirks
-0x0000000000009810
-xhci_hcd 0000:00:14.0: cache line size of 64 is not supported
-ahci 0000:00:17.0: AHCI 0001.0301 32 slots 2 ports 6 Gbps 0x1 impl RAID mode
-ahci 0000:00:17.0: flags: 64bit ncq sntf pm clo only pio slum part
-deso sadm sds apst
-usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.10
-usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
-usb usb1: Product: xHCI Host Controller
-usb usb1: Manufacturer: Linux 5.10.0-1-amd64 xhci-hcd
-usb usb1: SerialNumber: 0000:00:14.0
-hub 1-0:1.0: USB hub found
-hub 1-0:1.0: 12 ports detected
-xhci_hcd 0000:00:14.0: xHCI Host Controller
-xhci_hcd 0000:00:14.0: new USB bus registered, assigned bus number 2
-xhci_hcd 0000:00:14.0: Host supports USB 3.1 Enhanced SuperSpeed
-usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 5.10
-usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
-usb usb2: Product: xHCI Host Controller
-usb usb2: Manufacturer: Linux 5.10.0-1-amd64 xhci-hcd
-usb usb2: SerialNumber: 0000:00:14.0
-hub 2-0:1.0: USB hub found
-hub 2-0:1.0: 6 ports detected
-cryptd: max_cpu_qlen set to 1000
-scsi host0: ahci
-AVX2 version of gcm_enc/dec engaged.
-AES CTR mode by8 optimization enabled
-nvme nvme0: pci function 0000:15:00.0
-scsi host1: ahci
-ata1: SATA max UDMA/133 abar m2048@0x6c130000 port 0x6c130100 irq 128
-ata2: DUMMY
-libphy: r8169: probed
-r8169 0000:10:00.0 eth0: RTL8168h/8111h, 38:22:e2:1c:ff:ff, XID 541, IRQ 129
-r8169 0000:10:00.0 eth0: jumbo features [frames: 9194 bytes, tx
-checksumming: ko]
-r8169 0000:10:00.0 eno1: renamed from eth0
-nvme nvme0: 8/0/0 default/read/poll queues
- nvme0n1: p1 p2 < p5 >
-battery: ACPI: Battery Slot [BAT0] (battery present)
-i915 0000:00:02.0: [drm] VT-d active for gfx access
-i915 0000:00:02.0: vgaarb: deactivate vga console
-Console: switching to colour dummy device 80x25
-ACPI Warning: \_SB.PCI0.GFX0._DSM: Argument #4 type mismatch - Found
-[Buffer], ACPI requires [Package] (20200925/nsarguments-61)
-ACPI Warning: \_SB.PCI0.RP05.PXSX._DSM: Argument #4 type mismatch -
-Found [Buffer], ACPI requires [Package] (20200925/nsarguments-61)
-pci 0000:06:00.0: optimus capabilities: enabled, status dynamic power,
-VGA switcheroo: detected Optimus DSM method \_SB_.PCI0.RP05.PXSX handle
-nouveau: detected PR support, will not use DSM
-nouveau 0000:06:00.0: enabling device (0006 -> 0007)
-i915 0000:00:02.0: vgaarb: changed VGA decodes:
-olddecodes=io+mem,decodes=io+mem:owns=io+mem
-nouveau 0000:06:00.0: NVIDIA GP108 (138000a1)
-i915 0000:00:02.0: firmware: direct-loading firmware i915/icl_dmc_ver1_09.bin
-i915 0000:00:02.0: [drm] Finished loading DMC firmware
-i915/icl_dmc_ver1_09.bin (v1.9)
-nouveau 0000:06:00.0: bios: version 86.08.40.00.2e
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/nvdec/scrubber.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware nvidia/gp108/acr/bl.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/acr/ucode_load.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/acr/unload_bl.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/acr/ucode_unload.bin
-nouveau 0000:06:00.0: pmu: firmware unavailable
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/fecs_bl.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/fecs_inst.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/fecs_data.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/fecs_sig.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/gpccs_bl.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/gpccs_inst.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/gpccs_data.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/gpccs_sig.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/sw_nonctx.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/sw_ctx.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/sw_bundle_init.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/gr/sw_method_init.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/sec2/sig.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/sec2/image.bin
-nouveau 0000:06:00.0: firmware: direct-loading firmware
-nvidia/gp108/sec2/desc.bin
-nouveau 0000:06:00.0: fb: 2048 MiB GDDR5
-ata1: SATA link down (SStatus 4 SControl 300)
-usb 1-3: new high-speed USB device number 2 using xhci_hcd
-psmouse serio1: elantech: assuming hardware version 4 (with firmware
-version 0x4d5f02)
-psmouse serio1: elantech: Synaptics capabilities query result 0x10, 0x1a, 0x0d.
-usb 1-3: New USB device found, idVendor=04ca, idProduct=707f, bcdDevice= 0.03
-usb 1-3: New USB device strings: Mfr=3, Product=1, SerialNumber=2
-usb 1-3: Product: HP Wide Vision HD Camera
-usb 1-3: Manufacturer: DHKQA019ID97Y5
-usb 1-3: SerialNumber: 200901010001
-psmouse serio1: elantech: Elan sample query result 04, 4d, 86
-input: ETPS/2 Elantech Touchpad as /devices/platform/i8042/serio1/input/input5
-usb 1-10: new full-speed USB device number 3 using xhci_hcd
-usb 1-10: New USB device found, idVendor=0bda, idProduct=b00c, bcdDevice= 0.00
-usb 1-10: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-usb 1-10: Product: Bluetooth Radio
-usb 1-10: Manufacturer: Realtek
-usb 1-10: SerialNumber: 00e04c000001
-------------[ cut here ]------------
-nouveau 0000:06:00.0: timeout
-WARNING: CPU: 5 PID: 169 at
-drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c:107
-nvkm_pmu_reset+0x148/0x160 [nouveau]
-Modules linked in: nouveau(+) i915(+) crc32_pclmul crc32c_intel
-ghash_clmulni_intel nvme aesni_intel libaes crypto_simd mxm_wmi ttm
-ahci nvme_core xhci_pci i2c_algo_bit libahci xhci_hcd drm_kms_helper
-t10_pi crc_t10dif libata psmouse cryptd glue_helper cec usbcore r8169
-drm crct10dif_generic scsi_mod realtek mdio_devres i2c_i801 libphy
-i2c_smbus crct10dif_pclmul intel_lpss_pci crct10dif_common intel_lpss
-usb_common idma64 battery video wmi button
-CPU: 5 PID: 169 Comm: systemd-udevd Not tainted 5.10.0-1-amd64 #1
-Debian 5.10.4-1
-Hardware name: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
-RIP: 0010:nvkm_pmu_reset+0x148/0x160 [nouveau]
-Code: 04 24 48 8b 40 10 48 8b 78 10 4c 8b 67 50 4d 85 e4 74 1e e8 9a
-de 78 cd 4c 89 e2 48 c7 c7 a1 d1 d8 c0 48 89 c6 e8 38 6a 9e cd <0f> 0b
-e9 50 ff ff ff 4c 8b 27 eb dd 4c 8b 27 eb a5 e8 52 dd a1 cd
-RSP: 0018:ffffc388804278e0 EFLAGS: 00010282
-RAX: 0000000000000000 RBX: ffff9f70b993e800 RCX: ffffffff8f0b3228
-RDX: c0000000ffffefff RSI: 00000000ffffefff RDI: 0000000000000247
-RBP: ffff9f70a20cee00 R08: 0000000000000000 R09: ffffc38880427700
-R10: ffffc388804276f8 R11: ffffffff8f0cb268 R12: ffff9f708129cb50
-R13: 0000000058779b71 R14: 0000000053aa5380 R15: ffff9f70b9961e00
-FS:  00007f6b768b38c0(0000) GS:ffff9f781fb40000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fb13a7ba6f4 CR3: 00000003be160004 CR4: 0000000000770ee0
-PKRU: 55555554
-Call Trace:
- nvkm_pmu_init+0x16/0x40 [nouveau]
- nvkm_subdev_init+0x92/0xd0 [nouveau]
- ? ktime_get+0x38/0xa0
- nvkm_device_init+0x10b/0x190 [nouveau]
- nvkm_udevice_init+0x41/0x60 [nouveau]
- nvkm_object_init+0x3e/0x100 [nouveau]
- nvkm_ioctl_new+0x169/0x200 [nouveau]
- ? nvkm_client_notify+0x30/0x30 [nouveau]
- ? nvkm_udevice_rd08+0x20/0x20 [nouveau]
- nvkm_ioctl+0xde/0x180 [nouveau]
- nvif_object_ctor+0x11e/0x1c0 [nouveau]
- nvif_device_ctor+0x1f/0x60 [nouveau]
- nouveau_cli_init+0x197/0x450 [nouveau]
- ? kmem_cache_alloc_trace+0xf5/0x200
- nouveau_drm_device_init+0x74/0x760 [nouveau]
- ? pci_bus_read_config_word+0x49/0x70
- nouveau_drm_probe+0x12f/0x1f0 [nouveau]
- local_pci_probe+0x42/0x80
- ? _cond_resched+0x16/0x40
- pci_device_probe+0xfd/0x1b0
- really_probe+0x205/0x460
- driver_probe_device+0xe1/0x150
- device_driver_attach+0xa1/0xb0
- __driver_attach+0x8a/0x150
- ? device_driver_attach+0xb0/0xb0
- ? device_driver_attach+0xb0/0xb0
- bus_for_each_dev+0x78/0xc0
- bus_add_driver+0x12b/0x1e0
- driver_register+0x8b/0xe0
- ? 0xffffffffc0769000
- do_one_initcall+0x44/0x1d0
- ? do_init_module+0x23/0x250
- ? kmem_cache_alloc_trace+0xf5/0x200
- do_init_module+0x5c/0x250
- __do_sys_finit_module+0xb1/0x110
- do_syscall_64+0x33/0x80
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x7f6b76d6c9b9
-Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 8b 0d a7 54 0c 00 f7 d8 64 89 01 48
-RSP: 002b:00007ffdee6f4268 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 000055dfe3ed3ef0 RCX: 00007f6b76d6c9b9
-RDX: 0000000000000000 RSI: 00007f6b76ef7e2d RDI: 000000000000000f
-RBP: 0000000000020000 R08: 0000000000000000 R09: 000055dfe3ed41a0
-R10: 000000000000000f R11: 0000000000000246 R12: 00007f6b76ef7e2d
-R13: 0000000000000000 R14: 000055dfe3eb9340 R15: 000055dfe3ed3ef0
----[ end trace cf1844e25a37ee57 ]---
-[drm] Initialized i915 1.6.0 20200917 for 0000:00:02.0 on minor 0
-[TTM] Zone  kernel: Available graphics memory: 16333688 KiB
-[TTM] Zone   dma32: Available graphics memory: 2097152 KiB
-[TTM] Initializing pool allocator
-[TTM] Initializing DMA pool allocator
-nouveau 0000:06:00.0: DRM: VRAM: 2048 MiB
-nouveau 0000:06:00.0: DRM: GART: 536870912 MiB
-nouveau 0000:06:00.0: DRM: BIT table 'A' not found
-nouveau 0000:06:00.0: DRM: BIT table 'L' not found
-nouveau 0000:06:00.0: DRM: Pointer to TMDS table not found
-nouveau 0000:06:00.0: DRM: DCB version 4.1
-nouveau 0000:06:00.0: DRM: MM: using COPY for buffer copies
-[drm] Initialized nouveau 1.3.1 20120801 for 0000:06:00.0 on minor 1
-ACPI: Video Device [GFX0] (multi-head: yes  rom: no  post: no)
-input: Video Bus as
-/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:00/input/input6
-[Firmware Bug]: ACPI(PXSX) defines _DOD but not _DOS
-ACPI: Video Device [PXSX] (multi-head: yes  rom: yes  post: no)
-input: Video Bus as
-/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:44/LNXVIDEO:01/input/input7
-vga_switcheroo: enabled
-fbcon: i915drmfb (fb0) is primary device
-Console: switching to colour frame buffer device 240x67
-i915 0000:00:02.0: [drm] fb0: i915drmfb frame buffer device
-device-mapper: uevent: version 1.0.3
-device-mapper: ioctl: 4.43.0-ioctl (2020-10-01) initialised: dm-devel@redhat.com
-PM: Image not found (code -22)
-EXT4-fs (dm-1): mounted filesystem with ordered data mode. Opts: (null)
-Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
-EXT4-fs (dm-1): re-mounted. Opts: errors=remount-ro
-fuse: init (API version 7.32)
-lp: driver loaded but no devices found
-ppdev: user-space parallel port driver
-intel_pmc_core INT33A1:00:  initialized
-ACPI: AC Adapter [ADP1] (on-line)
-input: HP Wireless hotkeys as /devices/virtual/input/input8
-hp_accel: laptop model unknown, using default axes configuration
-lis3lv02d: 8 bits 3DC sensor found
-mei_me 0000:00:16.0: enabling device (0000 -> 0002)
-input: ST LIS3LV02DL Accelerometer as /devices/platform/lis3lv02d/input/input9
-intel_rapl_common: Found RAPL domain package
-proc_thermal 0000:00:04.0: Creating sysfs group for PROC_THERMAL_PCI
-EXT4-fs (nvme0n1p1): mounting ext2 file system using the ext4 subsystem
-EXT4-fs (nvme0n1p1): mounted filesystem without journal. Opts: (null)
-ext2 filesystem being mounted at /boot supports timestamps until 2038
-(0x7fffffff)
-iTCO_vendor_support: vendor-support=0
-input: PC Speaker as /devices/platform/pcspkr/input/input10
-mc: Linux media interface: v0.10
-iTCO_wdt: Intel TCO WatchDog Timer Driver v1.11
-iTCO_wdt: Found a Intel PCH TCO device (Version=6, TCOBASE=0x0400)
-iTCO_wdt: initialized. heartbeat=30 sec (nowayout=0)
-alg: No test for fips(ansi_cprng) (fips_ansi_cprng)
-videodev: Linux video capture interface: v2.00
-audit: type=1400 audit(1611164581.415:2): apparmor="STATUS"
-operation="profile_load" profile="unconfined" name="/usr/sbin/haveged"
-pid=563 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:3): apparmor="STATUS"
-operation="profile_load" profile="unconfined" name="nvidia_modprobe"
-pid=569 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:4): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="nvidia_modprobe//kmod" pid=569 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:5): apparmor="STATUS"
-operation="profile_load" profile="unconfined" name="mysqld_akonadi"
-pid=567 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:6): apparmor="STATUS"
-operation="profile_load" profile="unconfined" name="mariadbd_akonadi"
-pid=562 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:7): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="/usr/sbin/cups-browsed" pid=564 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:8): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="/usr/bin/akonadiserver" pid=565 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.415:9): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="postgresql_akonadi" pid=568 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.419:10): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="libreoffice-senddoc" pid=572 comm="apparmor_parser"
-audit: type=1400 audit(1611164581.419:11): apparmor="STATUS"
-operation="profile_load" profile="unconfined"
-name="libreoffice-xpdfimport" pid=578 comm="apparmor_parser"
-uvcvideo: Found UVC 1.00 device HP Wide Vision HD Camera (04ca:707f)
-input: HP Wide Vision HD Camera: HP Wi as
-/devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/input/input12
-usbcore: registered new interface driver uvcvideo
-USB Video Class driver (1.1.1)
-cfg80211: Loading compiled-in X.509 certificates for regulatory database
-cfg80211: Loaded X.509 cert 'benh@debian.org:
-577e021cb980e0e820821ba7b54b4961b8b4fadf'
-cfg80211: Loaded X.509 cert 'romain.perier@gmail.com:
-3abbc6ec146e09d1b6016ab9d6cf71dd233f0328'
-cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
-platform regulatory.0: firmware: direct-loading firmware regulatory.db
-platform regulatory.0: firmware: direct-loading firmware regulatory.db.p7s
-RAPL PMU: API unit is 2^-32 Joules, 3 fixed counters, 655360 ms ovfl timer
-RAPL PMU: hw unit of domain pp0-core 2^-14 Joules
-RAPL PMU: hw unit of domain package 2^-14 Joules
-RAPL PMU: hw unit of domain pp1-gpu 2^-14 Joules
-Adding 1003516k swap on /dev/mapper/debian--vg-swap_1.  Priority:-2
-extents:1 across:1003516k SSFS
-snd_hda_intel 0000:00:1f.3: DSP detected with PCI
-class/subclass/prog-if info 0x040380
-BUG: kernel NULL pointer dereference, address: 0000000000000050
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 0 P4D 0
-Oops: 0000 [#1] SMP NOPTI
-CPU: 6 PID: 472 Comm: systemd-udevd Tainted: G        W
-5.10.0-1-amd64 #1 Debian 5.10.4-1
-Hardware name: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
-RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
-Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00
-48 8d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f
-08 0f 74 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
-RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
-RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
-RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
-R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
-FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
-PKRU: 55555554
-Call Trace:
- acpi_get_data_full+0x4d/0x92
- acpi_bus_get_device+0x1f/0x40
- sdw_intel_acpi_scan+0x59/0x230 [soundwire_intel]
- ? strstr+0x22/0x60
- ? dmi_matches+0x76/0xe0
- snd_intel_dsp_driver_probe.cold+0xaf/0x163 [snd_intel_dspcfg]
- azx_probe+0x7a/0x970 [snd_hda_intel]
- local_pci_probe+0x42/0x80
- ? _cond_resched+0x16/0x40
- pci_device_probe+0xfd/0x1b0
- really_probe+0x205/0x460
- driver_probe_device+0xe1/0x150
- device_driver_attach+0xa1/0xb0
- __driver_attach+0x8a/0x150
- ? device_driver_attach+0xb0/0xb0
- ? device_driver_attach+0xb0/0xb0
- bus_for_each_dev+0x78/0xc0
- bus_add_driver+0x12b/0x1e0
- driver_register+0x8b/0xe0
- ? 0xffffffffc0f65000
- do_one_initcall+0x44/0x1d0
- ? do_init_module+0x23/0x250
- ? kmem_cache_alloc_trace+0xf5/0x200
- do_init_module+0x5c/0x250
- __do_sys_finit_module+0xb1/0x110
- do_syscall_64+0x33/0x80
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x7f2454ce19b9
-Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 8b 0d a7 54 0c 00 f7 d8 64 89 01 48
-RSP: 002b:00007fff0b66be58 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 0000557d20c7a8b0 RCX: 00007f2454ce19b9
-RDX: 0000000000000000 RSI: 00007f2454e6ce2d RDI: 000000000000001c
-RBP: 0000000000020000 R08: 0000000000000000 R09: 0000557d20c80d50
-R10: 000000000000001c R11: 0000000000000246 R12: 00007f2454e6ce2d
-R13: 0000000000000000 R14: 0000557d20ae9c00 R15: 0000557d20c7a8b0
-Modules linked in: snd_hda_intel(+) snd_intel_dspcfg soundwire_intel
-soundwire_generic_allocation kvm snd_soc_core snd_compress
-pcc_cpufreq(-) irqbypass soundwire_cadence acpi_cpufreq(-) rapl
-snd_hda_codec jitterentropy_rng uvcvideo intel_cstate cfg80211
-snd_hda_core videobuf2_vmalloc videobuf2_memops videobuf2_v4l2
-snd_hwdep videobuf2_common soundwire_bus intel_uncore videodev snd_pcm
-drbg snd_timer iTCO_wdt snd ansi_cprng joydev binfmt_misc hp_wmi(+)
-intel_pmc_bxt sparse_keymap mc pcspkr ecdh_generic serio_raw wmi_bmof
-intel_wmi_thunderbolt iTCO_vendor_support ecc soundcore watchdog
-rfkill libarc4 processor_thermal_device mei_me intel_rapl_common mei
-intel_soc_dts_iosf int3403_thermal int340x_thermal_zone hp_accel
-lis3lv02d hp_wireless int3400_thermal evdev acpi_thermal_rel
-intel_pmc_core acpi_pad ac acpi_tad parport_pc ppdev lp parport fuse
-configfs ip_tables x_tables autofs4 ext4 crc16 mbcache jbd2
-crc32c_generic dm_crypt dm_mod nouveau i915 crc32_pclmul crc32c_intel
- ghash_clmulni_intel nvme aesni_intel libaes crypto_simd mxm_wmi ttm
-ahci nvme_core xhci_pci i2c_algo_bit libahci xhci_hcd drm_kms_helper
-t10_pi crc_t10dif libata psmouse cryptd glue_helper cec usbcore r8169
-drm crct10dif_generic scsi_mod realtek mdio_devres i2c_i801 libphy
-i2c_smbus crct10dif_pclmul intel_lpss_pci crct10dif_common intel_lpss
-usb_common idma64 battery video wmi button
-CR2: 0000000000000050
----[ end trace cf1844e25a37ee58 ]---
-RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
-Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00
-48 8d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f
-08 0f 74 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
-RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
-RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
-RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
-R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
-FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
-PKRU: 55555554
-Bluetooth: Core ver 2.22
-intel_rapl_common: Found RAPL domain package
-intel_rapl_common: Found RAPL domain core
-intel_rapl_common: Found RAPL domain uncore
-NET: Registered protocol family 31
-Bluetooth: HCI device and connection manager initialized
-Bluetooth: HCI socket layer initialized
-Bluetooth: L2CAP socket layer initialized
-Bluetooth: SCO socket layer initialized
-rtw_8822ce 0000:0b:00.0: firmware: direct-loading firmware
-rtw88/rtw8822c_wow_fw.bin
-rtw_8822ce 0000:0b:00.0: Firmware version 9.9.4, H2C version 15
-rtw_8822ce 0000:0b:00.0: firmware: direct-loading firmware rtw88/rtw8822c_fw.bin
-rtw_8822ce 0000:0b:00.0: Firmware version 9.9.4, H2C version 15
-r8169 0000:10:00.0: firmware: direct-loading firmware rtl_nic/rtl8168h-2.fw
-Generic FE-GE Realtek PHY r8169-1000:00: attached PHY driver [Generic
-FE-GE Realtek PHY] (mii_bus:phy_addr=r8169-1000:00, irq=IGNORE)
-usbcore: registered new interface driver btusb
-Bluetooth: hci0: RTL: examining hci_ver=0a hci_rev=000c lmp_ver=0a
-lmp_subver=8822
-Bluetooth: hci0: RTL: rom_version status=0 version=3
-Bluetooth: hci0: RTL: loading rtl_bt/rtl8822cu_fw.bin
-bluetooth hci0: firmware: direct-loading firmware rtl_bt/rtl8822cu_fw.bin
-Bluetooth: hci0: RTL: loading rtl_bt/rtl8822cu_config.bin
-bluetooth hci0: firmware: failed to load rtl_bt/rtl8822cu_config.bin (-2)
-firmware_class: See https://wiki.debian.org/Firmware for information
-about missing firmware
-bluetooth hci0: Direct firmware load for rtl_bt/rtl8822cu_config.bin
-failed with error -2
-Bluetooth: hci0: RTL: cfg_sz -2, total sz 34332
-Bluetooth: BNEP (Ethernet Emulation) ver 1.3
-Bluetooth: BNEP filters: protocol multicast
-Bluetooth: BNEP socket layer initialized
-r8169 0000:10:00.0 eno1: Link is Down
-Bluetooth: hci0: RTL: fw version 0x099a281a
-sysrq: Keyboard mode set to system default
-sysrq: Emergency Sync
-Emergency Sync complete
-sysrq: Emergency Remount R/O
+> ---
+>  .../bindings/sound/sirf-audio-codec.txt       |  17 -
+>  .../devicetree/bindings/sound/sirf-usp.txt    |  27 -
+>  sound/soc/Kconfig                             |   1 -
+>  sound/soc/Makefile                            |   1 -
+>  sound/soc/codecs/Makefile                     |   2 -
+>  sound/soc/codecs/sirf-audio-codec.c           | 575 ------------------
+>  sound/soc/sirf/Kconfig                        |  21 -
+>  sound/soc/sirf/Makefile                       |   8 -
+>  sound/soc/sirf/sirf-audio-port.c              |  86 ---
+>  sound/soc/sirf/sirf-audio.c                   | 160 -----
+>  sound/soc/sirf/sirf-usp.c                     | 435 -------------
+>  sound/soc/sirf/sirf-usp.h                     | 292 ---------
+>  12 files changed, 1625 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/sirf-audio-co=
+dec.txt
+>  delete mode 100644 Documentation/devicetree/bindings/sound/sirf-usp.txt
+>  delete mode 100644 sound/soc/codecs/sirf-audio-codec.c
+>  delete mode 100644 sound/soc/sirf/Kconfig
+>  delete mode 100644 sound/soc/sirf/Makefile
+>  delete mode 100644 sound/soc/sirf/sirf-audio-port.c
+>  delete mode 100644 sound/soc/sirf/sirf-audio.c
+>  delete mode 100644 sound/soc/sirf/sirf-usp.c
+>  delete mode 100644 sound/soc/sirf/sirf-usp.h
+>
+> diff --git a/Documentation/devicetree/bindings/sound/sirf-audio-codec.txt=
+ b/Documentation/devicetree/bindings/sound/sirf-audio-codec.txt
+> deleted file mode 100644
+> index 062f5ec36f9b..000000000000
+> --- a/Documentation/devicetree/bindings/sound/sirf-audio-codec.txt
+> +++ /dev/null
+> @@ -1,17 +0,0 @@
+> -SiRF internal audio CODEC
+> -
+> -Required properties:
+> -
+> -  - compatible : "sirf,atlas6-audio-codec" or "sirf,prima2-audio-codec"
+> -
+> -  - reg : the register address of the device.
+> -
+> -  - clocks: the clock of SiRF internal audio codec
+> -
+> -Example:
+> -
+> -audiocodec: audiocodec@b0040000 {
+> -       compatible =3D "sirf,atlas6-audio-codec";
+> -       reg =3D <0xb0040000 0x10000>;
+> -       clocks =3D <&clks 27>;
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/sirf-usp.txt b/Docum=
+entation/devicetree/bindings/sound/sirf-usp.txt
+> deleted file mode 100644
+> index 02f85b32d359..000000000000
+> --- a/Documentation/devicetree/bindings/sound/sirf-usp.txt
+> +++ /dev/null
+> @@ -1,27 +0,0 @@
+> -* SiRF SoC USP module
+> -
+> -Required properties:
+> -- compatible: "sirf,prima2-usp-pcm"
+> -- reg: Base address and size entries:
+> -- dmas: List of DMA controller phandle and DMA request line ordered pair=
+s.
+> -- dma-names: Identifier string for each DMA request line in the dmas pro=
+perty.
+> -  These strings correspond 1:1 with the ordered pairs in dmas.
+> -
+> -  One of the DMA channels will be responsible for transmission (should b=
+e
+> -  named "tx") and one for reception (should be named "rx").
+> -
+> -- clocks: USP controller clock source
+> -- pinctrl-names: Must contain a "default" entry.
+> -- pinctrl-NNN: One property must exist for each entry in pinctrl-names.
+> -
+> -Example:
+> -usp0: usp@b0080000 {
+> -       compatible =3D "sirf,prima2-usp-pcm";
+> -       reg =3D <0xb0080000 0x10000>;
+> -       clocks =3D <&clks 28>;
+> -       dmas =3D <&dmac1 1>, <&dmac1 2>;
+> -       dma-names =3D "rx", "tx";
+> -       pinctrl-names =3D "default";
+> -       pinctrl-0 =3D <&usp0_only_utfs_pins_a>;
+> -};
+> -
+> diff --git a/sound/soc/Kconfig b/sound/soc/Kconfig
+> index 71a6fe87d1a1..1fb61e689031 100644
+> --- a/sound/soc/Kconfig
+> +++ b/sound/soc/Kconfig
+> @@ -62,7 +62,6 @@ source "sound/soc/qcom/Kconfig"
+>  source "sound/soc/rockchip/Kconfig"
+>  source "sound/soc/samsung/Kconfig"
+>  source "sound/soc/sh/Kconfig"
+> -source "sound/soc/sirf/Kconfig"
+>  source "sound/soc/sof/Kconfig"
+>  source "sound/soc/spear/Kconfig"
+>  source "sound/soc/sprd/Kconfig"
+> diff --git a/sound/soc/Makefile b/sound/soc/Makefile
+> index ddbac3a2169f..d2b7a23f0e7b 100644
+> --- a/sound/soc/Makefile
+> +++ b/sound/soc/Makefile
+> @@ -45,7 +45,6 @@ obj-$(CONFIG_SND_SOC) +=3D qcom/
+>  obj-$(CONFIG_SND_SOC)  +=3D rockchip/
+>  obj-$(CONFIG_SND_SOC)  +=3D samsung/
+>  obj-$(CONFIG_SND_SOC)  +=3D sh/
+> -obj-$(CONFIG_SND_SOC)  +=3D sirf/
+>  obj-$(CONFIG_SND_SOC)  +=3D sof/
+>  obj-$(CONFIG_SND_SOC)  +=3D spear/
+>  obj-$(CONFIG_SND_SOC)  +=3D sprd/
+> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+> index d277f0366e09..c30762fc9b87 100644
+> --- a/sound/soc/codecs/Makefile
+> +++ b/sound/soc/codecs/Makefile
+> @@ -201,7 +201,6 @@ snd-soc-sigmadsp-objs :=3D sigmadsp.o
+>  snd-soc-sigmadsp-i2c-objs :=3D sigmadsp-i2c.o
+>  snd-soc-sigmadsp-regmap-objs :=3D sigmadsp-regmap.o
+>  snd-soc-si476x-objs :=3D si476x.o
+> -snd-soc-sirf-audio-codec-objs :=3D sirf-audio-codec.o
+>  snd-soc-spdif-tx-objs :=3D spdif_transmitter.o
+>  snd-soc-spdif-rx-objs :=3D spdif_receiver.o
+>  snd-soc-ssm2305-objs :=3D ssm2305.o
+> @@ -516,7 +515,6 @@ obj-$(CONFIG_SND_SOC_SIGMADSP_I2C)  +=3D snd-soc-sigm=
+adsp-i2c.o
+>  obj-$(CONFIG_SND_SOC_SIGMADSP_REGMAP)  +=3D snd-soc-sigmadsp-regmap.o
+>  obj-$(CONFIG_SND_SOC_SI476X)   +=3D snd-soc-si476x.o
+>  obj-$(CONFIG_SND_SOC_SPDIF)    +=3D snd-soc-spdif-rx.o snd-soc-spdif-tx.=
+o
+> -obj-$(CONFIG_SND_SOC_SIRF_AUDIO_CODEC) +=3D sirf-audio-codec.o
+>  obj-$(CONFIG_SND_SOC_SSM2305)  +=3D snd-soc-ssm2305.o
+>  obj-$(CONFIG_SND_SOC_SSM2518)  +=3D snd-soc-ssm2518.o
+>  obj-$(CONFIG_SND_SOC_SSM2602)  +=3D snd-soc-ssm2602.o
+> diff --git a/sound/soc/codecs/sirf-audio-codec.c b/sound/soc/codecs/sirf-=
+audio-codec.c
+> deleted file mode 100644
+> index a061d78473ac..000000000000
+> --- a/sound/soc/codecs/sirf-audio-codec.c
+> +++ /dev/null
+> @@ -1,575 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0-or-later
+> -/*
+> - * SiRF audio codec driver
+> - *
+> - * Copyright (c) 2011 Cambridge Silicon Radio Limited, a CSR plc group c=
+ompany.
+> - */
+> -
+> -#include <linux/module.h>
+> -#include <linux/platform_device.h>
+> -#include <linux/pm_runtime.h>
+> -#include <linux/of.h>
+> -#include <linux/of_device.h>
+> -#include <linux/clk.h>
+> -#include <linux/delay.h>
+> -#include <linux/io.h>
+> -#include <linux/regmap.h>
+> -#include <sound/core.h>
+> -#include <sound/pcm.h>
+> -#include <sound/pcm_params.h>
+> -#include <sound/initval.h>
+> -#include <sound/tlv.h>
+> -#include <sound/soc.h>
+> -#include <sound/dmaengine_pcm.h>
+> -
+> -#include "sirf-audio-codec.h"
+> -
+> -struct sirf_audio_codec {
+> -       struct clk *clk;
+> -       struct regmap *regmap;
+> -       u32 reg_ctrl0, reg_ctrl1;
+> -};
+> -
+> -static const char * const input_mode_mux[] =3D {"Single-ended",
+> -       "Differential"};
+> -
+> -static const struct soc_enum input_mode_mux_enum =3D
+> -       SOC_ENUM_SINGLE(AUDIO_IC_CODEC_CTRL1, 4, 2, input_mode_mux);
+> -
+> -static const struct snd_kcontrol_new sirf_audio_codec_input_mode_control=
+ =3D
+> -       SOC_DAPM_ENUM("Route", input_mode_mux_enum);
+> -
+> -static const DECLARE_TLV_DB_SCALE(playback_vol_tlv, -12400, 100, 0);
+> -static const DECLARE_TLV_DB_SCALE(capture_vol_tlv_prima2, 500, 100, 0);
+> -static const DECLARE_TLV_DB_RANGE(capture_vol_tlv_atlas6,
+> -       0, 7, TLV_DB_SCALE_ITEM(-100, 100, 0),
+> -       0x22, 0x3F, TLV_DB_SCALE_ITEM(700, 100, 0),
+> -);
+> -
+> -static struct snd_kcontrol_new volume_controls_atlas6[] =3D {
+> -       SOC_DOUBLE_TLV("Playback Volume", AUDIO_IC_CODEC_CTRL0, 21, 14,
+> -                       0x7F, 0, playback_vol_tlv),
+> -       SOC_DOUBLE_TLV("Capture Volume", AUDIO_IC_CODEC_CTRL1, 16, 10,
+> -                       0x3F, 0, capture_vol_tlv_atlas6),
+> -};
+> -
+> -static struct snd_kcontrol_new volume_controls_prima2[] =3D {
+> -       SOC_DOUBLE_TLV("Speaker Volume", AUDIO_IC_CODEC_CTRL0, 21, 14,
+> -                       0x7F, 0, playback_vol_tlv),
+> -       SOC_DOUBLE_TLV("Capture Volume", AUDIO_IC_CODEC_CTRL1, 15, 10,
+> -                       0x1F, 0, capture_vol_tlv_prima2),
+> -};
+> -
+> -static struct snd_kcontrol_new left_input_path_controls[] =3D {
+> -       SOC_DAPM_SINGLE("Line Left Switch", AUDIO_IC_CODEC_CTRL1, 6, 1, 0=
+),
+> -       SOC_DAPM_SINGLE("Mic Left Switch", AUDIO_IC_CODEC_CTRL1, 3, 1, 0)=
+,
+> -};
+> -
+> -static struct snd_kcontrol_new right_input_path_controls[] =3D {
+> -       SOC_DAPM_SINGLE("Line Right Switch", AUDIO_IC_CODEC_CTRL1, 5, 1, =
+0),
+> -       SOC_DAPM_SINGLE("Mic Right Switch", AUDIO_IC_CODEC_CTRL1, 2, 1, 0=
+),
+> -};
+> -
+> -static struct snd_kcontrol_new left_dac_to_hp_left_amp_switch_control =
+=3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 9, 1, 0);
+> -
+> -static struct snd_kcontrol_new left_dac_to_hp_right_amp_switch_control =
+=3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 8, 1, 0);
+> -
+> -static struct snd_kcontrol_new right_dac_to_hp_left_amp_switch_control =
+=3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 7, 1, 0);
+> -
+> -static struct snd_kcontrol_new right_dac_to_hp_right_amp_switch_control =
+=3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 6, 1, 0);
+> -
+> -static struct snd_kcontrol_new left_dac_to_speaker_lineout_switch_contro=
+l =3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 11, 1, 0);
+> -
+> -static struct snd_kcontrol_new right_dac_to_speaker_lineout_switch_contr=
+ol =3D
+> -       SOC_DAPM_SINGLE("Switch", AUDIO_IC_CODEC_CTRL0, 10, 1, 0);
+> -
+> -/* After enable adc, Delay 200ms to avoid pop noise */
+> -static int adc_enable_delay_event(struct snd_soc_dapm_widget *w,
+> -               struct snd_kcontrol *kcontrol, int event)
+> -{
+> -       switch (event) {
+> -       case SND_SOC_DAPM_POST_PMU:
+> -               msleep(200);
+> -               break;
+> -       default:
+> -               break;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static void enable_and_reset_codec(struct regmap *regmap,
+> -               u32 codec_enable_bits, u32 codec_reset_bits)
+> -{
+> -       regmap_update_bits(regmap, AUDIO_IC_CODEC_CTRL1,
+> -                       codec_enable_bits | codec_reset_bits,
+> -                       codec_enable_bits);
+> -       msleep(20);
+> -       regmap_update_bits(regmap, AUDIO_IC_CODEC_CTRL1,
+> -                       codec_reset_bits, codec_reset_bits);
+> -}
+> -
+> -static int atlas6_codec_enable_and_reset_event(struct snd_soc_dapm_widge=
+t *w,
+> -               struct snd_kcontrol *kcontrol, int event)
+> -{
+> -#define ATLAS6_CODEC_ENABLE_BITS (1 << 29)
+> -#define ATLAS6_CODEC_RESET_BITS (1 << 28)
+> -       struct snd_soc_component *component =3D snd_soc_dapm_to_component=
+(w->dapm);
+> -       struct sirf_audio_codec *sirf_audio_codec =3D snd_soc_component_g=
+et_drvdata(component);
+> -       switch (event) {
+> -       case SND_SOC_DAPM_PRE_PMU:
+> -               enable_and_reset_codec(sirf_audio_codec->regmap,
+> -                       ATLAS6_CODEC_ENABLE_BITS, ATLAS6_CODEC_RESET_BITS=
+);
+> -               break;
+> -       case SND_SOC_DAPM_POST_PMD:
+> -               regmap_update_bits(sirf_audio_codec->regmap,
+> -                       AUDIO_IC_CODEC_CTRL1, ATLAS6_CODEC_ENABLE_BITS, 0=
+);
+> -               break;
+> -       default:
+> -               break;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static int prima2_codec_enable_and_reset_event(struct snd_soc_dapm_widge=
+t *w,
+> -               struct snd_kcontrol *kcontrol, int event)
+> -{
+> -#define PRIMA2_CODEC_ENABLE_BITS (1 << 27)
+> -#define PRIMA2_CODEC_RESET_BITS (1 << 26)
+> -       struct snd_soc_component *component =3D snd_soc_dapm_to_component=
+(w->dapm);
+> -       struct sirf_audio_codec *sirf_audio_codec =3D snd_soc_component_g=
+et_drvdata(component);
+> -       switch (event) {
+> -       case SND_SOC_DAPM_POST_PMU:
+> -               enable_and_reset_codec(sirf_audio_codec->regmap,
+> -                       PRIMA2_CODEC_ENABLE_BITS, PRIMA2_CODEC_RESET_BITS=
+);
+> -               break;
+> -       case SND_SOC_DAPM_POST_PMD:
+> -               regmap_update_bits(sirf_audio_codec->regmap,
+> -                       AUDIO_IC_CODEC_CTRL1, PRIMA2_CODEC_ENABLE_BITS, 0=
+);
+> -               break;
+> -       default:
+> -               break;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static const struct snd_soc_dapm_widget atlas6_output_driver_dapm_widget=
+s[] =3D {
+> -       SND_SOC_DAPM_OUT_DRV("HP Left Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       25, 0, NULL, 0),
+> -       SND_SOC_DAPM_OUT_DRV("HP Right Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       26, 0, NULL, 0),
+> -       SND_SOC_DAPM_OUT_DRV("Speaker Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       27, 0, NULL, 0),
+> -};
+> -
+> -static const struct snd_soc_dapm_widget prima2_output_driver_dapm_widget=
+s[] =3D {
+> -       SND_SOC_DAPM_OUT_DRV("HP Left Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       23, 0, NULL, 0),
+> -       SND_SOC_DAPM_OUT_DRV("HP Right Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       24, 0, NULL, 0),
+> -       SND_SOC_DAPM_OUT_DRV("Speaker Driver", AUDIO_IC_CODEC_CTRL1,
+> -                       25, 0, NULL, 0),
+> -};
+> -
+> -static const struct snd_soc_dapm_widget atlas6_codec_clock_dapm_widget =
+=3D
+> -       SND_SOC_DAPM_SUPPLY("codecclk", SND_SOC_NOPM, 0, 0,
+> -                       atlas6_codec_enable_and_reset_event,
+> -                       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD);
+> -
+> -static const struct snd_soc_dapm_widget prima2_codec_clock_dapm_widget =
+=3D
+> -       SND_SOC_DAPM_SUPPLY("codecclk", SND_SOC_NOPM, 0, 0,
+> -                       prima2_codec_enable_and_reset_event,
+> -                       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD);
+> -
+> -static const struct snd_soc_dapm_widget sirf_audio_codec_dapm_widgets[] =
+=3D {
+> -       SND_SOC_DAPM_DAC("DAC left", NULL, AUDIO_IC_CODEC_CTRL0, 1, 0),
+> -       SND_SOC_DAPM_DAC("DAC right", NULL, AUDIO_IC_CODEC_CTRL0, 0, 0),
+> -       SND_SOC_DAPM_SWITCH("Left dac to hp left amp", SND_SOC_NOPM, 0, 0=
+,
+> -                       &left_dac_to_hp_left_amp_switch_control),
+> -       SND_SOC_DAPM_SWITCH("Left dac to hp right amp", SND_SOC_NOPM, 0, =
+0,
+> -                       &left_dac_to_hp_right_amp_switch_control),
+> -       SND_SOC_DAPM_SWITCH("Right dac to hp left amp", SND_SOC_NOPM, 0, =
+0,
+> -                       &right_dac_to_hp_left_amp_switch_control),
+> -       SND_SOC_DAPM_SWITCH("Right dac to hp right amp", SND_SOC_NOPM, 0,=
+ 0,
+> -                       &right_dac_to_hp_right_amp_switch_control),
+> -       SND_SOC_DAPM_OUT_DRV("HP amp left driver", AUDIO_IC_CODEC_CTRL0, =
+3, 0,
+> -                       NULL, 0),
+> -       SND_SOC_DAPM_OUT_DRV("HP amp right driver", AUDIO_IC_CODEC_CTRL0,=
+ 3, 0,
+> -                       NULL, 0),
+> -
+> -       SND_SOC_DAPM_SWITCH("Left dac to speaker lineout", SND_SOC_NOPM, =
+0, 0,
+> -                       &left_dac_to_speaker_lineout_switch_control),
+> -       SND_SOC_DAPM_SWITCH("Right dac to speaker lineout", SND_SOC_NOPM,=
+ 0, 0,
+> -                       &right_dac_to_speaker_lineout_switch_control),
+> -       SND_SOC_DAPM_OUT_DRV("Speaker amp driver", AUDIO_IC_CODEC_CTRL0, =
+4, 0,
+> -                       NULL, 0),
+> -
+> -       SND_SOC_DAPM_OUTPUT("HPOUTL"),
+> -       SND_SOC_DAPM_OUTPUT("HPOUTR"),
+> -       SND_SOC_DAPM_OUTPUT("SPKOUT"),
+> -
+> -       SND_SOC_DAPM_ADC_E("ADC left", NULL, AUDIO_IC_CODEC_CTRL1, 8, 0,
+> -                       adc_enable_delay_event, SND_SOC_DAPM_POST_PMU),
+> -       SND_SOC_DAPM_ADC_E("ADC right", NULL, AUDIO_IC_CODEC_CTRL1, 7, 0,
+> -                       adc_enable_delay_event, SND_SOC_DAPM_POST_PMU),
+> -       SND_SOC_DAPM_MIXER("Left PGA mixer", AUDIO_IC_CODEC_CTRL1, 1, 0,
+> -               &left_input_path_controls[0],
+> -               ARRAY_SIZE(left_input_path_controls)),
+> -       SND_SOC_DAPM_MIXER("Right PGA mixer", AUDIO_IC_CODEC_CTRL1, 0, 0,
+> -               &right_input_path_controls[0],
+> -               ARRAY_SIZE(right_input_path_controls)),
+> -
+> -       SND_SOC_DAPM_MUX("Mic input mode mux", SND_SOC_NOPM, 0, 0,
+> -                       &sirf_audio_codec_input_mode_control),
+> -       SND_SOC_DAPM_MICBIAS("Mic Bias", AUDIO_IC_CODEC_PWR, 3, 0),
+> -       SND_SOC_DAPM_INPUT("MICIN1"),
+> -       SND_SOC_DAPM_INPUT("MICIN2"),
+> -       SND_SOC_DAPM_INPUT("LINEIN1"),
+> -       SND_SOC_DAPM_INPUT("LINEIN2"),
+> -
+> -       SND_SOC_DAPM_SUPPLY("HSL Phase Opposite", AUDIO_IC_CODEC_CTRL0,
+> -                       30, 0, NULL, 0),
+> -};
+> -
+> -static const struct snd_soc_dapm_route sirf_audio_codec_map[] =3D {
+> -       {"SPKOUT", NULL, "Speaker Driver"},
+> -       {"Speaker Driver", NULL, "Speaker amp driver"},
+> -       {"Speaker amp driver", NULL, "Left dac to speaker lineout"},
+> -       {"Speaker amp driver", NULL, "Right dac to speaker lineout"},
+> -       {"Left dac to speaker lineout", "Switch", "DAC left"},
+> -       {"Right dac to speaker lineout", "Switch", "DAC right"},
+> -       {"HPOUTL", NULL, "HP Left Driver"},
+> -       {"HPOUTR", NULL, "HP Right Driver"},
+> -       {"HP Left Driver", NULL, "HP amp left driver"},
+> -       {"HP Right Driver", NULL, "HP amp right driver"},
+> -       {"HP amp left driver", NULL, "Right dac to hp left amp"},
+> -       {"HP amp right driver", NULL , "Right dac to hp right amp"},
+> -       {"HP amp left driver", NULL, "Left dac to hp left amp"},
+> -       {"HP amp right driver", NULL , "Right dac to hp right amp"},
+> -       {"Right dac to hp left amp", "Switch", "DAC left"},
+> -       {"Right dac to hp right amp", "Switch", "DAC right"},
+> -       {"Left dac to hp left amp", "Switch", "DAC left"},
+> -       {"Left dac to hp right amp", "Switch", "DAC right"},
+> -       {"DAC left", NULL, "codecclk"},
+> -       {"DAC right", NULL, "codecclk"},
+> -       {"DAC left", NULL, "Playback"},
+> -       {"DAC right", NULL, "Playback"},
+> -       {"DAC left", NULL, "HSL Phase Opposite"},
+> -       {"DAC right", NULL, "HSL Phase Opposite"},
+> -
+> -       {"Capture", NULL, "ADC left"},
+> -       {"Capture", NULL, "ADC right"},
+> -       {"ADC left", NULL, "codecclk"},
+> -       {"ADC right", NULL, "codecclk"},
+> -       {"ADC left", NULL, "Left PGA mixer"},
+> -       {"ADC right", NULL, "Right PGA mixer"},
+> -       {"Left PGA mixer", "Line Left Switch", "LINEIN2"},
+> -       {"Right PGA mixer", "Line Right Switch", "LINEIN1"},
+> -       {"Left PGA mixer", "Mic Left Switch", "MICIN2"},
+> -       {"Right PGA mixer", "Mic Right Switch", "Mic input mode mux"},
+> -       {"Mic input mode mux", "Single-ended", "MICIN1"},
+> -       {"Mic input mode mux", "Differential", "MICIN1"},
+> -};
+> -
+> -static void sirf_audio_codec_tx_enable(struct sirf_audio_codec *sirf_aud=
+io_codec)
+> -{
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO=
+_OP,
+> -               AUDIO_FIFO_RESET, AUDIO_FIFO_RESET);
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO=
+_OP,
+> -               AUDIO_FIFO_RESET, ~AUDIO_FIFO_RESET);
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO_INT_M=
+SK, 0);
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO_OP, 0=
+);
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO=
+_OP,
+> -               AUDIO_FIFO_START, AUDIO_FIFO_START);
+> -       regmap_update_bits(sirf_audio_codec->regmap,
+> -               AUDIO_PORT_IC_CODEC_TX_CTRL, IC_TX_ENABLE, IC_TX_ENABLE);
+> -}
+> -
+> -static void sirf_audio_codec_tx_disable(struct sirf_audio_codec *sirf_au=
+dio_codec)
+> -{
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_PORT_IC_TXFIFO_OP, 0=
+);
+> -       regmap_update_bits(sirf_audio_codec->regmap,
+> -               AUDIO_PORT_IC_CODEC_TX_CTRL, IC_TX_ENABLE, ~IC_TX_ENABLE)=
+;
+> -}
+> -
+> -static void sirf_audio_codec_rx_enable(struct sirf_audio_codec *sirf_aud=
+io_codec,
+> -       int channels)
+> -{
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_RXFIFO=
+_OP,
+> -               AUDIO_FIFO_RESET, AUDIO_FIFO_RESET);
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_RXFIFO=
+_OP,
+> -               AUDIO_FIFO_RESET, ~AUDIO_FIFO_RESET);
+> -       regmap_write(sirf_audio_codec->regmap,
+> -               AUDIO_PORT_IC_RXFIFO_INT_MSK, 0);
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_PORT_IC_RXFIFO_OP, 0=
+);
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_PORT_IC_RXFIFO=
+_OP,
+> -               AUDIO_FIFO_START, AUDIO_FIFO_START);
+> -       if (channels =3D=3D 1)
+> -               regmap_update_bits(sirf_audio_codec->regmap,
+> -                       AUDIO_PORT_IC_CODEC_RX_CTRL,
+> -                       IC_RX_ENABLE_MONO, IC_RX_ENABLE_MONO);
+> -       else
+> -               regmap_update_bits(sirf_audio_codec->regmap,
+> -                       AUDIO_PORT_IC_CODEC_RX_CTRL,
+> -                       IC_RX_ENABLE_STEREO, IC_RX_ENABLE_STEREO);
+> -}
+> -
+> -static void sirf_audio_codec_rx_disable(struct sirf_audio_codec *sirf_au=
+dio_codec)
+> -{
+> -       regmap_update_bits(sirf_audio_codec->regmap,
+> -                       AUDIO_PORT_IC_CODEC_RX_CTRL,
+> -                       IC_RX_ENABLE_STEREO, ~IC_RX_ENABLE_STEREO);
+> -}
+> -
+> -static int sirf_audio_codec_trigger(struct snd_pcm_substream *substream,
+> -               int cmd,
+> -               struct snd_soc_dai *dai)
+> -{
+> -       struct snd_soc_component *component =3D dai->component;
+> -       struct sirf_audio_codec *sirf_audio_codec =3D snd_soc_component_g=
+et_drvdata(component);
+> -       int playback =3D substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBA=
+CK;
+> -
+> -       /*
+> -        * This is a workaround, When stop playback,
+> -        * need disable HP amp, avoid the current noise.
+> -        */
+> -       switch (cmd) {
+> -       case SNDRV_PCM_TRIGGER_STOP:
+> -       case SNDRV_PCM_TRIGGER_SUSPEND:
+> -       case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> -               if (playback) {
+> -                       snd_soc_component_update_bits(component, AUDIO_IC=
+_CODEC_CTRL0,
+> -                               IC_HSLEN | IC_HSREN, 0);
+> -                       sirf_audio_codec_tx_disable(sirf_audio_codec);
+> -               } else
+> -                       sirf_audio_codec_rx_disable(sirf_audio_codec);
+> -               break;
+> -       case SNDRV_PCM_TRIGGER_START:
+> -       case SNDRV_PCM_TRIGGER_RESUME:
+> -       case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> -               if (playback) {
+> -                       sirf_audio_codec_tx_enable(sirf_audio_codec);
+> -                       snd_soc_component_update_bits(component, AUDIO_IC=
+_CODEC_CTRL0,
+> -                               IC_HSLEN | IC_HSREN, IC_HSLEN | IC_HSREN)=
+;
+> -               } else
+> -                       sirf_audio_codec_rx_enable(sirf_audio_codec,
+> -                               substream->runtime->channels);
+> -               break;
+> -       default:
+> -               return -EINVAL;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static const struct snd_soc_dai_ops sirf_audio_codec_dai_ops =3D {
+> -       .trigger =3D sirf_audio_codec_trigger,
+> -};
+> -
+> -static struct snd_soc_dai_driver sirf_audio_codec_dai =3D {
+> -       .name =3D "sirf-audio-codec",
+> -       .playback =3D {
+> -               .stream_name =3D "Playback",
+> -               .channels_min =3D 2,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_48000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE,
+> -       },
+> -       .capture =3D {
+> -               .stream_name =3D "Capture",
+> -               .channels_min =3D 1,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_48000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE,
+> -       },
+> -       .ops =3D &sirf_audio_codec_dai_ops,
+> -};
+> -
+> -static int sirf_audio_codec_probe(struct snd_soc_component *component)
+> -{
+> -       struct snd_soc_dapm_context *dapm =3D snd_soc_component_get_dapm(=
+component);
+> -
+> -       pm_runtime_enable(component->dev);
+> -
+> -       if (of_device_is_compatible(component->dev->of_node, "sirf,prima2=
+-audio-codec")) {
+> -               snd_soc_dapm_new_controls(dapm,
+> -                       prima2_output_driver_dapm_widgets,
+> -                       ARRAY_SIZE(prima2_output_driver_dapm_widgets));
+> -               snd_soc_dapm_new_controls(dapm,
+> -                       &prima2_codec_clock_dapm_widget, 1);
+> -               return snd_soc_add_component_controls(component,
+> -                       volume_controls_prima2,
+> -                       ARRAY_SIZE(volume_controls_prima2));
+> -       }
+> -       if (of_device_is_compatible(component->dev->of_node, "sirf,atlas6=
+-audio-codec")) {
+> -               snd_soc_dapm_new_controls(dapm,
+> -                       atlas6_output_driver_dapm_widgets,
+> -                       ARRAY_SIZE(atlas6_output_driver_dapm_widgets));
+> -               snd_soc_dapm_new_controls(dapm,
+> -                       &atlas6_codec_clock_dapm_widget, 1);
+> -               return snd_soc_add_component_controls(component,
+> -                       volume_controls_atlas6,
+> -                       ARRAY_SIZE(volume_controls_atlas6));
+> -       }
+> -
+> -       return -EINVAL;
+> -}
+> -
+> -static void sirf_audio_codec_remove(struct snd_soc_component *component)
+> -{
+> -       pm_runtime_disable(component->dev);
+> -}
+> -
+> -static const struct snd_soc_component_driver soc_codec_device_sirf_audio=
+_codec =3D {
+> -       .probe                  =3D sirf_audio_codec_probe,
+> -       .remove                 =3D sirf_audio_codec_remove,
+> -       .dapm_widgets           =3D sirf_audio_codec_dapm_widgets,
+> -       .num_dapm_widgets       =3D ARRAY_SIZE(sirf_audio_codec_dapm_widg=
+ets),
+> -       .dapm_routes            =3D sirf_audio_codec_map,
+> -       .num_dapm_routes        =3D ARRAY_SIZE(sirf_audio_codec_map),
+> -       .use_pmdown_time        =3D 1,
+> -       .endianness             =3D 1,
+> -       .non_legacy_dai_naming  =3D 1,
+> -};
+> -
+> -static const struct of_device_id sirf_audio_codec_of_match[] =3D {
+> -       { .compatible =3D "sirf,prima2-audio-codec" },
+> -       { .compatible =3D "sirf,atlas6-audio-codec" },
+> -       {}
+> -};
+> -MODULE_DEVICE_TABLE(of, sirf_audio_codec_of_match);
+> -
+> -static const struct regmap_config sirf_audio_codec_regmap_config =3D {
+> -       .reg_bits =3D 32,
+> -       .reg_stride =3D 4,
+> -       .val_bits =3D 32,
+> -       .max_register =3D AUDIO_PORT_IC_RXFIFO_INT_MSK,
+> -       .cache_type =3D REGCACHE_NONE,
+> -};
+> -
+> -static int sirf_audio_codec_driver_probe(struct platform_device *pdev)
+> -{
+> -       int ret;
+> -       struct sirf_audio_codec *sirf_audio_codec;
+> -       void __iomem *base;
+> -
+> -       sirf_audio_codec =3D devm_kzalloc(&pdev->dev,
+> -               sizeof(struct sirf_audio_codec), GFP_KERNEL);
+> -       if (!sirf_audio_codec)
+> -               return -ENOMEM;
+> -
+> -       platform_set_drvdata(pdev, sirf_audio_codec);
+> -
+> -       base =3D devm_platform_ioremap_resource(pdev, 0);
+> -       if (IS_ERR(base))
+> -               return PTR_ERR(base);
+> -
+> -       sirf_audio_codec->regmap =3D devm_regmap_init_mmio(&pdev->dev, ba=
+se,
+> -                                           &sirf_audio_codec_regmap_conf=
+ig);
+> -       if (IS_ERR(sirf_audio_codec->regmap))
+> -               return PTR_ERR(sirf_audio_codec->regmap);
+> -
+> -       sirf_audio_codec->clk =3D devm_clk_get(&pdev->dev, NULL);
+> -       if (IS_ERR(sirf_audio_codec->clk)) {
+> -               dev_err(&pdev->dev, "Get clock failed.\n");
+> -               return PTR_ERR(sirf_audio_codec->clk);
+> -       }
+> -
+> -       ret =3D clk_prepare_enable(sirf_audio_codec->clk);
+> -       if (ret) {
+> -               dev_err(&pdev->dev, "Enable clock failed.\n");
+> -               return ret;
+> -       }
+> -
+> -       ret =3D devm_snd_soc_register_component(&(pdev->dev),
+> -                       &soc_codec_device_sirf_audio_codec,
+> -                       &sirf_audio_codec_dai, 1);
+> -       if (ret) {
+> -               dev_err(&pdev->dev, "Register Audio Codec dai failed.\n")=
+;
+> -               goto err_clk_put;
+> -       }
+> -
+> -       /*
+> -        * Always open charge pump, if not, when the charge pump closed t=
+he
+> -        * adc will not stable
+> -        */
+> -       regmap_update_bits(sirf_audio_codec->regmap, AUDIO_IC_CODEC_CTRL0=
+,
+> -               IC_CPFREQ, IC_CPFREQ);
+> -
+> -       if (of_device_is_compatible(pdev->dev.of_node, "sirf,atlas6-audio=
+-codec"))
+> -               regmap_update_bits(sirf_audio_codec->regmap,
+> -                               AUDIO_IC_CODEC_CTRL0, IC_CPEN, IC_CPEN);
+> -       return 0;
+> -
+> -err_clk_put:
+> -       clk_disable_unprepare(sirf_audio_codec->clk);
+> -       return ret;
+> -}
+> -
+> -static int sirf_audio_codec_driver_remove(struct platform_device *pdev)
+> -{
+> -       struct sirf_audio_codec *sirf_audio_codec =3D platform_get_drvdat=
+a(pdev);
+> -
+> -       clk_disable_unprepare(sirf_audio_codec->clk);
+> -
+> -       return 0;
+> -}
+> -
+> -#ifdef CONFIG_PM_SLEEP
+> -static int sirf_audio_codec_suspend(struct device *dev)
+> -{
+> -       struct sirf_audio_codec *sirf_audio_codec =3D dev_get_drvdata(dev=
+);
+> -
+> -       regmap_read(sirf_audio_codec->regmap, AUDIO_IC_CODEC_CTRL0,
+> -               &sirf_audio_codec->reg_ctrl0);
+> -       regmap_read(sirf_audio_codec->regmap, AUDIO_IC_CODEC_CTRL1,
+> -               &sirf_audio_codec->reg_ctrl1);
+> -       clk_disable_unprepare(sirf_audio_codec->clk);
+> -
+> -       return 0;
+> -}
+> -
+> -static int sirf_audio_codec_resume(struct device *dev)
+> -{
+> -       struct sirf_audio_codec *sirf_audio_codec =3D dev_get_drvdata(dev=
+);
+> -       int ret;
+> -
+> -       ret =3D clk_prepare_enable(sirf_audio_codec->clk);
+> -       if (ret)
+> -               return ret;
+> -
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_IC_CODEC_CTRL0,
+> -               sirf_audio_codec->reg_ctrl0);
+> -       regmap_write(sirf_audio_codec->regmap, AUDIO_IC_CODEC_CTRL1,
+> -               sirf_audio_codec->reg_ctrl1);
+> -
+> -       return 0;
+> -}
+> -#endif
+> -
+> -static const struct dev_pm_ops sirf_audio_codec_pm_ops =3D {
+> -       SET_SYSTEM_SLEEP_PM_OPS(sirf_audio_codec_suspend, sirf_audio_code=
+c_resume)
+> -};
+> -
+> -static struct platform_driver sirf_audio_codec_driver =3D {
+> -       .driver =3D {
+> -               .name =3D "sirf-audio-codec",
+> -               .of_match_table =3D sirf_audio_codec_of_match,
+> -               .pm =3D &sirf_audio_codec_pm_ops,
+> -       },
+> -       .probe =3D sirf_audio_codec_driver_probe,
+> -       .remove =3D sirf_audio_codec_driver_remove,
+> -};
+> -
+> -module_platform_driver(sirf_audio_codec_driver);
+> -
+> -MODULE_DESCRIPTION("SiRF audio codec driver");
+> -MODULE_AUTHOR("RongJun Ying <Rongjun.Ying@csr.com>");
+> -MODULE_LICENSE("GPL v2");
+> diff --git a/sound/soc/sirf/Kconfig b/sound/soc/sirf/Kconfig
+> deleted file mode 100644
+> index 094a1c89c59d..000000000000
+> --- a/sound/soc/sirf/Kconfig
+> +++ /dev/null
+> @@ -1,21 +0,0 @@
+> -# SPDX-License-Identifier: GPL-2.0-only
+> -config SND_SOC_SIRF
+> -       tristate "SoC Audio for the SiRF SoC chips"
+> -       depends on ARCH_SIRF || COMPILE_TEST
+> -       select SND_SOC_GENERIC_DMAENGINE_PCM
+> -
+> -config SND_SOC_SIRF_AUDIO
+> -       tristate "SoC Audio support for SiRF internal audio codec"
+> -       depends on SND_SOC_SIRF
+> -       select SND_SOC_SIRF_AUDIO_CODEC
+> -       select SND_SOC_SIRF_AUDIO_PORT
+> -
+> -config SND_SOC_SIRF_AUDIO_PORT
+> -       select REGMAP_MMIO
+> -       tristate
+> -
+> -config SND_SOC_SIRF_USP
+> -       tristate "SoC Audio (I2S protocol) for SiRF SoC USP interface"
+> -       depends on SND_SOC_SIRF
+> -       select REGMAP_MMIO
+> -       tristate
+> diff --git a/sound/soc/sirf/Makefile b/sound/soc/sirf/Makefile
+> deleted file mode 100644
+> index 16ed11965ff9..000000000000
+> --- a/sound/soc/sirf/Makefile
+> +++ /dev/null
+> @@ -1,8 +0,0 @@
+> -# SPDX-License-Identifier: GPL-2.0
+> -snd-soc-sirf-audio-objs :=3D sirf-audio.o
+> -snd-soc-sirf-audio-port-objs :=3D sirf-audio-port.o
+> -snd-soc-sirf-usp-objs :=3D sirf-usp.o
+> -
+> -obj-$(CONFIG_SND_SOC_SIRF_AUDIO) +=3D snd-soc-sirf-audio.o
+> -obj-$(CONFIG_SND_SOC_SIRF_AUDIO_PORT) +=3D snd-soc-sirf-audio-port.o
+> -obj-$(CONFIG_SND_SOC_SIRF_USP) +=3D snd-soc-sirf-usp.o
+> diff --git a/sound/soc/sirf/sirf-audio-port.c b/sound/soc/sirf/sirf-audio=
+-port.c
+> deleted file mode 100644
+> index 8be2f0bc477b..000000000000
+> --- a/sound/soc/sirf/sirf-audio-port.c
+> +++ /dev/null
+> @@ -1,86 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0-or-later
+> -/*
+> - * SiRF Audio port driver
+> - *
+> - * Copyright (c) 2011 Cambridge Silicon Radio Limited, a CSR plc group c=
+ompany.
+> - */
+> -#include <linux/module.h>
+> -#include <sound/soc.h>
+> -#include <sound/dmaengine_pcm.h>
+> -
+> -struct sirf_audio_port {
+> -       struct regmap *regmap;
+> -       struct snd_dmaengine_dai_dma_data playback_dma_data;
+> -       struct snd_dmaengine_dai_dma_data capture_dma_data;
+> -};
+> -
+> -
+> -static int sirf_audio_port_dai_probe(struct snd_soc_dai *dai)
+> -{
+> -       struct sirf_audio_port *port =3D snd_soc_dai_get_drvdata(dai);
+> -
+> -       snd_soc_dai_init_dma_data(dai, &port->playback_dma_data,
+> -                       &port->capture_dma_data);
+> -       return 0;
+> -}
+> -
+> -static struct snd_soc_dai_driver sirf_audio_port_dai =3D {
+> -       .probe =3D sirf_audio_port_dai_probe,
+> -       .name =3D "sirf-audio-port",
+> -       .id =3D 0,
+> -       .playback =3D {
+> -               .channels_min =3D 2,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_48000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE,
+> -       },
+> -       .capture =3D {
+> -               .channels_min =3D 1,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_48000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE,
+> -       },
+> -};
+> -
+> -static const struct snd_soc_component_driver sirf_audio_port_component =
+=3D {
+> -       .name       =3D "sirf-audio-port",
+> -};
+> -
+> -static int sirf_audio_port_probe(struct platform_device *pdev)
+> -{
+> -       int ret;
+> -       struct sirf_audio_port *port;
+> -
+> -       port =3D devm_kzalloc(&pdev->dev,
+> -                       sizeof(struct sirf_audio_port), GFP_KERNEL);
+> -       if (!port)
+> -               return -ENOMEM;
+> -
+> -       ret =3D devm_snd_soc_register_component(&pdev->dev,
+> -                       &sirf_audio_port_component, &sirf_audio_port_dai,=
+ 1);
+> -       if (ret)
+> -               return ret;
+> -
+> -       platform_set_drvdata(pdev, port);
+> -       return devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
+> -}
+> -
+> -static const struct of_device_id sirf_audio_port_of_match[] =3D {
+> -       { .compatible =3D "sirf,audio-port", },
+> -       {}
+> -};
+> -MODULE_DEVICE_TABLE(of, sirf_audio_port_of_match);
+> -
+> -static struct platform_driver sirf_audio_port_driver =3D {
+> -       .driver =3D {
+> -               .name =3D "sirf-audio-port",
+> -               .of_match_table =3D sirf_audio_port_of_match,
+> -       },
+> -       .probe =3D sirf_audio_port_probe,
+> -};
+> -
+> -module_platform_driver(sirf_audio_port_driver);
+> -
+> -MODULE_DESCRIPTION("SiRF Audio Port driver");
+> -MODULE_AUTHOR("RongJun Ying <Rongjun.Ying@csr.com>");
+> -MODULE_LICENSE("GPL v2");
+> diff --git a/sound/soc/sirf/sirf-audio.c b/sound/soc/sirf/sirf-audio.c
+> deleted file mode 100644
+> index c923b6772b22..000000000000
+> --- a/sound/soc/sirf/sirf-audio.c
+> +++ /dev/null
+> @@ -1,160 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0-or-later
+> -/*
+> - * SiRF audio card driver
+> - *
+> - * Copyright (c) 2011 Cambridge Silicon Radio Limited, a CSR plc group c=
+ompany.
+> - */
+> -
+> -#include <linux/platform_device.h>
+> -#include <linux/module.h>
+> -#include <linux/of.h>
+> -#include <linux/gpio.h>
+> -#include <linux/of_gpio.h>
+> -#include <sound/core.h>
+> -#include <sound/pcm.h>
+> -#include <sound/soc.h>
+> -
+> -struct sirf_audio_card {
+> -       unsigned int            gpio_hp_pa;
+> -       unsigned int            gpio_spk_pa;
+> -};
+> -
+> -static int sirf_audio_hp_event(struct snd_soc_dapm_widget *w,
+> -                               struct snd_kcontrol *ctrl, int event)
+> -{
+> -       struct snd_soc_dapm_context *dapm =3D w->dapm;
+> -       struct snd_soc_card *card =3D dapm->card;
+> -       struct sirf_audio_card *sirf_audio_card =3D snd_soc_card_get_drvd=
+ata(card);
+> -       int on =3D !SND_SOC_DAPM_EVENT_OFF(event);
+> -
+> -       if (gpio_is_valid(sirf_audio_card->gpio_hp_pa))
+> -               gpio_set_value(sirf_audio_card->gpio_hp_pa, on);
+> -       return 0;
+> -}
+> -
+> -static int sirf_audio_spk_event(struct snd_soc_dapm_widget *w,
+> -                               struct snd_kcontrol *ctrl, int event)
+> -{
+> -       struct snd_soc_dapm_context *dapm =3D w->dapm;
+> -       struct snd_soc_card *card =3D dapm->card;
+> -       struct sirf_audio_card *sirf_audio_card =3D snd_soc_card_get_drvd=
+ata(card);
+> -       int on =3D !SND_SOC_DAPM_EVENT_OFF(event);
+> -
+> -       if (gpio_is_valid(sirf_audio_card->gpio_spk_pa))
+> -               gpio_set_value(sirf_audio_card->gpio_spk_pa, on);
+> -
+> -       return 0;
+> -}
+> -static const struct snd_soc_dapm_widget sirf_audio_dapm_widgets[] =3D {
+> -       SND_SOC_DAPM_HP("Hp", sirf_audio_hp_event),
+> -       SND_SOC_DAPM_SPK("Ext Spk", sirf_audio_spk_event),
+> -       SND_SOC_DAPM_MIC("Ext Mic", NULL),
+> -};
+> -
+> -static const struct snd_soc_dapm_route intercon[] =3D {
+> -       {"Hp", NULL, "HPOUTL"},
+> -       {"Hp", NULL, "HPOUTR"},
+> -       {"Ext Spk", NULL, "SPKOUT"},
+> -       {"MICIN1", NULL, "Mic Bias"},
+> -       {"Mic Bias", NULL, "Ext Mic"},
+> -};
+> -
+> -/* Digital audio interface glue - connects codec <--> CPU */
+> -SND_SOC_DAILINK_DEFS(sirf,
+> -       DAILINK_COMP_ARRAY(COMP_EMPTY()),
+> -       DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "sirf-audio-codec")),
+> -       DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> -
+> -static struct snd_soc_dai_link sirf_audio_dai_link[] =3D {
+> -       {
+> -               .name =3D "SiRF audio card",
+> -               .stream_name =3D "SiRF audio HiFi",
+> -               SND_SOC_DAILINK_REG(sirf),
+> -       },
+> -};
+> -
+> -/* Audio machine driver */
+> -static struct snd_soc_card snd_soc_sirf_audio_card =3D {
+> -       .name =3D "SiRF audio card",
+> -       .owner =3D THIS_MODULE,
+> -       .dai_link =3D sirf_audio_dai_link,
+> -       .num_links =3D ARRAY_SIZE(sirf_audio_dai_link),
+> -       .dapm_widgets =3D sirf_audio_dapm_widgets,
+> -       .num_dapm_widgets =3D ARRAY_SIZE(sirf_audio_dapm_widgets),
+> -       .dapm_routes =3D intercon,
+> -       .num_dapm_routes =3D ARRAY_SIZE(intercon),
+> -};
+> -
+> -static int sirf_audio_probe(struct platform_device *pdev)
+> -{
+> -       struct snd_soc_card *card =3D &snd_soc_sirf_audio_card;
+> -       struct sirf_audio_card *sirf_audio_card;
+> -       int ret;
+> -
+> -       sirf_audio_card =3D devm_kzalloc(&pdev->dev, sizeof(struct sirf_a=
+udio_card),
+> -                       GFP_KERNEL);
+> -       if (sirf_audio_card =3D=3D NULL)
+> -               return -ENOMEM;
+> -
+> -       sirf_audio_dai_link[0].cpus->of_node =3D
+> -               of_parse_phandle(pdev->dev.of_node, "sirf,audio-platform"=
+, 0);
+> -       sirf_audio_dai_link[0].platforms->of_node =3D
+> -               of_parse_phandle(pdev->dev.of_node, "sirf,audio-platform"=
+, 0);
+> -       sirf_audio_dai_link[0].codecs->of_node =3D
+> -               of_parse_phandle(pdev->dev.of_node, "sirf,audio-codec", 0=
+);
+> -       sirf_audio_card->gpio_spk_pa =3D of_get_named_gpio(pdev->dev.of_n=
+ode,
+> -                       "spk-pa-gpios", 0);
+> -       sirf_audio_card->gpio_hp_pa =3D  of_get_named_gpio(pdev->dev.of_n=
+ode,
+> -                       "hp-pa-gpios", 0);
+> -       if (gpio_is_valid(sirf_audio_card->gpio_spk_pa)) {
+> -               ret =3D devm_gpio_request_one(&pdev->dev,
+> -                               sirf_audio_card->gpio_spk_pa,
+> -                               GPIOF_OUT_INIT_LOW, "SPA_PA_SD");
+> -               if (ret) {
+> -                       dev_err(&pdev->dev,
+> -                               "Failed to request GPIO_%d for reset: %d\=
+n",
+> -                               sirf_audio_card->gpio_spk_pa, ret);
+> -                       return ret;
+> -               }
+> -       }
+> -       if (gpio_is_valid(sirf_audio_card->gpio_hp_pa)) {
+> -               ret =3D devm_gpio_request_one(&pdev->dev,
+> -                               sirf_audio_card->gpio_hp_pa,
+> -                               GPIOF_OUT_INIT_LOW, "HP_PA_SD");
+> -               if (ret) {
+> -                       dev_err(&pdev->dev,
+> -                               "Failed to request GPIO_%d for reset: %d\=
+n",
+> -                               sirf_audio_card->gpio_hp_pa, ret);
+> -                       return ret;
+> -               }
+> -       }
+> -
+> -       card->dev =3D &pdev->dev;
+> -       snd_soc_card_set_drvdata(card, sirf_audio_card);
+> -
+> -       ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+> -       if (ret)
+> -               dev_err(&pdev->dev, "snd_soc_register_card() failed:%d\n"=
+, ret);
+> -
+> -       return ret;
+> -}
+> -
+> -static const struct of_device_id sirf_audio_of_match[] =3D {
+> -       {.compatible =3D "sirf,sirf-audio-card", },
+> -       { },
+> -};
+> -MODULE_DEVICE_TABLE(of, sirf_audio_of_match);
+> -
+> -static struct platform_driver sirf_audio_driver =3D {
+> -       .driver =3D {
+> -               .name =3D "sirf-audio-card",
+> -               .pm =3D &snd_soc_pm_ops,
+> -               .of_match_table =3D sirf_audio_of_match,
+> -       },
+> -       .probe =3D sirf_audio_probe,
+> -};
+> -module_platform_driver(sirf_audio_driver);
+> -
+> -MODULE_AUTHOR("RongJun Ying <RongJun.Ying@csr.com>");
+> -MODULE_DESCRIPTION("ALSA SoC SIRF audio card driver");
+> -MODULE_LICENSE("GPL v2");
+> diff --git a/sound/soc/sirf/sirf-usp.c b/sound/soc/sirf/sirf-usp.c
+> deleted file mode 100644
+> index 2af0c6f14ee6..000000000000
+> --- a/sound/soc/sirf/sirf-usp.c
+> +++ /dev/null
+> @@ -1,435 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0-or-later
+> -/*
+> - * SiRF USP in I2S/DSP mode
+> - *
+> - * Copyright (c) 2011 Cambridge Silicon Radio Limited, a CSR plc group c=
+ompany.
+> - */
+> -#include <linux/module.h>
+> -#include <linux/io.h>
+> -#include <linux/of.h>
+> -#include <linux/clk.h>
+> -#include <linux/pm_runtime.h>
+> -#include <sound/soc.h>
+> -#include <sound/pcm_params.h>
+> -#include <sound/dmaengine_pcm.h>
+> -
+> -#include "sirf-usp.h"
+> -
+> -struct sirf_usp {
+> -       struct regmap *regmap;
+> -       struct clk *clk;
+> -       u32 mode1_reg;
+> -       u32 mode2_reg;
+> -       int daifmt_format;
+> -       struct snd_dmaengine_dai_dma_data playback_dma_data;
+> -       struct snd_dmaengine_dai_dma_data capture_dma_data;
+> -};
+> -
+> -static void sirf_usp_tx_enable(struct sirf_usp *usp)
+> -{
+> -       regmap_update_bits(usp->regmap, USP_TX_FIFO_OP,
+> -               USP_TX_FIFO_RESET, USP_TX_FIFO_RESET);
+> -       regmap_write(usp->regmap, USP_TX_FIFO_OP, 0);
+> -
+> -       regmap_update_bits(usp->regmap, USP_TX_FIFO_OP,
+> -               USP_TX_FIFO_START, USP_TX_FIFO_START);
+> -
+> -       regmap_update_bits(usp->regmap, USP_TX_RX_ENABLE,
+> -               USP_TX_ENA, USP_TX_ENA);
+> -}
+> -
+> -static void sirf_usp_tx_disable(struct sirf_usp *usp)
+> -{
+> -       regmap_update_bits(usp->regmap, USP_TX_RX_ENABLE,
+> -               USP_TX_ENA, ~USP_TX_ENA);
+> -       /* FIFO stop */
+> -       regmap_write(usp->regmap, USP_TX_FIFO_OP, 0);
+> -}
+> -
+> -static void sirf_usp_rx_enable(struct sirf_usp *usp)
+> -{
+> -       regmap_update_bits(usp->regmap, USP_RX_FIFO_OP,
+> -               USP_RX_FIFO_RESET, USP_RX_FIFO_RESET);
+> -       regmap_write(usp->regmap, USP_RX_FIFO_OP, 0);
+> -
+> -       regmap_update_bits(usp->regmap, USP_RX_FIFO_OP,
+> -               USP_RX_FIFO_START, USP_RX_FIFO_START);
+> -
+> -       regmap_update_bits(usp->regmap, USP_TX_RX_ENABLE,
+> -               USP_RX_ENA, USP_RX_ENA);
+> -}
+> -
+> -static void sirf_usp_rx_disable(struct sirf_usp *usp)
+> -{
+> -       regmap_update_bits(usp->regmap, USP_TX_RX_ENABLE,
+> -               USP_RX_ENA, ~USP_RX_ENA);
+> -       /* FIFO stop */
+> -       regmap_write(usp->regmap, USP_RX_FIFO_OP, 0);
+> -}
+> -
+> -static int sirf_usp_pcm_dai_probe(struct snd_soc_dai *dai)
+> -{
+> -       struct sirf_usp *usp =3D snd_soc_dai_get_drvdata(dai);
+> -
+> -       snd_soc_dai_init_dma_data(dai, &usp->playback_dma_data,
+> -                       &usp->capture_dma_data);
+> -       return 0;
+> -}
+> -
+> -static int sirf_usp_pcm_set_dai_fmt(struct snd_soc_dai *dai,
+> -               unsigned int fmt)
+> -{
+> -       struct sirf_usp *usp =3D snd_soc_dai_get_drvdata(dai);
+> -
+> -       /* set master/slave audio interface */
+> -       switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> -       case SND_SOC_DAIFMT_CBM_CFM:
+> -               break;
+> -       default:
+> -               dev_err(dai->dev, "Only CBM and CFM supported\n");
+> -               return -EINVAL;
+> -       }
+> -
+> -       switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+> -       case SND_SOC_DAIFMT_I2S:
+> -       case SND_SOC_DAIFMT_DSP_A:
+> -               usp->daifmt_format =3D (fmt & SND_SOC_DAIFMT_FORMAT_MASK)=
+;
+> -               break;
+> -       default:
+> -               dev_err(dai->dev, "Only I2S and DSP_A format supported\n"=
+);
+> -               return -EINVAL;
+> -       }
+> -
+> -       switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+> -       case SND_SOC_DAIFMT_NB_NF:
+> -               break;
+> -       case SND_SOC_DAIFMT_IB_NF:
+> -               usp->daifmt_format |=3D (fmt & SND_SOC_DAIFMT_INV_MASK);
+> -               break;
+> -       default:
+> -               return -EINVAL;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static void sirf_usp_i2s_init(struct sirf_usp *usp)
+> -{
+> -       /* Configure RISC mode */
+> -       regmap_update_bits(usp->regmap, USP_RISC_DSP_MODE,
+> -               USP_RISC_DSP_SEL, ~USP_RISC_DSP_SEL);
+> -
+> -       /*
+> -        * Configure DMA IO Length register
+> -        * Set no limit, USP can receive data continuously until it is di=
+abled
+> -        */
+> -       regmap_write(usp->regmap, USP_TX_DMA_IO_LEN, 0);
+> -       regmap_write(usp->regmap, USP_RX_DMA_IO_LEN, 0);
+> -
+> -       /* Configure Mode2 register */
+> -       regmap_write(usp->regmap, USP_MODE2, (1 << USP_RXD_DELAY_LEN_OFFS=
+ET) |
+> -               (0 << USP_TXD_DELAY_LEN_OFFSET) |
+> -               USP_TFS_CLK_SLAVE_MODE | USP_RFS_CLK_SLAVE_MODE);
+> -
+> -       /* Configure Mode1 register */
+> -       regmap_write(usp->regmap, USP_MODE1,
+> -               USP_SYNC_MODE | USP_EN | USP_TXD_ACT_EDGE_FALLING |
+> -               USP_RFS_ACT_LEVEL_LOGIC1 | USP_TFS_ACT_LEVEL_LOGIC1 |
+> -               USP_TX_UFLOW_REPEAT_ZERO | USP_CLOCK_MODE_SLAVE);
+> -
+> -       /* Configure RX DMA IO Control register */
+> -       regmap_write(usp->regmap, USP_RX_DMA_IO_CTRL, 0);
+> -
+> -       /* Congiure RX FIFO Control register */
+> -       regmap_write(usp->regmap, USP_RX_FIFO_CTRL,
+> -               (USP_RX_FIFO_THRESHOLD << USP_RX_FIFO_THD_OFFSET) |
+> -               (USP_TX_RX_FIFO_WIDTH_DWORD << USP_RX_FIFO_WIDTH_OFFSET))=
+;
+> -
+> -       /* Congiure RX FIFO Level Check register */
+> -       regmap_write(usp->regmap, USP_RX_FIFO_LEVEL_CHK,
+> -               RX_FIFO_SC(0x04) | RX_FIFO_LC(0x0E) | RX_FIFO_HC(0x1B));
+> -
+> -       /* Configure TX DMA IO Control register*/
+> -       regmap_write(usp->regmap, USP_TX_DMA_IO_CTRL, 0);
+> -
+> -       /* Configure TX FIFO Control register */
+> -       regmap_write(usp->regmap, USP_TX_FIFO_CTRL,
+> -               (USP_TX_FIFO_THRESHOLD << USP_TX_FIFO_THD_OFFSET) |
+> -               (USP_TX_RX_FIFO_WIDTH_DWORD << USP_TX_FIFO_WIDTH_OFFSET))=
+;
+> -       /* Congiure TX FIFO Level Check register */
+> -       regmap_write(usp->regmap, USP_TX_FIFO_LEVEL_CHK,
+> -               TX_FIFO_SC(0x1B) | TX_FIFO_LC(0x0E) | TX_FIFO_HC(0x04));
+> -}
+> -
+> -static int sirf_usp_pcm_hw_params(struct snd_pcm_substream *substream,
+> -               struct snd_pcm_hw_params *params, struct snd_soc_dai *dai=
+)
+> -{
+> -       struct sirf_usp *usp =3D snd_soc_dai_get_drvdata(dai);
+> -       u32 data_len, frame_len, shifter_len;
+> -
+> -       switch (params_format(params)) {
+> -       case SNDRV_PCM_FORMAT_S16_LE:
+> -               data_len =3D 16;
+> -               frame_len =3D 16;
+> -               break;
+> -       case SNDRV_PCM_FORMAT_S24_LE:
+> -               data_len =3D 24;
+> -               frame_len =3D 32;
+> -               break;
+> -       case SNDRV_PCM_FORMAT_S24_3LE:
+> -               data_len =3D 24;
+> -               frame_len =3D 24;
+> -               break;
+> -       default:
+> -               dev_err(dai->dev, "Format unsupported\n");
+> -               return -EINVAL;
+> -       }
+> -
+> -       shifter_len =3D data_len;
+> -
+> -       switch (usp->daifmt_format & SND_SOC_DAIFMT_FORMAT_MASK) {
+> -       case SND_SOC_DAIFMT_I2S:
+> -               regmap_update_bits(usp->regmap, USP_RX_FRAME_CTRL,
+> -                       USP_I2S_SYNC_CHG, USP_I2S_SYNC_CHG);
+> -               break;
+> -       case SND_SOC_DAIFMT_DSP_A:
+> -               regmap_update_bits(usp->regmap, USP_RX_FRAME_CTRL,
+> -                       USP_I2S_SYNC_CHG, 0);
+> -               frame_len =3D data_len * params_channels(params);
+> -               data_len =3D frame_len;
+> -               break;
+> -       default:
+> -               dev_err(dai->dev, "Only support I2S and DSP_A mode\n");
+> -               return -EINVAL;
+> -       }
+> -
+> -       switch (usp->daifmt_format & SND_SOC_DAIFMT_INV_MASK) {
+> -       case SND_SOC_DAIFMT_NB_NF:
+> -               break;
+> -       case SND_SOC_DAIFMT_IB_NF:
+> -               regmap_update_bits(usp->regmap, USP_MODE1,
+> -                       USP_RXD_ACT_EDGE_FALLING | USP_TXD_ACT_EDGE_FALLI=
+NG,
+> -                       USP_RXD_ACT_EDGE_FALLING);
+> -               break;
+> -       default:
+> -               return -EINVAL;
+> -       }
+> -
+> -       if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> -               regmap_update_bits(usp->regmap, USP_TX_FRAME_CTRL,
+> -                       USP_TXC_DATA_LEN_MASK | USP_TXC_FRAME_LEN_MASK
+> -                       | USP_TXC_SHIFTER_LEN_MASK | USP_TXC_SLAVE_CLK_SA=
+MPLE,
+> -                       ((data_len - 1) << USP_TXC_DATA_LEN_OFFSET)
+> -                       | ((frame_len - 1) << USP_TXC_FRAME_LEN_OFFSET)
+> -                       | ((shifter_len - 1) << USP_TXC_SHIFTER_LEN_OFFSE=
+T)
+> -                       | USP_TXC_SLAVE_CLK_SAMPLE);
+> -       else
+> -               regmap_update_bits(usp->regmap, USP_RX_FRAME_CTRL,
+> -                       USP_RXC_DATA_LEN_MASK | USP_RXC_FRAME_LEN_MASK
+> -                       | USP_RXC_SHIFTER_LEN_MASK | USP_SINGLE_SYNC_MODE=
+,
+> -                       ((data_len - 1) << USP_RXC_DATA_LEN_OFFSET)
+> -                       | ((frame_len - 1) << USP_RXC_FRAME_LEN_OFFSET)
+> -                       | ((shifter_len - 1) << USP_RXC_SHIFTER_LEN_OFFSE=
+T)
+> -                       | USP_SINGLE_SYNC_MODE);
+> -
+> -       return 0;
+> -}
+> -
+> -static int sirf_usp_pcm_trigger(struct snd_pcm_substream *substream, int=
+ cmd,
+> -                               struct snd_soc_dai *dai)
+> -{
+> -       struct sirf_usp *usp =3D snd_soc_dai_get_drvdata(dai);
+> -
+> -       switch (cmd) {
+> -       case SNDRV_PCM_TRIGGER_START:
+> -       case SNDRV_PCM_TRIGGER_RESUME:
+> -       case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> -               if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> -                       sirf_usp_tx_enable(usp);
+> -               else
+> -                       sirf_usp_rx_enable(usp);
+> -               break;
+> -       case SNDRV_PCM_TRIGGER_STOP:
+> -       case SNDRV_PCM_TRIGGER_SUSPEND:
+> -       case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> -               if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> -                       sirf_usp_tx_disable(usp);
+> -               else
+> -                       sirf_usp_rx_disable(usp);
+> -               break;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static const struct snd_soc_dai_ops sirf_usp_pcm_dai_ops =3D {
+> -       .trigger =3D sirf_usp_pcm_trigger,
+> -       .set_fmt =3D sirf_usp_pcm_set_dai_fmt,
+> -       .hw_params =3D sirf_usp_pcm_hw_params,
+> -};
+> -
+> -static struct snd_soc_dai_driver sirf_usp_pcm_dai =3D {
+> -       .probe =3D sirf_usp_pcm_dai_probe,
+> -       .name =3D "sirf-usp-pcm",
+> -       .id =3D 0,
+> -       .playback =3D {
+> -               .stream_name =3D "SiRF USP PCM Playback",
+> -               .channels_min =3D 1,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_8000_192000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S=
+24_LE |
+> -                       SNDRV_PCM_FMTBIT_S24_3LE,
+> -       },
+> -       .capture =3D {
+> -               .stream_name =3D "SiRF USP PCM Capture",
+> -               .channels_min =3D 1,
+> -               .channels_max =3D 2,
+> -               .rates =3D SNDRV_PCM_RATE_8000_192000,
+> -               .formats =3D SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S=
+24_LE |
+> -                       SNDRV_PCM_FMTBIT_S24_3LE,
+> -       },
+> -       .ops =3D &sirf_usp_pcm_dai_ops,
+> -};
+> -
+> -static int sirf_usp_pcm_runtime_suspend(struct device *dev)
+> -{
+> -       struct sirf_usp *usp =3D dev_get_drvdata(dev);
+> -
+> -       clk_disable_unprepare(usp->clk);
+> -       return 0;
+> -}
+> -
+> -static int sirf_usp_pcm_runtime_resume(struct device *dev)
+> -{
+> -       struct sirf_usp *usp =3D dev_get_drvdata(dev);
+> -       int ret;
+> -
+> -       ret =3D clk_prepare_enable(usp->clk);
+> -       if (ret) {
+> -               dev_err(dev, "clk_enable failed: %d\n", ret);
+> -               return ret;
+> -       }
+> -       sirf_usp_i2s_init(usp);
+> -       return 0;
+> -}
+> -
+> -#ifdef CONFIG_PM_SLEEP
+> -static int sirf_usp_pcm_suspend(struct device *dev)
+> -{
+> -       struct sirf_usp *usp =3D dev_get_drvdata(dev);
+> -
+> -       if (!pm_runtime_status_suspended(dev)) {
+> -               regmap_read(usp->regmap, USP_MODE1, &usp->mode1_reg);
+> -               regmap_read(usp->regmap, USP_MODE2, &usp->mode2_reg);
+> -               sirf_usp_pcm_runtime_suspend(dev);
+> -       }
+> -       return 0;
+> -}
+> -
+> -static int sirf_usp_pcm_resume(struct device *dev)
+> -{
+> -       struct sirf_usp *usp =3D dev_get_drvdata(dev);
+> -       int ret;
+> -
+> -       if (!pm_runtime_status_suspended(dev)) {
+> -               ret =3D sirf_usp_pcm_runtime_resume(dev);
+> -               if (ret)
+> -                       return ret;
+> -               regmap_write(usp->regmap, USP_MODE1, usp->mode1_reg);
+> -               regmap_write(usp->regmap, USP_MODE2, usp->mode2_reg);
+> -       }
+> -       return 0;
+> -}
+> -#endif
+> -
+> -static const struct snd_soc_component_driver sirf_usp_component =3D {
+> -       .name           =3D "sirf-usp",
+> -};
+> -
+> -static const struct regmap_config sirf_usp_regmap_config =3D {
+> -       .reg_bits =3D 32,
+> -       .reg_stride =3D 4,
+> -       .val_bits =3D 32,
+> -       .max_register =3D USP_RX_FIFO_DATA,
+> -       .cache_type =3D REGCACHE_NONE,
+> -};
+> -
+> -static int sirf_usp_pcm_probe(struct platform_device *pdev)
+> -{
+> -       int ret;
+> -       struct sirf_usp *usp;
+> -       void __iomem *base;
+> -
+> -       usp =3D devm_kzalloc(&pdev->dev, sizeof(struct sirf_usp),
+> -                       GFP_KERNEL);
+> -       if (!usp)
+> -               return -ENOMEM;
+> -
+> -       platform_set_drvdata(pdev, usp);
+> -
+> -       base =3D devm_platform_ioremap_resource(pdev, 0);
+> -       if (IS_ERR(base))
+> -               return PTR_ERR(base);
+> -       usp->regmap =3D devm_regmap_init_mmio(&pdev->dev, base,
+> -                                           &sirf_usp_regmap_config);
+> -       if (IS_ERR(usp->regmap))
+> -               return PTR_ERR(usp->regmap);
+> -
+> -       usp->clk =3D devm_clk_get(&pdev->dev, NULL);
+> -       if (IS_ERR(usp->clk)) {
+> -               dev_err(&pdev->dev, "Get clock failed.\n");
+> -               return PTR_ERR(usp->clk);
+> -       }
+> -
+> -       pm_runtime_enable(&pdev->dev);
+> -       if (!pm_runtime_enabled(&pdev->dev)) {
+> -               ret =3D sirf_usp_pcm_runtime_resume(&pdev->dev);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       ret =3D devm_snd_soc_register_component(&pdev->dev, &sirf_usp_com=
+ponent,
+> -               &sirf_usp_pcm_dai, 1);
+> -       if (ret) {
+> -               dev_err(&pdev->dev, "Register Audio SoC dai failed.\n");
+> -               return ret;
+> -       }
+> -       return devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
+> -}
+> -
+> -static int sirf_usp_pcm_remove(struct platform_device *pdev)
+> -{
+> -       if (!pm_runtime_enabled(&pdev->dev))
+> -               sirf_usp_pcm_runtime_suspend(&pdev->dev);
+> -       else
+> -               pm_runtime_disable(&pdev->dev);
+> -       return 0;
+> -}
+> -
+> -static const struct of_device_id sirf_usp_pcm_of_match[] =3D {
+> -       { .compatible =3D "sirf,prima2-usp-pcm", },
+> -       {}
+> -};
+> -MODULE_DEVICE_TABLE(of, sirf_usp_pcm_of_match);
+> -
+> -static const struct dev_pm_ops sirf_usp_pcm_pm_ops =3D {
+> -       SET_RUNTIME_PM_OPS(sirf_usp_pcm_runtime_suspend,
+> -               sirf_usp_pcm_runtime_resume, NULL)
+> -       SET_SYSTEM_SLEEP_PM_OPS(sirf_usp_pcm_suspend, sirf_usp_pcm_resume=
+)
+> -};
+> -
+> -static struct platform_driver sirf_usp_pcm_driver =3D {
+> -       .driver =3D {
+> -               .name =3D "sirf-usp-pcm",
+> -               .of_match_table =3D sirf_usp_pcm_of_match,
+> -               .pm =3D &sirf_usp_pcm_pm_ops,
+> -       },
+> -       .probe =3D sirf_usp_pcm_probe,
+> -       .remove =3D sirf_usp_pcm_remove,
+> -};
+> -
+> -module_platform_driver(sirf_usp_pcm_driver);
+> -
+> -MODULE_DESCRIPTION("SiRF SoC USP PCM bus driver");
+> -MODULE_AUTHOR("RongJun Ying <Rongjun.Ying@csr.com>");
+> -MODULE_LICENSE("GPL v2");
+> diff --git a/sound/soc/sirf/sirf-usp.h b/sound/soc/sirf/sirf-usp.h
+> deleted file mode 100644
+> index 08993b5992c4..000000000000
+> --- a/sound/soc/sirf/sirf-usp.h
+> +++ /dev/null
+> @@ -1,292 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0-or-later */
+> -/*
+> - * arch/arm/mach-prima2/include/mach/sirfsoc_usp.h
+> - *
+> - * Copyright (c) 2011 Cambridge Silicon Radio Limited, a CSR plc group c=
+ompany.
+> - */
+> -
+> -#ifndef _SIRF_USP_H
+> -#define _SIRF_USP_H
+> -
+> -/* USP Registers */
+> -#define USP_MODE1              0x00
+> -#define USP_MODE2              0x04
+> -#define USP_TX_FRAME_CTRL      0x08
+> -#define USP_RX_FRAME_CTRL      0x0C
+> -#define USP_TX_RX_ENABLE       0x10
+> -#define USP_INT_ENABLE         0x14
+> -#define USP_INT_STATUS         0x18
+> -#define USP_PIN_IO_DATA                0x1C
+> -#define USP_RISC_DSP_MODE      0x20
+> -#define USP_AYSNC_PARAM_REG    0x24
+> -#define USP_IRDA_X_MODE_DIV    0x28
+> -#define USP_SM_CFG             0x2C
+> -#define USP_TX_DMA_IO_CTRL     0x100
+> -#define USP_TX_DMA_IO_LEN      0x104
+> -#define USP_TX_FIFO_CTRL       0x108
+> -#define USP_TX_FIFO_LEVEL_CHK  0x10C
+> -#define USP_TX_FIFO_OP         0x110
+> -#define USP_TX_FIFO_STATUS     0x114
+> -#define USP_TX_FIFO_DATA       0x118
+> -#define USP_RX_DMA_IO_CTRL     0x120
+> -#define USP_RX_DMA_IO_LEN      0x124
+> -#define USP_RX_FIFO_CTRL       0x128
+> -#define USP_RX_FIFO_LEVEL_CHK  0x12C
+> -#define USP_RX_FIFO_OP         0x130
+> -#define USP_RX_FIFO_STATUS     0x134
+> -#define USP_RX_FIFO_DATA       0x138
+> -
+> -/* USP MODE register-1 */
+> -#define USP_SYNC_MODE                  0x00000001
+> -#define USP_CLOCK_MODE_SLAVE           0x00000002
+> -#define USP_LOOP_BACK_EN               0x00000004
+> -#define USP_HPSIR_EN                   0x00000008
+> -#define USP_ENDIAN_CTRL_LSBF           0x00000010
+> -#define USP_EN                         0x00000020
+> -#define USP_RXD_ACT_EDGE_FALLING       0x00000040
+> -#define USP_TXD_ACT_EDGE_FALLING       0x00000080
+> -#define USP_RFS_ACT_LEVEL_LOGIC1       0x00000100
+> -#define USP_TFS_ACT_LEVEL_LOGIC1       0x00000200
+> -#define USP_SCLK_IDLE_MODE_TOGGLE      0x00000400
+> -#define USP_SCLK_IDLE_LEVEL_LOGIC1     0x00000800
+> -#define USP_SCLK_PIN_MODE_IO   0x00001000
+> -#define USP_RFS_PIN_MODE_IO    0x00002000
+> -#define USP_TFS_PIN_MODE_IO    0x00004000
+> -#define USP_RXD_PIN_MODE_IO    0x00008000
+> -#define USP_TXD_PIN_MODE_IO    0x00010000
+> -#define USP_SCLK_IO_MODE_INPUT 0x00020000
+> -#define USP_RFS_IO_MODE_INPUT  0x00040000
+> -#define USP_TFS_IO_MODE_INPUT  0x00080000
+> -#define USP_RXD_IO_MODE_INPUT  0x00100000
+> -#define USP_TXD_IO_MODE_INPUT  0x00200000
+> -#define USP_IRDA_WIDTH_DIV_MASK        0x3FC00000
+> -#define USP_IRDA_WIDTH_DIV_OFFSET      0
+> -#define USP_IRDA_IDLE_LEVEL_HIGH       0x40000000
+> -#define USP_TX_UFLOW_REPEAT_ZERO       0x80000000
+> -#define USP_TX_ENDIAN_MODE             0x00000020
+> -#define USP_RX_ENDIAN_MODE             0x00000020
+> -
+> -/* USP Mode Register-2 */
+> -#define USP_RXD_DELAY_LEN_MASK         0x000000FF
+> -#define USP_RXD_DELAY_LEN_OFFSET       0
+> -
+> -#define USP_TXD_DELAY_LEN_MASK         0x0000FF00
+> -#define USP_TXD_DELAY_LEN_OFFSET       8
+> -
+> -#define USP_ENA_CTRL_MODE              0x00010000
+> -#define USP_FRAME_CTRL_MODE            0x00020000
+> -#define USP_TFS_SOURCE_MODE             0x00040000
+> -#define USP_TFS_MS_MODE                 0x00080000
+> -#define USP_CLK_DIVISOR_MASK           0x7FE00000
+> -#define USP_CLK_DIVISOR_OFFSET         21
+> -
+> -#define USP_TFS_CLK_SLAVE_MODE         (1<<20)
+> -#define USP_RFS_CLK_SLAVE_MODE         (1<<19)
+> -
+> -#define USP_IRDA_DATA_WIDTH            0x80000000
+> -
+> -/* USP Transmit Frame Control Register */
+> -
+> -#define USP_TXC_DATA_LEN_MASK          0x000000FF
+> -#define USP_TXC_DATA_LEN_OFFSET                0
+> -
+> -#define USP_TXC_SYNC_LEN_MASK          0x0000FF00
+> -#define USP_TXC_SYNC_LEN_OFFSET                8
+> -
+> -#define USP_TXC_FRAME_LEN_MASK         0x00FF0000
+> -#define USP_TXC_FRAME_LEN_OFFSET       16
+> -
+> -#define USP_TXC_SHIFTER_LEN_MASK       0x1F000000
+> -#define USP_TXC_SHIFTER_LEN_OFFSET     24
+> -
+> -#define USP_TXC_SLAVE_CLK_SAMPLE       0x20000000
+> -
+> -#define USP_TXC_CLK_DIVISOR_MASK       0xC0000000
+> -#define USP_TXC_CLK_DIVISOR_OFFSET     30
+> -
+> -/* USP Receive Frame Control Register */
+> -
+> -#define USP_RXC_DATA_LEN_MASK          0x000000FF
+> -#define USP_RXC_DATA_LEN_OFFSET                0
+> -
+> -#define USP_RXC_FRAME_LEN_MASK         0x0000FF00
+> -#define USP_RXC_FRAME_LEN_OFFSET       8
+> -
+> -#define USP_RXC_SHIFTER_LEN_MASK       0x001F0000
+> -#define USP_RXC_SHIFTER_LEN_OFFSET     16
+> -
+> -#define USP_START_EDGE_MODE    0x00800000
+> -#define USP_I2S_SYNC_CHG       0x00200000
+> -
+> -#define USP_RXC_CLK_DIVISOR_MASK       0x0F000000
+> -#define USP_RXC_CLK_DIVISOR_OFFSET     24
+> -#define USP_SINGLE_SYNC_MODE           0x00400000
+> -
+> -/* Tx - RX Enable Register */
+> -
+> -#define USP_RX_ENA             0x00000001
+> -#define USP_TX_ENA             0x00000002
+> -
+> -/* USP Interrupt Enable and status Register */
+> -#define USP_RX_DONE_INT                        0x00000001
+> -#define USP_TX_DONE_INT                        0x00000002
+> -#define USP_RX_OFLOW_INT               0x00000004
+> -#define USP_TX_UFLOW_INT               0x00000008
+> -#define USP_RX_IO_DMA_INT              0x00000010
+> -#define USP_TX_IO_DMA_INT              0x00000020
+> -#define USP_RXFIFO_FULL_INT            0x00000040
+> -#define USP_TXFIFO_EMPTY_INT           0x00000080
+> -#define USP_RXFIFO_THD_INT             0x00000100
+> -#define USP_TXFIFO_THD_INT             0x00000200
+> -#define USP_UART_FRM_ERR_INT           0x00000400
+> -#define USP_RX_TIMEOUT_INT             0x00000800
+> -#define USP_TX_ALLOUT_INT              0x00001000
+> -#define USP_RXD_BREAK_INT              0x00008000
+> -
+> -/* All possible TX interruots */
+> -#define USP_TX_INTERRUPT               (USP_TX_DONE_INT|USP_TX_UFLOW_INT=
+|\
+> -                                       USP_TX_IO_DMA_INT|\
+> -                                       USP_TXFIFO_EMPTY_INT|\
+> -                                       USP_TXFIFO_THD_INT)
+> -/* All possible RX interruots */
+> -#define USP_RX_INTERRUPT               (USP_RX_DONE_INT|USP_RX_OFLOW_INT=
+|\
+> -                                       USP_RX_IO_DMA_INT|\
+> -                                       USP_RXFIFO_FULL_INT|\
+> -                                       USP_RXFIFO_THD_INT|\
+> -                                       USP_RX_TIMEOUT_INT)
+> -
+> -#define USP_INT_ALL        0x1FFF
+> -
+> -/* USP Pin I/O Data Register */
+> -
+> -#define USP_RFS_PIN_VALUE_MASK 0x00000001
+> -#define USP_TFS_PIN_VALUE_MASK 0x00000002
+> -#define USP_RXD_PIN_VALUE_MASK 0x00000004
+> -#define USP_TXD_PIN_VALUE_MASK 0x00000008
+> -#define USP_SCLK_PIN_VALUE_MASK        0x00000010
+> -
+> -/* USP RISC/DSP Mode Register */
+> -#define USP_RISC_DSP_SEL       0x00000001
+> -
+> -/* USP ASYNC PARAMETER Register*/
+> -
+> -#define USP_ASYNC_TIMEOUT_MASK 0x0000FFFF
+> -#define USP_ASYNC_TIMEOUT_OFFSET       0
+> -#define USP_ASYNC_TIMEOUT(x)   (((x)&USP_ASYNC_TIMEOUT_MASK) \
+> -                               <<USP_ASYNC_TIMEOUT_OFFSET)
+> -
+> -#define USP_ASYNC_DIV2_MASK            0x003F0000
+> -#define USP_ASYNC_DIV2_OFFSET          16
+> -
+> -/* USP TX DMA I/O MODE Register */
+> -#define USP_TX_MODE_IO                 0x00000001
+> -
+> -/* USP TX DMA I/O Length Register */
+> -#define USP_TX_DATA_LEN_MASK           0xFFFFFFFF
+> -#define USP_TX_DATA_LEN_OFFSET         0
+> -
+> -/* USP TX FIFO Control Register */
+> -#define USP_TX_FIFO_WIDTH_MASK         0x00000003
+> -#define USP_TX_FIFO_WIDTH_OFFSET       0
+> -
+> -#define USP_TX_FIFO_THD_MASK           0x000001FC
+> -#define USP_TX_FIFO_THD_OFFSET         2
+> -
+> -/* USP TX FIFO Level Check Register */
+> -#define USP_TX_FIFO_LEVEL_CHECK_MASK   0x1F
+> -#define USP_TX_FIFO_SC_OFFSET  0
+> -#define USP_TX_FIFO_LC_OFFSET  10
+> -#define USP_TX_FIFO_HC_OFFSET  20
+> -
+> -#define TX_FIFO_SC(x)          (((x) & USP_TX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_TX_FIFO_SC_OFFSET)
+> -#define TX_FIFO_LC(x)          (((x) & USP_TX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_TX_FIFO_LC_OFFSET)
+> -#define TX_FIFO_HC(x)          (((x) & USP_TX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_TX_FIFO_HC_OFFSET)
+> -
+> -/* USP TX FIFO Operation Register */
+> -#define USP_TX_FIFO_RESET              0x00000001
+> -#define USP_TX_FIFO_START              0x00000002
+> -
+> -/* USP TX FIFO Status Register */
+> -#define USP_TX_FIFO_LEVEL_MASK         0x0000007F
+> -#define USP_TX_FIFO_LEVEL_OFFSET       0
+> -
+> -#define USP_TX_FIFO_FULL               0x00000080
+> -#define USP_TX_FIFO_EMPTY              0x00000100
+> -
+> -/* USP TX FIFO Data Register */
+> -#define USP_TX_FIFO_DATA_MASK          0xFFFFFFFF
+> -#define USP_TX_FIFO_DATA_OFFSET                0
+> -
+> -/* USP RX DMA I/O MODE Register */
+> -#define USP_RX_MODE_IO                 0x00000001
+> -#define USP_RX_DMA_FLUSH               0x00000004
+> -
+> -/* USP RX DMA I/O Length Register */
+> -#define USP_RX_DATA_LEN_MASK           0xFFFFFFFF
+> -#define USP_RX_DATA_LEN_OFFSET         0
+> -
+> -/* USP RX FIFO Control Register */
+> -#define USP_RX_FIFO_WIDTH_MASK         0x00000003
+> -#define USP_RX_FIFO_WIDTH_OFFSET       0
+> -
+> -#define USP_RX_FIFO_THD_MASK           0x000001FC
+> -#define USP_RX_FIFO_THD_OFFSET         2
+> -
+> -/* USP RX FIFO Level Check Register */
+> -
+> -#define USP_RX_FIFO_LEVEL_CHECK_MASK   0x1F
+> -#define USP_RX_FIFO_SC_OFFSET  0
+> -#define USP_RX_FIFO_LC_OFFSET  10
+> -#define USP_RX_FIFO_HC_OFFSET  20
+> -
+> -#define RX_FIFO_SC(x)          (((x) & USP_RX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_RX_FIFO_SC_OFFSET)
+> -#define RX_FIFO_LC(x)          (((x) & USP_RX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_RX_FIFO_LC_OFFSET)
+> -#define RX_FIFO_HC(x)          (((x) & USP_RX_FIFO_LEVEL_CHECK_MASK) \
+> -                               << USP_RX_FIFO_HC_OFFSET)
+> -
+> -/* USP RX FIFO Operation Register */
+> -#define USP_RX_FIFO_RESET              0x00000001
+> -#define USP_RX_FIFO_START              0x00000002
+> -
+> -/* USP RX FIFO Status Register */
+> -
+> -#define USP_RX_FIFO_LEVEL_MASK         0x0000007F
+> -#define USP_RX_FIFO_LEVEL_OFFSET       0
+> -
+> -#define USP_RX_FIFO_FULL               0x00000080
+> -#define USP_RX_FIFO_EMPTY              0x00000100
+> -
+> -/* USP RX FIFO Data Register */
+> -
+> -#define USP_RX_FIFO_DATA_MASK          0xFFFFFFFF
+> -#define USP_RX_FIFO_DATA_OFFSET                0
+> -
+> -/*
+> - * When rx thd irq occur, sender just disable tx empty irq,
+> - * Remaining data in tx fifo wil also be sent out.
+> - */
+> -#define USP_FIFO_SIZE                  128
+> -#define USP_TX_FIFO_THRESHOLD          (USP_FIFO_SIZE/2)
+> -#define USP_RX_FIFO_THRESHOLD          (USP_FIFO_SIZE/2)
+> -
+> -/* FIFO_WIDTH for the USP_TX_FIFO_CTRL and USP_RX_FIFO_CTRL registers */
+> -#define USP_FIFO_WIDTH_BYTE  0x00
+> -#define USP_FIFO_WIDTH_WORD  0x01
+> -#define USP_FIFO_WIDTH_DWORD 0x02
+> -
+> -#define USP_ASYNC_DIV2          16
+> -
+> -#define USP_PLUGOUT_RETRY_CNT  2
+> -
+> -#define USP_TX_RX_FIFO_WIDTH_DWORD    2
+> -
+> -#define SIRF_USP_DIV_MCLK      0
+> -
+> -#define SIRF_USP_I2S_TFS_SYNC  0
+> -#define SIRF_USP_I2S_RFS_SYNC  1
+> -#endif
+> --
+> 2.29.2
+>

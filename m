@@ -2,94 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30B22FDB4E
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 22:19:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6DB2FDBFE
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 22:40:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6922617EA;
-	Wed, 20 Jan 2021 22:18:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6922617EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E787817EF;
+	Wed, 20 Jan 2021 22:39:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E787817EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611177572;
-	bh=h870dOnY0nmaUHjgYfOHn5UInNE3DZqxXIt6yf/D4Ms=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1611178805;
+	bh=Ba9JtSf1XDiZYyXLiTsW8XaDM1kl+22UaiEglovxFK0=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C7lWFsf623PWfgvVG4aDhSDLWQ44pW1BI1AwzNR6WPu+A5fnnoBJHC/AOa8vYHohT
-	 nQ+t9PGxLoU7OrxMgWvcp62xrO7QuMVcAcproyt0tRUNEvY3N8g9DEcsUcdkEtid3w
-	 RyO1yNWkuRXD962xefUWLAQ89IumHKIma72mnxbI=
+	b=NKh1mB50/lkrgZOXuYlSoX8gzD5XQmvDp0wxp91o0q5ARCv4swGrHYCYTDqmYnNYT
+	 blKaSfZ6Az49mXIXZHyL4x/F00O0X/gZEgLPUdkWOC6qpKm0PqOmcIikA1Dvy67+7C
+	 bCy/TGSB0fiNccUssE3OU3Hh+kcf745gArck2R8w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC043F8019B;
-	Wed, 20 Jan 2021 22:17:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A48EF80166;
+	Wed, 20 Jan 2021 22:38:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6536FF8016E; Wed, 20 Jan 2021 22:17:56 +0100 (CET)
+ id 539E2F8016E; Wed, 20 Jan 2021 22:38:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE0FFF80137
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 22:17:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE0FFF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87FA8F80137
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 22:38:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87FA8F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
- header.i=@nostatic-org.20150623.gappssmtp.com header.b="ZOvI72OM"
-Received: by mail-yb1-xb34.google.com with SMTP id x6so37618ybr.1
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 13:17:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nostatic-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IBjwGH28dTZFZ+0OPl+TZ2IqlpdR5VzAH0qANZWWi+M=;
- b=ZOvI72OM8rNwZK4BEp0xE4a4saeuRVR1EoDXC2vtVNCyvy3MR3GZnWE49ZK7E+QaHx
- r8OKTG/P6iQGIBzxaNYzrYFECbeARnd2pD7JeDRHsetxQ6n3hURSwLAHUnCpr9QeRhxU
- mfW0RA+2woTY9bAddGl9vaVDxrvv5vzXbEd26dWDjhM3SupmqXepxP2zB6oWZQX+9zrv
- L9yaz3CyIJMzxSQU5hikK4ezWYHPBJpB8ZEEAK19FoWi67oBgaRPNGfBoRw8mnrhsLQO
- iezlYb4C72CEiyQ1Ho9HAZj8VP3HyPm7ztDjJLbu6zaNwBhgF5j8WmLOby49RLOLLNk2
- 2u9A==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="M2u400wV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611178702;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pHm8nVKL9Fr4wu0oxgE+9L7CgPJ7wuqXCFrUdbbeNXo=;
+ b=M2u400wVsNoMJZvd/czGSJYiKff0cki5LJRmrwjqup9ydWdBl42VGB73awNGLd9bmTG2Jy
+ d5QqMZoZcXvwKJR4dTA6/g93r2UR4r+Fv97oW2cgHe7ytXMZABAhzTzhRL2gz2Y6eS8WPv
+ ldV2juBpqF6UcAOMwyvVNvYYQq0DrSY=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-544-yBiKPMviM7q65po_oDt7TQ-1; Wed, 20 Jan 2021 16:38:20 -0500
+X-MC-Unique: yBiKPMviM7q65po_oDt7TQ-1
+Received: by mail-ed1-f69.google.com with SMTP id g6so18320edw.13
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 13:38:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IBjwGH28dTZFZ+0OPl+TZ2IqlpdR5VzAH0qANZWWi+M=;
- b=hlSyOvjVrR9upIS6i3mzD1IVbi0+KbfeCRfTUGZdfDegPrF7Z6s4Vvf776Z5IZaO5B
- JRWEy55gwTllpws2ey10VZmr3eQK30XHsOMkLu9wz+abZJbitQnzVFkZqbwy9Ay4yG8M
- /QXUvNwZfgPnwgKACRbonfmYIQuEYlQVDaN3GWzaIZgmvQx8Y322R0ZAgiufS27sNf6q
- oVI5GJNSoGqVoxhdOI7v9Erv50HaMMwRfodCLLaSxpNOeDagWFGsfVV9YkVOIASbagm7
- 7cFARXujG44Jg9gQWpbZmehygqdcS6ibkVKOJM5frMZzS276xQn75xlCbjlf/Q77wTAY
- edHw==
-X-Gm-Message-State: AOAM533l1NYXGCvjIyOfBrHRHS3Qp3A5Bqe+t/Dsb62xxk2Mmh1AmBVc
- LvOWIDzFHnJDqKrcVmOqMLzl/779jxYTpqmhAcoWMg==
-X-Google-Smtp-Source: ABdhPJxb7TKV9mTIdVB+asWdgjy6hAI9Xpzqegb77nfD5o7zbzgJwVXBAsYs88DFSqjvn9AxtSFuNcZByWCXHWfwJZs=
-X-Received: by 2002:a5b:5ce:: with SMTP id w14mr16736389ybp.314.1611177466739; 
- Wed, 20 Jan 2021 13:17:46 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=pHm8nVKL9Fr4wu0oxgE+9L7CgPJ7wuqXCFrUdbbeNXo=;
+ b=UFgvU88Puj2DZw7/ifvIuE5HCqbAkvhGhWtVgHIUrE/6lB59BWKlfH0ktvF4/GgfBh
+ odqWjXI8WC41jw8uqb2gyEEYycVyV6k7pL46DoVoULxJYh4uUl8fe6PSPXXTqlTn1Q0c
+ ebUQKbJdBDhbk0SxrHMlqVY6HF95LxzsWn0/D9ryn6U+UnQ7F5yl+7WG4/DK0nLJNmtI
+ WdwmyEPwXMBknBQxxwxrWL6H4Q6esAEBBdMDAq4rzTgZyMMEw16cYhsvw7RKkdhnnyJ7
+ skOVh0yJimsvPsAPtQcpxbFP18zXsVIBQQThquhwijPrdQSVjAvvm1MvG90awzQgt9v0
+ TQYQ==
+X-Gm-Message-State: AOAM531ZIMeGYmScuZLUg72mDovYtdaNtB662Ejt17RcCxHcstzhJrdB
+ pykpoeXXMkwVpl1laHNZAmq66G96t7p4NZ0oXxZ8NmrVxcw55djSMvEgQw23XvbUixVSOo8g92W
+ sgcvUi45x3F0CctPIbMrnf2o=
+X-Received: by 2002:a05:6402:1c0b:: with SMTP id
+ ck11mr8848952edb.35.1611178698937; 
+ Wed, 20 Jan 2021 13:38:18 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyC/ocWNIlZZBmymqhSrfoTNVxWmqEy5lrlXs0dgY1fwLV2Z2ltM1tFi4s7WBAkCG47K1QxnQ==
+X-Received: by 2002:a05:6402:1c0b:: with SMTP id
+ ck11mr8848941edb.35.1611178698798; 
+ Wed, 20 Jan 2021 13:38:18 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
+ by smtp.gmail.com with ESMTPSA id z2sm1419474ejd.44.2021.01.20.13.38.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Jan 2021 13:38:18 -0800 (PST)
+Subject: Re: [PATCH v3 3/5] mfd: arizona: Add support for ACPI enumeration of
+ WM5102 connected over SPI
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20210117212252.206115-1-hdegoede@redhat.com>
+ <20210117212252.206115-4-hdegoede@redhat.com>
+ <20210118130227.GI4455@sirena.org.uk>
+ <5ccf48f4-45dc-3a30-3d6a-cce066f01270@redhat.com>
+ <20210118133449.GL4455@sirena.org.uk>
+ <a1ea81b6-8aff-274c-f1b2-a06a27650b25@redhat.com>
+ <CAHp75VeCSOxJr1qMoXj04hnXnZiXdG4PAQ9oaKJNHWXaTqCrVQ@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <b96ec08f-32e5-1c0b-df07-c5c47e5c4b81@redhat.com>
+Date: Wed, 20 Jan 2021 22:38:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
- <s5hr1mik7vu.wl-tiwai@suse.de>
- <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
- <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
- <s5hr1migiie.wl-tiwai@suse.de>
- <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
- <s5him7thpoz.wl-tiwai@suse.de>
- <CAHXb3bd8zHFmHxDp=4dNKa90eAT568yCwTWo_5L0Zry1EY45UA@mail.gmail.com>
- <s5hczy1guto.wl-tiwai@suse.de>
- <CAHXb3bfUv7QzvgOmtV3LxJXaY=Uk+pKhWZmU0M+YkgB0kNrXmA@mail.gmail.com>
- <s5ha6t3el07.wl-tiwai@suse.de>
-In-Reply-To: <s5ha6t3el07.wl-tiwai@suse.de>
-From: Mike Oliphant <oliphant@nostatic.org>
-Date: Wed, 20 Jan 2021 13:17:35 -0800
-Message-ID: <CAHXb3bcucvF63itp6+R8aC6hByBJs4AorQg5KAa1YkunCB89tw@mail.gmail.com>
-Subject: Re: Support for NUX MG-300 USB interface
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <CAHp75VeCSOxJr1qMoXj04hnXnZiXdG4PAQ9oaKJNHWXaTqCrVQ@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Christian Hartmann <cornogle@googlemail.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,58 +133,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I spent a fair bit of time debugging the code setting/getting mixer control
-values, and I can't see anything that seems to be operating incorrectly.
+Hi,
 
-Unless you have any other suggestions, I'm going to admit defeat and return
-the audio interface.
+On 1/20/21 8:59 PM, Andy Shevchenko wrote:
+> On Wed, Jan 20, 2021 at 9:18 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>> On 1/18/21 2:34 PM, Mark Brown wrote:
+>>> On Mon, Jan 18, 2021 at 02:13:50PM +0100, Hans de Goede wrote:
+>>>
+>>>> More in general I'm not aware of any (recent-ish) x86 GPIO controllers
+>>>> not being able to do active low interrupts. In theory we could hit this
+>>>> code path on ARM devices using ACPI enumeration, but I don't think it
+>>>> is likely we will see a combination of ARM + ACPI enumeration +
+>>>> WM5102 + GPIO controller not capable of active-low interrupts.
+>>>
+>>> I've not seen this issue on any ARM based systems.
+>>>
+>>>> This overriding of the flags definitely is necessary on the Lenovo
+>>>> devices in question. I could add a
+>>>> "if (dmi_name_in_vendors("LENOVO"))" guard around it, but that
+>>>> seems unnecessary.
+>>>
+>>> Possibly just an update to the comment to make it clear that some
+>>> firmwares might legitimately set the flag?
+>>
+>> Ok, I've extended the comment above the override of the irq-flags with
+>> the following paragraph for v4 of this patch-set:
+>>
+>>          * Note theoretically it is possible that some boards are not capable
+>>          * of handling active low level interrupts. In that case setting the
+>>          * flag to IRQF_TRIGGER_FALLING would not be a bug (and we would need
+>>          * to work around this) but sofar all known usages of IRQF_TRIGGER_FALLING
+> 
+> so far
+> 
+>>          * are a bug in the boards DSDT.
+> 
+> board's
+> 
 
-It is probably worth committing the clock selector patch - it at least made
-capture work, and it may help with other audio interfaces.
+Thank you for the quick review, I've fixed both spelling errors for the upcoming v4.
 
-Thanks for your help,
+Regards,
 
-Mike
+Hans
 
-
-
-On Wed, Jan 20, 2021 at 6:33 AM Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Tue, 19 Jan 2021 18:40:04 +0100,
-> Mike Oliphant wrote:
-> >
-> > Your mixer.c patch does get rid of the RANGE errors. No change to
-> behavior,
-> > though.
-> >
-> > I'd already tried setting "implicit_fb=1" even though I didn't expect it
-> to
-> > work, since there is a separate feedback endpoint. I just tried it again
-> - it
-> > doesn't seem to hurt anything, but it doesn't help either.
-> >
-> > Capture seems to be working perfectly with the clock patch - I'm not
-> sure why
-> > I was initially getting noisy input.
-> >
-> > I checked "/proc/asound/card*/pcm*/sub*/status" during playback, and the
-> > pointer seems to be moving forward as it should. All indications are
-> that the
-> > system thinks playback is working fine.
-> >
-> > One interesting piece of information - alsamixer shows two stereo outputs
-> > ("pcm" and "pcm1"). Not sure why there are two - maybe output is going
-> to the
-> > wrong one?
->
-> You might need to unmute and increase both.  The first one should be a
-> master volume/switch while the second one is for the stereo channels.
->
-> Naming the mixer elements properly for USB-audio is a really tough
-> task.  Many firmware don't set the right strings and a guess work
-> doesn't fit to all.  But certainly there are some rooms for
-> improvements there.
->
->
-> Takashi
->

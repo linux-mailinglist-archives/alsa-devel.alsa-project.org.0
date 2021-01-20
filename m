@@ -2,56 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BDE82FC4F8
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 00:43:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC532FC5DE
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 01:33:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A33BC18B0;
-	Wed, 20 Jan 2021 00:42:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A33BC18B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A17DC1899;
+	Wed, 20 Jan 2021 01:32:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A17DC1899
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611099785;
-	bh=lMm9Zm9VRIsq1qN2ygyTciu4i+Mi3mRLA+Ig65Ghwc0=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1611102824;
+	bh=JrwSN5TkcJuuI8GBfR/4XsWZb5ZNnaZLgJil4ZpjgE0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Y9FPBcGR9VZqEvcSZkNzPvT9/oY+yUFnjrVGuLsHbsDMoNdneuoKm+V0rx10oXOt5
-	 EBMlQZfCAECqLuyX2tBXOFzBHHEu5n8ziEJwyP1DFZVIvl7LJ2ykOehJw3k9H2lfnK
-	 kPFWYXC/nBH4+i8eAywLDXQSSh2y3FYKDSyHecck=
+	b=KUQLldJjsk3z/M/uvPaZlYnAkeQtN6DtbETPi4q2bnqooA4Mc11Wkh5CaImzpqKYk
+	 Q3hvOtgrygSgSnR4anuupmxXIRq233pj73dfQc6GLaEJHKqg69qTkNauL7iLuvxDF6
+	 8CZe7X21z0MfvszvZIzqH7P/1/CzB+bCnM94Zok8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02F57F80117;
-	Wed, 20 Jan 2021 00:41:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 015C1F80137;
+	Wed, 20 Jan 2021 01:32:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43B93F80257; Wed, 20 Jan 2021 00:41:31 +0100 (CET)
+ id C8AABF8026A; Wed, 20 Jan 2021 01:32:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from omr.mail.isx.net.nz (omr.mail.isx.net.nz [111.65.230.130])
- (using TLSv1 with cipher ADH-CAMELLIA256-SHA (256/256 bits))
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A0E5F80137
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:41:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A0E5F80137
-Received: from [10.36.0.145] (unknown [27.252.196.81])
- (Authenticated sender: eliot@blennerhassett.gen.nz)
- by omr.mail.isx.net.nz (Postfix) with ESMTPA id 8A1E0AE6B31;
- Wed, 20 Jan 2021 12:41:18 +1300 (NZDT)
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-From: Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
-Subject: ASoC: simple-card, fsl-sai, ak4458, imx-ak4458
-Message-ID: <935820c1-0c96-6c85-26e7-ce0b741737dc@blennerhassett.gen.nz>
-Date: Wed, 20 Jan 2021 12:41:18 +1300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D48AF800FE
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 01:32:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D48AF800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ryn+Eyy0"
+Received: by mail-lj1-x234.google.com with SMTP id j3so4336231ljb.9
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jan 2021 16:32:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=p54YQoU5PizD2PvnEMTwxf/6TaphLrTilvpQINsaj5A=;
+ b=Ryn+Eyy0tLq1AjpZ4wzZH7b0j6lALNZPqet/IMumjZlW2dsWaSXYePzJaTT6e57hwD
+ /ob9Om+q8TptVqjyyT3rEaRRQGEa9Fz7sV6oJMrvBm0GS67UlLppeWr4c9gsCq6gHK9w
+ 94rK6lI9y2CBl1bOb3Jotr+YgQWC80w6QIuVO11yPtkWq3qR6/LKVeshPtZd/o+BXV+o
+ ENMd/FwAy6AMBfXQymSUAkJXpBx+BjcOBO3y+8cO73y2R5ThNKYZJObKcmVp2dluxDM2
+ qKFckARILDrxWMdDWIJuOjnEFxs5SDksmqSocvrnN7NPQHb3zgGqyYmtvtXTJxCQ7yQx
+ 6htA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=p54YQoU5PizD2PvnEMTwxf/6TaphLrTilvpQINsaj5A=;
+ b=HdDNjtiPNySjER7qkaIGkja+3dmyS0Jdnk5M0Svv1vYqftx146otsYDJTkGjJ/Nqis
+ 25qDBD3PqyrZMbm2pg/VWAg6RvTpM4H11XYsxXmiBOqk9l0qiJGdNwYqpoKVjyfrDPCv
+ qZb4T3s0d8p7KlREFKJnYZk5uSYO1GL0hLTS+nAriWB4mAqhdLyr3zeqPdFOrRjCw8T0
+ 0kPbvDFx77BUBomyoGjK8D1tL8Rwxpgoz3Q+ccz6mSsIoecLUpK+/PTHla8pL79fwUHX
+ rFq0f4WTddI6ocJtg9jwdDYUi3G42B9qo1Ei4zsyRCmK4bjbXSzC6NNGFzTwdCPCb+PN
+ X8Tg==
+X-Gm-Message-State: AOAM532DAmI6NtL/BSW52OJTt7V6Vzh2arr0pvTevjORqLjSpmNJE+t8
+ bwQWwbtO7SSn7Q9gpH6B1Z0=
+X-Google-Smtp-Source: ABdhPJz/Sh6TR8pIQalIBKw2XVT4nunPLsNMc0btmpwvvB7qqB+d4SskIRT7YO+0DLfnTdZZxEeW7g==
+X-Received: by 2002:a2e:5844:: with SMTP id x4mr3097356ljd.336.1611102723039; 
+ Tue, 19 Jan 2021 16:32:03 -0800 (PST)
+Received: from localhost.localdomain (109-252-192-57.dynamic.spd-mgts.ru.
+ [109.252.192.57])
+ by smtp.gmail.com with ESMTPSA id s27sm17710ljd.25.2021.01.19.16.32.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jan 2021 16:32:02 -0800 (PST)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
+ Peter Geis <pgwipeout@gmail.com>, Nicolas Chauvet <kwizart@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Matt Merhar <mattmerhar@protonmail.com>,
+ Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH v3 0/6] Clock and reset improvements for Tegra ALSA drivers
+Date: Wed, 20 Jan 2021 03:31:48 +0300
+Message-Id: <20210120003154.26749-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-Cc: broonie@kernel.org, daniel.baluta@nxp.com, kuninori.morimoto.gx@renesas.com,
- Delio Brignoli <dbrignoli@audioscience.com>
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,122 +102,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Greetings,
+This series improves the handling of clock and reset controls of
+NVIDA Tegra ALSA drivers. Tegra HDA and AHUB drivers aren't handling
+resets properly, which needs to be fixed in order to unblock other patches
+related to fixes of the reset controller driver since HDA/AHUB are bound
+to fail once reset controller driver will be corrected. In particular ALSA
+drivers are relying on implicit de-assertion of resets which is done by the
+tegra-clk driver. It's not the business of the clk driver to touch resets
+and we need to fix this because it breaks reset/clk programming sequences
+of other Tegra drivers.
 
-late last year I worked on a project using $SUBJECT. That has been
-suspended at least for now, so I'm writing these notes to my future
-self, or anyone else who may want to tread the same path.
-I'm happy to expand on explanation, or work on patches if anyone is
-interested.
+Changelog:
 
-Background:
+v3: - Reworked "hda/tegra: Reset hardware" and "ahub: Reset hardware properly"
+      patches, they now use usleep + reset_deassert() instead of reset_reset().
+      Suggested by Thierry Reding.
 
-Normally, fsl-sai is used with the platform-specific imx-ak4458 (afaik
-only in vendor tree).
+    - Added new patch "hda/tegra: Remove unnecessary null-check from
+      hda_tegra_runtime_resume()". Suggested by Thierry Reding.
 
-However, our project wished to be able use pcm1789 which has no imx
-specific driver so I started trying to use simple-card with the generic
-ak4458 driver.  I encountered a some of problems doing this:
+    - Replaced "ahub: Reset hardware properly" patch with "ahub: Add missing
+      resets". Suggested by Thierry Reding.
 
+    - Slightly improved commit messages.
 
-------------------------------------------------------------------------
-1) Reset polarity of ak4458.
+    - Added acks from Thierry Reding.
 
-When imx-ak4458 is used, the platform driver handles the codec reset
-specified in DT
-	compatible = "fsl,imx-audio-ak4458";
-	ak4458,pdn-gpio = <&gpio4 20 GPIO_ACTIVE_LOW>;
+v2: - Added regcache_sync() to the "ahub: Reset hardware properly" patch,
+      which was missed by accident in v1.
 
-Used here. Afaics gpio_set_value sets the raw value given, ignoring the
-polarity specified by the DT?
+    - Corrected typo in the format of the error message in "ahub: Use
+      of_reset_control_array_get_exclusive()" patch by s/%p/%pe/.
 
-	gpio_set_value_cansleep(priv->pdn_gpio, 0);
-	usleep_range(1000, 2000);
-	gpio_set_value_cansleep(priv->pdn_gpio, 1);
-	usleep_range(1000, 2000);
+Dmitry Osipenko (6):
+  ALSA: hda/tegra: Use clk_bulk helpers
+  ALSA: hda/tegra: Reset hardware
+  ALSA: hda/tegra: Remove unnecessary null-check from
+    hda_tegra_runtime_resume()
+  ASoC: tegra: ahub: Add missing resets
+  ASoC: tegra: ahub: Use clk_bulk helpers
+  ASoC: tegra: ahub: Reset hardware properly
 
-
-The codec driver reset code is not used.
-
-
-
-When simple-card is used, the codec driver handles reset, specified like:
-	compatible = "asahi-kasei,ak4458";
-	reset-gpios  = <&gpio4 20 GPIO_ACTIVE_LOW>;
-
-and used here (inverse for power on)
-static void ak4458_power_off(struct ak4458_priv *ak4458)
-{
-	if (ak4458->reset_gpiod) {
-		gpiod_set_value_cansleep(ak4458->reset_gpiod, 0);
-		usleep_range(1000, 2000);
-	}
-}
-
-My understanding of gpiod functions is that value being set is the
-*logical* value of the GPIO. I.e. setting an active low gpio to 0 will
-set the hardware pin high.
-So it appears that the power_off and power_on functions are doing the
-opposite of what is intended.
-This is borne out by my hardware working correctly when the
-
-
-------------------------------------------------------------------------
-2) Clock rate setting with simple-card
-
-When simple-card is used and DT specifies mclk fs:
-	simple-audio-card,mclk-fs = <256>;
-
-asoc_simple_hw_params() calls snd_soc_dai_set_sysclk(..., clk_id=0, ...)
-
-The hard-coded clk_id=0 doesn't work with fsl-sai, which requires clk_id==1.
-
-For my testing purposes I changed the hard-coded value, but I think the
-proper solution could be to add a DT property to specify the clk_id
-(default=0) ?
-
-
-------------------------------------------------------------------------
-3) Memory mapped stream access by aplay does not work.
-This precludes use of alsa plugins e.g. dmix
-
-I have found no reason or solution for this so far
-
-------------------------------------------------------------------------
-4) Unable to get multiple source clocks working with fsl-sai
-
-With a single assigned-clock, switching between 48k and 44k1 clock rate
-families is accomplished by reparenting the root clock to the
-appropriate audio pll clock.
-
-&sai2 {
-	assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
-	assigned-clocks        = <&clk IMX8MM_CLK_SAI2>;
-	assigned-clock-rates   = <12288000>;
-	...
-};
-
-
-
-However if two of the sai mclks could be set to 48k and 44k1 derived
-rates respectively, the clock reparenting would not be required, and
-fsl_sai_set_bclk() would search the mclks and choose the appropriate
-mclk for the requested rate.
-
-DT would be something like this:
-
-&sai2 {
-	assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>, <&clk
-IMX8MM_AUDIO_PLL2_OUT>;
-	assigned-clocks        = <&clk IMX8MM_CLK_SAI2>,       <&clk
-IMX8MM_CLK_SAI1>;
-	assigned-clock-rates   = <12288000>,                   <11289600>;
-};
-
-This setup doesn't work as I hoped it would, don't know why not.
-
-regards
+ sound/pci/hda/hda_tegra.c      | 90 ++++++++++++----------------------
+ sound/soc/tegra/tegra30_ahub.c | 64 ++++++++++++++----------
+ sound/soc/tegra/tegra30_ahub.h |  5 +-
+ 3 files changed, 72 insertions(+), 87 deletions(-)
 
 -- 
-Eliot Blennerhassett
+2.29.2
 

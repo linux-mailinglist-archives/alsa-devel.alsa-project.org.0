@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB9A92FCCBC
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:31:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57DE52FCCBF
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 09:34:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CE2B17D8;
-	Wed, 20 Jan 2021 09:30:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CE2B17D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE4F217EB;
+	Wed, 20 Jan 2021 09:33:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE4F217EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611131464;
-	bh=Ly7fxt5ZsNnRRjW475oEZ46AT+tzcxBWCNxiF5vJ248=;
+	s=default; t=1611131688;
+	bh=I0DfCniKPGoqAABiXfSJOD/bTLf2CqPs7kkxY0xXYhc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Eosk6QDV6Pn1CclEZvBO9KnwpZ9JqO+OT6YMRbR3zszV37YOKcC5kFWR96s+ffaMg
-	 doK1DKqKGrhiJN1f8UG6JTLmCMRy8SDc5lY8g6xdokX5Ork7g5tkDe528eTFIxrD8G
-	 qVzB3bAvXOfewbmWPPGHQYNr2MT4G0IyJGeCLxnk=
+	b=vV0u/7IYChrlrIHVvdctRO1ehtlUOwfeY7Z6X5zgPHpuG1WgV7ySCyKvDHb0tJfy1
+	 MBqOE6tYRkl4fSBknrfD3IpjEtXwAAyp7ZcEwpZOmlRuHj2krwHshtMul8+pORncnt
+	 kovx2zG++zYcm51VF2p9RT9FcrPUC58xMFZMx6BY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 711D4F8019B;
-	Wed, 20 Jan 2021 09:29:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DFCCF8019B;
+	Wed, 20 Jan 2021 09:33:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E45CF8016E; Wed, 20 Jan 2021 09:29:27 +0100 (CET)
+ id 22147F8016E; Wed, 20 Jan 2021 09:33:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_47,PRX_BODY_64,PRX_BODY_65,PRX_BODY_78,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3AD6EF80164
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:29:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AD6EF80164
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1052EF80137
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 09:33:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1052EF80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="dDEKyplE"
+ header.b="iEpUuc87"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611131361;
+ s=mimecast20190719; t=1611131585;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HzsWd8oLISAwhp+HewwlPZfcePCN2xxwuS+CFdNrHKg=;
- b=dDEKyplE0H9xIIWr/ic90OBB2dQSuWV3JiUbI52EJ7FO1eJZpHNa8OwSgWxuNQJs6ZLeDM
- LatrRoTIFYNCrUnp37hGGse/Vf1gR4h5ndCKgNcrWz8gbGUboQ1TdeyUMypB4pFcYiXFzO
- eMf3i0WiDg4hnRVVrn4GDJnCV+/W5Ns=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-536-8vAtW5PdN0CmBlmaf5zHTw-1; Wed, 20 Jan 2021 03:29:19 -0500
-X-MC-Unique: 8vAtW5PdN0CmBlmaf5zHTw-1
-Received: by mail-wr1-f72.google.com with SMTP id x12so129292wrw.21
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:29:19 -0800 (PST)
+ bh=NaMBw2tMF3iseHMhvTJvNTqHZMfiwOcXK6SQcatqOxg=;
+ b=iEpUuc876q82jnhXk35mG/9xhcQ7mXjGdq9G2EVicpZA9Cm8OpbnNp8Gn114vg8TfVCk1e
+ IlsJi/cTaXY8TbgRhUUdKzGNRTozxiYn4EhZL/HMM6whFFqQdCXP4JBrXlfVxPKRRL9cac
+ 5OiTlN9Au4KLF0u5Z0I+BObO5J5sczc=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-275-5lJrB4gwPPin7p3Il31dIQ-1; Wed, 20 Jan 2021 03:33:03 -0500
+X-MC-Unique: 5lJrB4gwPPin7p3Il31dIQ-1
+Received: by mail-wr1-f71.google.com with SMTP id w5so11000694wrl.9
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 00:33:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=HzsWd8oLISAwhp+HewwlPZfcePCN2xxwuS+CFdNrHKg=;
- b=VRzSZ+XAHtp2L1hGuBoSlt6k9q3G12EXoZ6HAobY/dwLmzOxqwEYFDJhDsg3NLvwNw
- eIHqDNvOoPJCTTmAC4V0V6PpK7gnIZztXrw/1V+NJ0K3g8waIQbmsb0KdGjbk1s7yFx7
- 17oAA3JTHPecX3y3oxO20jgS+lijkkqB/1t2gl5PXiMdsgOLvexdK32dbdBNRpfbcM4u
- Lgtggot/wOWt8YYkuLG9vgHiGyIoievFVHynyTIzNpJVGTH81vVMpC+YMiYW+BvbotP8
- hhxIuTS8r3kQYKAqNF8eMu0ZXMmcpE6xCEtiz+H3i4XuI5MuKIf2CWCcJrdAMUWvGUnL
- de6w==
-X-Gm-Message-State: AOAM531zjwF4X00oVUIy4YNaiFkZTnYMLRds8SBN8NLTqNhyedn9roN5
- LWXULCZ1b89R84k399A/sTCcQzr7UTeBScfm+YOglSDY41PImZIo+jtNM5RZxtmwhewwPm1D8Vt
- oZdh6ljZLtiBJu+jVrYHEhuU=
-X-Received: by 2002:a5d:61ca:: with SMTP id q10mr8193263wrv.124.1611131357446; 
- Wed, 20 Jan 2021 00:29:17 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJynMapmhdXI+nDVF+6V9AayU/8ZBNOmNIiCb8nrFPaeWtFi7j0nLr8G033HHD6vJ/lLTjXzjQ==
-X-Received: by 2002:a5d:61ca:: with SMTP id q10mr8193243wrv.124.1611131357152; 
- Wed, 20 Jan 2021 00:29:17 -0800 (PST)
+ bh=NaMBw2tMF3iseHMhvTJvNTqHZMfiwOcXK6SQcatqOxg=;
+ b=sVvjJc4Mvpx1pp8LHyR7tMfhTlL05KlqU1U5mUMvbzrFwtPTBiTBQwYoXuVTT8sx6o
+ ezfglFitoPtKvt1gHKHNgIZMqJ3dG3xZG0Ld1VLv/dcAeuq7WbItIHeGaUR7emGPV1tc
+ gqs5RCMGPftEqbcDpaCtIiAnf5Xs1UlgaIU9J6HbD54jnfCFiqRP1uPsrukIZ2C6P7Ub
+ cZ8ZJS4+5BUXpzlrjdhnVawmO/H1Zb2xnW1NY5HWjQYl4x276nmDXenrFLBEuvngC4m7
+ 0oeKoLf4rcH49cdqbcXwEbftBEdY+sdA87uvAuWAD46FyjqB0TPS1zJMoOUY8S+I93TX
+ 1QQA==
+X-Gm-Message-State: AOAM531yayvRsmZBMQf+Xh82AfSc+L256XTzjJ4EGK1zDJkA6Hd8YQLC
+ UzWdfY1q4gCwQz+NvkA5J+Y1L+781vPgyCckPAkC97x+xESvjIMZ68F1AEd11Vex1pBPZ7O6Kvb
+ q0Z1IS8OBniUaMYpFPjCu0Hc=
+X-Received: by 2002:a5d:44c6:: with SMTP id z6mr8090186wrr.306.1611131582109; 
+ Wed, 20 Jan 2021 00:33:02 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzPD6OzXYUboYwoh/qMFIbwcZAFlksqo65pLgzDuI8xjWPdsNA4radRvxWviHGRwSJ5UOnbpQ==
+X-Received: by 2002:a5d:44c6:: with SMTP id z6mr8090165wrr.306.1611131581857; 
+ Wed, 20 Jan 2021 00:33:01 -0800 (PST)
 Received: from redhat.com (bzq-79-177-39-148.red.bezeqint.net. [79.177.39.148])
- by smtp.gmail.com with ESMTPSA id d199sm2598105wmd.1.2021.01.20.00.29.14
+ by smtp.gmail.com with ESMTPSA id a62sm2543589wmf.7.2021.01.20.00.33.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jan 2021 00:29:15 -0800 (PST)
-Date: Wed, 20 Jan 2021 03:29:12 -0500
+ Wed, 20 Jan 2021 00:33:00 -0800 (PST)
+Date: Wed, 20 Jan 2021 03:32:58 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH 4/7] ALSA: virtio: handling control and I/O messages for
- the PCM device
-Message-ID: <20210120032711-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH 2/7] uapi: virtio_snd: add the sound device header file
+Message-ID: <20210120033211-mutt-send-email-mst@kernel.org>
 References: <20210120003638.3339987-1-anton.yakovlev@opensynergy.com>
- <20210120003638.3339987-5-anton.yakovlev@opensynergy.com>
+ <20210120003638.3339987-3-anton.yakovlev@opensynergy.com>
 MIME-Version: 1.0
-In-Reply-To: <20210120003638.3339987-5-anton.yakovlev@opensynergy.com>
+In-Reply-To: <20210120003638.3339987-3-anton.yakovlev@opensynergy.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mst@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,7 +95,7 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
  virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -113,540 +112,405 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 20, 2021 at 01:36:32AM +0100, Anton Yakovlev wrote:
-> The driver implements a message-based transport for I/O substream
-> operations. Before the start of the substream, the hardware buffer is
-> sliced into I/O messages, the number of which is equal to the current
-> number of periods. The size of each message is equal to the current
-> size of one period.
-> 
-> I/O messages are organized in an ordered queue. The completion of the
-> I/O message indicates an expired period (the only exception is the end
-> of the stream for the capture substream). Upon completion, the message
-> is automatically re-added to the end of the queue.
-> 
-> When an I/O message is completed, the hw_ptr value is incremented
-> unconditionally (to ensure that the hw_ptr always correctly reflects
-> the state of the messages in the virtqueue). Due to its asynchronous
-> nature, a message can be completed when the runtime structure no longer
-> exists. For this reason, the values from this structure are cached in
-> the virtio substream, which are required to calculate the new value of
-> the hw_ptr.
+On Wed, Jan 20, 2021 at 01:36:30AM +0100, Anton Yakovlev wrote:
+> The file contains the definitions for the sound device from the OASIS
+> virtio spec.
 > 
 > Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
 > ---
->  sound/virtio/Makefile         |   3 +-
->  sound/virtio/virtio_card.c    |  33 ++++
->  sound/virtio/virtio_card.h    |   9 +
->  sound/virtio/virtio_pcm.c     |   3 +
->  sound/virtio/virtio_pcm.h     |  31 ++++
->  sound/virtio/virtio_pcm_msg.c | 317 ++++++++++++++++++++++++++++++++++
->  6 files changed, 395 insertions(+), 1 deletion(-)
->  create mode 100644 sound/virtio/virtio_pcm_msg.c
+>  MAINTAINERS                     |   6 +
+>  include/uapi/linux/virtio_snd.h | 361 ++++++++++++++++++++++++++++++++
+>  2 files changed, 367 insertions(+)
+>  create mode 100644 include/uapi/linux/virtio_snd.h
 > 
-> diff --git a/sound/virtio/Makefile b/sound/virtio/Makefile
-> index 69162a545a41..626af3cc3ed7 100644
-> --- a/sound/virtio/Makefile
-> +++ b/sound/virtio/Makefile
-> @@ -5,5 +5,6 @@ obj-$(CONFIG_SND_VIRTIO) += virtio_snd.o
->  virtio_snd-objs := \
->  	virtio_card.o \
->  	virtio_ctl_msg.o \
-> -	virtio_pcm.o
-> +	virtio_pcm.o \
-> +	virtio_pcm_msg.o
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 00836f6452f0..6dfd59eafe82 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18936,6 +18936,12 @@ W:	https://virtio-mem.gitlab.io/
+>  F:	drivers/virtio/virtio_mem.c
+>  F:	include/uapi/linux/virtio_mem.h
 >  
-> diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-> index 293d497f24e7..dc703fc662f5 100644
-> --- a/sound/virtio/virtio_card.c
-> +++ b/sound/virtio/virtio_card.c
-> @@ -145,6 +145,12 @@ static int virtsnd_find_vqs(struct virtio_snd *snd)
->  	callbacks[VIRTIO_SND_VQ_CONTROL] = virtsnd_ctl_notify_cb;
->  	callbacks[VIRTIO_SND_VQ_EVENT] = virtsnd_event_notify_cb;
->  
-> +	virtio_cread(vdev, struct virtio_snd_config, streams, &n);
-> +	if (n) {
-> +		callbacks[VIRTIO_SND_VQ_TX] = virtsnd_pcm_tx_notify_cb;
-> +		callbacks[VIRTIO_SND_VQ_RX] = virtsnd_pcm_rx_notify_cb;
-> +	}
+> +VIRTIO SOUND DRIVER
+> +M:	Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> +L:	virtualization@lists.linux-foundation.org
+> +S:	Maintained
+> +F:	include/uapi/linux/virtio_snd.h
 > +
->  	rc = virtio_find_vqs(vdev, VIRTIO_SND_VQ_MAX, vqs, callbacks, names,
->  			     NULL);
->  	if (rc) {
-> @@ -186,15 +192,42 @@ static int virtsnd_find_vqs(struct virtio_snd *snd)
->   * virtsnd_enable_vqs() - Enable the event, tx and rx virtqueues.
->   * @snd: VirtIO sound device.
->   *
-> + * The tx queue is enabled only if the device supports playback stream(s).
-> + *
-> + * The rx queue is enabled only if the device supports capture stream(s).
-> + *
->   * Context: Any context.
->   */
->  static void virtsnd_enable_vqs(struct virtio_snd *snd)
->  {
-> +	struct virtio_device *vdev = snd->vdev;
->  	struct virtqueue *vqueue;
-> +	struct virtio_pcm *pcm;
-> +	unsigned int npbs = 0;
-> +	unsigned int ncps = 0;
->  
->  	vqueue = snd->queues[VIRTIO_SND_VQ_EVENT].vqueue;
->  	if (!virtqueue_enable_cb(vqueue))
->  		virtsnd_event_notify_cb(vqueue);
-> +
-> +	list_for_each_entry(pcm, &snd->pcm_list, list) {
-> +		npbs += pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].nsubstreams;
-> +		ncps += pcm->streams[SNDRV_PCM_STREAM_CAPTURE].nsubstreams;
-> +	}
-> +
-> +	if (npbs) {
-> +		vqueue = snd->queues[VIRTIO_SND_VQ_TX].vqueue;
-> +		if (!virtqueue_enable_cb(vqueue))
-> +			dev_warn(&vdev->dev,
-> +				 "suspicious notification in the TX queue\n");
-> +	}
-> +
-> +	if (ncps) {
-> +		vqueue = snd->queues[VIRTIO_SND_VQ_RX].vqueue;
-> +		if (!virtqueue_enable_cb(vqueue))
-> +			dev_warn(&vdev->dev,
-> +				 "suspicious notification in the RX queue\n");
-> +	}
+>  VIRTUAL BOX GUEST DEVICE DRIVER
+>  M:	Hans de Goede <hdegoede@redhat.com>
+>  M:	Arnd Bergmann <arnd@arndb.de>
 
-Not sure how all this prevents use of same vq from multiple threads ...
-And why are we sure there are no buffers yet?  If that is because
-nothing yet happened, then I'd also like to point out that a vq starts
-out with callbacks enabled, so you don't need to do that first thing ...
+Who's merging this driver me? If so pls add mst@redhat.com so I'm copied
+on patches.
 
-
-
->  }
->  
->  /**
-> diff --git a/sound/virtio/virtio_card.h b/sound/virtio/virtio_card.h
-> index be6651a6aaf8..b11c09984882 100644
-> --- a/sound/virtio/virtio_card.h
-> +++ b/sound/virtio/virtio_card.h
-> @@ -89,4 +89,13 @@ virtsnd_rx_queue(struct virtio_snd *snd)
->  	return &snd->queues[VIRTIO_SND_VQ_RX];
->  }
->  
-> +static inline struct virtio_snd_queue *
-> +virtsnd_pcm_queue(struct virtio_pcm_substream *substream)
-> +{
-> +	if (substream->direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +		return virtsnd_tx_queue(substream->snd);
-> +	else
-> +		return virtsnd_rx_queue(substream->snd);
-> +}
-> +
->  #endif /* VIRTIO_SND_CARD_H */
-> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
-> index 036990b7b78a..1ab50dcc88c8 100644
-> --- a/sound/virtio/virtio_pcm.c
-> +++ b/sound/virtio/virtio_pcm.c
-> @@ -376,6 +376,7 @@ int virtsnd_pcm_parse_cfg(struct virtio_snd *snd)
->  
->  		substream->snd = snd;
->  		substream->sid = i;
-> +		init_waitqueue_head(&substream->msg_empty);
->  
->  		rc = virtsnd_pcm_build_hw(substream, &info[i]);
->  		if (rc)
-> @@ -530,6 +531,8 @@ void virtsnd_pcm_event(struct virtio_snd *snd, struct virtio_snd_event *event)
->  		break;
->  	}
->  	case VIRTIO_SND_EVT_PCM_XRUN: {
-> +		if (atomic_read(&substream->xfer_enabled))
-> +			atomic_set(&substream->xfer_xrun, 1);
->  		break;
->  	}
->  	}
-> diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
-> index 73fb4d9dc524..d011b7e1d18d 100644
-> --- a/sound/virtio/virtio_pcm.h
-> +++ b/sound/virtio/virtio_pcm.h
-> @@ -24,6 +24,7 @@
->  #include <sound/pcm.h>
->  
->  struct virtio_pcm;
-> +struct virtio_pcm_msg;
->  
->  /**
->   * struct virtio_pcm_substream - VirtIO PCM substream.
-> @@ -34,6 +35,16 @@ struct virtio_pcm;
->   * @features: Stream VirtIO feature bit map (1 << VIRTIO_SND_PCM_F_XXX).
->   * @substream: Kernel ALSA substream.
->   * @hw: Kernel ALSA substream hardware descriptor.
-> + * @frame_bytes: Current frame size in bytes.
-> + * @period_size: Current period size in frames.
-> + * @buffer_size: Current buffer size in frames.
-> + * @hw_ptr: Substream hardware pointer value in frames [0 ... buffer_size).
-> + * @xfer_enabled: Data transfer state (0 - off, 1 - on).
-> + * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
-> + * @msgs: I/O messages.
-> + * @msg_last_enqueued: Index of the last I/O message added to the virtqueue.
-> + * @msg_count: Number of pending I/O messages in the virtqueue.
-> + * @msg_empty: Notify when msg_count is zero.
->   */
->  struct virtio_pcm_substream {
->  	struct virtio_snd *snd;
-> @@ -43,6 +54,16 @@ struct virtio_pcm_substream {
->  	u32 features;
->  	struct snd_pcm_substream *substream;
->  	struct snd_pcm_hardware hw;
-> +	unsigned int frame_bytes;
-> +	snd_pcm_uframes_t period_size;
-> +	snd_pcm_uframes_t buffer_size;
-> +	atomic_t hw_ptr;
-> +	atomic_t xfer_enabled;
-> +	atomic_t xfer_xrun;
-> +	struct virtio_pcm_msg *msgs;
-> +	int msg_last_enqueued;
-> +	atomic_t msg_count;
-> +	wait_queue_head_t msg_empty;
->  };
->  
->  /**
-> @@ -86,4 +107,14 @@ struct virtio_pcm *virtsnd_pcm_find(struct virtio_snd *snd, unsigned int nid);
->  struct virtio_pcm *virtsnd_pcm_find_or_create(struct virtio_snd *snd,
->  					      unsigned int nid);
->  
-> +struct virtio_snd_msg *
-> +virtsnd_pcm_ctl_msg_alloc(struct virtio_pcm_substream *substream,
-> +			  unsigned int command, gfp_t gfp);
-> +
-> +int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *substream,
-> +			  unsigned int nmsg, u8 *dma_area,
-> +			  unsigned int period_bytes);
-> +
-> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *substream);
-> +
->  #endif /* VIRTIO_SND_PCM_H */
-> diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+> diff --git a/include/uapi/linux/virtio_snd.h b/include/uapi/linux/virtio_snd.h
 > new file mode 100644
-> index 000000000000..cfbe5935527a
+> index 000000000000..1ff6310e54d6
 > --- /dev/null
-> +++ b/sound/virtio/virtio_pcm_msg.c
-> @@ -0,0 +1,317 @@
-> +// SPDX-License-Identifier: GPL-2.0+
+> +++ b/include/uapi/linux/virtio_snd.h
+> @@ -0,0 +1,361 @@
+> +/* SPDX-License-Identifier: BSD-3-Clause */
 > +/*
-> + * Sound card driver for virtio
 > + * Copyright (C) 2020  OpenSynergy GmbH
 > + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
+> + * This header is BSD licensed so anyone can use the definitions to
+> + * implement compatible drivers/servers.
 > + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program; if not, see <http://www.gnu.org/licenses/>.
+> + * Redistribution and use in source and binary forms, with or without
+> + * modification, are permitted provided that the following conditions
+> + * are met:
+> + * 1. Redistributions of source code must retain the above copyright
+> + *    notice, this list of conditions and the following disclaimer.
+> + * 2. Redistributions in binary form must reproduce the above copyright
+> + *    notice, this list of conditions and the following disclaimer in the
+> + *    documentation and/or other materials provided with the distribution.
+> + * 3. Neither the name of OpenSynergy GmbH nor the names of its contributors
+> + *    may be used to endorse or promote products derived from this software
+> + *    without specific prior written permission.
+> + * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+> + * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+> + * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+> + * FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL IBM OR
+> + * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+> + * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+> + * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+> + * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+> + * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+> + * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+> + * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+> + * SUCH DAMAGE.
 > + */
-> +#include <sound/pcm_params.h>
+> +#ifndef VIRTIO_SND_IF_H
+> +#define VIRTIO_SND_IF_H
 > +
-> +#include "virtio_card.h"
+> +#include <linux/virtio_types.h>
 > +
-> +/**
-> + * enum pcm_msg_sg_index - Scatter-gather element indexes for an I/O message.
-> + * @PCM_MSG_SG_XFER: Element containing a virtio_snd_pcm_xfer structure.
-> + * @PCM_MSG_SG_DATA: Element containing a data buffer.
-> + * @PCM_MSG_SG_STATUS: Element containing a virtio_snd_pcm_status structure.
-> + * @PCM_MSG_SG_MAX: The maximum number of elements in the scatter-gather table.
-> + *
-> + * These values are used as the index of the payload scatter-gather table.
+> +/*******************************************************************************
+> + * CONFIGURATION SPACE
 > + */
-> +enum pcm_msg_sg_index {
-> +	PCM_MSG_SG_XFER = 0,
-> +	PCM_MSG_SG_DATA,
-> +	PCM_MSG_SG_STATUS,
-> +	PCM_MSG_SG_MAX
+> +struct virtio_snd_config {
+> +	/* # of available physical jacks */
+> +	__le32 jacks;
+> +	/* # of available PCM streams */
+> +	__le32 streams;
+> +	/* # of available channel maps */
+> +	__le32 chmaps;
 > +};
 > +
-> +/**
-> + * struct virtio_pcm_msg - VirtIO I/O message.
-> + * @substream: VirtIO PCM substream.
-> + * @xfer: Request header payload.
-> + * @status: Response header payload.
-> + * @sgs: Payload scatter-gather table.
-> + */
-> +struct virtio_pcm_msg {
-> +	struct virtio_pcm_substream *substream;
-> +	struct virtio_snd_pcm_xfer xfer;
-> +	struct virtio_snd_pcm_status status;
-> +	struct scatterlist sgs[PCM_MSG_SG_MAX];
+> +enum {
+> +	/* device virtqueue indexes */
+> +	VIRTIO_SND_VQ_CONTROL = 0,
+> +	VIRTIO_SND_VQ_EVENT,
+> +	VIRTIO_SND_VQ_TX,
+> +	VIRTIO_SND_VQ_RX,
+> +	/* # of device virtqueues */
+> +	VIRTIO_SND_VQ_MAX
 > +};
 > +
-> +/**
-> + * virtsnd_pcm_msg_alloc() - Allocate I/O messages.
-> + * @substream: VirtIO PCM substream.
-> + * @nmsg: Number of messages (equal to the number of periods).
-> + * @dma_area: Pointer to used audio buffer.
-> + * @period_bytes: Period (message payload) size.
-> + *
-> + * The function slices the buffer into nmsg parts (each with the size of
-> + * period_bytes), and creates nmsg corresponding I/O messages.
-> + *
-> + * Context: Any context that permits to sleep.
-> + * Return: 0 on success, -ENOMEM on failure.
+> +/*******************************************************************************
+> + * COMMON DEFINITIONS
 > + */
-> +int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *substream,
-> +			  unsigned int nmsg, u8 *dma_area,
-> +			  unsigned int period_bytes)
-> +{
-> +	struct virtio_device *vdev = substream->snd->vdev;
-> +	unsigned int i;
 > +
-> +	if (substream->msgs)
-> +		devm_kfree(&vdev->dev, substream->msgs);
+> +/* supported dataflow directions */
+> +enum {
+> +	VIRTIO_SND_D_OUTPUT = 0,
+> +	VIRTIO_SND_D_INPUT
+> +};
 > +
-> +	substream->msgs = devm_kcalloc(&vdev->dev, nmsg,
-> +				       sizeof(*substream->msgs), GFP_KERNEL);
-> +	if (!substream->msgs)
-> +		return -ENOMEM;
+> +enum {
+> +	/* jack control request types */
+> +	VIRTIO_SND_R_JACK_INFO = 1,
+> +	VIRTIO_SND_R_JACK_REMAP,
 > +
-> +	for (i = 0; i < nmsg; ++i) {
-> +		struct virtio_pcm_msg *msg = &substream->msgs[i];
+> +	/* PCM control request types */
+> +	VIRTIO_SND_R_PCM_INFO = 0x0100,
+> +	VIRTIO_SND_R_PCM_SET_PARAMS,
+> +	VIRTIO_SND_R_PCM_PREPARE,
+> +	VIRTIO_SND_R_PCM_RELEASE,
+> +	VIRTIO_SND_R_PCM_START,
+> +	VIRTIO_SND_R_PCM_STOP,
 > +
-> +		msg->substream = substream;
+> +	/* channel map control request types */
+> +	VIRTIO_SND_R_CHMAP_INFO = 0x0200,
 > +
-> +		sg_init_table(msg->sgs, PCM_MSG_SG_MAX);
-> +		sg_init_one(&msg->sgs[PCM_MSG_SG_XFER], &msg->xfer,
-> +			    sizeof(msg->xfer));
-> +		sg_init_one(&msg->sgs[PCM_MSG_SG_DATA],
-> +			    dma_area + period_bytes * i, period_bytes);
-> +		sg_init_one(&msg->sgs[PCM_MSG_SG_STATUS], &msg->status,
-> +			    sizeof(msg->status));
-> +	}
+> +	/* jack event types */
+> +	VIRTIO_SND_EVT_JACK_CONNECTED = 0x1000,
+> +	VIRTIO_SND_EVT_JACK_DISCONNECTED,
 > +
-> +	return 0;
-> +}
+> +	/* PCM event types */
+> +	VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED = 0x1100,
+> +	VIRTIO_SND_EVT_PCM_XRUN,
 > +
-> +/**
-> + * virtsnd_pcm_msg_send() - Send asynchronous I/O messages.
-> + * @substream: VirtIO PCM substream.
-> + *
-> + * All messages are organized in an ordered circular list. Each time the
-> + * function is called, all currently non-enqueued messages are added to the
-> + * virtqueue. For this, the function keeps track of two values:
-> + *
-> + *   msg_last_enqueued = index of the last enqueued message,
-> + *   msg_count = # of pending messages in the virtqueue.
-> + *
-> + * Context: Any context.
-> + * Return: 0 on success, -EIO on failure.
+> +	/* common status codes */
+> +	VIRTIO_SND_S_OK = 0x8000,
+> +	VIRTIO_SND_S_BAD_MSG,
+> +	VIRTIO_SND_S_NOT_SUPP,
+> +	VIRTIO_SND_S_IO_ERR
+> +};
+> +
+> +/* common header */
+> +struct virtio_snd_hdr {
+> +	__le32 code;
+> +};
+> +
+> +/* event notification */
+> +struct virtio_snd_event {
+> +	/* VIRTIO_SND_EVT_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* optional event data */
+> +	__le32 data;
+> +};
+> +
+> +/* common control request to query an item information */
+> +struct virtio_snd_query_info {
+> +	/* VIRTIO_SND_R_XXX_INFO */
+> +	struct virtio_snd_hdr hdr;
+> +	/* item start identifier */
+> +	__le32 start_id;
+> +	/* item count to query */
+> +	__le32 count;
+> +	/* item information size in bytes */
+> +	__le32 size;
+> +};
+> +
+> +/* common item information header */
+> +struct virtio_snd_info {
+> +	/* function group node id (High Definition Audio Specification 7.1.2) */
+> +	__le32 hda_fn_nid;
+> +};
+> +
+> +/*******************************************************************************
+> + * JACK CONTROL MESSAGES
 > + */
-> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *substream)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->substream->runtime;
-> +	struct virtio_snd *snd = substream->snd;
-> +	struct virtio_device *vdev = snd->vdev;
-> +	struct virtqueue *vqueue = virtsnd_pcm_queue(substream)->vqueue;
-> +	int i;
-> +	int n;
-> +	bool notify = false;
+> +struct virtio_snd_jack_hdr {
+> +	/* VIRTIO_SND_R_JACK_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::jacks - 1 */
+> +	__le32 jack_id;
+> +};
 > +
-> +	if (!vqueue)
-> +		return -EIO;
+> +/* supported jack features */
+> +enum {
+> +	VIRTIO_SND_JACK_F_REMAP = 0
+> +};
 > +
-> +	i = (substream->msg_last_enqueued + 1) % runtime->periods;
-> +	n = runtime->periods - atomic_read(&substream->msg_count);
+> +struct virtio_snd_jack_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* supported feature bit map (1 << VIRTIO_SND_JACK_F_XXX) */
+> +	__le32 features;
+> +	/* pin configuration (High Definition Audio Specification 7.3.3.31) */
+> +	__le32 hda_reg_defconf;
+> +	/* pin capabilities (High Definition Audio Specification 7.3.4.9) */
+> +	__le32 hda_reg_caps;
+> +	/* current jack connection status (0: disconnected, 1: connected) */
+> +	__u8 connected;
 > +
-> +	for (; n; --n, i = (i + 1) % runtime->periods) {
-> +		struct virtio_pcm_msg *msg = &substream->msgs[i];
-> +		struct scatterlist *psgs[PCM_MSG_SG_MAX] = {
-> +			[PCM_MSG_SG_XFER] = &msg->sgs[PCM_MSG_SG_XFER],
-> +			[PCM_MSG_SG_DATA] = &msg->sgs[PCM_MSG_SG_DATA],
-> +			[PCM_MSG_SG_STATUS] = &msg->sgs[PCM_MSG_SG_STATUS]
-> +		};
-> +		int rc;
+> +	__u8 padding[7];
+> +};
 > +
-> +		msg->xfer.stream_id = cpu_to_virtio32(vdev, substream->sid);
-> +		memset(&msg->status, 0, sizeof(msg->status));
+> +/* jack remapping control request */
+> +struct virtio_snd_jack_remap {
+> +	/* .code = VIRTIO_SND_R_JACK_REMAP */
+> +	struct virtio_snd_jack_hdr hdr;
+> +	/* selected association number */
+> +	__le32 association;
+> +	/* selected sequence number */
+> +	__le32 sequence;
+> +};
 > +
-> +		atomic_inc(&substream->msg_count);
-> +
-> +		if (substream->direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +			rc = virtqueue_add_sgs(vqueue, psgs, 2, 1, msg,
-> +					       GFP_ATOMIC);
-> +		else
-> +			rc = virtqueue_add_sgs(vqueue, psgs, 1, 2, msg,
-> +					       GFP_ATOMIC);
-> +
-> +		if (rc) {
-> +			atomic_dec(&substream->msg_count);
-> +			return -EIO;
-> +		}
-> +
-> +		substream->msg_last_enqueued = i;
-> +	}
-> +
-> +	if (!(substream->features & (1U << VIRTIO_SND_PCM_F_MSG_POLLING)))
-> +		notify = virtqueue_kick_prepare(vqueue);
-> +
-> +	if (notify)
-> +		if (!virtqueue_notify(vqueue))
-> +			return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * virtsnd_pcm_msg_complete() - Complete an I/O message.
-> + * @msg: I/O message.
-> + * @size: Number of bytes written.
-> + *
-> + * Completion of the message means the elapsed period:
-> + *   - update hardware pointer,
-> + *   - update latency value,
-> + *   - kick the upper layer.
-> + *
-> + * Context: Interrupt context.
+> +/*******************************************************************************
+> + * PCM CONTROL MESSAGES
 > + */
-> +static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg, size_t size)
-> +{
-> +	struct virtio_pcm_substream *substream = msg->substream;
-> +	snd_pcm_uframes_t hw_ptr;
-> +	unsigned int msg_count;
+> +struct virtio_snd_pcm_hdr {
+> +	/* VIRTIO_SND_R_PCM_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::streams - 1 */
+> +	__le32 stream_id;
+> +};
 > +
-> +	hw_ptr = (snd_pcm_uframes_t)atomic_read(&substream->hw_ptr);
+> +/* supported PCM stream features */
+> +enum {
+> +	VIRTIO_SND_PCM_F_SHMEM_HOST = 0,
+> +	VIRTIO_SND_PCM_F_SHMEM_GUEST,
+> +	VIRTIO_SND_PCM_F_MSG_POLLING,
+> +	VIRTIO_SND_PCM_F_EVT_SHMEM_PERIODS,
+> +	VIRTIO_SND_PCM_F_EVT_XRUNS
+> +};
 > +
-> +	/*
-> +	 * If the capture substream returned an incorrect status, then just
-> +	 * increase the hw_ptr by the period size.
-> +	 */
-> +	if (substream->direction == SNDRV_PCM_STREAM_PLAYBACK ||
-> +	    size <= sizeof(msg->status)) {
-> +		hw_ptr += substream->period_size;
-> +	} else {
-> +		size -= sizeof(msg->status);
-> +		hw_ptr += size / substream->frame_bytes;
-> +	}
+> +/* supported PCM sample formats */
+> +enum {
+> +	/* analog formats (width / physical width) */
+> +	VIRTIO_SND_PCM_FMT_IMA_ADPCM = 0,	/*  4 /  4 bits */
+> +	VIRTIO_SND_PCM_FMT_MU_LAW,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_A_LAW,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_S8,			/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_U8,			/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_S16,			/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_U16,			/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_S18_3,		/* 18 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U18_3,		/* 18 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S20_3,		/* 20 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U20_3,		/* 20 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S24_3,		/* 24 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_U24_3,		/* 24 / 24 bits */
+> +	VIRTIO_SND_PCM_FMT_S20,			/* 20 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U20,			/* 20 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_S24,			/* 24 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U24,			/* 24 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_S32,			/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_U32,			/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_FLOAT,		/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_FLOAT64,		/* 64 / 64 bits */
+> +	/* digital formats (width / physical width) */
+> +	VIRTIO_SND_PCM_FMT_DSD_U8,		/*  8 /  8 bits */
+> +	VIRTIO_SND_PCM_FMT_DSD_U16,		/* 16 / 16 bits */
+> +	VIRTIO_SND_PCM_FMT_DSD_U32,		/* 32 / 32 bits */
+> +	VIRTIO_SND_PCM_FMT_IEC958_SUBFRAME	/* 32 / 32 bits */
+> +};
 > +
-> +	atomic_set(&substream->hw_ptr, (u32)(hw_ptr % substream->buffer_size));
-> +	atomic_set(&substream->xfer_xrun, 0);
+> +/* supported PCM frame rates */
+> +enum {
+> +	VIRTIO_SND_PCM_RATE_5512 = 0,
+> +	VIRTIO_SND_PCM_RATE_8000,
+> +	VIRTIO_SND_PCM_RATE_11025,
+> +	VIRTIO_SND_PCM_RATE_16000,
+> +	VIRTIO_SND_PCM_RATE_22050,
+> +	VIRTIO_SND_PCM_RATE_32000,
+> +	VIRTIO_SND_PCM_RATE_44100,
+> +	VIRTIO_SND_PCM_RATE_48000,
+> +	VIRTIO_SND_PCM_RATE_64000,
+> +	VIRTIO_SND_PCM_RATE_88200,
+> +	VIRTIO_SND_PCM_RATE_96000,
+> +	VIRTIO_SND_PCM_RATE_176400,
+> +	VIRTIO_SND_PCM_RATE_192000,
+> +	VIRTIO_SND_PCM_RATE_384000
+> +};
 > +
-> +	msg_count = atomic_dec_return(&substream->msg_count);
+> +struct virtio_snd_pcm_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* supported feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
+> +	__le32 features;
+> +	/* supported sample format bit map (1 << VIRTIO_SND_PCM_FMT_XXX) */
+> +	__le64 formats;
+> +	/* supported frame rate bit map (1 << VIRTIO_SND_PCM_RATE_XXX) */
+> +	__le64 rates;
+> +	/* dataflow direction (VIRTIO_SND_D_XXX) */
+> +	__u8 direction;
+> +	/* minimum # of supported channels */
+> +	__u8 channels_min;
+> +	/* maximum # of supported channels */
+> +	__u8 channels_max;
 > +
-> +	if (atomic_read(&substream->xfer_enabled)) {
-> +		struct snd_pcm_runtime *runtime = substream->substream->runtime;
+> +	__u8 padding[5];
+> +};
 > +
-> +		runtime->delay =
-> +			bytes_to_frames(runtime,
-> +					le32_to_cpu(msg->status.latency_bytes));
+> +/* set PCM stream format */
+> +struct virtio_snd_pcm_set_params {
+> +	/* .code = VIRTIO_SND_R_PCM_SET_PARAMS */
+> +	struct virtio_snd_pcm_hdr hdr;
+> +	/* size of the hardware buffer */
+> +	__le32 buffer_bytes;
+> +	/* size of the hardware period */
+> +	__le32 period_bytes;
+> +	/* selected feature bit map (1 << VIRTIO_SND_PCM_F_XXX) */
+> +	__le32 features;
+> +	/* selected # of channels */
+> +	__u8 channels;
+> +	/* selected sample format (VIRTIO_SND_PCM_FMT_XXX) */
+> +	__u8 format;
+> +	/* selected frame rate (VIRTIO_SND_PCM_RATE_XXX) */
+> +	__u8 rate;
 > +
-> +		snd_pcm_period_elapsed(substream->substream);
+> +	__u8 padding;
+> +};
 > +
-> +		virtsnd_pcm_msg_send(substream);
-> +	} else if (!msg_count) {
-> +		wake_up_all(&substream->msg_empty);
-> +	}
-> +}
-> +
-> +/**
-> + * virtsnd_pcm_notify_cb() - Process all completed I/O messages.
-> + * @vqueue: Underlying tx/rx virtqueue.
-> + *
-> + * If transmission is allowed, then each completed message is immediately placed
-> + * back at the end of the queue.
-> + *
-> + * Context: Interrupt context. Takes and releases the tx/rx queue spinlock.
+> +/*******************************************************************************
+> + * PCM I/O MESSAGES
 > + */
-> +static inline void virtsnd_pcm_notify_cb(struct virtio_snd_queue *queue)
-> +{
-> +	unsigned long flags;
 > +
-> +	spin_lock_irqsave(&queue->lock, flags);
-> +	while (queue->vqueue) {
-> +		virtqueue_disable_cb(queue->vqueue);
+> +/* I/O request header */
+> +struct virtio_snd_pcm_xfer {
+> +	/* 0 ... virtio_snd_config::streams - 1 */
+> +	__le32 stream_id;
+> +};
 > +
-> +		for (;;) {
-> +			struct virtio_pcm_msg *msg;
-> +			u32 length;
+> +/* I/O request status */
+> +struct virtio_snd_pcm_status {
+> +	/* VIRTIO_SND_S_XXX */
+> +	__le32 status;
+> +	/* current device latency */
+> +	__le32 latency_bytes;
+> +};
 > +
-> +			msg = virtqueue_get_buf(queue->vqueue, &length);
-> +			if (!msg)
-> +				break;
-> +
-> +			virtsnd_pcm_msg_complete(msg, length);
-> +		}
-> +
-> +		if (unlikely(virtqueue_is_broken(queue->vqueue)))
-> +			break;
-> +
-> +		if (virtqueue_enable_cb(queue->vqueue))
-> +			break;
-> +	}
-> +	spin_unlock_irqrestore(&queue->lock, flags);
-> +}
-> +
-> +/**
-> + * virtsnd_pcm_tx_notify_cb() - Process all completed TX messages.
-> + * @vqueue: Underlying tx virtqueue.
-> + *
-> + * Context: Interrupt context.
+> +/*******************************************************************************
+> + * CHANNEL MAP CONTROL MESSAGES
 > + */
-> +void virtsnd_pcm_tx_notify_cb(struct virtqueue *vqueue)
-> +{
-> +	struct virtio_snd *snd = vqueue->vdev->priv;
+> +struct virtio_snd_chmap_hdr {
+> +	/* VIRTIO_SND_R_CHMAP_XXX */
+> +	struct virtio_snd_hdr hdr;
+> +	/* 0 ... virtio_snd_config::chmaps - 1 */
+> +	__le32 chmap_id;
+> +};
 > +
-> +	virtsnd_pcm_notify_cb(virtsnd_tx_queue(snd));
-> +}
+> +/* standard channel position definition */
+> +enum {
+> +	VIRTIO_SND_CHMAP_NONE = 0,	/* undefined */
+> +	VIRTIO_SND_CHMAP_NA,		/* silent */
+> +	VIRTIO_SND_CHMAP_MONO,		/* mono stream */
+> +	VIRTIO_SND_CHMAP_FL,		/* front left */
+> +	VIRTIO_SND_CHMAP_FR,		/* front right */
+> +	VIRTIO_SND_CHMAP_RL,		/* rear left */
+> +	VIRTIO_SND_CHMAP_RR,		/* rear right */
+> +	VIRTIO_SND_CHMAP_FC,		/* front center */
+> +	VIRTIO_SND_CHMAP_LFE,		/* low frequency (LFE) */
+> +	VIRTIO_SND_CHMAP_SL,		/* side left */
+> +	VIRTIO_SND_CHMAP_SR,		/* side right */
+> +	VIRTIO_SND_CHMAP_RC,		/* rear center */
+> +	VIRTIO_SND_CHMAP_FLC,		/* front left center */
+> +	VIRTIO_SND_CHMAP_FRC,		/* front right center */
+> +	VIRTIO_SND_CHMAP_RLC,		/* rear left center */
+> +	VIRTIO_SND_CHMAP_RRC,		/* rear right center */
+> +	VIRTIO_SND_CHMAP_FLW,		/* front left wide */
+> +	VIRTIO_SND_CHMAP_FRW,		/* front right wide */
+> +	VIRTIO_SND_CHMAP_FLH,		/* front left high */
+> +	VIRTIO_SND_CHMAP_FCH,		/* front center high */
+> +	VIRTIO_SND_CHMAP_FRH,		/* front right high */
+> +	VIRTIO_SND_CHMAP_TC,		/* top center */
+> +	VIRTIO_SND_CHMAP_TFL,		/* top front left */
+> +	VIRTIO_SND_CHMAP_TFR,		/* top front right */
+> +	VIRTIO_SND_CHMAP_TFC,		/* top front center */
+> +	VIRTIO_SND_CHMAP_TRL,		/* top rear left */
+> +	VIRTIO_SND_CHMAP_TRR,		/* top rear right */
+> +	VIRTIO_SND_CHMAP_TRC,		/* top rear center */
+> +	VIRTIO_SND_CHMAP_TFLC,		/* top front left center */
+> +	VIRTIO_SND_CHMAP_TFRC,		/* top front right center */
+> +	VIRTIO_SND_CHMAP_TSL,		/* top side left */
+> +	VIRTIO_SND_CHMAP_TSR,		/* top side right */
+> +	VIRTIO_SND_CHMAP_LLFE,		/* left LFE */
+> +	VIRTIO_SND_CHMAP_RLFE,		/* right LFE */
+> +	VIRTIO_SND_CHMAP_BC,		/* bottom center */
+> +	VIRTIO_SND_CHMAP_BLC,		/* bottom left center */
+> +	VIRTIO_SND_CHMAP_BRC		/* bottom right center */
+> +};
 > +
-> +/**
-> + * virtsnd_pcm_rx_notify_cb() - Process all completed RX messages.
-> + * @vqueue: Underlying rx virtqueue.
-> + *
-> + * Context: Interrupt context.
-> + */
-> +void virtsnd_pcm_rx_notify_cb(struct virtqueue *vqueue)
-> +{
-> +	struct virtio_snd *snd = vqueue->vdev->priv;
+> +/* maximum possible number of channels */
+> +#define VIRTIO_SND_CHMAP_MAX_SIZE	18
 > +
-> +	virtsnd_pcm_notify_cb(virtsnd_rx_queue(snd));
-> +}
+> +struct virtio_snd_chmap_info {
+> +	/* common header */
+> +	struct virtio_snd_info hdr;
+> +	/* dataflow direction (VIRTIO_SND_D_XXX) */
+> +	__u8 direction;
+> +	/* # of valid channel position values */
+> +	__u8 channels;
+> +	/* channel position values (VIRTIO_SND_CHMAP_XXX) */
+> +	__u8 positions[VIRTIO_SND_CHMAP_MAX_SIZE];
+> +};
 > +
-> +/**
-> + * virtsnd_pcm_ctl_msg_alloc() - Allocate and initialize the PCM device control
-> + *                               message for the specified substream.
-> + * @substream: VirtIO PCM substream.
-> + * @command: Control request code (VIRTIO_SND_R_PCM_XXX).
-> + * @gfp: Kernel flags for memory allocation.
-> + *
-> + * Context: Any context. May sleep if @gfp flags permit.
-> + * Return: Allocated message on success, ERR_PTR(-errno) on failure.
-> + */
-> +struct virtio_snd_msg *
-> +virtsnd_pcm_ctl_msg_alloc(struct virtio_pcm_substream *substream,
-> +			  unsigned int command, gfp_t gfp)
-> +{
-> +	struct virtio_device *vdev = substream->snd->vdev;
-> +	size_t request_size = sizeof(struct virtio_snd_pcm_hdr);
-> +	size_t response_size = sizeof(struct virtio_snd_hdr);
-> +	struct virtio_snd_msg *msg;
-> +
-> +	switch (command) {
-> +	case VIRTIO_SND_R_PCM_SET_PARAMS: {
-> +		request_size = sizeof(struct virtio_snd_pcm_set_params);
-> +		break;
-> +	}
-> +	}
-> +
-> +	msg = virtsnd_ctl_msg_alloc(vdev, request_size, response_size, gfp);
-> +	if (!IS_ERR(msg)) {
-> +		struct virtio_snd_pcm_hdr *hdr = sg_virt(&msg->sg_request);
-> +
-> +		hdr->hdr.code = cpu_to_virtio32(vdev, command);
-> +		hdr->stream_id = cpu_to_virtio32(vdev, substream->sid);
-> +	}
-> +
-> +	return msg;
-> +}
+> +#endif /* VIRTIO_SND_IF_H */
 > -- 
 > 2.30.0
 > 

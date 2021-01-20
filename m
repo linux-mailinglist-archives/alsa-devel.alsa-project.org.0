@@ -2,60 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BA9C2FD3FB
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 16:31:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7C82FD40A
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 16:32:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA4631809;
-	Wed, 20 Jan 2021 16:30:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA4631809
+	by alsa0.perex.cz (Postfix) with ESMTPS id 204D1183C;
+	Wed, 20 Jan 2021 16:32:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 204D1183C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611156676;
-	bh=DvqBS0cnT3E2twVNsimmHVIPTXdE3MNmMJU2zXZIdEA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qgn9TkVXhaA8c6S6B1ZIr8YT50upx8yLxwxwzV+OlGIoFkQ94FWnsVFj5KvuSGjEM
-	 Fv7U/RugV8fsquN7pjDLQoa+mtmG5FacR68gjZxRd7DL+SCZDaJ6NJ907wUok/uf9k
-	 /h9EeXYPp3bMLaxQN9n27woL14GUlYc9kroS8g+M=
+	s=default; t=1611156779;
+	bh=pulY75jH8j2lxdFLVWWtj+dCXPhLScSrZ9Pf+eITMqk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gYt37fIPsQ2OH6V7yzoprbUwaSCdMUlCnFQXORwDz8bo6l8SXnetYCBj+sIulW+UI
+	 GNak+Ew7tCeTOZ+1g0hyK/jbYoxXfjFyyut/NgFxu8yxC0XybVZpRyajCFQqAobsap
+	 n48dXa2tYI2lEUQF86nBxt4gFZUqP2wVisuN2vCg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD6CBF802BE;
-	Wed, 20 Jan 2021 16:29:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89171F804E3;
+	Wed, 20 Jan 2021 16:29:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85CE0F802BE; Wed, 20 Jan 2021 16:29:08 +0100 (CET)
+ id 76535F80227; Wed, 20 Jan 2021 16:29:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 110EFF80164
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 16:29:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 110EFF80164
-IronPort-SDR: q+4vPyFLpkQuJmI/0Cconj37iaCssw3vvFbzahoJk0fYtbAksz20hQrlbX1msF8SxuesfZOj1Z
- 8EoSb88zESrQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="197850617"
-X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="197850617"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32E1BF8019B
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 16:29:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32E1BF8019B
+IronPort-SDR: wUOXyEBGicp0s834kISNVTGotnylcakgW9nlZbwrPlalGP/khOQ1iMmiiQVsfzyZ2oM7OA5hzl
+ Ca3vdwdMbEdA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="197850635"
+X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="197850635"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 07:28:54 -0800
-IronPort-SDR: /U5XH3hz/kCeKJWU6D+BCo/WsOZKWrFYk9+4DRKXyngpFh9duf6gV2rtMGbNGcjB11qSSYddOW
- M/RfEjD12qww==
+ 20 Jan 2021 07:28:58 -0800
+IronPort-SDR: KXcPxnFoun0RpIgO2sAvkre0j/W5LixQgJqolMBSxM4p4XQxgaHUcyZtsj0fG1VCi2L2XHGgr/
+ /Zbj2MaGHalA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="354347824"
+X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="354347843"
 Received: from pi-desktop.igk.intel.com ([10.237.148.102])
- by orsmga006.jf.intel.com with ESMTP; 20 Jan 2021 07:28:51 -0800
+ by orsmga006.jf.intel.com with ESMTP; 20 Jan 2021 07:28:56 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 0/5] Add KUNIT tests for ASoC topology
-Date: Wed, 20 Jan 2021 16:28:41 +0100
-Message-Id: <20210120152846.1703655-1-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 2/5] Revert "ASoC: soc-devres: add devm_snd_soc_register_dai()"
+Date: Wed, 20 Jan 2021 16:28:43 +0100
+Message-Id: <20210120152846.1703655-3-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210120152846.1703655-1-amadeuszx.slawinski@linux.intel.com>
+References: <20210120152846.1703655-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -79,85 +82,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series adds unit tests for ASoC topology.
+As described in preceding patch, waiting with DAI removal until device
+is being unregistered can lead to working on freed memory, hence having
+DAIs managed by resource managed memory is a bad idea, revert commit
+creating devm_ API for this, so no one makes a mistake of using it.
 
-First fix problems found when developing and running test cases and
-then add tests implementation.
+This reverts commit 0fae253af563cf5d1f5dc651d520c3eafd74f183.
 
-Tests themselves are quite simple and just call
-snd_soc_tplg_component_load() with various parameters and check the
-result. Tests themselves are described in more detail in commits
-adding them.
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ include/sound/soc.h    |  4 ----
+ sound/soc/soc-devres.c | 37 -------------------------------------
+ 2 files changed, 41 deletions(-)
 
-Goal is to expand the amount of test cases in following patches.
-
-Prerequisity for this patchset are 2 patches which have already been
-sent:
-https://lore.kernel.org/alsa-devel/20210114163602.911205-1-amadeuszx.slawinski@linux.intel.com/T/#t
-
-Description on how typical test case itself works:
-
-In order to load topology we need to have 3 things:
-card, codec component & platform component.
-
-In typical test case we register card and platform component and bind
-to dummy codec. There are of course execeptions, when we want to
-test behaviour of topology API when component or card is missing.
-Note that this is bit different from typical scenario (in SOF and skylake
-drivers) where card is registered by machine driver and component by
-platform driver, as we register both when setting up test.
-
-If you check the test case most of them have similar architecture of:
-1.
-	/* run test */
-	ret = snd_soc_register_card(&kunit_comp->card);
-	if (ret != 0 && ret != -EPROBE_DEFER)
-		KUNIT_FAIL(test, "Failed to register card");
-
-2.
-	ret = snd_soc_component_initialize(&kunit_comp->comp, &test_component, test_dev);
-	KUNIT_EXPECT_EQ(test, 0, ret);
-
-3.
-	ret = snd_soc_add_component(&kunit_comp->comp, NULL, 0);
-	KUNIT_EXPECT_EQ(test, 0, ret);
-
-Ad. 1.
-First we register card, which in most tests returns -EPROBE_DEFER
-(from snd_soc_bind_card()), as platform component is not yet created.
-I test for both 0 and -EPROBE_DEFER, as it makes it easier to reshuffle
-this code around if needed and there is one test case which does it in
-different order.
-
-Ad. 2.
-Then we initialize platform component with structure pointing at proper
-probe function, which calls snd_soc_tplg_component_load() with test
-parameters and checks expected result.
-
-Ad. 3.
-And then in follow up we call snd_soc_add_component() which creates
-platform component for us and calls snd_soc_try_rebind_card() which
-if everything is bound properly calls previously set probe function.
-
-Amadeusz Sławiński (5):
-  ASoC: topology: Properly unregister DAI on removal
-  Revert "ASoC: soc-devres: add devm_snd_soc_register_dai()"
-  ASoC: topology: KUnit: Add KUnit tests passing various arguments to
-    snd_soc_tplg_component_load
-  ASoC: topology: KUnit: Add KUnit tests passing empty topology with
-    variants to snd_soc_tplg_component_load
-  ASoC: topology: KUnit: Add KUnit tests passing topology with PCM to
-    snd_soc_tplg_component_load
-
- include/sound/soc.h           |   4 -
- sound/soc/Kconfig             |  17 +
- sound/soc/Makefile            |   5 +
- sound/soc/soc-devres.c        |  37 --
- sound/soc/soc-topology-test.c | 843 ++++++++++++++++++++++++++++++++++
- sound/soc/soc-topology.c      |   9 +-
- 6 files changed, 870 insertions(+), 45 deletions(-)
- create mode 100644 sound/soc/soc-topology-test.c
-
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 3fa6c40a63b7..69cb19a93765 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1236,10 +1236,6 @@ void snd_soc_remove_pcm_runtime(struct snd_soc_card *card,
+ struct snd_soc_dai *snd_soc_register_dai(struct snd_soc_component *component,
+ 					 struct snd_soc_dai_driver *dai_drv,
+ 					 bool legacy_dai_naming);
+-struct snd_soc_dai *devm_snd_soc_register_dai(struct device *dev,
+-					      struct snd_soc_component *component,
+-					      struct snd_soc_dai_driver *dai_drv,
+-					      bool legacy_dai_naming);
+ void snd_soc_unregister_dai(struct snd_soc_dai *dai);
+ 
+ struct snd_soc_dai *snd_soc_find_dai(
+diff --git a/sound/soc/soc-devres.c b/sound/soc/soc-devres.c
+index 4534a1c03e8e..c6364caabc0e 100644
+--- a/sound/soc/soc-devres.c
++++ b/sound/soc/soc-devres.c
+@@ -9,43 +9,6 @@
+ #include <sound/soc.h>
+ #include <sound/dmaengine_pcm.h>
+ 
+-static void devm_dai_release(struct device *dev, void *res)
+-{
+-	snd_soc_unregister_dai(*(struct snd_soc_dai **)res);
+-}
+-
+-/**
+- * devm_snd_soc_register_dai - resource-managed dai registration
+- * @dev: Device used to manage component
+- * @component: The component the DAIs are registered for
+- * @dai_drv: DAI driver to use for the DAI
+- * @legacy_dai_naming: if %true, use legacy single-name format;
+- *	if %false, use multiple-name format;
+- */
+-struct snd_soc_dai *devm_snd_soc_register_dai(struct device *dev,
+-					      struct snd_soc_component *component,
+-					      struct snd_soc_dai_driver *dai_drv,
+-					      bool legacy_dai_naming)
+-{
+-	struct snd_soc_dai **ptr;
+-	struct snd_soc_dai *dai;
+-
+-	ptr = devres_alloc(devm_dai_release, sizeof(*ptr), GFP_KERNEL);
+-	if (!ptr)
+-		return NULL;
+-
+-	dai = snd_soc_register_dai(component, dai_drv, legacy_dai_naming);
+-	if (dai) {
+-		*ptr = dai;
+-		devres_add(dev, ptr);
+-	} else {
+-		devres_free(ptr);
+-	}
+-
+-	return dai;
+-}
+-EXPORT_SYMBOL_GPL(devm_snd_soc_register_dai);
+-
+ static void devm_component_release(struct device *dev, void *res)
+ {
+ 	const struct snd_soc_component_driver **cmpnt_drv = res;
 -- 
 2.25.1
 

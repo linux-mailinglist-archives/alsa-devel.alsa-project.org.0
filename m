@@ -2,66 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F78D2FDDA7
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:09:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98E62FDDB3
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:12:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C344C1894;
-	Thu, 21 Jan 2021 01:08:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C344C1894
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51A2A1891;
+	Thu, 21 Jan 2021 01:11:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A2A1891
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611187786;
-	bh=YL44CnZctD7Nrp8a6u+xZn8iahwWctK4Iz+i4D+mucY=;
+	s=default; t=1611187942;
+	bh=3m8CxlAKDFscDileBlbG+QMIPIVZkPB60WPgTTqxxzk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xag2J/9a3klgeGqbfx5Ox0pcUHVdTpY9c4yagz4gczeA2MJJiT8/zgcH4ckagdSdF
-	 Me9wYbo02AJkYjUYG6aFhRctK542sm4M2gcKyrc1lMH4O2034kijTobo3YxJOK6Iq0
-	 gaTpTzk4hJhl6vE+16JKoiiLmgP+63A7O4TWH5wE=
+	b=HSp5oDvlQm9Wlu+kJGcRwHGl2Zn1CyHxKYROKGksN5eb0FHNW13pYODEa7BhZMCJ1
+	 /Fhc1JlRVB7u72aVNITGcSRAKjRRtuqP2GQLZ0P/9v9mbGp9EZDyK6MZHbURH2rOqi
+	 zIbOrNimpIqZ0G2qtQGQzfwB+HmzVh/npnowTPAQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 281A5F804E3;
-	Thu, 21 Jan 2021 01:06:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 250DCF8051E;
+	Thu, 21 Jan 2021 01:07:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C359BF804E2; Thu, 21 Jan 2021 01:06:57 +0100 (CET)
+ id D1CAFF8051D; Thu, 21 Jan 2021 01:07:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A51DF804DF
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:06:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A51DF804DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56E49F80519
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:07:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56E49F80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dRO3JocM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2A15B2054F;
- Thu, 21 Jan 2021 00:06:52 +0000 (UTC)
+ header.b="GauoqdZZ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 745AF23730;
+ Thu, 21 Jan 2021 00:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611187613;
- bh=YL44CnZctD7Nrp8a6u+xZn8iahwWctK4Iz+i4D+mucY=;
+ s=k20201202; t=1611187654;
+ bh=3m8CxlAKDFscDileBlbG+QMIPIVZkPB60WPgTTqxxzk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=dRO3JocMwyhg34lTsNp5TXa88yVEQZvzQK7XwYm0ApTDG2Gkhz5tQNvfAKX2ZL+sp
- GGXTaDtrwikf016MO9C9A7xvVGF2dv3dp9yEvE9XblV0dyVn0TYVofo4qFLb2lPfb1
- fc4f/hdDvbMu3xtFFOttXTqiWGuS2kW6n9qjBXNt7Iarwhr8TzWcmct1WGi1g12xAO
- pxS2MZHUuoqr3Yx0tN/3QfjJD39xXZmCsoLSzV/vWb86cdWG0iYQSycrGMvUMHR1s8
- ReS9PFjVvX7HEORJ/jk9X2ppKreh4Q9RRvSdRAef2YNNqN/ro5JsGPaoz8CbOJ0ojC
- AXyZlCQuyhyLA==
+ b=GauoqdZZPss0N0cUS71R+vuizzpOFb5lg1OFLTiLHAgri/HXtL9p8LgJHpQlvPO3F
+ Oe5FE+lG6i3BouIvYIqc2cD5o7mbQxMm7efYXEOWbeWyuPmb6jxK7kNnYeQsVQBOAv
+ OtbX/+82/v/Wiv0ZkjLrliLbYc6n/bpmGknEVXaYsIciDC5xTVv3t2EK72hkpZL4BL
+ pI74tcJgP2Pz2bC9kI8B/AByDf1reg7TB7zQIIWub2To2xGCHbXCKytT8G5KPGuqQl
+ IokMvH+Yt37UxKP44AV1Ckk+bVuDXtsL/7uiTcEzOaQI5uKmo7pJycf0pff8IuRdxQ
+ QEbDap8FVKauw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20210119174700.32639-1-srinivas.kandagatla@linaro.org>
-References: <20210119174700.32639-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: lpass-ipq806x: fix bitwidth regmap field
-Message-Id: <161118753484.45718.12934710533567816798.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+In-Reply-To: <20210120144211.817937-1-perex@perex.cz>
+References: <20210120144211.817937-1-perex@perex.cz>
+Subject: Re: [PATCH] ASoC: AMD Renoir - refine DMI entries for some Lenovo
+ products
+Message-Id: <161118753484.45718.4379815986670636052.b4-ty@kernel.org>
 Date: Thu, 21 Jan 2021 00:05:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, lgirdwood@gmail.com
+Cc: Takashi Iwai <tiwai@suse.de>, stable@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,10 +80,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 19 Jan 2021 17:47:00 +0000, Srinivas Kandagatla wrote:
-> BIT_WIDTH field in I2S_CTL register is two bits wide, however
-> recent regmap field conversion patch trimmed it down to one bit.
-> Fix this by correcting the bit range!
+On Wed, 20 Jan 2021 15:42:11 +0100, Jaroslav Kysela wrote:
+> Apparently, the DMI board name LNVNB161216 is also used also
+> for products with the digital microphones connected to the AMD's
+> audio bridge. Refine the DMI table - use product name identifiers
+> extracted from https://bugzilla.redhat.com/show_bug.cgi?id=1892115 .
+> 
+> The report for Lenovo Yoga Slim 7 14ARE05 (82A2) is in buglink.
 
 Applied to
 
@@ -88,8 +94,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: lpass-ipq806x: fix bitwidth regmap field
-      commit: 1e066a23e76f90c9c39c189fe0dbf7c6e3dd5044
+[1/1] ASoC: AMD Renoir - refine DMI entries for some Lenovo products
+      commit: 40caffd66ca9ad1baa2d5541232675160bc6c772
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

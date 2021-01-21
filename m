@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73CE72FF3B6
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 20:01:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392462FF3B8
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 20:02:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12921191A;
-	Thu, 21 Jan 2021 20:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12921191A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C36171920;
+	Thu, 21 Jan 2021 20:01:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36171920
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611255693;
-	bh=OKnPD5whptT8nmC3xt5vR7j3GB1Wtpa700keFLLxhZQ=;
+	s=default; t=1611255736;
+	bh=V7GM9Z1aWN595Ukdl1rPslOBupdBYsDbSgaSDMzjEdA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ctT3P+c+RPHkVka+gIGxjiCsKKFFTq6KhthOSl+JkpZJAY3fWZ7OwToKHE2dIhzK3
-	 GwLlR7xYhPQLPuoKcVoMIPEEuv2LBxY84RsFmgiejDPauX4MgHL10TtBxI8IaBdEko
-	 qt3rmtrtTlhSPWMWagoAXdIa8srYKhTfscrLcRqI=
+	b=cCqHmD/Llwi1Am34bQGGueMQYBn9THmFq84g4+LbTFtjkAviuwUDl8rop6lZk1CHw
+	 bGxDKUEEBxCBkXRceVc90mTDdAAWKep+zdxyoCyaXNm6fJMKuZdJtUkPFYnX9teQFm
+	 5qOu+YXH3f/iF0qgxzHUcMeC2B45CoAUE945yKzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2197F80272;
-	Thu, 21 Jan 2021 20:00:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAD5DF804C2;
+	Thu, 21 Jan 2021 20:00:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1936F804B2; Thu, 21 Jan 2021 20:00:38 +0100 (CET)
+ id 1ED0DF804D2; Thu, 21 Jan 2021 20:00:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C227F80273
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 20:00:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C227F80273
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4781F80255
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 20:00:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4781F80255
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AoVItIzE"
-Received: by mail-wm1-x336.google.com with SMTP id c127so2421831wmf.5
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 11:00:24 -0800 (PST)
+ header.b="ZScCF4q9"
+Received: by mail-wm1-x330.google.com with SMTP id o10so5459024wmc.1
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 11:00:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=d/ziHaJ/3CRX+7Ak8L6tc/6XTy9kd0cfBe4hNikwO/c=;
- b=AoVItIzETjxlFlcIaNNnp30X8ff2ER7nSIMY/AvIZ2B2/uFpej8ETL7uEvOaAkfbVV
- xHuYDlnUevhdF9zBT5pXI11pKCwQoAnq5XHhIJFBtcPGf9SG0nsWuYrpmPmUFwgHya+N
- B/OTLb9xCcfViUiALg0skecxp4H+NE7uhwf5H0gtfZkp5rBj4Ts2yymTagIErt/bAGCy
- OpeQuqHj3DewMioI7mM2iRYLVWnM5TuYGRD7k8oHr67uWiR6AiohOO2/TlOZmAO9T3CD
- xbfzUrH8q82nxOMgd4fC44JltYsnjVTopVA/k/DxPWEUnY4auWMIoraSw7SyoGXlvA0i
- QvXg==
+ bh=K17Qb/xqJhqemGjS6kTuTL7FFWSJ4l9BP89RSwHWF5E=;
+ b=ZScCF4q9ohNh1JUkk8uuqWZ8Rq8ZDBqMV4uqim51MRtN3L7wr3V5GXWe1UNAYrx2NG
+ iWmT1UHRYeligQF9mMqPe9M53d9xPFG+//3VSwFpP4c2jf02Tv0o2JT7Z77Ob6k/ykDl
+ /heJDcYuDSC6yzwfzCc1eVsvo5h1hSd/2Un1NJqGuFWtatvhU+lFIBXs7Ulcn0JXeX//
+ 9I2T7wSnyah9yUWZ2VAynfXdFz7BuCXj4C3O6T68Imgxg+RsTItetkWotjLgDXLVdm2z
+ vFrD41N369dEkQA3Yr+piTujNErzQyvocyaqaaEF8aNpbkhXT4+uKZUGT9ZnHBVTXFOQ
+ MRYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=d/ziHaJ/3CRX+7Ak8L6tc/6XTy9kd0cfBe4hNikwO/c=;
- b=sW32wtVf84eyqDl4bctOuCctPsPZZZHH5hAihsPvah4JXcmiw7IhvB2tMVHSDrtpg1
- 2FsfvM/OSenrqwd0dhiOQzxVqpXDVBcjijUVZwO1gqmg8t7VEoIDbuEtBTD1oa25+J8S
- ulIyGFSGMAPdR96+oJ0ogeue1GozkW6+HCK6z726BBOgWnsJH+CzK1zH4XzRpHbcRGwx
- QODXFuFmO9erT36HPtC9AgsU6EQTfk+dF0dHMi1doqmBvth830UFA25UYcXFfa34obIC
- XQ8bnjDlEPwJWIPyBYQeQbkU6TayuI8ff0fxxezsMEbiits2hcPKofanbRuKbV98Hylm
- Mktg==
-X-Gm-Message-State: AOAM532EPD5CLXRBvp+yfl/wxxhM6EguT/d64EjYVnblb9dSoS9cpdH4
- DqhySN15d3dQiiQvjqF53Yc=
-X-Google-Smtp-Source: ABdhPJxgZ/IjwFq4Y/En1Jx4MO2W/E1hS4TJTyXYAdVydizAYJvZO0e/z5E1QRunLxKU368UllRi1Q==
-X-Received: by 2002:a05:600c:4ed3:: with SMTP id
- g19mr674158wmq.95.1611255618587; 
- Thu, 21 Jan 2021 11:00:18 -0800 (PST)
+ bh=K17Qb/xqJhqemGjS6kTuTL7FFWSJ4l9BP89RSwHWF5E=;
+ b=d6yK4hhXC7k6X5MqVcKhfAXWfrPi6hyVjrgET5o4mIZQ0BWswwUaAcy5M6/kLY+ycy
+ yQmdt8n9mVWqxb5oltVyg/Y0uGDezq7nttmBcVANG2XybIFVkcXMsV0jROhU9prOHauB
+ fdn97HvR5eiRBv3NSXl1YqqueJuMKbYL56tcB1j0AC846/Fc3G5cLrhwMFgE2JLMszoB
+ tvZJmnB3tLe0O+fiwgX6EA0X1O0OQ53Rrt7zZ5si4dI+QDRpu/wKbFC7ywyxx4xX2UiZ
+ RNG4Xejp93um8ucJ7fk9o96rMP+1+939eDjD8rpaB6p//uqvYuOQNoQFULrAQzrU3+aJ
+ Cm2w==
+X-Gm-Message-State: AOAM532sXprtEH8LWGnDIiMMKioKe3bGKmEzuMSCBD+/Rw8uXGhPdFtv
+ JrjhPhX1/K6o894Gtd7a0Ec=
+X-Google-Smtp-Source: ABdhPJyJGoMAuEiKqmzk71DvSTnpg4Ui3V10hF5b8vzzCod0tNFv3UIb4yOZgcvqdflnJZPOlpC9wg==
+X-Received: by 2002:a05:600c:21d8:: with SMTP id
+ x24mr699705wmj.27.1611255636500; 
+ Thu, 21 Jan 2021 11:00:36 -0800 (PST)
 Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id w4sm8901051wmc.13.2021.01.21.11.00.17
+ by smtp.gmail.com with ESMTPSA id p9sm8673767wrj.11.2021.01.21.11.00.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Jan 2021 11:00:17 -0800 (PST)
-Date: Thu, 21 Jan 2021 20:00:16 +0100
+ Thu, 21 Jan 2021 11:00:35 -0800 (PST)
+Date: Thu, 21 Jan 2021 20:00:34 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [RESEND PATCH v6 5/6] arm64: tegra: Audio graph header for
- Tegra210
-Message-ID: <YAnPQO2BZKxnvnZU@ulmo>
+Subject: Re: [RESEND PATCH v6 6/6] arm64: tegra: Audio graph sound card for
+ Jetson Nano and TX1
+Message-ID: <YAnPUsg7cNJQKqfO@ulmo>
 References: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
- <1611048496-24650-6-git-send-email-spujar@nvidia.com>
+ <1611048496-24650-7-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="mqXVJD2aWFFDAbPm"
+ protocol="application/pgp-signature"; boundary="51vTQSaQmQ9+ueZw"
 Content-Disposition: inline
-In-Reply-To: <1611048496-24650-6-git-send-email-spujar@nvidia.com>
+In-Reply-To: <1611048496-24650-7-git-send-email-spujar@nvidia.com>
 User-Agent: Mutt/2.0.4 (26f41dd1) (2020-12-30)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
@@ -108,47 +108,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---mqXVJD2aWFFDAbPm
+--51vTQSaQmQ9+ueZw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jan 19, 2021 at 02:58:15PM +0530, Sameer Pujar wrote:
-> Expose a header which describes DT bindings required to use audio-graph
-> based sound card. All Tegra210 based platforms can include this header
-> and add platform specific information. Currently, from SoC point of view,
-> all links are exposed for ADMAIF, AHUB, I2S and DMIC components.
+On Tue, Jan 19, 2021 at 02:58:16PM +0530, Sameer Pujar wrote:
+> Enable support for audio-graph based sound card on Jetson-Nano and
+> Jetson-TX1. Depending on the platform, required I/O interfaces are
+> enabled.
+>=20
+>  * Jetson-Nano: Enable I2S3, I2S4, DMIC1 and DMIC2.
+>  * Jetson-TX1: Enable all I2S and DMIC interfaces.
 >=20
 > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 > Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
 > ---
->  .../boot/dts/nvidia/tegra210-audio-graph.dtsi      | 153 +++++++++++++++=
+>  arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 262 +++++++++++++++=
 ++++++
->  1 file changed, 153 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/nvidia/tegra210-audio-graph.dtsi
+>  arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 146 ++++++++++++
+>  2 files changed, 408 insertions(+)
 
 Applied, thanks.
 
 Thierry
 
---mqXVJD2aWFFDAbPm
+--51vTQSaQmQ9+ueZw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmAJz0AACgkQ3SOs138+
-s6FQ+xAAh5sFlbnqM8oTZQFjZluJrD7PLbFf2es+YGmrReDA5xAJXmlq1AhaaGiq
-bjsm9rKGYbE7TYu9kfoNBpx5p4zKChGqstucZAoKuMfrcJlgyyD+s7oj0OVVIyjz
-TRHfCZFcvZfjK3IaR1Ik5u8ZzkfKvPsaSOeGQuUoMnlyCoEuMJk/PhbwDF2F7f72
-ZKH8qDRbXwy8AtibLAG8zqs68RLnh87WgRktXpd/DcHHmWrGM8Gy3/tdCAL/p3Fa
-YX5kt/DhyzCcQAo6QH47QCXtwopLo/0tL60MuYgCYbnf0nAsov32w2x+aV2GvN7l
-8FHdCfLFIDuQOuyoJgD5cpURS3ydWyWN2FdPOEqEak2kkS14DXePs9/aWr7Nmr1W
-ChlUDh2aw9VgmOsp3EGQO3YzcCYu4RQnBaEUw9sGukEy6uZ853Cqa2S+euBou9rY
-R9KjuQh4f6eeKuYxJ3vOdoooYi7nlphIejc94o19wnNu7riAy0XopLjcPyTVYypz
-vLsHgMhnSsOcb7Zwc5W1DRxL5gGU90dOSChBnNCTsxeiIYRbmK1YXeBNy7gtbI0R
-7Yhj5yvd+sSbfTzJNZvrg5rdh3QHXZpMICGJW0SQXmyovDLwTkNpy5Tc6YltOOv6
-+F873C2UDSoeGnbRz2wFvpaX/lZI1mbhD5EyyZe7txKRP6eYHTo=
-=74uA
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmAJz1IACgkQ3SOs138+
+s6GsMRAAsajRy5WFgKN+ktn2lL5UogXSyqcI2/4odHZspdTjh48LGWAWZZ2BkJO3
+0FBPJmcg9irGgzc1L0mKH2SKLbs0owGIh24jpuf51T3SAzygOXh/K6wIy/mMBz1F
+ViRWHtM866kzXyAizKanXmXnVP75VyquwO6TNgMhsldEm0CqjA2kcsWZZ+KCFsc3
+mlMFUfGgzxjScgjhVXTrSBa8jx5FmaFEIRMwFRfuU1eZxV4oVWocWPS4fM7nkFNg
+1FEvwGr3MZGmR4VZ8VUUyoiCHIIXD0A+o1X2+2iLpau9bgh9LASrj7mWHA62eRWa
+ji18iCYrdsv3+ac82Yhbnot+0mCMajIlP8qL75HPpjSavjIiAOaJ2ifYdWmzNbcd
+Ep/Ot1GkXnyMhSZwL8vp6TOvDq8uoLDwdMjNilA8BXwDq8V7QZvz5fVT9EV7oPY1
+Q7eoiypjrsfmDbw1niP9uNKcCIDh1Boj9FqxKi9Unq/blcbKqXbo8zb/ANGAwIau
+Ds8bpCy4zQOFCXnmDw1BReWQbryUZp4TsSQ18gskEIo4U8/Tg2JDJzqJbmN6LuQ1
+Y4VzhHq0JBzr5oBlTJU1f7d+v3Bcfxtwm8LMYrUqQYkEZidO+794fC6077Dai/r8
+KcDiIFitTxSTqogQLN45ISY/a3MtNGRhDLBZcf6Sdd6yoJa+IfQ=
+=ceXN
 -----END PGP SIGNATURE-----
 
---mqXVJD2aWFFDAbPm--
+--51vTQSaQmQ9+ueZw--

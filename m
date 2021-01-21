@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46802FDDA9
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:10:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9E142FDDAD
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:11:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 407A018B0;
-	Thu, 21 Jan 2021 01:09:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 407A018B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DDA318BF;
+	Thu, 21 Jan 2021 01:10:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DDA318BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611187837;
-	bh=UUKzBQxLkBhYjym818Hr0vGurpuNCZqXyHa55eogA14=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1611187896;
+	bh=8FKYosXPvv3FUOJpSS4TQL6/pMTyAw/0IsBrN+udhPw=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YpZcLeenlbtB+coVU7+hwicK3hhmuLXfk0NDBpnl6XA4DMT5RPdMXMdEwfsd+smKV
-	 bKRLmeqJEZGF93MB41i/QQqICnojCfHMK19VEoMMZP1mGbjidhkv+tgxtKtAtrspf6
-	 8NNNB1tJW8C5ja+G8yYeNejug5H2mu1npM4NRZto=
+	b=qoq7w3qbX6d702I/WLNU9HqqWY2jbDO5ZwL9EIVpqgmfAix02hqccPAAIf29Y7a/i
+	 HRq0RiVCQ6r9sXkJTQCctcGxnpHOqN/EbqIJBeuNI4h1eXY1BiM8LMLg1qp6Sakseu
+	 7bln73QpPuOki7m/WCeR7kOyMJsFWhsbY40zhgXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55374F804FB;
-	Thu, 21 Jan 2021 01:07:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B27DCF80253;
+	Thu, 21 Jan 2021 01:07:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD3EFF804FC; Thu, 21 Jan 2021 01:07:12 +0100 (CET)
+ id 26866F80515; Thu, 21 Jan 2021 01:07:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0748AF804F2
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:07:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0748AF804F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7658F80253
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:07:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7658F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fViAopOo"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B70B32054F;
- Thu, 21 Jan 2021 00:07:06 +0000 (UTC)
+ header.b="gdvtbe+8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D266E23719;
+ Thu, 21 Jan 2021 00:07:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611187627;
- bh=UUKzBQxLkBhYjym818Hr0vGurpuNCZqXyHa55eogA14=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=fViAopOoAexLJGAd+U1pDwCk/ujh6INeub8C31Wte83Cm2//fdqeanJ84NzrYEQB8
- uNR+e3TystfROvpU2N7JhtlYRpw74bTXhp3bz0XsYZfO8XZc//F5iCDMQmsmH1RPjQ
- DCvQs/rGsLl202+07lW8Cwz3EUlaLCtuaKLNWRhddbE2svs7YwU+fnc3Hzf1tNdcA4
- AbYlcMcJ36kU3NuuTY0MPzlERiPR14pGzzXPjyZtoijGaZr0snA2uqwgW2QHGvR4PM
- 1D04eauUxeSdf0u9yerfq8lo4/E+0n12SfkkgNtyWybFkbN8BoMEcL9ftZGfSkYfpY
- el9ZCw6F6HSOQ==
+ s=k20201202; t=1611187643;
+ bh=8FKYosXPvv3FUOJpSS4TQL6/pMTyAw/0IsBrN+udhPw=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=gdvtbe+8eGrpAOj4KN+Et0uer2Vm1lXoFwKueZUFL32p8SDMfpMUu5t+/O3PbyHSr
+ 7BChQlPzicvM2R/IzUHKZr2uJgpBoTSt7kZTr53VkUHd+/MzkDAfL6j7y5419AC9c0
+ qq3PA/OvZ6JJy9JggHWx/I0i3d6imBx/95iQUhsR/RCIScMQWwH7ZxVmVODAlPtH0C
+ 9oL1TQRMRE0diauObEHal926C17qoxtwOXnDDd5DvJxRLxdMT8Pevcb3di9uHdYr2e
+ uj8CyqykFyUOkXNte+3JNeaG0KwXUaq0EhnX66sJol9WtoXERgEOtYd3OVHl6quLDb
+ XnMHgedfIz96w==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-In-Reply-To: <20210114133337.1039-1-tiwai@suse.de>
-References: <20210114133337.1039-1-tiwai@suse.de>
-Subject: Re: [PATCH 0/3] ASoC: Simplify with dma_set_mask_and_coherent()
-Message-Id: <161118753483.45718.7168616825847385991.b4-ty@kernel.org>
+To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Arnd Bergmann <arnd@kernel.org>
+In-Reply-To: <20210120162553.21666-1-arnd@kernel.org>
+References: <20210120162553.21666-1-arnd@kernel.org>
+Subject: Re: [PATCH 0/2] ASoC: remove obsolete drivers
+Message-Id: <161118753484.45718.5745796421689353764.b4-ty@kernel.org>
 Date: Thu, 21 Jan 2021 00:05:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,14 +78,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 14 Jan 2021 14:33:34 +0100, Takashi Iwai wrote:
-> Simple conversions from two dma_set_mask*() calls into the single
-> dma_set_mask_and_coherent().
+On Wed, 20 Jan 2021 17:25:51 +0100, Arnd Bergmann wrote:
+> A few Arm platforms are getting removed in v5.12, this removes
+> the corresponding sound drivers.
 > 
-> Just a minor code refactoring, no functional changes.
+> Link: https://lore.kernel.org/linux-arm-kernel/20210120124812.2800027-1-arnd@kernel.org/T/
 > 
-> 
-> Takashi
+> Arnd Bergmann (2):
+>   ASoC: remove sirf prima/atlas drivers
+>   ASoC: remove zte zx drivers
 > 
 > [...]
 
@@ -93,12 +96,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: intel: skl: Simplify with dma_set_mask_and_coherent()
-      commit: d3afb00220becf81bc2d9016f04e05949dfd5bb2
-[2/3] ASoC: SOF: intel: Simplify with dma_set_mask_and_coherent()
-      commit: ab152afa2427bb3e4eea7c9f21c4393287838774
-[3/3] ASoC: tegra: Simplify with dma_set_mask_and_coherent()
-      commit: 7cc206bff69b52be24fa13ee2c9afde3320c6cf6
+[1/2] ASoC: remove sirf prima/atlas drivers
+      commit: 61fbeb5dcb3debb88d9f2eeed7e599b1ed7e3344
+[2/2] ASoC: remove zte zx drivers
+      commit: dc98f1d655ca4411b574b1bd2629e7132e502c1c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

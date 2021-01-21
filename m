@@ -2,99 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51B042FEF32
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 16:43:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45CD2FEFA3
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 17:00:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E123E18EF;
-	Thu, 21 Jan 2021 16:42:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E123E18EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52A6618F6;
+	Thu, 21 Jan 2021 16:59:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52A6618F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611243784;
-	bh=d4JLgeZVBNIDCRh+Nk1tgh/LRG1Cr/wVFBlQ00JRJb0=;
+	s=default; t=1611244798;
+	bh=x0b4X4cFM5gwF5Yfl7mvCDsEUYAyqksoXnV9+du4GBs=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qnvntIz8hW8kby0IVSEVuG32HWA7VumHZanfccBIey7PT16EgDAFmxn9EZVlc/UV1
-	 q3SQh0caqe/gYIUdudvsfNBJ39auXIatROzMAD+EMsvobofMFb9W8S+yW97FsYoYEI
-	 zCdKvzj5X4IGxmiRuhjCKrEi1eVCW7dMXjfaHVCQ=
+	b=TzFae4WBEw4rWHwrL+eqVn22EJrXCgz9dFnncA2BxmXgeb8yaTew9RAjfZvTcQ+9O
+	 cOWLel/CT6H6ZZFeq8tDIMmbyVSO9DjUH071M/V3KZ/q1NfNPZZkztyYtqJxiCkLYd
+	 GM3vgokLhlM/R0RwfMyuAgsZc5G7iGvVGa3u0xbY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35285F8026A;
-	Thu, 21 Jan 2021 16:41:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EF4AF8026A;
+	Thu, 21 Jan 2021 16:58:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBAD8F80162; Thu, 21 Jan 2021 16:41:29 +0100 (CET)
+ id 84378F80257; Thu, 21 Jan 2021 16:58:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 896C1F80162
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 16:41:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 896C1F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02791F80125
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 16:58:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02791F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="onBsKdxv"
-Received: by mail-wm1-x335.google.com with SMTP id j18so1840349wmi.3
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 07:41:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=yYkGSQxEuVHgVYqPR33Yj58TultHi9vTZtbAI8y9az4=;
- b=onBsKdxvVavssmI8rA12b808rcLn2XtCSJgb41Bvl3//4pD0tRiSupygejhTlK+hlh
- j8L4A6ZdO1pmgDaoCAm12y2CEHVGnUUbZyo/OK8LYp35ILcxLpTwrl69zTc12m6T7BaW
- Zxf7phQdRPfMN/MmQBby9qMcW4ljpqsE2kTU1/ThZz9ZgrR4Rw/qM0PEMSQbpp4DCK1C
- 7h3lvVRqTV4qJPygVo4iuwD3ZobeCdmTtlC0C1vezn8rOy6xOBAhoPEMw1ctenF8wDZ/
- /mocORrCmSeDuiQgPYSQr/ZtbXbjFdeHoV7Hl9bjHLYWdf5F9J+A+j4DzWMt5X5WDJLS
- WN/w==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="PSlNsTdi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611244699;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=gxg++XI0YPfZVOGn773w0joNP2UVCis1+mi7+/xwU2g=;
+ b=PSlNsTdimrPBwuM5MLMsHqS11aWGtKcTpt8JSVhqMHKsKIG2Ib8aP8dLzYi9TLcnU4JcO9
+ hmtdjGabpcgxQVpnunLTsPfrSMT6rWCDa4KXYGDsI8bcY0MbEqlk2wn4JsksLNiPCvzRHa
+ e+k6JcwypkVJq2j+isKMRPGsIHnip3A=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-299-6UVnnXCrOOyduuSRE-8koA-1; Thu, 21 Jan 2021 10:58:17 -0500
+X-MC-Unique: 6UVnnXCrOOyduuSRE-8koA-1
+Received: by mail-ej1-f70.google.com with SMTP id f26so936349ejy.9
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 07:58:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=yYkGSQxEuVHgVYqPR33Yj58TultHi9vTZtbAI8y9az4=;
- b=dXH9fs6z3vAJgOSRPca77IA1QE+gd6DU2agu3LILK+rnZOPhqqk6jWGmE0aozLHsrO
- N3fhNM53tKc8xgRUVQ65jnwLkAWHLvezdBq5n71GgMvFqc2ZNCjLQgJUOVsTBPozYjRs
- 3v4f01rkW215JE67/9o5lWNygLFtE3UjJkNPj8Y72X+5zv9I3E8aSHd5OWl1h41Dtsnk
- dZ7Rb5K7BLui0PfcDKbk2BRRzkCM0YgHLm6P7Hy288MHrN92fD88vIwzfggjTHnZXjiC
- aaXpgddHgoRie3QIYu2qHtDy3yPmERte7EfG80/uDb2km8wSY2j1997soT5u09gii4HD
- J5wQ==
-X-Gm-Message-State: AOAM533JEyf/TFD5OtUdX6LM99khEwm9xcgsftDBytu2GDkRgjP9+zdW
- 4Hw78yP4UMOrSOxIKiWFgYLCYw==
-X-Google-Smtp-Source: ABdhPJzFImVwxFfXZaO5auJux/Yh75i+5b++ELZ9n6+/zSvtapYTTlq6W1J+hTLH4w0FVli7+5ex/w==
-X-Received: by 2002:a1c:e055:: with SMTP id x82mr8433273wmg.185.1611243685461; 
- Thu, 21 Jan 2021 07:41:25 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id t67sm8814444wmt.28.2021.01.21.07.41.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 Jan 2021 07:41:24 -0800 (PST)
-Subject: Re: [RFC PATCH 1/2] soundwire: add support for static port mapping
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org, yung-chuan.liao@linux.intel.com
-References: <20210120180110.8357-1-srinivas.kandagatla@linaro.org>
- <20210120180110.8357-2-srinivas.kandagatla@linaro.org>
- <fcc1b199-644d-8c7f-5e8b-d12b0d9c9a04@linux.intel.com>
- <0a2bbbe5-821a-34dd-e893-fef42baaad2b@linaro.org>
- <9a688b02-80a6-fb1f-d6fa-36ba2d88d3b9@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <c6278763-57d9-2631-7b43-829259a9ea1f@linaro.org>
-Date: Thu, 21 Jan 2021 15:41:23 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ bh=gxg++XI0YPfZVOGn773w0joNP2UVCis1+mi7+/xwU2g=;
+ b=FM1V79sJUVVjhbsILZ0ty4ZuJngtcq23nLbEYYfG2mylNNcAJSLDhW+JcwxGhblHOG
+ yJdMYBPNkw1B/+1E3xFOMKPmXcdsSZyIaggzTb7tU72ZI1V0hbkQDopUVaoho/gjNyqP
+ fyCNhoPMtpQ9hmJ7eD9PFOSHmV2KfighsEdFqbWnNbTe0/r91IrIaLL4frCBRygDDcwR
+ sr9uiUlwbMwpyN/E8UMFQiQYHb9g5HMy/3nR10FkQ9oI/Ty7XNDNqgLsTcUsQK89jU22
+ iW0oATKQJQ9tJXOeHAumZJSJYFzCcF5jaPbYQTd3NvjBR6cjwhfkqjssJtye6JRrS/mM
+ DNVw==
+X-Gm-Message-State: AOAM530kywLjmB+BTuD1QmvotMeEwehh6ZXCjr8YPboUmH3jJnRDNW4p
+ UQEZBdGpPEV9bI/O6J1A6gd6HpyeCKyjMlksLxuTpHCiIqzvh8lsmgQMC8n1L7IralXQ+BpJMEu
+ rkTb0yeNXuDqOAtChHAtgMdD9jqOTxWPArz8Zl4vFl00cPQHMYxxFzy1T0/dsOotikutRg1aJTo
+ I=
+X-Received: by 2002:a17:906:52c1:: with SMTP id
+ w1mr110739ejn.214.1611244695449; 
+ Thu, 21 Jan 2021 07:58:15 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJw+xUZbRk6EKYn3AmKWraZ7fUxA/I8QOIemNGQ8/RMaZjEd/rbynq44e11lmTCnRs86KDPPDg==
+X-Received: by 2002:a17:906:52c1:: with SMTP id
+ w1mr110715ejn.214.1611244695129; 
+ Thu, 21 Jan 2021 07:58:15 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
+ by smtp.gmail.com with ESMTPSA id ar1sm2372508ejc.30.2021.01.21.07.58.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Jan 2021 07:58:14 -0800 (PST)
+Subject: Re: [PATCH v2 03/12] ASoC: arizona-jack: Fix some issues when HPDET
+ IRQ fires after the jack has been unplugged
+To: Mark Brown <broonie@kernel.org>
+References: <20210117160555.78376-1-hdegoede@redhat.com>
+ <20210117160555.78376-4-hdegoede@redhat.com>
+ <20210118124747.GH4455@sirena.org.uk>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <32d709f7-211e-6cce-a83e-318061e36609@redhat.com>
+Date: Thu, 21 Jan 2021 16:58:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <9a688b02-80a6-fb1f-d6fa-36ba2d88d3b9@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210118124747.GH4455@sirena.org.uk>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: gregkh@linuxfoundation.org, sanyog.r.kale@intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,96 +127,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-
-On 21/01/2021 14:56, Pierre-Louis Bossart wrote:
+On 1/18/21 1:47 PM, Mark Brown wrote:
+> On Sun, Jan 17, 2021 at 05:05:46PM +0100, Hans de Goede wrote:
+>> When the jack is partially inserted and then removed again it may be
+>> removed while the hpdet code is running. In this case the following
+>> may happen:
 > 
-> 
->> Port allocations are something like this:
->>
->> RX: (Simple)
->> Port 1 -> HPH L/R
->> Port 2 -> CLASS H Amp
->> Port 3 -> COMP
->> Port 4 -> DSD.
->>
->> TX: (This get bit more complicated)
->> Port 1: PCM
->> Port 2: ADC 1 & 2
->> Port 3: ADC 3 & 4
->> Port 4: DMIC-0, DMIC-1, DIMC-2 , DMIC-3 and MBHC
->> Port 5: DMIC-4, DMIC-5, DMIC-6 and DMIC-7
->>
->> We handle the port allocation dynamically based on mixer and dapm 
->> widgets in my code! Also channel allocations are different for each 
->> function!
-> 
-> Sorry, I am not following here. What is dynamic here and use-case 
-> dependent? And is this a mapping on the master or the codec sides that 
-> you want to modify?
+> Fixes like this should be sent at the start of the series (prior to
+> things like the move) so they can go to stable as bug fixes.
 
-[SLAVE]-------[MASTER]
-NA-------------Port 1: PCM
-Port 1---------Port 2: ADC 1 & 2
-Port 2---------Port 3: ADC 3 & 4
-Port 3---------Port 4: DMIC-0, DMIC-1, DIMC-2 , DMIC-3 and MBHC
-Port 4---------Port 5: DMIC-4, DMIC-5, DMIC-6 and DMIC-7
+Ok, I'll reshuffle the series for v3 to put these first and have
+them apply to drivers/extcon/extcon-arizona.c before it is
+moved to sound/soc/codecs/arizona-jack.c
 
+Regards,
 
-Mapping is still static however Number of ports selection and channel 
-mask will be dynamic here.
+Hans
 
-
-Example: for Headset MIC usecase we will be using Slv Port1, Slv Port3 
-along with Mstr Port2 and Master Port4
-
-Similarly for usecases like Digital MIC or other Analog MICs.
-
-
-> 
->>> Does this help and can you align on what Intel started with?
->>
->> Firstly, This is where the issue comes, if we go with the 
->> suggested(dai->id) solution, we would end up with a long list of 
->> dai-links with different combinations of both inputs/output 
->> connections and usecases. Again we have to deal with limited DSP 
->> resources too!
->>
->> Secondly, The check [1] in stream.c will not allow more than one 
->> master port config to be added to master runtime. Ex: RX Port 1, 2, 3 
->> is used for Headset Playback.
-> 
-> I am confused here, we do have examples in existing codec drivers where 
-> we use multiple ports for a single stream, e.g. for IV feedback we use 2 
-> ports.
-
-Is this on multi_link? which is why it might be working for you.
-
-> 
-
-Currently we have below check in sdw_stream_add_master().
-
-if (!bus->multi_link && stream->m_rt_count > 0) {
-	dev_err(bus->dev, "Multilink not supported, link %d\n", bus->link_id);
-	ret = -EINVAL;
-	goto unlock;
-}
-
-If we have single master(like my case) and dai-links which have more 
-then one port  will be calling  sdw_stream_add_master() for each port, 
-so m_rt_count above check will fail for the second call!
-
-
-
-> In your "RX Port 1, 2, 3" example, are you referring to the codec or the 
-> master side? If it's for the codec, it's already supported, see e.g. 
-
-Master side.
-
-> https://github.com/thesofproject/linux/pull/2514, we use DP2 and DP4 for 
-
-This fine on slave side! Issue is on the master side!
-
-> the same stream. This is done with the port_config capability.
-> 
-> 

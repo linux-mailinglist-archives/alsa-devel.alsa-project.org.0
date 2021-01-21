@@ -2,75 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 316512FDC94
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jan 2021 23:30:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A3732FDD9D
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:08:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBE2B1807;
-	Wed, 20 Jan 2021 23:29:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBE2B1807
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85842182A;
+	Thu, 21 Jan 2021 01:07:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85842182A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611181820;
-	bh=YehWsBvz02Ie/mkFcxkwZtY6qgTTaA6FZKfzUfFSejU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611187676;
+	bh=ZLWvffTsDz1qNch4fD7+1+LXI31vPb+p7ftbWO67Jug=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=agC3GsEXPpQlqnTyBMKgc0adDIs3Sc+3ncCM+eK1njUbkDe4KXJRke2W4Zi/QDVp2
-	 0FDghDPEcDv+6Cshqi1xOSyzKjk809wQIefk1OCLXvMQD/1R+nv47W2gexHOAzWVLu
-	 s4z8as4FNDnINUAebWVW75vVuH9Ys+yzW02DNOqg=
+	b=XvSl596131C3sgz1WBXZ3WfPFOhdUk9az0VViMvfI9Jc4MktFzHPPMfdY5RXBIwIh
+	 Babj9kWVFFKiN6Ly7QN091Lxf5s1JIlyuRAAM3OxBNsAmQ61gUBS2IfZ0HtmjPkT2f
+	 u2GKSyVg+Dw804lEkM9nw9huoH0F960QDkDNh0H4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26C3DF8019B;
-	Wed, 20 Jan 2021 23:28:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 157B4F80166;
+	Thu, 21 Jan 2021 01:06:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E9EFF8016E; Wed, 20 Jan 2021 23:28:37 +0100 (CET)
+ id 5E5B0F8016E; Thu, 21 Jan 2021 01:06:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0CE5F8012C
- for <alsa-devel@alsa-project.org>; Wed, 20 Jan 2021 23:28:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0CE5F8012C
-IronPort-SDR: n4H1gvzgntXb2jrkmQs45OWNe9hYzah/svesFwRghHlgVdAvDSgXGUX0NIO1kLnPKUWOHxV+op
- 0moEdHQ3rweA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="263999021"
-X-IronPort-AV: E=Sophos;i="5.79,362,1602572400"; d="scan'208";a="263999021"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 14:28:26 -0800
-IronPort-SDR: A3l+tWrwWD2lDdIHZ9JWJZ3mi0uI5w+xME/wG0yHTwQSnfHvUyJXlZ1Iok3hN6IWeVOo8LrCfu
- aLZ3Uc8uqs2g==
-X-IronPort-AV: E=Sophos;i="5.79,362,1602572400"; d="scan'208";a="356220083"
-Received: from bmetsx-mobl1.amr.corp.intel.com (HELO [10.209.108.15])
- ([10.209.108.15])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 14:28:25 -0800
-Subject: Re: Crash in acpi_ns_validate_handle triggered by soundwire on Linux
- 5.10
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- =?UTF-8?Q?Marcin_=c5=9alusarz?= <marcin.slusarz@gmail.com>
-References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
- <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <1f0f7273-597e-cdf0-87d1-908e56c13133@linux.intel.com>
-Date: Wed, 20 Jan 2021 16:28:23 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11284F80137
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:06:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11284F80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bmJfkUQM"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A9FC23716;
+ Thu, 21 Jan 2021 00:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611187574;
+ bh=ZLWvffTsDz1qNch4fD7+1+LXI31vPb+p7ftbWO67Jug=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=bmJfkUQMKeQay1QoxU+kViI6A87yu3A9pcmztq+/h32CYr+RaIsDCPUREQSFEyG+s
+ c6iFUAFHKaFm2KSaxIvBaRuDKajfx9nlARNtTyMsHYKfaoIinan20cvRjnGKOBY6os
+ D+bUn9HzpdXhVnLGEc9Jbc3qHhkzn3SGdh31F+dkiBOFeiOHb20SWAa8xe3rGZYqmi
+ VWT3rEua/jYXK1rYEftCLHBimlqqeywLkA9CO5uEvpVLaOLxHo16h52ePS4dRpkUk4
+ 4kB/CBo5u/B9kL+aJ5w4K3XSyv21JLigg47Aq6/GSMipNFfjb+HcmCkVsQKOENGAI8
+ p0rMjMl0peNEw==
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20210120092237.1553938-1-tzungbi@google.com>
+References: <20210120092237.1553938-1-tzungbi@google.com>
+Subject: Re: [PATCH 0/2] ASoC: mediatek: mt8183: ignore TDM DAI link by by
+ default
+Message-Id: <161118753484.45718.2516194829359308534.b4-ty@kernel.org>
+Date: Thu, 21 Jan 2021 00:05:34 +0000
 MIME-Version: 1.0
-In-Reply-To: <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Len Brown <lenb@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +78,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-
->> Linux 5.10 fails to boot on my IceLake laptop, where 5.9 worked fine.
->> I'm not sure whether it's a bug in ACPI or Soundwire subsystem, so I'm
->> sending this to both
->> lists. The W taint flag is because of an unrelated nouveau failure (It
->> was busted on 5.9, and is
->> still on 5.10). Full kernel log down below.
->> It's from a distro kernel, but I can build my own kernel with patches if needed.
+On Wed, 20 Jan 2021 17:22:35 +0800, Tzung-Bi Shih wrote:
+> hdmi-codec is an optional property.  The 2 patches fix DAI link binding
+> error when the property doesn't exist in DTS.
 > 
-> Please try to add a check for handle against NULL to
-> snd_intel_dsp_check_soundwire() after
+> Tzung-Bi Shih (2):
+>   ASoC: mediatek: mt8183-mt6358: ignore TDM DAI link by default
+>   ASoC: mediatek: mt8183-da7219: ignore TDM DAI link by default
 > 
-> handle = ACPI_HANDLE(&pci->dev);
-> 
-> and see if this makes any difference.
-> 
-> This should check handle against NULL anyway, even if it didn't crash later on.
+> [...]
 
-Is there a way you can share the DSDT?
+Applied to
 
-The only thing we do in that sdw_intel_acpi_scan() function is check for 
-an _ADR and read two _DSD properties. I think it's been 2 years since we 
-wrote it and never had an issue, never say never I guess...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-If you want to bypass this problem for the time being, you can add a 
-kernel option in /etc/modprobe.d/alsa-base.conf
+Thanks!
 
-options snd-intel-dspcfg dsp_driver=1
+[1/2] ASoC: mediatek: mt8183-mt6358: ignore TDM DAI link by default
+      commit: 5ac154443e686b06242aa49de30a12b74ea9ca98
+[2/2] ASoC: mediatek: mt8183-da7219: ignore TDM DAI link by default
+      commit: 4d36ed8eb0f749c9e781e0d3b041a7adeedcdaa9
 
-that will force the use of the HDaudio legacy driver and bypass the 
-driver autodetection.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

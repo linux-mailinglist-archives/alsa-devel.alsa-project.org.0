@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392462FF3B8
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 20:02:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF8B2FF3C3
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 20:06:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C36171920;
-	Thu, 21 Jan 2021 20:01:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36171920
+	by alsa0.perex.cz (Postfix) with ESMTPS id D91C21917;
+	Thu, 21 Jan 2021 20:05:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D91C21917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611255736;
-	bh=V7GM9Z1aWN595Ukdl1rPslOBupdBYsDbSgaSDMzjEdA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1611255960;
+	bh=dM1pb+hMbhwKUZYUYqCjtWKXmtN9QxxVtoGu6P5MJv4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cCqHmD/Llwi1Am34bQGGueMQYBn9THmFq84g4+LbTFtjkAviuwUDl8rop6lZk1CHw
-	 bGxDKUEEBxCBkXRceVc90mTDdAAWKep+zdxyoCyaXNm6fJMKuZdJtUkPFYnX9teQFm
-	 5qOu+YXH3f/iF0qgxzHUcMeC2B45CoAUE945yKzw=
+	b=OtAnOcyQq/Y5vPj9cIyN4huOaxwXN14WGyDpzBiGhCzJnc5xcXNRFFVf8OA4BJiBc
+	 vBqaOZJW/AtaWzt+X8V71+vtFOMD/jWGQs5VG2D72H6lkhalxHL6KfARpLh7guEs8A
+	 A7+WHED+PL9ucw3QAb7qXWTEap3408p8pITGFd5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAD5DF804C2;
-	Thu, 21 Jan 2021 20:00:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BFFFF80125;
+	Thu, 21 Jan 2021 20:04:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ED0DF804D2; Thu, 21 Jan 2021 20:00:45 +0100 (CET)
+ id E107AF80257; Thu, 21 Jan 2021 20:04:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4781F80255
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 20:00:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4781F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 395A4F80164
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 20:04:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 395A4F80164
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ZScCF4q9"
-Received: by mail-wm1-x330.google.com with SMTP id o10so5459024wmc.1
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 11:00:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=K17Qb/xqJhqemGjS6kTuTL7FFWSJ4l9BP89RSwHWF5E=;
- b=ZScCF4q9ohNh1JUkk8uuqWZ8Rq8ZDBqMV4uqim51MRtN3L7wr3V5GXWe1UNAYrx2NG
- iWmT1UHRYeligQF9mMqPe9M53d9xPFG+//3VSwFpP4c2jf02Tv0o2JT7Z77Ob6k/ykDl
- /heJDcYuDSC6yzwfzCc1eVsvo5h1hSd/2Un1NJqGuFWtatvhU+lFIBXs7Ulcn0JXeX//
- 9I2T7wSnyah9yUWZ2VAynfXdFz7BuCXj4C3O6T68Imgxg+RsTItetkWotjLgDXLVdm2z
- vFrD41N369dEkQA3Yr+piTujNErzQyvocyaqaaEF8aNpbkhXT4+uKZUGT9ZnHBVTXFOQ
- MRYg==
+ dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
+ header.i=@nostatic-org.20150623.gappssmtp.com header.b="p+QJx1MU"
+Received: by mail-yb1-xb2d.google.com with SMTP id y4so3098580ybn.3
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 11:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nostatic-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VzMbmvBVtAxJ7cAWgSDzIW95eBIABf1FC/pR6q198XE=;
+ b=p+QJx1MUTo12CD1SjAI2u4qnxzRu6mgeJKPqOCzan8AoZyCN5TfncKLEYP0LE1Gq9m
+ mTv9NyrwlYgJMP5W8Bg2WRhEl92yCr+Gtme5a1yrQnield20jRes6CZ/nagS2oNQcKUf
+ TBqX/AxJ2SBC2eER1Zjbtjdw40TnhNlkWwfSJraYgd79pJLqzqmu50jscdY74tI52HBL
+ 3eYMtyNO7GQfrt2iQrdTdi9G3BTjk7Nn3EM/sM8Maqa5BWDJ/GETXryE83FWU+w59yda
+ fpfQF8hYa7/g1Gft8Pyjqk4dJSQvTUzirC6W9HClvECsqcfAImi+oF0hVBtD81Q6zxyV
+ wZnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=K17Qb/xqJhqemGjS6kTuTL7FFWSJ4l9BP89RSwHWF5E=;
- b=d6yK4hhXC7k6X5MqVcKhfAXWfrPi6hyVjrgET5o4mIZQ0BWswwUaAcy5M6/kLY+ycy
- yQmdt8n9mVWqxb5oltVyg/Y0uGDezq7nttmBcVANG2XybIFVkcXMsV0jROhU9prOHauB
- fdn97HvR5eiRBv3NSXl1YqqueJuMKbYL56tcB1j0AC846/Fc3G5cLrhwMFgE2JLMszoB
- tvZJmnB3tLe0O+fiwgX6EA0X1O0OQ53Rrt7zZ5si4dI+QDRpu/wKbFC7ywyxx4xX2UiZ
- RNG4Xejp93um8ucJ7fk9o96rMP+1+939eDjD8rpaB6p//uqvYuOQNoQFULrAQzrU3+aJ
- Cm2w==
-X-Gm-Message-State: AOAM532sXprtEH8LWGnDIiMMKioKe3bGKmEzuMSCBD+/Rw8uXGhPdFtv
- JrjhPhX1/K6o894Gtd7a0Ec=
-X-Google-Smtp-Source: ABdhPJyJGoMAuEiKqmzk71DvSTnpg4Ui3V10hF5b8vzzCod0tNFv3UIb4yOZgcvqdflnJZPOlpC9wg==
-X-Received: by 2002:a05:600c:21d8:: with SMTP id
- x24mr699705wmj.27.1611255636500; 
- Thu, 21 Jan 2021 11:00:36 -0800 (PST)
-Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id p9sm8673767wrj.11.2021.01.21.11.00.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Jan 2021 11:00:35 -0800 (PST)
-Date: Thu, 21 Jan 2021 20:00:34 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [RESEND PATCH v6 6/6] arm64: tegra: Audio graph sound card for
- Jetson Nano and TX1
-Message-ID: <YAnPUsg7cNJQKqfO@ulmo>
-References: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
- <1611048496-24650-7-git-send-email-spujar@nvidia.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VzMbmvBVtAxJ7cAWgSDzIW95eBIABf1FC/pR6q198XE=;
+ b=oXK2lFuGd7RrKccraqJjKuBcoR+/k5iz0bq/7bdKTX5ZxmCFVKk3c1kz2WQh1TPYHj
+ H/YMrZFHTGiTLQ0Yim8OWNqeH1+uJq27Xk7QxonbTSzuQ6KuZ4UDslcSVQEYEyZqxMLh
+ QZ4LLZc2UNVVJPUuyG8HdiR3OfCZ5DJNTJgntFBza6WL9t7rJpZf2lEGFIKshNTuKZUa
+ LuZz21nELVEoSaTDIynZHWU88s8D8hr+Ars0FCCz1doEdEh/Slo6Er0WlxyRxapfvFOQ
+ apJg8qHFlIlWagJ1O0sSK9lTOLeAYpqsZfXa2VmHgqsdh1A1PychIme9mBaOVDz/zNY/
+ N72w==
+X-Gm-Message-State: AOAM532mpTSpm++Hx8JEj9w02t1kkuTodEMIQ3JzKts5wXmcGsgfbKGG
+ Qvy9xtfN4jQGGkiZxwZP6EbCKAJxDYAZBdlaUfeju+1JHNzQ2g==
+X-Google-Smtp-Source: ABdhPJyEo2KfsbxKNTYuRv/70ALQ46BLGxQihHVE7reKunTPWGAn7XJVAHuTCL0SkM7NXPR6295rXU3djQ0g+emau98=
+X-Received: by 2002:a25:1002:: with SMTP id 2mr1133055ybq.410.1611255858086;
+ Thu, 21 Jan 2021 11:04:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="51vTQSaQmQ9+ueZw"
-Content-Disposition: inline
-In-Reply-To: <1611048496-24650-7-git-send-email-spujar@nvidia.com>
-User-Agent: Mutt/2.0.4 (26f41dd1) (2020-12-30)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
- broonie@kernel.org, linux-tegra@vger.kernel.org
+References: <CAHXb3bdk71ivJUp9HBRccDvd8SD2F1uFdsC_FxUjhh5zpcQobQ@mail.gmail.com>
+ <s5hr1mik7vu.wl-tiwai@suse.de>
+ <CAHXb3bdt6mgUcZ0+MH1i7QeYF03MSwx=kad-YBBNeVjqoH=KhA@mail.gmail.com>
+ <CAHXb3bcFM0BswbuTe=6vP6JRd=TOf94Gu0FPAZmXT6634bCiAQ@mail.gmail.com>
+ <s5hr1migiie.wl-tiwai@suse.de>
+ <CAHXb3be9EpEtaEc0iH06wmLMhyizkV7arvgxsT2bWK=aJHKVLA@mail.gmail.com>
+ <s5him7thpoz.wl-tiwai@suse.de>
+ <CAHXb3bd8zHFmHxDp=4dNKa90eAT568yCwTWo_5L0Zry1EY45UA@mail.gmail.com>
+ <s5hczy1guto.wl-tiwai@suse.de>
+ <CAHXb3bfUv7QzvgOmtV3LxJXaY=Uk+pKhWZmU0M+YkgB0kNrXmA@mail.gmail.com>
+ <s5ha6t3el07.wl-tiwai@suse.de>
+ <CAHXb3bcucvF63itp6+R8aC6hByBJs4AorQg5KAa1YkunCB89tw@mail.gmail.com>
+ <s5h4kjbcmql.wl-tiwai@suse.de>
+ <CAHXb3be5Va8_K9YmObjTg+KGH3HZO9y_L4YrXvprbMY5J4fpsw@mail.gmail.com>
+In-Reply-To: <CAHXb3be5Va8_K9YmObjTg+KGH3HZO9y_L4YrXvprbMY5J4fpsw@mail.gmail.com>
+From: Mike Oliphant <oliphant@nostatic.org>
+Date: Thu, 21 Jan 2021 11:04:07 -0800
+Message-ID: <CAHXb3beukZJ=r6dDS3fxd8MBtkFqt=qEFwHwRPhVgAJZXTzMrA@mail.gmail.com>
+Subject: Re: Support for NUX MG-300 USB interface
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,50 +108,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+As a last ditch effort before returning the device, I tried the clock patch
+on a Raspberry Pi 4 running an older kernel, and... it works.
 
---51vTQSaQmQ9+ueZw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The kernel version is "Linux raspberrypi 4.19.89-v7l+" and is from late
+February 2020.
 
-On Tue, Jan 19, 2021 at 02:58:16PM +0530, Sameer Pujar wrote:
-> Enable support for audio-graph based sound card on Jetson-Nano and
-> Jetson-TX1. Depending on the platform, required I/O interfaces are
-> enabled.
->=20
->  * Jetson-Nano: Enable I2S3, I2S4, DMIC1 and DMIC2.
->  * Jetson-TX1: Enable all I2S and DMIC interfaces.
->=20
-> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 262 +++++++++++++++=
-++++++
->  arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 146 ++++++++++++
->  2 files changed, 408 insertions(+)
+Maybe a change between then and now broke something? I know there have been
+a *lot* of changes since then, though...
 
-Applied, thanks.
+Mike
 
-Thierry
+On Wed, Jan 20, 2021 at 1:47 PM Mike Oliphant <oliphant@nostatic.org> wrote:
 
---51vTQSaQmQ9+ueZw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmAJz1IACgkQ3SOs138+
-s6GsMRAAsajRy5WFgKN+ktn2lL5UogXSyqcI2/4odHZspdTjh48LGWAWZZ2BkJO3
-0FBPJmcg9irGgzc1L0mKH2SKLbs0owGIh24jpuf51T3SAzygOXh/K6wIy/mMBz1F
-ViRWHtM866kzXyAizKanXmXnVP75VyquwO6TNgMhsldEm0CqjA2kcsWZZ+KCFsc3
-mlMFUfGgzxjScgjhVXTrSBa8jx5FmaFEIRMwFRfuU1eZxV4oVWocWPS4fM7nkFNg
-1FEvwGr3MZGmR4VZ8VUUyoiCHIIXD0A+o1X2+2iLpau9bgh9LASrj7mWHA62eRWa
-ji18iCYrdsv3+ac82Yhbnot+0mCMajIlP8qL75HPpjSavjIiAOaJ2ifYdWmzNbcd
-Ep/Ot1GkXnyMhSZwL8vp6TOvDq8uoLDwdMjNilA8BXwDq8V7QZvz5fVT9EV7oPY1
-Q7eoiypjrsfmDbw1niP9uNKcCIDh1Boj9FqxKi9Unq/blcbKqXbo8zb/ANGAwIau
-Ds8bpCy4zQOFCXnmDw1BReWQbryUZp4TsSQ18gskEIo4U8/Tg2JDJzqJbmN6LuQ1
-Y4VzhHq0JBzr5oBlTJU1f7d+v3Bcfxtwm8LMYrUqQYkEZidO+794fC6077Dai/r8
-KcDiIFitTxSTqogQLN45ISY/a3MtNGRhDLBZcf6Sdd6yoJa+IfQ=
-=ceXN
------END PGP SIGNATURE-----
-
---51vTQSaQmQ9+ueZw--
+> Yeah, I tried every possible permutation of mute/volumes on the mixer
+> controls.
+>
+> Thanks for submitting the patches. Maybe someone else will have better
+> luck down the road.
+>
+> Mike
+>
+> On Wed, Jan 20, 2021 at 1:38 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+>> On Wed, 20 Jan 2021 22:17:35 +0100,
+>> Mike Oliphant wrote:
+>> >
+>> > I spent a fair bit of time debugging the code setting/getting mixer
+>> control
+>> > values, and I can't see anything that seems to be operating incorrectly.
+>>
+>> So, even if you unmute and raise both mixers, it didn't help, right?
+>> I took a look at the lsusb output, but I couldn't find anything else
+>> suspicious.
+>>
+>> > Unless you have any other suggestions, I'm going to admit defeat and
+>> return
+>> > the audio interface.
+>> >
+>> > It is probably worth committing the clock selector patch - it at least
+>> made
+>> > capture work, and it may help with other audio interfaces.
+>>
+>> OK, I'll submit two fix patches.
+>>
+>>
+>> thanks,
+>>
+>> Takashi
+>>
+>

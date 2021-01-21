@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A3732FDD9D
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:08:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F282FDDAC
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jan 2021 01:11:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85842182A;
-	Thu, 21 Jan 2021 01:07:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85842182A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F310C189D;
+	Thu, 21 Jan 2021 01:10:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F310C189D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611187676;
-	bh=ZLWvffTsDz1qNch4fD7+1+LXI31vPb+p7ftbWO67Jug=;
+	s=default; t=1611187884;
+	bh=q2ZTBy/GMJKRUdA87t2kPuxFQS8sPWRWpmZxf4B5WZw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XvSl596131C3sgz1WBXZ3WfPFOhdUk9az0VViMvfI9Jc4MktFzHPPMfdY5RXBIwIh
-	 Babj9kWVFFKiN6Ly7QN091Lxf5s1JIlyuRAAM3OxBNsAmQ61gUBS2IfZ0HtmjPkT2f
-	 u2GKSyVg+Dw804lEkM9nw9huoH0F960QDkDNh0H4=
+	b=avgF0wY7dve06UlXx8fchOrH+IZoAw2giYvxS6lOtcZ9V/KhqtYCAnCC6nYfiGLTE
+	 HOU6UG+dXBQuf9ciDocSBQDxNfr+7vup9g1dDE3S84Fo6BeajOTuB+SmV+F3yyt9GD
+	 XuwNKCHwWHcAJZZP1rFOQTAHZRzYXHV+pw3T0+NE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 157B4F80166;
-	Thu, 21 Jan 2021 01:06:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6F2DF80507;
+	Thu, 21 Jan 2021 01:07:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E5B0F8016E; Thu, 21 Jan 2021 01:06:21 +0100 (CET)
+ id A0E9CF80508; Thu, 21 Jan 2021 01:07:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11284F80137
- for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:06:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11284F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2858EF80507
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jan 2021 01:07:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2858EF80507
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bmJfkUQM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A9FC23716;
- Thu, 21 Jan 2021 00:06:13 +0000 (UTC)
+ header.b="g2+cM8NW"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 96F5523731;
+ Thu, 21 Jan 2021 00:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611187574;
- bh=ZLWvffTsDz1qNch4fD7+1+LXI31vPb+p7ftbWO67Jug=;
+ s=k20201202; t=1611187638;
+ bh=q2ZTBy/GMJKRUdA87t2kPuxFQS8sPWRWpmZxf4B5WZw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bmJfkUQMKeQay1QoxU+kViI6A87yu3A9pcmztq+/h32CYr+RaIsDCPUREQSFEyG+s
- c6iFUAFHKaFm2KSaxIvBaRuDKajfx9nlARNtTyMsHYKfaoIinan20cvRjnGKOBY6os
- D+bUn9HzpdXhVnLGEc9Jbc3qHhkzn3SGdh31F+dkiBOFeiOHb20SWAa8xe3rGZYqmi
- VWT3rEua/jYXK1rYEftCLHBimlqqeywLkA9CO5uEvpVLaOLxHo16h52ePS4dRpkUk4
- 4kB/CBo5u/B9kL+aJ5w4K3XSyv21JLigg47Aq6/GSMipNFfjb+HcmCkVsQKOENGAI8
- p0rMjMl0peNEw==
+ b=g2+cM8NWD1hKgEPNQrvsuKvIAvkCC+K0aLHdyDPTSjm7q1b69lV904geZC9cnNIBK
+ H8Hpm+KBO2GbwUbfwKvWBePgmlBYcSV3H9hyLFAfVC0OQ7AAaBCm/BYRJPsBT4SjmO
+ VZUvFT4vHZ+06rT7DkgySHrWf6p257TkbnCw/g5xVOgfUqd1ygUWaaPxRBSfyAyUin
+ IogOaPW8jcLTlo6sUhsi7rqykapkWUWqN/5ShkgzJeeowCdjSPFiEVU9sOjtFVXj61
+ T6dnemTJJDqnJy2pt76eqigPi5Qdqiy9PRYz2lOWBEALC4I0ne8ts1NqyIuX7SI36w
+ udU2Tr9OIaeOA==
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20210120092237.1553938-1-tzungbi@google.com>
-References: <20210120092237.1553938-1-tzungbi@google.com>
-Subject: Re: [PATCH 0/2] ASoC: mediatek: mt8183: ignore TDM DAI link by by
- default
-Message-Id: <161118753484.45718.2516194829359308534.b4-ty@kernel.org>
+To: robh+dt@kernel.org, Sameer Pujar <spujar@nvidia.com>,
+ thierry.reding@gmail.com
+In-Reply-To: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
+References: <1611048496-24650-1-git-send-email-spujar@nvidia.com>
+Subject: Re: (subset) [RESEND PATCH v6 0/6] Tegra210 audio graph card
+Message-Id: <161118753483.45718.690579581482519791.b4-ty@kernel.org>
 Date: Thu, 21 Jan 2021 00:05:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ jonathanh@nvidia.com, linux-tegra@vger.kernel.org, sharadg@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,13 +80,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Jan 2021 17:22:35 +0800, Tzung-Bi Shih wrote:
-> hdmi-codec is an optional property.  The 2 patches fix DAI link binding
-> error when the property doesn't exist in DTS.
+On Tue, 19 Jan 2021 14:58:10 +0530, Sameer Pujar wrote:
+> This series adds audio graph based sound card support for Tegra210
+> platforms like Jetson-TX1 an Jetson-Nano. The following preparatory
+> audio graph enhancement series is already merged.
+>  * https://patchwork.kernel.org/project/alsa-devel/list/?series=375629&state=*
 > 
-> Tzung-Bi Shih (2):
->   ASoC: mediatek: mt8183-mt6358: ignore TDM DAI link by default
->   ASoC: mediatek: mt8183-da7219: ignore TDM DAI link by default
+> Following are the summary of changes:
+>  * Add graph/audio-graph based schemas or schema updates for Tegra210
+>    component and machine drivers.
+>  * Add Tegra audio graph machine driver.
+>  * Add required DT support for Jetson-TX1/Nano.
 > 
 > [...]
 
@@ -94,10 +100,12 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: mediatek: mt8183-mt6358: ignore TDM DAI link by default
-      commit: 5ac154443e686b06242aa49de30a12b74ea9ca98
-[2/2] ASoC: mediatek: mt8183-da7219: ignore TDM DAI link by default
-      commit: 4d36ed8eb0f749c9e781e0d3b041a7adeedcdaa9
+[1/6] ASoC: dt-bindings: tegra: Add graph bindings
+      commit: 9e0f86fdcdab6a0e183ad4ec2410453985b4cf3c
+[2/6] ASoC: dt-bindings: tegra: Add json-schema for Tegra audio graph card
+      commit: a9f22c03a8ac5d21ce7a9b9307d9654c963a1f9c
+[3/6] ASoC: tegra: Add audio graph based card driver
+      commit: 202e2f7745437aa5b694de92cbd30bb43b23fbed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

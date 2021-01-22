@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81B572FF9D9
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:16:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A342FF9DA
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:16:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DE9A1AA0;
-	Fri, 22 Jan 2021 02:15:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DE9A1AA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F7461A99;
+	Fri, 22 Jan 2021 02:15:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F7461A99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611278189;
-	bh=+bXztAIxz4zheeJe1xsM6k8zIEqVQeBWut38xFecWYo=;
+	s=default; t=1611278202;
+	bh=bxhiTGZpk3lR7TkkR7AcxXq1XIAbGc17GgmR/tws1c0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CBF3JRSvNJO0/muVjGIs/O6uSgoIl3PjjcXG835CtodopzJ6ksQIxUpAkVD+jrEEb
-	 hEtk51rsdZHDyhHCriaC+qeJDNaum1qKetuBOEfPfHkwWpHXNfBABT6NZos6mToSDV
-	 ZrjEJBeuypHJHE2RkmuvDEnkOw8dw7/jpPYAEkp4=
+	b=aXg25oF2MSmrkm8t/bpyp14Cejf31CyFE5Qy8BmQx9q2nVy1vsOuzAeO0turBWqDj
+	 OTA7VpiEUHUydmUkZCn2jqqQ6LKsv7R1lRYSitW8ghJ6PGoP365S8BJIEjMzrOgGR4
+	 SaulVlDSttlmdPxOvvFjz1NehespBr6vJ4v/XcW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02D6EF804E2;
-	Fri, 22 Jan 2021 02:13:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF5D6F804EC;
+	Fri, 22 Jan 2021 02:13:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22883F804E2; Fri, 22 Jan 2021 02:13:52 +0100 (CET)
+ id 8718AF804EB; Fri, 22 Jan 2021 02:13:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 0ABFDF804C3
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ABFDF804C3
-Date: 22 Jan 2021 10:13:48 +0900
-X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69797660"
+ by alsa1.perex.cz (Postfix) with ESMTP id 53B9AF804E5
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53B9AF804E5
+Date: 22 Jan 2021 10:13:53 +0900
+X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69797689"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:48 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9D29E401AEA4;
- Fri, 22 Jan 2021 10:13:48 +0900 (JST)
-Message-ID: <874kj9aigd.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id A6D46401AEA1;
+ Fri, 22 Jan 2021 10:13:53 +0900 (JST)
+Message-ID: <8735ytaig8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: soc-pcm: use snd_pcm_hardware at
- dpcm_runtime_merge_xxx()
+Subject: [PATCH 5/5] ASoC: soc-pcm: fixup snd_pcm_limit_hw_rates() timing
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a6t1aihl.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,137 +67,156 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-pcm has dpcm_runtime_merge_xxx() functions,
-but uses parameters are very verbose.
+soc-pcm has snd_pcm_limit_hw_rates() which determine rate_min/rate_max.
+It updates runtime->hw.rate_min/max (A) based on hw->rates (B).
 
-	dpcm_runtime_merge_format(...,	&runtime->hw.formats);
-	dpcm_runtime_merge_chan(...,	&runtime->hw.channels_min,
-					&runtime->hw.channels_max);
-	dpcm_runtime_merge_rate(...,	&runtime->hw.rates,
-					&runtime->hw.rate_min,
-					&runtime->hw.rate_max);
+	int snd_pcm_limit_hw_rates(...)
+	{
+		int i;
+		for (...) {
+(B)			if (runtime->hw.rates & (1 << i)) {
+(A)				runtime->hw.rate_min = ...
+				break;
+			}
+		}
+		for (...) {
+(B)			if (runtime->hw.rates & (1 << i)) {
+(A)				runtime->hw.rate_max = ...
+				break;
+			}
+		}
+		return 0;
+	}
 
-We want to replace it into
+This means, setup order is
 
-	dpcm_runtime_merge_format(...,	runtime);
-	dpcm_runtime_merge_chan(...,	runtime);
-	dpcm_runtime_merge_rate(...,	runtime);
+	1) set hw->rates
+	2) call snd_pcm_limit_hw_rates()
+	3) update hw->rate_min/max
 
-This patch do it.
+soc_pcm_init_runtime_hw() is calling it in good order
 
+	static void soc_pcm_init_runtime_hw(xxx)
+	{
+		...
+1)		hw->rates = snd_pcm_rate_mask_intersect(...);
+
+2)		snd_pcm_limit_hw_rates(...);
+
+3)		hw->rate_min = max(...);
+		hw->rate_min = max(...);
+		hw->rate_max = min_not_zero(...);
+		hw->rate_max = min_not_zero(...);
+	}
+
+But, dpcm_fe_dai_startup() is not.
+
+	static int dpcm_fe_dai_startup(xxx)
+	{
+		...
+1) 3)		dpcm_set_fe_runtime(...);
+2)		snd_pcm_limit_hw_rates(...);
+		...
+	}
+
+More detail of dpcm_set_fe_runtime() is
+
+	static void dpcm_set_fe_runtime()
+	{
+		...
+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+			...
+
+3) 1)			dpcm_init_runtime_hw(...);
+		}
+		...
+3) 1)		dpcm_runtime_merge_rate(...);
+	}
+
+This patch fixup these into
+
+	static void dpcm_set_fe_runtime()
+	{
+		...
+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+			...
+
+1) 2) 3)		dpcm_init_runtime_hw(...);
+		}
+		...
+1) 2) 3)	dpcm_runtime_merge_rate(...);
+	}
+
+	static int dpcm_fe_dai_startup(xxx)
+	{
+		...
+		dpcm_set_fe_runtime(...);
+-		snd_pcm_limit_hw_rates(...);
+		...
+	}
+
+Link: https://lore.kernel.org/r/87k15l7ewd.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 44 +++++++++++++++++++++-----------------------
- 1 file changed, 21 insertions(+), 23 deletions(-)
+ sound/soc/soc-pcm.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 10c5e0beecd8..2a625ce0bacb 100644
+index 2a625ce0bacb..b79f064887d4 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1526,9 +1526,10 @@ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
+@@ -1514,6 +1514,10 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
+ 				 struct snd_soc_pcm_stream *stream)
+ {
++	runtime->hw.rates = stream->rates;
++
++	snd_pcm_limit_hw_rates(runtime);
++
+ 	runtime->hw.rate_min = stream->rate_min;
+ 	runtime->hw.rate_max = min_not_zero(stream->rate_max, UINT_MAX);
+ 	runtime->hw.channels_min = stream->channels_min;
+@@ -1522,7 +1526,6 @@ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
+ 		runtime->hw.formats &= stream->formats;
+ 	else
+ 		runtime->hw.formats = stream->formats;
+-	runtime->hw.rates = stream->rates;
  }
  
  static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
--				      u64 *formats)
-+				      struct snd_pcm_runtime *runtime)
- {
- 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_hardware *hw = &runtime->hw;
- 	struct snd_soc_dpcm *dpcm;
- 	struct snd_soc_dai *dai;
- 	int stream = substream->stream;
-@@ -1556,16 +1557,16 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
- 
- 			codec_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
--			*formats &= codec_stream->formats;
-+			hw->formats &= codec_stream->formats;
- 		}
- 	}
- }
- 
- static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
--				    unsigned int *channels_min,
--				    unsigned int *channels_max)
-+				    struct snd_pcm_runtime *runtime)
- {
- 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_hardware *hw = &runtime->hw;
- 	struct snd_soc_dpcm *dpcm;
- 	int stream = substream->stream;
- 
-@@ -1594,10 +1595,10 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 
- 			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
--			*channels_min = max(*channels_min,
--					    cpu_stream->channels_min);
--			*channels_max = min(*channels_max,
--					    cpu_stream->channels_max);
-+			hw->channels_min = max(hw->channels_min,
-+					       cpu_stream->channels_min);
-+			hw->channels_max = min(hw->channels_max,
-+					       cpu_stream->channels_max);
- 		}
- 
- 		/*
-@@ -1607,20 +1608,19 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		if (be->num_codecs == 1) {
- 			codec_stream = snd_soc_dai_get_pcm_stream(asoc_rtd_to_codec(be, 0), stream);
- 
--			*channels_min = max(*channels_min,
--					    codec_stream->channels_min);
--			*channels_max = min(*channels_max,
--					    codec_stream->channels_max);
-+			hw->channels_min = max(hw->channels_min,
-+					       codec_stream->channels_min);
-+			hw->channels_max = min(hw->channels_max,
-+					       codec_stream->channels_max);
- 		}
- 	}
- }
- 
- static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
--				    unsigned int *rates,
--				    unsigned int *rate_min,
--				    unsigned int *rate_max)
-+				    struct snd_pcm_runtime *runtime)
- {
- 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_hardware *hw = &runtime->hw;
- 	struct snd_soc_dpcm *dpcm;
- 	int stream = substream->stream;
- 
-@@ -1648,9 +1648,9 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
+@@ -1648,9 +1651,12 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
  
  			pcm = snd_soc_dai_get_pcm_stream(dai, stream);
  
--			*rate_min = max(*rate_min, pcm->rate_min);
--			*rate_max = min_not_zero(*rate_max, pcm->rate_max);
--			*rates = snd_pcm_rate_mask_intersect(*rates, pcm->rates);
-+			hw->rate_min = max(hw->rate_min, pcm->rate_min);
-+			hw->rate_max = min_not_zero(hw->rate_max, pcm->rate_max);
 +			hw->rates = snd_pcm_rate_mask_intersect(hw->rates, pcm->rates);
++
++			snd_pcm_limit_hw_rates(runtime);
++
+ 			hw->rate_min = max(hw->rate_min, pcm->rate_min);
+ 			hw->rate_max = min_not_zero(hw->rate_max, pcm->rate_max);
+-			hw->rates = snd_pcm_rate_mask_intersect(hw->rates, pcm->rates);
  		}
  	}
  }
-@@ -1675,11 +1675,9 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
- 						   substream->stream));
- 	}
+@@ -1738,7 +1744,6 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
+ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ {
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(fe_substream);
+-	struct snd_pcm_runtime *runtime = fe_substream->runtime;
+ 	int stream = fe_substream->stream, ret = 0;
  
--	dpcm_runtime_merge_format(substream, &runtime->hw.formats);
--	dpcm_runtime_merge_chan(substream, &runtime->hw.channels_min,
--				&runtime->hw.channels_max);
--	dpcm_runtime_merge_rate(substream, &runtime->hw.rates,
--				&runtime->hw.rate_min, &runtime->hw.rate_max);
-+	dpcm_runtime_merge_format(substream, runtime);
-+	dpcm_runtime_merge_chan(substream, runtime);
-+	dpcm_runtime_merge_rate(substream, runtime);
- }
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
+@@ -1761,7 +1766,6 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
  
- static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
+ 	dpcm_set_fe_runtime(fe_substream);
+-	snd_pcm_limit_hw_rates(runtime);
+ 
+ 	ret = dpcm_apply_symmetry(fe_substream, stream);
+ 	if (ret < 0)
 -- 
 2.25.1
 

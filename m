@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BAE02FF9D7
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:15:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD6CA2FF9D6
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:15:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B256F1AA1;
-	Fri, 22 Jan 2021 02:15:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B256F1AA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA7F1945;
+	Fri, 22 Jan 2021 02:14:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA7F1945
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611278151;
-	bh=Hh/0QLGDne8wufQeOtxFma43O6DaorGT4cC5bDKHJpk=;
+	s=default; t=1611278138;
+	bh=z++WJW7HcSObHS3V7V5hkCcUHTLAZx2yTO9ecrx96L8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BcSzI1N+vFr5nj2e2V5Xz837eAHits91l/UtQd5Hrv5bfMPsew4tHmGZ5+r64cPbl
-	 cSu//lKCaFUbdUuUvCbZZZfIpGEiBcKvNcf59URJr7radRut9eh816GIxQuXG99I6/
-	 a+7X58pIc7GXW9RB75TwAIRIIAsXtFgmcAmbtur8=
+	b=YWEYje66S5lD1PHRuTFLDOZ9iQdMf1pZ1/LfP2WYz0ti7QIECTjvS1fft6C7TbNVV
+	 x27k0kWNggZSvn+CgZltY+rvoraQPvkizDKQNdOlI00t4oCzkZxEzpzipopF8AvYlX
+	 fMnvZEs7lj8cqnMKTOdq1pGVWbkozkLu1rFT+AYQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F928F804CA;
-	Fri, 22 Jan 2021 02:13:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9127F804C2;
+	Fri, 22 Jan 2021 02:13:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65BF9F804BD; Fri, 22 Jan 2021 02:13:48 +0100 (CET)
+ id CEAB8F804C2; Fri, 22 Jan 2021 02:13:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 76061F804B2
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76061F804B2
-Date: 22 Jan 2021 10:13:38 +0900
-X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69797631"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9A8DDF80273
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A8DDF80273
+Date: 22 Jan 2021 10:13:43 +0900
+X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69575702"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:38 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:43 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1834F401AEA4;
- Fri, 22 Jan 2021 10:13:38 +0900 (JST)
-Message-ID: <877do5aign.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6FE45401AEA1;
+ Fri, 22 Jan 2021 10:13:43 +0900 (JST)
+Message-ID: <875z3paigi.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/5] ASoC: soc-pcm: add soc_get_playback_capture() and
- simplify soc_new_pcm()
+Subject: [PATCH 3/5] ASoC: soc-pcm: add soc_create_pcm() and simplify
+ soc_new_pcm()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a6t1aihl.wl-kuninori.morimoto.gx@renesas.com>
@@ -81,92 +81,69 @@ If we read it carefully, we can notice that it is consisted by
 		(3) setup pcm/rtd part
 	}
 
-This patch adds new soc_get_playback_capture() for (1) part
-and offload it from soc_new_pcm().
+This patch adds new soc_create_pcm() for (2) part
+and offload it from snd_pcm_new().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 45 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 17 deletions(-)
+ sound/soc/soc-pcm.c | 43 ++++++++++++++++++++++++++++---------------
+ 1 file changed, 28 insertions(+), 15 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index d5f1f653ec9b..46818b3319f6 100644
+index 46818b3319f6..10c5e0beecd8 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -2631,15 +2631,11 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
- 	return ret;
+@@ -2719,18 +2719,12 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
+ 	return 0;
  }
  
 -/* create a new pcm */
 -int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
-+static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
-+				    int *playback, int *capture)
++static int soc_create_pcm(struct snd_pcm **pcm,
++			  struct snd_soc_pcm_runtime *rtd,
++			  int playback, int capture, int num)
  {
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dai *cpu_dai;
 -	struct snd_soc_component *component;
 -	struct snd_pcm *pcm;
--	char new_name[64];
+ 	char new_name[64];
 -	int ret = 0, playback = 0, capture = 0;
- 	int stream;
- 	int i;
- 
-@@ -2655,12 +2651,11 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 
- 			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
--					playback = 1;
-+					*playback = 1;
- 					break;
- 				}
- 			}
+-	int i;
 -
--			if (!playback) {
-+			if (!*playback) {
- 				dev_err(rtd->card->dev,
- 					"No CPU DAIs support playback for stream %s\n",
- 					rtd->dai_link->stream_name);
-@@ -2672,12 +2667,12 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+-	ret = soc_get_playback_capture(rtd, &playback, &capture);
+-	if (ret < 0)
+-		return ret;
++	int ret;
  
- 			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
--					capture = 1;
-+					*capture = 1;
- 					break;
- 				}
- 			}
+ 	/* create the PCM */
+ 	if (rtd->dai_link->params) {
+@@ -2738,13 +2732,13 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 			 rtd->dai_link->stream_name);
  
--			if (!capture) {
-+			if (!*capture) {
- 				dev_err(rtd->card->dev,
- 					"No CPU DAIs support capture for stream %s\n",
- 					rtd->dai_link->stream_name);
-@@ -2704,23 +2699,39 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, num,
+-					   playback, capture, &pcm);
++					   playback, capture, pcm);
+ 	} else if (rtd->dai_link->no_pcm) {
+ 		snprintf(new_name, sizeof(new_name), "(%s)",
+ 			rtd->dai_link->stream_name);
  
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
- 			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
--				playback = 1;
-+				*playback = 1;
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
- 			    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
--				capture = 1;
-+				*capture = 1;
- 		}
+ 		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, num,
+-				playback, capture, &pcm);
++				playback, capture, pcm);
+ 	} else {
+ 		if (rtd->dai_link->dynamic)
+ 			snprintf(new_name, sizeof(new_name), "%s (*)",
+@@ -2756,7 +2750,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 				"multicodec" : asoc_rtd_to_codec(rtd, 0)->name, num);
+ 
+ 		ret = snd_pcm_new(rtd->card->snd_card, new_name, num, playback,
+-			capture, &pcm);
++			capture, pcm);
  	}
- 
- 	if (rtd->dai_link->playback_only) {
--		playback = 1;
--		capture = 0;
-+		*playback = 1;
-+		*capture = 0;
+ 	if (ret < 0) {
+ 		dev_err(rtd->card->dev, "ASoC: can't create pcm %s for dailink %s: %d\n",
+@@ -2765,6 +2759,25 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  	}
- 
- 	if (rtd->dai_link->capture_only) {
--		playback = 0;
--		capture = 1;
-+		*playback = 0;
-+		*capture = 1;
- 	}
+ 	dev_dbg(rtd->card->dev, "ASoC: registered pcm #%d %s\n",num, new_name);
  
 +	return 0;
 +}
@@ -176,7 +153,6 @@ index d5f1f653ec9b..46818b3319f6 100644
 +{
 +	struct snd_soc_component *component;
 +	struct snd_pcm *pcm;
-+	char new_name[64];
 +	int ret = 0, playback = 0, capture = 0;
 +	int i;
 +
@@ -184,9 +160,24 @@ index d5f1f653ec9b..46818b3319f6 100644
 +	if (ret < 0)
 +		return ret;
 +
- 	/* create the PCM */
- 	if (rtd->dai_link->params) {
- 		snprintf(new_name, sizeof(new_name), "codec2codec(%s)",
++	ret = soc_create_pcm(&pcm, rtd, playback, capture, num);
++	if (ret < 0)
++		return ret;
++
+ 	/* DAPM dai link stream work */
+ 	if (rtd->dai_link->params)
+ 		rtd->close_delayed_work_func = codec2codec_close_delayed_work;
+@@ -2825,8 +2838,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 
+ 	ret = snd_soc_pcm_component_new(rtd);
+ 	if (ret < 0) {
+-		dev_err(rtd->dev, "ASoC: pcm %s constructor failed for dailink %s: %d\n",
+-			new_name, rtd->dai_link->name, ret);
++		dev_err(rtd->dev, "ASoC: pcm constructor failed for dailink %s: %d\n",
++			rtd->dai_link->name, ret);
+ 		return ret;
+ 	}
+ 
 -- 
 2.25.1
 

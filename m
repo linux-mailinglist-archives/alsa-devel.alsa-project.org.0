@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6CA2FF9D6
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B572FF9D9
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 02:16:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA7F1945;
-	Fri, 22 Jan 2021 02:14:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA7F1945
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DE9A1AA0;
+	Fri, 22 Jan 2021 02:15:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DE9A1AA0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611278138;
-	bh=z++WJW7HcSObHS3V7V5hkCcUHTLAZx2yTO9ecrx96L8=;
+	s=default; t=1611278189;
+	bh=+bXztAIxz4zheeJe1xsM6k8zIEqVQeBWut38xFecWYo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YWEYje66S5lD1PHRuTFLDOZ9iQdMf1pZ1/LfP2WYz0ti7QIECTjvS1fft6C7TbNVV
-	 x27k0kWNggZSvn+CgZltY+rvoraQPvkizDKQNdOlI00t4oCzkZxEzpzipopF8AvYlX
-	 fMnvZEs7lj8cqnMKTOdq1pGVWbkozkLu1rFT+AYQ=
+	b=CBF3JRSvNJO0/muVjGIs/O6uSgoIl3PjjcXG835CtodopzJ6ksQIxUpAkVD+jrEEb
+	 hEtk51rsdZHDyhHCriaC+qeJDNaum1qKetuBOEfPfHkwWpHXNfBABT6NZos6mToSDV
+	 ZrjEJBeuypHJHE2RkmuvDEnkOw8dw7/jpPYAEkp4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9127F804C2;
-	Fri, 22 Jan 2021 02:13:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02D6EF804E2;
+	Fri, 22 Jan 2021 02:13:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEAB8F804C2; Fri, 22 Jan 2021 02:13:47 +0100 (CET)
+ id 22883F804E2; Fri, 22 Jan 2021 02:13:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9A8DDF80273
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A8DDF80273
-Date: 22 Jan 2021 10:13:43 +0900
-X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69575702"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0ABFDF804C3
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:13:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ABFDF804C3
+Date: 22 Jan 2021 10:13:48 +0900
+X-IronPort-AV: E=Sophos;i="5.79,365,1602514800"; d="scan'208";a="69797660"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:43 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Jan 2021 10:13:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6FE45401AEA1;
- Fri, 22 Jan 2021 10:13:43 +0900 (JST)
-Message-ID: <875z3paigi.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9D29E401AEA4;
+ Fri, 22 Jan 2021 10:13:48 +0900 (JST)
+Message-ID: <874kj9aigd.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/5] ASoC: soc-pcm: add soc_create_pcm() and simplify
- soc_new_pcm()
+Subject: [PATCH 4/5] ASoC: soc-pcm: use snd_pcm_hardware at
+ dpcm_runtime_merge_xxx()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a6t1aihl.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,114 +70,135 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_new_pcm() implementation is very long / verbose / complex,
-thus, it is very difficult to read.
-If we read it carefully, we can notice that it is consisted by
+soc-pcm has dpcm_runtime_merge_xxx() functions,
+but uses parameters are very verbose.
 
-	int soc_new_pcm(...)
-	{
-		(1) judging playback/caputre part
-		(2) creating the PCM part
-		(3) setup pcm/rtd part
-	}
+	dpcm_runtime_merge_format(...,	&runtime->hw.formats);
+	dpcm_runtime_merge_chan(...,	&runtime->hw.channels_min,
+					&runtime->hw.channels_max);
+	dpcm_runtime_merge_rate(...,	&runtime->hw.rates,
+					&runtime->hw.rate_min,
+					&runtime->hw.rate_max);
 
-This patch adds new soc_create_pcm() for (2) part
-and offload it from snd_pcm_new().
+We want to replace it into
+
+	dpcm_runtime_merge_format(...,	runtime);
+	dpcm_runtime_merge_chan(...,	runtime);
+	dpcm_runtime_merge_rate(...,	runtime);
+
+This patch do it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 43 ++++++++++++++++++++++++++++---------------
- 1 file changed, 28 insertions(+), 15 deletions(-)
+ sound/soc/soc-pcm.c | 44 +++++++++++++++++++++-----------------------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 46818b3319f6..10c5e0beecd8 100644
+index 10c5e0beecd8..2a625ce0bacb 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -2719,18 +2719,12 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
+@@ -1526,9 +1526,10 @@ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
  }
  
--/* create a new pcm */
--int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
-+static int soc_create_pcm(struct snd_pcm **pcm,
-+			  struct snd_soc_pcm_runtime *rtd,
-+			  int playback, int capture, int num)
+ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
+-				      u64 *formats)
++				      struct snd_pcm_runtime *runtime)
  {
--	struct snd_soc_component *component;
--	struct snd_pcm *pcm;
- 	char new_name[64];
--	int ret = 0, playback = 0, capture = 0;
--	int i;
--
--	ret = soc_get_playback_capture(rtd, &playback, &capture);
--	if (ret < 0)
--		return ret;
-+	int ret;
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
++	struct snd_pcm_hardware *hw = &runtime->hw;
+ 	struct snd_soc_dpcm *dpcm;
+ 	struct snd_soc_dai *dai;
+ 	int stream = substream->stream;
+@@ -1556,16 +1557,16 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
  
- 	/* create the PCM */
- 	if (rtd->dai_link->params) {
-@@ -2738,13 +2732,13 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 			 rtd->dai_link->stream_name);
+ 			codec_stream = snd_soc_dai_get_pcm_stream(dai, stream);
  
- 		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, num,
--					   playback, capture, &pcm);
-+					   playback, capture, pcm);
- 	} else if (rtd->dai_link->no_pcm) {
- 		snprintf(new_name, sizeof(new_name), "(%s)",
- 			rtd->dai_link->stream_name);
- 
- 		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, num,
--				playback, capture, &pcm);
-+				playback, capture, pcm);
- 	} else {
- 		if (rtd->dai_link->dynamic)
- 			snprintf(new_name, sizeof(new_name), "%s (*)",
-@@ -2756,7 +2750,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 				"multicodec" : asoc_rtd_to_codec(rtd, 0)->name, num);
- 
- 		ret = snd_pcm_new(rtd->card->snd_card, new_name, num, playback,
--			capture, &pcm);
-+			capture, pcm);
+-			*formats &= codec_stream->formats;
++			hw->formats &= codec_stream->formats;
+ 		}
  	}
- 	if (ret < 0) {
- 		dev_err(rtd->card->dev, "ASoC: can't create pcm %s for dailink %s: %d\n",
-@@ -2765,6 +2759,25 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ }
+ 
+ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
+-				    unsigned int *channels_min,
+-				    unsigned int *channels_max)
++				    struct snd_pcm_runtime *runtime)
+ {
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
++	struct snd_pcm_hardware *hw = &runtime->hw;
+ 	struct snd_soc_dpcm *dpcm;
+ 	int stream = substream->stream;
+ 
+@@ -1594,10 +1595,10 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
+ 
+ 			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
+ 
+-			*channels_min = max(*channels_min,
+-					    cpu_stream->channels_min);
+-			*channels_max = min(*channels_max,
+-					    cpu_stream->channels_max);
++			hw->channels_min = max(hw->channels_min,
++					       cpu_stream->channels_min);
++			hw->channels_max = min(hw->channels_max,
++					       cpu_stream->channels_max);
+ 		}
+ 
+ 		/*
+@@ -1607,20 +1608,19 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
+ 		if (be->num_codecs == 1) {
+ 			codec_stream = snd_soc_dai_get_pcm_stream(asoc_rtd_to_codec(be, 0), stream);
+ 
+-			*channels_min = max(*channels_min,
+-					    codec_stream->channels_min);
+-			*channels_max = min(*channels_max,
+-					    codec_stream->channels_max);
++			hw->channels_min = max(hw->channels_min,
++					       codec_stream->channels_min);
++			hw->channels_max = min(hw->channels_max,
++					       codec_stream->channels_max);
+ 		}
  	}
- 	dev_dbg(rtd->card->dev, "ASoC: registered pcm #%d %s\n",num, new_name);
+ }
  
-+	return 0;
-+}
-+
-+/* create a new pcm */
-+int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
-+{
-+	struct snd_soc_component *component;
-+	struct snd_pcm *pcm;
-+	int ret = 0, playback = 0, capture = 0;
-+	int i;
-+
-+	ret = soc_get_playback_capture(rtd, &playback, &capture);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = soc_create_pcm(&pcm, rtd, playback, capture, num);
-+	if (ret < 0)
-+		return ret;
-+
- 	/* DAPM dai link stream work */
- 	if (rtd->dai_link->params)
- 		rtd->close_delayed_work_func = codec2codec_close_delayed_work;
-@@ -2825,8 +2838,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
+-				    unsigned int *rates,
+-				    unsigned int *rate_min,
+-				    unsigned int *rate_max)
++				    struct snd_pcm_runtime *runtime)
+ {
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
++	struct snd_pcm_hardware *hw = &runtime->hw;
+ 	struct snd_soc_dpcm *dpcm;
+ 	int stream = substream->stream;
  
- 	ret = snd_soc_pcm_component_new(rtd);
- 	if (ret < 0) {
--		dev_err(rtd->dev, "ASoC: pcm %s constructor failed for dailink %s: %d\n",
--			new_name, rtd->dai_link->name, ret);
-+		dev_err(rtd->dev, "ASoC: pcm constructor failed for dailink %s: %d\n",
-+			rtd->dai_link->name, ret);
- 		return ret;
+@@ -1648,9 +1648,9 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
+ 
+ 			pcm = snd_soc_dai_get_pcm_stream(dai, stream);
+ 
+-			*rate_min = max(*rate_min, pcm->rate_min);
+-			*rate_max = min_not_zero(*rate_max, pcm->rate_max);
+-			*rates = snd_pcm_rate_mask_intersect(*rates, pcm->rates);
++			hw->rate_min = max(hw->rate_min, pcm->rate_min);
++			hw->rate_max = min_not_zero(hw->rate_max, pcm->rate_max);
++			hw->rates = snd_pcm_rate_mask_intersect(hw->rates, pcm->rates);
+ 		}
+ 	}
+ }
+@@ -1675,11 +1675,9 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
+ 						   substream->stream));
  	}
  
+-	dpcm_runtime_merge_format(substream, &runtime->hw.formats);
+-	dpcm_runtime_merge_chan(substream, &runtime->hw.channels_min,
+-				&runtime->hw.channels_max);
+-	dpcm_runtime_merge_rate(substream, &runtime->hw.rates,
+-				&runtime->hw.rate_min, &runtime->hw.rate_max);
++	dpcm_runtime_merge_format(substream, runtime);
++	dpcm_runtime_merge_chan(substream, runtime);
++	dpcm_runtime_merge_rate(substream, runtime);
+ }
+ 
+ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
 -- 
 2.25.1
 

@@ -2,68 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4871D3009A2
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 18:26:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AB93009E0
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 18:32:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1C671EEF;
-	Fri, 22 Jan 2021 18:25:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C671EEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED9E1EF3;
+	Fri, 22 Jan 2021 18:31:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED9E1EF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611336373;
-	bh=05VnOfbnvs4peje4mOZJuAVEH+S8OMDl+rEfq9gwarg=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611336754;
+	bh=NAbskHsLY4u+M5BMVt2cTCodofYTtwKosFHirQyK40U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UG3U7mqfGmrvg4kRuALSwa/4FBWrZ7s4UPX1sZ/3xW9XaTc1bxLWBzraQHmL6bZ2p
-	 p5y+BEA9WUS5TmlA4A20afjOR60oZM9WQ2NVJf5//JGPDnRDYBUd59C0TcP9XiVr8A
-	 wM9WGUzq6c19mQWinZpR5XalhBKsWhq9XcfN4ddo=
+	b=fmAWqgoifb+lsFrKV5jDO0OLCB/kEH9D3W5h3zLhVssHQ2x5veXCPMMvNnksoVow8
+	 GuxY/9cFkDl93tBYJPGdV4G4rptPJIGQP/PuXPN3ujkO/8jA4/JwJJ65FR8Rb6QQ9G
+	 sIXpGi44zYVpuE7aqx2EzCL4QNsfSv7vSmc1/7SY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0B51F80166;
-	Fri, 22 Jan 2021 18:24:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C80E0F8019B;
+	Fri, 22 Jan 2021 18:30:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88740F8016E; Fri, 22 Jan 2021 18:24:38 +0100 (CET)
+ id B5169F8016E; Fri, 22 Jan 2021 18:30:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F4FFF8015B
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 18:24:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F4FFF8015B
-IronPort-SDR: mH9GjfR4ajTVte+BsLkRXx62IAG+W+lWcrMTeCmURjvtgjXrSpe9KLoBR/Gax/CY7rUaMlbZjy
- KqehU/vJYsTQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9872"; a="241016564"
-X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="241016564"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 09:24:24 -0800
-IronPort-SDR: SBngMueUiX8VlTAEO4ot/4yW5n+jDoX7KoMhG03U344707mtw/A0IFDfvw1tnUF5FN4LX4fFN5
- ZzuJzCw78OgQ==
-X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="367505806"
-Received: from ovakana-mobl1.amr.corp.intel.com ([10.255.229.172])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 09:24:23 -0800
-Message-ID: <1cc3c8a6326ec83e2a33310f6a80daa23fe65782.camel@linux.intel.com>
-Subject: Re: Question about hdac_ext_link ref_count management
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABA90F80129
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 18:30:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABA90F80129
+IronPort-SDR: AhYDhC3mwCmnXaHA8QYl3/XEEe/SKo2hC1cWzZrpoJoQjurG1jVY94c8QL34paaotQn9jWhEZD
+ fxq1+1JzvkvA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9872"; a="167159438"
+X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="167159438"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 09:30:38 -0800
+IronPort-SDR: LZXl21KXyG7Fk2Z9KyJIFfZiZvf9AxEHAY2BrzsArYM5I+Rjokf04DUPkrEPXFFk+e5azegNDX
+ dKmcDlJdT4ow==
+X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="400737391"
+Received: from gabel-mobl1.amr.corp.intel.com (HELO [10.251.128.206])
+ ([10.251.128.206])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 09:30:37 -0800
+Subject: Re: [PATCH 2/2] ASoC: SOF: SND_INTEL_DSP_CONFIG dependency
 To: Takashi Iwai <tiwai@suse.de>
-Date: Fri, 22 Jan 2021 09:24:23 -0800
-In-Reply-To: <s5hk0s47w6m.wl-tiwai@suse.de>
-References: <aca60b522335f3f916f9f8f204693365bfc32231.camel@linux.intel.com>
- <s5h1red83ic.wl-tiwai@suse.de>
- <9888b27b0dc9399861ecbee23d5d4ea0d844718c.camel@linux.intel.com>
- <s5hk0s47w6m.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+References: <20210122005725.94163-1-pierre-louis.bossart@linux.intel.com>
+ <20210122005725.94163-3-pierre-louis.bossart@linux.intel.com>
+ <s5hwnw58i1y.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <b84e78cb-b8a7-f62a-79ef-dab4e67decdc@linux.intel.com>
+Date: Fri, 22 Jan 2021 09:38:55 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <s5hwnw58i1y.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
+Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
+ broonie@kernel.org, vkoul@kernel.org, Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,36 +82,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> > 
-> > It looks like snd_hdac_ext_bus_link_power_up/down() are only called
-> > during snd_hdac_ext_bus_link_get/put(). Actually, in my observation
-> > disabling the CORB/RIRB buffer DMAs is what saves us power and this
-> > is
-> > done only if snd_hdac_ext_bus_link_put() is called on all links.
-> > 
-> > > The get() and put() are obviously for fully enabling and
-> > > disabling
-> > > the
-> > > device, hence it's not suitable for the runtime PM
-> > > suspend/resume.
-> > > The power_up() / down() should be adjusted to fit with the
-> > > runtime PM
-> > > call, if any.
-> > 
-> > The only additional thing that snd_hdac_ext_bus_link_get/put() does
-> > on
-> > top of snd_hdac_ext_bus_link_power_up/down() is to stop the
-> > CORB/RIRB
-> > DMA when all the link ref_counts are 0. Do you think it is not
-> > advisable to stop the CORB/RIRB DMA during runtime PM?
+
+>> The sof-pci-dev driver fails to link when built into the kernel
+>> and CONFIG_SND_INTEL_DSP_CONFIG is set to =m:
+>>
+>> arm-linux-gnueabi-ld: sound/soc/sof/sof-pci-dev.o: in function `sof_pci_probe':
+>> sof-pci-dev.c:(.text+0x1c): undefined reference to `snd_intel_dsp_driver_probe'
+>>
+>> As a temporary fix, use IS_REACHABLE to prevent the problem from
+>> happening. A more complete solution is to move this code to
+>> Intel-specific parts, restructure the drivers and Kconfig as discussed
+>> with Arnd Bergmann and Takashi Iwai.
+>>
+>> Fixes: 82d9d54a6c0e ("ALSA: hda: add Intel DSP configuration / probe code")
+>> Reported-by: Arnd Bergmann <arnd@arndb.de>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> Why do you need to stop CORB/RIRB?  For stopping the CORB/RIRB DMA,
-> you need to disable the IRQ and other stuff at first, in anyway.
+> This might not be good enough.  The code may still refer to the
+> snd_intel_dsp_probe() symbol even if IS_REACHABLE() is false
+> (although, practically seen, gcc should optimize it out).
+> 
+> You need #if IS_REACHABLE() instead of the plain if.
+> Then you don't need to change the indentation, and the patch will be
+> eventually smaller, too :)
 
-I see. Let me go back and double check if powering down the link during
-codec runtime suspend yields the same results in terms of power as well
-and get back to you.
+I used the if() on purpose since in the past you mentioned #if/#endif 
+are ugly. There are plenty of other cases in the kernel code where if( 
+IF_REACHABLE(CONFIG_XYZ)) is used...
 
-Thanks,
-Ranjani
-
+I don't mind sending a v2, the net result is the same.

@@ -2,86 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94D22FFFD2
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 11:11:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A91C230012D
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 12:09:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6685A1927;
-	Fri, 22 Jan 2021 11:10:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6685A1927
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C6221AE5;
+	Fri, 22 Jan 2021 12:08:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C6221AE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611310277;
-	bh=LUKqp8zqxEUdgBwtwNKAn/i6W9Y5KlxQ8UolIAMkn5Q=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1611313783;
+	bh=65zd3jhjpa9gd3TpsCv1MyKWeJ7jAHBzLPOyVm24Cio=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hUSCJlNGFypE+IHGUADIB7IO1bB1bBu9W1LcABWSKEuA+fOMSoj3LrC6YLUfj7Xnn
-	 /uWxUvy2fc4FfUZLwu8gOvbgrJsxDoALrSf7IDuHQj/ZUdSs+0S/HJlHzUpBnKIfOR
-	 srUINCJQDuj8XzNUPdo1Kb+kaZQREFS93jVVn7yI=
+	b=HnFGTwoyUM+vIJrV4WnHdCGmpasVVLifrJS7GpX+rydmQHvqMCJSFKSynXw61bZPx
+	 J1WlKY1743JQmzuARIRLzJjj0Y/OIFVPOT9IQpOYeGRa5+80yFDoGLpZ7RYfIPKiqv
+	 VMg+YEQgtT/x8j6WJxOahuWTCcktFhnQREHT/LXw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C48BCF804E5;
-	Fri, 22 Jan 2021 11:08:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A74DF80129;
+	Fri, 22 Jan 2021 12:08:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95CD6F804E3; Fri, 22 Jan 2021 11:08:15 +0100 (CET)
+ id 3D48BF8016E; Fri, 22 Jan 2021 12:08:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
- [IPv6:2607:f8b0:4864:20::749])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6234F804D6
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 11:08:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6234F804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D657F80129
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 12:07:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D657F80129
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="EtDTq9s2"
-Received: by mail-qk1-x749.google.com with SMTP id i82so3656813qke.19
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:08:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=VT8zktz3TEuCCmQwwCyPljrpKbHnT0KhRcyC9M4v2Tk=;
- b=EtDTq9s2q602ngX2RA2foe1xZBNf3l1Y5VikPZ/qc430h0+pFqC8VaR0DMZhqQvG5D
- ojpuL7MzZCOEOJUtXW5fdwFQBSkmSry8Stop5R7jjLxKZeqUkbzThULAAT63lz5QV5qK
- wZCvrJPFDLcJClUOg/l5JUdLFgqh5YVAXRoln1v6IwpYrZJ2My87e6ACe2ZOjGk84u8D
- KBE79NCuAXJHGMdLvQG+ar2LpRf+NHPZs56D5Wj1e0DflI4F4AJn+zmlklvT2KNd9vsi
- vxPYjtD1XtKHordn8Tvh66aZzplrHsjgXZktDRz6Lg6UgsUeBWxTC0PWlss+rr+SjuV8
- hAaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=VT8zktz3TEuCCmQwwCyPljrpKbHnT0KhRcyC9M4v2Tk=;
- b=IIzwpX8A597Wu1k0h7RACP93LqWCXbT5cQNoB5RnpGw5+D/mxiWgBEw9hQ+J3c2WjQ
- i2CxQQhrZex7z055VaE2CQJrmjhYfmHOvdg8UpoWPjnCjw78n0+SSfIQb4XHnugKjrQX
- i7lS4kM27BayYBf9nBzQlK+XatFX5eBdBntpz/rqh5PLWLHgIMXUygIeZuDnPJd+Ygk2
- WYztYo3pp5wxRv+4lurC9Ta4CW0LU3th7EU8Izi3FPpqD8J1q8X2MTwQa9IQEsRN+MVV
- H1pGArtDgyk3mJn/Lj3BCStB2cOkSFdY6SR69ozelMjxb24BVXkPnQg2vXNaHNdCRo7B
- WOHA==
-X-Gm-Message-State: AOAM530YOS5KMVQru3tGHZHhm1PF9s4jUir8doQPbViyfH7bRgkvghSi
- HnqiFd9RaOhuIAunDKqZ6RTR1sFSJQP9
-X-Google-Smtp-Source: ABdhPJwwQ0e+ZbLtxylzuXJVDTJwTtYcukwPhfStqB4s/8MdP+MmRFcXgVQzCRyk6uxUbG8eyRPMwACV0q6l
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:4552:5bc1:d50a:b3ff])
- (user=tzungbi job=sendgmr) by 2002:ad4:4e8a:: with SMTP id
- dy10mr3719151qvb.14.1611310085892; Fri, 22 Jan 2021 02:08:05 -0800 (PST)
-Date: Fri, 22 Jan 2021 18:07:42 +0800
-In-Reply-To: <20210122100742.3699128-1-tzungbi@google.com>
-Message-Id: <20210122100742.3699128-5-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20210122100742.3699128-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.30.0.280.ga3ce27912f-goog
-Subject: [PATCH 4/4] ASoC: mediatek: mt8192-mt6359: add format constraints for
- RT5682
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="inSCE9ER"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10MB7rsS030517; Fri, 22 Jan 2021 05:07:53 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=xpg9HQpwaknEm815/jkH3pctz/69T/ZbqgbwyYSv4aQ=;
+ b=inSCE9ERIZS61sBTmB+RJbsOU8LKoBdaVPU6h+zoQf2XL9TfeLIK/MjZWEZBhadEzUia
+ jMsiZGkg3dmg+7Cz0OCV8ZHt6/ccZbqGFhdmDz0gNMC8cFKXZxS4+DOQbDDXoOfsHZWP
+ JMilVrRi7Zj1qwUq4KOkHMpqFiDZIDwgmfERIjCbRhpJNB+j5umOUIuUtz03hRDCKDmD
+ Hl4UfJ+ARkRv5nspr6aVEN5Gu6XxG6jg9Nkas2/r6zWL+6O9Vo18qEOEbVrQQ7j5EgWs
+ ZOX4GZAAk8rpR2qMbEh5QYmtcyUYZyNnggBvsmXJcX13hkCfxLlMFEAgZO4cWmRtEdMw 1g== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3668pdugda-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 22 Jan 2021 05:07:53 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 22 Jan
+ 2021 11:07:52 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Fri, 22 Jan 2021 11:07:52 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F21BC11CB;
+ Fri, 22 Jan 2021 11:07:51 +0000 (UTC)
+Date: Fri, 22 Jan 2021 11:07:51 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v2 03/12] ASoC: arizona-jack: Fix some issues when HPDET
+ IRQ fires after the jack has been unplugged
+Message-ID: <20210122110751.GF106851@ediswmail.ad.cirrus.com>
+References: <20210117160555.78376-1-hdegoede@redhat.com>
+ <20210117160555.78376-4-hdegoede@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210117160555.78376-4-hdegoede@redhat.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ spamscore=0
+ malwarescore=0 adultscore=0 mlxscore=0 phishscore=0 impostorscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101220061
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,89 +107,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is only 1 set of I2S in between MT8192 and RT5682.  Adds format
-constraints to the corresponding DAI links to make sure the settings
-are symmetric.
+On Sun, Jan 17, 2021 at 05:05:46PM +0100, Hans de Goede wrote:
+> When the jack is partially inserted and then removed again it may be
+> removed while the hpdet code is running. In this case the following
+> may happen:
+> 
+> 1. The "JACKDET rise" or ""JACKDET fall" IRQ triggers
+> 2. arizona_jackdet runs and takes info->lock
+> 3. The "HPDET" IRQ triggers
+> 4. arizona_hpdet_irq runs, blocks on info->lock
+> 5. arizona_jackdet calls arizona_stop_mic() and clears info->hpdet_done
+> 6. arizona_jackdet releases info->lock
+> 7. arizona_hpdet_irq now can continue running and:
+> 7.1 Calls arizona_start_mic() (if a mic was detected)
+> 7.2 sets info->hpdet_done
+> 
+> Step 7 is undesirable / a bug:
+> 7.1 causes the device to stay in a high power-state (with MICVDD enabled)
+> 7.2 causes hpdet to not run on the next jack insertion, which in turn
+>     causes the EXTCON_JACK_HEADPHONE state to never get set
+> 
+> This fixes both issues by skipping these 2 steps when arizona_hpdet_irq
+> runs after the jack has been unplugged.
+> 
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index f4b09672af8f..a606133951b7 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -406,6 +406,53 @@ static const struct snd_soc_ops mt8192_mt6359_capture1_ops = {
- 	.startup = mt8192_mt6359_cap1_startup,
- };
- 
-+static int
-+mt8192_mt6359_rt5682_startup(struct snd_pcm_substream *substream)
-+{
-+	static const unsigned int channels[] = {
-+		1, 2
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_channels = {
-+		.count = ARRAY_SIZE(channels),
-+		.list = channels,
-+		.mask = 0,
-+	};
-+	static const unsigned int rates[] = {
-+		48000
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_rates = {
-+		.count = ARRAY_SIZE(rates),
-+		.list  = rates,
-+		.mask = 0,
-+	};
-+
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	int ret;
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_CHANNELS,
-+					 &constraints_channels);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list channels failed\n");
-+		return ret;
-+	}
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_RATE,
-+					 &constraints_rates);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8192_mt6359_rt5682_ops = {
-+	.startup = mt8192_mt6359_rt5682_startup,
-+};
-+
- /* FE */
- SND_SOC_DAILINK_DEFS(playback1,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("DL1")),
-@@ -653,6 +700,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 			    SND_SOC_DPCM_TRIGGER_PRE},
- 		.dynamic = 1,
- 		.dpcm_playback = 1,
-+		.ops = &mt8192_mt6359_rt5682_ops,
- 		SND_SOC_DAILINK_REG(playback3),
- 	},
- 	{
-@@ -726,6 +774,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 			    SND_SOC_DPCM_TRIGGER_PRE},
- 		.dynamic = 1,
- 		.dpcm_capture = 1,
-+		.ops = &mt8192_mt6359_rt5682_ops,
- 		SND_SOC_DAILINK_REG(capture2),
- 	},
- 	{
--- 
-2.30.0.280.ga3ce27912f-goog
-
+Thanks,
+Charles

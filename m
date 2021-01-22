@@ -2,68 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71EAD2FFD1C
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:11:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB682FFD38
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:15:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09C941AC8;
-	Fri, 22 Jan 2021 08:10:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09C941AC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 199D21AAD;
+	Fri, 22 Jan 2021 08:15:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 199D21AAD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611299462;
-	bh=3At2bQGVCuLgjFsB46bIV0wZpO7Vxob7L2sUr5EXq+4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611299754;
+	bh=CXtGqnmRUG2a0bHeT3ptxY3AwTzcd7mGw8QrN3z6LDc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rpui0amFvKycf1fSqdCbg6FBt2GrCK/Kq6PBwmk2WIzXlIY0PsFlLZU4qbPcOmNPA
-	 9nFiKjk9kWcvi09Kg1EE3WwwsxQ3tcWNVaLh3hBAWNVkuLVLPFuL+SIyBlj8uNVRrA
-	 j/13i3SMMHr28qfSxT5vn5Ul8caSCfAcbKD3/wI0=
+	b=llT7kvUKliN8fi7VDI4CCE0dt4BNV261GrTpXYmW5Xe/62DT2joNmDCYkrRtBwht+
+	 1YhvD0sItOT08Mh0MQiDUUVW8R0FcfqN0MhINU6iISQwZPdCyMhd5MR8LNed4PZoh+
+	 qlh5lAeUiJWTasiQWOzHb9/1DG/vRzpFAQevbw4c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D38ADF8050F;
-	Fri, 22 Jan 2021 08:07:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39C95F8015B;
+	Fri, 22 Jan 2021 08:14:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA54EF804E4; Fri, 22 Jan 2021 08:07:16 +0100 (CET)
+ id CB109F80166; Fri, 22 Jan 2021 08:14:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 268D4F804FE
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 08:07:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 268D4F804FE
-IronPort-SDR: 7HwDydkD8fl8eZ24d2XsKzbbKPF1mB+XDTjnNnUoJbhhAYqCrAxI8llJdUVhTFDaVK6ERdp8Hb
- QEh/DE7pQhcQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="158581076"
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="158581076"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 23:07:05 -0800
-IronPort-SDR: DOiYsH58nSY+Qh5ppPOnUNCIFM6C3sqciYqR3+LpzyuuPO6t0wRG4CKICjrPEeeXzNPf1y4eF6
- xlEgmUgqLOqw==
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="427863951"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 23:07:01 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [RESEND PATCH v2 9/9] soundwire: bus: clarify dev_err/dbg device
- references
-Date: Fri, 22 Jan 2021 15:06:34 +0800
-Message-Id: <20210122070634.12825-10-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210122070634.12825-1-yung-chuan.liao@linux.intel.com>
-References: <20210122070634.12825-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id A71A7F8015B
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 08:14:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A71A7F8015B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="OTZlfLJ0"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10M74NNh095244;
+ Fri, 22 Jan 2021 07:14:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=corp-2020-01-29;
+ bh=O7EATwf1rkmRikMt1iNY1oHNqzV8wg7qlLVFbtCJ02Q=;
+ b=OTZlfLJ0k+Il/HxqqSic/v9qhf/6LryNXwGFsLjTKNiTfbB2mWUhc/rGwf+00lJ7seTo
+ HcyCxBbGn8HsC4v+IgQbj1KWeHWEL/JX3eEQNmui2MBvTaRNQnhkkCmuVfRkPnBO6I5V
+ W5mdeS4HmY3YB0F8Mi2tm713QB3AtA3PSECXK/qTqxeplTCecGXiwYYEZxnZleSnuopt
+ m2HbbxVBYNh8jvJvlDpVUxF4cjJNHPvO6aIpoIsmRPc33gTKjxx59RgNcQHgVa0daxk5
+ omBwkSvwXl1XMxNFr2QivU+YhAlwxOMkGWw3AT6qNSHHef6YZ1yN/ddh5yo/v/KqQJrb Og== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 3668qn2pa4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 22 Jan 2021 07:14:12 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10M764vV002218;
+ Fri, 22 Jan 2021 07:14:10 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 3668rh2xp5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 22 Jan 2021 07:14:10 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 10M7E2wr013106;
+ Fri, 22 Jan 2021 07:14:05 GMT
+Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 21 Jan 2021 23:14:01 -0800
+Date: Fri, 22 Jan 2021 10:13:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ALSA: fireface: fix info leak in hwdep_read()
+Message-ID: <20210122071354.GI20820@kadam>
+References: <YAka5xudQNQgRkuC@mwanda>
+ <3ef5f7f4-efeb-8a92-1886-d92e14211287@wanadoo.fr>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3ef5f7f4-efeb-8a92-1886-d92e14211287@wanadoo.fr>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9871
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ spamscore=0 suspectscore=0
+ adultscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101220036
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9871
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ priorityscore=1501
+ adultscore=0 impostorscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 mlxscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101220036
+Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Clemens Ladisch <clemens@ladisch.de>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,301 +115,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Thu, Jan 21, 2021 at 09:42:04PM +0100, Christophe JAILLET wrote:
+> Hi Dan,
+> 
+> Le 21/01/2021 à 07:10, Dan Carpenter a écrit :
+> > If "ff->dev_lock_changed" has not changed
+> 
+> According to the "while (!ff->dev_lock_changed) { ... }" just above and the
+> lock in place, can this ever happen?
+> 
+> In other word, I wonder if the "if (ff->dev_lock_changed)" test makes sense
+> and if it could be removed.
+> 
+> 
+> (same for your other patch against sound/firewire/oxfw/oxfw-hwdep.c)
+> 
 
-The SoundWire bus code confuses bus and Slave device levels for
-dev_err/dbg logs. That's not impacting functionality but the accuracy
-of kernel logs.
+Yeah.  That's a good point.  I'll resend.
 
-We should only use bus->dev for bus-level operations and handling of
-Device0. For all other logs where the device number is not zero, we
-should use &slave->dev to provide more precisions to the
-user/integrator.
-
-Reported-by: Rander Wang <rander.wang@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/bus.c | 63 +++++++++++++++++++++--------------------
- 1 file changed, 33 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 7c4717dd9a34..39edf87cf832 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -636,6 +636,7 @@ static int sdw_get_device_num(struct sdw_slave *slave)
- 
- static int sdw_assign_device_num(struct sdw_slave *slave)
- {
-+	struct sdw_bus *bus = slave->bus;
- 	int ret, dev_num;
- 	bool new_device = false;
- 
-@@ -646,7 +647,7 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
- 			dev_num = sdw_get_device_num(slave);
- 			mutex_unlock(&slave->bus->bus_lock);
- 			if (dev_num < 0) {
--				dev_err(slave->bus->dev, "Get dev_num failed: %d\n",
-+				dev_err(bus->dev, "Get dev_num failed: %d\n",
- 					dev_num);
- 				return dev_num;
- 			}
-@@ -659,7 +660,7 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
- 	}
- 
- 	if (!new_device)
--		dev_dbg(slave->bus->dev,
-+		dev_dbg(bus->dev,
- 			"Slave already registered, reusing dev_num:%d\n",
- 			slave->dev_num);
- 
-@@ -669,7 +670,7 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
- 
- 	ret = sdw_write_no_pm(slave, SDW_SCP_DEVNUMBER, dev_num);
- 	if (ret < 0) {
--		dev_err(&slave->dev, "Program device_num %d failed: %d\n",
-+		dev_err(bus->dev, "Program device_num %d failed: %d\n",
- 			dev_num, ret);
- 		return ret;
- 	}
-@@ -748,7 +749,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 				 */
- 				ret = sdw_assign_device_num(slave);
- 				if (ret) {
--					dev_err(slave->bus->dev,
-+					dev_err(bus->dev,
- 						"Assign dev_num failed:%d\n",
- 						ret);
- 					return ret;
-@@ -788,9 +789,11 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- static void sdw_modify_slave_status(struct sdw_slave *slave,
- 				    enum sdw_slave_status status)
- {
--	mutex_lock(&slave->bus->bus_lock);
-+	struct sdw_bus *bus = slave->bus;
- 
--	dev_vdbg(&slave->dev,
-+	mutex_lock(&bus->bus_lock);
-+
-+	dev_vdbg(bus->dev,
- 		 "%s: changing status slave %d status %d new status %d\n",
- 		 __func__, slave->dev_num, slave->status, status);
- 
-@@ -811,7 +814,7 @@ static void sdw_modify_slave_status(struct sdw_slave *slave,
- 		complete(&slave->enumeration_complete);
- 	}
- 	slave->status = status;
--	mutex_unlock(&slave->bus->bus_lock);
-+	mutex_unlock(&bus->bus_lock);
- }
- 
- static enum sdw_clk_stop_mode sdw_get_clk_stop_mode(struct sdw_slave *slave)
-@@ -1140,7 +1143,7 @@ int sdw_configure_dpn_intr(struct sdw_slave *slave,
- 
- 	ret = sdw_update(slave, addr, (mask | SDW_DPN_INT_PORT_READY), val);
- 	if (ret < 0)
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_DPN_INTMASK write failed:%d\n", val);
- 
- 	return ret;
-@@ -1271,7 +1274,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 	/* Enable SCP interrupts */
- 	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1, val, val);
- 	if (ret < 0) {
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_SCP_INTMASK1 write failed:%d\n", ret);
- 		return ret;
- 	}
-@@ -1286,7 +1289,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 
- 	ret = sdw_update_no_pm(slave, SDW_DP0_INTMASK, val, val);
- 	if (ret < 0)
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_DP0_INTMASK read failed:%d\n", ret);
- 	return ret;
- }
-@@ -1298,7 +1301,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 
- 	status = sdw_read_no_pm(slave, SDW_DP0_INT);
- 	if (status < 0) {
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_DP0_INT read failed:%d\n", status);
- 		return status;
- 	}
-@@ -1337,7 +1340,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 		/* clear the interrupts but don't touch reserved and SDCA_CASCADE fields */
- 		ret = sdw_write_no_pm(slave, SDW_DP0_INT, clear);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_DP0_INT write failed:%d\n", ret);
- 			return ret;
- 		}
-@@ -1345,7 +1348,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 		/* Read DP0 interrupt again */
- 		status2 = sdw_read_no_pm(slave, SDW_DP0_INT);
- 		if (status2 < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_DP0_INT read failed:%d\n", status2);
- 			return status2;
- 		}
-@@ -1358,7 +1361,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 	} while ((status & SDW_DP0_INTERRUPTS) && (count < SDW_READ_INTR_CLEAR_RETRY));
- 
- 	if (count == SDW_READ_INTR_CLEAR_RETRY)
--		dev_warn(slave->bus->dev, "Reached MAX_RETRY on DP0 read\n");
-+		dev_warn(&slave->dev, "Reached MAX_RETRY on DP0 read\n");
- 
- 	return ret;
- }
-@@ -1376,7 +1379,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 	addr = SDW_DPN_INT(port);
- 	status = sdw_read_no_pm(slave, addr);
- 	if (status < 0) {
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_DPN_INT read failed:%d\n", status);
- 
- 		return status;
-@@ -1410,7 +1413,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 		/* clear the interrupt but don't touch reserved fields */
- 		ret = sdw_write_no_pm(slave, addr, clear);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_DPN_INT write failed:%d\n", ret);
- 			return ret;
- 		}
-@@ -1418,7 +1421,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 		/* Read DPN interrupt again */
- 		status2 = sdw_read_no_pm(slave, addr);
- 		if (status2 < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_DPN_INT read failed:%d\n", status2);
- 			return status2;
- 		}
-@@ -1431,7 +1434,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 	} while ((status & SDW_DPN_INTERRUPTS) && (count < SDW_READ_INTR_CLEAR_RETRY));
- 
- 	if (count == SDW_READ_INTR_CLEAR_RETRY)
--		dev_warn(slave->bus->dev, "Reached MAX_RETRY on port read");
-+		dev_warn(&slave->dev, "Reached MAX_RETRY on port read");
- 
- 	return ret;
- }
-@@ -1460,7 +1463,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	/* Read Intstat 1, Intstat 2 and Intstat 3 registers */
- 	ret = sdw_read_no_pm(slave, SDW_SCP_INT1);
- 	if (ret < 0) {
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_SCP_INT1 read failed:%d\n", ret);
- 		goto io_err;
- 	}
-@@ -1468,7 +1471,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 
- 	ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, buf2);
- 	if (ret < 0) {
--		dev_err(slave->bus->dev,
-+		dev_err(&slave->dev,
- 			"SDW_SCP_INT2/3 read failed:%d\n", ret);
- 		goto io_err;
- 	}
-@@ -1476,7 +1479,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	if (slave->prop.is_sdca) {
- 		ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_DP0_INT read failed:%d\n", ret);
- 			goto io_err;
- 		}
-@@ -1573,7 +1576,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		/* Ack interrupt */
- 		ret = sdw_write_no_pm(slave, SDW_SCP_INT1, clear);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_SCP_INT1 write failed:%d\n", ret);
- 			goto io_err;
- 		}
-@@ -1587,7 +1590,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		 */
- 		ret = sdw_read_no_pm(slave, SDW_SCP_INT1);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_SCP_INT1 read failed:%d\n", ret);
- 			goto io_err;
- 		}
-@@ -1595,7 +1598,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 
- 		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, _buf2);
- 		if (ret < 0) {
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"SDW_SCP_INT2/3 read failed:%d\n", ret);
- 			goto io_err;
- 		}
-@@ -1603,7 +1606,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		if (slave->prop.is_sdca) {
- 			ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 			if (ret < 0) {
--				dev_err(slave->bus->dev,
-+				dev_err(&slave->dev,
- 					"SDW_DP0_INT read failed:%d\n", ret);
- 				goto io_err;
- 			}
-@@ -1629,7 +1632,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	} while (stat != 0 && count < SDW_READ_INTR_CLEAR_RETRY);
- 
- 	if (count == SDW_READ_INTR_CLEAR_RETRY)
--		dev_warn(slave->bus->dev, "Reached MAX_RETRY on alert read\n");
-+		dev_warn(&slave->dev, "Reached MAX_RETRY on alert read\n");
- 
- io_err:
- 	pm_runtime_mark_last_busy(&slave->dev);
-@@ -1735,7 +1738,7 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 		case SDW_SLAVE_ALERT:
- 			ret = sdw_handle_slave_alerts(slave);
- 			if (ret)
--				dev_err(bus->dev,
-+				dev_err(&slave->dev,
- 					"Slave %d alert handling failed: %d\n",
- 					i, ret);
- 			break;
-@@ -1754,21 +1757,21 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 
- 			ret = sdw_initialize_slave(slave);
- 			if (ret)
--				dev_err(bus->dev,
-+				dev_err(&slave->dev,
- 					"Slave %d initialization failed: %d\n",
- 					i, ret);
- 
- 			break;
- 
- 		default:
--			dev_err(bus->dev, "Invalid slave %d status:%d\n",
-+			dev_err(&slave->dev, "Invalid slave %d status:%d\n",
- 				i, status[i]);
- 			break;
- 		}
- 
- 		ret = sdw_update_slave_status(slave, status[i]);
- 		if (ret)
--			dev_err(slave->bus->dev,
-+			dev_err(&slave->dev,
- 				"Update Slave status failed:%d\n", ret);
- 		if (attached_initializing)
- 			complete(&slave->initialization_complete);
--- 
-2.17.1
+regards,
+dan carpenter
 

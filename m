@@ -2,68 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD945300F96
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 23:06:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C40C30106D
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 23:58:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74A141B15;
-	Fri, 22 Jan 2021 23:05:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74A141B15
+	by alsa0.perex.cz (Postfix) with ESMTPS id E563C1EDE;
+	Fri, 22 Jan 2021 23:57:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E563C1EDE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611353165;
-	bh=lUCWfw7f240R3Ad1Phna3RN3XJNd6j8EtY2Ow3mu/9g=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611356297;
+	bh=uGd3PWn15unPlgu6tfq4tRHvl+FprYH3U8GFKP8liTw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eZtplqEpjXszf5n0ImKj6tqw7I+f7uVM3LIArdqCKz2zdcZZ0LMMpC5klKISsKTb1
-	 IJ6GC4DZVC+jWgNvWi7riHCklQA++or33hCGox9a0iUfE+PdQO7nE0RdDNcNLGMfts
-	 LNvTIXlWMWx3En4Gnj7tWujgvTPdU9K8wAi0bf8I=
+	b=bnh/BLqMkNIHkqc8akJodXeH8ZGfInYyYIIc6TLB6lICbZe0ZGUqR4wB0jWa4MA30
+	 XDNyJw3RQAGf6FJm4sxMJ4b/GjloMpqyI1tpfyPGvURNvh3cFwTx3Ig0Qbn62PBGyp
+	 bFSvk4eEAbMdtm+qgCIV2oKp7Rd/2DfhdQ4rDIAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9520CF80129;
-	Fri, 22 Jan 2021 23:04:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36346F80166;
+	Fri, 22 Jan 2021 23:56:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFD9FF8016E; Fri, 22 Jan 2021 23:04:29 +0100 (CET)
+ id 02B2EF8016E; Fri, 22 Jan 2021 23:56:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09509F80129
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 23:04:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09509F80129
-IronPort-SDR: kCfTLE86JBj2Sy38Em547NxV/CcfBHqgdw74jS9nEmZUANeDwrarE5C9w9JTEW7ynpJ78lF/TS
- lfJyQ9UH8PWQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9872"; a="264335311"
-X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="264335311"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 14:04:15 -0800
-IronPort-SDR: hwJbusAXe2iGnR7jloxxqLn3B09kr9AFMxjy4SkIQdh1Hx4Bi+kKbrbEc6YqnJMmXZjtadJdXL
- pMxT2XB1LazA==
-X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="367583949"
-Received: from ovakana-mobl1.amr.corp.intel.com ([10.255.229.172])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 14:04:14 -0800
-Message-ID: <a43dcad502b2233bb96a4e4508585830a5b4b7c2.camel@linux.intel.com>
-Subject: Re: Question about hdac_ext_link ref_count management
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Fri, 22 Jan 2021 14:04:13 -0800
-In-Reply-To: <s5hk0s47w6m.wl-tiwai@suse.de>
-References: <aca60b522335f3f916f9f8f204693365bfc32231.camel@linux.intel.com>
- <s5h1red83ic.wl-tiwai@suse.de>
- <9888b27b0dc9399861ecbee23d5d4ea0d844718c.camel@linux.intel.com>
- <s5hk0s47w6m.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ by alsa1.perex.cz (Postfix) with ESMTPS id C73A9F80164
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 23:56:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C73A9F80164
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="uReFAt2h"
+Received: by mail-lj1-x230.google.com with SMTP id f11so8344107ljm.8
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 14:56:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uGd3PWn15unPlgu6tfq4tRHvl+FprYH3U8GFKP8liTw=;
+ b=uReFAt2hGePklsWA8YCuVX9u/eP4T0v8idfMb7Fu9gS2UqhxUiKFFLY8ZWV7mDbT1S
+ 5f6R5zaUj6Gus0nX7zyoHL/FlONxbnYbH1AzgXy54c7WuA+/f1wXV/q5P1clgFvG0h69
+ 0jW+v5Y1MepfmyI3wq5um2kHqn5SjUFQgZRwxLfYd+hpWluKbEARNgY5bLWMeM7xQBhl
+ ENV2kSY/1R27WKc7yaJ7RKC+vtgogsaIufFxdym8N6v2t08w7hVdjgmztdeM80Mc4DmQ
+ HUtm3vK40e45DRRIt07aVGbgfDiiNeepYIq/yd1fOtHFD8hZ5b2GFYpqsLYw4kQwD8pU
+ qJlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uGd3PWn15unPlgu6tfq4tRHvl+FprYH3U8GFKP8liTw=;
+ b=BXN5xsaXQ+OyW2+hyxlSSCCkdv/RC1x4h8CSqSMO2w5XgQkPDKFG8/wRvj4IzV4uV0
+ KnxWN++ESF87Y1YAaRBx9JVtdhbl6MHvqPm8Sry6ec20CSC0F5C8xg53NIDkq0BDAXPj
+ j8R0c5nuCtcfJnvhStFPMUt7CNn4sZqQT+50uIYnoGHgZdzJDkEqhxfwJp4KxV0VlKdA
+ 8Qxf8gczpVs7u1V5pacXNdK7MHO9GVrGdglWFw+HiNpXW6XeAJ3/Zi5tFlq4masDnV8L
+ aC8kDntSaph7sBCLHaWOKHYpXCn/acfkHETd+NQkoh1btKZIVpyE3jqIxDhTdZ6WO1xZ
+ WH2g==
+X-Gm-Message-State: AOAM5305XlpH7H7CTiibbl4Lju96iiFGFhOaPnbS0V/JwjG6OhpUgICE
+ Z2GHBcKyIVL2Pkrev5GqdFxe6TQiI6AXVBGfhYKrjQ==
+X-Google-Smtp-Source: ABdhPJyWfSh8zbaHqlyvAcAHY25IB/ZvmVumzw480q8g+aLpCT9OU3Syk5Cj9WmF+C3UaSQwUm6FCMB0qjr7Vf0cItI=
+X-Received: by 2002:a2e:b4cd:: with SMTP id r13mr129942ljm.273.1611356192476; 
+ Fri, 22 Jan 2021 14:56:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
+References: <935820c1-0c96-6c85-26e7-ce0b741737dc@blennerhassett.gen.nz>
+ <20210120190759.GH6794@sirena.org.uk>
+ <84e36db4-b78d-de1b-3575-62b19035ea43@blennerhassett.gen.nz>
+ <ce650f47-4ff6-e486-7846-cc3d033f3601@blennerhassett.gen.nz>
+In-Reply-To: <ce650f47-4ff6-e486-7846-cc3d033f3601@blennerhassett.gen.nz>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 22 Jan 2021 23:56:21 +0100
+Message-ID: <CACRpkdaMRSnpZo1=dHceusoFxft=nctQYG8mitpR3aMf8WnftQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: ak4458: correct reset polarity
+To: Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,75 +100,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2021-01-22 at 17:50 +0100, Takashi Iwai wrote:
-> On Fri, 22 Jan 2021 17:40:55 +0100,
-> Ranjani Sridharan wrote:
-> > On Fri, 2021-01-22 at 15:12 +0100, Takashi Iwai wrote:
-> > > On Fri, 22 Jan 2021 00:23:53 +0100,
-> > > Ranjani Sridharan wrote:
-> > > > Hi Takashi,
-> > > > 
-> > > > While exploring some power optimizations on Intel platforms, I
-> > > > noticed
-> > > > that the hdac_ext_link ref_count is incremented during codec
-> > > > probe
-> > > > in hdac_hda_codec_probe() and the ref_count is held until the
-> > > > codec
-> > > > device is removed. 
-> > > > 
-> > > > I was wondering if it would be possible to call the get/put for
-> > > > the
-> > > > hdac_ext_link in the codec runtime suspend/resume callbacks so
-> > > > that
-> > > > the
-> > > > link is powered up only when the link is in use. Are there any
-> > > > downsides to doing this? 
-> > > 
-> > > Wouldn't the  snd_hdac_ext_bus_link_power_up() / down() calls do
-> > > the
-> > > runtime PM stuff?  Maybe we need to revisit those link power
-> > > management.  The ext stuff isn't well m
-> > > and, I'm afraid.
-> > Thanks, Takashi.
-> > It looks like snd_hdac_ext_bus_link_power_up/down() are only called
-> > during snd_hdac_ext_bus_link_get/put(). Actually, in my observation
-> > disabling the CORB/RIRB buffer DMAs is what saves us power and this
-> > is
-> > done only if snd_hdac_ext_bus_link_put() is called on all links.
-> > 
-> > > The get() and put() are obviously for fully enabling and
-> > > disabling
-> > > the
-> > > device, hence it's not suitable for the runtime PM
-> > > suspend/resume.
-> > > The power_up() / down() should be adjusted to fit with the
-> > > runtime PM
-> > > call, if any.
-> > 
-> > The only additional thing that snd_hdac_ext_bus_link_get/put() does
-> > on
-> > top of snd_hdac_ext_bus_link_power_up/down() is to stop the
-> > CORB/RIRB
-> > DMA when all the link ref_counts are 0. Do you think it is not
-> > advisable to stop the CORB/RIRB DMA during runtime PM?
-> 
-> Why do you need to stop CORB/RIRB?  For stopping the CORB/RIRB DMA,
-> you need to disable the IRQ and other stuff at first, in anyway.
+Hi Eliot,
 
-Hi Takashi,
+thanks for your patch!
 
-I've confirmed that turning off the link and stopping CORB/RIRB is what
-yields the maximum power savings. Just powering off the link without
-stopping CORB/RIRB does not yield meaningful savings.
+On Fri, Jan 22, 2021 at 9:27 AM Eliot Blennerhassett
+<eliot@blennerhassett.gen.nz> wrote:
 
-If I may ask a question, we already stop CORB/RIRB and turn off the
-links in the SOF runtime_suspend callback. The usecase we're trying to
-optimize is when wake-on-voice is the only active stream. There is no
-HDMI playback and the codec driver is runtime suspended. So, cant we do
-the same thing as runtime suspend and turn off the CORB/RIRB as well as
-the links too? What adverse impacts am I missing here?
+> Reset (aka power off) happens when the reset gpio is made active.
+> Change function name to ak4458_reset to match devicetree property "reset-gpios"
+>
+> Signed-off-by: Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
 
-Thanks,
-Ranjani
+(...)
+> -static void ak4458_power_off(struct ak4458_priv *ak4458)
+> +static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
 
+I usually use the variable name "asserted" to be crystal clear as to
+what this is about.
 
+With that change:
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+
+Yours,
+Linus Walleij

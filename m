@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875AA2FFFCF
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 11:10:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 729472FFFD0
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 11:10:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 263321AF1;
-	Fri, 22 Jan 2021 11:09:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 263321AF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC9DB1AFA;
+	Fri, 22 Jan 2021 11:09:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC9DB1AFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611310230;
-	bh=DW/L42FzV0B1yJ5q6SNG8Ti1I20WNptRWTBTA5tAQ4k=;
+	s=default; t=1611310240;
+	bh=JSrcH25uU6k+4IdJ0WxUZZ9HydDPuRmuHb50hFIQ3pc=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jd3I8NBJgofhJzsNZckgWnl9DFI85q3kFcd5KryX/aP0JzDLBrOrVvmPG7XCJuKeC
-	 0WVrAPOCMpeFSXUhhvGg/QUJOBvQmQojp2zFXgnujTvmpEUCbFIDFG0jTl1I/XW51N
-	 Mjr42e63hwu0qDdVc9KfE130BBqVwe7263bbRSYM=
+	b=tP6cj4vi+wsNlceskHU6LWDBlwf+IO7QOrqDDM7Kp7ZYMaK75AtIBE6EEqbmvObI+
+	 18t9Z3q3mnXgSyMzKsJjdzc0OM7+1cbbBRJ9TgHP9UgEuO1ZEW17/lESseCqGsFu8X
+	 kRGwz+4GTwBHH2sIjCpMtifqPQgXVJhk9CrE3ssw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5268CF80290;
-	Fri, 22 Jan 2021 11:08:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1D66F804D6;
+	Fri, 22 Jan 2021 11:08:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1B33F804BD; Fri, 22 Jan 2021 11:08:07 +0100 (CET)
+ id C65DBF804DF; Fri, 22 Jan 2021 11:08:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
  version=3.4.0
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
+ [IPv6:2607:f8b0:4864:20::84a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D3CAF80218
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 11:08:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D3CAF80218
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7ED1CF80218
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 11:08:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ED1CF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Z0v6Y+wS"
-Received: by mail-yb1-xb49.google.com with SMTP id y1so4996029ybe.11
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:08:01 -0800 (PST)
+ header.b="gQb84yUJ"
+Received: by mail-qt1-x84a.google.com with SMTP id d26so3246660qto.7
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 02:08:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=v0aGf6GESKmGuuzroZCK6d4SzanQPWilzAzV1+qKSgM=;
- b=Z0v6Y+wSq4pyl+Q1641+wtOBTgshl6SBfhuUkWX8uKyijVdB85/3ARoRx2Teg36e13
- tm1oQvUq03VVqaI5eFIGpqLRx94cyCEAguUy/EqS6xnbyHKJA0cGX3M/Nfy/tOQALg9Z
- RBISXcmnSRhP7rFDBq2KUnyjAoD1rcQpQq9vPH+/XI639ndRWpsd/JGhTrTfLhQslu1c
- UYEIyJcOR6mVjZfGgDqrQGi7K9lkL/JMx7So2RmEYvhRKBM763mLpW7yUPou4Re8azHV
- J644Wmn7L6kVEex6gxOxAFqeTxWaeTHgZoqmWmvxDDsSx0qSyDSkIA7+NePrIjQagu51
- Nv6w==
+ :from:to:cc; bh=mpdOlUQG7HCH3v6aSqXckNjDcNbTAl3Fz0V1ytYnX38=;
+ b=gQb84yUJnfXmWVFSvExrzLPdjHMQZfJHtT0Zx438VwFU3iQcpiZOAQPjtoLLFY0B6o
+ Sjnpe+HYiFFxYbKFYbd+GOQTlVPSN3CVhLnDjJ/fJ0vjY80R2dvLEd+NEAXdbEyxbf9d
+ mZ6RFRiCX7iYFhi02ItKuYpQufoj+uth6VoAw2Q40HPEoRbsOaknXFCNf73FfzqfBm2W
+ tRIivHTQ6NbbgoP4OQdbS6yoN1jKCi3sjiYagNcNfTMwX9TWEi666G6sZpbyGHzTRkRd
+ vxpjo9DwX7YmzdUCESBGWqSzVzsUbmHQo7WGrlZrCRoYCr+mWnRBZGf7R5i7/YZtDakp
+ /w7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=v0aGf6GESKmGuuzroZCK6d4SzanQPWilzAzV1+qKSgM=;
- b=U8rjKMBgP694wwE//+vnCGwGHiKQLYIQWDuGc0b/sn4XDw8bIzKs3df5zlYB77dT07
- pX6uPuq0/qXj+1Uglxy/ONblbhnBQHXf5c3CKAgfQcsnbrIa/28kVqea4k8fXslqYJRM
- t56KJpZRrN34UILtYXRPDoLHewvv6rgtE+r1zuhrNfUwyPkN2jafvWWdOAHPerp60G3r
- uMv+cCeBOQmAA+MprRMtVRx0ttAyb82GTWveCuWBmysOZNUMyaS3UVV6twlxvvGsGLY7
- 4HtUoxAs8FR5jm/C2nbKSexfCbLahJ3okJGjHyMQYtFbPIwM43e6bUh3xMKPx9TpHFPQ
- GA8Q==
-X-Gm-Message-State: AOAM531wAU6sDBpEhv8STeKA8apkTNgu3m6Q6s5kEsR9wK20UoMev0kG
- AAQtnRC1T+Y2ed8ZQouq31NJ9XdYix1p
-X-Google-Smtp-Source: ABdhPJy3aywJ0ct+IKjL8LxDV0+crdoO7BMWrjlfPz6ZeLnP8ySUM05lXS/byJJSxRIEPK24ORT6Uc3gPxv2
+ bh=mpdOlUQG7HCH3v6aSqXckNjDcNbTAl3Fz0V1ytYnX38=;
+ b=VsgbKcVO59nqENXBNy7bVWacjwj5Dh/opRplX440RFT3fS7aT8I98n82L+s8Ch1hbr
+ mR5rsjJKecP2KRDY4XruT1ZujZf59rZliulJ9aGGKIRicaAF8yvsWq5h+Nf2iAah7c1m
+ 58fXolUpoJpRzNi1s5pVH2NPR6wnIAzECUKcESx6qhc7jJA+7qOvHzxAvnM5+Ezsi/Z4
+ E91p+z42iIGJ9aHXzjK6Iw01+7s4xK4hfl3JEzv7RAQra7CkMGn3ZrjJyDijd2E2Aqdx
+ N3oOGrb5QZhCJHAADbQaBotBTvsXZolbKMLe4NJRE1RoO2YVqvIxKkahXywJalB14JPN
+ cKXg==
+X-Gm-Message-State: AOAM533UhJwZvlq6gKE9AJ9IqlNnvHQ3xoX8kRrSXiwaa1L/eTpGjgAb
+ hqAlTdIyfvFlePLRC0o9QkwGyqTH/G+x
+X-Google-Smtp-Source: ABdhPJz5Bia5WknNGmpRpRe3GnYpkvei+Ebh1fW3g09SQRzznPNAgPoy6OstoeS2SLsCG1xPiizbh7hdtSxZ
 X-Received: from tzungbi-z840.tpe.corp.google.com
  ([2401:fa00:1:b:4552:5bc1:d50a:b3ff])
- (user=tzungbi job=sendgmr) by 2002:a25:ca09:: with SMTP id
- a9mr5463018ybg.48.1611310078441; Fri, 22 Jan 2021 02:07:58 -0800 (PST)
-Date: Fri, 22 Jan 2021 18:07:40 +0800
+ (user=tzungbi job=sendgmr) by 2002:ad4:4108:: with SMTP id
+ i8mr3512825qvp.49.1611310081790; Fri, 22 Jan 2021 02:08:01 -0800 (PST)
+Date: Fri, 22 Jan 2021 18:07:41 +0800
 In-Reply-To: <20210122100742.3699128-1-tzungbi@google.com>
-Message-Id: <20210122100742.3699128-3-tzungbi@google.com>
+Message-Id: <20210122100742.3699128-4-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20210122100742.3699128-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.30.0.280.ga3ce27912f-goog
-Subject: [PATCH 2/4] ASoC: mediatek: mt8192: use asoc_substream_to_rtd()
+Subject: [PATCH 3/4] ASoC: mediatek: mt8192-mt6359: simply ops for Capture1
+ DAI link
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -96,35 +97,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Uses asoc_substream_to_rtd() helper.
+1. Uses rtd->dev to get the device.
+2. Generalizes the variable name.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 20 ++++++++-----------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-index e7fec2d75e3d..7a1724f5ff4c 100644
---- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-@@ -42,7 +42,7 @@ static const struct snd_pcm_hardware mt8192_afe_hardware = {
- static int mt8192_memif_fs(struct snd_pcm_substream *substream,
- 			   unsigned int rate)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component =
- 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
-@@ -59,7 +59,7 @@ static int mt8192_get_dai_fs(struct mtk_base_afe *afe,
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index f5c1c10408c9..f4b09672af8f 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -360,14 +360,8 @@ static int mt8192_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ }
  
- static int mt8192_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ static int
+-mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
++mt8192_mt6359_cap1_startup(struct snd_pcm_substream *substream)
  {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+-	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+-	int ret;
+-
+ 	static const unsigned int channels[] = {
+ 		1, 2, 4
+ 	};
+@@ -385,13 +379,15 @@ mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
+ 		.mask = 0,
+ 	};
+ 
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component =
- 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
++	int ret;
+ 
+ 	ret = snd_pcm_hw_constraint_list(runtime, 0,
+ 					 SNDRV_PCM_HW_PARAM_CHANNELS,
+ 					 &constraints_channels);
+ 	if (ret < 0) {
+-		dev_err(afe->dev, "hw_constraint_list channels failed\n");
++		dev_err(rtd->dev, "hw_constraint_list channels failed\n");
+ 		return ret;
+ 	}
+ 
+@@ -399,15 +395,15 @@ mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
+ 					 SNDRV_PCM_HW_PARAM_RATE,
+ 					 &constraints_rates);
+ 	if (ret < 0) {
+-		dev_err(afe->dev, "hw_constraint_list rate failed\n");
++		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_ops mt8192_mt6359_rt1015_rt5682_capture1_ops = {
+-	.startup = mt8192_mt6359_rt1015_rt5682_cap1_startup,
++static const struct snd_soc_ops mt8192_mt6359_capture1_ops = {
++	.startup = mt8192_mt6359_cap1_startup,
+ };
+ 
+ /* FE */
+@@ -720,7 +716,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_capture = 1,
+-		.ops = &mt8192_mt6359_rt1015_rt5682_capture1_ops,
++		.ops = &mt8192_mt6359_capture1_ops,
+ 		SND_SOC_DAILINK_REG(capture1),
+ 	},
+ 	{
 -- 
 2.30.0.280.ga3ce27912f-goog
 

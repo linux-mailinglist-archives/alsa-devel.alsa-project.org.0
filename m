@@ -2,101 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E9C2FFE0B
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 09:22:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 480712FFE0C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 09:23:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 365B91ABB;
-	Fri, 22 Jan 2021 09:21:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 365B91ABB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A70A41ACB;
+	Fri, 22 Jan 2021 09:22:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A70A41ACB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611303747;
-	bh=xVpyiGavKzugtSEPjkndkzy7/xRspIzMV64OlFFGqvo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1611303787;
+	bh=FDs5kiGMMjdYjleW34+kUaoew/a2F04CJ7JdRjRXeSA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Az9LHMEMwthqBBE5SR8hiag6cYB3lqRdCpYuhrGdOdtLoajBEd8JsHCSSj4lrE3X0
-	 gBVFulg7tEOXRWKCfyOSQeXxuuLSDLx1Qxh/CcARF3MQ0KZvnhQdlKir9+e5EJ8xip
-	 3QS2Ux6Q1EMnbAm38U/NvISJc7NP98kZC5lCpxMM=
+	b=ctHfokC2Lig7KxvE6aCEoRolOkub6xsSWUdJ1HFJYkoYWeraQotUi7MMje7Q0rXxE
+	 HkebAfUAkiVS9wZFWv6Gug7O9JQ0JwPLIAHRPD7o0gJclP1MZLADzdTJ82KaiGcfXL
+	 vdKAyD8ieGYMTdxjnO/dl5ZyWxEHRApr7P9mHskQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A28E3F8019B;
-	Fri, 22 Jan 2021 09:20:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03192F8019D;
+	Fri, 22 Jan 2021 09:22:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF7BAF8016E; Fri, 22 Jan 2021 09:20:50 +0100 (CET)
+ id F34F8F8019D; Fri, 22 Jan 2021 09:22:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 590B5F80164
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 09:20:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 590B5F80164
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="inYVt6M3"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="SnpIsmJF"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 3B86419FE;
- Fri, 22 Jan 2021 03:20:39 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 22 Jan 2021 03:20:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=/Y2i0wkmpuKOZp4lxDb1+tBNwX
- JzAw4MjxV4JXu4qGo=; b=inYVt6M3FqU89TrZ1fn+XXuZyZQtp3zu1qgOdjYIk1
- bHnD51Cv/1wQIVGMf4XrKQjRyzwlbnGDGvvJXskdXCYEru1TdLwat1B/994vncnB
- lGNFSt/UOGtIOdUvrPfulxtbHUyjCwYW+B88r+maq7xDuke5wFLlUfQ3Zc2MRPWK
- zQgCQeBWsxMDPAshIamG9VVFAK6BCehM3WUjaReN06KL5+uYN8tMsK8sMPMLOO/z
- n9d7DmrLIQKrTD2S0AyU3Pl7cWlu60w1OpJn61gbX7/6qEtWt5jpN/Kb9HRe+INg
- AfRrNiQiS+P2FgBvIspiBXrWpESfXxmKRo81xU8XAVkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=/Y2i0wkmpuKOZp4lx
- Db1+tBNwXJzAw4MjxV4JXu4qGo=; b=SnpIsmJFIpfP34TaAkTI5BMwX4/r4zrYh
- 0qb6XGKhnlMe8luM801Nlgmx6ovs+jgi5Qnfl9W+Mc9BYNWeIPNNJY/rRxo/Yirz
- J/TxgBDN4vPSS93MYRsOXVyvEMLR+iq3EbTZiB2lb6buGsZrQsdwLpY0ZJD+OL4f
- GnzdwAJuc+KwMLhvT0HsxwigNgL45omQgqLlsjADndCvZmTwX8XPyZ2M8stVMIdJ
- TR8dSTIYOtmFgCLzoYJPfNDVgHtNBGERLhethtMUB8oFgyVy+OHdlGSiOuMR/y4I
- T0pw5tURq8PJKkNG+oZGggQMzBdKvJIxHz49hzKGHQn3VoEow55xQ==
-X-ME-Sender: <xms:1YoKYEmYf93WnL-Lxbfp9t0RkP6_VFzFJtqwWCs7eSZ21iGPOhrtrw>
- <xme:1YoKYD2JZ-viGOjP1th6mQtMjr7wkJ_zzsELry6Jx9LNGK-C5zJI-E_Tatzco2wo-
- DfI7Blj9HrXvV8eZ0I>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudehgdduudelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepvddtgeegjeejte
- ejudffhfduvdefhfevhfelleevfeefhfelhefhgeeufeetvdehnecuffhomhgrihhnpehg
- ihhthhhusgdrtghomhenucfkphepuddukedrvdegfedrjeekrdehkeenucevlhhushhtvg
- hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
- rghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:1YoKYCqV_qGZ7Oq-Z-GaOF3nbZ-Q779zdedUisrhE5ZCqZnrJE806Q>
- <xmx:1YoKYAmrBOfEOeegGGNcMPLaI6ZMjuz6V5-L0oD1TE6nGTfQyjHYAA>
- <xmx:1YoKYC2tNkUlQ4xVHAtDWgC3KyhZs4i3dvNh-bor7aYmAvrZy4_tJA>
- <xmx:1ooKYH9t1c2jxyfkJuS6XrKqLmrqEakT78jNKysDNA9oidQCD3fGMg>
-Received: from workstation.flets-east.jp (y078058.dynamic.ppp.asahi-net.or.jp
- [118.243.78.58])
- by mail.messagingengine.com (Postfix) with ESMTPA id F1D7F108005B;
- Fri, 22 Jan 2021 03:20:36 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de,
-	perex@perex.cz
-Subject: [PATCH] ALSA: control: expand limitation on the number of
- user-defined control element set per card
-Date: Fri, 22 Jan 2021 17:20:32 +0900
-Message-Id: <20210122082032.103066-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6045F80164
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 09:22:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6045F80164
+Received: from [123.112.70.0] (helo=localhost.localdomain)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1l2rhn-0005bR-Ns; Fri, 22 Jan 2021 08:22:08 +0000
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz,
+ kai.vehmanen@linux.intel.com
+Subject: [RFC][PATCH v5 0/2] audio jack software injection
+Date: Fri, 22 Jan 2021 16:21:42 +0800
+Message-Id: <20210122082144.16186-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,73 +66,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ALSA control core allows usespace application to register control element
-set by call of ioctl(2) with SNDRV_CTL_IOCTL_ELEM_ADD request. The added
-control elements are called as 'user-defined'. Currently sound card has
-limitation on the number of the user-defined control element set up
-to 32.
-
-The limitation is inconvenient to drivers in ALSA firewire stack since
-the drivers expect userspace applications to implement function to
-control device functionalities such as mixing and routing. As the
-userspace application, snd-firewire-ctl-services project starts:
-https://github.com/alsa-project/snd-firewire-ctl-services/
-
-The project supports many devices supported by ALSA firewire stack. The
-limitation is mostly good since routing and mixing controls can be
-represented by control element set, which includes multiple control element
-with the same parameters. Nevertheless, it's actually inconvenient to
-device which has many varied functionalities. For example, plugin effect
-such as channel strip and reverb has many parameters. For the case, many
-control elements are required to configure the parameters and control
-element set cannot aggregates them for the parameters. At present, the
-implementations for below models requires more control element sets
-than 32:
-
- * snd-bebob-ctl-service
-   * Apogee Ensemble (31 sets for 34 elements)
- * snd-dice-ctl-service
-   * TC Electronic Konnekt 24d (78 sets for 94 elements)
-   * TC Electronic Studio Konnekt 48 (98 sets for 114 elements)
-   * TC Electronic Konnekt Live (88 sets for 104 elements)
-   * TC Electronic Impact Twin (70 sets for 86 elements)
-   * Focusrite Liquid Saffire 56 (37 sets for 52 elements)
-
-This commit expands the limitation according to requirement from the above
-applications. As a result, userspace applications can add control element
-sets up to 150 per sound card. It results in 154,200 user-defined control
-elements as maximum since one control element set can include 1028 control
-elements.
-
-The new limitation is decided without comprehensive criteria to sound card.
-It could be changed according to requirement from the other type of
-userspace applications.
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/core/control.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 5165741a8400..5a19bde27830 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -18,8 +18,13 @@
- #include <sound/info.h>
- #include <sound/control.h>
+the changes in the v5:
+ - add a Kconfig to enable/disable the jack injection feature
+ - replace all kzalloc with local char[] in the debugfs fops
+ - replace the chars of !isalnum() to '_' for the jack folder's name
+ - squash all .c files patches into one patch
+ - add a document to explain jack injection, for easier review, put
+   the document in a standalone patch. If needed, will squash this
+   patch to the previous one.
  
--/* max number of user-defined controls */
--#define MAX_USER_CONTROLS	32
-+// The maximum number of control element sets per sound card added by
-+// userspace applications. The value is decided just to satisfy requirement
-+// from control service programs in userspace for devices supported by
-+// drivers in ALSA firewire stack. It's possible to relax the limitation
-+// according to requirements from the other kind of applications.
-+#define MAX_USER_CONTROLS	150
-+
- #define MAX_CONTROL_COUNT	1028
- 
- struct snd_kctl_ioctl {
+
+the changes in the v4:
+ - change the sound-core to sound and change the sound_core_debugfs_root
+   to sound_debugfs_root in the 0001-xxx.patch
+ - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
+   0001-xxx.patch and 0003-xxx.patch
+ - And if needed, I could squash 4 patches into 1 patch before merging.
+
+the changes in the v3 (for easy to review, divide change into 4 patches):
+ - address the comment about the snd_jack_report() and _snd_jack_report(),
+   the v2 design is hard to understand and is hard to review, in the v3,
+   separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
+   hw jack events call snd_jack_report() as before, if a jack contains multi
+   jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
+   related input-dev's events will not be reproted. The injection events call
+   snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
+   rest part of 0001-xxx.patch is same as v2.
+
+ - address the comment about folders'name in the 0002-xxx.patch, so far, drop
+   the '/', ',', '=' and ' ' from the folders' name.
+
+ - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
+   it adds kctl_id, mask_bits, status and type.
+
+ - address the comment about save-n-restore jack's hw status in the
+   0004-xxx.patch, adding a hw_status_cache and save the last reported jack
+   hw event, once the sw_inject is disabled, will restore all jack_kctl's
+   state under the same snd_jack with hw_status_cache.
+[snip]
+
+
+the changes in the V2:
+ - using debugfs instead of sysfs
+ - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
+   could create multi jack_ctrls within a snd_jack
+ - create a folder for each jack_ctrl instead for all jack_ctrls
+[ snip ]
+
+
+Hui Wang (2):
+  alsa: jack: implement software jack injection via debugfs
+  alsa: jack: add document for sound jack injection.
+
+ Documentation/sound/designs/index.rst         |   1 +
+ .../sound/designs/jack-injection.rst          | 124 ++++++++
+ include/sound/core.h                          |   2 +
+ include/sound/jack.h                          |   1 +
+ sound/core/Kconfig                            |   9 +
+ sound/core/init.c                             |  10 +
+ sound/core/jack.c                             | 298 +++++++++++++++++-
+ sound/core/sound.c                            |   8 +
+ 8 files changed, 449 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/sound/designs/jack-injection.rst
+
 -- 
-2.27.0
+2.25.1
 

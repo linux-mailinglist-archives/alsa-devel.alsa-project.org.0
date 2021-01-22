@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D820C2FFD0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:08:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC572FFD0C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 08:08:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 546AF1A93;
-	Fri, 22 Jan 2021 08:07:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546AF1A93
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4510D1AAA;
+	Fri, 22 Jan 2021 08:07:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4510D1AAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611299306;
-	bh=OZCBQj/XfIa+hOVtqTht3UC9AbcvYIeEBqVCgwp+8t4=;
+	s=default; t=1611299289;
+	bh=FWPWx1yHVOFiLmrZOj85zq0BTGEDdg41d/OOYa4a7d8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vfaCS+AKyVHnXfIyE5jh/NmuQoObL/xIMETNwi7Kw2XUVlJ1LjK2Y9PfVhR9ul2PH
-	 1BkfB0Hv9Bc7aeWOi1JVWhJqiO20K3KVniDAfUINw1x0fHzeflMm6lTOm5blLYNvsh
-	 aYjB5eaEo7YT9Z8luPUcMMjjxf+uoAXQUTMsnVeg=
+	b=obcLu8ItiFCjPsmzunIGpJVFh/7AHPdmiv3OWhMpnW17AzepuD2pKgW+BxeFCf+JS
+	 rcmAL9JnG0VrMy+du4kqDpVpF83k4ddTSRpQA2jP4O73tTtMTSBFcrE4SFel+D5Qfw
+	 HEAqMM40MO1Yj5q2yXzvfTBMsdBSdCJz7zpqHptc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2358BF804CC;
-	Fri, 22 Jan 2021 08:06:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AD46F804C3;
+	Fri, 22 Jan 2021 08:06:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEF81F80166; Fri, 22 Jan 2021 08:06:51 +0100 (CET)
+ id DD6D8F804C3; Fri, 22 Jan 2021 08:06:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00666F80166
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 08:06:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00666F80166
-IronPort-SDR: XC6penQjeAoGmyGhg6UPO6nrgec8yH20IxrATbFcAJSo70ENdQYHt6TelN3JNvg5BEZnUhlbpL
- wdtsxBlrZ3Iw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="158581033"
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="158581033"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07BDBF8015B
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 08:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07BDBF8015B
+IronPort-SDR: Z3CgDd2w1+boL0eLzmCtxdyPe09t0tgamEJ5aTPL5Jm7eZpMtoJtICsuEZj5kK/BW778YmGRVj
+ niUoYbw5EDpw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="158581041"
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="158581041"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 23:06:36 -0800
-IronPort-SDR: QNsZ5x96KhN6XaliDZbj1jU38zCFLPasLOcD363qhv7/Ujw45xR/KX/6Uo23ThR+nv3Khv5s2o
- vAOeO6RjZejw==
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="427863421"
+ 21 Jan 2021 23:06:39 -0800
+IronPort-SDR: oYqTuGnPlx3bavlIO+RwvOPzYlc42hJh959xBd3+3VyxFKXpm6yRd3YV3vOmKocfIXsS/ucP/e
+ mhzYWoYMr2vA==
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="427863478"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 23:06:31 -0800
+ 21 Jan 2021 23:06:36 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [RESEND PATCH v2 1/9] soundwire: bus: use sdw_update_no_pm when
- initializing a device
-Date: Fri, 22 Jan 2021 15:06:26 +0800
-Message-Id: <20210122070634.12825-2-yung-chuan.liao@linux.intel.com>
+Subject: [RESEND PATCH v2 2/9] soundwire: bus: use sdw_write_no_pm when
+ setting the bus scale registers
+Date: Fri, 22 Jan 2021 15:06:27 +0800
+Message-Id: <20210122070634.12825-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210122070634.12825-1-yung-chuan.liao@linux.intel.com>
 References: <20210122070634.12825-1-yung-chuan.liao@linux.intel.com>
@@ -86,55 +86,46 @@ enumeration. During that process, we absolutely don't want to call
 regular read/write routines which will wait for the resume to
 complete, otherwise a deadlock occurs.
 
-Fixes: 60ee9be25571 ('soundwire: bus: add PM/no-PM versions of read/write functions')
+This patch fixes the same problem as the previous one, but is split to
+make the life of linux-stable maintainers less painful.
+
+Fixes: 29d158f90690 ('soundwire: bus: initialize bus clock base and scale registers')
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/bus.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/soundwire/bus.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index d1e8c3a54976..60c42508c6c6 100644
+index 60c42508c6c6..b1830032b052 100644
 --- a/drivers/soundwire/bus.c
 +++ b/drivers/soundwire/bus.c
-@@ -489,6 +489,18 @@ sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
- 		return buf;
- }
+@@ -1222,7 +1222,7 @@ static int sdw_slave_set_frequency(struct sdw_slave *slave)
+ 	}
+ 	scale_index++;
  
-+static int sdw_update_no_pm(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
-+{
-+	int tmp;
-+
-+	tmp = sdw_read_no_pm(slave, addr);
-+	if (tmp < 0)
-+		return tmp;
-+
-+	tmp = (tmp & ~mask) | val;
-+	return sdw_write_no_pm(slave, addr, tmp);
-+}
-+
- /**
-  * sdw_nread() - Read "n" contiguous SDW Slave registers
-  * @slave: SDW Slave
-@@ -1256,7 +1268,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 	val = slave->prop.scp_int1_mask;
- 
- 	/* Enable SCP interrupts */
--	ret = sdw_update(slave, SDW_SCP_INTMASK1, val, val);
-+	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1, val, val);
+-	ret = sdw_write(slave, SDW_SCP_BUS_CLOCK_BASE, base);
++	ret = sdw_write_no_pm(slave, SDW_SCP_BUS_CLOCK_BASE, base);
  	if (ret < 0) {
- 		dev_err(slave->bus->dev,
- 			"SDW_SCP_INTMASK1 write failed:%d\n", ret);
-@@ -1271,7 +1283,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 	val = prop->dp0_prop->imp_def_interrupts;
- 	val |= SDW_DP0_INT_PORT_READY | SDW_DP0_INT_BRA_FAILURE;
+ 		dev_err(&slave->dev,
+ 			"SDW_SCP_BUS_CLOCK_BASE write failed:%d\n", ret);
+@@ -1230,13 +1230,13 @@ static int sdw_slave_set_frequency(struct sdw_slave *slave)
+ 	}
  
--	ret = sdw_update(slave, SDW_DP0_INTMASK, val, val);
-+	ret = sdw_update_no_pm(slave, SDW_DP0_INTMASK, val, val);
+ 	/* initialize scale for both banks */
+-	ret = sdw_write(slave, SDW_SCP_BUSCLOCK_SCALE_B0, scale_index);
++	ret = sdw_write_no_pm(slave, SDW_SCP_BUSCLOCK_SCALE_B0, scale_index);
+ 	if (ret < 0) {
+ 		dev_err(&slave->dev,
+ 			"SDW_SCP_BUSCLOCK_SCALE_B0 write failed:%d\n", ret);
+ 		return ret;
+ 	}
+-	ret = sdw_write(slave, SDW_SCP_BUSCLOCK_SCALE_B1, scale_index);
++	ret = sdw_write_no_pm(slave, SDW_SCP_BUSCLOCK_SCALE_B1, scale_index);
  	if (ret < 0)
- 		dev_err(slave->bus->dev,
- 			"SDW_DP0_INTMASK read failed:%d\n", ret);
+ 		dev_err(&slave->dev,
+ 			"SDW_SCP_BUSCLOCK_SCALE_B1 write failed:%d\n", ret);
 -- 
 2.17.1
 

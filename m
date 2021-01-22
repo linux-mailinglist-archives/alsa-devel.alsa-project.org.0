@@ -2,94 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40491300759
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 16:32:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90590300766
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 16:34:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C08DA1F26;
-	Fri, 22 Jan 2021 16:31:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08DA1F26
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BD451F27;
+	Fri, 22 Jan 2021 16:33:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BD451F27
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611329529;
-	bh=Fpgojloro+7ODR3uWgIkpePN77JADiCxfMgzhMW7owU=;
+	s=default; t=1611329682;
+	bh=WSbEIKmAbdBr8ixAoVhdhONPFamZm6z7+YWPVD9jDNI=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=stFqGoHMtO3MP1oRyh6DqK9C9T5tk7VMjqza1dmYG7B7BzMOies23nSW4DFSS773L
-	 wC23EfSvz8FgR6Xfkz+Hy1eyI+MfV/tY8jtaREt7Dov9quHP6vI+vpTuU7B1pqeqw/
-	 l5uEoq9C3NVtrqBBYxNlJbQRq0AN28PicwLPOwig=
+	b=SpdzWKCWs2lBSpUCdLnQ+ap/9WKrPC2gIi7GcD8bTHP68JWhMC4krvmpY1pZ5lXB9
+	 rfhGYEkglUuGkbHLvIwUnyLEULnqUSCudZUhIL8Xjwddd4lLeWexvdWGQbWG0IoriT
+	 9HMMcZRwetKVAKRefP//Hy8Vv3xVgbe0d2RfizyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CA2AF8019B;
-	Fri, 22 Jan 2021 16:30:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DB66F8019B;
+	Fri, 22 Jan 2021 16:33:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 146B5F8016E; Fri, 22 Jan 2021 16:30:31 +0100 (CET)
+ id 61BAEF8016E; Fri, 22 Jan 2021 16:33:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFCBCF80164
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 16:30:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFCBCF80164
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CwbNrVfZ"
-Received: by mail-wm1-x334.google.com with SMTP id m2so4667468wmm.1
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 07:30:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=LV930647pP1SvbJIgtJfe/GQ7cAXZFwlra1UOU75jqY=;
- b=CwbNrVfZbiO6IfNzDO7kkL/YiCj9C10K0Qp237DEcs0eriMx4WkZe+qwFubkWS/u68
- i3iOZTXb62M9bzzdo8dThaEfd/3MHEf48rEcOGoIcpUQIKR1paZye8dnBC9bTN06lMQl
- 7L1kQER09hJrubYaxx9ebFTbWWHtpG83/+TuE6jzoGD7iXvrkip+PkcDm4upBSR96Q2h
- Nu6wZPjmBQ03/NXBrSgUyOlx+q5BYHJrBqzSFsynLBrFeeDUhfm3+wE9TnyYrGH6QQc9
- LJ24hFKZaS/CiOIZFIybDDpB4MEjrKGM30Vard/j5IDO+nlB/7RMi4DOHJdTd2NaPxpU
- +l7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=LV930647pP1SvbJIgtJfe/GQ7cAXZFwlra1UOU75jqY=;
- b=RLr/UhSCSYDmoskXY8bl7YjaavEarUyJZp6LFX8+5bm8+d20zF085iB4JCuq0FxRg2
- V4PV3utrMXTHCC4xZwNYDqMIpZMxiHfyAlT1FBDBKxjNhfxQD1RJp7hKRTV7KDCAJ1hT
- VyTkSI89+JQ1Hzk+BdnFBXsiGYBttCqRrs8j/F9uUCv0cbaUd4SMmGisNjh2v3L/04yY
- 6EChi0PEHan+CLid6Hz93MQCqRnkHuEB+0mqajgs3CMwvAj+NFmvcs8nsCkFXu6t6LoO
- VQCoGS09zHzVRw0tEV+cGk1gZ4wnd8SH5xYcc9giK75t5wlDaW1RtwWT1xurbN/Rdj/E
- 454Q==
-X-Gm-Message-State: AOAM531la7u9vrEaI3UL/IyEZ8MftX+RNGPdEtDd22UgNadpxw8xlIsw
- yalt2pP0AQqOzPk1GGKcfYPLSg==
-X-Google-Smtp-Source: ABdhPJzuQfdWhBHcYC0rSHiPVQWHFUCoCkwb6hrtB3TWw9jyWxx5QyZIDnFmLYUebZv6IZEtOkW/1w==
-X-Received: by 2002:a7b:c3d3:: with SMTP id t19mr4456581wmj.151.1611329414971; 
- Fri, 22 Jan 2021 07:30:14 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id c16sm12327087wrx.51.2021.01.22.07.30.13
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 Jan 2021 07:30:14 -0800 (PST)
-Subject: Re: [PATCH] drivers: slimbus: Fix word resposible -> responsible in
- slimbus.h
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, alsa-devel@alsa-project.org
-References: <20210120144006.3587856-1-unixbhaskar@gmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <6b95aff6-5faa-a3fb-c30e-a17252983e9d@linaro.org>
-Date: Fri, 22 Jan 2021 15:30:13 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3A9DF8015B
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 16:33:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3A9DF8015B
+IronPort-SDR: bjAlRmkGZiwfEQSEmz2W44ZXrE3vQIC0nkzzHB2MSKwNPujiD8sItyrdSbQIOcJzE3unLilUe0
+ fjkZEZVtdxuQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9872"; a="241000337"
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="241000337"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 07:33:00 -0800
+IronPort-SDR: c6CMTh6GIjd71turua9AZMpzbR8aORsNaKtA5Vo1r0rUmxVuqR9CvJbGcMpVuBYg/+oOEufnoG
+ ayjyzQ6GHdgg==
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="428000291"
+Received: from cdgarci1-mobl1.amr.corp.intel.com (HELO [10.212.60.15])
+ ([10.212.60.15])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 07:33:00 -0800
+Subject: Re: [RFC PATCH 1/2] soundwire: add support for static port mapping
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com
+References: <20210120180110.8357-1-srinivas.kandagatla@linaro.org>
+ <20210120180110.8357-2-srinivas.kandagatla@linaro.org>
+ <fcc1b199-644d-8c7f-5e8b-d12b0d9c9a04@linux.intel.com>
+ <0a2bbbe5-821a-34dd-e893-fef42baaad2b@linaro.org>
+ <9a688b02-80a6-fb1f-d6fa-36ba2d88d3b9@linux.intel.com>
+ <c6278763-57d9-2631-7b43-829259a9ea1f@linaro.org>
+ <3ee60ad9-9635-649e-ba67-d40a96b25256@linux.intel.com>
+ <487c91f9-f6ea-75c2-9150-52db2de42a3a@linaro.org>
+ <eaf13d70-86fe-3e18-7a5a-4043f2d8a22d@linux.intel.com>
+ <aaf34f07-5eed-3045-e4c6-dc9416689b20@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f960757f-ec8b-6d3f-f00e-27242c687926@linux.intel.com>
+Date: Fri, 22 Jan 2021 09:32:58 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210120144006.3587856-1-unixbhaskar@gmail.com>
+In-Reply-To: <aaf34f07-5eed-3045-e4c6-dc9416689b20@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: rdunlap@infradead.org
+Cc: gregkh@linuxfoundation.org, sanyog.r.kale@intel.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,33 +92,124 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 20/01/2021 14:40, Bhaskar Chowdhury wrote:
-> s/resposible/responsible/
+On 1/22/21 1:05 AM, Srinivas Kandagatla wrote:
 > 
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-> ---
-
-
-
-Applied thanks,
-
---srini
->   drivers/slimbus/slimbus.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/slimbus/slimbus.h b/drivers/slimbus/slimbus.h
-> index 00a7f112574b..503e2a0200f5 100644
-> --- a/drivers/slimbus/slimbus.h
-> +++ b/drivers/slimbus/slimbus.h
-> @@ -368,7 +368,7 @@ struct slim_stream_runtime {
->    * @get_laddr: It is possible that controller needs to set fixed logical
->    *	address table and get_laddr can be used in that case so that controller
->    *	can do this assignment. Use case is when the master is on the remote
-> - *	processor side, who is resposible for allocating laddr.
-> + *	processor side, who is responsible for allocating laddr.
->    * @wakeup: This function pointer implements controller-specific procedure
->    *	to wake it up from clock-pause. Framework will call this to bring
->    *	the controller out of clock pause.
-> --
-> 2.30.0
+> On 21/01/2021 21:30, Pierre-Louis Bossart wrote:
+>>>
+>>> Am looking at intel_hw_params(). Isn't sdw_stream_add_master() called 
+>>> for every dai in the dai link.
+>>
+>> Yes, that's correct, but again a dai may use one or more ports.
+>>
+>> if you defined each port as a dai, and want to call 
+>> sdw_stream_add_master() for each port you are doing something the API 
+>> was not designed for. There is a 'num_ports' argument for a reason :-)
+>>
+>>>> per master, and that master_rt deals with one or more ports - your 
+>>>> choice. >
+>>>> A 'stream' is an abstract data transport which can be split across 
+>>>> multiple masters/sales and for each master/slave use multiple ports.
+>>>> When calling sdw_stream_add_master/slave, you need to provide a 
+>>>> port_config/num_ports to state which ports will be used on that 
+>>>> master/slave when using the stream. That's how we e.g. deal with 4ch 
+>>>> streams that are handled by two ports on each side.
+>>>>
+>>>> To up-level a bit, the notion of 'stream' is actually very very 
+>>>> similar to the notion of dailink. And in fact, the 'stream' is 
+>>>> actually created for Intel in the dailink .startup callback, so I am 
+>>>> quite in the dark on what you are trying to accomplish.
+>>> In qcom case stream is also allocated for in dai startup().
+>>>
+>>> I think we are talking about two different issues,
+>>>
+>>> 1>one is the failure I see in sdw_stream_add_master() when I try to 
+>>> use dai-link dai-id style approach suggested. I will dig this bit 
+>>> more and collect more details!
+>>>
+>>> 2>(Main issue) Ability for slave to select different combination of 
+>>> ports at runtime based on the mixer setting or active dapm.
+>>>
+>>> All this patch is trying do is the pass this *CURRENT/ACTIVE* static 
+>>> port mapping between slave and master while setting up the stream.
+>>> With the dailink approach number of ports are pretty much static and 
+>>> may not be required for particular use case. As above example if we 
+>>> have a headset with button click suppression we would need 2 Ports 
+>>> and similarly without we only need one port.
+>>
+>> As I said above you cannot enable the button click suppression 
+>> dynamically *after* the headset capture hw_params/prepare.
 > 
+> That is not true, the ports in this case are selected based on mixer 
+> setting or register state even before stream is setup/started in 
+> hw_params/prepare.
+> WSA881x codec has pretty much similar setup.
+
+we are saying the same thing, the configuration provided is only taken 
+into account when setting-up the stream in hw_params. mixer or 
+configuration changes after that step are ignored.
+
+If you follow what we've done at Intel with the sdw_stream_add_master() 
+called in the .hw_params phase, and conversely call 
+sdw_stream_remove_master() in .hw_free, you should be good to go.
+
+You will note that we have a notification to the DSP, so you can manage 
+resources in your firmware, there is no need to oversubscribe but only 
+allocate what is required for a given use case.
+
+>>> This is not possible with dai-link approach, unless we create two 
+>>> different dai links for the above example usecase!
+>>
+>> The current approach is a worst-case one, where you would create a 
+>> single 'headset capture' dailink.
+>>
+> 
+> Are you suggesting that we have dailink for each usecase like:
+> 
+> "headset capture"
+> "Analog MIC1 capture"
+> "Analog MIC2 Capture"
+> 
+> ...
+> 
+> "Analog MIC4 Capture"
+> 
+> ...
+> 
+> "DMIC0 capture"
+> "DMIC1 Capture"
+> "DMIC2 Capture"
+> 
+> ...
+> 
+> "DMIC7 Capture"
+> ..
+> "Headset Playback"
+> "Ear Playback"
+> ..
+> "Aux Playback"
+> ...
+> 
+> this is not really doable!
+
+No, what I was saying is that you need to define multiple streams e.g.
+- headset capture (configured with or without click suppression)
+- mic capture (configured with AMICs or DMICs)
+- playback (or possibly different endpoint specific streams depending on 
+whether concurrency between endpoint is possible)
+
+if you change the configuration, you have to tear down the stream and 
+reconfigure it - and for this we already have the required API and you 
+can guarantee that the configuration for that stream is consistent 
+between master and slave(s).
+
+> All am saying is that codec can decide which ports it has to select 
+> based on mixer setting before the stream is setup/started. This updated 
+> mapping between slv port and master ports is passed as part of the 
+> port_config in sdw_stream_add_slave().
+
+if you completely remove the stream and re-add it with updated 
+configuration things should work.
+
+
+

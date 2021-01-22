@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFBF8300DDC
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 21:39:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17389300DE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jan 2021 21:41:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71F011AEB;
-	Fri, 22 Jan 2021 21:38:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71F011AEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FA751EF3;
+	Fri, 22 Jan 2021 21:40:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FA751EF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611347974;
-	bh=pwAtmugjODxApW4qEkwzn4jk/EFF43VmEvG0icXcX+8=;
+	s=default; t=1611348108;
+	bh=XFWAZTDNCzDwJFABRX7QOGARkIzv5j/d+fqEKPfMgl8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cqvsd7oZ5TPX8JSzwY5GOQEAEfDsd43NUirZE6suY32vUCWtpKvETDVhkIuJkTc6s
-	 zFfdTMlKZZlwvX7e1zMlCp1aEYh5q7cqPyhlh0hjUxABl0cJJMk81l4E2jNCjwaMGy
-	 FnJtyCGv+bUugPP8QpKvBBfETjObJ4ByDtXQ3lXU=
+	b=BAFJXgSMjrbwdI7n1CmWTQDnuuLehr4liSEDmaTFWO5t/MZCNVfWOaa4L8/2yLJjq
+	 asEjgQmxjznonZyZAvlcKyUgLJN1BR+9fDWkKSRZBUV73v98qNuh14iO9un9824vF2
+	 LPjNJCnUc0WnOO2rNTYHaF4lg6QSYIU46n5iwQls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3772F8019B;
-	Fri, 22 Jan 2021 21:38:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1685F80166;
+	Fri, 22 Jan 2021 21:40:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FE83F8016E; Fri, 22 Jan 2021 21:37:46 +0100 (CET)
+ id 50BDBF8019B; Fri, 22 Jan 2021 21:40:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99DF4F80129
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 21:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99DF4F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id C208DF8016E
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 21:40:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C208DF8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="OWmyPIOE"
-Received: by mail-pl1-x62c.google.com with SMTP id 31so3942812plb.10
- for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 12:37:43 -0800 (PST)
+ header.b="fgcWBQDd"
+Received: by mail-pg1-x52c.google.com with SMTP id c22so4575696pgg.13
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jan 2021 12:40:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T7RKVj4HjhL/VE3gqWzeMrd+2B2zwHVMlYZv61VFwxU=;
- b=OWmyPIOE0HtWOGRdGpEjvMDUsbv9/r4t5CQ3xekXyaSBMsCrM1Kx7nRMiRXkjEo6Ix
- Lwdar/ZkqxdcaMDY5Gpz5QBPU03jr2f9OnIYMQAxrLSJkG6l5/q/41mYCjoaZVvpaMKb
- YdKeZmXdfWeVu93YO8rjOC0w6aXTtPtMb/FAoZd7w5e+1CIgwYzyypmz8J5ekG0u5Ck/
- ezNwQNiGP0nx13Bi4Acxplw+f1z/18EHZ2i29e4cXMZzkIdaIPgB2K6ouCRhViSqnNUK
- jDcaLU68/+MeER16Nw/4mf9fxt3M0fCSiDYKoPN4GjWT0QaZ2U1O7E43VPijHcfk0aRq
- oqWQ==
+ :cc; bh=hPBpTtNISftNMnwOVfv0OcRq7P7OLC0DLakDCVVKP/U=;
+ b=fgcWBQDdJ0m1A8KrLvi9mOIAG0c1vqbz725WE9Yq4aZM0AIG7DSAN/OBvxu4pA1rLe
+ 70+Vd6TWFk5J9wwuTdVdrvtHub1/AKBCruwfJP4f3uU62PQP2N3kli+mzQC6hIMvrJ6e
+ qx8/BcLGdhZ/Yw5YwbTWVkw+084MCcieaDEnTsfAeq9HWUWiZJufrT1vpa9+cMGfP5C5
+ 4KtWEd98cP1RnNSyLytLlO5lYqj0xPsB752MOxKxeZ8JWnlwEUU4dmuoubzE01n3xeUH
+ /MW59zP4bMvLIfmXoT1h1fJKuaRS2M21yebh0cwC8JsybV7mXg4BS0iF5tYkaRK5vU0z
+ J6eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=T7RKVj4HjhL/VE3gqWzeMrd+2B2zwHVMlYZv61VFwxU=;
- b=UhZxh6c5tUQtbcokMamLzROi2GbN+hcZ59npO1SIo7pMNd4bequVkajVsOekoL+119
- TaDujfZRqMhATIsHyQRwpTYlcsSGdr4yRHwZUBuPkjoLYKcY3ocKZDeeo/9EFXIodGu3
- /c6w7+CMjcetpPf457RBMSNf5UqS52UA3Dc1WRvs2cS8n/Y+MdtH3fqgmVZ3l4TsUh9b
- 9WRdr1uLD+vbzrSeyB6nhMutz1YqKf7yr3POw0+yfFrC4WrTwnNwQpiq9eUjQf33JB8n
- 63MtI+3UAr+m07bLBu8W9m8TVV80hWpbyeBNqD5ARunxJDuJOHwbBUDbYk60MXVlFN1t
- ZYAA==
-X-Gm-Message-State: AOAM531h+Zbm8P6T3YLXw0GeGro5Ba+nk6lr8D6butKqsL/Q1wZuKGfe
- q5WJbCJxbVArE0PpPmLatq+LWLWJu/ugmKgS7dhGUih2m7NaIg==
-X-Google-Smtp-Source: ABdhPJyaZCzzPtsVRgUFheO/bfg6aAARel8TmeS5o+NRW9JpzWDxq8jbbDgMYPP40nYH46wk6vga5nbK95yI326adus=
-X-Received: by 2002:a17:90a:c84:: with SMTP id
- v4mr7482084pja.228.1611347860241; 
- Fri, 22 Jan 2021 12:37:40 -0800 (PST)
+ bh=hPBpTtNISftNMnwOVfv0OcRq7P7OLC0DLakDCVVKP/U=;
+ b=LsuGCHTTn6MgCyysVju/DSuk92UG8TWx3CceSc5l+cUr/nbJ8Qpe0OddsutRHclkTQ
+ mgpmrtDKH5P/Chv0GOSlxglEtWhH6jNp0S6I5AzdUwYR44jMa9k10yNok+RTwIYze4bZ
+ Vf/e33b21/zrnNduqgx3kTgh7Tqea60mW/k91jAlXgXTxWW7lDX+On0i9EYNpCA4rm+v
+ 6UBEITtmfsnMKHS9PjgoOUgsvxfdCxnHKdNY94c/317zyqgdzW39dBxzycoH57QnyIlc
+ YZ198wdI9OsArrnZ0uoOOQ15cKigalo/OSSwYcGva3VhBPPSNqqVoWGJlb1+HuACT9ob
+ QGaA==
+X-Gm-Message-State: AOAM531F1P1gyiWozPPy4ngGPoedSbUVgMgROSacDA47V1VenVGe9ae5
+ /qPifyBa89h0EVSg3Xy1n3ws/OVhP9KjzJjX8zk=
+X-Google-Smtp-Source: ABdhPJwnbZ+jAOGuV98zPaY7ANvVMlLzk73pb/52V5+0ncXlHDi/+mOtDdqNqaD4GwHheMMKR5Kg8GQRrKXfDvMNFGU=
+X-Received: by 2002:a05:6a00:854:b029:1b7:6233:c5f with SMTP id
+ q20-20020a056a000854b02901b762330c5fmr6578225pfk.73.1611348004138; Fri, 22
+ Jan 2021 12:40:04 -0800 (PST)
 MIME-Version: 1.0
 References: <20210122164107.361939-1-hdegoede@redhat.com>
- <20210122164107.361939-6-hdegoede@redhat.com>
-In-Reply-To: <20210122164107.361939-6-hdegoede@redhat.com>
+ <20210122164107.361939-7-hdegoede@redhat.com>
+In-Reply-To: <20210122164107.361939-7-hdegoede@redhat.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 22 Jan 2021 22:38:29 +0200
-Message-ID: <CAHp75VdPVNMvQnkOr2YOL_VirwS7QxKfG5A9P-P8q2suK=J9dw@mail.gmail.com>
-Subject: Re: [PATCH v3 05/13] extcon: arizona: Always use pm_runtime_get_sync()
- when we need the device to be awake
+Date: Fri, 22 Jan 2021 22:40:53 +0200
+Message-ID: <CAHp75VedGzihYi1Ndjj4K4326pMrLtk3V7gi_rxteu5HaqWfEA@mail.gmail.com>
+Subject: Re: [PATCH v3 06/13] ASoC/extcon: arizona: Move arizona jack code to
+ sound/soc/codecs/arizona-jack.c
 To: Hans de Goede <hdegoede@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -105,51 +105,31 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Fri, Jan 22, 2021 at 6:41 PM Hans de Goede <hdegoede@redhat.com> wrote:
 >
-> Before this commit the extcon-arizona code was mixing pm_runtime_get()
-> and pm_runtime_get_sync() in different places.
+> The jack handling for arizona codecs is being refactored so that it is
+> done directly by the codec drivers, instead of having an extcon-driver
+> bind to a separate "arizona-extcon" child-device for this.
 >
-> In all places where pm_runtime_get[_sync]() is called, the code
-> makes use of the device immediately after the call.
-> This means that we should always use pm_runtime_get_sync().
+> drivers/mfd/arizona-core.c has already been updated to no longer
+> instantiate an "arizona-extcon" child-device for the arizona codecs.
+>
+> This means that the "arizona-extcon" driver is no longer useful
+> (there are no longer any devices for it to bind to).
+>
+> This commit drops the extcon Kconfig / Makefile bits and moves
+> drivers/extcon/extcon-arizona.c to sound/soc/codecs/arizona-jack.c .
+>
+> This is a preparation patch for converting the arizona extcon-driver into
+> a helper library for letting the arizona codec-drivers directly report jack
+> state through the standard sound/soc/soc-jack.c functions.
 
-I think it implies the non-atomic (may sleep) context in the below functions.
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+...
 
->
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
-> Changes in v3:
-> - This is a new patch in v3 of this patch-set
-> ---
->  drivers/extcon/extcon-arizona.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/extcon/extcon-arizona.c b/drivers/extcon/extcon-arizona.c
-> index 72d23b15108c..56d2ce05de50 100644
-> --- a/drivers/extcon/extcon-arizona.c
-> +++ b/drivers/extcon/extcon-arizona.c
-> @@ -290,7 +290,7 @@ static void arizona_start_mic(struct arizona_extcon_info *info)
->         unsigned int mode;
->
->         /* Microphone detection can't use idle mode */
-> -       pm_runtime_get(info->dev);
-> +       pm_runtime_get_sync(info->dev);
->
->         if (info->detecting) {
->                 ret = regulator_allow_bypass(info->micvdd, false);
-> @@ -695,7 +695,7 @@ static void arizona_identify_headphone(struct arizona_extcon_info *info)
->         dev_dbg(arizona->dev, "Starting HPDET\n");
->
->         /* Make sure we keep the device enabled during the measurement */
-> -       pm_runtime_get(info->dev);
-> +       pm_runtime_get_sync(info->dev);
->
->         info->hpdet_active = true;
->
-> --
-> 2.28.0
->
+>  MAINTAINERS                                               | 1 -
 
+> -F:     drivers/extcon/extcon-arizona.c
+
+Commit message doesn't shed a light if we need to move this actually
+to another record in MAINTAINERS database.
 
 -- 
 With Best Regards,

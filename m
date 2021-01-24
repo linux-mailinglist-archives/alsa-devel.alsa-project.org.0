@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC64301DBA
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Jan 2021 17:58:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E50F301DBB
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Jan 2021 17:59:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7ED118EF;
-	Sun, 24 Jan 2021 17:57:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7ED118EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9BB1904;
+	Sun, 24 Jan 2021 17:58:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9BB1904
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611507528;
-	bh=AopjAcb1HwbrtQVyZT34o7HsQYoW+Rz6LRAMNGRbqto=;
+	s=default; t=1611507543;
+	bh=fcHPojcJW9zuQT0bMIUU/fao8p6Qn3v2+xyrGuOj4r0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MVBpPYhi3mv45lQOqQ8A1/+ADutYaTVJHOnesS3f4nqPB/PR+838q7f04wfAT+Sxj
-	 FKavj5J+l4EbuqhnCkKQ0Ca2KlpPF6gMX1bBqwsznzx7wbLHFcLYEw1/Sb4Lz3SGbx
-	 pQEv6bJXuwBY+iHvUytwDvwKl09O7JOQpUrfIFKc=
+	b=JQoMEGCrCAKQnEWgMYM3+XckBCweUaU+xBrIs0WVnZeAUOxwaxE1GbIvzRJNQuGU1
+	 4U+fkZS3SfBJmVSLVVaSktHuwDryqHeFqRJpx7UH7Pq5JiYU1+ED/fgxxwez5+04NB
+	 CKFfs4KEH7pnY8k+++h4g4Q0/DBBU/Zy1unBj3Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E81C4F80519;
-	Sun, 24 Jan 2021 17:55:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A93BBF8051E;
+	Sun, 24 Jan 2021 17:55:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10DAAF80518; Sun, 24 Jan 2021 17:55:04 +0100 (CET)
+ id CD9BEF8051D; Sun, 24 Jan 2021 17:55:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99C48F8014E
- for <alsa-devel@alsa-project.org>; Sun, 24 Jan 2021 17:54:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99C48F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7391F80518
+ for <alsa-devel@alsa-project.org>; Sun, 24 Jan 2021 17:55:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7391F80518
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="zmQRUL+j"
+ header.b="yecTtDcP"
 Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
  [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id 36CCAA1483;
- Sun, 24 Jan 2021 17:54:58 +0100 (CET)
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 53591A1492;
+ Sun, 24 Jan 2021 17:55:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
  h=cc:cc:content-transfer-encoding:content-type:content-type
  :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=cEpVbC9oDPt4
- Vd7QhGHWvpz2WjKYYV1jqvN179ZWVh4=; b=zmQRUL+jfqA//fj3u+dcmYLi0opJ
- gcPuWnKTft2M081VaTmBckU8UwlZ38kxfN+bVQg0e6daLCW64NIwDo3KxVJ2XHi1
- vuuAuTjX0bjodjI8jhoPZFKo2QLqvt80yA/r5ath45lnxxhPMchxYouzc2bYxCJH
- vEaDs7ojAJK+XhiJ1yJ9ydgUV6s13akfEX3/woY3pDyN1bjilx/YDPmJQ9/96fWp
- dVtg6M3xC9vQU+WdYg+HitqQ0759gDq+oes8e++PFWxjTBdfOP8KMV4ZaMk1xzyv
- o4nMhBjfcEIgshaLN7wYFKg6dleRS7ofS4SIz512GTbEfcBmrMA8AHLmIQ==
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=ApnEJhDNwnC1
+ R3cvImKyMRQX15dHR8UZgjnj9KmAoE8=; b=yecTtDcPCJU+xDMSH/Ud4tLJpC1d
+ ZdjJCZVs8QQSZLGC0EE1niGgq3TrWabMLyvHS3h3JSICJSBpimqU08dwFamOhd1a
+ xwwFYfbqnOe/5tTzfz7ptDdl1FKPAv+sOxsS/S3NWmP+31u5t4eCnIg6oh+c6Lc4
+ r7/r7gmvWV32yyGGtXXHLODmBDQC/iev2SdQAWysNanP2PINM1UDpEsJTBXQNCnR
+ zax7MX3bnadK3cSmV/yLp6oOW600/dSlcyQTHkpz9aJJjrWvUjEacxd1/spBS7Vt
+ 2hdR7XTh1OCrI42RKceQvSgoOjdMIBuFiBjVInie8nRqYyAJk/F1U3rtvQ==
 From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
 To: <virtualization@lists.linux-foundation.org>,
  <alsa-devel@alsa-project.org>, <virtio-dev@lists.oasis-open.org>
-Subject: [PATCH v2 7/9] ALSA: virtio: introduce jack support
-Date: Sun, 24 Jan 2021 17:54:06 +0100
-Message-ID: <20210124165408.1122868-8-anton.yakovlev@opensynergy.com>
+Subject: [PATCH v2 8/9] ALSA: virtio: introduce PCM channel map support
+Date: Sun, 24 Jan 2021 17:54:07 +0100
+Message-ID: <20210124165408.1122868-9-anton.yakovlev@opensynergy.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
 References: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
@@ -85,127 +85,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enumerate all available jacks and create ALSA controls.
-
-At the moment jacks have a simple implementation and can only be used
-to receive notifications about a plugged in/out device.
+Enumerate all available PCM channel maps and create ALSA controls.
 
 Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
 ---
- sound/virtio/Makefile      |   1 +
- sound/virtio/virtio_card.c |  18 +++
- sound/virtio/virtio_card.h |  12 ++
- sound/virtio/virtio_jack.c | 255 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 286 insertions(+)
- create mode 100644 sound/virtio/virtio_jack.c
+ sound/virtio/Makefile       |   1 +
+ sound/virtio/virtio_card.c  |  15 +++
+ sound/virtio/virtio_card.h  |   8 ++
+ sound/virtio/virtio_chmap.c | 237 ++++++++++++++++++++++++++++++++++++
+ sound/virtio/virtio_pcm.h   |   4 +
+ 5 files changed, 265 insertions(+)
+ create mode 100644 sound/virtio/virtio_chmap.c
 
 diff --git a/sound/virtio/Makefile b/sound/virtio/Makefile
-index 34493226793f..09f485291285 100644
+index 09f485291285..2742bddb8874 100644
 --- a/sound/virtio/Makefile
 +++ b/sound/virtio/Makefile
-@@ -5,6 +5,7 @@ obj-$(CONFIG_SND_VIRTIO) += virtio_snd.o
+@@ -4,6 +4,7 @@ obj-$(CONFIG_SND_VIRTIO) += virtio_snd.o
+ 
  virtio_snd-objs := \
  	virtio_card.o \
++	virtio_chmap.o \
  	virtio_ctl_msg.o \
-+	virtio_jack.o \
+ 	virtio_jack.o \
  	virtio_pcm.o \
- 	virtio_pcm_msg.o \
- 	virtio_pcm_ops.o
 diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index 11d025ee77c2..1dd709437208 100644
+index 1dd709437208..fabf91fc1c9c 100644
 --- a/sound/virtio/virtio_card.c
 +++ b/sound/virtio/virtio_card.c
-@@ -93,6 +93,11 @@ static void virtsnd_event_notify_cb(struct virtqueue *vqueue)
- 				break;
- 
- 			switch (le32_to_cpu(event->hdr.code)) {
-+			case VIRTIO_SND_EVT_JACK_CONNECTED:
-+			case VIRTIO_SND_EVT_JACK_DISCONNECTED: {
-+				virtsnd_jack_event(snd, event);
-+				break;
-+			}
- 			case VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED:
- 			case VIRTIO_SND_EVT_PCM_XRUN: {
- 				virtsnd_pcm_event(snd, event);
-@@ -295,10 +300,20 @@ static int virtsnd_build_devs(struct virtio_snd *snd)
- 	strscpy(snd->card->longname, "VirtIO Sound Card",
- 		sizeof(snd->card->longname));
- 
-+	rc = virtsnd_jack_parse_cfg(snd);
-+	if (rc)
-+		return rc;
-+
- 	rc = virtsnd_pcm_parse_cfg(snd);
+@@ -308,6 +308,10 @@ static int virtsnd_build_devs(struct virtio_snd *snd)
  	if (rc)
  		return rc;
  
-+	if (snd->njacks) {
-+		rc = virtsnd_jack_build_devs(snd);
++	rc = virtsnd_chmap_parse_cfg(snd);
++	if (rc)
++		return rc;
++
+ 	if (snd->njacks) {
+ 		rc = virtsnd_jack_build_devs(snd);
+ 		if (rc)
+@@ -320,6 +324,12 @@ static int virtsnd_build_devs(struct virtio_snd *snd)
+ 			return rc;
+ 	}
+ 
++	if (snd->nchmaps) {
++		rc = virtsnd_chmap_build_devs(snd);
 +		if (rc)
 +			return rc;
 +	}
 +
- 	if (snd->nsubstreams) {
- 		rc = virtsnd_pcm_build_devs(snd);
- 		if (rc)
-@@ -428,6 +443,9 @@ static void virtsnd_remove(struct virtio_device *vdev)
- 		devm_kfree(&vdev->dev, pcm);
- 	}
+ 	return snd_card_register(snd->card);
+ }
  
-+	if (snd->jacks)
-+		devm_kfree(&vdev->dev, snd->jacks);
-+
+@@ -438,6 +448,8 @@ static void virtsnd_remove(struct virtio_device *vdev)
+ 
+ 			if (stream->substreams)
+ 				devm_kfree(&vdev->dev, stream->substreams);
++			if (stream->chmaps)
++				devm_kfree(&vdev->dev, stream->chmaps);
+ 		}
+ 
+ 		devm_kfree(&vdev->dev, pcm);
+@@ -449,6 +461,9 @@ static void virtsnd_remove(struct virtio_device *vdev)
  	if (snd->substreams)
  		devm_kfree(&vdev->dev, snd->substreams);
  
++	if (snd->chmaps)
++		devm_kfree(&vdev->dev, snd->chmaps);
++
+ 	devm_kfree(&vdev->dev, snd);
+ 
+ 	vdev->priv = NULL;
 diff --git a/sound/virtio/virtio_card.h b/sound/virtio/virtio_card.h
-index b11c09984882..df4b0696e8c4 100644
+index df4b0696e8c4..09c6e9ab80ca 100644
 --- a/sound/virtio/virtio_card.h
 +++ b/sound/virtio/virtio_card.h
-@@ -26,6 +26,7 @@
- #include "virtio_ctl_msg.h"
- #include "virtio_pcm.h"
- 
-+struct virtio_jack;
- struct virtio_pcm_substream;
- 
- /**
-@@ -47,6 +48,8 @@ struct virtio_snd_queue {
-  * @ctl_msgs: Pending control request list.
-  * @event_msgs: Device events.
-  * @pcm_list: VirtIO PCM device list.
-+ * @jacks: VirtIO jacks.
-+ * @njacks: Number of jacks.
+@@ -52,6 +52,8 @@ struct virtio_snd_queue {
+  * @njacks: Number of jacks.
   * @substreams: VirtIO PCM substreams.
   * @nsubstreams: Number of PCM substreams.
++ * @chmaps: VirtIO channel maps.
++ * @nchmaps: Number of channel maps.
   */
-@@ -58,6 +61,8 @@ struct virtio_snd {
- 	struct list_head ctl_msgs;
- 	struct virtio_snd_event *event_msgs;
- 	struct list_head pcm_list;
-+	struct virtio_jack *jacks;
-+	unsigned int njacks;
+ struct virtio_snd {
+ 	struct virtio_device *vdev;
+@@ -65,6 +67,8 @@ struct virtio_snd {
+ 	unsigned int njacks;
  	struct virtio_pcm_substream *substreams;
  	unsigned int nsubstreams;
++	struct virtio_snd_chmap_info *chmaps;
++	unsigned int nchmaps;
  };
-@@ -98,4 +103,11 @@ virtsnd_pcm_queue(struct virtio_pcm_substream *substream)
- 		return virtsnd_rx_queue(substream->snd);
- }
  
-+int virtsnd_jack_parse_cfg(struct virtio_snd *snd);
+ /* Message completion timeout in milliseconds (module parameter). */
+@@ -110,4 +114,8 @@ int virtsnd_jack_build_devs(struct virtio_snd *snd);
+ void virtsnd_jack_event(struct virtio_snd *snd,
+ 			struct virtio_snd_event *event);
+ 
++int virtsnd_chmap_parse_cfg(struct virtio_snd *snd);
 +
-+int virtsnd_jack_build_devs(struct virtio_snd *snd);
-+
-+void virtsnd_jack_event(struct virtio_snd *snd,
-+			struct virtio_snd_event *event);
++int virtsnd_chmap_build_devs(struct virtio_snd *snd);
 +
  #endif /* VIRTIO_SND_CARD_H */
-diff --git a/sound/virtio/virtio_jack.c b/sound/virtio/virtio_jack.c
+diff --git a/sound/virtio/virtio_chmap.c b/sound/virtio/virtio_chmap.c
 new file mode 100644
-index 000000000000..83593c59f6bf
+index 000000000000..8a2ddc4dcffb
 --- /dev/null
-+++ b/sound/virtio/virtio_jack.c
-@@ -0,0 +1,255 @@
++++ b/sound/virtio/virtio_chmap.c
+@@ -0,0 +1,237 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Sound card driver for virtio
@@ -225,123 +212,52 @@ index 000000000000..83593c59f6bf
 + * along with this program; if not, see <http://www.gnu.org/licenses/>.
 + */
 +#include <linux/virtio_config.h>
-+#include <sound/jack.h>
-+#include <sound/hda_verbs.h>
 +
 +#include "virtio_card.h"
 +
-+/**
-+ * DOC: Implementation Status
-+ *
-+ * At the moment jacks have a simple implementation and can only be used to
-+ * receive notifications about a plugged in/out device.
-+ *
-+ * VIRTIO_SND_R_JACK_REMAP
-+ *   is not supported
-+ */
-+
-+/**
-+ * struct virtio_jack - VirtIO jack.
-+ * @jack: Kernel jack control.
-+ * @nid: Functional group node identifier.
-+ * @features: Jack virtio feature bit map (1 << VIRTIO_SND_JACK_F_XXX).
-+ * @defconf: Pin default configuration value.
-+ * @caps: Pin capabilities value.
-+ * @connected: Current jack connection status.
-+ * @type: Kernel jack type (SND_JACK_XXX).
-+ */
-+struct virtio_jack {
-+	struct snd_jack *jack;
-+	unsigned int nid;
-+	unsigned int features;
-+	unsigned int defconf;
-+	unsigned int caps;
-+	bool connected;
-+	int type;
++/* VirtIO->ALSA channel position map */
++static const u8 g_v2a_position_map[] = {
++	[VIRTIO_SND_CHMAP_NONE] = SNDRV_CHMAP_UNKNOWN,
++	[VIRTIO_SND_CHMAP_NA] = SNDRV_CHMAP_NA,
++	[VIRTIO_SND_CHMAP_MONO] = SNDRV_CHMAP_MONO,
++	[VIRTIO_SND_CHMAP_FL] = SNDRV_CHMAP_FL,
++	[VIRTIO_SND_CHMAP_FR] = SNDRV_CHMAP_FR,
++	[VIRTIO_SND_CHMAP_RL] = SNDRV_CHMAP_RL,
++	[VIRTIO_SND_CHMAP_RR] = SNDRV_CHMAP_RR,
++	[VIRTIO_SND_CHMAP_FC] = SNDRV_CHMAP_FC,
++	[VIRTIO_SND_CHMAP_LFE] = SNDRV_CHMAP_LFE,
++	[VIRTIO_SND_CHMAP_SL] = SNDRV_CHMAP_SL,
++	[VIRTIO_SND_CHMAP_SR] = SNDRV_CHMAP_SR,
++	[VIRTIO_SND_CHMAP_RC] = SNDRV_CHMAP_RC,
++	[VIRTIO_SND_CHMAP_FLC] = SNDRV_CHMAP_FLC,
++	[VIRTIO_SND_CHMAP_FRC] = SNDRV_CHMAP_FRC,
++	[VIRTIO_SND_CHMAP_RLC] = SNDRV_CHMAP_RLC,
++	[VIRTIO_SND_CHMAP_RRC] = SNDRV_CHMAP_RRC,
++	[VIRTIO_SND_CHMAP_FLW] = SNDRV_CHMAP_FLW,
++	[VIRTIO_SND_CHMAP_FRW] = SNDRV_CHMAP_FRW,
++	[VIRTIO_SND_CHMAP_FLH] = SNDRV_CHMAP_FLH,
++	[VIRTIO_SND_CHMAP_FCH] = SNDRV_CHMAP_FCH,
++	[VIRTIO_SND_CHMAP_FRH] = SNDRV_CHMAP_FRH,
++	[VIRTIO_SND_CHMAP_TC] = SNDRV_CHMAP_TC,
++	[VIRTIO_SND_CHMAP_TFL] = SNDRV_CHMAP_TFL,
++	[VIRTIO_SND_CHMAP_TFR] = SNDRV_CHMAP_TFR,
++	[VIRTIO_SND_CHMAP_TFC] = SNDRV_CHMAP_TFC,
++	[VIRTIO_SND_CHMAP_TRL] = SNDRV_CHMAP_TRL,
++	[VIRTIO_SND_CHMAP_TRR] = SNDRV_CHMAP_TRR,
++	[VIRTIO_SND_CHMAP_TRC] = SNDRV_CHMAP_TRC,
++	[VIRTIO_SND_CHMAP_TFLC] = SNDRV_CHMAP_TFLC,
++	[VIRTIO_SND_CHMAP_TFRC] = SNDRV_CHMAP_TFRC,
++	[VIRTIO_SND_CHMAP_TSL] = SNDRV_CHMAP_TSL,
++	[VIRTIO_SND_CHMAP_TSR] = SNDRV_CHMAP_TSR,
++	[VIRTIO_SND_CHMAP_LLFE] = SNDRV_CHMAP_LLFE,
++	[VIRTIO_SND_CHMAP_RLFE] = SNDRV_CHMAP_RLFE,
++	[VIRTIO_SND_CHMAP_BC] = SNDRV_CHMAP_BC,
++	[VIRTIO_SND_CHMAP_BLC] = SNDRV_CHMAP_BLC,
++	[VIRTIO_SND_CHMAP_BRC] = SNDRV_CHMAP_BRC
 +};
 +
 +/**
-+ * virtsnd_jack_get_label() - Get the name string for the jack.
-+ * @jack: VirtIO jack.
-+ *
-+ * Returns the jack name based on the default pin configuration value (see HDA
-+ * specification).
-+ *
-+ * Context: Any context.
-+ * Return: Name string.
-+ */
-+static const char *virtsnd_jack_get_label(struct virtio_jack *jack)
-+{
-+	unsigned int defconf = jack->defconf;
-+	unsigned int device =
-+		(defconf & AC_DEFCFG_DEVICE) >> AC_DEFCFG_DEVICE_SHIFT;
-+	unsigned int location =
-+		(defconf & AC_DEFCFG_LOCATION) >> AC_DEFCFG_LOCATION_SHIFT;
-+
-+	switch (device) {
-+	case AC_JACK_LINE_OUT:
-+		return "Line Out";
-+	case AC_JACK_SPEAKER:
-+		return "Speaker";
-+	case AC_JACK_HP_OUT:
-+		return "Headphone";
-+	case AC_JACK_CD:
-+		return "CD";
-+	case AC_JACK_SPDIF_OUT:
-+	case AC_JACK_DIG_OTHER_OUT:
-+		if (location == AC_JACK_LOC_HDMI)
-+			return "HDMI Out";
-+		else
-+			return "SPDIF Out";
-+	case AC_JACK_LINE_IN:
-+		return "Line";
-+	case AC_JACK_AUX:
-+		return "Aux";
-+	case AC_JACK_MIC_IN:
-+		return "Mic";
-+	case AC_JACK_SPDIF_IN:
-+		return "SPDIF In";
-+	case AC_JACK_DIG_OTHER_IN:
-+		return "Digital In";
-+	default:
-+		return "Misc";
-+	}
-+}
-+
-+/**
-+ * virtsnd_jack_get_type() - Get the type for the jack.
-+ * @jack: VirtIO jack.
-+ *
-+ * Returns the jack type based on the default pin configuration value (see HDA
-+ * specification).
-+ *
-+ * Context: Any context.
-+ * Return: SND_JACK_XXX value.
-+ */
-+static int virtsnd_jack_get_type(struct virtio_jack *jack)
-+{
-+	unsigned int defconf = jack->defconf;
-+	unsigned int device =
-+		(defconf & AC_DEFCFG_DEVICE) >> AC_DEFCFG_DEVICE_SHIFT;
-+
-+	switch (device) {
-+	case AC_JACK_LINE_OUT:
-+	case AC_JACK_SPEAKER:
-+		return SND_JACK_LINEOUT;
-+	case AC_JACK_HP_OUT:
-+		return SND_JACK_HEADPHONE;
-+	case AC_JACK_SPDIF_OUT:
-+	case AC_JACK_DIG_OTHER_OUT:
-+		return SND_JACK_AVOUT;
-+	case AC_JACK_MIC_IN:
-+		return SND_JACK_MICROPHONE;
-+	default:
-+		return SND_JACK_LINEIN;
-+	}
-+}
-+
-+/**
-+ * virtsnd_jack_parse_cfg() - Parse the jack configuration.
++ * virtsnd_chmap_parse_cfg() - Parse the channel map configuration.
 + * @snd: VirtIO sound device.
 + *
 + * This function is called during initial device initialization.
@@ -349,118 +265,190 @@ index 000000000000..83593c59f6bf
 + * Context: Any context that permits to sleep.
 + * Return: 0 on success, -errno on failure.
 + */
-+int virtsnd_jack_parse_cfg(struct virtio_snd *snd)
++int virtsnd_chmap_parse_cfg(struct virtio_snd *snd)
 +{
 +	struct virtio_device *vdev = snd->vdev;
-+	struct virtio_snd_jack_info *info;
 +	unsigned int i;
 +	int rc;
 +
-+	virtio_cread(vdev, struct virtio_snd_config, jacks, &snd->njacks);
-+	if (!snd->njacks)
++	virtio_cread(vdev, struct virtio_snd_config, chmaps, &snd->nchmaps);
++	if (!snd->nchmaps)
 +		return 0;
 +
-+	snd->jacks = devm_kcalloc(&vdev->dev, snd->njacks, sizeof(*snd->jacks),
-+				  GFP_KERNEL);
-+	if (!snd->jacks)
++	snd->chmaps = devm_kcalloc(&vdev->dev, snd->nchmaps,
++				   sizeof(*snd->chmaps), GFP_KERNEL);
++	if (!snd->chmaps)
 +		return -ENOMEM;
 +
-+	info = devm_kcalloc(&vdev->dev, snd->njacks, sizeof(*info), GFP_KERNEL);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	rc = virtsnd_ctl_query_info(snd, VIRTIO_SND_R_JACK_INFO, 0, snd->njacks,
-+				    sizeof(*info), info);
++	rc = virtsnd_ctl_query_info(snd, VIRTIO_SND_R_CHMAP_INFO, 0,
++				    snd->nchmaps, sizeof(*snd->chmaps),
++				    snd->chmaps);
 +	if (rc)
 +		return rc;
 +
-+	for (i = 0; i < snd->njacks; ++i) {
-+		struct virtio_jack *jack = &snd->jacks[i];
++	/* Count the number of channel maps per each PCM device/stream. */
++	for (i = 0; i < snd->nchmaps; ++i) {
++		struct virtio_snd_chmap_info *info = &snd->chmaps[i];
++		unsigned int nid = le32_to_cpu(info->hdr.hda_fn_nid);
 +		struct virtio_pcm *pcm;
++		struct virtio_pcm_stream *stream;
 +
-+		jack->nid = le32_to_cpu(info[i].hdr.hda_fn_nid);
-+		jack->features = le32_to_cpu(info[i].features);
-+		jack->defconf = le32_to_cpu(info[i].hda_reg_defconf);
-+		jack->caps = le32_to_cpu(info[i].hda_reg_caps);
-+		jack->connected = info[i].connected;
-+
-+		pcm = virtsnd_pcm_find_or_create(snd, jack->nid);
++		pcm = virtsnd_pcm_find_or_create(snd, nid);
 +		if (IS_ERR(pcm))
 +			return PTR_ERR(pcm);
-+	}
 +
-+	devm_kfree(&vdev->dev, info);
++		switch (info->direction) {
++		case VIRTIO_SND_D_OUTPUT: {
++			stream = &pcm->streams[SNDRV_PCM_STREAM_PLAYBACK];
++			break;
++		}
++		case VIRTIO_SND_D_INPUT: {
++			stream = &pcm->streams[SNDRV_PCM_STREAM_CAPTURE];
++			break;
++		}
++		default: {
++			dev_err(&vdev->dev,
++				"chmap #%u: unknown direction (%u)\n", i,
++				info->direction);
++			return -EINVAL;
++		}
++		}
++
++		stream->nchmaps++;
++	}
 +
 +	return 0;
 +}
 +
 +/**
-+ * virtsnd_jack_build_devs() - Build ALSA controls for jacks.
-+ * @snd: VirtIO sound device.
++ * virtsnd_chmap_add_ctls() - Create an ALSA control for channel maps.
++ * @pcm: ALSA PCM device.
++ * @direction: PCM stream direction (SNDRV_PCM_STREAM_XXX).
++ * @stream: VirtIO PCM stream.
 + *
-+ * Context: Any context that permits to sleep.
++ * Context: Any context.
 + * Return: 0 on success, -errno on failure.
 + */
-+int virtsnd_jack_build_devs(struct virtio_snd *snd)
++static int virtsnd_chmap_add_ctls(struct snd_pcm *pcm, int direction,
++				  struct virtio_pcm_stream *stream)
 +{
++	unsigned int i;
++	int max_channels = 0;
++
++	for (i = 0; i < stream->nchmaps; i++)
++		if (max_channels < stream->chmaps[i].channels)
++			max_channels = stream->chmaps[i].channels;
++
++	return snd_pcm_add_chmap_ctls(pcm, direction, stream->chmaps,
++				      max_channels, 0, NULL);
++}
++
++/**
++ * virtsnd_chmap_build_devs() - Build ALSA controls for channel maps.
++ * @snd: VirtIO sound device.
++ *
++ * Context: Any context.
++ * Return: 0 on success, -errno on failure.
++ */
++int virtsnd_chmap_build_devs(struct virtio_snd *snd)
++{
++	struct virtio_device *vdev = snd->vdev;
++	struct virtio_pcm *pcm;
++	struct virtio_pcm_stream *stream;
 +	unsigned int i;
 +	int rc;
 +
-+	for (i = 0; i < snd->njacks; ++i) {
-+		struct virtio_jack *jack = &snd->jacks[i];
++	/* Allocate channel map elements per each PCM device/stream. */
++	list_for_each_entry(pcm, &snd->pcm_list, list) {
++		for (i = 0; i < ARRAY_SIZE(pcm->streams); ++i) {
++			stream = &pcm->streams[i];
 +
-+		jack->type = virtsnd_jack_get_type(jack);
++			if (!stream->nchmaps)
++				continue;
 +
-+		rc = snd_jack_new(snd->card, virtsnd_jack_get_label(jack),
-+				  jack->type, &jack->jack, true, true);
-+		if (rc)
-+			return rc;
++			stream->chmaps = devm_kcalloc(&vdev->dev,
++						      stream->nchmaps + 1,
++						      sizeof(*stream->chmaps),
++						      GFP_KERNEL);
++			if (!stream->chmaps)
++				return -ENOMEM;
 +
-+		if (!jack->jack)
++			stream->nchmaps = 0;
++		}
++	}
++
++	/* Initialize channel maps per each PCM device/stream. */
++	for (i = 0; i < snd->nchmaps; ++i) {
++		struct virtio_snd_chmap_info *info = &snd->chmaps[i];
++		unsigned int nid = le32_to_cpu(info->hdr.hda_fn_nid);
++		unsigned int channels = info->channels;
++		unsigned int ch;
++		struct snd_pcm_chmap_elem *chmap;
++
++		pcm = virtsnd_pcm_find(snd, nid);
++		if (IS_ERR(pcm))
++			return PTR_ERR(pcm);
++
++		if (info->direction == VIRTIO_SND_D_OUTPUT)
++			stream = &pcm->streams[SNDRV_PCM_STREAM_PLAYBACK];
++		else
++			stream = &pcm->streams[SNDRV_PCM_STREAM_CAPTURE];
++
++		chmap = &stream->chmaps[stream->nchmaps++];
++
++		if (channels > ARRAY_SIZE(chmap->map))
++			channels = ARRAY_SIZE(chmap->map);
++
++		chmap->channels = channels;
++
++		for (ch = 0; ch < channels; ++ch) {
++			u8 position = info->positions[ch];
++
++			if (position >= ARRAY_SIZE(g_v2a_position_map))
++				return -EINVAL;
++
++			chmap->map[ch] = g_v2a_position_map[position];
++		}
++	}
++
++	/* Create an ALSA control per each PCM device/stream. */
++	list_for_each_entry(pcm, &snd->pcm_list, list) {
++		if (!pcm->pcm)
 +			continue;
 +
-+		jack->jack->private_data = jack;
++		for (i = 0; i < ARRAY_SIZE(pcm->streams); ++i) {
++			stream = &pcm->streams[i];
 +
-+		snd_jack_report(jack->jack,
-+				jack->connected ? jack->type : 0);
++			if (!stream->nchmaps)
++				continue;
++
++			rc = virtsnd_chmap_add_ctls(pcm->pcm, i, stream);
++			if (rc)
++				return rc;
++		}
 +	}
 +
 +	return 0;
 +}
-+
-+/**
-+ * virtsnd_jack_event() - Handle the jack event notification.
-+ * @snd: VirtIO sound device.
-+ * @event: VirtIO sound event.
-+ *
-+ * Context: Interrupt context.
-+ */
-+void virtsnd_jack_event(struct virtio_snd *snd, struct virtio_snd_event *event)
-+{
-+	unsigned int jack_id = le32_to_cpu(event->data);
-+	struct virtio_jack *jack;
-+
-+	if (jack_id >= snd->njacks)
-+		return;
-+
-+	jack = &snd->jacks[jack_id];
-+
-+	switch (le32_to_cpu(event->hdr.code)) {
-+	case VIRTIO_SND_EVT_JACK_CONNECTED: {
-+		jack->connected = true;
-+		break;
-+	}
-+	case VIRTIO_SND_EVT_JACK_DISCONNECTED: {
-+		jack->connected = false;
-+		break;
-+	}
-+	default: {
-+		return;
-+	}
-+	}
-+
-+	snd_jack_report(jack->jack, jack->connected ? jack->type : 0);
-+}
+diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+index fe467bc05d8b..a326b921b947 100644
+--- a/sound/virtio/virtio_pcm.h
++++ b/sound/virtio/virtio_pcm.h
+@@ -70,10 +70,14 @@ struct virtio_pcm_substream {
+  * struct virtio_pcm_stream - VirtIO PCM stream.
+  * @substreams: Virtio substreams belonging to the stream.
+  * @nsubstreams: Number of substreams.
++ * @chmaps: Kernel channel maps belonging to the stream.
++ * @nchmaps: Number of channel maps.
+  */
+ struct virtio_pcm_stream {
+ 	struct virtio_pcm_substream **substreams;
+ 	unsigned int nsubstreams;
++	struct snd_pcm_chmap_elem *chmaps;
++	unsigned int nchmaps;
+ };
+ 
+ /**
 -- 
 2.30.0
 

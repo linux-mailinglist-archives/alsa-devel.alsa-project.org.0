@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52A513023B6
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 11:32:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7FF03023D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 11:47:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8EAD17A2;
-	Mon, 25 Jan 2021 11:31:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8EAD17A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 732331818;
+	Mon, 25 Jan 2021 11:46:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 732331818
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611570738;
-	bh=G5+ja1bepIh/AytgsfYHAVeWLb9M0/+mQqcWNTYRYz4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dsx3aJaivGiUktWUmopETfdoyvybL7q7JWh4CQWlMDg270rqFw9ywP7jbzJhY4auE
-	 uxCF/yyU9uIokYZSQO/KiPoIZ+7IyvYI3Q3fKhkMRHHD+ORwbEFt4rHYXmGevizwBG
-	 cDQ2uvYX9QCJxwVlqc6Uv+XF4q+kaw7vUFZmI0Mk=
+	s=default; t=1611571663;
+	bh=epBnv2gRUkGD8M40zv3OXgNx4/7zOxpFvGXY2kmSVmI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KH1BQMt7uTlw9nR22lTJ5CmaOGeps7eLiPSGlTi/jlNzlCBybOj6wA7CUVu4sv+US
+	 t+hnMou1tPngME4nD7J6/vpJDNKMrTad0SDqyV6EdJIVT7Mr1F4lIHgek/XxsGO3FH
+	 wZUgI/IZHdXeK/ovRt4/9wNBnDNAjlu7lotKMBhk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0EE6F8012D;
-	Mon, 25 Jan 2021 11:30:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8050AF8012D;
+	Mon, 25 Jan 2021 11:46:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A19A6F80259; Mon, 25 Jan 2021 11:30:42 +0100 (CET)
+ id 13A54F80259; Mon, 25 Jan 2021 11:46:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.164])
+ [85.215.255.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A762FF8014D
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 11:30:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A762FF8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFD94F8014D
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 11:46:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD94F8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="HzLV5DTB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1611570630;
+ header.b="lWNgHWGr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1611571561;
  s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:From:
- Subject:Sender;
- bh=A3/et8+XCqT3dn72qVbKlwaXj2qTvpiKLtiB6zWQ3rw=;
- b=HzLV5DTB1XDcvpJWvExkQZHUvsrYV1Vdn2I+9t/cFZFhal4j6kVnvlUXeYTPrx4bEE
- S2HTlRLbmnjVGqZT1m1qsOcfrvUDZsPdw39FzVc107AhZn2XfnU8UWUb2HDcq1dQLn4i
- 0CoWUxsFIIQq2ayM/H2juuAnIamKsxAL1eRQFDVTlrpxTSRIcOmwu7It+tilEBwEimGI
- WPIW69fffc3XF4Ru1slxsovLm7lVNQqVCfvLxvI3JDv4azexRtXy95ptDO0jKpX3X20D
- ASDFPaFTDu4Cl5SHtOxJaZjwA8gAKisHg2f2uoT1+KzvzHxe85Q2keO0TPg1xzZI07rB
- 0fxQ==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j9IczEaYo="
+ h=Message-Id:Date:Subject:Cc:To:From:From:Subject:Sender;
+ bh=D96qga/uquDIK3dOEtOs6A/AAGWQ9giEeEsN0PC3AoU=;
+ b=lWNgHWGrgL/ui/VACSqAgoyraBL9tjAD89jNC2OlEHiBqF6UnTRl7c3EED6Sl6Yk7R
+ bvrH5ohXwTpnU/g4QOlS2NPjImWd2+f3OkiczZUj/wO5tJwAUsyhWTNFBnhG/xCP98zr
+ AQye3u77u0+dNnnirugF3tH0zHAJG3vULdXcXsnoBPL2ATJavNAs0+up00s34CsrTcFs
+ 44FULZd/hD7XrSYQkBNTNzj62Nr0lWdAt/WJ0887DHBRMWigAowh5jY4PUEnQs5lzUSV
+ cGkQaI7YHU4/zEUY1Fz4CCNsLlzCUYt1qfg5ApNCMB2HHXl0f7QMG0/8bIbvjsFIM5Td
+ DcZg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxB526O1Om9"
 X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
- with ESMTPSA id R0a218x0PAUTl5l
+Received: from droid.. by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
+ with ESMTPSA id R0a218x0PAjxlDZ
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Mon, 25 Jan 2021 11:30:29 +0100 (CET)
-Date: Mon, 25 Jan 2021 11:30:19 +0100
+ Mon, 25 Jan 2021 11:45:59 +0100 (CET)
 From: Stephan Gerhold <stephan@gerhold.net>
-To: Jun Nie <jun.nie@linaro.org>
-Subject: Re: [PATCH v2] ASoC: qcom: lpass: Fix i2s ctl register bit map
-Message-ID: <YA6dsJTmVcv1TKBZ@gerhold.net>
-References: <20210120024955.3911891-1-jun.nie@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v2] ASoC: qcom: lpass: Fix out-of-bounds DAI ID lookup
+Date: Mon, 25 Jan 2021 11:44:42 +0100
+Message-Id: <20210125104442.135899-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210120024955.3911891-1-jun.nie@linaro.org>
-Cc: plai@codeaurora.org, bgoswami@codeaurora.org,
- srinivas.kandagatla@linaro.org, alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +84,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 20, 2021 at 10:49:55AM +0800, Jun Nie wrote:
-> Fix bitwidth mapping in i2s ctl register per APQ8016 document.
-> Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and
-> dmactl registers")
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+The "dai_id" given into LPAIF_INTFDMA_REG(...) is already the real
+DAI ID, not an index into v->dai_driver. Looking it up again seems
+entirely redundant.
 
-Thanks for spotting this, I guess this did not cause me problems yet
-because I use SNDRV_PCM_FMTBIT_S16 everywhere.
+For IPQ806x (and SC7180 since commit 09a4f6f5d21c
+("ASoC: dt-bindings: lpass: Fix and common up lpass dai ids") this is
+now often an out-of-bounds read because the indexes in the "dai_driver"
+array no longer match the actual DAI ID.
 
-Anyway, this looks correct according to the datasheet:
-Reviewed-by: Stephan Gerhold <stephan@gerhold.net>
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+---
+Changes in v2:
+  - Extracted from https://lore.kernel.org/alsa-devel/20210114094615.58191-2-stephan@gerhold.net/
+  - Change commit message to clarify that this is usually not just
+    redundant now but actually a broken out-of-bounds lookup.
+---
+ sound/soc/qcom/lpass-lpaif-reg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  sound/soc/qcom/lpass-apq8016.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-> index 8507ef8f6679..3efa133d1c64 100644
-> --- a/sound/soc/qcom/lpass-apq8016.c
-> +++ b/sound/soc/qcom/lpass-apq8016.c
-> @@ -250,7 +250,7 @@ static struct lpass_variant apq8016_data = {
->  	.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
->  	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
->  	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
-> -	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
-> +	.bitwidth		= REG_FIELD_ID(0x1000, 0, 1, 4, 0x1000),
->  
->  	.rdma_dyncclk		= REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
->  	.rdma_bursten		= REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
-> -- 
-> 2.25.1
-> 
+diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
+index 405542832e99..baf72f124ea9 100644
+--- a/sound/soc/qcom/lpass-lpaif-reg.h
++++ b/sound/soc/qcom/lpass-lpaif-reg.h
+@@ -133,7 +133,7 @@
+ #define	LPAIF_WRDMAPERCNT_REG(v, chan)	LPAIF_WRDMA_REG_ADDR(v, 0x14, (chan))
+ 
+ #define LPAIF_INTFDMA_REG(v, chan, reg, dai_id)  \
+-		((v->dai_driver[dai_id].id ==  LPASS_DP_RX) ? \
++	((dai_id ==  LPASS_DP_RX) ? \
+ 		LPAIF_HDMI_RDMA##reg##_REG(v, chan) : \
+ 		 LPAIF_RDMA##reg##_REG(v, chan))
+ 
+-- 
+2.30.0
+

@@ -2,93 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840EC302409
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 12:03:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D50302422
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 12:14:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A99491823;
-	Mon, 25 Jan 2021 12:02:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A99491823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4320D181B;
+	Mon, 25 Jan 2021 12:14:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4320D181B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611572626;
-	bh=gj0Ks7hZo76F7shG5Fn37MIYJlgkfBqJXJyD0Ajh+nc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iA9eU2u5zgQADPtPce4dl8/gYe2gBRi7SA8KCw8qKcabI28uIiJ/mHiRp90QpEKx+
-	 zZHurkiL7tYSBFT8zrHB790UNg+VfRhG/NIa7YIdW8D+WYnhPnETbPEmTGPcQFPx1J
-	 u6ZGx3ws466H2A8c/WptyDqPwUsvzVNJkZr0iagk=
+	s=default; t=1611573295;
+	bh=iNATo8EqwBP8jyIDlGpeZVrMhLgIRz5N3aeQ3bi0e0k=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=to1MhNzw77kbLGAZmV6qD9OVr09PXhEgRuBUS999NHZNyhpgTcZGze3eLyoNyrRcT
+	 5cmQKrUD4lv+0CbQ+6LPwexEwab+RY+DFxDJ5BDzi7sbDuzKkIwdOtw+Cw0eUVcKMt
+	 tZlAm5wINq5egd2Y0sPCPiMwNLHFIP0Ry5L0Q+UQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC89CF80130;
-	Mon, 25 Jan 2021 12:02:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2E51F80218;
+	Mon, 25 Jan 2021 12:13:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A17CEF80269; Mon, 25 Jan 2021 12:02:10 +0100 (CET)
+ id E26F0F80259; Mon, 25 Jan 2021 12:13:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A4F1F80260
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 12:02:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A4F1F80260
+ by alsa1.perex.cz (Postfix) with ESMTPS id 323C1F80130
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 12:13:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 323C1F80130
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Ublwv7Qw"
-Received: by mail-wr1-x42f.google.com with SMTP id c12so11845532wrc.7
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 03:02:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=QzNdvpuosJC1QOTYxaF9mnk8zwfeuLCY8x44QLcC2F0=;
- b=Ublwv7QwOtZx1uxcx2883w0d2nqOWKq1KUCxoOVnrP0xOli6xYYAk+APHo/RjzFf3W
- qcTl3EsU9sQaAlxNjjuvFoWioVKUWn/kXb3RgPNOT0whlHpNxF8bDWmvDzXa1tpPjf1F
- 546yZiDNcrduNHlw6EO0r88Xjo17v5yvraxCZe/m3jag4H2FbJy0WeJ/BpzPvEEJL8UC
- Y5LVE4QNKmyAqmcpHHnluhs8M6oJ/Bp11aZuCYOjxlfNn/UXT94Xlh0lqbMjwJONfVmo
- WiHIe/JG+3z0+/vkRHU/XxAsMugvBOdwwz3wndHXjTMXT6rzgGBLGN6TI+PSKkAVUAAb
- Of5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=QzNdvpuosJC1QOTYxaF9mnk8zwfeuLCY8x44QLcC2F0=;
- b=Jw9/Po17OGlycqAW6R/EXpXu4+POeX88LOxaDLja7mhvy+upKdDt3ZomJspQWwmutE
- G32em2PXs2rT3jUeu0jPaCb4WVeI0w8EIv3NmONtib7Rq6i+cm5yWcSjq9R4phYd/qQw
- BgR/3Id3v9fuHsb7fUskTP5qRnoYL/KcAPLwEVcb6wX7yvKtXbAeOqLAN0CnCjuK3dX4
- FT3AT5Lrrk8k4A6hR3EDrKZbUzGE6U19XwH60n6wyV60zTfmvprxdPjCkE22qCRQJPND
- i7fziHbV45UsG69qMciIcwOQHmZVql7/QYvTgJrjw7uMgCk2bO5USh7KPZGiGmSbGQ/T
- fMhQ==
-X-Gm-Message-State: AOAM531GZ7WES/6SPEZXi2Y7/Dfus5zUw4Tnwbh6e7YFtEch/1eRsYI6
- 8isiCR0Bq5k0aJu7Tpv7Rw2IFEExqDHBnw==
-X-Google-Smtp-Source: ABdhPJyo6sA1ajml4sQhzVFkmLGYUmoWEDEadH/roslTdA7KjTBOO0WOKjxWSZHSSyG3MMzZLuOBRQ==
-X-Received: by 2002:adf:ba8b:: with SMTP id p11mr288091wrg.328.1611572520192; 
- Mon, 25 Jan 2021 03:02:00 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id o124sm21309132wmb.5.2021.01.25.03.01.59
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 25 Jan 2021 03:01:59 -0800 (PST)
-Subject: Re: [PATCH v2] ASoC: qcom: lpass: Fix i2s ctl register bit map
-To: Jun Nie <jun.nie@linaro.org>
-References: <20210120024955.3911891-1-jun.nie@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <07d8fa7e-717b-2d88-4616-40656be6d340@linaro.org>
-Date: Mon, 25 Jan 2021 11:01:58 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="BRt1bG4e"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10PBAUjk042006;
+ Mon, 25 Jan 2021 11:13:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type : in-reply-to;
+ s=corp-2020-01-29; bh=wPullc5Bu3+R1BBsmC867SgbXXzzTXKO3sGsYZn2Yts=;
+ b=BRt1bG4eRUGTS+bs/+Vg8hfKBQwmlHFBLSVLRVkj8qVNSqELhqZkcNqONF6Se3hvO33z
+ nEfou9S+th39T9vqO3qIhjxwi1c48hePsnhs6TRuY9OshxktmHwnGUVqI6clZyQ7KdWz
+ vmiWq90IXMd3PY0Y64oTQfsbYZ9DV1mt4g1ZveWLH3nuaVPEvp4UFT8s5PZPikpmFmj+
+ OstuCCRMLrYE9iwgktsJmRkqj3p8smNC26dkl/y1CqQ/QmVO3HcKqzrHqPWD75cYrBM0
+ CimMXcH16FE01bzffSOpiEs8Fxr1jqUehcJYRRG/EXSd+TER9359Jy1ni53yq0/iDKMQ /A== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 368brkcrgs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 25 Jan 2021 11:13:09 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10PBBTTh055713;
+ Mon, 25 Jan 2021 11:13:07 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 368wjpjsc9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 25 Jan 2021 11:13:07 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 10PBD1WH001794;
+ Mon, 25 Jan 2021 11:13:03 GMT
+Received: from mwanda (/10.175.173.24) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 25 Jan 2021 03:13:00 -0800
+Date: Mon, 25 Jan 2021 14:12:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Clemens Ladisch <clemens@ladisch.de>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH v2 1/2] ALSA: oxfw: remove an unnecessary condition in
+ hwdep_read()
+Message-ID: <YA6ntkBxT/4DJ4YK@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <20210120024955.3911891-1-jun.nie@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: plai@codeaurora.org, bgoswami@codeaurora.org, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210122071354.GI20820@kadam>
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9874
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ suspectscore=0
+ adultscore=0 mlxscore=0 malwarescore=0 spamscore=0 mlxlogscore=999
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101250065
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9874
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ impostorscore=0
+ phishscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
+ lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101250065
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,31 +111,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Smatch complains that "count" isn't clamped properly and
+"oxfw->dev_lock_changed" is false then it leads to an information
+leak.  But it turns out that "oxfw->dev_lock_changed" is always
+set and the condition can be removed.
 
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+v2: this version just removes the condition
 
-On 20/01/2021 02:49, Jun Nie wrote:
-> Fix bitwidth mapping in i2s ctl register per APQ8016 document.
-> Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and
-> dmactl registers")
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+ sound/firewire/oxfw/oxfw-hwdep.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->   sound/soc/qcom/lpass-apq8016.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-> index 8507ef8f6679..3efa133d1c64 100644
-> --- a/sound/soc/qcom/lpass-apq8016.c
-> +++ b/sound/soc/qcom/lpass-apq8016.c
-> @@ -250,7 +250,7 @@ static struct lpass_variant apq8016_data = {
->   	.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
->   	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
->   	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
-> -	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
-> +	.bitwidth		= REG_FIELD_ID(0x1000, 0, 1, 4, 0x1000),
->   
->   	.rdma_dyncclk		= REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
->   	.rdma_bursten		= REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
-> 
+diff --git a/sound/firewire/oxfw/oxfw-hwdep.c b/sound/firewire/oxfw/oxfw-hwdep.c
+index 9e1b3e151bad..a0fe99618554 100644
+--- a/sound/firewire/oxfw/oxfw-hwdep.c
++++ b/sound/firewire/oxfw/oxfw-hwdep.c
+@@ -35,13 +35,11 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
+ 	}
+ 
+ 	memset(&event, 0, sizeof(event));
+-	if (oxfw->dev_lock_changed) {
+-		event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
+-		event.lock_status.status = (oxfw->dev_lock_count > 0);
+-		oxfw->dev_lock_changed = false;
++	event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
++	event.lock_status.status = (oxfw->dev_lock_count > 0);
++	oxfw->dev_lock_changed = false;
+ 
+-		count = min_t(long, count, sizeof(event.lock_status));
+-	}
++	count = min_t(long, count, sizeof(event.lock_status));
+ 
+ 	spin_unlock_irq(&oxfw->lock);
+ 
+-- 
+2.29.2
+

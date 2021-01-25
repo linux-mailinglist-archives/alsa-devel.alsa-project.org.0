@@ -2,51 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA093026CA
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 16:20:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CD213026CB
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 16:20:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB7BD180A;
-	Mon, 25 Jan 2021 16:19:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7BD180A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C64B184B;
+	Mon, 25 Jan 2021 16:19:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C64B184B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611588010;
-	bh=1f16T0ij2CGN1L/buj9GrvieiOWNkOsbjbA6yfwgsiQ=;
+	s=default; t=1611588022;
+	bh=RcIx3Pa61SuIDo8rPXo0O/s6zdMUvNcVepVSFSvpjkE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IWi/X7fv8AKAJrEkYAzMxZZeKasSVB9Y6slTzAviqaiHxd6ptp+0cEOSVUhWlg8Wt
-	 1TDVB6xYee1qrb/Kb6bGFaC3giublNigIlMEEcdpsQion8bcC46HTGMdDgffNh1Wib
-	 frj2l746Grm3rLG/vHeN0nBPCS9mYYQxe8FD5PUQ=
+	b=Sne1m/shyXxqkuzqqc/kcwzah1R9R9z96csRv6G5paxKHWkv4mykb5NqDQjDf3oJk
+	 yxCS6Pkq5cpwyf0PiCZcZCou5Bh2BXUX1+a6VLERg59IWZ5E7cATdEJWazdDdoGHJH
+	 qoKRMZccjDa2bb1mLhU1QgfkAVz5S4xS2gfqVM/s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E810F8012D;
-	Mon, 25 Jan 2021 16:18:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06A1BF80278;
+	Mon, 25 Jan 2021 16:18:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4909BF80259; Mon, 25 Jan 2021 16:18:37 +0100 (CET)
+ id BDEAAF80269; Mon, 25 Jan 2021 16:18:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_78,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 704BBF80130
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 16:18:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 704BBF80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51218F8025F
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 16:18:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51218F8025F
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6C9F7ACC6;
- Mon, 25 Jan 2021 15:18:33 +0000 (UTC)
-Date: Mon, 25 Jan 2021 16:18:33 +0100
-Message-ID: <s5h4kj53v06.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id E975FAD7A;
+ Mon, 25 Jan 2021 15:18:52 +0000 (UTC)
+Date: Mon, 25 Jan 2021 16:18:52 +0100
+Message-ID: <s5h35yp3uzn.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 0/6] Clock and reset improvements for Tegra ALSA drivers
-In-Reply-To: <20210120003154.26749-1-digetx@gmail.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Re: [PATCH v3 2/6] ALSA: hda/tegra: Reset hardware
+In-Reply-To: <20210120003154.26749-3-digetx@gmail.com>
 References: <20210120003154.26749-1-digetx@gmail.com>
+ <20210120003154.26749-3-digetx@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -57,7 +58,7 @@ Cc: alsa-devel@alsa-project.org, Nicolas Chauvet <kwizart@gmail.com>,
  Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
  Thierry Reding <thierry.reding@gmail.com>,
  Matt Merhar <mattmerhar@protonmail.com>, Peter Geis <pgwipeout@gmail.com>,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,64 +74,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Jan 2021 01:31:48 +0100,
+On Wed, 20 Jan 2021 01:31:50 +0100,
 Dmitry Osipenko wrote:
 > 
-> This series improves the handling of clock and reset controls of
-> NVIDA Tegra ALSA drivers. Tegra HDA and AHUB drivers aren't handling
-> resets properly, which needs to be fixed in order to unblock other patches
-> related to fixes of the reset controller driver since HDA/AHUB are bound
-> to fail once reset controller driver will be corrected. In particular ALSA
-> drivers are relying on implicit de-assertion of resets which is done by the
-> tegra-clk driver. It's not the business of the clk driver to touch resets
-> and we need to fix this because it breaks reset/clk programming sequences
-> of other Tegra drivers.
+> Reset hardware on RPM-resume in order to bring it into a predictable
+> state.
 > 
-> Changelog:
-> 
-> v3: - Reworked "hda/tegra: Reset hardware" and "ahub: Reset hardware properly"
->       patches, they now use usleep + reset_deassert() instead of reset_reset().
->       Suggested by Thierry Reding.
-> 
->     - Added new patch "hda/tegra: Remove unnecessary null-check from
->       hda_tegra_runtime_resume()". Suggested by Thierry Reding.
-> 
->     - Replaced "ahub: Reset hardware properly" patch with "ahub: Add missing
->       resets". Suggested by Thierry Reding.
-> 
->     - Slightly improved commit messages.
-> 
->     - Added acks from Thierry Reding.
-> 
-> v2: - Added regcache_sync() to the "ahub: Reset hardware properly" patch,
->       which was missed by accident in v1.
-> 
->     - Corrected typo in the format of the error message in "ahub: Use
->       of_reset_control_array_get_exclusive()" patch by s/%p/%pe/.
-> 
-> Dmitry Osipenko (6):
->   ALSA: hda/tegra: Use clk_bulk helpers
->   ALSA: hda/tegra: Reset hardware
->   ALSA: hda/tegra: Remove unnecessary null-check from
->     hda_tegra_runtime_resume()
->   ASoC: tegra: ahub: Add missing resets
->   ASoC: tegra: ahub: Use clk_bulk helpers
->   ASoC: tegra: ahub: Reset hardware properly
+> Tested-by: Peter Geis <pgwipeout@gmail.com> # Ouya T30 audio works
+> Tested-by: Matt Merhar <mattmerhar@protonmail.com> # Ouya T30 boot-tested
+> Tested-by: Nicolas Chauvet <kwizart@gmail.com> # TK1 boot-tested
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 
-Mark, a half of the series are for ASoC.  Would you take those three,
-or take the full patches or let me merge through my tree?
+Currently we have neither dependency nor reverse-selection of
+CONFIG_RESET_CONTROLLER.  It wouldn't be a problem for builds, but
+you'll get a runtime error from
+devm_reset_control_array_get_exclusive() always when
+CONFIG_RESET_CONTROLLER=n.
+
+I guess it must be a corner case, but just to be sure.
 
 
 thanks,
 
 Takashi
 
+
+> ---
+>  sound/pci/hda/hda_tegra.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 > 
->  sound/pci/hda/hda_tegra.c      | 90 ++++++++++++----------------------
->  sound/soc/tegra/tegra30_ahub.c | 64 ++++++++++++++----------
->  sound/soc/tegra/tegra30_ahub.h |  5 +-
->  3 files changed, 72 insertions(+), 87 deletions(-)
-> 
+> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+> index a25bf7083c28..04dcd4cdfd9e 100644
+> --- a/sound/pci/hda/hda_tegra.c
+> +++ b/sound/pci/hda/hda_tegra.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/moduleparam.h>
+>  #include <linux/mutex.h>
+>  #include <linux/of_device.h>
+> +#include <linux/reset.h>
+>  #include <linux/slab.h>
+>  #include <linux/time.h>
+>  #include <linux/string.h>
+> @@ -70,6 +71,7 @@
+>  struct hda_tegra {
+>  	struct azx chip;
+>  	struct device *dev;
+> +	struct reset_control *reset;
+>  	struct clk_bulk_data clocks[3];
+>  	unsigned int nclocks;
+>  	void __iomem *regs;
+> @@ -167,6 +169,12 @@ static int __maybe_unused hda_tegra_runtime_resume(struct device *dev)
+>  	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
+>  	int rc;
+>  
+> +	if (!chip->running) {
+> +		rc = reset_control_assert(hda->reset);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+>  	rc = clk_bulk_prepare_enable(hda->nclocks, hda->clocks);
+>  	if (rc != 0)
+>  		return rc;
+> @@ -176,6 +184,12 @@ static int __maybe_unused hda_tegra_runtime_resume(struct device *dev)
+>  		/* disable controller wake up event*/
+>  		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) &
+>  			   ~STATESTS_INT_MASK);
+> +	} else {
+> +		usleep_range(10, 100);
+> +
+> +		rc = reset_control_deassert(hda->reset);
+> +		if (rc)
+> +			return rc;
+>  	}
+>  
+>  	return 0;
+> @@ -441,6 +455,12 @@ static int hda_tegra_probe(struct platform_device *pdev)
+>  		return err;
+>  	}
+>  
+> +	hda->reset = devm_reset_control_array_get_exclusive(&pdev->dev);
+> +	if (IS_ERR(hda->reset)) {
+> +		err = PTR_ERR(hda->reset);
+> +		goto out_free;
+> +	}
+> +
+>  	hda->clocks[hda->nclocks++].id = "hda";
+>  	hda->clocks[hda->nclocks++].id = "hda2hdmi";
+>  	hda->clocks[hda->nclocks++].id = "hda2codec_2x";
 > -- 
 > 2.29.2
 > 

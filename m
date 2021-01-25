@@ -2,70 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F182302635
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 15:20:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14584302654
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 15:33:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B033184E;
-	Mon, 25 Jan 2021 15:19:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B033184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A5F11849;
+	Mon, 25 Jan 2021 15:33:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A5F11849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611584400;
-	bh=fYsDyTpc8wvz0Dpsy9WED60vadF1MFuzJBzxnFx4l/o=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1611585231;
+	bh=aWSHaF1nqcuVQXwiMzkLvGtge2pto/xi+N7XQqcteK8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LmjddkHixqGRmYPyN9Ylv83X0TMTgMnce1hnw8eLtuCqEz7deL1JJXKIQKw2XxqWX
-	 O2vISV/O5H4MDrN+2e5wSgDlR7t7DBhBFA7kodi8c9+tfB48pDNWZ4aYUd216QBDhJ
-	 rg6lDsLkZUfhb7OnY1nF/prx5Pikvzv0RaofDVwY=
+	b=BjXHz96kd2CiyD3UYiC96xEQHodmlz8MkRPOsjuYlM+zfXLjBWEc/d5+JunHEnRzs
+	 3mOmnhqtv3T4XgzxueRH9p4wniOkktQRXgU+xsvpotKofSQhV83xwf76dFdVJi23N2
+	 DmWMwbSUBUCcP0hTlMKVLGHr4RLNAM7c3fWljrUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFB34F80269;
-	Mon, 25 Jan 2021 15:18:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6D5CF8025F;
+	Mon, 25 Jan 2021 15:32:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DACB0F80278; Mon, 25 Jan 2021 15:18:13 +0100 (CET)
+ id 517F7F80259; Mon, 25 Jan 2021 15:32:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B59AF8014D
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 15:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B59AF8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VU5DBXcg"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BE5E2145D;
- Mon, 25 Jan 2021 14:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611584288;
- bh=fYsDyTpc8wvz0Dpsy9WED60vadF1MFuzJBzxnFx4l/o=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=VU5DBXcgejgroRHtoasGaXEd2Zp5RMXHS9BM0TcazQ0xIVDpRn2rlk5jwmgq426Hv
- X66sWbhGmdOZDichRZAg5orRlt76yhU9REv7z5ihYzW8w9MAjKnX3w9fWj3A7j722Z
- KJiQTyt6aEK5yQ4lCZhF0+pIXdspllTBjHw1raSFDtSAXqzxEvkctVzNVtwVpn5NZ0
- VZqYPSnL+HLjnLvQs9sr8NZ3d/FVCIjq9hv5S6HVzkSmaesnsqekNx0IT/WmgLyu63
- L2hsbtdJev4HiVlO1Rgm5okpVFVcm56Lwb50Ev0PE/YCFqnWQI6X4TqzlTYhYJdGyp
- ymk5Zx+Y/blag==
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20210125081117.814488-1-kai.vehmanen@linux.intel.com>
-References: <20210125081117.814488-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: set proper flags for Dell TGL-H SKU
- 0A5E
-Message-Id: <161158424212.32959.6636308393612395831.b4-ty@kernel.org>
-Date: Mon, 25 Jan 2021 14:17:22 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04E47F8012D
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 15:32:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04E47F8012D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EAB82B9BA;
+ Mon, 25 Jan 2021 14:32:09 +0000 (UTC)
+Date: Mon, 25 Jan 2021 15:32:09 +0100
+Message-ID: <s5ha6sx3x5i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH v7 1/1] alsa: jack: implement software jack injection via
+ debugfs
+In-Reply-To: <20210125032118.13269-2-hui.wang@canonical.com>
+References: <20210125032118.13269-1-hui.wang@canonical.com>
+ <20210125032118.13269-2-hui.wang@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Libin Yang <libin.yang@intel.com>, cezary.rojewski@intel.com,
- yang.jie@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, Hui Wang <hui.wang@canonical.com>,
- Bard Liao <bard.liao@intel.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,34 +71,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jan 2021 10:11:17 +0200, Kai Vehmanen wrote:
-> Add flag "SOF_RT711_JD_SRC_JD2", flag "SOF_RT715_DAI_ID_FIX"
-> and "SOF_SDW_FOUR_SPK" to the Dell TGL-H based SKU "0A5E".
+On Mon, 25 Jan 2021 04:21:18 +0100,
+Hui Wang wrote:
+> 
+> This change adds audio jack injection feature through debugfs, with
+> this feature, we could validate alsa userspace changes by injecting
+> plugin or plugout events to the non-phantom audio jacks.
+> 
+> With this change, the sound core will build the folders
+> $debugfs_mount_dir/sound/cardN if SND_DEBUG and DEBUG_FS are enabled.
+> And if users also enable the SND_JACK_INJECTION_DEBUG, the jack
+> injection nodes will be built in the folder cardN like below:
+> 
+> $tree $debugfs_mount_dir/sound
+> $debugfs_mount_dir/sound
+> ├── card0
+> │   ├── HDMI_DP_pcm_10_Jack
+> │   │   ├── jackin_inject
+> │   │   ├── kctl_id
+> │   │   ├── mask_bits
+> │   │   ├── status
+> │   │   ├── sw_inject_enable
+> │   │   └── type
+> ...
+> │   └── HDMI_DP_pcm_9_Jack
+> │       ├── jackin_inject
+> │       ├── kctl_id
+> │       ├── mask_bits
+> │       ├── status
+> │       ├── sw_inject_enable
+> │       └── type
+> └── card1
+>     ├── HDMI_DP_pcm_5_Jack
+>     │   ├── jackin_inject
+>     │   ├── kctl_id
+>     │   ├── mask_bits
+>     │   ├── status
+>     │   ├── sw_inject_enable
+>     │   └── type
+>     ...
+>     ├── Headphone_Jack
+>     │   ├── jackin_inject
+>     │   ├── kctl_id
+>     │   ├── mask_bits
+>     │   ├── status
+>     │   ├── sw_inject_enable
+>     │   └── type
+>     └── Headset_Mic_Jack
+>         ├── jackin_inject
+>         ├── kctl_id
+>         ├── mask_bits
+>         ├── status
+>         ├── sw_inject_enable
+>         └── type
+> 
+> The nodes kctl_id, mask_bits, status and type are read-only, users
+> could check jack or jack_kctl's information through them.
+> 
+> The nodes sw_inject_enable and jackin_inject are directly used for
+> injection. The sw_inject_enable is read-write, users could check if
+> software injection is enabled or not on this jack, and users could
+> echo 1 or 0 to enable or disable software injection on this jack. Once
+> the injection is enabled, the jack will not change by hardware events
+> anymore, once the injection is disabled, the jack will restore the
+> last reported hardware events to the jack. The jackin_inject is
+> write-only, if the injection is enabled, users could echo 1 or 0 to
+> this node to inject plugin or plugout events to this jack.
+> 
+> For the detailed usage information on these nodes, please refer to
+> Documentation/sound/designs/jack-injection.rst.
+> 
+> Reviewed-by: Takashi Iwai <tiwai@suse.de>
+> Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
 
-Applied to
+Some minor nitpicking:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> +static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
+> +					    struct snd_jack_kctl *jack_kctl)
+> +{
+> +	char *tname;
+> +	int i;
+> +
+> +	tname = kstrdup(jack_kctl->kctl->id.name, GFP_KERNEL);
+> +	if (!tname)
+> +		return -ENOMEM;
+> +
+> +	/* replace the chars which are not suitable for folder's name with _ */
+> +	for (i = 0; i < strlen(tname); i++)
 
-Thanks!
+No need to use strlen(), just check the NUL character on tname[i].
 
-[1/1] ASoC: Intel: sof_sdw: set proper flags for Dell TGL-H SKU 0A5E
-      commit: 9ad9bc59dde106e56dd59ce2bec7c1b08e1f0eb4
+> --- a/sound/core/sound.c
+> +++ b/sound/core/sound.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/time.h>
+>  #include <linux/device.h>
+>  #include <linux/module.h>
+> +#include <linux/debugfs.h>
+>  #include <sound/core.h>
+>  #include <sound/minors.h>
+>  #include <sound/info.h>
+> @@ -39,6 +40,9 @@ MODULE_ALIAS_CHARDEV_MAJOR(CONFIG_SND_MAJOR);
+>  int snd_ecards_limit;
+>  EXPORT_SYMBOL(snd_ecards_limit);
+>  
+> +struct dentry *sound_debugfs_root;
+> +EXPORT_SYMBOL_GPL(sound_debugfs_root);
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I guess this should be wrapped with CONFIG_SND_DEBUG ifdef?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+thanks,
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

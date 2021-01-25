@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B367330263A
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 15:21:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F182302635
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 15:20:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B4191841;
-	Mon, 25 Jan 2021 15:20:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B4191841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B033184E;
+	Mon, 25 Jan 2021 15:19:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B033184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611584474;
-	bh=u/+n6nnkvGvxt7zRdHaBLolJlN1oNzH+JqV1Ev9ooqk=;
+	s=default; t=1611584400;
+	bh=fYsDyTpc8wvz0Dpsy9WED60vadF1MFuzJBzxnFx4l/o=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LMBDdcoadI1quBUYdN1/exBPuVDM+dyUqg0yLzu6d/Gx+1jzBRhH5qi3xFYzE3HmJ
-	 mqlDLxia3pGOuqXlXkvK1hX1o1euBkZyrY1kOp2gBbMG47SXP/Bs+stD71a6m1hfFO
-	 AK+Lsm/9kw9TGN35UnNeLhOHMbthwhA+c37ufWL0=
+	b=LmjddkHixqGRmYPyN9Ylv83X0TMTgMnce1hnw8eLtuCqEz7deL1JJXKIQKw2XxqWX
+	 O2vISV/O5H4MDrN+2e5wSgDlR7t7DBhBFA7kodi8c9+tfB48pDNWZ4aYUd216QBDhJ
+	 rg6lDsLkZUfhb7OnY1nF/prx5Pikvzv0RaofDVwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 926ECF804DF;
-	Mon, 25 Jan 2021 15:18:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFB34F80269;
+	Mon, 25 Jan 2021 15:18:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1691F804D8; Mon, 25 Jan 2021 15:18:29 +0100 (CET)
+ id DACB0F80278; Mon, 25 Jan 2021 15:18:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0F5CF804CB
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 15:18:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0F5CF804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B59AF8014D
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 15:18:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B59AF8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AR9v1e0+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 338772145D;
- Mon, 25 Jan 2021 14:18:24 +0000 (UTC)
+ header.b="VU5DBXcg"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BE5E2145D;
+ Mon, 25 Jan 2021 14:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611584304;
- bh=u/+n6nnkvGvxt7zRdHaBLolJlN1oNzH+JqV1Ev9ooqk=;
+ s=k20201202; t=1611584288;
+ bh=fYsDyTpc8wvz0Dpsy9WED60vadF1MFuzJBzxnFx4l/o=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AR9v1e0+/x8PY265K5Zk2IYqptFl+CHwFaw7Ycrl03Q8kI2o0C8tFdng21D5FjRPh
- MLWk0LMZ8Rg/CsiuJ3VxyqY4va6nMGJReezkw7MSYNLAi2NFBG+JBfzNW3H+zamJjK
- NWT7A05vvCARiXMe+GAOWp1ReJjuHrK47ekxLaHKrBib0duGrTlFy7u7urn9EaxGGP
- uN6c27M2lTjBWpy5O0s+46QMC0Jed1kPQs93PuWwFnpxdlyHQk9RpLsQrLpVWnYRTQ
- Hu/avjl5P4ePl2o+2txWZYw3uQOI63SZFbHDhkuqCehklzI0ZWNpP8DsR4h13SwLuG
- wDJcjzpvIdg1w==
+ b=VU5DBXcgejgroRHtoasGaXEd2Zp5RMXHS9BM0TcazQ0xIVDpRn2rlk5jwmgq426Hv
+ X66sWbhGmdOZDichRZAg5orRlt76yhU9REv7z5ihYzW8w9MAjKnX3w9fWj3A7j722Z
+ KJiQTyt6aEK5yQ4lCZhF0+pIXdspllTBjHw1raSFDtSAXqzxEvkctVzNVtwVpn5NZ0
+ VZqYPSnL+HLjnLvQs9sr8NZ3d/FVCIjq9hv5S6HVzkSmaesnsqekNx0IT/WmgLyu63
+ L2hsbtdJev4HiVlO1Rgm5okpVFVcm56Lwb50Ev0PE/YCFqnWQI6X4TqzlTYhYJdGyp
+ ymk5Zx+Y/blag==
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20210125061453.1056535-1-tzungbi@google.com>
-References: <20210125061453.1056535-1-tzungbi@google.com>
-Subject: Re: [PATCH v2] ASoC: mediatek: mt8192-mt6359: add format constraints
- for RT5682
-Message-Id: <161158424213.32959.10480375557812092532.b4-ty@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20210125081117.814488-1-kai.vehmanen@linux.intel.com>
+References: <20210125081117.814488-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_sdw: set proper flags for Dell TGL-H SKU
+ 0A5E
+Message-Id: <161158424212.32959.6636308393612395831.b4-ty@kernel.org>
 Date: Mon, 25 Jan 2021 14:17:22 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: Libin Yang <libin.yang@intel.com>, cezary.rojewski@intel.com,
+ yang.jie@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, Hui Wang <hui.wang@canonical.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,15 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jan 2021 14:14:53 +0800, Tzung-Bi Shih wrote:
-> MT8192 determines the I2S clock rates according to the sampling rates.
-> 
-> There is only 1 set of I2S in between MT8192 and RT5682.  If playing and
-> capturing via RT5682 in different sampling rates, the I2S data will be
-> corrupted.
-> 
-> Adds format constraints to the corresponding DAI links to make sure the
-> sampling rates are symmetric.
+On Mon, 25 Jan 2021 10:11:17 +0200, Kai Vehmanen wrote:
+> Add flag "SOF_RT711_JD_SRC_JD2", flag "SOF_RT715_DAI_ID_FIX"
+> and "SOF_SDW_FOUR_SPK" to the Dell TGL-H based SKU "0A5E".
 
 Applied to
 
@@ -94,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8192-mt6359: add format constraints for RT5682
-      commit: 339f6c73d5abe85550a0c962edc8a5df1f2b4273
+[1/1] ASoC: Intel: sof_sdw: set proper flags for Dell TGL-H SKU 0A5E
+      commit: 9ad9bc59dde106e56dd59ce2bec7c1b08e1f0eb4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

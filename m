@@ -2,69 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8CA302253
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 08:10:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AEDA302254
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jan 2021 08:11:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8C6B187D;
-	Mon, 25 Jan 2021 08:10:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8C6B187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD74A1888;
+	Mon, 25 Jan 2021 08:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD74A1888
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611558654;
-	bh=c6y2xFRNs/glxUJNYmbDYP5PJH7iCcOMo9ijZs4rGQI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611558666;
+	bh=Ig8ngjkqmVwzCLzMF8Y46DDIQdBIx9nNVlgEdtMOVG0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y0qyffpfzgN5PymloCCmjKa1082J/dST/zq+Up8wG1LO8C4mZwU9DcTEDqbOhKIVh
-	 3ihDPd9OdrnwnpUL9B0EGqfjvAHm4mR3Q03FZpkfmcMkunGN0fg4zQ82NSYsAaqCbo
-	 mEaCM+Emb7pdFNtfiswYq3LMlZAtidkKIezPmvkI=
+	b=URUcI6Sgu3E1l3IMUnetCYlXkh5BCR3svIE9nRR4oOY5eNiplJYmSstTFp1mKBNpT
+	 tOHp3qltQQFAHcQHfdDTulO8pxrY1pR06EIIsH1w4RVykvDg+iD6ecvSCiX2RoY3Io
+	 UOSH1v1G5xt2I2Amrp1BVysEkR5Pkv58XbVNhpPk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B4C1F804B1;
-	Mon, 25 Jan 2021 08:08:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01D89F80218;
+	Mon, 25 Jan 2021 08:09:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 927C8F8028B; Mon, 25 Jan 2021 08:08:35 +0100 (CET)
+ id 90C14F804CA; Mon, 25 Jan 2021 08:09:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AB97F80130
- for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 08:08:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AB97F80130
-IronPort-SDR: YaupjcGtrihzTT2WS5W9jbDnh6/WZTrmo3idxRQvQR756fM6L34wSCxY308xzCjXiKqbJ2JDuS
- rfTlzhTnNQCA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="264497717"
-X-IronPort-AV: E=Sophos;i="5.79,372,1602572400"; d="scan'208";a="264497717"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2021 23:08:21 -0800
-IronPort-SDR: KmBjNn8066C3NiYJdCML3+YpxcRkVU9vD1Wjm+XVNN1S8WukBZz+6XBnu9+DTr1MPP8CiSnCtP
- DAbS9FBvnckw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,372,1602572400"; d="scan'208";a="429154832"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga001.jf.intel.com with ESMTP; 24 Jan 2021 23:08:19 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: Intel: adl: remove sof_fw_filename setting in ADL
- snd_soc_acpi_mach
-Date: Mon, 25 Jan 2021 09:05:00 +0200
-Message-Id: <20210125070500.807474-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210125070500.807474-1-kai.vehmanen@linux.intel.com>
-References: <20210125070500.807474-1-kai.vehmanen@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Libin Yang <libin.yang@intel.com>, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
- Bard Liao <bard.liao@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57A3EF8027B
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jan 2021 08:09:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57A3EF8027B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A7A15AF47;
+ Mon, 25 Jan 2021 07:09:11 +0000 (UTC)
+Date: Mon, 25 Jan 2021 08:09:10 +0100
+Message-ID: <s5hft2p5w89.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: control: expand limitation on the number of
+ user-defined control element set per card
+In-Reply-To: <20210125005619.GA137024@workstation>
+References: <20210122082032.103066-1-o-takashi@sakamocchi.jp>
+ <s5h35yt83uf.wl-tiwai@suse.de>
+ <20210123031025.GA118864@workstation>
+ <s5h8s8k6mtf.wl-tiwai@suse.de>
+ <20210124055225.GA132211@workstation>
+ <s5ho8he6ah4.wl-tiwai@suse.de>
+ <20210125005619.GA137024@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,31 +75,265 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Libin Yang <libin.yang@intel.com>
+On Mon, 25 Jan 2021 01:56:19 +0100,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> On Sun, Jan 24, 2021 at 08:49:11AM +0100, Takashi Iwai wrote:
+> > On Sun, 24 Jan 2021 06:52:25 +0100,
+> > Takashi Sakamoto wrote:
+> > > 
+> > > Hi,
+> > > 
+> > > On Sat, Jan 23, 2021 at 10:10:20AM +0100, Takashi Iwai wrote:
+> > > > On Sat, 23 Jan 2021 04:10:25 +0100,
+> > > > Takashi Sakamoto wrote:
+> > > > > 
+> > > > > Hi,
+> > > > > 
+> > > > > On Fri, Jan 22, 2021 at 03:04:56PM +0100, Takashi Iwai wrote:
+> > > > > > On Fri, 22 Jan 2021 09:20:32 +0100,
+> > > > > > Takashi Sakamoto wrote:
+> > > > > > > 
+> > > > > > > ALSA control core allows usespace application to register control element
+> > > > > > > set by call of ioctl(2) with SNDRV_CTL_IOCTL_ELEM_ADD request. The added
+> > > > > > > control elements are called as 'user-defined'. Currently sound card has
+> > > > > > > limitation on the number of the user-defined control element set up
+> > > > > > > to 32.
+> > > > > > > 
+> > > > > > > The limitation is inconvenient to drivers in ALSA firewire stack since
+> > > > > > > the drivers expect userspace applications to implement function to
+> > > > > > > control device functionalities such as mixing and routing. As the
+> > > > > > > userspace application, snd-firewire-ctl-services project starts:
+> > > > > > > https://github.com/alsa-project/snd-firewire-ctl-services/
+> > > > > > > 
+> > > > > > > The project supports many devices supported by ALSA firewire stack. The
+> > > > > > > limitation is mostly good since routing and mixing controls can be
+> > > > > > > represented by control element set, which includes multiple control element
+> > > > > > > with the same parameters. Nevertheless, it's actually inconvenient to
+> > > > > > > device which has many varied functionalities. For example, plugin effect
+> > > > > > > such as channel strip and reverb has many parameters. For the case, many
+> > > > > > > control elements are required to configure the parameters and control
+> > > > > > > element set cannot aggregates them for the parameters. At present, the
+> > > > > > > implementations for below models requires more control element sets
+> > > > > > > than 32:
+> > > > > > > 
+> > > > > > >  * snd-bebob-ctl-service
+> > > > > > >    * Apogee Ensemble (31 sets for 34 elements)
+> > > > > > >  * snd-dice-ctl-service
+> > > > > > >    * TC Electronic Konnekt 24d (78 sets for 94 elements)
+> > > > > > >    * TC Electronic Studio Konnekt 48 (98 sets for 114 elements)
+> > > > > > >    * TC Electronic Konnekt Live (88 sets for 104 elements)
+> > > > > > >    * TC Electronic Impact Twin (70 sets for 86 elements)
+> > > > > > >    * Focusrite Liquid Saffire 56 (37 sets for 52 elements)
+> > > > > > > 
+> > > > > > > This commit expands the limitation according to requirement from the above
+> > > > > > > applications. As a result, userspace applications can add control element
+> > > > > > > sets up to 150 per sound card. It results in 154,200 user-defined control
+> > > > > > > elements as maximum since one control element set can include 1028 control
+> > > > > > > elements.
+> > > > > > 
+> > > > > > Thinking of this change again after reading your description, I find
+> > > > > > that a more flexible and safer approach would be to limit the number
+> > > > > > of total elements.  That is, count the number of items in each
+> > > > > > element, and set the max to (32 * MAX_CONTROL_COUNT).  This will keep
+> > > > > > the same max as the current implementation can achieve, while it
+> > > > > > allows more elements as long as they contain lower number of items.
+> > > > > > 
+> > > > > > So, something like below (totally untested).
+> > > > > > 
+> > > > > > 
+> > > > > > thanks,
+> > > > > > 
+> > > > > > Takashi
+> > > > > > 
+> > > > > > --- a/sound/core/control.c
+> > > > > > +++ b/sound/core/control.c
+> > > > > > @@ -18,10 +18,11 @@
+> > > > > >  #include <sound/info.h>
+> > > > > >  #include <sound/control.h>
+> > > > > >  
+> > > > > > -/* max number of user-defined controls */
+> > > > > > -#define MAX_USER_CONTROLS	32
+> > > > > >  #define MAX_CONTROL_COUNT	1028
+> > > > > >  
+> > > > > > +/* max number of user-defined controls */
+> > > > > > +#define MAX_USER_CONTROLS	(32 * MAX_CONTROL_COUNT)
+> > > > > > +
+> > > > > >  struct snd_kctl_ioctl {
+> > > > > >  	struct list_head list;		/* list of all ioctls */
+> > > > > >  	snd_kctl_ioctl_func_t fioctl;
+> > > > > > @@ -520,6 +521,7 @@ static int snd_ctl_remove_user_ctl(struct snd_ctl_file * file,
+> > > > > >  	struct snd_card *card = file->card;
+> > > > > >  	struct snd_kcontrol *kctl;
+> > > > > >  	int idx, ret;
+> > > > > > +	int count;
+> > > > > >  
+> > > > > >  	down_write(&card->controls_rwsem);
+> > > > > >  	kctl = snd_ctl_find_id(card, id);
+> > > > > > @@ -536,10 +538,11 @@ static int snd_ctl_remove_user_ctl(struct snd_ctl_file * file,
+> > > > > >  			ret = -EBUSY;
+> > > > > >  			goto error;
+> > > > > >  		}
+> > > > > > +	count = kctl->count;
+> > > > > >  	ret = snd_ctl_remove(card, kctl);
+> > > > > >  	if (ret < 0)
+> > > > > >  		goto error;
+> > > > > > -	card->user_ctl_count--;
+> > > > > > +	card->user_ctl_count -= count;
+> > > > > >  error:
+> > > > > >  	up_write(&card->controls_rwsem);
+> > > > > >  	return ret;
+> > > > > > @@ -1435,18 +1438,18 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
+> > > > > >  			return err;
+> > > > > >  	}
+> > > > > >  
+> > > > > > +	/* Check the number of elements for this userspace control. */
+> > > > > > +	count = info->owner;
+> > > > > > +	if (count == 0)
+> > > > > > +		count = 1;
+> > > > > > +
+> > > > > >  	/*
+> > > > > >  	 * The number of userspace controls are counted control by control,
+> > > > > >  	 * not element by element.
+> > > > > >  	 */
+> > > > > > -	if (card->user_ctl_count + 1 > MAX_USER_CONTROLS)
+> > > > > > +	if (card->user_ctl_count + count > MAX_USER_CONTROLS)
+> > > > > >  		return -ENOMEM;
+> > > > > >  
+> > > > > > -	/* Check the number of elements for this userspace control. */
+> > > > > > -	count = info->owner;
+> > > > > > -	if (count == 0)
+> > > > > > -		count = 1;
+> > > > > > -
+> > > > > >  	/* Arrange access permissions if needed. */
+> > > > > >  	access = info->access;
+> > > > > >  	if (access == 0)
+> > > > > > @@ -1535,7 +1538,7 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
+> > > > > >  	 * which locks the element.
+> > > > > >  	 */
+> > > > > >  
+> > > > > > -	card->user_ctl_count++;
+> > > > > > +	card->user_ctl_count += count;
+> > > > > >  
+> > > > > >   unlock:
+> > > > > >  	up_write(&card->controls_rwsem);
+> > > > > 
+> > > > > I have no objection to any change as long as it allows the service programs
+> > > > > to add control elements enough for target device. However, it's unclear
+> > > > > what is flexible and safe in the above patch.
+> > > > > 
+> > > > > When adding user-defined control element set, some objects are allocated
+> > > > > for below structures with some variable-length members:
+> > > > >  * struct snd_kcontrol (in include/sound/control.h)
+> > > > >  * struct user_element (in sound/core/control.h)
+> > > > > 
+> > > > > Current implementation is to avoid too much allocation for the above
+> > > > > against userspace applications with bugs or mis-programming. It's
+> > > > > reasonable to limit the allocation according to count of added control
+> > > > > element set for the purpose.
+> > > > > 
+> > > > > On the other hand, when counting the number of added control element for
+> > > > > the limitation, the above becomes loose. In the worst case, the patch
+> > > > > allows 32,896 sets to be allocated and against comments in my previous
+> > > > > patch.
+> > > > 
+> > > > OK, my previous patch was too simplified (I forgot to take the
+> > > > private_data into account), but the point is that what we want is to
+> > > > cap the worst case memory consumption.
+> > > > 
+> > > > If I calculate correctly, user_element is 320 bytes, and the value is
+> > > > up to 512 bytes for each item, and snd_kcontrol is 144 bytes, and
+> > > > snd_kcontrol_volatile is 16 bytes per item.  And each element may
+> > > > contain 1028 items.  So, the worst case scenario of the memory
+> > > > consumption is:
+> > > >   (320 + 512*1028 + 144 + 16*1024) * 32 = 17383936
+> > > > That is, currently we allow 16MB at most.
+> > > > 
+> > > > By increasing MAX_USER_CONTROLS to 150, it'll become 77MB.
+> > > > 
+> > > > And, think what if you'd need to increase more in future, e.g. 512
+> > > > elements.  The max consumption also increases linearly.
+> > > > 
+> > > > OTOH, imagine that we cap the memory consumption to 16MB instead of
+> > > > limiting only the MAX_USER_CONTROLS.  This lets user still allow to
+> > > > allocate more elements with smaller number of items (that is the
+> > > > common use case).  In this way, we don't take a risk of higher memory
+> > > > consumption while user can deploy the user elements more flexibly.
+> > > 
+> > > The memory object for data of Type-Length-Value style is underestimate in
+> > > your calculation for the worst case. For user-defined control element set,
+> > > the size is (1024 * 128) per control element set[1].
+> > > 
+> > > Of cource, it's possible to judge that usual userspace application don't
+> > > use data of Type-Length-Value style so much. However, we are assuming
+> > > the worst case now.
+> > 
+> > Right, that should be taken into account.
+> > 
+> > > ```
+> > > Objects linearly increased according to the number of user-defined control
+> > > element sets:
+> > >  * struct snd_kcontrol (144 bytes)
+> > >  * struct user_element (320 bytes)
+> > >  * data of TLV ((1024 * 128) bytes as maximum)
+> > > 
+> > > Objects linearly increased according to the number of control elements:
+> > >  * data of values (max. 1024 bytes in System V ABI with LP64 data type)
+> > >  * data of snd_kcontrol_volatile (16 bytes)
+> > > 
+> > > Memory consumption under current limitation:
+> > >  (144 + 320 + 1024 * 128) * 32 + (1024 + 16) * 1028 = 5,278,272
+> > > 
+> > > Scenario for the worst case when appying the patch:
+> > > * adding 32,896 control element sets
+> > >  * for elements: (1024 + 16) * 1028 * 32 = 34,211,840
+> > >  * for element sets: (144 + 320 + 1024 * 128) * 32896 = 4,327,008,256
+> > 
+> > Forget my previous patch.  The code change suggested there is
+> > obviously not sufficient, but you need only consider about its idea.
+> > 
+> > > Scenario for the worst case when applying my patch:
+> > > * adding 150 control element sets
+> > >  * for elements: (1024 + 16) * 1028 * 150 = 160,368,000
+> > >  * for element sets: (144 + 320 + 1024 * 128) * 150 = 19,730,400
+> > > ```
+> > 
+> > See that your patch increases the memory consumption so much?
+> > That's my point.
+> > 
+> > We may give more user elements without increasing the worst-case
+> > memory footprint in normal scenarios.  So scratch MAX_USER_CONTROLS
+> > but count each user element's memory consumption and define its total
+> > limit instead.
+> 
+> When preparing for safety, we should not assume anything as long as the
+> worst case is clear, in my opinion.
+> 
+> The initial maximum memory consumption is 5.2 MB. With limitation of
+> control element by control element, it's so large due to the data of TLV
+> per control element set. With limitation of control element set by control
+> element set, it's 19.7 MB and deterministic (in my patch).
+> 
+> It's can be investigated to arrange relevant parameters, but it
+> certainly brings regression to the old-versioned userspace applications.
+> It would not be better to change the size of data of TLV and the number
+> of control elements in control element set.
+> 
+> At first place, my request is to relax limitation according to userspace
+> application. Expansion of memory consumption is unavoidable. The linear
+> increase of memory consumption about which you mentioned is not so worse
+> as a result of compromise to the above.
 
-ADL will use sof-adl-s.ri if it is ADL-S platform. So let's use
-the default_fw_filename in pdata->desc for the ADL FW filename.
+Hm?  We really care only the *max* memory consumption case (i.e. the
+worst case scenario), not about the memory consumption in your
+particular use case.  And this can be certainly accountable.
 
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/intel/common/soc-acpi-intel-adl-match.c | 1 -
- 1 file changed, 1 deletion(-)
+Whether to calculate the amount of TLV data separately from the main
+user elements is another thing to be discussed, but in either way, we
+can know the data size at allocation time, and we can also calculate
+the theoretical max of the current implementation beforehand.
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index 06b233d63b73..0aca340ebc25 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -44,7 +44,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
- 		.link_mask = 0x1, /* link0 required */
- 		.links = adl_rvp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt711.tplg",
- 	},
- 	{},
--- 
-2.29.2
 
+Takashi

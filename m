@@ -2,68 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F40B3053A1
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 07:54:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 107633053A2
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 07:54:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF4DE176B;
-	Wed, 27 Jan 2021 07:53:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF4DE176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA3A2177D;
+	Wed, 27 Jan 2021 07:54:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA3A2177D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611730487;
-	bh=qnXKgthbM7xTBHgPuNgFYxcTrLeo5lqoeoQ0fjhCRSQ=;
+	s=default; t=1611730498;
+	bh=O0SzqxA4Kl1KwDzTg7qIYL/SSQiArMLG1FuFoNh2OcI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sskqslfz09fYjR+5X1rUjBYYDIw/n88WH3pWWUru4dmsRC8Xad/o4Qe0nIG273WLH
-	 LZpPrU/ZLWN/VUmYYXMQtxCZN26ELunlSzeUgNVFGl6Yzhp2Wd/eNNEYlrvqO1GKSF
-	 JuT3ypmjlbbrIc49Sk7lM8B1hJ4uWu3GQcrULEVU=
+	b=j3JRdcykMO5U5nbrPyVl3s3GxNgvmNc/gMgwdK+92N8vtV80dL3hKd55pwDjXTP1F
+	 S+abWxXGdy1oyPOmw6Q20thc3W72IwZGBfUYJ+2mEe0p2z4qO3ZIAVDDuDSHAtsTpV
+	 o8UmHpuRtELX+EICz2Ou7A6OkWpHtm8x8ElShgC0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8C64F804DF;
-	Wed, 27 Jan 2021 07:52:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD2B9F804E3;
+	Wed, 27 Jan 2021 07:52:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D34C5F8015B; Tue, 26 Jan 2021 18:59:20 +0100 (CET)
+ id 0517FF8015B; Tue, 26 Jan 2021 20:06:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49F0BF80108
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 18:59:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F0BF80108
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
+ by alsa1.perex.cz (Postfix) with ESMTPS id D57E9F80130
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 20:06:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D57E9F80130
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="ad84LgFW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zUcP2Ekow40wDr8LQu56g1JOWBLSxsWCwNUDwttWnJY=; b=ad84LgFWJ8FgdoRvBSNVnAdb+
+ 0I6Sw5zFHnURG6DddKEQ8HbimmJVGhfZNBE+p4AhrkuGcqgL8wXJS/82Ulh3PCv17KG3N45R7A4lo
+ nmAWv3AnHF/mSc9xZD1jBN9qCv/KUXD01csQwhWLG+rkGDTkxKX1bLlQ1gn5TyX5Nq4qryobh41F5
+ DB4HHmb9nD2Xu3mV8TLNo+8B+nWoKTBy48lo4Q1JucKdB4IQ7QCREGM7mwYt646OKNjClWNUO1E6M
+ j60U9ebf7BAEOHy7IwgCDiy4Xjl4pjGwcbLID7o2kdNIzvVrdpvSEcEUXs6vOb5LBBAMtPHo30HE4
+ oAMpwR9Vw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53070)
+ by pandora.armlinux.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1l4SaJ-00032e-0a; Tue, 26 Jan 2021 18:56:59 +0100
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1l4SaD-0007NA-AL; Tue, 26 Jan 2021 18:56:53 +0100
-Date: Tue, 26 Jan 2021 18:56:52 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Arnd Bergmann <arnd@arndb.de>
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1l4TeW-0004lN-0N; Tue, 26 Jan 2021 19:05:24 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1l4TeJ-00042E-C4; Tue, 26 Jan 2021 19:05:11 +0000
+Date: Tue, 26 Jan 2021 19:05:11 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
 Subject: Re: [PATCH v3 4/5] amba: Make the remove callback return void
-Message-ID: <20210126175652.3caoqfnsky2es42f@pengutronix.de>
+Message-ID: <20210126190511.GK1551@shell.armlinux.org.uk>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
  <3e42b2ea-c713-31b2-9c86-c49a70d8e1f4@arm.com>
+ <20210126175652.3caoqfnsky2es42f@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2x4mwcdrgqmlamtu"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <3e42b2ea-c713-31b2-9c86-c49a70d8e1f4@arm.com>
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210126175652.3caoqfnsky2es42f@pengutronix.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Wed, 27 Jan 2021 07:52:19 +0100
 Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
  kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
@@ -73,14 +86,14 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
  linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
  Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
  Krzysztof Kozlowski <krzk@kernel.org>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
  Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
- coresight@lists.linaro.org, Vladimir Zapolskiy <vz@mleia.com>,
- Eric Auger <eric.auger@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
  Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
  linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
  Dan Williams <dan.j.williams@intel.com>,
@@ -91,8 +104,8 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
  Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org
+ Daniel Vetter <daniel@ffwll.ch>, Leo Yan <leo.yan@linaro.org>,
+ dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,118 +121,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jan 26, 2021 at 06:56:52PM +0100, Uwe Kleine-König wrote:
+> I'm surprised to see that the remove callback introduced in 2952ecf5df33
+> ("coresight: etm4x: Refactor probing routine") has an __exit annotation.
 
---2x4mwcdrgqmlamtu
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In general, remove callbacks should not have an __exit annotation.
+__exit _can_ be discarded at link time for built-in stuff.
 
-Hello,
-
-On Tue, Jan 26, 2021 at 05:08:40PM +0000, Suzuki K Poulose wrote:
-> On 1/26/21 4:58 PM, Uwe Kleine-K=F6nig wrote:
-> > All amba drivers return 0 in their remove callback. Together with the
-> > driver core ignoring the return value anyhow, it doesn't make sense to
-> > return a value here.
-> >=20
-> > Change the remove prototype to return void, which makes it explicit that
-> > returning an error value doesn't work as expected. This simplifies chan=
-ging
-> > the core remove callback to return void, too.
-> >=20
-> > Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
-> > Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> > Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
-> > Acked-by: Mark Brown <broonie@kernel.org>
->  > Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > Acked-by: Linus Walleij <linus.walleij@linaro.org>
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
->=20
->=20
-> >   drivers/hwtracing/coresight/coresight-etm4x-core.c | 4 +---
->=20
-> You are most likely to have a conflict for the above file, with what is
-> in coresight/next. It should be easy to resolve.
-
-I'm surprised to see that the remove callback introduced in 2952ecf5df33
-("coresight: etm4x: Refactor probing routine") has an __exit annotation.
-
-With .suppress_bind_attrs =3D true you don't need a remove callback at
-all. (And without .suppress_bind_attrs =3D true the remove callback must
-have no __exit annotation.)
-
-This make me looking at commit 45fe7befe0db ("coresight: remove broken
-__exit annotations") by Arnd. Unless I miss something the better change
-would have been to remove the unused remove callbacks instead of dropping
-their __exit annotation?!
-
-Anyhow, my conflict resolution looks as follows:
-
-diff --cc drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 82787cba537d,473ab7480a36..000000000000
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@@ -1703,6 -1903,28 +1903,27 @@@ static int __exit etm4_remove_dev(struc
-  	cpus_read_unlock();
- =20
-  	coresight_unregister(drvdata->csdev);
-+=20
-+ 	return 0;
-+ }
-+=20
- -static int __exit etm4_remove_amba(struct amba_device *adev)
-++static void __exit etm4_remove_amba(struct amba_device *adev)
-+ {
-+ 	struct etmv4_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
-+=20
-+ 	if (drvdata)
- -		return etm4_remove_dev(drvdata);
- -	return 0;
-++		etm4_remove_dev(drvdata);
-+ }
-+=20
-+ static int __exit etm4_remove_platform_dev(struct platform_device *pdev)
-+ {
-+ 	int ret =3D 0;
-+ 	struct etmv4_drvdata *drvdata =3D dev_get_drvdata(&pdev->dev);
-+=20
-+ 	if (drvdata)
-+ 		ret =3D etm4_remove_dev(drvdata);
-+ 	pm_runtime_disable(&pdev->dev);
-+ 	return ret;
-  }
- =20
-  static const struct amba_id etm4_ids[] =3D {
-
-If this series should make it in for 5.12 we probably need an immutable
-branch between hwtracing and amba.
-
-> Otherwise, the changes look good for the drivers/hwtracing/coresight/*
->=20
-> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-Thanks
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---2x4mwcdrgqmlamtu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmAQV+EACgkQwfwUeK3K
-7AmVuQf6AtGutKPgbsyG3MlTDGKL2CFRBxCLR4sxog0b3QoNLrxr97ZAm+29XP+R
-/C9AgAEdBYZEp/2H2BkQe8cuBFS4UgHD/WEPZ5cI+JN475DZiqoF6T0qdSyCMF8m
-zEDDLZljJzggeci88eRuo1WxD4fyaD//srG7TdZYqXjasRvJ7uKPN4yTi7TrbMtU
-ECXScjnQQcZQPBSaUSqOzJfFs5iGDejv5lIG/emf+7QYEDD+AftUvKNVv/FyQYmL
-2jPJY9rLusZQGMxlZWQMyo5AzhkjmMkXv3GJVOiLzAUiEZ6WfU0kdtrZuzScshOW
-IRo6dRIxQLZOE4k2D+rDx3M/+KGaZQ==
-=Ozgm
------END PGP SIGNATURE-----
-
---2x4mwcdrgqmlamtu--
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!

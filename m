@@ -2,73 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E053043E5
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 17:36:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D43E3043F0
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 17:43:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6534717A3;
-	Tue, 26 Jan 2021 17:35:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6534717A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C4B217A3;
+	Tue, 26 Jan 2021 17:42:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C4B217A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611678979;
-	bh=0iyjx9boFIh74MC5/l/2Yp8BztMttqvXyEtvQewHavA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1611679403;
+	bh=q4W63UGPVWVlwwZ58uIu8h4ZuUyerYgFRs8BeBXkMI4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c98EEsAHSE7M5itXJzuZyRH3LVX9xfnx/dZfdwttiiA9N02fZQDgmBD37qFFZ5Ez8
-	 qrH4zfnhTWNaUOEo9f9t2H9vPaqAkP9L/jBaONGXfdiQnG4QYfa3yz2F+tkRs2iI8I
-	 hZoULLrbiuWW7cHoIOcVfHQ1SxV4ainsBa+JfWQs=
+	b=uygeY8sAlEIiHEl9RrvmKm/MS7FFepL+Zh5PrM7/Sbo3dZwG6aQHXY86NOrYVAKoo
+	 qfP9V2k6OpQCCoiGWK26SZKRy6dtsS1m4HNe8T8lGNuuL4OGnBApFVLKYMv53RGNvH
+	 DPJ9SzyIuOn8Tl91jl0ywM7ASZP8Zo4kalnlZYAY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07950F801D8;
-	Tue, 26 Jan 2021 17:34:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74744F80108;
+	Tue, 26 Jan 2021 17:41:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14E3DF8015B; Tue, 26 Jan 2021 17:34:46 +0100 (CET)
+ id B4B2AF8015B; Tue, 26 Jan 2021 17:41:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0D37F80130
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 17:34:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0D37F80130
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ek4sZI8a"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 307BE22228;
- Tue, 26 Jan 2021 16:34:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611678878;
- bh=0iyjx9boFIh74MC5/l/2Yp8BztMttqvXyEtvQewHavA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ek4sZI8aCOq02qRSkkAah5D3YfuYGj9sge2KMt6yowtj6N0AE605A/AFr+Dtq69n3
- 3BnzIcR8LoG5gejwnhlGMZehSA02+zTsnBkxAQNJJOYkVPXy3qe1ORHyNpodqL55vQ
- Ec+9XxyG8Wizd40+eFXuPj9ALr4B+JOMLptgjdQzX2aLbQvAekXpVqcXKZuM64525g
- iFSmbjqtzq4lLJuPO7J4iaSbXqOl5P8mibuTX5hyb6/RpB1WMaWSc3JaqoiDDa/D/u
- c2J9jwsppZwW+MyhO/8z7HefwoG0YD4NdGJAHWhxhDiDiJHQ659zo5xT44s3nFeQk2
- inn5zy0EHBhgQ==
-Date: Tue, 26 Jan 2021 16:33:56 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [RFC PATCH 1/2] ASoC: soc-component: add
- snd_soc_component_read/write_field()
-Message-ID: <20210126163356.GD4839@sirena.org.uk>
-References: <20210126122020.19735-1-srinivas.kandagatla@linaro.org>
- <20210126133612.GB4839@sirena.org.uk>
- <6816a9fe-9b71-6a39-485e-1b6ce2b732ed@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SFyWQ0h3ruR435lw"
-Content-Disposition: inline
-In-Reply-To: <6816a9fe-9b71-6a39-485e-1b6ce2b732ed@linaro.org>
-X-Cookie: I don't understand you anymore.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1E23F80130
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 17:41:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E23F80130
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5B594AB92;
+ Tue, 26 Jan 2021 16:41:36 +0000 (UTC)
+Date: Tue, 26 Jan 2021 17:41:36 +0100
+Message-ID: <s5hy2gfzm4f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: control: expand limitation on the number of
+ user-defined control element set per card
+In-Reply-To: <48c7c194-dca6-a951-d47a-633def33c2cc@perex.cz>
+References: <20210122082032.103066-1-o-takashi@sakamocchi.jp>
+ <s5h35yt83uf.wl-tiwai@suse.de>
+ <20210123031025.GA118864@workstation>
+ <s5h8s8k6mtf.wl-tiwai@suse.de>
+ <20210124055225.GA132211@workstation>
+ <s5ho8he6ah4.wl-tiwai@suse.de>
+ <20210125005619.GA137024@workstation>
+ <s5hft2p5w89.wl-tiwai@suse.de> <s5h7dnz1yik.wl-tiwai@suse.de>
+ <48c7c194-dca6-a951-d47a-633def33c2cc@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,30 +77,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 26 Jan 2021 17:25:24 +0100,
+Jaroslav Kysela wrote:
+> 
+> Dne 26. 01. 21 v 16:57 Takashi Iwai napsal(a):
+> 
+> > @@ -1226,11 +1227,18 @@ struct user_element {
+> >  	struct snd_card *card;
+> >  	char *elem_data;		/* element data */
+> >  	unsigned long elem_data_size;	/* size of element data in bytes */
+> > +	size_t alloc_size;		/* allocated size */
+> 
+> I think that introduction of this new member is not required. The allocated
+> size can be easily computed at runtime (function).
 
---SFyWQ0h3ruR435lw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+True.  OTOH, I thought this addition would be error-prone.
 
-On Tue, Jan 26, 2021 at 02:03:29PM +0000, Srinivas Kandagatla wrote:
+> > @@ -1397,6 +1414,7 @@ static int snd_ctl_elem_init_enum_names(struct user_element *ue)
+> >  
+> >  	ue->priv_data = names;
+> >  	ue->info.value.enumerated.names_ptr = 0;
+> > +	ue->alloc_size += buf_len;
+> 
+> The buf_len variable is the remaining count. The
+> ue->info.value.enumerated.names_length already contains allocated bytes. This
+> code can be elimited if alloc_size is not introduced.
 
-> Does that look okay to you?
+Oh yeah, that's a wrong count.
 
-Yes, your proposed versions look good.
 
---SFyWQ0h3ruR435lw
-Content-Type: application/pgp-signature; name="signature.asc"
+thanks,
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAQRHMACgkQJNaLcl1U
-h9ADwwf+JT6mbAuIukTVeyd/KxuU+4ZK6Kq36Lwy7d+pRUHdwy/6sJ3z2fwr6EA3
-Km7ACyvU6uWpCbmTZkVbHbaIUnz5S+sqfGKXWJCLs9/5aNHsJr1hYa3C/nAe43fK
-aZ3oxmzq5tqisBS+M/4RpsrpRbgCmDLV4oeC8YQ7BcJSTZ3Y4FYSlNEaRaEtBK2L
-qJSB6cVIwHs1nEpTI/8nL7MYgv/MYvlsaOhRUR92csp/h3pNB+FAOjnkXMWN8Yyj
-RNWfLjYdH6sX3t8hUoSedWNFqQ6NsEZ+JeJ4k8GjP1fS0o0UoMR/3XfkkxmNm4eP
-ONn79xWMP5K/tbcJ/ERQyMXrugYHiA==
-=IBI4
------END PGP SIGNATURE-----
-
---SFyWQ0h3ruR435lw--
+Takashi

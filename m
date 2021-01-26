@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F6E0304147
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 16:01:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A050130414C
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 16:02:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06D5517A9;
-	Tue, 26 Jan 2021 16:00:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06D5517A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37EA217B5;
+	Tue, 26 Jan 2021 16:01:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37EA217B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611673306;
-	bh=5PPoqIyCpJtL/ek+tU9+EyocWfpZVKR5Q6N/JZNTSoc=;
+	s=default; t=1611673328;
+	bh=oou4JBBLNg89AoflcEwukaUQeMGozONrAI+ykd68abc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cPslV0iF6xTB+zvM5hovaUe2seVTOZm7wrbZBLUSckM5BdcYCER1lhLxThk6LSsLt
-	 7Z8VnnYHNMtXIZNg/tMulmvB4oCiMoIn2g/gNDt0HzHLqSTrxi0bVwjwZg0L4lK4I3
-	 Mk9gQP+v/l/xYxwEdmv18dCnDcBF1OLSsy9HZNRE=
+	b=S26qvk4eQuuGFenD4V/0pWMoJmo37NxS0OV3zV7B2CBblBGE+Bxzrsk2lUmhtYx5E
+	 t5bBQHmSHGBU/m4nIbFZsdIg2v0pzxd1o/sQ5Wo59cFMYc397fu+Z9IKyJ2JlQNywY
+	 aRIllckmFvW20C1E75dPbiONiJb8+TxySfm6K2A4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AF47F801D8;
-	Tue, 26 Jan 2021 16:00:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF5FBF80217;
+	Tue, 26 Jan 2021 16:00:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04598F8015B; Tue, 26 Jan 2021 16:00:09 +0100 (CET)
+ id 62583F8020D; Tue, 26 Jan 2021 16:00:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,46 +35,47 @@ Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
  [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B82AF8011C
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 15:59:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B82AF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C1FEF8015B
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 16:00:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C1FEF8015B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CJW5k+g5"
-Received: by mail-lf1-x135.google.com with SMTP id v24so23112923lfr.7
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 06:59:57 -0800 (PST)
+ header.b="CMa6kBvp"
+Received: by mail-lf1-x135.google.com with SMTP id o10so23074821lfl.13
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 07:00:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5PPoqIyCpJtL/ek+tU9+EyocWfpZVKR5Q6N/JZNTSoc=;
- b=CJW5k+g5rrW0iG7J1Vqjf7EeICvtVMaqQr4Mrssy80eRmciKqXrKNu2x10XtIpUMjd
- 2Q9fD9jJF+Yiw/QHFgpLarnnoC9HGqb7+JqNxEgSc6ULWHrPbJmfwNrJC6HhunyJagtg
- X99euSfrluWSS5ypVzSO5NDMQXTO+CUmJuikTOK8ZdbxbZzpn8/jxBjqRW7InmA6noQy
- kVpakp5prj7msQgdbf5j7iuW6hQhykXGedscqJrv+7qvBclJSxgfLk7uWbofhgk5yXoC
- HYVsH6NmMWQ2xYCfoGIVnVCnWAy7NrLg+zu14JIFrJsRVJ3PouFzyRQeh8veAj9pmYVy
- LVrQ==
+ :cc; bh=oou4JBBLNg89AoflcEwukaUQeMGozONrAI+ykd68abc=;
+ b=CMa6kBvpR7r2i7zpxtIhNACZ2ViuaRO16BBxLI8B05cp9KOHqdEStU7xvCXZWY74SX
+ 9lqFxZaRm4aqr+c9UZoLdzO0SOMIUuiYyxAeIJJGdPM/fiZR4aDiStE89i/QvkPTJ04r
+ UajsbqVlBJyRziIRZGuKOojtOnzJ5Q4KD2yRDbzkXpaQtXrh1M9quvjUl/9uy5spVVb5
+ GO92t8QxJaHe3M7H82gYGbZA9hX7M29967sScvq3sc6d0cfSQmE9sZiJQiLeevmZHPqx
+ RurYYDJ0RzvHiUwdCy41fLjd6IqcaiDE2XMbg2avVyrkBgog0Qghh8I/VRVS9XJ7SVPY
+ wkdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=5PPoqIyCpJtL/ek+tU9+EyocWfpZVKR5Q6N/JZNTSoc=;
- b=uFuIzswj1L+tfF3hHtrqGQFBKxHXF4BoD4MLSn+Fuijq1VDrC6wSrBTxuSAgRAxxIH
- vUbB1s0Q3imVhldLFHWtz09BEuWqStQM2KBNrnfX7JCnj9+X6kIWV5EsENRXJaZCfk5Y
- 1OMsWrwfzLG3eMMnIGVhg481E+EiRc21oZcCRZCEhgtk71qp9ab9jZG6a3+YUe+WqSO/
- Z9JpXUMBKcP9zbONRW/1JGdvFOqJAeGdtDIaTKCFVzfN0bnIkfE2vVvKMSX+VLHWqDjH
- 0m1veyehQxfoyuR7vOMpj0P9JKo/KfedXFI9bIb9XK7eWlYEiY7RsYMocjtx7P0YUGjO
- 2yzQ==
-X-Gm-Message-State: AOAM532C3CNdw8apsAe+S9cd9Fjxxvb9N88NkO/E6MWiLO3NV8+4VEU5
- 0znW31ehr6CE55xgNZlBx+oLybEpVuHJQ+KzHLQMEQ==
-X-Google-Smtp-Source: ABdhPJw+UEQhd8vKQIGL6NeYSPSicxlz7dsriKTU3lH8LHsu7n43H+WLi/pKgx8+e/k/qqhhJKe1LW7Bfg9MZUXVmL8=
-X-Received: by 2002:a19:495d:: with SMTP id l29mr2785470lfj.465.1611673197037; 
- Tue, 26 Jan 2021 06:59:57 -0800 (PST)
+ bh=oou4JBBLNg89AoflcEwukaUQeMGozONrAI+ykd68abc=;
+ b=qY3VilxM/gvWQLGD6D7OI7AG3tjbYgG3Am7aAVtFIVhtpXoo7ZIIlHY/9obOPeAhDL
+ pXZI4Xf8UP0HSBZKh25p+7bb+J8hY4nXkui+XXvz0M0JEazW+14XYYl8NRIKjo7E4cpS
+ SnuveNWb1MJuj38YebRqP7Yn+hjH+jlwIuEzBr1FBWrR0k0QLQ2rqOn35moNFNeMU149
+ uNAZ5Z2BMqlAKzKygz9a6xkPd2dLlGzLzMmIKMUZq+9hw4RCfmivZhu0dzA27Lak+hfD
+ EBARNgNNeYMYGSE/nYqpfPlO/Sgxx3J89kRGhf3GK1PxOTd79QDEloCRsqTPRKrD7z32
+ Kdxw==
+X-Gm-Message-State: AOAM532R1WJhYwJ/XBH5kcQU58d1o9xG0XmJQUf0zYez4BEstkR8rPuU
+ XykheL/9SQPgCtlvC0YSRNDYz/BaR9aBssEyN9t6Pg==
+X-Google-Smtp-Source: ABdhPJzrV9fkzjpZBwQ0mQ9Fy53MLqpTRDv/TPUMKddMWfeRpgkK8NEwID8Bpzlme642rYr1YhFm4FNjevHCdUpgQwY=
+X-Received: by 2002:ac2:4285:: with SMTP id m5mr2664496lfh.649.1611673219946; 
+ Tue, 26 Jan 2021 07:00:19 -0800 (PST)
 MIME-Version: 1.0
 References: <20210126132531.2084711-1-robert.foss@linaro.org>
-In-Reply-To: <20210126132531.2084711-1-robert.foss@linaro.org>
+ <20210126132531.2084711-2-robert.foss@linaro.org>
+In-Reply-To: <20210126132531.2084711-2-robert.foss@linaro.org>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 26 Jan 2021 15:59:46 +0100
-Message-ID: <CACRpkdYPY3HxpWHMp08477z62PBYEjCKWpw3Uf0SQ7VHVB3jdw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] dt-bindings: pinctrl: pinctrl-microchip-sgpio: Fix
+Date: Tue, 26 Jan 2021 16:00:09 +0100
+Message-ID: <CACRpkda4pChqJoR-RH_QGMq0NBgyWFsyhzQHthFWPZkm62qC8A@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] dt-bindings: mediatek: mt8192: Fix
  dt_binding_check warning
 To: Robert Foss <robert.foss@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -118,7 +119,7 @@ On Tue, Jan 26, 2021 at 2:26 PM Robert Foss <robert.foss@linaro.org> wrote:
 >
 > Signed-off-by: Robert Foss <robert.foss@linaro.org>
 
-I already have a fix for this in my tree, thanks anyway!
+Patch applied!
 
 Yours,
 Linus Walleij

@@ -2,65 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A30303703
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 08:05:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A42AB30374F
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 08:28:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CAE617BC;
-	Tue, 26 Jan 2021 08:04:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CAE617BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BCED17BA;
+	Tue, 26 Jan 2021 08:27:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BCED17BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611644728;
-	bh=kWxYIOzn35+JCITLkQxtYfh7LbXPz0o8UGWJweVjZr8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611646076;
+	bh=c+G0MbiiboDJzRxknuorhAJoB5TV/VUnQ86jvhiIpww=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sdv1++3PCRR1Ja+dyXv/PpauBbVaCOTYSIxkdoHOKG1DB3Msqazq892JRMcPfc+gs
-	 MP8OK8HFUH209uIszKp+Co7nsyAkE8p1ywWmx0w0vONvqiGqcvCdc66TY/sFz1S7EI
-	 vVjNlyZlldTxyozpFrn0cnXWR7cX+cDNYncKisIY=
+	b=FwgDMGg03FkByD7uqSH/LI1lfz+D0WOQJ4cw2GP1CDPeww4IEQnmtpkvWZdKAN76+
+	 K5xQo9pXEgixRWc9HJFeQ+u4iavRO5oslfBigHP2alFzmeek+M0wsZSQHIaZ1yE1iQ
+	 UMwEw49jA+maMVaF3wlpY7ETmnLgb+Ld5czl8ins=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77E80F801D8;
-	Tue, 26 Jan 2021 08:03:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A46EF801D8;
+	Tue, 26 Jan 2021 08:26:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEF75F8015B; Tue, 26 Jan 2021 08:03:55 +0100 (CET)
+ id EB58FF8015B; Tue, 26 Jan 2021 08:26:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5158AF80108
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 08:03:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5158AF80108
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=[192.168.1.24]) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1l4IOE-0002EU-I8; Tue, 26 Jan 2021 07:03:51 +0000
-Subject: Re: [PATCH v7 1/1] alsa: jack: implement software jack injection via
- debugfs
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210125032118.13269-1-hui.wang@canonical.com>
- <20210125032118.13269-2-hui.wang@canonical.com>
- <s5ha6sx3x5i.wl-tiwai@suse.de>
- <ecb8450b-c7be-52ff-e6f2-876c2177cb21@canonical.com>
- <s5h8s8g2ni7.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <c4edce1e-371e-6e07-b5b5-b17ee7cad68a@canonical.com>
-Date: Tue, 26 Jan 2021 15:03:45 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3BC9F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 08:26:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3BC9F8011C
+IronPort-SDR: gvgwmEy/IEbpJ6oIYCAi3KnTShkpJWlurZsnIt6vA3QbWzLITpQXyLxmxZbK5CosH74kjNGDpJ
+ HEsNQp38U1ZQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="243941575"
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="243941575"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2021 23:26:02 -0800
+IronPort-SDR: Sd5dS09jU/hBm6xU+DWJk8sUX/O9t+7dGZwRVHfAOilhhBCQCOJTOb8K/pIcZfNyzFi2khNo+8
+ eiASdJp37QAg==
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="387723377"
+Received: from kleve-mobl1.ger.corp.intel.com (HELO ubuntu) ([10.252.52.33])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2021 23:26:00 -0800
+Date: Tue, 26 Jan 2021 08:25:58 +0100 (CET)
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Subject: Re: [PATCH v2 6/9] ALSA: virtio: PCM substream operators
+In-Reply-To: <7b4fa4c1-4af1-47b5-d2e6-bb2f81e75488@intel.com>
+Message-ID: <d92151ca-cde3-d1e6-23fe-f0c671379e9@intel.com>
+References: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
+ <20210124165408.1122868-7-anton.yakovlev@opensynergy.com>
+ <7b4fa4c1-4af1-47b5-d2e6-bb2f81e75488@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <s5h8s8g2ni7.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+ virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,36 +79,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+One more thing I missed yesterday:
 
-On 1/26/21 2:58 PM, Takashi Iwai wrote:
-> On Tue, 26 Jan 2021 07:55:29 +0100,
-> Hui Wang wrote:
->>
->> On 1/25/21 10:32 PM, Takashi Iwai wrote:
->>> On Mon, 25 Jan 2021 04:21:18 +0100,
->>> Hui Wang wrote:
->>>> This change adds audio jack injection feature through debugfs, with
->>>> this feature, we could validate alsa userspace changes by injecting
->>>> plugin or plugout events to the non-phantom audio jacks.
->>>>
->>>> With this change, the sound core will build the folders
->>>> $debugfs_mount_dir/sound/cardN if SND_DEBUG and DEBUG_FS are enabled.
->> <snip>
->>>> +		return -ENOMEM;
->>>> +
->>>> +	/* replace the chars which are not suitable for folder's name with _ */
->>>> +	for (i = 0; i < strlen(tname); i++)
->>> No need to use strlen(), just check the NUL character on tname[i].
->> OK, will change it to:     for (i = 0; tname[i] != '\0'; i++)
-> Even the "!= '\0" part can be dropped, too :)
->
->    for (i = 0; tname[i]; i++)
->      ....
-
-OK, got it.
-
-thx.
+On Mon, 25 Jan 2021, Guennadi Liakhovetski wrote:
 
 >
+> On Sun, 24 Jan 2021, Anton Yakovlev wrote:
 >
-> Takashi
+>> Introduce the operators required for the operation of substreams.
+>> 
+>> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+>> ---
+>> sound/virtio/Makefile         |   3 +-
+>> sound/virtio/virtio_pcm.c     |   5 +-
+>> sound/virtio/virtio_pcm.h     |   2 +
+>> sound/virtio/virtio_pcm_ops.c | 513 ++++++++++++++++++++++++++++++++++
+>> 4 files changed, 521 insertions(+), 2 deletions(-)
+>> create mode 100644 sound/virtio/virtio_pcm_ops.c
+>
+> [snip]
+>
+>> diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+>> new file mode 100644
+>> index 000000000000..19882777fcd6
+>> --- /dev/null
+>> +++ b/sound/virtio/virtio_pcm_ops.c
+>> @@ -0,0 +1,513 @@
+>
+> [snip]
+>
+>> +/**
+>> + * virtsnd_pcm_release() - Release the PCM substream on the device side.
+>> + * @substream: VirtIO substream.
+>> + *
+>> + * Context: Any context that permits to sleep.
+>> + * Return: 0 on success, -errno on failure.
+>> + */
+>> +static inline bool virtsnd_pcm_released(struct virtio_pcm_substream 
+>> *substream)
+>> +{
+>> +	/*
+>> +	 * The spec states that upon receipt of the RELEASE command "the 
+>> device
+>> +	 * MUST complete all pending I/O messages for the specified stream 
+>> ID".
+>> +	 * Thus, we consider the absence of I/O messages in the queue as an
+>> +	 * indication that the substream has been released.
+>> +	 */
+>> +	return atomic_read(&substream->msg_count) == 0;
+>
+> Also here having it atomic doesn't really seem to help. This just means, that 
+> at some point of time it was == 0.
+>
+>> +}
+>> +
+>> +static int virtsnd_pcm_release(struct virtio_pcm_substream *substream)
+>
+> kernel-doc missing
+>
+>> +{
+>> +	struct virtio_snd *snd = substream->snd;
+>> +	struct virtio_snd_msg *msg;
+>> +	unsigned int js = msecs_to_jiffies(msg_timeout_ms);
+>> +	int rc;
+>> +
+>> +	msg = virtsnd_pcm_ctl_msg_alloc(substream, VIRTIO_SND_R_PCM_RELEASE,
+>> +					GFP_KERNEL);
+>> +	if (IS_ERR(msg))
+>> +		return PTR_ERR(msg);
+>> +
+>> +	rc = virtsnd_ctl_msg_send_sync(snd, msg);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	return wait_event_interruptible_timeout(substream->msg_empty,
+>> +						virtsnd_pcm_released(substream),
+>> +						js);
+
+wait_event_interruptible_timeout() will return a positive number in 
+success cases, 0 means a timeout and condition still false. Whereas when 
+you call this function you interpret 0 as success and you expect any != 0 
+to be a negative error. Wondering how this worked during your tests?
+
+Thanks
+Guennadi

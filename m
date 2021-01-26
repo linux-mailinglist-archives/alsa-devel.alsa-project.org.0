@@ -2,64 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22DF0304334
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 16:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E25133043CD
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 17:27:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED0317A4;
-	Tue, 26 Jan 2021 16:58:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED0317A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78EE9178E;
+	Tue, 26 Jan 2021 17:26:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78EE9178E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611676776;
-	bh=jgvoCUZ1LZ/S/GFblCJHUc9k2w0VDZ461OKVhQkVSXk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611678429;
+	bh=Bu2gc5t7Jh+9/zGZt7NTws96wkz4P2PGM9gm6sKuYYw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DalHQhC7AmNHW48cRFBGKf5FQyO1etd9tx0dNaWDj+SSRwhcZlqYKjZioUBD4OVMK
-	 DFB2Olzvxv5cxrqV5Scu6tT7fhrL57SQHsz4ZRXMFjpmpvK6+xBLhJwG35E37zPW4k
-	 uoko2SLJlmb6HcZUZPSkFyR8NUbn+aIgjpkrvEw8=
+	b=LRXTDwk11Nj86JCdhLVpn5AiUsL+j3vJw/Qhn8Ey43+c6JIoDWYDAIgj2YuJO9yUW
+	 w4ZjgQDuefFeTpB7YLFCHTIswTtZc058j2y8Ys/KMfOqTmqafWkrUIVHtsBtbG0hD5
+	 Xs2LvnW1zmzA0yR+zXFCB6GMTuQGlw5emid3e+Uk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99712F801D8;
-	Tue, 26 Jan 2021 16:58:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 847B1F801D8;
+	Tue, 26 Jan 2021 17:25:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 097B7F8015B; Tue, 26 Jan 2021 16:58:03 +0100 (CET)
+ id D8059F8015B; Tue, 26 Jan 2021 17:25:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF1ADF80130
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 16:57:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF1ADF80130
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5BA26ACF5;
- Tue, 26 Jan 2021 15:57:56 +0000 (UTC)
-Date: Tue, 26 Jan 2021 16:57:55 +0100
-Message-ID: <s5h7dnz1yik.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F6CBF80130
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 17:25:28 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B1CFDA003F;
+ Tue, 26 Jan 2021 17:25:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B1CFDA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1611678327; bh=a2PgN3YdDHwQmitV+sYcJiXcEIRYvKq37r80vVNIqg8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=nFp1KrPivOhi0Ar9H9JgNXSSzpJdjSt1b+O4FNTiYFBOjTs90xefzNpdRL8vUYa68
+ 7mDAUZQNtazFNH6jy3qtDf42bJmT9ehXn3PNVFNARpu9RxHyTxUzddu4FjAZabj5k2
+ hjXflGODCxs8HxbicjxPsNPfNVplNi/zEg/PjMKA=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 26 Jan 2021 17:25:24 +0100 (CET)
 Subject: Re: [PATCH] ALSA: control: expand limitation on the number of
  user-defined control element set per card
-In-Reply-To: <s5hft2p5w89.wl-tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>, Takashi Sakamoto <o-takashi@sakamocchi.jp>
 References: <20210122082032.103066-1-o-takashi@sakamocchi.jp>
- <s5h35yt83uf.wl-tiwai@suse.de>
- <20210123031025.GA118864@workstation>
- <s5h8s8k6mtf.wl-tiwai@suse.de>
- <20210124055225.GA132211@workstation>
- <s5ho8he6ah4.wl-tiwai@suse.de>
- <20210125005619.GA137024@workstation>
- <s5hft2p5w89.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5h35yt83uf.wl-tiwai@suse.de> <20210123031025.GA118864@workstation>
+ <s5h8s8k6mtf.wl-tiwai@suse.de> <20210124055225.GA132211@workstation>
+ <s5ho8he6ah4.wl-tiwai@suse.de> <20210125005619.GA137024@workstation>
+ <s5hft2p5w89.wl-tiwai@suse.de> <s5h7dnz1yik.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <48c7c194-dca6-a951-d47a-633def33c2cc@perex.cz>
+Date: Tue, 26 Jan 2021 17:25:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
+MIME-Version: 1.0
+In-Reply-To: <s5h7dnz1yik.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,302 +85,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jan 2021 08:09:10 +0100,
-Takashi Iwai wrote:
-> 
-> On Mon, 25 Jan 2021 01:56:19 +0100,
-> Takashi Sakamoto wrote:
-> > 
-> > When preparing for safety, we should not assume anything as long as the
-> > worst case is clear, in my opinion.
-> > 
-> > The initial maximum memory consumption is 5.2 MB. With limitation of
-> > control element by control element, it's so large due to the data of TLV
-> > per control element set. With limitation of control element set by control
-> > element set, it's 19.7 MB and deterministic (in my patch).
-> > 
-> > It's can be investigated to arrange relevant parameters, but it
-> > certainly brings regression to the old-versioned userspace applications.
-> > It would not be better to change the size of data of TLV and the number
-> > of control elements in control element set.
-> > 
-> > At first place, my request is to relax limitation according to userspace
-> > application. Expansion of memory consumption is unavoidable. The linear
-> > increase of memory consumption about which you mentioned is not so worse
-> > as a result of compromise to the above.
-> 
-> Hm?  We really care only the *max* memory consumption case (i.e. the
-> worst case scenario), not about the memory consumption in your
-> particular use case.  And this can be certainly accountable.
-> 
-> Whether to calculate the amount of TLV data separately from the main
-> user elements is another thing to be discussed, but in either way, we
-> can know the data size at allocation time, and we can also calculate
-> the theoretical max of the current implementation beforehand.
+Dne 26. 01. 21 v 16:57 Takashi Iwai napsal(a):
 
-Now I counted the actual memory consumption in the old code, and this
-could lead to ca 32MB without TLV and enum strings.  TLV and enum
-strings may attribute 6MB more total, so it can go up to 38MB.
-It's really high, and we'd rather want to reduce it, instead of
-increasing it.
+> @@ -1226,11 +1227,18 @@ struct user_element {
+>  	struct snd_card *card;
+>  	char *elem_data;		/* element data */
+>  	unsigned long elem_data_size;	/* size of element data in bytes */
+> +	size_t alloc_size;		/* allocated size */
 
-Below is a revised patch, that calculates the memory consumption in
-more details.  In this patch, the max memory is reduced to 8MB --
-which should be large enough for any sensible use cases.  I guess this
-will fulfill your requirement?
+I think that introduction of this new member is not required. The allocated
+size can be easily computed at runtime (function).
 
-The patch also makes the limit as a module option.  I'm not 100% sure
-whether it's needed, but since the patch reduces the size, it might
-need some cure for an extreme case.
+> @@ -1397,6 +1414,7 @@ static int snd_ctl_elem_init_enum_names(struct user_element *ue)
+>  
+>  	ue->priv_data = names;
+>  	ue->info.value.enumerated.names_ptr = 0;
+> +	ue->alloc_size += buf_len;
 
+The buf_len variable is the remaining count. The
+ue->info.value.enumerated.names_length already contains allocated bytes. This
+code can be elimited if alloc_size is not introduced.
 
-Takashi
+Thank you for this patch.
 
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: control: Add memory consumption limit to user controls
+					Jaroslav
 
-ALSA control interface allows users to add arbitrary control elements
-(called "user controls" or "user elements"), and its resource usage is
-limited just by the max number of control sets (currently 32).  This
-limit, however, is quite loose: each allocation of control set may
-have 1028 elements, and each element may have up to 512 bytes of value
-data.  Moreover, each control set may contain the enum strings and TLV
-data, which can be up to 64kB and 128kB, respectively.  Totally, the
-whole memory consumption may go over 38MB -- it's quite large, and
-we'd rather like to reduce the size.
-
-OTOH, there have been other requests even to increase the max number
-of user elements; e.g. FireWire stack require the more user controls,
-hence we want to raise the bar, too.
-
-For satisfying both requirements, this patch changes the management of
-user controls: instead of setting the upper limit of the number of
-user controls, we check the actual memory allocation size and set the
-upper limit of the total allocation in bytes.  As long as the memory
-consumption stays below the limit, more user controls are allowed than
-the current limit 32.  At the same time, we set the lower limit (8MB)
-as default than the current theoretical limit, in order to lower the
-risk of DoS.
-
-As a compromise for lowering the default limit, now the actual memory
-limit is defined as a module option, max_user_ctl, so that user can
-increase/decrease the limit if really needed, too.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/core.h |  2 +-
- sound/core/control.c | 66 +++++++++++++++++++++++++++++---------------
- 2 files changed, 44 insertions(+), 24 deletions(-)
-
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 0462c577d7a3..a21b14451810 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -100,7 +100,7 @@ struct snd_card {
- 	struct rw_semaphore controls_rwsem;	/* controls list lock */
- 	rwlock_t ctl_files_rwlock;	/* ctl_files list lock */
- 	int controls_count;		/* count of all controls */
--	int user_ctl_count;		/* count of all user controls */
-+	size_t user_ctl_alloc_size;	/* current memory allocation by user controls */
- 	struct list_head controls;	/* all controls for this card */
- 	struct list_head ctl_files;	/* active control files */
- 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 5165741a8400..bbc4ee61f965 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -7,6 +7,7 @@
- #include <linux/threads.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
-+#include <linux/moduleparam.h>
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
- #include <linux/time.h>
-@@ -18,10 +19,13 @@
- #include <sound/info.h>
- #include <sound/control.h>
- 
--/* max number of user-defined controls */
--#define MAX_USER_CONTROLS	32
- #define MAX_CONTROL_COUNT	1028
- 
-+/* Max allocation size for user controls */
-+static int max_user_ctl_alloc_size = 8 * 1024 * 1024;
-+module_param_named(max_user_ctl, max_user_ctl_alloc_size, int, 0444);
-+MODULE_PARM_DESC(max_user_ctl, "Max allocation size for user controls");
-+
- struct snd_kctl_ioctl {
- 	struct list_head list;		/* list of all ioctls */
- 	snd_kctl_ioctl_func_t fioctl;
-@@ -537,9 +541,6 @@ static int snd_ctl_remove_user_ctl(struct snd_ctl_file * file,
- 			goto error;
- 		}
- 	ret = snd_ctl_remove(card, kctl);
--	if (ret < 0)
--		goto error;
--	card->user_ctl_count--;
- error:
- 	up_write(&card->controls_rwsem);
- 	return ret;
-@@ -1226,11 +1227,18 @@ struct user_element {
- 	struct snd_card *card;
- 	char *elem_data;		/* element data */
- 	unsigned long elem_data_size;	/* size of element data in bytes */
-+	size_t alloc_size;		/* allocated size */
- 	void *tlv_data;			/* TLV data */
- 	unsigned long tlv_data_size;	/* TLV data size */
- 	void *priv_data;		/* private data (like strings for enumerated type) */
- };
- 
-+/* check whether the addition (in bytes) of user ctl element may overflow the limit */
-+static bool user_elem_overflow(struct snd_card *card, ssize_t add)
-+{
-+	return (ssize_t)card->user_ctl_alloc_size + add >= max_user_ctl_alloc_size;
-+}
-+
- static int snd_ctl_elem_user_info(struct snd_kcontrol *kcontrol,
- 				  struct snd_ctl_elem_info *uinfo)
- {
-@@ -1309,6 +1317,10 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
- 	if (size > 1024 * 128)	/* sane value */
- 		return -EINVAL;
- 
-+	/* does the TLV size change cause overflow? */
-+	if (user_elem_overflow(ue->card, (ssize_t)(size - ue->tlv_data_size)))
-+		return -ENOMEM;
-+
- 	container = vmemdup_user(buf, size);
- 	if (IS_ERR(container))
- 		return PTR_ERR(container);
-@@ -1326,11 +1338,15 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
- 		for (i = 0; i < kctl->count; ++i)
- 			kctl->vd[i].access |= SNDRV_CTL_ELEM_ACCESS_TLV_READ;
- 		mask = SNDRV_CTL_EVENT_MASK_INFO;
-+	} else {
-+		ue->card->user_ctl_alloc_size -= ue->tlv_data_size;
-+		ue->tlv_data_size = 0;
-+		kvfree(ue->tlv_data);
- 	}
- 
--	kvfree(ue->tlv_data);
- 	ue->tlv_data = container;
- 	ue->tlv_data_size = size;
-+	ue->card->user_ctl_alloc_size += size;
- 
- 	mask |= SNDRV_CTL_EVENT_MASK_TLV;
- 	for (i = 0; i < kctl->count; ++i) {
-@@ -1374,16 +1390,17 @@ static int snd_ctl_elem_init_enum_names(struct user_element *ue)
- 	unsigned int i;
- 	const uintptr_t user_ptrval = ue->info.value.enumerated.names_ptr;
- 
--	if (ue->info.value.enumerated.names_length > 64 * 1024)
-+	buf_len = ue->info.value.enumerated.names_length;
-+	if (buf_len > 64 * 1024)
- 		return -EINVAL;
- 
--	names = vmemdup_user((const void __user *)user_ptrval,
--		ue->info.value.enumerated.names_length);
-+	if (user_elem_overflow(ue->card, buf_len))
-+		return -ENOMEM;
-+	names = vmemdup_user((const void __user *)user_ptrval, buf_len);
- 	if (IS_ERR(names))
- 		return PTR_ERR(names);
- 
- 	/* check that there are enough valid names */
--	buf_len = ue->info.value.enumerated.names_length;
- 	p = names;
- 	for (i = 0; i < ue->info.value.enumerated.items; ++i) {
- 		name_len = strnlen(p, buf_len);
-@@ -1397,6 +1414,7 @@ static int snd_ctl_elem_init_enum_names(struct user_element *ue)
- 
- 	ue->priv_data = names;
- 	ue->info.value.enumerated.names_ptr = 0;
-+	ue->alloc_size += buf_len;
- 
- 	return 0;
- }
-@@ -1405,6 +1423,8 @@ static void snd_ctl_elem_user_free(struct snd_kcontrol *kcontrol)
- {
- 	struct user_element *ue = kcontrol->private_data;
- 
-+	ue->card->user_ctl_alloc_size -= ue->alloc_size;
-+	ue->card->user_ctl_alloc_size -= ue->tlv_data_size;
- 	kvfree(ue->tlv_data);
- 	kvfree(ue->priv_data);
- 	kfree(ue);
-@@ -1418,6 +1438,7 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	unsigned int count;
- 	unsigned int access;
- 	long private_size;
-+	size_t alloc_size;
- 	struct user_element *ue;
- 	unsigned int offset;
- 	int err;
-@@ -1435,13 +1456,6 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 			return err;
- 	}
- 
--	/*
--	 * The number of userspace controls are counted control by control,
--	 * not element by element.
--	 */
--	if (card->user_ctl_count + 1 > MAX_USER_CONTROLS)
--		return -ENOMEM;
--
- 	/* Check the number of elements for this userspace control. */
- 	count = info->owner;
- 	if (count == 0)
-@@ -1472,6 +1486,11 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	if (info->count < 1)
- 		return -EINVAL;
- 	private_size = value_sizes[info->type] * info->count;
-+	alloc_size = sizeof(struct user_element) + private_size * count;
-+
-+	/* Check the memory allocation limit */
-+	if (user_elem_overflow(card, alloc_size))
-+		return -ENOMEM;
- 
- 	/*
- 	 * Keep memory object for this userspace control. After passing this
-@@ -1483,19 +1502,22 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	if (err < 0)
- 		return err;
- 	memcpy(&kctl->id, &info->id, sizeof(kctl->id));
--	kctl->private_data = kzalloc(sizeof(struct user_element) + private_size * count,
--				     GFP_KERNEL);
--	if (kctl->private_data == NULL) {
-+	ue = kzalloc(alloc_size, GFP_KERNEL);
-+	if (!ue) {
- 		kfree(kctl);
- 		return -ENOMEM;
- 	}
-+	kctl->private_data = ue;
- 	kctl->private_free = snd_ctl_elem_user_free;
- 
-+	/* increment the allocated size; decremented again at private_free */
-+	card->user_ctl_alloc_size += alloc_size;
-+
- 	/* Set private data for this userspace control. */
--	ue = (struct user_element *)kctl->private_data;
- 	ue->card = card;
- 	ue->info = *info;
- 	ue->info.access = 0;
-+	ue->alloc_size = alloc_size;
- 	ue->elem_data = (char *)ue + sizeof(*ue);
- 	ue->elem_data_size = private_size;
- 	if (ue->info.type == SNDRV_CTL_ELEM_TYPE_ENUMERATED) {
-@@ -1535,8 +1557,6 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	 * which locks the element.
- 	 */
- 
--	card->user_ctl_count++;
--
-  unlock:
- 	up_write(&card->controls_rwsem);
- 	return err;
 -- 
-2.26.2
-
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

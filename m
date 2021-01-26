@@ -2,66 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672D430376A
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 08:42:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72D4303774
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jan 2021 08:47:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0257817B6;
-	Tue, 26 Jan 2021 08:41:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0257817B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E58817C0;
+	Tue, 26 Jan 2021 08:46:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E58817C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611646967;
-	bh=zNx5uSEJ8hQ/SO99YcOBUs5c41KkoN6gA9zB7+N00D4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B24hJdGsDqz2btvqFU6yY7H8ojyLBF68zD4dVKh9fB/+BKtsHKSE2yQHVsJgXtxgB
-	 uRehR6PBig9c5TLyvEH69deOQPRNkGO7kvZMePD8Cd9yZbS7I4dEfwdYqhbsox2vhD
-	 JaKew7MSpngZdCemYsLSSCUJileVXtUC9u19hzqY=
+	s=default; t=1611647247;
+	bh=bw0zhN1GTGiEZdmXgGVaD1pIdP+SH9XYbgymP/z+Ffc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=e8V/zzg7Gs3TP0tZjaIkeCIj9WQRObQpsopSAgiy66NOEtFO9/Kk4Jsq8MELgZRe/
+	 rN9mPB9wm/xGnVZ3cX5YktBddcWY0sErgUvdzplBcHWzxbx+OUr/2+eD2e+TBt4XNH
+	 yauItoNzf50NpSZ8ueGNYVRqu3dLN+IPK3szX38Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B84FF80158;
-	Tue, 26 Jan 2021 08:41:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB7CCF801ED;
+	Tue, 26 Jan 2021 08:45:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C1C9F8015B; Tue, 26 Jan 2021 08:41:12 +0100 (CET)
+ id 91899F8015B; Tue, 26 Jan 2021 08:45:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74102F8011C
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 08:40:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74102F8011C
-IronPort-SDR: /yVWn/1RbamzNRfttaV5kkxzMEOLiNT/65dZ+qb3fikdNyTVMBqf3i7fyre0Gphi/LC156XciD
- C2XMQi1BaOlA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="159039065"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="159039065"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 23:40:53 -0800
-IronPort-SDR: zgP8Qm+Gvv16cNo08q7txgjrXUAHycE6DfPglon2E99+Tj1Ov+xN+jww9nqH65/mWfOgqC6HX3
- XZcYxqUhNXKg==
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="387728025"
-Received: from kleve-mobl1.ger.corp.intel.com (HELO ubuntu) ([10.252.52.33])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 23:40:43 -0800
-Date: Tue, 26 Jan 2021 08:40:41 +0100 (CET)
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v2 7/9] ALSA: virtio: introduce jack support
-In-Reply-To: <20210124165408.1122868-8-anton.yakovlev@opensynergy.com>
-Message-ID: <8dce1870-9ffe-949d-ee5a-f2564f88ac5@intel.com>
-References: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
- <20210124165408.1122868-8-anton.yakovlev@opensynergy.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 445E1F80130
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 08:45:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 445E1F80130
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost.localdomain) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1l4J2f-0005Yo-1D; Tue, 26 Jan 2021 07:45:45 +0000
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz,
+ kai.vehmanen@linux.intel.com
+Subject: [PATCH v8 0/1] audio jack software injection
+Date: Tue, 26 Jan 2021 15:45:29 +0800
+Message-Id: <20210126074530.4450-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=US-ASCII
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,90 +66,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+the changes in the v8:
+ - change "for (i = 0; i < strlen(tname); i++)" to "for (i = 0; tname[i]; i++)"
+ - use CONFIG_SND_DEBUG to wrap some debugfs variable and struct members.
 
-On Sun, 24 Jan 2021, Anton Yakovlev wrote:
+the changes in the v7:
+ - change the format of the last part in jack-injection.rst
+ - add dependence SND_DEBUG in the Kconfig
+ - create debugfs_mount_dir/sound and debugfs_mount_dir/sound/cardN only SND_DEBUG is enabled
+ - change simple_write_to_buffer(buf, count, ppos, from, count) to
+   simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, from, count)
+ - rewrite the function parse_mask_bits() according to v6's comment
 
-> Enumerate all available jacks and create ALSA controls.
->
-> At the moment jacks have a simple implementation and can only be used
-> to receive notifications about a plugged in/out device.
->
-> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> ---
-> sound/virtio/Makefile      |   1 +
-> sound/virtio/virtio_card.c |  18 +++
-> sound/virtio/virtio_card.h |  12 ++
-> sound/virtio/virtio_jack.c | 255 +++++++++++++++++++++++++++++++++++++
-> 4 files changed, 286 insertions(+)
-> create mode 100644 sound/virtio/virtio_jack.c
+the changes in the v6:
+ - use the sizeof(buf) to replace the digits in the scnprintf
+ - squash the document patch into the 0001-xxx.patch.
 
+
+the changes in the v5:
+ - add a Kconfig to enable/disable the jack injection feature
+ - replace all kzalloc with local char[] in the debugfs fops
+ - replace the chars of !isalnum() to '_' for the jack folder's name
+ - squash all .c files patches into one patch
+ - add a document to explain jack injection, for easier review, put
+   the document in a standalone patch. If needed, will squash this
+   patch to the previous one.
+ 
+
+the changes in the v4:
+ - change the sound-core to sound and change the sound_core_debugfs_root
+   to sound_debugfs_root in the 0001-xxx.patch
+ - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
+   0001-xxx.patch and 0003-xxx.patch
+ - And if needed, I could squash 4 patches into 1 patch before merging.
+
+the changes in the v3 (for easy to review, divide change into 4 patches):
+ - address the comment about the snd_jack_report() and _snd_jack_report(),
+   the v2 design is hard to understand and is hard to review, in the v3,
+   separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
+   hw jack events call snd_jack_report() as before, if a jack contains multi
+   jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
+   related input-dev's events will not be reproted. The injection events call
+   snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
+   rest part of 0001-xxx.patch is same as v2.
+
+ - address the comment about folders'name in the 0002-xxx.patch, so far, drop
+   the '/', ',', '=' and ' ' from the folders' name.
+
+ - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
+   it adds kctl_id, mask_bits, status and type.
+
+ - address the comment about save-n-restore jack's hw status in the
+   0004-xxx.patch, adding a hw_status_cache and save the last reported jack
+   hw event, once the sw_inject is disabled, will restore all jack_kctl's
+   state under the same snd_jack with hw_status_cache.
 [snip]
 
-> diff --git a/sound/virtio/virtio_jack.c b/sound/virtio/virtio_jack.c
-> new file mode 100644
-> index 000000000000..83593c59f6bf
-> --- /dev/null
-> +++ b/sound/virtio/virtio_jack.c
-> @@ -0,0 +1,255 @@
 
-[snip]
+the changes in the V2:
+ - using debugfs instead of sysfs
+ - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
+   could create multi jack_ctrls within a snd_jack
+ - create a folder for each jack_ctrl instead for all jack_ctrls
+[ snip ]
 
-> +/**
-> + * virtsnd_jack_parse_cfg() - Parse the jack configuration.
-> + * @snd: VirtIO sound device.
-> + *
-> + * This function is called during initial device initialization.
-> + *
-> + * Context: Any context that permits to sleep.
-> + * Return: 0 on success, -errno on failure.
-> + */
-> +int virtsnd_jack_parse_cfg(struct virtio_snd *snd)
-> +{
-> +	struct virtio_device *vdev = snd->vdev;
-> +	struct virtio_snd_jack_info *info;
-> +	unsigned int i;
-> +	int rc;
-> +
-> +	virtio_cread(vdev, struct virtio_snd_config, jacks, &snd->njacks);
-> +	if (!snd->njacks)
-> +		return 0;
-> +
-> +	snd->jacks = devm_kcalloc(&vdev->dev, snd->njacks, sizeof(*snd->jacks),
-> +				  GFP_KERNEL);
-> +	if (!snd->jacks)
-> +		return -ENOMEM;
-> +
-> +	info = devm_kcalloc(&vdev->dev, snd->njacks, sizeof(*info), GFP_KERNEL);
 
-just kcalloc()
+Hui Wang (1):
+  alsa: jack: implement software jack injection via debugfs
 
-> +	if (!info)
-> +		return -ENOMEM;
-> +
-> +	rc = virtsnd_ctl_query_info(snd, VIRTIO_SND_R_JACK_INFO, 0, snd->njacks,
-> +				    sizeof(*info), info);
-> +	if (rc)
-> +		return rc;
-> +
-> +	for (i = 0; i < snd->njacks; ++i) {
-> +		struct virtio_jack *jack = &snd->jacks[i];
-> +		struct virtio_pcm *pcm;
-> +
-> +		jack->nid = le32_to_cpu(info[i].hdr.hda_fn_nid);
-> +		jack->features = le32_to_cpu(info[i].features);
-> +		jack->defconf = le32_to_cpu(info[i].hda_reg_defconf);
-> +		jack->caps = le32_to_cpu(info[i].hda_reg_caps);
-> +		jack->connected = info[i].connected;
-> +
-> +		pcm = virtsnd_pcm_find_or_create(snd, jack->nid);
-> +		if (IS_ERR(pcm))
-> +			return PTR_ERR(pcm);
-> +	}
-> +
-> +	devm_kfree(&vdev->dev, info);
-> +
-> +	return 0;
-> +}
+ Documentation/sound/designs/index.rst         |   1 +
+ .../sound/designs/jack-injection.rst          | 166 ++++++++++
+ include/sound/core.h                          |   6 +
+ include/sound/jack.h                          |   1 +
+ sound/core/Kconfig                            |   9 +
+ sound/core/init.c                             |  16 +
+ sound/core/jack.c                             | 301 +++++++++++++++++-
+ sound/core/sound.c                            |  13 +
+ 8 files changed, 509 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/sound/designs/jack-injection.rst
 
-Thanks
-Guennadi
+-- 
+2.25.1
+

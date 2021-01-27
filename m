@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A39306247
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E75B306245
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:35 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10A8F173E;
-	Wed, 27 Jan 2021 18:16:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10A8F173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 733741780;
+	Wed, 27 Jan 2021 18:17:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 733741780
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3CFFF804C2;
-	Wed, 27 Jan 2021 18:14:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64F17F804E2;
+	Wed, 27 Jan 2021 18:14:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF9C3F804B4; Wed, 27 Jan 2021 18:14:46 +0100 (CET)
+ id 0142AF804E4; Wed, 27 Jan 2021 18:14:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -24,37 +24,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8CD2F80277
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:14:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8CD2F80277
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D0F0F804E2
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:14:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D0F0F804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="a2eZC37R"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 59E2A64DA3;
- Wed, 27 Jan 2021 17:14:41 +0000 (UTC)
+ header.b="FzYOUCiw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0218664DA9;
+ Wed, 27 Jan 2021 17:14:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611767681;
- bh=KfMAz50ku1hSQxDGlnAcZgG3Vy0gGC7yAETGfIwSWC0=;
+ s=k20201202; t=1611767692;
+ bh=i0LRGpjxwnOHsyf3tncOoZPkW+4nHkElcB9K4VCx58w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=a2eZC37R5jymFfqbRXOdEFon44/G7IMOC2uicMbU7EzmZmqoPi3XyT4m29BzVzUOE
- 4/EfdNb72iddErFWAIQD78QuTX79Zu7XUaqy2fyNxsi45Ug+9WX3U8AW17+B5lZTRE
- MaZpyuo6cGbD6IA8BVUABJtOVENXdxF+NiXrBteqU46cJzh0tujtZOQ4PAEgNWsO7f
- zo4oxu8SfWSc5D8HMdWSomwJF+ZEYl3O7LEsJYVepXA9FFa1MCe0K2XzaLJmHzwaEA
- 9Wef/E0ZmXOqAYptOVpfFXEMTXx8qvzlhAw2EumK+7BaqaZu0kmpIWzZp4MCawkZug
- J07Q2JhRkgaDw==
+ b=FzYOUCiwfCw42LS1HBQRpq1gHSjYeSemSC19d6fgmdWYPqvCeJG6B+Y9IwBhmbrgF
+ 6ExdCiwDzeuE+3XYOY1Q7PUfmntq9dp+WDh8aBb3x5V0byZvqnspSw6TNCpRE4hyx5
+ 7eq/O4N28ViFmt4Ry2BI2fRPfqI6qr6Z3npFWErfUJ1UZDTIYUd4nGZVeiTFXszx/L
+ SDam2OQ1psNJwtvLJxULa61aSTCEmq7cRrKs+YCYDb/dxQOrAQrr2/tMIll3p7RAhx
+ TxFMZ8yusgnLy79hXwD9y9I24d+SIBQlc3+UimxK8/JFNpmFlEj3whBHHXivbY10zs
+ hcIbGLyNoG49Q==
 From: Mark Brown <broonie@kernel.org>
-To: Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Bjorn Helgaas <helgaas@kernel.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20210126212023.2921168-1-helgaas@kernel.org>
-References: <20210126212023.2921168-1-helgaas@kernel.org>
-Subject: Re: [PATCH] ASoC: q6asm: fix 'physical' typos
-Message-Id: <161176762854.34530.4993148289685566134.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20210127122358.1014458-1-kai.vehmanen@linux.intel.com>
+References: <20210127122358.1014458-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: add a pointer to download repo in case FW
+ request fails
+Message-Id: <161176762854.34530.2494973195992218973.b4-ty@kernel.org>
 Date: Wed, 27 Jan 2021 17:13:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Bjorn Helgaas <bhelgaas@google.com>, alsa-devel@alsa-project.org
+Cc: lgirdwood@gmail.com, Marc Herbert <marc.herbert@intel.com>,
+ pierre-louis.bossart@linux.intel.com, Bruce Perens <bruce@perens.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,8 +72,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Jan 2021 15:20:23 -0600, Bjorn Helgaas wrote:
-> Fix misspellings of "physical".
+On Wed, 27 Jan 2021 14:23:58 +0200, Kai Vehmanen wrote:
+> The SOF firmware and topology files are not distributed via
+> linux-firmware. To help debugging cases where correct firmware is
+> not installed, print a pointer to the official upstream repository
+> for Sound Open Firmware releases.
 
 Applied to
 
@@ -79,8 +84,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: q6asm: fix 'physical' typos
-      commit: 9fd5599a9b2618b315983d8a097e6dead640f55c
+[1/1] ASoC: SOF: add a pointer to download repo in case FW request fails
+      commit: 89e641ae647a4ebc1d608fd56f331a4f4886da5f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

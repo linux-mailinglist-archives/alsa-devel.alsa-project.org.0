@@ -2,67 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17472308974
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 15:11:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590293089C0
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:11:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7428E16A4;
-	Fri, 29 Jan 2021 15:10:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7428E16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9303316B5;
+	Fri, 29 Jan 2021 16:10:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9303316B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611929460;
-	bh=jqf5NP6+C8qJ1zuKJEY+vN4WF0Up1r+QO+6Mwei4RH8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1611933080;
+	bh=s9FyWRqQBYLlzUUdBkv3FZQxudbP70KKsuwRkeHWHEI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J2QlO9JdJTzdddarFqdZqNWNZOi4/nH6K6CLA0E3msfccMH44tSYhuJ+0Cl9ur/EB
-	 hZaMnNgSqajJwq248z16VL+6yiw8fJYOyuB206UjW92d9GFlxfY6W5BoL48Yjg2WFh
-	 aPlan/Nqei/eXqeln96QbjMpKggEuVMHy+9+rpwg=
+	b=s/72fALV+Kv3upBUn0QLVB9ifh9W3093F/aDjpGasi7mb4lwo0sSJ6VFF/cFVuFCD
+	 4fUw+Ihy1ObCFV4wKLNfxx1Kvvm9S+mYMtG8zaFc9tSlC8/O1AYtmUYB4VxFQkF5WC
+	 sm0XDcGuf3LnD5WOokv1Quwi4hFOW2HfVS02LcqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9340F8025F;
-	Fri, 29 Jan 2021 15:09:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D45DAF8026B;
+	Fri, 29 Jan 2021 16:10:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6510F800EB; Fri, 29 Jan 2021 15:09:26 +0100 (CET)
+ id 2FF74F80259; Wed, 27 Jan 2021 13:03:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 867F6F800EB
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 15:09:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867F6F800EB
-Received: from artex.localnet ([109.250.135.230]) by mrelayeu.kundenserver.de
- (mreue009 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MVvCn-1lVA5i39QD-00RpwH; Fri, 29 Jan 2021 15:09:11 +0100
-From: Fabian Lesniak <fabian@lesniak-it.de>
-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Olivia Mackintosh <livvy@base.nu>
-Subject: Re: [PATCH] ALSA: usb-audio: Add DJM750 to Pioneer mixer quirk
-Date: Fri, 29 Jan 2021 15:09:11 +0100
-Message-ID: <3031135.XsSY7s2paC@artex>
-In-Reply-To: <20210128160338.dac4vrj7wjiykcxm@base.nu>
-References: <20210128160338.dac4vrj7wjiykcxm@base.nu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BEC6F8011C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 13:03:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEC6F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="M8giB4OR"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1227220773;
+ Wed, 27 Jan 2021 12:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1611748991;
+ bh=s9FyWRqQBYLlzUUdBkv3FZQxudbP70KKsuwRkeHWHEI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M8giB4ORvL3mx55LaDcj1/tIi+BhFJb4mO4m9pyBQqvZIwgP2vqkgkDOQ4I1vn8HH
+ U8aP648RT1pUgCmU92gSCKiLyN0XGWtBCyfjACVz8RiJzgpFsPQ6OWW77wlJfo28NM
+ bwp9LYhhA6QMhnElnHGF3hN0OdPBasyFUrm9T7kg=
+Date: Wed, 27 Jan 2021 13:03:08 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH v3 4/5] amba: Make the remove callback return void
+Message-ID: <YBFWfOmndoPckN1A@kroah.com>
+References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+ <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Provags-ID: V03:K1:YYvVnsgfRLKq7XDM62myh7fEkGtIPmVR+TABatSQSAb7ulqNqJ2
- 9SRg6t0Zxo8iUH5XWQLW2hIPoOS0yj2cnlqv4kazLoeg9Te/cB/uHNJrOq01GpNOND/Y+SM
- FovkY4ptPBsPqLdqKECvgsmwyJ82cyNrJuD5TOkiidZvKxN7QMxKuyVJkZUg7SiS6I6RgmY
- kquBeWUZQ3ke2Hfwn189A==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:bp7o8bYOGZE=:K3Biv2i1E6nP6ZrJS/Z0CS
- oMB6tP1rrN7lhJ9v99tH66L4AIByxZgpWOHhs6FqTmEn0q89eQOpMYetYTJKfYfby76qHenie
- AQu3cLWKVQeVWWs1uDNzu0WGiWYYxRm6E4e5gGFq1JkFr4EcVmi2pzYCYf4gtrzdFRnegWMaV
- AuOmTiJnqZFIyFDFEpO0XG9nNZpUcoRlx3/WHGqQ36ykDSmWeukZjQmarixiwJQ9ou4n5IRBG
- aGkYjghxCe0BFpWB8xyjkhOZkyciZVlFup7/ncNNjFQ1/Lnh3met+/us+HdKBOLmKzg/rHpQ/
- +6pLe68XLwhIdYoNyVlNQHBpZ8+k/3EpUFaJQxVFbTqrZW/TfLcrCmRR+rRcMKMJ8d9oTknBP
- NPrUOmFCfmrBZnhnSELzDqPEZM7vB6IkmYjHi+Dklgj/VQhoSV0QTxTMf3xlqgW2GnaA33QCt
- lAjxS3U75g==
-Cc: =?utf-8?B?RnJhbnRp77+977+9ZWsgS3Xvv73vv71lcmE=?= <franta-linux@frantovo.cz>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
+X-Mailman-Approved-At: Fri, 29 Jan 2021 16:10:20 +0100
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
+ kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Eric Anholt <eric@anholt.net>,
+ linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,51 +104,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Olivia,
+On Tue, Jan 26, 2021 at 05:58:34PM +0100, Uwe Kleine-König wrote:
+> All amba drivers return 0 in their remove callback. Together with the
+> driver core ignoring the return value anyhow, it doesn't make sense to
+> return a value here.
+> 
+> Change the remove prototype to return void, which makes it explicit that
+> returning an error value doesn't work as expected. This simplifies changing
+> the core remove callback to return void, too.
+> 
+> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-perfect time for this patch since I'm currently working on similar quirks for
-the DJM-900NXS2 model. I will stick to your method for now. I do have some
-minor comments below.
-
-In general, I'm wondering whether it is a good way to implement more and more
-Pioneer devices in such a hard coded way. mixer_quirks.c already has >3k LOC,
-and the 900NXS2 support will add at least 100 more if written in the same
-scheme. It may be good to either dynamically create controls depending on the
-model or move pioneer support to an extra file. I'd like to hear what Takashi
-thinks about that.
-
-Cheers
-Fabian
-
-> +static const struct snd_pioneer_djm_device snd_pioneer_djm_devices[] = {
-> +	{ .name = "DJM-250Mk2", .controls = snd_pioneer_djm250mk2_option_groups, .ncontrols = 7},
-> +	{ .name = "DJM-750", .controls = snd_pioneer_djm750_option_groups, .ncontrols = 5}
-> +};
-These fixed values for ncontrols can easily be overlooked, consider ARRAY_SIZE
-instead. Maybe introduce a macro similar to snd_pioneer_djm_option_group_item.
-
-> +	const struct snd_pioneer_djm_device device = snd_pioneer_djm_devices[device_idx];
-This makes a local copy, which can be avoided by using a pointer instead:
-const struct snd_pioneer_djm_device *device = &snd_pioneer_djm_devices[device_idx];
-
-> usb_mixer_interface *mixer, u1 err = snd_usb_ctl_msg(
->  		mixer->chip->dev, usb_sndctrlpipe(mixer->chip->dev, 0),
->  		USB_REQ_SET_FEATURE,
-> -		USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-> -		snd_pioneer_djm_option_groups[group].options[value].wValue,
-> -		snd_pioneer_djm_option_groups[group].options[value].wIndex,
-> +		USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-> device.controls[group].options[value].wValue,
-> +		device.controls[group].options[value].wIndex,
->  		NULL, 0);
-Rather keep these arguments aligned.
-
-> -		err = snd_pioneer_djm_controls_create(mixer);
-> +		err = snd_pioneer_djm_controls_create(mixer, 0x00);
-> +		break;
-> +	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
-> +		err = snd_pioneer_djm_controls_create(mixer, 0x01);
->  		break;
-I'd introduce defines for the different models instead of raw values.
-
-
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>

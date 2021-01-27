@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA08306243
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34581306225
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:36:17 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1D631768;
-	Wed, 27 Jan 2021 18:17:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1D631768
+	by alsa0.perex.cz (Postfix) with ESMTPS id 997D217CE;
+	Wed, 27 Jan 2021 18:19:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 997D217CE
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E223F804E1;
-	Wed, 27 Jan 2021 18:14:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C90EF804F1;
+	Wed, 27 Jan 2021 18:15:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 553ECF804E0; Wed, 27 Jan 2021 18:14:51 +0100 (CET)
+ id 907AFF804FC; Wed, 27 Jan 2021 18:15:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -24,44 +24,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D46BEF804C3
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:14:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D46BEF804C3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FB42F804F1
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:15:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FB42F804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="k41fwHk9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8018864DA0;
- Wed, 27 Jan 2021 17:14:46 +0000 (UTC)
+ header.b="VmdYE3Ec"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D54B64DAA;
+ Wed, 27 Jan 2021 17:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611767687;
- bh=lQkobph4usbUMMigcmlpp7KsK1FvowDUodLLlOaWFrs=;
+ s=k20201202; t=1611767708;
+ bh=7Bwdds1A7Ya9EavPRY3Dg0/JfA4W6X/EzcuglwAkaXE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=k41fwHk99+lNz176E44xBeipUPX0pvdK/StQvWNv4QLo9BOHPmqkpaoNMRBgLflX4
- CNmRslfAy3/YJrfpLfipC4iKaDnK0kdCmnDLOh9bXyhcmx0aVksylbGkJW6G7jL/Eu
- XDT13wWf541eduEAiE9AgD/3q2uGdf9eSGCSbpZ7VpBDsbNm6QSHvq4EOisVAWLV+a
- m+tovQ+IUd6HFzA9c/sRbf9TqGpSUgNGA7xJ+/MSalpK3bDWNE1w1NxiPhEE8uDHZC
- O2EPyUHKO6H21VnGA0gzcrLh6BAZIkN1jy26DH29msUsMwGkMWV9swQJZ/x3ADYpMm
- jl8AUZ6r9Dn9w==
+ b=VmdYE3EcEkZ2HBWlGAnqCNP5ZivmoL1Wl1nwbiRXu0JR8M5q2IW/pd7k2WEeQ15rk
+ 12I8Z1X0ZgJePuwUkb7pj5Sh5zigVAxEBG64jlYVyY7evqB6bmXl5Znazrmo4VEZdc
+ kOoDIeP0I9FE8B9iOLCAKI8uDaYUdqw4SVD/FTNok/1GsEq1xQe1UU6bglHJ9VD8r4
+ i4jAE/TTLeEPqRm99fNINHPz32vKEp404+zxoGbxFE3U7CPM0qm4lXZQdGUDLiTXI8
+ TulnOwH/tSEH91JCJWFtN3JELL0h9NdFVxpHTgKDfi7hOlmnHmAOwlN0RGMyl7QkRL
+ mGZ5bo6RH1VqA==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Judy Hsiao <judyhsiao@chromium.org>
-In-Reply-To: <20210127135620.1143942-1-judyhsiao@chromium.org>
-References: <20210127135620.1143942-1-judyhsiao@chromium.org>
-Subject: Re: [PATCH v2] ASoC: max98373: Fixes a typo in max98373_feedback_get
-Message-Id: <161176762855.34530.16920302960520466046.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20210125070500.807474-1-kai.vehmanen@linux.intel.com>
+References: <20210125070500.807474-1-kai.vehmanen@linux.intel.com>
+Subject: Re: (subset) [PATCH 1/3] ASoC: SOF: allow soundwire use
+ desc->default_fw_filename
+Message-Id: <161176762855.34530.7838015493249241498.b4-ty@kernel.org>
 Date: Wed, 27 Jan 2021 17:13:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Judy Hsiao <judyhsiao@google.com>, cychiang@google.com,
- Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
- Takashi Iwai <tiwai@suse.com>, dianders@chromium.org, tzungbi@chromium.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Andy Gross <agross@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- dgreid@chromium.org, linux-arm-kernel@lists.infradead.org
+Cc: Libin Yang <libin.yang@intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,9 +73,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Jan 2021 21:56:20 +0800, Judy Hsiao wrote:
-> The snd_soc_put_volsw in max98373_feedback_get is a typo, change it
-> to snd_soc_get_volsw.
+On Mon, 25 Jan 2021 09:04:58 +0200, Kai Vehmanen wrote:
+> The old code always uses sof_fw_filename in struct snd_soc_acpi_mach
+> as the firmware name. However, firmware name should depend on the platform
+> instead of the machine. For example, different machines may use the same
+> soundwire link topology, but they are using the different firmware. In this
+> case, it's hard to determine in struct snd_soc_acpi_mach which firmware it
+> should use.
 
 Applied to
 
@@ -87,8 +87,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: max98373: Fixes a typo in max98373_feedback_get
-      commit: ded055eea679139f11bd808795d9697b430d1c7d
+[1/3] ASoC: SOF: allow soundwire use desc->default_fw_filename
+      commit: 7da99ef9757a3dd6e66a9b4854c5e58cd65a0b9a
+[2/3] ASoC: Intel: tgl: remove sof_fw_filename set for tgl_3_in_1_default
+      commit: 3d14932527ff09517f052e54e7c25d676120b33a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

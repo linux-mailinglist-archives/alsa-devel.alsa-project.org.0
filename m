@@ -2,89 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9679305558
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 09:15:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E92D305645
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 09:58:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EAB11750;
-	Wed, 27 Jan 2021 09:14:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EAB11750
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5C96173E;
+	Wed, 27 Jan 2021 09:57:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5C96173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611735330;
-	bh=uhowmQp6ejkSX2SE3t9iDJ8xS9qmpMi8Vfc954uv/+8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mFrZQF57OG7UqqFs9q6MNJSzc/kjtsJrb+0A+ahudCdFzwvIJshNifnQN8pov+7uZ
-	 X4uH/C9TduzLnBRLelQxVqnTpJy7JI5BKQFvbrX8zJ4X5g4V10ZMiSUqnt3OZ7StAY
-	 m/pOMTxuhNQ3RPZQXhxo8aTX0ky6wellbrW6s3yU=
+	s=default; t=1611737911;
+	bh=ERtZ2MxKfWopX+8L6qVnPPg35Dmq8Yz9PQZXZO4hE80=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LoXB883H2vFQOq12JusHHL8391SCxiOtIn+XPn2/oMSEk7CJmN8+VcoeE5VlndjAO
+	 9AqFY6rCNIJXPhpe3Ya6YIEsYZltbIDQD0Ctv75o/jhtxOyllK6hdPTzs07QGc7+n0
+	 8tTZC3+WoBwPfoP8bdZ1sYcWTG86rchTPxv3lVyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 192D0F80218;
-	Wed, 27 Jan 2021 09:14:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CA3AF80259;
+	Wed, 27 Jan 2021 09:57:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C53DCF8011C; Wed, 27 Jan 2021 09:13:06 +0100 (CET)
+ id 44C4CF80259; Wed, 27 Jan 2021 09:56:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.mleia.com (mleia.com [178.79.152.223])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC8D8F8011C
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 09:12:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC8D8F8011C
-Received: from mail.mleia.com (localhost [127.0.0.1])
- by mail.mleia.com (Postfix) with ESMTP id 9227042EB56;
- Wed, 27 Jan 2021 08:12:58 +0000 (UTC)
-Subject: Re: [PATCH v3 4/5] amba: Make the remove callback return void
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
- <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-From: Vladimir Zapolskiy <vz@mleia.com>
-Message-ID: <b9bfa80b-ed5f-50f9-de50-76090007556c@mleia.com>
-Date: Wed, 27 Jan 2021 10:12:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9846AF8011C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 09:56:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9846AF8011C
+Received: from [123.112.69.135] (helo=localhost.localdomain)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1l4gd6-0001vh-Or; Wed, 27 Jan 2021 08:56:49 +0000
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz,
+ kai.vehmanen@linux.intel.com
+Subject: [PATCH v9 0/1] audio jack software injection
+Date: Wed, 27 Jan 2021 16:56:38 +0800
+Message-Id: <20210127085639.74954-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
-X-CRM114-CacheID: sfid-20210127_081258_639999_D23EB9E2 
-X-CRM114-Status: GOOD (  14.44  )
-X-Mailman-Approved-At: Wed, 27 Jan 2021 09:13:58 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
- kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel@lists.freedesktop.org, Eric Anholt <eric@anholt.net>,
- linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
- linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,29 +66,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/26/21 6:58 PM, Uwe Kleine-König wrote:
-> All amba drivers return 0 in their remove callback. Together with the
-> driver core ignoring the return value anyhow, it doesn't make sense to
-> return a value here.
-> 
-> Change the remove prototype to return void, which makes it explicit that
-> returning an error value doesn't work as expected. This simplifies changing
-> the core remove callback to return void, too.
-> 
-> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
-> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+the changes in the v9:
+ - move the "Phantom" jack comparison into the snd_jack_debugfs_add_inject_node(),
+   then the comparison is only executed when SND_JACK_INJECTION_DEBUG is enabled.
 
-For drivers/memory/pl172.c:
+the changes in the v8:
+ - change "for (i = 0; i < strlen(tname); i++)" to "for (i = 0; tname[i]; i++)"
+ - use CONFIG_SND_DEBUG to wrap some debugfs variable and struct members.
 
-Acked-by: Vladimir Zapolskiy <vz@mleia.com>
+the changes in the v7:
+ - change the format of the last part in jack-injection.rst
+ - add dependence SND_DEBUG in the Kconfig
+ - create debugfs_mount_dir/sound and debugfs_mount_dir/sound/cardN only SND_DEBUG is enabled
+ - change simple_write_to_buffer(buf, count, ppos, from, count) to
+   simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, from, count)
+ - rewrite the function parse_mask_bits() according to v6's comment
 
---
-Best wishes,
-Vladimir
+the changes in the v6:
+ - use the sizeof(buf) to replace the digits in the scnprintf
+ - squash the document patch into the 0001-xxx.patch.
+
+
+the changes in the v5:
+ - add a Kconfig to enable/disable the jack injection feature
+ - replace all kzalloc with local char[] in the debugfs fops
+ - replace the chars of !isalnum() to '_' for the jack folder's name
+ - squash all .c files patches into one patch
+ - add a document to explain jack injection, for easier review, put
+   the document in a standalone patch. If needed, will squash this
+   patch to the previous one.
+ 
+
+the changes in the v4:
+ - change the sound-core to sound and change the sound_core_debugfs_root
+   to sound_debugfs_root in the 0001-xxx.patch
+ - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
+   0001-xxx.patch and 0003-xxx.patch
+ - And if needed, I could squash 4 patches into 1 patch before merging.
+
+the changes in the v3 (for easy to review, divide change into 4 patches):
+ - address the comment about the snd_jack_report() and _snd_jack_report(),
+   the v2 design is hard to understand and is hard to review, in the v3,
+   separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
+   hw jack events call snd_jack_report() as before, if a jack contains multi
+   jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
+   related input-dev's events will not be reproted. The injection events call
+   snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
+   rest part of 0001-xxx.patch is same as v2.
+
+ - address the comment about folders'name in the 0002-xxx.patch, so far, drop
+   the '/', ',', '=' and ' ' from the folders' name.
+
+ - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
+   it adds kctl_id, mask_bits, status and type.
+
+ - address the comment about save-n-restore jack's hw status in the
+   0004-xxx.patch, adding a hw_status_cache and save the last reported jack
+   hw event, once the sw_inject is disabled, will restore all jack_kctl's
+   state under the same snd_jack with hw_status_cache.
+[snip]
+
+
+the changes in the V2:
+ - using debugfs instead of sysfs
+ - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
+   could create multi jack_ctrls within a snd_jack
+ - create a folder for each jack_ctrl instead for all jack_ctrls
+[ snip ]
+
+Hui Wang (1):
+  alsa: jack: implement software jack injection via debugfs
+
+ Documentation/sound/designs/index.rst         |   1 +
+ .../sound/designs/jack-injection.rst          | 166 ++++++++++
+ include/sound/core.h                          |   6 +
+ include/sound/jack.h                          |   1 +
+ sound/core/Kconfig                            |   9 +
+ sound/core/init.c                             |  16 +
+ sound/core/jack.c                             | 304 +++++++++++++++++-
+ sound/core/sound.c                            |  13 +
+ 8 files changed, 512 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/sound/designs/jack-injection.rst
+
+-- 
+2.25.1
+

@@ -2,121 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D87D63053AD
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 07:57:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A83130533A
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 07:33:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58296175B;
-	Wed, 27 Jan 2021 07:56:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58296175B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DACF1174F;
+	Wed, 27 Jan 2021 07:32:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DACF1174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611730638;
-	bh=VSH1866I9Cy+43F8xDOgmlZjZzww5dt/btLpAq3CunU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eWyJld73ZMv+PJQKzqIjpD8IF4kXb2FvKdj39ptWTrHna5zyyuYbAlxJgTlTXk9Ak
-	 OJP0I79N4mCOqAGdBspNz6YNeS2ddN85OD1dQOdCr6JNiBXeS2wv5l2RibJYAqXdJ7
-	 OT4l6LoTfWTFOPiasSbDrzKl/PJvsmyz36+JmUHI=
+	s=default; t=1611729187;
+	bh=zaYL2haVuNYWSikF5LjWRz0vWX1QILzOVY9qPRC4EqY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=azALR2GPcXetG9h3KMXkW4wD1tnMCxzlDXRWSNPAnFT2t4dBnuFaTbUCkgZUmQ7H1
+	 /LPI2D3bCzjsD9g17l9ER83HzNyTBEu+dcnVkY7+6Z9Rt4Hhu6qYX9s3Oe3P3/UBmB
+	 Xk2Gl46m0PX51NDHMWtRb9v9gpH2a7J2GAivieR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4112F80516;
-	Wed, 27 Jan 2021 07:52:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2171F80218;
+	Wed, 27 Jan 2021 07:31:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 678B0F8015B; Tue, 26 Jan 2021 20:24:56 +0100 (CET)
+ id 0B76BF80277; Wed, 27 Jan 2021 07:31:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m42-8.mailgun.net (m42-8.mailgun.net [69.72.42.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E1C0F80130
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 20:24:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E1C0F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B344F800F0
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 07:31:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B344F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BQcvX/vQ"
-Received: by mail-ot1-x330.google.com with SMTP id e70so17310182ote.11
- for <alsa-devel@alsa-project.org>; Tue, 26 Jan 2021 11:24:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=D1ltTrh6GrF621pynXjIu633fPh/vCcW4NA4RWi0JI8=;
- b=BQcvX/vQcepwH9xkYrXWBsXyP8EzoUQrPHntu3FzocQDFkWdoHdRmOqDmBMUzF6Vt6
- +4I/ggUiEP0uSbmhNSv9l689w0NEYu9+/U4Ku6pddmk+FFimlLFKLEyx8kBde2EzWFpN
- mKDZydMe8+bvT308qklZD6bLxSIVhjvVPOjsC+4yyMjzYCO43amUZCqiWhsjYXTk2Z16
- 9TGuNPUaLBDga0oZC8QANu2kLQ2IOqpUwCVhZlDpYV0zc9+8fspZjfp/8jqfJK1F8Ulm
- zAVdGK42Q4bBXtvVNcAlWHedmlHtXl9GEqV+cfMqJcm4E7yFkd39JqQJ0lUqFaiY1RtY
- SeWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to:user-agent;
- bh=D1ltTrh6GrF621pynXjIu633fPh/vCcW4NA4RWi0JI8=;
- b=nl16FiG4HBTz2c7F/BLVSjW47/4d5bd51waP4EZWQZA4uQUl7a2BobNOb2hUyuhubt
- dKHTQ3hZKJ+kUXmOxNOCHJ+mXrheVLVeN2OP0A5/RfKzrVq1rXYrB2eCEM0+G+azHeZ7
- Y+hz272x7f83JCAAiikvgMUOa8SHwA9iw3ZkEZ2kNJZdX4bdtm3HIC9mqvxfLntFx5cD
- sObQIEDKPQ9WwWW8wYHRg/MlzpxbAGHE2w+JW8H3ydN6vMXF7OlxLYCk5W2EIDT7Hv4h
- GJWa0i5S5zw5wAzNviZ2T1tgKrUwFRSJJTwfwf0x93S2JPygJl8ikguQ5Gar1B/qOpKy
- 206w==
-X-Gm-Message-State: AOAM532zGKZ2FT5JbjMhkQjtPoXO3r4Rb1CPhtz/l08stJecRhap2P65
- wJND4ENOpqFQLFzkfr7ivA8=
-X-Google-Smtp-Source: ABdhPJztb/3InwKiBBmxTEbYz5EWr2nHE2g3SB5DNkH/uYrp0J/4XMeexHk4NVLAcP5G/37TRay4lQ==
-X-Received: by 2002:a9d:1d04:: with SMTP id m4mr4855021otm.142.1611689086737; 
- Tue, 26 Jan 2021 11:24:46 -0800 (PST)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id d17sm4307875otk.3.2021.01.26.11.24.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 26 Jan 2021 11:24:45 -0800 (PST)
-Date: Tue, 26 Jan 2021 11:24:43 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH v3 4/5] amba: Make the remove callback return void
-Message-ID: <20210126192443.GA31936@roeck-us.net>
-References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
- <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="Olo04ErP"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1611729073; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=1AlCbGcXQpcDuIl+9znSO2VU+lh46j8cRnkxvcuFTtU=;
+ b=Olo04ErPfKKGnzzhziJy2m77YzmfbBvTo4TMm/iRVJ1cDZ0+eBIaBde8LWVUgGNT4fM0cZd9
+ J75RqFcx0lGS/2rlpUlO+Aj4qgEvS4YctQLrp0V7x2OilLoFJ8u6+kfJZPXktz2PD1IZsTXv
+ oksJjr5nuMR+aW7dcqAW9y+70RM=
+X-Mailgun-Sending-Ip: 69.72.42.8
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 601108aabdcf468287a902f6 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 27 Jan 2021 06:31:06
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1C022C433CA; Wed, 27 Jan 2021 06:31:06 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 28861C433C6;
+ Wed, 27 Jan 2021 06:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 28861C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: qcom: lpass-cpu: Remove bit clock state check
+Date: Wed, 27 Jan 2021 12:00:38 +0530
+Message-Id: <20210127063038.1399-1-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Wed, 27 Jan 2021 07:52:20 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
- kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel@lists.freedesktop.org, Eric Anholt <eric@anholt.net>,
- linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Mike Leach <mike.leach@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Arnd Bergmann <arnd@arndb.de>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- coresight@lists.linaro.org, Vladimir Zapolskiy <vz@mleia.com>,
- Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
- linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,687 +95,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jan 26, 2021 at 05:58:34PM +0100, Uwe Kleine-König wrote:
-> All amba drivers return 0 in their remove callback. Together with the
-> driver core ignoring the return value anyhow, it doesn't make sense to
-> return a value here.
-> 
-> Change the remove prototype to return void, which makes it explicit that
-> returning an error value doesn't work as expected. This simplifies changing
-> the core remove callback to return void, too.
-> 
-> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
-> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+No need of BCLK state maintenance from driver side as
+clock_enable and clk_disable API's maintaing state counter.
 
-For watchdog:
+One of the major issue was spotted when Headset jack inserted
+while playback continues, due to same PCM device node opens twice
+for playaback/capture and closes once for capture and playback continues.
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+It can resolve the errors in such scenarios.
 
-Guenter
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ sound/soc/qcom/lpass-cpu.c       | 22 ++++++++--------------
+ sound/soc/qcom/lpass-lpaif-reg.h |  3 ---
+ sound/soc/qcom/lpass.h           |  1 -
+ 3 files changed, 8 insertions(+), 18 deletions(-)
 
-> ---
->  drivers/amba/bus.c                                 | 5 ++---
->  drivers/char/hw_random/nomadik-rng.c               | 3 +--
->  drivers/dma/pl330.c                                | 3 +--
->  drivers/gpu/drm/pl111/pl111_drv.c                  | 4 +---
->  drivers/hwtracing/coresight/coresight-catu.c       | 3 +--
->  drivers/hwtracing/coresight/coresight-cpu-debug.c  | 4 +---
->  drivers/hwtracing/coresight/coresight-cti-core.c   | 4 +---
->  drivers/hwtracing/coresight/coresight-etb10.c      | 4 +---
->  drivers/hwtracing/coresight/coresight-etm3x-core.c | 4 +---
->  drivers/hwtracing/coresight/coresight-etm4x-core.c | 4 +---
->  drivers/hwtracing/coresight/coresight-funnel.c     | 4 ++--
->  drivers/hwtracing/coresight/coresight-replicator.c | 4 ++--
->  drivers/hwtracing/coresight/coresight-stm.c        | 4 +---
->  drivers/hwtracing/coresight/coresight-tmc-core.c   | 4 +---
->  drivers/hwtracing/coresight/coresight-tpiu.c       | 4 +---
->  drivers/i2c/busses/i2c-nomadik.c                   | 4 +---
->  drivers/input/serio/ambakmi.c                      | 3 +--
->  drivers/memory/pl172.c                             | 4 +---
->  drivers/memory/pl353-smc.c                         | 4 +---
->  drivers/mmc/host/mmci.c                            | 4 +---
->  drivers/rtc/rtc-pl030.c                            | 4 +---
->  drivers/rtc/rtc-pl031.c                            | 4 +---
->  drivers/spi/spi-pl022.c                            | 5 ++---
->  drivers/tty/serial/amba-pl010.c                    | 4 +---
->  drivers/tty/serial/amba-pl011.c                    | 3 +--
->  drivers/vfio/platform/vfio_amba.c                  | 3 +--
->  drivers/video/fbdev/amba-clcd.c                    | 4 +---
->  drivers/watchdog/sp805_wdt.c                       | 4 +---
->  include/linux/amba/bus.h                           | 2 +-
->  sound/arm/aaci.c                                   | 4 +---
->  30 files changed, 34 insertions(+), 80 deletions(-)
-> 
-> diff --git a/drivers/amba/bus.c b/drivers/amba/bus.c
-> index 8c4a42df47c6..48b5d4b4e889 100644
-> --- a/drivers/amba/bus.c
-> +++ b/drivers/amba/bus.c
-> @@ -300,11 +300,10 @@ static int amba_remove(struct device *dev)
->  {
->  	struct amba_device *pcdev = to_amba_device(dev);
->  	struct amba_driver *drv = to_amba_driver(dev->driver);
-> -	int ret = 0;
->  
->  	pm_runtime_get_sync(dev);
->  	if (drv->remove)
-> -		ret = drv->remove(pcdev);
-> +		drv->remove(pcdev);
->  	pm_runtime_put_noidle(dev);
->  
->  	/* Undo the runtime PM settings in amba_probe() */
-> @@ -315,7 +314,7 @@ static int amba_remove(struct device *dev)
->  	amba_put_disable_pclk(pcdev);
->  	dev_pm_domain_detach(dev, true);
->  
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void amba_shutdown(struct device *dev)
-> diff --git a/drivers/char/hw_random/nomadik-rng.c b/drivers/char/hw_random/nomadik-rng.c
-> index b0ded41eb865..67947a19aa22 100644
-> --- a/drivers/char/hw_random/nomadik-rng.c
-> +++ b/drivers/char/hw_random/nomadik-rng.c
-> @@ -69,11 +69,10 @@ static int nmk_rng_probe(struct amba_device *dev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int nmk_rng_remove(struct amba_device *dev)
-> +static void nmk_rng_remove(struct amba_device *dev)
->  {
->  	amba_release_regions(dev);
->  	clk_disable(rng_clk);
-> -	return 0;
->  }
->  
->  static const struct amba_id nmk_rng_ids[] = {
-> diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
-> index bc0f66af0f11..fd8d2bc3be9f 100644
-> --- a/drivers/dma/pl330.c
-> +++ b/drivers/dma/pl330.c
-> @@ -3195,7 +3195,7 @@ pl330_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int pl330_remove(struct amba_device *adev)
-> +static void pl330_remove(struct amba_device *adev)
->  {
->  	struct pl330_dmac *pl330 = amba_get_drvdata(adev);
->  	struct dma_pl330_chan *pch, *_p;
-> @@ -3235,7 +3235,6 @@ static int pl330_remove(struct amba_device *adev)
->  
->  	if (pl330->rstc)
->  		reset_control_assert(pl330->rstc);
-> -	return 0;
->  }
->  
->  static const struct amba_id pl330_ids[] = {
-> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-> index 40e6708fbbe2..1fb5eacefd2d 100644
-> --- a/drivers/gpu/drm/pl111/pl111_drv.c
-> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
-> @@ -320,7 +320,7 @@ static int pl111_amba_probe(struct amba_device *amba_dev,
->  	return ret;
->  }
->  
-> -static int pl111_amba_remove(struct amba_device *amba_dev)
-> +static void pl111_amba_remove(struct amba_device *amba_dev)
->  {
->  	struct device *dev = &amba_dev->dev;
->  	struct drm_device *drm = amba_get_drvdata(amba_dev);
-> @@ -331,8 +331,6 @@ static int pl111_amba_remove(struct amba_device *amba_dev)
->  		drm_panel_bridge_remove(priv->bridge);
->  	drm_dev_put(drm);
->  	of_reserved_mem_device_release(dev);
-> -
-> -	return 0;
->  }
->  
->  /*
-> diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-> index a61313f320bd..8e19e8cdcce5 100644
-> --- a/drivers/hwtracing/coresight/coresight-catu.c
-> +++ b/drivers/hwtracing/coresight/coresight-catu.c
-> @@ -567,12 +567,11 @@ static int catu_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int catu_remove(struct amba_device *adev)
-> +static void catu_remove(struct amba_device *adev)
->  {
->  	struct catu_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
->  	coresight_unregister(drvdata->csdev);
-> -	return 0;
->  }
->  
->  static struct amba_id catu_ids[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> index e1d232411d8d..2dcf13de751f 100644
-> --- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> +++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> @@ -627,7 +627,7 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int debug_remove(struct amba_device *adev)
-> +static void debug_remove(struct amba_device *adev)
->  {
->  	struct device *dev = &adev->dev;
->  	struct debug_drvdata *drvdata = amba_get_drvdata(adev);
-> @@ -642,8 +642,6 @@ static int debug_remove(struct amba_device *adev)
->  
->  	if (!--debug_count)
->  		debug_func_exit();
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_cs_uci_id uci_id_debug[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/hwtracing/coresight/coresight-cti-core.c
-> index 61dbc1afd8da..30e48809ba00 100644
-> --- a/drivers/hwtracing/coresight/coresight-cti-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-cti-core.c
-> @@ -836,7 +836,7 @@ static void cti_device_release(struct device *dev)
->  	if (drvdata->csdev_release)
->  		drvdata->csdev_release(dev);
->  }
-> -static int cti_remove(struct amba_device *adev)
-> +static void cti_remove(struct amba_device *adev)
->  {
->  	struct cti_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
-> @@ -845,8 +845,6 @@ static int cti_remove(struct amba_device *adev)
->  	mutex_unlock(&ect_mutex);
->  
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  static int cti_probe(struct amba_device *adev, const struct amba_id *id)
-> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-> index 0cf6f0b947b6..51c801c05e5c 100644
-> --- a/drivers/hwtracing/coresight/coresight-etb10.c
-> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
-> @@ -803,7 +803,7 @@ static int etb_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int etb_remove(struct amba_device *adev)
-> +static void etb_remove(struct amba_device *adev)
->  {
->  	struct etb_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
-> @@ -814,8 +814,6 @@ static int etb_remove(struct amba_device *adev)
->  	 */
->  	misc_deregister(&drvdata->miscdev);
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> index 5bf5a5a4ce6d..683a69e88efd 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> @@ -909,7 +909,7 @@ static void clear_etmdrvdata(void *info)
->  	etmdrvdata[cpu] = NULL;
->  }
->  
-> -static int etm_remove(struct amba_device *adev)
-> +static void etm_remove(struct amba_device *adev)
->  {
->  	struct etm_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
-> @@ -932,8 +932,6 @@ static int etm_remove(struct amba_device *adev)
->  	cpus_read_unlock();
->  
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> index b20b6ff17cf6..82787cba537d 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> @@ -1680,7 +1680,7 @@ static void clear_etmdrvdata(void *info)
->  	etmdrvdata[cpu] = NULL;
->  }
->  
-> -static int etm4_remove(struct amba_device *adev)
-> +static void etm4_remove(struct amba_device *adev)
->  {
->  	struct etmv4_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
-> @@ -1703,8 +1703,6 @@ static int etm4_remove(struct amba_device *adev)
->  	cpus_read_unlock();
->  
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_id etm4_ids[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-> index 071c723227db..01f8f9285168 100644
-> --- a/drivers/hwtracing/coresight/coresight-funnel.c
-> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
-> @@ -370,9 +370,9 @@ static int dynamic_funnel_probe(struct amba_device *adev,
->  	return funnel_probe(&adev->dev, &adev->res);
->  }
->  
-> -static int dynamic_funnel_remove(struct amba_device *adev)
-> +static void dynamic_funnel_remove(struct amba_device *adev)
->  {
-> -	return funnel_remove(&adev->dev);
-> +	funnel_remove(&adev->dev);
->  }
->  
->  static const struct amba_id dynamic_funnel_ids[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-> index 7e2a2b7f503f..34fc2f6f3ea9 100644
-> --- a/drivers/hwtracing/coresight/coresight-replicator.c
-> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
-> @@ -388,9 +388,9 @@ static int dynamic_replicator_probe(struct amba_device *adev,
->  	return replicator_probe(&adev->dev, &adev->res);
->  }
->  
-> -static int dynamic_replicator_remove(struct amba_device *adev)
-> +static void dynamic_replicator_remove(struct amba_device *adev)
->  {
-> -	return replicator_remove(&adev->dev);
-> +	replicator_remove(&adev->dev);
->  }
->  
->  static const struct amba_id dynamic_replicator_ids[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index 99791773f682..423df0d30d9c 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -951,15 +951,13 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int stm_remove(struct amba_device *adev)
-> +static void stm_remove(struct amba_device *adev)
->  {
->  	struct stm_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
->  	coresight_unregister(drvdata->csdev);
->  
->  	stm_unregister_device(&drvdata->stm);
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> index 8169dff5a9f6..e29b3914fc0f 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> @@ -559,7 +559,7 @@ static void tmc_shutdown(struct amba_device *adev)
->  	spin_unlock_irqrestore(&drvdata->spinlock, flags);
->  }
->  
-> -static int tmc_remove(struct amba_device *adev)
-> +static void tmc_remove(struct amba_device *adev)
->  {
->  	struct tmc_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
-> @@ -570,8 +570,6 @@ static int tmc_remove(struct amba_device *adev)
->  	 */
->  	misc_deregister(&drvdata->miscdev);
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_id tmc_ids[] = {
-> diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-> index d5dfee9ee556..f77c4b0ea4aa 100644
-> --- a/drivers/hwtracing/coresight/coresight-tpiu.c
-> +++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-> @@ -173,13 +173,11 @@ static int tpiu_probe(struct amba_device *adev, const struct amba_id *id)
->  	return PTR_ERR(drvdata->csdev);
->  }
->  
-> -static int tpiu_remove(struct amba_device *adev)
-> +static void tpiu_remove(struct amba_device *adev)
->  {
->  	struct tpiu_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->  
->  	coresight_unregister(drvdata->csdev);
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM
-> diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-> index d4b1b0865f67..a3363b20f168 100644
-> --- a/drivers/i2c/busses/i2c-nomadik.c
-> +++ b/drivers/i2c/busses/i2c-nomadik.c
-> @@ -1055,7 +1055,7 @@ static int nmk_i2c_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int nmk_i2c_remove(struct amba_device *adev)
-> +static void nmk_i2c_remove(struct amba_device *adev)
->  {
->  	struct resource *res = &adev->res;
->  	struct nmk_i2c_dev *dev = amba_get_drvdata(adev);
-> @@ -1068,8 +1068,6 @@ static int nmk_i2c_remove(struct amba_device *adev)
->  	i2c_clr_bit(dev->virtbase + I2C_CR, I2C_CR_PE);
->  	clk_disable_unprepare(dev->clk);
->  	release_mem_region(res->start, resource_size(res));
-> -
-> -	return 0;
->  }
->  
->  static struct i2c_vendor_data vendor_stn8815 = {
-> diff --git a/drivers/input/serio/ambakmi.c b/drivers/input/serio/ambakmi.c
-> index ecdeca147ed7..4408245b61d2 100644
-> --- a/drivers/input/serio/ambakmi.c
-> +++ b/drivers/input/serio/ambakmi.c
-> @@ -159,7 +159,7 @@ static int amba_kmi_probe(struct amba_device *dev,
->  	return ret;
->  }
->  
-> -static int amba_kmi_remove(struct amba_device *dev)
-> +static void amba_kmi_remove(struct amba_device *dev)
->  {
->  	struct amba_kmi_port *kmi = amba_get_drvdata(dev);
->  
-> @@ -168,7 +168,6 @@ static int amba_kmi_remove(struct amba_device *dev)
->  	iounmap(kmi->base);
->  	kfree(kmi);
->  	amba_release_regions(dev);
-> -	return 0;
->  }
->  
->  static int __maybe_unused amba_kmi_resume(struct device *dev)
-> diff --git a/drivers/memory/pl172.c b/drivers/memory/pl172.c
-> index 575fadbffa30..9eb8cc7de494 100644
-> --- a/drivers/memory/pl172.c
-> +++ b/drivers/memory/pl172.c
-> @@ -273,14 +273,12 @@ static int pl172_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int pl172_remove(struct amba_device *adev)
-> +static void pl172_remove(struct amba_device *adev)
->  {
->  	struct pl172_data *pl172 = amba_get_drvdata(adev);
->  
->  	clk_disable_unprepare(pl172->clk);
->  	amba_release_regions(adev);
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_id pl172_ids[] = {
-> diff --git a/drivers/memory/pl353-smc.c b/drivers/memory/pl353-smc.c
-> index 73bd3023202f..3b5b1045edd9 100644
-> --- a/drivers/memory/pl353-smc.c
-> +++ b/drivers/memory/pl353-smc.c
-> @@ -426,14 +426,12 @@ static int pl353_smc_probe(struct amba_device *adev, const struct amba_id *id)
->  	return err;
->  }
->  
-> -static int pl353_smc_remove(struct amba_device *adev)
-> +static void pl353_smc_remove(struct amba_device *adev)
->  {
->  	struct pl353_smc_data *pl353_smc = amba_get_drvdata(adev);
->  
->  	clk_disable_unprepare(pl353_smc->memclk);
->  	clk_disable_unprepare(pl353_smc->aclk);
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_id pl353_ids[] = {
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index b5a41a7ce165..32f52d070bbd 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -2195,7 +2195,7 @@ static int mmci_probe(struct amba_device *dev,
->  	return ret;
->  }
->  
-> -static int mmci_remove(struct amba_device *dev)
-> +static void mmci_remove(struct amba_device *dev)
->  {
->  	struct mmc_host *mmc = amba_get_drvdata(dev);
->  
-> @@ -2223,8 +2223,6 @@ static int mmci_remove(struct amba_device *dev)
->  		clk_disable_unprepare(host->clk);
->  		mmc_free_host(mmc);
->  	}
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM
-> diff --git a/drivers/rtc/rtc-pl030.c b/drivers/rtc/rtc-pl030.c
-> index 5a880516f3e8..39038c0754ee 100644
-> --- a/drivers/rtc/rtc-pl030.c
-> +++ b/drivers/rtc/rtc-pl030.c
-> @@ -137,7 +137,7 @@ static int pl030_probe(struct amba_device *dev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int pl030_remove(struct amba_device *dev)
-> +static void pl030_remove(struct amba_device *dev)
->  {
->  	struct pl030_rtc *rtc = amba_get_drvdata(dev);
->  
-> @@ -146,8 +146,6 @@ static int pl030_remove(struct amba_device *dev)
->  	free_irq(dev->irq[0], rtc);
->  	iounmap(rtc->base);
->  	amba_release_regions(dev);
-> -
-> -	return 0;
->  }
->  
->  static struct amba_id pl030_ids[] = {
-> diff --git a/drivers/rtc/rtc-pl031.c b/drivers/rtc/rtc-pl031.c
-> index 224bbf096262..620c8dc33647 100644
-> --- a/drivers/rtc/rtc-pl031.c
-> +++ b/drivers/rtc/rtc-pl031.c
-> @@ -280,7 +280,7 @@ static int pl031_set_alarm(struct device *dev, struct rtc_wkalrm *alarm)
->  	return 0;
->  }
->  
-> -static int pl031_remove(struct amba_device *adev)
-> +static void pl031_remove(struct amba_device *adev)
->  {
->  	struct pl031_local *ldata = dev_get_drvdata(&adev->dev);
->  
-> @@ -289,8 +289,6 @@ static int pl031_remove(struct amba_device *adev)
->  	if (adev->irq[0])
->  		free_irq(adev->irq[0], ldata);
->  	amba_release_regions(adev);
-> -
-> -	return 0;
->  }
->  
->  static int pl031_probe(struct amba_device *adev, const struct amba_id *id)
-> diff --git a/drivers/spi/spi-pl022.c b/drivers/spi/spi-pl022.c
-> index d1776fea287e..fd74ddfbb686 100644
-> --- a/drivers/spi/spi-pl022.c
-> +++ b/drivers/spi/spi-pl022.c
-> @@ -2314,13 +2314,13 @@ static int pl022_probe(struct amba_device *adev, const struct amba_id *id)
->  	return status;
->  }
->  
-> -static int
-> +static void
->  pl022_remove(struct amba_device *adev)
->  {
->  	struct pl022 *pl022 = amba_get_drvdata(adev);
->  
->  	if (!pl022)
-> -		return 0;
-> +		return;
->  
->  	/*
->  	 * undo pm_runtime_put() in probe.  I assume that we're not
-> @@ -2335,7 +2335,6 @@ pl022_remove(struct amba_device *adev)
->  	clk_disable_unprepare(pl022->clk);
->  	amba_release_regions(adev);
->  	tasklet_disable(&pl022->pump_transfers);
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM_SLEEP
-> diff --git a/drivers/tty/serial/amba-pl010.c b/drivers/tty/serial/amba-pl010.c
-> index 3284f34e9dfe..3f96edfe569c 100644
-> --- a/drivers/tty/serial/amba-pl010.c
-> +++ b/drivers/tty/serial/amba-pl010.c
-> @@ -754,7 +754,7 @@ static int pl010_probe(struct amba_device *dev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int pl010_remove(struct amba_device *dev)
-> +static void pl010_remove(struct amba_device *dev)
->  {
->  	struct uart_amba_port *uap = amba_get_drvdata(dev);
->  	int i;
-> @@ -770,8 +770,6 @@ static int pl010_remove(struct amba_device *dev)
->  
->  	if (!busy)
->  		uart_unregister_driver(&amba_reg);
-> -
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM_SLEEP
-> diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-> index c255476cce28..4ead0c9048a8 100644
-> --- a/drivers/tty/serial/amba-pl011.c
-> +++ b/drivers/tty/serial/amba-pl011.c
-> @@ -2679,13 +2679,12 @@ static int pl011_probe(struct amba_device *dev, const struct amba_id *id)
->  	return pl011_register_port(uap);
->  }
->  
-> -static int pl011_remove(struct amba_device *dev)
-> +static void pl011_remove(struct amba_device *dev)
->  {
->  	struct uart_amba_port *uap = amba_get_drvdata(dev);
->  
->  	uart_remove_one_port(&amba_reg, &uap->port);
->  	pl011_unregister_port(uap);
-> -	return 0;
->  }
->  
->  #ifdef CONFIG_PM_SLEEP
-> diff --git a/drivers/vfio/platform/vfio_amba.c b/drivers/vfio/platform/vfio_amba.c
-> index 7b3ebf1558e1..3626c2150101 100644
-> --- a/drivers/vfio/platform/vfio_amba.c
-> +++ b/drivers/vfio/platform/vfio_amba.c
-> @@ -71,14 +71,13 @@ static int vfio_amba_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int vfio_amba_remove(struct amba_device *adev)
-> +static void vfio_amba_remove(struct amba_device *adev)
->  {
->  	struct vfio_platform_device *vdev =
->  		vfio_platform_remove_common(&adev->dev);
->  
->  	kfree(vdev->name);
->  	kfree(vdev);
-> -	return 0;
->  }
->  
->  static const struct amba_id pl330_ids[] = {
-> diff --git a/drivers/video/fbdev/amba-clcd.c b/drivers/video/fbdev/amba-clcd.c
-> index b7682de412d8..33595cc4778e 100644
-> --- a/drivers/video/fbdev/amba-clcd.c
-> +++ b/drivers/video/fbdev/amba-clcd.c
-> @@ -925,7 +925,7 @@ static int clcdfb_probe(struct amba_device *dev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int clcdfb_remove(struct amba_device *dev)
-> +static void clcdfb_remove(struct amba_device *dev)
->  {
->  	struct clcd_fb *fb = amba_get_drvdata(dev);
->  
-> @@ -942,8 +942,6 @@ static int clcdfb_remove(struct amba_device *dev)
->  	kfree(fb);
->  
->  	amba_release_regions(dev);
-> -
-> -	return 0;
->  }
->  
->  static const struct amba_id clcdfb_id_table[] = {
-> diff --git a/drivers/watchdog/sp805_wdt.c b/drivers/watchdog/sp805_wdt.c
-> index 958dc32a708f..58a00e1ab23b 100644
-> --- a/drivers/watchdog/sp805_wdt.c
-> +++ b/drivers/watchdog/sp805_wdt.c
-> @@ -305,14 +305,12 @@ sp805_wdt_probe(struct amba_device *adev, const struct amba_id *id)
->  	return ret;
->  }
->  
-> -static int sp805_wdt_remove(struct amba_device *adev)
-> +static void sp805_wdt_remove(struct amba_device *adev)
->  {
->  	struct sp805_wdt *wdt = amba_get_drvdata(adev);
->  
->  	watchdog_unregister_device(&wdt->wdd);
->  	watchdog_set_drvdata(&wdt->wdd, NULL);
-> -
-> -	return 0;
->  }
->  
->  static int __maybe_unused sp805_wdt_suspend(struct device *dev)
-> diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
-> index 0bbfd647f5c6..6cc93ab5b809 100644
-> --- a/include/linux/amba/bus.h
-> +++ b/include/linux/amba/bus.h
-> @@ -76,7 +76,7 @@ struct amba_device {
->  struct amba_driver {
->  	struct device_driver	drv;
->  	int			(*probe)(struct amba_device *, const struct amba_id *);
-> -	int			(*remove)(struct amba_device *);
-> +	void			(*remove)(struct amba_device *);
->  	void			(*shutdown)(struct amba_device *);
->  	const struct amba_id	*id_table;
->  };
-> diff --git a/sound/arm/aaci.c b/sound/arm/aaci.c
-> index a0996c47e58f..b326a5f5f0d5 100644
-> --- a/sound/arm/aaci.c
-> +++ b/sound/arm/aaci.c
-> @@ -1055,7 +1055,7 @@ static int aaci_probe(struct amba_device *dev,
->  	return ret;
->  }
->  
-> -static int aaci_remove(struct amba_device *dev)
-> +static void aaci_remove(struct amba_device *dev)
->  {
->  	struct snd_card *card = amba_get_drvdata(dev);
->  
-> @@ -1066,8 +1066,6 @@ static int aaci_remove(struct amba_device *dev)
->  		snd_card_free(card);
->  		amba_release_regions(dev);
->  	}
-> -
-> -	return 0;
->  }
->  
->  static struct amba_id aaci_ids[] = {
-> -- 
-> 2.29.2
-> 
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index ae8efbc89af2..a669202e0001 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -286,16 +286,12 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+ 
+-		if (drvdata->bit_clk_state[id] == LPAIF_BIT_CLK_DISABLE) {
+-			ret = clk_enable(drvdata->mi2s_bit_clk[id]);
+-			if (ret) {
+-				dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+-				clk_disable(drvdata->mi2s_osr_clk[id]);
+-				return ret;
+-			}
+-			drvdata->bit_clk_state[id] = LPAIF_BIT_CLK_ENABLE;
++		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
++		if (ret) {
++			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
++			clk_disable(drvdata->mi2s_osr_clk[id]);
++			return ret;
+ 		}
+-
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+@@ -310,10 +306,9 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		if (ret)
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+-		if (drvdata->bit_clk_state[id] == LPAIF_BIT_CLK_ENABLE) {
+-			clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
+-			drvdata->bit_clk_state[id] = LPAIF_BIT_CLK_DISABLE;
+-		}
++
++		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
++
+ 		break;
+ 	}
+ 
+@@ -861,7 +856,6 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 				PTR_ERR(drvdata->mi2s_bit_clk[dai_id]));
+ 			return PTR_ERR(drvdata->mi2s_bit_clk[dai_id]);
+ 		}
+-		drvdata->bit_clk_state[dai_id] = LPAIF_BIT_CLK_DISABLE;
+ 	}
+ 
+ 	/* Allocation for i2sctl regmap fields */
+diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
+index 405542832e99..c8e1d75340b2 100644
+--- a/sound/soc/qcom/lpass-lpaif-reg.h
++++ b/sound/soc/qcom/lpass-lpaif-reg.h
+@@ -60,9 +60,6 @@
+ #define LPAIF_I2SCTL_BITWIDTH_24	1
+ #define LPAIF_I2SCTL_BITWIDTH_32	2
+ 
+-#define LPAIF_BIT_CLK_DISABLE		0
+-#define LPAIF_BIT_CLK_ENABLE		1
+-
+ #define LPAIF_I2SCTL_RESET_STATE	0x003C0004
+ #define LPAIF_DMACTL_RESET_STATE	0x00200000
+ 
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index 2d68af0da34d..83b2e08ade06 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -68,7 +68,6 @@ struct lpass_data {
+ 	unsigned int mi2s_playback_sd_mode[LPASS_MAX_MI2S_PORTS];
+ 	unsigned int mi2s_capture_sd_mode[LPASS_MAX_MI2S_PORTS];
+ 	int hdmi_port_enable;
+-	int bit_clk_state[LPASS_MAX_MI2S_PORTS];
+ 
+ 	/* low-power audio interface (LPAIF) registers */
+ 	void __iomem *lpaif;
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

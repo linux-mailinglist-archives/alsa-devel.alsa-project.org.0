@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B066A306241
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D22306240
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:24 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACFD61730;
-	Wed, 27 Jan 2021 18:16:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACFD61730
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7310179F;
+	Wed, 27 Jan 2021 18:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7310179F
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E6B2F80269;
-	Wed, 27 Jan 2021 18:14:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55AA5F804EC;
+	Wed, 27 Jan 2021 18:15:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97541F80277; Wed, 27 Jan 2021 18:14:41 +0100 (CET)
+ id 92971F804EB; Wed, 27 Jan 2021 18:15:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -24,37 +24,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0225F800F0
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:14:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0225F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBB3EF804E6
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 18:14:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBB3EF804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AtlSoqmt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 074EA64DA4;
- Wed, 27 Jan 2021 17:14:35 +0000 (UTC)
+ header.b="beHFpdI3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5164A64DAA;
+ Wed, 27 Jan 2021 17:14:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611767676;
- bh=1m++LiMxr6/GeKxBb1e6vmPpJo9MAanwj2boIbNLQAQ=;
+ s=k20201202; t=1611767697;
+ bh=O287Nnrz1Nzcsa3kBINOq8DwoZ8K1tvphv8Ae2qknAQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AtlSoqmt+c8VQOzssp+UyYTJJve8656Jk5lDqWkZTUh20iVnJ3OFsnOFFucmzXAxO
- iDo9GOI5c5C/HOEZvbn19lUarHWRUjfiYG8TGLNJA7cWaHaHdPxsjcmQSrevoPt2Je
- Wi13p+hPWFroldv7IJ5QoAbEh19UrgvwuEZeXw7+8R7yelYPRbyzYNJidd5nj5dOHw
- Y2orMCptR7Gx+pfGkqifzzr9OCJmuDFP20ojB+d/zYK8oVbmTcTmW/agzK8qstR9cq
- dn9MZr0KZYVKvJemG+1c3KIR0tCLccsNWPq6cfnrDBGYLCSwZOa589tI+VRh5hM7ux
- QaPGtc9w7pWXw==
+ b=beHFpdI3MbW3UXSYZ0JwS3lLAZCRgR/IICUZFYxABWYrXYMiLry7H8NUiSfN1Usgx
+ PsvRfi5iCMQ2liEw2oWJk6Th5SDxEBu+aHk18hFJy7/jjLLDQiJ8ubiMB/HYEK8CNb
+ gvmsfdeIe25FKlww4BAkYdwALITWP4Wmqd3RduZCAUCr/qL0M4VgALaNSht5t0/NQe
+ GGez0rx01wQ1RDy3aEgcTsbXwV1nTXD+qgbd+WBYCRwW1in7DTUmFc7Jm2g/1IOI6R
+ /4nlx/4ogKRTt3ej8QqhLEy0ET/sNQZ6c1iAfKGrRxB3TecD3AvPTZpnNq+MxEdNWV
+ m9M7bNH5+LA9w==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20210126171749.1863-1-srinivas.kandagatla@linaro.org>
-References: <20210126171749.1863-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 1/2] ASoC: soc-component: add
- snd_soc_component_read/write_field()
-Message-Id: <161176762855.34530.6617138298808888904.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <20210126154702.3974-1-tiwai@suse.de>
+References: <20210126154702.3974-1-tiwai@suse.de>
+Subject: Re: [PATCH] ASoC: siu: Fix build error by a wrong const prefix
+Message-Id: <161176762853.34530.4154305891257852492.b4-ty@kernel.org>
 Date: Wed, 27 Jan 2021 17:13:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,14 +68,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Jan 2021 17:17:48 +0000, Srinivas Kandagatla wrote:
-> It's often the case that we would write or read a particular field
-> in register. With the current soc_component apis, reading a particular
-> field in register would involve first read the register and then
-> perform shift operations.
+On Tue, 26 Jan 2021 16:47:02 +0100, Takashi Iwai wrote:
+> A const prefix was put wrongly in the middle at the code refactoring
+> commit 932eaf7c7904 ("ASoC: sh: siu_pcm: remove snd_pcm_ops"), which
+> leads to a build error as:
+>   sound/soc/sh/siu_pcm.c:546:8: error: expected '{' before 'const'
 > 
-> Ex:
-> to read from a field mask of 0xf0
+> Also, another inconsistency is that the declaration of siu_component
+> misses the const prefix.
 > 
 > [...]
 
@@ -87,10 +85,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: soc-component: add snd_soc_component_read/write_field()
-      commit: 1da0b9899abdbc7103d3ec6b1a888efda41dbb59
-[2/2] ASoC: codecs: lpass-wsa-macro: make use of snd_soc_component_read_field()
-      commit: 7db4c4cd767e5c2418e7892c6b2f06982d34369a
+[1/1] ASoC: siu: Fix build error by a wrong const prefix
+      commit: ae07f5c7c5e9ebca5b9d6471bb4b99a9da5c6d88
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

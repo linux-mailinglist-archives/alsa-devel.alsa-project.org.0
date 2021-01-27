@@ -2,77 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBE953059C3
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 12:31:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03751305B82
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 13:36:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 880E416DD;
-	Wed, 27 Jan 2021 12:30:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 880E416DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D41A1710;
+	Wed, 27 Jan 2021 13:28:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D41A1710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611747107;
-	bh=MeXh87PhrXGbxuFNLGsx1zwPAc25m19iwuT8SQtjfxM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uWmX6V83LEleJqb1JstJ20+I4gFiMckGDBxc9noAO2Cwaqj5ALAiG14CavjXKXXhW
-	 wKfltbB9IhLnFE/9zGoCfJvmnI7Bfzbz0Yo7eX8cf1RVhJ4X23+uU+cxzspl0qDuPv
-	 cXdByET4Qfav9sM9XdPbW31xhGY9mmJoA5igdcP0=
+	s=default; t=1611750540;
+	bh=J9aLjfHt44ruscp9q6ImqURXWAAlQNxso9PqwdOytzk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VEnfsPFGtM6zmrMUHJAGu3/0QF56ExhAgzbC0EmZgkrkzBcurd54NbGEzg1f7+Ky+
+	 1dbMhfLzVdA8EyrDCOiVeRj10Hso8m37gQBPf2/xMtnssTm+sMVcFocMf3E7JMYPOX
+	 4vYU42Phh2R3cKcBP4sGWIHZ4COiagox2HIVPvR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCA49F8025F;
-	Wed, 27 Jan 2021 12:30:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73519F8025F;
+	Wed, 27 Jan 2021 13:27:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE4C7F80259; Wed, 27 Jan 2021 12:29:58 +0100 (CET)
+ id DB68AF80259; Wed, 27 Jan 2021 13:27:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBFCAF800F0
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 12:29:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBFCAF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mN3AANCp"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A2EE32076E;
- Wed, 27 Jan 2021 11:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611746980;
- bh=MeXh87PhrXGbxuFNLGsx1zwPAc25m19iwuT8SQtjfxM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mN3AANCpN24xFffemzewOHV6grTdbxxS9mB86vkxuBnaH3UP65G7fhJ4XbU6mlVuE
- bOiBn8AfBKsWcqHfnUgWPLEAy33uVN10uS5fxR406SbIoPD4l268dDhS1W4Vxl9ezo
- x4y55qp7EzLbFu321LifyESl+IQmsbmjvi2F3gTdPIiLWNZhEtRkdbub/V9Zo/3vO5
- amAQlDSJT2ZV8QlvHhU2KUn5QsFEpcfSYWtWqntRrXXnT2HdrN2pIHjQUXjdBvLpx5
- 1JHhFLbfXqlhonfYw2i2gWc5UclrLPTcG5HvjMB8+FAlq2V/GQAECRgaSoZioVa5hO
- BTi4jsm5haKKw==
-Date: Wed, 27 Jan 2021 11:28:57 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
-Message-ID: <20210127112857.GA4387@sirena.org.uk>
-References: <20210126202317.2914080-1-helgaas@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FA49F800E9
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 13:27:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FA49F800E9
+IronPort-SDR: 0A53xzH3r/xTqebnEc3BZ9W3WrrIyd+oMnZ+P52OinZZKb+lgLh15LXR/+YDjNQ9noO8vz2QGf
+ OKEtGSxDjRow==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="177493943"
+X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="177493943"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2021 04:27:14 -0800
+IronPort-SDR: DVQdC5PBuOajYMcly7z2fEXZjxg/mcfFhxfKBbenhS9R1hQ8pkdzSSNZAiJJKUx/543KtGujl4
+ ihctUin4pu3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="353794577"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga003.jf.intel.com with ESMTP; 27 Jan 2021 04:27:12 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: add a pointer to download repo in case FW request
+ fails
+Date: Wed, 27 Jan 2021 14:23:58 +0200
+Message-Id: <20210127122358.1014458-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bg08WKrSYDhXBjb5"
-Content-Disposition: inline
-In-Reply-To: <20210126202317.2914080-1-helgaas@kernel.org>
-X-Cookie: La-dee-dee, la-dee-dah.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
- Jean Delvare <jdelvare@suse.com>, acpi4asus-user@lists.sourceforge.net,
- "Rafael J . Wysocki" <rjw@rjwysocki.net>, Takashi Iwai <tiwai@suse.com>,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- Corentin Chary <corentin.chary@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-spi@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Guenter Roeck <linux@roeck-us.net>, Len Brown <lenb@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, Marc Herbert <marc.herbert@intel.com>,
+ Bruce Perens <bruce@perens.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,33 +78,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The SOF firmware and topology files are not distributed via
+linux-firmware. To help debugging cases where correct firmware is
+not installed, print a pointer to the official upstream repository
+for Sound Open Firmware releases.
 
---bg08WKrSYDhXBjb5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+BugLink: https://github.com/thesofproject/sof/issues/3665
+Reported-by: Bruce Perens <bruce@perens.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Marc Herbert <marc.herbert@intel.com>
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+---
+ sound/soc/sof/loader.c   | 2 ++
+ sound/soc/sof/topology.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-On Tue, Jan 26, 2021 at 02:23:17PM -0600, Bjorn Helgaas wrote:
-> From: Bjorn Helgaas <bhelgaas@google.com>
->=20
-> The double negative makes it hard to read "if (!ACPI_FAILURE(status))".
-> Replace it with "if (ACPI_SUCCESS(status))".
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index 08a17abb63ff..eabeaf7b260e 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -731,6 +731,8 @@ int snd_sof_load_firmware_raw(struct snd_sof_dev *sdev)
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: request firmware %s failed err: %d\n",
+ 			fw_filename, ret);
++		dev_err(sdev->dev,
++			"you may need to download the firmware from https://github.com/thesofproject/sof-bin/\n");
+ 		goto err;
+ 	} else {
+ 		dev_dbg(sdev->dev, "request_firmware %s successful\n",
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index b6b32a7a91f8..59f89f3d61a2 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -3740,6 +3740,8 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+ 	if (ret < 0) {
+ 		dev_err(scomp->dev, "error: tplg request firmware %s failed err: %d\n",
+ 			file, ret);
++		dev_err(scomp->dev,
++			"you may need to download the firmware from https://github.com/thesofproject/sof-bin/\n");
+ 		return ret;
+ 	}
+ 
+-- 
+2.29.2
 
-Acked-by: Mark Brown <broonie@kernel.org>
-
---bg08WKrSYDhXBjb5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmARTngACgkQJNaLcl1U
-h9C2dwf9GE0PHhDzOzGae10MRkXBNzBdmeTf035YAM12jQ6o9G9kDK3xBSA64Jcy
-rr3+mkHvYkCEBEdAzV25MDRg2iXAoLBYJdmfMHXt/u9D0aJf80gMEXgrUDE6yjQo
-AJvXTJrJqu+KS2RMpnxIHfO1rXRZrQMIAln9GbePtqKjGUN5cx6QJKUDYyrMlevp
-9KZr/ClGQmLOYJ7suU9mr1NFgEgf6XnsU7Gq6BGuyo10GO62Qg3bztHtkiiRxz/x
-zvr9PngfutrIGT7qfvKBSmWk2y50qe5XDeJRD8e6YbFS/Ge5LnOwmNc24jjts04w
-OE5TwTVKRHFfy39WTQ3IdmJaznDhqg==
-=b7Y/
------END PGP SIGNATURE-----
-
---bg08WKrSYDhXBjb5--

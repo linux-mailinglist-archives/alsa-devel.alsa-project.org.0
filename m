@@ -2,81 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30B83066F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jan 2021 23:04:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B379306DA8
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jan 2021 07:37:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E60F16A5;
-	Wed, 27 Jan 2021 23:03:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E60F16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B45F216CB;
+	Thu, 28 Jan 2021 07:36:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B45F216CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611785059;
-	bh=vwmks73Vw5DQV83Ygk7SwPncGlg9s+x1080uc7Ao4cI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611815836;
+	bh=QDOSqhvU7In7AP5y3fBRGjSMcbYvxVMLRZUuhnF0Q24=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FSCNL9HGiXuwZxAAjkOA28hVj6E8ZynsZ074HBqozeAZCl45F5COEOudeQ/KQBhoS
-	 C0U0hl111sNKg+lOr1fibK7i/JRqWzAo30TBSGfDIzmAfRrrGuIyvQXo6UPzjr9dsA
-	 KMvg47ujM2uPB4CQi/gHOQljueCR0/O6zZPS/2vQ=
+	b=TIk6Mqcjd6uv9ZaFypWpz81++Zls4R90VKiIpa+ItHST6BYStN8a6Zla9FHrMDU9J
+	 QSAqYgTbrG/OVR3SDgdnXpfXSgjEuBFJIQQQ779Y3dQSsvsB7418lJojz1Q/JH56VN
+	 +Ht9+SQD+P+MWyDmS4pDNDOZ98JlhYaXlVr/EHs8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87B8AF800F0;
-	Wed, 27 Jan 2021 23:02:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12E89F80158;
+	Thu, 28 Jan 2021 07:35:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 176A5F80259; Wed, 27 Jan 2021 23:02:47 +0100 (CET)
+ id 03DEDF8015B; Thu, 28 Jan 2021 07:35:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- PRX_BODY_76,PRX_BODY_84,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE823F800F0
- for <alsa-devel@alsa-project.org>; Wed, 27 Jan 2021 23:02:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE823F800F0
-IronPort-SDR: 9PAfWnWhHik/jcoYvR9oVpNQJKAEwSKjTf+yrm5C8IJ8DGEk6gENlpjBbosQjuKsIxzhokZegY
- ECCrmVwGWK8g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9877"; a="198964097"
-X-IronPort-AV: E=Sophos;i="5.79,380,1602572400"; d="scan'208";a="198964097"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 14:02:34 -0800
-IronPort-SDR: i6F2gvM/6kh4rOtFpRty7DdNRR50gCxMPh7CIJN3lr4amk2x6aV+e5xOImusTA0cvWFdaxJKC4
- EWZ6/3SWpDxQ==
-X-IronPort-AV: E=Sophos;i="5.79,380,1602572400"; d="scan'208";a="430259811"
-Received: from sschwenc-mobl.amr.corp.intel.com (HELO [10.209.87.195])
- ([10.209.87.195])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 14:02:30 -0800
-Subject: Re: Crash in acpi_ns_validate_handle triggered by soundwire on Linux
- 5.10
-To: =?UTF-8?Q?Marcin_=c5=9alusarz?= <marcin.slusarz@gmail.com>
-References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
- <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
- <1f0f7273-597e-cdf0-87d1-908e56c13133@linux.intel.com>
- <CA+GA0_v3JUWS3G3=R4XuQ=OW91cpwiBP1Rp=uzYOF8c9TUJ46w@mail.gmail.com>
- <CA+GA0_sCdowanpZmg==c+xVqqNxG5whLGsKHaCfSmpERBhqMzA@mail.gmail.com>
- <1dc2639a-ecbc-c554-eaf6-930256dcda96@linux.intel.com>
- <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <709fa03c-43b7-45e4-3ddc-aae0d8f4ced4@linux.intel.com>
-Date: Wed, 27 Jan 2021 16:02:29 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from muru.com (muru.com [72.249.23.125])
+ by alsa1.perex.cz (Postfix) with ESMTP id 4B322F800D1
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 07:35:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B322F800D1
+Received: from atomide.com (localhost [127.0.0.1])
+ by muru.com (Postfix) with ESMTPS id 2C6A680A9;
+ Thu, 28 Jan 2021 06:35:39 +0000 (UTC)
+Date: Thu, 28 Jan 2021 08:35:30 +0200
+From: Tony Lindgren <tony@atomide.com>
+To: =?utf-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@gmail.com>
+Subject: Re: [PATCH] ASoC: ti: Allocate dais dynamically for TDM and audio
+ graph card
+Message-ID: <YBJbMqt4PbeU/fD4@atomide.com>
+References: <20210124092713.GA22195@amd>
+ <2a9e7655-3d32-feb5-080c-8928a96f417e@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Len Brown <lenb@kernel.org>
+In-Reply-To: <2a9e7655-3d32-feb5-080c-8928a96f417e@gmail.com>
+Cc: Carl Philipp Klemm <philipp@uvos.xyz>, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, aaro.koskinen@iki.fi, merlijn@wizzup.org,
+ sre@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ Pavel Machek <pavel@ucw.cz>, phone-devel@vger.kernel.org, spinal.by@gmail.com,
+ jarkko.nikula@bitmer.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,102 +70,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 1/27/21 1:18 PM, Marcin Ślusarz wrote:
-> śr., 27 sty 2021 o 18:28 Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> napisał(a):
->>> Weird, I can't reproduce this problem with my self-compiled kernel :/
->>> I don't even see soundwire modules loaded in. Manually loading them of course
->>> doesn't do much.
->>>
->>> Previously I could boot into the "faulty" kernel by using "recovery mode", but
->>> I can't do that anymore - it crashes too.
->>>
->>> Maybe there's some kind of race and this bug depends on some specific
->>> ordering of events?
->>
->> missing Kconfig?
->> You need CONFIG_SOUNDWIRE and CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE
->> selected to enter this sdw_intel_acpi_scan() routine.
+* Péter Ujfalusi <peter.ujfalusi@gmail.com> [210126 06:00]:
+> On 1/24/21 11:27 AM, Pavel Machek wrote:
+> > From: Tony Lindgren <tony@atomide.com>
+> > +	for (i = 0; i < mcbsp->dai_count; i++) {
+> > +		struct snd_soc_dai_driver *dai = &mcbsp->dais[i];
+> > +
+> > +		dai->name = devm_kasprintf(mcbsp->dev, GFP_KERNEL, "%s-dai%i",
+> > +					   dev_name(mcbsp->dev), i);
+> > +
+> > +		if (i == 0) {
+> > +			dai->probe = omap_mcbsp_probe;
+> > +			dai->remove = omap_mcbsp_remove;
+> > +			dai->ops = &mcbsp_dai_ops;
+> > +		}
 > 
-> It was a PEBKAC, but a slightly different one. I won't bore you with
-> (embarrassing) details ;).
+> You are effectively creating extra dummy-dais (no ops), but naming them as
+> McBSP.
+> The dummy-dais will only work if the real dai is in use and the dai link
+> which contains the real dai must be configured (TDM slots, format, channels)
+> to accomodate the link which contains the dummy-dai.
 > 
-> I reproduced the problem, tested both your and Rafael's patches
-> and the kernel still crashes, with the same stack trace.
-> (Yes, I'm sure I booted the right kernel :)
-> 
-> Why "recovery mode" stopped working (or worked previously) is still a mystery.
-> 
+> The idea did not aged well for me ;)
+> It still looks and sounds like a hack to model the TDM slots on a single DAI
+> as multiple DAIs just to satisfy a generic binding which is not aimed to
+> satisfy the droid4 setup (which is far from anything simple).
 
-Thanks Marcin for the information. If you have a consistent failure 
-that's better to some extent.
+After thinking about this a bit more, I think the voice call dai should be
+created by the voice dai. When we have an active voice call, the data
+transfer is completely out of control of the kernel mcbsp driver. It needs
+to be only configured on the pmic.
 
-Maybe a bit of explanation of what this routine tries to do:
-when SoundWire is enabled in a system, we need to have the following 
-pattern in the DSDT:
+So I'm suggesting tha we create the modem voice call dai as a child for
+sound/soc/codecs/cpcap.c, does that sound OK to you guys?
 
-     Scope (_SB.PCI0)
-     {
-         Device (HDAS)
-         {
-             Name (_ADR, 0x001F0003)  // _ADR: Address
-         }
+I think from snd-soc-audio-graph-card binding point of view, we'd just move
+the cpu_dai_mdm endpoint out of the mcbsp in the device tree and drop the
+$subject patch. Then the dts for the pmic voice codec becomes something
+like this (untested):
 
+cpcap_audio: audio-codec {
+	#sound-dai-cells = <1>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
-         Scope (HDAS)
-         {
-             Device (SNDW)
-             {
-                 Name (_ADR, 0x40000000)  // _ADR: Address
+	port@0 {
+		reg = <0>;
+		cpcap_audio_codec0: endpoint {
+		};
+	};
+	port@1 {
+		reg = <1>;
+		cpcap_audio_codec1: endpoint@0 {
+		};
+		cpu_dai_mdm: endpoint@1 {
+			reg = <1>;
+			dai-format = "dsp_a";
+			frame-master = <&cpcap_audio_codec1>;
+			bitclock-master = <&cpcap_audio_codec1>;
+			remote-endpoint = <&mot_mdm6600_audio_codec0>;
+		};
+        };
+};
 
-The only thing the code does is to walk through the children and check 
-if the valid _ADR 0x40000000 is found.
+For things like recording a voice call, I think mcbsp could be configured
+to also listen on the traffic and dump it out. I guess that could also
+happen directly with calls from the sound/soc/codecs/cpcap.c driver to
+the mcbsp driver since we havethe audio graph mapping. Anyways, that's a
+separate series of patches, still something to consider.
 
-You don't have SoundWire in your device so there should not be any 
-children found. I don't see anything in the DSDT that looks like 
-_SB.PCI0.HDAS.<something>, so in theory we should not even enter the 
-callback.
+Regards,
 
-The error happens in acpi_bus_get_device(), after we read the adr but 
-before we check it, so wondering if we shouldn't revert the checks. Can 
-you try the diff below? I am not sure why there is a crash and we should 
-root-cause this issue, just trying to triangulate what is happening.
-
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index cabdadb09a1b..6bc87a682fb3 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -369,13 +369,6 @@ static acpi_status sdw_intel_acpi_cb(acpi_handle 
-handle, u32 level,
-         if (ACPI_FAILURE(status))
-                 return AE_OK; /* keep going */
-
--       if (acpi_bus_get_device(handle, &adev)) {
--               pr_err("%s: Couldn't find ACPI handle\n", __func__);
--               return AE_NOT_FOUND;
--       }
--
--       info->handle = handle;
--
-         /*
-          * On some Intel platforms, multiple children of the HDAS
-          * device can be found, but only one of them is the SoundWire
-@@ -386,6 +379,13 @@ static acpi_status sdw_intel_acpi_cb(acpi_handle 
-handle, u32 level,
-         if (FIELD_GET(GENMASK(31, 28), adr) != SDW_LINK_TYPE)
-                 return AE_OK; /* keep going */
-
-+       if (acpi_bus_get_device(handle, &adev)) {
-+               pr_err("%s: Couldn't find ACPI handle\n", __func__);
-+               return AE_NOT_FOUND;
-+       }
-+
-+       info->handle = handle;
-+
-         /* device found, stop namespace walk */
-         return AE_CTRL_TERMINATE;
-  }
-
-
+Tony

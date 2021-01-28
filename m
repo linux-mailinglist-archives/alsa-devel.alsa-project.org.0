@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE469307F9B
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jan 2021 21:25:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DB08307FFF
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jan 2021 21:57:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 479DD16A3;
-	Thu, 28 Jan 2021 21:24:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 479DD16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF59F1698;
+	Thu, 28 Jan 2021 21:56:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF59F1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611865524;
-	bh=lbM6GwZMYRImaPta0V1n79EGw3P6kP+wV2qFO0XXCEY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1611867449;
+	bh=1Q3JBbzrKlWRCyGG2/vnKM+0MChylTS66CNfZCbA83s=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iLTwYxWfdEGSu57HidGTYCqg8GNyBiVP7lsomNhJ/UQtDhJEMrNgFV6Xi2oScQx6z
-	 uNYuD1+FkFmCTr17DGIIO0GCqMrfOZi7vbZ+krbnU/byN3AdTO7cveZDSiB1kcCi/W
-	 pr1JJgCLWoSSTF7mv8znmUSou3Bnyiubantgdbqw=
+	b=Ic/GX4dHtSsT0Lzj+5OPRJLwVl3xqodFD4jpiMP9cDQ4mtSGoj+Kn0QZK8sXNs+s2
+	 iSiXdelCN+foOKksmnjMxEEtb3hb0tmx/8rsMD+a+mS0AT5X6/xW/ThgTqfTrT0RmS
+	 F1lD5+Dr1biEm3ZCAWLAkas1jvusRF8HUbcZZWXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FAA0F801D8;
-	Thu, 28 Jan 2021 21:23:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7CBDF804C2;
+	Thu, 28 Jan 2021 21:55:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EABDF801D8; Thu, 28 Jan 2021 21:23:50 +0100 (CET)
+ id 4F18BF80217; Thu, 28 Jan 2021 21:55:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,52 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E450EF800BE
- for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 21:23:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E450EF800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC6CBF800D1
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 21:55:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC6CBF800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="L5sfIFYC"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9197E64DA1;
- Thu, 28 Jan 2021 20:23:42 +0000 (UTC)
+ header.b="W2AmedK8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6EB9964DDB;
+ Thu, 28 Jan 2021 20:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611865423;
- bh=lbM6GwZMYRImaPta0V1n79EGw3P6kP+wV2qFO0XXCEY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L5sfIFYCx19rJd1BV9wJ6fpsdueLYb5eolWLbvn9hH6LMBIDu7KHFjJlbU5SxG7Eg
- XDquLwgE5EGm5DFryKIEhaQpk2uKId4zhyQzEmGel8QtgJCMWypSGp3cvEONb57Cfn
- 0OYGJ9YO7rHtHd8pSeobJOfLsYLCwtdQ11sXKno41UZa6QmypJ/NAlJ6xgEx9WpCcX
- kfGLYsMmDBZA5eZaePIxwXtSrwemRYsFEltlOX9/8n6uKy46trS2Lj5H7H7KjqSfO7
- DsqGQ5/qs+Ly/Ih+Z+49Y5LPb46GN28UmRpCKlVFrxua2xD2IbvCe859NTAmcihXrT
- Sv/6bOU6R7nbA==
-Date: Thu, 28 Jan 2021 20:22:57 +0000
+ s=k20201202; t=1611867326;
+ bh=1Q3JBbzrKlWRCyGG2/vnKM+0MChylTS66CNfZCbA83s=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=W2AmedK8qteza6t210CV/04DlkSh4wmuXEyHvn4+d6/UTDb61kzk9dk14593RdgV4
+ qtMMwcvtaDyY0uXkqcu95Gef2utD3hbfV/CPk+chhWQGJEbdjgNrc7ZNm/jMSXQDpM
+ ZCEoQAwZE6OglIFrQ6G1n/uVfSHfGQaC+vAGYZsUEt/nf+LYbAn0XyzleKxVkGcSLe
+ 2kEC4PXDzBeDDalioxGRjR2BE/RVIaGpSpj5sg14PAXienTIlTCaIbmHTKIMZIFlog
+ mXrVlnMqAaRtMgMbifNMncXHgvbADwA36ARZn1eLqpIbd4YLlxipUWhaX/nred/guT
+ +SGS1DMIBqUzw==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Cleanup standard unit properties
-Message-ID: <20210128202257.GG4537@sirena.org.uk>
-References: <20210128194515.743252-1-robh@kernel.org>
+To: bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
+ tiwai@suse.com, srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
+ perex@perex.cz, devicetree@vger.kernel.org,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ linux-kernel@vger.kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
+In-Reply-To: <20210127151824.8929-1-srivasam@codeaurora.org>
+References: <20210127151824.8929-1-srivasam@codeaurora.org>
+Subject: Re: [PATCH v2] ASoC: qcom: lpass-cpu: Remove bit clock state check
+Message-Id: <161186727762.43763.16675933644941230011.b4-ty@kernel.org>
+Date: Thu, 28 Jan 2021 20:54:37 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8bBEDOJVaa9YlTAt"
-Content-Disposition: inline
-In-Reply-To: <20210128194515.743252-1-robh@kernel.org>
-X-Cookie: Do not pick the flowers.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Sebastian Reichel <sre@kernel.org>, linux-i2c@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-rtc@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- alsa-devel@alsa-project.org, linux-pm@vger.kernel.org,
- Wolfram Sang <wolfram@the-dreams.de>, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,31 +81,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 27 Jan 2021 20:48:24 +0530, Srinivasa Rao Mandadapu wrote:
+> No need of BCLK state maintenance from driver side as
+> clock_enable and clk_disable API's maintaing state counter.
+> 
+> One of the major issue was spotted when Headset jack inserted
+> while playback continues, due to same PCM device node opens twice
+> for playaback/capture and closes once for capture and playback continues.
+> 
+> [...]
 
---8bBEDOJVaa9YlTAt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Jan 28, 2021 at 01:45:15PM -0600, Rob Herring wrote:
-> Properties with standard unit suffixes already have a type and don't need
-> type definitions. They also default to a single entry, so 'maxItems: 1'
-> can be dropped.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Thanks!
 
---8bBEDOJVaa9YlTAt
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: qcom: lpass-cpu: Remove bit clock state check
+      commit: 6c28377b7114d04cf82eedffe9dcc8fa66ecec48
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmATHSAACgkQJNaLcl1U
-h9AFOQf7Bk9kfd72eswvzk03qYrNzRUn/oYHBukYGABZxeJRqRFJl5+jb4FOglXo
-ocmDsdb34YsgINlYHWXljMcykPaAMfuY73a3ak/VfZR83lQ985rj2tyC0DRUTBnX
-spUxl6EQIUaFRmlSARZRK0iGC2QknTRzafuaIDv91uXpokCIEFw/KXY+1075TAS3
-2NeAWqaaV6NGsWHAhjs3HGarXyGgMzjEPBJLWnDg996A5/3nOaUm2qNeBauScB7C
-ywiZRUH9e+WMcDRKMBbOMl+au1Gx1wRzTiVtCViTII7mvweTZxqybXa6ztmKKZMS
-xQFRKT7ZM6c6Jsj6z1eM+bLGwj41bA==
-=Q38P
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---8bBEDOJVaa9YlTAt--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

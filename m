@@ -2,61 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 811F1307738
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jan 2021 14:38:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC8DC307761
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jan 2021 14:47:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CD2916B5;
-	Thu, 28 Jan 2021 14:37:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CD2916B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86ACC168C;
+	Thu, 28 Jan 2021 14:46:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86ACC168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611841083;
-	bh=2bk1RmOMRISjjCJQhqmqM9HCmUmuH4HCWmWxLXegwPg=;
+	s=default; t=1611841623;
+	bh=FK1P9fJGxP9g9yNq9aBe/J5OlAh9ybLDam1Y6HSzUkI=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uMOf5p+A7cXQG4HDaTfxifZELdUOXaH7WkfLaF6XIcdv2iTtrzwsBasZfp7PZfLSY
-	 /r86DOvFwkyHIF1m8Ne88ne61ZSa30vWxEcNHMlTC3SMLHcSQGUhaDf1N6wIDs+ouR
-	 oIY9Oerhx0vH2JGvcuThVVwuut7be4xwLimSYSLg=
+	b=gtXRjMFZ2nX33uGy3++UWb4zyK7i1Kz+RQ1KXp9TUiZUxhSgdair6cOw12Aql5c5w
+	 iBJ3SsPGbueAU9WRgzShC3TxoF64P2yqd+oSDmgaHxEFxXWrp0wpZPMhHCRdv4W+e1
+	 d1ZsXfpv2FRAaaTjUuMD/Hc/nTHXLQHIkk2O19b0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7DD6F800D1;
-	Thu, 28 Jan 2021 14:36:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0152F801D8;
+	Thu, 28 Jan 2021 14:45:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DABFBF8015B; Thu, 28 Jan 2021 14:36:30 +0100 (CET)
+ id 64C0DF8015B; Thu, 28 Jan 2021 14:45:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,PRX_BODY_76,
- PRX_BODY_84,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, PRX_BODY_30, PRX_BODY_76, PRX_BODY_84,
+ SPF_HELO_NONE, 
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4118F800BE
- for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 14:36:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4118F800BE
-Received: by mail-oi1-f176.google.com with SMTP id x71so5978302oia.9
- for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 05:36:16 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7467CF800BE
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 14:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7467CF800BE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LwJ23A4I"
+Received: by mail-wr1-x430.google.com with SMTP id v15so5468579wrx.4
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 05:45:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=SFy1hLE8z9JcXXcHD+Y2lQDh9IQ4Iy+69IQAQvy1q6c=;
+ b=LwJ23A4IowdG6XptWGWnjjTqh9RBudynR3L3jnlY5OnL6z7EXXXo4N8uM4IHA1xygp
+ rsGa9WG889mQ5PevFLjMq6Vgwmp2mRromKpTcu1VkIlLT985gE3l3b1cNG1QrDxj2uBE
+ Gmu3u668wYUoyoe7pqfxiZ0wtAyWkoUaRvBtIlh+ljx4o5RSBYC6J8dj8sU52RNkthna
+ m299/I16dPlogB7TuJvAhZgDvqAgqA9y0QVhVixVT0o6fbfeDjPPp2Ip7kawtHnYy4P4
+ uwtEEJc/o15nXQ5gBHpeEIkj9YTT8AKM6iFy56Ux8lyLHzXVM5Z8EE7W9VplCnD2ZHEK
+ NW3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=z5SGY4C5ay7xChxrMI2Qk0gCkSY/GyjML+ouR/QlQZU=;
- b=jU2qL7hRJBwz99mUNGBNxvuro6vENGeuWrNHngB1fP7mpgaBWZi4NmcWmb56JitwV3
- sbrZWda9/V6x/D7hY0cbtWB1COFINCR6AhM31aOdjJfN4daKimFIF8ttZjgLLjIp4wJ0
- iuStUn8acl+MY3ZaKE95Uv0In3l1JBonU1EHSLt+tiurBhcqKBJ0HwoVkAvse0nacsWN
- rvVDX+j4X9Sojew+oAPd1QX72/jfMXiVgowWgzVtskJX7nj3h69Ci3bnRZhV9bGkcs6p
- E1/gLCNy4C/Z/VDTeAnMo7istjzDL+/mmkzr2SDUbWlMsRsanC8uJxgiI6YNdPN8zCGD
- Kisg==
-X-Gm-Message-State: AOAM532eEDEoAt8VMEp5PPL/EsHCjH513hQScLLHtPUjqugqEDvwKlWO
- REsI1umXtht0AVkxwPi8hDPjVCwS9+AZU88JdBI=
-X-Google-Smtp-Source: ABdhPJzN1D4xsgEXVkEQRaiVc11OT9iu/x6qu0NQE3Zh8hKG9k05ybTUmTB4hsgSmW7JsJx3yPtQ2lwVPALf7nJaK4E=
-X-Received: by 2002:aca:d14:: with SMTP id 20mr6771661oin.157.1611840974543;
- Thu, 28 Jan 2021 05:36:14 -0800 (PST)
+ bh=SFy1hLE8z9JcXXcHD+Y2lQDh9IQ4Iy+69IQAQvy1q6c=;
+ b=bQi5aSlyE3qpk2ecmjLJ2YuF6BStF3POi96DVvA3xqP29REaYoRPqedbFtVf8ijnwX
+ FBix/5S+9W3q7OeVtxzT4Tk9tPzD2wKWOKhoI+2dkpKGzhSdRLA5JH5B4LQLjXUXLS7l
+ fDAuXuJzMg+izixnanNOaYMnvw+m1ymBRn5OHGR93et9th4yhN4fqAt9pl8EXQZwLKYo
+ +u3vu+xG+MsRiCwVHJgw6zrezKWCjuAOn9hexVaj05O491tOVjFW0/oVL/tHf9nuyfot
+ yuxLMrWxs9iNTvdhxp/Ibp8wjX5jepvG5gLGugqT//+rMtXA4j1r0XHX5RhUQhKeeljZ
+ 2RZA==
+X-Gm-Message-State: AOAM531rDSYQkhu89B6kmFK9lmowI8zjHF5EnD1zEgyRAuk4RUZckUY/
+ mTkWNPRwv9oHNHLFeM/a+9OMEVT9idyWaDFqqcM=
+X-Google-Smtp-Source: ABdhPJyk9EpbsexhzzxqLg2NPgST68DTMBvHtKSNBe09UXSQTIgBMkts0Toa8UDD+73cZaJWpyY8RUaN4+dq6jTcxZI=
+X-Received: by 2002:a5d:4c84:: with SMTP id z4mr15948312wrs.289.1611841524844; 
+ Thu, 28 Jan 2021 05:45:24 -0800 (PST)
 MIME-Version: 1.0
 References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
  <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
@@ -66,19 +79,19 @@ References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
  <1dc2639a-ecbc-c554-eaf6-930256dcda96@linux.intel.com>
  <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
  <CAJZ5v0h+Kwn5u293QO+H2rfGx-ZMBr18tMCLB7jHKHWWRaovOw@mail.gmail.com>
- <CA+GA0_usYrYJVLkoQ_uknwBgHu_ZDRomBS4wvmfJC+BX=0j53w@mail.gmail.com>
-In-Reply-To: <CA+GA0_usYrYJVLkoQ_uknwBgHu_ZDRomBS4wvmfJC+BX=0j53w@mail.gmail.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 28 Jan 2021 14:36:03 +0100
-Message-ID: <CAJZ5v0iDUJZWxgT4zMzro=k-RC8t-vVLUw2WhT9cJY0aRPmfvA@mail.gmail.com>
+ <CAJZ5v0h8abkdrdN97RHouzxynPBFXBoAuMSb7Zy56+-sTXkPKQ@mail.gmail.com>
+In-Reply-To: <CAJZ5v0h8abkdrdN97RHouzxynPBFXBoAuMSb7Zy56+-sTXkPKQ@mail.gmail.com>
+From: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
+Date: Thu, 28 Jan 2021 14:45:09 +0100
+Message-ID: <CA+GA0_u56Rf1ETi0q9-AgHH0taszhcY4xUcEarvxi_fFu6DqCw@mail.gmail.com>
 Subject: Re: Crash in acpi_ns_validate_handle triggered by soundwire on Linux
  5.10
-To: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Erik Kaneda <erik.kaneda@intel.com>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ <alsa-devel@alsa-project.org>, Erik Kaneda <erik.kaneda@intel.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
@@ -98,11 +111,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 28, 2021 at 2:29 PM Marcin =C5=9Alusarz <marcin.slusarz@gmail.c=
-om> wrote:
->
-> czw., 28 sty 2021 o 13:13 Rafael J. Wysocki <rafael@kernel.org> napisa=C5=
+czw., 28 sty 2021 o 13:39 Rafael J. Wysocki <rafael@kernel.org> napisa=C5=
 =82(a):
+>
+> On Thu, Jan 28, 2021 at 1:13 PM Rafael J. Wysocki <rafael@kernel.org> wro=
+te:
 > >
 > > On Wed, Jan 27, 2021 at 8:19 PM Marcin =C5=9Alusarz <marcin.slusarz@gma=
 il.com> wrote:
@@ -150,9 +163,6 @@ ific
 > >         return -ENODEV;
 > >
 > > and it has not made a difference?
->
-> yes, I tried the same and it made no difference
->
 > >
 > > And the relevant part of the trace is:
 > >
@@ -188,35 +198,25 @@ ific
 > > acpi_bus_get_device().  Subsequently it got to acpi_get_data_full()
 > > and acpi_ns_validate_handle() that crashed, because it tried to
 > > dereference it via ACPI_GET_DESCRIPTOR_TYPE().
-> >
-> > To debug it further, can you please modify
-> > snd_intel_dsp_check_soundwire() to read like this:
-> >
-> > static int snd_intel_dsp_check_soundwire(struct pci_dev *pci)
-> > {
-> >     struct sdw_intel_acpi_info info;
-> >     struct acpi_device *adev =3D NULL;
-> >     acpi_handle handle;
-> >     int ret;
-> >
-> >     handle =3D ACPI_HANDLE(&pci->dev);
-> >     if (!handle)
-> >         return -ENODEV;
-> >
-> >     if (acpi_bus_get_device(handle, &adev))
-> >         return -ENODEV;
-> >
-> > and see what happens then?
 >
-> still, the same crash
+> But interestingly enough, sdw_intel_acpi_cb() calls
+> acpi_evaluate_integer() on the same handle that is passed to
+> acpi_bus_get_device() later and it also calls
+> acpi_ns_validate_handle() on that handle which doesn't crash.
 >
-> just to be sure, I added printks there and none of these 2 error paths ar=
-e hit,
-> but my printk after these changes is hit
+> Moreover, it asks _ADR to be evaluated with respect to that handle and
+> because it gets to the acpi_bus_get_device() call at all, this appears
+> to have been successful.
+>
+> The only explanation for that I can think about (and which does not
+> involve supernatural intervention so to speak) is a stack corruption
+> occurring between these two calls in sdw_intel_acpi_cb().  IOW,
+> something scribbles on the handle in the meantime, but ATM I have no
+> idea what that can be.
+>
+> Marcin, please boot with ACPICA deubg (level =3D ACPI_LV_INFO and
+> component =3D ACPI_NAMESPACE | ACPI_BUS_COMPONENT) enabled (see
+> Documentation/firmware-guide/acpi/debug.rst for instructions) and
+> collect the log.
 
-So we have a valid ACPI handle for the given parent PCI device.
-
-OK, please try to run this with the ACPICA debug enabled as mentioned
-in one of the previous messages.
-
-Something fishy seems to be going on in there.
+https://people.freedesktop.org/~mslusarz/tmp/acpi_debug.txt

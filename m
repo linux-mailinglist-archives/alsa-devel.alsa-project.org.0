@@ -2,87 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F3F3089C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CEE73089CA
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:13:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FB2C16CD;
-	Fri, 29 Jan 2021 16:12:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FB2C16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 718EB16B5;
+	Fri, 29 Jan 2021 16:12:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 718EB16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611933184;
-	bh=I2+okNVijmOCHwJQ9DkQ8dg8ShZTxywABf7GFaAooE4=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g01XqYPtHISLAlxEEszAjUKoC2pU+4f+i5bBy3efIaNxAmqBK/GjgylpwG5yQZj2o
-	 Jq86dUSvFaqNacfKFigJPLYqgH9vLcqzWNbNDfxWqEDKrnKYm86ZuoIsfq6MDvkK6n
-	 tUUrU5ahbQxnelozlA5M/JsVxhgPoEUHpMd3rO3k=
+	s=default; t=1611933222;
+	bh=CNQs3wKQPsJh8ijG/gNPs8GeXLOF8aUoky2DOjC12Gc=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LqiTeqTO62Se7Emz0VNou6ewar4vQR33pJ7j/qSTtvGEoBHYpJvP0ppx2Un0+I40L
+	 GBp7g1KBKKfrLoyg/PpJVD7pbE866Lfd+iKscf0LzXZBPBrL3Cmoru59HxI2jgae5F
+	 /5gLg10S8SR7WOgqGp216Ruzf+vtnSb+zUGquyLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE362F804E5;
-	Fri, 29 Jan 2021 16:10:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70B85F804EB;
+	Fri, 29 Jan 2021 16:10:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0689BF800D1; Thu, 28 Jan 2021 23:40:09 +0100 (CET)
+ id 7FEE3F80259; Fri, 29 Jan 2021 16:02:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8000EF800D1
- for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 23:40:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8000EF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51752F800EB
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 16:02:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51752F800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="UTU1M1wn"
+ header.b="CNZUkckd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611873601;
+ s=mimecast20190719; t=1611932563;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=D1asM/mdpxR1vYWT48GbcZmtlsbJYFV6SyTJkmfAp54=;
- b=UTU1M1wnVhOjIrQ+o4kddxPxlc3947OjN5Pfn8OXabTHbWp9ikXhMz0CQ462CIryTFapNg
- CIvkshytC6XWefmQ/QROaVri3Au9ToUMJFk9XPB5dVsBobsfUuJaRRAwaIwkUjADAn+b8w
- thgIq9SXbgkhyfU2n/FrBVs1n6+Ktnw=
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7RroJfEDxGjb7Jc9YxMpN+s63RPRuZMmzf291mmLKRk=;
+ b=CNZUkckdh/U45Oy+SDSAc7JDoTyogyXJmwtX59DHP04bkrPN5B5FFWbaspVvPr+BZU3dFu
+ a6debiaVrFQVJ/YWWsGGN4vAQxJOxzNA4Ohay72eBCg45NmwAh8GBwnGsNXD963YDev8qO
+ +uGWNYsvBqVFGDPHmiMbHI21v+5LIEQ=
 Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
  [209.85.166.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-199--QIKW1SuPLSHpovem6Bdbw-1; Thu, 28 Jan 2021 17:39:58 -0500
-X-MC-Unique: -QIKW1SuPLSHpovem6Bdbw-1
-Received: by mail-il1-f197.google.com with SMTP id i16so6030724ila.9
- for <alsa-devel@alsa-project.org>; Thu, 28 Jan 2021 14:39:58 -0800 (PST)
+ us-mta-235-5Ac5-1Y7OH2f9avwgZ_hhA-1; Fri, 29 Jan 2021 10:02:40 -0500
+X-MC-Unique: 5Ac5-1Y7OH2f9avwgZ_hhA-1
+Received: by mail-il1-f197.google.com with SMTP id x11so7877592ill.17
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 07:02:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:subject:to:cc:message-id:mime-version;
- bh=D1asM/mdpxR1vYWT48GbcZmtlsbJYFV6SyTJkmfAp54=;
- b=dg0TVPIjnfCzekz0c/27yBb7ie8H3bdCIkal1JrQjlTUC6/QdHdy4p4ZbDKKIqEoyI
- TI6kYNNR/bVR4cNYStwSwa9+aFd+91yBwJlpYsjiOaHzVgN2IdyCb05+hbruAUT9SDuI
- x15btmiJlOFFvq3Nu2HJYGvszgvPea8wfu2Oasx47oZyFGXoyZ+Weg5VIPhoOlzRoaN2
- JojGiFMKmDXHKvYyjzaKI7CQ9p06Pa//pjvMAget75PLS9yxDvIPU1hW3i4koS2PDC+Y
- 1HrVmEsDmfJEMqd0fK3XCGV1XtalWxJGaFBQLhqN+hLXZxNO+T2t5oQXyHqZtLXwgCpa
- XnVQ==
-X-Gm-Message-State: AOAM5300JOpGgJ4DwGx+vBwwbdzVtECxGAOGu83Osi75jDnLO1Befk/m
- ocXVzbYpticswUrcOeKvcI+B7qT28eEyz61ApDx2gBg8FhBlborjSVM/+ThI1BG3IuQNO3bTWvJ
- 2dsT1Dznrr+zfnolfdPDb5QZ99VwiKOb9GeO/wdBpc6oUx12pw08qv379rORQywXFu5qx/BaOlQ
- CTqA==
-X-Received: by 2002:a02:cc43:: with SMTP id i3mr1266666jaq.58.1611873597933;
- Thu, 28 Jan 2021 14:39:57 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzcaTSXcL4AYZdldj4cezSvP2lg+1lhTtXjvAHJFF8aCcJcvdASnKcaPNsTC8bU8dAa7/nETQ==
-X-Received: by 2002:a02:cc43:: with SMTP id i3mr1266647jaq.58.1611873597445;
- Thu, 28 Jan 2021 14:39:57 -0800 (PST)
+ h=x-gm-message-state:date:from:subject:to:cc:message-id:in-reply-to
+ :references:mime-version;
+ bh=7RroJfEDxGjb7Jc9YxMpN+s63RPRuZMmzf291mmLKRk=;
+ b=srFMgrQ+8n8xb6YptAe6JqTvgTZ3/43Xj2DeEa6ES+QJUQyrmE+8kW4DTWEl49uV5L
+ XzEeFLWY0aBTvnqcAvpEzQgCthAhxMS6rNcBxlidRiQqB0hIx1dWEZXnvorGoXvqtYq+
+ s+gOxs+b/kJEf8iXPdIpGWryvxU2C8FezeYLkqxyzQaTM2pl6vYM2szbUkH0khsjUkAU
+ 5zQmvQvq+jwLN+PpLRjG5iepFiULuNKVzIscoqSkyGo3DhK1QWbc0+mYC+qHGorHFqsQ
+ eU8V7eeXKkbPMUV3XMgHT395PcYnx/bmuQ4AIt5zn+2L0ySc/eHZEOGawQouQXOGyo4L
+ DK4Q==
+X-Gm-Message-State: AOAM533dzr+VDnMoExJ8wsm3Avn/Jq62iIdOrrjyL2i8ULmp8sAxoCP6
+ Y38sMY2NZqGPPUhZF6G4XrXGBlSi4DvnFPFNrgyAyPCCkmjSDS7qfTQ3oK10ENZDZS/fXCZucSB
+ jt1ewaWKSU8KALwH4l2FjOxQ=
+X-Received: by 2002:a6b:d80e:: with SMTP id y14mr4224034iob.101.1611932559770; 
+ Fri, 29 Jan 2021 07:02:39 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJw5oxZTuOmqBKSLwJx/J3u9ZYl6uzFThiv054pyINuKVRliQ3+gxAl3t9IlrGllYCZ8NdH0Yg==
+X-Received: by 2002:a6b:d80e:: with SMTP id y14mr4223997iob.101.1611932559215; 
+ Fri, 29 Jan 2021 07:02:39 -0800 (PST)
 Received: from chargestone-cave ([2607:9000:0:57::8e])
- by smtp.gmail.com with ESMTPSA id j7sm2822590ilo.52.2021.01.28.14.39.56
+ by smtp.gmail.com with ESMTPSA id c9sm4591978ili.34.2021.01.29.07.02.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jan 2021 14:39:56 -0800 (PST)
-Date: Thu, 28 Jan 2021 16:39:50 -0600
+ Fri, 29 Jan 2021 07:02:26 -0800 (PST)
+Date: Fri, 29 Jan 2021 09:02:18 -0600
 From: Michael Catanzaro <mcatanzaro@redhat.com>
-Subject: [REGRESSION] "ALSA: HDA: Early Forbid of runtime PM" broke my
- laptop's internal audio
-To: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Harsha Priya <harshapriya.n@intel.com>
-Message-Id: <EM1ONQ.OL5CFJTBEBBW@redhat.com>
+Subject: RE: [REGRESSION] "ALSA: HDA: Early Forbid of runtime PM" broke
+ =?UTF-8?Q?my=0D=0A?= laptop's internal audio
+To: "N, Harshapriya" <harshapriya.n@intel.com>
+Message-Id: <U3BPNQ.P8Q6LYEGXHB5@redhat.com>
+In-Reply-To: <BY5PR11MB430713319F12454CF71A1E73FDB99@BY5PR11MB4307.namprd11.prod.outlook.com>
+References: <EM1ONQ.OL5CFJTBEBBW@redhat.com>
+ <BY5PR11MB430713319F12454CF71A1E73FDB99@BY5PR11MB4307.namprd11.prod.outlook.com>
 X-Mailer: geary/3.38.1
 MIME-Version: 1.0
 Authentication-Results: relay.mimecast.com;
@@ -91,7 +96,8 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii; format=flowed
 X-Mailman-Approved-At: Fri, 29 Jan 2021 16:10:20 +0100
-Cc: linux-kernel@vger.kernel.org
+Cc: kai.vehmanen@intel.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,37 +113,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On my System76 Gazelle Pro (gazp9) laptop, internal audio broke after 
-upgrading to kernel 5.10.
+Thanks, I'll attach the requested information (dmesg and alsa-info.sh) 
+to https://bugzilla.redhat.com/show_bug.cgi?id=1918933. I see codec 
+info is included in the alsa-info.sh.
 
-The laptop's speakers produce no sound. Audio from headphones still 
-works fine. A quick test is to visit GNOME System Settings -> Sound -> 
-Output, select Test, click Front Left or Front Right and notice there 
-is no sound. I tested a mainline kernel revision from yesterday 
-(5.11-rc5+) and the regression is not yet fixed. I bisected the 
-regression to "ALSA: HDA: Early Forbid of runtime PM":
+On Fri, Jan 29, 2021 at 1:37 am, "N, Harshapriya" 
+<harshapriya.n@intel.com> wrote:
+>> Does reverting just this patch fix the issue you are seeing?
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a0645daf16101bb9a6d87598c17e9a8b7bd60ea7
-
-I created a downstream bug report here, including some bits from dmesg 
-that may or may not be relevant in comment #2:
-
-https://bugzilla.redhat.com/show_bug.cgi?id=1918933
-
-Audio devices:
-
-$ lspci | grep -i audio
-00:03.0 Audio device: Intel Corporation Xeon E3-1200 v3/4th Gen Core 
-Processor HD Audio Controller (rev 06)
-00:1b.0 Audio device: Intel Corporation 8 Series/C220 Series Chipset 
-High Definition Audio Controller (rev 05)
-
-OS: Fedora 33
-
-I'm happy to provide any additional required info or test patches if 
-you CC me, since I'm not a kernel developer and am not subscribed to 
-these lists. Thanks.
+I would expect so, but I didn't actually check, so I'll do another 
+build now to find out for sure.
 
 

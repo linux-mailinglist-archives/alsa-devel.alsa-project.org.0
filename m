@@ -2,66 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E459B308937
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 14:01:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D54330895B
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 14:34:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E937216B5;
-	Fri, 29 Jan 2021 14:00:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E937216B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A113F169B;
+	Fri, 29 Jan 2021 14:33:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A113F169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611925264;
-	bh=dwWqmtFpy+3hGfgvGGHM7d5NKrp1QHS/ERrisAXcNkA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dpKZNu4VNE99WGMXVfsIXQ5J9B954apEe8lzDtcj5YrnQJHBcILuG6EyBsi8z3FPT
-	 CUpG8OUbqmc9yOrYhpyAJACyufS9UldogU4Tt8wQBdloghxdk/ymDDuDUqsmlU4ckY
-	 GXDpJBVSt5EWK5gqE0/Bx5qy8Sd4N5HwN7adHdqU=
+	s=default; t=1611927261;
+	bh=8qwNHFwHfHafAKCBo8+MGz+sH41bPtjSESYkC/GzEc8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=S+CL2OnfcCBYWEVzud25e927qnjwaCMfKR6VY3+wS67KrBR5faNhCB3zEngOzSui5
+	 ltHqV4lOpXIZpyIgJJiwSndZNthWlCiX4c7zvLJChSHE7903OMXqMMJ7OxDAK6o0GH
+	 qm9Wneu+ZBMaVaRiE8DkecRHz0UD3QQJJ18SVQ+U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C089FF8026B;
-	Fri, 29 Jan 2021 13:59:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E75E6F80130;
+	Fri, 29 Jan 2021 14:32:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A9DAF80269; Fri, 29 Jan 2021 13:59:32 +0100 (CET)
+ id F2559F80259; Fri, 29 Jan 2021 14:32:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:19])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C048F800E9
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 13:59:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C048F800E9
-Received: from ramsan.of.borg ([84.195.186.194])
- by laurent.telenet-ops.be with bizsmtp
- id NczH2400S4C55Sk01czHGR; Fri, 29 Jan 2021 13:59:19 +0100
-Received: from rox.of.borg ([192.168.97.57])
- by ramsan.of.borg with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1l5TMr-001bDY-0Y; Fri, 29 Jan 2021 13:59:17 +0100
-Received: from geert by rox.of.borg with local (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1l5TMq-00B8AJ-Hy; Fri, 29 Jan 2021 13:59:16 +0100
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Sameer Pujar <spujar@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>
-Subject: [PATCH] ASoC: tegra: SND_SOC_TEGRA_AUDIO_GRAPH_CARD should depend on
- SND_SOC_TEGRA
-Date: Fri, 29 Jan 2021 13:59:15 +0100
-Message-Id: <20210129125915.2652952-1-geert+renesas@glider.be>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64511F80130
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 14:32:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64511F80130
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fYLsXeD4"
+Received: by mail-wr1-x429.google.com with SMTP id z6so8801998wrq.10
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 05:32:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=wkXN05PMuyuv94MoTGDwGgnOlR5IzVJlpoZdHxfn6Ms=;
+ b=fYLsXeD4JwtaDEpYcJgQuvzhWYPyiKPSdeWhzjk3am6OgbGqRdSPoPNIXnpEJXdRrN
+ 8dU5QLWrFKlr0pMJhbQHt5mRpGdSyftdbUuDIHrEGJ+vIQUoeoZYZ6X3ouueVagmc+6v
+ 3QcD5G498t16ync067cIxA9UGEH0o+roSZ9apvFc0Szkw8QQXoXkFyhc1Sm/qrBpJgpz
+ A6B8s28Oyif5UghH9j3pCXGszu4HuaBP6ic5+BNEVvbLN2c9/Nb+rK4wafcr1q8D9r5T
+ NDE8yKLOuNgAjCwjW9anJb4ZoypA8A8hcGj0AtDBC4TOu6wtUqfjacA9AVbUYPPwT15u
+ 6WYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=wkXN05PMuyuv94MoTGDwGgnOlR5IzVJlpoZdHxfn6Ms=;
+ b=Q/qfmP+CnoaERige8dxFYFF0YOxVmAEE7Re6J790BaMXjtRWSWqjClHq0tjixw2h+l
+ KdpHUirZsDFmP3zIebW+vSDx2zGSwxlYLk1TVLuCpNt/+j0eyFgPF9UkrHt46uC+EoSc
+ N3qRxoHy4zcpMyISQbEzAE0nN4of2agHF24FGaZakjAdbr4uC9XYNQEVYnP932NYkHkx
+ zBU2hHa85nlUrFqpaIBYr1f74pMVnlX9qTLAOuGc/2jZIvJbwmvgmpmW0SATC/8jpJQo
+ yceFWbZjlFNKcXFiBHvHW2igFxA+fURibcaZTNDAwFNL0a9TODbHp7NyJReqvI8WAxYQ
+ QG6A==
+X-Gm-Message-State: AOAM533RlZf5qpQ9jxiZPECTJg9gDBhd1DpFAmWZi+HWFZrAaOJmmgGE
+ +2XEZL/ST+rH1xM762GiyiTMjw==
+X-Google-Smtp-Source: ABdhPJxdxhLZa2feusGGtQfIlx5palcM4oQ6teT0uy22CgzcZG4nQXqxRdU+FB6N58PJ3KdPJYWa7Q==
+X-Received: by 2002:adf:e9cf:: with SMTP id l15mr4496313wrn.317.1611927160657; 
+ Fri, 29 Jan 2021 05:32:40 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id h18sm12081875wru.65.2021.01.29.05.32.39
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 29 Jan 2021 05:32:39 -0800 (PST)
+Subject: Re: [PATCH 2/7] ASoC: codec: lpass-rx-macro: add support for lpass rx
+ macro
+To: Mark Brown <broonie@kernel.org>
+References: <20210128141929.26573-1-srinivas.kandagatla@linaro.org>
+ <20210128141929.26573-3-srinivas.kandagatla@linaro.org>
+ <20210128160718.GE4537@sirena.org.uk>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <2e1888d9-2ea6-67df-f61f-34062bf7aeee@linaro.org>
+Date: Fri, 29 Jan 2021 13:32:38 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
+In-Reply-To: <20210128160718.GE4537@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,201 +108,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Audio Graph Card based Tegra driver is only useful on NVIDIA Tegra SoCs.
-Hence add a dependency on SND_SOC_TEGRA, to prevent asking the user
-about this driver when configuring a kernel without Tegra sound support.
+Thanks Mark for quick review,
 
-Wrap all Tegra sound config options inside a big if/endif block, instead
-of just adding the dependency to the single config option that does not
-have it yet, to preventing similar future mistakes.
+On 28/01/2021 16:07, Mark Brown wrote:
+> On Thu, Jan 28, 2021 at 02:19:24PM +0000, Srinivas Kandagatla wrote:
+> 
+>>   snd-soc-lpass-wsa-macro-objs := lpass-wsa-macro.o
+>>   snd-soc-lpass-va-macro-objs := lpass-va-macro.o
+>> +snd-soc-lpass-rx-macro-objs := lpass-rx-macro.o
+> 
+> Please keep things sorted.
+> 
+>> @@ -0,0 +1,2020 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
+>> + */
+> 
+> Please make the entire comment a C++ one so things look more
+> intentional.
+Will fix this in next version!
 
-Fixes: 202e2f7745437aa5 ("ASoC: tegra: Add audio graph based card driver")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
- sound/soc/tegra/Kconfig | 33 +++++++++++++--------------------
- 1 file changed, 13 insertions(+), 20 deletions(-)
+> 
+>> +static const char *const rx_macro_ear_mode_text[] = {"OFF", "ON"};
+>> +static const struct soc_enum rx_macro_ear_mode_enum =
+>> +	SOC_ENUM_SINGLE_EXT(2, rx_macro_ear_mode_text);
+> 
+> On/off controls should be standard Switch controls.
 
-diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
-index 6dc83ad8607a1de2..a4e6760944d028cf 100644
---- a/sound/soc/tegra/Kconfig
-+++ b/sound/soc/tegra/Kconfig
-@@ -9,9 +9,10 @@ config SND_SOC_TEGRA
- 	help
- 	  Say Y or M here if you want support for SoC audio on Tegra.
- 
-+if SND_SOC_TEGRA
-+
- config SND_SOC_TEGRA20_AC97
- 	tristate "Tegra20 AC97 interface"
--	depends on SND_SOC_TEGRA
- 	select SND_SOC_AC97_BUS
- 	select SND_SOC_TEGRA20_DAS
- 	help
-@@ -21,7 +22,6 @@ config SND_SOC_TEGRA20_AC97
- 
- config SND_SOC_TEGRA20_DAS
- 	tristate "Tegra20 DAS module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Say Y or M if you want to add support for the Tegra20 DAS module.
- 	  You will also need to select the individual machine drivers to
-@@ -29,7 +29,6 @@ config SND_SOC_TEGRA20_DAS
- 
- config SND_SOC_TEGRA20_I2S
- 	tristate "Tegra20 I2S interface"
--	depends on SND_SOC_TEGRA
- 	select SND_SOC_TEGRA20_DAS
- 	help
- 	  Say Y or M if you want to add support for codecs attached to the
-@@ -38,7 +37,6 @@ config SND_SOC_TEGRA20_I2S
- 
- config SND_SOC_TEGRA20_SPDIF
- 	tristate "Tegra20 SPDIF interface"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Say Y or M if you want to add support for the Tegra20 SPDIF interface.
- 	  You will also need to select the individual machine drivers to support
-@@ -46,7 +44,6 @@ config SND_SOC_TEGRA20_SPDIF
- 
- config SND_SOC_TEGRA30_AHUB
- 	tristate "Tegra30 AHUB module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Say Y or M if you want to add support for the Tegra30 AHUB module.
- 	  You will also need to select the individual machine drivers to
-@@ -54,7 +51,6 @@ config SND_SOC_TEGRA30_AHUB
- 
- config SND_SOC_TEGRA30_I2S
- 	tristate "Tegra30 I2S interface"
--	depends on SND_SOC_TEGRA
- 	select SND_SOC_TEGRA30_AHUB
- 	help
- 	  Say Y or M if you want to add support for codecs attached to the
-@@ -63,7 +59,6 @@ config SND_SOC_TEGRA30_I2S
- 
- config SND_SOC_TEGRA210_AHUB
- 	tristate "Tegra210 AHUB module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Config to enable Audio Hub (AHUB) module, which comprises of a
- 	  switch called Audio Crossbar (AXBAR) used to configure or modify
-@@ -73,7 +68,6 @@ config SND_SOC_TEGRA210_AHUB
- 
- config SND_SOC_TEGRA210_DMIC
- 	tristate "Tegra210 DMIC module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Config to enable the Digital MIC (DMIC) controller which is used
- 	  to interface with Pulse Density Modulation (PDM) input devices.
-@@ -84,7 +78,6 @@ config SND_SOC_TEGRA210_DMIC
- 
- config SND_SOC_TEGRA210_I2S
- 	tristate "Tegra210 I2S module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Config to enable the Inter-IC Sound (I2S) Controller which
- 	  implements full-duplex and bidirectional and single direction
-@@ -94,7 +87,6 @@ config SND_SOC_TEGRA210_I2S
- 
- config SND_SOC_TEGRA186_DSPK
- 	tristate "Tegra186 DSPK module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Config to enable the Digital Speaker Controller (DSPK) which
- 	  converts the multi-bit Pulse Code Modulation (PCM) audio input to
-@@ -107,7 +99,6 @@ config SND_SOC_TEGRA186_DSPK
- 
- config SND_SOC_TEGRA210_ADMAIF
- 	tristate "Tegra210 ADMAIF module"
--	depends on SND_SOC_TEGRA
- 	help
- 	  Config to enable ADMAIF which is the interface between ADMA and
- 	  Audio Hub (AHUB). Each ADMA channel that sends/receives data to/
-@@ -128,7 +119,7 @@ config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
- 
- config SND_SOC_TEGRA_RT5640
- 	tristate "SoC Audio support for Tegra boards using an RT5640 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_RT5640
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
-@@ -136,7 +127,7 @@ config SND_SOC_TEGRA_RT5640
- 
- config SND_SOC_TEGRA_WM8753
- 	tristate "SoC Audio support for Tegra boards using a WM8753 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_WM8753
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
-@@ -144,7 +135,7 @@ config SND_SOC_TEGRA_WM8753
- 
- config SND_SOC_TEGRA_WM8903
- 	tristate "SoC Audio support for Tegra boards using a WM8903 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_WM8903
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
-@@ -153,7 +144,7 @@ config SND_SOC_TEGRA_WM8903
- 
- config SND_SOC_TEGRA_WM9712
- 	tristate "SoC Audio support for Tegra boards using a WM9712 codec"
--	depends on SND_SOC_TEGRA && GPIOLIB
-+	depends on GPIOLIB
- 	select SND_SOC_TEGRA20_AC97
- 	select SND_SOC_WM9712
- 	help
-@@ -162,7 +153,7 @@ config SND_SOC_TEGRA_WM9712
- 
- config SND_SOC_TEGRA_TRIMSLICE
- 	tristate "SoC Audio support for TrimSlice board"
--	depends on SND_SOC_TEGRA && I2C
-+	depends on I2C
- 	select SND_SOC_TLV320AIC23_I2C
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on the
-@@ -170,7 +161,7 @@ config SND_SOC_TEGRA_TRIMSLICE
- 
- config SND_SOC_TEGRA_ALC5632
- 	tristate "SoC Audio support for Tegra boards using an ALC5632 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_ALC5632
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on the
-@@ -178,7 +169,7 @@ config SND_SOC_TEGRA_ALC5632
- 
- config SND_SOC_TEGRA_MAX98090
- 	tristate "SoC Audio support for Tegra boards using a MAX98090 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_MAX98090
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
-@@ -186,7 +177,7 @@ config SND_SOC_TEGRA_MAX98090
- 
- config SND_SOC_TEGRA_RT5677
- 	tristate "SoC Audio support for Tegra boards using a RT5677 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_RT5677
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
-@@ -194,9 +185,11 @@ config SND_SOC_TEGRA_RT5677
- 
- config SND_SOC_TEGRA_SGTL5000
- 	tristate "SoC Audio support for Tegra boards using a SGTL5000 codec"
--	depends on SND_SOC_TEGRA && I2C && GPIOLIB
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_SGTL5000
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Tegra
- 	  boards using the SGTL5000 codec, such as Apalis T30, Apalis TK1 or
- 	  Colibri T30.
-+
-+endif
--- 
-2.25.1
+I agree!
+> 
+>> +		if (rx->rx_mclk_users == 0) {
+>> +			regcache_mark_dirty(regmap);
+>> +			regcache_sync(regmap);
+> 
+> I'd expect this to be joined up with whatever caused the register state
+> to become invalid, this looks like it's inviting bugs.  This also seems
+> to have only one caller...
 
+Few lines below we are moving the digital clock from OFF to ON which 
+will change the state of registers. There are two callers, one from DAPM 
+RX CLK widget and other from soundwire clock gate! We will potentially 
+enter this path when we are resuming from clk pause state!
+
+> 
+>> +	SOC_ENUM_EXT("RX_HPH HD2 Mode", rx_macro_hph_hd2_mode_enum,
+>> +		rx_macro_get_hph_hd2_mode, rx_macro_put_hph_hd2_mode),
+>> +
+>> +	SOC_ENUM_EXT("RX_HPH_PWR_MODE", rx_macro_hph_pwr_mode_enum,
+>> +		rx_macro_get_hph_pwr_mode, rx_macro_put_hph_pwr_mode),
+> 
+> The naming seems a bit random here.
+
+Will try to clean this up in next spin!
+
+> 
+>> +static int rx_swrm_clock(struct rx_macro *rx, bool enable)
+>> +{
+> 
+>> +static int swclk_gate_enable(struct clk_hw *hw)
+>> +{
+>> +	return rx_swrm_clock(to_rx_macro(hw), true);
+>> +}
+>> +
+>> +static void swclk_gate_disable(struct clk_hw *hw)
+>> +{
+>> +	rx_swrm_clock(to_rx_macro(hw), false);
+>> +}
+> 
+> This all seems very redundant and like it'll get in the way of grepping
+> for users.  It would be better to just inline the operation into the clk
+> API functions.
+
+Sure!
+
+--srini
+> 

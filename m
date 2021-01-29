@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 022983089E7
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6873089FD
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:39:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90A8C16A2;
-	Fri, 29 Jan 2021 16:33:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90A8C16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79328169A;
+	Fri, 29 Jan 2021 16:38:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79328169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611934484;
-	bh=8Bsb+jUzeqhDx3Q3jj4kZBYXhVxsSjlLTqjjud0pOjI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611934763;
+	bh=Xx1E0OToD1LOcnM9o3BZfsKZYtXxWkDt3JP/pCT2x8Y=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tPw349V66OS9h0oFhGAqkOoZgWAmV0V4/4BaoCEZTF4NSilDIciWD3RuPaXgdZJcZ
-	 5j+FrXkwqtGk3anVWZD1qoH0LxykB89Yw8A53mLfe5ATRWTT8EStkVbGMI5MK2FA5W
-	 LyQNxhtGssFERbdebPqcrlVXs4lm2Hpg6tOPH2lM=
+	b=mHNe/82k3iH5Z8vEgtCqKqCfpnpNPmY+kRru1j7onMkPK+nTNNgKlOuYJRpKfb/kk
+	 Mdac25puznsKFRRnmaG9eknDqhJqrbpBV2dKW7nQfbjUQ/kY99kX3uMXeWZDwOUhFn
+	 H5jZCvC361BmljWPeoTQSrBjvIKzQ5KPjcSXZx2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBDF8F8025F;
-	Fri, 29 Jan 2021 16:33:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C216F804AD;
+	Fri, 29 Jan 2021 16:37:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4CFEF80259; Fri, 29 Jan 2021 16:33:10 +0100 (CET)
+ id 972A4F80259; Fri, 29 Jan 2021 16:37:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE567F80130
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 16:33:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE567F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BF9AF800E9;
+ Fri, 29 Jan 2021 16:37:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BF9AF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="FTcrqo5g"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B60142aad0003>; Fri, 29 Jan 2021 07:33:01 -0800
-Received: from [10.25.100.162] (172.20.145.6) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 29 Jan
- 2021 15:32:56 +0000
-Subject: Re: Re: [PATCH 4/8] ASoC: tegra: Select SND_SOC_RT5659
-To: Mark Brown <broonie@kernel.org>
-References: <1611920470-24225-1-git-send-email-spujar@nvidia.com>
- <1611920470-24225-5-git-send-email-spujar@nvidia.com>
- <20210129124454.GB4560@sirena.org.uk>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <d6cb9252-246e-d6c7-7500-5f1d1823325c@nvidia.com>
-Date: Fri, 29 Jan 2021 21:02:52 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ZlNDvJHA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 03CFA64E11;
+ Fri, 29 Jan 2021 15:37:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611934647;
+ bh=Xx1E0OToD1LOcnM9o3BZfsKZYtXxWkDt3JP/pCT2x8Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZlNDvJHA+zdzlDuYUEGmGSYD1VeOS6O/9EKpflj1zo3Hdo4TjuSQIUIboLWD35ciy
+ CQtRONB1YJYxcj+lLQKsSmZbzPu+pMuJZDQ89d1CkiaWeMHgPZ7wJVX2Ez7iZEpavW
+ Dx/Tm6T3GowESK1VamQl3Oj7hMBekYfl9MDhTDzCoSYBxcrxAPbetHkc0wtBy2GxkJ
+ HBlWe6gbvsdca1juk2ju3G2EsUgrdl3Nncl8DTNDCpzOsiHybxn5cul27SA67RapVm
+ Ryk8tR5ugY1F2+4R1vxNuyyGBADGVkR+Z7IPYfVOeLL347MXUcDz1orsgBQZvLaCbt
+ QlJhuXL6KRYBw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 12/41] ASoC: SOF: Intel: hda: Resume codec to do
+ jack detection
+Date: Fri, 29 Jan 2021 10:36:43 -0500
+Message-Id: <20210129153713.1592185-12-sashal@kernel.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210129153713.1592185-1-sashal@kernel.org>
+References: <20210129153713.1592185-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20210129124454.GB4560@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [172.20.145.6]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1611934381; bh=OzerfymOhuaisHcgPqSCtgP5p9kQaPnt6W9XKcUU0Cw=;
- h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
- MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- Content-Language:X-Originating-IP:X-ClientProxiedBy;
- b=FTcrqo5gTDCrcE6Li4KZnaSbeNn/4CafZ3U3i2EmaKEYBBbq2+5djH7yIGAuyVZXT
- IGD9w70NW+A1HYUno2AyvFZhz5SJkw2B5Wyiw+MAhaBWR8kdO9HrzrOb0G80zDrjC5
- Qx1Ly9ZpBx0/oksa/MlTqgiz37FBWhvSp/9Hpw+qIqrbXauNpYEjkbTmG4EP4B3uJ6
- fUNXFoGvjn3UEebCz0yRvQMgz1Vv4JLZfHKtbVEt9RV/ylI6/HA496OBFy4vtZ6kFr
- 6jrIYzmWVlrn9ORnEFdCu1sRtJ87owQgJNWZ4RwxYTxO6ed2v/5YHndmuW8kWgE2H8
- 5zhw5uT7tEP/A==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- jonathanh@nvidia.com, sharadg@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,22 +84,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
+[ Upstream commit bcd7059abc19e6ec5b2260dff6a008fb99c4eef9 ]
 
-On 1/29/2021 6:14 PM, Mark Brown wrote:
-> On Fri, Jan 29, 2021 at 05:11:06PM +0530, Sameer Pujar wrote:
->> Select SND_SOC_RT5659 to verify external audio over Jetson platforms.
->> Jetson AGX Xavier has an on-board RT5658 audio codec and to use this
->> enable required config.
->>
->>   config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
->>   	tristate "Audio Graph Card based Tegra driver"
->>   	depends on SND_AUDIO_GRAPH_CARD
->> +	select SND_SOC_RT5659
->>   	help
-> This is a generic device, not something specific to Jetson, why force
-> on a driver that may not be required on other boards using this driver?
+Instead of queueing jackpoll_work, runtime resume the codec to let it
+use different jack detection methods based on jackpoll_interval.
 
-Yes specific boards using 'SND_SOC_TEGRA_AUDIO_GRAPH_CARD' may require 
-'SND_SOC_RT5659'. But there is no platform specific config. Is there a 
-better way to enable config 'SND_SOC_RT5659' conditionally?
+This partially matches SOF driver's behavior with commit a6e7d0a4bdb0
+("ALSA: hda: fix jack detection with Realtek codecs when in D3"), the
+difference is SOF unconditionally resumes the codec.
+
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20210112181128.1229827-1-kai.heng.feng@canonical.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/sof/intel/hda-codec.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index 8b0ddc4b8227b..8d65004c917a1 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -93,8 +93,7 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev)
+ 		 * has been recorded in STATESTS
+ 		 */
+ 		if (codec->jacktbl.used)
+-			schedule_delayed_work(&codec->jackpoll_work,
+-					      codec->jackpoll_interval);
++			pm_request_resume(&codec->core.dev);
+ }
+ #else
+ void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev) {}
+-- 
+2.27.0
+

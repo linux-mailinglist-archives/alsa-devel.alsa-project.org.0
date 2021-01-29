@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D92308B9D
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 18:36:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E6AF308B9E
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 18:36:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E869B16AC;
-	Fri, 29 Jan 2021 18:35:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E869B16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA5016CB;
+	Fri, 29 Jan 2021 18:35:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA5016CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611941786;
-	bh=PDYRx95UqvLzZOcS0awa/dwoU9J9YogIGHwJEYVkVEE=;
+	s=default; t=1611941798;
+	bh=hXrjwHOB5+FbD/F2YvYexS3oIcYUC845RMpZdoW8AeM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i1ASQliPnZt/meImIC5UU9rt1bGsOkHGWY+03LMFZY56b/c0k68tylxpWWxbN/pfI
-	 1ukX+KxXvtvTfCKmUBDQeBy/ZdTyZiky+qdky13xwCkqqhP5kswheDFN7QuSffUIlG
-	 ahTHvPlarb/D8+4MXw/Lfecqc72i5q7J1EyPbxOA=
+	b=syqzevE2JaWupmxoQWEzHdzYkid08no98RZawwoYRZcLKGOhkY7fXbqSSbdtao04a
+	 cIIL95GDU/cRMGtfmY9vfk8iNOgUSz2njqvoc9bUK1OAgMp2vzYtV35fYYxvYPwC62
+	 bpuJSAjMBWzcOao5CON3ofvHwTZcMH6P+Fu2BnTI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CADCF804E6;
-	Fri, 29 Jan 2021 18:33:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48224F804F3;
+	Fri, 29 Jan 2021 18:33:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7948BF804D8; Fri, 29 Jan 2021 18:33:11 +0100 (CET)
+ id 683BCF804CB; Fri, 29 Jan 2021 18:33:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C982F804B4
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 18:33:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C982F804B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1017FF804D2
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 18:33:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1017FF804D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="lFNFqvVW"
-Received: by mail-wm1-x333.google.com with SMTP id u14so7801070wmq.4
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 09:33:03 -0800 (PST)
+ header.b="I3pg9tfL"
+Received: by mail-wm1-x32b.google.com with SMTP id y187so7809832wmd.3
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 09:33:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=n8hpcip3PXhBpcFLltkTNxBYpR7n84DXjgnndbZ1mXc=;
- b=lFNFqvVWqV9aow8jD/7DF+uocMYN37pBLHG1Kkn/idkWqoEmdIglXcvAnWUrx/9eCI
- doV2gUyptrAzeMoiD4bHFkJKdncjFZvl8eMTsXtL/jtBGorCWoaFWcVw0gV55YNWjubN
- nHGWpxaRE42YuxcZIHKdIO0atC0o1ZAhTjPYzZAZCvdrF5i7YqE37FR3NVc+Saw18vMl
- 0Q6TfuJhdpPOR/3FvufFBsaRqtEk+0IqyQPwYshaQRSvgo/9AnN9Q6xYQZ9bHONcMSof
- HuRDWmBdMQb2c7wVfuy46RdVWsWS8gHh4hKOVm3/bZPewtVyjNVYnvmzoWNJ3dCJPAjj
- 2bDA==
+ bh=eONmBCImMt12oRSP39RxbUr8Npi7ApzTyCqDK+i9RD4=;
+ b=I3pg9tfLnTHfjB2H0AIKW/Sy2XzgCDvoebmNiJAxjzvE84bV+3IVDhFWh7xjv/BHwE
+ a4N7DEV9M1285ElbyqbZZVo1nOaibXGfVJVKX1oJ29h600KK/VD6orbi8rKA/DVIXo8t
+ /hTV/0LBmFWB+8vE4PM1D7YUBHvHgH0bOWKIxnlEbzlMl6M455aBBAUkZkp/UMRh1uuz
+ tigaQ4VoODJ7Uvu96qi1JajZgStNH9buqm3A2C2PvwSLQGRI/lQjSCzvPrqepqfkSeBI
+ QRA8OyqheqLFYa0j0N/erYU9g9q7Oeu8AL1TZt7qIj7GivpC9YyjHlLUI84+hmeoeLdm
+ SaPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=n8hpcip3PXhBpcFLltkTNxBYpR7n84DXjgnndbZ1mXc=;
- b=IXr727+71UuuKu/e1WxESggrAAgRZesYdl8B/N7iKAWbihyxtf5goDAzEJ+0XJkeOP
- YAXefg9VdbuNYcUdQJEpPVmpK0DpCeL4+Vc8QRZHeVquJ1Z+dAJJ7n1++j5QYgvTdxw/
- rA0aCVbhLtmi07w4cjO+tLVFmcUNmUTLrDO9KfkmsUHfNsUe8Huz65jyxJcKlqjVHDvM
- givbVkRkUraOJBsT+is6pUbszruW1cQfoLwVqI1QopzOiiwgFFInFhojGt3w9fjVld0O
- gnjrjbNdNgcU6LFVyt9EiOqH6M+Ibk+yxh1u2twnljZDAVip9p5OD/pKGo2I7k23uBN8
- 3Tjg==
-X-Gm-Message-State: AOAM531idzpYGbOZvES9WXDHGUSS3ibmljDtYfNu044e/1IxeU0t73XA
- haxR+139fJKbenLY4OBK+Ebmow==
-X-Google-Smtp-Source: ABdhPJw2YrZLOMzpNnJ98kK1QF7imjjFe8Fx1+ZCLaqGx4WV3G/hF6n8QrMJY5OqV1ks+mp3SvU34g==
-X-Received: by 2002:a7b:ce96:: with SMTP id q22mr4910575wmj.165.1611941578227; 
- Fri, 29 Jan 2021 09:32:58 -0800 (PST)
+ bh=eONmBCImMt12oRSP39RxbUr8Npi7ApzTyCqDK+i9RD4=;
+ b=X9WTeLKq0WB7+MTFvuRdcTmqKi+GYnyE+LzabR0sneZByxeu6DJRBj32Uy+74jeLWK
+ nYBqYZ6u/7s5EltKg2kP73PEK/HEH+ZMxQuyUSCnfrHczsY1LLghXuXPrANvSKffZd0l
+ WC9CJwiUORyPaPjgwimRh8U+z3i158DB5ImHN81IXEbpPp36FcvTiCm3kNOFZ6p0EKb5
+ loyUDzyMj57NHvOs0YSrufhCDjs5JOMJ1y63Znsm/Mci26bpUFlrpGbtldTuonPCX/0s
+ s2sfH+7FOBGoKXvV9mQV0GymuRblSJ/ZKio5d+Bl2uev+1vx1l5hIJMOtbzzRpbjFT/3
+ BSCA==
+X-Gm-Message-State: AOAM531J4tBDofwkD5yfS/EOTt61rdkUirOB/qgbfF44wgyvpyOVK7Xn
+ Klob18mkkpd7JIOtN5NaNF4Spw==
+X-Google-Smtp-Source: ABdhPJxi3zNFX7lDhzWQF3xuka/mdUMJ2B/LfYFZGdOvLMOEwSnE4U5Xz/11texoMUiaiMkOYjSt6Q==
+X-Received: by 2002:a05:600c:27d1:: with SMTP id
+ l17mr4816004wmb.18.1611941579861; 
+ Fri, 29 Jan 2021 09:32:59 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id h18sm13202294wru.65.2021.01.29.09.32.56
+ by smtp.gmail.com with ESMTPSA id h18sm13202294wru.65.2021.01.29.09.32.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Jan 2021 09:32:57 -0800 (PST)
+ Fri, 29 Jan 2021 09:32:59 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Subject: [PATCH 3/6] soundwire: qcom: set continue execution flag for ignored
- commands
-Date: Fri, 29 Jan 2021 17:32:45 +0000
-Message-Id: <20210129173248.5941-4-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 4/6] soundwire: qcom: start the clock during initialization
+Date: Fri, 29 Jan 2021 17:32:46 +0000
+Message-Id: <20210129173248.5941-5-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210129173248.5941-1-srinivas.kandagatla@linaro.org>
 References: <20210129173248.5941-1-srinivas.kandagatla@linaro.org>
@@ -104,44 +104,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-version 1.5.1 and higher IPs of this controller required to set
-continue execution on ingored command flag. This patch sets this flag.
+Start the clock during initialization.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/soundwire/qcom.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/soundwire/qcom.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index da6e0d4e9622..3669bac11a32 100644
+index 3669bac11a32..83df15d83935 100644
 --- a/drivers/soundwire/qcom.c
 +++ b/drivers/soundwire/qcom.c
-@@ -40,6 +40,7 @@
- #define SWRM_CMD_FIFO_CMD					0x308
- #define SWRM_CMD_FIFO_STATUS					0x30C
- #define SWRM_CMD_FIFO_CFG_ADDR					0x314
-+#define SWRM_CONTINUE_EXEC_ON_CMD_IGNORE			BIT(31)
- #define SWRM_RD_WR_CMD_RETRIES					0x7
- #define SWRM_CMD_FIFO_RD_FIFO_ADDR				0x318
- #define SWRM_ENUMERATOR_CFG_ADDR				0x500
-@@ -345,7 +346,16 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+@@ -47,6 +47,8 @@
+ #define SWRM_MCP_FRAME_CTRL_BANK_ADDR(m)		(0x101C + 0x40 * (m))
+ #define SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK			GENMASK(2, 0)
+ #define SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK			GENMASK(7, 3)
++#define SWRM_MCP_BUS_CTRL					0x1044
++#define SWRM_MCP_BUS_CLK_START					BIT(1)
+ #define SWRM_MCP_CFG_ADDR					0x1048
+ #define SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK		GENMASK(21, 17)
+ #define SWRM_DEF_CMD_NO_PINGS					0x1f
+@@ -345,6 +347,7 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+ 	u32p_replace_bits(&val, SWRM_DEF_CMD_NO_PINGS, SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK);
  	ctrl->reg_write(ctrl, SWRM_MCP_CFG_ADDR, val);
  
++	ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
  	/* Configure number of retries of a read/write cmd */
--	ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR, SWRM_RD_WR_CMD_RETRIES);
-+	if (ctrl->version_major == 1 && ctrl->version_minor >= 5 &&
-+	    ctrl->version_step >= 1) {
-+		/* Only for versions >= 1.5.1 */
-+		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR,
-+				SWRM_RD_WR_CMD_RETRIES |
-+				SWRM_CONTINUE_EXEC_ON_CMD_IGNORE);
-+	} else {
-+		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR,
-+				SWRM_RD_WR_CMD_RETRIES);
-+	}
- 
- 	/* Set IRQ to PULSE */
- 	ctrl->reg_write(ctrl, SWRM_COMP_CFG_ADDR,
+ 	if (ctrl->version_major == 1 && ctrl->version_minor >= 5 &&
+ 	    ctrl->version_step >= 1) {
 -- 
 2.21.0
 

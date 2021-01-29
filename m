@@ -2,99 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B70C3089D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:21:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444C03089D8
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jan 2021 16:23:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3359F16B5;
-	Fri, 29 Jan 2021 16:20:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3359F16B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C48F182C;
+	Fri, 29 Jan 2021 16:22:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C48F182C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1611933667;
-	bh=3MUoa2yEdF2D2xSwrDaH0Yz6dP7g442B4DxZJy2ttHU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1611933821;
+	bh=oL6ba7KWG9+2C5z8wWWJZg48xBVRHFXOdQKph/IkTLA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dnkp0kgbPyGtiE8d40wTkhZgByvZiCEj+ipS84/NZVtVGBODgW6G9YRxRdoww4D+U
-	 BG3E5+NZtQxGg1Xrd0K1oHkTYPRpksqrIedSVCRSODYtkAMky2pzQCgoTiLf/ii0sA
-	 ZzvL0v44+bVuUNWJkLUyEFeMI4WgPszfnX9+Wj3w=
+	b=rwzFjhX9sMqJ8ait32dRkjb94RV4Fe41NTHqil8KDqelHfcN5aI/d20tYtmbJ6m6h
+	 i0kWHi7jaq26uQdEj9EemIZMk4cFjidMyrDaCZ/rjVmmkp3uBC2Jv9MvRO9Rd4tffi
+	 5dvPi6QZdHe3Y4RKiXZw/23TmnhmAIRgqKytTLF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77FF1F8025F;
-	Fri, 29 Jan 2021 16:19:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A321F800E9;
+	Fri, 29 Jan 2021 16:22:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27B5FF800E9; Fri, 29 Jan 2021 16:19:33 +0100 (CET)
+ id DB050F80259; Fri, 29 Jan 2021 16:22:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hellmouth.base.nu (hellmouth.base.nu [192.248.168.186])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCF46F800E9
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 16:19:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCF46F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="UBlm7D39"
-Received: by mail-wr1-x434.google.com with SMTP id c4so6500033wru.9
- for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 07:19:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=yi26sgVuJnPwVOBXkL3WBi1trj7vwBufS5KkhDWnfoQ=;
- b=UBlm7D39u1RRKKKp+tJx/yGOWG4H7UqTytnO9vgrxp1AZYpVFWnocTy68GwiyQP3uI
- wv9saER/lhiF8wKYAOfHJqN7H3DN/vWpzUp702MZ+zrESHNX3196XUswgwoPYP80Zg7f
- yzjRYYGBF1sK2Vi9xV8v7bMDyQfbrVOComVIVM7lW+Ez0WSBZa4YFJ1OTFUgSP/o0fLH
- PhxMtJd4Ey1k5miKjyaLCwEslxUtmaUCT79gRidEM9TQrT/bfS1ZsEHotpZm9cd47z1T
- 3pjUG4OWKMh7iphwGupydEN9bAi29wTP2SnYsmMu6EqtIqCus9shu9hFzwXoKBo1o9HP
- kU+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=yi26sgVuJnPwVOBXkL3WBi1trj7vwBufS5KkhDWnfoQ=;
- b=DEpd7I7KXa8DlH0MPOuBlnlPEMNoshnfE2LnrxMs6ZJ0lNuPY9gKFuvYi+udLaStWF
- /OlETJui5w2/LNbLmSxkeoky0mmWxyzr1RF/GVrEvcX6JhU8MQPtvlrqKTP3YCHLDxyA
- s4xdmD2O1wz7P/NNcuEdksT6ZRsXHTo/kLVYwwPzWZT/SSNdwFt3h4a4TIBZh4HdDgDM
- VRQKIiCKsln4SIqfW/miVNlCaYOijDCBaVYpcVEGuAwGfEmYBsuswnUDE2rIvkgm9xA6
- qx34sD2djyVKvWm+yH7jnlJ5X/XOmpcgGl8p0dvVgQu+mSxXmBNTg/peqPGzLgKseQig
- U30w==
-X-Gm-Message-State: AOAM532jjvcn9lcE3cjnCrX43SWG3w1vN6eK1sw1TCRtFMqpg4hMebjM
- muKfqQToA4h+qTdNEXRa1EXaVw==
-X-Google-Smtp-Source: ABdhPJxQtauffb0+aUZXz1wsYAbiJ2aI409bRGvFWHOJMsNYZib5lfDPwKa86If85QWm/Kiwy6QaDA==
-X-Received: by 2002:a5d:47a2:: with SMTP id 2mr5058784wrb.393.1611933570071;
- Fri, 29 Jan 2021 07:19:30 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id 9sm2179510wra.80.2021.01.29.07.19.28
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 29 Jan 2021 07:19:29 -0800 (PST)
-Subject: Re: [PATCH 2/7] ASoC: codec: lpass-rx-macro: add support for lpass rx
- macro
-To: Mark Brown <broonie@kernel.org>
-References: <20210128141929.26573-1-srinivas.kandagatla@linaro.org>
- <20210128141929.26573-3-srinivas.kandagatla@linaro.org>
- <20210128160718.GE4537@sirena.org.uk>
- <2e1888d9-2ea6-67df-f61f-34062bf7aeee@linaro.org>
- <20210129150843.GC4560@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <19a5ee30-f1ae-a00c-dbea-9a25d64c926a@linaro.org>
-Date: Fri, 29 Jan 2021 15:19:28 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D01BF800E9
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 16:22:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D01BF800E9
+Received: from baphomet.hell (<unknown> [192.168.179.1])
+ by hellmouth.base.nu (OpenSMTPD) with ESMTP id c4826065
+ for <alsa-devel@alsa-project.org>;
+ Fri, 29 Jan 2021 15:22:02 +0000 (UTC)
+Received: from baphomet.hell (localhost.hell [127.0.0.1])
+ by baphomet.hell (OpenSMTPD) with ESMTP id 36fced15
+ for <alsa-devel@alsa-project.org>;
+ Fri, 29 Jan 2021 15:22:01 +0000 (GMT)
+Received: from base.nu ([192.168.178.2]) by baphomet.hell with ESMTPSA
+ id XhNCHBkoFGA8VQEAnQSWfg (envelope-from <livvy@base.nu>)
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jan 2021 15:21:56 +0000
+Date: Fri, 29 Jan 2021 15:21:48 +0000
+From: Olivia Mackintosh <livvy@base.nu>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: usb-audio: Add DJM750 to Pioneer mixer quirk
+Message-ID: <20210129152043.toc3rxiu37ormrac@base.nu>
+References: <20210128160338.dac4vrj7wjiykcxm@base.nu>
+ <3031135.XsSY7s2paC@artex>
 MIME-Version: 1.0
-In-Reply-To: <20210129150843.GC4560@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3031135.XsSY7s2paC@artex>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,34 +73,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Fabian,
+
+On Fri, Jan 29, 2021 at 03:09:11PM +0100, Fabian Lesniak wrote:
+> Hi Olivia,
+> 
+> perfect time for this patch since I'm currently working on similar quirks for
+> the DJM-900NXS2 model. I will stick to your method for now. I do have some
+> minor comments below.
+> 
+> In general, I'm wondering whether it is a good way to implement more and more
+> Pioneer devices in such a hard coded way. mixer_quirks.c already has >3k LOC,
+> and the 900NXS2 support will add at least 100 more if written in the same
+> scheme. It may be good to either dynamically create controls depending on the
+> model or move pioneer support to an extra file. I'd like to hear what Takashi
+> thinks about that.
+
+I also wish to reduce the amount of device-specific configuration and do
+have a (different) patch that aims to do this however it is incomplete.
+The current lifecycle for creating, updating, getting option info and so
+on made this challenging and so it needs futher thought. In particular,
+the choices are enumerated by index (see the  ..._controls_info()
+function) meaning it makes it hard to have canonical values.
+
+Ideally, we should direct ..._controls_create to a flat structure that
+only contains the input types for each channel. The wValues and wIndexes
+can be derrived.
+
+> Cheers
+> Fabian
+> 
+> > +static const struct snd_pioneer_djm_device snd_pioneer_djm_devices[] = {
+> > +	{ .name = "DJM-250Mk2", .controls = snd_pioneer_djm250mk2_option_groups, .ncontrols = 7},
+> > +	{ .name = "DJM-750", .controls = snd_pioneer_djm750_option_groups, .ncontrols = 5}
+> > +};
+> These fixed values for ncontrols can easily be overlooked, consider ARRAY_SIZE
+> instead. Maybe introduce a macro similar to snd_pioneer_djm_option_group_item.
+
+This was a concern, I will change this.
+
+> > +	const struct snd_pioneer_djm_device device = snd_pioneer_djm_devices[device_idx];
+> This makes a local copy, which can be avoided by using a pointer instead:
+> const struct snd_pioneer_djm_device *device = &snd_pioneer_djm_devices[device_idx];
+
+Thank you.
+
+> > usb_mixer_interface *mixer, u1 err = snd_usb_ctl_msg(
+> >  		mixer->chip->dev, usb_sndctrlpipe(mixer->chip->dev, 0),
+> >  		USB_REQ_SET_FEATURE,
+> > -		USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> > -		snd_pioneer_djm_option_groups[group].options[value].wValue,
+> > -		snd_pioneer_djm_option_groups[group].options[value].wIndex,
+> > +		USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> > device.controls[group].options[value].wValue,
+> > +		device.controls[group].options[value].wIndex,
+> >  		NULL, 0);
+> Rather keep these arguments aligned.
+
+Yes.
+
+> > -		err = snd_pioneer_djm_controls_create(mixer);
+> > +		err = snd_pioneer_djm_controls_create(mixer, 0x00);
+> > +		break;
+> > +	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
+> > +		err = snd_pioneer_djm_controls_create(mixer, 0x01);
+> >  		break;
+> I'd introduce defines for the different models instead of raw values.
+
+I agree, this currently may create the potential for dereferenced
+NULL pointer if the index points to a non-existant item in
+`...control_devices[]`. 
+
+Thank you for your comments Fabian.
+
+Kindest regards,
+Olivia
 
 
-On 29/01/2021 15:08, Mark Brown wrote:
-> On Fri, Jan 29, 2021 at 01:32:38PM +0000, Srinivas Kandagatla wrote:
->> On 28/01/2021 16:07, Mark Brown wrote:
-> 
->>>> +		if (rx->rx_mclk_users == 0) {
->>>> +			regcache_mark_dirty(regmap);
->>>> +			regcache_sync(regmap);
-> 
->>> I'd expect this to be joined up with whatever caused the register state
->>> to become invalid, this looks like it's inviting bugs.  This also seems
->>> to have only one caller...
-> 
->> Few lines below we are moving the digital clock from OFF to ON which will
->> change the state of registers. There are two callers, one from DAPM RX CLK
->> widget and other from soundwire clock gate! We will potentially enter this
->> path when we are resuming from clk pause state!
-> 
-> You're not syncing with whatever invalidated the register state and
-> caused it to need a resync, or if you think whatever invalidated the
-> register state is in this function you're resyncing before taking any
-> other action which means there's some kind of ordering issue.
-
-I see your point! it should be synced after the clock is switched from 
-OFF to ON!
-
-Will fix this in next spin!
-
---srini
-> 

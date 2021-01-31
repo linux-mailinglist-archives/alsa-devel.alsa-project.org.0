@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739D7309B2E
-	for <lists+alsa-devel@lfdr.de>; Sun, 31 Jan 2021 09:52:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2AA3309B2F
+	for <lists+alsa-devel@lfdr.de>; Sun, 31 Jan 2021 09:52:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F984173F;
-	Sun, 31 Jan 2021 09:51:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F984173F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 785F71771;
+	Sun, 31 Jan 2021 09:51:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 785F71771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612083144;
-	bh=/U0vGGgdjgdQQT7e5X2OQgK9iPy7viSKokdYeKZm21U=;
+	s=default; t=1612083155;
+	bh=gEnyH7tghKf2QPrAkBg1QODr8ctMN17Qjsj5lJ2RHYM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qPXJFHmN5NizfYaRdkZimS8CYphcM1uQp1M2zn4ZgtQjXKOje9kxEF0bFlTgEaroc
-	 TLOidTnBYw2hze5kggwmP+Etbo4QOjnmjo5dqgt7qzUnmEVeWsUO/QjoEHj3/bpYnc
-	 9Q/RfhFru7kpTn60QdsjgkEAbkx0IBUxfomC/qBw=
+	b=aJiVGQZI28MODT6kIOMUL4jt/NdwpkCQuXJ9Nix1+LGmQT4dUf+qyp/BjkwXEAPOO
+	 Aom3CxB5UtpqkO8UP5NIu8MyJCSjRpJmJC0praQx7a1wlqqJrv/GN7/8YvyhxTdqUz
+	 /YfekP0eIrLr0dvXz2xye6Y4rJPV8S9/vPLkMl1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A3A7F801F7;
-	Sun, 31 Jan 2021 09:50:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8443F80277;
+	Sun, 31 Jan 2021 09:50:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C52EF80171; Sun, 31 Jan 2021 09:50:49 +0100 (CET)
+ id 3477AF8016E; Sun, 31 Jan 2021 09:50:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB43CF800E9
- for <alsa-devel@alsa-project.org>; Sun, 31 Jan 2021 09:50:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB43CF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7CFFF8015A
+ for <alsa-devel@alsa-project.org>; Sun, 31 Jan 2021 09:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7CFFF8015A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3129FAC97;
- Sun, 31 Jan 2021 08:50:38 +0000 (UTC)
-Date: Sun, 31 Jan 2021 09:50:38 +0100
-Message-ID: <s5hlfc9jxr5.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 64849ACB0;
+ Sun, 31 Jan 2021 08:50:48 +0000 (UTC)
+Date: Sun, 31 Jan 2021 09:50:48 +0100
+Message-ID: <s5hk0rtjxqv.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Subject: Re: [PATCH 1/2] ALSA: ac97: Constify static struct attribute_group
-In-Reply-To: <20210131001241.2278-2-rikard.falkeborn@gmail.com>
+Subject: Re: [PATCH 2/2] ALSA: hda: Constify static attribute_group
+In-Reply-To: <20210131001241.2278-3-rikard.falkeborn@gmail.com>
 References: <20210131001241.2278-1-rikard.falkeborn@gmail.com>
- <20210131001241.2278-2-rikard.falkeborn@gmail.com>
+ <20210131001241.2278-3-rikard.falkeborn@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,12 +70,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 31 Jan 2021 01:12:40 +0100,
+On Sun, 31 Jan 2021 01:12:41 +0100,
 Rikard Falkeborn wrote:
 > 
-> The only usage of ac97_adapter_attr_group is to put its address in an
-> array of pointers to const attribute_group structs. Make it const to
-> allow the compiler to put it in read-only memory.
+> The only usage of hdac_dev_attr_group is to put its address in an array
+> of pointers to const attribute_group structs. Make it const to allow the
+> compiler to put it in read-only memory.
 > 
 > Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 

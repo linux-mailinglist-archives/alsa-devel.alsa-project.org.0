@@ -2,99 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8791730D3A7
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:03:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25D1230D3AE
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:03:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B9FA1741;
-	Wed,  3 Feb 2021 08:02:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B9FA1741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A752174F;
+	Wed,  3 Feb 2021 08:03:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A752174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612335797;
-	bh=CwFNVjrVK62N3TAY3o7IKcQYL62hNKs6oms0HU/LKN8=;
+	s=default; t=1612335837;
+	bh=U0ptZIZMNHXhVaHgOJVRORqg6JfBtEyCQFz04bNl33Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qELW4finv6cn6daKFBShfDNLNRhp9Aux+ztigdFSN0eRRt2/oUAu2PWf+4WmXdtzK
-	 2jv8WEp4QD3ZnxUGwgpxYiUbjGJy4smdICzMJAJeb5bgW5DxPA4s+2l/3J4vd4DYYN
-	 JvCdx0tH+1mCBhh1dehwYlMP7l3dy2LBSc1cXyRI=
+	b=Rj+zgvE/StJOg8kfhGBFGuEivljZFsp/fyJ04gQT0UXE5sYUxSWmC+nN7/4CyFi81
+	 IJNUlyO3tAXT5Qmny6cFVBPIvOj+uoCqFZGrqo2eteC1wRmkHb8wUwp+oT4IkqOkuK
+	 lfMf+RCK2AJokaqTyaenn6y1zIVm0lm3bKGsRmXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A4B4F8023A;
-	Wed,  3 Feb 2021 08:01:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3C1CF80155;
+	Wed,  3 Feb 2021 08:01:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D450F801F7; Sun, 31 Jan 2021 19:43:50 +0100 (CET)
+ id 0399EF801F7; Sun, 31 Jan 2021 19:43:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from sonic309-52.consmr.mail.ir2.yahoo.com
- (sonic309-52.consmr.mail.ir2.yahoo.com [77.238.179.110])
+Received: from sonic307-33.consmr.mail.ir2.yahoo.com
+ (sonic307-33.consmr.mail.ir2.yahoo.com [87.248.110.58])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92DCCF8016E
- for <alsa-devel@alsa-project.org>; Sun, 31 Jan 2021 19:43:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92DCCF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C463F80134
+ for <alsa-devel@alsa-project.org>; Sun, 31 Jan 2021 19:43:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C463F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
- header.b="lVka3P44"
+ header.b="KXap4eYp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1612118612; bh=v7I3tB+1qyMyvErvK8UKhycYIpGAyMoxrrmdcVZj7mE=;
+ t=1612118622; bh=HED36otJ1FDmy1kTm9+uyg74Y9oUBveqzS05JACSswM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=lVka3P44uu/iXMrBGDnWObq6EtqDGzT0BFGwsOoTU5l3JcIVhFkYJpY89FzxDT+NVa2OpFHeAAoSLAnFaQAVHYJGE0KB7/CWvBCMNd0czFcw2wEgRMyMKgIuI4Zu1//zr4B95U4HSL5DRtBL7CwAas1tduVvFaF0ujvIGAwEIFPGwI85M3MFz97y7PsiVs50w3ZCRfMN/iHJY0XY3t5jKgumJQ7ualUnGAuCWVIgmF/pQy9EIzfxBFMgXeM1sCi4LK5rc1fJ3kCYjrN5QTcvl5mJcAG8fk0h8LZ1C2LgMXTwfl6MePRxN4lsHXDxWBWOc7iifV7iWwRxU1rnuXhIpA==
+ b=KXap4eYpevZgXItO7zGkTCblWpHNWuElojRMPtJnHL3p3bm8S3yRsqSI00LQeFNEu+tvVDcCRBZBO8LsRozRf9InZmNnYCDaxpSN10WTnDbGAhsnlVGUe15Gly7IdUMOchRXsEfiRs2D8GrlJplC94NHw+ELS9j9DF6yK7qhWp4hCJYbAFN4QKR+0meDiDdjbFI5r9FL00879N7XauCmzxf2TdF/M6FiyNiklZ/SNky0fd+xqvalmh+A+HGT/i6oMK662LgJ4oemiwdCnVSneFJpVRcVHSnMJ0npcmRT+pykHTQOWQmSlNijW9YzkRxQufYMmSZPmz5OWS7u4ZUssQ==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1612118612; bh=Xw32kWVeSK/CayVh5GjdMPF94gk59hANTj3RE6CRAu0=;
+ t=1612118622; bh=etEnedHCrevszpnIzMbKC29nbRn1eujlQMjFlZKsIg+=;
  h=From:To:Subject:Date:From:Subject:Reply-To;
- b=QWITY4ZAQYUibjFOtVrr8t/MO58KMUAeJwfCgEJjJh9Nxt+DMP7kfu3cw/ohaJkzdgmux2QuZ2vNJStjnsPCTV5lpxToZp3Q/7lFlG0kr1zluiFXh3dx6x0b7ka2C0At+sd7eT3QaAJkT3AxCwbB5vLYutZ7xhi04rjVrCiNKcTbYHVHMK0U0RQSTCDXigiQSbf/278VnECCOeRCdT+N3A/0aJlQsXp5Bu/3tb7Cb1/zlp/k+dK5V6pr2GPsGj/jebo57GidxTrFlQIXOdgMhnH9BinxV96Qrv9UsbKz53f4v7SMO2yw+hEiMoVASHs77/ikQg6CsbjmX6wXd+GH/g==
-X-YMail-OSG: o0_EcD0VM1msosdSEHQXbyovlD1nb0aaogVt7SUhoY42Y8a_g7kbK4iUHvpGYlo
- Yh8C9uWEN9kAV49k6L1ULlRaaHRYwW7OOcApiAIF5ECw.fVBz1V5ZyE9qz8pOXlsvAqmWhpMB1k9
- R3VbSzajGH0xZP3Rdm_mnfY8JMshLS8o8zEliA.xzW.ZrSR0urfTgWd8j4vcUx4Vo6Ov4.3HSlWb
- GhU4ZOXMhUkIAjrc0u0htB2EZOdbpAmg089TDyB7PBm4kK.apaIXm0LZfCXA9rxbdOnj_nuMjQfD
- E6Sn9VEWUahe5eP33TU2M.fjFE0sy4m2YikE58CpOGkzBYfAEK8ZOujuGscrN7jGjJ4Z.vfYdvwX
- eCJamdaBWdQUlb3gRjRrBcRG2KV05Dl.K86uOPaCuL4_HHl_2U4XzAPMVoHnn3Nnk8fAC_k8EvKK
- oKuCb2YojV7.hBjOgncNv6mx1FWo1cP9nm.uhAx_1Vl0raMcHlz6SXRrX.Pq5Vrpc1Ui2FnSbfnL
- SD0Le70TbnWApGS_v1f4HISZT6e0RXeXbnNlYmk8RrtZNr0jFcehrUZ0kuCKUa2cdSKghbr1ZqfR
- wAKZY7rlCF5lLZMAIDlfQ7mC9kvtUDCAFl5MgkHgis_29Eon7FUv1qNTrIrUXQqDTBDGfomplNQe
- V2pqFWPNNQZeqVsy4SpzQFqsMS1bRiywhDeALRQB12w0QinKrr6.G2T.QnxuCG6fID90nML68yqQ
- kqo4zAoXICcWSDDMZ1dFxBdqXgGkoNuuWHNU3bPyRe1rAbcKGM38fPt3H04Gr9pPuwjFJ.6mA4Ou
- .XDsgk3zQlcx4W3StRs4JqcM_AKY_rgSlU9zxIUZduqT4.Mhqnjb0.YLfji9FvwvfoBQ7CNdcWo7
- GKBhmwT5.6U9JLpUQ6OL001jLTlnCgvUbRc2XPJ.XFcJ.9.iVmE8ydKgZT4DWUZKlGXll63KlUSk
- IUHrgE5kS4PtG83V.yOwWVsB5gcKRbhDio9Ppp2760iM34Vxkdw0yiX7S5UeuMh6D.IvhHpFDCLY
- loWBITVwCUIXWbSagMgNbepeNxIqpsjdhZl2H8eyg.io6iqYAYWqABLOy60WVUscVgN4U6sooQVh
- tp1LE1tvNv4.ZBmVFNq9AodTPlfaTVH7EGP4QsK4DdVJqf.apBJ4fbzCK_c7ATdfmrkC.EFcsZZE
- o53I0GlNSTu_lho4EyPFCXODp0xpFRR_gpphvAlA2r_s9KsZopClisDLp.lWyweo5kD.SZJ9Fiio
- hAXZgz8hxGoKQzaD2Xx3R03vDySkCgesjJc5D7MQrvmHt.VZ8w5PblP5gqSz2K.n5Cweg3O2gV8B
- FOgitPoHAIBPpJ6NA3yMUunT4vEp98_Jiw9uqpEPSJBVIPgC8KPVOhkwgF5FX8B_4u6cSZynlvjr
- 9HBcGzoTTDSQlOpxwhiuzmfkjIrpCK7IKFDx8I15V5H9wOwIwU9.2yzCnz.El99WoJUUQ4kZJCt9
- paMUSmoXvK3GE6h2XRX8aWbJLFtTk2Ld8KXwjKexBNpxr14LTDbJ79xmZI5m95rIpOGNTguy9XQT
- xFQJNdKo0mAdpRG_WkE5lHT1n5ZmzNlqLLpUS.v9xymWJaSm2p8IJ6_rzgKOKtCUhUQSzKH2xYVX
- Sb6JHYcUsVknjm1hz69Vrco0bGXgo7ASg8agiwCNo7qfzffwFMD2O75haZt.VFyHmfMeEWQXRE8f
- FKLNTveGR1GU4tnf0ZFT1kzBX2TLa2wOEQTTV7Pe4Me4e1EgJuJdqZ3aVCVIzJhgRWs1MFuFUNZS
- qph482ZE2ZpYaF95leQZFfEkEcnpXFNQRISyGpD_dEwPVxrEBfTz5HnX8QC.Xbu9SBmnT2uQXRsS
- DSQGax.W_QUFL_xBp4CMJCdn6_zyeJGK971.tkqNZG7.zkTTBgi8bovKMCe8EAaZJ_Nu8rC.4cs.
- 5.3o1sbRcm21VW6K_XeVJ9nq782iFDbk72L_lJLWwy_Jkx95vXnnMDz8F1Q66pZtRCCezi0xRjRk
- yb3qOgZdhZ52K893Zz8tzu60EikkHVAYv45dLfoqdlV_NoLAQkYBCKhqvGt6ypiJTy2rPomKM0t2
- lzrnNh3TI83DlgLXTUuOktdBAkK8jCav8136PQv5LF0Yvtj6gLlpmhulfGO78V.sQcvJYpF14c0i
- tSOEuXgT5zaZyfCTWlrbFQj0pqo0PvqjuTu2suOWT59rdUkoltxU_iroynCDk_QJCx5tPVIJQG22
- fUzhx1VXPTfFeQQmCGgqA.1XHzGfHrI4dglNSAWKn.nU8x0D90Dq9QA6bcm82j8ywpxM_Sxb7c5w
- Fp5SyTdqLaL_OFX86NocsTIN7yzm3Lf9vRjkvuGsAzpJdBcYSGfwFdbB51qyEZSyzLKoQrDD7TQ2
- vIrHZCI0gpFniC4Bh430tBtl81KAwSsgFC0G7ST.Ggj2AXmXAr2XT9Iux3zHSCcVygEhnGr.1Veb
- rGbOJ6U2iQc.wowwi6tUHW__QNERLxJQ7kX_urZudati7THynIPiNHbiHXbHIQn6ZLTgLhZqadDz
- oEDvyYbQmLXup2zY0a6A94kKGESk6I4_.OBz2iaKd9W7v9E58_3wHVLNQZYjaiKXbuHZYCQVyFc4
- p6DujTu7pgoMx_q.BE9FEivWnlBWx11sT_8j9KuW9.919UVupN8Fg4D7.QTfiCi5R.TKMX4ixeq3
- uqq23l4x384X554xsMCGIh0.jeoiKSBvMUw_4bJDHMAekj291BKfike3Q7ue8WUqUDTg5GPMDD.w
- 5AMlz2L51DTgHd9faFw8Tp3s2lJSfal2uGm9b3aJuXzgw46K.cHUSdHP0ZaOsvQAE09J4etxz7Wb
- JZQGVaCI7G_EtXtYYKdi7gm0KxIYnK4tagu0vICfiawKLaM0uohP8rDOhetp8htn6TX1FYjCM9kX
- yP.CcZWzmkCDn_5aqNj00QJ8KLhqsSILny6_HlGNA.eUuG8I6MRxC01tfwExEnCIFfI12XUPc1bc
- TzylM7NMP9LzYtX10q8RpfnZkmlLT9evZptpOngTp9xXj_WwsQOyx
+ b=UUNd3m393W3O/ZWq99wEDkwc0xW0Rnrtl0JEfQzVGuNX7rAtZGeQwidFJqmXAof7QP8xMzZiQTft46q2RSKkQdG0Eb/t60UNUTstgR9k4YbdxmP6OFdtSCDxQfveH6Gmy8Pg2J39DOPFnz5baxkclBFVfvXOg7pnxxHQSBmlXZ5cqpf1VgJm7x1/0vshj2naLFR7dY2DnkYwXPQONbNeFxueQ5EhI31CHrRJznCDdfmVDsoVE/FYanMgloFT69mzcrPFaYe20nFZHG/BBIvaJs6WFk5pKshjf6rUsEOarys6kgVtWDjJnFE3N58qryv3RhDEivCw/T2CInVA8CuK0Q==
+X-YMail-OSG: EOw8iTAVM1kH284NKfAZmyoo.dNfuo1IjDhKhfRvQaRvI_pNleNOLSBdItadwkz
+ rSXObsK0MS882408X4DJGMjs1GRNNwTePSCIjOANdIiPwBVuo6x51vuOXPWr.Ui.V7YZA._lvAvn
+ c1VuC1OEcwwFrrz9t_J5AIeecaOfIZmy3WZw6G8p3Ooes4bbpYQ1Tzdk3tX2X0pd0ibHB7CG8Dil
+ p7cvHDaFuXNiMNbG9USU2sA0nbrxG47EQNfiymboHZwCCLIGh17qATatNvI0TL4ujF9Ve7dcJIO7
+ focxtk31x0PwmCwm9a4fXKv.PWMXNzRqRnPpN1tLUhiMv8qcc1M0r6FHEDK3DjlPEPgCUacWJPK7
+ t9e8oA_g43jnzGJTda3zKX0TCJrIygwQ0kzzYWVnk36VZkbzkn32VAukmZC88UnkltSW.dpLbaMl
+ H2HTp0AdS7bgMukh_YawwhhJZkNG_Q.oUSVDDy4gJuQ6sHIH_bukYqeAPTksvQO6brESk._9s9kk
+ d8fjQ8DPm.tYlsQ0HKA9Hazo_Ao1yR1kzzMdwXtwTqGbUc_KD_SrXu7hbJ4h8Bch7SkpnlpfnQ4N
+ .9WTTh6pnKUJJXgGxzd_XysowwBDrgROOWc44QPgfFEV16QUMpDJngSJxtVd.gwGckr7vhtLCttb
+ WhtSniO3maA4oNPKwKlg3sK7Ko3CBrifG_nGmCMIt29N8z5evoPT3JPq2wmEEWA4lhr4pMdGTmVx
+ VgAZJWp2ODAcG0JdfxkeEs0oVUtwHxkWMRM5IdSMJySeczNLzl0CbckbqWZ92Vo8QBC4ZPqepxSH
+ hbdFvl5ezyRi3.7cjGM6ZmRF8fWYwpItW8hZlMpElk8OBzZ0.FQe7vBRkkK9TSstv.i8zq7W_YIj
+ CUBAwsb2pAu5mTvdKW3VMYlI8OfhoFTj4WRj26VroWgJBUEYKPDXvr2bYf6XycDMj5Or4cDC4itF
+ zSwKp0BTXlyvP0l06Ijyh_7yh3C8amMlV_RqiPo56mP_ac_eKm4FB7b9Gtu.rQrSO4yWJzWblZ97
+ A1u8c0ms3ig6taSHC93pcX801SA2j7uyWIK6akU2foWrGe1_11Ita4IZiOd4goZbAkbl5NM4CdHQ
+ qm8ICd2AbwdAt0BWhoovm452OUjwh.BMcCS758ZJND1guZPF4M4SwBEuAB6OQ6Eq6GcQwVn4YN4f
+ Xv.N9l1eK8v_UbyX.EteddAd41nHuGq6qg_ZoJE2mniRUIEEjaaiuWbqtsnaG.S0Goke9FBYyple
+ T70ccETw3HtCxUG4QyX4N3EGkEZRAR3mWzu9GCI2lf49Mg2U7HQ7ugSM_v2WoNbGzgK5e4ROUaaT
+ 3ZOPtArRb3nZTkV.dIbnXkqmDEfR5VTEuvzPWiEyhAOBrlCfo6ENbiEhHR7n4JQOL9qURvC1bLDN
+ zNL0_HaqzZw3spzQcR5kr4g_X.NP1yStCaRMcc5JvpCMHx9kzFErdoGzUjIkvuDwzewyEF4lc3ec
+ skMcq4cwa01dmMaDl1zoTwojvHSl.xQT7DUEwVTfYnRel12ljt_jVdOeSCkEzRpvfeAihf.gcjVA
+ Rw4R1QfTFChXJiIyhSRRGXcm6GbZ7Mbv1LZE4ZdQ.HslmIaMjWIZQgvFsDWxcBteUMRO75BTV9sd
+ hSsh2c2CJalorGJCouSgNzcbSTjcj5tdLh5_Y_oP1jon5.zLNL8EXgLosCeM8ZOnCcoNMDeUouHp
+ TvFZU6Ejf.ufUQyDlO7kUcyVS38z8mifsHRhATXUWP_RA0aY_mgqY3g0ox4XTVtx4PdFt8RKOBYz
+ X_zqXLysyd1lakKzDnxPzHk0utHdhCVO7nlnGmVoWJ2AtPHjwG_9n.0t0xw3dPGZ_L1p61foFneq
+ L9gOm4cupKdfTtr_JrAIEIVXywZ8zjYrZzbjL3IiaKuPC9_3j05C3KhBLCyCTEEEa.fhpViXSHGx
+ ynq6rKaJqETbuvDdlLtWQwS3nnT7ObnUs7.W5R_i2w833br1Uw9txiFI4F9rlGxvAkzsfNiONi8i
+ aU8KNYr4EC1AWeK0OhYeamLGMEZhnZIbJQID66XgJN29Fxh7Ws1TpBx.lKFpLYJWmgixcJ_gnNuB
+ QsrfaLElH4B8pf8UsiHtaDCUawibbexNPx2Gu1br7KcgEwqiwbBnYA6I.iS8XRZCYemUog_RbU3w
+ LrE2tPGCWBQkD5V0.qw8Z.SHYmhGgd_Iet20PkrQoyyIskd.TBeQ2xxb4mTtw08_Eydb8vYYmsGN
+ EulIonfmK4NNUddypGclvX2WExfqjMbI3nnjbs9TBSajRkGyG.xNmUVpRJ3NAnyttI6murGoDoOM
+ p7DghzMpCa59ZhFRqd7b95XnCwLxu9uhVk7zxpuD81wD7.deVqfSDNRYEPirRRzDxobsHrhb0nHc
+ FBP.a57_4nihr8sbjFusCOqIICAG6QA0diJSBvEw9EEHHfvCi3tdPUwBkvCuuG80NyRTV_aKns8z
+ prRHQSbTmzab7zIX0GnAJyT_M1VbduHGMT8TX.BdBY7rowSHUQNFudM8I9Hn4yVrhpLZmy9QvJ39
+ thUXRUDRfxh9hj4f7UfeRYfmjy3yFekPvUEPH6LfS8nhQWLMp_kZuzscwMxvT7Q8AWCM_X763GGB
+ BKfXHmjCy.lAmkz76MWUTnEN4ndJSMMUNK0sAhDZr1vyoVfMSWAvlOu5eWS7OHopTK8eECZRuit2
+ bIY7_W.KAvS3Hr1HZhLeRKG1N3PcWLbTEjvpuo0BoAGpCmqgpe7nEUh400lESOXmu6ljvvQZi8oY
+ 6KrCD1HKyTAmfqsqNWpUUDVKiMGcqAD.A0RnR76uDDzhUtetRrM0mUUpeoTbWjjpjAASbbMjgdff
+ ZFR16CmiKqu.x6fEnyIO9.Wtv4oML6hjvIW6arj.xTa1BDuOqvCF69HUSRgMYG6JVysotnm6FeBB
+ v94XvflnruW0us9lXj.ca_6DTR6lO54hGVewtcCtPFeKlggEuf8At9ME9rkXU2oRcFu27W4yeZ57
+ vdzZUZnK8SduQJfcv7LybRFq7xG0-
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.ir2.yahoo.com with HTTP; Sun, 31 Jan 2021 18:43:32 +0000
+ sonic307.consmr.mail.ir2.yahoo.com with HTTP; Sun, 31 Jan 2021 18:43:42 +0000
 Received: by smtp407.mail.ir2.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
  ID e16a2e904335ed9f41206b782293961f; 
- Sun, 31 Jan 2021 18:41:30 +0000 (UTC)
+ Sun, 31 Jan 2021 18:41:41 +0000 (UTC)
 From: Ion Agorria <AG0RRIA@yahoo.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>,
@@ -103,9 +103,9 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, Rob Herring <robh+dt@kernel.org>,
  Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>,
  Dmitry Osipenko <digetx@gmail.com>
-Subject: [PATCH v1 1/2] ASoC: dt-bindings: tegra: Add binding for RT5631
-Date: Sun, 31 Jan 2021 19:41:00 +0100
-Message-Id: <20210131184101.651486-2-AG0RRIA@yahoo.com>
+Subject: [PATCH v1 2/2] ASoC: tegra: Add RT5631 machine driver
+Date: Sun, 31 Jan 2021 19:41:01 +0100
+Message-Id: <20210131184101.651486-3-AG0RRIA@yahoo.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210131184101.651486-1-AG0RRIA@yahoo.com>
 References: <20210131184101.651486-1-AG0RRIA@yahoo.com>
@@ -131,156 +131,325 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Add device-tree binding that describes hardware integration of RT5631
-audio codec chip with NVIDIA Tegra SoCs.
+Add Tegra ASoC driver for Realtek ALC5631/RT5631 codec. The RT5631
+codec is found on devices like ASUS Transformer TF201, TF700T and other
+Tegra-based Android tablets.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 Signed-off-by: Ion Agorria <ion@agorria.com>
 ---
- .../sound/nvidia,tegra-audio-rt5631.yaml      | 134 ++++++++++++++++++
- 1 file changed, 134 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+ sound/soc/tegra/Kconfig        |   8 +
+ sound/soc/tegra/Makefile       |   2 +
+ sound/soc/tegra/tegra_rt5631.c | 261 +++++++++++++++++++++++++++++++++
+ 3 files changed, 271 insertions(+)
+ create mode 100644 sound/soc/tegra/tegra_rt5631.c
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
+index acaf7339168d..449a858f155d 100644
+--- a/sound/soc/tegra/Kconfig
++++ b/sound/soc/tegra/Kconfig
+@@ -126,6 +126,14 @@ config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
+ 	  few things for Tegra audio. Most of the code is re-used from
+ 	  audio graph driver and the same DT bindings are used.
+ 
++config SND_SOC_TEGRA_RT5631
++	tristate "SoC Audio support for Tegra boards using an RT5631 codec"
++	depends on SND_SOC_TEGRA && I2C && GPIOLIB
++	select SND_SOC_RT5631
++	help
++	  Say Y or M here if you want to add support for SoC audio on Tegra
++	  boards using the RT5631 codec, such as Transformer.
++
+ config SND_SOC_TEGRA_RT5640
+ 	tristate "SoC Audio support for Tegra boards using an RT5640 codec"
+ 	depends on SND_SOC_TEGRA && I2C && GPIOLIB
+diff --git a/sound/soc/tegra/Makefile b/sound/soc/tegra/Makefile
+index af0b9889306c..11debfc03bc4 100644
+--- a/sound/soc/tegra/Makefile
++++ b/sound/soc/tegra/Makefile
+@@ -29,6 +29,7 @@ obj-$(CONFIG_SND_SOC_TEGRA186_DSPK) += snd-soc-tegra186-dspk.o
+ obj-$(CONFIG_SND_SOC_TEGRA210_ADMAIF) += snd-soc-tegra210-admaif.o
+ 
+ # Tegra machine Support
++snd-soc-tegra-rt5631-objs := tegra_rt5631.o
+ snd-soc-tegra-rt5640-objs := tegra_rt5640.o
+ snd-soc-tegra-rt5677-objs := tegra_rt5677.o
+ snd-soc-tegra-wm8753-objs := tegra_wm8753.o
+@@ -41,6 +42,7 @@ snd-soc-tegra-max98090-objs := tegra_max98090.o
+ snd-soc-tegra-sgtl5000-objs := tegra_sgtl5000.o
+ snd-soc-tegra-audio-graph-card-objs := tegra_audio_graph_card.o
+ 
++obj-$(CONFIG_SND_SOC_TEGRA_RT5631) += snd-soc-tegra-rt5631.o
+ obj-$(CONFIG_SND_SOC_TEGRA_RT5640) += snd-soc-tegra-rt5640.o
+ obj-$(CONFIG_SND_SOC_TEGRA_RT5677) += snd-soc-tegra-rt5677.o
+ obj-$(CONFIG_SND_SOC_TEGRA_WM8753) += snd-soc-tegra-wm8753.o
+diff --git a/sound/soc/tegra/tegra_rt5631.c b/sound/soc/tegra/tegra_rt5631.c
 new file mode 100644
-index 000000000000..6ee62c599518
+index 000000000000..9034f48bcb26
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
-@@ -0,0 +1,134 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
++++ b/sound/soc/tegra/tegra_rt5631.c
+@@ -0,0 +1,261 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * tegra_rt5631.c - Tegra machine ASoC driver for boards using RT5631 codec.
++ *
++ * Copyright (c) 2020, Svyatoslav Ryhel and Ion Agorria
++ *
++ * Based on code copyright/by:
++ *
++ * Copyright (c) 2012, NVIDIA CORPORATION.  All rights reserved.
++ * Author: Stephen Warren <swarren@nvidia.com>
++ */
 +
-+$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-rt5631.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
 +
-+title: NVIDIA Tegra RT5631 ASoC
++#include <sound/core.h>
++#include <sound/jack.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
 +
-+description: |
-+  This binding describes integration of the Realtek ALC5631/RT5631 sound
-+  codec with the sound system of NVIDIA Tegra SoCs.
++#include "tegra_asoc_utils.h"
 +
-+maintainers:
-+  - Jon Hunter <jonathanh@nvidia.com>
-+  - Stephen Warren <swarren@nvidia.com>
-+  - Thierry Reding <thierry.reding@gmail.com>
++#include "../codecs/rt5631.h"
 +
-+properties:
-+  compatible:
-+    enum:
-+      - nvidia,tegra-audio-rt5631
++struct tegra_rt5631 {
++	struct tegra_asoc_utils_data util_data;
++	struct gpio_desc *gpiod_hp_mute;
++	struct gpio_desc *gpiod_hp_det;
++};
 +
-+  clocks:
-+    minItems: 3
-+    items:
-+      - description: PLL A clock
-+      - description: PLL A OUT0 clock
-+      - description: The Tegra cdev1/extern1 clock, which feeds the card's mclk
++static int tegra_rt5631_hw_params(struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_card *card = rtd->card;
++	struct tegra_rt5631 *machine = snd_soc_card_get_drvdata(card);
++	unsigned int srate, mclk;
++	int err;
 +
-+  clock-names:
-+    minItems: 3
-+    items:
-+      - const: pll_a
-+      - const: pll_a_out0
-+      - const: mclk
++	srate = params_rate(params);
++	switch (srate) {
++	case 64000:
++	case 88200:
++	case 96000:
++		mclk = 128 * srate;
++		break;
++	default:
++		mclk = 256 * srate;
++		break;
++	}
++	/* FIXME: Codec only requires >= 3MHz if OSR==0 */
++	while (mclk < 6000000)
++		mclk *= 2;
 +
-+  assigned-clocks:
-+    minItems: 1
-+    maxItems: 3
++	err = tegra_asoc_utils_set_rate(&machine->util_data, srate, mclk);
++	if (err < 0) {
++		dev_err(card->dev, "Can't configure clocks\n");
++		return err;
++	}
 +
-+  assigned-clock-parents:
-+    minItems: 1
-+    maxItems: 3
++	err = snd_soc_dai_set_sysclk(codec_dai, 0, mclk, SND_SOC_CLOCK_IN);
++	if (err < 0) {
++		dev_err(card->dev, "codec_dai clock not set\n");
++		return err;
++	}
 +
-+  assigned-clock-rates:
-+    minItems: 1
-+    maxItems: 3
++	return 0;
++}
 +
-+  nvidia,model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User-visible name of this sound complex.
++static struct snd_soc_ops tegra_rt5631_ops = {
++	.hw_params = tegra_rt5631_hw_params,
++};
 +
-+  nvidia,audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description: |
-+      A list of the connections between audio components.
-+      Each entry is a pair of strings, the first being the connection's sink,
-+      the second being the connection's source. Valid names for sources and
-+      sinks are the RT5631's pins (as documented in its binding), and the jacks
-+      on the board:
++static struct snd_soc_jack tegra_rt5631_hp_jack;
 +
-+      * Int Spk
-+      * Headphone Jack
-+      * Mic Jack
-+      * Int Mic
++static struct snd_soc_jack_pin tegra_rt5631_hp_jack_pins[] = {
++	{
++		.pin = "Headphone Jack",
++		.mask = SND_JACK_HEADPHONE,
++	},
++};
 +
-+  nvidia,i2s-controller:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Phandle of the Tegra I2S controller.
++static struct snd_soc_jack_gpio tegra_rt5631_hp_jack_gpio = {
++	.name = "Headphone detection",
++	.report = SND_JACK_HEADPHONE,
++	.debounce_time = 150,
++};
 +
-+  nvidia,audio-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Phandle of the RT5631 audio codec.
++static int tegra_rt5631_event_hp(struct snd_soc_dapm_widget *w,
++				 struct snd_kcontrol *k, int event)
++{
++	struct snd_soc_dapm_context *dapm = w->dapm;
++	struct snd_soc_card *card = dapm->card;
++	struct tegra_rt5631 *machine = snd_soc_card_get_drvdata(card);
 +
-+  nvidia,hp-mute-gpios:
-+    description: GPIO that mutes the headphones (button event).
-+    maxItems: 1
++	gpiod_set_value_cansleep(machine->gpiod_hp_mute,
++				 !SND_SOC_DAPM_EVENT_ON(event));
 +
-+  nvidia,hp-det-gpios:
-+    description: GPIO that detects headphones plug-in.
-+    maxItems: 1
++	return 0;
++}
 +
-+additionalProperties: false
++static const struct snd_soc_dapm_widget tegra_rt5631_dapm_widgets[] = {
++	SND_SOC_DAPM_SPK("Int Spk", NULL),
++	SND_SOC_DAPM_HP("Headphone Jack", tegra_rt5631_event_hp),
++	SND_SOC_DAPM_MIC("Mic Jack", NULL),
++	SND_SOC_DAPM_MIC("Int Mic", NULL),
++};
 +
-+required:
-+  - compatible
-+  - clocks
-+  - clock-names
-+  - assigned-clocks
-+  - assigned-clock-parents
-+  - nvidia,model
-+  - nvidia,audio-routing
-+  - nvidia,i2s-controller
-+  - nvidia,audio-codec
++static const struct snd_kcontrol_new tegra_rt5631_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Int Spk"),
++	SOC_DAPM_PIN_SWITCH("Int Mic"),
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/tegra30-car.h>
-+    #include <dt-bindings/soc/tegra-pmc.h>
-+    #include <dt-bindings/gpio/gpio.h>
++static int tegra_rt5631_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct tegra_rt5631 *machine = snd_soc_card_get_drvdata(rtd->card);
++	int ret;
 +
-+    sound {
-+        compatible = "nvidia,tegra-audio-rt5631";
-+        nvidia,model = "NVIDIA Tegra RT5631";
++	ret = snd_soc_card_jack_new(rtd->card, "Headphone Jack",
++				    SND_JACK_HEADPHONE,
++				    &tegra_rt5631_hp_jack,
++				    tegra_rt5631_hp_jack_pins,
++				    ARRAY_SIZE(tegra_rt5631_hp_jack_pins));
++	if (ret) {
++		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
++		return ret;
++	}
 +
-+        nvidia,audio-routing =
-+            "Headphone Jack", "HPOL",
-+            "Headphone Jack", "HPOR",
-+            "Int Spk", "SPOL",
-+            "Int Spk", "SPOR",
-+            "MIC1", "MIC Bias1",
-+            "MIC Bias1", "Mic Jack",
-+            "DMIC", "Int Mic";
++	if (machine->gpiod_hp_det) {
++		tegra_rt5631_hp_jack_gpio.desc = machine->gpiod_hp_det;
 +
-+        nvidia,i2s-controller = <&tegra_i2s1>;
-+        nvidia,audio-codec = <&rt5631>;
++		ret = snd_soc_jack_add_gpios(&tegra_rt5631_hp_jack, 1,
++					     &tegra_rt5631_hp_jack_gpio);
++		if (ret)
++			dev_err(rtd->dev, "Jack GPIOs not added: %d\n", ret);
++	}
 +
-+        nvidia,hp-det-gpios = <&gpio 178 GPIO_ACTIVE_LOW>;
-+        nvidia,hp-mute-gpios = <&gpio 186 GPIO_ACTIVE_LOW>;
++	return 0;
++}
 +
-+        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
-+                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
-+                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
-+        clock-names = "pll_a", "pll_a_out0", "mclk";
++SND_SOC_DAILINK_DEFS(hifi,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "rt5631-hifi")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
-+        assigned-clocks = <&tegra_car TEGRA30_CLK_EXTERN1>,
-+                          <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++static struct snd_soc_dai_link tegra_rt5631_dai = {
++	.name = "RT5631",
++	.stream_name = "RT5631 PCM",
++	.init = tegra_rt5631_init,
++	.ops = &tegra_rt5631_ops,
++	.dai_fmt = SND_SOC_DAIFMT_I2S |
++		   SND_SOC_DAIFMT_NB_NF |
++		   SND_SOC_DAIFMT_CBS_CFS,
++	SND_SOC_DAILINK_REG(hifi),
++};
 +
-+        assigned-clock-parents = <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
-+                                 <&tegra_car TEGRA30_CLK_EXTERN1>;
-+    };
++static struct snd_soc_card snd_soc_tegra_rt5631 = {
++	.name = "tegra-rt5631",
++	.owner = THIS_MODULE,
++	.dai_link = &tegra_rt5631_dai,
++	.num_links = 1,
++	.controls = tegra_rt5631_controls,
++	.num_controls = ARRAY_SIZE(tegra_rt5631_controls),
++	.dapm_widgets = tegra_rt5631_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(tegra_rt5631_dapm_widgets),
++	.fully_routed = true,
++};
 +
-+...
++static int tegra_rt5631_probe(struct platform_device *pdev)
++{
++	struct snd_soc_card *card = &snd_soc_tegra_rt5631;
++	struct device_node *np_codec, *np_i2s;
++	struct tegra_rt5631 *machine;
++	struct gpio_desc *gpiod;
++	int ret;
++
++	machine = devm_kzalloc(&pdev->dev, sizeof(*machine), GFP_KERNEL);
++	if (!machine)
++		return -ENOMEM;
++
++	card->dev = &pdev->dev;
++	snd_soc_card_set_drvdata(card, machine);
++
++	gpiod = devm_gpiod_get_optional(&pdev->dev, "nvidia,hp-mute",
++					GPIOD_OUT_HIGH);
++	if (IS_ERR(gpiod))
++		return PTR_ERR(gpiod);
++
++	machine->gpiod_hp_mute = gpiod;
++
++	gpiod = devm_gpiod_get_optional(&pdev->dev, "nvidia,hp-det",
++					GPIOD_IN);
++	if (IS_ERR(gpiod))
++		return PTR_ERR(gpiod);
++
++	machine->gpiod_hp_det = gpiod;
++
++	ret = snd_soc_of_parse_card_name(card, "nvidia,model");
++	if (ret)
++		return ret;
++
++	ret = snd_soc_of_parse_audio_routing(card, "nvidia,audio-routing");
++	if (ret)
++		return ret;
++
++	np_codec = of_parse_phandle(pdev->dev.of_node, "nvidia,audio-codec", 0);
++	if (!np_codec) {
++		dev_err(&pdev->dev,
++			"Property 'nvidia,audio-codec' missing or invalid\n");
++		return -EINVAL;
++	}
++
++	np_i2s = of_parse_phandle(pdev->dev.of_node, "nvidia,i2s-controller", 0);
++	if (!np_i2s) {
++		dev_err(&pdev->dev,
++			"Property 'nvidia,i2s-controller' missing or invalid\n");
++		return -EINVAL;
++	}
++
++	tegra_rt5631_dai.cpus->of_node = np_i2s;
++	tegra_rt5631_dai.codecs->of_node = np_codec;
++	tegra_rt5631_dai.platforms->of_node = np_i2s;
++
++	ret = tegra_asoc_utils_init(&machine->util_data, &pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = devm_snd_soc_register_card(&pdev->dev, card);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static const struct of_device_id tegra_rt5631_of_match[] = {
++	{ .compatible = "nvidia,tegra-audio-rt5631", },
++	{},
++};
++MODULE_DEVICE_TABLE(of, tegra_rt5631_of_match);
++
++static struct platform_driver tegra_rt5631_driver = {
++	.driver = {
++		.name = "tegra-snd-rt5631",
++		.pm = &snd_soc_pm_ops,
++		.of_match_table = tegra_rt5631_of_match,
++	},
++	.probe = tegra_rt5631_probe,
++};
++module_platform_driver(tegra_rt5631_driver);
++
++MODULE_DESCRIPTION("Tegra+RT5631 machine ASoC driver");
++MODULE_AUTHOR("Stephen Warren <swarren@nvidia.com>");
++MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
++MODULE_AUTHOR("Ion Agorria <ion@agorria.com>");
++MODULE_LICENSE("GPL");
 -- 
 2.26.2
 

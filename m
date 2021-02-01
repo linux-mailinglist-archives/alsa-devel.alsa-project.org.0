@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FD8F30A5A7
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 11:42:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2D8230A5A9
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 11:43:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3B981771;
-	Mon,  1 Feb 2021 11:41:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3B981771
+	by alsa0.perex.cz (Postfix) with ESMTPS id B897E1776;
+	Mon,  1 Feb 2021 11:42:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B897E1776
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612176170;
-	bh=TVANGH7ZETuH0LoK/AHXwSPPc/+hi8n0Z9uIpWL3w74=;
+	s=default; t=1612176214;
+	bh=jMGFVom3o9SisYFVYliXyOSgOs0PraIR76dQsjdWD4U=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BFEvEkeCanOV/yoeg4g+Z9+9uobVqkfClfLru0VsOwTkprZlYweiQmyPTt30VYuoa
-	 1Q8d9IjrIVG82xkkMpVkkxyIF9rAvTeybZOnuH2sXQXrawpzAGl7gGWvctRAdG8BAg
-	 0hmUpq2CdBsyWQNDG4fyZR83/DEGEQeJlgu/sSiE=
+	b=JVStGpfXUU2ZKJbbafv5T4hV7930yRt6sHo7oS1dsSFQLlVqn5fNfXNjKXtI64koL
+	 gXTUFfN4KUbZZNLjVIfDOKFgcB8tk/Kj9KqYX+CoeAqpgZ0mBBXjqwt7NFI7oFWdaw
+	 dQCDZuiUg9uuP1yrNB7ALxKKcC4kvANw9TVVhx0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83973F8015A;
-	Mon,  1 Feb 2021 11:41:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B9C7F801DB;
+	Mon,  1 Feb 2021 11:42:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B835EF80156; Mon,  1 Feb 2021 11:41:13 +0100 (CET)
+ id 0FD68F80155; Mon,  1 Feb 2021 11:42:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82B2DF80151
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 11:41:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82B2DF80151
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAD0CF80152
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 11:42:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAD0CF80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J3EiX6nD"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0468E64E9D;
- Mon,  1 Feb 2021 10:41:08 +0000 (UTC)
+ header.b="cVTJQwwh"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0905864DD8;
+ Mon,  1 Feb 2021 10:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612176070;
- bh=TVANGH7ZETuH0LoK/AHXwSPPc/+hi8n0Z9uIpWL3w74=;
+ s=k20201202; t=1612176154;
+ bh=jMGFVom3o9SisYFVYliXyOSgOs0PraIR76dQsjdWD4U=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=J3EiX6nD+2WLy/6GybVaI4EEP2tYQg/LS0DNglkkgN750mbUtPx90ocGsYqB+lMZr
- +t8GYcMHa+0QVVDkW/4hiB81+5nhh4xFDnyZw8ErFDDLlR0ygauzj+JoUicT9c4sdn
- JKzDnJbRWq20UY/gWoL1maVy8/uoHxifhC5DFey/uX+YrX+5VjqvK+0ftgyXhdAG5a
- zDAhUNDeCLQW/oKNf4qpzYK2NPtOWSIOa/LpQwjx4/ff7jpYzZ9+wGtGJ/h/SaKYsD
- XA3pK1yZv6gn1LJCefMRttTgQMGKJXTiScRc8V0i+kaaT2NTvOa1sO0dWIjyYgiM7A
- 2e5UNWcEv+XmA==
-Date: Mon, 1 Feb 2021 16:11:05 +0530
+ b=cVTJQwwhar+cPS71ncFP3tPnD5B+l6r0zNy4ecVf1qbRwkvrlWytYsEC+Tl3M7/w8
+ 1zMJQKIKzzQE+W2sRnAx5w6ebr7s52li9qWsfnM/9AtTFkBo/2yTgSroAoaU2gYGQ/
+ KTIe33lSR+X/LXJ7RgAPTFDhFUrbhTEi8PJt3bUBcSzzkOZMBGVZc0a+tzui427Dxi
+ D369kDe0/92oXxy4qOP0HPDOBoHbSJplkh79Uk9RZCC5kv4DiknSElKud6SQeqCdh/
+ c2q+t58lGdAnG/c1L0KFVX+CZ77drW9MgN85KVEdFSbLV9xv/+62An7HHCGWDTxXTi
+ nHHBaHncbeTLg==
+Date: Mon, 1 Feb 2021 16:12:29 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] soundwire: return earlier if no slave is attached
-Message-ID: <20210201104105.GX2771@vkoul-mobl>
-References: <20210126085439.4349-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 2/3] soundwire: intel: add
+ SDW_MASTER_QUIRKS_CLEAR_INITIAL_CLASH quirk
+Message-ID: <20210201104229.GY2771@vkoul-mobl>
+References: <20210126083746.3238-1-yung-chuan.liao@linux.intel.com>
+ <20210126083746.3238-3-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210126085439.4349-1-yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20210126083746.3238-3-yung-chuan.liao@linux.intel.com>
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
@@ -82,15 +84,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26-01-21, 16:54, Bard Liao wrote:
-> From: Chao Song <chao.song@linux.intel.com>
+On 26-01-21, 16:37, Bard Liao wrote:
+> There is nothing we can do to handle the bus clash interrupt before
+> interrupt mask is enabled.
 > 
-> If there is no slave attached to soundwire bus, we
-> can return earlier from sdw_bus_prep_clk_stop() and
-> sdw_bus_exit_clk_stop(), this saves a redundant value
-> check.
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  drivers/soundwire/intel.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index a2d5cdaa9998..f7ba1a77a1df 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -1286,6 +1286,8 @@ static int sdw_master_read_intel_prop(struct sdw_bus *bus)
+>  	if (quirk_mask & SDW_INTEL_QUIRK_MASK_BUS_DISABLE)
+>  		prop->hw_disabled = true;
+>  
+> +	prop->quirks = SDW_MASTER_QUIRKS_CLEAR_INITIAL_CLASH;
 
-Applied, thanks
+Should this not be last 'enabling' the quirk patch in series :)
 
 -- 
 ~Vinod

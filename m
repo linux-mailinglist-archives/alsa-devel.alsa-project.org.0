@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A9D530ACFE
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 17:49:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F7730ACF4
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 17:48:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC9F171E;
-	Mon,  1 Feb 2021 17:48:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC9F171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FB59174F;
+	Mon,  1 Feb 2021 17:47:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FB59174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612198184;
-	bh=3ZSShGaHD21VoaeFlggx+0UQjYQByAjimh392hgvzhY=;
+	s=default; t=1612198103;
+	bh=rnfT7QC1QylsfBHlTLq503WKQd1AGk542dN4U3+Qa+w=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qapbpTTTZ+MAQVWaOqrnc4bBbsrCM/xrUkJ5Y9EfpEY7whK2Na/vkCRV89ItEnoeG
-	 w+ZKyF2q4DlCJUMSieWBKyQudteB8ParKb0u6UQPB4i//VsKWcB3aRT03xLGXe3rdl
-	 Wdz1Su/ckeGJROzzZ9hexoNvMb2IzoexlBkkciy8=
+	b=NNZqBablVQYqfr3yXjce0mcqv3Yt+E0zvsJg/j6/AagxQl7rnRGipebuwktihi07k
+	 1GuomVhl6WTquBUionYGjC+Ln1pAglKfX/hwDnJsLIjARuOACQeY/vrq7Q0E9XzNpA
+	 678HfE037GrRPEYnrgslWpE0cb3uin7NQRskOqOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF0F1F8023B;
-	Mon,  1 Feb 2021 17:46:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2737CF8015A;
+	Mon,  1 Feb 2021 17:46:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56C38F8025D; Mon,  1 Feb 2021 17:46:50 +0100 (CET)
+ id 57B9DF80155; Mon,  1 Feb 2021 17:46:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 146E5F8023B
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 17:46:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 146E5F8023B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BABC7F80152
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 17:46:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BABC7F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aCjyPqcf"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 17DAB64EA8;
- Mon,  1 Feb 2021 16:46:45 +0000 (UTC)
+ header.b="nP7mncKo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6873464DA5;
+ Mon,  1 Feb 2021 16:46:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612198006;
- bh=3ZSShGaHD21VoaeFlggx+0UQjYQByAjimh392hgvzhY=;
+ s=k20201202; t=1612197991;
+ bh=rnfT7QC1QylsfBHlTLq503WKQd1AGk542dN4U3+Qa+w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=aCjyPqcfr4ofpETKztXWpYbTGn+/khEH/aQpmzyVz+YL0YwbX4QRAqpuLKlBZSGq3
- IEY6IaslC+Yr/QbSksCQ0O/P2xP3N0EKCSwCSSbyHK9Yw2Yt5fTjCJ94fJNjZMDlTo
- iIA2UohPVL1mg1ao8grbmS5lXDfWAkVDCuq6Fvy47PH0rKh04+HnLVccoSoVRNoUt8
- AhEOdUEpHdgW+meyYLP3LrQRjGewbO8+Cmna6m8HUvcVUqsyTI38SQ4CaYwmCYfrws
- UOc3l7GwaRQw5Bd0lYRXmioc/Ugns3D3zRGi8pKmrB4O7G4uXSw5kQQi7ncDOH6rZR
- ZMc5ZIUy0MBuw==
+ b=nP7mncKo6tpJ+dPF1HascPqMRADMqPbHpiJvvLU4U8esPVyaqJe1OaRKi3qLn4KuL
+ //BSDcCV1J1S+LkJk5Otc++esTcn7MdY3ddpJ5G+c85ERtessJTvHZcZ0IvA6uMAol
+ +vv/9QHJE3GNbMHmiEvY51Rbo5/4lCVSUSwkQS6GCFswOQZvHkeEIXCeX3HbIoftVR
+ JXEiHH2mCnU/hH/FwHvDY7VdGMo7+5ulZeZEaMi+03BnXqKx1qbAZpZPPJNT6/4lVA
+ p7fqkEVrV4YCn6oFjlmAUevfZT7F31PcRgil9Z3hQvjtYljKWsTF3m06LEAR//Jmt8
+ 4aBCNdDS6BaSw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20210201161429.28060-1-srinivas.kandagatla@linaro.org>
-References: <20210201161429.28060-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: codecs: add missing max_register in regmap config
-Message-Id: <161219793996.46194.10385575485346385646.b4-ty@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>, thierry.reding@gmail.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org
+In-Reply-To: <1611944866-29373-1-git-send-email-spujar@nvidia.com>
+References: <1611944866-29373-1-git-send-email-spujar@nvidia.com>
+Subject: Re: (subset) [PATCH v2 0/9] Tegra186 and Tegra194 audio graph card
+Message-Id: <161219793995.46194.8766382899018359652.b4-ty@kernel.org>
 Date: Mon, 01 Feb 2021 16:45:39 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: vkoul@kernel.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, jonathanh@nvidia.com, sharadg@nvidia.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,27 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Feb 2021 16:14:29 +0000, Srinivas Kandagatla wrote:
-> For some reason setting max_register was missed from regmap_config.
-> Without this cat /sys/kernel/debug/regmap/sdw:0:217:2010:0:1/range
-> actually throws below Warning.
+On Fri, 29 Jan 2021 23:57:37 +0530, Sameer Pujar wrote:
+> This series adds support for audio graph based solution on Tegra186 and
+> Tegra194. This enables audio paths for I2S, DMIC and DSPK modules.
 > 
-> WARNING: CPU: 7 PID: 540 at drivers/base/regmap/regmap-debugfs.c:160
->  regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
-> ...
-> Call trace:
->  regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
->  regmap_reg_ranges_read_file+0xc0/0x2e0
->  full_proxy_read+0x64/0x98
->  vfs_read+0xa8/0x1e0
->  ksys_read+0x6c/0x100
->  __arm64_sys_read+0x1c/0x28
->  el0_svc_common.constprop.3+0x6c/0x190
->  do_el0_svc+0x24/0x90
->  el0_svc+0x14/0x20
->  el0_sync_handler+0x90/0xb8
->  el0_sync+0x158/0x180
-> ...
+> Depending on the platform Jetson TX2 or Jetson AGX Xavier, required I/O
+> module instances are enabled. Since the latter board has on board audio
+> codec, DT support for the same is enabled and external audio playback and
+> capture can be used.
+> 
+> [...]
 
 Applied to
 
@@ -106,8 +97,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: add missing max_register in regmap config
-      commit: e8820dbddbcad7e91daacf7d42a49d1d04a4e489
+[1/9] ASoC: dt-bindings: rt5659: Update binding doc
+      commit: 6bbb859012e905736c852b518be16c653e451967
+[2/9] ASoC: dt-bindings: tegra: Add iommus property to Tegra graph card
+      commit: 70f0bc65f6cf757fa4cca2d6fcb84f613bc0d8cc
+[3/9] ASoC: audio-graph-card: Add clocks property to endpoint node
+      commit: 531e5b7abbde3c190aeff5b13c17f7ef3e0f3543
+[4/9] ASoC: rt5659: Add Kconfig prompt
+      commit: 563c2681d4313f55b9b1d9a8f635946cd4972170
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,89 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F11F30AC71
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 17:16:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99C830AED1
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 19:15:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22746175F;
-	Mon,  1 Feb 2021 17:15:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22746175F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 401481741;
+	Mon,  1 Feb 2021 19:14:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 401481741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612196176;
-	bh=BrQayajtL3u72xR2CaytuwIPhm8So/3+Chmm23mxLHw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bzPttTZZ1aZlzYzfTnmM/v+xn77O7d4MbDlc0w9LoXz5rZTNqwmZRUHDnpgNqEUbJ
-	 X9W1EIMwBBOGY5eLZ3dq7U4t1/sIg0YOsbdlunK6zEyEdXWQc1raG0LnXt9vbByy3h
-	 sRLNQEv/B+aQqSC/DM7KaInB6c2jQxoYCofkktrY=
+	s=default; t=1612203311;
+	bh=JMZA5fszWYDEz2nenLMbDL3ZRFCpSmv0v3qBMv1laYg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kOa/yMXG5weOtN7e3N/zodJviipRcRJlsmKKuHbkDF2IrCHa2QkI2Xfc61xH5YHWD
+	 wxTAp4PKe0SDGOrmC7KVPxGrUF5QXiNaiA/y/CpYIuAMYxXKwpCw8oQWIVShDqVOdB
+	 GznPrVn2jQAzk0RHu52MjoG3v5pyhH2gNDUbGA7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59E04F80154;
-	Mon,  1 Feb 2021 17:14:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87D05F80154;
+	Mon,  1 Feb 2021 19:13:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1159F80153; Mon,  1 Feb 2021 17:14:41 +0100 (CET)
+ id D7479F800E9; Mon,  1 Feb 2021 19:13:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C19AF80151
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 17:14:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C19AF80151
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="x7vVGDj9"
-Received: by mail-wr1-x435.google.com with SMTP id a1so17216455wrq.6
- for <alsa-devel@alsa-project.org>; Mon, 01 Feb 2021 08:14:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9Sc8HrNbNzr7EkYfVerEBW1a3Yr6pb0g+SBRh2dP5aU=;
- b=x7vVGDj9TzIFhACvAUd9rk5AXnb/M228ghcnXZmSzBJKDz2374Uc1YSYsxdfgD36KP
- HHEIswk3DhRZmcwxRnFbexKg5of/3SVR0o/B08AH8hJZBLDWhlvg6/TMrRDFXwEQZLxH
- vniI5qIRDhsPeCAmf5pYiBNtm1Fqs12nKJuzXur/Vt6PjQujIvXJku41G1JnagpjjVGv
- FdBwFk+i0OPJrT8bTLDlvDfPq54aZj0bTc1sYjpzc6vdxt0usLVYCo4GJVbgZ13qLfyU
- wahBfFCF2I2MqVHtM8Sxcko+3oqmgjwfFWkfR84PQf8a5QP0wqzjIAbmydStExc9JTLC
- W07A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9Sc8HrNbNzr7EkYfVerEBW1a3Yr6pb0g+SBRh2dP5aU=;
- b=mFIiX+IoTy7BMloS9D3p5j5yeyjy5g6l+BmFHXs76fS7E5ZT/jkC2+ouBTWRwZIF3/
- kQhdMU+kavs4xiEcfk+uD+NDusDDREUS80XIgLYLP/Or/O1es8Aj1NKIKDrF4n6et65E
- HY2EWld+ID5yObT/H0qxh4NGt2w3NtduhxSKAdz6SkwtsSnfyxu7noYmwiBGwPW8SzM0
- SOQIWpB4pwGQyv1Uznf1W5bdFjgpBa5d5+wJyw8rOTjKjVNUZ1xZVOrqnF42MyXq8d/n
- 9oPPMmPeTQ0f0/73lun5KEiDETSbPk4iz8ejq73kctDLbgyZLeCZA1+krGOpO12+C8F4
- 8pWA==
-X-Gm-Message-State: AOAM5313vh7VI2BQZLcioykAhIzybD0ZH5Y0+ja4etHg5MqWr0zHVrKi
- hD8xAyQ7S8ASFbrL2BiBUXl/cA==
-X-Google-Smtp-Source: ABdhPJw2qAboWdH9n62YQqAACUMGCNBbJj9wAfkZ0ZfVXEnfnDod78K0LfB+QPJ6f6FNxXDRVrX7yw==
-X-Received: by 2002:a05:6000:1249:: with SMTP id
- j9mr19487793wrx.307.1612196074682; 
- Mon, 01 Feb 2021 08:14:34 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id k131sm22226533wmb.37.2021.02.01.08.14.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Feb 2021 08:14:33 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: codecs: add missing max_register in regmap config
-Date: Mon,  1 Feb 2021 16:14:29 +0000
-Message-Id: <20210201161429.28060-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC130F800E9
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 19:13:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC130F800E9
+IronPort-SDR: Yc5UcL8Fq+YFbTVbg9YRyLR8VpAF3NN8DfatYknlyG5I8YGdD6371uakd7fx79L/OxVQpaEj6e
+ r0xV1MWz3ntw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9882"; a="167833495"
+X-IronPort-AV: E=Sophos;i="5.79,393,1602572400"; d="scan'208";a="167833495"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2021 10:13:21 -0800
+IronPort-SDR: GhejXAFevh58ldyZmFLRdCBJ1GI5sKz2A0q9xIOWgmDmIhM+m5E1DC1qWm+ecEpW5SWFb1q3/q
+ nryH6bHsZecQ==
+X-IronPort-AV: E=Sophos;i="5.79,393,1602572400"; d="scan'208";a="412516898"
+Received: from dkhaldi-mobl1.amr.corp.intel.com (HELO [10.212.126.61])
+ ([10.212.126.61])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2021 10:13:20 -0800
+Subject: Re: [PATCH 1/3] soundwire: bus: clear bus clash interrupt before the
+ mask is enabled
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20210126083746.3238-1-yung-chuan.liao@linux.intel.com>
+ <20210126083746.3238-2-yung-chuan.liao@linux.intel.com>
+ <20210201102844.GU2771@vkoul-mobl> <20210201103825.GV2771@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7c4e1163-a6b3-2886-1963-7e2847dc2836@linux.intel.com>
+Date: Mon, 1 Feb 2021 10:18:00 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210201103825.GV2771@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ hui.wang@canonical.com, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,45 +85,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For some reason setting max_register was missed from regmap_config.
-Without this cat /sys/kernel/debug/regmap/sdw:0:217:2010:0:1/range
-actually throws below Warning.
 
-WARNING: CPU: 7 PID: 540 at drivers/base/regmap/regmap-debugfs.c:160
- regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
-...
-Call trace:
- regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
- regmap_reg_ranges_read_file+0xc0/0x2e0
- full_proxy_read+0x64/0x98
- vfs_read+0xa8/0x1e0
- ksys_read+0x6c/0x100
- __arm64_sys_read+0x1c/0x28
- el0_svc_common.constprop.3+0x6c/0x190
- do_el0_svc+0x24/0x90
- el0_svc+0x14/0x20
- el0_sync_handler+0x90/0xb8
- el0_sync+0x158/0x180
-...
 
-Fixes: a0aab9e1404a ("ASoC: codecs: add wsa881x amplifier support")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wsa881x.c | 1 +
- 1 file changed, 1 insertion(+)
+On 2/1/21 4:38 AM, Vinod Koul wrote:
+> On 01-02-21, 15:58, Vinod Koul wrote:
+>> On 26-01-21, 16:37, Bard Liao wrote:
+> 
+>>>   struct sdw_master_prop {
+>>>   	u32 revision;
+>>> @@ -421,8 +422,11 @@ struct sdw_master_prop {
+>>>   	u32 err_threshold;
+>>>   	u32 mclk_freq;
+>>>   	bool hw_disabled;
+>>> +	u32 quirks;
+>>
+>> Can we do u64 here please.. I dont know where we would end up.. but
+>> would hate if we start running out of space ..
+No objection.
 
-diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-index 4530b74f5921..db87e07b11c9 100644
---- a/sound/soc/codecs/wsa881x.c
-+++ b/sound/soc/codecs/wsa881x.c
-@@ -640,6 +640,7 @@ static struct regmap_config wsa881x_regmap_config = {
- 	.val_bits = 8,
- 	.cache_type = REGCACHE_RBTREE,
- 	.reg_defaults = wsa881x_defaults,
-+	.max_register = WSA881X_SPKR_STATUS3,
- 	.num_reg_defaults = ARRAY_SIZE(wsa881x_defaults),
- 	.volatile_reg = wsa881x_volatile_register,
- 	.readable_reg = wsa881x_readable_register,
--- 
-2.21.0
+> Also, is the sdw_master_prop right place for a 'quirk' property. I think
+> we can use sdw_master_device or sdw_bus as this seems like a bus
+> quirk..?
+
+It's already part of sdw_bus
+
+struct sdw_bus {
+	struct device *dev;
+	struct sdw_master_device *md;
+	unsigned int link_id;
+	int id;
+	struct list_head slaves;
+	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
+	struct mutex bus_lock;
+	struct mutex msg_lock;
+	int (*compute_params)(struct sdw_bus *bus);
+	const struct sdw_master_ops *ops;
+	const struct sdw_master_port_ops *port_ops;
+	struct sdw_bus_params params;
+	struct sdw_master_prop prop;
+
+The quirks could be set by a firmware property, and it seems logical to 
+add them at the same place where we already have properties defined in 
+firmware, no? That way all the standard, vendor-specific and quirks are 
+read or added in the same place.
+
+the sdw_master_device isn't a good place for quirks IMHO, it's a very 
+shallow software-only layer without any existing ties to the hardware 
+definition.
 

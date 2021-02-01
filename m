@@ -2,79 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13BCB30AC53
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 17:12:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F11F30AC71
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 17:16:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70C4C1761;
-	Mon,  1 Feb 2021 17:11:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70C4C1761
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22746175F;
+	Mon,  1 Feb 2021 17:15:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22746175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612195922;
-	bh=3PXIUgvVACRi7JQEmyPdS61RDV2tjZibAxZ0Qj7R2lA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZvDeid+7MQLVWDsS/VbP6A0fcOGj2OBp7hQgY1DAopbxiMrgSVzaOn9NRlLlWZYAR
-	 wIjQg2bbh8boTcN9vx1xil1+KO+WjqvfcfulKGXaBPhvJlCKnAjvVZDxyz5kUdsC60
-	 g9IwJK49aDJgBoLJoZYeLvc0LjGxC++ZkLW4V6+I=
+	s=default; t=1612196176;
+	bh=BrQayajtL3u72xR2CaytuwIPhm8So/3+Chmm23mxLHw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bzPttTZZ1aZlzYzfTnmM/v+xn77O7d4MbDlc0w9LoXz5rZTNqwmZRUHDnpgNqEUbJ
+	 X9W1EIMwBBOGY5eLZ3dq7U4t1/sIg0YOsbdlunK6zEyEdXWQc1raG0LnXt9vbByy3h
+	 sRLNQEv/B+aQqSC/DM7KaInB6c2jQxoYCofkktrY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6D5EF80151;
-	Mon,  1 Feb 2021 17:10:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59E04F80154;
+	Mon,  1 Feb 2021 17:14:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0EC2F80153; Mon,  1 Feb 2021 17:10:26 +0100 (CET)
+ id B1159F80153; Mon,  1 Feb 2021 17:14:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09A13F800E9
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 17:10:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09A13F800E9
-IronPort-SDR: GmQ9hAyU7DCeVSwjU0338ZdGXdZ9khhL+4MxwQbLiObBJTc+J/dl5vdQlrd9zb1DWkE5HU/oWF
- RyUow17/Da5g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9882"; a="168389636"
-X-IronPort-AV: E=Sophos;i="5.79,392,1602572400"; d="scan'208";a="168389636"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2021 08:10:17 -0800
-IronPort-SDR: Zi/rRVsm+yVybsbeIAuJoKP7AGQnuZJn/fLtJpA3eIf9FUoBQl+Z74ZDdZ3Zj+OCRMFv0OX11X
- a7P1TVJPrXFQ==
-X-IronPort-AV: E=Sophos;i="5.79,392,1602572400"; d="scan'208";a="412472539"
-Received: from dkhaldi-mobl1.amr.corp.intel.com (HELO [10.212.126.61])
- ([10.212.126.61])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2021 08:10:16 -0800
-Subject: Re: [PATCH] soundwire: debugfs: use controller id instead of link_id
-To: Vinod Koul <vkoul@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20210115162559.20869-1-srinivas.kandagatla@linaro.org>
- <20210119145220.GS2771@vkoul-mobl>
- <45300dc3-00b0-497b-804e-f7f1e857f32a@linux.intel.com>
- <57d5f1bd-50fa-30ab-03c0-260460e45d61@linaro.org>
- <6d4d4a6b-f28c-81db-4e67-2b5b94116fa4@linux.intel.com>
- <1fad2388-27d0-7014-818d-1272fa70ed9b@linaro.org>
- <33fe8455-01b4-f867-4974-a3e867c930f0@linux.intel.com>
- <feee8676-33fe-7929-8b6c-6abe3a09159a@linaro.org>
- <20210201101414.GS2771@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4b850685-1058-0e18-d3e8-e23e20086235@linux.intel.com>
-Date: Mon, 1 Feb 2021 10:10:15 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C19AF80151
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 17:14:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C19AF80151
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="x7vVGDj9"
+Received: by mail-wr1-x435.google.com with SMTP id a1so17216455wrq.6
+ for <alsa-devel@alsa-project.org>; Mon, 01 Feb 2021 08:14:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9Sc8HrNbNzr7EkYfVerEBW1a3Yr6pb0g+SBRh2dP5aU=;
+ b=x7vVGDj9TzIFhACvAUd9rk5AXnb/M228ghcnXZmSzBJKDz2374Uc1YSYsxdfgD36KP
+ HHEIswk3DhRZmcwxRnFbexKg5of/3SVR0o/B08AH8hJZBLDWhlvg6/TMrRDFXwEQZLxH
+ vniI5qIRDhsPeCAmf5pYiBNtm1Fqs12nKJuzXur/Vt6PjQujIvXJku41G1JnagpjjVGv
+ FdBwFk+i0OPJrT8bTLDlvDfPq54aZj0bTc1sYjpzc6vdxt0usLVYCo4GJVbgZ13qLfyU
+ wahBfFCF2I2MqVHtM8Sxcko+3oqmgjwfFWkfR84PQf8a5QP0wqzjIAbmydStExc9JTLC
+ W07A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9Sc8HrNbNzr7EkYfVerEBW1a3Yr6pb0g+SBRh2dP5aU=;
+ b=mFIiX+IoTy7BMloS9D3p5j5yeyjy5g6l+BmFHXs76fS7E5ZT/jkC2+ouBTWRwZIF3/
+ kQhdMU+kavs4xiEcfk+uD+NDusDDREUS80XIgLYLP/Or/O1es8Aj1NKIKDrF4n6et65E
+ HY2EWld+ID5yObT/H0qxh4NGt2w3NtduhxSKAdz6SkwtsSnfyxu7noYmwiBGwPW8SzM0
+ SOQIWpB4pwGQyv1Uznf1W5bdFjgpBa5d5+wJyw8rOTjKjVNUZ1xZVOrqnF42MyXq8d/n
+ 9oPPMmPeTQ0f0/73lun5KEiDETSbPk4iz8ejq73kctDLbgyZLeCZA1+krGOpO12+C8F4
+ 8pWA==
+X-Gm-Message-State: AOAM5313vh7VI2BQZLcioykAhIzybD0ZH5Y0+ja4etHg5MqWr0zHVrKi
+ hD8xAyQ7S8ASFbrL2BiBUXl/cA==
+X-Google-Smtp-Source: ABdhPJw2qAboWdH9n62YQqAACUMGCNBbJj9wAfkZ0ZfVXEnfnDod78K0LfB+QPJ6f6FNxXDRVrX7yw==
+X-Received: by 2002:a05:6000:1249:: with SMTP id
+ j9mr19487793wrx.307.1612196074682; 
+ Mon, 01 Feb 2021 08:14:34 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id k131sm22226533wmb.37.2021.02.01.08.14.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Feb 2021 08:14:33 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: codecs: add missing max_register in regmap config
+Date: Mon,  1 Feb 2021 16:14:29 +0000
+Message-Id: <20210201161429.28060-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <20210201101414.GS2771@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org,
- sanyog.r.kale@intel.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,68 +100,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+For some reason setting max_register was missed from regmap_config.
+Without this cat /sys/kernel/debug/regmap/sdw:0:217:2010:0:1/range
+actually throws below Warning.
 
+WARNING: CPU: 7 PID: 540 at drivers/base/regmap/regmap-debugfs.c:160
+ regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
+...
+Call trace:
+ regmap_debugfs_get_dump_start.part.10+0x1e0/0x220
+ regmap_reg_ranges_read_file+0xc0/0x2e0
+ full_proxy_read+0x64/0x98
+ vfs_read+0xa8/0x1e0
+ ksys_read+0x6c/0x100
+ __arm64_sys_read+0x1c/0x28
+ el0_svc_common.constprop.3+0x6c/0x190
+ do_el0_svc+0x24/0x90
+ el0_svc+0x14/0x20
+ el0_sync_handler+0x90/0xb8
+ el0_sync+0x158/0x180
+...
 
-On 2/1/21 4:14 AM, Vinod Koul wrote:
-> On 21-01-21, 17:23, Srinivas Kandagatla wrote:
->>
->>
->> On 21/01/2021 15:12, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 1/21/21 6:03 AM, Srinivas Kandagatla wrote:
->>>>
->>>>
->>>> On 19/01/2021 19:09, Pierre-Louis Bossart wrote:
->>>>>
->>>>>> currently we have
->>>>>> /sys/kernel/debug/soundwire/master-*
->>>>>>
->>>>>> Are you suggesting that we have something like this:
->>>>>>
->>>>>> /sys/kernel/debug/soundwire/xyz-controller/master-<LINK-ID> ??
->>>>>
->>>>> Yes this is what I was thinking about.
->>>>
->>>> Vinod/Pierre,
->>>>
->>>> One Question here,
->>>>
->>>> Why is link_id part of "struct sdw_bus", should it not be part of
->>>> "struct sdw_master_device " ?
->>>>
->>>> Given that "There is one Link per each Master"
->>>
->>> it's true that link == master == bus at the concept level.
->>>
->>> but we have an existing code base with different structures and we can't
->>> break too many things at once.
->>>
->>> In the existing flow, the 'bus' is created and setup first, the
->>> sdw_bus_master_add() routine takes a 'bus' argument, and the link_id is
->>> already set. This routine only creates a device and in the rest of the
->>> code we keep using the 'bus' pointer, so there's no real short-term
->>> scope for moving the information into the 'sdw_master_device' structure
->>> - that would be a lot of surgery when nothing is really broken.
->>
->> I totally agree!
->>
->> If I understand it correctly in Intel case there will be only one Link ID
->> per bus.
-> 
-> Yes IIUC there would be one link id per bus.
-> 
-> the ida approach gives us unique id for each master,bus I would like to
-> propose using that everywhere
+Fixes: a0aab9e1404a ("ASoC: codecs: add wsa881x amplifier support")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/codecs/wsa881x.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-We have cases where link2 is not used but link0, 1 and 3 are.
-Using the IDA would result in master-0,1,2 being shown, that would throw 
-the integrator off. the link_id is related to hardware and can tolerate 
-gaps, the IDA is typically always increasing and is across the system, 
-not controller specific.
-
-We can debate forever but both pieces of information are useful, so my 
-recommendation is to use both:
-
-snprintf(name, sizeof(name), "master-%d-%d", bus_id, bus->link_id);
+diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+index 4530b74f5921..db87e07b11c9 100644
+--- a/sound/soc/codecs/wsa881x.c
++++ b/sound/soc/codecs/wsa881x.c
+@@ -640,6 +640,7 @@ static struct regmap_config wsa881x_regmap_config = {
+ 	.val_bits = 8,
+ 	.cache_type = REGCACHE_RBTREE,
+ 	.reg_defaults = wsa881x_defaults,
++	.max_register = WSA881X_SPKR_STATUS3,
+ 	.num_reg_defaults = ARRAY_SIZE(wsa881x_defaults),
+ 	.volatile_reg = wsa881x_volatile_register,
+ 	.readable_reg = wsa881x_readable_register,
+-- 
+2.21.0
 

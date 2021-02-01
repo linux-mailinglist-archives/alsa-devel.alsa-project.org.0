@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDB4130A895
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 14:23:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B021930A897
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 14:24:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E6881769;
-	Mon,  1 Feb 2021 14:23:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E6881769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 723281776;
+	Mon,  1 Feb 2021 14:23:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 723281776
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612185836;
-	bh=mfbZjjzIAFWNGMr9Zj8ai+w12yiniSPUYxdjXUKHiEw=;
+	s=default; t=1612185856;
+	bh=aHAirYDxmZXKVLyJRdwckR5LNVirgvRWwtX2frtWzL0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ceLHBP5/mLAePJXkUjmMkLXeAFLTTuk/U9Ld3H8rpSuWxTUaUcGo0Rb54zHfkzq8r
-	 awph2Xyki9QkhLYAUmm/ZFEUIcX5Y209MpVOAaXqCRIUza3pvZ/lyetEZb75e9ZnUs
-	 TqvQ3WkNR2GfLeFdS6D6DxhL9hAWOgLLCG8dabyk=
+	b=OLPxp8iMFIztlgPqFWJfNHygZTJpX99DAHhrWeSAA2GSjRiHOpYRabDGXgIRdEEia
+	 ATyWcddVMHYIHoWV9a9D7l0QQxc5YvxxbhCpsA4dGcqbUvXZMpv+X39SDwxEivwM64
+	 v06leHIy5D29zuODjWuGKKIK2pYPvhhCTPI9Q1f0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C45F80154;
-	Mon,  1 Feb 2021 14:22:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED187F8015A;
+	Mon,  1 Feb 2021 14:23:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3BE7F80153; Mon,  1 Feb 2021 14:22:21 +0100 (CET)
+ id EF5C2F80156; Mon,  1 Feb 2021 14:23:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=BIGNUM_EMAILS,SPF_HELO_NONE,
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=BIGNUM_EMAILS,SPF_HELO_NONE,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB0C2F800E2
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 14:22:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB0C2F800E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E63F8F80151
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 14:23:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E63F8F80151
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 046A0AB92;
- Mon,  1 Feb 2021 13:22:11 +0000 (UTC)
-Date: Mon, 01 Feb 2021 14:22:10 +0100
-Message-ID: <s5hlfc7j531.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 93A1BAB92;
+ Mon,  1 Feb 2021 13:23:16 +0000 (UTC)
+Date: Mon, 01 Feb 2021 14:23:16 +0100
+Message-ID: <s5hk0rrj517.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [bug report] ALSA: rawmidi: Avoid racy info ioctl via ctl device
-In-Reply-To: <YBf6NOKafgp8XfDZ@mwanda>
-References: <YBf6NOKafgp8XfDZ@mwanda>
+Subject: Re: [bug report] ALSA: seq: Use no intrruptible mutex_lock
+In-Reply-To: <YBf+arIyZvfQkDbP@mwanda>
+References: <YBf+arIyZvfQkDbP@mwanda>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,22 +68,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Feb 2021 13:55:16 +0100,
+On Mon, 01 Feb 2021 14:13:14 +0100,
 Dan Carpenter wrote:
 > 
 > Hello Takashi Iwai,
 > 
-> The patch c1cfd9025cc3: "ALSA: rawmidi: Avoid racy info ioctl via ctl
-> device" from Dec 14, 2017, leads to the following static checker
-> warning:
+> The patch 04702e8d0092: "ALSA: seq: Use no intrruptible mutex_lock"
+> from Aug 1, 2018, leads to the following static checker warning:
 > 
-> 	sound/core/rawmidi.c:651 snd_rawmidi_info_select()
+> 	sound/core/seq/seq_clientmgr.c:2194 snd_seq_create_kernel_client()
 > 	warn: called with lock held.  '&register_mutex'
 > 
 > sound/core/seq/seq_midi.c
+>    294          if (ports > (256 / SNDRV_RAWMIDI_DEVICES))
+>    295                  ports = 256 / SNDRV_RAWMIDI_DEVICES;
+>    296  
 >    297          mutex_lock(&register_mutex);
 >                            ^^^^^^^^^^^^^^^
-> Holding this lock.
+> Holding lock
 > 
 >    298          client = synths[card->number];
 >    299          if (client == NULL) {
@@ -96,6 +98,9 @@ Dan Carpenter wrote:
 >    306                  }
 >    307                  client->seq_client =
 >    308                          snd_seq_create_kernel_client(
+>                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> Deadlock
+> 
 >    309                                  card, 0, "%s", card->shortname[0] ?
 >    310                                  (const char *)card->shortname : "External MIDI");
 >    311                  if (client->seq_client < 0) {
@@ -105,59 +110,11 @@ Dan Carpenter wrote:
 >    315                          return -ENOMEM;
 >    316                  }
 >    317          }
->    318  
->    319          msynth = kcalloc(ports, sizeof(struct seq_midisynth), GFP_KERNEL);
->    320          port = kmalloc(sizeof(*port), GFP_KERNEL);
->    321          if (msynth == NULL || port == NULL)
->    322                  goto __nomem;
->    323  
->    324          for (p = 0; p < ports; p++) {
->    325                  ms = &msynth[p];
->    326  
->    327                  if (snd_seq_midisynth_new(ms, card, device, p) < 0)
->    328                          goto __nomem;
->    329  
->    330                  /* declare port */
->    331                  memset(port, 0, sizeof(*port));
->    332                  port->addr.client = client->seq_client;
->    333                  port->addr.port = device * (256 / SNDRV_RAWMIDI_DEVICES) + p;
->    334                  port->flags = SNDRV_SEQ_PORT_FLG_GIVEN_PORT;
->    335                  memset(info, 0, sizeof(*info));
->    336                  info->device = device;
->    337                  if (p < output_count)
->    338                          info->stream = SNDRV_RAWMIDI_STREAM_OUTPUT;
->    339                  else
->    340                          info->stream = SNDRV_RAWMIDI_STREAM_INPUT;
->    341                  info->subdevice = p;
->    342                  if (snd_rawmidi_info_select(card, info) >= 0)
->                             ^^^^^^^^^^^^^^^^^^^^^^^
-> We can't call this function when we're holding the lock or it leads to
-> a deadlock.
 
-Those two register_mutex are different ones; i.e. both are local static
-variables, hence its scope is only for rawmidi.c and seq_client.c,
-hence they can't conflict with each other.
-
-Or am I missing something else?
+Again, both register_mutex are different instances, where both are
+local static variables, hence they can't conflict with each other.
 
 
 thanks,
 
 Takashi
-
-
-> Before the patch, we used to rely on the callers to take
-> the lock before calling snd_rawmidi_info_select() but the patch moved
-> the lock inside the function.
-> 
->    343                          strcpy(port->name, info->subname);
->    344                  if (! port->name[0]) {
->    345                          if (info->name[0]) {
->    346                                  if (ports > 1)
->    347                                          snprintf(port->name, sizeof(port->name), "%s-%u", info->name, p);
->    348                                  else
->    349                                          snprintf(port->name, sizeof(port->name), "%s", info->name);
-> 
-> regards,
-> dan carpenter
-> 

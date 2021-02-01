@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA9E830A97B
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 15:18:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA7FB30A996
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 15:23:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6813B1768;
-	Mon,  1 Feb 2021 15:17:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6813B1768
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B00D176A;
+	Mon,  1 Feb 2021 15:22:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B00D176A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612189110;
-	bh=IOhAKRWhf9s2LcVyWgiTkYA1yms+M5h8BHth71Hm2PY=;
+	s=default; t=1612189402;
+	bh=saXB81rCBp5cIBvK13wj/wHHDWVKYzlvS9EQuCXX8PM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V3aQwlfbcpSIcIySu1TGbEVMNo2cfGWboEme4ia2W9V6TK8pFhmBm3pxMeHo78vEJ
-	 HGpe89/+R0aYFXYbZv+3LmxvRrhNb6TH2/yGozqUmHSG0aPTm8zWzU2ggy6ah7j4oY
-	 h/MQExus2TMcInXSUv6GE8i9cv7rf75JTmDBD5HA=
+	b=X7L1PgPawTzQ7luRu8a2VL4emWG43WN31nVnz6uNfsKFI/yIPNjmFEjSb7cJ0K32M
+	 akBOtAx1PmlhfaFgtTKy1U7xm9iVrISBlBOrL9HGSRejcdh6SapmMjfMvapdPm1IcH
+	 T4AiRMtAbkBL0ZyzSFdeQtO4euZo1ZkGWSu0DB5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D4E2F80151;
-	Mon,  1 Feb 2021 15:16:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A262AF80154;
+	Mon,  1 Feb 2021 15:21:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 910DCF80154; Mon,  1 Feb 2021 15:16:56 +0100 (CET)
+ id C6EF5F80153; Mon,  1 Feb 2021 15:21:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53472F800E9
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 15:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53472F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78E16F800E9
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 15:21:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78E16F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PTmpqvje"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B07B164EA3;
- Mon,  1 Feb 2021 14:16:45 +0000 (UTC)
+ header.b="OFPFpv/g"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 26A8464DDE;
+ Mon,  1 Feb 2021 14:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612189006;
- bh=IOhAKRWhf9s2LcVyWgiTkYA1yms+M5h8BHth71Hm2PY=;
+ s=k20201202; t=1612189299;
+ bh=saXB81rCBp5cIBvK13wj/wHHDWVKYzlvS9EQuCXX8PM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PTmpqvje7zZKA/bW7tfxiXdRdSMZGDscrq8TlBV2tWqfAfYpPMVxtkIITYwUTMDHN
- eLiIRNyp4ID63PQQpYoqAV2zgBo3CJ/wo6czRnNc453UAjc893x3Km0t4eh+/M00gZ
- VgMUKJjUO8x7+VDO8e58o57Ic8ZvCn1iLBHuxakUlcqHPWqaJ6shi+z3rYtfhf3PeQ
- 7MaEmUW/igDHAHqFI3NNG1sSQWJ1+wKDb/UdJtja85R+PDejlkVPxbLa7Y9rgnQNBi
- Q3LqZ0w06lF8pZ7t2/Ie6Eafnw4RovSsZm6w2K8gDyAJIXnkGpSlaY0oEiCNaY7B/V
- hbjT7gIlPc0wA==
-Date: Mon, 1 Feb 2021 19:46:42 +0530
+ b=OFPFpv/gHreo3nMrGcJ1nGRzWenR5Tzq9Jooii0VBCICl9xgEeP6o43OwFFivofip
+ alWyr+BHMaTxclfyYCERmvP+1vFWxCCfYFzQ6uJLhVOWwy7fIH3Wx6EIt8j0n4Kn6H
+ 7uFiYvsE8v3f41RFPmi1NNlu+hDMhSUFjMF0bhcUya0QbwjNVgzMCQMmkOkPr4aRxC
+ /UB/nTrW5CgD+MFM6LLtX5NWC9tO0JHPYhcLucVbvV9xLOlP1uYlpvIDatrtLkVvwr
+ edCJs7QelY+qSZ5pVV8GnRVE7i2G5EGuqSCLvyTRy2cXyegwHz5PPsQGnALzC1AC22
+ ct8BY8QLyATeQ==
+Date: Mon, 1 Feb 2021 19:51:34 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 3/6] soundwire: qcom: set continue execution flag for
- ignored commands
-Message-ID: <20210201141642.GB2771@vkoul-mobl>
+Subject: Re: [PATCH 4/6] soundwire: qcom: start the clock during initialization
+Message-ID: <20210201142134.GC2771@vkoul-mobl>
 References: <20210129173248.5941-1-srinivas.kandagatla@linaro.org>
- <20210129173248.5941-4-srinivas.kandagatla@linaro.org>
+ <20210129173248.5941-5-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210129173248.5941-4-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210129173248.5941-5-srinivas.kandagatla@linaro.org>
 Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
  pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
@@ -83,49 +82,38 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 29-01-21, 17:32, Srinivas Kandagatla wrote:
-> version 1.5.1 and higher IPs of this controller required to set
-> continue execution on ingored command flag. This patch sets this flag.
+> Start the clock during initialization.
+
+A detailed log please, which clock..? Also how do older controllers work
+w/o this clk
+
 > 
 > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > ---
->  drivers/soundwire/qcom.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+>  drivers/soundwire/qcom.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
 > diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index da6e0d4e9622..3669bac11a32 100644
+> index 3669bac11a32..83df15d83935 100644
 > --- a/drivers/soundwire/qcom.c
 > +++ b/drivers/soundwire/qcom.c
-> @@ -40,6 +40,7 @@
->  #define SWRM_CMD_FIFO_CMD					0x308
->  #define SWRM_CMD_FIFO_STATUS					0x30C
->  #define SWRM_CMD_FIFO_CFG_ADDR					0x314
-> +#define SWRM_CONTINUE_EXEC_ON_CMD_IGNORE			BIT(31)
->  #define SWRM_RD_WR_CMD_RETRIES					0x7
->  #define SWRM_CMD_FIFO_RD_FIFO_ADDR				0x318
->  #define SWRM_ENUMERATOR_CFG_ADDR				0x500
-> @@ -345,7 +346,16 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+> @@ -47,6 +47,8 @@
+>  #define SWRM_MCP_FRAME_CTRL_BANK_ADDR(m)		(0x101C + 0x40 * (m))
+>  #define SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK			GENMASK(2, 0)
+>  #define SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK			GENMASK(7, 3)
+> +#define SWRM_MCP_BUS_CTRL					0x1044
+> +#define SWRM_MCP_BUS_CLK_START					BIT(1)
+>  #define SWRM_MCP_CFG_ADDR					0x1048
+>  #define SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK		GENMASK(21, 17)
+>  #define SWRM_DEF_CMD_NO_PINGS					0x1f
+> @@ -345,6 +347,7 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+>  	u32p_replace_bits(&val, SWRM_DEF_CMD_NO_PINGS, SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK);
 >  	ctrl->reg_write(ctrl, SWRM_MCP_CFG_ADDR, val);
 >  
+> +	ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
 >  	/* Configure number of retries of a read/write cmd */
-> -	ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR, SWRM_RD_WR_CMD_RETRIES);
-> +	if (ctrl->version_major == 1 && ctrl->version_minor >= 5 &&
-> +	    ctrl->version_step >= 1) {
-
-why not use raw version value?
-
-        if (ctrl->raw > 0x10501 )
-
-> +		/* Only for versions >= 1.5.1 */
-> +		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR,
-> +				SWRM_RD_WR_CMD_RETRIES |
-> +				SWRM_CONTINUE_EXEC_ON_CMD_IGNORE);
-> +	} else {
-> +		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CFG_ADDR,
-> +				SWRM_RD_WR_CMD_RETRIES);
-> +	}
->  
->  	/* Set IRQ to PULSE */
->  	ctrl->reg_write(ctrl, SWRM_COMP_CFG_ADDR,
+>  	if (ctrl->version_major == 1 && ctrl->version_minor >= 5 &&
+>  	    ctrl->version_step >= 1) {
 > -- 
 > 2.21.0
 

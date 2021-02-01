@@ -2,73 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F67430D3AF
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:04:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A4F30D3B9
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:04:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 382B2176A;
-	Wed,  3 Feb 2021 08:03:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 382B2176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2021E1750;
+	Wed,  3 Feb 2021 08:03:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2021E1750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612335846;
-	bh=YZxCn3WEj6avIEJLa8gwYbXCCcMXF45NS57qNiMfEKg=;
-	h=Date:To:From:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=RCl2yr9VRRhtqjXW1ASVHU+0A8VRyxt1FYo15RzKlTst3Frv5TtDuPFXP+pw5izDr
-	 Kl4cGH8Zs1l9AUWxtaCUGRpNR5GXl6Uv4uaeO9ZcXyV2j0UEZZ6kkmT2l/IZiVNtQX
-	 jaOmLPOy2TyBWQt5rgjbPwS/6qixY1hOlzr2bzPY=
+	s=default; t=1612335883;
+	bh=QIKALpiY8PSOyvmROsABDvl58eFvFcO19nil2H0l12U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=I75wmaEC5sIcIaa8HZyuVH0zHyt/C/PMg66ViyKe19UiR6weanyQhk6YUMLvyPOq4
+	 R11LUp+ZHVreCbKxF556Q1R1XNgXrJBu3tYDPP0CtlbOrpHaI0un/jwI+Nyi5cWUNg
+	 bZWTR0Moez/b+kr/ri4UONjsteCbpkjRwSrm1O+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 876EAF80277;
-	Wed,  3 Feb 2021 08:01:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BA50F802C9;
+	Wed,  3 Feb 2021 08:01:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC419F80224; Mon,  1 Feb 2021 05:25:12 +0100 (CET)
+ id 43EA4F80224; Mon,  1 Feb 2021 09:01:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail2.protonmail.ch (mail2.protonmail.ch [185.70.40.22])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67CCDF800E9
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 05:25:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67CCDF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="QJps2d/U"
-Date: Mon, 01 Feb 2021 04:24:51 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1612153500;
- bh=Zb7ULZT7e66rly2USppGm7Xzx2fnacIRQRjSbtzMRNk=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=QJps2d/UT/K6V3FVJKgq1sL2ySKj1557bsXooFjaT12HgN74NcR8/GcQB3MzcHU7U
- IUJzePEIXuxL8YmxCFCAtcMdrAUu0dIM8JJhCyXprRdUFPbaaASmT0VKuL7dsVgPqd
- 117T2VTY7KWM1gNW/nZF3aOy0HD/uOpGrvxqOIgY=
-To: Takashi Iwai <tiwai@suse.de>
-From: Erich Ritz <erich.public@protonmail.com>
-Subject: Re: [REGRESSION] "ALSA: HDA: Early Forbid of runtime PM" broke my
- laptop's internal audio
-Message-ID: <CJr5txskJyVLQIDd7L6WNNMBMJ3eQEltNH7Y_yJ_r2X8aflHnfGHT9_Mpuznx8iDgfAu03gs9aIqVO7gXbRp4WCL--tXZAUajwyo_Eet5Os=@protonmail.com>
-In-Reply-To: <s5hft2jlnt4.wl-tiwai@suse.de>
-References: <EM1ONQ.OL5CFJTBEBBW@redhat.com>
- <BY5PR11MB430713319F12454CF71A1E73FDB99@BY5PR11MB4307.namprd11.prod.outlook.com>
- <U3BPNQ.P8Q6LYEGXHB5@redhat.com> <s5hsg6jlr4q.wl-tiwai@suse.de>
- <9ACPNQ.AF32G3OJNPHA3@redhat.com> <IECPNQ.0TZXZXWOZX8L2@redhat.com>
- <8CEPNQ.GAG87LR8RI871@redhat.com> <s5hft2jlnt4.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 03 Feb 2021 08:01:30 +0100
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "N,
- Harshapriya" <harshapriya.n@intel.com>, Takashi Iwai <tiwai@suse.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kai.vehmanen@intel.com" <kai.vehmanen@intel.com>,
- Michael Catanzaro <mcatanzaro@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EEB3F800E2
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 09:01:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EEB3F800E2
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R951e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=10; SR=0; TI=SMTPD_---0UNVd3F._1612166482; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0UNVd3F._1612166482) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 01 Feb 2021 16:01:22 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: perex@perex.cz
+Subject: [PATCH] ASoC: Intel: catpt: remove unneeded semicolon
+Date: Mon,  1 Feb 2021 16:01:21 +0800
+Message-Id: <1612166481-121376-1-git-send-email-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Wed, 03 Feb 2021 08:01:31 +0100
+Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, yang.jie@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org, Yang Li <yang.lee@linux.alibaba.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,133 +66,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: Erich Ritz <erich.public@protonmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Friday, January 29, 2021 9:17 AM, Takashi Iwai <tiwai@suse.de> wrote:
+Eliminate the following coccicheck warning:
+./sound/soc/intel/catpt/pcm.c:355:2-3: Unneeded semicolon
 
-> On Fri, 29 Jan 2021 17:12:08 +0100,
-> Michael Catanzaro wrote:
->
-> > On Fri, Jan 29, 2021 at 9:30 am, Michael Catanzaro
-> > mcatanzaro@redhat.com wrote:
-> >
-> > > OK, I found "ALSA: hda/via: Apply the workaround generically for
-> > > Clevo machines" which was just merged yesterday. So I will test
-> > > again to find out.
-> >
-> > Hi Takashi, hi Harsha,
-> > I can confirm that the problem is fixed by this commit:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D4961167bf7482944ca09a6f71263b9e47f949851
->
-> Thanks, good to hear.
->
-> Then I think we can drop the entry from power_save_denylist in
-> hda_intel.c. Could you try that it still works with the patch below?
->
-> thanks,
->
-> Takashi
->
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -2217,8 +2217,6 @@ static const struct snd_pci_quirk power_save_denyli=
-st[] =3D {
-> /* https://bugzilla.redhat.com/show_bug.cgi?id=3D1525104 /
-> SND_PCI_QUIRK(0x1043, 0x8733, "Asus Prime X370-Pro", 0),
-> / https://bugzilla.redhat.com/show_bug.cgi?id=3D1525104 */
->
-> -   SND_PCI_QUIRK(0x1558, 0x6504, "Clevo W65_67SB", 0),
-> -   /* https://bugzilla.redhat.com/show_bug.cgi?id=3D1525104 /
->     SND_PCI_QUIRK(0x1028, 0x0497, "Dell Precision T3600", 0),
->     / https://bugzilla.redhat.com/show_bug.cgi?id=3D1525104 /
->     / Note the P55A-UD3 and Z87-D3HP share the subsys id for the HDA dev =
-*/
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ sound/soc/intel/catpt/pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-For me applying patch 4961167bf7482944ca09a6f71263b9e47f949851 on top of 5.=
-10.12 fixes audio, but the above quoted patch applied to 5.10.12 does NOT f=
-ix audio.  What I mean by fixes:
-Audio works normally on 5.4.94, and on 5.10.12 with patch 4961167 applied.
-I hear no audio from the laptop speakers on 5.10.12 and 5.10.12 with the ab=
-ove quoted patch applied.  Opening pavucontrol shows a graphical response i=
-n the meter, but no audio is heard from the speakers.  I did not test plugg=
-ing in headphones and did not test audio over HDMI.
+diff --git a/sound/soc/intel/catpt/pcm.c b/sound/soc/intel/catpt/pcm.c
+index e5d54bb..88a0879 100644
+--- a/sound/soc/intel/catpt/pcm.c
++++ b/sound/soc/intel/catpt/pcm.c
+@@ -352,7 +352,7 @@ static int catpt_dai_apply_usettings(struct snd_soc_dai *dai,
+ 		break;
+ 	default:
+ 		return 0;
+-	};
++	}
+ 
+ 	list_for_each_entry(pos, &component->card->snd_card->controls, list) {
+ 		if (pos->private_data == component &&
+-- 
+1.8.3.1
 
-I have a System76 Gazelle Pro 7 (gazp7).
-
-# lspci -s "00:1b" -vv
-00:1b.0 Audio device: Intel Corporation 7 Series/C210 Series Chipset Family=
- High Definition Audio Controller (rev 04)
-        Subsystem: CLEVO/KAPOK Computer 7 Series/C210 Series Chipset Family=
- High Definition Audio Controller
-        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-=
- Stepping- SERR- FastB2B- DisINTx+
-        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort- <T=
-Abort- <MAbort- >SERR- <PERR- INTx-
-        Latency: 0, Cache Line Size: 64 bytes
-        Interrupt: pin A routed to IRQ 36
-        Region 0: Memory at f7e10000 (64-bit, non-prefetchable) [size=3D16K=
-]
-        Capabilities: [50] Power Management version 2
-                Flags: PMEClk- DSI- D1- D2- AuxCurrent=3D55mA PME(D0+,D1-,D=
-2-,D3hot+,D3cold+)
-                Status: D0 NoSoftRst- PME-Enable- DSel=3D0 DScale=3D0 PME-
-        Capabilities: [60] MSI: Enable+ Count=3D1/1 Maskable- 64bit+
-                Address: 00000000fee003b8  Data: 0000
-        Capabilities: [70] Express (v1) Root Complex Integrated Endpoint, M=
-SI 00
-                DevCap: MaxPayload 128 bytes, PhantFunc 0
-                        ExtTag- RBE-
-                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsup=
-ported-
-                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
-                        MaxPayload 128 bytes, MaxReadReq 128 bytes
-                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr+ Tr=
-ansPend-
-        Capabilities: [100 v1] Virtual Channel
-                Caps:   LPEVC=3D0 RefClk=3D100ns PATEntryBits=3D1
-                Arb:    Fixed- WRR32- WRR64- WRR128-
-                Ctrl:   ArbSelect=3DFixed
-                Status: InProgress-
-                VC0:    Caps:   PATOffset=3D00 MaxTimeSlots=3D1 RejSnoopTra=
-ns-
-                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR25=
-6-
-                        Ctrl:   Enable+ ID=3D0 ArbSelect=3DFixed TC/VC=3D01
-                        Status: NegoPending- InProgress-
-                VC1:    Caps:   PATOffset=3D00 MaxTimeSlots=3D1 RejSnoopTra=
-ns-
-                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR25=
-6-
-                        Ctrl:   Enable+ ID=3D1 ArbSelect=3DFixed TC/VC=3D22
-                        Status: NegoPending- InProgress-
-        Capabilities: [130 v1] Root Complex Link
-                Desc:   PortNumber=3D0f ComponentID=3D00 EltType=3DConfig
-                Link0:  Desc:   TargetPort=3D00 TargetComponent=3D00 AssocR=
-CRB- LinkType=3DMemMapped LinkValid+
-                        Addr:   00000000fed1c000
-        Kernel driver in use: snd_hda_intel
-        Kernel modules: snd_hda_intel
-
-And on kernel 5.4.94:
-# dmesg | grep hda
-[   21.307684] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops i915_aud=
-io_component_bind_ops [i915])
-[   21.493303] snd_hda_codec_via hdaudioC0D0: autoconfig for VT1802: line_o=
-uts=3D1 (0x24/0x0/0x0/0x0/0x0) type:speaker
-[   21.493306] snd_hda_codec_via hdaudioC0D0:    speaker_outs=3D0 (0x0/0x0/=
-0x0/0x0/0x0)
-[   21.493309] snd_hda_codec_via hdaudioC0D0:    hp_outs=3D1 (0x25/0x0/0x0/=
-0x0/0x0)
-[   21.493310] snd_hda_codec_via hdaudioC0D0:    mono: mono_out=3D0x0
-[   21.493312] snd_hda_codec_via hdaudioC0D0:    inputs:
-[   21.493315] snd_hda_codec_via hdaudioC0D0:      Mic=3D0x2b
-[   21.493317] snd_hda_codec_via hdaudioC0D0:      Internal Mic=3D0x29
-
-
-Apologies if this is noise.  I haven't been able to find if 4961167bf748294=
-4ca09a6f71263b9e47f949851 is queued up for the next stable release of 5.10.
-
-Erich

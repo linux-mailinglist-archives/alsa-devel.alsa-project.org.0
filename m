@@ -2,88 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8665730A8CB
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 14:33:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818CB30D3BE
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:05:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 087DF1769;
-	Mon,  1 Feb 2021 14:33:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 087DF1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11B3C1766;
+	Wed,  3 Feb 2021 08:04:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11B3C1766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612186438;
-	bh=TPczj4dF4jHCDLBFsNX6xRdNimipVS9qgfxBv1zXZIo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1612335941;
+	bh=LSOf52fYVkRSTBnFd1bzbRQabsHF+Uvth8ycHG9rZjk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CmS1WsVfAQAWa/76tw9+5kbhjTon1ZAQ1sAPQno8hi8BSBJDrL5N06XKBoY5gaTrA
-	 26u2j+uDlkuhVbnXNCczEp9ENYlPi9amzqQhRiBN9wxlYJdy9lc93VSQog2+AlKj8w
-	 fAIOuPSbtZXKb07cGg2f+pQcwHwiq3hDLfcYOJ7o=
+	b=SFbgRRgqjssxqCJ0xx6R7LWNHtfatON9amkCJPd29/64mV2ax2Xncaag8gMv3BMvy
+	 zpvCk3HAcdJ/l17tEGLa5cCTY2vm5SJV9Qqz9Sc/16HSuComim9xf35HTikSeWu1tR
+	 dVNv92fZD7a/ztwiCgAQ8Bh+kNIVTHAbHdsO3jhk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42C4BF800E9;
-	Mon,  1 Feb 2021 14:32:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 867EDF80423;
+	Wed,  3 Feb 2021 08:01:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C60AF80153; Mon,  1 Feb 2021 14:32:24 +0100 (CET)
+ id 24B3FF80153; Mon,  1 Feb 2021 14:50:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D79A1F800E9
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 14:32:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D79A1F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE051F800E9
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 14:50:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE051F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="wyZ43vex"
-Received: by mail-ej1-x630.google.com with SMTP id r12so24349503ejb.9
- for <alsa-devel@alsa-project.org>; Mon, 01 Feb 2021 05:32:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SUydFo1Yzotx0dJ4Xcz97tLTNFlDu1WGwY4qJbgVXXs=;
- b=wyZ43vex9y/L7OURr8uGRzyf57+Hup9CBw9Buo9eC58gaE+WeIPEb8PIF+gCg4cBUg
- r78c01pYMF0J7ZOMvwczmTMXNZnrOvPD0e0SV8BiV0Dg7uhQfcGZGTAHgVU6+sskAZO/
- ikQcHNpiGu6VBuLaF7yq5FJ4EoZv15y1u8NUviPrB/y1fFA/NYF0uNhyCwL899lwXaMo
- VgpNBoYI89Vu1tSmFKjjleUukqquoe0NwbzMKpaAir7v4g4FmvZBuvqnC2SwWbtgWnvs
- DCw8A8vlAGs1yzOtfKV/bR1p3YyW84iZKBCqrxtImm1S8lWJxgFaIq6zKsA9qncl/4QN
- aO5A==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eWRTVL2P"
+Received: by mail-ej1-x62f.google.com with SMTP id rv9so24415123ejb.13
+ for <alsa-devel@alsa-project.org>; Mon, 01 Feb 2021 05:50:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=Y1Df4LH+Y0zoxGq21LHpxb87caJes3LsQhEeQ5x8tjc=;
+ b=eWRTVL2PTxrv9ifRtXYVY9KhWlY5z661QDYqwSuBGRR2jvyYJP8WFWkuEsUdFsc5/H
+ nZsX47YRnnvbQOObSp+Rq9YxoiABJNQQVgRWiBvFYTPQO8IxjI4wXpJMFrQHvLhhMuuw
+ 8sseVzDNU0xTpE0ZU2JacXMzI9NQ5R/pyPHAH/zIFsKAAZ2W3LNsqY5Nv/x7h5LHfyYD
+ FXeIK195qCVaQejkVP3B+3KCY0GwRyfCtixYuNbkKk+xWYA5c05oRuLZ+jfQeWKYjG0I
+ 5/8O69ztkRGy0z8VoREh0EAgwhU4Z+DXnRC12ffP8fCvOoL+brCYbjtsXnQ4JWhQ9Jiq
+ w4Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SUydFo1Yzotx0dJ4Xcz97tLTNFlDu1WGwY4qJbgVXXs=;
- b=LIM8UZYwlCQTJL1pL/zTI4ZTn+7aQQLxDvK/gxdkZ4E9TQzuPtucTcZsF0pI8h5ECR
- aMa0H4o1w0CYq9nt2EaW8CsNrK6KjMinAhqe6QP4HxizOhKYejmANYPsYgqM393RGqoV
- +F3PenweL88qneys2eJTKLFe5+2m6V8KM6Sw8bCNXDx24cDqJorpVVNuiqsCcMbERqw3
- 2HTEDif8qEzLdD7XXGdY75gBbyyzTYxlqGZzLWQDhDI+kPRN5TvIA3CfczpQuTKwMKVW
- koQaAzJEn0DtlkMhU1GX6zFnDA4sfF1mzwABW29czgla22de6VVnP/4GL+VqO7lDBVwt
- MCgQ==
-X-Gm-Message-State: AOAM533mypnGaN6+l0n5jqZYJgnqWi4C3V7WcnBdYXRw1m7wclKfczxu
- WVR1qH9ic/gGLda4LO8pnuJGQeiWend9SiusV2bJaQ==
-X-Google-Smtp-Source: ABdhPJzYtumr5qMj0oJ66hU20VJCP1zC7FFpU6A9O7Lh32/0bXXjdYDXapxt84S31R/HCRbQM+NowZkWGOah6C3gA8k=
-X-Received: by 2002:a17:906:86cf:: with SMTP id
- j15mr17990890ejy.216.1612186334684; 
- Mon, 01 Feb 2021 05:32:14 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=Y1Df4LH+Y0zoxGq21LHpxb87caJes3LsQhEeQ5x8tjc=;
+ b=VTEkEDnjyHJflzV3GtNhIi/qYSRayJQm62TvglBhTeRjBaAFo+6YWQY4JyXZHaw0R9
+ BPngrQgJ247czV84dLgakApRB/sfpjGiflBcXA9sleWdwF5iUBEoMMY4jWn08O/pJy4C
+ GOYKQP9sDT91n+buIGg2cc2jakJHfi8Scuri4GTwWGUL88C4ZiQRJwqT1PBqQZWmCQXD
+ 5DlqcdATwa/WodcHHazJEw7XbqyCGX7Pdu8j6dGkYnBAEdWM5eyvo6Ls3QFFAP8ZJkS0
+ yoWT3qfpXcUPY0w1+2LtKw9L1x838jIutDFaGtcToXjGjEb0vH8TIBQWnITjwUBFFwqg
+ KjVw==
+X-Gm-Message-State: AOAM532nkh/r24QDTiBLjoBYARF5zzAtVK1lxjLCSVqFsbYIksCM/rYv
+ LwL3+VSX6e6DgPedDjnJCrv0IrQ+xQF8VM0V
+X-Google-Smtp-Source: ABdhPJwYSwNS0rkmoEnrEo07Qipp4tKUsRaOc4tDPlCjPgXUTQ2D/Ep85EkSVhhGAwX7Te3gxhGMVQ==
+X-Received: by 2002:a17:906:bfcc:: with SMTP id
+ us12mr17590331ejb.163.1612187410028; 
+ Mon, 01 Feb 2021 05:50:10 -0800 (PST)
+Received: from ?IPv6:2a02:8388:1987:9380:198d:5d8b:d8f:7b56?
+ (2a02-8388-1987-9380-198d-5d8b-0d8f-7b56.cable.dynamic.v6.surfer.at.
+ [2a02:8388:1987:9380:198d:5d8b:d8f:7b56])
+ by smtp.gmail.com with ESMTPSA id i90sm845613edi.52.2021.02.01.05.50.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Feb 2021 05:50:09 -0800 (PST)
+Subject: Re: [PATCH] sound: pci/rme9652 - implement and expose controls for
+ output
+To: Takashi Iwai <tiwai@suse.de>
+References: <3cd2889a-e71a-aa3f-e79a-d11a4833c581@gmail.com>
+ <s5h35ygji0q.wl-tiwai@suse.de>
+From: fassl <superfassl@gmail.com>
+Message-ID: <730e7f87-6e6c-77cf-c6cf-2baf23bd1f4c@gmail.com>
+Date: Mon, 1 Feb 2021 14:50:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-References: <20210119044157.3801598-1-jun.nie@linaro.org>
-In-Reply-To: <20210119044157.3801598-1-jun.nie@linaro.org>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 1 Feb 2021 21:32:03 +0800
-Message-ID: <CABymUCMX1=w7xWu1NBdtTMzT=2prNEFuVeUn2zONjsC3-ZOAsw@mail.gmail.com>
-Subject: Re: [PATCH] drm: bridge: adv7511: Add set_jack handler
-To: a.hajda@samsung.com, John Stultz <john.stultz@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
- Mark Brown <broonie@kernel.org>, dri-devel@lists.freedesktop.org,
- Rob Herring <robh+dt@kernel.org>, bogdan.togorean@analog.com
+In-Reply-To: <s5h35ygji0q.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 03 Feb 2021 08:01:31 +0100
+Cc: alsa-devel@alsa-project.org, Allen Pais <allen.lkml@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Colin Ian King <colin.king@canonical.com>,
+ Romain Perier <romain.perier@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,20 +111,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jun Nie <jun.nie@linaro.org> =E4=BA=8E2021=E5=B9=B41=E6=9C=8819=E6=97=A5=E5=
-=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=8812:42=E5=86=99=E9=81=93=EF=BC=9A
->
-> With commit 55c5cc63ab, the hdmi_codec_set_jack() will report unsupport
-> failure if set_jack handler is missing. Add set_jack handler to resolve
-> this failure.
->
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  .../gpu/drm/bridge/adv7511/adv7511_audio.c    | 27 ++++++++++++++-----
->  1 file changed, 20 insertions(+), 7 deletions(-)
->
+On 01.02.21 09:42, Takashi Iwai wrote:
 
-Does anyone have comments on this patch?
+> snd_ctl_new() can be used for allocating the multiple instances in one
+> kcontrol.  If the kctl object is created in this way, you'd just need
+> to change your code to retrieve the kctl index via
+> snd_ctl_get_ioff() instead of referring to kctl->index directly.
+>
+Hi, thanks for the response. snd_ctl_new() is static and unexported,
+should I provide this patch (below) as well? And if so, together with
+this one or separately?
 
-Thanks!
-Jun
+Thanks, best regards
+
+
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 77d9fa10812d..a5920090fdca 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -116,6 +116,7 @@ typedef int (*snd_kctl_ioctl_func_t) (struct snd_card * card,
+ 
+ void snd_ctl_notify(struct snd_card * card, unsigned int mask, struct snd_ctl_elem_id * id);
+ 
++int snd_ctl_new(struct snd_kcontrol **kctl, unsigned int count, unsigned int access, struct snd_ctl_file *file);
+ struct snd_kcontrol *snd_ctl_new1(const struct snd_kcontrol_new * kcontrolnew, void * private_data);
+ void snd_ctl_free_one(struct snd_kcontrol * kcontrol);
+ int snd_ctl_add(struct snd_card * card, struct snd_kcontrol * kcontrol);
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 3b44378b9dec..066288218b81 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -194,7 +194,7 @@ EXPORT_SYMBOL(snd_ctl_notify);
+  *
+  * Return: 0 on success, error code on failure
+  */
+-static int snd_ctl_new(struct snd_kcontrol **kctl, unsigned int count,
++int snd_ctl_new(struct snd_kcontrol **kctl, unsigned int count,
+                       unsigned int access, struct snd_ctl_file *file)
+ {
+        unsigned int idx;
+@@ -214,6 +214,7 @@ static int snd_ctl_new(struct snd_kcontrol **kctl, unsigned int count,
+ 
+        return 0;
+ }
++EXPORT_SYMBOL(snd_ctl_new);
+

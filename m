@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7528330B362
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 00:22:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2AEA30B365
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 00:22:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F079E177A;
-	Tue,  2 Feb 2021 00:21:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F079E177A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6643A83E;
+	Tue,  2 Feb 2021 00:21:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6643A83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612221721;
-	bh=lAJ2VifTzUQTeVFOKJu+ehDial5byr22z8f0jITNvXs=;
+	s=default; t=1612221757;
+	bh=izx9PP7TZm5X6LW4yc2gQnnYWpbl+DckS3YMDyN6wU0=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZwRo1tpDoZyicvkMubYWqRk1WmW0lAfE2114Z8t6F0IFgbubG2c4Du9bMu20vo4oV
-	 W6zMujR8mxsJjSO4tfZMPePHzCsoo76K96K8jK+9G4J2a0WkL5ozWWTidjoSt1tlkj
-	 Zkj+dpqCPk3eymkn7mwUsT6ZmkdV7YjscooAHC/Q=
+	b=ixY3Vly3q0G2rOcZ2wUq03hl3gdJkN4WLZlFs2Tb3pxmL8kvVOfGoJ3bG9Mzc1rSb
+	 PbupYzvbD/w/b+xjQYYhmGW7xwSIpxk8BoH0qRxWpxIFWPrMQRvYULjoJH2B9tdtY2
+	 nk4huXnmpTYL0tkIBoZvBDqJhV4KE32zZDZbdhFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D85DF8021D;
-	Tue,  2 Feb 2021 00:21:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 638EFF801DB;
+	Tue,  2 Feb 2021 00:21:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA013F80234; Tue,  2 Feb 2021 00:21:05 +0100 (CET)
+ id 4CC75F80224; Tue,  2 Feb 2021 00:21:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,37 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFA12F80151
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 00:20:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFA12F80151
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18CFEF80153
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 00:21:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18CFEF80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="4Ea9ONIz"
+ header.b="u2a6/9ns"
 Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
  [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id 411F1A1570;
- Tue,  2 Feb 2021 00:20:59 +0100 (CET)
+ by mx1.opensynergy.com (Proxmox) with ESMTP id AF1CAA1572;
+ Tue,  2 Feb 2021 00:21:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
  h=cc:cc:content-transfer-encoding:content-type:content-type
  :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=DPue/G9QZAQP
- P2U/tuia7SnZrLEKRrkWEwYzlrIEBcE=; b=4Ea9ONIzRQmD3gywsImocKT4ikrU
- S2Bjv3mmUU4uxrTxTa0vYvE8DhIlc21B3+y6Mu7e4SyxOB9XrO5y/uhKkJe9kBBe
- PtQOt22EzRvQ7KWMqB/NaawsiRxJURFiXgDcTe4FxziMTjjFIEe3iDHLgAz+MJqW
- D4sn6kFDs5NLbjvedzn1iYjLImZKcpgyKHkikk/2Ijz3xG4CrQ2JStXWtrrr+Si5
- 6DS85msi+2bJNM2E6rDKsPVr7oLho6H3lMemeUlTu4ERnoOOvBj94PdFyiVrx8B/
- gJ9s92u/I9YS9qM+Yg1mmB8WqPR+/garmc8bBFbwr/wQjNhhE3Z3uXmH1A==
-Subject: Re: [PATCH v2 5/9] ALSA: virtio: handling control and I/O messages
- for the PCM device
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=CwOwGn6dgP2j
+ cjFk6q4yXI/pQB4nVeudG427q3AzhFY=; b=u2a6/9nsGZL459dM8Y4ZAF/3M2Xm
+ ja97O4qlRxeNSuVWxQtDgKVOjrIJw9Fu2Yn7yQCUEOEiMAo8H2H/r9XCEoQSTWc5
+ wrPa3fm/gfQPZmf6Zzu28u1TpMZPPt681i2/NWOkzN88RbmHlq7h68xd1n7JWLlX
+ U3+4bMvY9XfcMSaX9Nz/GRDPKi6iesq7IRYgIgcIlwumBqjtjXRcTlZNKFkUfdKZ
+ YzyWE/Bga1pBFqHdqS/FyFvYYSiEDQHGGjSQ7ztorwMOYzDJtaXfjrJVGhdAyna6
+ xjduz1e0CskqAKXIOIW6OMsCCeddQCYzIQRhOWctyJYtUFFTtCXnOmBgeg==
+Subject: Re: [PATCH v2 6/9] ALSA: virtio: PCM substream operators
 To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 References: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
- <20210124165408.1122868-6-anton.yakovlev@opensynergy.com>
- <e19f65d-9b2b-246-572f-de394ad3662b@intel.com>
+ <20210124165408.1122868-7-anton.yakovlev@opensynergy.com>
+ <7b4fa4c1-4af1-47b5-d2e6-bb2f81e75488@intel.com>
 From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Message-ID: <492ce6e3-57f5-09e7-b7b8-d2a1d1aa685c@opensynergy.com>
-Date: Tue, 2 Feb 2021 00:20:56 +0100
+Message-ID: <e2d54587-41ce-1cf9-df96-8e1baa85c097@opensynergy.com>
+Date: Tue, 2 Feb 2021 00:21:31 +0100
 MIME-Version: 1.0
-In-Reply-To: <e19f65d-9b2b-246-572f-de394ad3662b@intel.com>
+In-Reply-To: <7b4fa4c1-4af1-47b5-d2e6-bb2f81e75488@intel.com>
 Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -90,345 +89,484 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 25.01.2021 17:25, Guennadi Liakhovetski wrote:
-
-...[snip]...
-
- >> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
- >> index 036990b7b78a..1ab50dcc88c8 100644
- >> --- a/sound/virtio/virtio_pcm.c
- >> +++ b/sound/virtio/virtio_pcm.c
- >> @@ -376,6 +376,7 @@ int virtsnd_pcm_parse_cfg(struct virtio_snd *snd)
- >>
- >>               substream->snd = snd;
- >>               substream->sid = i;
- >> +             init_waitqueue_head(&substream->msg_empty);
- >>
- >>               rc = virtsnd_pcm_build_hw(substream, &info[i]);
- >>               if (rc)
- >> @@ -530,6 +531,8 @@ void virtsnd_pcm_event(struct virtio_snd *snd,
- >> struct virtio_snd_event *event)
- >>               break;
- >>       }
- >>       case VIRTIO_SND_EVT_PCM_XRUN: {
- >> +             if (atomic_read(&substream->xfer_enabled))
+On 25.01.2021 17:59, Guennadi Liakhovetski wrote:
+ > On Sun, 24 Jan 2021, Anton Yakovlev wrote:
  >
- > Why does .xfer_enabled have to be atomic? It only takes two values - 
-0 and
- > 1, I don't see any incrementing, or test-and-set type operations or
- > anything similar. Also I don't see .xfer_enabled being set to 1 anywhere
- > in this patch, presumably that happens in one of later patches.
+ > [snip]
  >
- >> +                     atomic_set(&substream->xfer_xrun, 1);
- >
- > Ditto.
- >
-
-Yes, maybe I was not very good at breaking the code into patches.
-.xfer_enabled and .xfer_xrun are used in callback functions for
-operators (next patch). Basically, these two contain boolean values.
-
-
-...[snip]...
-
-
- >> +
  >> +/**
- >> + * enum pcm_msg_sg_index - Scatter-gather element indexes for an I/O
- >> message.
- >> + * @PCM_MSG_SG_XFER: Element containing a virtio_snd_pcm_xfer 
-structure.
- >> + * @PCM_MSG_SG_DATA: Element containing a data buffer.
- >> + * @PCM_MSG_SG_STATUS: Element containing a virtio_snd_pcm_status
- >> structure.
- >> + * @PCM_MSG_SG_MAX: The maximum number of elements in the
- >> scatter-gather table.
- >> + *
- >> + * These values are used as the index of the payload scatter-gather
- >> table.
- >> + */
- >> +enum pcm_msg_sg_index {
- >> +     PCM_MSG_SG_XFER = 0,
- >> +     PCM_MSG_SG_DATA,
- >> +     PCM_MSG_SG_STATUS,
- >> +     PCM_MSG_SG_MAX
- >> +};
- >
- > If I understand correctly, messages are sent to the back-end driver in
- > this specific order, so this is a part of the ABI, isn't it? Is it also a
- > part of the spec? If so this should be defined in your ABI header?
-
-Yes, this is a part of the spec. But the spec only defines a "layout" of
-the message, and does not limit or in any way define the number of
-descriptors to transmit each of the parts of the message. Hence, this
-enum cannot be defined as part of the ABI. However, since this driver
-uses only one descriptor for each part, it is more convenient to use an
-enum to make the code more readable.
-
-
- >> +
- >> +/**
- >> + * struct virtio_pcm_msg - VirtIO I/O message.
- >> + * @substream: VirtIO PCM substream.
- >> + * @xfer: Request header payload.
- >> + * @status: Response header payload.
- >> + * @sgs: Payload scatter-gather table.
- >> + */
- >> +struct virtio_pcm_msg {
- >> +     struct virtio_pcm_substream *substream;
- >> +     struct virtio_snd_pcm_xfer xfer;
- >> +     struct virtio_snd_pcm_status status;
- >> +     struct scatterlist sgs[PCM_MSG_SG_MAX];
- >> +};
- >> +
- >> +/**
- >> + * virtsnd_pcm_msg_alloc() - Allocate I/O messages.
- >> + * @substream: VirtIO PCM substream.
- >> + * @nmsg: Number of messages (equal to the number of periods).
- >> + * @dma_area: Pointer to used audio buffer.
- >> + * @period_bytes: Period (message payload) size.
- >> + *
- >> + * The function slices the buffer into nmsg parts (each with the 
-size of
- >> + * period_bytes), and creates nmsg corresponding I/O messages.
+ >> + * virtsnd_pcm_release() - Release the PCM substream on the device 
+side.
+ >> + * @substream: VirtIO substream.
  >> + *
  >> + * Context: Any context that permits to sleep.
- >> + * Return: 0 on success, -ENOMEM on failure.
+ >> + * Return: 0 on success, -errno on failure.
  >> + */
- >> +int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *substream,
- >> +                       unsigned int nmsg, u8 *dma_area,
- >> +                       unsigned int period_bytes)
+ >> +static inline bool virtsnd_pcm_released(struct virtio_pcm_substream
+ >> *substream)
  >> +{
- >> +     struct virtio_device *vdev = substream->snd->vdev;
- >> +     unsigned int i;
- >> +
- >> +     if (substream->msgs)
- >> +             devm_kfree(&vdev->dev, substream->msgs);
- >> +
- >> +     substream->msgs = devm_kcalloc(&vdev->dev, nmsg,
- >> +                                    sizeof(*substream->msgs),
- >> GFP_KERNEL);
- >> +     if (!substream->msgs)
- >> +             return -ENOMEM;
- >> +
- >> +     for (i = 0; i < nmsg; ++i) {
- >> +             struct virtio_pcm_msg *msg = &substream->msgs[i];
- >> +
- >> +             msg->substream = substream;
- >> +
- >> +             sg_init_table(msg->sgs, PCM_MSG_SG_MAX);
+ >> +     /*
+ >> +      * The spec states that upon receipt of the RELEASE command "the
+ >> device
+ >> +      * MUST complete all pending I/O messages for the specified
+ >> stream ID".
+ >> +      * Thus, we consider the absence of I/O messages in the queue 
+as an
+ >> +      * indication that the substream has been released.
+ >> +      */
+ >> +     return atomic_read(&substream->msg_count) == 0;
  >
- > Why do you need to initialise a table of 3 meddages if you then 
-initialise
- > each of them separately immediately below?
+ > Also here having it atomic doesn't really seem to help. This just means,
+ > that at some point of time it was == 0.
 
-Hm, good point! I forgot to delete this line, thanks.
+Technically, you're right. In practice, everything looks like this:
+
+I/O messages are added to the virtqueue either at the start of the
+substream or in the interrupt handler (and only as long as .xfer_enabled
+is true). In general, this means that the .msg_count can only be
+incremented in the interrupt handler. As soon as the substream stops,
+the .xfer_enabled becomes false and the .msg_count no longer increases.
+This means that the .msg_count was either already 0, or we need to wait
+for it to become 0.
 
 
- >> +             sg_init_one(&msg->sgs[PCM_MSG_SG_XFER], &msg->xfer,
- >> +                         sizeof(msg->xfer));
- >> +             sg_init_one(&msg->sgs[PCM_MSG_SG_DATA],
- >> +                         dma_area + period_bytes * i, period_bytes);
- >> +             sg_init_one(&msg->sgs[PCM_MSG_SG_STATUS], &msg->status,
- >> +                         sizeof(msg->status));
- >> +     }
+ >> +}
  >> +
- >> +     return 0;
+ >> +static int virtsnd_pcm_release(struct virtio_pcm_substream *substream)
+ >
+ > kernel-doc missing
+
+Yeap, thanks!
+
+
+ >> +{
+ >> +     struct virtio_snd *snd = substream->snd;
+ >> +     struct virtio_snd_msg *msg;
+ >> +     unsigned int js = msecs_to_jiffies(msg_timeout_ms);
+ >> +     int rc;
+ >> +
+ >> +     msg = virtsnd_pcm_ctl_msg_alloc(substream,
+ >> VIRTIO_SND_R_PCM_RELEASE,
+ >> +                                     GFP_KERNEL);
+ >> +     if (IS_ERR(msg))
+ >> +             return PTR_ERR(msg);
+ >> +
+ >> +     rc = virtsnd_ctl_msg_send_sync(snd, msg);
+ >> +     if (rc)
+ >> +             return rc;
+ >> +
+ >> +     return wait_event_interruptible_timeout(substream->msg_empty,
+ >> +
+ >> virtsnd_pcm_released(substream),
+ >> +                                             js);
+ >
+ > wait_event_interruptible_timeout() will return a positive number in
+ > success cases, 0 means a timeout and condition still false. Whereas when
+ > you call this function you interpret 0 as success and you expect any != 0
+ > to be a negative error. Wondering how this worked during your tests?
+
+Yeah, that's actually a bug. We haven't hit a timeout on that control path.
+
+
  >> +}
  >> +
  >> +/**
- >> + * virtsnd_pcm_msg_send() - Send asynchronous I/O messages.
- >> + * @substream: VirtIO PCM substream.
- >> + *
- >> + * All messages are organized in an ordered circular list. Each 
-time the
- >> + * function is called, all currently non-enqueued messages are added
- >> to the
- >> + * virtqueue. For this, the function keeps track of two values:
- >> + *
- >> + *   msg_last_enqueued = index of the last enqueued message,
- >> + *   msg_count = # of pending messages in the virtqueue.
+ >> + * virtsnd_pcm_open() - Open the PCM substream.
+ >> + * @substream: Kernel ALSA substream.
  >> + *
  >> + * Context: Any context.
- >> + * Return: 0 on success, -EIO on failure.
+ >> + * Return: 0 on success, -errno on failure.
  >> + */
- >> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *substream)
+ >> +static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
  >> +{
- >> +     struct snd_pcm_runtime *runtime = substream->substream->runtime;
- >> +     struct virtio_snd *snd = substream->snd;
- >> +     struct virtio_device *vdev = snd->vdev;
- >> +     struct virtqueue *vqueue = virtsnd_pcm_queue(substream)->vqueue;
- >> +     int i;
- >> +     int n;
- >> +     bool notify = false;
+ >> +     struct virtio_pcm *pcm = snd_pcm_substream_chip(substream);
+ >> +     struct virtio_pcm_substream *ss = NULL;
  >> +
- >> +     if (!vqueue)
- >> +             return -EIO;
+ >> +     if (pcm) {
+ >> +             switch (substream->stream) {
+ >> +             case SNDRV_PCM_STREAM_PLAYBACK:
+ >> +             case SNDRV_PCM_STREAM_CAPTURE: {
+ >> +                     struct virtio_pcm_stream *stream =
+ >> +                             &pcm->streams[substream->stream];
+ >> +
+ >> +                     if (substream->number < stream->nsubstreams)
  >
- > Is this actually possible? That would mean a data corruption or a bug in
- > the driver, right? In either case it can be NULL or 1 or any other 
-invalid
- > value, so checking for NULL doesn't seem to help a lot?
+ > Can this condition ever be false?
 
-Yes it is possible. The virtio device may ask the driver to reset itself.
-This can happen at any time, including when the device is actively used.
-In such case, we disable the use of virtqueues by setting the .vqueue
-values to NULL.
+Hard to tell. But there may be some bug. In general, I try to adhere to
+the rule that if an array element is referenced by index, it is better
+to check the index value first.
 
 
- >> +
- >> +     i = (substream->msg_last_enqueued + 1) % runtime->periods;
- >> +     n = runtime->periods - atomic_read(&substream->msg_count);
- >> +
- >> +     for (; n; --n, i = (i + 1) % runtime->periods) {
- >> +             struct virtio_pcm_msg *msg = &substream->msgs[i];
- >> +             struct scatterlist *psgs[PCM_MSG_SG_MAX] = {
- >> +                     [PCM_MSG_SG_XFER] = &msg->sgs[PCM_MSG_SG_XFER],
- >> +                     [PCM_MSG_SG_DATA] = &msg->sgs[PCM_MSG_SG_DATA],
- >> +                     [PCM_MSG_SG_STATUS] = &msg->sgs[PCM_MSG_SG_STATUS]
- >> +             };
- >> +             int rc;
- >> +
- >> +             msg->xfer.stream_id = cpu_to_virtio32(vdev,
- >> substream->sid);
- >> +             memset(&msg->status, 0, sizeof(msg->status));
- >> +
- >> +             atomic_inc(&substream->msg_count);
- >
- > .msg_count is also accessed in virtsnd_pcm_msg_complete() which is why
- > presumably you use atomic access. But here you already increment the 
-count
- > before you even begin adding the message to the virtqueue. So if
- > virtsnd_pcm_msg_complete() preempts you here the .msg_count will be
- > inconsistent? Possibly you need to protect both operations together:
- > incrementing the counter and adding messages to queues.
-
-It is not necessary here. As virtqueue_add_sgs requires the virtqueue to
-be protected by the caller using an external lock, so all calls to
-virtsnd_pcm_msg_send are wrapped with spinlocks (with disabled interrupts
-for the current core) for the tx/rx virtqueues.
-
-
- >> +
- >> +             if (substream->direction == SNDRV_PCM_STREAM_PLAYBACK)
- >> +                     rc = virtqueue_add_sgs(vqueue, psgs, 2, 1, msg,
- >> +                                            GFP_ATOMIC);
- >> +             else
- >> +                     rc = virtqueue_add_sgs(vqueue, psgs, 1, 2, msg,
- >> +                                            GFP_ATOMIC);
- >> +
- >> +             if (rc) {
- >> +                     atomic_dec(&substream->msg_count);
- >> +                     return -EIO;
+ >> +                             ss = 
+stream->substreams[substream->number];
+ >> +                     break;
  >> +             }
- >> +
- >> +             substream->msg_last_enqueued = i;
+ >> +             }
  >> +     }
  >> +
- >> +     if (!(substream->features & (1U << VIRTIO_SND_PCM_F_MSG_POLLING)))
- >> +             notify = virtqueue_kick_prepare(vqueue);
+ >> +     if (!ss)
+ >> +             return -EBADFD;
  >> +
- >> +     if (notify)
- >> +             if (!virtqueue_notify(vqueue))
- >> +                     return -EIO;
+ >> +     substream->runtime->hw = ss->hw;
+ >> +     substream->private_data = ss;
  >> +
  >> +     return 0;
  >> +}
  >> +
  >> +/**
- >> + * virtsnd_pcm_msg_complete() - Complete an I/O message.
- >> + * @msg: I/O message.
- >> + * @size: Number of bytes written.
+ >> + * virtsnd_pcm_close() - Close the PCM substream.
+ >> + * @substream: Kernel ALSA substream.
  >> + *
- >> + * Completion of the message means the elapsed period.
- >> + *
- >> + * The interrupt handler modifies three fields of the substream
- >> structure
- >> + * (hw_ptr, xfer_xrun, msg_count) that are used in operator
- >> functions. These
- >> + * values are atomic to avoid frequent interlocks with the interrupt
- >> handler.
- >> + * This becomes especially important in the case of multiple running
- >> substreams
- >> + * that share both the virtqueue and interrupt handler.
- >> + *
- >> + * Context: Interrupt context.
+ >> + * Context: Any context.
+ >> + * Return: 0.
  >> + */
- >> +static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg,
- >> size_t size)
+ >> +static int virtsnd_pcm_close(struct snd_pcm_substream *substream)
  >> +{
- >> +     struct virtio_pcm_substream *substream = msg->substream;
- >> +     snd_pcm_uframes_t hw_ptr;
- >> +     unsigned int msg_count;
- >> +
- >> +     /*
- >> +      * hw_ptr always indicates the buffer position of the first I/O
- >> message
- >> +      * in the virtqueue. Therefore, on each completion of an I/O
- >> message,
- >> +      * the hw_ptr value is unconditionally advanced.
- >> +      */
- >> +     hw_ptr = (snd_pcm_uframes_t)atomic_read(&substream->hw_ptr);
- >
- > Also unclear why this has to be atomic, especially taking into account
- > that it's only accessed in "interrupt context."
-
-The general situation looks like this:
-.hw_ptr and .xfer_xrun
-   written in the virtsnd_pcm_msg_complete()
-   read in the pointer() substream operator
-.xfer_enabled
-   written in the trigger() substream operator
-   read in the virtsnd_pcm_msg_complete()
-
-ALSA takes some substream locks while calling for trigger/pointer().
-Unfortunately, we cannot use the same substream locks here, as it opens
-up many control paths leading to deadlock. And all that remains is either
-to use atomic fields, or to introduce our own spinlock for each substream
-(to protect these fields). Personally, I don't know which would be better.
-But the code with atomic fields looks at least simpler.
-
-
- >> +
- >> +     /*
- >> +      * If the capture substream returned an incorrect status, then 
-just
- >> +      * increase the hw_ptr by the period size.
- >> +      */
- >> +     if (substream->direction == SNDRV_PCM_STREAM_PLAYBACK ||
- >> +         size <= sizeof(msg->status)) {
- >> +             hw_ptr += substream->period_size;
- >> +     } else {
- >> +             size -= sizeof(msg->status);
- >> +             hw_ptr += size / substream->frame_bytes;
- >> +     }
- >> +
- >> +     atomic_set(&substream->hw_ptr, (u32)(hw_ptr %
- >> substream->buffer_size));
- >> +     atomic_set(&substream->xfer_xrun, 0);
- >> +
- >> +     msg_count = atomic_dec_return(&substream->msg_count);
- >> +
- >> +     if (atomic_read(&substream->xfer_enabled)) {
- >> +             struct snd_pcm_runtime *runtime =
- >> substream->substream->runtime;
- >> +
- >> +             runtime->delay =
- >> +                     bytes_to_frames(runtime,
- >> +
- >> le32_to_cpu(msg->status.latency_bytes));
- >> +
- >> +             snd_pcm_period_elapsed(substream->substream);
- >> +
- >> +             virtsnd_pcm_msg_send(substream);
- >> +     } else if (!msg_count) {
- >> +             wake_up_all(&substream->msg_empty);
- >> +     }
+ >> +     return 0;
  >> +}
+ >> +
+ >> +/**
+ >> + * virtsnd_pcm_hw_params() - Set the parameters of the PCM substream.
+ >> + * @substream: Kernel ALSA substream.
+ >> + * @hw_params: Hardware parameters (can be NULL).
+ >> + *
+ >> + * The function can be called both from the upper level (in this case,
+ >> + * @hw_params is not NULL) or from the driver itself (in this case,
+ >> @hw_params
+ >> + * is NULL, and the parameter values are taken from the runtime
+ >> structure).
+ >> + *
+ >> + * In all cases, the function:
+ >> + *   1. checks the state of the virtqueue and, if necessary, tries to
+ >> fix it,
+ >> + *   2. sets the parameters on the device side,
+ >> + *   3. allocates a hardware buffer and I/O messages.
+ >> + *
+ >> + * Context: Any context that permits to sleep.
+ >> + * Return: 0 on success, -errno on failure.
+ >> + */
+ >> +static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+ >> +                              struct snd_pcm_hw_params *hw_params)
+ >> +{
+ >> +     struct snd_pcm_runtime *runtime = substream->runtime;
+ >> +     struct virtio_pcm_substream *ss =
+ >> snd_pcm_substream_chip(substream);
+ >> +     struct virtio_device *vdev = ss->snd->vdev;
+ >> +     struct virtio_snd_msg *msg;
+ >> +     struct virtio_snd_pcm_set_params *request;
+ >> +     snd_pcm_format_t format;
+ >> +     unsigned int channels;
+ >> +     unsigned int rate;
+ >> +     unsigned int buffer_bytes;
+ >> +     unsigned int period_bytes;
+ >> +     unsigned int periods;
+ >> +     unsigned int i;
+ >> +     int vformat = -1;
+ >> +     int vrate = -1;
+ >> +     int rc;
+ >> +
+ >> +     /*
+ >> +      * If we got here after ops->trigger() was called, the queue may
+ >> +      * still contain messages. In this case, we need to release the
+ >> +      * substream first.
+ >> +      */
+ >> +     if (atomic_read(&ss->msg_count)) {
+ >> +             rc = virtsnd_pcm_release(ss);
+ >> +             if (rc) {
+ >> +                     dev_err(&vdev->dev,
+ >> +                             "SID %u: invalid I/O queue state\n",
+ >> +                             ss->sid);
+ >> +                     return rc;
+ >> +             }
+ >> +     }
+ >> +
+ >> +     /* Set hardware parameters in device */
+ >> +     if (hw_params) {
+ >> +             format = params_format(hw_params);
+ >> +             channels = params_channels(hw_params);
+ >> +             rate = params_rate(hw_params);
+ >> +             buffer_bytes = params_buffer_bytes(hw_params);
+ >> +             period_bytes = params_period_bytes(hw_params);
+ >> +             periods = params_periods(hw_params);
+ >> +     } else {
+ >> +             format = runtime->format;
+ >> +             channels = runtime->channels;
+ >> +             rate = runtime->rate;
+ >> +             buffer_bytes = frames_to_bytes(runtime,
+ >> runtime->buffer_size);
+ >> +             period_bytes = frames_to_bytes(runtime,
+ >> runtime->period_size);
+ >> +             periods = runtime->periods;
+ >> +     }
+ >> +
+ >> +     for (i = 0; i < ARRAY_SIZE(g_a2v_format_map); ++i)
+ >> +             if (g_a2v_format_map[i].alsa_bit == format) {
+ >> +                     vformat = g_a2v_format_map[i].vio_bit;
+ >> +
+ >> +                     break;
+ >> +             }
+ >> +
+ >> +     for (i = 0; i < ARRAY_SIZE(g_a2v_rate_map); ++i)
+ >> +             if (g_a2v_rate_map[i].rate == rate) {
+ >> +                     vrate = g_a2v_rate_map[i].vio_bit;
+ >> +
+ >> +                     break;
+ >> +             }
+ >> +
+ >> +     if (vformat == -1 || vrate == -1)
+ >> +             return -EINVAL;
+ >> +
+ >> +     msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_SET_PARAMS,
+ >> +                                     GFP_KERNEL);
+ >> +     if (IS_ERR(msg))
+ >> +             return PTR_ERR(msg);
+ >> +
+ >> +     request = sg_virt(&msg->sg_request);
+ >> +
+ >> +     request->buffer_bytes = cpu_to_virtio32(vdev, buffer_bytes);
+ >> +     request->period_bytes = cpu_to_virtio32(vdev, period_bytes);
+ >> +     request->channels = channels;
+ >> +     request->format = vformat;
+ >> +     request->rate = vrate;
  >
+ > I presume the latter three fields don't have to be endienness-converted,
+ > perhaps they're 8-bit wide only.
+
+Yes, these three values are u8.
+
+
+ >> +
+ >> +     if (ss->features & (1U << VIRTIO_SND_PCM_F_MSG_POLLING))
+ >> +             request->features |=
+ >> +                     cpu_to_virtio32(vdev,
+ >> +                                     1U <<
+ >> VIRTIO_SND_PCM_F_MSG_POLLING);
+ >> +
+ >> +     if (ss->features & (1U << VIRTIO_SND_PCM_F_EVT_XRUNS))
+ >> +             request->features |=
+ >> +                     cpu_to_virtio32(vdev,
+ >> +                                     1U << VIRTIO_SND_PCM_F_EVT_XRUNS);
+ >> +
+ >> +     rc = virtsnd_ctl_msg_send_sync(ss->snd, msg);
+ >
+ > Wouldn't it be better to only try to send the message after below
+ > allocations completed successfully?
+
+I thought the reverse logic was better. This message asks the device to
+set a specific set of parameters. And if the device returned an error
+for some reason, then there is no point in allocating memory.
+
+
+ >> +     if (rc)
+ >> +             return rc;
+ >> +
+ >> +     /* If the buffer was already allocated earlier, do nothing. */
+ >> +     if (runtime->dma_area)
+ >> +             return 0;
+ >> +
+ >> +     /* Allocate hardware buffer */
+ >> +     rc = snd_pcm_lib_malloc_pages(substream, buffer_bytes);
+ >> +     if (rc < 0)
+ >> +             return rc;
+ >> +
+ >> +     /* Allocate and initialize I/O messages */
+ >> +     rc = virtsnd_pcm_msg_alloc(ss, periods, runtime->dma_area,
+ >> +                                period_bytes);
+ >> +     if (rc)
+ >> +             snd_pcm_lib_free_pages(substream);
+ >> +
+ >> +     return rc;
+ >> +}
+ >> +
+ >> +/**
+ >> + * virtsnd_pcm_hw_free() - Reset the parameters of the PCM substream.
+ >> + * @substream: Kernel ALSA substream.
+ >> + *
+ >> + * The function does the following:
+ >> + *   1. tries to release the PCM substream on the device side,
+ >> + *   2. frees the hardware buffer.
+ >> + *
+ >> + * Context: Any context that permits to sleep.
+ >> + * Return: 0 on success, -errno on failure.
+ >> + */
+ >> +static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+ >> +{
+ >> +     struct virtio_pcm_substream *ss =
+ >> snd_pcm_substream_chip(substream);
+ >> +     int rc;
+ >> +
+ >> +     rc = virtsnd_pcm_release(ss);
+ >> +
+ >> +     /*
+ >> +      * Even if we failed to send the RELEASE message or wait for the
+ >> queue
+ >> +      * flush to complete, we can safely delete the buffer. Because
+ >> after
+ >> +      * receiving the STOP command, the device must stop all I/O 
+message
+ >> +      * processing. If there are still pending messages in the queue,
+ >> the
+ >> +      * next ops->hw_params() call should deal with this.
+ >> +      */
+ >> +     snd_pcm_lib_free_pages(substream);
+ >> +
+ >> +     return rc;
+ >> +}
+ >> +
+ >> +/**
+ >> + * virtsnd_pcm_hw_params() - Prepare the PCM substream.
+ >
+ > copy-paste: this is virtsnd_pcm_prepare()
+
+Oops... :)
+
+
+ >> + * @substream: Kernel ALSA substream.
+ >> + *
+ >> + * The function can be called both from the upper level or from the
+ >> driver
+ >> + * itself.
+ >> + *
+ >> + * In all cases, the function:
+ >> + *   1. checks the state of the virtqueue and, if necessary, tries to
+ >> fix it,
+ >> + *   2. prepares the substream on the device side.
+ >> + *
+ >> + * Context: Any context that permits to sleep. May take and release
+ >> the tx/rx
+ >> + *          queue spinlock.
+ >> + * Return: 0 on success, -errno on failure.
+ >> + */
+ >> +static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
+ >> +{
+ >> +     struct virtio_pcm_substream *ss =
+ >> snd_pcm_substream_chip(substream);
+ >> +     struct virtio_snd_queue *queue = virtsnd_pcm_queue(ss);
+ >> +     struct virtio_snd_msg *msg;
+ >> +     unsigned long flags;
+ >> +     int rc;
+ >> +
+ >> +     /*
+ >> +      * If we got here after ops->trigger() was called, the queue may
+ >> +      * still contain messages. In this case, we need to reset the
+ >> +      * substream first.
+ >> +      */
+ >> +     if (atomic_read(&ss->msg_count)) {
+ >> +             rc = virtsnd_pcm_hw_params(substream, NULL);
+ >> +             if (rc)
+ >> +                     return rc;
+ >> +     }
+ >> +
+ >> +     spin_lock_irqsave(&queue->lock, flags);
+ >> +     ss->msg_last_enqueued = -1;
+ >> +     spin_unlock_irqrestore(&queue->lock, flags);
+ >> +
+ >> +     /*
+ >> +      * Since I/O messages are asynchronous, they can be completed
+ >> +      * when the runtime structure no longer exists. Since each
+ >> +      * completion implies incrementing the hw_ptr, we cache all the
+ >> +      * current values needed to compute the new hw_ptr value.
+ >> +      */
+ >> +     ss->frame_bytes = substream->runtime->frame_bits >> 3;
+ >> +     ss->period_size = substream->runtime->period_size;
+ >> +     ss->buffer_size = substream->runtime->buffer_size;
+ >> +
+ >> +     atomic_set(&ss->hw_ptr, 0);
+ >> +     atomic_set(&ss->xfer_xrun, 0);
+ >> +     atomic_set(&ss->msg_count, 0);
+ >> +
+ >> +     msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_PREPARE,
+ >> +                                     GFP_KERNEL);
+ >> +     if (IS_ERR(msg))
+ >> +             return PTR_ERR(msg);
+ >> +
+ >> +     return virtsnd_ctl_msg_send_sync(ss->snd, msg);
+ >> +}
+ >> +
+ >> +/**
+ >> + * virtsnd_pcm_trigger() - Process command for the PCM substream.
+ >> + * @substream: Kernel ALSA substream.
+ >> + * @command: Substream command (SNDRV_PCM_TRIGGER_XXX).
+ >> + *
+ >> + * Depending on the command, the function does the following:
+ >> + *   1. enables/disables data transmission,
+ >> + *   2. starts/stops the substream on the device side.
+ >> + *
+ >> + * Context: Atomic context. May take and release the tx/rx queue
+ >> spinlock.
+ >
+ > Really? Cannot .trigger() sleep? E.g. I see mdelay(25) in
+ > snd_es18xx_playback1_trigger()
+
+Actually, you made a good point here. I didn't know, that it is possible
+to disable atomic mode for that callback. But, apparently, it is possible.
+And virtio pcm definetly is nonatomic. I need to redo this code, thanks!
+
+
+ >> + * Return: 0 on success, -errno on failure.
+ >> + */
+ >> +static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream,
+ >> int command)
+ >> +{
+ >> +     struct virtio_pcm_substream *ss =
+ >> snd_pcm_substream_chip(substream);
+ >> +     struct virtio_snd *snd = ss->snd;
+ >> +     struct virtio_snd_queue *queue = virtsnd_pcm_queue(ss);
+ >> +     struct virtio_snd_msg *msg;
+ >> +
+ >> +     switch (command) {
+ >> +     case SNDRV_PCM_TRIGGER_START:
+ >> +     case SNDRV_PCM_TRIGGER_PAUSE_RELEASE: {
+ >> +             int rc;
+ >> +
+ >> +             spin_lock(&queue->lock);
+ >> +             rc = virtsnd_pcm_msg_send(ss);
+ >> +             spin_unlock(&queue->lock);
+ >
+ > Maybe it would be good to explain why locking is required here and isn't
+ > required in most other locations, where messages are sent?
+
+There are two kinds of messages here: control messages and I/O. Functions
+for sending control message acquire and release the control virtqueue
+spinlock on their own. But we cannot do the same for I/O messages, since
+virtsnd_pcm_msg_send is also called from the interrupt handler, which is
+already grabbing the lock for the I/O virtqueue.
+
+
  > Thanks
  > Guennadi
  >
+ >> +             if (rc)
+ >> +                     return rc;
+ >> +
+ >> +             atomic_set(&ss->xfer_enabled, 1);
+ >> +
+ >> +             msg = virtsnd_pcm_ctl_msg_alloc(ss, 
+VIRTIO_SND_R_PCM_START,
+ >> +                                             GFP_ATOMIC);
+ >> +             if (IS_ERR(msg))
+ >> +                     return PTR_ERR(msg);
+ >> +
+ >> +             return virtsnd_ctl_msg_send(snd, msg);
+ >> +     }
+ >> +     case SNDRV_PCM_TRIGGER_STOP:
+ >> +     case SNDRV_PCM_TRIGGER_PAUSE_PUSH: {
+ >> +             atomic_set(&ss->xfer_enabled, 0);
+ >> +
+ >> +             msg = virtsnd_pcm_ctl_msg_alloc(ss, VIRTIO_SND_R_PCM_STOP,
+ >> +                                             GFP_ATOMIC);
+ >> +             if (IS_ERR(msg))
+ >> +                     return PTR_ERR(msg);
+ >> +
+ >> +             return virtsnd_ctl_msg_send(snd, msg);
+ >> +     }
+ >> +     default: {
+ >> +             return -EINVAL;
+ >> +     }
+ >> +     }
+ >> +}
+
 -- 
 Anton Yakovlev
 Senior Software Engineer

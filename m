@@ -2,70 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7FB30A996
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 15:23:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 975F730A9B0
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Feb 2021 15:26:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B00D176A;
-	Mon,  1 Feb 2021 15:22:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B00D176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25CA8171B;
+	Mon,  1 Feb 2021 15:25:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25CA8171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612189402;
-	bh=saXB81rCBp5cIBvK13wj/wHHDWVKYzlvS9EQuCXX8PM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1612189578;
+	bh=tlfHS5kXXhxu43UcjdpUJDml16YuOUmQBQz8dRqDnpk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X7L1PgPawTzQ7luRu8a2VL4emWG43WN31nVnz6uNfsKFI/yIPNjmFEjSb7cJ0K32M
-	 akBOtAx1PmlhfaFgtTKy1U7xm9iVrISBlBOrL9HGSRejcdh6SapmMjfMvapdPm1IcH
-	 T4AiRMtAbkBL0ZyzSFdeQtO4euZo1ZkGWSu0DB5U=
+	b=gJA5jgxZCFbx1/4exdCdyHk5QKXeGI3qi+itrPsaqoUNX92gPDxpVbxRi/682sRsf
+	 5Y92BjFIhirnt02pop39yEdBkKvO3iD5GNRxPXEV4aDImCkHktKW20qbTfK2mkhGWS
+	 d/xak+uBpDo7NivFoT9yDGXVDTYEg94xBNaJbfEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A262AF80154;
-	Mon,  1 Feb 2021 15:21:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 694DCF800E9;
+	Mon,  1 Feb 2021 15:24:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6EF5F80153; Mon,  1 Feb 2021 15:21:47 +0100 (CET)
+ id 6D49EF80153; Mon,  1 Feb 2021 15:24:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78E16F800E9
- for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 15:21:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78E16F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OFPFpv/g"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 26A8464DDE;
- Mon,  1 Feb 2021 14:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612189299;
- bh=saXB81rCBp5cIBvK13wj/wHHDWVKYzlvS9EQuCXX8PM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OFPFpv/gHreo3nMrGcJ1nGRzWenR5Tzq9Jooii0VBCICl9xgEeP6o43OwFFivofip
- alWyr+BHMaTxclfyYCERmvP+1vFWxCCfYFzQ6uJLhVOWwy7fIH3Wx6EIt8j0n4Kn6H
- 7uFiYvsE8v3f41RFPmi1NNlu+hDMhSUFjMF0bhcUya0QbwjNVgzMCQMmkOkPr4aRxC
- /UB/nTrW5CgD+MFM6LLtX5NWC9tO0JHPYhcLucVbvV9xLOlP1uYlpvIDatrtLkVvwr
- edCJs7QelY+qSZ5pVV8GnRVE7i2G5EGuqSCLvyTRy2cXyegwHz5PPsQGnALzC1AC22
- ct8BY8QLyATeQ==
-Date: Mon, 1 Feb 2021 19:51:34 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 4/6] soundwire: qcom: start the clock during initialization
-Message-ID: <20210201142134.GC2771@vkoul-mobl>
-References: <20210129173248.5941-1-srinivas.kandagatla@linaro.org>
- <20210129173248.5941-5-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210129173248.5941-5-srinivas.kandagatla@linaro.org>
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEB4FF800E9
+ for <alsa-devel@alsa-project.org>; Mon,  1 Feb 2021 15:24:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEB4FF800E9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5C053AD2E;
+ Mon,  1 Feb 2021 14:24:38 +0000 (UTC)
+Date: Mon, 01 Feb 2021 15:24:38 +0100
+Message-ID: <s5h4kivj26x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Peter Allen <peter.allenm@gmail.com>
+Subject: Re: Nux Mighty Plug USB - no clock source
+In-Reply-To: <CAHa6N62-YS++jM3O8E1dSY9eCcg6P0uW-X9xOusX96_DGVhS-A@mail.gmail.com>
+References: <CAHa6N62-YS++jM3O8E1dSY9eCcg6P0uW-X9xOusX96_DGVhS-A@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,41 +68,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29-01-21, 17:32, Srinivas Kandagatla wrote:
-> Start the clock during initialization.
-
-A detailed log please, which clock..? Also how do older controllers work
-w/o this clk
-
+On Sat, 30 Jan 2021 09:30:50 +0100,
+Peter Allen wrote:
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  drivers/soundwire/qcom.c | 3 +++
->  1 file changed, 3 insertions(+)
+> I have a NUX Mighty Plug guitar effects which has a USB Audio interface.
+> Unfortunately it doesn't work in Linux, and I'd love to fix it.
+> It gets registered with Alsa, except it ends up without any valid sample
+> rates (by the look of it due to a buggy clock source descriptor).
 > 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 3669bac11a32..83df15d83935 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -47,6 +47,8 @@
->  #define SWRM_MCP_FRAME_CTRL_BANK_ADDR(m)		(0x101C + 0x40 * (m))
->  #define SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK			GENMASK(2, 0)
->  #define SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK			GENMASK(7, 3)
-> +#define SWRM_MCP_BUS_CTRL					0x1044
-> +#define SWRM_MCP_BUS_CLK_START					BIT(1)
->  #define SWRM_MCP_CFG_ADDR					0x1048
->  #define SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK		GENMASK(21, 17)
->  #define SWRM_DEF_CMD_NO_PINGS					0x1f
-> @@ -345,6 +347,7 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
->  	u32p_replace_bits(&val, SWRM_DEF_CMD_NO_PINGS, SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK);
->  	ctrl->reg_write(ctrl, SWRM_MCP_CFG_ADDR, val);
->  
-> +	ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
->  	/* Configure number of retries of a read/write cmd */
->  	if (ctrl->version_major == 1 && ctrl->version_minor >= 5 &&
->  	    ctrl->version_step >= 1) {
-> -- 
-> 2.21.0
+> This is on Ubuntu-Studio 20.04 LTS _Focal Fossa with kernel
+> 5.4.0-62-lowlatency
+> on a HP Omen 15 with i5-7300HQ
+> 
+> I don't know what I'm doing (but did a little module development rather a
+> long time ago in the 2.2 days :-)) Help is  greatly appreciated.
+> 
+> When plugged in I get:
+> [12476.413792] usb 1-1: New USB device found, idVendor=1fc9,
+> idProduct=8260, bcdDevice= 1.00
+> [12476.413797] usb 1-1: New USB device strings: Mfr=1, Product=2,
+> SerialNumber=3
+> [12476.413800] usb 1-1: Product: MIGHTY PLUG USB
+> [12476.413804] usb 1-1: Manufacturer: NUX
+> [12476.413807] usb 1-1: SerialNumber: 2007151403
+> [12476.444988] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.444992] usb 1-1: parse_audio_format_rates_v2v3(): unable to find
+> clock source (clock -22)
+> [12476.445413] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.445479] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.447095] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.447098] usb 1-1: parse_audio_format_rates_v2v3(): unable to find
+> clock source (clock -22)
+> [12476.447459] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.447684] usb 1-1: __uac_clock_find_source(): selector reported
+> illegal value, id 40, ret 0
+> [12476.450397] usbcore: registered new interface driver snd-usb-audio
 
--- 
-~Vinod
+This might be covered by the recent fixes for 5.12 kernel, found in
+for-next branch of my sound git tree.
+  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
+
+Also, as both playback and capture streams are ASYNC, those might be
+supposed to be running in the implicit feedback.  With the very latest
+kernel, this can be enabled via implicit_fb=1 module option.  If this
+works better, we can set up a static quirk table entry for the device,
+too.
+
+
+Takashi

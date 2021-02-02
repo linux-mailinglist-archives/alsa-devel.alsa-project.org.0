@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E832F30C2F1
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:08:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E49E30C2F2
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:08:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6798316ED;
-	Tue,  2 Feb 2021 16:07:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6798316ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8C48176A;
+	Tue,  2 Feb 2021 16:07:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8C48176A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612278486;
-	bh=chsoQVgOMFMKf0kMZfwuHu6gkK472skam4SXRssOxjg=;
+	s=default; t=1612278496;
+	bh=XYduWC12K8v5Yxck2JmTQP182pOqQ9sVEGNrfm3Bilo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c/w5Tc6anq8fPtQnu8H045wf8e1vf5TmMu8d/kpupyGEIrAXtBngvjPG4VZsJ3KjJ
-	 JO7/vlnUxfMvwHRKQV9GgrxFvu9tpzapiU3+PrErvzMI5Zvs8dVE+aqz76r4ukacWz
-	 J/TvYGoPQgZu60oCkXX7HCnEvrQxxXOPBTjOkj8I=
+	b=vF+N3RV3drY5QWpIG3KjPbTwz7unTHoC9ZkZzmavW2zxWklBRQYuuLrDfUJi1yuQc
+	 45IV82L1zRGe/H90R6UBe5CNWn+N9lxCf+w9FLJ4C48OdPWkq9tFBOtPQgcr60nMo4
+	 R+v8Nxh8pWIJ07xqLGJ77ihqli2zLukd2JDfPpog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A718F800E1;
-	Tue,  2 Feb 2021 16:06:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9C7AF8013C;
+	Tue,  2 Feb 2021 16:06:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E96A5F801F7; Tue,  2 Feb 2021 16:06:30 +0100 (CET)
+ id 95210F800E1; Tue,  2 Feb 2021 16:06:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC4A0F8013C
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:06:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC4A0F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B71EF800E1
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:06:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B71EF800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Msq5V5KO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 73F0664DE1;
- Tue,  2 Feb 2021 15:06:19 +0000 (UTC)
+ header.b="FVY8bZai"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C602D64E06;
+ Tue,  2 Feb 2021 15:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612278380;
- bh=chsoQVgOMFMKf0kMZfwuHu6gkK472skam4SXRssOxjg=;
+ s=k20201202; t=1612278384;
+ bh=XYduWC12K8v5Yxck2JmTQP182pOqQ9sVEGNrfm3Bilo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Msq5V5KOil1YOd5y1SEB+Z57u8zhMrn3M0noU7iZn7FNmEVKEYxgSzDefdYqN+vQy
- H4dy9mFcgGkOix8T7Zabw1Gd0eRxhBLW7xs4pey8pAqFgTqNAhfphUVwS0RAK/9qoi
- GyMrdTMKMbaspajSdyJEi0G88yax1U9DP+LlRtzFIRlYeRN7zJr6N0mJFwlDh2pVaJ
- ilJPOqVXYWPYx94ZmMbkPSRlnZG99et4zKMuvIIiiWzLhca3Ac0k7NKxXuaft55x/M
- YHzB2ZfQxdcDI/G7Yl8Q+ITk9mdgKRajEsBhEc27KbiO0E7Tq8KuGZT1amCssaKNI/
- +W/O6Q+Vm/aHg==
+ b=FVY8bZaiIk3bMa/cDdya67ND8EzBq2AHxQgauwecDu11CESGNWZKcT6g9UaSfoX0g
+ lX0CDdifF4UQYhVFx0Zq72YeYNn5dfX55BYivUaUwhSq317uK3ct6QPv1WurtU7HZ/
+ vCkhOtwJ6MXrGPboR1qpCttAkR8KaXXPQmslBa42vEu0wRfx/Hn5Bz5JWeir6opzO2
+ GigfHNRXGteOZQDSgmGQBCiAwKImNDKlELW5g1rFdHqxF/dB8mVkcYTE6w4YbFc5aa
+ 5yP1UlrBDBI17TLpv+G9JSKX9B0vCN/7+3iq51d7xFpDJuvQG1SDkQBFR4JV8kx4AI
+ V2pax2UezS46g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 03/25] ASoC: wm_adsp: Fix control name parsing
- for multi-fw
-Date: Tue,  2 Feb 2021 10:05:53 -0500
-Message-Id: <20210202150615.1864175-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 06/25] ASoC: Intel: Skylake: Zero
+ snd_ctl_elem_value
+Date: Tue,  2 Feb 2021 10:05:56 -0500
+Message-Id: <20210202150615.1864175-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210202150615.1864175-1-sashal@kernel.org>
 References: <20210202150615.1864175-1-sashal@kernel.org>
@@ -66,9 +66,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- James Schulman <james.schulman@cirrus.com>, Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Ricardo Ribalda <ribalda@chromium.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,43 +85,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: James Schulman <james.schulman@cirrus.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
 
-[ Upstream commit a8939f2e138e418c2b059056ff5b501eaf2eae54 ]
+[ Upstream commit 1d8fe0648e118fd495a2cb393a34eb8d428e7808 ]
 
-When switching between firmware types, the wrong control
-can be selected when requesting control in kernel API.
-Use the currently selected DSP firwmare type to select
-the proper mixer control.
+Clear struct snd_ctl_elem_value before calling ->put() to avoid any data
+leak.
 
-Signed-off-by: James Schulman <james.schulman@cirrus.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20210115201105.14075-1-james.schulman@cirrus.com
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://lore.kernel.org/r/20210121171644.131059-2-ribalda@chromium.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wm_adsp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/intel/skylake/skl-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index dec8716aa8ef5..985b2dcecf138 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -2031,11 +2031,14 @@ static struct wm_coeff_ctl *wm_adsp_get_ctl(struct wm_adsp *dsp,
- 					     unsigned int alg)
- {
- 	struct wm_coeff_ctl *pos, *rslt = NULL;
-+	const char *fw_txt = wm_adsp_fw_text[dsp->fw];
+diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
+index 40bee10b0c65a..1bde9ce04de33 100644
+--- a/sound/soc/intel/skylake/skl-topology.c
++++ b/sound/soc/intel/skylake/skl-topology.c
+@@ -3631,7 +3631,7 @@ static void skl_tplg_complete(struct snd_soc_component *component)
+ 		sprintf(chan_text, "c%d", mach->mach_params.dmic_num);
  
- 	list_for_each_entry(pos, &dsp->ctl_list, list) {
- 		if (!pos->subname)
- 			continue;
- 		if (strncmp(pos->subname, name, pos->subname_len) == 0 &&
-+		    strncmp(pos->fw_name, fw_txt,
-+			    SNDRV_CTL_ELEM_ID_NAME_MAXLEN) == 0 &&
- 				pos->alg_region.alg == alg &&
- 				pos->alg_region.type == type) {
- 			rslt = pos;
+ 		for (i = 0; i < se->items; i++) {
+-			struct snd_ctl_elem_value val;
++			struct snd_ctl_elem_value val = {};
+ 
+ 			if (strstr(texts[i], chan_text)) {
+ 				val.value.enumerated.item[0] = i;
 -- 
 2.27.0
 

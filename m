@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A1C30C3EA
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:37:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D49F30C3F7
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:38:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A1AF172F;
-	Tue,  2 Feb 2021 16:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A1AF172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14923175F;
+	Tue,  2 Feb 2021 16:37:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14923175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612280239;
-	bh=8RZE4kmI/Rwh/V6PZg/jIICmaP1SJ5gy/78kCN3vvbQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1612280290;
+	bh=61OSH6SWU0lYBUbE0pDZMo2/h5w6ena7+vI/x3t3UoA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X3XkrovqCrx/+IsAGO0EVxKA4lStpVJ8NIEnBS7dauorQOM+x0csTfDNBIN1+cE0N
-	 36+RRxKt/iudKbTf9xMSH7W3E3Wxfb2CN4+QCCpLZsrcK1E/tGkjAIVPZr5sHpjDdr
-	 KuSjPdviOkKCvAug5G16KeYW5ZzcAcVAhn6dirwQ=
+	b=dzGTjBqmvm1fiwbDhYLibem4U5GjR1EfI/Cx81JhKYX3oZ18DJj4PcaneveHXNvKC
+	 MWrc80wFqAVfVSUT7CIxguVTZXNOqeOkFH4vf0xr1D+fL7mMuXLM9GrWgw70K6Ud7i
+	 RdUOsPhay1dt5EVfCzI7yx0WfvBIhwcvVsOBeSCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A346CF801F7;
-	Tue,  2 Feb 2021 16:35:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F80FF8023E;
+	Tue,  2 Feb 2021 16:35:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8436F801F7; Tue,  2 Feb 2021 16:35:44 +0100 (CET)
+ id 97DD3F8013C; Tue,  2 Feb 2021 16:35:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36323F80152
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:35:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36323F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1573DF8013C
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:35:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1573DF8013C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pE6vmN63"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6488764F68;
- Tue,  2 Feb 2021 15:35:40 +0000 (UTC)
+ header.b="HyXiZg32"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F91964F5E;
+ Tue,  2 Feb 2021 15:35:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612280140;
- bh=8RZE4kmI/Rwh/V6PZg/jIICmaP1SJ5gy/78kCN3vvbQ=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=pE6vmN63LdtZ8mHWuOqqSsGaEPkduFJy0WaHqrzkEx40UPniEJeSbrPfQbZPqKQAp
- LvGsLDikOdWsnI4aZpbqrLmDfBix/H9b8e/5ab5tXeoI9bhSvjwQEz0weCGDTrodFd
- USIVRk7xPuRjdRZjIknuT/DfwH9TKmY4qJxl1Cl+pb6almvclqY9CzR12fMaCMTjE/
- /XUAswbYf+PNZw7zqY5Om9+Pa/sH3ep2xC/B8nz/EHxM4MrVHf8SAnq0T8G4/V7Nnf
- yfXzh1iDJU/BCt3BPZr0hLxhDK+xYbNFe9YZN4RAVOfkG5p+oZxefL6jNNW96kmmUx
- /RvLu+Mq9r62A==
+ s=k20201202; t=1612280131;
+ bh=61OSH6SWU0lYBUbE0pDZMo2/h5w6ena7+vI/x3t3UoA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=HyXiZg32jajTiD+ZWWuev5Icof1Ke+kNzW83ZdydbAt7K3AYnVI86NOOJPymTdhy5
+ 4EZejwLsL9wahVCjJGvJmJNcEhqrc/v5Ps65j8a3V8zMeoXgBZdRy+q4iRz5SJOVfJ
+ 8ve4Roi1SDNhrWxDC2Ul3O1PLTDGjzGFVtgAAiUNdmjYdcoSOmTDSAKpr44vnN4VSs
+ LpRaTSd+vr26nwN0q276jrV12tZTHwa32V7lUzmo1+n3v25+0r31IGoFxuM5o0R3s6
+ izY01W0GBGm0vOsPhWPyQu2i6nKQZWtQfyzLUO5YG9L+j+82AFPE9lnYkhFYjX1BaP
+ EdtStFFP072Uw==
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, perex@perex.cz, alsa-devel@alsa-project.org,
- agross@kernel.org, Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- robh+dt@kernel.org, rohitkr@codeaurora.org, linux-arm-msm@vger.kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
- bgoswami@codeaurora.org, swboyd@chromium.org, plai@codeaurora.org,
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-In-Reply-To: <20210202062727.22469-1-srivasam@codeaurora.org>
-References: <20210202062727.22469-1-srivasam@codeaurora.org>
-Subject: Re: [PATCH] ASoC: qcom: Fix typo error in HDMI regmap config callbacks
-Message-Id: <161228008450.11888.13128911236969601728.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20210201092345.1214232-1-kai.vehmanen@linux.intel.com>
+References: <20210201092345.1214232-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: add be_hw_params_fixup() for ALH
+Message-Id: <161228008449.11888.14410364863363132220.b4-ty@kernel.org>
 Date: Tue, 02 Feb 2021 15:34:44 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ Rander Wang <rander.wang@intel.com>, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,17 +79,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2 Feb 2021 11:57:27 +0530, Srinivasa Rao Mandadapu wrote:
-> Had a typo in lpass platform driver that resulted in crash
-> during suspend/resume with an HDMI dongle connected.
-> 
-> The regmap read/write/volatile regesters validation callbacks in lpass-cpu
-> were using MI2S rdma_channels count instead of hdmi_rdma_channels.
-> 
-> This typo error causing to read registers from the regmap beyond the length
-> of the mapping created by ioremap().
-> 
-> [...]
+On Mon, 1 Feb 2021 11:23:45 +0200, Kai Vehmanen wrote:
+> Fixup BE DAI links channel count to match topology settings. Normally the
+> channel count of BE is equal to FE's so we don't have any issue. For some
+> cases like DSM with 2-channel FE and 4-channel BE the mismatch of BE and
+> topology will result in audio issues.
 
 Applied to
 
@@ -99,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: Fix typo error in HDMI regmap config callbacks
-      commit: 6c9123068815ed0bc1e8fa5a5029eef5ee3866c3
+[1/1] ASoC: SOF: add be_hw_params_fixup() for ALH
+      commit: e1711b1f9dfb712aa72ea25e03e0a3f6ef16c4fb
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

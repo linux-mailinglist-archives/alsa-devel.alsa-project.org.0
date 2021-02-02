@@ -2,99 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F6830BBF8
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 11:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC5F30D3CF
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:06:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5413A174F;
-	Tue,  2 Feb 2021 11:20:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5413A174F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC97E178C;
+	Wed,  3 Feb 2021 08:05:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC97E178C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612261288;
-	bh=Y7v/PtAtaNdF2bnKDOVINqPgOrMy7INUZ6xHmTURqhw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612335987;
+	bh=9GbNFehuteFeIT5fF6QkyC+1HcIm09JnHLAS74L7CAs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dMED7x1ApdTNwDf5mrgHaCTJV/gOB9I1DOY5U+AcSwaTQWRL/CY8MRfPE+xtMXSFR
-	 ZBox/Gz7rn8xJT2myIQOxJFfkIzSE6ad52VMAbCucw+QpfXiSpRpBLJkH/BZrs/Ej+
-	 enAsg4imZ+GX4vwIDiB2IA8SDHTV4yyhtqk/P7nI=
+	b=nXge05qYXqAPgYAvkl1kMC5HmXLw9PyJppPCwDESNB0MbApxJKokA27sXGoxrP62v
+	 p/i2BnL1J9m5zW2FpYIoQ6xE8orZgeVjoiT+eHSfwL/bMV5Se94gaVeBiImAvFp3J4
+	 9OabYr+IRf4rk+jObz8GX5jWrcg/JV8+DmewkH/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2927F801F7;
-	Tue,  2 Feb 2021 11:19:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30F4EF804CF;
+	Wed,  3 Feb 2021 08:01:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E75CF800E1; Tue,  2 Feb 2021 11:19:53 +0100 (CET)
+ id CBE89F80171; Tue,  2 Feb 2021 11:51:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4C31F800E1
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 11:19:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4C31F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11334F80109
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 11:51:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11334F80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="n4o2SdsT"
-Received: by mail-wm1-x333.google.com with SMTP id e15so1773698wme.0
- for <alsa-devel@alsa-project.org>; Tue, 02 Feb 2021 02:19:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=4TQrH08/UJxeSx7AxArBpXQ8JwuPZp/xsO/RczEeCRE=;
- b=n4o2SdsTccQ0UfkE8WKWBF5rX+gbqGIWlvhdAIPiRVbm6dSAK4V0kEmehB3aW85elU
- fzDLLevgmyYIvUehwcb5Lt4HvkO4S+ySa4TLciQH+JdeVOVoTJnJCAfoaLSZ9pPwWn4e
- pwYaZAETKDC3gmiqrrnm3xLZPoO/TjAayU42nxC4jFjSGy+jQfLv1JkA7i3prMVwmRtL
- JIk3yRlz46jZRF7b15v71FsMw4TPfEAxP5tIDNCLyJ84Df5GzX//ere3obTQlxVmFB1T
- jy+LSiP99/L+OTqY5aGBT0c/mqbHlr+9YafIGTkkJ4fEubFXkqRWSmQAtAHXGmj/DLYD
- ZE/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=4TQrH08/UJxeSx7AxArBpXQ8JwuPZp/xsO/RczEeCRE=;
- b=Mpr64gjPAZslsUNOjKTX+L0JYnR4JwqGsUrD1nH98kGEA+9bg7dkM3LCfjrqdZmO7F
- Y4NsCT3fqX4g5zlyrQZolm0EBUHw+0XzH04SoQ4J7lAtVOItTwqfW1GWcguyvhwwIisr
- OvzoYBh9AMY80r/ho9CjN1kDD9r3s1vQR/dGWx2/1hS5cONIve5m0Vw7EvZTprZWVPum
- v54XHbI1G947x/KGV1nOPOTkhe299nQGRiTkz2lsbztxB40fHK0y9+h/RtXeq7TLgKG/
- 8RoGMN3l3VeGPcTDIy3nu3BzmlWyXgpRQRFVCyvAUxxhJxjMss2qulpDKJZJ0AefNQS4
- YZgQ==
-X-Gm-Message-State: AOAM533mgE4iEEp3Ix2BJ9KJ2QHvkJ0Yp+FhfgLBth/6SA23nj/IOHiU
- vBT6vgV+Qm3qVK5C/tFmtga1T2dsJijS/w==
-X-Google-Smtp-Source: ABdhPJwyXFkSxEsGTLVNCkjDES3J4BtRb+cT9X4fkRDyERvmjJlmSNWrgyEMn3QRnpE6zbX3+6/GtA==
-X-Received: by 2002:a7b:c0d8:: with SMTP id s24mr2951091wmh.4.1612261188570;
- Tue, 02 Feb 2021 02:19:48 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id v13sm1847921wrd.51.2021.02.02.02.19.47
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 02 Feb 2021 02:19:47 -0800 (PST)
-Subject: Re: [PATCH 5/6] soundwire: qcom: update register read/write routine
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20210129173248.5941-1-srinivas.kandagatla@linaro.org>
- <20210129173248.5941-6-srinivas.kandagatla@linaro.org>
- <5c69ed09-60be-2f3d-ed25-f6dbfcb9d62f@linux.intel.com>
- <3a2b5c2d-21aa-2bf5-62df-ef85c7c9293c@linaro.org>
- <b87758d0-5862-3b4e-5a90-7b27d0c78d0d@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <4e3ebb99-5647-f71c-1256-a2c55bd9995f@linaro.org>
-Date: Tue, 2 Feb 2021 10:19:46 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="wg2o6QP/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QUFoL1M4pevTeMyLwnDogHEMlQrHMZssskb6wG1LFcA=; b=wg2o6QP/gHbhqBuIhn1RZoUGj
+ 2iHotGU7ufXkLAWPw4UwYFPNHzUu8ddsLF6ZH7DAZK9ibPxZPao37pY3QUiSj2kNvPg18QoU3RIbp
+ SB9YdTsgzRp09KPTWE899TVtBN6b7+9uCVpM084z3RB+393ttTKlzy9IbXmuACxRaE7AQP1axErmx
+ 9bdLyqL5Tzp+2AR1s8H8Ra8HKPn+VaEgvK7MKLCh/WvBYIcLxWRrMqhYn6+wAR7lOhqYiExSBYnla
+ 2ZSGKUuSlOCD0mvUg9A5mz9A1bzzWPt0jeQ/XhpyrV3IGp6JHZ9fsbmIMsvJ8Mev9a6w8QLTZD9/a
+ CRpSMItzA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38176)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1l6tFN-0004FH-LS; Tue, 02 Feb 2021 10:49:25 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1l6tFE-0002yZ-0J; Tue, 02 Feb 2021 10:49:16 +0000
+Date: Tue, 2 Feb 2021 10:49:15 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH v3 0/5] amba: minor fix and various cleanups
+Message-ID: <20210202104915.GK1463@shell.armlinux.org.uk>
+References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <b87758d0-5862-3b4e-5a90-7b27d0c78d0d@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+In-Reply-To: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Wed, 03 Feb 2021 08:01:31 +0100
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
+ kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Eric Anholt <eric@anholt.net>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,107 +119,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jan 26, 2021 at 05:58:30PM +0100, Uwe Kleine-K�nig wrote:
+> From: Uwe Kleine-K�nig <u.kleine-koenig.org@pengutronix.de
+> 
+> Hello,
+> 
+> Changes since v2 sent with Message-Id:
+> 20201124133139.3072124-1-uwe@kleine-koenig.org:
+> 
+>  - Rebase to v5.11-rc1 (which resulted in a few conflicts in
+>    drivers/hwtracing).
+>  - Add various Acks.
+>  - Send to more maintainers directly (which I think is one of the
+>    reasons why there are so few Acks).
+> 
+> For my taste patch 4 needs some more acks (drivers/char/hw_random,
+> drivers/dma, drivers/gpu/drm/pl111, drivers/i2c, drivers/mmc,
+> drivers/vfio, drivers/watchdog and sound/arm have no maintainer feedback
+> yet).
+> 
+> My suggestion is to let this series go in via Russell King (who cares
+> for amba). Once enough Acks are there I can also provide a tag for
+> merging into different trees. Just tell me if you prefer this solution.
+> 
+> Would be great if this could make it for v5.12, but I'm aware it's
+> already late in the v5.11 cycle so it might have to wait for v5.13.
 
+I think you need to have a 6th patch which moves the
+probe/remove/shutdown methods into the bus_type - if you're setting
+them for every struct device_driver, then there's no point doing that
+and they may as well be in the bus_type.
 
-On 01/02/2021 16:42, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 2/1/21 9:50 AM, Srinivas Kandagatla wrote:
->>
->>
->> On 29/01/2021 19:33, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 1/29/21 11:32 AM, Srinivas Kandagatla wrote:
->>>> In the existing code every soundwire register read and register write
->>>> are kinda blocked. Each of these are using a special command id that
->>>
->>> what does 'kinda blocked' mean?
->>
->> I meant read/writes are waiting for completion interrupt!
->>
->>>
->>>> generates interrupt after it successfully finishes. This is really
->>>> overhead, limiting and not really necessary unless we are doing
->>>> something special.
->>>>
->>>> We can simply read/write the fifo that should also give exactly
->>>> what we need! This will also allow to read/write registers in
->>>> interrupt context, which was not possible with the special
->>>> command approach.
->>>
->>> This is really unclear, sorry.
->>
->> If read/writes are waiting for an interrupt, it becomes difficult to 
->> read or write to any registers from same interrupt handler!
-> 
-> Well, yes, you need to handle the complete() at a lower level than the 
-> code that initiates the transactions otherwise you self-deadlock.
-> 
-> IIRC in the Intel initial code, the complete was in the handler and the 
-> register IOs in the thread.
-> 
-Yes, we did the same in previous version of the code, however with this 
-patch reading/writing fifo directly without need of completion should 
-remove that need of another thread!
->>
->>
->>>
->>>> +    if (id != SWR_BROADCAST_CMD_ID) {
->>>> +        if (id < 14)
->>>> +            id += 1;
->>>> +        else
->>>> +            id = 0;
->>>
->>> that is really odd. if id=13 (group2) then id becomes 14 (master 
->>> address). A comment is really needed here.
->>
->> This is magic value for each fifo read or write, so that we can verify 
->> that them by comparing with this magic value!
->>
->> This has nothing to do with device number!
-> 
-> You should probably add a comment here then, or use a #define instead of 
-> the 14 which threw me off.
+Apart from that, it looks good.
 
-I agree!
-> 
->>
->>>
->>>> +    if (cmd_id == SWR_BROADCAST_CMD_ID) {
->>>> +        /*
->>>> +         * sleep for 10ms for MSM soundwire variant to allow broadcast
->>>> +         * command to complete.
->>>
->>> that's also super-odd. There is nothing in SoundWire that makes any 
->>> difference between a regular and a broadcast command. they all 
->>> complete in the same time (a frame).
->>>> +         */
->>>> +        ret = wait_for_completion_timeout(&swrm->broadcast, (2 * 
->>>> HZ/10));
->>>
->>> is this 10ms really or dependent on CONFIG_HZ?
-> 
-> comment missed?
-Not intentionally :-)
-
-
-I should probably to use msecs_to_jiffies here to keep it inline with 
-the comment!
-
---srini
-> 
->>>
->>>> +        if (!ret)
->>>> +            ret = SDW_CMD_IGNORED;
->>>> +        else
->>>> +            ret = SDW_CMD_OK;
->>>
->>> no CMD_FAILED support?
->>
->> Qcom controllers does not provide that information if the command is 
->> ignored or failed by any means!
->>
->> That was the behavior from the starting of this driver.
-> 
-> ah yes, now I remember this.
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!

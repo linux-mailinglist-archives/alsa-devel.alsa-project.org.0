@@ -2,68 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A6D230C5D2
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 17:33:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9517C30C64B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 17:45:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DD511769;
-	Tue,  2 Feb 2021 17:32:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DD511769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 402101764;
+	Tue,  2 Feb 2021 17:44:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 402101764
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612283592;
-	bh=Tigbd9EMFHgYm3EJy9XsL4R1+SZCYdst/rkkrpKAgSk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=G/wYPnfc5wqOBUVj1Vt/zikZ1WA96S5nLauuhMchWxCKi+Qo7JSILtPgtYKaitWy9
-	 AZOVmHCmxfEvkLZv883EOgjFTNu2T4fc95Ot7OU86g6Y8EnM11Skk8KpA9jxlbrizs
-	 8etuTuCFySGbIrzvyLcyWethg03OfjlV1L1/U/kg=
+	s=default; t=1612284311;
+	bh=vzL8qQ41oNyatWIYXfSJJlGmIlQyQ0/N6TzIpCA26L4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BQ3kSIa1JQqk9Q6bVfbas6BljPrgVhTtjZSpsakFqLX8ww6e6mhP7cYg240To52U+
+	 +9BT35mUskPTsQwHTh7G5EuG0PB9QUKink8lKmXyuo6PI7wGGcC3HMd7AM32gyzItc
+	 xCn8s8sSHhEqT7t+8hJYKM6ObDK16YUW6WqKO7jk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 897C4F8023B;
-	Tue,  2 Feb 2021 17:32:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B7F7F801F7;
+	Tue,  2 Feb 2021 17:43:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31BC1F8021C; Tue,  2 Feb 2021 17:32:10 +0100 (CET)
+ id 936D8F80171; Tue,  2 Feb 2021 17:43:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0BA3F80109
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 17:32:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0BA3F80109
-IronPort-SDR: OGRsbvCqZOQI0ho0VSdYx/0CvK11U29L0eEZWWeArLYGIILqHSplo03GiYLScvMnUqHdFN9fth
- sQB+L2qc8hRw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="160050015"
-X-IronPort-AV: E=Sophos;i="5.79,395,1602572400"; d="scan'208";a="160050015"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2021 08:31:50 -0800
-IronPort-SDR: /XdimgVO9aXJXecX2Y/9yswZ3Ffs/HaNiWA+pCUghsOg8gd53Y43VHwmwQ4cLfMfCeoUG0w/UM
- PoSb0xp81VOw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,395,1602572400"; d="scan'208";a="355174222"
-Received: from pi-desktop.igk.intel.com ([10.237.148.102])
- by fmsmga007.fm.intel.com with ESMTP; 02 Feb 2021 08:31:47 -0800
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: topology: KUnit: Convert from cpu to data format
-Date: Tue,  2 Feb 2021 17:31:23 +0100
-Message-Id: <20210202163123.3942040-1-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8E02F8013C
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 17:43:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8E02F8013C
+IronPort-SDR: ejsLrrO+zXjmkgzR3qaFuxd6Mc5ISkCHjhq5iRH9WYHxeTBuhhAxHHBranbMlGWip9bSgxiw+Y
+ iIvlVK8uZXIg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="177377297"
+X-IronPort-AV: E=Sophos;i="5.79,395,1602572400"; d="scan'208";a="177377297"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2021 08:43:20 -0800
+IronPort-SDR: Mik2ouu6FRss9AOS0SbJY7i4r2d/YqEjTDVgiyZPrxjGNLsPw6PRlAITedaZuVaxHrgoo0nZ5w
+ t4l/YFObU0rQ==
+X-IronPort-AV: E=Sophos;i="5.79,395,1602572400"; d="scan'208";a="391564051"
+Received: from bmdumitr-mobl.amr.corp.intel.com (HELO [10.212.155.40])
+ ([10.212.155.40])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2021 08:43:16 -0800
+Subject: Re: [PATCH] soundwire: debugfs: use controller id instead of link_id
+To: Vinod Koul <vkoul@kernel.org>
+References: <20210115162559.20869-1-srinivas.kandagatla@linaro.org>
+ <20210119145220.GS2771@vkoul-mobl>
+ <45300dc3-00b0-497b-804e-f7f1e857f32a@linux.intel.com>
+ <57d5f1bd-50fa-30ab-03c0-260460e45d61@linaro.org>
+ <6d4d4a6b-f28c-81db-4e67-2b5b94116fa4@linux.intel.com>
+ <1fad2388-27d0-7014-818d-1272fa70ed9b@linaro.org>
+ <33fe8455-01b4-f867-4974-a3e867c930f0@linux.intel.com>
+ <feee8676-33fe-7929-8b6c-6abe3a09159a@linaro.org>
+ <20210201101414.GS2771@vkoul-mobl>
+ <4b850685-1058-0e18-d3e8-e23e20086235@linux.intel.com>
+ <20210202041853.GF2771@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <6eebbadd-d26b-9dba-f425-01988fb64bec@linux.intel.com>
+Date: Tue, 2 Feb 2021 10:43:14 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- kernel test robot <lkp@intel.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20210202041853.GF2771@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,159 +92,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When creating topology templates and overriding data in specific test
-cases it should be done with cpu_to_le32 macro, so we operate on correct
-data on all architectures, as topology parser use le32_to_cpu to parse
-data from structures.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/soc-topology-test.c | 66 +++++++++++++++++------------------
- 1 file changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/sound/soc/soc-topology-test.c b/sound/soc/soc-topology-test.c
-index 36e2a3486dbf..ae3968161509 100644
---- a/sound/soc/soc-topology-test.c
-+++ b/sound/soc/soc-topology-test.c
-@@ -121,19 +121,19 @@ struct tplg_tmpl_001 {
- 
- static struct tplg_tmpl_001 tplg_tmpl_empty = {
- 	.header = {
--		.magic = SND_SOC_TPLG_MAGIC,
--		.abi = 5,
-+		.magic = cpu_to_le32(SND_SOC_TPLG_MAGIC),
-+		.abi = cpu_to_le32(5),
- 		.version = 0,
--		.type = SND_SOC_TPLG_TYPE_MANIFEST,
--		.size = sizeof(struct snd_soc_tplg_hdr),
-+		.type = cpu_to_le32(SND_SOC_TPLG_TYPE_MANIFEST),
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_hdr)),
- 		.vendor_type = 0,
--		.payload_size = sizeof(struct snd_soc_tplg_manifest),
-+		.payload_size = cpu_to_le32(sizeof(struct snd_soc_tplg_manifest)),
- 		.index = 0,
--		.count = 1,
-+		.count = cpu_to_le32(1),
- 	},
- 
- 	.manifest = {
--		.size = sizeof(struct snd_soc_tplg_manifest),
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_manifest)),
- 		/* rest of fields is 0 */
- 	},
- };
-@@ -149,60 +149,60 @@ struct tplg_tmpl_002 {
- 
- static struct tplg_tmpl_002 tplg_tmpl_with_pcm = {
- 	.header = {
--		.magic = SND_SOC_TPLG_MAGIC,
--		.abi = 5,
-+		.magic = cpu_to_le32(SND_SOC_TPLG_MAGIC),
-+		.abi = cpu_to_le32(5),
- 		.version = 0,
--		.type = SND_SOC_TPLG_TYPE_MANIFEST,
--		.size = sizeof(struct snd_soc_tplg_hdr),
-+		.type = cpu_to_le32(SND_SOC_TPLG_TYPE_MANIFEST),
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_hdr)),
- 		.vendor_type = 0,
--		.payload_size = sizeof(struct snd_soc_tplg_manifest),
-+		.payload_size = cpu_to_le32(sizeof(struct snd_soc_tplg_manifest)),
- 		.index = 0,
--		.count = 1,
-+		.count = cpu_to_le32(1),
- 	},
- 	.manifest = {
--		.size = sizeof(struct snd_soc_tplg_manifest),
--		.pcm_elems = 1,
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_manifest)),
-+		.pcm_elems = cpu_to_le32(1),
- 		/* rest of fields is 0 */
- 	},
- 	.pcm_header = {
--		.magic = SND_SOC_TPLG_MAGIC,
--		.abi = 5,
-+		.magic = cpu_to_le32(SND_SOC_TPLG_MAGIC),
-+		.abi = cpu_to_le32(5),
- 		.version = 0,
--		.type = SND_SOC_TPLG_TYPE_PCM,
--		.size = sizeof(struct snd_soc_tplg_hdr),
-+		.type = cpu_to_le32(SND_SOC_TPLG_TYPE_PCM),
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_hdr)),
- 		.vendor_type = 0,
--		.payload_size = sizeof(struct snd_soc_tplg_pcm),
-+		.payload_size = cpu_to_le32(sizeof(struct snd_soc_tplg_pcm)),
- 		.index = 0,
--		.count = 1,
-+		.count = cpu_to_le32(1),
- 	},
- 	.pcm = {
--		.size = sizeof(struct snd_soc_tplg_pcm),
-+		.size = cpu_to_le32(sizeof(struct snd_soc_tplg_pcm)),
- 		.pcm_name = "KUNIT Audio",
- 		.dai_name = "kunit-audio-dai",
- 		.pcm_id = 0,
- 		.dai_id = 0,
--		.playback = 1,
--		.capture = 1,
-+		.playback = cpu_to_le32(1),
-+		.capture = cpu_to_le32(1),
- 		.compress = 0,
- 		.stream = {
- 			[0] = {
--				.channels = 2,
-+				.channels = cpu_to_le32(2),
- 			},
- 			[1] = {
--				.channels = 2,
-+				.channels = cpu_to_le32(2),
- 			},
- 		},
- 		.num_streams = 0,
- 		.caps = {
- 			[0] = {
- 				.name = "kunit-audio-playback",
--				.channels_min = 2,
--				.channels_max = 2,
-+				.channels_min = cpu_to_le32(2),
-+				.channels_max = cpu_to_le32(2),
- 			},
- 			[1] = {
- 				.name = "kunit-audio-capture",
--				.channels_min = 2,
--				.channels_max = 2,
-+				.channels_min = cpu_to_le32(2),
-+				.channels_max = cpu_to_le32(2),
- 			},
- 		},
- 		.flag_mask = 0,
-@@ -460,7 +460,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_magic(struct kunit *test)
- 	 * override abi
- 	 * any value != magic number is wrong
- 	 */
--	data->header.magic = SND_SOC_TPLG_MAGIC + 1;
-+	data->header.magic = cpu_to_le32(SND_SOC_TPLG_MAGIC + 1);
- 
- 	kunit_comp->fw.data = (u8 *)data;
- 	kunit_comp->fw.size = size;
-@@ -516,7 +516,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_abi(struct kunit *test)
- 	 * override abi
- 	 * any value != accepted range is wrong
- 	 */
--	data->header.abi = SND_SOC_TPLG_ABI_VERSION + 1;
-+	data->header.abi = cpu_to_le32(SND_SOC_TPLG_ABI_VERSION + 1);
- 
- 	kunit_comp->fw.data = (u8 *)data;
- 	kunit_comp->fw.size = size;
-@@ -572,7 +572,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_size(struct kunit *test)
- 	 * override size
- 	 * any value != struct size is wrong
- 	 */
--	data->header.size = sizeof(struct snd_soc_tplg_hdr) + 1;
-+	data->header.size = cpu_to_le32(sizeof(struct snd_soc_tplg_hdr) + 1);
- 
- 	kunit_comp->fw.data = (u8 *)data;
- 	kunit_comp->fw.size = size;
--- 
-2.25.1
+On 2/1/21 10:18 PM, Vinod Koul wrote:
+> On 01-02-21, 10:10, Pierre-Louis Bossart wrote:
+>> On 2/1/21 4:14 AM, Vinod Koul wrote:
+>>> On 21-01-21, 17:23, Srinivas Kandagatla wrote:
+>>>> On 21/01/2021 15:12, Pierre-Louis Bossart wrote:
+>>>>> On 1/21/21 6:03 AM, Srinivas Kandagatla wrote:
+> 
+>>>> I totally agree!
+>>>>
+>>>> If I understand it correctly in Intel case there will be only one Link ID
+>>>> per bus.
+>>>
+>>> Yes IIUC there would be one link id per bus.
+>>>
+>>> the ida approach gives us unique id for each master,bus I would like to
+>>> propose using that everywhere
+>>
+>> We have cases where link2 is not used but link0, 1 and 3 are.
+>> Using the IDA would result in master-0,1,2 being shown, that would throw the
+>> integrator off. the link_id is related to hardware and can tolerate gaps,
+>> the IDA is typically always increasing and is across the system, not
+>> controller specific.
+>>
+>> We can debate forever but both pieces of information are useful, so my
+>> recommendation is to use both:
+>>
+>> snprintf(name, sizeof(name), "master-%d-%d", bus_id, bus->link_id);
+> 
+> I agree we should use both, but does it really make sense for naming? We
+> can keep name in ida and expose the link_id as a parameter for
+> integrators to see in sysfs.
+
+That would mean changing the meaning of sysfs properties:
+
+/*
+  * The sysfs for properties reflects the MIPI description as given
+  * in the MIPI DisCo spec
+  *
+  * Base file is:
+  *	sdw-master-N
+  *      |---- revision
+  *      |---- clk_stop_modes
+  *      |---- max_clk_freq
+  *      |---- clk_freq
+  *      |---- clk_gears
+  *      |---- default_row
+  *      |---- default_col
+  *      |---- dynamic_shape
+  *      |---- err_threshold
+  */
+
+N is the link ID in the spec. I am not convinced we'd do the community a 
+service by unilaterally changing what an external spec means, or add a 
+property that's kernel-defined while the rest is supposed to come from 
+firmware. If you want to change the spec then you can contribute 
+feedback in MIPI circles (MIPI have a mechanism for maintainers to 
+provide such feedback without company/employer membership requirements)
+
+So either we add a sysfs layer that represents a controller (better in 
+my opinion so that we can show the link/master count), or keep the 
+existing hierarchy but expand the name with a unique ID so that Qualcomm 
+don't get errors with duplicate sysfs link0 entries.
 

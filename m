@@ -2,71 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D605030C313
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:10:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ECDC30C3A6
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 16:27:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76D21174F;
-	Tue,  2 Feb 2021 16:09:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76D21174F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A05A16DE;
+	Tue,  2 Feb 2021 16:26:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A05A16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612278632;
-	bh=T1G47C+170L7aGR3/Jpru6PX8ZjymhBt7Devr9ptUGs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1612279639;
+	bh=pP4RFe8gnSbR6RtAOvcwSni1rrgvsp8t0HsaWcqWJU4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R1p2Ve46peQ0Q4iaQtEbzs3DgNroxTXTxeqYepIX7bxuHDXUy0yu8RwvMww4ahaE4
-	 Ntbzj23pIpYLWBvzmNiyQ38IUHrU/zMzJf/A3mv/xWXgRknFQse7Sp7CDsfgTqdTSn
-	 EKr89wHNHok2rJ5oy4qYR4bkKha4Ib6r8RLHm83s=
+	b=r92kTTY1N3s0Hi3RFG7xVxDJ/bMGs/zd6n2hsXuv6/YdgkhxJe+vlN1lypPVumU+Z
+	 A9k8+9C1/YgxRBybeChWAzlXpG1GqUNsVN/mDViI3OFC7FM6P0kjiDYBekufQP5UgQ
+	 f0G1cWRzuAfnDXu1Gw0IABlAIBFBZLFwf36OnWPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DE03F802C9;
-	Tue,  2 Feb 2021 16:07:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80D22F801F7;
+	Tue,  2 Feb 2021 16:25:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20F63F80423; Tue,  2 Feb 2021 16:07:08 +0100 (CET)
+ id A22E4F80171; Tue,  2 Feb 2021 16:25:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0005DF802C9
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:07:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0005DF802C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F8EDF800E1
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 16:25:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8EDF800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JruYYX4H"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9107564F82;
- Tue,  2 Feb 2021 15:06:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612278420;
- bh=T1G47C+170L7aGR3/Jpru6PX8ZjymhBt7Devr9ptUGs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JruYYX4H+4u8OKJe6K89fQB/9K25/DCiOJTAs7Q/CWMzzl3jI8vMgqIlr1gzn/1w7
- o7XhECaItVS637yNHQSDxkrwDm5BlaF3w4bjOLbET7x5NZzijfEHpTmqhfWH5iN34Y
- TSX2ZocU/brrEqbI2IFWp5+1QY1kuAAsH4poeJ36jzx4HkZTwVmzChZK9LdqB0ccet
- dtsMtZKr47e8EdantOxGAOfOnTrhdWvgSnpNHr6aAS9RRH2tt2316wOzN9Bm4kNvFp
- cEvgzdR4/xsSD7SCS61J+rujBVT1FNMsuNDLXAiPKkaB2P61vlupdqlDx25rU57raZ
- VShZlW/tXQgqQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 07/17] ASoC: ak4458: correct reset polarity
-Date: Tue,  2 Feb 2021 10:06:41 -0500
-Message-Id: <20210202150651.1864426-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210202150651.1864426-1-sashal@kernel.org>
-References: <20210202150651.1864426-1-sashal@kernel.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Vv94kslT"
+Received: by mail-lj1-x234.google.com with SMTP id s18so24413534ljg.7
+ for <alsa-devel@alsa-project.org>; Tue, 02 Feb 2021 07:25:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=1BFhguJtknsgKZxynMp8586vauMG7FnrvbgtjYyZdro=;
+ b=Vv94kslTjxOHCof/KEF/LoLKR4nL5ltWMvPcoQIXsSRavJWqtYBiP4QkJfugy6ZSHw
+ QF/4EXVfa3lenAfwmQje7P49RcR1YghY0PCAU//9kv0OcVTFjTz+s6MTZsuDvoxeNQBg
+ VhJHmLc35E4FARCFj1km/HlUqEq5qSdKlViFF05bIHJYnduqZRrIF/W9XUC7LvaYe2wg
+ H1qPnPgPgF1ij8aDO/c1c+3R7ZGttCyFlLtxcYJiYN+c2/hWbqX0cqLcTFyW4c+9bQO4
+ 8eoNEKdfAyzCfqpFKMhgFKZr15lZL86pIdGoUv/Neqjn/opYp+dRlJF99YQ2/8WOcbaG
+ 28Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=1BFhguJtknsgKZxynMp8586vauMG7FnrvbgtjYyZdro=;
+ b=CsUZEemAE6EaNr7OjTNT+71cXBpWwobgzaJrsh/ewWWLRoacqukiWNqrI9t8Lb4PQ7
+ tPz6sqdB2w7p3xOqrs6FWXxknMGq1ZZicSE8oQpdFOVvotlK23a6ryfqGX/4mAE00EGI
+ AKb238gWqQCLGpECxuYR0JqxWWO5m+jfgYtPHXsWG3ADi2QdnAm3odm6ChE5yYdHBm7H
+ 3T+LSfExi7qZf3Je/azxDxuXoFqDLfX+FHA9tDK2xWDeqm1sAiaSskOt20MIsdJOlSkO
+ +bsMub99Wz7r/mNf83B1XpPWFc6KZCridwz1hsBtE5mYFpkZI9M/uQ3++RFQhrkXsXh2
+ QpEw==
+X-Gm-Message-State: AOAM5310DTwYpAPZKvWwuSjM1AGSCymHKLCNt6k5RN5vYy3Wc3RyeMSd
+ SK+OJVgyaDMhJ2C4r5P2lJI=
+X-Google-Smtp-Source: ABdhPJy9CrYxZnEFUlb+AY6IJgJ2nx7yfz9iiAllAC8BTXE/k9hwCGANIk8LURd2z3PsTK23pF1mFg==
+X-Received: by 2002:a2e:7c16:: with SMTP id x22mr13561352ljc.46.1612279536183; 
+ Tue, 02 Feb 2021 07:25:36 -0800 (PST)
+Received: from ?IPv6:2a00:1370:814d:ea25:a10:76ff:fe69:21b6?
+ ([2a00:1370:814d:ea25:a10:76ff:fe69:21b6])
+ by smtp.googlemail.com with ESMTPSA id s19sm2604205ljg.43.2021.02.02.07.25.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Feb 2021 07:25:35 -0800 (PST)
+Subject: Re: [PATCH v1 2/2] ASoC: tegra: Add RT5631 machine driver
+To: Jon Hunter <jonathanh@nvidia.com>, Ion Agorria <AG0RRIA@yahoo.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Stephen Warren <swarren@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Rob Herring <robh+dt@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>
+References: <20210131184101.651486-1-AG0RRIA@yahoo.com>
+ <20210131184101.651486-3-AG0RRIA@yahoo.com>
+ <7f4eb8f7-215e-ab3d-fcef-9243037cf246@nvidia.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <8d0bc6f3-45ce-565d-d80f-b50fb75e7c55@gmail.com>
+Date: Tue, 2 Feb 2021 18:25:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.2
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+In-Reply-To: <7f4eb8f7-215e-ab3d-fcef-9243037cf246@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
- Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,85 +112,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
+02.02.2021 16:22, Jon Hunter пишет:
+> So this is very similar to tegra_rt5677, is it not possible to support
+> both codecs with the same machine driver?
 
-[ Upstream commit e953daeb68b1abd8a7d44902786349fdeef5c297 ]
+These codecs require individual configurations and those
+"../codecs/rt5631.h" and  "../codecs/rt5677.h" aren't compatible at a
+quick glance.
 
-Reset (aka power off) happens when the reset gpio is made active.
-Change function name to ak4458_reset to match devicetree property "reset-gpios"
+The tegra_rt5677 also uses outdated GPIO API and etc. Hence the new
+driver should be a better base anyways.
 
-Signed-off-by: Eliot Blennerhassett <eliot@blennerhassett.gen.nz>
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-Link: https://lore.kernel.org/r/ce650f47-4ff6-e486-7846-cc3d033f3601@blennerhassett.gen.nz
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/ak4458.c | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
-
-diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
-index 71562154c0b1e..217e8ce9a4ba4 100644
---- a/sound/soc/codecs/ak4458.c
-+++ b/sound/soc/codecs/ak4458.c
-@@ -523,18 +523,10 @@ static struct snd_soc_dai_driver ak4497_dai = {
- 	.ops = &ak4458_dai_ops,
- };
- 
--static void ak4458_power_off(struct ak4458_priv *ak4458)
-+static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
- {
- 	if (ak4458->reset_gpiod) {
--		gpiod_set_value_cansleep(ak4458->reset_gpiod, 0);
--		usleep_range(1000, 2000);
--	}
--}
--
--static void ak4458_power_on(struct ak4458_priv *ak4458)
--{
--	if (ak4458->reset_gpiod) {
--		gpiod_set_value_cansleep(ak4458->reset_gpiod, 1);
-+		gpiod_set_value_cansleep(ak4458->reset_gpiod, active);
- 		usleep_range(1000, 2000);
- 	}
- }
-@@ -548,7 +540,7 @@ static int ak4458_init(struct snd_soc_component *component)
- 	if (ak4458->mute_gpiod)
- 		gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
- 
--	ak4458_power_on(ak4458);
-+	ak4458_reset(ak4458, false);
- 
- 	ret = snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
- 			    0x80, 0x80);   /* ACKS bit = 1; 10000000 */
-@@ -571,7 +563,7 @@ static void ak4458_remove(struct snd_soc_component *component)
- {
- 	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
- 
--	ak4458_power_off(ak4458);
-+	ak4458_reset(ak4458, true);
- }
- 
- #ifdef CONFIG_PM
-@@ -581,7 +573,7 @@ static int __maybe_unused ak4458_runtime_suspend(struct device *dev)
- 
- 	regcache_cache_only(ak4458->regmap, true);
- 
--	ak4458_power_off(ak4458);
-+	ak4458_reset(ak4458, true);
- 
- 	if (ak4458->mute_gpiod)
- 		gpiod_set_value_cansleep(ak4458->mute_gpiod, 0);
-@@ -596,8 +588,8 @@ static int __maybe_unused ak4458_runtime_resume(struct device *dev)
- 	if (ak4458->mute_gpiod)
- 		gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
- 
--	ak4458_power_off(ak4458);
--	ak4458_power_on(ak4458);
-+	ak4458_reset(ak4458, true);
-+	ak4458_reset(ak4458, false);
- 
- 	regcache_cache_only(ak4458->regmap, false);
- 	regcache_mark_dirty(ak4458->regmap);
--- 
-2.27.0
-
+Overall it shouldn't worth time and effort trying to squeeze these
+drivers into a single one, IMO.

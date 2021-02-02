@@ -2,77 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 236CF30C7BB
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 18:29:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0BEC30C6C2
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 17:59:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 822C21782;
-	Tue,  2 Feb 2021 18:28:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 822C21782
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3886B176E;
+	Tue,  2 Feb 2021 17:58:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3886B176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612286979;
-	bh=4AAE37e2Bxdt60R42XqHsMYAs+6VtrgnnIYrfKK7/mc=;
+	s=default; t=1612285172;
+	bh=itWR1yuZCOd5wbdqyF+Qv2/jyc5kRLJwLtPxrn2Ea/U=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=piZpSqBj4nJIJGEsZncTf6LUdzU3IB9TgkUOG9hOq/dKjnYDQOlk7coEMq5aBw6dw
-	 KtkJtWE/W6af2Kmbp7NwdfYfV3HZLxIxF4d4rvh/1THISnNi4TCOJhfa4GGh/hEpxw
-	 ZnC8elZ4cBKshH9MsAN1JyM/kolhbgYq78AyFzwE=
+	b=SSr0NIrINtGAB+LPcdoKJ3YO16aKsn6rSshA//K3UmNPGQ6Eun08QmzEtTRaJEfbz
+	 +I5509cZ04/A2w35XkHR1p4cIJ6F/PLl0mtVjFPw+JkeH0534Myik7Qb3kvtZVYrgs
+	 7N6Hzp7c7goBxJe2gzWOco3w7rG0NwSUSkWDpzbI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89577F8023E;
-	Tue,  2 Feb 2021 18:27:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8ECA5F800E1;
+	Tue,  2 Feb 2021 17:57:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 390F0F8023B; Tue,  2 Feb 2021 18:27:56 +0100 (CET)
+ id 0A24FF80171; Tue,  2 Feb 2021 17:57:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4F89F80109
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 18:27:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4F89F80109
-IronPort-SDR: C0VxHBld9H33j6ijRL2F5q0MIccVq7BE4+EuuLrdIsy9pQAd7lKT09osXJayp7E2vusDLblIEE
- DfwCi/QpI3nw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="265726526"
-X-IronPort-AV: E=Sophos;i="5.79,396,1602572400"; d="scan'208";a="265726526"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2021 09:27:48 -0800
-IronPort-SDR: IR5PjwCStZQdpQtqcFgz7Wkc3sQluaVrplLmP+UXdn9IEf6Dj2MrBuPMBZhqPK9XXI78Fl3zZx
- Dee3RsH9FPoQ==
-X-IronPort-AV: E=Sophos;i="5.79,396,1602572400"; d="scan'208";a="370798487"
-Received: from ncruzgar-mobl.amr.corp.intel.com (HELO [10.212.75.122])
- ([10.212.75.122])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2021 09:27:46 -0800
-Subject: Re: [PATCH 2/3] soundwire: intel: add
- SDW_MASTER_QUIRKS_CLEAR_INITIAL_CLASH quirk
-To: Vinod Koul <vkoul@kernel.org>
-References: <20210126083746.3238-1-yung-chuan.liao@linux.intel.com>
- <20210126083746.3238-3-yung-chuan.liao@linux.intel.com>
- <20210201104229.GY2771@vkoul-mobl>
- <0ed1c91b-09ca-dc6f-39d1-850d12f4f9c4@linux.intel.com>
- <20210202044139.GH2771@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <32df8d27-3393-f049-a493-4ba43962d490@linux.intel.com>
-Date: Tue, 2 Feb 2021 10:53:04 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EA3EF80109
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 17:57:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EA3EF80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lbpqq56s"
+Received: by mail-lf1-x130.google.com with SMTP id f1so28978028lfu.3
+ for <alsa-devel@alsa-project.org>; Tue, 02 Feb 2021 08:57:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nwpPlS9MjT737XxxcrUZtECdOnIxemsu+NrondIvc+8=;
+ b=lbpqq56s6LvejvAeOwCQmGbMeFB+iKVoCg4snZ1Ev8Jqxtb3K9240iD4L17QHxadTO
+ XMIgeiSMoq+oGmO78p/lVO4YlEkfbu87ioa/GOgsE+K3ye98v3fPQgpffsAoDPlCw6kd
+ BUHwJHWM6etsUBjZenEmUzMbl1wwTsbL7ZVHzLQtfod9chYgEi+wEkijo8bMAW5TC3Eh
+ w9RCVQ4bdAfz3YeGlI2Yv39d1vtO2ZeipPdSURbWrloWKK/aNANcJYm57Q+dK33JaHoK
+ F4tJerPMfNMwQtFBlY0A2Utuj6dHxabR8wTYAbWF/vciPB/skI+UE43D/cG8IiuKzI6C
+ MDlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nwpPlS9MjT737XxxcrUZtECdOnIxemsu+NrondIvc+8=;
+ b=PeWFKZVVDY9x8Vbo6hu1CqF4DInxr2jCmtLH6Kru8q3CaV9mpYI9letiPcG6jIzm6y
+ pwyQ7vlX4tczZNiAkFr3Qcyod+rIVbVvVAE3BhyACgigYmrHEMQ2cG0SZc3Jm9R16bmN
+ LhHI9JqALrnYwxWPONf6GvxmCQeX/+gHEqgSjCyv6ghQeqDDU8J64mHEb2Td2EWvqn7y
+ m6/5IkGNUkQxkAJpIlDTdrxrFyMuGt6cggjFp61pjkiUnrdHWcFI/UTqKDo4spmqiy0k
+ E/oEvSMLSPRoF/hna1VTjW1uuZFT11GqK6+48lPtjsJmtO/kDnmNEJVOhcKiW4pT6F2W
+ /JfQ==
+X-Gm-Message-State: AOAM5302ASUPuuJ33h4r2Rs/gei4pdtRHJLT94B6ft5l2FnfzhoIDn49
+ L6LhMv+ZGBmEIeyEpTxpxPA=
+X-Google-Smtp-Source: ABdhPJylGmwbmiAU0xzI+fDP1qXJu7D4drYkzhizCth3IZP0qIWWEH8U+ZpYlF3q69KQJEaXekafWw==
+X-Received: by 2002:a19:e43:: with SMTP id 64mr11085733lfo.642.1612285063231; 
+ Tue, 02 Feb 2021 08:57:43 -0800 (PST)
+Received: from ?IPv6:2a00:1370:814d:ea25:a10:76ff:fe69:21b6?
+ ([2a00:1370:814d:ea25:a10:76ff:fe69:21b6])
+ by smtp.googlemail.com with ESMTPSA id c6sm3366314lfc.11.2021.02.02.08.57.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Feb 2021 08:57:42 -0800 (PST)
+Subject: Re: [PATCH v1 2/2] ASoC: tegra: Add RT5631 machine driver
+To: Jon Hunter <jonathanh@nvidia.com>, Ion Agorria <AG0RRIA@yahoo.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Stephen Warren <swarren@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Rob Herring <robh+dt@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>
+References: <20210131184101.651486-1-AG0RRIA@yahoo.com>
+ <20210131184101.651486-3-AG0RRIA@yahoo.com>
+ <7f4eb8f7-215e-ab3d-fcef-9243037cf246@nvidia.com>
+ <8d0bc6f3-45ce-565d-d80f-b50fb75e7c55@gmail.com>
+ <51571ec9-780b-ba71-c81d-dd01ebcefbb8@nvidia.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <fc0d7a20-f5ef-e8b4-6be8-ac9879399023@gmail.com>
+Date: Tue, 2 Feb 2021 19:57:41 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.2
 MIME-Version: 1.0
-In-Reply-To: <20210202044139.GH2771@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <51571ec9-780b-ba71-c81d-dd01ebcefbb8@nvidia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, srinivas.kandagatla@linaro.org, jank@cadence.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,19 +114,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
->>>> +	prop->quirks = SDW_MASTER_QUIRKS_CLEAR_INITIAL_CLASH;
->>>
->>> Should this not be last 'enabling' the quirk patch in series :)
+02.02.2021 19:24, Jon Hunter пишет:
+> 
+> On 02/02/2021 15:25, Dmitry Osipenko wrote:
+>> 02.02.2021 16:22, Jon Hunter пишет:
+>>> So this is very similar to tegra_rt5677, is it not possible to support
+>>> both codecs with the same machine driver?
 >>
->> Sorry, I don't understand the comment. Do you mind clarifying Vinod?
+>> These codecs require individual configurations and those
+>> "../codecs/rt5631.h" and  "../codecs/rt5677.h" aren't compatible at a
+>> quick glance.
 > 
-> Sure, I would like to series built as, first defining the quirk
-> along/followed by bus changes. Then the last patch should be intel
-> controller changes and setting the quirks (like above) in the last
-> patch.
-> 
-> Let me know if you would need further clarification
+> Right but not all of that is needed. What is actually needed from the
+> header files?
 
-Got it, thanks.
+I recall that some downstream drivers were doing some special
+programming of codecs. This is not relevant to the current upstream
+drivers, but potentially it may become needed and then that single
+driver could become unmanageable.
+
+>> The tegra_rt5677 also uses outdated GPIO API and etc. Hence the new
+>> driver should be a better base anyways.
+> 
+> Sounds like a good time to update it :-)
+> 
+>> Overall it shouldn't worth time and effort trying to squeeze these
+>> drivers into a single one, IMO.
+> 
+> Not sure I agree when these drivers appear to be 90% the same.
+
+Of course we could try, but I suggest that it should be done separately
+from this series. Certainly it will take a lot of extra effort and this
+series isn't about improving older drivers, it's about enabling h/w
+support for the RT5631 codec.
+
+It shouldn't be a problem to switch to the common machine driver later
+on if this driver will turn out to be feasible.

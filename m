@@ -2,70 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34E730C7BE
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 18:32:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4B530C85B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Feb 2021 18:49:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B25E177A;
-	Tue,  2 Feb 2021 18:31:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B25E177A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C58881780;
+	Tue,  2 Feb 2021 18:48:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C58881780
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612287153;
-	bh=MsYWS5fR84takhXK5ZPtutS06RculY3MNRJAjqjwzAo=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1612288170;
+	bh=STYrevNLgLUTsRgBoduv9bfnG6VldtTVOB/XMed4wFE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Enh+wv7e1ItYnLm/JEwysY+umgTY8+MjvJANaKx3ADisYiJqQYVH3eWcp5oqJrWqL
-	 W3Q64mGVaFvF2T9Z8Kv2RTVbU2gOkr4a7kaff/lyYDrdOz29g034Kr4JfVfDAPhGkS
-	 u9nu8xOyJ4uuhLnJIC3Cjf9CwzJVSWxBSiYjEWUM=
+	b=cwTjEWfc/TrqTci1g+tE07gL72tNopyIJf3+jOklmf93n33SWgB5fI5p3cK54xVsB
+	 S+JJMHxixDiQRSS3l4Z0ukfHaSvMhdhi3UhsEs+khNNjEJjCVDN+msbl4bQ1hy91t2
+	 LNtIwlzvY7xqmzo37JuQ68fXjg+MbvblkFNw017o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3887BF80152;
-	Tue,  2 Feb 2021 18:31:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41491F801F7;
+	Tue,  2 Feb 2021 18:47:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5526F80171; Tue,  2 Feb 2021 18:30:58 +0100 (CET)
+ id 93B2AF80171; Tue,  2 Feb 2021 18:47:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE962F80109
- for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 18:30:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE962F80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Laas/WDE"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 01DE564ECE;
- Tue,  2 Feb 2021 17:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612287047;
- bh=MsYWS5fR84takhXK5ZPtutS06RculY3MNRJAjqjwzAo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Laas/WDEqIz1PIDtsTH4GdAnfy1yrBNddu0b36XRjEio7LT1P7BhfX4gvVnb9wPPc
- A+lGtedCxIzhaWtltzzzWVon4e3FD/SIWXyJq0Rw6xZ3kKrzqVjIxsr82f2fMVN2vP
- 0SwFYEVtn2at8vnfhT4onKoZ6ZO2vubtrB1kLyexgSbxO9ffLe4nNRTUOooWYlD4jd
- q/eKGMpT/urUV8NAwaZjo68CvH1/Z5KKivObsx/E37G0vqSdCXLWTChBiwMJL36F4x
- Nd9UlIO5Zj3+LVHT6ZlXR/c3c+8IZQa4mXfGmh3GkDZ4wyzyr99gmX4WnuyXXZUmRt
- rdRIspXmhkQNA==
-From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, tiwai@suse.com, timur@kernel.org,
- Tang Bin <tangbin@cmss.chinamobile.com>, Xiubo.Lee@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com
-In-Reply-To: <20210128112714.16324-1-tangbin@cmss.chinamobile.com>
-References: <20210128112714.16324-1-tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: fsl_spdif: Utilize the defined parameter to clear
- code
-Message-Id: <161228699993.35075.10104623503101493059.b4-ty@kernel.org>
-Date: Tue, 02 Feb 2021 17:29:59 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5658CF800E1
+ for <alsa-devel@alsa-project.org>; Tue,  2 Feb 2021 18:47:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5658CF800E1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8FCD8AD2B;
+ Tue,  2 Feb 2021 17:47:42 +0000 (UTC)
+Date: Tue, 02 Feb 2021 18:47:42 +0100
+Message-ID: <s5hh7mucqf5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Olivia Mackintosh <livvy@base.nu>
+Subject: Re: [PATCH v2 0/2] ALSA: usb-audio: Add Pioneer DJM-450 support
+In-Reply-To: <20210202134225.3217-1-livvy@base.nu>
+References: <20210202134225.3217-1-livvy@base.nu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,33 +68,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 28 Jan 2021 19:27:14 +0800, Tang Bin wrote:
-> Utilize the defined parameter 'dev' to make the code cleaner.
+On Tue, 02 Feb 2021 14:42:24 +0100,
+Olivia Mackintosh wrote:
+> 
+> Re-roll of this patchset to fix the following:
+> 	1. Missing 'Signed-of-by:' line
+> 	2. Spaces around operators
+> 	3. Test that I'm threading submissions correctly
+> 
+> Apologies for the clumsiness on my part.
+> 
+> Olivia
+> 
+> Olivia Mackintosh (2):
+>   ALSA: usb-audio: Add DJM450 to Pioneer format quirk
+>   ALSA: usb-audio: Add DJM-450 to the quirks table
 
-Applied to
+Applied both patches now.  Thanks.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: fsl_spdif: Utilize the defined parameter to clear code
-      commit: 68be8ed6a4622d4eb6cf7632bc7cb78464c83c78
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

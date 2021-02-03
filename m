@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30AF330D825
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 12:08:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47C530D841
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 12:15:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE43C174F;
-	Wed,  3 Feb 2021 12:07:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE43C174F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F49B176F;
+	Wed,  3 Feb 2021 12:15:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F49B176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612350526;
-	bh=qc0okGoq89bSO5Rh7sKr8aEHtm1IB4qYytN86cwBveA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Gol5uikXyhmZzkxzz26IyT7l/SLjXcBk4ED4d3F5hkRfk07TIdNI3kAroVWZbJt7X
-	 yGW5q+7xEERmxsBfzNLPMYw8gTIZ7u/jl5znU5BCauIkow/XsHub/s0T0lYX3poH5u
-	 cHZPouUZSdazAL2t/SdCrrsDhU/pj65Pe5WqzwPM=
+	s=default; t=1612350953;
+	bh=yTTSZXtKOP0hXijrZvbt5YVyPq1ma21SJMRh676m8jg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=L9HhtaOTzd3x1SkGgH+UBdyVbT5izLsaukR5XlIkqBDnPfqV2cD8w/P8VE7X+qM6v
+	 gf32dVlH38XFEP4OM7a+hxtVXI/cLAFd5bnvRt8MuFLA4B0ND2V3qDew8v6qZ939Qx
+	 M19Ovw0ot/0DAtkRji+l+gzmIWu1Dsafm3yQLc64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DF49F8013C;
-	Wed,  3 Feb 2021 12:07:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A21ECF80155;
+	Wed,  3 Feb 2021 12:14:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9CBDF8013C; Wed,  3 Feb 2021 12:07:11 +0100 (CET)
+ id 03F4CF8015A; Wed,  3 Feb 2021 12:14:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0FEFF8013C
- for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 12:07:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0FEFF8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A226F80155
+ for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 12:14:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A226F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="SSSYXeZs"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 113B2ovL012450; Wed, 3 Feb 2021 05:07:03 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=WfsHBjJtjjULZPRCY0AJQfakOgO1ChuhQKEG2naI22I=;
- b=SSSYXeZs/JXJSaX9bOEbONOxQzST89ndYbrH6JrRqL8L5VsaRl2SpiV8YSfFuZLhSNbH
- jCetacQ6bhZbVXwMi6OJLBp1yizkXOZQXUjE4p7WjtXJZ2KMcC4RASW4CPaTAjhit/5v
- srMkm0RblQ19jviuaNC+ri4KtPu/Hg5yOsNx3VRzQU30aT6UZMpVSiUszuKcYWcuxl6E
- Jqyc295qXsVrv0NrlvAWxHIXca4jayPKzTSgp3LT+JE2o+aw2YMSSMEXCu9+Rk7tvycU
- Tyybk+lB4VjD/nWf1IcHTGrCUgj0/M+eAtrnmVWp1aNs8jZSDVuDvvkay1QggWKxXuxY Qg== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 36d5r6d3ap-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 03 Feb 2021 05:07:02 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Wed, 3 Feb 2021
- 11:07:00 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Wed, 3 Feb 2021 11:07:00 +0000
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.64.44])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 52AC445;
- Wed,  3 Feb 2021 11:06:54 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH] soundwire: bus: Make sdw_nwrite() data pointer argument const
-Date: Wed, 3 Feb 2021 11:06:50 +0000
-Message-ID: <20210203110650.10907-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tXcNvsrz"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 292C264E31;
+ Wed,  3 Feb 2021 11:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612350854;
+ bh=yTTSZXtKOP0hXijrZvbt5YVyPq1ma21SJMRh676m8jg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tXcNvsrz+kIcQR+uut/MCuVnjuYPcqBcZ7oa6UoHBqiHVZAg89LW74En1EayiYVec
+ zeu4D8ycJzy0gmw0kWGIi4FdgdkCbK26VTIBcYqrVM/OimdiAXEtJjh+hLip2kt0QQ
+ 8FKXZ46sFBPzaAp8RZXQqhh4i+DbK/edPgfuykKJkoZNp/4T8W6bCOi2SKC0ze+xd+
+ 6zlJbElI+YyJ0HXzgeaveYF3qyJssyejrOi+xqfnhT/GFJgtnXM2TBbTyznlZ2rgJB
+ 6X52n0CjaIGPR6NFlXBhaltIsE4ii64Kfgb69ykQCiIL8LI4DX6lxT7Vgc/L0Nazts
+ gHg739nMlPN6w==
+Date: Wed, 3 Feb 2021 16:44:09 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] soundwire: debugfs: use controller id instead of link_id
+Message-ID: <20210203111409.GM2771@vkoul-mobl>
+References: <45300dc3-00b0-497b-804e-f7f1e857f32a@linux.intel.com>
+ <57d5f1bd-50fa-30ab-03c0-260460e45d61@linaro.org>
+ <6d4d4a6b-f28c-81db-4e67-2b5b94116fa4@linux.intel.com>
+ <1fad2388-27d0-7014-818d-1272fa70ed9b@linaro.org>
+ <33fe8455-01b4-f867-4974-a3e867c930f0@linux.intel.com>
+ <feee8676-33fe-7929-8b6c-6abe3a09159a@linaro.org>
+ <20210201101414.GS2771@vkoul-mobl>
+ <4b850685-1058-0e18-d3e8-e23e20086235@linux.intel.com>
+ <20210202041853.GF2771@vkoul-mobl>
+ <6eebbadd-d26b-9dba-f425-01988fb64bec@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 priorityscore=1501
- phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011
- mlxlogscore=999 malwarescore=0 adultscore=0 spamscore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102030069
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6eebbadd-d26b-9dba-f425-01988fb64bec@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,61 +89,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Idiomatically, write functions should take const pointers to the
-data buffer, as they don't change the data. They are also likely to
-be called from functions that receive a const data pointer.
+On 02-02-21, 10:43, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 2/1/21 10:18 PM, Vinod Koul wrote:
+> > On 01-02-21, 10:10, Pierre-Louis Bossart wrote:
+> > > On 2/1/21 4:14 AM, Vinod Koul wrote:
+> > > > On 21-01-21, 17:23, Srinivas Kandagatla wrote:
+> > > > > On 21/01/2021 15:12, Pierre-Louis Bossart wrote:
+> > > > > > On 1/21/21 6:03 AM, Srinivas Kandagatla wrote:
+> > 
+> > > > > I totally agree!
+> > > > > 
+> > > > > If I understand it correctly in Intel case there will be only one Link ID
+> > > > > per bus.
+> > > > 
+> > > > Yes IIUC there would be one link id per bus.
+> > > > 
+> > > > the ida approach gives us unique id for each master,bus I would like to
+> > > > propose using that everywhere
+> > > 
+> > > We have cases where link2 is not used but link0, 1 and 3 are.
+> > > Using the IDA would result in master-0,1,2 being shown, that would throw the
+> > > integrator off. the link_id is related to hardware and can tolerate gaps,
+> > > the IDA is typically always increasing and is across the system, not
+> > > controller specific.
+> > > 
+> > > We can debate forever but both pieces of information are useful, so my
+> > > recommendation is to use both:
+> > > 
+> > > snprintf(name, sizeof(name), "master-%d-%d", bus_id, bus->link_id);
+> > 
+> > I agree we should use both, but does it really make sense for naming? We
+> > can keep name in ida and expose the link_id as a parameter for
+> > integrators to see in sysfs.
+> 
+> That would mean changing the meaning of sysfs properties:
+> 
+> /*
+>  * The sysfs for properties reflects the MIPI description as given
+>  * in the MIPI DisCo spec
+>  *
+>  * Base file is:
+>  *	sdw-master-N
 
-Internally the pointer is passed to function/structs shared with
-the read functions, requiring a cast, but this is an implementation
-detail that should be hidden by the public API.
+Key is "The sysfs for properties" is for property files. I am not sure
+how this implies for a number above. I was thinking of using ID for N
+here and add a link_id file below which represents the link-id property
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/bus.c       | 6 +++---
- include/linux/soundwire/sdw.h | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+>  *      |---- revision
+>  *      |---- clk_stop_modes
+>  *      |---- max_clk_freq
+>  *      |---- clk_freq
+>  *      |---- clk_gears
+>  *      |---- default_row
+>  *      |---- default_col
+>  *      |---- dynamic_shape
+>  *      |---- err_threshold
+>  */
+> 
+> N is the link ID in the spec. I am not convinced we'd do the community a
+> service by unilaterally changing what an external spec means, or add a
+> property that's kernel-defined while the rest is supposed to come from
+> firmware. If you want to change the spec then you can contribute feedback in
+> MIPI circles (MIPI have a mechanism for maintainers to provide such feedback
+> without company/employer membership requirements)
+> 
+> So either we add a sysfs layer that represents a controller (better in my
+> opinion so that we can show the link/master count), or keep the existing
+> hierarchy but expand the name with a unique ID so that Qualcomm don't get
+> errors with duplicate sysfs link0 entries.
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index d9deafdcf495..4c76358416c5 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -394,13 +394,13 @@ sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
- }
- 
- static int
--sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-+sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
- {
- 	struct sdw_msg msg;
- 	int ret;
- 
- 	ret = sdw_fill_msg(&msg, slave, addr, count,
--			   slave->dev_num, SDW_MSG_FLAG_WRITE, val);
-+			   slave->dev_num, SDW_MSG_FLAG_WRITE, (u8 *)val);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -524,7 +524,7 @@ EXPORT_SYMBOL(sdw_nread);
-  * @count: length
-  * @val: Buffer for values to be read
-  */
--int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-+int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
- {
- 	int ret;
- 
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index f0b01b728640..18f5979d9a60 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -1006,6 +1006,6 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus);
- int sdw_read(struct sdw_slave *slave, u32 addr);
- int sdw_write(struct sdw_slave *slave, u32 addr, u8 value);
- int sdw_nread(struct sdw_slave *slave, u32 addr, size_t count, u8 *val);
--int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, u8 *val);
-+int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val);
- 
- #endif /* __SOUNDWIRE_H */
+Anyway we are late in cycle for this.. I am reverting this patch and we
+can arrive at consensus and fix this for next cycle
+
+Thanks
 -- 
-2.20.1
-
+~Vinod

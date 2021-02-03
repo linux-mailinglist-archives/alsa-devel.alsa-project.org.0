@@ -2,86 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C1D30D222
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 04:24:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAEEE30D3DA
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 08:08:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F407176E;
-	Wed,  3 Feb 2021 04:24:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F407176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ABBC179B;
+	Wed,  3 Feb 2021 08:07:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ABBC179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612322690;
-	bh=4WgTLx9ErT2zHHGmw68QP0r7Rjh6X0NHp5l4lm3X0gk=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1612336120;
+	bh=xRMlI2EADtM4gae429sxpvqn+NvYbc5cVgo4D59hErQ=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D+/ui0HeABWNVtuHl6suOV1i50FV09NN9l0xsJkBKkjSRC81LI6xa3pO88Rd/Ca3p
-	 zEjApvqhwV2zSAai0WqEWNeSh4BYCOTQiB1TdBcWkq5gV5i9paiynhjkSugsjHdI/E
-	 GSKayE2rHNlcz3X6mEDlL7Cd/9lTS2Zly2MMtWFg=
+	b=IwWq6AAs3cOefx9fl5Gu2J+i5ceE2KsdBa/t11INpFWTuv5+EWtY5gCnbsomZn5uc
+	 9GMy3Pa4xYwXaEURBk22N9oPSa22Y4JVHj/ZBGKVkCiGSJrBsPlyuyQ1KH2uQqY3xd
+	 apclkz0mPgoMWFNlYV2+JhRmAlH1qJcGaMkmAQB8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13333F80264;
-	Wed,  3 Feb 2021 04:22:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAAF8F804FB;
+	Wed,  3 Feb 2021 08:01:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70309F80275; Wed,  3 Feb 2021 04:22:26 +0100 (CET)
+ id B2643F8015A; Wed,  3 Feb 2021 07:57:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D544AF80264
- for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 04:22:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D544AF80264
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by alsa1.perex.cz (Postfix) with ESMTP id BB2CEF8013C
+ for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 07:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB2CEF8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="sMBXOYFT"
-Received: by mail-qt1-x84a.google.com with SMTP id f5so15998870qtf.15
- for <alsa-devel@alsa-project.org>; Tue, 02 Feb 2021 19:22:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=xcrgUrUQo2DvZjID2TAjZHuX8sDLU8yEDiJo6RoM5NU=;
- b=sMBXOYFTaF6AgJ7rAB9ExNvptM66u6TJ5vCvuEuyMN6uaUJn9wrwB14Zxm5y++Lgfe
- z70kjQjrnkSeQTzjEol1EUijVQP462qcsa5z+kuAqaHiE+AS8TGrpU2DmRHPREI9jZh5
- hNzCKqPlq0+RZHkjoP3qIcqtw6EBCmmIWaKLbw2W05e1fvbxJVBB2Bq2cr8sPRIBxRYq
- IZaBGchOywk0NQcfz+YLhQy74xHFNCEG6iASfZPVJ15mhfJFia793eKqTtnU33men0DC
- AKDPFIKBvc/UEFHXRGp9jvZb/l8s3ORjOHcEPoMtK5J1mMhzopMEQAP+JZ6YY+rXNwfo
- WkFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=xcrgUrUQo2DvZjID2TAjZHuX8sDLU8yEDiJo6RoM5NU=;
- b=j54TKtY3ibb9X/FkU6kvpVB+DOwsCTjy+nBxwZCwVpVxcZOhQ9Lp0gbNwwqqd29wnS
- ypjJiHVSiHCiVJmcGGM0hvLReH7tMJFoKfy0fx9+TdyFhMn3OKfGBXdZY3SFr/lL3rl+
- oKJ7CObbzS6MFt2/G8WTYzhoz6/B1w3fTXimI4NYQz9fWT2SjXvG2sNMU8TSqA1Yn0zV
- S6+aWdZrS3cc2+bkgfRyOeyk6GNI5Z9VHNNITBLBguL4Wsz6h5LtMnMn/SxrqYMjwkFm
- b2H7Khc7XN4WlJVsW2v6R38W4Gbb/TH9VK6lVscA6/u9Pglt3XYdhoNSR8nF0QJ2HSxQ
- cJbg==
-X-Gm-Message-State: AOAM530ap3eSBBQyte5viUNJDKQlK/FdWjCKhmG4HzNlW+XEBBj68km6
- xRvbY8z3ariD6W1Jcb1XlRDx85AioN4W
-X-Google-Smtp-Source: ABdhPJwnPUwuBK/wCcEfIjjaoieFKOC9oUyTJNRx2TXDEr3ESjf1jkDASpl8GFwG09DYTB+ZnmTApOFSr+0b
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:dc88:dd2b:a03:4076])
- (user=tzungbi job=sendgmr) by 2002:a05:6214:443:: with SMTP id
- cc3mr1172561qvb.17.1612322539146; Tue, 02 Feb 2021 19:22:19 -0800 (PST)
-Date: Wed,  3 Feb 2021 11:22:01 +0800
-In-Reply-To: <20210203032201.2882158-1-tzungbi@google.com>
-Message-Id: <20210203032201.2882158-4-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20210203032201.2882158-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.30.0.365.g02bc693789-goog
-Subject: [PATCH v3 3/3] ASoC: mediatek: mt8192-mt6359: simplify ops for
- Capture1 DAI link
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="BT4M3Prs"
+X-UUID: b25f4208624141f387ec8ef77e08ea68-20210203
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=xRMlI2EADtM4gae429sxpvqn+NvYbc5cVgo4D59hErQ=; 
+ b=BT4M3PrsQ5TGCxdMvQMoEw82htr4KY49+wSBhScM0I4Mgp6CZPdigPsdoyqjhkLNFyJ1gW7bGmptO7phCBeRKL+llB2dnBgiG/D6RtueM043GNLl0kVDgngD1wmuYcqBJy6hERGLiMJOhqFfXzBZ7atfJkElpdDyBrmhzZrbRDU=;
+X-UUID: b25f4208624141f387ec8ef77e08ea68-20210203
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <argus.lin@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
+ ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 815628569; Wed, 03 Feb 2021 14:57:44 +0800
+Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
+ mtkmbs06n1.mediatek.inc (172.21.101.129) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 3 Feb 2021 14:57:43 +0800
+Received: from [172.21.77.33] (172.21.77.33) by MTKCAS06.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 3 Feb 2021 14:57:43 +0800
+Message-ID: <1612335462.9202.1.camel@mtkswgap22>
+Subject: Re: [PATCH 0/2] Add mediatek MT6359 accdet driver
+From: Argus Lin <argus.lin@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Date: Wed, 3 Feb 2021 14:57:42 +0800
+In-Reply-To: <1609935546-11722-1-git-send-email-argus.lin@mediatek.com>
+References: <1609935546-11722-1-git-send-email-argus.lin@mediatek.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+MIME-Version: 1.0
+X-MTK: N
+Content-Transfer-Encoding: base64
+X-Mailman-Approved-At: Wed, 03 Feb 2021 08:01:31 +0100
+Cc: Jack Yu <jack.yu@realtek.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ ChiPeng Chang =?UTF-8?Q?=28=E5=BC=B5=E7=90=A6=E6=9C=8B=29?=
+ <chipeng.chang@mediatek.com>, Arnd Bergmann <arnd@arndb.de>,
+ Shane Chien =?UTF-8?Q?=28=E7=B0=A1=E4=BD=91=E8=BB=92=29?=
+ <Shane.Chien@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jiaxin Yu =?UTF-8?Q?=28=E4=BF=9E=E5=AE=B6=E9=91=AB=29?=
+ <Jiaxin.Yu@mediatek.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dan Murphy <dmurphy@ti.com>, Shuming Fan <shumingf@realtek.com>, Geert
+ Uytterhoeven <geert@linux-m68k.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ wsd_upstream <wsd_upstream@mediatek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,79 +107,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1. Uses rtd->dev to get the device.
-2. Generalizes the variable name.
-
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 20 ++++++++-----------
- 1 file changed, 8 insertions(+), 12 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index d2ebf3b6e359..a606133951b7 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -360,14 +360,8 @@ static int mt8192_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- }
- 
- static int
--mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
-+mt8192_mt6359_cap1_startup(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
--	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
--	int ret;
--
- 	static const unsigned int channels[] = {
- 		1, 2, 4
- 	};
-@@ -385,13 +379,15 @@ mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
- 		.mask = 0,
- 	};
- 
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-+	int ret;
- 
- 	ret = snd_pcm_hw_constraint_list(runtime, 0,
- 					 SNDRV_PCM_HW_PARAM_CHANNELS,
- 					 &constraints_channels);
- 	if (ret < 0) {
--		dev_err(afe->dev, "hw_constraint_list channels failed\n");
-+		dev_err(rtd->dev, "hw_constraint_list channels failed\n");
- 		return ret;
- 	}
- 
-@@ -399,15 +395,15 @@ mt8192_mt6359_rt1015_rt5682_cap1_startup(struct snd_pcm_substream *substream)
- 					 SNDRV_PCM_HW_PARAM_RATE,
- 					 &constraints_rates);
- 	if (ret < 0) {
--		dev_err(afe->dev, "hw_constraint_list rate failed\n");
-+		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
- 		return ret;
- 	}
- 
- 	return 0;
- }
- 
--static const struct snd_soc_ops mt8192_mt6359_rt1015_rt5682_capture1_ops = {
--	.startup = mt8192_mt6359_rt1015_rt5682_cap1_startup,
-+static const struct snd_soc_ops mt8192_mt6359_capture1_ops = {
-+	.startup = mt8192_mt6359_cap1_startup,
- };
- 
- static int
-@@ -768,7 +764,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 			    SND_SOC_DPCM_TRIGGER_PRE},
- 		.dynamic = 1,
- 		.dpcm_capture = 1,
--		.ops = &mt8192_mt6359_rt1015_rt5682_capture1_ops,
-+		.ops = &mt8192_mt6359_capture1_ops,
- 		SND_SOC_DAILINK_REG(capture1),
- 	},
- 	{
--- 
-2.30.0.365.g02bc693789-goog
+RGVhciBtYWludGFpbmVyczoNCkNhbiB5b3UgcmVwbHkgdG8gbWUgaWYgYW55IG9waW5pb24/DQp0
+aGFua3MNCg0KQi5SLg0KQXJndXMNCg0KT24gV2VkLCAyMDIxLTAxLTA2IGF0IDIwOjE5ICswODAw
+LCBBcmd1cyBMaW4gd3JvdGU6DQo+IE1UNjM1OSBhdWRpbyBjb2RlYyBzdXBwb3J0IGFjY2Vzc29y
+eSBkZXRlY3QgZmVhdHVyZXMsIHRoZSBnZW5lcmFsIGZlYXR1cmVzDQo+IGFyZSBqYWNrIHBsdWcg
+ZGV0ZWN0aW9uIGFuZCBrZXkgZGV0ZWN0aW9uLg0KPiANCj4gQWxsIG9mIDMtcG9sZSBhbmQgNC1w
+b2xlIGphY2sgYXJlIHN1cHBvcnRlZC4NCj4gDQo+IGNoYW5nZSBzaW5jZSB2MToNCj4gICAtIGFk
+ZHMgbXQ2MzU5IGFjY2RldCBiaW5kaW5nIGRvY3VtZW50DQo+ICAgLSBhZGRzIG10NjM1OSBhY2Nk
+ZXQgZHJpdmVyDQo+IA0KPiANCj4gQXJndXMgTGluICgyKToNCj4gICBkdC1iaW5kaW5nczogbWVk
+aWF0ZWs6IG10NjM1OTogYWRkIEFTb0MgbXQ2MzU5IGFjY2RldCBkb2N1bWVudA0KPiAgIEFTb0M6
+IG1lZGlhdGVrOiBtdDYzNTk6IGFkZCBNVDYzNTkgYWNjZGV0IGRyaXZlcg0KPiANCj4gIC4uLi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210NjM1OS1hY2NkZXQueWFtbCAgIHwgIDE0MiArKw0K
+PiAgc291bmQvc29jL2NvZGVjcy9LY29uZmlnICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAg
+ICA3ICsNCj4gIHNvdW5kL3NvYy9jb2RlY3MvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHwgICAgMiArDQo+ICBzb3VuZC9zb2MvY29kZWNzL210NjM1OS1hY2NkZXQuYyAgICAgICAg
+ICAgICAgICAgICB8IDE5NTEgKysrKysrKysrKysrKysrKysrKysNCj4gIHNvdW5kL3NvYy9jb2Rl
+Y3MvbXQ2MzU5LWFjY2RldC5oICAgICAgICAgICAgICAgICAgIHwgIDEzNiArKw0KPiAgc291bmQv
+c29jL2NvZGVjcy9tdDYzNTkuaCAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxODYzICsrKysr
+KysrKysrKysrKysrLS0NCj4gIDYgZmlsZXMgY2hhbmdlZCwgMzk5NSBpbnNlcnRpb25zKCspLCAx
+MDYgZGVsZXRpb25zKC0pDQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL3NvdW5kL210NjM1OS1hY2NkZXQueWFtbA0KPiAgY3JlYXRlIG1vZGUg
+MTAwNjQ0IHNvdW5kL3NvYy9jb2RlY3MvbXQ2MzU5LWFjY2RldC5jDQo+ICBjcmVhdGUgbW9kZSAx
+MDA2NDQgc291bmQvc29jL2NvZGVjcy9tdDYzNTktYWNjZGV0LmgNCj4gDQo+IC0tDQo+IDEuOC4x
+LjEuZGlydHkNCj4gDQoNCg==
 

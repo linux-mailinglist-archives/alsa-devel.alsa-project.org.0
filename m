@@ -2,78 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C592330DF52
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 17:12:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 423AC30DF89
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 17:22:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D1F71776;
-	Wed,  3 Feb 2021 17:11:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D1F71776
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEAD11761;
+	Wed,  3 Feb 2021 17:21:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEAD11761
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612368749;
-	bh=A1QuVQdLMdsLBRKczcnkDlAzUIRaOWqOd0wB1g50I4Q=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1612369339;
+	bh=1yMtRmiXEbjhnyEHQCW06t598A7qF+k9oLej17rISL0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p2e0hMbuf6IopSE6/rxhKQkKNHMYZdvk6ouq3oki1KBzz4iepnjQDHX16GPoTJplj
-	 LkOnKRRV5bqb4qlEvOR0XAZF7n+vy2Gq7MXRS1114jyhXpi96OtjWKT8yFgRDrOGOM
-	 Z4Wr1NNK5zJAU5VjFngmMYaU7QhhW+WD4Ev63GBk=
+	b=Uw7rMUdU6J/MsnQ6ZHChPVPWbuXI61LBHlpckdRDEpu2bK8qd8bJV97HoOhWnNwwO
+	 IfeAfiojQN02+TqKx5pkhKAE8SqeLLGh24aquDP2KQYOzi1i5G2GHWXZhbKKsYx+fc
+	 EFWRdfEyiuaFIvClUSKiadvZK3Ic9B2+haFfKZHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79EE7F8025D;
-	Wed,  3 Feb 2021 17:10:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0BF64F8013C;
+	Wed,  3 Feb 2021 17:20:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EF19F8025C; Wed,  3 Feb 2021 17:10:13 +0100 (CET)
+ id D7BA5F8015A; Wed,  3 Feb 2021 17:20:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31E6DF801DB
- for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 17:10:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31E6DF801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A8BCF8013C
+ for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 17:20:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A8BCF8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="Yq2cMGL1"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B601acad90001>; Wed, 03 Feb 2021 08:10:01 -0800
-Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 3 Feb
- 2021 16:10:01 +0000
-Received: from audio.nvidia.com (172.20.145.6) by mail.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Wed, 3 Feb 2021 16:09:58 +0000
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: tegra: Add driver remove() callback
-Date: Wed, 3 Feb 2021 21:39:35 +0530
-Message-ID: <1612368575-25991-3-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1612368575-25991-1-git-send-email-spujar@nvidia.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SV94P1m4"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F05CB64F7C;
+ Wed,  3 Feb 2021 16:20:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612369240;
+ bh=1yMtRmiXEbjhnyEHQCW06t598A7qF+k9oLej17rISL0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SV94P1m4W/3UrOwSqq2xe2/ru3TeU0LEFT1oUMFGtlOPfRMe+Ch19HqGo4N7HrzuB
+ YYBEvBx4J8JZ3LglWnvl9anEgayHsiOMEGOmsBbRHyQ72btUyCvqVJ3GGa+CsRqrW7
+ wDAjaXMYWznXl/fTOlLNAskkIfmkjxduGvHV0dmJ5SodW7uExRYDFV+tKO1ICdM39v
+ /btzFvd7/68r51dv8IhroL4Wsui1MgcIkcrBLLUMEV7J9ATr02MSSF7KMRAKOkNjFm
+ 4qVjLYezSu7pKBFB6dMacDzYg04yogihkw/4Jxh3O9+oyBlc/46Ina5P29GxJdeZ0t
+ IhIRHm4zQWWDw==
+Date: Wed, 3 Feb 2021 16:19:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH 1/2] ASoC: audio-graph: Export graph_remove() function
+Message-ID: <20210203161951.GG4880@sirena.org.uk>
 References: <1612368575-25991-1-git-send-email-spujar@nvidia.com>
+ <1612368575-25991-2-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1612368601; bh=PjUOj+qZWimYXJl6j0hq0SkuuiLq1QiE8oYFb4NR7Ig=;
- h=From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Type;
- b=Yq2cMGL1tb4WqGuqAl12zqEaeQN+bQG6fC7vvt10ES+WwvHjjIOmzzT/kFbnO1KU5
- R0aF4HzZ2ZRQsQ3DKnjZah1nQ3Hmb3WA/XQVi3aANfC65RqF4paIa+l1R0HvdZTc1R
- Ps/EfeIwkeecCa6LbUVJjjukeKgIwiEhYo7Y/0kPT+ESkP1cOcNtR9TXUPGSWCPekm
- SujFPThaejc8zg45IPcdtEzspiX1jMqhYE107y+jysZ9vdq7fNPFqMQBRFM7IAef+V
- TmrPaRhM7FLQx0Tckiywv6cvseKwKsU1lOtUpvp46DNhd+7k3MGasgO1F9sEaF60H3
- 7qae5XgLWvGpA==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3607uds81ZQvwCD0"
+Content-Disposition: inline
+In-Reply-To: <1612368575-25991-2-git-send-email-spujar@nvidia.com>
+X-Cookie: Who was that masked man?
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, sharadg@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,36 +83,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is cleanup required, related to release of phandles, during driver
-removal and hence point remove function pointer to graph_remove().
 
-Fixes: 202e2f774543 ("ASoC: tegra: Add audio graph based card driver")
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- sound/soc/tegra/tegra_audio_graph_card.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+--3607uds81ZQvwCD0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
-index 9e43f16..f43d302 100644
---- a/sound/soc/tegra/tegra_audio_graph_card.c
-+++ b/sound/soc/tegra/tegra_audio_graph_card.c
-@@ -2,7 +2,7 @@
- //
- // tegra_audio_graph_card.c - Audio Graph based Tegra Machine Driver
- //
--// Copyright (c) 2020 NVIDIA CORPORATION.  All rights reserved.
-+// Copyright (c) 2020-2021 NVIDIA CORPORATION.  All rights reserved.
- 
- #include <linux/math64.h>
- #include <linux/module.h>
-@@ -243,6 +243,7 @@ static struct platform_driver tegra_audio_graph_card = {
- 		.of_match_table = graph_of_tegra_match,
- 	},
- 	.probe = tegra_audio_graph_probe,
-+	.remove = graph_remove,
- };
- module_platform_driver(tegra_audio_graph_card);
- 
--- 
-2.7.4
+On Wed, Feb 03, 2021 at 09:39:34PM +0530, Sameer Pujar wrote:
 
+> +int graph_remove(struct platform_device *pdev);
+
+I think this needs better namespacing if it's going to be exported.
+
+--3607uds81ZQvwCD0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAazScACgkQJNaLcl1U
+h9AwjAf/XixFJdwXumZh6e4G4JogNNq4rLyk1Po+DOZ3Dmp5LtzCNj1hwALHxlvm
+gDH7sKvnVZ3+Ve9dSq0W3qi4SWSuvwTE/pMCxggeMawZvhYvFjzs43j0y4CwPAWZ
+8A8l6dBgWZNLwK89wvUEvampht9g7dVya2Lu4+Y1UhCr+KrzJTtNTFmCfTsjnSHD
+J2s/mfxZGuVewx9x5LeDeI3Oq1NlPJ1tGhXZKTsJlle8PBmULi2V4b3cFS4Al8W5
+OOKCXsA9y5RmPHKYiTF4Zwae+u9d8RfmWuYGsGRxM1UarrDmUahphJQQ7Z0mqWc9
+OKbLHvjn5eNiEr2NUJbHS1Rvjy1/dw==
+=Z2ls
+-----END PGP SIGNATURE-----
+
+--3607uds81ZQvwCD0--

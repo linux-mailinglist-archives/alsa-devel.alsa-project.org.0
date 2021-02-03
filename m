@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DD630E7DF
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 00:52:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3B5630E7E0
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 00:53:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA441742;
-	Thu,  4 Feb 2021 00:52:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA441742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E9F21767;
+	Thu,  4 Feb 2021 00:52:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E9F21767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612396372;
-	bh=YPXblj9q5X986mFODRcds0Ur5UoYg3UuWLPzVcQJdog=;
+	s=default; t=1612396380;
+	bh=xJAIlvBJEI5pN5MZoUfu+0E/VOCWvjpI7icQySxWP3I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NleHvBiDjh2oDOAtGNCA6cO/Yr15w/942SgdwYuQ/zJ6gdOZm8wCU69o9yvtgKJNe
-	 Am1VgQv7GbU5AzNyNS5MtcevVAT7B4EWbTW71yROFNCl5lEp/x4BFbEibKxvNz2/8I
-	 dM/+zNhOOpYkXiEzFQQB/z67NWDu5WXETsYvXsaw=
+	b=LVrj6g4JdFnUJ6FdH9NXVJwppodiqZXRE/rQ74fQm6Ra5fXU5/pbeKtzAB6hmpiY3
+	 kwL43eH0AdJKgSN1G+OVkBpNHXwEp53uI4Fhcwi5E64GKocmpq0Egw8w8/2sFf/dCI
+	 Ml7mKdtUfcsEoekd39QCizVOskfgHax33E2/CVkw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC08BF8013C;
-	Thu,  4 Feb 2021 00:51:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B5E6F8023A;
+	Thu,  4 Feb 2021 00:52:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C93F2F8015A; Thu,  4 Feb 2021 00:51:57 +0100 (CET)
+ id 06AB7F80224; Thu,  4 Feb 2021 00:52:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id CE89BF80155
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 00:51:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE89BF80155
-Date: 04 Feb 2021 08:51:49 +0900
-X-IronPort-AV: E=Sophos;i="5.79,399,1602514800"; d="scan'208";a="71254303"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 04 Feb 2021 08:51:49 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 3D6FFF8016E
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 00:52:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D6FFF8016E
+Date: 04 Feb 2021 08:52:04 +0900
+X-IronPort-AV: E=Sophos;i="5.79,399,1602514800"; d="scan'208";a="71254321"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 04 Feb 2021 08:52:04 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id A1DA74136408;
- Thu,  4 Feb 2021 08:51:49 +0900 (JST)
-Message-ID: <87r1lw90oo.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0BB614012253;
+ Thu,  4 Feb 2021 08:52:04 +0900 (JST)
+Message-ID: <87pn1g90oa.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/3] ASoC: soc-pcm: add soc_pcm_hw_update_chan()
+Subject: [PATCH 3/3] ASoC: soc-pcm: add soc_pcm_hw_update_format()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuqs90rl.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,128 +70,81 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We have soc_pcm_hw_update_rate() now.
-This patch creates same function for chan.
+We have soc_pcm_hw_update_xxx() now.
+This patch creates same function for format.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 39 +++++++++++++++++++--------------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+ sound/soc/soc-pcm.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index eb5b220b189a..748265018d1a 100644
+index 748265018d1a..9203b1bf2e0d 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -478,6 +478,8 @@ static void soc_pcm_hw_init(struct snd_pcm_hardware *hw)
- 	hw->rates		= UINT_MAX;
- 	hw->rate_min		= 0;
+@@ -480,6 +480,7 @@ static void soc_pcm_hw_init(struct snd_pcm_hardware *hw)
  	hw->rate_max		= UINT_MAX;
-+	hw->channels_min	= 0;
-+	hw->channels_max	= UINT_MAX;
+ 	hw->channels_min	= 0;
+ 	hw->channels_max	= UINT_MAX;
++	hw->formats		= ULLONG_MAX;
  }
  
  static void soc_pcm_hw_update_rate(struct snd_pcm_hardware *hw,
-@@ -493,6 +495,13 @@ static void soc_pcm_hw_update_rate(struct snd_pcm_hardware *hw,
- 	hw->rate_max = min_not_zero(hw->rate_max, p->rate_max);
+@@ -502,6 +503,12 @@ static void soc_pcm_hw_update_chan(struct snd_pcm_hardware *hw,
+ 	hw->channels_max = min(hw->channels_max, p->channels_max);
  }
  
-+static void soc_pcm_hw_update_chan(struct snd_pcm_hardware *hw,
-+				   struct snd_soc_pcm_stream *p)
++static void soc_pcm_hw_update_format(struct snd_pcm_hardware *hw,
++				     struct snd_soc_pcm_stream *p)
 +{
-+	hw->channels_min = max(hw->channels_min, p->channels_min);
-+	hw->channels_max = min(hw->channels_max, p->channels_max);
++	hw->formats &= p->formats;
 +}
 +
  /**
   * snd_soc_runtime_calc_hw() - Calculate hw limits for a PCM stream
   * @rtd: ASoC PCM runtime
-@@ -509,7 +518,6 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
- 	struct snd_soc_dai *cpu_dai;
+@@ -519,7 +526,6 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
  	struct snd_soc_pcm_stream *codec_stream;
  	struct snd_soc_pcm_stream *cpu_stream;
--	unsigned int chan_min = 0, chan_max = UINT_MAX;
  	unsigned int cpu_chan_min = 0, cpu_chan_max = UINT_MAX;
- 	u64 formats = ULLONG_MAX;
+-	u64 formats = ULLONG_MAX;
  	int i;
-@@ -530,11 +538,12 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
  
- 		cpu_stream = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
+ 	soc_pcm_hw_init(hw);
+@@ -540,7 +546,7 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
  
--		cpu_chan_min = max(cpu_chan_min, cpu_stream->channels_min);
--		cpu_chan_max = min(cpu_chan_max, cpu_stream->channels_max);
-+		soc_pcm_hw_update_chan(hw, cpu_stream);
+ 		soc_pcm_hw_update_chan(hw, cpu_stream);
  		soc_pcm_hw_update_rate(hw, cpu_stream);
- 		formats &= cpu_stream->formats;
+-		formats &= cpu_stream->formats;
++		soc_pcm_hw_update_format(hw, cpu_stream);
  	}
-+	cpu_chan_min = hw->channels_min;
-+	cpu_chan_max = hw->channels_max;
+ 	cpu_chan_min = hw->channels_min;
+ 	cpu_chan_max = hw->channels_max;
+@@ -561,7 +567,7 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
  
- 	/* second calculate min/max only for CODECs in the DAI link */
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-@@ -550,14 +559,13 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
- 
- 		codec_stream = snd_soc_dai_get_pcm_stream(codec_dai, stream);
- 
--		chan_min = max(chan_min, codec_stream->channels_min);
--		chan_max = min(chan_max, codec_stream->channels_max);
-+		soc_pcm_hw_update_chan(hw, codec_stream);
+ 		soc_pcm_hw_update_chan(hw, codec_stream);
  		soc_pcm_hw_update_rate(hw, codec_stream);
- 		formats &= codec_stream->formats;
+-		formats &= codec_stream->formats;
++		soc_pcm_hw_update_format(hw, codec_stream);
  	}
  
  	/* Verify both a valid CPU DAI and a valid CODEC DAI were found */
--	if (!chan_min || !cpu_chan_min)
-+	if (!hw->channels_min)
- 		return -EINVAL;
- 
- 	/*
-@@ -566,13 +574,11 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
- 	 * channel allocation be fixed up later
- 	 */
- 	if (rtd->num_codecs > 1) {
--		chan_min = cpu_chan_min;
--		chan_max = cpu_chan_max;
-+		hw->channels_min = cpu_chan_min;
-+		hw->channels_max = cpu_chan_max;
+@@ -578,9 +584,6 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
+ 		hw->channels_max = cpu_chan_max;
  	}
  
- 	/* finally find a intersection between CODECs and CPUs */
--	hw->channels_min = max(chan_min, cpu_chan_min);
--	hw->channels_max = min(chan_max, cpu_chan_max);
- 	hw->formats = formats;
- 
+-	/* finally find a intersection between CODECs and CPUs */
+-	hw->formats = formats;
+-
  	return 0;
-@@ -1523,8 +1529,7 @@ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
- 	struct snd_pcm_hardware *hw = &runtime->hw;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_runtime_calc_hw);
+@@ -1568,7 +1571,7 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
  
- 	soc_pcm_hw_update_rate(hw, stream);
--	runtime->hw.channels_min = stream->channels_min;
--	runtime->hw.channels_max = stream->channels_max;
-+	soc_pcm_hw_update_chan(hw, stream);
- 	if (runtime->hw.formats)
- 		runtime->hw.formats &= stream->formats;
- 	else
-@@ -1601,10 +1606,7 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
+ 			codec_stream = snd_soc_dai_get_pcm_stream(dai, stream);
  
- 			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
--			hw->channels_min = max(hw->channels_min,
--					       cpu_stream->channels_min);
--			hw->channels_max = min(hw->channels_max,
--					       cpu_stream->channels_max);
-+			soc_pcm_hw_update_chan(hw, cpu_stream);
- 		}
- 
- 		/*
-@@ -1614,10 +1616,7 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		if (be->num_codecs == 1) {
- 			codec_stream = snd_soc_dai_get_pcm_stream(asoc_rtd_to_codec(be, 0), stream);
- 
--			hw->channels_min = max(hw->channels_min,
--					       codec_stream->channels_min);
--			hw->channels_max = min(hw->channels_max,
--					       codec_stream->channels_max);
-+			soc_pcm_hw_update_chan(hw, codec_stream);
+-			hw->formats &= codec_stream->formats;
++			soc_pcm_hw_update_format(hw, codec_stream);
  		}
  	}
  }

@@ -2,86 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5A7311DAB
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 15:30:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A8F312000
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 21:40:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3A9D15E0;
-	Sat,  6 Feb 2021 15:29:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3A9D15E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 243B61690;
+	Sat,  6 Feb 2021 21:39:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 243B61690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612621806;
-	bh=8pfLenxKVqGF/fCAkpr/oUrhzU+aVUg+scmAXf9qLwg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VnJe9n/jcW80GZE2qz87Xj2ngrOdR++GwToRqMy+Hd0Ge/L8wfXu+9ZHtJg7YQNU5
-	 GfitiZ0/jOyNWzRKuw+Y79qjfRuG5FmTMziv2Q5+ZVynev3uW7W3fBnfQVf1s8cJyg
-	 io7uqfiDkYAWsp8M3DG7Pz/aNC0TtKGZ/ChANEYg=
+	s=default; t=1612644049;
+	bh=TNYsIqwuD2ldAont+QKhpBPqWvaxxwtlyJwZAPI2Yko=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UfBDFnTm4MLTe5DJ8ZrOFOgrEYSOEvlLrV2sojTE6sUF7E/ZlnzITHWhD6ayP5ca7
+	 u+RdhHzBAU61VcFjw0CTLj+BSba5zZo4rY2s+ssEL9M/THeRFyzpQ7ek8XPWIVY1OQ
+	 2/k1qxBXfoH09Oa8sRNKrzXRVZUN0GeXkeo1htN4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2877F80095;
-	Sat,  6 Feb 2021 15:28:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79478F80095;
+	Sat,  6 Feb 2021 21:39:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 672FAF80171; Sat,  6 Feb 2021 15:28:25 +0100 (CET)
+ id EA2DAF8015A; Wed,  3 Feb 2021 08:55:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7960FF800B8
- for <alsa-devel@alsa-project.org>; Sat,  6 Feb 2021 15:28:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7960FF800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oasV2rsU"
-Received: by mail-qt1-x82f.google.com with SMTP id r20so7247665qtm.3
- for <alsa-devel@alsa-project.org>; Sat, 06 Feb 2021 06:28:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=trBVjthcPa4Szq9iRBkzGcGAwzG2BWGvuWeRierNB7w=;
- b=oasV2rsUxYMGMghTGq+ZEmvFqtfGb+T5TIkzkB2aqOSIuWJRVzHLQG39dGmlJHgd5k
- GPImxjgr/d1XAJfMz+vukL/ez1hR7ObSMIc8gk3kvq0yejAB2SjvGqp/ieh9SQzMPmXc
- 0oSmQDGgo1+lFVoDA1kQWKd8bZTnYxRH866wdzMedIDlVOqw2A274zSCA2f0XrtjPc7j
- d3tkiOQrnmcXei84g4539c7fb5AjTrZBwsUGYEz1y2wl0bTNwZqP89h/oPpKXHkgBwWX
- gK6LzJnv/S1u5hjg4+MF42XKhzgPDigjqvQid8CvFYSEvI9nKDnTl3Km+nbunIJLk9Uh
- UrEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=trBVjthcPa4Szq9iRBkzGcGAwzG2BWGvuWeRierNB7w=;
- b=YRpyB2iCalF2fwckObkT+l9UlHbc6wXvah139wIyYDKJd1ZwkRP36AuHO0HoCYeqRJ
- 9RpwXCLSFI3haTrrEWeFMxByN1h7WXoz1lZwgadIhhjotOhnVcOLmXMJbDgeII+yKIFA
- 9jzu8fdpkZCM9XWW7bWgcpzEgBMt6Tuby452DyGSDnG23zUYosNZcxJdvgzqwPRr76ZS
- R1lEc+d/xgjZKJX5Je5RgAoIQD7l/DGfuI7DmW9iK9kAYChS3rUQLe2v2ctr0oAyttqa
- m8g3/wRvkhC66Z/yR23Y7Z93FKI5dT1TPlyD/Ds4dPmMEYzql2nDFKU7/MGbqlMc1jKK
- sodw==
-X-Gm-Message-State: AOAM530KTRxIr+334zAxxrpS58Cmi7K/6m9AnKq/9S5RNV90iQUYWRwH
- fmipe/6u0fEWhldJno5XqOM=
-X-Google-Smtp-Source: ABdhPJy+K36pBr4d2rZd2et2krL+Yq2rV1yQB+zZqKQBuaV4FY7cQrqCjcXS3S8j95X69pYbGEMFhQ==
-X-Received: by 2002:ac8:58d3:: with SMTP id u19mr1702791qta.168.1612621682548; 
- Sat, 06 Feb 2021 06:28:02 -0800 (PST)
-Received: from localhost.localdomain ([2804:431:d77f:e61e:c875:9def:11d8:cdcf])
- by smtp.gmail.com with ESMTPSA id t22sm11368626qtp.7.2021.02.06.06.27.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Feb 2021 06:28:01 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH v2] ASoC: fsl_esai: Remove unused 'imx' field
-Date: Sat,  6 Feb 2021 11:27:53 -0300
-Message-Id: <20210206142753.536459-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88A0FF80154
+ for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 08:55:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88A0FF80154
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l7CrV-0000mf-2a; Wed, 03 Feb 2021 08:46:05 +0100
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l7CrM-0005LW-0J; Wed, 03 Feb 2021 08:45:56 +0100
+Date: Wed, 3 Feb 2021 08:45:55 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Subject: Re: [PATCH v3 0/5] amba: minor fix and various cleanups
+Message-ID: <20210203074555.tusulu3iqg5wgxeb@pengutronix.de>
+References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+ <20210202104915.GK1463@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: nicoleotsuka@gmail.com, Fabio Estevam <festevam@gmail.com>,
- alsa-devel@alsa-project.org, shengjiu.wang@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="nnu6wqtgppbbywlf"
+Content-Disposition: inline
+In-Reply-To: <20210202104915.GK1463@shell.armlinux.org.uk>
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Sat, 06 Feb 2021 21:39:08 +0100
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, kvm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, dri-devel@lists.freedesktop.org,
+ Eric Anholt <eric@anholt.net>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-watchdog@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Arnd Bergmann <arnd@arndb.de>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Vladimir Zapolskiy <vz@mleia.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cornelia Huck <cohuck@redhat.com>, linux-mmc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-spi@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Leo Yan <leo.yan@linaro.org>,
+ dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,50 +108,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The 'imx' field is not used anywhere, so get rid of it.
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-Changes since v1:
-- Also remove the comment about the imx member.
+--nnu6wqtgppbbywlf
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- sound/soc/fsl/fsl_esai.c | 5 -----
- 1 file changed, 5 deletions(-)
+Hello,
 
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index bac9f059c9fc..08056fa0a0fa 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -23,11 +23,9 @@
- 
- /**
-  * struct fsl_esai_soc_data - soc specific data
-- * @imx: for imx platform
-  * @reset_at_xrun: flags for enable reset operaton
-  */
- struct fsl_esai_soc_data {
--	bool imx;
- 	bool reset_at_xrun;
- };
- 
-@@ -86,17 +84,14 @@ struct fsl_esai {
- };
- 
- static struct fsl_esai_soc_data fsl_esai_vf610 = {
--	.imx = false,
- 	.reset_at_xrun = true,
- };
- 
- static struct fsl_esai_soc_data fsl_esai_imx35 = {
--	.imx = true,
- 	.reset_at_xrun = true,
- };
- 
- static struct fsl_esai_soc_data fsl_esai_imx6ull = {
--	.imx = true,
- 	.reset_at_xrun = false,
- };
- 
--- 
-2.25.1
+we already talked about this via irc, but for the record and the benefit
+of others:
 
+On Tue, Feb 02, 2021 at 10:49:15AM +0000, Russell King - ARM Linux admin wr=
+ote:
+> I think you need to have a 6th patch which moves the
+> probe/remove/shutdown methods into the bus_type - if you're setting
+> them for every struct device_driver, then there's no point doing that
+> and they may as well be in the bus_type.
+
+This is implemented in patch 5 already.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--nnu6wqtgppbbywlf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmAaVLAACgkQwfwUeK3K
+7AlQLgf+P1DKYj6OELp8rvge2qlgjLziflPm/vmYKoER7GP62xMAt1jHBWvMgDLx
+SQfCWfc7aNauEmrPFy3TDOyu3SrNFjDVRf3DfOGZ+VpYmmtyUJihjezhbbhpysK5
+Pchia3IjZ0wVWPBC0mb8a1o5w1GQ7l49/QaVZ6buVR+RoNYiKGFdiKcEc8JB+c19
+s2ksv2HXH9eB66fQ+yNQY7W2lNiK98iTc0txk+lhP2wRnFXHPMgqQhFb3j2wt7Or
+ix27mqEX40GyAOv+Xmam2NtjLRM5WD4zflnasEKvxQoa0Qe0mpR6aSKIotUmM4yi
+oNcARpnSdJUwDrfHL0GDd9ksOomPMA==
+=r9/H
+-----END PGP SIGNATURE-----
+
+--nnu6wqtgppbbywlf--

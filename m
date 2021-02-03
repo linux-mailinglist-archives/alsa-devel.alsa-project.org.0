@@ -2,69 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515D330D933
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 12:53:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F0430DB06
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Feb 2021 14:23:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D57371771;
-	Wed,  3 Feb 2021 12:52:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D57371771
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0944F1774;
+	Wed,  3 Feb 2021 14:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0944F1774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612353212;
-	bh=2K5gO5AYojQ+H+BrQx6ayqqOhXB3kgclkO1A8grhYkc=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1612358606;
+	bh=Da4M1bnf1Wqx12eiTUgDdPCdruKdDYCPyv3ytTn0Apk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a6c93t9bSrIVDqAGb88XSi16dwhA0Yl7Ni41lUVZku58NqD9o5PpoDzCtap+IUs9z
-	 9oTUjFsOeODK/JcZ6M6f1x2YL0Xz3kEfGdHJa5Fl+fY9b3CmRWlvm4laGlv6dOOIPc
-	 R7w8YFmiUGoWF0AU1YNgWPFC2j6bH2EtEKEmkIB4=
+	b=soXXnl4i9bfnAUdkvNrzSzK06zO9SzXi5jlzTKdCYTojUo/A2pwudtXg1NdiR+84S
+	 X4Ide5XA0+MpXN+qKYIFBKZrAAy2EqLtFMXJy3oNhzi4DJ7Nqj+FOvylqB9VdS/mLy
+	 bdYVy/K27kfHeD6aLXGP/DFkbtKJefUkL4G6MoHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C1B4F80154;
-	Wed,  3 Feb 2021 12:52:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 630B9F8016E;
+	Wed,  3 Feb 2021 14:21:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98023F8015A; Wed,  3 Feb 2021 12:51:57 +0100 (CET)
+ id A829FF8015A; Wed,  3 Feb 2021 14:21:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74E26F80155
- for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 12:51:50 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8AA58A003F;
- Wed,  3 Feb 2021 12:51:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8AA58A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1612353109; bh=X8YHLR01TwdI+Nw3O+bnBPTFIPK61iCW/5XYfXikl6A=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=J8MsY6ys9weLbZqvWPVSt8Pvm2D2mTK95ff2JECHt4CjrHERqLvZEjUxvCGvwTuRH
- Pxyn7YrsrghwdJ/MbjeWNjTEpFy+PyMqVWVlIi/IeRfvzTVwQCp9R7ObAVXiBkltZb
- iy/hRT9yHFXjodkpG6Lhc5rxzmoC3i6+77Wv6ljg=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  3 Feb 2021 12:51:47 +0100 (CET)
-Subject: Re: question about ALSA devices not showing up in buildroot build
-To: Bert Schiettecatte <bert@bertschiettecatte.com>,
- alsa-devel@alsa-project.org
-References: <CALd3UbT7DcXSmLO2VEDReY5aft5shpeEBS_wg7bWpoC6Q3qxzQ@mail.gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <4391d9b1-acee-94dc-5c5f-aa53b9eae6d9@perex.cz>
-Date: Wed, 3 Feb 2021 12:51:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D46F5F8013C
+ for <alsa-devel@alsa-project.org>; Wed,  3 Feb 2021 14:21:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D46F5F8013C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="dtcpod9M"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 362F864E38;
+ Wed,  3 Feb 2021 13:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612358499;
+ bh=Da4M1bnf1Wqx12eiTUgDdPCdruKdDYCPyv3ytTn0Apk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dtcpod9ME1FXG3N24V04PY+nY2vROgeKptqjMgrKti7aX957Ip/v3YdTpvJ00yNjq
+ nBOLzSyyCh2P1ugeIJgKeXGK8iydKO6UEiic5I3j1xi3mAxqe2cnGZtBCyXI/dFcp6
+ jrfveRwAYmW6TLrEdhnXMk2HNOZkveYa+9TWUrOPs/cv2PEncnBW5NvuBOSCRg0csq
+ 8AQfaQ0q0bL/+t4p2DM6y9dZgxvzXIf/ahDi1Sh5JjWMHQh3JMjvlxXfnFlGUILQ5+
+ lAWbazIcoLd0mCEMhXtrkIPIhgncPxyiRGLQswOj6N3vju/SgRqvJ1GRV2Fe5TVXJT
+ PHeM32wXPna2w==
+Date: Wed, 3 Feb 2021 13:20:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Argus Lin <argus.lin@mediatek.com>
+Subject: Re: [PATCH 0/2] Add mediatek MT6359 accdet driver
+Message-ID: <20210203132051.GC4880@sirena.org.uk>
+References: <1609935546-11722-1-git-send-email-argus.lin@mediatek.com>
+ <1612335462.9202.1.camel@mtkswgap22>
 MIME-Version: 1.0
-In-Reply-To: <CALd3UbT7DcXSmLO2VEDReY5aft5shpeEBS_wg7bWpoC6Q3qxzQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lMM8JwqTlfDpEaS6"
+Content-Disposition: inline
+In-Reply-To: <1612335462.9202.1.camel@mtkswgap22>
+X-Cookie: Who was that masked man?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ wsd_upstream <wsd_upstream@mediatek.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Arnd Bergmann <arnd@arndb.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jiaxin Yu =?utf-8?B?KOS/nuWutumRqyk=?= <Jiaxin.Yu@mediatek.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ ChiPeng Chang =?utf-8?B?KOW8teeQpuaciyk=?= <chipeng.chang@mediatek.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ Dan Murphy <dmurphy@ti.com>, Shuming Fan <shumingf@realtek.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Jack Yu <jack.yu@realtek.com>,
+ Shane Chien =?utf-8?B?KOewoeS9kei7kik=?= <Shane.Chien@mediatek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,29 +100,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 02. 02. 21 v 18:00 Bert Schiettecatte napsal(a):
-> Hi all
-> I am working on getting my ALSA machine driver and codecs working. I
-> ported over my code which was based on 4.11, and I'm using 5.9.12 at
-> the moment. At first sight everything seems to be working, but the hw:
-> , plughw: etc devices are missing and when I list the PCMs with
-> acrecord -L, I don't see any, even though arecord -l does show the
-> card. I am using buildroot for my rootfs. So I am wondering if this is
-> an issue with incorrectly defining the structs in my driver code, or
-> if this is an issue with missing package in my buildroot config, or if
-> this is due to a missing configuration file for ALSA in the rootfs.
-> Previously I was using an off the shelf linaro rootfs when I was still
-> on kernel version 4.11, and there the PCMs were showing up correctly
-> and I could see the multiple devices such as hw:, plughw:, dmix: etc.
-> Thanks!
 
-Add "defaults.namehint.extended true" line to your ~/.asoundrc or
-/etc/asound.conf file to list hw/plughw devices.
+--lMM8JwqTlfDpEaS6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-For the driver test - 'aplay -l' is more relevant.
+On Wed, Feb 03, 2021 at 02:57:42PM +0800, Argus Lin wrote:
+> Dear maintainers:
+> Can you reply to me if any opinion?
+> thanks
 
-				Jaroslav
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+IIRC I did review this...
+
+--lMM8JwqTlfDpEaS6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAaozIACgkQJNaLcl1U
+h9CrKQf/acfnUSuQONwN1RT/hy5GX9WSF9RkgE8dip0te22amV9V/s7zWzNqGtcA
+4CaPqT8pSNN975HVcr388zMgdi/wa7g3n6nnGYWcIlFwVncCuxcGiUqxMzqqKk8p
+xAPDqZibzPj5RWoFkNdJo9QLiKi04GGNPliTcHRYxrvFtr5m8MZRLQI7yRIUjOT9
+pxe+CscoJ8p3Gadbi4ZH95aRDIqy//hStJKHn2YRW5vXlCNJkbXKRE78iWJo4//4
+Ll2vLjZeS3fBxflFSkk8Tqcl6LhN5zp1Le/6qE1oHVWmRiKTqPc1irYFKs1iBZI/
+1ioNJnhOryevfmraD/TUdCB+xN3z3Q==
+=Hlk7
+-----END PGP SIGNATURE-----
+
+--lMM8JwqTlfDpEaS6--

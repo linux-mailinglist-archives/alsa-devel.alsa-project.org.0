@@ -2,99 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B14130F41A
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 14:45:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A663230F41C
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 14:47:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F56C16E2;
-	Thu,  4 Feb 2021 14:45:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F56C16E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C753825;
+	Thu,  4 Feb 2021 14:47:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C753825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612446357;
-	bh=nJLlJzHOENushJifLgfNJhg8MXOLYc1+wPV2qLgjZEk=;
+	s=default; t=1612446472;
+	bh=5YGrmL2V6B3c99pwNr/oyzcjeXThHVo7PnuQ5Pl6/s8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NXZ8iVrDw864JbQj+0/RfDXZTaXZym191idsDA3xqqW8RK4enRys4SQxYKWd0KOdv
-	 aa6mywyjYRw7OsGkZPJ4Q7FWDaFAmrfvKaBWq+qxXpG573rBn+7KDltSVVuMB+b2Gm
-	 ztTP8dQTTvpkSwenCxlIs4T7pyumgBgDiHgORkkk=
+	b=k2TeXkWwcizfxOtzPqa5fDn5wZ/WgSIyF8YssiysgTwOeE4CkneiQnntVlMthLqTc
+	 YXH4XijkMSNoz84NQTdEbfegTHBqmh9HJyiiVCaY3AfyzXVE4btOR2nah3CcuvcABu
+	 BMcc8JrTYlQyp7A3aQtrajDA7NHgPUVkO9KztAPQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DA83F80139;
-	Thu,  4 Feb 2021 14:44:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5E81F80152;
+	Thu,  4 Feb 2021 14:46:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2ED1DF80171; Thu,  4 Feb 2021 14:44:23 +0100 (CET)
+ id 86F79F80171; Thu,  4 Feb 2021 14:46:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09DB5F80139
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 14:44:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09DB5F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FDD8F80152
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 14:46:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FDD8F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="pLL+20zr"
-Received: by mail-wm1-x335.google.com with SMTP id j21so324626wmj.0
- for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 05:44:15 -0800 (PST)
+ header.b="vcX10tK1"
+Received: by mail-wr1-x42b.google.com with SMTP id z6so3525719wrq.10
+ for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 05:46:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=lRYvK8OMCHMkGJ2UxDzBQw4RlWR868ddrnX7Z1FGiaE=;
- b=pLL+20zrB9hl28++h/IR1o2YCSmZmIf5uu53yfbCqmTn/GZq1rYk3NXwhAgyCeDGMz
- R409AufnzRdZR4WCxmB2ee4unGmyIRglDmFztvuGFFiIFt2L3P3F7dOqMkaPRyaUSqab
- Pkw4P1nrlPS7PZsfftUX+MDdPClggErzmSBDWJEtKONddf2Q6uTi1KUC7T3jGFyJZxwF
- Ekm84/ShbsXU9wiR6mhxBnMQJSKkLvzNtOvYfwUbh2KUN0fmGkF1g0hLalY6g9UPZA6B
- U3elBRmhyNZQG3jsNj2V4E4I6Pf+AWCXfsxYQhbq9UFfLfhDoPV3WoV9J649PZa5Wdkc
- Et+g==
+ bh=Dc2qXVoLurmP1y6qGwsvfYp52EWzBpvbfbLeLIxscWo=;
+ b=vcX10tK1JXGeAOOqnN5qkSnrM0WTN2R/PdrCmgvbefToo/2uSgDcfLT6Xd8NM/mKEl
+ xMfRDm0yVYJQX8w/QhvLlCks+9AJgUiQlDMqupirjP9dAV0pn+XAbUpv9gpNFwEGNg22
+ q7fBzmF0ensUbqLyzqCPm+6i+m+rvJlO3fHrtyCKdwTStk1H03Adc9d3bxeuqJ5zRd4L
+ 3vtLRDddOqVlUf9sVnHZ9h+8USZ3ZMEykRzMLAAoi6qeQWO328wvXjZNDf+2HmShrvoP
+ hRkKEUGLbrHEPnVLdHJ+K7BUj3rgzVaPyFWh11Q0ZFB93DpTM7LsdzjIbKazFBKf0Q8A
+ 9l1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=lRYvK8OMCHMkGJ2UxDzBQw4RlWR868ddrnX7Z1FGiaE=;
- b=eZAgXon+Mag7yzBAsPWEnw/aY7jTjl58JAhFkXoqDoYLYRGcdtLzqLSDoYtFHEOCQC
- iC06lOLPrQJ8UZMwgjkFz0+AtqudJZhlC9+uA9rGu0yJZgU2zlZI23UNyPrbxXBI9vg0
- nWVQwaFQifmENGypQ9WHus85nZQ/AcpSXf009Eq2jiILtlsJle1Wd91eiGQF+Xo3r5CL
- XpR8+0d3BF0xNGOd3EC/j8WcOWMXanDODpNrUSnT+lGK1YhC5aRO5yY7ERnaEGcuihTd
- focwJEmZeSTBR9jaJImNWH1i59RjEGJRO+wDrkD1M4bvTiiewRIblxfrBWlDns/YNb5s
- BzyA==
-X-Gm-Message-State: AOAM531NrmaejaxLtFpI7UXxEmtz2BEFtBUf9z4cDO0vfwpqZoCq+93t
- p7SwlS60qGPwpSHYBkOBrU9cGg==
-X-Google-Smtp-Source: ABdhPJwV2CZpAqZ/stq0i/AuZHm4dX3DgAU4MuOT1GRlwq81uLSdldL7Plrh4nNTmdTSYpm7nIg+uA==
-X-Received: by 2002:a1c:46c5:: with SMTP id t188mr7500875wma.170.1612446254671; 
- Thu, 04 Feb 2021 05:44:14 -0800 (PST)
+ bh=Dc2qXVoLurmP1y6qGwsvfYp52EWzBpvbfbLeLIxscWo=;
+ b=DEWoOxw0W/3KD8qTxDmhnUoDv3AZGLYSBeLtw+n6RjJ42W5VYLMFHS8nIkwtp2gALo
+ 0GIj/LsIsLOx+N5cPCUC/yIebVN9TvJ7XKuZ5Bdf85eIeO5P2iDjamF4exN++kSzzSi9
+ XWEnyTB6HjeisQIYsWjxAIVwTOQ2QfhcsLmrybxfwvyJ3KoZmEn42/HNucgOocTST2uq
+ k9cnkMe4fo1F5LYjKjAncbzXF3LyJdnWdGFllnpCxgi/ysa2vM6uBcwQpxoniSTplvHD
+ ov7y9OP2WT2ZptejkB0NaW8LuuRFviFE5ZcIHD6INpJxHnOLD1TBdIAm5tXpRfLWxB7A
+ MiYQ==
+X-Gm-Message-State: AOAM531+asEjqe/h0pg3ZJa6erqwZ6WVdCJcDULu6LZ/arw7JYhaoF6x
+ zyrZOF3HXHVUDvT8ULpbvLeDGA==
+X-Google-Smtp-Source: ABdhPJydeDZ+8e1+KMnG8GflcBvfY2Mg3GWNDaEqkj0KlgohdEXPBXZQ8GD5ktuU19qx3aBMThKUPA==
+X-Received: by 2002:adf:81e4:: with SMTP id 91mr9635163wra.161.1612446368624; 
+ Thu, 04 Feb 2021 05:46:08 -0800 (PST)
 Received: from dell ([91.110.221.188])
- by smtp.gmail.com with ESMTPSA id f7sm7580855wre.78.2021.02.04.05.44.13
+ by smtp.gmail.com with ESMTPSA id b4sm7912769wrn.12.2021.02.04.05.46.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Feb 2021 05:44:14 -0800 (PST)
-Date: Thu, 4 Feb 2021 13:44:12 +0000
+ Thu, 04 Feb 2021 05:46:08 -0800 (PST)
+Date: Thu, 4 Feb 2021 13:46:06 +0000
 From: Lee Jones <lee.jones@linaro.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v4 resend 01/13] mfd: arizona: Drop arizona-extcon cells
-Message-ID: <20210204134412.GG2789116@dell>
-References: <20210204112502.88362-1-hdegoede@redhat.com>
- <20210204112502.88362-2-hdegoede@redhat.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards
+ with WM5102 codec
+Message-ID: <20210204134606.GH2789116@dell>
+References: <20210120214957.140232-1-hdegoede@redhat.com>
+ <249f1a7c-048e-d255-d860-68a97a0092c8@redhat.com>
+ <20210204105748.GD2789116@dell>
+ <7f53dede-946e-c38e-e871-3df1119f1faf@redhat.com>
+ <20210204124335.GA4288@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210204112502.88362-2-hdegoede@redhat.com>
+In-Reply-To: <20210204124335.GA4288@sirena.org.uk>
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>
+ Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,23 +112,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 04 Feb 2021, Hans de Goede wrote:
+On Thu, 04 Feb 2021, Mark Brown wrote:
 
-> The arizona jack-dection handling is being reworked so that the
-> codec-child-device drivers directly handle jack-detect themselves,
-> so it is no longer necessary to instantiate "arizona-extcon"
-> child-devices.
+> On Thu, Feb 04, 2021 at 12:07:49PM +0100, Hans de Goede wrote:
+> > On 2/4/21 11:57 AM, Lee Jones wrote:
+> > > On Thu, 04 Feb 2021, Hans de Goede wrote:
 > 
-> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->  drivers/mfd/arizona-core.c | 20 --------------------
->  1 file changed, 20 deletions(-)
+> > >> series are both ready for merging. All patches have Reviewed-by and/or
+> > >> Acked-by tags now.
+> 
+> > > I don't think they do.  You're missing ASoC and Extcon Acks.
+> 
+> > Right, what I meant is that the patches have been reviewed by other
+> > stake-holders, including the follow-up series being tested by the cirrus
+> > codec folks (thank you Charles).
+> 
+> > But yes the actual subsys maintainers have not acked these yet;
+> > and I'm aware that you will need those for merging this through
+> > the MFD tree.
+> 
+> The usual pattern here is that the MFD patches get merged and then I
+> pull a shared branch in for any dependencies - at this point the series
+> is now on the backlog of serieses where I'm waiting for the MFD to sort
+> itself out before I really look at it again.
 
-For my own reference (apply this as-is to your sign-off block):
+I tend to push patches awaiting Acks to the back of the queue.
 
-  Acked-for-MFD-by: Lee Jones <lee.jones@linaro.org>
+Stalemate.
 
 -- 
 Lee Jones [李琼斯]

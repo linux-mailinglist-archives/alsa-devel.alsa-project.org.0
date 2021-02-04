@@ -2,74 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0BD830F5E6
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 16:14:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37D230F618
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 16:23:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AE211658;
-	Thu,  4 Feb 2021 16:13:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AE211658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6981F1666;
+	Thu,  4 Feb 2021 16:22:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6981F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612451646;
-	bh=G4jmW1klxSDhuyqLVoj50N0KykhbrDTq8TJm7ElTHpY=;
+	s=default; t=1612452190;
+	bh=uT9wUc3DPDe9PIH0wltlcHeaNWMbLdT1AjzUT8F+hCU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gNodxr6vdGFytRMtBVG8hfFaW57FjcOnUfwNVjKzjgFiBnIXYQTgt6ZARvdgzE5cA
-	 lKZ6ehwcKVyvs8CuYwSPbs2EFy6nVt1U/nfhQ3jVxLZAJwmNZXDVjAhRSL8aKqKicA
-	 rPH9yzflGO3rFxbNt32vgYafmTOdl4Ij9X7r9d8g=
+	b=PohlrGy2Z0D7ZQmhqpEjhIxm5QrMduwrq8QALfzpnO6GxFMGSToh7EVXXkq8bs9bn
+	 0OB6ygAVk+XDe/xlPfD63eOpv6tdYhHnL6G5mRBvelKBRWB/wzfW2kyGpYl/mY0SPc
+	 Z33gL4Q8MPQ09wYylYGdq+xADwD4hzHx/gMx896s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1C47F80154;
-	Thu,  4 Feb 2021 16:12:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EB85F801F7;
+	Thu,  4 Feb 2021 16:21:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4593F80171; Thu,  4 Feb 2021 16:12:32 +0100 (CET)
+ id 356D7F80171; Thu,  4 Feb 2021 16:21:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B255F80152
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 16:12:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B255F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15336F80152
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 16:21:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15336F80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="h1EODtEG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 584E964DF2;
- Thu,  4 Feb 2021 15:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612451548;
- bh=G4jmW1klxSDhuyqLVoj50N0KykhbrDTq8TJm7ElTHpY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=h1EODtEGbjMAIDkq072psv/urRdZPDKRVv6TZJAOxW+XAnE6Vb5Uwjt0aMx7AnstA
- j7n0VVxrsfX2rFgn0P1Sd/nf/wEvgGKKuTkXvEueJkjKh4fzyKlgzSH0n69EG1P04w
- KVO0UNXhRj6FebbVfYiUg69guvDqpmZ30p2Lq51rF7gu3rPePkdkqF7+b6C9zYST5C
- 9wZsrVy08GhsDx0yLQGhmlB/N5p7clax1eIu41pfFnxZQldhFgD7wkCl2SQpblZdh4
- tDvRmUtzKwcHYSmqMmTlxHv8sGh+mhPkW6G8OoV0AP5GdwBxe4lmETKSS1tYj0tE3o
- BxGljiI5oxnYw==
-Date: Thu, 4 Feb 2021 15:11:40 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [PATCH v4 4/5] ASoC: Intel: Add DMI quirk table to
- soc_intel_is_byt_cr()
-Message-ID: <20210204151139.GE4288@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="VYti8uRm"
+Received: by mail-wr1-x42d.google.com with SMTP id g10so4003935wrx.1
+ for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 07:21:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=vA/eQ2S58koKaVheuxAPbUo6pEs5SmDGNUESF9JP+0A=;
+ b=VYti8uRm2dyw6UwX8aXW2oV2DL1UgHJ4rEUzb5RzcktTeGTufd/d6F/gqYPL+qhzzB
+ RbultCZ8rdkXrfv4yvMuSztOX25uVckOuykH+d7JKM2/E0RpttgrVpR7SmHbJbdaeBJ1
+ j7qGj70tVfcriTnXNOaSQrt+1q1Qrvnt6P8UBoZsGxK8S4ub/SJ7y8Mo39VuSUfceYnA
+ k6jIo7seCmvdOutxrRx0GGY9pwUF3U2ToL1Yfyfl2WWbZ3lSuBhls/u4duYxDl2al/Kt
+ hgubF2KfhfiQEVHRSCSUHhDHkP4mE/UguAVhkpWdzOLG1kicazqjfQPDUNSyqYIRBZ+c
+ cHmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=vA/eQ2S58koKaVheuxAPbUo6pEs5SmDGNUESF9JP+0A=;
+ b=AdGpIKPeUejC9vQvl8Uhe4v+7hRBOp+tFQfdSD2uI4tuDr1G8or0+nFrrB3PivNCz0
+ mpuWVjqChPSTzUno3QhecVjOjCxXvru0VsrAMs34tWIphZglp+0lOliORZC6+B9O4KYd
+ DL7zuuJX0ilYErj3FiZFgM9ECJKE6MYviSerIxuFbbNOoIz2wHPkKtJ6Q+oowEXuVAtv
+ CEiZ3dG/gYoxhgvRCnrLYWvJAXCiTBDNxrTaGd3VZkHBLoH75k1rs2anvKJubU6ssFF7
+ +ScwAIhc0Bp3asDiakLYke2ZRzUanJU5YwsdaD3yyDGVh9MFw7wXyOTy9ayB00YXWdFf
+ sYUg==
+X-Gm-Message-State: AOAM5304kfh8qQL/OEjCcuhJ+8iI/20robHYWiklDczgi9MGT22YQaOI
+ BBbkKF+0369OaLYmESOi2S+qGA==
+X-Google-Smtp-Source: ABdhPJy0TbSsLuS/p2WzRPai8cnyw5jXXrUIeWK7iACJ/7tWSzo8KmbSSE4PPpWjajdKad9sJhaTuA==
+X-Received: by 2002:adf:ea51:: with SMTP id j17mr10448625wrn.382.1612452086502; 
+ Thu, 04 Feb 2021 07:21:26 -0800 (PST)
+Received: from dell ([91.110.221.188])
+ by smtp.gmail.com with ESMTPSA id c18sm19955797wmk.0.2021.02.04.07.21.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Feb 2021 07:21:25 -0800 (PST)
+Date: Thu, 4 Feb 2021 15:21:24 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards
+ with WM5102 codec
+Message-ID: <20210204152124.GO2789116@dell>
 References: <20210120214957.140232-1-hdegoede@redhat.com>
- <20210120214957.140232-5-hdegoede@redhat.com>
- <20210204135616.GL2789116@dell>
- <20210204140515.GC4288@sirena.org.uk>
- <20210204150456.GN2789116@dell>
+ <249f1a7c-048e-d255-d860-68a97a0092c8@redhat.com>
+ <20210204105748.GD2789116@dell>
+ <7f53dede-946e-c38e-e871-3df1119f1faf@redhat.com>
+ <20210204124335.GA4288@sirena.org.uk>
+ <20210204134606.GH2789116@dell>
+ <20210204150904.GD4288@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Oiv9uiLrevHtW1RS"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20210204150456.GN2789116@dell>
-X-Cookie: Truth can wait
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210204150904.GD4288@sirena.org.uk>
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
  patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
@@ -92,43 +114,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 04 Feb 2021, Mark Brown wrote:
 
---Oiv9uiLrevHtW1RS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Thu, Feb 04, 2021 at 01:46:06PM +0000, Lee Jones wrote:
+> > On Thu, 04 Feb 2021, Mark Brown wrote:
+> 
+> > > The usual pattern here is that the MFD patches get merged and then I
+> > > pull a shared branch in for any dependencies - at this point the series
+> > > is now on the backlog of serieses where I'm waiting for the MFD to sort
+> > > itself out before I really look at it again.
+> 
+> > I tend to push patches awaiting Acks to the back of the queue.
+> 
+> > Stalemate.
+> 
+> I'm only going to ack things if I expect to see them applied via another
+> tree, that's generally what an ack means from a maintainer.  Especially
+> with ASoC where we keep on having subsystem wide changes quite often I'm
+> not likely to do that for things like new drivers unless it's very clear
+> what the timelines are.
+> 
+> It would be enormously helpful to get the bits of the core MFDs that
+> create dependencies committed while the rest of the series is still in
+> process, as well as allowing things to be applied it also helps with
+> knowing if the dependencies are stable.
 
-On Thu, Feb 04, 2021 at 03:04:56PM +0000, Lee Jones wrote:
-> On Thu, 04 Feb 2021, Mark Brown wrote:
-> > On Thu, Feb 04, 2021 at 01:56:16PM +0000, Lee Jones wrote:
+The default point-of-view is; if a patch was submitted as part of a
+set, it's likely that it makes the most sense to merge it as a set.
 
-> > > > Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> > > > Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > > Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Very often sets will have inter-dependencies (usually headers) which
+would otherwise require the base patches to be applied (perhaps the
+MFD core and the headers) in one release, followed by the accompanying
+child device changes during a subsequent release.  This doesn't scale
+well and puts the contributor in an unfair position.
 
-> > > Applied, thanks.
+This is how we usually work together.  Why is ASoC so different?
 
-> > While we we were just having a discussion about what to do about this
-> > stuff...
-
-> We were?
-
-> This set has all the Acks we need to proceed.  What's blocking?
-
-There's the subsystem maintainer...
-
---Oiv9uiLrevHtW1RS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAcDqsACgkQJNaLcl1U
-h9AqDgf/XzyTNV0AwXM8ECOYYqs8avg1zJ118ZJf4W3sf0LRQzsUidYaLfh7btT6
-ax+t2Pm1s145XuvGeFEJFAx9UDaqWQRa7/WPGTveZmnPYgSHryMK8pmtWyc1STcY
-iQKV0b/kLwUTn9V9Hu/jejpRl+a3N87j2hYIKK5Y3o+3wVjvFPj9FHSpdKFNvy0k
-HKrV9GhZzMOHM30JfgBvAjNOoutBAhHe8agmQOcvK526XY3JBw6DctrG5vSXaj9q
-w8yLcOmdv56laLX76e4dzXPCjGTqxlDop2MeyaNg3fmZ99kxLGumgMmNdggRU/xa
-QPHYEKBU4bfMkXhTYk1yqct/Y4O5rA==
-=1Vn6
------END PGP SIGNATURE-----
-
---Oiv9uiLrevHtW1RS--
+-- 
+Lee Jones [李琼斯]
+Senior Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog

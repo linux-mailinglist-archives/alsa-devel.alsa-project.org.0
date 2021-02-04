@@ -2,115 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E98A30F096
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 11:27:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1A830F124
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 11:47:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E05C716F8;
-	Thu,  4 Feb 2021 11:26:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E05C716F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5D1A16F8;
+	Thu,  4 Feb 2021 11:46:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5D1A16F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612434469;
-	bh=cp4K2GKnMYBfQB+WHSulvmijbJLKl5coIMQsxhA7HO0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612435657;
+	bh=lwFYWfjWiJxLem7YlEL88rsvpMSkTuKtD4h1rW/sKnU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BlOlMYUvaxclj1uB4ZITcMTVL1Tuvp8+S9zjfmLi3ldcBDCSA1dXawZnNaD5AMGQ1
-	 d2JdjjaYUFn8UcsGb23kzYsPXuZuRB571cYWmuXHjGWDXtss3gW1ByV6A6fl8PJEsX
-	 8CN4SGhPTHEL38/FRZFeq93bWZYVGC9g79peO2ZQ=
+	b=Gk/23UxNoNSfhzozwWPOldn896faf7xUGqWj67b9Tg5xTtkkoERMvLocB1yxNIbhK
+	 PP0px7TkiYadku5YtpUfRkqpFAv4F7H5eb6ExBgI0hH9lKomEHfh7LHcgNC4Ksq05k
+	 gnIoavoQ7EDLZnumXqBCwIk3O+5xaDCbBsmg1NWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB4B2F80154;
-	Thu,  4 Feb 2021 11:26:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42026F80154;
+	Thu,  4 Feb 2021 11:46:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86C72F80171; Thu,  4 Feb 2021 11:26:07 +0100 (CET)
+ id 20C26F80171; Thu,  4 Feb 2021 11:46:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05BB4F80152
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 11:26:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05BB4F80152
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="XyJs5yTR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1612434363;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OLWFqqioSQuJpJPY+zOLA8DJwaXfSTLmoy294A06xlY=;
- b=XyJs5yTRcExu/cjmqyBkE5bVLv/fg/yiT83YGrkfin5yfzZT6L4Epp1JLqBRWbjQ1mwCxu
- QHe85OkdbrIRIaWF948UhI6FoCdGs5s80ss8KyV5BCQekBsFH6Y94mPLPt6uWCtmzYkwp9
- Ogb2FgZ4MiGfemlxu7BGAoD4MfGFG38=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-468-Sggu37JPPlyHVI5FywvC1A-1; Thu, 04 Feb 2021 05:25:59 -0500
-X-MC-Unique: Sggu37JPPlyHVI5FywvC1A-1
-Received: by mail-ej1-f70.google.com with SMTP id k3so2363648ejr.16
- for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 02:25:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=OLWFqqioSQuJpJPY+zOLA8DJwaXfSTLmoy294A06xlY=;
- b=CkULOvIw9f1kyBxPmDtahKczNDrZ70hPt8Ml0rV/dGeQlgCaMLkTAue+tX55SueOT2
- xMuObu0M2oGIh5hO1PHxZwo7tNGKLLy3f0r1DZbsar0cSzyUC19pV863Zk/2Y9Wa0BgW
- dSR4eyN3R4Xtjf3XvPnnYXuHUOJSoRek4K9U2lQVKrucG+A/6ykxSaowyS1hNBZ9m7kX
- yhgY2dkxFo3mn4ifl8REViNKjrozlOAsLJd80gs7trP/uP7J7d+k+mMs1DYvstlQ7TXf
- jo2Xb/FoWw7gGC5yfU0Dm1VuTNjl98t48UHopvyZegsGiUGPvxj7DcZQt/RB9vBSk4Oy
- hxXw==
-X-Gm-Message-State: AOAM531z+LTddzfigZxhtgMRPtp0pWJhzSq2z4zs0uPUyM5yw5ggshDd
- 86COi+xFYLgFjDO4KYOGzvp4gwJv+Fqlg1mB4fbmOrv7q3f2nH9LSNmmZbIk1tK+h0qqNzAxRIr
- yFouBGrolECkH+6Jo9LjGlpBN94e6q2hd88eAu01CRkXUWOHRFrzIeVV7nOOQrBnxSdP+EiwdWa
- E=
-X-Received: by 2002:a17:906:660b:: with SMTP id
- b11mr7786801ejp.458.1612434357591; 
- Thu, 04 Feb 2021 02:25:57 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyfUEL2lUcZLgfZ9Y/2lbVtndPBhLJVsJgRX8pZK0yj1Upi/WWsjVlAqx7qWdxEnRbUuMGGGA==
-X-Received: by 2002:a17:906:660b:: with SMTP id
- b11mr7786780ejp.458.1612434357413; 
- Thu, 04 Feb 2021 02:25:57 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
- by smtp.gmail.com with ESMTPSA id y8sm2119405edd.97.2021.02.04.02.25.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Feb 2021 02:25:56 -0800 (PST)
-Subject: Re: [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards
- with WM5102 codec
-To: Lee Jones <lee.jones@linaro.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20210120214957.140232-1-hdegoede@redhat.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <249f1a7c-048e-d255-d860-68a97a0092c8@redhat.com>
-Date: Thu, 4 Feb 2021 11:25:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE8ADF80152
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 11:45:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE8ADF80152
+IronPort-SDR: 2tHzJ3aubsr7XIFOjKXQWPJfXKG/DySu+ZcXQ2RIpThma/11b89Z4LxtYy+BTME0Lbn60UKKIl
+ 2iqVdA6I67UQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9884"; a="181361927"
+X-IronPort-AV: E=Sophos;i="5.79,400,1602572400"; d="scan'208";a="181361927"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2021 02:45:48 -0800
+IronPort-SDR: 3fHxorYYUucdtLDhXJHE8W5EYyQbUtHp3cFirJIqFcmUh71uuSt59z8Kqz4c8W9NqgbnZ9/E+E
+ vJz+MtdmxThg==
+X-IronPort-AV: E=Sophos;i="5.79,400,1602572400"; d="scan'208";a="372917431"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2021 02:45:46 -0800
+Date: Thu, 4 Feb 2021 12:42:20 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [RFC PATCH] ALSA: hda: call ext hda codec link up/down if
+ available
+In-Reply-To: <s5hzh0k6vpn.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2102041239160.864696@eliteleevi.tm.intel.com>
+References: <20210204075821.1503539-1-kai.vehmanen@linux.intel.com>
+ <alpine.DEB.2.22.394.2102040959490.864696@eliteleevi.tm.intel.com>
+ <s5hzh0k6vpn.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-In-Reply-To: <20210120214957.140232-1-hdegoede@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: patches@opensource.cirrus.com, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,42 +82,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
+Hey,
 
-On 1/20/21 10:49 PM, Hans de Goede wrote:
-> Hi All,
+On Thu, 4 Feb 2021, Takashi Iwai wrote:
+
+> On Thu, 04 Feb 2021 09:07:09 +0100, Kai Vehmanen wrote:
+> > Takashi and others, this patch is a follow-up to the earlier thread about 
+> > hdac link management:
+> > https://mailman.alsa-project.org/pipermail/alsa-devel/2021-January/179715.html
+> > 
+> > We have absolutely no calls from sound/pci/hda/ to hdaudio_ext.h before
+> > this patch, so I'm wondering if this is the right approach to take. 
 > 
-> Here is v4 of my series to add support for Intel Bay Trail based devices
-> which use a WM5102 codec for audio output/input.
+> An obvious drawback by this patch is that it'll make the hda-ext code
+> always loaded whenever it's enabled, no matter whether it's really
+> used or not.
 > 
-> This was developed and tested on a Lenovo Yoga Tablet 1051L.
+> Maybe adding a new callback (link) in hdac_bus_ops can help?
+
+hmm, that's true. Let me try adding a separate callback and resend for 
+review. That will look cleaner in hda_codec.c.
+
+>> It does seem to be the natural path forward and mimics what was done in 
+>> e.g. hdac_hdmi. But we want to keep reusing driver code for all HDA 
+>> implementations, so adding hdac-ext support to codec drivers seem like the 
+>> best path.
 > 
-> The MFD and ASoC parts do not have any build-time dependencies
-> on each other. But the follow-up jack-detect series does have
-> patches depending on each-other and on this series. So IMHO it
-> would be best if this entire series would be merged through the
-> MFD tree to make merging the follow-up series easier.
-> 
-> Mark, if that is ok with you (and you are happy with the ASoC
-> changes) can you please Ack this ?
+> Yes, I find we're heading to the right direction.
 
-I believe that this series and the follow-up:
+Ack, thanks for the quick review.
 
-"[PATCH v4 00/13] MFD/extcon/ASoC: Rework arizona codec jack-detect support"
-
-series are both ready for merging. All patches have Reviewed-by and/or
-Acked-by tags now.
-
-I guess it is too late for 5.12, but it would be nice to at least formulate
-a plan for getting this merged after 5.12-rc1 is out. Given the
-interdependencies I still believe that it is best to merge all the patches
-through the mfd tree and then have Lee provide an immutable branch for the
-other subsystems to merge.
-
-Mark and extcon-maintainers (for the follow-up series) may we have your ack
-for merging these through the MFD tree ?
-
-Regards,
-
-Hans
-
+br, Kai

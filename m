@@ -2,106 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E58C30F36C
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 13:51:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 746FE30F3C5
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 14:20:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B089016E4;
-	Thu,  4 Feb 2021 13:50:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B089016E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id F299216E2;
+	Thu,  4 Feb 2021 14:19:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F299216E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612443063;
-	bh=30jGrZYa9MezEYuWeMxIRcmp7CSRP1ppA+0VtgBMJWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1612444837;
+	bh=i9toXj1Xhc6uCDC8Dn/B1pbNUdK1kXQJHPC3ozEiNHY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g2ekpoGOL9QFg003YevloZghvsBPjw8nGodAQMMtbTbvovz4t2jPzthGvG8TJtbDr
-	 7EdKnWByVq0Bl8zCG8qOF8GX//mHbDggd5Q1p7LE80J/wv9PRgGHlYy6YBuVkgjwaF
-	 a6nG2JDl6mIdO2AeYEeJcXNeOvuhkI3YdLfMbIV4=
+	b=YRZAal5Wt50+6Q4Vyu/FMwaoqDy++9R65LG749IYuTZmtZnC4FZnRoTX6punFs81G
+	 /EofD6ba3KXSsfAWMe+2HOYOfjZ84+411Nna0SMHShytldbydPUoW6CXJ0fML0HaCa
+	 IdbEdifoGuKY4Fb/RSeENaCL+eecYtqC6eH2Nexo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DBFBF801F7;
-	Thu,  4 Feb 2021 13:49:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A1D8F801F7;
+	Thu,  4 Feb 2021 14:19:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 928BEF80154; Thu,  4 Feb 2021 13:49:29 +0100 (CET)
+ id 507F0F80171; Thu,  4 Feb 2021 14:19:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 111ADF80154
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 13:49:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 111ADF80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72992F80152
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 14:18:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72992F80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="leiudJNw"
-Received: by mail-wm1-x334.google.com with SMTP id u14so2880676wmq.4
- for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 04:49:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=fEUlv+xghuMoX85SLZ/8Eet91YOqowydbDYODhOPyBg=;
- b=leiudJNw729oJ/3GOpEWm5v8k2wpSvhpcQuu1RZopYgJh/IULWpJQ9qKFx7gVlBSHx
- W9tn5uNRm5AxIW98Usq4UGFPGeefKL8OXVA0toqK5JL5gBA1/XH1mRZ8e44H1e2bmu2U
- BIfcjZaolr2kqFkN0wHGoz+d+4qncSpr2syGcGDGLUeGMXF1CPpoCxbC5KTVyOZBp1Ub
- 8CdePw1fMP7eSajdwQ7558rXi2R8jEfMCp+ITyg0TKbqXX7VgGQrq/JzhhhIJ0k84fAc
- WBHXMKL94wrZWeZa0GMGkeiVkynb3pLC/6axKXu0Z8ZiwwleZLBRtl2TExHLURBFDEg+
- M4YQ==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="hZt00SDo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612444738;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+vAM9v4eMZKg6YBIf04QqVg9hAruxcJZ81FnwmCn3uw=;
+ b=hZt00SDoSrBnPrrcB9qTeiFazK6yG6FCYMT9mlksjhiPmviXsj2fL0XRl1EJZ776pU2/S2
+ i7JxYtrJl594HTrxWMQCxdqW/Qr8+2Qi9aCBuE6QTeD2iTUwnEOqx86Bhgg1a7raRKS4Tz
+ 6lHjnisM2SHckZPy6iN+NVf5ObTFMno=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-274-a-fBWxIuM_iZj7wVbvjHyA-1; Thu, 04 Feb 2021 08:18:57 -0500
+X-MC-Unique: a-fBWxIuM_iZj7wVbvjHyA-1
+Received: by mail-ej1-f69.google.com with SMTP id n25so2542936ejd.5
+ for <alsa-devel@alsa-project.org>; Thu, 04 Feb 2021 05:18:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=fEUlv+xghuMoX85SLZ/8Eet91YOqowydbDYODhOPyBg=;
- b=dmYzToAf6uI7VXNW0+op4fSlMnYGNFysFSUI1Q7Fm4KfB4L91Hb/vVgmQJOx84JcQK
- S/zeNZ770jCRY1S6plw4GPfUomHweTBOzBTX9KNDLHdoibVDv49k+Lm2Zj/hXMQWdte0
- 2aO6aI4tJ/4eT2CycJW21nrrhJFS1DAVuUZai+SPeZqdIpcQ3/ouULwXLZFBhtHcreLb
- E0w1hi7yoZYAVMj9Ghvu/8E5DdHlWRmC8Jq1/49dtEEZQ6pQpL0XzuVHCSvOGI389l5h
- nepZJ7pmdFnXa1aJ5AAjPCqUb7VjrBYXZwWRXzJ/UqSYzvpRJPkTi6kS+wOJGgIXd22s
- NnRg==
-X-Gm-Message-State: AOAM531fy75umWgT258wf6MXlhhtWK2a86EWY9uYCt/889eqN3tjesPs
- i2xJUve6Z0S6ZXXi76+B4HzoIkUwo5ZhFF1viEc=
-X-Google-Smtp-Source: ABdhPJxyVqmUGkpHtUNgbE1wuFIvJVT/WDButLa0nCuI2mCCu1otJP+HKlXCVTIBWc0HS7CtcmuaZ9gxWcaYLHXS5iM=
-X-Received: by 2002:a05:600c:35ce:: with SMTP id
- r14mr7434530wmq.136.1612442961064; 
- Thu, 04 Feb 2021 04:49:21 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=+vAM9v4eMZKg6YBIf04QqVg9hAruxcJZ81FnwmCn3uw=;
+ b=RQZT3FbVLGUCuGo2Bm4ILTCFtE6HDtenomiiUBSVk1sRFFysdj6h/XmsfMSpaqCwQ8
+ BHEBjWwFmU6du0MxuyfMHJZkUEPRYTNt2Cz0jsP8V7aQW7vhAeY7VwI4JoBfOA+KMCs2
+ GbEEr1yb5NqQiMKoQbfJIoimafJd+e2dAaPPr0SgvXN2qdZlGUq9bhpsE2HRquahYLK1
+ I9vYSxrfwjWUDiCiNguCzIfY/JDTjjcXcXMCGImkyotYJCn1p+38ELdXd13dgCVp6HIx
+ HAxuzJVkHnT99xdc+I1oF9hEfOPVZ4X6VLLOMzEa6fz/pdmes5hAF7aJrF5ovK9q/JlL
+ AIxQ==
+X-Gm-Message-State: AOAM533EXuR26EczPdQJgVRqwBjaa/MfDPu1nQ7pJBIebs8ohl9DnS1H
+ bx362RR2zuhCeLQYxcbeiRnb4R/pecfBYeK+YG7otB+VG7jRVj8fd1vosutUNpWrvsxol2qcBXl
+ 3pAkQTyf4wS4YZ6i0AfqkpPSDWkm1R5IEaWS+Z4kHgmsiHSH1n7D8dO7J6fO0l28Q4PNJq4Lpk4
+ A=
+X-Received: by 2002:a50:b5c5:: with SMTP id a63mr7829391ede.227.1612444735712; 
+ Thu, 04 Feb 2021 05:18:55 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy2epJQrWbJJX+FnAr7MKarJjT9f2YzxU/r4xM9FHyMjplb+G8hEPNok/ANUNzd9X3viV9Qzg==
+X-Received: by 2002:a50:b5c5:: with SMTP id a63mr7829370ede.227.1612444735537; 
+ Thu, 04 Feb 2021 05:18:55 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
+ by smtp.gmail.com with ESMTPSA id r4sm2445330edv.27.2021.02.04.05.18.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Feb 2021 05:18:55 -0800 (PST)
+Subject: Re: [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards
+ with WM5102 codec
+To: Mark Brown <broonie@kernel.org>
+References: <20210120214957.140232-1-hdegoede@redhat.com>
+ <249f1a7c-048e-d255-d860-68a97a0092c8@redhat.com>
+ <20210204105748.GD2789116@dell>
+ <7f53dede-946e-c38e-e871-3df1119f1faf@redhat.com>
+ <20210204124335.GA4288@sirena.org.uk>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <e646cd26-f61c-8414-c3ae-15fb5d5cc21d@redhat.com>
+Date: Thu, 4 Feb 2021 14:18:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
- <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
- <1f0f7273-597e-cdf0-87d1-908e56c13133@linux.intel.com>
- <CA+GA0_v3JUWS3G3=R4XuQ=OW91cpwiBP1Rp=uzYOF8c9TUJ46w@mail.gmail.com>
- <CA+GA0_sCdowanpZmg==c+xVqqNxG5whLGsKHaCfSmpERBhqMzA@mail.gmail.com>
- <1dc2639a-ecbc-c554-eaf6-930256dcda96@linux.intel.com>
- <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
- <CAJZ5v0h+Kwn5u293QO+H2rfGx-ZMBr18tMCLB7jHKHWWRaovOw@mail.gmail.com>
- <CAJZ5v0h8abkdrdN97RHouzxynPBFXBoAuMSb7Zy56+-sTXkPKQ@mail.gmail.com>
- <CA+GA0_vYdxFj_SPWgdkufo04VaOuWqcNTSck6gvnMfN07ZdO_Q@mail.gmail.com>
- <CA+GA0_vKyJZSQZ9bA6_BSDeGfRZ_nz86gj2aVHaOoy1h57CMzA@mail.gmail.com>
- <CA+GA0_u8NA90GmMSDO-Ejg-C2YEXCn8rnVZpk-_+eXcDm7XRpg@mail.gmail.com>
- <CAJZ5v0hqHihRdad16Djo+R1ezjFHt2YffgDg59TYYKJSSjmA4Q@mail.gmail.com>
- <CA+GA0_s7atD4O_DP0NXwVUVvdia2NWwSEfW2Mcw-UoJ9effPvg@mail.gmail.com>
- <CA+GA0_sZQXACjuzYYvrJq-vF-mmjaq82SJ=kifqo4Utv45s5Yg@mail.gmail.com>
-In-Reply-To: <CA+GA0_sZQXACjuzYYvrJq-vF-mmjaq82SJ=kifqo4Utv45s5Yg@mail.gmail.com>
-From: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
-Date: Thu, 4 Feb 2021 13:48:54 +0100
-Message-ID: <CA+GA0_vSA51NbyTDtW-2A4aCCp+xXN_BtJfPFAJesRYM0eo9WQ@mail.gmail.com>
-Subject: Re: Crash in acpi_ns_validate_handle triggered by soundwire on Linux
- 5.10
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Erik Kaneda <erik.kaneda@intel.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+In-Reply-To: <20210204124335.GA4288@sirena.org.uk>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Len Brown <lenb@kernel.org>
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,83 +127,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-czw., 4 lut 2021 o 13:11 Marcin =C5=9Alusarz <marcin.slusarz@gmail.com> nap=
-isa=C5=82(a):
->
-> pon., 1 lut 2021 o 13:16 Marcin =C5=9Alusarz <marcin.slusarz@gmail.com> n=
-apisa=C5=82(a):
-> >
-> > pon., 1 lut 2021 o 12:43 Rafael J. Wysocki <rafael@kernel.org> napisa=
-=C5=82(a):
-> > >
-> > > On Fri, Jan 29, 2021 at 9:03 PM Marcin =C5=9Alusarz <marcin.slusarz@g=
-mail.com> wrote:
-> > > >
-> > > > pt., 29 sty 2021 o 19:59 Marcin =C5=9Alusarz <marcin.slusarz@gmail.=
-com> napisa=C5=82(a):
-> > > > >
-> > > > > czw., 28 sty 2021 o 15:32 Marcin =C5=9Alusarz <marcin.slusarz@gma=
-il.com> napisa=C5=82(a):
-> > > > > >
-> > > > > > czw., 28 sty 2021 o 13:39 Rafael J. Wysocki <rafael@kernel.org>=
- napisa=C5=82(a):
-> > > > > > > The only explanation for that I can think about (and which do=
-es not
-> > > > > > > involve supernatural intervention so to speak) is a stack cor=
-ruption
-> > > > > > > occurring between these two calls in sdw_intel_acpi_cb().  IO=
-W,
-> > > > > > > something scribbles on the handle in the meantime, but ATM I =
-have no
-> > > > > > > idea what that can be.
-> > > > > >
-> > > > > > I tried KASAN but it didn't find anything and kernel actually b=
-ooted
-> > > > > > successfully.
-> > > > >
-> > > > > I investigated this and it looks like a compiler bug (or somethin=
-g nastier),
-> > > > > but I can't find where exactly registers get corrupted because if=
- I add printks
-> > > > > the corruption seems on the printk side, but if I don't add them =
-it seems
-> > > > > the value gets corrupted earlier.
-> > > > (...)
-> > > > > I'm using gcc 10.2.1 from Debian testing.
-> > > >
-> > > > Someone on IRC, after hearing only that "gcc miscompiles the kernel=
-",
-> > > > suggested disabling CONFIG_STACKPROTECTOR_STRONG.
-> > > > It helped indeed and it matches my observations, so it's quite like=
-ly it
-> > > > is the culprit.
-> > > >
-> > > > What do we do now?
-> > >
-> > > Figure out why the stack protection kicks in, I suppose.
-> > >
-> > > The target object is not on the stack, so if the pointer to it is
-> > > valid (we need to verify somehow that it is indeed), dereferencing it
-> > > shouldn't cause the stack protection to trigger.
-> >
-> > Well, the problem is not that stack protector finds something, but
-> > the feature itself corrupts some registers.
->
-> I retract this statement.
->
-> Originally I based it on this piece of code:
->    0xffffffff815781f0 <+35>:    mov    %r12,%rdx
->    0xffffffff815781f3 <+38>:    mov    $0xffffffff81eca4c0,%rsi
->    0xffffffff815781fa <+45>:    mov    $0xffffffff82146d46,%rdi
->    0xffffffff81578201 <+52>:    call   0xffffffff818909f1 <printk>
->    0xffffffff81578206 <+57>:    cmpb   $0xf,0x8(%r12)
-> where crash is on the last line and I supposedly could see the message
-> printed by printk with the correct value of %r12.
-> However, after attaching kgdb+kgdboe (it's so much pain...) to the kernel
-> I discovered that someting corrupts memory so much that the formatting
-> string becomes "", which means that I don't actually see the output of pr=
-intk.
+Hi,
 
-Oh crap, I can't reproduce it anymore. I might have tried this before
-I disabled KALSR, which would explain why I've seen "" as a formatting
-string. (because 0xffffffff82146d46 would not be the real address of it)
+On 2/4/21 1:43 PM, Mark Brown wrote:
+> On Thu, Feb 04, 2021 at 12:07:49PM +0100, Hans de Goede wrote:
+>> On 2/4/21 11:57 AM, Lee Jones wrote:
+>>> On Thu, 04 Feb 2021, Hans de Goede wrote:
+> 
+>>>> series are both ready for merging. All patches have Reviewed-by and/or
+>>>> Acked-by tags now.
+> 
+>>> I don't think they do.  You're missing ASoC and Extcon Acks.
+> 
+>> Right, what I meant is that the patches have been reviewed by other
+>> stake-holders, including the follow-up series being tested by the cirrus
+>> codec folks (thank you Charles).
+> 
+>> But yes the actual subsys maintainers have not acked these yet;
+>> and I'm aware that you will need those for merging this through
+>> the MFD tree.
+> 
+> The usual pattern here is that the MFD patches get merged and then I
+> pull a shared branch in for any dependencies - at this point the series
+> is now on the backlog of serieses where I'm waiting for the MFD to sort
+> itself out before I really look at it again.
+
+I understand. But this series is somewhat special, if you also take
+the follow-up series into account:
+
+"[PATCH v4 resend 00/13] MFD/extcon/ASoC: Rework arizona codec jack-detect support"
+
+That again has some MFD bits, and some extcon patches and ASoC patches
+which depend on the extcon bits and this series.
+
+So it is really hard to merge all the bits through there separate trees
+and just merging it all through one tree and then pulling in the end-result
+as a shared branch would IMHO be easier.
+
+In the follow-up series one of the patches is moving the jackdet code from the
+extcon dir to sound/asoc/codecs. So that is a single commit touching 2 trees ...
+
+Regards,
+
+Hans
+

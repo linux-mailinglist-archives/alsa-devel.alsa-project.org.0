@@ -2,67 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35422312001
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 21:41:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E69C9312006
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 21:42:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8B4D886;
-	Sat,  6 Feb 2021 21:40:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8B4D886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 670421675;
+	Sat,  6 Feb 2021 21:41:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 670421675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612644083;
-	bh=05Tu6gC1988yql3jwqZ8bSalZpjvaviDpH2tuIfYvRM=;
+	s=default; t=1612644156;
+	bh=qf0BDzm4MTBSdcM47YvvqeKZpPzndzvDAP3ODNo+qts=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ULNM/2zHaxVlxu/XYN/RETPAhnU8YCS40eVHzGpiCO1zRAHfBEzLT4X2FRtOa39Tx
-	 8CBQIdPK95SlFO4FystO+4X6m40ZXNtSDbi/iqCR1bk3OxklxqqhD3TJjWLoIAKzV3
-	 bGdkvxKuKTHPgLzkIORD0M0WXNoaQZuj6PwyGBxg=
+	b=bajQXuTKUKWWOno3zqAklQPzKd7JzrErL5HeHcBcDvKudkeifggNcv3tJ55xy+Wdo
+	 1J/gjEy9f+8Bsc8OPz/mVVImj47wbfZl8uIFHER0JTMN7jDXAD4BcXw9NfftfEt6Cg
+	 JGPo4HxGc+kOxgfDW7PZD74lzFZKu2F4qj0Lgbys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F33A0F8021C;
-	Sat,  6 Feb 2021 21:39:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB487F80425;
+	Sat,  6 Feb 2021 21:39:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A421F80152; Thu,  4 Feb 2021 17:57:04 +0100 (CET)
+ id DB7DCF80171; Thu,  4 Feb 2021 18:00:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80FBFF80152
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 17:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80FBFF80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0384F80152
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 17:59:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0384F80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="V/2phKRB"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3066164F47;
- Thu,  4 Feb 2021 16:56:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1612457813;
- bh=05Tu6gC1988yql3jwqZ8bSalZpjvaviDpH2tuIfYvRM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V/2phKRBrdShTJynlnGGMW3l9x/SW1hWhKF8xex4OBeo3mDEeK0o2kKM2vS0bAe4F
- Wdi0g4ASLrOIJhcENuzivXIyn+HAG/m8sXtb1YJRFkCDu6LHLMMfsvATC2CS2VT9DI
- IeA8zLWPa9FQgRD8cqb7Rt1bnqdVVBXlJNczgsbo=
-Date: Thu, 4 Feb 2021 17:56:50 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+ dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="PWpDFRnC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wbVme97LTyZtZvghkEGRoTiuc1SViBhjvsMeN4jw9jo=; b=PWpDFRnC/pQI+UGrPjtu0HbEN
+ L43RKr1nxKtBjtMtRi4xXHxwvekb3ibhraif6lER0dky75uQXrGFEXQG6NhjCA1fCxUTz+ddAydTm
+ bKGNXkikKkpPPxYKlnRpcmercjWMc157NMyq5VGBlktOBU4v01FOUgoDwrAz/6rmXKc3s5uGItTGb
+ dNZ/w+Dn4u+hez+MLEwKJ4lcAEjJtpMn+NmpWK3E6iHfHaP25TIOZvIkmdEqS/QgEh2MDEP2cCleD
+ QaNVcBSlDNa3dxdHeD+0ZqIiVN2POoOv7P4kP6Hmp/WoLdRJMDuQzDE1oihQUuFsLZjY16MLN5oha
+ hd1Wb2fKg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39166)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1l7hyz-0006q2-Je; Thu, 04 Feb 2021 16:59:53 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1l7hyx-0005Kk-Sm; Thu, 04 Feb 2021 16:59:51 +0000
+Date: Thu, 4 Feb 2021 16:59:51 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: Re: [GIT PULL] immutable branch for amba changes targeting v5.12-rc1
-Message-ID: <YBwnUrQqlAz2LDPI@kroah.com>
+Message-ID: <20210204165951.GB1463@shell.armlinux.org.uk>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
  <YBlcTXlxemmC2lgr@kroah.com>
  <20210204165224.GA1463@shell.armlinux.org.uk>
+ <YBwnUrQqlAz2LDPI@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210204165224.GA1463@shell.armlinux.org.uk>
-X-Mailman-Approved-At: Sat, 06 Feb 2021 21:39:03 +0100
+In-Reply-To: <YBwnUrQqlAz2LDPI@kroah.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Sat, 06 Feb 2021 21:39:08 +0100
 Cc: linux-fbdev@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
  kvm@vger.kernel.org, Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
@@ -108,21 +123,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux admin wrote:
-> On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
-> > I'm glad to take this through my char/misc tree, as that's where the
-> > other coresight changes flow through.  So if no one else objects, I will
-> > do so...
+On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrote:
+> On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux admin wrote:
+> > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
+> > > I'm glad to take this through my char/misc tree, as that's where the
+> > > other coresight changes flow through.  So if no one else objects, I will
+> > > do so...
+> > 
+> > Greg, did you end up pulling this after all? If not, Uwe produced a v2.
+> > I haven't merged v2 yet as I don't know what you've done.
 > 
-> Greg, did you end up pulling this after all? If not, Uwe produced a v2.
-> I haven't merged v2 yet as I don't know what you've done.
+> I thought you merged this?
 
-I thought you merged this?
+I took v1, and put it in a branch I've promised in the past not to
+rebase/rewind. Uwe is now asking for me to take a v2 or apply a patch
+on top.
 
-Did you take v1?
+The only reason to produce an "immutable" branch is if it's the basis
+for some dependent work and you need that branch merged into other
+people's trees... so the whole "lets produce a v2" is really odd
+workflow... I'm confused about what I should do, and who has to be
+informed which option I take.
 
-I am totally lost here...
+I'm rather lost here too.
 
-thanks,
-
-greg k-h
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!

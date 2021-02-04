@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3862F30FE88
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 21:38:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB54830FE89
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 21:39:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0D9286E;
-	Thu,  4 Feb 2021 21:37:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D9286E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70EE61662;
+	Thu,  4 Feb 2021 21:38:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70EE61662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612471127;
-	bh=lHNstz8C1LQoCLvQCBg2qcUfjMNaRZRi95AaX7BKQeA=;
+	s=default; t=1612471154;
+	bh=Ay5SpFHd9jKD5GWfpbrfANRTeKHYzNU1O9Q7od8f0mI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mFrl25B+I3xpN9sSqu3E1uczAI4D5+B5LtnExNbrEkrt+f/4RW7HMdnqza3cjhwDn
-	 psCYMkLvof8IGmDUGensqq+SVNfnFKh77clSeINrzit+nzJ9OELoVIy8euYUehREwG
-	 wFCjmin9jhGqmANCe7MnOYlJbCG81HQR0HMEwcCk=
+	b=e6AZ7Ah+dvF60fuO8iPtbjYmhpgICqexDzCy0oVxyA4U/eTSBTL7zjyevew48Q0lP
+	 J5NoF4xLsn71mmK2Af3BtPDwd1Tw7NTu1C2lhi90JUvFAswJ8olzqP3Ychi7DC3AUa
+	 TWe/mzu+nSFej06ATRaiTjZLmX6UWXmXPeD5D+sM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C7DFF804D9;
-	Thu,  4 Feb 2021 21:34:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E000F804E4;
+	Thu,  4 Feb 2021 21:34:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CD67F80139; Thu,  4 Feb 2021 21:33:58 +0100 (CET)
+ id 3C43FF8026B; Thu,  4 Feb 2021 21:33:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,37 +33,39 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4948AF80139
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 21:33:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4948AF80139
-IronPort-SDR: hAiNMab20jnH+fSTn9lZZaegyHeOatUqngYDKarqNAAq/c1WP+Zss1YaoJNs8+lD5cA60FAQOo
- K6tLP51CztnA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="181472524"
-X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="181472524"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 265CAF801F7
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 21:33:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 265CAF801F7
+IronPort-SDR: QoBJAA1x8MrJ4doWRQRmaNu7xhntg64JgVo4eV0pqTZGmpQOY2Y/ewLCIypnCvXj0d+A62+z/s
+ +z82pro4BJJg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="181472535"
+X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="181472535"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 12:33:50 -0800
-IronPort-SDR: iNMCUVqBpimLMKNHYxSKx6tl+WW3UvaexWw8d54NzLPPeNkix26PP3f1KjsCh+X+EH38JPaUf4
- 6e5IppSNvleQ==
-X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="483700339"
+ 04 Feb 2021 12:33:52 -0800
+IronPort-SDR: nxZGtb48NGC4Rzk5CJEN9n+PS71P0y+cZ14WSQYAhCR9xfYyblfCY08lAcz/fcPClpe/SQJGwg
+ zSw1G+2RGweg==
+X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="483700343"
 Received: from jdasilva-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.66.22])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 12:33:49 -0800
+ 04 Feb 2021 12:33:50 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/14] ASoC: Intel: sof_sdw: add trace for dai links
-Date: Thu,  4 Feb 2021 14:33:07 -0600
-Message-Id: <20210204203312.27112-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 10/14] ASoC: Intel: soc-acpi: add ACPI matching table for HP
+ Spectre x360
+Date: Thu,  4 Feb 2021 14:33:08 -0600
+Message-Id: <20210204203312.27112-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
 References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org, broonie@kernel.org, Rander Wang <rander.wang@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,88 +81,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+This device only has a single amplifier on link1, so we need a
+dedicated entry to find a match.
 
-We create dai links dynamically, so it is not easy to know what dai
-links are created. So adding trace for dai link name and id.
-
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 06f07dd45fb4..8adce6417b02 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -476,15 +476,14 @@ static int get_sdw_dailink_info(const struct snd_soc_acpi_link_adr *links,
- 	return 0;
- }
+diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+index e3ddbf05bf72..40f31c8a3aba 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+@@ -205,6 +205,20 @@ static const struct snd_soc_acpi_link_adr tgl_rvp[] = {
+ 	{}
+ };
  
--static void init_dai_link(struct snd_soc_dai_link *dai_links, int be_id,
--			  char *name, int playback, int capture,
--			  struct snd_soc_dai_link_component *cpus,
--			  int cpus_num,
--			  struct snd_soc_dai_link_component *codecs,
--			  int codecs_num,
-+static void init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_links,
-+			  int be_id, char *name, int playback, int capture,
-+			  struct snd_soc_dai_link_component *cpus, int cpus_num,
-+			  struct snd_soc_dai_link_component *codecs, int codecs_num,
- 			  int (*init)(struct snd_soc_pcm_runtime *rtd),
- 			  const struct snd_soc_ops *ops)
- {
-+	dev_dbg(dev, "create dai link %s, id %d\n", name, be_id);
- 	dai_links->id = be_id;
- 	dai_links->name = name;
- 	dai_links->platforms = platform_component;
-@@ -822,7 +821,7 @@ static int create_sdw_dailink(struct device *dev, int *be_index,
- 
- 		playback = (stream == SNDRV_PCM_STREAM_PLAYBACK);
- 		capture = (stream == SNDRV_PCM_STREAM_CAPTURE);
--		init_dai_link(dai_links + *be_index, *be_index, name,
-+		init_dai_link(dev, dai_links + *be_index, *be_index, name,
- 			      playback, capture,
- 			      cpus + *cpu_id, cpu_dai_num,
- 			      codecs, codec_num,
-@@ -1061,7 +1060,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 
- 		playback = info->direction[SNDRV_PCM_STREAM_PLAYBACK];
- 		capture = info->direction[SNDRV_PCM_STREAM_CAPTURE];
--		init_dai_link(links + link_id, be_id, name,
-+		init_dai_link(dev, links + link_id, be_id, name,
- 			      playback, capture,
- 			      cpus + cpu_id, 1,
- 			      ssp_components, 1,
-@@ -1078,7 +1077,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 	/* dmic */
- 	if (dmic_num > 0) {
- 		cpus[cpu_id].dai_name = "DMIC01 Pin";
--		init_dai_link(links + link_id, be_id, "dmic01",
-+		init_dai_link(dev, links + link_id, be_id, "dmic01",
- 			      0, 1, // DMIC only supports capture
- 			      cpus + cpu_id, 1,
- 			      dmic_component, 1,
-@@ -1086,7 +1085,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 		INC_ID(be_id, cpu_id, link_id);
- 
- 		cpus[cpu_id].dai_name = "DMIC16k Pin";
--		init_dai_link(links + link_id, be_id, "dmic16k",
-+		init_dai_link(dev, links + link_id, be_id, "dmic16k",
- 			      0, 1, // DMIC only supports capture
- 			      cpus + cpu_id, 1,
- 			      dmic_component, 1,
-@@ -1129,7 +1128,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 			return -ENOMEM;
- 
- 		cpus[cpu_id].dai_name = cpu_name;
--		init_dai_link(links + link_id, be_id, name,
-+		init_dai_link(dev, links + link_id, be_id, name,
- 			      1, 0, // HDMI only supports playback
- 			      cpus + cpu_id, 1,
- 			      idisp_components + i, 1,
++static const struct snd_soc_acpi_link_adr tgl_hp[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_0_adr),
++		.adr_d = rt711_0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt1308_1_single_adr),
++		.adr_d = rt1308_1_single_adr,
++	},
++	{}
++};
++
+ static const struct snd_soc_acpi_link_adr tgl_chromebook_base[] = {
+ 	{
+ 		.mask = BIT(0),
+@@ -383,6 +397,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
+ 		.drv_name = "sof_sdw",
+ 		.sof_tplg_filename = "sof-tgl-rt711-rt1316-rt714.tplg",
+ 	},
++	{
++		.link_mask = 0x3, /* rt711 on link 0 and 1 rt1308 on link 1 */
++		.links = tgl_hp,
++		.drv_name = "sof_sdw",
++		.sof_tplg_filename = "sof-tgl-rt711-rt1308.tplg",
++	},
+ 	{
+ 		.link_mask = 0x3, /* rt711 on link 0 and 2 rt1308s on link 1 */
+ 		.links = tgl_rvp,
 -- 
 2.25.1
 

@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFCC430FD6C
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 20:56:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C1E30FDF8
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Feb 2021 21:19:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E8431654;
-	Thu,  4 Feb 2021 20:55:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E8431654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67FF91662;
+	Thu,  4 Feb 2021 21:18:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67FF91662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612468579;
-	bh=kDTNwURjXa+HbA3VIp6+/0PYSmTxLywhEjY+tj3zJDA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e2ZoafzSFvra+AO80FNjQ+FMB8eHQwshKvetkp+HR73cFKcriqeh+MkPowC4EKADb
-	 nhyjepNcUxznVumDN1EeQ0KWohynfHjYpSY4CEwbgqsJvjSSP/O9Vw23gQGUIkcv5m
-	 7DHOgMTJQ7oBLGnmx0qov4/PHWM7soXknMrGKrNo=
+	s=default; t=1612469978;
+	bh=bQzS2Vt4mUgMD9F9OzoeLekam34qyfUm5woXicV/TQ0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jYoSh5qt+LE7LeSDdijLYJJF9izC552fLkt4tGSL+0Ol6Q19c58Tg3ZM/yiSDSr8H
+	 SzqJFOtgFmrBzcX841xzlqpGgGo3UhofbE9bSHdmdqSr7iF53kYWsSWdI8sRIMmzUZ
+	 K5xHVgGoX0/GezfAM7a3ogCj8BgD+BFU9TkUPzG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF5B9F801F7;
-	Thu,  4 Feb 2021 20:54:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 642C0F80152;
+	Thu,  4 Feb 2021 21:18:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14B15F80171; Thu,  4 Feb 2021 20:54:46 +0100 (CET)
+ id 26162F8023E; Thu,  4 Feb 2021 21:18:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98015F80154
- for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 20:54:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98015F80154
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OQb+pLUS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C2C1164F53;
- Thu,  4 Feb 2021 19:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612468481;
- bh=kDTNwURjXa+HbA3VIp6+/0PYSmTxLywhEjY+tj3zJDA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OQb+pLUS6MMf+ML/spK7AkKa5EOFof76snhOORIBeOMV6UmIPXPShpUn6pJ2Qw4s3
- TLJDgScLQXNMTnLzSoMoPlJlsPlCWkzq1SsuQZP2H5VA7rSHKxBvCpPHbvNDZq4bTF
- WDlgmMOiWJPpi3lYnzaPH/qFcFx9RIICDWmzoZ4bd7weaa+ABnR47b+J98KYSkvkcB
- h3Qg9Mdjyf26zsOwAjD7EX5YCOqIZIM9IfuL+gduvVVmy97wiC/p2Hw50KUmqh+riO
- N2XwkPNXS4AVuRYg/wnUYSt4QtPLg7ffMpcbs7iEluuVEr9PqB+8ZZvAvDNQKbAiRx
- NTgBHGh8TFLIQ==
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20210203032201.2882158-1-tzungbi@google.com>
-References: <20210203032201.2882158-1-tzungbi@google.com>
-Subject: Re: [PATCH v3 0/3] ASoC: mediatek: mt8192: apply some cleanup
-Message-Id: <161246842661.26209.3136480726887018002.b4-ty@kernel.org>
-Date: Thu, 04 Feb 2021 19:53:46 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFF70F80155
+ for <alsa-devel@alsa-project.org>; Thu,  4 Feb 2021 21:17:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFF70F80155
+IronPort-SDR: ovMABy+1sFPJHRnBPnKWcmopRAoFtEWDy44SJB1zY0fmWU4uZwGxrJuiEAaN0r78tw+xj/wo8V
+ s31WCMGnHUCA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="177817697"
+X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="177817697"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2021 12:17:53 -0800
+IronPort-SDR: 3uLAJzm6SrQvhPCfatIM0mYtAHMWyT5X8z4n8s2+PiaH4z8GPJjHAE/7mI1Jaku3Yv/WIecPcg
+ Fo+MUDs+DErw==
+X-IronPort-AV: E=Sophos;i="5.81,153,1610438400"; d="scan'208";a="373011113"
+Received: from jdasilva-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.66.22])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2021 12:17:51 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	Shuming Fan <shumingf@realtek.com>
+Subject: [PATCH 0/4] ASoC: codecs: Realtek/SoundWire: fix remove/suspend issues
+Date: Thu,  4 Feb 2021 14:17:35 -0600
+Message-Id: <20210204201739.25206-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org, broonie@kernel.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,44 +78,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Feb 2021 11:21:58 +0800, Tzung-Bi Shih wrote:
-> The 1st and 2nd patch refactor to use asoc_substream_to_rtd().
-> 
-> The 3rd patch simplifies ops of Capture1 DAI link.
-> 
-> Changes from v2[1]:
-> - Fix typo in 3rd patch's title, s/simply/simplify/.
-> 
-> [...]
+These issues and fixes were identified during our module load/unload
+and suspend/resume stress tests.
 
-Applied to
+Bard Liao (1):
+  ASoC: rt5682: do nothing in rt5682_suspend/resume in sdw mode
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Pierre-Louis Bossart (3):
+  ASoC: rt700-sdw: use cancel_work_sync() in .remove as well as .suspend
+  ASoC: rt711-sdw: use cancel_work_sync() for .remove
+  ASoC: rt5682-sdw: cancel_work_sync() in .remove and .suspend
 
-Thanks!
+ sound/soc/codecs/rt5682-sdw.c | 4 +++-
+ sound/soc/codecs/rt5682.c     | 6 ++++++
+ sound/soc/codecs/rt700-sdw.c  | 4 ++--
+ sound/soc/codecs/rt711-sdw.c  | 4 ++--
+ 4 files changed, 13 insertions(+), 5 deletions(-)
 
-[1/3] ASoC: mediatek: mt8192-mt6359: use asoc_substream_to_rtd()
-      commit: 8e59cf943fa7402f008de4b444beb0c5280317bc
-[2/3] ASoC: mediatek: mt8192: use asoc_substream_to_rtd()
-      commit: 0840706d6c61658e51f42762c5b4f211b7596535
-[3/3] ASoC: mediatek: mt8192-mt6359: simplify ops for Capture1 DAI link
-      commit: 4cceb42f4f401463b70d9e69c4771212707c51a8
+-- 
+2.25.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

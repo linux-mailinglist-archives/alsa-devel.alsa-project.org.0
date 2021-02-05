@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D09311062
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 19:52:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9868031111F
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 20:26:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6322F1695;
-	Fri,  5 Feb 2021 19:51:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6322F1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2610F84C;
+	Fri,  5 Feb 2021 20:26:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2610F84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612551163;
-	bh=MyiE8AeKXgrp+TVg0WmzdAWrVMKcH6ggl1noBfX7KUI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1612553214;
+	bh=slBMzILp9QgXeNYRnY8ojvq0IafhxVVhPZ1aE5vU+Kc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yz/wVLh2rstwhmKFpQx05tDLdPE5fd3KNvb15Zrr1BHOL5YudIWwiENGJThvEb8Tx
-	 o7Gdcky2/QFgxpSjLYuuficGFL8YBi0iRUgvvyOykt7aBgiBTNBYadsd5go6kEbauk
-	 EjiOipncEqL5PLqYd+JBuZTGPRn6CkkdmthlE4ag=
+	b=LR6AVBsase8stgRNVeIzyNdtBSc4q+70Q7aaD0P4J3t+5xZiHdnAMOgtdEiwnpUHP
+	 IRn4KacwPpaZ5g11kwvTd6NE7bxIrsmf+77S2u4ZK3J9l88fKzdcyFeyuQMvuwWIim
+	 ARMWwhf7ZGpqwV97kb2g948j5oeiYyVDjlC2HODU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 320F4F802D2;
-	Fri,  5 Feb 2021 19:50:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 279FEF8016E;
+	Fri,  5 Feb 2021 20:25:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A864F802CA; Fri,  5 Feb 2021 19:50:19 +0100 (CET)
+ id 37771F8015A; Fri,  5 Feb 2021 20:25:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E555FF80139
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 19:50:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E555FF80139
-IronPort-SDR: yZU3nvl6dihQM4T94OIoF4maD8+FplrzRuEeMNUIhcHq4QpTiEmYoKGU9ZE7mdoZoQ5j1KRCkn
- oFFMYGRroFNg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="178914219"
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="178914219"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 10:50:08 -0800
-IronPort-SDR: PyTYflEMgSsTeMMiMA6ZFSHC6bwmKzK3HqTl6H6GFnJI3FfMxIhutgIPb1heeVGFI+PcCzQ1CO
- 1deiUYsfFHLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="508632710"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004.jf.intel.com with ESMTP; 05 Feb 2021 10:50:07 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH v2 3/3] ASoC: SOF: Intel: hda: release display power at
- link_power
-Date: Fri,  5 Feb 2021 20:46:30 +0200
-Message-Id: <20210205184630.1938761-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210205184630.1938761-1-kai.vehmanen@linux.intel.com>
-References: <20210205184630.1938761-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C8BFF80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 20:25:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C8BFF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="OxHxDOIg"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5B46764E2E;
+ Fri,  5 Feb 2021 19:25:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612553113;
+ bh=slBMzILp9QgXeNYRnY8ojvq0IafhxVVhPZ1aE5vU+Kc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OxHxDOIgvp3x8FVmE9kU1x7oe2zAFmrx8UskZnRa7Sz+btX8Qjxvug4SpUWoXH4rW
+ rkRb8c3XNTvSfb+xXyPW3LgdPzda7JAVTqxepJ2ohReRhIqML8R0711TioSOXpHxH2
+ 9A+i5cx6jSysjyLvACKhZThkDYxzM6VpXd868q25/XiqVgZNM6Ilf+AJgpe+dZQFhI
+ yaya6ALMw22278pArjmoCLRwUSBcAguAyhzuOMnpD9THg3s49Xr+OpgBcTx7HNFqCJ
+ ptlAwQtkOHabiS58p88EBnUlOuRwlEgPaKFLWkKK0qlknRpTFtoTh8kZ/APHLdQnt2
+ KoOsyeLgKNaLQ==
+Date: Fri, 5 Feb 2021 19:24:24 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 0/3] Rename audio graph export functions
+Message-ID: <20210205192424.GK4720@sirena.org.uk>
+References: <1612446612-32613-1-git-send-email-spujar@nvidia.com>
+ <875z37scr8.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NqNl6FRZtoRUn5bW"
+Content-Disposition: inline
+In-Reply-To: <875z37scr8.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Huh?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,86 +83,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The i915 display power is requested both by controller (for init
-and link reset) as well as by codec driver (for codec control).
 
-There's an additional constraint that on some platforms frequent changes
-to display power state may cause visible flicker. To avoid this, the SOF
-hda controller requests display power whenever it is active and only
-releases it when runtime suspended.
+--NqNl6FRZtoRUn5bW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch utilizes the new hdac_bus link_power op to plug
-into HDA link state changes. By monitoring link state changes,
-we can keep the controller side display power wakeref until
-the codec driver has completed its work, and only release
-the wakeref when codec driver is suspended.
+On Fri, Feb 05, 2021 at 07:20:42AM +0900, Kuninori Morimoto wrote:
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/intel/hda-bus.c | 25 ++++++++++++++++++++++++-
- sound/soc/sof/intel/hda.h     |  3 ++-
- 2 files changed, 26 insertions(+), 2 deletions(-)
+> > This series renames exported functions from audio graph for a better
+> > global visibility. In doing so update the references in audio graph
+> > and Tegra audio graph card drivers.
 
-diff --git a/sound/soc/sof/intel/hda-bus.c b/sound/soc/sof/intel/hda-bus.c
-index 1ac6e79d7e62..30025d3c16b6 100644
---- a/sound/soc/sof/intel/hda-bus.c
-+++ b/sound/soc/sof/intel/hda-bus.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/io.h>
- #include <sound/hdaudio.h>
-+#include <sound/hda_i915.h>
- #include "../sof-priv.h"
- #include "hda.h"
- 
-@@ -20,10 +21,32 @@
- #endif
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+static void sof_hda_bus_link_power(struct hdac_device *codec, bool enable)
-+{
-+	struct hdac_bus *bus = codec->bus;
-+	bool oldstate = test_bit(codec->addr, &bus->codec_powered);
-+
-+	snd_hdac_ext_bus_link_power(codec, enable);
-+
-+	if (enable == oldstate)
-+		return;
-+
-+	/*
-+	 * Both codec driver and controller can hold references to
-+	 * display power. To avoid unnecessary power-up/down cycles,
-+	 * controller doesn't immediately release its reference.
-+	 *
-+	 * If the codec driver powers down the link, release
-+	 * the controller reference as well.
-+	 */
-+	if (codec->addr == HDA_IDISP_ADDR && !enable)
-+		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
-+}
-+
- static const struct hdac_bus_ops bus_core_ops = {
- 	.command = snd_hdac_bus_send_cmd,
- 	.get_response = snd_hdac_bus_get_response,
--	.link_power = snd_hdac_ext_bus_link_power,
-+	.link_power = sof_hda_bus_link_power,
- };
- #endif
- 
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index a3b6f3e9121c..1d9b38e6ed40 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -388,7 +388,8 @@
- #define SSP_SET_SFRM_SLAVE	BIT(24)
- #define SSP_SET_SLAVE		(SSP_SET_SCLK_SLAVE | SSP_SET_SFRM_SLAVE)
- 
--#define HDA_IDISP_CODEC(x) ((x) & BIT(2))
-+#define HDA_IDISP_ADDR		2
-+#define HDA_IDISP_CODEC(x) ((x) & BIT(HDA_IDISP_ADDR))
- 
- struct sof_intel_dsp_bdl {
- 	__le32 addr_l;
--- 
-2.29.2
+> I guess [1/3] and [2/3] should be merged/squashed ?
+> Otherwise, there is git-bisect error.
 
+Yes, and I'll complain because I have automation to test every patch
+individually!  Otherwise this does look fine to me too.
+
+--NqNl6FRZtoRUn5bW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdm2cACgkQJNaLcl1U
+h9Cjjgf/YHn+MjPCdow32NDrJsA500L+9pHXNUNT68r7wTkbBQbkR5vVW2x+xnCW
+IpI5PWFNS1ziAIAuxc6hWVK4VDVA5PVQkoEw/RQXoC7JbproJ6+6QHuFi1ZpZ2Hq
+Q1UoSu82H0g4gx86WqsyqN0sJHIMptniLFQvk830RnDA28iX+N/IXsIh1QBArkZm
+0A1lu77XKKGNFLcOt8xSyXA94aEvAzZYltWROVgdSAOK8e1eAX75ocgeI/uj+eiY
+/yoD6PECteaO6iJLirDAEy5DS/vIW6HBHcIqutdNYc6Z8qrIHWGXqKOJgDQtmvvl
+Rdqyg7VPac3KKd/kcCRjNq/Hi3dbZQ==
+=y6/g
+-----END PGP SIGNATURE-----
+
+--NqNl6FRZtoRUn5bW--

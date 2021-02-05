@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F02310CC9
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 15:59:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB2C310CD2
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:00:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0810F1681;
-	Fri,  5 Feb 2021 15:58:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0810F1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3174E;
+	Fri,  5 Feb 2021 15:59:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612537143;
-	bh=PCALSjwqf7yNWI8NKKIEwNbQyxyIhsuNPI9i7gwxoc4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1612537245;
+	bh=pcoVC9g6Ql5brnm8ZYrxM8gXd4vKE+CdwztAMluc3jc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h5tXcNYXHizTtmkJPe2uFA1QWwOCOICRzRLHTakjqL3tpVyYYGvLl2m1QT6jPqzKC
-	 3+DNeMmPjZNheMH1e6V9/iKatrFnSEiGzI7V4v8ITHnegSU0uEldKDyJa1XP0/O3UF
-	 8uYMaDDAb/F84RfWJYPIJx3yHkOVJjHWRsEawC9M=
+	b=Vi/st0unUKZTtIWc5JxerX3yrKR2pHHzI7cbtJ+PTCnL1d3dVBTmk28OjEKErFjPb
+	 IyPj2YD+cocW0gpqccglfz5+eAqqWJIvPon7XPB+Ajmy1XhaRiAcOC1aox+W3aJMgG
+	 BPejlTnLza922jtoGKOI7OF8L2IOPKyzb1qLSrM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA541F8023B;
-	Fri,  5 Feb 2021 15:57:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64150F8016E;
+	Fri,  5 Feb 2021 15:59:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2A44F801DB; Fri,  5 Feb 2021 15:57:19 +0100 (CET)
+ id DA014F8015A; Fri,  5 Feb 2021 15:59:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 464EBF800C0
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 15:57:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 464EBF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFB85F800C0
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 15:59:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFB85F800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IrsD3Vlx"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 82FF46509A;
- Fri,  5 Feb 2021 14:57:14 +0000 (UTC)
+ header.b="dAu9XING"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 220B864FBC;
+ Fri,  5 Feb 2021 14:59:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612537035;
- bh=PCALSjwqf7yNWI8NKKIEwNbQyxyIhsuNPI9i7gwxoc4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=IrsD3Vlx2hHRJDBBZqVQFm//igTj6KHyAUXvdmqgjIIsNTefSXLzUdZKkKed0niyh
- ba9WUx3Bo+Mg8tIkkibK2KzB3oLGCc3gBq0bSLODkR/7bb5yAbMe8yGG7J5rskyg7d
- /wKN/bHxadyyxBjIlYygtwiiaG1EGLgj3t6O7HV5/aS9DLzux1H+1BiiX3HMz8/Hxm
- Tn3FtKzX2qc9RjDS+QjtIW9lCWKGJpQlxY4BxWbpJ4IbXCs3X+vwUPyoDcGYDhr2xv
- Tx/qMxcHR0jxx3yj9zPr2VYNBaUqENI7LBWNX4Uzaow5OK4xxzyGEPuM+Gp+K2U4yl
- C40sC18u2lBew==
+ s=k20201202; t=1612537146;
+ bh=pcoVC9g6Ql5brnm8ZYrxM8gXd4vKE+CdwztAMluc3jc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dAu9XINGXWMXKM/v4VSMEpR5UUCt36txoacXH7ka0tNv+vG8Uhvnlhf5OOFcYyRyK
+ tKUvQdjoSvGBnoTZ1QDZRsluTJ4fRW+i0tlc+VKsUF9R5bkMFO921B8eKwzT9xS89+
+ BxgNKjCkkKuVdr2Xb16fv/oWk2wF/IpowhfTwmRmdl/hk0xAPKiy6q/JPbOV9rihec
+ DwKrhy22qVj5ArEmPBouXYoyduoc9mEyFyB8W2cvPw7M1ank7v970HjrN9h2zkMlCC
+ yhP5EQx8DqzkpHfzgFM25WJfLei1aGv86v8U7bPoZpWQE7W4pd9B5eIU9O0dmMTnAy
+ 8ir6e/XFyhIKg==
+Date: Fri, 5 Feb 2021 14:58:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
-References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: (subset) [PATCH 00/14] ASoC: SOF/Intel/SoundWire: add missing
- quirks and DMIC support
-Message-Id: <161253697741.30888.12875121497911209127.b4-ty@kernel.org>
-Date: Fri, 05 Feb 2021 14:56:17 +0000
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 5/7] ASoC: imx-pcm-rpmsg: Add platform driver for audio
+ base on rpmsg
+Message-ID: <20210205145816.GD4720@sirena.org.uk>
+References: <1612508250-10586-1-git-send-email-shengjiu.wang@nxp.com>
+ <1612508250-10586-6-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, vkoul@kernel.org,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="k4f25fnPtRuIRUb3"
+Content-Disposition: inline
+In-Reply-To: <1612508250-10586-6-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: Huh?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
+ lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, nicoleotsuka@gmail.com,
+ robh+dt@kernel.org, festevam@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,44 +85,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 4 Feb 2021 14:32:58 -0600, Pierre-Louis Bossart wrote:
-> HP Spectre x360 convertible devices rely on a mixed SoundWire+DMIC
-> configuration which wasn't well supported. This lead to the discovery
-> that we missed the TGL_HDMI quirk on a number of Dell devices, the
-> addition of DMIC autodetection (based on NHLT tables), the addition of
-> new component strings needed by UCM, and work-arounds due to
-> problematic DSDT tables.
-> 
-> [...]
 
-Applied to
+--k4f25fnPtRuIRUb3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Feb 05, 2021 at 02:57:28PM +0800, Shengjiu Wang wrote:
 
-Thanks!
+> +	if (params_format(params) == SNDRV_PCM_FORMAT_S16_LE)
+> +		msg->s_msg.param.format   = RPMSG_S16_LE;
+> +	else if (params_format(params) == SNDRV_PCM_FORMAT_S24_LE)
 
-[01/14] ASoC: Intel: sof_sdw: add missing TGL_HDMI quirk for Dell SKU 0A3E
-        commit: 5ab3ff4d66960be766a544886667e7c002f17fd6
-[02/14] ASoC: Intel: sof_sdw: add missing TGL_HDMI quirk for Dell SKU 0A5E
-        commit: f12bbc50f3b14c9b8ed902c6d1da980dd5addcce
-[03/14] ASoC: Intel: sof_sdw: add missing TGL_HDMI quirk for Dell SKU 0A32
-        commit: 45c92ec32b43c6cb42341ebf07577eefed9d87ec
+Again this should be a switch statement.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> +	if (params_channels(params) == 1)
+> +		msg->s_msg.param.channels = RPMSG_CH_LEFT;
+> +	else
+> +		msg->s_msg.param.channels = RPMSG_CH_STEREO;
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Shouldn't this be reporting an error if the number of channels is more
+than 2?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> +		/*
+> +		 * if the data in the buffer is less than one period
+> +		 * send message immediately.
+> +		 * if there is more than one period data, delay one
+> +		 * period (timer) to send the message.
+> +		 */
+> +		if ((avail - writen_num * period_size) <= period_size) {
+> +			imx_rpmsg_insert_workqueue(substream, msg, info);
+> +		} else if (rpmsg->force_lpa && !timer_pending(timer)) {
+> +			int time_msec;
+> +
+> +			time_msec = (int)(runtime->period_size * 1000 / runtime->rate);
+> +			mod_timer(timer, jiffies + msecs_to_jiffies(time_msec));
+> +		}
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The comment here is at least confusing - why would we not send a full
+buffer immediately if we have one?  This sounds like it's the opposite
+way round to what we'd do if we were trying to cut down the number of
+messages.  It might help to say which buffer and where?
 
-Thanks,
-Mark
+> +	/**
+> +	 * Every work in the work queue, first we check if there
+
+/** comments are only for kerneldoc.
+
+--k4f25fnPtRuIRUb3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdXQcACgkQJNaLcl1U
+h9ACUwf9EcHPKiRzzRa6Atb6PHhaM1oBK/2zYZcdmLDejwBct/KltZywmVsBQv0o
+JmeLnKw7/jLk3Sph4Pqk6J2lyizC5nik/w7NjFO5CIUyNTQnFRZtaDILcnVr7vNk
+28HX0/XoPM54EbfyncrP41lr/L4EYgHmjIMqi/TjVtFnfyOt1Pq99Rj02lKDVnV3
+ERmOguBociG3yf9kV/wcrZzJ4hOg7Lw468CHtxoeCpPKsJovmByQ0I78JQJlJ1Jj
+TRjC06zUmRhscWFCrWiOkItqPpTcrv5TxMVh5Ko5zE1rYslk8XURTFpnKDxWoxkR
+MtylP+v1qS4G4STsZObKZtcso3D9hA==
+=hzt6
+-----END PGP SIGNATURE-----
+
+--k4f25fnPtRuIRUb3--

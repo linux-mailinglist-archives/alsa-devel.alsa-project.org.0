@@ -2,75 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77844310D33
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:36:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D9F310D4B
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:42:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1ED941678;
-	Fri,  5 Feb 2021 16:35:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ED941678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46C5A1677;
+	Fri,  5 Feb 2021 16:41:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46C5A1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612539367;
-	bh=MH7HER6PDYJ8JoYrgdtxHVW7qruJH6JUPYjuTg7pwEs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1612539734;
+	bh=vxobtG6js6rVrlqVrlYJ+gksaQhdDWjtI1KcIBWB5Lg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QKsflQ2xk4Zy6WrOYeUEr4y0LXiT3YCYIPL9q6J7Z4AlfSb5x+Xig7mFxkmo70QAV
-	 DjtODnPKItsg5hHGEn2MwQ+R4P/pgC2FGPvhh/VjUHZC+LAjZi7L8Y58M5ObCaHxb1
-	 0lht3B5cnsgM5vIFMhVpGdWrO2Q3BqcweJLY/bIk=
+	b=C+ko5BHE24eD/d46tuql030+SZWbD8I3RzXsY6jEstq/kWFVPGViagFMkJoAGd/ZP
+	 5Jqrp4YtabxBkWbV0IaI4IVsKNiuzHb2wMIIrpa/biftQ9qvKQ+1a6OLpqdJgtOSfv
+	 L7ur4ScQVx5n7ITIz61pAb/2hSObZvJiU6ajTs9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B972F80139;
-	Fri,  5 Feb 2021 16:34:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8759BF80139;
+	Fri,  5 Feb 2021 16:40:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD70FF8015A; Fri,  5 Feb 2021 16:34:33 +0100 (CET)
+ id D2088F8015A; Fri,  5 Feb 2021 16:40:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C469F80139
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:34:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C469F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3626F80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:40:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3626F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="He9HDG8+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A1221650ED;
- Fri,  5 Feb 2021 15:34:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612539266;
- bh=MH7HER6PDYJ8JoYrgdtxHVW7qruJH6JUPYjuTg7pwEs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=He9HDG8+UbuMeqaJuWMeKrofXu1JjdYfOcLVyyklPihKWeObloClfnxd5tIhMMIWq
- lCXxtgNEu5Ko7TtlwHCRqm8+++hoqYYtb1sXZYQkBij8bto5jS+JkcaTLiXFaPAACb
- 1pJeYH/B3yH2o0Ks5LlZKBozb9xbUDA8VJPaO640rjD5T5kyr2BOzakY5BMqM8o+5B
- mob1BR7+P/uxcemeHgk7n2URLBlwlqWTWIyOuwx/x58vqwErut43llVVmAIGE1KLpj
- DM+T/+oGLaE8amdyeWGAuuERcZ7aKsGguoETd2rKGUuxoiFhcGLvQzfOKEWcfhbp7j
- 5o6sZzwsAvsYg==
-Date: Fri, 5 Feb 2021 15:33:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 14/14] ASoC: SOF: Intel: hda: add dev_dbg() when DMIC
- number is overridden
-Message-ID: <20210205153336.GE4720@sirena.org.uk>
-References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
- <20210204203312.27112-15-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="IJo69IA1"
+Received: by mail-wr1-x42d.google.com with SMTP id a1so8171212wrq.6
+ for <alsa-devel@alsa-project.org>; Fri, 05 Feb 2021 07:40:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=hMpmQh4IUGRgsJR41Q5X9O/NGLMcy5IsXFZf5uXN0uE=;
+ b=IJo69IA1k7ICZONK1GmjaPJo25auJq/6rtFYOIo6g9nOx25hASkYn+k7bo3CHWK9MU
+ 1Q3dfns4ztDCk4a4GVanSiSUVrum+vzS8pvAJFaEfjaCehasPOELf6vX4pqwVVwmKLjq
+ cA/36LGh1i1gYNuGGgTcWcMK9PtFxvXznsXw0z75iw6g+eWWMdsT2HsZDxFsizJSl8gh
+ oaj1maZW2LSb6rRdke7YBQMfBQEkp1e/LvijVXqS4T3gw5bg9vljfYDCBzKzTriH0YwG
+ C5f04Jg3PBdSpHb1LYIP+hSVPxZVMBZCgVdUnHovAoWVO4i5fMYHm9l7WLpsNMEyEXy2
+ slSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=hMpmQh4IUGRgsJR41Q5X9O/NGLMcy5IsXFZf5uXN0uE=;
+ b=naOdMUaS9Gi2OhZZDpZ+riE+Wt+zLhvMVRhaHbQLiXN92dRXIjo91zI1MB3jwkgdvV
+ ZJo+8KSftoqUEH3KaqYO4pIuRTlJXS3qTzTrCPrTHo3zeg2H3cHgGznHoBgYgtgqNvcS
+ XE8YdxOOm3SD0A/sfSIoMGuTTn/mDM9EEUa78KHfSf/GbP97f7OtTckK4Y87e94QcZVK
+ 7ZQiUbF1dESX6GNGvJuu/AfKBCOFLeBHinhp4oIKvxeTnA95+pDSfucYSkXW+srx1uDB
+ 0c5q1s5UfxETHSjMUNVgXpcRohZApRtreZUNEHJd5+hOl4mRvvf8pKqHz939AnXBErNK
+ hANQ==
+X-Gm-Message-State: AOAM532hyKmBto8gjJHU2yn948aaoHeVg6uEsOoy5LM5H1HapCmyCW2p
+ zjYGz1LMaW/aMyAyuSFRnOQgBYuHacN46n6Skqg=
+X-Google-Smtp-Source: ABdhPJzgiylGZL3GclcK4A9lJV7QmdtPi0OudetSRY4KXjxdPlFjtQ8KqBvA6S4SV5UQF+zSWH1Qye8Txe6/mHnUr0g=
+X-Received: by 2002:adf:f40d:: with SMTP id g13mr5666864wro.142.1612539633762; 
+ Fri, 05 Feb 2021 07:40:33 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="TD8GDToEDw0WLGOL"
-Content-Disposition: inline
-In-Reply-To: <20210204203312.27112-15-pierre-louis.bossart@linux.intel.com>
-X-Cookie: Huh?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, tiwai@suse.de,
- vkoul@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
+ <CAJZ5v0iapmc8ywuySwexwTagKr89Hj7TPXkAvd_HXMhdLoyyQQ@mail.gmail.com>
+ <1f0f7273-597e-cdf0-87d1-908e56c13133@linux.intel.com>
+ <CA+GA0_v3JUWS3G3=R4XuQ=OW91cpwiBP1Rp=uzYOF8c9TUJ46w@mail.gmail.com>
+ <CA+GA0_sCdowanpZmg==c+xVqqNxG5whLGsKHaCfSmpERBhqMzA@mail.gmail.com>
+ <1dc2639a-ecbc-c554-eaf6-930256dcda96@linux.intel.com>
+ <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
+ <CAJZ5v0h+Kwn5u293QO+H2rfGx-ZMBr18tMCLB7jHKHWWRaovOw@mail.gmail.com>
+ <CAJZ5v0h8abkdrdN97RHouzxynPBFXBoAuMSb7Zy56+-sTXkPKQ@mail.gmail.com>
+ <CA+GA0_vYdxFj_SPWgdkufo04VaOuWqcNTSck6gvnMfN07ZdO_Q@mail.gmail.com>
+ <CA+GA0_vKyJZSQZ9bA6_BSDeGfRZ_nz86gj2aVHaOoy1h57CMzA@mail.gmail.com>
+ <CA+GA0_u8NA90GmMSDO-Ejg-C2YEXCn8rnVZpk-_+eXcDm7XRpg@mail.gmail.com>
+ <CAJZ5v0hqHihRdad16Djo+R1ezjFHt2YffgDg59TYYKJSSjmA4Q@mail.gmail.com>
+ <CA+GA0_s7atD4O_DP0NXwVUVvdia2NWwSEfW2Mcw-UoJ9effPvg@mail.gmail.com>
+ <CA+GA0_sZQXACjuzYYvrJq-vF-mmjaq82SJ=kifqo4Utv45s5Yg@mail.gmail.com>
+ <CA+GA0_vSA51NbyTDtW-2A4aCCp+xXN_BtJfPFAJesRYM0eo9WQ@mail.gmail.com>
+In-Reply-To: <CA+GA0_vSA51NbyTDtW-2A4aCCp+xXN_BtJfPFAJesRYM0eo9WQ@mail.gmail.com>
+From: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
+Date: Fri, 5 Feb 2021 16:40:05 +0100
+Message-ID: <CA+GA0_sOQeQsaa1JFO3+ySqdLU6BNxrJRrHjqtheEuj60ZmwhA@mail.gmail.com>
+Subject: [PATCH] soundwire: intel: fix possible crash when no device is
+ detected (was Re: Crash in acpi_ns_validate_handle triggered by soundwire on
+ Linux 5.10)
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Erik Kaneda <erik.kaneda@intel.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, "Slusarz, Marcin" <marcin.slusarz@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +118,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Well, this is embarrassing. There's no compiler bug, just me being
+confused, because I looked at handle instead of *handle.
+The stack protector thing was of course a red herring - it
+changed what is on the stack and where...
 
---TD8GDToEDw0WLGOL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+If the patch below will be corrupted by the Gmail interface, I also
+pushed it here:
+https://github.com/marcinslusarz/linux/tree/soundwire_fix
 
-On Thu, Feb 04, 2021 at 02:33:12PM -0600, Pierre-Louis Bossart wrote:
+----
+From: =3D?UTF-8?q?Marcin=3D20=3DC5=3D9Alusarz?=3D <marcin.slusarz@intel.com=
+>
+Subject: [PATCH] soundwire: intel: fix possible crash when no device is
+ detected
 
->  	/* allow for module parameter override */
-> -	if (hda_dmic_num != -1)
-> +	if (hda_dmic_num != -1) {
+acpi_walk_namespace can return success without executing our
+callback which initializes info->handle.
+If the random value in this structure is a valid address (which
+is on the stack, so it's quite possible), then nothing bad will
+happen, because:
+sdw_intel_scan_controller
+ -> acpi_bus_get_device
+ -> acpi_get_device_data
+ -> acpi_get_data_full
+ -> acpi_ns_validate_handle
+will reject this handle.
 
-This is breaking in an x86 allmodconfig build due to:
+However, if the value from the stack doesn't point to a valid
+address, we get this:
 
-/mnt/kernel/sound/soc/sof/intel/hda.c: In function 'dmic_topology_fixup':
-/mnt/kernel/sound/soc/sof/intel/hda.c:615:6: error: 'hda_dmic_num' undeclared (first use in this function); did you mean 'dmic_num'?
-  if (hda_dmic_num != -1) {
-      ^~~~~~~~~~~~
-      dmic_num
-/mnt/kernel/sound/soc/sof/intel/hda.c:615:6: note: each undeclared identifier is reported only once for each function it appears in
+BUG: kernel NULL pointer dereference, address: 0000000000000050
+PGD 0 P4D 0
+Oops: 0000 [#1] SMP NOPTI
+CPU: 6 PID: 472 Comm: systemd-udevd Tainted: G        W
+5.10.0-1-amd64 #1 Debian 5.10.4-1
+Hardware name: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
+RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
+Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00
+48 8d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f
+08 0f 74 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
+RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
+RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
+RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
+R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
+FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:000000000000000=
+0
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ acpi_get_data_full+0x4d/0x92
+ acpi_bus_get_device+0x1f/0x40
+ sdw_intel_acpi_scan+0x59/0x230 [soundwire_intel]
+ ? strstr+0x22/0x60
+ ? dmi_matches+0x76/0xe0
+ snd_intel_dsp_driver_probe.cold+0xaf/0x163 [snd_intel_dspcfg]
+ azx_probe+0x7a/0x970 [snd_hda_intel]
+ local_pci_probe+0x42/0x80
+ ? _cond_resched+0x16/0x40
+ pci_device_probe+0xfd/0x1b0
+ really_probe+0x205/0x460
+ driver_probe_device+0xe1/0x150
+ device_driver_attach+0xa1/0xb0
+ __driver_attach+0x8a/0x150
+ ? device_driver_attach+0xb0/0xb0
+ ? device_driver_attach+0xb0/0xb0
+ bus_for_each_dev+0x78/0xc0
+ bus_add_driver+0x12b/0x1e0
+ driver_register+0x8b/0xe0
+ ? 0xffffffffc0f65000
+ do_one_initcall+0x44/0x1d0
+ ? do_init_module+0x23/0x250
+ ? kmem_cache_alloc_trace+0xf5/0x200
+ do_init_module+0x5c/0x250
+ __do_sys_finit_module+0xb1/0x110
+ do_syscall_64+0x33/0x80
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
-which will actually be triggered by one of the earlier patches in the
-series (my script is going through things in reverse order), that
-variable is only defined for CONFIG_SOC_SOF_HDA.
+CC: stable@vger.kernel.org
+Signed-off-by: Marcin =C5=9Alusarz <marcin.slusarz@intel.com>
+---
+ drivers/soundwire/intel_init.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---TD8GDToEDw0WLGOL
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.=
+c
+index cabdadb09a1b..bc8520eb385e 100644
+--- a/drivers/soundwire/intel_init.c
++++ b/drivers/soundwire/intel_init.c
+@@ -405,11 +405,12 @@ int sdw_intel_acpi_scan(acpi_handle *parent_handle,
+ {
+     acpi_status status;
 
------BEGIN PGP SIGNATURE-----
++    info->handle =3D NULL;
+     status =3D acpi_walk_namespace(ACPI_TYPE_DEVICE,
+                      parent_handle, 1,
+                      sdw_intel_acpi_cb,
+                      NULL, info, NULL);
+-    if (ACPI_FAILURE(status))
++    if (ACPI_FAILURE(status) || info->handle =3D=3D NULL)
+         return -ENODEV;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdZU8ACgkQJNaLcl1U
-h9Dg0wf/dUJP9q+onLFVQyeEUVoqAG7m5KWHF0+AOUx8e4yrQVlPKomE5fLtQWiB
-25HR1qqW8TWKVRctJO3dJofSRbFWs3+br6AVZxh0qu4Mz7YlB9THOXqdfAcieTIW
-mNU0AnqdgZu3ti2LeLKCjjN1QZaofARVFO1UOeEDTd2+zG1lnwmnpZFAWZraBoa1
-/wClgd9yyXcIv9KZwdHSvE1ys/7GTy6fZJd4gRLecfhINjZA8QpZalPVAEoqhTo1
-Agg+x7RHtn+hu5qbBJw/safm7ERwHCkGTu5PcUMAFWrCXVALReC9QdWvNNjVDW3g
-UdJohQu/yAxxqzAKJKsiLJW5Sg6z3w==
-=3cY7
------END PGP SIGNATURE-----
-
---TD8GDToEDw0WLGOL--
+     return sdw_intel_scan_controller(info);
+--=20
+2.29.2

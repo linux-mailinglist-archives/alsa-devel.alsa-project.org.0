@@ -2,89 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54A6310DC4
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 17:21:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471E3310DF9
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 17:38:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 393BD823;
-	Fri,  5 Feb 2021 17:20:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 393BD823
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7B7D1677;
+	Fri,  5 Feb 2021 17:37:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7B7D1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612542069;
-	bh=5z215FYPGA0T/F4vEL0tyqMt5NR1/Vd8z/qDIcut9X4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612543080;
+	bh=atgG6ZN8qTkgFk4Rn2oN6WjAYzQG6orMRi//pvIqDSs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pPXi+1CuEwtlB7vcUduRQQqT9un16JBYKLOnXKmmn4G72uZypOxE1uqdvf2P69K2X
-	 QeszvoBR4po5CrEvZq4F7EmSi4sgjxHi/jXSF01Ejl8V4SO/z0BQ2X4CAlZxpMRJZK
-	 TUm+o6uyWgyzKMbV03i4aFQ/YZSS9gZsL41VNiy0=
+	b=cs9TzNJ64FjuDuk80cSbVvxnYNuuRoD9fk+Ckmm3WxSonDjKzwHonhVcpK50V2/dX
+	 lgO9gqOzKQZC3xqPLUmTrmzMw3oL7NL/rpgYxBjGWzyu3cIVDNXW/+LWuKKT7AQEjK
+	 NJJReYTckuqcUK06d5qqtM+tyFWhlgixO5Csg1hI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16D7EF80275;
-	Fri,  5 Feb 2021 17:19:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E4CBF8016E;
+	Fri,  5 Feb 2021 17:36:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B0C7F8026B; Fri,  5 Feb 2021 17:19:26 +0100 (CET)
+ id 2E67DF8015A; Fri,  5 Feb 2021 17:36:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 861A5F80152
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 17:19:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 861A5F80152
-IronPort-SDR: Z6v4k+p+xDGCg9yABnv8m8aVZPizC/UDo+yxN3LtLpMxoTbNDXcYWjTc0hdgCGQP5acvwslqID
- KGOdJt9Vjzuw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="168570503"
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="168570503"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 08:19:12 -0800
-IronPort-SDR: vI6yDYYoX55QmM8S4GOE9030RMWx8Va+4uopWh1v0W10+ipUMXOR9zWIixyR3MgA17VIG9KaiR
- eVgeFxlfACKQ==
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="393923553"
-Received: from gjcomber-mobl.amr.corp.intel.com (HELO [10.255.228.165])
- ([10.255.228.165])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 08:19:11 -0800
-Subject: Re: [PATCH] soundwire: intel: fix possible crash when no device is
- detected (was Re: Crash in acpi_ns_validate_handle triggered by soundwire on
- Linux 5.10)
-To: =?UTF-8?Q?Marcin_=c5=9alusarz?= <marcin.slusarz@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-References: <CA+GA0_sPC3rp5K4qwZm-u+W1C=+2Y2p-dbF4DMdHkKaTpeKKkg@mail.gmail.com>
- <CA+GA0_sCdowanpZmg==c+xVqqNxG5whLGsKHaCfSmpERBhqMzA@mail.gmail.com>
- <1dc2639a-ecbc-c554-eaf6-930256dcda96@linux.intel.com>
- <CA+GA0_sZm2pqOfA3LsNQowb930QS_g5CiCCGthzsS=vAjB9Rjg@mail.gmail.com>
- <CAJZ5v0h+Kwn5u293QO+H2rfGx-ZMBr18tMCLB7jHKHWWRaovOw@mail.gmail.com>
- <CAJZ5v0h8abkdrdN97RHouzxynPBFXBoAuMSb7Zy56+-sTXkPKQ@mail.gmail.com>
- <CA+GA0_vYdxFj_SPWgdkufo04VaOuWqcNTSck6gvnMfN07ZdO_Q@mail.gmail.com>
- <CA+GA0_vKyJZSQZ9bA6_BSDeGfRZ_nz86gj2aVHaOoy1h57CMzA@mail.gmail.com>
- <CA+GA0_u8NA90GmMSDO-Ejg-C2YEXCn8rnVZpk-_+eXcDm7XRpg@mail.gmail.com>
- <CAJZ5v0hqHihRdad16Djo+R1ezjFHt2YffgDg59TYYKJSSjmA4Q@mail.gmail.com>
- <CA+GA0_s7atD4O_DP0NXwVUVvdia2NWwSEfW2Mcw-UoJ9effPvg@mail.gmail.com>
- <CA+GA0_sZQXACjuzYYvrJq-vF-mmjaq82SJ=kifqo4Utv45s5Yg@mail.gmail.com>
- <CA+GA0_vSA51NbyTDtW-2A4aCCp+xXN_BtJfPFAJesRYM0eo9WQ@mail.gmail.com>
- <CA+GA0_sOQeQsaa1JFO3+ySqdLU6BNxrJRrHjqtheEuj60ZmwhA@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a3f01a5d-d7a5-8280-4091-b2486b01a782@linux.intel.com>
-Date: Fri, 5 Feb 2021 10:16:15 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A51A4F80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 17:36:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A51A4F80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Suw0L4OF"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B990E64EBF;
+ Fri,  5 Feb 2021 16:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612542975;
+ bh=atgG6ZN8qTkgFk4Rn2oN6WjAYzQG6orMRi//pvIqDSs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Suw0L4OFlWHxsGatQ0G/fzxfOHKBWS21NjPqgYMKhurs+7au00bODMYEq8NuKUeXO
+ Kt4ZF4oezNdls43RyfoX/lqGi/G41v+aP4F+ZMhtMC6P3GjQQvom8HUamdDWWKByrt
+ aDZCsXJwlM+VszFDTsufprtIYC8UIJyeE5ijCaPP8NFZSMZ77+wKJmqVEvaHdmUp5t
+ whuO0XHvNfuVaEzXs4cjwBMeGCiGIGm8FoM+HD9ukewheTmxH/ZegBOafSU3j1R1Lt
+ SLDX3kmSwYRPeGWiQSX3pD/wvxGZwNwX7pzQB+DrbD4BkIKxe1PIyaIhNu5MebjZTk
+ xfBMlQ5c7f/LA==
+Date: Fri, 5 Feb 2021 16:35:25 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+Subject: Re: [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
+Message-ID: <20210205163525.GH4720@sirena.org.uk>
+References: <20210204014258.10197-1-jee.heng.sia@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+GA0_sOQeQsaa1JFO3+ySqdLU6BNxrJRrHjqtheEuj60ZmwhA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Erik Kaneda <erik.kaneda@intel.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, "Slusarz, Marcin" <marcin.slusarz@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Len Brown <lenb@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Yia77v5a8fyVHJSl"
+Content-Disposition: inline
+In-Reply-To: <20210204014258.10197-1-jee.heng.sia@intel.com>
+X-Cookie: Huh?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,47 +81,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Marcin for the patch, much appreciated.
 
-> acpi_walk_namespace can return success without executing our
-> callback which initializes info->handle.
-> If the random value in this structure is a valid address (which
-> is on the stack, so it's quite possible), then nothing bad will
-> happen, because:
-> sdw_intel_scan_controller
->   -> acpi_bus_get_device
->   -> acpi_get_device_data
->   -> acpi_get_data_full
->   -> acpi_ns_validate_handle
-> will reject this handle.
-> 
-> However, if the value from the stack doesn't point to a valid
-> address, we get this:
-> 
-> BUG: kernel NULL pointer dereference, address: 0000000000000050
+--Yia77v5a8fyVHJSl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-[...]
+On Thu, Feb 04, 2021 at 09:42:54AM +0800, Sia Jee Heng wrote:
+> The below patch series are to support Audio over HDMI.
+> The modification in this patch series shall allow I2S driver
+> to playback standard PCM format and IEC958 encoded format to
+> the ADV7511 HDMI chip.
 
-> diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-> index cabdadb09a1b..bc8520eb385e 100644
-> --- a/drivers/soundwire/intel_init.c
-> +++ b/drivers/soundwire/intel_init.c
-> @@ -405,11 +405,12 @@ int sdw_intel_acpi_scan(acpi_handle *parent_handle,
->   {
->       acpi_status status;
-> 
-> +    info->handle = NULL;
->       status = acpi_walk_namespace(ACPI_TYPE_DEVICE,
->                        parent_handle, 1,
->                        sdw_intel_acpi_cb,
->                        NULL, info, NULL);
-> -    if (ACPI_FAILURE(status))
-> +    if (ACPI_FAILURE(status) || info->handle == NULL)
->           return -ENODEV;
-> 
->       return sdw_intel_scan_controller(info);
+This seems fine - what's the plan for getting the DRM patch merged?  I
+can apply it if that's best for people.
 
-It does seem like a required code pattern if I look at I2C and SPI. I 
-had no idea. Maybe worth documenting?
+--Yia77v5a8fyVHJSl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdc8wACgkQJNaLcl1U
+h9DaZAf/SF4ZKmjHzIITNbEZmHIzkGIGwD62llRkhiFWft7j3wJVsmSfBAbMwi8M
+5Gg8O0govo2CjmxFWdqbmU4AG7m3GKINIYt1us5u0+DHUOEKbWqr6/iHaWK3vUqE
+yKPyHzbuKmFp5p9/gVWswJu2WK28UNcVuGNXEYtMr7DzvsyAsKCwbs1MzdrnvVd0
+7Jh9Nwygks4xEqpe7tOIXHNgpmd3Kkj62iWgqpfL3jJ6ADFmvW0R7OyVa+ahETAW
+QazkM8+O9vpZDhSBLzF5TeMp4FCQTPNmnh330s5UNNvEbx6YL49k1OdgREIED7HM
+ZVr9tN2pzsmo2Dtuu2PN65uWRRQnMg==
+=+IvZ
+-----END PGP SIGNATURE-----
+
+--Yia77v5a8fyVHJSl--

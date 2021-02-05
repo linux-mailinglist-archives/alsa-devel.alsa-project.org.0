@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83197310D70
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:54:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A65C310DC3
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 17:20:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 264A01678;
-	Fri,  5 Feb 2021 16:53:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264A01678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96411886;
+	Fri,  5 Feb 2021 17:20:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96411886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612540470;
-	bh=dMxg4SpeyUAbGttBoN/Y3x3XWggjqiiCsSk56d6lMNU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1612542053;
+	bh=2EWjdo5BPIHh9NqcN6QPLreymg8X4YR9ie2+oaJxfeg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ksUWRu6HdDC8DoV9kXNi1hv+zebNZ8KQGOBqI3trZ/EatLjTnQhuaJ5UMZJuEZGwS
-	 5tzkO4tuk+eGwUwVjCu1vRe6TSeqka7TdTPQd9J8/7EL3H38SiphJ4wch+d4nZkKbH
-	 dz56VD5TOL1AjPKXhO1qzLmv+fQbyXRz6EFbLYQA=
+	b=QFN/lZICFSR5ccTn4Lxspbj03oSUKMORBDvRdNORXB3LTTDg+70Ey3SEcwogQy66W
+	 lPSbdpXhMkWkZ5aYFDVdJeiaZdwEBBp/1VdiUWilTLSYm8taOWC65ZYxg9qE9RswJE
+	 Qz0ZxWawfrZEoIj+cXsCY3NivnlN35pbgAIbN53Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79412F80156;
-	Fri,  5 Feb 2021 16:52:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C7D3F80139;
+	Fri,  5 Feb 2021 17:19:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C8A3F8015A; Fri,  5 Feb 2021 16:52:56 +0100 (CET)
+ id AF96FF80156; Fri,  5 Feb 2021 17:19:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A35FDF80139
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:52:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A35FDF80139
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q7jSjsau"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3801E650D1;
- Fri,  5 Feb 2021 15:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612540367;
- bh=dMxg4SpeyUAbGttBoN/Y3x3XWggjqiiCsSk56d6lMNU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q7jSjsauzTq8kHhDdgZvBu9iH2Qs5hHkYQ2DloSNTZekbfxmat1wBRtf9fnorVp7X
- PA8XmyxBppO6pvuvdqTGOKmdJKrU31cgxTMNdDhxc61rhJbd8H8XxP567jBzkMhuLH
- IBeGI48Yslc/oWv0cvbu+r+UA7U4qVZQi27NZNF/UKwmEAuQ+lxnYdczYjVbNC8N6r
- +ptypuNw41h2fE0IXQeCoNN54U0DGwRdO8Kn0dpYdh7m/SeGZUDv92Hdveo4rojXPx
- IrBkbCV00gw1oAbcocSFxYkXic55D0dbKIG5HP3/oM5H9ecfwhuyqg21XqzM9StT4s
- bWj6eyJ/5Hy+w==
-Date: Fri, 5 Feb 2021 15:51:57 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 14/14] ASoC: SOF: Intel: hda: add dev_dbg() when DMIC
- number is overridden
-Message-ID: <20210205155157.GF4720@sirena.org.uk>
-References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
- <20210204203312.27112-15-pierre-louis.bossart@linux.intel.com>
- <20210205153336.GE4720@sirena.org.uk>
- <d6f10083-f046-a708-60b1-86e3fd731e60@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35D3BF80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 17:19:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D3BF80139
+IronPort-SDR: hwZLZUJPnWU8KNlAX+iZAsjHa5NrSPwYY51SH3uVgjYly8w7oBXQKpqArSS+ey48nxk7bgDJoy
+ hOCFbURHgptw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="168570492"
+X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="168570492"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 08:19:08 -0800
+IronPort-SDR: FP/VEBG9vqjfwxCyoDJS0wV0opk7IUkxufqPQuqnTjJ0ix5hq54xp9fM9HbC/Nt28UBkNmfKP2
+ 0XCOkls9hR6g==
+X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="393923536"
+Received: from gjcomber-mobl.amr.corp.intel.com (HELO [10.255.228.165])
+ ([10.255.228.165])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 08:19:07 -0800
+Subject: Re: [PATCH 1/2] soundwire: slave: introduce DMI quirks for HP Spectre
+ x360 Convertible
+To: Vinod Koul <vkoul@kernel.org>
+References: <20210204204837.27876-1-pierre-louis.bossart@linux.intel.com>
+ <20210204204837.27876-2-pierre-louis.bossart@linux.intel.com>
+ <20210205071621.GF2656@vkoul-mobl.Dlink>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <46897c27-50ff-564c-5a44-b2c230d4d39b@linux.intel.com>
+Date: Fri, 5 Feb 2021 09:15:09 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Wb5NtZlyOqqy58h0"
-Content-Disposition: inline
-In-Reply-To: <d6f10083-f046-a708-60b1-86e3fd731e60@linux.intel.com>
-X-Cookie: Huh?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+In-Reply-To: <20210205071621.GF2656@vkoul-mobl.Dlink>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, tiwai@suse.de,
- vkoul@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+ gregkh@linuxfoundation.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +86,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks for the review Vinod.
 
---Wb5NtZlyOqqy58h0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On 04-02-21, 14:48, Pierre-Louis Bossart wrote:
+>> HP Spectre x360 Convertible devices expose invalid _ADR fields in the
+>> DSDT, which prevents codec drivers from probing. A possible solution
+>> is to override the DSDT, but that's just too painful for users.
+>>
+>> This patch suggests a simple DMI-based quirk to remap the existing
+>> invalid ADR information into valid ones.
+> 
+> While I agree with the approach, I do not like the implementation. The
+> quirks in firmware should not reside in core code. Drivers are the right
+> place, of course we need to add callbacks into driver for this.
+> 
+> So I did a quick hacking and added the below patch, I think you can add
+> the quirks in Intel driver based on DMI for this.
 
-On Fri, Feb 05, 2021 at 09:47:39AM -0600, Pierre-Louis Bossart wrote:
-> On 2/5/21 9:33 AM, Mark Brown wrote:
-> > On Thu, Feb 04, 2021 at 02:33:12PM -0600, Pierre-Louis Bossart wrote:
+I thought about this, but the Intel driver is about the *master* 
+configuration. It's not really about slave-related _ADR. If and when the 
+IP configuration changes, it'll be problematic to have such quirks in 
+the middle.
 
-> > This is breaking in an x86 allmodconfig build due to:
+At the end of the day, the problem is an ACPI one, not an Intel master 
+one, and I put the code where it's protected by CONFIG_ACPI.
 
-> > which will actually be triggered by one of the earlier patches in the
-> > series (my script is going through things in reverse order), that
-> > variable is only defined for CONFIG_SOC_SOF_HDA.
+I don't mind doing the change, but the notion of conflating Intel master 
+and list of slave quirks isn't without its own problems.
 
-> That's not good. Please drop this patch for now, it's nice-to-have and not
-> critical.
+An alternate solution would be to break the ACPI and OF slave 
+initialization into two separate files (slave-acpi.c and slave-of.c), 
+that way there is a cleaner split.
 
-> I'll have to figure out why this wasn't reported earlier.
+Or we put all those quirks in a dedicated slave-dmi-quirks.c and use 
+your solution. That may be more manageable since the list of quirks is 
+historically likely to grow.
 
-Like I say it's not that patch that's causing the break, I didn't walk
-through and work out which one was - the patch isn't actually adding the
-usage or anything.
+It's really ugly in all cases.
 
---Wb5NtZlyOqqy58h0
-Content-Type: application/pgp-signature; name="signature.asc"
+I try to look at the positive side of things: if we have quirks to 
+handle it's an indicator that more platforms are moving to SoundWire...
 
------BEGIN PGP SIGNATURE-----
+I hope though that it doesn't reach the level of Baytrail where most of 
+the machine driver is a dictionary of quirks.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdaZwACgkQJNaLcl1U
-h9BkuAf+JJKK5CRaw7Y1FJjqNuJLxWrn0O8gKdRpvmws1IMzMxz/8sLaBVfGyRb3
-vKVcIDfwS5MjUSxO78tLR+VgpgLXWaJg+wKosGXdjB7vEaCkHVMQmcQE+aFyUmp/
-s5P3yKdqlSelR7/+7eeqOulfyyn/D04fVHXtWufdDratsGQ680m83SSpMjlrkpBl
-bDaMN0CFzzhThW85F8Z6IGnXQufcOH9YBgESrbF+3ouFE0rc87MR/KvttfL8okGy
-ODRUppIRvUaPAo9/lx0/MmeiSpG60Xg1mI9gj0opAqjB0udXzN9tyL1Wj77MvlJ9
-JgBPCKW0ix493rDtlyUSphbFHJ8qFg==
-=eiGK
------END PGP SIGNATURE-----
-
---Wb5NtZlyOqqy58h0--
+> 
+> -- >8 --
+> 
+>  From 20af8100025637ea5e295877d28f3afb9dbd4814 Mon Sep 17 00:00:00 2001
+> From: Vinod Koul <vkoul@kernel.org>
+> Date: Fri, 5 Feb 2021 12:38:21 +0530
+> Subject: [PATCH] soundwire: add override addr ops
+> 
+> Some firmware can have buggy _ADR values causing the scanning of devices
+> to fail. Add the override_ops which if implemented by master driver
+> would be invoked instead of reading _ADR. The drivers can implement
+> quirks based on DMI etc to override the addr values.
+> 
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> ---
+>   -compile tested only, pls validate
+> 
+>   drivers/soundwire/slave.c     | 25 +++++++++++++++++++++----
+>   include/linux/soundwire/sdw.h |  3 +++
+>   2 files changed, 24 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+> index a08f4081c1c4..2b0d646c5c2f 100644
+> --- a/drivers/soundwire/slave.c
+> +++ b/drivers/soundwire/slave.c
+> @@ -91,12 +91,11 @@ int sdw_slave_add(struct sdw_bus *bus,
+>   
+>   #if IS_ENABLED(CONFIG_ACPI)
+>   
+> -static bool find_slave(struct sdw_bus *bus,
+> -		       struct acpi_device *adev,
+> -		       struct sdw_slave_id *id)
+> +static bool _find_slave(struct sdw_bus *bus,
+> +		        struct acpi_device *adev,
+> +		        struct sdw_slave_id *id)
+>   {
+>   	unsigned long long addr;
+> -	unsigned int link_id;
+>   	acpi_status status;
+>   
+>   	status = acpi_evaluate_integer(adev->handle,
+> @@ -108,6 +107,24 @@ static bool find_slave(struct sdw_bus *bus,
+>   		return false;
+>   	}
+>   
+> +	return addr;
+> +}
+> +
+> +static bool find_slave(struct sdw_bus *bus,
+> +		       struct acpi_device *adev,
+> +		       struct sdw_slave_id *id)
+> +{
+> +	unsigned long long addr;
+> +	unsigned int link_id;
+> +
+> +	if (bus->ops->override_adr)
+> +		addr = bus->ops->override_adr(bus);
+> +	else
+> +		addr = _find_slave(bus, adev, id);
+> +
+> +	if (!addr)
+> +		return false;
+> +
+>   	/* Extract link id from ADR, Bit 51 to 48 (included) */
+>   	link_id = SDW_DISCO_LINK_ID(addr);
+>   
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index f0b01b728640..d0ad3404ca95 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -804,6 +804,8 @@ struct sdw_defer {
+>   /**
+>    * struct sdw_master_ops - Master driver ops
+>    * @read_prop: Read Master properties
+> + * @override_adr: Override reading address from firmware and read from
+> + * driver instead (quirk for buggy firmware)
+>    * @xfer_msg: Transfer message callback
+>    * @xfer_msg_defer: Defer version of transfer message callback
+>    * @reset_page_addr: Reset the SCP page address registers
+> @@ -813,6 +815,7 @@ struct sdw_defer {
+>    */
+>   struct sdw_master_ops {
+>   	int (*read_prop)(struct sdw_bus *bus);
+> +	unsigned long long (*override_adr)(struct sdw_bus *bus);
+>   
+>   	enum sdw_command_response (*xfer_msg)
+>   			(struct sdw_bus *bus, struct sdw_msg *msg);
+> 

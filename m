@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0FB4310D66
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:49:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83197310D70
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:54:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C1FF1607;
-	Fri,  5 Feb 2021 16:48:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C1FF1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264A01678;
+	Fri,  5 Feb 2021 16:53:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264A01678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612540165;
-	bh=mffGps49avdBiy8KqZrNM5vye3EXYg6yptP/wMUEAOM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612540470;
+	bh=dMxg4SpeyUAbGttBoN/Y3x3XWggjqiiCsSk56d6lMNU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nkKbwG62T4CSF8d0Ek2TZIdftnrL1oV7QvVmdm0R63rZ+S6MKstz4RGqIePdSKFr0
-	 QavMgxR45UWcOKAcUV2PYrNuuiszqr/vVcDwPU5wVGleT7tQhUCs4vRsF8ZrKLMksQ
-	 H2VZHu7E4o1DLvAmkDBIEF46BuYQ5D/iEUi1sXNI=
+	b=ksUWRu6HdDC8DoV9kXNi1hv+zebNZ8KQGOBqI3trZ/EatLjTnQhuaJ5UMZJuEZGwS
+	 5tzkO4tuk+eGwUwVjCu1vRe6TSeqka7TdTPQd9J8/7EL3H38SiphJ4wch+d4nZkKbH
+	 dz56VD5TOL1AjPKXhO1qzLmv+fQbyXRz6EFbLYQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53E60F8016E;
-	Fri,  5 Feb 2021 16:47:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79412F80156;
+	Fri,  5 Feb 2021 16:52:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3712F8015A; Fri,  5 Feb 2021 16:47:50 +0100 (CET)
+ id 6C8A3F8015A; Fri,  5 Feb 2021 16:52:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1DB6F800C0
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:47:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DB6F800C0
-IronPort-SDR: Dxn+ZJ1vm4rzojOv/t5tbWVno6+ipHWLFpbkQedU3/is2NpqHwkGNA+okt5cj/w9qsldEavOcG
- YhtfeQ+3seJQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="181596194"
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="181596194"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 07:47:41 -0800
-IronPort-SDR: uVGFPbqOJcsv2httPANMUiprMD336Zxdd4KGySfPoZoEKgl++3c63PLx1R4jZsEfpjW3mHuQKJ
- wDhvGEMFopJw==
-X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="393913262"
-Received: from gjcomber-mobl.amr.corp.intel.com (HELO [10.255.228.165])
- ([10.255.228.165])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 07:47:40 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id A35FDF80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:52:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A35FDF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="q7jSjsau"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3801E650D1;
+ Fri,  5 Feb 2021 15:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612540367;
+ bh=dMxg4SpeyUAbGttBoN/Y3x3XWggjqiiCsSk56d6lMNU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q7jSjsauzTq8kHhDdgZvBu9iH2Qs5hHkYQ2DloSNTZekbfxmat1wBRtf9fnorVp7X
+ PA8XmyxBppO6pvuvdqTGOKmdJKrU31cgxTMNdDhxc61rhJbd8H8XxP567jBzkMhuLH
+ IBeGI48Yslc/oWv0cvbu+r+UA7U4qVZQi27NZNF/UKwmEAuQ+lxnYdczYjVbNC8N6r
+ +ptypuNw41h2fE0IXQeCoNN54U0DGwRdO8Kn0dpYdh7m/SeGZUDv92Hdveo4rojXPx
+ IrBkbCV00gw1oAbcocSFxYkXic55D0dbKIG5HP3/oM5H9ecfwhuyqg21XqzM9StT4s
+ bWj6eyJ/5Hy+w==
+Date: Fri, 5 Feb 2021 15:51:57 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [PATCH 14/14] ASoC: SOF: Intel: hda: add dev_dbg() when DMIC
  number is overridden
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <20210205155157.GF4720@sirena.org.uk>
 References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
  <20210204203312.27112-15-pierre-louis.bossart@linux.intel.com>
  <20210205153336.GE4720@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d6f10083-f046-a708-60b1-86e3fd731e60@linux.intel.com>
-Date: Fri, 5 Feb 2021 09:47:39 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <d6f10083-f046-a708-60b1-86e3fd731e60@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210205153336.GE4720@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Wb5NtZlyOqqy58h0"
+Content-Disposition: inline
+In-Reply-To: <d6f10083-f046-a708-60b1-86e3fd731e60@linux.intel.com>
+X-Cookie: Huh?
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, tiwai@suse.de,
@@ -87,28 +89,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--Wb5NtZlyOqqy58h0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2/5/21 9:33 AM, Mark Brown wrote:
-> On Thu, Feb 04, 2021 at 02:33:12PM -0600, Pierre-Louis Bossart wrote:
-> 
->>   	/* allow for module parameter override */
->> -	if (hda_dmic_num != -1)
->> +	if (hda_dmic_num != -1) {
-> 
-> This is breaking in an x86 allmodconfig build due to:
-> 
-> /mnt/kernel/sound/soc/sof/intel/hda.c: In function 'dmic_topology_fixup':
-> /mnt/kernel/sound/soc/sof/intel/hda.c:615:6: error: 'hda_dmic_num' undeclared (first use in this function); did you mean 'dmic_num'?
->    if (hda_dmic_num != -1) {
->        ^~~~~~~~~~~~
->        dmic_num
-> /mnt/kernel/sound/soc/sof/intel/hda.c:615:6: note: each undeclared identifier is reported only once for each function it appears in
-> 
-> which will actually be triggered by one of the earlier patches in the
-> series (my script is going through things in reverse order), that
-> variable is only defined for CONFIG_SOC_SOF_HDA.
+On Fri, Feb 05, 2021 at 09:47:39AM -0600, Pierre-Louis Bossart wrote:
+> On 2/5/21 9:33 AM, Mark Brown wrote:
+> > On Thu, Feb 04, 2021 at 02:33:12PM -0600, Pierre-Louis Bossart wrote:
 
-That's not good. Please drop this patch for now, it's nice-to-have and 
-not critical.
+> > This is breaking in an x86 allmodconfig build due to:
 
-I'll have to figure out why this wasn't reported earlier.
+> > which will actually be triggered by one of the earlier patches in the
+> > series (my script is going through things in reverse order), that
+> > variable is only defined for CONFIG_SOC_SOF_HDA.
+
+> That's not good. Please drop this patch for now, it's nice-to-have and not
+> critical.
+
+> I'll have to figure out why this wasn't reported earlier.
+
+Like I say it's not that patch that's causing the break, I didn't walk
+through and work out which one was - the patch isn't actually adding the
+usage or anything.
+
+--Wb5NtZlyOqqy58h0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdaZwACgkQJNaLcl1U
+h9BkuAf+JJKK5CRaw7Y1FJjqNuJLxWrn0O8gKdRpvmws1IMzMxz/8sLaBVfGyRb3
+vKVcIDfwS5MjUSxO78tLR+VgpgLXWaJg+wKosGXdjB7vEaCkHVMQmcQE+aFyUmp/
+s5P3yKdqlSelR7/+7eeqOulfyyn/D04fVHXtWufdDratsGQ680m83SSpMjlrkpBl
+bDaMN0CFzzhThW85F8Z6IGnXQufcOH9YBgESrbF+3ouFE0rc87MR/KvttfL8okGy
+ODRUppIRvUaPAo9/lx0/MmeiSpG60Xg1mI9gj0opAqjB0udXzN9tyL1Wj77MvlJ9
+JgBPCKW0ix493rDtlyUSphbFHJ8qFg==
+=eiGK
+-----END PGP SIGNATURE-----
+
+--Wb5NtZlyOqqy58h0--

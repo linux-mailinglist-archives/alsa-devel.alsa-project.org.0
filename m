@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB2C310CD2
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:00:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCE8310D28
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 16:28:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3174E;
-	Fri,  5 Feb 2021 15:59:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B9681676;
+	Fri,  5 Feb 2021 16:27:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B9681676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612537245;
-	bh=pcoVC9g6Ql5brnm8ZYrxM8gXd4vKE+CdwztAMluc3jc=;
+	s=default; t=1612538915;
+	bh=CSoC+5GROc/EUERzzPwqxgzXBlJBwflvP5g64ldun2U=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vi/st0unUKZTtIWc5JxerX3yrKR2pHHzI7cbtJ+PTCnL1d3dVBTmk28OjEKErFjPb
-	 IyPj2YD+cocW0gpqccglfz5+eAqqWJIvPon7XPB+Ajmy1XhaRiAcOC1aox+W3aJMgG
-	 BPejlTnLza922jtoGKOI7OF8L2IOPKyzb1qLSrM8=
+	b=ObiMd8/ZIbpC+4pJMSOCM04qmc5aVTrk9HWVfbMY7SraaI8XbML3qEwZFga4Fk2ft
+	 Wr/JJ0PQIm/rsqsOLpexB+6CaE9lIIHzqpiFWRqwU83dANjmWzWkMxe3RrQljJ/lFr
+	 iPAUpMaRPGWg/1LdRmD2Z+eEvxdgHAmJbnAdosSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64150F8016E;
-	Fri,  5 Feb 2021 15:59:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D09E4F80152;
+	Fri,  5 Feb 2021 16:27:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA014F8015A; Fri,  5 Feb 2021 15:59:11 +0100 (CET)
+ id 7F068F8015A; Fri,  5 Feb 2021 16:26:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFB85F800C0
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 15:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFB85F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dAu9XING"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 220B864FBC;
- Fri,  5 Feb 2021 14:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612537146;
- bh=pcoVC9g6Ql5brnm8ZYrxM8gXd4vKE+CdwztAMluc3jc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dAu9XINGXWMXKM/v4VSMEpR5UUCt36txoacXH7ka0tNv+vG8Uhvnlhf5OOFcYyRyK
- tKUvQdjoSvGBnoTZ1QDZRsluTJ4fRW+i0tlc+VKsUF9R5bkMFO921B8eKwzT9xS89+
- BxgNKjCkkKuVdr2Xb16fv/oWk2wF/IpowhfTwmRmdl/hk0xAPKiy6q/JPbOV9rihec
- DwKrhy22qVj5ArEmPBouXYoyduoc9mEyFyB8W2cvPw7M1ank7v970HjrN9h2zkMlCC
- yhP5EQx8DqzkpHfzgFM25WJfLei1aGv86v8U7bPoZpWQE7W4pd9B5eIU9O0dmMTnAy
- 8ir6e/XFyhIKg==
-Date: Fri, 5 Feb 2021 14:58:16 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 5/7] ASoC: imx-pcm-rpmsg: Add platform driver for audio
- base on rpmsg
-Message-ID: <20210205145816.GD4720@sirena.org.uk>
-References: <1612508250-10586-1-git-send-email-shengjiu.wang@nxp.com>
- <1612508250-10586-6-git-send-email-shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A057F80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 16:26:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A057F80139
+Received: by mail-oi1-f178.google.com with SMTP id j25so7836566oii.0
+ for <alsa-devel@alsa-project.org>; Fri, 05 Feb 2021 07:26:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LBB/K1kyVMf45FQm6DNIMXTfZ1zpjCDhDz7ZekVCnj4=;
+ b=gKluWuxm0O4o7t9u6wXowlzZYIYkslKrfFD2Ln+1wwC3JweHgDO/c7TlamP1Xf9J21
+ 2EV5WbGiRFOFBTHb8lwP0CE2sivxWMOsjhub48veKAaWVdyMrGE3G5DQQo2h/dRk6Z0Q
+ 0+3h2X2bUTGNV3hE9pf+cKY+51bH5eJMTslHL0OvD5CFnA1mw0C8PIFgroP1IEUBn7oK
+ laTRcZiiuy47oPncfqd4kCH1Cbwdvhcx79kjk2kU1sEqDZqvrmFJfxgIQ8hjhlwX24KW
+ DaYxcrIYF+rJNzIEe8JgXj81A02sheHJNNrJAgFGlrm09VCB9/ydD47UgjgdsuQIIMgN
+ U4+Q==
+X-Gm-Message-State: AOAM530AZ44KCB1TdiAryDOJ/X/QCi9FH56LvujIV8RjOL4AGe9rSMH8
+ XGG/YhOZNToNtOLD6pioQ3Gd1cPkKA==
+X-Google-Smtp-Source: ABdhPJzmDaqjU2DN6vgXDMRwi7rTligOWZzbFMVmO+rk5dPiHs+i4Wq2U3GFjcEtRSoQHzyN8juvuw==
+X-Received: by 2002:aca:abd5:: with SMTP id u204mr369245oie.119.1612538806468; 
+ Fri, 05 Feb 2021 07:26:46 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id q3sm1787983oih.35.2021.02.05.07.26.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Feb 2021 07:26:45 -0800 (PST)
+Received: (nullmailer pid 3084982 invoked by uid 1000);
+ Fri, 05 Feb 2021 15:26:44 -0000
+Date: Fri, 5 Feb 2021 09:26:44 -0600
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v2 3/9] ASoC: audio-graph-card: Add clocks property to
+ endpoint node
+Message-ID: <20210205152644.GA3083322@robh.at.kernel.org>
+References: <1611944866-29373-1-git-send-email-spujar@nvidia.com>
+ <1611944866-29373-4-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="k4f25fnPtRuIRUb3"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1612508250-10586-6-git-send-email-shengjiu.wang@nxp.com>
-X-Cookie: Huh?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
- lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, nicoleotsuka@gmail.com,
- robh+dt@kernel.org, festevam@gmail.com
+In-Reply-To: <1611944866-29373-4-git-send-email-spujar@nvidia.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, jonathanh@nvidia.com,
+ sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,65 +94,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 29, 2021 at 11:57:40PM +0530, Sameer Pujar wrote:
+> Add optional 'clocks' property to audio port 'endpoint' node. One
+> such example is where SoC supplies a clock to external audio codec
+> component.
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+>  Documentation/devicetree/bindings/sound/audio-graph-port.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> index 766e910..08ed8f5 100644
+> --- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> +++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> @@ -33,6 +33,9 @@ properties:
+>          properties:
+>            remote-endpoint:
+>              maxItems: 1
+> +          clocks:
+> +            maxItems: 1
+> +            description: Describes the clock used by audio component.
 
---k4f25fnPtRuIRUb3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+NAK
 
-On Fri, Feb 05, 2021 at 02:57:28PM +0800, Shengjiu Wang wrote:
+An endpoint is not a device. Clocks go with a device.
 
-> +	if (params_format(params) == SNDRV_PCM_FORMAT_S16_LE)
-> +		msg->s_msg.param.format   = RPMSG_S16_LE;
-> +	else if (params_format(params) == SNDRV_PCM_FORMAT_S24_LE)
-
-Again this should be a switch statement.
-
-> +	if (params_channels(params) == 1)
-> +		msg->s_msg.param.channels = RPMSG_CH_LEFT;
-> +	else
-> +		msg->s_msg.param.channels = RPMSG_CH_STEREO;
-
-Shouldn't this be reporting an error if the number of channels is more
-than 2?
-
-> +		/*
-> +		 * if the data in the buffer is less than one period
-> +		 * send message immediately.
-> +		 * if there is more than one period data, delay one
-> +		 * period (timer) to send the message.
-> +		 */
-> +		if ((avail - writen_num * period_size) <= period_size) {
-> +			imx_rpmsg_insert_workqueue(substream, msg, info);
-> +		} else if (rpmsg->force_lpa && !timer_pending(timer)) {
-> +			int time_msec;
-> +
-> +			time_msec = (int)(runtime->period_size * 1000 / runtime->rate);
-> +			mod_timer(timer, jiffies + msecs_to_jiffies(time_msec));
-> +		}
-
-The comment here is at least confusing - why would we not send a full
-buffer immediately if we have one?  This sounds like it's the opposite
-way round to what we'd do if we were trying to cut down the number of
-messages.  It might help to say which buffer and where?
-
-> +	/**
-> +	 * Every work in the work queue, first we check if there
-
-/** comments are only for kerneldoc.
-
---k4f25fnPtRuIRUb3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAdXQcACgkQJNaLcl1U
-h9ACUwf9EcHPKiRzzRa6Atb6PHhaM1oBK/2zYZcdmLDejwBct/KltZywmVsBQv0o
-JmeLnKw7/jLk3Sph4Pqk6J2lyizC5nik/w7NjFO5CIUyNTQnFRZtaDILcnVr7vNk
-28HX0/XoPM54EbfyncrP41lr/L4EYgHmjIMqi/TjVtFnfyOt1Pq99Rj02lKDVnV3
-ERmOguBociG3yf9kV/wcrZzJ4hOg7Lw468CHtxoeCpPKsJovmByQ0I78JQJlJ1Jj
-TRjC06zUmRhscWFCrWiOkItqPpTcrv5TxMVh5Ko5zE1rYslk8XURTFpnKDxWoxkR
-MtylP+v1qS4G4STsZObKZtcso3D9hA==
-=hzt6
------END PGP SIGNATURE-----
-
---k4f25fnPtRuIRUb3--
+>            mclk-fs:
+>              description: |
+>                Multiplication factor between stream rate and codec mclk.
+> -- 
+> 2.7.4
+> 

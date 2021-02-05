@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A353105DE
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 08:32:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BB0631064A
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 09:10:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37D96167B;
-	Fri,  5 Feb 2021 08:32:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37D96167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B92B684B;
+	Fri,  5 Feb 2021 09:09:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92B684B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612510370;
-	bh=g/fSmzoXD6BBQt+alv0WtvUvLkMqbx6tyEdEBxCRo7o=;
+	s=default; t=1612512649;
+	bh=IdsJyncN3lebaY0SNL1+b6GkiXkC6RgmzH0vlZg4Iv4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GpVTqNofmJeW2TTLQo8/xpNL7u2bpPSETR2okzBENT35hQW2eQwFsA/xk7Ab1I0K+
-	 ntuln8f0sueQxDvLpNsZWloCLRcAWd/BxKioOhlGjsIqWo3GDCc7rBlnwSVDI12OTQ
-	 bwrYkK0vnXBJ0L4UdFt1JlxnPcaocpOnJQzBma7g=
+	b=NWRFqSZCiOrRmuNxxOFc34d1mbPhXOTTnAi4hNuvwjwZI3uJqfr9lUiFeOSsv+yT3
+	 uEQOSLed4btXQqJ+m8Wc5MFhmpGFNi3bJOhisfI50KZTMSo8tsVtUNkz0VMofEhQId
+	 AiByrLW1KwHAaAWcqj+CPiSSzgOSAOrSsR/r2bA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90A9FF8016E;
-	Fri,  5 Feb 2021 08:31:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1705CF800C0;
+	Fri,  5 Feb 2021 09:09:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 418B1F8015A; Fri,  5 Feb 2021 08:31:16 +0100 (CET)
+ id 7CC5FF8015A; Fri,  5 Feb 2021 09:09:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E4AEF80152
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 08:31:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E4AEF80152
-IronPort-SDR: 1Yy3v+sMJEQTg6PBAERiN8s5Hb3ftXb9zQ1258FIAkmpDwJG21oqmtE72rNVUNO1sMC4KnuNU9
- 78e6LhobcLdQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="181541869"
-X-IronPort-AV: E=Sophos;i="5.81,154,1610438400"; d="scan'208";a="181541869"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 23:31:02 -0800
-IronPort-SDR: dgc7MoiCXiFQl/Jye+rT896ZWBVXQ6uCAJ/9XkNtW+vDklyYOfKtIonNoWE1HkyNUEwHoTWRcv
- qHifkXCF7GYA==
-X-IronPort-AV: E=Sophos;i="5.81,154,1610438400"; d="scan'208";a="483984043"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 23:31:00 -0800
-Date: Fri, 5 Feb 2021 09:27:39 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/3] ASoC: soc-pcm: add soc_pcm_hw_update_xxx()
-In-Reply-To: <87tuqs90rl.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <alpine.DEB.2.22.394.2102050924430.864696@eliteleevi.tm.intel.com>
-References: <87tuqs90rl.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07969F80139
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 09:09:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07969F80139
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F1BD6ACBA;
+ Fri,  5 Feb 2021 08:09:10 +0000 (UTC)
+Date: Fri, 05 Feb 2021 09:09:10 +0100
+Message-ID: <s5hwnvn3pi1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v5 3/5] ALSA: usb-audio: Avoid unnecessary interface
+ re-setup
+In-Reply-To: <87fd2b96-1e4f-aa1a-3048-9c57351519b6@linux.intel.com>
+References: <20210108075219.21463-1-tiwai@suse.de>
+ <20210108075219.21463-4-tiwai@suse.de>
+ <87fd2b96-1e4f-aa1a-3048-9c57351519b6@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Cc: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>,
+ alsa-devel@alsa-project.org, Geraldo <geraldogabriel@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,20 +72,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
-
-On Thu, 4 Feb 2021, Kuninori Morimoto wrote:
-
-> These adds soc_pcm_hw_update_xxx() and cleanup soc-pcm.c
+On Thu, 04 Feb 2021 22:44:00 +0100,
+Pierre-Louis Bossart wrote:
 > 
-> Kuninori Morimoto (3):
->   ASoC: soc-pcm: add soc_pcm_hw_update_rate()
->   ASoC: soc-pcm: add soc_pcm_hw_update_chan()
->   ASoC: soc-pcm: add soc_pcm_hw_update_format()
+> 
+> 
+> >   /**
+> > - * snd_usb_endpoint_free: Free the resources of an snd_usb_endpoint
+> > + * snd_usb_endpoint_free_all: Free the resources of an snd_usb_endpoint
+> > + * @card: The chip
+> >    *
+> > - * @ep: the endpoint to free
+> > - *
+> > - * This free all resources of the given ep.
+> > + * This free all endpoints and those resources
+> >    */
+> > -void snd_usb_endpoint_free(struct snd_usb_endpoint *ep)
+> > +void snd_usb_endpoint_free_all(struct snd_usb_audio *chip)
+> 
+> this causes warnings with make sound/ W=1
+> 
+>   CC [M]  sound/usb/endpoint.o
+> sound/usb/endpoint.c:1459: warning: Function parameter or member
+> 'chip' not described in 'snd_usb_endpoint_free_all'
+> sound/usb/endpoint.c:1459: warning: Excess function parameter 'card'
+> description in 'snd_usb_endpoint_free_all'
+> 
+> the following diff removes it, but I don't know if the description is
+> good enough...
+> 
+> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+> index 8e568823c992..4d1c678a0d80 100644
+> --- a/sound/usb/endpoint.c
+> +++ b/sound/usb/endpoint.c
+> @@ -1451,7 +1451,7 @@ void snd_usb_endpoint_release(struct
+> snd_usb_endpoint *ep)
+> 
+>  /**
+>   * snd_usb_endpoint_free_all: Free the resources of an snd_usb_endpoint
+> - * @card: The chip
+> + * @chip: The chip
+>   *
+>   * This free all endpoints and those resources
+>   */
 
-the reduction of duplicated code is not a lot, but there's enough that
-I think this make sense. Code looks good:
+Thanks, I'll queue the fix.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Br, Kai
+Takashi

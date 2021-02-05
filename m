@@ -2,48 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80E73102E1
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 03:39:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4A331057A
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 08:10:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42551167C;
-	Fri,  5 Feb 2021 03:38:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42551167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45BC8167A;
+	Fri,  5 Feb 2021 08:09:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45BC8167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612492756;
-	bh=GEKm3pRSoA8iz/yHf0Xz01W/0REZrObA2FS3i4wT+Ac=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gW/EHx39e1Qm9p8qY130/dnMTXG1rAkIuDAp+dpfSt9erFzCU6ralArHxoT51TUXH
-	 SQVUKvuMKskeaMzepJFNWbpuwBe1pQXifVkbU2/tQ6RHrxoyhne3N0vxM+kf0TlE7o
-	 W3+NcK8ko8i9+4DEPAVTNEXTtA2KwlLL1KEXrv/o=
+	s=default; t=1612509033;
+	bh=yTu7NfM/uqWO3RtVQTtI8f+usb/TWoB/7o5eiSnhaG4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EZBaP+xJ0+DJ1TwZEySKtshsT5tviNEoiJbqRjkGyrjzy8eTKSLpBvkRKrFEV0POa
+	 gFRq7K7AX2wpik8VVXeXK+OOyG+/BP+10QkSZI5tBdgzWTJoG8HYkbYSKlA+yxqLAn
+	 iMiBJEkGM2mSCjBP5K89UbInM2UPnSkxZwzRDMAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73074F8016E;
-	Fri,  5 Feb 2021 03:37:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 755C2F8023B;
+	Fri,  5 Feb 2021 08:09:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B224F8015A; Fri,  5 Feb 2021 03:37:41 +0100 (CET)
+ id 5C6DCF8025C; Fri,  5 Feb 2021 08:08:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 30182F800C0
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 03:37:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30182F800C0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1612492652230542898-webhooks-bot@alsa-project.org>
-References: <1612492652230542898-webhooks-bot@alsa-project.org>
-Subject: ucm2: sof-hda-dsp: DMICS may not be present
-Message-Id: <20210205023741.4B224F8015A@alsa1.perex.cz>
-Date: Fri,  5 Feb 2021 03:37:41 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF6C3F80152
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 08:08:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF6C3F80152
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B5EE6200B26;
+ Fri,  5 Feb 2021 08:08:44 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A6368200B4E;
+ Fri,  5 Feb 2021 08:08:39 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 600C440291;
+ Fri,  5 Feb 2021 08:08:33 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, linuxppc-dev@lists.ozlabs.org, robh+dt@kernel.org,
+ devicetree@vger.kernel.org
+Subject: [PATCH 0/7] Add audio driver base on rpmsg on i.MX platform
+Date: Fri,  5 Feb 2021 14:57:23 +0800
+Message-Id: <1612508250-10586-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,32 +72,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #80 was opened from plbossart:
+On Asymmetric multiprocessor, there is Cortex-A core and Cortex-M core,
+Linux is running on A core, RTOS is running on M core.
+The audio hardware device can be controlled by Cortex-M device,
+So audio playback/capture can be handled by M core.
 
-UCM files assume that when SOF is used, the number of DMICs is between 1 and 4.
+Rpmsg is the interface for sending and receiving msg to and from M
+core, that we can create a virtual sound on Cortex-A core side.
 
-That's an invalid assumption in the following two cases:
-a) the user plays with kernel parameters to select SOF on a platform without DMIC
-options snd_intel_dspcfg dsp_driver=3
-b) the user plays with kernel parameters to work-around invalid dmic information, e.g. for UpExtreme the NHLT information reports 4 microphones but none are attached to the connector by default
-options snd_sof_intel_hda_common dmic_num=0
+A core will tell the Cortex-M core sound format/rate/channel,
+where is the data buffer, what is the period size, when to start,
+when to stop and when suspend or resume happen, each of this behavior
+there is defined rpmsg command.
 
-In those two cases, the only solution is to comment out the entire 'Mic1' section in ucm2/sof-hda-dsp/HiFi.conf. It'd be nicer to detect this case with the component information
+Especially we designed the low power audio case, that is to
+allocate a large buffer and fill the data, then Cortex-A core can go
+to sleep mode, Cortex-M core continue to play the sound, when the
+buffer is consumed, Cortex-M core will trigger the Cortex-A core to
+wakeup to fill data.
 
-The machine driver currently only provides the cfg-dmics component string when the real or overridden number of dmics is > 0.
-The component string is as follows
+Shengjiu Wang (7):
+  ASoC: soc-component: Add snd_soc_pcm_component_ack
+  ASoC: fsl_rpmsg: Add CPU DAI driver for audio base on rpmsg
+  ASoC: dt-bindings: fsl_rpmsg: Add binding doc for rpmsg cpu dai driver
+  ASoC: imx-audio-rpmsg: Add rpmsg_driver for audio channel
+  ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg
+  ASoC: imx-rpmsg: Add machine driver for audio base on rpmsg
+  ASoC: dt-bindings: imx-rpmsg: Add binding doc for rpmsg machine driver
 
-````
-amixer -Dhw:0 info
-Card hw:0 'sofhdadsp'/'AAEON-UP_WHL01-V1.0'
-  Mixer name	: 'Realtek ALC892'
-  Components	: 'HDA:8086280b,80860101,00100000 HDA:10ec0892,160d0892,00100302'
-  Controls      : 40
-  Simple ctrls  : 15
-````
-Reported by @worldgeek and confirmed on my platform.
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  |  80 ++
+ .../bindings/sound/imx-audio-rpmsg.yaml       |  48 +
+ include/sound/soc-component.h                 |   3 +
+ sound/soc/fsl/Kconfig                         |  28 +
+ sound/soc/fsl/Makefile                        |   6 +
+ sound/soc/fsl/fsl_rpmsg.c                     | 258 +++++
+ sound/soc/fsl/fsl_rpmsg.h                     |  38 +
+ sound/soc/fsl/imx-audio-rpmsg.c               | 142 +++
+ sound/soc/fsl/imx-pcm-rpmsg.c                 | 898 ++++++++++++++++++
+ sound/soc/fsl/imx-pcm-rpmsg.h                 | 512 ++++++++++
+ sound/soc/fsl/imx-rpmsg.c                     | 148 +++
+ sound/soc/soc-component.c                     |  14 +
+ sound/soc/soc-pcm.c                           |   2 +
+ 13 files changed, 2177 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/imx-audio-rpmsg.yaml
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.c
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-audio-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-rpmsg.c
 
-@perexg @kv2019i @libinyang FYI
+-- 
+2.27.0
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/80
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

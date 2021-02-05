@@ -2,104 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0EF63106D3
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 09:36:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D6613107E9
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Feb 2021 10:34:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 550D49F6;
-	Fri,  5 Feb 2021 09:35:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 550D49F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB9D8167B;
+	Fri,  5 Feb 2021 10:33:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB9D8167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612514161;
-	bh=sgpuer02uct1M0Uf7jmui3+iWOIQSgppouxj7yCfZnM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Tme2i3jHg8alHYlnCz/NPUS40WW3n0KjOMOWPqWFCO+qhrPpRffToFCyf4bAMlwpi
-	 g5bKKR3mLXNazKlbsSVclSNfIzYwO5zyWkjs4REMNH7AY4WHbt9GMww3X4iMVVn7lJ
-	 3Xhy1BWEP+wEJyQ+IJHgTYWoZnbEBJhMUDBGneSM=
+	s=default; t=1612517654;
+	bh=W/mkKnGgiNHdhGV7wAhIZ4/9l0uhGc/diF9TXmRNTuo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bPPBBO7BlxgnP8uIfweDqtAsXGJuymhP2oV3HL6G6yYQwtCJFdC0/1MPoZHQU/+2/
+	 zaXkioTrMyP1pnZTVSOlYqXSqUwlCKfnxZ4wS7O4R00aBRoHTzyXU+BAtdGZ8IoISI
+	 2VsOZFqWrdc6EjmG+eiPo+d7F+Z83WXb3YNnE+78=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92A7DF8016E;
-	Fri,  5 Feb 2021 09:34:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06C38F8016E;
+	Fri,  5 Feb 2021 10:32:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75810F8015A; Fri,  5 Feb 2021 09:34:27 +0100 (CET)
+ id E9421F8015A; Fri,  5 Feb 2021 10:32:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57926F80139
- for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 09:34:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57926F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96FA0F80152
+ for <alsa-devel@alsa-project.org>; Fri,  5 Feb 2021 10:32:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96FA0F80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CTDnrnQM"
-Received: by mail-wm1-x330.google.com with SMTP id m1so5223370wml.2
- for <alsa-devel@alsa-project.org>; Fri, 05 Feb 2021 00:34:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=HHfAd0jRqxl9Kf+Um9ET57/jEyDsj3IKhyTUCMrpEZU=;
- b=CTDnrnQM7qmmnnZvHQPCdGrpgM/joh0kwHoiGqQN3K7HvYA5M7wPDDJeovg1fl+Zn2
- 3Lg94szTZ7VrXAb0CgkcbqrHYOmhX5e12lNNCCE7ruWJ/UitZthWhS4y+S0hHkJKgH/T
- A7vIFAbEgka0i9LYWguUIC9rfUWMJ9t0EvwrnQqhcKTA+BI7Kw/LQC5370GUt0VQGlIf
- yZR6fO37+siVbiu2souUX3kW/rF9LLfDyDCJwypUCF/83EyJhjW2WQD4On0uVzdZamND
- 5sHNemVh2o/ASn78BzXK/PoYo1VQq16aCqCHlQB7EFwvCQ4N2G8IM0OkTyqwyuKwuLim
- mong==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="XBq042kp"
+Received: by mail-qt1-x82e.google.com with SMTP id e15so4501216qte.9
+ for <alsa-devel@alsa-project.org>; Fri, 05 Feb 2021 01:32:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fGg5NihQIpPD83e5GUVNZdEroDTx9eDW0neqQhYbaEU=;
+ b=XBq042kpAYB7CZsmACUuiXRHOkDS0Lw9/mRiqAj7fXql1wv58wMJBd+Z+3JQ9jdWdv
+ AuwIZdmHEPJHeKcJmVNvYpjAcOtFKDLYXyW/5+kawnugBCr6JSHCT7Vc+E8jquQs89UG
+ nYUQ0Z5oJZNlNg/TprhI0rWDg33OM5nHLwZnkg6mtAknvIkltbFAG9thfKwIR04nfUbA
+ XD+FAngVvwwNnRnE9AYHiM+TbrC2PRTpo+vWe3ZvOjEeBSgUBNM75PxFm6QPC2Nl1EGG
+ qjsso2KipCksWZ55GHcjUqtBY7rmvTQddDpEXTDh7BRexSt+6ZBfZieDvzXTSpzm2z9N
+ VThw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=HHfAd0jRqxl9Kf+Um9ET57/jEyDsj3IKhyTUCMrpEZU=;
- b=NHqIO/RgGEa1wdYPdljTPhebiGnYdAgMGNEbYc2TQA0af62VaE70obP0Lbs/dbrk2Y
- J09zK6BMaqVvZ3X3Zef0QZsxgqfYkQFtqBPZhLx+y5KivoFx+CoPbLJmBi8LkP9KioO5
- BDwWHWVNXgWvmEfZ3zGKc7YFyXld3TcTLH1gcrJZVX+XsNRjfE/6Ywf8NcYSfZ5kPlSB
- xcCSpTdA9JTAdHlUpKsKawakGHfOtSk1BsyYcRUuN72VzFpTcsU5mysVhWAt2b2XLgqt
- FGUxgKetlo+mm08CwNPe4hZf+oSxs6nsW+eqAi9DceoCOlOYkuut5cXQwjDYda8kziXc
- ZuxQ==
-X-Gm-Message-State: AOAM532RsSVhWNjwRgyVijLqNlh/v9LKW+8WJhDUQFqrGn3ExuvxMYUd
- nzTj0oiW2gvoy5B1Vhtl8as3jw==
-X-Google-Smtp-Source: ABdhPJz17JjsWyci4e4xB1qYeMq8I1U9C4tvNzbHDmfHrivo4QRg3R2AccWKsjN6ESqU/VF+NvlE4g==
-X-Received: by 2002:a1c:7c17:: with SMTP id x23mr2616892wmc.65.1612514058703; 
- Fri, 05 Feb 2021 00:34:18 -0800 (PST)
-Received: from dell ([91.110.221.188])
- by smtp.gmail.com with ESMTPSA id u4sm10921969wrr.37.2021.02.05.00.34.17
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fGg5NihQIpPD83e5GUVNZdEroDTx9eDW0neqQhYbaEU=;
+ b=typdCCFg+E0M2LRfEgDxyCDDa6W+lW8hLPLDYHbpAS9lol72GjYygKHkyIU3cqOSNu
+ IpEUz2VOEnKmwYTWdSSNqvRKydyblEBMQPoHSlhqIZ1JSvt0fGnDb6Mn3YLZqXofoBDI
+ naNhOJnlCy3Qmd5Lw+WLZNH/z2XHcQIMUVho9RirKiZx4iGCapOeI09EPseSV15xXMUN
+ vyMqURFz0/bKe7lOlN0jsakYURfcggo2XkAVxR6yNMDL6RPi1swKSvMBYO1f4lsH9wwW
+ DQd228R4LvUvVl3AShAtxAcAJGRhHXBSKSZN6hvs0p54CNYnSs4XdlzTNY/v03znZq8U
+ zXtw==
+X-Gm-Message-State: AOAM531/XlmzdaMbnRsFXbNLgDpo4QaLezQMECEedGLfLnRGKeVQ6uUp
+ e/4UqzpvNFjrUP7ifE1v99U=
+X-Google-Smtp-Source: ABdhPJzHIrDZnsVVVcK7xUcHbBqLjdI6dEECLL8MlZC4XAPWoROBGvBgsrxXgcvELwzE+exEUFWnEA==
+X-Received: by 2002:ac8:3683:: with SMTP id a3mr3370737qtc.367.1612517554835; 
+ Fri, 05 Feb 2021 01:32:34 -0800 (PST)
+Received: from localhost.localdomain ([156.146.36.157])
+ by smtp.gmail.com with ESMTPSA id f8sm7182232qth.6.2021.02.05.01.32.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Feb 2021 00:34:18 -0800 (PST)
-Date: Fri, 5 Feb 2021 08:34:16 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 4/5] ASoC: Intel: Add DMI quirk table to
- soc_intel_is_byt_cr()
-Message-ID: <20210205083416.GR2789116@dell>
-References: <20210120214957.140232-1-hdegoede@redhat.com>
- <20210120214957.140232-5-hdegoede@redhat.com>
- <20210204135616.GL2789116@dell>
- <20210204140515.GC4288@sirena.org.uk>
- <20210204150456.GN2789116@dell>
- <20210204151139.GE4288@sirena.org.uk>
- <20210204154058.GP2789116@dell>
- <20210204194213.GG4288@sirena.org.uk>
+ Fri, 05 Feb 2021 01:32:34 -0800 (PST)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] sound: x86: Trivial spell fixes throughout the file
+ intel_hdmi_audio.c
+Date: Fri,  5 Feb 2021 15:02:14 +0530
+Message-Id: <20210205093214.637121-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210204194213.GG4288@sirena.org.uk>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,31 +98,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 04 Feb 2021, Mark Brown wrote:
 
-> On Thu, Feb 04, 2021 at 03:40:58PM +0000, Lee Jones wrote:
-> > On Thu, 04 Feb 2021, Mark Brown wrote:
-> > > On Thu, Feb 04, 2021 at 03:04:56PM +0000, Lee Jones wrote:
-> 
-> > > > This set has all the Acks we need to proceed.  What's blocking?
-> 
-> > > There's the subsystem maintainer...
-> 
-> > I assume that was a question and you meant "where's"?
-> 
-> > Pierre is listed as the Maintainer.
-> 
-> I'm fairly sure you can see what I meant here and why there might be a
-> concern.
 
-So that should be a Reviewed-by and not an Acked-by then.  That's fine.
+s/confgiuration/configuration/
+s/Calculte/Calculate/
+s/unreference/unreferenced/
 
-What do you want to happen with this set then?
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ sound/x86/intel_hdmi_audio.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-You want it broken up?
+diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
+index 9f9fcd2749f2..89ddd9dd8fde 100644
+--- a/sound/x86/intel_hdmi_audio.c
++++ b/sound/x86/intel_hdmi_audio.c
+@@ -342,7 +342,7 @@ static int had_prog_status_reg(struct snd_pcm_substream *substream,
 
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+ /*
+  * function to initialize audio
+- * registers and buffer confgiuration registers
++ * registers and buffer configuration registers
+  * This function is called in the prepare callback
+  */
+ static int had_init_audio_ctrl(struct snd_pcm_substream *substream,
+@@ -611,7 +611,7 @@ static void had_prog_dip(struct snd_pcm_substream *substream,
+ 		frame2.regx.chnl_cnt = substream->runtime->channels - 1;
+ 		frame3.regx.chnl_alloc = ca;
+
+-		/* Calculte the byte wide checksum for all valid DIP words */
++		/* Calculate the byte wide checksum for all valid DIP words */
+ 		for (i = 0; i < BYTES_PER_WORD; i++)
+ 			checksum += (info_frame >> (i * 8)) & 0xff;
+ 		for (i = 0; i < BYTES_PER_WORD; i++)
+@@ -1109,7 +1109,7 @@ static int had_pcm_close(struct snd_pcm_substream *substream)
+
+ 	intelhaddata = snd_pcm_substream_chip(substream);
+
+-	/* unreference and sync with the pending PCM accesses */
++	/* unreferenced and sync with the pending PCM accesses */
+ 	spin_lock_irq(&intelhaddata->had_spinlock);
+ 	intelhaddata->stream_info.substream = NULL;
+ 	intelhaddata->stream_info.substream_refcount--;
+--
+2.30.0
+

@@ -2,53 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF4F311FED
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 21:33:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E23311FF7
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Feb 2021 21:39:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EA1115E0;
-	Sat,  6 Feb 2021 21:32:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EA1115E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38F3E15E2;
+	Sat,  6 Feb 2021 21:38:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38F3E15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612643579;
-	bh=r3FCG85BpSmXiWFdR6hJk3n8pX5drRMVg1/2IRXfq80=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IJYPLDQCPs2DWWF2EAqy27bks0PVlTcMXKo/V9nQ4bkB0JWqlAKg2EYBMX2VCIclG
-	 cC9PBbpVbmjj79zYIiH78V1i+qEkc8z8AoR/KrzDh1yIH0/3dFpsAg//fl9lut2tx0
-	 lN+NaRtU51KtN523YJuJHpwGvF/HdYUttzjW8og0=
+	s=default; t=1612643943;
+	bh=atCjaaziLHrppaGDI+H2i9q/NNQrQh48UCoimNEjmDA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZTbeGRegCtCOYhqJN9qRWSG/uagj0DIjNNd6hBoFmn3GFd3pb88DkiHQbx8gRKeuB
+	 zifSg6FwVPB6poXLPZcuiOX3k1/dp8LaTJcwTfrJ7vwWHqZmPmwqFecUuDvBW+4wSg
+	 FtfRYeuhFBJ1Uj1Em1F8eGL9uwHJCZV5TxohVNaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBB24F801F7;
-	Sat,  6 Feb 2021 21:31:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6058BF80095;
+	Sat,  6 Feb 2021 21:37:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B743DF80254; Sat,  6 Feb 2021 21:31:17 +0100 (CET)
+ id 2C264F8023E; Sat,  6 Feb 2021 21:37:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F33CF80171
- for <alsa-devel@alsa-project.org>; Sat,  6 Feb 2021 21:30:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F33CF80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EF6CF80095
+ for <alsa-devel@alsa-project.org>; Sat,  6 Feb 2021 21:37:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EF6CF80095
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DC90CAFF9
- for <alsa-devel@alsa-project.org>; Sat,  6 Feb 2021 20:30:53 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0ABC6ABD5
+ for <alsa-devel@alsa-project.org>; Sat,  6 Feb 2021 20:37:26 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: usb-audio: Don't avoid stopping the stream at
- disconnection
-Date: Sat,  6 Feb 2021 21:30:52 +0100
-Message-Id: <20210206203052.15606-4-tiwai@suse.de>
+Subject: [PATCH 0/4] ALSA: pcm: sync_stop fixes
+Date: Sat,  6 Feb 2021 21:36:52 +0100
+Message-Id: <20210206203656.15959-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210206203052.15606-1-tiwai@suse.de>
-References: <20210206203052.15606-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -66,50 +62,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the later patch, we're going to issue the PCM sync_stop calls at
-disconnection.  But currently the USB-audio driver can't handle it
-because it has a check of shutdown flag for stopping the URBs.  This
-is basically superfluous (the stopping URBs are safe at disconnection
-state), so let's drop the check.
+Hi,
 
-Fixes: dc5eafe7787c ("ALSA: usb-audio: Support PCM sync_stop")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/endpoint.c | 3 ---
- sound/usb/pcm.c      | 5 +----
- 2 files changed, 1 insertion(+), 7 deletions(-)
+here is a patch set to cover the missing handling of the recently
+introduced sync_stop PCM ops at suspend and disconnect states.
+The last patch is a pure cleanup.
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 4390075b2c6f..102d53515a76 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -890,9 +890,6 @@ static int stop_urbs(struct snd_usb_endpoint *ep, bool force)
- {
- 	unsigned int i;
- 
--	if (!force && atomic_read(&ep->chip->shutdown)) /* to be sure... */
--		return -EBADFD;
--
- 	if (!force && atomic_read(&ep->running))
- 		return -EBUSY;
- 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index dcadf8f164b2..bf5a0f3c1fad 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -270,10 +270,7 @@ static int snd_usb_pcm_sync_stop(struct snd_pcm_substream *substream)
- {
- 	struct snd_usb_substream *subs = substream->runtime->private_data;
- 
--	if (!snd_usb_lock_shutdown(subs->stream->chip)) {
--		sync_pending_stops(subs);
--		snd_usb_unlock_shutdown(subs->stream->chip);
--	}
-+	sync_pending_stops(subs);
- 	return 0;
- }
- 
+
+Takashi
+
+===
+
+Takashi Iwai (4):
+  ALSA: pcm: Call sync_stop at disconnection
+  ALSA: pcm: Assure sync with the pending stop operation at suspend
+  ALSA: pcm: Don't call sync_stop if it hasn't been stopped
+  ALSA: pcm: Use for_each_pcm_substream() macro
+
+ sound/core/init.c       |  4 +++
+ sound/core/pcm.c        | 27 +++++++++++----------
+ sound/core/pcm_local.h  |  7 ++++++
+ sound/core/pcm_memory.c | 12 +++------
+ sound/core/pcm_native.c | 54 +++++++++++++++++++++--------------------
+ 5 files changed, 57 insertions(+), 47 deletions(-)
+
 -- 
 2.26.2
 

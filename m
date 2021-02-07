@@ -2,67 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3F3312353
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 11:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49F431238C
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 11:38:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51BB71676;
-	Sun,  7 Feb 2021 11:00:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51BB71676
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2AAD1689;
+	Sun,  7 Feb 2021 11:37:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2AAD1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612692096;
-	bh=QChENPIlkH+zjQM/raf4//4CNuuR/jKki8vT4LHXhJY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YaNlhvvQlPWNIT+A8goiWtWWoTJf/XhvrJ08qR0hwDUwK8Ur5YeoOjF8ZBtMLv+Up
-	 IpRPgwMQ/sNf7H1gq0GbyUiaLzFoRNKjOU/qM8KMj7VFN9N1C1FD+rAr+OMHX1l0Nz
-	 erZiLyBFXi0tt7IW55XFwYzW2kaX+z27Z9/6+Fh4=
+	s=default; t=1612694290;
+	bh=bl3qyfDMFj5hXEN9+lGjHsPs5moWhDMGUDnMR5Qmy2o=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=M2ljwL0gQo6PEsdnXsvJjUpPIrWW7SV1fEN5VL7LzKcGI4rcI0FP7DSDEp9FCG703
+	 u+toT0TCSeXqFOGCfzifS+T0RFvQJy5kBGaoommfjZKKHGtHQNCwW25xErnzLx1lmZ
+	 p0je59s+Q7nKHkgPNZVJRfRvnij22kiEItEdG21o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F152CF801EB;
-	Sun,  7 Feb 2021 11:00:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 568C7F801D5;
+	Sun,  7 Feb 2021 11:35:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 375A3F801D5; Sun,  7 Feb 2021 11:00:00 +0100 (CET)
+ id D08DAF8013A; Sun,  7 Feb 2021 11:35:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0193.hostedemail.com
- [216.40.44.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23921F80129
- for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 10:59:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23921F80129
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay08.hostedemail.com (Postfix) with ESMTP id F02B6182CED2A;
- Sun,  7 Feb 2021 09:59:50 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: horse82_230c2f7275f5
-X-Filterd-Recvd-Size: 47852
-Received: from [192.168.1.159] (unknown [47.151.137.21])
- (Authenticated sender: joe@perches.com)
- by omf09.hostedemail.com (Postfix) with ESMTPA;
- Sun,  7 Feb 2021 09:59:49 +0000 (UTC)
-Message-ID: <59b9074db976e1dc94f61744bb9b6c102ebfdca4.camel@perches.com>
-Subject: Re: [sound:for-next 76/104] powerpc-linux-ld: warning: orphan
- section `.data..LASANLOC27' from `sound/core/init.o' being placed in
- section `.data..LASANLOC27'
-From: Joe Perches <joe@perches.com>
-To: kernel test robot <lkp@intel.com>
-Date: Sun, 07 Feb 2021 01:59:47 -0800
-In-Reply-To: <202102071456.Q2SlOc6u-lkp@intel.com>
-References: <202102071456.Q2SlOc6u-lkp@intel.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.38.1-1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- kbuild-all@lists.01.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B54C2F8016B
+ for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 11:35:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B54C2F8016B
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 3E9212019B4;
+ Sun,  7 Feb 2021 11:35:28 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2E7C3200E28;
+ Sun,  7 Feb 2021 11:35:23 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id A65414029B;
+ Sun,  7 Feb 2021 11:35:16 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, linuxppc-dev@lists.ozlabs.org, robh+dt@kernel.org,
+ devicetree@vger.kernel.org
+Subject: [PATCH v2 0/7] Add audio driver base on rpmsg on i.MX platform
+Date: Sun,  7 Feb 2021 18:23:48 +0800
+Message-Id: <1612693435-31418-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,359 +72,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 2021-02-07 at 14:16 +0800, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-> head:   3c4ab49ec59b94651dea7c7b0104c781c79c62b5
-> commit: 75b1a8f9d62e50f05d0e4e9f3c8bcde32527ffc1 [76/104] ALSA: Convert strlcpy to strscpy when return value is unused
-> config: powerpc64-randconfig-r032-20210207 (attached as .config)
-> compiler: powerpc-linux-gcc (GCC) 9.3.0
-> reproduce (this is a W=1 build):
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?id=75b1a8f9d62e50f05d0e4e9f3c8bcde32527ffc1
->         git remote add sound https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
->         git fetch --no-tags sound for-next
->         git checkout 75b1a8f9d62e50f05d0e4e9f3c8bcde32527ffc1
->         # save the attached .config to linux build tree
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross ARCH=powerpc64 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kernel test robot <lkp@intel.com>
-> 
-> All warnings (new ones prefixed by >>):
+On Asymmetric multiprocessor, there is Cortex-A core and Cortex-M core,
+Linux is running on A core, RTOS is running on M core.
+The audio hardware device can be controlled by Cortex-M device,
+So audio playback/capture can be handled by M core.
 
-false positive ?
+Rpmsg is the interface for sending and receiving msg to and from M
+core, that we can create a virtual sound on Cortex-A core side.
 
-> 
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `drivers/tee/tee_core.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `drivers/tee/tee_core.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `drivers/tee/tee_core.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/tee/tee_shm.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/tee/tee_shm.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/tee/tee_shm_pool.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/tee/tee_shm_pool.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/mux/core.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/mux/core.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/mux/core.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/mux/core.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/mux/core.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `drivers/mux/core.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `drivers/mux/core.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/mux/adg792a.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/mux/adg792a.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/mux/adg792a.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/mux/adg792a.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/mux/adg792a.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/mux/adgs1408.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/mux/adgs1408.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/mux/adgs1408.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/mux/adgs1408.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/mux/adgs1408.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/mux/mmio.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/mux/mmio.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/mux/mmio.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/mux/mmio.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/counter/counter.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `drivers/counter/counter.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `drivers/counter/ti-eqep.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `drivers/counter/microchip-tcb-capture.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/sound_core.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/sound_core.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/sound_core.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/sound.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/sound.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/sound.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/sound.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/sound.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/sound.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/sound.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/sound.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/sound.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/sound.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/sound.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/init.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/init.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/init.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/init.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/init.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/init.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC14' from `sound/core/init.o' being placed in section `.data..LASANLOC14'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC15' from `sound/core/init.o' being placed in section `.data..LASANLOC15'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC16' from `sound/core/init.o' being placed in section `.data..LASANLOC16'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC17' from `sound/core/init.o' being placed in section `.data..LASANLOC17'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC18' from `sound/core/init.o' being placed in section `.data..LASANLOC18'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC19' from `sound/core/init.o' being placed in section `.data..LASANLOC19'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/init.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC20' from `sound/core/init.o' being placed in section `.data..LASANLOC20'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC21' from `sound/core/init.o' being placed in section `.data..LASANLOC21'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC22' from `sound/core/init.o' being placed in section `.data..LASANLOC22'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC23' from `sound/core/init.o' being placed in section `.data..LASANLOC23'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC24' from `sound/core/init.o' being placed in section `.data..LASANLOC24'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC25' from `sound/core/init.o' being placed in section `.data..LASANLOC25'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC26' from `sound/core/init.o' being placed in section `.data..LASANLOC26'
-> > > powerpc-linux-ld: warning: orphan section `.data..LASANLOC27' from `sound/core/init.o' being placed in section `.data..LASANLOC27'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/init.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/init.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/init.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/init.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/init.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/init.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/init.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/memory.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/control.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/control.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/control.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/control.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/control.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/control.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/control.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/control.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/control.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/control.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/control.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/control.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/info.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/info.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/info.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/info.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/info.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/info.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/info.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/info.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/timer.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/timer.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/timer.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/timer.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/timer.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/timer.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC14' from `sound/core/timer.o' being placed in section `.data..LASANLOC14'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC15' from `sound/core/timer.o' being placed in section `.data..LASANLOC15'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC16' from `sound/core/timer.o' being placed in section `.data..LASANLOC16'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC17' from `sound/core/timer.o' being placed in section `.data..LASANLOC17'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC18' from `sound/core/timer.o' being placed in section `.data..LASANLOC18'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC19' from `sound/core/timer.o' being placed in section `.data..LASANLOC19'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/timer.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC20' from `sound/core/timer.o' being placed in section `.data..LASANLOC20'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC21' from `sound/core/timer.o' being placed in section `.data..LASANLOC21'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC22' from `sound/core/timer.o' being placed in section `.data..LASANLOC22'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC23' from `sound/core/timer.o' being placed in section `.data..LASANLOC23'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC24' from `sound/core/timer.o' being placed in section `.data..LASANLOC24'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/timer.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/timer.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/timer.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/timer.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/timer.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/timer.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/timer.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/hrtimer.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/hrtimer.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/hrtimer.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/hrtimer.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/hrtimer.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/pcm.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/pcm.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/pcm.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/pcm.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/pcm.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/pcm.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC14' from `sound/core/pcm.o' being placed in section `.data..LASANLOC14'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC15' from `sound/core/pcm.o' being placed in section `.data..LASANLOC15'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC16' from `sound/core/pcm.o' being placed in section `.data..LASANLOC16'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC17' from `sound/core/pcm.o' being placed in section `.data..LASANLOC17'
-> > > powerpc-linux-ld: warning: orphan section `.data..LASANLOC18' from `sound/core/pcm.o' being placed in section `.data..LASANLOC18'
-> > > powerpc-linux-ld: warning: orphan section `.data..LASANLOC19' from `sound/core/pcm.o' being placed in section `.data..LASANLOC19'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/pcm.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/pcm.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/pcm.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/pcm.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/pcm.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/pcm.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/pcm.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/pcm.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/pcm_native.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC14' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC14'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC15' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC15'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC16' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC16'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC17' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC17'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC18' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC18'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC19' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC19'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC20' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC20'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/pcm_native.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/pcm_lib.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/pcm_lib.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/pcm_lib.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/pcm_lib.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/pcm_lib.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/pcm_misc.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/pcm_misc.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/pcm_memory.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/pcm_memory.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/memalloc.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq_device.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq_device.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq_device.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq_device.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/rawmidi.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC12'
-> > > powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/rawmidi.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC14' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC14'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC15' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC15'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/seq/seq.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC12'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC13' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC13'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/seq/seq_clientmgr.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_memory.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_memory.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_memory.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq_queue.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_fifo.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_fifo.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_fifo.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_prioq.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_prioq.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_timer.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_timer.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_system.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_system.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_system.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_system.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_system.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_ports.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_ports.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_ports.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_ports.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_ports.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_info.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_info.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_info.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_info.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC9' from `sound/core/seq/seq_midi.o' being placed in section `.data..LASANLOC9'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq_midi_event.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC2' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC2'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC3' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC3'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC4' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC4'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC5' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC5'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC6' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC6'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC7' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC7'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC8' from `sound/core/seq/seq_virmidi.o' being placed in section `.data..LASANLOC8'
->    powerpc-linux-ld: warning: orphan section `.data..LASAN0' from `sound/drivers/dummy.o' being placed in section `.data..LASAN0'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC1' from `sound/drivers/dummy.o' being placed in section `.data..LASANLOC1'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC10' from `sound/drivers/dummy.o' being placed in section `.data..LASANLOC10'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC11' from `sound/drivers/dummy.o' being placed in section `.data..LASANLOC11'
->    powerpc-linux-ld: warning: orphan section `.data..LASANLOC12' from `sound/drivers/dummy.o' being placed in section `.data..LASANLOC12'
-> ..
-> 
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+A core will tell the Cortex-M core sound format/rate/channel,
+where is the data buffer, what is the period size, when to start,
+when to stop and when suspend or resume happen, each of this behavior
+there is defined rpmsg command.
 
+Especially we designed the low power audio case, that is to
+allocate a large buffer and fill the data, then Cortex-A core can go
+to sleep mode, Cortex-M core continue to play the sound, when the
+buffer is consumed, Cortex-M core will trigger the Cortex-A core to
+wakeup to fill data.
+
+changes in v2:
+- update codes and comments according to Mark's comments
+
+Shengjiu Wang (7):
+  ASoC: soc-component: Add snd_soc_pcm_component_ack
+  ASoC: fsl_rpmsg: Add CPU DAI driver for audio base on rpmsg
+  ASoC: dt-bindings: fsl_rpmsg: Add binding doc for rpmsg cpu dai driver
+  ASoC: imx-audio-rpmsg: Add rpmsg_driver for audio channel
+  ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg
+  ASoC: imx-rpmsg: Add machine driver for audio base on rpmsg
+  ASoC: dt-bindings: imx-rpmsg: Add binding doc for rpmsg machine driver
+
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  |  80 ++
+ .../bindings/sound/imx-audio-rpmsg.yaml       |  48 +
+ include/sound/soc-component.h                 |   3 +
+ sound/soc/fsl/Kconfig                         |  28 +
+ sound/soc/fsl/Makefile                        |   6 +
+ sound/soc/fsl/fsl_rpmsg.c                     | 252 +++++
+ sound/soc/fsl/fsl_rpmsg.h                     |  38 +
+ sound/soc/fsl/imx-audio-rpmsg.c               | 151 +++
+ sound/soc/fsl/imx-pcm-rpmsg.c                 | 919 ++++++++++++++++++
+ sound/soc/fsl/imx-pcm-rpmsg.h                 | 512 ++++++++++
+ sound/soc/fsl/imx-rpmsg.c                     | 148 +++
+ sound/soc/soc-component.c                     |  14 +
+ sound/soc/soc-pcm.c                           |   2 +
+ 13 files changed, 2201 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/imx-audio-rpmsg.yaml
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.c
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-audio-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-rpmsg.c
+
+-- 
+2.27.0
 

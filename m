@@ -2,83 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E3A31239F
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 11:41:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335003124D7
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 15:51:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7B3D169F;
-	Sun,  7 Feb 2021 11:40:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7B3D169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E7E6167D;
+	Sun,  7 Feb 2021 15:50:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E7E6167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612694459;
-	bh=20hj3qydBhZUgiiokp0bf0KvDFtGozei2M8GKll6ORs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1612709489;
+	bh=0X8QY/P8OAOTtYptBmkNgCIlb5zrDe0VhLZQPJ2bXrk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X/LSAAlPd5ADySgHScNNYlHj8EWAX99PswOT1OZSzSI/w6WhQPBBsdqOOsyNpxPI3
-	 sPJ3QmErq4ATplD+FqawQ6q2/kHff52MsPqZ6NHZO+MCUacmZyFliAJPVbFt8RSNoP
-	 njifqvF5wAhz9OHTcAifFkIAb1f1kY3m1UMXJZqM=
+	b=CZT92YO2cPrLOCONw7e57n2LGfWu3L7YgaD6CQuniomtKOmNDIKAjcQ5xEyr9mgMg
+	 WCb00C6rQcGgAGjOkMilIS9vFNsKSrN1/1UvVQhYpms8x/DgP1feukQOy9IY04mJ5R
+	 OnaKQWKVD2tB7rD6Rdxe3FWOQUhNhyup5bJ9ssfw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97EA5F8013A;
-	Sun,  7 Feb 2021 11:40:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A8C3F8013A;
+	Sun,  7 Feb 2021 15:49:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69CE7F80259; Sun,  7 Feb 2021 11:40:05 +0100 (CET)
+ id B0126F801D5; Sun,  7 Feb 2021 15:49:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07036F8013A
- for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 11:40:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07036F8013A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LBCLzdU8"
-Received: by mail-qt1-x834.google.com with SMTP id l23so8361422qtq.13
- for <alsa-devel@alsa-project.org>; Sun, 07 Feb 2021 02:40:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=20hj3qydBhZUgiiokp0bf0KvDFtGozei2M8GKll6ORs=;
- b=LBCLzdU81y9o5/qZV7zQywvN4c9g6glsF4wPCS98T1Uq96mQgXc9nVzxqpTCtn7vre
- NZV3Z/YpFRF+rSP9Usy09HyA4mvfM24P6xflvDoLpY0g+YnFcMxW2U2JE3bsEgMb+RcF
- OkN4o2Bj743CP9gPU6huSBJo7Q247Uo7yu1ymJUUwmtAvwNO4eH5Tcs43X++Kpl9QJQN
- HCQIbIAyi2pc+/w0ugk9RrkRODiiaPdGtJyAeBourSniDSAbTwfbvrqM1dmQEbIlgC+i
- sZY/Q9IPlNx8qipobDUvnPb9aAA9ZisPZjsdlXFQTpCYd99AW5x7arFphahJlLPVM2K4
- Uucg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=20hj3qydBhZUgiiokp0bf0KvDFtGozei2M8GKll6ORs=;
- b=oWuW2SBzFEkcuEeat3vypU2l+S5T2NPUh74UTVIQSHcwmQ4G1MaYNGrWJLIKwEi6kF
- VnMLi53sGSkBVOa46baGrhPROaOHPwDDH9Hqmpm1hV/pACuUv5AUS43LuOXNvrm/rUqI
- 76cs0oEaEtlAQ+UwztzP4TUkxhSjrK/xJEntektYOO0n48//AzrdXt4i4zPluJYx2+c7
- I8XEPf7xaVedPATchkAXcExR6EOxw8RO3mKL26+ptHQa1lyhkWe79DTqOShu7DcOvpNm
- NQwZBMNMGpQ9hm2Mdb4o6R96fweromGWTeAOIGJ/afBn/hkkAggyFvsiDdkxvRQ91kLu
- 0yWA==
-X-Gm-Message-State: AOAM532bPG+3U5hc+LFu0yr7TuNIxt5g0fX8oEiikj7UMuVIFF+DCB5l
- 9nqYLfg3RtH06gnVwppCPKLEv2bs7yYBOTG5lEU=
-X-Google-Smtp-Source: ABdhPJwoEbEUOlnM0FGPKfUHzaKbSg0XE+7DswKNyxc5DKJBUqzSttdcofbQNesZzy5K26sXGZt9Qfl/646TK2nCisw=
-X-Received: by 2002:ac8:1408:: with SMTP id k8mr11226310qtj.204.1612694397862; 
- Sun, 07 Feb 2021 02:39:57 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 157D2F80139
+ for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 15:49:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 157D2F80139
+IronPort-SDR: GwtnonzU14XZz4dkxb0V1LPsUdUGk848AJYUe4CwVU3avPoyWzZRsq3WCLD1vohaZGsBLXLOrS
+ 5UPardsfpTsQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="178104139"
+X-IronPort-AV: E=Sophos;i="5.81,160,1610438400"; d="scan'208";a="178104139"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2021 06:49:41 -0800
+IronPort-SDR: iDb1eeU77hg+FyutobY4Wi/LVrk8OtXuxmKQ6fIJ5kEEax8Z6t5076L6XLKmxOefBOgYIDa4M2
+ 12+I8NgjvCrg==
+X-IronPort-AV: E=Sophos;i="5.81,160,1610438400"; d="scan'208";a="394782385"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.26.35])
+ ([10.213.26.35])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2021 06:49:37 -0800
+Subject: Re: [PATCH] ASoC: Intel: Skylake: Compile when any configuration is
+ selected
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+References: <20210125115441.10383-1-cezary.rojewski@intel.com>
+ <CAAd53p4fycxLn6y0WpaMWvWkN8EwmT216b40DavttfshN_GMRg@mail.gmail.com>
+ <324dc8a5-c4d3-6ebf-c8e9-6321d6c93dab@intel.com>
+ <CAAd53p4gqyuFPWX55fnPGHORXXf58++ZRMH9WFYp+QwS1=xDJQ@mail.gmail.com>
+ <181c989f-7a4d-3cdd-11be-7378dbc9502c@intel.com>
+ <5e970d19-9544-50fe-f140-b66245418c6e@intel.com>
+ <CAAd53p4srH6NFwcyUCBnLj=MS8-YBvA9CPjMbcryGgi5CmUUHw@mail.gmail.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <2c93bf65-4996-08c6-5be1-da4b9966e168@intel.com>
+Date: Sun, 7 Feb 2021 15:49:34 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-References: <20210206142753.536459-1-festevam@gmail.com>
-In-Reply-To: <20210206142753.536459-1-festevam@gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sun, 7 Feb 2021 18:39:47 +0800
-Message-ID: <CAA+D8AMgN_53yu1MDgY3NPQaQ5fsFN4ituJZ2Ah-e_AiaR3f9w@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: fsl_esai: Remove unused 'imx' field
-To: Fabio Estevam <festevam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
+In-Reply-To: <CAAd53p4srH6NFwcyUCBnLj=MS8-YBvA9CPjMbcryGgi5CmUUHw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,10 +90,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Feb 6, 2021 at 10:28 PM Fabio Estevam <festevam@gmail.com> wrote:
->
-> The 'imx' field is not used anywhere, so get rid of it.
->
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+On 2021-02-02 1:41 PM, Kai-Heng Feng wrote:
+> On Tue, Feb 2, 2021 at 6:56 PM Cezary Rojewski
+> <cezary.rojewski@intel.com> wrote:
+
+...
+
+> Commit cc2d025a81a9 ("ASoC: Intel: Skylake: Update description for
+> HDaudio kconfig") removed "DEPRECATED" from the
+> SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC, does that mean the option is safe
+> and should be enabled in downstream distros?
+
+Skylake driver - sound/soc/intel/skylake - is your only option if you 
+want to enable HDA (dsp) + DMIC configuration on SPT platforms 
+(skl/kbl/kbl-r/aml/cml-s).
+
+Several problems that had been troubling it have been address early 2020 
+[1]. Later, fixes were ported to v5.4 [2] so LTS users can enjoy working 
+hda+dmic configuration. Please note: topology binary is required to make 
+this work, kernel patches alone won't cut it. ASoC topologies are stored 
+in a separate repo (git.alsa-project.org/alsa-topology-conf). These 
+topologies should end up in /lib/firmware/intel, eventually - once 
+converted via alsatplg to their binary form.
+
+Regards,
+Czarek
+
+
+[1]: 
+https://lore.kernel.org/alsa-devel/20200305145314.32579-1-cezary.rojewski@intel.com/
+[2]: https://www.spinics.net/lists/alsa-devel/msg119230.html

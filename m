@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5133124D8
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 15:52:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D2103124D9
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 15:52:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F5331688;
-	Sun,  7 Feb 2021 15:51:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F5331688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99319167D;
+	Sun,  7 Feb 2021 15:51:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99319167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612709529;
-	bh=ZuA6mkFoPJc05KffoGWbOh2Hd350IRjeANXyW3oiLzA=;
+	s=default; t=1612709568;
+	bh=BmdCZxdkIXlP0tL1X+BU/znK188WbxAVNGsCdLPPWh8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nNPzD9nZgwNwNt4bs1RTtK+4JngWwIY830BsPxsXG9xPoWj2yrEZzoKoOVloCetGH
-	 pEi938OxzSrK9dkG4KfdDgxp2K80jaO33TU8QL8ziF7mLK5/RHEJn61LhnBSH+LfYN
-	 cNzaqHHcz9ISGqgH8t/OVhW7wgBWwOFmJpAHPjdg=
+	b=l2MVaPTHkQBibmylAHqE8vpwFbHKx1ORAobUxF+ypQ09gmcprilmGmRFBLOAllfl+
+	 X/NPBRxr+A8Axf/ib6DrujJ1bSYP7FoHrvknyA1rJoR4a0+/gqroODUYMmX+TYzS31
+	 596JiqCCNyMCvXjoFEZXah7q173Wi6/7jU4exUCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A6EAF80139;
-	Sun,  7 Feb 2021 15:51:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1598F8016B;
+	Sun,  7 Feb 2021 15:51:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C67C8F801EC; Sun,  7 Feb 2021 15:51:14 +0100 (CET)
+ id E220EF8025F; Sun,  7 Feb 2021 15:51:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AE5CF8016B
- for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 15:51:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AE5CF8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id F137FF8016B
+ for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 15:51:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F137FF8016B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ap68n+au"
-Received: by mail-ej1-x630.google.com with SMTP id bl23so20630496ejb.5
- for <alsa-devel@alsa-project.org>; Sun, 07 Feb 2021 06:51:06 -0800 (PST)
+ header.b="LDmbsx1y"
+Received: by mail-ej1-x633.google.com with SMTP id w1so20580172ejf.11
+ for <alsa-devel@alsa-project.org>; Sun, 07 Feb 2021 06:51:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GkleRZJBKyLZJuTUE3JaxeJgSw+9WtyguiUk2zRc9iY=;
- b=ap68n+aukbg2nw8AXwXDmnUe+pAEkQO0jAoROhsr/b79cRU006nD9knUGSZaaedfDD
- GOo6ogQYJrcWvT9C/BSHPNkGhQZAwxHrSFHRjtBnZmBtLCjqecw4WEJ84llc1DQFJr1F
- My6i29uYxATcvJTs84C8dwWoio+kojUNvQy9GmdifqxsxBbok/5sy/+Inbo9mM08haFC
- hI/o6agRjaBq2PtHfsJEqQfLqTl6N/PnUrDDgRxy5pHJ9KlFwFi8lcDeqig0HcU4T6WU
- zrlAhlcRkzkE4hB5c7jA3cTG0PE7usefwZun/z2GbZjAtk1DCk+2fBW6w/pP7B59vcvi
- tsbw==
+ bh=0Dli8mLGoWqnt4an0wn/1Rk/V+Yg896RwIrDY1Hd/ik=;
+ b=LDmbsx1yOtPphJ/mtEDjscwlVA/zpfw+uZUgsxeVxsdANz5L9w7F178GQuN6gq3Unn
+ bad/+XmLbgISdTteonK9V7BZ4K/G5vkGguJSdJ7R+hZtc4if1/gg0w//qNOb9yOa2fRj
+ fcy9BOvcfoGBhxBht+XfmN5QvEN7rxdnD/eReHWhutrjPUH7yPIrKyjn2zmNcRGQW7cU
+ IsZl3NzJN7HQcUcPiAlHYEgMWoxERcPTnA1pBHbH+OFBkT0rssCiQ1EvC+mUY0vkHLXm
+ qwXcyB6vHaZEyfSmWh8ZiIKX3BpyCMWqxrOnEOfv6KJR+2sPRscZy1Ebm8OcY16ONPCC
+ ARVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GkleRZJBKyLZJuTUE3JaxeJgSw+9WtyguiUk2zRc9iY=;
- b=CvPLdQYCkymis389lQPTIgN9SHE4PpybdAClEUAT+Z5ar5RTJLRAZk8D+W7ubqqs/b
- cP80Bnu4xd5fu7AuSTChn5BYnCZG8ipNTZBy6hDZ0vZR7I+7kE8JmqfEUwrzc3y0yxal
- 72PyN1f4JrdpGO1h8O/9KNhE86sL2l+7Dc69X6QdjpDQgvq5ExQJlTPtx0/WKWuHI5Jd
- tr0VXa7m6HJmPSSwPhrMPZK9HzpXf+hFoliXUSb0A16gECIjaH3G8pdl7njNQSh2MZCf
- MWlCStbXb32BVQSefgDZNWEksCnGigHJRk2qCN2zaz2qCsjshx+ELgDDNCwPwrHbdrBK
- Tw/w==
-X-Gm-Message-State: AOAM531Qwqd/9NozVRe6uYIInlaRAhCbsMHO4UuXf16z4PH3VU5cjiyt
- 94/75OhVDTbpzsKxdJXAr1ccMG93vCo81A==
-X-Google-Smtp-Source: ABdhPJzvJEEBDc1mwjNPTpoj0PZZ4CD6AmRG3itGcnnh2XE3iakqMBa5B2IAQE8ScpR3uZMrizTa/g==
-X-Received: by 2002:a17:906:547:: with SMTP id
- k7mr12940280eja.273.1612709465828; 
- Sun, 07 Feb 2021 06:51:05 -0800 (PST)
+ bh=0Dli8mLGoWqnt4an0wn/1Rk/V+Yg896RwIrDY1Hd/ik=;
+ b=geXWOlSp7L6+UWlAYB5SNmLtWMQqLO9ik2jsv+X010OI5A4SWyCcD9lk+/BFDgDH4M
+ yYTJRDBgJ6/IRbzxBaLHFqIn+JZa+8QFI1gxapkJCHZZ8XzDEdgP+Jzwv/7VXprUvv9H
+ Td6YKqYUhdyYk2L0JX3UbdYYv3OmLK01C40b7tNvE05grIuMO27LM4e73jvv84/Pu/06
+ IzC6cIWMgIcpSjXMPLvwdpGvRKfsVMr/g0b38BLWMcKmQb7i3Mnkv/7IjnyfIMWeYl9b
+ arX+MbFT5CvKUiJ8uucmTBQvBDkax46owosv9rGK9WT7SFnMUA3J9uZZKSSE4QXAUPn8
+ nCwg==
+X-Gm-Message-State: AOAM5336upfWiJJ8EKJnmKgUhmoF/WRdId5yZ6PHZniZr2X5y/GIwpHh
+ /LA/lbgKkb+5NC7N1D6kqEmkoazi9rNgqQ==
+X-Google-Smtp-Source: ABdhPJzlFNoRL3+1vuz6nbFh1WWl2Mh/rVQKYPlv3EDBzGEsh89X/8IZYFFD5oUscgrt5rI6PMsyZg==
+X-Received: by 2002:a17:906:86cf:: with SMTP id
+ j15mr12709285ejy.194.1612709489417; 
+ Sun, 07 Feb 2021 06:51:29 -0800 (PST)
 Received: from localhost.localdomain
  (2a02-8388-1987-9380-4ad8-691e-003a-5a6e.cable.dynamic.v6.surfer.at.
  [2a02:8388:1987:9380:4ad8:691e:3a:5a6e])
- by smtp.gmail.com with ESMTPSA id x17sm7477161edd.76.2021.02.07.06.51.04
+ by smtp.gmail.com with ESMTPSA id x17sm7477161edd.76.2021.02.07.06.51.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Feb 2021 06:51:05 -0800 (PST)
+ Sun, 07 Feb 2021 06:51:28 -0800 (PST)
 From: Jasmin Fazlic <superfassl@gmail.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/2] alsa-tools/hdspmixer: enhance preset save and add
- hardware ouput loopback buttons
-Date: Sun,  7 Feb 2021 15:50:46 +0100
-Message-Id: <20210207145048.14580-1-superfassl@gmail.com>
+Subject: [PATCH 1/2] alsa-tools/hdspmixer: enhance saving of presets
+Date: Sun,  7 Feb 2021 15:50:47 +0100
+Message-Id: <20210207145048.14580-2-superfassl@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <2e9bb0b8-ee14-9dc9-1bd8-ecffca3982ac@gmail.com>
 References: <2e9bb0b8-ee14-9dc9-1bd8-ecffca3982ac@gmail.com>
@@ -103,47 +102,219 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The main focus here was to give the user the ability
-to toggle the hardware output loopback state available
-with following driver patch:
-https://github.com/tiwai/sound/commit/da2a040ee7cfe1dd57d5bec7906cb979c5787a86
+Changing the version in the file header would make
+a preset file not readable by older versions of the
+tool. If we just append new data always at the end
+of the save procedure we should have no problems
+reading them with different versions, as they all
+just read to a certain point and ignore the rest
+of the file.
 
-Since the state is added to the saved preset file at the
-end, old versions of this tool can still read the preset
-file. Furthermore to not lose this new data should the
-user accidentally or willfully save the preset with an
-older version of the tool, the save routine was altered
-to keep any extra data in a possibly present preset output
-file.
+This patch implements the logic to save the presets
+first to a file called file_name.tmp and appends any
+extra data that would come after in a possibly present
+file_name file.
 
-Jasmin Fazlic (2):
-  alsa-tools/hdspmixer: enhance saving of presets
-  alsa-tools/hdspmixer: add output loopback buttons
+Any data written by newer versions would remain in
+the preset file and from now on no old version should
+remove data written by newer versions.
 
- hdspmixer/pixmaps/loopback.xpm        |  69 ++++
- hdspmixer/pixmaps/output.xpm          | 498 +++++++++++++++-----------
- hdspmixer/pixmaps/output_r.xpm        | 498 +++++++++++++++-----------
- hdspmixer/src/HDSPMixerCard.cxx       |  34 ++
- hdspmixer/src/HDSPMixerCard.h         |   2 +
- hdspmixer/src/HDSPMixerLoopback.cxx   | 133 +++++++
- hdspmixer/src/HDSPMixerLoopback.h     |  48 +++
- hdspmixer/src/HDSPMixerOutput.cxx     |   1 +
- hdspmixer/src/HDSPMixerOutput.h       |   3 +
- hdspmixer/src/HDSPMixerOutputData.h   |   1 +
- hdspmixer/src/HDSPMixerOutputs.cxx    |   4 +-
- hdspmixer/src/HDSPMixerPresetData.cxx |   1 +
- hdspmixer/src/HDSPMixerPresetData.h   |   1 +
- hdspmixer/src/HDSPMixerPresets.cxx    |   2 +
- hdspmixer/src/HDSPMixerWindow.cxx     | 166 +++++++--
- hdspmixer/src/Makefile.am             |   2 +
- hdspmixer/src/defines.h               |   2 +-
- hdspmixer/src/pixmaps.cxx             |   1 +
- hdspmixer/src/pixmaps.h               |   1 +
- 19 files changed, 995 insertions(+), 472 deletions(-)
- create mode 100644 hdspmixer/pixmaps/loopback.xpm
- create mode 100644 hdspmixer/src/HDSPMixerLoopback.cxx
- create mode 100644 hdspmixer/src/HDSPMixerLoopback.h
+Also since we write to a temporary file and rename
+afterwards an extra feature is gained of not corrupting
+the preset should we crash.
 
+Signed-off-by: Jasmin Fazlic <superfassl@gmail.com>
+---
+ hdspmixer/src/HDSPMixerWindow.cxx | 98 ++++++++++++++++++++-----------
+ 1 file changed, 64 insertions(+), 34 deletions(-)
+
+diff --git a/hdspmixer/src/HDSPMixerWindow.cxx b/hdspmixer/src/HDSPMixerWindow.cxx
+index 9efc25d..3b3d668 100644
+--- a/hdspmixer/src/HDSPMixerWindow.cxx
++++ b/hdspmixer/src/HDSPMixerWindow.cxx
+@@ -353,18 +353,25 @@ void HDSPMixerWindow::save()
+             sizeof(inputs->strips[0]->data[0][0][0]->fader_pos) /
+             sizeof(inputs->strips[0]->data[0][0][0]->fader_pos[0]));
+ 
+-
+-    FILE *file;
+-
+-    if ((file = fopen(file_name, "w")) == NULL) {
+-	fl_alert("Error opening file %s for saving", file_name);
++	FILE *in,*out;
++
++	/* We want to append any existing extra data that might got written by a
++	 * newer version to this file, therefore write our data to file_name.tmp
++	 * and append the old data. Also this way we would not corrupt the file
++	 * should we crash.
++	 */
++	std::string const tmp = file_name + std::string(".tmp");
++	char const * const tmpc = tmp.c_str();
++
++    if ((out = fopen(tmpc, "w")) == NULL) {
++	fl_alert("Error opening file %s for saving", tmpc);
+     }
+     if (dirty) {
+ 	inputs->buttons->presets->save_preset(current_preset+1);
+     }
+     /* since hdspmixer 1.11, we also store the meter level settings. Indicate
+      * the new on-disk structure via a small header */
+-    if (fwrite((void *)&header, sizeof(char), sizeof(header), file) !=
++    if (fwrite((void *)&header, sizeof(char), sizeof(header), out) !=
+             sizeof(header)) {
+         goto save_error;
+     }
+@@ -374,99 +381,122 @@ void HDSPMixerWindow::save()
+ 	    for (int preset = 0; preset < 8; ++preset) {
+ 		for (int channel = 0; channel < HDSP_MAX_CHANNELS; ++channel) {
+ 		    /* inputs pans and volumes */
+-		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->pan_pos[0]), sizeof(int), pan_array_size, file) != pan_array_size) {
++		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->pan_pos[0]), sizeof(int), pan_array_size, out) != pan_array_size) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->fader_pos[0]), sizeof(int), pan_array_size, file) != pan_array_size) {
++		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->fader_pos[0]), sizeof(int), pan_array_size, out) != pan_array_size) {
+ 			goto save_error;
+ 		    }
+ 		    /* playbacks pans and volumes */
+-		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->pan_pos[0]), sizeof(int), pan_array_size, file) != pan_array_size) {
++		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->pan_pos[0]), sizeof(int), pan_array_size, out) != pan_array_size) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->fader_pos[0]), sizeof(int), pan_array_size, file) != pan_array_size) {
++		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->fader_pos[0]), sizeof(int), pan_array_size, out) != pan_array_size) {
+ 			goto save_error;
+ 		    }
+ 		    /* inputs mute/solo/dest */
+-		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->mute), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->mute), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->solo), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->solo), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->dest), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(inputs->strips[channel]->data[card][speed][preset]->dest), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+ 		    /* playbacks mute/solo/dest */
+-		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->mute), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->mute), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->solo), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->solo), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+-		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->dest), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(playbacks->strips[channel]->data[card][speed][preset]->dest), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+ 		    /* outputs volumes */
+-		    if (fwrite((void *)&(outputs->strips[channel]->data[card][speed][preset]->fader_pos), sizeof(int), 1, file) != 1) {
++		    if (fwrite((void *)&(outputs->strips[channel]->data[card][speed][preset]->fader_pos), sizeof(int), 1, out) != 1) {
+ 			goto save_error;
+ 		    }
+ 		    
+  		}
+ 		/* Lineouts */		    
+-		if (fwrite((void *)&(outputs->strips[HDSP_MAX_CHANNELS]->data[card][speed][preset]->fader_pos), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(outputs->strips[HDSP_MAX_CHANNELS]->data[card][speed][preset]->fader_pos), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(outputs->strips[HDSP_MAX_CHANNELS+1]->data[card][speed][preset]->fader_pos), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(outputs->strips[HDSP_MAX_CHANNELS+1]->data[card][speed][preset]->fader_pos), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+ 		/* Global settings */
+-		if (fwrite((void *)&(data[card][speed][preset]->input), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->input), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->output), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->output), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->playback), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->playback), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->submix), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->submix), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->submix_value), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->submix_value), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->solo), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->solo), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->mute), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->mute), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}		
+-		if (fwrite((void *)&(data[card][speed][preset]->last_destination), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->last_destination), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->rmsplus3), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->rmsplus3), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->numbers), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->numbers), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->over), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->over), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->level), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->level), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+-		if (fwrite((void *)&(data[card][speed][preset]->rate), sizeof(int), 1, file) != 1) {
++		if (fwrite((void *)&(data[card][speed][preset]->rate), sizeof(int), 1, out) != 1) {
+ 		    goto save_error;
+ 		}
+ 	    }
+ 	}
+     }
+-    fclose(file);
++
++	/* If the file we want to write already exists it could be possible that it
++	* was saved with a newer version. If that is the case we just append its
++	* content to the new output file and that way ensure that we don't lose any
++	* data the new version wrote.
++	*/
++	if ((in = fopen(file_name, "r")) != NULL) {
++		if (!fseek(in, ftell(out), SEEK_SET)) {
++			char buff[512];
++			size_t read;
++			while ((read = fread(&buff, sizeof(char), sizeof(buff), in)) != 0)
++				fwrite(buff, sizeof(char), read, out);
++			if (ferror(in) || ferror(out))
++				fl_alert("Error appending %s to %s", file_name, tmpc);
++		}
++		fclose(in);
++	}
++
++	fclose(out);
++
++	if (rename(tmpc, file_name))
++		fl_alert("Error renaming %s to %s", tmpc, file_name);
++	::remove(tmpc);
++
+     return;
+ save_error:
+-    fclose(file);
++    fclose(out);
+     fl_alert("Error saving presets to file %s", file_name);
+     return;
+ }
 -- 
 2.27.0
 

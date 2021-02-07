@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49F431238C
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 11:38:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EC8312390
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 11:39:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2AAD1689;
-	Sun,  7 Feb 2021 11:37:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2AAD1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50C57169C;
+	Sun,  7 Feb 2021 11:38:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C57169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612694290;
-	bh=bl3qyfDMFj5hXEN9+lGjHsPs5moWhDMGUDnMR5Qmy2o=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=M2ljwL0gQo6PEsdnXsvJjUpPIrWW7SV1fEN5VL7LzKcGI4rcI0FP7DSDEp9FCG703
-	 u+toT0TCSeXqFOGCfzifS+T0RFvQJy5kBGaoommfjZKKHGtHQNCwW25xErnzLx1lmZ
-	 p0je59s+Q7nKHkgPNZVJRfRvnij22kiEItEdG21o=
+	s=default; t=1612694350;
+	bh=jANOYA0HlQdeXWgw++0THVXyDeUkcLXhEH25qjxc3uI=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Fcq2K1bVvctTdiISEeTjZH/iAv88Y5/eIivPtOCDmQ+KSci0TjAnd3UnpvK1v5vKw
+	 p34r+5X1YevyaR8P/CQiP+NTWrzxxVb/TyPkjfZ9qB/XzUdbjvExeBcXI9uxf9y7mk
+	 2q9xoziOjNVFlU2uhqe8bDfMzf6FfLcG2oXZ55wU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 568C7F801D5;
-	Sun,  7 Feb 2021 11:35:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7021F8032C;
+	Sun,  7 Feb 2021 11:36:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D08DAF8013A; Sun,  7 Feb 2021 11:35:46 +0100 (CET)
+ id 815D6F80425; Sun,  7 Feb 2021 11:36:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,30 +33,32 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B54C2F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B29D3F80129
  for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 11:35:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B54C2F8016B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B29D3F80129
 Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 3E9212019B4;
- Sun,  7 Feb 2021 11:35:28 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 7CFA82019B7;
+ Sun,  7 Feb 2021 11:35:29 +0100 (CET)
 Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
  [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2E7C3200E28;
- Sun,  7 Feb 2021 11:35:23 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5E058200E46;
+ Sun,  7 Feb 2021 11:35:24 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id A65414029B;
- Sun,  7 Feb 2021 11:35:16 +0100 (CET)
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id D67C4402AD;
+ Sun,  7 Feb 2021 11:35:17 +0100 (CET)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  festevam@gmail.com, linuxppc-dev@lists.ozlabs.org, robh+dt@kernel.org,
  devicetree@vger.kernel.org
-Subject: [PATCH v2 0/7] Add audio driver base on rpmsg on i.MX platform
-Date: Sun,  7 Feb 2021 18:23:48 +0800
-Message-Id: <1612693435-31418-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v2 1/7] ASoC: soc-component: Add snd_soc_pcm_component_ack
+Date: Sun,  7 Feb 2021 18:23:49 +0800
+Message-Id: <1612693435-31418-2-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1612693435-31418-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1612693435-31418-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -72,60 +75,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Asymmetric multiprocessor, there is Cortex-A core and Cortex-M core,
-Linux is running on A core, RTOS is running on M core.
-The audio hardware device can be controlled by Cortex-M device,
-So audio playback/capture can be handled by M core.
+Add snd_soc_pcm_component_ack back, which can be used to get updated
+buffer pointer in platform driver.
+On Asymmetric multiprocessor, this pointer can be sent to Cortex-M
+core for audio processing.
 
-Rpmsg is the interface for sending and receiving msg to and from M
-core, that we can create a virtual sound on Cortex-A core side.
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ include/sound/soc-component.h |  3 +++
+ sound/soc/soc-component.c     | 14 ++++++++++++++
+ sound/soc/soc-pcm.c           |  2 ++
+ 3 files changed, 19 insertions(+)
 
-A core will tell the Cortex-M core sound format/rate/channel,
-where is the data buffer, what is the period size, when to start,
-when to stop and when suspend or resume happen, each of this behavior
-there is defined rpmsg command.
-
-Especially we designed the low power audio case, that is to
-allocate a large buffer and fill the data, then Cortex-A core can go
-to sleep mode, Cortex-M core continue to play the sound, when the
-buffer is consumed, Cortex-M core will trigger the Cortex-A core to
-wakeup to fill data.
-
-changes in v2:
-- update codes and comments according to Mark's comments
-
-Shengjiu Wang (7):
-  ASoC: soc-component: Add snd_soc_pcm_component_ack
-  ASoC: fsl_rpmsg: Add CPU DAI driver for audio base on rpmsg
-  ASoC: dt-bindings: fsl_rpmsg: Add binding doc for rpmsg cpu dai driver
-  ASoC: imx-audio-rpmsg: Add rpmsg_driver for audio channel
-  ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg
-  ASoC: imx-rpmsg: Add machine driver for audio base on rpmsg
-  ASoC: dt-bindings: imx-rpmsg: Add binding doc for rpmsg machine driver
-
- .../devicetree/bindings/sound/fsl,rpmsg.yaml  |  80 ++
- .../bindings/sound/imx-audio-rpmsg.yaml       |  48 +
- include/sound/soc-component.h                 |   3 +
- sound/soc/fsl/Kconfig                         |  28 +
- sound/soc/fsl/Makefile                        |   6 +
- sound/soc/fsl/fsl_rpmsg.c                     | 252 +++++
- sound/soc/fsl/fsl_rpmsg.h                     |  38 +
- sound/soc/fsl/imx-audio-rpmsg.c               | 151 +++
- sound/soc/fsl/imx-pcm-rpmsg.c                 | 919 ++++++++++++++++++
- sound/soc/fsl/imx-pcm-rpmsg.h                 | 512 ++++++++++
- sound/soc/fsl/imx-rpmsg.c                     | 148 +++
- sound/soc/soc-component.c                     |  14 +
- sound/soc/soc-pcm.c                           |   2 +
- 13 files changed, 2201 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/imx-audio-rpmsg.yaml
- create mode 100644 sound/soc/fsl/fsl_rpmsg.c
- create mode 100644 sound/soc/fsl/fsl_rpmsg.h
- create mode 100644 sound/soc/fsl/imx-audio-rpmsg.c
- create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.c
- create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.h
- create mode 100644 sound/soc/fsl/imx-rpmsg.c
-
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 5b47768222b7..2dc8c7e3d1a6 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -146,6 +146,8 @@ struct snd_soc_component_driver {
+ 	int (*mmap)(struct snd_soc_component *component,
+ 		    struct snd_pcm_substream *substream,
+ 		    struct vm_area_struct *vma);
++	int (*ack)(struct snd_soc_component *component,
++		   struct snd_pcm_substream *substream);
+ 
+ 	const struct snd_compress_ops *compress_ops;
+ 
+@@ -498,5 +500,6 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
+ 					 void *stream);
+ void snd_soc_pcm_component_pm_runtime_put(struct snd_soc_pcm_runtime *rtd,
+ 					  void *stream, int rollback);
++int snd_soc_pcm_component_ack(struct snd_pcm_substream *substream);
+ 
+ #endif /* __SOC_COMPONENT_H */
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 159bf88b9f8c..a9fbb2d26412 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -1212,3 +1212,17 @@ void snd_soc_pcm_component_pm_runtime_put(struct snd_soc_pcm_runtime *rtd,
+ 		soc_component_mark_pop(component, stream, pm);
+ 	}
+ }
++
++int snd_soc_pcm_component_ack(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_component *component;
++	int i;
++
++	/* FIXME: use 1st pointer */
++	for_each_rtd_components(rtd, i, component)
++		if (component->driver->ack)
++			return component->driver->ack(component, substream);
++
++	return 0;
++}
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index b79f064887d4..605acec48971 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2830,6 +2830,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 			rtd->ops.page		= snd_soc_pcm_component_page;
+ 		if (drv->mmap)
+ 			rtd->ops.mmap		= snd_soc_pcm_component_mmap;
++		if (drv->ack)
++			rtd->ops.ack            = snd_soc_pcm_component_ack;
+ 	}
+ 
+ 	if (playback)
 -- 
 2.27.0
 

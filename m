@@ -2,109 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50FF312771
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Feb 2021 21:55:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1CCF3128BD
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 02:28:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20DFE167F;
-	Sun,  7 Feb 2021 21:54:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20DFE167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53559886;
+	Mon,  8 Feb 2021 02:27:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53559886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612731307;
-	bh=V5Q8bIzJBuhIjZyEJxlRZQYYt/Ib58n/Z6KDheGAnmo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612747688;
+	bh=ShDBKzWZfkDJzcyAPiliNIlugZn73uekySMHd3S0IWM=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q1fvDAySIlhL0QbmCrqlGFsKIKNp+z4hHRgjmYYkIouG9i5FzhBZs1rG+9mxIDAOF
-	 1VhXKD3EVHzC/8htOjZmCAgAR/nE7fyJ5KVLBPAvltlX/9zLDk9N1e2zWc4XBOm1AG
-	 ba/nwp0s6Ek4oXD3htJg4hqNhZIMbbCVntfYA/lQ=
+	b=KouqFX3ITKxMfSzgpTwLTSmTxF4ZrG1z1W7ZRaoW51b0PLAFsmY6sGAMe3ONVzxB1
+	 zeXkwuKWG2/TBbYLJ64+bB7njQjYuvgt1Gz/7eeLATsaUBHPO9l5kjNxERi3jj2pRN
+	 2Q+8PaAM2EQA0BQ1hTfFEgx54RDJ24v2B0LTG43w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B351F801EB;
-	Sun,  7 Feb 2021 21:53:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B325DF801EB;
+	Mon,  8 Feb 2021 02:26:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DABBDF801D5; Sun,  7 Feb 2021 21:53:32 +0100 (CET)
+ id 670AFF801D5; Mon,  8 Feb 2021 02:26:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48225F8013A
- for <alsa-devel@alsa-project.org>; Sun,  7 Feb 2021 21:53:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48225F8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4414CF80129
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 02:26:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4414CF80129
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="Nk54U6xE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1612731203;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=z5YmGPBSvyBBNnT0XdeB5T1y+JwUmNr28DXJwqb40iw=;
- b=Nk54U6xEH+4dRJ9aa3u9ax2clgNJmkLkY6sTWQMXg4CPZxCp773uHMv6j9gJ+bzibstNwV
- bJoZiGDHKx/IerE4gsA8zzdBUy0d6iC7jZU0n3RmIDrbi+gnbS7QANVaRf8O2OT2abCJs0
- YNjAwZxiFOA2gN5Uf3tN4yx6DT9T7aE=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-117-3_Nuta5aMJODw_EVQbhqZA-1; Sun, 07 Feb 2021 15:53:00 -0500
-X-MC-Unique: 3_Nuta5aMJODw_EVQbhqZA-1
-Received: by mail-ej1-f69.google.com with SMTP id yd11so10548165ejb.9
- for <alsa-devel@alsa-project.org>; Sun, 07 Feb 2021 12:53:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=z5YmGPBSvyBBNnT0XdeB5T1y+JwUmNr28DXJwqb40iw=;
- b=HDZnqRaOdRhDWPjeFtNiPcCzlQG/vOcocJt324tVQdosPyN+Oo+HxqvPeXj/yn2C73
- OleFfYtFhEKZ6WgeTjE/DvtbViUuEVaJkWatUcI6KhUaKBOPQoZ0pBor7FB6KJHK+35C
- uCibORAP121qnsrlD/RcNGMJIbJU0lISIP4DsuUSQ1boN7ImUMlh5iZUZjE+rTMjeHV1
- icGP1LfRnWX3UCd+vIalrTV7L/F6VJArc+Up3oJ0MTJkhoR2LZtbKMBblKvcYqGTOwTp
- cXhmtHkyALvb5eaajPlh/2CacXmeJKhWg3rQQLZ004eJ61YtpdlxPVL9udASn5xlEVwc
- R4Iw==
-X-Gm-Message-State: AOAM530AAKRdoy76HFWnk2BTVLJiUcntohw0uCtF4hSUfvMUk1oWN45v
- TrheDoQFNFu7OmI2Dir9S4XbqA6z8td/ozWSzinoAonJTpH5bHD+Q8QJ3U3Q0sIqnsw/L/NTMMZ
- VmbROYTp1k8Emh4s7eGT9k44=
-X-Received: by 2002:a17:906:2993:: with SMTP id
- x19mr13279099eje.409.1612731178630; 
- Sun, 07 Feb 2021 12:52:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwogk4bgDS3eCcdMc1YBavBN7T489/E5n5wyyQzMKSuR1VOTxzWOoJdYDEjj+8V3YAE0AMSgA==
-X-Received: by 2002:a17:906:2993:: with SMTP id
- x19mr13279085eje.409.1612731178351; 
- Sun, 07 Feb 2021 12:52:58 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id a1sm4819027edj.6.2021.02.07.12.52.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Feb 2021 12:52:57 -0800 (PST)
-Subject: Re: [PATCH] [RFC] ALSA: control - add generic LED API to sound core
- routines
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20210207201157.869972-1-perex@perex.cz>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <3195f3b6-6294-d872-ce1c-6f1a9deb5a6f@redhat.com>
-Date: Sun, 7 Feb 2021 21:52:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <20210207201157.869972-1-perex@perex.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="M1kAL5zp"
+IronPort-SDR: pru2oCXMKkxQe+9VGfvLgNtftRjZ/A9oA19mjxv9k8xj4v1Xk7ItxxOdXK4o49homKWrzIPXxd
+ CKriS9wFw6Dg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="200697022"
+X-IronPort-AV: E=Sophos;i="5.81,160,1610438400"; d="scan'208";a="200697022"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2021 17:26:21 -0800
+IronPort-SDR: 0rKamGqkmXkMrr2JO72Vb+9FbVKfhCZp4/XsHBJ2U/zKKuY/V1IdE/8Tzsv5wl2jAsIdkcuYjS
+ R9Xr85tbQH5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,160,1610438400"; d="scan'208";a="487049705"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga001.fm.intel.com with ESMTP; 07 Feb 2021 17:26:21 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Sun, 7 Feb 2021 17:26:21 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
+ via Frontend Transport; Sun, 7 Feb 2021 17:26:21 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.107)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Sun, 7 Feb 2021 17:25:53 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EZ0s1XjCyeieodDvbD/HgOvtARVqHJJXOVzT/9vHCLpev8fccu1NGE8DaQjSQk7gVZUxwFGQbbe5vAPTVwpNXYvSsfGQKxz+K+wTqZXzZXZuWZI7waaQ0TnDp/FK9iY0BGS4irBj4dU8T4Po8TRAA2DwiNBPXVHELPqbc0solWhDHzp5BwWZqGIAN3hvZpt2myHLuvYWUuZo0aOl3N6IExw/mAES4rqkGQL+2tJTrTsTFjZvtIic9IQLtgxX2wrBwUtbJpfX0GqK0/+XwUk+kXb6v0EIS4aNUPpBRtzgRI70U+3YcxDRrdYO3xMxVla1QCJ5eoEo3T37/HE5l9vnkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6k4xCvR3V4tvRclOPsC3HI/yZUIHLCxBW6KqJ8UqRAw=;
+ b=hWhd30bkjBa0UKMhMhPFImPmNEKWKFIGxxJzpazI4fkXb5IPXIoZNk9pz+gZvHkiV6b5UJ8Sn3VuLAR3a5Jx9TTSh3TGK193ERfpmFhzwJURBgmv4JO0gpLgjKcjoQQIJCRfo2L/Bx1SiuQpQ3DAdNIykFILub4X03Tir60xphn6RjKqvJjrohBuA10lyii6RRB/EBrRw55nJnFYQkKPTEMyg9ZKGweAHZIzvoshc0gLa9wvueYjl3b0SuvK88gpk7Yek6jusEMQaOCMq3IBpWSPm+3lWcwtNpUd/yuIMssPMl6fQhFT24/oP1v4rTrkILaee0jEnB2Ho/xhx8ZTJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6k4xCvR3V4tvRclOPsC3HI/yZUIHLCxBW6KqJ8UqRAw=;
+ b=M1kAL5zpXvpTe3QdVEpnfFrLor3luibceny8t2XR5rFMmtx8jnzCDPcDnwC1kBqXmEe4anxmZP3rYL93ldyL70hMzsnK3p+7pRfu8mA/ogC0IDxzWJoZlIkUrEXru+EjeOhO+HaKpz9fHSZhygNCY3/jZv7pr2+qPb55ncL4T5c=
+Received: from SJ0PR11MB5039.namprd11.prod.outlook.com (2603:10b6:a03:2da::22)
+ by BY5PR11MB4151.namprd11.prod.outlook.com (2603:10b6:a03:18f::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.27; Mon, 8 Feb
+ 2021 01:25:52 +0000
+Received: from SJ0PR11MB5039.namprd11.prod.outlook.com
+ ([fe80::e1da:cb9f:82bf:132c]) by SJ0PR11MB5039.namprd11.prod.outlook.com
+ ([fe80::e1da:cb9f:82bf:132c%7]) with mapi id 15.20.3825.030; Mon, 8 Feb 2021
+ 01:25:52 +0000
+From: "Sia, Jee Heng" <jee.heng.sia@intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
+Thread-Topic: [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
+Thread-Index: AQHW+pmVuUAZfVY8W0WtEv9moVbgFapJxJuAgAO1zfA=
+Date: Mon, 8 Feb 2021 01:25:52 +0000
+Message-ID: <SJ0PR11MB50394537BEFC434FEA6C9AB9DA8F9@SJ0PR11MB5039.namprd11.prod.outlook.com>
+References: <20210204014258.10197-1-jee.heng.sia@intel.com>
+ <20210205163525.GH4720@sirena.org.uk>
+In-Reply-To: <20210205163525.GH4720@sirena.org.uk>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, Perry Yuan <Perry.Yuan@dell.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [192.198.147.213]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 845844a1-19c4-49fa-4ff0-08d8cbd07966
+x-ms-traffictypediagnostic: BY5PR11MB4151:
+x-microsoft-antispam-prvs: <BY5PR11MB4151BD0016547728E4ABFB87DA8F9@BY5PR11MB4151.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: YSTSwo6N3jKxKQEgS7LoQvmJ6VutQjUpfb1l0rW+gDTyo58DVD3Z0C9qCe6tV6yP8HyGVB5UVXk1Jll8s4micizk2dMWm75p0czC2V0lf0Uam4O8HpcAGldXXKv/0sNx5Wmi10x2SxPFk4u2xP3bPu3o+2r8VkfTUwzB+1RkGRKGZl/PN6FokKr7+XDKKNqBk2s4B1/LDyNlIxUgxkBILT9am6ku5eFhMw2BWAUw3/UV91YEJ950LFoBqVGwlCkenSxh1WvqrklTZP/G7xgJe8Xq0P34A7N9Bs545uzGj1yGvTKv4SGboLvX8Yd7gi++yCVjJtF1jY1fLB5y4WyFwwC4PSxaMXHjv9U+SZLjG5wcRTt11VJt2TfnDR+NVyCsldss/WM4t7mpjxz33+6GSWRwmhpFPpHt3DtZcqmSc2ahCrSCLwhX1vKidEXbbLh4Uy3sdgbxtL1TG6KA9xNPKIB3FcYHJL8+yh1I12s8g2IzKQlJU/YoNXxEN8M00VMynE5CWIj55ogZ8WbCQ+nojA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR11MB5039.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(396003)(136003)(346002)(366004)(39860400002)(376002)(54906003)(66556008)(66476007)(316002)(66946007)(76116006)(8676002)(8936002)(52536014)(7696005)(66446008)(4326008)(64756008)(86362001)(6916009)(186003)(55016002)(83380400001)(2906002)(33656002)(478600001)(4744005)(9686003)(71200400001)(26005)(53546011)(6506007)(5660300002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?6MUt+26pBZfG68eHkjWmRH67oeV/UocnDYwPKaksPIlrxJaMAJN0WtDOlSJo?=
+ =?us-ascii?Q?TcjclfCUa9g5Be5iOaXI1MBBnJZVA5a+/iX6vcidHD/VSXT/bzu3HvRLZcKC?=
+ =?us-ascii?Q?i32Lb7zF8auLgVc2gym/eDBA929yGBwsLYMIzTlpBvRmJh28oi/2EfOoWcrT?=
+ =?us-ascii?Q?AUl+pctxI1ZhZ25efcf/8T/Oktv1NTIYgmlsa+BVuhlIzeKGc/wOglD/Xm8k?=
+ =?us-ascii?Q?HCzyxUa+5jlluH7cZpbBrY+J9TrlQ6Qvehj4LoX2vm5lQPeKWkuMv+946XK1?=
+ =?us-ascii?Q?huaw9wtlDRadxGs4SIH6S0Kec6ERwo7OWZ/7OBm6HeiVeiNnq3zyXuWPYPct?=
+ =?us-ascii?Q?3QkqauXW86VFpJk8RcIjhaP8KB5x3Kko+9Rfln/G7CCvRwSH9SB+Rh38AS6n?=
+ =?us-ascii?Q?m2rJadMuXUe3IR0mg176DCUnE0u2QT+G/RbM4I2zOcRXkxQxJJpIYPP6wWAL?=
+ =?us-ascii?Q?jO+wV1GRf4QOyWay4w78znVfDTUgCXswa6dINB1M0WPkk3+ywPhbwAI31v/w?=
+ =?us-ascii?Q?rHRoeb05rWTZRdjG+MNDa5WadBYM2hyYLs7/KCe2gMG1kQl0bJ+UHy0RQ3Xn?=
+ =?us-ascii?Q?U83Tctr5p+9rEUyoWxz3z+mVM6k41MYmQPGn3hivTv/bJvCOrgxe4bL4WE64?=
+ =?us-ascii?Q?UXtYgxzGy/ZFzgvxgrKsDVHly9gVMEk9+lNeD2/o0oStbtebpgwQ3ob6RRFx?=
+ =?us-ascii?Q?Xvi8ednEfkNZ0f9+19eXGqiFv8D3l0J9UGkxtKZoiemDdCtT65w1B3Rtc1X6?=
+ =?us-ascii?Q?2Tr9PD91W4XDd9fczUrvbDFoA4crPZXy+8QPuJha+S7eX376lwymuT7yOhEC?=
+ =?us-ascii?Q?dJq7hcJKDLHvQiaByiSRzjxyRR0uUDLWkxkWi5uF5ZlhMcawzmqMbqWinIzh?=
+ =?us-ascii?Q?eXjn7Uv6cdW6WaUQTbvZItnKTMOwmeZqLF7fNrvvShULlEYV9ASTMPjDcEBZ?=
+ =?us-ascii?Q?3ze7A2pussM3G0z/82K4X2MCJOjK2YUo9c4GeInaGRgNpSS6aZJJ2qV29RHy?=
+ =?us-ascii?Q?dmml2rLKtTQ8X7bRXAEph4R2VNTalBoRkrluvUMuWM6BHQTq43j8lAEVvHjA?=
+ =?us-ascii?Q?g8Q8PIpVDxLypJdc3h0VIFWS4BUapMVb6yA96KCmIpNnlVnPftMbL9OftGvS?=
+ =?us-ascii?Q?rsvcBz+ET6/tqDNDT5XWs29qnL5Z3FVZiwtJOXSizL/piaQ/46hd2oXdcujh?=
+ =?us-ascii?Q?kcwq95FOp0uuoLxssd76ejEs3x0aTvS24MaTVZRTEdkTqs0O07TbFi8VUeMz?=
+ =?us-ascii?Q?XFs7UmP2kej6BXP0XI82MUIEq0KU/7XhdpTVFAJKxF+AMQ97eaAO2yd5d9xr?=
+ =?us-ascii?Q?oQfH3l4D4dV2UDEOsKDbcK6O?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5039.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 845844a1-19c4-49fa-4ff0-08d8cbd07966
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2021 01:25:52.1955 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UlzxjJrbZkE+CTiP1PdLUjY5WhL2hRZR3s84m49N9aYSh1qsxHKwflLI5z/pIjbEU/Narba6yRyOT18iTh2zUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB4151
+X-OriginatorOrg: intel.com
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,515 +176,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
-
-On 2/7/21 9:11 PM, Jaroslav Kysela wrote:
-> [DO NOT MERGE!]
-> [This is just an early proposal for comments]
-> [The code is not tested / debugged]
-> 
-> The recent laptops have usually two LEDs assigned to reflect
-> the speaker and microphone mute state. This implementation
-> adds a tiny layer on top of the control API which calculates
-> the state for those LEDs using the driver callbacks.
-> 
-> Two new access flags are introduced to describe the controls
-> which affects the audio path settings (an easy path for drivers).
-> 
-> The LED resource can be shared with multiple sound cards with
-> this code. The user space controls may be added to the state
-> chain, too.
-> 
-> This code should replace the LED code in the HDA driver and
-> add a possibility to easy extend the other drivers (ASoC
-> codecs etc.).
-> 
-> Note: The snd_ctl_notify_one() changes should be moved to
-> a separate patch. I will do this, when this proposal is
-> agreed.
-> 
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> Cc: Perry Yuan <Perry.Yuan@dell.com>
-> Cc: Hans de Goede <hdegoede@redhat.com>
-
-Nice I think that having this handled in a generic manner
-would be a great improvement.
-
-I have 2 HP x2 models which are Bay Trail resp. Cherry Trail
-based, which means they use Intel's LPE (Low Power Engine)
-for audio which uses ASoC.
-
-These come with detachable USB keyboard-docks which have
-a speaker mute LED. I have already added LED-class support to
-the HID driver for these, but I never got around to hooking
-up a trigger from the ASoC code.
-
-So if I understand things correctly, then if I add this
-patch to a kernel and in the ASoC codec driver add
-SNDRV_CTL_ELEM_ACCESS_SPK_LED to one or more of the controls,
-and add .default_trigger = "audio-mute" to the led_class_dev
-for the LED, then if I toggle the control on / off in
-alsamixer this should then control the LED ?
-
-If I got that right I will certainly give this a try.
-
-Any advice for which control would be the best to use?
-Looking at the code, it assumes that if a control is enabled
-that then there will be a route, which makes sense if there
-are e.g. headphones and speaker and lineout controls. But what
-about chained controls, e.g. separate volume + mute controls
-or multiple volume controls chained. With ASoC this is not
-unheard of. I guess the answer is to pick the control which
-we will also want to use for hw volume-control if/when UCM
-profiles grow hw volume-control support ?
-
-Regards,
-
-Hans
 
 
-
-
-p.s. This would only / at least add proper support for these LEDs
-at the kernel level. ATM these devices which use UCM profiles don't
-actually use any kind of hw volume-control. So we would also need to
-fix that (in userspace) to get these LEDs to really work when an
-user hits the mute key, or lowers the volume to NIL.
-
-
-
-
-> ---
->  include/sound/control.h     |  12 +++
->  include/uapi/sound/asound.h |   2 +
->  sound/core/Kconfig          |   6 ++
->  sound/core/Makefile         |   1 +
->  sound/core/control.c        |  83 ++++++++++++++-------
->  sound/core/control_led.c    | 144 ++++++++++++++++++++++++++++++++++++
->  sound/pci/hda/Kconfig       |   3 +-
->  7 files changed, 225 insertions(+), 26 deletions(-)
->  create mode 100644 sound/core/control_led.c
-> 
-> diff --git a/include/sound/control.h b/include/sound/control.h
-> index 77d9fa10812d..ed967b18ffc9 100644
-> --- a/include/sound/control.h
-> +++ b/include/sound/control.h
-> @@ -261,4 +261,16 @@ snd_kctl_jack_new(const char *name, struct snd_card *card);
->  void snd_kctl_jack_report(struct snd_card *card,
->  			  struct snd_kcontrol *kctl, bool status);
->  
-> +#if IS_ENABLED(CONFIG_SND_LED)
-> +void snd_ctl_led_notify(struct snd_card *card, unsigned int mask,
-> +			struct snd_kcontrol *kctl, unsigned int ioff);
-> +void snd_ctl_led_register(struct snd_card *card);
-> +void snd_ctl_led_disconnect(struct snd_card *card);
-> +#else
-> +static inline void snd_ctl_led_notify(struct snd_card *card, unsigned int mask,
-> +				      struct snd_kcontrol *kctl, unsigned int ioff) {}
-> +static inline void snd_ctl_led_register(struct snd_card *card) {}
-> +static inline void snd_ctl_led_disconnect(struct snd_card *card) {}
-> +#endif
-> +
->  #endif	/* __SOUND_CONTROL_H */
-> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-> index 535a7229e1d9..3faacdf5eaea 100644
-> --- a/include/uapi/sound/asound.h
-> +++ b/include/uapi/sound/asound.h
-> @@ -982,6 +982,8 @@ typedef int __bitwise snd_ctl_elem_iface_t;
->  #define SNDRV_CTL_ELEM_ACCESS_INACTIVE		(1<<8)	/* control does actually nothing, but may be updated */
->  #define SNDRV_CTL_ELEM_ACCESS_LOCK		(1<<9)	/* write lock */
->  #define SNDRV_CTL_ELEM_ACCESS_OWNER		(1<<10)	/* write lock owner */
-> +#define SNDRV_CTL_ELEM_ACCESS_SPK_LED		(1<<11)	/* speaker (output) LED flag */
-> +#define SNDRV_CTL_ELEM_ACCESS_MIC_LED		(1<<12)	/* microphone (input) LED flag */
->  #define SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK	(1<<28)	/* kernel use a TLV callback */
->  #define SNDRV_CTL_ELEM_ACCESS_USER		(1<<29) /* user space element */
->  /* bits 30 and 31 are obsoleted (for indirect access) */
-> diff --git a/sound/core/Kconfig b/sound/core/Kconfig
-> index a4050f87f230..1bde494fa1fe 100644
-> --- a/sound/core/Kconfig
-> +++ b/sound/core/Kconfig
-> @@ -203,4 +203,10 @@ config SND_DMA_SGBUF
->  	def_bool y
->  	depends on X86
->  
-> +config SND_LED
-> +	bool
-> +	select NEW_LEDS if SND_LED
-> +	select LEDS_TRIGGERS if SND_LED
-> +	select LEDS_TRIGGER_AUDIO if SND_LED
-> +
->  source "sound/core/seq/Kconfig"
-> diff --git a/sound/core/Makefile b/sound/core/Makefile
-> index ee4a4a6b99ba..81b33877a03d 100644
-> --- a/sound/core/Makefile
-> +++ b/sound/core/Makefile
-> @@ -13,6 +13,7 @@ snd-$(CONFIG_ISA_DMA_API) += isadma.o
->  snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
->  snd-$(CONFIG_SND_VMASTER) += vmaster.o
->  snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
-> +snd-$(CONFIG_SND_LED)     += control_led.o
->  
->  snd-pcm-y := pcm.o pcm_native.o pcm_lib.o pcm_misc.o \
->  		pcm_memory.o memalloc.o
-> diff --git a/sound/core/control.c b/sound/core/control.c
-> index 5165741a8400..3171e7f2798e 100644
-> --- a/sound/core/control.c
-> +++ b/sound/core/control.c
-> @@ -181,6 +181,28 @@ void snd_ctl_notify(struct snd_card *card, unsigned int mask,
->  }
->  EXPORT_SYMBOL(snd_ctl_notify);
->  
-> +/**
-> + * snd_ctl_notify_one - Send notification to user-space for a control change
-> + * @card: the card to send notification
-> + * @mask: the event mask, SNDRV_CTL_EVENT_*
-> + * @kctl: the pointer with the control instance
-> + * @ioff: the additional offset to the control index
-> + *
-> + * This function calls snd_ctl_notify() and does additional jobs
-> + * like LED state changes.
-> + */
-> +void snd_ctl_notify_one(struct snd_card *card, unsigned int mask,
-> +			struct snd_kcontrol *kctl, unsigned int ioff)
-> +{
-> +	struct snd_ctl_elem_id id = kctl->id;
-> +
-> +	id.index += ioff;
-> +	id.numid += ioff;
-> +	snd_ctl_led_notify(card, mask, kctl, ioff);
-> +	snd_ctl_notify(card, mask, &id);
-> +}
-> +EXPORT_SYMBOL(snd_ctl_notify_one);
-> +
->  /**
->   * snd_ctl_new - create a new control instance with some elements
->   * @kctl: the pointer to store new control instance
-> @@ -250,6 +272,8 @@ struct snd_kcontrol *snd_ctl_new1(const struct snd_kcontrol_new *ncontrol,
->  		   SNDRV_CTL_ELEM_ACCESS_TLV_READWRITE |
->  		   SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND |
->  		   SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK |
-> +		   SNDRV_CTL_ELEM_ACCESS_SPK_LED |
-> +		   SNDRV_CTL_ELEM_ACCESS_MIC_LED |
->  		   SNDRV_CTL_ELEM_ACCESS_SKIP_CHECK);
->  
->  	err = snd_ctl_new(&kctl, count, access, NULL);
-> @@ -342,7 +366,6 @@ static int __snd_ctl_add_replace(struct snd_card *card,
->  {
->  	struct snd_ctl_elem_id id;
->  	unsigned int idx;
-> -	unsigned int count;
->  	struct snd_kcontrol *old;
->  	int err;
->  
-> @@ -376,10 +399,8 @@ static int __snd_ctl_add_replace(struct snd_card *card,
->  	kcontrol->id.numid = card->last_numid + 1;
->  	card->last_numid += kcontrol->count;
->  
-> -	id = kcontrol->id;
-> -	count = kcontrol->count;
-> -	for (idx = 0; idx < count; idx++, id.index++, id.numid++)
-> -		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_ADD, &id);
-> +	for (idx = 0; idx < kcontrol->count; idx++)
-> +		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_ADD, kcontrol, idx);
->  
->  	return 0;
->  }
-> @@ -462,16 +483,15 @@ EXPORT_SYMBOL(snd_ctl_replace);
->   */
->  int snd_ctl_remove(struct snd_card *card, struct snd_kcontrol *kcontrol)
->  {
-> -	struct snd_ctl_elem_id id;
->  	unsigned int idx;
->  
->  	if (snd_BUG_ON(!card || !kcontrol))
->  		return -EINVAL;
->  	list_del(&kcontrol->list);
->  	card->controls_count -= kcontrol->count;
-> -	id = kcontrol->id;
-> -	for (idx = 0; idx < kcontrol->count; idx++, id.index++, id.numid++)
-> -		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_REMOVE, &id);
-> +
-> +	for (idx = 0; idx < kcontrol->count; idx++)
-> +		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
->  	snd_ctl_free_one(kcontrol);
->  	return 0;
->  }
-> @@ -584,11 +604,13 @@ int snd_ctl_activate_id(struct snd_card *card, struct snd_ctl_elem_id *id,
->  		vd->access |= SNDRV_CTL_ELEM_ACCESS_INACTIVE;
->  	}
->  	snd_ctl_build_ioff(id, kctl, index_offset);
-> -	ret = 1;
-> +	downgrade_write(&card->controls_rwsem);
-> +	snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_INFO, kctl, index_offset);
-> +	up_read(&card->controls_rwsem);
-> +	return 1;
-> +
->   unlock:
->  	up_write(&card->controls_rwsem);
-> -	if (ret > 0)
-> -		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_INFO, id);
->  	return ret;
->  }
->  EXPORT_SYMBOL_GPL(snd_ctl_activate_id);
-> @@ -1110,25 +1132,34 @@ static int snd_ctl_elem_write(struct snd_card *card, struct snd_ctl_file *file,
->  	unsigned int index_offset;
->  	int result;
->  
-> +	down_write(&card->controls_rwsem);
->  	kctl = snd_ctl_find_id(card, &control->id);
-> -	if (kctl == NULL)
-> +	if (kctl == NULL) {
-> +		up_write(&card->controls_rwsem);
->  		return -ENOENT;
-> +	}
->  
->  	index_offset = snd_ctl_get_ioff(kctl, &control->id);
->  	vd = &kctl->vd[index_offset];
->  	if (!(vd->access & SNDRV_CTL_ELEM_ACCESS_WRITE) || kctl->put == NULL ||
->  	    (file && vd->owner && vd->owner != file)) {
-> +		up_write(&card->controls_rwsem);
->  		return -EPERM;
->  	}
->  
->  	snd_ctl_build_ioff(&control->id, kctl, index_offset);
->  	result = kctl->put(kctl, control);
-> -	if (result < 0)
-> +	if (result < 0) {
-> +		up_write(&card->controls_rwsem);
->  		return result;
-> +	}
->  
->  	if (result > 0) {
-> -		struct snd_ctl_elem_id id = control->id;
-> -		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
-> +		downgrade_write(&card->controls_rwsem);
-> +		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_VALUE, kctl, index_offset);
-> +		up_read(&card->controls_rwsem);
-> +	} else {
-> +		up_write(&card->controls_rwsem);
->  	}
->  
->  	return 0;
-> @@ -1150,9 +1181,7 @@ static int snd_ctl_elem_write_user(struct snd_ctl_file *file,
->  	if (result < 0)
->  		goto error;
->  
-> -	down_write(&card->controls_rwsem);
->  	result = snd_ctl_elem_write(card, file, control);
-> -	up_write(&card->controls_rwsem);
->  	if (result < 0)
->  		goto error;
->  
-> @@ -1301,7 +1330,6 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
->  {
->  	struct user_element *ue = kctl->private_data;
->  	unsigned int *container;
-> -	struct snd_ctl_elem_id id;
->  	unsigned int mask = 0;
->  	int i;
->  	int change;
-> @@ -1333,10 +1361,8 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
->  	ue->tlv_data_size = size;
->  
->  	mask |= SNDRV_CTL_EVENT_MASK_TLV;
-> -	for (i = 0; i < kctl->count; ++i) {
-> -		snd_ctl_build_ioff(&id, kctl, i);
-> -		snd_ctl_notify(ue->card, mask, &id);
-> -	}
-> +	for (i = 0; i < kctl->count; ++i)
-> +		snd_ctl_notify_one(ue->card, mask, kctl, i);
->  
->  	return change;
->  }
-> @@ -1998,9 +2024,14 @@ static const struct file_operations snd_ctl_f_ops =
->  static int snd_ctl_dev_register(struct snd_device *device)
->  {
->  	struct snd_card *card = device->device_data;
-> +	int err;
->  
-> -	return snd_register_device(SNDRV_DEVICE_TYPE_CONTROL, card, -1,
-> -				   &snd_ctl_f_ops, card, &card->ctl_dev);
-> +	err = snd_register_device(SNDRV_DEVICE_TYPE_CONTROL, card, -1,
-> +				  &snd_ctl_f_ops, card, &card->ctl_dev);
-> +	if (err < 0)
-> +		return err;
-> +	snd_ctl_led_register(card);
-> +	return 0;
->  }
->  
->  /*
-> @@ -2019,6 +2050,8 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
->  	}
->  	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
->  
-> +	snd_ctl_led_disconnect(card);
-> +
->  	return snd_unregister_device(&card->ctl_dev);
->  }
->  
-> diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-> new file mode 100644
-> index 000000000000..e70855ea54d1
-> --- /dev/null
-> +++ b/sound/core/control_led.c
-> @@ -0,0 +1,144 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + *  LED state routines for driver control interface
-> + *  Copyright (c) 2021 by Jaroslav Kysela <perex@perex.cz>
-> + */
-> +
-> +#include <linux/leds.h>
-> +#include <sound/core.h>
-> +#include <sound/control.h>
-> +
-> +static DEFINE_MUTEX(snd_control_led_mutex);
-> +static unsigned int snd_control_led_last_card;
-> +static struct snd_card *snd_control_led_cards[SNDRV_CARDS];
-> +
-> +#define UPDATE_ROUTE(route, cb) \
-> +	do { \
-> +		int route2 = (cb); \
-> +		if (route2 >= 0) \
-> +			route = route < 0 ? route2 : (route | route2); \
-> +	} while (0)
-> +
-> +static int snd_ctl_led_get(struct snd_card *card,
-> +			   struct snd_kcontrol *kctl, unsigned int ioff)
-> +{
-> +	struct snd_ctl_elem_info info;
-> +	struct snd_ctl_elem_value value;
-> +	unsigned int i;
-> +	int result;
-> +
-> +	memset(&info, 0, sizeof(info));
-> +	info.id = kctl->id;
-> +	info.id.index += ioff;
-> +	info.id.numid += ioff;
-> +	result = kctl->info(kctl, &info);
-> +	if (result < 0)
-> +		return -1;
-> +	memset(&value, 0, sizeof(value));
-> +	value.id = info.id;
-> +	result = kctl->get(kctl, &value);
-> +	if (result < 0)
-> +		return -1;
-> +	if (info.type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
-> +	    info.type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
-> +		for (i = 0; i < info.count; i++)
-> +			if (value.value.integer.value[i] != info.value.integer.min)
-> +				return 1;
-> +	} else if (info.type == SNDRV_CTL_ELEM_TYPE_INTEGER64) {
-> +		for (i = 0; i < info.count; i++)
-> +			if (value.value.integer64.value[i] != info.value.integer64.min)
-> +				return 1;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int snd_ctl_led_set_state_for_card(int card_number, unsigned int group)
-> +{
-> +	struct snd_card *card = snd_control_led_cards[card_number];
-> +	struct snd_kcontrol *kctl;
-> +	struct snd_kcontrol_volatile *vd;
-> +	unsigned int ioff;
-> +	int route = -1;
-> +
-> +	down_read(&card->controls_rwsem);
-> +	list_for_each_entry(kctl, &card->controls, list) {
-> +		for (ioff = 0; ioff < kctl->count; ioff++) {
-> +			vd = &kctl->vd[ioff];
-> +			if (vd->access & group)
-> +				UPDATE_ROUTE(route, snd_ctl_led_get(card, kctl, ioff));
-> +		}
-> +	}
-> +	up_read(&card->controls_rwsem);
-> +	return route;
-> +}
-> +
-> +static void snd_ctl_led_set_state(struct snd_card *card, unsigned int group)
-> +{
-> +	int card_number;
-> +	enum led_audio led_trigger_type;
-> +	int route;
-> +
-> +	if (group == SNDRV_CTL_ELEM_ACCESS_SPK_LED) {
-> +		led_trigger_type = LED_AUDIO_MUTE;
-> +	} else if (group == SNDRV_CTL_ELEM_ACCESS_MIC_LED) {
-> +		led_trigger_type = LED_AUDIO_MICMUTE;
-> +	} else {
-> +		return;
-> +	}
-> +	route = -1;
-> +	mutex_lock(&snd_control_led_mutex);
-> +	/* the card may not be registered (active) at this point */
-> +	if (snd_control_led_cards[card->number] == NULL) {
-> +		mutex_unlock(&snd_control_led_mutex);
-> +		return;
-> +	}
-> +	for (card_number = 0; card_number <= snd_control_led_last_card; card_number++)
-> +		UPDATE_ROUTE(route, snd_ctl_led_set_state_for_card(card_number, group));
-> +	mutex_unlock(&snd_control_led_mutex);
-> +	if (route >= 0)
-> +		ledtrig_audio_set(led_trigger_type, route ? LED_OFF : LED_ON);
-> +
-> +}
-> +
-> +void snd_ctl_led_notify(struct snd_card *card, unsigned int mask,
-> +			struct snd_kcontrol *kctl, unsigned int ioff)
-> +{
-> +	if (mask == SNDRV_CTL_EVENT_MASK_REMOVE ||
-> +	    (mask & (SNDRV_CTL_EVENT_MASK_INFO |
-> +		     SNDRV_CTL_EVENT_MASK_ADD |
-> +		     SNDRV_CTL_EVENT_MASK_VALUE)) != 0) {
-> +		struct snd_kcontrol_volatile *vd = &kctl->vd[ioff];
-> +		if (vd->access & SNDRV_CTL_ELEM_ACCESS_SPK_LED)
-> +			snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_SPK_LED);
-> +		if (vd->access & SNDRV_CTL_ELEM_ACCESS_MIC_LED)
-> +			snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_MIC_LED);
-> +	}
-> +}
-> +
-> +void snd_ctl_led_register(struct snd_card *card)
-> +{
-> +	if (snd_BUG_ON(card->number < 0 ||
-> +		       card->number >= ARRAY_SIZE(snd_control_led_cards)))
-> +		return;
-> +	mutex_lock(&snd_control_led_mutex);
-> +	snd_control_led_cards[card->number] = card;
-> +	if (card->number > snd_control_led_last_card)
-> +		snd_control_led_last_card = card->number;
-> +	mutex_unlock(&snd_control_led_mutex);
-> +	snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_SPK_LED);
-> +	snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_MIC_LED);
-> +}
-> +
-> +void snd_ctl_led_disconnect(struct snd_card *card)
-> +{
-> +	mutex_lock(&snd_control_led_mutex);
-> +	if (snd_control_led_last_card == card->number) {
-> +		while (snd_control_led_last_card > 0)
-> +			if (snd_control_led_cards[--snd_control_led_last_card])
-> +				break;
-> +	}
-> +	snd_control_led_cards[card->number] = NULL;
-> +	mutex_unlock(&snd_control_led_mutex);
-> +	snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_SPK_LED);
-> +	snd_ctl_led_set_state(card, SNDRV_CTL_ELEM_ACCESS_MIC_LED);
-> +}
-> diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-> index 90759391cbac..ccf788ede8ba 100644
-> --- a/sound/pci/hda/Kconfig
-> +++ b/sound/pci/hda/Kconfig
-> @@ -9,7 +9,8 @@ config SND_HDA
->  	select SND_HDA_CORE
->  
->  config SND_HDA_GENERIC_LEDS
-> -       bool
-> +	bool
-> +	select SND_LED	# just for test, ignore, please!
->  
->  config SND_HDA_INTEL
->  	tristate "HD Audio PCI"
-> 
-
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: 06 February 2021 12:35 AM
+> To: Sia, Jee Heng <jee.heng.sia@intel.com>
+> Cc: alsa-devel@alsa-project.org; tiwai@suse.com; pierre-
+> louis.bossart@linux.intel.com
+> Subject: Re: [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
+>=20
+> On Thu, Feb 04, 2021 at 09:42:54AM +0800, Sia Jee Heng wrote:
+> > The below patch series are to support Audio over HDMI.
+> > The modification in this patch series shall allow I2S driver to
+> > playback standard PCM format and IEC958 encoded format to the
+> ADV7511
+> > HDMI chip.
+>=20
+> This seems fine - what's the plan for getting the DRM patch merged?  I
+> can apply it if that's best for people.
+[>>] Hi Mark, if there is no issue to the flows and no concern from the res=
+t, I think the changes to the Sound can be merged first. I shall submit the=
+ DRM patch to the DRM community later.

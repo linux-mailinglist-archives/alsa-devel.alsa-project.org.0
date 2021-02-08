@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D34DF3143B0
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 00:25:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A210A3143B7
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 00:27:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60B7616AD;
-	Tue,  9 Feb 2021 00:24:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60B7616AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC5D168B;
+	Tue,  9 Feb 2021 00:26:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC5D168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612826725;
-	bh=tmoeTG1GcnuxfOLn9QSPloyite1LOyrwuYRtLxk4lvc=;
+	s=default; t=1612826820;
+	bh=S3pRv5LwDEfY2Qt+KYpa0ouTiDhZCO81E2UKRd5yH04=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cyizf2vf9l0FNaHvpC9fKnMEWNKvy2/Kt5yeEHCy6z0iWlirQBK+fUeUUux9YOqTn
-	 0o4k4B7dypQO3L0jBdkTmVKQpR+dOk0gQ8YJNma5xBlsMzoGItManA2FbhtAvoUKLh
-	 KC3u1wAPnpHjqYfma6Jsr0MWgwYXipBUSfSv7fTI=
+	b=S1M19Ty4OuX5T5dGYybV9SWroZkJpU7aLUTCEwvP+sFy+0knli5mQ0hFWVGwsgMSy
+	 xmigxm/WedLYstpbx9Y8lXJQSdsd4w/EiNoP+tGAtwjRLVli7UVfraedlaIa70lCNW
+	 zUVxNsR6NtmYysteLswdh54YgMH1LKPlyHt0QsHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91E6EF8027B;
-	Tue,  9 Feb 2021 00:23:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0748F802E2;
+	Tue,  9 Feb 2021 00:23:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1951F80278; Tue,  9 Feb 2021 00:23:45 +0100 (CET)
+ id 33289F80290; Tue,  9 Feb 2021 00:23:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,38 +33,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2E1DF80165
- for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 00:23:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2E1DF80165
-IronPort-SDR: yEqeO0yzP2LJrHT+PU++KIbPVSe5hwW5PldUGbJMBP1it6td+3SZJWp0pSp0n/PGSFcVEKamSi
- elfnwEiHCX4g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="243295592"
-X-IronPort-AV: E=Sophos;i="5.81,163,1610438400"; d="scan'208";a="243295592"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C115F80264
+ for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 00:23:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C115F80264
+IronPort-SDR: wUkIXpqMtc1QA5vToFn6LWwfXNc0XVeCdhzDeYME2W16wr+XBx7rR9kWwEFtPqRi03ERsmbmBZ
+ fCMSG0R+asUw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="243295596"
+X-IronPort-AV: E=Sophos;i="5.81,163,1610438400"; d="scan'208";a="243295596"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 15:22:16 -0800
-IronPort-SDR: hpMqE0sEW5ZDMVZt6E8waDl313yo9K+O+0GdHSueIwch2flexldVJgx8agcboL/HRXVM+unSmT
- 9mEzRMucguoQ==
-X-IronPort-AV: E=Sophos;i="5.81,163,1610438400"; d="scan'208";a="585854675"
+ 08 Feb 2021 15:22:17 -0800
+IronPort-SDR: d8i5SPbqpTcsUcA1Cw6WL8gIFKEJhNppkgt5EVcyGYPRXb+1NGc+go/40biiaRe0dYqe+J81iW
+ F69JjjH+v0Xw==
+X-IronPort-AV: E=Sophos;i="5.81,163,1610438400"; d="scan'208";a="585854679"
 Received: from pmane-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.145.183])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Feb 2021 15:22:16 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/5] ASoC: SOF: fix string format for errors
-Date: Mon,  8 Feb 2021 17:21:46 -0600
-Message-Id: <20210208232149.58899-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/5] ASoC: SOF: remove unused functions
+Date: Mon,  8 Feb 2021 17:21:47 -0600
+Message-Id: <20210208232149.58899-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210208232149.58899-1-pierre-louis.bossart@linux.intel.com>
 References: <20210208232149.58899-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Daniel Baluta <daniel.baluta@gmail.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Curtis Malainey <cujomalainey@chromium.org>
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,115 +79,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 
-These are negative error return values, printing them as hex is annoying
-and not beneficial. Switch back to signed type to make error lookup
-simpler.
+hda_dsp_dump_skl() is never used and hda_dsp_get_status_skl() is
+only called from that function. Remove both functions.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Keyon Jie <yang.jie@intel.com>
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-compress.c | 2 +-
- sound/soc/sof/intel/hda-dsp.c      | 2 +-
- sound/soc/sof/intel/hda-loader.c   | 6 +++---
- sound/soc/sof/intel/hda-pcm.c      | 2 +-
- sound/soc/sof/intel/hda-trace.c    | 4 ++--
- 5 files changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/sof/intel/hda.c | 50 ---------------------------------------
+ sound/soc/sof/intel/hda.h |  1 -
+ 2 files changed, 51 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-compress.c b/sound/soc/sof/intel/hda-compress.c
-index c6cf7b313934..fe2f3f7d236b 100644
---- a/sound/soc/sof/intel/hda-compress.c
-+++ b/sound/soc/sof/intel/hda-compress.c
-@@ -82,7 +82,7 @@ int hda_probe_compr_set_params(struct snd_sof_dev *sdev,
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 447163494b05..57853ef89cd1 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -317,26 +317,6 @@ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
+ 	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
+ };
  
- 	ret = hda_dsp_stream_hw_params(sdev, stream, dmab, NULL);
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
-+		dev_err(sdev->dev, "error: hdac prepare failed: %d\n", ret);
- 		return ret;
- 	}
- 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index e92e9750b720..72c0b8e9a196 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -732,7 +732,7 @@ int hda_dsp_resume(struct snd_sof_dev *sdev)
- 				ret = snd_hdac_ext_bus_link_power_up(hlink);
- 				if (ret < 0) {
- 					dev_dbg(sdev->dev,
--						"error %x in %s: failed to power up links",
-+						"error %d in %s: failed to power up links",
- 						ret, __func__);
- 					return ret;
- 				}
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index d744952f6954..fc25ee8f68dc 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -47,7 +47,7 @@ static struct hdac_ext_stream *cl_stream_prepare(struct snd_sof_dev *sdev, unsig
- 	/* allocate DMA buffer */
- 	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, &pci->dev, size, dmab);
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: memory alloc failed: %x\n", ret);
-+		dev_err(sdev->dev, "error: memory alloc failed: %d\n", ret);
- 		goto error;
- 	}
- 
-@@ -58,13 +58,13 @@ static struct hdac_ext_stream *cl_stream_prepare(struct snd_sof_dev *sdev, unsig
- 	if (direction == SNDRV_PCM_STREAM_CAPTURE) {
- 		ret = hda_dsp_iccmax_stream_hw_params(sdev, dsp_stream, dmab, NULL);
- 		if (ret < 0) {
--			dev_err(sdev->dev, "error: iccmax stream prepare failed: %x\n", ret);
-+			dev_err(sdev->dev, "error: iccmax stream prepare failed: %d\n", ret);
- 			goto error;
- 		}
- 	} else {
- 		ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
- 		if (ret < 0) {
--			dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
-+			dev_err(sdev->dev, "error: hdac prepare failed: %d\n", ret);
- 			goto error;
- 		}
- 		hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
-diff --git a/sound/soc/sof/intel/hda-pcm.c b/sound/soc/sof/intel/hda-pcm.c
-index 689934131a68..df00db8369c7 100644
---- a/sound/soc/sof/intel/hda-pcm.c
-+++ b/sound/soc/sof/intel/hda-pcm.c
-@@ -111,7 +111,7 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
- 
- 	ret = hda_dsp_stream_hw_params(sdev, stream, dmab, params);
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
-+		dev_err(sdev->dev, "error: hdac prepare failed: %d\n", ret);
- 		return ret;
- 	}
- 
-diff --git a/sound/soc/sof/intel/hda-trace.c b/sound/soc/sof/intel/hda-trace.c
-index 81d76d3debc6..29e3da3c63db 100644
---- a/sound/soc/sof/intel/hda-trace.c
-+++ b/sound/soc/sof/intel/hda-trace.c
-@@ -32,7 +32,7 @@ static int hda_dsp_trace_prepare(struct snd_sof_dev *sdev)
- 
- 	ret = hda_dsp_stream_hw_params(sdev, stream, dmab, NULL);
- 	if (ret < 0)
--		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
-+		dev_err(sdev->dev, "error: hdac prepare failed: %d\n", ret);
- 
- 	return ret;
+-static void hda_dsp_get_status_skl(struct snd_sof_dev *sdev)
+-{
+-	u32 status;
+-	int i;
+-
+-	status = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-				  HDA_ADSP_FW_STATUS_SKL);
+-
+-	for (i = 0; i < ARRAY_SIZE(hda_dsp_rom_msg); i++) {
+-		if (status == hda_dsp_rom_msg[i].code) {
+-			dev_err(sdev->dev, "%s - code %8.8x\n",
+-				hda_dsp_rom_msg[i].msg, status);
+-			return;
+-		}
+-	}
+-
+-	/* not for us, must be generic sof message */
+-	dev_dbg(sdev->dev, "unknown ROM status value %8.8x\n", status);
+-}
+-
+ static void hda_dsp_get_status(struct snd_sof_dev *sdev)
+ {
+ 	u32 status;
+@@ -385,36 +365,6 @@ static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
+ 		       stack_words * sizeof(u32));
  }
-@@ -59,7 +59,7 @@ int hda_dsp_trace_init(struct snd_sof_dev *sdev, u32 *stream_tag)
- 	 */
- 	ret = hda_dsp_trace_prepare(sdev);
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: hdac trace init failed: %x\n", ret);
-+		dev_err(sdev->dev, "error: hdac trace init failed: %d\n", ret);
- 		hda_dsp_stream_put(sdev, SNDRV_PCM_STREAM_CAPTURE, *stream_tag);
- 		hda->dtrace_stream = NULL;
- 		*stream_tag = 0;
+ 
+-void hda_dsp_dump_skl(struct snd_sof_dev *sdev, u32 flags)
+-{
+-	struct sof_ipc_dsp_oops_xtensa xoops;
+-	struct sof_ipc_panic_info panic_info;
+-	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
+-	u32 status, panic;
+-
+-	/* try APL specific status message types first */
+-	hda_dsp_get_status_skl(sdev);
+-
+-	/* now try generic SOF status messages */
+-	status = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-				  HDA_ADSP_ERROR_CODE_SKL);
+-
+-	/*TODO: Check: there is no define in spec, but it is used in the code*/
+-	panic = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-				 HDA_ADSP_ERROR_CODE_SKL + 0x4);
+-
+-	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE) {
+-		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
+-				      HDA_DSP_STACK_DUMP_SIZE);
+-		snd_sof_get_status(sdev, status, panic, &xoops, &panic_info,
+-				   stack, HDA_DSP_STACK_DUMP_SIZE);
+-	} else {
+-		dev_err(sdev->dev, "error: status = 0x%8.8x panic = 0x%8.8x\n",
+-			status, panic);
+-		hda_dsp_get_status_skl(sdev);
+-	}
+-}
+-
+ /* dump the first 8 dwords representing the extended ROM status */
+ static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, u32 flags)
+ {
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 488c0ace4d28..d1c38c37bc9d 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -518,7 +518,6 @@ int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev);
+ int hda_dsp_runtime_resume(struct snd_sof_dev *sdev);
+ int hda_dsp_runtime_idle(struct snd_sof_dev *sdev);
+ int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
+-void hda_dsp_dump_skl(struct snd_sof_dev *sdev, u32 flags);
+ void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags);
+ void hda_ipc_dump(struct snd_sof_dev *sdev);
+ void hda_ipc_irq_dump(struct snd_sof_dev *sdev);
 -- 
 2.25.1
 

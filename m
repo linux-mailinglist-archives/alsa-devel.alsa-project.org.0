@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5254F313DD5
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E0F313DD0
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:42:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAB9E16A5;
-	Mon,  8 Feb 2021 19:42:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAB9E16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B9BA1696;
+	Mon,  8 Feb 2021 19:41:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B9BA1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612809796;
-	bh=tss5CueiJnDL3MQdOcYvMImlJHBkgWHNZ6Ctf9Hu290=;
+	s=default; t=1612809733;
+	bh=3ois11Yw0OCVBp7rzynFPyjIFNcUmymvmaWvOWnKiZY=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JH3aocx1bkNu0SyfIa2MWNV74Jh7CEbnQ0/A/H7b9N3HRNwFFG6XFUxXkv7lGjar6
-	 0zc2dD6CKGes9b0Dbt/SSwHLqBJSVOUCH61Sm43qOAt/O16YTwm+aJ1F/1pdcOlg2F
-	 uNMcXEYWYby6dZB1BytUpSCAmSV6YbgCHOjV+Kq0=
+	b=Ua+jD5I5vEVzlp71pmBLPk7sFWfp043ld90Tf4qHwy3KJCrmuXBh8cDc7AE1o8z4q
+	 YPiG+x4NSc4xQmRj2z1oxbe3XS4WJgUPfq9yHtHfXkieF/nO8qCuIso0/P6OwuVG15
+	 cuoiCmyEX/g5Yx/cMtvnecYV/kzihda00Ta36JNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F3A3F804AF;
-	Mon,  8 Feb 2021 19:39:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89DC0F802D2;
+	Mon,  8 Feb 2021 19:39:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12562F80431; Mon,  8 Feb 2021 19:39:48 +0100 (CET)
+ id 57733F802CA; Mon,  8 Feb 2021 19:39:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF222F80431
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF222F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90201F8028B
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90201F8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Rq0ciCbt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2355764E66;
- Mon,  8 Feb 2021 18:39:42 +0000 (UTC)
+ header.b="uIw5+KV2"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E772E64E66;
+ Mon,  8 Feb 2021 18:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612809583;
- bh=tss5CueiJnDL3MQdOcYvMImlJHBkgWHNZ6Ctf9Hu290=;
+ s=k20201202; t=1612809562;
+ bh=3ois11Yw0OCVBp7rzynFPyjIFNcUmymvmaWvOWnKiZY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Rq0ciCbt930kk0Bdzg6mM4FYlGg1vJNBIrVL3TVG/o2Ln1H4i8/58q4L/armVfnoc
- I05bNV8/n2VffU/DLgRQkyGPJCBwSVqROhTyTy/wqWdH4BxUDw/ZeHxxCNdtHfpXm8
- VKdsLO/nYcyy73qE6ZxvZzw+efT1Y5q2qih98Gwhs3j31Dk+8RF40SPfR6F7oMd0al
- Asbt7vBui0tlsCW/GPUsDwNh3qL/yiyrYGHexorcCBzuS5SxzWw4e/ADPts9zX6RoQ
- +fBJaTxhO8+eRA1uKnK4zh2QNY7lxEVPb/SgqTra2orA3/vYxgH6pJB+cRYvh29Gif
- kq5UfBNmIFOmA==
+ b=uIw5+KV23s40ht3fT+Rmi7g980WoqipjxK3eG+JSwH42d86anriottqXxbX5ZxtIr
+ 8WejkzvKWQI8hhOCui1F6chkKEw05NJaXfBQl7wX7Hfy1eGbCyZmk4uplWFdaECMsl
+ xc6cGtI/sc5ODHXze05FqVVasCRHrOYERM7/+uIHA4/ksN7gtA4khsVtm9O9ASlr94
+ SvjJvCxXVX30omSsJjAiu6bR4C4tP5rPDsuOqxsFLoJur/gUrNFSTBbx/CFTeBpm8y
+ yuWgOOq/tyRNiIx9Q6wPhIjqdEWHZxeE/rOpjJSLB5OLkJcuyrPx65MT53lPMmMDPp
+ r59dktBONu7qA==
 From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-In-Reply-To: <20210206142243.535544-1-festevam@gmail.com>
-References: <20210206142243.535544-1-festevam@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_esai: Remove unused 'imx' field
-Message-Id: <161280948304.10741.7239091426541749590.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Sia Jee Heng <jee.heng.sia@intel.com>
+In-Reply-To: <20210204014258.10197-1-jee.heng.sia@intel.com>
+References: <20210204014258.10197-1-jee.heng.sia@intel.com>
+Subject: Re: (subset) [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
+Message-Id: <161280948305.10741.11660965557935957578.b4-ty@kernel.org>
 Date: Mon, 08 Feb 2021 18:38:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- shengjiu.wang@gmail.com
+Cc: pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,8 +77,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 6 Feb 2021 11:22:43 -0300, Fabio Estevam wrote:
-> The 'imx' field is not used anywhere, so get rid of it.
+On Thu, 4 Feb 2021 09:42:54 +0800, Sia Jee Heng wrote:
+> The below patch series are to support Audio over HDMI.
+> The modification in this patch series shall allow I2S driver
+> to playback standard PCM format and IEC958 encoded format to
+> the ADV7511 HDMI chip.
+> 
+> ALSA IEC958 plugin will be used to compose the IEC958 format.
+> 
+> [...]
 
 Applied to
 
@@ -87,8 +93,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_esai: Remove unused 'imx' field
-      commit: 40bd053bc8e18b68e877bd4cdea1b6938ddf5fdd
+[1/4] ASoC: codec: hdmi-codec: Support IEC958 encoded PCM format
+      commit: 28785f548d18e6d52785a1172e5c176784ce74cd
+[3/4] dt-bindings: sound: Intel, Keembay-i2s: Add hdmi-i2s compatible string
+      commit: d5e16dc5fdad09d7b3133b6aaea7848bfb518e04
+[4/4] ASoC: Intel: KMB: Support IEC958 encoded PCM format
+      commit: 1c5f6e0714c16e3ad8732e49e07082772dcc6f87
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

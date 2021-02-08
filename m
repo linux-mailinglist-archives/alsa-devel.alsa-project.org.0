@@ -2,71 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D7E3139AD
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 17:41:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 718FE31398C
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 17:34:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FFEE1678;
-	Mon,  8 Feb 2021 17:40:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FFEE1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD46E84A;
+	Mon,  8 Feb 2021 17:33:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD46E84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612802463;
-	bh=70cHdvu5kwQc+Xp7joWoqcz6bAw9QF2jBOnoKnOVBfQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612802082;
+	bh=Uzev0ALhE4ZFJmh/d8jaQEzlm2VEaJRB7FhxMA3TBCY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pgqystQMbFStV+Z4I8t8EFTBfuHNFA2E+5Mru5oLGKbvTRaUFWRmKjJ5iGSIryFZq
-	 2MwXxlXq5OC3HDIxfIXch+n2+E9VLNBsqvv6b/iK6kI0xBOOaXdj8eBVP2tmNaNhEZ
-	 agaw2k6SPYJ3NPNrr4gg/CBsuwu1lKGIWbunYygw=
+	b=JTCL8lip7367JdjHB59cooAx1LXJ1OKyXEy2ziur5Ly4qHHHCkMBEqyE6KmsFtJVq
+	 5nNWB7f5DIOze11nuw8szERQm23vxz5DvSsbRL8jUuqrNHS8A6zPwugyl5HkoFBOeT
+	 jsxXbY2EDkFcXusA/4kiV+grvUdl/H7eViNL9U0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9DF2F802A0;
-	Mon,  8 Feb 2021 17:38:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3893AF8022D;
+	Mon,  8 Feb 2021 17:33:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B3B6F80290; Mon,  8 Feb 2021 17:38:34 +0100 (CET)
+ id A68D4F8022B; Mon,  8 Feb 2021 17:33:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EA70F8022D
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 17:38:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EA70F8022D
-IronPort-SDR: Hd1Ygr6+Yql44P5ZWBOLHI5LBhhZkU5EHOIYQwjIYrF78YA0Dw1rCmO8MvVowksmWBQ9ZFf5Ea
- fOI+4CcsdQIQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="245810588"
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="245810588"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 08:38:24 -0800
-IronPort-SDR: QzV9IrMZ+miK4k3yknfstPhk2jaNrN7XzQ/QQgMCdld9TZgFvcGgSWxfie93EMUYoTQgIuy/m3
- 1UyWZzOU0qYw==
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="377835388"
-Received: from rahaness-mobl.amr.corp.intel.com (HELO [10.212.141.76])
- ([10.212.141.76])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 08:38:23 -0800
-Subject: Re: [PATCH v2] ALSA: hda: intel-dsp-config: Add
- SND_INTEL_BYT_PREFER_SOF Kconfig option
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20210208135919.135600-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f5266816-d4e9-3bec-7ac4-e933c8a5078e@linux.intel.com>
-Date: Mon, 8 Feb 2021 09:33:46 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210208135919.135600-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5A5BF80165
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 17:33:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5A5BF80165
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CF2D6AB98;
+ Mon,  8 Feb 2021 16:33:02 +0000 (UTC)
+Date: Mon, 08 Feb 2021 17:33:02 +0100
+Message-ID: <s5h5z32y0xt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] [RFC] ALSA: control - add generic LED API to sound core
+ routines
+In-Reply-To: <3bc1b151-68ce-8408-aff1-aeba2e6fe4c3@perex.cz>
+References: <20210207201157.869972-1-perex@perex.cz>
+ <s5him72y4q0.wl-tiwai@suse.de>
+ <3bc1b151-68ce-8408-aff1-aeba2e6fe4c3@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Perry Yuan <Perry.Yuan@dell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +73,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 2/8/21 7:59 AM, Hans de Goede wrote:
-> The kernel has 2 drivers for the Low Power Engine audio-block on
-> Bay- and Cherry-Trail SoCs. The old SST driver and the new SOF
-> driver. If both drivers are enabled then the kernel will default
-> to using the old SST driver, unless told otherwise through the
-> snd_intel_dspcfg.dsp_driver module-parameter.
+On Mon, 08 Feb 2021 17:17:29 +0100,
+Jaroslav Kysela wrote:
 > 
-> Add a boolean SND_INTEL_BYT_PREFER_SOF Kconfig option, which when set to Y
-> will make the kernel default to the new SOF driver instead.
-> The option defaults to n, preserving the current behavior.
+> Dne 08. 02. 21 v 16:11 Takashi Iwai napsal(a):
+> > On Sun, 07 Feb 2021 21:11:57 +0100,
+> > Jaroslav Kysela wrote:
+> >>
+> >> [DO NOT MERGE!]
+> >> [This is just an early proposal for comments]
+> >> [The code is not tested / debugged]
+> >>
+> >> The recent laptops have usually two LEDs assigned to reflect
+> >> the speaker and microphone mute state. This implementation
+> >> adds a tiny layer on top of the control API which calculates
+> >> the state for those LEDs using the driver callbacks.
+> >>
+> >> Two new access flags are introduced to describe the controls
+> >> which affects the audio path settings (an easy path for drivers).
+> >>
+> >> The LED resource can be shared with multiple sound cards with
+> >> this code. The user space controls may be added to the state
+> >> chain, too.
+> >>
+> >> This code should replace the LED code in the HDA driver and
+> >> add a possibility to easy extend the other drivers (ASoC
+> >> codecs etc.).
+> > 
+> > Having a common helper in the ALSA core sounds like a good way to go.
+> > 
+> > My slight concern is that this will end up having the dependency on
+> > LEDS stuff unconditionally when CONFIG_SND_LED=y.
 > 
-> Making this configurable will help distributions such as Fedora:
-> https://fedoraproject.org/w/index.php?title=Changes/SofDefaultForIntelLpe
-> to test using SOF on BYT/CHT during the transition phase where we
-> have both drivers (eventually the old driver and this option will
-> be removed).
+> You probably mean that the LEDs subsystem is activated even if we don't have
+> audio LED class driver connected, right?
+
+Yes.
+
+> I think that the HDA way (select conditionally the LED code) in the low-level
+> driver Kconfig is good, but I'm open for any other suggestions.
+
+Well, in the case of HD-audio, it's only for HD-audio.  But with this
+change, LEDS class will be always loaded on distro kernels no matter
+which sound driver is actually used.
+
+I guess we can split the LED-support code to another module?
+The problem would be the registration from the control core.  The
+other parts look already isolated enough.
+
+
+> > Also, are those new access flags exposed to user-space intentionally,
+> > so that user-space gets some information?
 > 
-> Note that this drops the acpi_config_table[] containing 2 entries per ACPI
-> hardware-id if both drivers are enabled. snd_intel_acpi_dsp_find_config()
-> will always return the first hit, so we only need a single entry with the
-> flags value set depending on the Kconfig settings.
+> Yes, it's one benefit, the second benefit is that we can create user space
+> controls for hardware which does not have any switch / volume controls for the
+> given path.
 > 
-> Suggested-by: Takashi Iwai <tiwai@suse.de>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> An example is the AMD ACP bridge with the simple digital microphones. We can
+> use alsa-lib's softvol plugin to control the volume for this and it would be
+> nice to mark this user space control with the mic mute LED flag.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+OK, makes sense.
 
-Thanks Hans!
 
+> > Last but not least: I'm not sure whether we should limit to only two
+> > LEDs (mic and spk).  I'm afraid that there will be more LEDs in
+> > future; people love decorations :)
+> 
+> We have some more free bits in the access field. If the LED count will
+> increase in future for the standard hardware, we should reconsider the
+> implementation (info callback or so).
+> 
+> Perhaps, it may be clever to reserve three bits from the access flags now (to
+> create a three bit value not a mask). In this case, we can carry information
+> for 7 LED types (assuming that one control element can be assigned only to one
+> LED type).
+
+Sounds like a good idea.  I guess 4 types would suffice for now.
+
+
+thanks,
+
+Takashi

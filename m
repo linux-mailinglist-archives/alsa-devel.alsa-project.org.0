@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A7E33132AB
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:45:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E57583132C5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:53:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE2085D;
-	Mon,  8 Feb 2021 13:44:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE2085D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67EB41675;
+	Mon,  8 Feb 2021 13:52:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67EB41675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612788324;
-	bh=RQfokB3kG1/mBpfaU6sYq5p075g8dqJgfG/Grn6BJww=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1612788783;
+	bh=9IjLVP5T0wUUCJwwqwgMjD3RIpZbFWCwOIuAE4nRasg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ibF/pt4ejJuBMJoo5sUrtUbkqKs1/qUPtHlXdaGwJx5y+MyWDd3iHyGH1aw6TWKpI
-	 TXUUx4M5XlIKsY4pUVD1abJoC27PHhfn5DIjy8jTLHTIu+BApNe3Vw8fM3jCRxq5YX
-	 WNJUyIIJOpwsIhGzp692EYKqfJw+Qj9CAA+/zvMo=
+	b=JpzCTDYpD9iZizwUk50bdK7X8+sFqWUvCBxANVBj5G0kf6SsiYiqKTIQyK4xeWAU1
+	 BQNG+MKHGuR5NCA9Yvx69D709+XbnJEOyNuwH0G1gSE920wFJYmd9RGTNoahMr0ZeD
+	 Re+Kk5dVvgtWbA8VUaB4D1KtBkwgdHO3mGPaK9Ko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5770EF8013A;
-	Mon,  8 Feb 2021 13:43:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADCB8F8022D;
+	Mon,  8 Feb 2021 13:51:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0615F8022D; Mon,  8 Feb 2021 13:43:50 +0100 (CET)
+ id 79400F8022B; Mon,  8 Feb 2021 13:51:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29939F80165
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:43:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29939F80165
-Received: by mail-ot1-f53.google.com with SMTP id k10so11661846otl.2
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 04:43:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=8HAzaz/gp8Ny3U3vTeQA+VApcyhTcxZN/39VG1rw62k=;
- b=tsE/t2H0ygG/cJnEXq/6shjApeuOd8Jd8xK+soDXZv3BuHq6V8Aen5ZqnMaYzXiMkn
- pG9MAou+Yv8ccr69Z26BvcQXFoLl57rEyXn96BqZ6xWyiG/g4NE7UJziZQOMhyHf+pl9
- 7jkk03qQ7XLXsV1Ptls4yLVY8KQxTHwU1Np8oMxxpyWrc1DIZl9VcA3M8aE+HTLCOWYE
- HQtbOr07yrx/X4NmDtXIpNqafXoTw+VaII2EYP/X1YH//StMeDAGfvwuRi+QalqieNG2
- DBSFWqCg4OZ0bkGBQYummw9wlGAvZwexFPq3rjH2LQTmKSmaoIuqPT3WohliLJdHctEh
- VBcA==
-X-Gm-Message-State: AOAM532CpRuPnq0AZkSYy2ZgK+1LP56ChKNUo1w+v6rETl3bxBT5LAVI
- 7R5OVBSGWeDNZnRE2dt85pLP5Cl+jpeY8F1lnnQ=
-X-Google-Smtp-Source: ABdhPJyaocC2wPjxtuBfb3tJQyp9gfJbIpUQFwdV8WVqECi83WVtLzs81p+E1k2jfFBg9ipQnByYuf8GinCabEjq0hY=
-X-Received: by 2002:a05:6830:1481:: with SMTP id
- s1mr952387otq.206.1612788221158; 
- Mon, 08 Feb 2021 04:43:41 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 035ECF8013A
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:51:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 035ECF8013A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Q8K+ouHP"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E12A064E75;
+ Mon,  8 Feb 2021 12:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612788684;
+ bh=9IjLVP5T0wUUCJwwqwgMjD3RIpZbFWCwOIuAE4nRasg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Q8K+ouHPGUQOgK/g4tivJy/BBRC6Sv9PuuYidu3jIhAre2qW1Y2NoXAbOz9O5K1ED
+ OZyrW+hL/FYm7j8DJb51+0w7hm6G+CPkO8d7jIzCKII9cI0yvuesP4G7wcmJTxzEYA
+ BDfumCYMaSq0e6ck9CtFw/5jh7cVKE3+Lk02iStv7P5A5KwgmXrNadLjeBHIfKwJ1D
+ TMcPMkG0Or6S5tYFWC4oyihVZGLScMG+jwqfYtrlquaoEWI4Hxe4MPY5HN0Bfh7jAB
+ HUS/ATt2rzlMxNhU127Lc8bFeXehepYdDChharTda7zf1FzT921PzTBohwMIoBwm7i
+ EpSM1Xaa+MBQw==
+Date: Mon, 8 Feb 2021 12:50:32 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [RESEND PATCH v2 0/9] soundwire/regmap: use _no_pm routines
+Message-ID: <20210208125032.GF8645@sirena.org.uk>
+References: <20210122070634.12825-1-yung-chuan.liao@linux.intel.com>
+ <20210206102644.GN2656@vkoul-mobl.Dlink>
 MIME-Version: 1.0
-References: <a3f01a5d-d7a5-8280-4091-b2486b01a782@linux.intel.com>
- <20210208120104.204761-1-marcin.slusarz@gmail.com>
- <20210208120104.204761-2-marcin.slusarz@gmail.com>
-In-Reply-To: <20210208120104.204761-2-marcin.slusarz@gmail.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 8 Feb 2021 13:43:25 +0100
-Message-ID: <CAJZ5v0jSqmpnbpahGBRSjddOecqA1f-9GfvNwjdV0pH7xQ3iVg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ACPICA: update documentation of acpi_walk_namespace
-To: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Erik Kaneda <erik.kaneda@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Robert Moore <robert.moore@intel.com>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>, marcin.slusarz@intel.com,
- Salvatore Bonaccorso <carnil@debian.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ChQOR20MqfxkMJg9"
+Content-Disposition: inline
+In-Reply-To: <20210206102644.GN2656@vkoul-mobl.Dlink>
+X-Cookie: You will triumph over your enemy.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,65 +86,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 8, 2021 at 1:01 PM Marcin =C5=9Alusarz <marcin.slusarz@gmail.co=
-m> wrote:
->
-> From: Marcin =C5=9Alusarz <marcin.slusarz@intel.com>
->
-> Signed-off-by: Marcin =C5=9Alusarz <marcin.slusarz@intel.com>
 
-A changelog would be appreciated, something like "Make the
-documentation match the code and add a note regarding the return
-values of the callback function and the walk to it".
+--ChQOR20MqfxkMJg9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Anyway, this is ACPICA material, so it should go to Erik & Bob (CCed).
+On Sat, Feb 06, 2021 at 03:56:44PM +0530, Vinod Koul wrote:
 
-Thanks!
+> Applied all sdw patches, thanks
 
-> ---
->  drivers/acpi/acpica/nsxfeval.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/acpi/acpica/nsxfeval.c b/drivers/acpi/acpica/nsxfeva=
-l.c
-> index f9d059647cc5..7149c8f70a6e 100644
-> --- a/drivers/acpi/acpica/nsxfeval.c
-> +++ b/drivers/acpi/acpica/nsxfeval.c
-> @@ -532,8 +532,8 @@ static void acpi_ns_resolve_references(struct acpi_ev=
-aluate_info *info)
->   *              return_value        - Location where return value of
->   *                                    user_function is put if terminated=
- early
->   *
-> - * RETURNS      Return value from the user_function if terminated early.
-> - *              Otherwise, returns NULL.
-> + * RETURNS      Returns status from the callback function if terminated =
-early.
-> + *              Otherwise, returns a status of the walk, AE_OK if succee=
-ded.
->   *
->   * DESCRIPTION: Performs a modified depth-first walk of the namespace tr=
-ee,
->   *              starting (and ending) at the object specified by start_h=
-andle.
-> @@ -542,6 +542,11 @@ static void acpi_ns_resolve_references(struct acpi_e=
-valuate_info *info)
->   *              a non-zero value, the search is terminated immediately a=
-nd this
->   *              value is returned to the caller.
->   *
-> + *              Note that both the callback functions and the walk itsel=
-f
-> + *              use overlapping return values (e.g. AE_OK), so user of t=
-his
-> + *              function can't rely only on the return value to tell if
-> + *              the callback function was called.
-> + *
->   *              The point of this procedure is to provide a generic name=
-space
->   *              walk routine that can be called from multiple places to
->   *              provide multiple services; the callback function(s) can =
-be
-> --
-> 2.25.1
->
+Is there a tag I can pull the new APIs from?
+
+--ChQOR20MqfxkMJg9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAhM5gACgkQJNaLcl1U
+h9Cn5Af/QPKks2pyEPXbJqMyKyRplL9nrj8AmVJjIcza+PjXIXsc95fjt9WJw1w5
+QU5WrskcCm35zqvOOXyjW9Isn2LYK41MblnPE+XAEofNsNSAWwCqnGMR42frS/nm
+SF4l02Q0nuQEz6Lf7042mvYV2qS8QecMNnDlLHfo5yJCp0irtBBF0WWqi0GRPJ+0
+doyhiUzpnSaR90cf5UgQe8CoNJdD9zbU+xmN3lKxP/7dgl18RdAiLs3nxdiRGPX0
+e/M113XNYKBB8CxeP+/cEkWK7c7+0exz5dHfaus2VfLXMMjSD+Fym+9P26rI5iZ4
+CY3U6idFm8VnrEhRGm6JrIBVlztFOQ==
+=ueCe
+-----END PGP SIGNATURE-----
+
+--ChQOR20MqfxkMJg9--

@@ -2,74 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967C3313BA5
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 18:55:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 739C6313C1C
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:03:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C26D168C;
-	Mon,  8 Feb 2021 18:54:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C26D168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87D18168B;
+	Mon,  8 Feb 2021 19:02:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87D18168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612806900;
-	bh=44IGlSmiNO/ptXxnKcy68XxNRgV7v3IbiKamvOEVin4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZMbFRNqhjO9OEvZRBXQxv9YuWdSYr6QWAdULlE5jeV8xAwJT9DGmn615Q9xWCJXvC
-	 N9C1P4dyUKi4Zz4kCAK6zqB4btMFZPTCmH6dKUFaM6AX0rZNYTxhv5ZyfmHrgkLcsO
-	 iKFOC1DFXVDD0aharXovPROEzyoEklHDPVwdga4I=
+	s=default; t=1612807411;
+	bh=GKTUT2MfGGx0ZTIWB+VGYK4uk+guS+dvloGcpzXNbL8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oOhqs1XNh5FwO86zYH9ZpauOgJ6gBM0G3rChiF2UhsUYeHcpbCdeMOzoRFXfAl0J2
+	 41fqFSeZ4an1npO1WziupArZTyBJl5BB5RFnR1krwhOTAaSWXo2zCsi/hJTcESdr11
+	 Oae6gASwd8HhkIUCvYb37k9O6/3WhueGiTYUDDao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16E5EF8022D;
-	Mon,  8 Feb 2021 18:53:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A169AF8022D;
+	Mon,  8 Feb 2021 19:01:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AA93F8022B; Mon,  8 Feb 2021 18:53:26 +0100 (CET)
+ id 38D44F8022B; Mon,  8 Feb 2021 19:01:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E9CDF80165
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 18:53:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E9CDF80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCAB7F80165
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:01:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCAB7F80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OeXaoUKn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 185EE64E88;
- Mon,  8 Feb 2021 17:53:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612806800;
- bh=44IGlSmiNO/ptXxnKcy68XxNRgV7v3IbiKamvOEVin4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OeXaoUKnOrSetN5gaNi/WfUvJWgwfbvr+KsrKvlHtTiBYUNjbQnTYhuSFW4lu+3Xx
- GkuQOB0io1DWeRMwX/6g4UYr/fQ/7y5fBuoiHvO45mneO64+3foNaS/pc27NTOe5t4
- 78ym1uJK93sapCAmhzbWtLvooSDh1eD1JBvo2BCEa5ksYKYxvj/GAqvP1vMICDD0/7
- qiHNoN23jFayd7xaYj2uZrVodC4nbVfFboUugYMsKf3tyLyd3oKBgyyd37YoEKiMVP
- z1E9WiAjMf/VHwwpFBKS8kwcR74PWeqKMJodFIN/0wdKJ5rbgFEfG7jHZgEwAIELoA
- y1pVTnL0rQd1Q==
-Date: Mon, 8 Feb 2021 17:52:28 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
-Message-ID: <20210208175228.GJ8645@sirena.org.uk>
-References: <20210208090432.1078-1-shumingf@realtek.com>
- <20210208122337.GE8645@sirena.org.uk>
- <9eff4f09-b127-5912-f62f-ed1e48db2e36@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ZtQCs63t"
+Received: by mail-wr1-x430.google.com with SMTP id m13so18251166wro.12
+ for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 10:01:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=15qU8cK0fgAua4gEd/w/zhOHPh1Gn9liZ7KcNZSIbsw=;
+ b=ZtQCs63tKC4YNjAK5YtSkl6sRGMzqMgDk9JBWfHaip5ck0jSZBxtvpIAaRPwa/4Io+
+ k4klxIU6HWNuAA8dl5xtXzodHH2zZc8AQ1ya6+D+UEWTgJ1zFvzsn0md+EIMZ2rO/bkC
+ Eb7Ec+eDvh3Kz15Q8ihsCelhajfqZzJhsaf1coknsthLTdni8EkTINxV5UQMpmoOuycS
+ Ap7BuWa6I/xJ1UrEe55XzHpbhp8AApMKsC6y05LrOwdVM6An8kCcJbIp00GVWf7tGqja
+ 8o3faYsFFgVANYKB+UOdAZC54tVQWlUWy0yOZ0PHmetW5fcrfPF7sLKZZ+jpEZLaWa/k
+ lwcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=15qU8cK0fgAua4gEd/w/zhOHPh1Gn9liZ7KcNZSIbsw=;
+ b=BQrlAUmi8TLKPkpCPiZwv+AOkH4IgVftwnItt7o7TNg+xYnns35GcpSl7bEtJ43hzG
+ 32+g9MDRAFSXYs0YzvnqXOodFVs84f4W/JBnHQAF/QdKahD/11Xf5bhYRh5lAV8YwiGd
+ /MjlRO0O8J0zKvCjLrqA8SXNW41gj/DSIPKT+GpPjcSyRZGNGu0m/dq8V5XpePncvut7
+ TW02cZXKUZDweSQYd/9JHwi0Jo/oas7FuzSTMKttwmHmmJB3KofjXV5N9NALsI6nfn7R
+ N8AwGbf8d1z7wxhP3WIGgcuLBL49TrB8aPQIEaED3CC2OFFDbHPaEdara1rsYDp4k+ki
+ xlVg==
+X-Gm-Message-State: AOAM530VwIH9HkbOB7V3ugjWrASzJJCR5c/ne0FHOBH/hOct6lxK2zSp
+ 7pESusdAW2QmBZo5w9fhZxaJDQ==
+X-Google-Smtp-Source: ABdhPJwrqGjJeWdA+BLfOl3RPdiRzmOJ7nilmxlHvJ0QS3yn9XOx2bYatc29bZoEoaYUpqBYS3z34w==
+X-Received: by 2002:adf:bb54:: with SMTP id x20mr13257775wrg.112.1612807313722; 
+ Mon, 08 Feb 2021 10:01:53 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id l2sm21194937wmq.17.2021.02.08.10.01.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Feb 2021 10:01:53 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v3 0/7] ASoC: codecs: add support for LPASS Codec TX and RX
+ macros
+Date: Mon,  8 Feb 2021 18:01:02 +0000
+Message-Id: <20210208180109.518-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="J2uG6jHjFLimDtBY"
-Content-Disposition: inline
-In-Reply-To: <9eff4f09-b127-5912-f62f-ed1e48db2e36@linux.intel.com>
-X-Cookie: You will triumph over your enemy.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com, derek.fang@realtek.com,
- flove@realtek.com, shumingf@realtek.com, bard.liao@intel.com,
- pierre-louis.bossart@intel.com
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,49 +99,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks for reviewing v2, here is v3 patchset addressing comments from v2.
 
---J2uG6jHjFLimDtBY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This patchset adds support for two Codec Macro blocks(TX and RX) available in
+Qualcomm LPASS (Low Power Audio SubSystem).
 
-On Mon, Feb 08, 2021 at 09:26:10AM -0600, Pierre-Louis Bossart wrote:
+There are WSA, VA, TX and RX Macros on LPASS IP, each of the Macro block
+has specific connectivity like WSA Macros are intended to connect
+to WSA Smart speaker codecs via SoundWire. VA Macro is intended for DMICs,
+and TX/RX for Analog codecs via SoundWire like other WCD938x Codecs to provide
+headphone/ear/lineout/amic/dmic etc ..
 
-> > > +	rt1316->rx_mask = rx_mask;
-> > > +	rt1316->slots = slots;
-> > > +	/* slot_width is not used since it's irrelevant for SoundWire */
+Most of the work is derived from downstream Qualcomm kernels.
+Credits to various Qualcomm authors from Patrick Lai's team who have
+contributed to this code.
 
-> > I wouldn't expect to see any TDM stuff at all for SoundWire?  I do see
-> > some crept through though :/
+This patchset has been tested on support to SM8250 MTP Development Board.
+This board has 2 WSA881X smart speakers with onboard DMIC connected to
+internal LPASS codec via WSA  and VA macros respectively and WCD938x
+TX and RX connected via Soundwire via TX and RX Macros reseptively.
 
-> We only use the mask information to let codecs/amplifiers know which
-> channels they need to pick in a stream. This is useful e.g. when we have two
-> (or more) amplifiers on the same link, and you want to tell amplifierA to
-> use ch0 and amplifierB to use ch1.
+Thanks,
+srini
 
-...
+Changes since v2:
+	- Suffix some of the simple on/off control names with "Switch"
 
-> In most cases though all amplifiers on Intel-based solutions extract the
-> same information, and the output will be dynamically selected based on
-> kcontrol information. This is easier to use for e.g. orientation and posture
-> changes.
+Srinivas Kandagatla (7):
+  ASoC: qcom: dt-bindings: add bindings for lpass rx macro codec
+  ASoC: codecs: lpass-rx-macro: add support for lpass rx macro
+  ASoC: codecs: lpass-rx-macro: add dapm widgets and route
+  ASoC: codecs: lpass-rx-macro: add iir widgets
+  ASoC: qcom: dt-bindings: add bindings for lpass tx macro codec
+  ASoC: codecs: lpass-tx-macro: add support for lpass tx macro
+  ASoC: codecs: lpass-tx-macro: add dapm widgets and route
 
-Right, this was my expectation for how this would work - dynamic control
-at runtime so you can do stuff like that rather than a more static setup
-like slot assignment is normally..
+ .../bindings/sound/qcom,lpass-rx-macro.yaml   |   62 +
+ .../bindings/sound/qcom,lpass-tx-macro.yaml   |   67 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/lpass-rx-macro.c             | 3604 +++++++++++++++++
+ sound/soc/codecs/lpass-tx-macro.c             | 1877 +++++++++
+ 6 files changed, 5624 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
+ create mode 100644 sound/soc/codecs/lpass-rx-macro.c
+ create mode 100644 sound/soc/codecs/lpass-tx-macro.c
 
---J2uG6jHjFLimDtBY
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.21.0
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAhelsACgkQJNaLcl1U
-h9Drkgf+IZlqP3iFcqju4pXleyZRjU0S9YMzJ6G4aIHG/QdrhwMQ8l2GuS3HBsdx
-Xt92mFMLbaRAeyzNn/RUjDqiWPsrkvxJgfUZFMi+bsCNbFyrJ9UY8yeXHkh01ipy
-5KlOsCecjA/GXd0txJzPg9RnV9oiujloSal/aEWnFRsgdUqc+RPhkW7ctDJX6ypw
-eVHTTQjOebUUjQ77sxk6oTbySFt4le7qCOwFhQe7zA+vlgwBmTVJZBB6S4dLXvdU
-9GE2ZoXj4m+dYPjTnpmZhl3yM7PHGt3X7lq8az+ML72sshJpYOlIX0HsHE0RoL69
-Zyr4Iwttaw/xyyMFl7Obw7ivckkQ2w==
-=CyV9
------END PGP SIGNATURE-----
-
---J2uG6jHjFLimDtBY--

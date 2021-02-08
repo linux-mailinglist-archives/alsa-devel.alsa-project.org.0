@@ -2,116 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108A6313E9E
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 20:14:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE986314310
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 23:36:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E56816A2;
-	Mon,  8 Feb 2021 20:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E56816A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 728DD836;
+	Mon,  8 Feb 2021 23:35:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 728DD836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612811652;
-	bh=zHsp4P3+0Bq8f7kOYy7DcW6ZzNbTYs8KLNrTUc88KA8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1612823788;
+	bh=NBlqPVIpyQlu0e04vocxuBXBVhg91/G/Laf33d0qnqE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sKnlNfaM44kutYHyg3viQK/R78d3gyVV1pJoq0dkYMP0Gm+WLCpoB5gNQNXVKsMkE
-	 4VxyAdU21DUQ4uRYOe8yEL+/GWIme4yoUE4C6YnPbox0Qv7DYKuENPBWVx5L3QR1o7
-	 8KadWV047p2ojvepIqjkHUK+ke8sf68FMSSAA9cg=
+	b=StJk3n1WGg6yWuy9rTC9ANm9udR6eoEyNaLX6ouez6cOEm5YChfVvmcWSATm+Eo9X
+	 EvEAx9z3M+51jZHZzpJ9YMVLyZCRPH82OYn4RJEKb5MHeGrPyf5E0r36FEmQYiG7qq
+	 Al1ddw1RpGybB2vx+kVCYfkIqOBJtwMX1hovzNPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0CDFF8026B;
-	Mon,  8 Feb 2021 20:12:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5264F8013A;
+	Mon,  8 Feb 2021 23:34:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C4AEF80264; Mon,  8 Feb 2021 20:12:45 +0100 (CET)
+ id C1C8BF8022B; Mon,  8 Feb 2021 23:34:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 890B6F80169
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 20:12:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 890B6F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBB57F80165
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 23:34:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBB57F80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="UrpIYTmP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1612811557;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0ga/01DJtnt1YQ1TickbSUnZPUyWpDjUziTg4Oj+MDw=;
- b=UrpIYTmPb1BqGcad/3pcSdQ0I9nO7OprhPIptygf9ahU0ND0Ir8D6WbhacrA6AEiumS7fW
- 6KL1X3T/8HuGcjgLFfNY8oTDY3iqg0TymsjWUgS969OLow0k5LBwx6xcyYH4zxfx+qayc9
- um44Hb0w7n30XCkv1oNDuWJiseWldX4=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-342-uja1zC_5MMq4VvMewpLTzA-1; Mon, 08 Feb 2021 14:12:36 -0500
-X-MC-Unique: uja1zC_5MMq4VvMewpLTzA-1
-Received: by mail-ej1-f70.google.com with SMTP id yc4so12963420ejb.2
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 11:12:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=0ga/01DJtnt1YQ1TickbSUnZPUyWpDjUziTg4Oj+MDw=;
- b=FxYIfaacwLxhShBVpl/LiQn5FA8ZpA9t37j/Glqbex1OO7+mmDP2Qv0OSuBcxt2lDd
- pIOndJ3RJHOzZ8zC7gf/6GXyUd9oFvqKYTm+sT6h2CvL/5FpLV6342Ps6ycrS36Gu+DO
- A2PMqjnPLEkIZgvR+LH90JGUfiPzypXkc7rX4sO4qoY/8IMjfzvzyq6ZPdcd1P13Jnfa
- ID/z3KlaqAbOXoUW/eA6l7JTBF9HSK2vuSH6UyRkG+P+44pPYAk3oTvlk5kGI4fIDZJu
- dvxkCLEF9m5Qr+JUcqwD2+yFQzBurhS62ZvLLLuLVq5eOo8JNLtJUm2O5jM2GlMHzhla
- sZbw==
-X-Gm-Message-State: AOAM531IR9cA+YcIwtgfN4FDCUzeVD/4NIkA2J14iee8RsCbrGefg0D4
- dL8N/xfuzBAkpjptU5Z1GPXDw+H9NllLF9g6ba2KJJ6vKe8KZ3i9B8gbZ+1fZUSmZdHlbwIp+F1
- LDdML6uhAMHWnNvRNiYayvHztGk1aLoHiMspZJgJGOqV0MZzpchfwr5s++k6LqZ5k5tgv4j9QmI
- g=
-X-Received: by 2002:a05:6402:22f6:: with SMTP id
- dn22mr11621072edb.277.1612811554570; 
- Mon, 08 Feb 2021 11:12:34 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwzItzCsMyLoaRlWPHUWtyEGWvLqhTsVHre+EcZmnPs1dPt8yhgvLufn3Kr2SsDE8JIgKx8kQ==
-X-Received: by 2002:a05:6402:22f6:: with SMTP id
- dn22mr11621045edb.277.1612811554354; 
- Mon, 08 Feb 2021 11:12:34 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id x17sm10032753edd.76.2021.02.08.11.12.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Feb 2021 11:12:33 -0800 (PST)
-Subject: Re: [PATCH v4 resend 00/13] MFD/extcon/ASoC: Rework arizona codec
- jack-detect support
-To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20210204112502.88362-1-hdegoede@redhat.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <ba9c1add-8ac0-766b-4577-1c2769c0e5e6@redhat.com>
-Date: Mon, 8 Feb 2021 20:12:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="P1eZhk03"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qcxV34QF"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2509C5C016C;
+ Mon,  8 Feb 2021 17:34:48 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 08 Feb 2021 17:34:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=DL2tJU08yilTZlR/Evwt++c57Kf
+ EjKKQbfVgHqoAHVQ=; b=P1eZhk03zxFcOm0PJDhDezfy1JFuMM2VhyWECbAYlYM
+ 4lmd+fx2IE/Ai+0wo46s72iacoQDy9PjfMfOufzJ7X8UbZ64R2BIpGyXrlTpPlW6
+ RJLrT+wo+lJR5BOLkNuCx8tSo6DgNs74bukovURaj74NlfATIWP4dZUzxDlrm/eg
+ 9Uob9DzgsKg+WfE00o9fSUoNb2HDHwz+dwcHPRq/PP70RIxyy7ewUSiiE/UXBKZh
+ mJd6ce/wuDPabvGaArq/iQL4tVq/jcT2Co1iRZXvxilHeYYnDqgOFieVFAU8naWn
+ fDbCOC3cdYb0JA99dUndwpVNHa1eCAjH5koY9VxWYlA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DL2tJU
+ 08yilTZlR/Evwt++c57KfEjKKQbfVgHqoAHVQ=; b=qcxV34QF2MLhoLO5NvNEXx
+ Q8F4s1n61ng6WbZLSD5v6C9vZayrxrCl2M+SXEcxq7Lcjh/lAIjIYnrIFoA/PEXC
+ 2GenugkqBHx23QI/uR5q8Rap3JFVKQFU9f17Z1gbMvWmzEGK1pubJj/Lqxh9Lqtz
+ oAKdrCsLbMFjfDB6nMj/HIVpm49YfLHenHKZT0vGJsXbnEXOKhdbNNq1OFefdxeO
+ 9auusLc5g/f5KLPxdNvLcNqb5n3bpN4Nb/hIioYS195FQ+/0Bk460TxqPRhTE7pG
+ IvO/ShOFsQJZjJKJu6gRAHktnq4aZ/fFOupM+Q9ErEYswNBMXALEwh4Arh5pDmjA
+ ==
+X-ME-Sender: <xms:h7whYM73rYthkoPa7lLJd78IVeADSwNMpjgiRfTBZkpuk5wVr4Kizw>
+ <xme:h7whYN6ykyPJi2_8SkOFu_NUm3aCdPo4pTkxES9NG7YFOUTFI1sj9bkCN7Vxux9Oa
+ VwlFL3-IKAPtQXQ4Ck>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrheefgdduieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucfkphepudegrdefrdeihedrudejheenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
+ rghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:h7whYLf0njizeqmLRHaHOdWBVaVJBex_nZr5S19dNv31G0G9reF7Lg>
+ <xmx:h7whYBIIInvv5xM2C5g35yXoOs1WleQtd2abUgx07gyDnAOeufCq-Q>
+ <xmx:h7whYAJgmUlvgfzO2fVpXCboyGedBHTiwtP0_98G4UakTW4h1lLsQQ>
+ <xmx:iLwhYHWre5puWIv9FdyrC8Ugv6keBpjYuLWf0YjawxGhQk3lUkI42w>
+Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1B97A108005B;
+ Mon,  8 Feb 2021 17:34:45 -0500 (EST)
+Date: Tue, 9 Feb 2021 07:34:43 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] [RFC] ALSA: control - add generic LED API to sound core
+ routines
+Message-ID: <20210208223443.GA258185@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Perry Yuan <Perry.Yuan@dell.com>
+References: <20210207201157.869972-1-perex@perex.cz>
+ <s5him72y4q0.wl-tiwai@suse.de>
+ <3bc1b151-68ce-8408-aff1-aeba2e6fe4c3@perex.cz>
+ <s5h5z32y0xt.wl-tiwai@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20210204112502.88362-1-hdegoede@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: patches@opensource.cirrus.com, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5h5z32y0xt.wl-tiwai@suse.de>
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Perry Yuan <Perry.Yuan@dell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,69 +123,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark, Lee,
+Hi,
 
-On 2/4/21 12:24 PM, Hans de Goede wrote:
-> Hi all,
+On Mon, Feb 08, 2021 at 05:33:02PM +0100, Takashi Iwai wrote:
+> > > Also, are those new access flags exposed to user-space intentionally,
+> > > so that user-space gets some information?
+> > 
+> > Yes, it's one benefit, the second benefit is that we can create user space
+> > controls for hardware which does not have any switch / volume controls for the
+> > given path.
+> > 
+> > An example is the AMD ACP bridge with the simple digital microphones. We can
+> > use alsa-lib's softvol plugin to control the volume for this and it would be
+> > nice to mark this user space control with the mic mute LED flag.
 > 
-> Here is v4 of my series to rework the arizona codec jack-detect support
-> to use the snd_soc_jack helpers instead of direct extcon reporting.
-> 
-> This is a resend with some extra *-by tags collected and with the extcon
-> folks added to the "To:" list, which I somehow missed with the original
-> v4 posting, sorry.
-> 
-> This is done by reworking the extcon driver into an arizona-jackdet
-> library and then modifying the codec drivers to use that directly,
-> replacing the old separate extcon child-devices and extcon-driver.
-> 
-> This brings the arizona-codec jack-detect handling inline with how
-> all other ASoC codec driver do this. This was developed and tested on
-> a Lenovo Yoga Tablet 1051L with a WM5102 codec.
-> 
-> This was also tested by Charles Keepax, one of the Cirrus Codec folks.
-> 
-> This depends on the previously posted "[PATCH v4 0/5] MFD/ASoC: Add
-> support for Intel Bay Trail boards with WM5102 codec" series and there
-> are various interdependencies between the patches in this series.
-> 
-> Lee Jones, the MFD maintainer has agreed to take this series upstream
-> through the MFD tree and to provide an immutable branch for the ASoC
-> and extcon subsystems to merge.
-> 
-> Mark and extcon-maintainers may we have your ack for merging these
-> through the MFD tree ?
+> OK, makes sense.
 
-Now that the pre-cursor (1) series to this has been merged, I guess it
-is time to decide how to merge this series. 
+I have a concern about the usage of access flag for such kind of
+hardware specific stuffs (LED dedicated to specific audio control)
+since it's not enough hardware abstraction.
 
-Chanwoo Choi has given his ack to merge the extcon bits through the MFD
-tree and since Mark has expressed a preference for merging ASOC patches
-directly I guess that it would be best to merge 1-6 through the MFD
-tree and then Lee can send Mark a pull-req and Mark can apply the others? :
-
-1/13  mfd: arizona: Drop arizona-extcon cells
-2/13  extcon: arizona: Fix some issues when HPDET IRQ fires after the jack has been unplugged
-3/13  extcon: arizona: Fix various races on driver unbind
-4/13  extcon: arizona: Fix flags parameter to the gpiod_get("wlf,micd-pol") call
-5/13  extcon: arizona: Always use pm_runtime_get_sync() when we need the device to be awake
-6/14  ASoC/extcon: arizona: Move arizona jack code to sound/soc/codecs/arizona-jack.c
-
-1 is:    Acked-for-MFD-by: Lee Jones <lee.jones@linaro.org>
-2-6 are: Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
-
-Note patch 6 renames drivers/extcon/extcon-arizona.c to sound/soc/codecs/arizona-jack.c
-but it does not touch any other files under sound/soc (including NOT touching
-sound/soc/codecs/Makefile that is done in a later patch). So it cannot cause any
-conflicts.
-
-Mark, would merging 1-6 through the MFD tree, and you applying the rest
-(which are all ASoC patches) work for you ?
-
-Regards,
-
-Hans
+In my opinion, for the case, developers for in-kernel driver tend to use
+specific name for control elements (or prefix/suffix of the name). Adding
+new access flags for it seems to be overengineering against the original
+purpose.
 
 
-1) "[PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail boards with WM5102 codec"
+The patch itself includes some remarkable ideas that:
+ - introduction of association between control elements
+ - analyzing current status of the association (then operate LEDs)
+ - communication to userspace stuffs about the association
 
+(here I carefully avoid usage of word 'topology'.)
+
+The association itself seems to be useful when cooperating use case manager
+of alsa-lib. I guess that the kind of framework designed for the association
+is preferable instead of the patch tight-coupled to LED stuffs.
+(And some subsystem already attempts to implement such framework into kernel
+land, e.g. media controller devices in media subsystem.)
+
+
+In another side, I guess that the reason to supply the association to
+kernel land is to use 'ledtrig_audio_set()' kernel API. If userspace
+stuffs find target LEDs and operate them via userspace interface,
+the association could be in userspace. I think it better to investigate
+for the direction since I can imagine that the introduction of association
+to kernel land brings much codes into kernel land to support wide-variety
+of hardware (and going to be obsoleted according to lifetime of actual
+hardware sooner or later).
+
+
+Regards
+
+Takashi Sakamoto

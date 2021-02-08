@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4928313282
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:39:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7E33132AB
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:45:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 409011671;
-	Mon,  8 Feb 2021 13:38:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 409011671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE2085D;
+	Mon,  8 Feb 2021 13:44:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE2085D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612787988;
-	bh=CbzCyh1EV6Wdlcg7ocCzKSyp2ew9Lq66EHN5Y8sYdAA=;
+	s=default; t=1612788324;
+	bh=RQfokB3kG1/mBpfaU6sYq5p075g8dqJgfG/Grn6BJww=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vROIss0OzBiobcfpe6u3W/qZef6pzNW0v3Xa+jvE5+FDw6q0aKfEcNoSm2Tr8UU/V
-	 AxWomY0FgpkaRWByEDkWqaZqbhvxpNbVnXO4krL0E4PsuROYMEBaJ3wn/LhZ5qbH+z
-	 hKTZn3Wzc5x+V32BKCao0eKBsjSehZ+oxb6Ul3Do=
+	b=ibF/pt4ejJuBMJoo5sUrtUbkqKs1/qUPtHlXdaGwJx5y+MyWDd3iHyGH1aw6TWKpI
+	 TXUUx4M5XlIKsY4pUVD1abJoC27PHhfn5DIjy8jTLHTIu+BApNe3Vw8fM3jCRxq5YX
+	 WNJUyIIJOpwsIhGzp692EYKqfJw+Qj9CAA+/zvMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E315F8022D;
-	Mon,  8 Feb 2021 13:38:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5770EF8013A;
+	Mon,  8 Feb 2021 13:43:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90E64F8022B; Mon,  8 Feb 2021 13:38:13 +0100 (CET)
+ id B0615F8022D; Mon,  8 Feb 2021 13:43:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
  FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92DECF8013A
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:38:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92DECF8013A
-Received: by mail-ot1-f52.google.com with SMTP id 100so7320887otg.3
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 04:38:02 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29939F80165
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:43:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29939F80165
+Received: by mail-ot1-f53.google.com with SMTP id k10so11661846otl.2
+ for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 04:43:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=gbZdR5Lw4U9OIGoquOFmnrMhu8I9FVI8Ru3ZkEvZMmk=;
- b=srzHBkV04VPjROpcUiWoDvu9Gmn7erq+983EYPULVmcNIJdGrJ/uRgPMYE9/xNASGT
- vtjwxBh+bewR+bFSdc5QWrUSmOq30hNwsM+Wrq0aHsp1NIqRNtuE0/6GSrdGssZyejiw
- ZEcVVfhc2w/wYtK6lZS1XUi2jl9ZjNmSc7GxHooFsYOWRK68Rn58kT/9yIxGqpzLWD+J
- uW/8V9OD0BgR0NDxaByHnwKIhPDdWIA6tQzOFtMIUeeh+N3/GNOztwGuDiiQRsS4FDEh
- DQ9/LewTskI+pN+RIVLxVp8fmY2COqNJx25MiuB9Zy2cw8+wKsBzaGwTtRlxNcl8u6tI
- Apww==
-X-Gm-Message-State: AOAM531w1OXo4OL8b8A0NYXcmcQ0vbfYOxXRiAZpy48oBlo6rxn/Uuvh
- jhJ/G/FZf/RL/T0Q1HUBXY5WD7IBCDBHLKN6jPw=
-X-Google-Smtp-Source: ABdhPJxTx2pWDmv4bLeG+MJ0etGc6OibqCyrYMzKqC2tHorFOXr06PwKwgbQ50gNxITnuiDJflDKU4Ol+xGSj/vPsxg=
-X-Received: by 2002:a05:6830:2106:: with SMTP id
- i6mr1669168otc.260.1612787880811; 
- Mon, 08 Feb 2021 04:38:00 -0800 (PST)
+ bh=8HAzaz/gp8Ny3U3vTeQA+VApcyhTcxZN/39VG1rw62k=;
+ b=tsE/t2H0ygG/cJnEXq/6shjApeuOd8Jd8xK+soDXZv3BuHq6V8Aen5ZqnMaYzXiMkn
+ pG9MAou+Yv8ccr69Z26BvcQXFoLl57rEyXn96BqZ6xWyiG/g4NE7UJziZQOMhyHf+pl9
+ 7jkk03qQ7XLXsV1Ptls4yLVY8KQxTHwU1Np8oMxxpyWrc1DIZl9VcA3M8aE+HTLCOWYE
+ HQtbOr07yrx/X4NmDtXIpNqafXoTw+VaII2EYP/X1YH//StMeDAGfvwuRi+QalqieNG2
+ DBSFWqCg4OZ0bkGBQYummw9wlGAvZwexFPq3rjH2LQTmKSmaoIuqPT3WohliLJdHctEh
+ VBcA==
+X-Gm-Message-State: AOAM532CpRuPnq0AZkSYy2ZgK+1LP56ChKNUo1w+v6rETl3bxBT5LAVI
+ 7R5OVBSGWeDNZnRE2dt85pLP5Cl+jpeY8F1lnnQ=
+X-Google-Smtp-Source: ABdhPJyaocC2wPjxtuBfb3tJQyp9gfJbIpUQFwdV8WVqECi83WVtLzs81p+E1k2jfFBg9ipQnByYuf8GinCabEjq0hY=
+X-Received: by 2002:a05:6830:1481:: with SMTP id
+ s1mr952387otq.206.1612788221158; 
+ Mon, 08 Feb 2021 04:43:41 -0800 (PST)
 MIME-Version: 1.0
 References: <a3f01a5d-d7a5-8280-4091-b2486b01a782@linux.intel.com>
  <20210208120104.204761-1-marcin.slusarz@gmail.com>
-In-Reply-To: <20210208120104.204761-1-marcin.slusarz@gmail.com>
+ <20210208120104.204761-2-marcin.slusarz@gmail.com>
+In-Reply-To: <20210208120104.204761-2-marcin.slusarz@gmail.com>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 8 Feb 2021 13:37:44 +0100
-Message-ID: <CAJZ5v0gftDzua87J0To87=Huer2q=_z=0Bj2q++OQAYNtPe86w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] soundwire: intel: fix possible crash when no device
- is detected
+Date: Mon, 8 Feb 2021 13:43:25 +0100
+Message-ID: <CAJZ5v0jSqmpnbpahGBRSjddOecqA1f-9GfvNwjdV0pH7xQ3iVg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ACPICA: update documentation of acpi_walk_namespace
 To: =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Erik Kaneda <erik.kaneda@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Robert Moore <robert.moore@intel.com>,
  ACPI Devel Maling List <linux-acpi@vger.kernel.org>, marcin.slusarz@intel.com,
  Salvatore Bonaccorso <carnil@debian.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -94,100 +96,60 @@ m> wrote:
 >
 > From: Marcin =C5=9Alusarz <marcin.slusarz@intel.com>
 >
-> acpi_walk_namespace can return success without executing our
-> callback which initializes info->handle.
-> If the random value in this structure is a valid address (which
-> is on the stack, so it's quite possible), then nothing bad will
-> happen, because:
-> sdw_intel_scan_controller
->  -> acpi_bus_get_device
->  -> acpi_get_device_data
->  -> acpi_get_data_full
->  -> acpi_ns_validate_handle
-> will reject this handle.
->
-> However, if the value from the stack doesn't point to a valid
-> address, we get this:
->
-> BUG: kernel NULL pointer dereference, address: 0000000000000050
-> PGD 0 P4D 0
-> Oops: 0000 [#1] SMP NOPTI
-> CPU: 6 PID: 472 Comm: systemd-udevd Tainted: G        W         5.10.0-1-=
-amd64 #1 Debian 5.10.4-1
-> Hardware name: HP HP Pavilion Laptop 15-cs3xxx/86E2, BIOS F.05 01/01/2020
-> RIP: 0010:acpi_ns_validate_handle+0x1a/0x23
-> Code: 00 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 0f 1f 44 00 00 48 8=
-d 57 ff 48 89 f8 48 83 fa fd 76 08 48 8b 05 0c b8 67 01 c3 <80> 7f 08 0f 74=
- 02 31 c0 c3 0f 1f 44 00 00 48 8b 3d f6 b7 67 01 e8
-> RSP: 0000:ffffc388807c7b20 EFLAGS: 00010213
-> RAX: 0000000000000048 RBX: ffffc388807c7b70 RCX: 0000000000000000
-> RDX: 0000000000000047 RSI: 0000000000000246 RDI: 0000000000000048
-> RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-> R10: ffffffffc0f5f4d1 R11: ffffffff8f0cb268 R12: 0000000000001001
-> R13: ffffffff8e33b160 R14: 0000000000000048 R15: 0000000000000000
-> FS:  00007f24548288c0(0000) GS:ffff9f781fb80000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000000000000050 CR3: 0000000106158004 CR4: 0000000000770ee0
-> PKRU: 55555554
-> Call Trace:
->  acpi_get_data_full+0x4d/0x92
->  acpi_bus_get_device+0x1f/0x40
->  sdw_intel_acpi_scan+0x59/0x230 [soundwire_intel]
->  ? strstr+0x22/0x60
->  ? dmi_matches+0x76/0xe0
->  snd_intel_dsp_driver_probe.cold+0xaf/0x163 [snd_intel_dspcfg]
->  azx_probe+0x7a/0x970 [snd_hda_intel]
->  local_pci_probe+0x42/0x80
->  ? _cond_resched+0x16/0x40
->  pci_device_probe+0xfd/0x1b0
->  really_probe+0x205/0x460
->  driver_probe_device+0xe1/0x150
->  device_driver_attach+0xa1/0xb0
->  __driver_attach+0x8a/0x150
->  ? device_driver_attach+0xb0/0xb0
->  ? device_driver_attach+0xb0/0xb0
->  bus_for_each_dev+0x78/0xc0
->  bus_add_driver+0x12b/0x1e0
->  driver_register+0x8b/0xe0
->  ? 0xffffffffc0f65000
->  do_one_initcall+0x44/0x1d0
->  ? do_init_module+0x23/0x250
->  ? kmem_cache_alloc_trace+0xf5/0x200
->  do_init_module+0x5c/0x250
->  __do_sys_finit_module+0xb1/0x110
->  do_syscall_64+0x33/0x80
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
->
-> CC: stable@vger.kernel.org
 > Signed-off-by: Marcin =C5=9Alusarz <marcin.slusarz@intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+A changelog would be appreciated, something like "Make the
+documentation match the code and add a note regarding the return
+values of the callback function and the walk to it".
+
+Anyway, this is ACPICA material, so it should go to Erik & Bob (CCed).
+
+Thanks!
 
 > ---
->  drivers/soundwire/intel_init.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/acpi/acpica/nsxfeval.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_ini=
-t.c
-> index cabdadb09a1b..bc8520eb385e 100644
-> --- a/drivers/soundwire/intel_init.c
-> +++ b/drivers/soundwire/intel_init.c
-> @@ -405,11 +405,12 @@ int sdw_intel_acpi_scan(acpi_handle *parent_handle,
->  {
->         acpi_status status;
->
-> +       info->handle =3D NULL;
->         status =3D acpi_walk_namespace(ACPI_TYPE_DEVICE,
->                                      parent_handle, 1,
->                                      sdw_intel_acpi_cb,
->                                      NULL, info, NULL);
-> -       if (ACPI_FAILURE(status))
-> +       if (ACPI_FAILURE(status) || info->handle =3D=3D NULL)
->                 return -ENODEV;
->
->         return sdw_intel_scan_controller(info);
+> diff --git a/drivers/acpi/acpica/nsxfeval.c b/drivers/acpi/acpica/nsxfeva=
+l.c
+> index f9d059647cc5..7149c8f70a6e 100644
+> --- a/drivers/acpi/acpica/nsxfeval.c
+> +++ b/drivers/acpi/acpica/nsxfeval.c
+> @@ -532,8 +532,8 @@ static void acpi_ns_resolve_references(struct acpi_ev=
+aluate_info *info)
+>   *              return_value        - Location where return value of
+>   *                                    user_function is put if terminated=
+ early
+>   *
+> - * RETURNS      Return value from the user_function if terminated early.
+> - *              Otherwise, returns NULL.
+> + * RETURNS      Returns status from the callback function if terminated =
+early.
+> + *              Otherwise, returns a status of the walk, AE_OK if succee=
+ded.
+>   *
+>   * DESCRIPTION: Performs a modified depth-first walk of the namespace tr=
+ee,
+>   *              starting (and ending) at the object specified by start_h=
+andle.
+> @@ -542,6 +542,11 @@ static void acpi_ns_resolve_references(struct acpi_e=
+valuate_info *info)
+>   *              a non-zero value, the search is terminated immediately a=
+nd this
+>   *              value is returned to the caller.
+>   *
+> + *              Note that both the callback functions and the walk itsel=
+f
+> + *              use overlapping return values (e.g. AE_OK), so user of t=
+his
+> + *              function can't rely only on the return value to tell if
+> + *              the callback function was called.
+> + *
+>   *              The point of this procedure is to provide a generic name=
+space
+>   *              walk routine that can be called from multiple places to
+>   *              provide multiple services; the callback function(s) can =
+be
 > --
 > 2.25.1
 >

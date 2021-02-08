@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 868F7313DB9
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:40:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDFD9313DBC
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:40:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E5551697;
-	Mon,  8 Feb 2021 19:39:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E5551697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D72516AD;
+	Mon,  8 Feb 2021 19:39:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D72516AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612809638;
-	bh=SJZ0NVTsr2Wlxcsv1fv1kCF7qQH9E81Nonfp1RQf2jc=;
+	s=default; t=1612809649;
+	bh=9TTZZw3q3O0A2iUkVrd4u4Jlc4Pb1l3noBBoy0LEpaw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kIUtfHCY9Uy3T6QptCyxQJSMxlaEivgN3NaMnMi28wPBSJvGj+ZNPwQKr0jSjVESS
-	 NIUiQNZUDRHvWZLRPiZYHH5shr+EH4kyoxpUerN6hx0G49YTw0CGnL5KxFvo9GPBOn
-	 XCzzrMHoXOrbRhZigxnFno32nWwCJaEd9oOD7SgY=
+	b=q5S6UO/Y6+NMguJknUNxcCxG3AWZ/fQ2himhZJNAfUGDzwomDg/VdbIpym1Z2ego/
+	 2I3U/Y4fImr6JlnsbmVzeDM+wUJxg+PuXjqCqaGBRhCCRggx72Jphk8qIASjBjopO8
+	 FbuNKeCdwOf0qBkRxQKNK5wqTSLjsn9edotU6tQM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 622D8F80169;
-	Mon,  8 Feb 2021 19:39:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 640EAF8026B;
+	Mon,  8 Feb 2021 19:39:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE617F8022B; Mon,  8 Feb 2021 19:39:03 +0100 (CET)
+ id 97505F80114; Mon,  8 Feb 2021 19:39:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E13DCF80114
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:38:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E13DCF80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03635F80114
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03635F80114
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aKgHoLgs"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B47A760C3F;
- Mon,  8 Feb 2021 18:38:54 +0000 (UTC)
+ header.b="Cx6cgD2K"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6CDDC64E60;
+ Mon,  8 Feb 2021 18:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612809535;
- bh=SJZ0NVTsr2Wlxcsv1fv1kCF7qQH9E81Nonfp1RQf2jc=;
+ s=k20201202; t=1612809542;
+ bh=9TTZZw3q3O0A2iUkVrd4u4Jlc4Pb1l3noBBoy0LEpaw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=aKgHoLgsSGyJMiXx+Ih+Tk1rC/2eMKt2fZf5+Sx31/ElTclR/w2bWqwtCygNbuWfj
- Yj4FV7LzG+aY+XAg//9s83baQAdpuEHLct4DpQyoyrF1NxO8ikj1i3vSemmIz55rcF
- KYDTVM1vcWpw66bXt7A1jTuj2M7bGRjf23/9FC6strvhdxFvbbZ2AbYrlO4owsSy1m
- xxqGkD7bWvBRQ3T/3HIOMseF7m0M7utgOvqpi4qz3ZM+3IBGkb4Arh4EjPyqiWo6xd
- rz90DTRAEU5TZ8/mmYFsmIZX8BA/aZWB5tBZTfyTdoZFmo1fteGJI+ch/wEloUKCcg
- 0N8WQPz3D1i8g==
+ b=Cx6cgD2Kad0MvzutSRSHnzVG0fwkxSbaj+4rIzLxmT1URrxpx9OsIVD1dZX67YK5T
+ k9rr66QXY2zR4XghypCugiVHR9SQN9T+ihs4kallg2tq/+7XYKFnzIwKxDZiXmxD26
+ Tsil81WRa6e3FLRgg1ByN+qjPbFJjQf1GnLe7nOGLeqpFgDwxyVrJWMKfr6mTbHpNU
+ niwC2WE8wVxvSjp4Lid9ucWPmKLHw6op1ALmJJuTXbiYeXXwYv9ecinXgdsWqrr5oe
+ lbliZNk8KP6+Jc9zOt+OAeS1MRrdEgYjPjDBzwen3CVkTFkgm8TF6duhgvF99xPEL5
+ VUxlYjBmRvu9w==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20210123140958.12895-1-paul@crapouillou.net>
-References: <20210123140958.12895-1-paul@crapouillou.net>
-Subject: Re: [PATCH 1/3] dt-bindings: sound/ingenic: Add compatible strings
- for JZ4760(B) SoC
-Message-Id: <161280948305.10741.16478273980568461792.b4-ty@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <1612719418-5858-1-git-send-email-spujar@nvidia.com>
+References: <1612719418-5858-1-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH v3 0/2] Rename audio graph export functions
+Message-Id: <161280948305.10741.16503179975301818382.b4-ty@kernel.org>
 Date: Mon, 08 Feb 2021 18:38:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, od@zcrc.me,
- Christophe Branchereau <cbranchereau@gmail.com>
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
+ linux-tegra@vger.kernel.org, thierry.reding@gmail.com, sharadg@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,12 +79,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 23 Jan 2021 14:09:56 +0000, Paul Cercueil wrote:
-> Add the ingenic,jz4760b-codec and ingenic,jz4760-codec compatible
-> strings.
+On Sun, 7 Feb 2021 23:06:56 +0530, Sameer Pujar wrote:
+> This series renames exported functions from audio graph for a better
+> global visibility. In doing so update the references in audio graph
+> and Tegra audio graph card drivers.
 > 
-> In the process, convert the previous compatible strings to use an enum
-> instead.
+> 
+> Changelog
+> =========
+> 
+> [...]
 
 Applied to
 
@@ -95,12 +96,10 @@ Applied to
 
 Thanks!
 
-[1/3] dt-bindings: sound/ingenic: Add compatible strings for JZ4760(B) SoC
-      commit: 45a90d4aba1781aa382d4aeedebcac7cc78e1927
-[2/3] ASoC: codec/ingenic: Depend on MACH_INGENIC
-      commit: bad929b81ce25bba1c3e9d91848ffdc166974256
-[3/3] ASoC: codec: Add driver for JZ4760 internal codec
-      commit: d9cd22e9c87cb61488d00f7279cfb2abf5238879
+[1/2] ASoC: audio-graph: Rename functions needed for export
+      commit: 6e4ea8aace02479186b3fdaab48d7acfe06d8715
+[2/2] ASoC: tegra: Add driver remove() callback
+      commit: 0d7475d2a5a90127a2f87961b99bcd8f95694dd9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDFD9313DBC
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:40:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5254F313DD5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:43:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D72516AD;
-	Mon,  8 Feb 2021 19:39:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D72516AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAB9E16A5;
+	Mon,  8 Feb 2021 19:42:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAB9E16A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612809649;
-	bh=9TTZZw3q3O0A2iUkVrd4u4Jlc4Pb1l3noBBoy0LEpaw=;
+	s=default; t=1612809796;
+	bh=tss5CueiJnDL3MQdOcYvMImlJHBkgWHNZ6Ctf9Hu290=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q5S6UO/Y6+NMguJknUNxcCxG3AWZ/fQ2himhZJNAfUGDzwomDg/VdbIpym1Z2ego/
-	 2I3U/Y4fImr6JlnsbmVzeDM+wUJxg+PuXjqCqaGBRhCCRggx72Jphk8qIASjBjopO8
-	 FbuNKeCdwOf0qBkRxQKNK5wqTSLjsn9edotU6tQM=
+	b=JH3aocx1bkNu0SyfIa2MWNV74Jh7CEbnQ0/A/H7b9N3HRNwFFG6XFUxXkv7lGjar6
+	 0zc2dD6CKGes9b0Dbt/SSwHLqBJSVOUCH61Sm43qOAt/O16YTwm+aJ1F/1pdcOlg2F
+	 uNMcXEYWYby6dZB1BytUpSCAmSV6YbgCHOjV+Kq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 640EAF8026B;
-	Mon,  8 Feb 2021 19:39:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F3A3F804AF;
+	Mon,  8 Feb 2021 19:39:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97505F80114; Mon,  8 Feb 2021 19:39:06 +0100 (CET)
+ id 12562F80431; Mon,  8 Feb 2021 19:39:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03635F80114
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03635F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF222F80431
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF222F80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Cx6cgD2K"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6CDDC64E60;
- Mon,  8 Feb 2021 18:39:01 +0000 (UTC)
+ header.b="Rq0ciCbt"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2355764E66;
+ Mon,  8 Feb 2021 18:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612809542;
- bh=9TTZZw3q3O0A2iUkVrd4u4Jlc4Pb1l3noBBoy0LEpaw=;
+ s=k20201202; t=1612809583;
+ bh=tss5CueiJnDL3MQdOcYvMImlJHBkgWHNZ6Ctf9Hu290=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Cx6cgD2Kad0MvzutSRSHnzVG0fwkxSbaj+4rIzLxmT1URrxpx9OsIVD1dZX67YK5T
- k9rr66QXY2zR4XghypCugiVHR9SQN9T+ihs4kallg2tq/+7XYKFnzIwKxDZiXmxD26
- Tsil81WRa6e3FLRgg1ByN+qjPbFJjQf1GnLe7nOGLeqpFgDwxyVrJWMKfr6mTbHpNU
- niwC2WE8wVxvSjp4Lid9ucWPmKLHw6op1ALmJJuTXbiYeXXwYv9ecinXgdsWqrr5oe
- lbliZNk8KP6+Jc9zOt+OAeS1MRrdEgYjPjDBzwen3CVkTFkgm8TF6duhgvF99xPEL5
- VUxlYjBmRvu9w==
+ b=Rq0ciCbt930kk0Bdzg6mM4FYlGg1vJNBIrVL3TVG/o2Ln1H4i8/58q4L/armVfnoc
+ I05bNV8/n2VffU/DLgRQkyGPJCBwSVqROhTyTy/wqWdH4BxUDw/ZeHxxCNdtHfpXm8
+ VKdsLO/nYcyy73qE6ZxvZzw+efT1Y5q2qih98Gwhs3j31Dk+8RF40SPfR6F7oMd0al
+ Asbt7vBui0tlsCW/GPUsDwNh3qL/yiyrYGHexorcCBzuS5SxzWw4e/ADPts9zX6RoQ
+ +fBJaTxhO8+eRA1uKnK4zh2QNY7lxEVPb/SgqTra2orA3/vYxgH6pJB+cRYvh29Gif
+ kq5UfBNmIFOmA==
 From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <1612719418-5858-1-git-send-email-spujar@nvidia.com>
-References: <1612719418-5858-1-git-send-email-spujar@nvidia.com>
-Subject: Re: [PATCH v3 0/2] Rename audio graph export functions
-Message-Id: <161280948305.10741.16503179975301818382.b4-ty@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20210206142243.535544-1-festevam@gmail.com>
+References: <20210206142243.535544-1-festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_esai: Remove unused 'imx' field
+Message-Id: <161280948304.10741.7239091426541749590.b4-ty@kernel.org>
 Date: Mon, 08 Feb 2021 18:38:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org, thierry.reding@gmail.com, sharadg@nvidia.com
+Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,16 +78,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 7 Feb 2021 23:06:56 +0530, Sameer Pujar wrote:
-> This series renames exported functions from audio graph for a better
-> global visibility. In doing so update the references in audio graph
-> and Tegra audio graph card drivers.
-> 
-> 
-> Changelog
-> =========
-> 
-> [...]
+On Sat, 6 Feb 2021 11:22:43 -0300, Fabio Estevam wrote:
+> The 'imx' field is not used anywhere, so get rid of it.
 
 Applied to
 
@@ -96,10 +87,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: audio-graph: Rename functions needed for export
-      commit: 6e4ea8aace02479186b3fdaab48d7acfe06d8715
-[2/2] ASoC: tegra: Add driver remove() callback
-      commit: 0d7475d2a5a90127a2f87961b99bcd8f95694dd9
+[1/1] ASoC: fsl_esai: Remove unused 'imx' field
+      commit: 40bd053bc8e18b68e877bd4cdea1b6938ddf5fdd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

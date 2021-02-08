@@ -2,94 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6263131A6
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DB19313239
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 13:26:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AFA01616;
-	Mon,  8 Feb 2021 13:02:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AFA01616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 174011616;
+	Mon,  8 Feb 2021 13:25:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 174011616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612785785;
-	bh=/fow4WzTNyRj37UrEYakhzILHVjGuRgb6Kr6YGudMl8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1612787172;
+	bh=YILaTyqcfZnBpQee7oi6GxoJMbmfuyKRaf/Nf9DZ3lU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ddaputgXKERjumBPDKopkDuTkmkDuJGc2AjdNZq9UVketFWH40IqRL1s5ImGq91xI
-	 qCwy4VIoM5In88+ZRSeHtpNspPJrUytceDVCoYyYe8I3oN0/op3UlClkH5SXQQJIuU
-	 jWTn3vOcc5TqJwecWYOem1dqwRYSQyWIQWlW+hiA=
+	b=U6RvCGYcP7mXvj11cR1P6h2avLtkX3xlyp3kO+r3wiO5vMNt3aEC2OXIq7sUFhcIm
+	 h5T73ph8GVPWkA4W0dStI2oAEeSvzHSkFc8qU3dA744AaxzjISVgXW5vDuJsMMdXL9
+	 L8J1/2vfx7vYEaCBYnjlW4kSDrGJaUOYYssvtrGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6138F8026C;
-	Mon,  8 Feb 2021 13:01:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 573C0F8022D;
+	Mon,  8 Feb 2021 13:24:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 246EDF80169; Mon,  8 Feb 2021 13:01:20 +0100 (CET)
+ id 9A2FCF8022B; Mon,  8 Feb 2021 13:24:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A0EEF8013A
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:01:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A0EEF8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FEFDF80165
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 13:24:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FEFDF80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K16cTG+3"
-Received: by mail-lf1-x12c.google.com with SMTP id a12so21855340lfb.1
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 04:01:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Z8kzQS3YPM948wmJnc1Eek6a7lxZy6M65U4pTGtlXO4=;
- b=K16cTG+3k/StGHXC+r8CudIYqXvQ0vkKMMdiq29IfUfaGg5WhQFHyz4MzmcDyypSn0
- dOnPM3izORupsA2vtRW17fDlQ/+X1nMm+/cdwhThC5IIKYEwZdgitpP/GjqX9corVK4F
- kq4X04HsoKT8ridfCeLaIEJta6gMCjRwChzNmFIUPUnTjzQe5LaobNnT4NWqppHgyPsF
- Jgj2NEIaH9mmWF51zRlCqYoS54L26cpuC1I/wL0quD2Vy+gm0AqQCBo8RQb5oUOOLZXb
- Cw82CsWLa/rCox+AwQ0Sg38mab0nI6CxFImAlWUfOTlKxGS1D+ZLNi0/S0VrBICofb5V
- CQ1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Z8kzQS3YPM948wmJnc1Eek6a7lxZy6M65U4pTGtlXO4=;
- b=OLiYS/QYfMOmIaxBdOysVJOIc5mAeDl8A/WKZQ4U92md0yP3E/hNM7vUktjGAn+X83
- 3waEER64g4Cgp+5sCtEcmBo7SS5djMJ5Y6r7sx4HnTKg+EnY+YHP+YF+eQDm2NZfjdlK
- H2UjhgdWHDWh0+yo9W4qMO49VSGG7DXdPFLq2qLZEYpYE66qX+gazY5e/U8YdEXBUuiZ
- je4Aa66x1hlmdS8KneqcIhUO59HgXPsuuN1fqgcx9WbWYy+JgK9LzJRLAw/7HQmnP2jf
- 4dLGl14KuHnAZWR1z/OCZv3gINwaGSIBcaG7xQRjvNtbtnEoPF7A07D9RgZPCf1fFVsz
- Oy/g==
-X-Gm-Message-State: AOAM532ys9Yntk0JgDvlBRS/sbsBoSzz2R3Mwee/7BKgGvEXEj6U37wD
- UdqyI0sWN43Nn0Ug/kRdZVOacxS/lZLKKQ==
-X-Google-Smtp-Source: ABdhPJzgXV3dE/YmpoPEhiHF1uxHkm2TbQ7iUL71H1BPo2N7lyBpNUlX3j1SnYiRc4hPM1t1ngZr3A==
-X-Received: by 2002:ac2:4e8a:: with SMTP id o10mr10273956lfr.656.1612785672291; 
- Mon, 08 Feb 2021 04:01:12 -0800 (PST)
-Received: from localhost.localdomain (109241203030.gdansk.vectranet.pl.
- [109.241.203.30])
- by smtp.gmail.com with ESMTPSA id t15sm719086lft.239.2021.02.08.04.01.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Feb 2021 04:01:11 -0800 (PST)
-From: =?UTF-8?q?Marcin=20=C5=9Alusarz?= <marcin.slusarz@gmail.com>
-To: alsa-devel@alsa-project.org,
-	linux-acpi@vger.kernel.org
-Subject: [PATCH 2/2] ACPICA: update documentation of acpi_walk_namespace
-Date: Mon,  8 Feb 2021 13:01:04 +0100
-Message-Id: <20210208120104.204761-2-marcin.slusarz@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210208120104.204761-1-marcin.slusarz@gmail.com>
-References: <a3f01a5d-d7a5-8280-4091-b2486b01a782@linux.intel.com>
- <20210208120104.204761-1-marcin.slusarz@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cqqUraYo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 64FAF64DD1;
+ Mon,  8 Feb 2021 12:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612787069;
+ bh=YILaTyqcfZnBpQee7oi6GxoJMbmfuyKRaf/Nf9DZ3lU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cqqUraYoHUKQd86Yp7vpXj0WmPLKvoBn630iKO9q0MXRMPsHAvNgPrU0gBREcXVyS
+ Hkm5o1uHVYPLydeLGWPGz2cnsUYWWQs4dJjPc9draNxL/O/O3nYjYJ9ycEZRbwYaQJ
+ o6ABKq3R3B8WhBUD/LGuCwJxYp1kmjYpFg2geSI1yzLCDJAWR3xv9qd0wKoOPGdFaL
+ 65Gbe3iFufp623zDFA//PejbyyGnkcI7ylDD+4edAmbMsYK6L9MOKSBta5Sbs4RDgH
+ BV+m+KjWF1rE4gf3YztaOlP4ttQ0SF6veMEdhNYTsl2jIRC6Izj17S7jfQ22sxhwxl
+ l0+Rgr6ck9uow==
+Date: Mon, 8 Feb 2021 12:23:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: shumingf@realtek.com
+Subject: Re: [PATCH] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
+Message-ID: <20210208122337.GE8645@sirena.org.uk>
+References: <20210208090432.1078-1-shumingf@realtek.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: marcin.slusarz@intel.com, Salvatore Bonaccorso <carnil@debian.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ep0oHQY+/Gbo/zt0"
+Content-Disposition: inline
+In-Reply-To: <20210208090432.1078-1-shumingf@realtek.com>
+X-Cookie: You will triumph over your enemy.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, lgirdwood@gmail.com, derek.fang@realtek.com,
+ bard.liao@intel.com, flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,40 +83,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Marcin Ślusarz <marcin.slusarz@intel.com>
 
-Signed-off-by: Marcin Ślusarz <marcin.slusarz@intel.com>
----
- drivers/acpi/acpica/nsxfeval.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+--ep0oHQY+/Gbo/zt0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/acpi/acpica/nsxfeval.c b/drivers/acpi/acpica/nsxfeval.c
-index f9d059647cc5..7149c8f70a6e 100644
---- a/drivers/acpi/acpica/nsxfeval.c
-+++ b/drivers/acpi/acpica/nsxfeval.c
-@@ -532,8 +532,8 @@ static void acpi_ns_resolve_references(struct acpi_evaluate_info *info)
-  *              return_value        - Location where return value of
-  *                                    user_function is put if terminated early
-  *
-- * RETURNS      Return value from the user_function if terminated early.
-- *              Otherwise, returns NULL.
-+ * RETURNS      Returns status from the callback function if terminated early.
-+ *              Otherwise, returns a status of the walk, AE_OK if succeeded.
-  *
-  * DESCRIPTION: Performs a modified depth-first walk of the namespace tree,
-  *              starting (and ending) at the object specified by start_handle.
-@@ -542,6 +542,11 @@ static void acpi_ns_resolve_references(struct acpi_evaluate_info *info)
-  *              a non-zero value, the search is terminated immediately and this
-  *              value is returned to the caller.
-  *
-+ *              Note that both the callback functions and the walk itself
-+ *              use overlapping return values (e.g. AE_OK), so user of this
-+ *              function can't rely only on the return value to tell if
-+ *              the callback function was called.
-+ *
-  *              The point of this procedure is to provide a generic namespace
-  *              walk routine that can be called from multiple places to
-  *              provide multiple services; the callback function(s) can be
--- 
-2.25.1
+On Mon, Feb 08, 2021 at 05:04:32PM +0800, shumingf@realtek.com wrote:
 
+> +	/* initial settings - blind write */
+> +	regmap_write(rt1316->regmap, 0xc710, 0x17);
+> +	regmap_write(rt1316->regmap, 0xc711, 0x80);
+> +	regmap_write(rt1316->regmap, 0xc712, 0x26);
+> +	regmap_write(rt1316->regmap, 0xc713, 0x06);
+> +	regmap_write(rt1316->regmap, 0xc714, 0x80);
+
+These look like a regmap patch?
+
+> +static const char * const rt1316_xu24_bypass_ctl[] = {
+> +	"Not Bypass",
+> +	"Bypass",
+> +};
+
+Why is this an enum and not a standard switch?
+
+> +static const char * const rt1316_lr_iv_sel[] = {
+> +	"0",
+> +	"1",
+> +	"2",
+> +	"3",
+> +	"4",
+> +	"5",
+> +	"6",
+> +	"7",
+> +};
+
+This looks like it could just be a regular control and not an enum -
+this is just a normal sequence of numbers that could be mapped directlym
+onto a normal control.
+
+> +static int rt1316_sdw_set_tdm_slot(struct snd_soc_dai *dai,
+> +				   unsigned int tx_mask,
+> +				   unsigned int rx_mask,
+> +				   int slots, int slot_width)
+> +{
+> +	struct snd_soc_component *component = dai->component;
+> +	struct rt1316_sdw_priv *rt1316 =
+> +		snd_soc_component_get_drvdata(component);
+> +
+> +	if (tx_mask)
+> +		return -EINVAL;
+> +
+> +	if (slots > 2)
+> +		return -EINVAL;
+> +
+> +	rt1316->rx_mask = rx_mask;
+> +	rt1316->slots = slots;
+> +	/* slot_width is not used since it's irrelevant for SoundWire */
+
+I wouldn't expect to see any TDM stuff at all for SoundWire?  I do see
+some crept through though :/
+
+--ep0oHQY+/Gbo/zt0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAhLUgACgkQJNaLcl1U
+h9Acxgf/W4o2qwoPsFXmakmTnBOoV829oT9jPNiE/H4JTYV9+yayxMDQ5lwTQ0NA
+S77RwY6u86rfrsxpRT00NBDtDbu5zA0JAZG5ueDxZD/9ka7An+VFo/GMZ1qD1E6j
+TbshTtjQz2V6llr81AywXN87GQhWIGALogeZOAomCeFrNCmjGQy6LV9+184qjYGH
+SOFl8m50UyJ/14TQHQxqaNBbOrNvM843ArLSX1ajvPWAMnX3go2ppuD87VUmGW0u
+pImoN24bda/jlMm8Zn3oIPm5UkSv+zZPrW8HAvSkZFPjBrsEK/FgpTKZhR/7MNgZ
+Aek9Fi4qXIy75JNFLMq2QLqc1QGnyA==
+=Aw7t
+-----END PGP SIGNATURE-----
+
+--ep0oHQY+/Gbo/zt0--

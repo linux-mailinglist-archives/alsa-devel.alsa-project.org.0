@@ -2,66 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E0F313DD0
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:42:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BE72313E95
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 20:14:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B9BA1696;
-	Mon,  8 Feb 2021 19:41:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B9BA1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDC91169A;
+	Mon,  8 Feb 2021 20:13:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDC91169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612809733;
-	bh=3ois11Yw0OCVBp7rzynFPyjIFNcUmymvmaWvOWnKiZY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1612811640;
+	bh=ImVR5UUA/v1doEtSCYfm7P+SNUwnZgT6O1tF1kwzmAU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ua+jD5I5vEVzlp71pmBLPk7sFWfp043ld90Tf4qHwy3KJCrmuXBh8cDc7AE1o8z4q
-	 YPiG+x4NSc4xQmRj2z1oxbe3XS4WJgUPfq9yHtHfXkieF/nO8qCuIso0/P6OwuVG15
-	 cuoiCmyEX/g5Yx/cMtvnecYV/kzihda00Ta36JNY=
+	b=msKHDC5mFrTCrUL+X1GDqmjt1l4bJ/9LyRPzSjnFMtPvo4lis8G3SV/JDPuta2Z7d
+	 99PfqPy6SmD2Z8ssgeWvSmqaL9BRoE7AyPZK7ls0LLzZ1OapbM59eurDZIFtPt5EKf
+	 Dx/zvU/v6o2k8QjmKRbzALwTpPRoD3wRQQyvmWmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89DC0F802D2;
-	Mon,  8 Feb 2021 19:39:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1003CF8022D;
+	Mon,  8 Feb 2021 20:12:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57733F802CA; Mon,  8 Feb 2021 19:39:27 +0100 (CET)
+ id C3C73F8022B; Mon,  8 Feb 2021 20:12:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90201F8028B
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90201F8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E008F8013A
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 20:12:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E008F8013A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uIw5+KV2"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E772E64E66;
- Mon,  8 Feb 2021 18:39:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612809562;
- bh=3ois11Yw0OCVBp7rzynFPyjIFNcUmymvmaWvOWnKiZY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=uIw5+KV23s40ht3fT+Rmi7g980WoqipjxK3eG+JSwH42d86anriottqXxbX5ZxtIr
- 8WejkzvKWQI8hhOCui1F6chkKEw05NJaXfBQl7wX7Hfy1eGbCyZmk4uplWFdaECMsl
- xc6cGtI/sc5ODHXze05FqVVasCRHrOYERM7/+uIHA4/ksN7gtA4khsVtm9O9ASlr94
- SvjJvCxXVX30omSsJjAiu6bR4C4tP5rPDsuOqxsFLoJur/gUrNFSTBbx/CFTeBpm8y
- yuWgOOq/tyRNiIx9Q6wPhIjqdEWHZxeE/rOpjJSLB5OLkJcuyrPx65MT53lPMmMDPp
- r59dktBONu7qA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Sia Jee Heng <jee.heng.sia@intel.com>
-In-Reply-To: <20210204014258.10197-1-jee.heng.sia@intel.com>
-References: <20210204014258.10197-1-jee.heng.sia@intel.com>
-Subject: Re: (subset) [PATCH RFC 0/4] Add HDMI support for Intel KeemBay I2S
-Message-Id: <161280948305.10741.11660965557935957578.b4-ty@kernel.org>
-Date: Mon, 08 Feb 2021 18:38:03 +0000
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Umvj8aYJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612811542;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=sTiu3UzG/iGc9IqjW06TnQn3gQrqCGP+HJYPlasxAhM=;
+ b=Umvj8aYJIvULvINOls2I9k0T+b/JWAR1b2cB53y45rncFycSNqKFxjs4uKgf+WlnozFblA
+ 9SwZcKbP/WURNzIUmXkXPTwYKobapq3y8Ew083Ke9pDBBttozLDabe+4U9T/FoWS/U+RNc
+ 04Sv8ySC9uYorsgnXOnxwCRLs1ZgIi4=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-181-rPBmaqNdO0m9FuR4ZCQ4uQ-1; Mon, 08 Feb 2021 14:12:18 -0500
+X-MC-Unique: rPBmaqNdO0m9FuR4ZCQ4uQ-1
+Received: by mail-ej1-f70.google.com with SMTP id ar1so9675399ejc.22
+ for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 11:12:18 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=sTiu3UzG/iGc9IqjW06TnQn3gQrqCGP+HJYPlasxAhM=;
+ b=JSgReDgReO99NboQPiGvNuTSIgD8fQMIRbO69nUfA3jkHEqajnq4lXUtU45oulnBtH
+ wPMBVngbfEemQFYP9LVvEdpgIPpGAjOX/XI0qPIwexXS0QqXQEsLgCTkKUPVs1VzwzGI
+ BQy3C/5+mtyWRFWmkwFF7xLsO6w1G3CC06Rxx1HRwc554i5TqwNP5y7XYxvS29s5AYsr
+ 9HIV9mNoSybG+Ofw5N0jpk4YzZI4NCu8yMe5ezun5Jzbwe90Y2DHLhXpOmoznmiG8VGH
+ kejmlxASc1hdjZYqwTj9ZPbmhKeIhV9bnHk59bbuk0f+PLURbBRsmP/kZbNUCUT5hjbb
+ LfGQ==
+X-Gm-Message-State: AOAM532owIeHm6v17jd4v3z8Nar7yu436bzSz2SQFOVyX2YJRWdIqNSv
+ RtjqfmBqzV8Uz54+vPaZxZAfig/cDwisJw4upGdawgoADwu68vK1w8gwueQRvGySjrAzHMiZCSi
+ KJ8/ihh4haFKJCiFKzvKlggk=
+X-Received: by 2002:aa7:d808:: with SMTP id v8mr18651977edq.380.1612811537081; 
+ Mon, 08 Feb 2021 11:12:17 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwLtw3J8PubnCu1t850YVdWN9lEvlS4rw9kSNrlLF1jcKCDScRdW0yMp3uB4RjVlOi25gLdKg==
+X-Received: by 2002:aa7:d808:: with SMTP id v8mr18651957edq.380.1612811536950; 
+ Mon, 08 Feb 2021 11:12:16 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id lc11sm4006899ejc.95.2021.02.08.11.12.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Feb 2021 11:12:16 -0800 (PST)
+Subject: Re: (subset) [PATCH v4 0/5] MFD/ASoC: Add support for Intel Bay Trail
+ boards with WM5102 codec
+To: Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <20210120214957.140232-1-hdegoede@redhat.com>
+ <161280948306.10741.6212553639750410303.b4-ty@kernel.org>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <1d5ca89f-8862-cdb7-838e-350e178915e1@redhat.com>
+Date: Mon, 8 Feb 2021 20:12:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, tiwai@suse.com
+In-Reply-To: <161280948306.10741.6212553639750410303.b4-ty@kernel.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,44 +124,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 4 Feb 2021 09:42:54 +0800, Sia Jee Heng wrote:
-> The below patch series are to support Audio over HDMI.
-> The modification in this patch series shall allow I2S driver
-> to playback standard PCM format and IEC958 encoded format to
-> the ADV7511 HDMI chip.
+Hi Mark,
+
+On 2/8/21 7:38 PM, Mark Brown wrote:
+> On Wed, 20 Jan 2021 22:49:52 +0100, Hans de Goede wrote:
+>> Here is v4 of my series to add support for Intel Bay Trail based devices
+>> which use a WM5102 codec for audio output/input.
+>>
+>> This was developed and tested on a Lenovo Yoga Tablet 1051L.
+>>
+>> The MFD and ASoC parts do not have any build-time dependencies
+>> on each other. But the follow-up jack-detect series does have
+>> patches depending on each-other and on this series. So IMHO it
+>> would be best if this entire series would be merged through the
+>> MFD tree to make merging the follow-up series easier.
+>>
+>> [...]
 > 
-> ALSA IEC958 plugin will be used to compose the IEC958 format.
+> Applied to
 > 
-> [...]
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [4/5] ASoC: Intel: Add DMI quirk table to soc_intel_is_byt_cr()
+>       commit: 8ade6d8b02b1ead741bd4f6c42921035caab6560
+> [5/5] ASoC: Intel: bytcr_wm5102: Add machine driver for BYT/WM5102
+>       commit: 9a87fc1e061900e81ab13d823e85012a78849244
 
-Applied to
+Thank you.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Regards,
 
-Thanks!
+Hans
 
-[1/4] ASoC: codec: hdmi-codec: Support IEC958 encoded PCM format
-      commit: 28785f548d18e6d52785a1172e5c176784ce74cd
-[3/4] dt-bindings: sound: Intel, Keembay-i2s: Add hdmi-i2s compatible string
-      commit: d5e16dc5fdad09d7b3133b6aaea7848bfb518e04
-[4/4] ASoC: Intel: KMB: Support IEC958 encoded PCM format
-      commit: 1c5f6e0714c16e3ad8732e49e07082772dcc6f87
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739C6313C1C
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:03:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC6C313C1E
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:03:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87D18168B;
-	Mon,  8 Feb 2021 19:02:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87D18168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFEAA169B;
+	Mon,  8 Feb 2021 19:02:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFEAA169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612807411;
-	bh=GKTUT2MfGGx0ZTIWB+VGYK4uk+guS+dvloGcpzXNbL8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oOhqs1XNh5FwO86zYH9ZpauOgJ6gBM0G3rChiF2UhsUYeHcpbCdeMOzoRFXfAl0J2
-	 41fqFSeZ4an1npO1WziupArZTyBJl5BB5RFnR1krwhOTAaSWXo2zCsi/hJTcESdr11
-	 Oae6gASwd8HhkIUCvYb37k9O6/3WhueGiTYUDDao=
+	s=default; t=1612807422;
+	bh=wZPshLqGR2Le1bMG/am1PfeNZZwaf74QF6887B0Gi5k=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NXN5Y4i0MYUbC5LEEUaOD6WZHqnjk8EZr0Yr/HAv3YWw201kQzoBP6FwGLATX10AC
+	 bk0PjFRnIzTUeZD5yp8THn/zxrE47jxUCmJEav9JOivAxHtolHBDyf1DqvcYtuJVDg
+	 FsQpXMYCUjbkF9FKpihUfAICf1/Q2rUI0NnD9jF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A169AF8022D;
-	Mon,  8 Feb 2021 19:01:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A273CF80277;
+	Mon,  8 Feb 2021 19:02:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38D44F8022B; Mon,  8 Feb 2021 19:01:57 +0100 (CET)
+ id 2EC1FF8026C; Mon,  8 Feb 2021 19:02:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCAB7F80165
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:01:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCAB7F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36CC2F8022B
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:01:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36CC2F8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ZtQCs63t"
-Received: by mail-wr1-x430.google.com with SMTP id m13so18251166wro.12
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 10:01:54 -0800 (PST)
+ header.b="L3IgZ7BE"
+Received: by mail-wm1-x32c.google.com with SMTP id u14so14000482wmq.4
+ for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 10:01:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=15qU8cK0fgAua4gEd/w/zhOHPh1Gn9liZ7KcNZSIbsw=;
- b=ZtQCs63tKC4YNjAK5YtSkl6sRGMzqMgDk9JBWfHaip5ck0jSZBxtvpIAaRPwa/4Io+
- k4klxIU6HWNuAA8dl5xtXzodHH2zZc8AQ1ya6+D+UEWTgJ1zFvzsn0md+EIMZ2rO/bkC
- Eb7Ec+eDvh3Kz15Q8ihsCelhajfqZzJhsaf1coknsthLTdni8EkTINxV5UQMpmoOuycS
- Ap7BuWa6I/xJ1UrEe55XzHpbhp8AApMKsC6y05LrOwdVM6An8kCcJbIp00GVWf7tGqja
- 8o3faYsFFgVANYKB+UOdAZC54tVQWlUWy0yOZ0PHmetW5fcrfPF7sLKZZ+jpEZLaWa/k
- lwcw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=5s1sQMKmA5X4b0lhaDVUuKBYgKx/IDMprYcIvq92de4=;
+ b=L3IgZ7BE8UKYs5RN65jeJ5VyW1p1R3WssltervwC6FLLvOnOEFrY2xAFKjnITTdgkB
+ KDLyfDFvKateRh4yZtt+XaAqvBJiDzrEKP25V7lH/T5cEKnmcAaLQ5HBH9ro6BzqHNRU
+ NKYhPboaEv1MbqrNu0wxE+RgiNRaVfwaY6WjdX/NAiMPtYKEENSGv/+SKSqd+OlutZkw
+ 4OwYLg/jyuqY1h548ESf3tqrLU7MJVQvpVp8ik1b+NNwFcth30Xk2ALLJIqwbT2OI/9W
+ B7niNfhg8hgm2QjBD6EeS1eKK3vYOGIN11CL4gWJ0mCvhDE3xqWBcyO7LyVas0ep17NY
+ bDLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=15qU8cK0fgAua4gEd/w/zhOHPh1Gn9liZ7KcNZSIbsw=;
- b=BQrlAUmi8TLKPkpCPiZwv+AOkH4IgVftwnItt7o7TNg+xYnns35GcpSl7bEtJ43hzG
- 32+g9MDRAFSXYs0YzvnqXOodFVs84f4W/JBnHQAF/QdKahD/11Xf5bhYRh5lAV8YwiGd
- /MjlRO0O8J0zKvCjLrqA8SXNW41gj/DSIPKT+GpPjcSyRZGNGu0m/dq8V5XpePncvut7
- TW02cZXKUZDweSQYd/9JHwi0Jo/oas7FuzSTMKttwmHmmJB3KofjXV5N9NALsI6nfn7R
- N8AwGbf8d1z7wxhP3WIGgcuLBL49TrB8aPQIEaED3CC2OFFDbHPaEdara1rsYDp4k+ki
- xlVg==
-X-Gm-Message-State: AOAM530VwIH9HkbOB7V3ugjWrASzJJCR5c/ne0FHOBH/hOct6lxK2zSp
- 7pESusdAW2QmBZo5w9fhZxaJDQ==
-X-Google-Smtp-Source: ABdhPJwrqGjJeWdA+BLfOl3RPdiRzmOJ7nilmxlHvJ0QS3yn9XOx2bYatc29bZoEoaYUpqBYS3z34w==
-X-Received: by 2002:adf:bb54:: with SMTP id x20mr13257775wrg.112.1612807313722; 
- Mon, 08 Feb 2021 10:01:53 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=5s1sQMKmA5X4b0lhaDVUuKBYgKx/IDMprYcIvq92de4=;
+ b=KbpIX5gSFfAdK8I3Ug+MelCJY4ZUTLvLPnN8J3/FOQl6SQ+QTloJJYTPS3sbwSdg5f
+ Vsxw4k7TrWkNSq+CeLopsblLho+Wpfb7p7jOJTgB7uNCBOdIgAgHkOWsQuyFBoaSAS1M
+ E6v13+9M8Sy3i4WivhMndce0UD2dg/6Smg8eQSScqQKRkMXbqmf2A5x3XVCF+C/CbmRc
+ QxkPmE1C/VnMVlpHdJdL8tOOnnjP1kP0m5juVaP1W4+7ukf4jo9Rb0+SMbGNhXo3943q
+ lMmN7Lu1ewx3sFBrGQSZvRfDpg+HGTJbPP3xb0sWnrn0WCyOTVd9a7bVQSLfSdcIymNO
+ HzZw==
+X-Gm-Message-State: AOAM530w0ssOdF19Zz+kd8RZDI1hnQcxNt/u/KvbeS/OAGOGQw42MFj+
+ h7dlTZg8lh3/k32XQ9VbmtoFOw==
+X-Google-Smtp-Source: ABdhPJxCZi8H1CydVhCZfqpCFVFhs9A4rb4nG+DOMBKxnKEbl3LV8R30QFkuR1U+WZjKFHv9VJp9kw==
+X-Received: by 2002:a1c:67c4:: with SMTP id b187mr15837322wmc.17.1612807315064; 
+ Mon, 08 Feb 2021 10:01:55 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id l2sm21194937wmq.17.2021.02.08.10.01.52
+ by smtp.gmail.com with ESMTPSA id l2sm21194937wmq.17.2021.02.08.10.01.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Feb 2021 10:01:53 -0800 (PST)
+ Mon, 08 Feb 2021 10:01:54 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v3 0/7] ASoC: codecs: add support for LPASS Codec TX and RX
- macros
-Date: Mon,  8 Feb 2021 18:01:02 +0000
-Message-Id: <20210208180109.518-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v3 1/7] ASoC: qcom: dt-bindings: add bindings for lpass rx
+ macro codec
+Date: Mon,  8 Feb 2021 18:01:03 +0000
+Message-Id: <20210208180109.518-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20210208180109.518-1-srinivas.kandagatla@linaro.org>
+References: <20210208180109.518-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -99,53 +103,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for reviewing v2, here is v3 patchset addressing comments from v2.
+This binding is for LPASS has internal codec RX macro which is
+for connecting with SoundWire RX codecs like WCD938x.
 
-This patchset adds support for two Codec Macro blocks(TX and RX) available in
-Qualcomm LPASS (Low Power Audio SubSystem).
-
-There are WSA, VA, TX and RX Macros on LPASS IP, each of the Macro block
-has specific connectivity like WSA Macros are intended to connect
-to WSA Smart speaker codecs via SoundWire. VA Macro is intended for DMICs,
-and TX/RX for Analog codecs via SoundWire like other WCD938x Codecs to provide
-headphone/ear/lineout/amic/dmic etc ..
-
-Most of the work is derived from downstream Qualcomm kernels.
-Credits to various Qualcomm authors from Patrick Lai's team who have
-contributed to this code.
-
-This patchset has been tested on support to SM8250 MTP Development Board.
-This board has 2 WSA881X smart speakers with onboard DMIC connected to
-internal LPASS codec via WSA  and VA macros respectively and WCD938x
-TX and RX connected via Soundwire via TX and RX Macros reseptively.
-
-Thanks,
-srini
-
-Changes since v2:
-	- Suffix some of the simple on/off control names with "Switch"
-
-Srinivas Kandagatla (7):
-  ASoC: qcom: dt-bindings: add bindings for lpass rx macro codec
-  ASoC: codecs: lpass-rx-macro: add support for lpass rx macro
-  ASoC: codecs: lpass-rx-macro: add dapm widgets and route
-  ASoC: codecs: lpass-rx-macro: add iir widgets
-  ASoC: qcom: dt-bindings: add bindings for lpass tx macro codec
-  ASoC: codecs: lpass-tx-macro: add support for lpass tx macro
-  ASoC: codecs: lpass-tx-macro: add dapm widgets and route
-
- .../bindings/sound/qcom,lpass-rx-macro.yaml   |   62 +
- .../bindings/sound/qcom,lpass-tx-macro.yaml   |   67 +
- sound/soc/codecs/Kconfig                      |   10 +
- sound/soc/codecs/Makefile                     |    4 +
- sound/soc/codecs/lpass-rx-macro.c             | 3604 +++++++++++++++++
- sound/soc/codecs/lpass-tx-macro.c             | 1877 +++++++++
- 6 files changed, 5624 insertions(+)
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ .../bindings/sound/qcom,lpass-rx-macro.yaml   | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
- create mode 100644 sound/soc/codecs/lpass-rx-macro.c
- create mode 100644 sound/soc/codecs/lpass-tx-macro.c
 
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+new file mode 100644
+index 000000000000..443d556caa69
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/qcom,lpass-rx-macro.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LPASS(Low Power Audio Subsystem) RX Macro audio codec DT bindings
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
++
++properties:
++  compatible:
++    const: qcom,sm8250-lpass-rx-macro
++
++  reg:
++    maxItems: 1
++
++  "#sound-dai-cells":
++    const: 1
++
++  '#clock-cells':
++    const: 0
++
++  clocks:
++    maxItems: 5
++
++  clock-names:
++    items:
++      - const: mclk
++      - const: npl
++      - const: macro
++      - const: dcodec
++      - const: fsgen
++
++  clock-output-names:
++    items:
++      - const: mclk
++
++required:
++  - compatible
++  - reg
++  - "#sound-dai-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/sound/qcom,q6afe.h>
++    codec@3200000 {
++      compatible = "qcom,sm8250-lpass-rx-macro";
++      reg = <0x3200000 0x1000>;
++      #sound-dai-cells = <1>;
++      #clock-cells = <0>;
++      clocks = <&audiocc 0>,
++               <&audiocc 1>,
++               <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++               <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++               <&vamacro>;
++      clock-names = "mclk", "npl", "macro", "dcodec", "fsgen";
++      clock-output-names = "mclk";
++    };
 -- 
 2.21.0
 

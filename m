@@ -2,71 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17525313058
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 12:13:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CE83130AE
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 12:23:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96A161677;
-	Mon,  8 Feb 2021 12:13:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A161677
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4F98826;
+	Mon,  8 Feb 2021 12:23:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F98826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612782836;
-	bh=WRC7z+SYjbQG2Wzg3Q0nX3aiFOW+SApQa+A8fRUwYuA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1612783431;
+	bh=7eIPT0C9w57dMrpU0LOCdFTvF2WD+pEwHnIKu8LOvNY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GacA2XG2DfqA9boJUobenMb6fInSmVnE0ERih8xoF3+8YdfCbiRk582lHTkOfKzYj
-	 MAP8GOH2MCgvgpp6nIsk1KF7h2hyElG8+xMYtjWRspWqUaeeExTPdLu30pd0u7FH3c
-	 pCEYH2fHYi0XprpkdrjgftFhiOwsICw7WnL+AE5I=
+	b=MtoJ39oQ6iTErrWFTliFegwEEIt/XnGu54MhOVctF5PTS+YMGs/xbVXXw2GZyC2Da
+	 DAoooXM6G7doQMEurosoQM6VOSg95JYLaRFVbcxHKhiZXAJ2+GSZoE7FsKewJPK2cD
+	 yCkoZ4y9yXMWr1vC0NjrXzWfRwTCE6ngbR1dSgQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB560F8013A;
-	Mon,  8 Feb 2021 12:12:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A1D2F8013A;
+	Mon,  8 Feb 2021 12:22:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48DFCF80169; Mon,  8 Feb 2021 12:12:20 +0100 (CET)
+ id 3E1A1F80169; Mon,  8 Feb 2021 12:22:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE629F80114
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 12:12:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE629F80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fS/UPHbr"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AD26B64E30;
- Mon,  8 Feb 2021 11:12:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612782732;
- bh=WRC7z+SYjbQG2Wzg3Q0nX3aiFOW+SApQa+A8fRUwYuA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fS/UPHbrPQjgua4j6ySB/XZqmw0I6irzYDt6Z1NJceYSIqi0riQVVDfjkD7tp6iBQ
- 3LRoLR1RCo/ydPwst/lPDKrzFRlCtyDCpqCyvpB91rZBqCG35vIKzK16pa4Neb3Nqo
- ISx77MQ3IQnwJqN7M/ANEmSCFI34wSkrRocAfSIBDNrGUkdGbZvySObBl/8OjewX+s
- FjIzOLX3FvtBqWUwdw9K/EULeOk63guWr0fzNf0S2VKCmif0hgYC1/NzVSN81lIBRD
- AJLkWaW6Y6o682xn6svY6jK00DUZEkdPGxKyswOoTEImJvB3kkGI5P7lqWdGjqu54A
- xk1DOiU+AMiXw==
-Date: Mon, 8 Feb 2021 11:11:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2 0/3] ALSA: hda: add link_power op to hdac_bus_ops
-Message-ID: <20210208111120.GB8645@sirena.org.uk>
-References: <20210205184630.1938761-1-kai.vehmanen@linux.intel.com>
- <s5hblcx1j09.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4bRzO86E/ozDv8r1"
-Content-Disposition: inline
-In-Reply-To: <s5hblcx1j09.wl-tiwai@suse.de>
-X-Cookie: You will triumph over your enemy.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECE07F8013A
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 12:22:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECE07F8013A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9E050AD57;
+ Mon,  8 Feb 2021 11:22:11 +0000 (UTC)
+Date: Mon, 08 Feb 2021 12:22:11 +0100
+Message-ID: <s5hv9b2yfbw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 1/2] ALSA: hda: intel-dsp-config: Add FLAG_BYT_FIRST /
+ _SECOND defines
+In-Reply-To: <8ff7b215-42ea-8332-7373-bc5ce346092b@redhat.com>
+References: <20210208093800.62099-1-hdegoede@redhat.com>
+ <s5ha6sezxil.wl-tiwai@suse.de>
+ <5d6241f2-8df2-8de2-b437-804566e62e25@redhat.com>
+ <s5hy2fyyg96.wl-tiwai@suse.de>
+ <8ff7b215-42ea-8332-7373-bc5ce346092b@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,39 +75,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 08 Feb 2021 12:08:52 +0100,
+Hans de Goede wrote:
+> 
+> Hi,
+> 
+> On 2/8/21 12:02 PM, Takashi Iwai wrote:
+> > On Mon, 08 Feb 2021 11:24:53 +0100,
+> > Hans de Goede wrote:
+> >>
+> >> Hi,
+> >>
+> >> On 2/8/21 11:04 AM, Takashi Iwai wrote:
+> >>> On Mon, 08 Feb 2021 10:37:59 +0100,
+> >>> Hans de Goede wrote:
+> >>>>
+> >>>> Instead of hardcording the SST driver having the highest prio, add
+> >>>> FLAG_BYT_FIRST and FLAG_BYT_SECOND defines, which get set like this
+> >>>> when both drivers are enabled:
+> >>>>
+> >>>> 	#define FLAG_BYT_FIRST               FLAG_SST
+> >>>> 	#define FLAG_BYT_SECOND              FLAG_SOF
+> >>>>
+> >>>> And when only 1 driver is enabled then FLAG_BYT_FIRST gets set to
+> >>>> the flag for that driver.
+> >>>>
+> >>>> This is a preparation patch for making which driver is preferred
+> >>>> configurable through Kconfig.
+> >>>>
+> >>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> >>>
+> >>> I find the idea is fine, but the ifdef conditions become too complex
+> >>> after this change.  It took minutes to check whether the ifdef changes
+> >>> are really correct for me :)
+> >>
+> >> I understand but...
+> >>
+> >>> So, it'd be appreciated if this can be re-designed and simplified...
+> >>
+> >> This was actually the cleanest which I could come up with, well maybe not the
+> >> cleanest, but the most "do not repeat yourself" option.
+> >>
+> >> The alternative would be something like this:
+> >>
+> >> static const struct config_entry acpi_config_table[] = {
+> >> /* BayTrail */
+> >> #ifdef CONFIG_SND_INTEL_BYT_PREFER_SOF /* implies both drivers are enabled */
+> >>         {
+> >>                 .flags = FLAG_SOF,
+> >>                 .acpi_hid = "80860F28",
+> >>         },
+> >>         {
+> >>                 .flags = FLAG_SST,
+> >>                 .acpi_hid = "80860F28",
+> >>         },
+> >> #else
+> >> #if IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI)
+> >>         {
+> >>                 .flags = FLAG_SST,
+> >>                 .acpi_hid = "80860F28",
+> >>         },
+> >> #endif
+> >> #if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL
+> >>         {
+> >>                 .flags = FLAG_SOF,
+> >>                 .acpi_hid = "80860F28",
+> >>         },
+> >> #endif
+> >> #endif
+> >>
+> >> With the same thing repeating for the Cherry Trail case, now that
+> >> I actually have written this out I guess it is not too bad, but it
+> >> does mean repeating all the BYT/CHT entries once, visually
+> >> leading to 4 extra entries (but the #ifdef #else #endif
+> >> will always include only 2/4 for each of BYT and CHT.
+> >>
+> >> If you like this better I can do a v2 with this approach, that
+> >> would also reduce the set to a single patch.
+> > 
+> > If I understand correctly, we don't need to have two entries since the
+> > first matching always wins.
+> 
+> Yes that is true,
+> 
+> > So it could be something like below?
+> 
+> > --- a/sound/hda/intel-dsp-config.c
+> > +++ b/sound/hda/intel-dsp-config.c
+> > @@ -26,6 +26,12 @@ MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP (0=auto, 1=lega
+> >  #define FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE (FLAG_SOF_ONLY_IF_DMIC | \
+> >  					    FLAG_SOF_ONLY_IF_SOUNDWIRE)
+> >  
+> > +#if IS_ENABLED(CONFIG_SND_SOC_PREFER_SOF_BAYTRAIL)
+> 
+> This condition would need to be changed to:
+> 
+> #if IS_ENABLED(CONFIG_SND_SOC_PREFER_SOF_BAYTRAIL) || !IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI)
+> 
+> In case only the SOF driver is enabled.
+> 
+> With that changed I believe that your suggestion should work.
+> 
+> Shall I prepare a new patch going this route ?
 
---4bRzO86E/ozDv8r1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Yes, please.  It's easier to understand (to my eyes).
 
-On Sat, Feb 06, 2021 at 01:24:38PM +0100, Takashi Iwai wrote:
-> Kai Vehmanen wrote:
 
-> > Kai Vehmanen (3):
-> >   ALSA: hda: add link_power op to hdac_bus_ops
-> >   ASoC: SOF: Intel: hda: use hdac_ext fine-grained link management
-> >   ASoC: SOF: Intel: hda: release display power at link_power
+thanks,
 
-> The patch set looks good to me.  If Mark can give an ack, I'll merge
-> them through my tree later.
-
-Yeah, looks good to me too
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---4bRzO86E/ozDv8r1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAhHFcACgkQJNaLcl1U
-h9D/GQf+OoaWwg+t1EziTfCtNFWDaOHjxIp1juMD9ZwaSWAvqbc2P+i8UyIyHdE5
-n8iZ9RCzuQ4A6o7S+TBTA5ARDcYi64qPmooxfiiQkv9/YsBJ2uRepI+bE1Pmbat5
-FyLeWlmfhzvocB0F6Hk5OUWh+a8UcJKvwQ/2O6oCR72/+MqmYO2vSsqQHYLMYqWF
-zzb0HfRiqAPqz+FoTm+ugpcKaHWh8mX+5JJHJU/h5Ep1Wsu9zjTr4G05ELm4mWEu
-pzWcY6FZ/dU8BzI40MWs20Q++FRraownZzY/cEuG8B0poqjY/r5WODdof80Sj6UA
-yfoFcud8lMrTXrdYK2y9U1yVjSynnA==
-=DlY6
------END PGP SIGNATURE-----
-
---4bRzO86E/ozDv8r1--
+Takashi

@@ -2,106 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8805C312BE0
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 09:35:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 960BA312CB3
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 10:06:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B1571616;
-	Mon,  8 Feb 2021 09:34:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B1571616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 130521671;
+	Mon,  8 Feb 2021 10:05:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 130521671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612773339;
-	bh=bccaAgfQeK0F46WfliG2FHAR0QnJ1RCGGKqFObtQ3p0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qc6czkaasrCa9I/j8lyvol4Ww9OkVsRIzmeBA3WehT8CJeIiWe5mcExP01U6KDO7j
-	 rVVmEuRjXRyCFihzSjkAJpEMkZYB9w1YmFxO2vR4LV4Ca7n/Kv7VVyOBxgtBHU4Od9
-	 pE4aBJ7obfBoTRfqitWNp07pAwBbRbagksouT6zc=
+	s=default; t=1612775207;
+	bh=M5E2oh4D3TbQicRWg9Jlp31vKUmDJRtK/aNR2O7JQC0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CJHzk6G/6XFAKpIEEcKRIKYPY8PSLpNAedHj21fllJPW1eDRlpQd7nacw4Zljk1aI
+	 WjQuaoUlQJnYE1B3prWzWnz580gReW8MLA4F0Y04mvMyavg8zzDWNN2pqfdfmIbVd2
+	 484M/fZfO72zKfbd6qk7dQhkYteYsxV5GorJahxY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BDEAF80169;
-	Mon,  8 Feb 2021 09:34:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79E52F80169;
+	Mon,  8 Feb 2021 10:05:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1D4CF8022B; Mon,  8 Feb 2021 09:34:02 +0100 (CET)
+ id 12C54F8022B; Mon,  8 Feb 2021 10:05:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE72CF8013A
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 09:33:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE72CF8013A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xRoKiOu2"
-Received: by mail-wr1-x42b.google.com with SMTP id b3so16042403wrj.5
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 00:33:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=dzjEN7YVqtaqujbmGYSzD3fjsYLPescY0ifkDBXkqLg=;
- b=xRoKiOu2+Jjnk8RdzCfADbsl30nmGTuZ25PnHaVNy9IPtE+SMpyLz05zta/V+TXk2L
- 3Snk9K1/beMrfzFOmEGycXni6ruIfzt2A229bO0/ZS6tQXnO/GhQSzhsdsiFJK9E2VBz
- wQ4BCB9Y66TgNvHI+oUt+w879mPpRFGQe4RRjAwR+rrv9vUqy0VtEmRoYePZ4Xngos+D
- oSjF9KHPmbPIIih+toMXyIPOc0eSokDNhtP45NuUJnIZc+4m61nRJSRclrxvzykvYX/n
- F5ydFlQGMWh1pFfQSaFQy1E/hNfpsQuuMQdS66Rvu1GJQHOgz+LHcYNUmfDKCF+wjgLZ
- zjBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=dzjEN7YVqtaqujbmGYSzD3fjsYLPescY0ifkDBXkqLg=;
- b=fzNr4nDC3O6cM4g+zM9LbvNdvLyLahVqAXN7hiwkqEPbcFG3Tn1jLjX6Lt6d7smCWS
- 1ggcyl19CN1FG9GH3Xq4H//gtISkZkyOtn+tlpQCtz+x1WIwoXkZueXXPVAQGQmw9OVl
- jTcyaP9olZWi9tYhXMJ/sASssC+o1ClmFGSxg1QmoPwZ8cw8eU8mAWWwEoyKcKDnN49U
- UbOCqFIEdrOi06gno7OTvPVuWVdUSoSJU5QsX4Cgy/TIt89jqfJJ3ZQ58Aubua5Clv0s
- Gm6vvi25UYOME1hI/ZSnXmwCQsm+YuAwFePYwaas3sb02jy+HEcbJ7urWaoBcFaQD+PG
- LDNA==
-X-Gm-Message-State: AOAM5313R0GUwDY2jmXNJuxn8sxMqCQPufEUPMFKBmYT+lIs1zvnjevN
- LuymD5luHABDy5Zzhy/03DPugg==
-X-Google-Smtp-Source: ABdhPJwZGtkWXy3XxqyySRsvK8yAbf1VqsSaowxqAHFyvXDRFGKSdrHBj876+06i47XwvXOOK4AuXQ==
-X-Received: by 2002:adf:8b47:: with SMTP id v7mr18339833wra.133.1612773233172; 
- Mon, 08 Feb 2021 00:33:53 -0800 (PST)
-Received: from dell ([91.110.221.246])
- by smtp.gmail.com with ESMTPSA id l11sm26193998wrt.23.2021.02.08.00.33.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Feb 2021 00:33:52 -0800 (PST)
-Date: Mon, 8 Feb 2021 08:33:50 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 4/5] ASoC: Intel: Add DMI quirk table to
- soc_intel_is_byt_cr()
-Message-ID: <20210208083350.GA4766@dell>
-References: <20210120214957.140232-1-hdegoede@redhat.com>
- <20210120214957.140232-5-hdegoede@redhat.com>
- <20210204135616.GL2789116@dell>
- <20210204140515.GC4288@sirena.org.uk>
- <20210204150456.GN2789116@dell>
- <20210204151139.GE4288@sirena.org.uk>
- <20210204154058.GP2789116@dell>
- <20210204194213.GG4288@sirena.org.uk>
- <20210205083416.GR2789116@dell>
- <20210205211101.GL4720@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B280F80114
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 10:04:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B280F80114
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 11894igdE014275,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.94])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 11894igdE014275
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 8 Feb 2021 17:04:44 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Mon, 8 Feb 2021 17:04:38 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
+Date: Mon, 8 Feb 2021 17:04:32 +0800
+Message-ID: <20210208090432.1078-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210205211101.GL4720@sirena.org.uk>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMBS02.realtek.com.tw (172.21.6.95) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
+ Shuming Fan <shumingf@realtek.com>, flove@realtek.com,
+ pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,47 +77,941 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 05 Feb 2021, Mark Brown wrote:
+From: Shuming Fan <shumingf@realtek.com>
 
-> On Fri, Feb 05, 2021 at 08:34:16AM +0000, Lee Jones wrote:
-> > On Thu, 04 Feb 2021, Mark Brown wrote:
-> > 
-> > > On Thu, Feb 04, 2021 at 03:40:58PM +0000, Lee Jones wrote:
-> > > > On Thu, 04 Feb 2021, Mark Brown wrote:
-> > > > > On Thu, Feb 04, 2021 at 03:04:56PM +0000, Lee Jones wrote:
-> 
-> > > > > > This set has all the Acks we need to proceed.  What's blocking?
-> 
-> > > > > There's the subsystem maintainer...
-> 
-> > > > I assume that was a question and you meant "where's"?
-> 
-> > > > Pierre is listed as the Maintainer.
-> 
-> > > I'm fairly sure you can see what I meant here and why there might be a
-> > > concern.
-> 
-> > So that should be a Reviewed-by and not an Acked-by then.  That's fine.
-> 
-> No, it's that there's plenty of drivers like this that are listed in
-> MAINTAINERS but still generally go through subsystem trees - this is
-> also true of for quite a few MFD drivers, you tend to get a bit annoyed
-> (quite reasonably) whenever I mistakenly pull MFD changes for them into
-> one of my trees without syncing with you.
+This is the initial amplifier driver for rt1316 SDCA version.
 
-Driver Maintainers in MFD don't sent Acks.
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/Kconfig      |   6 +
+ sound/soc/codecs/Makefile     |   2 +
+ sound/soc/codecs/rt1316-sdw.c | 808 ++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/rt1316-sdw.h |  57 +++
+ 4 files changed, 873 insertions(+)
+ create mode 100644 sound/soc/codecs/rt1316-sdw.c
+ create mode 100644 sound/soc/codecs/rt1316-sdw.h
 
-> > What do you want to happen with this set then?
-> 
-> > You want it broken up?
-> 
-> I guess, or at least a pull request so it's in my tree and I'll notice
-> any coverage issues.
-
-Okay, I'll process it.
-
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index df34b3b3bb14..0b9e9047377e 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -181,6 +181,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_RT711_SDW
+ 	imply SND_SOC_RT715_SDW
+ 	imply SND_SOC_RT1308_SDW
++	imply SND_SOC_RT1316_SDW
+ 	imply SND_SOC_SGTL5000
+ 	imply SND_SOC_SI476X
+ 	imply SND_SOC_SIMPLE_AMPLIFIER
+@@ -1129,6 +1130,11 @@ config SND_SOC_RT1308_SDW
+ 	depends on I2C && SOUNDWIRE
+ 	select REGMAP_SOUNDWIRE
+ 
++config SND_SOC_RT1316_SDW
++	tristate "Realtek RT1316 Codec - SDW"
++	depends on SOUNDWIRE
++	select REGMAP_SOUNDWIRE
++
+ config SND_SOC_RT5514
+ 	tristate
+ 	depends on I2C
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 628b0c9b3e2a..ddf59532e9ca 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -170,6 +170,7 @@ snd-soc-rt1015p-objs := rt1015p.o
+ snd-soc-rt1305-objs := rt1305.o
+ snd-soc-rt1308-objs := rt1308.o
+ snd-soc-rt1308-sdw-objs := rt1308-sdw.o
++snd-soc-rt1316-sdw-objs := rt1316-sdw.o
+ snd-soc-rt274-objs := rt274.o
+ snd-soc-rt286-objs := rt286.o
+ snd-soc-rt298-objs := rt298.o
+@@ -483,6 +484,7 @@ obj-$(CONFIG_SND_SOC_RT1015P)	+= snd-soc-rt1015p.o
+ obj-$(CONFIG_SND_SOC_RT1305)	+= snd-soc-rt1305.o
+ obj-$(CONFIG_SND_SOC_RT1308)	+= snd-soc-rt1308.o
+ obj-$(CONFIG_SND_SOC_RT1308_SDW)	+= snd-soc-rt1308-sdw.o
++obj-$(CONFIG_SND_SOC_RT1316_SDW)	+= snd-soc-rt1316-sdw.o
+ obj-$(CONFIG_SND_SOC_RT274)	+= snd-soc-rt274.o
+ obj-$(CONFIG_SND_SOC_RT286)	+= snd-soc-rt286.o
+ obj-$(CONFIG_SND_SOC_RT298)	+= snd-soc-rt298.o
+diff --git a/sound/soc/codecs/rt1316-sdw.c b/sound/soc/codecs/rt1316-sdw.c
+new file mode 100644
+index 000000000000..a09ebb768667
+--- /dev/null
++++ b/sound/soc/codecs/rt1316-sdw.c
+@@ -0,0 +1,808 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// rt1316-sdw.c -- rt1316 SDCA ALSA SoC amplifier audio driver
++//
++// Copyright(c) 2020 Realtek Semiconductor Corp.
++//
++//
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/pm_runtime.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc-dapm.h>
++#include <sound/initval.h>
++#include "rt1316-sdw.h"
++
++static const struct reg_default rt1316_reg_defaults[] = {
++	{ 0x3004, 0x00 },
++	{ 0x3005, 0x00 },
++	{ 0x3206, 0x00 },
++	{ 0xc001, 0x00 },
++	{ 0xc002, 0x00 },
++	{ 0xc003, 0x00 },
++	{ 0xc004, 0x00 },
++	{ 0xc005, 0x00 },
++	{ 0xc006, 0x00 },
++	{ 0xc007, 0x00 },
++	{ 0xc008, 0x00 },
++	{ 0xc009, 0x00 },
++	{ 0xc00a, 0x00 },
++	{ 0xc00b, 0x00 },
++	{ 0xc00c, 0x00 },
++	{ 0xc00d, 0x00 },
++	{ 0xc00e, 0x00 },
++	{ 0xc00f, 0x00 },
++	{ 0xc010, 0xa5 },
++	{ 0xc011, 0x00 },
++	{ 0xc012, 0xff },
++	{ 0xc013, 0xff },
++	{ 0xc014, 0x40 },
++	{ 0xc015, 0x00 },
++	{ 0xc016, 0x00 },
++	{ 0xc017, 0x00 },
++	{ 0xc605, 0x30 },
++	{ 0xc700, 0x0a },
++	{ 0xc701, 0xaa },
++	{ 0xc702, 0x1a },
++	{ 0xc703, 0x0a },
++	{ 0xc710, 0x80 },
++	{ 0xc711, 0x00 },
++	{ 0xc712, 0x3e },
++	{ 0xc713, 0x80 },
++	{ 0xc714, 0x80 },
++	{ 0xc715, 0x06 },
++	{ 0xd101, 0x00 },
++	{ 0xd102, 0x30 },
++	{ 0xd103, 0x00 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_UDMPU21, RT1316_SDCA_CTL_UDMPU_CLUSTER, 0), 0x00 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_L), 0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_R), 0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_XU24, RT1316_SDCA_CTL_BYPASS, 0), 0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE23, RT1316_SDCA_CTL_REQ_POWER_STATE, 0), 0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE22, RT1316_SDCA_CTL_REQ_POWER_STATE, 0), 0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE24, RT1316_SDCA_CTL_REQ_POWER_STATE, 0), 0x03 },
++};
++
++static bool rt1316_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0x2f0a:
++	case 0x2f36:
++	case 0x3203 ... 0x320e:
++	case 0xc000 ... 0xc7b4:
++	case 0xcf00 ... 0xcf03:
++	case 0xd101 ... 0xd103:
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_UDMPU21, RT1316_SDCA_CTL_UDMPU_CLUSTER, 0):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_L):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_R):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE23, RT1316_SDCA_CTL_REQ_POWER_STATE, 0):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE27, RT1316_SDCA_CTL_REQ_POWER_STATE, 0):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE22, RT1316_SDCA_CTL_REQ_POWER_STATE, 0):
++	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE24, RT1316_SDCA_CTL_REQ_POWER_STATE, 0):
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool rt1316_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0xc000:
++	case 0xc093:
++	case 0xc09d:
++	case 0xc0a3:
++	case 0xc201:
++	case 0xc427 ... 0xc428:
++	case 0xd102:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config rt1316_sdw_regmap = {
++	.reg_bits = 32,
++	.val_bits = 8,
++	.readable_reg = rt1316_readable_register,
++	.volatile_reg = rt1316_volatile_register,
++	.max_register = 0x4108ffff,
++	.reg_defaults = rt1316_reg_defaults,
++	.num_reg_defaults = ARRAY_SIZE(rt1316_reg_defaults),
++	.cache_type = REGCACHE_RBTREE,
++	.use_single_read = true,
++	.use_single_write = true,
++};
++
++static int rt1316_read_prop(struct sdw_slave *slave)
++{
++	struct sdw_slave_prop *prop = &slave->prop;
++	int nval;
++	int i, j;
++	u32 bit;
++	unsigned long addr;
++	struct sdw_dpn_prop *dpn;
++
++	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
++	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
++	prop->is_sdca = true;
++
++	prop->paging_support = true;
++
++	/* first we need to allocate memory for set bits in port lists */
++	prop->source_ports = 0x04; /* BITMAP: 00000100 */
++	prop->sink_ports = 0x2; /* BITMAP:  00000010 */
++
++	nval = hweight32(prop->source_ports);
++	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
++		sizeof(*prop->src_dpn_prop), GFP_KERNEL);
++	if (!prop->src_dpn_prop)
++		return -ENOMEM;
++
++	i = 0;
++	dpn = prop->src_dpn_prop;
++	addr = prop->source_ports;
++	for_each_set_bit(bit, &addr, 32) {
++		dpn[i].num = bit;
++		dpn[i].type = SDW_DPN_FULL;
++		dpn[i].simple_ch_prep_sm = true;
++		dpn[i].ch_prep_timeout = 10;
++		i++;
++	}
++
++	/* do this again for sink now */
++	nval = hweight32(prop->sink_ports);
++	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
++		sizeof(*prop->sink_dpn_prop), GFP_KERNEL);
++	if (!prop->sink_dpn_prop)
++		return -ENOMEM;
++
++	j = 0;
++	dpn = prop->sink_dpn_prop;
++	addr = prop->sink_ports;
++	for_each_set_bit(bit, &addr, 32) {
++		dpn[j].num = bit;
++		dpn[j].type = SDW_DPN_FULL;
++		dpn[j].simple_ch_prep_sm = true;
++		dpn[j].ch_prep_timeout = 10;
++		j++;
++	}
++
++	/* set the timeout values */
++	prop->clk_stop_timeout = 20;
++
++	dev_dbg(&slave->dev, "%s\n", __func__);
++
++	return 0;
++}
++
++static int rt1316_io_init(struct device *dev, struct sdw_slave *slave)
++{
++	struct rt1316_sdw_priv *rt1316 = dev_get_drvdata(dev);
++
++	if (rt1316->hw_init)
++		return 0;
++
++	if (rt1316->first_hw_init) {
++		regcache_cache_only(rt1316->regmap, false);
++		regcache_cache_bypass(rt1316->regmap, true);
++	} else {
++		/*
++		 * PM runtime is only enabled when a Slave reports as Attached
++		 */
++
++		/* set autosuspend parameters */
++		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
++		pm_runtime_use_autosuspend(&slave->dev);
++
++		/* update count of parent 'active' children */
++		pm_runtime_set_active(&slave->dev);
++
++		/* make sure the device does not suspend immediately */
++		pm_runtime_mark_last_busy(&slave->dev);
++
++		pm_runtime_enable(&slave->dev);
++	}
++
++	pm_runtime_get_noresume(&slave->dev);
++
++	/* sw reset */
++	regmap_write(rt1316->regmap, 0xc000, 0x02);
++
++	/* initial settings - blind write */
++	regmap_write(rt1316->regmap, 0xc710, 0x17);
++	regmap_write(rt1316->regmap, 0xc711, 0x80);
++	regmap_write(rt1316->regmap, 0xc712, 0x26);
++	regmap_write(rt1316->regmap, 0xc713, 0x06);
++	regmap_write(rt1316->regmap, 0xc714, 0x80);
++	regmap_write(rt1316->regmap, 0xc715, 0x06);
++	regmap_write(rt1316->regmap, 0xc702, 0x0a);
++	regmap_write(rt1316->regmap, 0xc703, 0x0a);
++	regmap_write(rt1316->regmap, 0xc001, 0x45);
++	regmap_write(rt1316->regmap, 0xc003, 0x00);
++	regmap_write(rt1316->regmap, 0xc004, 0x11);
++	regmap_write(rt1316->regmap, 0xc005, 0x00);
++	regmap_write(rt1316->regmap, 0xc006, 0x00);
++	regmap_write(rt1316->regmap, 0xc106, 0x00);
++	regmap_write(rt1316->regmap, 0xc007, 0x11);
++	regmap_write(rt1316->regmap, 0xc008, 0x11);
++	regmap_write(rt1316->regmap, 0xc009, 0x00);
++
++	regmap_write(rt1316->regmap, 0x2f0a, 0x00);
++	regmap_write(rt1316->regmap, 0xd101, 0xf0);
++	regmap_write(rt1316->regmap, 0xd103, 0x9b);
++	regmap_write(rt1316->regmap, 0x2f36, 0x8e);
++	regmap_write(rt1316->regmap, 0x3206, 0x80);
++	regmap_write(rt1316->regmap, 0x3211, 0x0b);
++	regmap_write(rt1316->regmap, 0x3216, 0x06);
++	regmap_write(rt1316->regmap, 0xc614, 0x20);
++	regmap_write(rt1316->regmap, 0xc615, 0x0a);
++	regmap_write(rt1316->regmap, 0xc616, 0x02);
++	regmap_write(rt1316->regmap, 0xc617, 0x00);
++	regmap_write(rt1316->regmap, 0xc60b, 0x10);
++	regmap_write(rt1316->regmap, 0xc60e, 0x05);
++	regmap_write(rt1316->regmap, 0xc102, 0x00);
++	regmap_write(rt1316->regmap, 0xc090, 0xb0);
++	regmap_write(rt1316->regmap, 0xc00f, 0x01);
++	regmap_write(rt1316->regmap, 0xc09c, 0x7b);
++
++	regmap_write(rt1316->regmap, 0xc602, 0x07);
++	regmap_write(rt1316->regmap, 0xc603, 0x07);
++	regmap_write(rt1316->regmap, 0xc0a3, 0x71);
++	regmap_write(rt1316->regmap, 0xc00b, 0x30);
++	regmap_write(rt1316->regmap, 0xc093, 0x80);
++	regmap_write(rt1316->regmap, 0xc09d, 0x80);
++	regmap_write(rt1316->regmap, 0xc0b0, 0x77);
++	regmap_write(rt1316->regmap, 0xc010, 0xa5);
++	regmap_write(rt1316->regmap, 0xc050, 0x83);
++	regmap_write(rt1316->regmap, 0x2f55, 0x03);
++	regmap_write(rt1316->regmap, 0x3217, 0xb5);
++	regmap_write(rt1316->regmap, 0x3202, 0x02);
++
++	regmap_write(rt1316->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_XU24, RT1316_SDCA_CTL_BYPASS, 0), 0x00);
++
++	/* for IV sense */
++	regmap_write(rt1316->regmap, 0x2232, 0x80);
++	regmap_write(rt1316->regmap, 0xc0b0, 0x77);
++	regmap_write(rt1316->regmap, 0xc011, 0x00);
++	regmap_write(rt1316->regmap, 0xc020, 0x00);
++	regmap_write(rt1316->regmap, 0xc023, 0x00);
++	regmap_write(rt1316->regmap, 0x3101, 0x00);
++	regmap_write(rt1316->regmap, 0x3004, 0xa0);
++	regmap_write(rt1316->regmap, 0x3005, 0xb1);
++	regmap_write(rt1316->regmap, 0xc007, 0x11);
++	regmap_write(rt1316->regmap, 0xc008, 0x11);
++	regmap_write(rt1316->regmap, 0xc009, 0x00);
++	regmap_write(rt1316->regmap, 0xc022, 0xd6);
++	regmap_write(rt1316->regmap, 0xc025, 0xd6);
++
++	regmap_write(rt1316->regmap, 0xd001, 0x03);
++	regmap_write(rt1316->regmap, 0xd002, 0xbf);
++	regmap_write(rt1316->regmap, 0xd003, 0x03);
++	regmap_write(rt1316->regmap, 0xd004, 0xbf);
++
++	if (rt1316->first_hw_init) {
++		regcache_cache_bypass(rt1316->regmap, false);
++		regcache_mark_dirty(rt1316->regmap);
++	} else
++		rt1316->first_hw_init = true;
++
++	/* Mark Slave initialization complete */
++	rt1316->hw_init = true;
++
++	pm_runtime_mark_last_busy(&slave->dev);
++	pm_runtime_put_autosuspend(&slave->dev);
++
++	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
++	return 0;
++}
++
++static int rt1316_update_status(struct sdw_slave *slave,
++					enum sdw_slave_status status)
++{
++	struct  rt1316_sdw_priv *rt1316 = dev_get_drvdata(&slave->dev);
++
++	/* Update the status */
++	rt1316->status = status;
++
++	if (status == SDW_SLAVE_UNATTACHED)
++		rt1316->hw_init = false;
++
++	if (status == SDW_SLAVE_ATTACHED)
++		regcache_mark_dirty(rt1316->regmap);
++
++	/*
++	 * Perform initialization only if slave status is present and
++	 * hw_init flag is false
++	 */
++	if (rt1316->hw_init || rt1316->status != SDW_SLAVE_ATTACHED)
++		return 0;
++
++	/* perform I/O transfers required for Slave initialization */
++	return rt1316_io_init(&slave->dev, slave);
++}
++
++static int rt1316_classd_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt1316_sdw_priv *rt1316 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE23,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps0);
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE27,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps0);
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE22,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE23,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps3);
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE27,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps3);
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE22,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps3);
++		break;
++
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int rt1316_pde24_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt1316_sdw_priv *rt1316 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE24,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt1316->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_PDE24,
++				RT1316_SDCA_CTL_REQ_POWER_STATE, 0),
++				ps3);
++		break;
++	}
++	return 0;
++}
++
++static const char * const rt1316_rx_data_ch_select[] = {
++	"L,R",
++	"L,L",
++	"L,R",
++	"L,L+R",
++	"R,L",
++	"R,R",
++	"R,L+R",
++	"L+R,L",
++	"L+R,R",
++	"L+R,L+R",
++};
++
++static SOC_ENUM_SINGLE_DECL(rt1316_rx_data_ch_enum,
++	SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_UDMPU21, RT1316_SDCA_CTL_UDMPU_CLUSTER, 0), 0,
++	rt1316_rx_data_ch_select);
++
++static const char * const rt1316_xu24_bypass_ctl[] = {
++	"Not Bypass",
++	"Bypass",
++};
++
++static SOC_ENUM_SINGLE_DECL(rt1316_xu24_bypass_enum,
++	SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_XU24, RT1316_SDCA_CTL_BYPASS, 0), 0,
++	rt1316_xu24_bypass_ctl);
++
++static const char * const rt1316_lr_iv_sel[] = {
++	"0",
++	"1",
++	"2",
++	"3",
++	"4",
++	"5",
++	"6",
++	"7",
++};
++
++static SOC_ENUM_SINGLE_DECL(rt1316_l_v_tag_enum,
++	0x3004, 0, rt1316_lr_iv_sel);
++static SOC_ENUM_SINGLE_DECL(rt1316_l_i_tag_enum,
++	0x3004, 4, rt1316_lr_iv_sel);
++static SOC_ENUM_SINGLE_DECL(rt1316_r_v_tag_enum,
++	0x3005, 0, rt1316_lr_iv_sel);
++static SOC_ENUM_SINGLE_DECL(rt1316_r_i_tag_enum,
++	0x3005, 4, rt1316_lr_iv_sel);
++
++static const struct snd_kcontrol_new rt1316_snd_controls[] = {
++
++	/* I2S Data Channel Selection */
++	SOC_ENUM("RX Channel Select", rt1316_rx_data_ch_enum),
++
++	/* XU24 Bypass Control */
++	SOC_ENUM("XU24 Bypass Switch", rt1316_xu24_bypass_enum),
++
++	/* Left/Right IV tag */
++	SOC_ENUM("Left V Tag Select", rt1316_l_v_tag_enum),
++	SOC_ENUM("Left I Tag Select", rt1316_l_i_tag_enum),
++	SOC_ENUM("Right V Tag Select", rt1316_r_v_tag_enum),
++	SOC_ENUM("Right I Tag Select", rt1316_r_i_tag_enum),
++
++	/* IV mixer Control */
++	SOC_DOUBLE("Isense Mixer Switch", 0xc605, 2, 0, 1, 1),
++	SOC_DOUBLE("Vsense Mixer Switch", 0xc605, 3, 1, 1, 1),
++};
++
++static const struct snd_kcontrol_new rt1316_sto_dac_l =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch",
++		SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_L),
++		0, 1, 1);
++
++static const struct snd_kcontrol_new rt1316_sto_dac_r =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch",
++		SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, RT1316_SDCA_ENT_FU21, RT1316_SDCA_CTL_FU_MUTE, CH_R),
++		0, 1, 1);
++
++static const struct snd_soc_dapm_widget rt1316_dapm_widgets[] = {
++	/* Audio Interface */
++	SND_SOC_DAPM_AIF_IN("DP1RX", "DP1 Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("DP2TX", "DP2 Capture", 0, SND_SOC_NOPM, 0, 0),
++
++	/* Digital Interface */
++	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_SWITCH("DAC L", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_l),
++	SND_SOC_DAPM_SWITCH("DAC R", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_r),
++
++	/* Output Lines */
++	SND_SOC_DAPM_PGA_E("CLASS D", SND_SOC_NOPM, 0, 0, NULL, 0,
++		rt1316_classd_event,
++		SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMU),
++	SND_SOC_DAPM_OUTPUT("SPOL"),
++	SND_SOC_DAPM_OUTPUT("SPOR"),
++
++	SND_SOC_DAPM_SUPPLY("PDE 24", SND_SOC_NOPM, 0, 0,
++		rt1316_pde24_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_PGA("I Sense", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_PGA("V Sense", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_SIGGEN("I Gen"),
++	SND_SOC_DAPM_SIGGEN("V Gen"),
++};
++
++static const struct snd_soc_dapm_route rt1316_dapm_routes[] = {
++	{ "DAC", NULL, "DP1RX" },
++	{ "DAC L", "Switch", "DAC" },
++	{ "DAC R", "Switch", "DAC" },
++	{ "CLASS D", NULL, "DAC L" },
++	{ "CLASS D", NULL, "DAC R" },
++	{ "SPOL", NULL, "CLASS D" },
++	{ "SPOR", NULL, "CLASS D" },
++
++	{ "I Sense", NULL, "I Gen" },
++	{ "V Sense", NULL, "V Gen" },
++	{ "I Sense", NULL, "PDE 24" },
++	{ "V Sense", NULL, "PDE 24" },
++	{ "DP2TX", NULL, "I Sense" },
++	{ "DP2TX", NULL, "V Sense" },
++};
++
++static int rt1316_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
++				int direction)
++{
++	struct sdw_stream_data *stream;
++
++	if (!sdw_stream)
++		return 0;
++
++	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
++	if (!stream)
++		return -ENOMEM;
++
++	stream->sdw_stream = sdw_stream;
++
++	/* Use tx_mask or rx_mask to configure stream tag and set dma_data */
++	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
++		dai->playback_dma_data = stream;
++	else
++		dai->capture_dma_data = stream;
++
++	return 0;
++}
++
++static void rt1316_sdw_shutdown(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct sdw_stream_data *stream;
++
++	stream = snd_soc_dai_get_dma_data(dai, substream);
++	snd_soc_dai_set_dma_data(dai, substream, NULL);
++	kfree(stream);
++}
++
++static int rt1316_sdw_set_tdm_slot(struct snd_soc_dai *dai,
++				   unsigned int tx_mask,
++				   unsigned int rx_mask,
++				   int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct rt1316_sdw_priv *rt1316 =
++		snd_soc_component_get_drvdata(component);
++
++	if (tx_mask)
++		return -EINVAL;
++
++	if (slots > 2)
++		return -EINVAL;
++
++	rt1316->rx_mask = rx_mask;
++	rt1316->slots = slots;
++	/* slot_width is not used since it's irrelevant for SoundWire */
++
++	return 0;
++}
++
++static int rt1316_sdw_hw_params(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct rt1316_sdw_priv *rt1316 =
++		snd_soc_component_get_drvdata(component);
++	struct sdw_stream_config stream_config;
++	struct sdw_port_config port_config;
++	enum sdw_data_direction direction;
++	struct sdw_stream_data *stream;
++	int retval, port, num_channels, ch_mask;
++
++	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
++	stream = snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!stream)
++		return -EINVAL;
++
++	if (!rt1316->sdw_slave)
++		return -EINVAL;
++
++	/* SoundWire specific configuration */
++	/* port 1 for playback */
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		direction = SDW_DATA_DIR_RX;
++		port = 1;
++	} else {
++		direction = SDW_DATA_DIR_TX;
++		port = 2;
++	}
++
++	if (rt1316->slots) {
++		num_channels = rt1316->slots;
++		ch_mask = rt1316->rx_mask;
++	} else {
++		num_channels = params_channels(params);
++		ch_mask = (1 << num_channels) - 1;
++	}
++
++	stream_config.frame_rate = params_rate(params);
++	stream_config.ch_count = num_channels;
++	stream_config.bps = snd_pcm_format_width(params_format(params));
++	stream_config.direction = direction;
++
++	port_config.ch_mask = ch_mask;
++	port_config.num = port;
++
++	retval = sdw_stream_add_slave(rt1316->sdw_slave, &stream_config,
++				&port_config, 1, stream->sdw_stream);
++	if (retval) {
++		dev_err(dai->dev, "Unable to configure port\n");
++		return retval;
++	}
++
++	return 0;
++}
++
++static int rt1316_sdw_pcm_hw_free(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct rt1316_sdw_priv *rt1316 =
++		snd_soc_component_get_drvdata(component);
++	struct sdw_stream_data *stream =
++		snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!rt1316->sdw_slave)
++		return -EINVAL;
++
++	sdw_stream_remove_slave(rt1316->sdw_slave, stream->sdw_stream);
++	return 0;
++}
++
++/*
++ * slave_ops: callbacks for get_clock_stop_mode, clock_stop and
++ * port_prep are not defined for now
++ */
++static struct sdw_slave_ops rt1316_slave_ops = {
++	.read_prop = rt1316_read_prop,
++	.update_status = rt1316_update_status,
++};
++
++static const struct snd_soc_component_driver soc_component_sdw_rt1316 = {
++	.controls = rt1316_snd_controls,
++	.num_controls = ARRAY_SIZE(rt1316_snd_controls),
++	.dapm_widgets = rt1316_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(rt1316_dapm_widgets),
++	.dapm_routes = rt1316_dapm_routes,
++	.num_dapm_routes = ARRAY_SIZE(rt1316_dapm_routes),
++};
++
++static const struct snd_soc_dai_ops rt1316_aif_dai_ops = {
++	.hw_params = rt1316_sdw_hw_params,
++	.hw_free	= rt1316_sdw_pcm_hw_free,
++	.set_sdw_stream	= rt1316_set_sdw_stream,
++	.shutdown	= rt1316_sdw_shutdown,
++	.set_tdm_slot	= rt1316_sdw_set_tdm_slot,
++};
++
++#define RT1316_STEREO_RATES SNDRV_PCM_RATE_48000
++#define RT1316_FORMATS (SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S16_LE | \
++			SNDRV_PCM_FMTBIT_S24_LE)
++
++static struct snd_soc_dai_driver rt1316_sdw_dai[] = {
++	{
++		.name = "rt1316-aif",
++		.playback = {
++			.stream_name = "DP1 Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT1316_STEREO_RATES,
++			.formats = RT1316_FORMATS,
++		},
++		.capture = {
++			.stream_name = "DP2 Capture",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT1316_STEREO_RATES,
++			.formats = RT1316_FORMATS,
++		},
++		.ops = &rt1316_aif_dai_ops,
++	},
++};
++
++static int rt1316_sdw_init(struct device *dev, struct regmap *regmap,
++				struct sdw_slave *slave)
++{
++	struct rt1316_sdw_priv *rt1316;
++	int ret;
++
++	rt1316 = devm_kzalloc(dev, sizeof(*rt1316), GFP_KERNEL);
++	if (!rt1316)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, rt1316);
++	rt1316->sdw_slave = slave;
++	rt1316->regmap = regmap;
++
++	/*
++	 * Mark hw_init to false
++	 * HW init will be performed when device reports present
++	 */
++	rt1316->hw_init = false;
++	rt1316->first_hw_init = false;
++
++	ret =  devm_snd_soc_register_component(dev,
++				&soc_component_sdw_rt1316,
++				rt1316_sdw_dai,
++				ARRAY_SIZE(rt1316_sdw_dai));
++
++	dev_dbg(&slave->dev, "%s\n", __func__);
++
++	return ret;
++}
++
++static int rt1316_sdw_probe(struct sdw_slave *slave,
++				const struct sdw_device_id *id)
++{
++	struct regmap *regmap;
++
++	/* Regmap Initialization */
++	regmap = devm_regmap_init_sdw(slave, &rt1316_sdw_regmap);
++	if (!regmap)
++		return -EINVAL;
++
++	return rt1316_sdw_init(&slave->dev, regmap, slave);
++}
++
++static const struct sdw_device_id rt1316_id[] = {
++	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1316, 0x3, 0x1, 0),
++	{},
++};
++MODULE_DEVICE_TABLE(sdw, rt1316_id);
++
++static int __maybe_unused rt1316_dev_suspend(struct device *dev)
++{
++	struct rt1316_sdw_priv *rt1316 = dev_get_drvdata(dev);
++
++	if (!rt1316->hw_init)
++		return 0;
++
++	regcache_cache_only(rt1316->regmap, true);
++
++	return 0;
++}
++
++#define RT1316_PROBE_TIMEOUT 5000
++
++static int __maybe_unused rt1316_dev_resume(struct device *dev)
++{
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	struct rt1316_sdw_priv *rt1316 = dev_get_drvdata(dev);
++	unsigned long time;
++
++	if (!rt1316->hw_init)
++		return 0;
++
++	if (!slave->unattach_request)
++		goto regmap_sync;
++
++	time = wait_for_completion_timeout(&slave->initialization_complete,
++				msecs_to_jiffies(RT1316_PROBE_TIMEOUT));
++	if (!time) {
++		dev_err(&slave->dev, "Initialization not complete, timed out\n");
++		return -ETIMEDOUT;
++	}
++
++regmap_sync:
++	slave->unattach_request = 0;
++	regcache_cache_only(rt1316->regmap, false);
++	regcache_sync(rt1316->regmap);
++
++	return 0;
++}
++
++static const struct dev_pm_ops rt1316_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(rt1316_dev_suspend, rt1316_dev_resume)
++	SET_RUNTIME_PM_OPS(rt1316_dev_suspend, rt1316_dev_resume, NULL)
++};
++
++static struct sdw_driver rt1316_sdw_driver = {
++	.driver = {
++		.name = "rt1316-sdca",
++		.owner = THIS_MODULE,
++		.pm = &rt1316_pm,
++	},
++	.probe = rt1316_sdw_probe,
++	.ops = &rt1316_slave_ops,
++	.id_table = rt1316_id,
++};
++module_sdw_driver(rt1316_sdw_driver);
++
++MODULE_DESCRIPTION("ASoC RT1316 driver SDCA SDW");
++MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/rt1316-sdw.h b/sound/soc/codecs/rt1316-sdw.h
+new file mode 100644
+index 000000000000..9883a5f90695
+--- /dev/null
++++ b/sound/soc/codecs/rt1316-sdw.h
+@@ -0,0 +1,57 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * rt1316-sdw.h -- RT1316 SDCA ALSA SoC audio driver header
++ *
++ * Copyright(c) 2020 Realtek Semiconductor Corp.
++ */
++
++#ifndef __RT1316_SDW_H__
++#define __RT1316_SDW_H__
++
++#include <linux/regmap.h>
++#include <linux/soundwire/sdw.h>
++#include <linux/soundwire/sdw_type.h>
++#include <linux/soundwire/sdw_registers.h>
++#include <sound/soc.h>
++
++/* RT1316 SDCA Control - function number */
++#define FUNC_NUM_SMART_AMP 0x04
++
++/* RT1316 SDCA entity */
++#define RT1316_SDCA_ENT_PDE23 0x31
++#define RT1316_SDCA_ENT_PDE27 0x32
++#define RT1316_SDCA_ENT_PDE22 0x33
++#define RT1316_SDCA_ENT_PDE24 0x34
++#define RT1316_SDCA_ENT_XU24 0x24
++#define RT1316_SDCA_ENT_FU21 0x03
++#define RT1316_SDCA_ENT_UDMPU21 0x02
++
++/* RT1316 SDCA control */
++#define RT1316_SDCA_CTL_SAMPLE_FREQ_INDEX 0x10
++#define RT1316_SDCA_CTL_REQ_POWER_STATE 0x01
++#define RT1316_SDCA_CTL_BYPASS 0x01
++#define RT1316_SDCA_CTL_FU_MUTE 0x01
++#define RT1316_SDCA_CTL_FU_VOLUME 0x02
++#define RT1316_SDCA_CTL_UDMPU_CLUSTER 0x10
++
++/* RT1316 SDCA channel */
++#define CH_L 0x01
++#define CH_R 0x02
++
++struct rt1316_sdw_priv {
++	struct snd_soc_component *component;
++	struct regmap *regmap;
++	struct sdw_slave *sdw_slave;
++	enum sdw_slave_status status;
++	struct sdw_bus_params params;
++	bool hw_init;
++	bool first_hw_init;
++	int rx_mask;
++	int slots;
++};
++
++struct sdw_stream_data {
++	struct sdw_stream_runtime *sdw_stream;
++};
++
++#endif /* __RT1316_SDW_H__ */
 -- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+2.29.0
+

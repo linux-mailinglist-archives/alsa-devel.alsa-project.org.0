@@ -2,95 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8FF13133CF
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 14:54:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3048F313435
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 15:01:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 426911677;
-	Mon,  8 Feb 2021 14:53:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 426911677
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACF66167A;
+	Mon,  8 Feb 2021 15:00:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACF66167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612792442;
-	bh=L0OVxUJtohLgkB5Wlk83Ro8iE+Ql2VikL9DULOSsZ34=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ABY7zA/T1cH2tTLQTFwd9lD1l1CRa61oefpaVfrm1vc1m4tz1sNphdLS/bnal6VEV
-	 w59okDccHjsfZSyWjpw1XBs3NKwZVBnjaPGHI7BXNavJ5jO7Rxvg8slXQngaScO1yw
-	 k9neAPiH6OB+p4pDouDBwUZnTYmavHZt0Rl30nck=
+	s=default; t=1612792870;
+	bh=T3ZxKaaQdA/YFCxfjCeG8KzFio9TtG4ZdkILaYG7+2w=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=K8kK4udXP/G5Hzep+oNYTlCv5D0V+iXOOnQougnha/LaT7cB6wuHvTsB2C4i4+VP7
+	 d+qMtVqszEamSsOFNaQFijYviz+L2jqGyPwtwwL53nIWSXTWN/CX7AAW8W0GYCLqwZ
+	 Pzixt7k8snQ9friKKtl6w++uryYexWYJ2BmcNizI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 804E1F8022D;
-	Mon,  8 Feb 2021 14:52:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3EBAF80114;
+	Mon,  8 Feb 2021 14:59:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA5F4F8013A; Mon,  8 Feb 2021 14:52:26 +0100 (CET)
+ id BF253F8022D; Mon,  8 Feb 2021 14:59:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5B66F8013A
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 14:52:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5B66F8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A03EF8013A
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 14:59:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A03EF8013A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="t80HXBbS"
-Received: by mail-wr1-x42f.google.com with SMTP id l12so17258294wry.2
- for <alsa-devel@alsa-project.org>; Mon, 08 Feb 2021 05:52:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=VZVNgaBy9WtB+TiTDDQzLw294M2wGl6oNkLfrcLYn+U=;
- b=t80HXBbS3FExg9kMVN1gaqsa3JSwVXK2vC4CE1rrKREfSvvGrKQLmimOVbwOEOQODf
- Oj9A3gdqo2FqesefGE8/Bt9Oo12qD7VdCUI41sEcrnmkySfGnPUexKOnOUjO6Dc4nhU0
- 26UDVl2b4XPZeHGzneLHX7r1Z68n/VTbRG6F4REpyFcmSMp5zZQs1+DAEOexQ9HLYk/J
- smQJZwb9YWzAhn8gvqmIs2Z9BDejcNdx/NxYQT8UmDQmai/VT54ZG0JWFAekXKB6WRkD
- qo/pCY1NSckjJH1v34yUjSZEwLQDrpe2Iv1CWMY6UtHdlFa5jppcVeNxqmcDOLq1rSoh
- NlVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=VZVNgaBy9WtB+TiTDDQzLw294M2wGl6oNkLfrcLYn+U=;
- b=Zw2/pwvH04UVcfgJ50Z2WgIwWjAXAMU2rfndWLXKydRvskzG9suPGASZ+kd7DAVau6
- M1GZUZ3jb2aRibbcoE4czAaqJWVt1ZISirc56hOAySxSHfnG76lWNHaihFvhEe7wR1i7
- UOoCmh9utpx76rXXO+JtHHu6qu1qTcoN4RyJ/HndVOj2GxwHBmz4wsSwOjV7tGR0ClKS
- PVK1j2S0zLRsucvjsf0UziSBi6cLLdHRTx/sTnW/n3XRFemTGt7R+H1+23pORXORarTJ
- Az0wxtHyXn24xiOMDsatm0ghdxP0w+xyMMqC5W16PMX1TBWAR9a4EKKZvLoQdNPFTX8i
- /v9A==
-X-Gm-Message-State: AOAM533XzbpSbZ6nIZGJXRyPjDp+C0KHST3NyIdY2CAXMjy2v+kWsqJX
- CEtaH2lfPzvIfdwVwjjTKjuJew==
-X-Google-Smtp-Source: ABdhPJxMZNh+0b1mhkBj7q1g5N/YxnMoEcn9o5I0XhZ7jiPHGIfC7whGXdFvq2wAcb6U1vDCAg4Dow==
-X-Received: by 2002:a5d:47af:: with SMTP id 15mr19972073wrb.205.1612792336192; 
- Mon, 08 Feb 2021 05:52:16 -0800 (PST)
-Received: from dell ([91.110.221.246])
- by smtp.gmail.com with ESMTPSA id m205sm21161165wmf.40.2021.02.08.05.52.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Feb 2021 05:52:15 -0800 (PST)
-Date: Mon, 8 Feb 2021 13:52:13 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: [GIT PULL] Immutable branch from MFD due for the v5.12 merge window
-Message-ID: <20210208135213.GB4766@dell>
-References: <20210120214957.140232-1-hdegoede@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210120214957.140232-1-hdegoede@redhat.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="KbnNbJlu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612792767;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HMuLU2e2F9gweGSdzUTIkLLtvZHyRJe4AWF0OUHTtnk=;
+ b=KbnNbJlut3TBz+H7QFuyjL/J+/KI1Rn+153NnYc5z13CWzyMs1pQjdWPjN2kVjvcxDwBaU
+ psuovbxKAuoHHPA6RK/ICXFujJUaq3WS33ekWXxiM1m6K2t0/9tCnlGVLgq+C9Stvh7YzR
+ hwJHzQJAEq1gyPCX2ElwcVcAezBt4Ec=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-12-2jrZHuPROmOYr-7Bjtfuxg-1; Mon, 08 Feb 2021 08:59:24 -0500
+X-MC-Unique: 2jrZHuPROmOYr-7Bjtfuxg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9846C189DF75;
+ Mon,  8 Feb 2021 13:59:22 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-115-119.ams2.redhat.com
+ [10.36.115.119])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A889A10016DB;
+ Mon,  8 Feb 2021 13:59:20 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ALSA: hda: intel-dsp-config: Add SND_INTEL_BYT_PREFER_SOF
+ Kconfig option
+Date: Mon,  8 Feb 2021 14:59:19 +0100
+Message-Id: <20210208135919.135600-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,37 +96,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enjoy!
+The kernel has 2 drivers for the Low Power Engine audio-block on
+Bay- and Cherry-Trail SoCs. The old SST driver and the new SOF
+driver. If both drivers are enabled then the kernel will default
+to using the old SST driver, unless told otherwise through the
+snd_intel_dspcfg.dsp_driver module-parameter.
 
-The following changes since commit 5c8fe583cce542aa0b84adc939ce85293de36e5e:
+Add a boolean SND_INTEL_BYT_PREFER_SOF Kconfig option, which when set to Y
+will make the kernel default to the new SOF driver instead.
+The option defaults to n, preserving the current behavior.
 
-  Linux 5.11-rc1 (2020-12-27 15:30:22 -0800)
+Making this configurable will help distributions such as Fedora:
+https://fedoraproject.org/w/index.php?title=Changes/SofDefaultForIntelLpe
+to test using SOF on BYT/CHT during the transition phase where we
+have both drivers (eventually the old driver and this option will
+be removed).
 
-are available in the Git repository at:
+Note that this drops the acpi_config_table[] containing 2 entries per ACPI
+hardware-id if both drivers are enabled. snd_intel_acpi_dsp_find_config()
+will always return the first hit, so we only need a single entry with the
+flags value set depending on the Kconfig settings.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git ib-mfd-asoc-v5.12
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+Changes in v2:
+- Rework following Takashi's suggestions
+---
+ sound/hda/Kconfig            | 14 ++++++++++++++
+ sound/hda/intel-dsp-config.c | 29 ++++++++++++-----------------
+ 2 files changed, 26 insertions(+), 17 deletions(-)
 
-for you to fetch changes up to e933836744a2606e6cd42a6a83e5e43da2a60788:
-
-  mfd: arizona: Add support for ACPI enumeration of WM5102 connected over SPI (2021-02-04 13:55:34 +0000)
-
-----------------------------------------------------------------
-Immutable branch between MFD and [XXX] due for the v5.12 merge window
-
-----------------------------------------------------------------
-Hans de Goede (3):
-      mfd: arizona: Add MODULE_SOFTDEP("pre: arizona_ldo1")
-      mfd: arizona: Replace arizona_of_get_type() with device_get_match_data()
-      mfd: arizona: Add support for ACPI enumeration of WM5102 connected over SPI
-
- drivers/mfd/arizona-core.c |  11 ----
- drivers/mfd/arizona-i2c.c  |  11 ++--
- drivers/mfd/arizona-spi.c  | 138 +++++++++++++++++++++++++++++++++++++++++++--
- drivers/mfd/arizona.h      |   9 ---
- 4 files changed, 141 insertions(+), 28 deletions(-)
-
+diff --git a/sound/hda/Kconfig b/sound/hda/Kconfig
+index 3bc9224d5e4f..9ed5cfa3c18c 100644
+--- a/sound/hda/Kconfig
++++ b/sound/hda/Kconfig
+@@ -46,3 +46,17 @@ config SND_INTEL_DSP_CONFIG
+ 	select SND_INTEL_NHLT if ACPI
+ 	# this config should be selected only for Intel DSP platforms.
+ 	# A fallback is provided so that the code compiles in all cases.
++
++config SND_INTEL_BYT_PREFER_SOF
++	bool "Prefer SOF driver over SST on BY/CHT platforms"
++	depends on SND_SST_ATOM_HIFI2_PLATFORM_ACPI && SND_SOC_SOF_BAYTRAIL
++	default n
++	help
++	  The kernel has 2 drivers for the Low Power Engine audio-block on
++	  Bay- and Cherry-Trail SoCs. The old SST driver and the new SOF
++	  driver. If both drivers are enabled then the kernel will default
++	  to using the old SST driver, unless told otherwise through the
++	  snd_intel_dspcfg.dsp_driver module-parameter.
++
++	  Set this option to Y to make the kernel default to the new SOF
++	  driver instead.
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index c45686172517..68bb977c6a37 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -452,35 +452,30 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
+ }
+ EXPORT_SYMBOL_GPL(snd_intel_dsp_driver_probe);
+ 
++/* Should we default to SOF or SST for BYT/CHT ? */
++#if IS_ENABLED(CONFIG_SND_INTEL_BYT_PREFER_SOF) || \
++    !IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI)
++#define FLAG_SST_OR_SOF_BYT	FLAG_SOF
++#else
++#define FLAG_SST_OR_SOF_BYT	FLAG_SST
++#endif
++
+ /*
+  * configuration table
+  * - the order of similar ACPI ID entries is important!
+  * - the first successful match will win
+  */
+ static const struct config_entry acpi_config_table[] = {
++#if IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI) || \
++    IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
+ /* BayTrail */
+-#if IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI)
+-	{
+-		.flags = FLAG_SST,
+-		.acpi_hid = "80860F28",
+-	},
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
+ 	{
+-		.flags = FLAG_SOF,
++		.flags = FLAG_SST_OR_SOF_BYT,
+ 		.acpi_hid = "80860F28",
+ 	},
+-#endif
+ /* CherryTrail */
+-#if IS_ENABLED(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM_ACPI)
+-	{
+-		.flags = FLAG_SST,
+-		.acpi_hid = "808622A8",
+-	},
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
+ 	{
+-		.flags = FLAG_SOF,
++		.flags = FLAG_SST_OR_SOF_BYT,
+ 		.acpi_hid = "808622A8",
+ 	},
+ #endif
 -- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+2.30.0
+

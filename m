@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB8F313DDC
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:43:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A30313DC8
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 19:41:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F2E11692;
-	Mon,  8 Feb 2021 19:42:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F2E11692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36A9116B4;
+	Mon,  8 Feb 2021 19:40:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36A9116B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612809828;
-	bh=CJBhjWAM0Ayfhy6Hcc9oYoGWHxulMFA1via/SRFRbE4=;
+	s=default; t=1612809698;
+	bh=xgfXFXjxKi9MNGtKtz9Ymxo6K71+ooCHg7rZVVUShK8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HjcKVSDbn7GlepWmR0xAuvcQYLmnlyBL7XZg28mb6nq+VKGMuNI4t+5NqawOU4XXQ
-	 Z8nJQpoduz6Ny4w7v03tg8fcuBu227kZD/Iqm6inaDWfwQvyIwr9nInLGDwyv2cUGX
-	 HTViXXyOyqeI8sdHc2CZUusVTXeJ4XFL2BI7TnvI=
+	b=K1zChbI/bmIeOiglvgMBYKI8SpjlDz6nBXSlLEpPd3zOwur/MmxNPm1GAgWHM7dAh
+	 NXYiq08yh6EinBet3WzgnLoHnWHizntvs/lsqw/tmvB6o1T9gqcRtq040reXZ6wdFq
+	 i8TtzFxBM/afNto+aYeaOGJYV48GzC7lY/mXTgm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2CD2F804D1;
-	Mon,  8 Feb 2021 19:39:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C108BF802A0;
+	Mon,  8 Feb 2021 19:39:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95C88F804D1; Mon,  8 Feb 2021 19:39:55 +0100 (CET)
+ id 6C139F80290; Mon,  8 Feb 2021 19:39:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3C3FF80431
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3C3FF80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id D51E9F80278
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 19:39:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D51E9F80278
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qTuq43fT"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 35CE164E6F;
- Mon,  8 Feb 2021 18:39:49 +0000 (UTC)
+ header.b="Ce9O3Y4e"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D49964E6B;
+ Mon,  8 Feb 2021 18:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612809590;
- bh=CJBhjWAM0Ayfhy6Hcc9oYoGWHxulMFA1via/SRFRbE4=;
+ s=k20201202; t=1612809556;
+ bh=xgfXFXjxKi9MNGtKtz9Ymxo6K71+ooCHg7rZVVUShK8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qTuq43fT9JiU6JCVKTXdoqWAHbB+dyWjRcvlsXslgXSmAu3Tg7ROF+T2qmSE9nx6j
- R0sCCxSE6AD8MrYCkwTHz+UgDd+No6YG1Q8TtfZ+xHOB38wKxXQblOFnnFxFKidDpV
- hZ16ydxM5QUhu8hhUMoeIppfZU4GzoGR1SkV15xMI5SeMo0FQGGin15JYlBHzAyINu
- RKISlXFa8xh+DTQ68CPWHr9SX/0S81e+6UHZiuSvmR9TsIGf4yMNI1QRG6Rh1E5QqK
- vhYtSTbxMAN5j6HRgWF4eoEH0ARJNRIzBu9lvPhWcpCzeQ3G1iSgZPeHFH0O31bryP
- QkPgJMnMDv7KA==
+ b=Ce9O3Y4eN/3AFIMoDMSQNp5IJmirdGXjxOzxsX8HI2R2EEuFZZwh4EYeudaHrOt5J
+ tgLvLfbYs9wjnsiO3hAqCEp2tnc4U2Q5/DlgQjPigUSo4KUOr0VU4TMqGWXaDJi4sj
+ 26THtsD/Qh/paOPbYPAEfXyETlzac6jt/8YicP84D35XRiBODs/Wqa7ms7l3npNnMH
+ a6DD9fAbtSeaFybrCGb3UW1Ql/dt9dZf250MFOXqIZHo3UjPmpSl7pNxOnfJSwZqQB
+ e9Reqimn24mtQ+DVIqsS3JPB9R8nlVvryK5ZRwR9bLJfkbP9JThCcW8JoXsVn7/1D+
+ gOkG1WyhyP+Lw==
 From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-In-Reply-To: <20210206142753.536459-1-festevam@gmail.com>
-References: <20210206142753.536459-1-festevam@gmail.com>
-Subject: Re: [PATCH v2] ASoC: fsl_esai: Remove unused 'imx' field
-Message-Id: <161280948304.10741.16839342556781704787.b4-ty@kernel.org>
+To: Timur Tabi <timur@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>
+In-Reply-To: <20210206225849.51071-1-rikard.falkeborn@gmail.com>
+References: <20210206225849.51071-1-rikard.falkeborn@gmail.com>
+Subject: Re: [PATCH] ASoC: fsl: constify static snd_soc_dai_ops structs
+Message-Id: <161280948304.10741.2031202191928010331.b4-ty@kernel.org>
 Date: Mon, 08 Feb 2021 18:38:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- shengjiu.wang@gmail.com
+Cc: alsa-devel@alsa-project.org, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,8 +81,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 6 Feb 2021 11:27:53 -0300, Fabio Estevam wrote:
-> The 'imx' field is not used anywhere, so get rid of it.
+On Sat, 6 Feb 2021 23:58:49 +0100, Rikard Falkeborn wrote:
+> The only usage of these is to assign their address to the 'ops' field in
+> the snd_soc_dai_driver struct, which is a pointer to const. Make them
+> const to allow the compiler to put them in read-only memory.
 
 Applied to
 
@@ -87,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_esai: Remove unused 'imx' field
-      commit: 40bd053bc8e18b68e877bd4cdea1b6938ddf5fdd
+[1/1] ASoC: fsl: constify static snd_soc_dai_ops structs
+      commit: 38d89a564847048c0f6fe53a829d15edb4f21da3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

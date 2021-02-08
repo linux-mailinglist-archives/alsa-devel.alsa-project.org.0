@@ -2,63 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80205312EAC
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 11:16:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD3D8312EE9
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Feb 2021 11:24:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1239D1674;
-	Mon,  8 Feb 2021 11:15:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1239D1674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BA6F83B;
+	Mon,  8 Feb 2021 11:24:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BA6F83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612779361;
-	bh=19e2A+Sm2pvVXcngm6QnLN8Y6nq3lkw0tcu+eUnENaQ=;
+	s=default; t=1612779892;
+	bh=4C3tPD50CEd9pBqDw8N/qsws6wz6P3hTFdoBw3ClvXQ=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j8kmqTQTMUNulH8niqHN0LOM36wJBedhPejI3UTTD1Jcx9p2WAIUuJGSNJekbbLRy
-	 yCU2+fisVkmhCsmg4h6uDmssAkJ1qOvd+bMq7vYX1jq4UTJycZmRQIOd+O+ahreqvH
-	 9QYUU4+SnH/AFQ5BveCQtD02kEBxqNoBMHQGXzWw=
+	b=lVpQspvYpvDVr4p8wq5nYbX255RntZlvhTLRerVV8KAiyF75X6JKkFBK2cYr02p1c
+	 vFzgC2DZKEAmDw6wwvm2v/A6IfJymXG7JWJDVGTnWHe3yCIvlmHmKM5/4jdhsrHjb+
+	 4Duy8P6EpB8pm63LpQ1p4+MKBql5qWFlSzLCZ08A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BD87F8022D;
-	Mon,  8 Feb 2021 11:14:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3B43F8022B;
+	Mon,  8 Feb 2021 11:23:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EAFC1F8022B; Mon,  8 Feb 2021 11:14:27 +0100 (CET)
+ id 06460F8022B; Mon,  8 Feb 2021 11:23:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 540A0F80114
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 11:14:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 540A0F80114
-Received: from [123.112.66.2] (helo=[192.168.0.101])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1l93Yi-0005pM-Vb; Mon, 08 Feb 2021 10:14:21 +0000
-Subject: Re: [PATCH] ASoC: SOF: debug: Fix a potential issue on string buffer
- termination
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-References: <20210208072257.73900-1-hui.wang@canonical.com>
- <alpine.DEB.2.22.394.2102081129280.864696@eliteleevi.tm.intel.com>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <d43babca-970c-0f38-7fc3-ab70445c2678@canonical.com>
-Date: Mon, 8 Feb 2021 18:14:11 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3DB4F8013A
+ for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 11:23:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3DB4F8013A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="mFe1w9DJ"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id A41C1A1564;
+ Mon,  8 Feb 2021 11:23:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=at4jZ4jFp6mO
+ dj2ztTnNdUQgOjcn7s5UMzIujxqvxMk=; b=mFe1w9DJ8y53Wf4P/7vu/IcC5equ
+ c4Fb+Zyxde0kVPErILqi+EUdtOtCNg24A4RTxF9W0/5lkPLqzpubs10fs4/+u45c
+ W0Ko2HZWLs7uqBD9ahFaqep85TfIdLju2+gzlwHUSTBVNOBF656LylYucFmjHv0J
+ LEuvn4ZAYPEK0XMDAAZyMdg86d7Qougll1ZHQOc0gp/fGOY960kwsK8YkJzICN/S
+ MlNIuWL2Omd39oReoF5BIvWmEGt6dcqQq6LEWEHUOqb/6lzN5V4wq8PXzLdLvzZJ
+ ftIOlV0gz6GWBVxwoFn5iuwJIV5e0uM7h/NRQUnIn3Bf6kEMNv1oM+ciWA==
+Subject: Re: [PATCH v2 0/9] ALSA: add virtio sound driver
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210124165408.1122868-1-anton.yakovlev@opensynergy.com>
+ <s5hpn1h81ot.wl-tiwai@suse.de>
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <da7fd8cf-9c4d-082d-70bd-b27e242a4eb7@opensynergy.com>
+Date: Mon, 8 Feb 2021 11:23:00 +0100
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2102081129280.864696@eliteleevi.tm.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <s5hpn1h81ot.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
+ SR-MAIL-01.open-synergy.com (10.26.10.21)
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, Takashi Iwai <tiwai@suse.com>,
+ virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,42 +85,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Takashi,
 
-On 2/8/21 5:32 PM, Kai Vehmanen wrote:
-> Hi,
->
-> On Mon, 8 Feb 2021, Hui Wang wrote:
->
->> The function simple_write_to_buffer() doesn't add string termination
->> at the end of buf, we need to add it on our own if calling that
->> function to write the size of count chars to buf. This change refers
->> to the function tokenize_input() in debug.c and the function
->> sof_dfsentry_trace_filter_write() in trace.c.
-> [...]
->> --- a/sound/soc/sof/debug.c
->> +++ b/sound/soc/sof/debug.c
->> @@ -352,9 +352,10 @@ static ssize_t sof_dfsentry_write(struct file *file, const char __user *buffer,
->>   	char *string;
->>   	int ret;
->>   
->> -	string = kzalloc(count, GFP_KERNEL);
->> +	string = kzalloc(count+1, GFP_KERNEL);
-> ouch, good catch, thanks! We have this correct in soc/sof/trace.c, but not
-> here. To keep up with kernel style, maybe:
->
-> +	string = kzalloc(count + 1, GFP_KERNEL);
->
->>   	if (!string)
->>   		return -ENOMEM;
->> +	string[count] = '\0';
-> kzalloc() returns zeros, so no need for this.
+Thank you for your hints, I actually applied them all. The only question 
+that I have is...
 
-Right, Other places use kmalloc(), here kzalloc() doesn't need to set 0. 
-Will drop it in the v2.
+On 03.02.2021 19:07, Takashi Iwai wrote:
 
-Thanks.
+[snip]
 
-Hui.
+> 
+> - Don't PCM stream names need to be unique?  They are all the same
+>    string.
 
->
-> Br, Kai
+What did you mean here? Substream names?
+
+
+> 
+> thanks,
+> 
+> Takashi
+> 
+
+-- 
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
+

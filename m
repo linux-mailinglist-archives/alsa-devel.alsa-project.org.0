@@ -2,92 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AEDA314B45
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 10:18:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16AF6314F41
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 13:42:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1223E16B4;
-	Tue,  9 Feb 2021 10:17:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1223E16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81EA816BD;
+	Tue,  9 Feb 2021 13:41:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81EA816BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612862289;
-	bh=F5fQl8HlAKlBRIChzr13jso3dj0Ver6EA7Zj+996Er0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uQ3GS2y2V2rKVaMCeLEGN6wKG3U5bgXdIVgPF0DDW6gdSf9gBmh4mH4/mEOar2xWh
-	 SfV0E3Qy7Sbmn5oJAnsjTgRQhQt/7ARFnBeN4NwmsXUUVb0ED4bqA8VW1e9D/qzsi/
-	 1jWSYNyp1/R9gH+/YjdvrLwmuBtMSTVpo6eJ+sH0=
+	s=default; t=1612874537;
+	bh=ozJDoa8eiXjPhL+0XdHc5A0SKWUnmMysOAcgD9VLqzk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jooOed9JT/QIGcABNpTiqlZiFs1y8vLxRRXbqBd1nlSg3tSUSiCcu9FDO1Vdp+1vS
+	 z6+i5MM9vaaYGprfzUSNadKvvEp3+Wq56DxCXGZcXFcQ7K9IgcbUBP52Yvzf0eIQQu
+	 8hRnNvvpZ0O7iiPBp1A4ltG6y2rSCIn1u6vmtZrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16F74F801EB;
-	Tue,  9 Feb 2021 10:16:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 656CBF8025F;
+	Tue,  9 Feb 2021 13:40:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FE1CF801D5; Tue,  9 Feb 2021 10:16:33 +0100 (CET)
+ id 9EEAEF801EC; Tue,  9 Feb 2021 13:40:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7BCA4F80165
- for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 10:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BCA4F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E284F8016B
+ for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 13:40:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E284F8016B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tnKURcRD"
-Received: by mail-qt1-x829.google.com with SMTP id n28so5451862qtv.12
- for <alsa-devel@alsa-project.org>; Tue, 09 Feb 2021 01:16:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UCCWDHu0sYSquKe4LwEXk0kUehGPBZCaQ+gPrhz2B70=;
- b=tnKURcRDMsX6KiDYyAtN3ScVm4Xp3sVDTWZQKtuJnUh3KGUrksRRRmet2qx+mEjT1Y
- Zgpj6m0XBE1jPTA/ISmoEhBqNEGLjcjfrYz9RYjjbdW1bOVkR8WJUvBwwXuH2XYBv1Ot
- cD4e4JVB5h00iD4b8COz3OM4fX1NmMfXTeFPG7F64PuyWj/VNJT579c9TP9OZ/sKetnY
- UL4jEkoesboHATyk8jB+ZuwLqHUgiBemu1v9dn8CLnNNA6GLG13X+YYI3Qmf480tNcTW
- e1CuEtTNIEXMrXK6Z911F09dY/V4GuXNrk8TlhuoseP0TL/3s0Jy+jXl4EcYNLKnK06X
- dHRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UCCWDHu0sYSquKe4LwEXk0kUehGPBZCaQ+gPrhz2B70=;
- b=KSM8oIZTerFBsm6U/4LVaXoBRyXK/tY2So59MYhzJlh3mh13MYcA9dkfKlvZBFW9Bj
- SRFoTcWkYUJvVArPD6xsQcM3YI7LQvtHYATTHBAWAw+5w4dAX8O+93w2wMiwif0zei4H
- ydlohgJscfSOPwu9DrtwS9/d7VPU+7ooS5wkpWvVzicqw7YOvJTgQn5gDMlfAIdHUX1r
- 7+QRNNWVVEtsn/DG3PczFYNAaDtzESoRB7J34dJPw3X02tXPbfre/9czoMaB4Af+tXdx
- mj8nELKKCuPoMMhmWRYCi99gwmXbgdb/EuxSBa/yxnQvRpvP7npI0a1MXrB1OoOcVmOU
- SnMQ==
-X-Gm-Message-State: AOAM5305w7IzV/POVKCgDvrgxTNLsfomDsxMPbu/QMd6LmA0J8KJXqEg
- pEvz/gXUkAPtIMIjXitYpFWk6VP+bgognfMQDAg=
-X-Google-Smtp-Source: ABdhPJxk7JApErbcYd9iIq2ywHmycgjkc6ZN9v2FM3gZNbGEGB6G4khg1FgLHMytyhFDNZEL3y9l+4+oq0VpDadZElI=
-X-Received: by 2002:ac8:4e8b:: with SMTP id 11mr18524155qtp.292.1612862187116; 
- Tue, 09 Feb 2021 01:16:27 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="R7P38M2x"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 61BA0A15F7;
+ Tue,  9 Feb 2021 13:40:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:message-id:mime-version:reply-to:subject:subject
+ :to:to; s=srmailgate02; bh=DhKooPdZHZSbFwcus3VYCgE1dkJZGK8NHt1WJ
+ eUPXxM=; b=R7P38M2xUWYiiWKyWwTDampjS0hvOEGOVHLgvrjaWK7wbp6qVLx1A
+ QndrrutstOOJ4LIJhnZGJnzSacQrkoxbIAMqRABxLOZx4G1NKEhoL6mPtwwSkaLG
+ WB/3DTxyE1Gl8GLWRm/SqiW30y51tbMQGvG7K+McqBfo+tWx4o61N4EO9xWcRD4W
+ SL+nF68iCHDNz6UzPueKNDWsdcL3ZRpm/zU6fOuoBy737szuvMVWnST3axKokBaP
+ LU88UXMhEUzn81HTSBKL+jQ3p3GaCub8sUyqNL4RWiasCHekWzRPQS7F9D5u/XJ5
+ 6Jyu/R+c4+1L+45FOB3KVJg/ydRJVAj7g==
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+To: <virtualization@lists.linux-foundation.org>,
+ <alsa-devel@alsa-project.org>, <virtio-dev@lists.oasis-open.org>
+Subject: [PATCH v3 0/9] ALSA: add virtio sound driver
+Date: Tue, 9 Feb 2021 13:40:01 +0100
+Message-ID: <20210209124011.1224628-1-anton.yakovlev@opensynergy.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-References: <1612693435-31418-1-git-send-email-shengjiu.wang@nxp.com>
- <1612693435-31418-3-git-send-email-shengjiu.wang@nxp.com>
- <20210208115112.GD8645@sirena.org.uk>
-In-Reply-To: <20210208115112.GD8645@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 9 Feb 2021 17:16:16 +0800
-Message-ID: <CAA+D8AMRGRRk6FzdiqaHAP1=dPJngNgmdGmU59vrroXA9BMyXw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/7] ASoC: fsl_rpmsg: Add CPU DAI driver for audio base
- on rpmsg
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
+ SR-MAIL-01.open-synergy.com (10.26.10.21)
+Cc: Takashi Iwai <tiwai@suse.com>, "Michael S. Tsirkin" <mst@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,36 +81,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 8, 2021 at 7:53 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Sun, Feb 07, 2021 at 06:23:50PM +0800, Shengjiu Wang wrote:
->
-> > +static int fsl_rpmsg_hw_params(struct snd_pcm_substream *substream,
-> > +                            struct snd_pcm_hw_params *params,
-> > +                            struct snd_soc_dai *dai)
-> > +{
->
-> ...
->
-> > +     ret = clk_prepare_enable(rpmsg->mclk);
-> > +     if (ret)
-> > +             dev_err(dai->dev, "failed to enable mclk: %d\n", ret);
-> > +
-> > +     return ret;
-> > +}
-> > +
-> > +static int fsl_rpmsg_hw_free(struct snd_pcm_substream *substream,
-> > +                          struct snd_soc_dai *dai)
-> > +{
-> > +     struct fsl_rpmsg *rpmsg = snd_soc_dai_get_drvdata(dai);
-> > +
-> > +     clk_disable_unprepare(rpmsg->mclk);
->
-> hw_params() can be called multiple times and there's no need for it to
-> be balanced with hw_free(), I'd move this to a different callback (DAPM
-> should work well).
+This series implements a driver part of the virtio sound device
+specification v8 [1].
 
-Which callback should I use? Is there an example?
+The driver supports PCM playback and capture substreams, jack and
+channel map controls. A message-based transport is used to write/read
+PCM frames to/from a device.
 
-best regards
-wang shengjiu
+As a device part was used OpenSynergy proprietary implementation.
+
+Any comments are very welcome.
+
+v3 changes:
+- Fixed license headers for all files.
+- Many coding style and kernel doc fixes.
+- Replaced devm_kmalloc/devm_kfree with kmalloc/kfree wherever appropriate.
+- Made the names of the card and PCM devices more informative.
+- To process the DEVICE_NEEDS_RESET status, simply call device_reprobe().
+- For control messages replaced atomic_t by refcount_t for the reference counter
+  and simplified the general logic.
+- Use vmalloc'ed managed buffer for PCM substreams.
+- Replaced all atomic fields in the virtio substream structure with
+  non-atomic + spinlock.
+- Use the non-atomic PCM ops.
+- Use ops->sync_stop() to release the substream on the device side.
+- Rebased and tested on top of v5.11-rc6.
+
+v2 changes:
+- For some reason, in the previous patch series, several patches were
+  squashed. Fixed this issue to make the review easier.
+- Added mst@redhat.com to the MAINTAINERS.
+- When creating virtqueues, now only the event virtqueue is disabled.
+  It's enabled only after successful initialization of the device.
+- Added additional comments to the reset worker function:
+  [2/9] virtio_card.c:virtsnd_reset_fn()
+- Added check that VIRTIO_F_VERSION_1 feature bit is set.
+- Added additional comments to the device removing function:
+  [2/9] virtio_card.c:virtsnd_remove()
+- Added additional comments to the tx/rx interrupt handler:
+  [5/9] virtio_pcm_msg.c:virtsnd_pcm_msg_complete()
+- Added additional comments to substream release wait function.
+  [6/9] virtio_pcm_ops.c:virtsnd_pcm_released()
+
+[1] https://lists.oasis-open.org/archives/virtio-dev/202003/msg00185.html
+
+
+Anton Yakovlev (9):
+  uapi: virtio_ids: add a sound device type ID from OASIS spec
+  ALSA: virtio: add virtio sound driver
+  ALSA: virtio: handling control messages
+  ALSA: virtio: build PCM devices and substream hardware descriptors
+  ALSA: virtio: handling control and I/O messages for the PCM device
+  ALSA: virtio: PCM substream operators
+  ALSA: virtio: introduce jack support
+  ALSA: virtio: introduce PCM channel map support
+  ALSA: virtio: introduce device suspend/resume support
+
+ MAINTAINERS                     |   9 +
+ include/uapi/linux/virtio_ids.h |   1 +
+ include/uapi/linux/virtio_snd.h | 334 +++++++++++++++++++++
+ sound/Kconfig                   |   2 +
+ sound/Makefile                  |   3 +-
+ sound/virtio/Kconfig            |  10 +
+ sound/virtio/Makefile           |  13 +
+ sound/virtio/virtio_card.c      | 462 +++++++++++++++++++++++++++++
+ sound/virtio/virtio_card.h      | 113 ++++++++
+ sound/virtio/virtio_chmap.c     | 219 ++++++++++++++
+ sound/virtio/virtio_ctl_msg.c   | 311 ++++++++++++++++++++
+ sound/virtio/virtio_ctl_msg.h   |  78 +++++
+ sound/virtio/virtio_jack.c      | 233 +++++++++++++++
+ sound/virtio/virtio_pcm.c       | 499 ++++++++++++++++++++++++++++++++
+ sound/virtio/virtio_pcm.h       | 121 ++++++++
+ sound/virtio/virtio_pcm_msg.c   | 393 +++++++++++++++++++++++++
+ sound/virtio/virtio_pcm_ops.c   | 493 +++++++++++++++++++++++++++++++
+ 17 files changed, 3293 insertions(+), 1 deletion(-)
+ create mode 100644 include/uapi/linux/virtio_snd.h
+ create mode 100644 sound/virtio/Kconfig
+ create mode 100644 sound/virtio/Makefile
+ create mode 100644 sound/virtio/virtio_card.c
+ create mode 100644 sound/virtio/virtio_card.h
+ create mode 100644 sound/virtio/virtio_chmap.c
+ create mode 100644 sound/virtio/virtio_ctl_msg.c
+ create mode 100644 sound/virtio/virtio_ctl_msg.h
+ create mode 100644 sound/virtio/virtio_jack.c
+ create mode 100644 sound/virtio/virtio_pcm.c
+ create mode 100644 sound/virtio/virtio_pcm.h
+ create mode 100644 sound/virtio/virtio_pcm_msg.c
+ create mode 100644 sound/virtio/virtio_pcm_ops.c
+
+-- 
+2.30.0
+
+

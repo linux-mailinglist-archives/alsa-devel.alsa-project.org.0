@@ -2,82 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5582D315687
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 20:10:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60CB83156A6
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Feb 2021 20:21:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C284416BF;
-	Tue,  9 Feb 2021 20:10:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C284416BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id E725E16B0;
+	Tue,  9 Feb 2021 20:20:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E725E16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612897851;
-	bh=Pkn76o6EUJgMgVAzkzhMKs8tdbKhabP77kZOLS6F9QM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RLTWf2kFw/7f9Qhl8tdPnDVXhVLKxZni/ExPnwb690vLoO9vmjEIxqOkV3bIg0/OO
-	 7SbsCPfHBkTdvh3hrvGM2HDTvNUdfsdXzoR6qf7+v9TNtRiMDZHr2o94TX/AAy0JJa
-	 ysU8BUYoS0EyfC0ulEHRdCB3HIrQuWch49CteCaI=
+	s=default; t=1612898477;
+	bh=jj4QbWaDC37oQBwKNqpfm9PEozOMfXe8JShYYskzF60=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JryJ+wh0XGRgTq+ZJEoRNDBt1dmXlkMZy8b/MSFJ+2rys11Mw1DTxj/syV5maesL1
+	 2IQyQC0vza9PnfKzrVCQ4YPQgYU6sEeTrz43it32RD2PwtCXYjHPIgwrkH6tRzMny8
+	 NaxLSLzND9P10AkdKBOXynYPNk8yxNFsvUxZ9xEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2374EF80107;
-	Tue,  9 Feb 2021 20:09:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0EA0F801EB;
+	Tue,  9 Feb 2021 20:19:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B504F80107; Tue,  9 Feb 2021 20:09:18 +0100 (CET)
+ id 7E2FBF801D5; Tue,  9 Feb 2021 20:19:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 615A4F80107
- for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 20:09:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 615A4F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EA56F80107
+ for <alsa-devel@alsa-project.org>; Tue,  9 Feb 2021 20:19:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EA56F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="KblrsFzd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1612897749;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=UsgrL+bzyS0yeXnoNRnsI5qpHU0IkEBAaUHt/3cVbew=;
- b=KblrsFzdlqDBV8zkyAZhT1p9AxTO15yc4Z8n7vNErCBRpQFDxVtyEq0y7FjHYgI2SOG2fN
- KH0w/rdE22lblZjM8K+44AZg93tz0qyfz7LOpa2zJRT0oEA41gs5Bs+L5bRIy/fqFX0LX8
- 3O4lAe4RJBnSDJ/6UXjyfGEy2fyTdeM=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-455-cdBOXtO9NZOCOatbyoOajA-1; Tue, 09 Feb 2021 14:09:03 -0500
-X-MC-Unique: cdBOXtO9NZOCOatbyoOajA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B0608030C2;
- Tue,  9 Feb 2021 19:09:02 +0000 (UTC)
-Received: from x1.localdomain (ovpn-112-125.ams2.redhat.com [10.36.112.125])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 3B2465D9C0;
- Tue,  9 Feb 2021 19:08:59 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH alsa-ucm-conf] bytcr-wm5102: Add new UCM profile for BYT
- boards with a WM5102 codec
-Date: Tue,  9 Feb 2021 20:08:59 +0100
-Message-Id: <20210209190859.70997-1-hdegoede@redhat.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="F9+10W24"
+Received: by mail-wr1-x432.google.com with SMTP id g10so23477489wrx.1
+ for <alsa-devel@alsa-project.org>; Tue, 09 Feb 2021 11:19:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=LdU37lNhDGvGGmXAMcE5ydz9bMREEufjvwEN8UDTB/4=;
+ b=F9+10W24LAFXpvtC9BL+mfIHewjZBcP0gr3jPY+B3GxCXvErXX9JiZ89eAeRvVT88j
+ MSdIvVacH6Ey24JDVhh3g9VuZo0GK3Lej8iw9VhCrbulPcbn8CWXkHcSfkpkAEWrV/5c
+ p6yuTREOGZZEXrDWVcBaZ3lzq4WZ+S/M6MCTnvsSUosBLYMi5/3UWYKuQTntOrmdDdRT
+ V89lpTsbryFNMclIBLuvR1xLKQoV7+fl1IduR6MrvMcZZVI7Sf42DP7nce3EplemuuYR
+ WIkB3D8WmWOd4woXFuOGQe3iaOvl6w8e9eEJfCMfFeZQmG29G2ji9ols/F1SsmLc2swk
+ uKPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=LdU37lNhDGvGGmXAMcE5ydz9bMREEufjvwEN8UDTB/4=;
+ b=FkEme9feHfnZGpcZ//+vaTiMaWz5BhV2QrlgoPNwD3kakdlL5pTqgqDA45dU4yxHZ1
+ nGtNYKtH/lCuYnGs7e5Zrmu1JE1LR2oJkkK5lIYAXDrOaCTD/ZkvSxPwBlRt0Wk5qMuO
+ qaUFjTWxgSwragCHqLR+68KC+Lv+sMOVKn5uNRYY5GsTGGMZY6HrcfeIgaJq554UoyU+
+ ui3cpgISYfVMrRu0pltFm92e76vCUn4Yz5Ndsgu9KPcM2zXIuqaTrrHWTOGH2E4YIT33
+ 6VLwXGBHTiRZQUMqGzcCdmdPZCYxecKZOJRdzlfrJzZ4wOVY79bhi9j2QYwV8vyJtUKv
+ bcQg==
+X-Gm-Message-State: AOAM531Z12B4Q3FbMqVNDn9tAR+Jx2z0KT2y+Y/0JHbv/m+BvenC6T96
+ XOXfP4g6bow3dAPZsKTuZRRlhWFRLvE=
+X-Google-Smtp-Source: ABdhPJzy2FifsRzBzoPISrOA7c9EjqQOP4MTXtKqAd6gCGSsmhvjzZRRGtnkgeiObYjQeDD5t2IZlA==
+X-Received: by 2002:a5d:6b87:: with SMTP id n7mr14503619wrx.222.1612898369075; 
+ Tue, 09 Feb 2021 11:19:29 -0800 (PST)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id l2sm5622864wmq.17.2021.02.09.11.19.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Feb 2021 11:19:27 -0800 (PST)
+Date: Tue, 9 Feb 2021 20:19:24 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v2 1/9] ASoC: dt-bindings: rt5659: Update binding doc
+Message-ID: <YCLgPKtLyT9PL1/6@ulmo.localdomain>
+References: <1611944866-29373-1-git-send-email-spujar@nvidia.com>
+ <1611944866-29373-2-git-send-email-spujar@nvidia.com>
+ <20210205152933.GA3089668@robh.at.kernel.org>
+ <eb490eb1-d7e2-a188-8e62-496f9a1d99bc@nvidia.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="fE2lUxibOs/cNBX0"
+Content-Disposition: inline
+In-Reply-To: <eb490eb1-d7e2-a188-8e62-496f9a1d99bc@nvidia.com>
+User-Agent: Mutt/2.0.5 (da5e3282) (2021-01-21)
+Cc: Oder Chiou <oder_chiou@realtek.com>, Rob Herring <robh@kernel.org>,
+ alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ devicetree@vger.kernel.org, lgirdwood@gmail.com, jonathanh@nvidia.com,
+ sharadg@nvidia.com, broonie@kernel.org, linux-tegra@vger.kernel.org,
+ Bard Liao <bardliao@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,232 +108,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add new UCM profile for BYT boards with a WM5102 codec. This has been
-tested with both the SST and the SOF driver on a
-Lenovo Yoga Tablet 2 1051L.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- ucm2/SOF/HiFi.conf                      |  9 +++++++++
- ucm2/bytcr-wm5102/HiFi.conf             | 27 +++++++++++++++++++++++++
- ucm2/bytcr-wm5102/bytcr-wm5102.conf     |  6 ++++++
- ucm2/codecs/wm5102/EnableSeq.conf       | 16 +++++++++++++++
- ucm2/codecs/wm5102/HeadPhones.conf      | 23 +++++++++++++++++++++
- ucm2/codecs/wm5102/IN1-HeadsetMic.conf  | 24 ++++++++++++++++++++++
- ucm2/codecs/wm5102/IN3-InternalMic.conf | 23 +++++++++++++++++++++
- ucm2/codecs/wm5102/Speaker.conf         | 22 ++++++++++++++++++++
- 8 files changed, 150 insertions(+)
- create mode 100644 ucm2/bytcr-wm5102/HiFi.conf
- create mode 100644 ucm2/bytcr-wm5102/bytcr-wm5102.conf
- create mode 100644 ucm2/codecs/wm5102/EnableSeq.conf
- create mode 100644 ucm2/codecs/wm5102/HeadPhones.conf
- create mode 100644 ucm2/codecs/wm5102/IN1-HeadsetMic.conf
- create mode 100644 ucm2/codecs/wm5102/IN3-InternalMic.conf
- create mode 100644 ucm2/codecs/wm5102/Speaker.conf
+--fE2lUxibOs/cNBX0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/ucm2/SOF/HiFi.conf b/ucm2/SOF/HiFi.conf
-index af0d8c9..adf8cc5 100644
---- a/ucm2/SOF/HiFi.conf
-+++ b/ucm2/SOF/HiFi.conf
-@@ -79,6 +79,15 @@ If.bytcht_max98090 {
- 	True.Include.main.File "/chtmax98090/HiFi.conf"
- }
- 
-+If.bytcht_wm5102 {
-+	Condition {
-+		Type String
-+		Haystack "${CardName}"
-+		Needle "bytcht wm5102"
-+	}
-+	True.Include.main.File "/bytcr-wm5102/HiFi.conf"
-+}
-+
- If.bdw_rt286 {
- 	Condition {
- 		Type String
-diff --git a/ucm2/bytcr-wm5102/HiFi.conf b/ucm2/bytcr-wm5102/HiFi.conf
-new file mode 100644
-index 0000000..1269868
---- /dev/null
-+++ b/ucm2/bytcr-wm5102/HiFi.conf
-@@ -0,0 +1,27 @@
-+SectionVerb {
-+
-+	Value {
-+		TQ "HiFi"
-+	}
-+
-+	Include.e.File "/codecs/wm5102/EnableSeq.conf"
-+
-+	If.Controls {
-+		Condition {
-+			Type ControlExists
-+			Control "name='media0_in Gain 0 Switch'"
-+		}
-+		True {
-+			Include.pe {
-+				File "/platforms/bytcr/PlatformEnableSeq.conf"
-+				Before.EnableSequence "0"
-+			}
-+			Include.pd.File "/platforms/bytcr/PlatformDisableSeq.conf"
-+		}
-+	}
-+}
-+
-+Include.spk.File "/codecs/wm5102/Speaker.conf"
-+Include.hp.File "/codecs/wm5102/HeadPhones.conf"
-+Include.mic.File "/codecs/wm5102/IN3-InternalMic.conf"
-+Include.headset.File "/codecs/wm5102/IN1-HeadsetMic.conf"
-diff --git a/ucm2/bytcr-wm5102/bytcr-wm5102.conf b/ucm2/bytcr-wm5102/bytcr-wm5102.conf
-new file mode 100644
-index 0000000..af966ef
---- /dev/null
-+++ b/ucm2/bytcr-wm5102/bytcr-wm5102.conf
-@@ -0,0 +1,6 @@
-+Syntax 3
-+
-+SectionUseCase."HiFi" {
-+	File "HiFi.conf"
-+	Comment "Play HiFi quality Music"
-+}
-diff --git a/ucm2/codecs/wm5102/EnableSeq.conf b/ucm2/codecs/wm5102/EnableSeq.conf
-new file mode 100644
-index 0000000..6a857a2
---- /dev/null
-+++ b/ucm2/codecs/wm5102/EnableSeq.conf
-@@ -0,0 +1,16 @@
-+EnableSequence [
-+	# Route AIF1 to the speakers and headphones
-+	cset "name='SPKOUTL Input 1' AIF1RX1"
-+	cset "name='SPKOUTR Input 1' AIF1RX2"
-+	cset "name='HPOUT1L Input 1' AIF1RX1"
-+	cset "name='HPOUT1R Input 1' AIF1RX2"
-+
-+	# Both mics are quite soft by default, boost then
-+	cset "name='IN1L Volume' 28"
-+	cset "name='IN3L Volume' 28"
-+
-+	cset "name='Headphone Switch' off"
-+	cset "name='Headset Mic Switch' off"
-+	cset "name='Internal Mic Switch' off"
-+	cset "name='Speaker Switch' off"
-+]
-diff --git a/ucm2/codecs/wm5102/HeadPhones.conf b/ucm2/codecs/wm5102/HeadPhones.conf
-new file mode 100644
-index 0000000..cb29347
---- /dev/null
-+++ b/ucm2/codecs/wm5102/HeadPhones.conf
-@@ -0,0 +1,23 @@
-+SectionDevice."Headphones" {
-+	Comment "Headphones"
-+
-+	Value {
-+		PlaybackPriority 200
-+		PlaybackPCM "hw:${CardId}"
-+		JackControl "Headphone Jack"
-+	}
-+
-+	ConflictingDevice [
-+		"Speaker"
-+	]
-+
-+	EnableSequence [
-+		cset "name='HPOUT1 Digital Switch' on"
-+		cset "name='Headphone Switch' on"
-+	]
-+
-+	DisableSequence [
-+		cset "name='HPOUT1 Digital Switch' off"
-+		cset "name='Headphone Switch' off"
-+	]
-+}
-diff --git a/ucm2/codecs/wm5102/IN1-HeadsetMic.conf b/ucm2/codecs/wm5102/IN1-HeadsetMic.conf
-new file mode 100644
-index 0000000..a607487
---- /dev/null
-+++ b/ucm2/codecs/wm5102/IN1-HeadsetMic.conf
-@@ -0,0 +1,24 @@
-+SectionDevice."Headset" {
-+	Comment "Headset Microphone"
-+
-+	ConflictingDevice [
-+		"Mic"
-+	]
-+
-+	EnableSequence [
-+		cset "name='AIF1TX1 Input 1' IN1L"
-+		cset "name='AIF1TX2 Input 1' IN1L"
-+
-+		cset "name='Headset Mic Switch' on"
-+	]
-+
-+	DisableSequence [
-+		cset "name='Headset Mic Switch' off"
-+	]
-+
-+	Value {
-+		CapturePriority 200
-+		CapturePCM "hw:${CardId}"
-+		JackControl "Headset Mic Jack"
-+	}
-+}
-diff --git a/ucm2/codecs/wm5102/IN3-InternalMic.conf b/ucm2/codecs/wm5102/IN3-InternalMic.conf
-new file mode 100644
-index 0000000..3a03ac3
---- /dev/null
-+++ b/ucm2/codecs/wm5102/IN3-InternalMic.conf
-@@ -0,0 +1,23 @@
-+SectionDevice."Mic" {
-+	Comment "Internal Microphone"
-+
-+	ConflictingDevice [
-+		"Headset"
-+	]
-+
-+	EnableSequence [
-+		cset "name='AIF1TX1 Input 1' IN3L"
-+		cset "name='AIF1TX2 Input 1' IN3L"
-+
-+		cset "name='Internal Mic Switch' on"
-+	]
-+
-+	DisableSequence [
-+		cset "name='Internal Mic Switch' off"
-+	]
-+
-+	Value {
-+		CapturePriority 100
-+		CapturePCM "hw:${CardId}"
-+	}
-+}
-diff --git a/ucm2/codecs/wm5102/Speaker.conf b/ucm2/codecs/wm5102/Speaker.conf
-new file mode 100644
-index 0000000..9f631f5
---- /dev/null
-+++ b/ucm2/codecs/wm5102/Speaker.conf
-@@ -0,0 +1,22 @@
-+SectionDevice."Speaker" {
-+	Comment "Speakers"
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId}"
-+	}
-+
-+	ConflictingDevice [
-+		"Headphones"
-+	]
-+
-+	EnableSequence [
-+		cset "name='Speaker Digital Switch' on"
-+		cset "name='Speaker Switch' on"
-+	]
-+
-+	DisableSequence [
-+		cset "name='Speaker Digital Switch' off"
-+		cset "name='Speaker Switch' off"
-+	]
-+}
--- 
-2.30.0
+On Tue, Feb 09, 2021 at 06:51:58PM +0530, Sameer Pujar wrote:
+> Hi Rob,
+>=20
+> On 2/5/2021 8:59 PM, Rob Herring wrote:
+> > External email: Use caution opening links or attachments
+> >=20
+> >=20
+> > On Fri, Jan 29, 2021 at 11:57:38PM +0530, Sameer Pujar wrote:
+> > > Update following in rt5659.txt binding doc
+> > >    - Add JD source for Intel HDA header: Commit 041e74b71491
+> > >      ("ASoC: rt5659: Add the support of Intel HDA Header")
+> > >      added driver support. Add missing info here.
+> > >=20
+> > >    - sound-name-prefix: Used to prefix component widgets/kcontrols
+> > >      with given prefix.
+> > >=20
+> > >    - ports: Helps to use the Codec with audio graph card
+> > >=20
+> > > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> > > Reported-by: Jon Hunter <jonathanh@nvidia.com>
+> > > Cc: Oder Chiou <oder_chiou@realtek.com>
+> > > Cc: Bard Liao <bardliao@realtek.com>
+> > > ---
+> > >   Documentation/devicetree/bindings/sound/rt5659.txt | 11 +++++++++++
+> > >   1 file changed, 11 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/sound/rt5659.txt b/Doc=
+umentation/devicetree/bindings/sound/rt5659.txt
+> > > index 56788f5..c473df5 100644
+> > > --- a/Documentation/devicetree/bindings/sound/rt5659.txt
+> > > +++ b/Documentation/devicetree/bindings/sound/rt5659.txt
+> > > @@ -37,10 +37,21 @@ Optional properties:
+> > >   - realtek,jd-src
+> > >     0: No JD is used
+> > >     1: using JD3 as JD source
+> > > +  2: JD source for Intel HDA header
+> > >=20
+> > >   - realtek,ldo1-en-gpios : The GPIO that controls the CODEC's LDO1_E=
+N pin.
+> > >   - realtek,reset-gpios : The GPIO that controls the CODEC's RESET pi=
+n.
+> > >=20
+> > > +- sound-name-prefix: Please refer to name-prefix.txt
+> > > +
+> > > +- ports: A Codec may have a single or multiple I2S interfaces. These
+> > > +  interfaces on Codec side can be described under 'ports' or 'port'.
+> > > +  When the SoC or host device is connected to multiple interfaces of
+> > > +  the Codec, the connectivity can be described using 'ports' propert=
+y.
+> > > +  If a single interface is used, then 'port' can be used. The usage
+> > > +  depends on the platform or board design.
+> > > +  Please refer to Documentation/devicetree/bindings/graph.txt
+> > Please read what that file says now.
+>=20
+> Sorry, I did not understand above comment. Can you please elaborate a bit
+> more?
 
+I think what Rob meant to point out is that graph.txt now contains a
+mention that the file has been moved to a more central location, which
+is the dt-schema repository. So instead of referencing the graph.txt,
+which then redirects to the graph.yaml in dt-schema, it'd be better to
+directly reference graph.yaml from dt-schema.
+
+That said, I'm not aware of a good or standard way to make such a
+reference. Perhaps in this case, given that the rt5659 binding is not
+very large, you can convert the file to json-schema first and then use
+standard json-schema references for this.
+
+Thierry
+
+--fE2lUxibOs/cNBX0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmAi4DkACgkQ3SOs138+
+s6EVCQ/8CB7rS0lCIaO/YUrcXFEY2TLSIUnu3FGjHYkt5fALU7w9Rt8uYVlfcoCF
+Htg0LXUqYXUd/zXjE+x1ymwx3Azrb9z7DVAnAcXrB2Nq4x5QkvKmjJN90P6K+Jw4
+wI30K01fotkcbybxSX9wIIrRhhcSOd/JN0eExv/llHDz2jonCidB43TGd3p+hl71
+aJ0MMMmew8mK5hD+hxOL/3eYbmiPVtgJCstonPWTDUOaq7+Mc7Sdk+Rt2XAHw+5D
+z1oZTbfjo7QQ9UN4JeXQPwv7PEWoAqCV5vEOFTdfljV7s88VhxkBmUWDP76ITJCH
+NL1fU9xRMwVtkN7CrS5/NUBQaOPVsXFYb2cqxHsosakvB/rpDDkWeFrUustar6n3
+P4IspAPdOaeCTL+NzjxhL4Ij+W8xiialaTd1MGZsxdYPkX97+2onmXgUoQ10i8d+
+F0gFWrSM7dMSigKgHId1hRKm2ZJrQXNQONDg+NwN5cX6AOFy9At8RFaFNBbzWRu1
+Sq1n63PDPrHmcWpxy8H53n4Ce1UBNG4ZXDxzc1E91eNXMbdDe3ge/iomFIT1TiQr
+QWArTZk333ic4CuPH67hQFLhe83jWFJZRMLjAeGBJYq6Ff6Q6IcQbKh66CZ75/nV
+LfNAwaVzddpbaG0wMNxF1xCUDcQypRwkgQ2vgSFHjxua+65X6H0=
+=kZ90
+-----END PGP SIGNATURE-----
+
+--fE2lUxibOs/cNBX0--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC2263170F5
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:15:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B9C317105
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:16:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6F5E16D1;
-	Wed, 10 Feb 2021 21:14:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6F5E16D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA82C16D8;
+	Wed, 10 Feb 2021 21:16:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA82C16D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612988104;
-	bh=6VD934QtyZZaM8ReuEkP/ZVzoJd8SSpH/9s4rOk/+Rg=;
+	s=default; t=1612988211;
+	bh=X1HRLSAszGkdh3lATQv2bUw4+cXGSG1p7K0xQqLcPVQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nxsuTWNbzYHxSniN6hDrxwrwTP7V8kVGZe8n0Rk+wBAd7SdkB0RqZYznfdWaZZFP5
-	 Ua7cxqFryXnzZXiJQ3eZEUAz1d/g7M88YEG+KRzlOEmkadcDBewSM5qXBy534SsmZV
-	 HMdURv47dEgG9EVNjU/YdNGTMwyDsHy0oqqxMA5Y=
+	b=IJGOAgSq7B9XR4Dpnu4kz16VEOiHBIZoAidTz5Utr5+8/LHkgC6yq7/3eRnFx/SAM
+	 poo+jw9crusBoD3pbwC+feguyo/dw9Uq6Ib4OYTvhXMOrt4b4E1snQPFaxyl+SvdU8
+	 LP3s/i46jaVpMLkraXcfrDe9YWR7FTupeIi+IsSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C961DF80278;
-	Wed, 10 Feb 2021 21:12:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1059F804B1;
+	Wed, 10 Feb 2021 21:13:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11DD9F8026C; Wed, 10 Feb 2021 21:12:42 +0100 (CET)
+ id F3F83F80425; Wed, 10 Feb 2021 21:13:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73404F8010D
- for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:12:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73404F8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6196CF8032C
+ for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:13:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6196CF8032C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C/y1y35u"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 74D2264EDC;
- Wed, 10 Feb 2021 20:12:37 +0000 (UTC)
+ header.b="kichIqBA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8CD0064EDC;
+ Wed, 10 Feb 2021 20:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612987957;
- bh=6VD934QtyZZaM8ReuEkP/ZVzoJd8SSpH/9s4rOk/+Rg=;
+ s=k20201202; t=1612987981;
+ bh=X1HRLSAszGkdh3lATQv2bUw4+cXGSG1p7K0xQqLcPVQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=C/y1y35ukOfck4AahT02/Y5Roh2rCEwxwSAeIBmcYSHeLZtO5QbFtuDA/rqwBgbBj
- MixkJ3r3GZRVBQ3DqXZf+B9brhq5WHSSsXxsEju7jvvRzhdWvmwxGNj3G6ySeNGOyE
- hGbmdK4wAZq5muEq+Hf5wbWeHO8wSp9agy6xEe4+NSvw02XxhRv0NmvucFfjQ2mWfX
- ezWQucllw3ZoOwMS2lMVkJ4XCXlihnIvS6N+WJGjaxXcCo0eTHRmd/jcaLAEiBu/k8
- yT6PQ/aOFdMwoSRSuJc2udkcVdoQYQCC7baqcdC2XbzcBWmfs/QZbXqjupXGG7bGqB
- mgSYR1k/RD8zA==
+ b=kichIqBALhDsjjfsuHw/7+1oC5X/Xe9S++IbFUZj+tjABCDPHhDuWsYjQesJOoxbs
+ W4iJSp6PneJ531YjKLljn3RTFfOAUaatnXicv2yXS/LirEB2z7TOR9yj5roNDuL2+E
+ 8O+3k8APhfnEw3kx7MCjOSCrLpP+QMIU6HZNqBSJzfe6wJzTfm93f10s9kxTmNLdtT
+ JFyAYWOqpfj3AUN3X3wYoPxgz5PV7/iAcprzIHOZzC8AGKhWSCciLdSxhl0ozAxCn4
+ 6bjLz8csQAbm/z7wJuzqx6I2+/SDoX8GuicuYpz8ol1t2h5PtWgewbjorRpby68oKI
+ YY9H10wwnUQGg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210210105237.2179273-1-kai.vehmanen@linux.intel.com>
-References: <20210210105237.2179273-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: fix runtime pm usage mismatch after probe
- errors
-Message-Id: <161298789619.5497.9324383367396478714.b4-ty@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20210208231853.58761-1-pierre-louis.bossart@linux.intel.com>
+References: <20210208231853.58761-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: sof-pci-dev: add missing Up-Extreme quirk
+Message-Id: <161298789618.5497.6307898886080250053.b4-ty@kernel.org>
 Date: Wed, 10 Feb 2021 20:11:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
- yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com, Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
+Cc: tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,22 +79,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Feb 2021 12:52:37 +0200, Kai Vehmanen wrote:
-> With current delayed probe implementation, sof_probe_complete is not
-> called in case of errors. And as this function is responsible for
-> decrementing runtime pm usage counter, this will result in following
-> problem:
-> 
->  - probe driver in conditions where probe will fail (to force
->    the condition on Intel SOF systems, set
->    "snd_sof_intel_hda_common.codec_mask=0")
->  - unload driver (runtime-pm usage_count is leaked)
->  - fix the issue by installing missing fw, modifying module parameters,
->    etc actions
->  - try to load driver again -> success, probe ok
->  -> device never enters runtime suspend
-> 
-> [...]
+On Mon, 8 Feb 2021 17:18:53 -0600, Pierre-Louis Bossart wrote:
+> The UpExtreme board supports the community key and was missed in
+> previous contributions. Add it to make sure the open firmware is
+> picked by default without needing a symlink on the target.
 
 Applied to
 
@@ -104,8 +90,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: fix runtime pm usage mismatch after probe errors
-      commit: 271d9373db1c76f239fe3124e552b6b58b2af984
+[1/1] ASoC: SOF: sof-pci-dev: add missing Up-Extreme quirk
+      commit: bd8036eb15263a720b8f846861c180b27d050a09
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

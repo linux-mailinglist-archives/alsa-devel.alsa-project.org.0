@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B9C317105
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:16:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E080D3170FC
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:15:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA82C16D8;
-	Wed, 10 Feb 2021 21:16:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA82C16D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CF7016D8;
+	Wed, 10 Feb 2021 21:14:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CF7016D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612988211;
-	bh=X1HRLSAszGkdh3lATQv2bUw4+cXGSG1p7K0xQqLcPVQ=;
+	s=default; t=1612988148;
+	bh=iEOYZn8L7AitQnyhexhoCYUTH/xeBqcqQseFMRYwaTs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IJGOAgSq7B9XR4Dpnu4kz16VEOiHBIZoAidTz5Utr5+8/LHkgC6yq7/3eRnFx/SAM
-	 poo+jw9crusBoD3pbwC+feguyo/dw9Uq6Ib4OYTvhXMOrt4b4E1snQPFaxyl+SvdU8
-	 LP3s/i46jaVpMLkraXcfrDe9YWR7FTupeIi+IsSw=
+	b=qFWPXmM/ito7mbAk3oj8irTqy0FKpq1EZoiSHhBNIEHKAcKbebw32pfXCiFe7pnJ0
+	 f6wRlzX+8F080o/gztGLWFXsT/TEqkHcyF95jglZNR2z0EYdTiVNusDSwGbmSPxqsm
+	 hCD9c/bS8GBicwzJ0j6Xy8CChjqM/Hn40vbskohA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1059F804B1;
-	Wed, 10 Feb 2021 21:13:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A88B7F802DF;
+	Wed, 10 Feb 2021 21:12:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3F83F80425; Wed, 10 Feb 2021 21:13:04 +0100 (CET)
+ id 20C61F802DB; Wed, 10 Feb 2021 21:12:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6196CF8032C
- for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:13:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6196CF8032C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA250F8028B
+ for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:12:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA250F8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kichIqBA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8CD0064EDC;
- Wed, 10 Feb 2021 20:13:00 +0000 (UTC)
+ header.b="ER7n+ENK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CADCB64EDA;
+ Wed, 10 Feb 2021 20:12:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612987981;
- bh=X1HRLSAszGkdh3lATQv2bUw4+cXGSG1p7K0xQqLcPVQ=;
+ s=k20201202; t=1612987967;
+ bh=iEOYZn8L7AitQnyhexhoCYUTH/xeBqcqQseFMRYwaTs=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=kichIqBALhDsjjfsuHw/7+1oC5X/Xe9S++IbFUZj+tjABCDPHhDuWsYjQesJOoxbs
- W4iJSp6PneJ531YjKLljn3RTFfOAUaatnXicv2yXS/LirEB2z7TOR9yj5roNDuL2+E
- 8O+3k8APhfnEw3kx7MCjOSCrLpP+QMIU6HZNqBSJzfe6wJzTfm93f10s9kxTmNLdtT
- JFyAYWOqpfj3AUN3X3wYoPxgz5PV7/iAcprzIHOZzC8AGKhWSCciLdSxhl0ozAxCn4
- 6bjLz8csQAbm/z7wJuzqx6I2+/SDoX8GuicuYpz8ol1t2h5PtWgewbjorRpby68oKI
- YY9H10wwnUQGg==
+ b=ER7n+ENKccw1A+XwpgOdzgTccKmKT0gQF0JP12ztrSNsnMBglnTyw6BkowB/u9r6C
+ jswUNlZrI2Y7BFlu4+9yzT38ImbomobBBe9lOANLFoDtWUmq5JlZv4I40WyLovykEJ
+ mmEW66a8Erl4kB4bI6W0KS2hnt7h0yu/9W2iW50nmgnPfdyLKxet/6SdLlGK7IcQg/
+ W3DEImXnX/b14UWV4LUCzcwuY/N5pduBrShqr5OkQ7QaH60tP6po1gUwWWJyda40sT
+ KlY+J9ZUOJAh3UxXxMmeL/l3TRWRIZdUBrL8OuJwuCKtEEN5XpikRQ8rrnEUVvHzYo
+ 9VHgkrkKBYCPA==
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
-In-Reply-To: <20210208231853.58761-1-pierre-louis.bossart@linux.intel.com>
-References: <20210208231853.58761-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: sof-pci-dev: add missing Up-Extreme quirk
-Message-Id: <161298789618.5497.6307898886080250053.b4-ty@kernel.org>
+In-Reply-To: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
+References: <20210204203312.27112-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: (subset) [PATCH 00/14] ASoC: SOF/Intel/SoundWire: add missing
+ quirks and DMIC support
+Message-Id: <161298789617.5497.4460102753147616155.b4-ty@kernel.org>
 Date: Wed, 10 Feb 2021 20:11:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <bard.liao@intel.com>
+Cc: tiwai@suse.de, vkoul@kernel.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,10 +81,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 8 Feb 2021 17:18:53 -0600, Pierre-Louis Bossart wrote:
-> The UpExtreme board supports the community key and was missed in
-> previous contributions. Add it to make sure the open firmware is
-> picked by default without needing a symlink on the target.
+On Thu, 4 Feb 2021 14:32:58 -0600, Pierre-Louis Bossart wrote:
+> HP Spectre x360 convertible devices rely on a mixed SoundWire+DMIC
+> configuration which wasn't well supported. This lead to the discovery
+> that we missed the TGL_HDMI quirk on a number of Dell devices, the
+> addition of DMIC autodetection (based on NHLT tables), the addition of
+> new component strings needed by UCM, and work-arounds due to
+> problematic DSDT tables.
+> 
+> [...]
 
 Applied to
 
@@ -90,8 +97,28 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: sof-pci-dev: add missing Up-Extreme quirk
-      commit: bd8036eb15263a720b8f846861c180b27d050a09
+[04/14] ASoC: Intel: sof_sdw: reorganize quirks by generation
+        commit: 3d09cf8d0d791a41a75123e135f604d59f4aa870
+[05/14] ASoC: Intel: sof-sdw: indent and add quirks consistently
+        commit: 8caf37e2be761688c396c609880936a807af490f
+[06/14] ASoC: Intel: sof_sdw: add quirk for HP Spectre x360 convertible
+        commit: d92e279dee56b4b65c1af21f972413f172a9734a
+[07/14] ASoC: Intel: sof_sdw: add mic:dmic and cfg-mics component strings
+        commit: 209b0b0d8d5a469a2892ad51cb448811d00b4ff4
+[08/14] ASoC: Intel: sof_sdw: detect DMIC number based on mach params
+        commit: f88dcb9b98d3f86ead04d2453475267910448bb8
+[09/14] ASoC: Intel: sof_sdw: add trace for dai links
+        commit: 3827b7ca399245e609b3ca717550b0638d1f69cd
+[10/14] ASoC: Intel: soc-acpi: add ACPI matching table for HP Spectre x360
+        commit: 717a8fdd150c495cc202880cf6955294c7acae4f
+[11/14] ASoC: SOF: Intel: SoundWire: refine ACPI match
+        commit: 6f5d506d7ff1d9b1ffac0130f2958b9da41175f4
+[12/14] ASoC: SOF: Intel: detect DMIC number in SoundWire mixed config
+        commit: 7aecf59770920cce5ff6e94b3809574364178126
+[13/14] ASoC: SOF: Intel: HDA: don't keep a temporary variable
+        commit: b9088535e1021f11500f8417598b6af1f381f7dc
+[14/14] ASoC: SOF: Intel: hda: add dev_dbg() when DMIC number is overridden
+        commit: 026370cb5bd7ef7999bc4379ab89ffd7a73874f2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

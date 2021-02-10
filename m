@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03CF93170F2
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D04043170F8
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Feb 2021 21:15:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B763016EE;
-	Wed, 10 Feb 2021 21:13:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B763016EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD1A16F5;
+	Wed, 10 Feb 2021 21:14:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD1A16F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1612988064;
-	bh=hMm//IaVgh+GxgjcDmzibqoGksuAmp+uhzD4AZx43yk=;
+	s=default; t=1612988113;
+	bh=q7eIm3qrN3wG+rZf4GR377AWnQyp0Ci5funSrRGI9b8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DTOTwKdLnz46qhFPvGqpeU1S38nj+W7GLhgyZPgUCI8f+dFLzAa98ZLt35z3lb6E8
-	 xpPhtNZ1U9EY+NUUGwEgIrOoZbyJU6accucMrwkuQI/ZXIX6FTm5p8Emp8v19YYDlS
-	 zA3IXuGcSlHxWOQFNicrg3O+y3kr+qE/j7/flKrY=
+	b=bFxuGo2G/TsEg/QzprxQFyAFxYW96RdJp8fz1BsD/3Ifyna/lDLoowYZbC80eDTup
+	 bgNq6eulhIpLwyXRZby9R15ukP4NpTC+cr2a49ySC4DPhvS5qACvmaB/JRr3fxl5jn
+	 wVOTcIrxse/3yIPJS/TM+20kP4poIVqNDg1N16l4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E7DCF8026C;
-	Wed, 10 Feb 2021 21:12:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01C14F802C9;
+	Wed, 10 Feb 2021 21:12:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9AD6F800F1; Wed, 10 Feb 2021 21:12:38 +0100 (CET)
+ id 88EBFF8010D; Wed, 10 Feb 2021 21:12:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68BEBF800F1
- for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:12:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68BEBF800F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0055BF8010D
+ for <alsa-devel@alsa-project.org>; Wed, 10 Feb 2021 21:12:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0055BF8010D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JT/lR9gv"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D359C64EDF;
- Wed, 10 Feb 2021 20:12:32 +0000 (UTC)
+ header.b="B8e+kvU2"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2A4F264EDA;
+ Wed, 10 Feb 2021 20:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612987953;
- bh=hMm//IaVgh+GxgjcDmzibqoGksuAmp+uhzD4AZx43yk=;
+ s=k20201202; t=1612987962;
+ bh=q7eIm3qrN3wG+rZf4GR377AWnQyp0Ci5funSrRGI9b8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=JT/lR9gvdEOZctq1JxB0+bPgGreYE0YWVPtFeH7Csh8uAyVJ7nnDN57JBA/8qUsJK
- e5R0orR2Us7opEiTQb2Q7mmAqUhhM+64ACbIQTloJP4HTSXoUQ98MuQHpCYlWX7Rsb
- /3V0NXdTtbVBSHlwj17ctIyPVXPFAAdCAX5/51sxoLmYaOpu1iKfeO8sK70HnXcz5Q
- WJgiB3jf+sHcefj1XlWl53YGYQCo8NHsXq+elMDtx7RedUzGOOxCVXuTajYyJtMHbd
- 5SwhLgsnI2FcZxf8NX951QFDGHgbJCZT3h3GwwcQae1F0LWd6HfNL99IWnPT1mXHSj
- mbz9SihfEv/PA==
+ b=B8e+kvU2BdcrXVasD+363VVg9c005ZL3Gu+ZdDuiCVDiY+T6thBZKKD/xGfJFSxDA
+ 9Nqr718DWEnCXea4GkEXXIsYGS9E/Tvuf+g94P4qSeV9vHz4uHqzq0v3Ms8DZ+A/0a
+ l08a1K/Bd9ujc1Lk1w+QjMn5s7qiZn7v7YtokRUdsXntqk8UBZ/F2j/1mkjeITXNvS
+ nlOdphpos5Bn9EaC2NVY+cf4gustRRBH3LfbfSenzRnVC2e8+/+aH96Rd+/f3Nko/g
+ dcVpNOMG7XngqjRA+udpHLQDWidDVFsTcMaTmo0gCbJjqOJplGPSypy/NxkCwqQQdj
+ dd5Ry5Nam3uWQ==
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
-In-Reply-To: <20210208232149.58899-1-pierre-louis.bossart@linux.intel.com>
-References: <20210208232149.58899-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: SOF: cleanups
-Message-Id: <161298789618.5497.7329014289938073399.b4-ty@kernel.org>
+In-Reply-To: <20210208234043.59750-1-pierre-louis.bossart@linux.intel.com>
+References: <20210208234043.59750-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH 0/2] ASoC: dapm/pins: handle component prefix
+Message-Id: <161298789618.5497.13798490549586338074.b4-ty@kernel.org>
 Date: Wed, 10 Feb 2021 20:11:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -78,13 +78,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 8 Feb 2021 17:21:44 -0600, Pierre-Louis Bossart wrote:
-> Minor cleanups for error formats, missing cases, useless functions and
-> simplifications.
+On Mon, 8 Feb 2021 17:40:41 -0600, Pierre-Louis Bossart wrote:
+> SoundWire machine drivers make a heavy use of component prefixes to
+> uniquify control names. This however results in errors when looking
+> for widgets or pins. This patchset suggests two solutions but feedback
+> or suggestions on how to take the prefix into account would be
+> welcome.
 > 
-> Curtis Malainey (2):
->   ASoC: SOF: add missing pm debug
->   ASoC: SOF: fix string format for errors
+> Bard Liao (1):
+>   ASoC: Intel: boards: max98373: get dapm from cpu_dai
 > 
 > [...]
 
@@ -94,16 +96,10 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: SOF: add missing pm debug
-      commit: a8f50cd9be7cc4c57f29c1390568225ebee90eda
-[2/5] ASoC: SOF: fix string format for errors
-      commit: ce1f55bac5534aa518e26b94728173ee45f91a8c
-[3/5] ASoC: SOF: remove unused functions
-      commit: 3be46fa21088740ae5790d84b882e5a3c98fce41
-[4/5] ASoC: SOF: HDA: (cosmetic) simplify hda_dsp_d0i3_work()
-      commit: f1bb023525fd654121f18f6e2587eeee84c9db04
-[5/5] ASoC: SOF: ext_manifest: use explicit number for elem_type
-      commit: cc11626dd9f894d93ed15d78b04452ca9acbb52b
+[1/2] ASoC: dapm: use component prefix when checking widget names
+      commit: ae4fc532244b3bb4d86c397418d980b0c6be1dfd
+[2/2] ASoC: Intel: boards: max98373: get dapm from cpu_dai
+      commit: 1183c350011a6f6b551c200b9206bf1808c22a4c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

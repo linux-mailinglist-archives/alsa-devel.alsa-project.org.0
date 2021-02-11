@@ -2,68 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F15318EE9
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 16:41:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13AD13190BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 18:16:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA9B170F;
-	Thu, 11 Feb 2021 16:40:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA9B170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9391D16F9;
+	Thu, 11 Feb 2021 18:15:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9391D16F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613058086;
-	bh=WkhNi8ol3f1VI1S+4Gsf371AiJwJ79gqlKtzjzdXMUA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1613063806;
+	bh=kfQxjMHYTcfSrV8LGixo5kdcTe1kUM0/DDmwFu9RcKc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X5saEya1cYT0OpmNyVb8PzuTTch+umJPD9id+PUxA9txZ7QkU7VPBb7WF2U8PGgVD
-	 ZLttKm67O5IlYCpa/t3BoufsqC4Py7i5yeaEdix1N6j8yNc7JAREld7s/IGkjCxiES
-	 WkOHrFKQewcr5vRrn0Z0DSUzunkaynSbhgYJuQMo=
+	b=ZX6IOOYrkG+liuXI0Sxqr21HjhtYnnO4C44UKQQGc/Ind8BGTyd9Iu+o5BNMGwgdv
+	 OmI0AMcOa5gyess44K6PBMdaAOTQC7OBkvd8YDp8XXmS4Df/01AqJdLX3at5lUrfSI
+	 qR7keZr1KBsQxcQed5uTYAqhvmKP+QHCZdr88xIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E1C8F8025F;
-	Thu, 11 Feb 2021 16:39:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBDCBF801EB;
+	Thu, 11 Feb 2021 18:15:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B614BF8025F; Thu, 11 Feb 2021 16:39:44 +0100 (CET)
+ id 8FA9BF801D5; Thu, 11 Feb 2021 18:15:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B593F801EC
- for <alsa-devel@alsa-project.org>; Thu, 11 Feb 2021 16:39:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B593F801EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JkknHSnZ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D53A864E8A;
- Thu, 11 Feb 2021 15:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613057980;
- bh=WkhNi8ol3f1VI1S+4Gsf371AiJwJ79gqlKtzjzdXMUA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=JkknHSnZybPCBxcOILruAYK5wW9P5YV3XE/aWCQ3Wtd0GrsNhk9pRgH8ZUksmoAdC
- MCV7CJtO4USAGKEqO7pfZNvjRsoh4amQYycd6fpLhsLrv84ORSbOt711/oEYtOUDv/
- P89h8UE53rLYviDDI1WxHviiQHWH8mnusX15/aIhnjd1uY7Jt7uL/lWLr1GWGla+OW
- F2s0Vw0tL9MKeFnQP6NqGs1cOhoaSf3jYcox6fxY6tscTJkyZ1szjlxNhuavfKV9MH
- DiYPqTD+q50y8xyQtvLkAnmIKNeGIFLKabwknGXHYOyc4n8zhIaTc1aiFD2jAOeJU0
- FGqHwT1DXsOnQ==
-From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>, thierry.reding@gmail.com, robh@kernel.org
-In-Reply-To: <1612939421-19900-1-git-send-email-spujar@nvidia.com>
-References: <1612939421-19900-1-git-send-email-spujar@nvidia.com>
-Subject: Re: [PATCH 0/3] Use clocks property in a device node
-Message-Id: <161305792123.12370.8611418623618908867.b4-ty@kernel.org>
-Date: Thu, 11 Feb 2021 15:38:41 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, linux-tegra@vger.kernel.org, sharadg@nvidia.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09A4EF8014D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Feb 2021 18:15:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09A4EF8014D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1D970B130;
+ Thu, 11 Feb 2021 17:15:08 +0000 (UTC)
+Date: Thu, 11 Feb 2021 18:15:07 +0100
+Message-ID: <s5h1rdmfrvo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 0/5] ALSA: control - add generic LED trigger code
+In-Reply-To: <20210211111400.1131020-1-perex@perex.cz>
+References: <20210211111400.1131020-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Perry Yuan <Perry.Yuan@dell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,45 +70,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Feb 2021 12:13:38 +0530, Sameer Pujar wrote:
-> It is recommended to not specifiy clocks property in an endpoint subnode.
-> This series moves clocks to device node.
+On Thu, 11 Feb 2021 12:13:55 +0100,
+Jaroslav Kysela wrote:
 > 
-> However after moving the clocks to device node, the audio playback or
-> capture fails. The specified clock is not actually getting enabled and
-> hence the failure is seen. There seems to be a bug in simple-card-utils.c
-> where clock handle is not assigned when parsing clocks from device node.
+> This patchset tries to resolve the diversity in the audio LED
+> control among the ALSA drivers.
 > 
-> [...]
+> A new control layer registration is introduced which allows
+> to run additional operations on top of the elementary ALSA
+> sound controls.
+> 
+> A new control access group (three bits in the access flags)
+> was introduced to carry the LED group information for
+> the sound controls. The low-level sound drivers can just
+> mark those controls using this access group. This information
+> is exported to the user space and eventually the user space
+> can create sound controls which can belong to a LED group.
+> 
+> The actual state ('route') evaluation is really easy
+> (the minimal value check for all channels / controls / cards).
+> If there's more complicated logic for a given hardware,
+> the card driver may eventually export a new read-only
+> sound control for the LED group and do the logic itself.
+> 
+> The new LED trigger control code is completely separated
+> and possibly optional (there's no symbol dependency).
+> The full code separation allows eventually to move this
+> LED trigger control to the user space in future.
+> Actually it replaces the already present functionality
+> in the kernel space (HDA drivers) and allows a quick adoption
+> for the recent hardware (SoundWire ASoC codecs).
+> 
+> # lsmod | grep snd_ctl_led
+> snd_ctl_led            16384  0
+> 
+> The sound driver implementation is really easy:
+> 
+> 1) call snd_ctl_led_request() when control LED layer should be
+>    automatically activated
+>    / it calls module_request("snd-ctl-led") on demand /
+> 2) mark all related kcontrols with
+> 	SNDRV_CTL_ELEM_ACCESS_SPK_LED or
+> 	SNDRV_CTL_ELEM_ACCESS_MIC_LED
+> 
+> Original RFC: https://lore.kernel.org/alsa-devel/20210207201157.869972-1-perex@perex.cz/
+> 
+> Cc: Hans de Goede <hdegoede@redhat.com>
+> Cc: Perry Yuan <Perry.Yuan@dell.com>
+> 
+> Jaroslav Kysela (5):
+>   ALSA: control - introduce snd_ctl_notify_one() helper
+>   ALSA: control - add layer registration routines
+>   ALSA: control - add generic LED trigger module as the new control
+>     layer
+>   ALSA: HDA - remove the custom implementation for the audio LED trigger
+>   ALSA: control - add sysfs support to the LED trigger module
 
-Applied to
+Thanks for the patch.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I'm afraid that it's a bit too late for 5.12, as the merge window will
+be likely closed soon.  For 5.13, we'll have enough time for get a
+consensus about the design.  Whether this is the best way to go, or we
+should rather consider user-space solution as Sakamoto-san mentioned:
+that has to be decided.
 
-Thanks!
+Back to the design: your new implementation allows the separation and
+the dynamic opt-in, which is nice.  Thanks for that.  This looks
+generic and may be extended for other purposes in future, too.
 
-[1/3] ASoC: simple-card-utils: Fix device module clock
-      commit: 1e30f642cf2939bbdac82ea0dd3071232670b5ab
-[2/3] Revert "ASoC: audio-graph-card: Add clocks property to endpoint node"
-      commit: 0be0f142b8323378df6358c36dd15494134f5b94
-[3/3] arm64: tegra: Move clocks from RT5658 endpoint to device node
-      (no commit info)
+One thing I still miss from the picture is how to deal with the case
+like AMD ACP.  It has no mixer control to bundle with the LED trigger.
+Your idea is to make a (dummy) user element and tie the LED trigger
+with it?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Another slight concern is the possible regression: by moving the
+mute-LED mode enum stuff into the sysfs, user will get
+incompatibilities after the kernel update.  And it's not that trivial
+to change the sysfs entry as default for each user.
+It needs some detailed documentation or some temporary workaround
+(e.g. keep providing the controls for now but warns if the value is
+changed from the default value via the controls).
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+thanks,
 
-Thanks,
-Mark
+Takashi

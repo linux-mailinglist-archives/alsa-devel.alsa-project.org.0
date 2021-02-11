@@ -2,66 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB65E31886D
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 11:43:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7387318933
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 12:16:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78DC916EE;
-	Thu, 11 Feb 2021 11:42:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78DC916EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3716016F1;
+	Thu, 11 Feb 2021 12:15:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3716016F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613040218;
-	bh=xKEXst7yNke3blx0NSoTP5V2gm+gvAkxk0VjuCWfpcU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZPfc0lAt8m06euTNxuAjfUUrnO31gSiX1arrgpM6TdTyrKUPs7iduxS1Y+EyH3z3N
-	 KBgJgdHpmydCMVq1em4R7B3t9UwMWIkTBQ9SedK8JxOsi6l9gFwB2eW+I2McexteRs
-	 MM2X6odLxeaxRXT0yv9K+MJieLXlaw7WJkrPZ3bY=
+	s=default; t=1613042163;
+	bh=+sPt2/1ZJwglE2p7OcVuHt+rkpYSxjhEoVcDpRmI3Ps=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SIVd16rm9EWnj7917n9D9S+JAlsBX3Tu1ON/Tq40ZjPdyMXw9WGEJn/6trMECtWAd
+	 6mBcJ5SmqmA6xfJhdQTwjS2/ZYSANE01oaDkQxllkdt2F3TZDurZISI12ZdmvwD/3b
+	 eCD+WnYvaH+HK5bFipZj3oXnabvbM5IMmgmh4ImA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBD55F8010D;
-	Thu, 11 Feb 2021 11:42:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09502F801EC;
+	Thu, 11 Feb 2021 12:14:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FA01F801D5; Thu, 11 Feb 2021 11:42:04 +0100 (CET)
+ id 1608FF801D5; Thu, 11 Feb 2021 12:14:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FD89F80165
- for <alsa-devel@alsa-project.org>; Thu, 11 Feb 2021 11:41:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FD89F80165
-IronPort-SDR: IxHC3X+UKlq4bGKRbAW9SyeXv7nZ3+3cEXT2fl83djE5MNqii0vqtxdt6E1aC0ozbv0otxdze2
- pxBtCEd56WQw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="179663633"
-X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="179663633"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 02:41:45 -0800
-IronPort-SDR: lUeFT7GBocVUcol4Oj6iB1Qn++2CJ7GGkZ9L9COjoXOd3iV7PORLZGYoO1x38RFE4059uk2J4q
- vv3aOSnGoKIQ==
-X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="437073892"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 02:41:43 -0800
-Date: Thu, 11 Feb 2021 12:38:16 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Drop bogus check at closing a stream
-In-Reply-To: <20210211083139.29531-1-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2102111236310.864696@eliteleevi.tm.intel.com>
-References: <20210211083139.29531-1-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98512F8010D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Feb 2021 12:14:23 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2BC03A0042;
+ Thu, 11 Feb 2021 12:14:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2BC03A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1613042062; bh=uTRj5pUBKkon3Vbn8La4wjU4VGVOaRJnX/vj5h52194=;
+ h=From:To:Cc:Subject:Date:From;
+ b=BkcsbuEiTDmzbxuxIGOTZmMim+Z3tRvPRCz4UHug7i5Acd+qMjvWXCuc8fMsq032H
+ zsI0TYU92kOER4AvCFKC31gtFYa8vpVu4JmHWgltsHpPeHG4qlItKzBA0rDlNZkFO3
+ lOEvYjo1638+XGEpe6AUWDw0fkYdbCixYrn0zF+U=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 11 Feb 2021 12:14:17 +0100 (CET)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH 0/5] ALSA: control - add generic LED trigger code
+Date: Thu, 11 Feb 2021 12:13:55 +0100
+Message-Id: <20210211111400.1131020-1-perex@perex.cz>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ Perry Yuan <Perry.Yuan@dell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,20 +74,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This patchset tries to resolve the diversity in the audio LED
+control among the ALSA drivers.
 
-On Thu, 11 Feb 2021, Takashi Iwai wrote:
+A new control layer registration is introduced which allows
+to run additional operations on top of the elementary ALSA
+sound controls.
 
-> Some users reported the kernel WARNING with stack traces from
-> hdmi_pcm_close(), and it's the line checking the per_cvt->assigned
-> flag.  This used to be a valid check in the past because the flag was
-> turned on/off only at opening and closing a PCM stream.  Meanwhile,
-> since the introduction of the silent-stream mode, this flag may be
-> turned on/off at the monitor connection/disconnection time, which
+A new control access group (three bits in the access flags)
+was introduced to carry the LED group information for
+the sound controls. The low-level sound drivers can just
+mark those controls using this access group. This information
+is exported to the user space and eventually the user space
+can create sound controls which can belong to a LED group.
 
-ack, this needs to be removed:
+The actual state ('route') evaluation is really easy
+(the minimal value check for all channels / controls / cards).
+If there's more complicated logic for a given hardware,
+the card driver may eventually export a new read-only
+sound control for the LED group and do the logic itself.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+The new LED trigger control code is completely separated
+and possibly optional (there's no symbol dependency).
+The full code separation allows eventually to move this
+LED trigger control to the user space in future.
+Actually it replaces the already present functionality
+in the kernel space (HDA drivers) and allows a quick adoption
+for the recent hardware (SoundWire ASoC codecs).
 
-Br, Kai
+# lsmod | grep snd_ctl_led
+snd_ctl_led            16384  0
 
+The sound driver implementation is really easy:
+
+1) call snd_ctl_led_request() when control LED layer should be
+   automatically activated
+   / it calls module_request("snd-ctl-led") on demand /
+2) mark all related kcontrols with
+	SNDRV_CTL_ELEM_ACCESS_SPK_LED or
+	SNDRV_CTL_ELEM_ACCESS_MIC_LED
+
+Original RFC: https://lore.kernel.org/alsa-devel/20210207201157.869972-1-perex@perex.cz/
+
+Cc: Hans de Goede <hdegoede@redhat.com>
+Cc: Perry Yuan <Perry.Yuan@dell.com>
+
+Jaroslav Kysela (5):
+  ALSA: control - introduce snd_ctl_notify_one() helper
+  ALSA: control - add layer registration routines
+  ALSA: control - add generic LED trigger module as the new control
+    layer
+  ALSA: HDA - remove the custom implementation for the audio LED trigger
+  ALSA: control - add sysfs support to the LED trigger module
+
+ include/sound/control.h         |  27 ++-
+ include/uapi/sound/asound.h     |   6 +-
+ sound/core/Kconfig              |   6 +
+ sound/core/Makefile             |   2 +
+ sound/core/control.c            | 173 ++++++++++++--
+ sound/core/control_led.c        | 407 ++++++++++++++++++++++++++++++++
+ sound/pci/hda/Kconfig           |   4 +-
+ sound/pci/hda/hda_codec.c       |  69 +-----
+ sound/pci/hda/hda_generic.c     | 162 ++-----------
+ sound/pci/hda/hda_generic.h     |  15 +-
+ sound/pci/hda/hda_local.h       |  16 +-
+ sound/pci/hda/patch_ca0132.c    |   4 +-
+ sound/pci/hda/patch_realtek.c   |   2 +-
+ sound/pci/hda/patch_sigmatel.c  |   6 +-
+ sound/pci/hda/thinkpad_helper.c |   2 +-
+ 15 files changed, 638 insertions(+), 263 deletions(-)
+ create mode 100644 sound/core/control_led.c
+
+-- 
+2.29.2

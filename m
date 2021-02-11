@@ -2,61 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A08C3186C5
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 10:21:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB65E31886D
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Feb 2021 11:43:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFC9F16FF;
-	Thu, 11 Feb 2021 10:20:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFC9F16FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78DC916EE;
+	Thu, 11 Feb 2021 11:42:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78DC916EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613035284;
-	bh=UHDIGJlWuaKYN+r0xdv3bWfeq1+wBJOg9T0gax8n/b8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=K3QK6Efybm+O4dPDF7F8/WlgTCBT2w9dEI1msxk02zD18n2HSwvU9+N77vZx+BdHn
-	 z1g/9NOfiYbvmm3+D/MoPdIsgXO1w+OHM02S4Yf6Hraa/Qdwu+9iSHjWW+X3QW/rEd
-	 KsQ1+d5VXM2ojoLTl+RDTg++QiVK9B2uUhdnwGxw=
+	s=default; t=1613040218;
+	bh=xKEXst7yNke3blx0NSoTP5V2gm+gvAkxk0VjuCWfpcU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZPfc0lAt8m06euTNxuAjfUUrnO31gSiX1arrgpM6TdTyrKUPs7iduxS1Y+EyH3z3N
+	 KBgJgdHpmydCMVq1em4R7B3t9UwMWIkTBQ9SedK8JxOsi6l9gFwB2eW+I2McexteRs
+	 MM2X6odLxeaxRXT0yv9K+MJieLXlaw7WJkrPZ3bY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA35FF80264;
-	Thu, 11 Feb 2021 10:19:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBD55F8010D;
+	Thu, 11 Feb 2021 11:42:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2637F8022B; Mon,  8 Feb 2021 04:52:07 +0100 (CET)
+ id 9FA01F801D5; Thu, 11 Feb 2021 11:42:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32B4EF8013A
- for <alsa-devel@alsa-project.org>; Mon,  8 Feb 2021 04:51:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32B4EF8013A
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4DYsVW2bxKzlGtG;
- Mon,  8 Feb 2021 11:50:11 +0800 (CST)
-Received: from localhost.localdomain (10.69.192.56) by
- DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.498.0; Mon, 8 Feb 2021 11:51:50 +0800
-From: Tian Tao <tiantao6@hisilicon.com>
-To: <timur@kernel.org>, <nicoleotsuka@gmail.com>, <Xiubo.Lee@gmail.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <shawnguo@kernel.org>,
- <s.hauer@pengutronix.de>
-Subject: [PATCH] ASoC: imx-hdmi: no need to set .owner when using
- module_platform_driver
-Date: Mon, 8 Feb 2021 11:51:27 +0800
-Message-ID: <1612756287-4601-1-git-send-email-tiantao6@hisilicon.com>
-X-Mailer: git-send-email 2.7.4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FD89F80165
+ for <alsa-devel@alsa-project.org>; Thu, 11 Feb 2021 11:41:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FD89F80165
+IronPort-SDR: IxHC3X+UKlq4bGKRbAW9SyeXv7nZ3+3cEXT2fl83djE5MNqii0vqtxdt6E1aC0ozbv0otxdze2
+ pxBtCEd56WQw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="179663633"
+X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="179663633"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2021 02:41:45 -0800
+IronPort-SDR: lUeFT7GBocVUcol4Oj6iB1Qn++2CJ7GGkZ9L9COjoXOd3iV7PORLZGYoO1x38RFE4059uk2J4q
+ vv3aOSnGoKIQ==
+X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="437073892"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2021 02:41:43 -0800
+Date: Thu, 11 Feb 2021 12:38:16 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Drop bogus check at closing a stream
+In-Reply-To: <20210211083139.29531-1-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2102111236310.864696@eliteleevi.tm.intel.com>
+References: <20210211083139.29531-1-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.69.192.56]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 11 Feb 2021 10:19:40 +0100
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,26 +77,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-the module_platform_driver will call platform_driver_register.
-and It will set the .owner to THIS_MODULE
+Hi,
 
-Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
----
- sound/soc/fsl/imx-hdmi.c | 1 -
- 1 file changed, 1 deletion(-)
+On Thu, 11 Feb 2021, Takashi Iwai wrote:
 
-diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-index dbbb7618..cd0235a 100644
---- a/sound/soc/fsl/imx-hdmi.c
-+++ b/sound/soc/fsl/imx-hdmi.c
-@@ -223,7 +223,6 @@ MODULE_DEVICE_TABLE(of, imx_hdmi_dt_ids);
- static struct platform_driver imx_hdmi_driver = {
- 	.driver = {
- 		.name = "imx-hdmi",
--		.owner = THIS_MODULE,
- 		.pm = &snd_soc_pm_ops,
- 		.of_match_table = imx_hdmi_dt_ids,
- 	},
--- 
-2.7.4
+> Some users reported the kernel WARNING with stack traces from
+> hdmi_pcm_close(), and it's the line checking the per_cvt->assigned
+> flag.  This used to be a valid check in the past because the flag was
+> turned on/off only at opening and closing a PCM stream.  Meanwhile,
+> since the introduction of the silent-stream mode, this flag may be
+> turned on/off at the monitor connection/disconnection time, which
+
+ack, this needs to be removed:
+
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+
+Br, Kai
 

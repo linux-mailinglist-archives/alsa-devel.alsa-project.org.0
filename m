@@ -2,68 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9759231A1DA
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Feb 2021 16:39:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574C531A26C
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Feb 2021 17:14:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2625A16F6;
-	Fri, 12 Feb 2021 16:38:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2625A16F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBEE416F0;
+	Fri, 12 Feb 2021 17:13:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBEE416F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613144375;
-	bh=l5LMAdbYLxOJQSo86uwvJJN1Bt3jmdDAH3KYeb/ZWdU=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1613146464;
+	bh=VjHbsm5FwPtATG44nCFgs5RXUc8Pj26sAC+bpd455Wg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N1dXePGiEnyhxcMk/osnls2hK0qvXMscbRU2QUQHpcSrub7irzpHiX/aVuoZy5TQV
-	 5phMlNglJdjjI85dkXMjARsPqs5tm7JpTnGkjB+GG0krhnxBjoyIMVkM9CD3r4R8GT
-	 2k4teTX4GMf2ZPoOMK88ihoeqSMgqvEUgwbTemfA=
+	b=TRyTdBdKRGKd+kt5zyASGg/6LMZuC8FQto32rrVepxkIZPRjYNeTcTVL4XaPsrtQJ
+	 Dhbbnoww9OzxK8uwyfYlj+YJRK6aMOpfomu6mFO0doaRh4ZeQpAGk6Q/Ya9xhUI1UT
+	 Gmp3YnxA62+MDzrL5BsOrHGWR5LDbAPiD/VYjtVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 523E5F8022D;
-	Fri, 12 Feb 2021 16:38:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D9CFF8022D;
+	Fri, 12 Feb 2021 17:12:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09582F8022B; Fri, 12 Feb 2021 16:38:01 +0100 (CET)
+ id 218CDF8022B; Fri, 12 Feb 2021 17:12:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEF1CF8014B
- for <alsa-devel@alsa-project.org>; Fri, 12 Feb 2021 16:37:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEF1CF8014B
-IronPort-SDR: /jRPebUvwmg59+zXbsLwi42oQLq9fmiZgDe9A/orKfSNtWosCDQGhXze9b5QwFxsEBertHngBq
- 7z5cPTcV0LxA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="246495857"
-X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="246495857"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 07:37:48 -0800
-IronPort-SDR: VxYyMm5DYO2dFW3i9YjRYxvYAh+kxNpPX9T5D2TcED+DkFTdUULuh0UYGV2t3XQ4wHAyMix9iz
- EVUTUyc8OQcg==
-X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="399897846"
-Received: from nmkayali-mobl1.amr.corp.intel.com (HELO [10.209.51.117])
- ([10.209.51.117])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 07:37:47 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07401F8014D
+ for <alsa-devel@alsa-project.org>; Fri, 12 Feb 2021 17:12:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07401F8014D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 455A0B781;
+ Fri, 12 Feb 2021 16:12:41 +0000 (UTC)
+Date: Fri, 12 Feb 2021 17:12:41 +0100
+Message-ID: <s5h8s7tclja.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Subject: Re: [PATCH] ALSA: hda: Add another CometLake-H PCI ID
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
- tiwai@suse.de
-References: <20210212151022.2568567-1-kai.vehmanen@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d3ba8659-81a6-9a6d-05cb-9be9fac9101a@linux.intel.com>
-Date: Fri, 12 Feb 2021 09:37:46 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
 In-Reply-To: <20210212151022.2568567-1-kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20210212151022.2568567-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,32 +68,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 2/12/21 9:10 AM, Kai Vehmanen wrote:
+On Fri, 12 Feb 2021 16:10:22 +0100,
+Kai Vehmanen wrote:
+> 
 > Add one more HD Audio PCI ID for CometLake-H PCH.
 > 
 > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 > ---
->   sound/pci/hda/hda_intel.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> index 801c5dd25707..7ba665e9272c 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -2475,6 +2475,8 @@ static const struct pci_device_id azx_ids[] = {
->   	/* CometLake-H */
->   	{ PCI_DEVICE(0x8086, 0x06C8),
->   	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-> +	{ PCI_DEVICE(0x8086, 0xf1c8),
-> +	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
->   	/* CometLake-S */
->   	{ PCI_DEVICE(0x8086, 0xa3f0),
->   	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-> 
-> base-commit: 03cc2c42871ecf90017cace94bfd1ca5ecaf6e48
-> 
+
+Thanks, applied with Cc to stable.
+
+
+Takashi

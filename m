@@ -2,93 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B41231AF7E
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Feb 2021 07:44:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FB3631AF96
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Feb 2021 08:25:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37A8616A9;
-	Sun, 14 Feb 2021 07:44:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37A8616A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96245169C;
+	Sun, 14 Feb 2021 08:24:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96245169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613285097;
-	bh=+ray0VqT4sTjatzI2a/mNQLcXRRFiHsp/U/vSMV39gE=;
+	s=default; t=1613287546;
+	bh=+NMSIBLjTkocWyPOSnvr93/kvnpENQ5T0Ff2GrIMIaA=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WkbazsIP+fMgmet0yyhlsZiluzYXt8dEJUpYkb74hFXuqSnPsLhAYCkLNOFn6fgLl
-	 qFuAidwOeTVLBAOlrpc/xSXQVkwZyeZoVfqTlRXFSXiD+byBfVZ7SPBVd6kMmaIHWY
-	 sHRK9+TGr4kLZvjiDxACaK++YtkETjqTATzj0CeI=
+	b=bVAaT0XaPaO3DgJDVrPWni8zXg4P49xFrMCmkUFiLxszlRK3Qk9r51JSPBVMZB3+4
+	 qv/mS0lDsZD3dunRxB83PysF8y9fgNwqKqhAK7ZBjDTnrnHZwmawNIDWmfzfSeInrb
+	 HMS7xxwXiF2qMos4acdATOyCrQX8FWcBFG6mXBxc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AE35F8020C;
-	Sun, 14 Feb 2021 07:43:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D41EAF800B2;
+	Sun, 14 Feb 2021 08:24:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 366F0F801DB; Sun, 14 Feb 2021 07:43:30 +0100 (CET)
+ id 26429F80155; Sun, 14 Feb 2021 08:24:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 561C3F8015A
- for <alsa-devel@alsa-project.org>; Sun, 14 Feb 2021 07:43:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 561C3F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48885F800B2
+ for <alsa-devel@alsa-project.org>; Sun, 14 Feb 2021 08:24:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48885F800B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="h/mDIbri"
-Received: by mail-wr1-x42b.google.com with SMTP id l12so4843859wry.2
- for <alsa-devel@alsa-project.org>; Sat, 13 Feb 2021 22:43:27 -0800 (PST)
+ header.b="IlTfhDgy"
+Received: by mail-wr1-x430.google.com with SMTP id t15so4792892wrx.13
+ for <alsa-devel@alsa-project.org>; Sat, 13 Feb 2021 23:24:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding;
- bh=aUQN0SZkwCC+2sHkMRBo4eVveaM2m59ClyPi/TCSgJI=;
- b=h/mDIbriPlQZGWb9Eb+iLQ2zUlvMmcy9awHJpqDHlnzTnWOsQH0vqNZO0tg7gvYlh3
- h1HoSIjmKogwHw8RFpjBJ7uocWEfbdZjB1koiQq6K76Qh8VztTJUIE0XDc3dVr3bDXvB
- Qvr8BMnXtxJCREViPxKu4XP4vecJXZaj9I0dv1Nn/mzvM8XGc91//KKyg9RTyvDAYjgj
- iqDAUkXf4jncjNS8Pqr9fGbDuFGrAssQYNlIR/K8zW7W+rL9+EEmKdg0yCPavKc30FCK
- GPt3DR3382ijOTCvAEqAyCDomOVT6W889vWolxIP2H+Saoq5w9y1TvNITlaZ/TnqXhPK
- mJgg==
+ bh=rsfpdVU9nQUkb0Hn8plZhbJavn6Bn7sQcQYoj21h4m4=;
+ b=IlTfhDgyeX7NlFLj1Qy8cZXkjOh4CDjkh3fL6WxzPDTLt4tMJbtK1xGBSKQCgWHoUE
+ iyol2OTeR9Nt33GxtwvIPeSIZWIr4+lCvM0Fd2QnmsnflgcRlOfZfrP+BP3Vmjkslv4f
+ +MNYKDk9RtIy0PragzSOC3JBJRTaGtxrzkEuBQEOTOIWR/dh0nCcvq5hL+NDT2+ObrjM
+ FWGv4ftrPRq364EJRb3/igB1NzjfCs83u7Y42T2h7zTSJ1kIslzkqJ91ZbJLCeJHNMhU
+ rRCT8e2gAIzrhP78inSrvl7ClYBw+j2syGK3d071fdWleXIiv9kkLrypG+L6NjYnBCZm
+ S3Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=aUQN0SZkwCC+2sHkMRBo4eVveaM2m59ClyPi/TCSgJI=;
- b=Awa72lwgeiYEQV6Z5yi2+tMxYQmuSsSNQ8o/61gzy7GltqdX9w+w44vqfZVnWSjFam
- +0N24UhUqqFxfoCnTwtleK8O0rHgE5UOi8eV16kkxNg5NyYGZfL2we7bnVmTxcq004UN
- EXOHdF305YOX0yGIKkENyRZo8eA64X3rk4J4dr+SrtxiQoFjYhno9qC7RFj+f8E2+fWa
- 6FzJqmGzxmzMjYVJuw6mrTw0PQxNjn2pfjzPLrJWjBQ2byBO64HIFhEZ3goH1NeHNzE/
- YbGMX6WPPkERdtrS60T4rwK/EGwnqeYDrf2Tfg/b3i3DjTp1CK4EoQBimwoU6qVivuX+
- /98g==
-X-Gm-Message-State: AOAM530IheYGf0A2z4z/VdK1eiWn10fBVQpo50UNPaswRzKsW5XVPXBJ
- n/bISlYL87JALpzNmYfPn9M=
-X-Google-Smtp-Source: ABdhPJzLImN7rJllYpBrWPP1f3SYUf5vt7xMMJv7VCxJ7SlRdTVlcugQRaTGfUIvH4oKVMuw12jVhg==
-X-Received: by 2002:a5d:4849:: with SMTP id n9mr12536800wrs.159.1613285001726; 
- Sat, 13 Feb 2021 22:43:21 -0800 (PST)
+ bh=rsfpdVU9nQUkb0Hn8plZhbJavn6Bn7sQcQYoj21h4m4=;
+ b=C5gvgihdu1ZxuiqCiAlW1EX49KJ50bTZTYjHbJaKL6t0yi4jEzCe2XiM/zvejxz1Tx
+ tkS5mFPDF0b2+av25LFgLLB6Dw1v723DwUgWOQ487TaW903lPHzUTB1LDaA2jC3QmbHq
+ Oqns9m8lGjVBPRVto665IYTTaGiRYXZMkT9ArGED+yASMcl1m0rtrvu3+tmWRsLst9yP
+ OilHtvbhpe4bqBXy2po6rg+r6zLY29SijijeKwXKvwuUDr5XAGJcp7pHh4lXysvIk++S
+ 6KEghia1HQyBvxw5w+KXsVh8Gfmi69xz/ubL6wD2zvMG2W0fQYiJOGOWLETw7KismhYW
+ a1hA==
+X-Gm-Message-State: AOAM5331eIm+TjN8yqX19fZegqr4cMhPyz5KSaWfVny26g9wHInauxpo
+ MJeyz3hFc9F3snt4hJRfLvc=
+X-Google-Smtp-Source: ABdhPJwHSBNZry74vzpPl+hsTNtlQYui+V4CKjLpOsGwaZofy8Bn1YF2X1eBC+TGSNehle+8iW/Yqw==
+X-Received: by 2002:a5d:408a:: with SMTP id o10mr12148922wrp.427.1613287442135; 
+ Sat, 13 Feb 2021 23:24:02 -0800 (PST)
 Received: from [0.0.0.0] ([2a01:4f8:c17:e10a::1])
- by smtp.gmail.com with ESMTPSA id z15sm4013712wrs.72.2021.02.13.22.43.17
+ by smtp.gmail.com with ESMTPSA id o83sm20894670wme.37.2021.02.13.23.23.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 13 Feb 2021 22:43:21 -0800 (PST)
-Subject: Re: [PATCH v3 3/3] ASoC: rt715:add micmute led state control supports
-To: Mark Brown <broonie@kernel.org>, Perry Yuan <Perry.Yuan@dell.com>
-References: <20210112171814.5404-1-Perry_Yuan@Dell.com>
- <20210112175406.GF4646@sirena.org.uk>
+ Sat, 13 Feb 2021 23:24:01 -0800 (PST)
+Subject: Re: [PATCH v3 1/3] platform/x86: dell-privacy: Add support for Dell
+ hardware privacy
+To: Randy Dunlap <rdunlap@infradead.org>, Perry Yuan <Perry.Yuan@dell.com>,
+ oder_chiou@realtek.com, perex@perex.cz, tiwai@suse.com, hdegoede@redhat.com,
+ mgross@linux.intel.com
+References: <20210112171723.19484-1-Perry_Yuan@Dell.com>
+ <cc83351b-a19a-9a3e-d511-4553cf4d7ef0@infradead.org>
 From: Perry Yuan <perry979106@gmail.com>
-Message-ID: <43507ba7-74b8-2d18-57ca-271f89a752de@gmail.com>
-Date: Sun, 14 Feb 2021 14:43:10 +0800
+Message-ID: <68bd09cd-2bdb-2c4e-f38d-a28a7fb0cb48@gmail.com>
+Date: Sun, 14 Feb 2021 15:23:46 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <20210112175406.GF4646@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <cc83351b-a19a-9a3e-d511-4553cf4d7ef0@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, mgross@linux.intel.com,
- Mario.Limonciello@dell.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com, platform-driver-x86@vger.kernel.org, hdegoede@redhat.com
+Cc: alsa-devel@alsa-project.org, Mario.Limonciello@dell.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ platform-driver-x86@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,89 +107,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark:
-Thanks for your review.
+Hi Randy.
 
-On 2021/1/13 1:54, Mark Brown wrote:
-> On Wed, Jan 13, 2021 at 01:18:14AM +0800, Perry Yuan wrote:
+On 2021/1/13 1:39, Randy Dunlap wrote:
+> On 1/12/21 9:17 AM, Perry Yuan wrote:
+>> +config DELL_PRIVACY
+>> +	tristate "Dell Hardware Privacy Support"
+>> +	depends on ACPI
+>> +	depends on ACPI_WMI
+>> +	depends on INPUT
+>> +	depends on DELL_LAPTOP
+>> +	depends on LEDS_TRIGGER_AUDIO
+>> +	select DELL_WMI
+>> +	help
+>> +	This driver provides support for the "Dell Hardware Privacy" feature
+>> +	of Dell laptops.
+>> +	Support for a micmute and camera mute privacy will be provided as
+>> +	hardware button Ctrl+F4 and Ctrl+F9 hotkey
 > 
->> Some new Dell system is going to support audio internal micphone
->> privacy setting from hardware level with micmute led state changing
->> When micmute hotkey pressed by user, soft mute will need to be enabled
->> firstly in case of pop noise, and codec driver need to react to mic
->> mute event to EC(embedded controller) notifying that SW mute is completed
->> Then EC will do the hardware mute physically within the timeout reached
+> 	End above with a period '.' please.
 > 
->> This patch allow codec rt715 driver to ack EC when micmute key pressed
->> through this micphone led control interface like hda_generic provided
->> ACPI method defined in dell-privacy micmute led trigger will be called
->> for notifying the EC that software mute has been completed
-> 
-> It feels like there's an abstraction problem here with this being hard
-> coded in a specific CODEC driver.
-> 
->>   #include <linux/soundwire/sdw.h>
->> @@ -244,6 +245,7 @@ static int rt715_sdca_get_volsw(struct snd_kcontrol *kcontrol,
->>   	unsigned int max = mc->max;
->>   	int val;
->>   
->> +	pr_err("++++++rt715_sdca_get_volsw++\n");
->>   	val = snd_soc_component_read(component, mc->reg);
->>   	if (val < 0)
->>   		return -EINVAL;
-> 
-> This shouldn't be in the patch.
-Removed in V4, I forget to clear this debug code
-> 
->> @@ -287,6 +291,18 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
->>   			return err;
->>   	}
->>   
->> +#if IS_ENABLED(CONFIG_DELL_PRIVACY)
->> +	/* dell privacy LED trigger state changed by muted/unmute switch */
->> +	if (mc->invert) {
->> +		if (ucontrol->value.integer.value[0] || ucontrol->value.integer.value[1]) {
->> +			rt715->micmute_led = LED_OFF;
->> +		} else {
->> +			rt715->micmute_led = LED_ON;
->> +		}
->> +		ledtrig_audio_set(LED_AUDIO_MICMUTE, rt715->micmute_led);
->> +	}
->> +#endif
 >> +
+>> +	To compile this driver as a module, choose M here: the module will
+>> +	be called dell_privacy.
 > 
-> This doesn't look good.  There's nothing Dell specific here, and nothing
-> about this is conditional on any sort of runtime detection of Dell
-> systems, it's not obvious why this is conditional on DELL_PRIVACY or why
-> we only report the state if the control is inverted.
+> Please follow coding-style for Kconfig files:
 > 
-I will remove the CONFIG_DELL_PRIVACY from V4 patch and allow it to run 
-if CONFIG_DELL_PRIVACY is not set, the result will be a no-op.
-> I'm also not convinced that it's a good idea to set the mute LED if only
-> one channel in a stereo microphone is muted, that seems likely to lead
-> to surprising behaviour for users.
+> from Documentation/process/coding-style.rst, section 10):
 > 
-https://github.com/thesofproject/linux/pull/2660#discussion_r555480210
-There is a discussion for the channel mute changing behavior.
-If the anyone of value[0] or value[1] is 1, it means mic is NOT muted
-The muted state will be LED_ON state need to set.
-
-> TBH I don't understand why this isn't being done in generic code.
+> For all of the Kconfig* configuration files throughout the source tree,
+> the indentation is somewhat different.  Lines under a ``config`` definition
+> are indented with one tab, while help text is indented an additional two
+> spaces.
 > 
->> +	bool micmute_led;
 > 
-> What is this for, it never seems to be read except for in the function
-> where it's set?
+> thanks.
 > 
 
-I have moved this part code to the local definition of 
-rt715_set_amp_gain_put and removed from rt715_priv.
-new code will be like this in V4.
-
-@@ -88,6 +89,7 @@ static int rt715_set_amp_gain_put(struct snd_kcontrol 
-*kcontrol,
-                 RT715_SET_GAIN_MIX_ADC2_L};
-         unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
-         unsigned int read_ll, read_rl, i, j, loop_cnt;
-+       bool micmute_led;
-
+Thank you for the review.
+Format checked again and will be updated in V4.

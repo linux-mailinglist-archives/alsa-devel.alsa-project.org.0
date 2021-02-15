@@ -2,59 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A77A31C072
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 18:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B62A31C073
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 18:26:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9578B167A;
-	Mon, 15 Feb 2021 18:25:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9578B167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AA9A1694;
+	Mon, 15 Feb 2021 18:25:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AA9A1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613409967;
-	bh=k46tMy/KO6aVASZ2NZEzvdDeZnea4vqmLTDT73hUv3I=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Tr21rndtbPLAorFAUqthK528hP1otj0WYngMTmEix5ePrmUsCXPvHPoi4P6DuRlJT
-	 esWxZnvuiPxmEgioNOCQfdHvJoB0iNrxaXfipx1z4zJlu8I1BgyOZfkrJzAainEgoi
-	 L7t4ALAcZQ+TxqZs97jU0A3/OE5LQN8CJwUqHp3E=
+	s=default; t=1613409980;
+	bh=ENiReFCkc8rgNW/NKNWf8FdCbpDBV8OrVpN+yKnYw8o=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oqdf2hAWhkZsA/WuOKPr1c8r3DALZrL/T41WudCxciq/UfL67lwd00tdWWuCtIEPo
+	 CItfbBAQwaUqsy8VLSUUW8Bwj5axdFBrQg9/UUjXEBrr38+AzdRUDaUq9QgMlw4+ZL
+	 8Y5Dl6u+Y16Z/HM4F4u3hufS03JnTNlvMpLChbXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB06FF80268;
-	Mon, 15 Feb 2021 18:24:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1250AF80271;
+	Mon, 15 Feb 2021 18:24:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CB2DF80258; Mon, 15 Feb 2021 18:24:34 +0100 (CET)
+ id 32AD5F8026C; Mon, 15 Feb 2021 18:24:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC8A9F800AE
- for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 18:24:29 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5CCAF800C1
+ for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 18:24:34 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 1A459A003F;
- Mon, 15 Feb 2021 18:24:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 1A459A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4B557A003F;
+ Mon, 15 Feb 2021 18:24:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4B557A003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1613409869; bh=ezuL+S0oagQWNa+MVzQi1GCzv+QYneJPK7wJP/3lQt8=;
- h=From:To:Cc:Subject:Date:From;
- b=IqxP3eoqJqwtqsbM9D9ZQueGWGRt/IZiAuPCP9ObsPITBbgYkW0dfH8SahrcNHHS9
- xGyZlA1qbeePW5SdTJNcUuG+QANYhwH3/KMoZhPsQXpiOaXU7mT5KoVWW8o+5bSlz7
- o39ivbMRb/e3wCQkhp7ZitHottqjs3x5ZY9kk2hI=
+ t=1613409874; bh=G01JjHLKvGXdGmx/X27fLakluv0iZqk6seQ+zQxthqc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=aJ5uy+pJPNewfYVJnN9PAi+iWjBno7oHXQhKuzx+jUyJv8kaXESm91L+yfdu9/pg/
+ ymzY0poctrUIavTfUe2vUPKE+dyxWz2EgwC8R6qsFkgojNsI6gxKcFrV5z/Zuyvz7N
+ nVc4/CBRQed2pJp1WuHPqNHFgwvPlnuZz4jAtLFs=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 15 Feb 2021 18:24:23 +0100 (CET)
+ Mon, 15 Feb 2021 18:24:29 +0100 (CET)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH v2 0/5] ALSA: control - add generic LED API
-Date: Mon, 15 Feb 2021 18:24:13 +0100
-Message-Id: <20210215172418.1322825-1-perex@perex.cz>
+Subject: [PATCH v2 1/5] ALSA: control - introduce snd_ctl_notify_one() helper
+Date: Mon, 15 Feb 2021 18:24:14 +0100
+Message-Id: <20210215172418.1322825-2-perex@perex.cz>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210215172418.1322825-1-perex@perex.cz>
+References: <20210215172418.1322825-1-perex@perex.cz>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
@@ -74,90 +78,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset tries to resolve the diversity in the audio LED
-control among the ALSA drivers. A new control layer registration
-is introduced which allows to run additional operations on
-top of the elementary ALSA sound controls.
+This helper is required for the following generic LED mute
+patch. The helper also simplifies some other functions.
 
-A new control access group (three bits in the access flags)
-was introduced to carry the LED group information for
-the sound controls. The low-level sound drivers can just
-mark those controls using this access group. This information
-is exported to the user space and eventually the user space
-can create sound controls which can belong to a LED group.
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ include/sound/control.h |  4 +--
+ sound/core/control.c    | 68 +++++++++++++++++++++++++++--------------
+ 2 files changed, 47 insertions(+), 25 deletions(-)
 
-The actual state ('route') evaluation is really easy
-(the minimal value check for all channels / controls / cards).
-If there's more complicated logic for a given hardware,
-the card driver may eventually export a new read-only
-sound control for the LED group and do the logic itself.
-
-The new LED trigger control code is completely separated
-and possibly optional (there's no symbol dependency).
-The full code separation allows eventually to move this
-LED trigger control to the user space in future.
-Actually it replaces the already present functionality
-in the kernel space (HDA drivers) and allows a quick adoption
-for the recent hardware (SoundWire / ASoC codecs).
-
-# lsmod | grep snd_ctl_led
-snd_ctl_led            16384  0
-
-The sound driver implementation is really easy:
-
-1) call snd_ctl_led_request() when control LED layer should be
-   automatically activated
-   / it calls module_request("snd-ctl-led") on demand /
-2) mark all related kcontrols with
-	SNDRV_CTL_ELEM_ACCESS_SPK_LED or
-	SNDRV_CTL_ELEM_ACCESS_MIC_LED
-
-v2 changes:
-  - fix the locking - remove the controls_rwsem read lock
-    in the element get (the consistency is already protected
-    with the global snd_ctl_led_mutex and possible partial
-    value writes are catched with the next value change
-    notification callback)
-  - rename state to brightness and show the brightness
-    unsigned integer value instead the text on/off string
-    (sync with the LED core routines)
-  - remove snd_ctl_led_hello() function (CI warning)
-  - make snd_ctl_led_get_by_access() function static (CI warning)
-  - move snd_ctl_layer_rwsem lock before the registraction
-    callback call in snd_ctl_register_layer() - optimization
-v1:
-  - https://lore.kernel.org/alsa-devel/20210211111400.1131020-1-perex@perex.cz/
-Original RFC:
-  - https://lore.kernel.org/alsa-devel/20210207201157.869972-1-perex@perex.cz/
-
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: Perry Yuan <Perry.Yuan@dell.com>
-
-Jaroslav Kysela (5):
-  ALSA: control - introduce snd_ctl_notify_one() helper
-  ALSA: control - add layer registration routines
-  ALSA: control - add generic LED trigger module as the new control
-    layer
-  ALSA: HDA - remove the custom implementation for the audio LED trigger
-  ALSA: control - add sysfs support to the LED trigger module
-
- include/sound/control.h         |  27 ++-
- include/uapi/sound/asound.h     |   6 +-
- sound/core/Kconfig              |   6 +
- sound/core/Makefile             |   2 +
- sound/core/control.c            | 173 ++++++++++++---
- sound/core/control_led.c        | 378 ++++++++++++++++++++++++++++++++
- sound/pci/hda/Kconfig           |   4 +-
- sound/pci/hda/hda_codec.c       |  69 +-----
- sound/pci/hda/hda_generic.c     | 162 +++-----------
- sound/pci/hda/hda_generic.h     |  15 +-
- sound/pci/hda/hda_local.h       |  16 +-
- sound/pci/hda/patch_ca0132.c    |   4 +-
- sound/pci/hda/patch_realtek.c   |   2 +-
- sound/pci/hda/patch_sigmatel.c  |   6 +-
- sound/pci/hda/thinkpad_helper.c |   2 +-
- 15 files changed, 609 insertions(+), 263 deletions(-)
- create mode 100644 sound/core/control_led.c
-
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 77d9fa10812d..22f3d48163ff 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -115,6 +115,7 @@ typedef int (*snd_kctl_ioctl_func_t) (struct snd_card * card,
+ 				      unsigned int cmd, unsigned long arg);
+ 
+ void snd_ctl_notify(struct snd_card * card, unsigned int mask, struct snd_ctl_elem_id * id);
++void snd_ctl_notify_one(struct snd_card * card, unsigned int mask, struct snd_kcontrol * kctl, unsigned int ioff);
+ 
+ struct snd_kcontrol *snd_ctl_new1(const struct snd_kcontrol_new * kcontrolnew, void * private_data);
+ void snd_ctl_free_one(struct snd_kcontrol * kcontrol);
+@@ -123,8 +124,7 @@ int snd_ctl_remove(struct snd_card * card, struct snd_kcontrol * kcontrol);
+ int snd_ctl_replace(struct snd_card *card, struct snd_kcontrol *kcontrol, bool add_on_replace);
+ int snd_ctl_remove_id(struct snd_card * card, struct snd_ctl_elem_id *id);
+ int snd_ctl_rename_id(struct snd_card * card, struct snd_ctl_elem_id *src_id, struct snd_ctl_elem_id *dst_id);
+-int snd_ctl_activate_id(struct snd_card *card, struct snd_ctl_elem_id *id,
+-			int active);
++int snd_ctl_activate_id(struct snd_card *card, struct snd_ctl_elem_id *id, int active);
+ struct snd_kcontrol *snd_ctl_find_numid(struct snd_card * card, unsigned int numid);
+ struct snd_kcontrol *snd_ctl_find_id(struct snd_card * card, struct snd_ctl_elem_id *id);
+ 
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 5165741a8400..8a5cedb0a4be 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -181,6 +181,27 @@ void snd_ctl_notify(struct snd_card *card, unsigned int mask,
+ }
+ EXPORT_SYMBOL(snd_ctl_notify);
+ 
++/**
++ * snd_ctl_notify_one - Send notification to user-space for a control change
++ * @card: the card to send notification
++ * @mask: the event mask, SNDRV_CTL_EVENT_*
++ * @kctl: the pointer with the control instance
++ * @ioff: the additional offset to the control index
++ *
++ * This function calls snd_ctl_notify() and does additional jobs
++ * like LED state changes.
++ */
++void snd_ctl_notify_one(struct snd_card *card, unsigned int mask,
++			struct snd_kcontrol *kctl, unsigned int ioff)
++{
++	struct snd_ctl_elem_id id = kctl->id;
++
++	id.index += ioff;
++	id.numid += ioff;
++	snd_ctl_notify(card, mask, &id);
++}
++EXPORT_SYMBOL(snd_ctl_notify_one);
++
+ /**
+  * snd_ctl_new - create a new control instance with some elements
+  * @kctl: the pointer to store new control instance
+@@ -342,7 +363,6 @@ static int __snd_ctl_add_replace(struct snd_card *card,
+ {
+ 	struct snd_ctl_elem_id id;
+ 	unsigned int idx;
+-	unsigned int count;
+ 	struct snd_kcontrol *old;
+ 	int err;
+ 
+@@ -376,10 +396,8 @@ static int __snd_ctl_add_replace(struct snd_card *card,
+ 	kcontrol->id.numid = card->last_numid + 1;
+ 	card->last_numid += kcontrol->count;
+ 
+-	id = kcontrol->id;
+-	count = kcontrol->count;
+-	for (idx = 0; idx < count; idx++, id.index++, id.numid++)
+-		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_ADD, &id);
++	for (idx = 0; idx < kcontrol->count; idx++)
++		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_ADD, kcontrol, idx);
+ 
+ 	return 0;
+ }
+@@ -462,16 +480,14 @@ EXPORT_SYMBOL(snd_ctl_replace);
+  */
+ int snd_ctl_remove(struct snd_card *card, struct snd_kcontrol *kcontrol)
+ {
+-	struct snd_ctl_elem_id id;
+ 	unsigned int idx;
+ 
+ 	if (snd_BUG_ON(!card || !kcontrol))
+ 		return -EINVAL;
+ 	list_del(&kcontrol->list);
+ 	card->controls_count -= kcontrol->count;
+-	id = kcontrol->id;
+-	for (idx = 0; idx < kcontrol->count; idx++, id.index++, id.numid++)
+-		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_REMOVE, &id);
++	for (idx = 0; idx < kcontrol->count; idx++)
++		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
+ 	snd_ctl_free_one(kcontrol);
+ 	return 0;
+ }
+@@ -584,11 +600,13 @@ int snd_ctl_activate_id(struct snd_card *card, struct snd_ctl_elem_id *id,
+ 		vd->access |= SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+ 	}
+ 	snd_ctl_build_ioff(id, kctl, index_offset);
+-	ret = 1;
++	downgrade_write(&card->controls_rwsem);
++	snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_INFO, kctl, index_offset);
++	up_read(&card->controls_rwsem);
++	return 1;
++
+  unlock:
+ 	up_write(&card->controls_rwsem);
+-	if (ret > 0)
+-		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_INFO, id);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_ctl_activate_id);
+@@ -1110,25 +1128,34 @@ static int snd_ctl_elem_write(struct snd_card *card, struct snd_ctl_file *file,
+ 	unsigned int index_offset;
+ 	int result;
+ 
++	down_write(&card->controls_rwsem);
+ 	kctl = snd_ctl_find_id(card, &control->id);
+-	if (kctl == NULL)
++	if (kctl == NULL) {
++		up_write(&card->controls_rwsem);
+ 		return -ENOENT;
++	}
+ 
+ 	index_offset = snd_ctl_get_ioff(kctl, &control->id);
+ 	vd = &kctl->vd[index_offset];
+ 	if (!(vd->access & SNDRV_CTL_ELEM_ACCESS_WRITE) || kctl->put == NULL ||
+ 	    (file && vd->owner && vd->owner != file)) {
++		up_write(&card->controls_rwsem);
+ 		return -EPERM;
+ 	}
+ 
+ 	snd_ctl_build_ioff(&control->id, kctl, index_offset);
+ 	result = kctl->put(kctl, control);
+-	if (result < 0)
++	if (result < 0) {
++		up_write(&card->controls_rwsem);
+ 		return result;
++	}
+ 
+ 	if (result > 0) {
+-		struct snd_ctl_elem_id id = control->id;
+-		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
++		downgrade_write(&card->controls_rwsem);
++		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_VALUE, kctl, index_offset);
++		up_read(&card->controls_rwsem);
++	} else {
++		up_write(&card->controls_rwsem);
+ 	}
+ 
+ 	return 0;
+@@ -1150,9 +1177,7 @@ static int snd_ctl_elem_write_user(struct snd_ctl_file *file,
+ 	if (result < 0)
+ 		goto error;
+ 
+-	down_write(&card->controls_rwsem);
+ 	result = snd_ctl_elem_write(card, file, control);
+-	up_write(&card->controls_rwsem);
+ 	if (result < 0)
+ 		goto error;
+ 
+@@ -1301,7 +1326,6 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
+ {
+ 	struct user_element *ue = kctl->private_data;
+ 	unsigned int *container;
+-	struct snd_ctl_elem_id id;
+ 	unsigned int mask = 0;
+ 	int i;
+ 	int change;
+@@ -1333,10 +1357,8 @@ static int replace_user_tlv(struct snd_kcontrol *kctl, unsigned int __user *buf,
+ 	ue->tlv_data_size = size;
+ 
+ 	mask |= SNDRV_CTL_EVENT_MASK_TLV;
+-	for (i = 0; i < kctl->count; ++i) {
+-		snd_ctl_build_ioff(&id, kctl, i);
+-		snd_ctl_notify(ue->card, mask, &id);
+-	}
++	for (i = 0; i < kctl->count; ++i)
++		snd_ctl_notify_one(ue->card, mask, kctl, i);
+ 
+ 	return change;
+ }
 -- 
 2.29.2

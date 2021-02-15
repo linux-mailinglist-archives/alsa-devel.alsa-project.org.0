@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3A431C333
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 21:48:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF7331C340
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 21:51:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B1961675;
-	Mon, 15 Feb 2021 21:47:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B1961675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D6581655;
+	Mon, 15 Feb 2021 21:50:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D6581655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613422084;
-	bh=g+xaAdEc8pl5FT3IpWH5jgtea53+rCCVgVLF2flYk4w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1613422309;
+	bh=3+nwuXCwFG7BLMfhnIbHiGIwS3X0w5RVgtp8enGR6Z0=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cyXiMNk/jhYNLx8z/ZAKV9XKHt0DWvC4LUZF1S5xw2lt7wHiDlLP6WJOwQbr4YTrw
-	 KljsWeG8cJZQcVZeezRitYWCUA4ryFxBfgIlSsWDNuQ3lyd2tksyGVG1CWx9v84BMt
-	 iresIMFvzdibedPRmWzk4R20MXvjskXEfAUIowx8=
+	b=IJcI1Aeb5BLVyn4Q3dK8i0QOBuk9tzGMazWOmIrrQZgXPZDmUM9ST6ulDs9nfIM9f
+	 P3LTVOLDj3/k8P2EwHOF/DRxT0Q5T4GoSKyBQ4LRtf46JR6ySZ+K/WgrSN0yNsGIFE
+	 rkFgpqJUcIgsJhmZL5eVcbWdbsjuiochDkVarC4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE973F8025B;
-	Mon, 15 Feb 2021 21:46:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A734AF8025B;
+	Mon, 15 Feb 2021 21:50:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8ECCF80258; Mon, 15 Feb 2021 21:46:29 +0100 (CET)
+ id 66D6AF80258; Mon, 15 Feb 2021 21:50:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7C57F80089
- for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 21:46:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C57F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F530F800C1
+ for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 21:50:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F530F800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J8gdqBtY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 57DC964DEC;
- Mon, 15 Feb 2021 20:46:23 +0000 (UTC)
+ header.b="AA1KHOEx"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D4E3C64DFF;
+ Mon, 15 Feb 2021 20:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613421983;
- bh=g+xaAdEc8pl5FT3IpWH5jgtea53+rCCVgVLF2flYk4w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=J8gdqBtYZRUpwTmyByiwNCFSOPzN7dGnPVLZhLUWFFFjDjULhYQWQrBxKvCseiMq0
- hqQjLENlOD+moyq/8ewcbR9wCG+HnR6fwQGSulfaBIw1+WpME1GPRAcrtiMU+GQs8y
- 9k3cMBPirgufi5+TDqGtQ26R3W3Cj0j8WUssuWnteA+HcIMKPEPs/5fMewKrnsfRa/
- /4lCLdtP0g9PB97PaMDBepGxQziqKSHOJzHYA6I/obKCztV/CIkcNOGQJVwWItEuPv
- QK5+XTu9gx4YwmWLOm6Sd4ftteKwpbEchdvQ/Ih5cOEWapj7Y5qmt01k6D+nb6PUFn
- lNFawZ3qHycDw==
-Date: Mon, 15 Feb 2021 20:45:27 +0000
+ s=k20201202; t=1613422211;
+ bh=3+nwuXCwFG7BLMfhnIbHiGIwS3X0w5RVgtp8enGR6Z0=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=AA1KHOExpZpFRePMZKu26x8KBR11N3DYGfKNyUDoHZkXohkWF/+dZ+aIGJpWtOTYr
+ YYNu/PH90qK4Go1Wq0oJI0Fsh0AP7tmAx7UMMrwTOF7kuNSCDS8P6ctV98XLLShS4l
+ 8FBKFsVjB3T0GGQ2lvQYVTOQoCy7Bgok4Z1O1B27YlcxXS9RTTbz+AuB76fs7QAL/V
+ WH1fpGFkzu6YO5tHmrLR9PF6YUryIQL+2w3IMXTzUNoWbHr1szwY7eJhYeE+6g7Zfj
+ ZO5OSy9pvdffYl0N99zYu91e33s2qB49i77NFQD1+P4Hul5q3XrX4RTtFdLKIUDHUb
+ 2d6o+8nvo+2Jw==
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 2/3] ASoC: soc-pcm: add soc_pcm_hw_update_chan()
-Message-ID: <20210215204527.GC4378@sirena.org.uk>
-References: <87tuqs90rl.wl-kuninori.morimoto.gx@renesas.com>
- <87r1lw90oo.wl-kuninori.morimoto.gx@renesas.com>
- <62f03ec8-7b9c-4550-d63d-cc50693e62fa@linux.intel.com>
- <alpine.DEB.2.22.394.2102142311050.864696@eliteleevi.tm.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com
+In-Reply-To: <20210214220414.2876690-1-kai.vehmanen@linux.intel.com>
+References: <20210214220414.2876690-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: fix hwparams min/max init for dpcm
+Message-Id: <161342215451.45269.18136744682520869431.b4-ty@kernel.org>
+Date: Mon, 15 Feb 2021 20:49:14 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sHrvAb52M6C8blB9"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2102142311050.864696@eliteleevi.tm.intel.com>
-X-Cookie: Serenity through viciousness.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,48 +79,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 15 Feb 2021 00:04:14 +0200, Kai Vehmanen wrote:
+> When runtime is initialized with dpcm_init_runtime_hw(), some of the
+> min/max calculations assume that defaults are set. For example
+> calculation of channel min/max values may be done using zero-initialized
+> data and soc_pcm_hw_update_chan() will always return max-channels of 0
+> in this case. This will result in failure to open the PCM at all.
+> 
+> Fix the issue by calling soc_pcm_hw_init() before calling any
+> soc_pcm_hw_update_*() functions.
+> 
+> [...]
 
---sHrvAb52M6C8blB9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Sun, Feb 14, 2021 at 11:17:03PM +0200, Kai Vehmanen wrote:
-> On Fri, 12 Feb 2021, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > > We have soc_pcm_hw_update_rate() now.
-> > > This patch creates same function for chan.
+Thanks!
 
-> > This patch seems to break all SOF platforms. I tested manually to try a=
-nd
-> > reproduce the CI results and it's indeed not so good:
+[1/1] ASoC: soc-pcm: fix hwparams min/max init for dpcm
+      commit: 140f553d1298e0ddbe21983efe5789fe8b484273
 
-> ouch -- I think this will impact also non-SOF platforms.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> The new helper functions seem all correct, but the problem would seem to=
-=20
-> be in the dpcm_init_runtime_hw() as some of the inputs are not initialize=
-d=20
-> as expected here. I'll try to send a fixup patch asap. In case 5.11 is=20
-> released later today, this regression needs to be fixed for first 5.12=20
-> pull req.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-I've applied the fixup patch, if someone could confirm that the CI looks
-good I'll send the pull request for this release.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---sHrvAb52M6C8blB9
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAq3WYACgkQJNaLcl1U
-h9B3hwf+JJi8FnybpBOX9SszuEKmG9qZjHrwXgpgnaHD+RTdU1VeIw1KUQOzwTgO
-hKl2eJLFT5YnDqEIb+wBVJb8t+wfG5v10M9GftHnjzHHYj1gaJfponnmUOJCjr3a
-6Vw/Qj6+7BKrAXNTNQE44TDwWrzEYhvakC/emDP4geZrWBBCMGCUieFovaLmneiM
-8uEOqATKZeUuk0klg1ezGUpm3MZeu92oHOo0PC1mE90zZjHj8HtxcHved96igGiM
-NcUDNzrZq0XF4DTh+7yOllyZgRDhRso2vCMGFtsEeJM03w8GgakHYlxmMWSDfzNw
-yCRx2aiLjHpLxPMjXI8M95RSBNwiSQ==
-=3K4F
------END PGP SIGNATURE-----
-
---sHrvAb52M6C8blB9--
+Thanks,
+Mark

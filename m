@@ -2,59 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7CC131C2CB
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 21:06:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3A431C333
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 21:48:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68AD81685;
-	Mon, 15 Feb 2021 21:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AD81685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B1961675;
+	Mon, 15 Feb 2021 21:47:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B1961675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613419606;
-	bh=LaIolamDtrAmOzPPEJgM6CYkTdQc3hS4qvvCa3GBw8s=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ePgcTRBxIg5dwI/USL9lUOV3SGGl/T2wLpB2R6ba+PM5Ycm6gEaGDwOlcfrlrAuT8
-	 T898OTiJficpST95d+u9uvINZxJ/D+k81PCpuzNouWCgix6IONlioEBqLODHnn+GX7
-	 DZ6SQck3p6Nh8pDa9a/5/muDhlI26l+yl0CsBXVU=
+	s=default; t=1613422084;
+	bh=g+xaAdEc8pl5FT3IpWH5jgtea53+rCCVgVLF2flYk4w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cyXiMNk/jhYNLx8z/ZAKV9XKHt0DWvC4LUZF1S5xw2lt7wHiDlLP6WJOwQbr4YTrw
+	 KljsWeG8cJZQcVZeezRitYWCUA4ryFxBfgIlSsWDNuQ3lyd2tksyGVG1CWx9v84BMt
+	 iresIMFvzdibedPRmWzk4R20MXvjskXEfAUIowx8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABB12F8025B;
-	Mon, 15 Feb 2021 21:05:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE973F8025B;
+	Mon, 15 Feb 2021 21:46:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C940F80258; Mon, 15 Feb 2021 21:05:14 +0100 (CET)
+ id B8ECCF80258; Mon, 15 Feb 2021 21:46:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D23D1F800C1
- for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 21:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D23D1F800C1
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1lBk7B-0006sw-MR; Mon, 15 Feb 2021 20:05:01 +0000
-From: Colin King <colin.king@canonical.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org
-Subject: [PATCH][next] ASoC: codecs: lpass-rx-macro: remove redundant
- initialization of variable hph_pwr_mode
-Date: Mon, 15 Feb 2021 20:05:01 +0000
-Message-Id: <20210215200501.90697-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.30.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7C57F80089
+ for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 21:46:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C57F80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="J8gdqBtY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 57DC964DEC;
+ Mon, 15 Feb 2021 20:46:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613421983;
+ bh=g+xaAdEc8pl5FT3IpWH5jgtea53+rCCVgVLF2flYk4w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=J8gdqBtYZRUpwTmyByiwNCFSOPzN7dGnPVLZhLUWFFFjDjULhYQWQrBxKvCseiMq0
+ hqQjLENlOD+moyq/8ewcbR9wCG+HnR6fwQGSulfaBIw1+WpME1GPRAcrtiMU+GQs8y
+ 9k3cMBPirgufi5+TDqGtQ26R3W3Cj0j8WUssuWnteA+HcIMKPEPs/5fMewKrnsfRa/
+ /4lCLdtP0g9PB97PaMDBepGxQziqKSHOJzHYA6I/obKCztV/CIkcNOGQJVwWItEuPv
+ QK5+XTu9gx4YwmWLOm6Sd4ftteKwpbEchdvQ/Ih5cOEWapj7Y5qmt01k6D+nb6PUFn
+ lNFawZ3qHycDw==
+Date: Mon, 15 Feb 2021 20:45:27 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 2/3] ASoC: soc-pcm: add soc_pcm_hw_update_chan()
+Message-ID: <20210215204527.GC4378@sirena.org.uk>
+References: <87tuqs90rl.wl-kuninori.morimoto.gx@renesas.com>
+ <87r1lw90oo.wl-kuninori.morimoto.gx@renesas.com>
+ <62f03ec8-7b9c-4550-d63d-cc50693e62fa@linux.intel.com>
+ <alpine.DEB.2.22.394.2102142311050.864696@eliteleevi.tm.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sHrvAb52M6C8blB9"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2102142311050.864696@eliteleevi.tm.intel.com>
+X-Cookie: Serenity through viciousness.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,30 +87,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
 
-The variable hph_pwr_mode is being initialized with a value that is
-never read and it is being updated later with a new value.  The
-initialization is redundant and can be removed.
+--sHrvAb52M6C8blB9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/codecs/lpass-rx-macro.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Sun, Feb 14, 2021 at 11:17:03PM +0200, Kai Vehmanen wrote:
+> On Fri, 12 Feb 2021, Pierre-Louis Bossart wrote:
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 8c04b3b2c907..76909c50d7b9 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -2038,7 +2038,7 @@ static int rx_macro_load_compander_coeff(struct snd_soc_component *component,
- {
- 	u16 comp_coeff_lsb_reg, comp_coeff_msb_reg;
- 	int i;
--	int hph_pwr_mode = HPH_LOHIFI;
-+	int hph_pwr_mode;
- 
- 	if (!rx->comp_enabled[comp])
- 		return 0;
--- 
-2.30.0
+> > > We have soc_pcm_hw_update_rate() now.
+> > > This patch creates same function for chan.
 
+> > This patch seems to break all SOF platforms. I tested manually to try a=
+nd
+> > reproduce the CI results and it's indeed not so good:
+
+> ouch -- I think this will impact also non-SOF platforms.
+
+> The new helper functions seem all correct, but the problem would seem to=
+=20
+> be in the dpcm_init_runtime_hw() as some of the inputs are not initialize=
+d=20
+> as expected here. I'll try to send a fixup patch asap. In case 5.11 is=20
+> released later today, this regression needs to be fixed for first 5.12=20
+> pull req.
+
+I've applied the fixup patch, if someone could confirm that the CI looks
+good I'll send the pull request for this release.
+
+--sHrvAb52M6C8blB9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAq3WYACgkQJNaLcl1U
+h9B3hwf+JJi8FnybpBOX9SszuEKmG9qZjHrwXgpgnaHD+RTdU1VeIw1KUQOzwTgO
+hKl2eJLFT5YnDqEIb+wBVJb8t+wfG5v10M9GftHnjzHHYj1gaJfponnmUOJCjr3a
+6Vw/Qj6+7BKrAXNTNQE44TDwWrzEYhvakC/emDP4geZrWBBCMGCUieFovaLmneiM
+8uEOqATKZeUuk0klg1ezGUpm3MZeu92oHOo0PC1mE90zZjHj8HtxcHved96igGiM
+NcUDNzrZq0XF4DTh+7yOllyZgRDhRso2vCMGFtsEeJM03w8GgakHYlxmMWSDfzNw
+yCRx2aiLjHpLxPMjXI8M95RSBNwiSQ==
+=3K4F
+-----END PGP SIGNATURE-----
+
+--sHrvAb52M6C8blB9--

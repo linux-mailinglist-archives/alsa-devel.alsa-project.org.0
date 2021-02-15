@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA59B31C075
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 18:26:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC9D31C087
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Feb 2021 18:27:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B30D1677;
-	Mon, 15 Feb 2021 18:26:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B30D1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ECAA16AA;
+	Mon, 15 Feb 2021 18:26:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ECAA16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613410018;
-	bh=ubj+8kue2DDSjdrvZgmP9RX9YhGdQm0RC5m0meJkakc=;
+	s=default; t=1613410030;
+	bh=iwHtaSN8PaPB7bI/4qJ5f8/Sdg2KdcOWlW7xiDroRc0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dr+SNQXrUTflbhtnwoerLpwsAzsHmrnTJtUxZEN5zcmcsWH8sTk2QiTGxrmZpSLLz
-	 OY6PgLiWfTOaDNpxMRD4zAMwhQpVBeaO93VDX/hGcSSBtMfEdAS2Mc/+Dnk9JsAEVN
-	 Y2qWJJQV0efCypbel/ySi0uYXM7AQT/gU1YlFXBA=
+	b=soF1Iiq7zlwTYs2GUUpGKGNTiOasJ2nirzyqYy4uHx1lt5kf/Kp+h4VNbEA2LvUU3
+	 Yb+HshXWa2bhtySKEi6u303XpiTdYibT635yU/ETnPGT30lG774VKByS9rNlYkMSyJ
+	 PMzZ9+FdwGCnXpdI9ZR4/y/Avedy3iLJPCMGEJ9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB82BF802DF;
-	Mon, 15 Feb 2021 18:24:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1DABF802E7;
+	Mon, 15 Feb 2021 18:24:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30E50F802DB; Mon, 15 Feb 2021 18:24:46 +0100 (CET)
+ id C9F94F802D2; Mon, 15 Feb 2021 18:24:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,28 +34,29 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCD05F8025B
- for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 18:24:39 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05ED6F802C4
+ for <alsa-devel@alsa-project.org>; Mon, 15 Feb 2021 18:24:45 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 71ADCA0040;
- Mon, 15 Feb 2021 18:24:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 71ADCA0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A0EDDA003F;
+ Mon, 15 Feb 2021 18:24:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A0EDDA003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1613409879; bh=rkR1t1d6zun7/SVH1usprRFMpmk1g0M7nUiKrTQr7N0=;
+ t=1613409884; bh=eajBjVY2+KWOdEEBwGpsRR94MHakUBy+sGotn7Y8wCU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jlNm9f0fsws2QBLT+Z0h+1sx7jZWUdGhzhR/8NR2XscapVmAoSIp21P2AJ5UB1AEQ
- yKHu/eE42fJm0QUueyZvdYqpEpWZPro8CaUYP+m7Ts0ts2rVFtbeEjZq1gurXEXbhe
- OBZL9q+fJxMot7XLgWmRN7qcAQQN8CxCCwBFP6tk=
+ b=fs1WpLyEb5faSHQkOSrVbDG4++G//HtDd9PijM/SvIFp4sbJ/1l4tKdXCCwdh/ZwY
+ fc5RXTT8x9yxQy362e/rYegRJbRKbreJ0ISXnMRFutkise4UCTMkuaen7w/qDy7j5/
+ YJBBBS2A0PJ4pEwMvnEcfcAkkhn+6gyELeQkhe4E=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 15 Feb 2021 18:24:34 +0100 (CET)
+ Mon, 15 Feb 2021 18:24:39 +0100 (CET)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH v2 2/5] ALSA: control - add layer registration routines
-Date: Mon, 15 Feb 2021 18:24:15 +0100
-Message-Id: <20210215172418.1322825-3-perex@perex.cz>
+Subject: [PATCH v2 3/5] ALSA: control - add generic LED trigger module as the
+ new control layer
+Date: Mon, 15 Feb 2021 18:24:16 +0100
+Message-Id: <20210215172418.1322825-4-perex@perex.cz>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210215172418.1322825-1-perex@perex.cz>
 References: <20210215172418.1322825-1-perex@perex.cz>
@@ -78,204 +79,387 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The layer registration allows to handle an extra functionality
-on top of the control API. It can be used for the audio
-LED control for example.
+The recent laptops have usually two LEDs assigned to reflect
+the speaker and microphone mute state. This implementation
+adds a tiny layer on top of the control API which calculates
+the state for those LEDs using the driver callbacks.
+
+Two new access flags are introduced to describe the controls
+which affects the audio path settings (an easy code change
+for drivers).
+
+The LED resource can be shared with multiple sound cards with
+this code. The user space controls may be added to the state
+chain on demand, too.
+
+This code should replace the LED code in the HDA driver and
+add a possibility to easy extend the other drivers (ASoC
+codecs etc.).
 
 Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- include/sound/control.h |  12 +++++
- sound/core/control.c    | 104 +++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 114 insertions(+), 2 deletions(-)
+ include/sound/control.h     |  11 ++
+ include/uapi/sound/asound.h |   6 +-
+ sound/core/Kconfig          |   6 +
+ sound/core/Makefile         |   2 +
+ sound/core/control.c        |   1 +
+ sound/core/control_led.c    | 255 ++++++++++++++++++++++++++++++++++++
+ 6 files changed, 280 insertions(+), 1 deletion(-)
+ create mode 100644 sound/core/control_led.c
 
 diff --git a/include/sound/control.h b/include/sound/control.h
-index 22f3d48163ff..175610bfa8c8 100644
+index 175610bfa8c8..e88f2651fee0 100644
 --- a/include/sound/control.h
 +++ b/include/sound/control.h
-@@ -108,6 +108,14 @@ struct snd_ctl_file {
- 	struct list_head events;	/* waiting events for read */
- };
- 
-+struct snd_ctl_layer_ops {
-+	struct snd_ctl_layer_ops *next;
-+	const char *module_name;
-+	void (*lregister)(struct snd_card *card);
-+	void (*ldisconnect)(struct snd_card *card);
-+	void (*lnotify)(struct snd_card *card, unsigned int mask, struct snd_kcontrol *kctl, unsigned int ioff);
-+};
-+
- #define snd_ctl_file(n) list_entry(n, struct snd_ctl_file, list)
- 
- typedef int (*snd_kctl_ioctl_func_t) (struct snd_card * card,
-@@ -140,6 +148,10 @@ int snd_ctl_unregister_ioctl_compat(snd_kctl_ioctl_func_t fcn);
- #define snd_ctl_unregister_ioctl_compat(fcn)
- #endif
- 
-+int snd_ctl_request_layer(const char *module_name);
-+void snd_ctl_register_layer(struct snd_ctl_layer_ops *lops);
-+void snd_ctl_disconnect_layer(struct snd_ctl_layer_ops *lops);
-+
- int snd_ctl_get_preferred_subdevice(struct snd_card *card, int type);
- 
- static inline unsigned int snd_ctl_get_ioffnum(struct snd_kcontrol *kctl, struct snd_ctl_elem_id *id)
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 8a5cedb0a4be..c0a0725ff492 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -28,10 +28,12 @@ struct snd_kctl_ioctl {
- };
- 
- static DECLARE_RWSEM(snd_ioctl_rwsem);
-+static DECLARE_RWSEM(snd_ctl_layer_rwsem);
- static LIST_HEAD(snd_control_ioctls);
- #ifdef CONFIG_COMPAT
- static LIST_HEAD(snd_control_compat_ioctls);
- #endif
-+static struct snd_ctl_layer_ops *snd_ctl_layer;
- 
- static int snd_ctl_open(struct inode *inode, struct file *file)
- {
-@@ -195,10 +197,15 @@ void snd_ctl_notify_one(struct snd_card *card, unsigned int mask,
- 			struct snd_kcontrol *kctl, unsigned int ioff)
- {
- 	struct snd_ctl_elem_id id = kctl->id;
-+	struct snd_ctl_layer_ops *lops;
- 
- 	id.index += ioff;
- 	id.numid += ioff;
- 	snd_ctl_notify(card, mask, &id);
-+	down_read(&snd_ctl_layer_rwsem);
-+	for (lops = snd_ctl_layer; lops; lops = lops->next)
-+		lops->lnotify(card, mask, kctl, ioff);
-+	up_read(&snd_ctl_layer_rwsem);
- }
- EXPORT_SYMBOL(snd_ctl_notify_one);
- 
-@@ -1997,6 +2004,84 @@ EXPORT_SYMBOL_GPL(snd_ctl_get_preferred_subdevice);
- #define snd_ctl_ioctl_compat	NULL
- #endif
+@@ -265,6 +265,17 @@ int snd_ctl_apply_vmaster_followers(struct snd_kcontrol *kctl,
+ 						void *arg),
+ 				    void *arg);
  
 +/*
-+ * control layers (audio LED etc.)
++ * Control LED trigger layer
++ */
++#define SND_CTL_LAYER_MODULE_LED	"snd-ctl-led"
++
++#if IS_MODULE(CONFIG_SND_CTL_LED)
++static inline int snd_ctl_led_request(void) { return snd_ctl_request_layer(SND_CTL_LAYER_MODULE_LED); }
++#else
++static inline int snd_ctl_led_request(void) { return 0; }
++#endif
++
+ /*
+  * Helper functions for jack-detection controls
+  */
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 535a7229e1d9..a1aff0a8ec31 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -936,7 +936,7 @@ struct snd_timer_tread {
+  *                                                                          *
+  ****************************************************************************/
+ 
+-#define SNDRV_CTL_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 8)
++#define SNDRV_CTL_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 9)
+ 
+ struct snd_ctl_card_info {
+ 	int card;			/* card number */
+@@ -982,6 +982,10 @@ typedef int __bitwise snd_ctl_elem_iface_t;
+ #define SNDRV_CTL_ELEM_ACCESS_INACTIVE		(1<<8)	/* control does actually nothing, but may be updated */
+ #define SNDRV_CTL_ELEM_ACCESS_LOCK		(1<<9)	/* write lock */
+ #define SNDRV_CTL_ELEM_ACCESS_OWNER		(1<<10)	/* write lock owner */
++#define SNDRV_CTL_ELEM_ACCESS_LED_SHIFT		11
++#define SNDRV_CTL_ELEM_ACCESS_LED_MASK		(7<<11)	/* three bits - LED group */
++#define SNDRV_CTL_ELEM_ACCESS_SPK_LED		(1<<11)	/* speaker (output) LED flag */
++#define SNDRV_CTL_ELEM_ACCESS_MIC_LED		(2<<11)	/* microphone (input) LED flag */
+ #define SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK	(1<<28)	/* kernel use a TLV callback */
+ #define SNDRV_CTL_ELEM_ACCESS_USER		(1<<29) /* user space element */
+ /* bits 30 and 31 are obsoleted (for indirect access) */
+diff --git a/sound/core/Kconfig b/sound/core/Kconfig
+index a4050f87f230..db2e3c63ff41 100644
+--- a/sound/core/Kconfig
++++ b/sound/core/Kconfig
+@@ -203,4 +203,10 @@ config SND_DMA_SGBUF
+ 	def_bool y
+ 	depends on X86
+ 
++config SND_CTL_LED
++	tristate
++	select NEW_LEDS if SND_CTL_LED
++	select LEDS_TRIGGERS if SND_CTL_LED
++	select LEDS_TRIGGER_AUDIO if SND_CTL_LED
++
+ source "sound/core/seq/Kconfig"
+diff --git a/sound/core/Makefile b/sound/core/Makefile
+index ee4a4a6b99ba..d774792850f3 100644
+--- a/sound/core/Makefile
++++ b/sound/core/Makefile
+@@ -27,6 +27,7 @@ CFLAGS_pcm_native.o := -I$(src)
+ 
+ snd-pcm-dmaengine-objs := pcm_dmaengine.o
+ 
++snd-ctl-led-objs  := control_led.o
+ snd-rawmidi-objs  := rawmidi.o
+ snd-timer-objs    := timer.o
+ snd-hrtimer-objs  := hrtimer.o
+@@ -37,6 +38,7 @@ snd-seq-device-objs := seq_device.o
+ snd-compress-objs := compress_offload.o
+ 
+ obj-$(CONFIG_SND) 		+= snd.o
++obj-$(CONFIG_SND_CTL_LED)	+= snd-ctl-led.o
+ obj-$(CONFIG_SND_HWDEP)		+= snd-hwdep.o
+ obj-$(CONFIG_SND_TIMER)		+= snd-timer.o
+ obj-$(CONFIG_SND_HRTIMER)	+= snd-hrtimer.o
+diff --git a/sound/core/control.c b/sound/core/control.c
+index c0a0725ff492..c9f062fada0a 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -278,6 +278,7 @@ struct snd_kcontrol *snd_ctl_new1(const struct snd_kcontrol_new *ncontrol,
+ 		   SNDRV_CTL_ELEM_ACCESS_TLV_READWRITE |
+ 		   SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND |
+ 		   SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK |
++		   SNDRV_CTL_ELEM_ACCESS_LED_MASK |
+ 		   SNDRV_CTL_ELEM_ACCESS_SKIP_CHECK);
+ 
+ 	err = snd_ctl_new(&kctl, count, access, NULL);
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+new file mode 100644
+index 000000000000..47dfa48253f2
+--- /dev/null
++++ b/sound/core/control_led.c
+@@ -0,0 +1,255 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ *  LED state routines for driver control interface
++ *  Copyright (c) 2021 by Jaroslav Kysela <perex@perex.cz>
 + */
 +
-+/**
-+ * snd_ctl_request_layer - request to use the layer
-+ * @module_name: Name of the kernel module (NULL == build-in)
-+ *
-+ * Return an error code when the module cannot be loaded.
-+ */
-+int snd_ctl_request_layer(const char *module_name)
-+{
-+	struct snd_ctl_layer_ops *lops;
++#include <linux/slab.h>
++#include <linux/module.h>
++#include <linux/leds.h>
++#include <sound/core.h>
++#include <sound/control.h>
 +
-+	if (module_name == NULL)
-+		return 0;
-+	down_read(&snd_ctl_layer_rwsem);
-+	for (lops = snd_ctl_layer; lops; lops = lops->next)
-+		if (strcmp(lops->module_name, module_name) == 0)
-+			break;
-+	up_read(&snd_ctl_layer_rwsem);
-+	if (lops)
-+		return 0;
-+	return request_module(module_name);
-+}
-+EXPORT_SYMBOL_GPL(snd_ctl_request_layer);
++MODULE_AUTHOR("Jaroslav Kysela <perex@perex.cz>");
++MODULE_DESCRIPTION("ALSA control interface to LED trigger code.");
++MODULE_LICENSE("GPL");
 +
-+/**
-+ * snd_ctl_register_layer - register new control layer
-+ * @lops: operation structure
-+ *
-+ * The new layer can track all control elements and do additional
-+ * operations on top (like audio LED handling).
-+ */
-+void snd_ctl_register_layer(struct snd_ctl_layer_ops *lops)
-+{
++#define MAX_LED (((SNDRV_CTL_ELEM_ACCESS_MIC_LED - SNDRV_CTL_ELEM_ACCESS_SPK_LED) \
++			>> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) + 1)
++
++struct snd_ctl_led {
++	struct list_head list;
 +	struct snd_card *card;
-+	int card_number;
++	struct snd_kcontrol *kctl;
++	unsigned int index_offset;
++};
 +
-+	down_write(&snd_ctl_layer_rwsem);
-+	lops->next = snd_ctl_layer;
-+	snd_ctl_layer = lops;
-+	up_write(&snd_ctl_layer_rwsem);
-+	for (card_number = 0; card_number < SNDRV_CARDS; card_number++) {
-+		card = snd_card_ref(card_number);
-+		if (card) {
-+			lops->lregister(card);
-+			snd_card_unref(card);
++static DEFINE_MUTEX(snd_ctl_led_mutex);
++static struct list_head snd_ctl_led_controls[MAX_LED];
++static bool snd_ctl_led_card_valid[SNDRV_CARDS];
++
++#define UPDATE_ROUTE(route, cb) \
++	do { \
++		int route2 = (cb); \
++		if (route2 >= 0) \
++			route = route < 0 ? route2 : (route | route2); \
++	} while (0)
++
++static inline unsigned int access_to_group(unsigned int access)
++{
++	return ((access & SNDRV_CTL_ELEM_ACCESS_LED_MASK) >>
++				SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) - 1;
++}
++
++static inline unsigned int group_to_access(unsigned int group)
++{
++	return (group + 1) << SNDRV_CTL_ELEM_ACCESS_LED_SHIFT;
++}
++
++static struct list_head *snd_ctl_led_controls_by_access(unsigned int access)
++{
++	unsigned int group = access_to_group(access);
++	if (group >= MAX_LED)
++		return NULL;
++	return &snd_ctl_led_controls[group];
++}
++
++static int snd_ctl_led_get(struct snd_ctl_led *lctl)
++{
++	struct snd_kcontrol *kctl = lctl->kctl;
++	struct snd_ctl_elem_info info;
++	struct snd_ctl_elem_value value;
++	unsigned int i;
++	int result;
++
++	memset(&info, 0, sizeof(info));
++	info.id = kctl->id;
++	info.id.index += lctl->index_offset;
++	info.id.numid += lctl->index_offset;
++	result = kctl->info(kctl, &info);
++	if (result < 0)
++		return -1;
++	memset(&value, 0, sizeof(value));
++	value.id = info.id;
++	result = kctl->get(kctl, &value);
++	if (result < 0)
++		return -1;
++	if (info.type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
++	    info.type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
++		for (i = 0; i < info.count; i++)
++			if (value.value.integer.value[i] != info.value.integer.min)
++				return 1;
++	} else if (info.type == SNDRV_CTL_ELEM_TYPE_INTEGER64) {
++		for (i = 0; i < info.count; i++)
++			if (value.value.integer64.value[i] != info.value.integer64.min)
++				return 1;
++	}
++	return 0;
++}
++
++static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
++				  struct snd_kcontrol *kctl, unsigned int ioff)
++{
++	struct list_head *controls;
++	struct snd_ctl_led *lctl;
++	enum led_audio led_trigger_type;
++	int route;
++	bool found;
++
++	controls = snd_ctl_led_controls_by_access(access);
++	if (!controls)
++		return;
++	if (access == SNDRV_CTL_ELEM_ACCESS_SPK_LED) {
++		led_trigger_type = LED_AUDIO_MUTE;
++	} else if (access == SNDRV_CTL_ELEM_ACCESS_MIC_LED) {
++		led_trigger_type = LED_AUDIO_MICMUTE;
++	} else {
++		return;
++	}
++	route = -1;
++	found = false;
++	mutex_lock(&snd_ctl_led_mutex);
++	/* the card may not be registered (active) at this point */
++	if (card && !snd_ctl_led_card_valid[card->number]) {
++		mutex_unlock(&snd_ctl_led_mutex);
++		return;
++	}
++	list_for_each_entry(lctl, controls, list) {
++		if (lctl->kctl == kctl && lctl->index_offset == ioff)
++			found = true;
++		UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
++	}
++	if (!found && kctl && card) {
++		lctl = kzalloc(sizeof(*lctl), GFP_KERNEL);
++		if (lctl) {
++			lctl->card = card;
++			lctl->kctl = kctl;
++			lctl->index_offset = ioff;
++			list_add(&lctl->list, controls);
++			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
 +		}
 +	}
++	mutex_unlock(&snd_ctl_led_mutex);
++	if (route >= 0)
++		ledtrig_audio_set(led_trigger_type, route ? LED_OFF : LED_ON);
 +}
-+EXPORT_SYMBOL_GPL(snd_ctl_register_layer);
 +
-+/**
-+ * snd_ctl_disconnect_layer - disconnect control layer
-+ * @lops: operation structure
-+ *
-+ * It is expected that the information about tracked cards
-+ * is freed before this call (the disconnect callback is
-+ * not called here).
-+ */
-+void snd_ctl_disconnect_layer(struct snd_ctl_layer_ops *lops)
++static void snd_ctl_led_remove(struct snd_kcontrol *kctl, unsigned int ioff)
 +{
-+	struct snd_ctl_layer_ops *lops2, *prev_lops2;
++	struct snd_kcontrol_volatile *vd;
++	struct list_head *controls;
++	struct snd_ctl_led *lctl;
 +
-+	down_write(&snd_ctl_layer_rwsem);
-+	for (lops2 = snd_ctl_layer, prev_lops2 = NULL; lops2; lops2 = lops2->next)
-+		if (lops2 == lops) {
-+			if (!prev_lops2)
-+				snd_ctl_layer = lops->next;
-+			else
-+				prev_lops2->next = lops->next;
++	vd = &kctl->vd[ioff];
++	controls = snd_ctl_led_controls_by_access(vd->access);
++	if (!controls)
++		return;
++	mutex_lock(&snd_ctl_led_mutex);
++	list_for_each_entry(lctl, controls, list)
++		if (lctl->kctl == kctl && lctl->index_offset == ioff) {
++			list_del(&lctl->list);
++			kfree(lctl);
 +			break;
 +		}
-+	up_write(&snd_ctl_layer_rwsem);
++	mutex_unlock(&snd_ctl_led_mutex);
 +}
-+EXPORT_SYMBOL_GPL(snd_ctl_disconnect_layer);
 +
- /*
-  *  INIT PART
-  */
-@@ -2020,9 +2105,18 @@ static const struct file_operations snd_ctl_f_ops =
- static int snd_ctl_dev_register(struct snd_device *device)
- {
- 	struct snd_card *card = device->device_data;
-+	struct snd_ctl_layer_ops *lops;
-+	int err;
- 
--	return snd_register_device(SNDRV_DEVICE_TYPE_CONTROL, card, -1,
--				   &snd_ctl_f_ops, card, &card->ctl_dev);
-+	err = snd_register_device(SNDRV_DEVICE_TYPE_CONTROL, card, -1,
-+				  &snd_ctl_f_ops, card, &card->ctl_dev);
-+	if (err < 0)
-+		return err;
-+	down_read(&snd_ctl_layer_rwsem);
-+	for (lops = snd_ctl_layer; lops; lops = lops->next)
-+		lops->lregister(card);
-+	up_read(&snd_ctl_layer_rwsem);
++static void snd_ctl_led_notify(struct snd_card *card, unsigned int mask,
++			       struct snd_kcontrol *kctl, unsigned int ioff)
++{
++	if (mask == SNDRV_CTL_EVENT_MASK_REMOVE) {
++		snd_ctl_led_remove(kctl, ioff);
++	} else if ((mask & (SNDRV_CTL_EVENT_MASK_INFO |
++			    SNDRV_CTL_EVENT_MASK_ADD |
++			    SNDRV_CTL_EVENT_MASK_VALUE)) != 0) {
++		struct snd_kcontrol_volatile *vd = &kctl->vd[ioff];
++		unsigned int access = vd->access & SNDRV_CTL_ELEM_ACCESS_LED_MASK;
++		if (access)
++			snd_ctl_led_set_state(card, access, kctl, ioff);
++		else if ((mask & SNDRV_CTL_EVENT_MASK_INFO) != 0)
++			snd_ctl_led_remove(kctl, ioff);
++	}
++}
++
++static void snd_ctl_led_refresh(void)
++{
++	unsigned int group;
++
++	for (group = 0; group < MAX_LED; group++)
++		snd_ctl_led_set_state(NULL, group_to_access(group), NULL, 0);
++}
++
++static void snd_ctl_led_clean(struct snd_card *card)
++{
++	unsigned int group;
++	struct list_head *controls;
++	struct snd_ctl_led *lctl;
++
++	for (group = 0; group < MAX_LED; group++) {
++		controls = &snd_ctl_led_controls[group];
++repeat:
++		list_for_each_entry(lctl, controls, list)
++			if (!card || lctl->card == card) {
++				list_del(&lctl->list);
++				kfree(lctl);
++				goto repeat;
++			}
++	}
++}
++
++static void snd_ctl_led_register(struct snd_card *card)
++{
++	struct snd_kcontrol *kctl;
++	unsigned int ioff;
++
++	if (snd_BUG_ON(card->number < 0 ||
++		       card->number >= ARRAY_SIZE(snd_ctl_led_card_valid)))
++		return;
++	mutex_lock(&snd_ctl_led_mutex);
++	snd_ctl_led_card_valid[card->number] = true;
++	mutex_unlock(&snd_ctl_led_mutex);
++	down_read(&card->controls_rwsem);
++	list_for_each_entry(kctl, &card->controls, list)
++		for (ioff = 0; ioff < kctl->count; ioff++)
++			snd_ctl_led_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, kctl, ioff);
++	up_read(&card->controls_rwsem);
++	snd_ctl_led_refresh();
++}
++
++static void snd_ctl_led_disconnect(struct snd_card *card)
++{
++	mutex_lock(&snd_ctl_led_mutex);
++	snd_ctl_led_card_valid[card->number] = false;
++	snd_ctl_led_clean(card);
++	mutex_unlock(&snd_ctl_led_mutex);
++	snd_ctl_led_refresh();
++}
++
++/*
++ * Control layer registration
++ */
++static struct snd_ctl_layer_ops snd_ctl_led_lops = {
++	.module_name = SND_CTL_LAYER_MODULE_LED,
++	.lregister = snd_ctl_led_register,
++	.ldisconnect = snd_ctl_led_disconnect,
++	.lnotify = snd_ctl_led_notify,
++};
++
++static int __init snd_ctl_led_init(void)
++{
++	unsigned int group;
++
++	for (group = 0; group < MAX_LED; group++)
++		INIT_LIST_HEAD(&snd_ctl_led_controls[group]);
++	snd_ctl_register_layer(&snd_ctl_led_lops);
 +	return 0;
- }
- 
- /*
-@@ -2032,6 +2126,7 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- {
- 	struct snd_card *card = device->device_data;
- 	struct snd_ctl_file *ctl;
-+	struct snd_ctl_layer_ops *lops;
- 	unsigned long flags;
- 
- 	read_lock_irqsave(&card->ctl_files_rwlock, flags);
-@@ -2041,6 +2136,11 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- 	}
- 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
- 
-+	down_read(&snd_ctl_layer_rwsem);
-+	for (lops = snd_ctl_layer; lops; lops = lops->next)
-+		lops->ldisconnect(card);
-+	up_read(&snd_ctl_layer_rwsem);
++}
 +
- 	return snd_unregister_device(&card->ctl_dev);
- }
- 
++static void __exit snd_ctl_led_exit(void)
++{
++	snd_ctl_disconnect_layer(&snd_ctl_led_lops);
++	snd_ctl_led_clean(NULL);
++}
++
++module_init(snd_ctl_led_init)
++module_exit(snd_ctl_led_exit)
 -- 
 2.29.2

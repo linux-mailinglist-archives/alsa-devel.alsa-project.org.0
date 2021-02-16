@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4142C31D234
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Feb 2021 22:38:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7983231D238
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Feb 2021 22:39:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEBA0166D;
-	Tue, 16 Feb 2021 22:37:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEBA0166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E479846;
+	Tue, 16 Feb 2021 22:38:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E479846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613511525;
-	bh=k7FfGkDpM2M8Cgxjl/sgxpqv3fuFi7Tf3Wniq7tk85o=;
+	s=default; t=1613511560;
+	bh=rePeSFMSs2d+Uc1kcMZhZHesr65B/1TCYACWcQbedEw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fx/3RhbSyorr5bvwG/B9vIMpk0WziF64Zr+VOtFgAXM5j0vO5rt56W5go8SIQMe7S
-	 bD8/80dZqqY2RtxCg5B1M+4CiHN9fGOKdhVhQDhlpLrqndp7GIOewp2BjiitesVy2p
-	 G4B0zgZfZraXoEmvtt+DhlRosmjaGQa1PZ5WtLUs=
+	b=b9cNo4uYo5r19p4PpzivAWpSVr9g7nhYv5YXeykBOPfovr8shSt/vh9XgFvqKjVJE
+	 11tRELm3N4jqGcQf5cfaWqEFwUxOSwo8YFV6DeCPi2oUfMpo8RbrdNeDKQfHatBzVe
+	 206BWanNUqIY6gdzVElLC1naaiS4/MyC8NcuT+Pg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7AFCF802CA;
-	Tue, 16 Feb 2021 22:36:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0EB2F802E0;
+	Tue, 16 Feb 2021 22:36:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1C08F801DB; Tue, 16 Feb 2021 22:36:16 +0100 (CET)
+ id C470EF802C4; Tue, 16 Feb 2021 22:36:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F95CF801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F752F8020C
  for <alsa-devel@alsa-project.org>; Tue, 16 Feb 2021 22:36:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F95CF801DB
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F752F8020C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="iSpuC7xi"
+ header.b="GM9dPCcJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1613511372;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AVZGKIz4+sUfMLIqsQqRpmT62esBArLUX3tOj3I2nFc=;
- b=iSpuC7xil0kH5bdSPPKtbYIQtN8mbgBdyrCNFzFBBjjy+t7EWyG4vAp+5Mw+dC4Yrhhr7a
- cSdSkdA/DTIw0c1GIgIbpV+Hhc7XYDiytiG/KZ04Yp+rrjpdSwYym3lieG3gaMVpxrjfaY
- MegWeP0KH+68n+FXrzMknz2SgreIEL0=
+ bh=vQHsyAaBaQgIOMe/eicF0GPI1Unh2O/FrpURl9anveA=;
+ b=GM9dPCcJ1O4EuvuZJ4aSBSnmxJgHeeVSU42rTgrcMwpR5p5cSHOXUghRssLiTm1+ehFort
+ rDJUMeQlRYFMFjPi+ez139dnZo0Za43DRXyHm+v3+AC/vHnp9Z/tOD36TSGuJhvJZfwfau
+ qSfEU9TSGY+0zhLXfCdc5iSe4zfHzrQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-575-_4uUSqv-OYqiSMI6egMyUQ-1; Tue, 16 Feb 2021 16:36:08 -0500
-X-MC-Unique: _4uUSqv-OYqiSMI6egMyUQ-1
+ us-mta-201-KKkC6pTVM8KeWhpLxFOR3w-1; Tue, 16 Feb 2021 16:36:10 -0500
+X-MC-Unique: KKkC6pTVM8KeWhpLxFOR3w-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 269B3801965;
- Tue, 16 Feb 2021 21:36:07 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F299280196C;
+ Tue, 16 Feb 2021 21:36:08 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-113-22.ams2.redhat.com [10.36.113.22])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 93EE05D9C0;
- Tue, 16 Feb 2021 21:36:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6D7DC5D9C0;
+ Tue, 16 Feb 2021 21:36:07 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/4] ASoC: Intel: bytcr_rt5651: Add quirk for the Jumper EZpad
- 7 tablet
-Date: Tue, 16 Feb 2021 22:35:54 +0100
-Message-Id: <20210216213555.36555-4-hdegoede@redhat.com>
+Subject: [PATCH 4/4] ASoC: Intel: bytcr_rt5640: Add quirk for the Acer One
+ S1002 tablet
+Date: Tue, 16 Feb 2021 22:35:55 +0100
+Message-Id: <20210216213555.36555-5-hdegoede@redhat.com>
 In-Reply-To: <20210216213555.36555-1-hdegoede@redhat.com>
 References: <20210216213555.36555-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -98,43 +98,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a DMI quirk for the Jumper EZpad 7 tablet, this tablet has
-a jack-detect switch which reads 1/high when a jack is inserted,
-rather then using the standard active-low setup which most
-jack-detect switches use. All other settings are using the defaults.
+The Acer One S1002 tablet is using an analog mic on IN1 and has
+its jack-detect connected to JD2_IN4N, instead of using the default
+IN3 for its internal mic and JD1_IN4P for jack-detect.
 
-Add a DMI-quirk setting the defaults + the BYT_RT5651_JD_NOT_INV
-flags for this.
+Note it is also using AIF2 instead of AIF1 which is somewhat unusual,
+this is correctly advertised in the ACPI CHAN package, so the speakers
+do work without the quirk.
+
+Add a quirk for the mic and jack-detect settings.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/intel/boards/bytcr_rt5651.c | 13 +++++++++++++
+ sound/soc/intel/boards/bytcr_rt5640.c | 13 +++++++++++++
  1 file changed, 13 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
-index f289ec8563a1..148b7b1bd3e8 100644
---- a/sound/soc/intel/boards/bytcr_rt5651.c
-+++ b/sound/soc/intel/boards/bytcr_rt5651.c
-@@ -435,6 +435,19 @@ static const struct dmi_system_id byt_rt5651_quirk_table[] = {
- 					BYT_RT5651_SSP0_AIF1 |
- 					BYT_RT5651_MONO_SPEAKER),
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index a81820943de6..782f2b4d72ad 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -406,6 +406,19 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
  	},
-+	{
-+		/* Jumper EZpad 7 */
-+		.callback = byt_rt5651_quirk_cb,
++	{	/* Acer One 10 S1002 */
 +		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Jumper"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "EZpad"),
-+			/* Jumper12x.WJ2012.bsBKRCP05 with the version dropped */
-+			DMI_MATCH(DMI_BIOS_VERSION, "Jumper12x.WJ2012.bsBKRCP"),
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "One S1002"),
 +		},
-+		.driver_data = (void *)(BYT_RT5651_DEFAULT_QUIRKS |
-+					BYT_RT5651_IN2_MAP |
-+					BYT_RT5651_JD_NOT_INV),
++		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_2000UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_DIFF_MIC |
++					BYT_RT5640_SSP0_AIF2 |
++					BYT_RT5640_MCLK_EN),
 +	},
  	{
- 		/* KIANO SlimNote 14.2 */
- 		.callback = byt_rt5651_quirk_cb,
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
 -- 
 2.30.1
 

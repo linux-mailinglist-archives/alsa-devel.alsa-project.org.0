@@ -2,87 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7983231D238
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Feb 2021 22:39:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D7131D25B
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Feb 2021 22:51:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E479846;
-	Tue, 16 Feb 2021 22:38:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E479846
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE3F1846;
+	Tue, 16 Feb 2021 22:50:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE3F1846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613511560;
-	bh=rePeSFMSs2d+Uc1kcMZhZHesr65B/1TCYACWcQbedEw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1613512267;
+	bh=rMh2yQssa1ZuVWx6wKjT2Z1bLN0ix5jYGrVZQzok9u4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b9cNo4uYo5r19p4PpzivAWpSVr9g7nhYv5YXeykBOPfovr8shSt/vh9XgFvqKjVJE
-	 11tRELm3N4jqGcQf5cfaWqEFwUxOSwo8YFV6DeCPi2oUfMpo8RbrdNeDKQfHatBzVe
-	 206BWanNUqIY6gdzVElLC1naaiS4/MyC8NcuT+Pg=
+	b=XENq3ReiQVsQ6/dHAdaCj5XuFPuc5jaFO2IqZy3ZWfNhiKcXWE36XSQw6dn0iFHR2
+	 ofSW/TYxoopegTlyTP6c2YH6AjXxLj9zrv9lZI3sAHZTLwCPSyx93pCpUavjVgNJLp
+	 Gjs7rZ5uD53Q8ZYAS3+Ibxi5L/UI0yYQQx7/xoBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0EB2F802E0;
-	Tue, 16 Feb 2021 22:36:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BCF5F80059;
+	Tue, 16 Feb 2021 22:49:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C470EF802C4; Tue, 16 Feb 2021 22:36:19 +0100 (CET)
+ id 1AA47F8015A; Tue, 16 Feb 2021 22:49:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=NICE_REPLY_A,PRX_BODY_141,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F752F8020C
- for <alsa-devel@alsa-project.org>; Tue, 16 Feb 2021 22:36:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F752F8020C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="GM9dPCcJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613511372;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vQHsyAaBaQgIOMe/eicF0GPI1Unh2O/FrpURl9anveA=;
- b=GM9dPCcJ1O4EuvuZJ4aSBSnmxJgHeeVSU42rTgrcMwpR5p5cSHOXUghRssLiTm1+ehFort
- rDJUMeQlRYFMFjPi+ez139dnZo0Za43DRXyHm+v3+AC/vHnp9Z/tOD36TSGuJhvJZfwfau
- qSfEU9TSGY+0zhLXfCdc5iSe4zfHzrQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-201-KKkC6pTVM8KeWhpLxFOR3w-1; Tue, 16 Feb 2021 16:36:10 -0500
-X-MC-Unique: KKkC6pTVM8KeWhpLxFOR3w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F299280196C;
- Tue, 16 Feb 2021 21:36:08 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-113-22.ams2.redhat.com [10.36.113.22])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6D7DC5D9C0;
- Tue, 16 Feb 2021 21:36:07 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AA2CF800AE
+ for <alsa-devel@alsa-project.org>; Tue, 16 Feb 2021 22:49:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AA2CF800AE
+IronPort-SDR: ZkAhTOYP2+ZwdaOGD6lkysKkSh8Qcc6V89ClDFmM1z2EWUNkWWE1hcVJEyhJROeS6gw6zpvrXl
+ 2OFvu7hKMtyg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="182250791"
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="182250791"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2021 13:49:22 -0800
+IronPort-SDR: idvmN0o0Gm/hkCk+K6uAnGrm7eO1+yFDhAPwsuknGLy3E2uTJYtll5Q6W4O2DhHBf+f1436gD0
+ Rqkusp2IMkTg==
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="424867341"
+Received: from agsarwar-mobl1.amr.corp.intel.com (HELO [10.209.13.197])
+ ([10.209.13.197])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2021 13:49:21 -0800
+Subject: Re: [PATCH 0/4] ASoC: Intel: bytcr_rt5640: Add quirks for 4 more
+ tablet / 2-in-1 models
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/4] ASoC: Intel: bytcr_rt5640: Add quirk for the Acer One
- S1002 tablet
-Date: Tue, 16 Feb 2021 22:35:55 +0100
-Message-Id: <20210216213555.36555-5-hdegoede@redhat.com>
-In-Reply-To: <20210216213555.36555-1-hdegoede@redhat.com>
 References: <20210216213555.36555-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <aa350a8d-863f-45bf-9ed4-8d26f0342959@linux.intel.com>
+Date: Tue, 16 Feb 2021 15:49:20 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
+In-Reply-To: <20210216213555.36555-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +83,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Acer One S1002 tablet is using an analog mic on IN1 and has
-its jack-detect connected to JD2_IN4N, instead of using the default
-IN3 for its internal mic and JD1_IN4P for jack-detect.
 
-Note it is also using AIF2 instead of AIF1 which is somewhat unusual,
-this is correctly advertised in the ACPI CHAN package, so the speakers
-do work without the quirk.
 
-Add a quirk for the mic and jack-detect settings.
+On 2/16/21 3:35 PM, Hans de Goede wrote:
+> Hi All,
+> 
+> Here is a patch series adding quirks with device-specific settings for
+> 4 more tablet / 2-in-1 models.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/soc/intel/boards/bytcr_rt5640.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Some of those 2014 devices will soon be collector items ;-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index a81820943de6..782f2b4d72ad 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -406,6 +406,19 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* Acer One 10 S1002 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "One S1002"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_2000UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_SSP0_AIF2 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
--- 
-2.30.1
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+> 
+> Regards,
+> 
+> Hans
+> 
+> 
+> Hans de Goede (4):
+>    ASoC: Intel: bytcr_rt5640: Add quirk for the Estar Beauty HD MID 7316R tablet
+>    ASoC: Intel: bytcr_rt5640: Add quirk for the Voyo Winpad A15 tablet
+>    ASoC: Intel: bytcr_rt5651: Add quirk for the Jumper EZpad 7 tablet
+>    ASoC: Intel: bytcr_rt5640: Add quirk for the Acer One S1002 tablet
+> 
+>   sound/soc/intel/boards/bytcr_rt5640.c | 37 +++++++++++++++++++++++++++
+>   sound/soc/intel/boards/bytcr_rt5651.c | 13 ++++++++++
+>   2 files changed, 50 insertions(+)
+> 

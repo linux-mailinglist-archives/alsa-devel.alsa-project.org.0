@@ -2,72 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5413D31EBF4
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 17:04:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2745531F18D
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 22:08:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C99BF1660;
-	Thu, 18 Feb 2021 17:04:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99BF1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id B95E61657;
+	Thu, 18 Feb 2021 22:07:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95E61657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613664293;
-	bh=4YjyC2WsTG7kRB2+hXGcqduThddkOPHIIOOTf7WZ2Gs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1613682502;
+	bh=a9BIhslLbKVsM27RU/RxVpkG9hE/fSb19Fblw8jL7ow=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tTtGGv0VFFK27WuVgxVUjBhVsXDOPHxf+3Mt+NmpLAqHGcWVaysV4sE1X2qLjsfZ6
-	 hAxxSWGI28IFAgwCZ2tm/g8wXeDhJU7m1dtBqkk+Bx2NMIXNAj+WT3T3z1E28MCry5
-	 tygYJ6hXrBYiTQ3nB/EkR6Po/Ucv/o+V4q05PiB4=
+	b=BwO3CfhLX9dXZTXRf7oDE5xz0qxEmPCl1WTqSWsasS2wRlUJxrs6mKq2wuF5/97WM
+	 emLISZXnMAMEOiTodLH+y2I3aeUeuIyWh6oJLXI/aEIf+6ynTKkqQwbgNcfuvqrkiM
+	 QDnpYnwlPJ6GyHvWjg/cKm+xk0vSenyvqV5lcAGA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E6BEF8016E;
-	Thu, 18 Feb 2021 17:03:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 065E3F8016E;
+	Thu, 18 Feb 2021 22:06:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCDCFF80155; Thu, 18 Feb 2021 17:03:20 +0100 (CET)
+ id B62D2F8015A; Thu, 18 Feb 2021 22:06:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,
+ USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A903F800D0
- for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 17:03:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A903F800D0
-IronPort-SDR: SWfthh3uuklI4yCXtrU+McfNX9Ef3O/fMRa/zHsClMOYkHP65LyU/2BuZJjRBWMLM8LIG0bp5V
- owUDdcp/r4jw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9898"; a="162684137"
-X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="162684137"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2021 08:03:04 -0800
-IronPort-SDR: Pm/X9GXAjDG/ta2lIEgiEGBff0QIywysZgGFYPpqfzo3Dx9zDhfShAN6RMsN1NzCAmgM/+QsVW
- 7vO+Xh+u4wZw==
-X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="386018355"
-Received: from fdherrer-mobl.amr.corp.intel.com (HELO [10.209.31.85])
- ([10.209.31.85])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2021 08:03:02 -0800
-Subject: Re: [PATCH v2] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
-To: Jaroslav Kysela <perex@perex.cz>, shumingf@realtek.com,
- broonie@kernel.org, lgirdwood@gmail.com
-References: <20210218091208.28734-1-shumingf@realtek.com>
- <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <84ce7570-b5c7-d89d-7d65-a391c3b65f93@linux.intel.com>
-Date: Thu, 18 Feb 2021 08:49:35 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91C51F800D0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 22:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91C51F800D0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="qp1qtuFG"
+Received: by mail-qv1-xf2b.google.com with SMTP id k8so1208501qvm.6
+ for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 13:06:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9OywSrlNkx8UxZTiDK8fVh1aTqswbbDy4JaPde32iVE=;
+ b=qp1qtuFG4xmubP4IH7pbE1p+Pe2jwmZr9yGS2QlSlBHM6X6uWVnFwnfHaPVCf+692y
+ 2Bm4LCRQSSkvbk2tWI3ehKmu046IsvHA9KvkH1Rl+WuG761IGlQ+aKn/X0YYiYGHYX+b
+ 1roSKhB/m11D5RNaphgBecd+eQSr0d815IRcgFCnRQ06ksbhdpvcynVvANuC8pZ0XP/M
+ EEhAhQD2ZM7KVtWu/Ab3x+0kLr2aCTyom4NJXXgLE2KLc6G2dFCftNYjt0nclNOuK5DU
+ 2RMdxPVsGyr9LryyquHYAwQUDIMqFHJ7qkLDGSt99M5FCKA2PsSIsT5HdzoUOCJ3ZeX5
+ VwjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9OywSrlNkx8UxZTiDK8fVh1aTqswbbDy4JaPde32iVE=;
+ b=qnpztJQPTYxLpBlUF3hUxPnUeL4MoY/Kvq+h2chP2Egyxs6WO5W4mLAJ6YV2rPyBER
+ U/Y8+GH2qm0MpeyNrAg7vELAQvddfeWSAu1+4s7TwnYBF5mA8mFZUENYFbXyMJYQc9aq
+ OaD2lA0rgWcjeMAYBLcoQeIp35UAd7+o0QlohtKNN24dcJLeVC12foFKw54K/9Fryuuk
+ LuR5nCJ9LIjhpSrieh+Tlkb16iEPcdllXLpnCdFyDT42/g5nsoGQD9F9R1UWdnosjoWn
+ EmbANUojzZK8pUe12Dc+pbnNp1nsSfpTBSXzeQO5qLrHNrSSMYEWOVk6h2UACkagT8+h
+ AtAA==
+X-Gm-Message-State: AOAM530aY18ywl8g0VIvObhOwTc2pA5TYXwj4+DNoJh+pAYZFSBNVq/3
+ m2ZRHgjCsmCpWE0iLiW0j5RVvpNDOpnnQ0uWCCOlug==
+X-Google-Smtp-Source: ABdhPJyeu4jlIX3+Qf/AGlvvhFmTi3JG5Rp3J98piajs7QVN8pugsVkCtYe3VIZJteddO5x9qo9/ECJqtACfhKQQ++M=
+X-Received: by 2002:a05:6214:b2c:: with SMTP id
+ w12mr3250242qvj.41.1613682398758; 
+ Thu, 18 Feb 2021 13:06:38 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
- flove@realtek.com, pierre-louis.bossart@intel.com
+References: <20210217214914.700751-1-cujomalainey@chromium.org>
+ <5b90530b77744937b87bbbd35901e320@realtek.com> <s5hr1ld22a9.wl-tiwai@suse.de>
+In-Reply-To: <s5hr1ld22a9.wl-tiwai@suse.de>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Thu, 18 Feb 2021 13:06:27 -0800
+Message-ID: <CAOReqxibmAQNQe8PuHkUSW5Kb2L986X9DDqia-aN=ZrS8VJysA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: rt5682: remove jack detect delay
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +105,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks Takashi and Shuming
 
 
-On 2/18/21 3:44 AM, Jaroslav Kysela wrote:
-> Dne 18. 02. 21 v 10:12 shumingf@realtek.com napsal(a):
-> 
->> +	SND_SOC_DAPM_SWITCH("DAC L", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_l),
->> +	SND_SOC_DAPM_SWITCH("DAC R", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_r),
-> 
-> Truly, I don't understand the reason to have a separate L/R switch when we can
-> map this functionality to one stereo (multichannel) control.
-> 
-> It's an issue for all ASoC drivers. We should consider to be more strict for
-> the new ones.
+On Thu, Feb 18, 2021 at 12:44 AM Takashi Iwai <tiwai@suse.de> wrote:
 
-At the same time we have to recognize that the L/R notion only makes 
-sense at the input to the amplifier. The amplifier may recombine 
-channels to deal with orientation/posture or simply select a specific 
-input, and drive different speakers (e.g. tweeter/woofer). Dac L and R 
-are often an abuse of language when the system have multi-way speakers. 
-Exhibit A for this is the TigerLake device with 2 RT1316 and 4 speakers. 
-L/R don't make sense to describe amplifier outputs and speaker position.
+> On Thu, 18 Feb 2021 09:38:53 +0100,
+> Shuming [=E8=8C=83=E6=9B=B8=E9=8A=98] <shumingf@realtek.com> wrote:
+> >
+> > > There is a 250ms delay on the jack detect interrupt currently, this
+> delay is
+> > > observable to users who are using inline controls. It can also mask
+> multiple
+> > > presses which is a negative experience.
+> > >
+> > > Cc: Bard liao <yung-chuan.liao@linux.intel.com>
+> > > Cc: Shuming Fan <shumingf@realtek.com>
+> > >
+> > > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+> > > ---
+> > >  sound/soc/codecs/rt5682-i2c.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/sound/soc/codecs/rt5682-i2c.c
+> b/sound/soc/codecs/rt5682-i2c.c
+> > > index 93c1603b42f1..b15c3e7d1f59 100644
+> > > --- a/sound/soc/codecs/rt5682-i2c.c
+> > > +++ b/sound/soc/codecs/rt5682-i2c.c
+> > > @@ -78,7 +78,7 @@ static irqreturn_t rt5682_irq(int irq, void *data)
+> > >     struct rt5682_priv *rt5682 =3D data;
+> > >
+> > >     mod_delayed_work(system_power_efficient_wq,
+> > > -           &rt5682->jack_detect_work, msecs_to_jiffies(250));
+> > > +           &rt5682->jack_detect_work, 0);
+> >
+> > How about using the device property to adjust the delay time?
+> > I think it should keep the workqueue to do the jack/button detection
+> because the jack type detection will take some times to do.
+>
 
-There's also a difficult balance to be found between exposing all the 
-capabilities of the device, and making integration and userspace 
-simpler. I2C/IS2 and SoundWire devices tend to expose more controls than 
-HDaudio ones, and that was driven by a desire to optimize as much as 
-possible. Some devices are designed with limited number of controls, 
-others provide hooks to tweak everything in the system by exposing 
-literally have thousands of controls. I don't think we should pick and 
-choose which controls we want to expose, that's the codec vendor's job 
-IMHO (or the device class definition when standard and applicable)
+I am trying to understand the purpose of this delay currently, won't
+the press already be registered since we have an interrupt? Or does it need
+to stabilize? The reason is 250ms is well within human perception or even
+double tap time, which results in users possibly double tapping buttons but
+only seeing one press come through.
+
+
+>
+> One might check twice (or more) if it's not certain, too.  That is,
+> check the jack immediately, and if the jack state really changed,
+> report it so.  OTOH, if the jack state doesn't change from the old
+> state, it can retry after some delay.
+>
+
+I feel like this logic would cause more problems with fast presses unless
+the window was restricted down to sub 50ms.
+
+
+>
+>
+> thanks,
+>
+> Takashi
+>

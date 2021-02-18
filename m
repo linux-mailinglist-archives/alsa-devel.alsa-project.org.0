@@ -2,63 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B43F131E9DD
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 13:34:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5413D31EBF4
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 17:04:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49C04166F;
-	Thu, 18 Feb 2021 13:33:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49C04166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C99BF1660;
+	Thu, 18 Feb 2021 17:04:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99BF1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613651664;
-	bh=MijjuBs6/+CkMDOTXX2/4aaZBXzeX8MyibLd3PESfi0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1613664293;
+	bh=4YjyC2WsTG7kRB2+hXGcqduThddkOPHIIOOTf7WZ2Gs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u5ADTTS7g7pwvPHByIYyFuCF5OUdp9XLATtzfsGfJOiTZ/84BNxls2NF0JcL08BLx
-	 xsiav60zJ3RJMrgS5URTgBvSLecB6HyBvRg7nX+D2r0HRWG37zkniD1sHUszL5xMys
-	 Sf0OmHM3TjA2646w94oIchK041COuWCwHA6DeRE4=
+	b=tTtGGv0VFFK27WuVgxVUjBhVsXDOPHxf+3Mt+NmpLAqHGcWVaysV4sE1X2qLjsfZ6
+	 hAxxSWGI28IFAgwCZ2tm/g8wXeDhJU7m1dtBqkk+Bx2NMIXNAj+WT3T3z1E28MCry5
+	 tygYJ6hXrBYiTQ3nB/EkR6Po/Ucv/o+V4q05PiB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EDD8F802A9;
-	Thu, 18 Feb 2021 13:32:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E6BEF8016E;
+	Thu, 18 Feb 2021 17:03:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74E87F80274; Thu, 18 Feb 2021 13:32:06 +0100 (CET)
+ id DCDCFF80155; Thu, 18 Feb 2021 17:03:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C5ABF8015A
- for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 13:31:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C5ABF8015A
-IronPort-SDR: 5lm29FsGYRUH2nCsWvzhmRoCfbZtM/24TE57tTj2zmHrn0CjHRBVwSTbOsu+w76j/fwMJpxiFY
- Y573ffULJyOw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9898"; a="163264986"
-X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="163264986"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2021 04:31:52 -0800
-IronPort-SDR: JASdCYefBoISByXmV8hKQe/EdID6gB0lNKdpFeKo3IAPV0At5uNnJoI5mvndJraY43ORXEcsJM
- sho13oX/R+CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="364821601"
-Received: from snappy-s2600wt2r.iind.intel.com ([10.223.163.26])
- by orsmga006.jf.intel.com with ESMTP; 18 Feb 2021 04:31:50 -0800
-From: vamshi.krishna.gopal@intel.com
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: Intel: kbl: update dmic fixup params
-Date: Thu, 18 Feb 2021 18:01:25 +0530
-Message-Id: <20210218123125.15438-3-vamshi.krishna.gopal@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210218123125.15438-1-vamshi.krishna.gopal@intel.com>
-References: <20210218123125.15438-1-vamshi.krishna.gopal@intel.com>
-Cc: harshapriya.n@intel.com, naveen.m@intel.com, biernacki@google.com,
- sathya.prakash.m.r@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A903F800D0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 17:03:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A903F800D0
+IronPort-SDR: SWfthh3uuklI4yCXtrU+McfNX9Ef3O/fMRa/zHsClMOYkHP65LyU/2BuZJjRBWMLM8LIG0bp5V
+ owUDdcp/r4jw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9898"; a="162684137"
+X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="162684137"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2021 08:03:04 -0800
+IronPort-SDR: Pm/X9GXAjDG/ta2lIEgiEGBff0QIywysZgGFYPpqfzo3Dx9zDhfShAN6RMsN1NzCAmgM/+QsVW
+ 7vO+Xh+u4wZw==
+X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="386018355"
+Received: from fdherrer-mobl.amr.corp.intel.com (HELO [10.209.31.85])
+ ([10.209.31.85])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2021 08:03:02 -0800
+Subject: Re: [PATCH v2] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
+To: Jaroslav Kysela <perex@perex.cz>, shumingf@realtek.com,
+ broonie@kernel.org, lgirdwood@gmail.com
+References: <20210218091208.28734-1-shumingf@realtek.com>
+ <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <84ce7570-b5c7-d89d-7d65-a391c3b65f93@linux.intel.com>
+Date: Thu, 18 Feb 2021 08:49:35 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
+ flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,72 +83,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Naveen Manohar <naveen.m@intel.com>
 
-Update dmic fixup params to always expose QUAD channel capture
-device, enabling User-space to control channel count.
-Assign min and max channel only based on input hw_params.
 
-Signed-off-by: Naveen Manohar <naveen.m@intel.com>
-Acked-by: Vinod Koul <vinod.koul@intel.com>
-Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
----
- sound/soc/intel/boards/kbl_rt5663_max98927.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+On 2/18/21 3:44 AM, Jaroslav Kysela wrote:
+> Dne 18. 02. 21 v 10:12 shumingf@realtek.com napsal(a):
+> 
+>> +	SND_SOC_DAPM_SWITCH("DAC L", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_l),
+>> +	SND_SOC_DAPM_SWITCH("DAC R", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_r),
+> 
+> Truly, I don't understand the reason to have a separate L/R switch when we can
+> map this functionality to one stereo (multichannel) control.
+> 
+> It's an issue for all ASoC drivers. We should consider to be more strict for
+> the new ones.
 
-diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-index adfa2c044aed..a1bcde7851b7 100644
---- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
-+++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-@@ -29,9 +29,9 @@
- #define DMIC_CH(p) p->list[p->count-1]
- #define MAXIM_DEV0_NAME "i2c-MX98927:00"
- #define MAXIM_DEV1_NAME "i2c-MX98927:01"
-+#define QUAD_CHANNEL 4
- 
- static struct snd_soc_card *kabylake_audio_card;
--static const struct snd_pcm_hw_constraint_list *dmic_constraints;
- static struct snd_soc_jack skylake_hdmi[3];
- 
- struct kbl_hdmi_pcm {
-@@ -365,6 +365,16 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
- 	.mask = 0,
- };
- 
-+static const unsigned int channels_quad[] = {
-+	QUAD_CHANNEL,
-+};
-+
-+static const struct snd_pcm_hw_constraint_list constraints_channels_quad = {
-+	.count = ARRAY_SIZE(channels_quad),
-+	.list = channels_quad,
-+	.mask = 0,
-+};
-+
- static int kbl_fe_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-@@ -480,7 +490,7 @@ static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
- 	struct snd_interval *chan = hw_param_interval(params,
- 				SNDRV_PCM_HW_PARAM_CHANNELS);
- 
--	if (params_channels(params) == 2 || DMIC_CH(dmic_constraints) == 2)
-+	if (params_channels(params) == 2)
- 		chan->min = chan->max = 2;
- 	else
- 		chan->min = chan->max = 4;
-@@ -528,9 +538,9 @@ static int kabylake_dmic_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 
--	runtime->hw.channels_max = DMIC_CH(dmic_constraints);
-+	runtime->hw.channels_min = runtime->hw.channels_max = QUAD_CHANNEL;
- 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
--			dmic_constraints);
-+			&constraints_channels_quad);
- 
- 	return snd_pcm_hw_constraint_list(substream->runtime, 0,
- 			SNDRV_PCM_HW_PARAM_RATE, &constraints_rates);
--- 
-2.17.1
+At the same time we have to recognize that the L/R notion only makes 
+sense at the input to the amplifier. The amplifier may recombine 
+channels to deal with orientation/posture or simply select a specific 
+input, and drive different speakers (e.g. tweeter/woofer). Dac L and R 
+are often an abuse of language when the system have multi-way speakers. 
+Exhibit A for this is the TigerLake device with 2 RT1316 and 4 speakers. 
+L/R don't make sense to describe amplifier outputs and speaker position.
 
+There's also a difficult balance to be found between exposing all the 
+capabilities of the device, and making integration and userspace 
+simpler. I2C/IS2 and SoundWire devices tend to expose more controls than 
+HDaudio ones, and that was driven by a desire to optimize as much as 
+possible. Some devices are designed with limited number of controls, 
+others provide hooks to tweak everything in the system by exposing 
+literally have thousands of controls. I don't think we should pick and 
+choose which controls we want to expose, that's the codec vendor's job 
+IMHO (or the device class definition when standard and applicable)

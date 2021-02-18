@@ -2,71 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3313231E817
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 10:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6B631E9DA
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Feb 2021 13:33:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C22D41660;
-	Thu, 18 Feb 2021 10:45:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C22D41660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38353826;
+	Thu, 18 Feb 2021 13:32:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38353826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613641596;
-	bh=ANxDFueEGT3ydSHv2cOxxx4BGcKcBroTXJ2cOX3IDjc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DHaW+MYowZW6MPnOmMlCi8HwyPzeKE+2pub2O/T0KhRWW6xdhzyDgJ7tffGHqSRXZ
-	 Bi0lG2wivDVwMb7fz4y5rSn78kct0e6dmjFwtjvERS0TtbyOYmbvW/FJ2qMAyY7y6b
-	 /ordXyFi3No0CEcjdbM8mrKyxxjc0FfN143KOdcA=
+	s=default; t=1613651613;
+	bh=V/qm4Zb2vbdEXZOBrpqD87DeDWga9JvS4Z9uy2dBmM4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qJXEPupZUJMNwNyCsHh1v82bvVnCaUO49N6pyi9QHUWlXkqP7/N8DWNlORQLFIpg3
+	 mhSOG6uDZOSeuOnV/W2f8+xgjaSYOE7+qK8u+LNejPuSEvloAprk/7fhNaJG/mg1Bj
+	 Os0Jql9ZXSQt167oiXXdlonHPHbgnbAhqGiev0p0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15E63F8016E;
-	Thu, 18 Feb 2021 10:45:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EC92F8016E;
+	Thu, 18 Feb 2021 13:32:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24697F8015A; Thu, 18 Feb 2021 10:45:03 +0100 (CET)
+ id 17473F801DB; Thu, 18 Feb 2021 13:32:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E922F800E9
- for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 10:44:51 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8B688A0040;
- Thu, 18 Feb 2021 10:44:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8B688A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1613641485; bh=RHuMMOldgT2N4e/k3DrFXxjKtIKOlSntxMSbC/HNZww=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=sZLvuTjeJzPU37i5abIgrJE/tqd6GAj82IcWfn4S+pqIR4MtFtrkmLehQbd7dtxcD
- 41EH7ZZP3FGTg8FS88uUQB9bNV2v809uqjvL6O2KaY12fC+JTK7qPYggugkS7ZoD0j
- nHS1s/NLgIHGwRzEDj61/a+bhtcu0k7W1adGwjbA=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 18 Feb 2021 10:44:34 +0100 (CET)
-Subject: Re: [PATCH v2] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20210218091208.28734-1-shumingf@realtek.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
-Date: Thu, 18 Feb 2021 10:44:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <20210218091208.28734-1-shumingf@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, flove@realtek.com,
- bard.liao@intel.com, pierre-louis.bossart@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BF55F800E5
+ for <alsa-devel@alsa-project.org>; Thu, 18 Feb 2021 13:31:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF55F800E5
+IronPort-SDR: ra66LMwBHLZixjPrNUkNYenRtKf49bEiruHAvXuggHsxmAppYgunQqloSHOiD2GutX/oG5fv7a
+ azWNQyROFE5A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9898"; a="163264979"
+X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="163264979"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2021 04:31:48 -0800
+IronPort-SDR: i1C8D31gVPih8GPcw9H4uvhFZ7PSGL39P7JBltc70lRqjGEjKXf0q9sbc4gVHlus8zMgxHXEl9
+ 3fZOda8Ply6Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,187,1610438400"; d="scan'208";a="364821582"
+Received: from snappy-s2600wt2r.iind.intel.com ([10.223.163.26])
+ by orsmga006.jf.intel.com with ESMTP; 18 Feb 2021 04:31:46 -0800
+From: vamshi.krishna.gopal@intel.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] dmic fix to  allow userspace to choose ch count
+Date: Thu, 18 Feb 2021 18:01:23 +0530
+Message-Id: <20210218123125.15438-1-vamshi.krishna.gopal@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: harshapriya.n@intel.com, naveen.m@intel.com, biernacki@google.com,
+ sathya.prakash.m.r@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,19 +71,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 18. 02. 21 v 10:12 shumingf@realtek.com napsal(a):
+From: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.corp-partner.google.com>
 
-> +	SND_SOC_DAPM_SWITCH("DAC L", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_l),
-> +	SND_SOC_DAPM_SWITCH("DAC R", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_r),
+hello,
+git.kernel.org/pub/scm/linux/kernel/git/vkoul/sound.git/commit/?h=intel2&id=c5e7e00788229ab8491676a424fb42778038ad29
+git.kernel.org/pub/scm/linux/kernel/git/vkoul/sound.git/commit/?h=intel2&id=d87fa3f7a365bcccb396146ada03e03a4574159d
+These patch series is about removing channel count selection based on mach/pdata 
+and assign min and max channel only based on hw params. This allows
+userspcae to choose channel count.
+This patch series was Acked by Vinod and taken into his tree. 
+But seems its missed to be posted. 
+hence i've rebased the same commits and re sending.
 
-Truly, I don't understand the reason to have a separate L/R switch when we can
-map this functionality to one stereo (multichannel) control.
+Naveen Manohar (2):
+  ASoC: Intel: kbl: Remove option of choosing CH count based on pdata
+  ASoC: Intel: kbl: update dmic fixup params
 
-It's an issue for all ASoC drivers. We should consider to be more strict for
-the new ones.
-
-					Jaroslav
+ sound/soc/intel/boards/kbl_rt5663_max98927.c | 44 +++++++-------------
+ 1 file changed, 14 insertions(+), 30 deletions(-)
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.17.1
+

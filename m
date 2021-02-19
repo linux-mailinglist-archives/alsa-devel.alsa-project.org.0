@@ -2,66 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8244A320193
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 00:12:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFA43201A9
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 00:18:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12420167B;
-	Sat, 20 Feb 2021 00:11:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12420167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65ACF1674;
+	Sat, 20 Feb 2021 00:17:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65ACF1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613776334;
-	bh=oXssArbE7xCiHRselzQerfcu5q9yHmMQfF393+gO5uI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LFWRdo8n+1+GKnJqn3kxMY6wb0iiHaZQH8IF/VkZmuJC85cyw5rm207U1jorsBkWo
-	 HmfJv955k1ELl4vbE5N9qxkUbbBVNoxxkFICDpJb0o+ltGKqz7Nh5RW/kqC/9GVlSr
-	 5+27Keje9dy8aT2J0CfJZ3/sUYXJ28Z+uZFcbAks=
+	s=default; t=1613776705;
+	bh=Hh5SN70vOaTJ/wnsxumobAACLEDWcaFYFYHVeirvIe0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YZTXfsFOTNvJWfT2yg8ImQy9BVqnYaxedhGe/FcaqF9S1Foz1/bCO8Xpbg8ayoW02
+	 Cxu5JJgpqN+2y/UvljajahpCNZ+Yc3e5Tk5ptwMfLT/bBk0ORBWYvXajMvSuwJbjXr
+	 Ru74UnGbVhXY+W41l3KrBl7ang7bR/aDRwTSBvAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97191F800C7;
-	Sat, 20 Feb 2021 00:09:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D875FF8026B;
+	Sat, 20 Feb 2021 00:16:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5872F802D2; Sat, 20 Feb 2021 00:09:49 +0100 (CET)
+ id C1477F8020B; Sat, 20 Feb 2021 00:16:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FD76F8026C
- for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 00:09:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FD76F8026C
-IronPort-SDR: msBSv3opRJyIhm58Xn3/1oEw3bkghMVYNGMAtL9wYav3uLOzTvDD72XlSYXQhuCQ3omUTzls3K
- S7s7tmzexLcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9900"; a="163139068"
-X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="163139068"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2021 15:09:33 -0800
-IronPort-SDR: dzAobzlPSnWYRAfxhgiHKj+MFP63Tw17VESCX7ZRUeyDsikTL+Wcbf6KKEI9GcX60bCfcxhgVR
- h7USWXdd1waQ==
-X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="365362859"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10808F800D0
+ for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 00:16:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10808F800D0
+IronPort-SDR: 6HKYScnBuqNGViQxI8MraXe2UOSxhtIf6vEZeAn20rKka6PyrlLXC8OtNoJWNvdqkpRTLW5HfU
+ oPITJrher4AA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9900"; a="203290901"
+X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="203290901"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2021 15:16:45 -0800
+IronPort-SDR: 4rvx8CwsrxWY4+/L3cBHGBBhKojQ58CvpjgRWxV1L1GKyyRkaHiF4LX7M+5g2w5hv+OTzPu02q
+ Hc+TgreR3/5Q==
+X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="420329779"
 Received: from lkwerake-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.153.34])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2021 15:09:32 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2021 15:16:44 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 6/6] ASoC: samsung: tm2_wm5510: remove shadowing variable
-Date: Fri, 19 Feb 2021 17:09:18 -0600
-Message-Id: <20210219230918.5058-7-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/8] ASoC: sh: remove cppcheck warnings
+Date: Fri, 19 Feb 2021 17:16:27 -0600
+Message-Id: <20210219231635.5749-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
-References: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,39 +75,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cppcheck warning:
+No functional changes except for patch 4 where a missing error check
+was added for consistency.
 
-sound/soc/samsung/tm2_wm5110.c:552:26: style: Local variable 'args'
-shadows outer variable [shadowVariable]
-  struct of_phandle_args args;
-                         ^
-sound/soc/samsung/tm2_wm5110.c:504:25: note: Shadowed declaration
- struct of_phandle_args args;
-                        ^
-sound/soc/samsung/tm2_wm5110.c:552:26: note: Shadow variable
-  struct of_phandle_args args;
-                         ^
+Pierre-Louis Bossart (8):
+  ASoC: sh: dma-sh7760: remove unused variable
+  ASoC: sh: rcar: align function prototypes
+  ASoC: sh: rcar: simplify return
+  ASoC: sh: rcar: core: rename shadowing variables
+  ASoC: sh: rcar: ctu: add  missing error check
+  ASoC: sh: rcar: ssi: remove redundant assignment
+  ASoC: sh: siu_pcm: remove useless assignment
+  ASoC: sh: siu_pcm: remove unused variable
 
-it's not clear why there was a need for a local variable at a lower
-scope, remove it and share the same variable between scopes.
+ sound/soc/sh/dma-sh7760.c |  1 -
+ sound/soc/sh/rcar/core.c  | 14 +++++++-------
+ sound/soc/sh/rcar/ctu.c   |  2 ++
+ sound/soc/sh/rcar/rsnd.h  |  6 +++---
+ sound/soc/sh/rcar/ssi.c   |  1 -
+ sound/soc/sh/siu_pcm.c    |  6 +-----
+ 6 files changed, 13 insertions(+), 17 deletions(-)
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/samsung/tm2_wm5110.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
-index da6204248f82..b9c17fdd168d 100644
---- a/sound/soc/samsung/tm2_wm5110.c
-+++ b/sound/soc/samsung/tm2_wm5110.c
-@@ -549,7 +549,6 @@ static int tm2_probe(struct platform_device *pdev)
- 	}
- 
- 	for (i = 0; i < num_codecs; i++) {
--		struct of_phandle_args args;
- 
- 		ret = of_parse_phandle_with_args(dev->of_node, "i2s-controller",
- 						 cells_name, i, &args);
 -- 
 2.25.1
 

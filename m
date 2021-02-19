@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5463201B0
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 00:20:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD5F3201AC
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 00:19:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B6841676;
-	Sat, 20 Feb 2021 00:20:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B6841676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6324A168B;
+	Sat, 20 Feb 2021 00:18:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6324A168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613776859;
-	bh=RXzRrS8+MRiulGZC1krS40z/KWqRLP9gnBWiV4XRZB4=;
+	s=default; t=1613776766;
+	bh=DS9W5zO1FnM3qmVjehE/z/NHb50aJKutzIue7Cei1i8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jyd0NtkeFxLaTrePM0ghreEYbxRXrdRlMgoJWQM+dLMWP2MO8OnU6CG8qZSMJAqiy
-	 SB780lC6tkuLMh7AHRdt4U8Y87G6oT+I91ddsrEJc7DJ2QZU8c3KKvWumXdd4SHGJP
-	 nt9dApazJxX1vXL1sb4607e76z4ouLgZ5uBqZUas=
+	b=Ctr28S0fpWNwiEOajVL0dBmAEe0T18JqEVDMjVD5UyQ73BF8crduXwMqswJcfTKw/
+	 LRr4a9W2aiWTiaHBNe7ERQRUrGFhF1UfTIeRK/jeH3DScmRoRiy8q6tSflTGxRCxX9
+	 0K6EAS1qZbW2tDPwCPBPss6uMpKAfdJZr6dEgWtQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA6D1F80431;
-	Sat, 20 Feb 2021 00:17:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD7AEF800C7;
+	Sat, 20 Feb 2021 00:17:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0DC8F8025B; Sat, 20 Feb 2021 00:17:04 +0100 (CET)
+ id 56875F802DB; Sat, 20 Feb 2021 00:17:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48D7DF8025B
- for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 00:16:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48D7DF8025B
-IronPort-SDR: d+XvrgE6+JA7k4lF4asyOaJSwcEThquLPZyuMbrMeAG1vhCZqM9UhlhHtaMav13XnHyivqYysv
- BjWoKpnVndzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9900"; a="203290903"
-X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="203290903"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D154AF80258
+ for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 00:16:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D154AF80258
+IronPort-SDR: E+fhIM2iwMfmAd6vv32uDXypqVycuzd1crud8MdufE/ATB91Ncj+J8HfaAVgIXI7ajeNNdODpN
+ cKqbrZNWvfyQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9900"; a="203290906"
+X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="203290906"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2021 15:16:46 -0800
-IronPort-SDR: 3Vyh+b56L2wFYOqJ7+IpBlJ+c/MPgmrxYkRJS/nEl80YIm3lxh2dQ89V/MIPmkqEYnGjDpu96D
- lh73KywpMEBA==
-X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="420329783"
+ 19 Feb 2021 15:16:47 -0800
+IronPort-SDR: gODTtMkoQnJmqnb4rqptw9tz8nGJlIL3Em+qLegV5KqAyDrArF4LXv8lE+PsI3NUbhDotzPnn3
+ PEdTG/+t2N3Q==
+X-IronPort-AV: E=Sophos;i="5.81,191,1610438400"; d="scan'208";a="420329786"
 Received: from lkwerake-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.153.34])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2021 15:16:45 -0800
+ 19 Feb 2021 15:16:46 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/8] ASoC: sh: rcar: align function prototypes
-Date: Fri, 19 Feb 2021 17:16:29 -0600
-Message-Id: <20210219231635.5749-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/8] ASoC: sh: rcar: simplify return
+Date: Fri, 19 Feb 2021 17:16:30 -0600
+Message-Id: <20210219231635.5749-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210219231635.5749-1-pierre-louis.bossart@linux.intel.com>
 References: <20210219231635.5749-1-pierre-louis.bossart@linux.intel.com>
@@ -78,81 +78,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cppcheck warnings:
+cppcheck warning:
 
-sound/soc/sh/rcar/adg.c:208:51: style:inconclusive: Function
-'rsnd_adg_set_cmd_timsel_gen2' argument 1 names different: declaration
-'mod' definition 'cmd_mod'. [funcArgNamesDifferent]
-int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *cmd_mod,
-                                                  ^
-sound/soc/sh/rcar/rsnd.h:608:51: note: Function
-'rsnd_adg_set_cmd_timsel_gen2' argument 1 names different: declaration
-'mod' definition 'cmd_mod'.
-int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *mod,
-                                                  ^
-sound/soc/sh/rcar/adg.c:208:51: note: Function
-'rsnd_adg_set_cmd_timsel_gen2' argument 1 names different: declaration
-'mod' definition 'cmd_mod'.
-int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *cmd_mod,
-                                                  ^
-sound/soc/sh/rcar/adg.c:322:44: style:inconclusive: Function
-'rsnd_adg_ssi_clk_stop' argument 1 names different: declaration 'mod'
-definition 'ssi_mod'. [funcArgNamesDifferent]
-int rsnd_adg_ssi_clk_stop(struct rsnd_mod *ssi_mod)
-                                           ^
-sound/soc/sh/rcar/rsnd.h:600:44: note: Function
-'rsnd_adg_ssi_clk_stop' argument 1 names different: declaration 'mod'
-definition 'ssi_mod'.
-int rsnd_adg_ssi_clk_stop(struct rsnd_mod *mod);
-                                           ^
-sound/soc/sh/rcar/adg.c:322:44: note: Function 'rsnd_adg_ssi_clk_stop'
-argument 1 names different: declaration 'mod' definition 'ssi_mod'.
-int rsnd_adg_ssi_clk_stop(struct rsnd_mod *ssi_mod)
-                                           ^
-sound/soc/sh/rcar/adg.c:329:49: style:inconclusive: Function
-'rsnd_adg_ssi_clk_try_start' argument 1 names different: declaration
-'mod' definition 'ssi_mod'. [funcArgNamesDifferent]
-int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate)
-                                                ^
-sound/soc/sh/rcar/rsnd.h:601:49: note: Function
-'rsnd_adg_ssi_clk_try_start' argument 1 names different: declaration
-'mod' definition 'ssi_mod'.
-int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *mod, unsigned int rate);
-                                                ^
-sound/soc/sh/rcar/adg.c:329:49: note: Function
-'rsnd_adg_ssi_clk_try_start' argument 1 names different: declaration
-'mod' definition 'ssi_mod'.
-int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate)
-                                                ^
+sound/soc/sh/rcar/core.c:219:9: warning: Identical condition and
+return expression 'ret', return value is always 0
+[identicalConditionAfterEarlyExit]
+ return ret;
+        ^
+sound/soc/sh/rcar/core.c:210:6: note: If condition 'ret' is true, the
+function will return/exit
+ if (ret)
+     ^
+sound/soc/sh/rcar/core.c:219:9: note: Returning identical expression
+'ret'
+ return ret;
+        ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sh/rcar/rsnd.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sh/rcar/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index 6b519370fd64..1255a85151db 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -597,15 +597,15 @@ phys_addr_t rsnd_gen_get_phy_addr(struct rsnd_priv *priv, int reg_id);
-  *	R-Car ADG
-  */
- int rsnd_adg_clk_query(struct rsnd_priv *priv, unsigned int rate);
--int rsnd_adg_ssi_clk_stop(struct rsnd_mod *mod);
--int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *mod, unsigned int rate);
-+int rsnd_adg_ssi_clk_stop(struct rsnd_mod *ssi_mod);
-+int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate);
- int rsnd_adg_probe(struct rsnd_priv *priv);
- void rsnd_adg_remove(struct rsnd_priv *priv);
- int rsnd_adg_set_src_timesel_gen2(struct rsnd_mod *src_mod,
- 				  struct rsnd_dai_stream *io,
- 				  unsigned int in_rate,
- 				  unsigned int out_rate);
--int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *mod,
-+int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *cmd_mod,
- 				 struct rsnd_dai_stream *io);
- #define rsnd_adg_clk_enable(priv)	rsnd_adg_clk_control(priv, 1)
- #define rsnd_adg_clk_disable(priv)	rsnd_adg_clk_control(priv, 0)
+diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+index c405bf3b4c99..b1a75509851a 100644
+--- a/sound/soc/sh/rcar/core.c
++++ b/sound/soc/sh/rcar/core.c
+@@ -216,7 +216,7 @@ int rsnd_mod_init(struct rsnd_priv *priv,
+ 	mod->clk	= clk;
+ 	mod->priv	= priv;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ void rsnd_mod_quit(struct rsnd_mod *mod)
 -- 
 2.25.1
 

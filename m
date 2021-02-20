@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6E13204B9
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 10:31:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8076532056A
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Feb 2021 13:46:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07D66166C;
-	Sat, 20 Feb 2021 10:30:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D66166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1544166C;
+	Sat, 20 Feb 2021 13:45:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1544166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613813486;
-	bh=QbAi7KHTw8UYaowKhN2IMeGcT9kHAvJqFvi59WhdjgE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ooW8Kp+CF0kPq2w8kbwI1sAZ4/6ChhtMuKNds9Q+2/ViHLVOMkcZjShkVM0nfOLTi
-	 XFuNOQ09NYOW2AYV7YIQNHVJn8qrCn+dI9cMIrCDEWOGTy/mAFaNlQMVUn+c1Vno3F
-	 ReVXjh84mALjbyQyjz5Pet0/18XGkB9/m6Y72+D4=
+	s=default; t=1613825164;
+	bh=5+2pw62hQACiqK42pB6ovgTDColB6bOq0QhejsYMJco=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=quDRVk3WPHAptheEdt0lpJl7LqctV0Z8gCTfmKlWVQxCMZ19dELOfeIRlEoU6RlSp
+	 1aC/wn0TtXszh7CwfVvzylq4VNpIluYggRRWn1guYpbH46Oglxl/sTvuWav/8NEtlX
+	 ZqVn3aCR0v9PRiXhp1BjmROpb45U2/QJ4bMrSmdQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18A6AF8016E;
-	Sat, 20 Feb 2021 10:29:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 249ECF80152;
+	Sat, 20 Feb 2021 13:44:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5FB4F8015A; Sat, 20 Feb 2021 10:29:36 +0100 (CET)
+ id F0561F8015A; Sat, 20 Feb 2021 13:44:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 560E7F8011C
- for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 10:29:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 560E7F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDE0FF80152
+ for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 13:44:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDE0FF80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="rCHKtoCG"
-Received: by mail-qt1-x82e.google.com with SMTP id c1so5828085qtc.1
- for <alsa-devel@alsa-project.org>; Sat, 20 Feb 2021 01:29:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vS4vaApRyWmnyuAR5usD24NB4PjLJDD1KYfDkQckzGM=;
- b=rCHKtoCGWPixlLajV45lGFGYkTGnjq3wYnKVF5C8RgPlQKm0KhsvyngeK21STwDE/u
- sjGis3pMu/HUFb5kcjBp6WpnaZskD1fU99kAKaNXCdbt9n5MYbIf+rgnAvEw28WgM3uY
- 4TKboWbvg2KQx2zNW6zZJIeOFQOJBLDeCCsW/G7x4vygeEkquAI3aPJrkvPgZB/gAzdE
- h+0ESvqEV+gg+WGqP5P5Y9ajVk5KLDi/nkDu+vm7DueuxmBAfs4OQSOJYtc8/3xBJ6/k
- x8uIJfIYyEv/Z6G2wieeCYzehUIhvaqwzHtcoO29ay6v1bp6Mress1AiChn00THGFfWS
- PUHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vS4vaApRyWmnyuAR5usD24NB4PjLJDD1KYfDkQckzGM=;
- b=dlWCIoLL7URz3ByZLWsVrvYqdYeNih+fTiYr45HWlC4avX8iFei069Q0AZOUwuao8a
- pZ2KIN90GXiJCIxttyGBysbHp5dDj9+sYppyeZyyfj6YyLivG27yK7HGumNUCN8EXveN
- LPK1d+0+AE8jxr/gyAs/x/3FTmYosChUY/4JQ6yEosMOVf3LjDpsPxhf9nz+EIYpmGwj
- zco4/NqXf1JmAIIPUl2GJ5qcs6+3kj+Hb2gERjZSI9ot18Fvx9qvXCu6vHVB1uuOHbjh
- ErOucUUCWt+iAD0bdskEnnJZ4yy1berMkYxJ6M0L3suVNKE/ihQ1N7TzgjkvXz9b+7qu
- RWYQ==
-X-Gm-Message-State: AOAM531/QDTwuLEnIk3yDb0MB+3OXR86F7DHLOWFGGN3XOWlfjOOHkAe
- h9mCkNRZqcfzml1xJoHl4R0yinA6fat5cD/6q4U=
-X-Google-Smtp-Source: ABdhPJyk7JZcvMcxLu8SuGPOPUXhqrrN7gRUcpxpxwOgunLb3jrGk4tvxmFwk9qLYgvsbP7Rbl7ZViqo7kzcvIriVKg=
-X-Received: by 2002:ac8:6f06:: with SMTP id g6mr12287830qtv.360.1613813354517; 
- Sat, 20 Feb 2021 01:29:14 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="OJmKx/oV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1613825062;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=NGCoXmLsNypwd4eOy8IYMqT34aEwVcCuKoDWcemQv1E=;
+ b=OJmKx/oVB29IihJ3uj8B8sjMStJdURqVCEkXRrBxGAWc+BfGyqCsMrop0FhaCVSIs2Nvbc
+ nha90UyMTfhJWvZXf2NwhyPwxk7UrSpxYQ7/bCP4PM474fiF2cFM0Fsn3jzyMRhiTF1Zuj
+ CDYgOSX8WUMFqp+tEd3dA9jwTXbpgkk=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-525-M68dyUHHMomh3oUFMMHYaw-1; Sat, 20 Feb 2021 07:44:18 -0500
+X-MC-Unique: M68dyUHHMomh3oUFMMHYaw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8357880364B;
+ Sat, 20 Feb 2021 12:44:16 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-29.ams2.redhat.com [10.36.112.29])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BB35319709;
+ Sat, 20 Feb 2021 12:44:14 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Pavel Machek <pavel@ucw.cz>,
+	Dan Murphy <dmurphy@ti.com>
+Subject: [PATCH] leds: trigger: audio: Add an activate callback to ensure the
+ initial brightness is set
+Date: Sat, 20 Feb 2021 13:44:13 +0100
+Message-Id: <20210220124413.23460-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-References: <5598a2fc-9b49-ad5e-2265-fbc0593ead1b@flatmax.org>
- <0d9a9459-9cd7-d384-b1ff-72860895ad13@linux.intel.com>
- <73148789-58f7-2228-ae42-465cdafcff4c@flatmax.org>
- <52e1a640-b46f-b494-2047-849c1999eb28@flatmax.org>
- <7607dd99-0d54-2bab-7407-836a42647f4c@metafoo.de>
-In-Reply-To: <7607dd99-0d54-2bab-7407-836a42647f4c@metafoo.de>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sat, 20 Feb 2021 17:29:03 +0800
-Message-ID: <CAA+D8ANpWEggM4128p7=wzFNLdn6YF4JWQpm0fMbk_WWZGKBTA@mail.gmail.com>
-Subject: Re: ASoc: soc_core.c stream direction from snd_soc_dai
-To: Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Matt Flax <flatmax@flatmax.org>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, linux-leds@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,111 +89,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 13, 2020 at 6:01 PM Lars-Peter Clausen <lars@metafoo.de> wrote:
->
-> On 3/13/20 4:56 AM, Matt Flax wrote:
-> >
-> > On 13/3/20 10:19 am, Matt Flax wrote:
-> >>
-> >> On 13/3/20 9:55 am, Pierre-Louis Bossart wrote:
-> >>>
-> >>>
-> >>> On 3/11/20 5:54 PM, Matt Flax wrote:
-> >>>> Hi there,
-> >>>>
-> >>>> A large number of audio codecs allow different formats for playback
-> >>>> and capture. This becomes very useful when there are different
-> >>>> latencies between playback and capture hardware data lines. For
-> >>>> example digital isolation chips typically have a 1 bit delay in
-> >>>> propagation as the bit clock rate gets faster for higher sample
-> >>>> rates. By setting the capture and playback formats to differ by one
-> >>>> or two bit clock cycles, the delay problem is solved.
-> >>>>
-> >>>> There doesn't seem to be a simple way to detect stream direction in
-> >>>> the codec driver's set_fmt function.
-> >>>>
-> >>>> The snd_soc_runtime_set_dai_fmt function :
-> >>>>
-> >>>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-core.c#L1480
-> >>>>
-> >>>>
-> >>>> calls the snd_soc_dai_set_fmt function :
-> >>>>
-> >>>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-dai.c#L101
-> >>>>
-> >>>> which calls the set_fmt function :
-> >>>>
-> >>>> https://github.com/torvalds/linux/blob/master/include/sound/soc-dai.h#L189
-> >>>>
-> >>>>
-> >>>>
-> >>>> The snd_soc_dai_ops set_fmt function is defined as :
-> >>>>
-> >>>>      int (*set_fmt)(struct snd_soc_dai *dai, unsigned int fmt);
-> >>>>
-> >>>>
-> >>>> Is there a simple way to find the stream direction from a
-> >>>> snd_soc_dai ?
-> >>>>
-> >>>> If the stream direction can be detected then the playback and
-> >>>> capture formats can be set independently for the codec.
-> >>>>
-> >>>> It there a different way to set the playback and capture formats
-> >>>> for the codec independently at runtime, depending on the sample rate ?
-> >>>
-> >>> FWIW I remember a discussion in the past on how to deal with
-> >>> interfaces that may have different clocks sources for capture and
-> >>> playback (typically with the 6-pin version of I2S/TDM), and the
-> >>> answer was: use two dais, with one dealing with capture and the
-> >>> other with playback.
-> >>>
-> >>> I would bet this applies for the format as well. If you use a DAI
-> >>> that can do both directions, then indeed there's no obvious way to
-> >>> specify that formats or clock ownership could be different between
-> >>> the two directions.
-> >>>
-> >>> It would probably make sense anyway to have a representation with
-> >>> two dais, e.g. the codec capture dai receives data from somewhere
-> >>> and the codec playback dai forwards it to another destination.
-> >>>
-> >> I think I get it ...
-> >>
-> >> This approach would keep extra stream selective functionality out of
-> >> soc-dai.c. That is probably a good thing for the simplicity of the core.
-> >>
-> >> A machine driver could then call snd_soc_dai_set_fmt passing in the
-> >> correct codec_dai from the codec_dais array for the stream they want
-> >> to operate on.
-> >>
-> > In an example case, cs4271 ... how do we enforce symmetric rates ?
->
-> You'd have to do this manually in your driver. The core itself does not
-> support synchronizing streams on different DAIs.
->
-> You can do this by saving the rate when it is set on the first stream
-> and then apply a constraint to the second stream using
-> snd_pcm_hw_constraint_single() it the driver's startup() callback.
->
-> Have a look at the uda134x.c or twl4030.c driver as an example.
->
-> But I think Pierre was mainly talking about the case where there are
-> separate clocks for each direction and the rates don't have to be the
-> same. I believe long term it might make sense to extend the core to
-> allow different formats for input and output direction on the same DAI.
->
+Some 2-in-1s with a detachable (USB) keyboard(dock) have mute-LEDs in
+the speaker- and/or mic-mute keys on the keyboard.
 
-Sorry for resuming this old thread. I have the same requirement for
-supporting different formats for input and output on the same DAI.
+Examples of this are the Lenovo Thinkpad10 tablet (with its USB kbd-dock)
+and the HP x2 10 series.
 
-One of the suggestions is to use two DAIs.  but sometimes the
-CPU/CODEC may have the same format for playback and capture,
-then one DAI is enough.  it means that we need to define 3 DAIs
-for the CPU/CODEC,  one supports playback and capture, another
-two support capture and playback separately, is it some kind of
-duplicate?
+The detachable nature of these keyboards means that the keyboard and
+thus the mute LEDs may show up after the user (or userspace restoring
+old mixer settings) has muted the speaker and/or mic.
 
-So I'd like to extend the set_fmt() interface, but this impacts all
-the drivers.
+Current LED-class devices with a default_trigger of "audio-mute" or
+"audio-micmute" initialize the brightness member of led_classdev with
+ledtrig_audio_get() before registering the LED.
 
-Best regards
-Wang shengjiu
+This makes the software state after attaching the keyboard match the
+actual audio mute state, e.g. cat /sys/class/leds/foo/brightness will
+show the right value.
+
+But before this commit nothing was actually calling the led_classdev's
+brightness_set[_blocking] callback so the value returned by
+ledtrig_audio_get() was never actually being send to the hw, leading
+to the mute LEDs staying in their default power-on state, after
+attaching the keyboard, even if ledtrig_audio_get() returns a different
+state.
+
+This could be fixed by having the individual LED drivers call
+brightness_set[_blocking] themselves after registering the LED,
+but this really is something which should be done by a led-trigger
+activate callback.
+
+Add an activate callback for this, fixing the issue of the
+mute LEDs being out of sync after (re)attaching the keyboard.
+
+Cc: Takashi Iwai <tiwai@suse.de>
+Fixes: faa2541f5b1a ("leds: trigger: Introduce audio mute LED trigger")
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ drivers/leds/trigger/ledtrig-audio.c | 37 ++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/leds/trigger/ledtrig-audio.c b/drivers/leds/trigger/ledtrig-audio.c
+index f76621e88482..c6b437e6369b 100644
+--- a/drivers/leds/trigger/ledtrig-audio.c
++++ b/drivers/leds/trigger/ledtrig-audio.c
+@@ -6,10 +6,33 @@
+ #include <linux/kernel.h>
+ #include <linux/leds.h>
+ #include <linux/module.h>
++#include "../leds.h"
+ 
+-static struct led_trigger *ledtrig_audio[NUM_AUDIO_LEDS];
+ static enum led_brightness audio_state[NUM_AUDIO_LEDS];
+ 
++static int ledtrig_audio_mute_activate(struct led_classdev *led_cdev)
++{
++	led_set_brightness_nosleep(led_cdev, audio_state[LED_AUDIO_MUTE]);
++	return 0;
++}
++
++static int ledtrig_audio_micmute_activate(struct led_classdev *led_cdev)
++{
++	led_set_brightness_nosleep(led_cdev, audio_state[LED_AUDIO_MICMUTE]);
++	return 0;
++}
++
++static struct led_trigger ledtrig_audio[NUM_AUDIO_LEDS] = {
++	[LED_AUDIO_MUTE] = {
++		.name     = "audio-mute",
++		.activate = ledtrig_audio_mute_activate,
++	},
++	[LED_AUDIO_MICMUTE] = {
++		.name     = "audio-micmute",
++		.activate = ledtrig_audio_micmute_activate,
++	},
++};
++
+ enum led_brightness ledtrig_audio_get(enum led_audio type)
+ {
+ 	return audio_state[type];
+@@ -19,24 +42,22 @@ EXPORT_SYMBOL_GPL(ledtrig_audio_get);
+ void ledtrig_audio_set(enum led_audio type, enum led_brightness state)
+ {
+ 	audio_state[type] = state;
+-	led_trigger_event(ledtrig_audio[type], state);
++	led_trigger_event(&ledtrig_audio[type], state);
+ }
+ EXPORT_SYMBOL_GPL(ledtrig_audio_set);
+ 
+ static int __init ledtrig_audio_init(void)
+ {
+-	led_trigger_register_simple("audio-mute",
+-				    &ledtrig_audio[LED_AUDIO_MUTE]);
+-	led_trigger_register_simple("audio-micmute",
+-				    &ledtrig_audio[LED_AUDIO_MICMUTE]);
++	led_trigger_register(&ledtrig_audio[LED_AUDIO_MUTE]);
++	led_trigger_register(&ledtrig_audio[LED_AUDIO_MICMUTE]);
+ 	return 0;
+ }
+ module_init(ledtrig_audio_init);
+ 
+ static void __exit ledtrig_audio_exit(void)
+ {
+-	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MUTE]);
+-	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MICMUTE]);
++	led_trigger_unregister(&ledtrig_audio[LED_AUDIO_MUTE]);
++	led_trigger_unregister(&ledtrig_audio[LED_AUDIO_MICMUTE]);
+ }
+ module_exit(ledtrig_audio_exit);
+ 
+-- 
+2.30.1
+

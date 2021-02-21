@@ -2,73 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06449320ADA
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 15:03:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E9A320B6B
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 16:32:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 974841678;
-	Sun, 21 Feb 2021 15:02:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 974841678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB421667;
+	Sun, 21 Feb 2021 16:31:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB421667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613916211;
-	bh=5pzgO8jC6bKXjQGAuQHB3+WQWxD/eT+s7GjVt5KTqFg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rq5qinlhmUjXXI3bnfKFkKx7ktmZB4l1mPwW/H9ymyyvHT102YyQMlx6/InYBlVNT
-	 2ZK+8ohEy10Jifz1yiZhlymA01yw+b4WNaIpx/HA75y+Hr33aK45SbOxUSg790haBK
-	 MDzuyUw0lFX9kbAzjLx2714NNkzToZzp1u9LhbFQ=
+	s=default; t=1613921532;
+	bh=O9xlPGiejTlK8aa43y0xsYCFghq5BZtPdRfRU4PePuY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KGMZt7M79k65zslKjmavvkUQYfCPagNNFoG+7x6C6I1A1q6UmuIBst0OIgVQ31xuN
+	 VynX6F5KljqoZFuaCDUlyPU3LnSVewNRG/30LnqeDeLku00Rgvry010R3i3NJvimXE
+	 SLUjOwSODuEuL4YwA+aJz10JlHnr4RK1wJsHKXVE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50A58F8050F;
-	Sun, 21 Feb 2021 14:58:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8AFEF8016D;
+	Sun, 21 Feb 2021 16:30:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63F1EF80507; Sun, 21 Feb 2021 14:58:29 +0100 (CET)
+ id B928FF8016A; Sun, 21 Feb 2021 16:30:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33DFCF804ED
- for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 14:58:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33DFCF804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5458DF80082
+ for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 16:30:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5458DF80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="W4e06nrt"
-Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
- [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id C7510A15B0;
- Sun, 21 Feb 2021 14:58:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=95s+AzOiGXf8
- TEV6sBKkmLgoLbV83d7l8aV1FakcGqQ=; b=W4e06nrtuROWepYPVfKA9wtuovTw
- I2YZ13J8k0OsEjmWPqxPB2AiwkBirovipeLxhoRHecsvyj2yDZQRMdmRGzXZ+u0E
- vVNJW/XdXWXlH8ss8ng8AeKfnMNWIDQHkSHeMRCAdSjmMTOXH0dyOyb4x6kof+1e
- USefnTU/SskIGvZZ/O4IDdPn7ElnBQaFsDGrQ9b/rkEB51A8TeTgtnQvOd8x8gBH
- mxtEKktaXudyOElyK6XrxxuMhP+W2GU/3KOtFJR7gSCdd90uJiEhiv4VB/C6aK4L
- T+oux/Hzc9nQ7YLyTQUSPs/iXHRxqjOxVhjYwDMm3zl6T9u64pPn2WrlDA==
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-To: <virtualization@lists.linux-foundation.org>,
- <alsa-devel@alsa-project.org>, <virtio-dev@lists.oasis-open.org>
-Subject: [PATCH v4 9/9] ALSA: virtio: introduce device suspend/resume support
-Date: Sun, 21 Feb 2021 14:57:31 +0100
-Message-ID: <20210221135731.51348-10-anton.yakovlev@opensynergy.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210221135731.51348-1-anton.yakovlev@opensynergy.com>
-References: <20210221135731.51348-1-anton.yakovlev@opensynergy.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Dn2ff16+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 62FA664EEF;
+ Sun, 21 Feb 2021 15:30:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613921431;
+ bh=O9xlPGiejTlK8aa43y0xsYCFghq5BZtPdRfRU4PePuY=;
+ h=From:To:Subject:Date:From;
+ b=Dn2ff16+PkGl2Jcm8JDnI4a16EOK+VRAilHMxwxScAZCTufG9SNFVwMlmQmRuCnZT
+ fUjJcb5Eyye4dwMVSLLVoRzH29wyh6QcKgdWkND7+wpl1kF9ruLeLmPBzk5AwqbT63
+ z8x2bcnw624KdCfPVq9VoAuF8pJFLUYmTz1Aw3FTA1jshi41EZlAXkZk8aC/JAU3pU
+ 6H5kriL6l4uL4I1D/Ge2Aq/naELHUmWKie5O0S/PdP4dA8cRomcsP5SQWtPDORsoRF
+ sZ6za2fIl+/ehickYhTY1YghnlhWDxNCbccZczdTfYNb/+X9z21HvQTGBwo4FJ+Yrg
+ Kya+3+dUaGIqQ==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org
+Subject: [PATCH] ASoC: constify of_phandle_args in snd_soc_get_dai_name()
+Date: Sun, 21 Feb 2021 16:30:24 +0100
+Message-Id: <20210221153024.453583-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SR-MAIL-01.open-synergy.com (10.26.10.21) To
- SR-MAIL-02.open-synergy.com (10.26.10.22)
-Cc: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- "Michael S. Tsirkin" <mst@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,182 +82,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-All running PCM substreams are stopped on device suspend and restarted
-on device resume.
+The pointer to of_phandle_args passed to snd_soc_get_dai_name() and
+of_xlate_dai_name() implementations is not modified.  Since it is being
+used only to translate passed OF node to a DAI name, it should not be
+modified, so mark it as const for correctness and safer code.
 
-Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- sound/virtio/virtio_card.c    | 57 +++++++++++++++++++++++++++++++++++
- sound/virtio/virtio_pcm.c     |  1 +
- sound/virtio/virtio_pcm_ops.c | 44 ++++++++++++++++++++-------
- 3 files changed, 91 insertions(+), 11 deletions(-)
+ include/sound/soc-component.h     | 4 ++--
+ include/sound/soc.h               | 2 +-
+ sound/soc/meson/aiu-acodec-ctrl.c | 2 +-
+ sound/soc/meson/aiu-codec-ctrl.c  | 2 +-
+ sound/soc/meson/aiu.c             | 4 ++--
+ sound/soc/meson/aiu.h             | 2 +-
+ sound/soc/qcom/lpass-cpu.c        | 2 +-
+ sound/soc/qcom/qdsp6/q6afe-dai.c  | 2 +-
+ sound/soc/soc-component.c         | 2 +-
+ sound/soc/soc-core.c              | 2 +-
+ 10 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index 787a4dec1da8..1f0a0fa7bbc0 100644
---- a/sound/virtio/virtio_card.c
-+++ b/sound/virtio/virtio_card.c
-@@ -373,6 +373,59 @@ static void virtsnd_config_changed(struct virtio_device *vdev)
- 			 "sound device configuration was changed\n");
- }
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 5b47768222b7..7dc75b39287f 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -101,7 +101,7 @@ struct snd_soc_component_driver {
  
-+#ifdef CONFIG_PM_SLEEP
-+/**
-+ * virtsnd_freeze() - Suspend device.
-+ * @vdev: VirtIO parent device.
-+ *
-+ * Context: Any context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_freeze(struct virtio_device *vdev)
-+{
-+	struct virtio_snd *snd = vdev->priv;
-+
-+	/* Stop all the virtqueues. */
-+	vdev->config->reset(vdev);
-+	vdev->config->del_vqs(vdev);
-+
-+	virtsnd_ctl_msg_cancel_all(snd);
-+
-+	kfree(snd->event_msgs);
-+
-+	/*
-+	 * If the virtsnd_restore() fails before re-allocating events, then we
-+	 * get a dangling pointer here.
-+	 */
-+	snd->event_msgs = NULL;
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtsnd_restore() - Resume device.
-+ * @vdev: VirtIO parent device.
-+ *
-+ * Context: Any context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_restore(struct virtio_device *vdev)
-+{
-+	struct virtio_snd *snd = vdev->priv;
-+	int rc;
-+
-+	rc = virtsnd_find_vqs(snd);
-+	if (rc)
-+		return rc;
-+
-+	virtio_device_ready(vdev);
-+
-+	virtsnd_enable_event_vq(snd);
-+
-+	return 0;
-+}
-+#endif /* CONFIG_PM_SLEEP */
-+
- static const struct virtio_device_id id_table[] = {
- 	{ VIRTIO_ID_SOUND, VIRTIO_DEV_ANY_ID },
- 	{ 0 },
-@@ -386,6 +439,10 @@ static struct virtio_driver virtsnd_driver = {
- 	.probe = virtsnd_probe,
- 	.remove = virtsnd_remove,
- 	.config_changed = virtsnd_config_changed,
-+#ifdef CONFIG_PM_SLEEP
-+	.freeze = virtsnd_freeze,
-+	.restore = virtsnd_restore,
-+#endif
+ 	/* DT */
+ 	int (*of_xlate_dai_name)(struct snd_soc_component *component,
+-				 struct of_phandle_args *args,
++				 const struct of_phandle_args *args,
+ 				 const char **dai_name);
+ 	int (*of_xlate_dai_id)(struct snd_soc_component *comment,
+ 			       struct device_node *endpoint);
+@@ -450,7 +450,7 @@ void snd_soc_component_remove(struct snd_soc_component *component);
+ int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
+ 				      struct device_node *ep);
+ int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
+-					struct of_phandle_args *args,
++					const struct of_phandle_args *args,
+ 					const char **dai_name);
+ int snd_soc_component_compr_open(struct snd_compr_stream *cstream);
+ void snd_soc_component_compr_free(struct snd_compr_stream *cstream,
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index bd38015d6c6d..78609ab331c8 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1219,7 +1219,7 @@ unsigned int snd_soc_of_parse_daifmt(struct device_node *np,
+ 				     struct device_node **bitclkmaster,
+ 				     struct device_node **framemaster);
+ int snd_soc_get_dai_id(struct device_node *ep);
+-int snd_soc_get_dai_name(struct of_phandle_args *args,
++int snd_soc_get_dai_name(const struct of_phandle_args *args,
+ 			 const char **dai_name);
+ int snd_soc_of_get_dai_name(struct device_node *of_node,
+ 			    const char **dai_name);
+diff --git a/sound/soc/meson/aiu-acodec-ctrl.c b/sound/soc/meson/aiu-acodec-ctrl.c
+index 7078197e0cc5..27a6d3259c50 100644
+--- a/sound/soc/meson/aiu-acodec-ctrl.c
++++ b/sound/soc/meson/aiu-acodec-ctrl.c
+@@ -159,7 +159,7 @@ static const struct snd_kcontrol_new aiu_acodec_ctrl_controls[] = {
  };
  
- static int __init init(void)
-diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
-index 5f7b4090c6a2..d7471e0a9d04 100644
---- a/sound/virtio/virtio_pcm.c
-+++ b/sound/virtio/virtio_pcm.c
-@@ -109,6 +109,7 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
- 		SNDRV_PCM_INFO_BATCH |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_RESUME |
- 		SNDRV_PCM_INFO_PAUSE;
+ static int aiu_acodec_of_xlate_dai_name(struct snd_soc_component *component,
+-					struct of_phandle_args *args,
++					const struct of_phandle_args *args,
+ 					const char **dai_name)
+ {
+ 	return aiu_of_xlate_dai_name(component, args, dai_name, AIU_ACODEC);
+diff --git a/sound/soc/meson/aiu-codec-ctrl.c b/sound/soc/meson/aiu-codec-ctrl.c
+index 4b773d3e8b07..c3ea733fce91 100644
+--- a/sound/soc/meson/aiu-codec-ctrl.c
++++ b/sound/soc/meson/aiu-codec-ctrl.c
+@@ -125,7 +125,7 @@ static const struct snd_soc_dapm_route aiu_hdmi_ctrl_routes[] = {
+ };
  
- 	if (!info->channels_min || info->channels_min > info->channels_max) {
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
-index 07510778b555..ccef64502c13 100644
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -218,6 +218,10 @@ static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
- 	if (rc)
- 		return rc;
+ static int aiu_hdmi_of_xlate_dai_name(struct snd_soc_component *component,
+-				      struct of_phandle_args *args,
++				      const struct of_phandle_args *args,
+ 				      const char **dai_name)
+ {
+ 	return aiu_of_xlate_dai_name(component, args, dai_name, AIU_HDMI);
+diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
+index dc35ca79021c..ba15d5762b0b 100644
+--- a/sound/soc/meson/aiu.c
++++ b/sound/soc/meson/aiu.c
+@@ -42,7 +42,7 @@ static const struct snd_soc_dapm_route aiu_cpu_dapm_routes[] = {
+ };
  
-+	/* If messages have already been allocated before, do nothing. */
-+	if (runtime->status->state == SNDRV_PCM_STATE_SUSPENDED)
-+		return 0;
-+
- 	return virtsnd_pcm_msg_alloc(vss, periods, period_bytes);
+ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
+-			  struct of_phandle_args *args,
++			  const struct of_phandle_args *args,
+ 			  const char **dai_name,
+ 			  unsigned int component_id)
+ {
+@@ -72,7 +72,7 @@ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
  }
  
-@@ -258,19 +262,21 @@ static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
- 	}
+ static int aiu_cpu_of_xlate_dai_name(struct snd_soc_component *component,
+-				     struct of_phandle_args *args,
++				     const struct of_phandle_args *args,
+ 				     const char **dai_name)
+ {
+ 	return aiu_of_xlate_dai_name(component, args, dai_name, AIU_CPU);
+diff --git a/sound/soc/meson/aiu.h b/sound/soc/meson/aiu.h
+index 87aa19ac4af3..393b6c2307e4 100644
+--- a/sound/soc/meson/aiu.h
++++ b/sound/soc/meson/aiu.h
+@@ -45,7 +45,7 @@ struct aiu {
+ 		     SNDRV_PCM_FMTBIT_S24_LE)
  
- 	spin_lock_irqsave(&vss->lock, flags);
--	/*
--	 * Since I/O messages are asynchronous, they can be completed
--	 * when the runtime structure no longer exists. Since each
--	 * completion implies incrementing the hw_ptr, we cache all the
--	 * current values needed to compute the new hw_ptr value.
--	 */
--	vss->frame_bytes = runtime->frame_bits >> 3;
--	vss->period_size = runtime->period_size;
--	vss->buffer_size = runtime->buffer_size;
-+	if (runtime->status->state != SNDRV_PCM_STATE_SUSPENDED) {
-+		/*
-+		 * Since I/O messages are asynchronous, they can be completed
-+		 * when the runtime structure no longer exists. Since each
-+		 * completion implies incrementing the hw_ptr, we cache all the
-+		 * current values needed to compute the new hw_ptr value.
-+		 */
-+		vss->frame_bytes = runtime->frame_bits >> 3;
-+		vss->period_size = runtime->period_size;
-+		vss->buffer_size = runtime->buffer_size;
+ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
+-			  struct of_phandle_args *args,
++			  const struct of_phandle_args *args,
+ 			  const char **dai_name,
+ 			  unsigned int component_id);
  
--	vss->hw_ptr = 0;
-+		vss->hw_ptr = 0;
-+		vss->msg_last_enqueued = -1;
-+	}
- 	vss->xfer_xrun = false;
--	vss->msg_last_enqueued = -1;
- 	vss->msg_count = 0;
- 	spin_unlock_irqrestore(&vss->lock, flags);
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index c642e5f8f28c..4762286b33fe 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -340,7 +340,7 @@ int asoc_qcom_lpass_cpu_dai_probe(struct snd_soc_dai *dai)
+ EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_probe);
  
-@@ -300,6 +306,21 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
- 	int rc;
+ static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
+-				   struct of_phandle_args *args,
++				   const struct of_phandle_args *args,
+ 				   const char **dai_name)
+ {
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+index 4e1f101281e7..e8915519f427 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-dai.c
++++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+@@ -1315,7 +1315,7 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ };
  
- 	switch (command) {
-+	case SNDRV_PCM_TRIGGER_RESUME: {
-+		/*
-+		 * We restart the substream by executing the standard command
-+		 * sequence.
-+		 */
-+		rc = virtsnd_pcm_hw_params(substream, NULL);
-+		if (rc)
-+			return rc;
-+
-+		rc = virtsnd_pcm_prepare(substream);
-+		if (rc)
-+			return rc;
-+
-+		fallthrough;
-+	}
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE: {
- 		struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
-@@ -326,6 +347,7 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
+ static int q6afe_of_xlate_dai_name(struct snd_soc_component *component,
+-				   struct of_phandle_args *args,
++				   const struct of_phandle_args *args,
+ 				   const char **dai_name)
+ {
+ 	int id = args->args[0];
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 159bf88b9f8c..8415e9bd2932 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -370,7 +370,7 @@ int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
+ }
  
- 		return virtsnd_ctl_msg_send_sync(snd, msg);
- 	}
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH: {
- 		spin_lock_irqsave(&vss->lock, flags);
+ int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
+-					struct of_phandle_args *args,
++					const struct of_phandle_args *args,
+ 					const char **dai_name)
+ {
+ 	if (component->driver->of_xlate_dai_name)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index f6d4e99b590c..50190654edda 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2994,7 +2994,7 @@ int snd_soc_get_dai_id(struct device_node *ep)
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
+ 
+-int snd_soc_get_dai_name(struct of_phandle_args *args,
++int snd_soc_get_dai_name(const struct of_phandle_args *args,
+ 				const char **dai_name)
+ {
+ 	struct snd_soc_component *pos;
 -- 
-2.30.0
-
+2.25.1
 

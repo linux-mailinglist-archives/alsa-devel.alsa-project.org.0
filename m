@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A143209A8
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 12:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B1D3209AD
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 12:05:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F08511662;
-	Sun, 21 Feb 2021 11:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F08511662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FAE21677;
+	Sun, 21 Feb 2021 12:04:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FAE21677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613905250;
-	bh=l7l64p9aWOBOlJaNGGkpRUhGtci8YxsB1TonzXgR0AY=;
+	s=default; t=1613905548;
+	bh=19YL9I239qVJsl0oLWYW1RwHZDiR5XCOKdNUFtc7pis=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lQpT/NUyBZvhAz8KO7OFFCGMeKoDOw5rJZuH5RMgQl+2MdxJqAAI1CblWA/g34ZKl
-	 AXZQn8OliX1tOu1+e4ut3t6wo5u/Arvdl+z2iP9i2YQziTiYJx5eL25UqB/cj+O/V8
-	 azzUnXuOq6yTVYODVjxuH/POBde7PBXbcF9/al/o=
+	b=UDM0hCVc/8bFP1lmusuZLpBwCn2ifhUjhw50GEBgrVKhmkSWL61peWP1LJ9VPPuM8
+	 RHAXj9Sx0odQ88vCXXxPU2xSnD9LBrZ8F4zMXJ/3uJHhhUgOo62CYjAA/WpLwvuJT+
+	 d2DXw+n/VNLnUL8oZwehxjcQwTKqvSWw1wA1RNE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D9C2F80167;
-	Sun, 21 Feb 2021 11:59:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72E3AF80082;
+	Sun, 21 Feb 2021 12:04:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 754C1F8016A; Sun, 21 Feb 2021 11:59:13 +0100 (CET)
+ id 9ABD4F80082; Sun, 21 Feb 2021 12:04:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36567F80082
- for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 11:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36567F80082
-Received: by mail-ed1-f51.google.com with SMTP id g3so18045913edb.11
- for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 02:59:08 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8395BF80082
+ for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 12:04:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8395BF80082
+Received: by mail-wm1-f46.google.com with SMTP id x16so10868327wmk.3
+ for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 03:04:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=t81BxgbZs7qj3AIlLEIFL5HL8fw6VeMrLybH59Y6KiM=;
- b=XPtf1l8RXsc+6Ybn/6X603RGYSXUS/vXo138xW6jBzv6p+FE+onIJdhmYH22a1WthN
- 0nfWWIi655iIsZihp0uIZudpJMT8+a32WvqCIxOm2sg81yedww+ajisg4g57xqrVScXi
- VGEhP1p+hOrU9qnGttIDaqY4Ndub7oAIT7e2LCbT+vjqY2SdsMVunL5kjpokSrvYm3ra
- /tb/a4/i3cS1cusFetspnEiKx5TzrQiFkB0oMVrWwBXqLtk6ZqchJcIigwRd98BMelGy
- X0sQNSmlnKaQ7MmOnOjO0owhj2/NGbsPT4jmzDnWJjpH8Vh7l46jRcSyHQ8r71wnQ8/T
- aumg==
-X-Gm-Message-State: AOAM5337jovMl/sPIUUMA2nsn6+Qg6+Qs02a/KlkacJipl7tiZswGFu2
- 8bmURYcUCIWyexI0U2VSkqc=
-X-Google-Smtp-Source: ABdhPJwT5ABO361iDzqTw+sI5prv1NAsS42M9Rh3MOgWHu3rmXo35X7McW2X3Ftj/BrEN+OqIuwy8A==
-X-Received: by 2002:a50:9ecf:: with SMTP id a73mr17255942edf.181.1613905148315; 
- Sun, 21 Feb 2021 02:59:08 -0800 (PST)
+ bh=Fv1MGWHAHRfBei1NggEG7/yOVNuAnlJ9QR7t+JYrDik=;
+ b=jR5gm4qhxCjHfdHmC9DNOK2s2NUgny32ECrbQbw2hK3xbX/9bdw03M/qHIhbMoaZzI
+ +6bKqWGGp/Bux18IPK17dbrJlZEWJKQuFnrjD9zewMkg6mQFz4WgesJX3BtbcMbbVat0
+ U1GC4EdayIpSWKGIJ+aMUD+X9Gq3XcgSZ3v8VZBrN4hwFPoE4IdoVRD0Lj+aYUx8Wwa0
+ u7qdinSMHSrZGOWEIhRQgXmYbYj0yJP18E6ATuhVw/Ufy1K6gIOQl9bFE8xCRT9hA5OI
+ jGaUn4fy6P2OkiMhQHZaoFJ0g34NAJHs4yMRh30nvQmNKkFnK3wK7VbfWtMYsdhaxW0N
+ c/bA==
+X-Gm-Message-State: AOAM533oNpIi3U8KG6zV0IYppNIgDEYdu0syfYpxWj/Vl9JIB+OrxaCV
+ TR2hHiSEbN7Wue6WHYpwRx8=
+X-Google-Smtp-Source: ABdhPJyfyWbkmJZfzYi4GbygYNWRV3xqEarldc+RWQBO7zsz8sC3/IvDrHIcF+QxhheKeSWN4r8VGg==
+X-Received: by 2002:a05:600c:3550:: with SMTP id
+ i16mr14685603wmq.170.1613905447170; 
+ Sun, 21 Feb 2021 03:04:07 -0800 (PST)
 Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
- by smtp.googlemail.com with ESMTPSA id r11sm9253022edt.58.2021.02.21.02.59.07
+ by smtp.googlemail.com with ESMTPSA id c12sm12750191wru.71.2021.02.21.03.04.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Feb 2021 02:59:07 -0800 (PST)
-Date: Sun, 21 Feb 2021 11:59:05 +0100
+ Sun, 21 Feb 2021 03:04:06 -0800 (PST)
+Date: Sun, 21 Feb 2021 12:04:04 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 3/6] ASoC: samsung: smdk_wm8994: add missing return
-Message-ID: <20210221105905.aygi75qkjzl434wp@kozik-lap>
+Subject: Re: [PATCH 4/6] ASoC: samsung: snow: remove useless test
+Message-ID: <20210221110404.lx34nuac4gjtbzz2@kozik-lap>
 References: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
- <20210219230918.5058-4-pierre-louis.bossart@linux.intel.com>
+ <20210219230918.5058-5-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20210219230918.5058-4-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210219230918.5058-5-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,27 +88,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Feb 19, 2021 at 05:09:15PM -0600, Pierre-Louis Bossart wrote:
+On Fri, Feb 19, 2021 at 05:09:16PM -0600, Pierre-Louis Bossart wrote:
 > cppcheck warning:
 > 
-> sound/soc/samsung/smdk_wm8994.c:179:6: style: Variable 'ret' is
-> reassigned a value before the old one has been
-> used. [redundantAssignment]
->  ret = devm_snd_soc_register_card(&pdev->dev, card);
->      ^
-> sound/soc/samsung/smdk_wm8994.c:166:8: note: ret is assigned
->    ret = -EINVAL;
->        ^
-> sound/soc/samsung/smdk_wm8994.c:179:6: note: ret is overwritten
->  ret = devm_snd_soc_register_card(&pdev->dev, card);
->      ^
+> sound/soc/samsung/snow.c:112:2: style:inconclusive: Found duplicate
+> branches for 'if' and 'else'. [duplicateBranch]
+>  if (rtd->num_codecs > 1)
+>  ^
+> sound/soc/samsung/snow.c:114:2: note: Found duplicate branches for
+> 'if' and 'else'.
+>  else
+>  ^
+> sound/soc/samsung/snow.c:112:2: note: Found duplicate branches for
+> 'if' and 'else'.
+>  if (rtd->num_codecs > 1)
+>  ^
 > 
-> The initial authors bothered to set ret to -EINVAL and throw a
-> dev_err() message, so it looks like there is a missing return to avoid
-> continuing if the property is missing.
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  sound/soc/samsung/snow.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+> 
 
-Good catch. It's a required property.
-
+Fixes: 7de6b6bc1a58 ("ASoC: samsung: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer")
 Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
 Best regards,

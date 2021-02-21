@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 812023209FF
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 12:32:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12EC0320A07
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Feb 2021 12:33:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0524C1679;
-	Sun, 21 Feb 2021 12:31:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0524C1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 908C91697;
+	Sun, 21 Feb 2021 12:32:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 908C91697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613907137;
-	bh=aT5n6iM4fMxttWsZ9F5StVT2gqR+htc/hSSgfW3r9Mw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Uk2YstSfoXyLnn+gaIADhKuNUpJURgdAwFNvtbIIpCNn3aBdApjD8IqeGzcLlg20a
-	 sK6uLwsBTjoBFu8Cxk8BqGD2FA5J3+G4Ghm6POE4qONzk5AtNK+jXr1n3/or3TgWtC
-	 6uGDtetxBhHU/i/Uqcitgryqtzv7EwtpZCutiPoI=
+	s=default; t=1613907200;
+	bh=8am2Wfeu7o2jRNSplTVndKL/SWb6HzsQxkgeIT6EEkg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KZ2LKl2I0RjM5FvsuGDHA9q9TbNyB3Z5PIekiHk8nn50o9uosZh4V++XuBuwMlQ1V
+	 nr+rK29gDiB1tA2Bcp8oj7d2reMVgotB2vspEWIOIXNWxyWG4CaHO24oWGHIEOCrra
+	 hMshA97WzRE9//X5p6HfJXqJyWrrvBlu3je+QvoY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AD49F801F5;
-	Sun, 21 Feb 2021 12:30:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACB31F80430;
+	Sun, 21 Feb 2021 12:31:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBE93F800F3; Sun, 21 Feb 2021 12:30:43 +0100 (CET)
+ id 71703F8016A; Sun, 21 Feb 2021 12:30:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +34,44 @@ Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E504F800F3
- for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 12:30:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E504F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65139F80082
+ for <alsa-devel@alsa-project.org>; Sun, 21 Feb 2021 12:30:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65139F80082
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="Y26WC8BC"
+ header.b="UORxlXsy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613907040;
+ s=mimecast20190719; t=1613907042;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=MZlTRmZQt9QPuv8Q8awd1An02/w9Dcd5phz5eoWqnTk=;
- b=Y26WC8BCf1UCLIJqDpcAGgxoHVAhnbQ2DFNywHEYCIU0welTWLZmO2ic7aMSWoz/Qh9jB2
- qfoQJJV/hlFBi1eMKC6XQ01CnWHg7pnKtjqzx1Q7g5u5E0jxXmtP9UypuicKghoIU81OR4
- /a1+R2Sz6yJgLyEO2m/3HI23nzTDvSw=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RGhoaiUahRGEqg6YAu1OLbTZWon7ll7ymdptKdOKNCc=;
+ b=UORxlXsyNvK2ZTaxpFuDLtVhygrzBxcUJn1uvWKTB2ZgGl8U2iylEDeBA+lXXFleVDSghR
+ eHhiDHLMs2o11fxu/ft4TX2TQ+oK3hKlW9PupWGCOSMQIVsmqGqnL3+0W0+a2e5ZkT8p3w
+ txMJ0c+/7TEdajybKcYy4lPb/1oju4c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-82-UBIdroTzNGaC9cjTTm0jqA-1; Sun, 21 Feb 2021 06:30:36 -0500
-X-MC-Unique: UBIdroTzNGaC9cjTTm0jqA-1
+ us-mta-152-IpQAVNBeNgqFWX0TVZqZIw-1; Sun, 21 Feb 2021 06:30:38 -0500
+X-MC-Unique: IpQAVNBeNgqFWX0TVZqZIw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2CBFE10066EF;
- Sun, 21 Feb 2021 11:30:35 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0721C291;
+ Sun, 21 Feb 2021 11:30:36 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-87.ams2.redhat.com [10.36.112.87])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B0E55100164C;
- Sun, 21 Feb 2021 11:30:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 743751002391;
+ Sun, 21 Feb 2021 11:30:35 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Jiri Kosina <jikos@kernel.org>,
  Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Subject: [PATCH v2 0/3] HID: elan: Mute LED handling fixes and improvements
-Date: Sun, 21 Feb 2021 12:30:26 +0100
-Message-Id: <20210221113029.103703-1-hdegoede@redhat.com>
+Subject: [PATCH v2 1/3] HID: elan: Silence mute LED errors being logged when
+ the device is unplugged
+Date: Sun, 21 Feb 2021 12:30:27 +0100
+Message-Id: <20210221113029.103703-2-hdegoede@redhat.com>
+In-Reply-To: <20210221113029.103703-1-hdegoede@redhat.com>
+References: <20210221113029.103703-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,30 +94,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
+Being integrated into an USB keyboard-dock the mute LED can go away
+at any time, leading to the following errors:
 
-Here is v2 of my series with mute LED handling fixes and improvements
-for the hid-elan driver.
+[  918.667671] elan 0003:04F3:0755.0002: Failed to set mute led brightness: -19
+[  918.667737] leds elan:red:mute: Setting an LED's brightness failed (-19)
 
-New in v2:
-- Add Marek Behún's Reviewed-by to all patches,thank you for all the
-  reviews Marek.
-- Improve error handling in patch 1/3 to return -EIO when ret != 3 and >= 0
+Fix this by making the following changes:
 
-Regards,
+1. Don't log an error from elan_mute_led_set_brigtness() when
+   ret == -ENODEV
+2. Set the LED_HW_PLUGGABLE flag on the mute LED led_classdev
 
-Hans
+While at it also make sure that elan_mute_led_set_brigtness() returns
+an error (-EIO) when ret != 3 but it is not an error (>= 0).
 
+Reviewed-by: Marek Behún <kabel@kernel.org>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+Changes in v2:
+- Return -EIO when ret != 3 and >= 0
+---
+ drivers/hid/hid-elan.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Hans de Goede (3):
-  HID: elan: Silence mute LED errors being logged when the device is
-    unplugged
-  HID: elan: Set default_trigger for the mute LED
-  HID: elan: Remove elan_mute_led_get_brigtness()
-
- drivers/hid/hid-elan.c | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/hid/hid-elan.c b/drivers/hid/hid-elan.c
+index dae193749d44..473d8528319d 100644
+--- a/drivers/hid/hid-elan.c
++++ b/drivers/hid/hid-elan.c
+@@ -445,8 +445,9 @@ static int elan_mute_led_set_brigtness(struct led_classdev *led_cdev,
+ 	kfree(dmabuf);
+ 
+ 	if (ret != ELAN_LED_REPORT_SIZE) {
+-		hid_err(hdev, "Failed to set mute led brightness: %d\n", ret);
+-		return ret;
++		if (ret != -ENODEV)
++			hid_err(hdev, "Failed to set mute led brightness: %d\n", ret);
++		return ret < 0 ? ret : -EIO;
+ 	}
+ 
+ 	drvdata->mute_led_state = led_state;
+@@ -462,6 +463,7 @@ static int elan_init_mute_led(struct hid_device *hdev)
+ 	mute_led->brightness_get = elan_mute_led_get_brigtness;
+ 	mute_led->brightness_set_blocking = elan_mute_led_set_brigtness;
+ 	mute_led->max_brightness = LED_ON;
++	mute_led->flags = LED_HW_PLUGGABLE;
+ 	mute_led->dev = &hdev->dev;
+ 
+ 	return devm_led_classdev_register(&hdev->dev, mute_led);
 -- 
 2.30.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3EE63212F1
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 10:19:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9BF3212F2
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 10:19:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49F701681;
-	Mon, 22 Feb 2021 10:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49F701681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 583221689;
+	Mon, 22 Feb 2021 10:18:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 583221689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613985540;
-	bh=51qktr0cWIkbzgY7cMj5jbcYpOreisVNCrpZVOB9xiI=;
+	s=default; t=1613985562;
+	bh=mPIMQoySLssiNMPAoXBzUBh0zrEPHBoOjyN57TIFZk8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f6DRMIfZMsN0JxmWh3GmXlgbuJZDH8ln7mrGqpcX/DJuNs4nIJRL3/qGVE7gQYRDx
-	 GdVsOKH5nzaKN391KynqcWVsXzgoLf9T7VVuE3DSbsJucGfndWDVD/Uvb13UdP+zQm
-	 JYPvSk3MRqNbNcMxnQVUuVcXsYbJ9PuhKE6ToduQ=
+	b=mJ+wKBazxwXNYXro0q6I+nf5oD3FO1OPH/EhTIUJwwurqbHauxlXRIETqctzrJLth
+	 C9zVcJldjSoL4nSlYhZ3QWIeUgsdgGgskAAKq1WgxmHuGYwGR6P5cW01flaOmEbpbN
+	 N5OfhcfslYIwq/vr2giAWuZwSzSTpjsPSNMs+iPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD6EBF80431;
-	Mon, 22 Feb 2021 10:16:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 375ECF804D1;
+	Mon, 22 Feb 2021 10:16:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13552F80475; Mon, 22 Feb 2021 10:16:05 +0100 (CET)
+ id 06434F804CF; Mon, 22 Feb 2021 10:16:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C80E9F802E0
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:16:01 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04E3CF804B1
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:16:07 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 70542A0040;
- Mon, 22 Feb 2021 10:16:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 70542A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9F92BA0040;
+ Mon, 22 Feb 2021 10:16:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9F92BA0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1613985361; bh=gvsqeIVKfODXF0gMxDebi5AiXMehLQ2LKSHJQ/legWE=;
+ t=1613985366; bh=Zcjy35NX3u0cZU7A9mmnpYdT0yK56E6DKNorD5BwHC8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PSNhx79bh0afC3+6HhE18oQgCCGb38nme5CEuqfWvQCjxUA8OrgU39lHbVDgZCRA7
- eQ3R6t8GVdm3InqSifyZnYKWW4ywxUEmpBi88XwwrVpTG/0a8wZuAhEWa0O9JSogCh
- tsc8hhfT4XalxY5bT8CIRKIQXL1cmYPuT9WzRufI=
+ b=1N2EbXoVVryxJMytKqE/gdXlN927V4md+UhWqGbvJcabatC4FIBtx8HOsaNlI4x+Y
+ qsyjIoS0ITXHluey9ZuKk2oSOato/w0rK3cAXdzfXeDF0QJQqL9UWxaRMn3zLmwiZf
+ DumfkB10uuccbUl2JduTRVmRJ9cxF6JJ9ctqvodY=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 22 Feb 2021 10:15:56 +0100 (CET)
+ Mon, 22 Feb 2021 10:16:01 +0100 (CET)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 4/5] ALSA: HDA - remove the custom implementation for the
- audio LED trigger
-Date: Mon, 22 Feb 2021 10:15:15 +0100
-Message-Id: <20210222091516.1752662-5-perex@perex.cz>
+Subject: [PATCH v3 5/5] ALSA: control - add sysfs support to the LED trigger
+ module
+Date: Mon, 22 Feb 2021 10:15:16 +0100
+Message-Id: <20210222091516.1752662-6-perex@perex.cz>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210222091516.1752662-1-perex@perex.cz>
 References: <20210222091516.1752662-1-perex@perex.cz>
@@ -79,559 +79,317 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With the new snd-ctl-led module, we have a generic way
-to trigger audio LEDs based on the sound control changes.
+Create SYSFS/devices/virtual/sound/ctl-led tree
+(with SYSFS/class/sound/ctl-led symlink).
 
-Remove the custom implementation from the HDA driver.
+  speaker/
+    +-- mode
+    +-- brightness
+  mic/
+    +-- mode
+    +-- brightness
 
-Move the LED initialization before snd_hda_gen_parse_auto_config()
-call in all drivers to create marked controls there.
+Copy the idea from the HDA driver and allow to set the audio
+LEDs based on the various modes:
+
+- follow mute
+- follow moute (inverted to follow mute)
+- off
+- on
+
+Also, the actual LED state is exposed.
 
 Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- sound/pci/hda/Kconfig           |   4 +-
- sound/pci/hda/hda_codec.c       |  69 ++------------
- sound/pci/hda/hda_generic.c     | 162 +++++---------------------------
- sound/pci/hda/hda_generic.h     |  15 +--
- sound/pci/hda/hda_local.h       |  16 +---
- sound/pci/hda/patch_ca0132.c    |   4 +-
- sound/pci/hda/patch_realtek.c   |   2 +-
- sound/pci/hda/patch_sigmatel.c  |   6 +-
- sound/pci/hda/thinkpad_helper.c |   2 +-
- 9 files changed, 45 insertions(+), 235 deletions(-)
+ sound/core/control_led.c | 183 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 153 insertions(+), 30 deletions(-)
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 90759391cbac..c4360cdbc728 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -221,10 +221,8 @@ comment "Set to Y if you want auto-loading the codec driver"
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 54b0bef2a77f..b8bb8fd46686 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -17,7 +17,23 @@ MODULE_LICENSE("GPL");
+ #define MAX_LED (((SNDRV_CTL_ELEM_ACCESS_MIC_LED - SNDRV_CTL_ELEM_ACCESS_SPK_LED) \
+ 			>> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) + 1)
  
- config SND_HDA_GENERIC
- 	tristate "Enable generic HD-audio codec parser"
--	select NEW_LEDS if SND_HDA_GENERIC_LEDS
-+	select SND_CTL_LED if SND_HDA_GENERIC_LEDS
- 	select LEDS_CLASS if SND_HDA_GENERIC_LEDS
--	select LEDS_TRIGGERS if SND_HDA_GENERIC_LEDS
--	select LEDS_TRIGGER_AUDIO if SND_HDA_GENERIC_LEDS
- 	help
- 	  Say Y or M here to enable the generic HD-audio codec parser
- 	  in snd-hda-intel driver.
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index 9b755062d841..961750b4d56f 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -1952,7 +1952,7 @@ static int add_follower(struct hda_codec *codec,
- int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- 			  unsigned int *tlv, const char * const *followers,
- 			  const char *suffix, bool init_follower_vol,
--			  struct snd_kcontrol **ctl_ret)
-+			  unsigned int access, struct snd_kcontrol **ctl_ret)
- {
- 	struct snd_kcontrol *kctl;
- 	int err;
-@@ -1968,6 +1968,7 @@ int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- 	kctl = snd_ctl_make_virtual_master(name, tlv);
- 	if (!kctl)
- 		return -ENOMEM;
-+	kctl->vd[0].access |= access;
- 	err = snd_hda_ctl_add(codec, 0, kctl);
- 	if (err < 0)
- 		return err;
-@@ -1994,87 +1995,29 @@ int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- }
- EXPORT_SYMBOL_GPL(__snd_hda_add_vmaster);
- 
--/*
-- * mute-LED control using vmaster
-- */
--static int vmaster_mute_mode_info(struct snd_kcontrol *kcontrol,
--				  struct snd_ctl_elem_info *uinfo)
--{
--	static const char * const texts[] = {
--		"On", "Off", "Follow Master"
--	};
--
--	return snd_ctl_enum_info(uinfo, 1, 3, texts);
--}
--
--static int vmaster_mute_mode_get(struct snd_kcontrol *kcontrol,
--				 struct snd_ctl_elem_value *ucontrol)
--{
--	struct hda_vmaster_mute_hook *hook = snd_kcontrol_chip(kcontrol);
--	ucontrol->value.enumerated.item[0] = hook->mute_mode;
--	return 0;
--}
--
--static int vmaster_mute_mode_put(struct snd_kcontrol *kcontrol,
--				 struct snd_ctl_elem_value *ucontrol)
--{
--	struct hda_vmaster_mute_hook *hook = snd_kcontrol_chip(kcontrol);
--	unsigned int old_mode = hook->mute_mode;
--
--	hook->mute_mode = ucontrol->value.enumerated.item[0];
--	if (hook->mute_mode > HDA_VMUTE_FOLLOW_MASTER)
--		hook->mute_mode = HDA_VMUTE_FOLLOW_MASTER;
--	if (old_mode == hook->mute_mode)
--		return 0;
--	snd_hda_sync_vmaster_hook(hook);
--	return 1;
--}
--
--static const struct snd_kcontrol_new vmaster_mute_mode = {
--	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
--	.name = "Mute-LED Mode",
--	.info = vmaster_mute_mode_info,
--	.get = vmaster_mute_mode_get,
--	.put = vmaster_mute_mode_put,
--};
--
- /* meta hook to call each driver's vmaster hook */
- static void vmaster_hook(void *private_data, int enabled)
- {
- 	struct hda_vmaster_mute_hook *hook = private_data;
- 
--	if (hook->mute_mode != HDA_VMUTE_FOLLOW_MASTER)
--		enabled = hook->mute_mode;
- 	hook->hook(hook->codec, enabled);
- }
- 
- /**
-- * snd_hda_add_vmaster_hook - Add a vmaster hook for mute-LED
-+ * snd_hda_add_vmaster_hook - Add a vmaster hw specific hook
-  * @codec: the HDA codec
-  * @hook: the vmaster hook object
-- * @expose_enum_ctl: flag to create an enum ctl
-  *
-- * Add a mute-LED hook with the given vmaster switch kctl.
-- * When @expose_enum_ctl is set, "Mute-LED Mode" control is automatically
-- * created and associated with the given hook.
-+ * Add a hw specific hook (like EAPD) with the given vmaster switch kctl.
-  */
- int snd_hda_add_vmaster_hook(struct hda_codec *codec,
--			     struct hda_vmaster_mute_hook *hook,
--			     bool expose_enum_ctl)
-+			     struct hda_vmaster_mute_hook *hook)
- {
--	struct snd_kcontrol *kctl;
--
- 	if (!hook->hook || !hook->sw_kctl)
- 		return 0;
- 	hook->codec = codec;
--	hook->mute_mode = HDA_VMUTE_FOLLOW_MASTER;
- 	snd_ctl_add_vmaster_hook(hook->sw_kctl, vmaster_hook, hook);
--	if (!expose_enum_ctl)
--		return 0;
--	kctl = snd_ctl_new1(&vmaster_mute_mode, hook);
--	if (!kctl)
--		return -ENOMEM;
--	return snd_hda_ctl_add(codec, 0, kctl);
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(snd_hda_add_vmaster_hook);
- 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index 5e40944e7342..d1979ec39d3e 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -981,6 +981,8 @@ add_control(struct hda_gen_spec *spec, int type, const char *name,
- 	knew->index = cidx;
- 	if (get_amp_nid_(val))
- 		knew->subdevice = HDA_SUBDEV_AMP_FLAG;
-+	if (knew->access == 0)
-+		knew->access = SNDRV_CTL_ELEM_ACCESS_READWRITE;
- 	knew->private_value = val;
- 	return knew;
- }
-@@ -3618,8 +3620,11 @@ static int add_single_cap_ctl(struct hda_codec *codec, const char *label,
- 			   amp_val_replace_channels(ctl, chs));
- 	if (!knew)
- 		return -ENOMEM;
--	if (is_switch)
-+	if (is_switch) {
- 		knew->put = cap_single_sw_put;
-+		if (spec->mic_mute_led)
-+			knew->access |= SNDRV_CTL_ELEM_ACCESS_MIC_LED;
-+	}
- 	if (!inv_dmic)
- 		return 0;
- 
-@@ -3634,8 +3639,11 @@ static int add_single_cap_ctl(struct hda_codec *codec, const char *label,
- 			   amp_val_replace_channels(ctl, 2));
- 	if (!knew)
- 		return -ENOMEM;
--	if (is_switch)
-+	if (is_switch) {
- 		knew->put = cap_single_sw_put;
-+		if (spec->mic_mute_led)
-+			knew->access |= SNDRV_CTL_ELEM_ACCESS_MIC_LED;
-+	}
- 	return 0;
- }
- 
-@@ -3676,6 +3684,8 @@ static int create_bind_cap_vol_ctl(struct hda_codec *codec, int idx,
- 		knew->index = idx;
- 		knew->private_value = sw_ctl;
- 		knew->subdevice = HDA_SUBDEV_AMP_FLAG;
-+		if (spec->mic_mute_led)
-+			knew->access |= SNDRV_CTL_ELEM_ACCESS_MIC_LED;
- 	}
- 	return 0;
- }
-@@ -3917,11 +3927,6 @@ static int create_mute_led_cdev(struct hda_codec *codec,
- 	return devm_led_classdev_register(&codec->core.dev, cdev);
- }
- 
--static void vmaster_update_mute_led(void *private_data, int enabled)
--{
--	ledtrig_audio_set(LED_AUDIO_MUTE, enabled ? LED_OFF : LED_ON);
--}
--
- /**
-  * snd_dha_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
-  * @codec: the HDA codec
-@@ -3945,134 +3950,11 @@ int snd_hda_gen_add_mute_led_cdev(struct hda_codec *codec,
- 	if (spec->vmaster_mute.hook)
- 		codec_err(codec, "vmaster hook already present before cdev!\n");
- 
--	spec->vmaster_mute.hook = vmaster_update_mute_led;
--	spec->vmaster_mute_enum = 1;
-+	spec->vmaster_mute_led = 1;
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(snd_hda_gen_add_mute_led_cdev);
- 
--/*
-- * mic mute LED hook helpers
-- */
--enum {
--	MICMUTE_LED_ON,
--	MICMUTE_LED_OFF,
--	MICMUTE_LED_FOLLOW_CAPTURE,
--	MICMUTE_LED_FOLLOW_MUTE,
--};
--
--static void call_micmute_led_update(struct hda_codec *codec)
--{
--	struct hda_gen_spec *spec = codec->spec;
--	unsigned int val;
--
--	switch (spec->micmute_led.led_mode) {
--	case MICMUTE_LED_ON:
--		val = 1;
--		break;
--	case MICMUTE_LED_OFF:
--		val = 0;
--		break;
--	case MICMUTE_LED_FOLLOW_CAPTURE:
--		val = !!spec->micmute_led.capture;
--		break;
--	case MICMUTE_LED_FOLLOW_MUTE:
--	default:
--		val = !spec->micmute_led.capture;
--		break;
--	}
--
--	if (val == spec->micmute_led.led_value)
--		return;
--	spec->micmute_led.led_value = val;
--	ledtrig_audio_set(LED_AUDIO_MICMUTE,
--			  spec->micmute_led.led_value ? LED_ON : LED_OFF);
--}
--
--static void update_micmute_led(struct hda_codec *codec,
--			       struct snd_kcontrol *kcontrol,
--			       struct snd_ctl_elem_value *ucontrol)
--{
--	struct hda_gen_spec *spec = codec->spec;
--	unsigned int mask;
--
--	if (spec->micmute_led.old_hook)
--		spec->micmute_led.old_hook(codec, kcontrol, ucontrol);
--
--	if (!ucontrol)
--		return;
--	mask = 1U << snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
--	if (!strcmp("Capture Switch", ucontrol->id.name)) {
--		/* TODO: How do I verify if it's a mono or stereo here? */
--		if (ucontrol->value.integer.value[0] ||
--		    ucontrol->value.integer.value[1])
--			spec->micmute_led.capture |= mask;
--		else
--			spec->micmute_led.capture &= ~mask;
--		call_micmute_led_update(codec);
--	}
--}
--
--static int micmute_led_mode_info(struct snd_kcontrol *kcontrol,
--				 struct snd_ctl_elem_info *uinfo)
--{
--	static const char * const texts[] = {
--		"On", "Off", "Follow Capture", "Follow Mute",
--	};
--
--	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(texts), texts);
--}
--
--static int micmute_led_mode_get(struct snd_kcontrol *kcontrol,
--				struct snd_ctl_elem_value *ucontrol)
--{
--	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
--	struct hda_gen_spec *spec = codec->spec;
--
--	ucontrol->value.enumerated.item[0] = spec->micmute_led.led_mode;
--	return 0;
--}
--
--static int micmute_led_mode_put(struct snd_kcontrol *kcontrol,
--				struct snd_ctl_elem_value *ucontrol)
--{
--	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
--	struct hda_gen_spec *spec = codec->spec;
--	unsigned int mode;
--
--	mode = ucontrol->value.enumerated.item[0];
--	if (mode > MICMUTE_LED_FOLLOW_MUTE)
--		mode = MICMUTE_LED_FOLLOW_MUTE;
--	if (mode == spec->micmute_led.led_mode)
--		return 0;
--	spec->micmute_led.led_mode = mode;
--	call_micmute_led_update(codec);
--	return 1;
--}
--
--static const struct snd_kcontrol_new micmute_led_mode_ctl = {
--	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
--	.name = "Mic Mute-LED Mode",
--	.info = micmute_led_mode_info,
--	.get = micmute_led_mode_get,
--	.put = micmute_led_mode_put,
--};
--
--/* Set up the capture sync hook for controlling the mic-mute LED */
--static int add_micmute_led_hook(struct hda_codec *codec)
--{
--	struct hda_gen_spec *spec = codec->spec;
--
--	spec->micmute_led.led_mode = MICMUTE_LED_FOLLOW_MUTE;
--	spec->micmute_led.capture = 0;
--	spec->micmute_led.led_value = 0;
--	spec->micmute_led.old_hook = spec->cap_sync_hook;
--	spec->cap_sync_hook = update_micmute_led;
--	if (!snd_hda_gen_add_kctl(spec, NULL, &micmute_led_mode_ctl))
--		return -ENOMEM;
--	return 0;
--}
--
- /**
-  * snd_dha_gen_add_micmute_led_cdev - Create a LED classdev and enable as mic-mute LED
-  * @codec: the HDA codec
-@@ -4091,6 +3973,7 @@ int snd_hda_gen_add_micmute_led_cdev(struct hda_codec *codec,
- 				     int (*callback)(struct led_classdev *,
- 						     enum led_brightness))
- {
-+	struct hda_gen_spec *spec = codec->spec;
- 	int err;
- 
- 	if (callback) {
-@@ -4101,7 +3984,8 @@ int snd_hda_gen_add_micmute_led_cdev(struct hda_codec *codec,
- 		}
- 	}
- 
--	return add_micmute_led_hook(codec);
-+	spec->mic_mute_led = 1;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(snd_hda_gen_add_micmute_led_cdev);
- #endif /* CONFIG_SND_HDA_GENERIC_LEDS */
-@@ -5060,6 +4944,9 @@ int snd_hda_gen_parse_auto_config(struct hda_codec *codec,
- 
- 	parse_user_hints(codec);
- 
-+	if (spec->vmaster_mute_led || spec->mic_mute_led)
-+		snd_ctl_led_request();
++enum snd_ctl_led_mode {
++	 MODE_FOLLOW_MUTE = 0,
++	 MODE_FOLLOW_ROUTE,
++	 MODE_OFF,
++	 MODE_ON,
++};
 +
- 	if (spec->mixer_nid && !spec->mixer_merge_nid)
- 		spec->mixer_merge_nid = spec->mixer_nid;
- 
-@@ -5291,7 +5178,7 @@ int snd_hda_gen_build_controls(struct hda_codec *codec)
- 	    !snd_hda_find_mixer_ctl(codec, "Master Playback Volume")) {
- 		err = snd_hda_add_vmaster(codec, "Master Playback Volume",
- 					  spec->vmaster_tlv, follower_pfxs,
--					  "Playback Volume");
-+					  "Playback Volume", 0);
- 		if (err < 0)
- 			return err;
- 	}
-@@ -5299,13 +5186,14 @@ int snd_hda_gen_build_controls(struct hda_codec *codec)
- 	    !snd_hda_find_mixer_ctl(codec, "Master Playback Switch")) {
- 		err = __snd_hda_add_vmaster(codec, "Master Playback Switch",
- 					    NULL, follower_pfxs,
--					    "Playback Switch",
--					    true, &spec->vmaster_mute.sw_kctl);
-+					    "Playback Switch", true,
-+					    spec->vmaster_mute_led ?
-+						SNDRV_CTL_ELEM_ACCESS_SPK_LED : 0,
-+					    &spec->vmaster_mute.sw_kctl);
- 		if (err < 0)
- 			return err;
- 		if (spec->vmaster_mute.hook) {
--			snd_hda_add_vmaster_hook(codec, &spec->vmaster_mute,
--						 spec->vmaster_mute_enum);
-+			snd_hda_add_vmaster_hook(codec, &spec->vmaster_mute);
- 			snd_hda_sync_vmaster_hook(&spec->vmaster_mute);
- 		}
- 	}
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index 0886bc81f40b..d4dd1b8a2e7e 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -84,15 +84,6 @@ struct badness_table {
- extern const struct badness_table hda_main_out_badness;
- extern const struct badness_table hda_extra_out_badness;
- 
--struct hda_micmute_hook {
--	unsigned int led_mode;
--	unsigned int capture;
--	unsigned int led_value;
--	void (*old_hook)(struct hda_codec *codec,
--			 struct snd_kcontrol *kcontrol,
--			 struct snd_ctl_elem_value *ucontrol);
--};
--
- struct hda_gen_spec {
- 	char stream_name_analog[32];	/* analog PCM stream */
- 	const struct hda_pcm_stream *stream_analog_playback;
-@@ -229,7 +220,8 @@ struct hda_gen_spec {
- 	unsigned int inv_dmic_split:1; /* inverted dmic w/a for conexant */
- 	unsigned int own_eapd_ctl:1; /* set EAPD by own function */
- 	unsigned int keep_eapd_on:1; /* don't turn off EAPD automatically */
--	unsigned int vmaster_mute_enum:1; /* add vmaster mute mode enum */
-+	unsigned int vmaster_mute_led:1; /* add SPK-LED flag to vmaster mute switch */
-+	unsigned int mic_mute_led:1; /* add MIC-LED flag to capture mute switch */
- 	unsigned int indep_hp:1; /* independent HP supported */
- 	unsigned int prefer_hp_amp:1; /* enable HP amp for speaker if any */
- 	unsigned int add_stereo_mix_input:2; /* add aamix as a capture src */
-@@ -285,9 +277,6 @@ struct hda_gen_spec {
- 			      struct snd_kcontrol *kcontrol,
- 			      struct snd_ctl_elem_value *ucontrol);
- 
--	/* mic mute LED hook; called via cap_sync_hook */
--	struct hda_micmute_hook micmute_led;
--
- 	/* PCM hooks */
- 	void (*pcm_playback_hook)(struct hda_pcm_stream *hinfo,
- 				  struct hda_codec *codec,
-diff --git a/sound/pci/hda/hda_local.h b/sound/pci/hda/hda_local.h
-index 5beb8aa44ecd..06d4486a4961 100644
---- a/sound/pci/hda/hda_local.h
-+++ b/sound/pci/hda/hda_local.h
-@@ -131,21 +131,15 @@ struct snd_kcontrol *snd_hda_find_mixer_ctl(struct hda_codec *codec,
- int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- 			  unsigned int *tlv, const char * const *followers,
- 			  const char *suffix, bool init_follower_vol,
--			  struct snd_kcontrol **ctl_ret);
--#define snd_hda_add_vmaster(codec, name, tlv, followers, suffix) \
--	__snd_hda_add_vmaster(codec, name, tlv, followers, suffix, true, NULL)
-+			  unsigned int access, struct snd_kcontrol **ctl_ret);
-+#define snd_hda_add_vmaster(codec, name, tlv, followers, suffix, access) \
-+	__snd_hda_add_vmaster(codec, name, tlv, followers, suffix, true, access, NULL)
- int snd_hda_codec_reset(struct hda_codec *codec);
- void snd_hda_codec_register(struct hda_codec *codec);
- void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
- 
- #define snd_hda_regmap_sync(codec)	snd_hdac_regmap_sync(&(codec)->core)
- 
--enum {
--	HDA_VMUTE_OFF,
--	HDA_VMUTE_ON,
--	HDA_VMUTE_FOLLOW_MASTER,
--};
--
- struct hda_vmaster_mute_hook {
- 	/* below two fields must be filled by the caller of
- 	 * snd_hda_add_vmaster_hook() beforehand
-@@ -153,13 +147,11 @@ struct hda_vmaster_mute_hook {
- 	struct snd_kcontrol *sw_kctl;
- 	void (*hook)(void *, int);
- 	/* below are initialized automatically */
--	unsigned int mute_mode; /* HDA_VMUTE_XXX */
- 	struct hda_codec *codec;
+ struct snd_ctl_led {
++	struct device dev;
++	struct list_head controls;
++	const char *name;
++	unsigned int group;
++	enum led_audio trigger_type;
++	enum snd_ctl_led_mode mode;
++};
++
++struct snd_ctl_led_ctl {
+ 	struct list_head list;
+ 	struct snd_card *card;
+ 	struct snd_kcontrol *kctl;
+@@ -25,8 +41,21 @@ struct snd_ctl_led {
  };
  
- int snd_hda_add_vmaster_hook(struct hda_codec *codec,
--			     struct hda_vmaster_mute_hook *hook,
--			     bool expose_enum_ctl);
-+			     struct hda_vmaster_mute_hook *hook);
- void snd_hda_sync_vmaster_hook(struct hda_vmaster_mute_hook *hook);
+ static DEFINE_MUTEX(snd_ctl_led_mutex);
+-static struct list_head snd_ctl_led_controls[MAX_LED];
+ static bool snd_ctl_led_card_valid[SNDRV_CARDS];
++static struct snd_ctl_led snd_ctl_leds[MAX_LED] = {
++	{
++		.name = "speaker",
++		.group = (SNDRV_CTL_ELEM_ACCESS_SPK_LED >> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) - 1,
++		.trigger_type = LED_AUDIO_MUTE,
++		.mode = MODE_FOLLOW_MUTE,
++	},
++	{
++		.name = "mic",
++		.group = (SNDRV_CTL_ELEM_ACCESS_MIC_LED >> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) - 1,
++		.trigger_type = LED_AUDIO_MICMUTE,
++		.mode = MODE_FOLLOW_MUTE,
++	},
++};
  
- /* amp value bits */
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 7e62aed172a9..bbcef0869a59 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -7041,11 +7041,11 @@ static int ca0132_build_controls(struct hda_codec *codec)
- 					spec->tlv);
- 		snd_hda_add_vmaster(codec, "Master Playback Volume",
- 					spec->tlv, ca0132_alt_follower_pfxs,
--					"Playback Volume");
-+					"Playback Volume", 0);
- 		err = __snd_hda_add_vmaster(codec, "Master Playback Switch",
- 					    NULL, ca0132_alt_follower_pfxs,
- 					    "Playback Switch",
--					    true, &spec->vmaster_mute.sw_kctl);
-+					    true, 0, &spec->vmaster_mute.sw_kctl);
- 		if (err < 0)
- 			return err;
- 	}
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 52907506e16e..bc1b268a5289 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -292,7 +292,7 @@ static void alc_fixup_gpio4(struct hda_codec *codec,
- static void alc_fixup_micmute_led(struct hda_codec *codec,
- 				  const struct hda_fixup *fix, int action)
- {
--	if (action == HDA_FIXUP_ACT_PROBE)
-+	if (action == HDA_FIXUP_ACT_PRE_PROBE)
- 		snd_hda_gen_add_micmute_led_cdev(codec, NULL);
+ #define UPDATE_ROUTE(route, cb) \
+ 	do { \
+@@ -46,15 +75,15 @@ static inline unsigned int group_to_access(unsigned int group)
+ 	return (group + 1) << SNDRV_CTL_ELEM_ACCESS_LED_SHIFT;
  }
  
-diff --git a/sound/pci/hda/patch_sigmatel.c b/sound/pci/hda/patch_sigmatel.c
-index c662431bf13a..3bd592e126a3 100644
---- a/sound/pci/hda/patch_sigmatel.c
-+++ b/sound/pci/hda/patch_sigmatel.c
-@@ -4277,6 +4277,9 @@ static int stac_parse_auto_config(struct hda_codec *codec)
- 
- 	spec->gen.automute_hook = stac_update_outputs;
- 
-+	if (spec->gpio_led)
-+		snd_hda_gen_add_mute_led_cdev(codec, stac_vmaster_hook);
-+
- 	err = snd_hda_gen_parse_auto_config(codec, &spec->gen.autocfg);
- 	if (err < 0)
- 		return err;
-@@ -4318,9 +4321,6 @@ static int stac_parse_auto_config(struct hda_codec *codec)
- 	}
- #endif
- 
--	if (spec->gpio_led)
--		snd_hda_gen_add_mute_led_cdev(codec, stac_vmaster_hook);
--
- 	if (spec->aloopback_ctl &&
- 	    snd_hda_get_bool_hint(codec, "loopback") == 1) {
- 		unsigned int wr_verb =
-diff --git a/sound/pci/hda/thinkpad_helper.c b/sound/pci/hda/thinkpad_helper.c
-index 6698ae241efc..de4d8deed102 100644
---- a/sound/pci/hda/thinkpad_helper.c
-+++ b/sound/pci/hda/thinkpad_helper.c
-@@ -18,7 +18,7 @@ static bool is_thinkpad(struct hda_codec *codec)
- static void hda_fixup_thinkpad_acpi(struct hda_codec *codec,
- 				    const struct hda_fixup *fix, int action)
+-static struct list_head *snd_ctl_led_controls_by_access(unsigned int access)
++static struct snd_ctl_led *snd_ctl_led_get_by_access(unsigned int access)
  {
--	if (action == HDA_FIXUP_ACT_PROBE) {
-+	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
- 		if (!is_thinkpad(codec))
- 			return;
- 		snd_hda_gen_add_mute_led_cdev(codec, NULL);
+ 	unsigned int group = access_to_group(access);
+ 	if (group >= MAX_LED)
+ 		return NULL;
+-	return &snd_ctl_led_controls[group];
++	return &snd_ctl_leds[group];
+ }
+ 
+-static int snd_ctl_led_get(struct snd_ctl_led *lctl)
++static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl)
+ {
+ 	struct snd_kcontrol *kctl = lctl->kctl;
+ 	struct snd_ctl_elem_info info;
+@@ -90,22 +119,14 @@ static int snd_ctl_led_get(struct snd_ctl_led *lctl)
+ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+ 				  struct snd_kcontrol *kctl, unsigned int ioff)
+ {
+-	struct list_head *controls;
+-	struct snd_ctl_led *lctl;
+-	enum led_audio led_trigger_type;
++	struct snd_ctl_led *led;
++	struct snd_ctl_led_ctl *lctl;
+ 	int route;
+ 	bool found;
+ 
+-	controls = snd_ctl_led_controls_by_access(access);
+-	if (!controls)
++	led = snd_ctl_led_get_by_access(access);
++	if (!led)
+ 		return;
+-	if (access == SNDRV_CTL_ELEM_ACCESS_SPK_LED) {
+-		led_trigger_type = LED_AUDIO_MUTE;
+-	} else if (access == SNDRV_CTL_ELEM_ACCESS_MIC_LED) {
+-		led_trigger_type = LED_AUDIO_MICMUTE;
+-	} else {
+-		return;
+-	}
+ 	route = -1;
+ 	found = false;
+ 	mutex_lock(&snd_ctl_led_mutex);
+@@ -114,7 +135,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+ 		mutex_unlock(&snd_ctl_led_mutex);
+ 		return;
+ 	}
+-	list_for_each_entry(lctl, controls, list) {
++	list_for_each_entry(lctl, &led->controls, list) {
+ 		if (lctl->kctl == kctl && lctl->index_offset == ioff)
+ 			found = true;
+ 		UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+@@ -125,27 +146,33 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+ 			lctl->card = card;
+ 			lctl->kctl = kctl;
+ 			lctl->index_offset = ioff;
+-			list_add(&lctl->list, controls);
++			list_add(&lctl->list, &led->controls);
+ 			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+ 		}
+ 	}
+ 	mutex_unlock(&snd_ctl_led_mutex);
++	switch (led->mode) {
++	case MODE_OFF:		route = 1; break;
++	case MODE_ON:		route = 0; break;
++	case MODE_FOLLOW_ROUTE:	if (route >= 0) route ^= 1; break;
++	case MODE_FOLLOW_MUTE:	/* noop */ break;
++	}
+ 	if (route >= 0)
+-		ledtrig_audio_set(led_trigger_type, route ? LED_OFF : LED_ON);
++		ledtrig_audio_set(led->trigger_type, route ? LED_OFF : LED_ON);
+ }
+ 
+ static void snd_ctl_led_remove(struct snd_kcontrol *kctl, unsigned int ioff)
+ {
+ 	struct snd_kcontrol_volatile *vd;
+-	struct list_head *controls;
+-	struct snd_ctl_led *lctl;
++	struct snd_ctl_led *led;
++	struct snd_ctl_led_ctl *lctl;
+ 
+ 	vd = &kctl->vd[ioff];
+-	controls = snd_ctl_led_controls_by_access(vd->access);
+-	if (!controls)
++	led = snd_ctl_led_get_by_access(vd->access);
++	if (!led)
+ 		return;
+ 	mutex_lock(&snd_ctl_led_mutex);
+-	list_for_each_entry(lctl, controls, list)
++	list_for_each_entry(lctl, &led->controls, list)
+ 		if (lctl->kctl == kctl && lctl->index_offset == ioff) {
+ 			list_del(&lctl->list);
+ 			kfree(lctl);
+@@ -182,13 +209,13 @@ static void snd_ctl_led_refresh(void)
+ static void snd_ctl_led_clean(struct snd_card *card)
+ {
+ 	unsigned int group;
+-	struct list_head *controls;
+-	struct snd_ctl_led *lctl;
++	struct snd_ctl_led *led;
++	struct snd_ctl_led_ctl *lctl;
+ 
+ 	for (group = 0; group < MAX_LED; group++) {
+-		controls = &snd_ctl_led_controls[group];
++		led = &snd_ctl_leds[group];
+ repeat:
+-		list_for_each_entry(lctl, controls, list)
++		list_for_each_entry(lctl, &led->controls, list)
+ 			if (!card || lctl->card == card) {
+ 				list_del(&lctl->list);
+ 				kfree(lctl);
+@@ -224,6 +251,82 @@ static void snd_ctl_led_disconnect(struct snd_card *card)
+ 	snd_ctl_led_refresh();
+ }
+ 
++/*
++ * sysfs
++ */
++
++static ssize_t show_mode(struct device *dev,
++			 struct device_attribute *attr, char *buf)
++{
++	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
++	const char *str;
++
++	switch (led->mode) {
++	case MODE_FOLLOW_MUTE:	str = "follow-mute"; break;
++	case MODE_FOLLOW_ROUTE:	str = "follow-route"; break;
++	case MODE_ON:		str = "on"; break;
++	case MODE_OFF:		str = "off"; break;
++	}
++	return sprintf(buf, "%s\n", str);
++}
++
++static ssize_t store_mode(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
++{
++	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
++	char _buf[16];
++	size_t l = min(count, sizeof(_buf) - 1) + 1;
++	enum snd_ctl_led_mode mode;
++
++	memcpy(_buf, buf, l);
++	_buf[l] = '\0';
++	if (strstr(_buf, "mute"))
++		mode = MODE_FOLLOW_MUTE;
++	else if (strstr(_buf, "route"))
++		mode = MODE_FOLLOW_ROUTE;
++	else if (strncmp(_buf, "off", 3) == 0 || strncmp(_buf, "0", 1) == 0)
++		mode = MODE_OFF;
++	else if (strncmp(_buf, "on", 2) == 0 || strncmp(_buf, "1", 1) == 0)
++		mode = MODE_ON;
++	else
++		return count;
++
++	mutex_lock(&snd_ctl_led_mutex);
++	led->mode = mode;
++	mutex_unlock(&snd_ctl_led_mutex);
++
++	snd_ctl_led_set_state(NULL, group_to_access(led->group), NULL, 0);
++	return count;
++}
++
++static ssize_t show_brightness(struct device *dev,
++			       struct device_attribute *attr, char *buf)
++{
++	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
++
++	return sprintf(buf, "%u\n", ledtrig_audio_get(led->trigger_type));
++}
++
++static DEVICE_ATTR(mode, 0644, show_mode, store_mode);
++static DEVICE_ATTR(brightness, 0444, show_brightness, NULL);
++
++static struct attribute *snd_ctl_led_dev_attrs[] = {
++	&dev_attr_mode.attr,
++	&dev_attr_brightness.attr,
++	NULL,
++};
++
++static const struct attribute_group snd_ctl_led_dev_attr_group = {
++	.attrs = snd_ctl_led_dev_attrs,
++};
++
++static const struct attribute_group *snd_ctl_led_dev_attr_groups[] = {
++	&snd_ctl_led_dev_attr_group,
++	NULL,
++};
++
++static struct device snd_ctl_led_dev;
++
+ /*
+  * Control layer registration
+  */
+@@ -236,16 +339,36 @@ static struct snd_ctl_layer_ops snd_ctl_led_lops = {
+ 
+ static int __init snd_ctl_led_init(void)
+ {
++	struct snd_ctl_led *led;
+ 	unsigned int group;
+ 
+-	for (group = 0; group < MAX_LED; group++)
+-		INIT_LIST_HEAD(&snd_ctl_led_controls[group]);
++	device_initialize(&snd_ctl_led_dev);
++	snd_ctl_led_dev.class = sound_class;
++	dev_set_name(&snd_ctl_led_dev, "ctl-led");
++	if (device_add(&snd_ctl_led_dev)) {
++		put_device(&snd_ctl_led_dev);
++		return -ENOMEM;
++	}
++	for (group = 0; group < MAX_LED; group++) {
++		led = &snd_ctl_leds[group];
++		INIT_LIST_HEAD(&led->controls);
++		device_initialize(&led->dev);
++		led->dev.parent = &snd_ctl_led_dev;
++		led->dev.groups = snd_ctl_led_dev_attr_groups;
++		dev_set_name(&led->dev, led->name);
++		if (device_add(&led->dev)) {
++			put_device(&led->dev);
++			device_del(&snd_ctl_led_dev);
++			return -ENOMEM;
++		}
++	}
+ 	snd_ctl_register_layer(&snd_ctl_led_lops);
+ 	return 0;
+ }
+ 
+ static void __exit snd_ctl_led_exit(void)
+ {
++	device_del(&snd_ctl_led_dev);
+ 	snd_ctl_disconnect_layer(&snd_ctl_led_lops);
+ 	snd_ctl_led_clean(NULL);
+ }
 -- 
 2.29.2

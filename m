@@ -2,59 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BB0322187
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 22:37:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8C14322177
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 22:35:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 930DD166A;
-	Mon, 22 Feb 2021 22:36:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 930DD166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 415901662;
+	Mon, 22 Feb 2021 22:34:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 415901662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614029842;
-	bh=k7P2dmXbfqZ1Vvm0f+KEu3jfA1SdV9t/WKyPWVbnF7w=;
+	s=default; t=1614029706;
+	bh=KPw1p2Df5ULTir8YpcDNyO2I6BZIlzSxIXh3Hnuyu1Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EXtSZM0Ro80etVZnp15GCdu1Lpaf2s0PbASrVX3XIJ5ZL+KKAHHCG6O1AyHv+8Yn0
-	 bkoL4QIuOTsfdxcgIoMXfj3v1qYBcBr39kFZ3/EdC8dnmu++ama4rTRH5fOvyShc3m
-	 0ZwjZMXwpesqMEzU3Z1bbYyuWEMejYseAXD8EpHA=
+	b=TUHtttV9RSlXIOLmYODLP7C36nt8Crktq/TUeAzt78FBg0pL51GE3Q6iMVbyoKgUX
+	 +P2+FVV6oUjShWBVkTEZbfvey1hEVBKNs0qmnVAnq8feDlp4iNB0KsUuI+53qi1y3S
+	 QKlf2LG903nvWxk4Rv4HQ3psLY5yJWhPfJ9JObrA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F105F804AC;
-	Mon, 22 Feb 2021 22:33:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF340F8026F;
+	Mon, 22 Feb 2021 22:33:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D2E1F8022B; Mon, 22 Feb 2021 22:33:38 +0100 (CET)
+ id 428A0F8026F; Mon, 22 Feb 2021 22:33:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.3 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ TVD_SUBJ_WIPE_DEBT,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AFC1F80249
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 22:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AFC1F80249
-IronPort-SDR: UeoHgN3mFgpqhxOBdPtBPv1Jkeen1/TTTt3PlMQVMDFQPQhSY5FEwAc86HqD752uV4bKbNhhBY
- mVjvDVA83jvw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="171740007"
-X-IronPort-AV: E=Sophos;i="5.81,198,1610438400"; d="scan'208";a="171740007"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E713FF80154
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 22:33:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E713FF80154
+IronPort-SDR: vFrMrDcR8r8ELN/SBDk7QP4J6XNe075DzEOKeFEzuXH4dyfx6wwZGYs+3Mk3jU92alJVdaYss7
+ iH1c9S9TnSLA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="172256614"
+X-IronPort-AV: E=Sophos;i="5.81,198,1610438400"; d="scan'208";a="172256614"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Feb 2021 13:33:22 -0800
-IronPort-SDR: 3Qw9aSttdlOi39Qg7QUQFy5+w7M0mBBHOuvWOHV4BTBzDXvpQUbIUxDo3s2cmp23Wv46XQo9Ks
- QMeLsGEhkgDA==
-X-IronPort-AV: E=Sophos;i="5.81,198,1610438400"; d="scan'208";a="423270725"
+IronPort-SDR: UFEy7pKuZZ/kjU+JvFkd6oQC9cCvSzUyVog3KC+NJ0uebBqK44hHPoowIvgXOpsEpICXL8pTQ5
+ ZrNOlFurdPoQ==
+X-IronPort-AV: E=Sophos;i="5.81,198,1610438400"; d="scan'208";a="423270729"
 Received: from sspurohi-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.54.136])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Feb 2021 13:33:19 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 5/6] ASoC: samsung: snow: remove useless test
-Date: Mon, 22 Feb 2021 15:33:05 -0600
-Message-Id: <20210222213306.22654-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 6/6] ASoC: samsung: tm2_wm5510: remove shadowed variable
+Date: Mon, 22 Feb 2021 15:33:06 -0600
+Message-Id: <20210222213306.22654-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210222213306.22654-1-pierre-louis.bossart@linux.intel.com>
 References: <20210222213306.22654-1-pierre-louis.bossart@linux.intel.com>
@@ -79,42 +79,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 cppcheck warning:
 
-sound/soc/samsung/snow.c:112:2: style:inconclusive: Found duplicate
-branches for 'if' and 'else'. [duplicateBranch]
- if (rtd->num_codecs > 1)
- ^
-sound/soc/samsung/snow.c:114:2: note: Found duplicate branches for
-'if' and 'else'.
- else
- ^
-sound/soc/samsung/snow.c:112:2: note: Found duplicate branches for
-'if' and 'else'.
- if (rtd->num_codecs > 1)
- ^
+sound/soc/samsung/tm2_wm5110.c:552:26: style: Local variable 'args'
+shadows outer variable [shadowVariable]
+  struct of_phandle_args args;
+                         ^
+sound/soc/samsung/tm2_wm5110.c:504:25: note: Shadowed declaration
+ struct of_phandle_args args;
+                        ^
+sound/soc/samsung/tm2_wm5110.c:552:26: note: Shadow variable
+  struct of_phandle_args args;
+                         ^
+Move the top-level variable to the lower scope where it's needed.
 
-Fixes: 7de6b6bc1a58 ("ASoC: samsung: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer")
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/samsung/snow.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/samsung/tm2_wm5110.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/samsung/snow.c b/sound/soc/samsung/snow.c
-index 989af624dd11..6da674e901ca 100644
---- a/sound/soc/samsung/snow.c
-+++ b/sound/soc/samsung/snow.c
-@@ -109,10 +109,7 @@ static int snow_late_probe(struct snd_soc_card *card)
- 	rtd = snd_soc_get_pcm_runtime(card, &card->dai_link[0]);
+diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
+index 125e07f65d2b..84c2c63d5a87 100644
+--- a/sound/soc/samsung/tm2_wm5110.c
++++ b/sound/soc/samsung/tm2_wm5110.c
+@@ -501,7 +501,6 @@ static int tm2_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct snd_soc_card *card = &tm2_card;
+ 	struct tm2_machine_priv *priv;
+-	struct of_phandle_args args;
+ 	struct snd_soc_dai_link *dai_link;
+ 	int num_codecs, ret, i;
  
- 	/* In the multi-codec case codec_dais 0 is MAX98095 and 1 is HDMI. */
--	if (rtd->num_codecs > 1)
--		codec_dai = asoc_rtd_to_codec(rtd, 0);
--	else
--		codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	codec_dai = asoc_rtd_to_codec(rtd, 0);
+@@ -585,6 +584,8 @@ static int tm2_probe(struct platform_device *pdev)
+ 	}
  
- 	/* Set the MCLK rate for the codec */
- 	return snd_soc_dai_set_sysclk(codec_dai, 0,
+ 	if (num_codecs > 1) {
++		struct of_phandle_args args;
++
+ 		/* HDMI DAI link (I2S1) */
+ 		i = card->num_links - 1;
+ 
 -- 
 2.25.1
 

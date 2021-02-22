@@ -2,124 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 287C2324F2E
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 12:29:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EE69324F2F
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 12:29:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4677B16A0;
-	Thu, 25 Feb 2021 12:28:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4677B16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2D0016A3;
+	Thu, 25 Feb 2021 12:29:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2D0016A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614252580;
-	bh=b0PG0w5bkyhQiXBEA3gu5ztJlKe8IQBZFBD9qeIA77o=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WI5ttldg81B8MNWn6WoWrtjZS+GSfvcOHjvlLieSl/JvKgqXCvkWKgjfYsKic9q/7
-	 /bBJcegJpdThYLEcwe3W4vMLPB+awP5MtdRV1E9Q41b2IqYJomr+lrmgwG6rn/akEc
-	 3J6w3TzAT2UrSQiq5oJL6W/6+6R9mElfA1otifoQ=
+	s=default; t=1614252596;
+	bh=SnQsFkEbxqH2EVertjyr9tWw9RhQwDeeBx3bP9SWN7g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=N1nl+/ibWkJRljxuhuW8yWBuiXD226BSiW/h4fUuJyf6EGuDP39H3nYlCzemBaEfI
+	 2yT3i4RMlc4W/SsPY0BRwgE3gCH7UtiEr3ixtzq6kxdIXLsWFtdBxV9yyUh0bW2wHS
+	 j9vA+obsP05Vvp8FHFeTSDIoApIeDrk2Bwzz5Gyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F94DF804AA;
+	by alsa1.perex.cz (Postfix) with ESMTP id D577FF804AB;
 	Thu, 25 Feb 2021 12:25:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1672DF8016C; Mon, 22 Feb 2021 17:37:01 +0100 (CET)
+ id D3D0FF8016C; Mon, 22 Feb 2021 20:42:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03963F800CE
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:36:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03963F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2477F80082
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 20:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2477F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="JgIAcXbm"
-Received: by mail-ot1-x334.google.com with SMTP id c16so12595707otp.0
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 08:36:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=CQtzj2ET+OspvcT7VasFUJh31XI2DgueE7K7chQefu0=;
- b=JgIAcXbmqnUtAzeQggrQMFDw+iRD7712f5b6XLlsNpGFq/2OH71ZR8eVPcYSvV8O9Z
- Q4ZFhr/HY3qIL2VVw5am2ZXMqQjcHv6oQm57icBzxpF2r/H6pUN28Ic0UVcMNAWR0oM3
- Nk4pk+06r39DoxUQo5VbU8V6VX0ewSDT/6fu0=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="XnlFPzGD"
+Received: by mail-pl1-x62e.google.com with SMTP id a24so8366023plm.11
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 11:42:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vq/LjtkFh9pERziNSLl6ylHhs+PEljKyW7ISagnaboE=;
+ b=XnlFPzGDm2iVBbnCctLYiQ0ZZVvR0bP9dNZwKJQG5BBdmWwo1WppTcH4qDHyV6SIlu
+ vZbUPQkyhNZLNJee5cvHVsD6fAzt6mQFMW0RxPkDctKiWe9bxZTncWKlKbRNQBf6bTvS
+ g2f6GWr6CU5cd5jM84+s7kWAcyZvDTznUyW6GGI/z51iiVutA3gI/Sn5p6TgmqBSgfIn
+ NIh4mjgOxc9jQ/RbsFk+9tnMe8KATAaoDDJ2bve/k7/4+henrRIymoe6D20iu2unXXsx
+ +E8DQbc/aysGY8o2nm2rhHFPw2OkmYlHC35xBa9VzYAgEhju5SIR4q1+cjiHK4aJ7zJc
+ nfow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=CQtzj2ET+OspvcT7VasFUJh31XI2DgueE7K7chQefu0=;
- b=HrkzxhZYvZmqGEIOqUNvWnQ0RUjlwYA8uJE2EZI8XsFA7jh8lwXK6RpTRfyJdCDtNZ
- CT9rwyrVocFULuzFcIUK4J4GFJrg83Pmbx7dNqBUr7OSdlJ0XS5rW44Wg8Xbp57+piMY
- eanE6p306l6TZ/LPUcgCKrKuPsCd8zcFJaNWQ3RCs482raiP726PKPNKfhZKC/0D7Fw5
- YA4dPJmIz4BpGU6EwUeM0jZSRbPcMySM3sWF1X8O0a1sgZgLaaIdi5M2n4ZVA3KnQD+q
- 3XLXEyhikK/Xi68j4HlLJ634YLZD2GYDr/KbXAZX+IexzA6cHtgvLNVuanicb+QWp3+S
- jm8A==
-X-Gm-Message-State: AOAM5322OV1FlORCM5ruyPXkwfClot5NPP+c0SiqCq42tR9cjhnY4uIS
- Gq/GARZuwfXJCZqz06Ml9RP0Tg==
-X-Google-Smtp-Source: ABdhPJyA692d/UkhfnySsVsus41uILuIidqyduT1DxwFO8wUlVI27VDOIjP5WOhWxUUsjwOOYq7M6Q==
-X-Received: by 2002:a05:6830:314d:: with SMTP id
- c13mr16134049ots.124.1614011814286; 
- Mon, 22 Feb 2021 08:36:54 -0800 (PST)
-Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
- [24.9.64.241])
- by smtp.gmail.com with ESMTPSA id 7sm3712035oth.38.2021.02.22.08.36.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Feb 2021 08:36:53 -0800 (PST)
-Subject: Re: [PATCH 00/20] Manual replacement of all strlcpy in favor of
- strscpy
-To: Romain Perier <romain.perier@gmail.com>, Kees Cook
- <keescook@chromium.org>, kernel-hardening@lists.openwall.com,
- Tejun Heo <tj@kernel.org>, Zefan Li <lizefan.x@bytedance.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Jiri Pirko <jiri@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mimi Zohar <zohar@linux.ibm.com>, Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>, "J. Bruce Fields" <bfields@fieldses.org>,
- Chuck Lever <chuck.lever@oracle.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Jessica Yu <jeyu@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Steffen Maier <maier@linux.ibm.com>, Benjamin Block <bblock@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Jiri Slaby <jirislaby@kernel.org>, Felipe Balbi <balbi@kernel.org>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>
-References: <20210222151231.22572-1-romain.perier@gmail.com>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <936bcf5e-2006-7643-7804-9efa318b3e2b@linuxfoundation.org>
-Date: Mon, 22 Feb 2021 09:36:51 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ bh=vq/LjtkFh9pERziNSLl6ylHhs+PEljKyW7ISagnaboE=;
+ b=YhBw6IKMY+SN7cwq2Drdq5fm7ip6OB6BZUQdd68XDRaSQaINfD1p/wFr7/Z0T3Xf3y
+ tpFzGzA58/Gz72ZEnSylpiE1eVeB408Xs+9/i3LrqSSqASiAppK4Fx9QaRPE7LhwMwG2
+ BwKKl6IVf8OIMalNi26PSGcDkcEW7hkXfW8l5kPdMcy4YRdD0ZoA+/JAmmHlopkFGdUz
+ 8Kt55RemuyEi0KxqGsEA+oSvVPVZZpwBefySumECGQ9wrsUZqzjClhgavPCkrFenoW55
+ skn/X4Cz+UY+lcj6KG0tBY+ENXRkW4m2nJQft44gkhF6Q70uthGcOA0/UIRenjm6CFEP
+ LlOw==
+X-Gm-Message-State: AOAM531oJLBlIVmbx+NeEHo2TcLtOqKxTsYd7qdYBDDcmptK1ycow8Qe
+ mR/m/m3qZ+0Y6oyJJHLuwl8=
+X-Google-Smtp-Source: ABdhPJwYItbZQJc4+/MmJCXyy1YmB7Y8ohzyJLyZa08XcyTi4YjVuF8Iz8/umZ7XfJPtXaj4u/NhQg==
+X-Received: by 2002:a17:90a:ad4a:: with SMTP id
+ w10mr16495041pjv.112.1614022932721; 
+ Mon, 22 Feb 2021 11:42:12 -0800 (PST)
+Received: from localhost ([103.106.200.56])
+ by smtp.gmail.com with ESMTPSA id c23sm19578464pfi.47.2021.02.22.11.42.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Feb 2021 11:42:11 -0800 (PST)
+From: Rajesh Kumbhakar <sssraj.sssraj@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	sfr@canb.auug.org.au
+Subject: [PATCH] sound: core: fixed coding style errors
+Date: Mon, 22 Feb 2021 11:41:56 -0800
+Message-Id: <20210222194156.26758-1-sssraj.sssraj@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210222151231.22572-1-romain.perier@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 25 Feb 2021 12:25:30 +0100
-Cc: linux-hwmon@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-scsi@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-m68k@lists.linux-m68k.org,
- target-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, cgroups@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-media@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Rajesh Kumbhakar <sssraj.sssraj@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,24 +101,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/22/21 8:12 AM, Romain Perier wrote:
-> strlcpy() copy a C-String into a sized buffer, the result is always a
-> valid NULL-terminated that fits in the buffer, howerver it has severals
-> issues. It reads the source buffer first, which is dangerous if it is non
-> NULL-terminated or if the corresponding buffer is unbounded. Its safe
-> replacement is strscpy(), as suggested in the deprecated interface [1].
-> 
-> We plan to make this contribution in two steps:
-> - Firsly all cases of strlcpy's return value are manually replaced by the
->    corresponding calls of strscpy() with the new handling of the return
->    value (as the return code is different in case of error).
-> - Then all other cases are automatically replaced by using coccinelle.
-> 
+fixing ERROR: "foo * bar" should be "foo *bar"
+fixing WARNING: Missing a blank line after declarations
 
-Cool. A quick check shows me 1031 strscpy() calls with no return
-checks. All or some of these probably need to be reviewed and add
-return checks. Is this something that is in the plan to address as
-part of this work?
+Signed-off-by: Rajesh Kumbhakar <sssraj.sssraj@gmail.com>
+---
+ sound/core/hwdep_compat.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-thanks,
--- Shuah
+diff --git a/sound/core/hwdep_compat.c b/sound/core/hwdep_compat.c
+index a0b76706c..d8624a14a 100644
+--- a/sound/core/hwdep_compat.c
++++ b/sound/core/hwdep_compat.c
+@@ -36,11 +36,13 @@ enum {
+ 	SNDRV_HWDEP_IOCTL_DSP_LOAD32   = _IOW('H', 0x03, struct snd_hwdep_dsp_image32)
+ };
+ 
+-static long snd_hwdep_ioctl_compat(struct file * file, unsigned int cmd,
++static long snd_hwdep_ioctl_compat(struct file *file, unsigned int cmd,
+ 				   unsigned long arg)
+ {
+ 	struct snd_hwdep *hw = file->private_data;
++
+ 	void __user *argp = compat_ptr(arg);
++
+ 	switch (cmd) {
+ 	case SNDRV_HWDEP_IOCTL_PVERSION:
+ 	case SNDRV_HWDEP_IOCTL_INFO:
+-- 
+2.25.1
+

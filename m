@@ -2,70 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5948321D5A
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:47:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A0C5321D5D
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:47:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63B7F1682;
-	Mon, 22 Feb 2021 17:46:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63B7F1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BC5B167B;
+	Mon, 22 Feb 2021 17:47:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BC5B167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614012465;
-	bh=OkdGbX3+wiZB2eDAx19KEfLtBJo2vzFLZjk5DK1SuBw=;
+	s=default; t=1614012478;
+	bh=GHQNiT1Mf7IhucmF8WC7JRH4T89ikKaX+u+RPOrUkx0=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d6sxrgNWBRKoM9h10sbtDilHN6R6sXGCYYFFRl/WsBkbrVB5IPcM8p1Vj5ujMPuvN
-	 ZQKiTh5088uXRD2BNDsmZ8ad9ld08MJym5t9HLKdcnT0fLX8Mwa7kLgawAU6ISQhTH
-	 SAF8FA9wFbYJlcpIBBC/3tFq/dZ6bB7uf77whGO0=
+	b=fslT2nzMBmLypLNQAl5TuowxGzXIGmcrSuu+ehxPFDVvCw05iR6yEt4eOw1P7qdgL
+	 iLvMmkxzCURbbwuLZQOCtL6rHIpWGjN08U0Chno2XGvstGp8QAqV5O+kfGlWTNw/x2
+	 OMjVV/xRCdZUQCrpor0RCGJS/1BthO7PrgEfN9Ls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E28F8028B;
-	Mon, 22 Feb 2021 17:45:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2439CF802E7;
+	Mon, 22 Feb 2021 17:45:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FCD1F80249; Mon, 22 Feb 2021 17:45:23 +0100 (CET)
+ id 967DFF802DF; Mon, 22 Feb 2021 17:45:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD65CF8016C
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:45:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD65CF8016C
-IronPort-SDR: 8kiTKP31F/usBf2rWiVPlL+JeZ1Rgv+WTYk3+4LmMqMTx1x4ph4KO9uxRRv68rmRmKCoWq5qC5
- PfKZQY7zatEg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="184619501"
-X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="184619501"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03866F80129
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:45:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03866F80129
+IronPort-SDR: 8IQokt0HK5sHFofi14hSEdZGd+W+OMfPpaFe5jecEj3ow8tvhrNEnASopeMo6ImT50CC5ngVnP
+ YyjInsrQtHBA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="184619518"
+X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="184619518"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2021 08:45:14 -0800
-IronPort-SDR: VFT7oNWQ/7yypkUC4b0YKgXwTbVfpR6llkh+1yfOOsIYq6IBX7c+xlP4xI9Qi2uE3FyE6HP8Pm
- fMK2RMnLucJQ==
-X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="364072192"
+ 22 Feb 2021 08:45:16 -0800
+IronPort-SDR: l4Vi90F2YQf6ff5eH/DguYBSMAB5foOuzPgs5TPdjQvPt5J5TQI7XNq5fjb81lgU6L7BKgy0sS
+ wFwo+3wSCMFg==
+X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="364072232"
 Received: from cjmerril-mobl1.amr.corp.intel.com (HELO [10.212.252.139])
  ([10.212.252.139])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2021 08:45:13 -0800
-Subject: Re: [PATCH 4/8] ASoC: sh: rcar: core: rename shadowing variables
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20210219231635.5749-1-pierre-louis.bossart@linux.intel.com>
- <20210219231635.5749-5-pierre-louis.bossart@linux.intel.com>
- <87wnv1vw6a.wl-kuninori.morimoto.gx@renesas.com>
+ 22 Feb 2021 08:45:15 -0800
+Subject: Re: [PATCH v2] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
+To: Jaroslav Kysela <perex@perex.cz>, shumingf@realtek.com,
+ broonie@kernel.org, lgirdwood@gmail.com
+References: <20210218091208.28734-1-shumingf@realtek.com>
+ <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
+ <84ce7570-b5c7-d89d-7d65-a391c3b65f93@linux.intel.com>
+ <37e136a7-01de-412a-6527-e3b6b6038de1@perex.cz>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <03f560f1-2389-424d-5d4c-84e244baca1c@linux.intel.com>
-Date: Mon, 22 Feb 2021 09:41:11 -0600
+Message-ID: <e03dc0b5-80cf-1881-2be8-9d6fc2eafc4e@linux.intel.com>
+Date: Mon, 22 Feb 2021 09:48:39 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <87wnv1vw6a.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <37e136a7-01de-412a-6527-e3b6b6038de1@perex.cz>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
+ flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,52 +87,77 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 2/21/21 5:27 PM, Kuninori Morimoto wrote:
+On 2/20/21 11:55 AM, Jaroslav Kysela wrote:
+> Dne 18. 02. 21 v 15:49 Pierre-Louis Bossart napsal(a):
+>>
+>>
+>> On 2/18/21 3:44 AM, Jaroslav Kysela wrote:
+>>> Dne 18. 02. 21 v 10:12 shumingf@realtek.com napsal(a):
+>>>
+>>>> +	SND_SOC_DAPM_SWITCH("DAC L", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_l),
+>>>> +	SND_SOC_DAPM_SWITCH("DAC R", SND_SOC_NOPM, 0, 0, &rt1316_sto_dac_r),
+>>>
+>>> Truly, I don't understand the reason to have a separate L/R switch when we can
+>>> map this functionality to one stereo (multichannel) control.
+>>>
+>>> It's an issue for all ASoC drivers. We should consider to be more strict for
+>>> the new ones.
+>>
+>> At the same time we have to recognize that the L/R notion only makes
+>> sense at the input to the amplifier. The amplifier may recombine
+>> channels to deal with orientation/posture or simply select a specific
+>> input, and drive different speakers (e.g. tweeter/woofer). Dac L and R
+>> are often an abuse of language when the system have multi-way speakers.
+>> Exhibit A for this is the TigerLake device with 2 RT1316 and 4 speakers.
+>> L/R don't make sense to describe amplifier outputs and speaker position.
 > 
-> Hi Pierre-Louis
-> 
->> sound/soc/sh/rcar/core.c:1369:22: style: Local variable 'rdai' shadows
->> outer variable [shadowVariable]
->>      struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
->>                       ^
-> 
-> I'm not 100% sure about this warning,
-> but this path is overkill. Maybe below is enough ?
+> My point is a bit different. If the channels are supposed to be used together
+> (which usually mean a kind of the stereo operation in this case), it does not
+> make much sense to split this control to separate single channels. It's just a
+> waste of resources.
 
-Hi Morimoto-san,
-It might be better if we drop this patch from the series and have you 
-send the proper fix with my Reported-by tag.
-Would that work for you?
-Thanks!
+In this case the control affects analog resources and speaker outputs, 
+so in this case I will assume that it's perfectly ok to have a single 
+speaker. Put differently, assuming that the two channels will always be 
+used is not quite right.
 
-> ---------
-> diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-> index 8533aa696183..cae9639c0ef9 100644
-> --- a/sound/soc/sh/rcar/core.c
-> +++ b/sound/soc/sh/rcar/core.c
-> @@ -1382,7 +1382,7 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
->   		for_each_endpoint_of_node(dai_node, dai_np) {
->   			__rsnd_dai_probe(priv, dai_np, dai_i);
->   			if (rsnd_is_gen3(priv)) {
-> -				struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-> +				rdai = rsnd_rdai_get(priv, dai_i);
->   
->   				rsnd_parse_connect_graph(priv, &rdai->playback, dai_np);
->   				rsnd_parse_connect_graph(priv, &rdai->capture,  dai_np);
-> @@ -1393,7 +1393,7 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
->   		for_each_child_of_node(dai_node, dai_np) {
->   			__rsnd_dai_probe(priv, dai_np, dai_i);
->   			if (rsnd_is_gen3(priv)) {
-> -				struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-> +				rdai = rsnd_rdai_get(priv, dai_i);
->   
->   				rsnd_parse_connect_simple(priv, &rdai->playback, dai_np);
->   				rsnd_parse_connect_simple(priv, &rdai->capture,  dai_np);
-> ----
+> The current patch code:
 > 
-> Thank you for your help !!
+> one channel control "DAC L"
+> one channel control "DAC R"
 > 
-> Best regards
-> ---
-> Kuninori Morimoto
+> The one control:
+> 
+> two channels control "DAC"
+> 
+>  From the user space POV, the only difference is the value write operation
+> (both channels are set using one ioctl).
+
+SDCA mandates that all devices are able to consume stereo data, even if 
+there is a single speaker connected. It's useful IMHO if you provide 
+controls so that one of the two DACs is switched off.
+
+
+
+
+
+> 
+>> There's also a difficult balance to be found between exposing all the
+>> capabilities of the device, and making integration and userspace
+>> simpler. I2C/IS2 and SoundWire devices tend to expose more controls than
+>> HDaudio ones, and that was driven by a desire to optimize as much as
+>> possible. Some devices are designed with limited number of controls,
+>> others provide hooks to tweak everything in the system by exposing
+>> literally have thousands of controls. I don't think we should pick and
+>> choose which controls we want to expose, that's the codec vendor's job
+>> IMHO (or the device class definition when standard and applicable)
+> 
+> The problem with ASoC tree is that many of those controls are not supposed to
+> be configured/used by the end user, but in UCM or other higher level layer
+> configuration, because they're a part of the hw/driver setup.
+> 
+> I think that we should classify those controls so the standard user space
+> tools can hide them, but it's another problem.
+> 
+> 					Jaroslav
 > 

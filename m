@@ -2,72 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E962D321C64
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:10:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4BBD321C73
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:10:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 846B0166A;
-	Mon, 22 Feb 2021 17:09:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 846B0166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 137AD1667;
+	Mon, 22 Feb 2021 17:10:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 137AD1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614010212;
-	bh=OmxIEtcBGpIvS3Ts7xASVyTtAwL7Z13+OB6riT2HaoY=;
+	s=default; t=1614010251;
+	bh=n3N6IdcyLq//ZyjojbWT0VuSMCmzZBMWV5924CcfNY8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IsPNJimChzcC89J3fpBAQMpj/g4VTuRr4+bUBppTD5Md5gafUYnVaA/1OvZg4QHuM
-	 QN+wzy6JJvXFhtG7EOumjxJMz/xFLb7A/khu1boR4/qAtT9Y68cdP4EJsXmXKZJ7WO
-	 23sKx+jRKAbl2GUkjx828Vlww+Kwq/9NAoQ1fpn4=
+	b=VGRhdeQR5CkWRqN/E+rpvqzuMvjT1mDUKI0eQYjbTuVqMnlEnSTIUFwr7dTziQ/VT
+	 uwzmuRswXZChQKr0EcSlbrf3BcCSYNHVQ162gkjWUXNrTqN2rR1urSMOuWo9A7lyv3
+	 6QNro6goKTjuzfkxFumaoyu07su2SLv7V2TaeSE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53812F80249;
-	Mon, 22 Feb 2021 17:08:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2144F800CE;
+	Mon, 22 Feb 2021 17:08:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C14AF80234; Mon, 22 Feb 2021 17:08:32 +0100 (CET)
+ id 92C0AF80279; Mon, 22 Feb 2021 17:08:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1CADF80129
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:08:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1CADF80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FA4FF800CE
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:08:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FA4FF800CE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ig1Bqyl6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D5C764E40;
- Mon, 22 Feb 2021 16:08:23 +0000 (UTC)
+ header.b="Jf0J6TRR"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 11C9364E61;
+ Mon, 22 Feb 2021 16:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614010103;
- bh=OmxIEtcBGpIvS3Ts7xASVyTtAwL7Z13+OB6riT2HaoY=;
+ s=k20201202; t=1614010109;
+ bh=n3N6IdcyLq//ZyjojbWT0VuSMCmzZBMWV5924CcfNY8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Ig1Bqyl6VrLdqQT5+uOJjKRbBzw+shgpkJq9x/R6Z2/aJD+rCDVpznxw/X0Sv52vS
- VTGlA5Gs1lfEJKQfYj4Xm3rmAdME3m5Wk//6mA0Qk05Gqb5AzD5DdSCJ+gock8yZ3h
- 6DHqZurn3TeUX+oX3cE1HBzqZvd/1U9IudcqUQ+hjIHQnCzzavCx9qjSr+vAzG1CKX
- 0ibSIhYkssw3Mj5IwoGXIDMvr827Qel3isLVBfcLTQBCz9SxJx7aCeKdLQ1nyn6QUS
- MLDUodxYeX5R8dkkePHkZhCIGZ89ElS+uDtReQwf/SmqY3Fto1wSFuC+gAP+GBsVBQ
- E7n6f51ZSgWDQ==
+ b=Jf0J6TRRUjZyBZPhEsnSDlhSEUdxjgfuJIswK0EZr3YVZuWh38nQSZekbVH3JiCJb
+ +6FSXgBQPAhjnOHG1JiONd9511U0cA8JllJILdFZVrIIGtWdqn11iFnhdYqxGZrc3u
+ wc8JMKTLjal9hEN9rBiHHJfQMb8RoKE3mNNz61er8mRGYcrCXJ5ZxKi8kiy4eypq8n
+ lxEB1f9DX3ib+YBx93U16xZ+VijHvnInxLKeS7rn2GlqJiD9l4KiSaAqsS4Bl11Mmm
+ 0SQCgDJ7nb7cl8tsDTPgaw1fsZzBJXeobdrdqEUp/QXi0y34il7XMJNOoadnV/H1U3
+ 7jF66vzFV/aFw==
 From: Mark Brown <broonie@kernel.org>
-To: jack.yu@realtek.com, lgirdwood@gmail.com
-In-Reply-To: <20210222090057.29532-1-jack.yu@realtek.com>
-References: <20210222090057.29532-1-jack.yu@realtek.com>
-Subject: Re: [PATCH 1/2] ASoC: rt1015: fix i2c communication error
-Message-Id: <161401004265.2538.16028409471544371850.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
+References: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: (subset) [PATCH 0/6] ASoC: samsung: remove cppcheck warnings
+Message-Id: <161401004266.2538.5738460015320431431.b4-ty@kernel.org>
 Date: Mon, 22 Feb 2021 16:07:22 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- kent_chen@realtek.com, kenny_chen@realtek.com, derek.fang@realtek.com,
- flove@realtek.com, shumingf@realtek.com,
- peter.chuang@lcfc.corp-partner.google.com,
- allen.cheng@lcfc.corp-partner.google.com,
- sunshine.chao@lcfc.corp-partner.google.com
+Cc: tiwai@suse.de, Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,8 +78,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Feb 2021 17:00:56 +0800, jack.yu@realtek.com wrote:
-> Remove 0x100 cache re-sync to solve i2c communication error.
+On Fri, 19 Feb 2021 17:09:12 -0600, Pierre-Louis Bossart wrote:
+> No functional changes except for patch 2 and 3 where missing error
+> checks were added for consistency.
+> 
+> Pierre-Louis Bossart (6):
+>   ASoC: samsung: i2s: remove unassigned variable
+>   ASoC: samsung: s3c24xx_simtec: add missing error check
+>   ASoC: samsung: smdk_wm8994: add missing return
+>   ASoC: samsung: snow: remove useless test
+>   ASoC: samsung: tm2_wm5110: check of_parse return value
+>   ASoC: samsung: tm2_wm5510: remove shadowing variable
+> 
+> [...]
 
 Applied to
 
@@ -92,10 +98,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: rt1015: fix i2c communication error
-      commit: 7fb08871c38ba9e871d20d64f3a27409baf7b754
-[2/2] ASoC: rt1015: enable BCLK detection after calibration
-      commit: 2979ef760e73e2a1a34cd4da5d2c78371dfe1028
+[5/6] ASoC: samsung: tm2_wm5110: check of_parse return value
+      commit: 75fa6833aef349fce1b315eaa96c9611a227014b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,67 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BBD321C73
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:10:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F47321D58
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 17:47:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 137AD1667;
-	Mon, 22 Feb 2021 17:10:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 137AD1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF55F167F;
+	Mon, 22 Feb 2021 17:46:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF55F167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614010251;
-	bh=n3N6IdcyLq//ZyjojbWT0VuSMCmzZBMWV5924CcfNY8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1614012425;
+	bh=bPwV1DafXau/tpDD6NPETwn3+8jL+wEn3aMjuHBEBk4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VGRhdeQR5CkWRqN/E+rpvqzuMvjT1mDUKI0eQYjbTuVqMnlEnSTIUFwr7dTziQ/VT
-	 uwzmuRswXZChQKr0EcSlbrf3BcCSYNHVQ162gkjWUXNrTqN2rR1urSMOuWo9A7lyv3
-	 6QNro6goKTjuzfkxFumaoyu07su2SLv7V2TaeSE0=
+	b=SuM4VoGPq7YCKHGpiCZjnfsYuofEGEH3kSz0a61v/6ev+/HGPowaXMnYHvZPoROC1
+	 Y56x9L6AjPE5YmXKiZs9reld5/z5xtfyMbfS+ssnII47NwjJjtXKINP+vdoIVqhXNZ
+	 B5DRisHdfCTEqctNXrhCYsY/cggTy1c4jJNXnF98=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2144F800CE;
-	Mon, 22 Feb 2021 17:08:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0F25F8025E;
+	Mon, 22 Feb 2021 17:45:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92C0AF80279; Mon, 22 Feb 2021 17:08:34 +0100 (CET)
+ id 524B4F8025E; Mon, 22 Feb 2021 17:45:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FA4FF800CE
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:08:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FA4FF800CE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Jf0J6TRR"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 11C9364E61;
- Mon, 22 Feb 2021 16:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614010109;
- bh=n3N6IdcyLq//ZyjojbWT0VuSMCmzZBMWV5924CcfNY8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Jf0J6TRRUjZyBZPhEsnSDlhSEUdxjgfuJIswK0EZr3YVZuWh38nQSZekbVH3JiCJb
- +6FSXgBQPAhjnOHG1JiONd9511U0cA8JllJILdFZVrIIGtWdqn11iFnhdYqxGZrc3u
- wc8JMKTLjal9hEN9rBiHHJfQMb8RoKE3mNNz61er8mRGYcrCXJ5ZxKi8kiy4eypq8n
- lxEB1f9DX3ib+YBx93U16xZ+VijHvnInxLKeS7rn2GlqJiD9l4KiSaAqsS4Bl11Mmm
- 0SQCgDJ7nb7cl8tsDTPgaw1fsZzBJXeobdrdqEUp/QXi0y34il7XMJNOoadnV/H1U3
- 7jF66vzFV/aFw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 714D1F800CE
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 17:45:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 714D1F800CE
+IronPort-SDR: cK9V4HpEoMxUhEQLWJ8uwXy1ETO2I7qwNxJ7zMDTXRphz5C+iovkXdI0s7r9WlQc3DQurPpH9q
+ TC2egt/ZEjoA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="184619478"
+X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="184619478"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2021 08:45:11 -0800
+IronPort-SDR: BklHK+cBNr3Prsngztc5XKjmGT+sqG4iEy4X/nPRRM3kwTuZI9ITgzzYzxYJjKgjV+IaKDx9MS
+ NYa61uGEytxg==
+X-IronPort-AV: E=Sophos;i="5.81,197,1610438400"; d="scan'208";a="364072169"
+Received: from cjmerril-mobl1.amr.corp.intel.com (HELO [10.212.252.139])
+ ([10.212.252.139])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2021 08:45:10 -0800
+Subject: Re: [PATCH 5/6] ASoC: samsung: tm2_wm5110: check of_parse return value
+To: Krzysztof Kozlowski <krzk@kernel.org>
 References: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: (subset) [PATCH 0/6] ASoC: samsung: remove cppcheck warnings
-Message-Id: <161401004266.2538.5738460015320431431.b4-ty@kernel.org>
-Date: Mon, 22 Feb 2021 16:07:22 +0000
+ <20210219230918.5058-6-pierre-louis.bossart@linux.intel.com>
+ <20210221111055.nfzr5nzvskdc3jyq@kozik-lap>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <ac9fd25e-d5dd-6c47-07fc-ba05e33f60dd@linux.intel.com>
+Date: Mon, 22 Feb 2021 09:35:26 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20210221111055.nfzr5nzvskdc3jyq@kozik-lap>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,44 +81,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 19 Feb 2021 17:09:12 -0600, Pierre-Louis Bossart wrote:
-> No functional changes except for patch 2 and 3 where missing error
-> checks were added for consistency.
+
+>> diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
+>> index 9300fef9bf26..da6204248f82 100644
+>> --- a/sound/soc/samsung/tm2_wm5110.c
+>> +++ b/sound/soc/samsung/tm2_wm5110.c
+>> @@ -553,7 +553,7 @@ static int tm2_probe(struct platform_device *pdev)
+>>   
+>>   		ret = of_parse_phandle_with_args(dev->of_node, "i2s-controller",
+>>   						 cells_name, i, &args);
+>> -		if (!args.np) {
+>> +		if (ret || !args.np) {
 > 
-> Pierre-Louis Bossart (6):
->   ASoC: samsung: i2s: remove unassigned variable
->   ASoC: samsung: s3c24xx_simtec: add missing error check
->   ASoC: samsung: smdk_wm8994: add missing return
->   ASoC: samsung: snow: remove useless test
->   ASoC: samsung: tm2_wm5110: check of_parse return value
->   ASoC: samsung: tm2_wm5510: remove shadowing variable
-> 
-> [...]
+> Only "if (ret)" because args.np won't be initialized on errors.
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[5/6] ASoC: samsung: tm2_wm5110: check of_parse return value
-      commit: 75fa6833aef349fce1b315eaa96c9611a227014b
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Thanks Krzysztof for the review, I will make that change in a v2.
+But just to be clear, there's no need to test args.np then?

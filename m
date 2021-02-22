@@ -2,71 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5DA32128F
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 10:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7071D3212FB
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 10:23:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A93531674;
-	Mon, 22 Feb 2021 10:02:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A93531674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 178821679;
+	Mon, 22 Feb 2021 10:22:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 178821679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613984585;
-	bh=v0ySa4Quxk7PSXhuf4jJAkf+gR/RN+oczZUcQAwEFOk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JVoXMAAygHi1QRBdds8jy3XXE7RetwZF+ZdJHvrvzWz9U+SX1987VWvkjnVrDO4g7
-	 lGXxug6Hq5ZXUYOzpzDDB2VDWozulVZq/e4Mk7rMTY/N+tC3Fw3NrpjVYbpYp+tZwd
-	 atl85AZ7NvxanZ0pvvJonUPC+mPvxzheJZa/MOaU=
+	s=default; t=1613985819;
+	bh=jn82ZOvqcQdblByyinFmx50MjnGyYhmvLqu118jl3HU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IsTxgRT+BHVfM+McDemCGcDrvHn6+Vu7HiWCZYY6DrcTYkvAmNC29m30Sl1XB5lTb
+	 vGqYUx6UlZ2SNEgenkFC0l33Iju70BnZRTGDP8NI3k4z9qDTuo+N6RelXyhKqqp/Gw
+	 9wNjhnxDJlpyp2mZmjYilnDZ5XT2jKXBbYQbWui4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8325AF8027C;
-	Mon, 22 Feb 2021 10:01:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5973BF8026F;
+	Mon, 22 Feb 2021 10:22:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58B65F80249; Mon, 22 Feb 2021 10:01:21 +0100 (CET)
+ id DB2E1F8025E; Mon, 22 Feb 2021 10:22:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6965BF80154
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:01:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6965BF80154
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 11M91AnlC005524,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.94])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 11M91AnlC005524
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 22 Feb 2021 17:01:10 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 22 Feb 2021 17:01:10 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: rt1015: enable BCLK detection after calibration
-Date: Mon, 22 Feb 2021 17:00:57 +0800
-Message-ID: <20210222090057.29532-2-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20210222090057.29532-1-jack.yu@realtek.com>
-References: <20210222090057.29532-1-jack.yu@realtek.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMBS02.realtek.com.tw (172.21.6.95) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, derek.fang@realtek.com,
- allen.cheng@lcfc.corp-partner.google.com, shumingf@realtek.com,
- peter.chuang@lcfc.corp-partner.google.com, flove@realtek.com,
- sunshine.chao@lcfc.corp-partner.google.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DC1FF80154
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:21:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC1FF80154
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 2F5781A020C;
+ Mon, 22 Feb 2021 10:21:58 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DB1F51A0050;
+ Mon, 22 Feb 2021 10:21:52 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 2C98240291;
+ Mon, 22 Feb 2021 10:21:46 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_xcvr: move reset assert into runtime_resume
+Date: Mon, 22 Feb 2021 17:09:50 +0800
+Message-Id: <1613984990-5534-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,27 +71,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jack Yu <jack.yu@realtek.com>
+From: Viorel Suman <viorel.suman@nxp.com>
 
-Enable BCLK detection after calibration.
+Move reset assert into runtime_resume since we
+cannot rely on reset assert state when the device
+is put out from suspend.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/codecs/rt1015.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/fsl/fsl_xcvr.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 90767490af82..844e4079d176 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -514,6 +514,7 @@ static void rt1015_calibrate(struct rt1015_priv *rt1015)
- 	msleep(300);
- 	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x0008);
- 	regmap_write(regmap, RT1015_SYS_RST1, 0x05F5);
-+	regmap_write(regmap, RT1015_CLK_DET, 0x8000);
+diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+index dd228b421e2c..4857e0df8681 100644
+--- a/sound/soc/fsl/fsl_xcvr.c
++++ b/sound/soc/fsl/fsl_xcvr.c
+@@ -1243,10 +1243,6 @@ static __maybe_unused int fsl_xcvr_runtime_suspend(struct device *dev)
+ 	if (ret < 0)
+ 		dev_err(dev, "Failed to assert M0+ core: %d\n", ret);
  
- 	regcache_cache_bypass(regmap, false);
- 	regcache_mark_dirty(regmap);
+-	ret = reset_control_assert(xcvr->reset);
+-	if (ret < 0)
+-		dev_err(dev, "Failed to assert M0+ reset: %d\n", ret);
+-
+ 	regcache_cache_only(xcvr->regmap, true);
+ 
+ 	clk_disable_unprepare(xcvr->spba_clk);
+@@ -1262,6 +1258,12 @@ static __maybe_unused int fsl_xcvr_runtime_resume(struct device *dev)
+ 	struct fsl_xcvr *xcvr = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	ret = reset_control_assert(xcvr->reset);
++	if (ret < 0) {
++		dev_err(dev, "Failed to assert M0+ reset: %d\n", ret);
++		return ret;
++	}
++
+ 	ret = clk_prepare_enable(xcvr->ipg_clk);
+ 	if (ret) {
+ 		dev_err(dev, "failed to start IPG clock.\n");
 -- 
-2.29.0
+2.27.0
 

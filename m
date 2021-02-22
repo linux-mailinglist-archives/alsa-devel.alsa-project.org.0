@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179B2320EBC
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 01:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C0D320EBD
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 01:49:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75AC81686;
-	Mon, 22 Feb 2021 01:48:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75AC81686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03BDD167D;
+	Mon, 22 Feb 2021 01:48:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03BDD167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613954936;
-	bh=HHOmE//XYdLLAU+Iq4bwVgpTg+Hf3pIlUjn4b87DABY=;
+	s=default; t=1613954948;
+	bh=FpcDlo+webaKA94XrNI0Xt4FroOrxTwQ+3fXmF1vfvs=;
 	h=Date:From:Subject:To:References:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rOwb4B84ueX7O/1mJb4WWagql6sBVp1mFXKwpycjXxvcFLRldU9Xc8js4oPg9395w
-	 8aLBFMoXKZGHr8zs08wAFS4zRgNwrhLHx2vp68+T0b3iSDKSaqus+yV71TB3a52FaP
-	 8+RerTbCYbUN83kCdBRxvqMvrv/ly7MCnbc0gH1Y=
+	b=Q83e59Bd5PVkNIQlyafoF/3U864L45R4Vraf5mggjGIWQIzjMTwvXxPkyXRApEPG4
+	 NEkqmzZTpnqhx+lhn2kHcyrWX9GXXjNifxY0elOBMcQwYjxaWIex1gC0oU/cI43hxP
+	 5z3CJIHjOqv+rNy3xg2fMM52RT1xKlp2y9Dj78OM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB2ABF802E0;
-	Mon, 22 Feb 2021 01:47:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 617A8F802E2;
+	Mon, 22 Feb 2021 01:47:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67C64F802E0; Mon, 22 Feb 2021 01:47:32 +0100 (CET)
+ id 33E24F802DF; Mon, 22 Feb 2021 01:47:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
  KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7F0C1F80167
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 01:47:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F0C1F80167
-Date: 22 Feb 2021 09:47:19 +0900
-X-IronPort-AV: E=Sophos;i="5.81,195,1610377200"; d="scan'208";a="72727527"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 52211F80082
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 01:47:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52211F80082
+Date: 22 Feb 2021 09:47:26 +0900
+X-IronPort-AV: E=Sophos;i="5.81,195,1610377200"; d="scan'208";a="72970815"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 22 Feb 2021 09:47:19 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Feb 2021 09:47:26 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7C9704004BAB;
- Mon, 22 Feb 2021 09:47:19 +0900 (JST)
-Message-ID: <87r1l9vsh4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 2EEFD40078AC;
+ Mon, 22 Feb 2021 09:47:26 +0900 (JST)
+Message-ID: <87pn0tvsgx.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/5] ASoC: soc-pcm: unpack dpcm_init_runtime_hw()
+Subject: [PATCH 3/5] ASoC: soc-pcm: add dpcm_runtime_setup_fe()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 References: <87tuq5vsin.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,59 +70,119 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-dpcm_init_runtime_hw() is now just verbose function.
-This patch unpacks it.
+dpcm_fe_dai_startup() (= A) calls dpcm_set_fe_runtime() (= B) to setup
+DPCM runtime. From *naming point of view*, it sounds like setup function
+for FE.
+
+(A)	static int dpcm_fe_dai_startup(...)
+	{
+		...
+(B)		dpcm_set_fe_runtime(...);
+		...
+	}
+
+But in dpcm_set_fe_runtime() (= B),
+It  setups FE by for_each loop (= X),
+and setups BE by dpcm_runtime_merge_xxx() (= Y).
+
+(B)	static void dpcm_set_fe_runtime(...)
+	{
+		...
+ ^		for_each_rtd_cpu_dais(...) {
+ |			...
+(X)			soc_pcm_hw_update_rate(...);
+ |			soc_pcm_hw_update_chan(...);
+ |			soc_pcm_hw_update_format(...);
+ v		}
+
+ ^		dpcm_runtime_merge_format(...);
+(Y)		dpcm_runtime_merge_chan(...);
+ v		dpcm_runtime_merge_rate(...);
+	}
+
+These means that the function which is called as xxx_fe_xxx()
+is setups both FE and BE. This is confusable and can be hot bed for bug.
+
+To tidyup it, as 1st step, this patch adds new dpcm_runtime_setup_fe()
+for (X).
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+ sound/soc/soc-pcm.c | 53 ++++++++++++++++++++++++++-------------------
+ 1 file changed, 31 insertions(+), 22 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index bb912a94e895..fd279fb28533 100644
+index fd279fb28533..066218f1f075 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1526,16 +1526,6 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+@@ -1526,6 +1526,36 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
  	return err;
  }
  
--static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
--				 struct snd_soc_pcm_stream *stream)
--{
--	struct snd_pcm_hardware *hw = &runtime->hw;
--
--	soc_pcm_hw_update_rate(hw, stream);
--	soc_pcm_hw_update_chan(hw, stream);
--	soc_pcm_hw_update_format(hw, stream);
--}
--
++static void dpcm_runtime_setup_fe(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_pcm_hardware *hw = &runtime->hw;
++	struct snd_soc_dai *dai;
++	int stream = substream->stream;
++	int i;
++
++	soc_pcm_hw_init(hw);
++
++	for_each_rtd_cpu_dais(fe, i, dai) {
++		struct snd_soc_pcm_stream *cpu_stream;
++
++		/*
++		 * Skip CPUs which don't support the current stream
++		 * type. See soc_pcm_init_runtime_hw() for more details
++		 */
++		if (!snd_soc_dai_stream_valid(dai, stream))
++			continue;
++
++		cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
++
++		soc_pcm_hw_update_rate(hw, cpu_stream);
++		soc_pcm_hw_update_chan(hw, cpu_stream);
++		soc_pcm_hw_update_format(hw, cpu_stream);
++	}
++
++}
++
  static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
  				      struct snd_pcm_runtime *runtime)
  {
-@@ -1669,6 +1659,8 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
- 	soc_pcm_hw_init(hw);
+@@ -1651,29 +1681,8 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
+ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_pcm_hardware *hw = &runtime->hw;
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_dai *cpu_dai;
+-	int i;
  
- 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-+		struct snd_soc_pcm_stream *stream;
-+
- 		/*
- 		 * Skip CPUs which don't support the current stream
- 		 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -1676,9 +1668,11 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
- 		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
- 			continue;
- 
--		dpcm_init_runtime_hw(runtime,
--			snd_soc_dai_get_pcm_stream(cpu_dai,
--						   substream->stream));
-+		stream = snd_soc_dai_get_pcm_stream(cpu_dai, substream->stream);
-+
-+		soc_pcm_hw_update_rate(hw, stream);
-+		soc_pcm_hw_update_chan(hw, stream);
-+		soc_pcm_hw_update_format(hw, stream);
- 	}
+-	soc_pcm_hw_init(hw);
+-
+-	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+-		struct snd_soc_pcm_stream *stream;
+-
+-		/*
+-		 * Skip CPUs which don't support the current stream
+-		 * type. See soc_pcm_init_runtime_hw() for more details
+-		 */
+-		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
+-			continue;
+-
+-		stream = snd_soc_dai_get_pcm_stream(cpu_dai, substream->stream);
+-
+-		soc_pcm_hw_update_rate(hw, stream);
+-		soc_pcm_hw_update_chan(hw, stream);
+-		soc_pcm_hw_update_format(hw, stream);
+-	}
++	dpcm_runtime_setup_fe(substream);
  
  	dpcm_runtime_merge_format(substream, runtime);
+ 	dpcm_runtime_merge_chan(substream, runtime);
 -- 
 2.25.1
 

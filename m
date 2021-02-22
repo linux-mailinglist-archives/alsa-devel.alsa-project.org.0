@@ -2,68 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9BF3212F2
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 10:19:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA4E321906
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 14:38:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 583221689;
-	Mon, 22 Feb 2021 10:18:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 583221689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC911675;
+	Mon, 22 Feb 2021 14:37:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC911675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613985562;
-	bh=mPIMQoySLssiNMPAoXBzUBh0zrEPHBoOjyN57TIFZk8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1614001105;
+	bh=+O27eJDZwjcVdJwa5wWcdOfD0/quVptVXSXmwSEWZ+Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mJ+wKBazxwXNYXro0q6I+nf5oD3FO1OPH/EhTIUJwwurqbHauxlXRIETqctzrJLth
-	 C9zVcJldjSoL4nSlYhZ3QWIeUgsdgGgskAAKq1WgxmHuGYwGR6P5cW01flaOmEbpbN
-	 N5OfhcfslYIwq/vr2giAWuZwSzSTpjsPSNMs+iPw=
+	b=blMTzvB6vF3AYk0ptLNhiYzjdCqSnUA2wuIUXz85+mfxoxJlYhrCeUTBdytZAfPud
+	 m/W9XJZ3UEM5olT2aPJArp3QjTqhEUNQ7FyM4Ey677ZCl07wq+L5jodnd31JKh1vsw
+	 n/TRiT4KSIAmQ/KP+TpzujaM4igHOzML1sOebeO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 375ECF804D1;
-	Mon, 22 Feb 2021 10:16:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2B38F8026F;
+	Mon, 22 Feb 2021 14:36:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06434F804CF; Mon, 22 Feb 2021 10:16:09 +0100 (CET)
+ id 21014F8025E; Mon, 22 Feb 2021 14:36:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04E3CF804B1
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:16:07 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9F92BA0040;
- Mon, 22 Feb 2021 10:16:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9F92BA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1613985366; bh=Zcjy35NX3u0cZU7A9mmnpYdT0yK56E6DKNorD5BwHC8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1N2EbXoVVryxJMytKqE/gdXlN927V4md+UhWqGbvJcabatC4FIBtx8HOsaNlI4x+Y
- qsyjIoS0ITXHluey9ZuKk2oSOato/w0rK3cAXdzfXeDF0QJQqL9UWxaRMn3zLmwiZf
- DumfkB10uuccbUl2JduTRVmRJ9cxF6JJ9ctqvodY=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 22 Feb 2021 10:16:01 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 5/5] ALSA: control - add sysfs support to the LED trigger
- module
-Date: Mon, 22 Feb 2021 10:15:16 +0100
-Message-Id: <20210222091516.1752662-6-perex@perex.cz>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210222091516.1752662-1-perex@perex.cz>
-References: <20210222091516.1752662-1-perex@perex.cz>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E0AFF80129
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 14:36:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E0AFF80129
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gqF5xZWn"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A8F2164E44;
+ Mon, 22 Feb 2021 13:36:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1614001006;
+ bh=+O27eJDZwjcVdJwa5wWcdOfD0/quVptVXSXmwSEWZ+Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gqF5xZWniGaLaPBAtjq+fZJpX1To+HK1o4DqoAcU2CDoVv951eS/3BDrbrS6kfflO
+ yCLscR6k3ar1g283eQ2gCIVzRwN6xKBRXxvkfihfJ1RPQozVZ3yBOpeqP43aZQzeXQ
+ qY/trWfOU86LAzGScOjmC2cOGmPXFKQDTz4TDaoOXBnvzH+NwbWBh0INKDtkODN/tx
+ pWqfbmMhlXhDwWCgfVlDBv8LGC4U9/G28WVOuaMaLG0Pj5on7JhErdSlZY+2WnrK7a
+ sttWcRMa9UcwPumtJSBGVzbslHYWCYMqqa2+AYOvHSCr8KTCcNnun1fGQin5PRLceu
+ 6mUL5VxaXt5NA==
+Date: Mon, 22 Feb 2021 13:35:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2] ASoC: rt1316: Add RT1316 SDCA vendor-specific driver
+Message-ID: <20210222133544.GA6127@sirena.org.uk>
+References: <20210218091208.28734-1-shumingf@realtek.com>
+ <350ee43a-af99-bb8e-60d3-2a0dc561cb45@perex.cz>
+ <84ce7570-b5c7-d89d-7d65-a391c3b65f93@linux.intel.com>
+ <37e136a7-01de-412a-6527-e3b6b6038de1@perex.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- Perry Yuan <Perry.Yuan@dell.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vtzGhvizbBRQ85DL"
+Content-Disposition: inline
+In-Reply-To: <37e136a7-01de-412a-6527-e3b6b6038de1@perex.cz>
+X-Cookie: A motion to adjourn is always in order.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com, derek.fang@realtek.com, bard.liao@intel.com,
+ shumingf@realtek.com, flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,317 +86,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Create SYSFS/devices/virtual/sound/ctl-led tree
-(with SYSFS/class/sound/ctl-led symlink).
 
-  speaker/
-    +-- mode
-    +-- brightness
-  mic/
-    +-- mode
-    +-- brightness
+--vtzGhvizbBRQ85DL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Copy the idea from the HDA driver and allow to set the audio
-LEDs based on the various modes:
+On Sat, Feb 20, 2021 at 06:55:06PM +0100, Jaroslav Kysela wrote:
 
-- follow mute
-- follow moute (inverted to follow mute)
-- off
-- on
+> The problem with ASoC tree is that many of those controls are not suppose=
+d to
+> be configured/used by the end user, but in UCM or other higher level layer
+> configuration, because they're a part of the hw/driver setup.
 
-Also, the actual LED state is exposed.
+> I think that we should classify those controls so the standard user space
+> tools can hide them, but it's another problem.
 
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
----
- sound/core/control_led.c | 183 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 153 insertions(+), 30 deletions(-)
+Well, as has been discussed in the past ideally ALSA would have a
+mechanism for exposing topology information and userspace would have
+some chance of picking which controls make sense for use on non-trivial
+hardware.  The particular set of controls that it makes sense to adjust
+=66rom userspace is going to vary depending on the use case, it's not
+something that can be decided in the kernel.
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index 54b0bef2a77f..b8bb8fd46686 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -17,7 +17,23 @@ MODULE_LICENSE("GPL");
- #define MAX_LED (((SNDRV_CTL_ELEM_ACCESS_MIC_LED - SNDRV_CTL_ELEM_ACCESS_SPK_LED) \
- 			>> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) + 1)
- 
-+enum snd_ctl_led_mode {
-+	 MODE_FOLLOW_MUTE = 0,
-+	 MODE_FOLLOW_ROUTE,
-+	 MODE_OFF,
-+	 MODE_ON,
-+};
-+
- struct snd_ctl_led {
-+	struct device dev;
-+	struct list_head controls;
-+	const char *name;
-+	unsigned int group;
-+	enum led_audio trigger_type;
-+	enum snd_ctl_led_mode mode;
-+};
-+
-+struct snd_ctl_led_ctl {
- 	struct list_head list;
- 	struct snd_card *card;
- 	struct snd_kcontrol *kctl;
-@@ -25,8 +41,21 @@ struct snd_ctl_led {
- };
- 
- static DEFINE_MUTEX(snd_ctl_led_mutex);
--static struct list_head snd_ctl_led_controls[MAX_LED];
- static bool snd_ctl_led_card_valid[SNDRV_CARDS];
-+static struct snd_ctl_led snd_ctl_leds[MAX_LED] = {
-+	{
-+		.name = "speaker",
-+		.group = (SNDRV_CTL_ELEM_ACCESS_SPK_LED >> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) - 1,
-+		.trigger_type = LED_AUDIO_MUTE,
-+		.mode = MODE_FOLLOW_MUTE,
-+	},
-+	{
-+		.name = "mic",
-+		.group = (SNDRV_CTL_ELEM_ACCESS_MIC_LED >> SNDRV_CTL_ELEM_ACCESS_LED_SHIFT) - 1,
-+		.trigger_type = LED_AUDIO_MICMUTE,
-+		.mode = MODE_FOLLOW_MUTE,
-+	},
-+};
- 
- #define UPDATE_ROUTE(route, cb) \
- 	do { \
-@@ -46,15 +75,15 @@ static inline unsigned int group_to_access(unsigned int group)
- 	return (group + 1) << SNDRV_CTL_ELEM_ACCESS_LED_SHIFT;
- }
- 
--static struct list_head *snd_ctl_led_controls_by_access(unsigned int access)
-+static struct snd_ctl_led *snd_ctl_led_get_by_access(unsigned int access)
- {
- 	unsigned int group = access_to_group(access);
- 	if (group >= MAX_LED)
- 		return NULL;
--	return &snd_ctl_led_controls[group];
-+	return &snd_ctl_leds[group];
- }
- 
--static int snd_ctl_led_get(struct snd_ctl_led *lctl)
-+static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl)
- {
- 	struct snd_kcontrol *kctl = lctl->kctl;
- 	struct snd_ctl_elem_info info;
-@@ -90,22 +119,14 @@ static int snd_ctl_led_get(struct snd_ctl_led *lctl)
- static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
- 				  struct snd_kcontrol *kctl, unsigned int ioff)
- {
--	struct list_head *controls;
--	struct snd_ctl_led *lctl;
--	enum led_audio led_trigger_type;
-+	struct snd_ctl_led *led;
-+	struct snd_ctl_led_ctl *lctl;
- 	int route;
- 	bool found;
- 
--	controls = snd_ctl_led_controls_by_access(access);
--	if (!controls)
-+	led = snd_ctl_led_get_by_access(access);
-+	if (!led)
- 		return;
--	if (access == SNDRV_CTL_ELEM_ACCESS_SPK_LED) {
--		led_trigger_type = LED_AUDIO_MUTE;
--	} else if (access == SNDRV_CTL_ELEM_ACCESS_MIC_LED) {
--		led_trigger_type = LED_AUDIO_MICMUTE;
--	} else {
--		return;
--	}
- 	route = -1;
- 	found = false;
- 	mutex_lock(&snd_ctl_led_mutex);
-@@ -114,7 +135,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
- 		mutex_unlock(&snd_ctl_led_mutex);
- 		return;
- 	}
--	list_for_each_entry(lctl, controls, list) {
-+	list_for_each_entry(lctl, &led->controls, list) {
- 		if (lctl->kctl == kctl && lctl->index_offset == ioff)
- 			found = true;
- 		UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
-@@ -125,27 +146,33 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
- 			lctl->card = card;
- 			lctl->kctl = kctl;
- 			lctl->index_offset = ioff;
--			list_add(&lctl->list, controls);
-+			list_add(&lctl->list, &led->controls);
- 			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
- 		}
- 	}
- 	mutex_unlock(&snd_ctl_led_mutex);
-+	switch (led->mode) {
-+	case MODE_OFF:		route = 1; break;
-+	case MODE_ON:		route = 0; break;
-+	case MODE_FOLLOW_ROUTE:	if (route >= 0) route ^= 1; break;
-+	case MODE_FOLLOW_MUTE:	/* noop */ break;
-+	}
- 	if (route >= 0)
--		ledtrig_audio_set(led_trigger_type, route ? LED_OFF : LED_ON);
-+		ledtrig_audio_set(led->trigger_type, route ? LED_OFF : LED_ON);
- }
- 
- static void snd_ctl_led_remove(struct snd_kcontrol *kctl, unsigned int ioff)
- {
- 	struct snd_kcontrol_volatile *vd;
--	struct list_head *controls;
--	struct snd_ctl_led *lctl;
-+	struct snd_ctl_led *led;
-+	struct snd_ctl_led_ctl *lctl;
- 
- 	vd = &kctl->vd[ioff];
--	controls = snd_ctl_led_controls_by_access(vd->access);
--	if (!controls)
-+	led = snd_ctl_led_get_by_access(vd->access);
-+	if (!led)
- 		return;
- 	mutex_lock(&snd_ctl_led_mutex);
--	list_for_each_entry(lctl, controls, list)
-+	list_for_each_entry(lctl, &led->controls, list)
- 		if (lctl->kctl == kctl && lctl->index_offset == ioff) {
- 			list_del(&lctl->list);
- 			kfree(lctl);
-@@ -182,13 +209,13 @@ static void snd_ctl_led_refresh(void)
- static void snd_ctl_led_clean(struct snd_card *card)
- {
- 	unsigned int group;
--	struct list_head *controls;
--	struct snd_ctl_led *lctl;
-+	struct snd_ctl_led *led;
-+	struct snd_ctl_led_ctl *lctl;
- 
- 	for (group = 0; group < MAX_LED; group++) {
--		controls = &snd_ctl_led_controls[group];
-+		led = &snd_ctl_leds[group];
- repeat:
--		list_for_each_entry(lctl, controls, list)
-+		list_for_each_entry(lctl, &led->controls, list)
- 			if (!card || lctl->card == card) {
- 				list_del(&lctl->list);
- 				kfree(lctl);
-@@ -224,6 +251,82 @@ static void snd_ctl_led_disconnect(struct snd_card *card)
- 	snd_ctl_led_refresh();
- }
- 
-+/*
-+ * sysfs
-+ */
-+
-+static ssize_t show_mode(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
-+	const char *str;
-+
-+	switch (led->mode) {
-+	case MODE_FOLLOW_MUTE:	str = "follow-mute"; break;
-+	case MODE_FOLLOW_ROUTE:	str = "follow-route"; break;
-+	case MODE_ON:		str = "on"; break;
-+	case MODE_OFF:		str = "off"; break;
-+	}
-+	return sprintf(buf, "%s\n", str);
-+}
-+
-+static ssize_t store_mode(struct device *dev, struct device_attribute *attr,
-+			  const char *buf, size_t count)
-+{
-+	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
-+	char _buf[16];
-+	size_t l = min(count, sizeof(_buf) - 1) + 1;
-+	enum snd_ctl_led_mode mode;
-+
-+	memcpy(_buf, buf, l);
-+	_buf[l] = '\0';
-+	if (strstr(_buf, "mute"))
-+		mode = MODE_FOLLOW_MUTE;
-+	else if (strstr(_buf, "route"))
-+		mode = MODE_FOLLOW_ROUTE;
-+	else if (strncmp(_buf, "off", 3) == 0 || strncmp(_buf, "0", 1) == 0)
-+		mode = MODE_OFF;
-+	else if (strncmp(_buf, "on", 2) == 0 || strncmp(_buf, "1", 1) == 0)
-+		mode = MODE_ON;
-+	else
-+		return count;
-+
-+	mutex_lock(&snd_ctl_led_mutex);
-+	led->mode = mode;
-+	mutex_unlock(&snd_ctl_led_mutex);
-+
-+	snd_ctl_led_set_state(NULL, group_to_access(led->group), NULL, 0);
-+	return count;
-+}
-+
-+static ssize_t show_brightness(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
-+
-+	return sprintf(buf, "%u\n", ledtrig_audio_get(led->trigger_type));
-+}
-+
-+static DEVICE_ATTR(mode, 0644, show_mode, store_mode);
-+static DEVICE_ATTR(brightness, 0444, show_brightness, NULL);
-+
-+static struct attribute *snd_ctl_led_dev_attrs[] = {
-+	&dev_attr_mode.attr,
-+	&dev_attr_brightness.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group snd_ctl_led_dev_attr_group = {
-+	.attrs = snd_ctl_led_dev_attrs,
-+};
-+
-+static const struct attribute_group *snd_ctl_led_dev_attr_groups[] = {
-+	&snd_ctl_led_dev_attr_group,
-+	NULL,
-+};
-+
-+static struct device snd_ctl_led_dev;
-+
- /*
-  * Control layer registration
-  */
-@@ -236,16 +339,36 @@ static struct snd_ctl_layer_ops snd_ctl_led_lops = {
- 
- static int __init snd_ctl_led_init(void)
- {
-+	struct snd_ctl_led *led;
- 	unsigned int group;
- 
--	for (group = 0; group < MAX_LED; group++)
--		INIT_LIST_HEAD(&snd_ctl_led_controls[group]);
-+	device_initialize(&snd_ctl_led_dev);
-+	snd_ctl_led_dev.class = sound_class;
-+	dev_set_name(&snd_ctl_led_dev, "ctl-led");
-+	if (device_add(&snd_ctl_led_dev)) {
-+		put_device(&snd_ctl_led_dev);
-+		return -ENOMEM;
-+	}
-+	for (group = 0; group < MAX_LED; group++) {
-+		led = &snd_ctl_leds[group];
-+		INIT_LIST_HEAD(&led->controls);
-+		device_initialize(&led->dev);
-+		led->dev.parent = &snd_ctl_led_dev;
-+		led->dev.groups = snd_ctl_led_dev_attr_groups;
-+		dev_set_name(&led->dev, led->name);
-+		if (device_add(&led->dev)) {
-+			put_device(&led->dev);
-+			device_del(&snd_ctl_led_dev);
-+			return -ENOMEM;
-+		}
-+	}
- 	snd_ctl_register_layer(&snd_ctl_led_lops);
- 	return 0;
- }
- 
- static void __exit snd_ctl_led_exit(void)
- {
-+	device_del(&snd_ctl_led_dev);
- 	snd_ctl_disconnect_layer(&snd_ctl_led_lops);
- 	snd_ctl_led_clean(NULL);
- }
--- 
-2.29.2
+--vtzGhvizbBRQ85DL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAzszAACgkQJNaLcl1U
+h9AMBQf/WGPjzaxsZPvEn8GqencTawGQftyWnpeIfFSJRVlBWily6X7w+ilVTJRR
+5R3Q9V9KbfuVNB/sN20bY2rMIG8hLm/MdGuCqwT9B6u5X1oz10j1R4OTyJw90dCS
+rlOyMPRYoSG85Ls0oreV5y4FhYLyxDrt4DIU7dmZ52v5DHR94xdUc1pcpG7p3+Ky
+NJpdv+yh/uY6nHwpmPKt1rNq/lrxj2iA/mszphFhcJgE/hKYNtNfx8rtv0Brvd/H
+1EComI/LyN31ihx4FgAl8BLc5sQoqrbHYxGFJUAMlUEe6BVRJDT91CQplWf5ZBOG
++0ADWyYANxHqykhPDgAmIT5HUlIhiw==
+=7a0q
+-----END PGP SIGNATURE-----
+
+--vtzGhvizbBRQ85DL--

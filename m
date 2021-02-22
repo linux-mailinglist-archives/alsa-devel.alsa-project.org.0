@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB2D1320EBB
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 01:48:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 179B2320EBC
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 01:48:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 451AB167F;
-	Mon, 22 Feb 2021 01:47:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 451AB167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75AC81686;
+	Mon, 22 Feb 2021 01:48:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75AC81686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1613954898;
-	bh=V26KbsasB/UrLwaHgKPn2KH7yQ7YO8hzNNszkz52vFI=;
+	s=default; t=1613954936;
+	bh=HHOmE//XYdLLAU+Iq4bwVgpTg+Hf3pIlUjn4b87DABY=;
 	h=Date:From:Subject:To:References:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=R/3uuCiGxs+hZFPgyJK01kWNRhXkN0wz29bCgF/jeM3qhbgOvhQqJYGrvc8Mftkdk
-	 w4bdBXcLPkBiU9Tk1kGTYe1x4bA74FwyNKQPWBJe3eY+UaerdzVkfPuSubF+5yBcZp
-	 XU8yHyTVuNEhftkY+3abFbVieWutGaPSubJsmZCU=
+	b=rOwb4B84ueX7O/1mJb4WWagql6sBVp1mFXKwpycjXxvcFLRldU9Xc8js4oPg9395w
+	 8aLBFMoXKZGHr8zs08wAFS4zRgNwrhLHx2vp68+T0b3iSDKSaqus+yV71TB3a52FaP
+	 8+RerTbCYbUN83kCdBRxvqMvrv/ly7MCnbc0gH1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5EEEF802D2;
-	Mon, 22 Feb 2021 01:47:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB2ABF802E0;
+	Mon, 22 Feb 2021 01:47:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB5FAF802CA; Mon, 22 Feb 2021 01:47:05 +0100 (CET)
+ id 67C64F802E0; Mon, 22 Feb 2021 01:47:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
@@ -32,19 +32,19 @@ X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
  version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 28CCFF80167
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 01:46:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28CCFF80167
-Date: 22 Feb 2021 09:46:57 +0900
-X-IronPort-AV: E=Sophos;i="5.81,195,1610377200"; d="scan'208";a="72727475"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 22 Feb 2021 09:46:57 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 7F0C1F80167
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 01:47:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F0C1F80167
+Date: 22 Feb 2021 09:47:19 +0900
+X-IronPort-AV: E=Sophos;i="5.81,195,1610377200"; d="scan'208";a="72727527"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 22 Feb 2021 09:47:19 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id E0BE34142EE0;
- Mon, 22 Feb 2021 09:46:57 +0900 (JST)
-Message-ID: <87sg5pvshq.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7C9704004BAB;
+ Mon, 22 Feb 2021 09:47:19 +0900 (JST)
+Message-ID: <87r1l9vsh4.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/5] ASoC: soc-pcm: remove strange format storing
+Subject: [PATCH 2/5] ASoC: soc-pcm: unpack dpcm_init_runtime_hw()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 References: <87tuq5vsin.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,63 +70,59 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-dpcm_init_runtime_hw() (= A) is used from dpcm_set_fe_runtime() (= B)
-with for_each_rtd_cpu_dais() loop (= C), and it checks formats (= D).
-
-(A)	static void dpcm_init_runtime_hw(...)
-	{
-		...
- ^		if (runtime->hw.formats)
- | (D1)			runtime->hw.formats &= stream->formats;
-(D)		else
- | (D2)			runtime->hw.formats = stream->formats;
- v	}
-
-(B)	static void dpcm_set_fe_runtime(...)
-	{
-		...
-(C)		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-			...
-(A)			dpcm_init_runtime_hw(...);
-		}
-	}
-
-If this for_each_rtd_cpu_dais() loop (= C) calls
-dpcm_init_runtime_hw() (= A) multiple times, this means it is Multi-CPU.
-
-If we focus to format operation at (D), using mask (= D1) is understandable
-because it restricts unsupported format.
-But, enabling format when zero format case (= D2) is very strange,
-because it might enables unsupported format.
-
-This runtime->hw.formats is initialized by ULLONG_MAX at soc_pcm_hw_init(),
-thus becoming zero format means it can't use such format.
-And doing this strange format operation is only here.
-
-This patch removes strange format operation (= D2), and use standard
-soc_pcm_hw_update_format() for it.
+dpcm_init_runtime_hw() is now just verbose function.
+This patch unpacks it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/soc-pcm.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 14d85ca1e435..bb912a94e895 100644
+index bb912a94e895..fd279fb28533 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1533,10 +1533,7 @@ static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
- 
- 	soc_pcm_hw_update_rate(hw, stream);
- 	soc_pcm_hw_update_chan(hw, stream);
--	if (runtime->hw.formats)
--		runtime->hw.formats &= stream->formats;
--	else
--		runtime->hw.formats = stream->formats;
-+	soc_pcm_hw_update_format(hw, stream);
+@@ -1526,16 +1526,6 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	return err;
  }
  
+-static void dpcm_init_runtime_hw(struct snd_pcm_runtime *runtime,
+-				 struct snd_soc_pcm_stream *stream)
+-{
+-	struct snd_pcm_hardware *hw = &runtime->hw;
+-
+-	soc_pcm_hw_update_rate(hw, stream);
+-	soc_pcm_hw_update_chan(hw, stream);
+-	soc_pcm_hw_update_format(hw, stream);
+-}
+-
  static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
+ 				      struct snd_pcm_runtime *runtime)
+ {
+@@ -1669,6 +1659,8 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
+ 	soc_pcm_hw_init(hw);
+ 
+ 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
++		struct snd_soc_pcm_stream *stream;
++
+ 		/*
+ 		 * Skip CPUs which don't support the current stream
+ 		 * type. See soc_pcm_init_runtime_hw() for more details
+@@ -1676,9 +1668,11 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
+ 		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
+ 			continue;
+ 
+-		dpcm_init_runtime_hw(runtime,
+-			snd_soc_dai_get_pcm_stream(cpu_dai,
+-						   substream->stream));
++		stream = snd_soc_dai_get_pcm_stream(cpu_dai, substream->stream);
++
++		soc_pcm_hw_update_rate(hw, stream);
++		soc_pcm_hw_update_chan(hw, stream);
++		soc_pcm_hw_update_format(hw, stream);
+ 	}
+ 
+ 	dpcm_runtime_merge_format(substream, runtime);
 -- 
 2.25.1
 

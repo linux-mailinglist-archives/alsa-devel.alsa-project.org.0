@@ -2,94 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C55C321F84
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 20:01:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DD503220C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Feb 2021 21:22:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6E241675;
-	Mon, 22 Feb 2021 20:00:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6E241675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 794C9950;
+	Mon, 22 Feb 2021 21:21:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 794C9950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614020484;
-	bh=dHHuXTtoMTz1iLJEEOVaVKK33MK7MxOaH3zMGUXAZXc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1614025329;
+	bh=IRinsFTIScAOT+Z3d/AgrlLMPmgST6R4mc7rA9DWmc4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s9nbyXqTXVbXUNwiYDqgIRD2H2FmaT8Qm+suPjQLVEtC6FvVEejiHuHp7yw6Y6/c5
-	 pRcZxUprpaLKgY9n/TSRR5EozbxAKYB8J0apOCqBDHHPm+CXLexQhuSnI02nCa+Ypi
-	 fsIC18X240fn8be20a5Is3kD8FVzzEw4tx6KaVQM=
+	b=cyAZ2djjqR3x1+ECOeXeOi/md1i72xTBKY6WVS8QinbQbsrCnfOG2woSW3rqP7Qsn
+	 59iQ02akrsOBjdxivn4mGAsanMMC+OzbaT/EPBLIrHJNL+shtlZhyN4rpWcR8B9gRj
+	 I2FI+db1f7MVEuma2XByxro2fLI5Yfh9Aa6mof+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01309F8022B;
-	Mon, 22 Feb 2021 19:59:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B637CF800CE;
+	Mon, 22 Feb 2021 21:20:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 218B6F8016C; Mon, 22 Feb 2021 19:59:51 +0100 (CET)
+ id 11E66F8016C; Mon, 22 Feb 2021 21:20:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61591F800CE
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 19:59:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61591F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6501BF800CE
+ for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 21:20:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6501BF800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="RbFcsd9l"
-Received: by mail-qk1-x72c.google.com with SMTP id h8so13690419qkk.6
- for <alsa-devel@alsa-project.org>; Mon, 22 Feb 2021 10:59:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g+ZR1SM9fRDEFDpYzaVn4wl0pBvy2hphnmkBddOveeA=;
- b=RbFcsd9l0NMDShRpSjokh3ooj06llE1smHfMD3zAoGMJepBmq714HCdtbQDMHmZASi
- gFWJmAdRGsDsqLVyftw95k4YL6vFc0aMVQnUsf7/1Q5t4SrE250L6DDgEo+Jhv8WeZ8t
- 4AzoJr+fNbs866XZtgG7V44aN1Do5bMDqm/nyCTVwt58cebKvi6SgStdOQFzJyR+dARb
- K2j90Ivgpw2guLT6zA3JKh372Hz+ftzKHvTItWpOYMz4RRQ3fVrWxv4T4Uq1mEurjsav
- W9IUiwAJMMdJeYlcrciulZrmoEsw9ZaNXQap73G9Yv6++lE8jQqoXtJF/JDAC6AyX2HO
- si1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=g+ZR1SM9fRDEFDpYzaVn4wl0pBvy2hphnmkBddOveeA=;
- b=fnDFxPyNs1LIpiZM4Mb3NKlC8rtgXeExfNq7ifsxqyuEisxiaIWu2gPwR8GSlpWJSC
- UipbausVtEr/goYDeE/5jDlZwo2FqfV8NjJlcFBM75WQ2EQoc4zV7jTTUUo6KyIo4A3v
- ScmEXybWUv5WfO7DCshWzw0xswG0zSs2vIzenXTrLllM4V/75LcgeRbLFW2xOyvkQJsC
- e0PdDeIvhmzp6lQaBYl3E3R0MgUXLKrw3ugTDqbgvmKTpenT85GC/rO8q8+/M1Nrh+MX
- n5nD9uw62ruiZth8tUwZfGYe9UySB3N898DWU6RRCa1SF4Cr1ldTVxJtCVev135TJLoE
- Ds7w==
-X-Gm-Message-State: AOAM532Nv0r+Lz0VvgyZKlFteUJeUZ4opTfF+FLla7sH1dWcWPCOhnFH
- 31v7KVvXYAmRIIOyr5JytX6lYHXsGveE4L6lp3dzPg==
-X-Google-Smtp-Source: ABdhPJwZvAPylZSK5KldRd2WZvhsuGIxruYv6JmB40+KWE4FMtHbjgCsUaDo8QIAk4yq+ZbwXuvrW4WamWG3GDljUmc=
-X-Received: by 2002:ae9:edc9:: with SMTP id c192mr21890490qkg.36.1614020385866; 
- Mon, 22 Feb 2021 10:59:45 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ks2WupQR"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8978264DFD;
+ Mon, 22 Feb 2021 20:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1614025231;
+ bh=IRinsFTIScAOT+Z3d/AgrlLMPmgST6R4mc7rA9DWmc4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ks2WupQRVtufpv4xhoOqSKII42oju6II9zLB6s6kXAY2UZ//Mo2ch9giE67fTKpJl
+ DS0xKhhkD6A4oJkhd2XBJxrWV5TDOV9AwYNvt/33yHrPiotTiKyIPzDmvES9He/tnX
+ GhghXLhEuIrRUylHIWblR8MS7XZPexAPF7bh17CWgkH5s/NuQQJUj2etgcwBZ9rBHr
+ MDfOh+jTIONTNztRljgrzQLwSuwTTKMkrIcDzwpL+p4Wqa5sJ8Kr9uW3S6g3MSdCbH
+ uOmqUPMVB5qo81nvq7wAlk9Y4LdA12t4GBVXwb55/NZlewdpAuzuHlwyydJ8Z/Zddo
+ 8cacJ97J5UoJw==
+Date: Mon, 22 Feb 2021 20:19:29 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: (subset) [PATCH 0/6] ASoC: samsung: remove cppcheck warnings
+Message-ID: <20210222201929.GF6127@sirena.org.uk>
+References: <20210219230918.5058-1-pierre-louis.bossart@linux.intel.com>
+ <161401004266.2538.5738460015320431431.b4-ty@kernel.org>
+ <CAJKOXPe6LZuuL0ntPAEwudEtMcGreBLMHzBFg5jw_3=DpG8KVA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210217214914.700751-1-cujomalainey@chromium.org>
- <5b90530b77744937b87bbbd35901e320@realtek.com> <s5hr1ld22a9.wl-tiwai@suse.de>
- <CAOReqxibmAQNQe8PuHkUSW5Kb2L986X9DDqia-aN=ZrS8VJysA@mail.gmail.com>
- <20210222134551.GC6127@sirena.org.uk>
-In-Reply-To: <20210222134551.GC6127@sirena.org.uk>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Mon, 22 Feb 2021 10:59:34 -0800
-Message-ID: <CAOReqxhRi9n-vxayVDNp-9R65s79OAqX8=YweCddFHTDJbbjGw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: remove jack detect delay
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="OzxllxdKGCiKxUZM"
+Content-Disposition: inline
+In-Reply-To: <CAJKOXPe6LZuuL0ntPAEwudEtMcGreBLMHzBFg5jw_3=DpG8KVA@mail.gmail.com>
+X-Cookie: A motion to adjourn is always in order.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,30 +83,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 22, 2021 at 5:46 AM Mark Brown <broonie@kernel.org> wrote:
 
-> On Thu, Feb 18, 2021 at 01:06:27PM -0800, Curtis Malainey wrote:
->
-> > I am trying to understand the purpose of this delay currently, won't
-> > the press already be registered since we have an interrupt? Or does it
-> need
-> > to stabilize? The reason is 250ms is well within human perception or even
-> > double tap time, which results in users possibly double tapping buttons
-> but
-> > only seeing one press come through.
->
+--OzxllxdKGCiKxUZM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Would a acceptable solution to everyone be
+On Mon, Feb 22, 2021 at 06:31:15PM +0100, Krzysztof Kozlowski wrote:
 
-if inserted && buttonAction
-  respond now
-else
-  run workqueue
+> Hmmm, I had comments about this one so it should not have been
+> applied. The check if (ret || !args.np) is still not good (or
+> confusing) because args is an uninitialized stack value.
 
+Ah, I saw the "this is actually a fix CC stable" bit, the bit saying
+there were issues was hidden - it looked like you'd just not deleted
+context.
 
->
-> It's quite common to have lots of issues with debounce on jacks,
-> especially around insert/removal - it looks like this delay covers both
-> insert/removal and button presses so it may well be needed for robust
-> handling of the actual jack insert.
->
+--OzxllxdKGCiKxUZM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA0EdAACgkQJNaLcl1U
+h9B79Af+OgeiU+jU8yAShBd7x2L39x1dQPspsU/HTwY/X0HG6JYXqnOkkyIWPC9V
+qFM17drHLEMi1c2XGkEYFsXwk8VB9QmjwqgAXeZPDdenh7Mt4eDPI1AhBLqFuCWd
+N2C6FeQMVxHGtW6Ih22kFyQYy/z1mpToaAHysc+Xz77RB4w+Xta0DBpxwCSd80Aj
+xO5Kf5rD2ZTjdxqXll7T9R0KipybP6uPmypeEIo73sVZeVvopHWAYb14geYTtC/Y
+cKkTW9G6SzajnxfXKqHiUSYtToioXRRsI7/9tAjym7HPrBfRzk+0/TL0CbA2DIfz
+qm0UnyZrwkjuZ/x12R/aLnBK4n7QpQ==
+=HMDX
+-----END PGP SIGNATURE-----
+
+--OzxllxdKGCiKxUZM--

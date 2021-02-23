@@ -2,77 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF67322F8E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 18:23:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 406DA32300F
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 18:57:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 557971679;
-	Tue, 23 Feb 2021 18:22:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 557971679
+	by alsa0.perex.cz (Postfix) with ESMTPS id D01411679;
+	Tue, 23 Feb 2021 18:56:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D01411679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614101020;
-	bh=Wjq7Hic2f6/w0DEt68eBWex/bWnDMeF9BQWhdL/aD5Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1614103044;
+	bh=0kboFUgXKFK0tKD4tNtHwwjzB3HIKgIAIs89whvHWsU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YWom95CVYwe5rpSiitBffWsaVDf4BcQridt7t12beFhiEOLkLAVDKJQ7R0/inL2/2
-	 gNsqt9ZZZro/zV9CFzuxf5TnEOJSzV/QjSrpq6x/iJB6gYX+9faiw2r2wO58vqMsPK
-	 qG/Q7/0hpVKssC1EEZDjix6NJcldsybn6SHT8zRc=
+	b=H32qV4dNTc2gYSE47eJgbjJBb6BtE866VYJWFXaXGLG+RyJr9bc8EcG+9TW9ObZX4
+	 OseWgH8QiEgvDB0Y6AX1AcG+iD3ZfGHG4luhY0Im2s1e5IlwFH/0PlQud6/eJUU1Eh
+	 1hjy/mVGWkMR+R/TWExU433JSenInDdOm7KhP8UA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E753F8016D;
-	Tue, 23 Feb 2021 18:22:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B9B9F80167;
+	Tue, 23 Feb 2021 18:55:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C123AF80169; Tue, 23 Feb 2021 18:22:07 +0100 (CET)
+ id A7E40F8016A; Tue, 23 Feb 2021 18:55:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D987FF800B4
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 18:21:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D987FF800B4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RaPeRlLl"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2A81C64DE7;
- Tue, 23 Feb 2021 17:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614100917;
- bh=Wjq7Hic2f6/w0DEt68eBWex/bWnDMeF9BQWhdL/aD5Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RaPeRlLlyhn0UKwy50gYuQDYcw3R7UbKP124ASdyjCdcGBFs0xHE/bAjwnQY/80LK
- zeYziSLucq2odghiodSx5q7iHd6HqXgQ44mw01Pxizx/HUXwU8MF5VyuC0ju1pEadE
- DjzuBERHUjztyxzPhSk94iQkBF5HJ5D2LPMiPvp7+/bJjnZPgbQ62MvSKIj9p8RkJC
- gA4lJ/s4zUvhDlH+krlGIfIaap7xNBc/9GrFE+kgkWXBQUYY8aWFCL/0FNILqVMo6L
- WSQV56tcqhbcF7bVQagSU9wwrt/9udjiqw94FOui/ueDHhsnQsvdJUgEajNUQ53LQg
- MLS0zWT6pDCsw==
-Date: Tue, 23 Feb 2021 17:20:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
-Message-ID: <20210223172055.GI5116@sirena.org.uk>
-References: <20210215142419.308651-1-hdegoede@redhat.com>
- <20210215142419.308651-3-hdegoede@redhat.com>
- <20210223134506.GF5116@sirena.org.uk>
- <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
- <20210223140930.GH5116@sirena.org.uk>
- <s5h8s7evp8p.wl-tiwai@suse.de>
- <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEB78F800B4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 18:55:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEB78F800B4
+IronPort-SDR: V9qSgrh0OaQjuIFIQbVxOLbvIfgrfwOtVA2ZWwxEIasTk0XwU2sfLS5LXsVNdAji4mrYYiq3OE
+ RXEKmTd9eYDA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9904"; a="246314300"
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="246314300"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 09:55:39 -0800
+IronPort-SDR: y2+gOpbm/4lMp9Y24HY6Y/GrnehvbVaXjOqubUeV65juMp4rAiVhH9pxTzMdcjIYm24/uDJptY
+ iUhkIlvEB6pA==
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="441809765"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 09:55:11 -0800
+Date: Tue, 23 Feb 2021 19:51:28 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: hda/hdmi: let new platforms assign the pcm slot
+ dynamically
+In-Reply-To: <s5hsg5mu4ko.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2102231918010.864696@eliteleevi.tm.intel.com>
+References: <20210223122205.233701-1-hui.wang@canonical.com>
+ <alpine.DEB.2.22.394.2102231545050.864696@eliteleevi.tm.intel.com>
+ <ccc1fd32-5838-a2ca-39aa-75ef2d7e3b16@perex.cz>
+ <s5hsg5mu4ko.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="HuscSE0D68UGttcd"
-Content-Disposition: inline
-In-Reply-To: <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
-X-Cookie: Kilroe hic erat!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Bard Liao <bard.liao@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,49 +82,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---HuscSE0D68UGttcd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, 23 Feb 2021, Takashi Iwai wrote:
 
-On Tue, Feb 23, 2021 at 05:14:32PM +0100, Jaroslav Kysela wrote:
-> Dne 23. 02. 21 v 15:21 Takashi Iwai napsal(a):
+> On Tue, 23 Feb 2021 17:25:23 +0100, Jaroslav Kysela wrote:
+> > A dumb question: Does TGL really support up to 11 separate displays or it's
+> > just to handle 11 connections and the number of maximal simultanenous
+> > connected displays is lower? In the later case, the dynamic allocation makes
+> 
+> That's the latter.  And, the fixed assignment was merely for
+> compatibility with legacy usage, and supposed to be 3 fixed ones or
+> so.  Extending to that high number wasn't intended when the mechanism
+> was introduced.  We should have noticed it at ICL support (which has
+> up to 6 devices).
 
-> > That's one of my concerns in the recent actions for putting the
-> > hard-coded mute LED controls.  So far, the only usage of led-audio
-> > trigger is HD-audio, and it's enabled only for selected devices and
-> > setups.  OTOH, if we apply the audio-led trigger generically in ASoC
-> > codec driver, it's always done and might misfit; e.g. what happens if
-> > two codecs are present on the system?.
+yes, exactly. The pins relate to physical ports. There are more pins now 
+to cater for various DP-over-USB-C topologies (versus just native HDMI and 
+DP ports). Most product have less physical ports connected, but on the HDA 
+interface all pins are exposed. Each pin does provide functionality to 
+query whether a display is connected to it, and whether the connected 
+display has audio capability.
 
-> That's the abstraction issue. We can use PCI, ACPI, DMI or DT checks at the
-> _right_ place (machine top-level code) to mark those controls with the LED
-> flags in the kernel space. I've never said that the right place is the generic
-> ASoC codec driver.
+The maximum number of concurrent displays is described as converters.
+On TGL this is 4.
 
-We already need ACPI and DMI quirks in the CODEC drivers anyway due to
-the limitations of ACPI so it wouldn't be particularly surprising to
-have stuff there.  OTOH this would fix things per machine while with
-fancier hardware things might easily be flexible enough that there's
-multiple choices that could be made depending on use case.
+With SOF, we didn't have legacy userspace, so the HDMI/DP PCMs are already 
+exposed differently and only a small number (3 or 4) of PCMs are created 
+depending on hardware generation. Now the question is how we move 
+snd-hda-intel to similar model with minimal distraction to existing 
+user-space.
 
-I'd be a lot more comfortable with ASoC having some runtime control for
-overriding which controls get mapped, even if we try to pick defaults
-with quirks.
-
---HuscSE0D68UGttcd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA1OXcACgkQJNaLcl1U
-h9BJewf+NVadyOATdjxt+ItsaAmZ7G9kd7Pmtt9JPOFDxjjcFrXmtbQbKkD5Roex
-Eiu0+nVrDrTPvv1pCbbaJkXXbxWIGH93K+/jhDjwcoY1ykQttlPDI7255jU5p9Kg
-s3zmtLpVAmz/12hfDZdpAFZ6Ii8SFNLAmpzPHbhoqQXzEk7EPQ231vYN+FZhTTVU
-0mg6PYtsWPkGXZsLsyXx2m+J8DArkfyvwIyRrErA5uW2aVZ7ePZoWPeUQcEo+HbP
-LTVQsG9CP40E9AJkdbMJM0siPwMjGH7Bbhd3lq+AbJhk/AwIa1vvyKW8WF9UQARf
-FPq1oC04hMB0Zci7UXfEJtszfGARxQ==
-=3d0S
------END PGP SIGNATURE-----
-
---HuscSE0D68UGttcd--
+Br, Kai

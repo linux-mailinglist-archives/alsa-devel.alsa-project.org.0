@@ -2,95 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3663232310A
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 19:52:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E792E323123
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 20:05:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C26031679;
-	Tue, 23 Feb 2021 19:51:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C26031679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C2C81679;
+	Tue, 23 Feb 2021 20:04:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C2C81679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614106329;
-	bh=i3IObm+DY6v9t9rgpYgMLiue/2JiqWoOZdDMrH8NXW4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1614107146;
+	bh=VKeQhAies7RU8wPon2XXPb6gXORcNSu0HddyAa4lR8g=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UY9bq3BywYcfKhhlCKU52q6wgCk9InRcfIq/oYT6haiMC7AjxIDjJwv/HWlqUDq3A
-	 58F9Mz1ciTwLTiqRKVW6YPrPRcGfkP0hbLJKCXyirgDSyGXF68Xs3j1p/YmWawH4ah
-	 T2cZO+DSOxBmpqpr3AD6/nA1y+MW4q9Lfp8CZyRw=
+	b=vDSyNce/kv/u63xA2ySzJ+rjG3arZ/nBYixbH3xA/tUZcc+MQ2SsYItC7cPg3x3ac
+	 prPVQuXIZ5ezAA6LkPoGdmXi3HF/ryZ7M0Y3J9r/onj7VlzT+3QlXxYdgYB9pRyjvo
+	 TzeptYFQ9jWlsQg0E8Vi5maMbmd3jxdyvNXzGlSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0655CF8016D;
-	Tue, 23 Feb 2021 19:50:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99F12F8016D;
+	Tue, 23 Feb 2021 20:04:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D663BF8016A; Tue, 23 Feb 2021 19:50:36 +0100 (CET)
+ id CF6E3F800B4; Tue, 23 Feb 2021 20:04:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7247AF80129
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 19:50:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7247AF80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BD95F800B4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 20:04:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BD95F800B4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="T7VfT35c"
-Received: by mail-qk1-x72d.google.com with SMTP id t62so17222534qke.7
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:50:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=i3IObm+DY6v9t9rgpYgMLiue/2JiqWoOZdDMrH8NXW4=;
- b=T7VfT35c2/6k5HWFTw2XO3jxmkBrmxECepjhLq/aao5Otb2ywG8I9JGi0CiPnpvNu9
- f72xHZz4a1HIH5IfP3NHXKi3dkGFocLS5yODHKgcIoR5YmkF00cN/JoRHxecVZnpRfTa
- Igo4jRI50Ee20sHSZeHiPuR5Zmjl/e5Wc3t5jAW1QWtpnMwKetysQNXdKnS7I4YsZm9C
- 4lKHFE45LBU3L1hGzIBE71TIdigt2MZ3bgo62xc7EpNT53uHTEvdV8IjePkLv7nFPJEq
- KOUVeps0edBzEU3H98hyYbDKSCqlkZKKLs7kMbNn8m8vVeCwijVmN2pttnL14qHnK/Id
- wp0A==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="DpNR5CtY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614107044;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=csCxomwI82Jg6fdk0rjG9kK2d0mMv6v+TpH/OsUg/CM=;
+ b=DpNR5CtYb4Gk7tTzjM5B8jbSAvFADouOHT5XLrV5SaCx8me/FR1GsHTVHv9QGePV1O1fsq
+ bck8r55zmwRJHa8e9fbaA8IdAT4zjXdLPMs0JisYHfLIj+Z2gfeyBlHif5Vvb6Z2K9M4o4
+ u9KHt4HdUW0VqRblqIsBAX9pEe1Ni2U=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-538-9eCZ9w0uOG62LJ7TBX4O8g-1; Tue, 23 Feb 2021 14:04:01 -0500
+X-MC-Unique: 9eCZ9w0uOG62LJ7TBX4O8g-1
+Received: by mail-ed1-f72.google.com with SMTP id m1so5059755edv.12
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 11:04:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=i3IObm+DY6v9t9rgpYgMLiue/2JiqWoOZdDMrH8NXW4=;
- b=JQyZTdQ5bLkv2v1S26FXqX0PzpYSqoMW+ctp2lSuxk6Oe2GF4r32UNc7UqbnGE7unF
- uf+D6ed7Ge8rKz1ECruCJlC4hHz0GWrIm2ZZJkHxoYhz7A6N80qbDmg0x7+dKuU0DAqz
- EoeFIG42luG4bXAiUQgvY7IPV8C5enkLUvv5buVJg3yI5gWqCg3jH985FEru653OTw65
- GJCECwxMrSYXgRQ29/cWZkwJHbVnCljaZ6CtrBMHy8AeIA49rZBhlD5in3IFD/7uxI8T
- fvkIx7E6qJHF4ZyrZYgqFiLUq96mP8jdpkO5Wu+GAp6FZI6/bvxPSZGMmi7y5hY5EOCM
- WO1w==
-X-Gm-Message-State: AOAM531gG+7cKXmE+QybbNNeY8fN+AtYfgn4cceDlxKxLxCDTEx346QT
- nfFEOWxN3VTH2G9WMTBctUW4ujDGS8lGSAwfQxuRRA==
-X-Google-Smtp-Source: ABdhPJxJgPkkpXcmA/4XAgmBHi1YOqpFlC5jtaYZRTvpQOWYGm/OFjL9ouBxszvZs/0AFDVgSxppJYPx1KEodnw8zUQ=
-X-Received: by 2002:a37:5943:: with SMTP id n64mr2824352qkb.127.1614106230491; 
- Tue, 23 Feb 2021 10:50:30 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=csCxomwI82Jg6fdk0rjG9kK2d0mMv6v+TpH/OsUg/CM=;
+ b=HmtT3T+50VjUvn55ooBfJiX9vJAzsnnGgQawZUblxucsmy/ji5sYmHF2lA/RYzEzrb
+ ni7IH9UWcQHXH1UPAxrKa3l4MQtjyCwwzBFSc75UiIPXhAmpTTUXGOxXFSjzaGAPraAa
+ ARcVyZoLPjsUAf651ZzXu1pHW1gej15zO+yzNBQZ905L+5bQJL6x4pTA2YkS7vgSNhMP
+ ooz6vnTBF7YG3K/26S9nsgQDT86zMzcwvjhR9nTuZOFxfQyMcZj5OEB0DyEtfpgdIqrV
+ V5D4mvcIr+D6cvku8MTXy3eUoMusss2utun8pj9zuSs6aIiTI+bkbNpRCg9QwOc40xMK
+ zSMQ==
+X-Gm-Message-State: AOAM531HWKWlbMVirv1Domi8GmdKmOw/onbhPMWuAswVdHtD1W1/7Aby
+ Qh+nq8Jbx+T07iDi/lcND3i+RJFGmsXcwrqCQoPxKSZ/CoxIExlBmtLMzEpKl/ilhhJwJ1y5dQJ
+ oQdb7CFYLKgpX5vOqGAC5cGvDsBpR0WCzykjIOeFpzj1GqhtxLJpR+0rU0x2aOTbtsidqntwEIi
+ A=
+X-Received: by 2002:a17:907:760a:: with SMTP id
+ jx10mr18392201ejc.212.1614107040249; 
+ Tue, 23 Feb 2021 11:04:00 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyqlczuOH4AyS4jFsXjIx1X5kvIH9kxvyr0/FPG9/sDE5QV/D3X5oby7eQDj04VkTg7lRYVKg==
+X-Received: by 2002:a17:907:760a:: with SMTP id
+ jx10mr18392166ejc.212.1614107039970; 
+ Tue, 23 Feb 2021 11:03:59 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id cr20sm12890083ejc.57.2021.02.23.11.03.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Feb 2021 11:03:59 -0800 (PST)
+Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
+To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>
+References: <20210215142419.308651-1-hdegoede@redhat.com>
+ <20210215142419.308651-3-hdegoede@redhat.com>
+ <20210223134506.GF5116@sirena.org.uk>
+ <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
+ <20210223140930.GH5116@sirena.org.uk> <s5h8s7evp8p.wl-tiwai@suse.de>
+ <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
+ <20210223172055.GI5116@sirena.org.uk>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <fe2941de-02ce-9ed0-70ff-d7967aeecc44@redhat.com>
+Date: Tue, 23 Feb 2021 20:03:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-References: <20210217214914.700751-1-cujomalainey@chromium.org>
- <5b90530b77744937b87bbbd35901e320@realtek.com> <s5hr1ld22a9.wl-tiwai@suse.de>
- <CAOReqxibmAQNQe8PuHkUSW5Kb2L986X9DDqia-aN=ZrS8VJysA@mail.gmail.com>
- <20210222134551.GC6127@sirena.org.uk>
- <CAOReqxhRi9n-vxayVDNp-9R65s79OAqX8=YweCddFHTDJbbjGw@mail.gmail.com>
- <20210223124230.GA5116@sirena.org.uk>
-In-Reply-To: <20210223124230.GA5116@sirena.org.uk>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Tue, 23 Feb 2021 10:50:18 -0800
-Message-ID: <CAOReqxjhWD5V7UtH5-fYpiK-h5cF7fC2WqmtnYz1qdn3yt7+LQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: remove jack detect delay
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+In-Reply-To: <20210223172055.GI5116@sirena.org.uk>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Takashi Iwai <tiwai@suse.de>, Oder Chiou <oder_chiou@realtek.com>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,19 +127,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->
-> Are you sure that *zero* debounce is needed for the button presses?
-> 250ms does look like a lot of time but zero might be going from one
-> extreme to the other.
+Hi,
 
+On 2/23/21 6:20 PM, Mark Brown wrote:
+> On Tue, Feb 23, 2021 at 05:14:32PM +0100, Jaroslav Kysela wrote:
+>> Dne 23. 02. 21 v 15:21 Takashi Iwai napsal(a):
+> 
+>>> That's one of my concerns in the recent actions for putting the
+>>> hard-coded mute LED controls.  So far, the only usage of led-audio
+>>> trigger is HD-audio, and it's enabled only for selected devices and
+>>> setups.  OTOH, if we apply the audio-led trigger generically in ASoC
+>>> codec driver, it's always done and might misfit; e.g. what happens if
+>>> two codecs are present on the system?.
+> 
+>> That's the abstraction issue. We can use PCI, ACPI, DMI or DT checks at the
+>> _right_ place (machine top-level code) to mark those controls with the LED
+>> flags in the kernel space. I've never said that the right place is the generic
+>> ASoC codec driver.
+> 
+> We already need ACPI and DMI quirks in the CODEC drivers anyway due to
+> the limitations of ACPI so it wouldn't be particularly surprising to
+> have stuff there.  OTOH this would fix things per machine while with
+> fancier hardware things might easily be flexible enough that there's
+> multiple choices that could be made depending on use case.
 
-Fair point, I was looking at some other codecs and why they respond so
-quickly, it appears they have no fixed delay and just call schedule
-work. That being said, I can easily double tap <100ms. So Ideally i
-would like to keep this on the order of ~50ms at most. I am guessing
-Realtek will want to keep the 250ms for jack detect still.
+I have a feeling from the discussion here that you would prefer this
+per model/machine option over the current patch which unconditionally
+sets the SNDRV_CTL_ELEM_ACCESS_SPK/MIC_LED flag on the main DAC/ADC
+mute controls ?
 
-Would queueing two separate jobs with two different delays be the
-simple way to go? Realtek does this sound fine to you?
+So I believe that it would be best for me to respin this patch
+series moving to making this a per model/machine thing, correct?
 
-Curtis
+> I'd be a lot more comfortable with ASoC having some runtime control for
+> overriding which controls get mapped, even if we try to pick defaults
+> with quirks.
+
+The drivers in question already allow overriding their quirks bitmap
+via a module-parameter.  If we are going to enable the mixer-element
+access-flag which enables LED control on a per-model basis based on
+DMI quirks, then I plan to simply add 1 new flag in the quirks bitmap
+for this for each mixer-element on which we need the flag.
+
+So for now this would be just 2 new flags, since atm we only need
+the SNDRV_CTL_ELEM_ACCESS_SPK_LED resp. SNDRV_CTL_ELEM_ACCESS_SPK_LED
+flag on one mixer-element each.
+
+And then the user can always override the settings using the quirk
+module parameter. This is not exactly runtime control, but IMHO it
+is close enough and anything else will just overcomplicate things.
+I'm aware of only 3 model 2-in-1s which need this and on those
+3 the implementation is very straight forward.
+
+Regards,
+
+Hans
+

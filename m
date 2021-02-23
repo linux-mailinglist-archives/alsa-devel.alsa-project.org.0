@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14EF2323086
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 19:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C931432308A
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 19:21:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94EDF1679;
-	Tue, 23 Feb 2021 19:20:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94EDF1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id E42BC1686;
+	Tue, 23 Feb 2021 19:20:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E42BC1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614104497;
-	bh=GBe+nfolHP1HoMBuIE6VpxRNBdrPXQDsJGxdyHkZzMw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=r5aCNAHYtzZAEns4kfHTTlsyCmTfp/rJY342YyxjIzh8A1NCJph50foToOlHb0AX/
-	 +peHw1CfOrkfjoolttPvPg9KfcZwHgcYaG6UMPCZ63pVcJhsSmj9fh9IX42dGI2+j4
-	 RZLxh3PymZiCMbfORKptqqjM6SgzgtFa/7lElwt8=
+	s=default; t=1614104510;
+	bh=9EEtLwWSezY8Sf8ckHTwieMMidcPrRuv8Cp4CpEaGEc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FvTMVvjakZCS83MHf4+ugmEI2zOTObCdP9n9A/N5nMrE32OUvC4kNSF0d9tj4uaE/
+	 qGGQFICTiV200J4t9DvmHgleqL7TljxmBhTrDuoJzHxofHQewTh3oI3LbGh1aL3ELt
+	 6KCbDOXHZwC1kCujTMV9hy1OrD6brLJTsTsmOoOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47274F801F5;
-	Tue, 23 Feb 2021 19:20:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B293F8027C;
+	Tue, 23 Feb 2021 19:20:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E4BEF800B4; Tue, 23 Feb 2021 19:20:04 +0100 (CET)
+ id 825BAF8026C; Tue, 23 Feb 2021 19:20:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C1D4F800B4
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 19:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C1D4F800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34456F8016A
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 19:20:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34456F8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="Ol7vVZ9h"
+ header.b="MYvyWNfo"
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1614104402; x=1645640402;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GBe+nfolHP1HoMBuIE6VpxRNBdrPXQDsJGxdyHkZzMw=;
- b=Ol7vVZ9hrLSslb2PNg4OuD99pDp11y/ISWj25e2Jg2poiQ0ygwx9mMGk
- DQn2hJrGEfPszUWiNC4OY+rfmgg+OiB5voKUtSUw35XfqStNdq+Q7dZCU
- gMExyqHa/RSs5XbnbxdM6CmFkI0sqOv3k3zbQrK51aO1b+MM0rP4thNgy
- 2G0Q+sDre5NqkvD+StQ6P9mXOu+B+WDfQwl2JL2/vq/r4b/KhxPaIStJc
- FQd3plXnXha8+oYD1MJFVsmSJ43NWtcSaOqMkLvZnqvC/Ci3Cp2uC9K45
- dE7mylKMEf9hypIpyP3/oN8ynF+0JeJKQeI1Wksu+MhWiO63q4m1+xjrI A==;
-IronPort-SDR: z2NKsbUfd3lPqoh1x9m8eFTR6xWDkNnvlGU/ZFnczGZkTKiuP5nY5QRT9qGyULh2h7oyVdnt9E
- 5P8WdXAJA6oQ8A5/uD7iRWNb+oFgQqZPEMmc63PEiMmnDoUX83q0Jn3dA6DLEnUKA+OTpFnSik
- WScvrEN0ck2+1L9zZzCGkdatyeqQG2R61KrAE05cei7rhmAJ4lJ9GTAnd43K6OYSbgJidf/Xke
- lOOACTpURXHWG5P/HrUui5LiFl6IfPLXUIDGL/dj+urIez6i7hTgP5uUsmp4cfA1JEEV6/G/d8
- PpQ=
-X-IronPort-AV: E=Sophos;i="5.81,200,1610434800"; d="scan'208";a="110827418"
+ t=1614104404; x=1645640404;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9EEtLwWSezY8Sf8ckHTwieMMidcPrRuv8Cp4CpEaGEc=;
+ b=MYvyWNfoLslEGY7KSfCkXAL8ssQMa3sEz0J3arDK/KJJDWNF2cG1f75M
+ NdStBX3qtYYCmXadSMIXfnSgt0kiA5lViG2zRk3Jcj0I6hdR47/9Ttieb
+ AHZ9TnhkCUcEbYKoQabUmKDEXZ0rJrpLaYgDAdq4BwU8rerOE+m0kosNv
+ 6HRN2eKaw3xYHjPS3Zmvmwm0SfeLpDvrbyEi4dOylVdZqBDVRsIUYN7oM
+ HcXZoWNzU7HxYHT/Mpz4JwQ1gwjdqNjViM3w09C4oQ1K1lxbu+KuPMeKM
+ MASNltFQwbcIFJv3YXaop5HCM08y5zARi+ZRD593FOWWpWC+umQgrZ8S6 Q==;
+IronPort-SDR: dCcWn2EoPHAB3rGDXt78rb0hQIVFSosi7eMqHLOoWMRWEnDaxrE84b8ieSNbcBsHoHu4gPP044
+ nhxfX3hpvf89IbVYmBVmunWtqTMO50EB3w3EuV4KKiA3cxvZWV34oF+R2GYFpZ7dcFB9YVZTYO
+ jA/0Yq/A1FJ1rYk55s9Jb91S3ihmv+PMovpm1nv7DmkYsMjB7eUxX4kz/wTPwWj5OR1fbp85UU
+ Tb95bZy4DWyBmHxzEP/N3vUTjtBUClhoEQLacHwpLreB42FdVByzB2yTxR0rOv6Vw1yjSylRbl
+ 2VU=
+X-IronPort-AV: E=Sophos;i="5.81,200,1610434800"; d="scan'208";a="110827424"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 23 Feb 2021 11:19:57 -0700
+ 23 Feb 2021 11:20:01 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
  chn-vm-ex02.mchp-main.com (10.10.87.72) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Tue, 23 Feb 2021 11:19:57 -0700
+ 15.1.1979.3; Tue, 23 Feb 2021 11:20:01 -0700
 Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
  chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Tue, 23 Feb 2021 11:19:54 -0700
+ 15.1.1979.3 via Frontend Transport; Tue, 23 Feb 2021 11:19:57 -0700
 From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH 0/7] Add I2S-MCC support for Microchip's SAMA7G5
-Date: Tue, 23 Feb 2021 20:19:22 +0200
-Message-ID: <20210223181929.444640-1-codrin.ciubotariu@microchip.com>
+Subject: [PATCH 1/7] ASoC: convert Microchip I2SMCC binding to yaml
+Date: Tue, 23 Feb 2021 20:19:23 +0200
+Message-ID: <20210223181929.444640-2-codrin.ciubotariu@microchip.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210223181929.444640-1-codrin.ciubotariu@microchip.com>
+References: <20210223181929.444640-1-codrin.ciubotariu@microchip.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -97,35 +101,158 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SAMA7G5 includes an updated version of I2S-MCC, found previously on
-SAM9X60. This controller includes 8 data pins, 4 for playback and 4 for
-capture. For I2S and LEFT_J formats, these pins can be used to
-send/receive up to 8 audio channels. For DSP_A, with TDM, any pins pair
-(DIN/DOUT) from these 4 can be selected to send/receive data. This
-version also includes 2 FIFOs (send and receive).
-This patch set starts by moving the driver's bindings to yaml and
-continues with adding a new compatible for the SAMA7G5 variant, followed
-by the changes needed for I2S/LEFT_J support, TDM pin pair selection and
-FIFO support, exclusively for SAMA7G5.
+This patch converts the Microchip I2SMCC bindings to DT schema format
+using json-schema.
 
-Codrin Ciubotariu (7):
-  ASoC: convert Microchip I2SMCC binding to yaml
-  dt-bindings: mchp,i2s-mcc: Add SAMA7G5 to binding
-  ASoC: mchp-i2s-mcc: Add compatible for SAMA7G5
-  ASoC: mchp-i2s-mcc: Add multi-channel support for I2S and LEFT_J
-    formats
-  dt-bindings: mchp,i2s-mcc: Add property to specify pin pair for TDM
-  ASoC: mchp-i2s-mcc: Add support to select TDM pins
-  ASoC: mchp-i2s-mcc: Add FIFOs support
-
- .../bindings/sound/mchp,i2s-mcc.yaml          | 108 ++++++++++++
- .../bindings/sound/mchp-i2s-mcc.txt           |  43 -----
- sound/soc/atmel/Kconfig                       |   3 +
- sound/soc/atmel/mchp-i2s-mcc.c                | 161 +++++++++++++++---
- 4 files changed, 252 insertions(+), 63 deletions(-)
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
+ .../bindings/sound/mchp,i2s-mcc.yaml          | 86 +++++++++++++++++++
+ .../bindings/sound/mchp-i2s-mcc.txt           | 43 ----------
+ 2 files changed, 86 insertions(+), 43 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/sound/mchp,i2s-mcc.yaml
  delete mode 100644 Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
 
+diff --git a/Documentation/devicetree/bindings/sound/mchp,i2s-mcc.yaml b/Documentation/devicetree/bindings/sound/mchp,i2s-mcc.yaml
+new file mode 100644
+index 000000000000..79445f5f2804
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mchp,i2s-mcc.yaml
+@@ -0,0 +1,86 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mchp,i2s-mcc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip I2S Multi-Channel Controller
++
++maintainers:
++  - Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
++
++description:
++  The I2SMCC complies with the Inter-IC Sound (I2S) bus specification and
++  supports a Time Division Multiplexed (TDM) interface with external
++  multi-channel audio codecs. It consists of a receiver, a transmitter and a
++  common clock generator that can be enabled separately to provide Adapter,
++  Client or Controller modes with receiver and/or transmitter active.
++
++properties:
++  "#sound-dai-cells":
++    const: 0
++
++  compatible:
++    const: microchip,sam9x60-i2smcc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Peripheral Bus Clock
++      - description: Generic Clock (Optional). Should be set mostly when Master
++          Mode is required.
++    minItems: 1
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: gclk
++    minItems: 1
++
++  dmas:
++    items:
++      - description: TX DMA Channel
++      - description: RX DMA Channel
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/dma/at91.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    i2s@f001c000 {
++        #sound-dai-cells = <0>;
++        compatible = "microchip,sam9x60-i2smcc";
++        reg = <0xf001c000 0x100>;
++        interrupts = <34 IRQ_TYPE_LEVEL_HIGH 7>;
++        dmas = <&dma0 (AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1) |
++                       AT91_XDMAC_DT_PERID(36))>,
++               <&dma0 (AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1) |
++                       AT91_XDMAC_DT_PERID(37))>;
++        dma-names = "tx", "rx";
++        clocks = <&i2s_clk>, <&i2s_gclk>;
++        clock-names = "pclk", "gclk";
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_i2s_default>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt b/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
+deleted file mode 100644
+index 91ec83a6faed..000000000000
+--- a/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-* Microchip I2S Multi-Channel Controller
+-
+-Required properties:
+-- compatible:     Should be "microchip,sam9x60-i2smcc".
+-- reg:            Should be the physical base address of the controller and the
+-                  length of memory mapped region.
+-- interrupts:     Should contain the interrupt for the controller.
+-- dmas:           Should be one per channel name listed in the dma-names property,
+-                  as described in atmel-dma.txt and dma.txt files.
+-- dma-names:      Identifier string for each DMA request line in the dmas property.
+-		  Two dmas have to be defined, "tx" and "rx".
+-- clocks:         Must contain an entry for each entry in clock-names.
+-                  Please refer to clock-bindings.txt.
+-- clock-names:    Should be one of each entry matching the clocks phandles list:
+-                  - "pclk" (peripheral clock) Required.
+-                  - "gclk" (generated clock) Optional (1).
+-
+-Optional properties:
+-- pinctrl-0:      Should specify pin control groups used for this controller.
+-- princtrl-names: Should contain only one value - "default".
+-
+-
+-(1) : Only the peripheral clock is required. The generated clock is optional
+-      and should be set mostly when Master Mode is required.
+-
+-Example:
+-
+-	i2s@f001c000 {
+-		compatible = "microchip,sam9x60-i2smcc";
+-		reg = <0xf001c000 0x100>;
+-		interrupts = <34 IRQ_TYPE_LEVEL_HIGH 7>;
+-		dmas = <&dma0
+-			(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1) |
+-			 AT91_XDMAC_DT_PERID(36))>,
+-		       <&dma0
+-			(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1) |
+-			 AT91_XDMAC_DT_PERID(37))>;
+-		dma-names = "tx", "rx";
+-		clocks = <&i2s_clk>, <&i2s_gclk>;
+-		clock-names = "pclk", "gclk";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_i2s_default>;
+-	};
 -- 
 2.27.0
 

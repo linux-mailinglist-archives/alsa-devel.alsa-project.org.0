@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C4D322923
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 11:59:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F1A9322949
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 12:10:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 614BC86E;
-	Tue, 23 Feb 2021 11:58:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 614BC86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35EC91679;
+	Tue, 23 Feb 2021 12:09:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35EC91679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614077948;
-	bh=weq/ytXsfwPl82u1FVxuh9duJvAW6ItynvJxmtS/k0U=;
+	s=default; t=1614078629;
+	bh=bPTcmgVqLC7LH4VCyBQF/EVo3YQCh4IE6cTwf+tIvxM=;
 	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m9HFr8gHcF5tX71F9+Bq4JtxyCKQE5nc83uUa8+FNiLwXp1cn4ZwGxQpbaxxFyD4R
-	 rIBnm8gS3B1qVZGMA5CkPmYDjVGscJ4tgOYgICW8up8mkTTFwAq7gJcKmo0N7p4YeS
-	 x+ngFxophfUP+cmk8rRs3NTmXLRmFjHjbXd/r8eU=
+	b=Fi/bKj4+/WW7Ae7NAA4y6TURkup0rejN0OnQhxage4RBYYvVou9/0KQ4KCZ4NrwpY
+	 ulIW4SuDzZ3O/xigFuBjfaDBEO/f0nV/HvXnUxu8+s2LnHLk26SezPMCgXwLg31K0h
+	 VoIeBwsygYOLKI6obJvU/vcz0g39O88l6Vo37WCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE049F80169;
-	Tue, 23 Feb 2021 11:57:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F898F8016D;
+	Tue, 23 Feb 2021 12:08:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B130F8016A; Tue, 23 Feb 2021 11:57:35 +0100 (CET)
+ id 1DE65F80167; Tue, 23 Feb 2021 12:08:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,102 +35,101 @@ Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
  [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 735CAF800B4
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 11:57:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 735CAF800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51E30F80167
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 12:08:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51E30F80167
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="gDIMtiJn"
+ header.b="LokRFB4Y"
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
  by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20210223105713euoutp02a97c02b39f67448416ca44cb12fe3690~mWzz7aSW22709227092euoutp02k
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:57:13 +0000 (GMT)
+ 20210223110834euoutp020a6023049e20d318e00cf5e73dbac74b~mW9tp04a40297302973euoutp02E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 11:08:34 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20210223105713euoutp02a97c02b39f67448416ca44cb12fe3690~mWzz7aSW22709227092euoutp02k
+ 20210223110834euoutp020a6023049e20d318e00cf5e73dbac74b~mW9tp04a40297302973euoutp02E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1614077833;
- bh=5Hp5cqvIhEbjl3dxwwsHZW5Mhbh1JKq6PIuVZeVhgPs=;
+ s=mail20170921; t=1614078514;
+ bh=0ZtjqZHEBn344T5qB+uTrgn4sh7hjC5IHLFRSbfecB8=;
  h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=gDIMtiJnSq2xnuP4FdnYsByW1gj8SOQmSYBiCkAPOYi+/yxF9Oa4ISnxPesUDXKmB
- 6qDaUC4IYD5REgQWTBiwWMPrepSkgfi9hH9QQg201HeOo2EiaJoqAErGF/hoO3J42e
- lQj14xKr3y4m1aYjUksHEnz4LsNCCu1uUYyuydkw=
+ b=LokRFB4Ypq+9bxzy52yUKF9OHrrUy7BI+K0MCVjR9AJ5r/bfM9UwAm4mtEemOoLkG
+ xWZBNkJtGNugU85RutRPbUCnUAIFewUwOduwrMqCoiUhrvhyGjnr6T8xskVJgc85tf
+ KN6PfxjqQBzcJJie8QoZDpnT0qL1hSaB3vBrhtFA=
 Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20210223105713eucas1p1d475f56787ad369bff4f1ae89fd75446~mWzzrSm9e3155831558eucas1p1r;
- Tue, 23 Feb 2021 10:57:13 +0000 (GMT)
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20210223110829eucas1p263d869576044103bfd97d65de99697e7~mW9o37MmT0784907849eucas1p2P;
+ Tue, 23 Feb 2021 11:08:29 +0000 (GMT)
 Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 9E.42.45488.98FD4306; Tue, 23
- Feb 2021 10:57:13 +0000 (GMT)
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 51.64.45488.D22E4306; Tue, 23
+ Feb 2021 11:08:29 +0000 (GMT)
 Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20210223105713eucas1p1b60061a3cfd8e24f087e24b4797fc953~mWzzVASpp1389413894eucas1p10;
- Tue, 23 Feb 2021 10:57:13 +0000 (GMT)
+ 20210223110828eucas1p12ee86fb556a580f3ac6e993eb45617d6~mW9okTSJR2197721977eucas1p1r;
+ Tue, 23 Feb 2021 11:08:28 +0000 (GMT)
 Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
  eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20210223105713eusmtrp1a2ee3ade3770479cd951f75426ca4f11~mWzzUKaLZ3267032670eusmtrp1q;
- Tue, 23 Feb 2021 10:57:13 +0000 (GMT)
-X-AuditID: cbfec7f5-c77ff7000000b1b0-7b-6034df89fcac
+ 20210223110828eusmtrp191dff96a6d77e6d4d01673878184b796~mW9ojuEVr0593105931eusmtrp1B;
+ Tue, 23 Feb 2021 11:08:28 +0000 (GMT)
+X-AuditID: cbfec7f5-c77ff7000000b1b0-7d-6034e22dd213
 Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id A3.EC.21957.98FD4306; Tue, 23
- Feb 2021 10:57:13 +0000 (GMT)
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 94.DE.21957.C22E4306; Tue, 23
+ Feb 2021 11:08:28 +0000 (GMT)
 Received: from [106.210.134.141] (unknown [106.210.134.141]) by
  eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20210223105712eusmtip1f892ecd4713842eb734b1a6e99b4a14c~mWzy9WrXR2693526935eusmtip1b;
- Tue, 23 Feb 2021 10:57:12 +0000 (GMT)
-Subject: Re: [PATCH v2 3/6] ASoC: samsung: s3c24xx_simtec: add missing error
- check
+ 20210223110828eusmtip1f8d047ca4f4b6c87173599ea9458c6ea~mW9oHPLPt0146401464eusmtip1E;
+ Tue, 23 Feb 2021 11:08:28 +0000 (GMT)
+Subject: Re: [PATCH v2 4/6] ASoC: samsung: smdk_wm8994: add missing return
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
 From: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <a24b9741-7621-78a1-fdb8-73ce9f78f056@samsung.com>
-Date: Tue, 23 Feb 2021 11:57:12 +0100
+Message-ID: <6eceb431-3977-f86b-2075-d27b7d193da1@samsung.com>
+Date: Tue, 23 Feb 2021 12:08:27 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
  Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210222213306.22654-4-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210222213306.22654-5-pierre-louis.bossart@linux.intel.com>
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuplleLIzCtJLcpLzFFi42LZduzned3O+yYJBu1/VCyuXDzEZDH14RM2
- i/PnN7Bb/Pr/jMni5eY3TA6sHhs+N7F5bFrVyeYx72Sgx+bT1QEsUVw2Kak5mWWpRfp2CVwZ
- 9y++YS74yVKx8pNYA2MvSxcjJ4eEgInEpbdH2EFsIYEVjBKtfwq7GLmA7C+MEi0HvjFBOJ8Z
- JR4e6GeF6Zi6eQYbRGI5o8Sv2WegnI+MEvNOnwSbKywQIrHp9wywDhGBOInlX86D7WAW8JGY
- 9+wdWA2bgKFE79E+RhCbV8BO4sCPpWA2i4CqxPZJy8FsUYEkib+/bzJB1AhKnJz5BKyXU8BL
- 4ujbe2wQM8Ulbj2ZzwRhy0tsfzuHGeQgCYEjHBKne08wQ5ztIvHr8zwoW1ji1fEt7BC2jMTp
- yT0sEA3NjBI9u2+zQzgTGCXuH1/ACFFlLXHn3C+gdRxAKzQl1u/Shwg7Srz9OxssLCHAJ3Hj
- rSDEEXwSk7ZNZ4YI80p0tAlBVKtI/F41nQnClpLofvKfZQKj0iwkr81C8s4sJO/MQti7gJFl
- FaN4amlxbnpqsXFearlecWJucWleul5yfu4mRmCKOf3v+NcdjCtefdQ7xMjEwXiIUYKDWUmE
- l+2uUYIQb0piZVVqUX58UWlOavEhRmkOFiVx3l1b18QLCaQnlqRmp6YWpBbBZJk4OKUamEoW
- R988+qFUICvpR25EerPLNfal2qHZWauPKjmFqIs8+n7lrN3zXMOEGimZ5BfPMk+YbopTyre/
- teL+5ok6K61Npy06ICBXJB0zNWbiqhsdSx/e1J9oUpoge/Tt7fqDGVeilUzf6P9/VKlxsXlO
- 49O+u3WOUhsfpEzeoiCqdC/+k7AaW4VMKDN7ScqfU+7rfnFeLl3bGpHf0TfRX8XTqshp+WSl
- ut+X/4s9vlDXbfOtTdWz5KyvIDfP2Z6J/9v37/1evuZgStXSiB4zMZkim7e/op5OstB+UzZ7
- 77F5ro/VplVpfZ64eOLredtN/PoW+dfLr9ulqzXvXGKf5/naXdpHqjS2Hg/ubP3L9PSIthJL
- cUaioRZzUXEiAIHGU3OgAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprPIsWRmVeSWpSXmKPExsVy+t/xu7qd900SDLbO57O4cvEQk8XUh0/Y
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphleLIzCtJLcpLzFFi42LZduzneV3dRyYJBt9mcltcuXiIyWLqwyds
+ FufPb2C3+PX/GZPFy81vmBxYPTZ8bmLz2LSqk81j3slAj82nqwNYorhsUlJzMstSi/TtErgy
+ ziz8wVrwmb3i+qUnrA2MR9i6GDk5JARMJHqvfWXuYuTiEBJYwSjx79dTRgjnC6PEjdYGKOcz
+ o8ShpU/Yuxg5wFrmfiiFiC9nlPjTsIsJZJSQwEdGid3PZUFsYQEviYPbdjGD2CICcRLLv5xn
+ B7GZBXwk5j17xwJiswkYSvQe7WMEsXkF7CTed84Aq2cRUJU49ek1mC0qkCTx9/dNJogaQYmT
+ M5+A9XICzd94/CMbxExxiVtP5jNB2PIS29/OYYZ47QiHxL3JlRC2i8SZQ32sELawxKvjW9gh
+ bBmJ05N7WECekRBoZpTo2X2bHcKZwChx//gCRogqa4k7536xgXzPLKApsX6XPkTYUeJQ33Jo
+ oPBJ3HgrCHEDn8SkbdOZIcK8Eh1tQhDVKhK/V01ngrClJLqf/GeZwKg0C8lns5B8MwvJN7MQ
+ 9i5gZFnFKJ5aWpybnlpsnJdarlecmFtcmpeul5yfu4kRmGBO/zv+dQfjilcf9Q4xMnEwHmKU
+ 4GBWEuFlu2uUIMSbklhZlVqUH19UmpNafIhRmoNFSZx319Y18UIC6YklqdmpqQWpRTBZJg5O
+ qQamWItUT0mX5upVU584CptNbChyeJe7YeFUz2Xdj3fZTHdL6b9skn97b7y90mG7vOPH9h5g
+ 4yjfvvj8ny6Tu92X19ebGErlT18gf/bn/dzIfTrRlwqZl/55EVDO9/DJ1rl2VdfjF5q4HtjG
+ wjr/1mkpJd7L+Ufi5te5mezvjl0p5Xao8HLGyfOVlup/P6/9vF/kgqmlzd23eyStV5UpHNVP
+ utihfe1ucvmVoA+FnFYnOQMWNd6Sipt8uO+TseR2JsMrXzZbc8sJLxEyqFgeaMt24p7t+ua7
+ h/QmV86tat9sW+Gv/bLhiMqxBjbnxwVyp1KV55jsen43jPPUEc/jM/Yu3T772e3rDBHTHEUv
+ sSw/rsRSnJFoqMVcVJwIADFgXPufAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprPIsWRmVeSWpSXmKPExsVy+t/xu7o6j0wSDJbsMLS4cvEQk8XUh0/Y
  LM6f38Bu8ev/MyaLl5vfMDmwemz43MTmsWlVJ5vHvJOBHptPVwewROnZFOWXlqQqZOQXl9gq
- RRtaGOkZWlroGZlY6hkam8daGZkq6dvZpKTmZJalFunbJehl3L/4hrngJ0vFyk9iDYy9LF2M
- nBwSAiYSUzfPYOti5OIQEljKKHH4eQt7FyMHUEJKYn6LEkSNsMSfa11QNe8ZJU7t/cMIkhAW
- CJHY9HsGK4gtIhAnsXvhIbChzAI+EvOevWOBaLjLKLGjax4bSIJNwFCi92gfWDOvgJ3EgR9L
- wWwWAVWJ7ZOWg9miAkkS66ffZIKoEZQ4OfMJ2FBOAS+Jo2/vsUEsUJf4M+8SM4QtLnHryXwm
- CFteYvvbOcwTGIVmIWmfhaRlFpKWWUhaFjCyrGIUSS0tzk3PLTbUK07MLS7NS9dLzs/dxAiM
- qW3Hfm7ewTjv1Ue9Q4xMHIyHGCU4mJVEeNnuGiUI8aYkVlalFuXHF5XmpBYfYjQF+mcis5Ro
- cj4wqvNK4g3NDEwNTcwsDUwtzYyVxHm3zl0TLySQnliSmp2aWpBaBNPHxMEp1cC0o0/xzxQ9
- 2Tc72aVcvhz8VnUzRucpS7JE5/WqJzzvXc+7K6e9kvy2emqOXx8v8zLtJP1Z2cmGVSxX528X
- yjMwvK9leMNOVLBsX+eOaRxXrp6Nmv478MTrJ8yep1Zt9VzwVS72RMVFi3C5mDdXi46nvqvm
- DL99snDtscolak/KJb4mLwyfUfG+Mvv8G7XZYXe7tupd4nd7HmdapVmpvG9P14l5X9iXx/TN
- 4LF1D6jj+X+3wt4lUTkgu6GbuXXZ/E3bkxdfXfU+zWx/4t6k65ffbpmquUey88xxn6u96zvd
- yrfZOG9+4vIkKi3H6lG80feLJosWmiXnvPO1vDDjYFT5AsufV9ptKvakdM+uDa5VYinOSDTU
- Yi4qTgQA9l2yejIDAAA=
-X-CMS-MailID: 20210223105713eucas1p1b60061a3cfd8e24f087e24b4797fc953
+ RRtaGOkZWlroGZlY6hkam8daGZkq6dvZpKTmZJalFunbJehlnFn4g7XgM3vF9UtPWBsYj7B1
+ MXJwSAiYSMz9UNrFyMUhJLCUUeLuscMsEHEpifktSl2MnECmsMSfa11sEDXvGSVebdjKCpIQ
+ FvCSOLhtFzOILSIQJ7F74SEWEJtZwEdi3rN3LBANdxklui9/YQJJsAkYSvQe7WMEsXkF7CTe
+ d84Aa2YRUJU49ek1mC0qkCSxfvpNJogaQYmTM5+ADeUEWrbx+Ec2iAXqEn/mXWKGsMUlbj2Z
+ zwRhy0tsfzuHeQKj0Cwk7bOQtMxC0jILScsCRpZVjCKppcW56bnFhnrFibnFpXnpesn5uZsY
+ gTG17djPzTsY5736qHeIkYmD8RCjBAezkggv212jBCHelMTKqtSi/Pii0pzU4kOMpkD/TGSW
+ Ek3OB0Z1Xkm8oZmBqaGJmaWBqaWZsZI479a5a+KFBNITS1KzU1MLUotg+pg4OKUamFzYw176
+ K4S999feeUC9JinXOiLV84V+yz4n0cNmK/kyN4Td2FM/8e8jowXfVTZb3nmsaBVosHlf1dlP
+ abfXGK/S9uxu+c0uYeR0Ocsj4N5uP4aGm5WHXPccy8l54fxSzStCItCZ//AMhbeMa2u0PiqX
+ iqitDphz8dUnbc9tgVOPXWWNLBcOqwpfEbfR63u5lUjA3A+H78U6Bb2cf2jifqF4hvN2J/Yc
+ WHOjUuSvuX41H4PUNJ1fm4sfeepMTr36d1/5sctOy/O/zmhcW9IZc2HawY9eMQ4iOzomTpoR
+ vVp3pr52Sdj/PBaJmnm1h4MOKNkvmuxo8vFwNnvrudtTM54bh8ZcOH/b13dX/4QP55RYijMS
+ DbWYi4oTAZnsAgQyAwAA
+X-CMS-MailID: 20210223110828eucas1p12ee86fb556a580f3ac6e993eb45617d6
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20210222213326eucas1p2d0eacf79c5f34b08d5e493782f8d1fdc
+X-RootMTR: 20210222213326eucas1p2a5ec3f9006b1a7a207fc9cfb30557dbc
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20210222213326eucas1p2d0eacf79c5f34b08d5e493782f8d1fdc
+X-CMS-RootMailID: 20210222213326eucas1p2a5ec3f9006b1a7a207fc9cfb30557dbc
 References: <20210222213306.22654-1-pierre-louis.bossart@linux.intel.com>
- <CGME20210222213326eucas1p2d0eacf79c5f34b08d5e493782f8d1fdc@eucas1p2.samsung.com>
- <20210222213306.22654-4-pierre-louis.bossart@linux.intel.com>
+ <CGME20210222213326eucas1p2a5ec3f9006b1a7a207fc9cfb30557dbc@eucas1p2.samsung.com>
+ <20210222213306.22654-5-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, broonie@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -148,18 +147,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 22.02.2021 22:33, Pierre-Louis Bossart wrote:
-> cppcheck warning:
-> 
-> sound/soc/samsung/s3c24xx_simtec.c:191:7: style: Variable 'ret' is
-> assigned a value that is never used. [unreadVariable]
->   ret = snd_soc_dai_set_clkdiv(cpu_dai, S3C24XX_DIV_PRESCALER,
->       ^
-> 
-> Looking at the code, it's not clear why the return value is checked in
-> the two other cases but not here, so mirror the behavior and add a
-> check.
+
+> The initial authors bothered to set ret to -EINVAL and throw a
+> dev_err() message, so it looks like there is a missing return to avoid
+> continuing if the property is missing.
 > 
 > Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
 Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+
+> ---
+>  sound/soc/samsung/smdk_wm8994.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/samsung/smdk_wm8994.c b/sound/soc/samsung/smdk_wm8994.c
+> index 681b244d5312..39a7a449f554 100644
+> --- a/sound/soc/samsung/smdk_wm8994.c
+> +++ b/sound/soc/samsung/smdk_wm8994.c
+> @@ -164,6 +164,7 @@ static int smdk_audio_probe(struct platform_device *pdev)
+>  			dev_err(&pdev->dev,
+>  			   "Property 'samsung,i2s-controller' missing or invalid\n");
+
+>  			ret = -EINVAL;
+> +			return ret;
+
+I think it would be better to just make it "return -EINVAL;"

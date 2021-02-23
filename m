@@ -2,54 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6424B322A72
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 13:24:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C4CB322A9F
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 13:35:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F144C1678;
-	Tue, 23 Feb 2021 13:23:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F144C1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id D688E167B;
+	Tue, 23 Feb 2021 13:34:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D688E167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614083088;
-	bh=Dhj77MmbvlQWyszPVYi9vzwlD5bTebrxbrSUuH3agyc=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Naepriugdw5RdVPU3FZ3l3AqyvGPPhKbfQZ38CW/b8SqxT2D+xc2y4TEOkq+83261
-	 ObZNGa1S6FyGh3prXKtGp1kHd2B1ji14gwukR28AwjD9PxVWFHWoHcVYqpVsNg05Xa
-	 KuFNrbaqflqRBqUfO0cfMcM6eX2GAchyDLVcw0qM=
+	s=default; t=1614083742;
+	bh=4qy9upeCkzlc+NPhqTJu0/2OD2GAnwnNW9jXlNWYLro=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EWS9a4d9OBTpovkzHosIk3ANG37Zz5s92Q6e4IFwsxLg61AhJiz2QwLdvRZD4tVU2
+	 9eB+Ns7QMXmNrk/WVW0IiLqAI7JwxWoig2afZdNNofM6B6PXzRmk2MJyTgYtxt+PAE
+	 NeNIa8EAzSqco3Z/dsvh81PYbT5+4xSa43vHD7po=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C649F8016D;
-	Tue, 23 Feb 2021 13:23:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22A72F8016D;
+	Tue, 23 Feb 2021 13:34:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A94D8F8016A; Tue, 23 Feb 2021 13:23:15 +0100 (CET)
+ id 6F57DF8016A; Tue, 23 Feb 2021 13:34:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF9F6F80129
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 13:23:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF9F6F80129
-Received: from [123.112.65.229] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lEWiY-0002hq-Ib; Tue, 23 Feb 2021 12:23:07 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, kai.vehmanen@linux.intel.com
-Subject: [PATCH] ALSA: hda/hdmi: let new platforms assign the pcm slot
- dynamically
-Date: Tue, 23 Feb 2021 20:22:05 +0800
-Message-Id: <20210223122205.233701-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED88AF80129
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 13:34:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED88AF80129
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="IpBWL1vQ"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 901FCA12AF;
+ Tue, 23 Feb 2021 13:33:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=N7kU7TdyBUb1
+ Lf1mi8iPXCBOHmyPhVHN4c/XFIymx08=; b=IpBWL1vQ38MdMKyAxRrulOobVdt1
+ nmPiXJk3UYt8mSolimHTpWKMKL0npjTeyj8zk9vzxEnCXUYnzZSJZ7R6AIPigWOR
+ DtygCVLtMaYpnZfvV5CWuRgxeImsealE4uZk01MqkD7h0y/ap+DG7TfEPX1KCxS7
+ KKE6bw89Mg0pofVToLWP1FRnB5Ppp3az4S66Pj2wwG4OuSR6ZzHAEEQWsAi87UZ9
+ YWGqG1lxnW4wsO3BqkhXG9zFDf2m8qhuz5vakehoQZjziBusmMpe0qNF/cI7MNBt
+ eBmizFAJmQZW9VcXnw/Hp9oYnr315Kd7rwPcuQaeNGLyOdkqMo3vFPRsBg==
+Subject: Re: [virtio-dev] Re: [PATCH v5 0/9] ALSA: add virtio sound driver
+To: "Michael S. Tsirkin" <mst@redhat.com>
+References: <20210222153444.348390-1-anton.yakovlev@opensynergy.com>
+ <20210223070839-mutt-send-email-mst@kernel.org>
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <bce13fa2-3ee5-0c6c-5761-17f0389c2d7b@opensynergy.com>
+Date: Tue, 23 Feb 2021 13:33:57 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210223070839-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
+ SR-MAIL-02.open-synergy.com (10.26.10.22)
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,69 +85,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the platform set the dyn_pcm_assign to true, it will call
-hdmi_find_pcm_slot() to find a pcm slot when hdmi/dp monitor is
-connected and need to create a pcm.
+On 23.02.2021 13:09, Michael S. Tsirkin wrote:
+> On Mon, Feb 22, 2021 at 04:34:35PM +0100, Anton Yakovlev wrote:
+>> This series implements a driver part of the virtio sound device
+>> specification v8 [1].
+>>
+>> The driver supports PCM playback and capture substreams, jack and
+>> channel map controls. A message-based transport is used to write/read
+>> PCM frames to/from a device.
+>>
+>> As a device part was used OpenSynergy proprietary implementation.
+>>
+>> v5 changes:
+>>   - Fixed another bunch of sparse warnings
+>>     (replaced virtio_cread() -> virtio_cread_le()), no functional changes.
+>> (Sorry, I didn't know how to run sparse locally, now everything should be fixed)
+>>
+>> [1] https://lists.oasis-open.org/archives/virtio-dev/202003/msg00185.html
+> 
+> 
+> In the future please number patches from 1, not from 2.
+> thanks!
 
-So far only intel_hsw_common_init() and patch_nvhdmi() set the
-dyn_pcm_assign to true, here we let tgl platforms assign the pcm slot
-dynamically first, if the driver runs for a period of time and there
-is no regression reported, we could set no_fixed_assgin to true in
-the intel_hsw_common_init(), and then set it to true in the
-patch_nvhdmi().
+But they are numbered automatically by git. Patch #1 is for virtio_ids.h
 
-This change comes from the discussion between Takashi and
-Kai Vehmanen. Please refer to:
-https://github.com/alsa-project/alsa-lib/pull/118
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_hdmi.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+>>
+>> Anton Yakovlev (9):
+>>    uapi: virtio_ids: add a sound device type ID from OASIS spec
+>>    ALSA: virtio: add virtio sound driver
+>>    ALSA: virtio: handling control messages
+>>    ALSA: virtio: build PCM devices and substream hardware descriptors
+>>    ALSA: virtio: handling control and I/O messages for the PCM device
+>>    ALSA: virtio: PCM substream operators
+>>    ALSA: virtio: introduce jack support
+>>    ALSA: virtio: introduce PCM channel map support
+>>    ALSA: virtio: introduce device suspend/resume support
+>>
+>>   MAINTAINERS                     |   9 +
+>>   include/uapi/linux/virtio_ids.h |   1 +
+>>   include/uapi/linux/virtio_snd.h | 334 +++++++++++++++++++++
+>>   sound/Kconfig                   |   2 +
+>>   sound/Makefile                  |   3 +-
+>>   sound/virtio/Kconfig            |  10 +
+>>   sound/virtio/Makefile           |  13 +
+>>   sound/virtio/virtio_card.c      | 462 +++++++++++++++++++++++++++++
+>>   sound/virtio/virtio_card.h      | 113 ++++++++
+>>   sound/virtio/virtio_chmap.c     | 219 ++++++++++++++
+>>   sound/virtio/virtio_ctl_msg.c   | 310 ++++++++++++++++++++
+>>   sound/virtio/virtio_ctl_msg.h   |  78 +++++
+>>   sound/virtio/virtio_jack.c      | 233 +++++++++++++++
+>>   sound/virtio/virtio_pcm.c       | 498 ++++++++++++++++++++++++++++++++
+>>   sound/virtio/virtio_pcm.h       | 120 ++++++++
+>>   sound/virtio/virtio_pcm_msg.c   | 392 +++++++++++++++++++++++++
+>>   sound/virtio/virtio_pcm_ops.c   | 491 +++++++++++++++++++++++++++++++
+>>   17 files changed, 3287 insertions(+), 1 deletion(-)
+>>   create mode 100644 include/uapi/linux/virtio_snd.h
+>>   create mode 100644 sound/virtio/Kconfig
+>>   create mode 100644 sound/virtio/Makefile
+>>   create mode 100644 sound/virtio/virtio_card.c
+>>   create mode 100644 sound/virtio/virtio_card.h
+>>   create mode 100644 sound/virtio/virtio_chmap.c
+>>   create mode 100644 sound/virtio/virtio_ctl_msg.c
+>>   create mode 100644 sound/virtio/virtio_ctl_msg.h
+>>   create mode 100644 sound/virtio/virtio_jack.c
+>>   create mode 100644 sound/virtio/virtio_pcm.c
+>>   create mode 100644 sound/virtio/virtio_pcm.h
+>>   create mode 100644 sound/virtio/virtio_pcm_msg.c
+>>   create mode 100644 sound/virtio/virtio_pcm_ops.c
+>>
+>> --
+>> 2.30.0
+>>
+> 
+> 
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> 
+> 
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index e405be7929e3..379a4d786b3b 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -157,6 +157,7 @@ struct hdmi_spec {
- 
- 	bool dyn_pin_out;
- 	bool dyn_pcm_assign;
-+	bool no_fixed_assign;
- 	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
- 	/*
- 	 * Non-generic VIA/NVIDIA specific
-@@ -1345,6 +1346,12 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- {
- 	int i;
- 
-+	/* on the new machines, try to assign the pcm slot dynamically,
-+	 * not use the preferred fixed map anymore.
-+	 */
-+	if (spec->no_fixed_assign)
-+		goto last_try;
-+
- 	/*
- 	 * generic_hdmi_build_pcms() may allocate extra PCMs on some
- 	 * platforms (with maximum of 'num_nids + dev_num - 1')
-@@ -1374,6 +1381,7 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- 			return i;
- 	}
- 
-+ last_try:
- 	/* the last try; check the empty slots in pins */
- 	for (i = 0; i < spec->num_nids; i++) {
- 		if (!test_bit(i, &spec->pcm_bitmap))
-@@ -2937,6 +2945,9 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
- 	spec->port_num = port_num;
- 	spec->intel_hsw_fixup = true;
- 
-+	if (port_num > 6)
-+		spec->no_fixed_assign = true;
-+
- 	intel_haswell_enable_all_pins(codec, true);
- 	intel_haswell_fixup_enable_dp12(codec);
- 
 -- 
-2.25.1
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 

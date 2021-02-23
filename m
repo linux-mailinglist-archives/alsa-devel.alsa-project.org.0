@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B2A132276B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 10:04:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660D332276E
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 10:05:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 777ED1679;
-	Tue, 23 Feb 2021 10:03:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 777ED1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12AD1167C;
+	Tue, 23 Feb 2021 10:04:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12AD1167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614071088;
-	bh=aJj5PSO1F2c06mc+IRHaML/7vpyv2wRsDqfDbiIgNTk=;
+	s=default; t=1614071137;
+	bh=b0dOE9tWsUgUZqfzic1sbmsquBy90+SWhSVjP1vt+C0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=enSX3a7MMP3SJOypaC6pF9Ew4QDZ7X77othj7GUtNT07QVkhxIt0fikGEI3Iq9Vyy
-	 cz+L9416ufwsrxkffm7MeB5+EXOu7n9U4d1mkxqCqKOqFPexcRwC/xn5djxLbXkzP1
-	 CP3r6XMcJU/wfQ40l2jzCA5/1WLFzgckSW9oKQMs=
+	b=k2P/eWPyhu8ibtB1saJoqvYTJg/zpIFDtZlzEOSPsKQxte+50EM6Mn0i0F995YxKG
+	 Aq7e9WSfEnlybDD9kSqWH7wlgkmFeKOHR8yx0xTltJkRxmOykzvaWQqfUXEvh25CNU
+	 3bGtACzEXl/EbfbnS5Ogbseu7u1NtR1MPMY1WT2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 214A6F80169;
-	Tue, 23 Feb 2021 10:03:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61048F80278;
+	Tue, 23 Feb 2021 10:04:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9EC5F8016D; Tue, 23 Feb 2021 10:03:52 +0100 (CET)
+ id 7C8CDF8026C; Tue, 23 Feb 2021 10:04:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7904F800B4
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:03:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7904F800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47D1CF8016A
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:03:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47D1CF8016A
 Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 28C731C0B7F; Tue, 23 Feb 2021 10:03:39 +0100 (CET)
-Date: Tue, 23 Feb 2021 10:03:38 +0100
+ id 166441C0B85; Tue, 23 Feb 2021 10:03:58 +0100 (CET)
+Date: Tue, 23 Feb 2021 10:03:56 +0100
 From: Pavel Machek <pavel@ucw.cz>
 To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v3 4/7] HID: lenovo: Remove lenovo_led_brightness_get()
-Message-ID: <20210223090338.GD9750@amd>
+Subject: Re: [PATCH v3 5/7] HID: lenovo: Set LEDs max_brightness value
+Message-ID: <20210223090356.GE9750@amd>
 References: <20210221112005.102116-1-hdegoede@redhat.com>
- <20210221112005.102116-5-hdegoede@redhat.com>
+ <20210221112005.102116-6-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="Qrgsu6vtpU/OV/zm"
+ protocol="application/pgp-signature"; boundary="fWddYNRDgTk9wQGZ"
 Content-Disposition: inline
-In-Reply-To: <20210221112005.102116-5-hdegoede@redhat.com>
+In-Reply-To: <20210221112005.102116-6-hdegoede@redhat.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
 Cc: Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
  alsa-devel@alsa-project.org, Jiri Kosina <jikos@kernel.org>,
@@ -71,37 +71,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Qrgsu6vtpU/OV/zm
-Content-Type: text/plain; charset=iso-8859-1
+--fWddYNRDgTk9wQGZ
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun 2021-02-21 12:20:02, Hans de Goede wrote:
-> The led_classdev already contains a cached value of the last set
-> brightness, the brightness_get callback is only meant for LED drivers
-> which can read back the actual / current brightness from the hardware.
+On Sun 2021-02-21 12:20:03, Hans de Goede wrote:
+> The LEDs can only by turned on/off, so max_brightness should be set to 1.
+> Without this the max_brightness sysfs-attribute will report 255 which is
+> wrong.
 >=20
-> Since lenovo_led_brightness_get() just returns the last set value
-> it does not add any functionality, so we can just remove it.
->=20
-> Reviewed-by: Marek Beh=FAn <kabel@kernel.org>
 > Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-
 Acked-by: Pavel Machek <pavel@ucw.cz>
 
 --=20
 http://www.livejournal.com/~pavelmachek
 
---Qrgsu6vtpU/OV/zm
+--fWddYNRDgTk9wQGZ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iEYEARECAAYFAmA0xOoACgkQMOfwapXb+vI2YQCffXWN1Q76lOUIi4u3BzFXtjsS
-ssIAoMIrCl+41jFRTKAuYJVV1dCnMTCS
-=LKiG
+iEYEARECAAYFAmA0xPwACgkQMOfwapXb+vIxAACfcF/s3KwvdZ56OjVFvgOKfyaq
+z9kAnA2/Ex7AO7WwInsgtlZEjZlGyxU4
+=NTxy
 -----END PGP SIGNATURE-----
 
---Qrgsu6vtpU/OV/zm--
+--fWddYNRDgTk9wQGZ--

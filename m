@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90462323169
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 20:25:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D5632318E
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 20:42:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17A981678;
-	Tue, 23 Feb 2021 20:25:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17A981678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 751AA1676;
+	Tue, 23 Feb 2021 20:41:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751AA1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614108358;
-	bh=3oMqTaruJrUd6/AkAOlo1zFS2cKjUTbrE5XrJOxtreA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614109333;
+	bh=YXFXz/p5xSBrU0WmSf+XkrBUDiFWAkC6+169Jz7OmYM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t2X9y3Jq/4fcOZ73y2eTdRcZw3VjgZAqre3ObmY7+t2pAMmYM1YSeI38tWPkLj1h/
-	 SZtoSCOqLA3o1PBjxqOUBRFXA8eQv9/mRxVLnoQbfBwuOo2GBxWxhIEsv7Sn3fBLwo
-	 8wTsJ9SRLXCjIT383CE4/yLPaUzAiIXjNRikvQQE=
+	b=NkMT3yIoaSwgg2ANuwQVsiN9iGarqi6jHyGg4FlCGRjVLf5T7y5IWVBS5m/h6OsdI
+	 Mg3Do24aqf19lfJ5y9bDT5whW6pdAWzY8xrmi7tn2i2RLtXKwgH36e+9l1ErSLaY3t
+	 Q6pJonxXC0uhOWUX9otXaggNnt9aoxFRD5j6YVoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CCF0F8016D;
-	Tue, 23 Feb 2021 20:24:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5B11F8016A;
+	Tue, 23 Feb 2021 20:40:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09A6EF8016A; Tue, 23 Feb 2021 20:24:25 +0100 (CET)
+ id 9ED08F8016A; Tue, 23 Feb 2021 20:40:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,TVD_SUBJ_WIPE_DEBT,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6D8DF800B4
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 20:24:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6D8DF800B4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NoPZXNuf"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CB4464E60;
- Tue, 23 Feb 2021 19:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614108255;
- bh=3oMqTaruJrUd6/AkAOlo1zFS2cKjUTbrE5XrJOxtreA=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=NoPZXNufX7P1IJOj1zLBB6fPnlcdZdirD2ZdFKO06gj3OJ1XBlfI6xbcoUdIp6m+f
- k3Kay/wVI6gbE0d75SY723I78ChajDSzRfedhhHswJh7RGoD2qKleNEJB6Y4k25ySI
- WhoPyHpH+8BrvkTm/5kH1K9iJXbz40AnzaoVm7fVlEkkvTb1HneXRw2B5h7UxLzQKF
- f7bWGC53SZKINMidIfZd92+rZy7mtyhxZdE4MsHqLbwOQpQU8vBt7o61IkSM3LlE0d
- C2BmQ50oUjp196M5txI3JWjYEOxgWoPb3k7nXiKc60mXBCJmNvyqBzzdviV4AJLmGX
- nSXVLua6vY+2Q==
-Subject: Re: [PATCH v2 6/6] ASoC: samsung: tm2_wm5510: remove shadowed variable
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48211F800B4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 20:40:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48211F800B4
+Received: by mail-wr1-f51.google.com with SMTP id n4so23801165wrx.1
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 11:40:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Sns0MeQxWwav8lrRZ1YtEH+ncu6WHJJ5CzQoTX7IQn8=;
+ b=AXu16gKf0v1ujsqYz7KyiQTWXTeR91lxf2Lxnbh5cyZfxPD9v8zvT6b1HSwMks4h6s
+ 0poCFjDXIqldQwljs8KfISpCotFykhuLn1yi9H/f8O2JAgDK83JaplunjbcXToZq1nUG
+ iSCL3/jHT7tl0ZLWbCEvNzL9ge7aoR/oLJpH84y7rVxHeZKWADIDvPwITK9MamG8IuxM
+ aQ3nKZZUchFStdPj2/L8kO7Cxz6aY/Ids9/DV3s2G2LOnff6AzHMjjx6MUb6YM25leQB
+ UDMCshikyy9Z9r++lxOlqHUvvzHVDqOZ3wshoRlKgeLrCordPu/ErOGG2c3HyrQ1zETe
+ npvA==
+X-Gm-Message-State: AOAM533bXgfs1yOVQxL3sBckqFYB68M0WLlahnOeoc75rEdGxWdN6HNn
+ U2pE5HiBtfuloipydHAHhg4=
+X-Google-Smtp-Source: ABdhPJw2kO99MyQhBFmwwOVdeQtUTiieSVx1G4g8al0ncg0nM0PcNXZoJ8qZrygGB8HBqP9aElXo8Q==
+X-Received: by 2002:adf:e60a:: with SMTP id p10mr2683770wrm.291.1614109230300; 
+ Tue, 23 Feb 2021 11:40:30 -0800 (PST)
+Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
+ by smtp.googlemail.com with ESMTPSA id j125sm3538982wmb.44.2021.02.23.11.40.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Feb 2021 11:40:29 -0800 (PST)
+Date: Tue, 23 Feb 2021 20:40:27 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 1/6] ASoC: samsung: tm2_wm5510: fix check of of_parse
+ return value
+Message-ID: <20210223194027.2efq23dxuwrbpqp2@kozik-lap>
 References: <20210222213306.22654-1-pierre-louis.bossart@linux.intel.com>
- <CGME20210222213327eucas1p270af686a642a4cd31852635eed870c0c@eucas1p2.samsung.com>
- <20210222213306.22654-7-pierre-louis.bossart@linux.intel.com>
- <2625c1b1-1e05-9d04-e414-252674688eee@samsung.com>
- <31e6f8a8-8346-0cd7-9f35-035f097b9cb5@linux.intel.com>
- <CAJKOXPe2xjRd=zdCVkCLtY4cG2675Bh=-tqvnUNB3RocO5OSUw@mail.gmail.com>
-From: Sylwester Nawrocki <snawrocki@kernel.org>
-Message-ID: <bb9027c9-d4a4-4804-65e4-ee4932b404fc@kernel.org>
-Date: Tue, 23 Feb 2021 20:24:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20210222213306.22654-2-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CAJKOXPe2xjRd=zdCVkCLtY4cG2675Bh=-tqvnUNB3RocO5OSUw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210222213306.22654-2-pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,23 +89,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23.02.2021 19:29, Krzysztof Kozlowski wrote:
-> On Tue, 23 Feb 2021 at 19:20, Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->> On 2/23/21 5:25 AM, Sylwester Nawrocki wrote:
->>> On 22.02.2021 22:33, Pierre-Louis Bossart wrote:
->>>> Move the top-level variable to the lower scope where it's needed.
->>>
->>> Actually I like your original patch better as there is really no need
->>> for multiple lower scope declarations in that fairly small function.
->>
->> I have no opinion, just let me know what the consensus is.
+On Mon, Feb 22, 2021 at 03:33:01PM -0600, Pierre-Louis Bossart wrote:
+> cppcheck warning:
 > 
-> I proposed to have both variables local scope, to reduce the size of
-> function-scope variables. Their number tends to grow in probe() a lot,
-> so when a variable can be localized more, it makes the code easier to
-> understand. No need to figure out who/where/when uses the variable.
-> Local scope makes it much easier.
+> sound/soc/samsung/tm2_wm5110.c:605:6: style: Variable 'ret' is
+> reassigned a value before the old one has been
+> used. [redundantAssignment]
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
+> sound/soc/samsung/tm2_wm5110.c:554:7: note: ret is assigned
+>   ret = of_parse_phandle_with_args(dev->of_node, "i2s-controller",
+>       ^
+> sound/soc/samsung/tm2_wm5110.c:605:6: note: ret is overwritten
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
+> 
+> The args is a stack variable, so it could have junk (uninitialized)
+> therefore args.np could have a non-NULL and random value even though
+> property was missing. Later could trigger invalid pointer dereference.
+> 
+> This patch provides the correct fix, there's no need to check for
+> args.np because args.np won't be initialized on errors.
+> 
+> Fixes: 75fa6833aef3 ("ASoC: samsung: tm2_wm5110: check of_parse return value")
+> Fixes: 8d1513cef51a ("ASoC: samsung: Add support for HDMI audio on TM2board")
+> Cc: <stable@vger.kernel.org>
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-I don't have strong opinion, let's keep it local then as in current patch.
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
+Best regards,
+Krzysztof

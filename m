@@ -2,111 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FC832282B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 10:55:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA031322904
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 11:49:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E96AF1678;
-	Tue, 23 Feb 2021 10:54:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E96AF1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B1421678;
+	Tue, 23 Feb 2021 11:49:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B1421678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614074145;
-	bh=HFXsKv97OLbSCzt0YtYGOR+/qCrLhO815u1dk+OcV0A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614077394;
+	bh=XQMvTzE9+I++tTNMWCCh7ZQSBMTW6Dt0C+twBkcLSfw=;
+	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ovmDALpctu7LY6fIcJ0sJ2mH5f5+MYLV3Hoowf6QVqh9/xFpV6fcYUBGzXUB5pgkc
-	 FvflnyUtyMCYvgRyio1icps6+t4nOK/GnLXjSGB3JHsAoRYYP/vgzQKw6bqsIAB7Cc
-	 As7jDve3y9N0PeoVfsfNZ47fh2IVrAQlujvnU/ko=
+	b=j+IahmBinfJLCxhuPR9bB3lWDNkSYeHIHVGfewvdRPdR7vQ2mHwyd1cIRLV+SCYBM
+	 W4jCIa0GcqttsPxM2sxkZUdanG9ipCkYB9QBW8sgvOwxbvUP56f7wUG6d5/D/a7uVb
+	 2hVADMp5dPBUkCkjpIYbT5NPCMRaGXfDHMRne9Aw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A572F80169;
-	Tue, 23 Feb 2021 10:54:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABD53F8016D;
+	Tue, 23 Feb 2021 11:48:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30549F8016A; Tue, 23 Feb 2021 10:54:12 +0100 (CET)
+ id 6DFECF8016A; Tue, 23 Feb 2021 11:48:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D338F80129
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:54:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D338F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0C0AF800B4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 11:48:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0C0AF800B4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="JPIjcJgi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1614074048;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XBaCiawHuHxF7z3D+NjLyiPcqq6H/HI2WrKdgh3jyJY=;
- b=JPIjcJgitt5n5dda14MIcb+3lMjwP5rlAd5tcvZ8N3xFEaqfGeWP45xBvwo8TFyizP8ozF
- gTD5+05V0uEbnbnUo0HcQCoCpeSx07EcGNGCshYW3ZpCNGkNINQ4iWEkM3uTQtnnDbHyTX
- Ay3sBblzSyMTWNXB9tRNaSo/FedNzEo=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-545-OjK7r1P7M5-jjeu8CLZJ_Q-1; Tue, 23 Feb 2021 04:52:36 -0500
-X-MC-Unique: OjK7r1P7M5-jjeu8CLZJ_Q-1
-Received: by mail-ej1-f72.google.com with SMTP id m4so5104870ejc.14
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 01:52:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=XBaCiawHuHxF7z3D+NjLyiPcqq6H/HI2WrKdgh3jyJY=;
- b=DXXz7vbCZRDc5Qxez4JNV3vEmQRxRHIfQ8gV7x/OzD0/RVljZDRwHfndCzugafZyYM
- SNs3BMHdO2H2gnfEC3P1rhHDGyNlAQygXi0sTfQMpDtqFOeihfjyUAuVGrUn/6WodEOe
- gcLujo8FU4KplFPSvexT/XlGw4hPKOU8lPftKFJzhKk3HV1Mi3tucvDLZYoWf8bHkcLY
- SWBWGmkFF+dQcEV6iuPgIdtqvhOctviAQ/TrcAs6r+kNbYzxspKzrBapjjNHcoO8yxct
- SndR5QF4eavgfGPMC/ks91TYUcyPLQCacKAL5yAXpX/yukwOCOJK0w7+Z3ZlkLiA3mxj
- SjYw==
-X-Gm-Message-State: AOAM531ZA0QFH1xixogAUL3p90CbBv6c1RLUd6hHvrhiPwHIxTegAN6f
- LbUSIJzIjs/rwiwOjuJlz5S/zrUCfmfF5hJWsSAddJEnPqcBcpgsz+Ff5kDMJ8Uw+fP4MsUDJvy
- l3uYfITIg7FC49YpWvf9Vo08=
-X-Received: by 2002:a05:6402:893:: with SMTP id
- e19mr17439892edy.206.1614073955757; 
- Tue, 23 Feb 2021 01:52:35 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJweuDHvamB9xP8reZNw7UlHYvMPZ07GR1VWJy1ZAQV5CHfJXceMQoMzDN8k5sn6ryEOwgoLwg==
-X-Received: by 2002:a05:6402:893:: with SMTP id
- e19mr17439880edy.206.1614073955590; 
- Tue, 23 Feb 2021 01:52:35 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id bn2sm12402271ejb.35.2021.02.23.01.52.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Feb 2021 01:52:35 -0800 (PST)
-Subject: Re: [PATCH v2] leds: trigger: audio: Add an activate callback to
- ensure the initial brightness is set
-To: Pavel Machek <pavel@ucw.cz>
-References: <20210221115208.105203-1-hdegoede@redhat.com>
- <20210223091230.GI9750@amd>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <6d5f521e-0484-cb22-fde5-8a6e133075a5@redhat.com>
-Date: Tue, 23 Feb 2021 10:52:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="CstA0S+n"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20210223104756euoutp02cb9cc614052ea51658e1faa64792016e~mWrslrXyb2142721427euoutp02M
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 10:47:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20210223104756euoutp02cb9cc614052ea51658e1faa64792016e~mWrslrXyb2142721427euoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1614077276;
+ bh=O18C7NkrVUWOEXXqkIut9+cUmQ4gaqnLQQ/SVXsnk28=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=CstA0S+nuB4zTK47VHs2cu3k/6k0dzkVIH2APTnxg0Kh9yF///F22ZaNiwW8ATC+q
+ 8gUOWIudZoTZUd1nYiTsXhkjzH8Gp2TmApa8T4ZYB26JoCeqIsEhrfDwFVAu2ALLBM
+ Z8tEFnAPMsfFJC0Q2jmMPOkISsQv3gcOF0dPmM/I=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20210223104756eucas1p17c2ef81948ba50b3030d516ff7bcdde4~mWrsdThNO2852828528eucas1p1R;
+ Tue, 23 Feb 2021 10:47:56 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id FC.61.44805.C5DD4306; Tue, 23
+ Feb 2021 10:47:56 +0000 (GMT)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20210223104755eucas1p2cbacf24a50c0a2ff0098a6a2e45beb58~mWrr1qcAx2396623966eucas1p2I;
+ Tue, 23 Feb 2021 10:47:55 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20210223104755eusmtrp289c505fe6d85712a4ad06fe5617db20e~mWrr0-PHh2053320533eusmtrp2J;
+ Tue, 23 Feb 2021 10:47:55 +0000 (GMT)
+X-AuditID: cbfec7f4-b37ff7000000af05-d3-6034dd5ce89d
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id B8.5D.16282.B5DD4306; Tue, 23
+ Feb 2021 10:47:55 +0000 (GMT)
+Received: from [106.210.134.141] (unknown [106.210.134.141]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20210223104755eusmtip1b6ecabb9ce0ad0d1fb6cd9605e141e16~mWrrbHxIB2343923439eusmtip1N;
+ Tue, 23 Feb 2021 10:47:55 +0000 (GMT)
+Subject: Re: [PATCH v2 1/6] ASoC: samsung: tm2_wm5510: fix check of of_parse
+ return value
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Message-ID: <2c96aa88-2a53-3eca-e9d7-24ea9afe63a7@samsung.com>
+Date: Tue, 23 Feb 2021 11:47:54 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210223091230.GI9750@amd>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20210222213306.22654-2-pierre-louis.bossart@linux.intel.com>
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- linux-leds@vger.kernel.org
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprGKsWRmVeSWpSXmKPExsWy7djPc7oxd00SDFbOYrG4cvEQk8XUh0/Y
+ LM6f38Bu8ev/MyaLBRsfMVq83PyGyYHNY8PnJjaPTas62TzmnQz02Hy62uPzJrkA1igum5TU
+ nMyy1CJ9uwSujK4rv1gKrnJVHH96nK2B8QtHFyMnh4SAicTSy8cYuxi5OIQEVjBKTNsxjwUk
+ ISTwhVHi/kJ2iMRnRol1B1YwdzFygHV8fxkPEV/OKPGqbQYrhPORUaJlzxqwbmGBaIk11zYx
+ g9giAnESy7+cZwexmQXSJDac/w9WwyZgKNF7tI8RxOYVsJO4vHQFK4jNIqAqsfvsdbB6UYEk
+ ib+/bzJB1AhKnJz5BKyXU8BL4vOiKYwQM8Ulbj2ZzwRhy0tsfzuHGeQgCYErHBI/j31jg/jT
+ RWL6szZGCFtY4tXxLewQtozE/50gzSANzYwSPbtvs0M4E4D+P74AqsNa4s65X2wg/zMLaEqs
+ 36UPEXaUeHVqFRMkWPgkbrwVhDiCT2LStunQ0OKV6GgTgqhWkfi9ajoThC0l0f3kP8sERqVZ
+ SF6bheSdWUjemYWwdwEjyypG8dTS4tz01GKjvNRyveLE3OLSvHS95PzcTYzApHP63/EvOxiX
+ v/qod4iRiYPxEKMEB7OSCC/bXaMEId6UxMqq1KL8+KLSnNTiQ4zSHCxK4rxJW9bECwmkJ5ak
+ ZqemFqQWwWSZODilGpg8Ml7YXNy/0IB3dlja83OeL+dm5btJb1yxPYz3fk/kZOvQurYVpsWP
+ uq/tu1b3aIPo79isHx9u7zGMfnN5TX3Q/8p2S+F7QilclzMtvmh+m1Qlcduh4PhMxbJ7rNmO
+ jAs5RFLyFnHLBK08JecqesTBmme1iPxlvUPidtfnh1ns4b0qud26cv7UY6E/Fh0Qs2hzcM66
+ Yc724x+Ty+f/D3m0HgS8PjdpZSvXieLz4vFXZP3OBspXXToibtFX63BEI+fc+tKi+zcnPrd/
+ dNTqFI+jvPTWR36cVY+UNlXbyLLKPLMMn62ceOBp1Ukvx/KS73J3nBWErd1kZ66/4bVJVP14
+ oo5xnYtEe8sZiWOz2pRYijMSDbWYi4oTAd0sRWSpAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrOIsWRmVeSWpSXmKPExsVy+t/xu7rRd00SDO6el7S4cvEQk8XUh0/Y
+ LM6f38Bu8ev/MyaLBRsfMVq83PyGyYHNY8PnJjaPTas62TzmnQz02Hy62uPzJrkA1ig9m6L8
+ 0pJUhYz84hJbpWhDCyM9Q0sLPSMTSz1DY/NYKyNTJX07m5TUnMyy1CJ9uwS9jK4rv1gKrnJV
+ HH96nK2B8QtHFyMHh4SAicT3l/FdjFwcQgJLGSVae+6zQcSlJOa3KHUxcgKZwhJ/rnWxQdS8
+ Z5ToPfCTFSQhLBAtsebaJmYQW0QgTmL3wkMsIDazQJrEvpcn2UBsIYG7jBLfLySB2GwChhK9
+ R/sYQWxeATuJy0tXgM1hEVCV2H32OjuILSqQJLF++k0miBpBiZMzn4DN5BTwkvi8aAojxHx1
+ iT/zLjFD2OISt57MZ4Kw5SW2v53DPIFRaBaS9llIWmYhaZmFpGUBI8sqRpHU0uLc9NxiI73i
+ xNzi0rx0veT83E2MwBjbduznlh2MK1991DvEyMTBeIhRgoNZSYSX7a5RghBvSmJlVWpRfnxR
+ aU5q8SFGU6B/JjJLiSbnA6M8ryTe0MzA1NDEzNLA1NLMWEmc1+TImnghgfTEktTs1NSC1CKY
+ PiYOTqkGJhYGhRUHU8XWrpOWWfF+7lMF75X3e5fOFVXMO7GhmEkzm9uk4PHmGQVSJ4L/LLzv
+ avlfWr0t+aVJgT/T0y8Konnbp0wrSxJ1nFp4RuSQpFyamNaVgIIwtrlrtnV+/ngw+9n192qv
+ bpTsPODT83GDweNcNbe6kh+xu+oO9MxdUdthXBAtcu5u417VYLFOs1/Tf4kevf5hwUMTP+kI
+ kaDeyEV867O3bBIVr+5I2P7/kXhFonSejGPbrivKX0xZLXcvnfBunX9nh71v1vvJfIF955yn
+ t35+Hqjw3fKcmnDa6tzac8tmbbAoMQhkO5KutHdlxftA3iNWH5e5cwVcV3p732md955wvl/3
+ 2+JUzNPmK7EUZyQaajEXFScCAPLdrwo6AwAA
+X-CMS-MailID: 20210223104755eucas1p2cbacf24a50c0a2ff0098a6a2e45beb58
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20210222213325eucas1p18611358dee29234661ceeac6ac29ce52
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20210222213325eucas1p18611358dee29234661ceeac6ac29ce52
+References: <20210222213306.22654-1-pierre-louis.bossart@linux.intel.com>
+ <CGME20210222213325eucas1p18611358dee29234661ceeac6ac29ce52@eucas1p1.samsung.com>
+ <20210222213306.22654-2-pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, broonie@kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,54 +148,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On 2/23/21 10:12 AM, Pavel Machek wrote:
-> Hi!
+On 22.02.2021 22:33, Pierre-Louis Bossart wrote:
+> cppcheck warning:
 > 
->> Some 2-in-1s with a detachable (USB) keyboard(dock) have mute-LEDs in
->> the speaker- and/or mic-mute keys on the keyboard.
->>
->> Examples of this are the Lenovo Thinkpad10 tablet (with its USB kbd-dock)
->> and the HP x2 10 series.
->>
->> The detachable nature of these keyboards means that the keyboard and
->> thus the mute LEDs may show up after the user (or userspace restoring
->> old mixer settings) has muted the speaker and/or mic.
->>
->> Current LED-class devices with a default_trigger of "audio-mute" or
->> "audio-micmute" initialize the brightness member of led_classdev with
->> ledtrig_audio_get() before registering the LED.
->>
->> This makes the software state after attaching the keyboard match the
->> actual audio mute state, e.g. cat /sys/class/leds/foo/brightness will
->> show the right value.
+> sound/soc/samsung/tm2_wm5110.c:605:6: style: Variable 'ret' is
+> reassigned a value before the old one has been
+> used. [redundantAssignment]
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
+> sound/soc/samsung/tm2_wm5110.c:554:7: note: ret is assigned
+>   ret = of_parse_phandle_with_args(dev->of_node, "i2s-controller",
+>       ^
+> sound/soc/samsung/tm2_wm5110.c:605:6: note: ret is overwritten
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
 > 
-> Makes sense.
+> The args is a stack variable, so it could have junk (uninitialized)
+> therefore args.np could have a non-NULL and random value even though
+> property was missing. Later could trigger invalid pointer dereference.
 > 
->> +++ b/drivers/leds/trigger/ledtrig-audio.c
->> @@ -6,10 +6,33 @@
->>  #include <linux/kernel.h>
->>  #include <linux/leds.h>
->>  #include <linux/module.h>
->> +#include "../leds.h"
->>  
->> -static struct led_trigger *ledtrig_audio[NUM_AUDIO_LEDS];
->>  static enum led_brightness audio_state[NUM_AUDIO_LEDS];
->>  
->> +static int ledtrig_audio_mute_activate(struct led_classdev *led_cdev)
->> +{
->> +	led_set_brightness_nosleep(led_cdev, audio_state[LED_AUDIO_MUTE]);
->> +	return 0;
->> +}
+> This patch provides the correct fix, there's no need to check for
+> args.np because args.np won't be initialized on errors.
 > 
-> Is mute_activate called from atomic context?
+> Fixes: 75fa6833aef3 ("ASoC: samsung: tm2_wm5110: check of_parse return value")
+> Fixes: 8d1513cef51a ("ASoC: samsung: Add support for HDMI audio on TM2board")
+> Cc: <stable@vger.kernel.org>
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-All the other ledtrig-foo.c activate callbacks use led_set_brightness_nosleep(),
-so yes I would assume so (I did not check, I assumed the others have good
-reasons to do this).
+Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
 
-Regards,
-
-Hans
-
+Thank you for fixing all those issues.

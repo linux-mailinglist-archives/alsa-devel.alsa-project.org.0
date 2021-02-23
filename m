@@ -2,97 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF583231DE
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 21:09:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03CF332329A
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Feb 2021 21:58:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 737C41676;
-	Tue, 23 Feb 2021 21:08:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 737C41676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E643167B;
+	Tue, 23 Feb 2021 21:57:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E643167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614110985;
-	bh=6Wle4SB8JkEciTJoSbHWn9QseV5fiz5zIuZ34q5zF9M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1614113884;
+	bh=6y3fMN0mu1O4A6K/+COPCcVewUx4JLhH8/W5cn7S+x0=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XbuVdD6WeQ+faeIESEjBhvMza4C5ABF4Le/YEF9eyi+EHB69IWY9qaWjRjeyIpI2D
-	 yo17t55g1+Fo0NfuntuhHH97yQ7tmmMjXimWG3ARzvTLDCzzN23mHb143735hL4qwB
-	 DgmXptRBTMUh+OxbVnt3QpNo58StbwKNtgo/Wct4=
+	b=RZeuDw/pzYQuv1mJPPOv0eI1xUoH6kT+lr+i0fHYyxTdXYaWz32IqsKmXqHwvk9ZK
+	 XghNgURO8kXmejsMgEDju4ycNFZsTpc3046a8cA6Dn2iDywyB7AHClJm5QTxg9+kJ5
+	 4qKSrRi7+MJEsSFuSNtxbPcDBb1tsNQgOFbfs4zM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8652F800B4;
-	Tue, 23 Feb 2021 21:08:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6E1CF80167;
+	Tue, 23 Feb 2021 21:56:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31A28F8016A; Tue, 23 Feb 2021 21:08:12 +0100 (CET)
+ id C7B8FF8016A; Tue, 23 Feb 2021 21:56:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7BEBF80129
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 21:08:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7BEBF80129
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="k9pVaMUP"
-Received: by mail-qt1-x82e.google.com with SMTP id a2so7288414qtw.12
- for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 12:08:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vQUYQ27nPyJMXB0WKNuBlp5AO0z1jSw5GxCLfQWZ070=;
- b=k9pVaMUPSqgj8GmzPF/bT+W0Rbe6+Xw+LEmCM8GsevQW0xjmedhF4WBUjDHZUnZJ0M
- 64IvURRpX3U4C71LOMNe8hkPELHMmVNtETuqzstABMAApzNJmt04dSRG17u5qa4zYd5k
- iGU4tG7yVyiA6mFNGG1Pevl7kvLoALYELC1NM/x++GhFHHBx2Lpq+0vtplNcYuiLS1Vu
- mHNZZ0a3PAK+QOSd7egTSvfumGJB9I1bGgVbNt7p3vd3nCf7YKPG/tlQAMlz/b5/CTHs
- aigHCAGc0ZB4qN2n75S8AuCkfmU+nZn3YT8kbdXRhlMTnoujaYEdrtZACh4nmFZh3BPb
- KbmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vQUYQ27nPyJMXB0WKNuBlp5AO0z1jSw5GxCLfQWZ070=;
- b=aImVlusWdau6fijysY30dl/W5sKp6EQ6bn5JqyyBByuDsvFYycJO520ZrkeJIktuOl
- Jgs4tIpYTCbh/zGNgwahqg/8EOP6DT7p0LeRNzwwz7wdwx9q1JyYEI6rDlUcO7Ji42Z1
- CLYDotfjqAuuerEQ26mcvFbI0kH53BmbLrkuvC1ZdW7Ocnb332QJwLkhiu3oIoRKNAx8
- 76gKrYiST/eRtDEU/r0qcjTZKm/lNxCeErOqPj4E60u22GK1dyDfPgqNbZlPntg9PLlG
- mkhhbHD0otDPAlHjkfmjhC4I2uv48AP+ajSrdOEianwJcah7ZPWi4boLxEYDJciHRnja
- fR9g==
-X-Gm-Message-State: AOAM533i0oW2eyZ9okCEfAoVoJW2rn9FLWYWv5mCxs2YLiQX5HH8ScRg
- cHlCn/9RiowEJIzpfS5BU9Xpj9I5jOorbFSXLROAjg==
-X-Google-Smtp-Source: ABdhPJwng2mDFEpeIkzE5H0ErOGOt+cgDU7rc1aLtbV0G6CkOSM9sspijYjjxZNDpIA7qYFIs2Q/XO0Nd2MZQcfGFd0=
-X-Received: by 2002:ac8:528f:: with SMTP id s15mr26177686qtn.355.1614110883243; 
- Tue, 23 Feb 2021 12:08:03 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0069F80167
+ for <alsa-devel@alsa-project.org>; Tue, 23 Feb 2021 21:56:24 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 37923A003F;
+ Tue, 23 Feb 2021 21:56:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 37923A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1614113784; bh=5WmfckAlXuQrJGZWwvN0A3L0+Og7tcLCzLn9Hg+L9C8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=NuH0LvcW2Q+jVaSSD8DdXNg18DqQjlJ7nzzHTewSM1ISABt+aGiSqqQ5uol009k5Y
+ jWJciKXvJriE/uhMhdHxvfBZ2D0iCxiKocnbQ6po81c8UvzygM+yYod5ArwGQqeXoG
+ s24n9+oufBzta/ibUjbd2pArjJPNmXFQTttHDC5w=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 23 Feb 2021 21:56:17 +0100 (CET)
+Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210215142419.308651-1-hdegoede@redhat.com>
+ <20210215142419.308651-3-hdegoede@redhat.com>
+ <20210223134506.GF5116@sirena.org.uk>
+ <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
+ <20210223140930.GH5116@sirena.org.uk> <s5h8s7evp8p.wl-tiwai@suse.de>
+ <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
+ <s5hv9aiu55y.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <5c6a21c1-7107-3351-25be-c007b0b946d3@perex.cz>
+Date: Tue, 23 Feb 2021 21:56:16 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <20210217214914.700751-1-cujomalainey@chromium.org>
- <5b90530b77744937b87bbbd35901e320@realtek.com> <s5hr1ld22a9.wl-tiwai@suse.de>
- <CAOReqxibmAQNQe8PuHkUSW5Kb2L986X9DDqia-aN=ZrS8VJysA@mail.gmail.com>
- <20210222134551.GC6127@sirena.org.uk>
- <CAOReqxhRi9n-vxayVDNp-9R65s79OAqX8=YweCddFHTDJbbjGw@mail.gmail.com>
- <20210223124230.GA5116@sirena.org.uk>
- <CAOReqxjhWD5V7UtH5-fYpiK-h5cF7fC2WqmtnYz1qdn3yt7+LQ@mail.gmail.com>
- <20210223190439.GL5116@sirena.org.uk>
-In-Reply-To: <20210223190439.GL5116@sirena.org.uk>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Tue, 23 Feb 2021 12:07:51 -0800
-Message-ID: <CAOReqxiH9Bdwz6oe+hW9hOfO2w7+ic3FMLWOq_g+0-YfeXoKfg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: remove jack detect delay
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+In-Reply-To: <s5hv9aiu55y.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,13 +88,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->
-> > Would queueing two separate jobs with two different delays be the
-> > simple way to go? Realtek does this sound fine to you?
->
-> Possibly just queuing the same job with different timeouts?  I don't
-> have particularly strong feelings assuming the resulting code make
-> sense.
+Dne 23. 02. 21 v 17:20 Takashi Iwai napsal(a):
 
-And just track how we were last scheduled so we only check the correct
-thing? Sure that works too.
+> So do you mean that the LED feature should be selectively enabled like
+> the current HD-audio?
+
+Yes, it should be enabled only when the machine has the audio LEDs.
+
+>>> Of course, this implementation would make the integration much easier,
+>>> and that's a big benefit.  So I have a mixed feeling and not decided
+>>> yet whether we should go for it right now...
+>>
+>> I think that we can reconsider the LED handling implementation later, when
+>> someone brings something better on the table.
+> 
+> What worried me is the plan to expose this capability to user-space.
+> If it's only a kernel-internal, we can fix it in the kernel and
+> nothing else broken, but if it's a part of API, that's not easy.
+> 
+> So, if any, I'd like to avoid exposing to the user-space at first.
+> (But then it comes to the question how to deal with a case like AMD
+> ACP...)
+
+I tried to propose a complete solution and the ACP was one strong reason for
+this kernel / user space API. So without the user space support, it's just
+a half solution for known issues.
+
+Frankly, I don't see any drawback or a problem even if we remove this API
+later. The LED group bits are just informal for the user space and it's
+expected to create the user controls tied to this LED functionality only in
+alsa-lib/plugins at the moment. The kernel may return an error when the user
+space tries to set those new bits when the API is deprecated and I believe
+that the hardware design faults like AMD ACP (without the hardware mute) are rare.
+
+Initial alsa-lib support: https://github.com/alsa-project/alsa-lib/pull/121
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

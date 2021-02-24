@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B1C3239E0
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 10:51:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F37CB323A23
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 11:07:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 027A01662;
-	Wed, 24 Feb 2021 10:50:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 027A01662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 837091681;
+	Wed, 24 Feb 2021 11:06:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 837091681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614160296;
-	bh=ipBCU7T58F4qOUfsiocebhVV8TKNDYDNSavvSztO+v4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KHYshBT9cW3EjktPdOJ7rpvJtBym5LeN3TEd7ocBxvEi8G4A/Jmh0P1kEjY/mzTuJ
-	 ljZClB0uLPOnB2lQqW1psnCGIZnaVEidV7I3o+f0LnE1hGaPptWTgYEJWanVpeEka8
-	 txGkcQH2i0EXVzNojMxsb0Kv3fwz0tSqM5n4lOiI=
+	s=default; t=1614161256;
+	bh=E4CWuuHmPTS+VZ8JcV0Nl28ae2zoDzxCfnvM61EHSz0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tI51on8Am8/V2qIbBBZ8gZmiGDOa+UT+7PR+v23vJSGi/VRIZFBKu/bnYd+9hodZY
+	 5hG+yVpuHwqTakGyRj2itoVqEcv7hgpTclMe9LjIB4PqYEAKBmXXBvnlIi+CP9Ck3j
+	 gJlszHtfuH5vLuMPbbeBMrRt3PivzdL+Kf7oatjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63325F8022B;
-	Wed, 24 Feb 2021 10:50:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 010FFF80161;
+	Wed, 24 Feb 2021 11:06:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60DF7F8016C; Wed, 24 Feb 2021 10:50:02 +0100 (CET)
+ id 3CDE1F8022B; Wed, 24 Feb 2021 11:06:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75982F80159
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 11:05:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75982F80159
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Hb/yylXm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614161157;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=zqYNf7sFdh8qp1/+UHpQTi4e/KbQaUusEFZ/0Cmda0I=;
+ b=Hb/yylXmMhsR89ZoXTw0m7eBhw7vJ1Dp7yFoKoaBpUskwlB1pDt8XsvPPK2nxboCsGu81A
+ xOCcHlTL9f4N8TiYC1VM0VVUGGpV1ekG68do7Q6ch/wMAYe0UFLmN1O8IJDMxqylSmBVFW
+ ruCjufQMOVliA8fqli70pVmwfKUB1KM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-367-IQjQA1OlO6acwRz2mVjl7A-1; Wed, 24 Feb 2021 05:05:55 -0500
+X-MC-Unique: IQjQA1OlO6acwRz2mVjl7A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31DEBF80159
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 10:49:53 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 51897A003F;
- Wed, 24 Feb 2021 10:49:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 51897A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1614160188; bh=vZsoMfwJNw5zdKSqYCZ7qnWA+KwdY3LpAvrfRL3Jgmo=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=2lG39rH31kfj0GtNlri/pyS82FkiYtMTjs3aa4L50rAJsX5G0QoTsK9cfPty7Gc20
- bkD96xU22Eu3Zbs0X3wI6U1fqAv+/BKREXYxzkRA76gFd1rBcuW/44+SQN7wg/zYCV
- yzngEklH6j/Wb2+vW/OtZSmXuA022BL1vMbnmaes=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 24 Feb 2021 10:49:41 +0100 (CET)
-Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210215142419.308651-1-hdegoede@redhat.com>
- <20210215142419.308651-3-hdegoede@redhat.com>
- <20210223134506.GF5116@sirena.org.uk>
- <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
- <20210223140930.GH5116@sirena.org.uk> <s5h8s7evp8p.wl-tiwai@suse.de>
- <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
- <s5hv9aiu55y.wl-tiwai@suse.de>
- <5c6a21c1-7107-3351-25be-c007b0b946d3@perex.cz>
- <s5hh7m2szwb.wl-tiwai@suse.de>
- <776b4ad9-2612-b08a-cb76-c3e1ce02388a@perex.cz>
- <s5h8s7du9tn.wl-tiwai@suse.de>
- <4574088a-4676-131a-0065-499a516f80ae@perex.cz>
- <s5h1rd5u7p4.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <03068e15-2157-3ae6-ffd6-7ec315bb49a3@perex.cz>
-Date: Wed, 24 Feb 2021 10:49:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C7181935799;
+ Wed, 24 Feb 2021 10:05:54 +0000 (UTC)
+Received: from x1.localdomain (ovpn-113-243.ams2.redhat.com [10.36.113.243])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 115355D9D0;
+ Wed, 24 Feb 2021 10:05:52 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH alsa-lib 1/3] mixer: Unify simple_none: base_len() exception
+ handling
+Date: Wed, 24 Feb 2021 11:05:49 +0100
+Message-Id: <20210224100551.15141-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <s5h1rd5u7p4.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <bard.liao@intel.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,32 +92,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 24. 02. 21 v 10:38 Takashi Iwai napsal(a):
+Unify simple_none: base_len() exception handling:
 
->> It seems that you misunderstood the number of issues which my code is trying
->> to resolve:
->>
->> 1) set LED based on state from multiple cards (so you cannot trigger LED
->> inside single driver / single control element); we need one arbiter; this is
->> the main argument
->> 2) unifies the audio LED interface
->> 3) reduce the hardware driver code
-> 
-> Those purposes are all fine.  But they don't need to be exposed for
-> user controls that can be abused.  That's the very concern.
+1. In the "Input Source" and "3D Control" cases the base-name is the same
+   as the full-name and base_len() simply returns strlen(name).
+   Instead of returning 0 when the type is unknown, set the type to
+   CTL_SINGLE and return strlen(name). This allows removing the special
+   case for base_len() returning 0 in simple_event_add().
 
-So, how to handle this feature for AMD ACP without PA / PipeWire modifications?
+2. Move the special handling for "Capture Volume" and "Capture Switch"
+   from simple_event_add() to base_len(), so that we handle all exceptions
+   inside base_len(). Instead of handling some special cases in base_len()
+   and other special cases in simple_event_add().
 
-And if we add an user space channel to the audio LED arbiter code, how it
-differs from my proposed control API extension? We have already locking
-mechanism for the user control element to one task, so it's possible to create
-safe user space implementation (depending on the standard task priviledges) on
-demand even with my proposal.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ src/mixer/simple_none.c | 43 ++++++++++++++++++++++++-----------------
+ 1 file changed, 25 insertions(+), 18 deletions(-)
 
-Could you elaborate the abuse you mean? Three bits?
-
-						Jaroslav
-
+diff --git a/src/mixer/simple_none.c b/src/mixer/simple_none.c
+index e9dc1730..7da7de1e 100644
+--- a/src/mixer/simple_none.c
++++ b/src/mixer/simple_none.c
+@@ -907,11 +907,22 @@ static const struct suf {
+ };
+ #endif
+ 
+-/* Return base length or 0 on failure */
++/* Return base length */
+ static int base_len(const char *name, selem_ctl_type_t *type)
+ {
+ 	const struct suf *p;
+ 	size_t nlen = strlen(name);
++
++	/* exception: "Capture Volume" and "Capture Switch" */
++	if (!strcmp(name, "Capture Volume")) {
++		*type = CTL_CAPTURE_VOLUME;
++		return strlen("Capture");
++	}
++	if (!strcmp(name, "Capture Switch")) {
++		*type = CTL_CAPTURE_SWITCH;
++		return strlen("Capture");
++	}
++
+ 	p = suffixes;
+ 	while (p->suffix) {
+ 		size_t slen = strlen(p->suffix);
+@@ -944,7 +955,9 @@ static int base_len(const char *name, selem_ctl_type_t *type)
+ 			return strlen(name);
+ 		}
+ 	}
+-	return 0;
++
++	*type = CTL_SINGLE;
++	return strlen(name);
+ }
+ 
+ 
+@@ -1605,8 +1618,10 @@ static int simple_add1(snd_mixer_class_t *class, const char *name,
+ static int simple_event_add(snd_mixer_class_t *class, snd_hctl_elem_t *helem)
+ {
+ 	const char *name = snd_hctl_elem_get_name(helem);
++	selem_ctl_type_t type;
++	char ename[128];
+ 	size_t len;
+-	selem_ctl_type_t type = CTL_SINGLE; /* to shut up warning */
++
+ 	if (snd_hctl_elem_get_interface(helem) != SND_CTL_ELEM_IFACE_MIXER)
+ 		return 0;
+ 	if (strcmp(name, "Capture Source") == 0) {
+@@ -1633,22 +1648,14 @@ static int simple_event_add(snd_mixer_class_t *class, snd_hctl_elem_t *helem)
+ 		}
+ 		return 0;
+ 	}
++
+ 	len = base_len(name, &type);
+-	if (len == 0) {
+-		return simple_add1(class, name, helem, CTL_SINGLE, 0);
+-	} else {
+-		char ename[128];
+-		if (len >= sizeof(ename))
+-			len = sizeof(ename) - 1;
+-		memcpy(ename, name, len);
+-		ename[len] = 0;
+-		/* exception: Capture Volume and Capture Switch */
+-		if (type == CTL_GLOBAL_VOLUME && !strcmp(ename, "Capture"))
+-			type = CTL_CAPTURE_VOLUME;
+-		else if (type == CTL_GLOBAL_SWITCH && !strcmp(ename, "Capture"))
+-			type = CTL_CAPTURE_SWITCH;
+-		return simple_add1(class, ename, helem, type, 0);
+-	}
++	if (len >= sizeof(ename))
++		len = sizeof(ename) - 1;
++	memcpy(ename, name, len);
++	ename[len] = 0;
++
++	return simple_add1(class, ename, helem, type, 0);
+ }
+ 
+ static int simple_event_remove(snd_hctl_elem_t *helem,
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.30.1
+

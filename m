@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D44323C84
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 14:00:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9068323C85
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 14:00:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDE4316CC;
-	Wed, 24 Feb 2021 13:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDE4316CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84476167C;
+	Wed, 24 Feb 2021 13:59:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84476167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614171609;
-	bh=s9vVPdWIFvRr/kmwZ1hi1JZyRYorTUb5vuomNgauFSg=;
+	s=default; t=1614171631;
+	bh=s+3qS8U9zZoqWJkBLub5cF7B21NBs6Yw7kkuVI4HPQI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pQIKXtD62SDis2rZCLmhgnDnPoVdO2rXNQMMWMnlqkXokzN8oLSBKt5JZmGRReDmn
-	 6zHdACN3exsFaTo6ujs4jFkHHrf+vlSQa6M8zZHL9PJBTsOBQ1WQ98ZMJRPRIH6KGr
-	 V9pPizlOeeeRWrqig8h5JwZro2bPW/HoEoYMCZGk=
+	b=lKu4JHyDso2hVeK8V1HvdM1GdnehrbC1nuDuP1lqrzdX4ZIARbdKnNJ+nvdGWo47c
+	 KXLX8F/aTLpyagiYSOu1RlrhfYM1c9DPSuM1PRJ/+ioIBX0oVtv2mpFWbsUENIWdHz
+	 AbTfqm2ukYiUrguUNFrcqXZPgDrMtESaSc4lszAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 062C3F80424;
-	Wed, 24 Feb 2021 13:54:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECB07F80516;
+	Wed, 24 Feb 2021 13:54:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EE33F802E7; Wed, 24 Feb 2021 13:54:30 +0100 (CET)
+ id 11B6AF804AF; Wed, 24 Feb 2021 13:54:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_141,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD0F5F8032C
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:54:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD0F5F8032C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32F0DF8032C
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:54:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32F0DF8032C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="miwGnw59"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1A46064F88;
- Wed, 24 Feb 2021 12:54:21 +0000 (UTC)
+ header.b="asLR9zMD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9961D64F90;
+ Wed, 24 Feb 2021 12:54:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614171262;
- bh=s9vVPdWIFvRr/kmwZ1hi1JZyRYorTUb5vuomNgauFSg=;
+ s=k20201202; t=1614171269;
+ bh=s+3qS8U9zZoqWJkBLub5cF7B21NBs6Yw7kkuVI4HPQI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=miwGnw59qgvFak3+bg5U8pZI0rbQnjfDkJ0oaWxqWv7vkxfqfundFOfH8RsWgpQDG
- llXNi6qOYbQS4Hmoh+ebRfMiELa+khs/gkBVB+ZnBaHqW31UGJ/7tPkjfTBvZejWxn
- Pi0D36ey/XXIn205C8thQAmeS14N6BZowKBRLA0Sc6z2mHrEjMkajN/RoCklrUElXE
- mIXa9lPZBn4CArOHqfVKaqsf5uD2fcoPpk/xPToyFfMgc2Z5tt7OtVVlPnGslsrIOC
- +6EPI/7GSFClNZjZ6heudNJbmPSEqM3Ry8WvBtuQwOfZr8odevQ4ISCmbNrVU3mBXJ
- fmcK13J6+T6XQ==
+ b=asLR9zMDeGNexoQktlFLOvffjB6hQNhsxg60q2zkjpnPl9lC1QjWh8ANyInP4YuOH
+ 8ApbFSpbQe5iHxtXT6O07b+qd8rBCDuQaCN6KD11CwgfwitA+S/vzDf0ot6mTfpsEF
+ 3TzT6vrOa7o45qrOZu7NriJ7cFEIWL/4gpm9gQtqPN4YAwOBZWay/4SuuBz1nyf+4c
+ wDP4BMewDvPVahOVQwz3xnuVRKyTnJxRWAHTK0fGn2CyAJ8XfdZpAKbVZS5so4dQsS
+ SbwKF+9YVDrENEIXTCdiLcs4VNDLVmwulMKQpjjkzTENVgoTRk/UKMTOqyN53M6JSn
+ 1RVC87+TcudHg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 31/40] ASoC: Intel: Add DMI quirk table to
- soc_intel_is_byt_cr()
-Date: Wed, 24 Feb 2021 07:53:31 -0500
-Message-Id: <20210224125340.483162-31-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 37/40] ASoC: Intel: bytcr_rt5640: Add quirk for
+ the Estar Beauty HD MID 7316R tablet
+Date: Wed, 24 Feb 2021 07:53:37 -0500
+Message-Id: <20210224125340.483162-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210224125340.483162-1-sashal@kernel.org>
 References: <20210224125340.483162-1-sashal@kernel.org>
@@ -66,10 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,78 +86,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 8ade6d8b02b1ead741bd4f6c42921035caab6560 ]
+[ Upstream commit bdea43fc0436c9e98fdfe151c2ed8a3fc7277404 ]
 
-Some Bay Trail systems:
-1. Use a non CR version of the Bay Trail SoC
-2. Contain at least 6 interrupt resources so that the
-   platform_get_resource(pdev, IORESOURCE_IRQ, 5) check to workaround
-   non CR systems which list their IPC IRQ at index 0 despite being
-   non CR does not work
-3. Despite 1. and 2. still have their IPC IRQ at index 0 rather then 5
+The Estar Beauty HD MID 7316R tablet almost fully works with out default
+settings. The only problem is that it has only 1 speaker so any sounds
+only playing on the right channel get lost.
 
-Add a DMI quirk table to check for the few known models with this issue,
-so that the right IPC IRQ index is used on these systems.
+Add a quirk for this model using the default settings + MONO_SPEAKER.
 
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20210120214957.140232-5-hdegoede@redhat.com
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210216213555.36555-2-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/common/soc-intel-quirks.h | 25 +++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/soc/intel/common/soc-intel-quirks.h b/sound/soc/intel/common/soc-intel-quirks.h
-index 863a477d34051..645baf0ed3dd1 100644
---- a/sound/soc/intel/common/soc-intel-quirks.h
-+++ b/sound/soc/intel/common/soc-intel-quirks.h
-@@ -11,6 +11,7 @@
- 
- #if IS_ENABLED(CONFIG_X86)
- 
-+#include <linux/dmi.h>
- #include <asm/cpu_device_id.h>
- #include <asm/intel-family.h>
- #include <asm/iosf_mbi.h>
-@@ -40,12 +41,36 @@ SOC_INTEL_IS_CPU(cml, INTEL_FAM6_KABYLAKE_L);
- 
- static inline bool soc_intel_is_byt_cr(struct platform_device *pdev)
- {
-+	/*
-+	 * List of systems which:
-+	 * 1. Use a non CR version of the Bay Trail SoC
-+	 * 2. Contain at least 6 interrupt resources so that the
-+	 *    platform_get_resource(pdev, IORESOURCE_IRQ, 5) check below
-+	 *    succeeds
-+	 * 3. Despite 1. and 2. still have their IPC IRQ at index 0 rather then 5
-+	 *
-+	 * This needs to be here so that it can be shared between the SST and
-+	 * SOF drivers. We rely on the compiler to optimize this out in files
-+	 * where soc_intel_is_byt_cr is not used.
-+	 */
-+	static const struct dmi_system_id force_bytcr_table[] = {
-+		{	/* Lenovo Yoga Tablet 2 series */
-+			.matches = {
-+				DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+				DMI_MATCH(DMI_PRODUCT_FAMILY, "YOGATablet2"),
-+			},
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 6012367f6fe48..cdbc00c773386 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -513,6 +513,16 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_MONO_SPEAKER |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{	/* Estar Beauty HD MID 7316R */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Estar"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "eSTAR BEAUTY HD Intel Quad core"),
 +		},
-+		{}
-+	};
- 	struct device *dev = &pdev->dev;
- 	int status = 0;
- 
- 	if (!soc_intel_is_byt())
- 		return false;
- 
-+	if (dmi_check_system(force_bytcr_table))
-+		return true;
-+
- 	if (iosf_mbi_available()) {
- 		u32 bios_status;
- 
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
 -- 
 2.27.0
 

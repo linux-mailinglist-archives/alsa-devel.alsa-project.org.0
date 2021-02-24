@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E413B323C8D
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 14:02:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D395323C8E
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 14:03:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 714AE1679;
-	Wed, 24 Feb 2021 14:02:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 714AE1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 486821699;
+	Wed, 24 Feb 2021 14:02:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486821699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614171771;
-	bh=SreHj1v1+j1+8Ef1SthpCnlcga9XVWYo/NuZlFVKo3I=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1614171792;
+	bh=urkvPaO8f7nDAp0+0HIB7pG415kjfix4qSRKWzytmI8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sCYLc89zhAO12nUKjlUW7p9N7eYcDX0QtrXvDQh+O8rXdNBxO04cWZZdw7h8PXL7B
-	 cQSyvutTdJf0jXlK8jFg9RZQyTU0GTJeJL91FB8MHDZK6Ry+9b/Xy45rT7fNjP/y6U
-	 DXlJzrSOtSyBMa5KVVdhBaLPA4nTxL6kp6N1D5O0=
+	b=MW+ns7n2DMjvTWBjoLh1Ss1spuvA9CKV/FmqMsNhbc1FKHGB4ZspuRl3eIioIT4MS
+	 i3L28yZPnOuUY/5TqIlIG98dOV5E1tgsAN3jnx4UGL3v9Z6okfU/qrEzPVYRCDZ3rW
+	 hC35INHIWOUryCweOsYEvMcCAd3bGF6BeYYSFjQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F4B0F80524;
-	Wed, 24 Feb 2021 13:55:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70908F800F2;
+	Wed, 24 Feb 2021 14:00:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1A81F804D8; Wed, 24 Feb 2021 13:55:16 +0100 (CET)
+ id 4B972F800F2; Wed, 24 Feb 2021 14:00:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 734C1F80482
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:55:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734C1F80482
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A445F80129
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 14:00:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A445F80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rODnQXsA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1554464F94;
- Wed, 24 Feb 2021 12:55:07 +0000 (UTC)
+ header.b="QMf5xU6g"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C5EAC64E6C;
+ Wed, 24 Feb 2021 13:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614171308;
- bh=SreHj1v1+j1+8Ef1SthpCnlcga9XVWYo/NuZlFVKo3I=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rODnQXsApPlqDkf/Dio8GKkm4+ygLstW0iLWqYOP62KLGFgQlW6MhXkFVjDMdMo7w
- +GjLZ2CLTyWdY8z2V867GdcLrfD7uDU0m3UUq1So5adyLdDngQlUCHmdYoKPRh0pEH
- FC8LtpqmV58rVUko2Us55wemAqM/1Q2zYuIg8tSprJeOckNYMWJQrLizSZVoXLhXfK
- G2JjcTXbizrpNlZcPZIdsB4cKUyPGC0AoOrdQgcId0b+1asWIbvEYm+gDpc4jFNkpq
- pjxmdjq4L1sFgWf51Wkn3MlvN6gItud8LCV09f6lKRhY9xQxhIWL86gDWEhHDVWVrg
- jpn4baRnCboXg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 26/26] ASoC: Intel: bytcr_rt5640: Add quirk for
- the Acer One S1002 tablet
-Date: Wed, 24 Feb 2021 07:54:34 -0500
-Message-Id: <20210224125435.483539-26-sashal@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210224125435.483539-1-sashal@kernel.org>
-References: <20210224125435.483539-1-sashal@kernel.org>
+ s=k20201202; t=1614171630;
+ bh=urkvPaO8f7nDAp0+0HIB7pG415kjfix4qSRKWzytmI8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QMf5xU6g1A4jo+4KBcMxdghmK70SYEPtsYJq5cmqB8dbjT5jYHFEGJXuo1hmqtEYP
+ iU1WIxVKDKFycxFw4DYo2LTlgtKRLEmaBeB27IgaTz5QS9oGr0KDMIH72XHUWYsGyq
+ EPSoEBfnQV2fElLzpciplwHqaGBavHLXd6062lDz0Bt77mqNF/Ppd2yXzK1kN7XT5V
+ 0q51nfFMUjXsZeYaNlUbN5O9dpDrFgb5UGTBvVy8jercfLQSEfjnj35kOlVKXKr4B9
+ 6jAcQ3jt+YICQW6N1jYHj8pbC2vLmp5PEQ7AyNxYSnsCdfwwNvuSQ+iK34ApZeSTVe
+ E02hej5urnGMw==
+Date: Wed, 24 Feb 2021 12:59:27 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
+Message-ID: <20210224125927.GB4504@sirena.org.uk>
+References: <20210215142419.308651-1-hdegoede@redhat.com>
+ <20210215142419.308651-3-hdegoede@redhat.com>
+ <20210223134506.GF5116@sirena.org.uk>
+ <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
+ <20210223140930.GH5116@sirena.org.uk>
+ <s5h8s7evp8p.wl-tiwai@suse.de>
+ <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
+ <20210223172055.GI5116@sirena.org.uk>
+ <fe2941de-02ce-9ed0-70ff-d7967aeecc44@redhat.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="QKdGvSO+nmPlgiQ/"
+Content-Disposition: inline
+In-Reply-To: <fe2941de-02ce-9ed0-70ff-d7967aeecc44@redhat.com>
+X-Cookie: He's dead, Jim.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,53 +90,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit c58947af08aedbdee0fce5ea6e6bf3e488ae0e2c ]
+--QKdGvSO+nmPlgiQ/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The Acer One S1002 tablet is using an analog mic on IN1 and has
-its jack-detect connected to JD2_IN4N, instead of using the default
-IN3 for its internal mic and JD1_IN4P for jack-detect.
+On Tue, Feb 23, 2021 at 08:03:58PM +0100, Hans de Goede wrote:
+> On 2/23/21 6:20 PM, Mark Brown wrote:
 
-Note it is also using AIF2 instead of AIF1 which is somewhat unusual,
-this is correctly advertised in the ACPI CHAN package, so the speakers
-do work without the quirk.
+> > We already need ACPI and DMI quirks in the CODEC drivers anyway due to
+> > the limitations of ACPI so it wouldn't be particularly surprising to
+> > have stuff there.  OTOH this would fix things per machine while with
+> > fancier hardware things might easily be flexible enough that there's
+> > multiple choices that could be made depending on use case.
 
-Add a quirk for the mic and jack-detect settings.
+> I have a feeling from the discussion here that you would prefer this
+> per model/machine option over the current patch which unconditionally
+> sets the SNDRV_CTL_ELEM_ACCESS_SPK/MIC_LED flag on the main DAC/ADC
+> mute controls ?
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20210216213555.36555-5-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/intel/boards/bytcr_rt5640.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> So I believe that it would be best for me to respin this patch
+> series moving to making this a per model/machine thing, correct?
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 910214ab140e5..8a943de1e5b55 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -409,6 +409,19 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* Acer One 10 S1002 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "One S1002"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_2000UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_SSP0_AIF2 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
--- 
-2.27.0
+Yes, we at least need to be able to do that even if we end up hard
+coding it in some CODEC drivers as the device is inflexible.  There are
+devices where the concept of "main DAC/ADC" just doesn't apply.
 
+> > I'd be a lot more comfortable with ASoC having some runtime control for
+> > overriding which controls get mapped, even if we try to pick defaults
+> > with quirks.
+
+> The drivers in question already allow overriding their quirks bitmap
+> via a module-parameter.  If we are going to enable the mixer-element
+
+I'm not a big fan of module parameters TBH, it's not great for
+usability.
+
+> And then the user can always override the settings using the quirk
+> module parameter. This is not exactly runtime control, but IMHO it
+> is close enough and anything else will just overcomplicate things.
+> I'm aware of only 3 model 2-in-1s which need this and on those
+> 3 the implementation is very straight forward.
+
+The problem I was thinking of is the situation where there are multiple
+options for the mute control in the hardware and it's a configuration
+decision which one to use.
+
+--QKdGvSO+nmPlgiQ/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA2Ta4ACgkQJNaLcl1U
+h9CuRwf/b0ZWjO8gbf2fpTOz9dyyJpetTB+O0cKSUgRYyHgyoQZPHi7qAH+b/cjF
+1CuZqY7IxLI6d2tFmUo9HbVPqOlxQD4qUkbRK3fQSR/nBKdVSlAiMfp8ZXv7e5iV
+KPGES+psNwb74Jj2egmDZUQyzJTqA0wdnz9BRTf5ZjwBr45w/LL1msEUXWTw7+1R
+uECRwJkHrOxZ1aHnqKJGYneRYNOpQD9QeJMuUPo4TBbosDwwictbAbJZZAXuDfwV
+aWd1p1xjLOhzEkEhpHc2xCaR/fzqyxhBM/V6yQJtbkJz9RrJoL0/tk8Af9eptIo9
+iO9TdQFuxkEVgX09c1acNboAgGsbsA==
+=rYXx
+-----END PGP SIGNATURE-----
+
+--QKdGvSO+nmPlgiQ/--

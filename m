@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFDBB323C64
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 13:55:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14CE8323C68
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 13:55:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 545EC9F6;
-	Wed, 24 Feb 2021 13:54:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 545EC9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A960A16A2;
+	Wed, 24 Feb 2021 13:54:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A960A16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614171311;
-	bh=yHEIALki3xGjYnguiSFsS0rOY+sSE3bgcFZPPAhQZc8=;
+	s=default; t=1614171329;
+	bh=UB5q9IAcDdMSWjh4EFhxCNJCK5xOdAJ9bVGA11etiyI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YmZN1kw/RMDJBM5SpOmmD7GHwbMrnI72JTL9xEkpUzEqgqqqa5Nir4Yl74aAAJm+e
-	 FVlwBLg9rfaM2nEUIcfUkGTh/qd3YP2d/2pzdLEzlZ9Xt/8YXcKXc1BDXrC6Ux/qez
-	 MzMAeTMtpWLQQHdvP+wIiYNjgvDG0JzI8C/glSsQ=
+	b=u6Qb69ClxM6MWT+oSFVyzLhzWmtjuL3ox5NPoGWNHtZzVyy5l3oUDZQxdRLxS5+1m
+	 369cDfvSeEOJUgIVMcCNd3xULJsZr1zFV29qxsFVreqpWjuJulr07Q9yrZwcq1o1YB
+	 OsxgjAmNBXNPJuR503BWP1ApkvvaQcgNA8HS8OAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32F2DF804AC;
-	Wed, 24 Feb 2021 13:51:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60B68F804B1;
+	Wed, 24 Feb 2021 13:51:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19AE0F80475; Wed, 24 Feb 2021 13:51:50 +0100 (CET)
+ id 2C7A9F804B1; Wed, 24 Feb 2021 13:51:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_141,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A898AF80431
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:51:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A898AF80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 966D3F804AD
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:51:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 966D3F804AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fMMfn9JU"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 329C564F2A;
- Wed, 24 Feb 2021 12:51:45 +0000 (UTC)
+ header.b="eXQTzcAl"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CA13F64F37;
+ Wed, 24 Feb 2021 12:51:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614171106;
- bh=yHEIALki3xGjYnguiSFsS0rOY+sSE3bgcFZPPAhQZc8=;
+ s=k20201202; t=1614171112;
+ bh=UB5q9IAcDdMSWjh4EFhxCNJCK5xOdAJ9bVGA11etiyI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fMMfn9JUMlPgwLYqlcULlHXdX9oVEqZgf5iQzVuFiKIn+n7dC1U6IyO2fR+IVRvjS
- 4xjQ49ab6rlCcAABMusO1F4wjvyKCblhfvnURKYUxkjzq1DHzkWKwlGI7CDdd+jbGW
- 7OTqqP4vn0lYAFKjzfHfPDxLEg2594jq/iu/Z9eejNXOBN8CYXF2smYQFXGtylG49D
- 9sSMLYUPZQBYZMxVC4p14Sp3ZJduuMCCYX0sd+CmRv9zcTWPpGLpExEcL+vPV7jB0Y
- 5i8ovLZHjRXXkDyP+RkmlQukdf9U4lMYVBLR9So1YXYLVd2zht6aSr2heOivLpr4uJ
- eJ/i/3KzH8AMQ==
+ b=eXQTzcAlCRN/f5ZGUbx+c69DZh4IbAGnxxXUlGAmiUopjdD3ZWErUG3Kj110fuy2c
+ FKOJohNsLmF1yWtF5zRjv5/KVwJUNhApyTilXZBft9zzX3j3GgK6Xp1a2HAXPjaBaE
+ bwVoqnvqL9eh81Qyka2fn+3GSg1eim2DmxHJldXkQI5ZMXIpXWDzJme75XW2lbtSIG
+ BEJxsjYWwvGRlMyU8H4ogJXPlYyGZtf9sgMZOWSbVh1BLJuPzXug+DTYNgQ+oaeytb
+ VrAUZp7eTb5t1X3nQv49kMYV0yzuAPhHJaxxO2zfl1eumPDs4kKGfkTEjUAjaT9z5d
+ aoBmW616f4yCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 59/67] ASoC: Intel: sof_sdw: detect DMIC number
- based on mach params
-Date: Wed, 24 Feb 2021 07:50:17 -0500
-Message-Id: <20210224125026.481804-59-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 64/67] ASoC: Intel: bytcr_rt5640: Add quirk for
+ the Estar Beauty HD MID 7316R tablet
+Date: Wed, 24 Feb 2021 07:50:22 -0500
+Message-Id: <20210224125026.481804-64-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210224125026.481804-1-sashal@kernel.org>
 References: <20210224125026.481804-1-sashal@kernel.org>
@@ -66,10 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
- Bard Liao <bard.liao@intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit f88dcb9b98d3f86ead04d2453475267910448bb8 ]
+[ Upstream commit bdea43fc0436c9e98fdfe151c2ed8a3fc7277404 ]
 
-Current driver create DMIC dai based on quirk for each platforms,
-so we need to add quirk for new platforms. Now driver reports DMIC
-number to machine driver and machine driver can create DMIC dai based
-on this information. The old check is reserved for some platforms
-may be failed to set the DMIC number in BIOS.
+The Estar Beauty HD MID 7316R tablet almost fully works with out default
+settings. The only problem is that it has only 1 speaker so any sounds
+only playing on the right channel get lost.
 
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Signed-off-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20210208233336.59449-6-pierre-louis.bossart@linux.intel.com
+Add a quirk for this model using the default settings + MONO_SPEAKER.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210216213555.36555-2-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 6e4b2fdb0dcf6..9983bf6356b1f 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -933,7 +933,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 		ctx->idisp_codec = true;
- 
- 	/* enable dmic01 & dmic16k */
--	dmic_num = (sof_sdw_quirk & SOF_SDW_PCH_DMIC) ? 2 : 0;
-+	dmic_num = (sof_sdw_quirk & SOF_SDW_PCH_DMIC || mach_params->dmic_num) ? 2 : 0;
- 	comp_num += dmic_num;
- 
- 	dev_dbg(dev, "sdw %d, ssp %d, dmic %d, hdmi %d", sdw_be_num, ssp_num,
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index dce2df30d4c5b..ee41f41c8184e 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -527,6 +527,16 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_MONO_SPEAKER |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{	/* Estar Beauty HD MID 7316R */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Estar"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "eSTAR BEAUTY HD Intel Quad core"),
++		},
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
 -- 
 2.27.0
 

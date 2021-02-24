@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 683133245AB
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 22:21:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5B83245B2
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Feb 2021 22:21:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 612AD167E;
-	Wed, 24 Feb 2021 22:20:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 612AD167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D27B166A;
+	Wed, 24 Feb 2021 22:21:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D27B166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614201676;
-	bh=SD9+T49hD4SPwHocwKOaLmrs/yb/96450bW1bQrwNds=;
+	s=default; t=1614201714;
+	bh=Ce1JU/6X3WVIRarIjUQz/SfAfHyQuXxSl8iLiz+sv0A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XeKKScM4/CLGDnKHXpWWwVlVQO9lcNc5SFYG4z+EN9dWkucS+wLMqEiAgFFG+UuNF
-	 vQGkvcNIQSWRHuCIcELCGIudq4pM/MGAVMcrsHA8VhR8G6zNzNk323fYdfr0P61HOW
-	 WqsRDF4U+sTEsEGgtg1GEN3y4PK19JkG1hQwa5mw=
+	b=govsNmJz2zJ0riG3crH+mF9HhoJVDtOT7BX96S4/UfRsrjUwkYcBb9rhRdSSXBk1m
+	 ZTGA72KShvCv202G6qSBINEmgvXxb7VDzH02xRgnW8iM3bt0dQ28nSFUajMYiwpTuW
+	 mhCdIXcR57HfqLpfhpgO5g55xXaj12jXKd6uxA4E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EB9BF80249;
-	Wed, 24 Feb 2021 22:19:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 858DEF802D2;
+	Wed, 24 Feb 2021 22:19:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35B5FF8022B; Wed, 24 Feb 2021 22:19:32 +0100 (CET)
+ id 93907F80249; Wed, 24 Feb 2021 22:19:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74860F80159
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 22:19:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74860F80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C1EBF80129
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 22:19:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C1EBF80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Mf/dFfVr"
-Received: by mail-lf1-x12a.google.com with SMTP id f1so5282921lfu.3
- for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:19:28 -0800 (PST)
+ header.b="R5QRo2B2"
+Received: by mail-lf1-x12d.google.com with SMTP id u4so5286652lfs.0
+ for <alsa-devel@alsa-project.org>; Wed, 24 Feb 2021 13:19:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WjXyN2YZhZ2XF11j3DNqBy4PmqPHJZAyQHRBelDop8I=;
- b=Mf/dFfVrOfzHj93+e4gTrMtBgfAmwGs5R4wmdk9ygWQAh19ZpM73kAfxio4mvv1ftS
- AKvPy2YUDn9u/Y1Ty/Zk1jr7LSXu2mXgfOfIrd5rTla1xn0lx829CZ7Hs9xL6/kTFaqy
- sdyauTkVwGWIYqyKxHwJsr1DxaIy/Iy33Zyb/v0VXnZF9NP5QrrSmpKgN3ZuWOywnQPL
- eUNvQoAFWYNlOPODjIGyu95OcnP6BSXIor8s+u31eoDo1GzrakUm7m5RRonIdTfsFGdR
- O9WB85Va7RvaD0g/MqBJFcyuusmAnxuCXXICStv3DN79GiSwaPc2mu93FLdTbkp1fBWH
- sgcQ==
+ bh=bNR1KI2pRCEa4jeqkN89XkpppOEohChHDZHILgnnwVE=;
+ b=R5QRo2B2oMgyIpvYMaARSzalCqNsNEewkuyK8GqD+9Hxagz9bsLLkL3DqooEcgoPIS
+ YSn7T5HdPxdYPFyANbYByP47cXHJ+b5zszT61j4rpTxLntkL/dnP9ipBpyOrZFxkHEFn
+ o/db+R45qrMfzJPxh8dHJzvycEmdduga3fFDd6jQXxpjYOQ/L3cfT+FZVVCONeyeZxR9
+ /0OjgZkoBXHeBv1bYlTPezKforNeaHfM6frb60ElrEuYgOj/J6LzkRcNT1cX/Lm0f/GZ
+ 2uIXNDIPmpLtYNFoihpO8xrWwxcWbe0ohfc6IAt2doig6ZIQr0c1+DAhN+LQ0JErOTho
+ D7zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WjXyN2YZhZ2XF11j3DNqBy4PmqPHJZAyQHRBelDop8I=;
- b=DhX1dLp7EmPdJ/iwhA3FJyzCl1qHbv7ZSxNzbwCg/buYyZQT9enEdHy1uSUYsv5va3
- C6MhTmRwm67ogR/c9E2/qa4OTkk5TVf3/uKCQGqYC2iNVXBNxn0eL5ksHGHceJgu737N
- flsA8Wuggf53eDDe8E1HRPBgSUMM+mc8bhpfobIgaVM0FN8uQGVRDeWgHiVOB/s4IYas
- 4wSmtOMGiWJ0Z1+vrQgOeKmAq6Jc4tsYK23vl7Em49ZSJ+ImdcLM/XggXcaOgf0UAlw5
- +yjYkO4832qfoIUTKAdoVQnvEKsS09btl9iiRfTofa1PfrBmnyHjtzUOiFWgMdkRyB07
- SWTA==
-X-Gm-Message-State: AOAM530frFHy3yq4EgwF0KOzPw4ORYZppaqXSLklIbkLIoMBH/M6SNYX
- fFJsGoxFSDsYNxPWbTryuCY=
-X-Google-Smtp-Source: ABdhPJy8+vyE96eTWkPeG29uK18NtTKl+8CUKxn5wfqxakdR1h2RLFaBiSIC5eXBefHN7fY1NPiI4Q==
-X-Received: by 2002:a19:5505:: with SMTP id n5mr19598230lfe.401.1614201568154; 
- Wed, 24 Feb 2021 13:19:28 -0800 (PST)
+ bh=bNR1KI2pRCEa4jeqkN89XkpppOEohChHDZHILgnnwVE=;
+ b=cpS4zdSldpmTmCPNLrfT34yVMMpGcbuz39QLixvlf0h+ztmDOuf+WfP1IG16kacPpE
+ BfsNz7Txa6S14dZCeQFXJLgqbo1f4P2CgrnCzRKh/da1+ZXjYD9gh+nIxIlCLjol4PGa
+ mEak8EvUBK1r0RLt7dXIPzVpwYMOk7tEzboCEFbJxa4dGp1EdJwSydeb7iCoUWcidhQK
+ bZW+puoftthtZ1lsWr5QOSOIOVXmoJMhDHrQ9CNc3rG2NOztzs49fe1AXQ7bUhqkwTlA
+ ReCR3qYsbfGBV7XgSHjjkC6xcXplAVkKyaCQCOWRIkwGZ68uqdbzJajX8ucXnx8QXjwl
+ BLQQ==
+X-Gm-Message-State: AOAM530o+1s0BPRaH8gpFkwMv3di2c9UyMZYBrunRQO4hzwJdyIgQF+o
+ uOQY839edfFf9JdSdvTbp0Y=
+X-Google-Smtp-Source: ABdhPJzQNo1uob0y8vJmKLbHqTEr+Oufmvez2ZwpS3vFdPnaJYuPf7kaRx3OTf4yuzXcJTaxneSGTQ==
+X-Received: by 2002:ac2:420b:: with SMTP id y11mr19798338lfh.215.1614201569046; 
+ Wed, 24 Feb 2021 13:19:29 -0800 (PST)
 Received: from localhost.localdomain (h-98-128-229-129.NA.cust.bahnhof.se.
  [98.128.229.129])
- by smtp.gmail.com with ESMTPSA id w26sm717116lfr.186.2021.02.24.13.19.27
+ by smtp.gmail.com with ESMTPSA id w26sm717116lfr.186.2021.02.24.13.19.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Feb 2021 13:19:27 -0800 (PST)
+ Wed, 24 Feb 2021 13:19:28 -0800 (PST)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Oder Chiou <oder_chiou@realtek.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 3/4] ASoC: rt*: Constify static struct acpi_device_id
-Date: Wed, 24 Feb 2021 22:19:17 +0100
-Message-Id: <20210224211918.39109-4-rikard.falkeborn@gmail.com>
+Subject: [PATCH 4/4] ASoc: rt5631: Constify static struct coeff_clk_div
+Date: Wed, 24 Feb 2021 22:19:18 +0100
+Message-Id: <20210224211918.39109-5-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210224211918.39109-1-rikard.falkeborn@gmail.com>
 References: <20210224211918.39109-1-rikard.falkeborn@gmail.com>
@@ -102,83 +102,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-These are never modified, so make them const to allow the compiler to
-put them in read-only memory.
+coeff_div is only read from, so make it const to show the intent.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- sound/soc/codecs/rt1011.c | 2 +-
- sound/soc/codecs/rt1015.c | 2 +-
- sound/soc/codecs/rt1016.c | 2 +-
- sound/soc/codecs/rt1305.c | 2 +-
- sound/soc/codecs/rt1308.c | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/codecs/rt5631.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index 098ecf13814d..6877be5f36b9 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -2151,7 +2151,7 @@ MODULE_DEVICE_TABLE(of, rt1011_of_match);
- #endif
- 
- #ifdef CONFIG_ACPI
--static struct acpi_device_id rt1011_acpi_match[] = {
-+static const struct acpi_device_id rt1011_acpi_match[] = {
- 	{"10EC1011", 0,},
- 	{},
+diff --git a/sound/soc/codecs/rt5631.c b/sound/soc/codecs/rt5631.c
+index 653da3eaf355..afc1305a7fa5 100644
+--- a/sound/soc/codecs/rt5631.c
++++ b/sound/soc/codecs/rt5631.c
+@@ -1283,7 +1283,7 @@ static const struct pll_div codec_slave_pll_div[] = {
+ 	{3072000,  12288000,  0x0a90},
  };
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 501cc45240b4..3cd967ae999d 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -1121,7 +1121,7 @@ MODULE_DEVICE_TABLE(of, rt1015_of_match);
- #endif
  
- #ifdef CONFIG_ACPI
--static struct acpi_device_id rt1015_acpi_match[] = {
-+static const struct acpi_device_id rt1015_acpi_match[] = {
- 	{"10EC1015", 0,},
- 	{},
- };
-diff --git a/sound/soc/codecs/rt1016.c b/sound/soc/codecs/rt1016.c
-index 483375fc16ca..c14a809da52b 100644
---- a/sound/soc/codecs/rt1016.c
-+++ b/sound/soc/codecs/rt1016.c
-@@ -623,7 +623,7 @@ MODULE_DEVICE_TABLE(of, rt1016_of_match);
- #endif
- 
- #ifdef CONFIG_ACPI
--static struct acpi_device_id rt1016_acpi_match[] = {
-+static const struct acpi_device_id rt1016_acpi_match[] = {
- 	{"10EC1016", 0,},
- 	{},
- };
-diff --git a/sound/soc/codecs/rt1305.c b/sound/soc/codecs/rt1305.c
-index 4e9dfd235e59..16aa405fb8f0 100644
---- a/sound/soc/codecs/rt1305.c
-+++ b/sound/soc/codecs/rt1305.c
-@@ -975,7 +975,7 @@ MODULE_DEVICE_TABLE(of, rt1305_of_match);
- #endif
- 
- #ifdef CONFIG_ACPI
--static struct acpi_device_id rt1305_acpi_match[] = {
-+static const struct acpi_device_id rt1305_acpi_match[] = {
- 	{"10EC1305", 0,},
- 	{"10EC1306", 0,},
- 	{},
-diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
-index b75931a69a1c..76e65844543d 100644
---- a/sound/soc/codecs/rt1308.c
-+++ b/sound/soc/codecs/rt1308.c
-@@ -790,7 +790,7 @@ MODULE_DEVICE_TABLE(of, rt1308_of_match);
- #endif
- 
- #ifdef CONFIG_ACPI
--static struct acpi_device_id rt1308_acpi_match[] = {
-+static const struct acpi_device_id rt1308_acpi_match[] = {
- 	{ "10EC1308", 0, },
- 	{ },
- };
+-static struct coeff_clk_div coeff_div[] = {
++static const struct coeff_clk_div coeff_div[] = {
+ 	/* sysclk is 256fs */
+ 	{2048000,  8000 * 32,  8000, 0x1000},
+ 	{2048000,  8000 * 64,  8000, 0x0000},
 -- 
 2.30.1
 

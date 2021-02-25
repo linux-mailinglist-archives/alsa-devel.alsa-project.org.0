@@ -2,60 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C699324EA1
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 11:57:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49689324EB7
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 12:02:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C08C1165D;
-	Thu, 25 Feb 2021 11:56:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08C1165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF6871655;
+	Thu, 25 Feb 2021 12:01:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6871655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614250640;
-	bh=2TnYJBOF6GoyqenuvZqWVN6C7hHg+jTzWks/HX1kEXU=;
+	s=default; t=1614250950;
+	bh=lcPbod56VFXiGmHPKv7J7CCTnrsVYNt+fb3RQOURNN0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cr4rFjl4mvsFJDm7oKWOWk2hOSM9+gjqhVcM+7uO7RoqMv+yNMyRNbstlbQTci6oz
-	 Y0VsZSh8c7dkigYGy5XUCkGBzCK0HVkc04hGSAHToIJdb5m3X3aEj4pD0iXyKOwpBU
-	 HAxsB0GQYYInp3wVx9o4CePn+kLKHXZDF+nw5lyY=
+	b=EgfespPsFIp9EeMVtcOe77HnU8wnUPIuT/aKW/HHa6DfasvupyU170nqB4o8zxwEq
+	 Nvegojve2Z/IGrCIxJ1jFuI/M24dv4iEV6TrTWyocJ5cF1Y4wIKG1dHOpcCvor68TZ
+	 SCS9BBoLAx3EqSyN6uau2mfsLKFzYLFnYrlgjFBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F37EF800E4;
-	Thu, 25 Feb 2021 11:55:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1592EF800E4;
+	Thu, 25 Feb 2021 12:00:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04BFEF8016A; Thu, 25 Feb 2021 11:55:48 +0100 (CET)
+ id 76769F8016A; Thu, 25 Feb 2021 12:00:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C551CF80159
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 11:55:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C551CF80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20C56F80159
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 12:00:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20C56F80159
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 64AF2ADF0;
- Thu, 25 Feb 2021 10:55:44 +0000 (UTC)
-Date: Thu, 25 Feb 2021 11:55:44 +0100
-Message-ID: <s5h35xkquvj.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 9F217AAAE;
+ Thu, 25 Feb 2021 11:00:53 +0000 (UTC)
+Date: Thu, 25 Feb 2021 12:00:53 +0100
+Message-ID: <s5hzgzspg2i.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v5 6/9] ALSA: virtio: PCM substream operators
-In-Reply-To: <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
-References: <20210222153444.348390-1-anton.yakovlev@opensynergy.com>
- <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
+In-Reply-To: <3c262ea6-2313-3af8-60ae-d59ae8be262d@perex.cz>
+References: <20210215142419.308651-1-hdegoede@redhat.com>
+ <20210215142419.308651-3-hdegoede@redhat.com>
+ <20210223134506.GF5116@sirena.org.uk>
+ <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
+ <20210223140930.GH5116@sirena.org.uk>
+ <s5h8s7evp8p.wl-tiwai@suse.de>
+ <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
+ <s5hv9aiu55y.wl-tiwai@suse.de>
+ <5c6a21c1-7107-3351-25be-c007b0b946d3@perex.cz>
+ <s5hh7m2szwb.wl-tiwai@suse.de>
+ <776b4ad9-2612-b08a-cb76-c3e1ce02388a@perex.cz>
+ <s5h8s7du9tn.wl-tiwai@suse.de>
+ <4574088a-4676-131a-0065-499a516f80ae@perex.cz>
+ <s5h1rd5u7p4.wl-tiwai@suse.de>
+ <03068e15-2157-3ae6-ffd6-7ec315bb49a3@perex.cz>
+ <s5hv9ahsqkj.wl-tiwai@suse.de>
+ <e7de1dd2-199e-9e07-65a4-2a2eb2b46b49@perex.cz>
+ <s5hsg5lsnbu.wl-tiwai@suse.de>
+ <9c74e8de-769c-cd98-3944-85bd75bc840b@perex.cz>
+ <s5hlfbdskmc.wl-tiwai@suse.de>
+ <3c262ea6-2313-3af8-60ae-d59ae8be262d@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,37 +90,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Feb 2021 16:34:41 +0100,
-Anton Yakovlev wrote:
-> +static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
-> +{
-> +	struct virtio_pcm *vpcm = snd_pcm_substream_chip(substream);
-> +	struct virtio_pcm_substream *vss = NULL;
-> +
-> +	if (vpcm) {
-> +		switch (substream->stream) {
-> +		case SNDRV_PCM_STREAM_PLAYBACK:
-> +		case SNDRV_PCM_STREAM_CAPTURE: {
+On Wed, 24 Feb 2021 18:57:42 +0100,
+Jaroslav Kysela wrote:
+> 
+> Dne 24. 02. 21 v 13:42 Takashi Iwai napsal(a):
+> > On Wed, 24 Feb 2021 13:08:55 +0100,
+> > Jaroslav Kysela wrote:
+> >>
+> >> Dne 24. 02. 21 v 12:43 Takashi Iwai napsal(a):
+> >>
+> >>>>> So far, a user control is merely storing the value, let read/write via
+> >>>>> the control API.  That's all, and nothing wrong can happen just by
+> >>>>> that.  Now if it interacts with other subsystem...
+> >>>>>
+> >>>>> A more serious concern is rather the fragility of the setup; for
+> >>>>> enabling the mute LED control, you'd have to create a new user-space
+> >>>>> control, the function of the control has to be ignored by some
+> >>>>> application and some not, etc.  This has to be done on each machine
+> >>>>
+> >>>> You're using "ignore", but as I explained before, the user space switch will
+> >>>> be used in the whole chain:
+> >>>>
+> >>>> capture stream ->
+> >>>>   alsa-lib mute switch / silence PCM stream ->
+> >>>>   PA mute switch / silence PCM stream
+> >>>>
+> >>>> So PA can use this switch like the traditional hardware mute switch.
+> >>>
+> >>> Does it mean PA would work as of now without any change?  Or does it
+> >>> need patching?
+> >>
+> >> Yes, no PA modifications are required with my mechanism. The PA will just see
+> >> the new user space control - mute switch - created in alsa-lib - which will be
+> >> synced the internal PA path mute state like for the hardware mute
+> >> switch.
+> > 
+> > OK, but how would we create and manage the user control element?  And
+> > why it has to be user control?
+> 
+> The softvol or alsactl can create the user control element. The alsa-lib
+> softvol plugin and PA can silence stream according the state.
 
-The switch() here looks superfluous.  The substream->stream must be a
-good value in the callback.  If any, you can put WARN_ON() there, but
-I don't think it worth.
+And that's tricky if it's only with PA, as PA won't open a softvol PCM
+stream...
 
-> +static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
-> +				 struct snd_pcm_hw_params *hw_params)
-> +{
-....
-> +	return virtsnd_pcm_msg_alloc(vss, periods, period_bytes);
+> I see your point to create this control in the kernel space, but any other
+> name than "Mic Capture Switch" (in the ACP case) will be misleading for users,
+> because the user-space does the appropriate real silencing job instead of hw.
+> 
+> And if we create "Mic Capture Switch" in the kernel space, it may be
+> misleading for applications (they can think that there's hardware mute control).
+> 
+> Perhaps, we can create "Mic Phantom Capture Switch" in kernel which may
+> resolve both problems (no hw mute information + no user confusion).
 
-We have the allocation, but...
-
-> +static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
-> +{
-> +	return 0;
-
-... no release at hw_free()?
-I know that the free is present in the allocator, but it's only for
-re-allocation case, I suppose.
+Yes, something like that would work.
+The advantage of in-kernel implementation is that it's self-contained,
+so just deploying the new kernel makes everything working.
 
 
 thanks,

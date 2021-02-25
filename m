@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B56325474
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 18:17:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E70C2325476
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 18:17:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ADE9850;
-	Thu, 25 Feb 2021 18:16:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ADE9850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F94F1657;
+	Thu, 25 Feb 2021 18:16:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F94F1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614273426;
-	bh=HFKV54VLWXiyNVHnjl/Yd24PVjZZ/kS9qgzBkloeKtc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1614273440;
+	bh=J5DCUesOLWBs2FJxGjpqzxey/LPaV9LkOuJ9WfKV83Q=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LOwnQVeZlo7Khab+kaTE7rENem4HqDabzGEzKMnOvlU64qvTl6oIIEWkUvNOH49Yw
-	 /wwW9B+6UB/6lGyepykGsFSjxQ2MJ9F3nmK/ZUiw3wrVAuYGD+gQv5U81PnmoLIX6F
-	 ABbR1dOs/iFQPH9T3ZrqjToQzW/nlL/zZqdSCYag=
+	b=CA3MLg/HYLkKLHNptBRdlqfZkMa5OqEUVFf3FmG1+mqOzrWcug8a5LZeteMqP3nbP
+	 1oHuGtaQUabW2bQr0hhh+Sr9TLnnHGpfeipvRxxDk3O4rK9LKqO1DQRSABeWH6n6aR
+	 Mts5KUOaEaeqHzjMini+5IG0NlRXmaCLSEmAZ9Ks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D89FAF8016D;
-	Thu, 25 Feb 2021 18:15:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C781F800E4;
+	Thu, 25 Feb 2021 18:15:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B903F8016D; Thu, 25 Feb 2021 18:15:34 +0100 (CET)
+ id 964BCF80245; Thu, 25 Feb 2021 18:15:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9A11F80159
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 18:15:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9A11F80159
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EEbk0tps"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0061E64ECE;
- Thu, 25 Feb 2021 17:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614273326;
- bh=HFKV54VLWXiyNVHnjl/Yd24PVjZZ/kS9qgzBkloeKtc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=EEbk0tpsQBLgjkbDk/oVbZGpufROG9ArHdkkLtvkzqiXkIxiejAsnbKFYTYnb2V0E
- 32jbRdmJDCofsIswAKjts2NtbhM7gjKE42n3VrdU4ITJFpU5cJTTYTgtVnYjIj1Ri3
- mFjGcEYMwOcUS8tBqCCc7KZZFyTaS8xlsRrrCkrvJUDNV7WWPpOuJJeRP7euhTstwh
- ebL/UcLEBiUma3c6CrgxQyipts0UKTnUPL3R6EHX0kUINKaYfKbp9jbzd6wvBd6wfG
- 6IhMxeshuBPldV+QyI+86eegFILG1eTKKru8hvXZ1mUfEUygkgtmjKrjWREO+LQJRe
- iCVHHcFe2CBrA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>
-In-Reply-To: <20210224105052.42116-1-hdegoede@redhat.com>
-References: <20210224105052.42116-1-hdegoede@redhat.com>
-Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Fix HP Pavilion x2 10-p0XX
- OVCD current threshold
-Message-Id: <161427326308.47478.15671491740875437527.b4-ty@kernel.org>
-Date: Thu, 25 Feb 2021 17:14:23 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99515F800E4
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 18:15:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99515F800E4
+IronPort-SDR: Zfp/aEF6ZOyXXlmiyDdLkdPUS6odR6MLgQNm5C8yuVg/ZU+Vkwpag8vLYaRp2YdLtuxb4d4yuf
+ 5z5TZEv+isXw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9906"; a="205098329"
+X-IronPort-AV: E=Sophos;i="5.81,206,1610438400"; d="scan'208";a="205098329"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2021 09:15:27 -0800
+IronPort-SDR: A9hcBWro+tghSvoV8hJWgKJ65nCsry/C+cWc3gFYRHdtmwabPA5e51FfnxQknF2CJT75C3z4zB
+ VVxYlff5ZXaA==
+X-IronPort-AV: E=Sophos;i="5.81,206,1610438400"; d="scan'208";a="404463272"
+Received: from huisu-mobl1.amr.corp.intel.com (HELO [10.212.85.68])
+ ([10.212.85.68])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2021 09:15:26 -0800
+Subject: Re: [PATCH] ASoC: rt1015p: add acpi device id for rt1015p
+To: jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20210225084545.13359-1-jack.yu@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c8ba7a3b-f903-18ac-aeba-b91e180d9878@linux.intel.com>
+Date: Thu, 25 Feb 2021 11:15:25 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20210225084545.13359-1-jack.yu@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, derek.fang@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,43 +81,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 24 Feb 2021 11:50:52 +0100, Hans de Goede wrote:
-> When I added the quirk for the "HP Pavilion x2 10-p0XX" I copied the
-> byt_rt5640_quirk_table[] entry for the HP Pavilion x2 10-k0XX / 10-n0XX
-> models since these use almost the same settings.
-> 
-> While doing this I accidentally also copied and kept the non-standard
-> OVCD_TH_1500UA setting used on those models. This too low threshold is
-> causing headsets to often be seen as headphones (without a headset-mic)
-> and when correctly identified it is causing ghost play/pause
-> button-presses to get detected.
-> 
-> [...]
 
-Applied to
+> +static const struct acpi_device_id rt1015p_acpi_match[] = {
+> +	{ "RT1015", 0},
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This is not an ACPI compliant HID, please don't do this. acpica-tools 
+will flag an error on this.
 
-Thanks!
+And this is super confusing since you already have this in rt1015.c
 
-[1/1] ASoC: Intel: bytcr_rt5640: Fix HP Pavilion x2 10-p0XX OVCD current threshold
-      commit: 1045a5c04e16716870cc953872e703258e7896de
+static struct acpi_device_id rt1015_acpi_match[] = {
+	{"10EC1015", 0,},
+	{},
+};
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

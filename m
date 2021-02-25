@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0303E3247E1
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 01:27:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 591F23247E2
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 01:28:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99AFB950;
-	Thu, 25 Feb 2021 01:27:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99AFB950
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCA6D1669;
+	Thu, 25 Feb 2021 01:27:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCA6D1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614212871;
-	bh=3uxrLxtGmOcYVWk8ummU1Xlq4fS+7NedswSPi9lhJ1w=;
+	s=default; t=1614212889;
+	bh=Rs0+JIA8Q7/2vSzRS7a45XrjLgLfgLN3HYzcBG4nWWY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D6jxtUF85rXfhV5q3gd7WILlofiyTlji5vK3Z3xADfslRxv9pRs7FLrNxvT2XdSXx
-	 D8qhl+5ndhim4BMN8PY3eJh9ywLwrBH9sWDHl8GH7Vveeuv43Rmmoig274b3iv1zxG
-	 aqJfLpEHp3Py8NmPSYk0IjXZP2u0qgM3Qh7heBUI=
+	b=IeXnZJ9alKm79lkcW0xk2zAN4PzkLcEKhe7acr7r7q/6rdAu4gHSW6EobP78EUGHf
+	 H+fUKahjQSe3q3i8MlyfCz6GOfhaWgscmqAvJC5ITkIU2cMrFkAV+b7j4vWbUPTCG6
+	 FwuVmDgu46rPk5BdlH7AbfIaZGgnyewcfUOWSYrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECEAAF8028B;
-	Thu, 25 Feb 2021 01:25:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7CA7F802E3;
+	Thu, 25 Feb 2021 01:25:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07664F802E2; Thu, 25 Feb 2021 01:25:23 +0100 (CET)
+ id C30F4F80475; Thu, 25 Feb 2021 01:25:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EA8B2F8028B
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 01:25:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA8B2F8028B
-Date: 25 Feb 2021 09:25:19 +0900
-X-IronPort-AV: E=Sophos;i="5.81,203,1610377200"; d="scan'208";a="73061874"
+ by alsa1.perex.cz (Postfix) with ESMTP id 653D9F802E3
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 01:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 653D9F802E3
+Date: 25 Feb 2021 09:25:23 +0900
+X-IronPort-AV: E=Sophos;i="5.81,203,1610377200"; d="scan'208";a="73061880"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 25 Feb 2021 09:25:19 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 25 Feb 2021 09:25:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7A2B0412E071;
- Thu, 25 Feb 2021 09:25:19 +0900 (JST)
-Message-ID: <87h7m1ro28.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EB4E6412E07B;
+ Thu, 25 Feb 2021 09:25:23 +0900 (JST)
+Message-ID: <87ft1lro24.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: rsnd: cleanup ppcheck warning for cmd.c
+Subject: [PATCH 5/5] ASoC: rsnd: cleanup ppcheck warning for adg.c
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -73,68 +73,79 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below ppcheck warning.
 
-sound/soc/sh/rcar/cmd.c:46:20: style: The scope of the variable 'src' can be reduced. [variableScope]
-  struct rsnd_mod *src;
-                   ^
-sound/soc/sh/rcar/cmd.c:47:27: style: The scope of the variable 'tio' can be reduced. [variableScope]
-  struct rsnd_dai_stream *tio;
-                          ^
-sound/soc/sh/rcar/cmd.c:145:13: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int i, nr, ret;
-            ^
+sound/soc/sh/rcar/adg.c:67:9: style: The scope of the variable 'ratio' can be reduced. [variableScope]
+ int i, ratio;
+        ^
+sound/soc/sh/rcar/adg.c:114:6: style: The scope of the variable 'idx' can be reduced. [variableScope]
+ int idx, sel, div, step;
+     ^
+sound/soc/sh/rcar/adg.c:114:21: style: The scope of the variable 'step' can be reduced. [variableScope]
+ int idx, sel, div, step;
+                    ^
+sound/soc/sh/rcar/adg.c:397:14: style: The scope of the variable 'clk' can be reduced. [variableScope]
+ struct clk *clk;
+             ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/cmd.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ sound/soc/sh/rcar/adg.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/cmd.c b/sound/soc/sh/rcar/cmd.c
-index e6bb6a9a0684..9fdb37c2cbc2 100644
---- a/sound/soc/sh/rcar/cmd.c
-+++ b/sound/soc/sh/rcar/cmd.c
-@@ -43,8 +43,6 @@ static int rsnd_cmd_init(struct rsnd_mod *mod,
+diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
+index abdfd9cf91e2..0b8ae3eee148 100644
+--- a/sound/soc/sh/rcar/adg.c
++++ b/sound/soc/sh/rcar/adg.c
+@@ -64,13 +64,13 @@ static const char * const clk_name[] = {
  
- 	if (mix) {
- 		struct rsnd_dai *rdai;
--		struct rsnd_mod *src;
--		struct rsnd_dai_stream *tio;
- 		int i;
+ static u32 rsnd_adg_calculate_rbgx(unsigned long div)
+ {
+-	int i, ratio;
++	int i;
  
- 		/*
-@@ -54,8 +52,9 @@ static int rsnd_cmd_init(struct rsnd_mod *mod,
- 		 */
- 		data = 0;
- 		for_each_rsnd_dai(rdai, priv, i) {
--			tio = &rdai->playback;
--			src = rsnd_io_to_mod_src(tio);
-+			struct rsnd_dai_stream *tio = &rdai->playback;
-+			struct rsnd_mod *src = rsnd_io_to_mod_src(tio);
-+
- 			if (mix == rsnd_io_to_mod_mix(tio))
- 				data |= path[rsnd_mod_id(src)];
+ 	if (!div)
+ 		return 0;
  
-@@ -142,7 +141,7 @@ int rsnd_cmd_probe(struct rsnd_priv *priv)
+ 	for (i = 3; i >= 0; i--) {
+-		ratio = 2 << (i * 2);
++		int ratio = 2 << (i * 2);
+ 		if (0 == (div % ratio))
+ 			return (u32)((i << 8) | ((div / ratio) - 1));
+ 	}
+@@ -111,7 +111,7 @@ static void __rsnd_adg_get_timesel_ratio(struct rsnd_priv *priv,
+ {
+ 	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+-	int idx, sel, div, step;
++	int sel;
+ 	unsigned int val, en;
+ 	unsigned int min, diff;
+ 	unsigned int sel_rate[] = {
+@@ -126,8 +126,9 @@ static void __rsnd_adg_get_timesel_ratio(struct rsnd_priv *priv,
+ 	val = 0;
+ 	en = 0;
+ 	for (sel = 0; sel < ARRAY_SIZE(sel_rate); sel++) {
+-		idx = 0;
+-		step = 2;
++		int idx = 0;
++		int step = 2;
++		int div;
+ 
+ 		if (!sel_rate[sel])
+ 			continue;
+@@ -394,11 +395,11 @@ static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
+ 			       struct rsnd_adg *adg)
  {
  	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct rsnd_cmd *cmd;
--	int i, nr, ret;
-+	int i, nr;
+-	struct clk *clk;
+ 	int i;
  
- 	/* This driver doesn't support Gen1 at this point */
- 	if (rsnd_is_gen1(priv))
-@@ -161,9 +160,9 @@ int rsnd_cmd_probe(struct rsnd_priv *priv)
- 	priv->cmd	= cmd;
- 
- 	for_each_rsnd_cmd(cmd, priv, i) {
--		ret = rsnd_mod_init(priv, rsnd_mod_get(cmd),
--				    &rsnd_cmd_ops, NULL,
--				    RSND_MOD_CMD, i);
-+		int ret = rsnd_mod_init(priv, rsnd_mod_get(cmd),
-+					&rsnd_cmd_ops, NULL,
-+					RSND_MOD_CMD, i);
- 		if (ret)
- 			return ret;
+ 	for (i = 0; i < CLKMAX; i++) {
+-		clk = devm_clk_get(dev, clk_name[i]);
++		struct clk *clk = devm_clk_get(dev, clk_name[i]);
++
+ 		adg->clk[i] = IS_ERR(clk) ? NULL : clk;
  	}
+ }
 -- 
 2.25.1
 

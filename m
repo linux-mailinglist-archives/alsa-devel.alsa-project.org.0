@@ -2,80 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F063251E0
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 16:01:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4B732530C
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 17:06:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73684165D;
-	Thu, 25 Feb 2021 16:00:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73684165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F8CE1662;
+	Thu, 25 Feb 2021 17:06:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F8CE1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614265304;
-	bh=0UHM4qCHmIac2C5FHo8TcxCcoNs9vMFTtwVcr2tg2aw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q6EWTi3vKWmvOdREZcbuwZ02emmA7IXS4GIUgaHRqoB3jSSeTwD9qEQmDrPjh/nvB
-	 qHCSEFyY55mPIPrPEAmjJ0GKgLMmf2pMOoO7l3HbMOWOQ7fuSqZv2LOaEPKIbQz69B
-	 CoAEdOLjm9UbdDh16m2qcaC6LbcNCBrvFN8HUey4=
+	s=default; t=1614269211;
+	bh=w/4CcP8WUZzbWjiw+HoAFfXovrT49zZ5GUFRkYJMrK4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SFcxW6FJ8m+oNIXAYrgLEPKNzBpIIzY7n+e9+iQWpl2L1Dl61fLxNHxk7YYbL7qby
+	 QMO8HMdJtUxelDBj2QqTKMA1eksBKIPVvylZ2Llbcimd9cI6RCdyUVAO3cbWDAem73
+	 cEQhsHXjoNOEuOU1iz9s0X0zpAfGJcHTPaxUVq28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A06AF8016D;
-	Thu, 25 Feb 2021 16:00:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7606AF8016D;
+	Thu, 25 Feb 2021 17:05:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B1FFF8016A; Thu, 25 Feb 2021 16:00:11 +0100 (CET)
+ id 6CB4EF8016A; Thu, 25 Feb 2021 17:05:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F694F80159
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 16:00:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F694F80159
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="btDlcbOj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D58E264ECE;
- Thu, 25 Feb 2021 15:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614265205;
- bh=0UHM4qCHmIac2C5FHo8TcxCcoNs9vMFTtwVcr2tg2aw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=btDlcbOjUi9xErbtEz8PirNaQRGAXXj4maAdprOQiYfvThmlXr2Ufp0uyUgn7BbIJ
- dA/bE5Gfmjq22oCSYTwyM2zzR5EnzCDrocjUYBeyWD3PzwKoeDhmx14qBvrB864y4s
- PREueKhdJuzqy+NRzwDKtZ1+p65qCUMljN2oneQL27P1qY8HUpyw2reUKthuZuStQw
- uAHj6wPkTBZ+V8MPfeC2+Hdd3EgLodQKbYGqh4NUqx+fn1KPBePSYuAbZ9ZuirTRf/
- xWnWMgxHRbsPTztNcRdtO01yZrnhk/Y2FlrFDgt7C3S/14Qk9j9r4cRoZnzkDntXK+
- x4mbS1ULj+g0A==
-Date: Thu, 25 Feb 2021 14:59:02 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
-Message-ID: <20210225145901.GB5332@sirena.org.uk>
-References: <578b1ee3-f426-c5b5-bc78-5a91108ebdc8@redhat.com>
- <20210223140930.GH5116@sirena.org.uk>
- <s5h8s7evp8p.wl-tiwai@suse.de>
- <fc28d535-87a7-fbfd-89c7-992a537606bc@perex.cz>
- <20210223172055.GI5116@sirena.org.uk>
- <fe2941de-02ce-9ed0-70ff-d7967aeecc44@redhat.com>
- <20210224125927.GB4504@sirena.org.uk>
- <e47c7fa5-cb1a-f8a3-bfe4-1f6bca6a7d80@redhat.com>
- <20210224193626.GF4504@sirena.org.uk>
- <56ea1110-c129-5f3a-264b-fb389f615dbe@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36F4CF800D2
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 17:05:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36F4CF800D2
+Received: from 111-240-144-61.dynamic-ip.hinet.net ([111.240.144.61]
+ helo=localhost.localdomain) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <chris.chiu@canonical.com>)
+ id 1lFJ8R-0001BI-58; Thu, 25 Feb 2021 16:05:03 +0000
+From: chris.chiu@canonical.com
+To: tiwai@suse.com, kailang@realtek.com, jhp@endlessos.org,
+ kai.heng.feng@canonical.com
+Subject: [PATCH v2] ALSA: hda/realtek: Enable headset mic of Acer SWIFT with
+ ALC256
+Date: Fri, 26 Feb 2021 00:04:55 +0800
+Message-Id: <20210225160455.8137-1-chris.chiu@canonical.com>
+X-Mailer: git-send-email 2.21.1 (Apple Git-122.3)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Y7xTucakfITjPcLV"
-Content-Disposition: inline
-In-Reply-To: <56ea1110-c129-5f3a-264b-fb389f615dbe@redhat.com>
-X-Cookie: A fool and his money are soon popular.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <bard.liao@intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: hui.wang@canonical.com, Chris Chiu <chris.chiu@canonical.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,43 +68,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Chris Chiu <chris.chiu@canonical.com>
 
---Y7xTucakfITjPcLV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The Acer SWIFT Swift SF314-54/55 laptops with ALC256 cannot detect
+both the headset mic and the internal mic. Introduce new fixup
+to enable the jack sense and the headset mic. However, the internal
+mic actually connects to Intel SST audio. It still needs Intel SST
+support to make internal mic capture work.
 
-On Wed, Feb 24, 2021 at 09:09:36PM +0100, Hans de Goede wrote:
+Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-> Given that the use of mute LEDs itself is actually rare and especially
-> the use of mute LEDs in combination with ASoC coming up with some
-> generic configuration mechanism to allow userspace to tie the
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 1927605f0f7e..4871507cd4bf 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6406,6 +6406,7 @@ enum {
+ 	ALC236_FIXUP_DELL_AIO_HEADSET_MIC,
+ 	ALC282_FIXUP_ACER_DISABLE_LINEOUT,
+ 	ALC255_FIXUP_ACER_LIMIT_INT_MIC_BOOST,
++	ALC256_FIXUP_ACER_HEADSET_MIC,
+ };
+ 
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -7853,6 +7854,16 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC255_FIXUP_ACER_MIC_NO_PRESENCE,
+ 	},
++	[ALC256_FIXUP_ACER_HEADSET_MIC] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x02a1113c }, /* use as headset mic, without its own jack detect */
++			{ 0x1a, 0x90a1092f }, /* use as internal mic */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7879,9 +7890,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x1246, "Acer Predator Helios 500", ALC299_FIXUP_PREDATOR_SPK),
+ 	SND_PCI_QUIRK(0x1025, 0x1247, "Acer vCopperbox", ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS),
+ 	SND_PCI_QUIRK(0x1025, 0x1248, "Acer Veriton N4660G", ALC269VC_FIXUP_ACER_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1025, 0x1269, "Acer SWIFT SF314-54", ALC256_FIXUP_ACER_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x128f, "Acer Veriton Z6860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1290, "Acer Veriton Z4860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1291, "Acer Veriton Z4660G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1025, 0x129c, "Acer SWIFT SF314-55", ALC256_FIXUP_ACER_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1308, "Acer Aspire Z24-890", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x132a, "Acer TravelMate B114-21", ALC233_FIXUP_ACER_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1330, "Acer TravelMate X514-51T", ALC255_FIXUP_ACER_HEADSET_MIC),
+-- 
+2.20.1
 
-This seems like an optimistic set of assumptions - it may reflect
-current laptops but it sounds like the sort of thing people might
-deploy on future devices, never mind all the non-laptops that could end
-up wanting to use this mechanism.
-
-> Not to mention that this would just be punting the actual problem
-> of figuring out which control to use to userspace, while the kernel
-> is actually in a better place to make this decision since the kernel
-> already uses DMI based quirks to deal with model specific configuration.
-
-Again, this only works in cases where there's only one option for the
-control that could be used.
-
---Y7xTucakfITjPcLV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA3uzUACgkQJNaLcl1U
-h9BeLwf9GN1+0cWOpvMJPVr8sFWuBhJMkyzNO3ZK0KAJIhsoJjAt1VAAXAE2NcB5
-MjmrOnTHoKhtw9cqHlm9MeKHw4RXu+yqjceE2/3bDM56K1yRqWEVYWq9C9NJ2AaW
-JEg/hwx3LqRtZi7q54rsmqR8oRrCqRF7cRfG1ThzS+LE21lRUPZvw9r618JSapod
-pfJUKz/FQeIaFiY8OgpMk+rbsmvV2tfIf9xzki1M6kCw09I+R9wcTj6wfvm8fj4I
-UDj/NNS6a9ZeWdeM0i7cUtFad4Dz0KpaRaPjsERqEjjiP99AXeLSBrGk9QFczGpG
-uYbA5j6sVUQRVAp5VT3aXunctvekWA==
-=Cl3N
------END PGP SIGNATURE-----
-
---Y7xTucakfITjPcLV--

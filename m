@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED9E3247DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 01:27:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0303E3247E1
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 01:27:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4345A167F;
-	Thu, 25 Feb 2021 01:26:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4345A167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99AFB950;
+	Thu, 25 Feb 2021 01:27:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99AFB950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614212838;
-	bh=DO3ze+JHj7/An8wTHO/Nf4Z5KCMVaDJ2j/fEqCzcTRI=;
+	s=default; t=1614212871;
+	bh=3uxrLxtGmOcYVWk8ummU1Xlq4fS+7NedswSPi9lhJ1w=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AZHZ3PTiKD1RlKS3ktf87g4YCnU2yYXhYNuuLR4A/sLmHLvQcto/m+wpZRFGyJFiV
-	 44GwjXlCXnNCmLld8ZLUIaauqM7w7MTwTgO55zy3NTw7+MaPK67BvVsUBWPdUekvax
-	 nM9KDlOiarS/+2JEBd8M3VSXZWGhsiHNmZvG5kS8=
+	b=D6jxtUF85rXfhV5q3gd7WILlofiyTlji5vK3Z3xADfslRxv9pRs7FLrNxvT2XdSXx
+	 D8qhl+5ndhim4BMN8PY3eJh9ywLwrBH9sWDHl8GH7Vveeuv43Rmmoig274b3iv1zxG
+	 aqJfLpEHp3Py8NmPSYk0IjXZP2u0qgM3Qh7heBUI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C02C3F802E0;
-	Thu, 25 Feb 2021 01:25:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECEAAF8028B;
+	Thu, 25 Feb 2021 01:25:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E377AF802DF; Thu, 25 Feb 2021 01:25:20 +0100 (CET)
+ id 07664F802E2; Thu, 25 Feb 2021 01:25:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CC949F8028B
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 01:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC949F8028B
-Date: 25 Feb 2021 09:25:14 +0900
-X-IronPort-AV: E=Sophos;i="5.81,203,1610377200"; d="scan'208";a="73061868"
+ by alsa1.perex.cz (Postfix) with ESMTP id EA8B2F8028B
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 01:25:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA8B2F8028B
+Date: 25 Feb 2021 09:25:19 +0900
+X-IronPort-AV: E=Sophos;i="5.81,203,1610377200"; d="scan'208";a="73061874"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 25 Feb 2021 09:25:14 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 25 Feb 2021 09:25:19 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 789EA412E071;
- Thu, 25 Feb 2021 09:25:14 +0900 (JST)
-Message-ID: <87im6hro2d.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7A2B0412E071;
+ Thu, 25 Feb 2021 09:25:19 +0900 (JST)
+Message-ID: <87h7m1ro28.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/5] ASoC: rsnd: cleanup ppcheck warning for core.c
+Subject: [PATCH 4/5] ASoC: rsnd: cleanup ppcheck warning for cmd.c
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -73,174 +73,68 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below ppcheck warning.
 
-sound/soc/sh/rcar/core.c:233:26: style: The scope of the variable 'io' can be reduced. [variableScope]
- struct rsnd_dai_stream *io;
-                         ^
-sound/soc/sh/rcar/core.c:489:19: style: The scope of the variable 'mod' can be reduced. [variableScope]
- struct rsnd_mod *mod;
-                  ^
-sound/soc/sh/rcar/core.c:1064:9: style: The scope of the variable 'j' can be reduced. [variableScope]
- int i, j;
-        ^
-sound/soc/sh/rcar/core.c:1143:19: style: The scope of the variable 'mod' can be reduced. [variableScope]
- struct rsnd_mod *mod;
-                  ^
-sound/soc/sh/rcar/core.c:1261:22: style: The scope of the variable 'playback' can be reduced. [variableScope]
- struct device_node *playback, *capture;
-                     ^
-sound/soc/sh/rcar/core.c:1261:33: style: The scope of the variable 'capture' can be reduced. [variableScope]
- struct device_node *playback, *capture;
-                                ^
-sound/soc/sh/rcar/core.c:1419:29: style: The scope of the variable 'be_params' can be reduced. [variableScope]
-  struct snd_pcm_hw_params *be_params;
-                            ^
-sound/soc/sh/rcar/core.c:1369:22: style: Local variable 'rdai' shadows outer variable [shadowVariable]
-    struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-                     ^
-sound/soc/sh/rcar/core.c:1338:19: note: Shadowed declaration
- struct rsnd_dai *rdai;
-                  ^
-sound/soc/sh/rcar/core.c:1369:22: note: Shadow variable
-    struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-                     ^
-sound/soc/sh/rcar/core.c:1380:22: style: Local variable 'rdai' shadows outer variable [shadowVariable]
-    struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-                     ^
+sound/soc/sh/rcar/cmd.c:46:20: style: The scope of the variable 'src' can be reduced. [variableScope]
+  struct rsnd_mod *src;
+                   ^
+sound/soc/sh/rcar/cmd.c:47:27: style: The scope of the variable 'tio' can be reduced. [variableScope]
+  struct rsnd_dai_stream *tio;
+                          ^
+sound/soc/sh/rcar/cmd.c:145:13: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int i, nr, ret;
+            ^
 
-Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/core.c | 32 ++++++++++++++------------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ sound/soc/sh/rcar/cmd.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index b1a75509851a..65826a477fbb 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -230,12 +230,12 @@ void rsnd_mod_interrupt(struct rsnd_mod *mod,
- 					 struct rsnd_dai_stream *io))
- {
- 	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
--	struct rsnd_dai_stream *io;
- 	struct rsnd_dai *rdai;
- 	int i;
+diff --git a/sound/soc/sh/rcar/cmd.c b/sound/soc/sh/rcar/cmd.c
+index e6bb6a9a0684..9fdb37c2cbc2 100644
+--- a/sound/soc/sh/rcar/cmd.c
++++ b/sound/soc/sh/rcar/cmd.c
+@@ -43,8 +43,6 @@ static int rsnd_cmd_init(struct rsnd_mod *mod,
  
- 	for_each_rsnd_dai(rdai, priv, i) {
--		io = &rdai->playback;
-+		struct rsnd_dai_stream *io = &rdai->playback;
+ 	if (mix) {
+ 		struct rsnd_dai *rdai;
+-		struct rsnd_mod *src;
+-		struct rsnd_dai_stream *tio;
+ 		int i;
+ 
+ 		/*
+@@ -54,8 +52,9 @@ static int rsnd_cmd_init(struct rsnd_mod *mod,
+ 		 */
+ 		data = 0;
+ 		for_each_rsnd_dai(rdai, priv, i) {
+-			tio = &rdai->playback;
+-			src = rsnd_io_to_mod_src(tio);
++			struct rsnd_dai_stream *tio = &rdai->playback;
++			struct rsnd_mod *src = rsnd_io_to_mod_src(tio);
 +
- 		if (mod == io->mod[mod->type])
- 			callback(mod, io);
+ 			if (mix == rsnd_io_to_mod_mix(tio))
+ 				data |= path[rsnd_mod_id(src)];
  
-@@ -486,13 +486,12 @@ struct rsnd_mod *rsnd_mod_next(int *iterator,
- 			       enum rsnd_mod_type *array,
- 			       int array_size)
+@@ -142,7 +141,7 @@ int rsnd_cmd_probe(struct rsnd_priv *priv)
  {
--	struct rsnd_mod *mod;
--	enum rsnd_mod_type type;
- 	int max = array ? array_size : RSND_MOD_MAX;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct rsnd_cmd *cmd;
+-	int i, nr, ret;
++	int i, nr;
  
- 	for (; *iterator < max; (*iterator)++) {
--		type = (array) ? array[*iterator] : *iterator;
--		mod = rsnd_io_to_mod(io, type);
-+		enum rsnd_mod_type type = (array) ? array[*iterator] : *iterator;
-+		struct rsnd_mod *mod = rsnd_io_to_mod(io, type);
-+
- 		if (mod)
- 			return mod;
+ 	/* This driver doesn't support Gen1 at this point */
+ 	if (rsnd_is_gen1(priv))
+@@ -161,9 +160,9 @@ int rsnd_cmd_probe(struct rsnd_priv *priv)
+ 	priv->cmd	= cmd;
+ 
+ 	for_each_rsnd_cmd(cmd, priv, i) {
+-		ret = rsnd_mod_init(priv, rsnd_mod_get(cmd),
+-				    &rsnd_cmd_ops, NULL,
+-				    RSND_MOD_CMD, i);
++		int ret = rsnd_mod_init(priv, rsnd_mod_get(cmd),
++					&rsnd_cmd_ops, NULL,
++					RSND_MOD_CMD, i);
+ 		if (ret)
+ 			return ret;
  	}
-@@ -1061,7 +1060,7 @@ static void rsnd_parse_tdm_split_mode(struct rsnd_priv *priv,
- 	struct device_node *ssiu_np = rsnd_ssiu_of_node(priv);
- 	struct device_node *np;
- 	int is_play = rsnd_io_is_play(io);
--	int i, j;
-+	int i;
- 
- 	if (!ssiu_np)
- 		return;
-@@ -1078,13 +1077,11 @@ static void rsnd_parse_tdm_split_mode(struct rsnd_priv *priv,
- 		if (!node)
- 			break;
- 
--		j = 0;
- 		for_each_child_of_node(ssiu_np, np) {
- 			if (np == node) {
- 				rsnd_flags_set(io, RSND_STREAM_TDM_SPLIT);
- 				dev_dbg(dev, "%s is part of TDM Split\n", io->name);
- 			}
--			j++;
- 		}
- 
- 		of_node_put(node);
-@@ -1140,7 +1137,6 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai,
- {
- 	struct rsnd_priv *priv = rsnd_rdai_to_priv(rdai);
- 	struct device_node *np;
--	struct rsnd_mod *mod;
- 	int i;
- 
- 	if (!node)
-@@ -1148,7 +1144,8 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai,
- 
- 	i = 0;
- 	for_each_child_of_node(node, np) {
--		mod = mod_get(priv, i);
-+		struct rsnd_mod *mod = mod_get(priv, i);
-+
- 		if (np == playback)
- 			rsnd_dai_connect(mod, &rdai->playback, mod->type);
- 		if (np == capture)
-@@ -1258,7 +1255,6 @@ static void __rsnd_dai_probe(struct rsnd_priv *priv,
- 			     struct device_node *dai_np,
- 			     int dai_i)
- {
--	struct device_node *playback, *capture;
- 	struct rsnd_dai_stream *io_playback;
- 	struct rsnd_dai_stream *io_capture;
- 	struct snd_soc_dai_driver *drv;
-@@ -1301,8 +1297,8 @@ static void __rsnd_dai_probe(struct rsnd_priv *priv,
- 	rsnd_rdai_width_set(rdai, 32);   /* default 32bit width */
- 
- 	for (io_i = 0;; io_i++) {
--		playback = of_parse_phandle(dai_np, "playback", io_i);
--		capture  = of_parse_phandle(dai_np, "capture", io_i);
-+		struct device_node *playback = of_parse_phandle(dai_np, "playback", io_i);
-+		struct device_node *capture  = of_parse_phandle(dai_np, "capture", io_i);
- 
- 		if (!playback && !capture)
- 			break;
-@@ -1366,7 +1362,7 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
- 		for_each_endpoint_of_node(dai_node, dai_np) {
- 			__rsnd_dai_probe(priv, dai_np, dai_i);
- 			if (rsnd_is_gen3(priv)) {
--				struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-+				rdai = rsnd_rdai_get(priv, dai_i);
- 
- 				rsnd_parse_connect_graph(priv, &rdai->playback, dai_np);
- 				rsnd_parse_connect_graph(priv, &rdai->capture,  dai_np);
-@@ -1377,7 +1373,7 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
- 		for_each_child_of_node(dai_node, dai_np) {
- 			__rsnd_dai_probe(priv, dai_np, dai_i);
- 			if (rsnd_is_gen3(priv)) {
--				struct rsnd_dai *rdai = rsnd_rdai_get(priv, dai_i);
-+				rdai = rsnd_rdai_get(priv, dai_i);
- 
- 				rsnd_parse_connect_simple(priv, &rdai->playback, dai_np);
- 				rsnd_parse_connect_simple(priv, &rdai->capture,  dai_np);
-@@ -1416,11 +1412,11 @@ static int rsnd_hw_params(struct snd_soc_component *component,
- 		struct rsnd_priv *priv = rsnd_io_to_priv(io);
- 		struct device *dev = rsnd_priv_to_dev(priv);
- 		struct snd_soc_dpcm *dpcm;
--		struct snd_pcm_hw_params *be_params;
- 		int stream = substream->stream;
- 
- 		for_each_dpcm_be(fe, stream, dpcm) {
--			be_params = &dpcm->hw_params;
-+			struct snd_pcm_hw_params *be_params = &dpcm->hw_params;
-+
- 			if (params_channels(hw_params) != params_channels(be_params))
- 				io->converted_chan = params_channels(be_params);
- 			if (params_rate(hw_params) != params_rate(be_params))
 -- 
 2.25.1
 

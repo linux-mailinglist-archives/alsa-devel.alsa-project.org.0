@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D167324E75
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 11:47:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C699324EA1
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 11:57:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3FD61658;
-	Thu, 25 Feb 2021 11:46:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3FD61658
+	by alsa0.perex.cz (Postfix) with ESMTPS id C08C1165D;
+	Thu, 25 Feb 2021 11:56:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08C1165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614250020;
-	bh=ArnFgH+C+SxwP+na1L+3qJZNCRKmcRyqZHP0HILXOEs=;
+	s=default; t=1614250640;
+	bh=2TnYJBOF6GoyqenuvZqWVN6C7hHg+jTzWks/HX1kEXU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FUHVLZEgId+8GzAedwQd6WP5RUuFhfH2w2bu3Ra5YqoyOlbLExtzseFhrSodsrdRm
-	 rruX2Y0gL8oP7fY1plZbB+q/jIMkdPlh+DIILvAOxJWz3BE+eJye3eVdbN/TfxOXpx
-	 HyCqnYVC8h+gfcxU5rtwE5dXU2YDAJQoSjCm75AY=
+	b=Cr4rFjl4mvsFJDm7oKWOWk2hOSM9+gjqhVcM+7uO7RoqMv+yNMyRNbstlbQTci6oz
+	 Y0VsZSh8c7dkigYGy5XUCkGBzCK0HVkc04hGSAHToIJdb5m3X3aEj4pD0iXyKOwpBU
+	 HAxsB0GQYYInp3wVx9o4CePn+kLKHXZDF+nw5lyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 213D9F8016D;
-	Thu, 25 Feb 2021 11:45:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F37EF800E4;
+	Thu, 25 Feb 2021 11:55:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F60CF8016A; Thu, 25 Feb 2021 11:45:27 +0100 (CET)
+ id 04BFEF8016A; Thu, 25 Feb 2021 11:55:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,22 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 099F5F800E4
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 11:45:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 099F5F800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id C551CF80159
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 11:55:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C551CF80159
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8A550AC1D;
- Thu, 25 Feb 2021 10:45:24 +0000 (UTC)
-Date: Thu, 25 Feb 2021 11:45:24 +0100
-Message-ID: <s5h4ki0qvcr.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 64AF2ADF0;
+ Thu, 25 Feb 2021 10:55:44 +0000 (UTC)
+Date: Thu, 25 Feb 2021 11:55:44 +0100
+Message-ID: <s5h35xkquvj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v5 5/9] ALSA: virtio: handling control and I/O messages
- for the PCM device
-In-Reply-To: <20210222153444.348390-6-anton.yakovlev@opensynergy.com>
+Subject: Re: [PATCH v5 6/9] ALSA: virtio: PCM substream operators
+In-Reply-To: <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
 References: <20210222153444.348390-1-anton.yakovlev@opensynergy.com>
- <20210222153444.348390-6-anton.yakovlev@opensynergy.com>
+ <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,34 +71,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Feb 2021 16:34:40 +0100,
+On Mon, 22 Feb 2021 16:34:41 +0100,
 Anton Yakovlev wrote:
-> 
-> +void virtsnd_pcm_event(struct virtio_snd *snd, struct virtio_snd_event *event)
+> +static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
 > +{
-> +	struct virtio_pcm_substream *vss;
-> +	u32 sid = le32_to_cpu(event->data);
+> +	struct virtio_pcm *vpcm = snd_pcm_substream_chip(substream);
+> +	struct virtio_pcm_substream *vss = NULL;
 > +
-> +	if (sid >= snd->nsubstreams)
-> +		return;
-> +
-> +	vss = &snd->substreams[sid];
-> +
-> +	switch (le32_to_cpu(event->hdr.code)) {
-> +	case VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED:
-> +		/* TODO: deal with shmem elapsed period */
-> +		break;
-> +	case VIRTIO_SND_EVT_PCM_XRUN:
-> +		spin_lock(&vss->lock);
-> +		if (vss->xfer_enabled)
-> +			vss->xfer_xrun = true;
-> +		spin_unlock(&vss->lock);
+> +	if (vpcm) {
+> +		switch (substream->stream) {
+> +		case SNDRV_PCM_STREAM_PLAYBACK:
+> +		case SNDRV_PCM_STREAM_CAPTURE: {
 
-You can stop the stream at xrun, too.
+The switch() here looks superfluous.  The substream->stream must be a
+good value in the callback.  If any, you can put WARN_ON() there, but
+I don't think it worth.
 
-But it often messes up with the locking, so it's no mandatory
-implementation.  You seem to pass the xrun state at the pointer
-callback, and this should be enough for normal uses.
+> +static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *hw_params)
+> +{
+....
+> +	return virtsnd_pcm_msg_alloc(vss, periods, period_bytes);
+
+We have the allocation, but...
+
+> +static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+> +{
+> +	return 0;
+
+... no release at hw_free()?
+I know that the free is present in the allocator, but it's only for
+re-allocation case, I suppose.
 
 
 thanks,

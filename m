@@ -2,60 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45FA8324FD2
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 13:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156FF324FBF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Feb 2021 13:16:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2C7E167E;
-	Thu, 25 Feb 2021 13:21:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2C7E167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BFE51693;
+	Thu, 25 Feb 2021 13:15:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BFE51693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614255749;
-	bh=arxq2M/NFIhShvN2HCvVjYMYjSdImztX7Dwu+k1EjH0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oY/b1fUAOTSkwvGIRSM34GUem1XsFt70fuAhB/rBJqLroDtCo/vQ6479/pY3glUx+
-	 J6hHZQv0JmaTfNB12PC5U995/JXU8sDo6c+JbmVM4ViX5mPZ5GKzmsfZnoXloTpyAe
-	 EwEm5jqWdU+MJdko4/hp3uPrZlqDbbK4k/I8jt5w=
+	s=default; t=1614255376;
+	bh=uFDgy+KoJ0VbtXjl8aAaApVtmL6eBmYsyrTZoYx4nMk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fbWzPqOQbJnUKWuM+0dVE1OkmRKCQXlSq37+powu/yGULKNJWtwcdx8RvGOavFCp3
+	 F2XfJXDwrOY5qtqXSnrPb9OltjylWJu3L2S8YO3Cxjj9mF34mLCoPTZ6ysB1tKjFcz
+	 4xn3r5qWAitUTFjPTRFv2X1OpiqtTZYXxtUyrI+A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4258FF8016D;
-	Thu, 25 Feb 2021 13:20:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2B90F8016D;
+	Thu, 25 Feb 2021 13:14:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFF84F8016A; Thu, 25 Feb 2021 13:20:56 +0100 (CET)
+ id E33B0F8016A; Thu, 25 Feb 2021 13:14:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD820F800E4
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 13:20:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD820F800E4
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 96293200C0F;
- Thu, 25 Feb 2021 13:20:48 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 51FFD200C38;
- Thu, 25 Feb 2021 13:20:43 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 97A4340291;
- Thu, 25 Feb 2021 13:20:36 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, stephan@gerhold.net,
- guennadi.liakhovetski@linux.intel.com, kai.vehmanen@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: simple-card: Add dummy dai support simple sound card
-Date: Thu, 25 Feb 2021 20:08:32 +0800
-Message-Id: <1614254912-15746-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72095F800D2
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 13:14:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72095F800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="G84w91d1"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 44471A06F5;
+ Thu, 25 Feb 2021 13:14:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=tsvHDlnqSzD6
+ yifbwIkb7LBXJuGwyXOyWV+yVzi4100=; b=G84w91d1T9lH3djLLcOGRc4cIZ4v
+ djJeKodpta0rHWo8XqOqFYCrvJR/pbd+e/0qggFRXzKFvmv7AmJ9z/AnGR4832KL
+ kzz1FeygLg0MA0XYDyZanT+CZ+tjorlXscycxAN176GW4aDD20q3pC7VMvRic6mR
+ ESw3CoT1Fa4X4oanD6fgCGeTu5LCc2kd5hcSCnTeLTqpFE+1PQNieX829jtJ6uRB
+ 3Hlf6df6K1Bfqt1UykpiGlc/Gh/nrHTKfxKI0f3G2KLP80afENBYh/hlHgb4ut0+
+ LNrWQyz1HiaBbzUl+UEQ0fPOpmJzckdPtwEAcoslNZBKfokyPCftiDPs2w==
+Subject: Re: [PATCH v5 6/9] ALSA: virtio: PCM substream operators
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210222153444.348390-1-anton.yakovlev@opensynergy.com>
+ <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
+ <s5h35xkquvj.wl-tiwai@suse.de>
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <d9b6e8fa-7356-1cbf-029b-6f7c8bad4994@opensynergy.com>
+Date: Thu, 25 Feb 2021 13:14:37 +0100
+MIME-Version: 1.0
+In-Reply-To: <s5h35xkquvj.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SR-MAIL-01.open-synergy.com (10.26.10.21) To
+ SR-MAIL-02.open-synergy.com (10.26.10.22)
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,48 +86,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If sound card doesn't need specific codec device, just
-dummy codec is enough, then we can link the dummy component
-directly.
+On 25.02.2021 11:55, Takashi Iwai wrote:
+> On Mon, 22 Feb 2021 16:34:41 +0100,
+> Anton Yakovlev wrote:
+>> +static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
+>> +{
+>> +     struct virtio_pcm *vpcm = snd_pcm_substream_chip(substream);
+>> +     struct virtio_pcm_substream *vss = NULL;
+>> +
+>> +     if (vpcm) {
+>> +             switch (substream->stream) {
+>> +             case SNDRV_PCM_STREAM_PLAYBACK:
+>> +             case SNDRV_PCM_STREAM_CAPTURE: {
+> 
+> The switch() here looks superfluous.  The substream->stream must be a
+> good value in the callback.  If any, you can put WARN_ON() there, but
+> I don't think it worth.
 
-In this case, user needs to specify below setting in
-devicetree. Previously the sound-dai is a node of codec,
-now we check if it is zero before parsing the node, zero
-means dummy component is specified.
+At least it doesn't do any harm. If something really went wrong, we can
+check it right in the open callback, which is called the very first.
 
-	simple-audio-card,codec {
-		sound-dai = <0>;
-	};
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/generic/simple-card.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+>> +static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+>> +                              struct snd_pcm_hw_params *hw_params)
+>> +{
+> ....
+>> +     return virtsnd_pcm_msg_alloc(vss, periods, period_bytes);
+> 
+> We have the allocation, but...
+> 
+>> +static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+>> +{
+>> +     return 0;
+> 
+> ... no release at hw_free()?
+> I know that the free is present in the allocator, but it's only for
+> re-allocation case, I suppose.
 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index c262281bc64d..8b0cabd1bad1 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -34,10 +34,19 @@ static int asoc_simple_parse_dai(struct device_node *node,
- {
- 	struct of_phandle_args args;
- 	int ret;
-+	u32 val;
- 
- 	if (!node)
- 		return 0;
- 
-+	ret = of_property_read_u32(node, DAI, &val);
-+	if (val == 0) {
-+		dlc->of_node       = NULL;
-+		dlc->dai_name      = "snd-soc-dummy-dai";
-+		dlc->name          = "snd-soc-dummy";
-+		return 0;
-+	}
-+
- 	/*
- 	 * Get node via "sound-dai = <&phandle port>"
- 	 * it will be used as xxx_of_node on soc_bind_dai_link()
+When the substream stops, sync_ptr waits until the device has completed
+all pending messages. This wait can be interrupted either by a signal or
+due to a timeout. In this case, the device can still access messages
+even after calling hw_free(). It can also issue an interrupt, and the
+interrupt handler will also try to access message structures. Therefore,
+freeing of already allocated messages occurs either in hw_params() or in
+dev->release(), since there it is 100% safe.
+
+
+> thanks,
+> 
+> Takashi
+> 
+
 -- 
-2.27.0
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 

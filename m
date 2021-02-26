@@ -2,97 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E11E3269A3
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 22:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB283269B1
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 22:49:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0131216A2;
-	Fri, 26 Feb 2021 22:37:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0131216A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 619B216A3;
+	Fri, 26 Feb 2021 22:48:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 619B216A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614375505;
-	bh=9G+8NDd9JKzebeiOlPctME7I/OfjrixvB0Rd30nYmUk=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1614376189;
+	bh=v5YsP5RHU2oOgQWIxe+EnnwIKE1in+asWPO/Ev13HXo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AWxDPjYzAU/ZiI7ecoxorQJgb8c9+/50/QU4ZfuqHBFqN2dPEcFpcQGyo6ZfeNjGF
-	 XwSd06YAMNiLlbPyg/ll6F727cSKEPluTBmK4NYtxfSILc8TWCKw+vi+gQljqYe962
-	 SJ3enDcvxMU9eaFRK5zSpi/C0jylZw9nJ+9JdNWg=
+	b=JOVtJs0JcY6rghSTg0NQ+WsEPe2ezLWnNQURpmxmC4SBPof38bHGK/AB9McFYxWyk
+	 EvD66dC//REdkMWpwEncF3UrgORcvKeod6VGo2RgWPVw7oUblVCpASQv6jFbwNVk3i
+	 SQOwBF4gmuGl5NXeiC3jE4Sokr+kf5KHtJr+2EJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AF64F8022B;
-	Fri, 26 Feb 2021 22:36:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6745F8022B;
+	Fri, 26 Feb 2021 22:48:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F4BEF8016C; Fri, 26 Feb 2021 22:36:51 +0100 (CET)
+ id 20ABBF8016C; Fri, 26 Feb 2021 22:48:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2781F80154
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 22:36:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2781F80154
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=george-graphics-co-uk.20150623.gappssmtp.com
- header.i=@george-graphics-co-uk.20150623.gappssmtp.com header.b="o6ymOXMI"
-Received: by mail-pf1-x434.google.com with SMTP id t29so7113856pfg.11
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 13:36:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=george-graphics-co-uk.20150623.gappssmtp.com; s=20150623;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=cRLodfWRnEjlTZrSBt6hDfYE5X58rZ2ErBl6zq1bcAc=;
- b=o6ymOXMItFTeRh+rc7ebXZfFwq8cwp52/KXjmElVgQZD/qUwcEc/LaffX4mnC6WgVn
- i0OnGDWEPfxaKuiRyc1E8daAbjQ0sJN8OTj4uLNpVYzBPICJjC6xpm3HMJHOqx3RTO43
- 0zROfxsBbpjFT3Sr+rw+RK7TtdJ6Q3942lxxaBnaCWRYokcRwNsEwlwaqZUUyI8GUQsm
- jy0k5FagAlCRg04PFuwH50DEJXlv/mihnOnGLJ46tB6znP6MTOF3u5rSYa6kXPi9RfHi
- Pp7YQQ8bv7ydcU1Q0qwA1tn0cOJih3ARRxaZnfSXu5UMhvKoRdIOo/AshOxGD0HF3qvy
- avBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=cRLodfWRnEjlTZrSBt6hDfYE5X58rZ2ErBl6zq1bcAc=;
- b=KsEbhgqCIkVIvRDx9TFFSHw8qGQu+61cJTO2akpH1na8iavMGrvNuU4XJM1lYkoKlJ
- Tk4ntg8HqR7gMJ1i7CrFbRKPh5oh167Eqn7BoKHNMQyvDVIabh21TiGg9i+xygmDBGpK
- p8xSHVxc/d5nV1AxdUsl+UAzjqmvBHPd4Uj9QqVwSdZnsxkNL9ucpFe20Dz6bBinWsC6
- z3KxZxnAxn1G9BaOEwAGaore2/cVcAbItA8t3x0g6ctqRjFjws4W63HBYMyCl9b9Qw/Y
- EYBTTerpzUenFJTFPFSqTr5KQK1UNu+Fh0EF2trmXpidnMlOTyqNglfvyv1pcWeTR55T
- zQGw==
-X-Gm-Message-State: AOAM5338mlQLEsYmk4STm5h0BGCJWz5kt4J6RsZVehF+WosjcJvOBidh
- /6dpikhSd49iGXHDgcAbS6pF8w==
-X-Google-Smtp-Source: ABdhPJwxjF858MeTFv5S0/K4kufLD8+kXIoJgCdektiYqdnA+pdyvVPCJhl6odd99bScgjDs6D5XsA==
-X-Received: by 2002:a62:b516:0:b029:1ea:34a:a70e with SMTP id
- y22-20020a62b5160000b02901ea034aa70emr5117459pfe.38.1614375404008; 
- Fri, 26 Feb 2021 13:36:44 -0800 (PST)
-Received: from ?IPv6:2601:602:8000:181:d8ec:3c42:2c25:f1d1?
- ([2601:602:8000:181:d8ec:3c42:2c25:f1d1])
- by smtp.gmail.com with ESMTPSA id 25sm10685597pfh.199.2021.02.26.13.36.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Feb 2021 13:36:43 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Re: [PATCH 2/2] midi streaming substream names from jack names A
- number of devices have named substreams which are hard to remember / decypher
- from <device> MIDI n names.  Eg. Korg puts a pass through on one substream
- and iConnectivity devices name the connections.
-From: George Harker <george@george-graphics.co.uk>
-In-Reply-To: <20210226212617.24616-1-george@george-graphics.co.uk>
-Date: Fri, 26 Feb 2021 13:36:42 -0800
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <FE234989-046F-4E65-A574-25C79A8726D2@george-graphics.co.uk>
-References: <s5hczwpucd3.wl-tiwai@suse.de>
- <20210226212617.24616-1-george@george-graphics.co.uk>
-To: Takashi Iwai <tiwai@suse.de>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C80A1F80159
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 22:48:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C80A1F80159
+IronPort-SDR: O+Fgzqq8bG/EqRkOqtO8wTFh6pOndRCs3w+8mSiYqwrj/srPiaIsKNgTmak5e8V4I6uvhIGFmE
+ DGBN68gh02pg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9907"; a="165220162"
+X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="165220162"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2021 13:48:04 -0800
+IronPort-SDR: 6oHz8TZzdMt38odTefZ+eHuCLyxeaaYHQPwo+2Z9V8QgR0psBlGDXOdj5KQx20YGzk9ehIdaqj
+ cBYefRIvbYDQ==
+X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="433024901"
+Received: from esnyder-desk.amr.corp.intel.com (HELO [10.255.230.205])
+ ([10.255.230.205])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2021 13:48:02 -0800
+Subject: Re: [PATCH] ASoC: rt1015p: add acpi device id for rt1015p
+To: jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20210226020517.17124-1-jack.yu@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <b4af8c40-d1c6-35f2-0f70-3032fd04697f@linux.intel.com>
+Date: Fri, 26 Feb 2021 15:48:00 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20210226020517.17124-1-jack.yu@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, derek.fang@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,8 +81,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the feedback, addressed in the two patches.  I=E2=80=99m not =
-sure why it pulled the body up into the title.I=E2=80=99m sorry about =
-that.  I can resubmit if that needs fixing.
 
-George
+
+On 2/25/21 8:05 PM, jack.yu@realtek.com wrote:
+> From: Jack Yu <jack.yu@realtek.com>
+> 
+> Add acpi device id for rt1015p.
+> 
+> Signed-off-by: Jack Yu <jack.yu@realtek.com>
+> ---
+>   sound/soc/codecs/rt1015p.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/rt1015p.c b/sound/soc/codecs/rt1015p.c
+> index 671f2a2130fe..61694de080e6 100644
+> --- a/sound/soc/codecs/rt1015p.c
+> +++ b/sound/soc/codecs/rt1015p.c
+> @@ -4,6 +4,7 @@
+>   //
+>   // Copyright 2020 The Linux Foundation. All rights reserved.
+>   
+> +#include <linux/acpi.h>
+>   #include <linux/delay.h>
+>   #include <linux/device.h>
+>   #include <linux/err.h>
+> @@ -130,10 +131,19 @@ static const struct of_device_id rt1015p_device_id[] = {
+>   MODULE_DEVICE_TABLE(of, rt1015p_device_id);
+>   #endif
+>   
+> +#ifdef CONFIG_ACPI
+> +static const struct acpi_device_id rt1015p_acpi_match[] = {
+> +	{ "ALCP1015", 0},
+
+This isn't much better, ALC is not a vendor ID as defined by 
+https://uefi.org/PNP_ACPI_Registry
+
+I've ask for guidance from Intel ACPI folks on this, please stay tuned.
+
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(acpi, rt1015p_acpi_match);
+> +#endif
+> +
+>   static struct platform_driver rt1015p_platform_driver = {
+>   	.driver = {
+>   		.name = "rt1015p",
+>   		.of_match_table = of_match_ptr(rt1015p_device_id),
+> +		.acpi_match_table = ACPI_PTR(rt1015p_acpi_match),
+>   	},
+>   	.probe = rt1015p_platform_probe,
+>   };
+> 

@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BB07325BF6
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 04:29:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CE5325D29
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 06:26:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0B9B1655;
-	Fri, 26 Feb 2021 04:29:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B9B1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9DE51655;
+	Fri, 26 Feb 2021 06:26:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9DE51655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614310194;
-	bh=anTWgHUvWwmjKnDczXymmT5BjNd8JcSzrvrOEWuZJoE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1614317213;
+	bh=a1cXEWnlL3/W/LTnuawRY8cwv/CQKOui6VyCSmHECho=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f587rG+1bIoWTynUQggy4gPK2qiTF/Um6OvE5DrzbAyQmJl57lPf/qM+dwxAo41BN
-	 9R2/0HvDPRefj5QwxADUBuz0t9gMMvtvAGyEATHsrSIRkE1NNXM/SNpd6oU1opdUed
-	 ail/XPkpdFVpdGlHYX0QpsQzrJzndTumMVq2FDJk=
+	b=VRfkFCk/9hb+s2mL2CqjakudiPujL1Qt6i5TXQQhQPQaoOuSfVbAz4H/aK4G0NEGY
+	 SQeXQbl+4q3kVk9THe7PjUejR8Pw3OdKbQeAgiDNbfUdRMlJBYEGkRCyXJhz2WtHgS
+	 99IwQh+Y6MenQqpDbu4frXPHDUv2IIfv/E+Z0ukI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19F40F8016C;
-	Fri, 26 Feb 2021 04:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5705EF80154;
+	Fri, 26 Feb 2021 06:25:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F117F8016C; Fri, 26 Feb 2021 04:28:18 +0100 (CET)
+ id 5702CF8016C; Fri, 26 Feb 2021 06:25:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25CD0F80159
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 04:28:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25CD0F80159
-Received: from mail-ot1-f69.google.com ([209.85.210.69])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <chris.chiu@canonical.com>) id 1lFTlJ-0001Gn-34
- for alsa-devel@alsa-project.org; Fri, 26 Feb 2021 03:25:53 +0000
-Received: by mail-ot1-f69.google.com with SMTP id p15so4054663otk.23
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 19:25:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5dSe8zF5ysy2b33N95lbtVXHHADDXkQLDsXBhp0dzqg=;
- b=me8raeQ2aptwXUJxZo6ad9JAsKalq1lRyfjxlTFhUeBIb/IyBfim1q04fwpbXMqkzc
- 20Lxr5aBWbWXFRhL33c98QQMZHc+yvwFZtGgP3aPW+/CzyBz2Ca88dRtpbgWF2skyg38
- NFuJYAyGhg6jsieXnXrTJ58d/hkuA3UicgDT8iYuXVvsBhRWcK6RS4+ZFMIpEtWJtnRZ
- vZKQxMqzkkAFUm5dQ/KVlpkVHtuDv8tw35K5WmKmZpPutX8p9nNxMO3wQse5RcvR44+N
- gDBsi9J+kXKq1F9RRHusZKdrbcCj86mICqCj0WMtQbfRvZJw25J3861AgJVaALJz4bjG
- lVCA==
-X-Gm-Message-State: AOAM530UfQbacRErt1fj2f2fVjMV1D7N/MZrSLBqKrHd1NOETqKFWV9P
- WinENc3Zhd1xENdTabSYnrXdoyLV/kM+PabCC+/ER3RD+AhJAPY7obWFD1Kgdg5gGtWPbRHeeVE
- fbnhlir03cx91b3sOnqi/dbwzMIsLJbekZn3HdgTsYezuT9l1bpxgAksW
-X-Received: by 2002:a9d:46e:: with SMTP id 101mr477583otc.303.1614309952109;
- Thu, 25 Feb 2021 19:25:52 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzenB3F1N/0F+4wtl0A9N7+V/VtvrhkANP5nLTJCfWtyooq+b85cQJ/0DGtq5TNWznUHI4k5+Vs6s6E0G9rqOU=
-X-Received: by 2002:a9d:46e:: with SMTP id 101mr477564otc.303.1614309951706;
- Thu, 25 Feb 2021 19:25:51 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEC5AF80154
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 06:25:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC5AF80154
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="j2pUG0A4"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B603886340000>; Thu, 25 Feb 2021 21:25:08 -0800
+Received: from [10.25.103.29] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 26 Feb
+ 2021 05:25:06 +0000
+Subject: Re: [RFC PATCH 0/5] Flexible sysclk/pll configuration
+To: <broonie@kernel.org>, <robh@kernel.org>
+References: <1614276364-13655-1-git-send-email-spujar@nvidia.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <49dd60ad-dfb1-8847-2604-0cb4aebe83bd@nvidia.com>
+Date: Fri, 26 Feb 2021 10:54:48 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20210226010440.8474-1-chris.chiu@canonical.com>
- <CAPpJ_ed1VqLQxcfdNobqWSkgtE7xrWKu8jK0U6jxWF1m3THdaA@mail.gmail.com>
-In-Reply-To: <CAPpJ_ed1VqLQxcfdNobqWSkgtE7xrWKu8jK0U6jxWF1m3THdaA@mail.gmail.com>
-From: Chris Chiu <chris.chiu@canonical.com>
-Date: Fri, 26 Feb 2021 11:25:40 +0800
-Message-ID: <CABTNMG1NDeotEskQaVXPFR7=HtPeOt6a=z49VS8L5QzdAyV4jw@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable headset mic of Acer SWIFT
- with ALC256
-To: Jian-Hong Pan <jhp@endlessos.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Takashi Iwai <tiwai@suse.com>, Linux Kernel <linux-kernel@vger.kernel.org>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <1614276364-13655-1-git-send-email-spujar@nvidia.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1614317108; bh=bZLn7mqkvbTFnvY90gnBrI9GdPGe2eHmP57y+B8irak=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=j2pUG0A47uvh8AwklgsEjdeoaCrIbszFcYadPmLRlbsQtmhuBz5Qn65nc+KQkniAz
+ SfbeVQAoByc/CNn643BL0H0T8zCW2r4mDFEBuqARLjKZmI9kebvw+2qSSdE8Tutg+j
+ wqkalDGRASB+BqHdonwQ6bed1ha8dmtVIsZVKo2NsJMHvVNceHOr/yr7uowyu3Wnd/
+ 3MHuz+4bb6ON+uNcRJTjBSEmQbKwpUVwq+bP9N3uFp/FzUSBW1nNZEPuF412t4JsJ7
+ xQSQj9CTylYEynMw7dneErcpo72nI/pms1WMCcjrB3/Be7hfkXSBmuE9+tD5nv/FMa
+ 1UL+92QHwDDDw==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, kuninori.morimoto.gx@renesas.com,
+ jonathanh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,101 +92,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Feb 26, 2021 at 10:06 AM Jian-Hong Pan <jhp@endlessos.org> wrote:
->
-> <chris.chiu@canonical.com> =E6=96=BC 2021=E5=B9=B42=E6=9C=8826=E6=97=A5 =
-=E9=80=B1=E4=BA=94 =E4=B8=8A=E5=8D=889:04=E5=AF=AB=E9=81=93=EF=BC=9A
-> >
-> > From: Chris Chiu <chris.chiu@canonical.com>
-> >
-> > The Acer SWIFT Swift SF314-54/55 laptops with ALC256 cannot detect
-> > both the headset mic and the internal mic. Introduce new fixup
-> > to enable the jack sense and the headset mic. However, the internal
-> > mic actually connects to Intel SST audio. It still needs Intel SST
-> > support to make internal mic capture work.
-> >
-> > Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
-> > ---
-> >   v1 -> v2: remove unnecessary aamix fixup
-> >
-> >  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realte=
-k.c
-> > index 1927605f0f7e..4871507cd4bf 100644
-> > --- a/sound/pci/hda/patch_realtek.c
-> > +++ b/sound/pci/hda/patch_realtek.c
-> > @@ -6406,6 +6406,7 @@ enum {
-> >         ALC236_FIXUP_DELL_AIO_HEADSET_MIC,
-> >         ALC282_FIXUP_ACER_DISABLE_LINEOUT,
-> >         ALC255_FIXUP_ACER_LIMIT_INT_MIC_BOOST,
-> > +       ALC256_FIXUP_ACER_HEADSET_MIC,
-> >  };
-> >
-> >  static const struct hda_fixup alc269_fixups[] =3D {
-> > @@ -7853,6 +7854,16 @@ static const struct hda_fixup alc269_fixups[] =
-=3D {
-> >                 .chained =3D true,
-> >                 .chain_id =3D ALC255_FIXUP_ACER_MIC_NO_PRESENCE,
-> >         },
-> > +       [ALC256_FIXUP_ACER_HEADSET_MIC] =3D {
-> > +               .type =3D HDA_FIXUP_PINS,
-> > +               .v.pins =3D (const struct hda_pintbl[]) {
-> > +                       { 0x19, 0x02a1113c }, /* use as headset mic, wi=
-thout its own jack detect */
-> > +                       { 0x1a, 0x90a1092f }, /* use as internal mic */
->
-> Since NID 0x1a is an internal DMIC, should this connection type be 0h?
-> Or, even the quirk of the internal DMIC is not needed for this case.
-> Because, it is Intel SST DMIC that does not connect to Realtek HDA
-> CODEC.  (Not sure for this one)
->
-> The quirk of NID 0x19 is okay for me.
->
-Actually I tried the existing ALC256_FIXUP_ACER_MIC_NO_PRESENT
-which only quirk the 0x19, the jack sense works but the headset mic
-is still absent. That's the reason why I still need the 0x1a as the interna=
-l
-mic. I've verified the headset mic can be detected and work w/o problem.
 
-Chris
 
-> BR,
-> Jian-Hong Pan
+On 2/25/2021 11:35 PM, Sameer Pujar wrote:
+> This series attempts to add flexible system clock (sysclk) and pll
+> configuration for the DAI controller from simple card or audio graph
+> card.
 >
-> > +                       { }
-> > +               },
-> > +               .chained =3D true,
-> > +               .chain_id =3D ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
-> > +       },
-> >  };
-> >
-> >  static const struct snd_pci_quirk alc269_fixup_tbl[] =3D {
-> > @@ -7879,9 +7890,11 @@ static const struct snd_pci_quirk alc269_fixup_t=
-bl[] =3D {
-> >         SND_PCI_QUIRK(0x1025, 0x1246, "Acer Predator Helios 500", ALC29=
-9_FIXUP_PREDATOR_SPK),
-> >         SND_PCI_QUIRK(0x1025, 0x1247, "Acer vCopperbox", ALC269VC_FIXUP=
-_ACER_VCOPPERBOX_PINS),
-> >         SND_PCI_QUIRK(0x1025, 0x1248, "Acer Veriton N4660G", ALC269VC_F=
-IXUP_ACER_MIC_NO_PRESENCE),
-> > +       SND_PCI_QUIRK(0x1025, 0x1269, "Acer SWIFT SF314-54", ALC256_FIX=
-UP_ACER_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x128f, "Acer Veriton Z6860G", ALC286_FIX=
-UP_ACER_AIO_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x1290, "Acer Veriton Z4860G", ALC286_FIX=
-UP_ACER_AIO_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x1291, "Acer Veriton Z4660G", ALC286_FIX=
-UP_ACER_AIO_HEADSET_MIC),
-> > +       SND_PCI_QUIRK(0x1025, 0x129c, "Acer SWIFT SF314-55", ALC256_FIX=
-UP_ACER_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x1308, "Acer Aspire Z24-890", ALC286_FIX=
-UP_ACER_AIO_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x132a, "Acer TravelMate B114-21", ALC233=
-_FIXUP_ACER_HEADSET_MIC),
-> >         SND_PCI_QUIRK(0x1025, 0x1330, "Acer TravelMate X514-51T", ALC25=
-5_FIXUP_ACER_HEADSET_MIC),
-> > --
-> > 2.20.1
-> >
+> Sysclk configuration
+> ====================
+>    Motivation:
+>    -----------
+>      The problem this tries to address is, some Codecs may have
+>      multiple clocks and multiple sources for its sysclk. For example
+>      sysclk may depend on MCLK provided by SoC or it may used an
+>      internal pll. The simple card or audio graph card driver is
+>      generic and can be used on multiple platforms. So if a platform
+>      using this driver needs a generic configuration, then the Codec
+>      specific stuff cannot be hardcoded in the driver. Hence it would
+>      be better if the info is driven from DT, especially from a
+>      Codec DAI or endpoint subnode.
+>
+>    Solution:
+>    ---------
+>      "system-clock-id" and "system-clock-source" DT properties can be
+>      exposed for a flexible sysclk configuration. These properties
+>      go into a Codec DAI or endpoint subnode.
+>
+>      Please note that other sysclk related properties like
+>      "system-clock-frequency" and "system-clock-direction-out" are
+>      already present.
+>
+>      Currently snd_soc_dai_set_sysclk() does not have an argument
+>      for source. This series adds this additional field and updates
+>      all the required drivers. This is needed because ideally sysclk
+>      "clk_id" and "source" fields are different. Some drivers are
+>      making use of "clk_id" field to program source information.
+>      **May be this needs to be corrected going ahead**
+>
+>
+> Pll configuration
+> =================
+>    Motivation:
+>    -----------
+>      Similar to sysclk configuration, pll configuration also needs
+>      little more flexibility. If a Codec has internal pll and it
+>      can be sourced from multiple clocks a specific configuration
+>      may be required for a given platform.
+>
+>      Some of the cases are:
+>        - MCLK (supplied by SoC) --> Codec pll -> Codec sysclk
+>        - SoC I2S bit clock (BCLK) --> Codec pll -> Codec sysclk
+>
+>    Solution:
+>    ---------
+>      Approach is similar to what is done for extending sysclk
+>      flexibility. Following DT properties are added to address the
+>      same.
+>
+>        "pll-id"
+>        "pll-source"
+>        "pll-input-reference"
+>        "pll-output-reference"
+>        "pll-input-frequency"
+>        "pll-output-frequency"
+>
+>      All these are optional properties. Simple card or audio graph
+>      card drivers can use above info and call snd_soc_dai_set_pll()
+>      for necessary configuration.
+>
+> Sameer Pujar (5):
+>    ASoC: soc-component: Fix return value of snd_soc_component_set_pll()
+>    ASoC: soc-dai: Add sysclk source to snd_soc_dai_set_sysclk()
+>    ASoC: audio-graph-card: Add bindings for sysclk and pll
+>    ASoC: simple-card-utils: Parse sysclk id and source
+>    ASoC: simple-card-utils: Support pll configuration
+>
+>   .../bindings/sound/audio-graph-port.yaml           |  71 +++++++++
+>   include/sound/simple_card_utils.h                  |  35 +++++
+>   include/sound/soc-dai.h                            |   4 +-
+>   sound/soc/amd/acp-da7219-max98357a.c               |   2 +-
+>   sound/soc/amd/acp-rt5645.c                         |   2 +-
+>   sound/soc/amd/acp3x-rt5682-max9836.c               |   4 +-
+>   sound/soc/atmel/atmel_wm8904.c                     |   2 +-
+>   sound/soc/atmel/mchp-i2s-mcc.c                     |   2 +-
+
+[...]
+
+>   sound/soc/ti/omap-mcbsp.c                          |   2 +-
+>   sound/soc/ti/omap3pandora.c                        |   4 +-
+>   sound/soc/ti/rx51.c                                |   2 +-
+>   sound/soc/uniphier/aio-cpu.c                       |   4 +-
+>   sound/soc/ux500/ux500_msp_dai.c                    |   2 +-
+>   271 files changed, 639 insertions(+), 389 deletions(-)
+>
+
+Looks like I missed some files to update which make use of 
+snd_soc_dai_set_sysclk(). I will try to fix that. Meanwhile please 
+review if the idea is right here.
+

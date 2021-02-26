@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFFB326431
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 15:40:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 045F1326433
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 15:40:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6C291669;
-	Fri, 26 Feb 2021 15:39:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C291669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02DC411C;
+	Fri, 26 Feb 2021 15:40:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02DC411C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614350418;
-	bh=AN5SkTXuGrKpNrH4PWkgr9k84HE5x17GCln5bj+mSyU=;
+	s=default; t=1614350457;
+	bh=THSJ2px6+P8RD+8e+cGTMOTRCB/mILnyICnlVwrKQ9M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QO4ClKA0A4x72lfCgEsGRT0P29Q5oG0150oB9uwwF4anQQbdqdXqak8vVxf38CayI
-	 hZ55s7YVk77omRr5AiXHCricHavBkGJ7YAM6q56e+Ai1fkiD1ZU0b4+OjJ6HHKsmec
-	 Ocil+pnTp3Ht4EmC3lJh2uBM+rIUFVpSc8ZzmJM0=
+	b=RZr1MK9LOI+cqS41z/D3IZtilD2GBOfNcHNiYqNUZjviwjKVmjFDNmvPNEJ9IoYhV
+	 UUWWW3h+U5NSLyhj0J5RmL7kpjC/RBSib0vp3URCAxanE7/62k8qWeP6172oiHThKq
+	 UsICSlDJOVYUEPdTOGNvV3upGg6ThNFWt0powe1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54A45F8025E;
-	Fri, 26 Feb 2021 15:38:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF15BF802A9;
+	Fri, 26 Feb 2021 15:38:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FF91F8022B; Fri, 26 Feb 2021 15:38:33 +0100 (CET)
+ id 4B31FF80161; Fri, 26 Feb 2021 15:38:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00B0BF8012C
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 15:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00B0BF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8634AF8016C
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 15:38:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8634AF8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="Rez2it9i"
+ header.b="BBXVjiQI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1614350307;
+ s=mimecast20190719; t=1614350309;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=01DtuhBK0g6BYwRjVx/U879IcSczr9rPeKDrJv4ZK30=;
- b=Rez2it9i9c3Jm/+28Wk0JP8Dw149dG9EldB04BbkIXSMKKQGGUODTRA12L3Et8T634vo8R
- n9vWEAtehtzxwn1tbhFUauMrmkTyZBtZkHixVwBuaBv61REOKWxcKAnfo/HoVtT1DvakJU
- U0cTay5kmIxbtyKJfdCeFioAhyX6izI=
+ bh=GVq+CDCV3serWcehRapLsB+VELqq322afytCqiaQ0Zc=;
+ b=BBXVjiQImbvCJOePitglnBnXuNO1fRFRl/KJcc/Z0MIoTmeBHMvF3vXnllMY+mTV2EtRQL
+ 0NjENEFjhZEviZGJb56EBZYCMpC0d8mUqOhP/lUlAuY+O0nSiC0YxdKm3FjoYJHnkhsNlr
+ JRESslVgufs0K9KG82ufy295PTw6uQI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-190-AE2bjIGkPNSpSXG2NTPowQ-1; Fri, 26 Feb 2021 09:38:23 -0500
-X-MC-Unique: AE2bjIGkPNSpSXG2NTPowQ-1
+ us-mta-356-_GJ59G9KPFe-XX-9eiV7pw-1; Fri, 26 Feb 2021 09:38:25 -0500
+X-MC-Unique: _GJ59G9KPFe-XX-9eiV7pw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 52CEF10066EE;
- Fri, 26 Feb 2021 14:38:22 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 267AB801979;
+ Fri, 26 Feb 2021 14:38:24 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-36.ams2.redhat.com [10.36.112.36])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CA29E5D9E2;
- Fri, 26 Feb 2021 14:38:20 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 97AE35D9D2;
+ Fri, 26 Feb 2021 14:38:22 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/5] ASoC: rt5640: Fix dac- and adc- vol-tlv values being off
+Subject: [PATCH 2/5] ASoC: rt5651: Fix dac- and adc- vol-tlv values being off
  by a factor of 10
-Date: Fri, 26 Feb 2021 15:38:13 +0100
-Message-Id: <20210226143817.84287-2-hdegoede@redhat.com>
+Date: Fri, 26 Feb 2021 15:38:14 +0100
+Message-Id: <20210226143817.84287-3-hdegoede@redhat.com>
 In-Reply-To: <20210226143817.84287-1-hdegoede@redhat.com>
 References: <20210226143817.84287-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -118,14 +118,14 @@ change to the rt5670 codec driver.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/codecs/rt5640.c | 4 ++--
+ sound/soc/codecs/rt5651.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 1414ad15d01c..a5674c227b3a 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -339,9 +339,9 @@ static bool rt5640_readable_register(struct device *dev, unsigned int reg)
+diff --git a/sound/soc/codecs/rt5651.c b/sound/soc/codecs/rt5651.c
+index d198e191fb0c..e59fdc81dbd4 100644
+--- a/sound/soc/codecs/rt5651.c
++++ b/sound/soc/codecs/rt5651.c
+@@ -285,9 +285,9 @@ static bool rt5651_readable_register(struct device *dev, unsigned int reg)
  }
  
  static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -4650, 150, 0);

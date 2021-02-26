@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04F8326964
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 22:27:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F6D32696C
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 22:27:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7603A169B;
-	Fri, 26 Feb 2021 22:26:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7603A169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FBB716A8;
+	Fri, 26 Feb 2021 22:26:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FBB716A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614374834;
-	bh=Nh9vcwo71BjraOCmyohPTTe1vaMsO9Ht468c1hGqW+E=;
+	s=default; t=1614374856;
+	bh=rH52LK3JZZjaP5+Xzx8B9qlH13NWC6mCNrNDbwwhC0A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bEl6wwnDqThtwyJWRbu86IxqkdXBX/8TX3cmD41XvFvwAmv4XZyX5W9d3EREK0E/E
-	 nXdymRI7REmlm4R2/zcmAVNABO/+eBtsMRSpI446N3RRQ9MRYHZg3UcV5b3kkiDDEp
-	 q/xTENEwH+22pblQirJIvmgSTvVqcyEurznLHrf0=
+	b=RI5ILoWN8LV4WfZuAyTbw44pguSjSaR3+eEzJgccWZMjiEMv/0e0no9eAGij/03O3
+	 ukXMSLul6SnfDcoiSA3m/jVS5OAuY4EyqHZAyG+3ezPL4gxGZKCRlJ+Q4MvmqJxvnn
+	 9u9m1b9u5FMF2BKk0OZJvjvcbWED9GvhX7rADOWg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE0DCF80159;
-	Fri, 26 Feb 2021 22:25:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48AF3F80234;
+	Fri, 26 Feb 2021 22:26:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59E1DF8016C; Fri, 26 Feb 2021 22:25:41 +0100 (CET)
+ id 0C610F8022D; Fri, 26 Feb 2021 22:26:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D6D9F80154
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 22:25:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D6D9F80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B44AF80161
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 22:26:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B44AF80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=george-graphics-co-uk.20150623.gappssmtp.com
- header.i=@george-graphics-co-uk.20150623.gappssmtp.com header.b="x5TesxhG"
-Received: by mail-pg1-x534.google.com with SMTP id o38so6959487pgm.9
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 13:25:34 -0800 (PST)
+ header.i=@george-graphics-co-uk.20150623.gappssmtp.com header.b="z0wP+jbM"
+Received: by mail-pf1-x434.google.com with SMTP id b145so7122054pfb.4
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 13:26:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=george-graphics-co-uk.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NlWMLWhxZMu4ySEeDP2fa+9dxkabBQGlKANZO0dxadc=;
- b=x5TesxhGQAcUy+Ho3TA2HZgoc55dKXVbJz6h6A9cWXxOvjGCja7x1K8zm0wSmGTcmb
- w1oNEZjTgnqjSMft+468Oi9Pf4tA4DFmlMJUZ1Sj01SCs2zwnVNy0BpIaKv1BEUs6qLn
- OlDcXQ9WHAKhav3PnKDGbNBKcuMaxZGkscPoBbVQis13nKokugdTelTBE6fxW7vdahS1
- 9JtPLpyIABZiXzoZKjZSb3QMoLEO4Mjk0tl+WqC5YIWnznWDa3LxP2pqKBlsWM3BaWVK
- 3sjEI5W3IQdMZJnp1YWnp743RZp3vQEchSOyirJ9j/2CB0SDGT0jafdCVPuF4zX1Z8l8
- WtNw==
+ bh=cQuLN6vQ1ptZtp4bMRyyZsTd6BPgreKDQsJfM9SJC9A=;
+ b=z0wP+jbM8a/adjYckcngBEkj2zXwVLvEBn3vXSDtf1a6Y0jvtGJFxOg4yRsVtx3EpP
+ NNBnzHcf/0Htw5NGifO11vjhzkwDe7TK7VQdOqquglYuMgz1YJQ+USY2KC8nzB55e2lI
+ uKDEjnPuLm2IFn1H1AddfMyALhDt2PxSgp7WGKAwBTK65uCk3/csgDFeNJd0ThxKDGyr
+ IL7ZfqazEfJw14JeGOkb1+4S6QpLPAi1xEgPYG04K4yl1OEvcDf9StevIGs7shu8g6GS
+ tGe8O0QUwi7xsBnur2LqxbJujG9dzrQGvV83Pxlx0jFeoEVTi3uelAbdgXLEzD4jFBrb
+ L6IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NlWMLWhxZMu4ySEeDP2fa+9dxkabBQGlKANZO0dxadc=;
- b=TPbVjA5VdTCMIdoq7B7iJocWblmgeTj48j0NZ5m29OZOvRUl/hhdHXXMswLBeho4dy
- pvyDrQrTm1Rzd20KasX4e7R5s1agpfaATndognymZ18uON//yeLv0veH611pBMmeg09R
- zxLGAUFzE5WoOjJYcGLyl09PoK3YsgHK3vLXI7J/t2nufiK19cXa/SCiw1xEmCA/rEE/
- K2JQqithaJLx2F0ygcavHhmZgxY9E4af3tTSFYFVYAZFoO3WHWaTy7JhD6Ju8yFVTJvA
- 3rTvZmySrkeWkz7TaQCAlZtN6TmfPfceWJdP1sMETOAookYjBI+lusSLLhjYI8V5Zb5v
- NXlw==
-X-Gm-Message-State: AOAM5312PFFFxIKLwY58OKMAhrDFTmjAchvtvKiPVNBUHd71xlBqyLlj
- AL40/mwQ5PnpR90mR91sfqPLcQ==
-X-Google-Smtp-Source: ABdhPJyjjgYgu5zlTQCwgMXEkrFWh7Y+XgmWZTjJvNpBKmcrMDtdxy/QCaEdCk2OZSTSUMptc8AhPw==
-X-Received: by 2002:a65:4141:: with SMTP id x1mr4503126pgp.421.1614374732569; 
- Fri, 26 Feb 2021 13:25:32 -0800 (PST)
+ bh=cQuLN6vQ1ptZtp4bMRyyZsTd6BPgreKDQsJfM9SJC9A=;
+ b=tTbiyIkoJWm2aJXksDzRL3jZQH5P2l8LJrokhvn1Ejz0IcB9UwiJKZDiBa0M5vbroW
+ jsF1B/FOijEjdtQ7DOoMq+DxaZzXdQ93evzsVKt+DuNpgDQVB1F2f4SDTbT/GABZZFAX
+ gY856a4rW2nsq3dy7/MS0UtVhF3oVzLrTJsdj66M8A6LnrkFidZmg2rPYKoSFb48vdpE
+ aOncm5E0jtofSv6ZAZBUyUt1EFXLpY//7wqTXjXrotBbGh2VH7TR4bM/2ca9uyDW2bdS
+ NKrHEVtVYobVKVBZv9WamkGJIMrg1Ec6VRfRjXb1kH1Yt1r2Oh/9j15dbuwuEBmIyY9F
+ BciQ==
+X-Gm-Message-State: AOAM532guNdl9iYoTzVEL45MOAirVEjBNyiDxSybn/0nsdL5xf5m4cYp
+ s9rcS1YVlNXnafu0HvWuRrtPXw==
+X-Google-Smtp-Source: ABdhPJwKt6VhW0uARrhC1Yo5BYTAj+wNNG5F0IdDYp9dGwXZrVt4dYMh6wS8oGRsvr11C7IBIhtYCQ==
+X-Received: by 2002:aa7:9aad:0:b029:1ee:468a:d950 with SMTP id
+ x13-20020aa79aad0000b02901ee468ad950mr2812806pfi.40.1614374796894; 
+ Fri, 26 Feb 2021 13:26:36 -0800 (PST)
 Received: from sequencer.hsd1.wa.comcast.net
  ([2601:602:8000:181:df1d:64b5:575f:9598])
- by smtp.gmail.com with ESMTPSA id u129sm10317695pfu.219.2021.02.26.13.25.31
+ by smtp.gmail.com with ESMTPSA id 125sm10862073pfu.7.2021.02.26.13.26.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Feb 2021 13:25:31 -0800 (PST)
+ Fri, 26 Feb 2021 13:26:36 -0800 (PST)
 From: George Harker <george@george-graphics.co.uk>
 To: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 1/2] use usb headers rather than define structs locally
-Date: Fri, 26 Feb 2021 21:24:56 +0000
-Message-Id: <20210226212457.24538-1-george@george-graphics.co.uk>
+Subject: [PATCH 2/2] midi streaming substream names from jack names A number
+ of devices have named substreams which are hard to remember / decypher from
+ <device> MIDI n names. Eg. Korg puts a pass through on one substream and
+ iConnectivity devices name the connections.
+Date: Fri, 26 Feb 2021 21:26:16 +0000
+Message-Id: <20210226212617.24616-1-george@george-graphics.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <s5hczwpucd3.wl-tiwai@suse.de>
 References: <s5hczwpucd3.wl-tiwai@suse.de>
@@ -102,59 +106,205 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use struct definitions from linux/usb/midi.h rather than locally define
-the structs in sound/usb/midi.c .
+This makes it easier to connect to the correct device.  Devices which
+handle naming through quirks are unaffected by this change.
+
+Addresses TODO comment in sound/usb/midi.c
 
 Signed-off-by: George Harker <george@george-graphics.co.uk>
 ---
- sound/usb/midi.c | 20 ++------------------
- 1 file changed, 2 insertions(+), 18 deletions(-)
+ sound/usb/midi.c | 103 ++++++++++++++++++++++++++++++++++++++++++++---
+ sound/usb/midi.h |   2 +
+ 2 files changed, 100 insertions(+), 5 deletions(-)
 
 diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 0c23fa6d8..610cf54ee 100644
+index 610cf54ee..9efda4b06 100644
 --- a/sound/usb/midi.c
 +++ b/sound/usb/midi.c
-@@ -47,6 +47,7 @@
- #include <linux/usb.h>
- #include <linux/wait.h>
- #include <linux/usb/audio.h>
-+#include <linux/usb/midi.h>
- #include <linux/module.h>
+@@ -1740,12 +1740,68 @@ static void snd_usbmidi_get_port_info(struct snd_rawmidi *rmidi, int number,
+ 	}
+ }
  
- #include <sound/core.h>
-@@ -77,23 +78,6 @@ MODULE_AUTHOR("Clemens Ladisch <clemens@ladisch.de>");
- MODULE_DESCRIPTION("USB Audio/MIDI helper module");
- MODULE_LICENSE("Dual BSD/GPL");
++static struct usb_midi_in_jack_descriptor *find_usb_in_jack_descriptor(
++					struct usb_host_interface *hostif, uint8_t jack_id)
++{
++	unsigned char *extra = hostif->extra;
++	int extralen = hostif->extralen;
++
++	while (extralen > 4) {
++		struct usb_midi_in_jack_descriptor *injd =
++				(struct usb_midi_in_jack_descriptor *)extra;
++
++		if (injd->bLength > 4 &&
++		    injd->bDescriptorType == USB_DT_CS_INTERFACE &&
++		    injd->bDescriptorSubtype == UAC_MIDI_IN_JACK &&
++				injd->bJackID == jack_id)
++			return injd;
++		if (!extra[0])
++			break;
++		extralen -= extra[0];
++		extra += extra[0];
++	}
++	return NULL;
++}
++
++static struct usb_midi_out_jack_descriptor *find_usb_out_jack_descriptor(
++					struct usb_host_interface *hostif, uint8_t jack_id)
++{
++	unsigned char *extra = hostif->extra;
++	int extralen = hostif->extralen;
++
++	while (extralen > 4) {
++		struct usb_midi_out_jack_descriptor *outjd =
++				(struct usb_midi_out_jack_descriptor *)extra;
++
++		if (outjd->bLength > 4 &&
++		    outjd->bDescriptorType == USB_DT_CS_INTERFACE &&
++		    outjd->bDescriptorSubtype == UAC_MIDI_OUT_JACK &&
++				outjd->bJackID == jack_id)
++			return outjd;
++		if (!extra[0])
++			break;
++		extralen -= extra[0];
++		extra += extra[0];
++	}
++	return NULL;
++}
++
+ static void snd_usbmidi_init_substream(struct snd_usb_midi *umidi,
+-				       int stream, int number,
++				       int stream, int number, int jack_id,
+ 				       struct snd_rawmidi_substream **rsubstream)
+ {
+ 	struct port_info *port_info;
+ 	const char *name_format;
++	struct usb_interface *intf;
++	struct usb_host_interface *hostif;
++	struct usb_midi_in_jack_descriptor *injd;
++	struct usb_midi_out_jack_descriptor *outjd;
++	uint8_t jack_name_buf[32];
++	uint8_t *default_jack_name = "MIDI";
++	uint8_t *jack_name = default_jack_name;
++	uint8_t iJack;
++	size_t sz;
++	int res;
  
--
--struct usb_ms_header_descriptor {
--	__u8  bLength;
--	__u8  bDescriptorType;
--	__u8  bDescriptorSubtype;
--	__u8  bcdMSC[2];
--	__le16 wTotalLength;
--} __attribute__ ((packed));
--
--struct usb_ms_endpoint_descriptor {
--	__u8  bLength;
--	__u8  bDescriptorType;
--	__u8  bDescriptorSubtype;
--	__u8  bNumEmbMIDIJack;
--	__u8  baAssocJackID[];
--} __attribute__ ((packed));
--
- struct snd_usb_midi_in_endpoint;
- struct snd_usb_midi_out_endpoint;
- struct snd_usb_midi_endpoint;
-@@ -1875,7 +1859,7 @@ static int snd_usbmidi_get_ms_info(struct snd_usb_midi *umidi,
- 	    ms_header->bDescriptorType == USB_DT_CS_INTERFACE &&
- 	    ms_header->bDescriptorSubtype == UAC_HEADER)
- 		dev_dbg(&umidi->dev->dev, "MIDIStreaming version %02x.%02x\n",
--			    ms_header->bcdMSC[1], ms_header->bcdMSC[0]);
-+			    ((uint8_t *)&ms_header->bcdMSC)[1], ((uint8_t *)&ms_header->bcdMSC)[0]);
- 	else
- 		dev_warn(&umidi->dev->dev,
- 			 "MIDIStreaming interface descriptor not found\n");
+ 	struct snd_rawmidi_substream *substream =
+ 		snd_usbmidi_find_substream(umidi, stream, number);
+@@ -1755,11 +1811,36 @@ static void snd_usbmidi_init_substream(struct snd_usb_midi *umidi,
+ 		return;
+ 	}
+ 
+-	/* TODO: read port name from jack descriptor */
++	intf = umidi->iface;
++	if (intf && jack_id >= 0) {
++		hostif = intf->cur_altsetting;
++		iJack = 0;
++		if (stream != SNDRV_RAWMIDI_STREAM_OUTPUT) {
++			/* in jacks connect to outs */
++			outjd = find_usb_out_jack_descriptor(hostif, jack_id);
++			if (outjd) {
++				sz = USB_DT_MIDI_OUT_SIZE(outjd->bNrInputPins);
++				iJack = *(((uint8_t *) outjd) + sz - sizeof(uint8_t));
++			}
++		} else {
++			/* and out jacks connect to ins */
++			injd = find_usb_in_jack_descriptor(hostif, jack_id);
++			if (injd)
++				iJack = injd->iJack;
++		}
++		if (iJack != 0) {
++			res = usb_string(umidi->dev, iJack, jack_name_buf,
++			  ARRAY_SIZE(jack_name_buf));
++			if (res)
++				jack_name = jack_name_buf;
++		}
++	}
++
+ 	port_info = find_port_info(umidi, number);
+-	name_format = port_info ? port_info->name : "%s MIDI %d";
++	name_format = port_info ? port_info->name :
++		(jack_name != default_jack_name  ? "%s %s" : "%s %s %d");
+ 	snprintf(substream->name, sizeof(substream->name),
+-		 name_format, umidi->card->shortname, number + 1);
++		 name_format, umidi->card->shortname, jack_name, number + 1);
+ 
+ 	*rsubstream = substream;
+ }
+@@ -1794,6 +1875,7 @@ static int snd_usbmidi_create_endpoints(struct snd_usb_midi *umidi,
+ 				snd_usbmidi_init_substream(umidi,
+ 							   SNDRV_RAWMIDI_STREAM_OUTPUT,
+ 							   out_ports,
++							   endpoints[i].assoc_out_jacks[j],
+ 							   &umidi->endpoints[i].out->ports[j].substream);
+ 				++out_ports;
+ 			}
+@@ -1801,6 +1883,7 @@ static int snd_usbmidi_create_endpoints(struct snd_usb_midi *umidi,
+ 				snd_usbmidi_init_substream(umidi,
+ 							   SNDRV_RAWMIDI_STREAM_INPUT,
+ 							   in_ports,
++							   endpoints[i].assoc_in_jacks[j],
+ 							   &umidi->endpoints[i].in->ports[j].substream);
+ 				++in_ports;
+ 			}
+@@ -1846,7 +1929,7 @@ static int snd_usbmidi_get_ms_info(struct snd_usb_midi *umidi,
+ 	struct usb_host_endpoint *hostep;
+ 	struct usb_endpoint_descriptor *ep;
+ 	struct usb_ms_endpoint_descriptor *ms_ep;
+-	int i, epidx;
++	int i, j, epidx;
+ 
+ 	intf = umidi->iface;
+ 	if (!intf)
+@@ -1895,6 +1978,10 @@ static int snd_usbmidi_get_ms_info(struct snd_usb_midi *umidi,
+ 				endpoints[epidx].out_interval = 1;
+ 			endpoints[epidx].out_cables =
+ 				(1 << ms_ep->bNumEmbMIDIJack) - 1;
++			for (j = 0; j < ms_ep->bNumEmbMIDIJack; ++j)
++				endpoints[epidx].assoc_out_jacks[j] = ms_ep->baAssocJackID[j];
++			for (; j < ARRAY_SIZE(endpoints[epidx].assoc_out_jacks); ++j)
++				endpoints[epidx].assoc_out_jacks[j] = -1;
+ 			dev_dbg(&umidi->dev->dev, "EP %02X: %d jack(s)\n",
+ 				ep->bEndpointAddress, ms_ep->bNumEmbMIDIJack);
+ 		} else {
+@@ -1912,6 +1999,10 @@ static int snd_usbmidi_get_ms_info(struct snd_usb_midi *umidi,
+ 				endpoints[epidx].in_interval = 1;
+ 			endpoints[epidx].in_cables =
+ 				(1 << ms_ep->bNumEmbMIDIJack) - 1;
++			for (j = 0; j < ms_ep->bNumEmbMIDIJack; ++j)
++				endpoints[epidx].assoc_in_jacks[j] = ms_ep->baAssocJackID[j];
++			for (; j < ARRAY_SIZE(endpoints[epidx].assoc_in_jacks); ++j)
++				endpoints[epidx].assoc_in_jacks[j] = -1;
+ 			dev_dbg(&umidi->dev->dev, "EP %02X: %d jack(s)\n",
+ 				ep->bEndpointAddress, ms_ep->bNumEmbMIDIJack);
+ 		}
+@@ -2228,11 +2319,13 @@ static int snd_usbmidi_create_endpoints_midiman(struct snd_usb_midi *umidi,
+ 			snd_usbmidi_init_substream(umidi,
+ 						   SNDRV_RAWMIDI_STREAM_OUTPUT,
+ 						   cable,
++						   -1 /* prevent trying to find jack */,
+ 						   &umidi->endpoints[cable & 1].out->ports[cable].substream);
+ 		if (endpoint->in_cables & (1 << cable))
+ 			snd_usbmidi_init_substream(umidi,
+ 						   SNDRV_RAWMIDI_STREAM_INPUT,
+ 						   cable,
++						   -1 /* prevent trying to find jack */,
+ 						   &umidi->endpoints[0].in->ports[cable].substream);
+ 	}
+ 	return 0;
+diff --git a/sound/usb/midi.h b/sound/usb/midi.h
+index 8c38aec22..3f153195c 100644
+--- a/sound/usb/midi.h
++++ b/sound/usb/midi.h
+@@ -13,6 +13,8 @@ struct snd_usb_midi_endpoint_info {
+ 	uint8_t  in_interval;
+ 	uint16_t out_cables;	/* bitmask */
+ 	uint16_t in_cables;	/* bitmask */
++	int16_t  assoc_in_jacks[16];
++	int16_t  assoc_out_jacks[16];
+ };
+ 
+ /* for QUIRK_MIDI_YAMAHA, data is NULL */
 -- 
 2.20.1
 

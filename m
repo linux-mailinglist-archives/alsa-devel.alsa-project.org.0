@@ -2,84 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C99325BEF
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 04:27:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BB07325BF6
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 04:29:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D19315F2;
-	Fri, 26 Feb 2021 04:26:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D19315F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0B9B1655;
+	Fri, 26 Feb 2021 04:29:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B9B1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614310027;
-	bh=QFb9xxR7oxhUl//uYHdzy3NAEYZuQyN4xwTIsYtbtfU=;
+	s=default; t=1614310194;
+	bh=anTWgHUvWwmjKnDczXymmT5BjNd8JcSzrvrOEWuZJoE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XO4VuwyE8z435SKSsthu4L3qzqJDHVYejwGmCIrruCavfPxvmOTf9z2BoPzm5Ao9L
-	 uRlUlSotE2nn9etyQqjFeBDbXXJdw/x8RI13OuFeKfHyn0JIo7ApUn5YNnYaNL6aYU
-	 X813qeE7JKWYqU/udb4cYseFALMe5D0vhdg/0jaY=
+	b=f587rG+1bIoWTynUQggy4gPK2qiTF/Um6OvE5DrzbAyQmJl57lPf/qM+dwxAo41BN
+	 9R2/0HvDPRefj5QwxADUBuz0t9gMMvtvAGyEATHsrSIRkE1NNXM/SNpd6oU1opdUed
+	 ail/XPkpdFVpdGlHYX0QpsQzrJzndTumMVq2FDJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A44BF80159;
-	Fri, 26 Feb 2021 04:25:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19F40F8016C;
+	Fri, 26 Feb 2021 04:28:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0708F8016C; Fri, 26 Feb 2021 04:25:30 +0100 (CET)
+ id 5F117F8016C; Fri, 26 Feb 2021 04:28:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38331F8012C
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 04:25:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38331F8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
- header.b="YBEth4sx"
-Received: by mail-oi1-x230.google.com with SMTP id l64so8392548oig.9
- for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 19:25:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessos.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=W+2l0NNpBq+Qnjv0WpsTeGDz60YASdGJlf+tLVmTgvc=;
- b=YBEth4sxGYqBIiQCyhilVOJ0JbkCO+uF4haEck5ajsPJeO1K653m1fwAJIIUKNnAcw
- GP40tWdbTPXJWPgr2DRhuW6hfpJlnOmZW66tNoO5SmWNJMlFWR0Haz4eKsbEQ5BCE8Dk
- VT5zTXRfng+f6D85XHxT44YinDHOQ1PUNVqSKzI/K1gUEM6qQrDra0ZbOgL1Rokd6Xmh
- Mry/8M2it6irfISUqz7VFA2/1YWDdT/CHJK3+VlpIf67pllwS4yplXlMJD/CZAFvoe5k
- BC7M8A3+32ZCZI+JKBFlGEQQ4cSgCac90CkW3gDRDU0LHIjyDNSNuC7CLFobMgJxA1+H
- jtyw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25CD0F80159
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 04:28:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25CD0F80159
+Received: from mail-ot1-f69.google.com ([209.85.210.69])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <chris.chiu@canonical.com>) id 1lFTlJ-0001Gn-34
+ for alsa-devel@alsa-project.org; Fri, 26 Feb 2021 03:25:53 +0000
+Received: by mail-ot1-f69.google.com with SMTP id p15so4054663otk.23
+ for <alsa-devel@alsa-project.org>; Thu, 25 Feb 2021 19:25:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=W+2l0NNpBq+Qnjv0WpsTeGDz60YASdGJlf+tLVmTgvc=;
- b=gDgDN+FsOv7nBYFLDij1zCZIqmJ675sIdSCzCHK+1X9TIFrEodDJUVkRWHYlecn8Vf
- EV0/hqCqzrbzA25HSdMVGYC0KjB2pzJuxZLSC1AhPFLX872yiUn/1GmNaHqH2EmGWK3N
- B01X4RbjzJP5VVdkgs+nCJ2W3xw3z30/aIPUzVbvXPOJx20wNPqH26q0voTkKVDOqmNS
- v6sbhMmOhNTb4fFWYxj3HZi1EfLcCmZwVXZMi2deAVniUoKmOVoqMonh+doYbYtbOuMM
- dWQV0Suh1x7EA6HLoso7MHZX3acfRLNhzYnEK5jpw5XN4KnzzMFYrpgzdFekK3Vbk+qB
- caWg==
-X-Gm-Message-State: AOAM530IKwcfiqKMZ771nBKssPipoMU8HXK/4BkoHX+WcIjrIi/EAjj5
- rnvu0bhtBgJ49QWuK9Xvn2SNxlxMGSjDdlazLpa1bg==
-X-Google-Smtp-Source: ABdhPJzyPtTIygEci9voqgMTRuN7aTKS/Y81Rz0yzBJA8+Ro1Vcge868eFGrYey0gANcDwkMZ7o8GGM0OFL4UwhMXQo=
-X-Received: by 2002:aca:6289:: with SMTP id w131mr668302oib.69.1614309922143; 
- Thu, 25 Feb 2021 19:25:22 -0800 (PST)
+ bh=5dSe8zF5ysy2b33N95lbtVXHHADDXkQLDsXBhp0dzqg=;
+ b=me8raeQ2aptwXUJxZo6ad9JAsKalq1lRyfjxlTFhUeBIb/IyBfim1q04fwpbXMqkzc
+ 20Lxr5aBWbWXFRhL33c98QQMZHc+yvwFZtGgP3aPW+/CzyBz2Ca88dRtpbgWF2skyg38
+ NFuJYAyGhg6jsieXnXrTJ58d/hkuA3UicgDT8iYuXVvsBhRWcK6RS4+ZFMIpEtWJtnRZ
+ vZKQxMqzkkAFUm5dQ/KVlpkVHtuDv8tw35K5WmKmZpPutX8p9nNxMO3wQse5RcvR44+N
+ gDBsi9J+kXKq1F9RRHusZKdrbcCj86mICqCj0WMtQbfRvZJw25J3861AgJVaALJz4bjG
+ lVCA==
+X-Gm-Message-State: AOAM530UfQbacRErt1fj2f2fVjMV1D7N/MZrSLBqKrHd1NOETqKFWV9P
+ WinENc3Zhd1xENdTabSYnrXdoyLV/kM+PabCC+/ER3RD+AhJAPY7obWFD1Kgdg5gGtWPbRHeeVE
+ fbnhlir03cx91b3sOnqi/dbwzMIsLJbekZn3HdgTsYezuT9l1bpxgAksW
+X-Received: by 2002:a9d:46e:: with SMTP id 101mr477583otc.303.1614309952109;
+ Thu, 25 Feb 2021 19:25:52 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzenB3F1N/0F+4wtl0A9N7+V/VtvrhkANP5nLTJCfWtyooq+b85cQJ/0DGtq5TNWznUHI4k5+Vs6s6E0G9rqOU=
+X-Received: by 2002:a9d:46e:: with SMTP id 101mr477564otc.303.1614309951706;
+ Thu, 25 Feb 2021 19:25:51 -0800 (PST)
 MIME-Version: 1.0
 References: <20210226010440.8474-1-chris.chiu@canonical.com>
  <CAPpJ_ed1VqLQxcfdNobqWSkgtE7xrWKu8jK0U6jxWF1m3THdaA@mail.gmail.com>
 In-Reply-To: <CAPpJ_ed1VqLQxcfdNobqWSkgtE7xrWKu8jK0U6jxWF1m3THdaA@mail.gmail.com>
-From: Jian-Hong Pan <jhp@endlessos.org>
-Date: Fri, 26 Feb 2021 11:24:21 +0800
-Message-ID: <CAPpJ_ee4SNWJ3Zh6kEe_aMYLL_8tbApfMK4pvs2m2GfmhJmZgA@mail.gmail.com>
+From: Chris Chiu <chris.chiu@canonical.com>
+Date: Fri, 26 Feb 2021 11:25:40 +0800
+Message-ID: <CABTNMG1NDeotEskQaVXPFR7=HtPeOt6a=z49VS8L5QzdAyV4jw@mail.gmail.com>
 Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable headset mic of Acer SWIFT
  with ALC256
-To: chris.chiu@canonical.com
+To: Jian-Hong Pan <jhp@endlessos.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
@@ -100,8 +93,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jian-Hong Pan <jhp@endlessos.org> =E6=96=BC 2021=E5=B9=B42=E6=9C=8826=E6=97=
-=A5 =E9=80=B1=E4=BA=94 =E4=B8=8A=E5=8D=8810:05=E5=AF=AB=E9=81=93=EF=BC=9A
+On Fri, Feb 26, 2021 at 10:06 AM Jian-Hong Pan <jhp@endlessos.org> wrote:
 >
 > <chris.chiu@canonical.com> =E6=96=BC 2021=E5=B9=B42=E6=9C=8826=E6=97=A5 =
 =E9=80=B1=E4=BA=94 =E4=B8=8A=E5=8D=889:04=E5=AF=AB=E9=81=93=EF=BC=9A
@@ -152,14 +144,18 @@ thout its own jack detect */
 > CODEC.  (Not sure for this one)
 >
 > The quirk of NID 0x19 is okay for me.
+>
+Actually I tried the existing ALC256_FIXUP_ACER_MIC_NO_PRESENT
+which only quirk the 0x19, the jack sense works but the headset mic
+is still absent. That's the reason why I still need the 0x1a as the interna=
+l
+mic. I've verified the headset mic can be detected and work w/o problem.
 
-After more discussion and test with Chris, found the NID 0x1a quirk is
-still needed.  Otherwise, the headset MIC 0x19 will not work any more.
+Chris
 
-So, I ack the version 2 patch.
-
-Acked-by: Jian-Hong Pan <jhp@endlessos.org>
-
+> BR,
+> Jian-Hong Pan
+>
 > > +                       { }
 > > +               },
 > > +               .chained =3D true,

@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 863A6326438
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 15:41:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB8C3264D6
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 16:42:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2B1511C;
-	Fri, 26 Feb 2021 15:41:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2B1511C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD7481666;
+	Fri, 26 Feb 2021 16:41:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD7481666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614350517;
-	bh=iiaHnM2MsTvXQ+Wq9X5W8+XjcwQNiYnDfDdF6lOpA+U=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JcvdI8fs3SclU+z8X6XSDf7KOEPl2a1JHFYZsoNlKZKGjAjCGXtFSZRGB96F0T/NK
-	 //uYJJWqZjS1M8+j1PJJwz+Pc8DGGVHmc9Vxu/S4RevPYe+gZQY9OCaE/b1GrWTn+i
-	 JcMJvyvkYdqjUUnMeyTZicSG0bj3NQJiJcpzuA20=
+	s=default; t=1614354134;
+	bh=DtOkiLnmxGJsNvwlBPVVT9zaBfSyx8w2C9aH+YfW0zo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jSabv8g4vOoBDoqrzfN4bZcbukzRLFYlUrBgbTlElEyyZhDZDtW0Gpav/SyA60Tpa
+	 0yihREe42bDqd5N4yDITfEIqjMFSod1yLKbqBYP0Xn8QXgG0DN07wEoUtzOkUmZmj0
+	 CnRAu3v2VvhU2uyCajAfo1P7BTWlTr2oQQGaTFc4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 040DCF80482;
-	Fri, 26 Feb 2021 15:38:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66D70F80276;
+	Fri, 26 Feb 2021 16:40:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99417F802E2; Fri, 26 Feb 2021 15:38:42 +0100 (CET)
+ id 73C85F8022B; Fri, 26 Feb 2021 16:40:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,56 +33,51 @@ Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B0C4F802CA
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 15:38:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B0C4F802CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 847CEF8012C
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 16:40:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 847CEF8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="GgZ0/BCH"
+ header.b="Rlfa+TVU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1614350317;
+ s=mimecast20190719; t=1614354031;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KejlvcT1gOeSWvvdBwsaUIeKwwnwlqbeqQnR3mja/KA=;
- b=GgZ0/BCH15tODcnURp6C6hcOjFw3WbgxNjghk+Om1tTs+K8dEmsN0y0RI+4pAlGzShEJWi
- Pn8gcwDS7huEsCXkMW8aclAiOL5zNwdnecgoPm8QT6dHzBmMzOELRr5PQ0JMaxZajS9TSs
- uxLfALqpolgmbIOuOdw6tU0XMW2Zp1A=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xvo/Cl/PA78w0aJsjTOiE+EypUuqUyGXqKej6pcuyC8=;
+ b=Rlfa+TVUdJ8bn9NbEdiNnO5CHDKKWb7CU2DiojIHfNxupqqzVwXAjoycJsubspktB3JGA4
+ kn/O8mWgjPsJh19K1stOHy6BCzQBe+ymgdnMbeqNdvqfM0czlUgaRlBKLy6gyAq9AZV3Su
+ 8A3+2/Yd2lySRgT+dzEgEmBBrPGNWsU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-273-6dufz7FqNX-b-z9MV0qCUg-1; Fri, 26 Feb 2021 09:38:33 -0500
-X-MC-Unique: 6dufz7FqNX-b-z9MV0qCUg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
+ us-mta-453-lQZgfDydOxaNZDlGlQxyqQ-1; Fri, 26 Feb 2021 10:40:30 -0500
+X-MC-Unique: lQZgfDydOxaNZDlGlQxyqQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CFB2110066F2;
- Fri, 26 Feb 2021 14:38:31 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 52847107ACC7;
+ Fri, 26 Feb 2021 15:40:28 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-36.ams2.redhat.com [10.36.112.36])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4C9445D9E2;
- Fri, 26 Feb 2021 14:38:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A8F2A1050E;
+ Fri, 26 Feb 2021 15:40:26 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [PATCH 5/5] ASoC: Intel: bytcr_rt5640: Add used AIF to the components
- string
-Date: Fri, 26 Feb 2021 15:38:17 +0100
-Message-Id: <20210226143817.84287-6-hdegoede@redhat.com>
-In-Reply-To: <20210226143817.84287-1-hdegoede@redhat.com>
-References: <20210226143817.84287-1-hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH alsa-ucm-conf 0/8] codecs/rt5640: Cleanup + HW volume control
+ support
+Date: Fri, 26 Feb 2021 16:40:17 +0100
+Message-Id: <20210226154025.84828-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,66 +93,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Depending on which AIF is used the UCM profile needs to setup
-a different path through the rt5640's "Digital Mixer Path" graph.
+Hi All,
 
-ATM the UCM profiles solve this by just enabling paths to the outputs /
-from the input from both AIF1 and AIF2 and then relying on the DAPM
-framework to power-down the parts of the graph connected to the
-unused AIF.
+Here is a patch series consisting of some codecs/rt5640 cleanups and
+addition of HW volume control support to the rt5640 .conf snippets.
 
-But in order to be able to use hardware-volumecontrol and to use
-the hardware mute controls, which are necessary for mute LED control,
-the UCM profiles need to know which AIF is actually being used.
+Note patch 7 and 8 depend on a new "aif:%d" part being added to the
+components string, the kernel patches for this are pending upstream
+in the "[PATCH 0/5] AsoC: rt5640/rt5651: Volume control fixes" patch
+series.
 
-Add a new "aif:1" or "aif:2" part to the component string to provide
-info about the used AIF to userspace / to the UCM profiles.
+Patches 7 and 8 should probably not be merged until the kernel patches
+have landed, because theoretically the new component string part could
+change as part of the review of the kernel patches.
 
-Note the size of byt_rt5640_components is not increased because the
-size of 32 chars already is big enough.
+Regards,
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/soc/intel/boards/bytcr_rt5640.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Hans
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 5d48cc359c3d..1f6a636571c2 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1252,6 +1252,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	int ret_val = 0;
- 	int dai_index = 0;
- 	int i, cfg_spk;
-+	int aif;
- 
- 	is_bytcr = false;
- 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-@@ -1363,8 +1364,12 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	log_quirks(&pdev->dev);
- 
- 	if ((byt_rt5640_quirk & BYT_RT5640_SSP2_AIF2) ||
--	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
-+	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
- 		byt_rt5640_dais[dai_index].codecs->dai_name = "rt5640-aif2";
-+		aif = 2;
-+	} else {
-+		aif = 1;
-+	}
- 
- 	if ((byt_rt5640_quirk & BYT_RT5640_SSP0_AIF1) ||
- 	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
-@@ -1402,8 +1407,8 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	}
- 
- 	snprintf(byt_rt5640_components, sizeof(byt_rt5640_components),
--		 "cfg-spk:%d cfg-mic:%s", cfg_spk,
--		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)]);
-+		 "cfg-spk:%d cfg-mic:%s aif:%d", cfg_spk,
-+		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)], aif);
- 	byt_rt5640_card.components = byt_rt5640_components;
- #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- 	snprintf(byt_rt5640_long_name, sizeof(byt_rt5640_long_name),
+
+Hans de Goede (8):
+  codecs/rt5640: Cleanup: unify Stereo / Mono ADC handling
+  codecs/rt5640: Cleanup: Initially disable all inputs and outputs
+  codecs/rt5640: Cleanup: Move 'SPK MIX' setup to main EnableSequene
+  codecs/rt5640: Drop bogus 'DIG MIXL DAC L2 Switch' setting
+  codecs/rt5640: Unify capture volume for AIF1 and AIF2 recording paths
+  codecs/rt5640: Add hardware volume-control support
+  codecs/rt5640: Use the new "aif:%d" part of the components string
+  codecs/rt5640: Specify Playback/CaptureMasterElem for HW
+    volume-control
+
+ ucm2/bytcr-rt5640/HiFi.conf                   | 46 +++++++++++++++++
+ ucm2/codecs/rt5640/DigitalMics.conf           | 18 ++++++-
+ ucm2/codecs/rt5640/EnableSeq-AIF-unknown.conf |  7 +++
+ ucm2/codecs/rt5640/EnableSeq-AIF1.conf        |  7 +++
+ ucm2/codecs/rt5640/EnableSeq-AIF2.conf        |  7 +++
+ ucm2/codecs/rt5640/EnableSeq.conf             | 50 ++++++++++++++-----
+ ucm2/codecs/rt5640/HeadPhones.conf            | 15 +++++-
+ ucm2/codecs/rt5640/HeadsetMic.conf            | 24 ++++++---
+ ucm2/codecs/rt5640/IN1-InternalMic.conf       | 27 ++++++----
+ ucm2/codecs/rt5640/IN3-InternalMic.conf       | 27 ++++++----
+ ucm2/codecs/rt5640/MonoSpeaker.conf           | 17 +++++--
+ ucm2/codecs/rt5640/Speaker.conf               | 17 +++++--
+ 12 files changed, 211 insertions(+), 51 deletions(-)
+ create mode 100644 ucm2/codecs/rt5640/EnableSeq-AIF-unknown.conf
+ create mode 100644 ucm2/codecs/rt5640/EnableSeq-AIF1.conf
+ create mode 100644 ucm2/codecs/rt5640/EnableSeq-AIF2.conf
+
 -- 
 2.30.1
 

@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A96ED327FE4
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:47:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6453327FE1
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:47:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B94D16A4;
-	Mon,  1 Mar 2021 14:47:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B94D16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E2E81688;
+	Mon,  1 Mar 2021 14:46:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E2E81688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614606474;
-	bh=gro99E0owKf/xGuQ6O64WikhWUc5+Lw72LCTwxpAwec=;
+	s=default; t=1614606428;
+	bh=vdzXL2/ySjHgTH+ijSHxEwyHJcY2nnm7r32wop9NIxg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uwcwfl5RA8g84QPb37tn66fo2A2EYg3gMN6WmVd9sCZCL1Qq+XR7NafI3IgN0FGmI
-	 mT6G8Ern0c7aj+Q21Q3131dDJr/p87FD/bDVJvplP5Bntd8S46BzZaqip2UUBq3mTe
-	 zzKAoKiTy/JhUhppulkJbXPwUbreJBPWnuVKokAc=
+	b=ROQcLH+sB1B9gqgi+TVcUDy4V/NDEycFoJ8hJPAFUK19kFcRveDUWRSmNh2NmR0fP
+	 wRK1bQOuwvL2/X+Wedz2s8246UVcPVI64vRjiIoBmFpQJEzhbKArd5QRNfayISsCKj
+	 En1YUR/K4J1QUbC9FqwKs8yX9NWD80CEW2YTQHPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43BFBF80524;
-	Mon,  1 Mar 2021 14:43:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 380B7F8051C;
+	Mon,  1 Mar 2021 14:43:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9FCFF80161; Fri, 26 Feb 2021 14:35:48 +0100 (CET)
+ id 5C943F8025E; Fri, 26 Feb 2021 14:35:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 367B4F8016C
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 14:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 367B4F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87D14F80161
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 14:35:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87D14F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LjzPFPiI"
-Received: by mail-wr1-x434.google.com with SMTP id f12so4802906wrx.8
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 05:35:21 -0800 (PST)
+ header.b="Q7wdNd7f"
+Received: by mail-wm1-x329.google.com with SMTP id w7so7449636wmb.5
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 05:35:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=rk6bLCh8nc+NuZmX5ZCcY8DZ9W3U1ZFuulXl6O69h10=;
- b=LjzPFPiIZWsZKQqAL1Aqo/xGItIsf3caNfurvyRlHSyfVIt0E9Vwim/Z6LAaUROjJW
- 1rY7YhAYHrf2FuiPnTpjrldmidkjZyfVr9zlkLRgaqY8XUPE/waLrBby3zuiIn2Sfr1F
- FsZm4XLeVHCZGYQuOw+eDDwHBgmD0Sj6NAwLMr8lOSLSTIOIFROJEKhp+q6Q2fGT9XDr
- MNuMVCS544tyiKTV1DyTnBrgul7smQN5khwbsqz1bt9lRa5mdl8ZOJ/Gk6w4EZV9QtY2
- edRKYavDPRLeZFluJFlABfZKmBKxBXI6uzIltLbFCsT965wKrs+PKR/4lnByjFlMtYoi
- ISmQ==
+ bh=oxac2EZ2FKYl4R5ArrNEemLJ12gs169LloPc1HbjabE=;
+ b=Q7wdNd7fXk1oXdTO4LTL5UVoul4SoOp86RO7p2GNkUWHolJ8s6fyL5c7EUQPlbc5SF
+ vbt5Hv8KGy9I40tq4Za71fDvGeRnYb+jvmOyGKq76dAl18DdH1984PuUgh7fGF8x2xZE
+ 0QdwhqVd3MEpgGgt7YxtqTa4Pw7jjvwNLl2qelfPc3kMCdVju2txTbbvzrprN1S5/+w8
+ opijqiOJAvCuwdXNuPkbuk0rXiOfuin40APB8r6tHAz1g0FkEpFewhIgrhG2n4ftFF88
+ CONKrQFsYTl4Gjli2rq22TFybz0GH9tTcitzFstZf4/k4DHmO89LxNEhG92/Luz8rvcI
+ uz2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=rk6bLCh8nc+NuZmX5ZCcY8DZ9W3U1ZFuulXl6O69h10=;
- b=Y0Ow9TKsrdWM+RYsAJVxaiPewLRgi6MeTuUQTjIGYwB31pH8AhweHXbGkHTjJEoLX+
- HTKStwozVCTjCwKOYHlSmqD/49G7bEXGhw9KEdQMorL8VnJan9HxNa9/1tnMMztOMmfW
- sQruUifRgraj7JIk2Bg1arTrFmZZAr411W/M4WhqqpJxD7lMsW2bikiFe4EgsxzBWf5n
- Ykq6e75S9hT73iYibYBV8/oYJ6X7j6zOoAVx9p6VOHu3Rl1zB+xRNP8P/y80hZIn6Toi
- hSxV0PHHLb/2gaIHcbVu0dilMkeCOg7SeG1zz1FUmkLUb1/23ZIWeIUeFMjUOwPTGfCA
- 53mA==
-X-Gm-Message-State: AOAM533fUn11vivU4HciZNQxmy4U0O10z5G9geYGOPMcZXEN6MqRQJtG
- 0Y3jq12CqmI/Fdc8SVzVKMsY0lxLoo0fmq22
-X-Google-Smtp-Source: ABdhPJzLjYEjfYfE2R4rt8LAT6lafeN0e6eaNXl3faey3kXeD8u2OGAVeQY7DIFwnpzwfIPM2kfMew==
-X-Received: by 2002:adf:9b82:: with SMTP id d2mr3305521wrc.193.1614346519729; 
- Fri, 26 Feb 2021 05:35:19 -0800 (PST)
+ bh=oxac2EZ2FKYl4R5ArrNEemLJ12gs169LloPc1HbjabE=;
+ b=nNfA6SDuORR2m/m/nqtzJOOf3qPymScWZG0sl9Cd/wFkb73OwxZqQ7yDHUNxS3yO9x
+ yCLM0b3BkXwmcet/xvt+GGLu0bcdmcYC4m6G541Y6wsIVYyfs+X0yYHi2QeKhniHU2Tq
+ rT866fD11P12CrHl9kbwQNBp2hWg5EsUaNmR5e6AXrYM1t+JxxzNV6VutxKbluNmbkMO
+ O9j54QLdoCfKE2YIjy4bgLXRLXOPyNHdiw/PacK/7635Phe6d0UcJZEtOOGyVlUJfTbp
+ inmKAhmXMRxvLYI7iBPr4xiImLFlUthTMJjZK3OCUSWCPK/+7EK60EjVrQVB/XbKhu9R
+ cKAw==
+X-Gm-Message-State: AOAM5328NovuUW3JqhPk3C6pLFYI0R99/jZ2yButc7B6IZ1MlW0eKJcS
+ sduTxHYKmt5C/VZ0NYMQMunLslm/ysz5f3m7
+X-Google-Smtp-Source: ABdhPJwGvYvW1L1F26puN0lUXcUBDZ1s2nfKM58Lthhzo39PBEe+oObtS+jlE9H+UfR+2OjThY5FXA==
+X-Received: by 2002:a7b:c1c4:: with SMTP id a4mr3007047wmj.122.1614346520353; 
+ Fri, 26 Feb 2021 05:35:20 -0800 (PST)
 Received: from localhost.localdomain (176-171-138-112.abo.bbox.fr.
  [176.171.138.112])
- by smtp.googlemail.com with ESMTPSA id c26sm13175547wrb.87.2021.02.26.05.35.18
+ by smtp.googlemail.com with ESMTPSA id c26sm13175547wrb.87.2021.02.26.05.35.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Feb 2021 05:35:19 -0800 (PST)
+ Fri, 26 Feb 2021 05:35:20 -0800 (PST)
 From: Nicolas MURE <nicolas.mure2019@gmail.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/4] ASLA: usb-audio: Declare Pioneer DJM-850 mixer controls
-Date: Fri, 26 Feb 2021 14:34:27 +0100
-Message-Id: <20210226133429.20081-3-nicolas.mure2019@gmail.com>
+Subject: [PATCH 3/4] ALSA: usb-audio: Configure Pioneer DJM-850 samplerate
+Date: Fri, 26 Feb 2021 14:34:28 +0100
+Message-Id: <20210226133429.20081-4-nicolas.mure2019@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210226133429.20081-1-nicolas.mure2019@gmail.com>
 References: <20210226133429.20081-1-nicolas.mure2019@gmail.com>
@@ -101,94 +101,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Declare audio capture controls to choose the audio source, and also to
-set the capture level (in dB).
+Send an `URB_CONTROL out` USB frame to the device to configure its
+samplerate. This should be done before using the device for audio
+streaming (capture or playback).
+
+About the change of `usb_rcvctrlpipe` to `usb_sndctrlpipe`, I reached
+the author of this line and she agrees about this change. Control frames
+to set device options should have the `out` direction instead of the `in`
+direction.
 
 See https://github.com/nm2107/Pioneer-DJM-850-driver-reverse-engineering
     /blob/172fb9a61055960c88c67b7c416fe5bf3609807b
-    /doc/windows-djm-850-setting-utility/mixer-output-tab/README.md
+    /doc/windows-dvs/framerate-setting/README.md
 
 Signed-off-by: Nicolas MURE <nicolas.mure2019@gmail.com>
 ---
- sound/usb/mixer_quirks.c | 32 +++++++++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 3 deletions(-)
+ sound/usb/quirks.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 08873d2afe4d..b325b6597d91 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -2649,9 +2649,11 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
- #define SND_DJM_DEVICE_SHIFT	24
- 
- // device table index
-+// used for the snd_djm_devices table, so please update accordingly
- #define SND_DJM_250MK2_IDX	0x0
- #define SND_DJM_750_IDX		0x1
--#define SND_DJM_900NXS2_IDX	0x2
-+#define SND_DJM_850_IDX		0x2
-+#define SND_DJM_900NXS2_IDX	0x3
- 
- 
- #define SND_DJM_CTL(_name, suffix, _default_value, _windex) { \
-@@ -2733,11 +2735,12 @@ static const char *snd_djm_get_label(u16 wvalue, u16 windex)
- 	}
- };
- 
--
--// DJM-250MK2
-+// common DJM capture level option values
- static const u16 snd_djm_opts_cap_level[] = {
- 	0x0000, 0x0100, 0x0200, 0x0300 };
- 
-+
-+// DJM-250MK2
- static const u16 snd_djm_opts_250mk2_cap1[] = {
- 	0x0103, 0x0100, 0x0106, 0x0107, 0x0108, 0x0109, 0x010d, 0x010a };
- 
-@@ -2781,6 +2784,25 @@ static const struct snd_djm_ctl snd_djm_ctls_750[] = {
- };
- 
- 
-+// DJM-850
-+static const u16 snd_djm_opts_850_cap1[] = {
-+	0x0100, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010a, 0x010f };
-+static const u16 snd_djm_opts_850_cap2[] = {
-+	0x0200, 0x0201, 0x0206, 0x0207, 0x0208, 0x0209, 0x020a, 0x020f };
-+static const u16 snd_djm_opts_850_cap3[] = {
-+	0x0300, 0x0301, 0x0306, 0x0307, 0x0308, 0x0309, 0x030a, 0x030f };
-+static const u16 snd_djm_opts_850_cap4[] = {
-+	0x0400, 0x0403, 0x0406, 0x0407, 0x0408, 0x0409, 0x040a, 0x040f };
-+
-+static const struct snd_djm_ctl snd_djm_ctls_850[] = {
-+	SND_DJM_CTL("Capture Level", cap_level, 0, SND_DJM_WINDEX_CAPLVL),
-+	SND_DJM_CTL("Ch1 Input",   850_cap1, 1, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch2 Input",   850_cap2, 0, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch3 Input",   850_cap3, 0, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch4 Input",   850_cap4, 1, SND_DJM_WINDEX_CAP)
-+};
-+
-+
- // DJM-900NXS2
- static const u16 snd_djm_opts_900nxs2_cap1[] = {
- 	0x0100, 0x0102, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010a };
-@@ -2806,6 +2828,7 @@ static const struct snd_djm_ctl snd_djm_ctls_900nxs2[] = {
- static const struct snd_djm_device snd_djm_devices[] = {
- 	SND_DJM_DEVICE(250mk2),
- 	SND_DJM_DEVICE(750),
-+	SND_DJM_DEVICE(850),
- 	SND_DJM_DEVICE(900nxs2)
- };
- 
-@@ -3045,6 +3068,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_750_IDX);
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 9ba4682ebc48..d02dac5fcd40 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1482,7 +1482,7 @@ static int pioneer_djm_set_format_quirk(struct snd_usb_substream *subs,
+ 	usb_set_interface(subs->dev, 0, 1);
+ 	// we should derive windex from fmt-sync_ep but it's not set
+ 	snd_usb_ctl_msg(subs->stream->chip->dev,
+-		usb_rcvctrlpipe(subs->stream->chip->dev, 0),
++		usb_sndctrlpipe(subs->stream->chip->dev, 0),
+ 		0x01, 0x22, 0x0100, windex, &sr, 0x0003);
+ 	return 0;
+ }
+@@ -1503,6 +1503,9 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x2b73, 0x0013): /* Pioneer DJM-450 */
+ 		pioneer_djm_set_format_quirk(subs, 0x0082);
  		break;
-+	case USB_ID(0x08e4, 0x0163): /* Pioneer DJ DJM-850 */
-+		err = snd_djm_controls_create(mixer, SND_DJM_850_IDX);
++	case USB_ID(0x08e4, 0x0163): /* Pioneer DJM-850 */
++		pioneer_djm_set_format_quirk(subs, 0x0086);
 +		break;
- 	case USB_ID(0x2b73, 0x000a): /* Pioneer DJ DJM-900NXS2 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_900NXS2_IDX);
- 		break;
+ 	}
+ }
+ 
 -- 
 2.29.2
 

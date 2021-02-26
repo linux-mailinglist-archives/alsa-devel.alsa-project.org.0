@@ -2,66 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8F4E3263FF
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 15:25:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C951B326430
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 15:40:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BC311657;
-	Fri, 26 Feb 2021 15:24:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BC311657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6598D1657;
+	Fri, 26 Feb 2021 15:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6598D1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614349515;
-	bh=rx4lrCmSAE9Hl3qNyvSOFD1ZfZYt6Xluv/n96S/MNRc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d69FYRBonzViauOAmOGonmpwzgiPNV2N89wfK5i7ztXgpLg2+8HP/ewdqah2mmM3g
-	 xGowHjc6s8oGlxHR0q1/GApNXy+j4K2/tvsy5N9EbKzgskKwyiiVXFiDTV+0lUXPwb
-	 4GOLpgbjfVszaTzdQisUQx9Un/R1ShAIMnVeXbUk=
+	s=default; t=1614350406;
+	bh=+OMBuTSFR8v56qq9lr6zFBdNvMf+P9SFTnJJta5Hlqc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=W+/d8SVdIiMwopvs5akpiFOXAbg0NhGBk95lwXVWwCi0PAvqCb16OuFlDQ2KGXN03
+	 8jAwJYhk2wS8ylFdqQ3DECcz8zU5pv/bItUzkMUyvv+HLLoUUYqdPySY19AOwHHhzR
+	 68Jf7MWpMXdQ5bu1QOUjV4ZIsb29LWGm/U59yZFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84F69F8022B;
-	Fri, 26 Feb 2021 15:23:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7684DF8022B;
+	Fri, 26 Feb 2021 15:38:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07BEAF8016C; Fri, 26 Feb 2021 15:23:41 +0100 (CET)
+ id 94E3FF8022D; Fri, 26 Feb 2021 15:38:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6E6DF80159
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 15:38:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6E6DF80159
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="PrLF1mXR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614350304;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Ir4n9pV/80/UIAqwqudM2knF96w/6jxh9cw4RfmpH+Q=;
+ b=PrLF1mXRyCcvbo/0fl4vCYLDwDTvDgxkvkh+tX7xLJoTp4yiG34Hkr+AWhd4oLJ0rMgmxu
+ R0g4p7jDOjfTBY1wOpUjgNXSDDd/57joUT/BSzVFOd2I/E08eCsUgxHRCjLCFK1cck5F5V
+ 0b1YZ2BLYNWsUMiFS7FkQHXncGpueMk=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-351-B1JVukKVMEOZEl3CjKZ22A-1; Fri, 26 Feb 2021 09:38:22 -0500
+X-MC-Unique: B1JVukKVMEOZEl3CjKZ22A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E0A6F80159
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 15:23:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E0A6F80159
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DEAC9ADFB;
- Fri, 26 Feb 2021 14:23:37 +0000 (UTC)
-Date: Fri, 26 Feb 2021 15:23:37 +0100
-Message-ID: <s5ha6rqnc0m.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v5 6/9] ALSA: virtio: PCM substream operators
-In-Reply-To: <0a9f6dea-ed75-16eb-9fc2-84148fa820be@opensynergy.com>
-References: <20210222153444.348390-1-anton.yakovlev@opensynergy.com>
- <20210222153444.348390-7-anton.yakovlev@opensynergy.com>
- <s5h35xkquvj.wl-tiwai@suse.de>
- <d9b6e8fa-7356-1cbf-029b-6f7c8bad4994@opensynergy.com>
- <s5hlfbcpayj.wl-tiwai@suse.de>
- <20210225135951-mutt-send-email-mst@kernel.org>
- <s5hblc7opok.wl-tiwai@suse.de>
- <0a9f6dea-ed75-16eb-9fc2-84148fa820be@opensynergy.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 84A7B801979;
+ Fri, 26 Feb 2021 14:38:20 +0000 (UTC)
+Received: from x1.localdomain (ovpn-112-36.ams2.redhat.com [10.36.112.36])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 52C675D9D2;
+ Fri, 26 Feb 2021 14:38:18 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/5] AsoC: rt5640/rt5651: Volume control fixes
+Date: Fri, 26 Feb 2021 15:38:12 +0100
+Message-Id: <20210226143817.84287-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Oder Chiou <oder_chiou@realtek.com>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,108 +95,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Feb 2021 23:19:31 +0100,
-Anton Yakovlev wrote:
-> 
-> On 25.02.2021 21:30, Takashi Iwai wrote:> On Thu, 25 Feb 2021 20:02:50
-> +0100,
-> > Michael S. Tsirkin wrote:
-> >>
-> >> On Thu, Feb 25, 2021 at 01:51:16PM +0100, Takashi Iwai wrote:
-> >>> On Thu, 25 Feb 2021 13:14:37 +0100,
-> >>> Anton Yakovlev wrote:
-> 
-> 
-> [snip]
-> 
-> 
-> >> Takashi given I was in my tree for a while and I planned to merge
-> >> it this merge window.
-> >
-> > Hmm, that's too quick, I'm afraid.  I see still a few rough edges in
-> > the code.  e.g. the reset work should be canceled at the driver
-> > removal, but it's missing right now.  And that'll become tricky
-> > because the reset work itself unbinds the device, hence it'll get
-> > stuck if calling cancel_work_sync() at remove callback.
-> 
-> Yes, you made a good point here! In this case, we need some external
-> mutex for synchronization. This is just a rough idea, but maybe
-> something like this might work:
-> 
-> struct reset_work {
->     struct mutex mutex;
->     struct work_struct work;
->     struct virtio_snd *snd;
->     bool resetting;
-> };
-> 
-> static struct reset_work reset_works[SNDRV_CARDS];
-> 
-> init()
->     // init mutexes and workers
-> 
-> 
-> virtsnd_probe()
->     snd_card_new(snd->card)
->     reset_works[snd->card->number].snd = snd;
-> 
-> 
-> virtsnd_remove()
->     mutex_lock(reset_works[snd->card->number].mutex)
->     reset_works[snd->card->number].snd = NULL;
->     resetting = reset_works[snd->card->number].resetting;
->     mutex_unlock(reset_works[snd->card->number].mutex)
-> 
->     if (!resetting)
->         // cancel worker reset_works[snd->card->number].work
->     // remove device
-> 
-> 
-> virtsnd_reset_fn(work)
->     mutex_lock(work->mutex)
->     if (!work->snd)
->         // do nothing and take an exit path
->     work->resetting = true;
->     mutex_unlock(work->mutex)
-> 
->     device_reprobe()
-> 
->     work->resetting = false;
-> 
-> 
-> interrupt_handler()
->     schedule_work(reset_works[snd->card->number].work);
-> 
-> 
-> What do you think?
+Hi All,
 
-I think it's still somehow racy.  Suppose that the reset_work is
-already running right before entering virtsnd_remove(): it sets
-reset_works[].resetting flag, virtsnd_remove() skips canceling, and
-both reset work and virtsnd_remove() perform at the very same time.
-(I don't know whether this may happen, but I assume it's possible.)
+Here is a series of rt5640/rt5651 volume-control fixes which I wrote
+while working on a bytcr-rt5640 UCM profile patch-series adding
+hardware-volume control to devices using this UCM profile.
 
-In that case, maybe a better check is to check current_work(), and
-perform cancel_work_sync() unless it's &reset_works[].work itself.
-Then the recursive cancel call can be avoided.
+The UCM series will also work on older kernels, but it works best on
+kernels with this series applied, giving e.g. finer grained volume
+control and support for hardware muting the outputs.
 
-After that point, the reset must be completed, and we can (again)
-process the rest release procedure.  (But also snd object itself might
-have been changed again, so it needs to be re-evaluated.)
+Regards,
 
-One remaining concern is that the card number of the sound instance
-may change after reprobe.  That is, we may want to another persistent
-object instead of accessing via an array index of sound card number.
-So, we might need reset_works[] associated with virtio_snd object
-instead.
-
-In anyway, this is damn complex.  I sincerely hope that we can avoid
-this kind of things.  Wouldn't it be better to shift the reset stuff
-up to the virtio core layer?  Or drop the feature in the first
-version.  Shooting itself (and revival) is a dangerous magic spell,
-after all.
+Hans
 
 
-thanks,
+Hans de Goede (5):
+  ASoC: rt5640: Fix dac- and adc- vol-tlv values being off by a factor
+    of 10
+  ASoC: rt5651: Fix dac- and adc- vol-tlv values being off by a factor
+    of 10
+  ASoC: rt5640: Add emulated 'DAC1 Playback Switch' control
+  ASoC: rt5640: Rename 'Mono DAC Playback Volume' to 'DAC2 Playback
+    Volume'
+  ASoC: Intel: bytcr_rt5640: Add used AIF to the components string
 
-Takashi
+ sound/soc/codecs/rt5640.c             | 106 +++++++++++++++++++++++---
+ sound/soc/codecs/rt5640.h             |   4 +
+ sound/soc/codecs/rt5651.c             |   4 +-
+ sound/soc/intel/boards/bytcr_rt5640.c |  11 ++-
+ 4 files changed, 111 insertions(+), 14 deletions(-)
+
+-- 
+2.30.1
+

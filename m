@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABB532666F
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 18:47:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17830326670
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Feb 2021 18:47:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4BEF1688;
-	Fri, 26 Feb 2021 18:46:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BEF1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DAD1169A;
+	Fri, 26 Feb 2021 18:46:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DAD1169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614361655;
-	bh=nlrAupLDNJXQ3FoUaIuZqIrf8ZETfgqtyzI4536bqVY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614361668;
+	bh=FpAID+yww7ECl6+7sMP3KvaXMYoESRrDorcePwbRnJo=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b4V0xOL+Fv4Y6EuNkIAN1KW8/NlGkU9iwvb004qGVH3GHUQIZjx1qASelkNUv74yb
-	 lG5SF3MB7zSQQAuwVruxtpgQBZyiI58JtppJDHBz7srJny1hh1Z3vsJ1AVVL9sMaH2
-	 BhjMBbpJvnbTFLMOZJnsMD6Dl8VaySpx2xBJ+npY=
+	b=SOHY2bdaDYJHKG1/NTbNTbpbJir7y8fhNPJgP49rR4ajPIj5gEPQs4Hks0h4mxUIe
+	 I/TTzgyktJXYTBI++YcM7TWl1zE5WQccaHYGGwVfPd3wExgnCtvZvhTP+YGORpIUif
+	 G0QvOOwd8BZTW+IxP4FFzd77dci6UeqBRzP15Mp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECF79F8022B;
-	Fri, 26 Feb 2021 18:46:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4805F80154;
+	Fri, 26 Feb 2021 18:46:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D961F8022B; Fri, 26 Feb 2021 18:46:03 +0100 (CET)
+ id 4A040F8016C; Fri, 26 Feb 2021 18:46:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.4 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E681F8012C
- for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 18:45:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E681F8012C
-IronPort-SDR: 2To+Fg7X2qTECCc0VryhNjnZwWh9l1GDI8j5fUHi8K3kWIt36oca/lA+gvcSn1kVAmpzMHgJIq
- iFCGj998P+Mw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9907"; a="185262044"
-X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="185262044"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DFA7F80161
+ for <alsa-devel@alsa-project.org>; Fri, 26 Feb 2021 18:46:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DFA7F80161
+IronPort-SDR: QSYj/IuWyMtUdxJp9ODnK8m3M3v+KVjxvccWfnQyZZZNVnKXnxjvO9cVcY+OFkUg8F7BuTHkZM
+ SnoaespZVytA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9907"; a="185262051"
+X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="185262051"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2021 09:45:37 -0800
-IronPort-SDR: euc8B0W1H4NFKQOSN7g5l2A4ovhz1sX9su9tk7znskuX1brkoXRu6dcT6iMPX8ATrqEuvThh7b
- QUd9MlpVjAGg==
-X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="432857273"
+ 26 Feb 2021 09:45:39 -0800
+IronPort-SDR: Y0GiQagDo5GTv1ZbQ03rpUeN62xAuAnWazm1QzYWLEEBE5IEnu7+iFEmPfDYwUlwJYTFCKD63S
+ b7lsREAmef/w==
+X-IronPort-AV: E=Sophos;i="5.81,209,1610438400"; d="scan'208";a="432857280"
 Received: from esnyder-desk.amr.corp.intel.com (HELO [10.255.230.205])
  ([10.255.230.205])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2021 09:45:35 -0800
-Subject: Re: [PATCH 3/3] soundwire: qcom: add clock stop via runtime pm support
+ 26 Feb 2021 09:45:38 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/3] soundwire: qcom: add auto enumeration support
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
 References: <20210226170250.9067-1-srinivas.kandagatla@linaro.org>
- <20210226170250.9067-4-srinivas.kandagatla@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2899ca9e-2938-4d8d-5e56-49eba8cdb920@linux.intel.com>
-Date: Fri, 26 Feb 2021 11:41:16 -0600
+ <20210226170250.9067-3-srinivas.kandagatla@linaro.org>
+Message-ID: <0c551b23-7ed4-59d7-72c2-284bdf8584f1@linux.intel.com>
+Date: Fri, 26 Feb 2021 11:44:06 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210226170250.9067-4-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210226170250.9067-3-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org
+Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,267 +82,129 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +	pm_runtime_get_sync(ctrl->dev);
+> +static int qcom_swrm_enumerate(struct sdw_bus *bus)
+> +{
+> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+> +	struct sdw_slave *slave, *_s;
+> +	struct sdw_slave_id id;
+> +	u32 val1, val2;
+> +	u64 addr;
+> +	int i;
+> +	char *buf1 = (char *)&val1, *buf2 = (char *)&val2;
+> +
+> +	for (i = 1; i < (SDW_MAX_DEVICES + 1); i++) {
 
-if this fails you've got to do a put_noidle().
-
-we use this for Intel:
-
-	ret = pm_runtime_get_sync(cdns->dev);
-	if (ret < 0 && ret != -EACCES) {
-		dev_err_ratelimited(cdns->dev,
-				    "pm_runtime_get_sync failed in %s, ret %d\n",
-				    __func__, ret);
-		pm_runtime_put_noidle(cdns->dev);
-		return ret;
-	}
+I don't understand the (SDW_MAX_DEVICES + 1)?
 
 
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
->   
->   	complete(&ctrl->enumeration);
->   	return 0;
-> @@ -421,6 +427,7 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+> +		/*SCP_Devid5 - Devid 4*/
+> +		ctrl->reg_read(ctrl, SWRM_ENUMERATOR_SLAVE_DEV_ID_1(i), &val1);
+> +
+> +		/*SCP_Devid3 - DevId 2 Devid 1 Devid 0*/
+> +		ctrl->reg_read(ctrl, SWRM_ENUMERATOR_SLAVE_DEV_ID_2(i), &val2);
+
+Do you mind explaining a bit what happens here?
+Does the hardware issue commands to read all DevID registers and set the 
+device number automagically?
+If yes, then in SoundWire parlance the enumeration is complete. What you 
+are doing below is no longer part of the enumeration.
+
+
+> +
+> +		if (!val1 && !val2)
+> +			break;
+> +
+> +		addr = buf2[1] | (buf2[0] << 8) | (buf1[3] << 16) |
+> +			((u64)buf1[2] << 24) | ((u64)buf1[1] << 32) |
+> +			((u64)buf1[0] << 40);
+> +
+> +		sdw_extract_slave_id(bus, addr, &id);
+> +		/* Now compare with entries */
+> +		list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
+> +			if (sdw_compare_devid(slave, id) == 0) {
+> +				u32 status = qcom_swrm_get_n_device_status(ctrl, i);
+> +				if (status == SDW_SLAVE_ATTACHED) {
+> +					slave->dev_num = i;
+> +					mutex_lock(&bus->bus_lock);
+> +					set_bit(i, bus->assigned);
+> +					mutex_unlock(&bus->bus_lock);
+> +
+> +				}
+
+And that part is strange as well. The bus->assigned bit should be set 
+even if the Slave is not in the list provided by platform firmware. It's 
+really tracking the state of the hardware, and it should not be 
+influenced by what software knows to manage.
+
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	complete(&ctrl->enumeration);
+
+you have init_completion() and complete() in this patch, but no 
+wait_for_completion(), so that should be added in a later patch, no?
+
+> +	return 0;
+> +}
+> +
+>   static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>   {
+>   	struct qcom_swrm_ctrl *swrm = dev_id;
+> -	u32 value, intr_sts, intr_sts_masked;
+> +	u32 value, intr_sts, intr_sts_masked, slave_status;
+>   	u32 i;
 >   	u8 devnum = 0;
 >   	int ret = IRQ_HANDLED;
+> @@ -382,10 +443,19 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>   				break;
+>   			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+>   			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+> -				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
+> +				dev_err_ratelimited(swrm->dev, "%s: SWR slave status changed\n",
+>   					__func__);
+> -				qcom_swrm_get_device_status(swrm);
+> -				sdw_handle_slave_status(&swrm->bus, swrm->status);
+> +				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
+> +				if (swrm->slave_status == slave_status) {
+> +					dev_err(swrm->dev, "Slave status not changed %x\n",
+> +						slave_status);
+> +					break;
+> +				} else {
+> +					dev_err(swrm->dev, "Slave status handle %x\n", slave_status);
+> +					qcom_swrm_get_device_status(swrm);
+> +					qcom_swrm_enumerate(&swrm->bus);
+> +					sdw_handle_slave_status(&swrm->bus, swrm->status);
+> +				}
+>   				break;
+>   			case SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET:
+>   				dev_err_ratelimited(swrm->dev,
+> @@ -472,8 +542,8 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
 >   
-> +	clk_prepare_enable(swrm->hclk);
->   	swrm->reg_read(swrm, SWRM_INTERRUPT_STATUS, &intr_sts);
->   	intr_sts_masked = intr_sts & swrm->intr_mask;
+>   	ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
 >   
-> @@ -529,6 +536,7 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->   		intr_sts_masked = intr_sts & swrm->intr_mask;
->   	} while (intr_sts_masked);
+> -	/* Disable Auto enumeration */
+> -	ctrl->reg_write(ctrl, SWRM_ENUMERATOR_CFG_ADDR, 0);
+> +	/* Enable Auto enumeration */
+> +	ctrl->reg_write(ctrl, SWRM_ENUMERATOR_CFG_ADDR, 1);
 >   
-> +	clk_disable_unprepare(swrm->hclk);
->   	return ret;
->   }
->   
-> @@ -587,6 +595,8 @@ static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
->   	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->   	int ret, i, len;
->   
-> +	pm_runtime_get_sync(ctrl->dev);
-> +
->   	if (msg->flags == SDW_MSG_FLAG_READ) {
->   		for (i = 0; i < msg->len;) {
->   			if ((msg->len - i) < QCOM_SWRM_MAX_RD_LEN)
-> @@ -598,7 +608,7 @@ static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
->   							msg->addr + i, len,
->   						       &msg->buf[i]);
->   			if (ret)
-> -				return ret;
-> +				goto done;
->   
->   			i = i + len;
->   		}
-> @@ -607,12 +617,20 @@ static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
->   			ret = qcom_swrm_cmd_fifo_wr_cmd(ctrl, msg->buf[i],
->   							msg->dev_num,
->   						       msg->addr + i);
-> -			if (ret)
-> -				return SDW_CMD_IGNORED;
-> +			if (ret) {
-> +				ret = SDW_CMD_IGNORED;
-> +				goto done;
-> +			}
->   		}
+>   	ctrl->intr_mask = SWRM_INTERRUPT_STATUS_RMSK;
+>   	/* Mask soundwire interrupts */
+> @@ -507,6 +577,7 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+>   		ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN,
+>   				SWRM_INTERRUPT_STATUS_RMSK);
 >   	}
->   
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-
-wrong order, you've got to mark_last_busy before the put().
-
->   	return SDW_CMD_OK;
-> +done:
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-> +	return ret;
-
-this looks weird. why not reuse the same flow and return ret in all cases?
-
->   }
->   
->   static int qcom_swrm_pre_bank_switch(struct sdw_bus *bus)
-> @@ -620,13 +638,19 @@ static int qcom_swrm_pre_bank_switch(struct sdw_bus *bus)
->   	u32 reg = SWRM_MCP_FRAME_CTRL_BANK_ADDR(bus->params.next_bank);
->   	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->   	u32 val;
-> +	int ret;
->   
-> +	pm_runtime_get_sync(ctrl->dev);
->   	ctrl->reg_read(ctrl, reg, &val);
->   
->   	u32p_replace_bits(&val, ctrl->cols_index, SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK);
->   	u32p_replace_bits(&val, ctrl->rows_index, SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK);
->   
-> -	return ctrl->reg_write(ctrl, reg, val);
-> +	ret = ctrl->reg_write(ctrl, reg, val);
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-> +
-> +	return ret;
->   }
->   
->   static int qcom_swrm_port_params(struct sdw_bus *bus,
-> @@ -634,13 +658,18 @@ static int qcom_swrm_port_params(struct sdw_bus *bus,
->   				 unsigned int bank)
->   {
->   	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
-> +	int ret = 0;
-> +	pm_runtime_get_sync(ctrl->dev);
->   
->   	if (p_params->bps != SWR_INVALID_PARAM)
-> -		return ctrl->reg_write(ctrl,
-> +		ret = ctrl->reg_write(ctrl,
->   				       SWRM_DP_BLOCK_CTRL_1(p_params->num),
->   				       p_params->bps - 1);
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-
-it feels like all you pm_runtime_get/put() should be moved to your 
-register read/write operations?
-
->   
-> -	return 0;
-> +
-> +	return ret;
->   }
->   
->   static int qcom_swrm_transport_params(struct sdw_bus *bus,
-> @@ -651,6 +680,7 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
->   	u32 value;
->   	int reg = SWRM_DP_PORT_CTRL_BANK((params->port_num), bank);
->   	int ret;
-> +	pm_runtime_get_sync(ctrl->dev);
->   
->   	value = params->offset1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
->   	value |= params->offset2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
-> @@ -685,6 +715,9 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
->   		reg = SWRM_DP_BLOCK_CTRL3_BANK(params->port_num, bank);
->   		ret = ctrl->reg_write(ctrl, reg, params->blk_pkg_mode);
->   	}
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-> +
->   
->   	return ret;
->   }
-> @@ -696,6 +729,9 @@ static int qcom_swrm_port_enable(struct sdw_bus *bus,
->   	u32 reg = SWRM_DP_PORT_CTRL_BANK(enable_ch->port_num, bank);
->   	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->   	u32 val;
-> +	int ret;
-> +
-> +	pm_runtime_get_sync(ctrl->dev);
->   
->   	ctrl->reg_read(ctrl, reg, &val);
->   
-> @@ -704,7 +740,11 @@ static int qcom_swrm_port_enable(struct sdw_bus *bus,
->   	else
->   		val &= ~(0xff << SWRM_DP_PORT_CTRL_EN_CHAN_SHFT);
->   
-> -	return ctrl->reg_write(ctrl, reg, val);
-> +	ret  = ctrl->reg_write(ctrl, reg, val);
-> +	pm_runtime_mark_last_busy(ctrl->dev);
-> +	pm_runtime_put_autosuspend(ctrl->dev);
-> +
-> +	return ret;
->   }
->   
->   static const struct sdw_master_port_ops qcom_swrm_port_ops = {
-> @@ -1194,6 +1234,13 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->   		 (ctrl->version >> 24) & 0xff, (ctrl->version >> 16) & 0xff,
->   		 ctrl->version & 0xffff);
->   
-> +	pm_runtime_set_autosuspend_delay(dev, 30000);
-
-30s? that sounds very very long for an audio device.
-
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_mark_last_busy(dev);
-> +
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
->   	return 0;
->   
->   err_master_add:
-> @@ -1214,6 +1261,47 @@ static int qcom_swrm_remove(struct platform_device *pdev)
+> +	ctrl->slave_status = 0;
 >   	return 0;
 >   }
 >   
-> +static int swrm_runtime_resume(struct device *dev)
-> +{
-> +	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
-> +
-> +	reinit_completion(&ctrl->enumeration);
-> +	clk_prepare_enable(ctrl->hclk);
-> +	ctrl->reg_write(ctrl, SWRM_COMP_SW_RESET, 0x01);
-> +	qcom_swrm_get_device_status(ctrl);
-> +	sdw_handle_slave_status(&ctrl->bus, ctrl->status);
-> +	qcom_swrm_init(ctrl);
-> +	wait_for_completion_timeout(&ctrl->enumeration,
-> +					msecs_to_jiffies(TIMEOUT_MS));
-> +	usleep_range(100, 105);
-> +
-> +	pm_runtime_mark_last_busy(dev);
-
-Humm, what 'clock stop' are we talking about here?
-
-In SoundWire 1.x devices, you can stop the BUS clock and not have to 
-redo any enumeration on resume, devices are required to save their 
-context.  You have to also follow the pattern of preparing and 
-broadcasting the CLOCK STOP NOW message.
-
-It looks like you are stopping something else, and completely resetting 
-the hardware. It's fine, it's just a reset but not clock stop support as 
-defined in the SoundWire spec.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused swrm_runtime_suspend(struct device *dev)
-> +{
-> +	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
-> +
-> +	/* Mask bus clash interrupt */
-> +	ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
-> +	ctrl->reg_write(ctrl, SWRM_INTERRUPT_MASK_ADDR, ctrl->intr_mask);
-> +	ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
-> +	/* clock stop sequence */
-> +	qcom_swrm_cmd_fifo_wr_cmd(ctrl, 0x2, 0xF, SDW_SCP_CTRL);
-
-Humm, this looks like writing in SCP_CTRL::ClockStopNow, so why is 
-enumeration required on restart?
-
-If you take down the bus and reset everything, you don't need to do this 
-sequence. a hardware reset will do...
-
-> +
-> +	clk_disable_unprepare(ctrl->hclk);
-> +
-> +	usleep_range(100, 105);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops swrm_dev_pm_ops = {
-> +	SET_RUNTIME_PM_OPS(swrm_runtime_suspend, swrm_runtime_resume, NULL)
-> +};
-> +
->   static const struct of_device_id qcom_swrm_of_match[] = {
->   	{ .compatible = "qcom,soundwire-v1.3.0", .data = &swrm_v1_3_data },
->   	{ .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
-> @@ -1228,6 +1316,7 @@ static struct platform_driver qcom_swrm_driver = {
->   	.driver = {
->   		.name	= "qcom-soundwire",
->   		.of_match_table = qcom_swrm_of_match,
-> +		.pm = &swrm_dev_pm_ops,
->   	}
->   };
->   module_platform_driver(qcom_swrm_driver);
+> @@ -1068,6 +1139,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   	dev_set_drvdata(&pdev->dev, ctrl);
+>   	mutex_init(&ctrl->port_lock);
+>   	init_completion(&ctrl->broadcast);
+> +	init_completion(&ctrl->enumeration);
+>   
+>   	ctrl->bus.ops = &qcom_swrm_ops;
+>   	ctrl->bus.port_ops = &qcom_swrm_port_ops;
 > 

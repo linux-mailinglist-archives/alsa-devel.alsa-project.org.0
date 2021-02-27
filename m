@@ -2,51 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 516CE326CD1
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Feb 2021 11:59:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A99326D73
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Feb 2021 15:56:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E52D7168C;
-	Sat, 27 Feb 2021 11:58:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E52D7168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08C8A167B;
+	Sat, 27 Feb 2021 15:55:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08C8A167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614423563;
-	bh=vqOTbKEtm6nlQuURqI9Nb0pMeEB45vGMiL5l+3hQ8wY=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=c/6TPh5QcEiSleLWXlo+ElrSKfwrUVkkDJr4c/knfgsZmix5/G1NyWzKQI7R0wA1h
-	 7kZNjNEM6MD5JdKLE00A56SmJYEQWC4tO0EyaGKElPx3CjIctDteiGO4UAIuG7kQNB
-	 pTNFTstmP5cXcKXEBCn95prGTPQo+XmjhrJp7plY=
+	s=default; t=1614437776;
+	bh=fwgmtIycWTAmRO0oTFbxuLux0a0E92ldtRkqRH0/qo8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UmnJy4FeBPUFbPoTCnWv3duoDjPFNgkLkmSRJRD2Yq5FjMcrWQgMBx08PiKWqHdwy
+	 G5syyB3W2lKS7EUn03xVLVIohjENq33bM85AHzQcq9FXGZXEIX9aSP8zgLe7quA9RD
+	 sv4yUmTrsPrekd5RTyTLCMaEzEZ02p1rPq7aBAR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EE3BF8016D;
-	Sat, 27 Feb 2021 11:57:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 275FBF800EF;
+	Sat, 27 Feb 2021 15:54:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFB86F8016A; Sat, 27 Feb 2021 11:57:49 +0100 (CET)
+ id 915BBF8016A; Sat, 27 Feb 2021 15:54:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97510F80159
- for <alsa-devel@alsa-project.org>; Sat, 27 Feb 2021 11:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97510F80159
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DB492AD74
- for <alsa-devel@alsa-project.org>; Sat, 27 Feb 2021 10:57:37 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Drop bogus dB range in too low level
-Date: Sat, 27 Feb 2021 11:57:37 +0100
-Message-Id: <20210227105737.3656-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 54B9FF800EF
+ for <alsa-devel@alsa-project.org>; Sat, 27 Feb 2021 15:54:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B9FF800EF
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1614437675099823952-webhooks-bot@alsa-project.org>
+References: <1614437675099823952-webhooks-bot@alsa-project.org>
+Subject: broadwell-rt286, bdw-rt5677: detect card when using Catpt driver
+Message-Id: <20210227145443.915BBF8016A@alsa1.perex.cz>
+Date: Sat, 27 Feb 2021 15:54:43 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,48 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some USB audio firmware seem to report broken dB values for the volume
-controls, and this screws up applications like PulseAudio who blindly
-trusts the given data.  For example, Edifier G2000 reports a PCM
-volume from -128dB to -127dB, and this results in barely inaudible
-sound.
+alsa-project/alsa-ucm-conf pull request #85 was opened from dpward:
 
-This patch adds a sort of sanity check at parsing the dB values in
-USB-audio driver and disables the dB reporting if the range looks
-bogus.  Here, we assume -96dB as the bottom line of the max dB.
+Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=1933229
 
-Note that, if one can figure out that proper dB range later, it can be
-patched in the mixer maps.
-
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211929
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index b1c78db0d470..b004b2e63a5d 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1307,6 +1307,17 @@ static int get_min_max_with_quirks(struct usb_mixer_elem_info *cval,
- 			/* totally crap, return an error */
- 			return -EINVAL;
- 		}
-+	} else {
-+		/* if the max volume is too low, it's likely a bogus range;
-+		 * here we use -96dB as the threshold
-+		 */
-+		if (cval->dBmax <= -9600) {
-+			usb_audio_info(cval->head.mixer->chip,
-+				       "%d:%d: bogus dB values (%d/%d), disabling dB reporting\n",
-+				       cval->head.id, mixer_ctrl_intf(cval->head.mixer),
-+				       cval->dBmin, cval->dBmax);
-+			cval->dBmin = cval->dBmax = 0;
-+		}
- 	}
- 
- 	return 0;
--- 
-2.26.2
-
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/85
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/85.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,48 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A99326D73
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Feb 2021 15:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F71F327180
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 09:03:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08C8A167B;
-	Sat, 27 Feb 2021 15:55:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08C8A167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C066166C;
+	Sun, 28 Feb 2021 09:02:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C066166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614437776;
-	bh=fwgmtIycWTAmRO0oTFbxuLux0a0E92ldtRkqRH0/qo8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UmnJy4FeBPUFbPoTCnWv3duoDjPFNgkLkmSRJRD2Yq5FjMcrWQgMBx08PiKWqHdwy
-	 G5syyB3W2lKS7EUn03xVLVIohjENq33bM85AHzQcq9FXGZXEIX9aSP8zgLe7quA9RD
-	 sv4yUmTrsPrekd5RTyTLCMaEzEZ02p1rPq7aBAR0=
+	s=default; t=1614499402;
+	bh=lto5AwqbkRyjeZjAhD0d0q/2E5cQc7XB8l+siS78hi0=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nFiz1vqra/LpGah5H8wDgrA4TccH3JB4r8bRXqBsiSgbB0ajIu34WQrHDJme21kOL
+	 663LLiDPA6OYghxErxEL6eJfW/lmE71woBOtV7RLnd70T8vo64rNaitH5mm92ITXCT
+	 BzW5HovoLNMGXny81PjzWBjz+e71n8YIGHe3sL3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 275FBF800EF;
-	Sat, 27 Feb 2021 15:54:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD3F9F80269;
+	Sun, 28 Feb 2021 09:01:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 915BBF8016A; Sat, 27 Feb 2021 15:54:43 +0100 (CET)
+ id 047ABF8025B; Sun, 28 Feb 2021 09:01:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 54B9FF800EF
- for <alsa-devel@alsa-project.org>; Sat, 27 Feb 2021 15:54:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B9FF800EF
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABDC5F800E0
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 09:01:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABDC5F800E0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CF1ECAB8C
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 08:01:39 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1614437675099823952-webhooks-bot@alsa-project.org>
-References: <1614437675099823952-webhooks-bot@alsa-project.org>
-Subject: broadwell-rt286, bdw-rt5677: detect card when using Catpt driver
-Message-Id: <20210227145443.915BBF8016A@alsa1.perex.cz>
-Date: Sat, 27 Feb 2021 15:54:43 +0100 (CET)
+Subject: [PATCH] ALSA: usb-audio: Allow modifying parameters with succeeding
+ hw_params calls
+Date: Sun, 28 Feb 2021 09:01:38 +0100
+Message-Id: <20210228080138.9936-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +63,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #85 was opened from dpward:
+The recent fix for the hw constraints for implicit feedback streams
+via commit e4ea77f8e53f ("ALSA: usb-audio: Always apply the hw
+constraints for implicit fb sync") added the check of the matching
+endpoints and whether those EPs are already opened.  This is needed
+and correct, per se, even for the normal streams without the implicit
+feedback, as the endpoint setup is exclusive.
 
-Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=1933229
+However, it's reported that there seem applications that behave in
+unexpected ways to update the hw_params without clearing the previous
+setup via hw_free, and those hit a problem now: then hw_params is
+called with still the previous EP setup kept, hence it's restricted
+with the previous own setup.  Although the obvious fix is to call
+snd_pcm_hw_free() API in the application side, it's a kind of
+unwelcome change.
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/85
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/85.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+This patch tries to ease the situation: in the endpoint check, we add
+a couple of more conditions and now skip the endpoint that is being
+used only by the stream in question itself.  That is, in addition to
+the presence check of ep (ep->cur_audiofmt is non-NULL), when the
+following conditions are met, we skip such an ep:
+- ep->opened == 1, and
+- ep->cur_audiofmt == subs->cur_audiofmt.
+
+subs->cur_audiofmt is non-NULL only if it's a re-setup of hw_params,
+and ep->cur_audiofmt points to the currently set up parameters.  So if
+those match, it must be this stream itself.
+
+Fixes: e4ea77f8e53f ("ALSA: usb-audio: Always apply the hw constraints for implicit fb sync")
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211941
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/pcm.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index bf5a0f3c1fad..e5311b6bb3f6 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -845,13 +845,19 @@ get_sync_ep_from_substream(struct snd_usb_substream *subs)
+ 
+ 	list_for_each_entry(fp, &subs->fmt_list, list) {
+ 		ep = snd_usb_get_endpoint(chip, fp->endpoint);
+-		if (ep && ep->cur_rate)
+-			return ep;
++		if (ep && ep->cur_audiofmt) {
++			/* if EP is already opened solely for this substream,
++			 * we still allow us to change the parameter; otherwise
++			 * this substream has to follow the existing parameter
++			 */
++			if (ep->cur_audiofmt != subs->cur_audiofmt || ep->opened > 1)
++				return ep;
++		}
+ 		if (!fp->implicit_fb)
+ 			continue;
+ 		/* for the implicit fb, check the sync ep as well */
+ 		ep = snd_usb_get_endpoint(chip, fp->sync_ep);
+-		if (ep && ep->cur_rate)
++		if (ep && ep->cur_audiofmt)
+ 			return ep;
+ 	}
+ 	return NULL;
+-- 
+2.26.2
+

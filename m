@@ -2,85 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E937327352
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 17:15:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBAA3273D1
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 19:41:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F6871680;
-	Sun, 28 Feb 2021 17:14:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F6871680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 157281660;
+	Sun, 28 Feb 2021 19:40:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 157281660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614528949;
-	bh=HwTvZYoUo2uSktneQ2wJY9UOM0nDnWw9kOjcmWlBh/8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1614537694;
+	bh=tIXuGBi3AThTZ4DD53Yl9s8SkTFuE0tbhPoOk7r8cLY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NIlSsbWUQm+1pUyjNslYhs7wH9J84GfVK2Cv39/q+ZNgD0wkg+mFkTIrNCHJvCg/F
-	 CFhvfMbl+7EV3SJqiLQnLR6La2XgA4sUe62NrUKe7VUftan2QlhxfXxiwJ2srNQ27I
-	 6rOVFMPmbrUGnZJZrpSBJuyT+RZsfHzP5oRsDOhs=
+	b=i6IWmC4eN2GFgTeOd8xwLnGjVxlA+kDnBZjDijfdSvQj6xaq8Df08xIk2zRQHArlN
+	 pKC2LkzLX0LsWMtKbigMhJboN3jn1n8EGKseewXmuxABx1CnPIesLFoMRvmUIvw9X4
+	 2RDkM905OnWwb4oNes8+HgW01Q96kozeFnyYg1B0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D907F8032C;
-	Sun, 28 Feb 2021 17:13:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87F81F80269;
+	Sun, 28 Feb 2021 19:40:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4284AF8032B; Sun, 28 Feb 2021 17:13:23 +0100 (CET)
+ id 038B1F8025B; Sun, 28 Feb 2021 19:40:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40FDFF802CA
- for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 17:13:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40FDFF802CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 657DAF8010A
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 19:39:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 657DAF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="e2Cj/wqG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1614528796;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Iq9K1XL+5Xx2t2ocbqJbwkaPhir3n2G2A6GELJmn7tc=;
- b=e2Cj/wqGyGcLFwaB1/jHM1KzEkRSHkq4S3sZNzSI5hWgG626bEmJdqYof/zB6uk9u11YuW
- UxmTERQiEsNWX38qLUAH1jBT/7fz33zMlY2NSvihpDogvHp3q3BEWmIjesUxMKeFVWUXmN
- 4GE52EHjLAKMQ7/sN70f04m+Tpmrb2w=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-45-py1D0hXKNE2YKYAvNRUlAA-1; Sun, 28 Feb 2021 11:13:14 -0500
-X-MC-Unique: py1D0hXKNE2YKYAvNRUlAA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F5BB107ACE8;
- Sun, 28 Feb 2021 16:13:13 +0000 (UTC)
-Received: from x1.localdomain (ovpn-112-42.ams2.redhat.com [10.36.112.42])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 133575D9CC;
- Sun, 28 Feb 2021 16:13:08 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib v2 3/3] mixer: Add exception for some
- capture-vol-ctls which have a " Volume" suffix
-Date: Sun, 28 Feb 2021 17:13:04 +0100
-Message-Id: <20210228161304.241288-4-hdegoede@redhat.com>
-In-Reply-To: <20210228161304.241288-1-hdegoede@redhat.com>
-References: <20210228161304.241288-1-hdegoede@redhat.com>
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="IXKlbZs2"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id DD430A12C6;
+ Sun, 28 Feb 2021 19:39:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=TQGOK+H3KWlj
+ CSgBxmVAZ5kqTgWKUCfHswD0WpIouoI=; b=IXKlbZs23ot8LKgE30mND+jN51/N
+ yEm/tla4svftVORM8an8h+YMkxY64UbQRbGJfPrmpfXhWUrDqyWgsdwNfSEmD7CJ
+ FF6ANT/rpfw4Qu1LDvEfuTl5bkd1ElTZ64uVTJXoTAuvtsNrzsnelDPHJDnwASxU
+ ZQXTXZiva3pDzFWWBHERmLGGwgJPYWvQpGU/3EdSsJFw6/BurM1zVbnuF5OgjTEl
+ 6YR2KDf+c7k3RyFsZPncc5Zrdqw1tbttFFLio8kV+dsbvPG14Mj7okA63k/Y5fdj
+ 9qPQm4bcDEBdhUJ2iubQEglb7noAT3kHVY4a4fFP0/LL351ClHlQxl+IgA==
+Subject: Re: [PATCH v6 3/9] ALSA: virtio: handling control messages
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
+ <20210227085956.1700687-4-anton.yakovlev@opensynergy.com>
+ <s5hv9acjvw6.wl-tiwai@suse.de>
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <174d09dd-ed8a-ecda-a392-48a2971b06cf@opensynergy.com>
+Date: Sun, 28 Feb 2021 19:39:49 +0100
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <s5hv9acjvw6.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SR-MAIL-01.open-synergy.com (10.26.10.21) To
+ SR-MAIL-01.open-synergy.com (10.26.10.21)
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,75 +86,126 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following ASoC codec drivers:
+On 28.02.2021 12:04, Takashi Iwai wrote:> On Sat, 27 Feb 2021 09:59:50 
++0100,
+> Anton Yakovlev wrote:
+>>
+>> --- a/sound/virtio/virtio_card.c
+>> +++ b/sound/virtio/virtio_card.c
+>> @@ -11,6 +11,10 @@
+>>
+>>   #include "virtio_card.h"
+>>
+>> +int msg_timeout_ms = MSEC_PER_SEC;
+>> +module_param(msg_timeout_ms, int, 0644);
+>> +MODULE_PARM_DESC(msg_timeout_ms, "Message completion timeout in milliseconds");
+> 
+> If it's a global variable, better to set a prefix to make it unique,
+> and use module_param_named().
 
-sound/soc/codecs/rt5659.c
-sound/soc/codecs/rt5660.c
-sound/soc/codecs/rt5665.c
-sound/soc/codecs/rt5668.c
-sound/soc/codecs/rt5670.c
-sound/soc/codecs/rt5682.c
+Yes, it makes sense.
 
-Use the following troublesome capture-volume-control names:
-"IN1 Boost Volume"
-"IN2 Boost Volume"
-"IN3 Boost Volume"
-"STO1 ADC Boost Gain Volume"
-"STO2 ADC Boost Gain Volume"
-"Mono ADC Boost Gain Volume"
 
-And sound/soc/codecs/es8316.c uses "ADC PGA Gain Volume".
+> And, it should be unsigned int, no? (unless a negative value has any meaning)
+> Otherwise...
 
-Note how these are suffixed with just " Volume" instead of
-"Capture Volume" add some special handling for this to the base_len()
-function, which is responsbile for getting the control-type,
-so that the type correctly gets set to CTL_CAPTURE_VOLUME instead of
-CTL_GLOBAL_VOLUME.
+And yes, it must be unsigned!
 
-This correctly makes snd_mixer_selem_has_capture_volume() return true for
-these (and makes snd_mixer_selem_has_common_volume() return false).
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- src/mixer/simple_none.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+>> +     if (!msg_timeout_ms) {
+>> +             dev_err(&vdev->dev, "msg_timeout_ms value cannot be zero\n");
+>> +             return -EINVAL;
+> 
+> Here a negative value would pass.
+> 
+> (snip)
+>> +int virtsnd_ctl_msg_send(struct virtio_snd *snd, struct virtio_snd_msg *msg,
+>> +                      struct scatterlist *out_sgs,
+>> +                      struct scatterlist *in_sgs, bool nowait)
+>> +{
+>> +     struct virtio_device *vdev = snd->vdev;
+>> +     struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
+>> +     unsigned int js = msecs_to_jiffies(msg_timeout_ms);
+>> +     struct virtio_snd_hdr *request = virtsnd_ctl_msg_request(msg);
+>> +     struct virtio_snd_hdr *response = virtsnd_ctl_msg_response(msg);
+>> +     unsigned int nouts = 0;
+>> +     unsigned int nins = 0;
+>> +     struct scatterlist *psgs[4];
+>> +     bool notify = false;
+>> +     unsigned long flags;
+>> +     int rc;
+>> +
+>> +     virtsnd_ctl_msg_ref(msg);
+>> +
+>> +     /* Set the default status in case the message was canceled. */
+>> +     response->code = cpu_to_le32(VIRTIO_SND_S_IO_ERR);
+>> +
+>> +     psgs[nouts++] = &msg->sg_request;
+>> +     if (out_sgs)
+>> +             psgs[nouts++] = out_sgs;
+>> +
+>> +     psgs[nouts + nins++] = &msg->sg_response;
+>> +     if (in_sgs)
+>> +             psgs[nouts + nins++] = in_sgs;
+>> +
+>> +     spin_lock_irqsave(&queue->lock, flags);
+>> +     rc = virtqueue_add_sgs(queue->vqueue, psgs, nouts, nins, msg,
+>> +                            GFP_ATOMIC);
+> 
+> It's a bit pity that we have to use GFP_ATOMIC always here...
+> As long as it's in spinlock, it's the only way.
 
-diff --git a/src/mixer/simple_none.c b/src/mixer/simple_none.c
-index 262e3516..22154647 100644
---- a/src/mixer/simple_none.c
-+++ b/src/mixer/simple_none.c
-@@ -914,9 +914,13 @@ static const struct suf {
-  */
- const char * const capture_volume_names[] = {
- 	"ADC Boost Gain",
-+	"ADC PGA Gain",
- 	"IN1 Boost",
- 	"IN2 Boost",
- 	"IN3 Boost",
-+	"Mono ADC Boost Gain",
-+	"STO1 ADC Boost Gain",
-+	"STO2 ADC Boost Gain",
- 	NULL
- };
- #endif
-@@ -944,6 +948,17 @@ static int base_len(const char *name, selem_ctl_type_t *type)
- 			*type = CTL_CAPTURE_VOLUME;
- 			return nlen;
- 		}
-+
-+		/*
-+		 * Sometimes these have a " Volume" suffix instead of a
-+		 * " Capture Volume" suffix. Check for this so that we set
-+		 * type to CTL_CAPTURE_VOLUME instead of CTL_GLOBAL_VOLUME.
-+		 */
-+		snprintf(buf, sizeof(buf), "%s Volume", capture_volume_names[i]);
-+		if (!strcmp(name, buf)) {
-+			*type = CTL_CAPTURE_VOLUME;
-+			return nlen - strlen(" Volume");
-+		}
- 	}
- 
- 	p = suffixes;
+Well, here we have no other choices, since we share the queue with
+an interrupt handler.
+
+
+> However, this reminds me of another question: may the virtio event be
+> handled in an atomic context, e.g. the period elapsed or xrun events?
+> If so, the current implementation with non-atomic PCM mode is wrong.
+> Since the non-atomic PCM uses mutex instead of spinlock, it'll lead to
+> a sleep-in-atomic in snd_pcm_period_elapsed() handling.
+> 
+> I suggested the non-atomic PCM *iff* the all contexts are sleepable;
+> then the sync can be done in each callback, which makes the code much
+> simpler usually.  But you've already implemented the sync via
+> sync_stop call, hence the non-atomic PCM has little benefit by its
+> own.
+
+The device provides 4 separate queues for communication with the driver,
+and different data is transmitted over these queues:
+
+The control queue (actually shared between all driver components) for
+sending commands to the device. These requests must be synchronous. For
+each request, the device must send a response, and we must wait for it.
+What you can see in PCM ops are exactly sending these commands (set
+params, prepare, start and so on). But since some ops could be called in
+atomic context, there was no other choice but to add asynchronous
+messages and return from the operator without waiting for a response
+from the device. Because of this, the START command was a headache. We
+could not say for sure if the substream started at all on the device
+side. Also, the virtualization overhead was not taken into account
+(application might think that the substream is already running, but
+actually it was not).
+
+Then there are 2 queues for sending/receiving PCM frames. These contain
+i/o messages carrying actual buffer sliced into periods. Actually,
+snd_pcm_period_elapsed() is called from interrupt handlers here.
+
+And then there is an additional queue for events.
+
+All of these are handled in different ways.
+
+
+> 
+> thanks,
+> 
+> Takashi
+> 
+
 -- 
-2.30.1
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 

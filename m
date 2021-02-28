@@ -2,102 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 473EA327FE9
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:49:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65F6E327FEA
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:49:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C550F16D8;
-	Mon,  1 Mar 2021 14:48:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C550F16D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DCC91693;
+	Mon,  1 Mar 2021 14:49:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DCC91693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614606577;
-	bh=CrBTcSesD3Y6tqQu8NDc7SrI20tjqQmPleCrH/tYecM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eP/rnUyLxAwF4m8HALRR4+DWnKDMeLI5BbsVcL2kxXZeoCn4lX/LIHQ39FiJUhYqu
-	 jp3e1KV7k3dpp3RIeqLywoAb9Gyxgtl9IomUjIsTrfQBT6pN77BBbufj1wEiIfs9+h
-	 AMbvVcgKu1iks5Y7Z7ZUAvjcZYuSLQM8kM0BjH5o=
+	s=default; t=1614606590;
+	bh=xd+fbJdpQirIRJLJt4qOqF9CVnuBBdqg9PBjZk+nnXw=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IigLTa2bIMVPUT3MUB9g5la6Tk7k7WzhhCG9pEv4MfkNYKDS5J2fQiP0+EYT/0rrK
+	 0Fhh1Oqqkv9H8bvQ7yCOwqptdisX6BvInHguOsGnxhOfl+GGjHKiyVjMCnoTAPxVoH
+	 R738euWL4DtMpuNZbv/ov8tV0ydbUdHgS9X64+74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45FFCF80544;
+	by alsa1.perex.cz (Postfix) with ESMTP id CC48EF80548;
 	Mon,  1 Mar 2021 14:43:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4C35F8025B; Sun, 28 Feb 2021 08:08:46 +0100 (CET)
+ id 55702F8025B; Sun, 28 Feb 2021 20:23:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from conssluserg-02.nifty.com (conssluserg-02.nifty.com
- [210.131.2.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0EA7F800E0
- for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 08:08:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0EA7F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5FA0F8010A
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 20:23:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5FA0F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
- header.b="h4d8ogtK"
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173]) (authenticated)
- by conssluserg-02.nifty.com with ESMTP id 11S785qX024046
- for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 16:08:06 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-02.nifty.com 11S785qX024046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1614496086;
- bh=ldg+O7sE55to+alrJE10yp3zvi7BbH+3v1wNoAJS4q4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=h4d8ogtKbASZlioSJs26+mk3ZZ8P/kcBPHikHcRD8o/S8bocxJ8sBKElt7O6aPcmn
- jHcH+K0AOTybhgwquGoefUOFUYS6LIWVrUfxaHE2WwmYk4/l3jtrbttUa4K4Lz31Le
- jlNtDmF3aPdJi5ad5wJRKz3yptrJSa5mpx7GojtTnCb7gqRlpi1YJI7lLIjDVrJ9r0
- yWOz2HdxJTTSHjtTlj9JyCCgu5pQdvx0y/B+IOszWDZMmvZlS/oTNRTEs5Z8SnaMZF
- dyJMMhZfiYE05///jQj6lv9CXCUF+iTzHCYC4UA5r8e2GexUr/3t41VedTd2XBDGb+
- voBwzQotefRAA==
-X-Nifty-SrcIP: [209.85.214.173]
-Received: by mail-pl1-f173.google.com with SMTP id b8so4829465plh.0
- for <alsa-devel@alsa-project.org>; Sat, 27 Feb 2021 23:08:06 -0800 (PST)
-X-Gm-Message-State: AOAM533Bdtz4tLwnnFX7Lbpdshq94wX1p9SMF44W84Mc/d+cPrAfavxu
- Xv0PthzUo0ip6aD2s+4hyPBevDllG9kXgolzvpU=
-X-Google-Smtp-Source: ABdhPJxnVdF9Cvtz3QuQ9Z55mLc0nR7ZPvYqUNLa1UMZMC9CH1qH9+VqVFfmtGZF/+QiECQmAdbbtJL43yO3rdbPYM4=
-X-Received: by 2002:a17:90a:dc08:: with SMTP id
- i8mr10797186pjv.153.1614496085241; 
- Sat, 27 Feb 2021 23:08:05 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=helmpcb-com.20150623.gappssmtp.com
+ header.i=@helmpcb-com.20150623.gappssmtp.com header.b="rRSHeNrk"
+Received: by mail-lj1-x232.google.com with SMTP id e2so9688094ljo.7
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 11:23:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=helmpcb-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=N23p4qZjU4Y60wv7dtAT8z4vK20H44YQT1lWPBFmCMY=;
+ b=rRSHeNrknAEsXeEFeIbT6XOSCXmuWCKS27e9SX53ZsSlJIvdzZ6YPRPWXfpTIvYtk/
+ JFeO5cNcCOvnIDqDibKF8HEdvOIXQ5yQJb9uEuYOhHUOoFzpfVYP/NJ1NTYOWXvM28cn
+ lR5CqfO3yENDFRwmcI/0xNxGekN+fHu+0A7SGw2JpDZTpD3SClECWNX+A1ApAiOfYxKT
+ CMjeih7c8ohV+JcqPfaUuVACH2bGoWXdds3K9HIN6cFJWhw+8zOqdwoRqoXbfxDeTgk8
+ ki/H8rCxskNFIRuJEm5X+oTVeI0z2Vl3aPOhTPr/NoQ6aSZdLwdaAxnOPqi1KzRtB/8/
+ aH8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=N23p4qZjU4Y60wv7dtAT8z4vK20H44YQT1lWPBFmCMY=;
+ b=RD3R7hg5hUGwBnpL3CJiqbXtyYYzKZM3B3kHnnuS02Z+c3JpynQrrosjBkqn75SO1x
+ I7g9Jyfx8+C9DRxqYHyl8eQVR2zyIlvvYJVIhFxheXja/YD2PmfUv86qknXJsMC3SIr9
+ /pam3yUnH8wfbJoIl+wZuifoQe9E1VTSxfQqYt4Wb1h5krpqIhpWblA65SGJM36+1mBU
+ s9YpH1LOOqzVLXLQuQcN93aMJgheIPQsYHMXWK/uR+xl7ss3yDwoLfw4KpUeCOGxsjjL
+ bZlteqTI+m7zhcy7PCbg6iHOframNI/dckkImOsXCCTJ2RsNAKS5mRknrQX6VkvYdLi/
+ EVYw==
+X-Gm-Message-State: AOAM530aQbqe7qgqvgM8MbxpsAUzN5x+4rDi3NTNX7IS2Umlv07iwDNW
+ y3N1m4KWEPekbL07WxOiPWzEHtR/Uj+pKByxn7gJiwc+sAC5Rg==
+X-Google-Smtp-Source: ABdhPJxr3amjR5dKDGfJAh99ZIufkiz6Si5cUzrSHHe4s11HEVrvrXeEIRDpU8pppMApKz74AUuSHpIiRu3zYHmFeS8=
+X-Received: by 2002:a2e:a413:: with SMTP id p19mr7367708ljn.213.1614540187234; 
+ Sun, 28 Feb 2021 11:23:07 -0800 (PST)
 MIME-Version: 1.0
-References: <20210227183910.221873-1-masahiroy@kernel.org>
- <CAK7LNASL_X43_nMTz1CZQB+jiLCRAJbh-wQdc23QV0pWceL_Lw@mail.gmail.com>
- <20210228064936.zixrhxlthyy6fmid@24bbad8f3778>
- <20210228065254.GA30798@24bbad8f3778>
-In-Reply-To: <20210228065254.GA30798@24bbad8f3778>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Sun, 28 Feb 2021 16:07:27 +0900
-X-Gmail-Original-Message-ID: <CAK7LNATmHU48mg4uh2H0VZDuhg6-Fwz=uF0rKSHuCJK-soZbUQ@mail.gmail.com>
-Message-ID: <CAK7LNATmHU48mg4uh2H0VZDuhg6-Fwz=uF0rKSHuCJK-soZbUQ@mail.gmail.com>
-Subject: Re: [PATCH RFC] x86: remove toolchain check for X32 ABI capability
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Amr Bekhit <amr@helmpcb.com>
+Date: Sun, 28 Feb 2021 22:22:56 +0300
+Message-ID: <CAHmAUHKpOd53mJ_skCWgkbhdUc-FD3sWea2diN2E5K9BwY8HSw@mail.gmail.com>
+Subject: Turning an external amplifier on or off when audio is played
+To: alsa-devel@alsa-project.org
 X-Mailman-Approved-At: Mon, 01 Mar 2021 14:43:22 +0100
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Peter Zijlstra <peterz@infradead.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Dmitry Safonov <0x7f454c46@gmail.com>,
- Dominik Brodowski <linux@dominikbrodowski.net>,
- "H . Peter Anvin" <hpa@zytor.com>,
- Gabriel Krisman Bertazi <krisman@collabora.com>,
- Sasha Levin <sashal@kernel.org>, Fangrui Song <maskray@google.com>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- X86 ML <x86@kernel.org>, Jethro Beekman <jethro@fortanix.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
- "H . J . Lu" <hjl.tools@gmail.com>, Kees Cook <keescook@chromium.org>,
- Arnd Bergmann <arnd@arndb.de>, Brian Gerst <brgerst@gmail.com>,
- "Chang S. Bae" <chang.seok.bae@intel.com>, Chao Yu <chao@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Christopherson <seanjc@google.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Nick Desaulniers <ndesaulniers@google.com>,
- Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-xfs <linux-xfs@vger.kernel.org>,
- Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,45 +90,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Feb 28, 2021 at 3:53 PM Nathan Chancellor <nathan@kernel.org> wrote:
->
-> On Sat, Feb 27, 2021 at 11:49:36PM -0700, Nathan Chancellor wrote:
-> > On Sun, Feb 28, 2021 at 12:15:16PM +0900, Masahiro Yamada wrote:
-> > > On Sun, Feb 28, 2021 at 3:41 AM Masahiro Yamada <masahiroy@kernel.org> wrote:
-> > > >
-> > > > This commit reverts 0bf6276392e9 ("x32: Warn and disable rather than
-> > > > error if binutils too old").
-> > > >
-> > > > The help text in arch/x86/Kconfig says enabling the X32 ABI support
-> > > > needs binutils 2.22 or later. This is met because the minimal binutils
-> > > > version is 2.23 according to Documentation/process/changes.rst.
-> > > >
-> > > > I would not say I am not familiar with toolchain configuration, but
-> > >
-> > > I mean:
-> > > I would not say I am familiar ...
-> > > That is why I added RFC.
-> > >
-> > > I appreciate comments from people who are familiar
-> > > with toolchains (binutils, llvm).
-> > >
-> > > If this change is not safe,
-> > > we can move this check to Kconfig at least.
-> >
-> > Hi Masahiro,
-> >
-> > As Fangrui pointed out, there are two outstanding issues with x32 with
-> > LLVM=1, both seemingly related to LLVM=1.
->                                     ^ llvm-objcopy
->
-> Sigh, note to self, don't write emails while tired...
->
+Hello,
 
-Fangrui, Nathan, thanks for your comments.
+I'm working with an embedded system that uses the SGTL5000 to play audio.
+We have an amplifier connected to the DAC output, which we can turn off
+using a GPIO pin. I'd like to automatically enable the amplifier before
+playing a sound and disable it after playback has completed. Are there any
+hooks that would allow me to do that in userspace? If not, is there
+something in kernel-space that would allow me to accomplish this?
 
-OK, then we still need to carry this toolchain check.
+Thanks,
 
-
--- 
-Best Regards
-Masahiro Yamada
+Amr

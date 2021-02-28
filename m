@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591043271FF
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 12:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 427B7327207
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 12:17:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0FED166B;
-	Sun, 28 Feb 2021 12:05:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0FED166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9342166D;
+	Sun, 28 Feb 2021 12:16:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9342166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614510377;
-	bh=hDttNxuUfi1CdRuWh4EDJzq9IDHiwhQq4PC1MM5eJYY=;
+	s=default; t=1614511023;
+	bh=YsJTkkgTD+aXuwxG+VrAW85tt02pFVUNdwFKGfzlqUM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ie3kqLVx8pakdsjhTQM9uCIBTvbL3kZFFFy7qh/a438cvSYV59ixV6dNp7/URv1jk
-	 wJBl19917bVgGyWGl4ZWOBwvdPVaF2TgVxhgqjiXCQV0zZ0cgd0cuwkvPycR5f3Dvu
-	 Ws2h/6h72K72Zjw1eRixbRafPlwhXQebA4UJCKNU=
+	b=FcCwaI5QmGM0riiggJGV/N3p4/OjwC/gDUWpwTlNAA1AFKGPtn8EDeedg4CeGAdOf
+	 UmKMbhxQJrmorqkJt76Pz2OAi97P+VVTdCr5dtzUFcJeSiGTl32he/SdT6rtk5c/hp
+	 v44yt1VwnGCN5C4lWdtjPvHBW2MvtvwGozKsFutc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D064F80269;
-	Sun, 28 Feb 2021 12:04:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E464F80269;
+	Sun, 28 Feb 2021 12:15:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DEF6F8025B; Sun, 28 Feb 2021 12:04:45 +0100 (CET)
+ id DD628F8025B; Sun, 28 Feb 2021 12:15:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD4ECF8010B
- for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 12:04:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD4ECF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94BD1F8010B
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 12:15:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94BD1F8010B
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0BF60AB7D;
- Sun, 28 Feb 2021 11:04:42 +0000 (UTC)
-Date: Sun, 28 Feb 2021 12:04:41 +0100
-Message-ID: <s5hv9acjvw6.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A833DAB7D;
+ Sun, 28 Feb 2021 11:15:27 +0000 (UTC)
+Date: Sun, 28 Feb 2021 12:15:27 +0100
+Message-ID: <s5htupwjve8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v6 3/9] ALSA: virtio: handling control messages
-In-Reply-To: <20210227085956.1700687-4-anton.yakovlev@opensynergy.com>
+Subject: Re: [PATCH v6 4/9] ALSA: virtio: build PCM devices and substream
+ hardware descriptors
+In-Reply-To: <20210227085956.1700687-5-anton.yakovlev@opensynergy.com>
 References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-4-anton.yakovlev@opensynergy.com>
+ <20210227085956.1700687-5-anton.yakovlev@opensynergy.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,79 +72,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 27 Feb 2021 09:59:50 +0100,
+On Sat, 27 Feb 2021 09:59:51 +0100,
 Anton Yakovlev wrote:
-> 
-> --- a/sound/virtio/virtio_card.c
-> +++ b/sound/virtio/virtio_card.c
-> @@ -11,6 +11,10 @@
->  
->  #include "virtio_card.h"
->  
-> +int msg_timeout_ms = MSEC_PER_SEC;
-> +module_param(msg_timeout_ms, int, 0644);
-> +MODULE_PARM_DESC(msg_timeout_ms, "Message completion timeout in milliseconds");
-
-If it's a global variable, better to set a prefix to make it unique,
-and use module_param_named().
-
-And, it should be unsigned int, no? (unless a negative value has any meaning)
-Otherwise...
-
-> +	if (!msg_timeout_ms) {
-> +		dev_err(&vdev->dev, "msg_timeout_ms value cannot be zero\n");
-> +		return -EINVAL;
-
-Here a negative value would pass.
-
-(snip)
-> +int virtsnd_ctl_msg_send(struct virtio_snd *snd, struct virtio_snd_msg *msg,
-> +			 struct scatterlist *out_sgs,
-> +			 struct scatterlist *in_sgs, bool nowait)
+> +static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
+> +				struct virtio_snd_pcm_info *info)
 > +{
-> +	struct virtio_device *vdev = snd->vdev;
-> +	struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
-> +	unsigned int js = msecs_to_jiffies(msg_timeout_ms);
-> +	struct virtio_snd_hdr *request = virtsnd_ctl_msg_request(msg);
-> +	struct virtio_snd_hdr *response = virtsnd_ctl_msg_response(msg);
-> +	unsigned int nouts = 0;
-> +	unsigned int nins = 0;
-> +	struct scatterlist *psgs[4];
-> +	bool notify = false;
-> +	unsigned long flags;
-> +	int rc;
+....
+> +	for (i = 0; i < ARRAY_SIZE(g_v2a_format_map); ++i)
+> +		if (values & (1ULL << i)) {
+> +			snd_pcm_format_t alsa_fmt = g_v2a_format_map[i];
+> +			int bytes = snd_pcm_format_physical_width(alsa_fmt) / 8;
 > +
-> +	virtsnd_ctl_msg_ref(msg);
+> +			if (!sample_min || sample_min > bytes)
+> +				sample_min = bytes;
 > +
-> +	/* Set the default status in case the message was canceled. */
-> +	response->code = cpu_to_le32(VIRTIO_SND_S_IO_ERR);
+> +			if (sample_max < bytes)
+> +				sample_max = bytes;
 > +
-> +	psgs[nouts++] = &msg->sg_request;
-> +	if (out_sgs)
-> +		psgs[nouts++] = out_sgs;
-> +
-> +	psgs[nouts + nins++] = &msg->sg_response;
-> +	if (in_sgs)
-> +		psgs[nouts + nins++] = in_sgs;
-> +
-> +	spin_lock_irqsave(&queue->lock, flags);
-> +	rc = virtqueue_add_sgs(queue->vqueue, psgs, nouts, nins, msg,
-> +			       GFP_ATOMIC);
+> +			vss->hw.formats |= (1ULL << (__force int)alsa_fmt);
 
-It's a bit pity that we have to use GFP_ATOMIC always here...
-As long as it's in spinlock, it's the only way.
+Please use pcm_format_to_bits().
 
-However, this reminds me of another question: may the virtio event be
-handled in an atomic context, e.g. the period elapsed or xrun events?
-If so, the current implementation with non-atomic PCM mode is wrong.
-Since the non-atomic PCM uses mutex instead of spinlock, it'll lead to
-a sleep-in-atomic in snd_pcm_period_elapsed() handling.
+> +	/* Align the buffer size to the page size */
+> +	vss->hw.buffer_bytes_max =
+> +		(vss->hw.buffer_bytes_max + PAGE_SIZE - 1) & -PAGE_SIZE;
 
-I suggested the non-atomic PCM *iff* the all contexts are sleepable;
-then the sync can be done in each callback, which makes the code much
-simpler usually.  But you've already implemented the sync via
-sync_stop call, hence the non-atomic PCM has little benefit by its
-own.
+You can use PAGE_ALIGN() macro.
 
 
 thanks,

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7BE3327217
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 12:29:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3576D32721B
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Feb 2021 12:34:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 652951676;
-	Sun, 28 Feb 2021 12:28:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652951676
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBE6D166D;
+	Sun, 28 Feb 2021 12:33:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBE6D166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614511771;
-	bh=c1/YgiLZcK4ZtQmoe1l4XpVgt8A56+K9QQpqOFrlNCo=;
+	s=default; t=1614512064;
+	bh=3t6WU0EA3psxqDERybw3/V8OOH7TLR6Qn7OawkWP8EM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JE1N/OC4ngDeyImqKotJf4sERct10muRYC06jAOtAQt6cHYLVwX1c4P9vvArNl5/e
-	 ykDldnnHcyhg1WqRARtykLBpGVIuHoNIsBsArG9s2eKKsiXiMbqH+fyZO+jUi/c7Dv
-	 o7PZz2dt1yR5QKDCt4Gol0nfrwHjvJWAJVEjiLS0=
+	b=dVxXiu451gmK61+8wusvzwroOXm5calkZuvN3UQy+UcD+OLzuXZwKtZV0BO5pnti6
+	 louKFF9ZEJFppdjS5taYIRnW4CZ7s75eYtEL+Dx1vtlIYWmbVkctfdWdm5j+paiYcm
+	 K/v9w8J2F8K2QFV6o9E531kxdLR77CR4h86gcQvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3592F8010A;
-	Sun, 28 Feb 2021 12:28:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A999F80269;
+	Sun, 28 Feb 2021 12:32:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86F00F8025B; Sun, 28 Feb 2021 12:27:58 +0100 (CET)
+ id E0752F8010A; Sun, 28 Feb 2021 12:32:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,22 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 237BBF8010A
- for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 12:27:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 237BBF8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8616AF8010A
+ for <alsa-devel@alsa-project.org>; Sun, 28 Feb 2021 12:32:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8616AF8010A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 839B3AB7D;
- Sun, 28 Feb 2021 11:27:55 +0000 (UTC)
-Date: Sun, 28 Feb 2021 12:27:55 +0100
-Message-ID: <s5hsg5gjutg.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id BAC12AAC5;
+ Sun, 28 Feb 2021 11:32:46 +0000 (UTC)
+Date: Sun, 28 Feb 2021 12:32:46 +0100
+Message-ID: <s5hr1l0juld.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v6 5/9] ALSA: virtio: handling control and I/O messages
- for the PCM device
-In-Reply-To: <20210227085956.1700687-6-anton.yakovlev@opensynergy.com>
+Subject: Re: [PATCH v6 6/9] ALSA: virtio: PCM substream operators
+In-Reply-To: <20210227085956.1700687-7-anton.yakovlev@opensynergy.com>
 References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-6-anton.yakovlev@opensynergy.com>
+ <20210227085956.1700687-7-anton.yakovlev@opensynergy.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,161 +71,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 27 Feb 2021 09:59:52 +0100,
+On Sat, 27 Feb 2021 09:59:53 +0100,
 Anton Yakovlev wrote:
-> +/**
-> + * virtsnd_pcm_event() - Handle the PCM device event notification.
-> + * @snd: VirtIO sound device.
-> + * @event: VirtIO sound event.
-> + *
-> + * Context: Interrupt context.
-
-OK, then nonatomic PCM flag is invalid...
-
-> +/**
-> + * virtsnd_pcm_sg_num() - Count the number of sg-elements required to represent
-> + *                        vmalloc'ed buffer.
-> + * @data: Pointer to vmalloc'ed buffer.
-> + * @length: Buffer size.
-> + *
-> + * Context: Any context.
-> + * Return: Number of physically contiguous parts in the @data.
-> + */
-> +static int virtsnd_pcm_sg_num(u8 *data, unsigned int length)
+> 
+> +static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
 > +{
-> +	phys_addr_t sg_address;
-> +	unsigned int sg_length;
-> +	int num = 0;
+> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> +	struct virtio_snd *snd = vss->snd;
+> +	struct virtio_snd_msg *msg;
+> +	unsigned long flags;
+> +	int rc;
 > +
-> +	while (length) {
-> +		struct page *pg = vmalloc_to_page(data);
-> +		phys_addr_t pg_address = page_to_phys(pg);
-> +		size_t pg_length;
+> +	switch (command) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE: {
+> +		struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
 > +
-> +		pg_length = PAGE_SIZE - offset_in_page(data);
-> +		if (pg_length > length)
-> +			pg_length = length;
+> +		spin_lock_irqsave(&queue->lock, flags);
+> +		spin_lock(&vss->lock);
+> +		rc = virtsnd_pcm_msg_send(vss);
+> +		if (!rc)
+> +			vss->xfer_enabled = true;
+> +		spin_unlock(&vss->lock);
+> +		spin_unlock_irqrestore(&queue->lock, flags);
+> +		if (rc)
+> +			return rc;
 > +
-> +		if (!num || sg_address + sg_length != pg_address) {
-> +			sg_address = pg_address;
-> +			sg_length = pg_length;
-> +			num++;
-> +		} else {
-> +			sg_length += pg_length;
-> +		}
+> +		msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_START,
+> +						GFP_KERNEL);
+
+If we drop nonatomic PCM, this has to be changed: GFP_KERNEL is no
+longer valid in the trigger and the pointer callbacks.
+I wonder, though, the code below uses GFP_ATOMIC inconsistently...
+
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH: {
+> +		spin_lock_irqsave(&vss->lock, flags);
+> +		vss->xfer_enabled = false;
+> +		spin_unlock_irqrestore(&vss->lock, flags);
 > +
-> +		data += pg_length;
-> +		length -= pg_length;
+> +		/*
+> +		 * The substream needs to be released on the device side only
+> +		 * when it is completely stopped.
+> +		 */
+> +		vss->release = (command == SNDRV_PCM_TRIGGER_STOP);
+> +
+> +		/*
+> +		 * The STOP command can be issued in an atomic context after
+> +		 * the drain is complete. Therefore, in general, we cannot sleep
+> +		 * here.
+> +		 */
+> +		msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_STOP,
+> +						GFP_ATOMIC);
+
+BTW...
+> +	default: {
+> +		return -EINVAL;
 > +	}
-> +
-> +	return num;
-> +}
-> +
-> +/**
-> + * virtsnd_pcm_sg_from() - Build sg-list from vmalloc'ed buffer.
-> + * @sgs: Preallocated sg-list to populate.
-> + * @nsgs: The maximum number of elements in the @sgs.
-> + * @data: Pointer to vmalloc'ed buffer.
-> + * @length: Buffer size.
-> + *
-> + * Splits the buffer into physically contiguous parts and makes an sg-list of
-> + * such parts.
-> + *
-> + * Context: Any context.
-> + */
-> +static void virtsnd_pcm_sg_from(struct scatterlist *sgs, int nsgs, u8 *data,
-> +				unsigned int length)
+
+Let's avoid braces inside the switch() unless it's inevitably needed.
+It makes the code harder to read.
+
+
+> +static snd_pcm_uframes_t
+> +virtsnd_pcm_pointer(struct snd_pcm_substream *substream)
 > +{
-> +	int idx = -1;
+> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> +	snd_pcm_uframes_t hw_ptr = SNDRV_PCM_POS_XRUN;
+> +	unsigned long flags;
 > +
-> +	while (length) {
-> +		struct page *pg = vmalloc_to_page(data);
-> +		size_t pg_length;
-> +
-> +		pg_length = PAGE_SIZE - offset_in_page(data);
-> +		if (pg_length > length)
-> +			pg_length = length;
-> +
-> +		if (idx == -1 ||
-> +		    sg_phys(&sgs[idx]) + sgs[idx].length != page_to_phys(pg)) {
-> +			if (idx + 1 == nsgs)
-> +				break;
-> +			sg_set_page(&sgs[++idx], pg, pg_length,
-> +				    offset_in_page(data));
-> +		} else {
-> +			sgs[idx].length += pg_length;
-> +		}
-> +
-> +		data += pg_length;
-> +		length -= pg_length;
-> +	}
-> +
-> +	sg_mark_end(&sgs[idx]);
-> +}
+> +	spin_lock_irqsave(&vss->lock, flags);
+> +	if (!vss->xfer_xrun)
+> +		hw_ptr = bytes_to_frames(substream->runtime, vss->hw_ptr);
+> +	spin_unlock_irqrestore(&vss->lock, flags);
 
-Hmm, I thought there can be already a handy helper to convert vmalloc
-to sglist, but apparently not.  It should have been trivial to get the
-page list from vmalloc, e.g.
-
-int vmalloc_to_page_list(void *p, struct page **page_ret)
-{
-	struct vmap_area *va;
-
-	va = find_vmap_area((unsigned long)p);
-	if (!va)
-		return 0;
-	*page_ret = va->vm->pages;
-	return va->vm->nr_pages;
-}
-
-Then you can set up the sg list in a single call from the given page
-list.
-
-But it's just a cleanup, and let's mark it as a room for
-improvements.
-
-(snip)
-> +/**
-> + * virtsnd_pcm_msg_complete() - Complete an I/O message.
-> + * @msg: I/O message.
-> + * @written_bytes: Number of bytes written to the message.
-> + *
-> + * Completion of the message means the elapsed period. If transmission is
-> + * allowed, then each completed message is immediately placed back at the end
-> + * of the queue.
-> + *
-> + * For the playback substream, @written_bytes is equal to sizeof(msg->status).
-> + *
-> + * For the capture substream, @written_bytes is equal to sizeof(msg->status)
-> + * plus the number of captured bytes.
-> + *
-> + * Context: Interrupt context. Takes and releases the VirtIO substream spinlock.
-> + */
-> +static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg,
-> +				     size_t written_bytes)
-> +{
-> +	struct virtio_pcm_substream *vss = msg->substream;
-> +
-> +	/*
-> +	 * hw_ptr always indicates the buffer position of the first I/O message
-> +	 * in the virtqueue. Therefore, on each completion of an I/O message,
-> +	 * the hw_ptr value is unconditionally advanced.
-> +	 */
-> +	spin_lock(&vss->lock);
-> +	/*
-> +	 * If the capture substream returned an incorrect status, then just
-> +	 * increase the hw_ptr by the message size.
-> +	 */
-> +	if (vss->direction == SNDRV_PCM_STREAM_PLAYBACK ||
-> +	    written_bytes <= sizeof(msg->status)) {
-> +		struct scatterlist *sg;
-> +
-> +		for (sg = &msg->sgs[PCM_MSG_SG_DATA]; sg; sg = sg_next(sg))
-> +			vss->hw_ptr += sg->length;
-
-So the sg list entries are supposed to be updated?  Or if the length
-there are constant, we don't need to iterate the sg entries but keep
-the total length beforehand?
+Oh, and if we drop nonatomc PCM, both trigger and pointer callbacks
+are guaranteed to be called inside the spinlock, hence you can remove
+*_irqsave() but just us spin_lock() in those two callbacks.
 
 
 thanks,

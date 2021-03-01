@@ -2,61 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D58D1329264
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 21:46:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EDC832937C
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 22:28:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66E971676;
-	Mon,  1 Mar 2021 21:45:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66E971676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 115821657;
+	Mon,  1 Mar 2021 22:27:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 115821657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614631569;
-	bh=d+AEg65zmrmh8VDHPJxjIA6Vztu0ZBgkNflnsaeLfHw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1614634105;
+	bh=+DQG0ZV1BCLib8cEzrRLXdjqtPmyd307MIBSCK4Ee3k=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YBLcvNuvDn4N5c95hb3PpG76xM6QNstBj/la4HQ2R67awYH8lXd0aNLh/iYiOVaWL
-	 fDEs4cH16fodpH+eVofX/Nm0zvZUrfmPOQ82RWY6nHAjiTXTMvsDlWrn8L3W5N/a00
-	 OPFecIumMpLUxT+dnKTWER5J5xKsVvzytnDAhGbI=
+	b=KusOZsnPqwZCFIzEgaCxIKiefLDEG0W8MCchalJHbA3SPWvRdIZprQ/TK7+0egiCC
+	 5AwJYR/hJb4TfmrldJG03G+wgSUcHUAgzGi48AEX3J7H28RkqIpjwMfjJkRV4Btmt4
+	 DN/X4FLmsLrmPWs7RHla6bzynIFq4NMueKLeEQsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5F85F8026A;
-	Mon,  1 Mar 2021 21:44:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78E7DF8010B;
+	Mon,  1 Mar 2021 22:26:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76FE8F8025E; Mon,  1 Mar 2021 21:44:27 +0100 (CET)
+ id 040A3F8025E; Mon,  1 Mar 2021 22:26:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB05CF8010B
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 21:44:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB05CF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BC29F800E0
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 22:26:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BC29F800E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B7x2mbqt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D0D1E600CD;
- Mon,  1 Mar 2021 20:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614631460;
- bh=d+AEg65zmrmh8VDHPJxjIA6Vztu0ZBgkNflnsaeLfHw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B7x2mbqtpZNXisaJhVI503LUMu0dSKqAEHihb9IQffr6an8tBqgqtUwCjf9UQN6kE
- CIuIPlv6FHf7ETfyqk52AKs/8K7ks5uizKSQTkc3QeA81/3BjlGfRWCzBQCcUw9AVK
- 7cZmSMNoUbUUTbP8auByxc18BpN8/1AJStPhfAg4hTuCRsRBl2dPbow5rcBMWiHQJ9
- V67M6yI2rCs6OtF2lPJebLbHW1WqZR4FBmWQ3QZqBPXQIpCNwP4hN6Ugvh2m0Q9ubz
- 8ghAs/l8uoDIzo5d+wOA7E8VDuiu6JBw4vkznW8QM/bhHftT7X7NGwZ5kB4R6QBV8Z
- lisd5L9RzOxzg==
-Date: Mon, 1 Mar 2021 20:43:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="ZM1N6ZOQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614634004;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZqAbMfi4tA/vMW0gKRC7n8527XAbhXxKcWa1t6aLH2Q=;
+ b=ZM1N6ZOQ8mI7UzzlftAozej+oKElsvypGQt5pDzwxOEf3RcdmW6fRehqkUkXX8LaepuJOl
+ 8b/qWann12JaxaOGuHMYgIFmn9ekKFYxLhFKPBgiRV8U17dxN9whoSNJiWWtqq5IuqmqEh
+ chp6VhS69IL0c2CaTJOLw8iFQVAzwis=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-209-faBm8G3kOsa9Ck3sMPtQvA-1; Mon, 01 Mar 2021 16:26:43 -0500
+X-MC-Unique: faBm8G3kOsa9Ck3sMPtQvA-1
+Received: by mail-ed1-f72.google.com with SMTP id q1so9553906edv.5
+ for <alsa-devel@alsa-project.org>; Mon, 01 Mar 2021 13:26:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=ZqAbMfi4tA/vMW0gKRC7n8527XAbhXxKcWa1t6aLH2Q=;
+ b=KLv1amxdB+pWlixxMyMCaj8KXPe9ITzF8y9FfuFkI+iD3W8tZJgHubRW4IfZKS3CcD
+ Ei3EEiMMiERFyXOsZsjEJj0SWjk2eD1s/H+CQe5j4vK9IYlbS4sCE8V5Q8V8MIZ/YdOZ
+ vddt5O9mKgPMbogNrFuQAcM1/z58dONp3BwEHIW3/c8jkvtZWeJgqfMK/clIXFksjDYc
+ y+2r7TPHlFT6blOMVWkNIM3CUmmiKLtfF0XTMK7wLsdSNcgcVPgNFNVPhPQgTREWUBKN
+ RYWxSP6vbh4nOEueBRDC55rTlBGRak3yEV/LNnbIvA+QSQNSr1E3+eMTU0bYyUZez23p
+ U8dg==
+X-Gm-Message-State: AOAM532ORncbWe/WQjI4QNaitCTI0pEWi/Z/VZccYZZJNBgW4msL4jpx
+ 6Xtt6hS/rFWfKmNl7bcnCQGOYam8j5/eIAFyRdMsW0hjlwFGkxxbXH9KlJkg/815IXP/4ChKXoC
+ I6U/6zInS4SQ+JZ5ErkzCqxVUCxb5KH3FConUN0NAnF/kEKFc3JNTxe8o1Zgyev3ThlK8ZH6ej2
+ k=
+X-Received: by 2002:a17:906:3e92:: with SMTP id
+ a18mr11704094ejj.95.1614634001916; 
+ Mon, 01 Mar 2021 13:26:41 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyDd3gdKVU+HryHIH+IL2re7OuCTkTJ5lOypsAyXzIDlcgyB7XikIwbnDwrg0517AdrHcYxqg==
+X-Received: by 2002:a17:906:3e92:: with SMTP id
+ a18mr11704082ejj.95.1614634001698; 
+ Mon, 01 Mar 2021 13:26:41 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id ck9sm16055075edb.36.2021.03.01.13.26.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Mar 2021 13:26:41 -0800 (PST)
 Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
-Message-ID: <20210301204313.GK4628@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
 References: <20210224125927.GB4504@sirena.org.uk>
  <e47c7fa5-cb1a-f8a3-bfe4-1f6bca6a7d80@redhat.com>
  <20210224193626.GF4504@sirena.org.uk>
@@ -67,13 +98,21 @@ References: <20210224125927.GB4504@sirena.org.uk>
  <76103f3e-c416-c988-7bc2-d7657e1868bd@redhat.com>
  <20210301191503.GI4628@sirena.org.uk>
  <54c5fd8e-1835-b9c3-d5fd-5cb363eab32c@redhat.com>
+ <20210301204313.GK4628@sirena.org.uk>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <6d34af65-761b-7314-6af6-daf15cc9535c@redhat.com>
+Date: Mon, 1 Mar 2021 22:26:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="08ATZu8fEq0x2T3M"
-Content-Disposition: inline
-In-Reply-To: <54c5fd8e-1835-b9c3-d5fd-5cb363eab32c@redhat.com>
-X-Cookie: Body by Nautilus, Brain by Mattel.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210301204313.GK4628@sirena.org.uk>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
  Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>,
  Bard Liao <bard.liao@intel.com>
@@ -92,78 +131,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---08ATZu8fEq0x2T3M
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 3/1/21 9:43 PM, Mark Brown wrote:
+> On Mon, Mar 01, 2021 at 08:49:34PM +0100, Hans de Goede wrote:
+>> On 3/1/21 8:15 PM, Mark Brown wrote:
+> 
+>>> Off the top of my head something like writing a control name into a
+>>> sysfs file might work, it doesn't scale if you need to use multiple
+>>> controls as rt5640 does though.
+> 
+>> Currently ALSA/UCM does not use sysfs files for anything, so this
+>> feels very inconsistent with how all the rest of this currently works.
+> 
+> Yes, you'd really want to add string controls in ALSA.
 
-On Mon, Mar 01, 2021 at 08:49:34PM +0100, Hans de Goede wrote:
-> On 3/1/21 8:15 PM, Mark Brown wrote:
+Hmm, we already have SNDRV_CTL_ELEM_TYPE_BYTES controls. I think that will
+work nicely actually, we can have the UCM conf file send a 0 terminated
+string to the driver that way. It would be nice to have some syntactic
+sugar on the UCM side to be able to actually specify a string instead
+of an array of bytes, but I don't think we need any new userspace API
+for this.
 
-> > Off the top of my head something like writing a control name into a
-> > sysfs file might work, it doesn't scale if you need to use multiple
-> > controls as rt5640 does though.
+This can be combined with a SND_SOC_... macro + helper to add an
+entry to the usual snd_kcontrol_new <codec-name>_snd_controls[] table for
+this, which when the control gets set/put will walk over all the controls
+and find one with a matching name and then add the access flag which
+Jaroslav's code uses to control the led-trigger to the matching control.
 
-> Currently ALSA/UCM does not use sysfs files for anything, so this
-> feels very inconsistent with how all the rest of this currently works.
+I think that that should work nicely for the use-cases which I have
+ATM and should be flexible enough for future cases. The same control
+can even be written multiple times to set the flag on multiple controls
+and we could have a write of an empty string clear the flag on all controls.
 
-Yes, you'd really want to add string controls in ALSA.
+So in UCM (with the syntactic sugar) for the rt5640 we could then e.g.
+use something like this:
 
-> > drivers make a list of all output stage mutes and then use that to build
-> > a standard global mute control which functions similarly to this one and
-> > could be force wired to the LED trigger input, seems like a big hammer
-> > but it'd be reasonably consistent.
+# Clear Speaker Mute LED flags from all controls, then set it
+# on the Speaker and HP Channel Switches
+cset "name='Speaker Mute LED Control' ''"
+cset "name='Speaker Mute LED Control' 'Speaker Channel Switch'"
+cset "name='Speaker Mute LED Control' 'HP Channel Switch'"
 
->         /* Speaker Output Volume */
->         SOC_DOUBLE("Speaker Channel Switch", RT5640_SPK_VOL,
->                 RT5640_VOL_L_SFT, RT5640_VOL_R_SFT, 1, 1),
->         SOC_DOUBLE_TLV("Speaker Playback Volume", RT5640_SPK_VOL,
->                 RT5640_L_VOL_SFT, RT5640_R_VOL_SFT, 39, 1, out_vol_tlv),
+Mark, does this sound like an acceptable solution to you ?
 
-> Where userspace expect "Speaker Channel Switch" to be named
-> "Speaker Playback Switch" (aligning it with the vol-control name)
-> instead.
+I know you will want to see the actual code before you can give me
+a definitive yes on this, but I would like to know that this at least
+looks like it would be acceptable to you before spending time on coding
+this out and testing it.
 
-This isn't great but be aware that the control names stuff breaks down
-very, very easily in the presence of general hardware - things like
-multiple general purpose outputs can cause problems.
+Regards,
 
-In any case a big hammer virtual control which mapped straight onto the
-LED would sidestep some of that, though it does assume there are useful
-mute controls in all the paths which may or may not be the case.
+Hans
 
-> And we cannot just rename this since the control names are
-> used in UCM profiles and if a UCM profile refers to a non-existing
-> control it won't work.
-
-I thought UCM already had support for remapping control names?  It was
-certainly something discussed very early on - a mechanism to allow the
-UCM file to say "treat control X as name Y in this use case", where the
-X used for Y might vary between use cases.
-
-> I do know that we need to much more careful going forward to make sure
-> that control names match the conventions expected by userspace.
-
-That in general won't scale well, ideally we'd be exposing the routing
-graph to userspace and annotating the non-DAPM controls onto that
-routing graph so that userspace can figure out where everything sits -
-that'd make several things a lot easier.  It does require somoene with
-the time and enthusiasm to define a new ABI though which isn't something
-you should hold your breath for.
-
---08ATZu8fEq0x2T3M
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA9UeAACgkQJNaLcl1U
-h9DXswf+IPaiSG6bv1ma7zV5L2edlLGhHLTy0/O0fiS+EcM8SsBgE8EhTmGNaflc
-1oNeKflsy7YGTspCWD+vsBGjtqz87lPijh7bh/FH5/x7m10lmtNpMWb3oHNbMaE6
-dbgdJJCw+UsgdN6t/GeNrDt8aKmayw6bhh4mLQyUon0/3kKurFu0ujoEimv9xBQC
-mzHlaAGHvSBjVc84LikiB9Gp4bHNGYOsed5ybjatf2rpOOEXYlx3lXQPUpkYHVvt
-/Nego/ERBDaewpVpBkXx4pA1n3ZRH+Ou/Y2oJ6EpgPFBP8uF8RJ1XkfgxNC4UbYm
-iG0zi0XSxCtFhk524RO/hPo1yfplog==
-=06sG
------END PGP SIGNATURE-----
-
---08ATZu8fEq0x2T3M--

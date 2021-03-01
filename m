@@ -2,54 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EADA327FC4
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:44:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6F0328010
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:54:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC4FB1685;
-	Mon,  1 Mar 2021 14:43:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC4FB1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2637516AE;
+	Mon,  1 Mar 2021 14:53:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2637516AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614606239;
-	bh=h/lOeyaudXPDsVEdZCw3KM3ie0eUjDX+SvVcdoAc0/Q=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZUxX4uQHMJgk3w7QkZAuLyv2uUmXWMovVV6W8ABGXnfr0ZOnCDiB5cmS791r7BTTd
-	 ypduTREPAXR6gO2SDoroGVC8IpQsl7wC8eq9QS99H6qoaFSyuGM6aj3rITbot7J2nw
-	 ZrL98LkvIq2q5UZ6+Fvvjp4TbcvYkbJpYDPv+j38=
+	s=default; t=1614606878;
+	bh=ExZVqku75Co3OApbG13LcXf3+8VU5GNXgfPiW99Yi7I=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cUXrkza2ClO2wyRwgBHlZRV1Wegmc2Zpc1LCppJz3j3l+EJVNdR6OqLSA1U4qWp1a
+	 jEzyncqG1dz9gt1gHnYwJ4jgDKoEiQOMFyeQEK5GRa6rqsjp0VMo7mT/VuXyhACHcZ
+	 l+vZFzv1jseEddb+N52Y5wjsEjLI2ioioYGYGIfI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747E9F804F3;
-	Mon,  1 Mar 2021 12:13:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCBAAF8050F;
+	Mon,  1 Mar 2021 13:37:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9342BF804F3; Mon,  1 Mar 2021 12:13:12 +0100 (CET)
+ id 160BDF80508; Mon,  1 Mar 2021 13:37:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBD25F804F1
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 12:13:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBD25F804F1
-Received: from 1.general.hwang4.uk.vpn ([10.172.195.16]
- helo=localhost.localdomain) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lGgU3-0008T4-KR; Mon, 01 Mar 2021 11:13:04 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, kai.vehmanen@linux.intel.com
-Subject: [PATCH v3] ALSA: hda/hdmi: let new platforms assign the pcm slot
- dynamically
-Date: Mon,  1 Mar 2021 19:12:02 +0800
-Message-Id: <20210301111202.2684-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4340F804FC
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 13:37:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4340F804FC
+IronPort-SDR: b/vuZWofEZmvPlLfwaQghgcPHT1oNkDf2kr+M/VzkxULlo5jmgv85W7oC4fnk75pM/fYU98Ptm
+ qe5+FJGyaYeA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9909"; a="165681141"
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="165681141"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 04:37:16 -0800
+IronPort-SDR: 6KMnGF1B+htsRyDuEnC0Bakm+2zocqOdXoKQvE9rjiZ01/882mKLfarANPUHwhR4OE0RyKhVuA
+ cu4qtWHT+Reg==
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="397708026"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.1.91])
+ ([10.213.1.91])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 04:37:14 -0800
+Subject: Re: [PATCH] ASoC: Intel: Skylake: Compile when any configuration is
+ selected
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+References: <20210125115441.10383-1-cezary.rojewski@intel.com>
+ <CAAd53p4fycxLn6y0WpaMWvWkN8EwmT216b40DavttfshN_GMRg@mail.gmail.com>
+ <324dc8a5-c4d3-6ebf-c8e9-6321d6c93dab@intel.com>
+ <CAAd53p4gqyuFPWX55fnPGHORXXf58++ZRMH9WFYp+QwS1=xDJQ@mail.gmail.com>
+ <181c989f-7a4d-3cdd-11be-7378dbc9502c@intel.com>
+ <5e970d19-9544-50fe-f140-b66245418c6e@intel.com>
+ <CAAd53p4srH6NFwcyUCBnLj=MS8-YBvA9CPjMbcryGgi5CmUUHw@mail.gmail.com>
+ <2c93bf65-4996-08c6-5be1-da4b9966e168@intel.com>
+ <f20e5e2b-3761-5e13-3166-5f026d088aa1@intel.com>
+ <CAAd53p6ZyuAzNJWLyONkbFndSRF2HBLn=6HLzb5RUShCmNWdVQ@mail.gmail.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <46f88397-dd4e-ffb4-3bd3-8f64c4827b66@intel.com>
+Date: Mon, 1 Mar 2021 13:37:12 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAd53p6ZyuAzNJWLyONkbFndSRF2HBLn=6HLzb5RUShCmNWdVQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,79 +93,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the platform set the dyn_pcm_assign to true, it will call
-hdmi_find_pcm_slot() to find a pcm slot when hdmi/dp monitor is
-connected and need to create a pcm.
+On 2021-02-22 4:04 PM, Kai-Heng Feng wrote:
+> Hi Cezary,
+> 
 
-So far only intel_hsw_common_init() and patch_nvhdmi() set the
-dyn_pcm_assign to true, here we let tgl platforms assign the pcm slot
-dynamically first, if the driver runs for a period of time and there
-is no regression reported, we could set no_fixed_assgin to true in
-the intel_hsw_common_init(), and then set it to true in the
-patch_nvhdmi().
+...
 
-This change comes from the discussion between Takashi and
-Kai Vehmanen. Please refer to:
-https://github.com/alsa-project/alsa-lib/pull/118
+>>
+>> I'd like to close the compilation issue which this patch is addressing.
+>> Could you confirm that the presented change fixes the issue on your end?
+> 
+> No, the SST regression is not fixed.
+> However, it's not the scope of this patch, which is to fix a different issue.
+> 
+> So please proceed to merge the patch. We can discuss the SST
+> regression in other thread.
+> 
 
-Suggested-and-reviewed-by: Takashi Iwai <tiwai@suse.de>
-Suggested-and-reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_hdmi.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Thanks for the reply Kai-Heng.
+Could you elaborate on the SST regression subject though?
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index e405be7929e3..e6d0843ee9df 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -157,6 +157,7 @@ struct hdmi_spec {
- 
- 	bool dyn_pin_out;
- 	bool dyn_pcm_assign;
-+	bool dyn_pcm_no_legacy;
- 	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
- 	/*
- 	 * Non-generic VIA/NVIDIA specific
-@@ -1345,6 +1346,12 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- {
- 	int i;
- 
-+	/* on the new machines, try to assign the pcm slot dynamically,
-+	 * not use the preferred fixed map (legacy way) anymore.
-+	 */
-+	if (spec->dyn_pcm_no_legacy)
-+		goto last_try;
-+
- 	/*
- 	 * generic_hdmi_build_pcms() may allocate extra PCMs on some
- 	 * platforms (with maximum of 'num_nids + dev_num - 1')
-@@ -1374,6 +1381,7 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- 			return i;
- 	}
- 
-+ last_try:
- 	/* the last try; check the empty slots in pins */
- 	for (i = 0; i < spec->num_nids; i++) {
- 		if (!test_bit(i, &spec->pcm_bitmap))
-@@ -2987,8 +2995,16 @@ static int patch_i915_tgl_hdmi(struct hda_codec *codec)
- 	 * the index indicate the port number.
- 	 */
- 	static const int map[] = {0x4, 0x6, 0x8, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
-+	int ret;
- 
--	return intel_hsw_common_init(codec, 0x02, map, ARRAY_SIZE(map));
-+	ret = intel_hsw_common_init(codec, 0x02, map, ARRAY_SIZE(map));
-+	if (!ret) {
-+		struct hdmi_spec *spec = codec->spec;
-+
-+		spec->dyn_pcm_no_legacy = true;
-+	}
-+
-+	return ret;
- }
- 
- /* Intel Baytrail and Braswell; with eld notifier */
--- 
-2.25.1
+Mark, do you want me to re-send the patch?
 
+Regards,
+Czarek

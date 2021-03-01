@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6927A328690
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 18:13:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D5D32868E
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 18:13:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0419166A;
-	Mon,  1 Mar 2021 18:12:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0419166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92F651668;
+	Mon,  1 Mar 2021 18:12:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92F651668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614618821;
-	bh=JAZW71oGr+uPsf05sRgZbONv7U3epY8nJsk/yvQb0aY=;
+	s=default; t=1614618787;
+	bh=qxIVc6oSv0cMcN+IvnHsmgb2hZt7rxob4UbuRztljGQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C/VZ7oNukVLBpjOG01P7L11csa8dRt88jfxIOb24AaUqITiGZfcM/Hv/olxbWys9A
-	 REX36lts15sW248Tv6Kg+CBkFDEpRwnXAH868xTirdYBLUHAOG+mdYa1g2eiKz4Jr2
-	 rI2rPHXlfg1hpMO/LoaF0i2IKrqM0XGS8WNbodm0=
+	b=DyIasFtPJGjjnS5/nPOODob8SJI+2Y1l92Z+P+5PiBMYdTzNEseGtUh1G5G677Ozm
+	 OFhak/vg/Px/nOiHwt0WilZjpnBC8zqZkULSVMitKIcHM97OyMTwp+ovnkWTc9xwIS
+	 KoIyhioAvjHtVtc7EV8CmUakwDm3UASVb1xIrDhM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DEEEF804AA;
-	Mon,  1 Mar 2021 18:10:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 721D1F804B0;
+	Mon,  1 Mar 2021 18:09:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DC19F804AF; Mon,  1 Mar 2021 18:09:59 +0100 (CET)
+ id 8C424F804AD; Mon,  1 Mar 2021 18:09:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,48 +35,47 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7794DF804AB
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 18:09:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7794DF804AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89B65F804A9
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 18:09:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B65F804A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="aYUbpRMy"
+ header.b="LyoOBHa1"
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1614618597; x=1646154597;
+ t=1614618595; x=1646154595;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JAZW71oGr+uPsf05sRgZbONv7U3epY8nJsk/yvQb0aY=;
- b=aYUbpRMyAe9tniT6afZV/RRk2VS5QFpQd5/uiflcdtetHyzZaaReHLf2
- U5ZrcVGxKis17UY4mI42FShvs12Kj7/b/ghN4Sdah8FSYn/OXIkSdDvgS
- LnuNjITpLFQdemBnStQ5Ng9fsHksgXn5A0WEphS4qSpEAcgOLY7ZJ9W3t
- JKTBMC4txZRtqHaqNXdgH9glXozSKC0bupZ4yKLW+vmQXnig5WNL4prJS
- NvO9BOIYZes1M8sby9aQSgeq9FhLEArP7ytM5/TiNGI2JVSSUrGff8b+E
- x2S+BjnFx7HjtoqzSj/1Ul+QRRxU3J/DCqHB+84ca+E4D0F495+hOMVlO g==;
-IronPort-SDR: OPDsas62esXmTkEDESjLiHXRHblwzIfU0ueGzYrZIw/dOcdPD2yx1XgAlDHFc2xTpHZsz43RJ3
- 4yLsRplyaAbjqUvgsXWihaeNVctgWBHvQQQh4Lk+0hIzWXevUNmHs3VAUe6904MDuzz2lru7YM
- 9+wYMXjSPg1Qfo0F1KclMNWMm7zQm/iq720ZtIagfmthg6Le49RxCYKyMD1ERJ0szF2H+4FovP
- XxtY5Fz00L96swuHseNSjUh+fG3KQNciR9kHY4xB775oQBdvN9TnJ250SXMj7uW+ThTqjaa65S
- 6Zo=
-X-IronPort-AV: E=Sophos;i="5.81,215,1610434800"; d="scan'208";a="111511738"
+ bh=qxIVc6oSv0cMcN+IvnHsmgb2hZt7rxob4UbuRztljGQ=;
+ b=LyoOBHa1a1MdG+2Vvo+y5wQhT5FM0hJ3YgV1p3wwSuYyO7pa3H/lFrY8
+ 4bK11MFvjF1ZMcTGe5PHTwUvePXTKhalqDPUEbmSy6zKxf2ttvxAFbx+p
+ 9kX79Ut9/kjsjttWguy5Rg4SixUisfsj/K+SHlMuY3DP7Myh56W+Xu7Su
+ 5AEpXFr63ntTlIg82TanozZAOvNan2TumWc56vHmU7imS6jxbUMiTXlb9
+ qgY0UImK7UlQZQORMLxIcWm3o7Y4nFLXTaPUcKuUgcQvJ2hQMl9NWakR8
+ gKss8gTnTvwMXy1BtMr2EQQUZnWc6hoPclSinMOXIpw8hqewrNhSyzXDs A==;
+IronPort-SDR: ouQp64EpkoFzkGEpe9Edckk9eZxqBHwSFOkVsrV/mS/Eenz4yoe6ULQlNFpZBzIcd5p6RxuBK+
+ KXozG9SfEaMGX4mgAEW8eY5HZGhD7f4D4wfjRA8BNKXAClp73rmRKBiR+CHEsVNLkotilokq10
+ 1LofJU0NNl55iaH+HKYZgkA2jbgHoKARwilvugl8Q7TjijwRV3qIFTrSNl1pVc/l82wUXUQjAG
+ s6MuSYhDdT98yBBbFPAO7CYn2ZYk9OmcWCdKsO75cgeBVZkIFBEybQa/7x3pYXAWxuUELo7P78
+ fMI=
+X-IronPort-AV: E=Sophos;i="5.81,215,1610434800"; d="scan'208";a="111511733"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 01 Mar 2021 10:09:54 -0700
+ 01 Mar 2021 10:09:53 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Mon, 1 Mar 2021 10:09:49 -0700
+ 15.1.1979.3; Mon, 1 Mar 2021 10:09:53 -0700
 Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Mon, 1 Mar 2021 10:09:46 -0700
+ 15.1.1979.3 via Frontend Transport; Mon, 1 Mar 2021 10:09:50 -0700
 From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v2 4/7] dt-bindings: mchp,
- i2s-mcc: Add property to specify pin pair for TDM
-Date: Mon, 1 Mar 2021 19:09:02 +0200
-Message-ID: <20210301170905.835091-5-codrin.ciubotariu@microchip.com>
+Subject: [PATCH v2 5/7] ASoC: mchp-i2s-mcc: Add support to select TDM pins
+Date: Mon, 1 Mar 2021 19:09:03 +0200
+Message-ID: <20210301170905.835091-6-codrin.ciubotariu@microchip.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210301170905.835091-1-codrin.ciubotariu@microchip.com>
 References: <20210301170905.835091-1-codrin.ciubotariu@microchip.com>
@@ -105,37 +104,110 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 SAMA7G5's I2S-MCC has 4 pairs of DIN/DOUT pins. Since TDM only uses a
 single pair of pins for synchronous capture and playback, the controller
 needs to be told which of the pair is connected. This can be mentioned
-using the new "microchip,tdm-data-pair" property. The property is optional,
-needed only if TDM is used, and if it's missing DIN/DOUT 0 pins will be
-used by default.
+using the "microchip,tdm-data-pair" property from DT. The property is
+optional, useful only if TDM is used. If it's missing, DIN/DOUT 0 pins
+will be used by default.
 
 Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
 
 Changes in v2:
-- changes are done to mchp-i2s-mcc.txt insted of mchp,i2s-mcc.yaml
+- none
 
- Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/atmel/mchp-i2s-mcc.c | 52 +++++++++++++++++++++++++++++++---
+ 1 file changed, 48 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt b/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
-index 2180dbd9ea81..af8fe3e657df 100644
---- a/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
-+++ b/Documentation/devicetree/bindings/sound/mchp-i2s-mcc.txt
-@@ -19,7 +19,12 @@ Required properties:
- Optional properties:
- - pinctrl-0:      Should specify pin control groups used for this controller.
- - princtrl-names: Should contain only one value - "default".
--
-+- microchip,tdm-data-pair: 8 bit value that represents the DIN/DOUT pair pins
-+			   which are used to receive/send TDM data. It is optional
-+			   and it is only needed if the controller uses the TDM
-+			   mode. Not available for "microchip,sam9x60-i2smcc"
-+			   compatible. If it's not present, the default value is 0,
-+			   so the DIN/DOUT 0 pins are used.
+diff --git a/sound/soc/atmel/mchp-i2s-mcc.c b/sound/soc/atmel/mchp-i2s-mcc.c
+index 52d3f43148dc..515ba3634fdd 100644
+--- a/sound/soc/atmel/mchp-i2s-mcc.c
++++ b/sound/soc/atmel/mchp-i2s-mcc.c
+@@ -100,6 +100,8 @@
+ #define MCHP_I2SMCC_MRA_DATALENGTH_8_BITS_COMPACT	(7 << 1)
  
- (1) : Only the peripheral clock is required. The generated clock is optional
-       and should be set mostly when Master Mode is required.
+ #define MCHP_I2SMCC_MRA_WIRECFG_MASK		GENMASK(5, 4)
++#define MCHP_I2SMCC_MRA_WIRECFG_TDM(pin)	(((pin) << 4) & \
++						 MCHP_I2SMCC_MRA_WIRECFG_MASK)
+ #define MCHP_I2SMCC_MRA_WIRECFG_I2S_1_TDM_0	(0 << 4)
+ #define MCHP_I2SMCC_MRA_WIRECFG_I2S_2_TDM_1	(1 << 4)
+ #define MCHP_I2SMCC_MRA_WIRECFG_I2S_4_TDM_2	(2 << 4)
+@@ -245,6 +247,7 @@ struct mchp_i2s_mcc_dev {
+ 	unsigned int				frame_length;
+ 	int					tdm_slots;
+ 	int					channels;
++	u8					tdm_data_pair;
+ 	unsigned int				gclk_use:1;
+ 	unsigned int				gclk_running:1;
+ 	unsigned int				tx_rdy:1;
+@@ -589,6 +592,8 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
+ 		if (!frame_length)
+ 			frame_length = 2 * params_physical_width(params);
+ 	} else if (dev->fmt & SND_SOC_DAIFMT_DSP_A) {
++		mra |= MCHP_I2SMCC_MRA_WIRECFG_TDM(dev->tdm_data_pair);
++
+ 		if (dev->tdm_slots) {
+ 			if (channels % 2 && channels * 2 <= dev->tdm_slots) {
+ 				/*
+@@ -914,6 +919,45 @@ static const struct of_device_id mchp_i2s_mcc_dt_ids[] = {
+ MODULE_DEVICE_TABLE(of, mchp_i2s_mcc_dt_ids);
+ #endif
+ 
++static int mchp_i2s_mcc_soc_data_parse(struct platform_device *pdev,
++				       struct mchp_i2s_mcc_dev *dev)
++{
++	int err;
++
++	if (!dev->soc) {
++		dev_err(&pdev->dev, "failed to get soc data\n");
++		return -ENODEV;
++	}
++
++	if (dev->soc->data_pin_pair_num == 1)
++		return 0;
++
++	err = of_property_read_u8(pdev->dev.of_node, "microchip,tdm-data-pair",
++				  &dev->tdm_data_pair);
++	if (err < 0 && err != -EINVAL) {
++		dev_err(&pdev->dev,
++			"bad property data for 'microchip,tdm-data-pair': %d",
++			err);
++		return err;
++	}
++	if (err == -EINVAL) {
++		dev_info(&pdev->dev,
++			 "'microchip,tdm-data-pair' not found; assuming DIN/DOUT 0 for TDM\n");
++		dev->tdm_data_pair = 0;
++	} else {
++		if (dev->tdm_data_pair > dev->soc->data_pin_pair_num - 1) {
++			dev_err(&pdev->dev,
++				"invalid value for 'microchip,tdm-data-pair': %d\n",
++				dev->tdm_data_pair);
++			return -EINVAL;
++		}
++		dev_dbg(&pdev->dev, "TMD format on DIN/DOUT %d pins\n",
++			dev->tdm_data_pair);
++	}
++
++	return 0;
++}
++
+ static int mchp_i2s_mcc_probe(struct platform_device *pdev)
+ {
+ 	struct mchp_i2s_mcc_dev *dev;
+@@ -966,10 +1010,10 @@ static int mchp_i2s_mcc_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	dev->soc = of_device_get_match_data(&pdev->dev);
+-	if (!dev->soc) {
+-		dev_err(&pdev->dev, "failed to get soc data\n");
+-		return -ENODEV;
+-	}
++	err = mchp_i2s_mcc_soc_data_parse(pdev, dev);
++	if (err < 0)
++		return err;
++
+ 	dev->dev = &pdev->dev;
+ 	dev->regmap = regmap;
+ 	platform_set_drvdata(pdev, dev);
 -- 
 2.27.0
 

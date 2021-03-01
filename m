@@ -2,80 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663B9328266
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 16:25:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BC4328277
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 16:30:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E19221616;
-	Mon,  1 Mar 2021 16:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E19221616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DF8516A2;
+	Mon,  1 Mar 2021 16:29:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DF8516A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614612345;
-	bh=kN+ziVnO+XyWzXYIDxWQaSmgCRrJ6JZ0Qod7iYhxDfE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614612607;
+	bh=8FJa4vvmvrqvDyuEF6Ng/XtOtvOPcfh6zqZXVOOsxls=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RkX6lwOgpJWoMsHOXPb1qmQTync6Ftw8/NRRP55xbrRXwOi6hCpTJxULKqHkR+CRG
-	 PJ/a2r545YoxCpZx9SpprsgcMRmNUyQjPWQsaDUB/O5l8rKV4FGlsDRJwQtq381n3r
-	 wlD+4gVUMmqAZmWIvLlWt+KRStxpU6nDkECj146E=
+	b=CSGMG0AOkrWh55Ab+2sJokK0HEabdyGbjYGSwtIWxoOfzeZl919x+ge8t3pzEzG7E
+	 cDWO1uMQsjnUVm6jcoWFGpTvNbl2Lo0qRBLDru2t76elj4MIDOapntth4bfDcOgqHR
+	 fxoq9ChiMQh315irsjoKZvATjb8i8QCZ7PlQ7f+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C829F8026A;
-	Mon,  1 Mar 2021 16:24:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B926AF8026A;
+	Mon,  1 Mar 2021 16:28:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 935ABF8025E; Mon,  1 Mar 2021 16:24:12 +0100 (CET)
+ id DEA8CF80275; Mon,  1 Mar 2021 16:28:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E935FF80150
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 16:24:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E935FF80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98B47F80150
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 16:28:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98B47F80150
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="vMfnkx2j"
-Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
- [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id 30669A1359;
- Mon,  1 Mar 2021 16:24:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=JTcGEEoX41cX
- WPArQghalzIihhiyHylco6+sqThvEyQ=; b=vMfnkx2jrMZV5YZ82LDH7lWhSTh/
- k8IVM+DlYX6C9/Ql9tfyo4VIuaYlLZL6m034GaIegoOlORbF8tejizJGKON4ZmnW
- DnzAEgNGSAqFkawIM4O6rJdaNYOgjpIZKKZAuMtkWi6naLCixtDYx5lE3lnUB+nS
- LXtOuL+4/wREB/v+27Qj5HxViU4fh05JID2iN2GMVzp5sD5DA4mgn7wmOG5rrbex
- MR8UNwePJ8bZEpfqbsy6uabrmxEnya9tZz1hyuD5/tPI9arHDQjzgMGAa6MOFyv5
- rKHVfgB9H1qgR+Zo2jKUqbGfS6fGTfTjDuDB6A+8Lf157osMENVU+FlqAA==
-Subject: Re: [PATCH v6 5/9] ALSA: virtio: handling control and I/O messages
- for the PCM device
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-6-anton.yakovlev@opensynergy.com>
- <s5hsg5gjutg.wl-tiwai@suse.de>
- <b3de8563-1776-4296-2cf5-883c831dfbe8@opensynergy.com>
- <s5h35xfj8yz.wl-tiwai@suse.de>
- <85bbc067-e7ec-903a-1518-5aab01577655@opensynergy.com>
- <s5ho8g2j532.wl-tiwai@suse.de>
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Message-ID: <b9c93040-52d5-7445-cb1c-c223b4fd59fb@opensynergy.com>
-Date: Mon, 1 Mar 2021 16:24:00 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="o6mU2Ok/"
+Received: by mail-wr1-x42f.google.com with SMTP id f12so12780560wrx.8
+ for <alsa-devel@alsa-project.org>; Mon, 01 Mar 2021 07:28:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=YS38uimQoHCCCcLQNTPdajepwcpHojM32/chajw1jgw=;
+ b=o6mU2Ok/ummMlJHua8kJj+dUHIBpMiiL4oha5tOti0a/IPMIs9AjBrtDGlHcQ6Fxee
+ DZmoW1a5Ui8llfakve1V5FNlPyilVNGZ/U4An1b6FP2rnWxFcemjNX8dXgl++rtvaBGV
+ yxrmcS8tja0BKzQb8fDOU9mvw/xs5rTeMH+m/szWCyqqkCibmuCD05QcN4F3lOUnJqZk
+ 76fbLBgAKUmygPiHg2FiF0JabqrYDH98Ri3TnAI7BnKgoNPu3vQhHItJQ8TFx4XSuzkC
+ +jVdosor6crYAwhdZ0mh8qAmkQFgkblWGB2OciZNaa4g6DLGELQftaTEeI4/uDEI/yaq
+ 0S6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=YS38uimQoHCCCcLQNTPdajepwcpHojM32/chajw1jgw=;
+ b=FAhEVADyipAlVF7n/qwzwS/H38/tK2O9v3hdedEjYc0iJMRzgxG6VJZN8XesCITP0f
+ AoCvBvq8pDK0ZeP1IWDR71JgwQvGt9omjL0wPDJ8RwRgAHXsQ+L77W4YfPDbDfM6/KXj
+ quXTFvo0RtwrRe54eMV/AUdd+7zWBJ0YsKmUxyYWg8/Irdu7/gNriu/Yn/e1PUypUGAd
+ fX5fp8U8oJzIGZ14gamGC1z7zXr7hc12HCSjzQzRDxLjQcHUc5pJLeX3U2PNYx0FRE3V
+ DCFPWzUJJ00b2SqbQsbOiQc1wNUfv6SCvNqBbTIohjkWvORLN2Hg5bnPcfJgmsqypf5f
+ wH9Q==
+X-Gm-Message-State: AOAM532f0FX2GUYehfw+UIaqHC1mbhy4hpoiqo2HteDdw/+YER81S1JN
+ bYqrnynpRe35AN0j1wi1pEE=
+X-Google-Smtp-Source: ABdhPJxywMgDTlvjFFpyoB3mc93hp0UH/CKFBMw3DpSC8p7X9gskVK0e9aBW9pW0TF7YPT7UwWwajg==
+X-Received: by 2002:a5d:4523:: with SMTP id j3mr17866582wra.288.1614612499677; 
+ Mon, 01 Mar 2021 07:28:19 -0800 (PST)
+Received: from localhost.localdomain (176-171-138-112.abo.bbox.fr.
+ [176.171.138.112])
+ by smtp.googlemail.com with ESMTPSA id c128sm201771wme.3.2021.03.01.07.28.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Mar 2021 07:28:19 -0800 (PST)
+From: Nicolas MURE <nicolas.mure2019@gmail.com>
+To: tiwai@suse.de
+Subject: [PATCH v2 1/4] ALSA: usb-audio: Add Pioneer DJM-850 to quirks-table
+Date: Mon,  1 Mar 2021 16:27:26 +0100
+Message-Id: <20210301152729.18094-2-nicolas.mure2019@gmail.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210301152729.18094-1-nicolas.mure2019@gmail.com>
+References: <s5hv9abht6w.wl-tiwai@suse.de>
+ <20210301152729.18094-1-nicolas.mure2019@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <s5ho8g2j532.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
- SR-MAIL-01.open-synergy.com (10.26.10.21)
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
- Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+Content-Transfer-Encoding: 8bit
+Cc: Nicolas MURE <nicolas.mure2019@gmail.com>, alsa-devel@alsa-project.org,
+ livvy@base.nu
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,214 +102,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01.03.2021 15:56, Takashi Iwai wrote:
-> On Mon, 01 Mar 2021 15:47:46 +0100,
-> Anton Yakovlev wrote:
->>
->> On 01.03.2021 14:32, Takashi Iwai wrote:
->>> On Mon, 01 Mar 2021 10:25:05 +0100,
->>> Anton Yakovlev wrote:
->>>>
->>>> On 28.02.2021 12:27, Takashi Iwai wrote:
->>>>> On Sat, 27 Feb 2021 09:59:52 +0100,
->>>>> Anton Yakovlev wrote:
->>>>>> +/**
->>>>>> + * virtsnd_pcm_event() - Handle the PCM device event notification.
->>>>>> + * @snd: VirtIO sound device.
->>>>>> + * @event: VirtIO sound event.
->>>>>> + *
->>>>>> + * Context: Interrupt context.
->>>>>
->>>>> OK, then nonatomic PCM flag is invalid...
->>>>
->>>> Well, no. Here, events are kind of independent entities. PCM-related
->>>> events are just a special case of more generic events, which can carry
->>>> any kind of notification/payload. (And at the moment, only XRUN
->>>> notification is supported for PCM substreams.) So it has nothing to do
->>>> with the atomicity of the PCM device itself.
->>>
->>> OK, thanks.
->>>
->>> Basically the only question is how snd_pcm_period_elapsed() is called.
->>> And I see that it's called inside queue->lock, and this already
->>> invalidates the nonatomic PCM mode.  So the code needs the fix: either
->>> fix this locking (and the context is guaranteed not to be an irq
->>> context), or change to the normal PCM mode without nonatomic flag.
->>> Both would bring some side-effect, and we need further changes, I
->>> suppose...
->>
->> Ok, I understood the problem. Well, I would say the nonatomic PCM mode
->> is more important option, since in this mode we can guarantee the
->> correct operation of the device.
-> 
-> Which operation (except for the resume) in the trigger and the pointer
-> callbacks need the action that need to sleep?  I thought the sync with
-> the command queue is done in the sync_stop.  And most of others seem
-> already taking the spinlock in themselves, so the non-atomic operation
-> has little merit for them.
+Declare the Pioneer DJM-850 interfaces for capture and playback.
 
-All three commands from the beginning of that switch in trigger op:
-ops->trigger(START)
-ops->trigger(PAUSE_RELEASE)
-ops->trigger(RESUME)
+See https://github.com/nm2107/Pioneer-DJM-850-driver-reverse-engineering/blob/172fb9a61055960c88c67b7c416fe5bf3609807b/doc/usb-device-specifications.md
+for the complete device spec.
 
-They all result in
-virtsnd_ctl_msg_send_sync(VIRTIO_SND_R_PCM_START)
+Signed-off-by: Nicolas MURE <nicolas.mure2019@gmail.com>
+---
+ sound/usb/quirks-table.h | 63 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-And that command must be sync, i.e. we need to wait/sleep until device
-sent response. There are two major reasons for that: we need to be sure,
-that substream has been actually started (i.e. device said OK). And we
-need to take into account the virtualization overhead as well. Since
-substream starting on device side may take some time, we can not
-return from the trigger op until it actually happened. In atomic mode
-all these nuances are lost, and it may lead to incorrect application
-behavior.
-
-
->> And if you say, that we need to get rid
->> of irq context here, then probably workqueue for calling
->> snd_pcm_period_elapsed() should be fine (of course, it should be shared
->> between all available substreams).
-> 
-> That would work, but it's of course just papering over it :)
-> 
-> 
->>>>>> +/**
->>>>>> + * virtsnd_pcm_sg_num() - Count the number of sg-elements required to represent
->>>>>> + *                        vmalloc'ed buffer.
->>>>>> + * @data: Pointer to vmalloc'ed buffer.
->>>>>> + * @length: Buffer size.
->>>>>> + *
->>>>>> + * Context: Any context.
->>>>>> + * Return: Number of physically contiguous parts in the @data.
->>>>>> + */
->>>>>> +static int virtsnd_pcm_sg_num(u8 *data, unsigned int length)
->>>>>> +{
->>>>>> +     phys_addr_t sg_address;
->>>>>> +     unsigned int sg_length;
->>>>>> +     int num = 0;
->>>>>> +
->>>>>> +     while (length) {
->>>>>> +             struct page *pg = vmalloc_to_page(data);
->>>>>> +             phys_addr_t pg_address = page_to_phys(pg);
->>>>>> +             size_t pg_length;
->>>>>> +
->>>>>> +             pg_length = PAGE_SIZE - offset_in_page(data);
->>>>>> +             if (pg_length > length)
->>>>>> +                     pg_length = length;
->>>>>> +
->>>>>> +             if (!num || sg_address + sg_length != pg_address) {
->>>>>> +                     sg_address = pg_address;
->>>>>> +                     sg_length = pg_length;
->>>>>> +                     num++;
->>>>>> +             } else {
->>>>>> +                     sg_length += pg_length;
->>>>>> +             }
->>>>>> +
->>>>>> +             data += pg_length;
->>>>>> +             length -= pg_length;
->>>>>> +     }
->>>>>> +
->>>>>> +     return num;
->>>>>> +}
->>>>>> +
->>>>>> +/**
->>>>>> + * virtsnd_pcm_sg_from() - Build sg-list from vmalloc'ed buffer.
->>>>>> + * @sgs: Preallocated sg-list to populate.
->>>>>> + * @nsgs: The maximum number of elements in the @sgs.
->>>>>> + * @data: Pointer to vmalloc'ed buffer.
->>>>>> + * @length: Buffer size.
->>>>>> + *
->>>>>> + * Splits the buffer into physically contiguous parts and makes an sg-list of
->>>>>> + * such parts.
->>>>>> + *
->>>>>> + * Context: Any context.
->>>>>> + */
->>>>>> +static void virtsnd_pcm_sg_from(struct scatterlist *sgs, int nsgs, u8 *data,
->>>>>> +                             unsigned int length)
->>>>>> +{
->>>>>> +     int idx = -1;
->>>>>> +
->>>>>> +     while (length) {
->>>>>> +             struct page *pg = vmalloc_to_page(data);
->>>>>> +             size_t pg_length;
->>>>>> +
->>>>>> +             pg_length = PAGE_SIZE - offset_in_page(data);
->>>>>> +             if (pg_length > length)
->>>>>> +                     pg_length = length;
->>>>>> +
->>>>>> +             if (idx == -1 ||
->>>>>> +                 sg_phys(&sgs[idx]) + sgs[idx].length != page_to_phys(pg)) {
->>>>>> +                     if (idx + 1 == nsgs)
->>>>>> +                             break;
->>>>>> +                     sg_set_page(&sgs[++idx], pg, pg_length,
->>>>>> +                                 offset_in_page(data));
->>>>>> +             } else {
->>>>>> +                     sgs[idx].length += pg_length;
->>>>>> +             }
->>>>>> +
->>>>>> +             data += pg_length;
->>>>>> +             length -= pg_length;
->>>>>> +     }
->>>>>> +
->>>>>> +     sg_mark_end(&sgs[idx]);
->>>>>> +}
->>>>>
->>>>> Hmm, I thought there can be already a handy helper to convert vmalloc
->>>>> to sglist, but apparently not.  It should have been trivial to get the
->>>>> page list from vmalloc, e.g.
->>>>>
->>>>> int vmalloc_to_page_list(void *p, struct page **page_ret)
->>>>> {
->>>>>            struct vmap_area *va;
->>>>>
->>>>>            va = find_vmap_area((unsigned long)p);
->>>>>            if (!va)
->>>>>                    return 0;
->>>>>            *page_ret = va->vm->pages;
->>>>>            return va->vm->nr_pages;
->>>>> }
->>>>>
->>>>> Then you can set up the sg list in a single call from the given page
->>>>> list.
->>>>>
->>>>> But it's just a cleanup, and let's mark it as a room for
->>>>> improvements.
->>>>
->>>> Yeah, we can take a look into some kind of optimizations here. But I
->>>> suspect, the overall code will look similar. It is not enough just to
->>>> get a list of pages, you also need to build a list of physically
->>>> contiguous regions from it.
->>>
->>> I believe the standard helper does it.  But it's for sg_table, hence
->>> the plain scatterlist needs to be extracted from there, but most of
->>> complex things are in the standard code.
->>>
->>> But it's merely an optimization and something for future.
->>
->> I quickly checked it. I think it's hardly possible to do anything here.
->> These functions to deal with vmalloced areas are not exported. And,
->> according to comments, require some proper locking on top of that. At
->> least, it does not look like a trivial things.
-> 
-> Sure, it needs a function exposed from vmalloc.c.  But I don't think
-> the locking is the problem as find_vmap_area() already takes care of
-> it, and we don't release the vmalloced pages while invoking this
-> function.  Of course I might overlook something, but my point is that
-> this kind of work should be rather in the core (or at least most of
-> the important steps in the code should be in the core code).
-
-Then it's definitely some work for future. :)
-
-
-> 
-> Takashi
-> 
-
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 1165a5ac60f2..9716a9f7c095 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3817,6 +3817,69 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DJM-850
++	 * 8 channels playback and 8 channels capture @ 44.1/48/96kHz S24LE
++	 * Playback on EP 0x05
++	 * Capture on EP 0x86
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x08e4, 0x0163),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 8,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x05,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC|
++						USB_ENDPOINT_USAGE_DATA,
++					.rates = SNDRV_PCM_RATE_44100|
++						SNDRV_PCM_RATE_48000|
++						SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 8,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x86,
++					.ep_idx = 1,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						USB_ENDPOINT_SYNC_ASYNC|
++						USB_ENDPOINT_USAGE_DATA,
++					.rates = SNDRV_PCM_RATE_44100|
++						SNDRV_PCM_RATE_48000|
++						SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ {
+ 	/*
+ 	 * Pioneer DJ DJM-450
 -- 
-Anton Yakovlev
-Senior Software Engineer
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
+2.29.2
 

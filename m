@@ -2,82 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD6F0328010
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:54:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE06B327F87
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:33:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2637516AE;
-	Mon,  1 Mar 2021 14:53:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2637516AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F54F167D;
+	Mon,  1 Mar 2021 14:32:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F54F167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614606878;
-	bh=ExZVqku75Co3OApbG13LcXf3+8VU5GNXgfPiW99Yi7I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614605624;
+	bh=F4Dz3uOyloNYx0fdtAlrfKblDRGLHPLd8vXk6gwch2Q=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cUXrkza2ClO2wyRwgBHlZRV1Wegmc2Zpc1LCppJz3j3l+EJVNdR6OqLSA1U4qWp1a
-	 jEzyncqG1dz9gt1gHnYwJ4jgDKoEiQOMFyeQEK5GRa6rqsjp0VMo7mT/VuXyhACHcZ
-	 l+vZFzv1jseEddb+N52Y5wjsEjLI2ioioYGYGIfI=
+	b=Rz5uWnn3Lh1ShKGPI/TX9GxHQMSVin+DeCgsQVGvKPwAqMnBFxYHIQ8yvGn4rVtg9
+	 0m9Bzk7q5Py61NZk7Zcr+JYBoAzbXDvh/klQZgte2LeAjRHy4xQHDgFqdcvlnrI8rd
+	 sa6p0Rqvc8M5xuF89Fc9IlghVMDN5Euj5Hw5+KT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCBAAF8050F;
-	Mon,  1 Mar 2021 13:37:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADB8AF804DA;
+	Mon,  1 Mar 2021 14:32:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 160BDF80508; Mon,  1 Mar 2021 13:37:27 +0100 (CET)
+ id 0E0E5F804E4; Mon,  1 Mar 2021 14:32:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4340F804FC
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 13:37:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4340F804FC
-IronPort-SDR: b/vuZWofEZmvPlLfwaQghgcPHT1oNkDf2kr+M/VzkxULlo5jmgv85W7oC4fnk75pM/fYU98Ptm
- qe5+FJGyaYeA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9909"; a="165681141"
-X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="165681141"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2021 04:37:16 -0800
-IronPort-SDR: 6KMnGF1B+htsRyDuEnC0Bakm+2zocqOdXoKQvE9rjiZ01/882mKLfarANPUHwhR4OE0RyKhVuA
- cu4qtWHT+Reg==
-X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="397708026"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.1.91])
- ([10.213.1.91])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2021 04:37:14 -0800
-Subject: Re: [PATCH] ASoC: Intel: Skylake: Compile when any configuration is
- selected
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-References: <20210125115441.10383-1-cezary.rojewski@intel.com>
- <CAAd53p4fycxLn6y0WpaMWvWkN8EwmT216b40DavttfshN_GMRg@mail.gmail.com>
- <324dc8a5-c4d3-6ebf-c8e9-6321d6c93dab@intel.com>
- <CAAd53p4gqyuFPWX55fnPGHORXXf58++ZRMH9WFYp+QwS1=xDJQ@mail.gmail.com>
- <181c989f-7a4d-3cdd-11be-7378dbc9502c@intel.com>
- <5e970d19-9544-50fe-f140-b66245418c6e@intel.com>
- <CAAd53p4srH6NFwcyUCBnLj=MS8-YBvA9CPjMbcryGgi5CmUUHw@mail.gmail.com>
- <2c93bf65-4996-08c6-5be1-da4b9966e168@intel.com>
- <f20e5e2b-3761-5e13-3166-5f026d088aa1@intel.com>
- <CAAd53p6ZyuAzNJWLyONkbFndSRF2HBLn=6HLzb5RUShCmNWdVQ@mail.gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <46f88397-dd4e-ffb4-3bd3-8f64c4827b66@intel.com>
-Date: Mon, 1 Mar 2021 13:37:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <CAAd53p6ZyuAzNJWLyONkbFndSRF2HBLn=6HLzb5RUShCmNWdVQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97BCFF804DA
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 14:32:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97BCFF804DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A073DAB8C;
+ Mon,  1 Mar 2021 13:32:04 +0000 (UTC)
+Date: Mon, 01 Mar 2021 14:32:04 +0100
+Message-ID: <s5h35xfj8yz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Subject: Re: [PATCH v6 5/9] ALSA: virtio: handling control and I/O messages
+ for the PCM device
+In-Reply-To: <b3de8563-1776-4296-2cf5-883c831dfbe8@opensynergy.com>
+References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
+ <20210227085956.1700687-6-anton.yakovlev@opensynergy.com>
+ <s5hsg5gjutg.wl-tiwai@suse.de>
+ <b3de8563-1776-4296-2cf5-883c831dfbe8@opensynergy.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,27 +74,150 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-02-22 4:04 PM, Kai-Heng Feng wrote:
-> Hi Cezary,
+On Mon, 01 Mar 2021 10:25:05 +0100,
+Anton Yakovlev wrote:
 > 
-
-...
-
->>
->> I'd like to close the compilation issue which this patch is addressing.
->> Could you confirm that the presented change fixes the issue on your end?
+> On 28.02.2021 12:27, Takashi Iwai wrote:
+> > On Sat, 27 Feb 2021 09:59:52 +0100,
+> > Anton Yakovlev wrote:
+> >> +/**
+> >> + * virtsnd_pcm_event() - Handle the PCM device event notification.
+> >> + * @snd: VirtIO sound device.
+> >> + * @event: VirtIO sound event.
+> >> + *
+> >> + * Context: Interrupt context.
+> >
+> > OK, then nonatomic PCM flag is invalid...
 > 
-> No, the SST regression is not fixed.
-> However, it's not the scope of this patch, which is to fix a different issue.
+> Well, no. Here, events are kind of independent entities. PCM-related
+> events are just a special case of more generic events, which can carry
+> any kind of notification/payload. (And at the moment, only XRUN
+> notification is supported for PCM substreams.) So it has nothing to do
+> with the atomicity of the PCM device itself.
+
+OK, thanks.
+
+Basically the only question is how snd_pcm_period_elapsed() is called.
+And I see that it's called inside queue->lock, and this already
+invalidates the nonatomic PCM mode.  So the code needs the fix: either
+fix this locking (and the context is guaranteed not to be an irq
+context), or change to the normal PCM mode without nonatomic flag.
+Both would bring some side-effect, and we need further changes, I
+suppose...
+
+
+> >> +/**
+> >> + * virtsnd_pcm_sg_num() - Count the number of sg-elements required to represent
+> >> + *                        vmalloc'ed buffer.
+> >> + * @data: Pointer to vmalloc'ed buffer.
+> >> + * @length: Buffer size.
+> >> + *
+> >> + * Context: Any context.
+> >> + * Return: Number of physically contiguous parts in the @data.
+> >> + */
+> >> +static int virtsnd_pcm_sg_num(u8 *data, unsigned int length)
+> >> +{
+> >> +     phys_addr_t sg_address;
+> >> +     unsigned int sg_length;
+> >> +     int num = 0;
+> >> +
+> >> +     while (length) {
+> >> +             struct page *pg = vmalloc_to_page(data);
+> >> +             phys_addr_t pg_address = page_to_phys(pg);
+> >> +             size_t pg_length;
+> >> +
+> >> +             pg_length = PAGE_SIZE - offset_in_page(data);
+> >> +             if (pg_length > length)
+> >> +                     pg_length = length;
+> >> +
+> >> +             if (!num || sg_address + sg_length != pg_address) {
+> >> +                     sg_address = pg_address;
+> >> +                     sg_length = pg_length;
+> >> +                     num++;
+> >> +             } else {
+> >> +                     sg_length += pg_length;
+> >> +             }
+> >> +
+> >> +             data += pg_length;
+> >> +             length -= pg_length;
+> >> +     }
+> >> +
+> >> +     return num;
+> >> +}
+> >> +
+> >> +/**
+> >> + * virtsnd_pcm_sg_from() - Build sg-list from vmalloc'ed buffer.
+> >> + * @sgs: Preallocated sg-list to populate.
+> >> + * @nsgs: The maximum number of elements in the @sgs.
+> >> + * @data: Pointer to vmalloc'ed buffer.
+> >> + * @length: Buffer size.
+> >> + *
+> >> + * Splits the buffer into physically contiguous parts and makes an sg-list of
+> >> + * such parts.
+> >> + *
+> >> + * Context: Any context.
+> >> + */
+> >> +static void virtsnd_pcm_sg_from(struct scatterlist *sgs, int nsgs, u8 *data,
+> >> +                             unsigned int length)
+> >> +{
+> >> +     int idx = -1;
+> >> +
+> >> +     while (length) {
+> >> +             struct page *pg = vmalloc_to_page(data);
+> >> +             size_t pg_length;
+> >> +
+> >> +             pg_length = PAGE_SIZE - offset_in_page(data);
+> >> +             if (pg_length > length)
+> >> +                     pg_length = length;
+> >> +
+> >> +             if (idx == -1 ||
+> >> +                 sg_phys(&sgs[idx]) + sgs[idx].length != page_to_phys(pg)) {
+> >> +                     if (idx + 1 == nsgs)
+> >> +                             break;
+> >> +                     sg_set_page(&sgs[++idx], pg, pg_length,
+> >> +                                 offset_in_page(data));
+> >> +             } else {
+> >> +                     sgs[idx].length += pg_length;
+> >> +             }
+> >> +
+> >> +             data += pg_length;
+> >> +             length -= pg_length;
+> >> +     }
+> >> +
+> >> +     sg_mark_end(&sgs[idx]);
+> >> +}
+> >
+> > Hmm, I thought there can be already a handy helper to convert vmalloc
+> > to sglist, but apparently not.  It should have been trivial to get the
+> > page list from vmalloc, e.g.
+> >
+> > int vmalloc_to_page_list(void *p, struct page **page_ret)
+> > {
+> >          struct vmap_area *va;
+> >
+> >          va = find_vmap_area((unsigned long)p);
+> >          if (!va)
+> >                  return 0;
+> >          *page_ret = va->vm->pages;
+> >          return va->vm->nr_pages;
+> > }
+> >
+> > Then you can set up the sg list in a single call from the given page
+> > list.
+> >
+> > But it's just a cleanup, and let's mark it as a room for
+> > improvements.
 > 
-> So please proceed to merge the patch. We can discuss the SST
-> regression in other thread.
-> 
+> Yeah, we can take a look into some kind of optimizations here. But I
+> suspect, the overall code will look similar. It is not enough just to
+> get a list of pages, you also need to build a list of physically
+> contiguous regions from it.
 
-Thanks for the reply Kai-Heng.
-Could you elaborate on the SST regression subject though?
+I believe the standard helper does it.  But it's for sg_table, hence
+the plain scatterlist needs to be extracted from there, but most of
+complex things are in the standard code.
 
-Mark, do you want me to re-send the patch?
+But it's merely an optimization and something for future.
 
-Regards,
-Czarek
+
+Takashi

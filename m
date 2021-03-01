@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A812329553
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 00:44:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BAB632954C
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 00:41:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE5F16B4;
-	Tue,  2 Mar 2021 00:43:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE5F16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99F3D1685;
+	Tue,  2 Mar 2021 00:40:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99F3D1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614642263;
-	bh=BTDyXUsipgvB9/RxOCjF7hQ3tDehq3a8IIFVLtpcvew=;
+	s=default; t=1614642103;
+	bh=mwsay5s5eqahx5ekc52x1LsK1xRv62c49/5yZJhJD1Y=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HyDAMORej60eIhZHVQG1BFpetSjpcmMn0qM6x5ZK3Tn8bxZhFrHHzUh+1wTvXasW5
-	 uYU9hOJXXsgSah8EmojxtPOSY1pRJCwoCxROqnMPln5/EyNBwGKeaVGWbbQuqNBz8V
-	 aHsqbIS1rF4LxFb/iLm2po3ddjI0kWXc01RCNtKg=
+	b=FydqDVMJ4e6lE9MClNsPg6oiFsOi+iydDK/jbiFZBXoLnE/iV7i2OX4GobxYlZcbD
+	 a4CT00wWbSLZHCzl9WOu3Zye89MY+g6oOGRb5PJmLncSEQRa9NTna4sbrOGmCL2fLB
+	 9lAJjFTfhaf/x2qthOrSL0J08rOOSEwyjd+n/H2I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36605F8052F;
-	Tue,  2 Mar 2021 00:37:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0714F804F3;
+	Tue,  2 Mar 2021 00:36:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5704F8052E; Tue,  2 Mar 2021 00:37:29 +0100 (CET)
+ id E4038F804FA; Tue,  2 Mar 2021 00:36:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F101F80524
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 00:37:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F101F80524
+ by alsa1.perex.cz (Postfix) with ESMTPS id 829BDF804ED
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 00:36:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 829BDF804ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TScYrYA7"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3E3BB6024A;
- Mon,  1 Mar 2021 23:37:25 +0000 (UTC)
+ header.b="utsnrD+u"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6DE0560C3E;
+ Mon,  1 Mar 2021 23:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614641845;
- bh=BTDyXUsipgvB9/RxOCjF7hQ3tDehq3a8IIFVLtpcvew=;
+ s=k20201202; t=1614641807;
+ bh=mwsay5s5eqahx5ekc52x1LsK1xRv62c49/5yZJhJD1Y=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=TScYrYA74KRQn1ezzQgcG+QIv6hcgl2r+sVbjY/KW7Fb39gAh6b/+V+jXC6XOtEj+
- l0Lk6vA4lEQyZFMZ34OAravuVdCwa62XCO8bhV7vF7Tjbda0JWFvwpN31HrMd1uzcB
- faa6HajUM+2ukVqjRT/IBH871YJDMem/YNgD9DFX9smCDU9i5/MLdnZ+8bLnjxfHC7
- aIpaChDabBn3M/aWFZyzWBZ/KiNDtbb0/NTmdhmx9+iE70E4WhrwOWf2NSLpJhe6rK
- naxM/QpoWFOnYoQ3gwc3FVh2VrJNdbkZ3JiWMNmCrd2AwgLoCrNDhM6yINlEPKmrml
- MDpTaSwuV2wFw==
+ b=utsnrD+uYaKXVnROaqQ2X+dMagsOxB/5oBHugEZimKr6ZBxwBLSOTjfcHrAMWpu5G
+ gY0tDIRe3DHLcLSvWgHsMDTZ32vhyxSFc+JXAMMOtRQPl9zf8A1dZE2FoGV/KQqcZk
+ xvlM/Di+sq0l4BYTHSWCqGYDJCVTKPs8txGE52qYxpLKywtz/6+U3LxfKsnGljdbtv
+ /9PcXFmL0+D6/+mm3ShrFKeBBxFpz6Yf2zqMdeNN0MBRirPm6erklg6HtO9cbDq2OA
+ vBiiPHoq7/gSFlh7V7F/07FIa0mKCrKTVvyG8gaxrwyJAPze9LtILDwR8l4n7+d7C4
+ 6gMasxszOtWew==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20210218222916.89809-1-pierre-louis.bossart@linux.intel.com>
-References: <20210218222916.89809-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/10] ASoC: qcom: remove cppcheck warnings
-Message-Id: <161464168096.31144.9561845057548508112.b4-ty@kernel.org>
+To: Julia Lawall <Julia.Lawall@inria.fr>,
+ Jernej Skrabec <jernej.skrabec@siol.net>
+In-Reply-To: <20210213101907.1318496-1-Julia.Lawall@inria.fr>
+References: <20210213101907.1318496-1-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH 0/4] drop unneeded snd_soc_dai_set_drvdata
+Message-Id: <161464168096.31144.9397377400950127725.b4-ty@kernel.org>
 Date: Mon, 01 Mar 2021 23:34:40 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, vkoul@kernel.org, srinivas.kandagatla@linaro.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,24 +82,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Feb 2021 16:29:06 -0600, Pierre-Louis Bossart wrote:
-> Second batch of cleanups for Qualcomm SOCs and codecs. The only
-> functional change is the addition of a missing error check in the last
-> patch.
-> 
-> Pierre-Louis Bossart (10):
->   ASoC: qcom: lpass-hdmi: remove useless return
->   ASoC: qcom: lpass-platform: remove useless assignment
->   ASoC: qcom: q6dsp-dai: clarify expression
->   ASoC: qcom: q6afe: remove useless assignments
->   ASoC: qcom: q6afe: align function prototype
->   ASoC: qcom: q6asm: align function prototypes
->   ASoC: wcd-clsh-v2: align function prototypes
->   ASoC: wcd9335: clarify return value
->   ASoC: wcd934x: remove useless return
->   ASoC: lpass-wsa-macro: add missing test
-> 
-> [...]
+On Sat, 13 Feb 2021 11:19:03 +0100, Julia Lawall wrote:
+> snd_soc_dai_set_drvdata is not needed when the set data comes from
+> snd_soc_dai_get_drvdata or dev_get_drvdata.
 
 Applied to
 
@@ -103,26 +92,14 @@ Applied to
 
 Thanks!
 
-[01/10] ASoC: qcom: lpass-hdmi: remove useless return
-        commit: 0bf10fbda55679a3fef86f5fae47105b2d61fecc
-[02/10] ASoC: qcom: lpass-platform: remove useless assignment
-        commit: 25ab7dcdb77e4ecfa1a9e1c7939318b2b90a90f3
-[03/10] ASoC: qcom: q6dsp-dai: clarify expression
-        commit: fd565b469d21ab1008f5f4fb5ca5cf9eaff83cc1
-[04/10] ASoC: qcom: q6afe: remove useless assignments
-        commit: 924d4aad24337def5b18cd3225eec7e27dcf0f74
-[05/10] ASoC: qcom: q6afe: align function prototype
-        commit: 7ca70ca9914c23e1f8a9ae68c96f1fc812cc8575
-[06/10] ASoC: qcom: q6asm: align function prototypes
-        commit: 63a372715a3c2c13720774698a08d85de5f40934
-[07/10] ASoC: wcd-clsh-v2: align function prototypes
-        commit: 297ef0a73103c59c107f8b7c013b17d27ea2f772
-[08/10] ASoC: wcd9335: clarify return value
-        commit: 71ea36550bda7359ab055a4572a5f3ae04369b07
-[09/10] ASoC: wcd934x: remove useless return
-        commit: 5c3252b3f71184f96cf1bcad3a78aa074d6d7db8
-[10/10] ASoC: lpass-wsa-macro: add missing test
-        commit: 0076777b8753e3969516dbd514a2c5ffb3ceba3a
+[1/4] ASoC: mmp-sspa: drop unneeded snd_soc_dai_set_drvdata
+      commit: 131036ffae211a9cc3bfb053fadce87484e13fc5
+[2/4] ASoC: mxs-saif: drop unneeded snd_soc_dai_set_drvdata
+      commit: 7150186f1edb2fa94554be1bec26aa65a7df3388
+[3/4] ASoC: sun4i-i2s: drop unneeded snd_soc_dai_set_drvdata
+      commit: 0c34af2d5c9ba5103637c33c4f52d658172b991d
+[4/4] ASoC: fsl: drop unneeded snd_soc_dai_set_drvdata
+      commit: eb9db3066cdb57dbfd1fb3d85ca143ad5d719bfb
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

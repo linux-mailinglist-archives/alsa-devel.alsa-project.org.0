@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB27E327F88
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:34:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FF2327FB7
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 14:40:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 332FF168C;
-	Mon,  1 Mar 2021 14:33:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332FF168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F148D1683;
+	Mon,  1 Mar 2021 14:39:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F148D1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614605647;
-	bh=GouDTK9xgVoH2LSEdw3WTrxruv6vE/r1tnTMxSGl/Ws=;
+	s=default; t=1614606016;
+	bh=RzxGfNUho/pRixRVXXF9kDanXJH3qDbV0/Ouz9m+A20=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z5anr1GSWDTF4/6SuQAi4ZKPe0FH5CdSO/1dFdPqZQn/k9ftkGEARr3PQ8lV0+RFW
-	 Szx0h9zIyWbNlEnBPfO9aeH7MBUjJ7lJ1ZmDRVlpM1smRSjci4HYW7OxHVt4eSKnBh
-	 eIAQFeqxyPyL19YEp8n9vIotVLj2nB2/PY2DH3Io=
+	b=AVzdx7QnaAQNPrHlh2HLoiuuMTA0SlWoHUj30hBUk5/XeXm3yJ3kW8MvbyhsClKAD
+	 +8+3AQtInOTKqDD8ZnDkcN+ceCEIxf1YfGb+KlJ5+JII8q3ZYMu3mkQczfvEhg5cDG
+	 6Bx7l0UsmjnzIBM4mOlD2o68vIwt8THaejPLxS1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B157F804E5;
-	Mon,  1 Mar 2021 14:33:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 458D5F80475;
+	Mon,  1 Mar 2021 14:38:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18C90F804E6; Mon,  1 Mar 2021 14:33:13 +0100 (CET)
+ id C9E69F804E3; Mon,  1 Mar 2021 14:38:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3577F804E3
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 14:33:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3577F804E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE6F8F80475
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 14:38:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE6F8F80475
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2B7EEAB8C;
- Mon,  1 Mar 2021 13:33:09 +0000 (UTC)
-Date: Mon, 01 Mar 2021 14:33:09 +0100
-Message-ID: <s5h1rczj8x6.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 260CEAB8C;
+ Mon,  1 Mar 2021 13:38:36 +0000 (UTC)
+Date: Mon, 01 Mar 2021 14:38:36 +0100
+Message-ID: <s5hzgznhu3n.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Subject: Re: [PATCH v6 6/9] ALSA: virtio: PCM substream operators
-In-Reply-To: <f8a4bbf5-3bee-f336-0efd-94410184fb2b@opensynergy.com>
+Subject: Re: [PATCH v6 9/9] ALSA: virtio: introduce device suspend/resume
+ support
+In-Reply-To: <54854cb9-99c3-4c05-3b43-f41d89a29aec@opensynergy.com>
 References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-7-anton.yakovlev@opensynergy.com>
- <s5hr1l0juld.wl-tiwai@suse.de>
- <f8a4bbf5-3bee-f336-0efd-94410184fb2b@opensynergy.com>
+ <20210227085956.1700687-10-anton.yakovlev@opensynergy.com>
+ <s5hpn0kjt31.wl-tiwai@suse.de>
+ <54854cb9-99c3-4c05-3b43-f41d89a29aec@opensynergy.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,39 +74,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Mar 2021 10:29:24 +0100,
+On Mon, 01 Mar 2021 11:03:04 +0100,
 Anton Yakovlev wrote:
 > 
-> On 28.02.2021 12:32, Takashi Iwai wrote:
-> > On Sat, 27 Feb 2021 09:59:53 +0100,
+> On 28.02.2021 13:05, Takashi Iwai wrote:
+> > On Sat, 27 Feb 2021 09:59:56 +0100,
 > > Anton Yakovlev wrote:
 > >>
-> 
-> 
-> [snip]
-> 
-> 
-> >> +static snd_pcm_uframes_t
-> >> +virtsnd_pcm_pointer(struct snd_pcm_substream *substream)
+> >> All running PCM substreams are stopped on device suspend and restarted
+> >> on device resume.
+> >>
+> >> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> >> ---
+> >>   sound/virtio/virtio_card.c    | 56 +++++++++++++++++++++++++++++++++++
+> >>   sound/virtio/virtio_pcm.c     |  1 +
+> >>   sound/virtio/virtio_pcm_ops.c | 41 ++++++++++++++++++++-----
+> >>   3 files changed, 90 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
+> >> index 59455a562018..c7ae8801991d 100644
+> >> --- a/sound/virtio/virtio_card.c
+> >> +++ b/sound/virtio/virtio_card.c
+> >> @@ -323,6 +323,58 @@ static void virtsnd_remove(struct virtio_device *vdev)
+> >>        kfree(snd->event_msgs);
+> >>   }
+> >>
+> >> +#ifdef CONFIG_PM_SLEEP
+> >> +/**
+> >> + * virtsnd_freeze() - Suspend device.
+> >> + * @vdev: VirtIO parent device.
+> >> + *
+> >> + * Context: Any context.
+> >> + * Return: 0 on success, -errno on failure.
+> >> + */
+> >> +static int virtsnd_freeze(struct virtio_device *vdev)
 > >> +{
-> >> +     struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
-> >> +     snd_pcm_uframes_t hw_ptr = SNDRV_PCM_POS_XRUN;
-> >> +     unsigned long flags;
+> >> +     struct virtio_snd *snd = vdev->priv;
 > >> +
-> >> +     spin_lock_irqsave(&vss->lock, flags);
-> >> +     if (!vss->xfer_xrun)
-> >> +             hw_ptr = bytes_to_frames(substream->runtime, vss->hw_ptr);
-> >> +     spin_unlock_irqrestore(&vss->lock, flags);
+> >> +     virtsnd_ctl_msg_cancel_all(snd);
+> >> +
+> >> +     vdev->config->del_vqs(vdev);
+> >> +     vdev->config->reset(vdev);
+> >> +
+> >> +     kfree(snd->event_msgs);
+> >> +
+> >> +     /*
+> >> +      * If the virtsnd_restore() fails before re-allocating events, then we
+> >> +      * get a dangling pointer here.
+> >> +      */
+> >> +     snd->event_msgs = NULL;
+> >> +
+> >> +     return 0;
 > >
-> > Oh, and if we drop nonatomc PCM, both trigger and pointer callbacks
-> > are guaranteed to be called inside the spinlock, hence you can remove
-> > *_irqsave() but just us spin_lock() in those two callbacks.
+> > I suppose some cancel of inflight works is needed?
+> > Ditto for the device removal, too.
 > 
-> As I understand, spin_lock_irqsave() disables only local interrupts. But
-> what about other CPU cores?
+> It's not necessary here, since the device is reset and all of this are
+> happened automatically.
 
-Those are already under spin_lock_irqsave() of the PCM substream
-lock (in the case of normal PCM operation without nonatomic flag).
+Hrm, but the reset call itself might conflict with the inflight reset
+work?  I haven't see any work canceling or flushing, so...
+
+> But in the device remove it makes sense also to
+> disable events before calling snd_card_free(), since the device is still
+> able to send notifications at that moment. Thanks!
+> 
+> 
+> >> --- a/sound/virtio/virtio_pcm.c
+> >> +++ b/sound/virtio/virtio_pcm.c
+> >> @@ -109,6 +109,7 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
+> >>                SNDRV_PCM_INFO_BATCH |
+> >>                SNDRV_PCM_INFO_BLOCK_TRANSFER |
+> >>                SNDRV_PCM_INFO_INTERLEAVED |
+> >> +             SNDRV_PCM_INFO_RESUME |
+> >>                SNDRV_PCM_INFO_PAUSE;
+> >
+> > Actually you don't need to set SNDRV_PCM_INFO_RESUME.
+> > This flag means that the driver supports the full resume procedure,
+> > which isn't often the case; with this, the driver is supposed to
+> > resume the stream exactly from the suspended position.
+> 
+> If I understood you right, that's exactly how resume is implemented now
+> in the driver. Although we fully restart substream on the device side,
+> from an application point of view it is resumed exactly at the same
+> position.
+> 
+> 
+> > Most drivers don't set this but implement only the suspend-stop
+> > action.  Then the application (or the sound backend) will re-setup the
+> > stream and restart accordingly.
+> 
+> And an application must be aware of such possible situation? Since I
+> have no doubt in alsa-lib, but I don't think that for example tinyalsa
+> can handle this right.
+
+Tiny ALSA should work, too.  Actually there are only few drivers that
+have the full PCM resume.  The majority of drivers are without the
+resume support (including a large one like HD-audio).
+
+And, with the resume implementation, I'm worried by the style like:
+
+> >> @@ -309,6 +318,21 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
+> >>        int rc;
+> >>
+> >>        switch (command) {
+> >> +     case SNDRV_PCM_TRIGGER_RESUME: {
+> >> +             /*
+> >> +              * We restart the substream by executing the standard command
+> >> +              * sequence.
+> >> +              */
+> >> +             rc = virtsnd_pcm_hw_params(substream, NULL);
+> >> +             if (rc)
+> >> +                     return rc;
+> >> +
+> >> +             rc = virtsnd_pcm_prepare(substream);
+> >> +             if (rc)
+> >> +                     return rc;
+
+... and this is rather what the core code should do, and it's exactly
+the same procedure that would be done without RESUME flag.
 
 
 Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DFA7329550
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 00:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3733329554
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 00:44:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 569521688;
-	Tue,  2 Mar 2021 00:42:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 569521688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE9516B9;
+	Tue,  2 Mar 2021 00:44:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE9516B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614642196;
-	bh=tj94u8URRVlanuIi09ahZYmufoYagN6NeRd0L0sR3EQ=;
+	s=default; t=1614642291;
+	bh=giRNibx8UMkg76ubdWLBG8i0Hm5P8hvlHVh8cF1awrk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mvhmbZ2+PGqudlWJ89NvBLAZbuJ6mfSGUMhL9gJebpsdPnn2xowmdWqimR15rr+NV
-	 PfZTIzDrpVXh/PVjp2lCDD5cBs9omuOhEZwMVlUcRLr8xPkDUkIogTLfmkYQ7LnJtf
-	 tan5oReocivyvkA3atldeEI1c2vqQZQFkkGOvxHE=
+	b=qwbc2SFhzf3p+I0L2IGP4pLV1pSGPOpzI5DQrb4vnPzATtgVjuDZI5EaV/inZ4Bqg
+	 AhJ1sggB9nAf2Ccszpu+O1oj3XieAJg1dytC4tXbeDp4RdyWJzTPqQ3Monf+lCggJ7
+	 /SlzcsXNFvo/sxZ7xDCGiS6a3nO02Xfuz/fvxr5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD782F80518;
-	Tue,  2 Mar 2021 00:37:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0183F80534;
+	Tue,  2 Mar 2021 00:37:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACE1AF80517; Tue,  2 Mar 2021 00:37:12 +0100 (CET)
+ id D6ABEF80536; Tue,  2 Mar 2021 00:37:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 373D2F80510
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 00:37:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 373D2F80510
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93993F8052D
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 00:37:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93993F8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D7Sm82lF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 05C0A60295;
- Mon,  1 Mar 2021 23:37:07 +0000 (UTC)
+ header.b="X2pAH5QK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 823376024A;
+ Mon,  1 Mar 2021 23:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614641828;
- bh=tj94u8URRVlanuIi09ahZYmufoYagN6NeRd0L0sR3EQ=;
+ s=k20201202; t=1614641851;
+ bh=giRNibx8UMkg76ubdWLBG8i0Hm5P8hvlHVh8cF1awrk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=D7Sm82lF3v2slmoLHZ5L61fy4380Y/mwgky1chkeB7W/8Q8fYWybH5TzRy23pMhql
- yx7+nY7qPo9GHSi6/E/0wXaWN5ZDyhELygn4ZPJdF/5hdYQfr3u2NLXuXIoPGOCC9P
- zvviLppHs0FSoW37iVgSYSIGEmEpXZJpyS717Lu5KxqrN97WcLp9Y2JyRxgIb1tcoJ
- i/8VxaQfLgPvp4LS7JI/hZtgWiKP3+zuxGUyncicLt5xNdEw9vnETOK0qIPxmQtZbA
- 2xUDYffCY8q89tCR7l5vFJ8u6Ow63+kSMDgsPc5RDtJ6CWjqdiSGNYZyjNXQ6i95h6
- HF3fgRpkKwsMA==
+ b=X2pAH5QKtQHCBP3xTkRq4rgHqjEnKIH8LRADOJHHti/Yltgqm0tO6DbTBwzS9+BYp
+ UFuvTzKWbnNY29jyshdCv02elfiachBnPQ/MVZ3AWcYGMWYlRdirsYcpn8tTVZ2FzR
+ m+S7CAnvfzDAf1DtHEI2gaUVjo0zFWwJPoiDoPqIiOzml3TwWnwaswHGfZ/HnsWmfV
+ IEJojZlCicGp9iFIw/ME3XquWCiuEeeR8KjM+KscREMBOqbZxEs0kJGzILENOkz1bV
+ jl2WsheKeczbK//tjjRA7asSts/slN0v+UHRmEEQzaYHMGWcmkjAkL8ZGllYLD9hM8
+ B93zX7AzvGUNA==
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20210125115441.10383-1-cezary.rojewski@intel.com>
-References: <20210125115441.10383-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: Skylake: Compile when any configuration is
- selected
-Message-Id: <161464168097.31144.8011406861757894122.b4-ty@kernel.org>
+To: tiwai@suse.com, dingsenjie@163.com, lgirdwood@gmail.com, perex@perex.cz
+In-Reply-To: <20210224085407.22120-1-dingsenjie@163.com>
+References: <20210224085407.22120-1-dingsenjie@163.com>
+Subject: Re: [PATCH] sound: soc/uniphier: Simplify the return expression of
+ uniphier_aio_startup
+Message-Id: <161464168096.31144.10521204916240412508.b4-ty@kernel.org>
 Date: Mon, 01 Mar 2021 23:34:40 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
- hdegoede@redhat.com, kai.heng.feng@canonical.com,
- amadeuszx.slawinski@linux.intel.com
+Cc: dingsenjie <dingsenjie@yulong.com>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,11 +79,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jan 2021 12:54:41 +0100, Cezary Rojewski wrote:
-> Skylake is dependent on SND_SOC_INTEL_SKYLAKE (aka "all SST platforms")
-> whereas selecting specific configuration such as KBL-only will not
-> cause driver code to compile. Switch to SND_SOC_INTEL_SKYLAKE_COMMON
-> dependency so selecting any configuration causes the driver to be built.
+On Wed, 24 Feb 2021 16:54:07 +0800, dingsenjie@163.com wrote:
+> Simplify the return expression in the aio-cpu.c.
 
 Applied to
 
@@ -92,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: Skylake: Compile when any configuration is selected
-      commit: cfa0faec5fc0544f84b9c599b6cf49cd3cc709f3
+[1/1] sound: soc/uniphier: Simplify the return expression of uniphier_aio_startup
+      commit: e3fdb6288dd08d965dea4bf00186e20f79153b2b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

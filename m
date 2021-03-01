@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B15C32857C
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 17:56:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB16D32858E
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 17:57:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C00C01687;
-	Mon,  1 Mar 2021 17:55:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C00C01687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 599551687;
+	Mon,  1 Mar 2021 17:56:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 599551687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614617759;
-	bh=0OfRl03HKZA5ID9TSwcTqf52jj4bc5i38OmFiDpyg9s=;
+	s=default; t=1614617848;
+	bh=DV/0smjUkzK8zfhix0PtG/TWcgXpG5v/I/DgL483XjY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VRTmxMF86Dufuhr97iWY7AWwwQXNQK1EEqe62stwRXf1zlNANymN6cn/LBEVCk0+S
-	 HNF+g9xD/sNB43an6pkOnJ/C96i7nJDdB8Xw3mXO4sDLu8P4bfSv3H3ilka7sPUzyq
-	 Nf6rkda7/adLIP0zfcS6pDknWOoBkrxov83uGvZU=
+	b=Jo5F3MIZ3sJpMLf6ENlINNWDh82O/TsqBdX17DoscjIzE7bbwsodsN8hZjRBaHgZz
+	 DFQNadQuQLPXRJ0XSCh1eKMbCUYHmdxVCvIdG31HdQpD0le96vZNTubiXI2FYzCtCC
+	 zF53Kt2NSAMa/P3eHTimG0JoemhuIY9+Ia8k/QIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FB53F802E2;
-	Mon,  1 Mar 2021 17:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F36E6F804A9;
+	Mon,  1 Mar 2021 17:54:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05439F802E2; Mon,  1 Mar 2021 17:54:16 +0100 (CET)
+ id D3414F80430; Mon,  1 Mar 2021 17:54:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FB4CF8010B
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 17:54:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FB4CF8010B
-IronPort-SDR: SSfmSFXV31AlcvlGJgRjuasmW9oes7UvP8QSCw/OFCjwcXIhPjNHrDtjgPoaKFan3aK1iXRuIb
- iMi85aJfrOhQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="186580165"
-X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="186580165"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41D90F80257
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 17:54:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41D90F80257
+IronPort-SDR: C/DJJINWM0k1Sr3FTpopm8WvGbOtFWa1HiHyfp/ACeHlz3zU5fxi7EUfwwC5YSK2TeKz/P57v3
+ 49Vnh1t14y8g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="186580171"
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="186580171"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2021 08:54:01 -0800
-IronPort-SDR: xceTXNsatojtI+s437Evkof7HQPbTwRFDpIv0g4otuLCcBgvMIjBeNF8DwNWMQnR412HeHqIx0
- ByCSYeyNluyQ==
-X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="505330627"
+ 01 Mar 2021 08:54:02 -0800
+IronPort-SDR: T+BI8PqNi2/ygMFSW00mh3R5IpHRfWpDyK/pkf7N36mfouZQVwcszfnrxfCrWDk+PxWX4gMUZH
+ YsLlEuzWnxwA==
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="505330635"
 Received: from mhuang8-mobl3.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.25.220])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Mar 2021 08:54:01 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: codecs: nau8825: fix kernel-doc
-Date: Mon,  1 Mar 2021 10:53:46 -0600
-Message-Id: <20210301165349.114952-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: atom: fix kernel-doc
+Date: Mon,  1 Mar 2021 10:53:47 -0600
+Message-Id: <20210301165349.114952-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210301165349.114952-1-pierre-louis.bossart@linux.intel.com>
 References: <20210301165349.114952-1-pierre-louis.bossart@linux.intel.com>
@@ -80,56 +80,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 v5.12-rc1 flags new warnings with make W=1, fix missing or broken
 function descriptors.
 
-sound/soc/codecs/nau8825.c:298: warning: wrong kernel-doc identifier
-on line:
- * Ramp up the headphone volume change gradually to target level.
+sound/soc/intel/atom/sst/sst_loader.c:85: warning: expecting prototype
+for sst_start_merrifield(). Prototype was for sst_start_mrfld()
+instead
 
-sound/soc/codecs/nau8825.c:358: warning: expecting prototype for This
-func(). Prototype was for nau8825_intlog10_dec3() instead
-
-sound/soc/codecs/nau8825.c:411: warning: wrong kernel-doc identifier
-on line:
- * computes cross talk suppression sidetone gain.
+sound/soc/intel/atom/sst/sst_acpi.c:339: warning: expecting prototype
+for intel_sst_remove(). Prototype was for sst_acpi_remove() instead
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/codecs/nau8825.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ sound/soc/intel/atom/sst/sst_acpi.c   | 2 +-
+ sound/soc/intel/atom/sst/sst_loader.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index f0cba7b5758b..e19db30c457b 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -295,7 +295,7 @@ static inline void nau8825_sema_reset(struct nau8825 *nau8825)
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index 2c1b8a2e3506..3be64430c256 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -328,7 +328,7 @@ static int sst_acpi_probe(struct platform_device *pdev)
  }
  
  /**
-- * Ramp up the headphone volume change gradually to target level.
-+ * nau8825_hpvol_ramp - Ramp up the headphone volume change gradually to target level.
-  *
-  * @nau8825:  component to register the codec private data with
-  * @vol_from: the volume to start up
-@@ -347,8 +347,9 @@ static void nau8825_hpvol_ramp(struct nau8825 *nau8825,
+-* intel_sst_remove - remove function
++* sst_acpi_remove - remove function
+ *
+ * @pdev:	platform device structure
+ *
+diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
+index 1c9b0c9ec483..eea889001c24 100644
+--- a/sound/soc/intel/atom/sst/sst_loader.c
++++ b/sound/soc/intel/atom/sst/sst_loader.c
+@@ -76,7 +76,7 @@ int intel_sst_reset_dsp_mrfld(struct intel_sst_drv *sst_drv_ctx)
  }
  
  /**
-- * Computes log10 of a value; the result is round off to 3 decimal. This func-
-- * tion takes reference to dvb-math. The source code locates as the following.
-+ * nau8825_intlog10_dec3 - Computes log10 of a value
-+ * the result is round off to 3 decimal. This function takes reference to
-+ * dvb-math. The source code locates as the following.
-  * Linux/drivers/media/dvb-core/dvb_math.c
-  * @value:  input for log10
+- * sst_start_merrifield - Start the SST DSP processor
++ * sst_start_mrfld - Start the SST DSP processor
+  * @sst_drv_ctx: intel_sst_drv context pointer
   *
-@@ -408,7 +409,7 @@ static u32 nau8825_intlog10_dec3(u32 value)
- }
- 
- /**
-- * computes cross talk suppression sidetone gain.
-+ * nau8825_xtalk_sidetone - computes cross talk suppression sidetone gain.
-  *
-  * @sig_org: orignal signal level
-  * @sig_cros: cross talk signal level
+  * This starts the DSP in MERRIFIELD platfroms
 -- 
 2.25.1
 

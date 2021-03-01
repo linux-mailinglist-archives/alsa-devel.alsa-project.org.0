@@ -2,79 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03BA328287
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 16:32:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61CB32857B
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Mar 2021 17:55:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AA7E16B4;
-	Mon,  1 Mar 2021 16:31:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AA7E16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14852166D;
+	Mon,  1 Mar 2021 17:54:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14852166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614612754;
-	bh=qjipA8BfqI024AtnTZO4xuP/tcimv3EqFld8rKft+WA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=txwr7albpRYnitpVc5w2UIVw51TD3f573UBJnBcf08q7aXcJblkt3zx8xFKcvQkMb
-	 6pyuGj/OMPoRM9m9CfN5w8MPIaq5V+LnVCpuhQwNPylspTyVd9L6jaAryb0iZYC6kK
-	 X9fOyCAu1G5O8X342DT542Uq8qDk+TQrHHrWQ3/4=
+	s=default; t=1614617747;
+	bh=/GyyqZuw3pDsYufq3ZcWQKtbpfUfvveJ0wEbldm59+c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pzbCkLAqfjZip1QeZqErZ0vJNff/cYKW4bZyCePZ/IhiDoXOlTlX+jRd7gxEwZ6d/
+	 n35sgC64HtRnM5SfYSz/OfcIgC2+Su7X+UFmMPKU7uVK2cddRm+cNqEqPKfX+CELi6
+	 exxaiLl/kJLploXYPiFURVZ5zGe2Lw3ru33x4njA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC242F8027D;
-	Mon,  1 Mar 2021 16:31:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A773F800E0;
+	Mon,  1 Mar 2021 17:54:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A764BF80275; Mon,  1 Mar 2021 16:31:08 +0100 (CET)
+ id 98A1EF800E0; Mon,  1 Mar 2021 17:54:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4ED22F80272
- for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 16:31:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ED22F80272
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="1xa44Ndf"
-Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
- [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id D0845A135A;
- Mon,  1 Mar 2021 16:30:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=v4QKZoyEhUUl
- 8eHO+sgtVV5pWRE+dBrdSzOgE4nihEc=; b=1xa44NdfhI89Ixk8UlhPryNc5vVr
- 4AUZxU2udGJCZaGsHMNXmaddj45tBMOdTsmcvJeksOl8/01R78QdAn6nlGWgSb9f
- MLBxVr0kjriaw5bp56t4krjwhqW1JiNvlqhUSvLQ9oiUJshRjVOMUegd66Ai0pbE
- XjdKowsTuAUMxWYtb05K5AB9enxtcNfaBm/8kHPSqsnf/Zb1EXz5deTlDOFqS94M
- SSkySeIvlKsQqZ88iMFWB0zAE3b2Jn6zmVU7641+Wvz6ccXo0+XoLlxlgV2f66ah
- +ZUQFPSjMCYH5OzgYs5jPK+VyfYQ5U848MolYZbvrNS3FoDN15gqBPStwQ==
-Subject: Re: [PATCH v6 9/9] ALSA: virtio: introduce device suspend/resume
- support
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-10-anton.yakovlev@opensynergy.com>
- <s5hpn0kjt31.wl-tiwai@suse.de>
- <54854cb9-99c3-4c05-3b43-f41d89a29aec@opensynergy.com>
- <s5hzgznhu3n.wl-tiwai@suse.de>
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Message-ID: <438961dc-b546-562a-26dc-53cf46ee74b6@opensynergy.com>
-Date: Mon, 1 Mar 2021 16:30:55 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D229F800E0
+ for <alsa-devel@alsa-project.org>; Mon,  1 Mar 2021 17:54:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D229F800E0
+IronPort-SDR: 7HG6VA2Ywlt6Q/kdyNydhMZR8RgcDh/Kp1BHYuASjGFZabLMwml5y78PzP1Cuxl/YKM2JaSIsy
+ 9J2U1WOCBRqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="186580162"
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="186580162"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 08:54:01 -0800
+IronPort-SDR: yBcP4PutjgiyGLc5xfI9UAjs+QWiePb6fEkNtZ0iRKic0+T/7fsjBnOC9QSFTi+LHS8bJfKZUP
+ Z/rJAEoL+wOQ==
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="505330623"
+Received: from mhuang8-mobl3.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.25.220])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 08:54:00 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: fix kernel-doc warnings
+Date: Mon,  1 Mar 2021 10:53:45 -0600
+Message-Id: <20210301165349.114952-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <s5hzgznhu3n.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
- SR-MAIL-01.open-synergy.com (10.26.10.21)
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
- Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, vkoul@kernel.org, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,152 +74,230 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01.03.2021 14:38, Takashi Iwai wrote:
-> On Mon, 01 Mar 2021 11:03:04 +0100,
-> Anton Yakovlev wrote:
->>
->> On 28.02.2021 13:05, Takashi Iwai wrote:
->>> On Sat, 27 Feb 2021 09:59:56 +0100,
->>> Anton Yakovlev wrote:
->>>>
->>>> All running PCM substreams are stopped on device suspend and restarted
->>>> on device resume.
->>>>
->>>> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
->>>> ---
->>>>    sound/virtio/virtio_card.c    | 56 +++++++++++++++++++++++++++++++++++
->>>>    sound/virtio/virtio_pcm.c     |  1 +
->>>>    sound/virtio/virtio_pcm_ops.c | 41 ++++++++++++++++++++-----
->>>>    3 files changed, 90 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
->>>> index 59455a562018..c7ae8801991d 100644
->>>> --- a/sound/virtio/virtio_card.c
->>>> +++ b/sound/virtio/virtio_card.c
->>>> @@ -323,6 +323,58 @@ static void virtsnd_remove(struct virtio_device *vdev)
->>>>         kfree(snd->event_msgs);
->>>>    }
->>>>
->>>> +#ifdef CONFIG_PM_SLEEP
->>>> +/**
->>>> + * virtsnd_freeze() - Suspend device.
->>>> + * @vdev: VirtIO parent device.
->>>> + *
->>>> + * Context: Any context.
->>>> + * Return: 0 on success, -errno on failure.
->>>> + */
->>>> +static int virtsnd_freeze(struct virtio_device *vdev)
->>>> +{
->>>> +     struct virtio_snd *snd = vdev->priv;
->>>> +
->>>> +     virtsnd_ctl_msg_cancel_all(snd);
->>>> +
->>>> +     vdev->config->del_vqs(vdev);
->>>> +     vdev->config->reset(vdev);
->>>> +
->>>> +     kfree(snd->event_msgs);
->>>> +
->>>> +     /*
->>>> +      * If the virtsnd_restore() fails before re-allocating events, then we
->>>> +      * get a dangling pointer here.
->>>> +      */
->>>> +     snd->event_msgs = NULL;
->>>> +
->>>> +     return 0;
->>>
->>> I suppose some cancel of inflight works is needed?
->>> Ditto for the device removal, too.
->>
->> It's not necessary here, since the device is reset and all of this are
->> happened automatically.
-> 
-> Hrm, but the reset call itself might conflict with the inflight reset
-> work?  I haven't see any work canceling or flushing, so...
+v5.12-rc1 flags new warnings with make W=1, fix missing or broken
+function descriptors.
 
-There maybe the following:
+sound/pci/hda/hda_codec.c:3492: warning: expecting prototype for
+snd_hda_input_mux_info_info(). Prototype was for
+snd_hda_input_mux_info() instead
 
-1. Some pending control requests -> these are cancelled in the
-virtsnd_ctl_msg_cancel_all() call.
+sound/pci/hda/hda_codec.c:3521: warning: expecting prototype for
+snd_hda_input_mux_info_put(). Prototype was for
+snd_hda_input_mux_put() instead
 
-2. PCM messages -> these must not be cancelled, since they will be
-requeued by driver on resume (starting with suspended position).
+sound/pci/hda/hda_codec.c:3958: warning: expecting prototype for
+_snd_hda_pin_ctl(). Prototype was for _snd_hda_set_pin_ctl() instead
 
-3. Some pending events from the device. These will be lost. Yeah, I
-think we can process all pending events before destroying virtqueue.
+sound/pci/hda/hda_jack.c:223: warning: expecting prototype for
+snd_hda_set_dirty_all(). Prototype was for
+snd_hda_jack_set_dirty_all() instead
 
-Other that these, there are no other inflight works or so.
+sound/pci/hda/hda_jack.c:309: warning: expecting prototype for
+snd_hda_jack_detect_enable_mst(). Prototype was for
+snd_hda_jack_detect_enable_callback_mst() instead
 
+sound/pci/hda/hda_generic.c:3933: warning: expecting prototype for
+snd_dha_gen_add_mute_led_cdev(). Prototype was for
+snd_hda_gen_add_mute_led_cdev() instead
 
->> But in the device remove it makes sense also to
->> disable events before calling snd_card_free(), since the device is still
->> able to send notifications at that moment. Thanks!
->>
->>
->>>> --- a/sound/virtio/virtio_pcm.c
->>>> +++ b/sound/virtio/virtio_pcm.c
->>>> @@ -109,6 +109,7 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
->>>>                 SNDRV_PCM_INFO_BATCH |
->>>>                 SNDRV_PCM_INFO_BLOCK_TRANSFER |
->>>>                 SNDRV_PCM_INFO_INTERLEAVED |
->>>> +             SNDRV_PCM_INFO_RESUME |
->>>>                 SNDRV_PCM_INFO_PAUSE;
->>>
->>> Actually you don't need to set SNDRV_PCM_INFO_RESUME.
->>> This flag means that the driver supports the full resume procedure,
->>> which isn't often the case; with this, the driver is supposed to
->>> resume the stream exactly from the suspended position.
->>
->> If I understood you right, that's exactly how resume is implemented now
->> in the driver. Although we fully restart substream on the device side,
->> from an application point of view it is resumed exactly at the same
->> position.
->>
->>
->>> Most drivers don't set this but implement only the suspend-stop
->>> action.  Then the application (or the sound backend) will re-setup the
->>> stream and restart accordingly.
->>
->> And an application must be aware of such possible situation? Since I
->> have no doubt in alsa-lib, but I don't think that for example tinyalsa
->> can handle this right.
-> 
-> Tiny ALSA should work, too.  Actually there are only few drivers that
-> have the full PCM resume.  The majority of drivers are without the
-> resume support (including a large one like HD-audio).
+sound/pci/hda/hda_generic.c:4093: warning: expecting prototype for
+snd_dha_gen_add_micmute_led_cdev(). Prototype was for
+snd_hda_gen_add_micmute_led_cdev() instead
 
-Then it's a great news! Since we can simplify code a lot.
+sound/pci/hda/patch_ca0132.c:2357: warning: expecting prototype for
+Prepare and send the SCP message to DSP(). Prototype was for
+dspio_scp() instead
 
+sound/pci/hda/patch_ca0132.c:2883: warning: expecting prototype for
+Allocate router ports(). Prototype was for dsp_allocate_router_ports()
+instead
 
-> And, with the resume implementation, I'm worried by the style like:
-> 
->>>> @@ -309,6 +318,21 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
->>>>         int rc;
->>>>
->>>>         switch (command) {
->>>> +     case SNDRV_PCM_TRIGGER_RESUME: {
->>>> +             /*
->>>> +              * We restart the substream by executing the standard command
->>>> +              * sequence.
->>>> +              */
->>>> +             rc = virtsnd_pcm_hw_params(substream, NULL);
->>>> +             if (rc)
->>>> +                     return rc;
->>>> +
->>>> +             rc = virtsnd_pcm_prepare(substream);
->>>> +             if (rc)
->>>> +                     return rc;
-> 
-> ... and this is rather what the core code should do, and it's exactly
-> the same procedure that would be done without RESUME flag.
-> 
-> 
-> Takashi
-> 
+sound/pci/hda/patch_ca0132.c:3202: warning: expecting prototype for
+Write a block of data into DSP code or data RAM using pre(). Prototype
+was for dspxfr_one_seg() instead
 
+sound/pci/hda/patch_ca0132.c:3397: warning: expecting prototype for
+data overlay to DSP memories(). Prototype was for dspxfr_image()
+instead
+
+sound/hda/hdac_regmap.c:393: warning: expecting prototype for
+snd_hdac_regmap_init(). Prototype was for snd_hdac_regmap_exit()
+instead
+
+sound/hda/ext/hdac_ext_controller.c:142: warning: expecting prototype
+for snd_hdac_ext_bus_get_link_index(). Prototype was for
+snd_hdac_ext_bus_get_link() instead
+
+sound/hda/ext/hdac_ext_stream.c:140: warning: expecting prototype for
+snd_hdac_ext_linkstream_start(). Prototype was for
+snd_hdac_ext_link_stream_start() instead
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/hda/ext/hdac_ext_controller.c | 2 +-
+ sound/hda/ext/hdac_ext_stream.c     | 2 +-
+ sound/hda/hdac_regmap.c             | 2 +-
+ sound/pci/hda/hda_codec.c           | 6 +++---
+ sound/pci/hda/hda_generic.c         | 4 ++--
+ sound/pci/hda/hda_jack.c            | 4 ++--
+ sound/pci/hda/patch_ca0132.c        | 9 ++++-----
+ 7 files changed, 14 insertions(+), 15 deletions(-)
+
+diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
+index a9bd39b93697..b2df7b4f9227 100644
+--- a/sound/hda/ext/hdac_ext_controller.c
++++ b/sound/hda/ext/hdac_ext_controller.c
+@@ -133,7 +133,7 @@ void snd_hdac_link_free_all(struct hdac_bus *bus)
+ EXPORT_SYMBOL_GPL(snd_hdac_link_free_all);
+ 
+ /**
+- * snd_hdac_ext_bus_get_link_index - get link based on codec name
++ * snd_hdac_ext_bus_get_link - get link based on codec name
+  * @bus: the pointer to HDAC bus object
+  * @codec_name: codec name
+  */
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index c4d54a838773..0c005d67fa89 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -133,7 +133,7 @@ void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
+ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_decouple);
+ 
+ /**
+- * snd_hdac_ext_linkstream_start - start a stream
++ * snd_hdac_ext_link_stream_start - start a stream
+  * @stream: HD-audio ext core stream to start
+  */
+ void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *stream)
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index d75f31eb9d78..fe3587547cfe 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -386,7 +386,7 @@ int snd_hdac_regmap_init(struct hdac_device *codec)
+ EXPORT_SYMBOL_GPL(snd_hdac_regmap_init);
+ 
+ /**
+- * snd_hdac_regmap_init - Release the regmap from HDA codec
++ * snd_hdac_regmap_exit - Release the regmap from HDA codec
+  * @codec: the codec object
+  */
+ void snd_hdac_regmap_exit(struct hdac_device *codec)
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 9b755062d841..2026f1ccaf5a 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -3483,7 +3483,7 @@ EXPORT_SYMBOL_GPL(snd_hda_check_amp_list_power);
+  */
+ 
+ /**
+- * snd_hda_input_mux_info_info - Info callback helper for the input-mux enum
++ * snd_hda_input_mux_info - Info callback helper for the input-mux enum
+  * @imux: imux helper object
+  * @uinfo: pointer to get/store the data
+  */
+@@ -3506,7 +3506,7 @@ int snd_hda_input_mux_info(const struct hda_input_mux *imux,
+ EXPORT_SYMBOL_GPL(snd_hda_input_mux_info);
+ 
+ /**
+- * snd_hda_input_mux_info_put - Put callback helper for the input-mux enum
++ * snd_hda_input_mux_put - Put callback helper for the input-mux enum
+  * @codec: the HDA codec
+  * @imux: imux helper object
+  * @ucontrol: pointer to get/store the data
+@@ -3941,7 +3941,7 @@ unsigned int snd_hda_correct_pin_ctl(struct hda_codec *codec,
+ EXPORT_SYMBOL_GPL(snd_hda_correct_pin_ctl);
+ 
+ /**
+- * _snd_hda_pin_ctl - Helper to set pin ctl value
++ * _snd_hda_set_pin_ctl - Helper to set pin ctl value
+  * @codec: the HDA codec
+  * @pin: referred pin NID
+  * @val: pin control value to set
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index 5e40944e7342..8b7c5508f368 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -3923,7 +3923,7 @@ static void vmaster_update_mute_led(void *private_data, int enabled)
+ }
+ 
+ /**
+- * snd_dha_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
++ * snd_hda_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
+  * @codec: the HDA codec
+  * @callback: the callback for LED classdev brightness_set_blocking
+  */
+@@ -4074,7 +4074,7 @@ static int add_micmute_led_hook(struct hda_codec *codec)
+ }
+ 
+ /**
+- * snd_dha_gen_add_micmute_led_cdev - Create a LED classdev and enable as mic-mute LED
++ * snd_hda_gen_add_micmute_led_cdev - Create a LED classdev and enable as mic-mute LED
+  * @codec: the HDA codec
+  * @callback: the callback for LED classdev brightness_set_blocking
+  *
+diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
+index b8b568046592..ac00866d8032 100644
+--- a/sound/pci/hda/hda_jack.c
++++ b/sound/pci/hda/hda_jack.c
+@@ -213,7 +213,7 @@ static void jack_detect_update(struct hda_codec *codec,
+ }
+ 
+ /**
+- * snd_hda_set_dirty_all - Mark all the cached as dirty
++ * snd_hda_jack_set_dirty_all - Mark all the cached as dirty
+  * @codec: the HDA codec
+  *
+  * This function sets the dirty flag to all entries of jack table.
+@@ -293,7 +293,7 @@ find_callback_from_list(struct hda_jack_tbl *jack,
+ }
+ 
+ /**
+- * snd_hda_jack_detect_enable_mst - enable the jack-detection
++ * snd_hda_jack_detect_enable_callback_mst - enable the jack-detection
+  * @codec: the HDA codec
+  * @nid: pin NID to enable
+  * @func: callback function to register
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 7e62aed172a9..c966f49fa942 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -2338,7 +2338,7 @@ static int dspio_send_scp_message(struct hda_codec *codec,
+ }
+ 
+ /**
+- * Prepare and send the SCP message to DSP
++ * dspio_scp - Prepare and send the SCP message to DSP
+  * @codec: the HDA codec
+  * @mod_id: ID of the DSP module to send the command
+  * @src_id: ID of the source
+@@ -2865,7 +2865,7 @@ static int dsp_dma_stop(struct hda_codec *codec,
+ }
+ 
+ /**
+- * Allocate router ports
++ * dsp_allocate_router_ports - Allocate router ports
+  *
+  * @codec: the HDA codec
+  * @num_chans: number of channels in the stream
+@@ -3178,8 +3178,7 @@ static int dspxfr_hci_write(struct hda_codec *codec,
+ }
+ 
+ /**
+- * Write a block of data into DSP code or data RAM using pre-allocated
+- * DMA engine.
++ * dspxfr_one_seg - Write a block of data into DSP code or data RAM using pre-allocated DMA engine.
+  *
+  * @codec: the HDA codec
+  * @fls: pointer to a fast load image
+@@ -3376,7 +3375,7 @@ static int dspxfr_one_seg(struct hda_codec *codec,
+ }
+ 
+ /**
+- * Write the entire DSP image of a DSP code/data overlay to DSP memories
++ * dspxfr_image - Write the entire DSP image of a DSP code/data overlay to DSP memories
+  *
+  * @codec: the HDA codec
+  * @fls_data: pointer to a fast load image
 -- 
-Anton Yakovlev
-Senior Software Engineer
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
+2.25.1
 

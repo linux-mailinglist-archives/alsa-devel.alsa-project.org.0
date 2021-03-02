@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D0932A1EC
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 15:14:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898A432A1FF
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 15:14:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A04A171C;
-	Tue,  2 Mar 2021 15:13:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A04A171C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F2AB172A;
+	Tue,  2 Mar 2021 15:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F2AB172A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614694462;
-	bh=0yIHsrP7Pf1lWzEWCNqE5bm01WkkoH6g1zGHv0P04Mw=;
+	s=default; t=1614694483;
+	bh=e2McjVy3y5qr0Wd/WbMZ/AzBg0tg8pRi5+XNX61Qlk8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nwyygmJFDMy1Empo+toiDLLoXd/M6ZRPdV6VKtsQpO7v5FDoXjkfvfQw5uBsZ9NpV
-	 9J/4wwPAIqZwKKIftfDl7TGtVGhcWrv6Ed2K2PsJbG4nu2MaJLp3uCdWqR4c82VPS9
-	 UZ/BhJyLxe21SEX7y0DadPWJAh3e1LkOUrb3DeHo=
+	b=vJHhUxFzh1XjUelW33uE3rqszHUMK5Q38QmVSCy89AnNOD7+DU/R9fk4rdd/b2kgj
+	 a+YwmJzh0aPIZV8MbNlQntza7fNxC3upK03AF8zfYgD4UvWtSbR/r6SDLqSVDRm/Qq
+	 ycx8ZSLzQDLlhpd4V9fI71NGuX0b46OucsJDaIOw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C872F80271;
-	Tue,  2 Mar 2021 15:12:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 977DCF8025B;
+	Tue,  2 Mar 2021 15:13:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AD56F80269; Tue,  2 Mar 2021 15:12:50 +0100 (CET)
+ id AC9EEF80273; Tue,  2 Mar 2021 15:13:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76E48F8012D
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 15:12:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76E48F8012D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BB5CF8025B
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 15:13:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BB5CF8025B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="f80mvGHt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8304264F04;
- Tue,  2 Mar 2021 14:12:40 +0000 (UTC)
+ header.b="clmZ1iLH"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D6B264F0A;
+ Tue,  2 Mar 2021 14:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614694361;
- bh=0yIHsrP7Pf1lWzEWCNqE5bm01WkkoH6g1zGHv0P04Mw=;
+ s=k20201202; t=1614694415;
+ bh=e2McjVy3y5qr0Wd/WbMZ/AzBg0tg8pRi5+XNX61Qlk8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f80mvGHtxHaS0EIn3WabeaCLJpvzq8asVA+tnG0kZv5wJ++AkIH1AQ5DjlIkcZEMH
- GmqLau6Uo0ens3duXmATpIdc2KMqUO/PWtWth4LtHEXXHP57ColTEwiAAHaTmnSaDx
- E73CHHGrg0maHW4dTPW534y3DeB3m9Q9zPQ2TTm47CHItPn91+VerZ7Lgb0ObKjKOO
- +sohav7dxOkc3yqNxCzzJVByBT1F+ZTR2WcyhOPvBc3MbneS863t2amxXlhCeS/swA
- mRVumqP+1kK3v6yZW5T+O4mRZ2hOmW4gyW8PYB97RrhSGhR1g/jr5sZzdGnvn6Iadh
- c2tyF4jzIpWPw==
-Date: Tue, 2 Mar 2021 19:42:37 +0530
+ b=clmZ1iLHGVNPr76eCE04aX8y/sBngA43w2GCHEPEAJrgYy8k/DqLSkOJv+obaDJlg
+ 4Ttlxnp1SPZ5UXbRDb+RCY6bIwCT0bqIku0hfAjcIjVeowrRHsWZqt2dUr/EXZMRP1
+ dUK/xjlOARLck34zcu+WRsrgQpXGRMQVwcPllLL7AkxnrBBnngXVJKj45qfvD513N1
+ RewAUA6+kj5GE8c7SOLoE6E2QVLRnQZ6tV+kFBwnN63CzKAw7ELMAEzTEQuOJAnfos
+ UhTCDzUbtWGdTF3YTbS5E+V6HxK924VoaKaxRwQOotllA7PSvdGwoMz+mrJtilAnmM
+ pIYv8pxwvAOGw==
+Date: Tue, 2 Mar 2021 19:43:30 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 6/7] ALSA: hda: move Intel SoundWire ACPI scan to
- dedicated module
-Message-ID: <YD5H1XdfKl10kcpe@vkoul-mobl>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 0/7] ALSA/ASoC/SOF/SoundWire: fix Kconfig issues
+Message-ID: <YD5IChh6Xubim//Q@vkoul-mobl>
 References: <20210302003125.1178419-1-pierre-louis.bossart@linux.intel.com>
- <20210302003125.1178419-7-pierre-louis.bossart@linux.intel.com>
+ <s5htuptfyae.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210302003125.1178419-7-pierre-louis.bossart@linux.intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, arnd@arndb.de,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de, broonie@kernel.org,
- Bard Liao <bard.liao@intel.com>
+In-Reply-To: <s5htuptfyae.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, arnd@arndb.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,30 +80,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01-03-21, 18:31, Pierre-Louis Bossart wrote:
-> The ACPI scan capabilities is called from the intel-dspconfig as well
-> as the SOF/HDaudio drivers. This creates dependencies and randconfig issues
-> when HDaudio and SOF/SoundWire are not all configured as modules.
+On 02-03-21, 15:03, Takashi Iwai wrote:
+> On Tue, 02 Mar 2021 01:31:18 +0100,
+> Pierre-Louis Bossart wrote:
+> > 
+> > In January, Intel kbuild bot and Arnd Bergmann reported multiple
+> > issues with randconfig. This patchset builds on Arnd's suggestions to
+> > 
+> > a) expose ACPI and PCI devices in separate modules, while sof-acpi-dev
+> > and sof-pci-dev become helpers. This will result in minor changes
+> > required for developers/testers, i.e. modprobe snd-sof-pci will no
+> > longer result in a probe. The SOF CI was already updated to deal with
+> > this module dependency change and introduction of new modules.
+> > 
+> > b) Fix SOF/SoundWire/DSP_config dependencies by moving the code
+> > required to detect SoundWire presence in ACPI tables to sound/hda.
+> > 
+> > Integration note:
+> > This patchset touches directories maintained by Vinod, Takashi and
+> > Mark in separate trees, and will impact additional changes to use the
+> > auxiliary bus in drivers/soundwire/.
+> > I can think of two options, both of which are fine:
+> > 1. Mark merges the patches with Vinod and Takashi Acked-by tags, then
+> > Mark provides an immutable tag to Vinod.
+> > 2. Vinod merges the patches with Mark and Takashi Acked-by tags, then
+> > Vinod provides an immutable tag to Mark
 > 
-> To simplify Kconfig dependencies between HDAudio, SoundWire, SOF and
-> intel-dspconfig, move the ACPI scan helpers to a dedicated
-> module. This follows the same idea as NHLT helpers which are already
-> handled as a dedicated module.
-> 
-> The only functional change is that the kernel parameter to filter
-> links is now handled by a different module, but that was only provided
-> for developers needing work-arounds for early BIOS releases.
-> 
-> Reported-by: Arnd Bergmann <arnd@arndb.de>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> Reviewed-by: Bard Liao <bard.liao@intel.com>
-> ---
->  drivers/soundwire/intel.h           |   2 -
->  drivers/soundwire/intel_init.c      | 158 -------------------------
+> Acked-by: Takashi Iwai <tiwai@suse.de>
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Since most of the changes are sound/ it makes sense for this to go thru
+sound tree. I have acked the sdw part..
 
+Thanks
 -- 
 ~Vinod

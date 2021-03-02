@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C29A32958F
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 02:50:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F336329592
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 02:51:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDBC71694;
-	Tue,  2 Mar 2021 02:50:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDBC71694
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC094166A;
+	Tue,  2 Mar 2021 02:50:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC094166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614649855;
-	bh=7Nf9s7UIXXIzrR0A/9P4kPC8I/vl3O7Cm53IGGVZ+Yo=;
+	s=default; t=1614649889;
+	bh=I8ilG9N6gDI0VIwAh5xZz3WVABJbm3Mv0AcWpbCvmPY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s/zd7bDXxyAokqzzgAwvAux07BQcfpdXLwj/Y1mPR4hKLfEEG6bcNKftUNkHgn6gJ
-	 gtAlzmeVQy7rCG7WPLWgOSZxoPf472+iocxMZhrww23T91WerbfHG4r4CnTu+ns/xA
-	 q/qHyoKeyPwlOv3KlOEOLFBe16nP4Gn9W5OFMTso=
+	b=Cd0ieD8AH8HkfFuN6v5Y/cx2OrNOkdHvPcuK3G8F2VCiGCsCPcgX7PKEIq1Tq2fcP
+	 x96zhjy32FZYQo5I4hmBROwbBmGiW6ZE3Wcs0fczrsT0msDzoCcRVbE+/G4Z3qpe9O
+	 AogopHQxx/cas9bHg/PDldaCgWfRY3KwwVKBONuM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 811E6F8032D;
-	Tue,  2 Mar 2021 02:48:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB52DF804B0;
+	Tue,  2 Mar 2021 02:48:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C6C3F80482; Tue,  2 Mar 2021 02:48:21 +0100 (CET)
+ id 4FF3EF804AF; Tue,  2 Mar 2021 02:48:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 72138F8032D
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 02:48:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72138F8032D
-Date: 02 Mar 2021 10:48:12 +0900
-X-IronPort-AV: E=Sophos;i="5.81,216,1610377200"; d="scan'208";a="73796201"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 02 Mar 2021 10:48:12 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 9FD3EF80431
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 02:48:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD3EF80431
+Date: 02 Mar 2021 10:48:18 +0900
+X-IronPort-AV: E=Sophos;i="5.81,216,1610377200"; d="scan'208";a="73796217"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 02 Mar 2021 10:48:18 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id AF66A400D0DF;
- Tue,  2 Mar 2021 10:48:12 +0900 (JST)
-Message-ID: <87mtvmqqar.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 2CF064143D14;
+ Tue,  2 Mar 2021 10:48:18 +0900 (JST)
+Message-ID: <87lfb6qqal.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/8] ASoC: soc-pcm: add soc_hw_sanity_check()
+Subject: [PATCH 6/8] ASoC: soc-pcm: fixup dpcm_be_dai_startup() user count
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tupuqqc8.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,122 +70,91 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current soc_pcm_open() is checking runtime->hw parameters, but having
-such function is very helpful for reading code.
+At dpcm_be_dai_startup_unwind(), it indicates error message at (1)
+if this function was called with no users.
+But, it doesn't use "continue" here. Thus, it will be minus
+users at (2).
 
-This patch adds new soc_hw_sanity_check() and checks runtime->hw
-parameters there. And print its debug message there, too.
+	void dpcm_be_dai_startup_unwind(...)
+	{
+		...
+		for_each_dpcm_be(...) {
+			...
+(1)			if (be->dpcm[stream].users == 0)
+				dev_err(...);
 
-Debug message print out timing is exchanged after this patch,
-but it is not a big deal, because it is for debug.
+(2)			if (--be->dpcm[stream].users != 0)
+				continue;
+
+At dpcm_be_dai_startup(), it indicates error message if
+user reached to MAX USERS at (A).
+But, it doesn't use "continue" here. Thus, it will be over
+MAX USERS at (B).
+
+	int dpcm_be_dai_startup(...)
+	{
+		...
+		for_each_dpcm_be(...) {
+			...
+(A)			if (be->dpcm[stream].users == DPCM_MAX_BE_USERS)
+				dev_err(...);
+
+(B)			if (be->dpcm[stream].users++ != 0)
+				continue;
+
+These are just bug. This patch fixup these.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 67 +++++++++++++++++++++++++++------------------
- 1 file changed, 40 insertions(+), 27 deletions(-)
+ sound/soc/soc-pcm.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 76c7f04cfd1a..aa1f26ccb0dc 100644
+index aa1f26ccb0dc..925f687652c6 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -685,6 +685,44 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 	return soc_pcm_clean(substream, 0);
- }
+@@ -1428,10 +1428,12 @@ static void dpcm_be_dai_startup_unwind(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_pcm_substream *be_substream =
+ 			snd_soc_dpcm_get_substream(be, stream);
  
-+static int soc_hw_sanity_check(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_hardware *hw = &substream->runtime->hw;
-+	const char *name_cpu = soc_cpu_dai_name(rtd);
-+	const char *name_codec = soc_codec_dai_name(rtd);
-+	const char *err_msg;
-+	struct device *dev = rtd->dev;
-+
-+	err_msg = "rates";
-+	if (!hw->rates)
-+		goto config_err;
-+
-+	err_msg = "formats";
-+	if (!hw->formats)
-+		goto config_err;
-+
-+	err_msg = "channels";
-+	if (!hw->channels_min || !hw->channels_max ||
-+	     hw->channels_min  >  hw->channels_max)
-+		goto config_err;
-+
-+	dev_dbg(dev, "ASoC: %s <-> %s info:\n",		name_codec,
-+							name_cpu);
-+	dev_dbg(dev, "ASoC: rate mask 0x%x\n",		hw->rates);
-+	dev_dbg(dev, "ASoC: ch   min %d max %d\n",	hw->channels_min,
-+							hw->channels_max);
-+	dev_dbg(dev, "ASoC: rate min %d max %d\n",	hw->rate_min,
-+							hw->rate_max);
-+
-+	return 0;
-+
-+config_err:
-+	dev_err(dev, "ASoC: %s <-> %s No matching %s\n",
-+		name_codec, name_cpu, err_msg);
-+	return -EINVAL;
-+}
-+
- /*
-  * Called by ALSA when a PCM substream is opened, the runtime->hw record is
-  * then initialized and any private data can be allocated. This also calls
-@@ -693,11 +731,8 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- static int soc_pcm_open(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_component *component;
- 	struct snd_soc_dai *dai;
--	const char *codec_dai_name = soc_codec_dai_name(rtd);
--	const char *cpu_dai_name = soc_cpu_dai_name(rtd);
- 	int i, ret = 0;
+-		if (be->dpcm[stream].users == 0)
++		if (be->dpcm[stream].users == 0) {
+ 			dev_err(be->dev, "ASoC: no users %s at close - state %d\n",
+ 				stream ? "capture" : "playback",
+ 				be->dpcm[stream].state);
++			continue;
++		}
  
- 	for_each_rtd_components(rtd, i, component)
-@@ -738,23 +773,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 		if (--be->dpcm[stream].users != 0)
+ 			continue;
+@@ -1468,10 +1470,12 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 			continue;
  
- 	soc_pcm_care_symmetry(substream);
+ 		/* first time the dpcm is open ? */
+-		if (be->dpcm[stream].users == DPCM_MAX_BE_USERS)
++		if (be->dpcm[stream].users == DPCM_MAX_BE_USERS) {
+ 			dev_err(be->dev, "ASoC: too many users %s at open %d\n",
+ 				stream ? "capture" : "playback",
+ 				be->dpcm[stream].state);
++			continue;
++		}
  
--	ret = -EINVAL;
--	if (!runtime->hw.rates) {
--		printk(KERN_ERR "ASoC: %s <-> %s No matching rates\n",
--			codec_dai_name, cpu_dai_name);
--		goto err;
--	}
--	if (!runtime->hw.formats) {
--		printk(KERN_ERR "ASoC: %s <-> %s No matching formats\n",
--			codec_dai_name, cpu_dai_name);
--		goto err;
--	}
--	if (!runtime->hw.channels_min || !runtime->hw.channels_max ||
--	    runtime->hw.channels_min > runtime->hw.channels_max) {
--		printk(KERN_ERR "ASoC: %s <-> %s No matching channels\n",
--				codec_dai_name, cpu_dai_name);
-+	ret = soc_hw_sanity_check(substream);
-+	if (ret < 0)
- 		goto err;
--	}
+ 		if (be->dpcm[stream].users++ != 0)
+ 			continue;
+@@ -1513,10 +1517,12 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+ 			continue;
  
- 	soc_pcm_apply_msb(substream);
+-		if (be->dpcm[stream].users == 0)
++		if (be->dpcm[stream].users == 0) {
+ 			dev_err(be->dev, "ASoC: no users %s at close %d\n",
+ 				stream ? "capture" : "playback",
+ 				be->dpcm[stream].state);
++			continue;
++		}
  
-@@ -764,14 +785,6 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 		if (ret != 0)
- 			goto err;
- 	}
--
--	pr_debug("ASoC: %s <-> %s info:\n",
--		 codec_dai_name, cpu_dai_name);
--	pr_debug("ASoC: rate mask 0x%x\n", runtime->hw.rates);
--	pr_debug("ASoC: min ch %d max ch %d\n", runtime->hw.channels_min,
--		 runtime->hw.channels_max);
--	pr_debug("ASoC: min rate %d max rate %d\n", runtime->hw.rate_min,
--		 runtime->hw.rate_max);
- dynamic:
- 	snd_soc_runtime_activate(rtd, substream->stream);
- 	ret = 0;
+ 		if (--be->dpcm[stream].users != 0)
+ 			continue;
 -- 
 2.25.1
 

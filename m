@@ -2,97 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DFA329A75
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 11:35:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96933329BCF
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 12:17:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8E1016FE;
-	Tue,  2 Mar 2021 11:34:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8E1016FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC0916E4;
+	Tue,  2 Mar 2021 12:16:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC0916E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614681327;
-	bh=YypAauVjDyMKn49QGUNQ6+ufupq7BwojESjW72x8LsE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614683839;
+	bh=sL8tllz3lG9XKoN8B/9ooSEaq/7X7orhlrjPIYEUHDk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CjVmX9iyL96YjpPEOYHuBnAlX4LQW4iz0sd9fhNiLp09J4w4Q9heqfFFVWcOcFsG2
-	 HewVEj/n7UEHamHRIhejj+b8qUgnwWeKJ3dQgRwxCRD/pX8GilQ9o+2XJpzotiVtHB
-	 V0jtwb4byBRVlQ2SwTdqMySsw3rxDeCLxKRwhBWI=
+	b=vVbS5qAFzIT7CQnQGXXuSxJAELEayU7wZRLKhwCOqOO3/vHlpMOMLy7AhY/nosEou
+	 YJ0McQkPEFmWD2Iu5tosmbQ5uPW7KLEgUJRqwYF2g0hfyfeL8vwi/rlUAn+S3lWU6o
+	 LTJH1iJvSaeXiJbBWCtCXYVcv+JJqKCNSeUi8cvw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5976CF80273;
-	Tue,  2 Mar 2021 11:33:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6987DF80271;
+	Tue,  2 Mar 2021 12:15:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92A95F80271; Tue,  2 Mar 2021 11:33:54 +0100 (CET)
+ id A24DEF80269; Tue,  2 Mar 2021 12:15:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF0CDF80227
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 11:33:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF0CDF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8820EF80088
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 12:15:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8820EF80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Bx4EvO9y"
-Received: by mail-wm1-x32e.google.com with SMTP id o2so1640953wme.5
- for <alsa-devel@alsa-project.org>; Tue, 02 Mar 2021 02:33:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=nX3UoFuzzMNsB4lVrgERxVlh7s23WyI/5O5RtFPy6nY=;
- b=Bx4EvO9yQep9GrdueyHB8c/d21a2QkGhq+izz7ECyhwS09IazDO/FtVyuiTsYCYQZ3
- d5+k4HK7ksKMKdFIKABfnG9RuMvF5SsTE+uu4jh3dEgLg/iY3hHSoEeJHQrfr4Cfc7NO
- KQ3+kDt/KfA8fUQy7yVZeMwUAWM8oKdLKxSvT9q66k4nVuDmf50gRCT7klR48uBycMM2
- AwoivxYTqzXP0sxmGWVkrJMifNxclOVabZL9NzP6dm5FLqFyF2PNhrSt1CijoNVnIiOI
- rh3dNuzJwruEp/zBANsQyoTPeLAYiPRJBwDZ/2F3kt6DX/OHHWEvjV4nTUrUL2iTnF0A
- 2CEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nX3UoFuzzMNsB4lVrgERxVlh7s23WyI/5O5RtFPy6nY=;
- b=gTpMl6AyP0LiWY3Ehn9OOLFe4xF5ufhgscsUy0TNuOWeM1K1ecbtfLWOW3q02m1wHj
- HZlTpNqWumih/6LwOfMZpujIigxk2Y0WQ23UpyaEi2oOwgJjMn58e1YbLxAqx9CHD4HU
- UEUwex6Iw35aGR+3saj82jkdoPvvniAhCKYXiiHz3NywTq9rLUkM1PA6sX9W+EWeVnno
- kChyul/aK4I4x3xVkqEm3wFAWAqyNU47VbgDLoxX3JdvqIqz81CP2zCvmokDIqVpe2nn
- ANbd+S/ez+pMOI2Uc2IYtJbF3U5ojjolkIDLHQEkYZT4rEwUCxQTd9Ml2UPJC+99qxxX
- iAkg==
-X-Gm-Message-State: AOAM532QLCN8Bhyr7fPx9v/hhk9EDu0EBqOjuHSNi/axfyhcvuXV02IW
- Trs/ENqdowzC52pXv0hNlhDagI/Xq91qTg==
-X-Google-Smtp-Source: ABdhPJx2rSIdbee/+K/KsslLjff4yaAjKlMBXCVceuCurYAl4gZVBdQy58OhHGQTBtHZYRyb4gXZpA==
-X-Received: by 2002:a1c:195:: with SMTP id 143mr3306604wmb.147.1614681230475; 
- Tue, 02 Mar 2021 02:33:50 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id j26sm20997516wrh.57.2021.03.02.02.33.49
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 02 Mar 2021 02:33:49 -0800 (PST)
-Subject: Re: [PATCH 2/3] soundwire: qcom: add auto enumeration support
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20210226170250.9067-1-srinivas.kandagatla@linaro.org>
- <20210226170250.9067-3-srinivas.kandagatla@linaro.org>
- <0c551b23-7ed4-59d7-72c2-284bdf8584f1@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <4721dd27-c8ce-f988-3c10-794841390656@linaro.org>
-Date: Tue, 2 Mar 2021 10:33:49 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ch+DiDGL"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 122B8bUg026898; Tue, 2 Mar 2021 05:15:37 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=QDkiboOLb89Ts9q2Ag7ZAK43M11OLKpJHEeRPp+1Y+s=;
+ b=ch+DiDGLPG9lHmOArfKE+pQ2iP24WwcGSwhK70fqTwqOyBa15PeUOyupQevSlSGxIXO3
+ W/ALocT+kNPUCiuM+VkgmwBku9j5qgeo2LEqMO/hEOyMYpNn3KDeN6bSHmTWguy/sMHV
+ 3e3DDYZzTjRZkrJrcPdo0lTJT4AdnKt5EV7pK+oO/MuQh1oAdQV4HillXPkVnDd/lGsD
+ nPo8PlHhw1rB3UxujFiMB2UdfJlhs2zeheCwXkSLZj0+aXRsNonRuVD6oWWO+ek8ENg5
+ dnYXucDH3pugd6pFVfiy6s6+Kx33eVu0p0O8YKQ7Fh5YpzFyIdoSYjOR1Lmb1SKlgSDG lQ== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 36ymc6u9hk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 02 Mar 2021 05:15:37 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 2 Mar 2021
+ 11:15:35 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Tue, 2 Mar 2021 11:15:35 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DF20511D0;
+ Tue,  2 Mar 2021 11:15:34 +0000 (UTC)
+Date: Tue, 2 Mar 2021 11:15:34 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: wm8524: Do not print probe defer error
+Message-ID: <20210302111534.GB106851@ediswmail.ad.cirrus.com>
+References: <20210301193328.2123511-1-festevam@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <0c551b23-7ed4-59d7-72c2-284bdf8584f1@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210301193328.2123511-1-festevam@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ clxscore=1011 suspectscore=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
+ priorityscore=1501 mlxlogscore=879 bulkscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103020093
+Cc: patches@opensource.cirrus.com, shengjiu.wang@nxp.com, broonie@kernel.org,
+ alsa-devel@alsa-project.org, cphealy@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,165 +101,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 26/02/2021 17:44, Pierre-Louis Bossart wrote:
+On Mon, Mar 01, 2021 at 04:33:28PM -0300, Fabio Estevam wrote:
+> On an imx8mq-evk the following error is seen:
 > 
->> +static int qcom_swrm_enumerate(struct sdw_bus *bus)
->> +{
->> +    struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->> +    struct sdw_slave *slave, *_s;
->> +    struct sdw_slave_id id;
->> +    u32 val1, val2;
->> +    u64 addr;
->> +    int i;
->> +    char *buf1 = (char *)&val1, *buf2 = (char *)&val2;
->> +
->> +    for (i = 1; i < (SDW_MAX_DEVICES + 1); i++) {
+> [    1.375809] wm8524-codec audio-codec: Failed to get mute line: -517
 > 
-> I don't understand the (SDW_MAX_DEVICES + 1)?
-If you mean +1 then probably we can add <= instead of just < to make it 
-look like other parts of code in bus.c
-
-for (i = 1; i <= SDW_MAX_DEVICES; i++)
-
+> It happens because the codec driver may probe prior to the imx gpio
+> driver, which causes a probe defer.
 > 
+> Change to dev_err_probe() to avoid printing this error.
 > 
->> +        /*SCP_Devid5 - Devid 4*/
->> +        ctrl->reg_read(ctrl, SWRM_ENUMERATOR_SLAVE_DEV_ID_1(i), &val1);
->> +
->> +        /*SCP_Devid3 - DevId 2 Devid 1 Devid 0*/
->> +        ctrl->reg_read(ctrl, SWRM_ENUMERATOR_SLAVE_DEV_ID_2(i), &val2);
-> 
-> Do you mind explaining a bit what happens here?
-> Does the hardware issue commands to read all DevID registers and set the 
-> device number automagically?
+> Reported-by: Chris Healy <cphealy@gmail.com>
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> ---
 
-exactly the hardware assigns device numbers to slaves automatically, and 
-the devnum can be figured out by the controller driver by reading 
-SWRM_ENUMERATOR_SLAVE_DEV_ID_1/2 registers!
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-> If yes, then in SoundWire parlance the enumeration is complete. What you 
-> are doing below is no longer part of the enumeration.
-
-yes, enumeration is complete by the hardware, however the controller 
-driver need to know the dev number assigned by the hardware, this 
-routine is doing that!
-> 
-> 
->> +
->> +        if (!val1 && !val2)
->> +            break;
->> +
->> +        addr = buf2[1] | (buf2[0] << 8) | (buf1[3] << 16) |
->> +            ((u64)buf1[2] << 24) | ((u64)buf1[1] << 32) |
->> +            ((u64)buf1[0] << 40);
->> +
->> +        sdw_extract_slave_id(bus, addr, &id);
->> +        /* Now compare with entries */
->> +        list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
->> +            if (sdw_compare_devid(slave, id) == 0) {
->> +                u32 status = qcom_swrm_get_n_device_status(ctrl, i);
->> +                if (status == SDW_SLAVE_ATTACHED) {
->> +                    slave->dev_num = i;
->> +                    mutex_lock(&bus->bus_lock);
->> +                    set_bit(i, bus->assigned);
->> +                    mutex_unlock(&bus->bus_lock);
->> +
->> +                }
-> 
-> And that part is strange as well. The bus->assigned bit should be set 
-> even if the Slave is not in the list provided by platform firmware. It's 
-> really tracking the state of the hardware, and it should not be 
-> influenced by what software knows to manage.
-
-Am not 100% sure If I understand the concern here, but In normal (non 
-auto enum) cases this bit is set by the bus code while its doing 
-enumeration to assign a dev number from the assigned bitmap!
-
-However in this case where auto enumeration happens it makes sense to 
-set this here with matching dev number!
-
-AFAIU from code, each bit in this bitmap corresponds to slave dev number!
-
-
-> 
->> +                break;
->> +            }
->> +        }
->> +    }
->> +
->> +    complete(&ctrl->enumeration);
-> 
-> you have init_completion() and complete() in this patch, but no 
-> wait_for_completion(), so that should be added in a later patch, no?
-
-make sense, will move that to other patch!
-
---srini
-> 
->> +    return 0;
->> +}
->> +
->>   static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->>   {
->>       struct qcom_swrm_ctrl *swrm = dev_id;
->> -    u32 value, intr_sts, intr_sts_masked;
->> +    u32 value, intr_sts, intr_sts_masked, slave_status;
->>       u32 i;
->>       u8 devnum = 0;
->>       int ret = IRQ_HANDLED;
->> @@ -382,10 +443,19 @@ static irqreturn_t qcom_swrm_irq_handler(int 
->> irq, void *dev_id)
->>                   break;
->>               case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
->>               case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
->> -                dev_err_ratelimited(swrm->dev, "%s: SWR new slave 
->> attached\n",
->> +                dev_err_ratelimited(swrm->dev, "%s: SWR slave status 
->> changed\n",
->>                       __func__);
->> -                qcom_swrm_get_device_status(swrm);
->> -                sdw_handle_slave_status(&swrm->bus, swrm->status);
->> +                swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, 
->> &slave_status);
->> +                if (swrm->slave_status == slave_status) {
->> +                    dev_err(swrm->dev, "Slave status not changed %x\n",
->> +                        slave_status);
->> +                    break;
->> +                } else {
->> +                    dev_err(swrm->dev, "Slave status handle %x\n", 
->> slave_status);
->> +                    qcom_swrm_get_device_status(swrm);
->> +                    qcom_swrm_enumerate(&swrm->bus);
->> +                    sdw_handle_slave_status(&swrm->bus, swrm->status);
->> +                }
->>                   break;
->>               case SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET:
->>                   dev_err_ratelimited(swrm->dev,
->> @@ -472,8 +542,8 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl 
->> *ctrl)
->>       ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
->> -    /* Disable Auto enumeration */
->> -    ctrl->reg_write(ctrl, SWRM_ENUMERATOR_CFG_ADDR, 0);
->> +    /* Enable Auto enumeration */
->> +    ctrl->reg_write(ctrl, SWRM_ENUMERATOR_CFG_ADDR, 1);
->>       ctrl->intr_mask = SWRM_INTERRUPT_STATUS_RMSK;
->>       /* Mask soundwire interrupts */
->> @@ -507,6 +577,7 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl 
->> *ctrl)
->>           ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN,
->>                   SWRM_INTERRUPT_STATUS_RMSK);
->>       }
->> +    ctrl->slave_status = 0;
->>       return 0;
->>   }
->> @@ -1068,6 +1139,7 @@ static int qcom_swrm_probe(struct 
->> platform_device *pdev)
->>       dev_set_drvdata(&pdev->dev, ctrl);
->>       mutex_init(&ctrl->port_lock);
->>       init_completion(&ctrl->broadcast);
->> +    init_completion(&ctrl->enumeration);
->>       ctrl->bus.ops = &qcom_swrm_ops;
->>       ctrl->bus.port_ops = &qcom_swrm_port_ops;
->>
+Thanks,
+Charles

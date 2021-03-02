@@ -2,74 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4791A32A095
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 14:23:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF2CE32A1AE
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 14:59:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDF021715;
-	Tue,  2 Mar 2021 14:22:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDF021715
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51F371718;
+	Tue,  2 Mar 2021 14:58:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F371718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614691407;
-	bh=iytCnS3/Fqm59AJCTx4Td5YHfFiyyY8XF5Iqi/De8P4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rIPNvxKl2K/6GjJIusquJQAXL8COt7GY2bEPrQBKRlyNG6wriIjHWR3Sy0m3y7gfU
-	 lCWEQsZpm9pglKWn1jHH8AaCQDUJ5wdwba77D98Yr4eG/fZGLXUE2Eacn+9rnz9CrH
-	 No/qLeWyBlYzkmDA4bgCPUriuXQR6VsxSnU0rs9A=
+	s=default; t=1614693540;
+	bh=ORjRVjjbRPvSWZCaZei4PIEwL3mXOWjMHgUuSj3j4mw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FMupU4Qx4qHlFhQLa0FQFF7daKqepgNAtCbObg8qlUII+zKXd+uReyCDXoEE6DGqS
+	 Ey/ntEZQ8AJKMbNgs7yLKSpKbmulJrKgyLq6L8tEqIhwJ4tR91U2WtT0ubXFxKI3Zo
+	 86j+BWhx60d969LTcL6znbWBTykOimBgaTl0O4ko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19C48F80271;
-	Tue,  2 Mar 2021 14:21:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9680F80271;
+	Tue,  2 Mar 2021 14:57:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54AD8F80269; Tue,  2 Mar 2021 14:21:55 +0100 (CET)
+ id 50431F80269; Tue,  2 Mar 2021 14:57:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D55C8F80227
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 14:21:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D55C8F80227
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JvfE4cxh"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1D9CB64F12;
- Tue,  2 Mar 2021 13:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614691310;
- bh=iytCnS3/Fqm59AJCTx4Td5YHfFiyyY8XF5Iqi/De8P4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JvfE4cxhrvhQNG1uiT0poBGzhekrWpbOlIxK5VePyKISfBBW0lWl+QjPPnYMDsQxj
- aLVRYCTHbYDFDa2i6U5CLy2RDtw++OtYk4lMJGB3yevFI4N1u4lDm47+L3H2JvSsTe
- d7CIVghk8hBQXjor5pOtpUj70VWid0EEzCgnKx1sgW7t6Seh0kCpSNYNGWstspbKEg
- jS7hl04Q9dvcbiRQrPgAn7j1ZCP04AllSdxWPUzB2w1W3EAbHoz8BN2VGepEoV0IHj
- 1zFWHOJPzbnVV/lKcKtt8XuUeX/J4s21r4JRqXFQWr75enJiCzOKUdrnPgGIfUJtz0
- HLYJf/BOR4FQA==
-Date: Tue, 2 Mar 2021 13:20:43 +0000
-From: Mark Brown <broonie@kernel.org>
-To: tangbin <tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: codec: Omit superfluous error message
- injz4760_codec_probe()
-Message-ID: <20210302132043.GF4522@sirena.org.uk>
-References: <20210302121148.28328-1-tangbin@cmss.chinamobile.com>
- <K2DCPQ.25EEALUNZ4K3@crapouillou.net>
- <76c87931-094e-0804-9405-ad4841fae2d3@cmss.chinamobile.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com
+ [221.176.66.80])
+ by alsa1.perex.cz (Postfix) with ESMTP id B70E7F8012D
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 14:57:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B70E7F8012D
+Received: from spf.mail.chinamobile.com (unknown[172.16.121.13]) by
+ rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee5603e441a692-92a17;
+ Tue, 02 Mar 2021 21:56:44 +0800 (CST)
+X-RM-TRANSID: 2ee5603e441a692-92a17
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[112.0.144.162])
+ by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee7603e4418325-20d03;
+ Tue, 02 Mar 2021 21:56:44 +0800 (CST)
+X-RM-TRANSID: 2ee7603e4418325-20d03
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: broonie@kernel.org, paul@crapouillou.net, lgirdwood@gmail.com,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2] ASoC: codec: Omit superfluous error message in
+ jz4760_codec_probe()
+Date: Tue,  2 Mar 2021 21:56:30 +0800
+Message-Id: <20210302135630.11456-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.20.1.windows.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+jhVVhN62yS6hEJ8"
-Content-Disposition: inline
-In-Reply-To: <76c87931-094e-0804-9405-ad4841fae2d3@cmss.chinamobile.com>
-X-Cookie: Friction is a drag.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Paul Cercueil <paul@crapouillou.net>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Tang Bin <tangbin@cmss.chinamobile.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,31 +71,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The function devm_platform_ioremap_resource has already contained
+error message, so remove the redundant dev_err here.
 
---+jhVVhN62yS6hEJ8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+Changes from v1
+ - to streamline the code.
+---
+ sound/soc/codecs/jz4760.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-On Tue, Mar 02, 2021 at 08:55:25PM +0800, tangbin wrote:
+diff --git a/sound/soc/codecs/jz4760.c b/sound/soc/codecs/jz4760.c
+index e8f28ccc145a..5ae0e312bcfc 100644
+--- a/sound/soc/codecs/jz4760.c
++++ b/sound/soc/codecs/jz4760.c
+@@ -841,11 +841,8 @@ static int jz4760_codec_probe(struct platform_device *pdev)
+ 	codec->dev = dev;
+ 
+ 	codec->base = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(codec->base)) {
+-		ret = PTR_ERR(codec->base);
+-		dev_err(dev, "Failed to ioremap mmio memory: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(codec->base))
++		return PTR_ERR(codec->base);
+ 
+ 	codec->regmap = devm_regmap_init(dev, NULL, codec,
+ 					&jz4760_codec_regmap_config);
+-- 
+2.18.2
 
-> Yes, I would have written it in your ways, but considered the variable
-> "ret", I gave up, and just deleted dev_err().
 
-If it's not used any more it can just be removed.
 
---+jhVVhN62yS6hEJ8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA+O6sACgkQJNaLcl1U
-h9D3Qgf8DCZVmc6ugbe3U+nU/APz1o3uNlnfvCBUw0+J0EN+fkVj0Aoj493A0viD
-IuXCy7XCPmam3JE4yIYbnA/FzmIs+PJ36/CnKNOH22e63WxWd5zdFk1S4dW6LA1m
-1ucckj2XD3+y6xGscd7FIdgX7EPoGYvKC2zB6QYBypL4mkNk09S7bjStYApaZKNK
-q+3wIjc/HoGFrKwG+L5v/wDeoMA6NX+x526O+3BDCv46JClza20O0OtHg8iSE8hL
-oKJxwBcluivy3SW/McFFmCIHnS8t+6B/UZ72PsSKjFkyKSqB8lgLNE5Dez/F10K8
-VFuCsAchxsyOWBiVzHCjrZsDDKze1g==
-=uM7f
------END PGP SIGNATURE-----
-
---+jhVVhN62yS6hEJ8--

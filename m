@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3181B32A772
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 18:12:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 567CE32A74D
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 18:08:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1C0718BC;
-	Tue,  2 Mar 2021 18:11:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1C0718BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE9501800;
+	Tue,  2 Mar 2021 18:07:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE9501800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614705154;
-	bh=Zs656mCeTa62YCH0enhtQAHKt7zsMndfROv8BmhEpLQ=;
+	s=default; t=1614704914;
+	bh=qiNT3/uewfeT1+6ATfWbPxjw1jGnL7JOMc8VCFoRMhQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jRB7vT/1Vz62K4IxtMLTmTWkOf/bgONp2jvJmRTXl0NSoM04iFMZwjGz+kAFhcCOC
-	 Adkd5r/zKAxZWIwhUWlruagG6QO20giNtmdhR88TBZgfMq/Mon3YX7O0lrt2ABcxom
-	 aiAmje0FgziDzLxVfKbsR1kRjLTBVk4PmAq4tPFQ=
+	b=s1hyKFmtBtoLfrr8eaJDdzeMmCtCeUeI2Xvoq9EdgHPpSy6rgg7PeHqVHiqrCUuwz
+	 N242mayLLkpJywxQaseQSxyZSoZgI0gHdyep9O4/07kFxfV3XKfIs3CM1vmBNCFFTQ
+	 kxGPY9bTnwEUoht1PuZZUMb+B0SnFihbuICBH74Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD705F80525;
-	Tue,  2 Mar 2021 18:05:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 170B6F802E2;
+	Tue,  2 Mar 2021 18:05:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62410F804D8; Tue,  2 Mar 2021 18:05:28 +0100 (CET)
+ id DCF37F80277; Tue,  2 Mar 2021 18:05:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,27 +34,27 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E3EEF80423
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 18:05:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E3EEF80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1E19F802CA
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 18:05:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1E19F802CA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="arps/7Dn"
+ header.b="QIUIJDm6"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 122H1q3M022910; Tue, 2 Mar 2021 11:05:04 -0600
+ 122H1q3O022910; Tue, 2 Mar 2021 11:05:05 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=5iU6E6sd+veOupPqlNUhVduk/PoXaCsH3lPj79o2MjA=;
- b=arps/7DnYHlDye6KFR6iXUC9rmqVjD9UM4Ag49qLxfLewOuIodpVLCR+2rBRhDRVK0Y3
- OqXyC1cm/HmmuTD9ngrF3TprHMXK5MJ3MaLzP5qGIgM+/t9YW5klP9XcGH4yCvXnwUc0
- JYmdcW28p2+1wNaIHvLTh9LlOxXNhEBWLdWqwbbzB1bp3f1qB1zQKdg96BobkjNwjufr
- efwoNK35VE/2JDjtxfl+/E95Vmn6Xf5J3ak/4T1e0Om4eRYxUkg/wFoiruTqeO7MnCxm
- ga/hJwqs5yt3Ui2lkA3xo2oUVrZmMlV1H5ieMZ/YpqEdPbETlMMS0Sg7Y+0xmIfzXuAb GA== 
+ bh=JpuBubu/c8c50GVx5442WTK+yTA2jobKEEDjjn3AfQA=;
+ b=QIUIJDm64RSOoSAesc6uF4NH+5NS5lbfwWgD8DCU6n/jK2ffP2XtYv/Znzk5k6A3sN4K
+ J6ezyOXCWeakiyv2s3sqHv7CYx5kq8+8xr/2z+M9jozH1nrCXM4+293Qwq3LD2x1Xqsr
+ s0OU7RNw0C9pFnkac5ratTTIBtcB8GSScPTrCqoY4SjEloV9FBRouRlD3duGkrPlxvEc
+ R+EqjEX4yPqoZC5tyJ3KIiiGCp7eWhO+VOOKQWPoaLPRGMriwSFbiKEvyS6lY4IeOllk
+ aDSHQ8EtCMxaww/hKfzZNYmS2sEfBsdlLfNF89sdfX5/cbzA1+fPWaHORrmh6dcGJBU4 tw== 
 Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 36ymc6usg9-5
+ by mx0a-001ae601.pphosted.com with ESMTP id 36ymc6usg9-6
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Tue, 02 Mar 2021 11:05:04 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
@@ -65,15 +65,15 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
  Transport; Tue, 2 Mar 2021 17:05:01 +0000
 Received: from mail1.cirrus.com (unknown [198.61.64.35])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D537811CB;
- Tue,  2 Mar 2021 17:05:00 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2689B11D5;
+ Tue,  2 Mar 2021 17:05:01 +0000 (UTC)
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 To: James Schulman <james.schulman@cirrus.com>, David Rhodes
  <david.rhodes@cirrus.com>, Mark Brown <broonie@kernel.org>, Liam Girdwood
  <lgirdwood@gmail.com>
-Subject: [PATCH 07/15] ASoC: cs42l42: Set clock source for both ways of stream
-Date: Tue, 2 Mar 2021 17:04:46 +0000
-Message-ID: <20210302170454.39679-8-tanureal@opensource.cirrus.com>
+Subject: [PATCH 08/15] ASoC: cs42l42: Fix channel width support
+Date: Tue, 2 Mar 2021 17:04:47 +0000
+Message-ID: <20210302170454.39679-9-tanureal@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210302170454.39679-1-tanureal@opensource.cirrus.com>
 References: <20210302170454.39679-1-tanureal@opensource.cirrus.com>
@@ -104,140 +104,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move the enable/disable of clocks to cs42l42_mute_stream so the record
-path also get clocks.
+Remove the hard coded 32 bits width and replace with the correct width
+calculated by params_width.
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs42l42.c | 85 +++++++++++++++++++++-----------------
- sound/soc/codecs/cs42l42.h |  1 +
- 2 files changed, 48 insertions(+), 38 deletions(-)
+ sound/soc/codecs/cs42l42.c | 47 ++++++++++++++++++--------------------
+ sound/soc/codecs/cs42l42.h |  1 -
+ 2 files changed, 22 insertions(+), 26 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 663a6a8104171..670f28f09ae01 100644
+index 670f28f09ae01..6022b6f9c6d27 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -786,52 +786,62 @@ static int cs42l42_set_sysclk(struct snd_soc_dai *dai,
+@@ -632,24 +632,6 @@ static int cs42l42_pll_config(struct snd_soc_component *component)
+ 					CS42L42_CLK_OASRC_SEL_MASK,
+ 					CS42L42_CLK_OASRC_SEL_12 <<
+ 					CS42L42_CLK_OASRC_SEL_SHIFT);
+-			/* channel 1 on low LRCLK, 32 bit */
+-			snd_soc_component_update_bits(component,
+-					CS42L42_ASP_RX_DAI0_CH1_AP_RES,
+-					CS42L42_ASP_RX_CH_AP_MASK |
+-					CS42L42_ASP_RX_CH_RES_MASK,
+-					(CS42L42_ASP_RX_CH_AP_LOW <<
+-					CS42L42_ASP_RX_CH_AP_SHIFT) |
+-					(CS42L42_ASP_RX_CH_RES_32 <<
+-					CS42L42_ASP_RX_CH_RES_SHIFT));
+-			/* Channel 2 on high LRCLK, 32 bit */
+-			snd_soc_component_update_bits(component,
+-					CS42L42_ASP_RX_DAI0_CH2_AP_RES,
+-					CS42L42_ASP_RX_CH_AP_MASK |
+-					CS42L42_ASP_RX_CH_RES_MASK,
+-					(CS42L42_ASP_RX_CH_AP_HI <<
+-					CS42L42_ASP_RX_CH_AP_SHIFT) |
+-					(CS42L42_ASP_RX_CH_RES_32 <<
+-					CS42L42_ASP_RX_CH_RES_SHIFT));
+ 			if (pll_ratio_table[i].mclk_src_sel == 0) {
+ 				/* Pass the clock straight through */
+ 				snd_soc_component_update_bits(component,
+@@ -765,14 +747,29 @@ static int cs42l42_pcm_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
+-	int retval;
++	unsigned int width = (params_width(params) / 8) - 1;
++	unsigned int val = 0;
+ 
+ 	cs42l42->srate = params_rate(params);
+-	cs42l42->swidth = params_width(params);
+ 
+-	retval = cs42l42_pll_config(component);
++	switch(substream->stream) {
++	case SNDRV_PCM_STREAM_PLAYBACK:
++		val |= width << CS42L42_ASP_RX_CH_RES_SHIFT;
++		/* channel 1 on low LRCLK */
++		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH1_AP_RES,
++							 CS42L42_ASP_RX_CH_AP_MASK |
++							 CS42L42_ASP_RX_CH_RES_MASK, val);
++		/* Channel 2 on high LRCLK */
++		val |= CS42L42_ASP_RX_CH_AP_HI << CS42L42_ASP_RX_CH_AP_SHIFT;
++		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH2_AP_RES,
++							 CS42L42_ASP_RX_CH_AP_MASK |
++							 CS42L42_ASP_RX_CH_RES_MASK, val);
++		break;
++	default:
++		break;
++	};
+ 
+-	return retval;
++	return cs42l42_pll_config(component);
+ }
+ 
+ static int cs42l42_set_sysclk(struct snd_soc_dai *dai,
+@@ -847,9 +844,9 @@ static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
  	return 0;
  }
  
--static int cs42l42_mute(struct snd_soc_dai *dai, int mute, int direction)
-+static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- {
- 	struct snd_soc_component *component = dai->component;
- 	unsigned int regval;
- 	u8 fullScaleVol;
+-#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S18_3LE | \
+-			SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S24_LE | \
+-			SNDRV_PCM_FMTBIT_S32_LE)
++#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
++			 SNDRV_PCM_FMTBIT_S24_LE |\
++			 SNDRV_PCM_FMTBIT_S32_LE )
  
- 	if (mute) {
--		/* Mark SCLK as not present to turn on the internal
--		 * oscillator.
--		 */
--		snd_soc_component_update_bits(component, CS42L42_OSC_SWITCH,
--						CS42L42_SCLK_PRESENT_MASK, 0);
--
--		snd_soc_component_update_bits(component, CS42L42_PLL_CTL1,
--				CS42L42_PLL_START_MASK,
--				0 << CS42L42_PLL_START_SHIFT);
--
- 		/* Mute the headphone */
--		snd_soc_component_update_bits(component, CS42L42_HP_CTL,
--				CS42L42_HP_ANA_AMUTE_MASK |
--				CS42L42_HP_ANA_BMUTE_MASK,
--				CS42L42_HP_ANA_AMUTE_MASK |
--				CS42L42_HP_ANA_BMUTE_MASK);
-+		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			snd_soc_component_update_bits(component, CS42L42_HP_CTL,
-+						      CS42L42_HP_ANA_AMUTE_MASK |
-+						      CS42L42_HP_ANA_BMUTE_MASK,
-+						      CS42L42_HP_ANA_AMUTE_MASK |
-+						      CS42L42_HP_ANA_BMUTE_MASK);
-+
-+		cs42l42->stream_use &= ~(1 << stream);
-+		if(!cs42l42->stream_use) {
-+			/*
-+			 * Switch to the internal oscillator.
-+			 * SCLK must remain running until after this clock switch.
-+			 * Without a source of clock the I2C bus doesn't work.
-+			 */
-+			snd_soc_component_update_bits(component, CS42L42_OSC_SWITCH,
-+						      CS42L42_SCLK_PRESENT_MASK, 0);
-+			snd_soc_component_update_bits(component, CS42L42_PLL_CTL1,
-+						      CS42L42_PLL_START_MASK, 0);
-+		}
- 	} else {
--		snd_soc_component_update_bits(component, CS42L42_PLL_CTL1,
--				CS42L42_PLL_START_MASK,
--				1 << CS42L42_PLL_START_SHIFT);
--		/* Read the headphone load */
--		regval = snd_soc_component_read(component, CS42L42_LOAD_DET_RCSTAT);
--		if (((regval & CS42L42_RLA_STAT_MASK) >>
--			CS42L42_RLA_STAT_SHIFT) == CS42L42_RLA_STAT_15_OHM) {
--			fullScaleVol = CS42L42_HP_FULL_SCALE_VOL_MASK;
--		} else {
--			fullScaleVol = 0;
-+		if (!cs42l42->stream_use) {
-+			/* SCLK must be running before codec unmute */
-+			snd_soc_component_update_bits(component, CS42L42_PLL_CTL1,
-+						      CS42L42_PLL_START_MASK, 1);
-+
-+			/* Mark SCLK as present, turn off internal oscillator */
-+			snd_soc_component_update_bits(component, CS42L42_OSC_SWITCH,
-+						      CS42L42_SCLK_PRESENT_MASK,
-+						      CS42L42_SCLK_PRESENT_MASK);
- 		}
-+		cs42l42->stream_use |= 1 << stream;
-+
-+		if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+			/* Read the headphone load */
-+			regval = snd_soc_component_read(component, CS42L42_LOAD_DET_RCSTAT);
-+			if (((regval & CS42L42_RLA_STAT_MASK) >> CS42L42_RLA_STAT_SHIFT) ==
-+			    CS42L42_RLA_STAT_15_OHM) {
-+				fullScaleVol = CS42L42_HP_FULL_SCALE_VOL_MASK;
-+			} else {
-+				fullScaleVol = 0;
-+			}
  
--		/* Un-mute the headphone, set the full scale volume flag */
--		snd_soc_component_update_bits(component, CS42L42_HP_CTL,
--				CS42L42_HP_ANA_AMUTE_MASK |
--				CS42L42_HP_ANA_BMUTE_MASK |
--				CS42L42_HP_FULL_SCALE_VOL_MASK, fullScaleVol);
--
--		/* Mark SCLK as present, turn off internal oscillator */
--		snd_soc_component_update_bits(component, CS42L42_OSC_SWITCH,
--				CS42L42_SCLK_PRESENT_MASK,
--				CS42L42_SCLK_PRESENT_MASK);
-+			/* Un-mute the headphone, set the full scale volume flag */
-+			snd_soc_component_update_bits(component, CS42L42_HP_CTL,
-+						      CS42L42_HP_ANA_AMUTE_MASK |
-+						      CS42L42_HP_ANA_BMUTE_MASK |
-+						      CS42L42_HP_FULL_SCALE_VOL_MASK, fullScaleVol);
-+		}
- 	}
- 
- 	return 0;
-@@ -846,8 +856,7 @@ static const struct snd_soc_dai_ops cs42l42_ops = {
- 	.hw_params	= cs42l42_pcm_hw_params,
- 	.set_fmt	= cs42l42_set_dai_fmt,
- 	.set_sysclk	= cs42l42_set_sysclk,
--	.mute_stream	= cs42l42_mute,
--	.no_capture_mute = 1,
-+	.mute_stream	= cs42l42_mute_stream,
- };
- 
- static struct snd_soc_dai_driver cs42l42_dai = {
+ static const struct snd_soc_dai_ops cs42l42_ops = {
 diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index e17a0c0aeb4a0..59e6eccb8d731 100644
+index 59e6eccb8d731..3dcbfebc53b0f 100644
 --- a/sound/soc/codecs/cs42l42.h
 +++ b/sound/soc/codecs/cs42l42.h
-@@ -769,6 +769,7 @@ struct  cs42l42_private {
- 	u8 bias_thresholds[CS42L42_NUM_BIASES];
- 	u8 hs_bias_ramp_rate;
- 	u8 hs_bias_ramp_time;
-+	u8 stream_use;
- };
- 
- #endif /* __CS42L42_H__ */
+@@ -758,7 +758,6 @@ struct  cs42l42_private {
+ 	struct completion pdn_done;
+ 	u32 sclk;
+ 	u32 srate;
+-	u32 swidth;
+ 	u8 plug_state;
+ 	u8 hs_type;
+ 	u8 ts_inv;
 -- 
 2.30.1
 

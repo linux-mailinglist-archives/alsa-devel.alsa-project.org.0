@@ -2,67 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B7E3296EE
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 09:30:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5466B32979F
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 10:13:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4A3716C2;
-	Tue,  2 Mar 2021 09:29:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4A3716C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id C61B516AF;
+	Tue,  2 Mar 2021 10:12:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C61B516AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614673805;
-	bh=KiF38rdEb9uT4uOk0Xm4LFf1SvTi926DSSAegXlJa1M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=h4zq2Ow+eiZ81KHEiveIFJNe4RpheYhyUNRQjRR9EMX5NvwtIawMGXT/p3Ujdojq0
-	 /s0bEFxL9jiTFu+2iOlP329ZSPp5vg0W/J0WV/Qn7C7H/Cn08AEnC/2D8ZQl3zKJkU
-	 dvzlxO4YwxnFsjSQ1IXVYreC16pXwa6WYdeSern0=
+	s=default; t=1614676398;
+	bh=bZcrVby0cG11lKYEsKVg+YyVkpCG3atrfEyGlH8xQlI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rx8DYnn2ptgPuP6L9N392S6dRqElbI7yOW0wZK+ayvn/pt3FtTxwdYGLxEyhZ3ynM
+	 JakuibcKVX/Cg7ANgSKORSglXh+TpH1LgBOACf1YLh3DeRbpw9GD+jwHuVnvudS26H
+	 RiPTYS+5GMxK51W/iKuslEMDnJMXVHTGHxIYx/UY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9A9DF802CA;
-	Tue,  2 Mar 2021 09:27:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E980F802A9;
+	Tue,  2 Mar 2021 10:11:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67155F8032D; Tue,  2 Mar 2021 09:27:43 +0100 (CET)
+ id F33DDF80227; Tue,  2 Mar 2021 10:11:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E796F802CA
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 09:27:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E796F802CA
-IronPort-SDR: 0Q7SOdZTQUULIFMwQH1AalDCFMyFJtfnLd+ut5ytjvne+tZg0ym+8leubN+pA+Hp2cKX0Fi0RK
- 8EOFgQhHzEow==
-X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="184302415"
-X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="184302415"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2021 00:27:35 -0800
-IronPort-SDR: X48LF1vSvlfDH+mntuNDOUikuDyU5dXy1/6HejuRlt9XVne9Qfu/JD9DY3Yuz4GQG6/5tHZQv1
- wG+YzVJHRVCw==
-X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="406613529"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FC96F80227
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 10:11:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FC96F80227
+IronPort-SDR: SJ+fIXGPwyFjrVa5hlLxSFU25dB9U7ipRw00jpzm1Y8+ATleMNUJCiRSjZXWVpal40AFFPo3wr
+ 3GlZgwe3vchQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="248158704"
+X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="248158704"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2021 01:11:34 -0800
+IronPort-SDR: hZQxCrkKhBVjp3mM9YKHlcK//84I3xX50t9XgnrQVq0kZUn8/dKpFElU8843NUX5iWDuY6MImQ
+ PSiNYpjlNzuA==
+X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="506262244"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2021 00:27:31 -0800
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2021 01:11:30 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v2 3/3] soundwire: intel: add master quirks for bus clash and
- parity
-Date: Tue,  2 Mar 2021 16:27:20 +0800
-Message-Id: <20210302082720.12322-4-yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH 00/11] soundwire: some cleanup patches
+Date: Tue,  2 Mar 2021 17:11:11 +0800
+Message-Id: <20210302091122.13952-1-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210302082720.12322-1-yung-chuan.liao@linux.intel.com>
-References: <20210302082720.12322-1-yung-chuan.liao@linux.intel.com>
-Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- hui.wang@canonical.com, srinivas.kandagatla@linaro.org,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,31 +72,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that we have declarations and bus support, add quirks for Intel
-platforms.
+To make soundwire driver more decent and less Cppcheck complaint.
 
-Co-developed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
----
- drivers/soundwire/intel.c | 3 +++
- 1 file changed, 3 insertions(+)
+Pierre-Louis Bossart (11):
+  soundwire: bus: use correct driver name in error messages
+  soundwire: bus: test read status
+  soundwire: bus: use consistent tests for return values
+  soundwire: bus: demote clock stop prepare log to dev_dbg()
+  soundwire: bus: uniquify dev_err() for SCP_INT access
+  soundwire: bus: remove useless initialization
+  soundwire: generic_bandwidth_allocation: remove useless init
+  soundwire: intel: remove useless readl
+  soundwire: qcom: check of_property_read status
+  soundwire: stream: remove useless initialization
+  soundwire: stream: remove useless bus initializations
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index a2d5cdaa9998..c1fdc85d0a74 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1286,6 +1286,9 @@ static int sdw_master_read_intel_prop(struct sdw_bus *bus)
- 	if (quirk_mask & SDW_INTEL_QUIRK_MASK_BUS_DISABLE)
- 		prop->hw_disabled = true;
- 
-+	prop->quirks = SDW_MASTER_QUIRKS_CLEAR_INITIAL_CLASH |
-+		SDW_MASTER_QUIRKS_CLEAR_INITIAL_PARITY;
-+
- 	return 0;
- }
- 
+ drivers/soundwire/bus.c                       | 54 +++++++++++--------
+ drivers/soundwire/bus_type.c                  | 15 ++++--
+ .../soundwire/generic_bandwidth_allocation.c  |  4 +-
+ drivers/soundwire/intel.c                     |  2 -
+ drivers/soundwire/qcom.c                      |  3 ++
+ drivers/soundwire/stream.c                    |  8 +--
+ 6 files changed, 52 insertions(+), 34 deletions(-)
+
 -- 
 2.17.1
 

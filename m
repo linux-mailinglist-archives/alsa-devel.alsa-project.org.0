@@ -2,76 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70FD32A617
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 17:35:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A2732A6AB
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 17:49:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53C00176D;
-	Tue,  2 Mar 2021 17:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53C00176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E112177B;
+	Tue,  2 Mar 2021 17:48:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E112177B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614702916;
-	bh=xuU9oMOeaz3Es42maf+w61Cm4/OCct29YfV5FhwR8+8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c32JBLosjLglC87V4VltyjYxDJHbck21mHIMfgEtecx15sYjrShC8Pewf1URGhD08
-	 LTPvISdtKUk54ppmJ7XYZPIrNLj2Zj6j61j4H2y0WMYC6ezfxaJ5C0fF4kGQxAORxS
-	 NiRTfP2135GUKNgEGGjQVaRp4S7lwtVbN5z/tGZo=
+	s=default; t=1614703743;
+	bh=i4QM39egQ84XTVQYYK1G9acAg20YkR5eopxPIx7A2Ok=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BSrQL/8DA88Deuw63BqqOBC1xmAHeH/dl42v/3VnlAL3ma3q9eTNYGh711DhBm5Sl
+	 6tfzRmH+0javyXThVFXYHFLRgPYXf7E6RpPcF8zcGVeqJKyT+5Y9SHMQuhJ34+pqPy
+	 NXhqRkczNe1N0B4oLnf5EnrNTdx5oTsOPdTyfVgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86100F80227;
-	Tue,  2 Mar 2021 17:33:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19303F80271;
+	Tue,  2 Mar 2021 17:47:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82131F80269; Tue,  2 Mar 2021 17:33:42 +0100 (CET)
+ id 59C36F80273; Tue,  2 Mar 2021 17:47:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A33AEF80227
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 17:33:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A33AEF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BD65F80227
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 17:47:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BD65F80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DYcBHc3M"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E719664F25;
- Tue,  2 Mar 2021 16:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614702816;
- bh=xuU9oMOeaz3Es42maf+w61Cm4/OCct29YfV5FhwR8+8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DYcBHc3MSnXRinTI9QTMqPu54FjYbHx8k1uXD7SgUcEGwI4xZOvlFKknyaomFzdIQ
- ggitlEo3cO5iw2hdnUSiGZcCOhDpV5SshdBk53X4K3Hv/wGszqyaZDzS/rIG3MubKg
- qKrgL0R/ajRpiFPEFLaXELfh/rmNU6tQxiTaH6vhMlFqP19xHu8wgbK4+tsFwxYEPw
- +fYl8rCu48D0aHTwp87IOd/A3ASFF6bhuGCpAosno97hXg1yBpcXF3rvnL6qVRYlp0
- YdIuIe3VpCL3EIUBkTX2Opz0H2x1Z6+6BXtH2xxqQ5UGbwuRVRH6jrMjshYMw/NFyF
- pGkrQXjdyl6hA==
-Date: Tue, 2 Mar 2021 16:32:29 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH] ASoC: simple-card: Add dummy dai support simple sound card
-Message-ID: <20210302163229.GN4522@sirena.org.uk>
-References: <1614254912-15746-1-git-send-email-shengjiu.wang@nxp.com>
- <20210225131533.GA5332@sirena.org.uk>
- <CAA+D8AO8_ESHSyODXhx4Wf1Z5MbtxWRUa-k2d6wKSeA0yzD5uA@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="crc0m3mF"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 50D81A1795;
+ Tue,  2 Mar 2021 17:47:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:message-id:mime-version:reply-to:subject:subject
+ :to:to; s=srmailgate02; bh=zLw+m1V3ebGqwPplU0MNd1Q6qf9SUP0LCheI5
+ 4hJGqw=; b=crc0m3mF5l+xzAdw4ughtugJuFxkndprcj1LsZku4S0liiXo1LU1B
+ lj7CAB4oxHmakYCoc3MLqwGXoBA25CPrytvPEIdRtnQxHh8L+SoaPWnRhEPPg8QB
+ VAMWtVk52DTWnRhjL377bVXV5klYRcghtUA6GcD4MYowL242X7G0RXFrL5m+ghT2
+ aX+E4hdP5rmNL/RvIqWUc4dvb++RYcw9oh+ZaygojgNjK7D+7EmlnKB0ZmfmZY5P
+ nvNI/HSOP23fqk8rbXC1Db3h/F8jmh6yxhTKIsF/2aVa0dvoocT4Yl/YflE3jsNA
+ tGj2GNcGuabJ55U3+cLb0yDsQQ62OQGFg==
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+To: <virtualization@lists.linux-foundation.org>,
+ <alsa-devel@alsa-project.org>, <virtio-dev@lists.oasis-open.org>
+Subject: [PATCH v7 0/9] ALSA: add virtio sound driver
+Date: Tue, 2 Mar 2021 17:47:00 +0100
+Message-ID: <20210302164709.3142702-1-anton.yakovlev@opensynergy.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="F4+N/OgRSdC8YnqX"
-Content-Disposition: inline
-In-Reply-To: <CAA+D8AO8_ESHSyODXhx4Wf1Z5MbtxWRUa-k2d6wKSeA0yzD5uA@mail.gmail.com>
-X-Cookie: Friction is a drag.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, stephan@gerhold.net,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SR-MAIL-02.open-synergy.com (10.26.10.22) To
+ SR-MAIL-01.open-synergy.com (10.26.10.21)
+Cc: Takashi Iwai <tiwai@suse.com>, "Michael S. Tsirkin" <mst@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,45 +81,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series implements a driver part of the virtio sound device
+specification v8 [1].
 
---F4+N/OgRSdC8YnqX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The driver supports PCM playback and capture substreams, jack and
+channel map controls. A message-based transport is used to write/read
+PCM frames to/from a device.
 
-On Fri, Feb 26, 2021 at 02:05:29PM +0800, Shengjiu Wang wrote:
-> On Thu, Feb 25, 2021 at 9:17 PM Mark Brown <broonie@kernel.org> wrote:
-> > On Thu, Feb 25, 2021 at 08:08:32PM +0800, Shengjiu Wang wrote:
+As a device part was used OpenSynergy proprietary implementation.
 
-> > > If sound card doesn't need specific codec device, just
-> > > dummy codec is enough, then we can link the dummy component
-> > > directly.
+v7 changes:
+ - Moved the snd_pcm_period_elapsed() call from the interrupt handler to the
+   kernel worker for being consistent with the non-atomic mode of the PCM
+   device.
+ - Removed SNDRV_PCM_INFO_RESUME flag. Now ops->prepare() sets the parameters
+   for the substream if it was previously suspended.
+ - Some additional code readability improvements/comments.
 
-> > This is a big red flag - what circumstances are these?  If it's a simple
-> > CODEC with no control then the general approach is to provide a driver
-> > which announces the capabilities of the CODEC and can be bound to as
-> > normal, the dummy component should never actively be used.
+[1] https://lists.oasis-open.org/archives/virtio-dev/202003/msg00185.html
 
-> For the DMIC, SPDIF, HDMI ARC device or other
-> similar device that there is no codec connected,  then dummy codec is
-> just used for registering the sound card.
 
-There are logical CODECs there, and we already have devices set up for
-those (like dmic.c for example).  All the above cases have at least
-some constraints from the spec for the interface.
+Anton Yakovlev (9):
+  uapi: virtio_ids: add a sound device type ID from OASIS spec
+  ALSA: virtio: add virtio sound driver
+  ALSA: virtio: handling control messages
+  ALSA: virtio: build PCM devices and substream hardware descriptors
+  ALSA: virtio: handling control and I/O messages for the PCM device
+  ALSA: virtio: PCM substream operators
+  ALSA: virtio: introduce jack support
+  ALSA: virtio: introduce PCM channel map support
+  ALSA: virtio: introduce device suspend/resume support
 
---F4+N/OgRSdC8YnqX
-Content-Type: application/pgp-signature; name="signature.asc"
+ MAINTAINERS                     |   9 +
+ include/uapi/linux/virtio_ids.h |   1 +
+ include/uapi/linux/virtio_snd.h | 334 +++++++++++++++++++++
+ sound/Kconfig                   |   2 +
+ sound/Makefile                  |   3 +-
+ sound/virtio/Kconfig            |  10 +
+ sound/virtio/Makefile           |  13 +
+ sound/virtio/virtio_card.c      | 449 ++++++++++++++++++++++++++++
+ sound/virtio/virtio_card.h      | 111 +++++++
+ sound/virtio/virtio_chmap.c     | 219 ++++++++++++++
+ sound/virtio/virtio_ctl_msg.c   | 310 +++++++++++++++++++
+ sound/virtio/virtio_ctl_msg.h   |  78 +++++
+ sound/virtio/virtio_jack.c      | 233 +++++++++++++++
+ sound/virtio/virtio_pcm.c       | 513 ++++++++++++++++++++++++++++++++
+ sound/virtio/virtio_pcm.h       | 124 ++++++++
+ sound/virtio/virtio_pcm_msg.c   | 414 ++++++++++++++++++++++++++
+ sound/virtio/virtio_pcm_ops.c   | 464 +++++++++++++++++++++++++++++
+ 17 files changed, 3286 insertions(+), 1 deletion(-)
+ create mode 100644 include/uapi/linux/virtio_snd.h
+ create mode 100644 sound/virtio/Kconfig
+ create mode 100644 sound/virtio/Makefile
+ create mode 100644 sound/virtio/virtio_card.c
+ create mode 100644 sound/virtio/virtio_card.h
+ create mode 100644 sound/virtio/virtio_chmap.c
+ create mode 100644 sound/virtio/virtio_ctl_msg.c
+ create mode 100644 sound/virtio/virtio_ctl_msg.h
+ create mode 100644 sound/virtio/virtio_jack.c
+ create mode 100644 sound/virtio/virtio_pcm.c
+ create mode 100644 sound/virtio/virtio_pcm.h
+ create mode 100644 sound/virtio/virtio_pcm_msg.c
+ create mode 100644 sound/virtio/virtio_pcm_ops.c
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.30.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA+aJwACgkQJNaLcl1U
-h9B/agf+NuZkSLk0hEvuBLZfN8yHn0Pdiykp2X9jERm3iqFpvGWqNegsoouoydfm
-GPnSAmiaz41sqB5B0F9JKWXBKTQ1aJX4Enptx8zIxoc4E/vRi2V2vq7TI2egODqV
-OnPbth/fcTuva5m345AtS8uC4PQN7QvYibNVos1ZOBnLqxWuSGVP96fdQ0dUzQ8c
-6ArphB631y2Vv6SJZ88UU3PhJmfhU1wBsTw8ww4YoLl1C8N77bQw6u+jIfyy/H0X
-C5gRJTlLzMAWSXPCjOhPJyReEvkgiN24H50G52+gs9F/bPyMudjK6uZO/F1LCFWP
-ScAb6CP4dkWqHs+uIqFYVRRKNx+XJQ==
-=XYXx
------END PGP SIGNATURE-----
 
---F4+N/OgRSdC8YnqX--

@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D4E329BF8
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 12:20:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A78D329C3B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 12:23:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CFEF16E7;
-	Tue,  2 Mar 2021 12:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CFEF16E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A30B8170D;
+	Tue,  2 Mar 2021 12:22:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A30B8170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614684050;
-	bh=jq6ruSNtdvTCsUYCUSgS8AgO1WsJcTQY4rhbKijBQxg=;
-	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1614684220;
+	bh=nyblzrf3BU3WVnm2sGiXVm8NmbNlNmK8Fy7FRu1YCoI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PGrDxMcQ2mAg0QyIFPxnQCKJVNbkIy2SVUGDv9Njx5DaTh6LfTvGdsSRQR7RS7c2N
-	 QRscdvDKA+MieKSLeHE5sLg5q2l4msztPulNUb9cJtBeGAFz88n5YkC2adcCmGem3w
-	 NgIOY2Oknd3i3vpYt53bvUd2z5khxvaYmWtOwnog=
+	b=fT6W2eGeerepZLDPHzcIrh6ft+2F3AIuEMBrmnkdEAJEUJYuqrmvoyzPslAiDJOq7
+	 Tww9/5I2eT39Mx7pwjNdAds6ugavuP3u/FeqNZ4SjrIz22u/LtD3BOjd5tVCwf1T5k
+	 uSci3G8aipPh2tEbbfwU4rwlR2F6a637G6R4EqiQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747C6F80088;
-	Tue,  2 Mar 2021 12:19:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 201D8F80277;
+	Tue,  2 Mar 2021 12:22:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B87EF80269; Tue,  2 Mar 2021 12:19:17 +0100 (CET)
+ id B6F4FF80269; Tue,  2 Mar 2021 12:22:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 692ECF80227
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 12:19:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 692ECF80227
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 37667C800BF;
- Tue,  2 Mar 2021 12:19:04 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id thJkERTQif9V; Tue,  2 Mar 2021 12:19:03 +0100 (CET)
-Received: from [IPv6:2003:e3:7f23:4700:cc41:88a7:f2f8:d6b8]
- (p200300E37F234700Cc4188a7f2f8d6B8.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f23:4700:cc41:88a7:f2f8:d6b8])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id A1DE2C800BB;
- Tue,  2 Mar 2021 12:19:03 +0100 (CET)
-From: Werner Sembach <wse@tuxedocomputers.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NH55RZQ
-To: wse@tuxedocomputers.com, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Autocrypt: addr=wse@tuxedocomputers.com; keydata=
- mDMEX6ALvhYJKwYBBAHaRw8BAQdAG/kE3mlbV1YLpCU8iA7Pyq2eDq9LxzGQxcOZODh2Vnq0
- KFdlcm5lciBTZW1iYWNoIDx3c2VAdHV4ZWRvY29tcHV0ZXJzLmNvbT6IlgQTFggAPhYhBNzq
- jJqAsvWKK1h7bi7eQpXUvijKBQJfoAu+AhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMBAh4B
- AheAAAoJEC7eQpXUvijKzkEA/jblmQRWU/e18oo8J9GPHWOCRUA1WJLUt9lSye5cgl2vAP0Y
- q+EpkDRS+QqtIcIr3fVELwA4b/V1lVE2LW+plcmdCbg4BF+gC74SCisGAQQBl1UBBQEBB0Bc
- k3J9DVAB4ysrdDcKE7L9iAUjlWD+rsLh/5soPORqFQMBCAeIfgQYFggAJhYhBNzqjJqAsvWK
- K1h7bi7eQpXUvijKBQJfoAu+AhsMBQkJZgGAAAoJEC7eQpXUvijKBBYA/2DT2g26dpTU2Rbc
- lqviltu+woGZCd0GBfRgXuzUK0OfAQCwr8qPCl8uIsBgOsDmWIJYByG2ddwmXiAgBS1985bM Ag==
-Message-ID: <c7a394b1-edd3-a692-0981-45086da82aac@tuxedocomputers.com>
-Date: Tue, 2 Mar 2021 12:19:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 723BEF80227
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 12:22:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 723BEF80227
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="MZO0fEml"
+Received: by mail-lf1-x132.google.com with SMTP id p21so30657406lfu.11
+ for <alsa-devel@alsa-project.org>; Tue, 02 Mar 2021 03:22:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UXsyTscw9zuLBva4U3+AGU7LQRHCPXqRCSzHFPwdbsg=;
+ b=MZO0fEml85aBPb+L0zZijvlr73xZelJgEhc1czmKIkPN1WA/Ao2bmG2eEpQn9/5Cnv
+ 5gmNhukOhWRqrabru5ZLRuQIe19Ppw7xvec8e8WVtDNcFX2YXjsaC2KTFuDBS9V1HR8A
+ q2i1pBwu3M4Yx/RPucxQRLZb8JTWF/n+Sj3BAiypZKcIHbe/VxT6ElkveIjI5YIc+/Sq
+ 95ldH1eekOw0jmoqo6CncpYd7lOJmwl+A2aFdkIzc4avBbz6tjukMFbxvrmgqU6g6YQp
+ p+7yRGMFPKujcTuilLJVt6o0YRGvr4xgMdYCwR/jU1wQP+aK3vfpkWUCxmjOo2tTyiVN
+ SMNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UXsyTscw9zuLBva4U3+AGU7LQRHCPXqRCSzHFPwdbsg=;
+ b=AVMnuKcUpYEP+/IOICwMq8+39pkoxQJb75Iytpb4b4YD1IlDtbfrfL/AGFuQHnwZyf
+ 0YLFOaCmv9dxImEGUPvRDx/fydpzZqZDEO0yCb8cie3QGTpqwHVSV0jT9N3cAFyUKhcd
+ WL8HQeor2T3BPssA+t9ekpAEXK1IPh+K8M0cb3VrgUsDZIxewYaCxjdBfB6yhuaCGJLp
+ iBopjMFpdKqbIZmEl7SFxvmiaYvCLCx22ibyzzkgHmSzocGsdaLCdXrSVBU2XLYAgK25
+ e/hlo8/K+646QaE9lTgHCjdUSxEU/CdDwGkFuprajC4lGN4G1kciujRqIJFTUDs38Buw
+ zulw==
+X-Gm-Message-State: AOAM530k0y9varnHk3QmDqklDZrNRRI6NUcT503Xqa4ifV3HgXR9TLnM
+ 4TNCSdRWUTJO787wRvLRfKA=
+X-Google-Smtp-Source: ABdhPJxRymJixfSpthjYFtxI7AlxBgvrcbqGsXaXA/6qsfInz7jYNSYRX1M8a7spc/pgycwZXoi9BQ==
+X-Received: by 2002:a05:6512:2356:: with SMTP id
+ p22mr11522329lfu.3.1614684124467; 
+ Tue, 02 Mar 2021 03:22:04 -0800 (PST)
+Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
+ [109.252.193.52])
+ by smtp.gmail.com with ESMTPSA id w7sm2691078lft.0.2021.03.02.03.22.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Mar 2021 03:22:03 -0800 (PST)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
+Subject: [PATCH v1 0/5] Add missing reset controls to NVIDIA Tegra ASoC drivers
+Date: Tue,  2 Mar 2021 14:21:18 +0300
+Message-Id: <20210302112123.24161-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,53 +102,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Eckhart Mohr <e.mohr@tuxedocomputers.com>
-
-ALSA: hda/realtek: Add quirk for Clevo NH55RZQ
-
-This applies a SND_PCI_QUIRK(...) to the Clevo NH55RZQ barebone. This
-fixes the issue of the device not recognizing a pluged in microphone.
-
-The device has both, a microphone only jack, and a speaker + microphone
-combo jack. The combo jack already works. The microphone-only jack does
-not recognize when a device is pluged in without this patch.
-
-Signed-off-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
-Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
 Hi,
-this is my first ever submitted kernel patch, feel free to criticise me if I made an error or missed a best practise bullet point.
-Also: I'm unsure if this would fit the requirements for stable@vger.kernel.org and/or trivial@kernel.org, but I think not (correct me if I'm wrong).
-Kind regards
-Werner Sembach
 
-From 2835edd753fd19c72a644dccb7e941cfc0ecdf8e Mon Sep 17 00:00:00 2001
-From: Werner Sembach <wse@tuxedocomputers.com>
-Date: Fri, 26 Feb 2021 13:50:15 +0100
-Subject: [PATCH] Fix device detection on microphone jack of Clevo NH55RZQ
+This series adds missing hardware reset controls to I2S and AC97 drivers.
+Currently drivers happen to work properly because reset is implicitly
+deasserted by tegra-clk driver, but clk driver shouldn't touch the resets
+and we need to fix it because this breaks other Tegra drivers. Previously
+we fixed the resets of the AHUB and HDMI codec drivers, but turned out
+that we missed the I2C and AC97 drivers.
 
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks to Paul Fertser for testing the pending clk patches and finding
+that audio got broken on Tegra20 AC100 netbook because of the missing I2S
+reset.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 290645516313..8014e80d72c3 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8089,6 +8089,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-     SND_PCI_QUIRK(0x1558, 0x8551, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-     SND_PCI_QUIRK(0x1558, 0x8560, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
-     SND_PCI_QUIRK(0x1558, 0x8561, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
-+    SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[5|7][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
-     SND_PCI_QUIRK(0x1558, 0x8668, "Clevo NP50B[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-     SND_PCI_QUIRK(0x1558, 0x8680, "Clevo NJ50LU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-     SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+Dmitry Osipenko (5):
+  reset: Allow devm_reset_control_array_get() to get resets in a
+    released state
+  reset: Add devm_reset_control_array_get_exclusive_released()
+  ASoC: tegra20: ac97: Add reset control
+  ASoC: tegra20: i2s: Add reset control
+  ASoC: tegra30: i2s: Add reset control
+
+ drivers/reset/core.c           |  8 ++++++--
+ include/linux/reset.h          | 20 +++++++++++++------
+ sound/soc/tegra/tegra20_ac97.c | 21 ++++++++++++++++++++
+ sound/soc/tegra/tegra20_ac97.h |  1 +
+ sound/soc/tegra/tegra20_i2s.c  | 31 +++++++++++++++++++++++++++++
+ sound/soc/tegra/tegra20_i2s.h  |  1 +
+ sound/soc/tegra/tegra30_ahub.c | 14 ++++++++++---
+ sound/soc/tegra/tegra30_i2s.c  | 36 +++++++++++++++++++++++++++++++++-
+ sound/soc/tegra/tegra30_i2s.h  |  1 +
+ 9 files changed, 121 insertions(+), 12 deletions(-)
+
 -- 
-2.25.1
-
-
-
-
-
+2.29.2
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6A732AC03
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 22:04:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B4BE32ABFE
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 22:03:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D0271906;
-	Tue,  2 Mar 2021 22:03:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D0271906
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31235190B;
+	Tue,  2 Mar 2021 22:02:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31235190B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614719067;
-	bh=HZKkvIDQ9gLG6VHUqIifCjw4cvfuoWS+i2gBEjIG+sc=;
+	s=default; t=1614718988;
+	bh=ojgoHQQkBy96iCX6lBHqP+gMb1oBV2oS3qTnoBNMZUY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FkuvjqKFhYso54d2XK68A4fD7pB3+bLNC+hqifUmSAXmSbCy70e3LBKzPiR3FXORF
-	 5pjZ5UBxcLGv250BYk3SBbyczOJH404u9uH1XtZX8CtMZk0dBDbtn2eFhq5rltP85G
-	 T2bY/PeJ/LJNaKit9AaJFt1ud9zV0V9NBtslzXnQ=
+	b=NSR8Fl5iKR/t1Lsf8ytVYW2r0NDx/tj8JtxAVMCY0hU4stE+H60MgnlZL7FB8apU2
+	 8UOturV8X0ghtntShg/er+OxHvXIMsOhdhrMQ58fdz2ygSJDcBynvvDjXU6fcRnCo4
+	 iXURn1Cjf9Sr2xaBFy3+O2Gb87tFjOin+uZN3Bdg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6508AF804AA;
-	Tue,  2 Mar 2021 22:00:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E103F80271;
+	Tue,  2 Mar 2021 22:00:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22B75F802E7; Tue,  2 Mar 2021 22:00:43 +0100 (CET)
+ id E77F6F80425; Tue,  2 Mar 2021 22:00:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0FF6F8012D
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 22:00:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0FF6F8012D
-IronPort-SDR: AqWIvl6M2XXQ3Qc05lZ8q178a/m2hmGCuIfjA05BZHanFGzI3lOjd22ssYDzgF4SX2oX96ZLf1
- XiEGkB/6FeIg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="174623733"
-X-IronPort-AV: E=Sophos;i="5.81,217,1610438400"; d="scan'208";a="174623733"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3EB7F802E3
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 22:00:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3EB7F802E3
+IronPort-SDR: eBcNZxlDfK9uLZTH608iXq9VMPtRDbJ8wuPT9J90xU+5us4WWQcSvJScqsUxBRG610Ap2wNF85
+ XwxSufuqaUhA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="174623742"
+X-IronPort-AV: E=Sophos;i="5.81,217,1610438400"; d="scan'208";a="174623742"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Mar 2021 13:00:29 -0800
-IronPort-SDR: rM6pkeOOrak/popEUhp577aD87PCsqhtvnGfDO/rzN/RMPtAiyJeDCfOwWTbiY48/LJvN7/jKZ
- Xg99imoui6lg==
-X-IronPort-AV: E=Sophos;i="5.81,217,1610438400"; d="scan'208";a="373727798"
+IronPort-SDR: N3MsXD3UwTjJ+a7WHfFUmRc6o6JeXGBruoydWDhwLAHZqetsn9LDbRIBfZm9x77ORM5LKCw9sE
+ Cmu5fPdJpkVw==
+X-IronPort-AV: E=Sophos;i="5.81,217,1610438400"; d="scan'208";a="373727801"
 Received: from btucker-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.60.230])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2021 13:00:28 -0800
+ 02 Mar 2021 13:00:29 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/9] ASoC: sigmadsp-regmap: fix kernel-doc warning
-Date: Tue,  2 Mar 2021 14:59:21 -0600
-Message-Id: <20210302205926.49063-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/9] ASoC: amd: renoir: remove invalid kernel-doc comment
+Date: Tue,  2 Mar 2021 14:59:22 -0600
+Message-Id: <20210302205926.49063-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210302205926.49063-1-pierre-louis.bossart@linux.intel.com>
 References: <20210302205926.49063-1-pierre-louis.bossart@linux.intel.com>
@@ -79,28 +79,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 make W=1 warning:
 
-sound/soc/codecs/sigmadsp-regmap.c:42: warning: expecting prototype
-for devm_sigmadsp_init_i2c(). Prototype was for
-devm_sigmadsp_init_regmap() instead
+sound/soc/amd/renoir/rn-pci-acp3x.c:24: warning: wrong kernel-doc
+identifier on line:
+ * dmic_acpi_check = -1 - Use ACPI/DMI method to detect the DMIC
+   hardware presence at runtime
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/codecs/sigmadsp-regmap.c | 2 +-
+ sound/soc/amd/renoir/rn-pci-acp3x.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/sigmadsp-regmap.c b/sound/soc/codecs/sigmadsp-regmap.c
-index bf1c4086da9f..ba9a6795e470 100644
---- a/sound/soc/codecs/sigmadsp-regmap.c
-+++ b/sound/soc/codecs/sigmadsp-regmap.c
-@@ -26,7 +26,7 @@ static int sigmadsp_read_regmap(void *control_data,
- }
+diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
+index 050a61fe9693..19438da5dfa5 100644
+--- a/sound/soc/amd/renoir/rn-pci-acp3x.c
++++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
+@@ -20,7 +20,7 @@ static int acp_power_gating;
+ module_param(acp_power_gating, int, 0644);
+ MODULE_PARM_DESC(acp_power_gating, "Enable acp power gating");
  
- /**
-- * devm_sigmadsp_init_i2c() - Initialize SigmaDSP instance
-+ * devm_sigmadsp_init_regmap() - Initialize SigmaDSP instance
-  * @dev: The parent device
-  * @regmap: Regmap instance to use
-  * @ops: The sigmadsp_ops to use for this instance
+-/**
++/*
+  * dmic_acpi_check = -1 - Use ACPI/DMI method to detect the DMIC hardware presence at runtime
+  *                 =  0 - Skip the DMIC device creation and return probe failure
+  *                 =  1 - Force DMIC support
 -- 
 2.25.1
 

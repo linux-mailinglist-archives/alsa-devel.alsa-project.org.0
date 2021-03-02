@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F336329592
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 02:51:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9A2329593
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 02:51:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC094166A;
-	Tue,  2 Mar 2021 02:50:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC094166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 710CB1678;
+	Tue,  2 Mar 2021 02:50:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 710CB1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614649889;
-	bh=I8ilG9N6gDI0VIwAh5xZz3WVABJbm3Mv0AcWpbCvmPY=;
+	s=default; t=1614649906;
+	bh=3ayB60P8t32XdQ3ajx52O4mZlULYMNYA0EftE4BpZ2s=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cd0ieD8AH8HkfFuN6v5Y/cx2OrNOkdHvPcuK3G8F2VCiGCsCPcgX7PKEIq1Tq2fcP
-	 x96zhjy32FZYQo5I4hmBROwbBmGiW6ZE3Wcs0fczrsT0msDzoCcRVbE+/G4Z3qpe9O
-	 AogopHQxx/cas9bHg/PDldaCgWfRY3KwwVKBONuM=
+	b=DlJ7t3nRZTMOZS9AkeBO5JFfH8nyhcQafR6bjQPBSAk1cXVEWUtQdpQvJ9FWOwiso
+	 q2frpMJi0a/yUCYwyx4p0IwgGqNYf/KNJCW5aJDhQyMAi43s9Y6GV7eo3DSHWqVhah
+	 yBeivCEWDMd7368augTTNdM+SH4cKSTtRxb7FWBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB52DF804B0;
-	Tue,  2 Mar 2021 02:48:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62B90F804B4;
+	Tue,  2 Mar 2021 02:48:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FF3EF804AF; Tue,  2 Mar 2021 02:48:25 +0100 (CET)
+ id C7153F804B2; Tue,  2 Mar 2021 02:48:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 9FD3EF80431
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 02:48:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD3EF80431
-Date: 02 Mar 2021 10:48:18 +0900
-X-IronPort-AV: E=Sophos;i="5.81,216,1610377200"; d="scan'208";a="73796217"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 02 Mar 2021 10:48:18 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 15810F80431
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 02:48:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15810F80431
+Date: 02 Mar 2021 10:48:23 +0900
+X-IronPort-AV: E=Sophos;i="5.81,216,1610377200"; d="scan'208";a="73549572"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Mar 2021 10:48:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 2CF064143D14;
- Tue,  2 Mar 2021 10:48:18 +0900 (JST)
-Message-ID: <87lfb6qqal.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 37B86400D0FC;
+ Tue,  2 Mar 2021 10:48:23 +0900 (JST)
+Message-ID: <87k0qqqqag.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/8] ASoC: soc-pcm: fixup dpcm_be_dai_startup() user count
+Subject: [PATCH 7/8] ASoC: soc-pcm: remove unneeded !rtd->dai_link check
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tupuqqc8.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,91 +70,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-At dpcm_be_dai_startup_unwind(), it indicates error message at (1)
-if this function was called with no users.
-But, it doesn't use "continue" here. Thus, it will be minus
-users at (2).
-
-	void dpcm_be_dai_startup_unwind(...)
-	{
-		...
-		for_each_dpcm_be(...) {
-			...
-(1)			if (be->dpcm[stream].users == 0)
-				dev_err(...);
-
-(2)			if (--be->dpcm[stream].users != 0)
-				continue;
-
-At dpcm_be_dai_startup(), it indicates error message if
-user reached to MAX USERS at (A).
-But, it doesn't use "continue" here. Thus, it will be over
-MAX USERS at (B).
-
-	int dpcm_be_dai_startup(...)
-	{
-		...
-		for_each_dpcm_be(...) {
-			...
-(A)			if (be->dpcm[stream].users == DPCM_MAX_BE_USERS)
-				dev_err(...);
-
-(B)			if (be->dpcm[stream].users++ != 0)
-				continue;
-
-These are just bug. This patch fixup these.
+rtd->dai_link is setuped at soc_new_pcm_runtime(),
+thus "rtd->dai_link == NULL" is never happen.
+This patch removes unneeded !rtd->dai_link check
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ sound/soc/soc-pcm.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index aa1f26ccb0dc..925f687652c6 100644
+index 925f687652c6..a3e1210f634c 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1428,10 +1428,12 @@ static void dpcm_be_dai_startup_unwind(struct snd_soc_pcm_runtime *fe,
- 		struct snd_pcm_substream *be_substream =
- 			snd_soc_dpcm_get_substream(be, stream);
+@@ -161,9 +161,6 @@ static const struct file_operations dpcm_state_fops = {
  
--		if (be->dpcm[stream].users == 0)
-+		if (be->dpcm[stream].users == 0) {
- 			dev_err(be->dev, "ASoC: no users %s at close - state %d\n",
- 				stream ? "capture" : "playback",
- 				be->dpcm[stream].state);
-+			continue;
-+		}
+ void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
+ {
+-	if (!rtd->dai_link)
+-		return;
+-
+ 	if (!rtd->dai_link->dynamic)
+ 		return;
  
- 		if (--be->dpcm[stream].users != 0)
- 			continue;
-@@ -1468,10 +1470,12 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 			continue;
- 
- 		/* first time the dpcm is open ? */
--		if (be->dpcm[stream].users == DPCM_MAX_BE_USERS)
-+		if (be->dpcm[stream].users == DPCM_MAX_BE_USERS) {
- 			dev_err(be->dev, "ASoC: too many users %s at open %d\n",
- 				stream ? "capture" : "playback",
- 				be->dpcm[stream].state);
-+			continue;
-+		}
- 
- 		if (be->dpcm[stream].users++ != 0)
- 			continue;
-@@ -1513,10 +1517,12 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
- 			continue;
- 
--		if (be->dpcm[stream].users == 0)
-+		if (be->dpcm[stream].users == 0) {
- 			dev_err(be->dev, "ASoC: no users %s at close %d\n",
- 				stream ? "capture" : "playback",
- 				be->dpcm[stream].state);
-+			continue;
-+		}
- 
- 		if (--be->dpcm[stream].users != 0)
- 			continue;
 -- 
 2.25.1
 

@@ -2,80 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7F4632A428
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 16:37:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE3DE32A51E
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 16:59:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C677174F;
-	Tue,  2 Mar 2021 16:36:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C677174F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A917175C;
+	Tue,  2 Mar 2021 16:58:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A917175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614699435;
-	bh=ZgmRhqiuhJzzl6wadvFstMENEzyQMb242bDEML+yA1Q=;
+	s=default; t=1614700776;
+	bh=fdsA4pngkbZ/2sjhECKWhI/Cr8GWVf8rgHKPWCUy2q8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l0Zg6eV76CBpRABjwQUe9ybA/NSrH7dQjXkkgUt/QFE0MPdTizWACgTtV/7KRScMe
-	 SvA7PRhwrECG/oWYmD1ibsNwCUsdTqApxnvgEo9X0UttoPcRBVdzE2E3q9RTwTB1Ne
-	 pZRBvJhi9gTCit1kXlquPqSwdcs+gQ+1Rwr4si4Q=
+	b=up/uxXqi1f1Vn6hQNqOSHEyNpwYr4s0flc1RoIncbfBlTVmgUIXXTQFcRkpvRN4qF
+	 LJS1rxnLDkwGhwhmGyYfmnJtmGW9x4Kk+vRzyoCy2saJRRVmCSA8Ur9alUqrgQRlCz
+	 M2PpzolpIoNZMwQjsJttwA4HetaNQ7nRPKB6HpXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB498F802CA;
-	Tue,  2 Mar 2021 16:35:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79AE9F80227;
+	Tue,  2 Mar 2021 16:58:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56DA3F80271; Tue,  2 Mar 2021 16:35:31 +0100 (CET)
+ id 596A1F80269; Tue,  2 Mar 2021 16:57:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
+ [67.219.250.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95802F8012D
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 16:35:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95802F8012D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
- header.b="mzldlBoL"
-Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
- [127.0.0.1])
- by mx1.opensynergy.com (Proxmox) with ESMTP id CE368A178A;
- Tue,  2 Mar 2021 16:35:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:from:from:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=srmailgate02; bh=3sXhMOkM8LPe
- kLQJ3JvWQSiaoISGZyoWfcdIHtOJozw=; b=mzldlBoLn0NX3gqduhq7oHrlZOp4
- MdnN2j6nmr6SccEt9rMCwx1Fp9sfgTRp2Xe6VfqzGoIFItrsWos7VfFvvhtvRi1z
- ZVD61qHZQN2ajz0hY0ktQzvf7Xa3HhObJtZJObTvK7V7LmxRu3zsorJh7ssWYK9m
- D8LrFdlko5HsOJR1tUimCA5eViDiEAc/vnKXjvkd5aGqlN26tU8eZSeoydpk9qm0
- RMr2dArQLodtJXuUw6Rm6gzeWAmMgNIy/wWdroW2gMDrbADAO9PQLDkohZAvpDSl
- rZrbXOSx2dpsYLzYPYiaUBSzyz/N+4tphZJkTS6d1NBaW4yeCiR78tCmuA==
-Subject: Re: [PATCH v6 9/9] ALSA: virtio: introduce device suspend/resume
- support
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
- <20210227085956.1700687-10-anton.yakovlev@opensynergy.com>
- <s5hpn0kjt31.wl-tiwai@suse.de>
- <7d4daea0-ed59-e84c-c28a-945c49204c83@opensynergy.com>
- <s5hwnuqgifa.wl-tiwai@suse.de>
- <d9853306-2adf-24fe-935c-f7f8a1295dc3@opensynergy.com>
- <s5hr1kxhqcn.wl-tiwai@suse.de>
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Message-ID: <2479ed0f-4c90-f565-81cd-8d0348cd14bc@opensynergy.com>
-Date: Tue, 2 Mar 2021 16:35:24 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31072F8012D
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 16:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31072F8012D
+Received: from [100.112.128.20] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-4.bemta.az-a.us-west-2.aws.symcld.net id 13/04-42417-A706E306;
+ Tue, 02 Mar 2021 15:57:46 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprOKsWRWlGSWpSXmKPExsWS8eIhj25Vgl2
+ Cwfn3MhZXLh5ispj68AmbxacP+1ktOnf1s1qs60+3+PX/GZPFy81vmBzYPTZ8bmLzWLznJZPH
+ plWdbB7zTgZ67Hu7jM1jU+sSVo/Np6sD2KNYM/OS8isSWDNaHmYXdAtU/FvwlLmB8RhvFyMXh
+ 5DAf0aJ/kdP2SCc54wST1+sZe1i5OAQFvCQOLHHoouRk0NEwF7iyaztzCA1zAIvGCUuP5/CBN
+ HQwygxad8fVpAqNgFtiS1bfrGB2LwCthL//j1gB7FZBFQkpr+dywJiiwqES7ze9JkRokZQ4uT
+ MJ2BxTgFniVOdX8AWMwtoSqzfpQ8SZhYQl7j1ZD4ThC0v0bx1NjOILSGgIPG6fzYjhJ0g0fPv
+ EdsERsFZSKbOQpg0C8mkWUgmLWBkWcVokVSUmZ5RkpuYmaNraGCga2hopGtoZKlraGyil1ilm
+ 6hXWqxbnlpcomukl1herFdcmZuck6KXl1qyiREYXykFjW07GGe++aB3iFGSg0lJlLfByy5BiC
+ 8pP6UyI7E4I76oNCe1+BCjDAeHkgSvbxxQTrAoNT21Ii0zBxjrMGkJDh4lEd6EGKA0b3FBYm5
+ xZjpE6hSjopQ47+V4oIQASCKjNA+uDZZeLjHKSgnzMjIwMAjxFKQW5WaWoMq/YhTnYFQS5v0F
+ MoUnM68EbvoroMVMQItnuYEtLklESEk1MMnE9AeYmpzVus7l4r/ddZHyaYGqdKETG+9n/5y2h
+ E268dcPhutPrDceW2qem3MqI0BWoDbG5l+SPcPtSZ0nOnf/f8ztZP/cvHRdYtj5Onv2cw07L5
+ exTlzJP8eh8gOTh9bchUU+P78dthKfN0fnrKzHqZBM953/Ht9JMXfdcZbPfWpO7ed2zX61UKN
+ 2yxfrjE9Zf9Sensq5SmNd2oxM+1+d/bXbHjsc91Yoal/md60nw8RNU9g11HU5n6j3tOW7YlOk
+ rgS/vmUinLhqv/LHkIaFtodTPPX3tr/ZqVy98YGAdnDoNOFM1oC5PnPUhQ9L93xx0bL5tf+LT
+ aNteua6xS7fn83NqQhNv+Q6a6mdEktxRqKhFnNRcSIAoBtHZaoDAAA=
+X-Env-Sender: markpearson@lenovo.com
+X-Msg-Ref: server-15.tower-335.messagelabs.com!1614700665!4127!1
+X-Originating-IP: [104.232.225.12]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.60.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 24434 invoked from network); 2 Mar 2021 15:57:46 -0000
+Received: from unknown (HELO lenovo.com) (104.232.225.12)
+ by server-15.tower-335.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 2 Mar 2021 15:57:46 -0000
+Received: from reswpmail01.lenovo.com (unknown [10.62.32.20])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by Forcepoint Email with ESMTPS id 3F3CEF7B9A4DBD1B2804;
+ Tue,  2 Mar 2021 10:57:45 -0500 (EST)
+Received: from localhost.localdomain (10.38.104.43) by reswpmail01.lenovo.com
+ (10.62.32.20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2106.2; Tue, 2 Mar 2021
+ 10:56:43 -0500
+Subject: Re: [External] Re: [PATCH] ALSA: hda: ignore invalid NHLT table
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <markpearson@lenovo.com>
+ <20210302141003.7342-1-markpearson@lenovo.com>
+ <420b9b48-0a80-634b-9a98-973c6bdb544c@linux.intel.com>
+From: Mark Pearson <markpearson@lenovo.com>
+Message-ID: <55a6f9e6-17ab-6049-d2e2-5dee1941b539@lenovo.com>
+Date: Tue, 2 Mar 2021 10:57:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <s5hr1kxhqcn.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <420b9b48-0a80-634b-9a98-973c6bdb544c@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SR-MAIL-01.open-synergy.com (10.26.10.21) To
- SR-MAIL-01.open-synergy.com (10.26.10.21)
-Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
- Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.38.104.43]
+X-ClientProxiedBy: reswpmail04.lenovo.com (10.62.32.23) To
+ reswpmail01.lenovo.com (10.62.32.20)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+ Philipp Leskovitz <philipp.leskovitz@secunet.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,86 +113,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02.03.2021 10:11, Takashi Iwai wrote:
-> On Tue, 02 Mar 2021 09:09:33 +0100,
-> Anton Yakovlev wrote:
+Hi Pierre-Louis,
+
+On 02/03/2021 09:46, Pierre-Louis Bossart wrote:
+> Adding Mark, Takashi, Jaroslav and Cezary in Cc:
+
+Thanks - I wasn't sure who needed to be on this :)
+> 
+> On 3/2/21 8:10 AM, Mark Pearson wrote:
+>> On some Lenovo systems if the microphone is disabled in the BIOS
+>> only the NHLT table header is created, with no data. This means
+>> the endpoints field is not correctly set to zero - leading to an
+>> unintialised variable and hence invalid descriptors are parsed
+>> leading to page faults.
 >>
->> On 02.03.2021 07:48, Takashi Iwai wrote:
->>> On Tue, 02 Mar 2021 07:29:20 +0100,
->>> Anton Yakovlev wrote:
->>>>
->>>> On 28.02.2021 13:05, Takashi Iwai wrote:
->>>>> On Sat, 27 Feb 2021 09:59:56 +0100,
->>>>> Anton Yakovlev wrote:
->>>>>>
->>>>
->>>> [snip]
->>>>
->>>>>> --- a/sound/virtio/virtio_pcm.c
->>>>>> +++ b/sound/virtio/virtio_pcm.c
->>>>>> @@ -109,6 +109,7 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
->>>>>>                  SNDRV_PCM_INFO_BATCH |
->>>>>>                  SNDRV_PCM_INFO_BLOCK_TRANSFER |
->>>>>>                  SNDRV_PCM_INFO_INTERLEAVED |
->>>>>> +             SNDRV_PCM_INFO_RESUME |
->>>>>>                  SNDRV_PCM_INFO_PAUSE;
->>>>>
->>>>> Actually you don't need to set SNDRV_PCM_INFO_RESUME.
->>>>> This flag means that the driver supports the full resume procedure,
->>>>> which isn't often the case; with this, the driver is supposed to
->>>>> resume the stream exactly from the suspended position.
->>>>>
->>>>> Most drivers don't set this but implement only the suspend-stop
->>>>> action.  Then the application (or the sound backend) will re-setup the
->>>>> stream and restart accordingly.
->>>>
->>>> I tried to resume driver without SNDRV_PCM_INFO_RESUME, and alsa-lib
->>>> called only ops->prepare(). It makes sense for a typical hw, but we have
->>>> "clean" unconfigured device on resume. And we must set hw parameters as
->>>> a first step. It means, that code should be more or less the same. And
->>>> maybe it's better to set SNDRV_PCM_INFO_RESUME, since it allows us to
->>>> resume substream in any situation (regardless of application behavior).
->>>> I can refactor code to only send requests from trigger(RESUME) path and
->>>> not to call ops itself. It should make code more straitforward. What do
->>>> you say?
->>>
->>> How about calling hw_params(NULL) conditionally in the prepare?
+>> The Lenovo firmware team is addressing this, but adding a check
+>> preventing invalid tables being parsed is worthwhile.
 >>
->> Then the question is that condition. When ops->prepare() is called, the
->> substream is in SUSPENDED state or not? If not then we need to track
->> this in some additional field (and it will make logic a little bit
->> clumsy, since that field is needed to be carefully handled in other
->> places).
-> 
-> Yes, you'd need to have a suspend/resume PM callback in the driver
-> that flips the internal flag to invalidate the hw_parmas, and in the
-> prepare callback, just call hw_params(NULL) if that flag is set.
-> 
->>> Doing the full stack work in the trigger callback is bad from the API
->>> design POV; in general the trigger callback is supposed to be as short
->>> as possible.
+>> Tested on a Lenovo T14.
 >>
->> Yeah, but usually original subsystem design does not take into account
->> para-virtualized devices, which usually have it's own slightly different
->> reality. And we need to introduce some tricks.
+>> Tested-by: Philipp Leskovitz <philipp.leskovitz@secunet.com>
+>> Reported-by: Philipp Leskovitz <philipp.leskovitz@secunet.com>
+>> Signed-off-by: Mark Pearson <markpearson@lenovo.com>
 > 
-> The hardware drivers do a lot of more things in either suspend/resume
-> PM callbacks or prepare callback for re-setup of the hardware.  We can
-> follow the similar pattern.  Heavy-lifting works in the trigger
-> callbacks is really something to avoid.
-
-Ok, I redone this part and now the driver sets parameters for the device
-in ops->prepare() if the substream was suspended. And everything works
-fine. Thanks! I will send a new patch set soon.
-
-
-> Takashi
+> The change looks good to me
 > 
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+> Out of curiosity, does this impact Kabylake or CometLake+ systems?
 
--- 
-Anton Yakovlev
-Senior Software Engineer
+We've seen it on some of our CometLake systems so far. T14 & T15 are
+confirmed, but it will take a while to cycle through all the platforms.
+We're unlikely to catch any non-Linux certified systems that folk still
+put Linux on - I'd like to have this available for them too.
 
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
-
+> 
+> Thanks!
+> 
+>> ---
+>>   sound/hda/intel-nhlt.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
+>> index 059aaf04f..0889f2cc5 100644
+>> --- a/sound/hda/intel-nhlt.c
+>> +++ b/sound/hda/intel-nhlt.c
+>> @@ -37,6 +37,11 @@ int intel_nhlt_get_dmic_geo(struct device *dev,
+>> struct nhlt_acpi_table *nhlt)
+>>       if (!nhlt)
+>>           return 0;
+>>   +    if (nhlt->header.length <= sizeof(struct acpi_table_header)) {
+>> +        dev_warn(dev, "Invalid DMIC description table\n");
+>> +        return 0;
+>> +    }
+>> +
+>>       epnt = (struct nhlt_endpoint *)nhlt->desc;
+>>         for (j = 0; j < nhlt->endpoint_count; j++) {
+>>

@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CCAF32959E
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 03:12:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B327C32966B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Mar 2021 07:31:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05F1E1676;
-	Tue,  2 Mar 2021 03:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05F1E1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DD881678;
+	Tue,  2 Mar 2021 07:30:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DD881678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614651169;
-	bh=vwyUtDxwiNKk+ynoP3q+QLEEjbm/rJVYSWUVbdibiKU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1614666704;
+	bh=M2l2ou3IWlXyrPtnpy4NYg9rJak6YqWg+mTZAq6sVEM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NBMN33X4gBbpKUorES9vEy4h3x4xmod+aKvK+7VKItoPC6fKuBEAlbkv50dT9KvMo
-	 ES2efpZsei5+3tuhIyJTwMiHu30bGWJ1QrJwWvULsD5t8v9xcW3JaadXlfSsbBl0Tc
-	 9+4uXO04aVyqtWqJoRXU9LlUPG/Ye4VuDlcEkLgQ=
+	b=ijHYj6WZqw6o4RLDAoEW68dsbkhSMn1yL8nbHSIphcEVa3tk0VuHtnqakkd3WvI8q
+	 0r4xvUHv9w7UZdm7j0s3LOpdxom6ulm9rcb5V30lJvawGa+7/uKw+JRiN1blo4NTQ+
+	 mOp9yGh9LOuFbl4zozQ70eDbUnKi7ApBd+cK7YHY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52144F800E0;
-	Tue,  2 Mar 2021 03:11:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7F17F80271;
+	Tue,  2 Mar 2021 07:30:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63411F8025E; Tue,  2 Mar 2021 03:11:16 +0100 (CET)
+ id 4353AF80269; Tue,  2 Mar 2021 07:29:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx1.opensynergy.com (mx1.opensynergy.com [217.66.60.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E16EBF8010B
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 03:11:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E16EBF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74D32F80227
+ for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 07:29:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74D32F80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rbKRB3kU"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B38D160234
- for <alsa-devel@alsa-project.org>; Tue,  2 Mar 2021 02:11:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614651066;
- bh=vwyUtDxwiNKk+ynoP3q+QLEEjbm/rJVYSWUVbdibiKU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=rbKRB3kUrCgw5NeYHrpMgzimtGvCrWXkFsibJcBZjZ3NlolKoBurfLrbqEpwKjUg1
- R3kpc1bIDqVJCviwFqlDOItVDd9kydfT5xsVQkEk0lc2lrLKY+p1xjm8ZFzxe+eTRP
- Q6n4HpeWZb3ItmmT8bFNC92yxnAz55rcqxeuSqg/nQNGwuDbPBEkcXADYJjBS1GNDT
- WQUGO3AvpyeOexLYUTAqM5PzsT5mp9XBYjZj0ObV82NVE0m4hnm8OrBBTwrHwanDYW
- /BswQDCK3RgIBmWJkcrl7+5LM6xY7GGGfOiGwmtt84AF6Y9bizxyBs4Dle8/ap/xJd
- aMqiGN5Thv79w==
-Received: by mail-ed1-f48.google.com with SMTP id d13so18307055edp.4
- for <alsa-devel@alsa-project.org>; Mon, 01 Mar 2021 18:11:05 -0800 (PST)
-X-Gm-Message-State: AOAM532QnaANE+nVB8p9JZNpeWbMVlNyFa8dikOV5aLt10ft+etL5cXC
- +A91MMrbgJqfAme3qa5SVLi6IfjI9qeLiAz9pw==
-X-Google-Smtp-Source: ABdhPJyWebOHWQP7njU4m2dvQglQXnk4r5eZJ4pcMx2WhPXBWc0SlmoYi4n8+GWICYKhfnpGtYXlrCdIRZMY5g5sG20=
-X-Received: by 2002:aa7:c991:: with SMTP id c17mr18868381edt.165.1614651064202; 
- Mon, 01 Mar 2021 18:11:04 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com
+ header.b="MjzEBush"
+Received: from SR-MAILGATE-02.opensynergy.com (localhost.localdomain
+ [127.0.0.1])
+ by mx1.opensynergy.com (Proxmox) with ESMTP id 60282A1377;
+ Tue,  2 Mar 2021 07:29:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opensynergy.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:from:from:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=srmailgate02; bh=8Yt0B43U8OdE
+ T4kdbA88SrJ5iYbOz8v13cIrkyLZ+4k=; b=MjzEBush0yFIE3j0zZ105jP/PY0E
+ D7YBPxe7Y6qKmIURtf+Tb8KDVY8cPScamz6XWS7xHZZKlpQ5+c2rW4Q2vJ8/3B+k
+ /AmeysgEuNtVxig0nxAscB2F9Yf8g9Ps3bhJIJ61HedqfjTSepLn12bOyOdPu0wB
+ zq8EDJPin6Z9i8mHmEyv1RjHRKGRq3Stzk/FCVqHPKULSZyLDta1zG7B1qmqWO+0
+ Hw+X6jbo7xY+/GOPgcQi+Eay9FBv1KO/A647aghWFKbYx6UGPx5poyus39XXm8oU
+ kOKM2sPwI/VxIYfhqCxWAz4lmm/LZLqH/vCoHcoDTLcEoF9PaVlTIpGwrg==
+Subject: Re: [PATCH v6 9/9] ALSA: virtio: introduce device suspend/resume
+ support
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210227085956.1700687-1-anton.yakovlev@opensynergy.com>
+ <20210227085956.1700687-10-anton.yakovlev@opensynergy.com>
+ <s5hpn0kjt31.wl-tiwai@suse.de>
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <7d4daea0-ed59-e84c-c28a-945c49204c83@opensynergy.com>
+Date: Tue, 2 Mar 2021 07:29:20 +0100
 MIME-Version: 1.0
-References: <1614276364-13655-1-git-send-email-spujar@nvidia.com>
- <1614276364-13655-4-git-send-email-spujar@nvidia.com>
-In-Reply-To: <1614276364-13655-4-git-send-email-spujar@nvidia.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 1 Mar 2021 20:10:52 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+9esDGw7ZCLnZS_KLmLUFyVenz83ohgNKFK3bdPD2ouQ@mail.gmail.com>
-Message-ID: <CAL_Jsq+9esDGw7ZCLnZS_KLmLUFyVenz83ohgNKFK3bdPD2ouQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 3/5] ASoC: audio-graph-card: Add bindings for sysclk
- and pll
-To: Sameer Pujar <spujar@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>
+In-Reply-To: <s5hpn0kjt31.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SR-MAIL-01.open-synergy.com (10.26.10.21) To
+ SR-MAIL-01.open-synergy.com (10.26.10.21)
+Cc: virtio-dev@lists.oasis-open.org, alsa-devel@alsa-project.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, virtualization@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,19 +87,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Feb 25, 2021 at 12:06 PM Sameer Pujar <spujar@nvidia.com> wrote:
->
-> ASoC core provides callbacks snd_soc_dai_set_sysclk() and
-> snd_soc_dai_set_pll() for system clock (sysclk) and pll configurations
-> respectively. Add bindings for flexible sysclk or pll configurations
-> which can be driven from CPU/Codec DAI or endpoint subnode from DT.
-> This in turn helps to avoid hard codings in driver and makes it more
-> generic.
->
-> Also add system-clock related bindings, "system-clock-direction-out"
-> and "system-clock-frequency", which are already supported.
+On 28.02.2021 13:05, Takashi Iwai wrote:
+> On Sat, 27 Feb 2021 09:59:56 +0100,
+> Anton Yakovlev wrote:
+>>
 
-This all looks like duplication of what the clock binding can provide.
-We don't need 2 ways to describe clocks in DT.
+[snip]
 
-Rob
+>> --- a/sound/virtio/virtio_pcm.c
+>> +++ b/sound/virtio/virtio_pcm.c
+>> @@ -109,6 +109,7 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
+>>                SNDRV_PCM_INFO_BATCH |
+>>                SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>>                SNDRV_PCM_INFO_INTERLEAVED |
+>> +             SNDRV_PCM_INFO_RESUME |
+>>                SNDRV_PCM_INFO_PAUSE;
+> 
+> Actually you don't need to set SNDRV_PCM_INFO_RESUME.
+> This flag means that the driver supports the full resume procedure,
+> which isn't often the case; with this, the driver is supposed to
+> resume the stream exactly from the suspended position.
+> 
+> Most drivers don't set this but implement only the suspend-stop
+> action.  Then the application (or the sound backend) will re-setup the
+> stream and restart accordingly.
+
+I tried to resume driver without SNDRV_PCM_INFO_RESUME, and alsa-lib
+called only ops->prepare(). It makes sense for a typical hw, but we have
+"clean" unconfigured device on resume. And we must set hw parameters as
+a first step. It means, that code should be more or less the same. And
+maybe it's better to set SNDRV_PCM_INFO_RESUME, since it allows us to
+resume substream in any situation (regardless of application behavior).
+I can refactor code to only send requests from trigger(RESUME) path and
+not to call ops itself. It should make code more straitforward. What do
+you say?
+
+
+-- 
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
+

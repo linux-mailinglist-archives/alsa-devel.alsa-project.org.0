@@ -2,65 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF75032B9C6
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 19:18:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37FBA32B9CC
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 19:22:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5550B18E5;
-	Wed,  3 Mar 2021 19:17:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5550B18E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA71718E6;
+	Wed,  3 Mar 2021 19:21:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA71718E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614795520;
-	bh=IEOp8MBsY3d/G1Cyh9oualCfbRpIzIkEhqu9NObE60g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oMrt4+JtFT2FOoYvlfQtKd6Igms+1rLEBy1fmglf5mY9LK+pXD3tLO0qxBOjBHL7g
-	 qIMM+SGb8G1K83R12kDguibHg7mY+Lqu15H9HWXOuM0+KZ8PaB6PZD2bV7t5zq+PD2
-	 0qDTLvPUtr8ojDM/DkDcQv94Jmg+9WLf3L31vmN8=
+	s=default; t=1614795755;
+	bh=TT24nwGNZgC4yx5dE/NurY4umNAoWfh8TUgL0EKTgnI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ve1EzFLudZ2mcmpRKGKClCTcdvH4eLE+kD4rVFlzMtpNNswoh+ROWh6+wM+O+GRXp
+	 Cm8bSKQr6Rb4t0i7RSSBm4hezfp93ULCQfg4LMWu4f8qjO8AKeqWAzpUEX2mkWLICy
+	 W+CZz+MAPcCEC5fy788J2/dMXjCK406xLH8+sKPY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCF78F8026A;
-	Wed,  3 Mar 2021 19:17:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAC74F8026A;
+	Wed,  3 Mar 2021 19:21:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 868F0F8025E; Wed,  3 Mar 2021 19:17:06 +0100 (CET)
+ id 9EA30F8025E; Wed,  3 Mar 2021 19:21:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55036F800B2
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 19:16:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55036F800B2
-IronPort-SDR: oajL/lIfQOcKCKISjdjltWcjsgo/biE8oWVzbYCv+fUQL+UIVMBywiOxRdEtsR9CoEY4+KRDAB
- KFbwf1Rkd3nw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9912"; a="174370807"
-X-IronPort-AV: E=Sophos;i="5.81,220,1610438400"; d="scan'208";a="174370807"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 10:16:45 -0800
-IronPort-SDR: cOf90AQyb9De2CTaWbzX0NfwnXuXktIRnt8+Nr1Q+EB628w5i/FkaYPRsvoCju00ybGGSos2oD
- LIOIk4NXiLAA==
-X-IronPort-AV: E=Sophos;i="5.81,220,1610438400"; d="scan'208";a="384088299"
-Received: from usathe-mobl.gar.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.255.229.75])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 10:16:44 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: SOF: Intel: broadwell: fix mutual exclusion with catpt
- driver
-Date: Wed,  3 Mar 2021 12:16:16 -0600
-Message-Id: <20210303181616.16751-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3EC2F800B2
+ for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 19:20:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3EC2F800B2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hlgbCEiN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7D38E64EEC;
+ Wed,  3 Mar 2021 18:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1614795657;
+ bh=TT24nwGNZgC4yx5dE/NurY4umNAoWfh8TUgL0EKTgnI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hlgbCEiNAmZ5FapoOX3T1Xp+T/tXnFSB2MV2DS77KiqK916rv2VeRsNlwOtIdY9JK
+ ns4BVnHfEZueloCUB7yKUi8nFjCHyaSA3wYhIdtwNNdD+GKLX0Z8mgtlWr94v6j38V
+ bDufj61w6yvGRQPnCPoWja1/esaIN0bNAlmhsA/hm6Q20o48NJ4Kru3dD1uRgH+bgG
+ naOlaLNtKADw0y0DJaJVcRDm8s1q2IiGj4GJ7aNrABEDtq7GnV48mgNLbhyDHqEctz
+ 87Jh2ww/8fqxC9r3Aq0FPWjOG42DsDRrJ6UgKS8bF+HHMvShMBoGMVcTNk4S5axQ7N
+ xUpXA+os8j1cA==
+Date: Wed, 3 Mar 2021 18:19:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: broadwell: fix mutual exclusion with
+ catpt driver
+Message-ID: <20210303181949.GB5027@sirena.org.uk>
+References: <20210303181616.16751-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- David Ward <david.ward@ll.mit.edu>, broonie@kernel.org, stable@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="f2QGlHpHGjS2mn6Y"
+Content-Disposition: inline
+In-Reply-To: <20210303181616.16751-1-pierre-louis.bossart@linux.intel.com>
+X-Cookie: Results are not typical.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
+ alsa-devel@alsa-project.org, David Ward <david.ward@ll.mit.edu>,
+ stable@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,37 +83,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In v5.10, the "haswell" driver was replaced by the "catpt" driver, but
-the mutual exclusion with the SOF driver was not updated. This leads
-to errors with card names and UCM profiles not being loaded by
-PulseAudio.
 
-This fix should only be applied on v5.10-stable, the mutual exclusion
-was removed in 5.11.
+--f2QGlHpHGjS2mn6Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reported-by: David Ward <david.ward@ll.mit.edu>
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=211985
-Fixes: 6cbfa11d2694 ("ASoC: Intel: Select catpt and deprecate haswell")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: <stable@kernel.org>
----
- sound/soc/sof/intel/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed, Mar 03, 2021 at 12:16:16PM -0600, Pierre-Louis Bossart wrote:
+> In v5.10, the "haswell" driver was replaced by the "catpt" driver, but
+> the mutual exclusion with the SOF driver was not updated. This leads
+> to errors with card names and UCM profiles not being loaded by
+> PulseAudio.
+>=20
+> This fix should only be applied on v5.10-stable, the mutual exclusion
+> was removed in 5.11.
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index de7ff2d097ab..6708a2c5a838 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -84,7 +84,7 @@ config SND_SOC_SOF_BAYTRAIL
- 
- config SND_SOC_SOF_BROADWELL_SUPPORT
- 	bool "SOF support for Broadwell"
--	depends on SND_SOC_INTEL_HASWELL=n
-+	depends on SND_SOC_INTEL_CATPT=n
- 	help
- 	  This adds support for Sound Open Firmware for Intel(R) platforms
- 	  using the Broadwell processors.
--- 
-2.25.1
+Acked-by: Mark Brown <broonie@kernel.org>
 
+This will need to be sent directly to the stable maintainers.
+
+--f2QGlHpHGjS2mn6Y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmA/00QACgkQJNaLcl1U
+h9BKSQf/XFlCTw8rPTZPVQyqpaXy+EOiyNIjJohpMX9pBjySafx+xAwPGCWqtgzR
+CE4mbLkw3PA7zoj9x2DFrHZy003/2km82AyldljiznSbDIPdL0OCO2RbtNlcoNBV
+u+SBaSjAqh9ZiA2jQffX5TT5+QGNSluG4aZGtakWPwQEhHYqS7SkZ2V3GwbUZ2Zy
+rR6WKTfHLiHd64XxVJg+31qOtb0BJNPgbH4qSQm7qJQegXw/XL6aFf5CdpU200E2
+5RzfMyjRikcFZJ6t+2MA0Zkug5hhkk44XdJ+gabIMDqjbsj2H7EVbFG0HzqrvUvv
+pVhHDLmqeSsMax4z4BLghtbCj1ExmQ==
+=JqI0
+-----END PGP SIGNATURE-----
+
+--f2QGlHpHGjS2mn6Y--

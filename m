@@ -2,76 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E452432B7A6
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 12:57:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 592A132B7BD
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 13:11:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E9BB18E2;
-	Wed,  3 Mar 2021 12:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E9BB18E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC32A18DA;
+	Wed,  3 Mar 2021 13:10:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC32A18DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614772643;
-	bh=Q8n65+GMlzQxlVxGM1bvfq7tXfF4Wvi9IavbOvDXfmw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jyyR2DWlfaN+R8fjmaAWVW8ltt1TCRNkIP5cOvE3C1tVwosnq3rVdFzVMaaVmbvYu
-	 JiZbFsV5UutWZSn1s4euNOj6uuDpCRd4mnxsJjOrvuswb549gEEp+25knjr8WLcVsl
-	 lJ9cN+8nWwKoV04Dvu6bhitSMbmCeUUSX0AfLpWs=
+	s=default; t=1614773503;
+	bh=89eKz3gUtgGrZCWFlcqAsC5qI5BV9n/XotdV7YhLoNY=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=H8t4qWMJZd2hLEkizKC5fxspMHTBRgYawzAFiopy5rpYVTWpbk+ERPpfcbyWFQpBQ
+	 I7LTE67wCW7idvJuOTuLnBMtt61DtQhJsyL6bG8fEJkiuIyXEBJYzpvkSJ2+KE1cQ1
+	 nl8gMXxAcu1JSbpDktoefQEvBdV5kgkpdzYIn3n8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA845F800B2;
-	Wed,  3 Mar 2021 12:55:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 473D9F80257;
+	Wed,  3 Mar 2021 13:10:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47535F8012D; Wed,  3 Mar 2021 12:55:50 +0100 (CET)
+ id 01C4FF8025E; Wed,  3 Mar 2021 13:10:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5E34F8012D
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 12:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E34F8012D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="TPCLIFKc"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B603f79370000>; Wed, 03 Mar 2021 03:55:35 -0800
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 3 Mar
- 2021 11:55:34 +0000
-Received: from moonraker.nvidia.com (172.20.145.6) by mail.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 3 Mar 2021 11:55:32 +0000
-From: Jon Hunter <jonathanh@nvidia.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH V2] ASoC: soc-core: Prevent warning if no DMI table is present
-Date: Wed, 3 Mar 2021 11:55:26 +0000
-Message-ID: <20210303115526.419458-1-jonathanh@nvidia.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-X-NVConfidentiality: public
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59CBDF8012D
+ for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 13:10:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59CBDF8012D
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1lHQK5-0002tf-66; Wed, 03 Mar 2021 13:09:49 +0100
+Received: from pza by lupine with local (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1lHQK2-000228-HX; Wed, 03 Mar 2021 13:09:46 +0100
+Message-ID: <f581865a299091371a8450349e23ffdc8abb7b37.camel@pengutronix.de>
+Subject: Re: [PATCH v1 5/5] ASoC: tegra30: i2s: Add reset control
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, Mark
+ Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela
+ <perex@perex.cz>, Paul Fertser <fercerpav@gmail.com>
+Date: Wed, 03 Mar 2021 13:09:46 +0100
+In-Reply-To: <cbb1f0d4-ddc5-733d-896d-dd76ce01ca69@gmail.com>
+References: <20210302112123.24161-1-digetx@gmail.com>
+ <20210302112123.24161-6-digetx@gmail.com>
+ <cbb1f0d4-ddc5-733d-896d-dd76ce01ca69@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1614772535; bh=4m4/54FIMd3nVyRMq6v7JqGzyu918YBQawVTaUMBx8I=;
- h=From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
- X-NVConfidentiality:Content-Transfer-Encoding:Content-Type;
- b=TPCLIFKcv+wAz90NoF7wDd+GzlkGxwrcf/fCzuJ6d7VOED5nzc7bOwHPEgT12p8FM
- 5HunMahXtxxTrRmPhv9QUA1qVbnS4VZ+0Fz2blC2l05vzZG6OkA9OMl5i+5PbB2DDV
- zXD6804I0dgUExmdoaeRTln+uE0cPZ4VIH9V0ayG4lT1Fke39YZzgBtcbe+wV309Mb
- dyQj4BG0Sa5UlLhSHmnoTyQW2PPNc3lvphUqikiTiUhk+WIEC8dNcDaiDhj8OFVYNT
- MH7lVhc8fJwI8Ei8CJT9LMghh7lR+Hypvt9a7A0UvdNokt5d7n4KvGYfGnu2TQ7wws
- kF3aomKs1YqmA==
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +84,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Many systems do not use ACPI and hence do not provide a DMI table. On
-non-ACPI systems a warning, such as the following, is printed on boot.
+Hi Dmitry,
 
- WARNING KERN tegra-audio-graph-card sound: ASoC: no DMI vendor name!
+On Wed, 2021-03-03 at 11:28 +0300, Dmitry Osipenko wrote:
+> 02.03.2021 14:21, Dmitry Osipenko =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > The I2S reset may be asserted at a boot time. Tegra30 I2S driver doesn'=
+t
+> > manage the reset control and currently it happens to work because reset
+> > is implicitly deasserted by the Tegra AHUB driver, but the reset of I2C
+> > controller should be synchronous and I2S clock is disabled when AHUB is
+> > reset. Add reset control to the Tegra30 I2S driver.
+> >=20
+> > Note that I2S reset was always specified in Tegra30+ device-trees, henc=
+e
+> > DTB ABI changes aren't required. Also note that AHUB touches I2S resets=
+,
+> > hence AHUB resets are now requested in a released state, allowing both
+> > drivers to control the I2S resets together.
+> >=20
+> > Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> > ---
+> >  sound/soc/tegra/tegra30_ahub.c | 14 ++++++++++---
+> >  sound/soc/tegra/tegra30_i2s.c  | 36 +++++++++++++++++++++++++++++++++-
+> >  sound/soc/tegra/tegra30_i2s.h  |  1 +
+> >  3 files changed, 47 insertions(+), 4 deletions(-)
+>=20
+> ...
+> > @@ -579,7 +587,7 @@ static int tegra30_ahub_probe(struct platform_devic=
+e *pdev)
+> >  	if (ret)
+> >  		return ret;
+> > =20
+> > -	ahub->reset =3D devm_reset_control_array_get_exclusive(&pdev->dev);
+> > +	ahub->reset =3D devm_reset_control_array_get_exclusive_released(&pdev=
+->dev);
+>=20
+> Thinking a bit more about this, it looks like we actually want something
+> like:
+>=20
+> 	devm_reset_control_array_get_exclusive_released_named()
+>=20
+> that will request resets by given names and in a given order, similarly
+> to devm_clk_bulk_get(). This will be very handy for both Tegra audio and
+> GPU drivers. I'll prepare a v2 if there are no objections.
 
-The variable 'dmi_available' is not exported and so currently cannot be
-used by kernel modules without adding an accessor. However, it is
-possible to use the function is_acpi_device_node() to determine if the
-sound card is an ACPI device and hence indicate if we expect a DMI table
-to be present. Therefore, call is_acpi_device_node() to see if we are
-using ACPI and only parse the DMI table if we are booting with ACPI.
+I do have an untested reset control bulk API patch that I've just never
+finished, because I had no user. I'll send you an RFC, let me know if
+you can build on that.
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
-Changes since V1:
-- Use is_acpi_device_node() to determine if we expect the DMI table to
-  be present.
-
- sound/soc/soc-core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index f6d4e99b590c..0cffc9527e28 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -31,6 +31,7 @@
- #include <linux/of.h>
- #include <linux/of_graph.h>
- #include <linux/dmi.h>
-+#include <linux/acpi.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1573,6 +1574,9 @@ int snd_soc_set_dmi_name(struct snd_soc_card *card, c=
-onst char *flavour)
- 	if (card->long_name)
- 		return 0; /* long name already set by driver or from DMI */
-=20
-+	if (!is_acpi_device_node(card->dev->fwnode))
-+		return 0;
-+
- 	/* make up dmi long name as: vendor-product-version-board */
- 	vendor =3D dmi_get_system_info(DMI_BOARD_VENDOR);
- 	if (!vendor || !is_dmi_valid(vendor)) {
---=20
-2.25.1
-
+regards
+Philipp

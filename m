@@ -2,100 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574DF32B63F
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 10:40:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78ADD32B64E
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 10:48:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC02E18C7;
-	Wed,  3 Mar 2021 10:39:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC02E18C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1621218D4;
+	Wed,  3 Mar 2021 10:47:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1621218D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614764401;
-	bh=nWbxp0PGZXg0sSMxiUpFCeFhzl68NhXGW5hQDBWemSA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614764900;
+	bh=xvjmiPeZvk1l7RRonPUHq+e+OmPydUCgzrhKU/qnNTw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sdsO/wbG0kTLcIc501P1NKFOBsUjbvWCizJv1a17LOa2chd49Xw/jiVRwuUIJKhuF
-	 7Y5Jivxq5bqQKa7Bt2w5dK0F3OmJntQ2zAi0v9hhkWeGSCIjYsdGGQV5uO9VdVrydl
-	 FtPG4ftzs1jcoL8tHXJpueSC9qJ+g+aevONG5ZB4=
+	b=ramml3KT3dGU6FW6cTamI0WVvkRXM53dz5xWly8FsaMoc4GqiRKzboKASurGDVoXr
+	 +OnFZ4fBQcxKqFhmg+xoKXp2GIADuTgSKBbV9Pi4xma8qrB9f9w+IkydmXmVoDMprt
+	 DtFoVxdabxkq+8uW7LvWRtYL1mlijKu22Yy/EkP0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64335F800B2;
-	Wed,  3 Mar 2021 10:38:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71F47F8012D;
+	Wed,  3 Mar 2021 10:46:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89C61F8025E; Wed,  3 Mar 2021 10:38:28 +0100 (CET)
+ id 3F6D3F8025E; Wed,  3 Mar 2021 10:46:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC0B5F8012D
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 10:38:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC0B5F8012D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="RJY5xPj8"
-Received: by mail-wm1-x333.google.com with SMTP id n4so5604022wmq.3
- for <alsa-devel@alsa-project.org>; Wed, 03 Mar 2021 01:38:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=gno5LNftd5fU23GdPDJL4/R3qgxi1GRLBhAYz1fO15s=;
- b=RJY5xPj8lMMP5j7PmPVfn8jOsDGJNGDxwte/A3qscYft3Xmf5m3FN+49PUw/+opj9o
- 28CoD+lQh4IPPRMWEEL4GesxuLChewgGlUoFO74kPEj0sMatwlsPQJgCgK+WB87b7XuK
- RStDnN95Emvuh0Zv4N5VTQ4mYmyaOADrNycB/x+bsrSZLqiJm1AIDXdUyNPvwa2Na083
- cd20f1bYQezlPQ/RG8Vd3O4qmeOAS1u+KYGdrjh/a4tAKj3bb6HncJEl2c/xle1OLXtq
- dl7aNHG7Jzc3EsXEJl1iC4pSlaEjdMf4Sir6IRAnoNqrXUwZnLoOMoeT7iKP9IjeMLUm
- eXFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=gno5LNftd5fU23GdPDJL4/R3qgxi1GRLBhAYz1fO15s=;
- b=UZnGFTzRdn7uJAMu+VmlnhTQaEpc+xb2ExjIpfI/GZh2IoB38N5E7uxEBgJrHF31Hi
- lxv38sGXEdCbDp2rzJ4Vivk11F4RIIIBiivRf6aZwKtJs5sszMtAJE1HMZcmdOqqoNw1
- kESeiHZLjquOVMcaMhMLVhIsrF6LGSIEYclxG2I4+MaK6+eg1lK9jeaZ5/hI8VJWQc6o
- Qhsz8+N2yyjAfMcVXXj3OUPhTfhNCf1sWVHVnVOosLRaYwGXv4QRpP76jiSDU5/CxmLL
- ite4HKjkgRKPoe4wqJnmbrMrF8eZTs7TRT+72c45VV/8ILGlMqkbp9yCDwevD6TJps3U
- iYdg==
-X-Gm-Message-State: AOAM531lbHdY7np/jHiFNEYMb9fvaonEqGITTQYr4uAvCnVLynD97bOu
- SkMHT5C4GGTOG29/rjMmyT3ar8Wvz1NFew==
-X-Google-Smtp-Source: ABdhPJy7H6SvacbZI1FFlL8zT14GA6Isd2F0lFkveXK03mL0huuRpm4RNaQ0DPKl78jybKUPtnvguw==
-X-Received: by 2002:a05:600c:d1:: with SMTP id
- u17mr8486821wmm.64.1614764302566; 
- Wed, 03 Mar 2021 01:38:22 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id c26sm32565672wrb.87.2021.03.03.01.38.21
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Mar 2021 01:38:22 -0800 (PST)
-Subject: Re: [PATCH 2/3] soundwire: qcom: add auto enumeration support
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20210226170250.9067-1-srinivas.kandagatla@linaro.org>
- <20210226170250.9067-3-srinivas.kandagatla@linaro.org>
- <0c551b23-7ed4-59d7-72c2-284bdf8584f1@linux.intel.com>
- <4721dd27-c8ce-f988-3c10-794841390656@linaro.org>
- <01e5ea33-1813-069a-1674-042141947323@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <601b585e-c3e3-4006-b078-d54c3fd36438@linaro.org>
-Date: Wed, 3 Mar 2021 09:38:21 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <01e5ea33-1813-069a-1674-042141947323@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C29F7F800B2
+ for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 10:46:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C29F7F800B2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 37D50AD87;
+ Wed,  3 Mar 2021 09:46:39 +0000 (UTC)
+Date: Wed, 03 Mar 2021 10:46:38 +0100
+Message-ID: <s5htupsd0xt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+Subject: Re: [PATCH v5 1/1] ASoC: dpcm: acquire dpcm_lock in dpcm_do_trigger()
+In-Reply-To: <1935972447.41614751502383.JavaMail.epsvc@epcpadp3>
+References: <CGME20210303060135epcas2p3677a88a1ae15b93fea8f0e2821558f6e@epcas2p3.samsung.com>
+ <1935972447.41614751502383.JavaMail.epsvc@epcpadp3>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com,
+ 'Kuninori Morimoto' <kuninori.morimoto.gx@renesas.com>, kimty@samsung.com,
+ lgirdwood@gmail.com,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, hmseo@samsung.com, cpgs@samsung.com,
+ donggyun.ko@samsung.com, s47.kang@samsung.com, pilsun.jang@samsung.com,
+ tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,68 +75,193 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 03 Mar 2021 07:01:34 +0100,
+Gyeongtaek Lee wrote:
+> 
+> If stop by underrun and DPCM BE disconnection is run simultaneously,
+> data abort can be occurred by the sequence below.
+> 
+> CPU0					CPU1
+> dpcm_be_dai_trigger():			dpcm_be_disconnect():
+> 
+> for_each_dpcm_be(fe, stream, dpcm) {
+> 
+> spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+> 					list_del(&dpcm->list_be);
+> 					list_del(&dpcm->list_fe);
+> 
+> spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+> 					kfree(dpcm);
+> 
+> struct snd_soc_pcm_runtime *be = dpcm->be; <-- Accessing freed memory
+> 
+> To prevent this situation, dpcm_lock should be acquired during
+> iteration of dpcm list in dpcm_be_dai_trigger().
+> 
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> Cc: stable@vger.kernel.org
+
+I don't think this addresses the issues fully.
+This change fixes the traversal of broken linked list, but it still
+does use-after-free, because the BE object is being freed while it's
+executed.
+
+Instead, we need a serialization like your previous patch, but in a
+different way than the spinlock that can't be used for nonatomic
+case.
 
 
-On 02/03/2021 14:34, Pierre-Louis Bossart wrote:
-> 
-> 
->>>> +        if (!val1 && !val2)
->>>> +            break;
->>>> +
->>>> +        addr = buf2[1] | (buf2[0] << 8) | (buf1[3] << 16) |
->>>> +            ((u64)buf1[2] << 24) | ((u64)buf1[1] << 32) |
->>>> +            ((u64)buf1[0] << 40);
->>>> +
->>>> +        sdw_extract_slave_id(bus, addr, &id);
->>>> +        /* Now compare with entries */
->>>> +        list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
->>>> +            if (sdw_compare_devid(slave, id) == 0) {
->>>> +                u32 status = qcom_swrm_get_n_device_status(ctrl, i);
->>>> +                if (status == SDW_SLAVE_ATTACHED) {
->>>> +                    slave->dev_num = i;
->>>> +                    mutex_lock(&bus->bus_lock);
->>>> +                    set_bit(i, bus->assigned);
->>>> +                    mutex_unlock(&bus->bus_lock);
->>>> +
->>>> +                }
->>>
->>> And that part is strange as well. The bus->assigned bit should be set 
->>> even if the Slave is not in the list provided by platform firmware. 
->>> It's really tracking the state of the hardware, and it should not be 
->>> influenced by what software knows to manage.
->>
->> Am not 100% sure If I understand the concern here, but In normal (non 
->> auto enum) cases this bit is set by the bus code while its doing 
->> enumeration to assign a dev number from the assigned bitmap!
->>
->> However in this case where auto enumeration happens it makes sense to 
->> set this here with matching dev number!
->>
->> AFAIU from code, each bit in this bitmap corresponds to slave dev number!
-> 
-> Yes, but the point was "why do you compare with information coming from 
-> platform firmware"? if the hardware reports the presence of devices on 
+thanks,
 
-This is the logic that hardware IP document suggests to use to get get 
-the correct the device number associated with the slave!
+Takashi
 
 
-> the link, why not use the information as is?
+> ---
+>  include/sound/soc-dpcm.h |  5 ++++
+>  sound/soc/soc-pcm.c      | 59 +++++++++++++++++++++++++++++++++-------
+>  2 files changed, 54 insertions(+), 10 deletions(-)
 > 
-> You recently added code that helps us deal with devices that are not 
-> listed in DT or ACPI tables, so why would we filter in this specific loop?
+> diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+> index 0f6c50b17bba..599cd6054bc3 100644
+> --- a/include/sound/soc-dpcm.h
+> +++ b/include/sound/soc-dpcm.h
+> @@ -103,6 +103,11 @@ struct snd_soc_dpcm_runtime {
+>  	int trigger_pending; /* trigger cmd + 1 if pending, 0 if not */
+>  };
+>  
+> +struct snd_soc_dpcm_rtd_list {
+> +	int num_rtds;
+> +	struct snd_soc_pcm_runtime *rtds[0];
+> +};
+> +
+>  #define for_each_dpcm_fe(be, stream, _dpcm)				\
+>  	list_for_each_entry(_dpcm, &(be)->dpcm[stream].fe_clients, list_fe)
+>  
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 14d85ca1e435..ccda0f77e827 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -2028,15 +2028,51 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+>  	return ret;
+>  }
+>  
+> +static int dpcm_be_list_create(struct snd_soc_pcm_runtime *fe, int stream,
+> +		struct snd_soc_dpcm_rtd_list **be_list)
+> +{
+> +	struct snd_soc_dpcm *dpcm;
+> +	unsigned long flags;
+> +	int size, i, ret = 0;
+> +
+> +	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+> +
+> +	size = 0;
+> +	for_each_dpcm_be(fe, stream, dpcm)
+> +		size++;
+> +
+> +	*be_list = kzalloc(struct_size(*be_list, rtds, size), GFP_ATOMIC);
+> +	if (*be_list) {
+> +		i = 0;
+> +		for_each_dpcm_be(fe, stream, dpcm)
+> +			(*be_list)->rtds[i++] = dpcm->be;
+> +
+> +		if (i != size)
+> +			dev_err(fe->dev, "ASoC: abnormal change in be clients: %d -> %d\n",
+> +					size, i);
+> +
+> +		(*be_list)->num_rtds = i;
+> +	} else {
+> +		ret = -ENOMEM;
+> +	}
+> +
+> +	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+>  int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  			       int cmd)
+>  {
+> -	struct snd_soc_dpcm *dpcm;
+> -	int ret = 0;
+> +	struct snd_soc_dpcm_rtd_list *be_list;
+> +	int i, ret = 0;
+>  
+> -	for_each_dpcm_be(fe, stream, dpcm) {
+> +	ret = dpcm_be_list_create(fe, stream, &be_list);
+> +	if (ret < 0)
+> +		return ret;
+>  
+> -		struct snd_soc_pcm_runtime *be = dpcm->be;
+> +	for (i = 0; i < be_list->num_rtds; i++) {
+> +		struct snd_soc_pcm_runtime *be = be_list->rtds[i];
+>  		struct snd_pcm_substream *be_substream =
+>  			snd_soc_dpcm_get_substream(be, stream);
+>  
+> @@ -2056,7 +2092,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+>  			break;
+> @@ -2066,7 +2102,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+>  			break;
+> @@ -2076,7 +2112,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+>  			break;
+> @@ -2090,7 +2126,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
+>  			break;
+> @@ -2103,7 +2139,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
+>  			break;
+> @@ -2116,13 +2152,16 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  
+>  			ret = soc_pcm_trigger(be_substream, cmd);
+>  			if (ret)
+> -				return ret;
+> +				break;
+>  
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
+>  			break;
+>  		}
+> +		if (ret < 0)
+> +			break;
+>  	}
+>  
+> +	kfree(be_list);
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(dpcm_be_dai_trigger);
+> -- 
+> 2.21.0
 > 
->>>> +    complete(&ctrl->enumeration);
->>>
->>> you have init_completion() and complete() in this patch, but no 
->>> wait_for_completion(), so that should be added in a later patch, no?
->>
->> make sense, will move that to other patch!
 > 
-> Actually on this one comment that I missed last time is that you are 
-> using a completion only for the resume() case, and I think it should 
-> also be used for the regular probe() case, no?
-Good Idea, I can try that and see how to works out!
-
---srini
 > 

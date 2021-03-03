@@ -2,54 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FDF32ACBA
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 02:26:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B148B32ACCE
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 02:59:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C352E1ADC;
-	Wed,  3 Mar 2021 02:25:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C352E1ADC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F041ADB;
+	Wed,  3 Mar 2021 02:58:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F041ADB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614734798;
-	bh=Oa9pA09/NUikjCREU9Ngl5P2WjVM0vi3XZLwQ2gBuLI=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vr7hBbDGfTO1DTwjqvkmRviOSKkoQQy53txOVXqIiA8JBPJf1B4cYHglR6WiwGlt5
-	 stHGbNDbA4/JcKS3V2XkCO0x+EHZjXNsq0GKmqDJTZDTenAbq2SBATltX5uE8w2jiZ
-	 3HRfAZAGjy7n75tLCZrre6sPbp20dcZBfGTKC9Ek=
+	s=default; t=1614736772;
+	bh=d79g6BGSHlXLYaGUqyQX9d9rnUrpfcyIKNa9iXTocBs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=psOKyP+3b4CRRTuh2ptm6W6pITkCkHJRassCX02ywC8vB9YQJL82j6y5EIT46+Epu
+	 cKIW8dhacT8+JjWZICxwWtkBTzSG5LOr4x0mZE+pHoF0layt1WlBcs2oNG9j4JJNrY
+	 qmDeJDNvTNuofycfLo7fDjCFfwYCazKj4TGXxt9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB9AF80088;
-	Wed,  3 Mar 2021 02:25:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5ABFF80271;
+	Wed,  3 Mar 2021 02:58:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AD86F80269; Wed,  3 Mar 2021 02:25:07 +0100 (CET)
+ id C1EE7F80269; Wed,  3 Mar 2021 02:57:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE115F80088
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 02:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE115F80088
-Received: from 61-220-137-34.hinet-ip.hinet.net ([61.220.137.34]
- helo=localhost.localdomain) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lHGFu-0008KW-BF; Wed, 03 Mar 2021 01:24:51 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: hda - bind headset buttons to the headphone jack
-Date: Wed,  3 Mar 2021 09:23:46 +0800
-Message-Id: <20210303012346.3290-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7D1BBF80088
+ for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 02:57:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D1BBF80088
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1614736671849083900-webhooks-bot@alsa-project.org>
+References: <1614736671849083900-webhooks-bot@alsa-project.org>
+Subject: Fiio M3K: Failed to find a working profile
+Message-Id: <20210303015759.C1EE7F80269@alsa1.perex.cz>
+Date: Wed,  3 Mar 2021 02:57:59 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,159 +59,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With the HDA driver, if the headset buttons are supported, an audio
-Jack will be created for them. This audio Jack is a bit confusing to
-users since it can't report headphone/mic insertion events but it
-claims to support these events.
+alsa-project/alsa-lib issue #123 was opened from x1unix:
 
-And in addition, the driver already builds a headphone Jack and a mic
-Jack, and most of those buttons are used for headphone playback, so
-do some change to bind those buttons to the headphone Jack. After this
-change, the key events are generated from NID 0x55, and are reported
-to the input layer via headphone jack (NID 0x21).
+Hello, I have a [Fiio M3K](https://fiio.com/m3k) player which I often use as an external USB DAC.
 
-If there is no headphone Jack, then build an audio jack to support
-those buttons same as previously.
+It worked well with Pipewire, but I had some other issues with Pipewire so I had to rollback to PulseAudio.
+Unfortunately, PulseAudio and module-alsa-card cannot setup this device, so it doesn't work.
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/hda_jack.c      | 43 ++++++++++++++++++++++++++++++++++-
- sound/pci/hda/hda_jack.h      |  5 ++++
- sound/pci/hda/patch_realtek.c | 23 ++++++++++++++++---
- 3 files changed, 67 insertions(+), 4 deletions(-)
+Here is a small portion of PulseAudio log (full log is available at link below):
 
-diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
-index b8b568046592..640b72b598e8 100644
---- a/sound/pci/hda/hda_jack.c
-+++ b/sound/pci/hda/hda_jack.c
-@@ -388,6 +388,39 @@ int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
- }
- EXPORT_SYMBOL_GPL(snd_hda_jack_set_gating_jack);
- 
-+/**
-+ * snd_hda_jack_bind_keymap - bind keys generated from one NID to another jack.
-+ * @codec: the HDA codec
-+ * @key_nid: key event is generated by this pin NID
-+ * @keymap: map of key type and key code
-+ * @jack_nid: key reports to the jack of this pin NID
-+ *
-+ * This function is used in the case of key is generated from one NID while is
-+ * reported to the jack of another NID.
-+ */
-+int snd_hda_jack_bind_keymap(struct hda_codec *codec, hda_nid_t key_nid,
-+			     const struct hda_jack_keymap *keymap,
-+			     hda_nid_t jack_nid)
-+{
-+	const struct hda_jack_keymap *map;
-+	struct hda_jack_tbl *key_gen = snd_hda_jack_tbl_get(codec, key_nid);
-+	struct hda_jack_tbl *report_to = snd_hda_jack_tbl_get(codec, jack_nid);
-+
-+	WARN_ON(codec->dp_mst);
-+
-+	if (!key_gen || !report_to || !report_to->jack)
-+		return -EINVAL;
-+
-+	key_gen->key_report_jack = jack_nid;
-+
-+	if (keymap)
-+		for (map = keymap; map->type; map++)
-+			snd_jack_set_key(report_to->jack, map->type, map->key);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(snd_hda_jack_bind_keymap);
-+
- /**
-  * snd_hda_jack_report_sync - sync the states of all jacks and report if changed
-  * @codec: the HDA codec
-@@ -651,7 +684,15 @@ void snd_hda_jack_unsol_event(struct hda_codec *codec, unsigned int res)
- 	}
- 	if (!event)
- 		return;
--	event->jack_dirty = 1;
-+
-+	if (event->key_report_jack) {
-+		struct hda_jack_tbl *report_to =
-+			snd_hda_jack_tbl_get_mst(codec, event->key_report_jack,
-+						 event->dev_id);
-+		if (report_to)
-+			report_to->jack_dirty = 1;
-+	} else
-+		event->jack_dirty = 1;
- 
- 	call_jack_callback(codec, res, event);
- 	snd_hda_jack_report_sync(codec);
-diff --git a/sound/pci/hda/hda_jack.h b/sound/pci/hda/hda_jack.h
-index 8ceaf0ef5df1..339746dd9578 100644
---- a/sound/pci/hda/hda_jack.h
-+++ b/sound/pci/hda/hda_jack.h
-@@ -40,6 +40,7 @@ struct hda_jack_tbl {
- 	unsigned int block_report:1;    /* in a transitional state - do not report to userspace */
- 	hda_nid_t gating_jack;		/* valid when gating jack plugged */
- 	hda_nid_t gated_jack;		/* gated is dependent on this jack */
-+	hda_nid_t key_report_jack;	/* key reports to this jack */
- 	int type;
- 	int button_state;
- 	struct snd_jack *jack;
-@@ -99,6 +100,10 @@ snd_hda_jack_detect_enable_callback(struct hda_codec *codec, hda_nid_t nid,
- int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
- 				 hda_nid_t gating_nid);
- 
-+int snd_hda_jack_bind_keymap(struct hda_codec *codec, hda_nid_t key_nid,
-+			     const struct hda_jack_keymap *keymap,
-+			     hda_nid_t jack_nid);
-+
- u32 snd_hda_jack_pin_sense(struct hda_codec *codec, hda_nid_t nid, int dev_id);
- 
- /* the jack state returned from snd_hda_jack_detect_state() */
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 52907506e16e..f381474f9403 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -3102,6 +3102,16 @@ static void alc_headset_btn_callback(struct hda_codec *codec,
- 	if (jack->unsol_res & (7 << 10))
- 		report |= SND_JACK_BTN_3;
- 
-+	if (jack->jack->key_report_jack) {
-+		struct hda_jack_tbl *report_to =
-+			snd_hda_jack_tbl_get(codec, jack->jack->key_report_jack);
-+
-+		if (report_to) {
-+			report_to->button_state = report;
-+			return;
-+		}
-+	}
-+
- 	jack->jack->button_state = report;
- }
- 
-@@ -3163,16 +3173,23 @@ static void alc_fixup_headset_jack(struct hda_codec *codec,
- 				    const struct hda_fixup *fix, int action)
- {
- 	struct alc_spec *spec = codec->spec;
-+	hda_nid_t hp_pin;
- 
- 	switch (action) {
- 	case HDA_FIXUP_ACT_PRE_PROBE:
- 		spec->has_hs_key = 1;
- 		snd_hda_jack_detect_enable_callback(codec, 0x55,
- 						    alc_headset_btn_callback);
--		snd_hda_jack_add_kctl(codec, 0x55, "Headset Jack", false,
--				      SND_JACK_HEADSET, alc_headset_btn_keymap);
- 		break;
--	case HDA_FIXUP_ACT_INIT:
-+	case HDA_FIXUP_ACT_BUILD:
-+		hp_pin = alc_get_hp_pin(spec);
-+		if (!hp_pin || snd_hda_jack_bind_keymap(codec, 0x55,
-+							alc_headset_btn_keymap,
-+							hp_pin))
-+			snd_hda_jack_add_kctl(codec, 0x55, "Headset Jack",
-+					      false, SND_JACK_HEADSET,
-+					      alc_headset_btn_keymap);
-+
- 		alc_enable_headset_jack_key(codec);
- 		break;
- 	}
--- 
-2.25.1
+```
+E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.
+E: [pulseaudio] module.c: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-GuangZhou_FiiO_Electronics_Technology_Co.__Ltd._FiiO_M3K_FiiO_M3K-00" card_name="alsa_card.usb-GuangZhou_FiiO_Electronics_Technology_Co.__Ltd._FiiO_M3K_FiiO_M3K-00" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""): initialization failed.
+I: [pulseaudio] module-udev-detect.c: Card /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/usb5/5-1/5-1:1.0/sound/card2 (alsa_card.usb-GuangZhou_FiiO_Electronics_Technology_Co.__Ltd._FiiO_M3K_FiiO_M3K-00) failed to load module.
+D: [pulseaudio] module-udev-detect.c: /dev/snd/controlC2 is accessible: yes
+D: [pulseaudio] module-udev-detect.c: /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/usb5/5-1/5-1:1.0/sound/card2 is busy: no
+```
 
+I'm using ArchLinux and Linux 5.11.2.
+
+**Logs and debug info**
+
+aplay, pulseaudio debug log and other info I've posted as gist:
+https://gist.github.com/x1unix/dae3fb810ac499cc63362a805220968f
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/123
+Repository URL: https://github.com/alsa-project/alsa-lib

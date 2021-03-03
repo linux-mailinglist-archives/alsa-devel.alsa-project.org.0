@@ -2,62 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 450F232B542
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 07:33:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E90432B5EB
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 09:26:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D03961B04;
-	Wed,  3 Mar 2021 07:32:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D03961B04
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0D918AA;
+	Wed,  3 Mar 2021 09:25:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0D918AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614753212;
-	bh=nu7uzkcO7RYpL1NTDfzdZaESlxT8Q+GP1sZM5UhL67g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pA+CoZy9+UE28pbzC3Nga0tqYEVBhklHW4V8QrVdWC3NB7ao0r2XNSFiKZrI2gFri
-	 3vA0mvvJqX+H+YXOeExILMZKx2wTaPtfN8HUcxSlZQYTCaWZoQVvno/2ETljCv2ogj
-	 4Cmt0zoLZIIv8HsOKS/bjOS2RBRz+dJ6CvdIItHI=
+	s=default; t=1614759984;
+	bh=GnOLYNZ4oqZzAwiwdN6PFyvn5n879F3u9gDC1OPspZw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UqTNn6g8T9iU2XkAC4IoD0fstPJ4N8I+BMTVhs8LWoaOAlo1Ltk3XC2LNdT+Z6FqM
+	 RZvVHWwo2k4vddUjpPMZ231OHxMPhQT/OLLSRbpL3qkwh9OSdQ0Wh2xQbF9P8X84PV
+	 sfra6DbDqNmy95ngsfpva6BkE9sJUZZF+RaX+h6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45595F8026A;
-	Wed,  3 Mar 2021 07:32:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AF7FF8026A;
+	Wed,  3 Mar 2021 09:24:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A3D5F8025E; Wed,  3 Mar 2021 07:32:00 +0100 (CET)
+ id 9CA4DF8025E; Wed,  3 Mar 2021 09:24:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58FA7F80227
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 07:31:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58FA7F80227
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Dr3xw2XjXzlRtl;
- Wed,  3 Mar 2021 14:29:40 +0800 (CST)
-Received: from localhost.localdomain (10.175.102.38) by
- DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server id
- 14.3.498.0; Wed, 3 Mar 2021 14:31:42 +0800
-From: Wei Yongjun <weiyongjun1@huawei.com>
-To: Hulk Robot <hulkci@huawei.com>, Oder Chiou <oder_chiou@realtek.com>,
- "Liam Girdwood" <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Jaroslav Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shuming
- Fan <shumingf@realtek.com>
-Subject: [PATCH -next] ASoC: rt1316: Fix return value check in
- rt1316_sdw_probe()
-Date: Wed, 3 Mar 2021 06:40:41 +0000
-Message-ID: <20210303064041.898281-1-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.175.102.38]
-X-CFilter-Loop: Reflected
-Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
- Wei Yongjun <weiyongjun1@huawei.com>, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F464F800B2
+ for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 09:24:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F464F800B2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9772CAD21;
+ Wed,  3 Mar 2021 08:24:40 +0000 (UTC)
+Date: Wed, 03 Mar 2021 09:24:40 +0100
+Message-ID: <s5h1rcwejav.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Intel NUC 10
+In-Reply-To: <20210302180414.23194-1-wse@tuxedocomputers.com>
+References: <20210302180414.23194-1-wse@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Eckhart Mohr <e.mohr@tuxedocomputers.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
+ alsa-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,30 +70,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In case of error, the function devm_regmap_init_sdw() returns ERR_PTR()
-and never returns NULL. The NULL test in the return value check should
-be replaced with IS_ERR().
+On Tue, 02 Mar 2021 19:04:14 +0100,
+Werner Sembach wrote:
+> 
+> ALSA: hda/realtek: Add quirk for Intel NUC 10
 
-Fixes: a262057df513 ("ASoC: rt1316: Add RT1316 SDCA vendor-specific driver")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
----
- sound/soc/codecs/rt1316-sdw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I guess you added a subject line twice here.  This line can be dropped.
 
-diff --git a/sound/soc/codecs/rt1316-sdw.c b/sound/soc/codecs/rt1316-sdw.c
-index a6fb34a48f33..3b029c56467d 100644
---- a/sound/soc/codecs/rt1316-sdw.c
-+++ b/sound/soc/codecs/rt1316-sdw.c
-@@ -669,8 +669,8 @@ static int rt1316_sdw_probe(struct sdw_slave *slave,
- 
- 	/* Regmap Initialization */
- 	regmap = devm_regmap_init_sdw(slave, &rt1316_sdw_regmap);
--	if (!regmap)
--		return -EINVAL;
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
- 
- 	return rt1316_sdw_init(&slave->dev, regmap, slave);
- }
+> This adds a new SND_PCI_QUIRK(...) and applies it to the Intel NUC 10
+> devices. This fixes the issue of the devices not having audio input and
+> output on the headset jack because the kernel does not recognize when
+> something is plugged in.
+> 
+> The new quirk was inspired by the quirk for the Intel NUC 8 devices, but
+> it turned out that the NUC 10 uses another pin. This information was
+> acquired by black box testing likely pins.
+> 
+> Co-developed-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
+> Signed-off-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: <stable@vger.kernel.org>
+> ---
+> Resend of this patch with git send-email, because last patch got tabs replaced with spaces.
 
+Applied, thanks.
+
+
+Takashi

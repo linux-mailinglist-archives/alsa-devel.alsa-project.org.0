@@ -2,73 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890E132C650
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 02:02:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD2E32CB69
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 05:36:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BED51AC8;
-	Thu,  4 Mar 2021 02:01:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BED51AC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D859C1AB0;
+	Thu,  4 Mar 2021 05:35:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D859C1AB0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614819750;
-	bh=HTFsv6Fv1iYZbTyUPYTDVHFZqM3lA61amO6iQi9gLgU=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AzzqeMPco8Dy8mjJLC93TWmRs/TrQ/fTrJesgZZJWWGCW0lIq6pKePD3Mkty7JeMl
-	 lRpYSZjwL3sIG9fnBYr5fDs4WpHbc83+558KSKHJ7zapX7FFqSPhMC080sSCfs5RPa
-	 7vxKnmfLrpi/zuYCjKIMh0org4kGKwmGZ756EAJE=
+	s=default; t=1614832585;
+	bh=d8FInV8S3MOtwXgzRC27IsIJdPDgtOMmNcjSuU/dTEU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nQELU7xTXiraGFOJtbPzzpW/66GY9dKfmOKSybqB26GvHWZxbG4ZPzXsUBy1cSBj0
+	 LTPyqzkLlgZC3sZSujuk0kEC0xqUELGAsOqU537Ogs1x8fYzK1PDyCguIBgzb7QpZz
+	 QsoGghsDeH0cMDbqVvgG7Ui1l32mGqAjrZDPaxJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8AC2F80511;
-	Thu,  4 Mar 2021 01:56:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40D69F800ED;
+	Thu,  4 Mar 2021 05:34:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0280F80510; Thu,  4 Mar 2021 01:56:34 +0100 (CET)
+ id C6182F80269; Thu,  4 Mar 2021 05:34:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5458FF80506
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:56:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5458FF80506
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RmOiUzLt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CE3C64E86;
- Thu,  4 Mar 2021 00:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614819390;
- bh=HTFsv6Fv1iYZbTyUPYTDVHFZqM3lA61amO6iQi9gLgU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RmOiUzLtiSBt3o6wiPFTH/7CT6WnBQdjuEL4dQjWNhho1+B5vpNaFuEBU1P6uVTlY
- jGXkSWC3Ei62k9+vSdzEEYKWn4LRUPvAvZZNmAgWHa3ahVuIShNcjKbkWKStqZ//uI
- zbCnkL96OGJdTfNcanMJ8tujdTxYJGDmCVzFHL5GNAE4VjAVhxp+VBgNzU7VnkBC53
- U44g+O0RvJ6s3nEao8PxuCphPWOB1GP8HQyz8wzILRFQ3vCkZuxpaFyjfPCbDklEXx
- qvKYf4snK+6fjxHfF5zd6r7R0BAkXs7xGX0p0Ge4hO99r20Z6SImNUx0UVSKElmqcv
- mIILruaj7Jc0A==
-From: Mark Brown <broonie@kernel.org>
-To: Colin King <colin.king@canonical.com>, linuxppc-dev@lists.ozlabs.org,
- Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20210303091835.5024-1-colin.king@canonical.com>
-References: <20210303091835.5024-1-colin.king@canonical.com>
-Subject: Re: [PATCH][next] ASoC: fsl: fsl_easrc: Fix uninitialized variable
- st2_mem_alloc
-Message-Id: <161481924070.9553.9267870549828564094.b4-ty@kernel.org>
-Date: Thu, 04 Mar 2021 00:54:00 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D3B9F8007E
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 05:34:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3B9F8007E
+Received: from 36-229-232-16.dynamic-ip.hinet.net ([36.229.232.16]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1lHfgz-0007xv-3k; Thu, 04 Mar 2021 04:34:30 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: usb-audio: Disable USB autosuspend properly in
+ setup_disable_autosuspend()
+Date: Thu,  4 Mar 2021 12:34:16 +0800
+Message-Id: <20210304043419.287191-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Olivia Mackintosh <livvy@base.nu>, Dylan Robinson <dylan_robinson@motu.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chris Wulff <crwulff@gmail.com>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Joakim Tjernlund <joakim.tjernlund@infinera.com>,
+ Alexander Tsoy <alexander@tsoy.me>, Mark Brown <broonie@kernel.org>,
+ Joe Perches <joe@perches.com>, Dmitry Panchenko <dmitry@d-systems.ee>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,34 +74,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Mar 2021 09:18:35 +0000, Colin King wrote:
-> A previous cleanup commit removed the ininitialization of st2_mem_alloc.
-> Fix this by restoring the original behaviour by initializing it to zero.
+Rear audio on Lenovo ThinkStation P620 stops working after commit
+1965c4364bdd ("ALSA: usb-audio: Disable autosuspend for Lenovo
+ThinkStation P620"):
+[    6.013526] usbcore: registered new interface driver snd-usb-audio
+[    6.023064] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.023083] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
+[    6.023090] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.023098] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
+[    6.023103] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.023110] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
+[    6.045846] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.045866] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
+[    6.045877] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.045886] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
+[    6.045894] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x0, type = 1
+[    6.045908] usb 3-6: cannot get ctl value: req = 0x81, wValue = 0x202, wIndex = 0x0, type = 4
 
-Applied to
+I overlooked the issue because when I was working on the said commit,
+only the front audio is tested. Apology for that.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Changing supports_autosuspend in driver is too late for disabling
+autosuspend, because it was already used by USB probe routine, so it can
+break the balance on the following code that depends on
+supports_autosuspend.
 
-Thanks!
+Fix it by using usb_disable_autosuspend() helper, and balance the
+suspend count in disconnect callback.
 
-[1/1] ASoC: fsl: fsl_easrc: Fix uninitialized variable st2_mem_alloc
-      commit: 84e4eb57ed620adc0371579a5662c4924a72a306
+Fixes: 1965c4364bdd ("ALSA: usb-audio: Disable autosuspend for Lenovo ThinkStation P620")
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/usb/card.c     | 5 +++++
+ sound/usb/quirks.c   | 2 +-
+ sound/usb/usbaudio.h | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 85ed8507e41a..08c794883299 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -830,6 +830,8 @@ static int usb_audio_probe(struct usb_interface *intf,
+ 		snd_media_device_create(chip, intf);
+ 	}
+ 
++	chip->quirk_type = quirk->type;
++
+ 	usb_chip[chip->index] = chip;
+ 	chip->intf[chip->num_interfaces] = intf;
+ 	chip->num_interfaces++;
+@@ -912,6 +914,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+ 	} else {
+ 		mutex_unlock(&register_mutex);
+ 	}
++
++	if (chip->quirk_type & QUIRK_SETUP_DISABLE_AUTOSUSPEND)
++		usb_enable_autosuspend(interface_to_usbdev(intf));
+ }
+ 
+ /* lock the shutdown (disconnect) task and autoresume */
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 9ba4682ebc48..ef5ee899db26 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -547,7 +547,7 @@ static int setup_disable_autosuspend(struct snd_usb_audio *chip,
+ 				       struct usb_driver *driver,
+ 				       const struct snd_usb_audio_quirk *quirk)
+ {
+-	driver->supports_autosuspend = 0;
++	usb_disable_autosuspend(interface_to_usbdev(iface));
+ 	return 1;	/* Continue with creating streams and mixer */
+ }
+ 
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index 215c1771dd57..60b9dd7df6bb 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -27,6 +27,7 @@ struct snd_usb_audio {
+ 	struct snd_card *card;
+ 	struct usb_interface *intf[MAX_CARD_INTERFACES];
+ 	u32 usb_id;
++	uint16_t quirk_type;
+ 	struct mutex mutex;
+ 	unsigned int system_suspend;
+ 	atomic_t active;
+-- 
+2.30.0
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

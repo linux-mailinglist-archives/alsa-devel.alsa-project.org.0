@@ -2,91 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6214132D9F6
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 20:06:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49B0A32DA7E
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 20:41:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF31017EB;
-	Thu,  4 Mar 2021 20:05:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF31017EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7D091896;
+	Thu,  4 Mar 2021 20:40:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D091896
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614884761;
-	bh=hWhSg7Tqu+6wTs2lnPi8iRf/FLKmgD6pYKjq1UHH/zk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1614886872;
+	bh=gbUrQlbyFPaeSoquWiGrZSzT13PRsH343/KPGjXa/fw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tBX2UuS2DGbM2ac4KDoSfIvB/zqsMQfj1ivZTV+ed33tbtLgD5lImSmA/ELAl/LyM
-	 qFBAVk4IcCVo1pby05q79etKQEWaC6LtNtRZHF/Bas5wuiV1dCEP9/1eg3rTUMilT5
-	 t8ytc9yrgLmugutkAFP4OdCUV0DxxCKdsgM8kO4M=
+	b=dySF7EVidVTPy3NhWEX57ndruqKw/5W9izm7jqFjkq7LE4wJicnAxxcGIbPckJFj6
+	 mDUU0lMYvogLwOQbNZBm0H4fQey04PHND5a1B4PvhkK0zYj6vaXzl/C0yypK0IZXNh
+	 CfEezAe4Q8KZ0XBoSiEYHUROfRSLBYuLwP59UWBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA5FDF804AA;
-	Thu,  4 Mar 2021 20:03:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CD57F80271;
+	Thu,  4 Mar 2021 20:39:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3615F80430; Thu,  4 Mar 2021 20:03:05 +0100 (CET)
+ id F3B4CF80269; Thu,  4 Mar 2021 20:39:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AB8CF80273
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 20:02:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AB8CF80273
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24A6DF800ED
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 20:39:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24A6DF800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="n4EK8MZ0"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 124J1FD8032593; Thu, 4 Mar 2021 13:02:46 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=xT5ZZIZaGTg7FvfMp9EC2XsO45yEr1j3wspIaT4A4a0=;
- b=n4EK8MZ04b8siqUGk2MHbvzx2MJ8aQHIZc0cvWkXpc7vMlht1PH+gu8MRTQzeHHeYXPE
- tN32OOzhvAaYjXBCTMwGd0ZsuDZHZAmd5RMyt/M+IjCI4t8McPEnibuk47zzWumPRHHR
- a+VaCpdvB3wwoZeLCbrdJ0D8mngI2drma9k7vjroXnWAtlMp0rAT5db6o/VuKSfvztoC
- P9NljZkxm30/xTu5/7A7GmzTiMCxIFPDkAANnXRtayPNCdgnD1KuIRr1Dy14lTFLbpq7
- /ket/rvwlh/8p7ES8mUH8lB3K9aUf5mCIw/olIJxodv8xOrGq+fvIcK9kzAB/n/7XLOk 0A== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 36ykctq12a-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 04 Mar 2021 13:02:45 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Thu, 4 Mar 2021
- 19:02:43 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Thu, 4 Mar 2021 19:02:43 +0000
-Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.45])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EEAD811D0;
- Thu,  4 Mar 2021 19:02:42 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 4/4] ALSA: hda/cirrus: Add Headphone and Headset MIC Volume
- Control
-Date: Thu, 4 Mar 2021 19:02:41 +0000
-Message-ID: <20210304190241.5363-5-vitalyr@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210304190241.5363-1-vitalyr@opensource.cirrus.com>
-References: <20210304190241.5363-1-vitalyr@opensource.cirrus.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Sz0kYZcs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614886774;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GfISi1Az92GiZ1H75h9e2EwFG/hS4VqWJ32BEcIQ/6o=;
+ b=Sz0kYZcs+zkRVc9BgZorQZpqM5x8M0oyMqowKQ0FDpR8aH9Lna999Bm3LOORlw5ORQH810
+ NyDf/olhHZDU4/Og2JYO3ZEdvS7ww0GUdDx0WxHQhXK5OYIbpp0D12IekPkY2QfWvlITIN
+ jQltM672fHIJzJBVJ9iBwJgA4pLkIqs=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-294-we3W2C9KOhaiW54Y-B5DLw-1; Thu, 04 Mar 2021 14:39:33 -0500
+X-MC-Unique: we3W2C9KOhaiW54Y-B5DLw-1
+Received: by mail-ed1-f70.google.com with SMTP id o24so4463712edt.15
+ for <alsa-devel@alsa-project.org>; Thu, 04 Mar 2021 11:39:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=GfISi1Az92GiZ1H75h9e2EwFG/hS4VqWJ32BEcIQ/6o=;
+ b=YXlTE960xADg4xsoKtmo7zan0Yqg2hgyxcyLxGny4krrh7sD14rrzdyJflsWgcfimW
+ QLuvpiSuug2yJSK5uY8x7pJplhSqg/lkZTUnpeLbI0hDpG+5v4bgBpHaey9j+9M/Aap6
+ x75eJGLemxpog1BDu/c5ZOZ23TB6Mhg9ylUsIW2TTHn/tDYLAAWlpOzzl6uoavx9j7g1
+ Uc5mcx3ndQms83G+dzj4zako+qMNMibqQDoJSGcovoriALRBxew3HFGREpStOCWB8Exg
+ BFLZU7xU2EQKgLLHxJ658a3XdtnfI6H5CnyzIyGwoDg8d3fcp+7u8yEXSwq8nbtFcaOn
+ kM7A==
+X-Gm-Message-State: AOAM533WMUG+9NdhstpI+PYvNBLodGkcyo+B9qlwHeLJ3H6mmFvCizV1
+ TelMGpBe0uA0qnilMjtQ9mm+r36JDMT7R5pp3ebB8v1vGO7ZUranqqtX8lM/74mFrjXl0J+/SgV
+ edm+JQWbm25IHvTrQnkOkbAn5gTzsYw1iIJUcwDiBTkxMf3DVcD08+KWVFk73qpbx0wyPNvGYg1
+ Y=
+X-Received: by 2002:aa7:c983:: with SMTP id c3mr6224296edt.185.1614886771780; 
+ Thu, 04 Mar 2021 11:39:31 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxDgMYZPCZy72SZ4nO/Wikb+yzgS7LXfrtjQeHIBPkGI7Ut6ZTxgs2kQ8zzao5s3GFAaER4nw==
+X-Received: by 2002:aa7:c983:: with SMTP id c3mr6224277edt.185.1614886771541; 
+ Thu, 04 Mar 2021 11:39:31 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id z13sm185750edc.73.2021.03.04.11.39.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Mar 2021 11:39:31 -0800 (PST)
+Subject: Re: [RFC 2/2] ASoC: rt5670: Add LED trigger support
+To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>
+References: <20210224125927.GB4504@sirena.org.uk>
+ <e47c7fa5-cb1a-f8a3-bfe4-1f6bca6a7d80@redhat.com>
+ <20210224193626.GF4504@sirena.org.uk>
+ <56ea1110-c129-5f3a-264b-fb389f615dbe@redhat.com>
+ <20210225145901.GB5332@sirena.org.uk>
+ <c785af21-8170-62ca-6f08-0a9a1a9071bb@redhat.com>
+ <20210301132352.GA4628@sirena.org.uk>
+ <76103f3e-c416-c988-7bc2-d7657e1868bd@redhat.com>
+ <20210301191503.GI4628@sirena.org.uk>
+ <54c5fd8e-1835-b9c3-d5fd-5cb363eab32c@redhat.com>
+ <20210301204313.GK4628@sirena.org.uk>
+ <6d34af65-761b-7314-6af6-daf15cc9535c@redhat.com>
+ <4b61303c-cee6-32cc-a9b9-3de7db0043d8@perex.cz>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <7c6c2f44-e6a1-48e7-773e-033ba4582742@redhat.com>
+Date: Thu, 4 Mar 2021 20:39:30 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0
- mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103040090
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+In-Reply-To: <4b61303c-cee6-32cc-a9b9-3de7db0043d8@perex.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,291 +129,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
+Hi,
 
-CS8409 does not support Volume Control for NIDs 0x24 (the Headphones),
-or 0x34 (The Headset Mic).
-However, CS42L42 codec does support gain control for both.
-We can add support for Volume Controls, by writing the the CS42L42
-regmap via i2c commands, using custom info, get and put volume
-functions, saved in the control.
+On 3/2/21 10:14 PM, Jaroslav Kysela wrote:
+> Dne 01. 03. 21 v 22:26 Hans de Goede napsal(a):
+>> Hi,
+>>
+>> On 3/1/21 9:43 PM, Mark Brown wrote:
+>>> On Mon, Mar 01, 2021 at 08:49:34PM +0100, Hans de Goede wrote:
+>>>> On 3/1/21 8:15 PM, Mark Brown wrote:
+>>>
+>>>>> Off the top of my head something like writing a control name into a
+>>>>> sysfs file might work, it doesn't scale if you need to use multiple
+>>>>> controls as rt5640 does though.
+>>>
+>>>> Currently ALSA/UCM does not use sysfs files for anything, so this
+>>>> feels very inconsistent with how all the rest of this currently works.
+>>>
+>>> Yes, you'd really want to add string controls in ALSA.
+>>
+>> Hmm, we already have SNDRV_CTL_ELEM_TYPE_BYTES controls. I think that will
+>> work nicely actually, we can have the UCM conf file send a 0 terminated
+>> string to the driver that way. It would be nice to have some syntactic
+>> sugar on the UCM side to be able to actually specify a string instead
+>> of an array of bytes, but I don't think we need any new userspace API
+>> for this.
+> 
+> The LEDs are controlled per machine not per card. So do we need to create the 'Speaker/Mic LED Control' control for all cards?
+> 
+> Also, this change sounds really generic. The interface may be implemented in my proposed control led kernel module, not in the codec drivers.
+> 
+> The Mark's sysfs idea is not bad in my opinion. The sequences may be extended in UCM, we have already 'exec' command. Yes, this command is a little heavy for the sysfs writes, but we can add command like 'sysset' or so for sysfs like:
 
-Tested on DELL Inspiron-3500, DELL Inspiron-3501, DELL Inspiron-3500
+Okay, so this would be a sysfs file per card then? Sol we would have for example
+2 new sysfs files like this show up when your module is loaded:
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
- sound/pci/hda/patch_cirrus.c | 201 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 198 insertions(+), 3 deletions(-)
+/sys/class/sounds/card0/spk_mute_led_control
+/sys/class/sounds/card0/mic_mute_led_control
 
-diff --git a/sound/pci/hda/patch_cirrus.c b/sound/pci/hda/patch_cirrus.c
-index 0b8980240176..082420545ab7 100644
---- a/sound/pci/hda/patch_cirrus.c
-+++ b/sound/pci/hda/patch_cirrus.c
-@@ -21,6 +21,9 @@
- /*
-  */
- 
-+#define CS42L42_HP_CH     (2U)
-+#define CS42L42_HS_MIC_CH (1U)
-+
- struct cs_spec {
- 	struct hda_gen_spec gen;
- 
-@@ -42,6 +45,9 @@ struct cs_spec {
- 
- 	unsigned int cs42l42_hp_jack_in:1;
- 	unsigned int cs42l42_mic_jack_in:1;
-+	unsigned int cs42l42_volume_init:1;
-+	char cs42l42_hp_volume[CS42L42_HP_CH];
-+	char cs42l42_hs_mic_volume[CS42L42_HS_MIC_CH];
- 
- 	struct mutex cs8409_i2c_mux;
- 
-@@ -1260,6 +1266,14 @@ static int patch_cs4213(struct hda_codec *codec)
- #define CIR_I2C_QWRITE	0x005D
- #define CIR_I2C_QREAD	0x005E
- 
-+#define CS8409_CS42L42_HP_VOL_REAL_MIN   (-63)
-+#define CS8409_CS42L42_HP_VOL_REAL_MAX   (0)
-+#define CS8409_CS42L42_AMIC_VOL_REAL_MIN (-97)
-+#define CS8409_CS42L42_AMIC_VOL_REAL_MAX (12)
-+#define CS8409_CS42L42_REG_HS_VOLUME_CHA (0x2301)
-+#define CS8409_CS42L42_REG_HS_VOLUME_CHB (0x2303)
-+#define CS8409_CS42L42_REG_AMIC_VOLUME   (0x1D03)
-+
- struct cs8409_i2c_param {
- 	unsigned int addr;
- 	unsigned int reg;
-@@ -1401,7 +1415,6 @@ static const struct cs8409_i2c_param cs42l42_init_reg_seq[] = {
- 	{ 0x1010, 0xB0 },
- 	{ 0x1D01, 0x00 },
- 	{ 0x1D02, 0x06 },
--	{ 0x1D03, 0x00 },
- 	{ 0x1107, 0x01 },
- 	{ 0x1009, 0x02 },
- 	{ 0x1007, 0x03 },
-@@ -1431,8 +1444,6 @@ static const struct cs8409_i2c_param cs42l42_init_reg_seq[] = {
- 	{ 0x2901, 0x01 },
- 	{ 0x1101, 0x0A },
- 	{ 0x1102, 0x84 },
--	{ 0x2301, 0x00 },
--	{ 0x2303, 0x00 },
- 	{ 0x2302, 0x3f },
- 	{ 0x2001, 0x03 },
- 	{ 0x1B75, 0xB6 },
-@@ -1580,6 +1591,179 @@ static unsigned int cs8409_i2c_write(struct hda_codec *codec,
- 	return retval;
- }
- 
-+static int cs8409_cs42l42_volume_info(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_info *uinfo)
-+{
-+	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
-+	u16 nid = get_amp_nid(kcontrol);
-+	u8 chs = get_amp_channels(kcontrol);
-+
-+	codec_dbg(codec, "%s() nid: %d\n", __func__, nid);
-+	switch (nid) {
-+	case CS8409_CS42L42_HP_PIN_NID:
-+		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+		uinfo->count = chs == 3 ? 2 : 1;
-+		uinfo->value.integer.min = CS8409_CS42L42_HP_VOL_REAL_MIN;
-+		uinfo->value.integer.max = CS8409_CS42L42_HP_VOL_REAL_MAX;
-+		break;
-+	case CS8409_CS42L42_AMIC_PIN_NID:
-+		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+		uinfo->count = chs == 3 ? 2 : 1;
-+		uinfo->value.integer.min = CS8409_CS42L42_AMIC_VOL_REAL_MIN;
-+		uinfo->value.integer.max = CS8409_CS42L42_AMIC_VOL_REAL_MAX;
-+		break;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static void cs8409_cs42l42_update_volume(struct hda_codec *codec)
-+{
-+	struct cs_spec *spec = codec->spec;
-+
-+	mutex_lock(&spec->cs8409_i2c_mux);
-+	spec->cs42l42_hp_volume[0] = -(cs8409_i2c_read(codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_HS_VOLUME_CHA, 1));
-+	spec->cs42l42_hp_volume[1] = -(cs8409_i2c_read(codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_HS_VOLUME_CHB, 1));
-+	spec->cs42l42_hs_mic_volume[0] = -(cs8409_i2c_read(codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_AMIC_VOLUME, 1));
-+	codec_dbg(codec, "%s() HP Volume: %d/%d, HS Mic Volume: %d\n", __func__,
-+		spec->cs42l42_hp_volume[0], spec->cs42l42_hp_volume[1],
-+		spec->cs42l42_hs_mic_volume[0]);
-+	mutex_unlock(&spec->cs8409_i2c_mux);
-+	spec->cs42l42_volume_init = 1;
-+}
-+
-+static int cs8409_cs42l42_volume_get(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
-+	struct cs_spec *spec = codec->spec;
-+	hda_nid_t nid = get_amp_nid(kcontrol);
-+	int chs = get_amp_channels(kcontrol);
-+	long *valp = ucontrol->value.integer.value;
-+
-+	codec_dbg(codec, "%s() nid: %d\n", __func__, nid);
-+	if (!spec->cs42l42_volume_init) {
-+		snd_hda_power_up(codec);
-+		cs8409_cs42l42_update_volume(codec);
-+		snd_hda_power_down(codec);
-+	}
-+	switch (nid) {
-+	case CS8409_CS42L42_HP_PIN_NID:
-+		if (chs & 1) {
-+			*valp++ = spec->cs42l42_hp_volume[0];
-+			codec_dbg(codec, "%s() vol(a) = %d\n", __func__, spec->cs42l42_hp_volume[0]);
-+		}
-+		if (chs & 2) {
-+			*valp++ = spec->cs42l42_hp_volume[1];
-+			codec_dbg(codec, "%s() vol(b) = %d\n", __func__, spec->cs42l42_hp_volume[1]);
-+		}
-+		break;
-+	case CS8409_CS42L42_AMIC_PIN_NID:
-+		if (chs & 1) {
-+			*valp++ = spec->cs42l42_hs_mic_volume[0];
-+			codec_dbg(codec, "%s() vol() = %d\n", __func__, spec->cs42l42_hs_mic_volume[0]);
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int cs8409_cs42l42_volume_put(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
-+	struct cs_spec *spec = codec->spec;
-+	hda_nid_t nid = get_amp_nid(kcontrol);
-+	int chs = get_amp_channels(kcontrol);
-+	long *valp = ucontrol->value.integer.value;
-+	int change = 0;
-+	char vol = 0;
-+
-+	codec_dbg(codec, "%s() nid: %d\n", __func__, nid);
-+	snd_hda_power_up(codec);
-+	switch (nid) {
-+	case CS8409_CS42L42_HP_PIN_NID:
-+		mutex_lock(&spec->cs8409_i2c_mux);
-+		if (chs & 1) {
-+			vol = -(*valp);
-+			codec_dbg(codec, "%s() vol(a) = %d\n", __func__, vol);
-+			change = cs8409_i2c_write(codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_HS_VOLUME_CHA, vol, 1);
-+			valp++;
-+		}
-+		if (chs & 2) {
-+			vol = -(*valp);
-+			codec_dbg(codec, "%s() vol(b) = %d\n", __func__, vol);
-+			change |= cs8409_i2c_write(codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_HS_VOLUME_CHB, vol, 1);
-+		}
-+		mutex_unlock(&spec->cs8409_i2c_mux);
-+		break;
-+	case CS8409_CS42L42_AMIC_PIN_NID:
-+		mutex_lock(&spec->cs8409_i2c_mux);
-+		if (chs & 1) {
-+			codec_dbg(codec, "%s() vol() = %d\n", __func__, (char)*valp);
-+			change = cs8409_i2c_write(
-+				codec, CS42L42_I2C_ADDR,
-+				CS8409_CS42L42_REG_AMIC_VOLUME, (char)*valp, 1);
-+			valp++;
-+		}
-+		mutex_unlock(&spec->cs8409_i2c_mux);
-+		break;
-+	default:
-+		break;
-+	}
-+	cs8409_cs42l42_update_volume(codec);
-+	snd_hda_power_down(codec);
-+	return change;
-+}
-+
-+static const DECLARE_TLV_DB_SCALE(
-+	cs8409_cs42l42_hp_db_scale,
-+	CS8409_CS42L42_HP_VOL_REAL_MIN * 100, 100, 1);
-+
-+static const DECLARE_TLV_DB_SCALE(
-+	cs8409_cs42l42_amic_db_scale,
-+	CS8409_CS42L42_AMIC_VOL_REAL_MIN * 100, 100, 1);
-+
-+static const struct snd_kcontrol_new cs8409_cs42l42_hp_volume_mixer = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.index = 0,
-+	.name = "Headphone Playback Volume",
-+	.subdevice = (HDA_SUBDEV_AMP_FLAG | HDA_SUBDEV_NID_FLAG),
-+	.access = (SNDRV_CTL_ELEM_ACCESS_READWRITE
-+			 | SNDRV_CTL_ELEM_ACCESS_TLV_READ),
-+	.info = cs8409_cs42l42_volume_info,
-+	.get = cs8409_cs42l42_volume_get,
-+	.put = cs8409_cs42l42_volume_put,
-+	.tlv = { .p = cs8409_cs42l42_hp_db_scale },
-+	.private_value = HDA_COMPOSE_AMP_VAL(
-+		CS8409_CS42L42_HP_PIN_NID, 3, 0, HDA_OUTPUT)
-+		| HDA_AMP_VAL_MIN_MUTE
-+};
-+
-+static const struct snd_kcontrol_new cs8409_cs42l42_amic_volume_mixer = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.index = 0,
-+	.name = "Headset Mic Capture Volume",
-+	.subdevice = (HDA_SUBDEV_AMP_FLAG | HDA_SUBDEV_NID_FLAG),
-+	.access = (SNDRV_CTL_ELEM_ACCESS_READWRITE
-+			 | SNDRV_CTL_ELEM_ACCESS_TLV_READ),
-+	.info = cs8409_cs42l42_volume_info,
-+	.get = cs8409_cs42l42_volume_get,
-+	.put = cs8409_cs42l42_volume_put,
-+	.tlv = { .p = cs8409_cs42l42_amic_db_scale },
-+	.private_value = HDA_COMPOSE_AMP_VAL(
-+		CS8409_CS42L42_AMIC_PIN_NID, 1, 0, HDA_INPUT)
-+		| HDA_AMP_VAL_MIN_MUTE
-+};
-+
- /* Assert/release RTS# line to CS42L42 */
- static void cs8409_cs42l42_reset(struct hda_codec *codec)
- {
-@@ -1882,6 +2066,8 @@ static int cs8409_cs42l42_hw_init(struct hda_codec *codec)
- 		cs_vendor_coef_set(codec, 0x09, 0x0003);
- 	}
- 
-+	cs8409_cs42l42_update_volume(codec);
-+
- 	cs8409_cs42l42_enable_jack_detect(codec);
- 
- 	/* Enable Unsolicited Response */
-@@ -1983,6 +2169,14 @@ static int cs8409_cs42l42_fixup(struct hda_codec *codec)
- 	if (err < 0)
- 		return err;
- 
-+	if (!snd_hda_gen_add_kctl(
-+			&spec->gen, NULL, &cs8409_cs42l42_hp_volume_mixer))
-+		return -1;
-+
-+	if (!snd_hda_gen_add_kctl(
-+			&spec->gen, NULL, &cs8409_cs42l42_amic_volume_mixer))
-+		return -1;
-+
- 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PROBE);
- 
- 	return err;
-@@ -2064,6 +2258,7 @@ static int patch_cs8409(struct hda_codec *codec)
- 
- 		spec->gen.suppress_auto_mute = 1;
- 		spec->gen.no_primary_hp = 1;
-+		spec->gen.suppress_vmaster = 1;
- 		/* GPIO 5 out, 3,4 in */
- 		spec->gpio_dir = GPIO5_INT;
- 		spec->gpio_data = 0;
--- 
-2.25.1
+And reading would iterate over all mixer-elements of the card and print
+the names of those which have the relevant access LED flag set, where
+as a write would be taken as a control-name to add the access LED flag
+too?
+
+
+And an empty write would be special and clear the flag on all controls?
+I guess we don't strictly need that if we only set things up at boot once,
+but it might still be handy to force things to a clean state.
+
+> 
+>   # detach all speaker LED controls for card 1
+>   # similar to 'echo -n "card=1,*" > /sysfs/devices/virtual/sound/ctl-led/speaker/detach'
+>   sysset "devices/virtual/sound/ctl-led/speaker/detach:card=1,*"
+> 
+>   # attach the 'Speaker Playback Switch',10 control to speaker LED trigger in card 1
+>   # similar to 'echo -n "card=1,iface=MIXER,name='Speaker Playback Switch',index=10" > /sysfs/devices/virtual/sound/ctl-led/speaker/attach
+>   sysset "devices/virtual/sound/ctl-led/speaker/attach:card=1,iface=MIXER,name='Speaker Playback Switch',index=10"
+
+I think a sysfs file per card would work better, that would certainly be
+a lot more inline with how sysfs is normally used...
+
+Also do we need the iface=MIXER part ?
+
+> Security: The LED-control bindings should be handled only in the boot / init phase (thus in UCM BootSequence section) and the sysfs interface files should be read-only for normal users.
+
+Yes that make sense, but it will require some extra helper to that, I guess it
+could be an extra flag to the alsactl restore command which already gets run
+at boot, or an extra alsactl command ?
+
+Regards,
+
+Hans
 

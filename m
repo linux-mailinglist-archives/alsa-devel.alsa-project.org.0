@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A6732C619
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 02:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890E132C650
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 02:02:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34DE01AEB;
-	Thu,  4 Mar 2021 02:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34DE01AEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BED51AC8;
+	Thu,  4 Mar 2021 02:01:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BED51AC8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614819703;
-	bh=W6uJ0LRqqdSu0y1TNFM4Cx4MwH09KexgWtJhcfuKeUc=;
+	s=default; t=1614819750;
+	bh=HTFsv6Fv1iYZbTyUPYTDVHFZqM3lA61amO6iQi9gLgU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GUqudAAw4CcdJIDzwrQH4xJHKJFnvkVNUoSZWf2fTM5iyIebb+Xjw+NQXIYGQlnOV
-	 IB038Cb+Mu+fSO+MntzrIXX9lnXisAAnpYWEdbj2GTvced9BA1dRm6yjE8IZ0aEk3C
-	 Sb4uyciF2fFgxX+1Yw8hl/y9fTKwtjrnIw4DmsMc=
+	b=AzzqeMPco8Dy8mjJLC93TWmRs/TrQ/fTrJesgZZJWWGCW0lIq6pKePD3Mkty7JeMl
+	 lRpYSZjwL3sIG9fnBYr5fDs4WpHbc83+558KSKHJ7zapX7FFqSPhMC080sSCfs5RPa
+	 7vxKnmfLrpi/zuYCjKIMh0org4kGKwmGZ756EAJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49341F804FD;
-	Thu,  4 Mar 2021 01:56:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8AC2F80511;
+	Thu,  4 Mar 2021 01:56:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61AEAF804FE; Thu,  4 Mar 2021 01:56:24 +0100 (CET)
+ id F0280F80510; Thu,  4 Mar 2021 01:56:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99E58F804FD
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:56:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99E58F804FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5458FF80506
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:56:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5458FF80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jxHEpJba"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 89E9064E7C;
- Thu,  4 Mar 2021 00:56:19 +0000 (UTC)
+ header.b="RmOiUzLt"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CE3C64E86;
+ Thu,  4 Mar 2021 00:56:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614819380;
- bh=W6uJ0LRqqdSu0y1TNFM4Cx4MwH09KexgWtJhcfuKeUc=;
+ s=k20201202; t=1614819390;
+ bh=HTFsv6Fv1iYZbTyUPYTDVHFZqM3lA61amO6iQi9gLgU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=jxHEpJbasDjsC7LnOAP+1N8JfdQfyInxClGESqtIUUxSeoBErDdFdTmiOYOZqESrI
- hSp/2bJVM2zkUD5Rxns26ejmWpPhhObNGiUHFHgOVRaRaaptceLYnAxbeBfPbn+QtU
- kmwO0aHYGZFOJgxpP8Qvg/+xEm7mDCKRSzbVLPAW1nQ+u9azQxqSu6EOtLyYN8smyS
- v72YAv7mIiglLDKohcNXEwkeyc43Ii3slzCJrxMmRme0ARmiGVYYAW5++0eq+KFJDw
- KTQsavmBJ0M1ViV+sUGC+CR27GbSxutO2eOigQJuIfhnfEz0V6Wl6JbxAYqYFlkVXb
- Ags9Vdv61g8Ow==
+ b=RmOiUzLtiSBt3o6wiPFTH/7CT6WnBQdjuEL4dQjWNhho1+B5vpNaFuEBU1P6uVTlY
+ jGXkSWC3Ei62k9+vSdzEEYKWn4LRUPvAvZZNmAgWHa3ahVuIShNcjKbkWKStqZ//uI
+ zbCnkL96OGJdTfNcanMJ8tujdTxYJGDmCVzFHL5GNAE4VjAVhxp+VBgNzU7VnkBC53
+ U44g+O0RvJ6s3nEao8PxuCphPWOB1GP8HQyz8wzILRFQ3vCkZuxpaFyjfPCbDklEXx
+ qvKYf4snK+6fjxHfF5zd6r7R0BAkXs7xGX0p0Ge4hO99r20Z6SImNUx0UVSKElmqcv
+ mIILruaj7Jc0A==
 From: Mark Brown <broonie@kernel.org>
-To: paul@crapouillou.net, perex@perex.cz, lgirdwood@gmail.com, tiwai@suse.com,
- Tang Bin <tangbin@cmss.chinamobile.com>
-In-Reply-To: <20210302135630.11456-1-tangbin@cmss.chinamobile.com>
-References: <20210302135630.11456-1-tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] ASoC: codec: Omit superfluous error message in
- jz4760_codec_probe()
-Message-Id: <161481924070.9553.9652910375356726257.b4-ty@kernel.org>
+To: Colin King <colin.king@canonical.com>, linuxppc-dev@lists.ozlabs.org,
+ Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <20210303091835.5024-1-colin.king@canonical.com>
+References: <20210303091835.5024-1-colin.king@canonical.com>
+Subject: Re: [PATCH][next] ASoC: fsl: fsl_easrc: Fix uninitialized variable
+ st2_mem_alloc
+Message-Id: <161481924070.9553.9267870549828564094.b4-ty@kernel.org>
 Date: Thu, 04 Mar 2021 00:54:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,9 +84,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2 Mar 2021 21:56:30 +0800, Tang Bin wrote:
-> The function devm_platform_ioremap_resource has already contained
-> error message, so remove the redundant dev_err here.
+On Wed, 3 Mar 2021 09:18:35 +0000, Colin King wrote:
+> A previous cleanup commit removed the ininitialization of st2_mem_alloc.
+> Fix this by restoring the original behaviour by initializing it to zero.
 
 Applied to
 
@@ -89,8 +94,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codec: Omit superfluous error message in jz4760_codec_probe()
-      commit: 046c4e329066c50ff3ffd174ab95a0ac638807b4
+[1/1] ASoC: fsl: fsl_easrc: Fix uninitialized variable st2_mem_alloc
+      commit: 84e4eb57ed620adc0371579a5662c4924a72a306
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

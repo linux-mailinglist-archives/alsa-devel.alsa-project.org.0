@@ -2,92 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACB2732DCA0
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 22:59:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE15B32DCAF
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 23:06:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CF6A1890;
-	Thu,  4 Mar 2021 22:59:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CF6A1890
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5225D189A;
+	Thu,  4 Mar 2021 23:05:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5225D189A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614895196;
-	bh=AGeJPFJFZFiDlEuYA4DT1F8PN/bvBGhbJT1Yqb7fKdE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bDatQfsKSV0VOX66a7kjLd86k4uMD3ivkEhmIG1nvFk8aa+/CZ5HwjWjGRSndNf5d
-	 GY1zZllx7W/gkxjDFVHzGHJFPaAy4iFrLnHom9e+B0gYJCB1aNfWrSXl5JkIdzfFKs
-	 xnDpipIHv8remEvBoA05VxluVgpIOEQGHuBeSeLA=
+	s=default; t=1614895594;
+	bh=NOZWWHxj4h1T6CeNACibGe2qPxxWRSHgqTFWHfVCtMg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AKKU2pHg8zz7Y+n9uzVnRWPSIfn8eyBAwsvygP3tJIWG47on4RWYiBVqegsXu+1Oj
+	 2l4csQYva7IKicYxYYrupC46aF2CT6Hx9/QK/I2q/OjLBya15Ef9xS4ynGNid9r3/Z
+	 qAnqkwe5MUiEimGPgejRlfzND2oJygA9KG1ZsIAc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB10EF800ED;
-	Thu,  4 Mar 2021 22:58:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4C2DF8007E;
+	Thu,  4 Mar 2021 23:05:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19194F80269; Thu,  4 Mar 2021 22:58:24 +0100 (CET)
+ id B20B2F80269; Thu,  4 Mar 2021 23:05:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8469DF80227
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 22:58:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8469DF80227
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
- header.i=@marek-ca.20150623.gappssmtp.com header.b="IZjJYUNq"
-Received: by mail-qk1-x72a.google.com with SMTP id l132so28359991qke.7
- for <alsa-devel@alsa-project.org>; Thu, 04 Mar 2021 13:58:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nbze8gCMaDI1IAu3LD9VNB/zoM+54xD6O96EqggyI0s=;
- b=IZjJYUNqOQbo9CYLDbRcg72SwHxQPuq2eSOygLV6vR9RtY3wNlxNYVh7g26gKTKvwt
- mWsJwGMFB7TO7XflIEjcWFfm/NPylMEMCkH8H+qLhwFm6dCZPQgfedOIaxv7Oi/qHF9G
- UacVXBbyE4YNwNWxWnRgCfpPy7asBHKc3MKUrS2v8aRqxsBEsuxZSIQCnr7Bj6GufwhE
- lcSyInQxYjODsYO8xzmJGu/1eMh7n5OXVx2P9O4WZ8deWyiseVdDrjewmZrgtv9+ngRK
- 2Fe2o29USbcfSyaXBORZ0igeMGXa7jrQWX5OlF3GYx3qseMIhhl8rCNdikmCBNITh6Hg
- AYLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nbze8gCMaDI1IAu3LD9VNB/zoM+54xD6O96EqggyI0s=;
- b=jsYxVtZzWWvIIbjsjIx7nSrKbwUHymBFM7C/GIMqMNLWCb6lGaLV8aVsav6Yir/+XW
- 3Nic8X+SPkgBbHFb4AQINxNcT7yOA9/0mRZj+BooTsXVif/0iACK74VFsJ1iz7S+/LSF
- 6SbOAo2lypZJWpARgEqkVjmzDs0yMzy45ZE2BI3CRXWrAJx4zKl7wSLQNpeZrUi0xJAx
- 1EHlf3RHz1Y/C3zlSgjyMjrNVl7hv0da3Th+k81TG+CYfhLLEfgxjB1T0FHxGBbTqlem
- my9yXrYbEE+KLzCKwVK5DMROKMcoXCHhbcZPQxXKWb73jZ7jPqg/SHiTf/OJSCze3fRH
- x3/A==
-X-Gm-Message-State: AOAM5319Hdy+8uh5h1BPR2pVjuDXWiJLnsC6z5mcT1a/xG5d0/eXmQFY
- j7koxSKK7DbY7DyLxLrHNHJ8qQ==
-X-Google-Smtp-Source: ABdhPJyFUWcvnNRd82OokzjaRJTgmmSWE/c7ZWKgoh6oN5NNeHBtiFc/KvFGUxbGcE3941wMNT/0Cg==
-X-Received: by 2002:a37:9f91:: with SMTP id i139mr6270897qke.72.1614895093854; 
- Thu, 04 Mar 2021 13:58:13 -0800 (PST)
-Received: from localhost.localdomain
- (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id m21sm460478qka.28.2021.03.04.13.58.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Mar 2021 13:58:13 -0800 (PST)
-From: Jonathan Marek <jonathan@marek.ca>
-To: linux-arm-msm@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: lpass-va-macro: mute/unmute all active
- decimators
-Date: Thu,  4 Mar 2021 16:56:46 -0500
-Message-Id: <20210304215646.17956-1-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "moderated list:QCOM AUDIO ASoC DRIVERS" <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2047DF80227
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 23:04:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2047DF80227
+Date: 05 Mar 2021 07:04:50 +0900
+X-IronPort-AV: E=Sophos;i="5.81,223,1610377200"; d="scan'208";a="74127213"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 05 Mar 2021 07:04:50 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6615F40104CB;
+ Fri,  5 Mar 2021 07:04:50 +0900 (JST)
+Message-ID: <874khqr2wt.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 2/8] ASoC: soc-pcm: add soc_cpu/codec_dai_name() macro
+In-Reply-To: <20210302130400.GD4522@sirena.org.uk>
+References: <87tupuqqc8.wl-kuninori.morimoto.gx@renesas.com>
+ <87r1kyqqb8.wl-kuninori.morimoto.gx@renesas.com>
+ <20210302130400.GD4522@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,75 +69,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-An interface can have multiple decimators enabled, so loop over all active
-decimators. Otherwise only one channel will be unmuted, and other channels
-will be zero. This fixes recording from dual DMIC as a single two channel
-stream.
 
-Also remove the now unused "active_decimator" field.
+Hi Mark
 
-Fixes: 908e6b1df26e ("ASoC: codecs: lpass-va-macro: Add support to VA Macro")
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> > +#define soc_cpu_dai_name(rtd) \
+> > +	(((rtd)->num_cpus == 1) ? asoc_rtd_to_cpu((rtd), 0)->name : "multicpu")
+> > +#define soc_codec_dai_name(rtd) \
+> > +	(((rtd)->num_codecs == 1) ? asoc_rtd_to_codec((rtd), 0)->name : "multicodec")
+> 
+> I can't see any reason not to make these static inline functions
+> instead?
+
+Yes indeed.
+Will update today.
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/codecs/lpass-va-macro.c | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
-
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 91e6890d6efcb..3d6976a3d9e42 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -189,7 +189,6 @@ struct va_macro {
- 	struct device *dev;
- 	unsigned long active_ch_mask[VA_MACRO_MAX_DAIS];
- 	unsigned long active_ch_cnt[VA_MACRO_MAX_DAIS];
--	unsigned long active_decimator[VA_MACRO_MAX_DAIS];
- 	u16 dmic_clk_div;
- 
- 	int dec_mode[VA_MACRO_NUM_DECIMATORS];
-@@ -549,11 +548,9 @@ static int va_macro_tx_mixer_put(struct snd_kcontrol *kcontrol,
- 	if (enable) {
- 		set_bit(dec_id, &va->active_ch_mask[dai_id]);
- 		va->active_ch_cnt[dai_id]++;
--		va->active_decimator[dai_id] = dec_id;
- 	} else {
- 		clear_bit(dec_id, &va->active_ch_mask[dai_id]);
- 		va->active_ch_cnt[dai_id]--;
--		va->active_decimator[dai_id] = -1;
- 	}
- 
- 	snd_soc_dapm_mixer_update_power(widget->dapm, kcontrol, enable, update);
-@@ -880,18 +877,19 @@ static int va_macro_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
- 	struct va_macro *va = snd_soc_component_get_drvdata(component);
- 	u16 tx_vol_ctl_reg, decimator;
- 
--	decimator = va->active_decimator[dai->id];
--
--	tx_vol_ctl_reg = CDC_VA_TX0_TX_PATH_CTL +
--				VA_MACRO_TX_PATH_OFFSET * decimator;
--	if (mute)
--		snd_soc_component_update_bits(component, tx_vol_ctl_reg,
--					      CDC_VA_TX_PATH_PGA_MUTE_EN_MASK,
--					      CDC_VA_TX_PATH_PGA_MUTE_EN);
--	else
--		snd_soc_component_update_bits(component, tx_vol_ctl_reg,
--					      CDC_VA_TX_PATH_PGA_MUTE_EN_MASK,
--					      CDC_VA_TX_PATH_PGA_MUTE_DISABLE);
-+	for_each_set_bit(decimator, &va->active_ch_mask[dai->id],
-+			 VA_MACRO_DEC_MAX) {
-+		tx_vol_ctl_reg = CDC_VA_TX0_TX_PATH_CTL +
-+					VA_MACRO_TX_PATH_OFFSET * decimator;
-+		if (mute)
-+			snd_soc_component_update_bits(component, tx_vol_ctl_reg,
-+					CDC_VA_TX_PATH_PGA_MUTE_EN_MASK,
-+					CDC_VA_TX_PATH_PGA_MUTE_EN);
-+		else
-+			snd_soc_component_update_bits(component, tx_vol_ctl_reg,
-+					CDC_VA_TX_PATH_PGA_MUTE_EN_MASK,
-+					CDC_VA_TX_PATH_PGA_MUTE_DISABLE);
-+	}
- 
- 	return 0;
- }
--- 
-2.26.1
-
+Kuninori Morimoto

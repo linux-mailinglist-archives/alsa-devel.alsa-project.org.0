@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567BA32DD38
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 23:39:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B77C232DDAC
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 00:15:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBA3017F1;
-	Thu,  4 Mar 2021 23:38:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA3017F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20A4E17F1;
+	Fri,  5 Mar 2021 00:14:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20A4E17F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614897581;
-	bh=yNs7TNzDMoanYOV8/g8qKGz5+01dSnJTH/PYKEhSF3g=;
+	s=default; t=1614899748;
+	bh=iHAYB80JtZZQlxs6dyz87bkEZd8olmKLC7irc+3Wrtk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CQgQMMyOFrBccX3BKIj/tKGXFDrb3kDbDHYx+C505Mt0qx5Tf0nam8LLcH0j9vtag
-	 qJgRyHlOSuhP72iXQLcWlWSe2ikE9+i823oeThXe+EjAabrZcpiBltZ2IoWzA+mQfH
-	 DjZVufjVyHVAi9aYaJqtju1DJmzWiVH77B6Ymka0=
+	b=b2jYmzlHgSkNNO6fh4b1kj6P3s2en4e5ShO3T7noz6DbanS/Q0bo5QrpUVd3Ucpgs
+	 9E5v2jwLwwkqng25weaXnBj02dZOFYRX0FeJL1N1rFnu+QHscSuUnLZ3uG1F2mAoS5
+	 PKdhBVzlZVbjhapUMH0CrzB8ohr2WCqyNbVgmjRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A321F8007E;
-	Thu,  4 Mar 2021 23:38:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85B54F80271;
+	Fri,  5 Mar 2021 00:14:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0CE4F80269; Thu,  4 Mar 2021 23:38:07 +0100 (CET)
+ id 39095F80269; Fri,  5 Mar 2021 00:14:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 902ADF8007E
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 23:37:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 902ADF8007E
-IronPort-SDR: HzlGceRr00a9JYdjpdbz1EIHclkQPP0UV+8YGHZGu6LIPqVaNWwK1tHvgzIZJjej1dE09RITJC
- uZPSCsuWp0kg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9913"; a="174634545"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6EE4F80227
+ for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 00:14:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6EE4F80227
+IronPort-SDR: abpbzoOz6EE4t0k54y9ygNZHy+03egGH7r5jBkwml3RzD8mYHpIvw+oFKetSJhEYUIKii4HE6d
+ b7mQDiLMBThw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9913"; a="187581184"
 X-IronPort-AV: E=Sophos;i="5.81,223,1610438400"; 
- d="gz'50?scan'50,208,50";a="174634545"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2021 14:33:33 -0800
-IronPort-SDR: EUOenRK4VZYodii80QGI8+/pCpbqdqRH237mUa/DM947ttz0H1BoyUwJJOwICVHYuk2uBHKGgr
- 59UfRfXDzFaw==
+ d="gz'50?scan'50,208,50";a="187581184"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2021 15:13:53 -0800
+IronPort-SDR: spb9NRE+szUa1yUuvttevx8jSNyVrjTC8cIkCSCwkSW55DBGUTjBqzxjyMcuQUzD2AsNPAt8PS
+ CpDIT90eqcLg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.81,223,1610438400"; 
- d="gz'50?scan'50,208,50";a="436440326"
+ d="gz'50?scan'50,208,50";a="507782370"
 Received: from lkp-server02.sh.intel.com (HELO 2482ff9f8ac0) ([10.239.97.151])
- by fmsmga002.fm.intel.com with ESMTP; 04 Mar 2021 14:32:02 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 04 Mar 2021 15:13:51 -0800
 Received: from kbuild by 2482ff9f8ac0 with local (Exim 4.92)
  (envelope-from <lkp@intel.com>)
- id 1lHwVZ-0002Qo-GZ; Thu, 04 Mar 2021 22:31:49 +0000
-Date: Fri, 5 Mar 2021 06:31:13 +0800
+ id 1lHxAE-0002Rc-Gw; Thu, 04 Mar 2021 23:13:50 +0000
+Date: Fri, 5 Mar 2021 07:13:02 +0800
 From: kernel test robot <lkp@intel.com>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 2/4] ALSA: hda/cirrus: Add support for CS8409 HDA
- bridge and CS42L42 companion codec.
-Message-ID: <202103050656.r9I5ppSO-lkp@intel.com>
-References: <20210304190241.5363-3-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v2 3/4] ALSA: hda/cirrus: Add jack detect interrupt
+ support from CS42L42 companion codec.
+Message-ID: <202103050718.Itgtqg46-lkp@intel.com>
+References: <20210304190241.5363-4-vitalyr@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="cNdxnHkX5QqsyA0e"
+Content-Type: multipart/mixed; boundary="BXVAT5kNtrzKuDFl"
 Content-Disposition: inline
-In-Reply-To: <20210304190241.5363-3-vitalyr@opensource.cirrus.com>
+In-Reply-To: <20210304190241.5363-4-vitalyr@opensource.cirrus.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: clang-built-linux@googlegroups.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
@@ -85,7 +85,7 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---cNdxnHkX5QqsyA0e
+--BXVAT5kNtrzKuDFl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -108,10 +108,10 @@ reproduce (this is a W=1 build):
         chmod +x ~/bin/make.cross
         # install riscv cross compiling tool for clang build
         # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/0day-ci/linux/commit/c4eca3e1e50f15e73efe5c3c605ce4e584ace51d
+        # https://github.com/0day-ci/linux/commit/9d4c2aa0fd6872aa8b866929c1537ce2905a6dba
         git remote add linux-review https://github.com/0day-ci/linux
         git fetch --no-tags linux-review Vitaly-Rodionov/ALSA-hda-cirrus-Add-support-for-CS8409-HDA-bridge-and-CS42L42-companion-codec/20210305-030714
-        git checkout c4eca3e1e50f15e73efe5c3c605ce4e584ace51d
+        git checkout 9d4c2aa0fd6872aa8b866929c1537ce2905a6dba
         # save the attached .config to linux build tree
         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross ARCH=riscv 
 
@@ -120,7 +120,7 @@ Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
->> sound/pci/hda/patch_cirrus.c:1511:37: warning: variable 'retval' is uninitialized when used here [-Wuninitialized]
+   sound/pci/hda/patch_cirrus.c:1529:37: warning: variable 'retval' is uninitialized when used here [-Wuninitialized]
                                    __func__, i2c_address, i2c_reg, retval);
                                                                    ^~~~~~
    sound/pci/hda/hda_local.h:723:39: note: expanded from macro 'codec_err'
@@ -129,64 +129,301 @@ All warnings (new ones prefixed by >>):
    include/linux/dev_printk.h:112:32: note: expanded from macro 'dev_err'
            _dev_err(dev, dev_fmt(fmt), ##__VA_ARGS__)
                                          ^~~~~~~~~~~
-   sound/pci/hda/patch_cirrus.c:1501:21: note: initialize the variable 'retval' to silence this warning
+   sound/pci/hda/patch_cirrus.c:1519:21: note: initialize the variable 'retval' to silence this warning
            unsigned int retval;
                               ^
                                = 0
-   1 warning generated.
+>> sound/pci/hda/patch_cirrus.c:1686:6: warning: no previous prototype for function 'cs8409_jack_unsol_event' [-Wmissing-prototypes]
+   void cs8409_jack_unsol_event(struct hda_codec *codec, unsigned int res)
+        ^
+   sound/pci/hda/patch_cirrus.c:1686:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+   void cs8409_jack_unsol_event(struct hda_codec *codec, unsigned int res)
+   ^
+   static 
+   2 warnings generated.
 
 
-vim +/retval +1511 sound/pci/hda/patch_cirrus.c
+vim +/cs8409_jack_unsol_event +1686 sound/pci/hda/patch_cirrus.c
 
-  1493	
-  1494	/* CS8409 slave i2cRead */
-  1495	static unsigned int cs8409_i2c_read(struct hda_codec *codec,
-  1496			unsigned int i2c_address,
-  1497			unsigned int i2c_reg,
-  1498			unsigned int paged)
-  1499	{
-  1500		unsigned int i2c_reg_data;
-  1501		unsigned int retval;
-  1502	
-  1503		cs8409_enable_i2c_clock(codec, 1);
-  1504		cs_vendor_coef_set(codec, CIR_I2C_ADDR, i2c_address);
-  1505	
-  1506		if (paged) {
-  1507			cs_vendor_coef_set(codec, CIR_I2C_QWRITE, i2c_reg >> 8);
-  1508			if (cs8409_i2c_wait_complete(codec) == -1) {
-  1509				codec_err(codec,
-  1510					"%s() Paged Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
-> 1511					__func__, i2c_address, i2c_reg, retval);
-  1512			}
-  1513		}
-  1514	
-  1515		i2c_reg_data = (i2c_reg << 8) & 0x0ffff;
-  1516		cs_vendor_coef_set(codec, CIR_I2C_QREAD, i2c_reg_data);
-  1517		if (cs8409_i2c_wait_complete(codec) == -1) {
-  1518			codec_err(codec, "%s() Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
-  1519				__func__, i2c_address, i2c_reg, retval);
-  1520		}
-  1521	
-  1522		/* Register in bits 15-8 and the data in 7-0 */
-  1523		retval = cs_vendor_coef_get(codec, CIR_I2C_QREAD);
-  1524		retval &= 0x0ff;
-  1525	
-  1526		cs8409_enable_i2c_clock(codec, 0);
-  1527	
-  1528		return retval;
-  1529	}
-  1530	
+  1511	
+  1512	/* CS8409 slave i2cRead */
+  1513	static unsigned int cs8409_i2c_read(struct hda_codec *codec,
+  1514			unsigned int i2c_address,
+  1515			unsigned int i2c_reg,
+  1516			unsigned int paged)
+  1517	{
+  1518		unsigned int i2c_reg_data;
+> 1519		unsigned int retval;
+  1520	
+  1521		cs8409_enable_i2c_clock(codec, 1);
+  1522		cs_vendor_coef_set(codec, CIR_I2C_ADDR, i2c_address);
+  1523	
+  1524		if (paged) {
+  1525			cs_vendor_coef_set(codec, CIR_I2C_QWRITE, i2c_reg >> 8);
+  1526			if (cs8409_i2c_wait_complete(codec) == -1) {
+  1527				codec_err(codec,
+  1528					"%s() Paged Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
+  1529					__func__, i2c_address, i2c_reg, retval);
+  1530			}
+  1531		}
+  1532	
+  1533		i2c_reg_data = (i2c_reg << 8) & 0x0ffff;
+  1534		cs_vendor_coef_set(codec, CIR_I2C_QREAD, i2c_reg_data);
+  1535		if (cs8409_i2c_wait_complete(codec) == -1) {
+  1536			codec_err(codec, "%s() Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
+  1537				__func__, i2c_address, i2c_reg, retval);
+  1538		}
+  1539	
+  1540		/* Register in bits 15-8 and the data in 7-0 */
+  1541		retval = cs_vendor_coef_get(codec, CIR_I2C_QREAD);
+  1542		retval &= 0x0ff;
+  1543	
+  1544		cs8409_enable_i2c_clock(codec, 0);
+  1545	
+  1546		return retval;
+  1547	}
+  1548	
+  1549	/* CS8409 slave i2cWrite */
+  1550	static unsigned int cs8409_i2c_write(struct hda_codec *codec,
+  1551			unsigned int i2c_address, unsigned int i2c_reg,
+  1552			unsigned int i2c_data,
+  1553			unsigned int paged)
+  1554	{
+  1555		unsigned int retval = 0;
+  1556		unsigned int i2c_reg_data = 0;
+  1557	
+  1558		cs8409_enable_i2c_clock(codec, 1);
+  1559		cs_vendor_coef_set(codec, CIR_I2C_ADDR, i2c_address);
+  1560	
+  1561		if (paged) {
+  1562			cs_vendor_coef_set(codec, CIR_I2C_QWRITE, i2c_reg >> 8);
+  1563			if (cs8409_i2c_wait_complete(codec) == -1) {
+  1564				codec_err(codec,
+  1565					"%s() Paged Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
+  1566					__func__, i2c_address, i2c_reg, retval);
+  1567			}
+  1568		}
+  1569	
+  1570		i2c_reg_data = ((i2c_reg << 8) & 0x0ff00) | (i2c_data & 0x0ff);
+  1571		cs_vendor_coef_set(codec, CIR_I2C_QWRITE, i2c_reg_data);
+  1572	
+  1573		if (cs8409_i2c_wait_complete(codec) == -1) {
+  1574			codec_err(codec, "%s() Transaction Failed 0x%02x : 0x%04x = 0x%02x\n",
+  1575				__func__, i2c_address, i2c_reg, retval);
+  1576		}
+  1577	
+  1578		cs8409_enable_i2c_clock(codec, 0);
+  1579	
+  1580		return retval;
+  1581	}
+  1582	
+  1583	/* Assert/release RTS# line to CS42L42 */
+  1584	static void cs8409_cs42l42_reset(struct hda_codec *codec)
+  1585	{
+  1586		struct cs_spec *spec = codec->spec;
+  1587	
+  1588		/* Assert RTS# line */
+  1589		snd_hda_codec_write(codec,
+  1590				codec->core.afg, 0, AC_VERB_SET_GPIO_DATA, 0);
+  1591		/* wait ~10ms */
+  1592		usleep_range(10000, 15000);
+  1593		/* Release RTS# line */
+  1594		snd_hda_codec_write(codec,
+  1595				codec->core.afg, 0, AC_VERB_SET_GPIO_DATA, GPIO5_INT);
+  1596		/* wait ~10ms */
+  1597		usleep_range(10000, 15000);
+  1598	
+  1599		mutex_lock(&spec->cs8409_i2c_mux);
+  1600	
+  1601		/* Clear interrupts, by reading interrupt status registers */
+  1602		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1308, 1);
+  1603		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1309, 1);
+  1604		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130A, 1);
+  1605		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130F, 1);
+  1606	
+  1607		mutex_unlock(&spec->cs8409_i2c_mux);
+  1608	
+  1609	}
+  1610	
+  1611	/* Configure CS42L42 slave codec for jack autodetect */
+  1612	static int cs8409_cs42l42_enable_jack_detect(struct hda_codec *codec)
+  1613	{
+  1614		struct cs_spec *spec = codec->spec;
+  1615	
+  1616		mutex_lock(&spec->cs8409_i2c_mux);
+  1617	
+  1618		/* Set TIP_SENSE_EN for analog front-end of tip sense. */
+  1619		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1b70, 0x0020, 1);
+  1620		/* Clear WAKE# */
+  1621		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1b71, 0x0001, 1);
+  1622		/* Wait ~2.5ms */
+  1623		usleep_range(2500, 3000);
+  1624		/* Set mode WAKE# output follows the combination logic directly */
+  1625		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1b71, 0x0020, 1);
+  1626		/* Clear interrupts status */
+  1627		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130f, 1);
+  1628		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1b7b, 1);
+  1629		/* Enable interrupt */
+  1630		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1320, 0x03, 1);
+  1631		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1b79, 0x00, 1);
+  1632	
+  1633		mutex_unlock(&spec->cs8409_i2c_mux);
+  1634	
+  1635		return 0;
+  1636	}
+  1637	
+  1638	/* Enable and run CS42L42 slave codec jack auto detect */
+  1639	static void cs8409_cs42l42_run_jack_detect(struct hda_codec *codec)
+  1640	{
+  1641		struct cs_spec *spec = codec->spec;
+  1642	
+  1643		mutex_lock(&spec->cs8409_i2c_mux);
+  1644	
+  1645		/* Clear interrupts */
+  1646		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1308, 1);
+  1647		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1b77, 1);
+  1648	
+  1649		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1102, 0x87, 1);
+  1650		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1f06, 0x86, 1);
+  1651		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1b74, 0x07, 1);
+  1652		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x131b, 0x01, 1);
+  1653		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1120, 0x80, 1);
+  1654		/* Wait ~110ms*/
+  1655		usleep_range(110000, 200000);
+  1656		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x111f, 0x77, 1);
+  1657		cs8409_i2c_write(codec, CS42L42_I2C_ADDR, 0x1120, 0xc0, 1);
+  1658		/* Wait ~10ms */
+  1659		usleep_range(10000, 25000);
+  1660	
+  1661		mutex_unlock(&spec->cs8409_i2c_mux);
+  1662	
+  1663	}
+  1664	
+  1665	static void cs8409_cs42l42_reg_setup(struct hda_codec *codec)
+  1666	{
+  1667		const struct cs8409_i2c_param *seq = cs42l42_init_reg_seq;
+  1668		struct cs_spec *spec = codec->spec;
+  1669	
+  1670		mutex_lock(&spec->cs8409_i2c_mux);
+  1671	
+  1672		for (; seq->addr; seq++)
+  1673			cs8409_i2c_write(codec, CS42L42_I2C_ADDR, seq->addr, seq->reg, 1);
+  1674	
+  1675		mutex_unlock(&spec->cs8409_i2c_mux);
+  1676	
+  1677	}
+  1678	
+  1679	/*
+  1680	 * In the case of CS8409 we do not have unsolicited events from NID's 0x24
+  1681	 * and 0x34 where hs mic and hp are connected. Companion codec CS42L42 will
+  1682	 * generate interrupt via gpio 4 to notify jack events. We have to overwrite
+  1683	 * generic snd_hda_jack_unsol_event(), read CS42L42 jack detect status registers
+  1684	 * and then notify status via generic snd_hda_jack_unsol_event() call.
+  1685	 */
+> 1686	void cs8409_jack_unsol_event(struct hda_codec *codec, unsigned int res)
+  1687	{
+  1688		struct cs_spec *spec = codec->spec;
+  1689		int status_changed = 0;
+  1690		unsigned int reg_cdc_status = 0;
+  1691		unsigned int reg_hs_status = 0;
+  1692		unsigned int reg_ts_status = 0;
+  1693		int type = 0;
+  1694		struct hda_jack_tbl *jk;
+  1695	
+  1696		/* jack_unsol_event() will be called every time gpio line changing state.
+  1697		 * In this case gpio4 line goes up as a result of reading interrupt status
+  1698		 * registers in previous cs8409_jack_unsol_event() call.
+  1699		 * We don't need to handle this event, ignoring...
+  1700		 */
+  1701		if ((res & (1 << 4)))
+  1702			return;
+  1703	
+  1704		mutex_lock(&spec->cs8409_i2c_mux);
+  1705	
+  1706		/* Read jack detect status registers */
+  1707		reg_cdc_status = cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1308, 1);
+  1708		reg_hs_status = cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1124, 1);
+  1709		reg_ts_status = cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130f, 1);
+  1710	
+  1711		/* Clear interrupts */
+  1712		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1b7b, 1);
+  1713		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1308, 1);
+  1714		cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130f, 1);
+  1715	
+  1716		mutex_unlock(&spec->cs8409_i2c_mux);
+  1717	
+  1718		/* HSDET_AUTO_DONE */
+  1719		if (reg_cdc_status & CS42L42_HSDET_AUTO_DONE) {
+  1720	
+  1721			type = ((reg_hs_status & CS42L42_HSTYPE_MASK) + 1);
+  1722			/* CS42L42 reports optical jack as type 4
+  1723			 * We don't handle optical jack
+  1724			 */
+  1725			if (type != 4) {
+  1726				if (!spec->cs42l42_hp_jack_in) {
+  1727					status_changed = 1;
+  1728					spec->cs42l42_hp_jack_in = 1;
+  1729				}
+  1730				/* type = 3 has no mic */
+  1731				if ((!spec->cs42l42_mic_jack_in) && (type != 3)) {
+  1732					status_changed = 1;
+  1733					spec->cs42l42_mic_jack_in = 1;
+  1734				}
+  1735			}
+  1736	
+  1737		} else {
+  1738			/* TIP_SENSE INSERT/REMOVE */
+  1739			switch (reg_ts_status) {
+  1740			case CS42L42_JACK_INSERTED:
+  1741				cs8409_cs42l42_run_jack_detect(codec);
+  1742				break;
+  1743	
+  1744			case CS42L42_JACK_REMOVED:
+  1745				if (spec->cs42l42_hp_jack_in || spec->cs42l42_mic_jack_in) {
+  1746					status_changed = 1;
+  1747					spec->cs42l42_hp_jack_in = 0;
+  1748					spec->cs42l42_mic_jack_in = 0;
+  1749				}
+  1750				break;
+  1751	
+  1752			default:
+  1753				/* jack in transition */
+  1754				status_changed = 0;
+  1755				break;
+  1756			}
+  1757		}
+  1758	
+  1759		if (status_changed) {
+  1760	
+  1761			snd_hda_set_pin_ctl(codec, CS8409_CS42L42_SPK_PIN_NID,
+  1762					(spec->cs42l42_hp_jack_in)?0 : PIN_OUT);
+  1763	
+  1764			/* Report jack*/
+  1765			jk = snd_hda_jack_tbl_get_mst(codec, CS8409_CS42L42_HP_PIN_NID, 0);
+  1766			if (jk) {
+  1767				snd_hda_jack_unsol_event(codec,
+  1768					(jk->tag << AC_UNSOL_RES_TAG_SHIFT) & AC_UNSOL_RES_TAG);
+  1769			}
+  1770			/* Report jack*/
+  1771			jk = snd_hda_jack_tbl_get_mst(codec, CS8409_CS42L42_AMIC_PIN_NID, 0);
+  1772			if (jk) {
+  1773				snd_hda_jack_unsol_event(codec,
+  1774					(jk->tag << AC_UNSOL_RES_TAG_SHIFT) & AC_UNSOL_RES_TAG);
+  1775			}
+  1776		}
+  1777	}
+  1778	
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---cNdxnHkX5QqsyA0e
+--BXVAT5kNtrzKuDFl
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICF5ZQWAAAy5jb25maWcAlDxdc9u2su/9FZp05k7PQxpZtmPn3vEDRIISIpJgAFCS88JR
+H4sICHhjQWAAAy5jb25maWcAlDxdc9u2su/9FZp05k7PQxpZtmPn3vEDRIISIpJgAFCS88JR
 ZDnVrS15JDlt7q+/uwA/ABKU2zNn0mh3sVgsFvsFML/+8uuAvJ72z6vTdr16evo5+L7ZbQ6r
 0+Zh8Lh92vzPIOSDlKsBDZn6HYjj7e717w+H7XH9Y3D9+8Xo9+H7w/piMNscdpunQbDfPW6/
 v8L47X73y6+/BDyN2KQIgmJOhWQ8LRRdqrt366fV7vvgx+ZwBLrBxeXvw9+Hg9++b0///eED
@@ -673,4 +910,4 @@ YayXHWAIqn8+8475Nul33RYGIZggDWKCFjSiAIxLbMUIhbCGjouEngPyTUs1n+3p+IDISRK+
 TjqvCaNUQp8MeHEcwc1yLjIFaKT2tYfunlbKwkGWIQsdqGLGODPlxs/Mnbwc9mX9D8LxfUhM
 kAEA
 
---cNdxnHkX5QqsyA0e--
+--BXVAT5kNtrzKuDFl--

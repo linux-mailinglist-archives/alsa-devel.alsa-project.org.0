@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F3B32C5C0
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 02:00:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D996A32C5AE
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 02:00:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C1491AC8;
-	Thu,  4 Mar 2021 01:59:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C1491AC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E5291AA7;
+	Thu,  4 Mar 2021 01:59:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E5291AA7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614819633;
-	bh=8nPQO8MexOePnyeYzs8lBN3FiZNT9O24IqQnDaZ9rR8=;
+	s=default; t=1614819613;
+	bh=Zo9ejpK3J2YIjy6+5NGUQ8DdIFh8iL3EeJFdU7B3QdQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GrK/sjSR1A3NQYvIg8j0Mb6PfXoAcKahL/8SoM/le42xVeueLMlQcNJoVaS32a7lW
-	 qkWmI9WfWoZN8xuj4yAsR82tWNZ5fDr4Fdg1Wixy/xesj0bCpsaITRUOJpGgP0Vtlz
-	 3dQ+QJShzej6YHJjokG2w3ISnxomCOaCTpcL8DmQ=
+	b=XPy4BnYpP1eTnruaL2OsZ/W5WZov3anUR0Q20mvq26Iljh/VroA0clKCpD/fVhMgg
+	 pqd+yABk72S9g/24lfBtH5I4aX8LhY2IJm1x3CKvxV51dp8JSW/b4dJvmTXlzkpr1a
+	 tGdKV42itZYbGU06q9z9EKcWok40yHeeG8P7X/Mw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 240C0F804F2;
-	Thu,  4 Mar 2021 01:56:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A0CFF804E6;
+	Thu,  4 Mar 2021 01:56:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3035F804F1; Thu,  4 Mar 2021 01:56:08 +0100 (CET)
+ id 1783FF804EB; Thu,  4 Mar 2021 01:56:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26863F804E7
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:56:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26863F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62224F804E6
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:56:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62224F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JRPNtuHO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C85664E7C;
- Thu,  4 Mar 2021 00:56:03 +0000 (UTC)
+ header.b="ecJ/RPVd"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5495D64EC3;
+ Thu,  4 Mar 2021 00:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614819364;
- bh=8nPQO8MexOePnyeYzs8lBN3FiZNT9O24IqQnDaZ9rR8=;
+ s=k20201202; t=1614819358;
+ bh=Zo9ejpK3J2YIjy6+5NGUQ8DdIFh8iL3EeJFdU7B3QdQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=JRPNtuHOGAv3B3nt7jGwgWhHwyETn/gzxhogN0JzP5y0eLmx2YBs6Mrv4tNZVZ+/d
- 69/n/9goH5rCFjYlxdG/F4wNAmef5LsCGRTzt3gwuuFBmdMTJkCgWOXNwkYaEscNnS
- 8VSaHG0Xb5e/MKaLRknv4uhuQL+Iya+Nr26iFLuqQIcSJKENvO8RZfRBoK1WHCEpuP
- JQKVdTIxZFmZC7/M0nV9bSfiD3yqVuDpD+kk/R9kjKcqYU8pAjbdV6urNDJY5YJ5el
- USNZFWxeqf3dSONujSj2BjiTHO6IjZkV81X8jGmsiemUAIFOuplrpddDfdzGAbG//Q
- 7mhSeAC6OOAVQ==
+ b=ecJ/RPVdkKlVdbrEtmweTIIhN8aAj3VaNB1MFvdlHRmQSgTV8VfuNlmdJlbzyfTmM
+ AVF85i5OQBNownfzpk3/t38bm+wOHUxpn1hSsTzXJ+JQAzIJdcChyRevJPz38j0G+D
+ MNv1xGRIGuvLjX1aVCldFbb5gZs/mUJc0Kmi+kDqyJMlKpAgUMJv5Z42901XsNdg5f
+ y6YwEyVBcX+8yqNfRKqXyCmOaElQQKjNWgLkCOjgjiYYEEaBhCAXkXpqRkS7lqXfrk
+ KGsAckSvQOkEU+HbVLmSUbUCwqhwIRWw7uJErXBonDbFVsODKFNPuPNnXzKhGB2gxv
+ 2zLHBJlUJwGkQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20210301174639.117017-1-pierre-louis.bossart@linux.intel.com>
-References: <20210301174639.117017-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2] ASoC: codecs: nau8825: fix kernel-doc
-Message-Id: <161481924068.9553.9447813014180266555.b4-ty@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20210301193328.2123511-1-festevam@gmail.com>
+References: <20210301193328.2123511-1-festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: wm8524: Do not print probe defer error
+Message-Id: <161481924069.9553.4493444690118060877.b4-ty@kernel.org>
 Date: Thu, 04 Mar 2021 00:54:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, vkoul@kernel.org
+Cc: patches@opensource.cirrus.com, shengjiu.wang@nxp.com,
+ alsa-devel@alsa-project.org, cphealy@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,13 +78,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Mar 2021 11:46:39 -0600, Pierre-Louis Bossart wrote:
-> v5.12-rc1 flags new warnings with make W=1, fix missing or broken
-> function descriptors.
+On Mon, 1 Mar 2021 16:33:28 -0300, Fabio Estevam wrote:
+> On an imx8mq-evk the following error is seen:
 > 
-> sound/soc/codecs/nau8825.c:298: warning: wrong kernel-doc identifier
-> on line:
->  * Ramp up the headphone volume change gradually to target level.
+> [    1.375809] wm8524-codec audio-codec: Failed to get mute line: -517
+> 
+> It happens because the codec driver may probe prior to the imx gpio
+> driver, which causes a probe defer.
 > 
 > [...]
 
@@ -94,8 +94,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: nau8825: fix kernel-doc
-      commit: e2fc891044762c3308380a002c36adf087e95542
+[1/1] ASoC: wm8524: Do not print probe defer error
+      commit: 59dffc7769d720aab10b8c70acfcf1dea4a493f3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

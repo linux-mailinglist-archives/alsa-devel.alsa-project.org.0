@@ -2,74 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30C232BC6D
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Mar 2021 23:01:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA55E32C530
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 01:58:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D61519FF;
-	Wed,  3 Mar 2021 23:00:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D61519FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A23B1AA1;
+	Thu,  4 Mar 2021 01:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A23B1AA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614808870;
-	bh=VJ7q0MZZUZeWZmwbfCm08F1YOvaS+DKjKMxjfHuAMQM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1614819520;
+	bh=L0OP+7WE67QJyKe867n6tBB39PeMXXr6mqmjqW7ik3I=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KnbYVecSn46F2w1A+a+gk6CICuUn4gt8yr9MytkF8Os+TU+8GEGb99WhZIPLMH7wZ
-	 2fguqWBi+EGGFSXwwSsF22jdeROLnsniPdNdiEXsSth6aafUWRbErTmVz8/v/E7S8E
-	 SUUN1MZEOAQnQbx1XTZV433YBTXqsFnNHtpnUpzM=
+	b=qAvwyBkz2J0B5jBxJ3x2I7Bo9ELuSSeoJbQqUGvCGXOOyYpRTM+ibUlG8ZHbAyGTl
+	 JMxBS4tB6e34p5Aog37nFcbY9jNHBjyjc805P0lwJtqCNlS4RhB3l3jW6u7wKkpptz
+	 GJMpfV/zw/XT+lMDA5jM/p9WSHFQBwXY6prZmhCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C8D8F802C4;
-	Wed,  3 Mar 2021 22:59:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51F8BF804AE;
+	Thu,  4 Mar 2021 01:55:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B95F6F8027D; Wed,  3 Mar 2021 22:59:26 +0100 (CET)
+ id 13BF8F804AD; Thu,  4 Mar 2021 01:55:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24F40F8012D
- for <alsa-devel@alsa-project.org>; Wed,  3 Mar 2021 22:59:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24F40F8012D
-IronPort-SDR: T8jI3lMj9stsv02B0ysEjIfu4q9d9hNYhNdcZj68S9C2VXJMQtWHhy8J+8tWW5Yy0Ft5bGUSX1
- JC6TIBoOnhww==
-X-IronPort-AV: E=McAfee;i="6000,8403,9912"; a="174405702"
-X-IronPort-AV: E=Sophos;i="5.81,220,1610438400"; d="scan'208";a="174405702"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 13:59:16 -0800
-IronPort-SDR: 6dZauLo0rkIiwJ4EHv9A3wROd4/CtGYrMteQot/EYZlf/lmoBAzjGek5ybEj9M1pnTsQqx/R1z
- pNW2c6n6IvoA==
-X-IronPort-AV: E=Sophos;i="5.81,220,1610438400"; d="scan'208";a="586487028"
-Received: from srcook1-mobl1.amr.corp.intel.com (HELO [10.209.143.11])
- ([10.209.143.11])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 13:59:15 -0800
-Subject: Re: [PATCH 2/3] soundwire: qcom: add auto enumeration support
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
-References: <20210226170250.9067-1-srinivas.kandagatla@linaro.org>
- <20210226170250.9067-3-srinivas.kandagatla@linaro.org>
- <0c551b23-7ed4-59d7-72c2-284bdf8584f1@linux.intel.com>
- <4721dd27-c8ce-f988-3c10-794841390656@linaro.org>
- <01e5ea33-1813-069a-1674-042141947323@linux.intel.com>
- <601b585e-c3e3-4006-b078-d54c3fd36438@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c5fe182d-1769-73ed-0268-5353fd030521@linux.intel.com>
-Date: Wed, 3 Mar 2021 10:35:02 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 735C4F804A9
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:55:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 735C4F804A9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nRXBEoqe"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1170364EA4;
+ Thu,  4 Mar 2021 00:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1614819337;
+ bh=L0OP+7WE67QJyKe867n6tBB39PeMXXr6mqmjqW7ik3I=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=nRXBEoqeFGZGQKz2Qvzza5DTGlhVW1KUlBrsXeeRSCZ0TTABYVu+ttVGatWYCt9Oq
+ 4Z4VIDyLBP9w8kKo1pGz2qKPZ6l9zFAbG4BbOW7HuEp0INFz3hPiY93Z4qKokDcSpY
+ 2CXAQACZimFjdk5rnEyAG5uOzwLao5LfVoXZJJWRObUAIx+6HeiLoH8xWYrUZyXKd+
+ BUneCFg6fkLE0FsnqoTw6uIkrhnCwUs0vpPaGlb46aOaOM/cqmm7aJzzzR7z7yCYyS
+ +IxZucAfYXe9thHzMtnEzuBFeXt+bHiJO8b1LCpCFDUURd7WwBjHXUXFz4DxUpagHD
+ lcaFqkPXv2ETA==
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20210301235637.1177525-1-pierre-louis.bossart@linux.intel.com>
+References: <20210301235637.1177525-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: Intel: soc-acpi: remove unused TigerLake
+ configurations
+Message-Id: <161481924069.9553.424705069305614938.b4-ty@kernel.org>
+Date: Thu, 04 Mar 2021 00:54:00 +0000
 MIME-Version: 1.0
-In-Reply-To: <601b585e-c3e3-4006-b078-d54c3fd36438@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,74 +79,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 3/3/21 3:38 AM, Srinivas Kandagatla wrote:
+On Mon, 1 Mar 2021 17:56:35 -0600, Pierre-Louis Bossart wrote:
+> Remove two machine descriptors which were added for development on
+> Intel RVPs but are no longer used or productized. This will not have
+> any impact on end-users. The corresponding cleanup was applied in the
+> SOF topologies.
 > 
+> Pierre-Louis Bossart (2):
+>   ASoC: Intel: soc-acpi: remove unused TGL table with rt5682 only
+>   ASoC: Intel: soc-acpi: remove TGL RVP mixed SoundWire/TDM config
 > 
-> On 02/03/2021 14:34, Pierre-Louis Bossart wrote:
->>
->>
->>>>> +        if (!val1 && !val2)
->>>>> +            break;
->>>>> +
->>>>> +        addr = buf2[1] | (buf2[0] << 8) | (buf1[3] << 16) |
->>>>> +            ((u64)buf1[2] << 24) | ((u64)buf1[1] << 32) |
->>>>> +            ((u64)buf1[0] << 40);
->>>>> +
->>>>> +        sdw_extract_slave_id(bus, addr, &id);
->>>>> +        /* Now compare with entries */
->>>>> +        list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
->>>>> +            if (sdw_compare_devid(slave, id) == 0) {
->>>>> +                u32 status = qcom_swrm_get_n_device_status(ctrl, i);
->>>>> +                if (status == SDW_SLAVE_ATTACHED) {
->>>>> +                    slave->dev_num = i;
->>>>> +                    mutex_lock(&bus->bus_lock);
->>>>> +                    set_bit(i, bus->assigned);
->>>>> +                    mutex_unlock(&bus->bus_lock);
->>>>> +
->>>>> +                }
->>>>
->>>> And that part is strange as well. The bus->assigned bit should be 
->>>> set even if the Slave is not in the list provided by platform 
->>>> firmware. It's really tracking the state of the hardware, and it 
->>>> should not be influenced by what software knows to manage.
->>>
->>> Am not 100% sure If I understand the concern here, but In normal (non 
->>> auto enum) cases this bit is set by the bus code while its doing 
->>> enumeration to assign a dev number from the assigned bitmap!
->>>
->>> However in this case where auto enumeration happens it makes sense to 
->>> set this here with matching dev number!
->>>
->>> AFAIU from code, each bit in this bitmap corresponds to slave dev 
->>> number!
->>
->> Yes, but the point was "why do you compare with information coming 
->> from platform firmware"? if the hardware reports the presence of 
->> devices on 
-> 
-> This is the logic that hardware IP document suggests to use to get get 
-> the correct the device number associated with the slave!
-> 
-> 
->> the link, why not use the information as is?
->>
->> You recently added code that helps us deal with devices that are not 
->> listed in DT or ACPI tables, so why would we filter in this specific 
->> loop?
+> [...]
 
-I don't think my point was understood, so let me try to explain it 
-differently.
+Applied to
 
-it's my understanding that the hardware reads the DevID registers and 
-writes a Device Number - so that the entire enumeration sequence started 
-by reading DevID0 and finished by a successful write to SCP_DevNum is 
-handled in hardware.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-The question is: what happens if that device is NOT described in the 
-Device Tree data? The loop over bus->slaves will not find this device by 
-comparing with known devID values, so the set_bit(i, bus->assigned) will 
-not happen.
+Thanks!
 
+[1/2] ASoC: Intel: soc-acpi: remove unused TGL table with rt5682 only
+      commit: 94e534632b1ba6066f7af976d2e3059050706c3d
+[2/2] ASoC: Intel: soc-acpi: remove TGL RVP mixed SoundWire/TDM config
+      commit: bec93283948a9edba21ca6689a28aec2b7df7ecb
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

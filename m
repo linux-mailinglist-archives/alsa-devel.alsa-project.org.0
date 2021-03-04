@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA55E32C530
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 01:58:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FE732C56D
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 01:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A23B1AA1;
-	Thu,  4 Mar 2021 01:57:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A23B1AA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 016E519FD;
+	Thu,  4 Mar 2021 01:58:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016E519FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614819520;
-	bh=L0OP+7WE67QJyKe867n6tBB39PeMXXr6mqmjqW7ik3I=;
+	s=default; t=1614819564;
+	bh=J50c6MSt4szRnHViANGO4o4su8hX114G43wCQDJVhz0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qAvwyBkz2J0B5jBxJ3x2I7Bo9ELuSSeoJbQqUGvCGXOOyYpRTM+ibUlG8ZHbAyGTl
-	 JMxBS4tB6e34p5Aog37nFcbY9jNHBjyjc805P0lwJtqCNlS4RhB3l3jW6u7wKkpptz
-	 GJMpfV/zw/XT+lMDA5jM/p9WSHFQBwXY6prZmhCc=
+	b=bOXpI8IVVrgVAS+ypJyDxMY+nCUHRujdWNeJCqsRravFnPiWQFCatRKoG7gH8VG30
+	 fFmW0tlpK0DwGR9ibAu0nEhhKQxFQgg1NMIH/3hBEfujf8w5aFOnJ5uSP2DYELkk/B
+	 m+O59TLjRuaX+p54MXPkHDIbhzx3SUNrE9eXlN/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51F8BF804AE;
-	Thu,  4 Mar 2021 01:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08A65F804CF;
+	Thu,  4 Mar 2021 01:55:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13BF8F804AD; Thu,  4 Mar 2021 01:55:42 +0100 (CET)
+ id 4029BF804C1; Thu,  4 Mar 2021 01:55:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 735C4F804A9
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:55:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 735C4F804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB4C3F804AF
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 01:55:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB4C3F804AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nRXBEoqe"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1170364EA4;
- Thu,  4 Mar 2021 00:55:36 +0000 (UTC)
+ header.b="TlXEuVYi"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BBAD664E99;
+ Thu,  4 Mar 2021 00:55:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1614819337;
- bh=L0OP+7WE67QJyKe867n6tBB39PeMXXr6mqmjqW7ik3I=;
+ s=k20201202; t=1614819348;
+ bh=J50c6MSt4szRnHViANGO4o4su8hX114G43wCQDJVhz0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nRXBEoqeFGZGQKz2Qvzza5DTGlhVW1KUlBrsXeeRSCZ0TTABYVu+ttVGatWYCt9Oq
- 4Z4VIDyLBP9w8kKo1pGz2qKPZ6l9zFAbG4BbOW7HuEp0INFz3hPiY93Z4qKokDcSpY
- 2CXAQACZimFjdk5rnEyAG5uOzwLao5LfVoXZJJWRObUAIx+6HeiLoH8xWYrUZyXKd+
- BUneCFg6fkLE0FsnqoTw6uIkrhnCwUs0vpPaGlb46aOaOM/cqmm7aJzzzR7z7yCYyS
- +IxZucAfYXe9thHzMtnEzuBFeXt+bHiJO8b1LCpCFDUURd7WwBjHXUXFz4DxUpagHD
- lcaFqkPXv2ETA==
+ b=TlXEuVYiLV3zoIljPwRVd8uikAbUzeWiSjOvUf6w8Uj9q8IKdd5gQ3zrwlUS/YrQ1
+ UnUljVk+NI5VdbrH5omCzobkpii98txBtp1bTtypWdfeKpnJ033HykIHm7HiyMKhPa
+ kyX08d3n/fan8pPvhVvk14I57a2Bplm94qCt+gDRudf5iq3JF+wQIKZPZQpiBaJFEN
+ D4gCtRRPdBYe1WGpnFtOoG3GuuuhprLHd0b12aPlTKEkOkvcFZhUjFEBtB96AYeCWD
+ bG0N2B53nGTZBaA1MBVlWeXmgvZ8jat+cv0JkeWl+Y5edlXa1T1Rjjq4KjQm64rgCk
+ 5S2JBnbP0Yyfw==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20210301235637.1177525-1-pierre-louis.bossart@linux.intel.com>
-References: <20210301235637.1177525-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: Intel: soc-acpi: remove unused TigerLake
- configurations
-Message-Id: <161481924069.9553.424705069305614938.b4-ty@kernel.org>
+To: lgirdwood@gmail.com, Yang Li <yang.lee@linux.alibaba.com>
+In-Reply-To: <1614762481-102466-1-git-send-email-yang.lee@linux.alibaba.com>
+References: <1614762481-102466-1-git-send-email-yang.lee@linux.alibaba.com>
+Subject: Re: [PATCH] SoC: codecs: fix platform_no_drv_owner.cocci warnings
+Message-Id: <161481924070.9553.6743190852417137735.b4-ty@kernel.org>
 Date: Thu, 04 Mar 2021 00:54:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,17 +77,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Mar 2021 17:56:35 -0600, Pierre-Louis Bossart wrote:
-> Remove two machine descriptors which were added for development on
-> Intel RVPs but are no longer used or productized. This will not have
-> any impact on end-users. The corresponding cleanup was applied in the
-> SOF topologies.
+On Wed, 3 Mar 2021 17:08:01 +0800, Yang Li wrote:
+> ./sound/soc/codecs/lpass-rx-macro.c:3588:3-8: No need to set .owner here.
+> The core will do it.
 > 
-> Pierre-Louis Bossart (2):
->   ASoC: Intel: soc-acpi: remove unused TGL table with rt5682 only
->   ASoC: Intel: soc-acpi: remove TGL RVP mixed SoundWire/TDM config
-> 
-> [...]
+> Remove .owner field if calls are used which set it automatically
 
 Applied to
 
@@ -97,10 +89,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: Intel: soc-acpi: remove unused TGL table with rt5682 only
-      commit: 94e534632b1ba6066f7af976d2e3059050706c3d
-[2/2] ASoC: Intel: soc-acpi: remove TGL RVP mixed SoundWire/TDM config
-      commit: bec93283948a9edba21ca6689a28aec2b7df7ecb
+[1/1] SoC: codecs: fix platform_no_drv_owner.cocci warnings
+      commit: 0ce5d3ac4ffe5c3b2d3ead09692e0bd7ff7487ca
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

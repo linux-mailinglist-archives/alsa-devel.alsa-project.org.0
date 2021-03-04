@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C9732D51E
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 15:19:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4430332D536
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Mar 2021 15:24:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCD5F173D;
-	Thu,  4 Mar 2021 15:18:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD5F173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B04F5169A;
+	Thu,  4 Mar 2021 15:23:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B04F5169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614867555;
-	bh=iejwrz+7uaxRPFmR79p7OEfBtoSNvewu9sPukKUFGuA=;
+	s=default; t=1614867854;
+	bh=oVkaKskkVseWQS5ShzSDBf/NCfLIIRLAW07EbAYJnRc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ONhwScO/abw8J2Ec9rNl4GJvWm+tw7FNNpO6AUPzFHMSh+zH7ZbgFhY7X4yoUTiFz
-	 fwARWByLGxuPEMzdOdUM2oX3TynjdONVURKGSeDSdIYZJgPQLZbbOSgKTYtPARn8Zw
-	 zAwDoJX3AnQNNd7tR2CPgFVazwA/3u4FNTuTt1bY=
+	b=tqydZR47KUmHbWnLyd7bUpc6gVOselnviWPJ+kA+lp5gNUymHtT2oxQK5KwD1hrpB
+	 gJHoAg5Jli+E+xE+ICfq0LCl1h1Eyny5tWzRiRWw3haQnGddV1ZkzR82xwSkuzIu+2
+	 s0kNr0PHWYKZOk2L8A6NiE+3HU2lQEa3t3iqOulc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CFF6F800ED;
-	Thu,  4 Mar 2021 14:39:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24198F802E3;
+	Thu,  4 Mar 2021 14:46:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB6DBF80273; Thu,  4 Mar 2021 14:39:29 +0100 (CET)
+ id C3160F802DB; Thu,  4 Mar 2021 14:46:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7C03F80269
- for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 14:39:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C03F80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABF04F802A9
+ for <alsa-devel@alsa-project.org>; Thu,  4 Mar 2021 14:45:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF04F802A9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7D4DFACBF;
- Thu,  4 Mar 2021 13:39:24 +0000 (UTC)
-Date: Thu, 04 Mar 2021 14:39:24 +0100
-Message-ID: <s5h8s739gxf.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0AAB7AE47;
+ Thu,  4 Mar 2021 13:45:53 +0000 (UTC)
+Date: Thu, 04 Mar 2021 14:45:51 +0100
+Message-ID: <s5h7dmn9gmo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 2/4] ALSA: hda/cirrus: Add support for CS8409 HDA bridge
- and CS42L42 companion codec.
-In-Reply-To: <20210303182959.5322-3-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 3/4] ALSA: hda/cirrus: Add jack detect interrupt support
+ from CS42L42 companion codec.
+In-Reply-To: <20210303182959.5322-4-vitalyr@opensource.cirrus.com>
 References: <20210303182959.5322-1-vitalyr@opensource.cirrus.com>
- <20210303182959.5322-3-vitalyr@opensource.cirrus.com>
+ <20210303182959.5322-4-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,44 +71,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Mar 2021 19:29:57 +0100,
+On Wed, 03 Mar 2021 19:29:58 +0100,
 Vitaly Rodionov wrote:
-> 
-> +static const struct hda_verb cs8409_cs42l42_init_verbs[] = {
-> +	{ 0x01, AC_VERB_SET_POWER_STATE, 0x0000 },    /* AFG: D0 */
+> @@ -1243,6 +1258,8 @@ static int patch_cs4213(struct hda_codec *codec)
+>  #define CIR_I2C_QWRITE	0x005D
+>  #define CIR_I2C_QREAD	0x005E
+>  
+> +static struct mutex cs8409_i2c_mux;
 
-I guess this power state change is superfluous.  The AFG node is
-already powered up when the codec probe or init is called.
+Any reason that this must be the global mutex?  I suppose it can fit
+in own spec->i2c_mutex instead?
 
-> +	{ 0x01, AC_VERB_SET_GPIO_DIRECTION, 0x0020 }, /* GPIO 5 out, 3,4 in */
-> +	{ 0x01, AC_VERB_SET_GPIO_DATA, 0x0000 },      /* GPIO  data 0 */
-> +	{ 0x01, AC_VERB_SET_GPIO_MASK, 0x003f },      /* Enable GPIO */
 
-Those are handled in spec->gpio_dir, gpio->data and gpio->mask
-fields.
-
-> +	{ 0x01, AC_VERB_SET_GPIO_WAKE_MASK, 0x0018 }, /* WAKE from GPIO 3,4 */
-> +	{ 0x47, AC_VERB_SET_PROC_STATE, 0x0001 },     /* Enable VPW processing  */
-> +	{ 0x47, AC_VERB_SET_COEF_INDEX, 0x0002 },     /* Configure GPIO 6,7 */
-> +	{ 0x47, AC_VERB_SET_PROC_COEF,  0x0080 },     /* I2C mode */
-> +	{ 0x47, AC_VERB_SET_COEF_INDEX, 0x005b },     /* Set I2C bus speed */
-> +	{ 0x47, AC_VERB_SET_PROC_COEF,  0x0200 },     /* 100kHz I2C_STO = 2 */
-
-Those remaining verbs are good in the init verbs.  But I suppose they
-have to be applied at the resume as well?  But...
-
-> +static int cs8409_cs42l42_fixup(struct hda_codec *codec)
+> +static void cs8409_cs42l42_cap_sync_hook(struct hda_codec *codec,
+> +					 struct snd_kcontrol *kcontrol,
+> +					 struct snd_ctl_elem_value *ucontrol)
 > +{
-> +	int err = 0;
 > +	struct cs_spec *spec = codec->spec;
-> +	unsigned int pincap = 0;
+> +	unsigned int curval, expval;
+> +	/* CS8409 DMIC Pin only allows the setting of the Stream Parameters in
+> +	 * Power State D0. When a headset is unplugged, and the path is switched to
+> +	 * the DMIC, the Stream is restarted with the new ADC, but this is done in
+> +	 * Power State D3. Restart the Stream now DMIC is in D0.
+> +	 */
+> +	if (spec->gen.cur_adc == CS8409_CS42L42_DMIC_ADC_PIN_NID) {
+> +		curval = snd_hda_codec_read(codec, spec->gen.cur_adc,
+> +			0, AC_VERB_GET_CONV, 0);
+> +		expval = (spec->gen.cur_adc_stream_tag << 4) | 0;
+> +		if (curval != expval) {
+> +			codec_dbg(codec, "%s Restarting Stream after DMIC switch\n", __func__);
+> +			__snd_hda_codec_cleanup_stream(codec, spec->gen.cur_adc, 1);
+> +			snd_hda_codec_setup_stream(codec, spec->gen.cur_adc,
+> +					   spec->gen.cur_adc_stream_tag, 0,
+> +					   spec->gen.cur_adc_format);
+
+Hrm, this looks a big scary.  We may need to reconsider how to handle
+this better later, but it's OK as long as you've tested with this
+code...
+
+> +static int cs8409_cs42l42_init(struct hda_codec *codec)
+> +{
+> +	int ret = 0;
 > +
-> +	/* Basic initial sequence for specific hw configuration */
-> +	snd_hda_sequence_write(codec, cs8409_cs42l42_init_verbs);
+> +	ret = snd_hda_gen_init(codec);
+> +
+> +	if (!ret) {
+> +		/* On Dell platforms with suspend D3 mode support we
+> +		 * have to re-initialise cs8409 bridge and companion
+> +		 * cs42l42 codec
+> +		 */
+> +		snd_hda_sequence_write(codec, cs8409_cs42l42_init_verbs);
+> +		snd_hda_sequence_write(codec, cs8409_cs42l42_add_verbs);
+> +
+> +		cs8409_cs42l42_hw_init(codec);
 
-... it seems applied only at the fixup call at parsing?
+Ah... the init stuff at resume appears finally here.  This part should
+be in the second patch instead.
 
-Ditto about cs8409_cs42l42_hw_init(codec).
+> +static int cs8409_cs42l42_exec_verb(struct hdac_device *dev,
+> +		unsigned int cmd, unsigned int flags, unsigned int *res)
+> +{
+> +	struct hda_codec *codec = container_of(dev, struct hda_codec, core);
+> +	struct cs_spec *spec = codec->spec;
+> +
+> +	unsigned int nid = 0;
+> +	unsigned int verb = 0;
+
+The blank line above should be removed.
+
+> +	case CS8409_CS42L42_HP_PIN_NID:
+> +		if (verb == AC_VERB_GET_PIN_SENSE) {
+> +			*res = (spec->cs42l42_hp_jack_in)?AC_PINSENSE_PRESENCE:0;
+
+The spaces are needed around operators.
+Similar coding-style issues are seen other places.  Please try to run
+scripts/checkpatch.pl.
 
 
 thanks,

@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7113032DEB9
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 02:01:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296B232DEBA
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 02:01:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3028A189B;
-	Fri,  5 Mar 2021 02:00:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3028A189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BE241845;
+	Fri,  5 Mar 2021 02:01:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BE241845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614906099;
-	bh=sA9vbCh/NJY8+WIVBj6J0fflR0rePFYabjP/V27eNAQ=;
+	s=default; t=1614906111;
+	bh=yNrooPa/yoU7OmBf4DYJdK44gfXfbPR3leAH668CAk0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nsPWJJIkiyM7Av6VG6lTedsunL1+/sdpfLflaSDh/xksTp6OR3wrtjn1JTHhsq8lY
-	 2XCU1u5ul7X7o+0oi3yr9VMii2U3r+mCQZCjP5iY2xBmUveVvXxz0tCHsGJerL7f6R
-	 9cq6RkDt5qD5IoJmq64VljIf++aOHIvJzn/7WLyU=
+	b=itn9MSSME7n19RbrWkkURlky+94mRwCOaLaAueTArI4PEtgIxRfa/q0M4CfUMtKMX
+	 B8QU7udNIKH77O2ro10CJUy+7WEx1jmLcLrrUR1dMvPXsaGwmBcwGehT4h+m9fJoyZ
+	 d12RvBnsOrAozvitfUUUK/VcWaS7UR4qZuJP3F+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FC42F802E7;
-	Fri,  5 Mar 2021 01:59:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68CF1F8032D;
+	Fri,  5 Mar 2021 01:59:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9869FF802E3; Fri,  5 Mar 2021 01:59:49 +0100 (CET)
+ id BB121F8032D; Fri,  5 Mar 2021 01:59:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0DB9DF80273
- for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 01:59:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DB9DF80273
-Date: 05 Mar 2021 09:59:42 +0900
-X-IronPort-AV: E=Sophos;i="5.81,224,1610377200"; d="scan'208";a="73894710"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id B9DF8F802E3
+ for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 01:59:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9DF8F802E3
+Date: 05 Mar 2021 09:59:48 +0900
+X-IronPort-AV: E=Sophos;i="5.81,224,1610377200"; d="scan'208";a="74142247"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 05 Mar 2021 09:59:42 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 05 Mar 2021 09:59:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8B66841340DB;
- Fri,  5 Mar 2021 09:59:42 +0900 (JST)
-Message-ID: <87r1kupg8x.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id BCFF441340EE;
+ Fri,  5 Mar 2021 09:59:48 +0900 (JST)
+Message-ID: <87pn0epg8r.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/8] ASoC: soc-pcm: add soc_cpu/codec_dai_name() macro
+Subject: [PATCH 3/8] ASoC: soc-pcm: direct copy at
+ snd_soc_set_runtime_hwparams()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tupqpg9x.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,82 +68,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-pcm needs DAI name and it will be "multicpu/multicodec" if it has
-many DAIs. But current code is using very verbose for it.
-This patch uses macro and makes code simple.
+snd_soc_set_runtime_hwparams() is called from each driver
+to initialize hw parameters,
+but coping each parameters one-by-one.
+
+Current code is not copying all parameters, but no big effect
+if we do it. This patch copies all parameters by simple code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ sound/soc/soc-pcm.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 9b5ab7a05f65..60e688b103d8 100644
+index 60e688b103d8..6f2de27cf18f 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -29,6 +29,15 @@
- 
- #define DPCM_MAX_BE_USERS	8
- 
-+static inline const char *soc_cpu_dai_name(struct snd_soc_pcm_runtime *rtd)
-+{
-+	return (rtd)->num_cpus == 1 ? asoc_rtd_to_cpu(rtd, 0)->name : "multicpu";
-+}
-+static inline const char *soc_codec_dai_name(struct snd_soc_pcm_runtime *rtd)
-+{
-+	return (rtd)->num_codecs == 1 ? asoc_rtd_to_codec(rtd, 0)->name : "multicodec";
-+}
-+
- #ifdef CONFIG_DEBUG_FS
- static const char *dpcm_state_string(enum snd_soc_dpcm_state state)
+@@ -300,15 +300,8 @@ bool snd_soc_runtime_ignore_pmdown_time(struct snd_soc_pcm_runtime *rtd)
+ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
+ 	const struct snd_pcm_hardware *hw)
  {
-@@ -697,8 +706,8 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_component *component;
- 	struct snd_soc_dai *dai;
--	const char *codec_dai_name = "multicodec";
--	const char *cpu_dai_name = "multicpu";
-+	const char *codec_dai_name = soc_codec_dai_name(rtd);
-+	const char *cpu_dai_name = soc_cpu_dai_name(rtd);
- 	int i, ret = 0;
- 
- 	for_each_rtd_components(rtd, i, component)
-@@ -737,12 +746,6 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	/* Check that the codec and cpu DAIs are compatible */
- 	soc_pcm_init_runtime_hw(substream);
- 
--	if (rtd->num_codecs == 1)
--		codec_dai_name = asoc_rtd_to_codec(rtd, 0)->name;
--
--	if (rtd->num_cpus == 1)
--		cpu_dai_name = asoc_rtd_to_cpu(rtd, 0)->name;
--
- 	if (soc_pcm_has_symmetry(substream))
- 		runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- 
-@@ -2741,8 +2744,7 @@ static int soc_create_pcm(struct snd_pcm **pcm,
- 		else
- 			snprintf(new_name, sizeof(new_name), "%s %s-%d",
- 				rtd->dai_link->stream_name,
--				(rtd->num_codecs > 1) ?
--				"multicodec" : asoc_rtd_to_codec(rtd, 0)->name, num);
-+				soc_codec_dai_name(rtd), num);
- 
- 		ret = snd_pcm_new(rtd->card->snd_card, new_name, num, playback,
- 			capture, pcm);
-@@ -2841,8 +2843,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 	pcm->no_device_suspend = true;
- out:
- 	dev_dbg(rtd->card->dev, "%s <-> %s mapping ok\n",
--		(rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
--		(rtd->num_cpus > 1)   ? "multicpu"   : asoc_rtd_to_cpu(rtd, 0)->name);
-+		soc_codec_dai_name(rtd), soc_cpu_dai_name(rtd));
- 	return ret;
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	runtime->hw.info = hw->info;
+-	runtime->hw.formats = hw->formats;
+-	runtime->hw.period_bytes_min = hw->period_bytes_min;
+-	runtime->hw.period_bytes_max = hw->period_bytes_max;
+-	runtime->hw.periods_min = hw->periods_min;
+-	runtime->hw.periods_max = hw->periods_max;
+-	runtime->hw.buffer_bytes_max = hw->buffer_bytes_max;
+-	runtime->hw.fifo_size = hw->fifo_size;
++	substream->runtime->hw = *hw;
++
+ 	return 0;
  }
- 
+ EXPORT_SYMBOL_GPL(snd_soc_set_runtime_hwparams);
 -- 
 2.25.1
 

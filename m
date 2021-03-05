@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F178A32DEB8
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 02:01:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7113032DEB9
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 02:01:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F88317E6;
-	Fri,  5 Mar 2021 02:00:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F88317E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3028A189B;
+	Fri,  5 Mar 2021 02:00:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3028A189B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614906061;
-	bh=rAqYIpZfNnFkH37YkhMnK/LFAIaEvNf+uGfDPOnRT1Y=;
+	s=default; t=1614906099;
+	bh=sA9vbCh/NJY8+WIVBj6J0fflR0rePFYabjP/V27eNAQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GRNkQodBi7oSM+/jq6f1h9JsdctpwkmnDuKlEMGRSaocNbG13uOSpj12K4Ff56Ktu
-	 vBDQAKnjlAd4cNJghScBYpQ351VxWC3NIeBw24P3N0thKUcj/kBSxohTgOpDMUUEgt
-	 rm9ofBGLTF3KZm7HAww3xBz2bKzcMgcOyBp89PiQ=
+	b=nsPWJJIkiyM7Av6VG6lTedsunL1+/sdpfLflaSDh/xksTp6OR3wrtjn1JTHhsq8lY
+	 2XCU1u5ul7X7o+0oi3yr9VMii2U3r+mCQZCjP5iY2xBmUveVvXxz0tCHsGJerL7f6R
+	 9cq6RkDt5qD5IoJmq64VljIf++aOHIvJzn/7WLyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0880DF802CA;
-	Fri,  5 Mar 2021 01:59:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FC42F802E7;
+	Fri,  5 Mar 2021 01:59:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6F48F802A9; Fri,  5 Mar 2021 01:59:45 +0100 (CET)
+ id 9869FF802E3; Fri,  5 Mar 2021 01:59:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B2BC5F80271
- for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 01:59:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2BC5F80271
-Date: 05 Mar 2021 09:59:36 +0900
-X-IronPort-AV: E=Sophos;i="5.81,224,1610377200"; d="scan'208";a="73894706"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 05 Mar 2021 09:59:36 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 0DB9DF80273
+ for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 01:59:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DB9DF80273
+Date: 05 Mar 2021 09:59:42 +0900
+X-IronPort-AV: E=Sophos;i="5.81,224,1610377200"; d="scan'208";a="73894710"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 05 Mar 2021 09:59:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 39E584018231;
- Fri,  5 Mar 2021 09:59:36 +0900 (JST)
-Message-ID: <87sg5apg93.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8B66841340DB;
+ Fri,  5 Mar 2021 09:59:42 +0900 (JST)
+Message-ID: <87r1kupg8x.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/8] ASoC: soc-pcm: check DAI activity under
- soc_pcm_apply_symmetry()
+Subject: [PATCH 2/8] ASoC: soc-pcm: add soc_cpu/codec_dai_name() macro
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tupqpg9x.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,93 +67,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_pcm_apply_symmetry() is used like below in all cases.
-
-	if (snd_soc_dai_active(dai)) {
-		err = soc_pcm_apply_symmetry(fe_substream, dai);
-		...
-	}
-
-Because of this style, the code is deep nested.
-This patch checks it under soc_pcm_apply_symmetry(), and makes code simple.
-
-	static int soc_pcm_apply_symmetry(...)
-	{
-		...
-=>		if (!snd_soc_dai_active(...))
-			return 0;
-		...
-	}
-
-=>	ret = soc_pcm_apply_symmetry();
-	if (ret < 0)
-		...
+soc-pcm needs DAI name and it will be "multicpu/multicodec" if it has
+many DAIs. But current code is using very verbose for it.
+This patch uses macro and makes code simple.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 27 ++++++++++++---------------
- 1 file changed, 12 insertions(+), 15 deletions(-)
+ sound/soc/soc-pcm.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ba8ffbf8a5d3..9b5ab7a05f65 100644
+index 9b5ab7a05f65..60e688b103d8 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -349,6 +349,9 @@ static int soc_pcm_apply_symmetry(struct snd_pcm_substream *substream,
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	int ret;
+@@ -29,6 +29,15 @@
  
-+	if (!snd_soc_dai_active(soc_dai))
-+		return 0;
+ #define DPCM_MAX_BE_USERS	8
+ 
++static inline const char *soc_cpu_dai_name(struct snd_soc_pcm_runtime *rtd)
++{
++	return (rtd)->num_cpus == 1 ? asoc_rtd_to_cpu(rtd, 0)->name : "multicpu";
++}
++static inline const char *soc_codec_dai_name(struct snd_soc_pcm_runtime *rtd)
++{
++	return (rtd)->num_codecs == 1 ? asoc_rtd_to_codec(rtd, 0)->name : "multicodec";
++}
 +
- #define __soc_pcm_apply_symmetry(name, NAME)				\
- 	if (soc_dai->name && (soc_dai->driver->symmetric_##name ||	\
- 			      rtd->dai_link->symmetric_##name)) {	\
-@@ -765,11 +768,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ #ifdef CONFIG_DEBUG_FS
+ static const char *dpcm_state_string(enum snd_soc_dpcm_state state)
+ {
+@@ -697,8 +706,8 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_dai *dai;
+-	const char *codec_dai_name = "multicodec";
+-	const char *cpu_dai_name = "multicpu";
++	const char *codec_dai_name = soc_codec_dai_name(rtd);
++	const char *cpu_dai_name = soc_cpu_dai_name(rtd);
+ 	int i, ret = 0;
  
- 	/* Symmetry only applies if we've already got an active stream. */
- 	for_each_rtd_dais(rtd, i, dai) {
--		if (snd_soc_dai_active(dai)) {
--			ret = soc_pcm_apply_symmetry(substream, dai);
--			if (ret != 0)
--				goto err;
--		}
-+		ret = soc_pcm_apply_symmetry(substream, dai);
-+		if (ret != 0)
-+			goto err;
- 	}
+ 	for_each_rtd_components(rtd, i, component)
+@@ -737,12 +746,6 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	/* Check that the codec and cpu DAIs are compatible */
+ 	soc_pcm_init_runtime_hw(substream);
  
- 	pr_debug("ASoC: %s <-> %s info:\n",
-@@ -1693,11 +1694,9 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
+-	if (rtd->num_codecs == 1)
+-		codec_dai_name = asoc_rtd_to_codec(rtd, 0)->name;
+-
+-	if (rtd->num_cpus == 1)
+-		cpu_dai_name = asoc_rtd_to_cpu(rtd, 0)->name;
+-
+ 	if (soc_pcm_has_symmetry(substream))
+ 		runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
  
- 	for_each_rtd_cpu_dais (fe, i, fe_cpu_dai) {
- 		/* Symmetry only applies if we've got an active stream. */
--		if (snd_soc_dai_active(fe_cpu_dai)) {
--			err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
--			if (err < 0)
--				return err;
--		}
-+		err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
-+		if (err < 0)
-+			return err;
- 	}
+@@ -2741,8 +2744,7 @@ static int soc_create_pcm(struct snd_pcm **pcm,
+ 		else
+ 			snprintf(new_name, sizeof(new_name), "%s %s-%d",
+ 				rtd->dai_link->stream_name,
+-				(rtd->num_codecs > 1) ?
+-				"multicodec" : asoc_rtd_to_codec(rtd, 0)->name, num);
++				soc_codec_dai_name(rtd), num);
  
- 	/* apply symmetry for BE */
-@@ -1721,11 +1720,9 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 
- 		/* Symmetry only applies if we've got an active stream. */
- 		for_each_rtd_dais(rtd, i, dai) {
--			if (snd_soc_dai_active(dai)) {
--				err = soc_pcm_apply_symmetry(fe_substream, dai);
--				if (err < 0)
--					return err;
--			}
-+			err = soc_pcm_apply_symmetry(fe_substream, dai);
-+			if (err < 0)
-+				return err;
- 		}
- 	}
+ 		ret = snd_pcm_new(rtd->card->snd_card, new_name, num, playback,
+ 			capture, pcm);
+@@ -2841,8 +2843,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	pcm->no_device_suspend = true;
+ out:
+ 	dev_dbg(rtd->card->dev, "%s <-> %s mapping ok\n",
+-		(rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
+-		(rtd->num_cpus > 1)   ? "multicpu"   : asoc_rtd_to_cpu(rtd, 0)->name);
++		soc_codec_dai_name(rtd), soc_cpu_dai_name(rtd));
+ 	return ret;
+ }
  
 -- 
 2.25.1

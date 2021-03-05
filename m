@@ -2,54 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D58B332E4C8
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 10:28:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE22832E4EC
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Mar 2021 10:34:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75AB617B2;
-	Fri,  5 Mar 2021 10:27:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75AB617B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D33117B4;
+	Fri,  5 Mar 2021 10:33:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D33117B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1614936501;
-	bh=eFSJcWL/6+0DFOA2+WiU6IN3IKb27csYa+kcFQHpUd0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1614936845;
+	bh=CAwgxRhqj/wZ3ZajVuZqRUpbYXF3c6QMuOmVQfKw/0o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=doGUtcXdjbd7GEvJJ0OMNfle7bvR0iIL6jN2ytsyGUTdxLNSU5VikincIrV9J6RqW
-	 QQLAE69RGbHB18zAnpcjD4ZVAXVFgHUZP6WutgNopf4+uIbg6vYAr+pH810ODy2ifw
-	 QW58GRlAbuVMhWgjEoQPBe+B7cPW1k42PStl4oEk=
+	b=TLKnXoOc0oH/4VqjhKvZ+aTxdx9yM6XeBUccna7QU8KFUD19i/lk/dos47V9mH2re
+	 a6DApZr3DvDFhUEVLxO/jGTu9A76V/y0fxBuVpZiRZokGwVqmOSVFea4QGV8pTtFHS
+	 1AsRVk0zTggqq1bSVCKu1MoK+ZOQDZHaRYBVw52s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CACFCF8026A;
-	Fri,  5 Mar 2021 10:26:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 103D8F8026A;
+	Fri,  5 Mar 2021 10:32:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A490DF8025E; Fri,  5 Mar 2021 10:26:49 +0100 (CET)
+ id 5C1A0F80121; Fri,  5 Mar 2021 10:32:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 220C3F800F3
- for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 10:26:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 220C3F800F3
-Received: from [123.112.67.34] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lI6jE-00030J-Mc; Fri, 05 Mar 2021 09:26:37 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH v2] ALSA: hda - bind headset buttons to the headphone jack
-Date: Fri,  5 Mar 2021 17:26:08 +0800
-Message-Id: <20210305092608.109599-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id B89BAF80121
+ for <alsa-devel@alsa-project.org>; Fri,  5 Mar 2021 10:32:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B89BAF80121
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DBC7D2013FB;
+ Fri,  5 Mar 2021 10:32:18 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 9FCB62013FE;
+ Fri,  5 Mar 2021 10:32:13 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 72E5A40249;
+ Fri,  5 Mar 2021 10:32:07 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_asrc_dma: request dma channel from specific
+ controller
+Date: Fri,  5 Mar 2021 17:19:37 +0800
+Message-Id: <1614935977-21638-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,187 +72,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With the HDA driver, if the headset buttons are supported, an audio
-Jack will be created for them. This audio Jack is a bit confusing to
-users since it can't report headphone/mic insertion events but it
-claims to support these events.
+From: Robin Gong <yibin.gong@nxp.com>
 
-And in addition, the driver already builds a headphone Jack and a mic
-Jack, and most of those buttons are used for headphone playback, so
-do some change to bind those buttons to the headphone Jack. After this
-change, the key events are generated from NID 0x55, and are reported
-to the input layer via headphone jack (NID 0x21).
+Request dma channel from specific dma controller instead of generic
+dma controller list, otherwise, may get the wrong dma controller
+if there are multi dma controllers such as i.MX8MP.
 
-If there is no headphone Jack, then build an audio jack to support
-those buttons same as previously.
-
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
+Signed-off-by: Robin Gong <yibin.gong@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
-In the v2, add a function snd_hda_jack_set_button_state(),
-the codec driver calls it to report the button state.
+ sound/soc/fsl/fsl_asrc_dma.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- sound/pci/hda/hda_jack.c      | 73 ++++++++++++++++++++++++++++++++++-
- sound/pci/hda/hda_jack.h      |  8 ++++
- sound/pci/hda/patch_realtek.c | 15 +++++--
- 3 files changed, 91 insertions(+), 5 deletions(-)
-
-diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
-index ac00866d8032..f29975e3e98d 100644
---- a/sound/pci/hda/hda_jack.c
-+++ b/sound/pci/hda/hda_jack.c
-@@ -388,6 +388,69 @@ int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
- }
- EXPORT_SYMBOL_GPL(snd_hda_jack_set_gating_jack);
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index 29f91cdecbc3..c313a26c8f95 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -141,6 +141,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 	struct dma_slave_config config_fe, config_be;
+ 	enum asrc_pair_index index = pair->index;
+ 	struct device *dev = component->dev;
++	struct device_node *of_dma_node;
+ 	int stream = substream->stream;
+ 	struct imx_dma_data *tmp_data;
+ 	struct snd_soc_dpcm *dpcm;
+@@ -231,8 +232,10 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 		pair->dma_data.priority = tmp_data->priority;
+ 		dma_release_channel(tmp_chan);
  
-+/**
-+ * snd_hda_jack_bind_keymap - bind keys generated from one NID to another jack.
-+ * @codec: the HDA codec
-+ * @key_nid: key event is generated by this pin NID
-+ * @keymap: map of key type and key code
-+ * @jack_nid: key reports to the jack of this pin NID
-+ *
-+ * This function is used in the case of key is generated from one NID while is
-+ * reported to the jack of another NID.
-+ */
-+int snd_hda_jack_bind_keymap(struct hda_codec *codec, hda_nid_t key_nid,
-+			     const struct hda_jack_keymap *keymap,
-+			     hda_nid_t jack_nid)
-+{
-+	const struct hda_jack_keymap *map;
-+	struct hda_jack_tbl *key_gen = snd_hda_jack_tbl_get(codec, key_nid);
-+	struct hda_jack_tbl *report_to = snd_hda_jack_tbl_get(codec, jack_nid);
-+
-+	WARN_ON(codec->dp_mst);
-+
-+	if (!key_gen || !report_to || !report_to->jack)
-+		return -EINVAL;
-+
-+	key_gen->key_report_jack = jack_nid;
-+
-+	if (keymap)
-+		for (map = keymap; map->type; map++)
-+			snd_jack_set_key(report_to->jack, map->type, map->key);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(snd_hda_jack_bind_keymap);
-+
-+/**
-+ * snd_hda_jack_set_button_state - report button event to the hda_jack_tbl button_state.
-+ * @codec: the HDA codec
-+ * @jack_nid: the button event reports to the jack_tbl of this NID
-+ * @button_state: the button event captured by codec
-+ *
-+ * Codec driver calls this function to report the button event.
-+ */
-+void snd_hda_jack_set_button_state(struct hda_codec *codec, hda_nid_t jack_nid,
-+				   int button_state)
-+{
-+	struct hda_jack_tbl *jack = snd_hda_jack_tbl_get(codec, jack_nid);
-+
-+	if (!jack)
-+		return;
-+
-+	if (jack->key_report_jack) {
-+		struct hda_jack_tbl *report_to =
-+			snd_hda_jack_tbl_get(codec, jack->key_report_jack);
-+
-+		if (report_to) {
-+			report_to->button_state = button_state;
-+			return;
-+		}
-+	}
-+
-+	jack->button_state = button_state;
-+}
-+EXPORT_SYMBOL_GPL(snd_hda_jack_set_button_state);
-+
- /**
-  * snd_hda_jack_report_sync - sync the states of all jacks and report if changed
-  * @codec: the HDA codec
-@@ -651,7 +714,15 @@ void snd_hda_jack_unsol_event(struct hda_codec *codec, unsigned int res)
- 	}
- 	if (!event)
- 		return;
--	event->jack_dirty = 1;
-+
-+	if (event->key_report_jack) {
-+		struct hda_jack_tbl *report_to =
-+			snd_hda_jack_tbl_get_mst(codec, event->key_report_jack,
-+						 event->dev_id);
-+		if (report_to)
-+			report_to->jack_dirty = 1;
-+	} else
-+		event->jack_dirty = 1;
- 
- 	call_jack_callback(codec, res, event);
- 	snd_hda_jack_report_sync(codec);
-diff --git a/sound/pci/hda/hda_jack.h b/sound/pci/hda/hda_jack.h
-index 8ceaf0ef5df1..2abf7aac243a 100644
---- a/sound/pci/hda/hda_jack.h
-+++ b/sound/pci/hda/hda_jack.h
-@@ -40,6 +40,7 @@ struct hda_jack_tbl {
- 	unsigned int block_report:1;    /* in a transitional state - do not report to userspace */
- 	hda_nid_t gating_jack;		/* valid when gating jack plugged */
- 	hda_nid_t gated_jack;		/* gated is dependent on this jack */
-+	hda_nid_t key_report_jack;	/* key reports to this jack */
- 	int type;
- 	int button_state;
- 	struct snd_jack *jack;
-@@ -99,6 +100,13 @@ snd_hda_jack_detect_enable_callback(struct hda_codec *codec, hda_nid_t nid,
- int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
- 				 hda_nid_t gating_nid);
- 
-+int snd_hda_jack_bind_keymap(struct hda_codec *codec, hda_nid_t key_nid,
-+			     const struct hda_jack_keymap *keymap,
-+			     hda_nid_t jack_nid);
-+
-+void snd_hda_jack_set_button_state(struct hda_codec *codec, hda_nid_t jack_nid,
-+				   int button_state);
-+
- u32 snd_hda_jack_pin_sense(struct hda_codec *codec, hda_nid_t nid, int dev_id);
- 
- /* the jack state returned from snd_hda_jack_detect_state() */
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index b47504fa8dfd..c2ae077bd010 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -3103,7 +3103,7 @@ static void alc_headset_btn_callback(struct hda_codec *codec,
- 	if (jack->unsol_res & (7 << 10))
- 		report |= SND_JACK_BTN_3;
- 
--	jack->jack->button_state = report;
-+	snd_hda_jack_set_button_state(codec, jack->nid, report);
- }
- 
- static void alc_disable_headset_jack_key(struct hda_codec *codec)
-@@ -3164,16 +3164,23 @@ static void alc_fixup_headset_jack(struct hda_codec *codec,
- 				    const struct hda_fixup *fix, int action)
- {
- 	struct alc_spec *spec = codec->spec;
-+	hda_nid_t hp_pin;
- 
- 	switch (action) {
- 	case HDA_FIXUP_ACT_PRE_PROBE:
- 		spec->has_hs_key = 1;
- 		snd_hda_jack_detect_enable_callback(codec, 0x55,
- 						    alc_headset_btn_callback);
--		snd_hda_jack_add_kctl(codec, 0x55, "Headset Jack", false,
--				      SND_JACK_HEADSET, alc_headset_btn_keymap);
- 		break;
--	case HDA_FIXUP_ACT_INIT:
-+	case HDA_FIXUP_ACT_BUILD:
-+		hp_pin = alc_get_hp_pin(spec);
-+		if (!hp_pin || snd_hda_jack_bind_keymap(codec, 0x55,
-+							alc_headset_btn_keymap,
-+							hp_pin))
-+			snd_hda_jack_add_kctl(codec, 0x55, "Headset Jack",
-+					      false, SND_JACK_HEADSET,
-+					      alc_headset_btn_keymap);
-+
- 		alc_enable_headset_jack_key(codec);
- 		break;
- 	}
++		of_dma_node = pair->dma_chan[!dir]->device->dev->of_node;
+ 		pair->dma_chan[dir] =
+-			dma_request_channel(mask, filter, &pair->dma_data);
++			__dma_request_channel(&mask, filter, &pair->dma_data,
++					      of_dma_node);
+ 		pair->req_dma_chan = true;
+ 	} else {
+ 		pair->dma_chan[dir] = tmp_chan;
 -- 
-2.25.1
+2.27.0
 

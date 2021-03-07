@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC1F3302E7
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 17:25:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE652330346
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 18:23:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD4F81F65;
-	Sun,  7 Mar 2021 17:24:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD4F81F65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EDE91F3B;
+	Sun,  7 Mar 2021 18:22:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EDE91F3B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615134336;
-	bh=+IS+HsEn9PScpKZSYsoN2mo3qELnqpdac9Pu1dWhtjE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1615137789;
+	bh=1KRF+QdmKBgN/dGjfMYZMayYommFcELzOtAraoM/GK4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Eizu7wPsTrzAAJapUpJ5qACidjRsAn0F+Wrc1c6LiBFBhCARcGt5BiaFk6/TgRVEp
-	 2qGAgdmY9ypSHobrljQLzdS0DXhMIMlF8BxGPhKcq1Zia4jXBoBzFZUag4KidBwDna
-	 RbylzqiLO8ax4Ge2XRcwYH6ip9AaLmthN495E6Dw=
+	b=U4+GtuhjpGireDz94Xd5ESIobLlO5z7klVw8DbMV6F0aM9msNFY+mUwf7QOzCFz0M
+	 a1ou83x4im9+SnGmJZMcAYIfZjcfahwR5mjtr3LzRff2i0qqcEeQYrqz6BhG5O00uE
+	 UL3sMuczBnXRz2LtoFaY1ZJt86M5NnfqHp1IpExQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAA05F8025A;
-	Sun,  7 Mar 2021 17:23:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8D4FF80256;
+	Sun,  7 Mar 2021 18:21:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B23EBF8019B; Sun,  7 Mar 2021 17:23:51 +0100 (CET)
+ id 1464DF80227; Sun,  7 Mar 2021 18:21:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96AD0F800CC
- for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 17:23:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96AD0F800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86289F800ED
+ for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 18:21:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86289F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aJUEBRpX"
-Received: by mail-wr1-x42c.google.com with SMTP id v15so8840356wrx.4
- for <alsa-devel@alsa-project.org>; Sun, 07 Mar 2021 08:23:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=oj2xRqbEeMFzhlH+V7733PkaePwuNrfh8/9dg+i8twk=;
- b=aJUEBRpXErCQ4G9hu/HmWGVaNlBlpJPKAYX6D2EpRKQ+Bncf4Dw0AsByA8ni5OeAJc
- 1Ax6MEkTAQcjUXPgyEnAEEbRNFy5LujGrOkv5JLcuJozseXzb9aGg+qSYQq/BJS5Z2Zk
- G5/uQM69YHXm0z2e6GOnNWjG/3d7ZYs4c2RFbSvU7IOrBKgtCvJqdNOvpftHIGHtiftB
- KU9GM35mF4WtwGZYQY7dnyGE4tKuA0sL0+2/xQwjicJBGGQs0bP1YY7DR61FmpjW89v9
- FEVUjdUYHE4r5xCWswpilrWn2JUh2X1KfeePMTR4UeDpUyGfiPSbubEsHUU2iUdAPMNw
- MevQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=oj2xRqbEeMFzhlH+V7733PkaePwuNrfh8/9dg+i8twk=;
- b=SEwmdwg+l5o4BdXNQ1A8omfS1qq3rVcK0z0HkY+JCcytSjYPvbduFkI1UZjPna8+2P
- yk0naMaE0gVVqJ7bRvFhCpvOm1bfaAjBGEaplkEt8YuDe0VmBOuDbddBHHmlKupOCXZ7
- jA/Dqcc7ue43vdyfDwtlxk8klVkJxMi/J3ig6fUqEqfiWaDmH3vf7UH1v8RSlW3dQKp6
- cqk/IeGWKURRvS1GCZ6mw7iG6NFoWdaIRtvNXC5Kt9NO9YzwdmxD+8OdCVA2jnC2AnEx
- +EmlbeBdvDya1VTL7dZXAaJAD1mmVcFnIMfVkWiXNMKEnDkWwu5XR2OG8aayMvw8wPMP
- RKkA==
-X-Gm-Message-State: AOAM531BvnGie9dLLUHKndlGiTR3PxNv3bn0td9+u/15PpUMB9OPh9EX
- K80nOZR7impjMCjOLqXBm5g=
-X-Google-Smtp-Source: ABdhPJyoMDAbk3o5tKlKQRAAvmPn/eztheXA87xRydC7wBaubagKri49JAB+o1QVp30Nmfb34/YYUw==
-X-Received: by 2002:adf:8445:: with SMTP id 63mr19301582wrf.222.1615134223304; 
- Sun, 07 Mar 2021 08:23:43 -0800 (PST)
-Received: from morpheus.home.roving-it.com
- (f.c.9.1.f.e.c.d.1.e.0.0.2.b.5.5.1.8.6.2.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa.
- [2001:8b0:fb11:2681:55b2:e1:dcef:19cf])
- by smtp.googlemail.com with ESMTPSA id a75sm14515541wme.10.2021.03.07.08.23.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Mar 2021 08:23:42 -0800 (PST)
-From: Peter Robinson <pbrobinson@gmail.com>
-To: Jun Nie <jun.nie@linaro.org>, Shawn Guo <shawnguo@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Barry Song <baohua@kernel.org>,
- alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: remove zte zx dangling kconfig
-Date: Sun,  7 Mar 2021 16:23:38 +0000
-Message-Id: <20210307162338.1160604-2-pbrobinson@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210307162338.1160604-1-pbrobinson@gmail.com>
-References: <20210307162338.1160604-1-pbrobinson@gmail.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="RkgTxl9/"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 127HHE0O004818; Sun, 7 Mar 2021 11:21:26 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=0aiXOOSfs2+Dss6qwMhy0OdxOoHU59kxrpWFaQIHoUY=;
+ b=RkgTxl9/9jBylzhl0ZDZKM2h6J/mgy4lri1k7iO0WEswzlqXsvsdalp8LO41f7ZdJNSi
+ jQpV92xJ5WMBydr70K1ucEYkD4sJRAI7cuqibVX1ljfq1p4zbyR/gm9J1ZM3Q9ee8yFi
+ 5/F+wUOJ9txiGOsqtDKKR/fp31Wds+eVVRGgxoRAbPA63R7hJtvxPp8VDl9jkvL1EBvg
+ ZUchxHC0y6J3rfuForsvpfl4TZRlNftTfePsiClL6YoWIzbjQHml4+ViundqL9UZhxrU
+ yWx7e/OZ89qqFz4IqvPH9K8oRVcJpBZvvKDVhzQQ91hjTbr5ydkbtZtrt7UfM5uQCe6C qw== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 37471vs4ec-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Sun, 07 Mar 2021 11:21:26 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Sun, 7 Mar 2021
+ 17:21:25 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Sun, 7 Mar 2021 17:21:25 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 26EFD11D6;
+ Sun,  7 Mar 2021 17:21:25 +0000 (UTC)
+Date: Sun, 7 Mar 2021 17:21:25 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: wm8960: Remove bitclk relax condition in
+ wm8960_configure_sysclk
+Message-ID: <20210307172125.GF106851@ediswmail.ad.cirrus.com>
+References: <1614740862-30196-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, Peter Robinson <pbrobinson@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <1614740862-30196-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
+ adultscore=0
+ malwarescore=0 mlxlogscore=999 impostorscore=0 bulkscore=0
+ priorityscore=1501 mlxscore=0 spamscore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103070095
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ gustavoars@kernel.org, kuninori.morimoto.gx@renesas.com,
+ patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
+ peter.ujfalusi@ti.com, broonie@kernel.org, daniel.baluta@nxp.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,33 +105,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In commit dc98f1d we removed the zte zx sound drivers but there
-was a dangling Kconfig left around for the codec so fix this.
+On Wed, Mar 03, 2021 at 11:07:42AM +0800, Shengjiu Wang wrote:
+> The call sequence in wm8960_configure_clocking is
+> 
+>    ret = wm8960_configure_sysclk();
+>    if (ret >= 0)
+>         goto configure_clock;
+> 
+>    ....
+> 
+>    ret = wm8960_configure_pll();
+> 
+> configure_clock:
+>    ...
+> 
+> wm8960_configure_sysclk is called before wm8960_configure_pll, as
+> there is bitclk relax on both functions, so wm8960_configure_sysclk
+> always return success, then wm8960_configure_pll() never be called.
+> 
+> With this case:
+> aplay -Dhw:0,0 -d 5 -r 48000 -f S24_LE -c 2 audio48k24b2c.wav
+> the required bitclk is 48000 * 24 * 2 = 2304000, bitclk got from
+> wm8960_configure_sysclk is 3072000, but if go to wm8960_configure_pll.
+> it can get correct bitclk 2304000.
+> 
+> So bitclk relax condition should be removed in wm8960_configure_sysclk,
+> then wm8960_configure_pll can be called, and there is also bitclk relax
+> function in wm8960_configure_pll.
+> 
+> Fixes: 3c01b9ee2ab9 ("ASoC: codec: wm8960: Relax bit clock computation")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> ---
 
-Fixes: dc98f1d655ca (ASoC: ASoC: remove zte zx drivers)
-Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/Kconfig | 5 -----
- 1 file changed, 5 deletions(-)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 1c87b42606c9..e04fa8b5f178 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1739,11 +1739,6 @@ config SND_SOC_ZL38060
- 	  which consists of a Digital Signal Processor (DSP), several Digital
- 	  Audio Interfaces (DAIs), analog outputs, and a block of 14 GPIOs.
- 
--config SND_SOC_ZX_AUD96P22
--	tristate "ZTE ZX AUD96P22 CODEC"
--	depends on I2C
--	select REGMAP_I2C
--
- # Amp
- config SND_SOC_LM4857
- 	tristate
--- 
-2.29.2
-
+Thanks,
+Charles

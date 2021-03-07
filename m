@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0D7033029D
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 16:20:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB31133029F
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 16:21:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7567A1F1B;
-	Sun,  7 Mar 2021 16:20:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7567A1F1B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 243A21F28;
+	Sun,  7 Mar 2021 16:20:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 243A21F28
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615130453;
-	bh=2vwArPWj+eGTCbbUX4pPCIYek4sB31yxSWMWKOBmtFA=;
+	s=default; t=1615130493;
+	bh=+OjtccSbvLmuNSY8Q8rk+HAUMyfcHakK0sef1hMtc50=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AWaacODf/za2jytpdWuWt8DOGUx52Tq3q19MudCwnPyenfQ6o/xeXM0dtZvF/k5nw
-	 au+B/PDlta1N4Av8XMvLa7bIiML5BEuW0RmUBrTf48oVisBKsQOgXL3xyefzdpH1bI
-	 hvrWajR//ohoN0GgdI8YcMW+cJN3YiiFGQXVBO/o=
+	b=GBtwsn//BxZynd93mb0qLeit79+T40LMx1U712uVHZ5HrxRSRtto859DHx4YiCA+O
+	 dmVNuLpRvPAFwGwQNhfTLUQzD+Ne2iuqqQFtiKR0eimz5U/d0yVaC1JnV3sc785pKM
+	 5jQ0422Rqr6VOBObYP/PorpaUsjL2+GZzyRqXFiE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE983F80482;
-	Sun,  7 Mar 2021 16:18:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EEA5F80431;
+	Sun,  7 Mar 2021 16:18:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33840F80139; Sun,  7 Mar 2021 16:18:34 +0100 (CET)
+ id F03CAF8049C; Sun,  7 Mar 2021 16:18:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DD2FF8019B
- for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 16:18:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DD2FF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEB2CF80227
+ for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 16:18:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEB2CF80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="e1v8evZu"
+ header.b="ECtGyLA6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615130306;
+ s=mimecast20190719; t=1615130308;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6j8bo2aK6fNVhEqJSka12dREMEZJ3jgUOSDr9yB59K4=;
- b=e1v8evZu1ZWFPhSdwdNU75ypD9R0ratzf6Cb/JRs2KTdl/p0Ka9IOd/+iQRgH3n267jw29
- 3Wjn0RvJDjfJY8gf/WO/5Q64B/BQQvC6bbHAtB4fFn+JCnSLTHDNUq9Vm/QN0G8Q9UKF3L
- Agn3/7BQBYq9S7bngk3hRCzxnlH2Elw=
+ bh=qstxnJWrDVN7VD7wfJDsTrlEJ6yOY7WLLMRpqou/h3Q=;
+ b=ECtGyLA65SRrT2Q9xcTfptV5VAanCvieJDrclQwdqploxD40Ej8p9E1wgT+UiW5x/CbXK+
+ Dw6KfrOXt3DAOAEnuX5W/Qw+vPhVJjnGOuua+HswbNLHGQQH5cWgBE/mXj3LutvtUfZS1a
+ AEQUID67agdCFH8jhXeMfuwvfrzZyPU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-524-RwHPl3_EOa2eFKPypQnagw-1; Sun, 07 Mar 2021 10:18:24 -0500
-X-MC-Unique: RwHPl3_EOa2eFKPypQnagw-1
+ us-mta-584-3xPcRaAGPH6gT3Ceg0EAzA-1; Sun, 07 Mar 2021 10:18:27 -0500
+X-MC-Unique: 3xPcRaAGPH6gT3Ceg0EAzA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
  [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 782F626862;
- Sun,  7 Mar 2021 15:18:22 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32F0480432D;
+ Sun,  7 Mar 2021 15:18:25 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-90.ams2.redhat.com [10.36.112.90])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0E4CE60BF1;
- Sun,  7 Mar 2021 15:18:19 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BDB6760BF1;
+ Sun,  7 Mar 2021 15:18:22 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Chanwoo Choi <cw00.choi@samsung.com>,
@@ -71,10 +71,10 @@ To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH v4 resend 02/13] extcon: arizona: Fix some issues when HPDET
- IRQ fires after the jack has been unplugged
-Date: Sun,  7 Mar 2021 16:17:56 +0100
-Message-Id: <20210307151807.35201-3-hdegoede@redhat.com>
+Subject: [PATCH v4 resend 03/13] extcon: arizona: Fix various races on driver
+ unbind
+Date: Sun,  7 Mar 2021 16:17:57 +0100
+Message-Id: <20210307151807.35201-4-hdegoede@redhat.com>
 In-Reply-To: <20210307151807.35201-1-hdegoede@redhat.com>
 References: <20210307151807.35201-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -99,27 +99,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the jack is partially inserted and then removed again it may be
-removed while the hpdet code is running. In this case the following
-may happen:
+We must free/disable all interrupts and cancel all pending works
+before doing further cleanup.
 
-1. The "JACKDET rise" or ""JACKDET fall" IRQ triggers
-2. arizona_jackdet runs and takes info->lock
-3. The "HPDET" IRQ triggers
-4. arizona_hpdet_irq runs, blocks on info->lock
-5. arizona_jackdet calls arizona_stop_mic() and clears info->hpdet_done
-6. arizona_jackdet releases info->lock
-7. arizona_hpdet_irq now can continue running and:
-7.1 Calls arizona_start_mic() (if a mic was detected)
-7.2 sets info->hpdet_done
+Before this commit arizona_extcon_remove() was doing several
+register writes to shut things down before disabling the IRQs
+and it was cancelling only 1 of the 3 different works used.
 
-Step 7 is undesirable / a bug:
-7.1 causes the device to stay in a high power-state (with MICVDD enabled)
-7.2 causes hpdet to not run on the next jack insertion, which in turn
-    causes the EXTCON_JACK_HEADPHONE state to never get set
+Move all the register-writes shutting things down to after
+the disabling of the IRQs and add the 2 missing
+cancel_delayed_work_sync() calls.
 
-This fixes both issues by skipping these 2 steps when arizona_hpdet_irq
-runs after the jack has been unplugged.
+This fixes various possible races on driver unbind. One of which
+would always trigger on devices using the mic-clamp feature for
+jack detection. The ARIZONA_MICD_CLAMP_MODE_MASK update was
+done before disabling the IRQs, causing:
+1. arizona_jackdet() to run
+2. detect a jack being inserted (clamp disabled means jack inserted)
+3. call arizona_start_mic() which:
+3.1 Enables the MICVDD regulator
+3.2 takes a pm_runtime_reference
+
+And this was all happening after the ARIZONA_MICD_ENA bit clearing,
+which would undo 3.1 and 3.2 because the ARIZONA_MICD_CLAMP_MODE_MASK
+update was being done after the ARIZONA_MICD_ENA bit clearing.
+
+So this means that arizona_extcon_remove() would exit with
+1. MICVDD enabled and 2. The pm_runtime_reference being unbalanced.
+
+MICVDD still being enabled caused the following oops when the
+regulator is released by the devm framework:
+
+[ 2850.745757] ------------[ cut here ]------------
+[ 2850.745827] WARNING: CPU: 2 PID: 2098 at drivers/regulator/core.c:2123 _regulator_put.part.0+0x19f/0x1b0
+[ 2850.745835] Modules linked in: extcon_arizona ...
+...
+[ 2850.746909] Call Trace:
+[ 2850.746932]  regulator_put+0x2d/0x40
+[ 2850.746946]  release_nodes+0x22a/0x260
+[ 2850.746984]  __device_release_driver+0x190/0x240
+[ 2850.747002]  driver_detach+0xd4/0x120
+...
+[ 2850.747337] ---[ end trace f455dfd7abd9781f ]---
+
+Note this oops is just one of various theoretically possible races caused
+by the wrong ordering inside arizona_extcon_remove(), this fixes the
+ordering fixing all possible races, including the reported oops.
 
 Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
@@ -127,59 +152,71 @@ Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/extcon/extcon-arizona.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/extcon/extcon-arizona.c | 40 +++++++++++++++++----------------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/extcon/extcon-arizona.c b/drivers/extcon/extcon-arizona.c
-index aae82db542a5..f7ef247de46a 100644
+index f7ef247de46a..76aacbac5869 100644
 --- a/drivers/extcon/extcon-arizona.c
 +++ b/drivers/extcon/extcon-arizona.c
-@@ -601,7 +601,7 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
- 	struct arizona *arizona = info->arizona;
- 	int id_gpio = arizona->pdata.hpdet_id_gpio;
- 	unsigned int report = EXTCON_JACK_HEADPHONE;
--	int ret, reading;
-+	int ret, reading, state;
- 	bool mic = false;
+@@ -1760,25 +1760,6 @@ static int arizona_extcon_remove(struct platform_device *pdev)
+ 	bool change;
+ 	int ret;
  
- 	mutex_lock(&info->lock);
-@@ -614,12 +614,11 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
- 	}
- 
- 	/* If the cable was removed while measuring ignore the result */
--	ret = extcon_get_state(info->edev, EXTCON_MECHANICAL);
+-	ret = regmap_update_bits_check(arizona->regmap, ARIZONA_MIC_DETECT_1,
+-				       ARIZONA_MICD_ENA, 0,
+-				       &change);
 -	if (ret < 0) {
--		dev_err(arizona->dev, "Failed to check cable state: %d\n",
+-		dev_err(&pdev->dev, "Failed to disable micd on remove: %d\n",
 -			ret);
-+	state = extcon_get_state(info->edev, EXTCON_MECHANICAL);
-+	if (state < 0) {
-+		dev_err(arizona->dev, "Failed to check cable state: %d\n", state);
- 		goto out;
--	} else if (!ret) {
-+	} else if (!state) {
- 		dev_dbg(arizona->dev, "Ignoring HPDET for removed cable\n");
- 		goto done;
- 	}
-@@ -667,7 +666,7 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
- 		gpio_set_value_cansleep(id_gpio, 0);
+-	} else if (change) {
+-		regulator_disable(info->micvdd);
+-		pm_runtime_put(info->dev);
+-	}
+-
+-	gpiod_put(info->micd_pol_gpio);
+-
+-	pm_runtime_disable(&pdev->dev);
+-
+-	regmap_update_bits(arizona->regmap,
+-			   ARIZONA_MICD_CLAMP_CONTROL,
+-			   ARIZONA_MICD_CLAMP_MODE_MASK, 0);
+-
+ 	if (info->micd_clamp) {
+ 		jack_irq_rise = ARIZONA_IRQ_MICD_CLAMP_RISE;
+ 		jack_irq_fall = ARIZONA_IRQ_MICD_CLAMP_FALL;
+@@ -1794,10 +1775,31 @@ static int arizona_extcon_remove(struct platform_device *pdev)
+ 	arizona_free_irq(arizona, jack_irq_rise, info);
+ 	arizona_free_irq(arizona, jack_irq_fall, info);
+ 	cancel_delayed_work_sync(&info->hpdet_work);
++	cancel_delayed_work_sync(&info->micd_detect_work);
++	cancel_delayed_work_sync(&info->micd_timeout_work);
++
++	ret = regmap_update_bits_check(arizona->regmap, ARIZONA_MIC_DETECT_1,
++				       ARIZONA_MICD_ENA, 0,
++				       &change);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "Failed to disable micd on remove: %d\n",
++			ret);
++	} else if (change) {
++		regulator_disable(info->micvdd);
++		pm_runtime_put(info->dev);
++	}
++
++	regmap_update_bits(arizona->regmap,
++			   ARIZONA_MICD_CLAMP_CONTROL,
++			   ARIZONA_MICD_CLAMP_MODE_MASK, 0);
+ 	regmap_update_bits(arizona->regmap, ARIZONA_JACK_DETECT_ANALOGUE,
+ 			   ARIZONA_JD1_ENA, 0);
+ 	arizona_clk32k_disable(arizona);
  
- 	/* If we have a mic then reenable MICDET */
--	if (mic || info->mic)
-+	if (state && (mic || info->mic))
- 		arizona_start_mic(info);
++	gpiod_put(info->micd_pol_gpio);
++
++	pm_runtime_disable(&pdev->dev);
++
+ 	return 0;
+ }
  
- 	if (info->hpdet_active) {
-@@ -675,7 +674,9 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
- 		info->hpdet_active = false;
- 	}
- 
--	info->hpdet_done = true;
-+	/* Do not set hp_det done when the cable has been unplugged */
-+	if (state)
-+		info->hpdet_done = true;
- 
- out:
- 	mutex_unlock(&info->lock);
 -- 
 2.30.1
 

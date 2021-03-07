@@ -2,88 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6BC330274
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 16:07:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946BE330295
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Mar 2021 16:20:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17A641F19;
-	Sun,  7 Mar 2021 16:06:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17A641F19
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74881F12;
+	Sun,  7 Mar 2021 16:19:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74881F12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615129663;
-	bh=iiaHnM2MsTvXQ+Wq9X5W8+XjcwQNiYnDfDdF6lOpA+U=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=m42GrkyAYQGh8EVFbDLqAz+EN3kWogVV++Rbvi+JqcDV00DqDF4+2/ifE4cb+1Oqn
-	 x7/ESohDaoUgUT5jxSZ6PujpEbhvgDvFv7ZpIdHXjXwfe/KiOqalJpbCG9hHjroG9l
-	 9NknADiJVB/gbgdX0SeCKd5Kdj8hYol2Bior8nMo=
+	s=default; t=1615130402;
+	bh=HMkDGYqhE1FVD9yt6c+4UBpktlXBq/LQyXWVIzHZP/Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gciSCQzQGzDSJ+Yc3NqNiQA+uVgBM52AFlC4MQMozoaezL1S2g2YZhGOECMke8RBD
+	 gwL27bWBieoTKZq/5D039cA7u8U1++2tf2LUcLrzC2KCwC65fXCBM9c0EIxWP7FHDD
+	 +WsAlOdLI7N/FSpcSNqbqU9ulp2ukmsyVcJv1iNo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05D48F8032B;
-	Sun,  7 Mar 2021 16:05:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3531FF8028B;
+	Sun,  7 Mar 2021 16:18:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D8E6F8028B; Sun,  7 Mar 2021 16:05:22 +0100 (CET)
+ id E398EF80227; Sun,  7 Mar 2021 16:18:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C58BF800ED
- for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 16:05:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C58BF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE4D3F80139
+ for <alsa-devel@alsa-project.org>; Sun,  7 Mar 2021 16:18:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE4D3F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="ZgJd17Mg"
+ header.b="XXGSsd7R"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615129514;
+ s=mimecast20190719; t=1615130303;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KejlvcT1gOeSWvvdBwsaUIeKwwnwlqbeqQnR3mja/KA=;
- b=ZgJd17Mgv382+shxa4PxHPeyGjqQZPb8QnngrzY8R/l7E1G9Fxz+J9pTSIc5D3v9IU3ufq
- dUZir9Qje+rz6NHSpdMz9fz+fzI6U+qT+vYd5bzPYxxKCzf/mR33IPtVU0uSUYv+YuBeu4
- IqOAU38oPZgpEOTyiO/XIlHdAvcVM0M=
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hpOIohiqtQVCBBLhP65zCevaj+cVWLKqGokojSmTLAg=;
+ b=XXGSsd7RlScBgOPu5/zw+29fnfKz1QYYDEjh45Zrxdhc9yhtFIXCKb7+pUnYXG+5nPmTNG
+ 1FgE2VgYblLZ5cEqRGnHqJL+lao+zPfcACoboGrOr6MYteSAoBlSeo6e313hSKQgdoOveg
+ eDcI1bfiyELYuQDuROyroSNW2tXj9o8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-E9JrxxXIPxyA0wkiirVgcQ-1; Sun, 07 Mar 2021 10:05:12 -0500
-X-MC-Unique: E9JrxxXIPxyA0wkiirVgcQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+ us-mta-531-gM2Il1E3P52STFI3cndV2w-1; Sun, 07 Mar 2021 10:18:19 -0500
+X-MC-Unique: gM2Il1E3P52STFI3cndV2w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 347F0804330;
- Sun,  7 Mar 2021 15:05:11 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 051B9107465C;
+ Sun,  7 Mar 2021 15:18:17 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-90.ams2.redhat.com [10.36.112.90])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 71D7E19D7C;
- Sun,  7 Mar 2021 15:05:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0265C60BF1;
+ Sun,  7 Mar 2021 15:18:13 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
+To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH resend 2/2] ASoC: Intel: bytcr_rt5640: Add used AIF to the
- components string
-Date: Sun,  7 Mar 2021 16:05:03 +0100
-Message-Id: <20210307150503.34906-3-hdegoede@redhat.com>
-In-Reply-To: <20210307150503.34906-1-hdegoede@redhat.com>
-References: <20210307150503.34906-1-hdegoede@redhat.com>
+Subject: [PATCH v4 resend 00/13] MFD/extcon/ASoC: Rework arizona codec
+ jack-detect support
+Date: Sun,  7 Mar 2021 16:17:54 +0100
+Message-Id: <20210307151807.35201-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,66 +94,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Depending on which AIF is used the UCM profile needs to setup
-a different path through the rt5640's "Digital Mixer Path" graph.
+Hi All,
 
-ATM the UCM profiles solve this by just enabling paths to the outputs /
-from the input from both AIF1 and AIF2 and then relying on the DAPM
-framework to power-down the parts of the graph connected to the
-unused AIF.
+Here is v4 of my series to rework the arizona codec jack-detect support
+to use the snd_soc_jack helpers instead of direct extcon reporting.
 
-But in order to be able to use hardware-volumecontrol and to use
-the hardware mute controls, which are necessary for mute LED control,
-the UCM profiles need to know which AIF is actually being used.
+As discussed before here is a resend rebased on 5.12-rc2, making sure that
+all patches this depends on are in place.
 
-Add a new "aif:1" or "aif:2" part to the component string to provide
-info about the used AIF to userspace / to the UCM profiles.
+Lee, can you pick-up patches 1-6 through the MFD tree and then send a
+pull-req to Mark so that Mark can merge the Asoc parts throught the ASoC
+tree ?
 
-Note the size of byt_rt5640_components is not increased because the
-size of 32 chars already is big enough.
+Patches 2-6 touch drivers/extcon, these all have an Ack from Chanwoo Choi
+for merging these through the MFD tree.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/soc/intel/boards/bytcr_rt5640.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Here is some more generic info on this series from the previous
+cover-letter:
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 5d48cc359c3d..1f6a636571c2 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1252,6 +1252,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	int ret_val = 0;
- 	int dai_index = 0;
- 	int i, cfg_spk;
-+	int aif;
- 
- 	is_bytcr = false;
- 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-@@ -1363,8 +1364,12 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	log_quirks(&pdev->dev);
- 
- 	if ((byt_rt5640_quirk & BYT_RT5640_SSP2_AIF2) ||
--	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
-+	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
- 		byt_rt5640_dais[dai_index].codecs->dai_name = "rt5640-aif2";
-+		aif = 2;
-+	} else {
-+		aif = 1;
-+	}
- 
- 	if ((byt_rt5640_quirk & BYT_RT5640_SSP0_AIF1) ||
- 	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
-@@ -1402,8 +1407,8 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	}
- 
- 	snprintf(byt_rt5640_components, sizeof(byt_rt5640_components),
--		 "cfg-spk:%d cfg-mic:%s", cfg_spk,
--		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)]);
-+		 "cfg-spk:%d cfg-mic:%s aif:%d", cfg_spk,
-+		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)], aif);
- 	byt_rt5640_card.components = byt_rt5640_components;
- #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- 	snprintf(byt_rt5640_long_name, sizeof(byt_rt5640_long_name),
+This is done by reworking the extcon driver into an arizona-jackdet
+library and then modifying the codec drivers to use that directly,
+replacing the old separate extcon child-devices and extcon-driver.
+
+This brings the arizona-codec jack-detect handling inline with how
+all other ASoC codec driver do this. This was developed and tested on
+a Lenovo Yoga Tablet 1051L with a WM5102 codec.
+
+This was also tested by Charles Keepax, one of the Cirrus Codec folks.
+
+Regards,
+
+Hans
+
+
+Hans de Goede (13):
+  mfd: arizona: Drop arizona-extcon cells
+  extcon: arizona: Fix some issues when HPDET IRQ fires after the jack
+    has been unplugged
+  extcon: arizona: Fix various races on driver unbind
+  extcon: arizona: Fix flags parameter to the gpiod_get("wlf,micd-pol")
+    call
+  extcon: arizona: Always use pm_runtime_get_sync() when we need the
+    device to be awake
+  ASoC/extcon: arizona: Move arizona jack code to
+    sound/soc/codecs/arizona-jack.c
+  ASoC: arizona-jack: Move jack-detect variables to struct arizona_priv
+  ASoC: arizona-jack: Use arizona->dev for runtime-pm
+  ASoC: arizona-jack: convert into a helper library for codec drivers
+  ASoC: arizona-jack: Use snd_soc_jack to report jack events
+  ASoC: arizona-jack: Cleanup logging
+  ASoC: arizona: Make the wm5102, wm5110, wm8997 and wm8998 drivers use
+    the new jack library
+  ASoC: Intel: bytcr_wm5102: Add jack detect support
+
+ MAINTAINERS                                   |   3 +-
+ drivers/extcon/Kconfig                        |   8 -
+ drivers/extcon/Makefile                       |   1 -
+ drivers/mfd/arizona-core.c                    |  20 -
+ sound/soc/codecs/Makefile                     |   2 +-
+ .../soc/codecs/arizona-jack.c                 | 577 +++++++-----------
+ sound/soc/codecs/arizona.h                    |  44 ++
+ sound/soc/codecs/wm5102.c                     |  12 +-
+ sound/soc/codecs/wm5110.c                     |  12 +-
+ sound/soc/codecs/wm8997.c                     |  14 +-
+ sound/soc/codecs/wm8998.c                     |   9 +
+ sound/soc/intel/boards/bytcr_wm5102.c         |  28 +-
+ 12 files changed, 325 insertions(+), 405 deletions(-)
+ rename drivers/extcon/extcon-arizona.c => sound/soc/codecs/arizona-jack.c (76%)
+
 -- 
 2.30.1
 

@@ -2,98 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7117F330EC5
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 14:00:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2EE7330EFF
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 14:18:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E51B61887;
-	Mon,  8 Mar 2021 13:59:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E51B61887
+	by alsa0.perex.cz (Postfix) with ESMTPS id 582E21888;
+	Mon,  8 Mar 2021 14:17:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 582E21888
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615208411;
-	bh=Aj/RmNB9bg1JwHjFQDvNCNmh4qssBi1OKACGeEpiJRQ=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YGpL48qItSczzjCvLnQv3bmsuFte9LIYAZ7fqaYoOMM2UVWRBESHrVIjxpv5vt+hN
-	 DljOGnYS5DcAvj48X701N5fgR0RHbCA8gtvLHxqJdTKBAbYel7oAy/m01XqT7zNuAP
-	 2mcMcEE+6XOsYkkvzaYl5DBlW3wlTb1zBQLKN/BE=
+	s=default; t=1615209491;
+	bh=Mq/RjOi7oMvBkyqqQDEJlkZFAJdUsCm3Qg8+RS8/HSo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pDqSGJfAvGDvGtTVdPinongtcSii6OoLE7ehc1BCMPkv+EHVEVjA6pg8xNeJu7jvF
+	 tzPBajHfslANm95Es+90cmU4WSATYXiGgbmswMUWMsMPaAkJTxmzX5e1BoYtIWOvyE
+	 BlYvcGC3pWew9PaQH47nP0thImLmMg9nPUO9Gd+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CDFEF801ED;
-	Mon,  8 Mar 2021 13:58:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE53BF801ED;
+	Mon,  8 Mar 2021 14:16:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA3FFF801D8; Mon,  8 Mar 2021 13:58:37 +0100 (CET)
+ id 8F9CCF801D8; Mon,  8 Mar 2021 14:16:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01C3CF800D0
- for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 13:58:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01C3CF800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C77AF800D0
+ for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 14:16:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C77AF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="HntoVDIu"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="MdFdBpqo"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id B2DA8265A;
- Mon,  8 Mar 2021 07:58:21 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 08 Mar 2021 07:58:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:mime-version:content-type;
- s=fm1; bh=Aj/RmNB9bg1JwHjFQDvNCNmh4qssBi1OKACGeEpiJRQ=; b=HntoV
- DIuiHH8tKqaynp1Q55yipZC60XMusF3Wm+KS22N/kVb4CSYOEpKcoH70/ZLVJl5t
- VBjfhWYIOgLoVGjLXJJj+DUHaK1Zbe22x3RfgDmCM/WA1k17+XW8SrgxzHmtRTcz
- nXyQikBtlT0U+rN/Rz/PsK/4QED7B0nQlD71s17PI4T3bgueu54ObF/zjayW8oUi
- KEBSo5p0WKlSjbveYjQr4VzsuwMku/E4lkmIJakyleM9TFk8bnJTna0rEoUKHpXg
- m7qZVs92vsUuJcJIHHwi+P3t0srdHsFTCnlzfKWukpSFSLabo2a4+aWzEL7SzJLp
- EBuel/cVyOCr8XuVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=Aj/RmNB9bg1JwHjFQDvNCNmh4qssB
- i1OKACGeEpiJRQ=; b=MdFdBpqo5ppiJKOiwAGqr2ty8HpyHFUhlkC+kMRLjbXA7
- D9IA6MrmRypSDu1x1/rkgT0CO7Bc9pWylFcnEOrKp8ZEepZRfS8sj2TVuqoCSE2g
- R5gAsQrm+mXTg9++Xh+cRwBqhwqMNkMLxEx5JYD577hlN5fl9Z5FJlDoXo2Q7bJw
- Gb8OsBciRzLehTvPB3SzInJgmD1tYzRwydxuLlPMNniCX4N4xw2uFC9KFVXdXVZ2
- 09LhjjS6mUq7mqf1IpG+MNq4lQ11RS3lpb1SFvzKNBSZVoWJRkxo/KnX5iq9XhZf
- hurIohxYjQumxD0XyrYWOog14ApdPfH0qgx4tJ2/w==
-X-ME-Sender: <xms:bB9GYI8YmT-u9bbxxQGT5Ap59jZwX-jFMSmDqBks0G2fo5lNJn20yw>
- <xme:bB9GYAsLCo6LBy89NRYBEY3xaHnl5d6Fuz01pz6kz-mdEHRZuTeTetdIfHBpa23Gx
- p0697fIX6GtlzNHp7g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudduvddgfeejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesthdtredttd
- dtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudeghefgtdettd
- duhfdugeevueefgffhgeevkeeiffdukedugffggeetgfffleffnecuffhomhgrihhnpehg
- ihhthhhusgdrtghomhenucfkphepudegrdefrdeihedrudejheenucevlhhushhtvghruf
- hiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghk
- rghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:bB9GYODtti_zWCk5gr_RKK0JwG4CNNw4LfzpwqfB1zgRoFWj0IJRYg>
- <xmx:bB9GYIf0_XmkyfYsUWMfNTOU2m9tX4vqUr2O77JJQTSnaJiMOzblmA>
- <xmx:bB9GYNMritU4WhvJLzipGmTEOh_qAjiHAhkSasSoARP5y2RiBctYOg>
- <xmx:bR9GYEZ0gmnRotghaUYqnnPgvQBM0VItrSPcpOOvwmlFBc3zld7cNQ>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1251424005D;
- Mon,  8 Mar 2021 07:58:19 -0500 (EST)
-Date: Mon, 8 Mar 2021 21:58:17 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: perex@perex.cz
-Subject: alsa-lib's new API issue (snd_ctl_elem_id_compare)
-Message-ID: <20210308125817.GA212288@workstation>
-Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BdHyVo3y"
+Received: by mail-qv1-xf33.google.com with SMTP id h7so4539103qvm.2
+ for <alsa-devel@alsa-project.org>; Mon, 08 Mar 2021 05:16:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Mq/RjOi7oMvBkyqqQDEJlkZFAJdUsCm3Qg8+RS8/HSo=;
+ b=BdHyVo3yQuV3DV48f3bJjriWahibIKWTlkYMWIxyjaeMsJ0eLXR8/VVMc34NswrBkC
+ nKHr9BKZyu88I8ghJ6Kz0bzo/xOsVeSY5AW9j3eSukKNb6S9EoyrHqodb/q4uU8cCXcN
+ Po3Jw1pEtrFsNCNXsPE842EFlS8agYdjp/MUiN2RO/1OWj1wtXDqUBtThXJ0hMa3zYgz
+ L6BdI+D+n6aycm+pFueaaDTXSSZycUyibySGKH0sExDhkPr/eT4gnVnPNS+PyzZFXRuo
+ sK39l5TRhwHhFKTo/4rbSyBnSv80SmWhlhrQyai6FZws9G78Ok8rJi2z9Xe+Lv8QsLYJ
+ ECDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Mq/RjOi7oMvBkyqqQDEJlkZFAJdUsCm3Qg8+RS8/HSo=;
+ b=f/DJT9VAgEn0ceMeTiJ6Up0dJm1nQN3jC9affcBd4kHf3LbZw9A4leI0fHnZaAwU3q
+ wIRgz+EJAj7EkOkrwTg9o3yG8C7EBKjQYscpGDPCKpcRJ7hEiZ2jxzou90cWTZSpV1g5
+ LSJ5QOZJfPkTKD5oppiaNF9gmHMy1j2B8h9ntx0dnC5MjqlSiYoACmuYo314NGisL+wu
+ qzbHH0hude9YQsUGzfsOBJfBYdGscVs8ZfkbPhTDhZsRDy5ufCd021TuvZVhYlur+JoT
+ Z3k5+1q66Z/xY0DUa7V1N02YOjKiMv71zdMiaBAWNZENzDUFQg8aWUYgmA7itpX9ADrD
+ PyDQ==
+X-Gm-Message-State: AOAM531aagP7FMuRhPB7Suz6IhaQdWm8Nbg16/0o6jkpauHhKoyFggPH
+ WQJWDxmja4WBUJ8UaOD7WeULmxIhDZaxGSMKsa8=
+X-Google-Smtp-Source: ABdhPJygKdeW7eWlM9tZB3oGSyuFSBjt6ZqB3nTQwnEAkBjDRdfL3US7UMWjWXaXySP+UvXlKsBkA6VqexayPm1FufM=
+X-Received: by 2002:a05:6214:76f:: with SMTP id
+ f15mr20582682qvz.56.1615209387754; 
+ Mon, 08 Mar 2021 05:16:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: alsa-devel@alsa-project.org
+References: <1614221563-26822-1-git-send-email-shengjiu.wang@nxp.com>
+ <1614221563-26822-8-git-send-email-shengjiu.wang@nxp.com>
+ <20210306203617.GA1164939@robh.at.kernel.org>
+In-Reply-To: <20210306203617.GA1164939@robh.at.kernel.org>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 8 Mar 2021 21:16:16 +0800
+Message-ID: <CAA+D8APUVqyRRPc4GDwJqQEcnEPLxQMcZ+VhkbbrOx7hQs1jSA@mail.gmail.com>
+Subject: Re: [PATCH v3 7/7] ASoC: dt-bindings: imx-rpmsg: Add binding doc for
+ rpmsg machine driver
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,48 +104,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+On Sun, Mar 7, 2021 at 4:37 AM Rob Herring <robh@kernel.org> wrote:
+>
+> On Thu, Feb 25, 2021 at 10:52:43AM +0800, Shengjiu Wang wrote:
+> > Imx-rpmsg is a new added machine driver for supporting audio on Cortex-M
+> > core. The Cortex-M core will control the audio interface, DMA and audio
+> > codec, setup the pipeline, the audio driver on Cortex-A core side is just
+> > to communitcate with M core, it is a virtual sound card and don't touch
+> > the hardware.
+>
+> This sounds like 1 h/w block (the interface to the cortex-M), your DT
+> should be 1 node. If you need 2 drivers to satisfy the needs of the OS,
+> then instantiate one device from the other device's driver.
+>
 
-I have some concern about your commit 2cfe6addaef6[1] for alsa-lib,
+Ok, I will change it in v4.
 
-It adds new library API, 'snd_ctl_elem_id_compare()', to compare a pair of
-IDs for control element. In the implementation, the API call returns 0 if
-they are the same, else negative or positive numeric value according to
-contents of the IDs.
-
-My concerns are:
-
-1. evaluation of numid field is not covered.
-
-This is not preferable since ALSA control core implementation covers two
-types of comparison; numid only, and the combination iface, device,
-subdevice, name, and index fields. If the API is produced for general use
-cases, it should correctly handle the numid-only case, in my opinion.
-
-2. tri-state return value is semantically inconsistent
-
-The ID structure includes three types of values; integer, enumeration, and
-string. In my opinion, tri-state return value from them has different meaning
-each other. It's better just to return comparison result by boolean value,
-in my opinion.
-
-The reason I post this message instead of posting any fix is that the fix
-to the API affects to alsa-utils, in which the API is used by a patch you
-applied a few days ago[2]. The patch also includes change to 'AM_PATH_ALSA'
-declaration in configure.ac with bumped-up version to '1.2.5', and it
-disables to rebuild alsa-utils on the latest toolchain. (alsa-lib 1.2.5 is
-not released yet.)
-
-I'd like to drop the usage of API from alsa-utils with equivalent
-alternative codes in alsa-utils side at first, apart from the new API in
-alsa-lib so that alsa-utils can be still build on the latest toolchains to
-avoid any confusion in user side. Then I'd fix the issued API carefully
-so that it can be used so long as exposed API without any issue.
-
-[1] https://github.com/alsa-project/alsa-lib/commit/2cfe6addaef6a0afa72699ec07a45e7f2fa445ba
-[2] https://github.com/alsa-project/alsa-utils/commit/17b4129e6c89d1a96d4d86dabea38389927e3cf4
-
-
-Regards
-
-Takashi Sakamoto
+best regards
+wang shengjiu

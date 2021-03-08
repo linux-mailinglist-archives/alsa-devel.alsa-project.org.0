@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D96331320
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:15:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42FF43312FC
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:10:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D483F192C;
-	Mon,  8 Mar 2021 17:14:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D483F192C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E9E418E1;
+	Mon,  8 Mar 2021 17:09:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E9E418E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615220115;
-	bh=5ZxenuEnRxfzPre9OG6r5woaetmVVzyp01P71cOUEI4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1615219804;
+	bh=380awQUJ4zxtwBAnBEvClAaNwFFI/taHEzoIObE5N+U=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ERrfqSLxarNFYKlVJ52NVm7dHDmIBp3fGmB6pCEgG8DU6BcaMHJaHTRdpUQgeCpBl
-	 6htvJ7sF4rkgN8YfU5PBxyuwkGkOQdcPo9pCW91AYfrBGRdK6+M2Z7K5QTnVFe5Fs3
-	 NP1LroX91YrajxsE8P866/3eLzqa4St4i7U6EHcU=
+	b=JZu4Hi8QDKyiffx2MJbVMki/lLmSBocjKDGrJsBUCkHQKOaz/pgonh+Zz11TlWhnk
+	 ZR+CY55KoczGFak2tjiDj+4aXuuc1pk/PmgmKslEDGYaoKpbaBJw8FMjBECV/eS/Zz
+	 I3ZJHJSnEZdCV53CQSJ0TurIAyXOJi6KNpk9K3Ng=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99E6AF8051C;
-	Mon,  8 Mar 2021 17:09:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D89CF8032C;
+	Mon,  8 Mar 2021 17:08:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D67AF804FB; Mon,  8 Mar 2021 17:08:56 +0100 (CET)
+ id 67429F8032B; Mon,  8 Mar 2021 17:08:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21F1EF804AE
- for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:08:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21F1EF804AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E0E0F801ED
+ for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:08:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E0E0F801ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FlP3VA9Z"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DD30A65229;
- Mon,  8 Mar 2021 16:08:48 +0000 (UTC)
+ header.b="fD2Tacyf"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D73A665226;
+ Mon,  8 Mar 2021 16:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615219729;
- bh=5ZxenuEnRxfzPre9OG6r5woaetmVVzyp01P71cOUEI4=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=FlP3VA9ZKepWg5/F6l/C/wKWBfJzj9FxaAunQX3+vEqURInAj96aiv8xsqsgsq5Pv
- HeMN9+xB83ZcXUUPLp0lYWRkxIuOWiib2suX57+Ln+8qQrjNXXcDPWsecbP/awBS/G
- 6W9WExFp0U7axoirXf2YZWbyHNyYwCMeMRl+jNfw6SiTKij9h+gQdN5LUs+Ry+RamR
- URb9rK9r26AscFSaWq22Y0MfMniaaXSDYY9kJcPSHpJQZjeP1YpRWpVNk2ZXAanTYV
- muiFv8kdewRqCaLhZO974KRku0L4rMOoD7XMRjYYywi8QwZBvVsFD9yK2r7ULqEztl
- fIBMwUDdUDKcQ==
+ s=k20201202; t=1615219684;
+ bh=380awQUJ4zxtwBAnBEvClAaNwFFI/taHEzoIObE5N+U=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=fD2TacyfcRYmPT1qdd2W8uYEHaZokSdyalnyzkyyKnwohZOUbYYENriJCEgB7sF3B
+ los6uptq+LLtTnPHoWbgNKK9C07A1Xae6dGmPkcAICYdYHhZQ9dVi5TbVSBWQ8Hh6N
+ 0SqR7shRcMvhIoqxCaWeRXYdHLdA3VwXdrMB7YWXvhsKnPl+RKAU3h6ldgW0f+Wxa+
+ d/3UNjIpmvFL4mOtWQ5lXnw/kLWIuWpS4zQaLUfp1Z6wziB02qtuY4Xybn8dmiPhcT
+ XB/ZwLAe24HjJLLzbNfJ5UOiBX349eQMkaoz17KKmh4LQ192qowmlJksgD0f4uEZ4W
+ Rj9nFw9VGvvZw==
 From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, lgirdwood@gmail.com, sebastian.krzyszkowiak@puri.sm,
- linux-kernel@vger.kernel.org, perex@perex.cz, ckeepax@opensource.cirrus.com,
- gustavoars@kernel.org, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, kuninori.morimoto.gx@renesas.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1615170877-25918-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1615170877-25918-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: wm8962: Relax bit clock divider searching
-Message-Id: <161521960849.9621.6433725701226320562.b4-ty@kernel.org>
+To: jack.yu@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20210302103042.19528-1-jack.yu@realtek.com>
+References: <20210302103042.19528-1-jack.yu@realtek.com>
+Subject: Re: [PATCH] ASoC: rt715-sdca: Add RT715 sdca vendor-specific driver
+Message-Id: <161521960848.9621.9461420031194370810.b4-ty@kernel.org>
 Date: Mon, 08 Mar 2021 16:06:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ derek.fang@realtek.com, bard.liao@intel.com, shumingf@realtek.com,
+ flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,15 +79,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 8 Mar 2021 10:34:37 +0800, Shengjiu Wang wrote:
-> With S20_3LE format case, the sysclk = rate * 384,
-> the bclk = rate * 20 * 2, there is no proper bclk divider
-> for 384 / 40, because current condition needs exact match.
-> So driver fails to configure the clocking:
-> 
-> wm8962 3-001a: Unsupported BCLK ratio 9
-> 
-> [...]
+On Tue, 2 Mar 2021 18:30:42 +0800, jack.yu@realtek.com wrote:
+> This is initial sdca version of codec driver for rt715.
 
 Applied to
 
@@ -96,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm8962: Relax bit clock divider searching
-      commit: 51309c5bec7cfe567a00a667adbffea444845543
+[1/1] ASoC: rt715-sdca: Add RT715 sdca vendor-specific driver
+      commit: 393c52d2d109c802e211bbfc2f66f123620775ef
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,69 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48E81331317
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:14:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC61B3312EF
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:09:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B95A71914;
-	Mon,  8 Mar 2021 17:14:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95A71914
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A48518AC;
+	Mon,  8 Mar 2021 17:08:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A48518AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615220095;
-	bh=sNoJxs7tQoGZX/eqrHIyXoYyHfsoy241kBsKf0/1JqA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=usqx5Ploi5fuvRG4yCMESnpnzKYbuz6ErpsYOmc6NnlJdcx++RyCy3n0U3j4nU9hL
-	 BfRo6XPd1UCRIWHSlnLGbwyCXhbtelfE5XnDzDj7bwOjC0y3RalGT6n5WQb5amWw8p
-	 g5YihAxDzMT3Nj2scMaKlqPEuImuBFCLxae3mA74=
+	s=default; t=1615219753;
+	bh=+ayh8DB6AjaU5LiEjo7XWkGZpwk8lbRyMmXrrzBRRqk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uHpHsCZGcOEbc0aEqzFdleABuXsU6F4A2m+wGhcu/Q8jvwMRI9/a3GLKVZKCfAF3C
+	 gyBKvtEc+6+Fb0rb/eS3xGmu5iCaMlh1t0fZZJtIaI5pZu86ifIcUiAOnccMNMOZIA
+	 M6ZZk15Lyog97vqCf1KsFU25UaVmRdUsBLd5ikro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5110BF8051A;
-	Mon,  8 Mar 2021 17:09:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8F60F8016C;
+	Mon,  8 Mar 2021 17:07:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76052F804FA; Mon,  8 Mar 2021 17:08:55 +0100 (CET)
+ id 61E90F801D8; Mon,  8 Mar 2021 17:07:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B911AF804E2
- for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:08:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B911AF804E2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Q/aprXmt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7DF9765229;
- Mon,  8 Mar 2021 16:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615219724;
- bh=sNoJxs7tQoGZX/eqrHIyXoYyHfsoy241kBsKf0/1JqA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Q/aprXmt9uV1HkydntrfCGyNjd35ZTQrs4m7D7lnH56rJclMbO2wnpBpAANGjfU69
- ZzeBJzK/2IRCbp1g100fMYplK5UQ16/KG2ZLH0KNO6hICZaXKpoihSfE5YxP+bdgFh
- C9khlcUbnyWPgK0iSCC5Jvf3TZswwRBozo+dyCmrcIT2DfGJfaXXdg4YMam5V2ZruN
- QNfq1LYRc7KgySSxxlmFRXOagVeZnwRb7GOtpPDEvNIw9tgDSI4DYLlxVGH9ET1Cf+
- 7hVQTZZ1n9l81YGhLsvj2xR0XR+D2hGR2NaN5KpIJ+TXkzhen+Z/a8vfRmkqibVYIv
- DBWO6ZAdUkFpg==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Shawn Guo <shawnguo@kernel.org>,
- Peter Robinson <pbrobinson@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jun Nie <jun.nie@linaro.org>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Barry Song <baohua@kernel.org>
-In-Reply-To: <20210307162338.1160604-1-pbrobinson@gmail.com>
-References: <20210307162338.1160604-1-pbrobinson@gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: remove remnants of sirf prima/atlas audio codec
-Message-Id: <161521960849.9621.1079723838844075721.b4-ty@kernel.org>
-Date: Mon, 08 Mar 2021 16:06:48 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3DD1F80139
+ for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:07:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3DD1F80139
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C9B48AB8C
+ for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 16:07:27 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Drop the BATCH workaround for AMD controllers
+Date: Mon,  8 Mar 2021 17:07:26 +0100
+Message-Id: <20210308160726.22930-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +62,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 7 Mar 2021 16:23:37 +0000, Peter Robinson wrote:
-> In 61fbeb5 the sirf prima/atlas drivers were removed. This cleans
-> up a stray header and some Kconfig entries for the codec that
-> were missed in the process.
+The commit c02f77d32d2c ("ALSA: hda - Workaround for crackled sound on
+AMD controller (1022:1457)") introduced a few workarounds for the
+recent AMD HD-audio controller, and one of them is the forced BATCH
+PCM mode so that PulseAudio avoids the timer-based scheduling.  This
+was thought to cover for some badly working applications, but this
+actually worsens for more others.  In total, this wasn't a good idea
+to enforce it.
 
-Applied to
+This is a partial revert of the commit above for dropping the PCM
+BATCH enforcement part to recover from the regression again.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Fixes: c02f77d32d2c ("ALSA: hda - Workaround for crackled sound on AMD controller (1022:1457)")
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=195303
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_controller.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Thanks!
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 9087981cd1f7..ca2f2ecd1488 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -609,13 +609,6 @@ static int azx_pcm_open(struct snd_pcm_substream *substream)
+ 				     20,
+ 				     178000000);
+ 
+-	/* by some reason, the playback stream stalls on PulseAudio with
+-	 * tsched=1 when a capture stream triggers.  Until we figure out the
+-	 * real cause, disable tsched mode by telling the PCM info flag.
+-	 */
+-	if (chip->driver_caps & AZX_DCAPS_AMD_WORKAROUND)
+-		runtime->hw.info |= SNDRV_PCM_INFO_BATCH;
+-
+ 	if (chip->align_buffer_size)
+ 		/* constrain buffer sizes to be multiple of 128
+ 		   bytes. This is more efficient in terms of memory
+-- 
+2.26.2
 
-[1/2] ASoC: remove remnants of sirf prima/atlas audio codec
-      commit: 016e0d0920451ccdc29ad6a11be92ba71254c1e1
-[2/2] ASoC: remove zte zx dangling kconfig
-      (no commit info)
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

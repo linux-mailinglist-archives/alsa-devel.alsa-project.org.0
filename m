@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42FF43312FC
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:10:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E81331317
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Mar 2021 17:14:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E9E418E1;
-	Mon,  8 Mar 2021 17:09:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E9E418E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B95A71914;
+	Mon,  8 Mar 2021 17:14:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95A71914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615219804;
-	bh=380awQUJ4zxtwBAnBEvClAaNwFFI/taHEzoIObE5N+U=;
+	s=default; t=1615220095;
+	bh=sNoJxs7tQoGZX/eqrHIyXoYyHfsoy241kBsKf0/1JqA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JZu4Hi8QDKyiffx2MJbVMki/lLmSBocjKDGrJsBUCkHQKOaz/pgonh+Zz11TlWhnk
-	 ZR+CY55KoczGFak2tjiDj+4aXuuc1pk/PmgmKslEDGYaoKpbaBJw8FMjBECV/eS/Zz
-	 I3ZJHJSnEZdCV53CQSJ0TurIAyXOJi6KNpk9K3Ng=
+	b=usqx5Ploi5fuvRG4yCMESnpnzKYbuz6ErpsYOmc6NnlJdcx++RyCy3n0U3j4nU9hL
+	 BfRo6XPd1UCRIWHSlnLGbwyCXhbtelfE5XnDzDj7bwOjC0y3RalGT6n5WQb5amWw8p
+	 g5YihAxDzMT3Nj2scMaKlqPEuImuBFCLxae3mA74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D89CF8032C;
-	Mon,  8 Mar 2021 17:08:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5110BF8051A;
+	Mon,  8 Mar 2021 17:09:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67429F8032B; Mon,  8 Mar 2021 17:08:13 +0100 (CET)
+ id 76052F804FA; Mon,  8 Mar 2021 17:08:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E0E0F801ED
- for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:08:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E0E0F801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id B911AF804E2
+ for <alsa-devel@alsa-project.org>; Mon,  8 Mar 2021 17:08:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B911AF804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fD2Tacyf"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D73A665226;
- Mon,  8 Mar 2021 16:08:03 +0000 (UTC)
+ header.b="Q/aprXmt"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7DF9765229;
+ Mon,  8 Mar 2021 16:08:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615219684;
- bh=380awQUJ4zxtwBAnBEvClAaNwFFI/taHEzoIObE5N+U=;
+ s=k20201202; t=1615219724;
+ bh=sNoJxs7tQoGZX/eqrHIyXoYyHfsoy241kBsKf0/1JqA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fD2TacyfcRYmPT1qdd2W8uYEHaZokSdyalnyzkyyKnwohZOUbYYENriJCEgB7sF3B
- los6uptq+LLtTnPHoWbgNKK9C07A1Xae6dGmPkcAICYdYHhZQ9dVi5TbVSBWQ8Hh6N
- 0SqR7shRcMvhIoqxCaWeRXYdHLdA3VwXdrMB7YWXvhsKnPl+RKAU3h6ldgW0f+Wxa+
- d/3UNjIpmvFL4mOtWQ5lXnw/kLWIuWpS4zQaLUfp1Z6wziB02qtuY4Xybn8dmiPhcT
- XB/ZwLAe24HjJLLzbNfJ5UOiBX349eQMkaoz17KKmh4LQ192qowmlJksgD0f4uEZ4W
- Rj9nFw9VGvvZw==
+ b=Q/aprXmt9uV1HkydntrfCGyNjd35ZTQrs4m7D7lnH56rJclMbO2wnpBpAANGjfU69
+ ZzeBJzK/2IRCbp1g100fMYplK5UQ16/KG2ZLH0KNO6hICZaXKpoihSfE5YxP+bdgFh
+ C9khlcUbnyWPgK0iSCC5Jvf3TZswwRBozo+dyCmrcIT2DfGJfaXXdg4YMam5V2ZruN
+ QNfq1LYRc7KgySSxxlmFRXOagVeZnwRb7GOtpPDEvNIw9tgDSI4DYLlxVGH9ET1Cf+
+ 7hVQTZZ1n9l81YGhLsvj2xR0XR+D2hGR2NaN5KpIJ+TXkzhen+Z/a8vfRmkqibVYIv
+ DBWO6ZAdUkFpg==
 From: Mark Brown <broonie@kernel.org>
-To: jack.yu@realtek.com, lgirdwood@gmail.com
-In-Reply-To: <20210302103042.19528-1-jack.yu@realtek.com>
-References: <20210302103042.19528-1-jack.yu@realtek.com>
-Subject: Re: [PATCH] ASoC: rt715-sdca: Add RT715 sdca vendor-specific driver
-Message-Id: <161521960848.9621.9461420031194370810.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Shawn Guo <shawnguo@kernel.org>,
+ Peter Robinson <pbrobinson@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jun Nie <jun.nie@linaro.org>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Barry Song <baohua@kernel.org>
+In-Reply-To: <20210307162338.1160604-1-pbrobinson@gmail.com>
+References: <20210307162338.1160604-1-pbrobinson@gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: remove remnants of sirf prima/atlas audio codec
+Message-Id: <161521960849.9621.1079723838844075721.b4-ty@kernel.org>
 Date: Mon, 08 Mar 2021 16:06:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, bard.liao@intel.com, shumingf@realtek.com,
- flove@realtek.com, pierre-louis.bossart@intel.com
+Cc: Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,8 +80,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2 Mar 2021 18:30:42 +0800, jack.yu@realtek.com wrote:
-> This is initial sdca version of codec driver for rt715.
+On Sun, 7 Mar 2021 16:23:37 +0000, Peter Robinson wrote:
+> In 61fbeb5 the sirf prima/atlas drivers were removed. This cleans
+> up a stray header and some Kconfig entries for the codec that
+> were missed in the process.
 
 Applied to
 
@@ -88,8 +91,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt715-sdca: Add RT715 sdca vendor-specific driver
-      commit: 393c52d2d109c802e211bbfc2f66f123620775ef
+[1/2] ASoC: remove remnants of sirf prima/atlas audio codec
+      commit: 016e0d0920451ccdc29ad6a11be92ba71254c1e1
+[2/2] ASoC: remove zte zx dangling kconfig
+      (no commit info)
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

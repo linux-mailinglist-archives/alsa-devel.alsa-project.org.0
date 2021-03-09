@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D254331C23
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 02:11:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02FF331C25
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 02:12:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00FF31903;
-	Tue,  9 Mar 2021 02:10:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00FF31903
+	by alsa0.perex.cz (Postfix) with ESMTPS id 322EE1848;
+	Tue,  9 Mar 2021 02:11:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322EE1848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615252306;
-	bh=xEKkLyu3ReRDRq3d14yEBmc37QfkuHyYm9QhzgYuDl0=;
+	s=default; t=1615252338;
+	bh=OFJh0wzYllNykNlTN4p2bqxLD/XS7A1DkZTYwx0HHWE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aDupF8OKnvN5GrZOtjy+6yzlX1qq/YhS+yvwXfesCXhOpi/wppgksHTnMXzHa71ZJ
-	 d+NWIXEUmLhBq7HJ7FZwWdMONCCWqAbSZPyiWFYMlVBCS8kPsa8NF426sxoegoE7Jo
-	 hGzzWX1oYPLJnKM76+JdBoWEb79UCKwXCTBYoJro=
+	b=okC5zmtA62lHfQUn2iDuzDhi5hHUrkvkRo/X7nho4nFe7Zgm01MbNYE173hpxHdKN
+	 REcDm+6xl/a0VXEfYWqYpQO7TURqlNSYRKgutDsajGKvsDGDvhQvB8h/7EgLO6OAR6
+	 7dKQYMPvNfoSNqQ/eXXGz/UAJYkWWss4iO5Ix0Us=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B7C4F804CF;
-	Tue,  9 Mar 2021 02:08:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CF83F804DF;
+	Tue,  9 Mar 2021 02:08:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1993CF804C1; Tue,  9 Mar 2021 02:08:18 +0100 (CET)
+ id 83E51F804DA; Tue,  9 Mar 2021 02:08:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 16DFEF802E7
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 02:08:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16DFEF802E7
-Date: 09 Mar 2021 10:08:12 +0900
-X-IronPort-AV: E=Sophos;i="5.81,233,1610377200"; d="scan'208";a="74504253"
+ by alsa1.perex.cz (Postfix) with ESMTP id D2233F804BD
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 02:08:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2233F804BD
+Date: 09 Mar 2021 10:08:17 +0900
+X-IronPort-AV: E=Sophos;i="5.81,233,1610377200"; d="scan'208";a="74504263"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 09 Mar 2021 10:08:12 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 09 Mar 2021 10:08:17 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 572D941424F6;
- Tue,  9 Mar 2021 10:08:12 +0900 (JST)
-Message-ID: <87blbtuoar.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 715E741424F6;
+ Tue,  9 Mar 2021 10:08:17 +0900 (JST)
+Message-ID: <87a6rduoam.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 7/8] ASoC: soc-pcm: remove unneeded !rtd->dai_link check
+Subject: [PATCH v3 8/8] ASoC: soc-pcm: share DPCM BE DAI stop operation
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87lfaxuoc3.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,29 +70,210 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-rtd->dai_link is setuped at soc_new_pcm_runtime(),
-thus "rtd->dai_link == NULL" is never happen.
-This patch removes unneeded !rtd->dai_link check
+soc-pcm has very similar but different DPCM BE DAI stop operation at
+	1) dpcm_be_dai_startup() error case rollback
+	2) dpcm_be_dai_startup_unwind()
+	3) dpcm_be_dai_shutdown()
+
+The differences are
+	1) for rollback
+	2) Doesn't check by snd_soc_dpcm_be_can_update() (Is this bug ?)
+	3) Do soc_pcm_hw_free() if it was not !OPENed and !HW_FREEed,
+	   and call soc_pcm_close().
+
+We can share same code by
+	1) hw_free is not needed. Needs last dpcm as rollback.
+	2) hw_free is not needed.
+	3) hw_free is     needed.
+
+This patch adds new dpcm_be_dai_stop() and share these 3.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 3 ---
- 1 file changed, 3 deletions(-)
+ include/sound/soc-dpcm.h |  8 +++-
+ sound/soc/soc-compress.c |  2 +-
+ sound/soc/soc-pcm.c      | 94 +++++++++-------------------------------
+ 3 files changed, 28 insertions(+), 76 deletions(-)
 
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index 0f6c50b17bba..d76cb1eeeaca 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -149,7 +149,8 @@ void dpcm_path_put(struct snd_soc_dapm_widget_list **list);
+ int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
+ 	int stream, struct snd_soc_dapm_widget_list **list, int new);
+ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream);
+-int dpcm_be_dai_shutdown(struct snd_soc_pcm_runtime *fe, int stream);
++void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
++		      int do_hw_free, struct snd_soc_dpcm *last);
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream);
+ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream);
+ int dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream);
+@@ -159,4 +160,9 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream);
+ int dpcm_dapm_stream_event(struct snd_soc_pcm_runtime *fe, int dir,
+ 	int event);
+ 
++#define dpcm_be_dai_startup_rollback(fe, stream, last)	\
++						dpcm_be_dai_stop(fe, stream, 0, last)
++#define dpcm_be_dai_startup_unwind(fe, stream)	dpcm_be_dai_stop(fe, stream, 0, NULL)
++#define dpcm_be_dai_shutdown(fe, stream)	dpcm_be_dai_stop(fe, stream, 1, NULL)
++
+ #endif
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 246a5e32e22a..89445ba0e86b 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -189,7 +189,7 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "Compressed ASoC: hw_free failed: %d\n", ret);
+ 
+-	ret = dpcm_be_dai_shutdown(fe, stream);
++	dpcm_be_dai_shutdown(fe, stream);
+ 
+ 	/* mark FE's links ready to prune */
+ 	for_each_dpcm_be(fe, stream, dpcm)
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 626d6e0a3a15..0ae386f0790e 100644
+index 0ae386f0790e..a27385ab7b55 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -165,9 +165,6 @@ static const struct file_operations dpcm_state_fops = {
+@@ -1417,18 +1417,24 @@ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream)
+ 	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ }
  
- void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
+-static void dpcm_be_dai_startup_unwind(struct snd_soc_pcm_runtime *fe,
+-	int stream)
++void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
++		      int do_hw_free, struct snd_soc_dpcm *last)
  {
--	if (!rtd->dai_link)
--		return;
--
- 	if (!rtd->dai_link->dynamic)
- 		return;
+ 	struct snd_soc_dpcm *dpcm;
  
+ 	/* disable any enabled and non active backends */
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+-
+ 		struct snd_soc_pcm_runtime *be = dpcm->be;
+ 		struct snd_pcm_substream *be_substream =
+ 			snd_soc_dpcm_get_substream(be, stream);
+ 
++		if (dpcm == last)
++			return;
++
++		/* is this op for this BE ? */
++		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
++			continue;
++
+ 		if (be->dpcm[stream].users == 0) {
+ 			dev_err(be->dev, "ASoC: no users %s at close - state %d\n",
+ 				stream ? "capture" : "playback",
+@@ -1439,8 +1445,15 @@ static void dpcm_be_dai_startup_unwind(struct snd_soc_pcm_runtime *fe,
+ 		if (--be->dpcm[stream].users != 0)
+ 			continue;
+ 
+-		if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_OPEN)
+-			continue;
++		if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_OPEN) {
++			if (!do_hw_free)
++				continue;
++
++			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_FREE) {
++				soc_pcm_hw_free(be_substream);
++				be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
++			}
++		}
+ 
+ 		soc_pcm_close(be_substream);
+ 		be_substream->runtime = NULL;
+@@ -1509,32 +1522,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	return count;
+ 
+ unwind:
+-	/* disable any enabled and non active backends */
+-	for_each_dpcm_be_rollback(fe, stream, dpcm) {
+-		struct snd_soc_pcm_runtime *be = dpcm->be;
+-		struct snd_pcm_substream *be_substream =
+-			snd_soc_dpcm_get_substream(be, stream);
+-
+-		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+-			continue;
+-
+-		if (be->dpcm[stream].users == 0) {
+-			dev_err(be->dev, "ASoC: no users %s at close %d\n",
+-				stream ? "capture" : "playback",
+-				be->dpcm[stream].state);
+-			continue;
+-		}
+-
+-		if (--be->dpcm[stream].users != 0)
+-			continue;
+-
+-		if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_OPEN)
+-			continue;
+-
+-		soc_pcm_close(be_substream);
+-		be_substream->runtime = NULL;
+-		be->dpcm[stream].state = SND_SOC_DPCM_STATE_CLOSE;
+-	}
++	dpcm_be_dai_startup_rollback(fe, stream, dpcm);
+ 
+ 	return err;
+ }
+@@ -1782,46 +1770,6 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ 	return ret;
+ }
+ 
+-int dpcm_be_dai_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
+-{
+-	struct snd_soc_dpcm *dpcm;
+-
+-	/* only shutdown BEs that are either sinks or sources to this FE DAI */
+-	for_each_dpcm_be(fe, stream, dpcm) {
+-
+-		struct snd_soc_pcm_runtime *be = dpcm->be;
+-		struct snd_pcm_substream *be_substream =
+-			snd_soc_dpcm_get_substream(be, stream);
+-
+-		/* is this op for this BE ? */
+-		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+-			continue;
+-
+-		if (be->dpcm[stream].users == 0)
+-			dev_err(be->dev, "ASoC: no users %s at close - state %d\n",
+-				stream ? "capture" : "playback",
+-				be->dpcm[stream].state);
+-
+-		if (--be->dpcm[stream].users != 0)
+-			continue;
+-
+-		if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_FREE) &&
+-		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_OPEN)) {
+-			soc_pcm_hw_free(be_substream);
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+-		}
+-
+-		dev_dbg(be->dev, "ASoC: close BE %s\n",
+-			be->dai_link->name);
+-
+-		soc_pcm_close(be_substream);
+-		be_substream->runtime = NULL;
+-
+-		be->dpcm[stream].state = SND_SOC_DPCM_STATE_CLOSE;
+-	}
+-	return 0;
+-}
+-
+ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+@@ -2371,9 +2319,7 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
+ 	if (err < 0)
+ 		dev_err(fe->dev,"ASoC: hw_free FE failed %d\n", err);
+ 
+-	err = dpcm_be_dai_shutdown(fe, stream);
+-	if (err < 0)
+-		dev_err(fe->dev,"ASoC: shutdown FE failed %d\n", err);
++	dpcm_be_dai_shutdown(fe, stream);
+ 
+ 	/* run the stream event for each BE */
+ 	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_NOP);
 -- 
 2.25.1
 

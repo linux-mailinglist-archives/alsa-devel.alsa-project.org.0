@@ -2,88 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60BD633236E
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 11:57:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6940133243C
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 12:40:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED64D17CA;
-	Tue,  9 Mar 2021 11:56:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED64D17CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB45817CC;
+	Tue,  9 Mar 2021 12:39:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB45817CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615287433;
-	bh=G9ciPs/Fvtk4MHj4mH20dqCwF0y5VTarPOId5Uf8cUQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1615290022;
+	bh=s3jwF99y0+cbJHzmzctZ84t9ndOKCR30S8xAdk83f30=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VrRDABwW9aKwImVTyy0L6KTn/Oxlusw9VN+CugxmnU/jaXsTMHstm1Kc/ntmyKCSv
-	 uu5CQeAvy20LXvJzGs2rPiem2FtnEIL3yttATDmdtSwpVhs9givQKdevn+yesGhg3o
-	 h+OvrLPwpWQQMHS5mVEh6q5mU0RosnQ4+A/KC/BA=
+	b=TWfSoUyq7fRRUePdtR26cbGe6UPlsV/i2GQZP6VaTHLF7ZmmC7gDWTIBBnoJt4exY
+	 fOk6FgI88L/LWZV67MZNCdlLV1it9G68VBT6S72PKcNOpTizWQKF46z2g30FcnbS4U
+	 yRBPoKbJbchPSS/eueCTHbkl7IFdpqVqFKmJTF7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52494F80227;
-	Tue,  9 Mar 2021 11:55:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43D1CF800D0;
+	Tue,  9 Mar 2021 12:38:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB76AF80256; Tue,  9 Mar 2021 11:55:39 +0100 (CET)
+ id 74F6CF80227; Tue,  9 Mar 2021 12:38:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 717DFF80166
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 11:55:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 717DFF80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="B/9piOwD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615287330;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qXtQKgIGCfZ9zBltozu9luumN+mvOGZeMn1rnLSEzCs=;
- b=B/9piOwDfqf4Fvdw0U7lTwUTuZ98WZLvQp3+9LWYiq4dEYW/Qs2EH9uzWVqsKtoRGCfVtV
- jmhMshMb9QzdHt8hGXwHqYhEjhkY551nSF6wcd/vslb889be/a8yYNNUzpeAolcXAKxQBi
- chT6HHeXwo7DZmOBb3bpDn/0RMBEFxI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-283-JM9XxSv_PTWlgFuzGcS8KA-1; Tue, 09 Mar 2021 05:55:28 -0500
-X-MC-Unique: JM9XxSv_PTWlgFuzGcS8KA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 496786973B;
- Tue,  9 Mar 2021 10:55:27 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-112-201.ams2.redhat.com
- [10.36.112.201])
- by smtp.corp.redhat.com (Postfix) with ESMTP id ABA3B5C266;
- Tue,  9 Mar 2021 10:55:24 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: intel: atom: Remove 44100 sample-rate from the
- media and deep-buffer DAI descriptions
-Date: Tue,  9 Mar 2021 11:55:20 +0100
-Message-Id: <20210309105520.9185-2-hdegoede@redhat.com>
-In-Reply-To: <20210309105520.9185-1-hdegoede@redhat.com>
-References: <20210309105520.9185-1-hdegoede@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EE7EF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 12:38:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE7EF800D0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AC3E6AB8C;
+ Tue,  9 Mar 2021 11:38:40 +0000 (UTC)
+Date: Tue, 09 Mar 2021 12:38:40 +0100
+Message-ID: <s5him601rr3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: Re: [syzbot] KASAN: use-after-free Read in usb_audio_disconnect
+In-Reply-To: <000000000000217e4d05bd18e750@google.com>
+References: <000000000000217e4d05bd18e750@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: tiwai@suse.com, kai.heng.feng@canonical.com,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,44 +69,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The media and deep-buffer DAIs only support 48000 Hz samplerate,
-remove the 44100 sample-rate from their descriptions.
+On Tue, 09 Mar 2021 12:32:18 +0100,
+syzbot wrote:
+> 
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    4641b323 Add linux-next specific files for 20210305
+> git tree:       linux-next
+> console output: https://syzkaller.appspot.com/x/log.txt?x=103252ead00000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=b87b6a083d302a90
+> dashboard link: https://syzkaller.appspot.com/bug?extid=ffad4c74b3b3ea3aa9c3
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1122d35cd00000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17f6476cd00000
+> 
+> The issue was bisected to:
+> 
+> commit 9799110825dba087c2bdce886977cf84dada2005
+> Author: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> Date:   Thu Mar 4 04:34:16 2021 +0000
+> 
+>     ALSA: usb-audio: Disable USB autosuspend properly in setup_disable_autosuspend()
+> 
+> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=166d91ead00000
+> final oops:     https://syzkaller.appspot.com/x/report.txt?x=156d91ead00000
+> console output: https://syzkaller.appspot.com/x/log.txt?x=116d91ead00000
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+ffad4c74b3b3ea3aa9c3@syzkaller.appspotmail.com
+> Fixes: 9799110825db ("ALSA: usb-audio: Disable USB autosuspend properly in setup_disable_autosuspend()")
+> 
+> usb 1-1: USB disconnect, device number 2
+> ==================================================================
+> BUG: KASAN: use-after-free in usb_audio_disconnect+0x750/0x800 sound/usb/card.c:918
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/soc/intel/atom/sst-mfld-platform-pcm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This must be fixed by the commit that was already merged to sound.git
+tree today:
+c5aa956eaeb0 ("ALSA: usb-audio: fix use after free in usb_audio_disconnect")
 
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index aa5dd590ddd5..4124aa2fc247 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -487,14 +487,14 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
- 		.stream_name = "Headset Playback",
- 		.channels_min = SST_STEREO,
- 		.channels_max = SST_STEREO,
--		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
-+		.rates = SNDRV_PCM_RATE_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.capture = {
- 		.stream_name = "Headset Capture",
- 		.channels_min = 1,
- 		.channels_max = 2,
--		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
-+		.rates = SNDRV_PCM_RATE_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- },
-@@ -505,7 +505,7 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
- 		.stream_name = "Deepbuffer Playback",
- 		.channels_min = SST_STEREO,
- 		.channels_max = SST_STEREO,
--		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
-+		.rates = SNDRV_PCM_RATE_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- },
--- 
-2.30.1
 
+thanks,
+
+Takashi

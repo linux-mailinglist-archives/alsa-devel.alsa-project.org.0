@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9D8332E68
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 19:40:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BC97332ECA
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 20:10:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C971B1867;
-	Tue,  9 Mar 2021 19:39:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C971B1867
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D722181A;
+	Tue,  9 Mar 2021 20:10:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D722181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615315228;
-	bh=DZvKjV35vWqAPtpWegGgnDSV7d90NgxrTuJ9/Lj0gSk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1615317054;
+	bh=5LFeXwxT2ezSl9hx8CP3wbU4WsjUdtBM6kZreWIPWnM=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dhPL3fn4w1FsbgRAAbPBPrP6s+lCRtRBPIwoWREx9ru95PZ1jHtx7VSvE4jnPtMP+
-	 zW1+EkH1sd8V9pMv1B+sq2MzLzWS+yEmuopAPdH7j/W+8Q07scz3RIpWTqLytWvAUu
-	 ShroZ+ErzO7wbt1+LDleVZPpmCQymaJ8C6FbY/5A=
+	b=jDE7TzoLKJsRKcJK3WWLcYpay33RFKc5JjL1UorlqMD7BBiScJWVplY3dlnLnBbBA
+	 CAf4z0amJEsPeVYu5POC1FTiRGuZHUzIkGA1TXuvDUPaF8NeEMcNyL6z+FCQpEO1l9
+	 RgUMwy7KZjoVS20luGdgHmVulTyygmTgLcRsfX5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64361F80256;
-	Tue,  9 Mar 2021 19:38:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 774E0F80425;
+	Tue,  9 Mar 2021 20:08:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12058F80227; Tue,  9 Mar 2021 19:38:56 +0100 (CET)
+ id 55C61F8042F; Tue,  9 Mar 2021 20:08:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97742F80166
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 19:38:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97742F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 459D3F8032D
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 20:08:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 459D3F8032D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="rgScRL5N"
-Received: by mail-qk1-x735.google.com with SMTP id d20so14128645qkc.2
- for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 10:38:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zgU8bMpRI1bkrqtIh7ngjsrwlApcszyOztBVWzVM7vo=;
- b=rgScRL5NzA/2QSvhyr14tpKtPUqv6Z+CDVV6ACPJUJ8RIq7UBPvm9M67SN+xDtT4k8
- aupjDvvIbk2bUSMSIPuCKK+IUwDv3UFr5SzDKFnx3iTWNFjPmNx5GzQ7jVSAyTv22tIQ
- c2vCc93kPLHWbMHtGaz6AQ6EIHtuHjdX0RAiFetSmxy5Ck0IaMlTZY1+UvC8Qz31D2HS
- DJu+DxTUwdGMtjtk+EywRaaV23hwiKlL1Jhud9EVNU4fTkc+neBnbgmYijedJFyoaslH
- by/uMQ2Zym9OU91etac30eayk3yCDtt8jRuqB2eBSnNwf1dqP/35wP119uVMwB/ZGyc0
- HLJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zgU8bMpRI1bkrqtIh7ngjsrwlApcszyOztBVWzVM7vo=;
- b=eHQwvj6VZGngCqRaX/SaNObvf4WVet/FLv+XQrTLmIBA8xNa3nXnp8MRw9nYvlcW/u
- 0ct7ZS6jTR64CgFLbos5W1eSYZ9wid/+0gzUtqFi5sZpvIa9xJHCmQoUYFkSKBt6Bx/y
- QsH0xKqijxgYCdvlB0lEEECP/gNu2x9HeZWi/wXw10UW5YGu0MA7AtL6A8Grqt6skL4u
- CPAVcEAHOPH83M7/O37CPJT+FhaQDcFZ6dEueiIJ5oKgk0+Ar48FOfWVQbfjrPg2kg7O
- hZe7FYSX3ZuMBRRCfu+rmGic6AFh0io3eGeJ0uWNsf4pjERxklKxjDxuMLWPSHgxMi7o
- 0ftQ==
-X-Gm-Message-State: AOAM531/OOEHqmmGL0jyfuuuVdy7KBWPsMkJOZy16pXkzxQodY109rx0
- z8+d1J9L/qSCfFz7IqnOra+RcuB6770WPJuLsBJO3g==
-X-Google-Smtp-Source: ABdhPJygtTpgzFM3VZSwSYuOlCvMWdtcpRB/BW/DaqpP6VN8AwChkHOWORhfWEnCFcI8m5Iqv3SHgzfTtPZxzyXH3zE=
-X-Received: by 2002:a37:5943:: with SMTP id n64mr27376037qkb.127.1615315127514; 
- Tue, 09 Mar 2021 10:38:47 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sRA5VoJJ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 28CA96523F;
+ Tue,  9 Mar 2021 19:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615316878;
+ bh=5LFeXwxT2ezSl9hx8CP3wbU4WsjUdtBM6kZreWIPWnM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=sRA5VoJJmcFpl1R9Mfva2aHpI0XdmMPwB2WdvbDzQn9EAXMUJo/pDUiRkSoQQf6Rw
+ Xu2eiagNeJuMaysWjrKxzNfm1VxQc1v79AaV4ti6Y73r7RJbioD6kulCo/hGs059Ef
+ kbhG7XXkLNXibnbW/qrsIU081om6OGIOLOAMNA8vXR2BskbvD0gIs+ofURaMYysqG1
+ nIOFp+a1PtXGtIuEw6IVp3pxlpR1ZoEeLXAHeUvw3Gq++zm1GPZK0wSFMCGzXrAl2B
+ LRng35lCe2Lu/p6Q3r3hNHIPUPN4RntsP6ijcV/KFFP+msD+7QlzO/jYA7mx+Ok9rk
+ AOH6xMlfy0MnQ==
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20210309004127.4940-1-pierre-louis.bossart@linux.intel.com>
+References: <20210309004127.4940-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: intel: fix wrong poll bits in dsp power down
+Message-Id: <161531678410.49117.8807899905412695011.b4-ty@kernel.org>
+Date: Tue, 09 Mar 2021 19:06:24 +0000
 MIME-Version: 1.0
-References: <20210309085827.32032-1-shumingf@realtek.com>
-In-Reply-To: <20210309085827.32032-1-shumingf@realtek.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Tue, 9 Mar 2021 10:38:37 -0800
-Message-ID: <CAOReqxgPnL51MNY6Z4JHnNSbkjKnuZG+LQGWYNKMaob4f_pqcw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: add delay time of workqueue to control next
- IRQ event
-To: Shuming Fan <shumingf@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>, "Nujella,
- Sathyanarayana" <sathyanarayana.nujella@intel.com>, "Arava,
- Jairaj" <jairaj.arava@intel.com>, "Flove\(HsinFu\)" <flove@realtek.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Pan Xiuli <xiuli.pan@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,84 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 9, 2021 at 12:58 AM <shumingf@realtek.com> wrote:
->
-> From: Shuming Fan <shumingf@realtek.com>
->
-> This patch keeps the delay time (50 ms) for jack detection and zero delay time for the button press.
-> This patch improves the reaction of the button press.
->
-> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+On Mon, 8 Mar 2021 18:41:27 -0600, Pierre-Louis Bossart wrote:
+> The ADSPCS_SPA is Set Power Active bit. To check if DSP is powered
+> down, we need to check ADSPCS_CPA, the Current Power Active bit.
 
-Thanks for fixing this up
+Applied to
 
-Tested-by Curtis Malainey <cujomalainey@chromium.org>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> ---
->  sound/soc/codecs/rt5682-i2c.c | 2 +-
->  sound/soc/codecs/rt5682-sdw.c | 2 +-
->  sound/soc/codecs/rt5682.c     | 2 ++
->  sound/soc/codecs/rt5682.h     | 1 +
->  4 files changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
-> index 93c1603b42f1..8ea9f1d9fec0 100644
-> --- a/sound/soc/codecs/rt5682-i2c.c
-> +++ b/sound/soc/codecs/rt5682-i2c.c
-> @@ -78,7 +78,7 @@ static irqreturn_t rt5682_irq(int irq, void *data)
->         struct rt5682_priv *rt5682 = data;
->
->         mod_delayed_work(system_power_efficient_wq,
-> -               &rt5682->jack_detect_work, msecs_to_jiffies(250));
-> +               &rt5682->jack_detect_work, msecs_to_jiffies(rt5682->irq_work_delay_time));
->
->         return IRQ_HANDLED;
->  }
-> diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-> index 5e097f776561..fed80c8f994f 100644
-> --- a/sound/soc/codecs/rt5682-sdw.c
-> +++ b/sound/soc/codecs/rt5682-sdw.c
-> @@ -677,7 +677,7 @@ static int rt5682_interrupt_callback(struct sdw_slave *slave,
->
->         if (status->control_port & 0x4) {
->                 mod_delayed_work(system_power_efficient_wq,
-> -                       &rt5682->jack_detect_work, msecs_to_jiffies(250));
-> +                       &rt5682->jack_detect_work, msecs_to_jiffies(rt5682->irq_work_delay_time));
->         }
->
->         return 0;
-> diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-> index 559dc6db1f7c..0e2a10ed11da 100644
-> --- a/sound/soc/codecs/rt5682.c
-> +++ b/sound/soc/codecs/rt5682.c
-> @@ -1094,6 +1094,7 @@ void rt5682_jack_detect_handler(struct work_struct *work)
->                         /* jack was out, report jack type */
->                         rt5682->jack_type =
->                                 rt5682_headset_detect(rt5682->component, 1);
-> +                       rt5682->irq_work_delay_time = 0;
->                 } else if ((rt5682->jack_type & SND_JACK_HEADSET) ==
->                         SND_JACK_HEADSET) {
->                         /* jack is already in, report button event */
-> @@ -1139,6 +1140,7 @@ void rt5682_jack_detect_handler(struct work_struct *work)
->         } else {
->                 /* jack out */
->                 rt5682->jack_type = rt5682_headset_detect(rt5682->component, 0);
-> +               rt5682->irq_work_delay_time = 50;
->         }
->
->         snd_soc_jack_report(rt5682->hs_jack, rt5682->jack_type,
-> diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-> index 1f9c51a5b9bf..74ff66767016 100644
-> --- a/sound/soc/codecs/rt5682.h
-> +++ b/sound/soc/codecs/rt5682.h
-> @@ -1439,6 +1439,7 @@ struct rt5682_priv {
->         int pll_out[RT5682_PLLS];
->
->         int jack_type;
-> +       int irq_work_delay_time;
->  };
->
->  extern const char *rt5682_supply_names[RT5682_NUM_SUPPLIES];
-> --
-> 2.29.0
->
+Thanks!
+
+[1/1] ASoC: SOF: intel: fix wrong poll bits in dsp power down
+      commit: e3a1a31b8ec0cdd2c6483e342fcb5ee46167853a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

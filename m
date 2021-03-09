@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F4A9331C14
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 02:10:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E056A331C15
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 02:10:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22E9218BB;
-	Tue,  9 Mar 2021 02:09:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22E9218BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 793A81841;
+	Tue,  9 Mar 2021 02:10:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 793A81841
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615252243;
-	bh=8y8qnXoZCP2X4oIFtqJ8udhoKpHpZC0JCXI8wbosb4A=;
+	s=default; t=1615252259;
+	bh=zH2UGGKE1e4j7v80eH+KFjBQXbk0PUWYvPAbduPa2+0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JrRnQJKyddSAqhLiU+MszUIZJcgegr3tJbp2IniXgJM3NU+UDL2zWb8j1Rru10DWA
-	 GUYFhq/q0smA9ibJMdzinr1nJUH/ngNrCXffWuAGjbD1uHvkPlOwZfoSc7PfwRM9oL
-	 FarLk3D65cXc1HUE4+WZ2dYf7ROA0xPVDIzQ0BDM=
+	b=UvQrL9YBdIQcZCcXH5bv8wQMOAdGOxbdIkj3yLANzeBUkJcMTefaUFNwEoZydE0RQ
+	 meJI2s5H/bnoAqXCiWlIFJ27gSlokXf2ywHJzvmfN9QrwUXGX8d4amRaZjn4S6XlLr
+	 imPQb8Pyf1EylqA9JhJyQHY6B1So4ch3BumbRxeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 319B0F8042F;
-	Tue,  9 Mar 2021 02:08:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D176F804AD;
+	Tue,  9 Mar 2021 02:08:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 544C7F80423; Tue,  9 Mar 2021 02:08:01 +0100 (CET)
+ id 2437EF80424; Tue,  9 Mar 2021 02:08:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D0E36F802E7
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 02:07:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E36F802E7
-Date: 09 Mar 2021 10:07:57 +0900
-X-IronPort-AV: E=Sophos;i="5.81,233,1610377200"; d="scan'208";a="74255491"
+ by alsa1.perex.cz (Postfix) with ESMTP id E1DA1F80217
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 02:08:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DA1F80217
+Date: 09 Mar 2021 10:08:02 +0900
+X-IronPort-AV: E=Sophos;i="5.81,233,1610377200"; d="scan'208";a="74255504"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2021 10:07:57 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2021 10:08:02 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6CDEE41423B8;
- Tue,  9 Mar 2021 10:07:57 +0900 (JST)
-Message-ID: <87ft15uob6.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8221141424F6;
+ Tue,  9 Mar 2021 10:08:02 +0900 (JST)
+Message-ID: <87eegpuob1.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 4/8] ASoC: soc-pcm: add soc_pcm_update_symmetry()
+Subject: [PATCH v3 5/8] ASoC: soc-pcm: add soc_hw_sanity_check()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87lfaxuoc3.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,73 +70,122 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current soc-pcm has soc_pcm_has_symmetry() and using it as
+Current soc_pcm_open() is checking runtime->hw parameters, but having
+such function is very helpful for reading code.
 
-	if (soc_pcm_has_symmetry(substream))
-		substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
+This patch adds new soc_hw_sanity_check() and checks runtime->hw
+parameters there. And print its debug message there, too.
 
-We want to share same operation as same function.
-This patch adds soc_pcm_update_symmetry() and pack above code in
-one function.
+Debug message print out timing is exchanged after this patch,
+but it is not a big deal, because it is for debug.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ sound/soc/soc-pcm.c | 67 +++++++++++++++++++++++++++------------------
+ 1 file changed, 40 insertions(+), 27 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 6f2de27cf18f..4ea4e2af9134 100644
+index 4ea4e2af9134..910a6afe9f48 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -410,7 +410,7 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 	return 0;
+@@ -689,6 +689,44 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+ 	return soc_pcm_clean(substream, 0);
  }
  
--static bool soc_pcm_has_symmetry(struct snd_pcm_substream *substream)
-+static void soc_pcm_update_symmetry(struct snd_pcm_substream *substream)
++static int soc_hw_sanity_check(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_pcm_hardware *hw = &substream->runtime->hw;
++	const char *name_cpu = soc_cpu_dai_name(rtd);
++	const char *name_codec = soc_codec_dai_name(rtd);
++	const char *err_msg;
++	struct device *dev = rtd->dev;
++
++	err_msg = "rates";
++	if (!hw->rates)
++		goto config_err;
++
++	err_msg = "formats";
++	if (!hw->formats)
++		goto config_err;
++
++	err_msg = "channels";
++	if (!hw->channels_min || !hw->channels_max ||
++	     hw->channels_min  >  hw->channels_max)
++		goto config_err;
++
++	dev_dbg(dev, "ASoC: %s <-> %s info:\n",		name_codec,
++							name_cpu);
++	dev_dbg(dev, "ASoC: rate mask 0x%x\n",		hw->rates);
++	dev_dbg(dev, "ASoC: ch   min %d max %d\n",	hw->channels_min,
++							hw->channels_max);
++	dev_dbg(dev, "ASoC: rate min %d max %d\n",	hw->rate_min,
++							hw->rate_max);
++
++	return 0;
++
++config_err:
++	dev_err(dev, "ASoC: %s <-> %s No matching %s\n",
++		name_codec, name_cpu, err_msg);
++	return -EINVAL;
++}
++
+ /*
+  * Called by ALSA when a PCM substream is opened, the runtime->hw record is
+  * then initialized and any private data can be allocated. This also calls
+@@ -697,11 +735,8 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+ static int soc_pcm_open(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai_link *link = rtd->dai_link;
-@@ -427,7 +427,8 @@ static bool soc_pcm_has_symmetry(struct snd_pcm_substream *substream)
- 			dai->driver->symmetric_channels ||
- 			dai->driver->symmetric_sample_bits;
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_dai *dai;
+-	const char *codec_dai_name = soc_codec_dai_name(rtd);
+-	const char *cpu_dai_name = soc_cpu_dai_name(rtd);
+ 	int i, ret = 0;
  
--	return symmetry;
-+	if (symmetry)
-+		substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- }
+ 	for_each_rtd_components(rtd, i, component)
+@@ -742,23 +777,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
  
- static void soc_pcm_set_msb(struct snd_pcm_substream *substream, int bits)
-@@ -739,8 +740,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	/* Check that the codec and cpu DAIs are compatible */
- 	soc_pcm_init_runtime_hw(substream);
+ 	soc_pcm_update_symmetry(substream);
  
--	if (soc_pcm_has_symmetry(substream))
--		runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
-+	soc_pcm_update_symmetry(substream);
+-	ret = -EINVAL;
+-	if (!runtime->hw.rates) {
+-		printk(KERN_ERR "ASoC: %s <-> %s No matching rates\n",
+-			codec_dai_name, cpu_dai_name);
+-		goto err;
+-	}
+-	if (!runtime->hw.formats) {
+-		printk(KERN_ERR "ASoC: %s <-> %s No matching formats\n",
+-			codec_dai_name, cpu_dai_name);
+-		goto err;
+-	}
+-	if (!runtime->hw.channels_min || !runtime->hw.channels_max ||
+-	    runtime->hw.channels_min > runtime->hw.channels_max) {
+-		printk(KERN_ERR "ASoC: %s <-> %s No matching channels\n",
+-				codec_dai_name, cpu_dai_name);
++	ret = soc_hw_sanity_check(substream);
++	if (ret < 0)
+ 		goto err;
+-	}
  
- 	ret = -EINVAL;
- 	if (!runtime->hw.rates) {
-@@ -1685,8 +1685,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 	int i;
+ 	soc_pcm_apply_msb(substream);
  
- 	/* apply symmetry for FE */
--	if (soc_pcm_has_symmetry(fe_substream))
--		fe_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
-+	soc_pcm_update_symmetry(fe_substream);
- 
- 	for_each_rtd_cpu_dais (fe, i, fe_cpu_dai) {
- 		/* Symmetry only applies if we've got an active stream. */
-@@ -1711,8 +1710,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 		if (rtd->dai_link->be_hw_params_fixup)
- 			continue;
- 
--		if (soc_pcm_has_symmetry(be_substream))
--			be_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
-+		soc_pcm_update_symmetry(be_substream);
- 
- 		/* Symmetry only applies if we've got an active stream. */
- 		for_each_rtd_dais(rtd, i, dai) {
+@@ -768,14 +789,6 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 		if (ret != 0)
+ 			goto err;
+ 	}
+-
+-	pr_debug("ASoC: %s <-> %s info:\n",
+-		 codec_dai_name, cpu_dai_name);
+-	pr_debug("ASoC: rate mask 0x%x\n", runtime->hw.rates);
+-	pr_debug("ASoC: min ch %d max ch %d\n", runtime->hw.channels_min,
+-		 runtime->hw.channels_max);
+-	pr_debug("ASoC: min rate %d max rate %d\n", runtime->hw.rate_min,
+-		 runtime->hw.rate_max);
+ dynamic:
+ 	snd_soc_runtime_activate(rtd, substream->stream);
+ 	ret = 0;
 -- 
 2.25.1
 

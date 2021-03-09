@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 157FC332A76
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 16:31:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2180E332AAA
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 16:37:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B31E1861;
-	Tue,  9 Mar 2021 16:30:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B31E1861
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6C11186C;
+	Tue,  9 Mar 2021 16:37:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C11186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615303907;
-	bh=Z/NCUStEK0rgy4mJnv8zkfB1Ik/pp7b1j77uOoMgcek=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1615304272;
+	bh=Pofaxorq7jn6ioWTVLvagneI4H/1LHRmxp4Zb18QVAQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uycU7mbdOluGvx31B00TXREOr3CvouBuLBC3FFrRrqBGh6nZgO0uVa1m1lbM5O7Kg
-	 z+QdlWeV0N3X3JV34UOOIvJklSGTV1BINfVD7v0kUJZD08JgNjH6QFlEiRFU5mw+5k
-	 uecctDVVnPYuGE7oVNTpX4O7w7+DHfEbfhbprd80=
+	b=FwqPIjWow/b0Jn1Aa5uAH415+Z6JpILMMXUo47Qo9glVDgVPqoew1C+HGdOGEiku/
+	 O7Nbgv9H3aBtaS5YJmJLF50ei/jkahNkdg8SKCfeA7Yv1NF3P9/uZ3oYiz8N6oD9PN
+	 6W6E44ElIQfzgyLz0heuNeK2GDcsKw+O2/KXnOqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE9A3F80256;
-	Tue,  9 Mar 2021 16:30:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E5EDF8019B;
+	Tue,  9 Mar 2021 16:36:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD990F80227; Tue,  9 Mar 2021 16:29:48 +0100 (CET)
+ id 1D13EF80227; Tue,  9 Mar 2021 16:36:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0120AF8014E
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 16:29:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0120AF8014E
-IronPort-SDR: +JM1/vJ3U2zxyf6+pJGHrjJ4vB0TLFF5w17AnDU8gID7pMwA+yDdolk6MO9ED5scVz17qtTW65
- cUG25Q4q7EmQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9918"; a="208038579"
-X-IronPort-AV: E=Sophos;i="5.81,234,1610438400"; d="scan'208";a="208038579"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2021 07:29:19 -0800
-IronPort-SDR: HXhNSzlJcaoWxXYMkJh0n/FLWUC0iN37HDe7/go7waGyvAvW5JPz9GIuQhayOOfHX2Fahu7fN7
- bwUKx3XLRhdw==
-X-IronPort-AV: E=Sophos;i="5.81,234,1610438400"; d="scan'208";a="409775839"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.0.249])
- ([10.213.0.249])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2021 07:29:16 -0800
-Subject: Re: No sound cards detected on Kabylake laptops after upgrade to
- kernel 5.8
-To: Chris Chiu <chris.chiu@canonical.com>,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- yang.jie@linux.intel.com, broonie@kernel.org, Takashi Iwai <tiwai@suse.com>
-References: <CABTNMG31sH99P0F7EKhpFwJf99x4U-VjFWrwXVe1wkra6owFLw@mail.gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <dba864a6-1442-1ebc-9de0-8c1511682b70@intel.com>
-Date: Tue, 9 Mar 2021 16:29:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BF80F800D0
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 16:36:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BF80F800D0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="e2r/7/r1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5CE3A65238;
+ Tue,  9 Mar 2021 15:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615304166;
+ bh=Pofaxorq7jn6ioWTVLvagneI4H/1LHRmxp4Zb18QVAQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=e2r/7/r1ukV3G49vkayekVLr8eKvRHwVVLMgi2LCWRjExlht8QRFMuP8TwT1LvHzv
+ M++Z9Q7QPMPisXlegJpRPpNekSitAwMOPgVDOE/j6slSVR6A4rdnKcqdsy7+96K61/
+ jh2qpMP1kJq1UyBqEgLJa0OIuomSNPGk0g8VtgtLsipceGqUOtksXxJ8aNza/NfoAl
+ M2Osg5Obvrxyz/TwzMrRzDDvWbPh9t76Pv2Cq9O06c/rOLBOgLbGw6bhEz4Ermfnxn
+ JLk99+/1BybsjNfr8v53mijg+vt4qD1uVLTXgCvEy/Q9OuxCEza8Ilc2zSELLCCr0/
+ ASGq7tYFPd2FA==
+Date: Tue, 9 Mar 2021 15:34:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH] ASoC: core: Don't set platform name when of_node is set
+Message-ID: <20210309153455.GB4878@sirena.org.uk>
+References: <20210309082328.38388-1-daniel.baluta@oss.nxp.com>
 MIME-Version: 1.0
-In-Reply-To: <CABTNMG31sH99P0F7EKhpFwJf99x4U-VjFWrwXVe1wkra6owFLw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Linux Kernel <linux-kernel@vger.kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aVD9QWMuhilNxW9f"
+Content-Disposition: inline
+In-Reply-To: <20210309082328.38388-1-daniel.baluta@oss.nxp.com>
+X-Cookie: Immanuel doesn't pun, he Kant.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, shengjiu.wang@nxp.com, ranjani.sridharan@linux.intel.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, linux-imx@nxp.com,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,76 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-03-09 1:19 PM, Chris Chiu wrote:
-> Hi Guys,
->      We have received reports that on some Kabylake laptops (Acer Swift
-> SF314-54/55 and Lenovo Yoga C930...etc), all sound cards no longer be
-> detected after upgrade to kernel later than 5.8. These laptops have
-> one thing in common, all of them have Realtek audio codec and connect
-> the internal microphone to DMIC of the Intel SST controller either
-> [8086:9d71] or [8086:9dc8]. Please refer to
-> https://bugzilla.kernel.org/show_bug.cgi?id=201251#c246 and
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1915117.
-> 
->      From the dmesg from kernel 5.8, the sound related parts only show
-> as follows but the expected snd_hda_codec_realtek and the snd_soc_skl
-> are not even loaded then.
-> [ 13.357495] snd_hda_intel 0000:00:1f.3: DSP detected with PCI
-> class/subclass/prog-if info 0x040100
-> [ 13.357500] snd_hda_intel 0000:00:1f.3: Digital mics found on
-> Skylake+ platform, using SST driver
-> 
->      Building the kernel with the CONFIG_SND_SOC_INTEL_KBL removed can
-> load the snd_hda_codec_realtek successfully and the pulseaudio and
-> alsa-utils can detect the sound cards again. The result of bisecting
-> between kernel 5.4 and 5.8 also get similar result, reverting the
-> commit "ALSA: hda: Allow SST driver on SKL and KBL platforms with
-> DMIC" can fix the issue. I tried to generate the required firmware for
-> snd_soc_skl but it did not help. Please refer to what I did in
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1915117/comments/14
-> and https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1915117/comments/18.
-> 
->      Since the skl_hda_dsp_generic-tplg.bin and dfw_sst.bin are not in
-> the linux-firmware. The Intel SST support for Skylake family is not
-> yet complete. Can we simply revert the "ALSA: hda: Allow SST driver on
-> SKL and KBL platforms with DMIC" in the current stage and wait for SOF
-> support for Skylake family? Or please suggest a better solution for
-> this. Thanks
-> 
-> Chris
-> 
 
-Hello Chris,
+--aVD9QWMuhilNxW9f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Guide: "Linux: HDA+DMIC with skylake driver" [1] should help 
-understanding history behind the problem as well as fixing it.
+On Tue, Mar 09, 2021 at 10:23:28AM +0200, Daniel Baluta wrote:
+> From: Daniel Baluta <daniel.baluta@nxp.com>
+>=20
+> Platform may be specified by either name or OF node but not
+> both.
+>=20
+> For OF node platforms (e.g i.MX) we end up with both platform name
+> and of_node set and sound card registration will fail with the error:
+>=20
+>   asoc-simple-card sof-sound-wm8960: ASoC: Neither/both
+>   platform name/of_node are set for sai1-wm8960-hifi
 
-Upstream skylake driver - snd_soc_skl - is intended to support HDA DSP + 
-DMIC configuration via means of snd_soc_skl_hda_dsp machine board 
-driver. You _may_ switch to legacy HDAudio driver - snd_hda_intel - 
-losing DMIC support in the process. To remove any confusion - for 
-Skylake and Kabylake platforms, snd_soc_skl is your option.
+This doesn't actually say what the change does.
 
-Now, due to above, I doubt any skylake-related topology has ever been 
-upstreamed to linux-firmware as a) most boards are I2S-based, these are 
-used by our clients which we support via separate channel b) hda 
-dsp+dmic support on linux for missing until early 2020.
+> -			dai_link->platforms->name =3D component->name;
+> +
+> +			if (!dai_link->platforms->of_node)
+> +				dai_link->platforms->name =3D component->name;
 
-Topologies for most common skylake driver configurations:
-- skl/kbl with i2s rt286
-- apl/glk with i2s rt298
-- <any> with hda dsp
-can be found in alsa-topology-conf [2].
+Why would we prefer the node name over something explicitly configured?
 
-Standard, official tool called 'alsatplg' is capable of compiling these 
-into binary form which, after being transferred to /lib/firmware/ may be 
-consumed by the driver during runtime.
-I have no problem with providing precompiled binaries to linux-firmware, 
-if that's what community wants.
+--aVD9QWMuhilNxW9f
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Regards,
-Czarek
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBHlZ8ACgkQJNaLcl1U
+h9CCjwf+KGK9CFvGq0ABRqnlUjLRBWp+vksCfNrIv+WEUvyvWh0ZHjOjOJb5xLP7
+uuf4ei9nQDAeyTh7/jDpU2l2/GUUYuJ/6IRRsgZr2OpxEFOGiH5A0U4Yv5fIPB9p
+DLmqYFD44/QqRnX5aXSq2eTFYcZPWElrkXgZcxeq65kSRJAtf2okS9x8XnmuBHiY
+h0nb6Q3oTf7PnFoHKHxD93BY5dDuoCz3Ge+hs3+L/piVC/9qDzSnzrHbOl14aZKP
+/S/r/QY8eQ5A2caYQl3JLFaETl6/baRcgH8CP6LSvnLJJH78tsbaOEQhTeYiBKX8
+VNfo+jBBZJBxvqhOiN41oxupo38zhQ==
+=H9TN
+-----END PGP SIGNATURE-----
 
-[1]: https://gist.github.com/crojewsk/4e6382bfb0dbfaaf60513174211f29cb
-[2]: https://github.com/alsa-project/alsa-topology-conf/tree/master/topology
+--aVD9QWMuhilNxW9f--

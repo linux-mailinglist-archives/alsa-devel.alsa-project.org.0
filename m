@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41115332EC3
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 20:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C53E332ECB
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 20:11:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6049B186C;
-	Tue,  9 Mar 2021 20:08:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6049B186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AE3B186E;
+	Tue,  9 Mar 2021 20:10:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AE3B186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615316971;
-	bh=hwkOb9GSNa4+vO3k/+jgdbf0VkBnReZAqNBE9CLOGRM=;
+	s=default; t=1615317065;
+	bh=4/ckH8xZoXSICajXB+7g+u4ZkL+N5xAUWPghH9G2ul8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I0UpSefbZVWs4OebuMg0TvWA/VQ6pIgDfoPsy5D54W+LO9njAjWI5Vl8nWZzna7lK
-	 Q77jK3GSRZDh/PAJtZiZWr9OILXnurU/lS6lwKkNiTWsphF813W3hJbnWjmi3klbiI
-	 fqiDvhQjlQa9xmCcmCdlmJD7TY7En796bywkZQG8=
+	b=LX0mNCYj6R7+eGdhFYVJqtOjulaErCtA5v5zuDRKHro46QcvBY5jZRumXBo7qTgeR
+	 jj2IKSyXaeiUY/kQ/pvlK0R1kNDIxNDAD3i7C8Mln2zFKXfVGtM2DF+2A5Adb4dQzR
+	 ErfpTwvLAMH2K8nYRZbVa7dfygI9qHxu31WwdgTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD83DF8025A;
-	Tue,  9 Mar 2021 20:07:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF212F804A9;
+	Tue,  9 Mar 2021 20:08:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FDF1F80227; Tue,  9 Mar 2021 20:07:46 +0100 (CET)
+ id 58923F8049C; Tue,  9 Mar 2021 20:08:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75E91F8019B
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 20:07:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75E91F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24FCCF80431
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 20:08:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24FCCF80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U5LFJGLX"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 548BE6523B;
- Tue,  9 Mar 2021 19:07:40 +0000 (UTC)
+ header.b="Q70v7PtO"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A4B7F6523D;
+ Tue,  9 Mar 2021 19:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615316860;
- bh=hwkOb9GSNa4+vO3k/+jgdbf0VkBnReZAqNBE9CLOGRM=;
+ s=k20201202; t=1615316884;
+ bh=4/ckH8xZoXSICajXB+7g+u4ZkL+N5xAUWPghH9G2ul8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=U5LFJGLXFzlSiypYuDxkGO83uvFm3APTKwrbvISYEuhQUKgIBK0tOAlMHFQd34d62
- g7vy5pq4uW2hMEcxidcmOOwbVSmjszJPx18i1RiiJvmqdzgROr2ACj/iaWZmMuSnCX
- XvM8td4KuJhS2zyCY5q6QyISvwbfARKTgpuUq1iOxWpDwoobMjUKtLusr7pcDTBoR5
- e7lnIASzNfE8IgxUGEbPbxTTkfzB24dOxdVL3af1NCTAFHI55NxiSXMt4YWzHWVECH
- NdyXLPs81JM8nqmirXxKlWYKAactevs0+Nsqq5mcIGIoWCUHgiLF/mb1Kn95DaULDi
- E07biXA1s1+MQ==
+ b=Q70v7PtOqj//DVDBeRJ9Q1n2HZsu981F7gXcvAoCcKgaoEmR2kapvcta+npqEOqvl
+ KRT08jcUlAvkwCFiKmpHE04XpvUGnlGIv6MaTsiyA2rVOz/vTPamIV+k05P17uhTM6
+ w2Sr0pZFuY+k7XhOOu9FYiP8bxAbpndmC5qb0zlq0LNLAd3/XavXlKNgSRNT68FOV4
+ C/xhU44pbGN3wF7xfjB25/Ai4IWS4TTBrUUilRpTQLbhoWa4nC0m4cqcduKPCTYBWG
+ LWKy6DjsXABhwJWthQEeb8laSwqYBG2TOzsVrZHMF2FfhDji2wiVjLq/x1+YrTNaOq
+ Ffw1NJjJGGzDw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20210309142129.14182-1-srinivas.kandagatla@linaro.org>
-References: <20210309142129.14182-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 0/3] ASoC: sdm845: array out of bound issues
-Message-Id: <161531678411.49117.14765657958455012863.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+ James Schulman <james.schulman@cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ David Rhodes <david.rhodes@cirrus.com>
+In-Reply-To: <20210306185553.62053-1-tanureal@opensource.cirrus.com>
+References: <20210306185553.62053-1-tanureal@opensource.cirrus.com>
+Subject: Re: (subset) [PATCH v3 00/15] Report jack and button detection +
+ Capture Support
+Message-Id: <161531678409.49117.4460920508176091644.b4-ty@kernel.org>
 Date: Tue, 09 Mar 2021 19:06:24 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: amit.pundir@linaro.org, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, john.stultz@linaro.org,
- bjorn.andersson@linaro.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,14 +83,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 9 Mar 2021 14:21:26 +0000, Srinivas Kandagatla wrote:
-> During testing John Stultz and Amit reported few array our bound issues
-> after enabling bound sanitizer
+On Sat, 6 Mar 2021 18:55:38 +0000, Lucas Tanure wrote:
+> Here is a patch series for reporting to user space jack and button events and
+> add the support for Capture. With some cleanups and fixes along the way.
 > 
-> This patch series attempts to fix those!
+> Regards,
 > 
-> changes since v1:
-> 	- make sure the wcd is not de-referenced without intialization
+> Lucas Tanure
 > 
 > [...]
 
@@ -96,12 +99,26 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: qcom: sdm845: Fix array out of bounds access
-      commit: a5fd5e475655d3830f376e29ca6a7222dc7074cf
-[2/3] ASoC: qcom: sdm845: Fix array out of range on rx slim channels
-      commit: 3ed85d1e1aa53db6fa4398846fbd213a7d87ceac
-[3/3] ASoC: codecs: wcd934x: add a sanity check in set channel map
-      commit: 480c25e7003d0222f64824d4c7afcd274bc66ebd
+[06/15] ASoC: cs42l42: Remove power if the driver is being removed
+        commit: 0e992635233c909652b87f1a84775746e2780306
+[07/15] ASoC: cs42l42: Disable regulators if probe fails
+        commit: 384c0c11be3f4c4bd28196f97507788cc84dd5e1
+[08/15] ASoC: cs42l42: Provide finer control on playback path
+        commit: 48a679742612308b320f1ca89366ee7fde04f547
+[09/15] ASoC: cs42l42: Set clock source for both ways of stream
+        commit: f1fe73ce62864cb48e603d61a3936b475ba5bbef
+[10/15] ASoC: cs42l42: Add Capture Support
+        commit: a6ea36692a4846d9470bdeeb90081e1dc5144b95
+[11/15] ASoC: cs42l42: Report jack and button detection
+        commit: f3f6f77beaee1b955ea835358e4c3ab1bbb56927
+[12/15] ASoC: cs42l42: Use bclk from hw_params if set_sysclk was not called
+        commit: 8ecb782355f30cfb207bffd5d04c4c5f2ac98ae3
+[13/15] ASoC: cs42l42: Wait at least 150us after writing SCLK_PRESENT
+        commit: 43cb98d6ba84d8917f377b5720fb1451ce86de13
+[14/15] ASoC: cs42l42: Only start PLL if it is needed
+        commit: b5019672a0526a2e0de6843734d1b7687f138b02
+[15/15] ASoC: cs42l42: Wait for PLL to lock before switching to it
+        commit: 5974fb2911b92b1921ab4aa35aede7454d72052a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

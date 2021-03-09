@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778C333234E
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 11:48:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4389332356
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 11:50:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6D4B17CA;
-	Tue,  9 Mar 2021 11:47:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6D4B17CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6053217C0;
+	Tue,  9 Mar 2021 11:49:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6053217C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615286880;
-	bh=q7TCrxGPgaFDDwut9gANJTEe4kt30Dd5UubcYDy3MJQ=;
+	s=default; t=1615287003;
+	bh=a50AnmqGRkxOoLaK/tLO9zC+R+s+oliuWfu14EDV0yI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=BwbZ+USj/7SdQxSbZHibMYVxwC/1mhKkdEbATeswLx6Z9bYlJ12lLAyEF+J0knxJx
-	 fOPeCstvMp6vRxjFHhC+3ZyTlmmDR6aTrU7S3+0VykNB7ToEHecxaxfED8VCP/+5pF
-	 1UdUAfoSaCgvCQtb9R8sGd6l16w57Oh7O/oIanCg=
+	b=O2tQp8qXtqfmntCTmfxBZjJuTdnmwyBl6qmZ0XDE5N4zYsrZx404W1HYqbzbDQkCZ
+	 yjpT7K1fELekI02SBh+Hvvl4LHxDy8ifXXqPNHdJUEiIsXAk7nHSCgv9jGmIGB5a+F
+	 tqg50h3GhBDU5KycgY1UynqKlMOJk7hKVWmd5MUs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68D3FF80256;
-	Tue,  9 Mar 2021 11:46:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0982F80256;
+	Tue,  9 Mar 2021 11:48:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 597E0F80227; Tue,  9 Mar 2021 11:46:27 +0100 (CET)
+ id 3FB3EF80227; Tue,  9 Mar 2021 11:48:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6571F80166
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 11:46:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6571F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31467F80166
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 11:48:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31467F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="yXGd7BRW"
-Received: by mail-wr1-x42b.google.com with SMTP id v15so14665330wrx.4
- for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 02:46:18 -0800 (PST)
+ header.b="R1/XwJB2"
+Received: by mail-wm1-x329.google.com with SMTP id
+ r10-20020a05600c35cab029010c946c95easo5668314wmq.4
+ for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 02:48:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=hgVWZEqabwtY8oTbHl56afq/3bLl+c8areS1KZJWAVI=;
- b=yXGd7BRWOQStzPiUrhWp/J4pka8r0eqo7SiwvqWMZaZWkCJcDqZMlYA3XcBk+pUOi4
- jHZF20WowwZNBnBW9ZwsM/cjpsKU6chmSP3LHtoizaMoQG52n5UoFRsaZbsBtz8wzmKy
- JkGmB9W94LpfWV3Fgd7t676/FptJrtL3X9MYEi69cyglpf50KVXXvZmqNPoEDD4rcT5d
- fciJa4JKuNq22HN0PLi3H3GQeJe61LpFdy43/LYFpfTnst9scIn+Avv/wzdOdZ+ck55L
- RXOsduQNtTzcHSoeEt1P9bZMg0o5gWQvuDPwzmrXRBFOng7KX/8YwHXxW23UECUHBPU4
- jGsg==
+ bh=H+dOe7qqGADyTHvXYPJam0BAUL8HHo8ONmP3uU3g+NA=;
+ b=R1/XwJB29aodPHns+iAOiEvLf/bDRHI+RtO3GFJGLmzuMlcrjThtNhsri50BBhU+vD
+ BX8GVi2XqXlshi+sQbfgK3bCWo7rENlBIFwC0Gp7Cg1H2pD0Gvj5sFVQ6fmPMVrJBWzY
+ WYKtNyQ2czFqgFHhws6gxDvQ5/JBt0Edwf8843Uz8ycyxBYGWtRG2bscxyDzCDFdtnvs
+ 7mR3+3kbw0oMen21hPmZDkp5AW3wnmQzVjeLOvp4N2S3xNa+wHMBxIQ0BkIKax+U93nB
+ 9TGWfptnjoFQF0sYARsR5r60E+cUkehPkhaj+dP58iEkzt41E5asx7vBOysVUGh1cy/z
+ VrgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=hgVWZEqabwtY8oTbHl56afq/3bLl+c8areS1KZJWAVI=;
- b=B4P051r5h1cJALl7dHMzPdxuR6OY+Ne3rTZk3U2Qoz7a8BhLbOmRARNCNSynI4n/Xw
- UQ9IkANnBCNzruNYi6j/fqQXzPpGWULsFzS7p+fG5kES0oMRnTBmHYGO7D2EBsxv+wPY
- qk9KsyUET7AY1ZJrM0xX0rB0KSV+BWqBLhPwWMFWPgwHphDP0yHsvUsqSAJjWcOAsr22
- s+NQ6j56LiWLhfXBSL9vSTXiTeV2JMdndt5MoxGgjCcgyGN6UkU9X3mi14mVcd1ydlOj
- F/POSJ4VHEkwU4R9kvGBiSF5+8boJ5mNm3La8yxk5LkKqUAcsYSEGKn3WsWxJJ1dbljy
- VvSQ==
-X-Gm-Message-State: AOAM531/q1Y4iEzJ+lKE9KZF4qD/XRC1IsVO+yWqk8GY3d1Ihu45oAY/
- TD3IS4W+HQIvar7BH7CP2I0V6w==
-X-Google-Smtp-Source: ABdhPJyZ6smkiEJ5ukOwUoQuvdOIpzbEyMiThIZMwtxk/GP3xroQFuPBgcypzFLYrqqozmu1C1gT+w==
-X-Received: by 2002:a05:6000:23c:: with SMTP id
- l28mr14121211wrz.251.1615286776262; 
- Tue, 09 Mar 2021 02:46:16 -0800 (PST)
+ bh=H+dOe7qqGADyTHvXYPJam0BAUL8HHo8ONmP3uU3g+NA=;
+ b=q0K07+odKlsWWbkdH1uSZ/njbAOBL2UBhMR6W3h/HRaBuKyEuM8WAiot8nS1QMG2bt
+ 9rfkuWu8PHIAK9x2+VR2iu7QMlOWJ51aaKVwk0IDwg9WDsoXDKAFtTSWzGDOGqzcmdgs
+ o9kkYtIBRos0Oz2px+3bKabOowBvTyrQz9DWY+6wOcmWU7tz1aeT0YrsTIrTj155BUMf
+ fG+xhZ7S/lAjZAa0ednra4YUHtdh3PQvU6eYd9AaDr+1XDzZiAuoZaI9wyTBUIQDLYtU
+ esjE8AsPjuzFIFOyDb0ROawtVj2pTY2RvYqQREGAMUv6lVhZmHR05kx6nX4kRHJOLo8Q
+ IDqg==
+X-Gm-Message-State: AOAM531X8CZ16a7dbR6ntzdPvEAh8EjCWCvt/+VFaOT4dtg30eojAteH
+ NCWlPsKcC35BRzlVBNJbdx2P4w==
+X-Google-Smtp-Source: ABdhPJz+lHXmJhbhL2RIdUBaCEF3gJnahgXfhOirnUrrEWQB8LpPRGdRGx8zfZNPPBQvwDa8v7125Q==
+X-Received: by 2002:a05:600c:2cb9:: with SMTP id
+ h25mr3356223wmc.110.1615286900145; 
+ Tue, 09 Mar 2021 02:48:20 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id j12sm23228298wrx.59.2021.03.09.02.46.14
+ by smtp.gmail.com with ESMTPSA id o11sm24747758wrq.74.2021.03.09.02.48.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Mar 2021 02:46:15 -0800 (PST)
+ Tue, 09 Mar 2021 02:48:19 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Subject: [PATCH v2] soundwire: bus: Fix device found flag correctly
-Date: Tue,  9 Mar 2021 10:46:08 +0000
-Message-Id: <20210309104608.19067-1-srinivas.kandagatla@linaro.org>
+Subject: [RESEND PATCH v2] soundwire: bus: Fix device found flag correctly
+Date: Tue,  9 Mar 2021 10:48:16 +0000
+Message-Id: <20210309104816.20350-1-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -107,9 +108,12 @@ However this flag is not reset correctly after one iteration,
 This could miss some of the devices that are enumerated on the
 bus but not in device list. So reset this correctly to fix this issue!
 
+Fixes: d52d7a1be02c ("soundwire: Add Slave status handling helpers")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
+For some reason I ended up deleting Fixes tag so resending with it!
+
  drivers/soundwire/bus.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 

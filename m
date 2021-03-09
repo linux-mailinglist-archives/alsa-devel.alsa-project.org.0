@@ -2,74 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4666E332E61
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 19:38:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9D8332E68
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 19:40:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAA20186C;
-	Tue,  9 Mar 2021 19:37:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAA20186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C971B1867;
+	Tue,  9 Mar 2021 19:39:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C971B1867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615315101;
-	bh=zL3bHoIHHXZ4FA9cSAVB2BOyYyRYNzEHPI4Djpm7qMA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1615315228;
+	bh=DZvKjV35vWqAPtpWegGgnDSV7d90NgxrTuJ9/Lj0gSk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PMc2fWiUmFODWk3+HNG3DXYGuiVnJCIU9N0iYU49C4VDmse2lDfSFPbm90cgt90eS
-	 jjfkjwPzpbhX7w7rZkBeSVKZdEx8qF7G25Y6WrNmRvxSmwPB2GvXQbnw7Xf4JoTd9n
-	 1ZdLfrMwIj8ABqDAPAC2x2ZzifIgtV1htfES1G84=
+	b=dhPL3fn4w1FsbgRAAbPBPrP6s+lCRtRBPIwoWREx9ru95PZ1jHtx7VSvE4jnPtMP+
+	 zW1+EkH1sd8V9pMv1B+sq2MzLzWS+yEmuopAPdH7j/W+8Q07scz3RIpWTqLytWvAUu
+	 ShroZ+ErzO7wbt1+LDleVZPpmCQymaJ8C6FbY/5A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 100C0F800D0;
-	Tue,  9 Mar 2021 19:36:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64361F80256;
+	Tue,  9 Mar 2021 19:38:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59603F800D0; Tue,  9 Mar 2021 19:36:44 +0100 (CET)
+ id 12058F80227; Tue,  9 Mar 2021 19:38:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEA3AF80166
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 19:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEA3AF80166
-IronPort-SDR: X7Q1U6t3nPj11o3ufzTGrpQJxGEuDOCrfxqNDLVCUC6czH1rSh7Qgi7tGAKmDhaW7aOrm0R1Ht
- N/XKfBLuaZZQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="185917833"
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; d="scan'208";a="185917833"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2021 10:36:31 -0800
-IronPort-SDR: kr+VeUdpNy+cFy6d7E55hbJQY+csJAzJdSCTe8rz9Cmo4X4VSrfdC7HbcYZVo1MzRUKlkUVlAk
- p3mTwOSIf54A==
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; d="scan'208";a="437735766"
-Received: from ankitama-mobl1.amr.corp.intel.com (HELO [10.209.121.187])
- ([10.209.121.187])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2021 10:36:29 -0800
-Subject: Re: [PATCH] ASoC: amd: add support for rt5682 codec in machine driver
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <1615301217-4556-1-git-send-email-Vijendar.Mukunda@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e8c08384-93be-ee88-80b2-381f154bfa19@linux.intel.com>
-Date: Tue, 9 Mar 2021 12:36:27 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97742F80166
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 19:38:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97742F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="rgScRL5N"
+Received: by mail-qk1-x735.google.com with SMTP id d20so14128645qkc.2
+ for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 10:38:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=zgU8bMpRI1bkrqtIh7ngjsrwlApcszyOztBVWzVM7vo=;
+ b=rgScRL5NzA/2QSvhyr14tpKtPUqv6Z+CDVV6ACPJUJ8RIq7UBPvm9M67SN+xDtT4k8
+ aupjDvvIbk2bUSMSIPuCKK+IUwDv3UFr5SzDKFnx3iTWNFjPmNx5GzQ7jVSAyTv22tIQ
+ c2vCc93kPLHWbMHtGaz6AQ6EIHtuHjdX0RAiFetSmxy5Ck0IaMlTZY1+UvC8Qz31D2HS
+ DJu+DxTUwdGMtjtk+EywRaaV23hwiKlL1Jhud9EVNU4fTkc+neBnbgmYijedJFyoaslH
+ by/uMQ2Zym9OU91etac30eayk3yCDtt8jRuqB2eBSnNwf1dqP/35wP119uVMwB/ZGyc0
+ HLJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zgU8bMpRI1bkrqtIh7ngjsrwlApcszyOztBVWzVM7vo=;
+ b=eHQwvj6VZGngCqRaX/SaNObvf4WVet/FLv+XQrTLmIBA8xNa3nXnp8MRw9nYvlcW/u
+ 0ct7ZS6jTR64CgFLbos5W1eSYZ9wid/+0gzUtqFi5sZpvIa9xJHCmQoUYFkSKBt6Bx/y
+ QsH0xKqijxgYCdvlB0lEEECP/gNu2x9HeZWi/wXw10UW5YGu0MA7AtL6A8Grqt6skL4u
+ CPAVcEAHOPH83M7/O37CPJT+FhaQDcFZ6dEueiIJ5oKgk0+Ar48FOfWVQbfjrPg2kg7O
+ hZe7FYSX3ZuMBRRCfu+rmGic6AFh0io3eGeJ0uWNsf4pjERxklKxjDxuMLWPSHgxMi7o
+ 0ftQ==
+X-Gm-Message-State: AOAM531/OOEHqmmGL0jyfuuuVdy7KBWPsMkJOZy16pXkzxQodY109rx0
+ z8+d1J9L/qSCfFz7IqnOra+RcuB6770WPJuLsBJO3g==
+X-Google-Smtp-Source: ABdhPJygtTpgzFM3VZSwSYuOlCvMWdtcpRB/BW/DaqpP6VN8AwChkHOWORhfWEnCFcI8m5Iqv3SHgzfTtPZxzyXH3zE=
+X-Received: by 2002:a37:5943:: with SMTP id n64mr27376037qkb.127.1615315127514; 
+ Tue, 09 Mar 2021 10:38:47 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1615301217-4556-1-git-send-email-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Arnd Bergmann <arnd@arndb.de>, open list <linux-kernel@vger.kernel.org>,
- Chuhong Yuan <hslester96@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Alexander.Deucher@amd.com
+References: <20210309085827.32032-1-shumingf@realtek.com>
+In-Reply-To: <20210309085827.32032-1-shumingf@realtek.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Tue, 9 Mar 2021 10:38:37 -0800
+Message-ID: <CAOReqxgPnL51MNY6Z4JHnNSbkjKnuZG+LQGWYNKMaob4f_pqcw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: rt5682: add delay time of workqueue to control next
+ IRQ event
+To: Shuming Fan <shumingf@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>, "Nujella,
+ Sathyanarayana" <sathyanarayana.nujella@intel.com>, "Arava,
+ Jairaj" <jairaj.arava@intel.com>, "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,152 +100,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Mar 9, 2021 at 12:58 AM <shumingf@realtek.com> wrote:
+>
+> From: Shuming Fan <shumingf@realtek.com>
+>
+> This patch keeps the delay time (50 ms) for jack detection and zero delay time for the button press.
+> This patch improves the reaction of the button press.
+>
+> Signed-off-by: Shuming Fan <shumingf@realtek.com>
 
+Thanks for fixing this up
 
-> +++ b/sound/soc/amd/Kconfig
-> @@ -5,14 +5,15 @@ config SND_SOC_AMD_ACP
->   	 This option enables ACP DMA support on AMD platform.
->   
->   config SND_SOC_AMD_CZ_DA7219MX98357_MACH
-> -	tristate "AMD CZ support for DA7219 and MAX9835"
-> +	tristate "AMD CZ support for DA7219, RT5682 and MAX9835"
->   	select SND_SOC_DA7219
-> +	select SND_SOC_RT5682
+Tested-by Curtis Malainey <cujomalainey@chromium.org>
 
-select SND_SOC_RT5682_I2C
-
->   	select SND_SOC_MAX98357A
->   	select SND_SOC_ADAU7002
->   	select REGULATOR
->   	depends on SND_SOC_AMD_ACP && I2C && GPIOLIB
->   	help
-> -	 This option enables machine driver for DA7219 and MAX9835.
-> +	 This option enables machine driver for DA7219, RT5682 and MAX9835.
->   
->   config SND_SOC_AMD_CZ_RT5645_MACH
->   	tristate "AMD CZ support for RT5645"
-> diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
-> index 849288d..ff2b639 100644
-> --- a/sound/soc/amd/acp-da7219-max98357a.c
-> +++ b/sound/soc/amd/acp-da7219-max98357a.c
-> @@ -1,7 +1,7 @@
->   /*
->    * Machine driver for AMD ACP Audio engine using DA7219 & MAX98357 codec
->    *
-> - * Copyright 2017 Advanced Micro Devices, Inc.
-> + * Copyright 2017-2021 Advanced Micro Devices, Inc.
->    *
->    * Permission is hereby granted, free of charge, to any person obtaining a
->    * copy of this software and associated documentation files (the "Software"),
-
-convert to SPDX?
-
-> @@ -41,14 +41,19 @@
->   #include "acp.h"
->   #include "../codecs/da7219.h"
->   #include "../codecs/da7219-aad.h"
-> +#include "../codecs/rt5682.h"
->   
->   #define CZ_PLAT_CLK 48000000
->   #define DUAL_CHANNEL		2
-> +#define RT5682_PLL_FREQ (48000 * 512)
->   
->   static struct snd_soc_jack cz_jack;
->   static struct clk *da7219_dai_wclk;
->   static struct clk *da7219_dai_bclk;
-> -extern bool bt_uart_enable;
-> +static struct clk *rt5682_dai_wclk;
-> +static struct clk *rt5682_dai_bclk;
-> +extern int bt_uart_enable;
-> +void *soc_is_rltk_max(struct device *dev);
->   
->   static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
->   {
-> @@ -128,6 +133,88 @@ static void da7219_clk_disable(void)
->   	clk_disable_unprepare(da7219_dai_bclk);
->   }
->   
-> +static int cz_rt5682_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	int ret;
-> +	struct snd_soc_card *card = rtd->card;
-> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_component *component = codec_dai->component;
-> +
-> +	dev_info(codec_dai->dev, "codec dai name = %s\n", codec_dai->name);
-> +
-> +	/* Set codec sysclk */
-> +	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL2,
-> +				     RT5682_PLL_FREQ, SND_SOC_CLOCK_IN);
-> +	if (ret < 0) {
-> +		dev_err(codec_dai->dev,
-> +			"Failed to set rt5682 SYSCLK: %d\n", ret);
-> +		return ret;
-> +	}
-> +	/* set codec PLL */
-> +	ret = snd_soc_dai_set_pll(codec_dai, RT5682_PLL2, RT5682_PLL2_S_MCLK,
-> +				  CZ_PLAT_CLK, RT5682_PLL_FREQ);
-> +	if (ret < 0) {
-> +		dev_err(codec_dai->dev, "can't set rt5682 PLL: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	rt5682_dai_wclk = devm_clk_get(component->dev, "rt5682-dai-wclk");
-> +	if (IS_ERR(rt5682_dai_wclk))
-> +		return PTR_ERR(rt5682_dai_wclk);
-> +
-> +	rt5682_dai_bclk = devm_clk_get(component->dev, "rt5682-dai-bclk");
-> +	if (IS_ERR(rt5682_dai_bclk))
-> +		return PTR_ERR(rt5682_dai_bclk);
-> +
-> +	ret = snd_soc_card_jack_new(card, "Headset Jack",
-> +				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
-> +				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-> +				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
-> +				    &cz_jack, NULL, 0);
-> +	if (ret) {
-> +		dev_err(card->dev, "HP jack creation failed %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	snd_jack_set_key(cz_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-> +	snd_jack_set_key(cz_jack.jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
-> +	snd_jack_set_key(cz_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
-> +	snd_jack_set_key(cz_jack.jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
-> +
-> +	ret = snd_soc_component_set_jack(component, &cz_jack, NULL);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int rt5682_clk_enable(struct snd_pcm_substream *substream)
-> +{
-> +	int ret = 0;
-
-useless init
-
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +
-> +	/*
-> +	 * Set wclk to 48000 because the rate constraint of this driver is
-> +	 * 48000. ADAU7002 spec: "The ADAU7002 requires a BCLK rate that is
-> +	 * minimum of 64x the LRCLK sample rate." DA7219 is the only clk
-> +	 * source so for all codecs we have to limit bclk to 64X lrclk.
-
-copy doesn't seem correct, this isn't about DA7219
-
-> +	 */
-> +	clk_set_rate(rt5682_dai_wclk, 48000);
-> +	clk_set_rate(rt5682_dai_bclk, 48000 * 64);
-> +	ret = clk_prepare_enable(rt5682_dai_bclk);
-> +	if (ret < 0) {
-> +		dev_err(rtd->dev, "can't enable master clock %d\n", ret);
-> +		return ret;
-> +	}
-> +	return ret;
-> +}
-> +
-
+> ---
+>  sound/soc/codecs/rt5682-i2c.c | 2 +-
+>  sound/soc/codecs/rt5682-sdw.c | 2 +-
+>  sound/soc/codecs/rt5682.c     | 2 ++
+>  sound/soc/codecs/rt5682.h     | 1 +
+>  4 files changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+> index 93c1603b42f1..8ea9f1d9fec0 100644
+> --- a/sound/soc/codecs/rt5682-i2c.c
+> +++ b/sound/soc/codecs/rt5682-i2c.c
+> @@ -78,7 +78,7 @@ static irqreturn_t rt5682_irq(int irq, void *data)
+>         struct rt5682_priv *rt5682 = data;
+>
+>         mod_delayed_work(system_power_efficient_wq,
+> -               &rt5682->jack_detect_work, msecs_to_jiffies(250));
+> +               &rt5682->jack_detect_work, msecs_to_jiffies(rt5682->irq_work_delay_time));
+>
+>         return IRQ_HANDLED;
+>  }
+> diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+> index 5e097f776561..fed80c8f994f 100644
+> --- a/sound/soc/codecs/rt5682-sdw.c
+> +++ b/sound/soc/codecs/rt5682-sdw.c
+> @@ -677,7 +677,7 @@ static int rt5682_interrupt_callback(struct sdw_slave *slave,
+>
+>         if (status->control_port & 0x4) {
+>                 mod_delayed_work(system_power_efficient_wq,
+> -                       &rt5682->jack_detect_work, msecs_to_jiffies(250));
+> +                       &rt5682->jack_detect_work, msecs_to_jiffies(rt5682->irq_work_delay_time));
+>         }
+>
+>         return 0;
+> diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+> index 559dc6db1f7c..0e2a10ed11da 100644
+> --- a/sound/soc/codecs/rt5682.c
+> +++ b/sound/soc/codecs/rt5682.c
+> @@ -1094,6 +1094,7 @@ void rt5682_jack_detect_handler(struct work_struct *work)
+>                         /* jack was out, report jack type */
+>                         rt5682->jack_type =
+>                                 rt5682_headset_detect(rt5682->component, 1);
+> +                       rt5682->irq_work_delay_time = 0;
+>                 } else if ((rt5682->jack_type & SND_JACK_HEADSET) ==
+>                         SND_JACK_HEADSET) {
+>                         /* jack is already in, report button event */
+> @@ -1139,6 +1140,7 @@ void rt5682_jack_detect_handler(struct work_struct *work)
+>         } else {
+>                 /* jack out */
+>                 rt5682->jack_type = rt5682_headset_detect(rt5682->component, 0);
+> +               rt5682->irq_work_delay_time = 50;
+>         }
+>
+>         snd_soc_jack_report(rt5682->hs_jack, rt5682->jack_type,
+> diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
+> index 1f9c51a5b9bf..74ff66767016 100644
+> --- a/sound/soc/codecs/rt5682.h
+> +++ b/sound/soc/codecs/rt5682.h
+> @@ -1439,6 +1439,7 @@ struct rt5682_priv {
+>         int pll_out[RT5682_PLLS];
+>
+>         int jack_type;
+> +       int irq_work_delay_time;
+>  };
+>
+>  extern const char *rt5682_supply_names[RT5682_NUM_SUPPLIES];
+> --
+> 2.29.0
+>

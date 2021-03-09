@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4389332356
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 11:50:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 949CD332370
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 11:57:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6053217C0;
-	Tue,  9 Mar 2021 11:49:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6053217C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30DA117D9;
+	Tue,  9 Mar 2021 11:56:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30DA117D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615287003;
-	bh=a50AnmqGRkxOoLaK/tLO9zC+R+s+oliuWfu14EDV0yI=;
+	s=default; t=1615287445;
+	bh=cqRsqBDHJMgJB4/YUlDSsGA4nYMwUr5e3nk8IHOjRWE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=O2tQp8qXtqfmntCTmfxBZjJuTdnmwyBl6qmZ0XDE5N4zYsrZx404W1HYqbzbDQkCZ
-	 yjpT7K1fELekI02SBh+Hvvl4LHxDy8ifXXqPNHdJUEiIsXAk7nHSCgv9jGmIGB5a+F
-	 tqg50h3GhBDU5KycgY1UynqKlMOJk7hKVWmd5MUs=
+	b=Lwe8FalPzSaObwF/jtsAqHJvvKexL6h8m6xhdrgi8n4p12ksJkj6dHqm5ZIxvNnsY
+	 UXmMWDrt11kFkb6GaHDNjROtnfANlQ/NK5k9TnnGYAxL/zUoycu16Q2M4U62XAEcEh
+	 ihOCamN/w27pfodnTwtebdGeITmP1Tk40VLs7sTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0982F80256;
-	Tue,  9 Mar 2021 11:48:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06CBCF80276;
+	Tue,  9 Mar 2021 11:55:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FB3EF80227; Tue,  9 Mar 2021 11:48:29 +0100 (CET)
+ id BCFD4F8014E; Tue,  9 Mar 2021 11:55:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31467F80166
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 11:48:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31467F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9CCAF8014E
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 11:55:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9CCAF8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="R1/XwJB2"
-Received: by mail-wm1-x329.google.com with SMTP id
- r10-20020a05600c35cab029010c946c95easo5668314wmq.4
- for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 02:48:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=H+dOe7qqGADyTHvXYPJam0BAUL8HHo8ONmP3uU3g+NA=;
- b=R1/XwJB29aodPHns+iAOiEvLf/bDRHI+RtO3GFJGLmzuMlcrjThtNhsri50BBhU+vD
- BX8GVi2XqXlshi+sQbfgK3bCWo7rENlBIFwC0Gp7Cg1H2pD0Gvj5sFVQ6fmPMVrJBWzY
- WYKtNyQ2czFqgFHhws6gxDvQ5/JBt0Edwf8843Uz8ycyxBYGWtRG2bscxyDzCDFdtnvs
- 7mR3+3kbw0oMen21hPmZDkp5AW3wnmQzVjeLOvp4N2S3xNa+wHMBxIQ0BkIKax+U93nB
- 9TGWfptnjoFQF0sYARsR5r60E+cUkehPkhaj+dP58iEkzt41E5asx7vBOysVUGh1cy/z
- VrgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=H+dOe7qqGADyTHvXYPJam0BAUL8HHo8ONmP3uU3g+NA=;
- b=q0K07+odKlsWWbkdH1uSZ/njbAOBL2UBhMR6W3h/HRaBuKyEuM8WAiot8nS1QMG2bt
- 9rfkuWu8PHIAK9x2+VR2iu7QMlOWJ51aaKVwk0IDwg9WDsoXDKAFtTSWzGDOGqzcmdgs
- o9kkYtIBRos0Oz2px+3bKabOowBvTyrQz9DWY+6wOcmWU7tz1aeT0YrsTIrTj155BUMf
- fG+xhZ7S/lAjZAa0ednra4YUHtdh3PQvU6eYd9AaDr+1XDzZiAuoZaI9wyTBUIQDLYtU
- esjE8AsPjuzFIFOyDb0ROawtVj2pTY2RvYqQREGAMUv6lVhZmHR05kx6nX4kRHJOLo8Q
- IDqg==
-X-Gm-Message-State: AOAM531X8CZ16a7dbR6ntzdPvEAh8EjCWCvt/+VFaOT4dtg30eojAteH
- NCWlPsKcC35BRzlVBNJbdx2P4w==
-X-Google-Smtp-Source: ABdhPJz+lHXmJhbhL2RIdUBaCEF3gJnahgXfhOirnUrrEWQB8LpPRGdRGx8zfZNPPBQvwDa8v7125Q==
-X-Received: by 2002:a05:600c:2cb9:: with SMTP id
- h25mr3356223wmc.110.1615286900145; 
- Tue, 09 Mar 2021 02:48:20 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id o11sm24747758wrq.74.2021.03.09.02.48.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Mar 2021 02:48:19 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Subject: [RESEND PATCH v2] soundwire: bus: Fix device found flag correctly
-Date: Tue,  9 Mar 2021 10:48:16 +0000
-Message-Id: <20210309104816.20350-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="e1P3dMIs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1615287336;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=igGpDVPOk/k+jGdogKjW4xIG1vuaITeT4xXr4ZX6k0w=;
+ b=e1P3dMIs2QUEyY6MLKd3DOXne162uQ5hMDUY0FpZ/dUBbeJL3JhThjqPHIt0cuEIs2Jfay
+ JNFxpQ1fRK+LSg98F+Kb9ZraQSRWuchv2VkiPIknoxCCroRIWKzP9zETV/mJz/vRq7XNvh
+ AuDOKjEAkD2YVf5VGMWhoOI+eIDlfJY=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-249-oVdI6PnrMImLglztRGZhgw-1; Tue, 09 Mar 2021 05:55:26 -0500
+X-MC-Unique: oVdI6PnrMImLglztRGZhgw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 652EF83DD27;
+ Tue,  9 Mar 2021 10:55:24 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-201.ams2.redhat.com
+ [10.36.112.201])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9E7FC5C701;
+ Tue,  9 Mar 2021 10:55:21 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/2] ASoC: intel: atom: Stop advertising non working S24LE
+ support
+Date: Tue,  9 Mar 2021 11:55:19 +0100
+Message-Id: <20210309105520.9185-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,42 +92,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-found flag is used to indicate SoundWire devices that are
-both enumerated on the bus and available in the device list.
-However this flag is not reset correctly after one iteration,
-This could miss some of the devices that are enumerated on the
-bus but not in device list. So reset this correctly to fix this issue!
+The SST firmware's media and deep-buffer inputs are hardcoded to
+S16LE, the corresponding DAIs don't have a hw_params callback and
+their prepare callback also does not take the format into account.
 
-Fixes: d52d7a1be02c ("soundwire: Add Slave status handling helpers")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+So far the advertising of non working S24LE support has not caused
+issues because pulseaudio defaults to S16LE, but changing pulse-audio's
+config to use S24LE will result in broken sound.
+
+Pipewire is replacing pulse now and pipewire prefers S24LE over S16LE
+when available, causing the problem of the broken S24LE support to
+come to the surface now.
+
+Cc: stable@vger.kernel.org
+BugLink: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/866
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
-For some reason I ended up deleting Fixes tag so resending with it!
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- drivers/soundwire/bus.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index a9ab4a6264e0..188e391c5a83 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -712,7 +712,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 	struct sdw_slave *slave, *_s;
- 	struct sdw_slave_id id;
- 	struct sdw_msg msg;
--	bool found = false;
-+	bool found;
- 	int count = 0, ret;
- 	u64 addr;
- 
-@@ -744,6 +744,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 
- 		sdw_extract_slave_id(bus, addr, &id);
- 
-+		found = false;
- 		/* Now compare with entries */
- 		list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
- 			if (sdw_compare_devid(slave, id) == 0) {
+diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+index 9e9b05883557..aa5dd590ddd5 100644
+--- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
++++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+@@ -488,14 +488,14 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
+ 		.channels_min = SST_STEREO,
+ 		.channels_max = SST_STEREO,
+ 		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+ 	},
+ 	.capture = {
+ 		.stream_name = "Headset Capture",
+ 		.channels_min = 1,
+ 		.channels_max = 2,
+ 		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+ 	},
+ },
+ {
+@@ -506,7 +506,7 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
+ 		.channels_min = SST_STEREO,
+ 		.channels_max = SST_STEREO,
+ 		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+ 	},
+ },
+ {
 -- 
-2.21.0
+2.30.1
 

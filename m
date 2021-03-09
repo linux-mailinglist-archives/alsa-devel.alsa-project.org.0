@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84CD833287F
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 15:24:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E17533287A
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Mar 2021 15:23:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15561185A;
-	Tue,  9 Mar 2021 15:23:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15561185A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4DEC187D;
+	Tue,  9 Mar 2021 15:22:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4DEC187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615299864;
-	bh=VrnXP4MtdeQ1nxl+lr/neWZ6mFgIywwceu0F6yMpX9U=;
+	s=default; t=1615299820;
+	bh=LFzBpSNHP+vrtel2MRZcL5gjdS1jkt+970oquyANlBQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qASrlGPbhcNPuOoEtfAQOQav+YGRslT4OxkMfNns89dri7NETGBVqxeCpY59sryhh
-	 aj7/6jv27rIzcrvsUZ43UGfDMYDBWWxPB96kAs1ymSMv+91j52mJ1tGxueG3uEtzRA
-	 ppaAV4Km/0tx1ZbN1wIReUu7HSzv1w01VtLhdR8Y=
+	b=iGeThKrZapRBDnuYuuTkhdM4sSXaOZqQSxKNeWGUBidpxO5Ngk8U1MixTDhE/rmcu
+	 2vT1q9WY2puQoz+yQsTHkb8Ue37pkmnaoMj5t24HwX/SBuV+kV4Mpg1HVw59IHUoy2
+	 EE3hmL+ShhqoPQw9/zGeAjWyNGeaPABOiM6pbcJg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42E43F80431;
-	Tue,  9 Mar 2021 15:22:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FA8AF80276;
+	Tue,  9 Mar 2021 15:21:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E479F8032B; Tue,  9 Mar 2021 15:21:58 +0100 (CET)
+ id 984FCF8028B; Tue,  9 Mar 2021 15:21:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A182F80275
- for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 15:21:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A182F80275
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67DC5F8025A
+ for <alsa-devel@alsa-project.org>; Tue,  9 Mar 2021 15:21:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67DC5F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="aI3BpLNT"
-Received: by mail-wr1-x436.google.com with SMTP id e10so15909592wro.12
- for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 06:21:48 -0800 (PST)
+ header.b="y/cECAfO"
+Received: by mail-wr1-x433.google.com with SMTP id j2so15930048wrx.9
+ for <alsa-devel@alsa-project.org>; Tue, 09 Mar 2021 06:21:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WX5B3jn3ABsmJDUgiZ1eHo/S/aL6tIYdkt/tUOvK0TM=;
- b=aI3BpLNT8H1pAZ2QrPtQOMPukaNZTV5XdPv0BIdLmV+U3RrU37YBlnpBUuNtvp1A51
- z3g2+djeS/JMErH3+T4OcThXvEmuF0cW1gdDx/IXCKB5iyyVw98ibLi/ED9MKvUgTFGS
- 0pfo4CWdeyF/q8afoxMGvMCUkSGUvbxlj9pc9GRPsKtzLoKLsHzGlKjVudWqg9lLipTB
- qTk8zFMK2wtILWS81tbJPCVBLaoRtJNjFB4KbmC50px3JR+ARNFPyI6Mtue/Pii/E8su
- FXRWwNbaNdxCmuNbSDq01DBxy8DQ2DZwCPmBkPsw6q26YzNnKsIO9bQUO+vqvkctHkJm
- n9ZA==
+ bh=A31MLzcUUZxKNDle59AEPrSG341kwaYtutGOJhEp5Bs=;
+ b=y/cECAfOj4w96o3lr+rxNHByHgL4Y/E3/hC0XHEYqmIJ+EtP0tisupHMmSg85yUGwN
+ S7CcPEVF04MX7yL6ukMSkNfzwahiIWZIwKHbuqEU7ZbakNAj41M1jGrdY6iLIWv2rdAy
+ oR9gU4ttqGc+lkmP22J1JN96yBO6AH356D1HZtL83nWHGVTSc/ZEYYSMZ5BgFzoco4Rc
+ d5gwKdPT8kt2D4tehKAyVKm1PO3SgHkAqlc0SgeciESjIKNrYUKMumT9zGO3Zreksqtc
+ 0jnrrErVSyBBeJsDzYx87orupogyKfC2V48wb6SXmCkT6urKJyCGU6gsLUqmSHBHVba9
+ ptWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WX5B3jn3ABsmJDUgiZ1eHo/S/aL6tIYdkt/tUOvK0TM=;
- b=ssTUjBTR1pPVf2WzLVt3aSk1i4P6DzHNqS8cQouMyCSlq3nvYadNpaVpNsOPcUDLDR
- Bdl9hHlQPsLMcq8Wf0RVw0jPInb0Qvi0fxgdxPLaIYCG3nIlWghzN0rOOjNlaMMGKCOw
- L6BRPqj89OdpDgera327b+7DPdlU5iD6TnjcrfAmOo4+75cZwQ3wSMnyrdisJ3c6ybtP
- v66azd4ul+6zD1WsqRPEGrsW8ioiRgHI7b5P+QPlNy6KcuS3QnpOXIKmh4TlL2CCwg7H
- Euvmtb8EUz9p2/GMvbLRK+sHf9TP+dPcTZMwRG0iDH7NXQFaodrpPD/54aVOLBfxOUuL
- DUJQ==
-X-Gm-Message-State: AOAM532pEgS3pseeoOtah3UXF6sekjSXWQcNKYRg0sR1IUyOxYXZVOZt
- wJ6Ck99oK5g8F24JEySvJfJpmA==
-X-Google-Smtp-Source: ABdhPJwYXhOQbTlcvqtTYprGnLpaUkSDnqmPYYiIhTH9Kd+QvviUvnz+zH5mxzXedEh28pEH0OTgPQ==
-X-Received: by 2002:adf:9bcf:: with SMTP id e15mr27691462wrc.276.1615299706510; 
- Tue, 09 Mar 2021 06:21:46 -0800 (PST)
+ bh=A31MLzcUUZxKNDle59AEPrSG341kwaYtutGOJhEp5Bs=;
+ b=fNvECgE0bARFMOQE7EJ+GQ7bKOaU9XtntfkDBQs+ji0CnFk/ZRt+Cs6aLl70vgEecs
+ jHD7pzNP7wZbQq0wgFECDi7Ufo5ChdqiHImL1g5t9wUehChgtWTr5vUAlPeb39CY5Ggw
+ tDhmpb74MHB4+8wBLcsywCVuJGOv+KNvIX5efdkKXzafV1+4ezWdm74DxCTHk+CI0QN7
+ b/V60x/HIhyc6udNUUTMyE16WZyuMc8SL7zhSy9ToYGdWbcBhZU4x5qL2xnDksILuFUS
+ hWjU+d/EFOWf35wony7Yr38Zrtxf36lOXuUn9lSMkYrD/uDCWwKvZHYWW6JUHBFb8EmP
+ NCMA==
+X-Gm-Message-State: AOAM53136heP45cfWMYGiHtg4rGe21IE8FBtTDYhDj77fGMdSnnP33zi
+ fpCNpQcCKUWXFPBnF3oTh0BurA==
+X-Google-Smtp-Source: ABdhPJy042LtlHEfuJfKqiOVGQ92boBU4NMnlk4/3C8Cz9Q9MRZON0Jy5Qj1AMRfbJmQDqmxFdLsxw==
+X-Received: by 2002:a5d:6406:: with SMTP id z6mr16698147wru.264.1615299707516; 
+ Tue, 09 Mar 2021 06:21:47 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id j14sm22265123wrw.69.2021.03.09.06.21.45
+ by smtp.gmail.com with ESMTPSA id j14sm22265123wrw.69.2021.03.09.06.21.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Mar 2021 06:21:46 -0800 (PST)
+ Tue, 09 Mar 2021 06:21:47 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v2 2/3] ASoC: qcom: sdm845: Fix array out of range on rx slim
- channels
-Date: Tue,  9 Mar 2021 14:21:28 +0000
-Message-Id: <20210309142129.14182-3-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v2 3/3] ASoC: codecs: wcd934x: add a sanity check in set
+ channel map
+Date: Tue,  9 Mar 2021 14:21:29 +0000
+Message-Id: <20210309142129.14182-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210309142129.14182-1-srinivas.kandagatla@linaro.org>
 References: <20210309142129.14182-1-srinivas.kandagatla@linaro.org>
@@ -103,31 +103,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-WCD934x has only 13 RX SLIM ports however we are setting it as 16
-in set_channel_map, this will lead to array out of bounds error!
+set channel map can be passed with a channel maps, however if
+the number of channels that are passed are more than the actual
+supported channels then we would be accessing array out of bounds.
 
-Orignally caught by enabling USBAN array out of bounds check:
+So add a sanity check to validate these numbers!
 
-Fixes: 5caf64c633a3 ("ASoC: qcom: sdm845: add support to DB845c and Lenovo Yoga")
+Fixes: a61f3b4f476e ("ASoC: wcd934x: add support to wcd9340/wcd9341 codec")
 Reported-by: John Stultz <john.stultz@linaro.org>
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/sdm845.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since v1:
+	- make sure the wcd is not de-referenced without intialization
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 1e2c2d0902ea..153e9b2de0b5 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -27,7 +27,7 @@
- #define SPK_TDM_RX_MASK         0x03
- #define NUM_TDM_SLOTS           8
- #define SLIM_MAX_TX_PORTS 16
--#define SLIM_MAX_RX_PORTS 16
-+#define SLIM_MAX_RX_PORTS 13
- #define WCD934X_DEFAULT_MCLK_RATE	9600000
+ sound/soc/codecs/wcd934x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
+index 40f682f5dab8..d18ae5e3ee80 100644
+--- a/sound/soc/codecs/wcd934x.c
++++ b/sound/soc/codecs/wcd934x.c
+@@ -1873,6 +1873,12 @@ static int wcd934x_set_channel_map(struct snd_soc_dai *dai,
  
- struct sdm845_snd_data {
+ 	wcd = snd_soc_component_get_drvdata(dai->component);
+ 
++	if (tx_num > WCD934X_TX_MAX || rx_num > WCD934X_RX_MAX) {
++		dev_err(wcd->dev, "Invalid tx %d or rx %d channel count\n",
++			tx_num, rx_num);
++		return -EINVAL;
++	}
++
+ 	if (!tx_slot || !rx_slot) {
+ 		dev_err(wcd->dev, "Invalid tx_slot=%p, rx_slot=%p\n",
+ 			tx_slot, rx_slot);
 -- 
 2.21.0
 

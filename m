@@ -2,70 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42722333A14
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 11:33:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 524A3333B6A
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 12:30:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4F421774;
-	Wed, 10 Mar 2021 11:32:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4F421774
+	by alsa0.perex.cz (Postfix) with ESMTPS id C331F177E;
+	Wed, 10 Mar 2021 12:29:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C331F177E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615372407;
-	bh=FHMC6WnsPdk2eris0NqojsZqlAhnk0uNsirQL0nbgpg=;
+	s=default; t=1615375815;
+	bh=k/kOLf7vyDkIdrVDw42NKXl95W9UpVNTu/6TaH5xdm4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=VKSPn3jRMDnAAxiY/H6cuKzx1rNk3IU3eQFV0N+uvwJgxGwkWRGszD3C7JkFL6P6N
-	 chlsbCo/Hsc8JQLJU5pTCqMkP3RXw/tYJyWcmW0xkraHgsoBaHrfXUJGONosqg4Ahl
-	 HBFVtQQHE3yhGHFJwAUtWnPIjxd3BWQJTB3VcBfs=
+	b=azLFNkQ37arw0mqT9DY8B59/9M+k4xpPLZLEIARaoSZUTV+E3mRd9oFZ1/yJTGWhe
+	 84mIG8og0A1AwaipN64ajGFkBQD0oA/eWBG/3jh6efHpw9psH2GNYzoA9cMIEZLdDY
+	 sArB5Gbbpg6h+iLusKdfbmS0I/yo/mIHbxCXq15U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BBDAF80431;
-	Wed, 10 Mar 2021 11:30:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A418AF80279;
+	Wed, 10 Mar 2021 12:28:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3230F801D8; Wed, 10 Mar 2021 07:34:50 +0100 (CET)
+ id 806D8F8020D; Wed, 10 Mar 2021 12:28:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m12-13.163.com (m12-13.163.com [220.181.12.13])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F2C7F8014E
- for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 07:34:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F2C7F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="WCkF0VsD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=FWnKs
- CUy6cUI+NQNYYrDcV9vQ3AY9aZlJaHYCSPCKeg=; b=WCkF0VsDBxFn3oRN33tSH
- CY6PbhFmDu2ZL1Tzl32Wk5XEfK9Dk764AJEgifohAqOYyPb37+1VMQERKFFVV9gt
- BGmnsjpWeI7Px0EwmMMG0fQpa/sTxXbzU+aeJfFsKTUlPix6kT+0HhN8PteZvSLu
- buANWjYuROzB9bsMPh1ZOk=
-Received: from COOL-20201210PM.ccdomain.com (unknown [218.94.48.178])
- by smtp9 (Coremail) with SMTP id DcCowABnIgB1aEhglJboAQ--.42166S2;
- Wed, 10 Mar 2021 14:34:32 +0800 (CST)
-From: zuoqilin1@163.com
-To: tiwai@suse.com, lars@metafoo.de, joe@perches.com, broonie@kernel.org,
- perex@perex.cz
-Subject: [PATCH] sound: Remove redundant steps
-Date: Wed, 10 Mar 2021 14:34:26 +0800
-Message-Id: <20210310063426.524-1-zuoqilin1@163.com>
-X-Mailer: git-send-email 2.28.0.windows.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB847F801ED
+ for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 12:28:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB847F801ED
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 679ECAE89;
+ Wed, 10 Mar 2021 11:28:15 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/3] ALSA: hda: Fix potential bad accesses at suspend/resume
+Date: Wed, 10 Mar 2021 12:28:06 +0100
+Message-Id: <20210310112809.9215-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: DcCowABnIgB1aEhglJboAQ--.42166S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7GF1DAFWkJFyxZw17tF4ruFg_yoW8JrWkpF
- 1kur1UtFW0q3yDuF1UAryvvF1rKayDAa9rG393Z3y3JFWSvrWFvas3KF10vrWv9ayvkrZF
- qFyDKr1DArn8JwUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jVbyZUUUUU=
-X-Originating-IP: [218.94.48.178]
-X-CM-SenderInfo: 52xr1xpolqiqqrwthudrp/xtbBRRhRiVPAKa57sgAAsY
-X-Mailman-Approved-At: Wed, 10 Mar 2021 11:30:10 +0100
-Cc: zuoqilin <zuoqilin@yulong.com>, alsa-devel@alsa-project.org
+Cc: Abhishek Sahu <abhsahu@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,41 +63,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: zuoqilin <zuoqilin@yulong.com>
+Hi,
 
-If kzalloc fail,not need free it,so just return
--ENOMEM when kzalloc fail.
+this is a small patch series to address the bugs that triggers the
+unexpected accesses during the system suspend/resume.  It happens
+often with Nvidia driver and HDMI codec driver, and it may lead to the
+serious CORB/RIRB errors.
 
-Signed-off-by: zuoqilin <zuoqilin@yulong.com>
----
- sound/core/oss/mixer_oss.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Although the issues are seen mostly on DP/HDMI, a part of the problems
+is rather generic to all platforms.
 
-diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-index bec9283..eec61dc 100644
---- a/sound/core/oss/mixer_oss.c
-+++ b/sound/core/oss/mixer_oss.c
-@@ -800,8 +800,7 @@ static int snd_mixer_oss_get_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
- 	uinfo = kzalloc(sizeof(*uinfo), GFP_KERNEL);
- 	uctl = kzalloc(sizeof(*uctl), GFP_KERNEL);
- 	if (uinfo == NULL || uctl == NULL) {
--		err = -ENOMEM;
--		goto __free_only;
-+		return -ENOMEM;
- 	}
- 	down_read(&card->controls_rwsem);
- 	kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
-@@ -851,8 +850,7 @@ static int snd_mixer_oss_put_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
- 	uinfo = kzalloc(sizeof(*uinfo), GFP_KERNEL);
- 	uctl = kzalloc(sizeof(*uctl), GFP_KERNEL);
- 	if (uinfo == NULL || uctl == NULL) {
--		err = -ENOMEM;
--		goto __free_only;
-+		return -ENOMEM;
- 	}
- 	down_read(&card->controls_rwsem);
- 	kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
+
+Takashi
+
+===
+
+Takashi Iwai (3):
+  ALSA: hda: Flush pending unsolicited events before suspend
+  ALSA: hda: Avoid spurious unsol event handling during S3/S4
+  ALSA: hda/hdmi: Cancel pending works before suspend
+
+ sound/pci/hda/hda_bind.c   |  4 ++++
+ sound/pci/hda/hda_intel.c  |  2 ++
+ sound/pci/hda/patch_hdmi.c | 13 +++++++++++++
+ 3 files changed, 19 insertions(+)
+
 -- 
-1.9.1
-
+2.26.2
 

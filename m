@@ -2,55 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44E9333B73
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 12:31:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C20333C35
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 13:08:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 352581792;
-	Wed, 10 Mar 2021 12:30:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 352581792
+	by alsa0.perex.cz (Postfix) with ESMTPS id 144531773;
+	Wed, 10 Mar 2021 13:07:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 144531773
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615375864;
-	bh=I86zCA6O5f75+SAT+bmv6eTkQr4g4CTHpAWspo55UVg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1615378121;
+	bh=GVRxbE5XCkimPxYjriDb+gFAOIRYYFsaiOlWdBVZhf4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RfOav30u0GyesvaogVn3fyfO5ZH9AkWiaIwDHjqprtTBccVdxHA/ZhrEDu8/M4YG4
-	 zm57d0T8m/mzUfbqZaUlW1Do3ygI/YgxjLU6GlhEUUr23uukqp2j77o0DYDUJ9/uE9
-	 EI8NGrcelYnLS6BXriuDCB1KRd9V8AnYo8FqCgxM=
+	b=eY7rphlt0hYj4tHB+N2aex4tCgOL7V8TBVIoFC1GlePw0Gnz6V0On3Wo1bwz1qxn1
+	 86AGl7QU8ckf9r6SLlDplHh39Qv/lDLO27VtnnqPTH7Z2kOx6a9y0C+ni/AX3Vssji
+	 TPEclmVIxT9ftvKGJv9zknN/xO+gg/kbdk6aRB6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25916F80424;
-	Wed, 10 Mar 2021 12:28:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 221CDF8016C;
+	Wed, 10 Mar 2021 13:07:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AF4DF80217; Wed, 10 Mar 2021 12:28:32 +0100 (CET)
+ id 17B54F801D8; Wed, 10 Mar 2021 13:07:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB80BF801D8
- for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 12:28:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB80BF801D8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7CBB6AEBD;
- Wed, 10 Mar 2021 11:28:15 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: hda/hdmi: Cancel pending works before suspend
-Date: Wed, 10 Mar 2021 12:28:09 +0100
-Message-Id: <20210310112809.9215-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210310112809.9215-1-tiwai@suse.de>
-References: <20210310112809.9215-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCBF3F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 13:06:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBF3F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="rbBzgN3M"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 79A7C64FEE;
+ Wed, 10 Mar 2021 12:06:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1615378010;
+ bh=GVRxbE5XCkimPxYjriDb+gFAOIRYYFsaiOlWdBVZhf4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rbBzgN3MceSCRkawOIYTVt/xQ29z/XcWin60DdHq+4t3a/B0LVY/mKbiokW4bZtoK
+ oNix2OYalCr/M9TuKN90rPdlMW/qksckaZY45Ge7xU1GUFJiz/osyofoA15Qdkvh/E
+ HShx3s9rSS1csqtcEqZmAwRrGfkkjbesqFz5Siv4=
+Date: Wed, 10 Mar 2021 13:06:47 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: Intel: broadwell: fix mutual exclusion
+ with catpt driver
+Message-ID: <YEi2Vwid7ESsBRCb@kroah.com>
+References: <20210309221618.246754-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Abhishek Sahu <abhsahu@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210309221618.246754-1-pierre-louis.bossart@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
+ alsa-devel@alsa-project.org, stable@vger.kernel.org,
+ David Ward <david.ward@ll.mit.edu>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,54 +79,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The per_pin->work might be still floating at the suspend, and this may
-hit the access to the hardware at an unexpected timing.  Cancel the
-work properly at the suspend callback for avoiding the buggy access.
+On Tue, Mar 09, 2021 at 04:16:18PM -0600, Pierre-Louis Bossart wrote:
+> In v5.10, the "haswell" driver was replaced by the "catpt" driver, but
+> the mutual exclusion with the SOF driver was not updated. This leads
+> to errors with card names and UCM profiles not being loaded by
+> PulseAudio.
+> 
+> This fix should only be applied on v5.10-stable, the mutual exclusion
+> was removed in 5.11.
+> 
+> Reported-by: David Ward <david.ward@ll.mit.edu>
+> Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=211985
+> Fixes: 6cbfa11d2694 ("ASoC: Intel: Select catpt and deprecate haswell")
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Cc: <stable@vger.kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Sasha Levin <sashal@kernel.org>
+> ---
+> v2: added Mark and Cezary tags, fixed stable address, added
+> maintainers
+> 
 
-Note that the bug doesn't trigger easily in the recent kernels since
-the work is queued only when the repoll count is set, and usually it's
-only at the resume callback, but it's still possible to hit in
-theory.
+Now queued up, thanks.
 
-BugLink: https://bugzilla.suse.com/show_bug.cgi?id=1182377
-Reported-and-tested-by: Abhishek Sahu <abhsahu@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_hdmi.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index e6d0843ee9df..45ae845e82df 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2480,6 +2480,18 @@ static void generic_hdmi_free(struct hda_codec *codec)
- }
- 
- #ifdef CONFIG_PM
-+static int generic_hdmi_suspend(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	int pin_idx;
-+
-+	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
-+		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
-+		cancel_delayed_work_sync(&per_pin->work);
-+	}
-+	return 0;
-+}
-+
- static int generic_hdmi_resume(struct hda_codec *codec)
- {
- 	struct hdmi_spec *spec = codec->spec;
-@@ -2503,6 +2515,7 @@ static const struct hda_codec_ops generic_hdmi_patch_ops = {
- 	.build_controls		= generic_hdmi_build_controls,
- 	.unsol_event		= hdmi_unsol_event,
- #ifdef CONFIG_PM
-+	.suspend		= generic_hdmi_suspend,
- 	.resume			= generic_hdmi_resume,
- #endif
- };
--- 
-2.26.2
-
+greg k-h

@@ -2,93 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25471333E02
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 14:36:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59991333F66
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 14:38:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A19FA177B;
-	Wed, 10 Mar 2021 14:35:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A19FA177B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD52816C8;
+	Wed, 10 Mar 2021 14:37:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD52816C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615383360;
-	bh=FQF5QS++CZJrCRGa7pavMVC9d4r+n2DsU2loIWqae84=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1615383516;
+	bh=/qvD9d3Yt6mfuCTPcp4UZO2U5EnDzRCNvDKcb6MmsJ4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cw+X8mhZqaBT5FquyMz5zVLFNxncISQptf+FxdK4//+Va7xMt8idm7lzFCKevOIcu
-	 vulJ7gcAvbT7SaAjYMCdcc1BtGQy6oTdfPT6seepEDFiBlR1MkFdSTWJlGOQFNWg+R
-	 IGf/zZgT2VRftW/QEeG3Nkuq39PIgUYTLg8gzi0A=
+	b=hhY1TNZpmkDnNuvfP9Bac9BFZxvP6/8GLT7vifJf62Biz/PhN4BD9fSYX7AqckBFd
+	 uFTlV7oSw9e8AKMCtkS7sp/3yp2ysOnc2cZYvgNAs9uTCGHgqYWARFamMNpluI+TYj
+	 ALrWVdvAd+8HzD8kPLUOikumfuu0DMyWQ65xCTmc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A0BCF8032C;
-	Wed, 10 Mar 2021 14:33:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4ADCF801ED;
+	Wed, 10 Mar 2021 14:37:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7422F802E7; Wed, 10 Mar 2021 14:33:41 +0100 (CET)
+ id 2A440F8020D; Wed, 10 Mar 2021 14:37:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 827A3F8012F
- for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 14:33:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 827A3F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5829F8016C
+ for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 14:36:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5829F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bl9foFVu"
-Received: by mail-qk1-x72a.google.com with SMTP id g185so16741292qkf.6
- for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 05:33:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xATgDCcvjbRfKhf77xL4HQKVKsZXwxoQX6S2FdKT3Oo=;
- b=bl9foFVuWm1U0ekqf1RlZ6JOgyHSxk20HsshPAc/WzmNMQkpqow9aJHwikbBuhzGt5
- jT1S7UCkiQhavHDTqfeS/7Pfr5/IePsLcFDW+xtC3oZT8urNRddeoTEDdbA1IepPMPk+
- opy2by+nNj9L9mcjh3ek7aNkXjf9fKBBKm2Jqgd5tMFigjlDZjBf2JhaP0RIxWNQxb2T
- /+3P/012KMPMRD/pd+hAGnOJoVnTUWu55a3JQpQ9tb6n/wtLR9H0ZJW4J2/1/FeMOnPA
- ckGsAVCt8a/1taU7nsP+U4gCNpvnevNcHi/hhmmnz1IViwSN4ngtMzFuAOU/mXVgcYBY
- nErg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xATgDCcvjbRfKhf77xL4HQKVKsZXwxoQX6S2FdKT3Oo=;
- b=ev7d7RiYGVi3Mx1IJT4hPe/a46h+pE5L5Ch2R3cc9FVWcxMkemDjuJUMawPGknobHf
- bRxLpgi5F5P0JyzwJm8d9IyK26RPZOdj2IyCphX6bqyLAjVDqBL57z25ptMUm5rbOP+J
- 7I0XgZpWIP/x8d3YgHvtgaoY/MkzhKG4LE/S2JMZ7Lwh7LZw7o/aowDl/HGxRv+LFL8J
- ROzh5aCpN4Y6z5tDgE34qLaNqY3uZSPAMl5usgN1fTek/yPQXEfvu/hnbvcRvTY0UCZF
- dzr7Ypi3BWGYa4lvNaDNmLvip5Sdrt2jKN25UL8zx2C+ysWWJzQoEf2vOdFf2ptRIonS
- Yo7g==
-X-Gm-Message-State: AOAM533ybA3Vw1xFMS/MZcL1RvqPPKZUWZOKSNgOGqccYB/ura+ak1ul
- ov0sbkpxp/xP5Pma4SUCY0fkiG6BHgJwyEo+S+k=
-X-Google-Smtp-Source: ABdhPJwsnjO9VMCLT+e6qoznWlE6iGQjtNS8w36gj0aKWvcdVWBIbKTu/A3JNEQWuep1O/iNA0xg755nBa0vz1K9AyA=
-X-Received: by 2002:a05:620a:89d:: with SMTP id
- b29mr2468495qka.103.1615383202487; 
- Wed, 10 Mar 2021 05:33:22 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="fXkTwOG7"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9AF1464FD6;
+ Wed, 10 Mar 2021 13:36:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615383406;
+ bh=/qvD9d3Yt6mfuCTPcp4UZO2U5EnDzRCNvDKcb6MmsJ4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fXkTwOG7pbmDGBbDKSu+3o811aK9eFGLJzWdPfdV7IhuvVV2m3Nk/c4z9Li2QpgZq
+ JR5lFEpfU5x63QLFZC/Dg5+8+rA7Qy6i+bmi9WzXRbLRQ9uuLEpqqTPivY7IFzeayg
+ mzUQ1q78M6bMSFonfRUBBV3sSsGBjGfHvBIOyAoFB/+nGnPxHilxCy4AegMTxyxkqn
+ VjCUKcE1gHCAhPSvx/fugTqtMd/AwCxEl52l1MXY0/0FP1VAKrekT+ZcP+nH+lYrtB
+ xdfomGcbcJbdQXlOiQDFTC2QmRVFoe6Sbf/xhWZFNbZhyi3bAQoNn8f7QcqAOFdP+8
+ 92FFehlbjeg4Q==
+Date: Wed, 10 Mar 2021 13:35:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH V2] ASoC: soc-core: Prevent warning if no DMI table is
+ present
+Message-ID: <20210310133534.GD4746@sirena.org.uk>
+References: <20210303115526.419458-1-jonathanh@nvidia.com>
+ <91480f92-a3f5-e71f-acdc-ea74488ab0a1@linux.intel.com>
 MIME-Version: 1.0
-References: <1615209750-2357-1-git-send-email-shengjiu.wang@nxp.com>
- <1615209750-2357-4-git-send-email-shengjiu.wang@nxp.com>
- <20210310024834.GA1623179@robh.at.kernel.org>
-In-Reply-To: <20210310024834.GA1623179@robh.at.kernel.org>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 10 Mar 2021 21:33:11 +0800
-Message-ID: <CAA+D8AM5nH+gwfas_=9gkzaegq4=4q2AfVybBnxM4xU3gOiF4w@mail.gmail.com>
-Subject: Re: [PATCH v4 3/6] ASoC: dt-bindings: fsl_rpmsg: Add binding doc for
- rpmsg cpu dai driver
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9dgjiU4MmWPVapMU"
+Content-Disposition: inline
+In-Reply-To: <91480f92-a3f5-e71f-acdc-ea74488ab0a1@linux.intel.com>
+X-Cookie: no maintenance:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ linux-tegra@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,217 +87,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob
 
-On Wed, Mar 10, 2021 at 10:49 AM Rob Herring <robh@kernel.org> wrote:
->
-> On Mon, Mar 08, 2021 at 09:22:27PM +0800, Shengjiu Wang wrote:
-> > fsl_rpmsg cpu dai driver is driver for rpmsg audio, which is mainly used
->
-> Bindings describe h/w blocks, not drivers.
+--9dgjiU4MmWPVapMU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I will modify the descriptions. but here it is a virtual device.  the
-mapping in real h/w is cortex M core, Cortex M core controls the SAI,
-DMA interface. What we see from Linux side is a audio service
-through rpmsg channel.
+On Tue, Mar 09, 2021 at 01:41:45PM -0600, Pierre-Louis Bossart wrote:
 
->
-> > for getting the user's configuration from device tree and configure the
-> > clocks which is used by Cortex-M core. So in this document define the
-> > needed property.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 118 ++++++++++++++++++
-> >  1 file changed, 118 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> > new file mode 100644
-> > index 000000000000..5731c1fbc0a6
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> > @@ -0,0 +1,118 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/fsl,rpmsg.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: NXP Audio RPMSG CPU DAI Controller
-> > +
-> > +maintainers:
-> > +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> > +
-> > +description: |
-> > +  fsl_rpmsg cpu dai driver is virtual driver for rpmsg audio, which doesn't
-> > +  touch hardware. It is mainly used for getting the user's configuration
-> > +  from device tree and configure the clocks which is used by Cortex-M core.
-> > +  So in this document define the needed property.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - fsl,imx7ulp-rpmsg
-> > +      - fsl,imx8mn-rpmsg
-> > +      - fsl,imx8mm-rpmsg
-> > +      - fsl,imx8mp-rpmsg
-> > +
-> > +  model:
-> > +    $ref: /schemas/types.yaml#/definitions/string
-> > +    description: User specified audio sound card name
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Peripheral clock for register access
-> > +      - description: Master clock
-> > +      - description: DMA clock for DMA register access
-> > +      - description: Parent clock for multiple of 8kHz sample rates
-> > +      - description: Parent clock for multiple of 11kHz sample rates
-> > +    minItems: 5
->
-> If this doesn't touch hardware, what are these clocks for?
+> The problem is that the cards are platform devices created by the parent
+> (which itself may be a PCI or ACPI device) and have nothing to do with ACPI.
 
-When the cortex-M core support audio service, these clock
-needed prepared & enabled by ALSA driver.
+> Could we flip the logic and instead explicitly detect OF devices? That
+> restores functionality for us.
 
->
-> You don't need 'minItems' unless it's less than the number of 'items'.
+Just change it to a system level check for ACPI, checking for OF would
+leave problems for board files or any other alternative firmware
+interfaces.
 
-Ok, I will remove this minItems.
+--9dgjiU4MmWPVapMU
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: ipg
-> > +      - const: mclk
-> > +      - const: dma
-> > +      - const: pll8k
-> > +      - const: pll11k
-> > +    minItems: 5
-> > +
-> > +  power-domains:
-> > +    maxItems: 1
-> > +
-> > +  fsl,audioindex:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    enum: [0, 1]
-> > +    default: 0
-> > +    description: Instance index for sound card in
-> > +                 M core side, which share one rpmsg
-> > +                 channel.
->
-> We don't do indexes in DT. What's this numbering tied to?
+-----BEGIN PGP SIGNATURE-----
 
-I will remove it. it is not necessary
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBIyyUACgkQJNaLcl1U
+h9AD0wf/Zbl1pfIcOCJxOTd8jWQgWmUT9U/NLT5bHSI+QKZCQ8TdhAJx5nbTYpsA
+EIfYRfIOyNbC+orOg933wQsEzmrhboS/ZfORAvfUKtlTHA7hmWO+qIserBNczgEE
+2L0pCqzopDnuD9IVNNzQr5CmEgunXIxShFGiJy2rkqHavvpZPwllhH9qpfQ3bwEO
+HTFhidXy7irpPJrZq1zenN70VzExNcqMUe19mz4M4g0imcyrGmfGOqWUj9c+7ZoY
+VNHHGINTIfh086c3T4PNKpK/pcmyhdsBXdJR3RewnPdMy72VzsAApz3XudGwcAqL
+aH9twLn24x911JXToXymhg7uqhlwuQ==
+=CPbE
+-----END PGP SIGNATURE-----
 
->
-> > +
-> > +  fsl,version:
->
-> version of what?
->
-> This seems odd at best.
->
-
-I will remove it.  it is not necessary
-
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    enum: [1, 2]
->
-> You're going to update this with every new firmware version?
->
-> > +    default: 2
-> > +    description: The version of M core image, which is
-> > +                 to make driver compatible with different image.
-> > +
-> > +  fsl,buffer-size:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description: pre allocate dma buffer size
->
-> How can you have DMA, this doesn't touch h/w?
-
-The DMA is handled by M core image for sound playback
-and capture. we need to allocated buffer in Linux side.
-here just make the buffer size to be configurable.
->
-> > +
-> > +  fsl,enable-lpa:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description: enable low power audio path.
-> > +
-> > +  fsl,rpmsg-out:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description: |
-> > +      This is a boolean property. If present, the transmitting function
-> > +      will be enabled.
-> > +
-> > +  fsl,rpmsg-in:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description: |
-> > +      This is a boolean property. If present, the receiving function
-> > +      will be enabled.
-> > +
-> > +  fsl,codec-type:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    enum: [0, 1, 2]
-> > +    default: 0
-> > +    description: Sometimes the codec is registered by
-> > +                 driver not by the device tree, this items
-> > +                 can be used to distinguish codecs.
->
-> How does one decide what value to use?
-
-I will add more description:
-0: dummy codec
-1: WM8960 codec
-2: AK4497 codec
-
->
-> > +
-> > +  audio-codec:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +    description: The phandle of the audio codec
->
-> The codec is controlled from the Linux side?
-
-yes.
-
->
-> > +
-> > +  memory-region:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +    description: phandle to the reserved memory nodes
-> > +
-> > +required:
-> > +  - compatible
-> > +  - fsl,audioindex
-> > +  - fsl,version
-> > +  - fsl,buffer-size
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    rpmsg_audio: rpmsg_audio {
-> > +        compatible = "fsl,imx8mn-rpmsg";
-> > +        fsl,audioindex = <0> ;
-> > +        fsl,version = <2>;
-> > +        fsl,buffer-size = <0x6000000>;
-> > +        fsl,enable-lpa;
->
-> How does this work? Don't you need somewhere to put the 'rpmsg' data?
-
-The rpmsg data is not handled in this "rpmsg_audio" device, it is just to
-prepare the resource for rpmsg audio function, the clock, the memory
-the power...
-
-The rpmsg data is handled in imx-pcm-rpmsg.c and imx-audio-rpmsg.c
-These devices is registered by imx remoteproc driver.
-
-
-I will update this document in v5
-
-Best regards
-Wang Shengjiu
+--9dgjiU4MmWPVapMU--

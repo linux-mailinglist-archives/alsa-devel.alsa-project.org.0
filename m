@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3EE3343BD
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 17:54:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839813345B5
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Mar 2021 18:52:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72FE71771;
-	Wed, 10 Mar 2021 17:53:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72FE71771
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1442A1768;
+	Wed, 10 Mar 2021 18:51:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1442A1768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615395285;
-	bh=LYXEORDDED5ZeFnxA4L4WxHD6s/2iGI2G6icdNZdVKE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615398724;
+	bh=o4N6ZKSLN0+xlNuOqMsUpd4bWDTAxvfyNPR1ZGjoZAs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U0OV+EIOjDS75mVCHQHmq1dMZUAD6eW4AqBe119xD/5gmZrsPZ+Esjb0qF6MBP1mO
-	 Djt3G0NNOIl0bPci9vD+H9UlcjsmISqs+0TdVgfCdV7fIJGBxf0KtWeepNb+0T27wW
-	 2TbkiJCSRvtQGC+EetMPaX7BcR1FVBH6EumUJtBE=
+	b=Zi0expv+4xXTvsY/G0WIyMdthINAcPfSejnBEj1R/k2+AwmdN8xapGVZyIxYmmDv7
+	 TC6+EywDVgOJ4Npl1SV98EtHJvA2vTbyV1np53cC9RtsoqPpQCUmK6f6WNQi2dSDs5
+	 A4W2KEyGziAMiOzJ5EysUvLScXaCnv9EsdxO7+k0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34A4F8014E;
-	Wed, 10 Mar 2021 17:53:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22CD0F8012F;
+	Wed, 10 Mar 2021 18:50:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 773B0F8016C; Wed, 10 Mar 2021 17:53:52 +0100 (CET)
+ id D1523F8016C; Wed, 10 Mar 2021 18:50:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBF8DF8012F
- for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 17:53:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBF8DF8012F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ExcjjneF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 31E9E64FC3;
- Wed, 10 Mar 2021 16:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615395227;
- bh=LYXEORDDED5ZeFnxA4L4WxHD6s/2iGI2G6icdNZdVKE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ExcjjneF5YUIT7jt4pCyRE7YRNmLVaS/WtF+1RblQWLBGcLMt77NpHs1IC4FbZGZO
- pAvQNLl2SWkih9aGm9vgHhXZppe48rHYejLqckbItCfYzW19x70WX+onP4OyN+o5jx
- rpWRjP8bVkfnTxe241uEFB9R1xj43z8Z2IfFoif9BtS3i0lnoll2jHUfLt6I5R6r3E
- upWZf7APTTSjNJUcuMmLYxq3gt2D/cRw3PJt/9MiSp+TF7743ar1d9snVg9zC6IgAp
- L6PslnyJHs4TbZwu0/W+RskT/G/gKx/YTXX6FGG17mvnMfKRbUXVDVqOxNbIpE0yxQ
- 70sZz0VNGDu1g==
-Date: Wed, 10 Mar 2021 16:52:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 987E3F8012F
+ for <alsa-devel@alsa-project.org>; Wed, 10 Mar 2021 18:50:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 987E3F8012F
+IronPort-SDR: RMUbj+Cj7fkHwUz8+vluNAnSM/9JHXAOljRoInazb0tzmKaWaC42zzHsBNN5PEsx0P69T/l+6o
+ ePbTnbtIH65Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="273564549"
+X-IronPort-AV: E=Sophos;i="5.81,237,1610438400"; d="scan'208";a="273564549"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2021 09:50:17 -0800
+IronPort-SDR: b2evOkNO/0UV6Pdj15EO+j1vjXvRxRE4shFbKJsY9eS2FoRoq5gKfFz4l6WnU3f+scbmfAzhk1
+ loVURsv0Rv6w==
+X-IronPort-AV: E=Sophos;i="5.81,237,1610438400"; d="scan'208";a="403766454"
+Received: from huiyingw-mobl.amr.corp.intel.com (HELO [10.212.214.84])
+ ([10.212.214.84])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2021 09:50:15 -0800
 Subject: Re: [PATCH V2] ASoC: soc-core: Prevent warning if no DMI table is
  present
-Message-ID: <20210310165235.GD28564@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
 References: <20210303115526.419458-1-jonathanh@nvidia.com>
  <91480f92-a3f5-e71f-acdc-ea74488ab0a1@linux.intel.com>
  <20210310133534.GD4746@sirena.org.uk>
  <6a2352e6-f2b7-def1-de58-52fbeb7846e5@linux.intel.com>
- <20210310161814.GA28564@sirena.org.uk>
- <s5hzgzbvube.wl-tiwai@suse.de>
+ <20210310161814.GA28564@sirena.org.uk> <s5hzgzbvube.wl-tiwai@suse.de>
  <9b073d01-f2fe-a99b-e53c-4a0b3f95ca05@linux.intel.com>
+ <20210310165235.GD28564@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <cf03ce61-1501-e0e7-6887-d921c7d1af62@linux.intel.com>
+Date: Wed, 10 Mar 2021 11:50:13 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="k4f25fnPtRuIRUb3"
-Content-Disposition: inline
-In-Reply-To: <9b073d01-f2fe-a99b-e53c-4a0b3f95ca05@linux.intel.com>
-X-Cookie: Yow!  Are we laid back yet?
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210310165235.GD28564@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  linux-tegra@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>
@@ -93,34 +92,22 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---k4f25fnPtRuIRUb3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Mar 10, 2021 at 10:41:18AM -0600, Pierre-Louis Bossart wrote:
+On 3/10/21 10:52 AM, Mark Brown wrote:
+> On Wed, Mar 10, 2021 at 10:41:18AM -0600, Pierre-Louis Bossart wrote:
+> 
+>> would this work?
+> 
+>> if (!IS_ENABLED(CONFIG_DMI))
+>>      return 0;
+> 
+> Build time dependencies aren't going to help anything, arm64 (and to my
+> understanding some future x86 systems, LynxPoint IIRC) supports both DT
+> and ACPI and so you have kernels built with support for both.
 
-> would this work?
+well, that's what I suggested initially:
+        if (is_of_node(card->dev->fwnode))
 
-> if (!IS_ENABLED(CONFIG_DMI))
->     return 0;
+I used the of_node test as a proxy for 'no DMI' since I am not aware of 
+any means to detect if DMI is enabled at run-time.
 
-Build time dependencies aren't going to help anything, arm64 (and to my
-understanding some future x86 systems, LynxPoint IIRC) supports both DT
-and ACPI and so you have kernels built with support for both.
-
---k4f25fnPtRuIRUb3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBI+VIACgkQJNaLcl1U
-h9ADMQf8DUyuTKKeAuKGArtFT2ZzFUBtLWTtT/SYCk1lUWjYDuu/cWrjsKxXPb+4
-38AzlvGlZp+/xcNRgfBWe3RdDSQGjp3gzYQky42fW3wo/60nabfEEz1FlEIqUQKI
-jXwyDky/dB/E6AHqwUxzGlCQdcF1Ue25iXGJo9pkAfSDUi6xi5Tzytxfx4hJUzQb
-ALZU7oUw4iRizAKO8ttEYhO86zE9tuztKdQ5vJn/IcLeWp8NZ3B6h5UM6ReMkm5K
-Hrwoi+HnRcWTPH9uX/p5Q/z19J4XthpAVhJQXMbKq+smwble0KKeXTSUhjp9Ql5m
-SfCET1DfQtXVxR+PUwStE18DDAtmRQ==
-=9tca
------END PGP SIGNATURE-----
-
---k4f25fnPtRuIRUb3--

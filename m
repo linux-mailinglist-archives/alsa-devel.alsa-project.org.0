@@ -2,106 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A9493372FF
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 13:48:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35EDE337312
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 13:52:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2847417F5;
-	Thu, 11 Mar 2021 13:47:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2847417F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5BA6180D;
+	Thu, 11 Mar 2021 13:51:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5BA6180D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615466899;
-	bh=dT5TaAFLo5TirK9wt+BFuRn8B9fiBCw/vT0UM4LRf3A=;
+	s=default; t=1615467138;
+	bh=u+CzpK507sm6H5psrFndpFOIH25rMKWSpnpEg0xx/YY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MKbF0xKRYEuhhqG4kTy+Q+C91WWpPf4Y61mY/iCIQ275kMAP/gFHvdrSAjoK82k6k
-	 aC+nOodYNLbM2672K/vWIae67S5JOLMCz9LPFonEc4xf55+X+jHwWq50Clipf0R4UE
-	 14jiOwg+iJBxMH04N3dbgm3tUVDrKujoe4FqeIos=
+	b=FrQFmGodL2kb3fvMieT002rFWdAuCaBMA+60R/Zs89Jw8YoM5ue6ZjkwS4606p5IP
+	 Ft3FcR+FQyP6WL0tH9bDEYaysSpW9IGs5eVdv6wam959OwqZBgjvsLwzoLQWvPiaTT
+	 oVQ9EmUex+6LVCefMicq/b8FtKmHWJDQBg3cTX7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76062F800BF;
-	Thu, 11 Mar 2021 13:46:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FBF6F80227;
+	Thu, 11 Mar 2021 13:50:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCB5AF80227; Thu, 11 Mar 2021 13:46:46 +0100 (CET)
+ id 02E47F80227; Thu, 11 Mar 2021 13:50:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85410F800BF
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 13:46:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85410F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3996BF800BF
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 13:50:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3996BF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="yGVFMB/9"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="IZNwGOPf"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 980185C00CC;
- Thu, 11 Mar 2021 07:46:32 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 11 Mar 2021 07:46:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=xePTnJHmwj3N5X5A+67zRGIDCZ1
- v7geJw6JYKkoYtjo=; b=yGVFMB/9nM6fZL4QjWB8kH9bro1X4sBjbnDbDFFvHU2
- 9Qla8gu4KPTlR4VDClhPsqdvg+Jeg/9DCIa9FOj9jFyCXzTh/C58V4vtaJa21PWI
- kgK7RTdqu9pHuVMiOwnIFUWNVLyi+l/f6EmTHuSzqARcDu1LdpOmMlsrx4db/yWS
- jtpExB3ahiSnsiKhAVpquLsh6x5L7fxmLELzMb7adY5miZbNIaqprR60SnBdoykn
- 4VRGLzI0YgU7Mwi0XBX4diDwSFs5e6DnySS8g3bZfacYtHmPrfNyjFf7irI0jaNV
- WaqOCCZ+mt5Qqt5fLpdfPJfl5RPY4z1kxL0ZOZb/8GA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=xePTnJ
- Hmwj3N5X5A+67zRGIDCZ1v7geJw6JYKkoYtjo=; b=IZNwGOPfJIomprGEUgvPX+
- onX+ztYDTveFdeLv6mA7RSQv0zuJ6MR9knRZ+Tw5tg00vlGv5B2DOXdXUvY3arNe
- JxOfvNPMUHb/VOVcoa3uzR0ilp72/zfWoWmqS4FxyaHGdqVzqsY8aUfm+iOtlYcn
- Qd2ULIo94Q4NoF/1jjZaU8tVTbJ03VHiDlCyCf2LRZ089Fp0zegphRansXC/x0mC
- LanfcsnVDu/mmXwDnYQuELeQ+V+V99SQyduNZEfSXjLY5DF/sgrfCuWrGAozZS9W
- 7LWXvln0hViDrhPt4NbGNI1KJ3AwC2dGEgIJrE19OjqfwzxOtxP243pS0Ia/taNA
- ==
-X-ME-Sender: <xms:KBFKYAf2E_2_5jYPPVEIZT_vs9WNkeKzyJ13KmEXrDxfnE_Dd4_Z6Q>
- <xme:KBFKYPXHE8YeOI3hzcmbHBX-BgRR3R6s6GwZNvbQnygn6KpZrDKuw9szSRIIx1h_t
- sGrp6BoYU6G5I2UR1c>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvtddggeegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesthdtre
- dttddtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepheeuueeihf
- evfeehhedukeefffeuveehleeuudeihfffjeeiffeiudffjeeiveffnecuffhomhgrihhn
- pegrlhhsrgdqphhrohhjvggtthdrohhrghenucfkphepudegrdefrdeihedrudejheenuc
- evlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghk
- rghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:KBFKYAib6uvY5bUjJib3NH7UAsrCbkTo10nPybEf2G5b9xe0eIv_4Q>
- <xmx:KBFKYG96xmsYd8RH5o3aDxVRlseQRg9cTdJWoDbuvTDbEOmyER2Xeg>
- <xmx:KBFKYKYcR01UeRh4mIlafOgw0AL9zA4tWmEsQNoOTl9uS-uulVt-Sw>
- <xmx:KBFKYEvFvyMKq8whr_09wMRnAQzTCZs_J3eBy464nEJTzWmj5XvHow>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 55C03108005F;
- Thu, 11 Mar 2021 07:46:31 -0500 (EST)
-Date: Thu, 11 Mar 2021 21:46:28 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: alsa-lib's new API issue (snd_ctl_elem_id_compare)
-Message-ID: <20210311124628.GA407735@workstation>
-Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-References: <20210308125817.GA212288@workstation>
- <5e26625d-3db1-0600-47f8-057c0101d6b1@perex.cz>
- <20210309003803.GA215306@workstation>
- <cfadffa0-b89f-13d2-5b52-67842cc4b372@perex.cz>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uCm2iQLx"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 28D5164E92;
+ Thu, 11 Mar 2021 12:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615467018;
+ bh=u+CzpK507sm6H5psrFndpFOIH25rMKWSpnpEg0xx/YY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uCm2iQLxJFhSr7cr3pM5TPjpeS8rfvE8FwgJxkhmaIriq0cppoLzhdXmhtode+je6
+ +t5LPDgAnMQXkwn/WWyGigwZlTP0LezmpchgOgrLS4vmqC3dVy+zmoVXjYXcJnFIib
+ hGIwDHcBJ1eWVEVNjxabfHC7ArbiFjBBNnOXsEfbTpRsUC+7+cEPABB8k7/3K3uDux
+ fOz5lghrRdEWLUx+DKSV9xlNsDzoFPNNC0VBLC/L+fsBhbP/9WUb+Tk8pzVUKhqSpz
+ O+HYFqeCntdMnDnJ0ItWzdZpuK8SbSncTAQDTWWFmRMI8glWKR1RhDcqTqGk/YNZ0J
+ LjAt9z/U/4aGQ==
+Date: Thu, 11 Mar 2021 12:49:05 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [RFCv2] ASoC: Add Rockchip rk817 audio CODEC support
+Message-ID: <20210311124905.GB4962@sirena.org.uk>
+References: <SN6PR06MB53425EF2BAED66E61C22EA9EA5919@SN6PR06MB5342.namprd06.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="U+BazGySraz5kW0T"
 Content-Disposition: inline
-In-Reply-To: <cfadffa0-b89f-13d2-5b52-67842cc4b372@perex.cz>
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <SN6PR06MB53425EF2BAED66E61C22EA9EA5919@SN6PR06MB5342.namprd06.prod.outlook.com>
+X-Cookie: I'm rated PG-34!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,83 +81,117 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-Sorry to be late for reply but I have a bit busy for patchset to test
-programs of axfer in alsa-utils[1].
+--U+BazGySraz5kW0T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 09, 2021 at 01:37:26PM +0100, Jaroslav Kysela wrote:
-> Dne 09. 03. 21 v 1:38 Takashi Sakamoto napsal(a):
-> > On Mon, Mar 08, 2021 at 03:33:46PM +0100, Jaroslav Kysela wrote:
-> >> Dne 08. 03. 21 v 13:58 Takashi Sakamoto napsal(a):
-> >>> My concerns are:
-> >>>
-> >>> 1. evaluation of numid field is not covered.
-> >>>
-> >>> This is not preferable since ALSA control core implementation covers two
-> >>> types of comparison; numid only, and the combination iface, device,
-> >>> subdevice, name, and index fields. If the API is produced for general use
-> >>> cases, it should correctly handle the numid-only case, in my opinion.
-> >>
-> >> My motivation was to allow to use this function for qsort() for example. The
-> >> numid and full-field comparisons are two very different things.
-> >  
-> > Yep. I easily associated sort implementation in hcontrol API or simple
-> > mixer API from your implementation
-> > 
-> > However, the new API is a part of control API and it just achieves things without
-> > any supplemental information given from userspace implementation.
-> 
-> It's not required, if documented. Nobody forces to use this function in the
-> app code.
->
-> > For the above comparison API, as I described, it's not appropriate. ID
-> > structure for control element is not comparable, thus it should be dropped
-> > or replaced with equality function such as 'snd_ctl_elem_id_equal()'.
-> 
-> I don't require the numid match at this point. The numid is not known or may
-> change for the id entered by the user. So I need to forcefully ignore it.
-> 
-> If we need a function which follow numid + full id comparison, then we can
-> introduce it. I agree that it should return only a boolean return value in
-> this case.
-> 
-> > When you need any sorting algorithms, it should be implemented in
-> > application side or alsa-lib API in the other layer such as hcontrol and
-> > simple mixer since control API should follow to specification of ALSA
-> > control written in kernel land.
-> 
-> I don't follow your arguments here. The numid and full field comparisons are
-> two different things. The caller must know things behind the scene.
-> The snd_ctl_elem_id_compare() function may be used as a quick backend for the
-> full field comparisons with the optimized execution (reduce app -> library calls).
-> 
-> The enums conversion to integers: I think that we're safe here. The interface
-> enum numbers cannot change and we know the range (and the order), so it's safe.
-> 
-> Lastly, the qsort() with snd_ctl_id_compare() as an argument will produce a
-> consistent, understandable result, right?
+On Wed, Mar 10, 2021 at 05:44:16PM -0600, Chris Morgan wrote:
 
-Hm. I believe that you agree with the fact that we can make various
-algorithms to compare a pair of IDs for control elements. When focusing
-on fields except for numid, we can make the other algorithms against your
-implementation, since the ID structure is compound one. Each of the
-algorithms can return different result.
+At a very high level this doesn't really look like it integrates with
+the framework as much as it should - the way this driver is written
+doesn't really have much resemblance to how other ASoC drivers are
+written beyond a very superficial level.  Please take a look at what
+other drivers are doing and try to ensure that this is working with the
+framework in an idiomatic way.
 
-Here, I'd like to shift the discussion to the name of new API. Although it
-has the most common name, 'snd_ctl_id_compare', it just has one of
-comparison algorithms. I have a concern that the name can gives wrong idea
-to users that the ID structure for control element had design to be able to
-be compared by itself and it would just be a single comparison algorithm.
+> index 000000000000..6d4e05440dae
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/rockchip,rk817-codec.txt
+> @@ -0,0 +1,39 @@
+> +* Rockchip rk817 codec
 
-I suggest to rename the new API to express that it implements one of
-comparison algorithm. In a case of numid comparison, it would be
-'snd_ctl_id_compare_by_numid()'. For your case,
-'snd_ctl_id_compare_by_name_arithmetic' or something suitable.
+New DT bindings should be in YAML format.
 
+> diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
+> index ad923dd4e007..adb8a7da29db 100644
+> --- a/drivers/mfd/rk808.c
+> +++ b/drivers/mfd/rk808.c
+> @@ -163,6 +163,12 @@ static const struct mfd_cell rk817s[] =3D {
+>  		.num_resources =3D ARRAY_SIZE(rk817_rtc_resources),
+>  		.resources =3D &rk817_rtc_resources[0],
+>  	},
+> +#ifdef CONFIG_SND_SOC_RK817
+> +	{
+> +		.name =3D "rk817-codec",
+> +		.of_compatible =3D "rockchip,rk817-codec",
+> +	},
+> +#endif
+>  };
+> =20
 
-Thanks
+This should be a separate patch and should be sent via the MFD
+maintainers.  You shouldn't add an of_compatible here, obviously ever
+RK817 has the CODEC functionality so this is just describing how Linux
+chooses to split the device up rather than any property of the hardware.
 
-[1] https://mailman.alsa-project.org/pipermail/alsa-devel/2021-March/181947.html
+> +static int rk817_reset(struct snd_soc_component *component)
+> +{
+> +	snd_soc_component_write(component, RK817_CODEC_DTOP_LPT_SRST, 0x40);
+> +	snd_soc_component_write(component, RK817_CODEC_DDAC_POPD_DACST, 0x02);
+> +	snd_soc_component_write(component, RK817_CODEC_DTOP_DIGEN_CLKE, 0x0f);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG0, 0x04);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG1, 0x58);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG2, 0x2d);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG3, 0x0c);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG4, 0xa5);
+> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG5, 0x00);
+> +	snd_soc_component_write(component, RK817_CODEC_DTOP_DIGEN_CLKE, 0x00);
+> +
 
-Takashi Sakamoto
+This appears to be configuring the CODEC in ways that I'd expect to be
+configured via internal APIs and/or controls, especially the PLL setup
+there looks like it's probably platform specific.
+
+> +static struct rk817_reg_val_typ playback_power_up_list[] =3D {
+> +	{RK817_CODEC_AREF_RTCFG1, 0x40},
+> +	{RK817_CODEC_DDAC_POPD_DACST, 0x02},
+> +	{RK817_CODEC_DDAC_SR_LMT0, 0x02},
+
+Similarly this looks like it's a hard coded register write sequence for
+a specific platform.
+
+> +/* For tiny alsa playback/capture path*/
+> +static const char * const rk817_playback_path_mode[] =3D {
+> +	"OFF", "SPK", "HP", "SPK_HP"};
+> +
+> +static const char * const rk817_capture_path_mode[] =3D {
+> +	"MIC OFF", "MIC"};
+
+The routing within the device should be mapped using DAPM rather than
+with some custom control with hard coded paths and sequences.
+
+> +static const struct regmap_config rk817_codec_regmap_config =3D {
+> +	.name =3D "rk817-codec",
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +	.reg_stride =3D 1,
+> +	.max_register =3D 0x4f,
+> +	.cache_type =3D REGCACHE_NONE,
+> +	.volatile_reg =3D rk817_volatile_register,
+> +	.writeable_reg =3D rk817_codec_register,
+> +	.readable_reg =3D rk817_codec_register,
+> +	.reg_defaults =3D rk817_reg_defaults,
+> +	.num_reg_defaults =3D ARRAY_SIZE(rk817_reg_defaults),
+> +};
+
+It's weird that there's a regmap configuration here rather than the
+regmap being shared with the rest of the MFD.
+
+--U+BazGySraz5kW0T
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBKEcEACgkQJNaLcl1U
+h9CUKwf8Dddm5o3uNnoGlJmNqjnySPlPK9PnA9yGfJpBKNBWHxiFoLk7T4AVDZR4
+8Vr+BK16CggiOWZKnuqwg68iBFbL3+/Fr5I80mZ/8LLOtUjDEq5eepu4TWcs7Grh
+piiZQ4eR+7URdquUnbhxtcIJATfaVcotkpa3Bu1aSUJ1WrHjLSwYDIfvSQbO3Y2X
+UzAXf/4KmVVG9yCFwJNjawjBt4thuNkqhiU1fzZp3IbQusJpUbWDoLt7vjc2TW04
+ORiwiZ3Ox9xEBkXnQX2Y0DwkYMj8Jf9jnfd84wbwgh5Hv5q8/94l2/w8fkDgCQAV
+XdOHYNbRRxBD+Ha+9aPIhKO70hBiVw==
+=8PFC
+-----END PGP SIGNATURE-----
+
+--U+BazGySraz5kW0T--

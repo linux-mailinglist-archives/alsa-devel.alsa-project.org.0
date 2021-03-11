@@ -2,74 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11970336D75
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 09:00:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06FA336DA9
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 09:20:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9920B171B;
-	Thu, 11 Mar 2021 09:00:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9920B171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44E5E1724;
+	Thu, 11 Mar 2021 09:19:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44E5E1724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615449656;
-	bh=Szg8UW7qwq7gvQgWlO5XR4le4X9qTSUuYr/ZzcN6kpI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TMzeZRfyjF1i9KPiBqjTSqhRL29ESZcF2JjPB+YzR3D32G6qXlJAc5pvQ0mB1+ZnQ
-	 QS9nT7jFhcm1+5wReo/VAobvMPDVVfEDghWrcXsNC05rnEkQolvbGasTiLjR0muzuY
-	 rtn0DD0cFlnz5+iw2vRSEC/GWh55n9AaSJ3Mkum8=
+	s=default; t=1615450816;
+	bh=H17hqNKMTjoUmRJSDHsCsLLVAwisXK6j8BgWRw85SCo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NjsVS0Igkjp+UkRgbH5XA2+vP/xW3PcSu8hB8XHvww8q29pp3Z7PI/+IZbaoAFaGG
+	 mPk6pMPjIy3xCMOOmoYSoXLiMAcdwEEO8mlWh64PLx0it8RLgE8jZIl2aKSn0emdIf
+	 eb6iJGKncrXU/0PI//vMDXvUd9oY0eLzH/lpyEL4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D87A0F800BF;
-	Thu, 11 Mar 2021 08:59:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F89EF8019B;
+	Thu, 11 Mar 2021 09:18:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8940F80227; Thu, 11 Mar 2021 08:59:22 +0100 (CET)
+ id 34065F80227; Thu, 11 Mar 2021 09:18:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D3A9F8015B
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 08:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D3A9F8015B
-IronPort-SDR: s50RPG8pPRS3Ae5T2yC0BSglDYWWxgf6S5GxsDZEF12f2rvM52g4eCCtWyrwYIJtW4okhNo7w6
- wRLrfoGoSv0g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="273668873"
-X-IronPort-AV: E=Sophos;i="5.81,239,1610438400"; d="scan'208";a="273668873"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 23:59:03 -0800
-IronPort-SDR: qbDtCL6QXRic/IwLLzR2J8V5sbdWEIsD85pctovP/O4bsXSjIxuEQm+sCvhyNGg3yvCoIbPvJt
- 2uA8Mjb+Po7Q==
-X-IronPort-AV: E=Sophos;i="5.81,239,1610438400"; d="scan'208";a="448203759"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.16.216])
- ([10.213.16.216])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 23:59:00 -0800
-Subject: Re: No sound cards detected on Kabylake laptops after upgrade to
- kernel 5.8
-To: Chris Chiu <chris.chiu@canonical.com>
-References: <CABTNMG31sH99P0F7EKhpFwJf99x4U-VjFWrwXVe1wkra6owFLw@mail.gmail.com>
- <dba864a6-1442-1ebc-9de0-8c1511682b70@intel.com>
- <CABTNMG1bO2AJLY0o58TX2=1QZPnPsZXabtYZA01QyqDS40JORg@mail.gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <4ec526eb-cb2e-e0e3-8f23-6f7a25b9919b@intel.com>
-Date: Thu, 11 Mar 2021 08:58:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6924EF800BF
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 09:18:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6924EF800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="LKeAWdfT"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1615450705; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=ZBXnKQ2z5F+w5AO3Zn+MXqGx/PcyC6YiGN2avgOMwvk=;
+ b=LKeAWdfTii3j4awS3ky+ZLkl2Y/zeZGE8pW1IuWb4twFhZ/g0XgDcd/T2fQH/2AcTSRn9h9p
+ /MB6EmZyPxHSqpT1ygKJ222vnINm2cespk6qtnEs18BQlaVsxlO4c/k9doMZQjXcktU7lUIR
+ f77dg+tPxQgrNUQs0SI9KiFuvUE=
+X-Mailgun-Sending-Ip: 104.130.96.11
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 6049d24ff14e98d35db28325 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 11 Mar 2021 08:18:23
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D6CAAC433ED; Thu, 11 Mar 2021 08:18:22 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6724FC43461;
+ Thu, 11 Mar 2021 08:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6724FC43461
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+Subject: [PATCH] ASoC: qcom: lpass-cpu: Fix lpass dai ids parse
+Date: Thu, 11 Mar 2021 13:48:05 +0530
+Message-Id: <20210311081805.20424-1-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-In-Reply-To: <CABTNMG1bO2AJLY0o58TX2=1QZPnPsZXabtYZA01QyqDS40JORg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Linux Kernel <linux-kernel@vger.kernel.org>,
- yang.jie@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- Takashi Iwai <tiwai@suse.com>, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,42 +96,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-03-11 6:50 AM, Chris Chiu wrote:
-> On Tue, Mar 9, 2021 at 11:29 PM Cezary Rojewski
-> <cezary.rojewski@intel.com> wrote:
->>
+The max boundary check while parsing dai ids makes
+sound card registration fail after common up dai ids.
 
-...
+Fixes: cd3484f7f1386 (ASoC: dt-bindings: lpass: Fix and common up lpass dai ids)
 
->> Topologies for most common skylake driver configurations:
->> - skl/kbl with i2s rt286
->> - apl/glk with i2s rt298
->> - <any> with hda dsp
->> can be found in alsa-topology-conf [2].
->>
->> Standard, official tool called 'alsatplg' is capable of compiling these
->> into binary form which, after being transferred to /lib/firmware/ may be
->> consumed by the driver during runtime.
->> I have no problem with providing precompiled binaries to linux-firmware,
->> if that's what community wants.
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ sound/soc/qcom/lpass-cpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-...
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index 4762286b33fe..c62d2612e8f5 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -739,7 +739,7 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+ 
+ 	for_each_child_of_node(dev->of_node, node) {
+ 		ret = of_property_read_u32(node, "reg", &id);
+-		if (ret || id < 0 || id >= data->variant->num_dai) {
++		if (ret || id < 0) {
+ 			dev_err(dev, "valid dai id not found: %d\n", ret);
+ 			continue;
+ 		}
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-> 
-> I think the guild [1] is too complicated for normal users to fix the problem.
-> Given it's not only the internal microphone being affected, it's no sound
-> devices being created at all so no audio functions can work after kernel 5.8.
-> 
-> Is there any potential problem to built-in the "<any> with hda dsp" precompiled
-> binary in linux-firmware?
-
-In general, linux-firmware is not the place to put driver-specific 
-configuration files. It'd best to have standard UCM/topology files being 
-build and honored during disto image creation.
-
-In regard to the guide, thanks for checking it out. What do you think 
-could be improved so that normal user has easier time with it? Feedback 
-is much appreciated.
-
-Regards,
-Czarek

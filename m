@@ -2,91 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 823E9336EF3
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 10:33:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1140C336F01
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 10:37:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A1D917EB;
-	Thu, 11 Mar 2021 10:32:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A1D917EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A243F1825;
+	Thu, 11 Mar 2021 10:37:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A243F1825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615455207;
-	bh=Anl/5k4YhMdvgQGW5WS9iIV8y2bLeo/g3oNbIYxMhzE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615455473;
+	bh=CPJ7Z92u4tB3WRFBfpndqD8CxYVAWhvBbb+3dU0HClA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R6/+0FsJxVHviDsEMioDbQ8hJ6fOWr/X4AVkyODaJ8VqVGls0KySh/PAR4+dlOuKg
-	 oCBeMzsZvKgk1b6csjXCPjkwx/xUF1aX57Au21l4V/xvTsfv4ghC47SgtGvBZpDxWP
-	 p5+nm5FGQpRjipG3mYlZGQEV4cDw/une9gGBmi9Q=
+	b=kfJnFRXsRYWTwm7HEo39SweIfM3k7gj1XGuQcALYeRi2UK/QS4j0ybCFuYyv1AKJe
+	 BADn0AZ2HbsMVVHa5S0Hoh3HvanhRvEK+kEVI9ox0r3P1vDB3klS+0hv4SsCd/V2rT
+	 fUhNL+FCX7RzZmrCdNaZCk8GY3/XJHMdAeu/4Iyk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC249F8028B;
-	Thu, 11 Mar 2021 10:32:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1D39F80256;
+	Thu, 11 Mar 2021 10:36:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2640BF80276; Thu, 11 Mar 2021 10:32:33 +0100 (CET)
+ id B08B4F80227; Thu, 11 Mar 2021 10:36:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E717F800BF
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 10:32:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E717F800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="YTa0w7xx"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12B9Vefw030511; Thu, 11 Mar 2021 03:32:23 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=cB9WuEA1gMsV4jqUq9kHx6MNZxTUH8naycCxx5wKzXQ=;
- b=YTa0w7xxj6G2Oa27g6vd5pLzP46c5R+FXWQmpxXUN1JJF+VWLw2rCxbiOpvna/cz3s1Y
- LKQtqqgBG61KYtVWSe6MA23yXW+QQEhwslx+0Kc2mc7Jno9Ok8pnDiylzpPUC79ipdPb
- Cn5OzAyrJfR3YrVIu7S4nvPYE+V2erD54DczTaRfq0ni7gliYY5YbUcAJ03vSp2JcGka
- CMBboouXMUyGTCPNgTii8KHKqGGA3vkTCR4BiC6UqV3/VUuoQTyI65lcuHxwA+kxAswX
- xcrwUdC2Rkp2rLjCmsySTwANhR6f/YEcbK9EYPf18WYE6VIuzxjkfKAn4DR8M0WsyMht 6A== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 374819e2jf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 11 Mar 2021 03:32:23 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Thu, 11 Mar
- 2021 09:32:21 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Thu, 11 Mar 2021 09:32:21 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8E19011D6;
- Thu, 11 Mar 2021 09:32:21 +0000 (UTC)
-Date: Thu, 11 Mar 2021 09:32:21 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE864F8010D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 10:36:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE864F8010D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4BBF4AB8C;
+ Thu, 11 Mar 2021 09:36:05 +0000 (UTC)
+Date: Thu, 11 Mar 2021 10:36:03 +0100
+From: Jean Delvare <jdelvare@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 10/10] ASoC: wm_hubs: align function prototype
-Message-ID: <20210311093221.GR106851@ediswmail.ad.cirrus.com>
-References: <20210311004332.120901-1-pierre-louis.bossart@linux.intel.com>
- <20210311004332.120901-11-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-core: fix DMI handling
+Message-ID: <20210311103603.0bc952b6@endymion>
+In-Reply-To: <20210310193928.108850-1-pierre-louis.bossart@linux.intel.com>
+References: <20210310193928.108850-1-pierre-louis.bossart@linux.intel.com>
+Organization: SUSE Linux
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210311004332.120901-11-pierre-louis.bossart@linux.intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 suspectscore=0
- phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- mlxscore=0 adultscore=0 spamscore=0 mlxlogscore=906 clxscore=1015
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103110051
-Cc: tiwai@suse.de, patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- broonie@kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,46 +70,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 10, 2021 at 06:43:32PM -0600, Pierre-Louis Bossart wrote:
-> cppcheck warnings:
+On Wed, 10 Mar 2021 13:39:27 -0600, Pierre-Louis Bossart wrote:
+> When DMI information is not present, trying to assign the card long
+> name results in the following warning.
 > 
-> sound/soc/codecs/wm_hubs.c:1194:11: style:inconclusive: Function
-> 'wm_hubs_handle_analogue_pdata' argument 8 names different:
-> declaration 'micbias1_dly' definition
-> 'micbias1_delay'. [funcArgNamesDifferent]
->       int micbias1_delay, int micbias2_delay,
->           ^
-> sound/soc/codecs/wm_hubs.h:59:11: note: Function
-> 'wm_hubs_handle_analogue_pdata' argument 8 names different:
-> declaration 'micbias1_dly' definition 'micbias1_delay'.
->       int micbias1_dly, int micbias2_dly,
->           ^
-> sound/soc/codecs/wm_hubs.c:1194:11: note: Function
-> 'wm_hubs_handle_analogue_pdata' argument 8 names different:
-> declaration 'micbias1_dly' definition 'micbias1_delay'.
->       int micbias1_delay, int micbias2_delay,
->           ^
-> sound/soc/codecs/wm_hubs.c:1194:31: style:inconclusive: Function
-> 'wm_hubs_handle_analogue_pdata' argument 9 names different:
-> declaration 'micbias2_dly' definition
-> 'micbias2_delay'. [funcArgNamesDifferent]
->       int micbias1_delay, int micbias2_delay,
->                               ^
-> sound/soc/codecs/wm_hubs.h:59:29: note: Function
-> 'wm_hubs_handle_analogue_pdata' argument 9 names different:
-> declaration 'micbias2_dly' definition 'micbias2_delay'.
->       int micbias1_dly, int micbias2_dly,
->                             ^
-> sound/soc/codecs/wm_hubs.c:1194:31: note: Function
-> 'wm_hubs_handle_analogue_pdata' argument 9 names different:
-> declaration 'micbias2_dly' definition 'micbias2_delay'.
->       int micbias1_delay, int micbias2_delay,
->                               ^
+> WARNING KERN tegra-audio-graph-card sound: ASoC: no DMI vendor name!
 > 
+> The initial solution suggested was to test if the card device is an
+> ACPI one. This causes a regression visible to userspace on all Intel
+> platforms, with UCM unable to load card profiles based on DMI
+> information: the card devices are not necessarily ACPI ones, e.g. when
+> the parent creates platform devices on Intel devices.
+> 
+> To fix this problem, this patch exports the existing dmi_available
+> variable and tests it in the ASoC core.
+> 
+> Fixes: c014170408bc ("ASoC: soc-core: Prevent warning if no DMI table is present")
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > ---
+>  drivers/firmware/dmi_scan.c | 1 +
+>  sound/soc/soc-core.c        | 2 +-
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/firmware/dmi_scan.c b/drivers/firmware/dmi_scan.c
+> index d51ca0428bb8..f191a1f901ac 100644
+> --- a/drivers/firmware/dmi_scan.c
+> +++ b/drivers/firmware/dmi_scan.c
+> @@ -166,6 +166,7 @@ static int __init dmi_checksum(const u8 *buf, u8 len)
+>  static const char *dmi_ident[DMI_STRING_MAX];
+>  static LIST_HEAD(dmi_devices);
+>  int dmi_available;
+> +EXPORT_SYMBOL_GPL(dmi_available);
+>  
+>  /*
+>   *	Save a DMI string
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index 16ba54eb8164..c7e4600b2dd4 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -1574,7 +1574,7 @@ int snd_soc_set_dmi_name(struct snd_soc_card *card, const char *flavour)
+>  	if (card->long_name)
+>  		return 0; /* long name already set by driver or from DMI */
+>  
+> -	if (!is_acpi_device_node(card->dev->fwnode))
+> +	if (!dmi_available)
+>  		return 0;
+>  
+>  	/* make up dmi long name as: vendor-product-version-board */
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Fine with me.
 
-Thanks,
-Charles
+Acked-by: Jean Delvare <jdelvare@suse.de>
+
+-- 
+Jean Delvare
+SUSE L3 Support

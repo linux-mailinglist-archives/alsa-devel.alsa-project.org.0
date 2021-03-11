@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397DC3374D9
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 15:03:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA5ED3374DF
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 15:03:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBCEA1838;
-	Thu, 11 Mar 2021 15:02:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBCEA1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55DF91852;
+	Thu, 11 Mar 2021 15:03:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55DF91852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615471381;
-	bh=DCVbkTVdJ9vsoRjDTN0oauw6rLhg2qAkC/SLOqajA9A=;
+	s=default; t=1615471432;
+	bh=BFuBCaWrkSUP/B6HOBdyra/7aqtTsYBvUYGluuTRwYY=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dGtBhFf8t0o0323at4fNu5UsmXpeEcOfnHEztlX70nHbEaV9BnazCBpv1jWEpc2E4
-	 IXqncaxdTKt3vCQvSrvzJBHjej2w3IF4//d13Q+QNW9Yu6lmsqlaQTcnBRn0HeR0yF
-	 F76ASWJeAM/7i47EN9yVZ9JlkZr/AlVfWFx//hAI=
+	b=vRnhtgI6eutjRXm0tUmNYidLf1yreKlKpH5RBhoradJY1z90MG6P4v0XibW1hhs2j
+	 6T5dwYJnns4xG1WuM3n+jbge9Ir8FZt8o01+AveJ4bqpHjnuFdHFR4KWA2YoGMhDf6
+	 gtD3UH8qpRv/RC8zJXFP++vxZ51BwzDbFxxCVYhE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 023A4F80256;
-	Thu, 11 Mar 2021 15:01:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DAA4F800BF;
+	Thu, 11 Mar 2021 15:02:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4404CF80227; Thu, 11 Mar 2021 15:01:29 +0100 (CET)
+ id 5D1D2F80275; Thu, 11 Mar 2021 15:02:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_14,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6503EF800BF
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 15:01:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6503EF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 331FCF8010D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 15:02:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 331FCF8010D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EUqHqJRc"
-Received: by mail-pl1-x631.google.com with SMTP id e2so4976243pld.9
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 06:01:16 -0800 (PST)
+ header.b="cC5IhqvV"
+Received: by mail-pf1-x431.google.com with SMTP id x7so11104710pfi.7
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 06:02:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wJF95wh7Vf1iAu9VFx4eXo/tjVyufB4h+2uhaVD9LE8=;
- b=EUqHqJRcYFF9PqkBg9cKdXfdahh8QTsY8St9qL7peDpXwxY2mvvuSvCVEtsO1QPCfG
- pztIhwh3ZUcsaaaa0Ts9d1RTaGcSkLRCfP35DzGfGUTUbeEARwh5y8MMQm80rhHZtnBk
- jiZZPQgR5eALIyYAlwI6lDe+kzVAKiWr8OatF/y9ZzTbRbETiyzKvplnd3IHhgSkDKeM
- b1X+kaNKneczbbfJoPEVq1Zdh6Oq0bB+2byPtG6x8dQiiCWtnQETrpFIPwd2bn5m2hM+
- /sTWfnyHeg+8Ir01nhgSbF+RZMS73L3qZI78xd7H6IpY8omiDwjX4C4qNmskYEYPXMig
- ChFg==
+ :cc; bh=Wu8fFbt6pPps0sW0Am+MuqVI376zrcxTbhhiS9bar6c=;
+ b=cC5IhqvV/5oVLBL9TLG80rhJAB1lQXpcoIBWKJoGPyUR0RiUvMVfinjN79y0CKRKnz
+ OnXELqiRYJONd+HvVSYUgV/A/ETiZRko0Fd61hMlmR7OpiocVlUHsBugAPndW1odLmT+
+ Rh8/6Iconp3bLRenDXgvTbJGddvU3RRC/w2sFpJDVP41xw70FgGzfZynuD55XCQBfY/A
+ 8MDtUZmUyYBwSOZbXPKCtQAZHDetm16II269cIeajcrF5kSsam8eM5TwtnXmMfss/6YW
+ 3a8MWuRAfS33rOWXaRkHlQAt1NPLlWj3+bCEO3APp4F+ue+ohs4vzvIemLshbxM7J733
+ Ptgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=wJF95wh7Vf1iAu9VFx4eXo/tjVyufB4h+2uhaVD9LE8=;
- b=DsblzOuv+NVZE0KjZvEmqr9IZHCSc0ay6E+CD6vknR0OMe0T7UVIZ/2nsAhbxWkOCT
- ZuHaXMQD6y6XlytMFx2J+lsJ+FX+tcaXY6u0T8CNCNosRPH+oL0Xai+PKaK191lOaAQd
- ID2lTApcK/V8vyJgr9THTF5zXR8As6RyiNja0F0GhCksw0aj0KwbHMFENGu8N9eh+b/k
- fd4ghg0nIaMswsEzjBIwcjCg0NhrIeX9iHeFdNZEq2X5+nVSAJDCoPsZTsqoteukRMOR
- kx6V5zP3uAOCdGrJDyE1cAzjRYxmkvoOCIMx8dZ2VV+gJHj0rp2pectDjbDd3+SRrC2w
- fwlA==
-X-Gm-Message-State: AOAM532IRXYrfT9/83l8xz7WX2BOi2bIitEUotVYKruRal5OnQCQbnm+
- iuec750SVVt/8BKPwpI7DxpXBhFFWFA1vEZ15/4=
-X-Google-Smtp-Source: ABdhPJxZjrZHaMw8TojuQopQn/Ngqmtn7yVuKwSmGnaHZAqHscmhqJ2iTgbYrq/3wgwhtdxCCsumdDjRuVo/maTZpFk=
-X-Received: by 2002:a17:902:ee02:b029:e6:5397:d79c with SMTP id
- z2-20020a170902ee02b02900e65397d79cmr8139769plb.21.1615471273960; Thu, 11 Mar
- 2021 06:01:13 -0800 (PST)
+ bh=Wu8fFbt6pPps0sW0Am+MuqVI376zrcxTbhhiS9bar6c=;
+ b=tug5/BmeT6UhWkIrGo1SUq6Qfhcw/koFwAxsXPKuTFDm7iXCylK1hzVEfzncLSPiXy
+ eJvczr4PJVO9Xu3r7SzwG7BZpWAXMdxSWSY9nsyBtF0jqLnbrMCzOGYRUltd2lbCSr8C
+ C+hcNxrSiU0MBmdnqWEQkXyIFe3wR1k852DsyS8NQO2YBeL9SVuIZ0SEseaFZ6uJEMiG
+ dXf1flpxeQVo3+NRk3cshUNsNKm4JgKlvvjuvP4yP3uUqVTMI5aywTtY8W0BK18JdTHK
+ pLoT91CvowACjF5gAmunmZAfouAYdg58b58N7ct0r60ktGErnBUML5FMMdz97mhemLx/
+ RLYg==
+X-Gm-Message-State: AOAM531t9QC1U4obTd/kbjpwZvFXKpFL2sc7Q22lzuvSe/5hUUa27vKG
+ qcUNBW4uph5L7WDfOsz8sETKLWSZoWVq2qkxexg=
+X-Google-Smtp-Source: ABdhPJzOCePPExdMTrNRTPHA6tSnt9KRAKvaxfBmfXhxn1cpJvTlQymYY+qW/liI0wajnrz1tMJFTaNzJ2TYrv7OBIE=
+X-Received: by 2002:a63:ce15:: with SMTP id y21mr7410996pgf.4.1615471352621;
+ Thu, 11 Mar 2021 06:02:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20210311132748.81071-1-andriy.shevchenko@linux.intel.com>
- <s5hr1klvmp3.wl-tiwai@suse.de>
-In-Reply-To: <s5hr1klvmp3.wl-tiwai@suse.de>
+References: <20210311132741.80989-1-andriy.shevchenko@linux.intel.com>
+ <s5hpn05vmhm.wl-tiwai@suse.de>
+In-Reply-To: <s5hpn05vmhm.wl-tiwai@suse.de>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 11 Mar 2021 16:00:57 +0200
-Message-ID: <CAHp75VcjwzPOrxVhou-0i4-87X3VGAY6NqVaS=kdy3mPMOUtvQ@mail.gmail.com>
+Date: Thu, 11 Mar 2021 16:02:16 +0200
+Message-ID: <CAHp75VcxRK=NsHXRtN8k8wrE8YSyNDqyTLb37TP4ojO_CW5ceg@mail.gmail.com>
 Subject: Re: [PATCH v1 1/1] ALSA: hda/realtek: Sort alphanumerically the
- HDA_CODEC_ENTRY() entries.
+ SND_PCI_QUIRK() entries.
 To: Takashi Iwai <tiwai@suse.de>
 Content-Type: text/plain; charset="UTF-8"
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
@@ -99,22 +98,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 11, 2021 at 3:36 PM Takashi Iwai <tiwai@suse.de> wrote:
+On Thu, Mar 11, 2021 at 3:40 PM Takashi Iwai <tiwai@suse.de> wrote:
 >
-> On Thu, 11 Mar 2021 14:27:48 +0100,
+> On Thu, 11 Mar 2021 14:27:41 +0100,
 > Andy Shevchenko wrote:
 > >
-> > Sort alphanumerically the HDA_CODEC_ENTRY() entries for better maintenance.
+> > Sort alphanumerically the SND_PCI_QUIRK() entries for better maintenance.
 > > No functional change implied.
-> >
-> > Note, that HDA_CODEC_REV_ENTRY() goes after HDA_CODEC_ENTRY() as per
-> > default value in the latter macro.
 >
-> This breaks the matching rule.  Please put the HDA_CODEC_REV_ENTRY()
-> before the HDA_CODEC_ENTRY().
+> I'd love to apply this kind of cleanups (and I do sometimes
+> partially), but practically seen, this may make the stable backporting
+> significantly harder because many quirk patches are backported to the
+> very old LTS kernels.  So, unless any specific reason (e.g. some
+> entries doubled or wrongly applied) is given, I'd avoid this full
+> plastic surgery.
 
-Oh, indeed. What I was thinking about... :-)
-Thanks!
+Can we ask people to follow the ordering before patches were applied?
 
 -- 
 With Best Regards,

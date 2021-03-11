@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC87337416
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 14:36:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14318337429
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 14:40:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5230181A;
-	Thu, 11 Mar 2021 14:35:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5230181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 947F4182F;
+	Thu, 11 Mar 2021 14:39:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 947F4182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615469760;
-	bh=C2avMT7834rdrheQua8NTCc8KeEmFvhpLLkHdyZkhzM=;
+	s=default; t=1615470023;
+	bh=IR1sV8WnMbe43pW5SPR8/2b/2L6RpVNvWyIKhBL1tzg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Aa10XX9tAYqQlHhx7wR0DRY1wqWszkEftsppfalW8mvih5/5fYcHd/KRo79NBqUUx
-	 bF0rt+ph9NqsEtRTMRLir8mlIQVEIgYilvi0uxJlehMHGknXzzg8H9On9bJm5d7CNE
-	 uihSy5Ve+0LCqILTRkGK3bnLorhXjhZDw9eDJ6ss=
+	b=F9r3mVS4cUOwMGkc589IGxcaNogSMugDYSj2WHGUAnydOiy8y6KgS6wZUXEKSj+8T
+	 bqGbZAIEB/BPPEaydR4yXa0XmtuxxhF3S2bUU9YH6V8ORm+HkLxQB0Uoy1hMkudMu/
+	 w695RodaC5SSdEwiXgBHECO1BXE6Z0at08747tWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69E90F8010D;
-	Thu, 11 Mar 2021 14:34:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08A19F8019B;
+	Thu, 11 Mar 2021 14:38:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18193F80227; Thu, 11 Mar 2021 14:34:25 +0100 (CET)
+ id 745FBF80227; Thu, 11 Mar 2021 14:38:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 658CDF800BF
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 14:34:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 658CDF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED3D6F8010D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 14:38:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED3D6F8010D
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85545AC16;
- Thu, 11 Mar 2021 13:34:16 +0000 (UTC)
-Date: Thu, 11 Mar 2021 14:34:16 +0100
-Message-ID: <s5hr1klvmp3.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 520A9AC17;
+ Thu, 11 Mar 2021 13:38:45 +0000 (UTC)
+Date: Thu, 11 Mar 2021 14:38:45 +0100
+Message-ID: <s5hpn05vmhm.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Subject: Re: [PATCH v1 1/1] ALSA: hda/realtek: Sort alphanumerically the
- HDA_CODEC_ENTRY() entries.
-In-Reply-To: <20210311132748.81071-1-andriy.shevchenko@linux.intel.com>
-References: <20210311132748.81071-1-andriy.shevchenko@linux.intel.com>
+ SND_PCI_QUIRK() entries.
+In-Reply-To: <20210311132741.80989-1-andriy.shevchenko@linux.intel.com>
+References: <20210311132741.80989-1-andriy.shevchenko@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,17 +70,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Mar 2021 14:27:48 +0100,
+On Thu, 11 Mar 2021 14:27:41 +0100,
 Andy Shevchenko wrote:
 > 
-> Sort alphanumerically the HDA_CODEC_ENTRY() entries for better maintenance.
+> Sort alphanumerically the SND_PCI_QUIRK() entries for better maintenance.
 > No functional change implied.
-> 
-> Note, that HDA_CODEC_REV_ENTRY() goes after HDA_CODEC_ENTRY() as per
-> default value in the latter macro.
 
-This breaks the matching rule.  Please put the HDA_CODEC_REV_ENTRY()
-before the HDA_CODEC_ENTRY().
+I'd love to apply this kind of cleanups (and I do sometimes
+partially), but practically seen, this may make the stable backporting
+significantly harder because many quirk patches are backported to the
+very old LTS kernels.  So, unless any specific reason (e.g. some
+entries doubled or wrongly applied) is given, I'd avoid this full
+plastic surgery.
 
+
+thanks,
 
 Takashi

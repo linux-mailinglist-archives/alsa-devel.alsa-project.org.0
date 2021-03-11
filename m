@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4165C337993
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 17:39:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC09337995
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 17:39:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C19C7181C;
-	Thu, 11 Mar 2021 17:38:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C19C7181C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28BC3186B;
+	Thu, 11 Mar 2021 17:38:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28BC3186B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615480763;
-	bh=dYVRLS5VWyX7gUG8Qu6LM+nvJxKlncbsX9vvCiH5n6c=;
+	s=default; t=1615480776;
+	bh=pHFXEHpaYQNlJR1V5PQDUmn7CRQ5pNsHtX4fcNTco64=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=amydkCUpdFsPgYPabJvTatwC4KJIO+Tqkjkrn9flbs2wO4jSpu5MbABcz9wWUPtXb
-	 YwD+yQdpXzpMjBa6a/cUvHbvbHEIq2K4PvTRcqqDJBYCR/oMUXl2SZCeXDN3Y1E1pD
-	 DpJvIKPOEaaU/RdT2iulZ4iiJGzV3eARN81tePRg=
+	b=kQl0fDAY87YRlBwFRcBodVFwfacRK8I519jXqU2GPyuqbzB2WpOLu/7odDzL0e9rV
+	 KZ8HByN+X5xNpFRJ4A7x3WR6t0RnbQNLWHLmRbkVaidOVijRxbcqh/GO/tVuvVsosm
+	 IUUUkleGjrca27C0yhpW1piFbQu6Ex3dVR7biBqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BE79F80256;
-	Thu, 11 Mar 2021 17:37:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0672FF8028B;
+	Thu, 11 Mar 2021 17:37:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57731F80256; Thu, 11 Mar 2021 17:37:51 +0100 (CET)
+ id 4DC01F8010D; Thu, 11 Mar 2021 17:37:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D62B0F8019B
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 17:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D62B0F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88ADEF8010D
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 17:37:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88ADEF8010D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TynJDyYJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 58F4264F9F;
- Thu, 11 Mar 2021 16:37:40 +0000 (UTC)
+ header.b="uTaA31Qv"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4016C64FA3;
+ Thu, 11 Mar 2021 16:37:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615480660;
- bh=dYVRLS5VWyX7gUG8Qu6LM+nvJxKlncbsX9vvCiH5n6c=;
+ s=k20201202; t=1615480667;
+ bh=pHFXEHpaYQNlJR1V5PQDUmn7CRQ5pNsHtX4fcNTco64=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=TynJDyYJwdun1XTklSWx6zrN0N1SohDKb4A1N1d2Tmln9pdMPFGolSENcL96TgdoZ
- GUxO14zs+Oi0RXf/9XuTuZUQyHeNuqmnBxwLlozaGyy4x7wp4KDNHXZoOzkuYRK/+R
- Wg1X0piNwK+YTX3M5PQ13YwIlV4c2NJZp9IcDKXRTGvJlrueTuQyKeVGF4fPHYzxQe
- jq9Qw9l0VzjWFtQUtU6jzmrAjltr/hi6tGvDPZ6dw0IQwRUa0zfLSz/yA9DB+stik0
- Ubf8TJwLE+inEMzQph+w7WCrLgc0j6rX9NIrgCUgUR8F7c+zIOgjy9EaMn79nZJv8r
- r0Lbioz+Ux1hw==
+ b=uTaA31Qv03qaGKoRKBAYaR389BGa6nMcaRXpBnpCmasmiUYhp+R1yFt4mSuLXj8e+
+ X8R1AGh5xMAmnugDelpl214NugXqdzmrZkPv7d2lS70ydGqvyPnSVKUPZlT/g9JOVm
+ EBZWo1qAncz8XLCCAY/QNsWl4i0VqFeKAJtxepi7eusZLazj8yrtZtJWxzaVkczUX0
+ XJ1XnF5PxXoUAUWXcogFtkJiygAgNILMUpi2aB5IBcmHo15206Ybkb0DPQnFWnpgOj
+ XsUo0/RtWoexiZq3SEO5kvCHK231HWm6B1lfGVWg2w32efnKSCW6AAza8UHbIM/bK5
+ dSyRwfrtoLKWg==
 From: Mark Brown <broonie@kernel.org>
 To: tiwai@suse.com, plai@codeaurora.org, linux-kernel@vger.kernel.org,
- judyhsiao@chromium.org, robh+dt@kernel.org, bgoswami@codeaurora.org,
- agross@kernel.org, devicetree@vger.kernel.org, lgirdwood@gmail.com,
- rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org, swboyd@chromium.org,
- linux-arm-msm@vger.kernel.org,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, bgoswami@codeaurora.org, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, devicetree@vger.kernel.org,
+ rohitkr@codeaurora.org, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ srinivas.kandagatla@linaro.org,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, judyhsiao@chromium.org,
  alsa-devel@alsa-project.org, perex@perex.cz
-In-Reply-To: <20210311081805.20424-1-srivasam@codeaurora.org>
-References: <20210311081805.20424-1-srivasam@codeaurora.org>
-Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: Fix lpass dai ids parse
-Message-Id: <161548058820.3429.7412298596711968916.b4-ty@kernel.org>
+In-Reply-To: <20210311154557.24978-1-srivasam@codeaurora.org>
+References: <20210311154557.24978-1-srivasam@codeaurora.org>
+Subject: Re: [PATCH v2] ASoC: qcom: lpass-cpu: Fix lpass dai ids parse
+Message-Id: <161548058821.3429.1675752758306184936.b4-ty@kernel.org>
 Date: Thu, 11 Mar 2021 16:36:28 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -83,11 +82,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Mar 2021 13:48:05 +0530, Srinivasa Rao Mandadapu wrote:
+On Thu, 11 Mar 2021 21:15:57 +0530, Srinivasa Rao Mandadapu wrote:
 > The max boundary check while parsing dai ids makes
 > sound card registration fail after common up dai ids.
 > 
-> Fixes: cd3484f7f1386 (ASoC: dt-bindings: lpass: Fix and common up lpass dai ids)
+> Fixes: cd3484f7f138 ("ASoC: qcom: Fix broken support to MI2S TERTIARY and QUATERNARY")
 
 Applied to
 

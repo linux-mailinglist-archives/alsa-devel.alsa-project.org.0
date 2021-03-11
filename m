@@ -2,93 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E155337B9C
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 19:02:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC638337C37
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 19:14:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33DD317C4;
-	Thu, 11 Mar 2021 19:01:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33DD317C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E09E17AC;
+	Thu, 11 Mar 2021 19:13:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E09E17AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615485758;
-	bh=XRJyqw/pXkIasdZQxg8O0t/Aew+OI2IcWd5DSpLusp4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1615486486;
+	bh=k/PDdm70DesYsvJktrK8fFRcg6GejcGmbA1uYn78sAs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gkza2H2FXIXVOeDtrJuYZmju6BFgXRVt3Fp9Mv1zKQfp6pLJHFIhmmCTWVoXFnKGM
-	 +zC1VrjB0i7ZIman1W4YLV4jKKUjGvu18qwZk4mrsMH+lL+Y5iRL6uXv1smz1DEY70
-	 0pEeHjyCUwkZmDdSNXu+jH0AvDCrbtzyTeaIiwuk=
+	b=dRuDXkupu2dbj+LAoTuTqUco65YwDHuQ6D6hfXWSdmz/Enj4OU5Ib72b6zMJ/uIuo
+	 Nb6cUfRPptgJhAzYO7kUl2RJ7jgA4EFukc8CA3Lsx35pHGtpxGI+58/8YW7wDc3F7M
+	 Lp9CDHPgnaazrbRxdvelPmt8BmaeCRWFajh/1tPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC1C4F8032B;
-	Thu, 11 Mar 2021 19:00:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A488F8010D;
+	Thu, 11 Mar 2021 19:13:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76590F8032B; Thu, 11 Mar 2021 19:00:18 +0100 (CET)
+ id C4F66F80227; Thu, 11 Mar 2021 19:13:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9E1FF8015B
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 19:00:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9E1FF8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y3QbADfv"
-Received: by mail-lf1-x12c.google.com with SMTP id u4so41288237lfs.0
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 10:00:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=KFH1WQ55n2o2H6XVeSwGtTqtJ0JVSPd2X/kO35Iu2VI=;
- b=Y3QbADfvuUkbu6NWYoIqazp/CChS2t9iXPrLO5bu3IJvsnL+/Zb/EC/qzrxKaNWHR2
- MuN4guYQ3RddBPGPtzVKPUq9cTE0BKUmfF3OahBd5UpyyaqD+Ooiz6lonhVjtoidW1Gl
- LFTeTbGGc+FVH5ToaLT7fTHgzrAEOv/bKeUUfL9g3sZQ3ZIXc+bh7cbiRnYjGn8vsXMZ
- Ne7nX7z+9CXOmsZ/T2sZf4iSwdvocUt7T2WJ5vyK2MPSBu/qtlr7pnm9ibi1Y65mLg5t
- ZSVnjk1m6PlIzeal+GPzWy0xAd+5AgUhofdN/UWwo3kjuLDYN0Wi1uuKV4H6QcU4tJ2T
- +o7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=KFH1WQ55n2o2H6XVeSwGtTqtJ0JVSPd2X/kO35Iu2VI=;
- b=LapNTW6iF5AHMXufpiT/UA9b/yRqBmtSe6yQFKNzJwaeIC8H7sNmwbxanvdnqmwWqz
- RnUqphoEuSC2O5m/GIhxLc5XG0Qi+pMlDKH+SdOr2Ip5aFhQwrAKEWfcE2IwhRNRRIaF
- UTXyONi0KhPgO4wWk4EeEaDgmHbbpSheLa/EFwPvBYu817hLNrcIVdyfN2LHivWENskf
- qljXVJqwo9EWewsaaKzbsUKXz++7URTPJE4031ZN3p17lY0+W9/WWd2SSkadfHddJlyd
- gUnUIKeKMy2Tc2XM/rMr9FHC8AYnZV5Fe68IC+cqzRbsf0YzdCJPBOKLx7Pd9jfQ3CVf
- 2RIg==
-X-Gm-Message-State: AOAM532UGckNuXHPOk6gwqpxuelIwsoS8N2LeaExjkpBcYwiPj/0bzKL
- y4K/kxXHmzkQhkqi3l09D0g=
-X-Google-Smtp-Source: ABdhPJwsvqZftyLuasjtpxTMa/bbQzjjGVSBrPNokc5dWnW/NvANxLos0mOIDHLxu4Js8D3ZZ7rXMQ==
-X-Received: by 2002:ac2:4d8e:: with SMTP id g14mr2947431lfe.572.1615485611937; 
- Thu, 11 Mar 2021 10:00:11 -0800 (PST)
-Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
- [109.252.193.52])
- by smtp.gmail.com with ESMTPSA id k18sm1014075lfm.88.2021.03.11.10.00.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Mar 2021 10:00:11 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
-Subject: [PATCH v4 5/5] ASoC: tegra: ahub: Switch to use reset-bulk API
-Date: Thu, 11 Mar 2021 20:59:58 +0300
-Message-Id: <20210311175958.7433-6-digetx@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210311175958.7433-1-digetx@gmail.com>
-References: <20210311175958.7433-1-digetx@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEFB9F8015B
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 19:13:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEFB9F8015B
+IronPort-SDR: 0++2hGy0CP9fyAknupSE+Nu3Yb6udk3SqMGFps8X3S8N2mIZ2Z50+xHPEKvRWDCO4ZUN/UJeAL
+ W3SgA3rIg45g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="188753475"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="188753475"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 10:13:01 -0800
+IronPort-SDR: 6w8YfludFvMAiU+tUMs+3QLK8/xbc9BefDU0SHtDqUhiVEkjV4Wjk7EMZ1ps9AVkLFsoyAj55u
+ EeikkH9+vQ1w==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="603628357"
+Received: from prcarril-mobl2.amr.corp.intel.com (HELO [10.213.187.142])
+ ([10.213.187.142])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 10:13:00 -0800
+Subject: Re: [PATCH 1/2] ASoC: intel: atom: Stop advertising non working S24LE
+ support
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20210309105520.9185-1-hdegoede@redhat.com>
+ <e1af1b57-d384-0dce-6362-c39197cf2063@linux.intel.com>
+ <1c6f6608-5da3-1d57-1673-97ea22930ff9@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <d1a1a110-dc41-17e3-5b53-6c8921bf49a3@linux.intel.com>
+Date: Thu, 11 Mar 2021 12:12:59 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <1c6f6608-5da3-1d57-1673-97ea22930ff9@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,221 +85,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Switch to use reset-bulk API in order to make code cleaner.
 
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
----
- sound/soc/tegra/tegra30_ahub.c | 104 ++++++++++++---------------------
- sound/soc/tegra/tegra30_ahub.h |   5 +-
- sound/soc/tegra/tegra30_i2s.c  |   1 +
- 3 files changed, 40 insertions(+), 70 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra30_ahub.c b/sound/soc/tegra/tegra30_ahub.c
-index 9ef05ca4f6c4..d24c26f4960d 100644
---- a/sound/soc/tegra/tegra30_ahub.c
-+++ b/sound/soc/tegra/tegra30_ahub.c
-@@ -65,7 +65,7 @@ static int tegra30_ahub_runtime_resume(struct device *dev)
- {
- 	int ret;
- 
--	ret = reset_control_assert(ahub->reset);
-+	ret = reset_control_bulk_assert(ahub->nresets, ahub->resets);
- 	if (ret)
- 		return ret;
- 
-@@ -75,7 +75,7 @@ static int tegra30_ahub_runtime_resume(struct device *dev)
- 
- 	usleep_range(10, 100);
- 
--	ret = reset_control_deassert(ahub->reset);
-+	ret = reset_control_bulk_deassert(ahub->nresets, ahub->resets);
- 	if (ret)
- 		goto disable_clocks;
- 
-@@ -339,41 +339,28 @@ int tegra30_ahub_unset_rx_cif_source(enum tegra30_ahub_rxcif rxcif)
- }
- EXPORT_SYMBOL_GPL(tegra30_ahub_unset_rx_cif_source);
- 
--#define MOD_LIST_MASK_TEGRA30	BIT(0)
--#define MOD_LIST_MASK_TEGRA114	BIT(1)
--#define MOD_LIST_MASK_TEGRA124	BIT(2)
--
--#define MOD_LIST_MASK_TEGRA30_OR_LATER \
--		(MOD_LIST_MASK_TEGRA30 | MOD_LIST_MASK_TEGRA114 | \
--			MOD_LIST_MASK_TEGRA124)
--#define MOD_LIST_MASK_TEGRA114_OR_LATER \
--		(MOD_LIST_MASK_TEGRA114 | MOD_LIST_MASK_TEGRA124)
--
--static const struct {
--	const char *rst_name;
--	u32 mod_list_mask;
--} configlink_mods[] = {
--	{ "d_audio", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "apbif", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "i2s0", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "i2s1", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "i2s2", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "i2s3", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "i2s4", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "dam0", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "dam1", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "dam2", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "spdif", MOD_LIST_MASK_TEGRA30_OR_LATER },
--	{ "amx", MOD_LIST_MASK_TEGRA114_OR_LATER },
--	{ "adx", MOD_LIST_MASK_TEGRA114_OR_LATER },
--	{ "amx1", MOD_LIST_MASK_TEGRA124 },
--	{ "adx1", MOD_LIST_MASK_TEGRA124 },
--	{ "afc0", MOD_LIST_MASK_TEGRA124 },
--	{ "afc1", MOD_LIST_MASK_TEGRA124 },
--	{ "afc2", MOD_LIST_MASK_TEGRA124 },
--	{ "afc3", MOD_LIST_MASK_TEGRA124 },
--	{ "afc4", MOD_LIST_MASK_TEGRA124 },
--	{ "afc5", MOD_LIST_MASK_TEGRA124 },
-+static const struct reset_control_bulk_data tegra30_ahub_resets_data[] = {
-+	{ "d_audio" },
-+	{ "apbif" },
-+	{ "i2s0" },
-+	{ "i2s1" },
-+	{ "i2s2" },
-+	{ "i2s3" },
-+	{ "i2s4" },
-+	{ "dam0" },
-+	{ "dam1" },
-+	{ "dam2" },
-+	{ "spdif" },
-+	{ "amx" }, /* Tegra114+ */
-+	{ "adx" }, /* Tegra114+ */
-+	{ "amx1" }, /* Tegra124 */
-+	{ "adx1" }, /* Tegra124 */
-+	{ "afc0" }, /* Tegra124 */
-+	{ "afc1" }, /* Tegra124 */
-+	{ "afc2" }, /* Tegra124 */
-+	{ "afc3" }, /* Tegra124 */
-+	{ "afc4" }, /* Tegra124 */
-+	{ "afc5" }, /* Tegra124 */
- };
- 
- #define LAST_REG(name) \
-@@ -502,17 +489,17 @@ static const struct regmap_config tegra30_ahub_ahub_regmap_config = {
- };
- 
- static struct tegra30_ahub_soc_data soc_data_tegra30 = {
--	.mod_list_mask = MOD_LIST_MASK_TEGRA30,
-+	.num_resets = 11,
- 	.set_audio_cif = tegra30_ahub_set_cif,
- };
- 
- static struct tegra30_ahub_soc_data soc_data_tegra114 = {
--	.mod_list_mask = MOD_LIST_MASK_TEGRA114,
-+	.num_resets = 13,
- 	.set_audio_cif = tegra30_ahub_set_cif,
- };
- 
- static struct tegra30_ahub_soc_data soc_data_tegra124 = {
--	.mod_list_mask = MOD_LIST_MASK_TEGRA124,
-+	.num_resets = 21,
- 	.set_audio_cif = tegra124_ahub_set_cif,
- };
- 
-@@ -527,8 +514,6 @@ static int tegra30_ahub_probe(struct platform_device *pdev)
- {
- 	const struct of_device_id *match;
- 	const struct tegra30_ahub_soc_data *soc_data;
--	struct reset_control *rst;
--	int i;
- 	struct resource *res0;
- 	void __iomem *regs_apbif, *regs_ahub;
- 	int ret = 0;
-@@ -541,34 +526,16 @@ static int tegra30_ahub_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	soc_data = match->data;
- 
--	/*
--	 * The AHUB hosts a register bus: the "configlink". For this to
--	 * operate correctly, all devices on this bus must be out of reset.
--	 */
--	for (i = 0; i < ARRAY_SIZE(configlink_mods); i++) {
--		if (!(configlink_mods[i].mod_list_mask &
--					soc_data->mod_list_mask))
--			continue;
--
--		rst = reset_control_get_exclusive(&pdev->dev,
--						  configlink_mods[i].rst_name);
--		if (IS_ERR(rst)) {
--			dev_err(&pdev->dev, "Can't get reset %s\n",
--				configlink_mods[i].rst_name);
--			ret = PTR_ERR(rst);
--			return ret;
--		}
--
--		/* just check presence of the reset control in DT */
--		reset_control_put(rst);
--	}
--
- 	ahub = devm_kzalloc(&pdev->dev, sizeof(struct tegra30_ahub),
- 			    GFP_KERNEL);
- 	if (!ahub)
- 		return -ENOMEM;
- 	dev_set_drvdata(&pdev->dev, ahub);
- 
-+	BUILD_BUG_ON(sizeof(ahub->resets) != sizeof(tegra30_ahub_resets_data));
-+	memcpy(ahub->resets, tegra30_ahub_resets_data, sizeof(ahub->resets));
-+
-+	ahub->nresets = soc_data->num_resets;
- 	ahub->soc_data = soc_data;
- 	ahub->dev = &pdev->dev;
- 
-@@ -579,10 +546,11 @@ static int tegra30_ahub_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	ahub->reset = devm_reset_control_array_get_exclusive(&pdev->dev);
--	if (IS_ERR(ahub->reset)) {
--		dev_err(&pdev->dev, "Can't get resets: %pe\n", ahub->reset);
--		return PTR_ERR(ahub->reset);
-+	ret = devm_reset_control_bulk_get_exclusive(&pdev->dev, ahub->nresets,
-+						    ahub->resets);
-+	if (ret) {
-+		dev_err(&pdev->dev, "Can't get resets: %d\n", ret);
-+		return ret;
- 	}
- 
- 	res0 = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-diff --git a/sound/soc/tegra/tegra30_ahub.h b/sound/soc/tegra/tegra30_ahub.h
-index 3b85244f87f1..c9eaf4ec8f6e 100644
---- a/sound/soc/tegra/tegra30_ahub.h
-+++ b/sound/soc/tegra/tegra30_ahub.h
-@@ -491,7 +491,7 @@ void tegra124_ahub_set_cif(struct regmap *regmap, unsigned int reg,
- 			   struct tegra30_ahub_cif_conf *conf);
- 
- struct tegra30_ahub_soc_data {
--	u32 mod_list_mask;
-+	unsigned int num_resets;
- 	void (*set_audio_cif)(struct regmap *regmap,
- 			      unsigned int reg,
- 			      struct tegra30_ahub_cif_conf *conf);
-@@ -511,7 +511,8 @@ struct tegra30_ahub_soc_data {
- struct tegra30_ahub {
- 	const struct tegra30_ahub_soc_data *soc_data;
- 	struct device *dev;
--	struct reset_control *reset;
-+	struct reset_control_bulk_data resets[21];
-+	unsigned int nresets;
- 	struct clk_bulk_data clocks[2];
- 	unsigned int nclocks;
- 	resource_size_t apbif_addr;
-diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-index 3d22c1be6f3d..614b67be1dd9 100644
---- a/sound/soc/tegra/tegra30_i2s.c
-+++ b/sound/soc/tegra/tegra30_i2s.c
-@@ -23,6 +23,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <linux/slab.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
--- 
-2.29.2
+On 3/11/21 10:44 AM, Hans de Goede wrote:
+> Hi,
+> 
+> On 3/9/21 4:42 PM, Pierre-Louis Bossart wrote:
+>>
+>>
+>> On 3/9/21 4:55 AM, Hans de Goede wrote:
+>>> The SST firmware's media and deep-buffer inputs are hardcoded to
+>>> S16LE, the corresponding DAIs don't have a hw_params callback and
+>>> their prepare callback also does not take the format into account.
+>>>
+>>> So far the advertising of non working S24LE support has not caused
+>>> issues because pulseaudio defaults to S16LE, but changing pulse-audio's
+>>> config to use S24LE will result in broken sound.
+>>>
+>>> Pipewire is replacing pulse now and pipewire prefers S24LE over S16LE
+>>> when available, causing the problem of the broken S24LE support to
+>>> come to the surface now.
+>>>
+>>> Cc: stable@vger.kernel.org
+>>> BugLink: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/866
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>
+>> Humm, that is strange.
+>> I can't recall such limitations in the firmware, and the SSP support does make use of 24 bits.
+>> Please give me a couple of days to double-check what's missing.
+> 
+> Note this is not about the format between the DSP (the DSP's SSP) and the codec,
+> this is the format between userspace and the DSP.
+> 
+> As is mentioned by the reporter of this issue:
+> https://github.com/thesofproject/sof/issues/3868#issuecomment-796809535
+> Both in that issue but also here:
+> https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/530#note_791736
+> 
+> And independently reproduced by my here:
+> https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/866#note_830336
+> 
+> The S24LE format ATM does not work when passed from userspace, this is
+> supposed to take 24 bits sampled packed into 32 bits ints (so padded
+> with 1 0 byte to make 32 bits per sample), but to actually get working
+> playback with the SST driver, the following commands are necessary:
+> 
+> ffmpeg -i /usr/share/sounds/alsa/Side_Left.wav -ar 96000 -f s32le -ac 2 test.raw
+> aplay --dump-hw-params -D"hw:1,0" -r48000 -c2 -fS24_LE test.raw
+> 
+> Note how the ffmpeg command to generate a working set of raw samples
+> is set to convert to full 32 bit samples, rather then 0 padded 24 bit
+> samples. Generating a .raw file with the same -f s32le argument to
+> ffmpeg and then playing it with aplay -fS24_LE while using the SOF
+> driver results in static. Where as with the SST driver it results
+> in working sound. This shows that the 2 clearly interpret the format
+> differently and it looks like the SST driver is interpreting it wrong.
+> 
+> Maybe the SST driver should advertise S32_LE support instead, SOF
+> advertised both S24_LE and S32_LE and the S32_LE format is the
+> one which works with .raw files generated with ffmpeg's -f s32le
+> option when using the SOF drv.
+> 
+> Note the format is not the only issue though, to get normal speed / pitch
+> playback, the file needs to be converted to a sample rate of 96KHz
+> and then played back at 48 KHz, hence the "-ar 96000" argument to
+> ffmpeg to get normal playback when using aplay -fS24_LE with the SST driver.
+> 
+> Because of both these fmt and playback speed issues I decided to just
+> drop the SNDRV_PCM_FMTBIT_S24_LE support in my patch. I guess we could
+> try to fix it, but since the plan is the phase out the SST support for
+> these devices this year I believe that we should not spend too much
+> time on trying to fix the SST driver here.  Dropping the SNDRV_PCM_FMTBIT_S24_LE
+> is a simple workaround to bridge the time until we complete drop the
+> SST support.
+
+ok, I agree. I added this capability back in 2015 in the upstream code 
+based on the Android versions, and I *think* it was tested, but since 
+there's overwhelming evidence of multiple issues let's revert this.
+
+Fixes: 098c2cd281409 ("ASoC  ASoC: Intel: Atom: add 24-bit support for 
+media playback and capture")
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+
 

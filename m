@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14E0E336BA3
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 06:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89445336BA1
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 06:28:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7E331745;
-	Thu, 11 Mar 2021 06:28:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7E331745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D660172F;
+	Thu, 11 Mar 2021 06:27:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D660172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615440564;
-	bh=4gGhQEflyU+oi6w1WzQ9TAOysKzm/K4E0EaBNTugjB4=;
+	s=default; t=1615440520;
+	bh=GLynAJaUaXAfolXN9QKbeHbuLCnOnc3zkoN629sT44g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QCzs51nH6ouoComXUYlxXwr/F2MMoJ4uqxF+92efJKDS0aBS62623149N1bW9WChG
-	 t0KlC0vMZxcVppDz0E/FEnwUiCmdeo4PUOZr8PiR6ZBSTfwv/m58kWMI1kqoCL2b4H
-	 HpthogBZwwRlRM6nK4BsAnyx+YLL0BI+H6SHsieQ=
+	b=ebagO5jr9bsP5dPaqc2GifW37ACtB62PCpRRK0E5XYxKFXCHDhv8kAH2vp9NN53Ot
+	 woE29384Ph+9NlfOSY56LHi4mIePOlwHuA3bEi3Fg9jksrZ/i04dsYd4EDbm1nhoFI
+	 Uj4+26tpTob6ehYzUQ+GN1BsBW0fYUdh7VPHcDys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B038AF80524;
-	Thu, 11 Mar 2021 06:23:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4AFBF8051A;
+	Thu, 11 Mar 2021 06:23:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67FCFF804ED; Thu, 11 Mar 2021 06:22:49 +0100 (CET)
+ id 782D6F804EC; Thu, 11 Mar 2021 06:22:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,65 +35,65 @@ Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76C87F8019B
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 06:22:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76C87F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id CEF0CF8042F
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 06:22:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEF0CF8042F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="udS8/Wfb"; 
+ header.b="orbNNy8c"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="nGeEUDSp"
+ header.i=@messagingengine.com header.b="TgkWK1ow"
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id C71F12FB1;
- Thu, 11 Mar 2021 00:22:09 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 2A2962FC0;
+ Thu, 11 Mar 2021 00:22:11 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 11 Mar 2021 00:22:10 -0500
+ by compute4.internal (MEProxy); Thu, 11 Mar 2021 00:22:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=VFcSEjkdAFaQv
- Dbt65kFzXcJZaVcyUHzaDAHX7DHzJ8=; b=udS8/WfbH0qGRJrf6z66osxi5WQ54
- 9lOmmgy24xwjwCPdpUQzm2tXrDQRt5rvmmbw9hPFROFGIclgtzO/4fNCsyH0SbRV
- kNFfwwYEjUqmYaWBRrBcbXqTJf0F3MNcprWtyXK4hOybveQKDCS88E8LTr6XPrX8
- kAaRxs2DjttnEgezCEb4ZysK9Ie0Du9GIT+z+25y1T1OksjeFH9E4HDqqLo2xiDI
- e3AOaur85RYe5vs8TzCGbVuwTCCi0JUqrRNtspTIcuSAF49L0JQvVX6Y1WW5m4cf
- rkwdKJw6+KejSeO/YwggqithWyvTIzWF0OURi5QjBKO9s4vCsQOo61L5Q==
+ :mime-version:content-transfer-encoding; s=fm1; bh=U11yhTKQWqBhz
+ 9+q+6VueJTkl04Nfbp8BuShJuJTJOE=; b=orbNNy8ct7bJpkM9lTDpkQapjTpkr
+ Pxwuyrorxzck7Fj2XYYqdGqiTrlBYV/KwCeMgm8KXXdQW68LULVax7ouH4UcUq/1
+ zXgrgBL1I3QXwI2/K/Uw88aEyKXdhIeg3qedbcegKhmuQtii3n69OJQB+OGgFkuR
+ CjaCTbgr4TONelvjicssjzFRaWSTbCqPGAnvFkIo/gXA0nYQhvr6IWIulEdY67RX
+ nipKs6YViqPET2fft0319BIrLtzLvIH5C2pUsQWzIT8aKk3ugWWXWtpwHWDFCEOK
+ sMmpe+mODBXxyq5g2qdXAFoKsu/s+gFZ9X+uGcCJGQHfFe1dM7qyNm+Ew==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=VFcSEjkdAFaQvDbt65kFzXcJZaVcyUHzaDAHX7DHzJ8=; b=nGeEUDSp
- rO3ry/dyqUHT8hNAl/Ei4cbLUPstR05oLjQNRCeQV14PuikbtYUN1DwZxYTA4Smi
- 2FDupI9shOtt6lWQoMyo5T7IYifBOpuA7eqYKuH0hNh4Px11egnKnKcGpiXKDn9K
- WnlnbtsNjti4U4yVCkP/gkEpiNw47Mi59vFsAggkoKPSpyG59qdCAErJ2xgVxZuc
- IrqCt++C52aZEMFaq7NlJzvdZ3i5qYtE7DYaVxTQg3ctIACR6Lk/GLDgPNEqNSZW
- Yu5fqDL9TXDWaYwtTHz0Ldvp/XcT7fYGXQ9O86IhL1R7V0pgrahNtHwOaf/gdXgL
- Etdk7YytZrNZlA==
-X-ME-Sender: <xms:AalJYIM4CRiRgXZpbzRYFDWtlKZ1ABx6-BVVxfrZV6KMSGYjQTzXFw>
- <xme:AalJYO_dbH_350KZrb-RtlTgReJ2I4pKZL-hSk87xNZ_Uq55jXFJCixMo_M-BgCIL
- zxML5Wc_JL9hKyq7M4>
+ fm2; bh=U11yhTKQWqBhz9+q+6VueJTkl04Nfbp8BuShJuJTJOE=; b=TgkWK1ow
+ ZOWurxQAG609148eQRfxVH78o9mqMuC7CpuvS9igRTTaUWC74sdQwCy8UVZrMZ2O
+ 8eOjjGN32mxiYD5ImHNIShA2AQ52xjuPS/tZNFTXpJIi+gQiEn5MK7pvETjx1yWZ
+ /MReVVz2N8I8guUc9h8YN8/lq3ci1LOKWKOH99qWNc+CjLwZD6p6BXJlyOylXclZ
+ 1l+X80z+Z70rudeHU/IIVz0AFb+y0o1b87iyv1CNzTlFTVa1jFodevzPAjA9SjoM
+ AEoTajZrX0gTJ2Fz6nncLSeBBNhGG+tj9bwCmO4rbNBooIXPkoE8LNh4r45tJVMk
+ 5LFLYFnPZSF/FA==
+X-ME-Sender: <xms:AqlJYDy3rn4loJt9oIgCSOOWL3sVXlgvXayL_0dhv2lNMbRgjezN8Q>
+ <xme:AqlJYLQISiRTRmZDqkY0pRZMpg4c1CZivXvWvgDP6IRYPayZ8PZVtyRyuLLTtoraZ
+ 5o17fUhIfO7nGX-SMI>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudduledgkedvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepkeenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:AalJYPSQc-I7v7S04lO7Gh1Cd6ED6XqLugR4IF_9vKEpFxaMJbi_1A>
- <xmx:AalJYAtcQ73QqGaoIhc8j8cjmtXWUE2YY-FbN2R5ZvI8gPvaGcFYTQ>
- <xmx:AalJYAfXx7rlX1Fu2GLz7k-kvyfkmw2x_LsBMULyLG_mnIArzNGoZw>
- <xmx:AalJYIlYfp8l-FkOhDNdn4xWOlQnmNnHpsVqdbwHLPVHqhqjr1a1IA>
+X-ME-Proxy: <xmx:AqlJYNXEpwzpvmslWL_gPDpVa5dvbDMQbaZ5YGYYHFL7Cwt6Zh4EOQ>
+ <xmx:AqlJYNiYhY2Mfvzd1WIQHG3vmKFb7EPe0C3mN9eWE6kT2EYB_If_9A>
+ <xmx:AqlJYFDol7xvZgJ_quVJuOVjSqtC2YqFYNbHx7I9gnh5IWzCfg67Rw>
+ <xmx:AqlJYIrH9roVnKxFMogv-IhcPSRKp2c-J2kRemi9_q4xMQFiKVwnzg>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6653E240054;
- Thu, 11 Mar 2021 00:22:08 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id B32AE24005D;
+ Thu, 11 Mar 2021 00:22:09 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [alsa-utils][PATCH 13/13] Revert "axfer: test - add
- run-test-in-tmpdir.sh script"
-Date: Thu, 11 Mar 2021 14:21:44 +0900
-Message-Id: <20210311052146.404003-14-o-takashi@sakamocchi.jp>
+Subject: [alsa-utils][PATCH 13/14] axfer: test: reduce test case for maximum
+ number of samples per frame
+Date: Thu, 11 Mar 2021 14:21:45 +0900
+Message-Id: <20210311052146.404003-15-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210311052146.404003-1-o-takashi@sakamocchi.jp>
 References: <20210311052146.404003-1-o-takashi@sakamocchi.jp>
@@ -115,40 +115,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit e1551de8dd28c3a63f8d7c146952a8d2649ac9de since tests
-run for in-memory files now.
+This commit reduces test case for maximum number of samples per frame so
+that overall time is shortened. The count of total iteration is also
+reduced by one quarter.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- axfer/test/run-test-in-tmpdir.sh | 19 -------------------
- 1 file changed, 19 deletions(-)
- delete mode 100755 axfer/test/run-test-in-tmpdir.sh
+ axfer/test/container-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/axfer/test/run-test-in-tmpdir.sh b/axfer/test/run-test-in-tmpdir.sh
-deleted file mode 100755
-index e66fa73..0000000
---- a/axfer/test/run-test-in-tmpdir.sh
-+++ /dev/null
-@@ -1,19 +0,0 @@
--#!/bin/sh
--
--bin="$1"
--
--test -z ${bin} && exit 90
--test ! -x ${bin} && exit 91
--test -z ${TMPDIR} && exit 92
--test ! -d ${TMPDIR} && exit 93
--
--tmp_dir=$(mktemp -d ${TMPDIR}/container-test.XXXXX)
--cur_dir=$(pwd)
--
--echo ${tmp_dir}
--cd ${tmp_dir}
--${cur_dir}/${bin}
--retval=$?
--cd ${cur_dir}
--rm -rf ${tmp_dir}
--exit $retval
+diff --git a/axfer/test/container-test.c b/axfer/test/container-test.c
+index 788507b..2a3dcff 100644
+--- a/axfer/test/container-test.c
++++ b/axfer/test/container-test.c
+@@ -300,7 +300,7 @@ int main(int argc, const char *argv[])
+ 	for (i = begin; i < end; ++i) {
+ 		err = generator_context_init(&gen, access_mask,
+ 					     sample_format_masks[i],
+-					     1, 128, 23, 3000, 512,
++					     1, 32, 23, 3000, 512,
+ 					     sizeof(struct container_trial));
+ 		if (err >= 0) {
+ 			trial = gen.private_data;
 -- 
 2.27.0
 

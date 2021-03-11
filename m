@@ -2,86 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 710783376C6
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 16:18:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73EEF3376CE
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Mar 2021 16:19:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 029171883;
-	Thu, 11 Mar 2021 16:17:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 029171883
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0001B18A0;
+	Thu, 11 Mar 2021 16:18:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0001B18A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615475917;
-	bh=/UNHYyQOe1wx7jXsrdGrlYI+dw1LED+U+5EporSKJ/0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LiU2lXcVW2nsyNHckVUZ2lDa5iknx1fjShPjkfI1egObzXqTm1VV3vO7qVgzlO5tE
-	 bK8na/QToQ2yZSIZmdwXaSVupSVqfGoVxxne+axq1pw268WHkC40CIaUTPuN9owM4M
-	 RIRqbfy/0ryTeDeg1VGI+PGQpV9+/W9BiAs4ZWrc=
+	s=default; t=1615475968;
+	bh=4Do8m4M0qAJ0NYIgTW+FYixwJg7MaUOrw2wPRgVG6Bs=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dCg7YhK00b8gvQnMPVxxiWqa/tz9Iy/5LpIPrSuYmHA/ucz8QusPi2M6uHl57iXv7
+	 lq9D60SJ0aqprD0YZyQvRcF8gU4Armw2Eqmr0oolyVcqMC4GI6B3tDjjTvCZXoHysS
+	 tt/0+8GMGy+6xam18P5kBD4hWz1H5RgZb7GPD3Rk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1505FF80227;
-	Thu, 11 Mar 2021 16:17:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47AD4F8025A;
+	Thu, 11 Mar 2021 16:17:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBDC6F80276; Thu, 11 Mar 2021 16:17:03 +0100 (CET)
+ id 75FD8F8032D; Thu, 11 Mar 2021 16:17:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0101F8019B
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 16:16:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0101F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 121A5F8019B
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 16:16:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 121A5F8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="uFfeVaXx"
-Received: by mail-lf1-x131.google.com with SMTP id n16so40391854lfb.4
- for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 07:16:58 -0800 (PST)
+ header.b="r7CYzK2+"
+Received: by mail-lf1-x132.google.com with SMTP id v9so40389154lfa.1
+ for <alsa-devel@alsa-project.org>; Thu, 11 Mar 2021 07:16:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=n+CWL2eeNTaEvB0jQuPhLTAbsCLd3NsiBreGGzW2cpY=;
- b=uFfeVaXxKPI9mw9nMGWki7PhnUs62kQ+YxvX/xZCj2dbVar9p8vsGMdubO4u5mo7/4
- PfOf2ABVcmPPS579y0y04F/+wm98/+H4D3BErvV/XKqzJJtrZQ5CWBE2MoSBOeEayhlP
- In/ZGkV2cvvEP13xLNC1n5Ofs5PWh9mxR1r2qzUWuzP5iqo8qZUNpYQkm+o+CLMYhzLU
- AoOKaTncy/x42DyLS7rKnWhDwb7VZ+814LQ1B8scCe9y0nLEdk5uBPSKjgUf88wt1TpO
- KV11g9CzUyf9ngaqMlaSm1VAgTLS41LUTvDBSNczf9Z593jByI7sAXWS6hP8Zj7BzwbM
- 4M7Q==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eHJDWKwpMM6cb9JU11x1wUIhvtQqgROewecwtgVy2N0=;
+ b=r7CYzK2+pajxB6RoBu6CNJNXBmI1KZp/xfbFb2U9sTt1Dpv+UNi7ADoedBFcyWlawL
+ g5VQRbZtL2ptKhwHVNd19L/bAY6pm1EzXJp03yd4gXe8EcZtcaknZ+cgzD/cFvC8oLMg
+ jdD5av9ZO99LtUW2CRuLbnsHCQXY8ZnZc1TRG3oKp5P12kldZI61c7VB3XsKn8cQn5mH
+ zXLb7sqQK5UUQetbfwnjCCUlOQ5hYK6EFwv5N/c4hGPYHmqYX6TCvjoT9mrWTXsDs5Xr
+ mRC10AOp1zoKv1pzJFOo3612bit65P6+qWr/pfzOvySnu3xMQzupK/m2P6A7UWc52C/y
+ u9cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=n+CWL2eeNTaEvB0jQuPhLTAbsCLd3NsiBreGGzW2cpY=;
- b=PTEfdughMRVkgsblTm5/TPfufSvQZ4YynPG9dOyuaIT53qm7SPJxBmvrwA8OEr84Ei
- 7B4IO1m9jA+pOm4t/PiJVKsYdqNwbGLsO7Yl/GV4VqRjVzGZ21zkxdzQum5I30NnxkV0
- lO5PxK1HzRNAGlYeqqWOipDfLG7IWa74uSKLGXiQrmkcVMW1Qb2XX02SCE5BGHoV+CjI
- TGWIz+jWgd5DH/k6aC+mXP8+bBBC7D4bCz03l55Q/rWf4zsMlX0dAl7eRlQmtxlNuVY+
- pVpeeOTyzwyADFBOCrYU24pZqU0hVJnA9AIYJHEW/GztJn0i3+/+6SNglObvEdj0ycSB
- aDpg==
-X-Gm-Message-State: AOAM530/xIF15rl9XopcWEP56pWXyTd/7usjdf1VY2F+DK/Uih/pC7P/
- jkBJp3zVkIEgl5PCMYBcfg0=
-X-Google-Smtp-Source: ABdhPJxSFPmw78X8rhBkudz4LZD992grPPJ+eluRXMRkArcbOBDeZxExkTV0P8S1FLdgnfKZo3LOaA==
-X-Received: by 2002:a19:e08:: with SMTP id 8mr2476210lfo.199.1615475818193;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eHJDWKwpMM6cb9JU11x1wUIhvtQqgROewecwtgVy2N0=;
+ b=l6l4fg0oa6jGTQ39eWmMrG2sVbogM3dNTJ7H/XlR6L8kz/Yc2mpLJYZAWtg44HI4Oj
+ 3Z63zkxCIPTr+SZlY4bqicQGj9xMGaluU/9Ve5K/rmXUCExmEBvi+JTUpA1fWY5U5ICH
+ u8lrmjKjWwuObRPMABA+xrJpRyOkcqq8DcQ2BinkY+ir6GXWR1wmydBaUUfBLe4yX9JN
+ vFR2z3oqKTD03n4w9E5u05YAcwqGB+07QDP8JIfM8m72qj7ZeQ4+gXgYBkfnyQCoTIyV
+ Wl/GLjvMIGzYoiZB4wiP5MdeX8QxYUCmJzSOv2tfOSgz6W41sg1k9iXRvqVKFNARXMjt
+ f1GQ==
+X-Gm-Message-State: AOAM531zMeOpPWdT9xEh+9BJSf9HJsqqyx/CHY/oDeFhjowKVHulyWvE
+ IeUzSwu755gVJUWRE5PQbsw=
+X-Google-Smtp-Source: ABdhPJx00nMh4z6QMbVy/AYG7/H8em/Tq8iC+xd23Y4KMI15qZJg9MZ87vQO25E7v/abmlAKpvvnhA==
+X-Received: by 2002:ac2:41d6:: with SMTP id d22mr2588478lfi.496.1615475818964; 
  Thu, 11 Mar 2021 07:16:58 -0800 (PST)
 Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
  [109.252.193.52])
- by smtp.gmail.com with ESMTPSA id m24sm923138lfq.184.2021.03.11.07.16.57
+ by smtp.gmail.com with ESMTPSA id m24sm923138lfq.184.2021.03.11.07.16.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Mar 2021 07:16:57 -0800 (PST)
+ Thu, 11 Mar 2021 07:16:58 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
-Subject: [PATCH v2 0/5] Add missing reset controls to NVIDIA Tegra ASoC drivers
-Date: Thu, 11 Mar 2021 18:15:49 +0300
-Message-Id: <20210311151554.23982-1-digetx@gmail.com>
+Subject: [PATCH v2 1/5] ASoC: tegra20: ac97: Add reset control
+Date: Thu, 11 Mar 2021 18:15:50 +0300
+Message-Id: <20210311151554.23982-2-digetx@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210311151554.23982-1-digetx@gmail.com>
+References: <20210311151554.23982-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
@@ -101,58 +104,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Tegra20 AC97 driver doesn't manage the AC97 controller reset, relying on
+implicit deassertion of the reset by tegra-clk driver, which needs to be
+fixed since this behaviour is unacceptable by other Tegra drivers. Add
+explicit reset control to the Tegra20 AC97 driver.
 
-This series adds missing hardware reset controls to I2S and AC97 drivers.
-Currently drivers happen to work properly because reset is implicitly
-deasserted by tegra-clk driver, but clk driver shouldn't touch the resets
-and we need to fix it because this breaks other Tegra drivers. Previously
-we fixed the resets of the AHUB and HDMI codec drivers, but turned out
-that we missed the I2C and AC97 drivers.
+Note that AC97 reset was always specified in Tegra20 device-tree, hence
+DTB ABI changes aren't required.
 
-Thanks to Paul Fertser for testing the pending clk patches and finding
-that audio got broken on Tegra20 AC100 netbook because of the missing I2S
-reset.
+Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+---
+ sound/soc/tegra/tegra20_ac97.c | 21 +++++++++++++++++++++
+ sound/soc/tegra/tegra20_ac97.h |  1 +
+ 2 files changed, 22 insertions(+)
 
-Changelog:
-
-v2: - After some more testing I found that I2S control logic doesn't require
-      I2S clock to be enabled for resetting. Hence it's fine to have I2S to
-      be reset by parent AHUB driver, so I dropped "tegra30: i2s: Add reset
-      control" patch.
-
-    - While I was double-checking resets on Tegra30, I found that that
-      Tegra30 I2S driver has a broken runtime PM which doesn't restore
-      hardware state on resume and it's lost after AHUB RPM-resume.
-      Thus, added this new patch "tegra30: i2s: Restore hardware state
-      on runtime PM resume".
-
-    - Added new patches which switch AHUB driver to use reset-bulk API.
-      I took the RFC patch from Philipp Zabel, fixed it and added
-      devm_reset_control_bulk_optional_get_exclusive_released() that
-      will be useful for further Tegra GPU patches. This is a minor
-      improvement which makes code cleaner.
-
-Dmitry Osipenko (4):
-  ASoC: tegra20: ac97: Add reset control
-  ASoC: tegra20: i2s: Add reset control
-  ASoC: tegra30: i2s: Restore hardware state on runtime PM resume
-  ASoC: tegra: ahub: Switch to use reset-bulk API
-
-Philipp Zabel (1):
-  reset: Add reset_control_bulk API
-
- drivers/reset/core.c           | 215 +++++++++++++++++++++++++
- include/linux/reset.h          | 279 +++++++++++++++++++++++++++++++++
- sound/soc/tegra/tegra20_ac97.c |  21 +++
- sound/soc/tegra/tegra20_ac97.h |   1 +
- sound/soc/tegra/tegra20_i2s.c  |  31 ++++
- sound/soc/tegra/tegra20_i2s.h  |   1 +
- sound/soc/tegra/tegra30_ahub.c | 104 +++++-------
- sound/soc/tegra/tegra30_ahub.h |   5 +-
- sound/soc/tegra/tegra30_i2s.c  |  41 ++---
- 9 files changed, 600 insertions(+), 98 deletions(-)
-
+diff --git a/sound/soc/tegra/tegra20_ac97.c b/sound/soc/tegra/tegra20_ac97.c
+index 06c728ae17ed..c454a34c15c4 100644
+--- a/sound/soc/tegra/tegra20_ac97.c
++++ b/sound/soc/tegra/tegra20_ac97.c
+@@ -21,6 +21,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+@@ -313,6 +314,12 @@ static int tegra20_ac97_platform_probe(struct platform_device *pdev)
+ 	}
+ 	dev_set_drvdata(&pdev->dev, ac97);
+ 
++	ac97->reset = devm_reset_control_get_exclusive(&pdev->dev, "ac97");
++	if (IS_ERR(ac97->reset)) {
++		dev_err(&pdev->dev, "Can't retrieve ac97 reset\n");
++		return PTR_ERR(ac97->reset);
++	}
++
+ 	ac97->clk_ac97 = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(ac97->clk_ac97)) {
+ 		dev_err(&pdev->dev, "Can't retrieve ac97 clock\n");
+@@ -364,12 +371,26 @@ static int tegra20_ac97_platform_probe(struct platform_device *pdev)
+ 	ac97->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	ac97->playback_dma_data.maxburst = 4;
+ 
++	ret = reset_control_assert(ac97->reset);
++	if (ret) {
++		dev_err(&pdev->dev, "Failed to assert AC'97 reset: %d\n", ret);
++		goto err_clk_put;
++	}
++
+ 	ret = clk_prepare_enable(ac97->clk_ac97);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "clk_enable failed: %d\n", ret);
+ 		goto err_clk_put;
+ 	}
+ 
++	usleep_range(10, 100);
++
++	ret = reset_control_deassert(ac97->reset);
++	if (ret) {
++		dev_err(&pdev->dev, "Failed to deassert AC'97 reset: %d\n", ret);
++		goto err_clk_disable_unprepare;
++	}
++
+ 	ret = snd_soc_set_ac97_ops(&tegra20_ac97_ops);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Failed to set AC'97 ops: %d\n", ret);
+diff --git a/sound/soc/tegra/tegra20_ac97.h b/sound/soc/tegra/tegra20_ac97.h
+index e467cd1ff2ca..870ea09ff301 100644
+--- a/sound/soc/tegra/tegra20_ac97.h
++++ b/sound/soc/tegra/tegra20_ac97.h
+@@ -78,6 +78,7 @@ struct tegra20_ac97 {
+ 	struct clk *clk_ac97;
+ 	struct snd_dmaengine_dai_dma_data capture_dma_data;
+ 	struct snd_dmaengine_dai_dma_data playback_dma_data;
++	struct reset_control *reset;
+ 	struct regmap *regmap;
+ 	int reset_gpio;
+ 	int sync_gpio;
 -- 
 2.29.2
 

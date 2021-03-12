@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E473B339132
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 16:24:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8615533917D
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 16:37:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68A18175E;
-	Fri, 12 Mar 2021 16:23:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A18175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 246291760;
+	Fri, 12 Mar 2021 16:36:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 246291760
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615562681;
-	bh=AMf6zMSzhPREXhU/v6XQo1ZUt0g8P00iHzAJO7Byljg=;
+	s=default; t=1615563457;
+	bh=eEKFK3OThEMIo+ZId/9KGlssHgbryRe18XUiNaBF2R0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K+uGOnEFiWGhcKRe5Sy1RuiGrQUW8dpARgEUhxD3wGAV/sP6+wiVTi28PuWzmaURi
-	 raVY6sROW7xzN0qNhOKJacACuESit9l9D3QzLpptWzVQoujDuQYv67x6xuae+XWXld
-	 vXzOIW7DjqIXTuzO0mRSkdyztnUaTEJyoUChbuXY=
+	b=nIIDbXUciHwn0d/nhiFaR9wzxGteRHE51DXFmMmbQ9AxMHkicwCzGoi65bxkJKekH
+	 7fRtfIb9SL1FwGZHbUxLGU+9iKhNomPj+SA+NTKCa7XpyzeMqFcQdZT+k/scDdIvAJ
+	 c68/TsAzSZBvIAk1I459AE65PRJ9ZeMwOOs1Ow+U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BA6FF800AB;
-	Fri, 12 Mar 2021 16:23:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77A05F801ED;
+	Fri, 12 Mar 2021 16:36:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89C91F801D8; Fri, 12 Mar 2021 16:23:07 +0100 (CET)
+ id 01899F801D8; Fri, 12 Mar 2021 16:36:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A83A1F800AB
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 16:22:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A83A1F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99414F800BF
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 16:36:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99414F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="faezP91f"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0F4EF64FEE;
- Fri, 12 Mar 2021 15:22:55 +0000 (UTC)
+ header.b="LOuteIOL"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E1E464F4D;
+ Fri, 12 Mar 2021 15:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615562576;
- bh=AMf6zMSzhPREXhU/v6XQo1ZUt0g8P00iHzAJO7Byljg=;
+ s=k20201202; t=1615563357;
+ bh=eEKFK3OThEMIo+ZId/9KGlssHgbryRe18XUiNaBF2R0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=faezP91fqurYft+SrFRsjkHWj6RCo+ZPtBfbVj8KWXo/7O65fhiWMB0++W1DMIahc
- YJhzxpVvB0c/QHY3nQGKVPb6GLdz5Km0En5Wc3C2N1HCFMY8E2FXM69j1muZoMgn87
- O5fg8wBcw35BYogj7XrNlZZcebJtBLHQLrRY1XR2mUXpIFV9vmJiubv6mzslwXhUcA
- ofF8ewXHmCeafcy4HVQuGwjtGFb73MW6uO+/stRsFXGy21H7pMC0O9s44CJX8Prljx
- 3WXvCeGPtjkhjkVLnbl0mOVYrh9tkgx5eZFua4m/f47pa79V9ULslPOYtv04eSKJG0
- 4edz0+rZ5+QXQ==
-Date: Fri, 12 Mar 2021 15:21:43 +0000
+ b=LOuteIOL+nMhXruJzsVz5ttEqS4PASeXqgxlCS/YiPDV1m0y7FDOy1ccVYnuxsaCo
+ JLM9RxNbLkT+5R7FJ5SPUoNK3j2+H4ZxHZpcGotcu+SqBReVshez0HaRTPbYaRIheC
+ Mla9LwjsK9uL94ITTSzWRTXRB6Fv1Gf7xvKximTcc6yIQlIqjCUKmbjKRkHagTkmg2
+ 9tsVHVAiPHQ6uNhyLWMZOSzzw3v7tSvtSJhQ2fAgQt/V1+kVAi+n+A6l7ImDvNoRdI
+ tv3Ec7Cz1npmA6x25QZFtEYSUy+E2rWZNHr0k0aEsSHLwd+QjVmZ5OryEqsfLzR/y2
+ 2XnMhmCwOidnA==
+Date: Fri, 12 Mar 2021 15:34:43 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 1/7] ASoC: dt-bindings: wcd938x: add bindings for wcd938x
-Message-ID: <20210312152143.GH5348@sirena.org.uk>
+Subject: Re: [PATCH 3/7] ASoC: codecs: wcd938x: add basic driver
+Message-ID: <20210312153443.GI5348@sirena.org.uk>
 References: <20210311173416.25219-1-srinivas.kandagatla@linaro.org>
- <20210311173416.25219-2-srinivas.kandagatla@linaro.org>
+ <20210311173416.25219-4-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rCwQ2Y43eQY6RBgR"
+ protocol="application/pgp-signature"; boundary="16qp2B0xu0fRvRD7"
 Content-Disposition: inline
-In-Reply-To: <20210311173416.25219-2-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210311173416.25219-4-srinivas.kandagatla@linaro.org>
 X-Cookie: Lake Erie died for your sins.
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
@@ -83,35 +83,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---rCwQ2Y43eQY6RBgR
+--16qp2B0xu0fRvRD7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Mar 11, 2021 at 05:34:10PM +0000, Srinivas Kandagatla wrote:
+On Thu, Mar 11, 2021 at 05:34:12PM +0000, Srinivas Kandagatla wrote:
 
-> +  qcom,mbhc-hphl-switch:
-> +    description: Indicates that HPHL switch type is normally closed!
-> +    type: boolean
+> +static int wcd9380_update_status(struct sdw_slave *slave,
+> +				 enum sdw_slave_status status)
+> +{
+> +	return 0;
+> +}
 > +
-> +  qcom,mbhc-ground-switch:
-> +    description: Indicates that Headset Gound switch type is normally closed!
-> +    type: boolean
+> +static int wcd9380_port_prep(struct sdw_slave *slave,
+> +			     struct sdw_prepare_ch *prepare_ch,
+> +			     enum sdw_port_prep_ops state)
+> +{
+> +	return 0;
+> +}
 
-Why do these descriptions have exclamation marks?
+If these can legitimately be empty I'd expect the framework to support
+them being omitted.
 
---rCwQ2Y43eQY6RBgR
+--16qp2B0xu0fRvRD7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBLhwYACgkQJNaLcl1U
-h9AYyAf/a+HKOx2YyKI9UX8A/9i8G3AdZdyJCOvJrDKwriB9VXplLK03qknmy6f0
-3cwUy0x8cIfzCHZK569wSDUKCms2D8JSbDzLw9MDTlhxHChK7LMS/w92b6LiPwsN
-6/4oQwEmnk9Uk9ln3tFf/+1r2aqq3Gpk1Y1ZUzeG92QWw2c7IcoVGAWzO8GDa29B
-6oU/ufn6DWt3DWFhWMljZoE4phnBTWyfjxzd5Np6EkH2CgCZ6hBY7FwNjGOkyH9H
-xvghPGfsi3MV37f9jRWLkgkGrM8ArwUQYSFunqICsCKbesG/PcfWhIrgT1LLmzMl
-4ozsGGApVF0FAlwsbRPjQUp77isR6g==
-=UBpv
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBLihIACgkQJNaLcl1U
+h9Ci5Af+PqSg4yirqEFMszFh/ZclR61rSGqEGOzB8LWC3qEET8W5UpRKUKtDdRHb
+wXhbQkw5H6mbRHy/oqQVUaLXQm8U2Xt4CwyZSTCS3CHmYasfkk63kbhaccT1xxAf
+UdPxODkq/8ykC7eM9aGWG1D5sqdGZg+hRlIVtMKAev5K9i5AOxWQAx5qSKwukA+9
+taUkuvFN3xxxw2Lkiv1NTncSn+B/TXwfXcYAOF3GLkeJyRjvd/tfzX+gImSoL+kT
+D/EPmg8APp36rkq7JAH1GGjrisac/FuEyecDFhFY1KyWrzyuD6yx0uJRkn5oYWK7
+istKWxTEaCQjxtaj3iBkxKkFF23W7w==
+=PrKP
 -----END PGP SIGNATURE-----
 
---rCwQ2Y43eQY6RBgR--
+--16qp2B0xu0fRvRD7--

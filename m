@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A252338A7E
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 11:47:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444E6338A82
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 11:47:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F21D16FA;
-	Fri, 12 Mar 2021 11:46:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F21D16FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA1BF1701;
+	Fri, 12 Mar 2021 11:47:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA1BF1701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615546040;
-	bh=0kUh2/45yRo8jKguhknXtwIEM8vZFnfxC+Vyr58llqw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1615546078;
+	bh=Auj0pqrTthap34sH1e6BX/B+EF5AdlNd0BXgLDukUfA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ASD/JuAhBt6K8CeIy2qRjS7/djvnzaYA0Ll979IcIx73c1VnB3+xx8H4oXt0JeKDn
-	 iu0bk0w96qmCNTF1GWcuVYSnbcx9Xfc0JbT4uFcA49xpxi3X1VSPlWZKX5VkN4i/Dg
-	 wB55LWR3jX5Iog+CzeufJ85tFrZ2Dd0lCOmGS2Yo=
+	b=LQR6C4xBga8ofVSyX4f17ukkXMnZZ8NKJQf6ITVOXQgR/rHslq+8lpfnk5LwIJrTz
+	 LOjR76TE2oH1DoFqm9deSYIDTOsEhEUKurHxdi5EGGFv3H5aXXBNbUiOdYFFgKD6it
+	 ztKDocdr478DxVxqkp4sJMyFCUa8JuwThtGCdjBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BB4FF8020D;
-	Fri, 12 Mar 2021 11:45:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AA20F8032C;
+	Fri, 12 Mar 2021 11:45:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18487F801D8; Fri, 12 Mar 2021 09:33:21 +0100 (CET)
+ id AB988F801D8; Fri, 12 Mar 2021 11:43:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59E30F800BF
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 09:33:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59E30F800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Yb2CA3Uv"
-Received: by mail-wm1-x32c.google.com with SMTP id
- c76-20020a1c9a4f0000b029010c94499aedso15258771wme.0
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 00:33:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vAtjNiJI1qKKGx5S42wVjbuS4/WPVdr+MZcPW8+RobY=;
- b=Yb2CA3Uvk4FTp1X0XSzcIlRiSLJrML0hKWk9vYGVtCigmOAot2S16a+V+92DSIDFFp
- XcRdIPhrmvpNIp/pgahzoTyhzqa4hNimV8VcSwDqJkU1Od+yqFHOO+Gi21w9n8heloqW
- 7EcgmLxQW8uPWfRWR2NxqagdA8jYYJBPh/pWt7iiRX7MkBski7DnArKy9oLWC4xq/DAl
- Z7eBgydDG9gy2be5Wa1PpV1aZdQcahl80HXuEQ1gB8IQ5EjeM76e4VrboFMJ5P9PuRS4
- 4HzGd/87j29OB9po8J/EKfcScdXcOPD59K6oNBWA2qiXgNo1l9sKLzEyR+9MwK+B4xih
- 3+2A==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34235F800BF
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 11:43:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34235F800BF
+Received: from mail-ed1-f69.google.com ([209.85.208.69])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lKfGN-0003gP-3J
+ for alsa-devel@alsa-project.org; Fri, 12 Mar 2021 10:43:23 +0000
+Received: by mail-ed1-f69.google.com with SMTP id p12so11319673edw.9
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 02:43:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vAtjNiJI1qKKGx5S42wVjbuS4/WPVdr+MZcPW8+RobY=;
- b=tY090g5VM4v9LtOVjaHoRe3HM0HJktRSlefIXOE0POCEwhio+ErIILvrkemcHklWO+
- CFURwT+wpELN/oAFdQM0CVx6od48xK6gRnrPsQFGjSge9h6wJ25f2RGO42WxCSWpZgn6
- daXXuOOwzBVNFC59gTJZDrlYd5K7EQKcKGf05Zp32ruJ8xU0SHtiVVwGxPJ33dLhYGBk
- O02l2F3KZ6vfOuX9T0cEeJaYreB5OB0uKmdbV3e5blhY9F7fVDumQlomy+NFMRSVQiHc
- tQf4ciHadv0CvWRxosowpBld0IjvV/G5gOMubwQtumnRTTv4WenHIW97RFSGwT4keTeE
- Biyw==
-X-Gm-Message-State: AOAM533y3nEP+k+gd+SyDXgwmmqnbLB+VrN0saCHuvAcYdjGHjvhICDs
- eM2HAUr3yn6vaDUpBfTIyTBFM8m5adxatVsHfDE=
-X-Google-Smtp-Source: ABdhPJyKZ0nMvRCdLUBbGOrKqHKyK3qzoA5pK9cwadvVMavLaFfap4/egdikXhfiZirr/3x+J4LMJaZTm4o697jfWd4=
-X-Received: by 2002:a05:600c:2109:: with SMTP id
- u9mr11906684wml.44.1615537987205; 
- Fri, 12 Mar 2021 00:33:07 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=k3krHMf8FRMVK6CtYPofCBzLrKQGSEz6pFoDSv1Aq7s=;
+ b=dZVvj8+xGyUXs6BMYetdbzaOk8dqPnf5fbKW5dEtHk6pCLSLSXtWZ256wPIXjHxFXe
+ Gho6cSaj8VPKsbcx5aHQbTOuRY+2hdoeXjm6rTDVdIHbpi+UAw7bAWKpSEm+22R++I/+
+ aJ5Tz77fKg7Pmt37JD1R8qET5Fb8HyUBY1POpJ55iunkEebJXGE7XzMyjEkIRdpWyQWg
+ nNG05Zf+uctzUnAb8YWxBDOW7uVbtRV7geXH3FuxkIQj+0DZQ9MOnlPtPDW4nQAfY0z7
+ lTXACfIxYs7Yg/n8HQMsnVjutrtzqbNaczxBagF59zJWt7XqngcnL7EXdRdSHmDiPGKZ
+ CU2w==
+X-Gm-Message-State: AOAM532Feco/itn1Lro+z3YK8J0cqwmbxciinRan0OBeZKHaSXBn9S1H
+ WTzg5d7KRC9/DCnnMHhzg+XIiuDZ2ox94GYqhm+GU4RXUH5+7w0lnVPP2t7iOIe4oaLLBhz6ga4
+ bVn55PUdPkIgs37Ny8v2tWig+qXUQ8pytx2VpdPmA
+X-Received: by 2002:a50:d753:: with SMTP id i19mr13381978edj.43.1615545802823; 
+ Fri, 12 Mar 2021 02:43:22 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyNugyXYmLMwKIxfkBcrE+fq0BL9z6U0OsA4mFutDTaa/42Ml2+NTvEwFgIlJazoXpPMTP1JQ==
+X-Received: by 2002:a50:d753:: with SMTP id i19mr13381969edj.43.1615545802665; 
+ Fri, 12 Mar 2021 02:43:22 -0800 (PST)
+Received: from [192.168.1.116] (adsl-84-226-167-205.adslplus.ch.
+ [84.226.167.205])
+ by smtp.gmail.com with ESMTPSA id c2sm2524450ejn.63.2021.03.12.02.43.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Mar 2021 02:43:22 -0800 (PST)
+Subject: Re: [PATCH v3 1/2] ASoC: samsung: tm2_wm5110: check of of_parse
+ return value
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20210311003516.120003-1-pierre-louis.bossart@linux.intel.com>
+ <20210311003516.120003-2-pierre-louis.bossart@linux.intel.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <98d492b4-4d1f-fcc7-c8f0-5191b1a31e1c@canonical.com>
+Date: Fri, 12 Mar 2021 11:43:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <20210309082328.38388-1-daniel.baluta@oss.nxp.com>
- <20210309153455.GB4878@sirena.org.uk>
-In-Reply-To: <20210309153455.GB4878@sirena.org.uk>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Fri, 12 Mar 2021 10:32:54 +0200
-Message-ID: <CAEnQRZB_VgsEPYgxtWQWUgs2+noRt1AMMHf2crJ_9Hg7s7NJ0Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: core: Don't set platform name when of_node is set
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210311003516.120003-2-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 12 Mar 2021 11:45:35 +0100
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- "S.j. Wang" <shengjiu.wang@nxp.com>, Daniel Baluta <daniel.baluta@oss.nxp.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, dl-linux-imx <linux-imx@nxp.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
+Cc: tiwai@suse.de, broonie@kernel.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,39 +103,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 9, 2021 at 5:38 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Mar 09, 2021 at 10:23:28AM +0200, Daniel Baluta wrote:
-> > From: Daniel Baluta <daniel.baluta@nxp.com>
-> >
-> > Platform may be specified by either name or OF node but not
-> > both.
-> >
-> > For OF node platforms (e.g i.MX) we end up with both platform name
-> > and of_node set and sound card registration will fail with the error:
-> >
-> >   asoc-simple-card sof-sound-wm8960: ASoC: Neither/both
-> >   platform name/of_node are set for sai1-wm8960-hifi
->
-> This doesn't actually say what the change does.
+On 11/03/2021 01:35, Pierre-Louis Bossart wrote:
+> cppcheck warning:
+> 
+> sound/soc/samsung/tm2_wm5110.c:605:6: style: Variable 'ret' is
+> reassigned a value before the old one has been
+> used. [redundantAssignment]
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
+> sound/soc/samsung/tm2_wm5110.c:554:7: note: ret is assigned
+>   ret = of_parse_phandle_with_args(dev->of_node, "i2s-controller",
+>       ^
+> sound/soc/samsung/tm2_wm5110.c:605:6: note: ret is overwritten
+>  ret = devm_snd_soc_register_component(dev, &tm2_component,
+>      ^
+> 
+> The args is a stack variable, so it could have junk (uninitialized)
+> therefore args.np could have a non-NULL and random value even though
+> property was missing. Later could trigger invalid pointer dereference.
+> 
+> There's no need to check for args.np because args.np won't be
+> initialized on errors.
+> 
+> Fixes: 8d1513cef51a ("ASoC: samsung: Add support for HDMI audio on TM2board")
+> Cc: <stable@vger.kernel.org>
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  sound/soc/samsung/tm2_wm5110.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Will send v2 with a better explanation.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 
->
-> > -                     dai_link->platforms->name = component->name;
-> > +
-> > +                     if (!dai_link->platforms->of_node)
-> > +                             dai_link->platforms->name = component->name;
->
-> Why would we prefer the node name over something explicitly configured?
 
-Not sure I follow your question. I think the difference stands in the
-way we treat OF vs non-OF platforms.
-
-With OF-platforms, dai_link->platforms->of_node is always set! So we
-no longer need
-to set dai->platforms->name.
-
-Actually setting both of_node and name will make sound card
-registration fail! In this is the case I'm trying
-to fix here.
+Best regards,
+Krzysztof

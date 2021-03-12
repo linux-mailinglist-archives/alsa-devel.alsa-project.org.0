@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CF8D339830
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 21:26:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D4B633985D
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 21:28:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E11131898;
-	Fri, 12 Mar 2021 21:25:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E11131898
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F59018C0;
+	Fri, 12 Mar 2021 21:27:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F59018C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615580803;
-	bh=L5UCKkPePMWB188VqNKtdXugQ7SL7KSmHQlv2sa1uJk=;
+	s=default; t=1615580893;
+	bh=wY8CiS6661pb+DtBt906zAb39PxZKg1/KC1tbn2ul4A=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bfbwedUwmEnkGA6SfNyOiPZZEizexZXYcJvddkiyLKIp0xM02IhH6mi5hHOFtRcLC
-	 h5tR/C4oh1Ui7p4X/22bZkH6zeeGXEyb2XVwd5GeJsq2wGvmddAqb/MLniLhaw48Ua
-	 z5rXrPrd0pl4ICHaIF9PIQe9WHn45qrohClPJawY=
+	b=GSjm4xjKF5Ub9+jP8TGb+W0/4afn4aBBqjZmZSRVs/t5GNwDjvwliwNvtI4/5LXK+
+	 FZiB5uSPhZF/MFtlQwyVvEV5XAypWyWiXPkw8C3qkyOT7zeuVgovr95ncJE9Cly6WO
+	 axqrgoxeerEWQyQRy0Eis7IIuXBVz83IVEBJf/Ho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C594F8020D;
-	Fri, 12 Mar 2021 21:25:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 506C7F804AB;
+	Fri, 12 Mar 2021 21:25:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F724F801D8; Fri, 12 Mar 2021 21:25:09 +0100 (CET)
+ id 4776EF804AA; Fri, 12 Mar 2021 21:25:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B86EBF8012A
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 21:25:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B86EBF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDAEEF80430
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 21:25:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAEEF80430
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tQknCmXG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A360E64F77;
- Fri, 12 Mar 2021 20:25:02 +0000 (UTC)
+ header.b="S5bAV6Y0"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B8B8064F80;
+ Fri, 12 Mar 2021 20:25:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615580703;
- bh=L5UCKkPePMWB188VqNKtdXugQ7SL7KSmHQlv2sa1uJk=;
+ s=k20201202; t=1615580727;
+ bh=wY8CiS6661pb+DtBt906zAb39PxZKg1/KC1tbn2ul4A=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=tQknCmXGwmrmpmtrf9SfgIuij2w1N0+5Gn6M74bC6hS9BYaOkiD9L9VARMUi96thV
- BesRg1FTAoilT0VYMuG3+n3DYczddMBZWmWFSnek7LQUf7VUUAZ9lSpvtYjj/tV33N
- oAT//7uxw6G3Vk/0okxQh++PrrI1hwD4YyA31HoPMaMNBZaCAICQesiuSMK9bEcGUi
- r66XA/Ta9xxWo+vhAJfMZOTKlaCUIQxN0fcekYytR6wEonDPkX4xiQmxE5TlKEkzQF
- 50wQkenBbi7JRLxHKK7ymmrChOntRaKa7YXcO1ipi/yDXmnzhZM03SOww//NdANgOY
- wMYpmkdpux4JQ==
+ b=S5bAV6Y06Ik2T5c80wgMJv3NN5GsSANNNGnC7VYWyYEPhKMvTxlLWk17wFvSMXmRQ
+ umD7fAYk/pyMxVj94HvIdf0tx4UUFLWaO0skyVf0miMs2oI+zswm+ZOxD+gPja4t3g
+ cW4mi+CYVImkgGXFVeGALAowh0voSom+rcwX2Gl6oNnA3Rt1Jn+4fFe8ecv/dMH7eB
+ DQPFspeQehWOKWvKxwr0iEnyZb7FcGSUrSURSiF4ingsmKpLgyXIWh3baUEGx9XqHV
+ MB1GUPNJK+DyH/NO5jEsXZlhu54IVX9iGKfqHaj8Cfrf1kfA0ZfY1cs4haBUsJrMzm
+ fI/kQCHTGmMrA==
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>
-In-Reply-To: <20210312114850.13832-1-hdegoede@redhat.com>
-References: <20210312114850.13832-1-hdegoede@redhat.com>
-Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Enable jack-detect support on
- Asus T100TAF
-Message-Id: <161558062957.11113.14165487041258847634.b4-ty@kernel.org>
+To: jack.yu@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20210226020517.17124-1-jack.yu@realtek.com>
+References: <20210226020517.17124-1-jack.yu@realtek.com>
+Subject: Re: [PATCH] ASoC: rt1015p: add acpi device id for rt1015p
+Message-Id: <161558062956.11113.8864518227948750711.b4-ty@kernel.org>
 Date: Fri, 12 Mar 2021 20:23:49 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, derek.fang@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,12 +80,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Mar 2021 12:48:50 +0100, Hans de Goede wrote:
-> The Asus T100TAF uses the same jack-detect settings as the T100TA,
-> this has been confirmed on actual hardware.
-> 
-> Add these settings to the T100TAF quirks to enable jack-detect support
-> on the T100TAF.
+On Fri, 26 Feb 2021 10:05:17 +0800, jack.yu@realtek.com wrote:
+> Add acpi device id for rt1015p.
 
 Applied to
 
@@ -94,8 +89,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: bytcr_rt5640: Enable jack-detect support on Asus T100TAF
-      commit: b7c7203a1f751348f35fc4bcb157572d303f7573
+[1/1] ASoC: rt1015p: add acpi device id for rt1015p
+      commit: 464b489a7885d6a89b0dfa7b7f1f56e2db80700d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

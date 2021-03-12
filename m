@@ -2,101 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5B743388C6
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 10:36:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B6DB3389B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 11:11:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 271EA16EB;
-	Fri, 12 Mar 2021 10:35:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271EA16EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC3B16EC;
+	Fri, 12 Mar 2021 11:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC3B16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615541769;
-	bh=SyxNwqnSg76J7Ve9Mkb9te8LAGkXqTqD6z4Kb6fk1sk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fR7kdYIlk66ULvilNDVLMTyd+9ORO+RUITudubU9hNphjdDIkIMmYaVUZJRnPOgwi
-	 kYMvnDMm9BST64liQDrLGgT3byiKcy/W0bYkU9f0w3t60A7ZcFaOVgm6kaQ10WosQc
-	 BOTZinGwcPdydtk861M4T79uLL8SsTdhtZAl77/U=
+	s=default; t=1615543885;
+	bh=G7WrYfneBhLEr+t5TzSWej2Ch2f9WTCEli3jbWHXUsc=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Nza71ORHeeFwFePhiYU6bm3NRMnPQ/QZALwp8rBQjmdt0VcCqcCUFzkr1xEYvqtxH
+	 LyFcyqZpKSkpKHHB9Nr/vU7cOJBJP5/hSLNu5rgnZNHpqzucsDn5tf4VTAFSlMWwf5
+	 4aH/w9U1iHut7K98R69Z3Trtli14OlZEod0rtPSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C3E5F801ED;
-	Fri, 12 Mar 2021 10:34:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76ABBF800BF;
+	Fri, 12 Mar 2021 11:09:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E57CF801D8; Fri, 12 Mar 2021 10:34:35 +0100 (CET)
+ id 95F56F801D8; Fri, 12 Mar 2021 11:09:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F5FBF800BF
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 10:34:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F5FBF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="u501xOcE"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="XetWkQi1"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id BA55118AD;
- Fri, 12 Mar 2021 04:34:14 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 12 Mar 2021 04:34:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=vwRKwAmpvTdtGnmYiNdeCL/mi0
- xGimvcUnHRyBB0y2c=; b=u501xOcENHpDqt8YcEEA48mlyqns2cuGVwjR3hSVLl
- 4DgSmAZC9PxtzA/AjU9bEom1vFD0p3hpaYq6FVrnv44uOo6nbP5YBxVf4fzzKO36
- zH8w0P3eg2fEDpaEsckNvcKOvEkw+cbZhBHJK0twZB8se6bRscn7ZwF4Y+FcaOgm
- sUzWY+BW084nlc20IsLivNhllzdBrese/i5N1VqQOBUp4En+/9ABB1kpOLiN5dnB
- XYDFch0cxUKnSvX3lbyA76IIFilDwrau/45RgR/2S5+MM0/w8d/a93IWxLKC9gfM
- bVrqaU8CK13cNFgXHhzBBjeQxfnPZFWFny3O1grDVnbQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=vwRKwAmpvTdtGnmYi
- NdeCL/mi0xGimvcUnHRyBB0y2c=; b=XetWkQi1AgTVBxsIdm0KcBpUBBl0cZwQL
- 31r1rfDxFgOjE4Lf5nmxX5UTXWZbPqdWFEwUya+ho87A7T1oyvu2uJlzyhHPUlrV
- 26++ko6mLXOEk561laELyLEAgyyEpKIq8kMcerKvvbvUFVZCjs7YgjoMsHr521Dh
- Lx3sSOd/FgVXFw/ISSzLU8pMCmxzRFotDkF7eL4TCUHQIsLJN5pUgwkz3spdAOpU
- 4h1NH4FPdAW8RlrWli4+EFGCpLXm0EVxgGLfoRwuaEUniTvBeHFCRnEtgTIZH9xt
- 65YuAeuNc80hI4PPhzQO30y7Rl+aL0d0m7ArwDgo/LYfUviMQHW7w==
-X-ME-Sender: <xms:lDVLYFw9Jk_GV2O7pLbI8-7JI75mv6hsBVrh6pmBU69w4AEPvfHvSw>
- <xme:lDVLYFNJrs_IeSF5eOSrMwWtXfayK0IF8pciDqC-mXCYzccYOw8Q2h0njt2fcYgG8
- clFnBTizFnBKbbGBYs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvvddgtdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecukfhppedugedrfedr
- ieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:lDVLYMO_vjbagHdJTgFVPagUUvIKvSOlT4gtfxqyEWfgBYOeOK7FxA>
- <xmx:lDVLYPTE71LBmzvK3DJ9Hek8L-gnBAoyqnu-YUi7cvL2KeHW8GIr2A>
- <xmx:lDVLYGAd-fLAxB1xQedCtS9lQfi3N9iMAsOKZxuj7fqNnW8CpMVyuw>
- <xmx:ljVLYBctKBmUf_xg0a-S5BNsMJWO8jqTsG8bmf6ci76ChQ8DLFt7fw>
-Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
- [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7520C24005C;
- Fri, 12 Mar 2021 04:34:11 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de,
-	perex@perex.cz
-Subject: [PATCH] ALSA: dice: fix null pointer dereference when node is
- disconnected
-Date: Fri, 12 Mar 2021 18:34:07 +0900
-Message-Id: <20210312093407.23437-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BBE3F8012A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 11:09:45 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id E20BEA003F;
+ Fri, 12 Mar 2021 11:09:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz E20BEA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1615543784; bh=SzBO1sbOfJ39N0amin2/v6dS7nLDd9BgYXs+zhhfzrk=;
+ h=Subject:To:References:From:Cc:Date:In-Reply-To:From;
+ b=Z37N+bgvMJfFhWwyS32uw81+gYi65TV2jiWCTpvoKqmx7Zr6bBXMkwwGWxP3PzNx0
+ HeDKeiIRIzysSFycUaQid+eqvKA4Y7G06NJ4ppWclBHCBctBWQXQSs/amez0aZzWG9
+ ZVgVguD1rIrW7R/Bj7gqoVryQZxHfoL+BeBsq1LU=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 12 Mar 2021 11:09:42 +0100 (CET)
+Subject: Re: alsa-lib's new API issue (snd_ctl_elem_id_compare)
+To: alsa-devel@alsa-project.org
+References: <20210308125817.GA212288@workstation>
+ <5e26625d-3db1-0600-47f8-057c0101d6b1@perex.cz>
+ <20210309003803.GA215306@workstation>
+ <cfadffa0-b89f-13d2-5b52-67842cc4b372@perex.cz>
+ <20210311124628.GA407735@workstation>
+ <bb3e0483-e348-2b9a-14cc-ca01992c73dd@perex.cz>
+ <20210312013517.GA412450@workstation>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <c1714fde-4638-bd24-c8c4-9fc0c63ba1a5@perex.cz>
+Date: Fri, 12 Mar 2021 11:09:42 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
- clemens@ladisch.de, stable@vger.kernel.org
+In-Reply-To: <20210312013517.GA412450@workstation>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,38 +85,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When node is removed from IEEE 1394 bus, any transaction fails to the node.
-In the case, ALSA dice driver doesn't stop isochronous contexts even if
-they are running. As a result, null pointer dereference occurs in callback
-from the running context.
+Dne 12. 03. 21 v 2:35 Takashi Sakamoto napsal(a):
+> On Thu, Mar 11, 2021 at 02:22:45PM +0100, Jaroslav Kysela wrote:
+>>> Hm. I believe that you agree with the fact that we can make various
+>>> algorithms to compare a pair of IDs for control elements. When focusing
+>>> on fields except for numid, we can make the other algorithms against your
+>>> implementation, since the ID structure is compound one. Each of the
+>>> algorithms can return different result.
+>>>
+>>> Here, I'd like to shift the discussion to the name of new API. Although it
+>>> has the most common name, 'snd_ctl_id_compare', it just has one of
+>>> comparison algorithms. I have a concern that the name can gives wrong idea
+>>> to users that the ID structure for control element had design to be able to
+>>> be compared by itself and it would just be a single comparison algorithm.
+>>>
+>>> I suggest to rename the new API to express that it implements one of
+>>> comparison algorithm. In a case of numid comparison, it would be
+>>> 'snd_ctl_id_compare_by_numid()'. For your case,
+>>> 'snd_ctl_id_compare_by_name_arithmetic' or something suitable.
+>>
+>> Perhaps, we can add a third argument defining the sorting algorithm, so we
+>> don't bloat the symbol tables so much when we add a new sorting type (enum).
+>> It would mean that the function cannot be used as a direct argument to
+>> qsort(), but I think that the apps add usually an extra code to own callback
+>> depending on containers, anyway. Is it more appropriate for you?
+> 
+> I've already investigated the idea you describe, however I concluded
+> that it has more complexity than convenience.
+> 
+> For example, the prototype would be:
+> 
+> ```
+> int new_api(const snd_ctl_elem_id_t *l, const snd_ctl_elem_id_t *r,
+>             int (*algorithm)(const snd_ctl_elem_id_t *,
+>                              const snd_ctl_elem_id_t *));
+> ```
+> 
+> For usage with qsort_r(3), programmer should do:
+> 
+> ```
+> int my_algo(const snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
+> {
+>    ...
+> }
+> 
+> qsort_r(base, nmemb, size, new_api, my_algo);
+> ```
 
-This commit fixes the bug to release isochronous contexts always.
+I meant:
 
-Cc: <stable@vger.kernel.org> # v5.4 or later
-Fixes: e9f21129b8d8 ("ALSA: dice: support AMDTP domain")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/dice/dice-stream.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+```
+int new_api(const snd_ctl_elem_id_t *id1, const const snd_ctl_elem_id_t *id2,
+            snd_ctl_compare_type_t ctype)
+{
+   ...
+}
 
-diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
-index 8e0c0380b4c4..1a14c083e8ce 100644
---- a/sound/firewire/dice/dice-stream.c
-+++ b/sound/firewire/dice/dice-stream.c
-@@ -493,11 +493,10 @@ void snd_dice_stream_stop_duplex(struct snd_dice *dice)
- 	struct reg_params tx_params, rx_params;
- 
- 	if (dice->substreams_counter == 0) {
--		if (get_register_params(dice, &tx_params, &rx_params) >= 0) {
--			amdtp_domain_stop(&dice->domain);
-+		if (get_register_params(dice, &tx_params, &rx_params) >= 0)
- 			finish_session(dice, &tx_params, &rx_params);
--		}
- 
-+		amdtp_domain_stop(&dice->domain);
- 		release_resources(dice);
- 	}
- }
+int my_algo(void *a, void *b)
+{
+	struct mystruct *my1 = a;
+	struct mystruct *my2 = b;
+	... possible extra code ...
+	return new_api(&my1->id, &my2->id, SND_CTL_COMPARE_FULL_WO_NUMID);
+}
+
+qsort(base, nmemb, size, my_algo);
+
+int my_algo_r(void *a, void *b, void *opaque)
+{
+	struct config *cfg = opaque;
+	struct mystruct *my1 = a;
+	struct mystruct *my2 = b;
+	.. possibe extra code ..
+	return new_api(&my1->id, &my2->id, cfg->sort_type);
+}
+
+qsort_r(base, nmemb, size, my_algo_r, cfg);
+```
+
+So I don't see a real drawback in the real use. Of course, each API has some
+pros and cons, but I think that mine is easier for the common cases than the
+set of functions. The two argument functions can be used directly only with
+qsort() anyway.
+
+					Jaroslav
+
 -- 
-2.27.0
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

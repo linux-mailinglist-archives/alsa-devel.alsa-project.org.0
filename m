@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1299533928F
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 16:58:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC81833940C
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 17:58:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AE71176B;
-	Fri, 12 Mar 2021 16:57:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AE71176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D1AC1760;
+	Fri, 12 Mar 2021 17:57:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D1AC1760
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615564721;
-	bh=ojGrFLtmo64nYFR3VEaVz3HJGIRiCZA8lbBQOasUvlo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615568302;
+	bh=qwu3JJrApo0SllxyjJOb9HKx+n91stp/YIyHIRg0UBg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LgYX1Nv6QAsy0Ecv/+BMbVAuxb/IbeV5wEdhIaWX9XfbFtEmC5bxXde42a/fNGeRh
-	 ZS8PWBzwY2bkN1ghHXryTeZHa4FLa2jnaIoabFmFlqiKRVHNdrdDMZrN52l9cFhSzV
-	 HnT6MRqnVbI32DyyYfJIYXfZs10rM4HKqr1t5X1c=
+	b=RoBjfKFgtju74PH97TV/mEwe8zlxYvRlHNortImPhBNdvtvs4t9W76W9YtVpNIPWn
+	 3JrWsKzX71JUwX0exhF395ePKOp0MZ3VlFAa2JrZHX7vjc9B5UrJ9LYXCCSkJRZ5kv
+	 sy4IZ2CHtavHpIiS9C2GO7ZkMQZs+ro+Sf3vWECE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16D84F8016C;
-	Fri, 12 Mar 2021 16:57:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29FACF800AB;
+	Fri, 12 Mar 2021 17:56:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 558ABF801D8; Fri, 12 Mar 2021 16:57:09 +0100 (CET)
+ id 4BBC3F8020D; Fri, 12 Mar 2021 17:56:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42B5BF8012A
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 16:57:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42B5BF8012A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JQPcyht+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C2B8064FE0;
- Fri, 12 Mar 2021 15:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615564621;
- bh=ojGrFLtmo64nYFR3VEaVz3HJGIRiCZA8lbBQOasUvlo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JQPcyht+hkriUsqzARGtHarLDLqucOxZk3Ax6yi9PSB9eDXY7CmN6yI9nJZfswjgh
- Q9d5KVGZvllDfJKyulFG9Q8IY75/fmcEtydpXrVXjCJzaUDTpPk/HeDnclvFqJL5MI
- yF6lYdNYTUHKiITOwf+JXVwe+e4tOeeYmyR0Ng1BSclGknUOTOhEdWdd0Q1OWY7PG8
- R+gWBTxpH8CqkeqP64E7tupY0i6tonndMPxAnwC/jy81cP+0MwJr5GbzgNaSCFlYX5
- +adE1/O1rjTMp8QKPfW8sdm+vMalHKYSJev3P+1wVe90xCcdOGAN46E0UiKUEGmV4h
- NNqNrWFbFwpZw==
-Date: Fri, 12 Mar 2021 15:55:47 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 4/7] ASoC: codecs: wcd938x: add basic controls
-Message-ID: <20210312155547.GJ5348@sirena.org.uk>
-References: <20210311173416.25219-1-srinivas.kandagatla@linaro.org>
- <20210311173416.25219-5-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47435F8012A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 17:56:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47435F8012A
+IronPort-SDR: ABs87S9D0HjlygB5hUWcZZd2zVfhMBUwyoVqtheQvf09GJvDYnwdJ9Wz6BVsB9/qKU+CBY/gZI
+ X3Eijj2lqSCQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9921"; a="250223212"
+X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="250223212"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2021 08:56:32 -0800
+IronPort-SDR: p9G9sRx80qUS6WZBn6/3QvqU6zhFcVGvOvEy/+ESOOS1U9L2FNH/sNMqZumEXczVZtlLWt3zWr
+ jnOsgpjVO7BA==
+X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="411064601"
+Received: from akharche-mobl2.ccr.corp.intel.com (HELO [10.212.135.254])
+ ([10.212.135.254])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2021 08:56:31 -0800
+Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Enable jack-detect support on
+ Asus T100TAF
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20210312114850.13832-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <cae394d5-461f-2c07-3d8c-471023beed02@linux.intel.com>
+Date: Fri, 12 Mar 2021 10:24:27 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wRtZRu2mMGBZ6YQ7"
-Content-Disposition: inline
-In-Reply-To: <20210311173416.25219-5-srinivas.kandagatla@linaro.org>
-X-Cookie: Lake Erie died for your sins.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <20210312114850.13832-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,84 +84,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---wRtZRu2mMGBZ6YQ7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Mar 11, 2021 at 05:34:13PM +0000, Srinivas Kandagatla wrote:
+On 3/12/21 5:48 AM, Hans de Goede wrote:
+> The Asus T100TAF uses the same jack-detect settings as the T100TA,
+> this has been confirmed on actual hardware.
+> 
+> Add these settings to the T100TAF quirks to enable jack-detect support
+> on the T100TAF.
+> 
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-> +	if (wcd938x->variant == WCD9380) {
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-switch statements please.
-
-> +		if (mode_val == CLS_H_HIFI || mode_val == CLS_AB_HIFI) {
-> +			dev_info(component->dev,
-> +				"%s:Invalid HPH Mode, default to CLS_H_ULP\n",
-> +				__func__);
-> +			mode_val = CLS_H_ULP;
-> +		}
-
-If the value can't be set an error should be returned rather than the
-input ignored.
-
-> +static int wcd938x_ear_pa_gain_get(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-> +
-> +	ucontrol->value.integer.value[0] = snd_soc_component_read_field(component,
-> +						WCD938X_ANA_EAR_COMPANDER_CTL,
-> +						WCD938X_EAR_GAIN_MASK);
-> +
-> +	return 0;
-> +}
-
-This just looks like a normal operation?
-
-> +static int wcd938x_ear_pa_gain_put(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-> +	struct wcd938x_sdw_priv *wcd = snd_soc_component_get_drvdata(component);
-> +	struct wcd938x_priv *wcd938x = wcd->wcd938x;
-> +
-> +	if (!wcd938x->comp1_enable) {
-> +		snd_soc_component_write_field(component,
-> +				WCD938X_ANA_EAR_COMPANDER_CTL,
-> +				WCD938X_EAR_GAIN_MASK,
-> +				ucontrol->value.integer.value[0]);
-> +	}
-
-Again, values should not be ignored on error.
-
-> +	if (wcd938x->variant == WCD9380) {
-> +		ret = snd_soc_add_component_controls(component, wcd9380_snd_controls,
-> +					ARRAY_SIZE(wcd9380_snd_controls));
-> +		if (ret < 0) {
-> +			dev_err(component->dev,
-> +				"%s: Failed to add snd ctrls for variant: %d\n",
-> +				__func__, wcd938x->variant);
-> +			goto err;
-> +		}
-> +	}
-> +	if (wcd938x->variant == WCD9385) {
-
-Again, switch statements - I'll never understand why people seem so
-intent on writing if trees :(
-
---wRtZRu2mMGBZ6YQ7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBLjwIACgkQJNaLcl1U
-h9BaJgf+P8wVqvc+n6yTGoXc3vb0A59dDMzjY3jznMvKhtpHuapGd3Lfp7ZVKvab
-JN2wkUtn2CYfScb53MvCNCb7hdmrL0vZdW/YwukyVzlvh8jkf430ylyjNQItQ+wn
-VEK0OlhBwum8oYzi7QPxv3N6iI8xT5B6W5wf8IrPhfmXZBO7xtIojNb8MkWqz4VX
-K3hkUgjhUFtTw8L2s0hxrurVCnp9R5lOm2SvAdnzxD+d6XLgAUwVPfEIWV21Bcvo
-6BU73FDLauHJY5EtBfgZaOksCfuUBrRJ92yw+dKcXaU4AIsQhPmevJmD85DUPS8n
-yajJqMi8LIWffoXD1CHbp+H2UJEZfA==
-=AoLL
------END PGP SIGNATURE-----
-
---wRtZRu2mMGBZ6YQ7--
+> ---
+>   sound/soc/intel/boards/bytcr_rt5640.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+> index 1f6a636571c2..59d6d47c8d82 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5640.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
+> @@ -482,6 +482,9 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+>   			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
+>   		},
+>   		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
+> +					BYT_RT5640_JD_SRC_JD2_IN4N |
+> +					BYT_RT5640_OVCD_TH_2000UA |
+> +					BYT_RT5640_OVCD_SF_0P75 |
+>   					BYT_RT5640_MONO_SPEAKER |
+>   					BYT_RT5640_DIFF_MIC |
+>   					BYT_RT5640_SSP0_AIF2 |
+> 

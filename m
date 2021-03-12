@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EBD338B9A
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 12:38:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89224338BD9
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 12:50:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3AF416FD;
-	Fri, 12 Mar 2021 12:37:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3AF416FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CB5F16DB;
+	Fri, 12 Mar 2021 12:49:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CB5F16DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615549123;
-	bh=Y3U0bmKJUb+3XHj6p4SPQWcNUnYsIrcL8PrFDSr94oo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vZ+vq2g+t8PcFUbwqS7hzKxoAZpIn0D8K7JdqJq5d+c6XH0E5vYSKlIv+RCDUgC+h
-	 0l2O+miGF1c7m3fDEvCbBzpgVxRZI0+0UTzTvR/RQ13wm8fDkO2j6cPETH8PMBFHpB
-	 TBToCYNjVUWKX593ao30QcFeM5VQHW5Cow+363+w=
+	s=default; t=1615549840;
+	bh=dvdRQn2Hd2VcEKnIC+L3ZfOoHkmm1ce0ljiGLGhyaVU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LBTTemAPWe/E2sx9wjqBcWiJp5fwnSx+HZfnF00uWylWJlotckcBGxYCn2PjeoIuO
+	 W4JrfQl38MqV2nPGuAOOEKOVHneoueEJc9uAVPJP7lEyaQPY1BXb3RJZ/qOrE5DBxn
+	 gfbR8gPgC0CG7KMSvwRT+EB/vHLVgHtxAGatvs+A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D915F801ED;
-	Fri, 12 Mar 2021 12:37:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B768F8012A;
+	Fri, 12 Mar 2021 12:49:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D678CF801D8; Fri, 12 Mar 2021 12:37:09 +0100 (CET)
+ id 5DFF2F801D8; Fri, 12 Mar 2021 12:49:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3D66F8012A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 12:48:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3D66F8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="SGyQDwxV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1615549737;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=BAHwxI/yi2ubQSF/Gyzuzfa4H1GTt7Da52PPvGU/G/c=;
+ b=SGyQDwxVK10f9CDcUkY1bRVJ5ouVqY3awlVL00FWO07pxwTlye1HmenC6skqeQRJnTOw+p
+ hWLrYZC5syDZsbg5cY3c5de3bejK1Bsvyj87bJF4mpQL5MBMuAAmC2fls8he5AJ65+72nv
+ pqm4zWlKSOodU22sYrmBMoc3o445zhY=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-243-7NaCisT6NUu8EMevT4kBmw-1; Fri, 12 Mar 2021 06:48:56 -0500
+X-MC-Unique: 7NaCisT6NUu8EMevT4kBmw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D101EF8012A
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 12:37:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D101EF8012A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d1fhTAli"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6223F64F6F;
- Fri, 12 Mar 2021 11:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615549018;
- bh=Y3U0bmKJUb+3XHj6p4SPQWcNUnYsIrcL8PrFDSr94oo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d1fhTAliRK4bwizKdTteFC6Hd7b76kVDBu6CuADnw71jrWGxEGBQxnzUqPp5JYiZx
- u2QQZ6YetXpIxxMinOxrnFsYy/ZCEHoMsjhUlpV9CA4UdzaOTquwk6zp98Tto0Dn0c
- NMJ1nRdp2wy/MiyVhNee2Yt812Wfow54HMAA+YtLYhUj71aVqiIbt71FzH/PiVNbMr
- fdXgstxUouTUJV1DIdJKlQDZcof6aH05FhtVjDWhg7xywIO+9qGvVYoCc5hHY/Y1cV
- rVQiw4tpiywZL0Nds+MW6CcX6c7xYjTfO4DAPY4S6mP0UM3mgE5vCwuJi4pPqMv4gk
- gdb22glb6W4rw==
-Date: Fri, 12 Mar 2021 11:35:44 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Michael Walle <michael@walle.cc>
-Subject: Re: [PATCH 1/3] ASoC: simple-card-utils: Fix device module clock
-Message-ID: <20210312113544.GB5348@sirena.org.uk>
-References: <1612939421-19900-2-git-send-email-spujar@nvidia.com>
- <20210309144156.18887-1-michael@walle.cc>
- <e8b80188-978c-29fa-b5d4-9788a9f2282f@nvidia.com>
- <611ed3362dee3b3b7c7a80edfe763fd0@walle.cc>
- <ca540fb6-2ea7-90b0-66ad-097e99b6e585@nvidia.com>
- <20210311161558.GG4962@sirena.org.uk>
- <f21b87f1afb3eda54b5f00f2d1c146d3@walle.cc>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED1B584BA44;
+ Fri, 12 Mar 2021 11:48:53 +0000 (UTC)
+Received: from x1.localdomain (ovpn-115-120.ams2.redhat.com [10.36.115.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E8CF95C1D1;
+ Fri, 12 Mar 2021 11:48:51 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Enable jack-detect support on Asus
+ T100TAF
+Date: Fri, 12 Mar 2021 12:48:50 +0100
+Message-Id: <20210312114850.13832-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="f2QGlHpHGjS2mn6Y"
-Content-Disposition: inline
-In-Reply-To: <f21b87f1afb3eda54b5f00f2d1c146d3@walle.cc>
-X-Cookie: Lake Erie died for your sins.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, robh@kernel.org,
- Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, sharadg@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,39 +94,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The Asus T100TAF uses the same jack-detect settings as the T100TA,
+this has been confirmed on actual hardware.
 
---f2QGlHpHGjS2mn6Y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Add these settings to the T100TAF quirks to enable jack-detect support
+on the T100TAF.
 
-On Thu, Mar 11, 2021 at 11:11:15PM +0100, Michael Walle wrote:
-> Am 2021-03-11 17:15, schrieb Mark Brown:
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/bytcr_rt5640.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> > The trick is figuring out if it's best to vary the input clock
-> > or to use the FLL to adapt a fixed input clock,
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 1f6a636571c2..59d6d47c8d82 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -482,6 +482,9 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
+ 		},
+ 		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_2000UA |
++					BYT_RT5640_OVCD_SF_0P75 |
+ 					BYT_RT5640_MONO_SPEAKER |
+ 					BYT_RT5640_DIFF_MIC |
+ 					BYT_RT5640_SSP0_AIF2 |
+-- 
+2.30.1
 
-> For simple-audio-card you can set the "clock" property if you want
-> that clock to be changed/enabled/disabled. But that doesn't seem to
-> be the way to go, at least it was NAKed by Rob for the audio-graph-card.
-> I don't see a way to figure out if MCLK should be controlled by
-> simple-*-card without adding further properties to the device tree.
-
-If the card has a clock API clock as sysclk then set_sysclk(() should
-be configuring that clock.
-
---f2QGlHpHGjS2mn6Y
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBLUg8ACgkQJNaLcl1U
-h9CSGwgAhrOIMEFqoBHhAxZirq3hXq7cqfPrHmJx8Y03rBpjXiY5Syx8tbIGHLHL
-THMEzZwO2/QPnVG39A/KCu2fv4Pjd5EHzlV1ZurXSWFEFtXzzW06Kyx5TYq/wQch
-UlYziTkkW97LkhsBGYTGLQT9lHbdkiQi2CZzv+DrfWA1ZEql2IThGI8/tHwvOiDQ
-nl8Lm1QgjJ2jwiKZc2fWDoNnC6++ggNAQaCEwYyxpMSNgo55smZMTCJc7xHpU/Xp
-1u1jYSrWDZwj3GwgbJKzZjFEQ1bWsWBwapjxOz1A30qo0SfCKk9N1OK3fi3DRB6m
-FuL4a2mG40TQ+qsz3mx6MKAfagTMMQ==
-=nIRs
------END PGP SIGNATURE-----
-
---f2QGlHpHGjS2mn6Y--

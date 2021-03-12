@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBF73399E5
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Mar 2021 00:04:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2E673399E6
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Mar 2021 00:04:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1ED4318BA;
-	Sat, 13 Mar 2021 00:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ED4318BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C69718C0;
+	Sat, 13 Mar 2021 00:03:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C69718C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615590278;
-	bh=gKRx09iEEzT9fEiWAZ/WywZpvs/RAYQqI8WAKlElFYQ=;
+	s=default; t=1615590288;
+	bh=oyy2pBtdLLln8vXo63tWUx+96i76C776BnFH+pOACMI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vpy3B6wxknw2xxu8EsATOy9cARQ7SqeeuqpEVJYbF59W3LAhM8BvqRyeG14k9h434
-	 tnabbqEGogFEunmL1N8Gso3ohMOTihxrqMmVZi8uoRbbbhhD0q7C7aFqaHNC+Kjfuv
-	 knfg8X1/kZHTTuAmfyjxdToIi03obe9DGzhWIyis=
+	b=ujRajAlc6VwVqtUekk6GfEVeDqYrIyWQ0/FaKMXYqSVtWmjBZMEwkxNPQycpWspIs
+	 tlHlPYwUYO3ymctFGI8PRJXl7nGCOfUX8KF/EBNWljY5jx4gu5W/boZHOkFcj9arv2
+	 CKjvscIUjsS0WJP0Vh30WKe/HBUbm3Wi/WBSYFeg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EA58F802E7;
-	Sat, 13 Mar 2021 00:02:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4940F80424;
+	Sat, 13 Mar 2021 00:02:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F18FF80272; Sat, 13 Mar 2021 00:02:17 +0100 (CET)
+ id 35960F80217; Sat, 13 Mar 2021 00:02:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ACA2F8012A
- for <alsa-devel@alsa-project.org>; Sat, 13 Mar 2021 00:02:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ACA2F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53757F8012A
+ for <alsa-devel@alsa-project.org>; Sat, 13 Mar 2021 00:02:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53757F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lJDsGGeB"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7519564F6D;
- Fri, 12 Mar 2021 23:02:12 +0000 (UTC)
+ header.b="aZ5oyhUQ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 265A264F49;
+ Fri, 12 Mar 2021 23:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615590133;
- bh=gKRx09iEEzT9fEiWAZ/WywZpvs/RAYQqI8WAKlElFYQ=;
+ s=k20201202; t=1615590135;
+ bh=oyy2pBtdLLln8vXo63tWUx+96i76C776BnFH+pOACMI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lJDsGGeBUBAgWoOvLFNlj4XVDLcIpp382xSzdXMx5FMir3/xKgpVJIyITYaVIJGx3
- WYEFhRwtUULH3sgpDwNRZHEcG7BkjdCqVKUPq5/6jDnZENyxVBtVtre6G6LHZunFtc
- jqfEfLd1aL1ysYGKcVGn7Z3EGyO0fSgqby1ZB48p0GexNwVPMp/bX2zOgxmURl0/DL
- FA9POWxn9Ju3hwyeCR+q2CTu9iCtr8lcNDDJo9l/tE7Tvu+ieTpiWRNBVI/K//kcpX
- 9kjQhkzcU03t/KPxeh8aoHSCpyolxADNGM/+bngRgmYMJVk+aeOkdwMHZBIX6qt+z6
- 5CyVu70/F+njA==
+ b=aZ5oyhUQ/XK09a7RYewEcHUnV354o0+YsBauAqDHiZawDOatjl+UTd8dSmCvqwWqA
+ Dqg5LOg+fDe7NDxBNh0vNJ4126YSrVBIFWM7yGHEu4MZYbMZMFpCrB6Yr8dODaAoNY
+ gYn4wgKGnMcIkZjmLobQac2+WtWVrcX2W2zaTmHvUlix8bcuhJFXcHuoOUxTZxff80
+ /sshm4P2U+joO7wp/9D/60m69sNbW97xSvYei4ILHTQicw7laPMThhfLYcKWPNbfiQ
+ /wFcXrQsP0TJ+EbqKRIZoTQsMy1vBrwszQQo7GNdSfUS/iXzfAcFaYrydxBDPL0SUt
+ YUkeKpRO7CKiA==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: (subset) [PATCH v3 0/2] ASoC: samsung: remove cppcheck warnings
-Date: Fri, 12 Mar 2021 23:00:51 +0000
-Message-Id: <161558981189.31753.5372027063951646682.b4-ty@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH resend 0/2] AsoC: rt5640/rt5651: Volume control fixes
+Date: Fri, 12 Mar 2021 23:00:52 +0000
+Message-Id: <161558981190.31753.12908806225739839185.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210311003516.120003-1-pierre-louis.bossart@linux.intel.com>
-References: <20210311003516.120003-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210307150503.34906-1-hdegoede@redhat.com>
+References: <20210307150503.34906-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,14 +82,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Mar 2021 18:35:14 -0600, Pierre-Louis Bossart wrote:
-> v3:
-> Added Sylwester tag
-> Rebased and squashed fix with initial patch which was merged at some
-> point but can't be found in broonie/for-next (not sure what happened?)
-> Corrected patch subjects to tm2_wm5110
-> Reverted second patch to initial v1, after agreement between Krzysztof
-> and Sylwester
+On Sun, 7 Mar 2021 16:05:01 +0100, Hans de Goede wrote:
+> Here is a resent of the remaining patches from my
+> "[PATCH 0/5] AsoC: rt5640/rt5651: Volume control fixes" series,
+> with the controversial "[PATCH 3/5] ASoC: rt5640: Add emulated
+> 'DAC1 Playback Switch' control" patch dropped, and these
+> remaining 2 patches rebased to still apply with that patch dropped.
+> 
+> Regards,
 > 
 > [...]
 
@@ -97,8 +99,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: samsung: tm2_wm5110: check of of_parse return value
-      commit: d58970da324732686529655c21791cef0ee547c4
+[1/2] ASoC: rt5640: Rename 'Mono DAC Playback Volume' to 'DAC2 Playback Volume'
+      commit: 40e4046913a34dd187c94f66c0f43facbff0f430
+[2/2] ASoC: Intel: bytcr_rt5640: Add used AIF to the components string
+      commit: 9f47c9c8bddc79e770ed19366840b9c2ab280ac1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

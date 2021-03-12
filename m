@@ -2,75 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26FBB3383E9
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 03:47:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E431338497
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 05:16:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A230316EA;
-	Fri, 12 Mar 2021 03:46:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A230316EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A21F16E1;
+	Fri, 12 Mar 2021 05:15:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A21F16E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615517242;
-	bh=OStRsWTcyMxOTDEnetIYhGi8B0bLORjmptg/oNJLkJQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1615522560;
+	bh=abQe6S4XU0mfxQFxQyCRdJ6KZ+mp8x2Oi92IhOLWSFY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=IbczQ7+qmBlcLYL12HN+fa6hJZh0bM/xR+02lCr2/CbA+QT4FykrOaO8Ks3qV6nlP
-	 FjWNWGNPGwD2bqkqgXtyxMCyNp+IQU+jzlhGGIsGZkb5h2Jetgg8h3+1yUDwo43Otp
-	 3zZoILS24/GW05yDWefpFwPQy9iQbHZ9z7iZAddE=
+	b=Iu35oDI7CakYrU5EiQvQG6Hc8/JpneWV0fE9vCEpsnSM32ujY7Ob2Dw6UXpgMPiWP
+	 lj8bZJz0iGCBL8LOY5Hqv1bEJ1Xmo8jCDTaeXqhyMk9NWdPji8qMGal2mxuNe9D+JS
+	 5ogAhhKcIviTHH1adaUbjyNq9NJ8YX0InPS9i+iE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 041DCF801ED;
-	Fri, 12 Mar 2021 03:45:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 586D0F800BF;
+	Fri, 12 Mar 2021 05:14:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCA7FF801D8; Fri, 12 Mar 2021 03:45:39 +0100 (CET)
+ id E1BDEF801D8; Fri, 12 Mar 2021 05:14:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84313F800AB
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 03:45:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84313F800AB
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 12C2jGOw9007520,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs03.realtek.com.tw[172.21.6.96])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 12C2jGOw9007520
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 12 Mar 2021 10:45:16 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Fri, 12 Mar 2021 10:45:15 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef]) by
- RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef%7]) with mapi id
- 15.01.2106.013; Fri, 12 Mar 2021 10:45:15 +0800
-Content-Type: multipart/mixed;
- boundary="_000_949671bd00c14b6d9aa5e85cc14be5d4realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "lars@metafoo.de" <lars@metafoo.de>
-Subject: [PATCH v2] ASoC: rt1015p: add acpi device id for rt1015p
-Thread-Topic: [PATCH v2] ASoC: rt1015p: add acpi device id for rt1015p
-Thread-Index: AdcW6bqwqWnOSfkEQNW/qNsRquqXtQ==
-Date: Fri, 12 Mar 2021 02:45:15 +0000
-Message-ID: <949671bd00c14b6d9aa5e85cc14be5d4@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <949671bd00c14b6d9aa5e85cc14be5d4@realtek.com>
-x-originating-ip: [172.22.102.167]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71D5DF8012A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 05:14:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D5DF8012A
+Received: from [103.229.218.199] (helo=localhost.localdomain)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1lKZBl-0000MM-8E; Fri, 12 Mar 2021 04:14:13 +0000
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda: generic: Fix the micmute led init state
+Date: Fri, 12 Mar 2021 12:14:08 +0800
+Message-Id: <20210312041408.3776-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,126 +66,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_949671bd00c14b6d9aa5e85cc14be5d4realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Recently we found the micmute led init state is not correct after
+freshly installing the ubuntu linux on a Lenovo AIO machine. The
+internal mic is not muted, but the micmute led is on and led mode is
+'follow mute'. If we mute internal mic, the led is keeping on, then
+unmute the internal mic, the led is off. And from then on, the
+micmute led will work correctly.
 
-QWRkIGFjcGkgZGV2aWNlIGlkIGZvciBydDEwMTVwLg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1
-IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQogc291bmQvc29jL2NvZGVjcy9ydDEwMTVwLmMg
-fCAxMCArKysrKysrKysrDQogMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykNCg0KZGlm
-ZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1cC5jIGIvc291bmQvc29jL2NvZGVjcy9y
-dDEwMTVwLmMNCmluZGV4IDY3MWYyYTIxMzBmZS4uMzlmNGM0ZWQyYWI4IDEwMDY0NA0KLS0tIGEv
-c291bmQvc29jL2NvZGVjcy9ydDEwMTVwLmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1
-cC5jDQpAQCAtNCw2ICs0LDcgQEANCiAvLw0KIC8vIENvcHlyaWdodCAyMDIwIFRoZSBMaW51eCBG
-b3VuZGF0aW9uLiBBbGwgcmlnaHRzIHJlc2VydmVkLg0KIA0KKyNpbmNsdWRlIDxsaW51eC9hY3Bp
-Lmg+DQogI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+DQogI2luY2x1ZGUgPGxpbnV4L2RldmljZS5o
-Pg0KICNpbmNsdWRlIDxsaW51eC9lcnIuaD4NCkBAIC0xMzAsMTAgKzEzMSwxOSBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBydDEwMTVwX2RldmljZV9pZFtdID0gew0KIE1PRFVM
-RV9ERVZJQ0VfVEFCTEUob2YsIHJ0MTAxNXBfZGV2aWNlX2lkKTsNCiAjZW5kaWYNCiANCisjaWZk
-ZWYgQ09ORklHX0FDUEkNCitzdGF0aWMgY29uc3Qgc3RydWN0IGFjcGlfZGV2aWNlX2lkIHJ0MTAx
-NXBfYWNwaV9tYXRjaFtdID0gew0KKwl7ICJSVEwxMDE1IiwgMH0sDQorCXsgfSwNCit9Ow0KK01P
-RFVMRV9ERVZJQ0VfVEFCTEUoYWNwaSwgcnQxMDE1cF9hY3BpX21hdGNoKTsNCisjZW5kaWYNCisN
-CiBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBydDEwMTVwX3BsYXRmb3JtX2RyaXZlciA9
-IHsNCiAJLmRyaXZlciA9IHsNCiAJCS5uYW1lID0gInJ0MTAxNXAiLA0KIAkJLm9mX21hdGNoX3Rh
-YmxlID0gb2ZfbWF0Y2hfcHRyKHJ0MTAxNXBfZGV2aWNlX2lkKSwNCisJCS5hY3BpX21hdGNoX3Rh
-YmxlID0gQUNQSV9QVFIocnQxMDE1cF9hY3BpX21hdGNoKSwNCiAJfSwNCiAJLnByb2JlID0gcnQx
-MDE1cF9wbGF0Zm9ybV9wcm9iZSwNCiB9Ow0KLS0gDQoyLjI5LjANCg0K
+So the micmute led init state is not correct. The led is controlled
+by codec gpio (ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY), in the
+patch_realtek, the gpio data is set to 0x4 initially and the led is
+on with this data. In the hda_generic, the led_value is set to
+0 initially, suppose users set the 'capture switch' to on from
+user space and the micmute led should change to be off with this
+operation, but the check "if (val == spec->micmute_led.led_value)" in
+the call_micmute_led_update() will skip the led setting.
 
---_000_949671bd00c14b6d9aa5e85cc14be5d4realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+To guarantee the led state will be set by the 1st time of changing
+"Capture Switch", set -1 to the init led_value.
 
-eJ8+Ir5wAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADU3MTJCQzI5
-MjExNjU0NEZBNkFCODRDQjZDOEVBMkQ5AD0HAQ2ABAACAAAAAgACAAEFgAMADgAAAOUHAwAMAAIA
-LQAPAAUAPgEBIIADAA4AAADlBwMADAACAC0ADwAFAD4BAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABADkAAABbUEFUQ0ggdjJdIEFTb0M6IHJ0MTAxNXA6IGFkZCBhY3BpIGRl
-dmljZSBpZCBmb3IgcnQxMDE1cAAuEQELgAEAIQAAADU3MTJCQzI5MjExNjU0NEZBNkFCODRDQjZD
-OEVBMkQ5AD0HAQOQBgDoEgAARAAAAAIBfwABAAAALwAAADw5NDk2NzFiZDAwYzE0YjZkOWFhNWU4
-NWNjMTRiZTVkNEByZWFsdGVrLmNvbT4AAAsAHw4AAAAAAgEJEAEAAACMAwAAiAMAAIYGAABMWkZ1
-YacY42EACmZiaWQEAABjY8BwZzEyNTIA/gND8HRleHQB9wKkA+MCAARjaArAc2V0MCDvB20CgwBQ
-EU0yCoAGtAKAln0KgAjIOwliMTkOwL8JwxZyCjIWcQKAFWIqCbBzCfAEkGF0BbIOUANgc6JvAYAg
-RXgRwW4YMF0GUnYEkBe2AhByAMB0fQhQbhoxECAFwAWgG2RkmiADUiAQIheyXHYIkOR3awuAZDUd
-UwTwB0ANF3AwCnEX8mJrbWsGcwGQACAgQk1fQuBFR0lOfQr8AfEL8RggQWQcYADQcGkg+wEAHWBj
-GeAN0BxwBbEAIIEekDE1cC5cbAuARmUKgSOkU2lnGFBkAi0ZMGYtYnk6IAJKANBrIFl1IDzCaiVx
-Lnl1QAlwB0CnECAmIAWgbT4jlS0noFUjlSAZIHUdwC8ZIGMmLwWgBYFzLyMWYyBkfCAekCArKlcn
-1jHPHHADEBngGZRkLCoSC4ALEgAAIGkCIHMoKymXI5wN4AEgICegZ2kFQO5hKKEofymGYi8fKVgj
-lQMdsRAwIDY3MWYyAGEyMTMwZmUugC4zOWY0YzQJgAkzoGI4KhEwNjQ0/yc4Lv8x3wqAKlEwzzcv
-CoDEQEAukDQsNipAOwBMNyA6wCfWLy87uCDJCFBweQUQZ2gFQAHQqSFxVGgZ4EwLgHUzQK5GOMIY
-gC0BLiGQbAMg3z1DBCAJcCzBGjBkI4YDMPU39SMLgGMKQAEAJdAjoaU+YC8h4i5oJyYgQZ77AQAL
-YHlC30PqIlJE30H43QSQckboOsIz0SwqIjPQ+jFJ0Dk7gShAAZAs8CngxxvhH2BKsXJ1YwVAGTA6
-XyI0XyKhIxVMKFtdHCA9AzAAACflTU9EAFVMRV9ERVZJokNPIFRBQk8QKBkw+yxQTN8pFiBHJgnw
-LlFAnwcGkAEBPPBPTkZJR+BfQUNQSTfmSs9L0f8h4kwvTTBWQxsREcBN7CrgQHsgIlJUTCMyIrMs
-UAFAfSxYyVo6fVF2/itO30/hIeJQOFe4UWdBgP9SGirnVQVLlQtRADAa8VaA3wUQGjFQR2IeThou
-ZC9lMexuYQeATgEiIxVZ8GTX+0wBWANfAZErsU4QaEcFMNRyKFBfKVpXLle4aMfhVEJfUFRSahde
-mWen61o4ZUBwA2BiZtJjH3AjD27ZUXY18SOVMi4yOR4uAUAjqxVCdVAfAEIAAQAAABAAAABKAGEA
-YwBrACAAWQB1AAAAHwBlAAEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBj
-AG8AbQAAAB8AZAABAAAACgAAAFMATQBUAFAAAAAAAAIBQQABAAAAWgAAAAAAAACBKx+kvqMQGZ1u
-AN0BD1QCAAAAgEoAYQBjAGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBh
-AGwAdABlAGsALgBjAG8AbQAAAAAAHwACXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwA
-dABlAGsALgBjAG8AbQAAAB8A5V8BAAAAMAAAAHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBh
-AGwAdABlAGsALgBjAG8AbQAAAB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgA
-AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBN
-AFQAUAAAAAAAAgEZDAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkA
-dQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAf
-AAFdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEA
-AAAfABoAAQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMA
-AAIBCzABAAAAEAAAAFcSvCkhFlRPpquEy2yOotkDABcAAQAAAEAAOQCA7+y66RbXAUAACDDxIRm7
-6RbXAQsAKQAAAAAAHwDZPwEAAAAAAgAAQQBkAGQAIABhAGMAcABpACAAZABlAHYAaQBjAGUAIABp
-AGQAIABmAG8AcgAgAHIAdAAxADAAMQA1AHAALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYA
-LQBiAHkAOgAgAEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBr
-AC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMA
-cwAvAHIAdAAxADAAMQA1AHAALgBjACAAfAAgADEAMAAgACsAKwArACsAKwArACsAKwArACsADQAK
-ACAAMQAgAGYAaQBsAGUAIABjAGgAYQBuAGcAZQBkACwAIAAxADAAIABpAG4AcwBlAHIAdABpAG8A
-bgBzACgAKwApAA0ACgANAAoAZABpAGYAZgAgAC0ALQBnAGkAdAAgAGEALwBzAG8AdQBuAGQALwBz
-AG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADEAMAAxADUAcAAuAGMAIABiAC8AcwBvAHUAbgBkAC8A
-cwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAAxADAAMQA1AHAALgBjAA0ACgBpAG4AZABlAHgAIAA2
-ADcAMQBmADIAYQAyADEAMwAwAGYAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8A
-AICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAA
-AAEAAAAaAAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABG
-AQAAADIAAABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAA
-AAAAIAAAAEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMA
-YQBnAGUASQBkAAAAAADMZHZiq/VqRuGyCNjlAN2bHwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAA
-AEMAbABpAGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMA
-aABhAG4AZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAABy
-AAAAWwBQAEEAVABDAEgAIAB2ADIAXQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQA1AHAAOgAgAGEA
-ZABkACAAYQBjAHAAaQAgAGQAZQB2AGkAYwBlACAAaQBkACAAZgBvAHIAIAByAHQAMQAwADEANQBw
-AAAAAAAfAD0AAQAAAAIAAAAAAAAAAwA2AAAAAAACAXEAAQAAABYAAAAB1xbpurCpac5J+QRA1b+o
-2xGq6pe1AAAfAHAAAQAAAHIAAABbAFAAQQBUAEMASAAgAHYAMgBdACAAQQBTAG8AQwA6ACAAcgB0
-ADEAMAAxADUAcAA6ACAAYQBkAGQAIABhAGMAcABpACAAZABlAHYAaQBjAGUAIABpAGQAIABmAG8A
-cgAgAHIAdAAxADAAMQA1AHAAAAAAAB8ANRABAAAAXgAAADwAOQA0ADkANgA3ADEAYgBkADAAMABj
-ADEANABiADYAZAA5AGEAYQA1AGUAOAA1AGMAYwAxADQAYgBlADUAZAA0AEAAcgBlAGEAbAB0AGUA
-awAuAGMAbwBtAD4AAAAAAAMA3j+2AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAu
-AAAASABlAGEAZABlAHIAQgBvAGQAeQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIA
-AAABAAoAAAAEAAAAAAAAABQAAAAAAAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL
-/wEAAAAcAAAASABhAHMAUQB1AG8AdABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7b
-WmsL/wEAAAAoAAAASQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABA
-AAcwDOASu+kW1wECAQsAAQAAABAAAABXErwpIRZUT6arhMtsjqLZAwAmAAAAAAALAAYMAAAAAAIB
-EDABAAAARgAAAAAAAADb6cRKJKDnQZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAy
-rzgFSrBORoDHxzgiug9aAAAB16URAAAAAAIBEzABAAAAEAAAAKlpzkn5BEDVv6jbEarql7UCARQw
-AQAAAAwAAABaAAAAgR1weUEAAAAfAPg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAG
-AAAARQBYAAAAAAAfACNAAQAAALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgA
-QQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZ
-AEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMA
-LwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAf
-ACVAAQAAALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEA
-RABNAEkATgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABG
-ADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMA
-RQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUAB
-AAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEA
-AAAQAAAASgBhAGMAawAgAFkAdQAAAAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAA
-AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEA
-YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMB
-AAAAOAAAAEMAbwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcA
-RQB4AAAAAQAAACQBAABJAEkAPQBbAEMASQBEAD0ANAA5AGMAZQA2ADkAYQA5AC0AMAA0AGYAOQAt
-AGQANQA0ADAALQBiAGYAYQA4AC0AZABiADEAMQBhAGEAZQBhADkANwBiADUAOwBJAEQAWABIAEUA
-QQBEAD0ARAA3ADEANgBFADkAQgBBAEIAMAA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9
-AFUAbgBrAG4AbwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEA
-IAAoAEIAdQBpAGwAZAAgADIAMQAwADYALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9
-ADEAMAA7AEQAUAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00
-/T8AAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABh
-AGMAaAAAAAEAAAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkA
-ZwBpAG4AYQB0AGkAbgBnAC0AaQBwAAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAu
-ADEANgA3AF0AAAAAAJeJ
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+---
+ sound/pci/hda/hda_generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---_000_949671bd00c14b6d9aa5e85cc14be5d4realtekcom_--
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index 8b7c5508f368..f5cba7afd1c6 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -4065,7 +4065,7 @@ static int add_micmute_led_hook(struct hda_codec *codec)
+ 
+ 	spec->micmute_led.led_mode = MICMUTE_LED_FOLLOW_MUTE;
+ 	spec->micmute_led.capture = 0;
+-	spec->micmute_led.led_value = 0;
++	spec->micmute_led.led_value = -1;
+ 	spec->micmute_led.old_hook = spec->cap_sync_hook;
+ 	spec->cap_sync_hook = update_micmute_led;
+ 	if (!snd_hda_gen_add_kctl(spec, NULL, &micmute_led_mode_ctl))
+-- 
+2.25.1
+

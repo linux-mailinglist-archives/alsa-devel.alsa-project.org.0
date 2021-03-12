@@ -2,64 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ECD533838F
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 03:28:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B623433842D
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 03:55:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E0B816EA;
-	Fri, 12 Mar 2021 03:27:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E0B816EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B52F16F6;
+	Fri, 12 Mar 2021 03:55:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B52F16F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615516117;
-	bh=N4JrrhiwF3cSklCJGNHf293DtIuJXxBbsDskYn0Cwr4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1615517755;
+	bh=Urmr8oCMNFQz2cCT5Y8QdjV8knXo9IbGM2hxM+4Vhzk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ha81R9tIIi3Yc7VFnjbSGXDexpp220Z2mRGIyCSlco2eJK4P2SofD/xgdy57AZ2y6
-	 +CneCwEm6nr9xTqqPmDqp/E5IMNZ1DQa21DTPWtCpRzWgUYp6cRqQeDOCTUTHJoZo5
-	 BuCM7gwOjN7vxdZqbgLkAKUyj7yODVDdE9FMhW6c=
+	b=Ykhe4C+5agu12+srbdAy1yUZfKjjooubk3hQXYyUJZt6eNY0fLV4zrEUsgZZ402GP
+	 OHfdkuyPlx8eNnBX37KV9Xh2EY8qpz7Pfqayhy0+yz5sAixR2h8aOpYdchb4wDcev+
+	 Et7UcSDkIS2TjtU3FdunfgOqrGKNwevqc1rK0YR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2F56F8016C;
-	Fri, 12 Mar 2021 03:27:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F33C2F802E7;
+	Fri, 12 Mar 2021 03:54:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF104F801D8; Fri, 12 Mar 2021 03:27:01 +0100 (CET)
+ id A6068F801ED; Fri, 12 Mar 2021 03:54:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by alsa1.perex.cz (Postfix) with ESMTP id B1678F8012A
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 03:26:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1678F8012A
-X-UUID: 3b2e1080fb164915960c585295b6b8a1-20210312
-X-UUID: 3b2e1080fb164915960c585295b6b8a1-20210312
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
- ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 921633192; Fri, 12 Mar 2021 10:26:49 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 12 Mar 2021 10:26:48 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 12 Mar 2021 10:26:47 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <tzungbi@google.com>, <broonie@kernel.org>, <matthias.bgg@gmail.com>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: mediatek: mt8192: fix tdm out data is valid on rising
- edge
-Date: Fri, 12 Mar 2021 10:26:45 +0800
-Message-ID: <1615516005-781-1-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
-MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: shane.chien@mediatek.com, Trevor.Wu@mediatek.com,
- Jiaxin Yu <jiaxin.yu@mediatek.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF922F8012A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 03:53:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF922F8012A
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 067671A04F4;
+ Fri, 12 Mar 2021 03:53:59 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4B75D1A04A3;
+ Fri, 12 Mar 2021 03:53:52 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 754AC402A7;
+ Fri, 12 Mar 2021 03:53:43 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, linuxppc-dev@lists.ozlabs.org, robh+dt@kernel.org,
+ devicetree@vger.kernel.org
+Subject: [PATCH v5 0/6] Add audio driver base on rpmsg on i.MX platform
+Date: Fri, 12 Mar 2021 10:38:39 +0800
+Message-Id: <1615516725-4975-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,55 +72,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch correct tdm out bck inverse register to AUDIO_TOP_CON3[3].
+On Asymmetric multiprocessor, there is Cortex-A core and Cortex-M core,
+Linux is running on A core, RTOS is running on M core.
+The audio hardware device can be controlled by Cortex-M device,
+So audio playback/capture can be handled by M core.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
- sound/soc/mediatek/mt8192/mt8192-dai-tdm.c | 4 +++-
- sound/soc/mediatek/mt8192/mt8192-reg.h     | 8 +++++---
- 2 files changed, 8 insertions(+), 4 deletions(-)
+Rpmsg is the interface for sending and receiving msg to and from M
+core, that we can create a virtual sound on Cortex-A core side.
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-tdm.c b/sound/soc/mediatek/mt8192/mt8192-dai-tdm.c
-index f5de1d769679..f3bebed2428a 100644
---- a/sound/soc/mediatek/mt8192/mt8192-dai-tdm.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-dai-tdm.c
-@@ -555,7 +555,9 @@ static int mtk_dai_tdm_hw_params(struct snd_pcm_substream *substream,
- 
- 	/* set tdm */
- 	if (tdm_priv->bck_invert)
--		tdm_con |= 1 << BCK_INVERSE_SFT;
-+		regmap_update_bits(afe->regmap, AUDIO_TOP_CON3,
-+				   BCK_INVERSE_MASK_SFT,
-+				   0x1 << BCK_INVERSE_SFT);
- 
- 	if (tdm_priv->lck_invert)
- 		tdm_con |= 1 << LRCK_INVERSE_SFT;
-diff --git a/sound/soc/mediatek/mt8192/mt8192-reg.h b/sound/soc/mediatek/mt8192/mt8192-reg.h
-index 562f25c79c34..b9fb80d4afec 100644
---- a/sound/soc/mediatek/mt8192/mt8192-reg.h
-+++ b/sound/soc/mediatek/mt8192/mt8192-reg.h
-@@ -21,6 +21,11 @@ enum {
- /*****************************************************************************
-  *                  R E G I S T E R       D E F I N I T I O N
-  *****************************************************************************/
-+/* AUDIO_TOP_CON3 */
-+#define BCK_INVERSE_SFT                              3
-+#define BCK_INVERSE_MASK                             0x1
-+#define BCK_INVERSE_MASK_SFT                         (0x1 << 3)
-+
- /* AFE_DAC_CON0 */
- #define VUL12_ON_SFT                                   31
- #define VUL12_ON_MASK                                  0x1
-@@ -2079,9 +2084,6 @@ enum {
- #define TDM_EN_SFT                                     0
- #define TDM_EN_MASK                                    0x1
- #define TDM_EN_MASK_SFT                                (0x1 << 0)
--#define BCK_INVERSE_SFT                                1
--#define BCK_INVERSE_MASK                               0x1
--#define BCK_INVERSE_MASK_SFT                           (0x1 << 1)
- #define LRCK_INVERSE_SFT                               2
- #define LRCK_INVERSE_MASK                              0x1
- #define LRCK_INVERSE_MASK_SFT                          (0x1 << 2)
+A core will tell the Cortex-M core sound format/rate/channel,
+where is the data buffer, what is the period size, when to start,
+when to stop and when suspend or resume happen, each of this behavior
+there is defined rpmsg command.
+
+Especially we designed the low power audio case, that is to
+allocate a large buffer and fill the data, then Cortex-A core can go
+to sleep mode, Cortex-M core continue to play the sound, when the
+buffer is consumed, Cortex-M core will trigger the Cortex-A core to
+wakeup to fill data.
+
+changes in v5:
+- remove unneeded property in binding doc and driver
+- update binding doc according to Rob's comments.
+- Fix link issue reported by kernel test robot
+
+changes in v4:
+- remove the sound card node, merge the property to cpu dai node
+  according to Rob's comments.
+- sound card device will be registered by cpu dai driver.
+- Fix do_div issue reported by kernel test robot
+
+changes in v3:
+- add local refcount for clk enablement in hw_params()
+- update the document according Rob's comments
+
+changes in v2:
+- update codes and comments according to Mark's comments
+
+Shengjiu Wang (6):
+  ASoC: soc-component: Add snd_soc_pcm_component_ack
+  ASoC: fsl_rpmsg: Add CPU DAI driver for audio base on rpmsg
+  ASoC: dt-bindings: fsl_rpmsg: Add binding doc for rpmsg audio device
+  ASoC: imx-audio-rpmsg: Add rpmsg_driver for audio channel
+  ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg
+  ASoC: imx-rpmsg: Add machine driver for audio base on rpmsg
+
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 108 +++
+ include/sound/soc-component.h                 |   3 +
+ sound/soc/fsl/Kconfig                         |  30 +
+ sound/soc/fsl/Makefile                        |   6 +
+ sound/soc/fsl/fsl_rpmsg.c                     | 279 ++++++
+ sound/soc/fsl/fsl_rpmsg.h                     |  35 +
+ sound/soc/fsl/imx-audio-rpmsg.c               | 140 +++
+ sound/soc/fsl/imx-pcm-rpmsg.c                 | 918 ++++++++++++++++++
+ sound/soc/fsl/imx-pcm-rpmsg.h                 | 512 ++++++++++
+ sound/soc/fsl/imx-rpmsg.c                     | 150 +++
+ sound/soc/soc-component.c                     |  14 +
+ sound/soc/soc-pcm.c                           |   2 +
+ 12 files changed, 2197 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.c
+ create mode 100644 sound/soc/fsl/fsl_rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-audio-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.c
+ create mode 100644 sound/soc/fsl/imx-pcm-rpmsg.h
+ create mode 100644 sound/soc/fsl/imx-rpmsg.c
+
 -- 
-2.18.0
+2.27.0
 

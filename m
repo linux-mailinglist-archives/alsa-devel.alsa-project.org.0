@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21114339848
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 21:27:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64DEB339849
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 21:27:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFD3718B4;
-	Fri, 12 Mar 2021 21:26:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD3718B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id D469E18BA;
+	Fri, 12 Mar 2021 21:26:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D469E18BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615580855;
-	bh=8REJj3Y9QOcOPMWgnj7DTjSfqgT3/WHmgg80wudwrUY=;
+	s=default; t=1615580866;
+	bh=XM03Gt6hwnAQA+iUKmdY5gbRmhZPWBo/y7O/aK8RnLI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jn72f6qPLtfEwoSYjXqR3NJ0Ub48hOkGtfM0C3Jpy1uEMBe2Pr2hH2zKrX10itFQH
-	 Pq1Oo86Cdgo15YzUs/V8LMPt3fTYriKYcRUY/eL14BBmu7sqG26hvqdRGme2mCETux
-	 KMJPVHV+/DMcxU3feoBzxzv15zb3LkyryspeGAGM=
+	b=kyuC+mq+iyJ9lkJvXVDu4jTronvPwoTSC/L4zJH5JeJl8vN8kkIFJmXwcoWGB6N2h
+	 HhX1YkK5ZzImq/HcjrQoYOtt3ZS80YcvZYNJEVTy1opwOFgECiYa7iP4O1AaMOs3Bm
+	 gSkXhkYpN41/E+TqnwMG6kTaANOqWikzrlZq0ahg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B3EFF800AB;
-	Fri, 12 Mar 2021 21:25:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 549A6F80482;
+	Fri, 12 Mar 2021 21:25:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6994CF80425; Fri, 12 Mar 2021 21:25:20 +0100 (CET)
+ id EFED6F80475; Fri, 12 Mar 2021 21:25:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74337F800AB
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 21:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74337F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id E033EF8042F
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 21:25:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E033EF8042F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rCogVS0l"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EF8AB64F77;
- Fri, 12 Mar 2021 20:25:13 +0000 (UTC)
+ header.b="AASoTXXQ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9BF6E64F86;
+ Fri, 12 Mar 2021 20:25:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615580714;
- bh=8REJj3Y9QOcOPMWgnj7DTjSfqgT3/WHmgg80wudwrUY=;
+ s=k20201202; t=1615580721;
+ bh=XM03Gt6hwnAQA+iUKmdY5gbRmhZPWBo/y7O/aK8RnLI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=rCogVS0llx+MNZSr0Q5l92YWncdktECXO2bi8AqxfxIhSDf6D7DgZYdJn2K1f5a52
- qKF+y8nMjWldGaZlFJeAPzZ8or2020LN+Nd6oq5NoU1Hkmqamgzfgqkf/gzK4pX5iC
- kNdlbfC/lzfhw3YMTTfoSDNoMCjtmJEKmwQrK10kUlCS8qdgn/UZEY54njb8CIAgLU
- KDmCr/wTXhjUPvPIFxE37wlysdLErAUahyIpBeWJoTNJOPi/VRBee2oTXXAgNIDlI+
- As9FzL39rlHzQGfoqgeK5OpZNo3F6zx77XdzhtVhN3T85sAY+GcqYI6Fq+owYvbT56
- e3pPk2b6O8K0A==
+ b=AASoTXXQed8pOwRYePS/BplyEU4iF/DWiw9dztQ9fY77nPOvMd3JqW88ovkxaHKSS
+ QWYdBSJIWrVWP2IfUUPcXhKpRi0JtDjvIR6hy92HzXiwH/sRvK4/C47DWXOSXRrwJE
+ +s3XoTTFqZaw3vJKsgciSSUmzY7CVDgi/oWN18rqMjCwCo+YcK/4tx3uxususyvgSi
+ 9WofbZ7sEC5BiEn6uASFFbIW2krlkSo8KUC7iBuFyklxyHaoVRSEF0L/mu2oiz6j6e
+ Ze1+vrAlbAQzNNj/GY1ssut9EeH1VwRITv0oPMD6LDaog5gdhgnFObsoTTcj8eNVSP
+ 8/JRPfCjEXFVA==
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, lars@metafoo.de
-In-Reply-To: <949671bd00c14b6d9aa5e85cc14be5d4@realtek.com>
-References: <949671bd00c14b6d9aa5e85cc14be5d4@realtek.com>
-Subject: Re: [PATCH v2] ASoC: rt1015p: add acpi device id for rt1015p
-Message-Id: <161558062957.11113.13025947723315918621.b4-ty@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20210311004904.121205-1-pierre-louis.bossart@linux.intel.com>
+References: <20210311004904.121205-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: mediatek: remove cppcheck warnings
+Message-Id: <161558062957.11113.1173652950898922023.b4-ty@kernel.org>
 Date: Fri, 12 Mar 2021 20:23:49 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, , kent_chen@realtek.com,
-	kent_chen@realtek.com, "[陳建宏]"@alsa-project.org,
-	shumingf@realtek.com, Derek@alsa-project.org,
-	Shuming@alsa-project.org, 方德義@alsa-project.org,
-	derek.fang@realtek.com, 范書銘@alsa-project.org,
-	"Flove(HsinFu)" <flove@realtek.com>
+Cc: tiwai@suse.de, Matthias Brugger <matthias.bgg@gmail.com>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-mediatek@lists.infradead.org>, linux-kernel@vger.kernel.org,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,8 +82,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Mar 2021 02:45:15 +0000, Jack Yu wrote:
-> Add acpi device id for rt1015p.
+On Wed, 10 Mar 2021 18:49:00 -0600, Pierre-Louis Bossart wrote:
+> There should be no functionality change, this patchset only fixes
+> shadowed variables, prototypes and removes a useless assignment.
+> 
+> Pierre-Louis Bossart (4):
+>   ASoC: mediatek: mtk-btcvsd: remove useless assignment
+>   ASoC: mediatek: mt2701: align function prototype
+>   ASoC: mediatek: mt2701: rename shadowed array
+>   ASoC: mediatek: mt8173: rename local irq variable
+> 
+> [...]
 
 Applied to
 
@@ -92,8 +100,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1015p: add acpi device id for rt1015p
-      commit: 464b489a7885d6a89b0dfa7b7f1f56e2db80700d
+[1/4] ASoC: mediatek: mtk-btcvsd: remove useless assignment
+      commit: 2e5e57f085a3243aae7e4af88dc2c40e5ff4d3be
+[2/4] ASoC: mediatek: mt2701: align function prototype
+      commit: 57f1379e77a7432759e2f35b720c71863e2d83bc
+[3/4] ASoC: mediatek: mt2701: rename shadowed array
+      commit: d9cdc1335622866c52a463325b3aaea9844cff1b
+[4/4] ASoC: mediatek: mt8173: rename local irq variable
+      commit: 14667403a5631ce2fd2935d90c6d36f7975f61f3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

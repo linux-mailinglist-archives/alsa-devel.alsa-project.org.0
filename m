@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1F8339685
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 19:30:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 233EB339689
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Mar 2021 19:31:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F13A717E9;
-	Fri, 12 Mar 2021 19:29:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F13A717E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7722181D;
+	Fri, 12 Mar 2021 19:30:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7722181D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615573827;
-	bh=P0MUVl+xmxIG/lWEk+EqsAuumBskddWeguY6dSxh+3E=;
+	s=default; t=1615573867;
+	bh=DUAmvqKbYxa3r+gsHIHnOeM9wmP8D9/NEsaVPu8e19A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BiDlQfI5GfwcWuPIHoA6FLqAV11NXFeySYPGHiq87HXUr2VGLPU/HVx4AVKHstiVS
-	 dL8sIwjsCBjSvMzhFcNPDedrHII+akn1+RkZybDaoNNZNQnPe0WqjSRTQQ//Bf6Pz1
-	 qUKeAYWQa9nNBO+SCrD7gJqUxFbqbQcg+hzENWmM=
+	b=nmbiEM8bOzMvwEgpxo0fxS0Xva0uAyZV6stQGQpbI9oCfglOiqS1Upq3Y7MwN3EZX
+	 YbYhZ2e6RcAZ5InNVCG7eUS/XWU9TXs9CqFyEcRVIpqnkRFa1ZItfBD9OHAOoRRDio
+	 6Ikw1l1yGtMuWx9R8+twrCcF+RqX+QxFL4rKx9uc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A6FAF804E5;
-	Fri, 12 Mar 2021 19:24:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FBC2F80529;
+	Fri, 12 Mar 2021 19:24:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D92AF8051B; Fri, 12 Mar 2021 19:23:54 +0100 (CET)
+ id 7BDC4F80528; Fri, 12 Mar 2021 19:23:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,37 +33,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56D11F804E2
- for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 19:23:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56D11F804E2
-IronPort-SDR: xDA2JEX6MZnyqRvia2LU1flQl4rNpz8WwsY9iQiGXHHth038eKRfVR7RuOsIvLm+A5B/noAiKM
- waLfKV2tKlpw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9921"; a="188236462"
-X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="188236462"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37BE6F804E5
+ for <alsa-devel@alsa-project.org>; Fri, 12 Mar 2021 19:23:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37BE6F804E5
+IronPort-SDR: 9aNVMHBBIq4I8wan1pc+IPGnM04fmRq2dQkp4bnoqr2BMfGhhDQMYl0gs/AKkSRmSVt1fGgtDk
+ a0aNXQU4ivpg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9921"; a="188236489"
+X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="188236489"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2021 10:23:43 -0800
-IronPort-SDR: btbVK3oHXYUzV0roY6nLMj4vHmzEGrzBPXFLXQPU/qTRw8vU/YvirN6Nm0eQpMwsnXBVM8Pj6I
- nGyEuzTn+CXA==
-X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="377792043"
+ 12 Mar 2021 10:23:48 -0800
+IronPort-SDR: jVhDZNM4RYTZdGGQjrKfNLLoVRCL8lSQOE2XbcEPGMv6TgIV53VG1rZd6d3Fnj9tqITuLrOVIf
+ a+CZvjMRNRyw==
+X-IronPort-AV: E=Sophos;i="5.81,244,1610438400"; d="scan'208";a="377792054"
 Received: from amiteshs-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.37.30])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2021 10:23:42 -0800
+ 12 Mar 2021 10:23:47 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 15/23] ASoC: nau8825: remove useless assignment
-Date: Fri, 12 Mar 2021 12:22:38 -0600
-Message-Id: <20210312182246.5153-16-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 18/23] ASoC: sti-sas: remove unused struct members
+Date: Fri, 12 Mar 2021 12:22:41 -0600
+Message-Id: <20210312182246.5153-19-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210312182246.5153-1-pierre-louis.bossart@linux.intel.com>
 References: <20210312182246.5153-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>, tiwai@suse.de,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,31 +79,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cppcheck warning:
+cppcheck warnings:
 
-sound/soc/codecs/nau8825.c:2113:10: style: Variable 'ret' is assigned
-a value that is never used. [unreadVariable]
- int ret = 0;
-         ^
+sound/soc/codecs/sti-sas.c:54:25: style: struct member
+'sti_dac_audio::field' is never used. [unusedStructMember]
+ struct regmap_field  **field;
+                        ^
+
+sound/soc/codecs/sti-sas.c:55:24: style: struct member
+'sti_dac_audio::rst' is never used. [unusedStructMember]
+ struct reset_control *rst;
+                       ^
+
+sound/soc/codecs/sti-sas.c:61:25: style: struct member
+'sti_spdif_audio::field' is never used. [unusedStructMember]
+ struct regmap_field  **field;
+                        ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/codecs/nau8825.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/sti-sas.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index e19db30c457b..67de0e49ccf4 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -2111,7 +2111,7 @@ static int nau8825_set_pll(struct snd_soc_component *component, int pll_id, int
+diff --git a/sound/soc/codecs/sti-sas.c b/sound/soc/codecs/sti-sas.c
+index ec9933b054ad..ffdf7e559515 100644
+--- a/sound/soc/codecs/sti-sas.c
++++ b/sound/soc/codecs/sti-sas.c
+@@ -51,14 +51,11 @@ static const struct reg_default stih407_sas_reg_defaults[] = {
+ struct sti_dac_audio {
+ 	struct regmap *regmap;
+ 	struct regmap *virt_regmap;
+-	struct regmap_field  **field;
+-	struct reset_control *rst;
+ 	int mclk;
+ };
  
- static int nau8825_mclk_prepare(struct nau8825 *nau8825, unsigned int freq)
- {
--	int ret = 0;
-+	int ret;
+ struct sti_spdif_audio {
+ 	struct regmap *regmap;
+-	struct regmap_field  **field;
+ 	int mclk;
+ };
  
- 	nau8825->mclk = devm_clk_get(nau8825->dev, "mclk");
- 	if (IS_ERR(nau8825->mclk)) {
 -- 
 2.25.1
 

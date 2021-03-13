@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF9C339EFD
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Mar 2021 16:58:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249FE339F08
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Mar 2021 17:07:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E994418F7;
-	Sat, 13 Mar 2021 16:57:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E994418F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB9A418FA;
+	Sat, 13 Mar 2021 17:06:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB9A418FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615651084;
-	bh=lSU/4VEL+T/SWQn20Ol4Kr9+hKB+bpgt7Rct+Ea11gI=;
+	s=default; t=1615651629;
+	bh=I+tXFb4vRJoihUSkMF/I397PuhtuPB97TpmIdj2jc4o=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hM/7QnAHOOpbtoECDZzN4PWlupDlJHRawfZm4fKLnDjeOuuDsDuopwHx3DcktD2m0
-	 1eFtjibzqIVmvjVySSy2S2Nv64neTLhbdc+NGBzH0jJkhU+xrTXnd76hPeMJDtGobg
-	 Oq3XgFGPqCxoS3QLg3neEYJ+yoUyvsOC9qA4qNDQ=
+	b=RfwtwORwk37H+wh4rd5TifaHF0DSu/20d36sMThALoQHjXa0vtnHjHngVZrhczN94
+	 17pYl1YPA8RbPfuTtmaHH2qL2wnWLx8b8e5g2ML0DmX2zm2TLNX9lA7icHlrvtRgAo
+	 idGIcCxDWjVWXAa0Xqu8iCiv3eGXDdKw05M+7ljg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96AA1F8019B;
-	Sat, 13 Mar 2021 16:56:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 414C6F8012A;
+	Sat, 13 Mar 2021 17:05:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8766BF80227; Sat, 13 Mar 2021 16:56:31 +0100 (CET)
+ id 39B47F80227; Sat, 13 Mar 2021 17:05:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55871F8012A
- for <alsa-devel@alsa-project.org>; Sat, 13 Mar 2021 16:56:25 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFC33F80154
+ for <alsa-devel@alsa-project.org>; Sat, 13 Mar 2021 17:05:29 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3B8C0A003F;
- Sat, 13 Mar 2021 16:56:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3B8C0A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 922CEA003F;
+ Sat, 13 Mar 2021 17:05:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 922CEA003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1615650985; bh=TmIRSHZYzf5LZMz6aOoRTEFjFOVbK0UOhcZ10QhomiI=;
+ t=1615651528; bh=7lrSz9+LcpxjDmojAD7DURNhVaEGWfZn+mfYcENaU+Q=;
  h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=hYDOO+YR0SkAkRo1XVEutpa1PBqXVsV4+KzTIbrDwwAODwwDIYQltDL81tNaECzgF
- 0hfNAko0bhC+EmAl1sxFtSZtkFMUw6KQcg6SlfvWwGHI1w/kfjegFtHb9goWJ4NeUz
- Tl4NjaD1l/7MULUfLc2niuk9wRB77Z2jLzWWJ3Yw=
+ b=4zyQUaD/rnX8A2wI36oFaTEPxbCF+crbtXLRYcuu4lJWcfhHGJBZtFwr1BqqJTeQW
+ ZSkL1V7S7MYNKhPsrmIWuSpHCbApwSSKsiMUZEuXS4H6CLUFiMRRUSFWcxBtzkAzC2
+ nPd+02rcgSpfexdnaFZRQ3NUa6k9wMtSSVKPrLBE=
 Received: from p1gen2.localdomain (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sat, 13 Mar 2021 16:56:20 +0100 (CET)
-Subject: Re: [PATCH alsa-ucm-conf 1/2] codecs/rt5672: Move +12dB input boost
- from 'STO1 ADC Boost Gain' to 'ADC Capture Volume'
+ Sat, 13 Mar 2021 17:05:24 +0100 (CET)
+Subject: Re: [PATCH alsa-ucm-conf v2 7/7] codecs/rt5640: Specify
+ Playback/CaptureMasterElem for HW volume-control
 To: Hans de Goede <hdegoede@redhat.com>
-References: <20210217143436.74209-1-hdegoede@redhat.com>
- <2f424984-ae8f-7393-94f8-fc18e5100e58@redhat.com>
+References: <20210308220554.76111-1-hdegoede@redhat.com>
+ <20210308220554.76111-8-hdegoede@redhat.com>
+ <784b0a8e-7308-9b08-c751-4f8571576c13@redhat.com>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <e3357efb-75fa-1f47-159e-0b4472e9361a@perex.cz>
-Date: Sat, 13 Mar 2021 16:56:20 +0100
+Message-ID: <cac481fc-1f99-aeb1-f1f5-7f12430e128f@perex.cz>
+Date: Sat, 13 Mar 2021 17:05:24 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <2f424984-ae8f-7393-94f8-fc18e5100e58@redhat.com>
+In-Reply-To: <784b0a8e-7308-9b08-c751-4f8571576c13@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -84,29 +85,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 13. 03. 21 v 16:47 Hans de Goede napsal(a):
+Dne 13. 03. 21 v 13:10 Hans de Goede napsal(a):
 > Hi,
 > 
-> On 2/17/21 3:34 PM, Hans de Goede wrote:
->> Both the 'STO1 ADC Boost Gain' and the 'ADC Capture Volume' controls are
->> digital and the 'ADC Capture Volume' control goes up to +30dB.
+> On 3/8/21 11:05 PM, Hans de Goede wrote:
+>> Newer kernels add "aif:1" or "aif:2" to the components string to let
+>> us know which AIF is being used.
 >>
->> When adding hw-volume-control support adding the +12dB boost gain on to of
->> the max +30dB of 'ADC Capture Volume' is a bit too much.
+>> Use this to specify the correct Playback/CaptureMasterElem for HW
+>> volume-control, based on which AIF is being used.
 >>
->> So move the +12dB from the 'STO1 ADC Boost Gain' control to the
->> 'ADC Capture Volume' control.
+>> On older kernels, where there is no "aif:%d" string in the components
+>> string, no Playback/CaptureMasterElem is specified.
 >>
->> This way we keep the same setting for userspace which does not support
->> hw-volume-control, while getting a better range when we start using
->> 'ADC Capture Volume' as hw-volume-control.
+>> In DigitalMics.conf the master mixer is used as regular CaptureMixerElem
+>> instead of as CaptureMasterElem since the DMICs don't have any analog
+>> volume control.
 >>
 >> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 > 
-> Ping? This series seems to have fallen through the cracks, AFAIK
-> there is nothing blocking this series from getting merged.
+> The kernel side of this patch has landed now, so this patch can
+> be merged now.
 
-Yep, it was somehow lost on my side. It's merged now. Thank you.
+Merged. Thank you.
 
 				Jaroslav
 

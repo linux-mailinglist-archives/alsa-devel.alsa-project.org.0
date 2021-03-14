@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E390133A5C3
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 16:50:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E726733A5CD
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 16:52:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F1BE17BD;
-	Sun, 14 Mar 2021 16:50:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F1BE17BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78E7E17D2;
+	Sun, 14 Mar 2021 16:51:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78E7E17D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615737052;
-	bh=HX3mEOg9d3uCuZEy4E/mCTiWcus4ISkCH9Sdy4A9fp4=;
+	s=default; t=1615737165;
+	bh=jD02L9qM2MLfjWUSakVEKqKuEtClODg2jSNGJnSyVg4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FwWRqbhk3AR1Fovym49pJI53HqNjk1DtoDFwk1VQzBUkp7YmZ1sTCo7d7kRpgxPQs
-	 aUUyC9sWxHP07q7jld+SdexekdPo7DDyc5ECMSdndt7rHZQqbtfYAEyoB76URIysJC
-	 TWfwWVsfBc8dsN95uS9aTUqHQTXaLCTpujuQBSUg=
+	b=tui7McKCgHand79W0/l73xi7KtK3jPo8PU14kxz5+zcCjSZINvHKV119cD5KFQuir
+	 N+DK9B+bHKAmpjfaw9mRdG2k5yBG8c+oLane0YkEuniNHue0nMFJzf6Lt5QZeWxl3q
+	 KAVoyPAa8HBb/BM1T8DZkKI7AEXiLwcmUdO9dqQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDCFFF804FB;
-	Sun, 14 Mar 2021 16:45:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A59B2F80526;
+	Sun, 14 Mar 2021 16:46:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF872F804E0; Sun, 14 Mar 2021 16:45:48 +0100 (CET)
+ id 9706DF80431; Sun, 14 Mar 2021 16:45:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1381F8049C
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 16:45:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1381F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3B8CF80431
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 16:45:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3B8CF80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PqY8pspj"
-Received: by mail-wm1-x32f.google.com with SMTP id
- t5-20020a1c77050000b029010e62cea9deso18033320wmi.0
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
+ header.b="ba1bpP0/"
+Received: by mail-wm1-x330.google.com with SMTP id
+ t5-20020a1c77050000b029010e62cea9deso18033334wmi.0
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 08:45:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=JzwcPFMRL4SCj5tKsLwkCgmRXrfYV7RwVK3lOrEUoZY=;
- b=PqY8pspjct7c05jJSezcs85mAeuYf73dp7Szi5jnqSaTZRKSiZUNhYfMKdF5y1XvR4
- 1youylwgU7aKIKRwIaJZyVOy7D7iOhp9YJHv8G7f1MsDhqkyhoNufh2qPNYtG9W1QV/x
- wTI6qZ8jUTyG0YGS+t2oedPd0Fw8jcBzeXi2uAzLZbFDYJsc5gROXXAv+6V0DRhTUfCc
- DE7Xz0bv9xUfThPlljFe7FMU9HUbO8DKBaDv+7Z2B21uRMPg2oD3HM2QRUVSeGRkyWts
- ibSxsGUX3q8o+4XtW/IikvjhDDEoOL0WHVYmTMoxIERpIs0ZPx5cRYKc6DACFm24dgs+
- KYmQ==
+ bh=4FTy4HdwvhgNdRGZDpAPkP98g1TyRqgQ5LxuFhEMa4g=;
+ b=ba1bpP0/mAHlNBan9GD+3oyEXBKINOceI57ZBmCCbORaKjcnzyOQrEEQYf09dwxyzk
+ Z7o0qSPM12D3byFzGUElOlWVwv0ovqXSwVn8ShHn40XSRNTgx5L+ms2u0KEKqKHCg8pL
+ A/qjIXti11h5hz8OU+raTh2TH+B7365cSHImfqY499XFzc777CpX2P4fmXFRlkrZGu0z
+ 73PkLAOGpsR79OSK4com04hcorMPJ8x8uB3qZ2GE8LWlzLQ3m96lhgWZrfUw5z6E75Mw
+ +VydNetkcUqBLQblOZEaxKQ+xoOhhUdLTeSQ7q9lVA2/UG7eVaqZ6XjNQZdgzvJUUFJw
+ zD7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=JzwcPFMRL4SCj5tKsLwkCgmRXrfYV7RwVK3lOrEUoZY=;
- b=V4gHltoGYDPziuk7dhjignMkIcRQ8iqJPWnqLr/ZDuKA2u6NvCxqP8WyRIYLUvKkm4
- E8wkgJdvR5Ou9Adxyxy0OLJt0GnXP/lI2w46xF6o2O5HNUxukvzvC3+7ytOwOIYr9/28
- TDt7dBhCzaSouJsAUzGhhTXVarnlNLnMxD86QaeoxdJX/NmRHbEP9HTzxbnPOV/B8O7Q
- uCbvatcCSK53j8/x/+zUKpdEdvAdX3+QIWshDlbmZz/RPblNmtlt+G9WsBfrodPHC/vE
- yf2jMYseNZaR4gxiSxpgxPhLVEHVglK0sVZIBfnTPfaHC0idBSrSgB0MMRxRPlPkHEqP
- Sj/g==
-X-Gm-Message-State: AOAM533n7iYMyzfPWnSQ0X2RJcrcRPh1E3nUBN02Vc3GM/1MXnI80ll4
- WI1+ZSX2MDa+Gvo08eQsAN8=
-X-Google-Smtp-Source: ABdhPJxAdO+J40W47Rep4O6fTXvR5JrD5THBQUw12KxSOR5d5ay1lUZWilaKKcsQK0emtmamSDHRtg==
-X-Received: by 2002:a05:600c:608:: with SMTP id
- o8mr22841970wmm.42.1615736733234; 
- Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
+ bh=4FTy4HdwvhgNdRGZDpAPkP98g1TyRqgQ5LxuFhEMa4g=;
+ b=pgJ49//xugHr3M6FwLtW8gBVm0brs6vmIa+lh2HgvUu4JfUUsz53CNKeWMf8rwBiKN
+ My8QrQaG8W5SApi0mI1nv1qEeHdpeL95Ro7iLnS2D1GeGJ50CXyb4CZY9wRxwqFNe0Q9
+ O6AGdZzT4SwbVr6l8z+4DQRtAJYwXKE7tSPPnJgEfdlIESH3CwzkUqY8bqb9q4/eRIo8
+ ae1O3M4OoF6VSqk/BUykX5ZTf42799agw92PnmPBB4UUSUd4d8VSfi5ECBAFEmN8lXD6
+ vb9mj9OCEMUESbFkIrQxtNRazsC49Icl7JzgmZyhD18j6iXwxLbN3bx18PgPsDM2yYG4
+ l0cw==
+X-Gm-Message-State: AOAM533xAhbh/G9ZW3cCqROS2a1daI76UUztIDpyWBxF+obCGvHLWo/s
+ ABQVdiHb33hrXA83XGixC5w=
+X-Google-Smtp-Source: ABdhPJzzZuvVT0073VQRrIVTiyLp5MTznkF2J2J6+GE3zGtOggeuoza+1fh4MaDq2voQWzJdMaAazw==
+X-Received: by 2002:a1c:bc8a:: with SMTP id m132mr21518896wmf.6.1615736734166; 
+ Sun, 14 Mar 2021 08:45:34 -0700 (PDT)
 Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
  [109.252.193.52])
- by smtp.gmail.com with ESMTPSA id f14sm9673507wmf.7.2021.03.14.08.45.32
+ by smtp.gmail.com with ESMTPSA id f14sm9673507wmf.7.2021.03.14.08.45.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
@@ -81,9 +80,9 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
-Subject: [PATCH v5 12/17] ASoC: tegra30: i2s: Correct driver removal order
-Date: Sun, 14 Mar 2021 18:44:54 +0300
-Message-Id: <20210314154459.15375-13-digetx@gmail.com>
+Subject: [PATCH v5 13/17] ASoC: tegra30: i2s: Use devm_clk_get()
+Date: Sun, 14 Mar 2021 18:44:55 +0300
+Message-Id: <20210314154459.15375-14-digetx@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210314154459.15375-1-digetx@gmail.com>
 References: <20210314154459.15375-1-digetx@gmail.com>
@@ -106,41 +105,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Tegra30 I2S driver has a wrong driver removal order, which should be
-opposite to the registration order, but it's not. In particular the
-runtime PM is disabled in a wrong order. Fix the order.
+Use resource-managed variant of clk_get() to simplify code.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- sound/soc/tegra/tegra30_i2s.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/tegra/tegra30_i2s.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-index 614b67be1dd9..31e08c5c1405 100644
+index 31e08c5c1405..0ed982548ce4 100644
 --- a/sound/soc/tegra/tegra30_i2s.c
 +++ b/sound/soc/tegra/tegra30_i2s.c
-@@ -544,10 +544,6 @@ static int tegra30_i2s_platform_remove(struct platform_device *pdev)
- {
- 	struct tegra30_i2s *i2s = dev_get_drvdata(&pdev->dev);
+@@ -438,7 +438,7 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
+ 	i2s->playback_i2s_cif = cif_ids[0];
+ 	i2s->capture_i2s_cif = cif_ids[1];
  
--	pm_runtime_disable(&pdev->dev);
--	if (!pm_runtime_status_suspended(&pdev->dev))
--		tegra30_i2s_runtime_suspend(&pdev->dev);
+-	i2s->clk_i2s = clk_get(&pdev->dev, NULL);
++	i2s->clk_i2s = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(i2s->clk_i2s)) {
+ 		dev_err(&pdev->dev, "Can't retrieve i2s clock\n");
+ 		ret = PTR_ERR(i2s->clk_i2s);
+@@ -448,7 +448,7 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs)) {
+ 		ret = PTR_ERR(regs);
+-		goto err_clk_put;
++		goto err;
+ 	}
+ 
+ 	i2s->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
+@@ -456,7 +456,7 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2s->regmap)) {
+ 		dev_err(&pdev->dev, "regmap init failed\n");
+ 		ret = PTR_ERR(i2s->regmap);
+-		goto err_clk_put;
++		goto err;
+ 	}
+ 	regcache_cache_only(i2s->regmap, true);
+ 
+@@ -534,8 +534,6 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
+ 		tegra30_i2s_runtime_suspend(&pdev->dev);
+ err_pm_disable:
+ 	pm_runtime_disable(&pdev->dev);
+-err_clk_put:
+-	clk_put(i2s->clk_i2s);
+ err:
+ 	return ret;
+ }
+@@ -557,8 +555,6 @@ static int tegra30_i2s_platform_remove(struct platform_device *pdev)
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		tegra30_i2s_runtime_suspend(&pdev->dev);
+ 
+-	clk_put(i2s->clk_i2s);
 -
- 	tegra_pcm_platform_unregister(&pdev->dev);
- 	snd_soc_unregister_component(&pdev->dev);
- 
-@@ -557,6 +553,10 @@ static int tegra30_i2s_platform_remove(struct platform_device *pdev)
- 	tegra30_ahub_unset_rx_cif_source(i2s->playback_i2s_cif);
- 	tegra30_ahub_free_tx_fifo(i2s->playback_fifo_cif);
- 
-+	pm_runtime_disable(&pdev->dev);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		tegra30_i2s_runtime_suspend(&pdev->dev);
-+
- 	clk_put(i2s->clk_i2s);
- 
  	return 0;
+ }
+ 
 -- 
 2.30.2
 

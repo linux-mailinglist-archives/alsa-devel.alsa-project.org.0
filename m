@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60F9D33A393
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 09:32:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2F133A396
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 09:34:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0CFF1743;
-	Sun, 14 Mar 2021 09:31:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0CFF1743
+	by alsa0.perex.cz (Postfix) with ESMTPS id F194B1725;
+	Sun, 14 Mar 2021 09:33:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F194B1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615710739;
-	bh=goFzjmRMWHmHmiZKrNYova6X7tdHaOT9ArLT2i3hRIY=;
+	s=default; t=1615710846;
+	bh=tgns3q049i/LaB8KC0KyUlI+yvk71mVksDYKpzfL6DA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kUVmUhq6dWqvH1H2IKXCsWIQnRWk1Twsousp1ZMg7bP8uaoUFsyiG8zeFm0l39OBU
-	 zm65ECOjBcU0lXy1jllrRv4E7CrFJy2IQ/VF1rAYU9gWOHQbXH2IoQtGu7Y6arfOWN
-	 eIQqndWoZA2HiPAVgJ0NvrWaBTA0kNAE0It4P1B0=
+	b=A+0lZjoTmHAgMab5kpW3DAtn9Q+ijneXZp5XzTDRtDrdI4AsSipuL4yMj7VZ76oG+
+	 oDp2gWIKeEOeAV0sCBEqxiQW5EoKIMBq6oo/exv6QmpyLnhfwoYxCHKiljPPY1sc0I
+	 /UzNm/N7bTS0P3OKTWOAHTlflM1DY+0ikApIsTbg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0C4FF8025E;
-	Sun, 14 Mar 2021 09:31:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FE37F8023B;
+	Sun, 14 Mar 2021 09:32:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91BECF8010D; Sun, 14 Mar 2021 09:31:05 +0100 (CET)
+ id 727C0F80224; Sun, 14 Mar 2021 09:32:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CA67F8010D
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 09:30:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CA67F8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3E61F8010D
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 09:32:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3E61F8010D
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3375CAC2D;
- Sun, 14 Mar 2021 08:30:59 +0000 (UTC)
-Date: Sun, 14 Mar 2021 09:30:59 +0100
-Message-ID: <s5h5z1urvb0.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 4BA5CAB8C;
+ Sun, 14 Mar 2021 08:32:28 +0000 (UTC)
+Date: Sun, 14 Mar 2021 09:32:28 +0100
+Message-ID: <s5h4kherv8j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 05/23] ASoC: cx2070x: remove useless assignment
-In-Reply-To: <20210312182246.5153-6-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 06/23] ASoC: cx2070x: remove duplicate else branch
+In-Reply-To: <20210312182246.5153-7-pierre-louis.bossart@linux.intel.com>
 References: <20210312182246.5153-1-pierre-louis.bossart@linux.intel.com>
- <20210312182246.5153-6-pierre-louis.bossart@linux.intel.com>
+ <20210312182246.5153-7-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,44 +72,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Mar 2021 19:22:28 +0100,
+On Fri, 12 Mar 2021 19:22:29 +0100,
 Pierre-Louis Bossart wrote:
 > 
-> Cppcheck warning:
+> cppcheck warning:
 > 
-> sound/soc/codecs/cx2072x.c:830:26: style: Variable
-> 'reg1.r.rx_data_one_line' is reassigned a value before the old one has
-> been used. [redundantAssignment]
+> sound/soc/codecs/cx2072x.c:1436:10: style:inconclusive: Found
+> duplicate branches for 'if' and 'else'. [duplicateBranch]
+>   } else if (type & 0x4) {
+>          ^
+> sound/soc/codecs/cx2072x.c:1439:5: note: Found duplicate branches for
+> 'if' and 'else'.
+>   } else {
+>     ^
+> sound/soc/codecs/cx2072x.c:1436:10: note: Found duplicate branches for
+> 'if' and 'else'.
+>   } else if (type & 0x4) {
+>          ^
 > 
->  reg1.r.rx_data_one_line = 1;
->                          ^
-> 
-> sound/soc/codecs/cx2072x.c:782:26: note: reg1.r.rx_data_one_line is
-> assigned
->  reg1.r.rx_data_one_line = 1;
->                          ^
-> 
-> sound/soc/codecs/cx2072x.c:830:26: note: reg1.r.rx_data_one_line is
-> overwritten
->  reg1.r.rx_data_one_line = 1;
->                          ^
-> 
-> sound/soc/codecs/cx2072x.c:831:26: style: Variable
-> 'reg1.r.tx_data_one_line' is reassigned a value before the old one has
-> been used. [redundantAssignment]
->  reg1.r.tx_data_one_line = 1;
->                          ^
-> sound/soc/codecs/cx2072x.c:783:26: note: reg1.r.tx_data_one_line is
-> assigned
->  reg1.r.tx_data_one_line = 1;
->                          ^
-> 
-> sound/soc/codecs/cx2072x.c:831:26: note: reg1.r.tx_data_one_line is
-> overwritten
->  reg1.r.tx_data_one_line = 1;
->                          ^
-> 
-> Likely copy/paste.
+> The last two branches do the same thing and can be collapsed together.
 > 
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 

@@ -2,71 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14A6C33A526
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 15:06:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D2D133A5B2
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 16:46:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77DC61756;
-	Sun, 14 Mar 2021 15:06:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77DC61756
+	by alsa0.perex.cz (Postfix) with ESMTPS id 844FB174B;
+	Sun, 14 Mar 2021 16:46:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 844FB174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615730813;
-	bh=TmIpgmQ6y4D7lL1oHcx1Qs4CzcBcehM07rHCf09scdc=;
-	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1615736817;
+	bh=6s1qy6Za+SwzB+glSteydGwSlZqYhuyAOVVeQ92/qzc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=snGS7G4r4yTEAqnFjg5arkuBQ+BPhlc7F4HUO9PWbPxraD3/omx/5U8NS99roMDbw
-	 TjgQ9AghyecKZWQicdt5ws0sV6lVXW3+vTJeY0/l8nBaUJ08hBdfEMMfsEE5GOmOor
-	 yPEn+wQZyHf/qfobTqE6efGNGavNv38eLoggX4YE=
+	b=A7P3QKL1ZLMozOdMePG9tuLE+SO+/g6UiC1v/NuLgCdCvTkIi2wuv6LZdG2Ox49k5
+	 nrmlHuX8NovEdmJJlbbi9ZSVkM0lKXVScq5MqcH0u+7H6e9app/p1kmibPCR303HBx
+	 Pi4NQpEKM67j3UYKMlkbWv+E9lMrw+3Wszum83Lw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5238F80224;
-	Sun, 14 Mar 2021 15:05:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A24BFF8023B;
+	Sun, 14 Mar 2021 16:45:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0B95F80218; Sun, 14 Mar 2021 15:05:21 +0100 (CET)
+ id 17ED2F80224; Sun, 14 Mar 2021 16:45:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E8BDF8010E
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 15:05:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E8BDF8010E
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF7BCF80100
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 16:45:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF7BCF80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="iKsVj0lC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:Message-ID:
- To:Subject:From:Sender:Reply-To:Cc:Content-ID:Content-Description:Resent-Date
- :Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
- References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
- List-Owner:List-Archive; bh=MZT9Fe/ejP58gt9Ot84FvEXycetXfXBrjfpkSt8W79k=; b=i
- KsVj0lCphM1OT639B00FLxj90XyjeO4GPnwNI7+/CJutWmCkkFv9q3YGnngQmNZXyVSaN73cJux+x
- 6lcZsZgKppGc1ZXQcAnsj6n7gKPW2b+dvdxtG1DJUoA55xI4HdEI1eNKi5UUEEanHGqpi+/Mu8BFx
- XS3W32ctDCt0Ib/Hb5EieGbKJsYk2NNo+I+/kkdhSCy0RP//y/iEckB9/golOOX7JPhtx9H2AQqXx
- A5yTY6lXSEm0+MqXPjwGxx8yi0868gvSCQYRFbjEbC1ezZNxX4JVxzhUqcB/LMMCwns2rnJrE6Ds6
- zkECmFUkems5El2k0P61ytXB1T8X1QwSQ==;
-Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
- helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
- (envelope-from <coding@diwic.se>) id 1lLRMi-00A0YT-LB
- for alsa-devel@alsa-project.org; Sun, 14 Mar 2021 15:05:08 +0100
-From: David Henningsson <coding@diwic.se>
-Subject: Midi timestamps
-To: alsa-devel@alsa-project.org
-Message-ID: <d02124d1-1af8-15e0-a7a5-af2c1732e440@diwic.se>
-Date: Sun, 14 Mar 2021 15:05:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qAuWjcuk"
+Received: by mail-wr1-x431.google.com with SMTP id u16so7450558wrt.1
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 08:45:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PclIFcC2nS7Q4VorzCLkkkTGpzHU2Eq5kWVCvmuDhyI=;
+ b=qAuWjcuklA/Y8Y441HfQKMy13BZlI5RX7assgoGjGpvXvlph3m7P5heS9rbqB5KQ/1
+ pcjs6BAnCmJkatVXbT/DQ0liLAVUnBe0RfsvOeZI2iHG/HeOhuj852q1W+v3RNVYVBYW
+ DFs9CDGu8jmEMnDwhjvQNRgdizpir1MEtdIxdybciDkUECp0AcWzCWpcu6q5OmxAAd7Y
+ /lxCVi2MQKGF6YL5me0QlN1PSMMRB/QPOVXGHSxiT2bq/4p8mqbexgro0sFANTclYYMt
+ myrNB6vzAqnmujVSpLVAeQYmeRR15+Ex7Ru19rZ7ezd1lPHe1Vk1/A9KJ7kOQqjCmLRh
+ 8IDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PclIFcC2nS7Q4VorzCLkkkTGpzHU2Eq5kWVCvmuDhyI=;
+ b=Ca8cRwJt4wFYqeV+7slw+201xdLcojRuIO6m2iIiYgLh4p1fTpBl1zfqqtjKfwus+c
+ cH+704qnQGFUCBCsu0N/wy7xRtgvND0MH5pxPRqmbOxBywRx9HwQ34pYNwLwRGD41MzY
+ yWoJjvu3BtZ/YY6XfV0JjZrsGptQYxR5XZrQyDx9feFNgAQ7P0RrF+6bO3TmyYIq4F0S
+ wptOrVcv/IGJ0PtXmX8iNJW+sVzCNKKuG6EnmFjPFPInXSf8+ivsHDb8tJe6wZbs/W2O
+ qzgMqCinyKbH84gnnQTCro4AN0n+ZLegYPnfO20bhriCVmmie+OqOrnBzrKU5ia6tIsj
+ ZBzA==
+X-Gm-Message-State: AOAM5328KnEJXcoe009t4i+lgB/CAXFs7A4Ixdd9pTsNPJ7nQzB7+idw
+ rx7fpVYdUoOl4fngxysVmV0=
+X-Google-Smtp-Source: ABdhPJwO1WyF3LJh32pYsIZEBoThmnPXPXjd76LixRiKKFWmeUv7A9UyngwsIPvIbamr5I/6VCpOYA==
+X-Received: by 2002:adf:90c2:: with SMTP id i60mr23481723wri.75.1615736720372; 
+ Sun, 14 Mar 2021 08:45:20 -0700 (PDT)
+Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
+ [109.252.193.52])
+ by smtp.gmail.com with ESMTPSA id f14sm9673507wmf.7.2021.03.14.08.45.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Mar 2021 08:45:19 -0700 (PDT)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
+Subject: [PATCH v5 00/17] Fix reset controls and RPM of NVIDIA Tegra ASoC
+ drivers
+Date: Sun, 14 Mar 2021 18:44:42 +0300
+Message-Id: <20210314154459.15375-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Authenticated-Id: coding@diwic.se
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +104,91 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi,
 
-When writing an application that records midi (and e g saves it to 
-disk), ultra-low latency isn't really needed, all we need to know is 
-exactly when the midi message came in. The application can then wake up 
-once a second or so, to write the incoming data, including an accurate 
-timestamp for every event, to disk.
+This series adds missing hardware reset controls to I2S and AC97 drivers,
+corrects runtime PM usage and drivers probe/remove order. Currently drivers
+happen to work properly because reset is implicitly deasserted by tegra-clk
+driver, but clk driver shouldn't touch the resets and we need to fix it
+because this breaks other Tegra drivers. Previously we fixed the resets of
+the AHUB and HDMI codec drivers, but turned out that we missed the I2C and
+AC97 drivers.
 
-As far as I can see, the rawmidi interface does not support such a 
-feature at all. There is a snd_rawmidi_status syscall, but its timestamp 
-field is not even filled by the kernel (!). But even if that was fixed, 
-it would not fix the problem as there could be several midi events in 
-the buffer with different timestamps.
+Thanks to Paul Fertser for testing the pending clk patches and finding
+that audio got broken on Tegra20 AC100 netbook because of the missing I2S
+reset.
 
-You could use the seq interface, it does support timestamps, but I can 
-see at least two potential problems with this:
+Changelog:
 
-First, the seq code runs in a work queue, not in the actual IRQ. This 
-means that midi event is timestamped too late, especially so if the work 
-is delayed for some reason.
+v5: - After taking another look at the drivers I noticed couple more
+      things that could be improved. These new patches correct runtime PM
+      and probe/remove order of the drivers:
 
-Second, seq hard-codes the timestamp type to monotonic - there is no 
-monotonic_raw, so the timestamp would be affected by NTP changes.
+        ASoC: tegra20: spdif: Correct driver removal order
+        ASoC: tegra20: spdif: Remove handing of disabled runtime PM
+        ASoC: tegra20: i2s: Add system level suspend-resume callbacks
+        ASoC: tegra20: i2s: Correct driver removal order
+        ASoC: tegra20: i2s: Use devm_clk_get()
+        ASoC: tegra20: i2s: Remove handing of disabled runtime PM
+        ASoC: tegra30: i2s: Correct driver removal order
+        ASoC: tegra30: i2s: Use devm_clk_get()
+        ASoC: tegra30: i2s: Remove handing of disabled runtime PM
+        ASoC: tegra30: ahub: Reset global variable
+        ASoC: tegra30: ahub: Correct suspend-resume callbacks
+        ASoC: tegra30: ahub: Remove handing of disabled runtime PM
 
-Also, the timespec uses 32-bit for sec and nsec, but I suspect this is 
-less of a problem (unless people constantly record midi for sixty years 
-or so...).
+v4: - Added missing prototype for reset_control_bulk_put().
 
-It seems like it could be useful to have a rawmidi mode which 
-automatically prefixes every incoming message with a timestamp. This 
-would replace the current "raw" midi buffer with some type of header 
-"length, timestamp, data" or so. Arguably this would make the rawmidi 
-slightly less raw, but anyway. Does this make sense? Should I attempt to 
-write something? Or would it be better to try to use (and potentially 
-improve) the seq code?
+v3: - Fixed reset stubs for !CONFIG_RESET_CONTROLLER.
 
-// David
+v2: - After some more testing I found that I2S control logic doesn't require
+      I2S clock to be enabled for resetting. Hence it's fine to have I2S to
+      be reset by parent AHUB driver, so I dropped "tegra30: i2s: Add reset
+      control" patch.
+
+    - While I was double-checking resets on Tegra30, I found that that
+      Tegra30 I2S driver has a broken runtime PM which doesn't restore
+      hardware state on resume and it's lost after AHUB RPM-resume.
+      Thus, added this new patch "tegra30: i2s: Restore hardware state
+      on runtime PM resume".
+
+    - Added new patches which switch AHUB driver to use reset-bulk API.
+      I took the RFC patch from Philipp Zabel, fixed it and added
+      devm_reset_control_bulk_optional_get_exclusive_released() that
+      will be useful for further Tegra GPU patches. This is a minor
+      improvement which makes code cleaner.
+
+Dmitry Osipenko (16):
+  ASoC: tegra20: ac97: Add reset control
+  ASoC: tegra20: i2s: Add reset control
+  ASoC: tegra30: i2s: Restore hardware state on runtime PM resume
+  ASoC: tegra30: ahub: Switch to use reset-bulk API
+  ASoC: tegra20: spdif: Correct driver removal order
+  ASoC: tegra20: spdif: Remove handing of disabled runtime PM
+  ASoC: tegra20: i2s: Add system level suspend-resume callbacks
+  ASoC: tegra20: i2s: Correct driver removal order
+  ASoC: tegra20: i2s: Use devm_clk_get()
+  ASoC: tegra20: i2s: Remove handing of disabled runtime PM
+  ASoC: tegra30: i2s: Correct driver removal order
+  ASoC: tegra30: i2s: Use devm_clk_get()
+  ASoC: tegra30: i2s: Remove handing of disabled runtime PM
+  ASoC: tegra30: ahub: Reset global variable
+  ASoC: tegra30: ahub: Correct suspend-resume callbacks
+  ASoC: tegra30: ahub: Remove handing of disabled runtime PM
+
+Philipp Zabel (1):
+  reset: Add reset_control_bulk API
+
+ drivers/reset/core.c            | 215 ++++++++++++++++++++++
+ include/linux/reset.h           | 315 ++++++++++++++++++++++++++++++++
+ sound/soc/tegra/tegra20_ac97.c  |  21 +++
+ sound/soc/tegra/tegra20_ac97.h  |   1 +
+ sound/soc/tegra/tegra20_i2s.c   |  60 +++---
+ sound/soc/tegra/tegra20_i2s.h   |   1 +
+ sound/soc/tegra/tegra20_spdif.c |  16 +-
+ sound/soc/tegra/tegra30_ahub.c  | 168 ++++++-----------
+ sound/soc/tegra/tegra30_ahub.h  |   5 +-
+ sound/soc/tegra/tegra30_i2s.c   |  65 ++-----
+ 10 files changed, 667 insertions(+), 200 deletions(-)
+
+-- 
+2.30.2
 

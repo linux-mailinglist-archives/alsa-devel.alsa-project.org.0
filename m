@@ -2,95 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 734C833A446
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 11:50:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14A6C33A526
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 15:06:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04191174A;
-	Sun, 14 Mar 2021 11:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04191174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77DC61756;
+	Sun, 14 Mar 2021 15:06:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77DC61756
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615719034;
-	bh=VUMtUyIaP6kdAEEO7P8iY/LQNIQ2eqweizIN/g6g05I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qZkXAhV77jwtbwLXRg7ugb8P5rUtV4QOc8H0UnyTqtJvqtccb71ES0lDMKJO1u/V5
-	 q/u3bx5r+OLi4EZEMNxapgiwzENPs9Y8vvjpfy2KbqDz+7N527dmAVAk262Vhf4Ion
-	 ScCdMhomTDWSsYS1ZvBK40/I0RR16GWjLXW8Qng8=
+	s=default; t=1615730813;
+	bh=TmIpgmQ6y4D7lL1oHcx1Qs4CzcBcehM07rHCf09scdc=;
+	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=snGS7G4r4yTEAqnFjg5arkuBQ+BPhlc7F4HUO9PWbPxraD3/omx/5U8NS99roMDbw
+	 TjgQ9AghyecKZWQicdt5ws0sV6lVXW3+vTJeY0/l8nBaUJ08hBdfEMMfsEE5GOmOor
+	 yPEn+wQZyHf/qfobTqE6efGNGavNv38eLoggX4YE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 713D6F80148;
-	Sun, 14 Mar 2021 11:49:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5238F80224;
+	Sun, 14 Mar 2021 15:05:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38AC0F80218; Sun, 14 Mar 2021 11:49:03 +0100 (CET)
+ id F0B95F80218; Sun, 14 Mar 2021 15:05:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F214CF8010D
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 11:48:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F214CF8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E8BDF8010E
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 15:05:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E8BDF8010E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="L0YG7sqg"
-Received: by mail-pj1-x102a.google.com with SMTP id
- f2-20020a17090a4a82b02900c67bf8dc69so12867877pjh.1
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 03:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=26KkwIgjg/uTfsjc8TtIq14TTjHPyD1v2KRrAGEx6No=;
- b=L0YG7sqgOD82dycT3zb43+3bV+4KcOUWGTYw3FD9lPQ7CwC30nHoczsu3LpOj1TiBu
- JRmcoezM/701NrahsQsRaqrsxuSFdrmL6Eiuk0Jqg65EHojUFsVKZymhArhYONrem+oZ
- h3vO/08P/Pxvq8PtFewkf6W6qlgUO5uOQnLFHIsCWl7KVWvm22qluaPEDOOBONK+9QWx
- Gt6Xz6fULIqu4q2F+f7tmmaerwEmAXMR/dxZXKwsdoyDgasK8RlHNTwt9yk7GV0Cebaz
- ExU74N7DH2P+La4UvXp+kPrpOVl+Nmf8AFdK7qWKZisN2ugsI8caQzaQi91K6dk2tT8F
- 1VaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=26KkwIgjg/uTfsjc8TtIq14TTjHPyD1v2KRrAGEx6No=;
- b=IjXKyT8AVX1z36aHD9GKm0v8ZI3Zq1KVnMaje7uEAL0qNi/UqZ34RERYLTJx2DAibm
- Y/dT+h8wnR/0GgjX/wTa8ltZXAEJJgjdR0VuabB2Vq9j2Eb3vRvCrMwDWYZ9jgCe5gq8
- k8g/XEIjWA6t74okhHlWX9yV9kVAtntpT25ccdqCQCYF5rTouky13n17XP0f3JCUDH+U
- BGBgAzY5RgQjaGZmA7zu2Pv8RRppmlsVvru4ejNu7CuBTva/JGx9gtRdzbpPmMRi+cUh
- B9xy7xAQHMoniUqAKm7l5uKCQ70o75UATYP/S2qCAEGt0HtdoFkvC1ctf7drd4DuNwio
- YIWg==
-X-Gm-Message-State: AOAM532jAcSA9lmANeq78iUS7IiZHJWhQAorvj76J0G4UgJn+PxgsPi9
- jYwqdRF26/ll0dheJcc+HB3cL18ssZgbISbnnb0=
-X-Google-Smtp-Source: ABdhPJwcOKC0tTgmO4LyBTenkqIATxChoULkVUiJEBgBseTebqQ9KZw1DqjyWO76dd6R1sdnM0dc3bg0FXk5EzMMC0Y=
-X-Received: by 2002:a17:902:a406:b029:e6:78c4:71c8 with SMTP id
- p6-20020a170902a406b02900e678c471c8mr6915981plq.17.1615718932920; Sun, 14 Mar
- 2021 03:48:52 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="iKsVj0lC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:Message-ID:
+ To:Subject:From:Sender:Reply-To:Cc:Content-ID:Content-Description:Resent-Date
+ :Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=MZT9Fe/ejP58gt9Ot84FvEXycetXfXBrjfpkSt8W79k=; b=i
+ KsVj0lCphM1OT639B00FLxj90XyjeO4GPnwNI7+/CJutWmCkkFv9q3YGnngQmNZXyVSaN73cJux+x
+ 6lcZsZgKppGc1ZXQcAnsj6n7gKPW2b+dvdxtG1DJUoA55xI4HdEI1eNKi5UUEEanHGqpi+/Mu8BFx
+ XS3W32ctDCt0Ib/Hb5EieGbKJsYk2NNo+I+/kkdhSCy0RP//y/iEckB9/golOOX7JPhtx9H2AQqXx
+ A5yTY6lXSEm0+MqXPjwGxx8yi0868gvSCQYRFbjEbC1ezZNxX4JVxzhUqcB/LMMCwns2rnJrE6Ds6
+ zkECmFUkems5El2k0P61ytXB1T8X1QwSQ==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>) id 1lLRMi-00A0YT-LB
+ for alsa-devel@alsa-project.org; Sun, 14 Mar 2021 15:05:08 +0100
+From: David Henningsson <coding@diwic.se>
+Subject: Midi timestamps
+To: alsa-devel@alsa-project.org
+Message-ID: <d02124d1-1af8-15e0-a7a5-af2c1732e440@diwic.se>
+Date: Sun, 14 Mar 2021 15:05:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <20210314074434.164868-1-nick.desaulniers@gmail.com>
- <20210314080613.190663-1-nick.desaulniers@gmail.com>
-In-Reply-To: <20210314080613.190663-1-nick.desaulniers@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sun, 14 Mar 2021 12:48:36 +0200
-Message-ID: <CAHp75Vdy083+5K=4sViwg8uNJ1_6agECYbjMSFEGXX9VTO85WQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: Intel: Skylake: skl-topology: fix
- -frame-larger-than
-To: Nick Desaulniers <nick.desaulniers@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: guennadi.liakhovetski@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- mateusz.gorski@linux.intel.com, Jie Yang <yang.jie@linux.intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Julia Lawall <Julia.Lawall@inria.fr>, Mark Brown <broonie@kernel.org>,
- amadeuszx.slawinski@linux.intel.com, Takashi Iwai <tiwai@suse.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Id: coding@diwic.se
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,78 +82,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Mar 14, 2021 at 10:08 AM Nick Desaulniers
-<nick.desaulniers@gmail.com> wrote:
->
-> Fixes:
-> sound/soc/intel/skylake/skl-topology.c:3613:13: warning: stack frame
-> size of 1304 bytes in function 'skl_tplg_complete'
-> [-Wframe-larger-than=]
->
-> struct snd_ctl_elem_value is 1224 bytes in my configuration.
->
-> Heap allocate it, then free it within the current frame.
->
-> Signed-off-by: Nick Desaulniers <nick.desaulniers@gmail.com>
-> ---
-> Changes V1 -> V2: rebased on mainline.
->
->  sound/soc/intel/skylake/skl-topology.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-> index b824086203b9..566d07b4b523 100644
-> --- a/sound/soc/intel/skylake/skl-topology.c
-> +++ b/sound/soc/intel/skylake/skl-topology.c
-> @@ -3613,10 +3613,15 @@ static int skl_manifest_load(struct snd_soc_component *cmpnt, int index,
->  static void skl_tplg_complete(struct snd_soc_component *component)
->  {
->         struct snd_soc_dobj *dobj;
-> -       struct snd_soc_acpi_mach *mach =
-> -               dev_get_platdata(component->card->dev);
-> +       struct snd_soc_acpi_mach *mach;
-> +       struct snd_ctl_elem_value *val;
->         int i;
->
-> +       val = kzalloc(sizeof(*val), GFP_KERNEL);
-> +       if (!val)
-> +               return;
-> +
-> +       mach = dev_get_platdata(component->card->dev);
->         list_for_each_entry(dobj, &component->dobj_list, list) {
->                 struct snd_kcontrol *kcontrol = dobj->control.kcontrol;
->                 struct soc_enum *se;
-> @@ -3632,14 +3637,13 @@ static void skl_tplg_complete(struct snd_soc_component *component)
->                 sprintf(chan_text, "c%d", mach->mach_params.dmic_num);
->
->                 for (i = 0; i < se->items; i++) {
-> -                       struct snd_ctl_elem_value val = {};
+Hi,
 
+When writing an application that records midi (and e g saves it to 
+disk), ultra-low latency isn't really needed, all we need to know is 
+exactly when the midi message came in. The application can then wake up 
+once a second or so, to write the incoming data, including an accurate 
+timestamp for every event, to disk.
 
-Shouldn't you use rather kmalloc() + memset(). Otherwise I don't see
-how possible this won't be garbage on the second iteration of the
-outer loop.
+As far as I can see, the rawmidi interface does not support such a 
+feature at all. There is a snd_rawmidi_status syscall, but its timestamp 
+field is not even filled by the kernel (!). But even if that was fixed, 
+it would not fix the problem as there could be several midi events in 
+the buffer with different timestamps.
 
-> -
->                         if (strstr(texts[i], chan_text)) {
-> -                               val.value.enumerated.item[0] = i;
-> -                               kcontrol->put(kcontrol, &val);
-> +                               val->value.enumerated.item[0] = i;
-> +                               kcontrol->put(kcontrol, val);
->                         }
->                 }
->         }
-> +       kfree(val);
->  }
->
->  static struct snd_soc_tplg_ops skl_tplg_ops  = {
->
-> base-commit: 88fe49249c99de14e543c632a46248d85411ab9e
-> --
-> 2.25.1
->
+You could use the seq interface, it does support timestamps, but I can 
+see at least two potential problems with this:
 
+First, the seq code runs in a work queue, not in the actual IRQ. This 
+means that midi event is timestamped too late, especially so if the work 
+is delayed for some reason.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Second, seq hard-codes the timestamp type to monotonic - there is no 
+monotonic_raw, so the timestamp would be affected by NTP changes.
+
+Also, the timespec uses 32-bit for sec and nsec, but I suspect this is 
+less of a problem (unless people constantly record midi for sixty years 
+or so...).
+
+It seems like it could be useful to have a rawmidi mode which 
+automatically prefixes every incoming message with a timestamp. This 
+would replace the current "raw" midi buffer with some type of header 
+"length, timestamp, data" or so. Arguably this would make the rawmidi 
+slightly less raw, but anyway. Does this make sense? Should I attempt to 
+write something? Or would it be better to try to use (and potentially 
+improve) the seq code?
+
+// David
+

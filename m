@@ -2,86 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A9133A5CE
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 16:53:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E390133A5C3
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 16:50:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B7951811;
-	Sun, 14 Mar 2021 16:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B7951811
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F1BE17BD;
+	Sun, 14 Mar 2021 16:50:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F1BE17BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615737191;
-	bh=ZfEjQD6vml11tT8+GwfnTrPvotB2NMus3N7hexGM88E=;
+	s=default; t=1615737052;
+	bh=HX3mEOg9d3uCuZEy4E/mCTiWcus4ISkCH9Sdy4A9fp4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TRcWhN7+3ttKErP39zr1TyCXFcCmRMDA1od8oROZ646QlIUyhZ8lgSNJoRmko+ggF
-	 aGez8ozyuNtPR7soEqaysw+d74PR9U07ZcTVxDQZjzyU0emq48MrAJ9WKihbEmDRQ/
-	 LRyU7LFp7xLQ4rQXusPdR4ywr76AmTgUuI0j3/mk=
+	b=FwWRqbhk3AR1Fovym49pJI53HqNjk1DtoDFwk1VQzBUkp7YmZ1sTCo7d7kRpgxPQs
+	 aUUyC9sWxHP07q7jld+SdexekdPo7DDyc5ECMSdndt7rHZQqbtfYAEyoB76URIysJC
+	 TWfwWVsfBc8dsN95uS9aTUqHQTXaLCTpujuQBSUg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C2CFF80527;
-	Sun, 14 Mar 2021 16:46:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDCFFF804FB;
+	Sun, 14 Mar 2021 16:45:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09DDEF804AE; Sun, 14 Mar 2021 16:45:54 +0100 (CET)
+ id BF872F804E0; Sun, 14 Mar 2021 16:45:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 377B7F80430
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 16:45:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 377B7F80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1381F8049C
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 16:45:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1381F8049C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bRLNLTAB"
-Received: by mail-wr1-x42a.google.com with SMTP id k8so4445373wrc.3
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 08:45:32 -0700 (PDT)
+ header.b="PqY8pspj"
+Received: by mail-wm1-x32f.google.com with SMTP id
+ t5-20020a1c77050000b029010e62cea9deso18033320wmi.0
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=QpHXgChknEzhzYi4Q8rqZSYE4y3Oym7aFx47bTQjCRA=;
- b=bRLNLTABvbDYFY599i2T//8iHkJMDYKj6tzFPHL5SRb7AcALZZ0tKjQ5HdxlWBKjWt
- SyQ8A7RJU2hkiRLLJtJhOPzsDbpsLT/2dkHYZfviDM5OBmhMUumILoFGotrAY8soWdmY
- iKzKwqaZgmgpZsx5W23qofLLZaie4fRDfIg01+S70kAdvLXNbGAfhkNN4dnyZehpkVYV
- nF8qR7+vHHQikU6mecPKMNDN5E/JQVnRhgn2B8c8Njs9BsUUJIR9PewiDzSTy3aUCMn2
- 1hmnjgAZXcjogfiAAxxCg4d3gfteOrRJuowIVdRkdmpzvi3bDsxpD9bUkaEDeAgVzEbc
- CMyg==
+ bh=JzwcPFMRL4SCj5tKsLwkCgmRXrfYV7RwVK3lOrEUoZY=;
+ b=PqY8pspjct7c05jJSezcs85mAeuYf73dp7Szi5jnqSaTZRKSiZUNhYfMKdF5y1XvR4
+ 1youylwgU7aKIKRwIaJZyVOy7D7iOhp9YJHv8G7f1MsDhqkyhoNufh2qPNYtG9W1QV/x
+ wTI6qZ8jUTyG0YGS+t2oedPd0Fw8jcBzeXi2uAzLZbFDYJsc5gROXXAv+6V0DRhTUfCc
+ DE7Xz0bv9xUfThPlljFe7FMU9HUbO8DKBaDv+7Z2B21uRMPg2oD3HM2QRUVSeGRkyWts
+ ibSxsGUX3q8o+4XtW/IikvjhDDEoOL0WHVYmTMoxIERpIs0ZPx5cRYKc6DACFm24dgs+
+ KYmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=QpHXgChknEzhzYi4Q8rqZSYE4y3Oym7aFx47bTQjCRA=;
- b=RwH0eI4ZeKdjfPB5RxLTSRwEr32cp00OsgZbhQfiFuiSwxFyYXz6LpmgPdIps7yFAm
- ZlELEcplLBO17FCckdGZM+WlqStK8WFDk2T63HMlOXxKercFPWLnOyxdIhRmuUeqONCQ
- J+vEUISne3/08L7nMrkam0CRd2LE/jFbu9j4CjaDVYb17+clOBJEDdBCKL0aDvC/FgeM
- VvOm0RvFzchmek69DBrpysHVH3Ur0S6R3IM7BUdMVi2Ukc/L8xP5g/NDfZ2DkZ0L91bT
- yEy/nxGiiqRqgjgDnULTDVaLADonIZT4/8Ilx3JZDPAvpgG+FPF+OgCtptca/F1AjZwT
- S8wA==
-X-Gm-Message-State: AOAM530Hk8EBHESyIbTdglJRvIjMz38TELWCGo3qlT7TX6C8C7L5TnUj
- 3fo9BMwbTFVZsr6yuSdnkcI=
-X-Google-Smtp-Source: ABdhPJyd0+Gt/PLPpYiHZG8ky3XiLj8yZZzNOhE6OO/1QCc4KEUkdkf0+qyy74cpcV5yufuKG140NA==
-X-Received: by 2002:a5d:4b50:: with SMTP id w16mr22810754wrs.34.1615736731999; 
- Sun, 14 Mar 2021 08:45:31 -0700 (PDT)
+ bh=JzwcPFMRL4SCj5tKsLwkCgmRXrfYV7RwVK3lOrEUoZY=;
+ b=V4gHltoGYDPziuk7dhjignMkIcRQ8iqJPWnqLr/ZDuKA2u6NvCxqP8WyRIYLUvKkm4
+ E8wkgJdvR5Ou9Adxyxy0OLJt0GnXP/lI2w46xF6o2O5HNUxukvzvC3+7ytOwOIYr9/28
+ TDt7dBhCzaSouJsAUzGhhTXVarnlNLnMxD86QaeoxdJX/NmRHbEP9HTzxbnPOV/B8O7Q
+ uCbvatcCSK53j8/x/+zUKpdEdvAdX3+QIWshDlbmZz/RPblNmtlt+G9WsBfrodPHC/vE
+ yf2jMYseNZaR4gxiSxpgxPhLVEHVglK0sVZIBfnTPfaHC0idBSrSgB0MMRxRPlPkHEqP
+ Sj/g==
+X-Gm-Message-State: AOAM533n7iYMyzfPWnSQ0X2RJcrcRPh1E3nUBN02Vc3GM/1MXnI80ll4
+ WI1+ZSX2MDa+Gvo08eQsAN8=
+X-Google-Smtp-Source: ABdhPJxAdO+J40W47Rep4O6fTXvR5JrD5THBQUw12KxSOR5d5ay1lUZWilaKKcsQK0emtmamSDHRtg==
+X-Received: by 2002:a05:600c:608:: with SMTP id
+ o8mr22841970wmm.42.1615736733234; 
+ Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
 Received: from localhost.localdomain (109-252-193-52.dynamic.spd-mgts.ru.
  [109.252.193.52])
- by smtp.gmail.com with ESMTPSA id f14sm9673507wmf.7.2021.03.14.08.45.30
+ by smtp.gmail.com with ESMTPSA id f14sm9673507wmf.7.2021.03.14.08.45.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Mar 2021 08:45:31 -0700 (PDT)
+ Sun, 14 Mar 2021 08:45:33 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Philipp Zabel <p.zabel@pengutronix.de>, Paul Fertser <fercerpav@gmail.com>
-Subject: [PATCH v5 11/17] ASoC: tegra20: i2s: Remove handing of disabled
- runtime PM
-Date: Sun, 14 Mar 2021 18:44:53 +0300
-Message-Id: <20210314154459.15375-12-digetx@gmail.com>
+Subject: [PATCH v5 12/17] ASoC: tegra30: i2s: Correct driver removal order
+Date: Sun, 14 Mar 2021 18:44:54 +0300
+Message-Id: <20210314154459.15375-13-digetx@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210314154459.15375-1-digetx@gmail.com>
 References: <20210314154459.15375-1-digetx@gmail.com>
@@ -104,61 +106,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Runtime PM is always available on Tegra since commit 40b2bb1b132a
-("ARM: tegra: enforce PM requirement"), hence there is no need to
-handle the case of a disabled RPM by Tegra drivers. Remove handing
-of a disabled runtime PM from Tegra20 I2S driver.
+Tegra30 I2S driver has a wrong driver removal order, which should be
+opposite to the registration order, but it's not. In particular the
+runtime PM is disabled in a wrong order. Fix the order.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- sound/soc/tegra/tegra20_i2s.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+ sound/soc/tegra/tegra30_i2s.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra20_i2s.c b/sound/soc/tegra/tegra20_i2s.c
-index fe569198b17a..1b27f81c10fe 100644
---- a/sound/soc/tegra/tegra20_i2s.c
-+++ b/sound/soc/tegra/tegra20_i2s.c
-@@ -401,18 +401,13 @@ static int tegra20_i2s_platform_probe(struct platform_device *pdev)
- 	i2s->playback_dma_data.maxburst = 4;
- 
- 	pm_runtime_enable(&pdev->dev);
--	if (!pm_runtime_enabled(&pdev->dev)) {
--		ret = tegra20_i2s_runtime_resume(&pdev->dev);
--		if (ret)
--			goto err_pm_disable;
--	}
- 
- 	ret = snd_soc_register_component(&pdev->dev, &tegra20_i2s_component,
- 					 &i2s->dai, 1);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Could not register DAI: %d\n", ret);
- 		ret = -ENOMEM;
--		goto err_suspend;
-+		goto err_pm_disable;
- 	}
- 
- 	ret = tegra_pcm_platform_register(&pdev->dev);
-@@ -425,9 +420,6 @@ static int tegra20_i2s_platform_probe(struct platform_device *pdev)
- 
- err_unregister_component:
- 	snd_soc_unregister_component(&pdev->dev);
--err_suspend:
--	if (!pm_runtime_status_suspended(&pdev->dev))
--		tegra20_i2s_runtime_suspend(&pdev->dev);
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
- err:
-@@ -438,10 +430,7 @@ static int tegra20_i2s_platform_remove(struct platform_device *pdev)
+diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
+index 614b67be1dd9..31e08c5c1405 100644
+--- a/sound/soc/tegra/tegra30_i2s.c
++++ b/sound/soc/tegra/tegra30_i2s.c
+@@ -544,10 +544,6 @@ static int tegra30_i2s_platform_remove(struct platform_device *pdev)
  {
+ 	struct tegra30_i2s *i2s = dev_get_drvdata(&pdev->dev);
+ 
+-	pm_runtime_disable(&pdev->dev);
+-	if (!pm_runtime_status_suspended(&pdev->dev))
+-		tegra30_i2s_runtime_suspend(&pdev->dev);
+-
  	tegra_pcm_platform_unregister(&pdev->dev);
  	snd_soc_unregister_component(&pdev->dev);
--
- 	pm_runtime_disable(&pdev->dev);
--	if (!pm_runtime_status_suspended(&pdev->dev))
--		tegra20_i2s_runtime_suspend(&pdev->dev);
+ 
+@@ -557,6 +553,10 @@ static int tegra30_i2s_platform_remove(struct platform_device *pdev)
+ 	tegra30_ahub_unset_rx_cif_source(i2s->playback_i2s_cif);
+ 	tegra30_ahub_free_tx_fifo(i2s->playback_fifo_cif);
+ 
++	pm_runtime_disable(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		tegra30_i2s_runtime_suspend(&pdev->dev);
++
+ 	clk_put(i2s->clk_i2s);
  
  	return 0;
- }
 -- 
 2.30.2
 

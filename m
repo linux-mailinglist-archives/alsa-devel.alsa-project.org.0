@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8084433A425
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 11:20:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734C833A446
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Mar 2021 11:50:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3AC91734;
-	Sun, 14 Mar 2021 11:19:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3AC91734
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04191174A;
+	Sun, 14 Mar 2021 11:49:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04191174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615717237;
-	bh=Z7mAbizrUoQdevfwkeTfFVXItQdkOIHI6niteURpDMw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1615719034;
+	bh=VUMtUyIaP6kdAEEO7P8iY/LQNIQ2eqweizIN/g6g05I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sahj8yN1n7d2RYw1xRLTqDevpwnHh8PNa1LPKrSW+XanVsb99g3kHqbYnHIvfxzU1
-	 rif1IsNXaoyXTNiEzOqJJaRG3+qVoxVSDDoJXTwxn4Poqkx95lVg8M6ra/bwIv3Ojo
-	 xJsn1JMfi+xpL5YctoYhs1M2JI7Qb0uC24GYz36s=
+	b=qZkXAhV77jwtbwLXRg7ugb8P5rUtV4QOc8H0UnyTqtJvqtccb71ES0lDMKJO1u/V5
+	 q/u3bx5r+OLi4EZEMNxapgiwzENPs9Y8vvjpfy2KbqDz+7N527dmAVAk262Vhf4Ion
+	 ScCdMhomTDWSsYS1ZvBK40/I0RR16GWjLXW8Qng8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44796F8010E;
-	Sun, 14 Mar 2021 11:19:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 713D6F80148;
+	Sun, 14 Mar 2021 11:49:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E2B4F80218; Sun, 14 Mar 2021 11:19:05 +0100 (CET)
+ id 38AC0F80218; Sun, 14 Mar 2021 11:49:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB840F8010D
- for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 11:18:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB840F8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F214CF8010D
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 11:48:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F214CF8010D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="HOmxilYK"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12EAIqRf000371; Sun, 14 Mar 2021 05:18:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=UyEKzuzXX6Bk054SMR2fNK/9VqqSA0lao6vxZ6vCYfU=;
- b=HOmxilYKKnz5YElDny6N5x27VXkSYKzOSoyMYCwGrIoOc3IMfidZPmndZEoe/2jvntF5
- sOshVujfRt4fkLzRJKz1eBqn1eUWfpwLvE88TtmHFX1qVTBidBPnl4CL5Tv9qbmUkQmD
- GmKr5ReOcIVkmlLyfh+FkgIbs+nX/nm9Z2ZB1lx9irMsT1aq23dcyRc3BvR6pQLQofsC
- 4ss2wLcDNd69Qgca1NtGD9xU1kWWTomP85LBupC48bvLcVc2F/HYFcKIyI0GBmugAbuy
- 1J5KvigLfHr6w8ZpAuoAkhexU6b7G5UzwrOnrDD3uID422etgKCB9YfcYoHVgiB7dNNU 0A== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 378tpv161p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Sun, 14 Mar 2021 05:18:52 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Sun, 14 Mar
- 2021 10:18:51 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Sun, 14 Mar 2021 10:18:51 +0000
-Received: from [198.90.238.45] (unknown [198.90.238.45])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1BA1711CB;
- Sun, 14 Mar 2021 10:18:51 +0000 (UTC)
-Subject: Re: [PATCH v1 0/4] ALSA: hda/cirrus: Make CS8409 driver more generic
- by using fixups
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210313113410.90088-1-vitalyr@opensource.cirrus.com>
- <s5h1rcirv2a.wl-tiwai@suse.de>
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Message-ID: <0e3a2304-7945-0d80-91cc-b6b551f7c3f4@opensource.cirrus.com>
-Date: Sun, 14 Mar 2021 10:18:49 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="L0YG7sqg"
+Received: by mail-pj1-x102a.google.com with SMTP id
+ f2-20020a17090a4a82b02900c67bf8dc69so12867877pjh.1
+ for <alsa-devel@alsa-project.org>; Sun, 14 Mar 2021 03:48:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=26KkwIgjg/uTfsjc8TtIq14TTjHPyD1v2KRrAGEx6No=;
+ b=L0YG7sqgOD82dycT3zb43+3bV+4KcOUWGTYw3FD9lPQ7CwC30nHoczsu3LpOj1TiBu
+ JRmcoezM/701NrahsQsRaqrsxuSFdrmL6Eiuk0Jqg65EHojUFsVKZymhArhYONrem+oZ
+ h3vO/08P/Pxvq8PtFewkf6W6qlgUO5uOQnLFHIsCWl7KVWvm22qluaPEDOOBONK+9QWx
+ Gt6Xz6fULIqu4q2F+f7tmmaerwEmAXMR/dxZXKwsdoyDgasK8RlHNTwt9yk7GV0Cebaz
+ ExU74N7DH2P+La4UvXp+kPrpOVl+Nmf8AFdK7qWKZisN2ugsI8caQzaQi91K6dk2tT8F
+ 1VaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=26KkwIgjg/uTfsjc8TtIq14TTjHPyD1v2KRrAGEx6No=;
+ b=IjXKyT8AVX1z36aHD9GKm0v8ZI3Zq1KVnMaje7uEAL0qNi/UqZ34RERYLTJx2DAibm
+ Y/dT+h8wnR/0GgjX/wTa8ltZXAEJJgjdR0VuabB2Vq9j2Eb3vRvCrMwDWYZ9jgCe5gq8
+ k8g/XEIjWA6t74okhHlWX9yV9kVAtntpT25ccdqCQCYF5rTouky13n17XP0f3JCUDH+U
+ BGBgAzY5RgQjaGZmA7zu2Pv8RRppmlsVvru4ejNu7CuBTva/JGx9gtRdzbpPmMRi+cUh
+ B9xy7xAQHMoniUqAKm7l5uKCQ70o75UATYP/S2qCAEGt0HtdoFkvC1ctf7drd4DuNwio
+ YIWg==
+X-Gm-Message-State: AOAM532jAcSA9lmANeq78iUS7IiZHJWhQAorvj76J0G4UgJn+PxgsPi9
+ jYwqdRF26/ll0dheJcc+HB3cL18ssZgbISbnnb0=
+X-Google-Smtp-Source: ABdhPJwcOKC0tTgmO4LyBTenkqIATxChoULkVUiJEBgBseTebqQ9KZw1DqjyWO76dd6R1sdnM0dc3bg0FXk5EzMMC0Y=
+X-Received: by 2002:a17:902:a406:b029:e6:78c4:71c8 with SMTP id
+ p6-20020a170902a406b02900e678c471c8mr6915981plq.17.1615718932920; Sun, 14 Mar
+ 2021 03:48:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5h1rcirv2a.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
- malwarescore=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 mlxscore=0
- bulkscore=0 phishscore=0 mlxlogscore=555 lowpriorityscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2103140076
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+References: <20210314074434.164868-1-nick.desaulniers@gmail.com>
+ <20210314080613.190663-1-nick.desaulniers@gmail.com>
+In-Reply-To: <20210314080613.190663-1-nick.desaulniers@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sun, 14 Mar 2021 12:48:36 +0200
+Message-ID: <CAHp75Vdy083+5K=4sViwg8uNJ1_6agECYbjMSFEGXX9VTO85WQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: Intel: Skylake: skl-topology: fix
+ -frame-larger-than
+To: Nick Desaulniers <nick.desaulniers@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: guennadi.liakhovetski@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ mateusz.gorski@linux.intel.com, Jie Yang <yang.jie@linux.intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>, Mark Brown <broonie@kernel.org>,
+ amadeuszx.slawinski@linux.intel.com, Takashi Iwai <tiwai@suse.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,35 +106,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14/03/2021 8:36 am, Takashi Iwai wrote:
-> On Sat, 13 Mar 2021 12:34:06 +0100,
-> Vitaly Rodionov wrote:
->> This series of patches will address comments by Pierre-Louis Bossart,
->> cleans up patch_cirrus.c source, reducing checkpatch.pl warnings from 19 to 0,
->> fixing an issue reported by Canonical: BugLink: https://bugs.launchpad.net/bugs/1918378,
->> and makes the CS8409 patch more generic by using fixups.
->>
->> Stefan Binding (4):
->>    ALSA: hda/cirrus: Add error handling into CS8409 I2C functions
->>    ALSA: hda/cirrus: Cleanup patch_cirrus.c code.
->>    ALSA: hda/cirrus: Fix CS42L42 Headset Mic volume control name
->>    ALSA: hda/cirrus: Make CS8409 driver more generic by using fixups.
-> Is this the same content as the series you've already submitted in
-> 20210312184452.3288-1-vitalyr@opensource.cirrus.com ?
-
-Hi Takashi,
-
-Yes, this is second version of same series, where we have fixed warnings 
-from 0-day bot.
-
-Thanks,
-
-Vitaly
-
+On Sun, Mar 14, 2021 at 10:08 AM Nick Desaulniers
+<nick.desaulniers@gmail.com> wrote:
 >
+> Fixes:
+> sound/soc/intel/skylake/skl-topology.c:3613:13: warning: stack frame
+> size of 1304 bytes in function 'skl_tplg_complete'
+> [-Wframe-larger-than=]
 >
-> thanks,
+> struct snd_ctl_elem_value is 1224 bytes in my configuration.
 >
-> Takashi
+> Heap allocate it, then free it within the current frame.
+>
+> Signed-off-by: Nick Desaulniers <nick.desaulniers@gmail.com>
+> ---
+> Changes V1 -> V2: rebased on mainline.
+>
+>  sound/soc/intel/skylake/skl-topology.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
+> index b824086203b9..566d07b4b523 100644
+> --- a/sound/soc/intel/skylake/skl-topology.c
+> +++ b/sound/soc/intel/skylake/skl-topology.c
+> @@ -3613,10 +3613,15 @@ static int skl_manifest_load(struct snd_soc_component *cmpnt, int index,
+>  static void skl_tplg_complete(struct snd_soc_component *component)
+>  {
+>         struct snd_soc_dobj *dobj;
+> -       struct snd_soc_acpi_mach *mach =
+> -               dev_get_platdata(component->card->dev);
+> +       struct snd_soc_acpi_mach *mach;
+> +       struct snd_ctl_elem_value *val;
+>         int i;
+>
+> +       val = kzalloc(sizeof(*val), GFP_KERNEL);
+> +       if (!val)
+> +               return;
+> +
+> +       mach = dev_get_platdata(component->card->dev);
+>         list_for_each_entry(dobj, &component->dobj_list, list) {
+>                 struct snd_kcontrol *kcontrol = dobj->control.kcontrol;
+>                 struct soc_enum *se;
+> @@ -3632,14 +3637,13 @@ static void skl_tplg_complete(struct snd_soc_component *component)
+>                 sprintf(chan_text, "c%d", mach->mach_params.dmic_num);
+>
+>                 for (i = 0; i < se->items; i++) {
+> -                       struct snd_ctl_elem_value val = {};
 
 
+Shouldn't you use rather kmalloc() + memset(). Otherwise I don't see
+how possible this won't be garbage on the second iteration of the
+outer loop.
+
+> -
+>                         if (strstr(texts[i], chan_text)) {
+> -                               val.value.enumerated.item[0] = i;
+> -                               kcontrol->put(kcontrol, &val);
+> +                               val->value.enumerated.item[0] = i;
+> +                               kcontrol->put(kcontrol, val);
+>                         }
+>                 }
+>         }
+> +       kfree(val);
+>  }
+>
+>  static struct snd_soc_tplg_ops skl_tplg_ops  = {
+>
+> base-commit: 88fe49249c99de14e543c632a46248d85411ab9e
+> --
+> 2.25.1
+>
+
+
+-- 
+With Best Regards,
+Andy Shevchenko

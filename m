@@ -2,87 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3C033C3DD
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 18:15:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE3833C4BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 18:47:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FBB118A9;
-	Mon, 15 Mar 2021 18:14:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FBB118A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 525B518C6;
+	Mon, 15 Mar 2021 18:47:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 525B518C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615828503;
-	bh=OlSlJ9S0VcyoB34Y2oCOcCZJE4O5HcSmYycktlptuLI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1615830473;
+	bh=J26lkwysKMOUxZoHy7/kDFMsd2heLJablpRJYGBxM14=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BGy7wh1EN01Ofy/Uy18qfPJBQzwOilzRpQq7adrDnOzVsZqZbeZquuwEak1ePmPWb
-	 38aB8/88eyk+dxsgsmaEj3evt4eRV2Kg01zjDHSZb0HslLp0AJ4e89wdg42x/+SIFL
-	 zny5Ds7iQ2eedKcJy6reoARLdTnDDUkT051Pkep0=
+	b=bgC70FHYNwlBAA6QUCwANjM+ISleheU+Gnurq0KCSY7jEiXtaw1g+DZKr5H1GzaMk
+	 QMlMB500gFS+HCQPxnwBfIEd2djKmqrAzbj9tbgJAfGsg0G83kP/9FBk1/KCvMhVYo
+	 js/TM2Y1g3YQigXXiT+sR0V0HBeF6Yc7MNTS+JYE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC7CFF801F7;
-	Mon, 15 Mar 2021 18:13:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFC82F801F7;
+	Mon, 15 Mar 2021 18:46:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B71AF80171; Mon, 15 Mar 2021 18:13:31 +0100 (CET)
+ id D3603F80171; Mon, 15 Mar 2021 18:46:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A28EFF8010E
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 18:13:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A28EFF8010E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
- header.b="FDedj9di"
-Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ssl.serverraum.org (Postfix) with ESMTPSA id 343E022234;
- Mon, 15 Mar 2021 18:13:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2016061301; t=1615828400;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WvXuiNr6/ZH9LeLj3FbJ4cXG+gnUdCJXUawyo6mrnF8=;
- b=FDedj9diIvD/llhNi5mdiIowvQEiqOlJyODlAvBfiNTOJY4AtjHMVm5PejQE7LXWxdaQ1w
- +qgXPv1Yllm/Mktd2tWNeVVy42rVvx8kreG52pzZq4uWZZ4u+bY2ol8GegZmiE28BlTzMd
- PWmUz3fRLEO4VhGrks7HEgmxtsyOnoU=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CEDAF8010E
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 18:46:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CEDAF8010E
+IronPort-SDR: tZI8Z7DEV+HCuOtL4ceI/2WO+HG8SrVwpZ3V/gAB3RpJ7yPKe/s58OK1VGO6OYmHQoCcTtruW8
+ dBpmPFhY9fZQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="168404154"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="168404154"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 10:46:00 -0700
+IronPort-SDR: v8t5y50ubkXves4zafwbQVR32hXp6Mt5VX4zMLdh7feUVv5AskleWaXsAgrqYunr/+jqDs14wF
+ zEIeZvVMn3Bg==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="438962876"
+Received: from pwells-mobl2.amr.corp.intel.com (HELO [10.212.5.38])
+ ([10.212.5.38])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 10:45:59 -0700
+Subject: Re: [PATCH v4 0/5] soundwire: add static port map support
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org, 
+ vkoul@kernel.org
+References: <20210315165650.13392-1-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c7bbbcb3-cc82-9422-9736-7d5393970fb3@linux.intel.com>
+Date: Mon, 15 Mar 2021 12:10:46 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+In-Reply-To: <20210315165650.13392-1-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Date: Mon, 15 Mar 2021 18:13:20 +0100
-From: Michael Walle <michael@walle.cc>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH 1/3] ASoC: simple-card-utils: Fix device module clock
-In-Reply-To: <3b3c5aea-60bc-d7bd-9ae6-5e890782b2e8@nvidia.com>
-References: <ca540fb6-2ea7-90b0-66ad-097e99b6e585@nvidia.com>
- <20210311161558.GG4962@sirena.org.uk>
- <f21b87f1afb3eda54b5f00f2d1c146d3@walle.cc>
- <20210312113544.GB5348@sirena.org.uk>
- <6ed28bb5330879b1919aced5174f319f@walle.cc>
- <20210312120456.GD5348@sirena.org.uk>
- <684332700f8be9f77348a510eb6eba22@walle.cc>
- <20210312134642.GF5348@sirena.org.uk>
- <8cdf1cfa971945792b509a687a4de735@walle.cc>
- <6af6439c-bdb8-cd0f-635d-069040ba5b65@nvidia.com>
- <20210315153925.GC4595@sirena.org.uk>
- <3b3c5aea-60bc-d7bd-9ae6-5e890782b2e8@nvidia.com>
-User-Agent: Roundcube Webmail/1.4.11
-Message-ID: <67ca8858be63a07e3549f73afcc08437@walle.cc>
-X-Sender: michael@walle.cc
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, robh@kernel.org,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
- Mark Brown <broonie@kernel.org>, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,19 +82,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Am 2021-03-15 18:10, schrieb Sameer Pujar:
->>> Yes this is a problem, unfortunately I missed checking some of the
->>> simple-card examples. I wonder we should be specifically looking for 
->>> "mclk"
->>> clock here.
->> That would definitely help mitigate the problem but I really think 
->> it's
->> cleaner and safer to just push this down to set_sysclk().
+
+
+On 3/15/21 11:56 AM, Srinivas Kandagatla wrote:
+> In some cases, SoundWire device ports are statically mapped to Controller
+> ports during design, however there is no way to expose this information
+> to the controller. Controllers like Qualcomm ones use this info to setup
+> static bandwidth parameters for those ports.
 > 
-> Understand now. I will push patches based on this. Thanks for the 
-> details.
+> A generic port allocation is not possible in this cases!
+> This patch adds a new member m_port_map to SoundWire device so that
+> it can populate the static master port map and share it with controller
+> to be able to setup correct bandwidth parameters.
+> 
+> As a user of this feature this patchset also adds new bindings for
+> wsa881x smart speaker which has 4 ports which are statically mapped
+> to the 3 output and 1 input port of the controller.
+> 
+> Tested it on DB845c and SM8250 MTP.
+> 
+> thanks,
+> srini
 
-Please keep me on CC, I'm not subscribed to the sound/alsa mailinglist.
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Thanks,
--michael
+> Changes since v3:
+> 	- updated kernel doc for more clarity on m_port_map
+> 
+> Srinivas Kandagatla (5):
+>    soundwire: add static port mapping support
+>    soundwire: qcom: update port map allocation bit mask
+>    soundwire: qcom: add static port map support
+>    ASoC: dt-bindings: wsa881x: add bindings for port mapping
+>    ASoC: codecs: wsa881x: add static port map support
+> 
+>   .../bindings/sound/qcom,wsa881x.yaml          |  9 ++++++
+>   drivers/soundwire/qcom.c                      | 31 +++++++++++++++----
+>   include/linux/soundwire/sdw.h                 |  2 ++
+>   sound/soc/codecs/wsa881x.c                    |  7 +++++
+>   4 files changed, 43 insertions(+), 6 deletions(-)
+> 

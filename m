@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DEFE33A92F
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:00:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B88B33A92C
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 01:59:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F37A1768;
-	Mon, 15 Mar 2021 01:59:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F37A1768
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0112175F;
+	Mon, 15 Mar 2021 01:58:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0112175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615770040;
-	bh=9w+ENYT0BNTWKjUL9og+YjHREY1UtnbZ8aeMiJD2v+w=;
+	s=default; t=1615769990;
+	bh=C/YfEKFS9Jzrv36//p2zB3Wc4iC27VJxb0/7P0HAtPU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n6fBQJnnC3w3vAdP/RxS3QvJlAVt/JfcCsp62jJrZIKFE01Lkdu+qFV8CYFX+BkuP
-	 ZgOuDvAhe4hue2HBO6Rdjr44OgzMWS8iWuIVpImO2egiiNC0m811NGapeflK85enbm
-	 Gq6yZuII+XZf7BDhn3wLlHiF5SpHzrhF1884psMA=
+	b=g9MDVM0xngaWd1QWhIGbgaAATfdcryU3QnGyTpPFsl2z4+z/W5zWAIwgMJdSyHHih
+	 sQJA96gfL7KyYifKQrdBbds372JtjhOavRbOk4iFCucym9nb9CgTreytPnXo2Z2MPL
+	 ZGtKnY0lv8XrEh0f7Wnta8+ef/sGcTLU+t5Yl7go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81ACCF804AA;
-	Mon, 15 Mar 2021 01:58:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D76B4F8032B;
+	Mon, 15 Mar 2021 01:57:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA452F8032D; Mon, 15 Mar 2021 01:57:58 +0100 (CET)
+ id 3DA08F8032C; Mon, 15 Mar 2021 01:57:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2EF80F80148
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:57:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EF80F80148
-Date: 15 Mar 2021 09:57:42 +0900
-X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="74917919"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 09EA6F8023B
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:57:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09EA6F8023B
+Date: 15 Mar 2021 09:57:48 +0900
+X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146084"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 15 Mar 2021 09:57:42 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:57:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8545341467CF;
- Mon, 15 Mar 2021 09:57:42 +0900 (JST)
-Message-ID: <87pn01utbt.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7AF4D41467CF;
+ Mon, 15 Mar 2021 09:57:48 +0900 (JST)
+Message-ID: <87o8flutbn.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/14] ASoC: soc-pcm: indicate error message at
- soc_pcm_hw_params()
+Subject: [PATCH 03/14] ASoC: soc-pcm: indicate error message at
+ soc_pcm_prepare()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87sg4xutcl.wl-kuninori.morimoto.gx@renesas.com>
@@ -111,9 +111,9 @@ detail information without forgot.
 		...
 	}
 
-This patch follow above style at soc_pcm_hw_params().
+This patch follow above style at soc_pcm_prepare().
 
-By this patch, dpcm_fe/be_dai_hw_params(...)
+By this patch, dpcm_fe/be_dai_prepare(...)
 temporary lacks FE/BE error info, but it will reborn soon.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
@@ -122,47 +122,46 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ad4b67bd0306..a956d1852ade 100644
+index a956d1852ade..82daf79f5b3f 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1001,8 +1001,10 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -852,6 +852,10 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
+ 
  out:
  	mutex_unlock(&rtd->card->pcm_mutex);
- 
--	if (ret < 0)
-+	if (ret < 0) {
- 		soc_pcm_hw_clean(substream, 1);
++
++	if (ret < 0)
 +		dev_err(rtd->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
-+	}
- 
++
  	return ret;
  }
-@@ -1905,11 +1907,8 @@ int dpcm_be_dai_hw_params(struct snd_soc_pcm_runtime *fe, int stream)
+ 
+@@ -2234,11 +2238,8 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream)
  			be->dai_link->name);
  
- 		ret = soc_pcm_hw_params(be_substream, &dpcm->hw_params);
+ 		ret = soc_pcm_prepare(be_substream);
 -		if (ret < 0) {
--			dev_err(dpcm->be->dev,
--				"ASoC: hw_params BE failed %d\n", ret);
+-			dev_err(be->dev, "ASoC: backend prepare failed %d\n",
+-				ret);
 +		if (ret < 0)
- 			goto unwind;
+ 			break;
 -		}
  
- 		be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_PARAMS;
+ 		be->dpcm[stream].state = SND_SOC_DPCM_STATE_PREPARE;
  	}
-@@ -1964,10 +1963,9 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+@@ -2270,11 +2271,8 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
  
- 	/* call hw_params on the frontend */
- 	ret = soc_pcm_hw_params(substream, params);
+ 	/* call prepare on the frontend */
+ 	ret = soc_pcm_prepare(substream);
 -	if (ret < 0) {
--		dev_err(fe->dev,"ASoC: hw_params FE failed %d\n", ret);
+-		dev_err(fe->dev,"ASoC: prepare FE %s failed\n",
+-			fe->dai_link->name);
 +	if (ret < 0)
- 		dpcm_be_dai_hw_free(fe, stream);
--	 } else
-+	else
- 		fe->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_PARAMS;
+ 		goto out;
+-	}
  
- out:
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_PREPARE;
+ 
 -- 
 2.25.1
 

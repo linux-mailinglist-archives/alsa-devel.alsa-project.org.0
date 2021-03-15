@@ -2,145 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E1D33BE5D
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 15:51:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BF1733BF99
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 16:21:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 885B81718;
-	Mon, 15 Mar 2021 15:51:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 885B81718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FB0E1716;
+	Mon, 15 Mar 2021 16:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FB0E1716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615819911;
-	bh=QgUUheSZdHwEgqSqxzge+UGoDVlQwCvrm2kNgUV6tmk=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615821663;
+	bh=XmB77LpK7zmAVhjXu2PxkxmkS8+mO2xCbDIHa901I0o=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SmrqQwEe/QM5saNETWAMgUUTD7Wa4q5L9KpcxJbQbkgyJPRDsXCP1xLw+n6GfqPNO
-	 v3QT7o78Gd7wr0ABt3sfnV5txNP+CewssIC+cNk0C41XD1nH8kgqV/xLDEjDUAVtSl
-	 sdraOmhgxfpAqJ/ZnhC7IhE8Rk7VVT0RoQkINxkA=
+	b=Rz21yqbzGi2HEtI7R5e7l1v5KTq/+5qx2GEQLqgNLnkzs0q39flAsxRgDaykp2Z57
+	 c2ucjQAcxECrAJRzoPOr47gIYlkwK+qVdTBbEKiw8YOsa2J61qI+HzeTlRSX7mBvEZ
+	 aMXi65PHlk7nvAaNr6jaCZEF0KjXJGLa9i07vtvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1B85F80163;
-	Mon, 15 Mar 2021 15:50:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58F95F801F7;
+	Mon, 15 Mar 2021 16:19:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93824F80171; Mon, 15 Mar 2021 15:50:19 +0100 (CET)
+ id 9A931F80171; Mon, 15 Mar 2021 16:19:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr30057.outbound.protection.outlook.com [40.107.3.57])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC471F8013F
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 15:50:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC471F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B951F8010E
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 16:19:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B951F8010E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="TrIBgFeh"
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="NZ4/4Sy1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UqYMD0UWStyVTUNyEkOep25RKdSFBkvw3BHqJAEC21nk9dBpw6z4HtxjPZgDwr1AigtUMMrm8ATnj6k9mwl9okm30kC/nSi1vGkiT+4er23PX+VqQBz6CeFfHOGrKbwNPrVtDrc8iu0+qAGPbM1ooVh1lb0Xqgc3EIE+S3+4Q2e9lNHKHXNlxB1Fw2iIihNBgDlfcWHd8skJ1scKqF566AItVz6EWEyVBwkZyijtUMPPmkLUfCSsCGhjGGTVXCTX8QrdBc02nqfhFrUTjjp7ORvvr6crTN+Grnuq1V2VUoVr8es7immIKMINYMy2hnuIPZXS1oJ7x0Ix5ICGPwaMDg==
+ b=OIX98QNznGDBFeyDIOZ6OSmH639k9ov9IEdmr0/RzwehZvIzAdc3iSoJGgH+sQDtlev2OBSkbxrVZPldFnJ459ddjOHpgbdO9i3w7nQpVfhF9tRwDOaPg2PKreJDVBa3NBaYyJoowMdPsTiPMSaMgQxQV6AKXREMTUJ3KItnD5+FqVNGMCDCp13tHLASAjzG+9RKP+Vgal3lCPbbor5dI/qQV05N2S8vjMlFmI8MLwP/U6jYFVROu47Q2nawyIK8iWiTFGjm6zoCjukhoxCt3U+2J4wAuNWxzpAYpbCbhODVO+biW4c3HxotrNU7WR8/izFjBqK30zzHOiA1SxssLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4LxWfM4ys+mNnc6+yuV7nNJz02u2FR6UCdPWL/+jRIY=;
- b=GlWl29dO/rdX3cOpdFi9bIF0s1B3i4i0tCyynSqVpBXDR1faYc/Qo1QKBOyhSh7/lubDJdrlBodCtPBj6nwhzVyGMNw/eLS9rvQI5vtvELLVajTuNmEM9Ld4Uj3Dn6j2EhAGveSyJWtTsjYgqE0F+ihiTebpecFlmiHH2Q/GrlcXRcAK0xnVU7iNYG41EtclZ7LBE8llGDO8RDER12ErtH4o5xxQhEXHdyH76sUR71yOva7pfiNVd3g9MoDUpb3F2jrrrJH5NZJfnazo7wU1Tw8cQ0jOlx9zv6lGipDSiA1XhvBntCAHzUQzGOyu8LB/8NgbktB/ilNV/9veWUR25g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
+ bh=O9kPa4isiLSB8miGBdzM14MwF6nzrdx9VRpECM+kxaQ=;
+ b=UA/thBjP+QmXh0z7h/X46Q694DAzUdD1jDy5e8hl6cQ9RhaOa0i4ocg/ZqHhNUZE8/rGnizvuq0pPIKjPBgW0U9ELGc3cSi5runCJcitQDpeWkJbe6eIxJCXryZedVcWvgnpwtGasDoHuGWVRZn0Zmt/efgn+pmFAX9mH35ovY7CFuKGuN6XWEgSRNECx78BVUhvrGh4KEWs0sy6EIb8lY1tN0wKZF3HzGMl0d8CO5X9KMF04pZtBOw9c7+Ql0RoRpYoinQOmPGIe6pwox2uL1KOplZJV0zNLirq6aKRi3lmHfZ2Vfdz8Uwj7PMmks12AeaIwbV7rjJjfbh/XI8oKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.34) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4LxWfM4ys+mNnc6+yuV7nNJz02u2FR6UCdPWL/+jRIY=;
- b=TrIBgFehZGIA9jDLyH0uZn/agAg73yreXX1ghkAaFLPeAsH46NxMgtx1KwEA1SAN9X26ovOkHSuxt7lyIpp9nG/NRqKHUNuSF5AuWMfVngQNMWJNDS6z5UF0R6dThxdoL7R1sBVJYx4xZ45r3Kc4JrCbVbApCdMlvJN5GaR0cDI=
-Received: from PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:ac::5)
- by PA4PR10MB4527.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:10f::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=O9kPa4isiLSB8miGBdzM14MwF6nzrdx9VRpECM+kxaQ=;
+ b=NZ4/4Sy1QdUJYon0LM3034oA+PD6MGXDti9gx0AkzkuKyb2thZ5qxa0XiTplo/zoOzYaEKNiIRFumQeQVDR3p5vIJhVvezjzmwYx8s6pGcKwVaso63C6HS61xzzaLqWi03hbIqMxeJoELbG0KnSjks8K8akeBCXMTYeiq5N6hQWnbdZtAvi0nh8dqKwfFQ0GtBKkJ5odUPo1UydY0/WjNUMqy/X56nOQtkAV1JsApeMgj9V1M8b9cjGtPVBqFiM7xhUh+k0++/3mIxwpaOqyezNaupRhRmPmyU6PU5qS8RUvgM+SWL/NjMwu6jAQcO/kdvwdFCVlRrsNfs1gexzdhQ==
+Received: from MW4PR04CA0098.namprd04.prod.outlook.com (2603:10b6:303:83::13)
+ by BN8PR12MB4771.namprd12.prod.outlook.com (2603:10b6:408:a5::23)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Mon, 15 Mar
- 2021 14:50:03 +0000
-Received: from PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7040:2788:a951:5f6]) by PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7040:2788:a951:5f6%6]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
- 14:50:03 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 07/23] ASoC: da7219-aad: remove useless initialization
-Thread-Topic: [PATCH 07/23] ASoC: da7219-aad: remove useless initialization
-Thread-Index: AQHXF2zJR4bcoxBZ90eRUUBlgkvUT6qFJVOQ
-Date: Mon, 15 Mar 2021 14:50:03 +0000
-Message-ID: <PR3PR10MB414250D4E3CD8419B40A00B7806C9@PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM>
-References: <20210312182246.5153-1-pierre-louis.bossart@linux.intel.com>
- <20210312182246.5153-8-pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20210312182246.5153-8-pierre-louis.bossart@linux.intel.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none
- header.from=diasemi.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [147.161.166.124]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1d6b4b03-25d4-4a0a-b96c-08d8e7c19dc7
-x-ms-traffictypediagnostic: PA4PR10MB4527:
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <PA4PR10MB45276E791830773A935CE419A76C9@PA4PR10MB4527.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:326;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: oqRmmoKwo+y+p21NDGvLpWuIq/3pc9jGe4DvAunaniODdB7S76on5pg7Vn1MyqwDUeZUqD6u0duHVsViw/LXVyb8Z14UnLg4h5EYk2hK913iwUUf4bWaIAjD0Kuzf5fFRe0od7iKYVJQLYVxCbcvrk7XP9fwfBlvqhZS0mKuE94EORJPapwzmEBiCZPtH6TIHAKpjn9EasBJRy1vHO3maUj2q4/RDO1xVEuroYvrsif2euDVyG7vi8H9MQY7KhqQntwZPntYnR27qguvVxuODkSqFoZdD3jLDNSdIFjUBIhA0zfOQIN1nh/rnR7eyNlG7quxfBHC/Dt/wkdsv3WUKAfGLU4lMYjQe1ykSwUspwvFl3VOZQmejOhVsblhOCq2znlUFwrDIvT2gppwrCTJJbsFCCXBXXW9U2zUm7O9GQUfRaJRzWiEAfhDBvevgBPmsdYddOTTp3eSkf+gIwAlLmz5BwXZCjoVpRRHYuBpVwB8gNrBwKtJsrLMotVSlSXXZyqdRmsQ5nkoHVz1la7GhStMwGLolFX8ogykflxxcmo5cMf7mzlhuWgEtTRAuqJ1
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(366004)(346002)(376002)(396003)(316002)(71200400001)(478600001)(110136005)(558084003)(6506007)(7696005)(26005)(86362001)(8676002)(66476007)(54906003)(9686003)(8936002)(186003)(33656002)(4326008)(66946007)(5660300002)(53546011)(66446008)(52536014)(76116006)(64756008)(83380400001)(2906002)(55016002)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?gCwry12/4xujRzhmg7eeqD2qTWCIFG3lyWR+MAQZ5V95kDE2mgkpfV10C6l4?=
- =?us-ascii?Q?o7IETNNGmOjn6RnRZ6B0PqwLa+JUtpM4yDDRj+gGqboFORBpvcgtaxavWM6m?=
- =?us-ascii?Q?vh/9ecdhAe+fQsMX6XY3GUuBA/GacYtKxCG7gbEX34dDo8jHWcFkTX7Fth4J?=
- =?us-ascii?Q?hlTseVtzRyW4x5C7idpqrmcQ4QoCX6dJeogtqUWN8Zp/6Bd4+AFHPOhGi3wD?=
- =?us-ascii?Q?0qXqHkmZPF282D/64b6hmvfg28aG4TBXwxlxd3XF4t0CADvugHNHHGvTr5Hr?=
- =?us-ascii?Q?NkJExfioXBvNc1lPmrUzlFf8cbq6tLEqjSRZ2RiQ0xugATKhcnMXIy320W8o?=
- =?us-ascii?Q?OuDk4sP2dSvlqia4qJ2FaiHJ/bYXtq1Z4rQ1P3/wA/AxFSbu/D4vHHWAx4pa?=
- =?us-ascii?Q?p9aVCLltJLYW9idj8eT0bH6DpSzKQagZs0Bn3c0rO2DBipkhiZrlPnZdvSuN?=
- =?us-ascii?Q?NgX95v3NV1LobXzhWRxrHP0kYmMA76JuUl347+aGpoHnzCcwcyvwsIbEjIDo?=
- =?us-ascii?Q?/S3V3tkBI/RcbZICATE3vnznJXC6LL37Iqu0Yu3E1/vl1kWEzap9QUt2x+y7?=
- =?us-ascii?Q?zk/V0m4WoS/E4WKcrXh+jtCUUfPQ8EgOueLB0zV90ytU4CfFveOGj7G4Hl1l?=
- =?us-ascii?Q?ySpT8sFWocZWw7FPG0uFEurA+xFKmrbeHKlocXIft+5ax1fdQ0BB1xYbh0SZ?=
- =?us-ascii?Q?H+3LCjrS/fml/hrJveiLMf6UYQelrO2vxtR7KhgUHhJBFzv1/YIsrpS+9T62?=
- =?us-ascii?Q?NQDiEB20Zc6UzG+Hz2eVCD9giC7xgsJ6Ac2LVmcEwWUi3L/SMsX2Iumwp5iW?=
- =?us-ascii?Q?bB1CdIYI1Cx75p+YEhkbJw9A/kGbz0+h0OjT4Yx8yebdKiHjF2NnIMA24CiS?=
- =?us-ascii?Q?P6yruCxAB/9L2YR073P8k3Ij+kHxEIi/6rrbRjqEr5N2Abt7GAgHHZNaOvRo?=
- =?us-ascii?Q?btsy0JOij+C3l6+gVkahPC6bR01zQvvtFUVBdWkLaW+gGmd0UWc/YTd3l1cd?=
- =?us-ascii?Q?tm/HbXD7uIEOSSvV3xx6GhpnSMHxnRpm9su7jH3J8W4SAv7aFptJZS/56zeE?=
- =?us-ascii?Q?YqIpoKdchJIRWWl+fq7RLf3W4ZHu4S+0YxXWBFtgeILHRxnXd0+b0nrfATra?=
- =?us-ascii?Q?YajWVzg3gHLFxp0RYJkcY7Tv+7KKaduF8TA82q42FBmmxqnbohB4TUEeKEnH?=
- =?us-ascii?Q?PwH/3kgKmXvLbKuQ2P3cJjBliasgAh8SWHcGdPkzuMW50tYMBaXH+u8jREWN?=
- =?us-ascii?Q?ZGox0F016anviFq0l+03MPtrFoeRmxbjiwHgNOj7/pqom0cxRgwhZIGkJRuC?=
- =?us-ascii?Q?P9XyeY6YIKj4eACPp9rIY2C1?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2021 15:19:09 +0000
+Received: from CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::9d) by MW4PR04CA0098.outlook.office365.com
+ (2603:10b6:303:83::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32 via Frontend
+ Transport; Mon, 15 Mar 2021 15:19:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
+ smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
+ header.d=none;alsa-project.org; dmarc=pass action=none
+ header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.34; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.34) by
+ CO1NAM11FT045.mail.protection.outlook.com (10.13.175.181) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.3933.31 via Frontend Transport; Mon, 15 Mar 2021 15:19:07 +0000
+Received: from [10.25.96.88] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 15 Mar
+ 2021 15:19:03 +0000
+Subject: Re: [PATCH 1/3] ASoC: simple-card-utils: Fix device module clock
+To: Michael Walle <michael@walle.cc>, Mark Brown <broonie@kernel.org>
+References: <20210309144156.18887-1-michael@walle.cc>
+ <e8b80188-978c-29fa-b5d4-9788a9f2282f@nvidia.com>
+ <611ed3362dee3b3b7c7a80edfe763fd0@walle.cc>
+ <ca540fb6-2ea7-90b0-66ad-097e99b6e585@nvidia.com>
+ <20210311161558.GG4962@sirena.org.uk>
+ <f21b87f1afb3eda54b5f00f2d1c146d3@walle.cc>
+ <20210312113544.GB5348@sirena.org.uk>
+ <6ed28bb5330879b1919aced5174f319f@walle.cc>
+ <20210312120456.GD5348@sirena.org.uk>
+ <684332700f8be9f77348a510eb6eba22@walle.cc>
+ <20210312134642.GF5348@sirena.org.uk>
+ <8cdf1cfa971945792b509a687a4de735@walle.cc>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <6af6439c-bdb8-cd0f-635d-069040ba5b65@nvidia.com>
+Date: Mon, 15 Mar 2021 20:49:00 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d6b4b03-25d4-4a0a-b96c-08d8e7c19dc7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2021 14:50:03.3984 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mjTaEY7chypVT48hua3cIIFlxP9cOCscxck+9td92mqNtr3QSlZVnnKOTyUztdY98yjUEV0l/N/3TKIj7iJLk2eKeszYe5M8Y9Vn6q/491I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB4527
-Cc: Support Opensource <Support.Opensource@diasemi.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+In-Reply-To: <8cdf1cfa971945792b509a687a4de735@walle.cc>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 978b7207-e4aa-44bc-8940-08d8e7c5ad41
+X-MS-TrafficTypeDiagnostic: BN8PR12MB4771:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB4771A8689FEC4809C63D1B72A76C9@BN8PR12MB4771.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kBUABiybkWxBonhgdAOdcpEF3wZg+Pzin3it1O/VdbKnYlExSS6z3j0rOpxoNbRCLmkHFpyW1Ecy0I4y7bVJjqvx31LL5upkkGRK3j9tze7xsShrrn2R1DoJgwLDq5HKkvVtHaJv6g/5aG/B0hMlwWKnAJ8AO20rn7gwnlrvXXzJy5cId3+hWWKEoBqu4nzpcXutabNS9mbJZr3g/lGd/5ntIM87LOLQfO0fG2UDBgRur5oGFqyDFXWcxMiRn4xTlkGBO1gtr06EVhDf3J+GGwhDaTLUkHYq85KOcTVuo7zSSsoHrfzFooIg+529ORObZ6FT4zbHwB0xasLawnWLxw7ghoYg+NIN9AZaC8UgsxTEf6XvC1/yuHx6Vw8HYN0nwYicazh/t3VorNp7RfXN7s8jFmOqC3PP9lRaOHlfWubkygdMK4LVdzFdVN0vK0RzoIMIbUndWs19jSaJOXeGtVT+JCNooarTfdZGnAd4yatXbUF31Cu0/uNM/F0C9iPqUvFHAVVS0C6/VirRMGJ6d+7acE6PKqYQgA6OPkYDjKUE15K4zbOIuDHc2S/bf1sghaXzP0AKTxuxkWwfPwfeTVE6issV/pmzki8c7xKvkqr5MCkGJos7r8tZpFMBG7zBBPjnSaZeAGZdquTTS0kFYom/YE+bTeXiSAd5hsFaqjQOlpVvycZlsx0DeE/wd8I0hdIUo2zYCQ7GE1ZOdDCwlMdyHEcHRs0TYF8/fiSeRf8=
+X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(346002)(36840700001)(46966006)(110136005)(70586007)(36906005)(82310400003)(316002)(186003)(36756003)(16526019)(47076005)(54906003)(16576012)(70206006)(2906002)(86362001)(2616005)(31696002)(8936002)(4326008)(82740400003)(356005)(426003)(5660300002)(336012)(26005)(53546011)(36860700001)(478600001)(31686004)(8676002)(83380400001)(7636003)(34020700004)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 15:19:07.3212 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 978b7207-e4aa-44bc-8940-08d8e7c5ad41
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB4771
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, robh@kernel.org,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,16 +150,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12 March 2021 18:23, Pierre-Louis Bossart wrote:
 
-> cppcheck warning:
->=20
-> sound/soc/codecs/da7219-aad.c:118:22: style: Variable 'ret' is
-> assigned a value that is never used. [unreadVariable]
->  int report =3D 0, ret =3D 0;
->                      ^
->=20
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com=
+
+On 3/15/2021 5:35 PM, Michael Walle wrote:
+> External email: Use caution opening links or attachments
 >
+>
+> Am 2021-03-12 14:46, schrieb Mark Brown:
+>> On Fri, Mar 12, 2021 at 01:30:02PM +0100, Michael Walle wrote:
+>>
+>>> The card calls set_sysclk(), which eventually ends up in the codec.
+>>> The codec therefore, could figure out if it needs to configure the
+>>> clock or if it can use its internal FLL.
+>>> Is that what you mean?
+>>
+>> Yes.
+>>
+>>> But the set_sysclk() of the codec isn't even called, because the
+>>> card itself already tries to call clk_set_rate() on the Codec's MCLK,
+>>> which returns with an error [0].
+>>
+>> OK, so I think we need to push this down a level so that the clock
+>> setting is implemented by the core/CODEC rather than by simple-card,
+>> with the helpers being something the CODEC can opt out of.
+>
+> Sameer, it looks like the proper fix should be to add the clock
+> support to your codec.
 
-Acked-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+I agree that complicated clock relationships should be handled within 
+the codec itself, however MCLK rate setting depends on "mclk-fs" factor 
+and this property is specified as part of simple-card/audio-graph-card 
+codec subnode. Right now codec, in general, does not have a way to know 
+this. The set_sysclk() callback takes rate argument and not the factor. 
+Moreover the same codec is used by other platform vendors too and unless 
+a new DT property is added for codec, runtime MCLK update based on the 
+scaling factor cannot be supported. This would mean that we will be 
+having two methods to specify "mclk-fs" factor, one from 
+simple-card/audio-graph-card and one from respective codec nodes, which 
+does not seem ideal.
+
+Also it does not seem consistent with the way we handle MCLK clock based 
+on where it is specified.
+
+   a) If specified in simple-card/audio-graph-card, MCLK clock 
+rate/enable/disable updates are allowed.
+
+   b) If specified in codec device node, it is not expected to touch the 
+MCLK clock. This patch tried to treat it the same way as (a) does. 
+Advantage of this is, all codec drivers need not explicitly handle MCLK, 
+instead it is done at a central place. The platforms which use specific 
+machine drivers do the same and that is why probably the codec driver 
+patch was never required. It is about just setting MCLK clock as a 
+factor of sample rate, whenever the factor is available. I understand 
+that it is breaking your use case, but I am not sure if the usage of 
+set_sysclk() is consistent. I mean, it takes the "freq" argument. Does 
+it refer to MCLK rate or system-clock (sysclk) rate? MCLK and sysclk are 
+not really the same when codec PLL is involved. So I would like to 
+understand clearly about what "freq" argument means. Also when "mclk-fs" 
+factor is specified, is it related to MCLK or sysclk? My understanding 
+is that it should be strictly viewed as related to MCLK.
+
+
+Does it help if a separate helper is used for audio-graph-card with 
+current change and reverting the simple-card to its previous state?
+Morimoto-san, does it affect any other users of audio-graph-card?
+
+>
+> I've also looked at other users of "simple-audio-card" and
+> it looks like they will break too. For example,
+> - arch/arm64/boot/dts/rockchip/rk3399.dtsi
+>     If I'm not mistaken, this will try to set the first clock
+>     of hdmi@ff940000 there, which is "iahb".
+> - arch/arm/boot/dts/sun8i-a33.dtsi
+>     There "&ccu CLK_BUS_CODEC" of codec@1c22e00 will be changed
+>
+> And it doesn't stop there, it also sets the first clock
+> of the CPU endpoint, which I guess just works because .set_rate
+> is a noop for the most clocks which are used there.
+
+Yes this is a problem, unfortunately I missed checking some of the 
+simple-card examples. I wonder we should be specifically looking for 
+"mclk" clock here.

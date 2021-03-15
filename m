@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5152933AC76
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 08:46:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBE4733AC84
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 08:51:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B77171777;
-	Mon, 15 Mar 2021 08:45:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B77171777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5347F177B;
+	Mon, 15 Mar 2021 08:50:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5347F177B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615794403;
-	bh=FGxocWjdky7Av4QEo42Jo7/gYL3900IFrC1DVPic/dA=;
+	s=default; t=1615794701;
+	bh=0kaAYSQUhUGOlO8pZIAeF5qGTm/ma6BMf7B701aRkvE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ocGJubKpTDGFNzcI+omJYQRzhpZQP1kFzpCiYhwjULZNO2ElFQkS88/bh12OKOpxz
-	 sZ2XX0yHXxQESJMF1179TZ1hYRcxDaH6Nx38qD2Zk3vxVK+DX46+78oZgCKIkeQ35O
-	 yAjzmpui+EGZcuLTwNAqmtFtrcXv55XORIhyjTpg=
+	b=ZNogfzfcM7piobwuHYEX2DNersOyYLYLoLbc4rYS9FyqyewGWEndrr3+wZ79vBL+r
+	 aC40s+mT9UAHOq/jyNxW88CZ7tcUi0C/oZjlFTu5MivNSlOd1VfSQb8YJpx8KMypvq
+	 ezWRR9FbZX1h1uaaX7Z4M1azV70jSYd1xu595sr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C38F2F80100;
-	Mon, 15 Mar 2021 08:45:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93A2CF80163;
+	Mon, 15 Mar 2021 08:50:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F01CF80171; Mon, 15 Mar 2021 08:45:11 +0100 (CET)
+ id B5742F80171; Mon, 15 Mar 2021 08:50:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.8 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UPPERCASE_50_75 autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83430F8010E
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 08:45:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83430F8010E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68E8BF80100
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 08:49:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E8BF80100
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B38CBABD7;
- Mon, 15 Mar 2021 07:45:00 +0000 (UTC)
-Date: Mon, 15 Mar 2021 08:45:00 +0100
-Message-ID: <s5htupcrhc3.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 5CB30ABD7;
+ Mon, 15 Mar 2021 07:49:56 +0000 (UTC)
+Date: Mon, 15 Mar 2021 08:49:56 +0100
+Message-ID: <s5hsg4wrh3v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v1 1/4] ALSA: hda/cirrus: Add error handling into CS8409
- I2C functions
-In-Reply-To: <20210313113410.90088-2-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v1 4/4] ALSA: hda/cirrus: Make CS8409 driver more generic
+ by using fixups.
+In-Reply-To: <20210313113410.90088-5-vitalyr@opensource.cirrus.com>
 References: <20210313113410.90088-1-vitalyr@opensource.cirrus.com>
- <20210313113410.90088-2-vitalyr@opensource.cirrus.com>
+ <20210313113410.90088-5-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,51 +72,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 13 Mar 2021 12:34:07 +0100,
+On Sat, 13 Mar 2021 12:34:10 +0100,
 Vitaly Rodionov wrote:
-> 
-> @@ -1508,7 +1508,7 @@ static void cs8409_enable_i2c_clock(struct hda_codec *codec, unsigned int flag)
->  static int cs8409_i2c_wait_complete(struct hda_codec *codec)
->  {
->  	int repeat = 5;
-> -	unsigned int retval = 0;
-> +	unsigned int retval;
->  
->  	do {
->  		retval = cs_vendor_coef_get(codec, CIR_I2C_STATUS);
-> @@ -1520,78 +1520,82 @@ static int cs8409_i2c_wait_complete(struct hda_codec *codec)
->  
->  	} while (repeat);
->  
-> -	return repeat > 0 ? 0 : -1;
-> +	return !!repeat;
->  }
+> @@ -1357,6 +1362,22 @@ static const struct hda_verb cs8409_cs42l42_init_verbs[] = {
+>  	{ 0x47, AC_VERB_SET_PROC_COEF,  0x0080 },     /* I2C mode */
+>  	{ 0x47, AC_VERB_SET_COEF_INDEX, 0x005b },     /* Set I2C bus speed */
+>  	{ 0x47, AC_VERB_SET_PROC_COEF,  0x0200 },     /* 100kHz I2C_STO = 2 */
+> +	{ 0x24, AC_VERB_SET_CONFIG_DEFAULT_BYTES_0, 0xF0 }, /* Widget node ASP-1-TX */
+> +	{ 0x24, AC_VERB_SET_CONFIG_DEFAULT_BYTES_1, 0x20 },
+> +	{ 0x24, AC_VERB_SET_CONFIG_DEFAULT_BYTES_2, 0x21 },
+> +	{ 0x24, AC_VERB_SET_CONFIG_DEFAULT_BYTES_3, 0x04 },
+> +	{ 0x34, AC_VERB_SET_CONFIG_DEFAULT_BYTES_0, 0x50 }, /* Widget node ASP-1-RX0 */
+> +	{ 0x34, AC_VERB_SET_CONFIG_DEFAULT_BYTES_1, 0x20 },
+> +	{ 0x34, AC_VERB_SET_CONFIG_DEFAULT_BYTES_2, 0xa1 },
+> +	{ 0x34, AC_VERB_SET_CONFIG_DEFAULT_BYTES_3, 0x04 },
+> +	{ 0x2C, AC_VERB_SET_CONFIG_DEFAULT_BYTES_0, 0xF0 }, /* Widget node ASP-2-TX */
+> +	{ 0x2C, AC_VERB_SET_CONFIG_DEFAULT_BYTES_1, 0x00 },
+> +	{ 0x2C, AC_VERB_SET_CONFIG_DEFAULT_BYTES_2, 0x10 },
+> +	{ 0x2C, AC_VERB_SET_CONFIG_DEFAULT_BYTES_3, 0x90 },
+> +	{ 0x44, AC_VERB_SET_CONFIG_DEFAULT_BYTES_0, 0x90 }, /* Widget node DMIC-1 */
+> +	{ 0x44, AC_VERB_SET_CONFIG_DEFAULT_BYTES_1, 0x00 },
+> +	{ 0x44, AC_VERB_SET_CONFIG_DEFAULT_BYTES_2, 0xA0 },
+> +	{ 0x44, AC_VERB_SET_CONFIG_DEFAULT_BYTES_3, 0x90 },
 
-If the return value of the function has changed, it's nicer to
-comment, e.g. a brief function description would be helpful.
-Also now this looks rather like a bool?
-
-
-> @@ -1881,13 +1896,15 @@ static void cs8409_jack_unsol_event(struct hda_codec *codec, unsigned int res)
->  	reg_hs_status = cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1124, 1);
->  	reg_ts_status = cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130f, 1);
->  
-> -	/* Clear interrupts */
-> +	/* Clear interrupts, by reading interrupt status registers */
->  	cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1b7b, 1);
-> -	cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x1308, 1);
-> -	cs8409_i2c_read(codec, CS42L42_I2C_ADDR, 0x130f, 1);
-
-Why those two calls are removed?
-
->  	mutex_unlock(&spec->cs8409_i2c_mux);
->  
-> +	/* If status values are < 0, read error has occurred. */
-> +	if ((reg_cdc_status < 0) || (reg_hs_status < 0) || (reg_ts_status < 0))
-> +		return;
-
-Parentheses around the comparison are superfluous, you can remove
-them.
+Those widgets are all pin widgets, right?  If so, setting via the
+pincfg table would be more suitable, as it's cached and exposed via
+sysfs for debugging.
 
 
 thanks,

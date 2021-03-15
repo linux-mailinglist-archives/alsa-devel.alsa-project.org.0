@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AF3D33A932
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:01:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5502F33A933
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:02:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9214F1764;
-	Mon, 15 Mar 2021 02:00:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9214F1764
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF2741765;
+	Mon, 15 Mar 2021 02:01:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF2741765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615770096;
-	bh=0YUt1yihDCSQBe+aJ0ci4DbTSzRw1b0FFI/5DG/eoeg=;
+	s=default; t=1615770127;
+	bh=YZ33a5WpC8SvW93KOU/sENwmd24LDR2d0WtCHn2ML8w=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LNAsDdqaTsgjQKv3EZ6t16Ns/7N2AW5g2slUZg1N/kA5NO1BfMxKHf6/9H4cI+20n
-	 DsUaxLc/X3cqL+hiwM1AKt6Nn1ezIZtEjrwsBklq5AvIScmgJVEBNrlWwWrTfOyCn5
-	 U4UmsFfGJ6zQ0/juw4XZyjIaV1vseKmbDTnINK+M=
+	b=req1MW2nQu93tO2XttNXx1bftgWKFAKphcd01+fm8mhbADFn+t6xuVsMXNzCVxD7u
+	 jJFAqwoYeGtMXKVNxipY1PEbIpcH+ipNIaR0WKfRkE6V6wY7vUwiOeitmGwQoThJGg
+	 3MlnqkXXBDx32qt3WPKd7G7t7DdGmsFP9QTQJHww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8183DF804CF;
-	Mon, 15 Mar 2021 01:58:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC882F804DF;
+	Mon, 15 Mar 2021 01:58:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0D63F804D1; Mon, 15 Mar 2021 01:58:17 +0100 (CET)
+ id 6F9D9F804DF; Mon, 15 Mar 2021 01:58:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id A58B0F804B2
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A58B0F804B2
-Date: 15 Mar 2021 09:58:08 +0900
-X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146145"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:08 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 38689F804BD
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38689F804BD
+Date: 15 Mar 2021 09:58:13 +0900
+X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146157"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:13 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 633424147263;
- Mon, 15 Mar 2021 09:58:08 +0900 (JST)
-Message-ID: <87im5tutb3.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 94A664008C6A;
+ Mon, 15 Mar 2021 09:58:13 +0900 (JST)
+Message-ID: <87h7ldutay.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 07/14] ASoC: soc-pcm: indicate error message at
- dpcm_run_update_startup/shutdown()
+Subject: [PATCH 08/14] ASoC: soc-pcm: indicate error message at
+ dpcm_fe/be_dai_startup()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87sg4xutcl.wl-kuninori.morimoto.gx@renesas.com>
@@ -111,74 +111,70 @@ detail information without forgot.
 		...
 	}
 
-This patch also
-do below to dpcm_run_update_startup()
-	1) remove duplicated ret = -EINVAL
-	2) remove blank line
-do below to dpcm_run_update_shutdown()
-	1) remove unused ret
+This patch follow above style at dpcm_fe/be_dai_startup().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ sound/soc/soc-pcm.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 855904c0938d..a34b1fb9967a 100644
+index a34b1fb9967a..9e3ecf788a74 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -2325,7 +2325,10 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
- 	/* run the stream event for each BE */
- 	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_NOP);
+@@ -1475,15 +1475,16 @@ void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
  
--	return 0;
-+	if (err < 0)
-+		dev_err(fe->dev, "ASoC: %s() failed (%d)\n", __func__, err);
+ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ {
++	struct snd_soc_pcm_runtime *be;
+ 	struct snd_soc_dpcm *dpcm;
+ 	int err, count = 0;
+ 
+ 	/* only startup BE DAIs that are either sinks or sources to this FE DAI */
+ 	for_each_dpcm_be(fe, stream, dpcm) {
++		struct snd_pcm_substream *be_substream;
+ 
+-		struct snd_soc_pcm_runtime *be = dpcm->be;
+-		struct snd_pcm_substream *be_substream =
+-			snd_soc_dpcm_get_substream(be, stream);
++		be = dpcm->be;
++		be_substream = snd_soc_dpcm_get_substream(be, stream);
+ 
+ 		if (!be_substream) {
+ 			dev_err(be->dev, "ASoC: no backend %s stream\n",
+@@ -1535,6 +1536,9 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ unwind:
+ 	dpcm_be_dai_startup_rollback(fe, stream, dpcm);
+ 
++	dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
++		__func__, be->dai_link->name, err);
 +
-+	return err;
+ 	return err;
  }
  
- static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
-@@ -2366,7 +2369,6 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 	if (fe->dpcm[stream].state == SND_SOC_DPCM_STATE_HW_PARAMS)
- 		return 0;
+@@ -1749,10 +1753,8 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
  
--
- 	ret = dpcm_be_dai_prepare(fe, stream);
- 	if (ret < 0)
- 		goto hw_free;
-@@ -2421,6 +2423,9 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 	}
- 	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
+ 	ret = dpcm_be_dai_startup(fe, stream);
+-	if (ret < 0) {
+-		dev_err(fe->dev,"ASoC: failed to start some BEs %d\n", ret);
 +	if (ret < 0)
-+		dev_err(fe->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
+ 		goto be_err;
+-	}
+ 
+ 	dev_dbg(fe->dev, "ASoC: open FE %s\n", fe->dai_link->name);
+ 
+@@ -1776,6 +1778,10 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ 		dpcm_be_dai_startup_unwind(fe, stream);
+ be_err:
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
++
++	if (ret < 0)
++		dev_err(fe->dev, "%s() failed (%d)\n", __func__, ret);
 +
  	return ret;
  }
  
-@@ -2429,7 +2434,6 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
- 	struct snd_soc_dapm_widget_list *list;
- 	int stream;
- 	int count, paths;
--	int ret;
- 
- 	if (!fe->dai_link->dynamic)
- 		return 0;
-@@ -2469,11 +2473,9 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
- 		if (count) {
- 			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_BE);
- 			if (new)
--				ret = dpcm_run_update_startup(fe, stream);
-+				dpcm_run_update_startup(fe, stream);
- 			else
--				ret = dpcm_run_update_shutdown(fe, stream);
--			if (ret < 0)
--				dev_err(fe->dev, "ASoC: failed to shutdown some BEs\n");
-+				dpcm_run_update_shutdown(fe, stream);
- 			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
- 
- 			dpcm_clear_pending_state(fe, stream);
 -- 
 2.25.1
 

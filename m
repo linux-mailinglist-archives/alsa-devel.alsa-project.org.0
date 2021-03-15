@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D14D233A936
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC11533A937
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:03:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EFBD1753;
-	Mon, 15 Mar 2021 02:02:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EFBD1753
+	by alsa0.perex.cz (Postfix) with ESMTPS id 604911771;
+	Mon, 15 Mar 2021 02:02:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 604911771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615770189;
-	bh=znfkp1i/CHPgt5J+EiIUS976Xx7pEUp7EGVjYTEeiyM=;
+	s=default; t=1615770218;
+	bh=9S0+/Vab0tvOrBf0VUDyPK2eI9Ur1sLh+2ED1POzYxg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nv9BQxHfGGZarqumNr4bpXFOPPtoHlLwbPugPXR6rQj41nPt29BiCMq/D95k9EL1X
-	 Y9K9eKWbkDKn+YsfNpp0egzpVRaSMINWawXbfIHNddOt4UIolFr+k1OqO+uRC02XMN
-	 H2QXX8yjiwIDGkWQor0bFps0H3AAus+7Mh+nO+Ag=
+	b=Vj5I2lKbSgQcuR4H0rz5smX9u1k/bO/3WbelQwItNho8IbmrdAUdPE2LL1HrB1tNh
+	 sgjtzaaUILoQbmelpiu3B4Bwde8amwv8+45wMJKDOz9EnhmRyOymV89vHaiLpfnkRa
+	 Y/vFCO3W31aOIUYAl7+NFOnET8OtGS7zdU9DkVsc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4282BF804FD;
-	Mon, 15 Mar 2021 01:58:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1CC8F804FE;
+	Mon, 15 Mar 2021 01:58:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BAF7F804FD; Mon, 15 Mar 2021 01:58:40 +0100 (CET)
+ id 6E748F80506; Mon, 15 Mar 2021 01:58:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 24EA2F804EC
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24EA2F804EC
-Date: 15 Mar 2021 09:58:28 +0900
-X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="74918041"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 16831F804FB
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16831F804FB
+Date: 15 Mar 2021 09:58:32 +0900
+X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146210"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:28 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:32 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id A17D44003882;
- Mon, 15 Mar 2021 09:58:28 +0900 (JST)
-Message-ID: <87czw1utaj.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D80464003893;
+ Mon, 15 Mar 2021 09:58:32 +0900 (JST)
+Message-ID: <87blblutaf.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 11/14] ASoC: soc-pcm: don't indicate error message for
- soc_pcm_hw_free()
+Subject: [PATCH 12/14] ASoC: soc-pcm: don't indicate error message for
+ dpcm_be_dai_hw_free()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87sg4xutcl.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,31 +70,102 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_pcm_hw_free() never fail, error message is not needed.
-We can't use void function for it, because it is used
-part of struct snd_pcm_ops :: hw_free.
+dpcm_be_dai_hw_free() never fail, error message is not needed.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ include/sound/soc-dpcm.h |  2 +-
+ sound/soc/soc-compress.c |  5 +----
+ sound/soc/soc-pcm.c      | 14 ++++----------
+ 3 files changed, 6 insertions(+), 15 deletions(-)
 
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index d76cb1eeeaca..e296a3949b18 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -153,7 +153,7 @@ void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
+ 		      int do_hw_free, struct snd_soc_dpcm *last);
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream);
+ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream);
+-int dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream);
++void dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream);
+ int dpcm_be_dai_hw_params(struct snd_soc_pcm_runtime *fe, int tream);
+ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream, int cmd);
+ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream);
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 94f1f7a9dd53..83b511f8b8c9 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -175,7 +175,6 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	struct snd_soc_dpcm *dpcm;
+ 	int stream = cstream->direction; /* SND_COMPRESS_xxx is same as SNDRV_PCM_STREAM_xxx */
+-	int ret;
+ 
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+ 
+@@ -183,9 +182,7 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 
+ 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_FE;
+ 
+-	ret = dpcm_be_dai_hw_free(fe, stream);
+-	if (ret < 0)
+-		dev_err(fe->dev, "Compressed ASoC: hw_free failed: %d\n", ret);
++	dpcm_be_dai_hw_free(fe, stream);
+ 
+ 	dpcm_be_dai_shutdown(fe, stream);
+ 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 4a01a3925ab6..eb52f78ca053 100644
+index eb52f78ca053..2a126840677c 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1862,10 +1862,7 @@ static int dpcm_fe_dai_hw_free(struct snd_pcm_substream *substream)
- 	dev_dbg(fe->dev, "ASoC: hw_free FE %s\n", fe->dai_link->name);
+@@ -1808,7 +1808,7 @@ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
  
- 	/* call hw_free on the frontend */
--	err = soc_pcm_hw_free(substream);
--	if (err < 0)
--		dev_err(fe->dev,"ASoC: hw_free FE %s failed\n",
--			fe->dai_link->name);
-+	soc_pcm_hw_free(substream);
+-int dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream)
++void dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream)
+ {
+ 	struct snd_soc_dpcm *dpcm;
+ 
+@@ -1847,14 +1847,12 @@ int dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream)
+ 
+ 		be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+ 	}
+-
+-	return 0;
+ }
+ 
+ static int dpcm_fe_dai_hw_free(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+-	int err, stream = substream->stream;
++	int stream = substream->stream;
+ 
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
+@@ -1866,9 +1864,7 @@ static int dpcm_fe_dai_hw_free(struct snd_pcm_substream *substream)
  
  	/* only hw_params backends that are either sinks or sources
  	 * to this frontend DAI */
+-	err = dpcm_be_dai_hw_free(fe, stream);
+-	if (err < 0)
+-		dev_err(fe->dev, "ASoC: hw_free BE failed %d\n", err);
++	dpcm_be_dai_hw_free(fe, stream);
+ 
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+@@ -2330,9 +2326,7 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
+ 		err = dpcm_be_dai_trigger(fe, stream, SNDRV_PCM_TRIGGER_STOP);
+ 	}
+ 
+-	err = dpcm_be_dai_hw_free(fe, stream);
+-	if (err < 0)
+-		dev_err(fe->dev,"ASoC: hw_free FE failed %d\n", err);
++	dpcm_be_dai_hw_free(fe, stream);
+ 
+ 	dpcm_be_dai_shutdown(fe, stream);
+ 
 -- 
 2.25.1
 

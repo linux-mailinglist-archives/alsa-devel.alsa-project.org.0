@@ -2,71 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C29633B141
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 12:39:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7755633B21A
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 13:07:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 899DA170E;
-	Mon, 15 Mar 2021 12:39:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 899DA170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB7BA1711;
+	Mon, 15 Mar 2021 13:06:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB7BA1711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615808391;
-	bh=8gXgJowDrl+HwLckEpzI7NxazwDx7AH/kUL5bDJHzaw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615810032;
+	bh=jnCNw8FYTDMzF9GbZ0MD8cTZgBWfISm0ZH3FoBXDJdk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aRzXDXW8rbf+doXcLwcMsyxkabF9pl54GEfZWNGLrddsECE5oDdbfTA++0ivYKGp5
-	 oKWRuGNyJCv+MMdKC8kzuiynnfxtwJ6b2jU4Fkfg3lhQpVLhYcyQs109FKgLKJltCU
-	 gNqYjwh9PypcUdBnS+fW/Ctd9CViAHZSepnk7Br0=
+	b=WOi8DX20AdgpimF3JBmEWtrEB3VOs1fFQt/ATjPtJvfZZpkyho3YhpYSJiXbmyc9c
+	 5ARjkBs3WEH7mc6yllwLZNJ5UZ42A96j51tjHiXTep6x4vLg4iGO5sURyHqfFZD1md
+	 uOw3FKPsP9vXQqNwUBQlYuUJw1I3wyul9FqiQH74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4F5EF801F7;
-	Mon, 15 Mar 2021 12:38:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3F6BF8010E;
+	Mon, 15 Mar 2021 13:05:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25E7FF80171; Mon, 15 Mar 2021 12:38:20 +0100 (CET)
+ id 648B2F80171; Mon, 15 Mar 2021 13:05:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DA79F8013F
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 12:38:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DA79F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86347F80100
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 13:05:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86347F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LvaKUSUZ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A999764E61;
- Mon, 15 Mar 2021 11:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615808294;
- bh=8gXgJowDrl+HwLckEpzI7NxazwDx7AH/kUL5bDJHzaw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LvaKUSUZ7wgU+9vKyWh6C4gR6Lx25AnBt43qqiHvhp/6WCOld2p6OoM3u+E5291A8
- oknhEqnL2gFxHUHi7WUGwYTx4rNBQagBm/JkyWdDGnr63B/GbUMHeVheptFG6fhtY3
- tEhnXz/4KAvlEuxQoPiekyLcKI0gVPESczWslUh6FGvwoyxYuWU6jrABLHhhisxNHt
- 60FKuPbuhsfY5/E/F6jd5vE/NEflwKzjm7h7REnCR3WTbOpTNBCMhFv7H1p7Ikjh1d
- AIHgIASX/5E4sltAxP8GURfXb4ouGAwosThhvh3dF29liwLpZmTTNy0x3YmLJnydBX
- HDsnFWiM0cwcA==
-Date: Mon, 15 Mar 2021 11:36:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Wang Qing <wangqing@vivo.com>
-Subject: Re: [PATCH] sound: soc: codecs: Remove unnecessary THIS_MODULE
-Message-ID: <20210315113658.GA4595@sirena.org.uk>
-References: <1615623786-16302-1-git-send-email-wangqing@vivo.com>
+ dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
+ header.b="BszTYF2f"
+Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id 574BC22172;
+ Mon, 15 Mar 2021 13:05:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1615809930;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=56lCTBoJc0zn0J8RcUtKReFHALPDLgWyoBcvGIIJrSo=;
+ b=BszTYF2fRmRNnTp2xegfjD1M2aL7Lv/SCZp2gUsxRz9qL408p1dFznBJQRUXFOa+pcOgLM
+ Bb3m8lvAeQkYYDvmlC6pzSOI5Sh6XWmUUH2lVRJGgiaPIK+qi8MJqFtiarVOojGSsRK9FE
+ IJQFg0/hF+UbpkNIqCjKlQSBGwk1w+s=
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="h31gzZEtNLTqOjlF"
-Content-Disposition: inline
-In-Reply-To: <1615623786-16302-1-git-send-email-wangqing@vivo.com>
-X-Cookie: Close cover before striking.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 15 Mar 2021 13:05:30 +0100
+From: Michael Walle <michael@walle.cc>
+To: Mark Brown <broonie@kernel.org>, Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH 1/3] ASoC: simple-card-utils: Fix device module clock
+In-Reply-To: <20210312134642.GF5348@sirena.org.uk>
+References: <20210309144156.18887-1-michael@walle.cc>
+ <e8b80188-978c-29fa-b5d4-9788a9f2282f@nvidia.com>
+ <611ed3362dee3b3b7c7a80edfe763fd0@walle.cc>
+ <ca540fb6-2ea7-90b0-66ad-097e99b6e585@nvidia.com>
+ <20210311161558.GG4962@sirena.org.uk>
+ <f21b87f1afb3eda54b5f00f2d1c146d3@walle.cc>
+ <20210312113544.GB5348@sirena.org.uk>
+ <6ed28bb5330879b1919aced5174f319f@walle.cc>
+ <20210312120456.GD5348@sirena.org.uk>
+ <684332700f8be9f77348a510eb6eba22@walle.cc>
+ <20210312134642.GF5348@sirena.org.uk>
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <8cdf1cfa971945792b509a687a4de735@walle.cc>
+X-Sender: michael@walle.cc
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, robh@kernel.org,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,33 +96,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Am 2021-03-12 14:46, schrieb Mark Brown:
+> On Fri, Mar 12, 2021 at 01:30:02PM +0100, Michael Walle wrote:
+> 
+>> The card calls set_sysclk(), which eventually ends up in the codec.
+>> The codec therefore, could figure out if it needs to configure the
+>> clock or if it can use its internal FLL.
+>> Is that what you mean?
+> 
+> Yes.
+> 
+>> But the set_sysclk() of the codec isn't even called, because the
+>> card itself already tries to call clk_set_rate() on the Codec's MCLK,
+>> which returns with an error [0].
+> 
+> OK, so I think we need to push this down a level so that the clock
+> setting is implemented by the core/CODEC rather than by simple-card,
+> with the helpers being something the CODEC can opt out of.
 
---h31gzZEtNLTqOjlF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sameer, it looks like the proper fix should be to add the clock
+support to your codec.
 
-On Sat, Mar 13, 2021 at 04:23:02PM +0800, Wang Qing wrote:
-> As THIS_MODULE has been set in module_platform_driver(), so remove it.
+I've also looked at other users of "simple-audio-card" and
+it looks like they will break too. For example,
+- arch/arm64/boot/dts/rockchip/rk3399.dtsi
+     If I'm not mistaken, this will try to set the first clock
+     of hdmi@ff940000 there, which is "iahb".
+- arch/arm/boot/dts/sun8i-a33.dtsi
+     There "&ccu CLK_BUS_CODEC" of codec@1c22e00 will be changed
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+And it doesn't stop there, it also sets the first clock
+of the CPU endpoint, which I guess just works because .set_rate
+is a noop for the most clocks which are used there.
 
---h31gzZEtNLTqOjlF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBPRtoACgkQJNaLcl1U
-h9BJSAf/eVvdpF1V9OpXSWXBOkL30BgGpsVL+gnWp1HqwDm2w2UTToMWSwAmAX2T
-y98sKx2z4zjwKhL3WpA3TmCJkMe9b2zlwSYo34aFVBUoZjgBm8PnkWdnI1u+rCnd
-+keSrOMkunuPSQSaxLg23n2riViyUcTZ7kJs15Lvlt93Y5jG1UooUSB+Pkb3h03A
-LQp7YCNq76JmS9FtDrbb/S80P594qWpKWDWTKFZD1TN1CGRRLVO9XBkMRbj5cP+g
-eRaSP3E8EjmU3JhZvVNDqDhcYM7DhBu/2iKT/h70sb6Um6GETXWViC2UlyNIjPO8
-vS2M9KBz25eWZtWgIvP1NGysSHXjSw==
-=zA9T
------END PGP SIGNATURE-----
-
---h31gzZEtNLTqOjlF--
+-michael

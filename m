@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C1B33A938
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:03:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9010533A939
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 02:04:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34234178A;
-	Mon, 15 Mar 2021 02:03:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34234178A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B04F175E;
+	Mon, 15 Mar 2021 02:03:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B04F175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615770237;
-	bh=IdSZGu2dmwglg29YPqdjFAfDm51Z4gtJnwtcbdks8no=;
+	s=default; t=1615770260;
+	bh=fbYz4xuN3BPHStB1xVbpUPgjC14m086CEZ30gMjG2GY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DLml3/v5LD+UeIfOmAcFR14AmvANuWVeo9PHgKc9MgkHeTSf9UA1RM/2nMoafZWh+
-	 gg3kbBevKJujwP7iKdnsqUxvGUi7M5b0qPqoy/7JHucTAaN61x0V9YMfsbl+njju5h
-	 gO2s5RARJD8sl2vCYSOshm+z/0rBDZ+IPt83UzCQ=
+	b=smmIK6nzAuVbwFQt36V8UY1Yom9AWhXRJC7V7rSONQl5cBEdXOcMFgrZxrtj/5SLs
+	 TZzaxC5aQPFWnubEqRri6EF3A+ptSOTtuaTCLnhqdArwJGwM24fjfpZNSNi56B1qG4
+	 u4n+Jt5WY7Njuq2KwVX9pyVW01ks1YFWMhXou2lc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D95F1F80508;
-	Mon, 15 Mar 2021 01:58:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E44FAF80510;
+	Mon, 15 Mar 2021 01:58:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA094F80507; Mon, 15 Mar 2021 01:58:45 +0100 (CET)
+ id F1525F804FE; Mon, 15 Mar 2021 01:58:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id A8A94F804D8
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8A94F804D8
-Date: 15 Mar 2021 09:58:37 +0900
-X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146223"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:37 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 439EEF804F3
+ for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 01:58:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 439EEF804F3
+Date: 15 Mar 2021 09:58:41 +0900
+X-IronPort-AV: E=Sophos;i="5.81,249,1610377200"; d="scan'208";a="75146229"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 15 Mar 2021 09:58:41 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 350FA414726E;
- Mon, 15 Mar 2021 09:58:37 +0900 (JST)
-Message-ID: <87a6r5utaa.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id C1C574003893;
+ Mon, 15 Mar 2021 09:58:41 +0900 (JST)
+Message-ID: <878s6puta6.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 13/14] ASoC: don't indicate error message for
- snd_soc_[pcm_]dai_xxx()
+Subject: [PATCH 14/14] ASoC: don't indicate error message for
+ snd_soc_[pcm_]component_xxx()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87sg4xutcl.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,157 +70,56 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-All snd_soc_dai_xxx() and snd_soc_pcm_dai_xxx() itself
+All snd_soc_component_xxx() and snd_soc_pcm_component_xxx() itself
 indicate error message if failed.
+Its caller doesn't need to indicate duplicated error message.
+This patch removes it.
+
+All snd_soc_component_xxx() indicate error message if failed.
 Its caller doesn't need to indicate duplicated error message.
 This patch removes it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 16 +++-------------
- sound/soc/soc-dapm.c | 24 ++++++------------------
- sound/soc/soc-pcm.c  | 10 ++--------
- 3 files changed, 11 insertions(+), 39 deletions(-)
+ sound/soc/soc-core.c | 6 ++----
+ sound/soc/soc-pcm.c  | 5 +----
+ 2 files changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index c7e4600b2dd4..f12c763973fa 100644
+index f12c763973fa..522bae73640a 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1088,12 +1088,8 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
+@@ -1203,11 +1203,9 @@ static int soc_probe_component(struct snd_soc_card *card,
+ 	}
  
- 	/* create compress_device if possible */
- 	ret = snd_soc_dai_compress_new(cpu_dai, rtd, num);
--	if (ret != -ENOTSUPP) {
--		if (ret < 0)
--			dev_err(card->dev, "ASoC: can't create compress %s\n",
--				dai_link->stream_name);
-+	if (ret != -ENOTSUPP)
+ 	ret = snd_soc_component_probe(component);
+-	if (ret < 0) {
+-		dev_err(component->dev,
+-			"ASoC: failed to probe component %d\n", ret);
++	if (ret < 0)
+ 		goto err_probe;
+-	}
++
+ 	WARN(dapm->idle_bias_off &&
+ 	     dapm->bias_level != SND_SOC_BIAS_OFF,
+ 	     "codec %s can not start from non-off bias with idle_bias_off==1\n",
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index ecf2bfa9640b..2df70ab851ea 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2781,11 +2781,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 		snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &rtd->ops);
+ 
+ 	ret = snd_soc_pcm_component_new(rtd);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "ASoC: pcm constructor failed for dailink %s: %d\n",
+-			rtd->dai_link->name, ret);
++	if (ret < 0)
  		return ret;
 -	}
  
- 	/* create the pcm */
- 	ret = soc_new_pcm(rtd, num);
-@@ -1422,11 +1418,8 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
- 
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_set_fmt(codec_dai, dai_fmt);
--		if (ret != 0 && ret != -ENOTSUPP) {
--			dev_warn(codec_dai->dev,
--				 "ASoC: Failed to set DAI format: %d\n", ret);
-+		if (ret != 0 && ret != -ENOTSUPP)
- 			return ret;
--		}
- 	}
- 
- 	/*
-@@ -1455,11 +1448,8 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
- 			fmt = inv_dai_fmt;
- 
- 		ret = snd_soc_dai_set_fmt(cpu_dai, fmt);
--		if (ret != 0 && ret != -ENOTSUPP) {
--			dev_warn(cpu_dai->dev,
--				 "ASoC: Failed to set DAI format: %d\n", ret);
-+		if (ret != 0 && ret != -ENOTSUPP)
- 			return ret;
--		}
- 	}
- 
- 	return 0;
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index b005f9eadd71..91bf939d5233 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3831,11 +3831,9 @@ snd_soc_dai_link_event_pre_pmu(struct snd_soc_dapm_widget *w,
- 		source = path->source->priv;
- 
- 		ret = snd_soc_dai_startup(source, substream);
--		if (ret < 0) {
--			dev_err(source->dev,
--				"ASoC: startup() failed: %d\n", ret);
-+		if (ret < 0)
- 			goto out;
--		}
-+
- 		snd_soc_dai_activate(source, substream->stream);
- 	}
- 
-@@ -3844,11 +3842,9 @@ snd_soc_dai_link_event_pre_pmu(struct snd_soc_dapm_widget *w,
- 		sink = path->sink->priv;
- 
- 		ret = snd_soc_dai_startup(sink, substream);
--		if (ret < 0) {
--			dev_err(sink->dev,
--				"ASoC: startup() failed: %d\n", ret);
-+		if (ret < 0)
- 			goto out;
--		}
-+
- 		snd_soc_dai_activate(sink, substream->stream);
- 	}
- 
-@@ -3943,11 +3939,7 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_dapm_widget_for_each_sink_path(w, path) {
- 			sink = path->sink->priv;
- 
--			ret = snd_soc_dai_digital_mute(sink, 0,
--						       SNDRV_PCM_STREAM_PLAYBACK);
--			if (ret != 0 && ret != -ENOTSUPP)
--				dev_warn(sink->dev,
--					 "ASoC: Failed to unmute: %d\n", ret);
-+			snd_soc_dai_digital_mute(sink, 0, SNDRV_PCM_STREAM_PLAYBACK);
- 			ret = 0;
- 		}
- 		break;
-@@ -3956,11 +3948,7 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_dapm_widget_for_each_sink_path(w, path) {
- 			sink = path->sink->priv;
- 
--			ret = snd_soc_dai_digital_mute(sink, 1,
--						       SNDRV_PCM_STREAM_PLAYBACK);
--			if (ret != 0 && ret != -ENOTSUPP)
--				dev_warn(sink->dev,
--					 "ASoC: Failed to mute: %d\n", ret);
-+			snd_soc_dai_digital_mute(sink, 1, SNDRV_PCM_STREAM_PLAYBACK);
- 			ret = 0;
- 		}
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 2a126840677c..ecf2bfa9640b 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -832,10 +832,8 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 		goto out;
- 
- 	ret = snd_soc_pcm_dai_prepare(substream);
--	if (ret < 0) {
--		dev_err(rtd->dev, "ASoC: DAI prepare error: %d\n", ret);
-+	if (ret < 0)
- 		goto out;
--	}
- 
- 	/* cancel any delayed stream shutdown that is pending */
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
-@@ -2317,8 +2315,6 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
- 				fe->dai_link->name);
- 
- 		err = snd_soc_pcm_dai_bespoke_trigger(substream, SNDRV_PCM_TRIGGER_STOP);
--		if (err < 0)
--			dev_err(fe->dev,"ASoC: trigger FE failed %d\n", err);
- 	} else {
- 		dev_dbg(fe->dev, "ASoC: trigger FE %s cmd stop\n",
- 			fe->dai_link->name);
-@@ -2395,10 +2391,8 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 				fe->dai_link->name);
- 
- 		ret = snd_soc_pcm_dai_bespoke_trigger(substream, SNDRV_PCM_TRIGGER_START);
--		if (ret < 0) {
--			dev_err(fe->dev,"ASoC: bespoke trigger FE failed %d\n", ret);
-+		if (ret < 0)
- 			goto hw_free;
--		}
- 	} else {
- 		dev_dbg(fe->dev, "ASoC: trigger FE %s cmd start\n",
- 			fe->dai_link->name);
+ 	pcm->no_device_suspend = true;
+ out:
 -- 
 2.25.1
 

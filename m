@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D31433DBFD
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:03:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D458033DC0C
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:04:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B43A1926;
-	Tue, 16 Mar 2021 19:02:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B43A1926
+	by alsa0.perex.cz (Postfix) with ESMTPS id 712BC18DB;
+	Tue, 16 Mar 2021 19:03:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 712BC18DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615917813;
-	bh=zCkCxox1OLwnderDRZkFV/XZY0rZMifulX6TMpnOfVE=;
+	s=default; t=1615917855;
+	bh=D8loEQ56HKcCKPHpPRZyps50hlJbx9hUfxJrH4kPrUs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fUl+HplADr15ob2cGUTd8xG/h8PKq3JFvH6fHXFPrrWHd5zc6DdqUhzyHKaJ5mOYY
-	 /OWjyLquzPUXSCYaL7Nu8lF0YTaml6UYVcmAVWBECSJ+jMptHw5MNlU0xALAKQgn1F
-	 nzpx3qAyVCoJeOV2pBPYy75qkiLB1wM8VMCb1f7E=
+	b=kNzFWjfCw4yoXYeFNf3128HHuEv/3aT6E5vy7lve5yLJc7urTk/LDqQvbJpjSWtt4
+	 528Oy3+1wc5tiLbtplhpeppSQJLzphXWNGxarMHPbw5jZjwupYn/LxMriqpnWt8NlH
+	 BiAFAOfKIJtp9nqiZUGjj3SOqOMXko1emzFpU7b4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1834CF804AF;
-	Tue, 16 Mar 2021 19:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEEEEF804D1;
+	Tue, 16 Mar 2021 19:00:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65534F80425; Tue, 16 Mar 2021 19:00:19 +0100 (CET)
+ id 59A40F804AF; Tue, 16 Mar 2021 19:00:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F358F80137
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F358F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9C16F80430
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9C16F80430
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jCoQowma"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 18C136513F;
- Tue, 16 Mar 2021 18:00:13 +0000 (UTC)
+ header.b="SMS97Ik5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 14EC265137;
+ Tue, 16 Mar 2021 18:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615917614;
- bh=zCkCxox1OLwnderDRZkFV/XZY0rZMifulX6TMpnOfVE=;
+ s=k20201202; t=1615917617;
+ bh=D8loEQ56HKcCKPHpPRZyps50hlJbx9hUfxJrH4kPrUs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jCoQowmadMlIKMs+WjcPUNyaWB5eP8tFGI5dVLJcYjQUisc3vt8hUiCkLEw+CsfUc
- CDjeasuFdJcGnQpblAZ5XZSnKnPkhdQ0vWx7cqaIRJq7oo1OW/1ThEDALIXr1jMJBv
- WBFDppUXneOrl+Y+kdmYy84ON3+5JFuGkHhvYH+rzrncBTiL3zE6IU9ZJILIH/ZJo0
- miEf64uHbn0suazLJTXu2xcrcTBFsXBm8pOkGvMjNJ8q3XD6WG4ycsIAXPniz/nQPw
- CaRmZaOj+hlE2mWljwjfkqr4HO5oA+urwooHaLPaZ/AO7McHDvsi7Verv9UVIIKl7W
- z3wdIDPMiHXSg==
+ b=SMS97Ik5g11s6ffUhBsithKvysjHc4fPT/p0JQe06lZYIYQFOLlavz6dUWSEA9C3+
+ 8y9PmCgXCCDaRV4y7XF928vxF7ytuQ7WP3lT0yX0IxmKhaiUyvE2/GVpsDRJzPVJvg
+ LnxO/eTPlVJ4RZnB/FIZoCTRTi8m1X1SZpVgDpoT9ba6j33ZUWL1mbRMb9YWUuZVko
+ 3zhcPR2C2kMBxg0IU9t98QD21KOZwu5oHnixagcbnjMWQYnlvCF0SbI7+PZTkjIXrk
+ 9Dzn0j7zm+3vPQJOmchITGwXkdnVFWxdlVQDbNvjm+cM4Vvbbtt8M2ad5AA/jThUwn
+ o5XNe5Ad8yhPQ==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- peter.ujfalusi@ti.com, perex@perex.cz,
- Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, lgirdwood@gmail.com,
- gustavoars@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [PATCH] ASoC: wm8962: Relax bit clock divider searching
-Date: Tue, 16 Mar 2021 17:59:46 +0000
-Message-Id: <161591744696.13544.17150512683547354902.b4-ty@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: mx27vis: Remove unused file
+Date: Tue, 16 Mar 2021 17:59:47 +0000
+Message-Id: <161591744696.13544.11463160601004848129.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1614770488-12861-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1614770488-12861-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210315193842.183042-1-festevam@gmail.com>
+References: <20210315193842.183042-1-festevam@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +79,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Mar 2021 19:21:28 +0800, Shengjiu Wang wrote:
-> With S20_3LE format case, the sysclk = rate * 384,
-> the bclk = rate * 20 * 2, there is no proper bclk divider
-> for 384 / 40, because current condition needs exact match.
-> So driver fails to configure the clocking:
+On Mon, 15 Mar 2021 16:38:42 -0300, Fabio Estevam wrote:
+> i.MX has been converted to a devicetree-only platform and
+> asoc-mx27vis.h is no longer used.
 > 
-> wm8962 3-001a: Unsupported BCLK ratio 9
-> 
-> [...]
+> Get rid of this unused file.
 
 Applied to
 
@@ -99,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm8962: Relax bit clock divider searching
-      commit: aa4890f673f9d54d3cb0ea156acfe41958ea7f08
+[1/1] ASoC: mx27vis: Remove unused file
+      commit: 1d49439c04792a4a3d8299a32b7673ab7ba13b77
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

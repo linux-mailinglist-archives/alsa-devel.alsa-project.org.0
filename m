@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DA033D02D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 09:55:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9B0133D040
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 09:59:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17F57192B;
-	Tue, 16 Mar 2021 09:54:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17F57192B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66A5F192E;
+	Tue, 16 Mar 2021 09:58:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66A5F192E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615884949;
-	bh=sKAa5eC2apofwKJIZO59abb3yZrkRnTXidfiIl0ooBs=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NaS2t3kKexeXtQBhKT9Y647MkcQwRxniHOrp52SyCd1+5b4wYEhySXUnpHKIHDJ5i
-	 pjwN8KjYxP7VzPPk6vC/6Y58wt+s8CWVQSD/gQWwA8WPNgsZ3IzEbEATGoM0t5dAmi
-	 fRw8Quog+10tVnpN7VFQXmTpoFiBwSY61+SQzYo8=
+	s=default; t=1615885174;
+	bh=aEl8r0VZKG4qEzzHhom64xqkRQSgZ/WUMqO1A8FTC6I=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eA5DxEbVG6Of3kcj3MLdhY5I26g7GixEKnXpJECkSnK7+R3BKVsQrai6qDghgK64P
+	 ap574CDzkJb7VkVgjoQd6znef9HYAMLFS3suDWqQ1QOeDyXHPzOE8PVRkviT5terIt
+	 O3X9kUmrBmdwR/N1xboeZ9PyeT/K7xA2zl1Ap71I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 718DAF80148;
-	Tue, 16 Mar 2021 09:54:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6568F80171;
+	Tue, 16 Mar 2021 09:58:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11168F80163; Tue, 16 Mar 2021 09:54:17 +0100 (CET)
+ id B2562F80163; Tue, 16 Mar 2021 09:58:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1FD6F80148
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 09:54:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1FD6F80148
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4938B200328;
- Tue, 16 Mar 2021 09:54:07 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D0B1A203E04;
- Tue, 16 Mar 2021 09:54:03 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 3F944402C1;
- Tue, 16 Mar 2021 09:53:59 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: dt-bindings: fsl_spdif: Add compatible string for new
- platforms
-Date: Tue, 16 Mar 2021 16:40:53 +0800
-Message-Id: <1615884053-4264-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C85FF80137
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 09:57:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C85FF80137
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7BBCDAC1F;
+ Tue, 16 Mar 2021 08:57:49 +0000 (UTC)
+Date: Tue, 16 Mar 2021 09:57:49 +0100
+Message-ID: <s5hh7lbo4qa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jeremy Szu <jeremy.szu@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP 440 G8
+In-Reply-To: <20210316074626.79895-1-jeremy.szu@canonical.com>
+References: <20210316074626.79895-1-jeremy.szu@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Jian-Hong Pan <jhp@endlessos.org>, tiwai@suse.com,
+ Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,29 +72,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add compatible string for new added platforms which support spdif module.
-They are i.MX8QXP, i.MX8MM, i.MX8MN, i.MX8MQ.
+On Tue, 16 Mar 2021 08:46:24 +0100,
+Jeremy Szu wrote:
+> 
+> The HP EliteBook 840 G8 Notebook PC is using ALC236 codec which is
+> using 0x02 to control mute LED and 0x01 to control micmute LED.
+> Therefore, add a quirk to make it works.
+> 
+> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- Documentation/devicetree/bindings/sound/fsl,spdif.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Thanks, applied.
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl,spdif.yaml b/Documentation/devicetree/bindings/sound/fsl,spdif.yaml
-index 50449b6d1048..4454aca34d56 100644
---- a/Documentation/devicetree/bindings/sound/fsl,spdif.yaml
-+++ b/Documentation/devicetree/bindings/sound/fsl,spdif.yaml
-@@ -21,6 +21,10 @@ properties:
-       - fsl,vf610-spdif
-       - fsl,imx6sx-spdif
-       - fsl,imx8qm-spdif
-+      - fsl,imx8qxp-spdif
-+      - fsl,imx8mq-spdif
-+      - fsl,imx8mm-spdif
-+      - fsl,imx8mn-spdif
- 
-   reg:
-     maxItems: 1
--- 
-2.27.0
 
+Takashi

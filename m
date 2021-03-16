@@ -2,85 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B916633C6F3
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Mar 2021 20:40:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F1D33CA7F
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 01:54:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 370C7193A;
-	Mon, 15 Mar 2021 20:39:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 370C7193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18E351929;
+	Tue, 16 Mar 2021 01:53:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18E351929
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615837240;
-	bh=EOTs2+EwjNAl/e5xkdGx+XyHQ3EVZCv1Gq8HWeEefb0=;
+	s=default; t=1615856089;
+	bh=cDMLyaVL1XuNoAg2DYgXOqTFbOF4dcTo2Lrv9kox6AE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zzg0lj96hIcW9yU/owO/gzFUUAZHDXouBOwbh2i3fqHuF/cbFVexq+QREVsEE7YoG
-	 APuqpTlllhF9Y+xKVbZa1EmLDL4/TtjnXrsYeAFt8kGEutRcL4lILoVkhfr/q6d/hj
-	 SSazCMRv9dhIIi+FwihCj/AQvDlirLuVFgTaA5+Y=
+	b=P0MIB/h7+z1cnC6oMexcA5dDQzeiu0zEamTMayCPOBPMyI5YC2JrMxz/5SPuwtXvw
+	 AU6IaPJ7EXABilGFyGdYue8TR7CLh5M/9G1ZURHAHcYyeVXEm29sunvf+uZA0kwZKW
+	 192EqKGl4ZKVSb5LGvOD1wcyyPrjPV4dyn+Z8iQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2A59F801F7;
-	Mon, 15 Mar 2021 20:39:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EAF4F8013F;
+	Tue, 16 Mar 2021 01:53:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E284F80171; Mon, 15 Mar 2021 20:39:07 +0100 (CET)
+ id 53D68F80171; Tue, 16 Mar 2021 01:53:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A405BF80100
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 20:38:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A405BF80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LTrstFFh"
-Received: by mail-qv1-xf32.google.com with SMTP id t16so8378604qvr.12
- for <alsa-devel@alsa-project.org>; Mon, 15 Mar 2021 12:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=j5iwX/IFSMt3h2ZEDu4oRP553pThlR+vqENZsQ96C8c=;
- b=LTrstFFh5NIGqfXGH7GH4QvaACZkDCRcBENi9HWtVtrX4ZrvKEAnkr6qXfjc00JaHd
- ijfiSHH6dPra7KeWkMc8P55GuJN9TTJPymeXg+kzTV+7FC/sRhQkW3CKX82tysawq40x
- AD6sDWMKz2IM+Zhr6f8k83tNOs2DTiBVuFsffSzLeuBdj4akWZDbuaqXjbEdAUrTJVry
- +34Wmx6mg1obcMOsunrejivsZ/LdWGbtpPJzC6IhO+VSUUyMS4Hia2iN5zQ1ublbWZW+
- EFwGIWtwcUHrd6f6jDwbAvZmfLI27eOV1pPQnSrE4S4TtqMFF07h5cRsMs8CS//KOF9/
- ytiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=j5iwX/IFSMt3h2ZEDu4oRP553pThlR+vqENZsQ96C8c=;
- b=To7ZxSqDogWrh5Wa+EtjUT71FK93e47Jy++XkUR3Hv6zZOckx1DGcHEqISAzdIZRsg
- fboCUIg0K27xfmVH5k+Hd2WXWsaXvRshmbLLuZjlp7VtoG9NlPH6GW2c3J3E7Q903jG+
- Z7Qj0CUrbE0Up1D9Igbhv+EwXF6dqKsElDaGBI69zeWkjzgGq6N8SCxhI/ElP/b6qLvy
- gH0E91FU6Du1BPYSS6AHcoOq1sxstJFBIeeoJNdJIOqqpeWCY0cXnCiWxYl8MQJAyuq1
- xhgf0DziWj8uPVSbLAwqvIqBoa6WTIw6YK3FZlzoCGA3qCpopOyuQVqNRFg5p2frKz+z
- tfqA==
-X-Gm-Message-State: AOAM533+k6V3kqk3F1hwHrUyhPuyTcfhSgx83F8S63jREO0HUUIsjTox
- IUh6Cf7ljiOREqy8WrPHMrE=
-X-Google-Smtp-Source: ABdhPJzRPVkvmoA9L/ehmepAqGf5XS1OFry+k3CPaL1e1xrH5sWcJ2gZgRj2oB+Fedfa3RaNGVFgeA==
-X-Received: by 2002:a0c:f349:: with SMTP id e9mr12439515qvm.59.1615837133190; 
- Mon, 15 Mar 2021 12:38:53 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:482:919::1000])
- by smtp.gmail.com with ESMTPSA id f186sm13493450qkj.106.2021.03.15.12.38.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Mar 2021 12:38:52 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: mx27vis: Remove unused file
-Date: Mon, 15 Mar 2021 16:38:42 -0300
-Message-Id: <20210315193842.183042-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CACCF8010E
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 01:53:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CACCF8010E
+IronPort-SDR: 6gU/q3hp1wDeYHoK1MNBl/WCz2iOg6OCdMDeNZ4jmfAcBsOyCT48k1ANQ8kPyABNqY+rW1tCdq
+ YkF9nfLNU9vA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="168449320"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="168449320"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 17:53:05 -0700
+IronPort-SDR: aD5EhP2CoJk8JDSDz5hf83OzxcxX66qiHwPKzRLaIk6ugYciYL3umJBE3tTQgcBM+ZmnY3grBz
+ cXvQXg7P1Bwg==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="412026890"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 17:53:03 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH] ASoC: rt711: add snd_soc_component remove callback
+Date: Tue, 16 Mar 2021 08:52:54 +0800
+Message-Id: <20210316005254.29699-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,35 +72,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-i.MX has been converted to a devicetree-only platform and
-asoc-mx27vis.h is no longer used.
+We do some IO operations in the snd_soc_component_set_jack callback
+function and snd_soc_component_set_jack() will be called when soc
+component is removed. However, we should not access SoundWire registers
+when the bus is suspended.
+So set regcache_cache_only(regmap, true) to avoid accessing in the
+soc component removal process.
 
-Get rid of this unused file.
-
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- include/linux/platform_data/asoc-mx27vis.h | 12 ------------
- 1 file changed, 12 deletions(-)
- delete mode 100644 include/linux/platform_data/asoc-mx27vis.h
+ sound/soc/codecs/rt711.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/linux/platform_data/asoc-mx27vis.h b/include/linux/platform_data/asoc-mx27vis.h
-deleted file mode 100644
-index 2107d0d992dd..000000000000
---- a/include/linux/platform_data/asoc-mx27vis.h
-+++ /dev/null
-@@ -1,12 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef __PLATFORM_DATA_ASOC_MX27VIS_H
--#define __PLATFORM_DATA_ASOC_MX27VIS_H
--
--struct snd_mx27vis_platform_data {
--	int amp_gain0_gpio;
--	int amp_gain1_gpio;
--	int amp_mutel_gpio;
--	int amp_muter_gpio;
--};
--
--#endif /* __PLATFORM_DATA_ASOC_MX27VIS_H */
+diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
+index 202bf6fbc5be..9f5b2dc16c54 100644
+--- a/sound/soc/codecs/rt711.c
++++ b/sound/soc/codecs/rt711.c
+@@ -895,6 +895,13 @@ static int rt711_probe(struct snd_soc_component *component)
+ 	return 0;
+ }
+ 
++static void rt711_remove(struct snd_soc_component *component)
++{
++	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
++
++	regcache_cache_only(rt711->regmap, true);
++}
++
+ static const struct snd_soc_component_driver soc_codec_dev_rt711 = {
+ 	.probe = rt711_probe,
+ 	.set_bias_level = rt711_set_bias_level,
+@@ -905,6 +912,7 @@ static const struct snd_soc_component_driver soc_codec_dev_rt711 = {
+ 	.dapm_routes = rt711_audio_map,
+ 	.num_dapm_routes = ARRAY_SIZE(rt711_audio_map),
+ 	.set_jack = rt711_set_jack_detect,
++	.remove = rt711_remove,
+ };
+ 
+ static int rt711_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
 -- 
-2.25.1
+2.17.1
 

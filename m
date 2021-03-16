@@ -2,56 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F15B33D371
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 12:58:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FBF833D47F
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 14:01:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99A5D18A4;
-	Tue, 16 Mar 2021 12:57:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99A5D18A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A71B71897;
+	Tue, 16 Mar 2021 14:00:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A71B71897
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615895879;
-	bh=KNsyDEdhU/TZGu0peuH8OE7gFBtTMraM8AiK4zTf7XI=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PBZvDJMjvNn7cuC1aKLrNJpSoziRTp/iOPJ3O3r1loHnASQ53Bt1gzdW2BO3lmH+s
-	 xMUsxeT8Prg3eVmk5/7QniIZtzJNmMalrmuHjwD8wW9B/dVCpFlTau1+fRx+uuOQQr
-	 ygTE2QVxFFEnHqTxjzat6miKJ7kN/GFbCMQ9FXQM=
+	s=default; t=1615899705;
+	bh=qwBm7m6FV8Asv3SjFX/QnnnbKfOuU9r79opiM9sj9mw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uW4mS7UB4npM20G3Vkzv488ob0qFKoar24F+EuSH18WN2mMYnG23nNiyyoUiWrod+
+	 1gAj0k1GbsgeYTbxO/i/h+lxodM5qC4/1TzOG0MLTQd+FWRK2z4Kk4H2fnmCQ+hT6v
+	 ApHGbrwGMe+S483UbtPZbgRcSh1guz127gJUNcck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01D83F80137;
-	Tue, 16 Mar 2021 12:56:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2A68F80137;
+	Tue, 16 Mar 2021 14:00:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE8B5F80163; Tue, 16 Mar 2021 12:56:15 +0100 (CET)
+ id 108B9F80163; Tue, 16 Mar 2021 14:00:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31539F8013F
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 12:55:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31539F8013F
-Received: from [123.112.71.149] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lM8In-0001C1-Gk; Tue, 16 Mar 2021 11:55:58 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	kailang@realtek.com
-Subject: [PATCH] ALSA: hda/realtek: add more delay time before
- determine_headset_type
-Date: Tue, 16 Mar 2021 19:55:49 +0800
-Message-Id: <20210316115549.240014-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB226F8013F
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 13:59:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB226F8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="aKEMIhQC"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F25F65054;
+ Tue, 16 Mar 2021 12:59:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615899595;
+ bh=qwBm7m6FV8Asv3SjFX/QnnnbKfOuU9r79opiM9sj9mw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aKEMIhQCaVn3lLwByE24nqImVHqNJUT+/8j9sbtM2chyG0jSLvPAZM8F4f8axyuJC
+ jybxzpe172SfZXs7qpx2d8s4Qd5wugn26nfNH9T8evegc5LjBsgS2HufHzR6sTDVbG
+ XE8PdCmwfF0CKowDN3d9zh5QtPEsWcllXIT3CrmHYj0QgSFwxguhxamKYdfrEhKFFt
+ vDR7CBPirXnx8k3GpIkjLMNLO6/XIPxcQXLP0WO1rx+gJW9TtC8HNyXPboNaw2UziF
+ 4VETN9iyh3qPO+vDqK5V5c26AkvUZqHeW+EwMVuLTZ7pw5Q+9opRUb2vB2Dx5hS5N6
+ UA0XsjjW8xtpw==
+Date: Tue, 16 Mar 2021 12:58:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: remove reset code from dai_probe
+Message-ID: <20210316125839.GA4309@sirena.org.uk>
+References: <1615886826-30844-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FCuugMFkClbJLl1L"
+Content-Disposition: inline
+In-Reply-To: <1615886826-30844-1-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: Results vary by individual.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ nicoleotsuka@gmail.com, festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,118 +83,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We found a recording issue on the headset-mic recently, sometimes
-users plug a headset and select headset-mic from UI, but can't record
-any sound from headset-mic. The root cause is the
-determine_headset_type() returns a wrong type, e.g. users plug a ctia
-type headset, but that function returns omtp type.
 
-In the past, determine_headset_type() worked well because the internal
-mic is connected to the codec, so the "Input Source" or
-"Capture Source" is internal mic by default when users plug a headset,
-the determine_headset_type() will not be called unless users select
-headset-mic from UI, when users select headset-mic, the plugging
-action already finished and the headset is completely plugged into the
-jack, so determine_headset_type() could return a correct type.
+--FCuugMFkClbJLl1L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-But more and more machines connect the internal mic to the PCH now,
-and the "Input Source" is headset mic by default, when users plug a
-headset, the determine_headset_type() will be called immediately, if
-the headset is not completely plugged in, it will return a wrong type.
+On Tue, Mar 16, 2021 at 05:27:06PM +0800, Shengjiu Wang wrote:
+> From: Viorel Suman <viorel.suman@nxp.com>
+>=20
+> SAI software reset is done in runtime resume,
+> there is no need to do it in fsl_sai_dai_probe.
 
-Here add 2s delay before calling determine_headset_type(), and since
-there is a pop-up dialogue when users do plugging action, to avoid
-freezing the UI, use the deleyed_work to call that function.
+People can disable runtime PM in their configurations - do you not still
+need a reset on probe in case there's no runtime PM?  It'd probably make
+sense to factor the rest code out itno a function though.
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
+--FCuugMFkClbJLl1L
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index b47504fa8dfd..1f6fc8addf3e 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -127,6 +127,8 @@ struct alc_spec {
- 	unsigned int coef0;
- 	struct input_dev *kb_dev;
- 	u8 alc_mute_keycode_map[1];
-+	struct hda_codec *codec;
-+	struct delayed_work headset_set_work;
- };
- 
- /*
-@@ -1160,6 +1162,7 @@ static int alc_alloc_spec(struct hda_codec *codec, hda_nid_t mixer_nid)
- 		kfree(spec);
- 		return err;
- 	}
-+	spec->codec = codec;
- 	return 0;
- }
- 
-@@ -5363,6 +5366,21 @@ static void alc_determine_headset_type(struct hda_codec *codec)
- 	spec->current_headset_type = is_ctia ? ALC_HEADSET_TYPE_CTIA : ALC_HEADSET_TYPE_OMTP;
- }
- 
-+static void alc_headset_check_and_set(struct work_struct *work)
-+{
-+	struct alc_spec *spec = container_of(work, struct alc_spec,
-+					     headset_set_work.work);
-+	struct hda_codec *codec = spec->codec;
-+
-+	if (spec->current_headset_type == ALC_HEADSET_TYPE_UNKNOWN)
-+		alc_determine_headset_type(codec);
-+	if (spec->current_headset_type == ALC_HEADSET_TYPE_CTIA)
-+		alc_headset_mode_ctia(codec);
-+	else if (spec->current_headset_type == ALC_HEADSET_TYPE_OMTP)
-+		alc_headset_mode_omtp(codec);
-+	spec->gen.hp_jack_present = true;
-+}
-+
- static void alc_update_headset_mode(struct hda_codec *codec)
- {
- 	struct alc_spec *spec = codec->spec;
-@@ -5386,6 +5404,7 @@ static void alc_update_headset_mode(struct hda_codec *codec)
- 		return;
- 	}
- 
-+	cancel_delayed_work_sync(&spec->headset_set_work);
- 	switch (new_headset_mode) {
- 	case ALC_HEADSET_MODE_UNPLUGGED:
- 		alc_headset_mode_unplugged(codec);
-@@ -5394,13 +5413,7 @@ static void alc_update_headset_mode(struct hda_codec *codec)
- 		spec->gen.hp_jack_present = false;
- 		break;
- 	case ALC_HEADSET_MODE_HEADSET:
--		if (spec->current_headset_type == ALC_HEADSET_TYPE_UNKNOWN)
--			alc_determine_headset_type(codec);
--		if (spec->current_headset_type == ALC_HEADSET_TYPE_CTIA)
--			alc_headset_mode_ctia(codec);
--		else if (spec->current_headset_type == ALC_HEADSET_TYPE_OMTP)
--			alc_headset_mode_omtp(codec);
--		spec->gen.hp_jack_present = true;
-+		schedule_delayed_work(&spec->headset_set_work, msecs_to_jiffies(2000));
- 		break;
- 	case ALC_HEADSET_MODE_MIC:
- 		alc_headset_mode_mic_in(codec, hp_pin, spec->headphone_mic_pin);
-@@ -5466,6 +5479,7 @@ static void alc_fixup_headset_mode(struct hda_codec *codec,
- 		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC | HDA_PINCFG_HEADPHONE_MIC;
- 		break;
- 	case HDA_FIXUP_ACT_PROBE:
-+		INIT_DELAYED_WORK(&spec->headset_set_work, alc_headset_check_and_set);
- 		alc_probe_headset_mode(codec);
- 		break;
- 	case HDA_FIXUP_ACT_INIT:
-@@ -5475,6 +5489,9 @@ static void alc_fixup_headset_mode(struct hda_codec *codec,
- 		}
- 		alc_update_headset_mode(codec);
- 		break;
-+	case HDA_FIXUP_ACT_FREE:
-+		cancel_delayed_work_sync(&spec->headset_set_work);
-+		break;
- 	}
- }
- 
--- 
-2.25.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBQq34ACgkQJNaLcl1U
+h9B1lQf0DcB6TePE9N4R6M55ENvpw+3OXeo/AocY7jVKhtvhyr3WBZe8nDwnwbMQ
+m8jPvvIuRx2l6ozvCdpJkIWkjGLEdOG0q/+n7HGEV8EFPa20tQPSkWRt/3zPKaAD
+oSJP/xemNE7Gt9DnZXM+kgI4NxgXXjbHGt06YUPy/h9SGjgpoaggkdI+zwGdWYJZ
+BoJjaI5+cAnAXzp3RFnVmJGwIWER8vF/Mv4vIdbEz5lbamaVpG80yJEiyJOn8GmY
+ZA5Wc/4wOBLOpdCCXklTQi7YU/nJpgCflBrsXtqT9WNUH1OIqYc4oqiMb9acw/G2
+L23Zg+uzwL3ZBYsq5CyQU74jmCTa
+=M0pT
+-----END PGP SIGNATURE-----
+
+--FCuugMFkClbJLl1L--

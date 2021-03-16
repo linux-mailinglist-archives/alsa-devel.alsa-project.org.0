@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FEF33DBEC
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:02:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 649EA33DBDD
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:01:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 783B21905;
-	Tue, 16 Mar 2021 19:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 783B21905
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEA5917E9;
+	Tue, 16 Mar 2021 19:00:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEA5917E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615917753;
-	bh=vdy2WpeZI2HCzGdQqz3Y/L//P+ab1QFmmzSf0iTsJxg=;
+	s=default; t=1615917703;
+	bh=Vtpwig98DoZbrSR0CuLqzxBGXELlkECOuNP5eItQs1I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VlPuEdyQeo1ev/y9Y7ropijQwUprpTmqJUSulQmYIzKZf7RGWnUr6Ld8g2NDd8uTg
-	 S9gnD3OYxNQTLFknygzwosRAdkYEG1pBhGOmkt/lC4vohYu3weylDaqX5Iggq9K2Pe
-	 TrAHvXe2QchFA+LTxIqADbuU5cHhzWzNEdJMCoqg=
+	b=Xm/w4gltgE59Zsn4Tc0omphrx4pIupCAZtFjZaVxId8IZh0tBYbQuJDJMA6r3jGRy
+	 ymVxLUlVP/BXxoomEQlPZ9285LC87jDH48ibfM/Q+innpjfHAnUSMD+99oX/9+AVM5
+	 F+xcJdAeIhmabuiSYo1kbcYfJ0rTqFOEAZRahBBQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C67DF8042F;
-	Tue, 16 Mar 2021 19:00:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BECE4F8023B;
+	Tue, 16 Mar 2021 19:00:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D74BF80224; Tue, 16 Mar 2021 19:00:14 +0100 (CET)
+ id 4D73DF80218; Tue, 16 Mar 2021 19:00:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FF43F80137
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FF43F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54916F80148
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54916F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UnlsifzF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D7E73650D9;
- Tue, 16 Mar 2021 17:59:57 +0000 (UTC)
+ header.b="B5er0DI4"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B063F65130;
+ Tue, 16 Mar 2021 18:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615917598;
- bh=vdy2WpeZI2HCzGdQqz3Y/L//P+ab1QFmmzSf0iTsJxg=;
+ s=k20201202; t=1615917601;
+ bh=Vtpwig98DoZbrSR0CuLqzxBGXELlkECOuNP5eItQs1I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UnlsifzFhj3D7YpXvvXOJU1CORovHfvgX17+U2yLJQFIhShbsFwrxhYDfy4n3Qkwp
- t+tSGUVpZcfEVLKsHejsyo26wxOi/2dh6ZTWags7XmGxJCI20l0YQhkgAwde5K69CO
- YIqlWdcLppGJR1U8qaT+dlLgjE4mu+nWZT/AxDSIBUfBU5DTVWzc/P2KLpCopE8xRR
- sDsb4MpkKwRPRZHje7YgqUNa98+5xMgUgPW9ebUDLMUEAeyR5EM18v8RJtQ/MEaKn2
- vDQEq6I9Ttz8qOessEJAW/UgI04oHXEq5OLCKEljcMW/jc4FwTqIUkWccl49vwuF9k
- HYyY4rqU9s1TQ==
+ b=B5er0DI4ZmvZIRiX7qGda9dnCI3L7nNsR1o0jHOfuze8qNxaEklDyNkSe7Y5GJxSz
+ 09PP8gZiwlSo6hjh25CM0x/YiC6auGmVMNffGEXnwebvDD5X2Y/ePISsGk9qo5DfND
+ K9ZUQ93tU3bpdlquwXTNOVCDamtDGi3APpz8kw47XGwQYmkthItjiVMBGJ5AmsqwJ+
+ vDAkUwWgLS2l0LBSreUtZ8/rruQGP3tp8iwmC2goFiIKf9TPXELiy8VRXHdTl5Gowu
+ 2I57AaB9VHl96WbxgnsuMdIHzOZxgcV1NpDOJ5ORs/oRemiODBQlfpqese4fLjvW/B
+ shOeHe2y1XNjQ==
 From: Mark Brown <broonie@kernel.org>
-To: timur@kernel.org,
-	Yang Li <yang.lee@linux.alibaba.com>
-Subject: Re: [PATCH] ASoC: hdmi-codec: fix platform_no_drv_owner.cocci warnings
-Date: Tue, 16 Mar 2021 17:59:41 +0000
-Message-Id: <161591744695.13544.8415296923566318166.b4-ty@kernel.org>
+To: linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: fsl_spdif: Add compatible string for
+ new platforms
+Date: Tue, 16 Mar 2021 17:59:42 +0000
+Message-Id: <161591744696.13544.14124776783754754865.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1614761651-86898-1-git-send-email-yang.lee@linux.alibaba.com>
-References: <1614761651-86898-1-git-send-email-yang.lee@linux.alibaba.com>
+In-Reply-To: <1615884053-4264-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1615884053-4264-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, shengjiu.wang@gmail.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
- linux-kernel@vger.kernel.org, tiwai@suse.com, nicoleotsuka@gmail.com,
- Mark Brown <broonie@kernel.org>, linux-imx@nxp.com, kernel@pengutronix.de,
- shawnguo@kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,11 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Mar 2021 16:54:11 +0800, Yang Li wrote:
-> ./sound/soc/fsl/imx-hdmi.c:226:3-8: No need to set .owner here. The core
-> will do it.
-> 
-> Remove .owner field if calls are used which set it automatically
+On Tue, 16 Mar 2021 16:40:53 +0800, Shengjiu Wang wrote:
+> Add compatible string for new added platforms which support spdif module.
+> They are i.MX8QXP, i.MX8MM, i.MX8MN, i.MX8MQ.
 
 Applied to
 
@@ -96,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: hdmi-codec: fix platform_no_drv_owner.cocci warnings
-      commit: 2e2bf6d479616a15c54c4e668558f61caffa4db4
+[1/1] ASoC: dt-bindings: fsl_spdif: Add compatible string for new platforms
+      commit: 9deef665f5811a7ad22b5e6eb80fe2a14ba4494c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

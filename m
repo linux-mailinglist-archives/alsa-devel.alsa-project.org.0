@@ -2,81 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B8F3401C4
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 10:18:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D483401C5
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 10:18:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54E7316CE;
-	Thu, 18 Mar 2021 10:17:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54E7316CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75D3316CD;
+	Thu, 18 Mar 2021 10:17:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75D3316CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616059112;
-	bh=N9m4/yEcpQ24l1JGHg3e1anGMncSHXuQh8Fr2qXPZ4Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1616059123;
+	bh=Pj2MJmoQ/r7dUvLWZ0ujrtdf5d4sqmhZoR9FF822CxI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k64qcs0WKzf0FNGU3WtpfYEYkk9Wx8bY4rUhBjvnlNc/3/BmonvSrf7w4+uqdcZe0
-	 4lYn2ZC0NrT6OTtvywb9kOXEfGJdWjZPfgPU65cF+yOfguVNHD5JmrTKUxD8o+/yqG
-	 7hafCfKq32pKuUYa+g8R0d1IGLqTVi1QQLiAEWIs=
+	b=esNVf8rr8jtv/uh8E81jIAbfek1jEcrA2liw0wx+sMy7nf+askPi5kp7RA2lWQYbo
+	 lIev19grvSHLk15GH3CBwsGYu1N5Alxs74JY8xMD3cWHn7aMEAiv39+omKT+KWdgYk
+	 TB0Lf9j925OvxIRH66WljKHXv2Iu8p+nCe71n+3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5EFDF802E3;
-	Thu, 18 Mar 2021 10:16:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2AB4F80425;
+	Thu, 18 Mar 2021 10:16:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B662F80148; Tue, 16 Mar 2021 21:24:05 +0100 (CET)
+ id 4C458F80163; Tue, 16 Mar 2021 21:26:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D12E4F80148
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 21:23:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D12E4F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E1CFF80148
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 21:26:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E1CFF80148
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="BvH44Pf9"
-Received: by mail-qk1-x72b.google.com with SMTP id n79so36693227qke.3
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 13:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=arCkDDywA9FeKUOpIhe6JHln/l1VSIQXxqyZA+nk/iU=;
- b=BvH44Pf9lCF5vFRkfQX5yGdlaI8YBDtfQtH+oik0jRpFp1Xvs74iTtbkQ+N3Cep4ve
- 6bN6xad1emcYWV4Dq+v+O7AX45leAkC+MT1vDe3nyrKZN0LXe7Qn1Zd/OldHj6jf87oy
- zpojZhnhH/QuAPJdkHuSz00E/yJfrDaV472ld1n98PQxMsYTbXaZ86FRSkienG9bn46z
- mXkxiHDfsl2zmKORUXRCuCGb7t4vLQqrkAxUOdaJKFmWz1UpPsC4ybtvjDMfhAQWDE+n
- oR8jHzkU12cUl00vEnRwMwHgvuKf29j4TcJ4ylYLNvwrrH4Sgo08vH2Fd00jEFIBeOHd
- yEkw==
+ dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org
+ header.b="aQI+a21P"
+Received: by mail-io1-xd29.google.com with SMTP id m7so19595425iow.7
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 13:26:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=bvkqNr1q78jgqt9ME2KjhcsSH1MGlZ3R4wsxExVXRtc=;
+ b=aQI+a21P3/jQfp2XBCLpKA2XaF4d5h3u1dOHvC7XfJmy4Pv2OZk9eXfxC3Ka9vZNLg
+ EO21aV6GaVbMhwaByQY77Pz3lOGWZjsBh3Dtk919+/lWVtXwxYwuLSv2mdgmQ6lqIupI
+ nBE5rQzNd5O5jMR29ufLhcU7SA4WqArxE/PD8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=arCkDDywA9FeKUOpIhe6JHln/l1VSIQXxqyZA+nk/iU=;
- b=KRxOkVtCfO/6DraNisriJMcfl7wnQh+JEvGpyqaZGx3WG9KwuKaPal32Z02mNA61fW
- UUmYgJqtCLJLHb5fVFkd/6Gs8aieA8jZMsphkNkD44z4Vv/3f+fr2uqaJiIMbBNJs0zc
- RqBe3YNWOIUHgbj3tHcSr3ZZ+otjCK105hXoxS+tgm33Hc0oTcet9tG1Jli8c4eTTuIg
- d6ARcdsWYU0OHCrROiBtOCnLP7OoM1a+MDL6qz2kKP42PV321zrzSo99lxMItknwkZ4s
- xd7c/NIrQNENG306hohObNOf2dJFqWwSrbxDNKujO8ObJHnilVwW9olhDvJSygcoUqVw
- f4Ww==
-X-Gm-Message-State: AOAM532IBnL+vNLMlBGDhFZyBzmB5D+S7cw6eVxLBRhDsSdLzr8MeKwQ
- obhcDxwdU9egh9oTVSI+0BqAOxC+PI1eT/KWn0gH7w==
-X-Google-Smtp-Source: ABdhPJxbYTa2/crB/yJv7oUF3BXq7Oe2jWTalZ7eOLLNb1YtuOaiCo40UQaYbJDBSqumTDJo/llAhw8klxAYM84cOwY=
-X-Received: by 2002:a37:b6c4:: with SMTP id g187mr946148qkf.162.1615926236634; 
- Tue, 16 Mar 2021 13:23:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210316194858.3527845-1-robh@kernel.org>
-In-Reply-To: <20210316194858.3527845-1-robh@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 16 Mar 2021 23:23:45 +0300
-Message-ID: <CAA8EJppX+o6pEYB4qVncWiz9sTDyQ7DyNqGLW--sgNb-WSP7iw@mail.gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=bvkqNr1q78jgqt9ME2KjhcsSH1MGlZ3R4wsxExVXRtc=;
+ b=gWe37qtb9cM37D3/MFSu5AX5tg2RSNPd8REfgl+qhzqaIMZ6p1/o3JkprenruNfSIu
+ 5swoKaJor7Op0RCik6vfmk5OK9IxKa3FJ9TetqqxP00H/8iql2jKVGozwzw3RtDbWClQ
+ u0tTah/J8toEFqFK/dRisDKCTk671q183RonRfP3uXqMNoTddZyGV5zknoe+GG3xWLfu
+ sMHNuZe5d2gW1VXHAyThgs3tpt1LC3bM40zJyy/s2sE+e2ZNPfX6Wb09s+4ST6753WoL
+ lBE9AcYvyjTFzmH12PwWw6aNddsLxbY+H6d+pC+yAjLEIbnU13rzPZeF4BgqY234g/Vj
+ 0+Pw==
+X-Gm-Message-State: AOAM5326d2OGkZdD5mZxpfFdVyGXR0XYWoRiLUkPAFPvBfVCClz6BZOl
+ Yuw79k5VnInC9MutHY2DUkxBZQ==
+X-Google-Smtp-Source: ABdhPJzy4mGSz2YUBoXl8UAsu2NnVceuM4ynQkpHc0OrhVOY9bLUogPf0mJ7kYjy/ReSLuG6SxRI0Q==
+X-Received: by 2002:a05:6638:140e:: with SMTP id
+ k14mr376382jad.31.1615926367038; 
+ Tue, 16 Mar 2021 13:26:07 -0700 (PDT)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58])
+ by smtp.googlemail.com with ESMTPSA id v4sm9907370ilo.26.2021.03.16.13.26.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Mar 2021 13:26:06 -0700 (PDT)
 Subject: Re: [PATCH] dt-bindings: Drop type references on common properties
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
+References: <20210316194858.3527845-1-robh@kernel.org>
+From: Alex Elder <elder@ieee.org>
+Message-ID: <b7599ef5-899f-5c38-d3e4-8ac8cfe06c56@ieee.org>
+Date: Tue, 16 Mar 2021 15:26:04 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+MIME-Version: 1.0
+In-Reply-To: <20210316194858.3527845-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 18 Mar 2021 10:16:09 +0100
 Cc: alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -89,17 +98,15 @@ Cc: alsa-devel@alsa-project.org,
  Krzysztof Kozlowski <krzk@kernel.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
  Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Odelu Kukatla <okukatla@codeaurora.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>, Odelu Kukatla <okukatla@codeaurora.org>,
  linux-pm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- linux-can@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
  Benson Leung <bleung@chromium.org>, Alex Elder <elder@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
- netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ linux-kernel@vger.kernel.org, Stefan Wahren <wahrenst@gmx.net>,
+ netdev@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>,
  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -116,14 +123,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 16 Mar 2021 at 22:49, Rob Herring <robh@kernel.org> wrote:
->
+On 3/16/21 2:48 PM, Rob Herring wrote:
 > Users of common properties shouldn't have a type definition as the
 > common schemas already have one. Drop all the unnecessary type
 > references in the tree.
->
+> 
 > A meta-schema update to catch these is pending.
->
+
+For net/qcom,ipa.yaml:
+
+Acked-by: Alex Elder <elder@linaro.org>
+
+> 
 > Cc: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
 > Cc: Maxime Ripard <mripard@kernel.org>
 > Cc: Linus Walleij <linus.walleij@linaro.org>
@@ -157,249 +168,239 @@ On Tue, 16 Mar 2021 at 22:49, Rob Herring <robh@kernel.org> wrote:
 > Cc: linux-usb@vger.kernel.org
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->  .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml       | 5 +----
->  Documentation/devicetree/bindings/arm/cpus.yaml              | 2 --
->  .../bindings/display/allwinner,sun4i-a10-tcon.yaml           | 1 -
->  .../devicetree/bindings/gpio/socionext,uniphier-gpio.yaml    | 3 +--
->  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 1 -
->  .../devicetree/bindings/interconnect/qcom,rpmh.yaml          | 1 -
->  .../bindings/memory-controllers/nvidia,tegra210-emc.yaml     | 2 +-
->  Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml   | 1 -
->  Documentation/devicetree/bindings/net/qcom,ipa.yaml          | 1 -
->  Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml  | 2 --
->  .../devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml   | 2 +-
->  Documentation/devicetree/bindings/sound/ak4642.yaml          | 2 --
->  .../devicetree/bindings/sound/google,cros-ec-codec.yaml      | 2 +-
->  Documentation/devicetree/bindings/sound/renesas,rsnd.yaml    | 1 -
->  .../devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml       | 1 -
->  Documentation/devicetree/bindings/usb/usb.yaml               | 1 -
->  16 files changed, 5 insertions(+), 23 deletions(-)
-
-For the qcom-spmi-adc-tm5.yaml:
-Acked-by: Dmity Baryshkov <dmitry.baryshkov@linaro.org>
-
->
+>   .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml       | 5 +----
+>   Documentation/devicetree/bindings/arm/cpus.yaml              | 2 --
+>   .../bindings/display/allwinner,sun4i-a10-tcon.yaml           | 1 -
+>   .../devicetree/bindings/gpio/socionext,uniphier-gpio.yaml    | 3 +--
+>   .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 1 -
+>   .../devicetree/bindings/interconnect/qcom,rpmh.yaml          | 1 -
+>   .../bindings/memory-controllers/nvidia,tegra210-emc.yaml     | 2 +-
+>   Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml   | 1 -
+>   Documentation/devicetree/bindings/net/qcom,ipa.yaml          | 1 -
+>   Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml  | 2 --
+>   .../devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml   | 2 +-
+>   Documentation/devicetree/bindings/sound/ak4642.yaml          | 2 --
+>   .../devicetree/bindings/sound/google,cros-ec-codec.yaml      | 2 +-
+>   Documentation/devicetree/bindings/sound/renesas,rsnd.yaml    | 1 -
+>   .../devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml       | 1 -
+>   Documentation/devicetree/bindings/usb/usb.yaml               | 1 -
+>   16 files changed, 5 insertions(+), 23 deletions(-)
+> 
 > diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
 > index a2c63c8b1d10..c6144c8421fa 100644
 > --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
 > +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
 > @@ -26,10 +26,7 @@ properties:
->        - const: simple-mfd
->
->    mboxes:
+>         - const: simple-mfd
+>   
+>     mboxes:
 > -    $ref: '/schemas/types.yaml#/definitions/phandle'
 > -    description: |
 > -      Phandle to the firmware device's Mailbox.
 > -      (See: ../mailbox/mailbox.txt for more information)
 > +    maxItems: 1
->
->    clocks:
->      type: object
+>   
+>     clocks:
+>       type: object
 > diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
 > index 26b886b20b27..6be4a8852ee5 100644
 > --- a/Documentation/devicetree/bindings/arm/cpus.yaml
 > +++ b/Documentation/devicetree/bindings/arm/cpus.yaml
 > @@ -256,13 +256,11 @@ properties:
->        where voltage is in V, frequency is in MHz.
->
->    power-domains:
+>         where voltage is in V, frequency is in MHz.
+>   
+>     power-domains:
 > -    $ref: '/schemas/types.yaml#/definitions/phandle-array'
->      description:
->        List of phandles and PM domain specifiers, as defined by bindings of the
->        PM domain provider (see also ../power_domain.txt).
->
->    power-domain-names:
+>       description:
+>         List of phandles and PM domain specifiers, as defined by bindings of the
+>         PM domain provider (see also ../power_domain.txt).
+>   
+>     power-domain-names:
 > -    $ref: '/schemas/types.yaml#/definitions/string-array'
->      description:
->        A list of power domain name strings sorted in the same order as the
->        power-domains property.
+>       description:
+>         A list of power domain name strings sorted in the same order as the
+>         power-domains property.
 > diff --git a/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.yaml b/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.yaml
 > index c13faf3e6581..3a7d5d731712 100644
 > --- a/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.yaml
 > +++ b/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.yaml
 > @@ -73,7 +73,6 @@ properties:
->    clock-output-names:
->      description:
->        Name of the LCD pixel clock created.
+>     clock-output-names:
+>       description:
+>         Name of the LCD pixel clock created.
 > -    $ref: /schemas/types.yaml#/definitions/string-array
->      maxItems: 1
->
->    dmas:
+>       maxItems: 1
+>   
+>     dmas:
 > diff --git a/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml b/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
 > index 1a54db04f29d..bcafa494ed7a 100644
 > --- a/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
 > +++ b/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
 > @@ -43,8 +43,7 @@ properties:
->
->    gpio-ranges: true
->
+>   
+>     gpio-ranges: true
+>   
 > -  gpio-ranges-group-names:
 > -    $ref: /schemas/types.yaml#/definitions/string-array
 > +  gpio-ranges-group-names: true
->
->    socionext,interrupt-ranges:
->      description: |
+>   
+>     socionext,interrupt-ranges:
+>       description: |
 > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
 > index 6f2398cdc82d..1e7894e524f9 100644
 > --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
 > +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
 > @@ -102,7 +102,6 @@ patternProperties:
->
->        st,adc-channel-names:
->          description: List of single-ended channel names.
+>   
+>         st,adc-channel-names:
+>           description: List of single-ended channel names.
 > -        $ref: /schemas/types.yaml#/definitions/string-array
->
->        st,filter-order:
->          description: |
+>   
+>         st,filter-order:
+>           description: |
 > diff --git a/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
 > index 799e73cdb90b..13da7b29c707 100644
 > --- a/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
 > +++ b/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
 > @@ -82,7 +82,6 @@ properties:
->        this interconnect to send RPMh commands.
->
->    qcom,bcm-voter-names:
+>         this interconnect to send RPMh commands.
+>   
+>     qcom,bcm-voter-names:
 > -    $ref: /schemas/types.yaml#/definitions/string-array
->      description: |
->        Names for each of the qcom,bcm-voters specified.
->
+>       description: |
+>         Names for each of the qcom,bcm-voters specified.
+>   
 > diff --git a/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra210-emc.yaml b/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra210-emc.yaml
 > index 49ab09252e52..bc8477e7ab19 100644
 > --- a/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra210-emc.yaml
 > +++ b/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra210-emc.yaml
 > @@ -34,7 +34,7 @@ properties:
->        - description: EMC general interrupt
->
->    memory-region:
+>         - description: EMC general interrupt
+>   
+>     memory-region:
 > -    $ref: /schemas/types.yaml#/definitions/phandle
 > +    maxItems: 1
->      description:
->        phandle to a reserved memory region describing the table of EMC
->        frequencies trained by the firmware
+>       description:
+>         phandle to a reserved memory region describing the table of EMC
+>         frequencies trained by the firmware
 > diff --git a/Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml b/Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml
 > index fe6a949a2eab..55bff1586b6f 100644
 > --- a/Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml
 > +++ b/Documentation/devicetree/bindings/net/can/fsl,flexcan.yaml
 > @@ -57,7 +57,6 @@ properties:
->        - const: per
->
->    clock-frequency:
+>         - const: per
+>   
+>     clock-frequency:
 > -    $ref: /schemas/types.yaml#/definitions/uint32
->      description: |
->        The oscillator frequency driving the flexcan device, filled in by the
->        boot loader. This property should only be used the used operating system
+>       description: |
+>         The oscillator frequency driving the flexcan device, filled in by the
+>         boot loader. This property should only be used the used operating system
 > diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
 > index 8f86084bf12e..4e8dee4aa90d 100644
 > --- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
 > +++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
 > @@ -100,7 +100,6 @@ properties:
->        - description: Whether the IPA clock is enabled (if valid)
->
->    qcom,smem-state-names:
+>         - description: Whether the IPA clock is enabled (if valid)
+>   
+>     qcom,smem-state-names:
 > -    $ref: /schemas/types.yaml#/definitions/string-array
->      description: The names of the state bits used for SMP2P output
->      items:
->        - const: ipa-clock-enabled-valid
+>       description: The names of the state bits used for SMP2P output
+>       items:
+>         - const: ipa-clock-enabled-valid
 > diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
 > index d5d7f113bade..828e4a1ece41 100644
 > --- a/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
 > +++ b/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
 > @@ -23,12 +23,10 @@ properties:
->        List of phandle to the nvmem data cells.
->
->    nvmem-names:
+>         List of phandle to the nvmem data cells.
+>   
+>     nvmem-names:
 > -    $ref: /schemas/types.yaml#/definitions/string-array
->      description:
->        Names for the each nvmem provider.
->
->    nvmem-cell-names:
+>       description:
+>         Names for the each nvmem provider.
+>   
+>     nvmem-cell-names:
 > -    $ref: /schemas/types.yaml#/definitions/string-array
->      description:
->        Names for each nvmem-cells specified.
->
+>       description:
+>         Names for each nvmem-cells specified.
+>   
 > diff --git a/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
 > index 1a1159097a2a..73400bc6e91d 100644
 > --- a/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
 > +++ b/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
 > @@ -93,7 +93,7 @@ properties:
->  # The following are the optional properties:
->
->    memory-region:
+>   # The following are the optional properties:
+>   
+>     memory-region:
 > -    $ref: /schemas/types.yaml#/definitions/phandle
 > +    maxItems: 1
->      description: |
->        phandle to the reserved memory node to be associated
->        with the remoteproc device. The reserved memory node
+>       description: |
+>         phandle to the reserved memory node to be associated
+>         with the remoteproc device. The reserved memory node
 > diff --git a/Documentation/devicetree/bindings/sound/ak4642.yaml b/Documentation/devicetree/bindings/sound/ak4642.yaml
 > index 6cd213be2266..1e2caa29790e 100644
 > --- a/Documentation/devicetree/bindings/sound/ak4642.yaml
 > +++ b/Documentation/devicetree/bindings/sound/ak4642.yaml
 > @@ -29,11 +29,9 @@ properties:
->
->    clock-frequency:
->      description: common clock binding; frequency of MCKO
+>   
+>     clock-frequency:
+>       description: common clock binding; frequency of MCKO
 > -    $ref: /schemas/types.yaml#/definitions/uint32
->
->    clock-output-names:
->      description: common clock name
+>   
+>     clock-output-names:
+>       description: common clock name
 > -    $ref: /schemas/types.yaml#/definitions/string
->
->  required:
->    - compatible
+>   
+>   required:
+>     - compatible
 > diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
 > index acfb9db021dc..77adbebed824 100644
 > --- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
 > +++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
 > @@ -32,7 +32,7 @@ properties:
->            The last one integer is the length of the shared memory.
->
->    memory-region:
+>             The last one integer is the length of the shared memory.
+>   
+>     memory-region:
 > -    $ref: '/schemas/types.yaml#/definitions/phandle'
 > +    maxItems: 1
->      description: |
->        Shared memory region to EC.  A "shared-dma-pool".
->        See ../reserved-memory/reserved-memory.txt for details.
+>       description: |
+>         Shared memory region to EC.  A "shared-dma-pool".
+>         See ../reserved-memory/reserved-memory.txt for details.
 > diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
 > index 2e1046513603..e494a0416748 100644
 > --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
 > +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
 > @@ -78,7 +78,6 @@ properties:
->
->    clock-frequency:
->      description: for audio_clkout0/1/2/3
+>   
+>     clock-frequency:
+>       description: for audio_clkout0/1/2/3
 > -    $ref: /schemas/types.yaml#/definitions/uint32-array
->
->    clkout-lr-asynchronous:
->      description: audio_clkoutn is asynchronizes with lr-clock.
+>   
+>     clkout-lr-asynchronous:
+>       description: audio_clkoutn is asynchronizes with lr-clock.
 > diff --git a/Documentation/devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml b/Documentation/devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml
 > index 95a728f4d333..3ea8c0c1f45f 100644
 > --- a/Documentation/devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml
 > +++ b/Documentation/devicetree/bindings/thermal/qcom-spmi-adc-tm5.yaml
 > @@ -59,7 +59,6 @@ patternProperties:
->
->      properties:
->        reg:
+>   
+>       properties:
+>         reg:
 > -        $ref: /schemas/types.yaml#/definitions/uint32
->          description: Specify the sensor channel. There are 8 channels in PMIC5's ADC TM
->          minimum: 0
->          maximum: 7
+>           description: Specify the sensor channel. There are 8 channels in PMIC5's ADC TM
+>           minimum: 0
+>           maximum: 7
 > diff --git a/Documentation/devicetree/bindings/usb/usb.yaml b/Documentation/devicetree/bindings/usb/usb.yaml
 > index 78491e66ed24..939f217b8c7b 100644
 > --- a/Documentation/devicetree/bindings/usb/usb.yaml
 > +++ b/Documentation/devicetree/bindings/usb/usb.yaml
 > @@ -16,7 +16,6 @@ properties:
->      pattern: "^usb(@.*)?"
->
->    phys:
+>       pattern: "^usb(@.*)?"
+>   
+>     phys:
 > -    $ref: /schemas/types.yaml#/definitions/phandle-array
->      description:
->        List of all the USB PHYs on this HCD
->
-> --
-> 2.27.0
->
+>       description:
+>         List of all the USB PHYs on this HCD
+>   
+> 
 
-
--- 
-With best wishes
-Dmitry

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 649EA33DBDD
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA20233DBE0
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Mar 2021 19:01:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEA5917E9;
-	Tue, 16 Mar 2021 19:00:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEA5917E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 667911920;
+	Tue, 16 Mar 2021 19:01:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667911920
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615917703;
-	bh=Vtpwig98DoZbrSR0CuLqzxBGXELlkECOuNP5eItQs1I=;
+	s=default; t=1615917718;
+	bh=HoSgMtiIiSAkVpHOLGFLlZiBQhF3CTEX630pkOg0tF8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xm/w4gltgE59Zsn4Tc0omphrx4pIupCAZtFjZaVxId8IZh0tBYbQuJDJMA6r3jGRy
-	 ymVxLUlVP/BXxoomEQlPZ9285LC87jDH48ibfM/Q+innpjfHAnUSMD+99oX/9+AVM5
-	 F+xcJdAeIhmabuiSYo1kbcYfJ0rTqFOEAZRahBBQ=
+	b=HHmZXw2l/3HXCwwGcKn/UKexffCOH2Tr2aKv7LrnGE4KTjAsjR/7UBoVZOdsdLZO5
+	 tDJ1fxW+1RtPQiH2R2ZmK+l3k1bWXJUmR2Amf1zjeDp2iu6tq/0y0eEPHFULN67OBc
+	 TIou9YztYeREYLqW2+eBa80Qz3vlrCVJcuFAven8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BECE4F8023B;
-	Tue, 16 Mar 2021 19:00:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33F9BF8032B;
+	Tue, 16 Mar 2021 19:00:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D73DF80218; Tue, 16 Mar 2021 19:00:09 +0100 (CET)
+ id 36036F8026A; Tue, 16 Mar 2021 19:00:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,35 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54916F80148
- for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54916F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id E08F5F80156
+ for <alsa-devel@alsa-project.org>; Tue, 16 Mar 2021 19:00:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E08F5F80156
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B5er0DI4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B063F65130;
- Tue, 16 Mar 2021 18:00:00 +0000 (UTC)
+ header.b="oPFo3HEm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 87EEA65133;
+ Tue, 16 Mar 2021 18:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615917601;
- bh=Vtpwig98DoZbrSR0CuLqzxBGXELlkECOuNP5eItQs1I=;
+ s=k20201202; t=1615917604;
+ bh=HoSgMtiIiSAkVpHOLGFLlZiBQhF3CTEX630pkOg0tF8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=B5er0DI4ZmvZIRiX7qGda9dnCI3L7nNsR1o0jHOfuze8qNxaEklDyNkSe7Y5GJxSz
- 09PP8gZiwlSo6hjh25CM0x/YiC6auGmVMNffGEXnwebvDD5X2Y/ePISsGk9qo5DfND
- K9ZUQ93tU3bpdlquwXTNOVCDamtDGi3APpz8kw47XGwQYmkthItjiVMBGJ5AmsqwJ+
- vDAkUwWgLS2l0LBSreUtZ8/rruQGP3tp8iwmC2goFiIKf9TPXELiy8VRXHdTl5Gowu
- 2I57AaB9VHl96WbxgnsuMdIHzOZxgcV1NpDOJ5ORs/oRemiODBQlfpqese4fLjvW/B
- shOeHe2y1XNjQ==
+ b=oPFo3HEmTj7fXwVlPAbg2/67boHFQ5fn1riyjzHQVTcmIIJrMvgNBFL7gMO3M/3gk
+ OhqnVkWUr+LxO1vWgXl56pTnORZXAzS9SBHed9ZnJVw3uHxKvzIx5MtJeBGY2AObkB
+ NlB9edqAUyhPMwjlRdYk653y+ScwnxxDQxSwhoechPZlTpdHXCL5UD8KgPuCgtsjKd
+ JjqIlm+yajsnVIjEup91KXVa8fD5P75eo7POnhMqVL7FJCG6tu5RzVUVM92re0+iCL
+ 0HKUT8AL0T/w3ZwcBBE2QYiKp643CctO1emtQ7vYaG2ecAy2GlVqZkSAaQ6xIex1Uk
+ QbCD9IE5jc9NQ==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] ASoC: dt-bindings: fsl_spdif: Add compatible string for
- new platforms
-Date: Tue, 16 Mar 2021 17:59:42 +0000
-Message-Id: <161591744696.13544.14124776783754754865.b4-ty@kernel.org>
+To: Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, perex@perex.cz,
+ timur@kernel.org, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, festevam@gmail.com,
+ lgirdwood@gmail.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: fsl_spdif: use snd_ctl_boolean_mono_info
+Date: Tue, 16 Mar 2021 17:59:43 +0000
+Message-Id: <161591744696.13544.5081763572355349115.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1615884053-4264-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1615884053-4264-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1615887736-31217-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1615887736-31217-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -81,9 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 16 Mar 2021 16:40:53 +0800, Shengjiu Wang wrote:
-> Add compatible string for new added platforms which support spdif module.
-> They are i.MX8QXP, i.MX8MM, i.MX8MN, i.MX8MQ.
+On Tue, 16 Mar 2021 17:42:16 +0800, Shengjiu Wang wrote:
+> Remove redundant code and use snd_ctl_boolean_mono_info
+> instead.
 
 Applied to
 
@@ -91,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: fsl_spdif: Add compatible string for new platforms
-      commit: 9deef665f5811a7ad22b5e6eb80fe2a14ba4494c
+[1/1] ASoC: fsl_spdif: use snd_ctl_boolean_mono_info
+      commit: 6ad864ed6ac50f11a6d8575fda79991cca8f245c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

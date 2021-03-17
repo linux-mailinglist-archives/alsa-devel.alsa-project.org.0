@@ -2,62 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A96333E6AD
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 03:17:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3116033E971
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 06:59:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A066C18F0;
-	Wed, 17 Mar 2021 03:16:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A066C18F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A602118F0;
+	Wed, 17 Mar 2021 06:58:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A602118F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615947426;
-	bh=RNfXoaARjbIXCEw7jrxM5c0TFBmdUtNS0cLzpGFnGe4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1615960745;
+	bh=v0LeRZSIqMSKFfLFWN1WKdl2IUSyQO+1L3e7Vr9biIM=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=moDrQO04G8BEG4lc+5hM6EWMjqMXXwWxHthpVsB6+uOeDOQaTnxr5rW8IJ+jp3qSW
-	 q4r+wxoOt+N/+kVJv5PGXkS9yengMt6S2vG9OdzThByCCkwqwGx6DCafu7nc/mh819
-	 3fLXy5Y/v08y0odGNmFQqz/sscJqtKjwp8GBbR8s=
+	b=etmHWhlacbJnXwx2c45bh/A3FwLw4TgytsQ8jJqmIiasjR4wyI4C0HNUTYYU5vnnk
+	 F92HojpTCSb1VojxtypRKsnaz9L+8NIPMBiXxMjHAaz8g/lN5VdCLGlrFZaG2XmnOI
+	 NzRUmCfkdAirtd6KxQBycXSk7Fty1OQgL6erd9XY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9B61F8023C;
-	Wed, 17 Mar 2021 03:15:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 326B4F8021C;
+	Wed, 17 Mar 2021 06:57:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E2C8F8021C; Wed, 17 Mar 2021 03:15:35 +0100 (CET)
+ id 5D3A2F8021C; Wed, 17 Mar 2021 06:57:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D502F8013F
- for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 03:15:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D502F8013F
-Received: from [123.112.71.149] (helo=[192.168.0.106])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1lMLiW-0004Mr-UY; Wed, 17 Mar 2021 02:15:25 +0000
-Subject: Re: [PATCH] ALSA: hda/realtek: add more delay time before
- determine_headset_type
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210316115549.240014-1-hui.wang@canonical.com>
- <s5hmtv3mbc8.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <df5c8fff-2bc6-4b69-79c4-fd803f662dc0@canonical.com>
-Date: Wed, 17 Mar 2021 10:15:17 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76F94F8013F
+ for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 06:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F94F8013F
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 12H5vIRx9005801,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmbs03.realtek.com.tw[172.21.6.96])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 12H5vIRx9005801
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 17 Mar 2021 13:57:18 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 17 Mar 2021 13:57:18 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef]) by
+ RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef%7]) with mapi id
+ 15.01.2106.013; Wed, 17 Mar 2021 13:57:18 +0800
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Subject: RE: [PATCH v3] ASoC: amd: add support for rt5682 codec in machine
+ driver
+Thread-Topic: [PATCH v3] ASoC: amd: add support for rt5682 codec in machine
+ driver
+Thread-Index: AQHXGbJkC0Gc83c14U+1dn6DmskorqqEr0SAgAFqJ4CAABV0AIABgDxA
+Date: Wed, 17 Mar 2021 05:57:18 +0000
+Message-ID: <b691d681b07e4aaabb919278cb0379ec@realtek.com>
+References: <1615824133-21553-1-git-send-email-Vijendar.Mukunda@amd.com>
+ <efa02319-2abf-4fb9-efec-13b6279f3d78@linux.intel.com>
+ <87f41e68-3158-38f8-5e84-270ab184691b@amd.com>
+ <6bdef069-374a-d215-30a4-715e05304fc7@linux.intel.com>
+In-Reply-To: <6bdef069-374a-d215-30a4-715e05304fc7@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.209]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <s5hmtv3mbc8.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Chuhong Yuan <hslester96@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
+ "Virendra-Pratap.Arya@amd.com" <Virendra-Pratap.Arya@amd.com>,
+ "Murali-krishna.Vemuri@amd.com" <Murali-krishna.Vemuri@amd.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,61 +99,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On 3/16/21 10:17 PM, Takashi Iwai wrote:
-> On Tue, 16 Mar 2021 12:55:49 +0100,
-> Hui Wang wrote:
->> We found a recording issue on the headset-mic recently, sometimes
->> users plug a headset and select headset-mic from UI, but can't record
->> any sound from headset-mic. The root cause is the
->> determine_headset_type() returns a wrong type, e.g. users plug a ctia
->> type headset, but that function returns omtp type.
->>
->> In the past, determine_headset_type() worked well because the internal
->> mic is connected to the codec, so the "Input Source" or
->> "Capture Source" is internal mic by default when users plug a headset,
->> the determine_headset_type() will not be called unless users select
->> headset-mic from UI, when users select headset-mic, the plugging
->> action already finished and the headset is completely plugged into the
->> jack, so determine_headset_type() could return a correct type.
->>
->> But more and more machines connect the internal mic to the PCH now,
->> and the "Input Source" is headset mic by default, when users plug a
->> headset, the determine_headset_type() will be called immediately, if
->> the headset is not completely plugged in, it will return a wrong type.
->>
->> Here add 2s delay before calling determine_headset_type(), and since
->> there is a pop-up dialogue when users do plugging action, to avoid
->> freezing the UI, use the deleyed_work to call that function.
-> Hm, two seconds are quite long, IMHO.  How is this delay determined?
->
->
-> Takashi
-
-Two seconds delay is for a latest Dell AIO machine, and this issue is 
-exposed on that machine. The audio jack is designed to the left side of 
-that AIO machine, users need to use left hand to plug a headset, and 
-since it is an AIO, it is similar to plug sth to the left side on a 
-monitor, users usually don't use the great force to plug otherwise they 
-could introduce the movement of monitor; sometimes they use left hand to 
-plug a headset, the headset is not 100% plugged in, meanwhile they need 
-to put the right hand to the right side of the monitor to fix the 
-monitor. All these actions make the plugging not finished as fast as on 
-laptops or normal desktops. Our QA tested different delays, it has a 
-pretty good chance to return the correct type after adding two seconds 
-delay on that AIO machine. And I guess all Dell AIO machines will face 
-the same issue since they all have multi-function audio jack.
-
-
-And I did a test on some Dell laptops, on which the internal mic 
-connects to the PCH, if I plug the headset a bit slower than normal 
-speed on purpose, the determine_headset_type() has some chance to return 
-the wrong type and make the headset-mic can't record sound. Adding two 
-seconds delay could make them work more stable.
-
-
-Thanks,
-
-Hui.
-
-
+PiBPbiAzLzE2LzIxIDg6MzcgQU0sIE11a3VuZGEsVmlqZW5kYXIgd3JvdGU6DQo+ID4NCj4gPg0K
+PiA+IE9uIDE1LzAzLzIxIDk6MzAgcG0sIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOg0KPiA+
+Pg0KPiA+Pj4gK3N0YXRpYyBpbnQgcnQ1NjgyX2Nsa19lbmFibGUoc3RydWN0IHNuZF9wY21fc3Vi
+c3RyZWFtICpzdWJzdHJlYW0pIHsNCj4gPj4+ICvCoMKgwqAgaW50IHJldDsNCj4gPj4+ICvCoMKg
+wqAgc3RydWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUgKnJ0ZCA9DQo+ID4+PiArYXNvY19zdWJzdHJl
+YW1fdG9fcnRkKHN1YnN0cmVhbSk7DQo+ID4+PiArDQo+ID4+PiArwqDCoMKgIC8qDQo+ID4+PiAr
+wqDCoMKgwqAgKiBTZXQgd2NsayB0byA0ODAwMCBiZWNhdXNlIHRoZSByYXRlIGNvbnN0cmFpbnQg
+b2YgdGhpcyBkcml2ZXINCj4gPj4+ICtpcw0KPiA+Pj4gK8KgwqDCoMKgICogNDgwMDAuIEFEQVU3
+MDAyIHNwZWM6ICJUaGUgQURBVTcwMDIgcmVxdWlyZXMgYSBCQ0xLIHJhdGUNCj4gPj4+ICt0aGF0
+IGlzDQo+ID4+PiArwqDCoMKgwqAgKiBtaW5pbXVtIG9mIDY0eCB0aGUgTFJDTEsgc2FtcGxlIHJh
+dGUuIiBSVDU2ODIgaXMgdGhlIG9ubHkNCj4gPj4+ICtjbGsNCj4gPj4+ICvCoMKgwqDCoCAqIHNv
+dXJjZSBzbyBmb3IgYWxsIGNvZGVjcyB3ZSBoYXZlIHRvIGxpbWl0IGJjbGsgdG8gNjRYIGxyY2xr
+Lg0KPiA+Pj4gK8KgwqDCoMKgICovDQo+ID4+PiArwqDCoMKgIGNsa19zZXRfcmF0ZShydDU2ODJf
+ZGFpX3djbGssIDQ4MDAwKTsNCj4gPj4+ICvCoMKgwqAgY2xrX3NldF9yYXRlKHJ0NTY4Ml9kYWlf
+YmNsaywgNDgwMDAgKiA2NCk7DQo+ID4+PiArwqDCoMKgIHJldCA9IGNsa19wcmVwYXJlX2VuYWJs
+ZShydDU2ODJfZGFpX2JjbGspOw0KPiA+Pj4gK8KgwqDCoCBpZiAocmV0IDwgMCkgew0KPiA+Pj4g
+K8KgwqDCoMKgwqDCoMKgIGRldl9lcnIocnRkLT5kZXYsICJjYW4ndCBlbmFibGUgbWFzdGVyIGNs
+b2NrICVkXG4iLCByZXQpOw0KPiA+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7DQo+ID4+
+PiArwqDCoMKgIH0NCj4gPj4+ICvCoMKgwqAgcmV0dXJuIHJldDsNCj4gPj4+ICt9DQo+ID4+DQo+
+ID4+IE91dCBvZiBjdXJpb3NpdHksIGlzIHRoZXJlIGEgcmVhc29uIHdoeSB5b3UgdXNlIGNsa19w
+cmVwYXJlX2VuYWJsZSgpDQo+ID4+IGZvciB0aGUgYmNsayBidXQgbm90IGZvciB0aGUgd2Nsaz9U
+aGVzZSBjaGFuZ2VzIHdlcmUgc2hhcmVkIGJ5IGNvZGVjDQo+ID4+IHZlbmRvciBhcyBhbiBpbml0
+aWFsIHBhdGNoLg0KPiA+IFdlIHNob3VsZCB1c2UgY2xrX3ByZXBhcmVfZW5hYmxlKCkgZm9yIHdj
+bGsgbm90IGZvciBiY2xrLg0KPiA+IFdlIHdpbGwgdXBkYXRlIGFuZCBzaGFyZSB0aGUgbmV3IHBh
+dGNoLg0KPiANCj4gV2VsbCB0aGUgcXVlc3Rpb24gcmVtYWluczogaWYgeW91IGhhdmUgdHdvIGNs
+b2NrcyBhbmQgb25seSBlbmFibGUgb25lLCB3aHkgZG8NCj4geW91IG5lZWQgdG8gZ2V0IHR3byBj
+bG9ja3MuDQo+IA0KPiBBbHNvIHRoaXMgcGF0Y2ggd2FzIG1vZGVsZWQgYWZ0ZXIgdGhlIGRhNzIx
+OSBjYXNlLCB3aGVyZSB0aGUgc2FtZSBvcGVuDQo+IGFwcGxpZXMuDQoNClRoZSBSVDU2ODIgY291
+bGQgc2V0IHRoZSB3Y2xrIGFuZCBiY2xrIHNlcGFyYXRlbHkuDQpUaGUgYmNsayBjb3VsZCBzZXQg
+dGhlIGRpZmZlcmVudCByYXRpb3MgKDMyLzY0LzEyOC8yNTYpLg0KSG93ZXZlciwgb25seSB0aGUg
+d2NsayBvZiBEQUkgY2xvY2sgaGFzIHRoZSAucHJlcGFyZSBjYWxsYmFjayBmdW5jdGlvbiB0byBl
+bmFibGUgdGhlIHJlbGF0ZWQgcG93ZXIuDQpUaGUgbmV4dCBwYXRjaCBzaG91bGQgdXBkYXRlIHRo
+ZSBjbGtfcHJlcGFyZV9lbmFibGUoKSBmb3Igd2Nsay4NCg0KPiAtLS0tLS1QbGVhc2UgY29uc2lk
+ZXIgdGhlIGVudmlyb25tZW50IGJlZm9yZSBwcmludGluZyB0aGlzIGUtbWFpbC4NCg==

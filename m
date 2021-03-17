@@ -2,70 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A86E33F16A
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 14:47:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30DEF33F22F
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 15:04:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5B8818CF;
-	Wed, 17 Mar 2021 14:46:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5B8818CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C468B18CF;
+	Wed, 17 Mar 2021 15:03:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C468B18CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615988827;
-	bh=owZirdzjevkgJvg1/FolZDyUm8Xp5x7OthQx9T/naN8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1615989874;
+	bh=ScA1sXwxDy/jOvbbgM+xIjZyxNiTmZ1kE67/gKzq2ec=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vsu83xEUbv4lgVq9+cWmYSiYVhKrDIU9rNiQ1muwwedzrzYvRY7U4D9IihQRJO+2R
-	 U2ynb21ibT2GuK42MQwmqY+7AGR9Fh+f4tpqaMtYNIYPECt9oCsSztqjfbON0eCZ4f
-	 qg7fNXbxH27VOeV9vixOh7SWFyPwIunbCXYMpE2o=
+	b=oyE6zsriY0KVKyRAkcNWKY9T1cu4Q38NUVJ5sNsF01nPcmuxjJO9585BQs8CIv4x0
+	 3hwdYpkTeDYd1UUUAG+2q1ncyYRIw1IIUaoERf1fGuC0Oq1bF3rpIDKuhzsvUUCIwK
+	 s+8DpLM8rufj72PwqfNvEw/Pyz6aXiGM2FH+627Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E7BBF8013F;
-	Wed, 17 Mar 2021 14:45:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD85AF801F7;
+	Wed, 17 Mar 2021 15:03:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EAF7F8013F; Wed, 17 Mar 2021 14:45:35 +0100 (CET)
+ id 5FC95F8021C; Wed, 17 Mar 2021 15:03:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C366AF8013F
- for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 14:45:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C366AF8013F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i5d0cCMA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 952F964F0F;
- Wed, 17 Mar 2021 13:45:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615988728;
- bh=owZirdzjevkgJvg1/FolZDyUm8Xp5x7OthQx9T/naN8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=i5d0cCMAhCZigZZFy+b2uU5pXYHfGMTY4+xFZIGtFHyoVNOkjug4iP92EUXMKgVxm
- 38ciB2Yp/TFd7cQbol7rd94wbXgaArc70z62+fTeHBEK2drQHUGPxc2jEUqZRLQw/u
- ji9hlyckwNZjMIl0qAmP7znYlf0e5a06/lTaF9rxWTBhdtEzBo+83sdBVabP+/cWpf
- 3sj+rlfo2GckeZZtJpgpzs/6PFkx/InXiqbIlLfUHhVwAoGlVe1fYUP9lq0MyXDwlj
- O+kKnhplvOqDbIY5l0/+uv6jgCfuNJ8Mo/pHZW2tkn8490quq0NqogeU5xEuWYdMgf
- SfnIUSyvZocYg==
-Date: Wed, 17 Mar 2021 13:45:24 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH] [RFCv3] ASoC: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210317134524.GB5559@sirena.org.uk>
-References: <SN6PR06MB53428DB202A47AE12C039742A56B9@SN6PR06MB5342.namprd06.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4005DF80148
+ for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 15:02:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4005DF80148
+IronPort-SDR: 8NyneM84H2WtXgXP2Rcr0Ig9WVbieF1jIlAIiIHCMCoz+wF0snSTiJm/R+0Nmr7DqFQjSE77Bb
+ a115KRSl1uSw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="189513811"
+X-IronPort-AV: E=Sophos;i="5.81,256,1610438400"; d="scan'208";a="189513811"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2021 07:02:48 -0700
+IronPort-SDR: N26sReSqZARVAAYucfXKIl+FzwROYWD5HOSN4dBKbUvNS7aoqPXtAGsWFOK8O+f/H1fC3k/Ph6
+ lzWlaho3z2rA==
+X-IronPort-AV: E=Sophos;i="5.81,256,1610438400"; d="scan'208";a="379296513"
+Received: from trentod-mobl.amr.corp.intel.com (HELO [10.212.29.205])
+ ([10.212.29.205])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2021 07:02:44 -0700
+Subject: Re: [PATCH v3] ASoC: Intel: sof_rt5682: Add ALC1015Q-VB speaker amp
+ support
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org,
+ Jack Yu <jack.yu@realtek.com>
+References: <20210317110824.20814-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <af990f6f-3a8b-3a1e-a02a-3bfe96e4d80a@linux.intel.com>
+Date: Wed, 17 Mar 2021 09:02:42 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VrqPEDrXMn8OVzN4"
-Content-Disposition: inline
-In-Reply-To: <SN6PR06MB53428DB202A47AE12C039742A56B9@SN6PR06MB5342.namprd06.prod.outlook.com>
-X-Cookie: Please ignore previous fortune.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com
+In-Reply-To: <20210317110824.20814-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Dharageswari R <dharageswari.r@intel.com>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Libin Yang <libin.yang@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,58 +94,26 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---VrqPEDrXMn8OVzN4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Mar 16, 2021 at 02:53:45PM -0500, Chris Morgan wrote:
+On 3/17/21 6:08 AM, Brent Lu wrote:
+> This patch adds jsl_rt5682_rt1015p which supports the RT5682 headset
+> codec and ALC1015Q-VB speaker amplifier combination on JasperLake
+> platform.
+> 
+> This driver also supports ALC1015Q-CG if running in auto-mode.
+> Following table shows the audio interface support of the two
+> amplifiers.
+> 
+>            | ALC1015Q-CG | ALC1015Q-VB
+> =====================================
+> I2C       | Yes         | No
+> Auto-mode | 48K, 64fs   | 16k, 32fs
+>                          | 48k, 32fs
+>                          | 48k, 64fs
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
 
-> +static int rk817_init(struct snd_soc_component *component)
-> +{
-> +	struct rk817_codec_priv *rk817 = snd_soc_component_get_drvdata(component);
-> +
-> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG1, 0x58);
-> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG2, 0x2d);
-> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG3, 0x0c);
-> +	snd_soc_component_write(component, RK817_CODEC_APLL_CFG4, 0xa5);
+The code is looks fine, but Jack Yu added a separate patch that makes 
+RTL1019 equivalent to RTL1015, so should this patch also handle the 
+RTL1019 case?
 
-These should be pushed into a set_pll() call, even if it just accepts
-only fixed arguments.
-
-> +	snd_soc_component_write(component, RK817_CODEC_DMIC_PGA_GAIN, 0x99);
-
-This looks like it should be a user visible gain control.
-
-> +	snd_soc_component_init_regmap(component, rk817->regmap);
-> +	rk817->component = component;
-> +
-> +	clk_prepare_enable(rk817->mclk);
-
-Should check the return value of clk_prepare_enable().
-
-> +
-> +	clk_prepare_enable(rk817_codec_data->mclk);
-> +
-> +	ret = devm_snd_soc_register_component(&pdev->dev, &soc_codec_dev_rk817,
-
-The driver is enabling the clock in both component and device level
-probes - I'd just leave it in the device level probe only if you're not
-actively managing it.  You'd need to add a remove() function with the
-matching disable.
-
---VrqPEDrXMn8OVzN4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBSB/QACgkQJNaLcl1U
-h9B+yQf/fABmHKBg3NWxJIjk3E162xn4sbSOh63FPnBHUOoyhY54QiXmEMqvPX9g
-5FcQdi+9K+m+i8pvMOWH2IFDaRGynpzRV19vAbySJPTLcDISXSbddRdx/SQ89qcz
-3X2pOynd/ixkLJOHfKzH5ha9cS7wtlxfFoMcjwHh7V7mxHa9A/Ont41aiDJcuxT3
-8JBxzNgmmGrENrRHQwee8F3ykfAMQ1a8Myp8xIpEGdPbzMswnOARGzOjBE0isjMZ
-6+/xgiDyNFRUdxQtqBTHcoPfZSBSqf8IWCYsYMOsWv2LqYg3fA8DsI+tBEC/hPuO
-yz4iLm1CCo59B3Be4NS3slT9FA/kBw==
-=45hH
------END PGP SIGNATURE-----
-
---VrqPEDrXMn8OVzN4--

@@ -2,187 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8524B33F405
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 16:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E397733F42A
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 16:46:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F37916CA;
-	Wed, 17 Mar 2021 16:39:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F37916CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A23916C0;
+	Wed, 17 Mar 2021 16:45:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A23916C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615995598;
-	bh=pCRFn2Zczmf6O7xKrgPY/x5lw00Ck9Wwldod4JcbpBE=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q6Cs2sVRWkCt6kz0v32zjV0nbAPq4v7cGlYsn1340R9Qw0ClEBA2IV4TeA6gUcYft
-	 WUiaHVOS/UELL7GIl8KyIqfAhQhVeXB3uAn9ASECq0KDJVUrO+n7HtsuX6TUaw/BzZ
-	 raT0Xb/k5JP65ybzzgHgWtlR2atv+RxUK7oJiFAo=
+	s=default; t=1615995962;
+	bh=o5zRL4HQdccZEHj3WULgSyEcekVjCE+AnACgybYmhfo=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Qn44QIllut8VIp7f0wL09DoQdpYZl2JybBxdRYcBbM8PbMnPQpWDOAZSgdRaZgNJq
+	 KjDy9Bghl/vxrgFlSozodQs5T1Y71ftWpNl4zS8XXnsHc3YoHzp8McFCnRvuTsckww
+	 255kmploieDNsfsko0AQ31sgdeV5/TESSnOdHLRw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D166F8023C;
-	Wed, 17 Mar 2021 16:38:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA788F8023C;
+	Wed, 17 Mar 2021 16:44:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB5C5F8021C; Wed, 17 Mar 2021 16:38:26 +0100 (CET)
+ id 99293F8021C; Wed, 17 Mar 2021 16:44:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54A6BF80148
- for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 16:38:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54A6BF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7ADCDF80124
+ for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 16:44:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ADCDF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="q7r+e5ur"
-IronPort-SDR: ugfBvYOVaJV1a6KNzmKgKYTM+u4MLSLH/zuww5r2z9JH+WhxkSs+vXcbwByZlcniCeAFxMMLJn
- utGh/6i3JtTw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="168763092"
-X-IronPort-AV: E=Sophos;i="5.81,256,1610438400"; d="scan'208";a="168763092"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2021 08:38:13 -0700
-IronPort-SDR: tQEo8cPeQ6zcTxK/3Cdtfjiqb6KcD0z/vxb51l+kNYh6IcOdHiV/1PPfRhiOLy6V6E+5aBFmGK
- +LncFeoW1IJA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,256,1610438400"; d="scan'208";a="511765010"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by fmsmga001.fm.intel.com with ESMTP; 17 Mar 2021 08:38:13 -0700
-Received: from fmsmsx604.amr.corp.intel.com (10.18.126.84) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 17 Mar 2021 08:38:12 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
- via Frontend Transport; Wed, 17 Mar 2021 08:38:12 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.107)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2106.2; Wed, 17 Mar 2021 08:38:12 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PS9xKKFF8VNbO6Ysy4i92SziQbrKK6+dOkeC/kZzFHYwgziPdpY4S4pHLriJl+zHD4kyjuTVDYrN8W7HsYiWI4Sb1v3tscPXKrntSqRlTvMhnJISVhXJpozMOUmDQ9bqnpo7WDQUjPUSbGuTVuQ/5T93iVrzxtRDAQGfd7zf1n32g2vKHqLqCDyz0OxFCIfVWn2M1HBlwYoktfaaYBaCpzNwAu5NYHN6ut7mRd+sx6ED0Xh5F6ujbgjJqkbnF3sAQKiEOWQYb3QaJMCAHC0BIOBFTghleZAkf8KFFxt9Z2Cu1trVzZWMq4O+rUdUVTLznX6bifOqtKl48g2C/ZtqCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pCRFn2Zczmf6O7xKrgPY/x5lw00Ck9Wwldod4JcbpBE=;
- b=G0a8ty87plxsubegtxh78LCY5kWN3vqZQ0rxrCTGxns3tx7E9D8iMKjalKdM+w+uv3Sv2Q5w2CmIGJZU7CstVznjqK0dOhwurMmtyLYDJFCu2IKh5a13FotrcunB99B5ab2nJ2ECGkNgQF+OEm0+KBpknFs4ibYjoPW10m/uqP7H2oTpJrdBOubZ5w843DBLqIMKVs4nC7Xpox++77QmctAGN2zDn1gegRt2rH+JLs0PMOS0oLAuHSHQ9WXgaL0y/LwyO+5V1Uk2KfwIn48C+jvub6Vdsu6FPA8XOpNH0eL3xgA2S4n+3CdNA7+VYIOd4706NDxlZptuydE7soyI5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pCRFn2Zczmf6O7xKrgPY/x5lw00Ck9Wwldod4JcbpBE=;
- b=q7r+e5urE22dVUMOR0sDt+45Zxdlc6lNsBkPSip9b2TM2Dem+UvW6AVKDJwv+Ai3lvQuumdgcSoI49y/7U8pv7fEiGzKYG0GRujsPiZ4uaZS3uCD6FXAc1OH7pbSwhCxW4VTv4+TAZuFGetq+/82un44/+pYmAidnkD45dD77Wk=
-Received: from DM6PR11MB3642.namprd11.prod.outlook.com (2603:10b6:5:138::26)
- by DM4PR11MB5501.namprd11.prod.outlook.com (2603:10b6:5:39d::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Wed, 17 Mar
- 2021 15:37:55 +0000
-Received: from DM6PR11MB3642.namprd11.prod.outlook.com
- ([fe80::f135:7a69:c586:6a22]) by DM6PR11MB3642.namprd11.prod.outlook.com
- ([fe80::f135:7a69:c586:6a22%2]) with mapi id 15.20.3933.032; Wed, 17 Mar 2021
- 15:37:55 +0000
-From: "Lu, Brent" <brent.lu@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Jack Yu
- <jack.yu@realtek.com>
-Subject: RE: [PATCH v3] ASoC: Intel: sof_rt5682: Add ALC1015Q-VB speaker amp
- support
-Thread-Topic: [PATCH v3] ASoC: Intel: sof_rt5682: Add ALC1015Q-VB speaker amp
- support
-Thread-Index: AQHXGyBUo3rV20sE6EuAEjA6SQ2kC6qINiQAgAADSwA=
-Date: Wed, 17 Mar 2021 15:37:55 +0000
-Message-ID: <DM6PR11MB364290806B23636B6D0618DF976A9@DM6PR11MB3642.namprd11.prod.outlook.com>
-References: <20210317110824.20814-1-brent.lu@intel.com>
- <af990f6f-3a8b-3a1e-a02a-3bfe96e4d80a@linux.intel.com>
-In-Reply-To: <af990f6f-3a8b-3a1e-a02a-3bfe96e4d80a@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [111.248.46.124]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f4d6cf00-64f9-4694-7af4-08d8e95aa2ac
-x-ms-traffictypediagnostic: DM4PR11MB5501:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM4PR11MB550177D33677C3CF0086CF20976A9@DM4PR11MB5501.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IwVyZI6laT4JsTVZMI/9+Ci6vi8vIeoyVDjbhP7FEe9fdfwHTGIbn48CFQ2cpXMbNAOdGPhYHnhpgyZGfpFpqHCRVFxl3mJTDqcfyB66JK8gd/bZW8B7mFgLl14kj1ZEtpxZzXSe3JY6Q1LYviuX68XabUhVH2roSzfGI/auTGR+aLZ9n/0DVqICt4UDJFALqPC+aQtXBlI+k+szuPmak5yzuzRRkkMCo3pTgcyPynDOvm2eE2vGSep1Mf1GH42nR6I7BXmOXGJp9hKw9p2j5bnw78AR0q0bNZIVTad7jY1AcjCWz/kIlZ70+OacCNzYKIbNUyhayZvZvwXcZhh8BDfyqmxnZ3LF04Vdhdz7EyBiRnJkWevDPr/qoS7qWdgY4HCdON1BYrjPss484ZlFINrwkSZqjJj2+VuHy9t+ppcKaaj5XhLyfoGELSzBWcQirTvOyrQQ5c6HuQD9Et0E9GF8JBkMsoKVNhzSCfWkAEkoh5DWVPx3urimN6AtZwQpeGdIFpLUE0scq3ml+Y9bIwH/okrWMfmd/YcCDglkpbWyS3oeFmhDZ1ONZF8Q/wHJ
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3642.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(376002)(346002)(39860400002)(366004)(136003)(316002)(478600001)(110136005)(54906003)(6506007)(9686003)(55016002)(33656002)(2906002)(4744005)(86362001)(71200400001)(26005)(66476007)(8676002)(7696005)(52536014)(66946007)(66446008)(8936002)(64756008)(5660300002)(186003)(66556008)(7416002)(4326008)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?Y0V4WG9GT3NLOFA1alZvQUhLcVlSakxXamFRTjFFa0lURUtZVmxDdUI2MGJn?=
- =?utf-8?B?RTlkaHd0ZjR3OVk0QjFBQ0pCRjhHWUFBMTNBeXR5MnRQNHNUQkhIU2VEbVZa?=
- =?utf-8?B?R2ZNZHhIUktFYXVCQTdKY3dmbE5nUFRTVlpEbkhpU1QraXdib2pFaDdMSEZX?=
- =?utf-8?B?SGR2ck5LR2ZqMjdTWkJJRkhkZ0VRSXdHWG5JbkNwZFE4Y1NGRVNBdUtmMWJi?=
- =?utf-8?B?dEJSQjArUlMrVXNra1dqMDg5Uy9zbzhxQjlkVTJwNlFtQkw1STR4bDFQaTZq?=
- =?utf-8?B?QkV5Vjg4cG9sa3YzZFBld1VnRWdGTnQxeHJUNENtUTE2bUt3V1pmYmJHUVVT?=
- =?utf-8?B?STJmR2hITlhKWXNVdkhsSHMvOUpLQmZnWWVuaGgwRFMyRTFvRlczdmw5eWxH?=
- =?utf-8?B?MXl6bytRUUhJZVl5U09pRU9hRm9yT2JtcDhXcW1oNTVkM0hkd0l0TTFDTGZB?=
- =?utf-8?B?RFRqNlcwUU8xdEU2b1BEZjk3UjJJZ21vTjFHV0VKcWdyWDRDaWlRUEJ5bXhP?=
- =?utf-8?B?ZE5GMjdOWlAwUVBJeXdZUktmbitkTkJpbnF3d2J1dWRRd0FlYlZuVVVjUUFl?=
- =?utf-8?B?am5xMFh0TXpKZ0lBc21zZm5kUWJZV2JoQU9ncGloQ1pLYUVCejZMdENFQWk5?=
- =?utf-8?B?c3pLOGNmTUtaSnJONUhnSXdEQ2JOaTlKSzlja2NJbHlCeUJEbGk4ZXJtcXlU?=
- =?utf-8?B?aDd1TUNqZXlYODM4UnRjeXBKbWVoZCs5N2QvVFB4TkxsWG1NS2RiYlZWL0Vt?=
- =?utf-8?B?YlNsM1NlUDRadHRHWm1lbHJEQ0cyYjZjdFA3TlZ2ZVZYV3JTM2pVK2dEOExL?=
- =?utf-8?B?U09IN3JLMklnMEJ3S1VvM3h2d2RKUUFKblRxdy9FUHZ6STBJSDB3R1Jnc0Ix?=
- =?utf-8?B?T0xHR1o2WnF4Ry9vUFV6Vzkva2M0TnFwWVp1WEhTejBVVDBpTFRid3ZBcUFh?=
- =?utf-8?B?SHVxektwUUlMM2phOWw5dXB1cWhnQWM3dEFXRHFKcm5FaG9udzZqRFVCcVJJ?=
- =?utf-8?B?QXJneVU4WHhIRFI4dVMzSkMrclU1VzY2Y2JxdmE1TTJubTVSRGVVSVhKNEtq?=
- =?utf-8?B?NEJUdnRpT3VjT3dXbUd2RjBUZUVkQ2hPUHhDR1FQalkxM0pFMzhneng3VXhl?=
- =?utf-8?B?YmZLaGRWTktvL3VOSHBSMWRiaFo3NHZ1QzFlRVdESVI1TzU2TGpKeFNPTllE?=
- =?utf-8?B?djR6SGxDK0hWS1RhQmM3TGVGSHlDTkdvTzBvVVVSVGJJdFY3VmdNOWVmaXFs?=
- =?utf-8?B?MGplczkwQTRLSWNVR0NwSVZOZ3JXbjZRMENjTHptL3FuSi9IVkcrbExTSWQ3?=
- =?utf-8?B?akxubmt6V25OYmhSUER0UWZLSUpJZjZxSTBJcWdMRFhQSnhjRWVEZzZma2lk?=
- =?utf-8?B?WHJMTEp2elZFSU0waDRPVXBnNGRhcm9BcVZ4K3BIRG5VLzBtY1VQUE9OK1JD?=
- =?utf-8?B?cXduKzZwRC80QWFuU3ZVeTlPOEVobWpDbllsaTlqcWcyNG5xZjlSSDBnRE9N?=
- =?utf-8?B?MnRnTi9Jd3hnMzRyZFZTWlpTcEpKb1Y4RTBEMzR0eDZ0VDVLSWg0MW5zK3pB?=
- =?utf-8?B?QktGVVE2dk9YdUVZY0thdWRRbVBhTHBsYkpWTHNiYnpPTUgyckFBQk1PQlVM?=
- =?utf-8?B?YzFxYkp3ZG14RFV0SWUxRmxVZ1dKSFNoMlJwQThXajNhakNlOFl4SjZocEdS?=
- =?utf-8?B?aGRyZjN1LzJtb1kzM1l3TTZoUVd2RXhGdFlWOTgxWEU4YTZtTUZPcWtIMFMx?=
- =?utf-8?Q?lTldnL0Oz3bLQ7WPXKAO8mgiXni+SOwaOAgL7aq?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dkim=pass (1024-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
+ header.b="Zi7ODDHW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
+ ; s=swing;
+ h=Content-Type:MIME-Version:Message-ID:Subject:cc:To:From:Date:
+ Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=p8tFgvSBYBPWfoUC/J4F/LRVQKOM9ZLklHqdnj/M1CQ=; b=Zi7ODDHW6038Z0gQ+vCcJU8ZP/
+ homUn23hQedRlcwXUHec+VmOsFUN7u0m22WJTif69pBmY+nbigEXJ12wI0Y9mXcj4IT+wFHfxwi51
+ zLm1qVQYV/UUGtOYxhrxVff6GpdqEqPkCz+dlCULVCGzXEpED1v7NVa18ou1EqbR+ETg=;
+Received: from [2001:470:1d21:0:428d:5cff:fe1b:f3e5] (helo=stax)
+ by jazz.pogo.org.uk with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94 (FreeBSD)) (envelope-from <mark@xwax.org>)
+ id 1lMYLO-0007eL-LJ; Wed, 17 Mar 2021 15:44:21 +0000
+Received: from localhost (stax.localdomain [local])
+ by stax.localdomain (OpenSMTPD) with ESMTPA id 2cabc1a0;
+ Wed, 17 Mar 2021 15:44:21 +0000 (UTC)
+Date: Wed, 17 Mar 2021 15:44:20 +0000 (GMT)
+From: Mark Hills <mark@xwax.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] conf: fix memory leak on the error path in
+ parse_args()
+Message-ID: <2103171535560.14556@stax.localdomain>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3642.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4d6cf00-64f9-4694-7af4-08d8e95aa2ac
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2021 15:37:55.7516 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EZ3Aw7b3nlJMYIBzM7e199Rr5WK/q5vrIvepTdbspoNHyZUabCs/U/TaKeukfTlAMwliuDloGybRBzMQ5/OSYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5501
-X-OriginatorOrg: intel.com
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "R,
- Dharageswari" <dharageswari.r@intel.com>, "Nujella,
- Sathyanarayana" <sathyanarayana.nujella@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Jie
- Yang <yang.jie@linux.intel.com>, Takashi
- Iwai <tiwai@suse.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Libin Yang <libin.yang@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>, "Zhi, Yong" <yong.zhi@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -198,10 +80,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiANCj4gVGhlIGNvZGUgaXMgbG9va3MgZmluZSwgYnV0IEphY2sgWXUgYWRkZWQgYSBzZXBhcmF0
-ZSBwYXRjaCB0aGF0IG1ha2VzDQo+IFJUTDEwMTkgZXF1aXZhbGVudCB0byBSVEwxMDE1LCBzbyBz
-aG91bGQgdGhpcyBwYXRjaCBhbHNvIGhhbmRsZSB0aGUNCj4gUlRMMTAxOSBjYXNlPw0KDQpUaGUg
-dG9wb2xvZ3kgdXNlZCBieSB0aGlzIG1hY2hpbmUgZHJpdmVyIGlzIHVzaW5nIDQ4aywgNjRmcyBJ
-MlMgZm9ybWF0Lg0KUlQxMDE5IG5lZWRzIHRvIHN1cHBvcnQgdGhpcyBjb25maWd1cmF0aW9uLiBO
-b3Qgc3VyZSBpZiBSVDEwMTkgY291bGQNCnN1cHBvcnQgdGhhdC4NCg0KDQpSZWdhcmRzLA0KQnJl
-bnQNCg0K
+Having a little trouble which bisected to this patch.
+
+First noticed it's causing Chromium to crash out one of its subprocesses 
+(stack trace below)
+
+Can actually be replicated with a simple "aplay -L":
+
+aplay: conf.c:2207: snd_config_delete: Assertion `config' failed.
+Aborted (core dumped)
+
+Program received signal SIGABRT, Aborted.
+0x00007ffff7984c7b in raise () from /lib64/libc.so.6
+(gdb) bt
+#0  0x00007ffff7984c7b in raise () from /lib64/libc.so.6
+#1  0x00007ffff7965548 in abort () from /lib64/libc.so.6
+#2  0x00007ffff796542f in __assert_fail_base.cold () from /lib64/libc.so.6
+#3  0x00007ffff7975fc2 in __assert_fail () from /lib64/libc.so.6
+#4  0x00007ffff7cce7e2 in snd_config_delete (config=<optimized out>) at conf.c:2207
+#5  0x00007ffff7cd004d in parse_args (subs=0x6c66f0, str=<optimized out>, str@entry=0x641fa5 "CARD=Layla3G,DEV=0", defs=<optimized out>) at conf.c:5172
+#6  0x00007ffff7cd0c31 in snd_config_expand (config=0x6594a0, root=root@entry=0x639330, args=args@entry=0x641fa5 "CARD=Layla3G,DEV=0",    private_data=private_data@entry=0x0, result=result@entry=0x7fffffffdf80) at conf.c:5227
+#7  0x00007ffff7cd13e2 in snd_config_search_definition (config=config@entry=0x639330, base=base@entry=0x40cf74 "pcm", name=name@entry=0x641fa0 "plug:CARD=Layla3G,DEV=0", result=result@entry=0x7fffffffdf80) at conf.c:5312
+#8  0x00007ffff7cd8154 in try_config (config=config@entry=0x639330, list=list@entry=0x7fffffffe260, base=0x40cf74 "pcm", name=<optimized out>) at namehint.c:269
+#9  0x00007ffff7cd8e8a in add_card (config=<optimized out>, rw_config=0x639330, list=list@entry=0x7fffffffe260, card=0) at namehint.c:488
+#10 0x00007ffff7cd9410 in snd_device_name_hint (card=0, card@entry=-1, iface=<optimized out>, iface@entry=0x40cf74 "pcm", hints=hints@entry=0x7fffffffe308) at namehint.c:639
+#11 0x000000000040442b in pcm_list () at aplay.c:339
+#12 0x000000000040a638 in main (argc=2, argv=0x7fffffffe5c8) at aplay.c:824
+
+I saw "namehint" in the stack; I'm using this fragment of asoundrc (it's 
+the only way to get chosen ALSA devices available in Chrome) but it seems 
+to be unrelated; commenting it out and the assertion still fails. I 
+haven't had time to look any deeper.
+
+namehint.pcm [
+        "layla1|Layla: Microphone input 1"
+        "layla2|Layla: Microphone input 2"
+        "layla12|Layla: Microphone inputs 1,2"
+        "layla34|Layla: Line inputs 3,4 (DJ mixer)"
+        "layla|Layla: Analogue inputs 1,2,3,4"
+        "plug:shure|Shure X2U: Microphone input"
+        "plug:dj1|Audio 8 DJ: Input 1 (Left deck)"
+        "plug:dj2|Audio 8 DJ: Input 2 (Right deck)"
+        "plug:local|Local audio bus"
+]
+
+-- 
+Mark
+
+
+From ad5f255b4767d52f7aaafd3eb348c680e990f0b8 Mon Sep 17 00:00:00 2001
+From: Jaroslav Kysela <perex@perex.cz>
+Date: Wed, 10 Mar 2021 18:10:57 +0100
+Subject: [PATCH] conf: fix memory leak on the error path in parse_args()
+
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ src/conf.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/conf.c b/src/conf.c
+index 38eefbf8..14b14b59 100644
+--- a/src/conf.c
++++ b/src/conf.c
+@@ -5169,6 +5169,7 @@ static int parse_args(snd_config_t *subs, const char *str, snd_config_t *defs)
+ 		err = snd_config_add(subs, sub);
+ 		if (err < 0) {
+ 		_err:
++			snd_config_delete(sub);
+ 			free(val);
+ 			return err;
+ 		}
+-- 
+2.17.5
+
+
+
+chrome: conf.c:2207: snd_config_delete: Assertion `config' failed.
+Received signal 6
+#0 0x55c2535f35e9 base::debug::CollectStackTrace()
+#1 0x55c25355e723 base::debug::StackTrace::StackTrace()
+#2 0x55c2535f3190 base::debug::(anonymous namespace)::StackDumpSignalHandler()
+#3 0x7f35b16e6690 (/lib64/libpthread-2.30.so+0x1368f)
+#4 0x7f35ac583c7b __GI_raise
+#5 0x7f35ac564548 __GI_abort
+#6 0x7f35ac56442f __assert_fail_base.cold
+#7 0x7f35ac574fc2 __GI___assert_fail
+#8 0x7f35acda27e2 snd_config_delete
+#9 0x7f35acda404d parse_args
+#10 0x7f35acda4c31 snd_config_expand
+#11 0x7f35acda53e2 snd_config_search_definition
+#12 0x7f35acdac154 try_config
+#13 0x7f35acdace8a add_card
+#14 0x7f35acdad13c snd_device_name_hint
+#15 0x55c250eb3b13 media::AudioManagerAlsa::HasAnyAlsaAudioDevice()
+#16 0x55c250ea9445 media::AudioSystemHelper::ComputeOutputParameters()
+#17 0x55c250ea93e0 media::AudioSystemHelper::GetOutputStreamParameters()
+#18 0x55c251d38db3 audio::SystemInfo::GetOutputStreamParameters()
+#19 0x55c2511bd455 audio::mojom::SystemInfoStubDispatch::AcceptWithResponder()
+#20 0x55c253d0bad3 mojo::InterfaceEndpointClient::HandleValidatedMessage()
+#21 0x55c253d0e8bd mojo::MessageDispatcher::Accept()
+#22 0x55c253d12380 mojo::internal::MultiplexRouter::ProcessIncomingMessage()
+#23 0x55c253d11b09 mojo::internal::MultiplexRouter::Accept()
+#24 0x55c253d0e8f9 mojo::MessageDispatcher::Accept()
+#25 0x55c253d0a184 mojo::Connector::DispatchMessage()
+#26 0x55c253d0a8b7 mojo::Connector::ReadAllAvailableMessages()
+#27 0x55c25056d034 base::internal::Invoker<>::RunOnce()
+#28 0x55c2535b52b2 base::TaskAnnotator::RunTask()
+#29 0x55c2535c6c11 base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::DoWorkImpl()
+#30 0x55c2535c68ea base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::DoWork()
+#31 0x55c25357669a base::MessagePumpDefault::Run()
+#32 0x55c2535c725b base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::Run()
+#33 0x55c25359820b base::RunLoop::Run()
+#34 0x55c2534d01da content::UtilityMain()
+#35 0x55c2534fba9c content::RunZygote()
+#36 0x55c2534fcd6b content::ContentMainRunnerImpl::Run()
+#37 0x55c2534fa35d content::RunContentProcess()
+#38 0x55c2534facfd content::ContentMain()
+#39 0x55c25056a068 ChromeMain
+#40 0x7f35ac565e6b __libc_start_main
+#41 0x55c250569eaa _start
+  r8: 0000000000000000  r9: 00007ffd94a02da0 r10: 0000000000000008 r11: 0000000000000246
+ r12: 00007f35ace23e21 r13: 000000000000089f r14: 00007f35ace2af41 r15: 0000000000000004
+  di: 0000000000000002  si: 00007ffd94a02da0  bp: 00007f35ac6ebf38  bx: 00007f35a5d83f00
+  dx: 0000000000000000  ax: 0000000000000000  cx: 00007f35ac583c7b  sp: 00007ffd94a02e18
+  ip: 00007f35ac583c7b efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+ trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+[end of stack trace]
+Calling _exit(1). Core file will not be generated.
+

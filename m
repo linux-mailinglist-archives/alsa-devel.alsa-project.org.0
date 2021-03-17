@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39DCF33E34B
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 01:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0158C33E3AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Mar 2021 01:58:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8ED318DB;
-	Wed, 17 Mar 2021 01:56:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8ED318DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D2C5190B;
+	Wed, 17 Mar 2021 01:57:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D2C5190B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1615942653;
+	s=default; t=1615942689;
 	bh=8lIR2o4v18WR/2YlHYIn96RC4k9ZocX631GO7STRiBc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bs9ko9P7EeZbv9RulGqwmITolII22lcxLGcvxX8smqBqNzsCp0iKeuDjOnfxk9LCh
-	 nSRhIwO4w+LKWWPB7ZVPg9TGwDf69+CfCckOFF/mU9+G2JI+sOUG7dYn88T2uTISMA
-	 uAw3oBGFBjws+zhue/k72p9TiP1GmGkOEWt3C44s=
+	b=P5MY6djiUI8yqdQAjMFKCTpHxLg1SuVIdDEZZtDT3JqsLIT7PBlIGv6OsPdRszrdW
+	 yjL4+lIqyNAxu0u1GLtv7HDpjGeHVGnqXjuI9jUNVaN5+5Z9nsVQYtwkd95AqsFahm
+	 W7tcQ5dZwUVsrjeiuVFdrkDOTO9qY2EmXP8xHKOU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06CF3F80137;
-	Wed, 17 Mar 2021 01:56:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57B8BF80171;
+	Wed, 17 Mar 2021 01:57:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2BE2F80163; Wed, 17 Mar 2021 01:55:59 +0100 (CET)
+ id 92B21F80218; Wed, 17 Mar 2021 01:57:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,33 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21BAFF80148
- for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 01:55:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21BAFF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DE96F80156
+ for <alsa-devel@alsa-project.org>; Wed, 17 Mar 2021 01:57:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DE96F80156
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QzVAUuj6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7EF2264F8C;
- Wed, 17 Mar 2021 00:55:47 +0000 (UTC)
+ header.b="CD9kiTeh"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6937D64F9F;
+ Wed, 17 Mar 2021 00:57:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615942548;
+ s=k20201202; t=1615942625;
  bh=8lIR2o4v18WR/2YlHYIn96RC4k9ZocX631GO7STRiBc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QzVAUuj68j1wv13I6kZoYqbz+0WoFQfQWjwufMboy+QlEoBYo392BQUdURQKF3Efl
- tW9+7mIZMHQO6EkvUDT6eKCV48VjptWgJJ4wecRBrvej/l6b9DWrqPU5SaD16wdbYM
- tl40plS0XfTzODoDvaZA/2axlH57nPtOie0FVYsbUi4a4q90kr+z6A04BJxYAvYoHj
- yE8nVQkXBxGEwkv4DZNyPgRDO8R82hmfKX1Yj3hkSzS5C0Gj3mccr3PuYeJOAmcpun
- apb54EmTquyptKtKi/OOHK8JskYwYDi7LDf4CiQFxdtzt71StFV51RrKnicw/1DZGh
- clX3mN89y3g/w==
+ b=CD9kiTehxE2y44ygNtYNxfOzjTYukk4P0IlLAz6S8z8Sso9MHKWR56Q+iVNujTOA+
+ qmxTinHsNk1+m2A5PcCbug5+bSjYluinwjLjIylxLCASuf2iiUKN5evkH7VxKODTQZ
+ hQXug5sJfC08L3dmEu3MCKg8vJYf1wAcG2Movy9VBEw/J3dOgQdQ6MaS8vSnlBn5S5
+ PIZvMAlsEDZ0DQVF4ChoLfIIOghKE7uFvi5612KrbOvAq3oCL3lJ59AXX2poqyjJ2g
+ iHZWSEmYOEkm1+5w8zar/cpRuRSEXhMV4m/O4NeACyPgXSXQHZh2KCgcpfT8u3lzwZ
+ UfsF86zGlVc9w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 09/61] ALSA: hda: ignore invalid NHLT table
-Date: Tue, 16 Mar 2021 20:54:43 -0400
-Message-Id: <20210317005536.724046-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 08/54] ALSA: hda: ignore invalid NHLT table
+Date: Tue, 16 Mar 2021 20:56:07 -0400
+Message-Id: <20210317005654.724862-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210317005536.724046-1-sashal@kernel.org>
-References: <20210317005536.724046-1-sashal@kernel.org>
+In-Reply-To: <20210317005654.724862-1-sashal@kernel.org>
+References: <20210317005654.724862-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore

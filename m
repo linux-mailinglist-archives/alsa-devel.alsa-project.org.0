@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5CB8340D1A
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 19:35:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00E22340D20
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 19:36:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 829E61697;
-	Thu, 18 Mar 2021 19:34:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 829E61697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80C4A16A6;
+	Thu, 18 Mar 2021 19:35:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80C4A16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616092520;
-	bh=O4+Jms1dbCSgB1akhHdOQ5yf5A0hiTEh3B7Z20RU4GA=;
+	s=default; t=1616092571;
+	bh=QedH5/j//TRciaij8fXppON3yxltmyCSzvxab49lE+s=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lMIX0sNY7wMwDxQ1NHBQYfV2G3dBkFtA4GHmiDraQOXJ+PpsGqU4xtZ7pk1La2n5p
-	 y+hV9nVhXVddoU7jdZtLkCfEiV4SfmwGFnEyTAAkExg0m0gSwtDzLxf/jrwF1AE6hM
-	 +pAIx9c3W/OK2hLDZp22ikYZc509aEq/tcOfhuRw=
+	b=qj99io4I5qn6QHyc9V1mwTZQwAmXVGce5XyEafO/P82WeB9z+bNhsW4o85IyS2F+s
+	 GvoxDFheQ2o6NRCPz8dQXLu1ma1xMPWIQzjPFxTWOlyrK6/RA10dngg9U+5Rxp1toW
+	 qvKfr1AhjCSqz123tWMFKwbqSjWBEdWbZESSQMZ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0609EF800E0;
-	Thu, 18 Mar 2021 19:33:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6BA3F8032B;
+	Thu, 18 Mar 2021 19:33:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5869F80171; Thu, 18 Mar 2021 19:33:47 +0100 (CET)
+ id B8AE1F8023B; Thu, 18 Mar 2021 19:33:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A93EF800E0
- for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 19:33:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A93EF800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0178BF800C8
+ for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 19:33:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0178BF800C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mp9qwm36"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AC65364F2A;
- Thu, 18 Mar 2021 18:33:39 +0000 (UTC)
+ header.b="Z+vtj473"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8AC6F6023B;
+ Thu, 18 Mar 2021 18:33:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616092420;
- bh=O4+Jms1dbCSgB1akhHdOQ5yf5A0hiTEh3B7Z20RU4GA=;
+ s=k20201202; t=1616092423;
+ bh=QedH5/j//TRciaij8fXppON3yxltmyCSzvxab49lE+s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mp9qwm36j8JjKrggI16f+0NZFcgL2RVkdYrSYy9fpFo/marvn7rlk6VdbQ8gtXa9Q
- 9iMFlR8zQGYKbMTFkKEAMEtv4+QnFBYyVH1r5pOdjWf8N84DQCGv1ZjF2qFXeg50yF
- a5FZ85dpUUGP7Wjy/fUjRSjkDyq/BrLvEAPpWwu4IsYsj4m1GzL0Ecx/1/LmZM0WKw
- oTnae5tPPui4kGLeab3bqhCdWsz1Ms8dnsOjjyYX2+w6xv2TtYotss+QiIRlK1zLsO
- JhyldCBQBgVxZW2mwud7FXUBuvSdrFE62I8z0JRpFkLUAqSE8lt0iYk0RXJBIxzqoj
- Tqmzke6y7bqSQ==
+ b=Z+vtj473tRwGqoZYCMXbRHeqNbWWxTC62KxMwxjSM63yyb1avmNWB+l2kKLOL8bj+
+ 4YyXYA/T+a3oWSr2mNymormQYPuh+hVKecV7eRZ/DKTQsaHirG2mSiutRxwH2Ll/ll
+ sL05W2D9g1Ift//WTm+1Xwdj2i4cRPqQa/4B/t5tdiH+wEiIWSuW2S3kHjNFRUBL6F
+ 26llrWvKPD17Wq2z8Maow916dGmWEOc6v2gCSIG10r4OGeWS988K7JLDvnQNX6KFgH
+ 49Y2XE4WXjUMm86+W232HjB1fbdFzIxvp+jEfqHSTsNCJyeMFLPZU6ZoSLwopBhFs7
+ VabM/i4MjjfGw==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
- Thierry Reding <thierry.reding@gmail.com>,
- Paul Fertser <fercerpav@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v5 00/17] Fix reset controls and RPM of NVIDIA Tegra ASoC
- drivers
-Date: Thu, 18 Mar 2021 18:33:28 +0000
-Message-Id: <161609213718.41838.12060094271609265312.b4-ty@kernel.org>
+To: jack.yu@realtek.com,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH v2] ASoC: rt1019: add rt1019 amplifier driver
+Date: Thu, 18 Mar 2021 18:33:29 +0000
+Message-Id: <161609213720.41838.6156226368545011492.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210314154459.15375-1-digetx@gmail.com>
-References: <20210314154459.15375-1-digetx@gmail.com>
+In-Reply-To: <20210311025809.31852-1-jack.yu@realtek.com>
+References: <20210311025809.31852-1-jack.yu@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, Mark Brown <broonie@kernel.org>,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,16 +82,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 14 Mar 2021 18:44:42 +0300, Dmitry Osipenko wrote:
-> This series adds missing hardware reset controls to I2S and AC97 drivers,
-> corrects runtime PM usage and drivers probe/remove order. Currently drivers
-> happen to work properly because reset is implicitly deasserted by tegra-clk
-> driver, but clk driver shouldn't touch the resets and we need to fix it
-> because this breaks other Tegra drivers. Previously we fixed the resets of
-> the AHUB and HDMI codec drivers, but turned out that we missed the I2C and
-> AC97 drivers.
-> 
-> [...]
+On Thu, 11 Mar 2021 10:58:09 +0800, jack.yu@realtek.com wrote:
+> This is initial amplifier driver for rt1019.
 
 Applied to
 
@@ -102,40 +91,8 @@ Applied to
 
 Thanks!
 
-[01/17] ASoC: tegra20: ac97: Add reset control
-        commit: a46b78247b852345ae4458711a4aec6744a7838c
-[02/17] ASoC: tegra20: i2s: Add reset control
-        commit: 9c648ef82d7d4696e80b286d37dae07b67a9a32d
-[03/17] ASoC: tegra30: i2s: Restore hardware state on runtime PM resume
-        commit: 0bbcecaaab15a74ba69f93df46c753f2a64eadca
-[04/17] reset: Add reset_control_bulk API
-        commit: 48d71395896d54eec989179dd265e569fcecb15a
-[05/17] ASoC: tegra30: ahub: Switch to use reset-bulk API
-        commit: 050086eb6dc945207b1db1d15cd81e9366dfd2f1
-[06/17] ASoC: tegra20: spdif: Correct driver removal order
-        commit: 0911f154a2ae264ee2a7c868c1267a102396d016
-[07/17] ASoC: tegra20: spdif: Remove handing of disabled runtime PM
-        commit: c53b396f0dd49a626ea2b1fc0a8b9e0a0bf95d4d
-[08/17] ASoC: tegra20: i2s: Add system level suspend-resume callbacks
-        commit: e33fdd9bee12be35d080bfd4acc9d1e3a0d04001
-[09/17] ASoC: tegra20: i2s: Correct driver removal order
-        commit: ca6e960ed6b10ba9236da8b3614574bb4524c65e
-[10/17] ASoC: tegra20: i2s: Use devm_clk_get()
-        commit: d3c6ef98dadd1e500445e4c5a9d684cbf3182c7d
-[11/17] ASoC: tegra20: i2s: Remove handing of disabled runtime PM
-        commit: 80ec4a4cb36d3f8bb56b5aa89faceb1145ef7aea
-[12/17] ASoC: tegra30: i2s: Correct driver removal order
-        commit: f852e1e4acf4ebde4c960bab6f89407fa18ca489
-[13/17] ASoC: tegra30: i2s: Use devm_clk_get()
-        commit: 52674aef9eb678f30d99f77fd53f6c564d5e2d92
-[14/17] ASoC: tegra30: i2s: Remove handing of disabled runtime PM
-        commit: b5f6f781fcb27b3ae5a2f04312a190115b5cbbd1
-[15/17] ASoC: tegra30: ahub: Reset global variable
-        commit: 5d956e3cb806870012c443bc265e6ac6188d3c36
-[16/17] ASoC: tegra30: ahub: Correct suspend-resume callbacks
-        commit: e2965c2ca139e780dc353cef1474103bb037136e
-[17/17] ASoC: tegra30: ahub: Remove handing of disabled runtime PM
-        commit: b5571449e6186bd37e8da16e7bce53f621c05e72
+[1/1] ASoC: rt1019: add rt1019 amplifier driver
+      commit: 7ec79d3850d0cb6dc52e6aa472886ab3adf15863
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

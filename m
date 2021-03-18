@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78E934036B
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 11:34:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1F8C340357
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 11:32:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5274F16C2;
-	Thu, 18 Mar 2021 11:33:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5274F16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36C8316C1;
+	Thu, 18 Mar 2021 11:31:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36C8316C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616063670;
-	bh=l7n+8hfAB/JYeYFL5oFJlNo5w6gQ8m3lBYP8Ij19vrg=;
+	s=default; t=1616063539;
+	bh=GtXTi+eyJtEmY4W0fWnvMDKsiDHBmqs032tVSRiHrOo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TtrOlTKrwxX+bmUfhLCOZJSE2IaI0xddaMRWkgBte15jTrQKJkeMG0pLeUjlXPJa6
-	 nLN676x9MXVSQgrUFXJpUFjh+0v2UP4d5ZPpiSTiP0vN5DogUqBzVsNLt4878FFyZ6
-	 y+V+aBoGuCnCI/ki3x0QxPOuu3ablW7sslLkVH0M=
+	b=ODUsrVA+Osh+YuqZ2weAsGGywqy/b/qwHwb19BNjsfEwSiMM80SD6jpMMJI/ZlS+I
+	 QwccnLnWAZx9/TLXi3AP2b58rFHkvOHKqN/lPA2UAqad9iBybobltKgprBP/n6zuYA
+	 btnuw/1t17YXKqk0g2SpX20GGxTl6lwfbJX2ynSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5D73F804B4;
-	Thu, 18 Mar 2021 11:30:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C557F802E3;
+	Thu, 18 Mar 2021 11:30:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9F69F8032D; Thu, 18 Mar 2021 11:30:42 +0100 (CET)
+ id 8594CF802E3; Thu, 18 Mar 2021 11:30:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C04C0F80171
- for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 11:30:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C04C0F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCA16F80165
+ for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 11:30:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCA16F80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="rJkKlJ6c"; 
+ header.b="06rCZUHR"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="LbsLUohU"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id D0A191AD5;
- Thu, 18 Mar 2021 06:30:20 -0400 (EDT)
+ header.i=@messagingengine.com header.b="lPbCB88t"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id A62081B40;
+ Thu, 18 Mar 2021 06:30:21 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 18 Mar 2021 06:30:21 -0400
+ by compute1.internal (MEProxy); Thu, 18 Mar 2021 06:30:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=OvphCkYMlzC+s
- TR4NuN56kjC2Ei6zNmNLQaDc58oywg=; b=rJkKlJ6cI43cip9iW8C/IVc2S/+h5
- c4rVPHU7XrE6TwGP/qLwwbzvFDgHe5dPJnU5vjdJrMWx4Y0E+8eNZQRtkPvweUN/
- 1y+G+nNFUml34cMKIHm4aimOvBAaXfAyJEnjrpL3XkxW1/0mWEiUQApujJUeqfXe
- bA9KYeCaUVbNcHe92KS5GJIQXr+aw0ZPuNcbMwbw+wYCHDPNRJyFoGXTREFbjlYv
- 40hBYzYs7An3lGrNbiLQEplENC281NEYyXgLjZ1z0njA3Oo+FRfVzRLhxvTMsESe
- nHvh8WRfIvay61Ppa46M4EqVUEyiML6/NdXABEWii6u4Elz0jRVH6iEBQ==
+ :mime-version:content-transfer-encoding; s=fm1; bh=u3b4u7AhBKvmx
+ GxRH3d8Y/f0H1IDxZKY6QNRVYncw/Q=; b=06rCZUHRO1ZXqiG1sHqZyN9rdxN8r
+ 83eXcJ3mNNfbVMAm0/jUiZD6fMkw9UywmgdP+KthMYBg9U524sAbO1JH2ah+yRnF
+ NNJvnKEupdOzQYsgzB8i6FA2/rdP94sgnaTVCW92YTknypn3u2uqymJq0PjulGKm
+ yD59dIz25FWVeQhjx4LqCeVl45BJnLp8eCud4ELLzEa1u5HjKrqf/jaiVITiYqq6
+ myd7uI4BJA5ItDABr5wpZ/cQ/tZ04lVUfr921KcOlZ3YGUrN68SKHOnTbGDv4Oqk
+ R6rrfUwNtjrmdQA3XWdb62HtsP1WiX0GI+yp5iYy5pHXKaiZ4NLdD+xag==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=OvphCkYMlzC+sTR4NuN56kjC2Ei6zNmNLQaDc58oywg=; b=LbsLUohU
- 1rY78fKG7VQEyQ9UpUUdQzDQrbK8rwNIULEA6+SQyiPYqTFo+51ha8Bfwzfap3/i
- wVaFmrRtZJ/ZJFDH0RtwsrpT71KNwVA5OqLOytRWOESfwcVhzGA7q1dKKV7Lct2R
- O3ayaYn7tlxindW1KatF+ScD9EKas7EJjvoiI3AaInaz48V9rooQU12hynb0Zu3h
- B45zq0VSsfZaY+jojPTT+lBTR0jwW1dbZC8mEsFIyIITu6uXi5K6V8CMI7GrmCOF
- QsGQUknRbAOUV6cJiUafuRona85Wu3JnPmxEnm3/SqxSsJGgCo328t/735mwV2xd
- jut6fUTELins2A==
-X-ME-Sender: <xms:uytTYOplVv2jtTzJM3AGXuUSpH3Y8kvAokW3GPcwSLsFwP63d0S82g>
- <xme:uytTYMq8B6V8kceTKuX_JMk507c-TmpsWzcpUFvDDx8CVkjngH2D-qxSgcqh1fubt
- SbR-wTmvIXOstU9Wrk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefiedgudeiucetufdoteggodetrfdotf
+ fm2; bh=u3b4u7AhBKvmxGxRH3d8Y/f0H1IDxZKY6QNRVYncw/Q=; b=lPbCB88t
+ amWb4z56bSqYoX6AiWuZvd40GAHzbBgsBW/YEj8sTEJDrokOl0qGqgSQZ/YPID29
+ xEBEmSnR7fvh+pYcqHkzU7p3w7JprsKly0rUN8blPUUkrWMXgKQIOz6+ZTCgnMl4
+ JwL+5GHsXyf6I0JSwuEvtr861cMWvWg9nlIL6PKCsDkv2L58XQIhZBsIhUXy9PhU
+ AExQEO2N5Z98Ynu+v3a9oVjrY663RalW4uDKSxxgwvSDTuXP8+D5iCw7SSXDHHFY
+ FJQTCQZOFZjAgNi5U6/U/y0WGJgB+yo4SGQdrUdzdMsi9iQEATsp1M0efw+LZyxW
+ ppv3TuSau0vpfA==
+X-ME-Sender: <xms:vCtTYNd-Y8w89VVKD3qP887Dq-gkIJIoE2AhmqyFXWLjMz8mtLadWA>
+ <xme:vCtTYLKs-zIBQlDWQ2G5053EJelUPt8WHv-fonJd0Rrss7P7esIZJfsfREBZjRsDN
+ eGD7F1eVQj2ziEe7KI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefiedgudejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
@@ -79,21 +79,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefiedgudeiucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:uytTYDM2gWW6dLoxhOcjY148JzlE1nRw6PrUsNWXpGxN7DgL0PZomg>
- <xmx:uytTYN5RncQbrR7RCUMTfkc3HT2Ynshr5bkjQ2JSUxj5wAii0YpMMA>
- <xmx:uytTYN4TdUdJyD8pG_8S1yfyRjEDlvzyQL3eFsHKqIcJikHDj0QjlA>
- <xmx:vCtTYPR6jeBBP8VN6fo80OiLvg8RZOM7LeUSw2tEO96h0YJ5GMCVJg>
+X-ME-Proxy: <xmx:vCtTYDZpjQOnLUOd1O0eDxbX50x737zrkc-JdImLaM00mWcMmt8QfQ>
+ <xmx:vCtTYOs8LyNvHsjMXsArnM4RTZvhR8Wcl5at1AnbgYnwkLOUv8Wnrw>
+ <xmx:vCtTYIsbe20Cikk7cZXECMqwlPNSVF-tBozpiEHHShoELm0CUtxVrg>
+ <xmx:vStTYAYBjCri1U2p6QwNNREgHBRRRjGH_NMvD-4NrcvGsw7x5BouSw>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6FF371080057;
- Thu, 18 Mar 2021 06:30:18 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C7BA91080069;
+ Thu, 18 Mar 2021 06:30:19 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [alsa-lib][PATCH 1/6] test: ctl-elem-id: add test program for future
- APIs relevant to control element ID
-Date: Thu, 18 Mar 2021 19:30:08 +0900
-Message-Id: <20210318103013.265264-2-o-takashi@sakamocchi.jp>
+Subject: [alsa-lib][PATCH 2/6] ctl: add API to check equality between a pair
+ of control element IDs by numid
+Date: Thu, 18 Mar 2021 19:30:09 +0900
+Message-Id: <20210318103013.265264-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210318103013.265264-1-o-takashi@sakamocchi.jp>
 References: <20210318103013.265264-1-o-takashi@sakamocchi.jp>
@@ -115,101 +115,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some APIs are planned to add for equality check and comparison of a pair
-of control element IDs. The equality check and comparison are quite
-basic methods to operate data, thus it's preferable not to include any
-bug.
+The structure for control element ID is hybrid. It has two ways to check
+equality; e.g. equality of numid field, and equality of the other fields.
+Just checking equality according to numid field, current alsa-lib take
+userspace applications to call snd_ctl_elem_id_get_numid() twice. It's
+better to add optimized version of the equality check.
 
-This commit adds skeleton of test program for the APIs.
+This commit adds API to check equality of numid field for a pair of control
+element IDs.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- test/lsb/Makefile.am   |  6 +++--
- test/lsb/ctl-elem-id.c | 61 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 65 insertions(+), 2 deletions(-)
- create mode 100644 test/lsb/ctl-elem-id.c
+ include/control.h      |  1 +
+ src/control/control.c  | 19 ++++++++++++++++
+ test/lsb/ctl-elem-id.c | 50 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 70 insertions(+)
 
-diff --git a/test/lsb/Makefile.am b/test/lsb/Makefile.am
-index ceb4d715..7d5f754d 100644
---- a/test/lsb/Makefile.am
-+++ b/test/lsb/Makefile.am
-@@ -1,5 +1,7 @@
--TESTS  = config
--TESTS += midi_event
-+TESTS = \
-+	config \
-+	midi_event \
-+	ctl-elem-id
- check_PROGRAMS = $(TESTS)
- noinst_HEADERS = test.h
+diff --git a/include/control.h b/include/control.h
+index 40ac2e97..260d7f30 100644
+--- a/include/control.h
++++ b/include/control.h
+@@ -424,6 +424,7 @@ int snd_ctl_elem_id_malloc(snd_ctl_elem_id_t **ptr);
+ void snd_ctl_elem_id_free(snd_ctl_elem_id_t *obj);
+ void snd_ctl_elem_id_clear(snd_ctl_elem_id_t *obj);
+ void snd_ctl_elem_id_copy(snd_ctl_elem_id_t *dst, const snd_ctl_elem_id_t *src);
++int snd_ctl_elem_id_equal_by_numid(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r);
+ int snd_ctl_elem_id_compare(snd_ctl_elem_id_t *id1, const snd_ctl_elem_id_t *id2);
+ unsigned int snd_ctl_elem_id_get_numid(const snd_ctl_elem_id_t *obj);
+ snd_ctl_elem_iface_t snd_ctl_elem_id_get_interface(const snd_ctl_elem_id_t *obj);
+diff --git a/src/control/control.c b/src/control/control.c
+index 197d4f52..6d1eda15 100644
+--- a/src/control/control.c
++++ b/src/control/control.c
+@@ -83,6 +83,8 @@ the same (driver updates can change it, but in practice this is
+ rare). The numid can change on each boot. In case of an USB sound
+ card, the numid can also change when it is reconnected.
  
-diff --git a/test/lsb/ctl-elem-id.c b/test/lsb/ctl-elem-id.c
-new file mode 100644
-index 00000000..ae416698
---- /dev/null
-+++ b/test/lsb/ctl-elem-id.c
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+//
-+// ctl-elem-id.c - a test program for equality and some comparison algorithms
-+// for control element ID structure.
-+//
-+// Copyright (c) 2021 Takashi Sakamoto
-+//
-+// Licensed under the terms of the GNU General Public License, version 2.
-+
-+#include <stdlib.h>
-+#include <stdint.h>
-+
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <fcntl.h>
-+
-+#include <unistd.h>
-+
-+#include "../include/asoundlib.h"
-+
-+int main()
++For equality check between a pair of #snd_ctl_elem_id_t according to the numid,
++snd_ctl_elem_id_equal_by_numid() is available.
+ 
+ \section element_lists Element Lists
+ 
+@@ -1818,6 +1820,23 @@ void snd_ctl_elem_id_copy(snd_ctl_elem_id_t *dst, const snd_ctl_elem_id_t *src)
+ 	*dst = *src;
+ }
+ 
++/**
++ * \brief check equality between two arguments according to numid.
++ * \param l opaque pointer to element ID structure.
++ * \param r opaque pointer to another element ID structure.
++ * \retval zero if they equal, else zero.
++ *
++ * The structure underlying #snd_ctl_elem_id_t is hybrid one. It has two ways to
++ * check equality. The API implements one of the ways, according to the value of
++ * numid field.
++ */
++int snd_ctl_elem_id_equal_by_numid(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
 +{
-+	void (*entries[])(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r) = {
-+	};
-+	int count = sizeof(entries) / sizeof(*entries);
-+	int fd;
-+	uint8_t *buf;
-+	int i;
++	assert(l && r);
 +
-+	fd = open("/dev/urandom", O_RDONLY);
-+	if (fd < 0)
-+		return EXIT_FAILURE;
-+
-+	buf = calloc(snd_ctl_elem_id_sizeof(), 2);
-+	if (buf == NULL)
-+		goto error_urandom;
-+
-+	for (i = 0; i < count; ++i) {
-+		snd_ctl_elem_id_t *l, *r;
-+		ssize_t len;
-+randomize:
-+		len = read(fd, buf, snd_ctl_elem_id_sizeof() * 2);
-+		if (len < 0)
-+			goto error_memory;
-+		l = (snd_ctl_elem_id_t *)buf;
-+		r = (snd_ctl_elem_id_t *)(buf + snd_ctl_elem_id_sizeof());
-+		if (!memcmp(l, r, snd_ctl_elem_id_sizeof()))
-+			goto randomize;
-+
-+		entries[i](l, r);
-+	}
-+
-+	free(buf);
-+
-+	return EXIT_SUCCESS;
-+error_memory:
-+	free(buf);
-+error_urandom:
-+	close(fd);
-+	return EXIT_FAILURE;
++	return l->numid == r->numid;
 +}
++
+ /**
+  * \brief compare one #snd_ctl_elem_id_t to another
+  * \param id1 pointer to first id
+diff --git a/test/lsb/ctl-elem-id.c b/test/lsb/ctl-elem-id.c
+index ae416698..f499b268 100644
+--- a/test/lsb/ctl-elem-id.c
++++ b/test/lsb/ctl-elem-id.c
+@@ -18,9 +18,59 @@
+ 
+ #include "../include/asoundlib.h"
+ 
++static void set_elem_id_by_tuple(snd_ctl_elem_id_t *elem_id,
++				 snd_ctl_elem_iface_t iface,
++				 unsigned int device_id,
++				 unsigned int subdevice_id,
++				 const char *name,
++				 unsigned int index)
++{
++	snd_ctl_elem_id_set_interface(elem_id, iface);
++	snd_ctl_elem_id_set_device(elem_id, device_id);
++	snd_ctl_elem_id_set_subdevice(elem_id, subdevice_id);
++	snd_ctl_elem_id_set_name(elem_id, name);
++	snd_ctl_elem_id_set_index(elem_id, index);
++}
++
++// Case 0.0. The same value of numid field should result in true positive.
++static void equality_by_numid_0(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
++{
++	snd_ctl_elem_id_set_numid(l, 33);
++	snd_ctl_elem_id_set_numid(r, 33);
++	assert(snd_ctl_elem_id_equal_by_numid(l, r));
++}
++
++// Case 0.1. The different value of numid field should result in false positive.
++static void equality_by_numid_1(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
++{
++	snd_ctl_elem_id_set_numid(l, 333);
++	snd_ctl_elem_id_set_numid(r, 444);
++	assert(!snd_ctl_elem_id_equal_by_numid(l, r));
++}
++
++// Case 0.2. The same tuple should result in false positive.
++static void equality_by_numid_2(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
++{
++	set_elem_id_by_tuple(l, SND_CTL_ELEM_IFACE_CARD, 0, 1, "something", 2);
++	set_elem_id_by_tuple(r, SND_CTL_ELEM_IFACE_CARD, 0, 1, "something", 2);
++	assert(!snd_ctl_elem_id_equal_by_numid(l, r));
++}
++
++// Case 0.3. The tuple should result in false positive.
++static void equality_by_numid_3(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r)
++{
++	set_elem_id_by_tuple(l, SND_CTL_ELEM_IFACE_CARD, 300, 400, "something", 500);
++	set_elem_id_by_tuple(r, SND_CTL_ELEM_IFACE_MIXER, 600, 700, "something", 800);
++	assert(!snd_ctl_elem_id_equal_by_numid(l, r));
++}
++
+ int main()
+ {
+ 	void (*entries[])(snd_ctl_elem_id_t *l, snd_ctl_elem_id_t *r) = {
++		equality_by_numid_0,
++		equality_by_numid_1,
++		equality_by_numid_2,
++		equality_by_numid_3,
+ 	};
+ 	int count = sizeof(entries) / sizeof(*entries);
+ 	int fd;
 -- 
 2.27.0
 

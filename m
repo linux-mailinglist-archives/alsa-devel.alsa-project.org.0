@@ -2,100 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DBC3404E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 12:44:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457E0340588
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 13:30:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 982E116C1;
-	Thu, 18 Mar 2021 12:43:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 982E116C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF0D71685;
+	Thu, 18 Mar 2021 13:29:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF0D71685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616067870;
-	bh=Ua5vr3cdWYOZqMcEl0xSIJP9sFrP0Dm1YYjzZpGsHcg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616070645;
+	bh=NQfLo/Q4k0Vg1tIqdQBezC3bjP/I+vORhyvcLOAVD90=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GgDEaZofIS1Lc6OPd+uxm5RdjRHTJ2TK5Y27gfl9qhSjsUvJ4wu7XRc5GdWr45YHz
-	 kT9ZjRz/++eETz2QSl5XyhuUE1OmUvYeWOjN3RNhKHh48C7tMN8FXUKoRB8guwf9Of
-	 CgofKte1Qkx6iwUZMzQzLAjUqNTMJ9PAMBZdb83g=
+	b=uou3oYkBjfQfYxG8d2cqA1H23VwxPXRcK2T3w8GWhngqiJSoZQY0xdTvRvzxK0Wkk
+	 pQdAuXgtFqxlxxPYXhELLBZ38oVbWZruaS78/XKx8ocAcgFYzpo7uqlxKTvWmqwe5n
+	 jNFrRrEwfwnKz2++PMr81VRKBXUtyD/xM3erp8vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D3E8F8023B;
-	Thu, 18 Mar 2021 12:43:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BADBF80171;
+	Thu, 18 Mar 2021 13:29:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8A66F80224; Thu, 18 Mar 2021 12:43:27 +0100 (CET)
+ id 57E0FF80171; Thu, 18 Mar 2021 13:29:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51022F80165
- for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 12:43:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51022F80165
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="NUsfxEv4"
-Received: by mail-wm1-x333.google.com with SMTP id
- n11-20020a05600c4f8bb029010e5cf86347so6769469wmq.1
- for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 04:43:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=qlh0PLI7gh/qmZ34aTQwcT+xdXL5fD/J8CQcbj7KKrg=;
- b=NUsfxEv4djJ6Ej8xDqOo7zjA3jA6YXbq2HmjCS2XbUrlo8NFP38X1dqdG7q1IMGJit
- zbXI/4JuajopV+n76wfbO75FdAY6CxPom4nD8go0ia0NBjPP3tioicSib8TwY4BzcX+U
- nu56D/6N7nBfrd9CfrFp8YCDQ1UgS5luOCTbX7cCuSJeNczKiIPCMTsHKVEEs94ZwTy+
- mx11kN9vkV67tHtBJ/46m24GCoGiOL2eOGYIr7gRvBb8HZw4X2RxeCQlWYbUD8nvIVIA
- Fj3RPQND/DnVaQeUgurOUQ4+y9VNmsdoEf2TjbBmn591VWhrnf1PSa9INaI0scVjEfcy
- VbKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=qlh0PLI7gh/qmZ34aTQwcT+xdXL5fD/J8CQcbj7KKrg=;
- b=aff3WCELAOwHdMkfLUN/z2CpTndgRndJ3HuazxDTPr+Q4TgyJsZh842VtAiI8xvnLp
- IwibYs4qnLo4u6LPmADmpVvJ2UwmvSo/BRvd9nIiKu+RGEvQKsKipwGlP0BV4EgN+mb6
- soWu2LZE/BYuDgwebpbNmdgEfF74BLLhZy89422x+YcuW3DWY7hSc4Zizop/h+Da58M3
- 1kXwaYNxGjNmYm06pTvCSIXzWTfJltxs2Rjsp7xFAU1MfUyhgUgzhWZJrbH8JN91HR90
- Gb2PvLI02fouMyuFtdNWrJ/FHWxchCutHCmFvGj0jKnljrmrARsCE4unJcOTUfdMaER/
- 7TZw==
-X-Gm-Message-State: AOAM531BFJB8n522J41dQpy9sp5PdNmXvcerQJh1GoJri0YaJVwtSIyU
- nLgHkkZCFrZcdtUgdv10gbWRNA==
-X-Google-Smtp-Source: ABdhPJwDsjFbmhs8zkFQ91cXTJVPdBZL/4TzKiQZhgpkFmHLoQ1cwC496vYDK6cJtaio41lVF+8gOQ==
-X-Received: by 2002:a1c:5416:: with SMTP id i22mr3247883wmb.146.1616067792719; 
- Thu, 18 Mar 2021 04:43:12 -0700 (PDT)
-Received: from dell ([91.110.221.194])
- by smtp.gmail.com with ESMTPSA id u2sm2724691wrp.12.2021.03.18.04.43.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Mar 2021 04:43:12 -0700 (PDT)
-Date: Thu, 18 Mar 2021 11:43:10 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v4 resend 00/13] MFD/extcon/ASoC: Rework arizona codec
- jack-detect support
-Message-ID: <20210318114310.GE2916463@dell>
-References: <20210307151807.35201-1-hdegoede@redhat.com>
- <433cda84-2d61-ccb4-155a-5f8fa1021c90@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C5B1F800C8
+ for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 13:28:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C5B1F800C8
+IronPort-SDR: enX587ZGKJLq018vyXceXc4MAMjgQ/VOzC/563grVVG0m1cMzH7bHM8fe50oozefIxhPYIiTY8
+ TOp9Jr0WiDNw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="186311911"
+X-IronPort-AV: E=Sophos;i="5.81,258,1610438400"; d="scan'208";a="186311911"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2021 05:28:50 -0700
+IronPort-SDR: JsvFnuHaxxVG8o7XfFxBcOLaZTyrONyCDU0I8r9X39KY7L0RnNTyUvGGlGa7Q0dKGlT3IjY06V
+ o5Tyzp6M3XZA==
+X-IronPort-AV: E=Sophos;i="5.81,258,1610438400"; d="scan'208";a="406343619"
+Received: from hapte-mobl.amr.corp.intel.com (HELO [10.212.219.204])
+ ([10.212.219.204])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2021 05:28:47 -0700
+Subject: Re: [PATCH v3] ASoC: Intel: sof_rt5682: Add ALC1015Q-VB speaker amp
+ support
+To: Jack Yu <jack.yu@realtek.com>, Brent Lu <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ =?UTF-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
+ <kent_chen@realtek.com>
+References: <20210317110824.20814-1-brent.lu@intel.com>
+ <af990f6f-3a8b-3a1e-a02a-3bfe96e4d80a@linux.intel.com>
+ <7f91482a93aa4d429ee574d730eeca6a@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <73f439e8-8553-30bd-f72c-e7d86fe59447@linux.intel.com>
+Date: Thu, 18 Mar 2021 05:57:15 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <433cda84-2d61-ccb4-155a-5f8fa1021c90@redhat.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <7f91482a93aa4d429ee574d730eeca6a@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Dharageswari R <dharageswari.r@intel.com>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Libin Yang <libin.yang@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,97 +98,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Mar 2021, Hans de Goede wrote:
 
-> Hi Lee,
-> 
-> On 3/7/21 4:17 PM, Hans de Goede wrote:
-> > Hi All,
-> > 
-> > Here is v4 of my series to rework the arizona codec jack-detect support
-> > to use the snd_soc_jack helpers instead of direct extcon reporting.
-> > 
-> > As discussed before here is a resend rebased on 5.12-rc2, making sure that
-> > all patches this depends on are in place.
-> > 
-> > Lee, can you pick-up patches 1-6 through the MFD tree and then send a
-> > pull-req to Mark so that Mark can merge the Asoc parts throught the ASoC
-> > tree ?
-> > 
-> > Patches 2-6 touch drivers/extcon, these all have an Ack from Chanwoo Choi
-> > for merging these through the MFD tree.
-> 
-> Lee, is there a specific reason why these have not been merged yet,
-> or did you just not get around to these yet ?
-> 
-> As I already mentioned Chanwoo Choi already gave an ack for merging
-> the extcon patches through MFD, so AFAICT eveything is ready to merge
-> 1-6 through the MFD tree, and then have Mark merge an ib from the
-> MFD tree and merge the rest.
 
-I can't remember where we left it.
+On 3/17/21 8:21 PM, Jack Yu wrote:
+>>> This patch adds jsl_rt5682_rt1015p which supports the RT5682 headset
+>>> codec and ALC1015Q-VB speaker amplifier combination on JasperLake
+>>> platform.
+>>>
+>>> This driver also supports ALC1015Q-CG if running in auto-mode.
+>>> Following table shows the audio interface support of the two
+>>> amplifiers.
+>>>
+>>>             | ALC1015Q-CG | ALC1015Q-VB
+>>> =====================================
+>>> I2C       | Yes         | No
+>>> Auto-mode | 48K, 64fs   | 16k, 32fs
+>>>                           | 48k, 32fs
+>>>                           | 48k, 64fs
+>>>
+>>> Signed-off-by: Brent Lu <brent.lu@intel.com>
+>>
+>> The code is looks fine, but Jack Yu added a separate patch that makes
+>> RTL1019 equivalent to RTL1015, so should this patch also handle the
+>> RTL1019 case?
+>>
+> For rt1019 non-i2c mode (auto mode), it uses the sdb pin to enable amp, the same as rt1015 non-i2c mode,
+> therefore we propose rt1019(auto mode) to use rt1015p instead of adding a new driver for it.
 
-I guess I can take 1-6 (as suggested above) without issue.
+ok, that's fine.
 
-Hold tight.
-
-> > Here is some more generic info on this series from the previous
-> > cover-letter:
-> > 
-> > This is done by reworking the extcon driver into an arizona-jackdet
-> > library and then modifying the codec drivers to use that directly,
-> > replacing the old separate extcon child-devices and extcon-driver.
-> > 
-> > This brings the arizona-codec jack-detect handling inline with how
-> > all other ASoC codec driver do this. This was developed and tested on
-> > a Lenovo Yoga Tablet 1051L with a WM5102 codec.
-> > 
-> > This was also tested by Charles Keepax, one of the Cirrus Codec folks.
-> > 
-> > Regards,
-> > 
-> > Hans
-> > 
-> > 
-> > Hans de Goede (13):
-> >   mfd: arizona: Drop arizona-extcon cells
-> >   extcon: arizona: Fix some issues when HPDET IRQ fires after the jack
-> >     has been unplugged
-> >   extcon: arizona: Fix various races on driver unbind
-> >   extcon: arizona: Fix flags parameter to the gpiod_get("wlf,micd-pol")
-> >     call
-> >   extcon: arizona: Always use pm_runtime_get_sync() when we need the
-> >     device to be awake
-> >   ASoC/extcon: arizona: Move arizona jack code to
-> >     sound/soc/codecs/arizona-jack.c
-> >   ASoC: arizona-jack: Move jack-detect variables to struct arizona_priv
-> >   ASoC: arizona-jack: Use arizona->dev for runtime-pm
-> >   ASoC: arizona-jack: convert into a helper library for codec drivers
-> >   ASoC: arizona-jack: Use snd_soc_jack to report jack events
-> >   ASoC: arizona-jack: Cleanup logging
-> >   ASoC: arizona: Make the wm5102, wm5110, wm8997 and wm8998 drivers use
-> >     the new jack library
-> >   ASoC: Intel: bytcr_wm5102: Add jack detect support
-> > 
-> >  MAINTAINERS                                   |   3 +-
-> >  drivers/extcon/Kconfig                        |   8 -
-> >  drivers/extcon/Makefile                       |   1 -
-> >  drivers/mfd/arizona-core.c                    |  20 -
-> >  sound/soc/codecs/Makefile                     |   2 +-
-> >  .../soc/codecs/arizona-jack.c                 | 577 +++++++-----------
-> >  sound/soc/codecs/arizona.h                    |  44 ++
-> >  sound/soc/codecs/wm5102.c                     |  12 +-
-> >  sound/soc/codecs/wm5110.c                     |  12 +-
-> >  sound/soc/codecs/wm8997.c                     |  14 +-
-> >  sound/soc/codecs/wm8998.c                     |   9 +
-> >  sound/soc/intel/boards/bytcr_wm5102.c         |  28 +-
-> >  12 files changed, 325 insertions(+), 405 deletions(-)
-> >  rename drivers/extcon/extcon-arizona.c => sound/soc/codecs/arizona-jack.c (76%)
-> > 
-> 
-
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

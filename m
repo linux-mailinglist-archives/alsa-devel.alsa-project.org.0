@@ -2,69 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C88D3408CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 16:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1485B3408F5
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Mar 2021 16:34:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5813A16AF;
-	Thu, 18 Mar 2021 16:26:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5813A16AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A012D169A;
+	Thu, 18 Mar 2021 16:33:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A012D169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616081238;
-	bh=s8EXhFCVMQRFOV7h8LDIA2m2qU28nS6EQ+hNQl1kVQ0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1616081674;
+	bh=yCsETw8kpVJErJYtB35DAJk8TiP8G2h6zEHEbf6Xap0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RhjgzBbTB8IQC60uAPIdYiPVgd+R6C6rLddXWL9wawoq9PE9WYrqAxbJW5/QWmp1m
-	 bwHHZbFxwnWbz1nXF7fTcdTbWVoypz1SWaohGRFe9Ao3T5VIxSJY99YWkqku9iaK5P
-	 KoweKPJb3pw5P5a1J/Sj64AkVtwfzMVdDVOiSmyc=
+	b=amo7Jg+cjHOVjJiHVgCBmlpo1AQvilIOu526Uw+6I+BkRGH2gIecSIhTam7wyNHHv
+	 GQt32cHaOEYVQO7EUu1eaMlFPVmjzsLCkWXy31mYwhI9e1P+lfIJNUHkKTiLfv7pTZ
+	 eVTCWBkkC1IX2edHL4PKgdHP2TilCX3ASTT/yYUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BEE7F800C8;
-	Thu, 18 Mar 2021 16:26:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19D5CF800C8;
+	Thu, 18 Mar 2021 16:33:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB7D1F80165; Thu, 18 Mar 2021 16:26:20 +0100 (CET)
+ id 07C21F80163; Thu, 18 Mar 2021 16:33:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86CA4F80218
- for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 16:26:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86CA4F80218
-IronPort-SDR: QF8AGvGaiHI06wRfK8jQwmWjszf6ZwjUBKvm+dyL9qwSMdgiH9VmdLYYkgnLnGmZocVUcXuEe3
- gDVNscLXXDDA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="187343201"
-X-IronPort-AV: E=Sophos;i="5.81,259,1610438400"; d="scan'208";a="187343201"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2021 08:26:09 -0700
-IronPort-SDR: hAoQDzBt9odF8H7TrcnW4zc4J4H3GjMnf1f5iF0S75m4uAA4IvA0J8y2+W5/UWUy+tR44iefxT
- oF/rKRsktMRg==
-X-IronPort-AV: E=Sophos;i="5.81,259,1610438400"; d="scan'208";a="406403029"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.1.197])
- ([10.213.1.197])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2021 08:26:04 -0700
-Subject: Re: [PATCH 0/3] Fix SND_HDA_PREALLOC issue
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46C4DF800E0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Mar 2021 16:32:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46C4DF800E0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1870FAC1F;
+ Thu, 18 Mar 2021 15:32:53 +0000 (UTC)
+Date: Thu, 18 Mar 2021 16:32:52 +0100
+Message-ID: <s5hk0q4h3yz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 3/3] ALSA: hda: Revert "ALSA: hda: Allow setting
+ preallocation again for x86"
+In-Reply-To: <20210318151122.2493096-4-amadeuszx.slawinski@linux.intel.com>
 References: <20210318151122.2493096-1-amadeuszx.slawinski@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <ddc72cdd-2112-b7b1-1687-b7e699bafae5@intel.com>
-Date: Thu, 18 Mar 2021 16:26:02 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <20210318151122.2493096-1-amadeuszx.slawinski@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ <20210318151122.2493096-4-amadeuszx.slawinski@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,54 +72,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 18 Mar 2021 16:11:22 +0100,
+Amadeusz Sławiński wrote:
+> 
+> This reverts commit f8e4ae10de43fbb7ce85f79e04eca2988b6b2c40.
 
-On 2021-03-18 4:11 PM, Amadeusz Sławiński wrote:
-> For context it started with user reporting failures when running arecord
-> without any error or warning in dmesg (after fixing some configuration
-> problems thet they had).
-> https://bugzilla.kernel.org/show_bug.cgi?id=201251#c279
-> 
-> After spending time investigating the issue it was narrowed to quite big
-> setting of CONFIG_SND_HDA_PREALLOC_SIZE (4096).
-> When looking at code
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/core/pcm_memory.c?id=6417f03132a6952cd17ddd8eaddbac92b61b17e0#n30
-> there is a limit of memory per card:
-> max_alloc_per_card = 32UL * 1024UL * 1024UL
-> 
-> When SND_HDA_PREALLOC_SIZE is set to 4096 it only has memory to alloc
-> for 8 frontends, while Skylake HDA card has 10 of them (6 playback and 4
-> capture), so preallocated memory is exhausted while probing. In
-> consequence 2 of FEs end without allocated memory.
-> 
-> It can be workarounded on user side with setting SND_HDA_PREALLOC_SIZE
-> to lower value, other is changing memory limit per card.
-> 
-> However in order to not waste user memory, change maximum allocation
-> size on HDA controller to 4MB and force automatical memory allocation
-> insted of preallocated one.
-> 
-> First patch adds prints, so similar issues can be easily identified in
-> the future.
-> Second changes maximum size of hda buffer to reasonable value of 4MB.
-> And last one reverts patch which allowed setting prealloc size on X86
-> platforms.
-> 
-> Amadeusz Sławiński (3):
->    ALSA: pcm: Add debug print on memory allocation failure
->    ALSA: hda: Change AZX_MAX_BUF_SIZE from 1GB to 4MB
->    ALSA: hda: Revert "ALSA: hda: Allow setting preallocation again for
->      x86"
-> 
->   include/sound/hda_register.h | 4 ++--
->   sound/core/pcm_memory.c      | 8 ++++++++
->   sound/hda/Kconfig            | 7 +++----
->   3 files changed, 13 insertions(+), 6 deletions(-)
-> 
+It should be a format of commit ("description ...") as checkpatch.pl
+would complain.  The commit f8e4ae10de43 itself is a revert of commit
+c31427d0d21e, and you need to give an explanation why the
+revert-of-a-revert can work better at this time.
 
-For the series:
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Nice work Amadeo.
+thanks,
 
-Regards,
-Czarek
+Takashi
+
+> On systems where there is a lot of FrontEnds, when
+> CONFIG_SND_HDA_PREALLOC_SIZE != 0  ALSA core allocates memory for each
+> FE, which may cause out of memory problems due to per card limit. Force
+> config to 0 on X86, so memory will be allocated on as needed basis.
+> 
+> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=201251#c322
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> ---
+>  sound/hda/Kconfig | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/hda/Kconfig b/sound/hda/Kconfig
+> index 57595f1552c9..741179ccbd4e 100644
+> --- a/sound/hda/Kconfig
+> +++ b/sound/hda/Kconfig
+> @@ -21,17 +21,16 @@ config SND_HDA_EXT_CORE
+>         select SND_HDA_CORE
+>  
+>  config SND_HDA_PREALLOC_SIZE
+> -	int "Pre-allocated buffer size for HD-audio driver"
+> +	int "Pre-allocated buffer size for HD-audio driver" if !SND_DMA_SGBUF
+>  	range 0 32768
+> -	default 2048 if SND_DMA_SGBUF
+> +	default 0 if SND_DMA_SGBUF
+>  	default 64 if !SND_DMA_SGBUF
+>  	help
+>  	  Specifies the default pre-allocated buffer-size in kB for the
+>  	  HD-audio driver.  A larger buffer (e.g. 2048) is preferred
+>  	  for systems using PulseAudio.  The default 64 is chosen just
+>  	  for compatibility reasons.
+> -	  On x86 systems, the default is 2048 as a reasonable value for
+> -	  most of modern systems.
+> +	  On x86 systems, the default is zero as we need no preallocation.
+>  
+>  	  Note that the pre-allocation size can be changed dynamically
+>  	  via a proc file (/proc/asound/card*/pcm*/sub*/prealloc), too.
+> -- 
+> 2.25.1
+> 

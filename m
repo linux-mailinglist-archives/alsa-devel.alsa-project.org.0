@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9DD341D7D
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 13:56:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A03341D7C
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 13:55:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D478169B;
-	Fri, 19 Mar 2021 13:55:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D478169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2C11167F;
+	Fri, 19 Mar 2021 13:54:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C11167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616158560;
-	bh=gnsf+CpRg6hObe4PL12srMS3Nvc+83xRXBFRMgTghnY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OHZoYDPrlMXAFSRVtiWlko6Y2no8EmiV58GGgMmkP3FinMJ/Xg64UV+YXVWJKyFt5
-	 VWk/CG/KanxCViyUTkLEkUX0gmHiXDp9udkymcsdybxZiMMBa0znVTgFRBzk2FxaCb
-	 t7D83gsHBLNAXATr6cvOQ4Z+Ehm5uvbpponR9S68=
+	s=default; t=1616158546;
+	bh=VPjKr+IwUPCtNpbEe98uPyshtFbeqQlrR7Lb8Ts9T/c=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NNeYSQ+o6UfaSx0v2rz2fUJUJZRi5xTfhFXBb1RkRP4czvbVQKUGuCnMY1kJVUAmr
+	 +oQsa2P2Hrb7VIxuPi3i5dzADIPbKvpAWI2zQGNyILrlUdS5ss8B67DQpprOvhjC6O
+	 YE12kjEwiyT//Uyupm3rRI2Vli5Rf9jxtiOv/7GE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E87AF80257;
-	Fri, 19 Mar 2021 13:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5492EF8023C;
+	Fri, 19 Mar 2021 13:54:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46E6FF8021C; Fri, 19 Mar 2021 13:54:15 +0100 (CET)
+ id 182BEF8023C; Fri, 19 Mar 2021 13:54:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,29 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC41CF801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43039F800BB
  for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 13:54:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC41CF801F7
-IronPort-SDR: 5XrePCS+l6l0mBN5ZnSIUxDNvw51bLHMOxS0Zs1A3vfhrhj857RPdFP2PdiNOBpEZUjj6+Xp+c
- UIvuJgICresg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="186540311"
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="186540311"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43039F800BB
+IronPort-SDR: HVutJuLTbR+XvamNIBwqBMmKorSd9lG+B2aBOC+ziBpEQI4jJMeNBNl0apw43tHL5VOoTjPtpJ
+ XEfuzPlqhFsA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="186540314"
+X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="186540314"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 05:53:56 -0700
-IronPort-SDR: AlGCY1roMUyfJbgr6Ir8T1tVDKuuNiQZ2OmQuJnH3XwDA3XvPBUrmGLWZh4/dH+lPXGzXMgIBE
- /4fZxX0aub9A==
+ 19 Mar 2021 05:54:00 -0700
+IronPort-SDR: FiLC00qKu7QSIuFFPRS3AVT9cc95Xb+/a46WYrxrp4taJs+a4BI3dYT7g0cB7wWmdi90A3Uno/
+ 4dGojRyBvcGA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="441307073"
+X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="441307084"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by FMSMGA003.fm.intel.com with ESMTP; 19 Mar 2021 05:53:53 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 19 Mar 2021 05:53:57 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 1/2] ASoC: SOF: add a helper to get topology configured mclk
-Date: Fri, 19 Mar 2021 14:49:49 +0200
-Message-Id: <20210319124950.3853994-1-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 2/2] ASoC: intel: sof_rt5682: use the topology mclk
+Date: Fri, 19 Mar 2021 14:49:50 +0200
+Message-Id: <20210319124950.3853994-2-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210319124950.3853994-1-kai.vehmanen@linux.intel.com>
+References: <20210319124950.3853994-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
@@ -79,72 +82,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Keyon Jie <yang.jie@linux.intel.com>
 
-Add helper sof_dai_ssp_mclk to get the topology configured MCLK from a
-pcm_runtime, return 0 if it is not available, and error if the dai type
-is not SSP at the moment.
-
-Export the helper for external use, e.g. from machine drivers.
+We should use the topology configured mclk if it existed, which can make
+sure we are aligned with the FW side about the mclk usage.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- include/sound/sof.h       |  1 +
- sound/soc/sof/sof-audio.c | 27 +++++++++++++++++++++++++++
- 2 files changed, 28 insertions(+)
+ sound/soc/intel/boards/sof_rt5682.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/sof.h b/include/sound/sof.h
-index 646a655c3c6b..b93bb8038080 100644
---- a/include/sound/sof.h
-+++ b/include/sound/sof.h
-@@ -103,5 +103,6 @@ struct sof_dev_desc {
- int sof_nocodec_setup(struct device *dev, const struct snd_sof_dsp_ops *ops,
- 		      int (*pcm_dai_link_fixup)(struct snd_soc_pcm_runtime *rtd,
- 						struct snd_pcm_hw_params *params));
-+int sof_dai_get_mclk(struct snd_soc_pcm_runtime *rtd);
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index f4b898c1719f..58548ea0d915 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -16,6 +16,7 @@
+ #include <sound/pcm.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
++#include <sound/sof.h>
+ #include <sound/rt5682.h>
+ #include <sound/soc-acpi.h>
+ #include "../../codecs/rt1015.h"
+@@ -268,10 +269,21 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
+ 		}
  
- #endif
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 3277489fee5e..928d7a46d820 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -433,6 +433,33 @@ struct snd_sof_dai *snd_sof_find_dai(struct snd_soc_component *scomp,
- 	return NULL;
- }
- 
-+/*
-+ * Helper to get SSP MCLK from a pcm_runtime.
-+ * Return 0 if not exist.
-+ */
-+int sof_dai_get_mclk(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
-+	struct snd_sof_dai *dai =
-+		snd_sof_find_dai(component, (char *)rtd->dai_link->name);
+ 		clk_id = RT5682_PLL1_S_MCLK;
+-		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ)
 +
-+	/* use the tplg configured mclk if existed */
-+	if (!dai || !dai->dai_config)
-+		return 0;
++		/* get the tplg configured mclk. */
++		clk_freq = sof_dai_get_mclk(rtd);
 +
-+	switch (dai->dai_config->type) {
-+	case SOF_DAI_INTEL_SSP:
-+		return dai->dai_config->ssp.mclk_rate;
-+	default:
-+		/* not yet implemented for platforms other than the above */
-+		dev_err(rtd->dev, "mclk for dai_config->type %d not supported yet!\n",
-+			dai->dai_config->type);
-+		return -EINVAL;
-+	}
-+}
-+EXPORT_SYMBOL(sof_dai_get_mclk);
-+
- /*
-  * SOF Driver enumeration.
-  */
-
-base-commit: bb9faeccbd6c05c6c2525be90f663f8694dd8bf6
++		/* mclk from the quirk is the first choice */
++		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ) {
++			if (clk_freq != 24000000)
++				dev_warn(rtd->dev, "configure wrong mclk in tplg, please use 24MHz.\n");
+ 			clk_freq = 24000000;
+-		else
++		} else if (clk_freq == 0) {
++			/* use default mclk if not specified correct in topology */
+ 			clk_freq = 19200000;
++		} else if (clk_freq < 0) {
++			return clk_freq;
++		}
+ 	} else {
+ 		clk_id = RT5682_PLL1_S_BCLK1;
+ 		clk_freq = params_rate(params) * 50;
 -- 
 2.29.2
 

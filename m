@@ -2,74 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67EEB342B39
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 07:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37DA1342B4F
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 09:00:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEF211683;
-	Sat, 20 Mar 2021 07:15:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF211683
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA3301684;
+	Sat, 20 Mar 2021 08:59:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA3301684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616220956;
-	bh=kz7hTLoxs80Wjb7XgxqVy6+/K+phj7LUV3kHCeS4LtU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616227218;
+	bh=+COaST4GXU0AhBW7zVYf8z7USG1yWfvVSnElBsjyitQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LFcYAa+n2vpdJFBfGGMVq7OXPM/SMyWzahn0Qar1fDWmIvEMyRGDv0gF4NoYAgf0T
-	 pIUsVWN+ruFZjRI740GoAmHWQSA8sb323iHwns4nWNaMAabNf1YI4J3B8a+/Rrrj1w
-	 DDkQlL7YBYVGCert68PXiUothTJcvEHLQTs1hRvU=
+	b=UC6b2ym4qkpgOutkUTDfPAlCC4X5aE6SB9j1t5CVjcAdmaSrpyAO/rt2u+u9OQBXR
+	 ncS6wJd9DpYyM2TNkRgPoKcZ5n9QWrfZkdS3DzAZygzf6VjU8pdQ9fJAcXjgE1gn/f
+	 o6lcwMSy7BJLnpTXpYfUTp6AwPz15KwjmjM1wKUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 102ABF80171;
-	Sat, 20 Mar 2021 07:14:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07D78F8012D;
+	Sat, 20 Mar 2021 08:58:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0B58F80165; Sat, 20 Mar 2021 07:14:24 +0100 (CET)
+ id 8A03DF80165; Sat, 20 Mar 2021 08:58:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12olkn2064.outbound.protection.outlook.com [40.92.22.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4215F80118
- for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 07:14:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4215F80118
-IronPort-SDR: 84S/9/kzMC7Zm8ZjHsaATFlZZde3p30tuFA8eO2y4/AkZdL414sQFE98KMREDKMU6ciiC8anAA
- 2mhs6W4zajfw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="189393730"
-X-IronPort-AV: E=Sophos;i="5.81,264,1610438400"; 
- d="gz'50?scan'50,208,50";a="189393730"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 23:14:08 -0700
-IronPort-SDR: pADhWuKLS1JJKZ2HLXsu/0JToL6TsQ4htYLg8BovkkQG385Z/xDtHSKoJmUoS4cKxfBAT1Mx14
- e7+Noy5mpALw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,264,1610438400"; 
- d="gz'50?scan'50,208,50";a="592081068"
-Received: from lkp-server02.sh.intel.com (HELO 1c294c63cb86) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 19 Mar 2021 23:14:04 -0700
-Received: from kbuild by 1c294c63cb86 with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1lNUs8-0002O1-7A; Sat, 20 Mar 2021 06:14:04 +0000
-Date: Sat, 20 Mar 2021 14:13:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
-Subject: Re: [PATCH v4 8/9] soundwire: qcom: add auto enumeration support
-Message-ID: <202103201442.RXyvtmaC-lkp@intel.com>
-References: <20210312120009.22386-9-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1179F80118
+ for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 08:58:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1179F80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="o/DJh75H"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g7O+JRe/6z7A8CQQ8HWXenMZNHRLLD+1VCjW3uiGAavQtseth9lg1gxFCWce+3ElPScTqyzHb2G0CKWTa8Ge5n13R2/CTcTLaKxkSY2TX/h2dOnWu1TnJfGtalTp97060CTofKxzOJWZQd3DOf7A4wW5iNVja8jXOaRzBx1TPWgVQ9GUkDKNiES638P/n3gmjX+DoO7Osf72r2Vooz1ZDT8tDu4QndL7O9C/TSWlInfkCTY+agq5HPav2PBhB1cTVJGAvg2BWFPzpdSzTJ5uq3TY8RhYJXB2Lqi2HSwBetDST5Q1TtvrBC+tVVFRucJe+daygGDHfnsMZFqLGAwF3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N4BI+F3iZRW13oyBhU+EyOW8QomH1BmyNoTrfO8ZbIY=;
+ b=gHW+fKeupu1r1IEGfyqoPfKPY00Ix3ij0CfQwAQFz5nWSADlM1KPT3ItdKd64etwQ4DmnPN+w8tUkOmJrjC0IINo00i+TY1lgP9rYs+2RSuiX+HI7Av0gIlzygYnkbnsq8us+uiK8WQ/DM/4qhHxfKjxuHS0oUZWRkp4XOhcgTMbblu/3I0IdB3dLDFGST/YpR2OBMmvf2RH05vqp/CDXj2wvus4D9cSPhIiVvMLfMg0QUFjN3Utjrl1vz21W6Ju4Vi79KkglOSebGVSFC+7hdCcfjwqqbhnxfryVoxO43unNUO4hvjX2HG2JeKJtwlR4NggkprIBTA2/cg+jBnGeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N4BI+F3iZRW13oyBhU+EyOW8QomH1BmyNoTrfO8ZbIY=;
+ b=o/DJh75Hrhf1TAWP4aGL4yiAKysGVcghjXpsF3nlcpLdTMtDlzTUnpZc/RH07zdKxFsd8NmtqGR0Sc5SaxcoDGr0SIkCFvTSd08kLw7Ne8vafZkgWd3O+WYEszPBS2Ls6LHevvWa/s2FNjM2xI7JvjYb9jdr+jCRRX00o8RBfAoKId4Y7XtunkZeU9AS0GxAN6UXOFVKIatKkSAjYK3SlO12WrV2nCD3dtPEytYfyrKmfyKkkYWvvSGiNcUjpsip2AmlLkRU2wfKCO8Gcnp+vq6foES7ljNBAqdlSwS4iHfvq+Ljw1BwFcArsCZpYuQJMNatc5VMxp6RlSTduyzHcw==
+Received: from DM6NAM12HT047.eop-nam12.prod.protection.outlook.com
+ (2a01:111:e400:fc64::67) by
+ DM6NAM12HT047.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::67)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.9; Sat, 20 Mar
+ 2021 07:58:31 +0000
+Received: from DM6NAM12HT047.eop-nam12.prod.protection.outlook.com
+ (2a01:111:e400:fc64::67) by
+ DM6NAM12HT047.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::67)
+ with TransportReplication id Version 15.20 (Build 3955.9); Sat, 20 Mar 2021
+ 07:58:22 +0000
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ (2a01:111:e400:fc66::53) by BN8NAM12FT062.mail.protection.outlook.com
+ (2a01:111:e400:fc66::321) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.9 via Frontend
+ Transport; Fri, 19 Mar 2021 19:13:57 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:69FACDD8D5540BD23725B9DE9AF31774522DC4308E707015113188518E5D9225;
+ UpperCasedChecksum:22E1292115BF39EDE6AA16A18337FD0AB22159D5E9864F1930F0FD2395E7D48A;
+ SizeAsReceived:7525; Count:47
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::fc38:a692:c2c8:f63e]) by SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::fc38:a692:c2c8:f63e%7]) with mapi id 15.20.3955.018; Fri, 19 Mar 2021
+ 19:13:57 +0000
+From: Chris Morgan <macromorgan@hotmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v5 2/4] ASoC: Add Rockchip rk817 audio CODEC support
+Date: Fri, 19 Mar 2021 14:13:35 -0500
+Message-ID: <SN6PR06MB534258C507ADE505523E146BA5689@SN6PR06MB5342.namprd06.prod.outlook.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210319191337.9414-1-macromorgan@hotmail.com>
+References: <20210319191337.9414-1-macromorgan@hotmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-TMN: [O1bZ/Ymnu1hh2LrZtC3iLRj31XpCSjDQ]
+X-ClientProxiedBy: SN1PR12CA0044.namprd12.prod.outlook.com
+ (2603:10b6:802:20::15) To SN6PR06MB5342.namprd06.prod.outlook.com
+ (2603:10b6:805:f9::31)
+X-Microsoft-Original-Message-ID: <20210319191337.9414-2-macromorgan@hotmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="FCuugMFkClbJLl1L"
-Content-Disposition: inline
-In-Reply-To: <20210312120009.22386-9-srinivas.kandagatla@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- devicetree@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from wintermute.localdomain (76.183.134.35) by
+ SN1PR12CA0044.namprd12.prod.outlook.com (2603:10b6:802:20::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3955.18 via Frontend Transport; Fri, 19 Mar 2021 19:13:55 +0000
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 47
+X-EOPAttributedMessage: 0
+X-MS-TrafficTypeDiagnostic: DM6NAM12HT047:
+X-MS-Office365-Filtering-Correlation-Id: 9b399a0c-50f3-4445-050f-08d8eb0b245f
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1WBSbjuCOayMNiWM3M0KFk30nOytkMRd5SmmFDN25wtWO5XpPRuGG8IaC7XXKWMlQCa+5mHECoG+yRkKrbGjA7WsPQGf2DiFwEcbq1L1Gr17lyg1GdqLXUORZxJ2c/l7WJU8jiMbA8x2T+2Lyl7FoFSeOaeEZBlP6zWRYFjrBH9I2XvgjB4QEzQ5YYy9OUZeT5PUs5wdm4HoYYNIw2GzpBOyI4H9zxrugnPJjXskHd7Ig9TWcC06+wxqPwnuuAodimIA8OBCavnYR2e9E3FnnY9XNFExuaIxW0JULZIN+WRgycdbtEDc3FMls48ZGgya/gsGn1gZtrztrv9vTanhrU5JJzehYTe0GRiqRSAeqlmz4DdDmRn5uok8Sp1AZGsITZwd03CGN/XoDhwYvzfgmg==
+X-MS-Exchange-AntiSpam-MessageData: MBipTn/HL+KzD5jrgIfCBoYEcotLUdzcrs2jihzVuSATFt+hgL2VwGeQibEHmzGCchSzMB39NV/YnqCEvmtOStKvlQcjtgVyvk9hMhG3CO5sbrRrfPc6MznRZ52jI7n9kiRxCr4BOPKbOUVmJExRFg==
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b399a0c-50f3-4445-050f-08d8eb0b245f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2021 19:13:57.0703 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM12FT062.eop-nam12.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM12HT047
+Cc: broonie@kernel.org, heiko@sntech.de, pierre-louis.bossart@linux.intel.com,
+ Chris Morgan <macromorgan@hotmail.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,473 +133,633 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add support for the Rockchip rk817 audio codec integrated into the
+rk817 PMIC. This is based on the sources provided by Rockchip from
+their BSP kernel.
 
---FCuugMFkClbJLl1L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Changes from v4:
+Switched to using parent regmap instead of private regmap.
+Removed of_compatible strings.
+Removed register definitions and moved them to the MFD driver.
 
-Hi Srinivas,
-
-I love your patch! Yet something to improve:
-
-[auto build test ERROR on robh/for-next]
-[also build test ERROR on sound/for-next asoc/for-next linus/master v5.12-rc3 next-20210319]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/0day-ci/linux/commits/Srinivas-Kandagatla/soundwire-qcom-various-improvements/20210312-200407
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-config: nds32-randconfig-r034-20210318 (attached as .config)
-compiler: nds32le-linux-gcc (GCC) 9.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/0day-ci/linux/commit/b90acbc1605eb0d901f42506921f50d5a5cf0df7
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review Srinivas-Kandagatla/soundwire-qcom-various-improvements/20210312-200407
-        git checkout b90acbc1605eb0d901f42506921f50d5a5cf0df7
-        # save the attached .config to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross ARCH=nds32 
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: "sdw_slave_add" [drivers/soundwire/soundwire-qcom.ko] undefined!
-
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 ---
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+ sound/soc/codecs/Kconfig       |   6 +
+ sound/soc/codecs/Makefile      |   2 +
+ sound/soc/codecs/rk817_codec.c | 560 +++++++++++++++++++++++++++++++++
+ 3 files changed, 566 insertions(+)
+ create mode 100644 sound/soc/codecs/rk817_codec.c
 
---FCuugMFkClbJLl1L
-Content-Type: application/gzip
-Content-Disposition: attachment; filename=".config.gz"
-Content-Transfer-Encoding: base64
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index e4cf14e66a51..d835145ad65e 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -155,6 +155,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_PCM512x_I2C
+ 	imply SND_SOC_PCM512x_SPI
+ 	imply SND_SOC_RK3328
++	imply SND_SOC_RK817
+ 	imply SND_SOC_RT274
+ 	imply SND_SOC_RT286
+ 	imply SND_SOC_RT298
+@@ -1059,6 +1060,11 @@ config SND_SOC_RK3328
+ 	tristate "Rockchip RK3328 audio CODEC"
+ 	select REGMAP_MMIO
+ 
++config SND_SOC_RK817
++	tristate "Rockchip RK817 audio CODEC"
++	depends on MFD_RK808
++	select REGMAP_I2C
++
+ config SND_SOC_RL6231
+ 	tristate
+ 	default y if SND_SOC_RT5514=y
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 81357dc62ea0..4e5e9b28775c 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -165,6 +165,7 @@ snd-soc-pcm512x-objs := pcm512x.o
+ snd-soc-pcm512x-i2c-objs := pcm512x-i2c.o
+ snd-soc-pcm512x-spi-objs := pcm512x-spi.o
+ snd-soc-rk3328-objs := rk3328_codec.o
++snd-soc-rk817-objs := rk817_codec.o
+ snd-soc-rl6231-objs := rl6231.o
+ snd-soc-rl6347a-objs := rl6347a.o
+ snd-soc-rt1011-objs := rt1011.o
+@@ -479,6 +480,7 @@ obj-$(CONFIG_SND_SOC_PCM512x)	+= snd-soc-pcm512x.o
+ obj-$(CONFIG_SND_SOC_PCM512x_I2C)	+= snd-soc-pcm512x-i2c.o
+ obj-$(CONFIG_SND_SOC_PCM512x_SPI)	+= snd-soc-pcm512x-spi.o
+ obj-$(CONFIG_SND_SOC_RK3328)	+= snd-soc-rk3328.o
++obj-$(CONFIG_SND_SOC_RK817)	+= snd-soc-rk817.o
+ obj-$(CONFIG_SND_SOC_RL6231)	+= snd-soc-rl6231.o
+ obj-$(CONFIG_SND_SOC_RL6347A)	+= snd-soc-rl6347a.o
+ obj-$(CONFIG_SND_SOC_RT1011)	+= snd-soc-rt1011.o
+diff --git a/sound/soc/codecs/rk817_codec.c b/sound/soc/codecs/rk817_codec.c
+new file mode 100644
+index 000000000000..0ad097db04bd
+--- /dev/null
++++ b/sound/soc/codecs/rk817_codec.c
+@@ -0,0 +1,560 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// rk817 ALSA SoC Audio driver
++//
++// Copyright (c) 2018, Fuzhou Rockchip Electronics Co., Ltd All rights reserved.
++
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/delay.h>
++#include <linux/mfd/rk808.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <sound/core.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/tlv.h>
++
++struct rk817_codec_priv {
++	struct snd_soc_component *component;
++	struct rk808 *rk808;
++	struct clk *mclk;
++	unsigned int stereo_sysclk;
++	bool mic_in_differential;
++};
++
++/*
++ * This sets the codec up with the values defined in the default implementation including the APLL
++ * from the Rockchip vendor kernel. I do not know if these values are universal despite differing
++ * from the default values defined above and taken from the datasheet, or implementation specific.
++ * I don't have another implementation to compare from the Rockchip sources. Hard-coding for now.
++ * Additionally, I do not know according to the documentation the units accepted for the clock
++ * values, so for the moment those are left unvalidated.
++ */
++
++static int rk817_init(struct snd_soc_component *component)
++{
++	struct rk817_codec_priv *rk817 = snd_soc_component_get_drvdata(component);
++
++	snd_soc_component_write(component, RK817_CODEC_DDAC_POPD_DACST, 0x02);
++	snd_soc_component_write(component, RK817_CODEC_DDAC_SR_LMT0, 0x02);
++	snd_soc_component_write(component, RK817_CODEC_DADC_SR_ACL0, 0x02);
++	snd_soc_component_write(component, RK817_CODEC_DTOP_VUCTIME, 0xf4);
++	if (rk817->mic_in_differential) {
++		snd_soc_component_update_bits(component, RK817_CODEC_AMIC_CFG0, MIC_DIFF_MASK,
++			MIC_DIFF_EN);
++	};
++	return 0;
++}
++
++static int rk817_set_component_pll(struct snd_soc_component *component,
++		int pll_id, int source, unsigned int freq_in,
++		unsigned int freq_out)
++{
++	/* Set resistor value and charge pump current for PLL. */
++	snd_soc_component_write(component, RK817_CODEC_APLL_CFG1, 0x58);
++	/* Set the PLL feedback clock divide value (values not documented). */
++	snd_soc_component_write(component, RK817_CODEC_APLL_CFG2, 0x2d);
++	/* Set the PLL pre-divide value (values not documented). */
++	snd_soc_component_write(component, RK817_CODEC_APLL_CFG3, 0x0c);
++	/* Set the PLL VCO output clock divide and PLL divided ratio of PLL High Clk (values not
++	 * documented).
++	 */
++	snd_soc_component_write(component, RK817_CODEC_APLL_CFG4, 0xa5);
++
++	return 0;
++}
++
++/*
++ * DDAC/DADC L/R volume setting
++ * 0db~-95db, 0.375db/step, for example:
++ * 0x00: 0dB
++ * 0xff: -95dB
++ */
++
++static const DECLARE_TLV_DB_MINMAX(rk817_vol_tlv, -9500, 0);
++
++/*
++ * PGA GAIN L/R volume setting
++ * 27db~-18db, 3db/step, for example:
++ * 0x0: -18dB
++ * 0xf: 27dB
++ */
++
++static const DECLARE_TLV_DB_MINMAX(rk817_gain_tlv, -1800, 2700);
++
++static const struct snd_kcontrol_new rk817_volume_controls[] = {
++	SOC_DOUBLE_R_RANGE_TLV("Master Playback Volume", RK817_CODEC_DDAC_VOLL,
++		RK817_CODEC_DDAC_VOLR, 0, 0x00, 0xff, 1, rk817_vol_tlv),
++	SOC_DOUBLE_R_RANGE_TLV("Master Capture Volume", RK817_CODEC_DADC_VOLL,
++		RK817_CODEC_DADC_VOLR, 0, 0x00, 0xff, 1, rk817_vol_tlv),
++	SOC_DOUBLE_TLV("Mic Capture Gain", RK817_CODEC_DMIC_PGA_GAIN, 4, 0, 0xf, 0,
++		rk817_gain_tlv),
++};
++
++/* Since the speaker output and L headphone pin are internally the same, make audio path mutually
++ * exclusive with a mux.
++ */
++
++static const char *dac_mux_text[] = {
++	"HP",
++	"SPK",
++};
++
++static SOC_ENUM_SINGLE_VIRT_DECL(dac_enum, dac_mux_text);
++
++static const struct snd_kcontrol_new dac_mux =
++	SOC_DAPM_ENUM("Playback Mux", dac_enum);
++
++static const struct snd_soc_dapm_widget rk817_dapm_widgets[] = {
++
++	/* capture/playback common */
++	SND_SOC_DAPM_SUPPLY("LDO Regulator", RK817_CODEC_AREF_RTCFG1, 6, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("IBIAS Block", RK817_CODEC_AREF_RTCFG1, 2, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("VAvg Buffer", RK817_CODEC_AREF_RTCFG1, 1, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("PLL Power", RK817_CODEC_APLL_CFG5, 0, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S TX1 Transfer Start", RK817_CODEC_DI2S_RXCMD_TSD, 5, 0, NULL, 0),
++
++	/* capture path common */
++	SND_SOC_DAPM_SUPPLY("ADC Clock", RK817_CODEC_DTOP_DIGEN_CLKE, 7, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S TX Clock", RK817_CODEC_DTOP_DIGEN_CLKE, 6, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("ADC Channel Enable", RK817_CODEC_DTOP_DIGEN_CLKE, 5, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S TX Channel Enable", RK817_CODEC_DTOP_DIGEN_CLKE, 4, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("MIC Power On", RK817_CODEC_AMIC_CFG0, 6, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S TX3 Transfer Start", RK817_CODEC_DI2S_TXCR3_TXCMD, 7, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S TX3 Right Justified", RK817_CODEC_DI2S_TXCR3_TXCMD, 3, 0, NULL, 0),
++
++	/* capture path L */
++	SND_SOC_DAPM_ADC("ADC L", "Capture", RK817_CODEC_AADC_CFG0, 7, 1),
++	SND_SOC_DAPM_SUPPLY("PGA L Power On", RK817_CODEC_AMIC_CFG0, 5, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Mic Boost L1", RK817_CODEC_AMIC_CFG0, 3, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Mic Boost L2", RK817_CODEC_AMIC_CFG0, 2, 0, NULL, 0),
++
++	/* capture path R */
++	SND_SOC_DAPM_ADC("ADC R", "Capture", RK817_CODEC_AADC_CFG0, 6, 1),
++	SND_SOC_DAPM_SUPPLY("PGA R Power On", RK817_CODEC_AMIC_CFG0, 4, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Mic Boost R1", RK817_CODEC_AMIC_CFG0, 3, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Mic Boost R2", RK817_CODEC_AMIC_CFG0, 3, 0, NULL, 0),
++
++	/* playback path common */
++	SND_SOC_DAPM_SUPPLY("DAC Clock", RK817_CODEC_DTOP_DIGEN_CLKE, 3, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S RX Clock", RK817_CODEC_DTOP_DIGEN_CLKE, 2, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("DAC Channel Enable", RK817_CODEC_DTOP_DIGEN_CLKE, 1, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("I2S RX Channel Enable", RK817_CODEC_DTOP_DIGEN_CLKE, 0, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("DAC Bias", RK817_CODEC_ADAC_CFG1, 3, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("DAC Mute Off", RK817_CODEC_DDAC_MUTE_MIXCTL, 0, 1, NULL, 0),
++
++	/* playback path speaker */
++	SND_SOC_DAPM_SUPPLY("Class D Mode", RK817_CODEC_DDAC_MUTE_MIXCTL, 4, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("High Pass Filter", RK817_CODEC_DDAC_MUTE_MIXCTL, 7, 0, NULL, 0),
++	SND_SOC_DAPM_DAC("SPK DAC", "Playback", RK817_CODEC_ADAC_CFG1, 2, 1),
++	SND_SOC_DAPM_SUPPLY("Enable Class D", RK817_CODEC_ACLASSD_CFG1, 7, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Disable Class D Mute Ramp", RK817_CODEC_ACLASSD_CFG1, 6, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D Mute Rate 1", RK817_CODEC_ACLASSD_CFG1, 3, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D Mute Rate 2", RK817_CODEC_ACLASSD_CFG1, 2, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D OCPP 2", RK817_CODEC_ACLASSD_CFG2, 5, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D OCPP 3", RK817_CODEC_ACLASSD_CFG2, 4, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D OCPN 2", RK817_CODEC_ACLASSD_CFG2, 1, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Class D OCPN 3", RK817_CODEC_ACLASSD_CFG2, 0, 0, NULL, 0),
++
++	/* playback path headphones */
++	SND_SOC_DAPM_SUPPLY("Headphone Charge Pump", RK817_CODEC_AHP_CP, 4, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Headphone CP Discharge LDO", RK817_CODEC_AHP_CP, 3, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Headphone OStage", RK817_CODEC_AHP_CFG0, 6, 1, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("Headphone Pre Amp", RK817_CODEC_AHP_CFG0, 5, 1, NULL, 0),
++	SND_SOC_DAPM_DAC("DAC L", "Playback", RK817_CODEC_ADAC_CFG1, 1, 1),
++	SND_SOC_DAPM_DAC("DAC R", "Playback", RK817_CODEC_ADAC_CFG1, 0, 1),
++
++	/* Mux for input/output path selection */
++	SND_SOC_DAPM_MUX("Playback Mux", SND_SOC_NOPM, 1, 0, &dac_mux),
++
++	/* Pins for Simple Card Bindings */
++	SND_SOC_DAPM_INPUT("MICL"),
++	SND_SOC_DAPM_INPUT("MICR"),
++	SND_SOC_DAPM_OUTPUT("HPOL"),
++	SND_SOC_DAPM_OUTPUT("HPOR"),
++	SND_SOC_DAPM_OUTPUT("SPKO"),
++};
++
++static const struct snd_soc_dapm_route rk817_dapm_routes[] = {
++
++	/* capture path */
++	/* left mic */
++	{"ADC L", NULL, "LDO Regulator"},
++	{"ADC L", NULL, "IBIAS Block"},
++	{"ADC L", NULL, "VAvg Buffer"},
++	{"ADC L", NULL, "PLL Power"},
++	{"ADC L", NULL, "ADC Clock"},
++	{"ADC L", NULL, "I2S TX Clock"},
++	{"ADC L", NULL, "ADC Channel Enable"},
++	{"ADC L", NULL, "I2S TX Channel Enable"},
++	{"ADC L", NULL, "I2S TX1 Transfer Start"},
++	{"MICL", NULL, "MIC Power On"},
++	{"MICL", NULL, "PGA L Power On"},
++	{"MICL", NULL, "Mic Boost L1"},
++	{"MICL", NULL, "Mic Boost L2"},
++	{"MICL", NULL, "I2S TX3 Transfer Start"},
++	{"MICL", NULL, "I2S TX3 Right Justified"},
++	{"ADC L", NULL, "MICL"},
++
++	/* right mic */
++	{"ADC R", NULL, "LDO Regulator"},
++	{"ADC R", NULL, "IBIAS Block"},
++	{"ADC R", NULL, "VAvg Buffer"},
++	{"ADC R", NULL, "PLL Power"},
++	{"ADC R", NULL, "ADC Clock"},
++	{"ADC R", NULL, "I2S TX Clock"},
++	{"ADC R", NULL, "ADC Channel Enable"},
++	{"ADC R", NULL, "I2S TX Channel Enable"},
++	{"ADC R", NULL, "I2S TX1 Transfer Start"},
++	{"MICR", NULL, "MIC Power On"},
++	{"MICR", NULL, "PGA R Power On"},
++	{"MICR", NULL, "Mic Boost R1"},
++	{"MICR", NULL, "Mic Boost R2"},
++	{"MICR", NULL, "I2S TX3 Transfer Start"},
++	{"MICR", NULL, "I2S TX3 Right Justified"},
++	{"ADC R", NULL, "MICR"},
++
++	/* playback path */
++	/* speaker path */
++	{"SPK DAC", NULL, "LDO Regulator"},
++	{"SPK DAC", NULL, "IBIAS Block"},
++	{"SPK DAC", NULL, "VAvg Buffer"},
++	{"SPK DAC", NULL, "PLL Power"},
++	{"SPK DAC", NULL, "I2S TX1 Transfer Start"},
++	{"SPK DAC", NULL, "DAC Clock"},
++	{"SPK DAC", NULL, "I2S RX Clock"},
++	{"SPK DAC", NULL, "DAC Channel Enable"},
++	{"SPK DAC", NULL, "I2S RX Channel Enable"},
++	{"SPK DAC", NULL, "Class D Mode"},
++	{"SPK DAC", NULL, "DAC Bias"},
++	{"SPK DAC", NULL, "DAC Mute Off"},
++	{"SPK DAC", NULL, "Enable Class D"},
++	{"SPK DAC", NULL, "Disable Class D Mute Ramp"},
++	{"SPK DAC", NULL, "Class D Mute Rate 1"},
++	{"SPK DAC", NULL, "Class D Mute Rate 2"},
++	{"SPK DAC", NULL, "Class D OCPP 2"},
++	{"SPK DAC", NULL, "Class D OCPP 3"},
++	{"SPK DAC", NULL, "Class D OCPN 2"},
++	{"SPK DAC", NULL, "Class D OCPN 3"},
++	{"SPK DAC", NULL, "High Pass Filter"},
++
++	/* headphone path L */
++	{"DAC L", NULL, "LDO Regulator"},
++	{"DAC L", NULL, "IBIAS Block"},
++	{"DAC L", NULL, "VAvg Buffer"},
++	{"DAC L", NULL, "PLL Power"},
++	{"DAC L", NULL, "I2S TX1 Transfer Start"},
++	{"DAC L", NULL, "DAC Clock"},
++	{"DAC L", NULL, "I2S RX Clock"},
++	{"DAC L", NULL, "DAC Channel Enable"},
++	{"DAC L", NULL, "I2S RX Channel Enable"},
++	{"DAC L", NULL, "DAC Bias"},
++	{"DAC L", NULL, "DAC Mute Off"},
++	{"DAC L", NULL, "Headphone Charge Pump"},
++	{"DAC L", NULL, "Headphone CP Discharge LDO"},
++	{"DAC L", NULL, "Headphone OStage"},
++	{"DAC L", NULL, "Headphone Pre Amp"},
++
++	/* headphone path R */
++	{"DAC R", NULL, "LDO Regulator"},
++	{"DAC R", NULL, "IBIAS Block"},
++	{"DAC R", NULL, "VAvg Buffer"},
++	{"DAC R", NULL, "PLL Power"},
++	{"DAC R", NULL, "I2S TX1 Transfer Start"},
++	{"DAC R", NULL, "DAC Clock"},
++	{"DAC R", NULL, "I2S RX Clock"},
++	{"DAC R", NULL, "DAC Channel Enable"},
++	{"DAC R", NULL, "I2S RX Channel Enable"},
++	{"DAC R", NULL, "DAC Bias"},
++	{"DAC R", NULL, "DAC Mute Off"},
++	{"DAC R", NULL, "Headphone Charge Pump"},
++	{"DAC R", NULL, "Headphone CP Discharge LDO"},
++	{"DAC R", NULL, "Headphone OStage"},
++	{"DAC R", NULL, "Headphone Pre Amp"},
++
++	/* mux path for output selection */
++	{"Playback Mux", "HP", "DAC L"},
++	{"Playback Mux", "HP", "DAC R"},
++	{"Playback Mux", "SPK", "SPK DAC"},
++	{"SPKO", NULL, "Playback Mux"},
++	{"HPOL", NULL, "Playback Mux"},
++	{"HPOR", NULL, "Playback Mux"},
++};
++
++static int rk817_set_dai_sysclk(struct snd_soc_dai *codec_dai,
++				int clk_id, unsigned int freq, int dir)
++{
++	struct snd_soc_component *component = codec_dai->component;
++	struct rk817_codec_priv *rk817 = snd_soc_component_get_drvdata(component);
++
++	rk817->stereo_sysclk = freq;
++
++	return 0;
++}
++
++static int rk817_set_dai_fmt(struct snd_soc_dai *codec_dai,
++			     unsigned int fmt)
++{
++	struct snd_soc_component *component = codec_dai->component;
++	unsigned int i2s_mst = 0;
++
++	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
++	case SND_SOC_DAIFMT_CBS_CFS:
++		i2s_mst |= RK817_I2S_MODE_SLV;
++		break;
++	case SND_SOC_DAIFMT_CBM_CFM:
++		i2s_mst |= RK817_I2S_MODE_MST;
++		break;
++	default:
++		dev_err(component->dev, "%s : set master mask failed!\n", __func__);
++		return -EINVAL;
++	}
++
++	snd_soc_component_update_bits(component, RK817_CODEC_DI2S_CKM,
++				      RK817_I2S_MODE_MASK, i2s_mst);
++
++	return 0;
++}
++
++static int rk817_hw_params(struct snd_pcm_substream *substream,
++			   struct snd_pcm_hw_params *params,
++			    struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		snd_soc_component_write(component, RK817_CODEC_DI2S_RXCR2,
++					VDW_RX_16BITS);
++		snd_soc_component_write(component, RK817_CODEC_DI2S_TXCR2,
++					VDW_TX_16BITS);
++		break;
++	case SNDRV_PCM_FORMAT_S24_LE:
++	case SNDRV_PCM_FORMAT_S32_LE:
++		snd_soc_component_write(component, RK817_CODEC_DI2S_RXCR2,
++					VDW_RX_24BITS);
++		snd_soc_component_write(component, RK817_CODEC_DI2S_TXCR2,
++					VDW_TX_24BITS);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int rk817_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
++{
++	struct snd_soc_component *component = dai->component;
++
++	if (mute)
++		snd_soc_component_update_bits(component,
++					      RK817_CODEC_DDAC_MUTE_MIXCTL,
++					      DACMT_MASK, DACMT_ENABLE);
++	else
++		snd_soc_component_update_bits(component,
++					      RK817_CODEC_DDAC_MUTE_MIXCTL,
++					      DACMT_MASK, DACMT_DISABLE);
++
++	return 0;
++}
++
++#define RK817_PLAYBACK_RATES (SNDRV_PCM_RATE_8000 |\
++			      SNDRV_PCM_RATE_16000 |	\
++			      SNDRV_PCM_RATE_32000 |	\
++			      SNDRV_PCM_RATE_44100 |	\
++			      SNDRV_PCM_RATE_48000 |	\
++			      SNDRV_PCM_RATE_96000)
++
++#define RK817_CAPTURE_RATES (SNDRV_PCM_RATE_8000 |\
++			      SNDRV_PCM_RATE_16000 |	\
++			      SNDRV_PCM_RATE_32000 |	\
++			      SNDRV_PCM_RATE_44100 |	\
++			      SNDRV_PCM_RATE_48000 |	\
++			      SNDRV_PCM_RATE_96000)
++
++#define RK817_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
++			SNDRV_PCM_FMTBIT_S20_3LE |\
++			SNDRV_PCM_FMTBIT_S24_LE |\
++			SNDRV_PCM_FMTBIT_S32_LE)
++
++static struct snd_soc_dai_ops rk817_dai_ops = {
++	.hw_params	= rk817_hw_params,
++	.set_fmt	= rk817_set_dai_fmt,
++	.set_sysclk	= rk817_set_dai_sysclk,
++	.mute_stream	= rk817_digital_mute,
++	.no_capture_mute	= 1,
++};
++
++static struct snd_soc_dai_driver rk817_dai[] = {
++	{
++		.name = "rk817-hifi",
++		.playback = {
++			.stream_name = "Playback",
++			.channels_min = 2,
++			.channels_max = 8,
++			.rates = RK817_PLAYBACK_RATES,
++			.formats = RK817_FORMATS,
++		},
++		.capture = {
++			.stream_name = "Capture",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RK817_CAPTURE_RATES,
++			.formats = RK817_FORMATS,
++		},
++		.ops = &rk817_dai_ops,
++	},
++};
++
++static int rk817_probe(struct snd_soc_component *component)
++{
++	struct rk817_codec_priv *rk817 = snd_soc_component_get_drvdata(component);
++	struct rk808 *rk808 = dev_get_drvdata(component->dev->parent);
++	int ret;
++
++	snd_soc_component_init_regmap(component, rk808->regmap);
++	rk817->component = component;
++
++	ret = snd_soc_component_write(component, RK817_CODEC_DTOP_LPT_SRST, 0x40);
++
++	rk817_init(component);
++
++	/* setting initial pll values so that we can continue to leverage simple-audio-card.
++	 * The values aren't important since no parameters are used.
++	 */
++
++	snd_soc_component_set_pll(component, 0, 0, 0, 0);
++
++	return 0;
++}
++
++static void rk817_remove(struct snd_soc_component *component)
++{
++	snd_soc_component_exit_regmap(component);
++}
++
++static const struct snd_soc_component_driver soc_codec_dev_rk817 = {
++	.probe = rk817_probe,
++	.remove = rk817_remove,
++	.idle_bias_on = 1,
++	.use_pmdown_time = 1,
++	.endianness = 1,
++	.non_legacy_dai_naming = 1,
++	.controls = rk817_volume_controls,
++	.num_controls = ARRAY_SIZE(rk817_volume_controls),
++	.dapm_routes = rk817_dapm_routes,
++	.num_dapm_routes = ARRAY_SIZE(rk817_dapm_routes),
++	.dapm_widgets = rk817_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(rk817_dapm_widgets),
++	.set_pll = rk817_set_component_pll,
++};
++
++static int rk817_codec_parse_dt_property(struct device *dev,
++					 struct rk817_codec_priv *rk817)
++{
++	struct device_node *node = dev->parent->of_node;
++
++	if (!node) {
++		dev_err(dev, "%s() dev->parent->of_node is NULL\n",
++			__func__);
++		return -ENODEV;
++	}
++
++	node = of_get_child_by_name(dev->parent->of_node, "codec");
++	if (!node) {
++		dev_err(dev, "%s() Can not get child: codec\n",
++			__func__);
++		return -ENODEV;
++	}
++
++	rk817->mic_in_differential =
++			of_property_read_bool(node, "mic-in-differential");
++
++	return 0;
++}
++
++static int rk817_platform_probe(struct platform_device *pdev)
++{
++	struct rk808 *rk808 = dev_get_drvdata(pdev->dev.parent);
++	struct rk817_codec_priv *rk817_codec_data;
++	int ret;
++
++	if (!rk808) {
++		dev_err(&pdev->dev, "%s : rk817 is NULL\n", __func__);
++		return -EINVAL;
++	}
++
++	rk817_codec_data = devm_kzalloc(&pdev->dev,
++					sizeof(struct rk817_codec_priv),
++					GFP_KERNEL);
++	if (!rk817_codec_data)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, rk817_codec_data);
++
++	rk817_codec_data->rk808 = rk808;
++
++	ret = rk817_codec_parse_dt_property(&pdev->dev, rk817_codec_data);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "%s() parse device tree property error %d\n",
++			__func__, ret);
++		goto err_;
++	}
++
++	rk817_codec_data->mclk = clk_get(pdev->dev.parent, "mclk");
++	if (IS_ERR(rk817_codec_data->mclk)) {
++		dev_err(&pdev->dev, "Unable to get mclk\n");
++		ret = -ENXIO;
++		goto err_;
++	}
++
++	ret = clk_prepare_enable(rk817_codec_data->mclk);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "%s() clock prepare error %d\n",
++			__func__, ret);
++		goto err_;
++	}
++
++	ret = devm_snd_soc_register_component(&pdev->dev, &soc_codec_dev_rk817,
++					      rk817_dai, ARRAY_SIZE(rk817_dai));
++	if (ret < 0) {
++		dev_err(&pdev->dev, "%s() register codec error %d\n",
++			__func__, ret);
++		goto err_;
++	}
++
++	return 0;
++err_:
++
++	return ret;
++}
++
++static int rk817_platform_remove(struct platform_device *pdev)
++{
++	struct rk817_codec_priv *rk817 = platform_get_drvdata(pdev);
++
++	clk_disable_unprepare(rk817->mclk);
++
++	return 0;
++}
++
++MODULE_DEVICE_TABLE(of, rk817_codec_dt_ids);
++
++static struct platform_driver rk817_codec_driver = {
++	.driver = {
++		   .name = "rk817-codec",
++		   },
++	.probe = rk817_platform_probe,
++	.remove = rk817_platform_remove,
++};
++
++module_platform_driver(rk817_codec_driver);
++
++MODULE_DESCRIPTION("ASoC RK817 codec driver");
++MODULE_AUTHOR("binyuan <kevan.lan@rock-chips.com>");
++MODULE_LICENSE("GPL v2");
+-- 
+2.25.1
 
-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
-0PMaAMxllxmfnTPH69Lov/8P5oIXXkJeAQA=
-
---FCuugMFkClbJLl1L--

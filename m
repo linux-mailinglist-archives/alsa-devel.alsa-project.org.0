@@ -2,60 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C3A4341741
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 09:21:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4E934186B
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 10:33:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC791168C;
-	Fri, 19 Mar 2021 09:21:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC791168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3332E167B;
+	Fri, 19 Mar 2021 10:32:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3332E167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616142118;
-	bh=XkWWgXiMiynNN4ute6qsTX13DCeUe8cjP6UXWK64IDw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1616146383;
+	bh=p2qZOlz0X0oLG3WqX+/TA4AbUWIcftwTfug56+QYvGY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=J3SGhjfI3K39LRSXjPANpNGOZo604JaaRhDe2r7T+XkZNMD9SR50DrE8ma4t+EQa8
-	 TZwHzy4AEaP7T/ulpC6b6CfkDrZwpUkXaBsVfDjFUqgYofTW4Kr4o1huZsjqzqlCgj
-	 eKZmQTg9DGnj+7p/hyUXZEx/AW9ud5OqkmCPA43E=
+	b=qaJi/qixnviyao4gAKQWLRjEKM/ZH0UD6fdl/nrdeNySOHJArKGqPA3LPHTjIGRIn
+	 sSCe332ZzpyohLt0mRYBep/gWlOODi5+za/H3+D+mboac3p0SbST8YdddD/Y4vBblk
+	 N8Y1HMPdzDdCq3EEhBxkhMd6THQt/YD4ZGWL/mQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D188BF800BB;
-	Fri, 19 Mar 2021 09:20:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B09CF80425;
+	Fri, 19 Mar 2021 10:30:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24FABF8021C; Fri, 19 Mar 2021 09:20:27 +0100 (CET)
+ id 58AF0F80423; Fri, 19 Mar 2021 10:30:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1F25F80124
- for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 09:20:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1F25F80124
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 196401A27C4;
- Fri, 19 Mar 2021 09:20:16 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 2787B1A27CD;
- Fri, 19 Mar 2021 09:20:10 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id EDDF94024E;
- Fri, 19 Mar 2021 09:20:02 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk
-Date: Fri, 19 Mar 2021 16:06:43 +0800
-Message-Id: <1616141203-13344-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FE63F80254
+ for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 10:30:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FE63F80254
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="B91xc1g1"
+Received: by mail-wm1-x32d.google.com with SMTP id
+ w203-20020a1c49d40000b029010c706d0642so8066469wma.0
+ for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 02:30:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=h7Hm+ghwkLRDBAXMVNnrJw9KnhlIxQw5KKOJ32yVNwQ=;
+ b=B91xc1g1F0dratEusEbJbkRCwWFgBHj6CI00wIY1FiNueZeWwbhdDux76Y05VbhH34
+ 6HANw5RONyLoVtsA7hFSiOpX8ncK/aJW0rfvVSsaZK0fBb1x21Nnk5ykZIbWGQiztLIF
+ jZBcMME2jGhhv1LfeOept+9NYEKRGx471crt8i8/lozGOLQvX9UDom3UXlFCpKYNQZHo
+ 6Vv7PaMDOtX78JxdmUj2LIPmWydkwIJ3OXO1XrGaE2Ul4tHILN9J+JEQ1vZ6PVvep9o4
+ mI+w/RyooZB523RBlknIrcOCWK+K/qvrx75BDZh27bKEEJkRnKEk3BvhRKOV9aQVs7St
+ TU1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=h7Hm+ghwkLRDBAXMVNnrJw9KnhlIxQw5KKOJ32yVNwQ=;
+ b=aaxlfC34MWy09jQZKJ/mEBGhKv3dFN9fMB2rPhMPVlFJO6KaTZAaoIakz6ScilIXXa
+ kr4hWfjLm5m+8Kt5PlL8auvDEDEARwNl+4eWwPrYVSFWz+edhxiEiTZMyMaVNQ8yMTmd
+ 8XilZ09gd1pR7eWcJKrWdbuhKlyX6TjJZ5apFYePPIia6VumJNSdDO1nyQB2OTHH2sQp
+ epQF3ZHqDn6YJ6TJrGWdvIPp1EHAKPWDlroMWNMOaf+JlyXObuowU2t2briZDe7g1Ul2
+ hginR/1p7oEbbI5EtFKN7Te4ivCFNwGwimqDzNM7HcHnZkYp723SVnO5cocuROZNc66/
+ FSyA==
+X-Gm-Message-State: AOAM532u+vHcE0lQueiASJRYK2uQOGhfuoz4HT2gQoKgKh4xw20O2vpw
+ 1gUmkxY6spHcQh4Cg+i1GpADHg==
+X-Google-Smtp-Source: ABdhPJwuN6X1S9bPZn0gh5KHG32FcDe6PvNMjiCNqgkQ05fhB+gQUu/EBFvYfuhbNDlPrgEME0nJhA==
+X-Received: by 2002:a05:600c:198d:: with SMTP id
+ t13mr2888475wmq.73.1616146203868; 
+ Fri, 19 Mar 2021 02:30:03 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id p6sm6779058wru.2.2021.03.19.02.30.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Mar 2021 02:30:03 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v3 0/7] ASoC: codecs: add wcd938x support
+Date: Fri, 19 Mar 2021 09:29:12 +0000
+Message-Id: <20210319092919.21218-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,152 +100,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When there is power domain bind with bus clock,
+This patchset adds support for Qualcomm WCD938X codec.
 
-The call flow:
-devm_regmap_init_mmio_clk
-   - clk_prepare()
-      - clk_pm_runtime_get()
+Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC
+connected over SoundWire. This device has two SoundWire devices, RX and
+TX respectively supporting 4 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
+7 x TX diff inputs, 8 DMICs and MBHC.
 
-cause the power domain of clock always be enabled after
-regmap_init(). which impact the power consumption.
+Even though this device has two SoundWire devices, only tx device has
+access to main codec Control/Status Registers!
 
-So use devm_regmap_init_mmio instead of
-devm_regmap_init_mmio_clk, then explicitly enable clock when
-using by pm_runtime_get(), if CONFIG_PM=n, then
-fsl_sai_runtime_resume will be explicitly called.
+This patchset along with other SoundWire patches on the list
+have been tested on SM8250 MTP device.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 48 +++++++++++++++++++++++++++--------------
- 1 file changed, 32 insertions(+), 16 deletions(-)
+Am planning to send support for MBHC once this driver gets accepted!
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 9e7893f91882..f2c70a31c7bb 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -987,6 +987,9 @@ static int fsl_sai_check_version(struct device *dev)
- 	return 0;
- }
- 
-+static int fsl_sai_runtime_suspend(struct device *dev);
-+static int fsl_sai_runtime_resume(struct device *dev);
-+
- static int fsl_sai_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
-@@ -1019,24 +1022,21 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 			ARRAY_SIZE(fsl_sai_reg_defaults_ofs8);
- 	}
- 
--	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev,
--			"bus", base, &fsl_sai_regmap_config);
--
--	/* Compatible with old DTB cases */
--	if (IS_ERR(sai->regmap) && PTR_ERR(sai->regmap) != -EPROBE_DEFER)
--		sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev,
--				"sai", base, &fsl_sai_regmap_config);
-+	sai->regmap = devm_regmap_init_mmio(&pdev->dev, base, &fsl_sai_regmap_config);
- 	if (IS_ERR(sai->regmap)) {
- 		dev_err(&pdev->dev, "regmap init failed\n");
- 		return PTR_ERR(sai->regmap);
- 	}
- 
--	/* No error out for old DTB cases but only mark the clock NULL */
- 	sai->bus_clk = devm_clk_get(&pdev->dev, "bus");
-+	/* Compatible with old DTB cases */
-+	if (IS_ERR(sai->bus_clk) && PTR_ERR(sai->bus_clk) != -EPROBE_DEFER)
-+		sai->bus_clk = devm_clk_get(&pdev->dev, "sai");
- 	if (IS_ERR(sai->bus_clk)) {
- 		dev_err(&pdev->dev, "failed to get bus clock: %ld\n",
- 				PTR_ERR(sai->bus_clk));
--		sai->bus_clk = NULL;
-+		/* -EPROBE_DEFER */
-+		return PTR_ERR(sai->bus_clk);
- 	}
- 
- 	for (i = 1; i < FSL_SAI_MCLK_MAX; i++) {
-@@ -1117,6 +1117,18 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	sai->dma_params_tx.maxburst = FSL_SAI_MAXBURST_TX;
- 
- 	platform_set_drvdata(pdev, sai);
-+	pm_runtime_enable(&pdev->dev);
-+	if (!pm_runtime_enabled(&pdev->dev)) {
-+		ret = fsl_sai_runtime_resume(&pdev->dev);
-+		if (ret)
-+			goto err_pm_disable;
-+	}
-+
-+	ret = pm_runtime_get_sync(&pdev->dev);
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		goto err_pm_get_sync;
-+	}
- 
- 	/* Get sai version */
- 	ret = fsl_sai_check_version(&pdev->dev);
-@@ -1130,26 +1142,30 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 				   FSL_SAI_MCTL_MCLK_EN, FSL_SAI_MCTL_MCLK_EN);
- 	}
- 
--	pm_runtime_enable(&pdev->dev);
--	regcache_cache_only(sai->regmap, true);
-+	ret = pm_runtime_put_sync(&pdev->dev);
-+	if (ret < 0)
-+		goto err_pm_get_sync;
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_component,
- 					      &sai->cpu_dai_drv, 1);
- 	if (ret)
--		goto err_pm_disable;
-+		goto err_pm_get_sync;
- 
- 	if (sai->soc_data->use_imx_pcm) {
- 		ret = imx_pcm_dma_init(pdev, IMX_SAI_DMABUF_SIZE);
- 		if (ret)
--			goto err_pm_disable;
-+			goto err_pm_get_sync;
- 	} else {
- 		ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 		if (ret)
--			goto err_pm_disable;
-+			goto err_pm_get_sync;
- 	}
- 
- 	return ret;
- 
-+err_pm_get_sync:
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		fsl_sai_runtime_suspend(&pdev->dev);
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
- 
-@@ -1159,6 +1175,8 @@ static int fsl_sai_probe(struct platform_device *pdev)
- static int fsl_sai_remove(struct platform_device *pdev)
- {
- 	pm_runtime_disable(&pdev->dev);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		fsl_sai_runtime_suspend(&pdev->dev);
- 
- 	return 0;
- }
-@@ -1219,7 +1237,6 @@ static const struct of_device_id fsl_sai_ids[] = {
- };
- MODULE_DEVICE_TABLE(of, fsl_sai_ids);
- 
--#ifdef CONFIG_PM
- static int fsl_sai_runtime_suspend(struct device *dev)
- {
- 	struct fsl_sai *sai = dev_get_drvdata(dev);
-@@ -1292,7 +1309,6 @@ static int fsl_sai_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif /* CONFIG_PM */
- 
- static const struct dev_pm_ops fsl_sai_pm_ops = {
- 	SET_RUNTIME_PM_OPS(fsl_sai_runtime_suspend,
+Thanks,
+srini
+
+Many thanks for reviewing v2.
+
+
+Changes since v2:
+	- fixed dt_binding_check error
+
+
+Srinivas Kandagatla (7):
+  ASoC: dt-bindings: wcd938x: add bindings for wcd938x
+  ASoC: codecs: wcd-clsh: add new version support
+  ASoC: codecs: wcd938x: add basic driver
+  ASoC: codecs: wcd938x: add basic controls
+  ASoC: codecs: wcd938x: add playback dapm widgets
+  ASoC: codecs: wcd938x: add capture dapm widgets
+  ASoC: codecs: wcd938x: add audio routing
+
+ .../bindings/sound/qcom,wcd938x.yaml          |  165 +
+ sound/soc/codecs/Kconfig                      |    9 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/wcd-clsh-v2.c                |  350 +-
+ sound/soc/codecs/wcd-clsh-v2.h                |   16 +
+ sound/soc/codecs/wcd938x-sdw.c                |  291 ++
+ sound/soc/codecs/wcd938x.c                    | 3623 +++++++++++++++++
+ sound/soc/codecs/wcd938x.h                    |  676 +++
+ 8 files changed, 5122 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+ create mode 100644 sound/soc/codecs/wcd938x-sdw.c
+ create mode 100644 sound/soc/codecs/wcd938x.c
+ create mode 100644 sound/soc/codecs/wcd938x.h
+
 -- 
-2.27.0
+2.21.0
 

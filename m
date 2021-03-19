@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A03341D7C
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 13:55:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9803C341E5D
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Mar 2021 14:32:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2C11167F;
-	Fri, 19 Mar 2021 13:54:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C11167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 286F7167F;
+	Fri, 19 Mar 2021 14:31:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 286F7167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616158546;
-	bh=VPjKr+IwUPCtNpbEe98uPyshtFbeqQlrR7Lb8Ts9T/c=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616160725;
+	bh=rYpLM1dij1+YX1BYJDgYPhswQCx2UQnNiB8az7iBUDE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NNeYSQ+o6UfaSx0v2rz2fUJUJZRi5xTfhFXBb1RkRP4czvbVQKUGuCnMY1kJVUAmr
-	 +oQsa2P2Hrb7VIxuPi3i5dzADIPbKvpAWI2zQGNyILrlUdS5ss8B67DQpprOvhjC6O
-	 YE12kjEwiyT//Uyupm3rRI2Vli5Rf9jxtiOv/7GE=
+	b=huxwwhOsWkV1sx1RlqywX+uAr0h3OAkE4+spk5AQhhq84P+3Hg/JBJ609VwnhfHU4
+	 elmGUKy2D+qMjOkqzDVjMiL9VC0qdVrQzwuPm7ur0m4Es9bgfuXH6pWehxRy83STx1
+	 9vzknOCBkki2GpWcDOr2o6mJW4/OLWFbufSuQM3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5492EF8023C;
-	Fri, 19 Mar 2021 13:54:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D36EF800BB;
+	Fri, 19 Mar 2021 14:30:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 182BEF8023C; Fri, 19 Mar 2021 13:54:15 +0100 (CET)
+ id 28A90F8021C; Fri, 19 Mar 2021 14:30:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43039F800BB
- for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 13:54:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43039F800BB
-IronPort-SDR: HVutJuLTbR+XvamNIBwqBMmKorSd9lG+B2aBOC+ziBpEQI4jJMeNBNl0apw43tHL5VOoTjPtpJ
- XEfuzPlqhFsA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="186540314"
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="186540314"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 05:54:00 -0700
-IronPort-SDR: FiLC00qKu7QSIuFFPRS3AVT9cc95Xb+/a46WYrxrp4taJs+a4BI3dYT7g0cB7wWmdi90A3Uno/
- 4dGojRyBvcGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="441307084"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by FMSMGA003.fm.intel.com with ESMTP; 19 Mar 2021 05:53:57 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 2/2] ASoC: intel: sof_rt5682: use the topology mclk
-Date: Fri, 19 Mar 2021 14:49:50 +0200
-Message-Id: <20210319124950.3853994-2-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210319124950.3853994-1-kai.vehmanen@linux.intel.com>
-References: <20210319124950.3853994-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12BE6F800BB
+ for <alsa-devel@alsa-project.org>; Fri, 19 Mar 2021 14:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12BE6F800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tHogu2SO"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7699264F8A;
+ Fri, 19 Mar 2021 13:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616160615;
+ bh=rYpLM1dij1+YX1BYJDgYPhswQCx2UQnNiB8az7iBUDE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tHogu2SOd+g1WuGf/k73WMEK8K68r4HKKgD9Nk76TxVr7R6JcPRXaHYILpVBFS0n1
+ wEy9EFzunZxOZswfQ2GYABZ0+ggEVGkEuLflEgM1s1OUxjuEWtAqmwGoA9CHfKwQrt
+ p1F6Uf9G8xUeqtUtZprXiFqJ4Tx49yX/4OmocBow1RhB/XVNn0NkuB0PTDVcrIKPhs
+ HcBRrtGWUSwcY26oHRSKKkVymB7KjhtY+yXtzu6Yyk4v82A2KtEEBwYqhkPbWjkZ7p
+ BrBOUowuf7ErwfDC5AykMiuDaNggZxARmxamunYLY6ff8HOimbXpHIVSSGpeyW4klj
+ 4zwt1Ib+QCnCQ==
+Date: Fri, 19 Mar 2021 13:30:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH v4 1/3] ASoC: Add Rockchip rk817 audio CODEC support
+Message-ID: <20210319133010.GE5619@sirena.org.uk>
+References: <SN6PR06MB534234153792718C0417BD52A5699@SN6PR06MB5342.namprd06.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- yung-chuan.liao@linux.intel.com, Keyon Jie <yang.jie@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Daniel Baluta <daniel.baluta@gmail.com>, daniel.baluta@nxp.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gDGSpKKIBgtShtf+"
+Content-Disposition: inline
+In-Reply-To: <SN6PR06MB534234153792718C0417BD52A5699@SN6PR06MB5342.namprd06.prod.outlook.com>
+X-Cookie: No purchase necessary.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,55 +81,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
 
-We should use the topology configured mclk if it existed, which can make
-sure we are aligned with the FW side about the mclk usage.
+--gDGSpKKIBgtShtf+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+On Thu, Mar 18, 2021 at 05:19:34PM -0500, Chris Morgan wrote:
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index f4b898c1719f..58548ea0d915 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -16,6 +16,7 @@
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-+#include <sound/sof.h>
- #include <sound/rt5682.h>
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt1015.h"
-@@ -268,10 +269,21 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 		}
- 
- 		clk_id = RT5682_PLL1_S_MCLK;
--		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ)
-+
-+		/* get the tplg configured mclk. */
-+		clk_freq = sof_dai_get_mclk(rtd);
-+
-+		/* mclk from the quirk is the first choice */
-+		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ) {
-+			if (clk_freq != 24000000)
-+				dev_warn(rtd->dev, "configure wrong mclk in tplg, please use 24MHz.\n");
- 			clk_freq = 24000000;
--		else
-+		} else if (clk_freq == 0) {
-+			/* use default mclk if not specified correct in topology */
- 			clk_freq = 19200000;
-+		} else if (clk_freq < 0) {
-+			return clk_freq;
-+		}
- 	} else {
- 		clk_id = RT5682_PLL1_S_BCLK1;
- 		clk_freq = params_rate(params) * 50;
--- 
-2.29.2
+> The frequency of the MCLK (when it actually works) is 12MHz, though the
+> Rockchip driver seems to want to run it at 12.288MHz and it works just fine
+> as well.  When I move this clock to the main node for the MFD it starts running
 
+12.288MHz would be a more normal audio clock, it's a nice multiple of
+8kHz (though with a PLL it doesn't really matter unless the device on
+the other end of the link is also clocking its audio stuff off it since
+the PLL exists to transform the clock rate into one that's more useful).
+
+> at 100MHz, and suffice to say it doesn't work right (high pitched sounds,
+> screeching after the audio finishes playing until the hardware shuts down,
+
+That's...  surprising.  :/  I can't think what'd cause that.
+
+> etc.) According to the schematic of the implementation I'm working with (Odroid
+> Go Advance) there is also an SCLK(SOC)/BCLK(PMIC) and an LRCLK. I assume these
+> also run at ~12MHz since it seems they are tied to the parent clock rate in the
+> clk-px30 driver, just as the MCLK is.  Likewise these also run at 100MHz when
+> the clock is connected to the PMIC node directly instead of at the codec node
+> level.
+
+LRCLK should run at the sample rate, and BCLK at a rate fast enough to
+clock out all the bits required for the data.  MCLK is usually faster
+than those and intended to be a reference clock for them.
+
+> > BTW looking at the driver there's a bunch of other registers so
+> > shouldn't the regmap be done at the MFD level?
+
+> I'm not sure honestly. If you think that's best I can figure out how. I'm
+> trying to avoid a lot of changes to the mfd driver itself because the rk817
+> is the only version of this that has a codec, all the other ones supported by
+> this driver don't. Again though whatever you think is best I'll try to
+> implement.
+
+It's really what I'd expect, two regmaps for the same device is weird.
+Looking at the MFD driver it seems to already have separate regmap
+configs per device supported so it shouldn't be too intrusive, just more
+detailed data for the device - the main difference is that you've
+explicitly listed all the valid registers whereas the driver didn't
+bother for anything so far.
+
+--gDGSpKKIBgtShtf+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBUp2EACgkQJNaLcl1U
+h9CrRwf/e8ucamUtZGdpC65W3gHGuRxZfHW4BaWwxhIw35tFP5REXT0eQpOnqMTn
+myk+8yu+a04tb9/s2TzgMR9L3pi6lDdHYeGtiMOu/HvPpNTj7xQBT8ralIBY88lP
+U7R28Z6naV1QLdxZz+9i9Psc5JH9hZAzSjwgR1YMM6HlHbmFgrSqye5Xs/nlUqrb
+zZiVneO3AXjT0s4npg2MHl4QV1ktcu2F0tAhcGYCflJXn0EYlT0MszgTfkAjQKIk
+6WsrdNCoWf0GGhFnKkUZtphcOoocPXwbRvSB/ak0NfUF2r2v0rfK4vFyM6WJid5B
+m3GtrdHzbYyLG0/iJn9hmp24UfmVFw==
+=IVLN
+-----END PGP SIGNATURE-----
+
+--gDGSpKKIBgtShtf+--

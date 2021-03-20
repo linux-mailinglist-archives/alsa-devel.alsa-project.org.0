@@ -2,123 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFCBE342B50
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 09:10:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4B54342B5E
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 10:04:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 547E81681;
-	Sat, 20 Mar 2021 09:09:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 547E81681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C3C31684;
+	Sat, 20 Mar 2021 10:03:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C3C31684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616227842;
-	bh=T5XKJI9aLzubXQKPulHC2+eDfMNiYZbj+qzeVAJFNuA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616231076;
+	bh=iDNH2B/b2jn6rDjyLWAC9Ap6xCr+KAUVMkYo0odQAok=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IB3QWmApbWeMmJFdbLlF/F7U/rSTOTDpB8fWGbFtZg8E8SzrLNvi6E0b/J/qesSlP
-	 nDnMeFfEeKCTY3P91v1COvecvLA/18+gqZ+PYVYS60A6SsO+ZXek5YFmFqCJP7GL6k
-	 I5wnKd0o3z2Gt0+ibjq0qF/Qd6SYhQ0U0y4CpJp0=
+	b=BGzRj3BaVMAOIFvJQDKDFg8E3vSfQ+xlFKwz5g1sIiuEY1QUlj6m1zKSGd/5mddA7
+	 eUdOu2sfE++iqBXIeQnK6PbRhZVrMtAADJ0QxjvJTKE3L2GmotFMKvSdGJ7bLDWZ2R
+	 yjc7jWUm2uDLCfNFfOxJjYR/7yX4bmtJc39vRur8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CD8FF80171;
-	Sat, 20 Mar 2021 09:09:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76002F80171;
+	Sat, 20 Mar 2021 10:03:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21B2CF80165; Sat, 20 Mar 2021 09:09:11 +0100 (CET)
+ id 3905EF80165; Sat, 20 Mar 2021 10:03:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12olkn2046.outbound.protection.outlook.com [40.92.22.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCFE3F80118
- for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 09:09:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCFE3F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="RNezHFzB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rvx8dI9uQtmcOfu9tkN1yzs3fhkHt9oRVx4bvY3SnyuwanLmENpYMm04vPhn1Tz19LDpjZ9CrN/5SKSNjajsHd6P7rvlkFH0R2oxjf6SX89pSs2l4O60cQasdGLqho3ywEOduebYIzsXyGokNfv/xDsYOgwZ0lpLDkouyn6qPDEQD6q530gKHm9CP6QTcj8wdh2QuJUkdZw0m9iHZOq5xsMjzLBiMT1VGFIAClpJ9tFdDNILJa05x+FtV85PkTjx+nBr4Axvwh93OwhTl55Hr4iAvrJaJKZTGOTkrSfM4vV/6DOvkdbSyZd7njWCTe1YqO4ZX5cXLzatjxmHKbJYGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GuvtO9dQQBw8iP6fllwadI6ruugNJW4ZkBtN7eBuukE=;
- b=FKIxk5Gv0DzpPgpK5XokI5EF1JZ9dNGLKPlR7Oj4UpZ1k/e4mJ5m4iZtL7H0UYYOVaFe2rW9OeH7oV9kA+Ffx8Iw3H6yIkSJH/INbaHQITPKRBRWczQDbZehxY0fOVb0cflKHWPTEyAEzXo4cETupwWKf5wa5GYx0uWw76iqFVdSSXXqk43M5AkBjU80KDpQ5rgC5wMnzhiiNHyWlj79DINQ8u2QMrVQK+xqLt439m7atV6uy0hMDzXOdzYQKoTuzKbl62toWVyl4iVteyltNJEQG1NIjJjwWaY5Nf6HHXaRIEBl4FJutWTtb7Om0lFqg+4zHJEemiG3Xj8dad7CIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GuvtO9dQQBw8iP6fllwadI6ruugNJW4ZkBtN7eBuukE=;
- b=RNezHFzBTfOPhzaJqOztQbBv80G17X0b/KlISXKfhYZzdTgPUP88GE+3N9go6Oe0Aa2PZTY9CMeOoQ52vIfhZ/9HqGtvWqEdi+SgdX1SWdHrBnEnpb2xy85mfYUQ/HqreNNMTqUWcBfKEcaVBnbqDfDdoyPW0tCCNDQg8PJgNNY+asy9i2l/vKRZ1t7KnEpoZcMA+9umTjLGL+0bmWA0UG9QuGMAHvoEAF8H410+WKUrIEFAy/beFfk3dqd+q7nDDNfzfKVVEfah1GtOVPH99L3hAyIYpS6BaaVqwUeJyMx+64S94Ltg/NJpL7LzVwP9GpA3asj4jklLZ8mnMVexsg==
-Received: from DM6NAM12HT182.eop-nam12.prod.protection.outlook.com
- (2a01:111:e400:fc64::160) by
- DM6NAM12HT182.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::160)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.9; Sat, 20 Mar
- 2021 08:08:50 +0000
-Received: from DM6NAM12HT182.eop-nam12.prod.protection.outlook.com
- (2a01:111:e400:fc64::160) by
- DM6NAM12HT182.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::160)
- with TransportReplication id Version 15.20 (Build 3955.9); Sat, 20 Mar 2021
- 08:08:35 +0000
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- (2a01:111:e400:fc66::53) by BN8NAM12FT062.mail.protection.outlook.com
- (2a01:111:e400:fc66::321) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.9 via Frontend
- Transport; Fri, 19 Mar 2021 19:13:59 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:259F668122432ED6707CF4B2EBF307CD35350E5612882B1D7742594AE51B3E2E;
- UpperCasedChecksum:522E1602EEF8D27C5E7B71F36B74A59E333593138A0CF9EBA14686D39112F3DA;
- SizeAsReceived:7538; Count:47
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e]) by SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e%7]) with mapi id 15.20.3955.018; Fri, 19 Mar 2021
- 19:13:59 +0000
-From: Chris Morgan <macromorgan@hotmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 4/4] arm64: dts: rockchip: add rk817 codec to Odroid Go
- Advance
-Date: Fri, 19 Mar 2021 14:13:37 -0500
-Message-ID: <SN6PR06MB5342E7BA29353D6FE817317FA5689@SN6PR06MB5342.namprd06.prod.outlook.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210319191337.9414-1-macromorgan@hotmail.com>
-References: <20210319191337.9414-1-macromorgan@hotmail.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [lo/L+bFywOhKr0xfsaScNPWGlfr08sy+]
-X-ClientProxiedBy: SN1PR12CA0044.namprd12.prod.outlook.com
- (2603:10b6:802:20::15) To SN6PR06MB5342.namprd06.prod.outlook.com
- (2603:10b6:805:f9::31)
-X-Microsoft-Original-Message-ID: <20210319191337.9414-4-macromorgan@hotmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46A03F800BB
+ for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 10:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46A03F800BB
+Received: from [123.112.71.70] (helo=[192.168.0.106])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1lNXVT-00019g-PW; Sat, 20 Mar 2021 09:02:52 +0000
+Subject: Re: [PATCH v2 2/2] ALSA: hda/realtek: call alc_update_headset_mode()
+ in hp_automute_hook
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210319075903.6480-1-hui.wang@canonical.com>
+ <20210319075903.6480-2-hui.wang@canonical.com> <s5hlfajfnvw.wl-tiwai@suse.de>
+From: Hui Wang <hui.wang@canonical.com>
+Message-ID: <da978bec-89e8-03e0-a3b2-44a9910d4514@canonical.com>
+Date: Sat, 20 Mar 2021 17:02:45 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from wintermute.localdomain (76.183.134.35) by
- SN1PR12CA0044.namprd12.prod.outlook.com (2603:10b6:802:20::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3955.18 via Frontend Transport; Fri, 19 Mar 2021 19:13:58 +0000
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 47
-X-EOPAttributedMessage: 0
-X-MS-TrafficTypeDiagnostic: DM6NAM12HT182:
-X-MS-Office365-Filtering-Correlation-Id: 1ce57db3-3627-4198-337e-08d8eb0b2618
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kdx6iAMQyWCD5aTSh7j/hayV+mejfGDRb5AQUVPlxIAOwnTmcL/KyjQpJzqRFI1qwi4OUYQaWreGvwGFRX6EQt+VP5TtKnc7zy80TLurn/UgIa+LTTA5rCsc17Xr1pN9QGBnQ33pXbhXV4F9xQbMvD8tdrdOXI4p0WHaxflE02I4VsMxhbxsSlot/YiyPvOoCSwY0jTU8SgWLsNnVKfaFHryT3YB5n4iJAYWNkK7PNfhrJbJqu2SnvocWBS7ttEH1kmhNfNgQiyUHShxt06MAonAkPpeKgBMmmYs7Xr9c8NOHYfpSBZ4vhf90TuqohBS07PNPWvi+zmTWFwx6U7xM2kgKxMkb9rckRgd3CpOLBEPt1u9e4CZk/3EPLQ1VS3GULuM/vjcMQ+kSCAYvmDhfQ==
-X-MS-Exchange-AntiSpam-MessageData: 8y5S1yh7uRr8cysVXtobJcC/Q9cS13JuNDj/9OiOpJgSV+z0WEXFLhNWreHDCYafVyr/8hAsEVqwxulfWxWsrQvwEtRQgnmVw10srRh2K2JSAM/9Dc+KcQ0uYeW0Zm5OOtQc3KwM3P/UdsO/zBOjig==
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce57db3-3627-4198-337e-08d8eb0b2618
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2021 19:13:59.3450 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM12FT062.eop-nam12.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM12HT182
-Cc: broonie@kernel.org, heiko@sntech.de, pierre-louis.bossart@linux.intel.com,
- Chris Morgan <macromorgan@hotmail.com>, tiwai@suse.com
+In-Reply-To: <s5hlfajfnvw.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, kailang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,83 +73,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add the new rk817 codec driver to the Odroid Go Advance.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- .../boot/dts/rockchip/rk3326-odroid-go2.dts   | 35 ++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-index 97fb93e1cc00..e48dcf430efc 100644
---- a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-@@ -161,6 +161,29 @@ blue_led: led-0 {
- 		};
- 	};
- 
-+	rk817-sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,name = "rockchip,rk817-codec";
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,widgets =
-+			"Microphone", "Mic Jack",
-+			"Headphone", "Headphones",
-+			"Speaker", "Speaker";
-+		simple-audio-card,routing =
-+			"MICL", "Mic Jack",
-+			"Headphones", "HPOL",
-+			"Headphones", "HPOR",
-+			"Speaker", "SPKO";
-+		simple-audio-card,hp-det-gpio = <&gpio2 RK_PC6 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s1_2ch>;
-+		};
-+		simple-audio-card,codec {
-+			sound-dai = <&rk817>;
-+		};
-+	};
-+
- 	vccsys: vccsys {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc3v8_sys";
-@@ -266,10 +289,13 @@ rk817: pmic@20 {
- 		interrupt-parent = <&gpio0>;
- 		interrupts = <RK_PB2 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-names = "default";
--		pinctrl-0 = <&pmic_int>;
-+		pinctrl-0 = <&pmic_int>, <&i2s1_2ch_mclk>;
- 		wakeup-source;
- 		#clock-cells = <1>;
- 		clock-output-names = "rk808-clkout1", "xin32k";
-+		clocks = <&cru SCLK_I2S1_OUT>;
-+		clock-names = "mclk";
-+		#sound-dai-cells = <0>;
- 
- 		vcc1-supply = <&vccsys>;
- 		vcc2-supply = <&vccsys>;
-@@ -428,6 +454,11 @@ regulator-state-mem {
- 				};
- 			};
- 		};
-+
-+		rk817_codec: codec {
-+			mic-in-differential;
-+			status = "okay";
-+		};
- 	};
- };
- 
-@@ -439,6 +470,8 @@ &i2c1 {
- 
- /* I2S 1 Channel Used */
- &i2s1_2ch {
-+	resets = <&cru SRST_I2S1>, <&cru SRST_I2S1_H>;
-+	reset-names = "reset-m", "reset-h";
- 	status = "okay";
- };
- 
--- 
-2.25.1
-
+On 3/19/21 6:17 PM, Takashi Iwai wrote:
+> On Fri, 19 Mar 2021 08:59:03 +0100,
+> Hui Wang wrote:
+>> We found the alc_update_headset_mode() is not called on some machines
+>> when unplugging the headset, as a result, the mode of the
+>> ALC_HEADSET_MODE_UNPLUGGED can't be set, then the current_headset_type
+>> is not cleared, if users plug a differnt type of headset next time,
+>> the determine_headset_type() will not be called and the audio jack is
+>> set to the headset type of previous time.
+>>
+>> On the Dell machines which connect the dmic to the PCH, if we open
+>> the gnome-sound-setting and unplug the headset, this issue will
+>> happen. Those machines disable the auto-mute by ucm and has no
+>> internal mic in the input source, so the update_headset_mode() will
+>> not be called by cap_sync_hook or automute_hook when unplugging, and
+>> because the gnome-sound-setting is opened, the codec will not enter
+>> the runtime_suspend state, so the update_headset_mode() will not be
+>> called by alc_resume when unplugging. In this case the
+>> hp_automute_hook is called when unplugging, so add
+>> update_headset_mode() calling to this function.
+>>
+>> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+>> ---
+>>   sound/pci/hda/patch_realtek.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+>> index 442e555de44c..c928704da20b 100644
+>> --- a/sound/pci/hda/patch_realtek.c
+>> +++ b/sound/pci/hda/patch_realtek.c
+>> @@ -5447,6 +5447,7 @@ static void alc_update_headset_jack_cb(struct hda_codec *codec,
+>>   				       struct hda_jack_callback *jack)
+>>   {
+>>   	snd_hda_gen_hp_automute(codec, jack);
+>> +	alc_update_headset_mode(codec);
+>>   }
+> This change was described in the above, but ...
+>
+>>   
+>>   static void alc_probe_headset_mode(struct hda_codec *codec)
+>> @@ -5559,7 +5560,7 @@ static void alc288_update_headset_jack_cb(struct hda_codec *codec,
+>>   {
+>>   	struct alc_spec *spec = codec->spec;
+>>   
+>> -	alc_update_headset_jack_cb(codec, jack);
+>> +	snd_hda_gen_hp_automute(codec, jack);
+>>   	/* Headset Mic enable or disable, only for Dell Dino */
+>>   	alc_update_gpio_data(codec, 0x40, spec->gen.hp_jack_present);
+> This change isn't clear why it's needed from the description.
+> Does it man that only ALC288 shouldn't call alc_update_headset_mode()
+> by some reason?
+Oh, I thought this is a normal audio jack, doesn't support 
+headphone/headset and microphone. Will fix it in the v3.
+>
+> thanks,
+>
+> Takashi

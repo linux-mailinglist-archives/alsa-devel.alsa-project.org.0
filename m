@@ -2,62 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4B54342B5E
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 10:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FB8342B65
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 10:17:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C3C31684;
-	Sat, 20 Mar 2021 10:03:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C3C31684
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC55A1681;
+	Sat, 20 Mar 2021 10:16:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC55A1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616231076;
-	bh=iDNH2B/b2jn6rDjyLWAC9Ap6xCr+KAUVMkYo0odQAok=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BGzRj3BaVMAOIFvJQDKDFg8E3vSfQ+xlFKwz5g1sIiuEY1QUlj6m1zKSGd/5mddA7
-	 eUdOu2sfE++iqBXIeQnK6PbRhZVrMtAADJ0QxjvJTKE3L2GmotFMKvSdGJ7bLDWZ2R
-	 yjc7jWUm2uDLCfNFfOxJjYR/7yX4bmtJc39vRur8=
+	s=default; t=1616231851;
+	bh=zZVsC57hTEQsASjS3C5bu1ey2cOdVS/Kuk2VHz500AA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jtPzR9z8QcYUcY73bfV5Zc+OZEuIE5PxHzDuG1S02NsIKDwoHYozTGHNWZtrQHJYH
+	 TGfOdzBm9uSwpx1YP3RmC+4vc72vhn6AwrZnRWuIMpCYgTLxvdD2lBbYxIedm5LFKq
+	 SXyI2OI5ipookPnknii3VXf4Xvdd2fLDUjXTSTqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76002F80171;
-	Sat, 20 Mar 2021 10:03:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 404C2F800BB;
+	Sat, 20 Mar 2021 10:16:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3905EF80165; Sat, 20 Mar 2021 10:03:05 +0100 (CET)
+ id C9AF8F80165; Sat, 20 Mar 2021 10:16:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46A03F800BB
- for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 10:02:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46A03F800BB
-Received: from [123.112.71.70] (helo=[192.168.0.106])
+ by alsa1.perex.cz (Postfix) with ESMTPS id 793AFF80118
+ for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 10:15:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 793AFF80118
+Received: from [123.112.71.70] (helo=localhost.localdomain)
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <hui.wang@canonical.com>)
- id 1lNXVT-00019g-PW; Sat, 20 Mar 2021 09:02:52 +0000
-Subject: Re: [PATCH v2 2/2] ALSA: hda/realtek: call alc_update_headset_mode()
- in hp_automute_hook
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210319075903.6480-1-hui.wang@canonical.com>
- <20210319075903.6480-2-hui.wang@canonical.com> <s5hlfajfnvw.wl-tiwai@suse.de>
+ id 1lNXi2-0001zg-V4; Sat, 20 Mar 2021 09:15:51 +0000
 From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <da978bec-89e8-03e0-a3b2-44a9910d4514@canonical.com>
-Date: Sat, 20 Mar 2021 17:02:45 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+To: alsa-devel@alsa-project.org, tiwai@suse.de, kailang@realtek.com,
+ stable@vger.kernel.org
+Subject: [PATCH v3 1/2] ALSA: hda/realtek: fix a determine_headset_type issue
+ for a Dell AIO
+Date: Sat, 20 Mar 2021 17:15:41 +0800
+Message-Id: <20210320091542.6748-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <s5hlfajfnvw.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,61 +66,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+We found a recording issue on a Dell AIO, users plug a headset-mic and
+select headset-mic from UI, but can't record any sound from
+headset-mic. The root cause is the determine_headset_type() returns a
+wrong type, e.g. users plug a ctia type headset, but that function
+returns omtp type.
 
-On 3/19/21 6:17 PM, Takashi Iwai wrote:
-> On Fri, 19 Mar 2021 08:59:03 +0100,
-> Hui Wang wrote:
->> We found the alc_update_headset_mode() is not called on some machines
->> when unplugging the headset, as a result, the mode of the
->> ALC_HEADSET_MODE_UNPLUGGED can't be set, then the current_headset_type
->> is not cleared, if users plug a differnt type of headset next time,
->> the determine_headset_type() will not be called and the audio jack is
->> set to the headset type of previous time.
->>
->> On the Dell machines which connect the dmic to the PCH, if we open
->> the gnome-sound-setting and unplug the headset, this issue will
->> happen. Those machines disable the auto-mute by ucm and has no
->> internal mic in the input source, so the update_headset_mode() will
->> not be called by cap_sync_hook or automute_hook when unplugging, and
->> because the gnome-sound-setting is opened, the codec will not enter
->> the runtime_suspend state, so the update_headset_mode() will not be
->> called by alc_resume when unplugging. In this case the
->> hp_automute_hook is called when unplugging, so add
->> update_headset_mode() calling to this function.
->>
->> Signed-off-by: Hui Wang <hui.wang@canonical.com>
->> ---
->>   sound/pci/hda/patch_realtek.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
->> index 442e555de44c..c928704da20b 100644
->> --- a/sound/pci/hda/patch_realtek.c
->> +++ b/sound/pci/hda/patch_realtek.c
->> @@ -5447,6 +5447,7 @@ static void alc_update_headset_jack_cb(struct hda_codec *codec,
->>   				       struct hda_jack_callback *jack)
->>   {
->>   	snd_hda_gen_hp_automute(codec, jack);
->> +	alc_update_headset_mode(codec);
->>   }
-> This change was described in the above, but ...
->
->>   
->>   static void alc_probe_headset_mode(struct hda_codec *codec)
->> @@ -5559,7 +5560,7 @@ static void alc288_update_headset_jack_cb(struct hda_codec *codec,
->>   {
->>   	struct alc_spec *spec = codec->spec;
->>   
->> -	alc_update_headset_jack_cb(codec, jack);
->> +	snd_hda_gen_hp_automute(codec, jack);
->>   	/* Headset Mic enable or disable, only for Dell Dino */
->>   	alc_update_gpio_data(codec, 0x40, spec->gen.hp_jack_present);
-> This change isn't clear why it's needed from the description.
-> Does it man that only ALC288 shouldn't call alc_update_headset_mode()
-> by some reason?
-Oh, I thought this is a normal audio jack, doesn't support 
-headphone/headset and microphone. Will fix it in the v3.
->
-> thanks,
->
-> Takashi
+On this machine, the internal mic is not connected to the codec, the
+"Input Source" is headset mic by default. And when users plug a
+headset, the determine_headset_type() will be called immediately, the
+codec on this AIO is alc274, the delay time for this codec in the
+determine_headset_type() is only 80ms, the delay is too short to
+correctly determine the headset type, the fail rate is nearly 99% when
+users plug the headset with the normal speed.
+
+Other codecs set several hundred ms delay time, so here I change the
+delay time to 850ms for alc2x4 series, after this change, the fail
+rate is zero unless users plug the headset slowly on purpose.
+
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 8239e5efc12d..442e555de44c 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -5263,7 +5263,7 @@ static void alc_determine_headset_type(struct hda_codec *codec)
+ 	case 0x10ec0274:
+ 	case 0x10ec0294:
+ 		alc_process_coef_fw(codec, coef0274);
+-		msleep(80);
++		msleep(850);
+ 		val = alc_read_coef_idx(codec, 0x46);
+ 		is_ctia = (val & 0x00f0) == 0x00f0;
+ 		break;
+-- 
+2.25.1
+

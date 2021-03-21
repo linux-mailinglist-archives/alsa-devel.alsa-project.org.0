@@ -2,103 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E7FE3430B6
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Mar 2021 04:31:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFA13430E1
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Mar 2021 05:31:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 379FA1616;
-	Sun, 21 Mar 2021 04:31:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 379FA1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 832C61672;
+	Sun, 21 Mar 2021 05:30:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 832C61672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616297515;
-	bh=pVUGynMoMIEuhBA/1TWMsGFgxpH/KJYjf2NCP5EjJCA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616301091;
+	bh=dmXhVyzLuCHXzB0rEUswg1efVi0+V2Xl0Z96Wiwu/ng=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ip0aX4F2axVQSQ4kQeK6Vk0gampGxbDYSerE2bi/GPM36oM4I9Aw5Z95pwjS4t4ob
-	 dXhxm0A8Mru+cYuQoX9kmB7RKYViL0oGpong0oNcg7xrfow9zaan7M6fiAYPJrM/Oj
-	 W9awKH2HsEBvJQnMTcFtWCLd6sjUDaiUsjxORDKA=
+	b=WkNDKdymcj7Dz4bbS8Ra56Vtg7TnhQIyaHT6p3wKYkioqFHRo586xm+5MSv+aK8f0
+	 twmmgcSeV38/iU0yUrFRYe8bI70u9/ATB+Ra73P359DpIM9t0ZG9iLFvU9B5lxw5yB
+	 zP4BL5GS2BDSh29nx+u1wmpP8QUpGXQVGJ4SMSnY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F3B9F8032C;
-	Sun, 21 Mar 2021 04:29:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69C04F80257;
+	Sun, 21 Mar 2021 05:30:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27AC7F80268; Sun, 21 Mar 2021 04:29:07 +0100 (CET)
+ id 712EEF80254; Sun, 21 Mar 2021 05:29:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42C86F80240
- for <alsa-devel@alsa-project.org>; Sun, 21 Mar 2021 04:28:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42C86F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF979F8012F
+ for <alsa-devel@alsa-project.org>; Sun, 21 Mar 2021 05:29:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF979F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="C3H8sSFq"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Tr8u+c5q"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 505A6184F;
- Sat, 20 Mar 2021 23:28:39 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 20 Mar 2021 23:28:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=LXUjgIizDuHrF
- EGsIif3/h6poA60pmXgx3X16FGvO5Q=; b=C3H8sSFqkfxaDAhk2rIWKDVqB/8D2
- Zc1P8PEc4ba/RgMeja43fzDYBl8YfFyO/sS6GVTjtlASIiYn15FSL2By471Rvt4c
- w6eOxBx/T25iYa907C9Z4JHqtG9PJdy/6zhEHVlBJdB9ozCrcCF7mvMqlmLn9X7u
- wfwzrAJrE/aCoGNivy9LkhH60cnhVxFql7Wz4mIpctMgM+xG6zlumYqDKsL4dklm
- 18V/cMLnBaXC0rfYqRhHKSObgNo1jrdw7ZGnHcmRnF1qZGJumtqLK+einneFHkDU
- UoVVuabSOjwbMWAq0UHobihjDpP/038rqgK8V6jqcgJgFdJbne5K448Bw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=LXUjgIizDuHrFEGsIif3/h6poA60pmXgx3X16FGvO5Q=; b=Tr8u+c5q
- hcZGWZfpNcHksEa71gIOh4R16mo4NZURBNZ4i5mV9BFPorsMKCK31i6pVnTXmmHO
- Sx22B+qJF792y9vkq3EB6g4WpyTX/Mn1QHAEzYyqdM3rIPmoshojN5Y9OBCKTmfQ
- DF+DrXNRsdN00r4nGr17HBFE8T/3vTD95fPUxgkBknr4nmvtUreBqlqeMxW8eLIr
- W2UpGdO61r/g57838tdwbfUvPjFJfU2T8tNNHe+iRK71N9kszVyJKP6+06N9xC2r
- vyV2YzpAdt9PaTP3xJvSYXRpkLMZQNLoF7fb3CkARtb13UPJnls5eloFxmfsEZ5B
- mwbHdw/uq/niYA==
-X-ME-Sender: <xms:Zr1WYLIfS6W5-m4kRO7SnlDz6OWB7cuERjZBtxJs8gdkgaiQ1aSpbA>
- <xme:Zr1WYPKGhLu4eCxUzj1pTphZs-wf7Tu2qhNBdl6tA5Taw8lO7n0lC06bHGKnk80nr
- 0cBo2GKOFHdeDxJCPQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudeguddgieduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Zr1WYDs5IyMR4ubZcWRTi4uyObVmXTB8qlVWp6I-C3gfmDaklJxs1A>
- <xmx:Zr1WYEbMscyZ8LO-gpNvGRvKgveG55EzfS7jza_oPo7YlXlKVsRuwg>
- <xmx:Zr1WYCaiBiZJLzPFxcwRLwv5ipwYKfpPbqx4k46CpEuQVd5Ky_Lzhw>
- <xmx:Zr1WYLAi6npWIYtiZtMRbbPICrwHzO-6APqNO8vNme1DfwE4a22ZSQ>
-Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
- [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 008492403E0;
- Sat, 20 Mar 2021 23:28:37 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH 3/3] ALSA: bebob: enable to deliver MIDI messages for multiple
- ports
-Date: Sun, 21 Mar 2021 12:28:31 +0900
-Message-Id: <20210321032831.340278-4-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210321032831.340278-1-o-takashi@sakamocchi.jp>
-References: <20210321032831.340278-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="n6I5beFl"
+Received: by mail-qk1-x72a.google.com with SMTP id g15so7296138qkl.4
+ for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 21:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=vfzC1B3jrJcd8/NAxq875jthzGev2HwYrdTTNyJbyuE=;
+ b=n6I5beFlteNkGq0+jZeOPrUYOk2UqnBSDFSWrHgwIpBuB+vRVb+Mb1LfVV5ghDcW+t
+ xqqQAaTu4I2EFYnDqQyrD4lIwS0ucoRcY1UiVIPOWuq8Ahr2fSb95+qedTO2IE4JxpLA
+ 1DbLg659kgkQxyp445ELBelgNUo8WIKW5oJQElluEMWwYtCvE2x8BJnqtPak3ZVycwO/
+ k0mmcNf5u8i8TVB8xugVJD36ufZrP806oWvWDrDLJMdId0RUkfBZIBuSmc0jf0KGKcDl
+ BjIp2hjOAMKQxwiV1UhfWE5VdwYYAv83GRubgKdI++O6zUkC6uC+e6KbfRxYH+K8VX0S
+ kpJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=vfzC1B3jrJcd8/NAxq875jthzGev2HwYrdTTNyJbyuE=;
+ b=clqb8Il/YtsTEoI3Uv3djdDTlFTgBaCWMUfdjnbEeUx6QHrfAj704a+fYBUp3uH2cn
+ LnqmWmDxqvhps5/RTJVdNnAJwA/M1jyEMorBm0HrcIyXYH6nuOWpcaZ4Im01D9pZbYI8
+ JuLMkf1eHJ1X9NJ311np04Ondq8Oa6ZwAF1DsgQeC5aWTRuTvokp/AVvj0CsZGe1un8f
+ 5yHuAz7xWV3FJmZg061/bybx3oNpzD4AVnLGxsDmhbeFzDUQQE5ZhjFIKyhpTiaeLF9v
+ 5VrKtgs2+iu5TYdVHMNqNQAqvWpkPVsRix97pyaW7aWhbMdioxWKcKTNJkY5LI5FarcY
+ 4UQg==
+X-Gm-Message-State: AOAM531BHMAoqHHYX3r3+7pUlmSYi3cDzK1bkaXJX+86GR+yPLUBcWn0
+ thsEtqhqtFLmF7ZWVG3zKUTOfIlQzGgwUslJ8TD3vw3Z
+X-Google-Smtp-Source: ABdhPJwR/XeGlIbcWyTK2Ifa2tasloZ7mxoV9Sam4oy0dLaAHJ1ck2cli/X/1qjpMFQGwSlSAWBC3vS1mtuN+FVshPQ=
+X-Received: by 2002:a05:620a:c11:: with SMTP id
+ l17mr5520269qki.487.1616300961089; 
+ Sat, 20 Mar 2021 21:29:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+References: <CAEsQvctXrHLXK-oz6Zb38t1D28krqUCf73jMU-QJw=i66KZe8g@mail.gmail.com>
+In-Reply-To: <CAEsQvctXrHLXK-oz6Zb38t1D28krqUCf73jMU-QJw=i66KZe8g@mail.gmail.com>
+From: Geraldo <geraldogabriel@gmail.com>
+Date: Sun, 21 Mar 2021 01:31:11 -0300
+Message-ID: <CAEsQvcsePyrd3Xs4hTUmkxzk84nodL40ytGgjM-66SOgv5ybjw@mail.gmail.com>
+Subject: Re: Pioneer DJ DDJ-SR2 sound degradation
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,49 +95,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current implementation of bebob driver doesn't correctly handle the case
-that the device has multiple MIDI ports. The cause is the number of MIDI
-conformant data channels is passed to AM824 data block processing layer.
+Until we manage to engage implicit feedback sync for Pioneer gear I'm
+afraid the clock will drift on DUPLEX mode.
 
-This commit fixes the bug.
+I reread the Pioneer related source code and implicit feedback sync was
+disabled because it gave Incompatible EP Setup messages. I should know, I
+was a reporter on that regression.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/bebob/bebob_stream.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Only those messages are fake. They arise because our ALSA code it's not
+honoring .ep_attr on quirks-table.h specifically in regards to
+USB_ENDPOINT_USAGE_IMPLICIT_FB.
 
-diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
-index 23579a73e038..b612ee3e33b6 100644
---- a/sound/firewire/bebob/bebob_stream.c
-+++ b/sound/firewire/bebob/bebob_stream.c
-@@ -517,20 +517,22 @@ int snd_bebob_stream_init_duplex(struct snd_bebob *bebob)
- static int keep_resources(struct snd_bebob *bebob, struct amdtp_stream *stream,
- 			  unsigned int rate, unsigned int index)
- {
--	struct snd_bebob_stream_formation *formation;
-+	unsigned int pcm_channels;
-+	unsigned int midi_ports;
- 	struct cmp_connection *conn;
- 	int err;
- 
- 	if (stream == &bebob->tx_stream) {
--		formation = bebob->tx_stream_formations + index;
-+		pcm_channels = bebob->tx_stream_formations[index].pcm;
-+		midi_ports = bebob->midi_input_ports;
- 		conn = &bebob->out_conn;
- 	} else {
--		formation = bebob->rx_stream_formations + index;
-+		pcm_channels = bebob->rx_stream_formations[index].pcm;
-+		midi_ports = bebob->midi_output_ports;
- 		conn = &bebob->in_conn;
- 	}
- 
--	err = amdtp_am824_set_parameters(stream, rate, formation->pcm,
--					 formation->midi, false);
-+	err = amdtp_am824_set_parameters(stream, rate, pcm_channels, midi_ports, false);
- 	if (err < 0)
- 		return err;
- 
--- 
-2.27.0
+In fact the new improved implicit feedback sync code inside pcm.c that sets
+sync upon probe is failing to set implicit_fb to 1. I commented the
+conditional for testing and I told endpoint_compatible to always return
+true.
 
+Voil=C3=A0, JACK started in duplex mode without nasty Incompatible EP Setup
+problems and supposedly with implicit feedback sync on. We are not setting
+bits 5..7 of bmAttributes, at least that's what I get from the missing
+Usage field in lsusb.
+
+My JACK transport has been rolling for 17 minutes and if it goes for two
+complete hours without distortion passing-thru vinyl on Mixxxx I'll provide
+the list with a more elegant PATCH and not this gambiarra as we say on
+Brazil.
+
+Hopefully their will be implicit feedback sync for Pioneer :-)
+
+
+On Thu, Mar 18, 2021 at 7:41 PM Geraldo <geraldogabriel@gmail.com> wrote:
+>
+> Hi everyone,
+>
+> I'm running stable kernel 5.11.6 together with my Pioneer DJ DDJ-SR2 and
+JACK. Mixxx is running on top of JACK.
+>
+>
+> After I start JACK I have about 40 minutes of good sound quality from the
+inputs. After this period the sound will begin to degrade slowly until it
+is almost pure distortion.
+>
+> The issue is gone if I restart the JACK server, no need to reboot the
+hardware. The description I gave above sounds a lot like soundcard clock
+drift (which happens to those using more than one soundcard. You know)
+which motivates me to believe we missed a bug somewhere around the recent
+changes introduced in implicit feedback sync for Pioneer devices
+>
+> Dyndbg shows nothing useful I guess. No xruns reported.
+>
+> I've recorded a 1KHz tone and after 50+ minutes the sound degradation
+kicks in. Only problem is even after cutting and encoding to mp3 128kbps
+it's still a 10 megabytes file. I suppose I could post it to Soundcloud or
+Mixcloud if anyone is interested.
+>
+> Is anyone else experiencing these symptoms with Pioneer hardware? Note
+that the sound degradation kicks in after about an hour, more or less, and
+it's for the inputs only. Outputs continue to operate fine without the need
+to restart the JACK server every hour.
+>
+> Thanks everybody,
+> Geraldo

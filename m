@@ -2,94 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11D6342FE1
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Mar 2021 23:26:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A61B3430B3
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Mar 2021 04:30:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 481591663;
-	Sat, 20 Mar 2021 23:25:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 481591663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84C2B1666;
+	Sun, 21 Mar 2021 04:29:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84C2B1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616279191;
-	bh=c8CrpfxAGSk3c+suVSx+ve7g6VljnoyAEItyhfaHBeg=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1616297447;
+	bh=und5HXyX3vi4NCAtWJ4cmJvGkjk1HSl2lT0txczmS2Y=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oRHw4gC7SgUNeQvkoc5Arkxlod32R/drKpJgbLNKiIWa1JgNWJZgMrUHFWEEPuZzZ
-	 DJeC0m5/Geb5KuqfUkrQG2g9d7wkMd/j5E/ihNTOG54Z5RpOz4+fWNoT0ir8hYt0Nb
-	 GImwyizsx0fpW/qFhMF3OcR12YSRmTFpuXmZqoQw=
+	b=TXp+T69bnWbFC/LE5an0Zwc6jBQMzpRBVVo59LRtgDX3425SfOMtmahhLFGdMkOOK
+	 L6sqK6EipWJWl1ApdyKKAc2ErGZNu3HUUw2Uj+aD1Dor/N406MczAnJt5zuyD/0dcS
+	 2VEcaNg1ua61DwqlyxMb5NECleV5FykT/Qr4n8mA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8BCCF80430;
-	Sat, 20 Mar 2021 23:24:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFBEAF80257;
+	Sun, 21 Mar 2021 04:29:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB656F8032C; Sat, 20 Mar 2021 23:24:11 +0100 (CET)
+ id C97A5F8028D; Sun, 21 Mar 2021 04:29:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8BDAF8025E
- for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 23:24:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8BDAF8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 481F7F80254
+ for <alsa-devel@alsa-project.org>; Sun, 21 Mar 2021 04:28:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 481F7F80254
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EbwO3UZ+"
-Received: by mail-qk1-x734.google.com with SMTP id c3so6814235qkc.5
- for <alsa-devel@alsa-project.org>; Sat, 20 Mar 2021 15:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=lzvC2v5LGnA+1DrgzVaX9z+VhLej+ZuhAR4hTFoaCjg=;
- b=EbwO3UZ+ZMpbnifPmvpHv2T7G9/OSymNWUU8GZAJqC0FJjpbRfy9WfQW4l4+1FtJdi
- LLkyivvfAgkkvYN5N4qxYx7FO0OHZR2CZvqg9BdCVfk56mjwvsuk59bfjsON3Mxrg2zs
- M+gR+wO/cswAC8SW/Yj3XLT5TUnMzr6tPKQOmBRgEaTp8NvYOKp9Qxs69v4BiqWcSb2o
- e74YQT8PvMHxVvB94eDXHovJUftAcx52jNDvn9cn7PqOjElqfoxjdK7tJ1msJyc9OMBn
- 3EwN0sTeu16hSQrFOT/do7KfUjO8Db86/70fdnd8AGbUDZ+NX9BQ8mAyTbK9dE7Qx4D1
- Ishg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=lzvC2v5LGnA+1DrgzVaX9z+VhLej+ZuhAR4hTFoaCjg=;
- b=DLhNdk0sJn+b6i0lDes5/B28FnF3iKEOSNvWwVDwfC+zXIFtr9m1X0ZZV3m50Fp2Pa
- MWBX8WKgijy846leFwn8/rOJ4gsgj0I1lB6OMNyFGhNmP+fjfwjOAYcnKBn5OUJV6DXj
- Rw6AxaDgRYyTofkLa6XqkoG+B/YHXpCaSxcmNJ2HTpbSfLvDgPEjXXSHr+PjB+EhTtRe
- M41e8TC1V4q5izKoNcLTocEjIdPIdIxEPPc0vJM/1tL4JpXjGaDZCTc2qmUfv4NO2ImX
- AAKL7lj7Sc8Gj+H/nlKHhcAwH+WlkPVQU/x3Vov/Nrk0893qr2mkthvPMyf+GEbSfvvY
- d7+g==
-X-Gm-Message-State: AOAM5310MzFGmk/1tEHrv/YpdBxfBkf6UaKWRYmg/er9sjIFBxTFeZgg
- cOWQq97uFiOVS4cOo7UoFJg=
-X-Google-Smtp-Source: ABdhPJwehBLVzN3tr+XdSIF59VbuqPFEsJEnSPk7kTU2JWURSpTatst/TTAJV/9Sv+inkRksUq33Zw==
-X-Received: by 2002:a37:a404:: with SMTP id n4mr4593388qke.439.1616279039041; 
- Sat, 20 Mar 2021 15:23:59 -0700 (PDT)
-Received: from tong-desktop.local ([2601:5c0:c200:27c6:f925:bb4b:54d2:533])
- by smtp.googlemail.com with ESMTPSA id i6sm7570213qkk.31.2021.03.20.15.23.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Mar 2021 15:23:58 -0700 (PDT)
-From: Tong Zhang <ztong0001@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Romain Perier <romain.perier@gmail.com>, Allen Pais <allen.lkml@gmail.com>,
- Leon Romanovsky <leon@kernel.org>, Jasmin Fazlic <superfassl@gmail.com>,
- Tong Zhang <ztong0001@gmail.com>, Mark Brown <broonie@kernel.org>,
- Joe Perches <joe@perches.com>, Tom Rix <trix@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Naoki Hayama <naoki.hayama@lineo.co.jp>
-Subject: [PATCH v2 3/3] ALSA: rme9652: don't disable if not enabled
-Date: Sat, 20 Mar 2021 18:23:36 -0400
-Message-Id: <20210320222337.243368-4-ztong0001@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210320222337.243368-1-ztong0001@gmail.com>
-References: <20210320222337.243368-1-ztong0001@gmail.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ca5rDmvu"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="W6eCJjTg"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 280941838;
+ Sat, 20 Mar 2021 23:28:38 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Sat, 20 Mar 2021 23:28:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=JLS48iijp/ilD
+ vv0NrqwrL7p2U/48keqMNug2tHfJoU=; b=ca5rDmvuRmxXlmM6GL5IXVUr0QZf6
+ MjWkNCuvljODIvSQth63ycEJkKOHffd5h/d/L6h8nv5DD69jINyrVdpkGdoy+S8/
+ AU+EzI5p9YkMvElKr062K6g/UDQ0jLkMSvkiW72fYimUXdYelXtMWZpb370d6J+f
+ 2xoJcqD8YFfTwQsnClUVNAzM+r5iVpuNtzqEO6ED8KAFxOdTgaO/K/VeOuOBeIkt
+ ea5XnsAamCjH1/kcEZxhifqnvMEgYEKQZVwZI0badzcBkg00V8PEsBFNfNFnV1uO
+ v8cBV7OJku11l9mCsqt2b9L0FFyT9Ygk99y72fzTcuNm/6VPnZzFocVCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=JLS48iijp/ilDvv0NrqwrL7p2U/48keqMNug2tHfJoU=; b=W6eCJjTg
+ VGxzdTsRAoVrq7OYArF2fcDlMFWdxVGRCIfbpDIRLxu/M0enSBS3UfWGcsR68Hm+
+ tcDdoaMal6urYzO3yA6g4uoiAevL6w7xw6W9sw2CD3c0dss0nRNHwb1kWijLyfrH
+ iEUB+x/NKmNHNqRTX0CR/W0X8/CXZ9eFKvlL7Nhl+hI+ZLDp+dpx3OENA2/ijQkG
+ tUvXeluVH6GD4u9iWqA5MRgLoxj9NSx70tKVITN3QcqVv710UVjf9MlRv0pzK92X
+ BS6qiBguzhptVqcL1NxxyIthe+jyVPo1jR2Cbc5lEvcgWD9TJqnv8vUikXxlpYV8
+ JtQCIcv9HTtcxg==
+X-ME-Sender: <xms:Zb1WYHhFF60yBrzOKp_L5yiHAp0Cc0lw13imAWcNezyFKqcJ7Gw07g>
+ <xme:Zb1WYECA6P291dk7WRnjIp1mj9Cs0KNwpJKA_l2yPvUk2SszCT0-Bzdpzyg3Swpu6
+ P_SEgb92M9AoU307Tc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudeguddgieduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
+ etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:Zb1WYHFzmLEu3DImc3-zap4B2bE-ZsRNmCMQwbA_ddISp4uI9aTLBg>
+ <xmx:Zb1WYEQZsERZkul9UqmS2wMzoVOkazAobxxy-Z7OE_Yfa13k0j_KHA>
+ <xmx:Zb1WYEyeofTJpMfpZJhj-170ho2R0slemlFpu0MhHIAVaNbSyKHqsg>
+ <xmx:Zb1WYKYt_JomBN0IBBQLe0a_CsqsN3G-WHpyVeRjqjGd7c1YgEAdsw>
+Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
+ [14.3.65.175])
+ by mail.messagingengine.com (Postfix) with ESMTPA id C735724040B;
+ Sat, 20 Mar 2021 23:28:36 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 2/3] ALSA: bebob: detect the number of available MIDI ports
+Date: Sun, 21 Mar 2021 12:28:30 +0900
+Message-Id: <20210321032831.340278-3-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210321032831.340278-1-o-takashi@sakamocchi.jp>
+References: <20210321032831.340278-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,55 +113,189 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-rme9652 wants to disable a not enabled pci device, which makes kernel
-throw a warning. Make sure the device is enabled before calling disable.
+Current implementation counts the number of input/output plugs for MIDI
+type and uses the count as the number of physical MIDI ports. However,
+the number of channels of the port represents the count.
 
-[    1.751595] snd_rme9652 0000:00:03.0: disabling already-disabled device
-[    1.751605] WARNING: CPU: 0 PID: 174 at drivers/pci/pci.c:2146 pci_disable_device+0x91/0xb0
-[    1.759968] Call Trace:
-[    1.760145]  snd_rme9652_card_free+0x76/0xa0 [snd_rme9652]
-[    1.760434]  release_card_device+0x4b/0x80 [snd]
-[    1.760679]  device_release+0x3b/0xa0
-[    1.760874]  kobject_put+0x94/0x1b0
-[    1.761059]  put_device+0x13/0x20
-[    1.761235]  snd_card_free+0x61/0x90 [snd]
-[    1.761454]  snd_rme9652_probe+0x3be/0x700 [snd_rme9652]
+This commit fixes the bug by additional vendor-specific AVC command
+extension.
 
-Signed-off-by: Tong Zhang <ztong0001@gmail.com>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/pci/rme9652/rme9652.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/firewire/bebob/bebob.h         |  2 +
+ sound/firewire/bebob/bebob_command.c | 36 ++++++++++++
+ sound/firewire/bebob/bebob_stream.c  | 83 +++++++++++++++++-----------
+ 3 files changed, 89 insertions(+), 32 deletions(-)
 
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index 4df992e846f2..f9c9b8a80797 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -1728,10 +1728,10 @@ static int snd_rme9652_free(struct snd_rme9652 *rme9652)
- 	if (rme9652->irq >= 0)
- 		free_irq(rme9652->irq, (void *)rme9652);
- 	iounmap(rme9652->iobase);
--	if (rme9652->port)
-+	if (rme9652->port) {
- 		pci_release_regions(rme9652->pci);
--
--	pci_disable_device(rme9652->pci);
-+		pci_disable_device(rme9652->pci);
-+  }
- 	return 0;
+diff --git a/sound/firewire/bebob/bebob.h b/sound/firewire/bebob/bebob.h
+index d1ad9a8451bc..4e0ed84adbee 100644
+--- a/sound/firewire/bebob/bebob.h
++++ b/sound/firewire/bebob/bebob.h
+@@ -200,6 +200,8 @@ int avc_bridgeco_get_plug_ch_pos(struct fw_unit *unit,
+ int avc_bridgeco_get_plug_type(struct fw_unit *unit,
+ 			       u8 addr[AVC_BRIDGECO_ADDR_BYTES],
+ 			       enum avc_bridgeco_plug_type *type);
++int avc_bridgeco_get_plug_ch_count(struct fw_unit *unit, u8 addr[AVC_BRIDGECO_ADDR_BYTES],
++				   unsigned int *ch_count);
+ int avc_bridgeco_get_plug_section_type(struct fw_unit *unit,
+ 				       u8 addr[AVC_BRIDGECO_ADDR_BYTES],
+ 				       unsigned int id, u8 *type);
+diff --git a/sound/firewire/bebob/bebob_command.c b/sound/firewire/bebob/bebob_command.c
+index e276ab8f9006..022df09c68ff 100644
+--- a/sound/firewire/bebob/bebob_command.c
++++ b/sound/firewire/bebob/bebob_command.c
+@@ -143,6 +143,42 @@ int avc_bridgeco_get_plug_type(struct fw_unit *unit,
+ 	return err;
  }
  
-@@ -2454,8 +2454,10 @@ static int snd_rme9652_create(struct snd_card *card,
++int avc_bridgeco_get_plug_ch_count(struct fw_unit *unit, u8 addr[AVC_BRIDGECO_ADDR_BYTES],
++				   unsigned int *ch_count)
++{
++	u8 *buf;
++	int err;
++
++	buf = kzalloc(12, GFP_KERNEL);
++	if (buf == NULL)
++		return -ENOMEM;
++
++	// Info type is 'plug type'.
++	avc_bridgeco_fill_plug_info_extension_command(buf, addr, 0x02);
++
++	err = fcp_avc_transaction(unit, buf, 12, buf, 12,
++				  BIT(1) | BIT(2) | BIT(3) | BIT(4) | BIT(5) |
++				  BIT(6) | BIT(7) | BIT(9));
++	if (err < 0)
++		;
++	else if (err < 11)
++		err = -EIO;
++	else if (buf[0] == 0x08) // NOT IMPLEMENTED
++		err = -ENOSYS;
++	else if (buf[0] == 0x0a) // REJECTED
++		err = -EINVAL;
++	else if (buf[0] == 0x0b) // IN TRANSITION
++		err = -EAGAIN;
++	if (err < 0)
++		goto end;
++
++	*ch_count = buf[10];
++	err = 0;
++end:
++	kfree(buf);
++	return err;
++}
++
+ int avc_bridgeco_get_plug_ch_pos(struct fw_unit *unit,
+ 				 u8 addr[AVC_BRIDGECO_ADDR_BYTES],
+ 				 u8 *buf, unsigned int len)
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index d96d2feb15a8..23579a73e038 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -844,6 +844,49 @@ static int fill_stream_formations(struct snd_bebob *bebob, u8 addr[AVC_BRIDGECO_
+ 	return err;
+ }
  
- 	spin_lock_init(&rme9652->lock);
- 
--	if ((err = pci_request_regions(pci, "rme9652")) < 0)
-+	if ((err = pci_request_regions(pci, "rme9652")) < 0) {
-+		pci_disable_device(pci);
- 		return err;
++static int detect_midi_ports(struct snd_bebob *bebob,
++			     const struct snd_bebob_stream_formation *formats,
++			     u8 addr[AVC_BRIDGECO_ADDR_BYTES], enum avc_bridgeco_plug_dir plug_dir,
++			     unsigned int plug_count, unsigned int *midi_ports)
++{
++	int i;
++	int err = 0;
++
++	*midi_ports = 0;
++
++	/// Detect the number of available MIDI ports when packet has MIDI conformant data channel.
++	for (i = 0; i < SND_BEBOB_STRM_FMT_ENTRIES; ++i) {
++		if (formats[i].midi > 0)
++			break;
 +	}
- 	rme9652->port = pci_resource_start(pci, 0);
- 	rme9652->iobase = ioremap(rme9652->port, RME9652_IO_EXTENT);
- 	if (rme9652->iobase == NULL) {
++	if (i >= SND_BEBOB_STRM_FMT_ENTRIES)
++		return 0;
++
++	for (i = 0; i < plug_count; ++i) {
++		enum avc_bridgeco_plug_type plug_type;
++		unsigned int ch_count;
++
++		avc_bridgeco_fill_unit_addr(addr, plug_dir, AVC_BRIDGECO_PLUG_UNIT_EXT, i);
++
++		err = avc_bridgeco_get_plug_type(bebob->unit, addr, &plug_type);
++		if (err < 0) {
++			dev_err(&bebob->unit->device,
++				"fail to get type for external %d plug %d: %d\n",
++				plug_dir, i, err);
++			break;
++		} else if (plug_type != AVC_BRIDGECO_PLUG_TYPE_MIDI) {
++			continue;
++		}
++
++		err = avc_bridgeco_get_plug_ch_count(bebob->unit, addr, &ch_count);
++		if (err < 0)
++			break;
++		*midi_ports += ch_count;
++	}
++
++	return err;
++}
++
+ static int
+ seek_msu_sync_input_plug(struct snd_bebob *bebob)
+ {
+@@ -886,8 +929,6 @@ int snd_bebob_stream_discover(struct snd_bebob *bebob)
+ {
+ 	const struct snd_bebob_clock_spec *clk_spec = bebob->spec->clock;
+ 	u8 plugs[AVC_PLUG_INFO_BUF_BYTES], addr[AVC_BRIDGECO_ADDR_BYTES];
+-	enum avc_bridgeco_plug_type type;
+-	unsigned int i;
+ 	int err;
+ 
+ 	/* the number of plugs for isoc in/out, ext in/out  */
+@@ -918,37 +959,15 @@ int snd_bebob_stream_discover(struct snd_bebob *bebob)
+ 	if (err < 0)
+ 		goto end;
+ 
+-	/* count external input plugs for MIDI */
+-	bebob->midi_input_ports = 0;
+-	for (i = 0; i < plugs[2]; i++) {
+-		avc_bridgeco_fill_unit_addr(addr, AVC_BRIDGECO_PLUG_DIR_IN,
+-					    AVC_BRIDGECO_PLUG_UNIT_EXT, i);
+-		err = avc_bridgeco_get_plug_type(bebob->unit, addr, &type);
+-		if (err < 0) {
+-			dev_err(&bebob->unit->device,
+-			"fail to get type for external in plug %d: %d\n",
+-				i, err);
+-			goto end;
+-		} else if (type == AVC_BRIDGECO_PLUG_TYPE_MIDI) {
+-			bebob->midi_input_ports++;
+-		}
+-	}
++	err = detect_midi_ports(bebob, bebob->rx_stream_formations, addr, AVC_BRIDGECO_PLUG_DIR_IN,
++				plugs[2], &bebob->midi_input_ports);
++	if (err < 0)
++		goto end;
+ 
+-	/* count external output plugs for MIDI */
+-	bebob->midi_output_ports = 0;
+-	for (i = 0; i < plugs[3]; i++) {
+-		avc_bridgeco_fill_unit_addr(addr, AVC_BRIDGECO_PLUG_DIR_OUT,
+-					    AVC_BRIDGECO_PLUG_UNIT_EXT, i);
+-		err = avc_bridgeco_get_plug_type(bebob->unit, addr, &type);
+-		if (err < 0) {
+-			dev_err(&bebob->unit->device,
+-			"fail to get type for external out plug %d: %d\n",
+-				i, err);
+-			goto end;
+-		} else if (type == AVC_BRIDGECO_PLUG_TYPE_MIDI) {
+-			bebob->midi_output_ports++;
+-		}
+-	}
++	err = detect_midi_ports(bebob, bebob->tx_stream_formations, addr, AVC_BRIDGECO_PLUG_DIR_OUT,
++				plugs[3], &bebob->midi_output_ports);
++	if (err < 0)
++		goto end;
+ 
+ 	/* for check source of clock later */
+ 	if (!clk_spec)
 -- 
-2.25.1
+2.27.0
 

@@ -2,102 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B071234484D
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 15:56:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1A134487F
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 16:03:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1110E1607;
-	Mon, 22 Mar 2021 15:55:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1110E1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94CE315E5;
+	Mon, 22 Mar 2021 16:02:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94CE315E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616424994;
-	bh=f0LhVGAjziPUWgYfdUYTXO86Awg7VC+S6hQ0Aum1IR4=;
+	s=default; t=1616425413;
+	bh=axphiLiYtdupiWILfCCj0cNdcM+E3KPn52tNLVwJiVU=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zk3ff0QknCmj+9Is8HiRWw3FGscbzy7pMzbt/hKGCPj+Tjn5EfdbmE4RCQ4IH7ULW
-	 AP+SOgKxcS6dlWi5KvmWLu0wQ6G74mNPJNQ4f7W4t+041duf/4TQzE11IoVG++/uQa
-	 p2Hfz2SsYsV/oKZFv7zVP3ApYkV9amnL5cZKQwCk=
+	b=J07GYdjaxHG11LGb4hly1mD4IvhxyEgqPMgrMiC6xcFXL/9qsd3qckCCkY3iju5ua
+	 +dwrAvlmQsQ5sQxHewSSfah34UvcHK+pM9BRlsNq5FLeyZT+e+REdJkP/WtSqRg2yT
+	 sGwvwGV6PixjEbYXjtWfSvYGrb7g87IISrx4CHoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84EF8F801D5;
-	Mon, 22 Mar 2021 15:55:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F05B3F801D5;
+	Mon, 22 Mar 2021 16:02:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81E73F8016B; Mon, 22 Mar 2021 15:55:06 +0100 (CET)
+ id EFE6FF8016B; Mon, 22 Mar 2021 16:02:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D214AF80107
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 15:55:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D214AF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FC88F80155
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 16:01:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FC88F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="WlKWfvY0"
+ header.b="WMVNAyk6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1616424901;
+ s=mimecast20190719; t=1616425308;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=m6iQUjQycK1sTABfq5tlKr+irKk0x/vcI8pphi4WOdU=;
- b=WlKWfvY0HFyuf3zCHNejAfCY/2Y94+Q9BpqtD/yXi8hVHgC1TfCzZ8f6+ch8SUb9qS8FH6
- iPmASY9RThFvdSN+syCvrJx/1B7OtFCFr8AZ+VuYCmfh+jOqvVJgzDMmG8v262+VHwD6i1
- lU+ybE9PIZ7YddM/zblETLRLePvPS/4=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-19-CCb6vbTUOtOWf5kS6bkckA-1; Mon, 22 Mar 2021 10:54:58 -0400
-X-MC-Unique: CCb6vbTUOtOWf5kS6bkckA-1
-Received: by mail-ed1-f69.google.com with SMTP id h5so27604161edf.17
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 07:54:58 -0700 (PDT)
+ bh=TeRLT206rXHXoXA6r2Hs7f1XgjJsdt/tFB50GF52SxQ=;
+ b=WMVNAyk6CfSWG5KV4KxdlTWgMf7O4YY+4Mk9v6QCtQV5VWpXQ0m7Gi15W56Yqw549MeUJt
+ NpSpcgZ0NqqeA4BZU1nqEvRsJiw0JP7N8w0UEcKlLJIMWRyEl/FJj7JBfbUul6z0HEGF3m
+ roY0QBocf/SRIeqiFLNyVexTth+ZhX8=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-441-QtLEwls9OL2B_Zo-kl-HAw-1; Mon, 22 Mar 2021 11:01:44 -0400
+X-MC-Unique: QtLEwls9OL2B_Zo-kl-HAw-1
+Received: by mail-ej1-f72.google.com with SMTP id v27so15200130ejq.0
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 08:01:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=m6iQUjQycK1sTABfq5tlKr+irKk0x/vcI8pphi4WOdU=;
- b=OX9LIl6yW0JafJwmgDjsDL+HfOmC4+jP7i3KH9UO7hyGsan5etgIEAO0VtdaEKp8es
- rIvblzw67Yw6KBq8Hao2OKPrU6t+HXQ0y6+Cf41pA3uYDVMyKgt88aiUi4lHGoPQ9Kl/
- 44IqVS/3T5rmhmq6MX2GuZSn8Mj4ryOLjWT3ztxIYiQw+b336XbnSA586BEy7VbINM75
- NlbU0UVu2YG5i6jp5DP/86a304W1Mf9BCGLwEGMmGr77mrkNBWxcDTgawzQVVwdZ70Sy
- UeO2gp4K4b0lMaxHxn5d68XGZC7yxDrY/UT3ll6mhk0NXDCfRHot4WDpkcD6cPg92mPE
- u++Q==
-X-Gm-Message-State: AOAM5334yrgJD9Nf1wuw9EoyRTbed7Ez5PQD5yzf9Kg+PldAA8NyVeUa
- Ox6vLxzEx3XBYtRpmiFB07WJnWj9lnkMlS+nPBcyw2E+KKOMxsAEJnEM1zZO1v3IUi0XSm7ike3
- ZnDbJLUirm/IH4OStZyKFbZzvTXSqEoUAkqPAFl4Ofny5/gURf01zVR4nrXTUjmwbjbM4Dj/xAL
- s=
-X-Received: by 2002:a17:906:1a4b:: with SMTP id
- j11mr135870ejf.55.1616424897046; 
- Mon, 22 Mar 2021 07:54:57 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyFJgvoAB5IhBaexAdxZrh2Nx4yd/dRDvJg0PcoQDjNPJcStUY7NDLa0ZRc5dFHgvEe3T69wA==
-X-Received: by 2002:a17:906:1a4b:: with SMTP id
- j11mr135842ejf.55.1616424896822; 
- Mon, 22 Mar 2021 07:54:56 -0700 (PDT)
+ bh=TeRLT206rXHXoXA6r2Hs7f1XgjJsdt/tFB50GF52SxQ=;
+ b=PDqh5aGePlJPZRL+ESVApbSj57wuf8MccDwrtopou8bg10JNAWn9/zBgpupEcEHlto
+ VJv/5sJ4zhVDZq44XU4+c7ZDgS++AIk+ORQ6NgJz9sfct2givJintoygVupK6T+LQvAb
+ E2I8qaXC6u9ooDDqT3IVcrvlcBLZi4WECI2F26g3QFKkcRXqn1JWlsE/w+5SmD0mfVGw
+ Krjgkp4eSrpXhL+o/NoMNb2oadMH2Qx/Psebc9lWChoz/pNbNODa7/SRT7b413DiMqD7
+ d5T+gnCki2t0/xHUIh82GgbRzI5DsLXJZSNNrJc5S8j6HVNTibUmwbPyT/a3XwKbwJjv
+ 8DRw==
+X-Gm-Message-State: AOAM532EFgrVWovDSzQenU7qtY9rYahrIUpgJY4qAZqOuUHQ3OCxvi0Y
+ S6j6qfwbyryKUhi8GKltlPVWU+zkdaJn0XEM7ryBfzeO79zTJZOgr6IxqhlXjqcbpyiF9OYSiSx
+ YgAl3GChTaICuL+0rsDx5SHs=
+X-Received: by 2002:a17:906:3395:: with SMTP id
+ v21mr194803eja.322.1616425303018; 
+ Mon, 22 Mar 2021 08:01:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJygJHx1ycHTtFDczgClQt4BcWFdt1OOvBVNQ2zk/+MtCfJ3F3mpKUaH3/gRSfpKT7IqYY77Ig==
+X-Received: by 2002:a17:906:3395:: with SMTP id
+ v21mr194782eja.322.1616425302868; 
+ Mon, 22 Mar 2021 08:01:42 -0700 (PDT)
 Received: from x1.localdomain
  (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
  [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id cy5sm11549738edb.46.2021.03.22.07.54.56
+ by smtp.gmail.com with ESMTPSA id q16sm11812147edv.61.2021.03.22.08.01.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Mar 2021 07:54:56 -0700 (PDT)
-Subject: Re: [GIT PULL] Immutable branch between MFD and Extcon due for the
- v5.13 merge window
-To: Lee Jones <lee.jones@linaro.org>
-References: <20210307151807.35201-1-hdegoede@redhat.com>
- <20210322144025.GW2916463@dell>
+ Mon, 22 Mar 2021 08:01:42 -0700 (PDT)
+Subject: Re: [PATCH v4 2/2] ASoC: rt715:add micmute led state control supports
+To: Jaroslav Kysela <perex@perex.cz>, "Yuan, Perry" <Perry.Yuan@dell.com>,
+ Mark Brown <broonie@kernel.org>, "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+ "Limonciello, Mario" <Mario.Limonciello@dell.com>
+References: <20210301093834.19524-1-Perry_Yuan@Dell.com>
+ <20210308172409.GF4656@sirena.org.uk>
+ <SJ0PR19MB4528847687FEEE4A4DED8E3F84659@SJ0PR19MB4528.namprd19.prod.outlook.com>
+ <604693cc-08c7-2b5f-632a-58ed537c54a0@perex.cz>
 From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <83f9ff3c-ab92-cabf-6746-19b15c3f7661@redhat.com>
-Date: Mon, 22 Mar 2021 15:54:55 +0100
+Message-ID: <5cad3045-7948-3282-c999-926095818d5f@redhat.com>
+Date: Mon, 22 Mar 2021 16:01:41 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <20210322144025.GW2916463@dell>
+In-Reply-To: <604693cc-08c7-2b5f-632a-58ed537c54a0@perex.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,14 +108,13 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, linux-kernel@vger.kernel.org
+Cc: "oder_chiou@realtek.com" <oder_chiou@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "mgross@linux.intel.com" <mgross@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "pobrn@protonmail.com" <pobrn@protonmail.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,27 +132,62 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi,
 
-On 3/22/21 3:40 PM, Lee Jones wrote:
-> Enjoy!
+On 3/22/21 3:37 PM, Jaroslav Kysela wrote:
+> Dne 22. 03. 21 v 10:25 Yuan, Perry napsal(a):
+>> Hi Mark:
+>>
+>>> -----Original Message-----
+>>> From: Mark Brown <broonie@kernel.org>
+>>> Sent: Tuesday, March 9, 2021 1:24 AM
+>>> To: Yuan, Perry
+>>> Cc: pobrn@protonmail.com; pierre-louis.bossart@linux.intel.com;
+>>> oder_chiou@realtek.com; perex@perex.cz; tiwai@suse.com;
+>>> hdegoede@redhat.com; mgross@linux.intel.com; Limonciello, Mario;
+>>> lgirdwood@gmail.com; alsa-devel@alsa-project.org; linux-
+>>> kernel@vger.kernel.org; platform-driver-x86@vger.kernel.org
+>>> Subject: Re: [PATCH v4 2/2] ASoC: rt715:add micmute led state control
+>>> supports
+>>>
+>>> On Mon, Mar 01, 2021 at 05:38:34PM +0800, Perry Yuan wrote:
+>>>
+>>>> +	/* Micmute LED state changed by muted/unmute switch */
+>>>> +	if (mc->invert) {
+>>>> +		if (ucontrol->value.integer.value[0] || ucontrol-
+>>>> value.integer.value[1]) {
+>>>> +			micmute_led = LED_OFF;
+>>>> +		} else {
+>>>> +			micmute_led = LED_ON;
+>>>> +		}
+>>>> +		ledtrig_audio_set(LED_AUDIO_MICMUTE, micmute_led);
+>>>> +	}
+>>>
+>>> These conditionals on inversion seem weird and counterintuitive.  If we're
+>>> going with this approach it would probably be clearer to define a custom
+>>> operation for the affected controls that wraps the standard one and adds the
+>>> LED setting rather than keying off invert like this.
+>>
+>> Currently the sof soundwire driver has no generic led control yet.
+>> This patch can handle the led control needs for MIC mute LED, definitely the patch is a short term solution.
+>> There is a feature request discussion when we started to implement this solution.
+>> https://github.com/thesofproject/linux/issues/2496#issuecomment-713892620
+>>
+>> The workable way for now is that we put the LED mute control to the codec driver.
+>> When there is new and full sound LED solution implemented, this part will be also optimized.
+>> The Hardware privacy feature needs this patch to handle the Mic mute led state change.
+>> Before that full solution ready in kernel, could we take this as short term solution?
 > 
-> The following changes since commit a38fd8748464831584a19438cbb3082b5a2dab15:
-> 
->   Linux 5.12-rc2 (2021-03-05 17:33:41 -0800)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git ib-mfd-extcon-v5.13
-> 
-> for you to fetch changes up to a908a716696eee75bf85199cde2b0989290536d1:
-> 
->   ASoC/extcon: arizona: Move arizona jack code to sound/soc/codecs/arizona-jack.c (2021-03-18 11:46:15 +0000)
+> Perry, it's about the machine detection. Your code is too much generic even
+> for the top-level LED trigger implementation. We need an extra check, if the
+> proper LED's are really controlled on the specific hardware. Other hardware
+> may use RT715 for a different purpose. Use DMI / ACPI checks to detect this
+> hardware and don't misuse the inversion flag to enable this code.
 
-Thank you.
+I think this would be a goo candidate for the new generic LED handling:
 
-Mark can you merge this into your ASoC tree and merge patches 7-13 of:
-https://lore.kernel.org/alsa-devel/20210307151807.35201-1-hdegoede@redhat.com/
+https://lore.kernel.org/alsa-devel/20210317172945.842280-1-perex@perex.cz/
 
-?
+And then use a udev-rule + hwdb and/or UCM profiles to configure the LED trigger
+for specific models from userspace ?
 
 Regards,
 
@@ -158,27 +195,4 @@ Hans
 
 
 
-
-
-> 
-> ----------------------------------------------------------------
-> Immutable branch between MFD and Extcon due for the v5.13 merge window
-> 
-> ----------------------------------------------------------------
-> Hans de Goede (6):
->       mfd: arizona: Drop arizona-extcon cells
->       extcon: arizona: Fix some issues when HPDET IRQ fires after the jack has been unplugged
->       extcon: arizona: Fix various races on driver unbind
->       extcon: arizona: Fix flags parameter to the gpiod_get("wlf,micd-pol") call
->       extcon: arizona: Always use pm_runtime_get_sync() when we need the device to be awake
->       ASoC/extcon: arizona: Move arizona jack code to sound/soc/codecs/arizona-jack.c
-> 
->  MAINTAINERS                                        |  3 +-
->  drivers/extcon/Kconfig                             |  8 ---
->  drivers/extcon/Makefile                            |  1 -
->  drivers/mfd/arizona-core.c                         | 20 -------
->  .../soc/codecs/arizona-jack.c                      | 63 +++++++++++-----------
->  5 files changed, 34 insertions(+), 61 deletions(-)
->  rename drivers/extcon/extcon-arizona.c => sound/soc/codecs/arizona-jack.c (98%)
-> 
 

@@ -2,66 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442603438CD
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 06:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD673439F8
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 07:50:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB4FA15E2;
-	Mon, 22 Mar 2021 06:51:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB4FA15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 160F8852;
+	Mon, 22 Mar 2021 07:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 160F8852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616392366;
-	bh=AQIbCwkXxWOUJR8Z2g1SYGF2fZlBv1avJ6aW8d5tANY=;
+	s=default; t=1616395858;
+	bh=Nd6jjxGhnImp7hM6BTg4uRLk1wmvxO0wosV2T2XBy90=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ZFsNMZfwhARGtm4KIi1bUuedGJaPeZfzefzgvUXeNBFf5WUH75w9fAr8hggK8XO8z
-	 QqKvuzyliOvLTG2vYSLTMd7IOfTD+xp20WG3dWTm8vMpaadGAZRV8Fx3GfJ9XCwYhz
-	 mofR4xfNLIfZOQveng1zY6Il0JGK9smueu2/LdJk=
+	b=GD2fBz1P1l7s0ba42TbhAnbCOiZwFN3Jifts5C1jm8O+YG0nYvL+HByhroQC+Q6zf
+	 xLdUpJoOJFrYdPjXxADhgcBoKlmsej1+upTqATj9ISrj9gtf7uM799sARvvZEBT4JC
+	 I3nE8ngaWralC9Tz7O7kmK9ElS4h/SDL8qCNgtN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 099FFF801D5;
-	Mon, 22 Mar 2021 06:51:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68A5DF80156;
+	Mon, 22 Mar 2021 07:49:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE2DBF8016B; Mon, 22 Mar 2021 06:51:19 +0100 (CET)
+ id 0087AF8016B; Mon, 22 Mar 2021 07:49:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 522CFF80107
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 06:51:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 522CFF80107
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 12M5p2Ej9032564,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.94])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 12M5p2Ej9032564
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 22 Mar 2021 13:51:02 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 22 Mar 2021 13:51:02 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015: Add bclk detection and dc detection
-Date: Mon, 22 Mar 2021 13:50:53 +0800
-Message-ID: <20210322055053.31797-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.29.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB37FF80107
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 07:49:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB37FF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="nD1TzUdy"
+Received: by mail-qt1-x82f.google.com with SMTP id l13so11552238qtu.9
+ for <alsa-devel@alsa-project.org>; Sun, 21 Mar 2021 23:49:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QxDMqFUouE20qsvNflnewD1IIh7nduTTtj8Eq1UkFGs=;
+ b=nD1TzUdyCyfaTUFBhzqKBYtbu/HzeBjY4HUm9oyJb6LTq1pjhqZOZDIG6sWIlHqJyQ
+ smL0WrI/0MNwpTvn3C5e/bhBJ3OSUc3/ke/8ivPK/CGtevyqH3zpqIb0sJ9LnXR6YnkY
+ cH6KIjBUlWoYQG3vi8p1Rc2c/2gBPWkHQPOCIbwwILh2eaLmzkObeeMXWbjB/QS3D+/B
+ tEtfkzg5w42+VFN3oWtJfexvOaMMXgidUc9ROa7Jm6P55tLtWM4SCOll66F7IDj1+bnQ
+ 4DVkJwPdKCB0msjVtBInSHc4RcvC8IBnOFt+VvZiS0x+m8twRjRIyBUEYAb62TqIAGcm
+ +/yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QxDMqFUouE20qsvNflnewD1IIh7nduTTtj8Eq1UkFGs=;
+ b=AL8bDrW2L2Kr0lDG4yJza5FAar/seLCmGfi0kuj50pORpit3UB/IqFsBDtOmALhbyX
+ oMODM4kBSDBfM5PDG5/5bZU4Tr8WgIZ0OBAE8xDSwR32gKvch1j2A8sYaoQ56S1DstdZ
+ CvVOD3NLN1KtzKRSzkkJPLRtyXWwiZepMQ73Cp/T/cdX1hEWkcwyGq2eB3U07qiYV6nt
+ 4sNfpKwN4pBQZwjhjtmZbDhMgd9G/hs+Wd/wMneG6zPuKFmgXGnt3RUO+UTqV4CXV2cL
+ 3vE6DHvwuG9OCIS5VTfZ5eG5y9Or8W21O9a/Qc5VILT1PFBByp//VWTccW3MBmhzC9sS
+ oiGQ==
+X-Gm-Message-State: AOAM530JVQh5eYs823+YidNPmHwxlPhJDk71LSy59WeiTgO4DgGUfaPe
+ cS2wjamufUGJS1nIaySJl9Y=
+X-Google-Smtp-Source: ABdhPJzBEXyQpF8NUqXKaZybJXOeP6riyABLtFcaEJFm2opVzlsQiH7AjwT6Fl4+hP6mnnsK/jZ0UA==
+X-Received: by 2002:ac8:7d09:: with SMTP id g9mr8345828qtb.288.1616395762629; 
+ Sun, 21 Mar 2021 23:49:22 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.40])
+ by smtp.gmail.com with ESMTPSA id x14sm10156149qkx.112.2021.03.21.23.49.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 21 Mar 2021 23:49:22 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com, unixbhaskar@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: Intel: Fix a typo
+Date: Mon, 22 Mar 2021 12:19:09 +0530
+Message-Id: <20210322064909.4189290-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMBS01.realtek.com.tw (172.21.6.94) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
- flove@realtek.com
+Cc: rdunlap@infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,80 +99,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add bclk detection and dc detection before playback.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
+s/struture/structure/
+
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 ---
- sound/soc/codecs/rt1015.c | 18 +++++++++++++++++-
- sound/soc/codecs/rt1015.h | 10 ++++++++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ sound/soc/intel/atom/sst-mfld-dsp.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 10a7b7745f4b..9238f12999aa 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -669,8 +669,23 @@ static int rt1015_amp_drv_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
-+	unsigned int ret, ret2;
- 
- 	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		ret = snd_soc_component_read(component, RT1015_CLK_DET);
-+		ret2 = snd_soc_component_read(component, RT1015_SPK_DC_DETECT1);
-+		if (!((ret >> 15) & 0x1)) {
-+			snd_soc_component_update_bits(component, RT1015_CLK_DET,
-+				RT1015_EN_BCLK_DET_MASK, RT1015_EN_BCLK_DET);
-+			dev_dbg(component->dev, "BCLK Detection Enabled.\n");
-+		}
-+		if (!((ret2 >> 12) & 0x1)) {
-+			snd_soc_component_update_bits(component, RT1015_SPK_DC_DETECT1,
-+				RT1015_EN_CLA_D_DC_DET_MASK, RT1015_EN_CLA_D_DC_DET);
-+			dev_dbg(component->dev, "Class-D DC Detection Enabled.\n");
-+		}
-+		break;
- 	case SND_SOC_DAPM_POST_PMU:
- 		if (rt1015->hw_config == RT1015_HW_28)
- 			schedule_delayed_work(&rt1015->flush_work, msecs_to_jiffies(10));
-@@ -690,7 +705,8 @@ static const struct snd_soc_dapm_widget rt1015_dapm_widgets[] = {
- 		r1015_dac_event, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
- 		SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_OUT_DRV_E("Amp Drv", SND_SOC_NOPM, 0, 0, NULL, 0,
--			rt1015_amp_drv_event, SND_SOC_DAPM_POST_PMU),
-+			rt1015_amp_drv_event, SND_SOC_DAPM_PRE_PMU |
-+			SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_OUTPUT("SPO"),
- };
- 
-diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
-index 2aeaf65ba793..14344532048e 100644
---- a/sound/soc/codecs/rt1015.h
-+++ b/sound/soc/codecs/rt1015.h
-@@ -209,6 +209,11 @@
- #define RT1015_PLL_K_MASK			(RT1015_PLL_K_MAX)
- #define RT1015_PLL_K_SFT			0
- 
-+/* 0x0020 */
-+#define RT1015_EN_BCLK_DET_MASK			(0x1 << 15)
-+#define RT1015_EN_BCLK_DET				(0x1 << 15)
-+#define RT1015_DIS_BCLK_DET				(0x0 << 15)
-+
- /* 0x007a */
- #define RT1015_ID_MASK				0xff
- #define RT1015_ID_VERA				0x0
-@@ -374,6 +379,11 @@
- #define RT1015_PWR_SWR				(0x1 << 12)
- #define RT1015_PWR_SWR_BIT			12
- 
-+/* 0x0519 */
-+#define RT1015_EN_CLA_D_DC_DET_MASK	(0x1 << 12)
-+#define RT1015_EN_CLA_D_DC_DET		(0x1 << 12)
-+#define RT1015_DIS_CLA_D_DC_DET		(0x0 << 12)
-+
- /* 0x1300 */
- #define RT1015_PWR_CLSD				(0x1 << 12)
- #define RT1015_PWR_CLSD_BIT			12
--- 
-2.29.0
+diff --git a/sound/soc/intel/atom/sst-mfld-dsp.h b/sound/soc/intel/atom/sst-mfld-dsp.h
+index 5795f98e04d4..102b0e7eafb0 100644
+--- a/sound/soc/intel/atom/sst-mfld-dsp.h
++++ b/sound/soc/intel/atom/sst-mfld-dsp.h
+@@ -358,7 +358,7 @@ struct snd_wma_params {
+ 	u8 reserved;	/* reserved */
+ } __packed;
+
+-/* Codec params struture */
++/* Codec params structure */
+ union  snd_sst_codec_params {
+ 	struct snd_pcm_params pcm_params;
+ 	struct snd_mp3_params mp3_params;
+--
+2.31.0
 

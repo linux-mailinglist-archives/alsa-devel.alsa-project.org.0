@@ -2,68 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D6F344BF2
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 17:42:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB727344D11
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 18:17:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEAF51686;
-	Mon, 22 Mar 2021 17:41:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEAF51686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B996165D;
+	Mon, 22 Mar 2021 18:16:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B996165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616431349;
-	bh=wol+Tgw3MzSGXcr8Y6XAFo5yMpI2arRGEZ75zXoocSg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616433429;
+	bh=4TUozX7ccRD2q3eR3NSkCJY5bSVqlkQmi9y8g5UNflE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D5PUN31z+ICOmvKsLzONtCEL6j20TlODvZgR/VJNT8sMFJwpuDFVo+D0j5DTXqFqP
-	 MS/O0v8wv43wFb4+xF7kzK2EV2sgXuRtdq+a3HC6GwMIT93UV6myUYTGbB2ndoTLyW
-	 leKiuDeInfSHpaxaUkXTwvsXanM4arygCoxl3WEg=
+	b=cKTx0N+WV9jMeAiJbvmOHQxWgLdeffqN9cS/tseco71MwkZi4l6r/WvNuWWRXxkz3
+	 TMy+8z+nJae1B7PqUQYuOn9ljwt3yxL0nF0pOKZ3/TMvMfsh56haHczbLWOAU+Eox2
+	 N5TNrH47YaNTUgcEPWxzybusDdCWBXjBlRCluTBY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24946F804DF;
-	Mon, 22 Mar 2021 17:38:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F5E6F801D5;
+	Mon, 22 Mar 2021 18:15:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06D28F8025F; Mon, 22 Mar 2021 17:38:05 +0100 (CET)
+ id 5F464F80155; Mon, 22 Mar 2021 18:15:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFCF3F80240
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 17:37:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFCF3F80240
-IronPort-SDR: Bq/FqvgQBu/6/UDl6qpo9KpuaSIdjxxeSJdsifs7o6sCR3Hk8FB8JL1ihE3y1+bb+3NVVs/uYh
- ZTUxkd+aBexQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="210376646"
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="210376646"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 09:37:48 -0700
-IronPort-SDR: 0VBZOCUy55eTwyW3tCYlT7egJ3SppTqZoE+UF8DXvofiD/zMdYDTW//0ddTvZNXQt5X4Rb4AIo
- 1ZK2Ul8BFzQA==
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="407899141"
-Received: from josemari-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.209.40.21])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 09:37:47 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 8/8] ASoC: SOF: Intel: move ELH chip info
-Date: Mon, 22 Mar 2021 11:37:28 -0500
-Message-Id: <20210322163728.16616-9-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210322163728.16616-1-pierre-louis.bossart@linux.intel.com>
-References: <20210322163728.16616-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FCFFF80155
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 18:15:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FCFFF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="lEd7EDNd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=ALxpnIbdgwKGvYkCqePRJ4vCsE0PnfX/ZLHTWQ+BL/s=; b=lEd7EDNdly8b1md0i3XZkQA1SI
+ W5o0Sj2W7RS3edUrPdN9tVQzgarXA9xHkWUsolYlh5DkBff4py6222RkWQRhz4EHKhGCDM4Q5+pAI
+ CQeLedNNQI/zTGEKNYXtFDHrrC0rXgSYmfnty0HCDQDh4nzWPj/Gg+1xUlky/nUdw4F6hCjlmmCPN
+ GC2fcs4Sst6o1r6vB63gnWcMFjKeOYosWF9y5PzGrCNAhAUKH6aYduS9RJO9GbZf50VtD210Czewf
+ t/jtILBYdQt2a8haNPMMpDmNSBtA23FRHA0nPE4k4c0K/oFwjSbU6NIZY62cqPi6nXQ0zbhxXEoUz
+ V3hq/k6A==;
+Received: from [2601:1c0:6280:3f0::3ba4]
+ by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lOO91-008pWu-Cr; Mon, 22 Mar 2021 17:15:15 +0000
+Subject: Re: [PATCH v5 1/2] platform/x86: dell-privacy: Add support for Dell
+ hardware privacy
+To: Perry Yuan <Perry.Yuan@dell.com>, pobrn@protonmail.com,
+ pierre-louis.bossart@linux.intel.com, oder_chiou@realtek.com,
+ perex@perex.cz, tiwai@suse.com, hdegoede@redhat.com, mgross@linux.intel.com,
+ Mario.Limonciello@dell.com
+References: <20210322093841.11840-1-Perry_Yuan@Dell.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <a1bdec21-efd9-ebf5-1b45-c0a364e0914c@infradead.org>
+Date: Mon, 22 Mar 2021 10:15:07 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>
+In-Reply-To: <20210322093841.11840-1-Perry_Yuan@Dell.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
+ broonie@kernel.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,73 +88,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ELH is a derivative of TGL, so it should be exposed in tgl.c for
-consistency.
+On 3/22/21 2:38 AM, Perry Yuan wrote:
+> From: Perry Yuan <perry_yuan@dell.com>
+> 
 
-No functional change.
+> diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
+> index e0a55337f51a..0e0f1eb35bd6 100644
+> --- a/drivers/platform/x86/dell/Kconfig
+> +++ b/drivers/platform/x86/dell/Kconfig
+> @@ -204,4 +204,20 @@ config DELL_WMI_SYSMAN
+>  	  To compile this driver as a module, choose M here: the module will
+>  	  be called dell-wmi-sysman.
+>  
+> +config DELL_PRIVACY
+> +	tristate "Dell Hardware Privacy Support"
+> +	depends on ACPI
+> +	depends on ACPI_WMI
+> +	depends on INPUT
+> +	depends on DELL_LAPTOP
+> +	depends on LEDS_TRIGGER_AUDIO
+> +	select DELL_WMI
+> +	help
+> +	  This driver provides support for the "Dell Hardware Privacy" feature
+> +	  of Dell laptops.
+> +	  Support for a micmute and camera mute privacy will be provided as
 
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/cnl.c | 16 ----------------
- sound/soc/sof/intel/tgl.c | 16 ++++++++++++++++
- 2 files changed, 16 insertions(+), 16 deletions(-)
+better:
+	                                                are provided as
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 094cde17a1b7..821f25fbcf08 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -350,22 +350,6 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- };
- EXPORT_SYMBOL_NS(cnl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
--const struct sof_intel_dsp_desc ehl_chip_info = {
--	/* Elkhartlake */
--	.cores_num = 4,
--	.init_core_mask = 1,
--	.host_managed_cores_mask = BIT(0),
--	.ipc_req = CNL_DSP_REG_HIPCIDR,
--	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
--	.ipc_ack = CNL_DSP_REG_HIPCIDA,
--	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
--	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
--	.rom_init_timeout	= 300,
--	.ssp_count = ICL_SSP_COUNT,
--	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
--};
--EXPORT_SYMBOL_NS(ehl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
--
- const struct sof_intel_dsp_desc jsl_chip_info = {
- 	/* Jasperlake */
- 	.cores_num = 2,
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 3e46fac53f78..54ba1b88ba86 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -156,6 +156,22 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
- };
- EXPORT_SYMBOL_NS(tglh_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-+const struct sof_intel_dsp_desc ehl_chip_info = {
-+	/* Elkhartlake */
-+	.cores_num = 4,
-+	.init_core_mask = 1,
-+	.host_managed_cores_mask = BIT(0),
-+	.ipc_req = CNL_DSP_REG_HIPCIDR,
-+	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
-+	.ipc_ack = CNL_DSP_REG_HIPCIDA,
-+	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
-+	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
-+	.rom_init_timeout	= 300,
-+	.ssp_count = ICL_SSP_COUNT,
-+	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
-+};
-+EXPORT_SYMBOL_NS(ehl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
- const struct sof_intel_dsp_desc adls_chip_info = {
- 	/* Alderlake-S */
- 	.cores_num = 2,
+> +	  hardware button Ctrl+F4 and Ctrl+F9 hotkey.
+
+Does that say that Ctrl+F4 is a hardware button
+and that Ctrl+F9 is a hotkey?
+If so, what's the difference? and why?  Are they different
+hardware implementations?  Does the user care?
+
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called dell_privacy.
+>  endif # X86_PLATFORM_DRIVERS_DELL
+thanks.
 -- 
-2.25.1
+~Randy
 

@@ -2,81 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A247F344787
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 15:39:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E754B344797
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 15:44:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 199C215E2;
-	Mon, 22 Mar 2021 15:38:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 199C215E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F8B115DC;
+	Mon, 22 Mar 2021 15:43:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F8B115DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616423980;
-	bh=gvVewpDI5W+XJaD8NQwhrf+O2i457YMVRgjbYUznR1I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jWkbOWby8yFDSCczppwe1xRhWxgZuGpakwxcoWi/0dcYCiIxoDTmNFHRabT50gLZW
-	 +xxC8Mof+3trbfDJ93UcKl8eCSVC6UvENEOEKf9R0D5mgJASGLNIphG5QNqm0gKp4+
-	 +lPvwnVHmr4sN7IhvU95V038QVT3cTv/8uDkLV24=
+	s=default; t=1616424252;
+	bh=OnZwwsjicXbPxrnDfqxneFa7HbQhz2isO8W/Ce2c/E4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lvZZ8Trwa4SFy/ygiBRHb+cak9pcJq0hJxljzrxI7WDxmE69CyktrJcUUe3gHukoF
+	 EtBYLkUB/yD1xzvAQTRMH8YSiWxuVFiHhjHJY5SxVP3AAmYXIRPdR8NK839lNz1XLZ
+	 Vi0k/XpGXYaMV/PrSNzsFJmKymBd1FrYGvI81WUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6029DF80107;
-	Mon, 22 Mar 2021 15:38:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A813BF80107;
+	Mon, 22 Mar 2021 15:42:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B68CF8016B; Mon, 22 Mar 2021 15:38:12 +0100 (CET)
+ id B8164F8016B; Mon, 22 Mar 2021 15:42:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E81FF80107
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 15:38:05 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 32F73A003E;
- Mon, 22 Mar 2021 15:38:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 32F73A003E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1616423885; bh=DxfygpitPra5Cpiwi463YlHdOGWgOHeQqjm+lS0lShU=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=GJZvfhmKnms04+ZSNgkCOh42q886BBqayRTu2vqyYfX3jGYeIryR8NK5UbXX3AOnf
- +ENS0BARR4vSMmMRapVPUdn1uuSd8fZ1OUFu0DcM9X3c/ekfvKDuaRcOD+SFc7NqZ6
- JEb59xKL0lUmcdfxY5RxVJpIuZJKqWLFz9bvM76k=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 22 Mar 2021 15:37:52 +0100 (CET)
-Subject: Re: [PATCH v4 2/2] ASoC: rt715:add micmute led state control supports
-To: "Yuan, Perry" <Perry.Yuan@dell.com>, Mark Brown <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "Limonciello, Mario" <Mario.Limonciello@dell.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>
-References: <20210301093834.19524-1-Perry_Yuan@Dell.com>
- <20210308172409.GF4656@sirena.org.uk>
- <SJ0PR19MB4528847687FEEE4A4DED8E3F84659@SJ0PR19MB4528.namprd19.prod.outlook.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <604693cc-08c7-2b5f-632a-58ed537c54a0@perex.cz>
-Date: Mon, 22 Mar 2021 15:37:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6B32F80155
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 15:42:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6B32F80155
+IronPort-SDR: whkCFiIeCdNR1++rSOVjGcAy7bMgdk4fSVWeQ+P4fbfkFGdXjqGpqg4sTpuaUkt0eyCYj1Nfd9
+ i/9Hz7K5UqFQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="189685359"
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="189685359"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2021 07:42:32 -0700
+IronPort-SDR: 42waDhGS7euAc9bzydNIgyQJgn2c//Tgfw+kBfXj+AuyNlvaHv2Z1eTmqfIxU6OAG1l7c5eXMV
+ /YJeZJcDfoVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="607376510"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga005.fm.intel.com with ESMTP; 22 Mar 2021 07:42:30 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: Intel: hda: drop display power on/off in D0i3 flows
+Date: Mon, 22 Mar 2021 16:38:30 +0200
+Message-Id: <20210322143830.3880293-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <SJ0PR19MB4528847687FEEE4A4DED8E3F84659@SJ0PR19MB4528.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "oder_chiou@realtek.com" <oder_chiou@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pobrn@protonmail.com" <pobrn@protonmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,57 +75,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 22. 03. 21 v 10:25 Yuan, Perry napsal(a):
-> Hi Mark:
-> 
->> -----Original Message-----
->> From: Mark Brown <broonie@kernel.org>
->> Sent: Tuesday, March 9, 2021 1:24 AM
->> To: Yuan, Perry
->> Cc: pobrn@protonmail.com; pierre-louis.bossart@linux.intel.com;
->> oder_chiou@realtek.com; perex@perex.cz; tiwai@suse.com;
->> hdegoede@redhat.com; mgross@linux.intel.com; Limonciello, Mario;
->> lgirdwood@gmail.com; alsa-devel@alsa-project.org; linux-
->> kernel@vger.kernel.org; platform-driver-x86@vger.kernel.org
->> Subject: Re: [PATCH v4 2/2] ASoC: rt715:add micmute led state control
->> supports
->>
->> On Mon, Mar 01, 2021 at 05:38:34PM +0800, Perry Yuan wrote:
->>
->>> +	/* Micmute LED state changed by muted/unmute switch */
->>> +	if (mc->invert) {
->>> +		if (ucontrol->value.integer.value[0] || ucontrol-
->>> value.integer.value[1]) {
->>> +			micmute_led = LED_OFF;
->>> +		} else {
->>> +			micmute_led = LED_ON;
->>> +		}
->>> +		ledtrig_audio_set(LED_AUDIO_MICMUTE, micmute_led);
->>> +	}
->>
->> These conditionals on inversion seem weird and counterintuitive.  If we're
->> going with this approach it would probably be clearer to define a custom
->> operation for the affected controls that wraps the standard one and adds the
->> LED setting rather than keying off invert like this.
-> 
-> Currently the sof soundwire driver has no generic led control yet.
-> This patch can handle the led control needs for MIC mute LED, definitely the patch is a short term solution.
-> There is a feature request discussion when we started to implement this solution.
-> https://github.com/thesofproject/linux/issues/2496#issuecomment-713892620
-> 
-> The workable way for now is that we put the LED mute control to the codec driver.
-> When there is new and full sound LED solution implemented, this part will be also optimized.
-> The Hardware privacy feature needs this patch to handle the Mic mute led state change.
-> Before that full solution ready in kernel, could we take this as short term solution?
+Controller needs to ensure display power is enabled only for
+HDA controller reset. Drop the display power-up/down calls from
+D0i3 entry/exit paths.
 
-Perry, it's about the machine detection. Your code is too much generic even
-for the top-level LED trigger implementation. We need an extra check, if the
-proper LED's are really controlled on the specific hardware. Other hardware
-may use RT715 for a different purpose. Use DMI / ACPI checks to detect this
-hardware and don't misuse the inversion flag to enable this code.
+This was previously not possible as codec drivers could not resume the
+links, and instead controller kept the reference to display power. The
+state of display power had be maintained in the D0i3 entry/exit code.
+With commit 87fc20e4a0cb ("ASoC: SOF: Intel: hda: use hdac_ext
+fine-grained link management"), this is no longer needed and the code
+can be cleaned up.
 
-						Jaroslav
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Keyon Jie <yang.jie@intel.com>
+---
+ sound/soc/sof/intel/hda-dsp.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index 6e24e1cb13f9..df4cb29b9a1b 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -727,8 +727,6 @@ int hda_dsp_resume(struct snd_sof_dev *sdev)
+ 
+ 	/* resume from D0I3 */
+ 	if (sdev->dsp_power_state.state == SOF_DSP_PM_D0) {
+-		hda_codec_i915_display_power(sdev, true);
+-
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 		/* power up links that were active before suspend */
+ 		list_for_each_entry(hlink, &bus->hlink_list, list) {
+@@ -839,9 +837,6 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, u32 target_state)
+ 	cancel_delayed_work_sync(&hda->d0i3_work);
+ 
+ 	if (target_state == SOF_DSP_PM_D0) {
+-		/* we can't keep a wakeref to display driver at suspend */
+-		hda_codec_i915_display_power(sdev, false);
+-
+ 		/* Set DSP power state */
+ 		ret = snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
+ 		if (ret < 0) {
+
+base-commit: bf939446c357242b3306e88c5f48976940d29679
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.29.2
+

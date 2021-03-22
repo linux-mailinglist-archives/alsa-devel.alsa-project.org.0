@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A9473436C8
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 03:50:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E323436C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Mar 2021 03:50:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31DAE15E0;
-	Mon, 22 Mar 2021 03:49:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31DAE15E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B67715E5;
+	Mon, 22 Mar 2021 03:49:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B67715E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616381423;
-	bh=B5sGPpbYHMRrbP3+h7jF74WDUZloSUbWQYHHD6DRgek=;
+	s=default; t=1616381440;
+	bh=p7fGcKZqN6yxe7MhjZobxYP7vNHzp5eaoxdkv+Q2YDE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XN2KPFWOZcopwQCV1rbEKqrlOxBZa8+m/L1cDoanh9RtlVNRiZA7MCl/DGazbG4kO
-	 LDVdjqJWINYGedOCG1oUkOFx9MTtEqenN6de44JfzcB7eJt6ePtu/pF4Liq2O9M2KP
-	 lFndjMPKX5YwIMxX7AW13cadlxZ4qrS1NhrMVkf8=
+	b=rqTLPR8G4T2dmu4RcDM/fdLKLd5Iu5CsnLmSscl7Jxc5/9KG0AtDGuxsKkeHjZTGT
+	 168VHuS4GL81tAZANnJWcP52sk3SdaUxl+hGUgt20S832hFv0f2s5SEzM5KWN8A9gI
+	 re3BTovF2bDqsqrlSnVQ0vPrBshFKMjd2d3zZ4Xs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA94BF8032C;
-	Mon, 22 Mar 2021 03:48:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DF4AF8032B;
+	Mon, 22 Mar 2021 03:49:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FDA7F802E3; Mon, 22 Mar 2021 03:48:48 +0100 (CET)
+ id BECC4F8028D; Mon, 22 Mar 2021 03:49:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 90345F8028D
- for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 03:48:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90345F8028D
-Date: 22 Mar 2021 11:48:40 +0900
-X-IronPort-AV: E=Sophos;i="5.81,266,1610377200"; d="scan'208";a="75858102"
+ by alsa1.perex.cz (Postfix) with ESMTP id 7722DF8032B
+ for <alsa-devel@alsa-project.org>; Mon, 22 Mar 2021 03:48:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7722DF8032B
+Date: 22 Mar 2021 11:48:54 +0900
+X-IronPort-AV: E=Sophos;i="5.81,266,1610377200"; d="scan'208";a="75858127"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 22 Mar 2021 11:48:40 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Mar 2021 11:48:54 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 39B4E415CFE5;
- Mon, 22 Mar 2021 11:48:40 +0900 (JST)
-Message-ID: <8735wnaoon.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3D80A415CFE5;
+ Mon, 22 Mar 2021 11:48:54 +0900 (JST)
+Message-ID: <871rc7aoo9.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/3] ASoC: soc.h: fixup return timing for
+Subject: [PATCH 3/3] ASoC: soc.h: return error if multi platform at
  snd_soc_fixup_dai_links_platform_name()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -70,56 +70,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current snd_soc_fixup_dai_links_platform_name() creates name first (A),
-and checks setup target pointer (B), and set it (C).
-We should check target pointer first IMO.
-This patch exchange the order to (B) -> (A) -> (C).
-
-	int snd_soc_fixup_dai_links_platform_name(...)
-	{
-		...
-		/* set platform name for each dailink */
-		for_each_card_prelinks(card, i, dai_link) {
-(A)			name = devm_kstrdup(...);
-			if (!name)
-				return -ENOMEM;
-
-(B)			if (!dai_link->platforms)
-				return -EINVAL;
-
-			/* only single platform is supported for now */
-(C)			dai_link->platforms->name = name;
-		}
-
-		return 0;
-	}
+snd_soc_fixup_dai_links_platform_name() is assuming it is single platform.
+return error if multi platforms.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/sound/soc.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index e4161071f300..200815ca4112 100644
+index 200815ca4112..e746da996351 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -1280,13 +1280,13 @@ int snd_soc_fixup_dai_links_platform_name(struct snd_soc_card *card,
+@@ -1280,6 +1280,10 @@ int snd_soc_fixup_dai_links_platform_name(struct snd_soc_card *card,
  
  	/* set platform name for each dailink */
  	for_each_card_prelinks(card, i, dai_link) {
-+		if (!dai_link->platforms)
++		/* only single platform is supported for now */
++		if (dai_link->num_platforms != 1)
 +			return -EINVAL;
 +
- 		name = devm_kstrdup(card->dev, platform_name, GFP_KERNEL);
- 		if (!name)
- 			return -ENOMEM;
+ 		if (!dai_link->platforms)
+ 			return -EINVAL;
  
--		if (!dai_link->platforms)
--			return -EINVAL;
--
- 		/* only single platform is supported for now */
- 		dai_link->platforms->name = name;
- 	}
 -- 
 2.25.1
 

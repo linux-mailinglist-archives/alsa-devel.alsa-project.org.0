@@ -2,81 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B2B346D8B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 23:48:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F99346D94
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 23:51:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE1391679;
-	Tue, 23 Mar 2021 23:47:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE1391679
+	by alsa0.perex.cz (Postfix) with ESMTPS id A86AE167A;
+	Tue, 23 Mar 2021 23:50:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A86AE167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616539725;
-	bh=LW4OV8a7cwu0zZwmn+GN+Lh5+/A3HUavCJOAtGJcdy0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616539890;
+	bh=/JC2WWMUs5g3ESmAYEusP1t/wdE8qRVZLNmpwAENbac=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tu86RqVJ0eaKbOjjyqhQ84RR155TSckeNYWbs1KbGZ2HAJTGhOeNa3KZ7ZhkLEAD/
-	 VTeN8OhL9PhH1NnOIYsOD7ITGvuhf1BrkCz/1DAB1GrMaA9NuDMr+hxZle0xuDg1UZ
-	 IprRojT5vZpLmmMJES88WagyVUXw/v5+1As2ot3Q=
+	b=rffm+yGjo5MZ7o69xz8Fwrr6827AJSbfcfxbeBg1jtBtIEiHFncLY8CpjcyDbGixg
+	 cL11+10nv6bekE/2XB5XlWB/bNmCJ6rVlpHBuiiMXUDqgu7Hz+hdh+T4MxJa51iwfw
+	 UqtCyEaZpQ5ZU8fnbdFFQGiX2XElBh3N+8Yinn0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12E18F80268;
-	Tue, 23 Mar 2021 23:47:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21227F80257;
+	Tue, 23 Mar 2021 23:50:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FBC8F8025F; Tue, 23 Mar 2021 23:47:18 +0100 (CET)
+ id EA9F4F8025F; Tue, 23 Mar 2021 23:50:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe2d.google.com (mail-vs1-xe2d.google.com
+ [IPv6:2607:f8b0:4864:20::e2d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBCCAF80104
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:47:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBCCAF80104
-Received: by mail-il1-f171.google.com with SMTP id l5so19682580ilv.9
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 15:47:11 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B89FF80155
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:49:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B89FF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="OMPN7pUF"
+Received: by mail-vs1-xe2d.google.com with SMTP id l13so10296874vst.8
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 15:49:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=xZj17CbAhPV0BOUrIhSGjBZvBrtI35jH8ivTaVwdIvs=;
+ b=OMPN7pUFEP9QlCz9mzW11sDqR+bcXJJU+VyoL0Ord/LhAiMnbFp3U1gv1A53UVpRo3
+ pGZ7S+AQGUipcnv4rpM55wPOC2LuQmES4Zh5K/Ed2tm0cC4F4U6SBgDKG0RRKhHgzaaa
+ mhvuWUUSf6q20jx4PHOfcirPyv1oQ/eI5OtVw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=6AvTzTJOE2gdHJ0jAl+cPe+wrFwOXJMa+4lkL1LoiVc=;
- b=LY4EwS/4nIwtm8xE8F5nWblAyZ/K0s6694+p2krhM9XAGyEKc0r9kOXcSU5hUGwtyY
- 3l0fpcQQkvCZLiUp9gsE8cTRLTpvSHYfCnDXNuijCNh+E1OY06WpckvNksv4R3V/neC2
- 068MdPVVFDqq1cJbmLW18Aw0SUDUNoNY7gA3lfrcoltqSkbHkMLbxVs/ROO9jiLBIrEn
- jjUHllvbwEy2Ui2LgvCzFkNJH9uDsokHh1OhYWz7WLwPK2YljXrwy2y2N6IVOn7rbyOT
- yDTdnAxfpkk5fmW6lLDX2Jl8+bUo6OpTVBFsEIcAkWIDjuUz1rX6h6lQcTT0OFm8YJD2
- Kdng==
-X-Gm-Message-State: AOAM530vknMKy6i9ay4OOfkRbIq1fvNQgQg3uNVHfjO6+8PTYi/UjY+w
- IEeGf375+Pbr00co2NFw8Q==
-X-Google-Smtp-Source: ABdhPJxKDO7Wh/viLDxew90U7hRX/c7nWyGGJAhip302aaAmxwMw11ciA4E5DtW5YvV9Mu7WUEYoxA==
-X-Received: by 2002:a92:dc83:: with SMTP id c3mr378452iln.167.1616539629624;
- Tue, 23 Mar 2021 15:47:09 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id e2sm120890iov.26.2021.03.23.15.47.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 15:47:08 -0700 (PDT)
-Received: (nullmailer pid 1490458 invoked by uid 1000);
- Tue, 23 Mar 2021 22:47:07 -0000
-Date: Tue, 23 Mar 2021 16:47:07 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v4 1/9] dt-bindings: soundwire: qcom: clarify data port
- bus parameters
-Message-ID: <20210323224707.GA1490400@robh.at.kernel.org>
-References: <20210312120009.22386-1-srinivas.kandagatla@linaro.org>
- <20210312120009.22386-2-srinivas.kandagatla@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xZj17CbAhPV0BOUrIhSGjBZvBrtI35jH8ivTaVwdIvs=;
+ b=dy4kNCAN6jrsdjif4bFkyTfVXaqLBq0KdzZKR2gMffPolaDIZhSJY1JkUUTmqkbE+8
+ dvmkMA5NzILRmJjMW3hXiYkKQe+lEANxw2BrOoavJtJI8RHkODYJuPet7OiYlrG7b2Jk
+ XuKX7+bkiilo04R7JnP2E3tAemsJKgjgXoXo91wJMcsUyHFapCB9HCn4Bq2/tXwxB9ju
+ dQfEk1Yno9dMvAhxaWWbbfOMLZC9m6enU1TcoDjKytLh8F12561n6cLT0CEJnH7PKx9D
+ B31UXpyCgTcVojiCDDmtx5uuLW+sKXrqfUtHzq8fPVMrmYGOyz2suD6NcpLXi2gQbME9
+ 5hqA==
+X-Gm-Message-State: AOAM5332gxIZMcinvsmXLx1kKORgEgRF99n6bLkR48awwq5O+VxbQUHM
+ i0uWWmkN2dqY9s4odMgFdSSyAE60lXu44gyl1CBIsA==
+X-Google-Smtp-Source: ABdhPJwckSkJtU1LzKoFGeFTfaM4SDYgjQVY67jVUWs75Uxv4Iu0h6f7t2CEPRK6PcZLsMfytIvJPqfZHk0X6tK6g/g=
+X-Received: by 2002:a05:6102:ce:: with SMTP id u14mr249633vsp.28.1616539792777; 
+ Tue, 23 Mar 2021 15:49:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210312120009.22386-2-srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
+References: <20210317172945.842280-1-perex@perex.cz>
+ <20210317172945.842280-7-perex@perex.cz>
+ <a3ddb881-6580-cd25-ef3c-734e686e6942@redhat.com>
+ <s5h5z1nf47r.wl-tiwai@suse.de>
+ <3820909c-29ce-9f3f-d1e6-c4611e06abe4@redhat.com>
+ <s5h35wqff1m.wl-tiwai@suse.de>
+ <a2018c94-8731-de29-e447-92457176a1b4@redhat.com>
+ <s5hy2eidul2.wl-tiwai@suse.de>
+ <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
+ <CAOReqxh-ztd-FWvhoipUbkhzfhZCyH5KY8v1VwjswNFH7OnARg@mail.gmail.com>
+In-Reply-To: <CAOReqxh-ztd-FWvhoipUbkhzfhZCyH5KY8v1VwjswNFH7OnARg@mail.gmail.com>
+From: Dylan Reid <dgreid@chromium.org>
+Date: Tue, 23 Mar 2021 15:49:40 -0700
+Message-ID: <CAEUnVG6ZO+kiPMnebG6pq3NkRqvP80Q8cB5bPJdgPt9DUgALzw@mail.gmail.com>
+Subject: Re: [PATCH v4 6/6] ALSA: led control - add sysfs kcontrol LED marking
+ layer
+To: Curtis Malainey <cujomalainey@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,17 +102,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Mar 2021 12:00:01 +0000, Srinivas Kandagatla wrote:
-> Some of the parameters for data ports are not applicable or not implemented
-> in IP. So mark them as invalid/not applicable in DT so that controller is
-> aware of this.
-> 
-> Add comment to these bindings to provide more clarity on the values!
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../bindings/soundwire/qcom,sdw.txt           | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
+On Tue, Mar 23, 2021 at 2:40 PM Curtis Malainey <cujomalainey@google.com>
+wrote:
 
-Acked-by: Rob Herring <robh@kernel.org>
+> On Mon, Mar 22, 2021 at 7:16 AM Jaroslav Kysela <perex@perex.cz> wrote:
+>
+> > Dne 20. 03. 21 v 10:48 Takashi Iwai napsal(a):
+> >
+> > >> With other OS you mean e.g. Android?  Android has device-specific
+> > >> init-scripts which can either call alsactl or directly do the
+> > >> echo-s.
+> > >
+> > > Also ChromeOS.  I'd like to get a general consensus before moving
+> > > forward.
+> >
+> > Where are ChromeOS people? They could join to the discussion which is
+> > floating
+> > few months now. Perhaps, the gmail's spam filter does not allow them to
+> > communicate with us ;-)
+> >
+> > Hi Sorry, i missed this was directly to dgreid and me. Will try to get up
+> to speed on this.
+>
+
+Sorry, this one wasn't gmail's fault, it was my manual filtering of emails
+about LEDs:)
+
+Chrome OS is supportive of user space control when possible. We will work
+with partners to establish a standard in Chrome OS for mute LED meaning
+(built in, headset, usb, etc). Having user space control allows different
+ecosystems to make different policy decisions. For us, the UCM-specified
+mute on/off will be driven exclusively by the audio daemon.
+
+
+>
+> Curtis
+>
+> >                                                 Jaroslav
+> >
+> > --
+> > Jaroslav Kysela <perex@perex.cz>
+> > Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> >
+>

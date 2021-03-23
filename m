@@ -2,81 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00D26346575
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 17:39:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A89333465AE
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 17:52:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93B661689;
-	Tue, 23 Mar 2021 17:38:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93B661689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 486431672;
+	Tue, 23 Mar 2021 17:51:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486431672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616517549;
-	bh=HgKPHto8mHkCjyi5ILlZVzWSGyN6br21F84QT/vL+3Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616518327;
+	bh=MaY3bhUWgiKwNMIdgK/nWwCN5fJZ5B9g8VURheU4zYk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ft+/4I8/r4sYul2GF0WyiX/3Hc0DS9Q/bv2IZypKUGlExOCg4/FTS18ggML0j3L7u
-	 9LML/La/ZXqhWQKyrMaAjSxlAda6rQBxx+7Z47LHsSmEF9XamMUwxcO4Qupm1Llivl
-	 hkJoW5SoduOa4qcGAPVg5iDc3bhfoiNgoCjM0s9A=
+	b=vDhk83upysUsJrM1spF/PViiwRgkveJ9w1b/ZaZ8rxRZJk0dL2wGGzAqQj33Y11nD
+	 DCznPHkd+UZPo7Abqz8hhiVQHHXtPqOvG/SS1mJy53G63dDc0aXinocW+minXgX0gq
+	 Akki5VRQ+HbYaVQzg5JSiXF9ldNWKM31pGxOOHw4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1733F8032B;
-	Tue, 23 Mar 2021 17:36:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D32C2F80268;
+	Tue, 23 Mar 2021 17:50:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3730FF80155; Tue, 23 Mar 2021 17:36:53 +0100 (CET)
+ id E08E0F8025F; Tue, 23 Mar 2021 17:50:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_13,PRX_BODY_30,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60F68F80155
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 17:36:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60F68F80155
-Received: by mail-il1-f179.google.com with SMTP id r8so18694819ilo.8
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 09:36:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=a5L9Gfl5bF9CWxUCr8sVjvHZWCe8RrXgbQdGFig1nYs=;
- b=L3WUvRdIdh3H53mB8cZah7nclCHU/adIAe3mHSis3B8aIV6wVtHR3zEDOsESNRmkJ8
- wfMFYyI4Ec5AV+KHpSV7Esiyd1qV3V+qdfJ41HeXCEiLVQ+Qnx8aapYtpaKhFrPwN9xS
- ch9gIGXDQcHMeIpLO7/EOrnkjCR0hzKhgBhcw7AhEsSiA+UMjbkyFLldazF+rzJI3Ws4
- 3R3/Tu5GyW5swtaQBWLg7UUvNIlAgb0YusAgonwCkVPkJq7hkDDuPvyYHDRVcYCAulVr
- e4SAolAHkdpGuej6gkYabgWIXmQqlRpq1Ol10phfelwGHlmpqFBCHQN0aSIfIiptRoUW
- FVhg==
-X-Gm-Message-State: AOAM533pi8eJLE0goZxf019poQp9Kb1rHdvgDB7BCoiCZgS7hbchkMq/
- 9X9sPDpOicp+HbHkkLJ2QA==
-X-Google-Smtp-Source: ABdhPJzYv870/Z54kIEaV2byBDMaU5dDne7KIgxJcZeYgzfBYc+YJkBPqXyu1dPOH2Uoc8m3Hvw/Uw==
-X-Received: by 2002:a92:194a:: with SMTP id e10mr5753956ilm.213.1616517406984; 
- Tue, 23 Mar 2021 09:36:46 -0700 (PDT)
-Received: from xps15.herring.priv ([64.188.179.253])
- by smtp.googlemail.com with ESMTPSA id r18sm9771268ilj.86.2021.03.23.09.36.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 09:36:46 -0700 (PDT)
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/3] ASoC: dt-bindings: socionext: Use audio-graph-port schema
-Date: Tue, 23 Mar 2021 10:36:34 -0600
-Message-Id: <20210323163634.877511-4-robh@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210323163634.877511-1-robh@kernel.org>
-References: <20210323163634.877511-1-robh@kernel.org>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A30A2F80155
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 17:50:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A30A2F80155
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 01792AD38;
+ Tue, 23 Mar 2021 16:50:27 +0000 (UTC)
+Date: Tue, 23 Mar 2021 17:50:26 +0100
+Message-ID: <s5h8s6dbyr1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: Adding movable PCIe BARs support in snd_hda_intel
+In-Reply-To: <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com>
+References: <e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com>
+ <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com>
+ <s5hwntyaylg.wl-tiwai@suse.de>
+ <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com>
+ <s5him5hc443.wl-tiwai@suse.de>
+ <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>, Lubomir Rintel <lkundrak@v3.sk>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org
+Cc: "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
+ alsa-devel@alsa-project.org,
+ Sergei Miroshnichenko <s.miroshnichenko@yadro.com>,
+ "Christian.Koenig@amd.com" <Christian.Koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,59 +77,230 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the Socionext audio schemas to use audio-graph-port.yaml schema
-for 'port' nodes.
+On Tue, 23 Mar 2021 17:11:20 +0100,
+Andrey Grodzovsky wrote:
+> 
+> 
+> 
+> On 2021-03-23 10:54 a.m., Takashi Iwai wrote:
+> > On Tue, 23 Mar 2021 15:22:01 +0100,
+> > Andrey Grodzovsky wrote:
+> >>
+> >>
+> >>
+> >> On 2021-03-23 7:39 a.m., Takashi Iwai wrote:
+> >>> On Tue, 23 Mar 2021 12:23:16 +0100,
+> >>> Andrey Grodzovsky wrote:
+> >>>>
+> >>>> Just an update, i found the issue which was actually to wake up the HW
+> >>>> before doing stop/restart (using pm_runtime_get_sync), also handled
+> >>>> protecting from concurrent snd_pcm_ioctls accessing the registers
+> >>>> while the BAR is unmapped. Can go through BAR move while aplay is
+> >>>> running now.
+> >>>>
+> >>>> Once again, would be happy for any comments on the code -
+> >>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C047e560ff3994f24656c08d8ee0b9497%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521081583290130%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Egfb346Qsxvdk33o1HhuBJihwbZRc8EZa9aJPzQ3Prk%3D&amp;reserved=0
+> >>>
+> >>> Hrm, this kind of change is a bit scary; we have some mechanism to
+> >>> stop the HD-audio hardware operation (e.g. for loading the DSP for
+> >>> CA0132 codec), but it's pretty hackish and error-prone.
+> >>
+> >> At least I didn't have issue with HW stopping, the problem is with
+> >> unampping hdac_bus->remap_addr - as long as it's not iorampped
+> >> back no code besides the PCI BAR move should run at all as any register
+> >> access from this address will cause fatal page fault. I took care
+> >> of most of the IOCTls i think, the interrupts are disabled in azx_stop_chip
+> >> but I am probably still missing some stuff like some background work
+> >> items or other IOCTls code path.
+> >
+> > Are the all running processes stopped before entering rescan_prepare
+> > callback?  Otherwise, e.g. a process accessing PCM stream via mmap can
+> > run without ioctl and this may trigger the PCM period elapsed
+> > eventually.  
+> 
+> Is any of them remaps the BAR into user process VMA ? The only two I see
+> in the sound subsystem doing remapping are are had_pcm_mmap and
+> snd_pcm_lib_default_mmap
+> and both of them remap dma buffers which are in system memory and not
+> MMIO space and  hence should not be impacted by the BAR move.
 
-The number and numbering of port nodes should be documented, but is not.
-Leave a FIXME here so others don't copy.
+When a stream is running, it can cause an interrupt that may issue an
+unsolicited event that is deals with CORB/RIRB later in a work
+asynchronously.
 
-Cc: Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- .../devicetree/bindings/sound/socionext,uniphier-aio.yaml | 8 +++-----
- .../bindings/sound/socionext,uniphier-evea.yaml           | 8 +++-----
- 2 files changed, 6 insertions(+), 10 deletions(-)
+> Or maybe I didn't get your concern correctly ? Why there would be a
+> problem to access the stream otherwise during the BAR move ?
+> 
+> Similarly, a control interface may issue the verb that is
+> > processed via CORB/RIRB, too.  So what you need to cover is not only
+> > about PCM.
+> 
+> Can you point me to the code path for this - is this through another
+> type of IOCTL or interrupt handlers ?
 
-diff --git a/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
-index 4987eb91f2ab..55ae198220f4 100644
---- a/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
-+++ b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
-@@ -46,11 +46,9 @@ properties:
- 
- patternProperties:
-   "^port@[0-9]$":
--    type: object
--    properties:
--      endpoint: true
--    required:
--      - endpoint
-+    description: FIXME, Need to define what each port is.
-+    $ref: audio-graph-port.yaml#
-+    unevaluatedProperties: false
- 
- additionalProperties: false
- 
-diff --git a/Documentation/devicetree/bindings/sound/socionext,uniphier-evea.yaml b/Documentation/devicetree/bindings/sound/socionext,uniphier-evea.yaml
-index 228168f685cf..48ddfcbbcbae 100644
---- a/Documentation/devicetree/bindings/sound/socionext,uniphier-evea.yaml
-+++ b/Documentation/devicetree/bindings/sound/socionext,uniphier-evea.yaml
-@@ -40,11 +40,9 @@ properties:
- 
- patternProperties:
-   "^port@[0-9]$":
--    type: object
--    properties:
--      endpoint: true
--    required:
--      - endpoint
-+    description: FIXME, Need to define what each port is.
-+    $ref: audio-graph-port.yaml#
-+    unevaluatedProperties: false
- 
- additionalProperties: false
- 
--- 
-2.27.0
+Yes, it's handled in the ALSA core control ioctls.  Many of the
+control *_get()/*_put() callbacks in HD-audio are involved with the
+amp or other HD-audio verbs (typically calling snd_hda_codec_amp*(),
+etc).  Those are the mixer elements and handled via regmap with
+HD-audio backend that deals with CORB/RIRB eventually.
 
+> >>> Do we really need the BAR remap while operating the sound streaming?
+> >>> That is, can't we simply refuse the remap if it's in operation?
+> >>> If it can be refused, we may avoid a big locking or such.
+> >>
+> >> Problem here is that this feature is for the sake of hot-plug of a
+> >> device, this supposed to give enough MMIO space to place all the BARs
+> >> of newly plugging in device. Refusing to move BARs because there is some
+> >> app using the sound card on the background might then lead to failure of
+> >> plugging in the new device and this doesn't sound as a reasonable
+> >> behavior to me. Also note that the lock's impact is minimal as it's
+> >> read side lock only in the IOCTLs an so as long as hot plug not
+> >> taking place it has no impact.
+> >
+> > But a hot-plugged device can't have any running files, no?
+> > So at which timing is the BAR movement _must_ happen?
+> 
+> No, the devices this code is written for are those already in the
+> system before the new device is plugged in, the new device needs enough
+> free MMIO space for his own BARs and so this features enables existing
+> devices to allow the PCI core to move their BARs within the  physical
+> address space such that enough free space will be available inside
+> the MMIO window allocated for the new device's upstream PCI bridge.
+
+Hmm, OK, so it's other way round as I thought of.
+
+> > And, even if we need some synchronization, the current lock
+> > implementation looks fragile to me.  We likely overlook something when
+> > trying to cover each branch code path.
+> >
+> > Basically it needs to wait until all running processes via PCM or
+> > control API are released.
+> 
+> This approach brings a couple of hard questions -
+> 
+> How we make them stop at once - they might run for long time, you
+> suggest something like invalidate all their mmaps and on next page
+> fault return SIGBUS to terminate them ? Then I need also to know they
+> actually are done - should I wait for their device file instance
+> release? What if they don't access any mmapped are for a long time ?
+> Sending SIGKILL explicitly ? But do I have the task id's of all of them ?
+
+You shouldn't kill them but wait for them aborting gracefully, IMO.
+Essentially a kind of hot-unplug.  Most of Linux drivers won't kill
+processes at the hot-unplug, AFAIK.
+
+But if it has to be done so, we have a list of file descriptors that
+are attached to the PCM and the control devices, too...
+
+> We had those scenarios discussed during my initial work on GPU hot
+> unplug and came to a conclusssion that trying to wait for current
+> processes to die is not a good approach - see the this respone I got
+> at the time for example - 
+> https://lists.freedesktop.org/archives/dri-devel/2020-May/265467.html
+
+But should this be seen rather as an analogy of hot-replug?  That
+won't kill processes.
+
+
+Takashi
+
+> 
+> Andrey
+> 
+>   We have a mechanism to block the new opens
+> > like snd_hda_lock_devices().  We'll need an additional stuff to wait
+> > until all opened devices are released there, and this requires some
+> > help in the core code, I suppose.
+> > (Actually this hackish lock_devices/unlock_devices should have been in
+> >   the core stuff from the beginning...)
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> >
+> >>
+> >> Andrey
+> >>
+> >>>
+> >>>
+> >>> thanks,
+> >>>
+> >>> Takashi
+> >>>
+> >>>>
+> >>>>
+> >>>> Andrey
+> >>>>
+> >>>> On 2021-03-19 5:22 p.m., Andrey Grodzovsky wrote:
+> >>>>> Hi, I am working on adding AMD related drivers support for PCIe BARs
+> >>>>> move feature developed by Sergei
+> >>>>> (https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flinuxplumbersconf.org%2Fevent%2F7%2Fcontributions%2F847%2Fattachments%2F584%2F1035%2Flpc2020_sergmir.pdf&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C047e560ff3994f24656c08d8ee0b9497%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521081583290130%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=7n2pk2fzcltX4UxdLnDlqZxIqtG2G6922XiDkJIVMeA%3D&amp;reserved=0).
+> >>>>>
+> >>>>> His feature is still not upstream, all his code and mine on top can
+> >>>>> be seen here -
+> >>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C047e560ff3994f24656c08d8ee0b9497%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521081583290130%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Egfb346Qsxvdk33o1HhuBJihwbZRc8EZa9aJPzQ3Prk%3D&amp;reserved=0
+> >>>>>
+> >>>>> I did basic implementation fro amdgpu driver and now I am doing the
+> >>>>> same for snd_hda_intel to support our on GPU Azalia audio
+> >>>>> chips. This relevant commit is here -
+> >>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1%26id%3D7ec0f60633e898cb941cebb3cd18aae1374fc365&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C047e560ff3994f24656c08d8ee0b9497%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521081583290130%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=o5Iv8aTSOyj3m32oA4Dp4k1y%2BZxFTStYMl%2F4ogS9OtA%3D&amp;reserved=0
+> >>>>>
+> >>>>> Any driver that wants to support movable BARs needs to implement
+> >>>>> rescan_prepare, rescan_done and bar_fixed callbacks where
+> >>>>> rescan_prepare needs to stop HW/SW and unamp all MMIO mappings and
+> >>>>> rescan_done needs to ioremap the BAR from it's new MMIO location and
+> >>>>> restart HW/SW.
+> >>>>>
+> >>>>> I am able currently to trigger BARs move by sysfs using
+> >>>>> "/sys/bus/pci/rescan" and the driver will go through the sequence I
+> >>>>> described above without hangs. Problem is that after this when i try
+> >>>>> to use mplayer I am getting following errors:
+> >>>>>
+> >>>>> andrey@andrey-test:~$ sudo mplayer -ao alsa:device=hw=0.3
+> >>>>> Downloads/file_example_MP3_5MG.mp3
+> >>>>> MPlayer 1.3.0 (Debian), built with gcc-9 (C) 2000-2016 MPlayer Team
+> >>>>> do_connect: could not connect to socket
+> >>>>> connect: No such file or directory
+> >>>>> Failed to open LIRC support. You will not be able to use your remote
+> >>>>> control.
+> >>>>>
+> >>>>> Playing Downloads/file_example_MP3_5MG.mp3.
+> >>>>> libavformat version 58.29.100 (external)
+> >>>>> Audio only file format detected.
+> >>>>> Load subtitles in Downloads/
+> >>>>> ==========================================================================
+> >>>>> Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
+> >>>>> AUDIO: 44100 Hz, 2 ch, s16le, 320.0 kbit/22.68% (ratio: 40000->176400)
+> >>>>> Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers
+> >>>>> I, II, III)
+> >>>>> ==========================================================================
+> >>>>> AO: [alsa] 44100Hz 2ch s16le (2 bytes per sample)
+> >>>>> Video: no video
+> >>>>> Starting playback...
+> >>>>> A:   0.1 (00.0) of 132.0 (02:12.0) ??,?%
+> >>>>> Audio device got stuck!
+> >>>>>
+> >>>>> and in dmesg I see
+> >>>>> [  365.355518] snd_hda_codec_hdmi hdaudioC0D0: Unable to sync
+> >>>>> register 0x2f0d00. -5
+> >>>>>
+> >>>>> Also I see 296.619014] snd_hda_intel 0000:0a:00.1: CORB reset
+> >>>>> timeout#2, CORBRP = 65535 error during the rescan_done callback
+> >>>>> execution
+> >>>>>
+> >>>>> I know it has to do with the move of BAR's MMIO address because when i
+> >>>>> disallow BAR migration by returning true from bar_fixed callback I
+> >>>>> have no such errors and mplayer works fine.
+> >>>>>
+> >>>>> I enabled MMIO trace and didn't see that post BAR move there is a
+> >>>>> wrong MMIO access - all of them are from the new MMIO base offset -
+> >>>>> 0xfcd80000 (trace attached including mmio trace and dmesg)
+> >>>>>
+> >>>>> I would be happy for any idea on this and any comment on the
+> >>>>> correctness of my sequence in the code
+> >>>>>
+> >>>>> Andrey
+> >>>>
+> >>
+> 

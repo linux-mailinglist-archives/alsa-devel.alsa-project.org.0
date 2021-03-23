@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F53346BE2
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 23:14:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E052346BEA
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 23:14:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 886EE167F;
-	Tue, 23 Mar 2021 23:13:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 886EE167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD8911686;
+	Tue, 23 Mar 2021 23:14:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD8911686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616537658;
-	bh=8jHtcyQnu/VSZYfYhOCQiM7CrK40g6+TchzXrIUIuug=;
+	s=default; t=1616537697;
+	bh=xJqjy+7weTlzSdZIQvB4cKpexVA+CmBfz/5tmXRjPCI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W7cX570crB4m2nKV6iOUwR35xlt5Kh5fvwemNc/DrKPcjDq4mjB4/PFUccW6NU31p
-	 g4eFrkXhYIujsya+gqVDK5UASOgsWMSb9KVxu6QVMJD8VZ8sxeM3vJ8EJpGSpMKwuq
-	 UZBDYiK2HWuRT20JBKfZIzt7Py6T6D/UEK72wvMQ=
+	b=ukH5Ba0/3MrslaTkHhBNww30fQk/zfuFp1O5fG7mlBePylWLej6aisjhy40t5nBB6
+	 7fC8xyH8Z0av7V1WChpgy22P+CZJFNhG+3opiW1COZ5Vxrkik+VbZ9Qur56n7dL0TT
+	 Em/7BG9N1RkuJvJoK2Zr8iHATAUfyaEkApPo8Ktw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97FA1F80290;
-	Tue, 23 Mar 2021 23:12:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 646D2F8032B;
+	Tue, 23 Mar 2021 23:12:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69393F8025F; Tue, 23 Mar 2021 23:12:33 +0100 (CET)
+ id 49572F8026D; Tue, 23 Mar 2021 23:12:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B5ECF80257
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:12:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B5ECF80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D0A3F800EE
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:12:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D0A3F800EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fRgyxtLW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F136A61879;
- Tue, 23 Mar 2021 22:12:27 +0000 (UTC)
+ header.b="tceejv7M"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EE245619C3;
+ Tue, 23 Mar 2021 22:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616537548;
- bh=8jHtcyQnu/VSZYfYhOCQiM7CrK40g6+TchzXrIUIuug=;
+ s=k20201202; t=1616537551;
+ bh=xJqjy+7weTlzSdZIQvB4cKpexVA+CmBfz/5tmXRjPCI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fRgyxtLW3cqQO38t9DeYJvCeUKmJOLFEXGoVcUj2ED73u1drKmzrMkW9d1e56dsGZ
- LFg0YhT1CtUBILN1bBXBzPHTFgMabgxcRYIC9KVmUhQBI4YpL0SEiUicIcDbi6YwDY
- BuEkP/ehHozo5d0ay517os4rXsoWwt1f76C9nEAF3+5w3VmSMFwtS4nrDOkMphptWq
- /RyoV59+M5ltj7VNJcg3WMb6Xq7xP3ntaSwPECI/BkWx+3K57x5mYz5rCIdcSHpanC
- YZfFZXydf5auT138CSZKvsz+ihRt+tBCmt+0DQVzyuLCsOlDLbAWgIvN9M6qomDuTB
- yJJAXmjJasLPQ==
+ b=tceejv7McpSNYJf1CFHE+FPQOuP/4eL8tqYhMg8FI1eBVsyhY0MP0IyAsSxbQJrWs
+ 1f5bHr81ChfTi3n3YlpROvkaWqJiBquopCiZqi7rb2ln4Azzoth4Pk/gLARA5tgG2u
+ Bxwz4YqJ6RfiTh2gBmTFs2n8/MrP6KgRRX6tPaEPpBi99vTP+bfdkqs/MaBiT/nJ4L
+ /mPP2c/dK0JKOvRU7sdOsX//3oSBFsocwUp42GZLsEEtKlvIEPJmJAZGKWr0iqUJb+
+ s8rUQrpJmA+8jk01LRDk5QJy4Y3zgGakTX99a3oq0rTfXsTs2//OQs42CU3n5wcJ8s
+ Dtsk8+Xwc9SDg==
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: drop display power on/off in D0i3
- flows
-Date: Tue, 23 Mar 2021 22:12:13 +0000
-Message-Id: <161653747938.32729.17016573143292707136.b4-ty@kernel.org>
+To: perex@perex.cz, alsa-devel@alsa-project.org, peter.ujfalusi@ti.com,
+ kuninori.morimoto.gx@renesas.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, patches@opensource.cirrus.com, daniel.baluta@nxp.com,
+ gustavoars@kernel.org, ckeepax@opensource.cirrus.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: wm8960: Fix wrong bclk and lrclk with pll enabled
+ for some chips
+Date: Tue, 23 Mar 2021 22:12:14 +0000
+Message-Id: <161653747938.32729.14710605922324529557.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210322143830.3880293-1-kai.vehmanen@linux.intel.com>
-References: <20210322143830.3880293-1-kai.vehmanen@linux.intel.com>
+In-Reply-To: <1616150926-22892-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1616150926-22892-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,17 +84,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Mar 2021 16:38:30 +0200, Kai Vehmanen wrote:
-> Controller needs to ensure display power is enabled only for
-> HDA controller reset. Drop the display power-up/down calls from
-> D0i3 entry/exit paths.
+On Fri, 19 Mar 2021 18:48:46 +0800, Shengjiu Wang wrote:
+> The input MCLK is 12.288MHz, the desired output sysclk is 11.2896MHz
+> and sample rate is 44100Hz, with the configuration pllprescale=2,
+> postscale=sysclkdiv=1, some chip may have wrong bclk
+> and lrclk output with pll enabled in master mode, but with the
+> configuration pllprescale=1, postscale=2, the output clock is correct.
 > 
-> This was previously not possible as codec drivers could not resume the
-> links, and instead controller kept the reference to display power. The
-> state of display power had be maintained in the D0i3 entry/exit code.
-> With commit 87fc20e4a0cb ("ASoC: SOF: Intel: hda: use hdac_ext
-> fine-grained link management"), this is no longer needed and the code
-> can be cleaned up.
+> >From Datasheet, the PLL performs best when f2 is between
+> 90MHz and 100MHz when the desired sysclk output is 11.2896MHz
+> or 12.288MHz, so sysclkdiv = 2 (f2/8) is the best choice.
+> 
+> [...]
 
 Applied to
 
@@ -100,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda: drop display power on/off in D0i3 flows
-      commit: dfb81e3b5f47aa0ea5e4832eeb720bc22f07d0c1
+[1/1] ASoC: wm8960: Fix wrong bclk and lrclk with pll enabled for some chips
+      commit: 16b82e75c15a7dbd564ea3654f3feb61df9e1e6f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

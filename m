@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E8C345460
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 02:01:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B29A6345463
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 02:02:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51A7A15F9;
-	Tue, 23 Mar 2021 02:00:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A7A15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4899D1669;
+	Tue, 23 Mar 2021 02:01:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4899D1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616461292;
-	bh=LncX7slZWpXuYPbwgVAskAneN+Y+f3M+sicUeqO/OMY=;
+	s=default; t=1616461332;
+	bh=NzgG6fu1YAkTYxMXh01OGaiUTjDet6TaKW/2rscx7H0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NOE/movnEKNtxHrn0bvo71iPeMqC5CFwaroA3SMmkRdh3W1M0xNZenQ2aA5jH70bb
-	 XdlwEqXxDTj4GHfiyyJR+sJx296/ktB5iWpnApUFFhBDuA5nNLDPKoosQvBX6wi2Kn
-	 YuzFbggy021PYlBKL1xosq3dygGZuSTZ+9d4f6gQ=
+	b=Nu50/FD0WPJ8xSLafaqEaIDXI+5iDA9sr4TGMAGRdKBMz2tqd5ck4+y7TKcp8Prr+
+	 okhckvG7FxxKnC3FQbJO6/BBnoVerXv7UHGLkCkZBnQWwzGd4Jlx8/haDecpDhQYsQ
+	 k0Q8t53leQfBkzF1AQDKWXqxq3AnR6VlXtjNPE+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4520F802E3;
-	Tue, 23 Mar 2021 01:59:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A2EAF80431;
+	Tue, 23 Mar 2021 01:59:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E160FF8028D; Tue, 23 Mar 2021 01:59:19 +0100 (CET)
+ id 4BCCFF80424; Tue, 23 Mar 2021 01:59:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E523F80107
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 01:59:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E523F80107
-IronPort-SDR: 1Zg/1iaktZ4NYFTJVBYzacJYDXMppSYeKjeRSwBXKTTNTclEIUDWRj7bFsVSwIebH64B+hzIoR
- XbysYZrfSO0w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="275477948"
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="275477948"
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE15EF8016B
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 01:59:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE15EF8016B
+IronPort-SDR: cIOTns7KdSMVbnubdxrcqu94gUGzScJVWED9QtZE0M2RC64QZE8Fgy64Vxgd1AbXQPkcdkC78I
+ asUvKA/QIYoA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="275477951"
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="275477951"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 17:59:12 -0700
-IronPort-SDR: sRu60T7p7qXveA0sE8lUKGVPJidnBMHfWbq7Sy41RVxRT9rRuwU5CWysHVNcZdoZgGk/sg+plu
- pIcGZBFS1TmA==
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="414728338"
+ 22 Mar 2021 17:59:15 -0700
+IronPort-SDR: F1wX+Xi+TbDUIKuJ9J+eNAu6OlRmZx+5UQFaNA7+CyjpxgmWPG7aXO/qho9LIuxdvKlR+mKTK7
+ Wi8oGcndI/2g==
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="414728350"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 17:59:09 -0700
+ 22 Mar 2021 17:59:12 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 2/5] soundwire: bandwidth_allocation: add missing \n in
- dev_err()
-Date: Tue, 23 Mar 2021 08:58:52 +0800
-Message-Id: <20210323005855.20890-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 3/5] soundwire: cadence: add missing \n in dev_err()
+Date: Tue, 23 Mar 2021 08:58:53 +0800
+Message-Id: <20210323005855.20890-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210323005855.20890-1-yung-chuan.liao@linux.intel.com>
 References: <20210323005855.20890-1-yung-chuan.liao@linux.intel.com>
@@ -88,27 +87,19 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/generic_bandwidth_allocation.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/soundwire/cadence_master.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index 0bdef38c9a30..a9abb9722fde 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -406,14 +406,14 @@ int sdw_compute_params(struct sdw_bus *bus)
- 	/* Computes clock frequency, frame shape and frame frequency */
- 	ret = sdw_compute_bus_params(bus);
- 	if (ret < 0) {
--		dev_err(bus->dev, "Compute bus params failed: %d", ret);
-+		dev_err(bus->dev, "Compute bus params failed: %d\n", ret);
- 		return ret;
- 	}
- 
- 	/* Compute transport and port params */
- 	ret = sdw_compute_port_params(bus);
- 	if (ret < 0) {
--		dev_err(bus->dev, "Compute transport params failed: %d", ret);
-+		dev_err(bus->dev, "Compute transport params failed: %d\n", ret);
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index d05442e646a3..1b50cf7abe66 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -1462,7 +1462,7 @@ int sdw_cdns_clock_stop(struct sdw_cdns *cdns, bool block_wake)
+ 	 */
+ 	ret = sdw_bus_clk_stop(&cdns->bus);
+ 	if (ret < 0 && slave_present && ret != -ENODATA) {
+-		dev_err(cdns->dev, "bus clock stop failed %d", ret);
++		dev_err(cdns->dev, "bus clock stop failed %d\n", ret);
  		return ret;
  	}
  

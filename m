@@ -2,69 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13B70346571
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 17:38:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A85346572
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 17:38:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8524B1677;
-	Tue, 23 Mar 2021 17:37:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8524B1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 031D71681;
+	Tue, 23 Mar 2021 17:37:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 031D71681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616517498;
-	bh=xfG78nh6Eyv5N0I+GLGE5h53SWzTvP1Vm24d2LbGCiU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ALLlPpspHv/RQB59W3bieRbq4JlD2KxJ5rEgMufG1adrQ6Jdkl3xWaf++Fs1Wk86H
-	 XpFL4lbVL15Sq5RED9RfeE1R6vb7mDQrUnkiXvgKpM5yHz5H2wlsRr5lHToKnU54Z+
-	 Zyp32b3j3DaDTy/SAc6r8aBh2lJhCtKrFgVMoOc0=
+	s=default; t=1616517516;
+	bh=DByOZWL85blumwAaiQ5LVrcccpYMmbdWq5i8qvA+1+g=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=q9/wK0Bqd3UdEDbiu43XbFOcDrbTvKG27GWeXWUkv41Oh7WO0zsBlLDx4jA9uzmSR
+	 Rl/lXRQRUg/q0xmGhRbSsl4yTxPKgWm+ElvFw/9mwvx3PzfanhP9V/skarkA4KifQf
+	 JruvZ4dfYBvR63awhVHuWcX3H5M0+YgqpUf9etAw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6022F80104;
-	Tue, 23 Mar 2021 17:36:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A715F802A0;
+	Tue, 23 Mar 2021 17:36:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A923F8026D; Tue, 23 Mar 2021 17:36:50 +0100 (CET)
+ id 8551EF80104; Tue, 23 Mar 2021 17:36:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C86CF80104
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 17:36:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C86CF80104
-Received: by mail-io1-f42.google.com with SMTP id n198so18347788iod.0
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 09:36:40 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73957F80257
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 17:36:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73957F80257
+Received: by mail-io1-f41.google.com with SMTP id z3so18363378ioc.8
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 09:36:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=541LKQ57D+BvmUsaoliHNppqzLoXCmsKVD7T7MlJimQ=;
- b=HMnoGgKPDqvmCP9/gCVOsopLyjQOElYmsDFuf1Vky2dYwbuAHVIR4GKoUvUvGywPNJ
- KSmI9+5s0usI+ZL+A69gJtgFkF+R1RUeoNaWlCsZXld9waOEqm6JocgeN7pJwsXO9gDn
- UJ0qH3kSOF49Zs5MqE/tGUnOv9paf5k9nq0hFe0p62uErcZTZXlBolz7IqUqUq2Tkzt5
- WzPKWRiSW91ejOVS/YoF7OtCqmLiSISuMnGgn9IvgLsP8aOkAWMhJi7huA5ooFCg3ljT
- scqHncVZvSuGV7L3ArqjKIGc6qjocmLG51lgs6KtO34lTezdUIc1IhGXiK1QwQ0C3Qp4
- X++Q==
-X-Gm-Message-State: AOAM5301dlFyzjrHLMRbNYG0j3KtB9JaXQFR9bozCxbUs8UUXFRQ0Ujv
- gUUsz6FwP9llGGaUtJMMWw==
-X-Google-Smtp-Source: ABdhPJzR+wm/3d7iE9OkgZDgKyWi2DrqnKcHW2ercCH72t76IuuS7N0iQNoI+0NwhAVjeDhFDK1lMQ==
-X-Received: by 2002:a02:7419:: with SMTP id o25mr5241097jac.100.1616517399087; 
- Tue, 23 Mar 2021 09:36:39 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=NrlmCB22DompeVVasqtI9klCHz0tWOYqgvRAg0Uh2lQ=;
+ b=MlE4zG6GZHDI2opKbFS9TniIktlBgBqqXQldG0l0XSV7WEsAdThnS4ydA5irV9PxsT
+ Sj5Kok6oenNDX/CgPSSxhxFkDrMJlpejxwTW2+Z6af2pR37BthIALiOa/AVhqVLIkY5c
+ SjNUdocWqeZWiYM3cvUJCeExFIRYd4l8Raere5SUnrTZu2GTWQVpG/DpOZRhVpCFcrGe
+ 5HTql/Bx55IDGXkNahiC4sWiUhoyb1uWCf9uaoFtFFPYxSX0Q83bQSzPP/t7DsFk6thO
+ C7WB//JtmcYCDlyNDZBgVYFpqYdlEdda4nvJTjsIkZnEJha4JAOVnNd695Tnkql2PUG0
+ O/Cg==
+X-Gm-Message-State: AOAM533lkD8SH0w2NwYfO0I2VypY+Kfq552Pa3LvzWviBQWj/keTbJD+
+ Kt7haugdMs1MlCzgJaz8Yg==
+X-Google-Smtp-Source: ABdhPJyN2WxJju4I6zYvuQUDJ0RJBums7QB4/O5V/UZKDVigAO95uG3WC0+j8BE6GVSdBb7SvWdVlQ==
+X-Received: by 2002:a05:6638:381c:: with SMTP id
+ i28mr5240391jav.60.1616517401903; 
+ Tue, 23 Mar 2021 09:36:41 -0700 (PDT)
 Received: from xps15.herring.priv ([64.188.179.253])
- by smtp.googlemail.com with ESMTPSA id r18sm9771268ilj.86.2021.03.23.09.36.35
+ by smtp.googlemail.com with ESMTPSA id r18sm9771268ilj.86.2021.03.23.09.36.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 09:36:37 -0700 (PDT)
+ Tue, 23 Mar 2021 09:36:40 -0700 (PDT)
 From: Rob Herring <robh@kernel.org>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 0/3] ASoC: dt-bindings: Rework audio-graph-port schema
-Date: Tue, 23 Mar 2021 10:36:31 -0600
-Message-Id: <20210323163634.877511-1-robh@kernel.org>
+Subject: [PATCH 1/3] ASoC: dt-bindings: Move port/ports properties out of
+ audio-graph-port.yaml
+Date: Tue, 23 Mar 2021 10:36:32 -0600
+Message-Id: <20210323163634.877511-2-robh@kernel.org>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210323163634.877511-1-robh@kernel.org>
+References: <20210323163634.877511-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -89,31 +94,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series refactors the audio-graph-port.yaml schema moving the
-'port' node out of the schema and updating to use graph.yaml schema.
-This allows users to define what each 'port' node is like other graph
-binding users.
+Users of the audio-graph-port schema need to define how many ports
+and what each port is, so they need to define 'ports' and/or 'port'
+anyways. Let's drop 'ports' and 'port' from the schema and adjust users
+to reference audio-graph-port.yaml from a port property.
 
-Rob
-
-Cc: alsa-devel@alsa-project.org
-Cc: linux-tegra@vger.kernel.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>
 Cc: Jonathan Hunter <jonathanh@nvidia.com>
 Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
 Cc: Lubomir Rintel <lkundrak@v3.sk>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Masahiro Yamada <yamada.masahiro@socionext.com>
 Cc: Sameer Pujar <spujar@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-
-Rob Herring (3):
-  ASoC: dt-bindings: Move port/ports properties out of
-    audio-graph-port.yaml
-  ASoC: dt-bindings: Use OF graph schema
-  ASoC: dt-bindings: socionext: Use audio-graph-port schema
-
- .../bindings/sound/audio-graph-port.yaml      | 104 ++++++++----------
+Cc: alsa-devel@alsa-project.org
+Cc: linux-tegra@vger.kernel.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/sound/audio-graph-port.yaml      | 101 ++++++++----------
  .../bindings/sound/marvell,mmp-sspa.yaml      |   6 +-
  .../bindings/sound/nvidia,tegra186-dspk.yaml  |  11 +-
  .../sound/nvidia,tegra210-admaif.yaml         |  11 +-
@@ -121,10 +118,389 @@ Rob Herring (3):
  .../bindings/sound/nvidia,tegra210-dmic.yaml  |  11 +-
  .../bindings/sound/nvidia,tegra210-i2s.yaml   |  11 +-
  .../bindings/sound/renesas,rsnd.yaml          |   5 +-
- .../sound/socionext,uniphier-aio.yaml         |   8 +-
- .../sound/socionext,uniphier-evea.yaml        |   8 +-
- 10 files changed, 89 insertions(+), 97 deletions(-)
+ 8 files changed, 82 insertions(+), 85 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+index 766e9109b2f7..9f68142c9ae3 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+@@ -12,70 +12,59 @@ maintainers:
+ select: false
+ 
+ properties:
+-  port:
+-    description: single OF-Graph subnode
++  reg:
++    maxItems: 1
++  prefix:
++    description: "device name prefix"
++    $ref: /schemas/types.yaml#/definitions/string
++  convert-rate:
++    description: CPU to Codec rate convert.
++    $ref: /schemas/types.yaml#/definitions/uint32
++  convert-channels:
++    description: CPU to Codec rate channels.
++    $ref: /schemas/types.yaml#/definitions/uint32
++patternProperties:
++  "^endpoint(@[0-9a-f]+)?":
+     type: object
+     properties:
+-      reg:
++      remote-endpoint:
+         maxItems: 1
+-      prefix:
+-        description: "device name prefix"
+-        $ref: /schemas/types.yaml#/definitions/string
++      mclk-fs:
++        description: |
++          Multiplication factor between stream rate and codec mclk.
++          When defined, mclk-fs property defined in dai-link sub nodes are
++          ignored.
++        $ref: /schemas/types.yaml#/definitions/uint32
++      frame-inversion:
++        description: dai-link uses frame clock inversion
++        $ref: /schemas/types.yaml#/definitions/flag
++      bitclock-inversion:
++        description: dai-link uses bit clock inversion
++        $ref: /schemas/types.yaml#/definitions/flag
++      frame-master:
++        description: Indicates dai-link frame master.
++        $ref: /schemas/types.yaml#/definitions/phandle
++      bitclock-master:
++        description: Indicates dai-link bit clock master
++        $ref: /schemas/types.yaml#/definitions/phandle
++      dai-format:
++        description: audio format.
++        items:
++          enum:
++            - i2s
++            - right_j
++            - left_j
++            - dsp_a
++            - dsp_b
++            - ac97
++            - pdm
++            - msb
++            - lsb
+       convert-rate:
+         description: CPU to Codec rate convert.
+         $ref: /schemas/types.yaml#/definitions/uint32
+       convert-channels:
+         description: CPU to Codec rate channels.
+         $ref: /schemas/types.yaml#/definitions/uint32
+-    patternProperties:
+-      "^endpoint(@[0-9a-f]+)?":
+-        type: object
+-        properties:
+-          remote-endpoint:
+-            maxItems: 1
+-          mclk-fs:
+-            description: |
+-              Multiplication factor between stream rate and codec mclk.
+-              When defined, mclk-fs property defined in dai-link sub nodes are
+-              ignored.
+-            $ref: /schemas/types.yaml#/definitions/uint32
+-          frame-inversion:
+-            description: dai-link uses frame clock inversion
+-            $ref: /schemas/types.yaml#/definitions/flag
+-          bitclock-inversion:
+-            description: dai-link uses bit clock inversion
+-            $ref: /schemas/types.yaml#/definitions/flag
+-          frame-master:
+-            description: Indicates dai-link frame master.
+-            $ref: /schemas/types.yaml#/definitions/phandle
+-          bitclock-master:
+-            description: Indicates dai-link bit clock master
+-            $ref: /schemas/types.yaml#/definitions/phandle
+-          dai-format:
+-            description: audio format.
+-            items:
+-              enum:
+-                - i2s
+-                - right_j
+-                - left_j
+-                - dsp_a
+-                - dsp_b
+-                - ac97
+-                - pdm
+-                - msb
+-                - lsb
+-          convert-rate:
+-            description: CPU to Codec rate convert.
+-            $ref: /schemas/types.yaml#/definitions/uint32
+-          convert-channels:
+-            description: CPU to Codec rate channels.
+-            $ref: /schemas/types.yaml#/definitions/uint32
+-
+-  ports:
+-    description: multi OF-Graph subnode
+-    type: object
+-    patternProperties:
+-      "^port(@[0-9a-f]+)?":
+-        $ref: "#/properties/port"
+ 
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml b/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
+index 234f64a32184..81f266d66ec5 100644
+--- a/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
++++ b/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
+@@ -9,9 +9,6 @@ title: Marvel SSPA Digital Audio Interface Bindings
+ maintainers:
+   - Lubomir Rintel <lkundrak@v3.sk>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^audio-controller(@.*)?$"
+@@ -54,7 +51,8 @@ properties:
+       - const: rx
+ 
+   port:
+-    type: object
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
+ 
+     properties:
+       endpoint:
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+index b8645d9c38ac..5f6b37c251a8 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+@@ -17,9 +17,6 @@ maintainers:
+   - Jon Hunter <jonathanh@nvidia.com>
+   - Sameer Pujar <spujar@nvidia.com>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^dspk@[0-9a-f]*$"
+@@ -59,14 +56,18 @@ properties:
+       available instances on a Tegra SoC.
+ 
+   ports:
+-    type: object
++    $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+       port@0:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           DSPK ACIF (Audio Client Interface) port connected to the
+           corresponding AHUB (Audio Hub) ACIF port.
+ 
+       port@1:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           DSPK DAP (Digital Audio Port) interface which can be connected
+           to external audio codec for playback.
+@@ -80,7 +81,7 @@ required:
+   - assigned-clock-parents
+   - sound-name-prefix
+ 
+-unevaluatedProperties: false
++additionalProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
+index 7cee7722df41..19eaacc3f12a 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
+@@ -17,9 +17,6 @@ maintainers:
+   - Jon Hunter <jonathanh@nvidia.com>
+   - Sameer Pujar <spujar@nvidia.com>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^admaif@[0-9a-f]*$"
+@@ -41,6 +38,7 @@ properties:
+   dma-names: true
+ 
+   ports:
++    $ref: /schemas/graph.yaml#/properties/ports
+     description: |
+       Contains list of ACIF (Audio CIF) port nodes for ADMAIF channels.
+       The number of port nodes depends on the number of ADMAIF channels
+@@ -48,6 +46,11 @@ properties:
+       in AHUB (Audio Hub). Each port is capable of data transfers in
+       both directions.
+ 
++    patternProperties:
++      '^port@[0-9]':
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
++
+ if:
+   properties:
+     compatible:
+@@ -92,7 +95,7 @@ required:
+   - dmas
+   - dma-names
+ 
+-unevaluatedProperties: false
++additionalProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+index 31f3e51974bb..e568d6c7dddd 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+@@ -17,9 +17,6 @@ maintainers:
+   - Jon Hunter <jonathanh@nvidia.com>
+   - Sameer Pujar <spujar@nvidia.com>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^ahub@[0-9a-f]*$"
+@@ -60,12 +57,18 @@ properties:
+   ranges: true
+ 
+   ports:
++    $ref: /schemas/graph.yaml#/properties/ports
+     description: |
+       Contains list of ACIF (Audio CIF) port nodes for AHUB (Audio Hub).
+       These are connected to ACIF interfaces of AHUB clients. Thus the
+       number of port nodes depend on the number of clients that AHUB may
+       have depending on the SoC revision.
+ 
++    patternProperties:
++      '^port@[0-9]':
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
++
+ required:
+   - compatible
+   - reg
+@@ -77,7 +80,7 @@ required:
+   - "#size-cells"
+   - ranges
+ 
+-unevaluatedProperties: false
++additionalProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
+index 89f4f471be24..fd275a575055 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
+@@ -16,9 +16,6 @@ maintainers:
+   - Jon Hunter <jonathanh@nvidia.com>
+   - Sameer Pujar <spujar@nvidia.com>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^dmic@[0-9a-f]*$"
+@@ -60,14 +57,18 @@ properties:
+       on the maximum available instances on a Tegra SoC.
+ 
+   ports:
+-    type: object
++    $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+       port@0:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           DMIC ACIF (Audio Client Interface) port connected to the
+           corresponding AHUB (Audio Hub) ACIF port.
+ 
+       port@1:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           DMIC DAP (Digital Audio Port) interface which can be connected
+           to external audio codec for capture.
+@@ -80,7 +81,7 @@ required:
+   - assigned-clocks
+   - assigned-clock-parents
+ 
+-unevaluatedProperties: false
++additionalProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
+index 556460332ffb..38e52e7dbb40 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
+@@ -16,9 +16,6 @@ maintainers:
+   - Jon Hunter <jonathanh@nvidia.com>
+   - Sameer Pujar <spujar@nvidia.com>
+ 
+-allOf:
+-  - $ref: audio-graph-port.yaml#
+-
+ properties:
+   $nodename:
+     pattern: "^i2s@[0-9a-f]*$"
+@@ -78,14 +75,18 @@ properties:
+       on the maximum available instances on a Tegra SoC.
+ 
+   ports:
+-    type: object
++    $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+       port@0:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           I2S ACIF (Audio Client Interface) port connected to the
+           corresponding AHUB (Audio Hub) ACIF port.
+ 
+       port@1:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
+         description: |
+           I2S DAP (Digital Audio Port) interface which can be connected
+           to external audio codec for playback or capture.
+@@ -98,7 +99,7 @@ required:
+   - assigned-clocks
+   - assigned-clock-parents
+ 
+-unevaluatedProperties: false
++additionalProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+index 2e1046513603..1e0e14e88913 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+@@ -111,7 +111,9 @@ properties:
+         - pattern: '^dvc\.[0-1]$'
+         - pattern: '^clk_(a|b|c|i)$'
+ 
+-  port: true
++  port:
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
+ 
+ # use patternProperties to avoid naming "xxx,yyy" issue
+ patternProperties:
+@@ -257,7 +259,6 @@ required:
+ 
+ allOf:
+   - $ref: audio-graph.yaml#
+-  - $ref: audio-graph-port.yaml#
+   - if:
+       properties:
+         compatible:
 -- 
 2.27.0
 

@@ -2,94 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F54D345B8B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 11:01:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD7C345BF5
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 11:33:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01DEE1655;
-	Tue, 23 Mar 2021 11:00:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01DEE1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id E66E41677;
+	Tue, 23 Mar 2021 11:32:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E66E41677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616493677;
-	bh=/MfYYTrhClrijsKQXR5lcQL2g3JkUE0RvsAUtEyCCVE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616495600;
+	bh=UjGon8rBTdUQPulqYTpOxEGYRi7GrtOOC6OHhtWBGpE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=naStHYyvGtp2dQDdarjODOuIMx5VBIdtcozMCPV6s6vEhIXdCC9qUztcRRAYOO7oy
-	 9Qnob89r5AIGWAksXvmu0BZlSjjolCNZ/aNCs+YDUb+YipDYQVyV44i71HwWWWx0h/
-	 in27VehuqvDZcSC/QBUXlOwi7J509rltOZXApXPo=
+	b=MDMBypvOlAFiLoDmBih9+ngJTTvMDIBRAY68OQFOtfNLJtvfMeCIzBSSO2wfzFmPn
+	 P0xNizTtwMhQjRy7hwLfTkJPWWOIFMCVXAXC6+Z0typR0WKKhkd0+3n+WZbIS4Czi+
+	 hfdfypSsE7N7uiB1C8l6+mH4qc8BFX4EBQcFaqOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 756B1F80268;
-	Tue, 23 Mar 2021 10:59:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4ADFEF80104;
+	Tue, 23 Mar 2021 11:31:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8665F8025F; Tue, 23 Mar 2021 10:59:48 +0100 (CET)
+ id B193EF8025F; Tue, 23 Mar 2021 11:31:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1D9AF800EE
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 10:59:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1D9AF800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="QPV/0s5b"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12N9u49j032622; Tue, 23 Mar 2021 04:59:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=b6qErrcCVJKETaqJbCUYndAXMiSTFSJSDc+Bcs5NrEs=;
- b=QPV/0s5bNtqQBnZzoOzh6EffApUw7mrEzZgc1XOouRyHLwJOxxSs+odJ5gu+iCV0Si60
- O2hyrCkpv5ocH3nTijbP4c1GRktNWIQN98Zb0Qgr2KkYIXLII1Ibwy8eXymoYED6BWyt
- pRznAmc1DJQlKGKga5kQpX5HO3iSPMoz/S34iYktEQOdiwyKzDp8c92KzYKk3hrYzHLY
- xLI9yux3cA4cPE6oJW3g97890AbjC3MTrdOC5Rv0Vn6DYhKBugsYCH+7EpfT0u1uVVug
- AYdG8WvTqJ8aZFSaZa2k2v04yHNjmUoL0IzR4mJL+D360hwp/KiZa1/BB99RUkLdqr+a CQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 37def3bcqs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 23 Mar 2021 04:59:31 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 23 Mar
- 2021 09:59:29 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Tue, 23 Mar 2021 09:59:29 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C634711CB;
- Tue, 23 Mar 2021 09:59:29 +0000 (UTC)
-Date: Tue, 23 Mar 2021 09:59:29 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: wm8960: Fix wrong bclk and lrclk with pll enabled
- for some chips
-Message-ID: <20210323095929.GS106851@ediswmail.ad.cirrus.com>
-References: <1616150926-22892-1-git-send-email-shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C816F80104
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 11:31:39 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 32665A003F;
+ Tue, 23 Mar 2021 11:31:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 32665A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1616495498; bh=/gB3DldESz8ac/xjUxID2LwrUy5G3dMr8z6g1yoCW+M=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=GtpO1TJhWQQ+UjsUBwff0n017DOx2uCAgRNo3ISz0aqUBVeTxgPyhuuJQdwrayyY0
+ Q69q9M7ruSk0uadnov7tXQgq1AQvugcu/9osygMQWZtY0LHUzTkgFAQAqqyKHlA0yy
+ ZaKxZSeRuvfPm5pdFn+AZ6yDXWwpSFzizN++3QnY=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 23 Mar 2021 11:31:30 +0100 (CET)
+Subject: Re: [PATCH v4 6/6] ALSA: led control - add sysfs kcontrol LED marking
+ layer
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210317172945.842280-1-perex@perex.cz>
+ <20210317172945.842280-7-perex@perex.cz>
+ <a3ddb881-6580-cd25-ef3c-734e686e6942@redhat.com>
+ <s5h5z1nf47r.wl-tiwai@suse.de>
+ <3820909c-29ce-9f3f-d1e6-c4611e06abe4@redhat.com>
+ <s5h35wqff1m.wl-tiwai@suse.de>
+ <a2018c94-8731-de29-e447-92457176a1b4@redhat.com>
+ <s5hy2eidul2.wl-tiwai@suse.de>
+ <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
+ <s5hblbaciqh.wl-tiwai@suse.de> <s5ha6quci82.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <65943f72-6489-24fa-f6af-a2bae8824d90@perex.cz>
+Date: Tue, 23 Mar 2021 11:31:30 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <1616150926-22892-1-git-send-email-shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- suspectscore=0
- mlxscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0 mlxlogscore=952
- bulkscore=0 phishscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103230072
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- gustavoars@kernel.org, kuninori.morimoto.gx@renesas.com,
- patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
- peter.ujfalusi@ti.com, broonie@kernel.org, daniel.baluta@nxp.com,
- linux-kernel@vger.kernel.org
+In-Reply-To: <s5ha6quci82.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Curtis Malainey <cujomalainey@google.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,24 +93,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 19, 2021 at 06:48:46PM +0800, Shengjiu Wang wrote:
-> The input MCLK is 12.288MHz, the desired output sysclk is 11.2896MHz
-> and sample rate is 44100Hz, with the configuration pllprescale=2,
-> postscale=sysclkdiv=1, some chip may have wrong bclk
-> and lrclk output with pll enabled in master mode, but with the
-> configuration pllprescale=1, postscale=2, the output clock is correct.
+Dne 23. 03. 21 v 10:49 Takashi Iwai napsal(a):
+> On Tue, 23 Mar 2021 10:38:46 +0100,
+> Takashi Iwai wrote:
+>>
+>> On Mon, 22 Mar 2021 15:16:30 +0100,
+>> Jaroslav Kysela wrote:
+>>>
+>>> Dne 20. 03. 21 v 10:48 Takashi Iwai napsal(a):
+>>>
+>>>>> With other OS you mean e.g. Android?  Android has device-specific
+>>>>> init-scripts which can either call alsactl or directly do the
+>>>>> echo-s.
+>>>>
+>>>> Also ChromeOS.  I'd like to get a general consensus before moving
+>>>> forward.
+>>>
+>>> Where are ChromeOS people? They could join to the discussion which is floating
+>>> few months now. Perhaps, the gmail's spam filter does not allow them to
+>>> communicate with us ;-)
+>>
+>> Also adding Dylan and Mark to Cc.
+>>
+>> FYI, the patch set is:
+>>   https://lore.kernel.org/alsa-devel/20210317172945.842280-1-perex@perex.cz/
 > 
-> >From Datasheet, the PLL performs best when f2 is between
-> 90MHz and 100MHz when the desired sysclk output is 11.2896MHz
-> or 12.288MHz, so sysclkdiv = 2 (f2/8) is the best choice.
+> ... and now back to the topic.
 > 
-> So search available sysclk_divs from 2 to 1 other than from 1 to 2.
+> So the primary question is whether we want the sysfs entries to allow
+> user-space defining the mute-LED vs control binding externally.  With
+> this, the mute LED is supposed to be set up via udev rules that
+> triggers some alsactl stuff, and the rest is handled in an extension
+> in UCM profile.  If this approach is acceptable on all platforms, we
+> can go for it.  That was the question to other platforms like Android
+> and ChromeOS.
 > 
-> Fixes: 84fdc00d519f ("ASoC: codec: wm9860: Refactor PLL out freq search")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
+> 
+> And, now looking into the details, I have a few more questions:
+> 
+> - The binding with SNDRV_CTL_ELEM_* bit flag is handy for some drivers
+>   but not for everything; e.g. if we want to add the binding in ASoC
+>   machine driver, an API like
+>     snd_ctl_bind_mute_led(card, elem_id, inverted);
+>   would be easier.  It'd be essentially an internal call of the sysfs
+>   binding.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+I would probably create more universal helper for the access field. It may be
+handy to update other flags like INACTIVE or so. Something like:
 
-Thanks,
-Charles
+  snd_ctl_update_access(card, elem_id, access_mask, access_bits);
+
+If we decide to move this information out of access field, we can replace
+those calls with another function.
+
+For ASoC codecs, it may be difficult to do such calls in the init phase,
+because the card is not bound to the component. But yes, I agree that this
+setting should be handled in the upper layer (machine) than the component layer.
+
+>  (I haven't checked, but might this be also more
+>   straightforward conversion for HD-audio case, too?)
+
+I don't think that it brings a simplification. The id composition is more
+complex than 'if (codec->led_flag) access |= LED_GROUP'.
+
+> - The binding in the kernel could (should?) be shown in the sysfs
+>   output.  Currently it seems handled differently?
+
+It isn't. The LED group is stored in the access field and my implementation
+tracks those bits per elements. So, the sysfs LED code updates those bits,
+too. The settings is preserved even if you reload the ctl-led module.
+
+> - Specifying the numid may the code simpler in kernel side?
+>   alsactl has already the string parser.
+
+Yes, but it's not so handy for scripting / UCM. I can add find-ctl-numid
+lookup to UCM, of course, but what about standard shell scripting?
+
+> - Do we have to deal with binding with multiple controls to a single
+>   mute LED?  Might a single exclusive binding make things easier?
+>   Then we don't have to create sysfs entries per card, and it'll be
+>   something like
+>      echo 1:10 > /sys/devices/virtual/sound/ctl-led/mic/bind
+>   which is equivalent with the API call above.
+>   If multiple bindings are attempted, it can simply give an error.
+>   In the driver side, it catches the unexpected binding, too.
+
+AMD ACP digital + HDA analog headset microphone. If we follow the standard HDA
+behaviour, both inputs should trigger the mic LED. Two cards are in the game.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

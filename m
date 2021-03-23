@@ -2,94 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9138346B3E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 22:41:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891D5346BE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 23:14:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E9E31672;
-	Tue, 23 Mar 2021 22:40:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E9E31672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E8171674;
+	Tue, 23 Mar 2021 23:13:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E8171674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616535664;
-	bh=XL/v0Px2Wk94O/3D1JI2t7DTsUuLnEmAPYIR1ZSWHf0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1616537646;
+	bh=IuxcZXDuH7ciWf6IKC7i07wcDMw4N/IhodCrroOKVY4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mVEu9ibaZ0sNVwg7ZxCT4GwFAzI0GrWDMxYGLjqSo707L4Wy91eKDyLEXmQFCa5G0
-	 oBngF5grcadFGBqD0ah3O04jPT9COWjn1PNPwNLqvOzV6eGpHhiaIaKNUDcYAExl+b
-	 HD3Greq5YXYXvurYyC/6BKKwlZthqj3jZgzwCG4I=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81AC7F800EE;
-	Tue, 23 Mar 2021 22:39:38 +0100 (CET)
+	b=ayUUDcwQHicLkTYdvdTFCl5Vw00SLgEQ5iNOifq9XB8eEtxyV10SdGIXHyTHO09wC
+	 Y4QWQ9ihWS20wtf/EZ2mRSkSgG7jUC07adQTCPuntbWqWa6xhSV8nl9tqQm/XKMmj2
+	 1ji/bMOo9UKr7dqEFlx5mDD4j0BObg9uGPANXAGw=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 50695F8028D;
+	Tue, 23 Mar 2021 23:12:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E12A0F8025F; Tue, 23 Mar 2021 22:39:31 +0100 (CET)
+ id 3F5CFF80268; Tue, 23 Mar 2021 23:12:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41D8FF80104
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 22:39:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41D8FF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15ABCF800EE
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:12:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15ABCF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="OVPlrxA8"
-Received: by mail-qk1-x735.google.com with SMTP id i9so16023102qka.2
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 14:39:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YOL5XkMPNo9TsQxLkYS4SVJzILn/JSQkph0vOgzse9Q=;
- b=OVPlrxA8OlZ7WYCRq93ir720QzY4+q1xDwTUDNpVVHcRzYYlFn1rX7zMwST5jXENqP
- IkKUcMCjAxj6F1HBpbE8AQ9FNmbXQ2Y7XQ55nLe+LLzLK8R2bAILQV70pUk0rKflj23c
- eoLza16RnLP0aUw1uAjwJ02pFO+I40zH0ZkZWbHfVa5yl1kEP228gPtgMFk2+j7EgjAh
- cerCVb9ux/gnhjPKQll+Rbsg8+tGSzV8npOXcLfCdAAvRChdufX0tkIQ8cGeUhpyDWD4
- wpI28nPuPwOCVrzI5opaaBA6NvNlAL6ibChP2zuRUiuNqFfEsQ/XkJIN0I4pzTYo2kDx
- 0lbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YOL5XkMPNo9TsQxLkYS4SVJzILn/JSQkph0vOgzse9Q=;
- b=TzMRmjgwFL0FborFIzYOmxVJuMf/+izZ03pwWEqs3CUNYo3AvYQ6caT6LiD4kV0HEH
- YDHzh+Nl7eNomRzNGiPFghqtk36U2mN5XwOU5JXJ6+8WZLO0Ne7YvC4J+xTdr6mziV/n
- p7INUC9k91DR7a66yY6y4A6e5t1yNaK4u4yUAaX9wPkY1YG4u5Z58TRR3dL3um0CuHwh
- Bu8PKYgT3vX4YgGASAmMKn4SJAoCw1GtEVayy2dnD34IQ7XYhhbQAymvkyMHQCzheAaZ
- lbArnaB51k7q1GK/7Sc2e7zfcIsLSo5J2U+XHxcvBwmjinWBvaTdbhKlh2PLR8IRgWCy
- wg7g==
-X-Gm-Message-State: AOAM530qCpWMkxsWQfXK1GHWwakxCD3Z4dV2XihcZUeo8XfbKno3BRJ0
- 87jXo0IoFlG/VPW8li0j9gE+wpQKDkfw5N3sTMS4SQ==
-X-Google-Smtp-Source: ABdhPJwP9I59KXMHiXpFN8anLa8J1OiYIN/2g1Urgp77VWqxMMgG8b+gIZRRv8U7MvsvVATl9Id+tJPrpaLfNyRf1mU=
-X-Received: by 2002:a05:620a:c8d:: with SMTP id
- q13mr117909qki.238.1616535556062; 
- Tue, 23 Mar 2021 14:39:16 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AgETlZwU"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 00718619CB;
+ Tue, 23 Mar 2021 22:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616537545;
+ bh=IuxcZXDuH7ciWf6IKC7i07wcDMw4N/IhodCrroOKVY4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AgETlZwU8+7/LhLRSt9NTyJz5lJfbsYZ/KKbI8CdK0KdlNj8yvKk8D8nPyC4Ku/nR
+ LQAGLFsED2QRZKKQO+teTWii8SJ4edOeXOEfB6hIVUgtp9uDSU096ySGEwqbfNJJwH
+ 0uDra+TE34Ggm1iUas3/iltVLauwvujEIccpttdTX/3WeSVLNk9bjpXFVbxVhfhLw2
+ /DEU4vjbYQyeOu2gWNlG7RlreObYUXp4nFXEeGE+1nDESw/LzCNNdMk3nbFzIn4FfJ
+ kfKEvPnvKbKtLsy/BKl7f+q59OR0tkj5qfTeBpEKLLbJ7P7onrcTNJB/ob0JFQXMLT
+ cl1VoTIpFWrbA==
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH 0/8] ASoC: SOF: Intel: shutdown and core handling
+ corrections
+Date: Tue, 23 Mar 2021 22:12:12 +0000
+Message-Id: <161653747938.32729.8614811581903341680.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210322163728.16616-1-pierre-louis.bossart@linux.intel.com>
+References: <20210322163728.16616-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-References: <20210317172945.842280-1-perex@perex.cz>
- <20210317172945.842280-7-perex@perex.cz>
- <a3ddb881-6580-cd25-ef3c-734e686e6942@redhat.com>
- <s5h5z1nf47r.wl-tiwai@suse.de>
- <3820909c-29ce-9f3f-d1e6-c4611e06abe4@redhat.com>
- <s5h35wqff1m.wl-tiwai@suse.de>
- <a2018c94-8731-de29-e447-92457176a1b4@redhat.com>
- <s5hy2eidul2.wl-tiwai@suse.de>
- <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
-In-Reply-To: <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Tue, 23 Mar 2021 14:39:04 -0700
-Message-ID: <CAOReqxh-ztd-FWvhoipUbkhzfhZCyH5KY8v1VwjswNFH7OnARg@mail.gmail.com>
-Subject: Re: [PATCH v4 6/6] ALSA: led control - add sysfs kcontrol LED marking
- layer
-To: Jaroslav Kysela <perex@perex.cz>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- ALSA development <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,30 +80,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Mar 22, 2021 at 7:16 AM Jaroslav Kysela <perex@perex.cz> wrote:
+On Mon, 22 Mar 2021 11:37:20 -0500, Pierre-Louis Bossart wrote:
+> This patchset fixes a logical flow in the core status, improves
+> shutdown support on Intel SOF platforms with an HDaudio controller and
+> cleans-up ElkhartLake support.
+> 
+> Guennadi Liakhovetski (1):
+>   ASoC: SOF: Intel: HDA: fix core status verification
+> 
+> [...]
 
-> Dne 20. 03. 21 v 10:48 Takashi Iwai napsal(a):
->
-> >> With other OS you mean e.g. Android?  Android has device-specific
-> >> init-scripts which can either call alsactl or directly do the
-> >> echo-s.
-> >
-> > Also ChromeOS.  I'd like to get a general consensus before moving
-> > forward.
->
-> Where are ChromeOS people? They could join to the discussion which is
-> floating
-> few months now. Perhaps, the gmail's spam filter does not allow them to
-> communicate with us ;-)
->
-> Hi Sorry, i missed this was directly to dgreid and me. Will try to get up
-to speed on this.
+Applied to
 
-Curtis
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
->                                                 Jaroslav
->
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
->
+Thanks!
+
+[1/8] ASoC: SOF: Intel: HDA: fix core status verification
+      commit: 927280909fa7d8e61596800d82f18047c6cfbbe4
+[2/8] ASoC: SOF: core: harden shutdown helper
+      commit: 91ec48f540f83022377723a774a0a37a630801af
+[3/8] ASoC: SOF: Intel: TGL: fix EHL ops
+      commit: 3c429f861ed483517a0a352281a16503bcc60b55
+[4/8] ASoC: SOF: Intel: TGL: set shutdown callback to hda_dsp_shutdown
+      commit: 22aa9e021ad1ee7ce640270e75f4bdccff65d287
+[5/8] ASoC: SOF: Intel: ICL: set shutdown callback to hda_dsp_shutdown
+      commit: 4939e49ea5804f89941df86d35f1a1e1cd8b435b
+[6/8] ASoC: SOF: Intel: CNL: set shutdown callback to hda_dsp_shutdown
+      commit: b0503e8410e5ee43da116772576dbdeb2a414e0b
+[7/8] ASoC: SOF: Intel: APL: set shutdown callback to hda_dsp_shutdown
+      commit: d3aa96bf349882763b9903e5800d2e83fc086886
+[8/8] ASoC: SOF: Intel: move ELH chip info
+      commit: 8bb84ca873d2222ca220e58a097090775b1fd8df
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

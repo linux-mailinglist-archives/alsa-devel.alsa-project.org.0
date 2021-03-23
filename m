@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29A6345463
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 02:02:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE925345461
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 02:01:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4899D1669;
-	Tue, 23 Mar 2021 02:01:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4899D1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE83852;
+	Tue, 23 Mar 2021 02:00:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE83852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616461332;
-	bh=NzgG6fu1YAkTYxMXh01OGaiUTjDet6TaKW/2rscx7H0=;
+	s=default; t=1616461307;
+	bh=cLIP8K+LkqazoLu9xIg2wi43QjcXg0Wic/umLxzupC8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nu50/FD0WPJ8xSLafaqEaIDXI+5iDA9sr4TGMAGRdKBMz2tqd5ck4+y7TKcp8Prr+
-	 okhckvG7FxxKnC3FQbJO6/BBnoVerXv7UHGLkCkZBnQWwzGd4Jlx8/haDecpDhQYsQ
-	 k0Q8t53leQfBkzF1AQDKWXqxq3AnR6VlXtjNPE+c=
+	b=DvJCmnPg5CMtRPzJ1u4izrN7HPP514m6SO5IHcE/GXn8pLZPU/uFwqsCKObulk0ra
+	 78xjZp1EY+i/Q3do4QwPULe2h5XrsQqUG6c22qE5AAPMcMfdBdHnyvsZ/7c28TnL/L
+	 Yj3hDpeockBoia7/AZVLiODJjxLWvxdAEVbzO8gk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A2EAF80431;
-	Tue, 23 Mar 2021 01:59:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E184BF8028D;
+	Tue, 23 Mar 2021 01:59:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BCCFF80424; Tue, 23 Mar 2021 01:59:24 +0100 (CET)
+ id D2D69F8028D; Tue, 23 Mar 2021 01:59:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE15EF8016B
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 01:59:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE15EF8016B
-IronPort-SDR: cIOTns7KdSMVbnubdxrcqu94gUGzScJVWED9QtZE0M2RC64QZE8Fgy64Vxgd1AbXQPkcdkC78I
- asUvKA/QIYoA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="275477951"
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="275477951"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5827F8025F
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 01:59:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5827F8025F
+IronPort-SDR: O54tHKnlhG9qxUVvihqn94HJk9ntRuMmjWSMPxVZ/1ynuH33x/PvkwESmLvdRq/YyTEtGW/YJJ
+ 17BtdIOSuMjA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="275477953"
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="275477953"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 17:59:15 -0700
-IronPort-SDR: F1wX+Xi+TbDUIKuJ9J+eNAu6OlRmZx+5UQFaNA7+CyjpxgmWPG7aXO/qho9LIuxdvKlR+mKTK7
- Wi8oGcndI/2g==
-X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="414728350"
+ 22 Mar 2021 17:59:18 -0700
+IronPort-SDR: Lwab92Cr7e8SJhfBRRzpWRBNK6FYvjtDlZ187zYcbUamm18txlaKHZ3WgWVvogPlikmHNZjD9k
+ Nec8vWvQHhwQ==
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="414728360"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2021 17:59:12 -0700
+ 22 Mar 2021 17:59:15 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 3/5] soundwire: cadence: add missing \n in dev_err()
-Date: Tue, 23 Mar 2021 08:58:53 +0800
-Message-Id: <20210323005855.20890-4-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 4/5] soundwire: stream: add missing \n in dev_err()
+Date: Tue, 23 Mar 2021 08:58:54 +0800
+Message-Id: <20210323005855.20890-5-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210323005855.20890-1-yung-chuan.liao@linux.intel.com>
 References: <20210323005855.20890-1-yung-chuan.liao@linux.intel.com>
@@ -87,20 +87,56 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/cadence_master.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soundwire/stream.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index d05442e646a3..1b50cf7abe66 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -1462,7 +1462,7 @@ int sdw_cdns_clock_stop(struct sdw_cdns *cdns, bool block_wake)
- 	 */
- 	ret = sdw_bus_clk_stop(&cdns->bus);
- 	if (ret < 0 && slave_present && ret != -ENODATA) {
--		dev_err(cdns->dev, "bus clock stop failed %d", ret);
-+		dev_err(cdns->dev, "bus clock stop failed %d\n", ret);
- 		return ret;
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index 1099b5d1262b..4915676c4ac2 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -1513,7 +1513,7 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
+ 		if (bus->compute_params) {
+ 			ret = bus->compute_params(bus);
+ 			if (ret < 0) {
+-				dev_err(bus->dev, "Compute params failed: %d",
++				dev_err(bus->dev, "Compute params failed: %d\n",
+ 					ret);
+ 				return ret;
+ 			}
+@@ -1791,7 +1791,7 @@ static int _sdw_deprepare_stream(struct sdw_stream_runtime *stream)
+ 		if (bus->compute_params) {
+ 			ret = bus->compute_params(bus);
+ 			if (ret < 0) {
+-				dev_err(bus->dev, "Compute params failed: %d",
++				dev_err(bus->dev, "Compute params failed: %d\n",
+ 					ret);
+ 				return ret;
+ 			}
+@@ -1855,7 +1855,7 @@ static int set_stream(struct snd_pcm_substream *substream,
+ 	for_each_rtd_dais(rtd, i, dai) {
+ 		ret = snd_soc_dai_set_sdw_stream(dai, sdw_stream, substream->stream);
+ 		if (ret < 0) {
+-			dev_err(rtd->dev, "failed to set stream pointer on dai %s", dai->name);
++			dev_err(rtd->dev, "failed to set stream pointer on dai %s\n", dai->name);
+ 			break;
+ 		}
+ 	}
+@@ -1888,7 +1888,7 @@ int sdw_startup_stream(void *sdw_substream)
+ 
+ 	sdw_stream = sdw_alloc_stream(name);
+ 	if (!sdw_stream) {
+-		dev_err(rtd->dev, "alloc stream failed for substream DAI %s", substream->name);
++		dev_err(rtd->dev, "alloc stream failed for substream DAI %s\n", substream->name);
+ 		ret = -ENOMEM;
+ 		goto error;
+ 	}
+@@ -1927,7 +1927,7 @@ void sdw_shutdown_stream(void *sdw_substream)
+ 	sdw_stream = snd_soc_dai_get_sdw_stream(dai, substream->stream);
+ 
+ 	if (IS_ERR(sdw_stream)) {
+-		dev_err(rtd->dev, "no stream found for DAI %s", dai->name);
++		dev_err(rtd->dev, "no stream found for DAI %s\n", dai->name);
+ 		return;
  	}
  
 -- 

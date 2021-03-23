@@ -2,75 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5593468BB
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 20:15:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F5B3468BF
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 20:16:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBE831674;
-	Tue, 23 Mar 2021 20:15:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBE831674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 585AA1683;
+	Tue, 23 Mar 2021 20:15:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 585AA1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616526957;
-	bh=WAE7yCVWty48+8GEPn0cF4r2dUhb45XiXoiZhP7rUNk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1616526988;
+	bh=vz1/BwgKsE4QbkxEXRmEGYxQ6lPFuYc202DcZfmWPD8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mj8koshvEDG4aaVeX3D5LPo0RJHZM/FUpd6wJLSglrTDwX772aFlJaFx1uLFF6uBp
-	 5BByVAJMlEWzNkFXgs48dGvKZ40+1oiT4HRWdjEUw6lrje813HVKO+yAzt9TgX2E4i
-	 +h2cpjMqnIlA+L/UV6KQlqnckuzffLx8cfOubN/s=
+	b=tlMIZMSFQciOt3SpbhsSgSUKGw4752zTLfzcMapW27wYEvN7UEFfByHDlYwg/O1Pi
+	 u/Mh6RyULtJT72JxwvTNmvxblYso8xLA+L/BcD56Qe1dYy4pfg80KPbBmuaCPMmYi2
+	 h88gPFWQ65tXziCe7okoDSj1vncUo8bvkp59QZk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20912F80104;
-	Tue, 23 Mar 2021 20:14:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D313F80155;
+	Tue, 23 Mar 2021 20:15:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9631F8025F; Tue, 23 Mar 2021 20:14:29 +0100 (CET)
+ id 00E84F80279; Tue, 23 Mar 2021 20:15:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C3EAF80155
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 20:14:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C3EAF80155
-IronPort-SDR: Hsvh7H/hYmUI1id0fmjIap3OFTVg4yJcgFFISDgEEZihgsRvgY0oAcTHQnDGrJQt9kqvdTG3er
- bJ0uCF5F1jbg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9932"; a="177671201"
-X-IronPort-AV: E=Sophos;i="5.81,272,1610438400"; d="scan'208";a="177671201"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 12:14:21 -0700
-IronPort-SDR: LrlxJMmlWHeXpmw4l3JwHxWZYy2E6m+cwtx6PxY3N63PBQoecCG22sZ8zTZW0otLKrYbc7VVWu
- YtY0ZYP+JNAg==
-X-IronPort-AV: E=Sophos;i="5.81,272,1610438400"; d="scan'208";a="452277659"
-Received: from laguitie-mobl.amr.corp.intel.com (HELO [10.252.129.185])
- ([10.252.129.185])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 12:14:20 -0700
-Subject: Re: [PATCH] soundwire: intel: move to auxiliary bus
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20210323004325.19727-1-yung-chuan.liao@linux.intel.com>
- <YFmatyAoMZmBmkuZ@kroah.com>
- <777b4ca6-0d51-285d-549f-6ef768f2a523@linux.intel.com>
- <YFo0WW8hOsHesSFC@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <35cc8d35-a778-d8b2-bee3-bb53f8a6c51e@linux.intel.com>
-Date: Tue, 23 Mar 2021 14:14:18 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id C11FDF80257
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 20:15:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C11FDF80257
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rQFSHnit"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 04E1D619CC
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 19:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616526923;
+ bh=vz1/BwgKsE4QbkxEXRmEGYxQ6lPFuYc202DcZfmWPD8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=rQFSHnitQ6+kpGJZuvHSKEGBHFXMX+wwPTFR7qY5UowNPpwAoZNZEy1w0auxbFQV6
+ Waok3+0GibjFa/ysyW3jB6MjhXPl33LPeK2B19lgGhljJFV8L75EYoe+cxy68shxb4
+ D+LtRkf8M3g7UN18j2Gh8Ae5N0nIpDlNjN6X3bQaNRtzJiuMIHoz6VMLIxzDUwVNsu
+ Vx+Dmphj3hlUYjc1I9wtyKZ4JnEcJWm65DDMSFvKbDX/Gfszc6YR30Aglh8ABw2BnY
+ Iny/3S32BZFCHZt8nDApWM8V0aMvTFQjp1AQP2rMWwQ0+9joX8xOvYgpye+oCzHfSu
+ 2U6gRYJZKMWxw==
+Received: by mail-ed1-f53.google.com with SMTP id x21so24760690eds.4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 12:15:22 -0700 (PDT)
+X-Gm-Message-State: AOAM533RHEMtPxERP+7TvmqX7N7DKvZv0JS7a6GDaC03elrcRzaty1IY
+ l54g1oJ8EHYziAcYx7cZxrJlUvCl+Q0Pwsl3Dw==
+X-Google-Smtp-Source: ABdhPJyQUqDZQDlvFKjPPDtTkz4sNMlGLVxwHNqzDZOmCnzfXNGTmq/LBSdLt5mLoL79k61b8WRMes6qPDOkgy4P01Y=
+X-Received: by 2002:a05:6402:2d0:: with SMTP id
+ b16mr6214654edx.194.1616526921538; 
+ Tue, 23 Mar 2021 12:15:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YFo0WW8hOsHesSFC@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org,
- linux-kernel@vger.kernel.org, hui.wang@canonical.com, vkoul@kernel.org,
- srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+References: <20210323163634.877511-1-robh@kernel.org>
+ <20210323163634.877511-2-robh@kernel.org>
+In-Reply-To: <20210323163634.877511-2-robh@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 23 Mar 2021 13:15:08 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLFj3tUUeEeKoZx=P3AHE4Tu1TzuA-tqK4+qD=4J6c=8Q@mail.gmail.com>
+Message-ID: <CAL_JsqLFj3tUUeEeKoZx=P3AHE4Tu1TzuA-tqK4+qD=4J6c=8Q@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ASoC: dt-bindings: Move port/ports properties out of
+ audio-graph-port.yaml
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Sameer Pujar <spujar@nvidia.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Lubomir Rintel <lkundrak@v3.sk>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,104 +96,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Mar 23, 2021 at 10:36 AM Rob Herring <robh@kernel.org> wrote:
+>
+> Users of the audio-graph-port schema need to define how many ports
+> and what each port is, so they need to define 'ports' and/or 'port'
+> anyways. Let's drop 'ports' and 'port' from the schema and adjust users
+> to reference audio-graph-port.yaml from a port property.
+>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Cc: Lubomir Rintel <lkundrak@v3.sk>
+> Cc: Sameer Pujar <spujar@nvidia.com>
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-tegra@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
 
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+> index 31f3e51974bb..e568d6c7dddd 100644
+> --- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+> @@ -17,9 +17,6 @@ maintainers:
+>    - Jon Hunter <jonathanh@nvidia.com>
+>    - Sameer Pujar <spujar@nvidia.com>
+>
+> -allOf:
+> -  - $ref: audio-graph-port.yaml#
+> -
+>  properties:
+>    $nodename:
+>      pattern: "^ahub@[0-9a-f]*$"
+> @@ -60,12 +57,18 @@ properties:
+>    ranges: true
+>
+>    ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+>      description: |
+>        Contains list of ACIF (Audio CIF) port nodes for AHUB (Audio Hub).
+>        These are connected to ACIF interfaces of AHUB clients. Thus the
+>        number of port nodes depend on the number of clients that AHUB may
+>        have depending on the SoC revision.
+>
+> +    patternProperties:
+> +      '^port@[0-9]':
+> +        $ref: audio-graph-port.yaml#
+> +        unevaluatedProperties: false
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -77,7 +80,7 @@ required:
+>    - "#size-cells"
+>    - ranges
+>
+> -unevaluatedProperties: false
+> +additionalProperties: false
 
-On 3/23/21 1:32 PM, Greg KH wrote:
-> On Tue, Mar 23, 2021 at 01:04:49PM -0500, Pierre-Louis Bossart wrote:
->>
->>>> Note that the auxiliary bus API has separate init and add steps, which
->>>> requires more attention in the error unwinding paths. The main loop
->>>> needs to deal with kfree() and auxiliary_device_uninit() for the
->>>> current iteration before jumping to the common label which releases
->>>> everything allocated in prior iterations.
->>>
->>> The init/add steps can be moved together in the aux bus code if that
->>> makes this usage simpler.  Please do that instead.
->>
->> IIRC the two steps were separated during the auxbus reviews to allow the
->> parent to call kfree() on an init failure, and auxiliary_device_uninit()
->> afterwards.
->>
->> https://www.kernel.org/doc/html/latest/driver-api/auxiliary_bus.html#auxiliary-device
->>
->> With a single auxbus_register(), the parent wouldn't know whether to use
->> kfree() or auxiliary_device_uinit() when an error is returned, would it?
->>
-> 
-> It should, you know the difference when you call device_register() vs.
-> device_initialize()/device_add(), for what to do, right?
-> 
-> Should be no difference here either :)
+Adding this results in schema errors in the example, so a prerequisite
+patch is needed.
 
-sorry, not following.
-
-with the regular devices, the errors can only happen on the second "add" 
-stage.
-
-int device_register(struct device *dev)
-{
-	device_initialize(dev);
-	return device_add(dev);
-}
-
-that's not what is currently implemented for the auxiliary bus
-
-the current flow is
-
-ldev = kzalloc(..)
-some inits
-ret = auxiliary_device_init(&ldev->auxdev)
-if (ret < 0) {
-     kfree(ldev);
-     goto err1;
-}
-
-ret = auxiliary_device_add(&ldev->auxdev)
-if (ret < 0)
-     auxiliary_device_uninit(&ldev->auxdev)
-     goto err2;
-}
-...
-err2:
-err1:
-
-How would I convert this to
-
-ldev = kzalloc(..)
-some inits
-ret = auxiliary_device_register()
-if (ret) {
-    kfree(ldev) or not?
-    unit or not?
-}
-
-IIRC during reviews there was an ask that the parent and name be 
-checked, and that's why the code added the two checks below:
-
-int auxiliary_device_init(struct auxiliary_device *auxdev)
-{
-	struct device *dev = &auxdev->dev;
-
-	if (!dev->parent) {
-		pr_err("auxiliary_device has a NULL dev->parent\n");
-		return -EINVAL;
-	}
-
-	if (!auxdev->name) {
-		pr_err("auxiliary_device has a NULL name\n");
-		return -EINVAL;
-	}
-
-	dev->bus = &auxiliary_bus_type;
-	device_initialize(&auxdev->dev);
-	return 0;
-}
-
-does this clarify the sequence?
-
-
-
-
-
-
-
+Rob

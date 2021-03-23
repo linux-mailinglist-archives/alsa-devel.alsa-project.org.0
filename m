@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C9CD345B11
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 10:40:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CAAD345B5A
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 10:51:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03E0215E0;
-	Tue, 23 Mar 2021 10:39:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03E0215E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1CC71607;
+	Tue, 23 Mar 2021 10:50:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1CC71607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616492421;
-	bh=IiAZygRFGl1wLFxJcecE+ldiQTam7/loMKWrxOwh6pE=;
+	s=default; t=1616493086;
+	bh=TJqPrjn9H6Frg79OPCVBVhQlOf6EQDt3Av1+cmxEzKo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R3j/eCNjNzIrDN6++b8XakaKBOMj0E5csvwQuEnb7HibSqa15Wnvk/yPpPPavRs1D
-	 SjSuxqIFI9RHIcpUjZKrEf7uFCQF5rG8uMwxG+M7oQsO5a2IqUCq5BYYJdSOKeXWK4
-	 aKnekzO+9uTJ4tYmy/+CBzPhR/q41PYT4F54oEpo=
+	b=bb8D3wqLIHZ+7fdF4OYsEpl+0CDEOoAiY/k4EiuT/cWboev4s3wxHc6AqX693g6Zz
+	 sQGkR0RNHWD6YtlIfg4eZS28l5YmeHI8wedNuMK+bMQ3Cv6/HsZB4rYhqsQu0oWMvn
+	 A2DaWHWyI8XP6bSAWxJvHVKJKaLNhLLr6zfKMA7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 550BEF80268;
-	Tue, 23 Mar 2021 10:38:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2469DF80257;
+	Tue, 23 Mar 2021 10:50:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42AF0F8025F; Tue, 23 Mar 2021 10:38:53 +0100 (CET)
+ id E713CF8025F; Tue, 23 Mar 2021 10:49:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCC0EF800EE
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 10:38:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC0EF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76F03F80104
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 10:49:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F03F80104
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 02FDEAB8A;
- Tue, 23 Mar 2021 09:38:47 +0000 (UTC)
-Date: Tue, 23 Mar 2021 10:38:46 +0100
-Message-ID: <s5hblbaciqh.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 17636AD80;
+ Tue, 23 Mar 2021 09:49:50 +0000 (UTC)
+Date: Tue, 23 Mar 2021 10:49:49 +0100
+Message-ID: <s5ha6quci82.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH v4 6/6] ALSA: led control - add sysfs kcontrol LED marking
  layer
-In-Reply-To: <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
+In-Reply-To: <s5hblbaciqh.wl-tiwai@suse.de>
 References: <20210317172945.842280-1-perex@perex.cz>
  <20210317172945.842280-7-perex@perex.cz>
  <a3ddb881-6580-cd25-ef3c-734e686e6942@redhat.com>
@@ -56,6 +56,7 @@ References: <20210317172945.842280-1-perex@perex.cz>
  <a2018c94-8731-de29-e447-92457176a1b4@redhat.com>
  <s5hy2eidul2.wl-tiwai@suse.de>
  <a9a62884-da5b-ef2a-10ec-e414e6784677@perex.cz>
+ <s5hblbaciqh.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -80,26 +81,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Mar 2021 15:16:30 +0100,
-Jaroslav Kysela wrote:
+On Tue, 23 Mar 2021 10:38:46 +0100,
+Takashi Iwai wrote:
 > 
-> Dne 20. 03. 21 v 10:48 Takashi Iwai napsal(a):
-> 
-> >> With other OS you mean e.g. Android?  Android has device-specific
-> >> init-scripts which can either call alsactl or directly do the
-> >> echo-s.
+> On Mon, 22 Mar 2021 15:16:30 +0100,
+> Jaroslav Kysela wrote:
 > > 
-> > Also ChromeOS.  I'd like to get a general consensus before moving
-> > forward.
+> > Dne 20. 03. 21 v 10:48 Takashi Iwai napsal(a):
+> > 
+> > >> With other OS you mean e.g. Android?  Android has device-specific
+> > >> init-scripts which can either call alsactl or directly do the
+> > >> echo-s.
+> > > 
+> > > Also ChromeOS.  I'd like to get a general consensus before moving
+> > > forward.
+> > 
+> > Where are ChromeOS people? They could join to the discussion which is floating
+> > few months now. Perhaps, the gmail's spam filter does not allow them to
+> > communicate with us ;-)
 > 
-> Where are ChromeOS people? They could join to the discussion which is floating
-> few months now. Perhaps, the gmail's spam filter does not allow them to
-> communicate with us ;-)
+> Also adding Dylan and Mark to Cc.
+> 
+> FYI, the patch set is:
+>   https://lore.kernel.org/alsa-devel/20210317172945.842280-1-perex@perex.cz/
 
-Also adding Dylan and Mark to Cc.
+... and now back to the topic.
 
-FYI, the patch set is:
-  https://lore.kernel.org/alsa-devel/20210317172945.842280-1-perex@perex.cz/
+So the primary question is whether we want the sysfs entries to allow
+user-space defining the mute-LED vs control binding externally.  With
+this, the mute LED is supposed to be set up via udev rules that
+triggers some alsactl stuff, and the rest is handled in an extension
+in UCM profile.  If this approach is acceptable on all platforms, we
+can go for it.  That was the question to other platforms like Android
+and ChromeOS.
 
+
+And, now looking into the details, I have a few more questions:
+
+- The binding with SNDRV_CTL_ELEM_* bit flag is handy for some drivers
+  but not for everything; e.g. if we want to add the binding in ASoC
+  machine driver, an API like
+    snd_ctl_bind_mute_led(card, elem_id, inverted);
+  would be easier.  It'd be essentially an internal call of the sysfs
+  binding.  (I haven't checked, but might this be also more
+  straightforward conversion for HD-audio case, too?)
+
+- The binding in the kernel could (should?) be shown in the sysfs
+  output.  Currently it seems handled differently?
+
+- Specifying the numid may the code simpler in kernel side?
+  alsactl has already the string parser.
+
+- Do we have to deal with binding with multiple controls to a single
+  mute LED?  Might a single exclusive binding make things easier?
+  Then we don't have to create sysfs entries per card, and it'll be
+  something like
+     echo 1:10 > /sys/devices/virtual/sound/ctl-led/mic/bind
+  which is equivalent with the API call above.
+  If multiple bindings are attempted, it can simply give an error.
+  In the driver side, it catches the unexpected binding, too.
+
+
+thanks,
 
 Takashi

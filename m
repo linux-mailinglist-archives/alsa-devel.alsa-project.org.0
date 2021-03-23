@@ -2,149 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E473465FF
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 18:09:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0AA346660
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Mar 2021 18:30:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7BF11674;
-	Tue, 23 Mar 2021 18:09:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7BF11674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22F691678;
+	Tue, 23 Mar 2021 18:30:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22F691678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616519397;
-	bh=Ze1MeyQvElzZ+qNi1tp6hZ+6vxySuQzCSNdzO1gj5m4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1616520651;
+	bh=4klelWmk156VVy3BR7NhkScrJS0OtIwujyO4oBRnIjI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QFMS+XkTu6Z2IZVauXGXitWie6RYViCZvufKPbEmTvz0EnOtdZsa9ZTe2QQcQeihu
-	 G8XzHPbArdJ7ivTZC/+2rC9sTwAmdogOU4DPjqws2w5a9ol7yf2uiS/B5Obt7NiAqk
-	 prirZ3THHv4mUqrkMopaPEK3jsnFBa6R8B58iBmk=
+	b=h+r8ilBNvaW28AeWg08aax9XPpR5WRTlb+OamcORI3wZRc/4h2AtnzQPaKIhWOa9B
+	 6C4VqlGe6bHso0TQOqmLOE//8vqk6jHud2HypO9tiqrlw/5UQvnfLwGSqqX3H0t0Cp
+	 Cjsk8yeGjkzvrEmGs5crgcS/g8lcvytzfOGW4fUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B782F800EE;
-	Tue, 23 Mar 2021 18:08:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F189AF80268;
+	Tue, 23 Mar 2021 18:29:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76F59F8025F; Tue, 23 Mar 2021 18:08:29 +0100 (CET)
+ id B9A78F8025F; Tue, 23 Mar 2021 18:29:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,PRX_BODY_13,PRX_BODY_30,
+X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_13,PRX_BODY_30,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0E8CF80155
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 18:08:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E8CF80155
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="PZf3fo4X"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UXH4qBV5wOY4O4eYLmqSG4JdHW+vKXaVNbDfwga229x4ErmrgN3VklnzSCmKkxaXiraRaIP0TCbOR1ohf/u4uVY9+mcdfI1hCxZIkhGAaQAR1p+0WmSvmC74M+6C3mlGSyvbAt3l1cXHhZq6bnk/w/7lpcXsvq/wDfE8kSxiiRIiE/QOBz6NKzhYWT6NcE3f2MNS/t3gZAu0CuFkjkzlaFuXTN3CwjIX2y9d/pZXOgtgrHEUBKKeuyjnQT07E8DnQmUnRAH6W82Oxol9AwcD2861splLxjY6XogDo2UUm/rV9HjWneTYPL8Law+minCVwZsdCJ4ho8p1Xvj6MTw+nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BGoeIt+2DW4ekJIJTzdHGF32KAyA4W884gDLweUud10=;
- b=aCwHZJ93q7cZgJvhZmwJRwpwlQtufzj5swA1fOHbSUAXpSsyjHoCHREzfjNNMgssOmCAHBMoUrvvJ3yLBE+M3k+ySe5mTT25PUwmw63VtOduSLilaL8wTfDKyqYx5iWY5DqnZJkSd9QnlLJ1UMsNuaB9iWp6jPXD3wqnccPHH+sdwGk8vaAhLiA6CXM4mUvweiyHmWaN35oPUwp2VIN/GaeDotaKRm5ygNkffCjdhM+nDqKGtWO2dktsHwyVOeivFUgoLZppAxMLf6HJHDBEbai0cJ/R1P4npmbohhVz4m5W7dD0BJ5g8l2IxFEVmN9agfUimdb5nH09kLVMvt0OBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BGoeIt+2DW4ekJIJTzdHGF32KAyA4W884gDLweUud10=;
- b=PZf3fo4XIThJuly++v0ProlTMzaExLeMYAUa454FLLE1Ktl7ROROWvqYN6SvUO8nnqL/4N9B7O+CaTC/FTJslxEM2nW9P2trSfaKWQpnhjh9Y/fExxa6RMqY8A86mrwzW5zxIXzrOrn2WgZt453S4PvxmWBgzdwLsEUqV25mLEE=
-Authentication-Results: yadro.com; dkim=none (message not signed)
- header.d=none;yadro.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SN6PR12MB2701.namprd12.prod.outlook.com (2603:10b6:805:6f::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24; Tue, 23 Mar
- 2021 17:08:17 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3955.025; Tue, 23 Mar 2021
- 17:08:17 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id C719FF80155
+ for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 18:29:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C719FF80155
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9F1B0ACBF;
+ Tue, 23 Mar 2021 17:29:13 +0000 (UTC)
+Date: Tue, 23 Mar 2021 18:29:13 +0100
+Message-ID: <s5h35wlbwye.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Subject: Re: Adding movable PCIe BARs support in snd_hda_intel
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com>
 References: <e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com>
- <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com> <s5hwntyaylg.wl-tiwai@suse.de>
- <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com> <s5him5hc443.wl-tiwai@suse.de>
- <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com> <s5h8s6dbyr1.wl-tiwai@suse.de>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com>
-Date: Tue, 23 Mar 2021 13:08:14 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <s5h8s6dbyr1.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com>
+ <s5hwntyaylg.wl-tiwai@suse.de>
+ <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com>
+ <s5him5hc443.wl-tiwai@suse.de>
+ <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com>
+ <s5h8s6dbyr1.wl-tiwai@suse.de>
+ <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [208.98.222.49]
-X-ClientProxiedBy: YT1PR01CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::25)
- To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.228.108] (208.98.222.49) by
- YT1PR01CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3955.24 via Frontend Transport; Tue, 23 Mar 2021 17:08:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 33525c46-38b8-4078-b978-08d8ee1e405b
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2701:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB27017289ED670781D73D1E27EA649@SN6PR12MB2701.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8L2pqvQU5cZzLviM+xOkcSnfhqUKw58Ur3aLlKFqvEVB4xqF0wzo+CmD5kN8Arlmz6fUDV50Z6PBCtEVsyyXoITlxGoRbRTvR5hUMpoF584QB34LLRz2GP7kpiILsWRR/NYZZYxbkEfOLNNzk4kdapoQmC73mBQGJwA/5dhd6ERn8tKM9CONbsyGlefvf8umnP7ESzZ3gmujvo4BlCWJ6YXZm9awjsPTz/OlKj0PvZELCbnTQY/rTYv9fGy+a/ly+Lc1S2WRXPjm1746XiVifjlyFdzsE0Mw6IoklQcf0Mttm0KFewHTiF+DFIHSP/EnX20ZYc4d1n90V/SKr32X9DSlzi6E4eff6VwbnWvkKwy4wPcc1ZWZ32phsbTF+FHMqDvQhkBGovyFJ5PGvR0Ml7yK9ajWOHYbBnEnks4JXCARAB2I04fxpc8O3zMQ1UOtNNE/DQrfC2cMlcksuR+H6HQYjFOZfVb5pIFIsuEyTxLsVvGq9XkoXEgAnngURUX7953Y8XA4KBKc9jRIjPofQwe2ui8b1fRBpovj1IWAYiUY1Ndf7DxJ3qyPAAN5319zMJL1SWB2LJNEnAjwek3Qd+LrivtObmZ/HEekjJlLu249rvCFdFyJaUVKfJ/8QSwTjsfzrBcX0jP+8jB8BlrRFuGdCH+5KwdatGsDKdnVW11+AG/wQXNvl3zGo3+pFsM60p6snzfn4MBXiTRg0feoOgn5t7tyQ3iQ8ZirFyOL/1N/1MiZBqmUc7lRTtPvcI9Yzfv3KuCsFwPHOG6OrVnrjadAOH4fsbDMWmZUTE8DJ5I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2616005)(26005)(36756003)(53546011)(2906002)(54906003)(186003)(6916009)(956004)(16526019)(8676002)(4326008)(16576012)(5660300002)(44832011)(8936002)(66476007)(66556008)(66946007)(52116002)(31686004)(38100700001)(498600001)(30864003)(966005)(83380400001)(6486002)(31696002)(45080400002)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZTdmZVcrSHRZZFU5SlRBbk1ONWRKQjUxcDVKb09mL3NDOFBTMHZuMEtmRjFG?=
- =?utf-8?B?eU5UaU94UWVlN0ZzYnVmZFN5cFl0ZDEvV1ZObmh3UDBmWmtoN2xoM1pWcmxp?=
- =?utf-8?B?RHdLeTJvdDhnc0JnYW9hYzk2dGdDN2JMM0R5UU5yY1c4Z08zZHVPNTVaN2tm?=
- =?utf-8?B?OHBrMkw5cFVVdzJoYUt0UTdCUEVWdi9Ma3MyTk9ESUlqbG83VW4xNS9IU0xx?=
- =?utf-8?B?OXRCdkNYeVFsdkZsb3J3SjdCeDhUUklTQVl6STRRN3E2Y3BMR25UdDUreEZa?=
- =?utf-8?B?L09jOW9ZTUF4dVlWbllQRkFKd2hjampSTEhGdEp3LzhEbG45a0pzSjhCMFZS?=
- =?utf-8?B?U0dTT1lvUmFjTEZFeFVseG1SS1JVdkorei9CbWhXLzdJMXpiV1J5RnlvWThq?=
- =?utf-8?B?dExpZVVYSmJ1MWs3SmJmNiszcGpYUnA3Ky9lQiszaXdQcGIxYjhOV21qNW0r?=
- =?utf-8?B?cURhZWhXQmc2U2EzYjM5Si9GVGdYeTdVakczQ3VnMk5tOFNIeG5vU1BQNG53?=
- =?utf-8?B?bCt4bFNsbUhzMW9LUlVZcFNHbWhiRkdGVjdBL1VINllrdUNJeFM4V3VaeFMz?=
- =?utf-8?B?ZW9MQk5LQWVNT3ZEbUhkU2huZzdSZUprZkp1eldIcWI1ZDcweDZqM05JUVlD?=
- =?utf-8?B?b2dpWWU5bUV4Mldzc080Z2s2VkVyZnhmeERBYUQ4US8xcUt4a2hkOUR6SzU5?=
- =?utf-8?B?c2ZTdjFCdHZXekg0MW93RnZsTG5ZT2piaUU5cDNJVE51TGp3a0s0MnZKMGhE?=
- =?utf-8?B?d2x1aXdiNGtxOXIvRm8ydWhuRnZ1WTdIekM5eVNlL0d3czgwaStEZ2x6aTdj?=
- =?utf-8?B?MHkrOXlMYlRHTmY1eVJTZ2xMTWkveGtXRVVvVnNTRU9SeE9xTGZiN25MYlVH?=
- =?utf-8?B?SW1nRHpFdFRvUlNHZEdYTytydnpUbGVjdzNhQTg1QXNVRnZwcjBSWHgvWEtY?=
- =?utf-8?B?eENNR1p4Y1N2dzhYNDdEVUJTQXNITm1ESlk0NHp4cWdpMk14bEhVaWdsL1hL?=
- =?utf-8?B?R1VVbzFkYktxMXFyTlF0Q2ZkVlhsemY2Vm9KNmNndjQyUHVXM1g2bE9mU3BD?=
- =?utf-8?B?REVjc2xtaG5IM0twR2JwTUo1blRUTDBFZGxrcEhpdXBBMFgzd0g5Ry9TTmRU?=
- =?utf-8?B?K1dZVDdCTW1kZTVhMTE2elROcVJ2WStOQk9CdU5UN3FkQzFWTVZaTkJPMUpV?=
- =?utf-8?B?dzl1bDVEQ2pBeXQ0Y0w5Q0tscUJ5MDlBblVNMmtHTmRjWkE0R3lVWmd4Y2s5?=
- =?utf-8?B?Z1BwY2dGSXZYRkIzKzZuUkc3RjZxNVlQUFc4Qmw0VldZYThpTzhFYjF3bHl0?=
- =?utf-8?B?Z203bEo2Vkx6TjlKeWNyQWFWVVQvNTM2TTAyYS9TTzZmNWZIUGloM1FiVHpM?=
- =?utf-8?B?dHl3M2l2K1dabFdvb3NNSS9HckR5R0l2ZkpqT09BNkNoSUp1T1ZhS2U3K1FG?=
- =?utf-8?B?ZlJCR3ZGSFVQT1c5WWlLOWNkQUlGLzBNcGt5STk2QVZRZTI5S3hmdU1uQ3hQ?=
- =?utf-8?B?N0Nodk54SGloNVlkV1RBV1p2YzlLS0wzNnNheVdWaUcwK0JXbkFHOVozZnRH?=
- =?utf-8?B?eWU4TGNyc3c3cFdqYUJhZzhJOWpUeVJlSUFRSlg0SzJ1ZGRFOVZ3emdOWjRZ?=
- =?utf-8?B?MUJqK2FqaWNyMVlsMVdpYno4Um8wakkvM000NmhQNklONFVPTWNVc2NpYkkx?=
- =?utf-8?B?TTBSWklFb0hubkhYbjFQVWg3VUwwVGsvRzhhS1owODdrVjJCUG9EdDB4ckJN?=
- =?utf-8?Q?HtMp0cS6VwmhXkjrrhOlMckxAGV/QifxcOscs+m?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33525c46-38b8-4078-b978-08d8ee1e405b
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2021 17:08:17.0936 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dDglYRBz7/d+Dkk6YfiDH6N7c4ZXBIKV5zRRvvx/dDyrmJGqLL/sgh9QiZH6bCdO/djub+4YaMU9NdYu76SwWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2701
 Cc: "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
  alsa-devel@alsa-project.org,
  Sergei Miroshnichenko <s.miroshnichenko@yadro.com>,
@@ -164,259 +79,286 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 23 Mar 2021 18:08:14 +0100,
+Andrey Grodzovsky wrote:
+> 
+> 
+> 
+> On 2021-03-23 12:50 p.m., Takashi Iwai wrote:
+> > On Tue, 23 Mar 2021 17:11:20 +0100,
+> > Andrey Grodzovsky wrote:
+> >>
+> >>
+> >>
+> >> On 2021-03-23 10:54 a.m., Takashi Iwai wrote:
+> >>> On Tue, 23 Mar 2021 15:22:01 +0100,
+> >>> Andrey Grodzovsky wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 2021-03-23 7:39 a.m., Takashi Iwai wrote:
+> >>>>> On Tue, 23 Mar 2021 12:23:16 +0100,
+> >>>>> Andrey Grodzovsky wrote:
+> >>>>>>
+> >>>>>> Just an update, i found the issue which was actually to wake up the HW
+> >>>>>> before doing stop/restart (using pm_runtime_get_sync), also handled
+> >>>>>> protecting from concurrent snd_pcm_ioctls accessing the registers
+> >>>>>> while the BAR is unmapped. Can go through BAR move while aplay is
+> >>>>>> running now.
+> >>>>>>
+> >>>>>> Once again, would be happy for any comments on the code -
+> >>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744943554%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=pZEuJv8898ad52gYIskao38J01dLdH1PEwSC5h3tgdM%3D&amp;reserved=0
+> >>>>>
+> >>>>> Hrm, this kind of change is a bit scary; we have some mechanism to
+> >>>>> stop the HD-audio hardware operation (e.g. for loading the DSP for
+> >>>>> CA0132 codec), but it's pretty hackish and error-prone.
+> >>>>
+> >>>> At least I didn't have issue with HW stopping, the problem is with
+> >>>> unampping hdac_bus->remap_addr - as long as it's not iorampped
+> >>>> back no code besides the PCI BAR move should run at all as any register
+> >>>> access from this address will cause fatal page fault. I took care
+> >>>> of most of the IOCTls i think, the interrupts are disabled in azx_stop_chip
+> >>>> but I am probably still missing some stuff like some background work
+> >>>> items or other IOCTls code path.
+> >>>
+> >>> Are the all running processes stopped before entering rescan_prepare
+> >>> callback?  Otherwise, e.g. a process accessing PCM stream via mmap can
+> >>> run without ioctl and this may trigger the PCM period elapsed
+> >>> eventually.
+> >>
+> >> Is any of them remaps the BAR into user process VMA ? The only two I see
+> >> in the sound subsystem doing remapping are are had_pcm_mmap and
+> >> snd_pcm_lib_default_mmap
+> >> and both of them remap dma buffers which are in system memory and not
+> >> MMIO space and  hence should not be impacted by the BAR move.
+> >
+> > When a stream is running, it can cause an interrupt that may issue an
+> > unsolicited event that is deals with CORB/RIRB later in a work
+> > asynchronously.
+> 
+> On rescan_prepare I am calling snd_hdac_bus_stop_chip which in turn
+> seems to disable interrupts - is this enough to guarantee all those
+> won't be happening past that code ? Should I also flush any work queue
+> items scheduled from within those ISRs before proceeding ?
+
+Well, calling snd_hdac_bus_stop_chip() during operation itself isn't
+safe at all.  It's called safely in the power management because we
+know all things have been already stopped.  But calling it out of
+sudden is a completely different matter.
+
+> >> Or maybe I didn't get your concern correctly ? Why there would be a
+> >> problem to access the stream otherwise during the BAR move ?
+> >>
+> >> Similarly, a control interface may issue the verb that is
+> >>> processed via CORB/RIRB, too.  So what you need to cover is not only
+> >>> about PCM.
+> >>
+> >> Can you point me to the code path for this - is this through another
+> >> type of IOCTL or interrupt handlers ?
+> >
+> > Yes, it's handled in the ALSA core control ioctls.  Many of the
+> > control *_get()/*_put() callbacks in HD-audio are involved with the
+> > amp or other HD-audio verbs (typically calling snd_hda_codec_amp*(),
+> > etc).  Those are the mixer elements and handled via regmap with
+> > HD-audio backend that deals with CORB/RIRB eventually.
+> >
+> >>>>> Do we really need the BAR remap while operating the sound streaming?
+> >>>>> That is, can't we simply refuse the remap if it's in operation?
+> >>>>> If it can be refused, we may avoid a big locking or such.
+> >>>>
+> >>>> Problem here is that this feature is for the sake of hot-plug of a
+> >>>> device, this supposed to give enough MMIO space to place all the BARs
+> >>>> of newly plugging in device. Refusing to move BARs because there is some
+> >>>> app using the sound card on the background might then lead to failure of
+> >>>> plugging in the new device and this doesn't sound as a reasonable
+> >>>> behavior to me. Also note that the lock's impact is minimal as it's
+> >>>> read side lock only in the IOCTLs an so as long as hot plug not
+> >>>> taking place it has no impact.
+> >>>
+> >>> But a hot-plugged device can't have any running files, no?
+> >>> So at which timing is the BAR movement _must_ happen?
+> >>
+> >> No, the devices this code is written for are those already in the
+> >> system before the new device is plugged in, the new device needs enough
+> >> free MMIO space for his own BARs and so this features enables existing
+> >> devices to allow the PCI core to move their BARs within the  physical
+> >> address space such that enough free space will be available inside
+> >> the MMIO window allocated for the new device's upstream PCI bridge.
+> >
+> > Hmm, OK, so it's other way round as I thought of.
+> >
+> >>> And, even if we need some synchronization, the current lock
+> >>> implementation looks fragile to me.  We likely overlook something when
+> >>> trying to cover each branch code path.
+> >>>
+> >>> Basically it needs to wait until all running processes via PCM or
+> >>> control API are released.
+> >>
+> >> This approach brings a couple of hard questions -
+> >>
+> >> How we make them stop at once - they might run for long time, you
+> >> suggest something like invalidate all their mmaps and on next page
+> >> fault return SIGBUS to terminate them ? Then I need also to know they
+> >> actually are done - should I wait for their device file instance
+> >> release? What if they don't access any mmapped are for a long time ?
+> >> Sending SIGKILL explicitly ? But do I have the task id's of all of them ?
+> >
+> > You shouldn't kill them but wait for them aborting gracefully, IMO.
+> > Essentially a kind of hot-unplug.  Most of Linux drivers won't kill
+> > processes at the hot-unplug, AFAIK.
+> 
+> But see, the difference is such that on hot-plug I may just let those
+> process pointing at zombie device to hang around indefently because
+> I am not waiting for any output from them. That indeed what I am doing
+> for amdgou hot-unplug work. Here i need to blocking wait for them since
+> I need to finish the procedure so the PCI core can finish shuffling the
+> existing BARs around and by this freeing enough space for the new device
+> to be accepted. I user can't plug in his thunderbolt GPU and observe
+> that nothing is happening actually because we are stuck waiting for some
+> process just sitting idle.
+
+Then we can see it from a different angle; read below.
+
+> > But if it has to be done so, we have a list of file descriptors that
+> > are attached to the PCM and the control devices, too...
+> 
+> So you suggest iterate all of them, sigkill them and confirm all of
+> them exit instead of using the rw_sem ?
+
+Note that, for the sound applications, we don't kill at disconnection.
+But the ALSA core stuff shuts the all operations up but for closing
+(also some event notification for the disconnection was done), hence
+we just wait for applications releasing resources.  In anyway...
+
+> This will cover IOCTLs and any
+> mmapped accesses i guess. Interrupts we discussed above. What above any
+> possible background kernel work going on in dedicated threads or work
+> items ? Any pointers there what should be blocked and waited for ?
+
+An alternative idea would be the analogy of the system suspend /
+resume.  That is, we forcibly suspend the devices at first somehow,
+and also restricts the further accesses by some way.  Then do remap,
+and resume.  Not sure whether this will fly high, but if it works, it
+should be more systematic and more robust than papering over each
+piece manually, I suppose.
 
 
-On 2021-03-23 12:50 p.m., Takashi Iwai wrote:
-> On Tue, 23 Mar 2021 17:11:20 +0100,
-> Andrey Grodzovsky wrote:
->>
->>
->>
->> On 2021-03-23 10:54 a.m., Takashi Iwai wrote:
->>> On Tue, 23 Mar 2021 15:22:01 +0100,
->>> Andrey Grodzovsky wrote:
->>>>
->>>>
->>>>
->>>> On 2021-03-23 7:39 a.m., Takashi Iwai wrote:
->>>>> On Tue, 23 Mar 2021 12:23:16 +0100,
->>>>> Andrey Grodzovsky wrote:
->>>>>>
->>>>>> Just an update, i found the issue which was actually to wake up the HW
->>>>>> before doing stop/restart (using pm_runtime_get_sync), also handled
->>>>>> protecting from concurrent snd_pcm_ioctls accessing the registers
->>>>>> while the BAR is unmapped. Can go through BAR move while aplay is
->>>>>> running now.
->>>>>>
->>>>>> Once again, would be happy for any comments on the code -
->>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744943554%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=pZEuJv8898ad52gYIskao38J01dLdH1PEwSC5h3tgdM%3D&amp;reserved=0
->>>>>
->>>>> Hrm, this kind of change is a bit scary; we have some mechanism to
->>>>> stop the HD-audio hardware operation (e.g. for loading the DSP for
->>>>> CA0132 codec), but it's pretty hackish and error-prone.
->>>>
->>>> At least I didn't have issue with HW stopping, the problem is with
->>>> unampping hdac_bus->remap_addr - as long as it's not iorampped
->>>> back no code besides the PCI BAR move should run at all as any register
->>>> access from this address will cause fatal page fault. I took care
->>>> of most of the IOCTls i think, the interrupts are disabled in azx_stop_chip
->>>> but I am probably still missing some stuff like some background work
->>>> items or other IOCTls code path.
->>>
->>> Are the all running processes stopped before entering rescan_prepare
->>> callback?  Otherwise, e.g. a process accessing PCM stream via mmap can
->>> run without ioctl and this may trigger the PCM period elapsed
->>> eventually.
->>
->> Is any of them remaps the BAR into user process VMA ? The only two I see
->> in the sound subsystem doing remapping are are had_pcm_mmap and
->> snd_pcm_lib_default_mmap
->> and both of them remap dma buffers which are in system memory and not
->> MMIO space and  hence should not be impacted by the BAR move.
-> 
-> When a stream is running, it can cause an interrupt that may issue an
-> unsolicited event that is deals with CORB/RIRB later in a work
-> asynchronously.
-
-On rescan_prepare I am calling snd_hdac_bus_stop_chip which in turn
-seems to disable interrupts - is this enough to guarantee all those
-won't be happening past that code ? Should I also flush any work queue
-items scheduled from within those ISRs before proceeding ?
+Takashi
 
 > 
->> Or maybe I didn't get your concern correctly ? Why there would be a
->> problem to access the stream otherwise during the BAR move ?
->>
->> Similarly, a control interface may issue the verb that is
->>> processed via CORB/RIRB, too.  So what you need to cover is not only
->>> about PCM.
->>
->> Can you point me to the code path for this - is this through another
->> type of IOCTL or interrupt handlers ?
+> Andrey
 > 
-> Yes, it's handled in the ALSA core control ioctls.  Many of the
-> control *_get()/*_put() callbacks in HD-audio are involved with the
-> amp or other HD-audio verbs (typically calling snd_hda_codec_amp*(),
-> etc).  Those are the mixer elements and handled via regmap with
-> HD-audio backend that deals with CORB/RIRB eventually.
+> >
+> >> We had those scenarios discussed during my initial work on GPU hot
+> >> unplug and came to a conclusssion that trying to wait for current
+> >> processes to die is not a good approach - see the this respone I got
+> >> at the time for example -
+> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Farchives%2Fdri-devel%2F2020-May%2F265467.html&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=kOBHOS8tmokHM23Hx2HH12NWgzadKv7lhuKoNhF2nFU%3D&amp;reserved=0
+> >
+> > But should this be seen rather as an analogy of hot-replug?  That
+> > won't kill processes.
+> >
+> >
+> > Takashi
+> >
+> >>
+> >> Andrey
+> >>
+> >>    We have a mechanism to block the new opens
+> >>> like snd_hda_lock_devices().  We'll need an additional stuff to wait
+> >>> until all opened devices are released there, and this requires some
+> >>> help in the core code, I suppose.
+> >>> (Actually this hackish lock_devices/unlock_devices should have been in
+> >>>    the core stuff from the beginning...)
+> >>>
+> >>>
+> >>> thanks,
+> >>>
+> >>> Takashi
+> >>>
+> >>>>
+> >>>> Andrey
+> >>>>
+> >>>>>
+> >>>>>
+> >>>>> thanks,
+> >>>>>
+> >>>>> Takashi
+> >>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> Andrey
+> >>>>>>
+> >>>>>> On 2021-03-19 5:22 p.m., Andrey Grodzovsky wrote:
+> >>>>>>> Hi, I am working on adding AMD related drivers support for PCIe BARs
+> >>>>>>> move feature developed by Sergei
+> >>>>>>> (https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flinuxplumbersconf.org%2Fevent%2F7%2Fcontributions%2F847%2Fattachments%2F584%2F1035%2Flpc2020_sergmir.pdf&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QbiCIxry93FNvFJLHNaqEAdPbFRe%2FctIf%2BlGAQg0XDI%3D&amp;reserved=0).
+> >>>>>>>
+> >>>>>>> His feature is still not upstream, all his code and mine on top can
+> >>>>>>> be seen here -
+> >>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=G514jwRAVet2bFXPC7a1s0%2B0cRYhX7f45gesxQpcYfk%3D&amp;reserved=0
+> >>>>>>>
+> >>>>>>> I did basic implementation fro amdgpu driver and now I am doing the
+> >>>>>>> same for snd_hda_intel to support our on GPU Azalia audio
+> >>>>>>> chips. This relevant commit is here -
+> >>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1%26id%3D7ec0f60633e898cb941cebb3cd18aae1374fc365&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=zKywjLs5mCdQwlt%2Fjb0qe1aOlVb%2FWWf6eDqQ4m9WGSs%3D&amp;reserved=0
+> >>>>>>>
+> >>>>>>> Any driver that wants to support movable BARs needs to implement
+> >>>>>>> rescan_prepare, rescan_done and bar_fixed callbacks where
+> >>>>>>> rescan_prepare needs to stop HW/SW and unamp all MMIO mappings and
+> >>>>>>> rescan_done needs to ioremap the BAR from it's new MMIO location and
+> >>>>>>> restart HW/SW.
+> >>>>>>>
+> >>>>>>> I am able currently to trigger BARs move by sysfs using
+> >>>>>>> "/sys/bus/pci/rescan" and the driver will go through the sequence I
+> >>>>>>> described above without hangs. Problem is that after this when i try
+> >>>>>>> to use mplayer I am getting following errors:
+> >>>>>>>
+> >>>>>>> andrey@andrey-test:~$ sudo mplayer -ao alsa:device=hw=0.3
+> >>>>>>> Downloads/file_example_MP3_5MG.mp3
+> >>>>>>> MPlayer 1.3.0 (Debian), built with gcc-9 (C) 2000-2016 MPlayer Team
+> >>>>>>> do_connect: could not connect to socket
+> >>>>>>> connect: No such file or directory
+> >>>>>>> Failed to open LIRC support. You will not be able to use your remote
+> >>>>>>> control.
+> >>>>>>>
+> >>>>>>> Playing Downloads/file_example_MP3_5MG.mp3.
+> >>>>>>> libavformat version 58.29.100 (external)
+> >>>>>>> Audio only file format detected.
+> >>>>>>> Load subtitles in Downloads/
+> >>>>>>> ==========================================================================
+> >>>>>>> Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
+> >>>>>>> AUDIO: 44100 Hz, 2 ch, s16le, 320.0 kbit/22.68% (ratio: 40000->176400)
+> >>>>>>> Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers
+> >>>>>>> I, II, III)
+> >>>>>>> ==========================================================================
+> >>>>>>> AO: [alsa] 44100Hz 2ch s16le (2 bytes per sample)
+> >>>>>>> Video: no video
+> >>>>>>> Starting playback...
+> >>>>>>> A:   0.1 (00.0) of 132.0 (02:12.0) ??,?%
+> >>>>>>> Audio device got stuck!
+> >>>>>>>
+> >>>>>>> and in dmesg I see
+> >>>>>>> [  365.355518] snd_hda_codec_hdmi hdaudioC0D0: Unable to sync
+> >>>>>>> register 0x2f0d00. -5
+> >>>>>>>
+> >>>>>>> Also I see 296.619014] snd_hda_intel 0000:0a:00.1: CORB reset
+> >>>>>>> timeout#2, CORBRP = 65535 error during the rescan_done callback
+> >>>>>>> execution
+> >>>>>>>
+> >>>>>>> I know it has to do with the move of BAR's MMIO address because when i
+> >>>>>>> disallow BAR migration by returning true from bar_fixed callback I
+> >>>>>>> have no such errors and mplayer works fine.
+> >>>>>>>
+> >>>>>>> I enabled MMIO trace and didn't see that post BAR move there is a
+> >>>>>>> wrong MMIO access - all of them are from the new MMIO base offset -
+> >>>>>>> 0xfcd80000 (trace attached including mmio trace and dmesg)
+> >>>>>>>
+> >>>>>>> I would be happy for any idea on this and any comment on the
+> >>>>>>> correctness of my sequence in the code
+> >>>>>>>
+> >>>>>>> Andrey
+> >>>>>>
+> >>>>
+> >>
 > 
->>>>> Do we really need the BAR remap while operating the sound streaming?
->>>>> That is, can't we simply refuse the remap if it's in operation?
->>>>> If it can be refused, we may avoid a big locking or such.
->>>>
->>>> Problem here is that this feature is for the sake of hot-plug of a
->>>> device, this supposed to give enough MMIO space to place all the BARs
->>>> of newly plugging in device. Refusing to move BARs because there is some
->>>> app using the sound card on the background might then lead to failure of
->>>> plugging in the new device and this doesn't sound as a reasonable
->>>> behavior to me. Also note that the lock's impact is minimal as it's
->>>> read side lock only in the IOCTLs an so as long as hot plug not
->>>> taking place it has no impact.
->>>
->>> But a hot-plugged device can't have any running files, no?
->>> So at which timing is the BAR movement _must_ happen?
->>
->> No, the devices this code is written for are those already in the
->> system before the new device is plugged in, the new device needs enough
->> free MMIO space for his own BARs and so this features enables existing
->> devices to allow the PCI core to move their BARs within the  physical
->> address space such that enough free space will be available inside
->> the MMIO window allocated for the new device's upstream PCI bridge.
-> 
-> Hmm, OK, so it's other way round as I thought of.
-> 
->>> And, even if we need some synchronization, the current lock
->>> implementation looks fragile to me.  We likely overlook something when
->>> trying to cover each branch code path.
->>>
->>> Basically it needs to wait until all running processes via PCM or
->>> control API are released.
->>
->> This approach brings a couple of hard questions -
->>
->> How we make them stop at once - they might run for long time, you
->> suggest something like invalidate all their mmaps and on next page
->> fault return SIGBUS to terminate them ? Then I need also to know they
->> actually are done - should I wait for their device file instance
->> release? What if they don't access any mmapped are for a long time ?
->> Sending SIGKILL explicitly ? But do I have the task id's of all of them ?
-> 
-> You shouldn't kill them but wait for them aborting gracefully, IMO.
-> Essentially a kind of hot-unplug.  Most of Linux drivers won't kill
-> processes at the hot-unplug, AFAIK.
-
-But see, the difference is such that on hot-plug I may just let those
-process pointing at zombie device to hang around indefently because
-I am not waiting for any output from them. That indeed what I am doing
-for amdgou hot-unplug work. Here i need to blocking wait for them since
-I need to finish the procedure so the PCI core can finish shuffling the
-existing BARs around and by this freeing enough space for the new device
-to be accepted. I user can't plug in his thunderbolt GPU and observe
-that nothing is happening actually because we are stuck waiting for some
-process just sitting idle.
-
-> 
-> But if it has to be done so, we have a list of file descriptors that
-> are attached to the PCM and the control devices, too...
-
-So you suggest iterate all of them, sigkill them and confirm all of them 
-exit instead of using the rw_sem ? This will cover IOCTLs and any
-mmapped accesses i guess. Interrupts we discussed above. What above any
-possible background kernel work going on in dedicated threads or work 
-items ? Any pointers there what should be blocked and waited for ?
-
-Andrey
-
-> 
->> We had those scenarios discussed during my initial work on GPU hot
->> unplug and came to a conclusssion that trying to wait for current
->> processes to die is not a good approach - see the this respone I got
->> at the time for example -
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Farchives%2Fdri-devel%2F2020-May%2F265467.html&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=kOBHOS8tmokHM23Hx2HH12NWgzadKv7lhuKoNhF2nFU%3D&amp;reserved=0
-> 
-> But should this be seen rather as an analogy of hot-replug?  That
-> won't kill processes.
-> 
-> 
-> Takashi
-> 
->>
->> Andrey
->>
->>    We have a mechanism to block the new opens
->>> like snd_hda_lock_devices().  We'll need an additional stuff to wait
->>> until all opened devices are released there, and this requires some
->>> help in the core code, I suppose.
->>> (Actually this hackish lock_devices/unlock_devices should have been in
->>>    the core stuff from the beginning...)
->>>
->>>
->>> thanks,
->>>
->>> Takashi
->>>
->>>>
->>>> Andrey
->>>>
->>>>>
->>>>>
->>>>> thanks,
->>>>>
->>>>> Takashi
->>>>>
->>>>>>
->>>>>>
->>>>>> Andrey
->>>>>>
->>>>>> On 2021-03-19 5:22 p.m., Andrey Grodzovsky wrote:
->>>>>>> Hi, I am working on adding AMD related drivers support for PCIe BARs
->>>>>>> move feature developed by Sergei
->>>>>>> (https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flinuxplumbersconf.org%2Fevent%2F7%2Fcontributions%2F847%2Fattachments%2F584%2F1035%2Flpc2020_sergmir.pdf&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QbiCIxry93FNvFJLHNaqEAdPbFRe%2FctIf%2BlGAQg0XDI%3D&amp;reserved=0).
->>>>>>>
->>>>>>> His feature is still not upstream, all his code and mine on top can
->>>>>>> be seen here -
->>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Flog%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=G514jwRAVet2bFXPC7a1s0%2B0cRYhX7f45gesxQpcYfk%3D&amp;reserved=0
->>>>>>>
->>>>>>> I did basic implementation fro amdgpu driver and now I am doing the
->>>>>>> same for snd_hda_intel to support our on GPU Azalia audio
->>>>>>> chips. This relevant commit is here -
->>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1%26id%3D7ec0f60633e898cb941cebb3cd18aae1374fc365&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7C0bda8b151e46406f541308d8ee1bc360%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637521150744953550%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=zKywjLs5mCdQwlt%2Fjb0qe1aOlVb%2FWWf6eDqQ4m9WGSs%3D&amp;reserved=0
->>>>>>>
->>>>>>> Any driver that wants to support movable BARs needs to implement
->>>>>>> rescan_prepare, rescan_done and bar_fixed callbacks where
->>>>>>> rescan_prepare needs to stop HW/SW and unamp all MMIO mappings and
->>>>>>> rescan_done needs to ioremap the BAR from it's new MMIO location and
->>>>>>> restart HW/SW.
->>>>>>>
->>>>>>> I am able currently to trigger BARs move by sysfs using
->>>>>>> "/sys/bus/pci/rescan" and the driver will go through the sequence I
->>>>>>> described above without hangs. Problem is that after this when i try
->>>>>>> to use mplayer I am getting following errors:
->>>>>>>
->>>>>>> andrey@andrey-test:~$ sudo mplayer -ao alsa:device=hw=0.3
->>>>>>> Downloads/file_example_MP3_5MG.mp3
->>>>>>> MPlayer 1.3.0 (Debian), built with gcc-9 (C) 2000-2016 MPlayer Team
->>>>>>> do_connect: could not connect to socket
->>>>>>> connect: No such file or directory
->>>>>>> Failed to open LIRC support. You will not be able to use your remote
->>>>>>> control.
->>>>>>>
->>>>>>> Playing Downloads/file_example_MP3_5MG.mp3.
->>>>>>> libavformat version 58.29.100 (external)
->>>>>>> Audio only file format detected.
->>>>>>> Load subtitles in Downloads/
->>>>>>> ==========================================================================
->>>>>>> Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
->>>>>>> AUDIO: 44100 Hz, 2 ch, s16le, 320.0 kbit/22.68% (ratio: 40000->176400)
->>>>>>> Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers
->>>>>>> I, II, III)
->>>>>>> ==========================================================================
->>>>>>> AO: [alsa] 44100Hz 2ch s16le (2 bytes per sample)
->>>>>>> Video: no video
->>>>>>> Starting playback...
->>>>>>> A:   0.1 (00.0) of 132.0 (02:12.0) ??,?%
->>>>>>> Audio device got stuck!
->>>>>>>
->>>>>>> and in dmesg I see
->>>>>>> [  365.355518] snd_hda_codec_hdmi hdaudioC0D0: Unable to sync
->>>>>>> register 0x2f0d00. -5
->>>>>>>
->>>>>>> Also I see 296.619014] snd_hda_intel 0000:0a:00.1: CORB reset
->>>>>>> timeout#2, CORBRP = 65535 error during the rescan_done callback
->>>>>>> execution
->>>>>>>
->>>>>>> I know it has to do with the move of BAR's MMIO address because when i
->>>>>>> disallow BAR migration by returning true from bar_fixed callback I
->>>>>>> have no such errors and mplayer works fine.
->>>>>>>
->>>>>>> I enabled MMIO trace and didn't see that post BAR move there is a
->>>>>>> wrong MMIO access - all of them are from the new MMIO base offset -
->>>>>>> 0xfcd80000 (trace attached including mmio trace and dmesg)
->>>>>>>
->>>>>>> I would be happy for any idea on this and any comment on the
->>>>>>> correctness of my sequence in the code
->>>>>>>
->>>>>>> Andrey
->>>>>>
->>>>
->>

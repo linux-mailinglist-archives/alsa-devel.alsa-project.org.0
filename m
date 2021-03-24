@@ -2,83 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4E5348067
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 19:24:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3CF348095
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 19:36:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A3E61669;
-	Wed, 24 Mar 2021 19:23:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A3E61669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 293BE1616;
+	Wed, 24 Mar 2021 19:35:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 293BE1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616610285;
-	bh=J9Gz+lOAWz2kcZEla+W0HEdm6Pj4xzdklVbPhN87NGE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616610972;
+	bh=jTMgjoze1YIV7jw/ExZeJkhD7cCSOjq3gE1YSK2uvnE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VK1EuJUGGjK3Gtv0RxZpHtStR1X0JKg3iFK0OpRVCS6ELtnUVS2j0dEOMW65twdvI
-	 QvLXxCXcskkrHbYbGuJ8pD216Zv1wHFZrotG20Y+vBntjN0fSrp5gsiWJpJlyVHBgg
-	 2LQGawy9iQZOz/9Uj2BgI+rdx0HT7C9OlO9vVhrM=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E64CF801D5;
-	Wed, 24 Mar 2021 19:23:14 +0100 (CET)
+	b=VrR/VN5Gh+WwvuI/i52jVEmtMMCeNHl825pKzoirfoXz5JR6WZ9yNrh0hD+/EJrtQ
+	 qNowj4ukHp47R/JXTQrkSpN1RVrKrBEtXMCF1HvuYwnw0jy3uV1uW8FfmZxI5eQSVD
+	 WKAK0f4275GDkLJc9F/SLw0vupWC/NUtFOcSsehY=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D7C5F800FF;
+	Wed, 24 Mar 2021 19:34:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 520E4F8016B; Wed, 24 Mar 2021 19:23:07 +0100 (CET)
+ id 2C52DF8016B; Wed, 24 Mar 2021 19:34:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5EF2F80104
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 19:23:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5EF2F80104
-Received: by mail-il1-f170.google.com with SMTP id j11so22228085ilu.13
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 11:23:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=+7jD9Ziw+YPY/ufj9WrL5bWKS/awbf5purcgVlFjpng=;
- b=XwvqkjxsqZ2BcFJ6mXPh/oNe5AkzxdFDJ5won/GgeXBSXne7ci+HVOWm8zpU2FxI5W
- pnPZUJliNSzYWEKavULrIOXGbuhWvUtO+V63ZuM1WTu+ZG0wWGV2LehCjobypwLimydp
- 2/QUcmCOWpzvWoOnAuRP/TMqFOE+xTzDbdNwkqeyz1KuPVAuhS11Enq1hyjRO5vwU/j8
- Jf4aaRIQRYq6mUgxnvZodkrzkncc+FeE8Q9zhXC/yTidhm+7E12oNF6BqLti4mdZ1pKl
- NutgQVzyLocioQuhpheSo5S4RUQQG130Lbiye8g3BoiMmPEsXG0RLsSG1BqgtFQkns6c
- WGgQ==
-X-Gm-Message-State: AOAM530tIaknxF7C1v6p3sXMllDHJtXwxIT0LPqJmnTi/MJZdVMJDUfb
- wC7YzCtss9i4LzDtV/rSOQ==
-X-Google-Smtp-Source: ABdhPJwVb9jNY+tf48aCkvEKARd+56FFc2A96PY8V0WlIyLx6KzFPooDrUWIeMIWNHDl/AImI3EhAA==
-X-Received: by 2002:a05:6e02:10d1:: with SMTP id
- s17mr3615039ilj.159.1616610178809; 
- Wed, 24 Mar 2021 11:22:58 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id k3sm1404464ioj.35.2021.03.24.11.22.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 11:22:58 -0700 (PDT)
-Received: (nullmailer pid 3375422 invoked by uid 1000);
- Wed, 24 Mar 2021 18:22:56 -0000
-Date: Wed, 24 Mar 2021 12:22:56 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v4 4/5] ASoC: dt-bindings: wsa881x: add bindings for port
- mapping
-Message-ID: <20210324182256.GA3375367@robh.at.kernel.org>
-References: <20210315165650.13392-1-srinivas.kandagatla@linaro.org>
- <20210315165650.13392-5-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1371F80104
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 19:34:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1371F80104
+IronPort-SDR: aWYnHcknZ8IL9rz/XOEfU8faHTDh15ETevJBQIhAThz0UYpV0hhbr/91LQNbncPPUqdSd2Slrb
+ JWcFfbX+04Kg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="177882213"
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="177882213"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 11:34:30 -0700
+IronPort-SDR: DBGGqH/ddT71uKvj9eCeEkB5CEzLGE8F3KVq0bHk39sEFvsMn2lt5SgyPfd/X/vuEwaDQ9gG0o
+ h9AUcDRbK+Ig==
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="436130475"
+Received: from jmtabang-mobl2.amr.corp.intel.com (HELO [10.213.166.106])
+ ([10.213.166.106])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 11:34:29 -0700
+Subject: Re: [PATCH 1/2] ASoC: Intel: kbl: Add MST route change to kbl machine
+ drivers
+To: vamshi.krishna.gopal@intel.com, alsa-devel@alsa-project.org
+References: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
+ <20210324175200.44922-2-vamshi.krishna.gopal@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <2ee1a18e-8771-b8f7-0452-f96403bd7fe4@linux.intel.com>
+Date: Wed, 24 Mar 2021 13:34:28 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210315165650.13392-5-srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- vkoul@kernel.org, broonie@kernel.org, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+In-Reply-To: <20210324175200.44922-2-vamshi.krishna.gopal@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: harshapriya.n@intel.com, sathya.prakash.m.r@intel.com, broonie@kernel.org,
+ biernacki@google.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,14 +82,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 15 Mar 2021 16:56:49 +0000, Srinivas Kandagatla wrote:
-> WSA881x SoundWire device ports are statically assigned to master ports
-> at design time. So add bindings required to specify these mappings!
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../devicetree/bindings/sound/qcom,wsa881x.yaml          | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+> diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> index dc3d897ad280..1d6b2855874d 100644
+> --- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> +++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> @@ -91,7 +91,9 @@ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+>   	SND_SOC_DAPM_SPK("Spk", NULL),
+>   	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
+>   	SND_SOC_DAPM_SPK("DP", NULL),
+> -	SND_SOC_DAPM_SPK("HDMI", NULL),
+> +	SND_SOC_DAPM_SPK("HDMI1", NULL),
+> +	SND_SOC_DAPM_SPK("HDMI2", NULL),
+> +	SND_SOC_DAPM_SPK("HDMI3", NULL),
+
+that seems consistent with other BXT/KBL machine drivers, but...
+
+>   	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
+>   			platform_clock_control, SND_SOC_DAPM_PRE_PMU |
+>   			SND_SOC_DAPM_POST_PMD),
+> @@ -108,9 +110,6 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+>   	{ "MIC", NULL, "Headset Mic" },
+>   	{ "DMic", NULL, "SoC DMIC" },
+>   
+> -	{ "HDMI", NULL, "hif5 Output" },
+> -	{ "DP", NULL, "hif6 Output" },
+> -
+
+... this doesn't:
+
+other machine drivers use this:
+
+	{"HDMI1", NULL, "hif5-0 Output"},
+	{"HDMI2", NULL, "hif6-0 Output"},
+	{"HDMI2", NULL, "hif7-0 Output"},
+
+And if you start changing HDMI support, you should also fix the other 
+machine drivers that used the same pattern, e.g.
+
+kbl_da7219_max98927.c\0129:	{ "HDMI", NULL, "hif5 Output" },
+kbl_rt5663_max98927.c\0214:	{ "HDMI", NULL, "hif5 Output" },
+
+>   	/* CODEC BE connections */
+>   	{ "HiFi Playback", NULL, "ssp0 Tx" },
+>   	{ "ssp0 Tx", NULL, "codec0_out" },
+> 

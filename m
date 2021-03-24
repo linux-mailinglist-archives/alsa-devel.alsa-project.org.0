@@ -2,77 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9885B347D29
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 16:59:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E435A347D44
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 17:08:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DA46169F;
-	Wed, 24 Mar 2021 16:58:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DA46169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 789E5168A;
+	Wed, 24 Mar 2021 17:07:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 789E5168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616601553;
-	bh=rDiZnqFfMG54jCj3PhDkn0nH6HBbb0B9jsMHHWq9I+4=;
+	s=default; t=1616602084;
+	bh=913EpeeI2ShqFEPBtvOWe+jEMQ38toYFm5VbVQ+SGWU=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l+ZfQSX73BluyBMSSAKfwsnGhtnXsmtl+V4+IEMVaMI4H4IH8vsASDGPyryrwZWTs
-	 xris8tHjBj2D31V0Xbq7eYf6HBTjhuBMzPOMSMKvHmSp6xVBMZ3qY/vFbl3Jn0/YXw
-	 gDAaYeRNXqDJIrYS/PAhI/lzSdETKZBxVyuJnX5Y=
+	b=meYb3SZs+rjESZNOjTFGYTm3P4mdfZ0LZz12rUVmMSE/jmlxrrWuSyBiFiMENhqYq
+	 8ln+nh+JgRQaKsnmouhtsSbkgwJAYm5dGFTCQUNmmmQ9Bg1rnSOVorTAvsgHJt3FeA
+	 zz2OYuCgTrUSeWurAnD38dEYskEVsY5wqkwSMcw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E89FF801D5;
-	Wed, 24 Mar 2021 16:57:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFC44F8012B;
+	Wed, 24 Mar 2021 17:06:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6A76F8016B; Wed, 24 Mar 2021 16:57:45 +0100 (CET)
+ id EE0B2F8016B; Wed, 24 Mar 2021 17:06:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 376C6F80104
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 16:57:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 376C6F80104
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="P8Yc3kea"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
- Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=URqzddksPK0d3/8L2FvgtboWbK+ENphuA8uc4T7HJxs=; b=P8Yc3keafr8bTOf2xFaBLv63/9
- WwVIIvuhgGWkMjDLveFM7MHJfaYa/Klm5MbvvhGkrDWZu5ojMgmPfG90XhyN9R2F3zDbQM99+e3Ax
- t5Y0cDWmTwFhdxOOVsMcXMts3V+rIv3YGpv5YzSR2ANROF8AraNXLCfxehtqbnZC6JaCeI3sDKeU4
- W9K+wpkN1RuRJx9Owzi22Mb3hxfGtMflhVk7mR0kWV2xCmlNY/nH4ROTfPayJi606otwTiSPV2zq/
- aUW0lwCQbqceMzpbj8t00Bm1+GbuU4IJcRpZlKkrzloK6uRHGsZMQOW9kBPMuYfq4uiqkzDXtMU8j
- EXtVDI1A==;
-Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
- helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
- (envelope-from <coding@diwic.se>)
- id 1lP5t4-009XfA-5T; Wed, 24 Mar 2021 16:57:38 +0100
-Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
-To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz
-References: <20210324054253.34642-1-coding@diwic.se>
- <20210324124430.GA3711@workstation>
-From: David Henningsson <coding@diwic.se>
-Message-ID: <057ef387-9ee1-2678-29ce-d644f2a3a90a@diwic.se>
-Date: Wed, 24 Mar 2021 16:57:31 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 961C4F80104
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 17:06:26 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C6270A0040;
+ Wed, 24 Mar 2021 17:06:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C6270A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1616601980; bh=3xHVyAFJHWAXp/frLxNB4TnsB1WrjnuKPXuG4Pz7+Mc=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=08lqn4Iflj4Biz9SsDHADFBhu2zCmVInb/jHgYHiAnU84xSUK2cJ/iKqZD0jqIlxQ
+ cX/wDjamFQLhaqr48ZOhjF5yZKIuzoyGdX09tXQi19sSzswg2J1J2dz1s6j08D9fBE
+ OMI8hDlX0jgpX8aomZ8f6PWwnwQYczxcuHmzhxok=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed, 24 Mar 2021 17:06:17 +0100 (CET)
+Subject: Re: [PATCH 1/1] sound: rawmidi: Add framing mode
+To: David Henningsson <coding@diwic.se>, alsa-devel@alsa-project.org,
+ tiwai@suse.de
+References: <20210324053154.34107-1-coding@diwic.se>
+ <20210324053154.34107-2-coding@diwic.se>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <a0812386-d916-4cdb-a230-4c56e0b8952e@perex.cz>
+Date: Wed, 24 Mar 2021 17:06:17 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210324124430.GA3711@workstation>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20210324053154.34107-2-coding@diwic.se>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-Authenticated-Id: coding@diwic.se
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,91 +81,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 24. 03. 21 v 6:31 David Henningsson napsal(a):
+> This commit adds a new framing mode that frames all MIDI data into
+> 16-byte frames with a timestamp from the monotonic_raw clock.
 
-On 2021-03-24 13:44, Takashi Sakamoto wrote:
-> Hi,
->
-> On Wed, Mar 24, 2021 at 06:42:53AM +0100, David Henningsson wrote:
->> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
->> index 535a7229e1d9..f33076755025 100644
->> --- a/include/uapi/sound/asound.h
->> +++ b/include/uapi/sound/asound.h
->> @@ -736,12 +736,28 @@ struct snd_rawmidi_info {
->>   	unsigned char reserved[64];	/* reserved for future use */
->>   };
->>   
->> +enum {
->> +	SNDRV_RAWMIDI_FRAMING_NONE = 0,
->> +	SNDRV_RAWMIDI_FRAMING_TSTAMP_MONOTONIC_RAW,
->> +	SNDRV_RAWMIDI_FRAMING_LAST = SNDRV_RAWMIDI_FRAMING_TSTAMP_MONOTONIC_RAW,
->> +};
+I would add support for monotonic timestamps, too. The NTP drifts are usually
+small, so it may make sense to support those timestamps, too. It may be handy
+for the synchronization among multiple machines (timing sources).
 
-Hi and thanks for the review!
+The timestamp mode should be selected separately than the framing mode.
 
-> In C language specification, enumeration is for value of int storage. In
-> my opinion, int type should be used for the framing member, perhaps.
-In this case, I was following how the rest of the enum declarations were 
-in the same header. In addition, the only place it is used, is as an 
-unsigned char. So I'm not sure defining it as an int here would make sense.
->
-> (I think you can easily understand my insistent since you're Rust
-> programmer.)
+> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 7
+> +
+> +struct snd_rawmidi_framing_tstamp {
+> +	unsigned int tv_sec;	/* seconds */
+> +	unsigned int tv_nsec;	/* nanoseconds */
+> +	unsigned char length;
+> +	unsigned char data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
+> +};
 
-I am, and as a side point: for those who don't know, I've written (and 
-maintaining) alsa-lib bindings for Rust in
+Perhaps, we should consider to have a fixed header and variable data length
+here. For MIDI, the standard messages have only few bytes usually. It would be
+better to use this space for the seconds field:
 
-https://github.com/diwic/alsa-rs
+header {
+	unsigned long long tv_sec;
+	unsigned int tv_nsec;
+	unsigned int len;
+	unsigned char data[0];
+};
 
->
-> I note that in UAPI of Linux kernel, we have some macros to represent
-> system clocks; e.g. CLOCK_REALTIME, CLOCK_MONOTONIC:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/time.h#n46
->
-> We can use the series of macro, instead of defining the specific
-> enumerations. However I have one concern that the 'None' value cannot be
-> zero in the case since CLOCK_REALTIME is zero. This is a bit inconvenient
-> since we need initializer function in both of kernel space and user
-> space...
+					Jaroslav
 
-Interesting point. So I guess we could add a bit in the existing 
-bitfield that says on/off, and then have an unsigned char that decides 
-the clock type. But as you point out in your other reply, if we can get 
-a timestamp from closer to the source somehow, that would be even 
-better, and then that would be a clock that is something different from 
-the existing clock defines in time.h.
-
-[snip from your other reply]
-
-> However, the timing jitter of IRQ handler invocation is issued in this
-> case, as well as PCM interface, even if the data rate of MIDI physical
-> layer is quite low nowadays (31.25 Kbit / sec ~= 3906.25 byte / sec).
-> As long as I experienced, in actual running Linux system, the invocation
-> of IRQ handler has no guarantee for timing jitter, mainly due to CPU level
-> IRQ mask (like spin_lock). Therefore the interval of each invocation is not
-> so precise to decide event timestamp, at least for time slot comes from
-> MIDI physical layer.
->
-> Nevertheless, I think your idea is enough interesting, with conditions to
-> deliver information from driver (or driver developer) to applications
-> (ALSA Sequencer or userspace applications). Even if we have some
-> limitation and restriction to precise timestamp, it's worth to work for
-> it. It seems to be required that improvements at interface level and
-> documentation about how to use the frame timestamp you implemented.
-
-Right, so first, I believe the most common way to transport midi these 
-days is through USB, where the 31.25 Kbit/sec limit does not apply: 
-instead we have a granularity of 1/8 ms but many messages can fit in 
-each one. So that limit is - for many if not most cases - gone.
-
-Second; you're probably right in that there is still some jitter w r t 
-when the IRQ fires. That is regrettable, but the earlier we get that 
-timestamp the better, so a timestamp in IRQ context would at least be 
-better than in a workqueue that fires after the IRQ, or in userspace 
-that possibly has scheduling delays.
-
-Btw, I checked the "struct urb" and there was no timestamp in there, so 
-I don't know how to get a better timestamp than in snd_rawmidi_receive. 
-But maybe other interfaces (PCI, Firewire etc) offers something better.
-
-// David
-
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

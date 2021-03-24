@@ -2,64 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEE6347FD9
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 18:54:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4E5348067
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 19:24:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B901167F;
-	Wed, 24 Mar 2021 18:53:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B901167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A3E61669;
+	Wed, 24 Mar 2021 19:23:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A3E61669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616608487;
-	bh=6wA/GWvJjvbbS7ZJVb9Vn2NArdq2Hd0B+rkFOMIGuUQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616610285;
+	bh=J9Gz+lOAWz2kcZEla+W0HEdm6Pj4xzdklVbPhN87NGE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m9ttyOKGDzW8nkl4vGf8o3A8vqCe9kInBQAV35V2HcdnNSn/m5LVzD2n0uJNDrNa0
-	 NXgwW9V1noqJoUQKQnIZ1HpC2UKOz79BvC6bluE6F/DM6UUtLXljEvmNzNppwHjS+j
-	 /6q73gQ6CyGglv4O74ifZpFo5djArWUjy6wT/1eU=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 499FAF80424;
-	Wed, 24 Mar 2021 18:52:50 +0100 (CET)
+	b=VK1EuJUGGjK3Gtv0RxZpHtStR1X0JKg3iFK0OpRVCS6ELtnUVS2j0dEOMW65twdvI
+	 QvLXxCXcskkrHbYbGuJ8pD216Zv1wHFZrotG20Y+vBntjN0fSrp5gsiWJpJlyVHBgg
+	 2LQGawy9iQZOz/9Uj2BgI+rdx0HT7C9OlO9vVhrM=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E64CF801D5;
+	Wed, 24 Mar 2021 19:23:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07170F8032C; Wed, 24 Mar 2021 18:52:48 +0100 (CET)
+ id 520E4F8016B; Wed, 24 Mar 2021 19:23:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDE99F800FF
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 18:52:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDE99F800FF
-IronPort-SDR: fUJ+fqVfvCjk1f6C9ZdAf5U35UKiH80Pa8R2uCQPbHDkCSL2eIuOSdgkNm6+9or56WuSOCfLdp
- ODYyAaT5NBjQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="187452414"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="187452414"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 10:52:35 -0700
-IronPort-SDR: 3Ata4bdp/BOiwl11z2YxipmnfFew8tqdfd+hXDiCUkh2R3/NR28eOejTaTwLmCh8h5mBesc0aw
- /W6BNgqcrNzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="442344397"
-Received: from snappy-s2600wt2r.iind.intel.com ([10.223.163.26])
- by fmsmga002.fm.intel.com with ESMTP; 24 Mar 2021 10:52:32 -0700
-From: vamshi.krishna.gopal@intel.com
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoc: Intel: board: add BE DAI link for WoV
-Date: Wed, 24 Mar 2021 23:22:00 +0530
-Message-Id: <20210324175200.44922-3-vamshi.krishna.gopal@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
-References: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
-Cc: harshapriya.n@intel.com, broonie@kernel.org, sathya.prakash.m.r@intel.com,
- biernacki@google.com, vamshi.krishna.gopal@intel.com,
- pierre-louis.bossart@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5EF2F80104
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 19:23:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5EF2F80104
+Received: by mail-il1-f170.google.com with SMTP id j11so22228085ilu.13
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 11:23:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+7jD9Ziw+YPY/ufj9WrL5bWKS/awbf5purcgVlFjpng=;
+ b=XwvqkjxsqZ2BcFJ6mXPh/oNe5AkzxdFDJ5won/GgeXBSXne7ci+HVOWm8zpU2FxI5W
+ pnPZUJliNSzYWEKavULrIOXGbuhWvUtO+V63ZuM1WTu+ZG0wWGV2LehCjobypwLimydp
+ 2/QUcmCOWpzvWoOnAuRP/TMqFOE+xTzDbdNwkqeyz1KuPVAuhS11Enq1hyjRO5vwU/j8
+ Jf4aaRIQRYq6mUgxnvZodkrzkncc+FeE8Q9zhXC/yTidhm+7E12oNF6BqLti4mdZ1pKl
+ NutgQVzyLocioQuhpheSo5S4RUQQG130Lbiye8g3BoiMmPEsXG0RLsSG1BqgtFQkns6c
+ WGgQ==
+X-Gm-Message-State: AOAM530tIaknxF7C1v6p3sXMllDHJtXwxIT0LPqJmnTi/MJZdVMJDUfb
+ wC7YzCtss9i4LzDtV/rSOQ==
+X-Google-Smtp-Source: ABdhPJwVb9jNY+tf48aCkvEKARd+56FFc2A96PY8V0WlIyLx6KzFPooDrUWIeMIWNHDl/AImI3EhAA==
+X-Received: by 2002:a05:6e02:10d1:: with SMTP id
+ s17mr3615039ilj.159.1616610178809; 
+ Wed, 24 Mar 2021 11:22:58 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id k3sm1404464ioj.35.2021.03.24.11.22.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Mar 2021 11:22:58 -0700 (PDT)
+Received: (nullmailer pid 3375422 invoked by uid 1000);
+ Wed, 24 Mar 2021 18:22:56 -0000
+Date: Wed, 24 Mar 2021 12:22:56 -0600
+From: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v4 4/5] ASoC: dt-bindings: wsa881x: add bindings for port
+ mapping
+Message-ID: <20210324182256.GA3375367@robh.at.kernel.org>
+References: <20210315165650.13392-1-srinivas.kandagatla@linaro.org>
+ <20210315165650.13392-5-srinivas.kandagatla@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210315165650.13392-5-srinivas.kandagatla@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ vkoul@kernel.org, broonie@kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,94 +94,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mac Chiang <mac.chiang@intel.com>
+On Mon, 15 Mar 2021 16:56:49 +0000, Srinivas Kandagatla wrote:
+> WSA881x SoundWire device ports are statically assigned to master ports
+> at design time. So add bindings required to specify these mappings!
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,wsa881x.yaml          | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
 
-create dai link in kbl_da7219_max98357a driver for wake on voice
-functionality.
-
-changes picked from broonie's tree
-commit 0c7941a63a0f
-("ASoC: Intel: Skylake: Use refcap device for mono recording")
-commit 2154be362c90
-("ASoc: Intel: boards: Add WOV as sink for nau88l25_ssm4567 machine")
-
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
-Tested-by: Kaiyen Chang <kaiyen.chang@intel.corp-partner.google.com>
-Tested-by: luke yang <luke_yang@compal.corp-partner.google.com>
-Tested-by: Grace Kao <grace.kao@intel.com>
-Tested-by: Kaiyen Chang <kaiyen.chang@intel.com>
-Reviewed-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/intel/boards/kbl_da7219_max98357a.c | 35 +++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-index 1d6b2855874d..c9d83eebf4a8 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-@@ -44,6 +44,7 @@ struct kbl_codec_private {
- enum {
- 	KBL_DPCM_AUDIO_PB = 0,
- 	KBL_DPCM_AUDIO_CP,
-+	KBL_DPCM_AUDIO_REF_CP,
- 	KBL_DPCM_AUDIO_DMIC_CP,
- 	KBL_DPCM_AUDIO_HDMI1_PB,
- 	KBL_DPCM_AUDIO_HDMI2_PB,
-@@ -335,12 +336,36 @@ static struct snd_soc_ops kabylake_dmic_ops = {
- 	.startup = kabylake_dmic_startup,
- };
- 
-+static const struct snd_pcm_hw_constraint_list constraints_refcap = {
-+	.count = ARRAY_SIZE(ch_mono),
-+	.list  = ch_mono,
-+};
-+
-+static int kabylake_refcap_startup(struct snd_pcm_substream *substream)
-+{
-+	substream->runtime->hw.channels_max = 1;
-+	snd_pcm_hw_constraint_list(substream->runtime, 0,
-+					SNDRV_PCM_HW_PARAM_CHANNELS,
-+					&constraints_refcap);
-+
-+	return snd_pcm_hw_constraint_list(substream->runtime, 0,
-+					SNDRV_PCM_HW_PARAM_RATE,
-+					&constraints_16000);
-+}
-+
-+static struct snd_soc_ops skylaye_refcap_ops = {
-+	.startup = kabylake_refcap_startup,
-+};
-+
- SND_SOC_DAILINK_DEF(dummy,
- 	DAILINK_COMP_ARRAY(COMP_DUMMY()));
- 
- SND_SOC_DAILINK_DEF(system,
- 	DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
- 
-+SND_SOC_DAILINK_DEF(reference,
-+	DAILINK_COMP_ARRAY(COMP_CPU("Reference Pin")));
-+
- SND_SOC_DAILINK_DEF(dmic,
- 	DAILINK_COMP_ARRAY(COMP_CPU("DMIC Pin")));
- 
-@@ -415,6 +440,16 @@ static struct snd_soc_dai_link kabylake_dais[] = {
- 		.ops = &kabylake_da7219_fe_ops,
- 		SND_SOC_DAILINK_REG(system, dummy, platform),
- 	},
-+	[KBL_DPCM_AUDIO_REF_CP] = {
-+		.name = "Kbl Audio Reference cap",
-+		.stream_name = "Wake on Voice",
-+		.init = NULL,
-+		.dpcm_capture = 1,
-+		.nonatomic = 1,
-+		.dynamic = 1,
-+		.ops = &skylaye_refcap_ops,
-+		SND_SOC_DAILINK_REG(reference, dummy, platform),
-+	},
- 	[KBL_DPCM_AUDIO_DMIC_CP] = {
- 		.name = "Kbl Audio DMIC cap",
- 		.stream_name = "dmiccap",
--- 
-2.17.1
-
+Reviewed-by: Rob Herring <robh@kernel.org>

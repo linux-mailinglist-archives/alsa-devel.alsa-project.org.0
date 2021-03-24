@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7583347CBF
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 16:33:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89564347CBC
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 16:33:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66A0916AD;
-	Wed, 24 Mar 2021 16:33:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66A0916AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DB9A16A2;
+	Wed, 24 Mar 2021 16:32:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DB9A16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616600036;
-	bh=Wlgz++fQTKYVsteeIn806tWJROYW5jiPnR2mdLDUZGI=;
+	s=default; t=1616600020;
+	bh=ymR+Z1PMbaqcW5BkuKKBSWBEthwd6TzAxY7ie0c+X94=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UZpzAPeSq3LrsNyPtmIqjVzsPnwtiVd6A9B1LVy2IOEhVCoPiy1ZrRX5Ab1h3WdA/
-	 9SS0VzpeHtD2zH3ejrmUXNszwWgbzRSV/7/FY8Q1zsfrGC1noMz3HPxD3gwh/iylNE
-	 ClMT61ZIfyRSj9xs7JyLZG9WLbO3jog5K6ghzmoE=
+	b=RagB9kGtZ/WXwi+aPZ4dhkUBF9c435VZnMAr0kgNFwW60r7Xd/AMjfi7eGUrrOzXA
+	 jJgCTNcnMuuqBk1arRFljNbTjAvaXuSONZbdTA5hcvIjrcbOetBs3ps6h1vxVvYP4u
+	 RKLUPaNXHmlVhFzV4u41sA4gFy4E026ziVW3Pw20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22F5AF80246;
-	Wed, 24 Mar 2021 16:32:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FB15F801D5;
+	Wed, 24 Mar 2021 16:32:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 457AEF8016B; Wed, 24 Mar 2021 16:32:11 +0100 (CET)
+ id 1B836F801D5; Wed, 24 Mar 2021 16:32:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,43 +33,41 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BB89F80104
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 16:32:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BB89F80104
-IronPort-SDR: 0UMgdIFyCbiHyz7FEnfZfrjXYLEGdQUwJzQD23iQS+rdfCCfiafqJ99G3wKdiVX2kOLDmC7KfE
- UCg8GfWUjqzw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="188427852"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="188427852"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21B01F80156
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 16:32:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21B01F80156
+IronPort-SDR: n2M7Oc6OTSfVME5z+UkNA64emZsj7pEC21i7NIcwFfFiOf0naEne0vbE4vuipa0TG938uxmzLs
+ jkfZXnHEqWpg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="188427872"
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="188427872"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 08:31:59 -0700
-IronPort-SDR: KvDCAb661kRGCW3L7DcBK0x4sJ9Z947z1JgdkPE/knlly8SVix+WP2nrSKT0N8y1p1ErDT4s3i
- lw4TePEghKPA==
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="608143679"
+ 24 Mar 2021 08:32:01 -0700
+IronPort-SDR: AxDddmw+YCYh7g59uN05Wg4w8oePcVqXDwKx1lEhT5IyOtWrqMeutIvUjD66w96loCyKAr3uVl
+ SkldLBgMij2A==
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="608143696"
 Received: from mailunda-mobl.amr.corp.intel.com (HELO [10.209.33.48])
  ([10.209.33.48])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 08:31:57 -0700
+ 24 Mar 2021 08:32:00 -0700
 Subject: Re: [PATCH] soundwire: intel: move to auxiliary bus
-To: Greg KH <gregkh@linuxfoundation.org>
+To: Vinod Koul <vkoul@kernel.org>
 References: <20210323004325.19727-1-yung-chuan.liao@linux.intel.com>
- <YFmatyAoMZmBmkuZ@kroah.com>
- <777b4ca6-0d51-285d-549f-6ef768f2a523@linux.intel.com>
- <YFo0WW8hOsHesSFC@kroah.com>
- <35cc8d35-a778-d8b2-bee3-bb53f8a6c51e@linux.intel.com>
- <YFsG00+iDV/A4i3y@kroah.com>
+ <YFmPTkNkX6QPWiCa@vkoul-mobl.Dlink> <YFma1ClahDe2bZhR@kroah.com>
+ <aa9cfc49-913e-b3ba-1d92-2fab55bf4fa7@linux.intel.com>
+ <YFsZdiVQpLfsWmv2@vkoul-mobl.Dlink>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <357d9576-f79a-0ea6-eee4-292e27597565@linux.intel.com>
-Date: Wed, 24 Mar 2021 09:55:01 -0500
+Message-ID: <c3534676-f8df-b9ce-582d-3cf02db4d02c@linux.intel.com>
+Date: Wed, 24 Mar 2021 10:03:42 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YFsG00+iDV/A4i3y@kroah.com>
+In-Reply-To: <YFsZdiVQpLfsWmv2@vkoul-mobl.Dlink>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org,
- linux-kernel@vger.kernel.org, hui.wang@canonical.com, vkoul@kernel.org,
+Cc: alsa-devel@alsa-project.org, Greg KH <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, hui.wang@canonical.com,
  srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
  Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
  bard.liao@intel.com
@@ -89,110 +87,126 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>>>>> Note that the auxiliary bus API has separate init and add steps, which
->>>>>> requires more attention in the error unwinding paths. The main loop
->>>>>> needs to deal with kfree() and auxiliary_device_uninit() for the
->>>>>> current iteration before jumping to the common label which releases
->>>>>> everything allocated in prior iterations.
->>>>>
->>>>> The init/add steps can be moved together in the aux bus code if that
->>>>> makes this usage simpler.  Please do that instead.
+
+On 3/24/21 5:50 AM, Vinod Koul wrote:
+> On 23-03-21, 12:29, Pierre-Louis Bossart wrote:
+>> Thanks Greg and Vinod for the reviews
+>>
+>>>>> -static int intel_master_probe(struct platform_device *pdev)
+>>>>> +static int intel_link_probe(struct auxiliary_device *auxdev, const struct auxiliary_device_id *id)
+>>>>>    {
+>>>>> -	struct device *dev = &pdev->dev;
+>>>>> +	struct device *dev = &auxdev->dev;
+>>>>> +	struct sdw_intel_link_dev *ldev = auxiliary_dev_to_sdw_intel_link_dev(auxdev);
 >>>>
->>>> IIRC the two steps were separated during the auxbus reviews to allow the
->>>> parent to call kfree() on an init failure, and auxiliary_device_uninit()
->>>> afterwards.
->>>>
->>>> https://www.kernel.org/doc/html/latest/driver-api/auxiliary_bus.html#auxiliary-device
->>>>
->>>> With a single auxbus_register(), the parent wouldn't know whether to use
->>>> kfree() or auxiliary_device_uinit() when an error is returned, would it?
->>>>
->>>
->>> It should, you know the difference when you call device_register() vs.
->>> device_initialize()/device_add(), for what to do, right?
->>>
->>> Should be no difference here either :)
+>>>> Do we need another abstractions for resources here, why not aux dev
+>>>> creation set the resources required and we skip this step...
 >>
->> sorry, not following.
->>
->> with the regular devices, the errors can only happen on the second "add"
->> stage.
->>
->> int device_register(struct device *dev)
->> {
->> 	device_initialize(dev);
->> 	return device_add(dev);
->> }
->>
->> that's not what is currently implemented for the auxiliary bus
->>
->> the current flow is
->>
->> ldev = kzalloc(..)
->> some inits
->> ret = auxiliary_device_init(&ldev->auxdev)
->> if (ret < 0) {
->>      kfree(ldev);
->>      goto err1;
->> }
->>
->> ret = auxiliary_device_add(&ldev->auxdev)
->> if (ret < 0)
->>      auxiliary_device_uninit(&ldev->auxdev)
->>      goto err2;
->> }
->> ...
->> err2:
->> err1:
->>
->> How would I convert this to
->>
->> ldev = kzalloc(..)
->> some inits
->> ret = auxiliary_device_register()
->> if (ret) {
->>     kfree(ldev) or not?
->>     unit or not?
->> }
->>
->> IIRC during reviews there was an ask that the parent and name be checked,
->> and that's why the code added the two checks below:
->>
->> int auxiliary_device_init(struct auxiliary_device *auxdev)
->> {
->> 	struct device *dev = &auxdev->dev;
->>
->> 	if (!dev->parent) {
->> 		pr_err("auxiliary_device has a NULL dev->parent\n");
->> 		return -EINVAL;
->> 	}
->>
->> 	if (!auxdev->name) {
->> 		pr_err("auxiliary_device has a NULL name\n");
->> 		return -EINVAL;
->> 	}
->>
->> 	dev->bus = &auxiliary_bus_type;
->> 	device_initialize(&auxdev->dev);
->> 	return 0;
->> }
->>
->> does this clarify the sequence?
+>> Not sure what resources you are referring to?
 > 
-> Yes, thanks, but I don't know the answer to your question, sorry.  This
-> feels more complex than it should be, but I do not have the time at the
-> moment to look into it, sorry.
+> Resources in the sdw_intel_link_dev which are sdw_intel_link_res. They
+> should be resources for auxdev and if you do that lets you get rid of
+> this abstraction.
+
+Sorry Vinod, I am not following your line of thought. We must be talking 
+of different things or having a different understanding of what the 
+auxiliary device is.
+
+The auxiliary device is deliberately minimal by design and does not 
+contain domain-specific information/resources/pointers/pdata as the 
+platform_device does. You extend it by defining a larger structure that 
+contains an auxiliary device and whatever domain-specific 
+fields/structures/domains are needed, then use container_of to access it.
+
+It's not just Intel doing this, the first example from Mellanox uses the 
+same pattern, albeit with a single pointer instead of the structure we used.
+
+see e.g. 
+https://elixir.bootlin.com/linux/latest/source/include/linux/mlx5/driver.h#L545
+
+So I am not sure what you mean by 'rid of this abstraction' when this 
+abstraction is pretty much the way things were designed?
+
+Maybe an example of what sort of structure you had in mind would help?
+
+
+>> this is just a container_of() and the documented way of extending the auxbus
+>> (see https://www.kernel.org/doc/html/latest/driver-api/auxiliary_bus.html#example-usage)
+>>
+>>
+>> struct sdw_intel_link_dev {
+>> 	struct auxiliary_device auxdev;
+>> 	struct sdw_intel_link_res link_res;
+>> };
+>>
+>> #define auxiliary_dev_to_sdw_intel_link_dev(auxiliary_dev) \
+>> 	container_of(auxiliary_dev, struct sdw_intel_link_dev, auxdev)
+>>
+>>>>>    	struct sdw_intel *sdw;
+>>>>>    	struct sdw_cdns *cdns;
+>>>>>    	struct sdw_bus *bus;
+>>>>> @@ -1346,14 +1347,14 @@ static int intel_master_probe(struct platform_device *pdev)
+>>>>>    	cdns = &sdw->cdns;
+>>>>>    	bus = &cdns->bus;
+>>>>> -	sdw->instance = pdev->id;
+>>>>> -	sdw->link_res = dev_get_platdata(dev);
+>>>>> +	sdw->instance = auxdev->id;
+>>>>
+>>>> so auxdev has id and still we pass id as argument :( Not sure if folks
+>>>> can fix this now
+>>>
+>>> That's odd, yeah, it should be fixed.
+>>
+>> I think we are talking about different things?
+>>
+>> this is defined in mod_devicetable.h:
+>>
+>> struct auxiliary_device_id {
+>> 	char name[AUXILIARY_NAME_SIZE];
+>> 	kernel_ulong_t driver_data;
+>> };
+>>
+>> and used for the driver probe:
+>>
+>> 	ret = auxdrv->probe(auxdev, auxiliary_match_id(auxdrv->id_table, auxdev));
+>>
+>> but there is a separate id:
+>>
+>> struct auxiliary_device {
+>> 	struct device dev;
+>> 	const char *name;
+>> 	u32 id;
+>> };
+>>
+>> which is set during the device initialization in intel_init.c
+>>
+>> 	/* we don't use an IDA since we already have a link ID */
+>> 	auxdev->id = link_id;
+>>
+>> In the auxiliary bus design, the parent has to take care of managing this
+>> id, be it with an IDA or as we do here with a physical link ID that is
+>> unique.
 > 
-> Try getting the authors of this code to fix it up :)
+> Aha, maybe both of them should not be 'id' to avoid this confusion!
 
-We can try to check why those two tests were added before initialize(), 
-I don't fully recall these details
+the function definition follows the expected prototype
 
-If we could move these tests after device_initialize() then we could add 
-a _register function.
+struct auxiliary_driver {
+         int (*probe)(struct auxiliary_device *,
+                      const struct auxiliary_device_id *id);
 
-Note at this point it would mean an API change and impact the existing 
-Nvidia/Mellanox code, we are using the same sequence as them
+we can rename the argument to e.g. dev_id if that helps. Suggestions 
+welcome.
 
-https://elixir.bootlin.com/linux/latest/source/drivers/net/ethernet/mellanox/mlx5/core/dev.c#L262
+> That also reminds me that we have duplicate info:
+> 
+> +       sdw->instance = auxdev->id;
+> +       bus->link_id = auxdev->id;
+> 
+> drop the local driver instance and use bus->link_id please
+
+if you are referring to sdw->instance, it could probably be removed, but 
+that would need to be a separate cleanup changing cadence_master.c as 
+well. this patch only changes pdev->id with auxdev->id and provides only 
+the transition from platform device to auxiliary device.
 

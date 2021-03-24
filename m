@@ -2,68 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E84A3478D7
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 13:51:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D20573479A5
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 14:32:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84D501660;
-	Wed, 24 Mar 2021 13:50:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84D501660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A2471691;
+	Wed, 24 Mar 2021 14:31:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A2471691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616590273;
-	bh=R4eIs0wFpI26KzAqq1t6TfCSqsfJ9U5adCyTJ0ZSo34=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nQHm0UexWVpD7IaaTjq04dzbwYxVf/sbm/2Qfv+oFDE61vE2Dwo0mcj2isSZOwfcb
-	 uCrYwc9F3tiqxWdtaSnJsrPtO2YPgJKwW+P6z89M3sWUOMlzpa7xKi9Yjzic6zCF9F
-	 oh0pEZCkxAbyWojnDTBkp1/nznWSPJo4IXG9C6PI=
+	s=default; t=1616592732;
+	bh=l2tX2VskGm9EY5UscBvlLfVyyM9IdpPX3J15c7+2rG0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LrNvgvsB+V2uvaoUwQoRncmdZke40+I7NQLg0r2tji7omfGxHuPhVI6iLmHao/Kih
+	 4K6F2y8ZX/P8OSYqCXQABKkgg4s/PuAID5FWvLx/saFm5XAv8PeulAihs/PjTvVwtL
+	 GKuy1BRXZl132Ne2oiUO7i0G8mjSqCRCCm/vuvtU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 861D0F800FF;
-	Wed, 24 Mar 2021 13:49:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23CACF80240;
+	Wed, 24 Mar 2021 14:31:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 826B0F8016B; Wed, 24 Mar 2021 13:49:45 +0100 (CET)
+ id E10B2F8032C; Wed, 24 Mar 2021 14:31:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89B5DF8012B
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 14:31:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B5DF8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Fip98KII"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1616592667;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=PFCTSTdITl6SUvpKwZhc0aMbxho1+Vz9X6PKOhGoZPA=;
+ b=Fip98KIIqPtIl7qQrLj6maDl01w2zxHqcMgUDxyfFLrZWrThql6yX+AklrTpqi14ZZcZKM
+ +9AFHaJe+CFvPeMk+xcXCzdeD9HgSAQ0RSePnjPWZVpZcG5lvwT4l+dg0viDcBFS6l8jN7
+ HaYhuRm3540E1aU1KS/ehRM2gsdFELY=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-449-egz1etcvNbil_dhXKuRcbA-1; Wed, 24 Mar 2021 09:31:04 -0400
+X-MC-Unique: egz1etcvNbil_dhXKuRcbA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 912EFF800FF
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 13:49:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 912EFF800FF
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0C421AD71;
- Wed, 24 Mar 2021 12:49:24 +0000 (UTC)
-Date: Wed, 24 Mar 2021 13:49:23 +0100
-Message-ID: <s5ho8f8ogx8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ikjoon Jang <ikjn@chromium.org>
-Subject: Re: [PATCH] ALSA: usb-audio: Apply sample rate quirk to Logitech
- Connect
-In-Reply-To: <CAATdQgDrri-tMtu3AOFRcbGHfL6hONDfdMdZh45BusbdAoWfdw@mail.gmail.com>
-References: <20210324105153.2322881-1-ikjn@chromium.org>
- <c21de867cf4ccbfcc8cf555c78dc70dd3a47dfe8.camel@infinera.com>
- <CAATdQgDrri-tMtu3AOFRcbGHfL6hONDfdMdZh45BusbdAoWfdw@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5AED87504F;
+ Wed, 24 Mar 2021 13:27:14 +0000 (UTC)
+Received: from x1.localdomain (ovpn-112-209.ams2.redhat.com [10.36.112.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B6AEA2B0DC;
+ Wed, 24 Mar 2021 13:27:12 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH v2 0/2] ASoC: intel: atom: 2 bug-fixes for the atom SST driver
+Date: Wed, 24 Mar 2021 14:27:09 +0100
+Message-Id: <20210324132711.216152-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Dylan Robinson <dylan_robinson@motu.com>,
- open list <linux-kernel@vger.kernel.org>, linux-usb@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- Joakim Tjernlund <Joakim.Tjernlund@infinera.com>,
- Alexander Tsoy <alexander@tsoy.me>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gregor Pintar <grpintar@gmail.com>, Olivia Mackintosh <livvy@base.nu>
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,42 +93,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 24 Mar 2021 13:03:14 +0100,
-Ikjoon Jang wrote:
-> 
-> On Wed, Mar 24, 2021, 7:16 PM Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
-> wrote:
-> 
->     On Wed, 2021-03-24 at 18:51 +0800, Ikjoon Jang wrote:
->     > Logitech ConferenceCam Connect is a compound USB device with UVC and
->     > UAC. Not 100% reproducible but sometimes it keeps responding STALL to
->     > every control transfer once it receives get_freq request.
->     >
->     > This patch adds 046d:0x084c to a snd_usb_get_sample_rate_quirk list.
->     >
->     > Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=203419
->     > Signed-off-by: Ikjoon Jang <ikjn@chromium.org>
->    
->     Most Logitech USB headset I got needs a delay in snd_usb_ctl_msg_quirk()
->     Have you tried to add say 20 ms delay in there?
-> 
-> I didn't try that. But it sounds reasonable to me.
-> 
-> let me try that quirk here. If that is the case, HID might need that delay
-> also. Logitech Group webcam had a similar problem on control xfer of
-> get_report from an another interface for HID.
+Hi All,
 
-The Logitech devices with 046d:* should be covered generally in
-snd_usb_ctl_msg_quirk(), so I guess it's a different problem.
-But please check it first.
+Here is v2 of my bugfix series for the ASoC Intel Atom SST driver.
 
-> And 20ms can be too long if it's applied to every control transfer. I will
-> test the device with shorter delay if you didn't try it before.
+The patches are unchanged except for adding Pierre-Louis' Acked-By and
+adding a fixed (subject fixed) version of the Fixes: tag which
+Pierre-Louis suggested.
 
-Actually the delay applied to Logitech devices is from 1 to 2ms, not
-20ms.  The 20ms delay is applied for some other devices.  But if
-extending the delay fixes the problem, we need to reconsider the delay
-length.
+The first patch fixes a bug which is causing audio to now work with
+pipewire and both Fedora and Arch Linux are moving towards using
+pipewire as the default sound-server.
+
+As such it would be good if we can get these 2 bugfixes added to
+a 5.12-rc# release.
+
+Regards,
+
+Hans
 
 
-Takashi
+Hans de Goede (2):
+  ASoC: intel: atom: Stop advertising non working S24LE support
+  ASoC: intel: atom: Remove 44100 sample-rate from the media and
+    deep-buffer DAI descriptions
+
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+-- 
+2.30.2
+

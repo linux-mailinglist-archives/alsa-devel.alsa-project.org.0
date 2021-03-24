@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F33D347FD4
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 18:53:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCAA6347FD8
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 18:54:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19B301681;
-	Wed, 24 Mar 2021 18:53:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B301681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F64A1674;
+	Wed, 24 Mar 2021 18:53:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F64A1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616608439;
-	bh=NnEWOf9qCKbcbowb8H8RKumWYw9+Lh2Tl+dPTDRfQVc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VkM69G8G/MLsIafG3KLNMJ4hi+wS/neIl6AH2tv8nAYoSA8bU4UEai2lulktUBRUt
-	 k5oES+oPaIYjzPUHuPOuQdBgmkuu1vDbxec4ugIZmRH6x575gibfdh7YJmlPy5ZKHn
-	 KW5H2vfUXeA7G+VRZ16BT2f0ZlB93lljYz1B8yk4=
+	s=default; t=1616608472;
+	bh=mIT8WaLPNOkEiWdijyCEs+SgoOhTTVJODOjC5SnJJSE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OT4hDsVnqZsK7WS7Jqb2fVSdtZDng7bKeJbQhYpehE6xLokjXo9LD5R6A4VwF7RFi
+	 5fF1wtwrANAY78RAPWw9nq9RmbLPawUyojlhfHvNa6RnBJrR7dVRDk6HNDU8y/cK8x
+	 gxlFLzJ1Yi/HPgYl62MGNFmXSQcvSRZjWp2ZFSq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92009F80246;
-	Wed, 24 Mar 2021 18:52:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A642F8025D;
+	Wed, 24 Mar 2021 18:52:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4181F80246; Wed, 24 Mar 2021 18:52:42 +0100 (CET)
+ id AA721F80240; Wed, 24 Mar 2021 18:52:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,28 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73DCEF801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E3E0F80156
  for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 18:52:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73DCEF801EB
-IronPort-SDR: 6ZsM3o8q8SurWIb/CdYNIncZPmNbrhlggMxo9fKwK43sJV2zA4nQnbp9Bqt5vNE0ZuH8OusGal
- wZMpghbD+8YA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="187452407"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="187452407"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E3E0F80156
+IronPort-SDR: Uw9nMuc/AwPa/vQKuOJycqwgocO2p3KvzyKSdXpXQjXSeoaGO/ZBsuKVCZeShJe4ZqsEVN+a+f
+ pgOUtI3qD/Mw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="187452412"
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="187452412"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 10:52:30 -0700
-IronPort-SDR: m40P9ZePExqvcf0euw5ghvx/n2IrVZZcrZx2i39+FzAAyZYmVNMKu17xd0HeUk8tqeOdP8aGsr
- d2UcdPrLIN1g==
+ 24 Mar 2021 10:52:32 -0700
+IronPort-SDR: eKEUiwJmWQpDTOGoTayxaSCtZg+MCbcFv6k9VfmQ1a2OoR6BpG9mSeyAvs9Juehrm+/+hFrJ5z
+ H0o+jlXK5vww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="442344358"
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="442344378"
 Received: from snappy-s2600wt2r.iind.intel.com ([10.223.163.26])
- by fmsmga002.fm.intel.com with ESMTP; 24 Mar 2021 10:52:28 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 24 Mar 2021 10:52:30 -0700
 From: vamshi.krishna.gopal@intel.com
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/2] kbl_da7219_max9357a machine changes for wov and MST
-Date: Wed, 24 Mar 2021 23:21:58 +0530
-Message-Id: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
+Subject: [PATCH 1/2] ASoC: Intel: kbl: Add MST route change to kbl machine
+ drivers
+Date: Wed, 24 Mar 2021 23:21:59 +0530
+Message-Id: <20210324175200.44922-2-vamshi.krishna.gopal@intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
+References: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
 Cc: harshapriya.n@intel.com, broonie@kernel.org, sathya.prakash.m.r@intel.com,
  biernacki@google.com, vamshi.krishna.gopal@intel.com,
  pierre-louis.bossart@intel.com
@@ -74,20 +78,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 
-Hello,
+To support MST hdmi audio, modify the current routes to be based on port in da7219_max98357a machine.
 
-This patch series about creating dailink for Wake on voice functionality
-and also adding MST route changes
+Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
+---
+ sound/soc/intel/boards/kbl_da7219_max98357a.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Mac Chiang (1):
-  ASoc: Intel: board: add BE DAI link for WoV
-
-Vamshi Krishna Gopal (1):
-  ASoC: Intel: kbl: Add MST route change to kbl machine drivers
-
- sound/soc/intel/boards/kbl_da7219_max98357a.c | 42 +++++++++++++++++--
- 1 file changed, 38 insertions(+), 4 deletions(-)
-
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+index dc3d897ad280..1d6b2855874d 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+@@ -91,7 +91,9 @@ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Spk", NULL),
+ 	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
+ 	SND_SOC_DAPM_SPK("DP", NULL),
+-	SND_SOC_DAPM_SPK("HDMI", NULL),
++	SND_SOC_DAPM_SPK("HDMI1", NULL),
++	SND_SOC_DAPM_SPK("HDMI2", NULL),
++	SND_SOC_DAPM_SPK("HDMI3", NULL),
+ 	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
+ 			platform_clock_control, SND_SOC_DAPM_PRE_PMU |
+ 			SND_SOC_DAPM_POST_PMD),
+@@ -108,9 +110,6 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	{ "MIC", NULL, "Headset Mic" },
+ 	{ "DMic", NULL, "SoC DMIC" },
+ 
+-	{ "HDMI", NULL, "hif5 Output" },
+-	{ "DP", NULL, "hif6 Output" },
+-
+ 	/* CODEC BE connections */
+ 	{ "HiFi Playback", NULL, "ssp0 Tx" },
+ 	{ "ssp0 Tx", NULL, "codec0_out" },
 -- 
 2.17.1
 

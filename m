@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FAEE348573
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 00:42:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A2D348574
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 00:42:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3823B166D;
-	Thu, 25 Mar 2021 00:41:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3823B166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DD181672;
+	Thu, 25 Mar 2021 00:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DD181672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616629343;
-	bh=7Dqbn5tNlYghfg6R1xMrCmbaJD52kq/Yg4ESmCr+YY4=;
+	s=default; t=1616629358;
+	bh=Nl01SowQJwZ86qcGJ3uYdr0vyyXeyCErJGFWOz8KNR4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EPxClRMXOlxP0XzqtocrtrgF+7QCsO7KXLkzIAIQDVtnAfP77HEYOqBMMovrX4tUq
-	 iVT66GH5Yo7F3CyZPlRKiAH8C8RcnzG7qKBNTjJVvUPdgAbWpV7f034pUFIXPjM5p4
-	 VnXXn9ZoMN+zlFYczKx/kBtM3LGIP6iLBpLyAyUI=
+	b=athHMCSZvyxDcCYVkso/6fbGwjVoDl+FV5UbwqiLV+4m7wnwONbRc4FvVwrPacYWR
+	 vBe9Wtag4Anjzl8WzYYbxwYmUG3rp5sJZT5CAVr0ZTQcr0e8l9XtjSVsLtJZzTGS5x
+	 PxvcBGsvmi/HJdRNBoiceg+LEW0S4iLTZ4YncSlg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5E04F8032B;
-	Thu, 25 Mar 2021 00:40:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62B28F8032D;
+	Thu, 25 Mar 2021 00:40:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84E91F8025D; Thu, 25 Mar 2021 00:40:08 +0100 (CET)
+ id 526ECF801EC; Thu, 25 Mar 2021 00:40:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E2B8F80104
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 00:40:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E2B8F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CBFCF801EC
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 00:40:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CBFCF801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bp73gjQ5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1BE46619F8;
- Wed, 24 Mar 2021 23:40:00 +0000 (UTC)
+ header.b="r57I8UJw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E19DE61974;
+ Wed, 24 Mar 2021 23:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616629201;
- bh=7Dqbn5tNlYghfg6R1xMrCmbaJD52kq/Yg4ESmCr+YY4=;
+ s=k20201202; t=1616629204;
+ bh=Nl01SowQJwZ86qcGJ3uYdr0vyyXeyCErJGFWOz8KNR4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Bp73gjQ5BpI+gzci25P9JK2w3XMBaLc26PbX7uRy9lpFvatFjbB6hqSFYibTzN+vq
- rmaxloiPg1Et6x9GLxrGvHaHCFJ6hIQE/tt9iRz5ZI3k3In5EqIeQl/jsndyRedfen
- tJGc4R7ufU5hjW0hVgb6RisnmP9qbTkaGDJEi7Mco8Y57gpg1tD8Q/QAao2T6Z2E81
- sB0SMZZDr2wpn24P3zhfVJoKNQszLgYejObpKNhWrgnZsNa4M++EOgatErn7EEKK/g
- 1PKXuV0yvdQIEHbh3b3kwlHLxa2Xfnb2csRvPKew9m7WeNg0vEU3KB2zh05PfllMRe
- mbXjOaHusWx0w==
+ b=r57I8UJwzmA9Oft1VHqsob3vk/5rGVDMZ7U2fQK81RS5wINVAiNJzUpRDOFLugkRx
+ Pkjg6KGkuzuGB0uuNcm6H8n9/kjnnbknM8nwoX2HksPF99t9dgSJv7BNSjuuUSV4Cn
+ sTE1QSKpwPWWJNeivm4sZzC4XupytzwqIfi8UmBRu7BBMPLMxKpPbLoRlXFDF+XpQ1
+ sML2TqlnYuuRju/q3s0ybr+j7OtakfgP93Laeh4PoQ4aCvsVQcnDn3G6ho01FuAqGT
+ uKVWoWrIN4ccPYOo58jyBVHB3fTWShY8CZdVb3cDSRdN/AbcUw24yYF9c5jNqlhE38
+ 3sUzQv+pvgG7g==
 From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>,
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Hans de Goede <hdegoede@redhat.com>, Lee Jones <lee.jones@linaro.org>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>
-Subject: Re: [PATCH v2 0/2] ASoC: intel: atom: 2 bug-fixes for the atom SST
- driver
-Date: Wed, 24 Mar 2021 23:39:38 +0000
-Message-Id: <161662872374.51441.15604273031597405102.b4-ty@kernel.org>
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>
+Subject: Re: (subset) [PATCH v4 resend 00/13] MFD/extcon/ASoC: Rework arizona
+ codec jack-detect support
+Date: Wed, 24 Mar 2021 23:39:39 +0000
+Message-Id: <161662872374.51441.14272118872485811868.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210324132711.216152-1-hdegoede@redhat.com>
-References: <20210324132711.216152-1-hdegoede@redhat.com>
+In-Reply-To: <20210307151807.35201-1-hdegoede@redhat.com>
+References: <20210307151807.35201-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,16 +86,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 24 Mar 2021 14:27:09 +0100, Hans de Goede wrote:
-> Here is v2 of my bugfix series for the ASoC Intel Atom SST driver.
+On Sun, 7 Mar 2021 16:17:54 +0100, Hans de Goede wrote:
+> Here is v4 of my series to rework the arizona codec jack-detect support
+> to use the snd_soc_jack helpers instead of direct extcon reporting.
 > 
-> The patches are unchanged except for adding Pierre-Louis' Acked-By and
-> adding a fixed (subject fixed) version of the Fixes: tag which
-> Pierre-Louis suggested.
+> As discussed before here is a resend rebased on 5.12-rc2, making sure that
+> all patches this depends on are in place.
 > 
-> The first patch fixes a bug which is causing audio to now work with
-> pipewire and both Fedora and Arch Linux are moving towards using
-> pipewire as the default sound-server.
+> Lee, can you pick-up patches 1-6 through the MFD tree and then send a
+> pull-req to Mark so that Mark can merge the Asoc parts throught the ASoC
+> tree ?
 > 
 > [...]
 
@@ -101,10 +105,20 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: intel: atom: Stop advertising non working S24LE support
-      commit: aa65bacdb70e549a81de03ec72338e1047842883
-[2/2] ASoC: intel: atom: Remove 44100 sample-rate from the media and deep-buffer DAI descriptions
-      commit: 632aeebe1b7a3a8b193d71942a10e66919bebfb8
+[07/13] ASoC: arizona-jack: Move jack-detect variables to struct arizona_priv
+        commit: bcda8cc4b868782c1a39d722d24f7d2598978389
+[08/13] ASoC: arizona-jack: Use arizona->dev for runtime-pm
+        commit: 688c8461a425623ca6f679e6ba8965719a98def5
+[09/13] ASoC: arizona-jack: convert into a helper library for codec drivers
+        commit: ffcc84b9e814c8654e15e08816d0078d521a2724
+[10/13] ASoC: arizona-jack: Use snd_soc_jack to report jack events
+        commit: 236b7285e95af5cb5a8b63283e573f433fb9b305
+[11/13] ASoC: arizona-jack: Cleanup logging
+        commit: 69c58eb61e9b649096a0ab8cbc3c6f8521efd303
+[12/13] ASoC: arizona: Make the wm5102, wm5110, wm8997 and wm8998 drivers use the new jack library
+        commit: 37dbabf14ff65510fa5aeecc1707ca390e608e00
+[13/13] ASoC: Intel: bytcr_wm5102: Add jack detect support
+        commit: ecd77d494ec995fb07102b408954c94f38374084
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

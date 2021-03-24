@@ -2,128 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00AB3476F5
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 12:20:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1518B3476F8
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 12:20:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 638491614;
-	Wed, 24 Mar 2021 12:19:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 638491614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6E7A167D;
+	Wed, 24 Mar 2021 12:19:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6E7A167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616584801;
-	bh=hOihF10/MFvZVBEkUJuQ6npSb8ay+6rHL6sPYwaYzg0=;
+	s=default; t=1616584819;
+	bh=uYCZHrb+ntljRrlK8gEdvhwg5DVgKx8oqFAT1kOd04c=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I05wkHleyqPdW8RJkUK08H2dV2224IC970I4iwngFY6hTNhaDyjj+Kms9lTgD+4gi
-	 HQPBgh9jAXFLp7AynID4sWSjwkpC1sKFfkxQ1fr2Ttbul2r6Pj2QqQhLb+KURu+rrO
-	 QYy64KgESGsGkOT1jSom6EkfEgxIfMTTYl8nKizA=
+	b=gmpLqDQJWf22UKhoy7Y0XBWE0HeXlUXGrB8InIZCl4yTkXSGvkzmH+fPJ+I4ktshe
+	 +FTM/09qNQ/mshWUTb+gkSNf4ZHSMgdxMJ+80XkdmiAy7jCszmr0zoecoMEvB9MoKa
+	 76HbBfBQGlYm8t4ytZL5LjaP6mclfBD3NZiH3Lw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FC3CF8012B;
-	Wed, 24 Mar 2021 12:18:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 176D3F80240;
+	Wed, 24 Mar 2021 12:19:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84476F8016B; Wed, 24 Mar 2021 12:18:33 +0100 (CET)
+ id 10F73F801EC; Wed, 24 Mar 2021 12:19:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2050.outbound.protection.outlook.com [40.107.236.50])
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AA6FF8012B
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 12:18:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AA6FF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40413F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 12:19:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40413F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="qRyEh4/Y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hsgRKHYDuEzwOBxxITHZKBba8q60F8D43oBvHb5CEssW3R7B/TPayDD+oefsIQ1FZbysDrdU8Lv6QS43dS/vDPVR7l/2TgI/TpAs3QEiS3sZo7FK4oy3sKbRFANdZ0Q5nN2tnHkjAB2gKA51V0bfMHWHnmxFYrkRO3fLdHvFP/hYH8vJ2UI4f9cyAJTqHenyXP8TFl6K2EzSMNMWm0q9YeAev9VRWFg4JmyAFia88wfluWp+T2qxRc1OVdBwPjw/fiojaCIU+Jm1hBHywOdGs/y2PNdQg4TL1EAArDNheuoTcaiWzKzeteJH8bQJEWiCxNDjiUj+4UCteI1AtkmHEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u0QAc6Kud6+01O7KSE/Iprlyv16HyR4g+TOQFJ/+TeE=;
- b=Wp5On4BsHyq8iMn5dEM6/qdNLjiP9zjNE6HVC5DlRUmkbyg65mlXMR2ZI/23rILiNYAVFBDYrVzg3m+bJZyNG8ctSadpPhJmIlzSrTu7Q7H8uxJSDn4OhU212sNlDRLSopZgUv7knK88lhbhX7Jle5yoFe4sO22hkJ9qbA3kh/pJLUE5y1BUb3tOJi0z9IZMy5OmddpArpLAI8aTKSW0joJ4LJ2rWBpucXptR6y6MEapdONL8Rf58HIqSlkkxNHfyKghNDroipIuhs7rNYeg/B73Ew+/VWy8RxEF4NnyY6aJCNjbhABS4d3cRYfeG2KwJbMxPJxpGID5sI3mhr8VXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.34) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u0QAc6Kud6+01O7KSE/Iprlyv16HyR4g+TOQFJ/+TeE=;
- b=qRyEh4/Y2K9sbhQCn5n1CtHYmjMVL79SWhcKPDYXSlCsAy4KiTbD5XeRmd0zRil++jsrU/Cwa8DXK9hz51nmBQPo8b/L/OSP4Apv4miyZbwy0UbSLlqRL3uVrnm7PxTxG2IGDd/rFzEIlQFywW/r3UjXhAn3/yMRhtldf+sr/ACJgzYbYSDBHGPoftkHMKaYfaM3hnenmeUCzHsNJxosPog8YwlB3EUS8x3yPL7WtRWgv5MPH7GER/+5LiIXcbOPlTfKzU7ZfExQihc/jRKWNB5l/GFZHFbUDQVs1PoyB7wiKvnefstqefF3QMDf6EcaknJd4PI16STiHrrsnRHg8g==
-Received: from MW4PR04CA0364.namprd04.prod.outlook.com (2603:10b6:303:81::9)
- by MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Wed, 24 Mar
- 2021 11:18:19 +0000
-Received: from CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:81:cafe::be) by MW4PR04CA0364.outlook.office365.com
- (2603:10b6:303:81::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend
- Transport; Wed, 24 Mar 2021 11:18:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
- smtp.mailfrom=nvidia.com; vger.kernel.org; dkim=none (message not signed)
- header.d=none; vger.kernel.org; dmarc=pass action=none header.from=nvidia.com; 
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.34; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.34) by
- CO1NAM11FT037.mail.protection.outlook.com (10.13.174.91) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.3955.18 via Frontend Transport; Wed, 24 Mar 2021 11:18:18 +0000
-Received: from [10.25.96.178] (172.20.145.6) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 24 Mar
- 2021 11:18:12 +0000
-Subject: Re: [PATCH] ASoC: dt-bindings: nvidia,tegra210-ahub: Add missing
- child nodes
-To: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>
-References: <20210323200005.1196572-1-robh@kernel.org>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <6b6d57fb-8596-fa22-0a5a-9d535803d10a@nvidia.com>
-Date: Wed, 24 Mar 2021 16:48:06 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="fqyIYvDb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
+ Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=5zu7e3QpaJYSsSrK/Xjn7U3xzJyiv8wEoifGidL4xng=; b=fqyIYvDbIj5Z7AJxFh8eGONww/
+ vrf7NJ9Zsg2KC+Sj57EVn584axvbZQx7I+46f/lxFqo2TVgnTHP3nLBo21yzseeernrfsqxSxOSs+
+ LvtdFlJle4AY9vyr36t0nsNxiaK1FPzdEeZ5H224aOyYzLE0mY7nQ2N2Zp7RXKuzgoJh1E7Fxgz1m
+ pLYD1VtY23Cm6+PK4bYizFeR5k/82zUC7HqccvkjWFsAVc44CdBohF/ReSc20MOXdI5BWrMEgQyrn
+ GgIui6YMdbgzGX1gX3VkXjFc80Un8pfSp8CkNymC4vKeoJuq+BNbgp4+OQHmvlNoJCto840XJyV+c
+ EPQbFVug==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lP1XU-007p2H-IS; Wed, 24 Mar 2021 12:19:04 +0100
+Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210324054253.34642-1-coding@diwic.se>
+ <s5htup0amwk.wl-tiwai@suse.de>
+From: David Henningsson <coding@diwic.se>
+Message-ID: <cab75b18-37ca-eacb-deff-b25900b169ba@diwic.se>
+Date: Wed, 24 Mar 2021 12:18:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210323200005.1196572-1-robh@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <s5htup0amwk.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [172.20.145.6]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 42854e5b-27e3-43ac-d677-08d8eeb686f4
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB29412CB732ABCD1CF6CBEFFCA7639@MN2PR12MB2941.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VSi8QgUlmuA6hL/IlNXAFL0VDWbPLsE98FWNTgoAMZLrVJ2w4O7FUWlR5SlrOl54xCe2as5ipOW5uNKe8Pu1Y+TNdaDbsaBnQ3gfSx8/sdePQZ6SE1gQuWbqEfmdPTl5Intfuc4zqUX60fv0MD9d24asibmwYN9bzAsN+4B9/6rzghEr1B6TxQv3yb8ZMayXNEkfPfyEOlhN+9xsXX0g5DIINJbLMzEQJ3VYB8UYIeIfPcTlx2FY/2rkbSXvNbVRedyJDcH70/9NuYNlcz04bucZ25+tLIwHTOczJnU3Lzp9VNGMAklS3pjrKcFNRUrC9DVsdkbx5V/3VbjIaequ0IuA0zLE5qD76jjB9aqDg9L7Ntv/a7TOjm7GaDpwfQh7o8pt+XtglOZoFsfxUOSf9UPPqe7ZTFSDE1TT8rxHixZW/boi1UjGEl8uPaaRzRISvYfJyb+8pcXqBEVH7DyAFj6MF9LiR3D7MtHqpHYqRC9GhxqW8jkTZC/zm4Sqc+YJcxFy6xxuOrzc4/PdF6naPBubSw9w9SwO7zRm/Axb8QGDyXOEp+Zhz+e5VkCToPTBrXWGmllCzr9BAqX0lRaQB4th2sFFKm4R80Qc0zmfFyS02ULVzfMVMYT8s3pcAs91eh70WYBZePfo12yYtNa+wbeW6UJS6K1BakQQFsFoduiH59RhagmJ0EYKSSVttHMQooY/ry3LRLlWfmWfDvJEMjZv2vqkTvIqKaoF0rYLz1eQSgbvq83mec19/gUMtYwY3NvBUOQov6+ZDOyX1cVgeCWJtxu6YrHgbfKKR8vqVhc=
-X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(46966006)(36840700001)(47076005)(36756003)(336012)(31686004)(4326008)(5660300002)(70206006)(426003)(8936002)(8676002)(316002)(2616005)(82310400003)(70586007)(86362001)(186003)(26005)(36860700001)(83380400001)(966005)(53546011)(478600001)(6666004)(110136005)(82740400003)(16526019)(7636003)(2906002)(356005)(54906003)(31696002)(36906005)(16576012)(21314003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 11:18:18.7516 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42854e5b-27e3-43ac-d677-08d8eeb686f4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2941
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Liam
- Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org
+Content-Language: en-US
+X-Authenticated-Id: coding@diwic.se
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,66 +90,184 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On 2021-03-24 11:03, Takashi Iwai wrote:
+> On Wed, 24 Mar 2021 06:42:53 +0100,
+> David Henningsson wrote:
+>> This commit adds a new framing mode that frames all MIDI data into
+>> 16-byte frames with a timestamp from the monotonic_raw clock.
+>>
+>> The main benefit is that we can get accurate timestamps even if
+>> userspace wakeup and processing is not immediate.
+>>
+>> Signed-off-by: David Henningsson <coding@diwic.se>
+> Thanks for the patch!
+Thanks for the review :-)
+> I seem to have overlooked your previous post, sorry.
+>
+> This looks like a good middle ground solution, while we still need to
+> address the sequencer timestamp (basically we should be able to send
+> an event with the timestamp prepared from the rawmidi side).
 
-On 3/24/2021 1:30 AM, Rob Herring wrote:
-> External email: Use caution opening links or attachments
->
->
-> The nvidia,tegra210-ahub binding is missing schema for child nodes. This
-> results in warnings if 'additionalProperties: false' is set (or when the
-> tools implement 'unevaluatedProperties' support). Add the child nodes
-> and reference their schema if one exists.
->
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> Cc: Sameer Pujar <spujar@nvidia.com>
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-tegra@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> This patch ideally should be applied before this series[1].
->
-> [1] https://lore.kernel.org/r/20210323163634.877511-1-robh@kernel.org/
->
->   .../bindings/sound/nvidia,tegra210-ahub.yaml         | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-> index e568d6c7dddd..d7a5eb77ed4f 100644
-> --- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-> @@ -69,6 +69,18 @@ properties:
->           $ref: audio-graph-port.yaml#
->           unevaluatedProperties: false
->
-> +patternProperties:
-> +  '^i2s@[0-9a-f]+$':
-> +    type: object
-> +
-> +  '^dmic@[0-9a-f]+$':
-> +    type: object
-> +    $ref: nvidia,tegra210-dmic.yaml#
-> +
-> +  '^admaif@[0-9a-f]+$':
-> +    type: object
-> +    $ref: nvidia,tegra210-admaif.yaml#
-> +
+I believe the new framing mode would be useful both for readers of 
+rawmidi devices, and the seq kernel module.
 
-There is "dspk@xxx" child node as well for ahub, though schema example 
-does not show this. I am seeing error because of this during 
-"dtbs_check". Wondering if we can add following with this patch?
+I have also been thinking of doing something in usb-midi (because I 
+assume that's the most common way to do midi input these days), to 
+improve performance for packets with more than three bytes in them. 
+Right now a sysex would be cut off in chunks of three bytes, each one 
+with its own timestamp. If so, that would be a later patch.
 
-+  '^dspk@[0-9a-f]+$':
-+    type: object
-+    $ref: nvidia,tegra186-dspk.yaml#
-
-
->   required:
->     - compatible
->     - reg
-> --
-> 2.27.0
 >
+> The implementation itself looks good to me.  But this needs to bump
+> the SNDRV_RAWMIDI_VERSION for indicating the new API.
 
+Sure, I'll send a v3 with a bumped SNDRV_RAWMIDI_VERSION.
+
+I'm also considering adding "time when the stream started" in the 
+snd_rawmidi_status timestamp to get a fixed starting point for the 
+timestamps, unless the field was reserved for some other purpose? The 
+status timestamp would only be added if the framing mode is enabled. If 
+so, that change would go into the same version bump. Does that sound 
+good to you?
+
+// David
+
+>
+>
+> Takashi
+>
+>> ---
+>>
+>> v2: Fixed checkpatch errors.
+>>
+>>   include/sound/rawmidi.h     |  1 +
+>>   include/uapi/sound/asound.h | 18 ++++++++++++++-
+>>   sound/core/rawmidi.c        | 45 ++++++++++++++++++++++++++++++++++++-
+>>   3 files changed, 62 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+>> index 334842daa904..4ba5d2deec18 100644
+>> --- a/include/sound/rawmidi.h
+>> +++ b/include/sound/rawmidi.h
+>> @@ -81,6 +81,7 @@ struct snd_rawmidi_substream {
+>>   	bool opened;			/* open flag */
+>>   	bool append;			/* append flag (merge more streams) */
+>>   	bool active_sensing;		/* send active sensing when close */
+>> +	u8 framing;			/* whether to frame data (for input) */
+>>   	int use_count;			/* use counter (for output) */
+>>   	size_t bytes;
+>>   	struct snd_rawmidi *rmidi;
+>> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+>> index 535a7229e1d9..f33076755025 100644
+>> --- a/include/uapi/sound/asound.h
+>> +++ b/include/uapi/sound/asound.h
+>> @@ -736,12 +736,28 @@ struct snd_rawmidi_info {
+>>   	unsigned char reserved[64];	/* reserved for future use */
+>>   };
+>>   
+>> +enum {
+>> +	SNDRV_RAWMIDI_FRAMING_NONE = 0,
+>> +	SNDRV_RAWMIDI_FRAMING_TSTAMP_MONOTONIC_RAW,
+>> +	SNDRV_RAWMIDI_FRAMING_LAST = SNDRV_RAWMIDI_FRAMING_TSTAMP_MONOTONIC_RAW,
+>> +};
+>> +
+>> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 7
+>> +
+>> +struct snd_rawmidi_framing_tstamp {
+>> +	unsigned int tv_sec;	/* seconds */
+>> +	unsigned int tv_nsec;	/* nanoseconds */
+>> +	unsigned char length;
+>> +	unsigned char data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
+>> +};
+>> +
+>>   struct snd_rawmidi_params {
+>>   	int stream;
+>>   	size_t buffer_size;		/* queue size in bytes */
+>>   	size_t avail_min;		/* minimum avail bytes for wakeup */
+>>   	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+>> -	unsigned char reserved[16];	/* reserved for future use */
+>> +	unsigned char framing;		/* For input data only, frame incoming data */
+>> +	unsigned char reserved[15];	/* reserved for future use */
+>>   };
+>>   
+>>   #ifndef __KERNEL__
+>> diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+>> index aca00af93afe..cd927ba178a6 100644
+>> --- a/sound/core/rawmidi.c
+>> +++ b/sound/core/rawmidi.c
+>> @@ -721,6 +721,7 @@ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+>>   			     struct snd_rawmidi_params *params)
+>>   {
+>>   	snd_rawmidi_drain_input(substream);
+>> +	substream->framing = params->framing;
+>>   	return resize_runtime_buffer(substream->runtime, params, true);
+>>   }
+>>   EXPORT_SYMBOL(snd_rawmidi_input_params);
+>> @@ -963,6 +964,44 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
+>>   	return -ENOIOCTLCMD;
+>>   }
+>>   
+>> +static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
+>> +			const unsigned char *buffer, int src_count, struct timespec64 *tstamp)
+>> +{
+>> +	struct snd_rawmidi_runtime *runtime = substream->runtime;
+>> +	struct snd_rawmidi_framing_tstamp frame;
+>> +	struct snd_rawmidi_framing_tstamp *dest_ptr;
+>> +	int dest_frames = 0;
+>> +	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
+>> +
+>> +	frame.tv_sec = tstamp->tv_sec;
+>> +	frame.tv_nsec = tstamp->tv_nsec;
+>> +	if (snd_BUG_ON(runtime->hw_ptr & 15 || runtime->buffer_size & 15 || frame_size != 16))
+>> +		return -EINVAL;
+>> +
+>> +	while (src_count > 0) {
+>> +		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
+>> +			runtime->xruns += src_count;
+>> +			return dest_frames * frame_size;
+>> +		}
+>> +		if (src_count >= SND_RAWMIDI_FRAMING_DATA_LENGTH)
+>> +			frame.length = SND_RAWMIDI_FRAMING_DATA_LENGTH;
+>> +		else {
+>> +			frame.length = src_count;
+>> +			memset(frame.data, 0, SND_RAWMIDI_FRAMING_DATA_LENGTH);
+>> +		}
+>> +		memcpy(frame.data, buffer, frame.length);
+>> +		buffer += frame.length;
+>> +		src_count -= frame.length;
+>> +		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
+>> +		*dest_ptr = frame;
+>> +		runtime->avail += frame_size;
+>> +		runtime->hw_ptr += frame_size;
+>> +		runtime->hw_ptr %= runtime->buffer_size;
+>> +		dest_frames++;
+>> +	}
+>> +	return dest_frames * frame_size;
+>> +}
+>> +
+>>   /**
+>>    * snd_rawmidi_receive - receive the input data from the device
+>>    * @substream: the rawmidi substream
+>> @@ -977,6 +1016,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+>>   			const unsigned char *buffer, int count)
+>>   {
+>>   	unsigned long flags;
+>> +	struct timespec64 ts64;
+>>   	int result = 0, count1;
+>>   	struct snd_rawmidi_runtime *runtime = substream->runtime;
+>>   
+>> @@ -988,7 +1028,10 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+>>   		return -EINVAL;
+>>   	}
+>>   	spin_lock_irqsave(&runtime->lock, flags);
+>> -	if (count == 1) {	/* special case, faster code */
+>> +	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP_MONOTONIC_RAW) {
+>> +		ktime_get_raw_ts64(&ts64);
+>> +		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
+>> +	} else if (count == 1) {	/* special case, faster code */
+>>   		substream->bytes++;
+>>   		if (runtime->avail < runtime->buffer_size) {
+>>   			runtime->buffer[runtime->hw_ptr++] = buffer[0];
+>> -- 
+>> 2.25.1
+>>

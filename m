@@ -2,71 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA39A3480D8
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 19:45:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A933480F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 19:52:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2281A15E0;
-	Wed, 24 Mar 2021 19:44:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2281A15E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D798166E;
+	Wed, 24 Mar 2021 19:52:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D798166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616611503;
-	bh=XUM8mAx9ePtthebXoX1uoiavdmE5TUuJRovaTVUFX2w=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1616611977;
+	bh=T9PuEBMW2Ugsu7ZpEQxirxtXq3CnoSXNqgelwfQ8hxI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h3m0ZbB1MeTYoFQxrExSs3NWlAuxZBdTeKoVB67r7MG0jBgCA8P5dPT3cZZOPaFId
-	 bG6ui+M5ZsAabF7FU9JEnsCzWFe+nYS5YUXUotVaYr3lqtW2eFblyBlRcjdk5fhJSv
-	 uB7vF7/sK2HH7N0X5+h1MRKNnx62w61fCiBtfW44=
+	b=mpGVx9JXeDDJQEcSAQn2ZbpVWJLpCSJQfVmLjtNOtRqjnLh9x146o0xV6FMJqe+Nn
+	 1VN45gfN7r1lboX+TaXTiC/sQ3/amHtsyglfvN5rEF/P69ZFG6B1UlLiP0QU3jbb0P
+	 U3JVl6cK3CTS1H1VdBf/IWwmn5DTTP2SYdTVgJUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A14BF800FF;
-	Wed, 24 Mar 2021 19:43:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB416F801D5;
+	Wed, 24 Mar 2021 19:51:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2DDF6F8016B; Wed, 24 Mar 2021 19:43:35 +0100 (CET)
+ id D2CFAF8016B; Wed, 24 Mar 2021 19:51:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF34AF80104
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 19:43:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF34AF80104
-IronPort-SDR: krE9SmFyvVLT3IJN3Odu+EF+JLveqsg6GNTtDM1dKxDOMMhHpA+BR1YgMC+1cc68xpUJZzrs9W
- wlWA27vaPCCg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="170114460"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="170114460"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 11:43:09 -0700
-IronPort-SDR: lBLxggSLXt7jcEtCOZiliFsWmOVIZBbm/5mdubY5obY+zHDYlO0MjC+Fqvj83tpmNYf/DYx7Vg
- AvETGfYnKglA==
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="436132525"
-Received: from jmtabang-mobl2.amr.corp.intel.com (HELO [10.213.166.106])
- ([10.213.166.106])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 11:43:08 -0700
-Subject: Re: [PATCH 2/2] ASoc: Intel: board: add BE DAI link for WoV
-To: vamshi.krishna.gopal@intel.com, alsa-devel@alsa-project.org,
- "Rojewski, Cezary" <cezary.rojewski@intel.com>
-References: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
- <20210324175200.44922-3-vamshi.krishna.gopal@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <66a73c07-8152-9f55-c8e6-bb5bf68056ac@linux.intel.com>
-Date: Wed, 24 Mar 2021 13:43:07 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE03BF80104
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 19:51:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE03BF80104
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="w1L/wZbG"
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12OIiHrC145718;
+ Wed, 24 Mar 2021 18:51:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=it5Jx4mfOUvPNC0feT8uQU3Wr784UnyNfdgedmnfFKg=;
+ b=w1L/wZbGEqS6URcwn2AwPXHaJ9xHwh9CD3FqRgVxEnAOQvUoi4MpQfFOIy+eUgEuscPx
+ ths8WRQZqjw5DGUb1RMDzdCnaFGKwPGhKMV0m4ix/EkQ2T+w/vdo5MOwkRxhG6ShYZYy
+ EeoFKRq6aNtK3QWcas9Hf+9hM/XHE9rTXICMn7iBUnJxzkgLfC7KtF5nr5d5mW5lvhbH
+ Jt7r/B3xE3Or01nAwpOju8bF/LRuapw4FWmxfNe7OVNvfuFnQnBNvHSe9iea53xFkrJM
+ qrBXStSYm5iwHpA9eptV7AO250DZOYCZsfif4Hubcd1y8kprVkoahiqxdPYgDqYR6+Ls /g== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2130.oracle.com with ESMTP id 37d6jbm068-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Mar 2021 18:51:17 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12OIpC82188179;
+ Wed, 24 Mar 2021 18:51:16 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 37dtmr6yrb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Mar 2021 18:51:16 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 12OIoufO016250;
+ Wed, 24 Mar 2021 18:50:59 GMT
+Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 24 Mar 2021 11:50:55 -0700
+Date: Wed, 24 Mar 2021 21:50:47 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Muhammad Usama Anjum <musamaanjum@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix missing return assignment
+Message-ID: <20210324185047.GP1667@kadam>
+References: <20210324172604.GA380592@LEGION>
 MIME-Version: 1.0
-In-Reply-To: <20210324175200.44922-3-vamshi.krishna.gopal@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: harshapriya.n@intel.com, sathya.prakash.m.r@intel.com, broonie@kernel.org,
- biernacki@google.com, pierre-louis.bossart@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210324172604.GA380592@LEGION>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-IMR: 1
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103240135
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ phishscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 adultscore=0 impostorscore=0 mlxlogscore=999 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103240134
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ colin.king@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,103 +114,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 3/24/21 12:52 PM, vamshi.krishna.gopal@intel.com wrote:
-> From: Mac Chiang <mac.chiang@intel.com>
+On Wed, Mar 24, 2021 at 10:26:04PM +0500, Muhammad Usama Anjum wrote:
+> Return value of usb_driver_claim_interface should not be ignored.
+> Instead it should be stored in err variable and returned from
+> this function.
 > 
-> create dai link in kbl_da7219_max98357a driver for wake on voice
-> functionality.
-> 
-> changes picked from broonie's tree
-> commit 0c7941a63a0f
-> ("ASoC: Intel: Skylake: Use refcap device for mono recording")
-> commit 2154be362c90
-> ("ASoc: Intel: boards: Add WOV as sink for nau88l25_ssm4567 machine")
-> 
-> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-> Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
-> Tested-by: Kaiyen Chang <kaiyen.chang@intel.corp-partner.google.com>
-> Tested-by: luke yang <luke_yang@compal.corp-partner.google.com>
-> Tested-by: Grace Kao <grace.kao@intel.com>
-> Tested-by: Kaiyen Chang <kaiyen.chang@intel.com>
-> Reviewed-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> Signed-off-by: Muhammad Usama Anjum <musamaanjum@gmail.com>
 > ---
->   sound/soc/intel/boards/kbl_da7219_max98357a.c | 35 +++++++++++++++++++
->   1 file changed, 35 insertions(+)
+>  sound/usb/quirks.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-> index 1d6b2855874d..c9d83eebf4a8 100644
-> --- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
-> +++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-> @@ -44,6 +44,7 @@ struct kbl_codec_private {
->   enum {
->   	KBL_DPCM_AUDIO_PB = 0,
->   	KBL_DPCM_AUDIO_CP,
-> +	KBL_DPCM_AUDIO_REF_CP,
->   	KBL_DPCM_AUDIO_DMIC_CP,
->   	KBL_DPCM_AUDIO_HDMI1_PB,
->   	KBL_DPCM_AUDIO_HDMI2_PB,
-> @@ -335,12 +336,36 @@ static struct snd_soc_ops kabylake_dmic_ops = {
->   	.startup = kabylake_dmic_startup,
->   };
->   
-> +static const struct snd_pcm_hw_constraint_list constraints_refcap = {
-> +	.count = ARRAY_SIZE(ch_mono),
-> +	.list  = ch_mono,
-> +};
-> +
-> +static int kabylake_refcap_startup(struct snd_pcm_substream *substream)
-> +{
-> +	substream->runtime->hw.channels_max = 1;
-> +	snd_pcm_hw_constraint_list(substream->runtime, 0,
-> +					SNDRV_PCM_HW_PARAM_CHANNELS,
-> +					&constraints_refcap);
-> +
-> +	return snd_pcm_hw_constraint_list(substream->runtime, 0,
-> +					SNDRV_PCM_HW_PARAM_RATE,
-> +					&constraints_16000);
-> +}
-> +
-> +static struct snd_soc_ops skylaye_refcap_ops = {
-> +	.startup = kabylake_refcap_startup,
-> +};
-> +
->   SND_SOC_DAILINK_DEF(dummy,
->   	DAILINK_COMP_ARRAY(COMP_DUMMY()));
->   
->   SND_SOC_DAILINK_DEF(system,
->   	DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
->   
-> +SND_SOC_DAILINK_DEF(reference,
-> +	DAILINK_COMP_ARRAY(COMP_CPU("Reference Pin")));
-> +
->   SND_SOC_DAILINK_DEF(dmic,
->   	DAILINK_COMP_ARRAY(COMP_CPU("DMIC Pin")));
->   
-> @@ -415,6 +440,16 @@ static struct snd_soc_dai_link kabylake_dais[] = {
->   		.ops = &kabylake_da7219_fe_ops,
->   		SND_SOC_DAILINK_REG(system, dummy, platform),
->   	},
-> +	[KBL_DPCM_AUDIO_REF_CP] = {
-> +		.name = "Kbl Audio Reference cap",
-> +		.stream_name = "Wake on Voice",
+> diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+> index 9e5e37eff10e..dd32ceaef18a 100644
+> --- a/sound/usb/quirks.c
+> +++ b/sound/usb/quirks.c
+> @@ -427,10 +427,10 @@ static int create_autodetect_quirks(struct snd_usb_audio *chip,
+>  
+>  		err = create_autodetect_quirk(chip, iface, driver);
+>  		if (err >= 0)
 
-Does anyone have a clear definition of what "REF_CP" and "reference" 
-mean? it's not echo reference since there is a separate entry for this, 
-so not sure what the term means.
+create_autodetect_quirk() never returns positive values.  Flip this
+condition.  (Always do error handling, don't do success handling).
 
-Half of the SKL/KBL drivers seem to use this FE for "Wake on Voice" and 
-the other half use it for 'Refcap', this doesn't look very consistent.
+		if (err)
+			continue;
 
-> +		.init = NULL,
-> +		.dpcm_capture = 1,
-> +		.nonatomic = 1,
-> +		.dynamic = 1,
-> +		.ops = &skylaye_refcap_ops,
-> +		SND_SOC_DAILINK_REG(reference, dummy, platform),
-> +	},
->   	[KBL_DPCM_AUDIO_DMIC_CP] = {
->   		.name = "Kbl Audio DMIC cap",
->   		.stream_name = "dmiccap",
-> 
+
+> -			usb_driver_claim_interface(driver, iface, (void *)-1L);
+> +			err = usb_driver_claim_interface(driver, iface, (void *)-1L);
+
+This is in a loop so only the last return value is used.  Which seems
+sort of weird and pointless that the last value would matter more than
+the others.
+
+>  	}
+>  
+> -	return 0;
+> +	return err;
+
+regards,
+dan carpenter
+

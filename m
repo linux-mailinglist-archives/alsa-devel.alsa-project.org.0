@@ -2,69 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03053482FC
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 21:38:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE4534840E
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 22:45:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 436B6166A;
-	Wed, 24 Mar 2021 21:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436B6166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B44EE166B;
+	Wed, 24 Mar 2021 22:44:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B44EE166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616618313;
-	bh=Qw6SbYUfenrPYGNQUDeBmYlIlsyWbXvJ8H4+YvkSTLM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616622317;
+	bh=zIz2q0DqnPtXNvCShK4zOFR8kzA+WeqKExqdowiFRhE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AcAzbEM3o6xX7gblOAieY6YbXp+Oai11ChY1bMhA6jmmtLXnA+4LVbX60Q/AjBjsH
-	 sJPxnbgvlxdns9Gzt254HoPWeuKY/BZ/YNAVZ/SiO+lGH1/6vstXC7RJLp6/gIzB5/
-	 vynlptNQ+OCrRmbKFRQ+I/N8gZuHE6BXP/S12J9E=
+	b=cHx5pIa2IHKXAkW2Ba0/QEdlOJZBeiaWAiK62GnRNSwDjyk+nZloT6FaherWS4nZi
+	 QYHuUCiAA2Ng+qTeSZ2J3gx2XGhYxOSrgpJmpwtQlUTFnZ0A686n1BBL5MW++BrQvQ
+	 lzOwFCdcNPefCq1t8e0oKF4nIXe6XphJ3Ff9rXmY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9925CF801D5;
-	Wed, 24 Mar 2021 21:37:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28219F801D5;
+	Wed, 24 Mar 2021 22:43:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52238F8016B; Wed, 24 Mar 2021 21:37:04 +0100 (CET)
+ id 0A442F8016B; Wed, 24 Mar 2021 22:43:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20631.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::631])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4DF5F8012B
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 21:36:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4DF5F8012B
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8BAEFACB4;
- Wed, 24 Mar 2021 20:36:52 +0000 (UTC)
-Date: Wed, 24 Mar 2021 21:36:52 +0100
-Message-ID: <s5h8s6cnva3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BAB4F80104
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 22:43:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BAB4F80104
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="fwIVK0N2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DDm9HizP9CDcB67uMrjaJR0YMjOiHNUToJWu4T+D90RmJv479P1TdPWu0id8p+vHL80Zb1DGP5tzNqOdPwCVrqsjstYz3HC2o1zc5odEtSYB1o6wjBdYIvKwW5oMbf46YHFQ1ss6sAhR2CnIPzMsWt/J9QDyHYxIWUCL7BQV/Uk2aEzM4LUqnu7y+qYLrt10GDgfyWKUTI7iwJq2MPHTf4/6wJIZkyG+XeTz6H4gzmnbRIjTMPkQ/0tQfwE/FIHw9kNh+j5YTmL1rgHeG3PufXfgK+QTc4UHkbKCKvxuqmW+q0IzMxyrUCVwQg9xrQUlBRypjSctAhcKYq7ZNGx/yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eMa0LoDuWjO7YpHz7GbYCsOlQLmLl6NK/K39DNJANBI=;
+ b=SAUiRYQaobhg9tEbjeN0YV5O0ChgXrK34tdkKpgUvQ4hF8rW/Ni6Ws7Ub0tKPlgeDPq67Didqre9haGU9YsUXkNDVnNyVQnmXITyB5JpJVf/d9lAH+Wst2eOUi/0I10ABSGddeiWnGU/+2Gg5NKdO+yqdLAMlUkOqHbHUi0jsNsJ/Z23Xx/n5MO8sDzt8G9cdap3S8ypneWQz3/laifARuC4H0kTZtuSls2tMJvBiY9W+aG2G/ElYlVv920Aj2EzHsOeiwFRngOKAcy+dm/lgnpCjIcfcl+DYIrqqFC3qfhXFOi88SJMBn9o4v0NC3kEWS34Sk9ywMUAtc+Ii19ulw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eMa0LoDuWjO7YpHz7GbYCsOlQLmLl6NK/K39DNJANBI=;
+ b=fwIVK0N2NIz4IeADwE5lsg0dvG6JLVfc4AV3wP4SfEKtIZO/71gWBiRuh99dG88/IbUpMmfUekpYWiZR4QeksJ4aXJNtZrrhL7CIJKmt1aU/FSATdvGgYwolu3g07zV69oJtBB+SlHDIl0HbqGhSAvN/ikOvrxVJPfwq5G8Lji4=
+Authentication-Results: yadro.com; dkim=none (message not signed)
+ header.d=none;yadro.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Wed, 24 Mar
+ 2021 21:43:26 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3955.025; Wed, 24 Mar 2021
+ 21:43:26 +0000
 Subject: Re: Adding movable PCIe BARs support in snd_hda_intel
-In-Reply-To: <f97a59cb-869e-3e0f-305d-6d4a673f49c3@amd.com>
+To: Takashi Iwai <tiwai@suse.de>
 References: <e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com>
- <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com>
- <s5hwntyaylg.wl-tiwai@suse.de>
- <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com>
- <s5him5hc443.wl-tiwai@suse.de>
- <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com>
- <s5h8s6dbyr1.wl-tiwai@suse.de>
- <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com>
- <s5h35wlbwye.wl-tiwai@suse.de>
- <06b2dae2-a5ea-0cc8-891f-2aaff64ae260@amd.com>
- <s5hv99gan2r.wl-tiwai@suse.de>
- <d9bc41d7-bbad-24e3-6ad3-90e6dd8466c4@amd.com>
- <s5heeg4oak7.wl-tiwai@suse.de>
- <f97a59cb-869e-3e0f-305d-6d4a673f49c3@amd.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: multipart/mixed; boundary="Multipart_Wed_Mar_24_21:36:52_2021-1"
+ <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com> <s5hwntyaylg.wl-tiwai@suse.de>
+ <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com> <s5him5hc443.wl-tiwai@suse.de>
+ <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com> <s5h8s6dbyr1.wl-tiwai@suse.de>
+ <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com> <s5h35wlbwye.wl-tiwai@suse.de>
+ <06b2dae2-a5ea-0cc8-891f-2aaff64ae260@amd.com> <s5hv99gan2r.wl-tiwai@suse.de>
+ <d9bc41d7-bbad-24e3-6ad3-90e6dd8466c4@amd.com> <s5heeg4oak7.wl-tiwai@suse.de>
+ <f97a59cb-869e-3e0f-305d-6d4a673f49c3@amd.com> <s5h8s6cnva3.wl-tiwai@suse.de>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <65039cab-5561-aa9c-f270-8fa968a78f42@amd.com>
+Date: Wed, 24 Mar 2021 17:43:24 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <s5h8s6cnva3.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [2607:fea8:3edf:49b0:ac47:51a5:7666:f058]
+X-ClientProxiedBy: YT2PR01CA0017.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::22) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:ac47:51a5:7666:f058]
+ (2607:fea8:3edf:49b0:ac47:51a5:7666:f058) by
+ YT2PR01CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3955.24 via Frontend Transport; Wed, 24 Mar 2021 21:43:26 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 8ec0dee5-d790-4d78-1a72-08d8ef0ddb42
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4399:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB43999C8D7DCD8347ACC2B234EA639@SA0PR12MB4399.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DIIH2fxAs2HiqoJSvMpfPf6A1pvK+CXrEPiZthFJ411RmL/hi62+PV2e2umj7No2tkDD1EPcQ3hrnlcFQJvhWoPQk81C8XtgRuHZX/Mc9OSrlFOcYTpiYJiu9qLDKYEjGO8XuhY1tPiKzJw40U7gt54zAgfl8aA57my9bUiOGIA1eMWvJ7EjhPmIUGMZLrbvWjSdMuIiGM7zCye+zxh2WgtHUlN7Qh3T/2MqPvurJzQ4/CgmwOq6LKScDGAYHoIt/ngmDntVWJKdbPOvFEilomZ5wS/OR8XGwxDk0I4NyoUSV+tmIr9r1pYXzuik5Yw2ffhpqarP75Yvyqd3kTCmWmFdqAesaESmMYbZslP3sOZZqFmH6uwA18T2P/zSLJQLDmDBy/jvaaCd965DOy1PrIBsRXeruEZ77KnymkMLSdJ2F1sZge5wZZCTBsFQpe3MRtC31+Cn+8ktCXte234V0Gvok/EW44rniHan5JJhr0s0/nq6t3i3+h1oRXlnHw5hyslcEilYKwqIahZd2e6L3TKp1ygBcZKQMWwrh5xogINj1DsHAN/LvFwjtD4K81bdW66LMz6CbzuIsepXL3MvNwkTc4KYgKMJL3Qky1/RQdVUNCMpNsWWROjXsKJEySPcdTZRleHMyj61rKiFt90K2Kgu13814gN+4vMJOFIsnLciF3I0Wh3ZNmEKjeKeXKWQZk0MS2YcKIOcEhojsoCUCvonrpipJVRYlJxoyhfzOgA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(136003)(346002)(366004)(396003)(478600001)(186003)(54906003)(38100700001)(316002)(16526019)(31686004)(53546011)(2906002)(52116002)(6486002)(83380400001)(66946007)(6916009)(66476007)(8676002)(66556008)(8936002)(4326008)(36756003)(5660300002)(2616005)(44832011)(86362001)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?Windows-1252?Q?z8AMJRS8qc4rO3yBMp6RStU6wzPNMHChcKucMr6oHhdnFieY4+9COStx?=
+ =?Windows-1252?Q?UmyUivg1pJXULs4U94Ye3ZickCuanezYPNhddTH4pJGpqKXBk3SeuwSY?=
+ =?Windows-1252?Q?Yj2pA9gALdvbeHly8c4iqv9hHkwth07oSOe1G/mvxbef6JZnDXg+rbEZ?=
+ =?Windows-1252?Q?NN8el1kSZGx86n5QbHfbSIogV2FNnsdwQV/jIvTvyNXsfVC9Tg4JizYS?=
+ =?Windows-1252?Q?WHo+AyQ4NPZW5W8pI7W2ZSTCzUnFjHur32tccYt/2+jlI4YlD40TM+2n?=
+ =?Windows-1252?Q?BGyOBm6Bec7TT6giyE0NJE6OpT9e2vfsEtClXQf9Nk0JZXwqKCwn1z2D?=
+ =?Windows-1252?Q?bVct64/hoSk/OXDK0KUD4kGh4nckQxYfxhi4HorS6BiSAdGS6dspd4Sx?=
+ =?Windows-1252?Q?7UhOZQihpwfTOJKsOyyXtwbeV++9lI/6JdlVOXkpCMU8nDpXjvIererI?=
+ =?Windows-1252?Q?RrQA4O1+BvU4s1rifVxHR8K1hfgacXWjSng7L1Pk7ppGnJScFTe3qRM9?=
+ =?Windows-1252?Q?UT3HUPmTAfEl629cu4Mo7Wixu0PrW02iOGGGHODZfxGMVubs4fjJxfk6?=
+ =?Windows-1252?Q?trzKKGOuBw2ncV0aItawZoiwCf+DTkNkL8mT4AWztvYfjttqKO1uGv20?=
+ =?Windows-1252?Q?oCZGk/XBYo1/mbtu9O0wRT/NVJqiYDHc09sm70U09K+t52MCx8ZM8Wy8?=
+ =?Windows-1252?Q?B1oit5o+1byFp2PQpBm9UDWojzankC4Rs3VZTtBgmvQzWDfwr719QP5k?=
+ =?Windows-1252?Q?5d5scfpGXvf7yAKR/buEEDGijV7SKeU6Y0y+u6jmWSFD13iUYSen3Mak?=
+ =?Windows-1252?Q?DEkbLsFKz8fQYNs2wb5QLEfxhGaeNF7fy9f5S7fxjtN+1977LX8LK8Db?=
+ =?Windows-1252?Q?fQVgXHMS1DGOQPVXU5QhYxFTs++68/puVYkSZIOxDx9Y83z4+vXhNyZc?=
+ =?Windows-1252?Q?iGyPdJd2kqx0ayJQpfCtZGkvXhHoNu93y7xrvLAEg+YUwPRqgV3S+blg?=
+ =?Windows-1252?Q?vzodQscuPfysjKWdhDnAY4K1dTI46dVLllXpQ/EHgz4CHrBtb0rUu0yt?=
+ =?Windows-1252?Q?sHZHIxiqd6e8oc+KtWsnCD/1/BswOsflwArwhBnffnfnJM+XJQ3QZ7K1?=
+ =?Windows-1252?Q?jF9qOGP+R1Bc6wVTFvF+WYUJjmgqikjheIRKf3xv6UTwWg9qMywt3yl2?=
+ =?Windows-1252?Q?s96gy2asi9ystbHvjKN+LuTcz0KjXZieZSXfsuwLhJCe3VYJJNo50lyd?=
+ =?Windows-1252?Q?h4kZjMMOAiKk9kRAZQCJVudpKXcyqZYF/8X1zw6u+v6RNYilbZh/LvN9?=
+ =?Windows-1252?Q?gJxAVcLmHelJzCYUSF2z/C4HBWKoVb9uAkfdHS38NJmW+u4pEav7jmMI?=
+ =?Windows-1252?Q?hbsAcZMtzZC3zJtR5M2LF8rxFVQfshfEefry5UuwjZ/V29csj836XptC?=
+ =?Windows-1252?Q?1quAmp9SOXnOCQ02ilJK/WPbDVuyLjqwxkwES+O/T6bAp35gUsYGM3Q9?=
+ =?Windows-1252?Q?9xsnyU5A?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec0dee5-d790-4d78-1a72-08d8ef0ddb42
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 21:43:26.7009 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V/KgsuXmXCFp1wkZom+KD5PDO5JPJYK1ZiFampdkb/ksU17UMJcVvtgbu5VFvWIu9dSAo5tLdHgICx7/naXg6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 Cc: "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
  alsa-devel@alsa-project.org,
  Sergei Miroshnichenko <s.miroshnichenko@yadro.com>,
@@ -84,761 +166,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: text/plain; charset=US-ASCII
+Few comments -
 
-On Wed, 24 Mar 2021 16:43:02 +0100,
-Andrey Grodzovsky wrote:
+1) Why we don't use snd_power_wait_and_ref in patch 3 in the common 
+handler ?
+Don't we want the PCI rescan sequence to 'wait for' any in flight
+taks that might be accessing registers and not only read/write/tlv 
+accesses ?
+
+2) Possible deadlock -
+In azx_rescan_prepare - you put the card into SNDRV_CTL_POWER_D3hot
+first and then 'wait for' all in flight tasks with the refcount.
+The in flight tasks on the other hand, using snd_power_wait_and_ref,
+may have already bumped up the refcount and now 'wait for' the card
+to go into SNDRV_CTL_POWER_D0 which can't happen since PCI rescan
+waits for the refocunt to drop to 0 before proceeding.
+
+Instead of snd_power_wait_and_ref can't we just call snd_power_ref
+in common IOCTL before checking for power_state != SNDRV_CTL_POWER_D0 ?
+Or is it because you don't want to fail IOCTLs ?
+
+Andrey
+
+
+On 2021-03-24 4:36 p.m., Takashi Iwai wrote:
+> On Wed, 24 Mar 2021 16:43:02 +0100,
+> Andrey Grodzovsky wrote:
+>>
+>> I merged the patches, since it looks like my branch
+>> is older I didn't have chip->init_failed member and
+>> also seems there was a typo on ur side as there
+>> is no flush_work_sync, only flush_work which waits
+>> synchronously anyway.
 > 
-> I merged the patches, since it looks like my branch
-> is older I didn't have chip->init_failed member and
-> also seems there was a typo on ur side as there
-> is no flush_work_sync, only flush_work which waits
-> synchronously anyway.
-
-Ah that must be some typos I forgot to refresh.
-
-> Everything works fine when testing with maplyer running concurrently
-> to PCI rescan cycle.
+> Ah that must be some typos I forgot to refresh.
 > 
-> Can you be more specific what are those get/put calls,
-> I am thinking about some waitqueue to wait on in rescan_prepare
-> after setting snd_hdac_bus_freeze,
-> on wakeup it checks that a counter dropped back to zero.
-> Not sure on which entity to hang this counter ?
-
-It's something like the patch 6 in the v2 series below.
-At this time, I dropped snd_hdac_bus_freeze() as this is basically
-useless.
-
-Maybe this is no optimal implementation and we might improve a bit,
-but I guess you get an idea from that.
-
-Also I added ifdef CONFIG_PM in the last patch as it obviously depends
-on it.  It could be put in Kconfig somehow, too, but a simple ifdef
-should suffice.
-
-
-Takashi
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0001-ALSA-hda-Re-add-dropped-snd_poewr_change_state-calls.patch"
-Content-Transfer-Encoding: 7bit
-
-From 52e2fad720c04345499e165be92063897cf64914 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 08:53:56 +0100
-Subject: [PATCH v2 1/8] ALSA: hda: Re-add dropped snd_poewr_change_state()
- calls
-
-The card power state change via snd_power_change_state() at the system
-suspend/resume seems dropped mistakenly during the PM code rewrite.
-The card power state doesn't play much role nowadays but it's still
-referred in a few places such as the HDMI codec driver.
-
-This patch restores them, but in a more appropriate place now in the
-prepare and complete callbacks.
-
-Fixes: f5dac54d9d93 ("ALSA: hda: Separate runtime and system suspend")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 5eea130dcf0a..c4146e8617de 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1025,6 +1025,7 @@ static int azx_prepare(struct device *dev)
- 
- 	chip = card->private_data;
- 	chip->pm_prepared = 1;
-+	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
- 
- 	flush_work(&azx_bus(chip)->unsol_work);
- 
-@@ -1040,6 +1041,7 @@ static void azx_complete(struct device *dev)
- 	struct azx *chip;
- 
- 	chip = card->private_data;
-+	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
- 	chip->pm_prepared = 0;
- }
- 
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0002-ALSA-core-Use-READ_ONCE-WRITE_ONCE-for-power-state-c.patch"
-Content-Transfer-Encoding: 7bit
-
-From 5b359bb19610fdbc15fe87ef33e5654f87d34616 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 18:01:39 +0100
-Subject: [PATCH v2 2/8] ALSA: core: Use READ_ONCE() / WRITE_ONCE() for power
- state change
-
-We need proper barriers to handle the power state change of the card.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/core.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 2e24f194ef70..b915285a2b4e 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -142,12 +142,12 @@ struct snd_card {
- #ifdef CONFIG_PM
- static inline unsigned int snd_power_get_state(struct snd_card *card)
- {
--	return card->power_state;
-+	return READ_ONCE(card->power_state);
- }
- 
- static inline void snd_power_change_state(struct snd_card *card, unsigned int state)
- {
--	card->power_state = state;
-+	WRITE_ONCE(card->power_state, state);
- 	wake_up(&card->power_sleep);
- }
- 
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0003-ALSA-control-Add-power-state-check-commonly-for-ioct.patch"
-Content-Transfer-Encoding: 7bit
-
-From 72698f7fd65f5e415bbfcd866da26f8c813d06b0 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 09:02:33 +0100
-Subject: [PATCH v2 3/8] ALSA: control: Add power state check commonly for
- ioctl handlers
-
-The card power state check can be better put in the common ioctl
-handler, as basically we want to prevent ioctls during the power off
-state.  Although this situation won't happen normally, it'll be
-helpful for catching in the future faked suspend that is needed for
-PCI rescan.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/control.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 5165741a8400..70b60dbc6b93 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1709,6 +1709,9 @@ static long snd_ctl_ioctl(struct file *file, unsigned int cmd, unsigned long arg
- 	card = ctl->card;
- 	if (snd_BUG_ON(!card))
- 		return -ENXIO;
-+	err = snd_power_wait(card, SNDRV_CTL_POWER_D0);
-+	if (err < 0)
-+		return err;
- 	switch (cmd) {
- 	case SNDRV_CTL_IOCTL_PVERSION:
- 		return put_user(SNDRV_CTL_VERSION, ip) ? -EFAULT : 0;
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0004-ALSA-control-Drop-superfluous-snd_power_wait-calls.patch"
-Content-Transfer-Encoding: 7bit
-
-From f4174e148f00a979e94a91dc397aa5a5e87ebe48 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 09:03:39 +0100
-Subject: [PATCH v2 4/8] ALSA: control: Drop superfluous snd_power_wait() calls
-
-Now the card power state is checked in the common ioctl handler, drop
-the same redundant checks in each ioctl.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/control.c | 11 -----------
- 1 file changed, 11 deletions(-)
-
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 70b60dbc6b93..bfe9aceaaf76 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1015,9 +1015,6 @@ static int snd_ctl_elem_info_user(struct snd_ctl_file *ctl,
- 
- 	if (copy_from_user(&info, _info, sizeof(info)))
- 		return -EFAULT;
--	result = snd_power_wait(ctl->card, SNDRV_CTL_POWER_D0);
--	if (result < 0)
--		return result;
- 	result = snd_ctl_elem_info(ctl, &info);
- 	if (result < 0)
- 		return result;
-@@ -1085,10 +1082,6 @@ static int snd_ctl_elem_read_user(struct snd_card *card,
- 	if (IS_ERR(control))
- 		return PTR_ERR(control);
- 
--	result = snd_power_wait(card, SNDRV_CTL_POWER_D0);
--	if (result < 0)
--		goto error;
--
- 	down_read(&card->controls_rwsem);
- 	result = snd_ctl_elem_read(card, control);
- 	up_read(&card->controls_rwsem);
-@@ -1146,10 +1139,6 @@ static int snd_ctl_elem_write_user(struct snd_ctl_file *file,
- 		return PTR_ERR(control);
- 
- 	card = file->card;
--	result = snd_power_wait(card, SNDRV_CTL_POWER_D0);
--	if (result < 0)
--		goto error;
--
- 	down_write(&card->controls_rwsem);
- 	result = snd_ctl_elem_write(card, file, control);
- 	up_write(&card->controls_rwsem);
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0005-ALSA-control-Minor-optimization-for-SNDRV_CTL_IOCTL_.patch"
-Content-Transfer-Encoding: 7bit
-
-From cef4c5872c0b0d78de159cc5838f8b544bd32547 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 09:04:05 +0100
-Subject: [PATCH v2 5/8] ALSA: control: Minor optimization for
- SNDRV_CTL_IOCTL_POWER_STATE
-
-The SNDRV_CTL_IOCTL_POWER_STATE is an obsoleted ioctl and now
-practically it returns always D0.  Do some minor optimization.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/control.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/sound/core/control.c b/sound/core/control.c
-index bfe9aceaaf76..b9701b31de0e 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1744,11 +1744,7 @@ static long snd_ctl_ioctl(struct file *file, unsigned int cmd, unsigned long arg
- 	case SNDRV_CTL_IOCTL_POWER:
- 		return -ENOPROTOOPT;
- 	case SNDRV_CTL_IOCTL_POWER_STATE:
--#ifdef CONFIG_PM
--		return put_user(card->power_state, ip) ? -EFAULT : 0;
--#else
- 		return put_user(SNDRV_CTL_POWER_D0, ip) ? -EFAULT : 0;
--#endif
- 	}
- 	down_read(&snd_ioctl_rwsem);
- 	list_for_each_entry(p, &snd_control_ioctls, list) {
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0006-ALSA-control-Track-the-floating-control-read-write-t.patch"
-Content-Transfer-Encoding: 7bit
-
-From a34ac4da0cb94f9de9410777477388b17250d0ea Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 09:02:33 +0100
-Subject: [PATCH v2 6/8] ALSA: control: Track the floating control
- read/write/tlv accesses
-
-Although we introduced the power state check at the entrance of the
-common handler, there can be still some pending tasks that went into
-the ioctl handler, and those may access the hardware; this must be
-avoided, and we have to sync such in-flight kctls finishing.
-
-For that purpose, this patch introduces
-a few new things:
-- A refcount, power_ref, and a wait head, power_ref_sleep, to the card
-  object
-- A new helper, snd_power_wait_and_ref(), and snd_power_unref()
-
-In a few code paths that call kctl read/write/tlv ops, we check the
-power state again but at this time with snd_power_want_and_ref() --
-which also takes the card.power_ref refcount.  The refcount is then
-released after the kctl ops finishes.  So the driver can sync via
-wait_event() with power_ref=0 for assuring all in-flight tasks are
-finished.
-
-Also, this patch changes snd_power_wait() to accept only
-SNDRV_CTL_POWER_D0, which is the only value that makes sense.
-In later patch, the snd_power_wait() calls will be simplified.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/core.h | 17 +++++++++++++++++
- sound/core/control.c | 29 ++++++++++++++++++++++------
- sound/core/init.c    | 45 ++++++++++++++++++++++++++++++++++++--------
- 3 files changed, 77 insertions(+), 14 deletions(-)
-
-diff --git a/include/sound/core.h b/include/sound/core.h
-index b915285a2b4e..d064451069a1 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -129,6 +129,8 @@ struct snd_card {
- #ifdef CONFIG_PM
- 	unsigned int power_state;	/* power state */
- 	wait_queue_head_t power_sleep;
-+	refcount_t power_ref;
-+	wait_queue_head_t power_ref_sleep;
- #endif
- 
- #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
-@@ -151,14 +153,29 @@ static inline void snd_power_change_state(struct snd_card *card, unsigned int st
- 	wake_up(&card->power_sleep);
- }
- 
-+static inline void snd_power_ref(struct snd_card *card)
-+{
-+	refcount_inc(&card->power_ref);
-+}
-+
-+static inline void snd_power_unref(struct snd_card *card)
-+{
-+	if (refcount_dec_and_test(&card->power_ref))
-+		wake_up(&card->power_ref_sleep);
-+}
-+
- /* init.c */
- int snd_power_wait(struct snd_card *card, unsigned int power_state);
-+int snd_power_wait_and_ref(struct snd_card *card, bool ref);
- 
- #else /* ! CONFIG_PM */
- 
- static inline int snd_power_wait(struct snd_card *card, unsigned int state) { return 0; }
- #define snd_power_get_state(card)	({ (void)(card); SNDRV_CTL_POWER_D0; })
- #define snd_power_change_state(card, state)	do { (void)(card); } while (0)
-+#define snd_power_wait_and_ref(card, ref)	do { (void)(card); } while (0)
-+#define snd_power_ref(card)		do { (void)(card); } while (0)
-+#define snd_power_unref(card)		do { (void)(card); } while (0)
- 
- #endif /* CONFIG_PM */
- 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index b9701b31de0e..efb523a97c8c 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1057,9 +1057,12 @@ static int snd_ctl_elem_read(struct snd_card *card,
- 
- 	if (!snd_ctl_skip_validation(&info))
- 		fill_remaining_elem_value(control, &info, pattern);
-+	ret = snd_power_wait_and_ref(card, true);
-+	if (ret < 0)
-+		goto out;
- 	ret = kctl->get(kctl, control);
- 	if (ret < 0)
--		return ret;
-+		goto out;
- 	if (!snd_ctl_skip_validation(&info) &&
- 	    sanity_check_elem_value(card, control, &info, pattern) < 0) {
- 		dev_err(card->dev,
-@@ -1067,8 +1070,12 @@ static int snd_ctl_elem_read(struct snd_card *card,
- 			control->id.iface, control->id.device,
- 			control->id.subdevice, control->id.name,
- 			control->id.index);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out;
- 	}
-+
-+ out:
-+	snd_power_unref(card);
- 	return ret;
- }
- 
-@@ -1115,16 +1122,22 @@ static int snd_ctl_elem_write(struct snd_card *card, struct snd_ctl_file *file,
- 	}
- 
- 	snd_ctl_build_ioff(&control->id, kctl, index_offset);
-+
-+	result = snd_power_wait_and_ref(card, true);
-+	if (result < 0)
-+		goto out;
- 	result = kctl->put(kctl, control);
- 	if (result < 0)
--		return result;
-+		goto out;
- 
- 	if (result > 0) {
- 		struct snd_ctl_elem_id id = control->id;
- 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
- 	}
- 
--	return 0;
-+ out:
-+	snd_power_unref(card);
-+	return result < 0 ? result : 0;
- }
- 
- static int snd_ctl_elem_write_user(struct snd_ctl_file *file,
-@@ -1595,7 +1608,7 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
- 		{SNDRV_CTL_TLV_OP_CMD,   SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND},
- 	};
- 	struct snd_kcontrol_volatile *vd = &kctl->vd[snd_ctl_get_ioff(kctl, id)];
--	int i;
-+	int i, ret;
- 
- 	/* Check support of the request for this element. */
- 	for (i = 0; i < ARRAY_SIZE(pairs); ++i) {
-@@ -1613,7 +1626,11 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
- 	    vd->owner != NULL && vd->owner != file)
- 		return -EPERM;
- 
--	return kctl->tlv.c(kctl, op_flag, size, buf);
-+	ret = snd_power_wait_and_ref(file->card, true);
-+	if (!ret)
-+		ret = kctl->tlv.c(kctl, op_flag, size, buf);
-+	snd_power_unref(file->card);
-+	return ret;
- }
- 
- static int read_tlv_buf(struct snd_kcontrol *kctl, struct snd_ctl_elem_id *id,
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 45f4b01de23f..ebca12e120a7 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -220,6 +220,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
- 	mutex_init(&card->memory_mutex);
- #ifdef CONFIG_PM
- 	init_waitqueue_head(&card->power_sleep);
-+	refcount_set(&card->power_ref, 0);
-+	init_waitqueue_head(&card->power_ref_sleep);
- #endif
- 	init_waitqueue_head(&card->remove_sleep);
- 	card->sync_irq = -1;
-@@ -1004,21 +1006,27 @@ EXPORT_SYMBOL(snd_card_file_remove);
- 
- #ifdef CONFIG_PM
- /**
-- *  snd_power_wait - wait until the power-state is changed.
-- *  @card: soundcard structure
-- *  @power_state: expected power state
-+ * snd_power_wait_and_ref - wait until the card gets powered up
-+ * @card: soundcard structure
-+ * @ref: take power_ref refcount if set
-  *
-- *  Waits until the power-state is changed.
-+ * Waits until the card gets powered up to SNDRV_CTL_POWER_D0 state.
-+ * When @ref is set, power_ref refcount is incremented.  The refcount is
-+ * down while sleeping, hence it can be used for syncing the floating control
-+ * ops accesses.
-+ * The caller needs to pull down the refcount via snd_power_unref() later.
-  *
-- *  Return: Zero if successful, or a negative error code.
-+ * Return: Zero if successful, or a negative error code.
-  */
--int snd_power_wait(struct snd_card *card, unsigned int power_state)
-+int snd_power_wait_and_ref(struct snd_card *card, bool ref)
- {
- 	wait_queue_entry_t wait;
- 	int result = 0;
- 
- 	/* fastpath */
--	if (snd_power_get_state(card) == power_state)
-+	if (ref)
-+		snd_power_ref(card);
-+	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
- 		return 0;
- 	init_waitqueue_entry(&wait, current);
- 	add_wait_queue(&card->power_sleep, &wait);
-@@ -1027,13 +1035,34 @@ int snd_power_wait(struct snd_card *card, unsigned int power_state)
- 			result = -ENODEV;
- 			break;
- 		}
--		if (snd_power_get_state(card) == power_state)
-+		if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
- 			break;
-+		if (ref)
-+			snd_power_unref(card);
- 		set_current_state(TASK_UNINTERRUPTIBLE);
- 		schedule_timeout(30 * HZ);
-+		if (ref)
-+			snd_power_ref(card);
- 	}
- 	remove_wait_queue(&card->power_sleep, &wait);
- 	return result;
- }
-+EXPORT_SYMBOL_GPL(snd_power_wait_and_ref);
-+
-+/**
-+ * snd_power_wait - wait until the card gets powered up (old form)
-+ * @card: soundcard structure
-+ * @power_state: expected power state
-+ *
-+ * Same as snd_power_wait_and_ref() with ref=false.
-+ * @power_state must be SNDRV_CTL_POWER_D0.
-+ *
-+ * Return: Zero if successful, or a negative error code.
-+ */
-+int snd_power_wait(struct snd_card *card, unsigned int power_state)
-+{
-+	WARN_ON(power_state != SNDRV_CTL_POWER_D0);
-+	return snd_power_wait_and_ref(card, false);
-+}
- EXPORT_SYMBOL(snd_power_wait);
- #endif /* CONFIG_PM */
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0007-ALSA-pcm-Block-the-release-until-the-system-resume-f.patch"
-Content-Transfer-Encoding: 7bit
-
-From c580b8b9ff0ddc4f8445d4306d53f6bd3f1b7666 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 24 Mar 2021 09:05:25 +0100
-Subject: [PATCH v2 7/8] ALSA: pcm: Block the release until the system resume
- finishes
-
-The normal PCM operations are already blocked during the card power
-off state in the PCM common ioctl handler, but the release isn't
-covered.  As the PCM stream release may also access the hardware,
-let's block the release until the card power turns on.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/pcm_native.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 17a85f4815d5..664d2975def4 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2799,6 +2799,10 @@ static int snd_pcm_release(struct inode *inode, struct file *file)
- 	if (snd_BUG_ON(!substream))
- 		return -ENXIO;
- 	pcm = substream->pcm;
-+
-+	/* block until the device gets woken up as it may touch the hardware */
-+	snd_power_wait(pcm->card, SNDRV_CTL_POWER_D0);
-+
- 	mutex_lock(&pcm->open_mutex);
- 	snd_pcm_release_substream(substream);
- 	kfree(pcm_file);
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0008-ALSA-hda-Add-support-for-BARs-move-on-PCI-rescan.patch"
-Content-Transfer-Encoding: 7bit
-
-From 9b96b5c5dc578dc5cf170a62da6b5c67954e4a45 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 16 Mar 2021 23:01:02 -0400
-Subject: [PATCH v2 8/8] ALSA: hda: Add support for BARs move on PCI rescan
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_controller.c |   9 +++
- sound/pci/hda/hda_controller.h |   1 +
- sound/pci/hda/hda_intel.c      | 115 ++++++++++++++++++++++++++++++---
- 3 files changed, 116 insertions(+), 9 deletions(-)
-
-diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
-index ca2f2ecd1488..5e32aa78aa32 100644
---- a/sound/pci/hda/hda_controller.c
-+++ b/sound/pci/hda/hda_controller.c
-@@ -1057,6 +1057,15 @@ void azx_stop_chip(struct azx *chip)
- }
- EXPORT_SYMBOL_GPL(azx_stop_chip);
- 
-+void azx_suspend_streams(struct azx *chip)
-+{
-+	struct azx_pcm *apcm;
-+
-+	list_for_each_entry(apcm, &chip->pcm_list, list)
-+		snd_pcm_suspend_all(apcm->pcm);
-+}
-+EXPORT_SYMBOL_GPL(azx_suspend_streams);
-+
- /*
-  * interrupt handler
-  */
-diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
-index 68f9668788ea..d40a5d87d34e 100644
---- a/sound/pci/hda/hda_controller.h
-+++ b/sound/pci/hda/hda_controller.h
-@@ -212,5 +212,6 @@ int azx_probe_codecs(struct azx *chip, unsigned int max_slots);
- int azx_codec_configure(struct azx *chip);
- int azx_init_streams(struct azx *chip);
- void azx_free_streams(struct azx *chip);
-+void azx_suspend_streams(struct azx *chip);
- 
- #endif /* __SOUND_HDA_CONTROLLER_H */
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index c4146e8617de..d96093f0eeb5 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1868,6 +1868,26 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 	return 0;
- }
- 
-+static int azx_request_pci_regions(struct azx *chip)
-+{
-+	struct hdac_bus *bus = azx_bus(chip);
-+	struct pci_dev *pci = chip->pci;
-+	int err;
-+
-+	err = pci_request_regions(pci, "ICH HD audio");
-+	if (err < 0)
-+		return err;
-+	chip->region_requested = 1;
-+
-+	bus->addr = pci_resource_start(pci, 0);
-+	bus->remap_addr = pci_ioremap_bar(pci, 0);
-+	if (bus->remap_addr == NULL) {
-+		dev_err(&pci->dev, "ioremap error\n");
-+		return -ENXIO;
-+	}
-+	return 0;
-+}
-+
- static int azx_first_init(struct azx *chip)
- {
- 	int dev = chip->dev_index;
-@@ -1888,17 +1908,9 @@ static int azx_first_init(struct azx *chip)
- 	}
- #endif
- 
--	err = pci_request_regions(pci, "ICH HD audio");
-+	err = azx_request_pci_regions(chip);
- 	if (err < 0)
- 		return err;
--	chip->region_requested = 1;
--
--	bus->addr = pci_resource_start(pci, 0);
--	bus->remap_addr = pci_ioremap_bar(pci, 0);
--	if (bus->remap_addr == NULL) {
--		dev_err(card->dev, "ioremap error\n");
--		return -ENXIO;
--	}
- 
- 	if (chip->driver_type == AZX_DRIVER_SKL)
- 		snd_hdac_bus_parse_capabilities(bus);
-@@ -2416,6 +2428,86 @@ static void azx_shutdown(struct pci_dev *pci)
- 		azx_stop_chip(chip);
- }
- 
-+#ifdef CONFIG_PM
-+static bool azx_bar_fixed(struct pci_dev *pdev, int resno)
-+{
-+	return false;
-+}
-+
-+static void azx_rescan_prepare(struct pci_dev *pdev)
-+{
-+	struct snd_card *card = pci_get_drvdata(pdev);
-+	struct azx *chip = card->private_data;
-+	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
-+	struct hdac_bus *bus = azx_bus(chip);
-+	struct hda_codec *codec;
-+
-+	// FIXME: need unlock/lock dance as in azx_remove()?
-+	flush_work(&hda->probe_work);
-+
-+	if (hda->freed || hda->init_failed)
-+		return;
-+
-+	if (chip->running) {
-+		pm_runtime_get_sync(&pdev->dev);
-+		azx_prepare(&pdev->dev);
-+		azx_suspend_streams(chip);
-+		wait_event(card->power_ref_sleep,
-+			   !refcount_read(&card->power_ref));
-+		list_for_each_codec(codec, &chip->bus) {
-+			pm_runtime_suspend(hda_codec_dev(codec));
-+			pm_runtime_disable(hda_codec_dev(codec));
-+		}
-+		azx_suspend(&pdev->dev);
-+	}
-+
-+	/* Unmap MMIO and release BAR resource */
-+	iounmap(bus->remap_addr);
-+	if (chip->region_requested) {
-+		pci_release_regions(chip->pci);
-+		chip->region_requested = 0;
-+	}
-+}
-+
-+static void azx_rescan_done(struct pci_dev *pdev)
-+{
-+	struct snd_card *card = pci_get_drvdata(pdev);
-+	struct azx *chip = card->private_data;
-+	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
-+	struct hdac_bus *bus = azx_bus(chip);
-+	struct hdac_stream *azx_dev;
-+	struct hda_codec *codec;
-+	int err;
-+
-+	if (hda->freed || hda->init_failed)
-+		return;
-+
-+	/* Reassign BAR and remap */
-+	err = azx_request_pci_regions(chip);
-+	if (err < 0) {
-+		dev_err(card->dev, "Rescan failed: disabling the device\n");
-+		card->shutdown = 1;
-+		hda->init_failed = true;
-+		// FIXME: any better handling?
-+		return;
-+	}
-+
-+	// FIXME: should be in hdac_stream.c
-+	list_for_each_entry(azx_dev, &bus->stream_list, list)
-+		azx_dev->sd_addr = bus->remap_addr + (0x20 * azx_dev->index + 0x80);
-+
-+	if (chip->running) {
-+		azx_resume(&pdev->dev);
-+		list_for_each_codec(codec, &chip->bus) {
-+			pm_runtime_enable(hda_codec_dev(codec));
-+			pm_runtime_resume(hda_codec_dev(codec));
-+		}
-+		azx_complete(&pdev->dev);
-+		pm_runtime_put_sync(&pdev->dev);
-+	}
-+}
-+#endif /* CONFIG_PM */
-+
- /* PCI IDs */
- static const struct pci_device_id azx_ids[] = {
- 	/* CPT */
-@@ -2783,6 +2875,11 @@ static struct pci_driver azx_driver = {
- 	.driver = {
- 		.pm = AZX_PM_OPS,
- 	},
-+#ifdef CONFIG_PM
-+	.rescan_prepare	= azx_rescan_prepare,
-+	.rescan_done	= azx_rescan_done,
-+	.bar_fixed	= azx_bar_fixed,
-+#endif
- };
- 
- module_pci_driver(azx_driver);
--- 
-2.26.2
-
-
---Multipart_Wed_Mar_24_21:36:52_2021-1--
+>> Everything works fine when testing with maplyer running concurrently
+>> to PCI rescan cycle.
+>>
+>> Can you be more specific what are those get/put calls,
+>> I am thinking about some waitqueue to wait on in rescan_prepare
+>> after setting snd_hdac_bus_freeze,
+>> on wakeup it checks that a counter dropped back to zero.
+>> Not sure on which entity to hang this counter ?
+> 
+> It's something like the patch 6 in the v2 series below.
+> At this time, I dropped snd_hdac_bus_freeze() as this is basically
+> useless.
+> 
+> Maybe this is no optimal implementation and we might improve a bit,
+> but I guess you get an idea from that.
+> 
+> Also I added ifdef CONFIG_PM in the last patch as it obviously depends
+> on it.  It could be put in Kconfig somehow, too, but a simple ifdef
+> should suffice.
+> 
+> 
+> Takashi
+> 

@@ -2,88 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDDC13471EC
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 07:56:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D12413474B7
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Mar 2021 10:32:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70B851685;
-	Wed, 24 Mar 2021 07:55:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70B851685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B34F1679;
+	Wed, 24 Mar 2021 10:31:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B34F1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616568964;
-	bh=39Kqs/LuUaZO9E/WD6+Ou1FqisadsD1jiibJQqE1jBg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=l/d8jzzglcnskfnXPP/u7qskjL/gjWWDh8hoyhowrXp2+4muBnmTNTDB0GQ7rjr9S
-	 nJXADvIK6bHxi1YaVDEGWojHGHSGNAq2wHdWPNTW7v6lA9QBMSYeE3qc13/NGKm/mm
-	 5uEkd7FKju0hgZvetMda0ePUwv1+07gfpqM8KNgs=
+	s=default; t=1616578362;
+	bh=SapQuvedMMoMFZ158PEwXuhwjVzD2GWWS+vzheIkBjo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=buRBHZ0KPl7nXgApUzrum/5NWsVx1ezWcFD81tkhg1hC6al0YFzRZ5ebc50ep/qdt
+	 WTMcb7Nl62k086SAx9F0j5/Ad6iGGHB4PXtJTZ2by5htXbvoDeeUKhLr+A5EwDR+hT
+	 SQeGOHiz5DFeTfClGtyzZL7cmsa7EC3veLenozUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAB87F800FF;
-	Wed, 24 Mar 2021 07:54:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADE08F800FF;
+	Wed, 24 Mar 2021 10:31:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 650AAF8016B; Wed, 24 Mar 2021 07:54:37 +0100 (CET)
+ id 4AAD6F8016B; Wed, 24 Mar 2021 10:31:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 502D6F800FF
- for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 07:54:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 502D6F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17116F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 24 Mar 2021 10:31:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17116F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="lfyIEa2O"
-Received: by mail-qt1-x82c.google.com with SMTP id c6so16861667qtc.1
- for <alsa-devel@alsa-project.org>; Tue, 23 Mar 2021 23:54:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=n4R/MGKyN4C47IKNV5TQKdwyHLk8O1Lq8WRqX8AYrH4=;
- b=lfyIEa2OhXSN5XPjKhJ2Nr6udYswvPAqWOuA+4u7n4Rm/uKnxaj8LAZjTu17ncNuwc
- 789Exa8onpDlbxIBJ6JxNgvs9Cw2GRrum2JcyW0tY5vPrYwOhazpPL7p08NIx+EONF/E
- LymnT4k9WucJWvWg1McADIekt+9jlNumVoJq4ZDj06E34ZhxLjnayFEYLljZUHtvJ3rm
- hCv4bIsxbICJYC0Jx14kgzRc8jUGTa4ZELUj15gmUGpKeSD8BSijpBQarNA1RJ7KJbgr
- 6I15ejsNaER/stVBf6JBTLNl6JLLw+pXvBpleTOo/MwpCcTkxOv21fs4C5HmbFYtYtiW
- H3YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=n4R/MGKyN4C47IKNV5TQKdwyHLk8O1Lq8WRqX8AYrH4=;
- b=ddzw+IDbTts82L6Ad9Z0t9SYJqvQSEn4fjoFHwDux5TazlmaqKkNVYu3O6wzcgRswl
- dXpo4jsnnX4McQdYPpaInUNr7eKZyzEJF3n0IuaOP7Yg4cG7916bs/cTmu+SB6+62Cbk
- ajBjHOfnuueii1Uw3KT3grzCoL4Kw3C+C3nYXnoC7suAqc+c4/iiwSAaLFpY90S7/w2Z
- UWYwRS1DM0ApI1EU7GRHhao1VAO6WsvsN/GFK86giwNrPli4lrWW1+IaZpMsMooIKdUh
- N2RMb4xsJNtCWOqCrwXKCp3If1GhTp581Agm2Dmzk6Ht8Zlmd9Ox8n14VkVCT8c6Cv6f
- KZhw==
-X-Gm-Message-State: AOAM531H9LLWESutdAXk+jJjU21cQGZJPwnEq2/eyZLC6X8CoSSTqkSf
- 2Q/1Rx2KxAcOelmbewFpw00=
-X-Google-Smtp-Source: ABdhPJwN4YKz4zEJj/rZmEbgmjNbOJ19KhK30xYDe7erSOUVmllCe+LX9/n7UImLHVXAhGm+P5LaKQ==
-X-Received: by 2002:ac8:4e51:: with SMTP id e17mr1735507qtw.204.1616568871952; 
- Tue, 23 Mar 2021 23:54:31 -0700 (PDT)
-Received: from Slackware.localdomain ([156.146.37.194])
- by smtp.gmail.com with ESMTPSA id n6sm846413qtx.22.2021.03.23.23.54.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 23:54:31 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, broonie@kernel.org,
- mirq-linux@rere.qmqm.pl, unixbhaskar@gmail.com, lars@metafoo.de,
- joe@perches.com, huawei@kernel.org, viro@zeniv.linux.org.uk,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: pcm: A typo fix
-Date: Wed, 24 Mar 2021 12:26:12 +0530
-Message-Id: <20210324065612.31362-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.30.1
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="RHJEdq1G"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5B33461A02;
+ Wed, 24 Mar 2021 09:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1616578261;
+ bh=SapQuvedMMoMFZ158PEwXuhwjVzD2GWWS+vzheIkBjo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RHJEdq1GkzcNicfCW1HMi6LL0POJi5GOw+2MiRFoYYI3Ynu/7d2Z1d+lDY1cZt8g2
+ 6lUqLa3/7d/6BV+UVXe7brZgFR2Xak17D54z/uRl88G13A8TtAcRVrcMg7htGST2u7
+ CdHEQO8ikt0HwyvI48wBEYPYl2NMCoQbIS7oLkUM=
+Date: Wed, 24 Mar 2021 10:30:59 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] soundwire: intel: move to auxiliary bus
+Message-ID: <YFsG00+iDV/A4i3y@kroah.com>
+References: <20210323004325.19727-1-yung-chuan.liao@linux.intel.com>
+ <YFmatyAoMZmBmkuZ@kroah.com>
+ <777b4ca6-0d51-285d-549f-6ef768f2a523@linux.intel.com>
+ <YFo0WW8hOsHesSFC@kroah.com>
+ <35cc8d35-a778-d8b2-bee3-bb53f8a6c51e@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: rdunlap@infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <35cc8d35-a778-d8b2-bee3-bb53f8a6c51e@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org,
+ linux-kernel@vger.kernel.org, hui.wang@canonical.com, vkoul@kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,23 +82,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Mar 23, 2021 at 02:14:18PM -0500, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 3/23/21 1:32 PM, Greg KH wrote:
+> > On Tue, Mar 23, 2021 at 01:04:49PM -0500, Pierre-Louis Bossart wrote:
+> > > 
+> > > > > Note that the auxiliary bus API has separate init and add steps, which
+> > > > > requires more attention in the error unwinding paths. The main loop
+> > > > > needs to deal with kfree() and auxiliary_device_uninit() for the
+> > > > > current iteration before jumping to the common label which releases
+> > > > > everything allocated in prior iterations.
+> > > > 
+> > > > The init/add steps can be moved together in the aux bus code if that
+> > > > makes this usage simpler.  Please do that instead.
+> > > 
+> > > IIRC the two steps were separated during the auxbus reviews to allow the
+> > > parent to call kfree() on an init failure, and auxiliary_device_uninit()
+> > > afterwards.
+> > > 
+> > > https://www.kernel.org/doc/html/latest/driver-api/auxiliary_bus.html#auxiliary-device
+> > > 
+> > > With a single auxbus_register(), the parent wouldn't know whether to use
+> > > kfree() or auxiliary_device_uinit() when an error is returned, would it?
+> > > 
+> > 
+> > It should, you know the difference when you call device_register() vs.
+> > device_initialize()/device_add(), for what to do, right?
+> > 
+> > Should be no difference here either :)
+> 
+> sorry, not following.
+> 
+> with the regular devices, the errors can only happen on the second "add"
+> stage.
+> 
+> int device_register(struct device *dev)
+> {
+> 	device_initialize(dev);
+> 	return device_add(dev);
+> }
+> 
+> that's not what is currently implemented for the auxiliary bus
+> 
+> the current flow is
+> 
+> ldev = kzalloc(..)
+> some inits
+> ret = auxiliary_device_init(&ldev->auxdev)
+> if (ret < 0) {
+>     kfree(ldev);
+>     goto err1;
+> }
+> 
+> ret = auxiliary_device_add(&ldev->auxdev)
+> if (ret < 0)
+>     auxiliary_device_uninit(&ldev->auxdev)
+>     goto err2;
+> }
+> ...
+> err2:
+> err1:
+> 
+> How would I convert this to
+> 
+> ldev = kzalloc(..)
+> some inits
+> ret = auxiliary_device_register()
+> if (ret) {
+>    kfree(ldev) or not?
+>    unit or not?
+> }
+> 
+> IIRC during reviews there was an ask that the parent and name be checked,
+> and that's why the code added the two checks below:
+> 
+> int auxiliary_device_init(struct auxiliary_device *auxdev)
+> {
+> 	struct device *dev = &auxdev->dev;
+> 
+> 	if (!dev->parent) {
+> 		pr_err("auxiliary_device has a NULL dev->parent\n");
+> 		return -EINVAL;
+> 	}
+> 
+> 	if (!auxdev->name) {
+> 		pr_err("auxiliary_device has a NULL name\n");
+> 		return -EINVAL;
+> 	}
+> 
+> 	dev->bus = &auxiliary_bus_type;
+> 	device_initialize(&auxdev->dev);
+> 	return 0;
+> }
+> 
+> does this clarify the sequence?
 
-s/unconditonally/unconditionally/
+Yes, thanks, but I don't know the answer to your question, sorry.  This
+feels more complex than it should be, but I do not have the time at the
+moment to look into it, sorry.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- sound/core/pcm_native.c | 80 ++++++++++++++++++++---------------------
- 1 file changed, 40 insertions(+), 40 deletions(-)
+Try getting the authors of this code to fix it up :)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 17a85f4815d5..9884961bca7d 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
+thanks,
 
--	return 0; /* unconditonally stop all substreams */
-+	return 0; /* unconditionally stop all substreams */
- }
-
---
-2.30.1
-
+greg k-h

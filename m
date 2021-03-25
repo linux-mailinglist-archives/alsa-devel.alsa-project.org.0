@@ -2,73 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 169F234912A
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:48:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE494349197
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 13:09:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6B4116DE;
-	Thu, 25 Mar 2021 12:47:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6B4116DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AC9A16A8;
+	Thu, 25 Mar 2021 13:08:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AC9A16A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616672884;
-	bh=UxLsPzwO5ONpBZzvgEppjZShrZzghNaBp5YvTiXr1vo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1616674151;
+	bh=j+NQM84yspUbrxaer0qNsVo7FdQPC/Xci+BXkAnxVv8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N/HmTmdSZxIYJryqFUb4a0gch0PmTMpP8Q3rHRf3wSIarQVTkJzSFgaSKuzoXstl/
-	 imwL3ZrBZ3FHWepUlskAwVXKizOb0gGZKTI/56x/EJRbwl/wdvUl7FufEAqCt3TReb
-	 +rlu+u11bEALfjVZNnOOHO/sNEzm+wpZUPoqp9oA=
+	b=rHKKGK1C2Y4daVRh3adkT6F123jKir0AWwe2LPLyWt6Ovpcilo4cCeZSmV9BWipat
+	 q0c+2ka5GX0wxN7pEyvIPpqSCR2LNp9vJTw+2ujDJj6k+U0zYtUUIqv+Jrf7c2Pk46
+	 Eb8gxY5JKeFE9gxF3HNvYq8+AC0EtMY66k8yO1bs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 591E5F80639;
-	Thu, 25 Mar 2021 12:29:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FCD0F80268;
+	Thu, 25 Mar 2021 13:07:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D652EF804B0; Thu, 25 Mar 2021 12:28:53 +0100 (CET)
+ id AEBB6F8025F; Thu, 25 Mar 2021 13:07:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A21A4F805E0
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:28:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A21A4F805E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11FC7F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 13:07:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11FC7F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HKtHzPIl"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4E4DB61A8B;
- Thu, 25 Mar 2021 11:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616671719;
- bh=UxLsPzwO5ONpBZzvgEppjZShrZzghNaBp5YvTiXr1vo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HKtHzPIlhDkW5P6KbQY26m3OCfncsEul5qbOUby2Q/Y81lP5VMW3tMRHf8aL6GWgy
- JQNK6EiJlo/WApQ9ZaySmJaFl0oFy48+sRyu0D2SsGYErq7n6TgI9n7uojE6Z5M/HF
- xcBR64IBreztHpUgPwK4ECfar2K0iaKOuTOBwPkVJ6CUmeMhmqhS4TbgnpjEFs73C/
- IkrrreLzoME/3LPWC3LtnRCpoDYtRvkpVfE8bexQYOl1CXnMuP2ghPwsURz/+Lkf5u
- aASz1zsce6UzoYsA0oD7sc7K90PDjc6RWJ7ovLVNZOaszejdub49dzXx877x4j9UW4
- 5Wq/Wh9k+ExIQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 05/10] ASoC: sgtl5000: set DAP_AVC_CTRL register
- to correct default value on probe
-Date: Thu, 25 Mar 2021 07:28:26 -0400
-Message-Id: <20210325112832.1928898-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210325112832.1928898-1-sashal@kernel.org>
-References: <20210325112832.1928898-1-sashal@kernel.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PExBHGeQ"
+Received: by mail-qt1-x835.google.com with SMTP id l13so1388210qtu.9
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 05:07:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=kYT3ITsLPoPpWsYn5h5XRyDJBXwfCvVZAljAcGNbjnc=;
+ b=PExBHGeQf3XDRWdPLd9QVOEqgEcEmE9x8OiWcgMxTB/E5WqTRXbRhoHAL18Omn35qu
+ EO8ltdLUnCZXxccrkHhg+cEGHSUVoW3YFTDRfOFFU4IbDcDFWzLOp9Z5elbD72WVeCAb
+ 5+D/Xzi0mgWFshqs0aHn8hW1rTZbW5quQ6qppaIx3OKBrezCwbC3aRGwqforPZb6Z8So
+ yYyH43jPAUJBYVw/EJtP2p1SNEtKX9vhE+H1xfnqN6fuqGlBxiW0dmxuB0+bntrqt9DL
+ bRPPcnLFFWzEweMh2ZFrAV8g2UpWbGTz5Fsn3iwyRxPsTQ+oSpS4Wc6TfuZRl6mb4M/i
+ TcXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to:user-agent;
+ bh=kYT3ITsLPoPpWsYn5h5XRyDJBXwfCvVZAljAcGNbjnc=;
+ b=k3E5uVJnyeoubK/obcpsenZatbcq7gtrBGvJkpTs4VzA+3ieOAGVfbkSZmv+QbDnYv
+ xwEnlbOsPxaa/ER5PoDjmo6QuQEkjn1PlmGYzRx1HNvDogOV6ZDlBjV9O4v16/o9uqob
+ pemhaCsXTVew0wcYy1mDcASFFiOvyPJfqMJ57Fq0pTTEkG45xLFFu5j8WHWwO9kvfY5t
+ Lf5LkuospajDT4aMQwnWzDgQ7AUo9hxUOuLVdKybCvEXa4p6wym4WhBawaB+hwmUiTnz
+ JoqjxNk/XaYaN4f6PSqO5IdhNiK/pFp5P9PF8KHG7sv3uSKiR0Q3xOj5voXuct/WSv6+
+ SSRg==
+X-Gm-Message-State: AOAM5305IltP7wU6F1kNlnhEKCxSkmufb6tCdXSCaAnqIZmNVeWlG6OG
+ cOTpWaRaL6YO+QdF4vi/QVs=
+X-Google-Smtp-Source: ABdhPJymF873pbmqSzUsLuRD42xGR/6NI7EqDjeGJoP725P8hDfxVpCjnrlnFJqXWdDXEiDjWzDwOw==
+X-Received: by 2002:ac8:5a42:: with SMTP id o2mr7323604qta.191.1616674049100; 
+ Thu, 25 Mar 2021 05:07:29 -0700 (PDT)
+Received: from debian ([37.19.198.103])
+ by smtp.gmail.com with ESMTPSA id e1sm3459859qti.10.2021.03.25.05.07.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Mar 2021 05:07:28 -0700 (PDT)
+Date: Thu, 25 Mar 2021 17:37:19 +0530
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH V3]  ALSA: pcm: Fix couple of typos
+Message-ID: <20210325120717.GA9273@debian>
+Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
+ broonie@kernel.org, mirq-linux@rere.qmqm.pl, lars@metafoo.de,
+ gustavoars@kernel.org, huawei@kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org
+References: <20210325090609.10372-1-unixbhaskar@gmail.com>
+ <s5ho8f7mv5k.wl-tiwai@suse.de> <20210325095617.GB32566@debian>
+ <s5hk0pvmrwp.wl-tiwai@suse.de>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Benjamin Rood <benjaminjrood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- alsa-devel@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="yrj/dFKFPuw6o+aM"
+Content-Disposition: inline
+In-Reply-To: <s5hk0pvmrwp.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, gustavoars@kernel.org, huawei@kernel.org,
+ mirq-linux@rere.qmqm.pl, broonie@kernel.org, rdunlap@infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,69 +112,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Benjamin Rood <benjaminjrood@gmail.com>
 
-[ Upstream commit f86f58e3594fb0ab1993d833d3b9a2496f3c928c ]
+--yrj/dFKFPuw6o+aM
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-According to the SGTL5000 datasheet [1], the DAP_AVC_CTRL register has
-the following bit field definitions:
+On 11:47 Thu 25 Mar 2021, Takashi Iwai wrote:
+>On Thu, 25 Mar 2021 10:56:39 +0100,
+>Bhaskar Chowdhury wrote:
+>>
+>> On 10:37 Thu 25 Mar 2021, Takashi Iwai wrote:
+>> >On Thu, 25 Mar 2021 10:06:09 +0100,
+>> >Bhaskar Chowdhury wrote:
+>> >>
+>> >> s/unconditonally/unconditionally/
+>> >> s/succesful/successful/
+>> >>
+>> >> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+>> >> ---
+>> >>  Changes from V2:
+>> >>  Takashi pointed out that the patch was not applicable due to some un=
+wanted
+>> >>  stuff get into it. Resending it with the new patch creation.
+>> >
+>> >Hrm, still not applicable.  Can you apply the patch from your own post
+>> >via git-am in your side?
+>> >
+>> Here is what I do for this specific case :
+>>
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=94]
+>> 15:18 $ sed -i 's/unconditonally/unconditionally/' sound/core/pcm_native=
+=2Ec
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=9A 1]
+>> 15:19 $ sed -i 's/succesful/successful/' sound/core/pcm_native.c
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=9A 1]
+>> 15:19 $ git add .
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>> 15:19 $ git ci "Fix some patch error"
+>> [patch 88d5af187dbb] Fix some patch error
+>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> 15:21 $ git_fetch_single_file.sh sound/core/pcm_native.c
+>> Looks alright!=E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>> 15:21 $ git add .
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>> 15:21 $ git ci "Bring for patch"
+>> [patch 352e1ce8dacf] Bring for patch
+>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=94]
+>> 15:22 $ git apply --verbose 0001-Made-patche-for-this.patch
+>> Checking patch sound/core/pcm_native.c...
+>> Applied patch sound/core/pcm_native.c cleanly.
+>
+>I meant to try to apply the patch from mail fetched from the ML, not
+>the patch you made from your git tree.
+>
+>
 
-| BITS  | FIELD       | RW | RESET | DEFINITION                        |
-| 15    | RSVD        | RO | 0x0   | Reserved                          |
-| 14    | RSVD        | RW | 0x1   | Reserved                          |
-| 13:12 | MAX_GAIN    | RW | 0x1   | Max Gain of AVC in expander mode  |
-| 11:10 | RSVD        | RO | 0x0   | Reserved                          |
-| 9:8   | LBI_RESP    | RW | 0x1   | Integrator Response               |
-| 7:6   | RSVD        | RO | 0x0   | Reserved                          |
-| 5     | HARD_LMT_EN | RW | 0x0   | Enable hard limiter mode          |
-| 4:1   | RSVD        | RO | 0x0   | Reserved                          |
-| 0     | EN          | RW | 0x0   | Enable/Disable AVC                |
+Hmmmmmm
 
-The original default value written to the DAP_AVC_CTRL register during
-sgtl5000_i2c_probe() was 0x0510.  This would incorrectly write values to
-bits 4 and 10, which are defined as RESERVED.  It would also not set
-bits 12 and 14 to their correct RESET values of 0x1, and instead set
-them to 0x0.  While the DAP_AVC module is effectively disabled because
-the EN bit is 0, this default value is still writing invalid values to
-registers that are marked as read-only and RESERVED as well as not
-setting bits 12 and 14 to their correct default values as defined by the
-datasheet.
+bhaskar@debian_16:18:41_Thu Mar 25 :~> mutt
+Applying: ALSA: pcm: Fix couple of typos
+error: corrupt patch at line 29
+Patch failed at 0001 ALSA: pcm: Fix couple of typos
+hint: Use 'git am --show-current-patch' to see the failed patch
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Press any key to continue...
 
-The correct value that should be written to the DAP_AVC_CTRL register is
-0x5100, which configures the register bits to the default values defined
-by the datasheet, and prevents any writes to bits defined as
-'read-only'.  Generally speaking, it is best practice to NOT attempt to
-write values to registers/bits defined as RESERVED, as it generally
-produces unwanted/undefined behavior, or errors.
 
-Also, all credit for this patch should go to my colleague Dan MacDonald
-<dmacdonald@curbellmedical.com> for finding this error in the first
-place.
+Something bugging it ....
+>Takashi
 
-[1] https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf
+--yrj/dFKFPuw6o+aM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Signed-off-by: Benjamin Rood <benjaminjrood@gmail.com>
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
-Link: https://lore.kernel.org/r/20210219183308.GA2117@ubuntu-dev
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/sgtl5000.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index a3dd7030f629..321b1ac52bfd 100644
---- a/sound/soc/codecs/sgtl5000.c
-+++ b/sound/soc/codecs/sgtl5000.c
-@@ -78,7 +78,7 @@ static const struct reg_default sgtl5000_reg_defaults[] = {
- 	{ SGTL5000_DAP_EQ_BASS_BAND4,		0x002f },
- 	{ SGTL5000_DAP_MAIN_CHAN,		0x8000 },
- 	{ SGTL5000_DAP_MIX_CHAN,		0x0000 },
--	{ SGTL5000_DAP_AVC_CTRL,		0x0510 },
-+	{ SGTL5000_DAP_AVC_CTRL,		0x5100 },
- 	{ SGTL5000_DAP_AVC_THRESHOLD,		0x1473 },
- 	{ SGTL5000_DAP_AVC_ATTACK,		0x0028 },
- 	{ SGTL5000_DAP_AVC_DECAY,		0x0050 },
--- 
-2.30.1
+iQEzBAABCgAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAmBcfPEACgkQsjqdtxFL
+KRW03ggAtQwsG2J/1kiWlNSs6QF37p9WP/jvZTyvpfpH6zzH9GGbgd7s2NZVBbOA
+6q0l86QrWe+gIvN2/23LygXUWFPXiF/eFxYU+2g7Ir2eg6mV7RSNbc7KyTHP75ze
+CNwt6KpvyUD0HKMWgclK+TJU7+VNNO7pMPJ3O8vJCMiujzRLK+zsMbUx4l1OjLnl
+qr5siOqzXmgrt4wgb1WIvYiZDCBcTOqQT5WoYbFp3Koy0sLcRVk5JP20IRlw28Q+
+4BIk4FCJfC5X+wAmb1xQkpzIaNiYCEnfRvMJKbk6BVWWZozGnEudQoaDScpFlyRK
+1mFQQyWy6a5JEyKiXu6zppy42ZbeKA==
+=G0p9
+-----END PGP SIGNATURE-----
 
+--yrj/dFKFPuw6o+aM--

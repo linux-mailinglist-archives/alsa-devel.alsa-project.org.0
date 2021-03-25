@@ -2,104 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7323489DB
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 08:09:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565B9348A07
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 08:21:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D9271669;
-	Thu, 25 Mar 2021 08:08:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D9271669
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9C001669;
+	Thu, 25 Mar 2021 08:20:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9C001669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616656182;
-	bh=YjPcqewPOYSiEC+bYLpDi950yzL4aEwMbn8/k6s2TUo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1616656889;
+	bh=b634OF2iH4tofD8QvG1px8uzD//iFkp/+IhhmFCJjI0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K45t67KkbKGskVUJzNyt6N03NdYw7kB9NyfFOjHYv+k+LCV3dNY2k4lhmGOtGqVgR
-	 UIF6jPuZOeeZWlRCaobySYn+2V5Z7WZ/43ThGxNPGTrfy1e7oK0UFosgccffAzukGO
-	 9A2bacHHMxHFH2djXuCYn7Lnp6HGwA69l9YOMklg=
+	b=R787ZX0h7rYxVyYORJRLX0yaCTFFbq+ikl9tbr/bKG0dX4FYWm0VkKNDzlFj+EAVH
+	 j2LHDqVHbFxN5A645SktWq4InOHePqcL54Rop/BEK8WEsjaOxkQ9VdNLLw5SNs80/5
+	 yPeJKn5UOpfIcb84wnqdFmfIIumdZ+19+SDEaE8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 180A4F80268;
-	Thu, 25 Mar 2021 08:08:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6FFDF8025F;
+	Thu, 25 Mar 2021 08:20:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5AA5F8025F; Thu, 25 Mar 2021 08:08:14 +0100 (CET)
+ id 2F67CF8025F; Thu, 25 Mar 2021 08:20:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43651F800FF
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 08:08:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43651F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="PDlojjzB"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12P704Bd177227;
- Thu, 25 Mar 2021 07:08:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=VaoZTJ6LkffLVohHJ9mc4VH0Jy4omsa7wqQBqnPFKw0=;
- b=PDlojjzB+QL3ixZ8xdY8QeMv+KqyhzAq0YcwMUyrx2e9VvG10RBpEmB6BsJ7DHaWVU8j
- fQwM0SV3DtCMV6Kf2W/CsTKOHJElmZBxnlTkTRVIuiAvBafCe5vcAiCuNFm9c+4aSW9R
- mgWsujl8QSOBRQUyGZd3v5mQBXXIf9J68yAt73tpLu5xC8mnEQ/7bI0FxwIThJ+R/MXC
- YU91fw3QcuaAiL4PW9FmukZWjRoIVtbSbIETWjgLeiaVO1PWj1bYG8vV+70FNpoBInB0
- cDtnzyYVwYcsluAoe13Ay1jZkb/qKuAsGigbmfMIgh2WXhNwIQ0evPF22oLwxlAP3CZm DQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 37d90mn6fq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Mar 2021 07:08:05 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12P711nf140464;
- Thu, 25 Mar 2021 07:08:03 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 37du00tqrp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Mar 2021 07:08:03 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 12P77xmT003688;
- Thu, 25 Mar 2021 07:07:59 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 25 Mar 2021 00:07:58 -0700
-Date: Thu, 25 Mar 2021 10:07:51 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Muhammad Usama Anjum <musamaanjum@gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix missing return assignment
-Message-ID: <20210325070751.GU1667@kadam>
-References: <20210324172604.GA380592@LEGION> <20210324185047.GP1667@kadam>
- <abc46d0ad37b9e59ac71288d04e43c9911f71072.camel@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <abc46d0ad37b9e59ac71288d04e43c9911f71072.camel@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- bulkscore=0 phishscore=0
- mlxlogscore=999 suspectscore=0 spamscore=0 malwarescore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103250051
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 mlxscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 mlxlogscore=999 suspectscore=0 clxscore=1015 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103250051
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- colin.king@canonical.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFC17F80104
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 08:19:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFC17F80104
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3AE8FAA55;
+ Thu, 25 Mar 2021 07:19:55 +0000 (UTC)
+Date: Thu, 25 Mar 2021 08:19:54 +0100
+Message-ID: <s5hzgyrn1id.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH 2/2] ALSA: usb-audio: Check connector value on resume
+In-Reply-To: <20210324171410.285848-2-kai.heng.feng@canonical.com>
+References: <20210324171410.285848-1-kai.heng.feng@canonical.com>
+ <20210324171410.285848-2-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, open list <linux-kernel@vger.kernel.org>,
+ Chris Chiu <chiu@endlessm.com>, tiwai@suse.com, Tom Yan <tom.ty89@gmail.com>,
+ Joe Perches <joe@perches.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,30 +72,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 25, 2021 at 01:24:23AM +0500, Muhammad Usama Anjum wrote:
-> On Wed, 2021-03-24 at 21:50 +0300, Dan Carpenter wrote:
-> > > -			usb_driver_claim_interface(driver, iface, (void *)-1L);
-> > > +			err = usb_driver_claim_interface(driver, iface, (void *)-1L);
-> > 
-> > This is in a loop so only the last return value is used.  Which seems
-> > sort of weird and pointless that the last value would matter more than
-> > the others.
-> > 
-> Correct. Lets not store the return value. To stop the static analyzers
-> to report the missing return assignment, can we add (void) in start of
-> this function call? I've not seen use of (void) this way in the
-> kernel. Is there any other way used in the kernel?
+On Wed, 24 Mar 2021 18:14:08 +0100,
+Kai-Heng Feng wrote:
+> 
+> Rear Mic on Lenovo P620 cannot record after S3, despite that there's no
+> error and the other two functions of the USB audio, Line In and Line
+> Out, work just fine.
+> 
+> The mic starts to work again after running userspace app like "alsactl
+> store". Following the lead, the evidence shows that as soon as connector
+> status is queried, the mic can work again.
+> 
+> So also check connector value on resume to "wake up" the USB audio to
+> make it functional.
+> 
+> This can be device specific, however I think this generic approach may
+> benefit more than one device.
+> 
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Don't add (void).  Don't add any code just to help static checkers, only
-do it if it helps humans.  The (void) stuff is ugly.  We have a
-__must_check annotation for functions where it's a bug not to check the
-return and the usb_driver_claim_interface() is not a __must_check
-function.  Just ignore the static checker when it's wrong.
+Just to be sure: this workaround is always needed no matter whether
+reset_resume is set or not?  If so, it's better to change the resume
+callback to take reset_resume argument and call it always.  The
+resume_connector() can be folded into there.
 
-When I'm reviewing static checker warnings, I only look at the new ones.
-Then after I've looked at them, I mark them as old.  I currently have
-65k old ignored warnings.
 
-regards,
-dan carpenter
+thanks,
 
+Takashi
+
+> ---
+>  sound/usb/mixer.c | 18 ++++++++++++++++++
+>  sound/usb/mixer.h |  1 +
+>  2 files changed, 19 insertions(+)
+> 
+> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> index 98f5417a70e4..6a553d891b0f 100644
+> --- a/sound/usb/mixer.c
+> +++ b/sound/usb/mixer.c
+> @@ -3631,11 +3631,28 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
+>  	return 0;
+>  }
+>  
+> +static int resume_connector(struct usb_mixer_elem_list *list)
+> +{
+> +	struct usb_mixer_elem_info *cval = mixer_elem_list_to_info(list);
+> +
+> +	if (cval->val_type != USB_MIXER_BOOLEAN || cval->channels != 1)
+> +		return 0;
+> +
+> +	return get_connector_value(cval, NULL, NULL);
+> +}
+> +
+>  int snd_usb_mixer_resume(struct usb_mixer_interface *mixer, bool reset_resume)
+>  {
+>  	struct usb_mixer_elem_list *list;
+>  	int id, err;
+>  
+> +	for (id = 0; id < MAX_ID_ELEMS; id++) {
+> +		for_each_mixer_elem(list, mixer, id) {
+> +			if (list->resume_connector)
+> +				list->resume_connector(list);
+> +		}
+> +	}
+> +
+>  	if (reset_resume) {
+>  		/* restore cached mixer values */
+>  		for (id = 0; id < MAX_ID_ELEMS; id++) {
+> @@ -3664,5 +3681,6 @@ void snd_usb_mixer_elem_init_std(struct usb_mixer_elem_list *list,
+>  	list->dump = snd_usb_mixer_dump_cval;
+>  #ifdef CONFIG_PM
+>  	list->resume = restore_mixer_value;
+> +	list->resume_connector = resume_connector;
+>  #endif
+>  }
+> diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+> index c29e27ac43a7..843ccff0eea3 100644
+> --- a/sound/usb/mixer.h
+> +++ b/sound/usb/mixer.h
+> @@ -69,6 +69,7 @@ struct usb_mixer_elem_list {
+>  	bool is_std_info;
+>  	usb_mixer_elem_dump_func_t dump;
+>  	usb_mixer_elem_resume_func_t resume;
+> +	usb_mixer_elem_resume_func_t resume_connector;
+>  };
+>  
+>  /* iterate over mixer element list of the given unit id */
+> -- 
+> 2.30.2
+> 

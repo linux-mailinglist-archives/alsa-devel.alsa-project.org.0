@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6C8D349852
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 18:39:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2907F34985A
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 18:39:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2783C1669;
-	Thu, 25 Mar 2021 18:38:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2783C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6FA31678;
+	Thu, 25 Mar 2021 18:38:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6FA31678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616693941;
-	bh=vhqgbXFhmrKfVpYNbmWIy+MRLeOTkYKmncyMmmdH2rg=;
+	s=default; t=1616693958;
+	bh=PJ9dVJr7pQ/MariBpR/ysWqCzzmoHrXzyyOPgE1CF84=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RQNj4BVJM3blbcDRGmIwEvx8/ngm/OyJ49FLcZzncMUCGnmuQmAhiYYMXAHy4fdmY
-	 RJkcyBEkErAgtvVGGGEhtK5WT8dpvh6nUKYWJbzbDRkGv19y2BcZXPxsu1cLeF3n1/
-	 +Hvg1DHO9Xu+W1GXiV9iMLkPgJn5awmIKroRj5qQ=
+	b=JfUfxuHKMViB8Y5bLPG7tsLcNJ95k5yhbVh4wk46c54KRaRSNQR3R5ix3tpCtsCro
+	 lkONYYOxBT+fx2/fICh6XcLbmBRCcEUNeft+TEoHVEjgi2WlraOB3PG+8Hno22wTPq
+	 9mhcaKq/CL/xp1rwy6HN0tlpUQadNNDJoOQLAhy4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 751DAF80268;
-	Thu, 25 Mar 2021 18:37:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09128F80279;
+	Thu, 25 Mar 2021 18:37:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2034F80257; Thu, 25 Mar 2021 18:37:32 +0100 (CET)
+ id B66E1F8026D; Thu, 25 Mar 2021 18:37:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15B30F80257
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 18:37:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B30F80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA286F80104
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 18:37:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA286F80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M/TRij5J"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5B2E461A2C;
- Thu, 25 Mar 2021 17:37:26 +0000 (UTC)
+ header.b="O7S/kZB9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6460E61A2A;
+ Thu, 25 Mar 2021 17:37:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616693847;
- bh=vhqgbXFhmrKfVpYNbmWIy+MRLeOTkYKmncyMmmdH2rg=;
+ s=k20201202; t=1616693849;
+ bh=PJ9dVJr7pQ/MariBpR/ysWqCzzmoHrXzyyOPgE1CF84=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M/TRij5Jd0h8R+vSJAunZT2jaPanu4ijRSgqrH6fCJHnLlKsdzTskNfi/a3LcQZZT
- nkvIoeTl5DVjddGsjY/oWvSMLdc45EKQdHcqaBjPmKRxaJqctAVXyKESjDC6oNbl0s
- ISfvtcUoPskRBGfkc4r+KuBfkAU+gJ10dEHUsMtq38o0/8lUFSTMESPYEiRhr+pRSx
- vY1tK1RW8u6CWGwYvoimRVWHC8quGXCg8nRv9YaahQlvi0cOY6QmkttQfG3ERqvsmM
- N5lJWAxPSzFei81xhlr5antnI4APUqEEMHWohFpkSjUyVvK7+Fi9PrHaJplSnyn+Sm
- VQzNdYmQuGmkQ==
+ b=O7S/kZB93c1aJU1F+QBupLtIyCZnuk+7MVZT2MbMXeMGvCvzmDk5ML+uVkDy9z4gZ
+ zqkujwYKF0Vba6jrJ6bkJrHnBKCgjlZ4xBNxC25T4Js3pD3MC71EKdhqLA0PGOH+9G
+ wLQmRJsOnTikkZKwNMXT8jGOMluA4s8jfCV/IhdbyPM2H7TN37IODBkQW1t9DLGGFT
+ 2DYBe3sv1QE3uedC+F4TN5vc+g0R+OXEYqyyeGQXXH1ExRj6+go+f6MqGYadxvLRy3
+ 5afzf3f7oakStOssj1h/jAclKkVdfWKizgz5SrATRX17fW1vLNIzukFy71FKpbVgIf
+ +/bt8IzqQQJXg==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com, gustavoars@kernel.org, tiwai@suse.com,
- perex@perex.cz, pierre-louis.bossart@linux.intel.com,
- peter.ujfalusi@ti.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
- patches@opensource.cirrus.com, daniel.baluta@nxp.com
-Subject: Re: [PATCH v2] ASoC: wm8960: Remove bitclk relax condition in
- wm8960_configure_sysclk
-Date: Thu, 25 Mar 2021 17:37:03 +0000
-Message-Id: <161669370550.41585.9109635585401644966.b4-ty@kernel.org>
+To: guennadi.liakhovetski@linux.intel.com, tiwai@suse.com, perex@perex.cz,
+ rander.wang@linux.intel.com, Ryan Lee <ryans.lee@maximintegrated.com>,
+ pierre-louis.bossart@linux.intel.com, yong.zhi@intel.com,
+ yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org,
+ judyhsiao@google.com, kai.vehmanen@linux.intel.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, vkoul@kernel.org
+Subject: Re: [PATCH 1/3] ASoC:codec:max98373: Changed amp shutdown register as
+ volatile
+Date: Thu, 25 Mar 2021 17:37:04 +0000
+Message-Id: <161669370551.41585.8831978780154143601.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1614740862-30196-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1614740862-30196-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210325033555.29377-1-ryans.lee@maximintegrated.com>
+References: <20210325033555.29377-1-ryans.lee@maximintegrated.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, ryan.lee.maxim@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,16 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Mar 2021 11:07:42 +0800, Shengjiu Wang wrote:
-> The call sequence in wm8960_configure_clocking is
-> 
->    ret = wm8960_configure_sysclk();
->    if (ret >= 0)
->         goto configure_clock;
-> 
->    ....
-> 
-> [...]
+On Wed, 24 Mar 2021 20:35:53 -0700, Ryan Lee wrote:
+> 0x20FF(amp global enable) register was defined as non-volatile,
+> but it is not. Overheating, overcurrent can cause amp shutdown
+> in hardware.
+> 'regmap_write' compare register readback value before writing
+> to avoid same value writing. 'regmap_read' just read cache
+> not actual hardware value for the non-volatile register.
+> When amp is internally shutdown by some reason, next 'AMP ON'
+> command can be ignored because regmap think amp is already ON.
 
 Applied to
 
@@ -101,8 +100,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm8960: Remove bitclk relax condition in wm8960_configure_sysclk
-      commit: 99067c07e8d877035f6249d194a317c78b7d052d
+[1/3] ASoC:codec:max98373: Changed amp shutdown register as volatile
+      commit: a23f9099ff1541f15704e96b784d3846d2a4483d
+[2/3] ASoC:codec:max98373: Added 30ms turn on/off time delay
+      commit: 3a27875e91fb9c29de436199d20b33f9413aea77
+[3/3] ASoC:codec:max98373: Added controls for autorestart config
+      commit: 7a0d884986f3693aca8a2dc4e1b31d35c508542e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

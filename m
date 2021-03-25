@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCCC63490AF
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A67C23490BB
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:39:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A27216EC;
-	Thu, 25 Mar 2021 12:37:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A27216EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4966A16F0;
+	Thu, 25 Mar 2021 12:38:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4966A16F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616672305;
-	bh=1hF+lIPUhTu/RHqigdxN3BYvmstTkCfm8UYLgtUPiXs=;
+	s=default; t=1616672348;
+	bh=hTaUs/AFJ1IfhtHqzUxdrQe0xhEMM47KW9UwRqj7Lo8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e44pUx5aVa/mWKbMpNmU/nfmLFY6HxuTYtkJ9BdpMYMcWh6hjI/z5x8hXymhGUnun
-	 tiKfSGdiSonyOqKQxORnHugU6zw/E0cdKEAmgStUIXlyV04Oo9BkJvM/ijpspp17lK
-	 BfCB2T7mj0Chgw+v3Hyf8cuTs/uVDJJQ7Yg/z8Zw=
+	b=BfYEdnDGRVk2zn6nDnMGel6cXbyhD5aaaAB7Bi1/FNNyDY1myVfKecy0JR6t9Omsy
+	 OW68RzalwSsnXh1rIFKTzv6NgPXwCUPw0BIsncSeK6irR7zWTKAZ9MXRf6JvZ9niQs
+	 7/4HV21qCG7mDgOFzgPTAIceFBxDsBYo+FAoWP/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC8E9F805AC;
-	Thu, 25 Mar 2021 12:27:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADAFDF805BB;
+	Thu, 25 Mar 2021 12:27:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 923ECF80557; Thu, 25 Mar 2021 12:27:19 +0100 (CET)
+ id A0550F8059F; Thu, 25 Mar 2021 12:27:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29305F8049C
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:27:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29305F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AF89F80564
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:27:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AF89F80564
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WiOOIYC2"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AC61A61A5A;
- Thu, 25 Mar 2021 11:27:06 +0000 (UTC)
+ header.b="TNJOKsFV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 12B3A61A72;
+ Thu, 25 Mar 2021 11:27:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616671627;
- bh=1hF+lIPUhTu/RHqigdxN3BYvmstTkCfm8UYLgtUPiXs=;
+ s=k20201202; t=1616671628;
+ bh=hTaUs/AFJ1IfhtHqzUxdrQe0xhEMM47KW9UwRqj7Lo8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WiOOIYC2TsL8DWAfG/Emm3GahT08sI4e7DBYqdl90NfS1NniImk0N6AzKYeiZkGQO
- P9rSk67fc94K8souScVEQDN83kKe3Yj/3mw67vouOMPdaNwfJgg4wTmPtJufIZt8Pe
- T3kqVufCmlVHXyjqGq6Hc5VXgKKoAWqFJgU9/K9yTWIPMVl9kedqCneuicLk5AnvEj
- 8hnzVHxU/fKUyR6MPNwGSe3JUXq2yPOLthH6zjXCNHFbeFkOdkTUFEbNPjhSf4CFeP
- TCMGeUOw1PiSabHUANnmidSW8CLET21hlk1nBoqi0wSzdgE/c/gNS15w6n95UZqt9a
- ezzqV1LtKqu+w==
+ b=TNJOKsFVRtOsLcb0M8VoRg4ktxG8O4JC0GYPY7ftqXcJFl4QxygFPRlSCx9OfTj3i
+ XKZk2kykhvZTDQ0u9yKmx7rce+3AUi6MrA2ZFoiWAucPula5La9LMApI10s0oyXbpE
+ ZjrVRNubNoDbsEMVHNkDvT1h0IKEXWk39+2Nro6OYMoy/d17kUe4UCkOg4Ek3Z5mO4
+ 5i/GOhAvkMnM8a8vpuAjuAQ+XNmDBGzOhvgONzgblOPo+i06lcGswLkdvklejQSfxI
+ ZAmdMO8hnTB5O6kxttOE1Bsv/w3uif1flvCfzPPMuyyrjAlFBrwV2hUBBIWFo13fx2
+ vQlAt3kJxtlnw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 12/24] ASoC: cs42l42: Fix mixer volume control
-Date: Thu, 25 Mar 2021 07:26:38 -0400
-Message-Id: <20210325112651.1927828-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 13/24] ASoC: cs42l42: Always wait at least 3ms
+ after reset
+Date: Thu, 25 Mar 2021 07:26:39 -0400
+Message-Id: <20210325112651.1927828-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210325112651.1927828-1-sashal@kernel.org>
 References: <20210325112651.1927828-1-sashal@kernel.org>
@@ -85,40 +86,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-[ Upstream commit 72d904763ae6a8576e7ad034f9da4f0e3c44bf24 ]
+[ Upstream commit 19325cfea04446bc79b36bffd4978af15f46a00e ]
 
-The minimum value is 0x3f (-63dB), which also is mute
+This delay is part of the power-up sequence defined in the datasheet.
+A runtime_resume is a power-up so must also include the delay.
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20210305173442.195740-4-tanureal@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20210305173442.195740-6-tanureal@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l42.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs42l42.c | 3 ++-
+ sound/soc/codecs/cs42l42.h | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 26ca5acf0136..95930018a1a4 100644
+index 95930018a1a4..dcd2acb2c3ce 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -401,7 +401,7 @@ static const struct regmap_config cs42l42_regmap = {
- };
+@@ -1796,7 +1796,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
+ 		dev_dbg(&i2c_client->dev, "Found reset GPIO\n");
+ 		gpiod_set_value_cansleep(cs42l42->reset_gpio, 1);
+ 	}
+-	mdelay(3);
++	usleep_range(CS42L42_BOOT_TIME_US, CS42L42_BOOT_TIME_US * 2);
  
- static DECLARE_TLV_DB_SCALE(adc_tlv, -9600, 100, false);
--static DECLARE_TLV_DB_SCALE(mixer_tlv, -6200, 100, false);
-+static DECLARE_TLV_DB_SCALE(mixer_tlv, -6300, 100, true);
+ 	/* Request IRQ */
+ 	ret = devm_request_threaded_irq(&i2c_client->dev,
+@@ -1921,6 +1921,7 @@ static int cs42l42_runtime_resume(struct device *dev)
+ 	}
  
- static const char * const cs42l42_hpf_freq_text[] = {
- 	"1.86Hz", "120Hz", "235Hz", "466Hz"
-@@ -458,7 +458,7 @@ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
- 				CS42L42_DAC_HPF_EN_SHIFT, true, false),
- 	SOC_DOUBLE_R_TLV("Mixer Volume", CS42L42_MIXER_CHA_VOL,
- 			 CS42L42_MIXER_CHB_VOL, CS42L42_MIXER_CH_VOL_SHIFT,
--				0x3e, 1, mixer_tlv)
-+				0x3f, 1, mixer_tlv)
- };
+ 	gpiod_set_value_cansleep(cs42l42->reset_gpio, 1);
++	usleep_range(CS42L42_BOOT_TIME_US, CS42L42_BOOT_TIME_US * 2);
  
- static int cs42l42_hpdrv_evt(struct snd_soc_dapm_widget *w,
+ 	regcache_cache_only(cs42l42->regmap, false);
+ 	regcache_sync(cs42l42->regmap);
+diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
+index 9b017b76828a..866d7c873e3c 100644
+--- a/sound/soc/codecs/cs42l42.h
++++ b/sound/soc/codecs/cs42l42.h
+@@ -740,6 +740,7 @@
+ #define CS42L42_FRAC2_VAL(val)	(((val) & 0xff0000) >> 16)
+ 
+ #define CS42L42_NUM_SUPPLIES	5
++#define CS42L42_BOOT_TIME_US	3000
+ 
+ static const char *const cs42l42_supply_names[CS42L42_NUM_SUPPLIES] = {
+ 	"VA",
 -- 
 2.30.1
 

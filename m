@@ -2,70 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1FA349862
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 18:40:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CC1349871
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 18:40:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFDF21669;
-	Thu, 25 Mar 2021 18:39:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFDF21669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B1A41684;
+	Thu, 25 Mar 2021 18:40:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B1A41684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616694007;
-	bh=HV/RvIRBIybOa4JZsYULCIUHI4gNjbKCv4QSaa0D7Ng=;
+	s=default; t=1616694057;
+	bh=1g0ymfKKeil9RN/uPQNtw7qS+3W7ggqGXapUCg0NkV0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FB+C4M6AFg3sRqVE4rOOKtebRIafHwWJMT+8irBllfgRooKSWo4Tf4JfWIykmRj6g
-	 wlmAOMONF2ZmlkAREOI7TDVngXWVKnI0PMU/MQ5UaLH16dkSci+/dgbnrkoR2G14Ok
-	 oW9wgf++GfZOeWJoluI6J+4Mjcu34svJIQcWtYIk=
+	b=A/R+r2bpOwl3LF6+iFsmsythUH7PyuyVlcu6c/+2NMubiNEnm9LEuzmWGcaeN0dTm
+	 wYt5N6vcBRl7ZfPff6xv2W0GIo0NoaRyUBDzuiG9mzlVd0Bw5EJoEubLF61fUHh7fb
+	 fH283wnVILzabxKVP1+5dukqxhnbSgob2Z/XZbaQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85727F80257;
-	Thu, 25 Mar 2021 18:37:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02D2BF804AF;
+	Thu, 25 Mar 2021 18:37:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9275DF8028D; Thu, 25 Mar 2021 18:37:44 +0100 (CET)
+ id 9A80CF80430; Thu, 25 Mar 2021 18:37:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D97F0F80103
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 18:37:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D97F0F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E050F8026D
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 18:37:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E050F8026D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dpMNRTgH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 51B2D61A30;
- Thu, 25 Mar 2021 17:37:38 +0000 (UTC)
+ header.b="kEfGfakW"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 13DA461A2C;
+ Thu, 25 Mar 2021 17:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616693858;
- bh=HV/RvIRBIybOa4JZsYULCIUHI4gNjbKCv4QSaa0D7Ng=;
+ s=k20201202; t=1616693861;
+ bh=1g0ymfKKeil9RN/uPQNtw7qS+3W7ggqGXapUCg0NkV0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dpMNRTgHQt3qZnbSJHg/yKrNIewNIJos4kXNOlKyik3uKYlu7hb3AQz2BE9bh6SEW
- vrZBqKn9kmR6JZ9RVukMdlDYB28u2HNWwNZnUEZn1p9TrQN3QV3pYOgDH9jQIIKHG0
- sX3kN46HZjC3mgtR4YRLtpsdq4d9saC2QFh30eDTmLXT0adKKjDymaRWexQ/gwN273
- TzU7rKNw/ABILVrYVtE5X+hL3jiOCW3jVuO5JbH90q8fKUPKDIdiY93BhOF6CcXFPX
- ISZpPPNyg2McKM2t92gQBTK1OkjcUBzufCHonQ6xLLjW8K8i9IDNagyKbN/JgMmxGE
- lmVqIhiL3ydBg==
+ b=kEfGfakWKp7ciHKy0udBHqlqmjlANfUTku7KpJ/sgEjH7iUge9hHR/C+qRjvIDnY9
+ begDphefk0w0XugDXIJZPxUUce3tMuf5GPtrJqmB+YKqbs9jHxNHApLimYsOnvBJsG
+ nh5mdvLe7JSKmb5PiRcpdrJBN8zSlK0m4pk9uPQHZXKNgNIskyPfzDOoDvLnOrkCtn
+ jRJhYwEvfhwTaSoY9RzO1AxgKIMN7/1DP6Rs+dqV4Naw8pWN2lC266o7kqULO6BtpT
+ qM8/+Dpi+QH+GVK/4H2zZwg9zXbqwnY4ipIBECN2S5O5FyO0u+1bleZp/zGhN4s/FZ
+ +rCyuY2Sv/qyA==
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>,
-	lgirdwood@gmail.com
-Subject: Re: [PATCH] ASoC: rt1015: Add bclk detection and dc detection
-Date: Thu, 25 Mar 2021 17:37:07 +0000
-Message-Id: <161669370549.41585.3723755284285163188.b4-ty@kernel.org>
+To: tiwai@suse.com, perex@perex.cz, festevam@gmail.com, Xiubo.Lee@gmail.com,
+ devicetree@vger.kernel.org, nicoleotsuka@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ timur@kernel.org, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
+ robh+dt@kernel.org
+Subject: Re: [PATCH v5 0/6] Add audio driver base on rpmsg on i.MX platform
+Date: Thu, 25 Mar 2021 17:37:08 +0000
+Message-Id: <161669370551.41585.13939031002896940550.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210322055053.31797-1-jack.yu@realtek.com>
-References: <20210322055053.31797-1-jack.yu@realtek.com>
+In-Reply-To: <1615516725-4975-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1615516725-4975-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- kent_chen@realtek.com, kenny_chen@realtek.com, Mark Brown <broonie@kernel.org>,
- derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,8 +84,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Mar 2021 13:50:53 +0800, Jack Yu wrote:
-> Add bclk detection and dc detection before playback.
+On Fri, 12 Mar 2021 10:38:39 +0800, Shengjiu Wang wrote:
+> On Asymmetric multiprocessor, there is Cortex-A core and Cortex-M core,
+> Linux is running on A core, RTOS is running on M core.
+> The audio hardware device can be controlled by Cortex-M device,
+> So audio playback/capture can be handled by M core.
+> 
+> Rpmsg is the interface for sending and receiving msg to and from M
+> core, that we can create a virtual sound on Cortex-A core side.
+> 
+> [...]
 
 Applied to
 
@@ -90,8 +101,18 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1015: Add bclk detection and dc detection
-      commit: 9f44673b7af2e776b55b1d15b3a35d8e8eb51331
+[1/6] ASoC: soc-component: Add snd_soc_pcm_component_ack
+      commit: 8bdfc0455e3a59e2c1207a56be22e910fae0e0d5
+[2/6] ASoC: fsl_rpmsg: Add CPU DAI driver for audio base on rpmsg
+      commit: b73d9e6225e86492f6a901223a34ecfa7b55c178
+[3/6] ASoC: dt-bindings: fsl_rpmsg: Add binding doc for rpmsg audio device
+      commit: 49c6bf62498344fa8f8af2314231f3eb37e0e150
+[4/6] ASoC: imx-audio-rpmsg: Add rpmsg_driver for audio channel
+      commit: 1935050de0b6c6c961e9de51d5b5d05642f861f1
+[5/6] ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg
+      commit: 3c00eceb2a5391ed1ca6703b71cad35ab8cd4352
+[6/6] ASoC: imx-rpmsg: Add machine driver for audio base on rpmsg
+      commit: 39f8405c3e502e7b9d0533fa0b0bfe715b3e89c1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

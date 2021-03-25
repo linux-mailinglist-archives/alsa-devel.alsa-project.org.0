@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C2F348F92
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:28:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D11DD348F9C
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:29:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 677D2167D;
-	Thu, 25 Mar 2021 12:27:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677D2167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 687711685;
+	Thu, 25 Mar 2021 12:28:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 687711685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616671720;
-	bh=nGXWBMLIRC8CPjJKpueUYNycfiQmpgnfPBkiYFsI0TU=;
+	s=default; t=1616671750;
+	bh=CDd15vNGaWLUqR63Q6Okm9EKlIgZ1VWYnN7Vj1s12aI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qePkpSQ4E0RZs0NvJ/Nh2qtMgJFVZGQ03sB4rSIOlnt8Z0AflZKvqOmWg8+DIpYJf
-	 F9+J/n0d9um6nHokW+L+T7TQoWSRUrHFYL2oq5HgTWAXse1NP7PnR8zKq05AcVxpNG
-	 l8xBcWi8smorKt27Z+zeRvg2tHjTf9fUSDgtBgII=
+	b=ETPgw239CujVkk7VLYNf8wmbzidSU7dGNjX/w4mjfOXq3OmdBaOowERX3VDktLspb
+	 82Z60t1W24MUC/uVo+U9oolxxtmQHbbsgPucxV2ta6UIc+i5cSdU+skmR/hDZxk8xf
+	 TuySngaE5ZF/BeFCgmb81/+qXKIqfyVK1lPlMvkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C521FF804BD;
-	Thu, 25 Mar 2021 12:25:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A9BAF804CF;
+	Thu, 25 Mar 2021 12:25:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5E8CF804B1; Thu, 25 Mar 2021 12:25:35 +0100 (CET)
+ id 16B1AF804A9; Thu, 25 Mar 2021 12:25:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B1F9F8032C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9331F80423
  for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:25:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B1F9F8032C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9331F80423
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KFwAmt6+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EA37C61A24;
- Thu, 25 Mar 2021 11:25:19 +0000 (UTC)
+ header.b="G0qhYAEV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2EBCD61A2E;
+ Thu, 25 Mar 2021 11:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616671520;
- bh=nGXWBMLIRC8CPjJKpueUYNycfiQmpgnfPBkiYFsI0TU=;
+ s=k20201202; t=1616671521;
+ bh=CDd15vNGaWLUqR63Q6Okm9EKlIgZ1VWYnN7Vj1s12aI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KFwAmt6+G/OK3OQb5zfxSxKtvQt1+JPIIQFSou5W6XMeGiND9JJDpSklZXPZ2Qz6e
- FjdWQ6sDbYLUYNUfTaMEUoiCqyD/uz7jxd6vcnN+TxogHTf5c269w7PBFAF6uaCm1I
- 8MT1RCZcmWVIyrcy/vV9YmvWrJTdB+r/1Q1RRHWQJVRIvN2tgeOk5aDBkG8vvcYBQ5
- SDuGKsS973APkOKqwIfceaPDLIlOKbG5fatEyj9EpVuXCt5MsYRyuFURrYN/oDqlPh
- voL6DurchB//XNmR5Ai2AM3pQtKVleOqt5YYy/RqHS1xIyg0fd/6GoxlcEWSsiVw3+
- LZjWx8JM/V/Tg==
+ b=G0qhYAEVtnsGXbLu1DbMRZ+z6Nd0bdHw1Wx1/UKyVYpbqfs8tGBjjMJH/ltFFqBJm
+ xLDRLhdFGAmzTTzwmQ5dRjGYS9Awwn4uyv68k+N6bU3mP9zRvwky4FgfE1snFQcWAT
+ vZKuecheGsWcahqcC4ZIWQUbt9EbR/Wm0BSF9aUSPtszo+kuZUqoIY6qfhaY4Kpana
+ F+n3oIQNPmgtiRJBFscnDLhrmk3CK7dN19R78BUep8Ne232tuEibLSVCN6Hi9Drt69
+ hnotZWqG0y8uLf1pEPEBV98bqblsyPOAPTJDqRyqCfHnCHvA4nrnhw4lB/mhpSVEVF
+ do8CRSm3cdcsw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 16/44] ASoC: cs42l42: Fix channel width support
-Date: Thu, 25 Mar 2021 07:24:31 -0400
-Message-Id: <20210325112459.1926846-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 17/44] ASoC: cs42l42: Fix mixer volume control
+Date: Thu, 25 Mar 2021 07:24:32 -0400
+Message-Id: <20210325112459.1926846-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210325112459.1926846-1-sashal@kernel.org>
 References: <20210325112459.1926846-1-sashal@kernel.org>
@@ -85,108 +85,40 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-[ Upstream commit 2bdc4f5c6838f7c3feb4fe68e4edbeea158ec0a2 ]
+[ Upstream commit 72d904763ae6a8576e7ad034f9da4f0e3c44bf24 ]
 
-Remove the hard coded 32 bits width and replace with the correct width
-calculated by params_width.
+The minimum value is 0x3f (-63dB), which also is mute
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20210305173442.195740-3-tanureal@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20210305173442.195740-4-tanureal@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l42.c | 47 ++++++++++++++++++--------------------
- sound/soc/codecs/cs42l42.h |  1 -
- 2 files changed, 22 insertions(+), 26 deletions(-)
+ sound/soc/codecs/cs42l42.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index df0d5fec0287..4f9ad9547929 100644
+index 4f9ad9547929..d5078ce79fad 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -691,24 +691,6 @@ static int cs42l42_pll_config(struct snd_soc_component *component)
- 					CS42L42_CLK_OASRC_SEL_MASK,
- 					CS42L42_CLK_OASRC_SEL_12 <<
- 					CS42L42_CLK_OASRC_SEL_SHIFT);
--			/* channel 1 on low LRCLK, 32 bit */
--			snd_soc_component_update_bits(component,
--					CS42L42_ASP_RX_DAI0_CH1_AP_RES,
--					CS42L42_ASP_RX_CH_AP_MASK |
--					CS42L42_ASP_RX_CH_RES_MASK,
--					(CS42L42_ASP_RX_CH_AP_LOW <<
--					CS42L42_ASP_RX_CH_AP_SHIFT) |
--					(CS42L42_ASP_RX_CH_RES_32 <<
--					CS42L42_ASP_RX_CH_RES_SHIFT));
--			/* Channel 2 on high LRCLK, 32 bit */
--			snd_soc_component_update_bits(component,
--					CS42L42_ASP_RX_DAI0_CH2_AP_RES,
--					CS42L42_ASP_RX_CH_AP_MASK |
--					CS42L42_ASP_RX_CH_RES_MASK,
--					(CS42L42_ASP_RX_CH_AP_HI <<
--					CS42L42_ASP_RX_CH_AP_SHIFT) |
--					(CS42L42_ASP_RX_CH_RES_32 <<
--					CS42L42_ASP_RX_CH_RES_SHIFT));
- 			if (pll_ratio_table[i].mclk_src_sel == 0) {
- 				/* Pass the clock straight through */
- 				snd_soc_component_update_bits(component,
-@@ -824,14 +806,29 @@ static int cs42l42_pcm_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
--	int retval;
-+	unsigned int width = (params_width(params) / 8) - 1;
-+	unsigned int val = 0;
+@@ -401,7 +401,7 @@ static const struct regmap_config cs42l42_regmap = {
+ };
  
- 	cs42l42->srate = params_rate(params);
--	cs42l42->swidth = params_width(params);
+ static DECLARE_TLV_DB_SCALE(adc_tlv, -9600, 100, false);
+-static DECLARE_TLV_DB_SCALE(mixer_tlv, -6200, 100, false);
++static DECLARE_TLV_DB_SCALE(mixer_tlv, -6300, 100, true);
  
--	retval = cs42l42_pll_config(component);
-+	switch(substream->stream) {
-+	case SNDRV_PCM_STREAM_PLAYBACK:
-+		val |= width << CS42L42_ASP_RX_CH_RES_SHIFT;
-+		/* channel 1 on low LRCLK */
-+		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH1_AP_RES,
-+							 CS42L42_ASP_RX_CH_AP_MASK |
-+							 CS42L42_ASP_RX_CH_RES_MASK, val);
-+		/* Channel 2 on high LRCLK */
-+		val |= CS42L42_ASP_RX_CH_AP_HI << CS42L42_ASP_RX_CH_AP_SHIFT;
-+		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH2_AP_RES,
-+							 CS42L42_ASP_RX_CH_AP_MASK |
-+							 CS42L42_ASP_RX_CH_RES_MASK, val);
-+		break;
-+	default:
-+		break;
-+	}
+ static const char * const cs42l42_hpf_freq_text[] = {
+ 	"1.86Hz", "120Hz", "235Hz", "466Hz"
+@@ -458,7 +458,7 @@ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
+ 				CS42L42_DAC_HPF_EN_SHIFT, true, false),
+ 	SOC_DOUBLE_R_TLV("Mixer Volume", CS42L42_MIXER_CHA_VOL,
+ 			 CS42L42_MIXER_CHB_VOL, CS42L42_MIXER_CH_VOL_SHIFT,
+-				0x3e, 1, mixer_tlv)
++				0x3f, 1, mixer_tlv)
+ };
  
--	return retval;
-+	return cs42l42_pll_config(component);
- }
- 
- static int cs42l42_set_sysclk(struct snd_soc_dai *dai,
-@@ -896,9 +893,9 @@ static int cs42l42_mute(struct snd_soc_dai *dai, int mute, int direction)
- 	return 0;
- }
- 
--#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S18_3LE | \
--			SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S24_LE | \
--			SNDRV_PCM_FMTBIT_S32_LE)
-+#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
-+			 SNDRV_PCM_FMTBIT_S24_LE |\
-+			 SNDRV_PCM_FMTBIT_S32_LE )
- 
- 
- static const struct snd_soc_dai_ops cs42l42_ops = {
-diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index 1f0d67c95a9a..9b017b76828a 100644
---- a/sound/soc/codecs/cs42l42.h
-+++ b/sound/soc/codecs/cs42l42.h
-@@ -757,7 +757,6 @@ struct  cs42l42_private {
- 	struct completion pdn_done;
- 	u32 sclk;
- 	u32 srate;
--	u32 swidth;
- 	u8 plug_state;
- 	u8 hs_type;
- 	u8 ts_inv;
+ static int cs42l42_hpdrv_evt(struct snd_soc_dapm_widget *w,
 -- 
 2.30.1
 

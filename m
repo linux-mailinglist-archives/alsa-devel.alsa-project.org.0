@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC0B63490B1
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:38:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3D3349098
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 12:38:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B5A416D1;
-	Thu, 25 Mar 2021 12:37:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B5A416D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40D5C16EA;
+	Thu, 25 Mar 2021 12:37:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40D5C16EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616672328;
-	bh=FPny33WIGWI8z6j+NK32dEtcK5m27U7Cvixh9HXLB70=;
+	s=default; t=1616672282;
+	bh=Q/Y4k2wcSNF73hgj4PURLtegrzDPPTwTGSpbTM8Vdso=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K4n8bYrrMqVRnuxTRgXbTd7YRFkOGLHW37zk6xcUp3Urhx+bTLSHAClqe89qFG8r9
-	 hPQ48u1ZW8Vwl0xRObj9JmLiFpoa3EpRXQ62DCnEbo5h6yRmfBBzmXfHplordScZDg
-	 33qszuQb7sg+NMwlNBBDlTBzY4zMYNBJZ9UivRBo=
+	b=DA4bKNaJIMmOwhGPgtRRce12pFQbCDNc2zSlho57y6jCN0DEXFgQYy+ZvkoFCRsPy
+	 4CxMNmP6/8EnVNUusRqIaGHvlshx3qvFgFFcPazHM37TOYtNX+KLgChIs8izs0v2Fn
+	 qvxzqSaZC2/1T4WJVZBHGaWzzQa0ph89BJfoxWH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A895AF805B2;
-	Thu, 25 Mar 2021 12:27:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA6ACF805AA;
+	Thu, 25 Mar 2021 12:27:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5FCFF804AA; Thu, 25 Mar 2021 12:27:19 +0100 (CET)
+ id 7F08DF80557; Thu, 25 Mar 2021 12:27:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 405DAF8056F
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:27:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 405DAF8056F
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB32AF8057A
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:27:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB32AF8057A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SEEMyzeb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D201761A55;
- Thu, 25 Mar 2021 11:27:03 +0000 (UTC)
+ header.b="AjygI+75"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 54D9761A54;
+ Thu, 25 Mar 2021 11:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616671624;
- bh=FPny33WIGWI8z6j+NK32dEtcK5m27U7Cvixh9HXLB70=;
+ s=k20201202; t=1616671626;
+ bh=Q/Y4k2wcSNF73hgj4PURLtegrzDPPTwTGSpbTM8Vdso=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SEEMyzeb9OMT7bByGAP7yYvn1j1Fhxc1DZFfc323VxMP0BjaF2jq5nKht85eiCHGl
- 0VfJzcmJrfA0fsssIZnD5iSwHNu+Rx5cqCEdFLdutkdFfkYLYiERbigk70JRlTQWhM
- lM3s743yfsY1ZfYamHg41a89qRU4SfZu8CwftuESFTvMmy9/vq3Re2UmBVTK1vvF12
- jTXnP+r6YNpeef41VpKf+t/R/itP2MlKVdvNOr48UX4WGOafe+DWdBz9pheyPZYHtw
- il9UViLZ7XbLE2jvyR5R6iknR5Gb8i8UjSJVRCACCLEqtVcx3kjjvSBJ3RBfi7m9qo
- 4D6CeDo/NXS1w==
+ b=AjygI+75y6F7++ldvFX1tFcQly1xSDt8bJuG9vxMVmTEyZVsv34If/+MtayqZ1vrF
+ f45WOvljujKlQosNTWyQ2uSFPQawAo3f/DwfNmy3r9osydT7pDUm29VIs7CkaQ/IQk
+ hw2x8TyRIFJPvK0RDf5t53PG71rZoXtfXT7SCCh2sMNAx80X6IWba5032o1CAho+v9
+ uFpiS7BZbxURy/hahBeVWlJtV5+zUACDMA8GTtFlmqRAhsXEbCFRhi/CMfhNAaE0aI
+ EZK23pXwcfbJ6/qRmPPyJKBnkQpwoNqyGWyl5hkSmx+avBAZ5mn6L1Jc4gLRY/K+RD
+ kK6AuH+b/oKCw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 10/24] ASoC: cs42l42: Fix Bitclock polarity
- inversion
-Date: Thu, 25 Mar 2021 07:26:36 -0400
-Message-Id: <20210325112651.1927828-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 11/24] ASoC: cs42l42: Fix channel width support
+Date: Thu, 25 Mar 2021 07:26:37 -0400
+Message-Id: <20210325112651.1927828-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210325112651.1927828-1-sashal@kernel.org>
 References: <20210325112651.1927828-1-sashal@kernel.org>
@@ -86,83 +85,108 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-[ Upstream commit e793c965519b8b7f2fea51a48398405e2a501729 ]
+[ Upstream commit 2bdc4f5c6838f7c3feb4fe68e4edbeea158ec0a2 ]
 
-The driver was setting bit clock polarity opposite to intended polarity.
-Also simplify the code by grouping ADC and DAC clock configurations into
-a single field.
+Remove the hard coded 32 bits width and replace with the correct width
+calculated by params_width.
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20210305173442.195740-2-tanureal@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20210305173442.195740-3-tanureal@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l42.c | 20 ++++++++------------
- sound/soc/codecs/cs42l42.h | 11 ++++++-----
- 2 files changed, 14 insertions(+), 17 deletions(-)
+ sound/soc/codecs/cs42l42.c | 47 ++++++++++++++++++--------------------
+ sound/soc/codecs/cs42l42.h |  1 -
+ 2 files changed, 22 insertions(+), 26 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 5125bb9b37b5..c78e2ce37930 100644
+index c78e2ce37930..26ca5acf0136 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -797,27 +797,23 @@ static int cs42l42_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 	/* Bitclock/frame inversion */
- 	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
- 	case SND_SOC_DAIFMT_NB_NF:
-+		asp_cfg_val |= CS42L42_ASP_SCPOL_NOR << CS42L42_ASP_SCPOL_SHIFT;
- 		break;
- 	case SND_SOC_DAIFMT_NB_IF:
--		asp_cfg_val |= CS42L42_ASP_POL_INV <<
--				CS42L42_ASP_LCPOL_IN_SHIFT;
-+		asp_cfg_val |= CS42L42_ASP_SCPOL_NOR << CS42L42_ASP_SCPOL_SHIFT;
-+		asp_cfg_val |= CS42L42_ASP_LCPOL_INV << CS42L42_ASP_LCPOL_SHIFT;
- 		break;
- 	case SND_SOC_DAIFMT_IB_NF:
--		asp_cfg_val |= CS42L42_ASP_POL_INV <<
--				CS42L42_ASP_SCPOL_IN_DAC_SHIFT;
- 		break;
- 	case SND_SOC_DAIFMT_IB_IF:
--		asp_cfg_val |= CS42L42_ASP_POL_INV <<
--				CS42L42_ASP_LCPOL_IN_SHIFT;
--		asp_cfg_val |= CS42L42_ASP_POL_INV <<
--				CS42L42_ASP_SCPOL_IN_DAC_SHIFT;
-+		asp_cfg_val |= CS42L42_ASP_LCPOL_INV << CS42L42_ASP_LCPOL_SHIFT;
- 		break;
- 	}
+@@ -691,24 +691,6 @@ static int cs42l42_pll_config(struct snd_soc_component *component)
+ 					CS42L42_CLK_OASRC_SEL_MASK,
+ 					CS42L42_CLK_OASRC_SEL_12 <<
+ 					CS42L42_CLK_OASRC_SEL_SHIFT);
+-			/* channel 1 on low LRCLK, 32 bit */
+-			snd_soc_component_update_bits(component,
+-					CS42L42_ASP_RX_DAI0_CH1_AP_RES,
+-					CS42L42_ASP_RX_CH_AP_MASK |
+-					CS42L42_ASP_RX_CH_RES_MASK,
+-					(CS42L42_ASP_RX_CH_AP_LOW <<
+-					CS42L42_ASP_RX_CH_AP_SHIFT) |
+-					(CS42L42_ASP_RX_CH_RES_32 <<
+-					CS42L42_ASP_RX_CH_RES_SHIFT));
+-			/* Channel 2 on high LRCLK, 32 bit */
+-			snd_soc_component_update_bits(component,
+-					CS42L42_ASP_RX_DAI0_CH2_AP_RES,
+-					CS42L42_ASP_RX_CH_AP_MASK |
+-					CS42L42_ASP_RX_CH_RES_MASK,
+-					(CS42L42_ASP_RX_CH_AP_HI <<
+-					CS42L42_ASP_RX_CH_AP_SHIFT) |
+-					(CS42L42_ASP_RX_CH_RES_32 <<
+-					CS42L42_ASP_RX_CH_RES_SHIFT));
+ 			if (pll_ratio_table[i].mclk_src_sel == 0) {
+ 				/* Pass the clock straight through */
+ 				snd_soc_component_update_bits(component,
+@@ -824,14 +806,29 @@ static int cs42l42_pcm_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
+-	int retval;
++	unsigned int width = (params_width(params) / 8) - 1;
++	unsigned int val = 0;
  
--	snd_soc_component_update_bits(component, CS42L42_ASP_CLK_CFG,
--				CS42L42_ASP_MODE_MASK |
--				CS42L42_ASP_SCPOL_IN_DAC_MASK |
--				CS42L42_ASP_LCPOL_IN_MASK, asp_cfg_val);
-+	snd_soc_component_update_bits(component, CS42L42_ASP_CLK_CFG, CS42L42_ASP_MODE_MASK |
-+								      CS42L42_ASP_SCPOL_MASK |
-+								      CS42L42_ASP_LCPOL_MASK,
-+								      asp_cfg_val);
+ 	cs42l42->srate = params_rate(params);
+-	cs42l42->swidth = params_width(params);
  
+-	retval = cs42l42_pll_config(component);
++	switch(substream->stream) {
++	case SNDRV_PCM_STREAM_PLAYBACK:
++		val |= width << CS42L42_ASP_RX_CH_RES_SHIFT;
++		/* channel 1 on low LRCLK */
++		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH1_AP_RES,
++							 CS42L42_ASP_RX_CH_AP_MASK |
++							 CS42L42_ASP_RX_CH_RES_MASK, val);
++		/* Channel 2 on high LRCLK */
++		val |= CS42L42_ASP_RX_CH_AP_HI << CS42L42_ASP_RX_CH_AP_SHIFT;
++		snd_soc_component_update_bits(component, CS42L42_ASP_RX_DAI0_CH2_AP_RES,
++							 CS42L42_ASP_RX_CH_AP_MASK |
++							 CS42L42_ASP_RX_CH_RES_MASK, val);
++		break;
++	default:
++		break;
++	}
+ 
+-	return retval;
++	return cs42l42_pll_config(component);
+ }
+ 
+ static int cs42l42_set_sysclk(struct snd_soc_dai *dai,
+@@ -896,9 +893,9 @@ static int cs42l42_digital_mute(struct snd_soc_dai *dai, int mute)
  	return 0;
  }
+ 
+-#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S18_3LE | \
+-			SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S24_LE | \
+-			SNDRV_PCM_FMTBIT_S32_LE)
++#define CS42L42_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
++			 SNDRV_PCM_FMTBIT_S24_LE |\
++			 SNDRV_PCM_FMTBIT_S32_LE )
+ 
+ 
+ static const struct snd_soc_dai_ops cs42l42_ops = {
 diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index 9e3cc528dcff..1f0d67c95a9a 100644
+index 1f0d67c95a9a..9b017b76828a 100644
 --- a/sound/soc/codecs/cs42l42.h
 +++ b/sound/soc/codecs/cs42l42.h
-@@ -258,11 +258,12 @@
- #define CS42L42_ASP_SLAVE_MODE		0x00
- #define CS42L42_ASP_MODE_SHIFT		4
- #define CS42L42_ASP_MODE_MASK		(1 << CS42L42_ASP_MODE_SHIFT)
--#define CS42L42_ASP_SCPOL_IN_DAC_SHIFT	2
--#define CS42L42_ASP_SCPOL_IN_DAC_MASK	(1 << CS42L42_ASP_SCPOL_IN_DAC_SHIFT)
--#define CS42L42_ASP_LCPOL_IN_SHIFT	0
--#define CS42L42_ASP_LCPOL_IN_MASK	(1 << CS42L42_ASP_LCPOL_IN_SHIFT)
--#define CS42L42_ASP_POL_INV		1
-+#define CS42L42_ASP_SCPOL_SHIFT		2
-+#define CS42L42_ASP_SCPOL_MASK		(3 << CS42L42_ASP_SCPOL_SHIFT)
-+#define CS42L42_ASP_SCPOL_NOR		3
-+#define CS42L42_ASP_LCPOL_SHIFT		0
-+#define CS42L42_ASP_LCPOL_MASK		(3 << CS42L42_ASP_LCPOL_SHIFT)
-+#define CS42L42_ASP_LCPOL_INV		3
- 
- #define CS42L42_ASP_FRM_CFG		(CS42L42_PAGE_12 + 0x08)
- #define CS42L42_ASP_STP_SHIFT		4
+@@ -757,7 +757,6 @@ struct  cs42l42_private {
+ 	struct completion pdn_done;
+ 	u32 sclk;
+ 	u32 srate;
+-	u32 swidth;
+ 	u8 plug_state;
+ 	u8 hs_type;
+ 	u8 ts_inv;
 -- 
 2.30.1
 

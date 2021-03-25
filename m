@@ -2,182 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7640E34992A
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 19:09:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADB5D3499FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Mar 2021 20:10:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1389015E5;
-	Thu, 25 Mar 2021 19:08:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1389015E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38D6C1669;
+	Thu, 25 Mar 2021 20:10:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38D6C1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616695756;
-	bh=Vtmng+uqy0KNYIMDqTXtlIxIXTPDAOVO5lzSP3jQFRA=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=txPfJEFCl6CjXuhiDvHWDnibehaSIFj30c4eleCjP9flsXLQcrq39VsuVSAyIsB0Q
-	 A17QolRg72qd4NR5N+b7Mja3A5rjjeoaaVW/0m5eZ6Y6icdAk6ioBe+7uPuXRXUUYE
-	 8MyoX+p7HxTgtktmXIEI9mIcxLZzYQEhbxIpO06w=
+	s=default; t=1616699459;
+	bh=9teo4qQwNno98ieyMEx3NdugYeMgzlAO8KKf/HtAn9M=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NO9r3s4JvZH9hV8ykD8xxZY7CIBSofJx4DvknEzSYghqZDSJiLGJW3qSqL9MTR26+
+	 7i8soYuToNYyz9RJDhZOlCLyD2jISP2XxTKPoM8T1D6GaqVtVi247px5JsxDIjCU/h
+	 7hnVpvICPPXN+Ky7VMND3eyqGxkNgORD5YkL7wuk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17BCEF80268;
-	Thu, 25 Mar 2021 19:07:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60162F80268;
+	Thu, 25 Mar 2021 20:09:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CD52F8025F; Thu, 25 Mar 2021 19:07:48 +0100 (CET)
+ id AACA3F8025F; Thu, 25 Mar 2021 20:09:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9743AF800FF
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 19:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9743AF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36DECF800FF
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 20:09:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36DECF800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="jtStayud"
-IronPort-SDR: 7yYZvc3riEcz9HU461G/ueqhBXEUIDfR50pqKpzGhisoYsiStEy/ubEknvpvkJXblMA7P5bSkD
- 9n2MO47NApNA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="170345700"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="170345700"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:35 -0700
-IronPort-SDR: xfNpanZMRoRt/Ctd93gnojXETpJKrpD8LhZje9ZZNgQeg3pZYEaPNTNylyRzdqx0LVG4XSaS0i
- HOdnKOsaP7GA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="443489376"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by FMSMGA003.fm.intel.com with ESMTP; 25 Mar 2021 11:07:34 -0700
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 25 Mar 2021 11:07:33 -0700
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 25 Mar 2021 11:07:33 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
- via Frontend Transport; Thu, 25 Mar 2021 11:07:33 -0700
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.48) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2106.2; Thu, 25 Mar 2021 11:07:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBc8IsCY9U3RNodl/1M2Xp/y13SO8duDmHRn6zEBWFB0wAQNUJRC0BIeLvxZzaaMV2LweP3C3E/loaP89ywBIMC9FjvgMaj3vCHJhhEAvRBhqrQb0UjfjL4B4+oigSb/GLOhHuGF+NdMiPbggDeOHS7MR8IDDDN88+aPIyiuq5fW6Ev5XPUHN8pNdaPO8QfZn8reLKf4v2BJbf8guZthQOs5UyX8YsHhjb+7Vu6mZgtQNzhHhWAxyk653Ri6VLzvHDuoBw161rEYyGKbR06hJVc7p2+3M9JxFPeuMQ0B+LvCC40Chr/Hw3CKq1H5neZeylyosh688kH6ULD5vrXPfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vtmng+uqy0KNYIMDqTXtlIxIXTPDAOVO5lzSP3jQFRA=;
- b=GMNgMv7TrFkjljcyvlLLZQxPsgPDAAIytcUA1eWdtM8TBe/SyM98rBLEZ0LN3d6KPhXcvOYZb+s0IEKQcN3OARQqdOzdsQ75EBa5qGG5BfRnjqz92rfYiOf+Aq/p0bP1Q88QunLaskIJKEc/c/8UUY0pRj99ECOBj5rGWukikEwu1jBpEp5O+bvsKCiWcqQNcY+Z/zBghZENucwu5UlKAOIdSrhWX3j28lj6ZVDzIC2M8GZ7XVLVSv9nQ7Ia6kmQJobsFJrcAqcKiU1B8lUrO1Gk0fVU7ccHGG/7lqKLmaqlplQf9p/oK3wK3GJcXUZeMSDqI6nPzMzDZ5/SAT09uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vtmng+uqy0KNYIMDqTXtlIxIXTPDAOVO5lzSP3jQFRA=;
- b=jtStayudL7X8YJQ6M1PbI+Jg3WUyT/RPgsEXyMPw9elyvODa0rteCg4FWD2l3YXVhh0A5EaUqIyINbWqzx2J+uBz01JbPiwieVAh2CjAUGTIrLQavi4nmhiDo7g453kXnXYTBPKIx4w9Zc22R9ZyM47e7Cjq2qVrndOkThkU0Pk=
-Received: from SN6PR11MB2877.namprd11.prod.outlook.com (2603:10b6:805:5b::32)
- by SA2PR11MB5019.namprd11.prod.outlook.com (2603:10b6:806:f8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Thu, 25 Mar
- 2021 18:07:30 +0000
-Received: from SN6PR11MB2877.namprd11.prod.outlook.com
- ([fe80::14e7:5c3d:47a8:fa9f]) by SN6PR11MB2877.namprd11.prod.outlook.com
- ([fe80::14e7:5c3d:47a8:fa9f%5]) with mapi id 15.20.3955.027; Thu, 25 Mar 2021
- 18:07:30 +0000
-From: "Gopal, Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 1/2] ASoC: Intel: kbl: Add MST route change to kbl machine
- drivers
-Thread-Topic: [PATCH 1/2] ASoC: Intel: kbl: Add MST route change to kbl
- machine drivers
-Thread-Index: AQHXINaTndZHA8KLpEqXxNBCA+3GpqqTdvcAgAEZTTA=
-Date: Thu, 25 Mar 2021 18:07:29 +0000
-Message-ID: <SN6PR11MB28770F2E69C6D27984F3674FD6629@SN6PR11MB2877.namprd11.prod.outlook.com>
-References: <20210324175200.44922-1-vamshi.krishna.gopal@intel.com>
- <20210324175200.44922-2-vamshi.krishna.gopal@intel.com>
- <2ee1a18e-8771-b8f7-0452-f96403bd7fe4@linux.intel.com>
-In-Reply-To: <2ee1a18e-8771-b8f7-0452-f96403bd7fe4@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [106.51.235.201]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6df7f1c5-4c62-465f-c0f0-08d8efb8db00
-x-ms-traffictypediagnostic: SA2PR11MB5019:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SA2PR11MB5019DF16C1AB924119E98579D6629@SA2PR11MB5019.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4502;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PuWzByIsMke7i+VqxGhYo+Oj8nBbq/sp6fTkhyinv2vVHk7++DHLRDK0ALL5dsk8GBy6YHMQDNxDiT7pOaZ4LcHZ11skmTuBSIL4APqX6NFHjyFn58rsCFstpigvkNfwP3VprpUYGYtvcj+fVCXxLyXtTFEk6fd6PwR8zO2HcjbmSon9Ga3EBYcBoRLmYfVtGDmoOoQwEk5zXGJo4+g6P1ccMWhvmL9gQSVCmf3v0aVGp/TNr75nOW6Ke3UH9VBxl2btzCcaIETmkwrzjbKst4Mu8bAV/xIdJE34C8f515P8L5cn9V7FdOa73MEycdudk5uhQKbm8n+yoQhdFSoijJruSSflxABDt8YrJZTRmVrFVyvVWE2f6AHs508SQvbeQ+7KPshvh+PozAsbqrd2fc6Mv2Q4KaEq3/SzwW6GinmBT7pSqfeCQL0XHcxL8/05R5MCiMs7Xe7VzvVKkq//MWkofCpRMBiiLP5uKWfwVXD7ptjpQoPILC5JxwtB+0xAomtCBrx5Jwdg13VLyTDH3lt1xjKmQ+RfrR+g5MQJeubzOkwwmnxh7iKJWLe4MXItX9BD/e4pdTnjro8ZBMdVROQttXbhqBTq7GhjaC3GBSv8EWKye5ujOAuTt3FtxI4SMTiS72W10cHIK7eRQM4QQY4BGdpx/1CmXtqFtK4phGw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR11MB2877.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(346002)(376002)(39860400002)(136003)(396003)(366004)(55236004)(8676002)(53546011)(4326008)(8936002)(38100700001)(6506007)(76116006)(66946007)(55016002)(86362001)(5660300002)(186003)(71200400001)(83380400001)(66476007)(7696005)(66556008)(66446008)(64756008)(478600001)(316002)(110136005)(33656002)(2906002)(26005)(9686003)(54906003)(52536014);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?di80ZHNTcTBIakRYWW4wcDJHejR3SjZtbm40Z2RrRndvazZZWG1VWmlkY095?=
- =?utf-8?B?MElaaXdMRnliRmtvNmMzdzIvRWE1OWJEeFNpSmxKWUNDRnFScGI1ZGZjUEhT?=
- =?utf-8?B?OHNLWmxrdWJYUW1SWXdQWmFhbWVVL0Z4ZFMrWFFnT0ZkVGtWT2NzMHhKb3ZU?=
- =?utf-8?B?NEN0R1BsWUF4LzdaWEJLSUVPdlREZFBoQjhtMXFWR1NjcXJDbjQxUStwaHZS?=
- =?utf-8?B?ZDFPOFd4aU0yeTFJQi9MTnJpS2J0VmFiUWFBVU1XeDl5U1FhbllSbkZRNm41?=
- =?utf-8?B?clZ3MTdiOW0rNWE5eHU1d3Z6Nk50UnNvV285a2F5aFJ1alNyMzdtK3JhVFFO?=
- =?utf-8?B?bzN3UnhiYmRjYXZnUWhuOXlIMkVIY3pFdExWSHhNVjY1aXgrYi9YVWYxcFZJ?=
- =?utf-8?B?ZitUQlA3QXBCczd3cXU1aUEyV0tXWm5taUN6YWFNOXc2djFodE5tQUoxVWNr?=
- =?utf-8?B?KzJHcEtZcVorQmFPeFBZWVE5SlhZVnNrTksxQTdSMm1ZbDRPY3NXbXlwSTBT?=
- =?utf-8?B?RjVyTXFQc1lvbzQvclZQblJFa1p6Wnh2WkFWeThGbmdiY3J4NUNUT0I0ejR5?=
- =?utf-8?B?ZGRHdWNJQ1RTU2JFRDFtVDQydEV4ZkgxY01YbFhUYno5T2dRVTNMNTk2b21m?=
- =?utf-8?B?dDAzNDV4bUZ3OFZYQkVxZmcwZUVFNzNZaS9zTjVSa3h2QlBLK3VIbGZCdndn?=
- =?utf-8?B?Qjcrd0dBd3FXQkc5N3lCbGZYT1B6NmxIVWdrSkRWem4yY1NlaGNxSndmZG5p?=
- =?utf-8?B?YlQ4RUorQkpOd3RwT3d4bUQ3dXpuTi93d0FzRUFBOUVIRnZZL2RMMFJRQzRx?=
- =?utf-8?B?aTZKS0tBSU5rRHc2aURvbzcrbC9nTFhrdnBtZDhLWjBmWWZ6R01ZbXozWXN2?=
- =?utf-8?B?enRtZnhaRGR6cklYcXY0RGpEWE9jbXhCMEVwVDBBeXJxU1ZSWFB3Uno4ODR6?=
- =?utf-8?B?cGJoSmZBWlhYZTArWXJZVm5ua25TWCtqZmJteHhjTXhTN2xRdEFmdVJHaFdp?=
- =?utf-8?B?MXVSaWdoQ1Z5cXhqZ3d4M2NQbFRmQUR2dSsvem5VRTN1U2VGbXB5azRFZkE4?=
- =?utf-8?B?NkpEWUNkZm12K0doWGtRUDYvMTZsc1d1RDQydE8rbHBzY1ZlRGxKTGY0K2Rh?=
- =?utf-8?B?anRnMUxub2RDTWJTQlVXNnVSVHIwcHl3ZzRHeG5maHNCTHEyRnk3dnZrMW9N?=
- =?utf-8?B?VWpWQVdBaTk2Q2IreHJCejFjNmg2YjBObjZVRjJZQmlwejQ3dU9RYVc1bVRy?=
- =?utf-8?B?VksxVllBbEQ3a3c4dHRLbGwwNFJQMG8zOXovaTA5d0k4ZnVCbjNjRjFrME9U?=
- =?utf-8?B?REs0MWdadUFibFMyZXlycWZTOTJXRjFLRHI0RkdvOFMraFB2UnBZUDJPaFJE?=
- =?utf-8?B?c3dQSUxFNWlyeDlRcUFMeStidE5sdFliWGFiZkdnU2dlS2ZzbzRTNDFkNmtE?=
- =?utf-8?B?Vkw5NXJYODJpaTlia3VlSjViNm80bHNad09WQ0N3bmtKNmVwNWFXUm9zMkJq?=
- =?utf-8?B?UGNpWGMyTUxhaXlwYWlBQnhnenlCVUlMV05HVStjcG85QjMrYjdXNUxwbkxE?=
- =?utf-8?B?RWpYOFdqMzUxWElTWmhtSXNuTXhRdkZhWGtCMlBwK3RQS0ZFRGZiNElMNkVH?=
- =?utf-8?B?ck4yMUowenpxN2VkZVJHVExNL1ErQ21JcWRNQlRxZisvaXRaekNkZWNzWVFj?=
- =?utf-8?B?d1ljNTlzak9CblJvVUhoUUdzOFNtTXVyNUFDSUduUS9qaVdYZWNYZEd6Rjg2?=
- =?utf-8?Q?4KEXRnkm/MSg/gGelt41ms2id1Jm4ssQGLsUN+n?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="hhFL+GKQ"
+Received: by mail-ed1-x52c.google.com with SMTP id dm8so3678726edb.2
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 12:09:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=5frNTrcV2pWMlzUjO6s28wDy4b8gnTeOinMGfC73Qtc=;
+ b=hhFL+GKQbUsnf1Ya4LptU6qhq+iPjW/k9CWOxcqTggDHzIrWBn8z75faZ75X5x9Qie
+ KgnQoAUA4N9/WNS2GOgi752hF4Ibpu+L2uqP2D6LoJ8T2oaH+qwaiwEX3szv+UWcYXMx
+ fktPCTkhav9K6CDt7PrcQgJoAm78g1fSidK7nafRTyOP6GXWDryGjEp2QfXNXUUc92sG
+ ZhpDoKoTIf01DRyeyWwIplkoLGe/3zNVpG+KLaahd7DRN6DRuD8L49NKqY7A/pXkqm0e
+ j9ZGxekYBUFp/fJHgMHipSVhPTXTXqS+g+8CxbQSR4IoF0IjLpzvQSxWD2rNQ3grKMTd
+ mipg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=5frNTrcV2pWMlzUjO6s28wDy4b8gnTeOinMGfC73Qtc=;
+ b=dLjF1NUU1S2y/korV1xmiQfLEcnjKp+WlGyafj6KOz05/bzUwe3b6FXD/FXft9yAQ8
+ M53wNQJhyjMk9Xip+bd4B/m2p8aZJcsVdc+ZlLCQcrUg/YhDcNEJLCMyle5FuVJvJc2r
+ lUSE9ov/6MYe2IT3cXV5Mg2WhTZiQ44j/MUAFz4aCFEucr7EFVo4zBg18sV1j3ggqIFy
+ nFg0N0yrkWngnq1S0Ey0sZLlyDQJ4iGWpZd+CVqDFaPdLIL6Ly9BnqcjH1vZEhhM91FD
+ zUfUfWDyhcM6N9gXKpCRJQ7LEXM6tDyNxuXH3ZSh4ZM/KlvKbu+i/FTs3eNPc9x3CUIo
+ EAUg==
+X-Gm-Message-State: AOAM531YKP8g5+H8xyT+FeA8vT28kAf2f3E532ChNvHJkDrmI0wi13bt
+ YY3MFADMR6d9wEfB04qcF29Xpn3Vg63SYQ2HayNT1rCqnxA=
+X-Google-Smtp-Source: ABdhPJytRPO3OmRYpmNYdA4Tk2pUEBFcaUAYMooecu++hEMIE+pSfBJE6AGMGM2D3Qk9y22QGAOEl/FXmXsBjHwhiHA=
+X-Received: by 2002:aa7:d416:: with SMTP id z22mr10634934edq.239.1616699361964; 
+ Thu, 25 Mar 2021 12:09:21 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR11MB2877.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6df7f1c5-4c62-465f-c0f0-08d8efb8db00
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2021 18:07:29.9586 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JAldqrtIKihnSAfP0MYwBPJ0PKITxMjv24L1oiPp8GevaF9kp79Hrp/ibn67Zhxbg70VCukRJzIaLtL7N/5zaIAYQaydffKZoMyZ4khhiy8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5019
-X-OriginatorOrg: intel.com
-Cc: "N, Harshapriya" <harshapriya.n@intel.com>, "M R,
- Sathya Prakash" <sathya.prakash.m.r@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "biernacki@google.com" <biernacki@google.com>, "Bossart,
- Pierre-louis" <pierre-louis.bossart@intel.com>
+From: Lucas <jaffa225man@gmail.com>
+Date: Thu, 25 Mar 2021 14:09:10 -0500
+Message-ID: <CAOsVg8psuOkQRoccDs7AZzUO=4ffOm=XfXoY_G0iTqRXHtqu4A@mail.gmail.com>
+Subject: Patch for some Roland devices' USB digital audio
+To: alsa-devel@alsa-project.org
+Content-Type: multipart/mixed; boundary="0000000000002e248305be612778"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -193,49 +89,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ICAgIA0KT24gMy8yNS8yMDIxIDExOjMyIFBNLCBWYW1zaGkgS3Jpc2huYSB3cm90ZToNCg0KPiBG
-cm9tOiBQaWVycmUtTG91aXMgQm9zc2FydCA8cGllcnJlLWxvdWlzLmJvc3NhcnRAbGludXguaW50
-ZWwuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgTWFyY2ggMjUsIDIwMjEgMTI6MDQgQU0NCj4gVG86
-IEdvcGFsLCBWYW1zaGkgS3Jpc2huYSA8dmFtc2hpLmtyaXNobmEuZ29wYWxAaW50ZWwuY29tPjsg
-YWxzYS0NCj4gZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZw0KPiBDYzogTiwgSGFyc2hhcHJpeWEgPGhh
-cnNoYXByaXlhLm5AaW50ZWwuY29tPjsgYnJvb25pZUBrZXJuZWwub3JnOyBNIFIsDQo+IFNhdGh5
-YSBQcmFrYXNoIDxzYXRoeWEucHJha2FzaC5tLnJAaW50ZWwuY29tPjsgYmllcm5hY2tpQGdvb2ds
-ZS5jb207DQo+IEJvc3NhcnQsIFBpZXJyZS1sb3VpcyA8cGllcnJlLWxvdWlzLmJvc3NhcnRAaW50
-ZWwuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gQVNvQzogSW50ZWw6IGtibDogQWRk
-IE1TVCByb3V0ZSBjaGFuZ2UgdG8ga2JsDQo+IG1hY2hpbmUgZHJpdmVycw0KPiANCj4gDQo+ID4g
-ZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9pbnRlbC9ib2FyZHMva2JsX2RhNzIxOV9tYXg5ODM1N2Eu
-Yw0KPiA+IGIvc291bmQvc29jL2ludGVsL2JvYXJkcy9rYmxfZGE3MjE5X21heDk4MzU3YS5jDQo+
-ID4gaW5kZXggZGMzZDg5N2FkMjgwLi4xZDZiMjg1NTg3NGQgMTAwNjQ0DQo+ID4gLS0tIGEvc291
-bmQvc29jL2ludGVsL2JvYXJkcy9rYmxfZGE3MjE5X21heDk4MzU3YS5jDQo+ID4gKysrIGIvc291
-bmQvc29jL2ludGVsL2JvYXJkcy9rYmxfZGE3MjE5X21heDk4MzU3YS5jDQo+ID4gQEAgLTkxLDcg
-KzkxLDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0DQo+IGthYnls
-YWtlX3dpZGdldHNbXSA9IHsNCj4gPiAgIAlTTkRfU09DX0RBUE1fU1BLKCJTcGsiLCBOVUxMKSwN
-Cj4gPiAgIAlTTkRfU09DX0RBUE1fTUlDKCJTb0MgRE1JQyIsIE5VTEwpLA0KPiA+ICAgCVNORF9T
-T0NfREFQTV9TUEsoIkRQIiwgTlVMTCksDQo+ID4gLQlTTkRfU09DX0RBUE1fU1BLKCJIRE1JIiwg
-TlVMTCksDQo+ID4gKwlTTkRfU09DX0RBUE1fU1BLKCJIRE1JMSIsIE5VTEwpLA0KPiA+ICsJU05E
-X1NPQ19EQVBNX1NQSygiSERNSTIiLCBOVUxMKSwNCj4gPiArCVNORF9TT0NfREFQTV9TUEsoIkhE
-TUkzIiwgTlVMTCksDQo+IA0KPiB0aGF0IHNlZW1zIGNvbnNpc3RlbnQgd2l0aCBvdGhlciBCWFQv
-S0JMIG1hY2hpbmUgZHJpdmVycywgYnV0Li4uDQo+IA0KPiA+ICAgCVNORF9TT0NfREFQTV9TVVBQ
-TFkoIlBsYXRmb3JtIENsb2NrIiwgU05EX1NPQ19OT1BNLCAwLCAwLA0KPiA+ICAgCQkJcGxhdGZv
-cm1fY2xvY2tfY29udHJvbCwgU05EX1NPQ19EQVBNX1BSRV9QTVUNCj4gfA0KPiA+ICAgCQkJU05E
-X1NPQ19EQVBNX1BPU1RfUE1EKSwNCj4gPiBAQCAtMTA4LDkgKzExMCw2IEBAIHN0YXRpYyBjb25z
-dCBzdHJ1Y3Qgc25kX3NvY19kYXBtX3JvdXRlDQo+IGthYnlsYWtlX21hcFtdID0gew0KPiA+ICAg
-CXsgIk1JQyIsIE5VTEwsICJIZWFkc2V0IE1pYyIgfSwNCj4gPiAgIAl7ICJETWljIiwgTlVMTCwg
-IlNvQyBETUlDIiB9LA0KPiA+DQo+ID4gLQl7ICJIRE1JIiwgTlVMTCwgImhpZjUgT3V0cHV0IiB9
-LA0KPiA+IC0JeyAiRFAiLCBOVUxMLCAiaGlmNiBPdXRwdXQiIH0sDQo+ID4gLQ0KPiANCj4gLi4u
-IHRoaXMgZG9lc24ndDoNCj4gDQo+IG90aGVyIG1hY2hpbmUgZHJpdmVycyB1c2UgdGhpczoNCj4g
-DQo+IAl7IkhETUkxIiwgTlVMTCwgImhpZjUtMCBPdXRwdXQifSwNCj4gCXsiSERNSTIiLCBOVUxM
-LCAiaGlmNi0wIE91dHB1dCJ9LA0KPiAJeyJIRE1JMiIsIE5VTEwsICJoaWY3LTAgT3V0cHV0In0s
-DQo+IA0KSGVsbG8gUGllcnJlLA0KVGhhbmtzIGZvciByZXZpZXdpbmcgdGhlIHBhdGNoLg0KSSBs
-b29rZWQgdGhyb3VnaCB0aGUgY2hhbmdlIHlvdSBzdWdnZXN0ZWQgaW4gYnh0X2RhNzIxOV9tYXg5
-ODM1N2EuYyBtYWNoaW5lLCBidXQgSSBub3RpY2VkICBoaWY2LTAgT3V0cHV0IGFuZCBoaWY3LTAg
-T3V0cHV0IGFyZSBoYXZpbmcgc2FtZSBwb3J0IEhETUkyLCBUaGlzIGxvb2tzIG5vdCBjb3JyZWN0
-Lg0KPiBBbmQgaWYgeW91IHN0YXJ0IGNoYW5naW5nIEhETUkgc3VwcG9ydCwgeW91IHNob3VsZCBh
-bHNvIGZpeCB0aGUgb3RoZXINCj4gbWFjaGluZSBkcml2ZXJzIHRoYXQgdXNlZCB0aGUgc2FtZSBw
-YXR0ZXJuLCBlLmcuDQo+IA0KPiBrYmxfZGE3MjE5X21heDk4OTI3LmNcMDEyOToJeyAiSERNSSIs
-IE5VTEwsICJoaWY1IE91dHB1dCIgfSwNCj4ga2JsX3J0NTY2M19tYXg5ODkyNy5jXDAyMTQ6CXsg
-IkhETUkiLCBOVUxMLCAiaGlmNSBPdXRwdXQiIH0sDQo+IA0KU3VibWl0dGVkIGEgdjIgcGF0Y2gg
-d2hpY2ggZm9sbG93cyBzYW1lIHBhdHRlcm4gYWNyb3NzIEtCTCBtYWNoaW5lIGRyaXZlcnMuDQoN
-Cj4gPiAgIAkvKiBDT0RFQyBCRSBjb25uZWN0aW9ucyAqLw0KPiA+ICAgCXsgIkhpRmkgUGxheWJh
-Y2siLCBOVUxMLCAic3NwMCBUeCIgfSwNCj4gPiAgIAl7ICJzc3AwIFR4IiwgTlVMTCwgImNvZGVj
-MF9vdXQiIH0sDQo+ID4NCg==
+--0000000000002e248305be612778
+Content-Type: text/plain; charset="UTF-8"
+
+A couple days ago, I found this excellent informational post, and that Mike
+Oliphant's patch is in mainline now:
+http://blog.nostatic.org/2020/01/getting-boss-gt-1-effects-processor-to.html
+
+Since I was fairly certain it applies to the Roland devices I own, I added
+my USB IDs.  Wonderfully, now USB audio capture seems to be working
+perfectly from the three devices I can test: the INTEGRA-7, Boutique D-05,
+& VG-99!
+
+I don't know if the D-05 and VG-99 have digital audio playback/output, as I
+only tried it with the INTEGRA-7.  It does work, but only when the
+INTEGRA-7's "Sampling Rate" is set to "44.1 kHz" and "Ext Part Source
+Select" is set to "USB AUDIO".
+
+I searched a bit for other Roland devices people have had USB digital audio
+issues with over the years, and took the liberty of adding them to the
+patch too.  Likely there are still many more, especially in the Boutique
+line, but I couldn't find their USB IDs.
+
+I hope this can be added to the mainline kernel too, as this support should
+help many that have struggled.  I, certainly, have been hoping somebody
+would figure this out for quite a while, and even bought a USB
+through/monitoring device to try to develop it myself (sadly, the software
+supporting that has its own bugs, so I probably should've just used
+wireshark).  Suffice it to say, I'm quite happy to have this figured out,
+and to not have to delve into stuff I know nothing about! :)
+
+Thanks,
+
+  Lucas
+
+--0000000000002e248305be612778
+Content-Type: text/x-patch; charset="US-ASCII"; name="linux-5.11.9-roland.patch"
+Content-Disposition: attachment; filename="linux-5.11.9-roland.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_kmp8sw4t0>
+X-Attachment-Id: f_kmp8sw4t0
+
+ZGlmZiAtTnVyIC4vbGludXgtNS4xMS45Lm9yaWcvc291bmQvdXNiL2ltcGxpY2l0LmMgLi9saW51
+eC01LjExLjkucm9sYW5kL3NvdW5kL3VzYi9pbXBsaWNpdC5jCi0tLSAuL2xpbnV4LTUuMTEuOS5v
+cmlnL3NvdW5kL3VzYi9pbXBsaWNpdC5jCTIwMjEtMDMtMjQgMDU6NTQ6MTkuMDAwMDAwMDAwIC0w
+NTAwCisrKyAuL2xpbnV4LTUuMTEuOS5yb2xhbmQvc291bmQvdXNiL2ltcGxpY2l0LmMJMjAyMS0w
+My0yNSAwMzowNTozMy40MTQ4NzA0MDQgLTA1MDAKQEAgLTcxLDEzICs3MSwyNyBAQAogCSAgLmVw
+X251bSA9IDB4ODQsIC5pZmFjZSA9IDAgfSwJCS8qIE1PVFUgTWljcm9Cb29rIElJICovCiAKIAkv
+KiBObyBxdWlyayBmb3IgcGxheWJhY2sgYnV0IHdpdGggY2FwdHVyZSBxdWlyayAoc2VlIGJlbG93
+KSAqLworCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMGE2KSwJLyogUm9sYW5kIEpV
+Tk8tRyAqLworCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMGFkKSwJLyogUm9sYW5k
+IFNILTIwMSAqLworCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMGIyKSwJLyogUm9s
+YW5kIFZHLTk5ICovCisJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAwYzcpLAkvKiBS
+b2xhbmQgVi1TeW50aCBHVCAqLworCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMTEx
+KSwJLyogUm9sYW5kIEdBSUEgU0gtMDEgKi8KKwlJTVBMSUNJVF9GQl9TS0lQX0RFVigweDA1ODIs
+IDB4MDEyMCksCS8qIFJvbGFuZCBPQ1RBLUNBUFRVUkUgKi8KKwlJTVBMSUNJVF9GQl9TS0lQX0RF
+VigweDA1ODIsIDB4MDEyYiksCS8qIFJvbGFuZCBEVU8tQ0FQVFVSRSAqLworCUlNUExJQ0lUX0ZC
+X1NLSVBfREVWKDB4MDU4MiwgMHgwMTJmKSwJLyogUm9sYW5kIFFVQUQtQ0FQVFVSRSAqLwogCUlN
+UExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMTMwKSwJLyogQk9TUyBCUi04MCAqLworCUlN
+UExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMTM4KSwJLyogQk9TUyBSQy0zMDAgKi8KKwlJ
+TVBMSUNJVF9GQl9TS0lQX0RFVigweDA1ODIsIDB4MDEzZSksCS8qIFJvbGFuZCBSLTI2ICovCisJ
+SU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxNWIpLAkvKiBSb2xhbmQgSU5URUdSQS03
+ICovCiAJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxNzEpLCAgIC8qIEJPU1MgUkMt
+NTA1ICovCisJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxN2MpLCAgIC8qIFJvbGFu
+ZCBUUi04ICovCiAJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxODUpLAkvKiBCT1NT
+IEdQLTEwICovCiAJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxODkpLAkvKiBCT1NT
+IEdULTEwMHYyICovCisJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxYjUpLAkvKiBS
+b2xhbmQgSlAtMDggKi8KIAlJTVBMSUNJVF9GQl9TS0lQX0RFVigweDA1ODIsIDB4MDFkNiksCS8q
+IEJPU1MgR1QtMSAqLwogCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMWQ4KSwJLyog
+Qk9TUyBLYXRhbmEgKi8KIAlJTVBMSUNJVF9GQl9TS0lQX0RFVigweDA1ODIsIDB4MDFlNSksCS8q
+IEJPU1MgR1QtMDAxICovCisJSU1QTElDSVRfRkJfU0tJUF9ERVYoMHgwNTgyLCAweDAxZmYpLAkv
+KiBSb2xhbmQgRC0wNSAqLwogCUlNUExJQ0lUX0ZCX1NLSVBfREVWKDB4MDU4MiwgMHgwMjAzKSwg
+ICAvKiBCT1NTIEFELTEwICovCiAKIAl7fSAvKiB0ZXJtaW5hdG9yICovCkBAIC04NSwxMyArOTks
+MjcgQEAKIAogLyogSW1wbGljaXQgZmVlZGJhY2sgcXVpcmsgdGFibGUgZm9yIGNhcHR1cmU6IG9u
+bHkgRklYRUQgdHlwZSAqLwogc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfdXNiX2ltcGxpY2l0X2Zi
+X21hdGNoIGNhcHR1cmVfaW1wbGljaXRfZmJfcXVpcmtzW10gPSB7CisJSU1QTElDSVRfRkJfRklY
+RURfREVWKDB4MDU4MiwgMHgwMGE2LCAweDBkLCAweDAxKSwgLyogUm9sYW5kIEpVTk8tRyAqLwor
+CUlNUExJQ0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDBhZCwgMHgwZCwgMHgwMSksIC8qIFJv
+bGFuZCBTSC0yMDEgKi8KKwlJTVBMSUNJVF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAweDAwYjIsIDB4
+MGQsIDB4MDEpLCAvKiBSb2xhbmQgVkctOTkgKi8KKwlJTVBMSUNJVF9GQl9GSVhFRF9ERVYoMHgw
+NTgyLCAweDAwYzcsIDB4MGQsIDB4MDEpLCAvKiBSb2xhbmQgVi1TeW50aCBHVCAqLworCUlNUExJ
+Q0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDExMSwgMHgwZCwgMHgwMSksIC8qIFJvbGFuZCBH
+QUlBIFNILTAxICovCisJSU1QTElDSVRfRkJfRklYRURfREVWKDB4MDU4MiwgMHgwMTIwLCAweDBk
+LCAweDAxKSwgLyogUm9sYW5kIE9DVEEtQ0FQVFVSRSAqLworCUlNUExJQ0lUX0ZCX0ZJWEVEX0RF
+VigweDA1ODIsIDB4MDEyYiwgMHgwZCwgMHgwMSksIC8qIFJvbGFuZCBEVU8tQ0FQVFVSRSAqLwor
+CUlNUExJQ0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDEyZiwgMHgwZCwgMHgwMSksIC8qIFJv
+bGFuZCBRVUFELUNBUFRVUkUgKi8KIAlJTVBMSUNJVF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAweDAx
+MzAsIDB4MGQsIDB4MDEpLCAvKiBCT1NTIEJSLTgwICovCisJSU1QTElDSVRfRkJfRklYRURfREVW
+KDB4MDU4MiwgMHgwMTM4LCAweDBkLCAweDAxKSwgLyogQk9TUyBSQy0zMDAgKi8KKwlJTVBMSUNJ
+VF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAweDAxM2UsIDB4MGQsIDB4MDEpLCAvKiBSb2xhbmQgUi0y
+NiAqLworCUlNUExJQ0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDE1YiwgMHgwZCwgMHgwMSks
+IC8qIFJvbGFuZCBJTlRFR1JBLTcgKi8KIAlJTVBMSUNJVF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAw
+eDAxNzEsIDB4MGQsIDB4MDEpLCAvKiBCT1NTIFJDLTUwNSAqLworCUlNUExJQ0lUX0ZCX0ZJWEVE
+X0RFVigweDA1ODIsIDB4MDE3YywgMHgwZCwgMHgwMSksIC8qIFJvbGFuZCBUUi04ICovCiAJSU1Q
+TElDSVRfRkJfRklYRURfREVWKDB4MDU4MiwgMHgwMTg1LCAweDBkLCAweDAxKSwgLyogQk9TUyBH
+UC0xMCAqLwogCUlNUExJQ0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDE4OSwgMHgwZCwgMHgw
+MSksIC8qIEJPU1MgR1QtMTAwdjIgKi8KKwlJTVBMSUNJVF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAw
+eDAxYjUsIDB4MGQsIDB4MDEpLCAvKiBSb2xhbmQgSlAtMDggKi8KIAlJTVBMSUNJVF9GQl9GSVhF
+RF9ERVYoMHgwNTgyLCAweDAxZDYsIDB4MGQsIDB4MDEpLCAvKiBCT1NTIEdULTEgKi8KIAlJTVBM
+SUNJVF9GQl9GSVhFRF9ERVYoMHgwNTgyLCAweDAxZDgsIDB4MGQsIDB4MDEpLCAvKiBCT1NTIEth
+dGFuYSAqLwogCUlNUExJQ0lUX0ZCX0ZJWEVEX0RFVigweDA1ODIsIDB4MDFlNSwgMHgwZCwgMHgw
+MSksIC8qIEJPU1MgR1QtMDAxICovCisJSU1QTElDSVRfRkJfRklYRURfREVWKDB4MDU4MiwgMHgw
+MWZmLCAweDBkLCAweDAxKSwgLyogUm9sYW5kIEQtMDUgKi8KIAlJTVBMSUNJVF9GQl9GSVhFRF9E
+RVYoMHgwNTgyLCAweDAyMDMsIDB4MGQsIDB4MDEpLCAvKiBCT1NTIEFELTEwICovCiAKIAl7fSAv
+KiB0ZXJtaW5hdG9yICovCg==
+--0000000000002e248305be612778--

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACB1634A03D
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:29:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37A4034A03E
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:29:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4E6165E;
-	Fri, 26 Mar 2021 04:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4E6165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9CC81616;
+	Fri, 26 Mar 2021 04:28:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9CC81616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616729341;
-	bh=h3vS7OSgf2thte2+K98th30/zFy+1JIAIlrRvPoTJGw=;
+	s=default; t=1616729356;
+	bh=gWA293B7AUVDA5tBlL86umvGlLD8OeBKnqNUJ/a42mQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kfjTwZjEcjNjHDCDNv2z+TrcmEolT3wpp0TPPotBEJqoocsl0GKsmcZ9+YcWVqh90
-	 mw5Qv9ZlvL2vp3Qxgan8+qw321DSqPt0QZDtYnjhVK0fgEWP17HTm6f0REed+ngjbd
-	 2ufQw/oxbLoLg8kbuHo1px1ZzsUtTXvcmyDeoQIM=
+	b=FXZa4wPc8Zbo+YAsofOfSpw1lKjJJ9ash25bIDF587axr+IIpbL+NLJtuauUL2qnE
+	 tXwilpVi/XTCczwhQS49lbM7OMogRqKBA5dKz3vr9jI07tYFzLMSb3XmBujB1bhCPD
+	 oesr4rA+OdOLPHpEPV+sS9kCfOq4GQkk42CrwVVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12F61F80104;
-	Fri, 26 Mar 2021 04:26:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C992DF804AC;
+	Fri, 26 Mar 2021 04:26:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93D5EF804A9; Fri, 26 Mar 2021 04:26:41 +0100 (CET)
+ id 38BFCF8049C; Fri, 26 Mar 2021 04:26:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 237E1F8049C
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:26:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 237E1F8049C
-Date: 26 Mar 2021 12:26:33 +0900
-X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76117727"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 26 Mar 2021 12:26:33 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6EDF3F80104
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:26:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EDF3F80104
+Date: 26 Mar 2021 12:26:40 +0900
+X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76343937"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 26 Mar 2021 12:26:40 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B100B40104F3;
- Fri, 26 Mar 2021 12:26:33 +0900 (JST)
-Message-ID: <877dlu1tp2.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1D19941A2E1B;
+ Fri, 26 Mar 2021 12:26:40 +0900 (JST)
+Message-ID: <875z1e1tov.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/6] ASoC: simple-card: count DAI / link numbers as in order
+Subject: [PATCH 6/6] ASoC: simple-card: cleanup graph_for_each_link()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87eeg21tqz.wl-kuninori.morimoto.gx@renesas.com>
@@ -73,97 +73,208 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 simple-card checks DT links 2 times. 1st is for counting DAIs / links
 to allocating memory, 2nd is for detecting DAIs.
 To detecting DAIs as CPU-dummy -> dummy-Codec order when DPCM case,
-it uses loops 2 times at 2nd DT link check.
-But it doesn't do it at 1st DT link check.
+it uses  loops 2 times.
+Because of this kind of complex background, it needs to use local
+varuable for it, and each call-back functions need to care about it.
 
-	for (li.cpu = 1; li.cpu >= 0; li.cpu--) {
-		/*
-		 * Detect all CPU first, and Detect all Codec 2n
-		 *
-		 * In Normal sound case, all DAIs are detected
-		 * as "CPU-Codec".
-		 *
-		 * In DPCM sound case,
-		 * all CPUs   are detected as "CPU-dummy", and
-		 * all Codecs are detected as "dummy-Codec".
-		 * To avoid random sub-device numbering,
-		 * detect "dummy-Codec" in last;
-		 */
-		ret = simple_for_each_link(...);
-		...
-	}
-
-To prepare supporting multi-CPU/Codec, and code cleanup,
-this patch use same loop for 1st DT link check, too.
+Now, 1st and 2nd DT link check are using same order,
+thus we can share same code. This patch do it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card.c | 40 +++++++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 9 deletions(-)
+ sound/soc/generic/simple-card.c | 125 ++++++++++++++++----------------
+ 1 file changed, 61 insertions(+), 64 deletions(-)
 
 diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 75365c7bb393..f53f76ee0a8b 100644
+index f53f76ee0a8b..41aa40765a8d 100644
 --- a/sound/soc/generic/simple-card.c
 +++ b/sound/soc/generic/simple-card.c
-@@ -483,9 +483,17 @@ static int simple_count_noml(struct asoc_simple_priv *priv,
- 			     struct device_node *codec,
- 			     struct link_info *li, bool is_top)
- {
--	li->dais++; /* CPU or Codec */
--	if (np != codec)
--		li->link++; /* CPU-Codec */
-+	/*
-+	 *	 |CPU   |Codec   : turn
-+	 * CPU	 |Pass  |return
-+	 * Codec |return|return
-+	 * np
-+	 */
-+	if (!li->cpu || np == codec)
-+		return 0;
-+
-+	li->link += 1;
-+	li->dais += 2;
+@@ -129,15 +129,6 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 	char *prefix = "";
+ 	int ret;
  
- 	return 0;
+-	/*
+-	 *	 |CPU   |Codec   : turn
+-	 * CPU	 |Pass  |return
+-	 * Codec |return|Pass
+-	 * np
+-	 */
+-	if (li->cpu == (np == codec))
+-		return 0;
+-
+ 	dev_dbg(dev, "link_of DPCM (%pOF)\n", np);
+ 
+ 	li->link++;
+@@ -260,15 +251,6 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	char *prefix = "";
+ 	int ret, single_cpu;
+ 
+-	/*
+-	 *	 |CPU   |Codec   : turn
+-	 * CPU	 |Pass  |return
+-	 * Codec |return|return
+-	 * np
+-	 */
+-	if (!li->cpu || np == codec)
+-		return 0;
+-
+ 	cpu  = np;
+ 	node = of_get_parent(np);
+ 	li->link++;
+@@ -342,7 +324,7 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	return ret;
  }
-@@ -495,10 +503,23 @@ static int simple_count_dpcm(struct asoc_simple_priv *priv,
- 			     struct device_node *codec,
- 			     struct link_info *li, bool is_top)
- {
--	li->dais++; /* CPU or Codec */
--	li->link++; /* CPU-dummy or dummy-Codec */
--	if (np == codec)
+ 
+-static int simple_for_each_link(struct asoc_simple_priv *priv,
++static int __simple_for_each_link(struct asoc_simple_priv *priv,
+ 			struct link_info *li,
+ 			int (*func_noml)(struct asoc_simple_priv *priv,
+ 					 struct device_node *np,
+@@ -402,11 +384,26 @@ static int simple_for_each_link(struct asoc_simple_priv *priv,
+ 			 */
+ 			if (dpcm_selectable &&
+ 			    (num > 2 ||
+-			     adata.convert_rate || adata.convert_channels))
+-				ret = func_dpcm(priv, np, codec, li, is_top);
++			     adata.convert_rate || adata.convert_channels)) {
++				/*
++				 * np
++				 *	 |1(CPU)|0(Codec)  li->cpu
++				 * CPU	 |Pass  |return
++				 * Codec |return|Pass
++				 */
++				if (li->cpu != (np == codec))
++					ret = func_dpcm(priv, np, codec, li, is_top);
+ 			/* else normal sound */
+-			else
+-				ret = func_noml(priv, np, codec, li, is_top);
++			} else {
++				/*
++				 * np
++				 *	 |1(CPU)|0(Codec)  li->cpu
++				 * CPU	 |Pass  |return
++				 * Codec |return|return
++				 */
++				if (li->cpu && (np != codec))
++					ret = func_noml(priv, np, codec, li, is_top);
++			}
+ 
+ 			if (ret < 0) {
+ 				of_node_put(codec);
+@@ -424,6 +421,39 @@ static int simple_for_each_link(struct asoc_simple_priv *priv,
+ 	return ret;
+ }
+ 
++static int simple_for_each_link(struct asoc_simple_priv *priv,
++				struct link_info *li,
++				int (*func_noml)(struct asoc_simple_priv *priv,
++						 struct device_node *np,
++						 struct device_node *codec,
++						 struct link_info *li, bool is_top),
++				int (*func_dpcm)(struct asoc_simple_priv *priv,
++						 struct device_node *np,
++						 struct device_node *codec,
++						 struct link_info *li, bool is_top))
++{
++	int ret;
 +	/*
-+	 *	 |CPU   |Codec   : turn
-+	 * CPU	 |Pass  |return
-+	 * Codec |return|Pass
-+	 * np
++	 * Detect all CPU first, and Detect all Codec 2nd.
++	 *
++	 * In Normal sound case, all DAIs are detected
++	 * as "CPU-Codec".
++	 *
++	 * In DPCM sound case,
++	 * all CPUs   are detected as "CPU-dummy", and
++	 * all Codecs are detected as "dummy-Codec".
++	 * To avoid random sub-device numbering,
++	 * detect "dummy-Codec" in last;
 +	 */
-+	if (li->cpu == (np == codec))
-+		return 0;
-+
-+	if (li->cpu) {
-+		li->link++; /* CPU-dummy */
-+		li->dais++;
-+	} else {
-+		li->link++; /* dummy-Codec */
-+		li->dais++;
- 		li->conf++;
++	for (li->cpu = 1; li->cpu >= 0; li->cpu--) {
++		ret = __simple_for_each_link(priv, li, func_noml, func_dpcm);
++		if (ret < 0)
++			break;
 +	}
++
++	return ret;
++}
++
+ static int simple_parse_of(struct asoc_simple_priv *priv)
+ {
+ 	struct device *dev = simple_priv_to_dev(priv);
+@@ -449,25 +479,11 @@ static int simple_parse_of(struct asoc_simple_priv *priv)
  
- 	return 0;
- }
-@@ -562,9 +583,10 @@ static void simple_get_dais_count(struct asoc_simple_priv *priv,
+ 	/* Single/Muti DAI link(s) & New style of DT node */
+ 	memset(&li, 0, sizeof(li));
+-	for (li.cpu = 1; li.cpu >= 0; li.cpu--) {
+-		/*
+-		 * Detect all CPU first, and Detect all Codec 2nd.
+-		 *
+-		 * In Normal sound case, all DAIs are detected
+-		 * as "CPU-Codec".
+-		 *
+-		 * In DPCM sound case,
+-		 * all CPUs   are detected as "CPU-dummy", and
+-		 * all Codecs are detected as "dummy-Codec".
+-		 * To avoid random sub-device numbering,
+-		 * detect "dummy-Codec" in last;
+-		 */
+-		ret = simple_for_each_link(priv, &li,
+-					   simple_dai_link_of,
+-					   simple_dai_link_of_dpcm);
+-		if (ret < 0)
+-			return ret;
+-	}
++	ret = simple_for_each_link(priv, &li,
++				   simple_dai_link_of,
++				   simple_dai_link_of_dpcm);
++	if (ret < 0)
++		return ret;
+ 
+ 	ret = asoc_simple_parse_card_name(card, PREFIX);
+ 	if (ret < 0)
+@@ -483,15 +499,6 @@ static int simple_count_noml(struct asoc_simple_priv *priv,
+ 			     struct device_node *codec,
+ 			     struct link_info *li, bool is_top)
+ {
+-	/*
+-	 *	 |CPU   |Codec   : turn
+-	 * CPU	 |Pass  |return
+-	 * Codec |return|return
+-	 * np
+-	 */
+-	if (!li->cpu || np == codec)
+-		return 0;
+-
+ 	li->link += 1;
+ 	li->dais += 2;
+ 
+@@ -503,15 +510,6 @@ static int simple_count_dpcm(struct asoc_simple_priv *priv,
+ 			     struct device_node *codec,
+ 			     struct link_info *li, bool is_top)
+ {
+-	/*
+-	 *	 |CPU   |Codec   : turn
+-	 * CPU	 |Pass  |return
+-	 * Codec |return|Pass
+-	 * np
+-	 */
+-	if (li->cpu == (np == codec))
+-		return 0;
+-
+ 	if (li->cpu) {
+ 		li->link++; /* CPU-dummy */
+ 		li->dais++;
+@@ -583,10 +581,9 @@ static void simple_get_dais_count(struct asoc_simple_priv *priv,
  		return;
  	}
  
--	simple_for_each_link(priv, li,
--			     simple_count_noml,
--			     simple_count_dpcm);
-+	for (li->cpu = 1; li->cpu >= 0; li->cpu--)
-+		simple_for_each_link(priv, li,
-+				     simple_count_noml,
-+				     simple_count_dpcm);
+-	for (li->cpu = 1; li->cpu >= 0; li->cpu--)
+-		simple_for_each_link(priv, li,
+-				     simple_count_noml,
+-				     simple_count_dpcm);
++	simple_for_each_link(priv, li,
++			     simple_count_noml,
++			     simple_count_dpcm);
  
  	dev_dbg(dev, "link %d, dais %d, ccnf %d\n",
  		li->link, li->dais, li->conf);

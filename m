@@ -2,94 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D6634A222
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 07:45:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3DB434A22B
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 07:46:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36EB9166B;
-	Fri, 26 Mar 2021 07:44:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36EB9166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D39A1683;
+	Fri, 26 Mar 2021 07:46:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D39A1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616741118;
-	bh=sWk9mM0/YY3y42/OAFbo9tEX7ut2YsPJu1Qzf68gH6k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uEvPfOjq0I09vdCHU0UzRLoojs6FODQz+Jc1Ufyks3mSW2A67LAimx/fkvjyN5C68
-	 0TLZPdoTpBmP3xtHmYVuP5W0Jk4rOiT0I747Kgzj4Xgshd+DduOAtAQLEZ3c44BDD+
-	 KRRirn0fzPDs0Q9OO8HwONJSTDRHnoiMk8PsLnl0=
+	s=default; t=1616741212;
+	bh=iCYqzB/l1XSuf0YfN20bJvOYLEthnpRvKmuf7fkQRhw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=o9HrnyVe0eUrdPok4oN7WtO3rzVEFDkTkRML/0T8R/P0nJaRE4zuuQhQk5ES+tQjI
+	 MrIPxqiTzfaEPnG5mg12C+FIo5K6pevpd+EPeooSOYF5SM5Rt+K5lV/cBJAok9Mi7/
+	 Yucev6sfyqqvVjNMguhHuFl7suaj0Hfs2pMluETc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42055F804B4;
-	Fri, 26 Mar 2021 07:42:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90E78F801EB;
+	Fri, 26 Mar 2021 07:45:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E93EF804AA; Fri, 26 Mar 2021 07:41:52 +0100 (CET)
+ id 30242F801EB; Fri, 26 Mar 2021 07:45:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [IPv6:2607:f8b0:4864:20::f2f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA585F80156
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 07:41:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA585F80156
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8693FF801D5
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 07:45:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8693FF801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CKI6N9Bx"
-Received: by mail-ej1-x630.google.com with SMTP id l4so6735047ejc.10
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 23:41:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JLx96J3P/z7SpklWGlSLOqViHHl5WXETT/eud7VOrQ4=;
- b=CKI6N9BxqTu7oc5cHbfAFTArbxQlLX407WNFxN/5fyZPddgwYnH+Lx7G6s8WXLxhnV
- /CNczXVcxGg3nppzl86S9e6pUrpRmZ9fX8fR4rxZy7HK+JKvzreZCCziTSNHQJJLBZso
- 2Es5mqKlyhjOn8n9XSMcjkn/EvAidELHMetKLpURwr+s2PLg89DiRmh8UVaO/9u0/qfD
- NejsgeU4GDFCpDT0Y4yxy28zAx3WAo+Y1QH3nXCtbmxC46USX8s6l1KZd+QjRk3Zh9eI
- f4VVIyuu1LQI9714F09FCQbzSa474qAF1YTILTtc0s3qv2bHhBYI7qxUljqXSBGnC6kp
- ZMBQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="FFkb7IcZ"
+Received: by mail-qv1-xf2f.google.com with SMTP id t16so2423815qvr.12
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 23:45:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7bLoqfBiZVQk0YIeIKhgPKBtJ507LhBAmlJ/A5xeilw=;
+ b=FFkb7IcZ05aM6s5rziT8HAuHISXf5fGUGlz5QF5iHFqcrZ2riRz6i1o9Om5SofPLt+
+ 5/sM1WNetUR3dozt7vsUwv0cFmAaTGeosZmnESSMMw8ncfwpVh6eOiGIxm0I+x1R+moN
+ 6PA3YyOUl5ttzJvKrS8dAjwEogBUgO1hcs+giQZkpIw7UiWVl+VDV+pIzW1l/Zmj1ZpQ
+ SOorvKNLa2zICFJ6N1XANaZgxi/lzU3cZfs0rxpmUMpLCJgQdup15tC3k2BnxSNJRfkD
+ Paz1//jmolGZxVgXfkK9nPcO8RwBnzAVvJwjCTxA2qodD5pdMu5GPy4XCa3qwDLBUES5
+ EWfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JLx96J3P/z7SpklWGlSLOqViHHl5WXETT/eud7VOrQ4=;
- b=kFgFrf28WWxA48X2KvYDNN8yp16cZr5n2jmUyfeoTqmun3/3j9V0kbMwsFLr6L8gxd
- oomJOEAiLKmV5zy0DUzqahifNtlsZMuNNH/CcpH1dLNFuVVSbhzcQrp2DBL4Dy/e2Et6
- QJKzd6OfFJkYOfHKxRM+KFRt67WkSXccd10rZUIaHWD3PithaS6Sz2LuyWaPJPML5Ls6
- AycAUrgYvb4NdNcodjcUy7RZrg3VfqRNS9tn0YoJQwp6yWjOR2sCY5Qra4tMR1bJwZJ/
- em25teVk9Ls56w59h2cYAh1WSiyu5T+V7CBU0MUCU+GDN+oFL25QRg1qqWzlU+ckpEu5
- pcnA==
-X-Gm-Message-State: AOAM532fC43uwqQgSyOGq1gGl6o5NubG0KCZUIvY4uEBJSfV3lfBX3rf
- AJdxe9hZ4CF2T3zEVLIVk4+jJg==
-X-Google-Smtp-Source: ABdhPJwArwbmYX2WVpvAdXSWymAKUlKCWbcQVbY6eaqoujoHbsmPNTo3r6OZ7jXq/ljDTeTdhvlCLg==
-X-Received: by 2002:a17:906:a44f:: with SMTP id
- cb15mr13350392ejb.420.1616740885771; 
- Thu, 25 Mar 2021 23:41:25 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id ci22sm125325ejc.54.2021.03.25.23.41.24
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7bLoqfBiZVQk0YIeIKhgPKBtJ507LhBAmlJ/A5xeilw=;
+ b=txfsx0fP/OVQlrqd1DwrYYsADWNM/qCkaf1qr/boP7ci43uxk89h9J27zUkgJJxzgk
+ rV4UZHOHk4hjJD1S3cL7TW0OkRyz29H+3iPNP4iq9s4H+ZGS3XZkkGETJMVZ3P/arOJq
+ yffuyAEaHO1nowDosORNzhLc1Nw2xDBw98PoJBb0KN2KK7xsNn/AzRQ/j0eMbaYPCnMq
+ 7FSbSGNF6trtPfb6dexHwHltYhX6ssLVTE/4mHZDG8obW7TTk/j2N/pSeHSns0eSUH/Z
+ 6X6h3iJN6858JVX+i3ULbQSGxcsj9U/2cKfaPUbXvpXGf9MA9IKlg6eAy4TyvTRHErf7
+ uK0g==
+X-Gm-Message-State: AOAM533VYlq2wkuLjdAM5s1XQJnERAe12ppuSpcueZj/ZLeZfPEguKfh
+ iZ40Xzm2PzrrjVR6t3cqIGU=
+X-Google-Smtp-Source: ABdhPJyEOv5nlQlCy87iUnxGvRQ2JRfM21w3HIYPDsa93cn6J9KXQrXRp5KsUhdMsnByc3LR8XTOFA==
+X-Received: by 2002:ad4:4ab0:: with SMTP id i16mr11854813qvx.1.1616741107529; 
+ Thu, 25 Mar 2021 23:45:07 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.107])
+ by smtp.gmail.com with ESMTPSA id b12sm5316693qti.43.2021.03.25.23.45.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Mar 2021 23:41:25 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Subject: [PATCH v5 9/9] soundwire: qcom: wait for enumeration to be complete
- in probe
-Date: Fri, 26 Mar 2021 06:39:44 +0000
-Message-Id: <20210326063944.31683-10-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20210326063944.31683-1-srinivas.kandagatla@linaro.org>
-References: <20210326063944.31683-1-srinivas.kandagatla@linaro.org>
+ Thu, 25 Mar 2021 23:45:06 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: perex@perex.cz, tiwai@suse.com, unixbhaskar@gmail.com,
+ mirq-linux@rere.qmqm.pl, broonie@kernel.org, gustavoars@kernel.org,
+ viro@zeniv.linux.org.uk, joe@perches.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH V4] ALSA: pcm:  Fix couple of typos
+Date: Fri, 26 Mar 2021 12:12:11 +0530
+Message-Id: <20210326064211.6509-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+Cc: rdunlap@infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,49 +99,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/qcom.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index c6c923329b15..706d44200a36 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -123,6 +123,7 @@ struct qcom_swrm_ctrl {
- 	struct regmap *regmap;
- 	void __iomem *mmio;
- 	struct completion broadcast;
-+	struct completion enumeration;
- 	struct work_struct slave_work;
- 	/* Port alloc/free lock */
- 	struct mutex port_lock;
-@@ -417,6 +418,7 @@ static int qcom_swrm_enumerate(struct sdw_bus *bus)
- 		}
+s/unconditonally/unconditionally/
+s/succesful/successful/
+
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ Changes from V3:
+  Yet another try to make it work
+
+ sound/core/pcm_native.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 17a85f4815d5..8dbe86cf2e4f 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -1425,7 +1425,7 @@ static int snd_pcm_do_stop(struct snd_pcm_substream *substream,
+ 		substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_STOP);
+ 		substream->runtime->stop_operating = true;
  	}
- 
-+	complete(&ctrl->enumeration);
- 	return 0;
+-	return 0; /* unconditonally stop all substreams */
++	return 0; /* unconditionally stop all substreams */
  }
- 
-@@ -1155,6 +1157,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	dev_set_drvdata(&pdev->dev, ctrl);
- 	mutex_init(&ctrl->port_lock);
- 	init_completion(&ctrl->broadcast);
-+	init_completion(&ctrl->enumeration);
- 
- 	ctrl->bus.ops = &qcom_swrm_ops;
- 	ctrl->bus.port_ops = &qcom_swrm_port_ops;
-@@ -1201,6 +1204,8 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	}
- 
- 	qcom_swrm_init(ctrl);
-+	wait_for_completion_timeout(&ctrl->enumeration,
-+				    msecs_to_jiffies(TIMEOUT_MS));
- 	ret = qcom_swrm_register_dais(ctrl);
- 	if (ret)
- 		goto err_master_add;
--- 
-2.21.0
+
+ static void snd_pcm_post_stop(struct snd_pcm_substream *substream,
+@@ -1469,7 +1469,7 @@ EXPORT_SYMBOL(snd_pcm_stop);
+  * After stopping, the state is changed to SETUP.
+  * Unlike snd_pcm_stop(), this affects only the given stream.
+  *
+- * Return: Zero if succesful, or a negative error code.
++ * Return: Zero if successful, or a negative error code.
+  */
+ int snd_pcm_drain_done(struct snd_pcm_substream *substream)
+ {
+--
+2.26.2
 

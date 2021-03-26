@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFB334B1C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A89A34B1C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:04:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08AA71686;
-	Fri, 26 Mar 2021 23:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08AA71686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A989167B;
+	Fri, 26 Mar 2021 23:04:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A989167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616796270;
-	bh=YJOWNXQFye6xx8+LXtMXb1edWo4V1LKAlet3msswDBA=;
+	s=default; t=1616796293;
+	bh=f9qmsNUc0jj83jPt03XRRrAKuS+hKxvppDPmVhyl8sM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pmIMHxU/OBP+9FKJbg/rIYxAg6Rvpju2tj0vsFF7Y8VSJpftL+bnOfDQWjMseqfQ3
-	 XLMwONbymMdCqnZyO6HH7pTUtaH5pF366qhsji692lIY3awcctXoWbD/mnyG0YqyBU
-	 8Qmqfg1OFS62GwSvSOjgfp9LOBGeY3ttpjukOi/c=
+	b=f+N8+lyOuaGcXvWRDerEdUe3jm1Lw8z+f51mLmkH6+37IapbqjYV1gnpiWdI3xaYz
+	 DoSfN3uRkm6kz8EGqNrXjUKTj1jbJBuCwlQ03mMIS7yHEXx5aZkaq/fXmkkINfq+uo
+	 6Wq+qUZsbWyYFuJ2v7M7WvpKWVw9VuzA0i/gSCwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CA66F804DF;
-	Fri, 26 Mar 2021 23:00:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A189F804E0;
+	Fri, 26 Mar 2021 23:00:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C1D8F80431; Fri, 26 Mar 2021 23:00:15 +0100 (CET)
+ id 50725F80156; Fri, 26 Mar 2021 23:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 823A0F8032D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1364BF8032C
  for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 823A0F8032D
-IronPort-SDR: f7JO11bYM7uy91gJ32etwnWDVCpkiGCiTV8eQktOvmq3o+dQSqdlbznmnZ6Bb0hR6+DxMqrkPk
- 9bDmb7VjNaDA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396717"
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396717"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1364BF8032C
+IronPort-SDR: 4xL/P/XbPeYvUQLzLuSSHW4s0uQl0rXBrTMPakovk0kIUKq1RkekrQRgIoYN7PRYgLc1aDTw/a
+ 2sB+efStrVcw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396722"
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396722"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:06 -0700
-IronPort-SDR: 7NWZHaaay1C/1PxCKzjdVdf7YwM5gdF5YFKIj46EH6by9m9zByzidJ4/VP14TKr0nh48yjZQF1
- 4NwB0i7DUqAQ==
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706795"
+ 26 Mar 2021 15:00:07 -0700
+IronPort-SDR: pN/1xZugGRK4FmXCaX5DbIjro6qYN2CO3AN2B868fvbV9d9cuop8ag3Jy2dcFwhpH6hDq9Qnzv
+ Ftj5AihvMCDQ==
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706816"
 Received: from zcmahone-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.255.231.203])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:05 -0700
+ 26 Mar 2021 15:00:06 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/17] ASoC: sti: sti_uniperif: add missing error check
-Date: Fri, 26 Mar 2021 16:59:18 -0500
-Message-Id: <20210326215927.936377-9-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 09/17] ASoC: sti: uniperif: align function prototypes
+Date: Fri, 26 Mar 2021 16:59:19 -0500
+Message-Id: <20210326215927.936377-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 References: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
@@ -81,39 +81,61 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 cppcheck warning:
 
-sound/soc/sti/sti_uniperif.c:490:6: style: Variable 'ret' is
-reassigned a value before the old one has been
-used. [redundantAssignment]
- ret = devm_snd_soc_register_component(&pdev->dev,
-     ^
-sound/soc/sti/sti_uniperif.c:486:6: note: ret is assigned
- ret = sti_uniperiph_cpu_dai_of(node, priv);
-     ^
-sound/soc/sti/sti_uniperif.c:490:6: note: ret is overwritten
- ret = devm_snd_soc_register_component(&pdev->dev,
-     ^
-
-sti_uniperiph_cpu_dai_of() can return -EINVAL which seems like a
-good-enough reason to bail.
+sound/soc/sti/uniperif_player.c:1049:24: style:inconclusive: Function
+'uni_player_init' argument 2 names different: declaration 'uni_player'
+definition 'player'. [funcArgNamesDifferent]
+      struct uniperif *player)
+                       ^
+sound/soc/sti/uniperif.h:1375:24: note: Function 'uni_player_init'
+argument 2 names different: declaration 'uni_player' definition
+'player'.
+      struct uniperif *uni_player);
+                       ^
+sound/soc/sti/uniperif_player.c:1049:24: note: Function
+'uni_player_init' argument 2 names different: declaration 'uni_player'
+definition 'player'.
+      struct uniperif *player)
+                       ^
+sound/soc/sti/uniperif_reader.c:411:24: style:inconclusive: Function
+'uni_reader_init' argument 2 names different: declaration 'uni_reader'
+definition 'reader'. [funcArgNamesDifferent]
+      struct uniperif *reader)
+                       ^
+sound/soc/sti/uniperif.h:1380:24: note: Function 'uni_reader_init'
+argument 2 names different: declaration 'uni_reader' definition
+'reader'.
+      struct uniperif *uni_reader);
+                       ^
+sound/soc/sti/uniperif_reader.c:411:24: note: Function
+'uni_reader_init' argument 2 names different: declaration 'uni_reader'
+definition 'reader'.
+      struct uniperif *reader)
+                       ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sti/sti_uniperif.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/sti/uniperif.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sti/sti_uniperif.c b/sound/soc/sti/sti_uniperif.c
-index 7b9169f04d6e..67315d9b352d 100644
---- a/sound/soc/sti/sti_uniperif.c
-+++ b/sound/soc/sti/sti_uniperif.c
-@@ -484,6 +484,8 @@ static int sti_uniperiph_probe(struct platform_device *pdev)
- 	priv->pdev = pdev;
+diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
+index a16adeb7c1e9..2a5de328501c 100644
+--- a/sound/soc/sti/uniperif.h
++++ b/sound/soc/sti/uniperif.h
+@@ -1372,12 +1372,12 @@ static __maybe_unused const struct snd_pcm_hardware uni_tdm_hw = {
  
- 	ret = sti_uniperiph_cpu_dai_of(node, priv);
-+	if (ret < 0)
-+		return ret;
+ /* uniperiph player*/
+ int uni_player_init(struct platform_device *pdev,
+-		    struct uniperif *uni_player);
++		    struct uniperif *player);
+ int uni_player_resume(struct uniperif *player);
  
- 	dev_set_drvdata(&pdev->dev, priv);
+ /* uniperiph reader */
+ int uni_reader_init(struct platform_device *pdev,
+-		    struct uniperif *uni_reader);
++		    struct uniperif *reader);
  
+ /* common */
+ int sti_uniperiph_dai_set_fmt(struct snd_soc_dai *dai,
 -- 
 2.25.1
 

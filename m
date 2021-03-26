@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AFB34A03C
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:28:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB1634A03D
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:29:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82540168A;
-	Fri, 26 Mar 2021 04:27:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82540168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4E6165E;
+	Fri, 26 Mar 2021 04:28:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4E6165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616729314;
-	bh=5YPcscsBdvFP+cK/tNy9Of5UBgpF/7eB6JTeFog/GHA=;
+	s=default; t=1616729341;
+	bh=h3vS7OSgf2thte2+K98th30/zFy+1JIAIlrRvPoTJGw=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=shMPW23FGWPlcLNWeFUQV2VrwDN2RDUNl06auhCG5yp9StJiCaNESZbF5ujY6GYxj
-	 4w2HYNGFpOOhhK2N9zscC80piqnV25JHQu17GZFrx9deSyUM6hygJOhkFB/jdONxYb
-	 4ehjhyPnDN2XKUtOfySdEKO4JZ6AAwZ40hsbIGck=
+	b=kfjTwZjEcjNjHDCDNv2z+TrcmEolT3wpp0TPPotBEJqoocsl0GKsmcZ9+YcWVqh90
+	 mw5Qv9ZlvL2vp3Qxgan8+qw321DSqPt0QZDtYnjhVK0fgEWP17HTm6f0REed+ngjbd
+	 2ufQw/oxbLoLg8kbuHo1px1ZzsUtTXvcmyDeoQIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9343FF80475;
-	Fri, 26 Mar 2021 04:26:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12F61F80104;
+	Fri, 26 Mar 2021 04:26:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81322F80156; Fri, 26 Mar 2021 04:26:38 +0100 (CET)
+ id 93D5EF804A9; Fri, 26 Mar 2021 04:26:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id BB54AF80475
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:26:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB54AF80475
-Date: 26 Mar 2021 12:26:20 +0900
-X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76117708"
+ by alsa1.perex.cz (Postfix) with ESMTP id 237E1F8049C
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:26:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 237E1F8049C
+Date: 26 Mar 2021 12:26:33 +0900
+X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76117727"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 26 Mar 2021 12:26:20 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 26 Mar 2021 12:26:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id D744D400F4F5;
- Fri, 26 Mar 2021 12:26:20 +0900 (JST)
-Message-ID: <878s6a1tpf.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B100B40104F3;
+ Fri, 26 Mar 2021 12:26:33 +0900 (JST)
+Message-ID: <877dlu1tp2.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/6] ASoC: audio-graph: cleanup graph_for_each_link()
+Subject: [PATCH 5/6] ASoC: simple-card: count DAI / link numbers as in order
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87eeg21tqz.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,245 +70,103 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-audio-graph checks DT links 2 times. 1st is for counting DAIs / links
+simple-card checks DT links 2 times. 1st is for counting DAIs / links
 to allocating memory, 2nd is for detecting DAIs.
 To detecting DAIs as CPU-dummy -> dummy-Codec order when DPCM case,
-it uses  loops 2 times.
-Because of this kind of complex background, it needs to use local
-varuable for it, and each call-back functions need to care about it.
+it uses loops 2 times at 2nd DT link check.
+But it doesn't do it at 1st DT link check.
 
-Now, 1st and 2nd DT link check are using same order,
-thus we can share same code. This patch do it.
+	for (li.cpu = 1; li.cpu >= 0; li.cpu--) {
+		/*
+		 * Detect all CPU first, and Detect all Codec 2n
+		 *
+		 * In Normal sound case, all DAIs are detected
+		 * as "CPU-Codec".
+		 *
+		 * In DPCM sound case,
+		 * all CPUs   are detected as "CPU-dummy", and
+		 * all Codecs are detected as "dummy-Codec".
+		 * To avoid random sub-device numbering,
+		 * detect "dummy-Codec" in last;
+		 */
+		ret = simple_for_each_link(...);
+		...
+	}
+
+To prepare supporting multi-CPU/Codec, and code cleanup,
+this patch use same loop for 1st DT link check, too.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/audio-graph-card.c | 129 +++++++++++++--------------
- 1 file changed, 61 insertions(+), 68 deletions(-)
+ sound/soc/generic/simple-card.c | 40 +++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 3a967c520b01..ee1d924d68e5 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -212,8 +212,7 @@ static void graph_parse_mclk_fs(struct device_node *top,
- static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 				  struct device_node *cpu_ep,
- 				  struct device_node *codec_ep,
--				  struct link_info *li,
--				  int dup_codec)
-+				  struct link_info *li)
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 75365c7bb393..f53f76ee0a8b 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -483,9 +483,17 @@ static int simple_count_noml(struct asoc_simple_priv *priv,
+ 			     struct device_node *codec,
+ 			     struct link_info *li, bool is_top)
  {
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_card *card = simple_priv_to_card(priv);
-@@ -229,18 +228,6 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	struct snd_soc_dai_link_component *codecs = dai_link->codecs;
- 	int ret;
+-	li->dais++; /* CPU or Codec */
+-	if (np != codec)
+-		li->link++; /* CPU-Codec */
++	/*
++	 *	 |CPU   |Codec   : turn
++	 * CPU	 |Pass  |return
++	 * Codec |return|return
++	 * np
++	 */
++	if (!li->cpu || np == codec)
++		return 0;
++
++	li->link += 1;
++	li->dais += 2;
  
--	/*
--	 * Codec endpoint can be NULL for pluggable audio HW.
--	 * Platform DT can populate the Codec endpoint depending on the
--	 * plugged HW.
--	 */
--	if (!li->cpu && !codec_ep)
--		return 0;
--
--	/* Do it all CPU endpoint, and 1st Codec endpoint */
--	if (!li->cpu && dup_codec)
--		return 0;
--
- 	port	= of_get_parent(ep);
- 	ports	= of_get_parent(port);
- 	node	= of_graph_get_port_parent(ep);
-@@ -382,10 +369,6 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
- 	struct asoc_simple_dai *codec_dai;
- 	int ret, single_cpu;
- 
--	/* Do it only CPU turn */
--	if (!li->cpu)
--		return 0;
--
- 	dev_dbg(dev, "link_of (%pOF)\n", cpu_ep);
- 
- 	li->link++;
-@@ -466,7 +449,7 @@ static inline bool parse_as_dpcm_link(struct asoc_simple_priv *priv,
- 	return false;
- }
- 
--static int graph_for_each_link(struct asoc_simple_priv *priv,
-+static int __graph_for_each_link(struct asoc_simple_priv *priv,
- 			struct link_info *li,
- 			int (*func_noml)(struct asoc_simple_priv *priv,
- 					 struct device_node *cpu_ep,
-@@ -475,7 +458,7 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
- 			int (*func_dpcm)(struct asoc_simple_priv *priv,
- 					 struct device_node *cpu_ep,
- 					 struct device_node *codec_ep,
--					 struct link_info *li, int dup_codec))
-+					 struct link_info *li))
- {
- 	struct of_phandle_iterator it;
- 	struct device *dev = simple_priv_to_dev(priv);
-@@ -486,7 +469,7 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
- 	struct device_node *codec_port;
- 	struct device_node *codec_port_old = NULL;
- 	struct asoc_simple_data adata;
--	int rc, ret;
-+	int rc, ret = 0;
- 
- 	/* loop for all listed CPU port */
- 	of_for_each_phandle(&it, rc, node, "dais", NULL, 0) {
-@@ -509,12 +492,21 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
- 			graph_parse_convert(dev, cpu_ep,   &adata);
- 
- 			/* check if link requires DPCM parsing */
--			if (parse_as_dpcm_link(priv, codec_port, &adata))
--				ret = func_dpcm(priv, cpu_ep, codec_ep, li,
--						(codec_port_old == codec_port));
-+			if (parse_as_dpcm_link(priv, codec_port, &adata)) {
-+				/*
-+				 * Codec endpoint can be NULL for pluggable audio HW.
-+				 * Platform DT can populate the Codec endpoint depending on the
-+				 * plugged HW.
-+				 */
-+				/* Do it all CPU endpoint, and 1st Codec endpoint */
-+				if (li->cpu ||
-+				    ((codec_port_old != codec_port) && codec_ep))
-+					ret = func_dpcm(priv, cpu_ep, codec_ep, li);
- 			/* else normal sound */
--			else
--				ret = func_noml(priv, cpu_ep, codec_ep, li);
-+			} else {
-+				if (li->cpu)
-+					ret = func_noml(priv, cpu_ep, codec_ep, li);
-+			}
- 
- 			of_node_put(codec_ep);
- 			of_node_put(codec_port);
-@@ -529,6 +521,39 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
  	return 0;
  }
- 
-+static int graph_for_each_link(struct asoc_simple_priv *priv,
-+			       struct link_info *li,
-+			       int (*func_noml)(struct asoc_simple_priv *priv,
-+						struct device_node *cpu_ep,
-+						struct device_node *codec_ep,
-+						struct link_info *li),
-+			       int (*func_dpcm)(struct asoc_simple_priv *priv,
-+						struct device_node *cpu_ep,
-+						struct device_node *codec_ep,
-+						struct link_info *li))
-+{
-+	int ret;
+@@ -495,10 +503,23 @@ static int simple_count_dpcm(struct asoc_simple_priv *priv,
+ 			     struct device_node *codec,
+ 			     struct link_info *li, bool is_top)
+ {
+-	li->dais++; /* CPU or Codec */
+-	li->link++; /* CPU-dummy or dummy-Codec */
+-	if (np == codec)
 +	/*
-+	 * Detect all CPU first, and Detect all Codec 2nd.
-+	 *
-+	 * In Normal sound case, all DAIs are detected
-+	 * as "CPU-Codec".
-+	 *
-+	 * In DPCM sound case,
-+	 * all CPUs   are detected as "CPU-dummy", and
-+	 * all Codecs are detected as "dummy-Codec".
-+	 * To avoid random sub-device numbering,
-+	 * detect "dummy-Codec" in last;
++	 *	 |CPU   |Codec   : turn
++	 * CPU	 |Pass  |return
++	 * Codec |return|Pass
++	 * np
 +	 */
-+	for (li->cpu = 1; li->cpu >= 0; li->cpu--) {
-+		ret = __graph_for_each_link(priv, li, func_noml, func_dpcm);
-+		if (ret < 0)
-+			break;
-+	}
++	if (li->cpu == (np == codec))
++		return 0;
 +
-+	return ret;
-+}
-+
- static void graph_get_dais_count(struct asoc_simple_priv *priv,
- 				 struct link_info *li);
- 
-@@ -566,25 +591,11 @@ int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev)
- 		return ret;
- 
- 	memset(&li, 0, sizeof(li));
--	for (li.cpu = 1; li.cpu >= 0; li.cpu--) {
--		/*
--		 * Detect all CPU first, and Detect all Codec 2nd.
--		 *
--		 * In Normal sound case, all DAIs are detected
--		 * as "CPU-Codec".
--		 *
--		 * In DPCM sound case,
--		 * all CPUs   are detected as "CPU-dummy", and
--		 * all Codecs are detected as "dummy-Codec".
--		 * To avoid random sub-device numbering,
--		 * detect "dummy-Codec" in last;
--		 */
--		ret = graph_for_each_link(priv, &li,
--					  graph_dai_link_of,
--					  graph_dai_link_of_dpcm);
--		if (ret < 0)
--			goto err;
--	}
-+	ret = graph_for_each_link(priv, &li,
-+				  graph_dai_link_of,
-+				  graph_dai_link_of_dpcm);
-+	if (ret < 0)
-+		goto err;
- 
- 	ret = asoc_simple_parse_card_name(card, NULL);
- 	if (ret < 0)
-@@ -617,10 +628,6 @@ static int graph_count_noml(struct asoc_simple_priv *priv,
- {
- 	struct device *dev = simple_priv_to_dev(priv);
- 
--	/* Do it only CPU turn */
--	if (!li->cpu)
--		return 0;
--
- 	li->link += 1; /* 1xCPU-Codec */
- 	li->dais += 2; /* 1xCPU + 1xCodec */
- 
-@@ -632,27 +639,14 @@ static int graph_count_noml(struct asoc_simple_priv *priv,
- static int graph_count_dpcm(struct asoc_simple_priv *priv,
- 			    struct device_node *cpu_ep,
- 			    struct device_node *codec_ep,
--			    struct link_info *li,
--			    int dup_codec)
-+			    struct link_info *li)
- {
- 	struct device *dev = simple_priv_to_dev(priv);
- 
--	/*
--	 * Codec endpoint can be NULL for pluggable audio HW.
--	 * Platform DT can populate the Codec endpoint depending on the
--	 * plugged HW.
--	 */
--	if (!li->cpu && !codec_ep)
--		return 0;
--
--	/* Do it all CPU endpoint, and 1st Codec endpoint */
--	if (!li->cpu && dup_codec)
--		return 0;
--
- 	if (li->cpu) {
- 		li->link++; /* 1xCPU-dummy */
- 		li->dais++; /* 1xCPU */
--	} else if (!dup_codec && codec_ep) {
++	if (li->cpu) {
++		li->link++; /* CPU-dummy */
++		li->dais++;
 +	} else {
- 		li->link++; /* 1xdummy-Codec */
- 		li->conf++; /* 1xdummy-Codec */
- 		li->dais++; /* 1xCodec */
-@@ -714,10 +708,9 @@ static void graph_get_dais_count(struct asoc_simple_priv *priv,
- 	 *	=> 4 DAIs  = 2xCPU + 2xCodec
- 	 *	=> 1 ccnf  = 1xdummy-Codec
- 	 */
--	for (li->cpu = 1; li->cpu >= 0; li->cpu--)
--		graph_for_each_link(priv, li,
--				    graph_count_noml,
--				    graph_count_dpcm);
-+	graph_for_each_link(priv, li,
-+			    graph_count_noml,
-+			    graph_count_dpcm);
++		li->link++; /* dummy-Codec */
++		li->dais++;
+ 		li->conf++;
++	}
+ 
+ 	return 0;
+ }
+@@ -562,9 +583,10 @@ static void simple_get_dais_count(struct asoc_simple_priv *priv,
+ 		return;
+ 	}
+ 
+-	simple_for_each_link(priv, li,
+-			     simple_count_noml,
+-			     simple_count_dpcm);
++	for (li->cpu = 1; li->cpu >= 0; li->cpu--)
++		simple_for_each_link(priv, li,
++				     simple_count_noml,
++				     simple_count_dpcm);
+ 
  	dev_dbg(dev, "link %d, dais %d, ccnf %d\n",
  		li->link, li->dais, li->conf);
- }
 -- 
 2.25.1
 

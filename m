@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D8F34A038
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:27:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22A5A34A03A
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 04:28:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E622167D;
-	Fri, 26 Mar 2021 04:26:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E622167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A65AD166D;
+	Fri, 26 Mar 2021 04:27:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A65AD166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616729250;
-	bh=jUAF/XKaOUmCX3OFnWxUi47cFOhXx0s/77zBfyOAWlY=;
+	s=default; t=1616729282;
+	bh=kpF3vOOF7IeNzwndGbUFv2X1O30WBin5Hpm7H1cGJmo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uM7PAKyj6SKMR5uJ1sHULCqtQvshzw9jMUrYeHTK/QGeRC7mtbpeeKuLWIBw3T72W
-	 Z6+LfTR/6WlGBk+n+EvpS7kTZkdBXyHAjLzdR7a2bLrzoP59fzgMWos/8Hw8r+KvMs
-	 TM/MuW2uLTNpWlAFmb+r/DV0WTV1JavFbPZZLa3g=
+	b=c1U8y4fldNUh/XRYnCdbquYr19HaBqbtma4AgwMHyMzQiXWsUgjZRS0N20G+pCr5N
+	 Q/+65wnwkcSDdXm09GhT2qL7aSsBtKpqyDL6qYuHUciu6EE7Px4lCCIKR41U+hnsdO
+	 Kky4NCQD8fO3LPo//5cosocjp6N3UtSocet4VMT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE0E4F80423;
-	Fri, 26 Mar 2021 04:26:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68A13F8042F;
+	Fri, 26 Mar 2021 04:26:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16B34F8032C; Fri, 26 Mar 2021 04:26:08 +0100 (CET)
+ id 52F30F80425; Fri, 26 Mar 2021 04:26:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 406B6F80240
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:25:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 406B6F80240
-Date: 26 Mar 2021 12:25:57 +0900
-X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76117669"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 26 Mar 2021 12:25:57 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 38404F802E3
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 04:26:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38404F802E3
+Date: 26 Mar 2021 12:26:06 +0900
+X-IronPort-AV: E=Sophos;i="5.81,279,1610377200"; d="scan'208";a="76117694"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 Mar 2021 12:26:06 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id CACFB400A115;
- Fri, 26 Mar 2021 12:25:57 +0900 (JST)
-Message-ID: <87czvm1tq2.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id E624C41A2E15;
+ Fri, 26 Mar 2021 12:26:04 +0900 (JST)
+Message-ID: <87blb61tpv.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/6] ASoC: simple-card-utils.c: remove old comment
+Subject: [PATCH 2/6] ASoC: simple-card-utils: alloc dai_link information for
+ CPU/Codec/Platform
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87eeg21tqz.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,34 +68,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-commit adb76b5b9c474 ("ASoC: soc-core: remove legacy style dai_link")
-removed snd_soc_init_multicodec(). The comment on asoc_simple_init_priv()
-is no longer needed. This patch removes it.
+simple-card / audio-graph are assuming single CPU/Codec/Platform on
+dai_link. Because of it, it is difficult to support Multi-CPU/Codec.
+
+This patch allocs CPU/Codec/Platform dai_link imformation
+instead of using existing props information. It can update to
+multi-CPU/Codec, but is still assuming single-CPU/Codec for now.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card-utils.c | 5 -----
- 1 file changed, 5 deletions(-)
+ include/sound/simple_card_utils.h     |  7 ++++---
+ sound/soc/generic/simple-card-utils.c | 15 +++++++++++----
+ 2 files changed, 15 insertions(+), 7 deletions(-)
 
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index ba4a3e1897b9..86e46cbf9e14 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -43,9 +43,9 @@ struct asoc_simple_priv {
+ 	struct simple_dai_props {
+ 		struct asoc_simple_dai *cpu_dai;
+ 		struct asoc_simple_dai *codec_dai;
+-		struct snd_soc_dai_link_component cpus;   /* single cpu */
+-		struct snd_soc_dai_link_component codecs; /* single codec */
+-		struct snd_soc_dai_link_component platforms;
++		struct snd_soc_dai_link_component *cpus;
++		struct snd_soc_dai_link_component *codecs;
++		struct snd_soc_dai_link_component *platforms;
+ 		struct asoc_simple_data adata;
+ 		struct snd_soc_codec_conf *codec_conf;
+ 		unsigned int mclk_fs;
+@@ -54,6 +54,7 @@ struct asoc_simple_priv {
+ 	struct asoc_simple_jack mic_jack;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct asoc_simple_dai *dais;
++	struct snd_soc_dai_link_component *dlcs;
+ 	struct snd_soc_codec_conf *codec_conf;
+ 	struct gpio_desc *pa_gpio;
+ 	const struct snd_soc_ops *ops;
 diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 06c2512b6f2d..6897455219d1 100644
+index 6897455219d1..f05954529dfc 100644
 --- a/sound/soc/generic/simple-card-utils.c
 +++ b/sound/soc/generic/simple-card-utils.c
-@@ -617,11 +617,6 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+@@ -601,13 +601,15 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct simple_dai_props *dai_props;
+ 	struct asoc_simple_dai *dais;
++	struct snd_soc_dai_link_component *dlcs;
+ 	struct snd_soc_codec_conf *cconf = NULL;
+ 	int i;
+ 
+ 	dai_props = devm_kcalloc(dev, li->link, sizeof(*dai_props), GFP_KERNEL);
+ 	dai_link  = devm_kcalloc(dev, li->link, sizeof(*dai_link),  GFP_KERNEL);
+ 	dais      = devm_kcalloc(dev, li->dais, sizeof(*dais),      GFP_KERNEL);
+-	if (!dai_props || !dai_link || !dais)
++	dlcs      = devm_kcalloc(dev, li->link * 3, sizeof(*dai_props), GFP_KERNEL);
++	if (!dai_props || !dai_link || !dais || !dlcs)
+ 		return -ENOMEM;
+ 
+ 	if (li->conf) {
+@@ -622,17 +624,22 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 	 *	simple-card-utils.c :: asoc_simple_canonicalize_platform()
+ 	 */
+ 	for (i = 0; i < li->link; i++) {
+-		dai_link[i].cpus		= &dai_props[i].cpus;
++		dai_props[i].cpus	= dlcs + (3 * i) + 0;
++		dai_props[i].codecs	= dlcs + (3 * i) + 1;
++		dai_props[i].platforms	= dlcs + (3 * i) + 2;
++
++		dai_link[i].cpus		= dai_props[i].cpus;
+ 		dai_link[i].num_cpus		= 1;
+-		dai_link[i].codecs		= &dai_props[i].codecs;
++		dai_link[i].codecs		= dai_props[i].codecs;
+ 		dai_link[i].num_codecs		= 1;
+-		dai_link[i].platforms		= &dai_props[i].platforms;
++		dai_link[i].platforms		= dai_props[i].platforms;
+ 		dai_link[i].num_platforms	= 1;
  	}
  
- 	/*
--	 * Use snd_soc_dai_link_component instead of legacy style
--	 * It is codec only. but cpu/platform will be supported in the future.
--	 * see
--	 *	soc-core.c :: snd_soc_init_multicodec()
--	 *
- 	 * "platform" might be removed
- 	 * see
- 	 *	simple-card-utils.c :: asoc_simple_canonicalize_platform()
+ 	priv->dai_props		= dai_props;
+ 	priv->dai_link		= dai_link;
+ 	priv->dais		= dais;
++	priv->dlcs		= dlcs;
+ 	priv->codec_conf	= cconf;
+ 
+ 	card->dai_link		= priv->dai_link;
 -- 
 2.25.1
 

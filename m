@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A89A34B1C9
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:04:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC8934B1CD
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:05:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A989167B;
-	Fri, 26 Mar 2021 23:04:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A989167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C58EF165E;
+	Fri, 26 Mar 2021 23:04:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C58EF165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616796293;
-	bh=f9qmsNUc0jj83jPt03XRRrAKuS+hKxvppDPmVhyl8sM=;
+	s=default; t=1616796336;
+	bh=Az1eBJAcFWrG7CWtUDUyzxU5P9GRI4MHog/RHVyNbZQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f+N8+lyOuaGcXvWRDerEdUe3jm1Lw8z+f51mLmkH6+37IapbqjYV1gnpiWdI3xaYz
-	 DoSfN3uRkm6kz8EGqNrXjUKTj1jbJBuCwlQ03mMIS7yHEXx5aZkaq/fXmkkINfq+uo
-	 6Wq+qUZsbWyYFuJ2v7M7WvpKWVw9VuzA0i/gSCwk=
+	b=WGY8/GmdKt4XdrV3s3WxflCu9DaBIVKXZa0QZeHW23vYWshyUhkQ23UtQQ3nb0ioM
+	 uJMZXNJpVS9w/ZPntuZug177azwczk67UcV10OH2/08JDS4oJ/iTlI8jFy7MpgUx5l
+	 5ni31+oZOqBXQTvjA6KS2w8ip3WV5zzMNOPLiAaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A189F804E0;
-	Fri, 26 Mar 2021 23:00:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1638FF804F1;
+	Fri, 26 Mar 2021 23:00:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50725F80156; Fri, 26 Mar 2021 23:00:15 +0100 (CET)
+ id B5176F804B0; Fri, 26 Mar 2021 23:00:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,37 +33,43 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1364BF8032C
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1364BF8032C
-IronPort-SDR: 4xL/P/XbPeYvUQLzLuSSHW4s0uQl0rXBrTMPakovk0kIUKq1RkekrQRgIoYN7PRYgLc1aDTw/a
- 2sB+efStrVcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396722"
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396722"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47326F80424
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47326F80424
+IronPort-SDR: 3nGV31GyycQ1fg3e2Fk58IVF1meXK5OabMxjCliITh203TSODty8NtXsTZvPqX9mAuVfvXmcue
+ D9VhXyMb0JEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396730"
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396730"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:07 -0700
-IronPort-SDR: pN/1xZugGRK4FmXCaX5DbIjro6qYN2CO3AN2B868fvbV9d9cuop8ag3Jy2dcFwhpH6hDq9Qnzv
- Ftj5AihvMCDQ==
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706816"
+ 26 Mar 2021 15:00:09 -0700
+IronPort-SDR: CzeTxe0xAsNYaajyRxXKP2vOoum6MEbKQdiHKYSUG2P2g6L9+x50WpB4rDhgJKJfOR1gxYDezG
+ 0sb/3cg5pXZw==
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706835"
 Received: from zcmahone-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.255.231.203])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:06 -0700
+ 26 Mar 2021 15:00:07 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/17] ASoC: sti: uniperif: align function prototypes
-Date: Fri, 26 Mar 2021 16:59:19 -0500
-Message-Id: <20210326215927.936377-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 10/17] ASoC: stm: stm32_adfsdm: fix snprintf format string
+Date: Fri, 26 Mar 2021 16:59:20 -0500
+Message-Id: <20210326215927.936377-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 References: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+Cc: Olivier Moysan <olivier.moysan@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
  Takashi Iwai <tiwai@suse.com>, Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- broonie@kernel.org
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,61 +87,30 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 cppcheck warning:
 
-sound/soc/sti/uniperif_player.c:1049:24: style:inconclusive: Function
-'uni_player_init' argument 2 names different: declaration 'uni_player'
-definition 'player'. [funcArgNamesDifferent]
-      struct uniperif *player)
-                       ^
-sound/soc/sti/uniperif.h:1375:24: note: Function 'uni_player_init'
-argument 2 names different: declaration 'uni_player' definition
-'player'.
-      struct uniperif *uni_player);
-                       ^
-sound/soc/sti/uniperif_player.c:1049:24: note: Function
-'uni_player_init' argument 2 names different: declaration 'uni_player'
-definition 'player'.
-      struct uniperif *player)
-                       ^
-sound/soc/sti/uniperif_reader.c:411:24: style:inconclusive: Function
-'uni_reader_init' argument 2 names different: declaration 'uni_reader'
-definition 'reader'. [funcArgNamesDifferent]
-      struct uniperif *reader)
-                       ^
-sound/soc/sti/uniperif.h:1380:24: note: Function 'uni_reader_init'
-argument 2 names different: declaration 'uni_reader' definition
-'reader'.
-      struct uniperif *uni_reader);
-                       ^
-sound/soc/sti/uniperif_reader.c:411:24: note: Function
-'uni_reader_init' argument 2 names different: declaration 'uni_reader'
-definition 'reader'.
-      struct uniperif *reader)
-                       ^
+sound/soc/stm/stm32_adfsdm.c:120:2: warning: %d in format
+string (no. 1) requires 'int' but the argument type is 'unsigned
+int'. [invalidPrintfArgType_sint]
+ snprintf(str_freq, sizeof(str_freq), "%d\n", freq);
+ ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sti/uniperif.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/stm/stm32_adfsdm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
-index a16adeb7c1e9..2a5de328501c 100644
---- a/sound/soc/sti/uniperif.h
-+++ b/sound/soc/sti/uniperif.h
-@@ -1372,12 +1372,12 @@ static __maybe_unused const struct snd_pcm_hardware uni_tdm_hw = {
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index 47fae8dd20b4..e6078f50e508 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -117,7 +117,7 @@ static int stm32_adfsdm_set_sysclk(struct snd_soc_dai *dai, int clk_id,
  
- /* uniperiph player*/
- int uni_player_init(struct platform_device *pdev,
--		    struct uniperif *uni_player);
-+		    struct uniperif *player);
- int uni_player_resume(struct uniperif *player);
+ 	/* Set IIO frequency if CODEC is master as clock comes from SPI_IN */
  
- /* uniperiph reader */
- int uni_reader_init(struct platform_device *pdev,
--		    struct uniperif *uni_reader);
-+		    struct uniperif *reader);
- 
- /* common */
- int sti_uniperiph_dai_set_fmt(struct snd_soc_dai *dai,
+-	snprintf(str_freq, sizeof(str_freq), "%d\n", freq);
++	snprintf(str_freq, sizeof(str_freq), "%u\n", freq);
+ 	size = iio_write_channel_ext_info(priv->iio_ch, "spi_clk_freq",
+ 					  str_freq, sizeof(str_freq));
+ 	if (size != sizeof(str_freq)) {
 -- 
 2.25.1
 

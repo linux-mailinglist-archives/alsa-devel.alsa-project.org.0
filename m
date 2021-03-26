@@ -2,77 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2BAC34AF96
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 20:51:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381FD34B036
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 21:35:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B95A1167B;
-	Fri, 26 Mar 2021 20:50:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95A1167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC121167A;
+	Fri, 26 Mar 2021 21:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC121167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616788306;
-	bh=LTiXVpceQNtwSuUiR2PZ8oHN1aHkanMzMat31tiwcK4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vgQpXSepxsIlh8cD3HBo7e+ucwfsAUkGGR3yjblGaKecb2xBqwuTGYDVfzuNo08KE
-	 RRP6zi1Eu4GrjdDww4QmTp/K9fUYjyqlWjiIEbLcK8TEnPeLeWCK2pspD/bpNyBF0f
-	 2yeHdf7By91L6mlABX6wKNLRIU2U/nki5dAogm3Q=
+	s=default; t=1616790952;
+	bh=plc1nBASV18dS4fwBwU/djUhCnGQQONWmj1MU0HyzAk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GFzOz27DDvuKH1oWIepwU4lBX+zul11blgZPrQdkly69O0cAwx2n8Gi3LO1K/X9IE
+	 vntO2pl0dWiPaUe3jJEWn778lR1k29NM1wXXXiIt7x3qDwIk8NIq/Q5fwLNPUxa9CD
+	 VMOp3aCx7a4k21cskV5n2LNhh5H+mGoH8swtk52k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC0C0F801D5;
-	Fri, 26 Mar 2021 20:50:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07DC5F801D5;
+	Fri, 26 Mar 2021 21:34:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C6D3F8016B; Fri, 26 Mar 2021 20:50:17 +0100 (CET)
+ id 3E338F8016B; Fri, 26 Mar 2021 21:34:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
+ [209.85.166.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1756F800D0
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 20:50:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1756F800D0
-Received: by mail-io1-f42.google.com with SMTP id f19so6593078ion.3
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 12:50:07 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53CA5F80103
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 21:34:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53CA5F80103
+Received: by mail-il1-f182.google.com with SMTP id j11so6039760ilu.13
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 13:34:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QMADa3hLSWQ6fsdPZyxglXagkduiht0CfsajenFjEE8=;
- b=aDX4W5GD2g2xmqImdRvWcXsurDB7MIs/MUbHi6lpjOwOy1eGGe6OKF/po8wT1Q7mkG
- Lsd2Ej0cFYX99ceEm0vhuPomU+xHPHK6RgJSlx2lxVBicJM0ISk3ue1o8j+cgpfx0qph
- WzsAZcdrEX717Fa0kUz5MQl+gskWW/T9W7TtZUJ0UsAbl9ckng+Zc1s+MtpSx9yjEdLD
- mpYrk541NKwFkvuvN4+aEq8Muh6ojBQvGEOdgsaJPk63WPmYcaDXVrn3fhsP5eAU+a5x
- XVpB0u0GzkhXQ6mKb7uVXyHvNOLLb3hk288VgmAFZkgDGp78DLk/XBsUm/iaDoH2XTpG
- A0kw==
-X-Gm-Message-State: AOAM53014B68bbAlIcNe6UUOKvR8CHUaBOdiHm8jVOlBCub7hkUjcydB
- I90Ib3vOF/DlTm2uYmeQlw==
-X-Google-Smtp-Source: ABdhPJx+B5BxlFABLodj85dQF/ZfrrYTvXbR1H6ArMkSNfY0AO+aQiPUFwiyecNqyYOc/2oHUxRoVw==
-X-Received: by 2002:a05:6638:2603:: with SMTP id
- m3mr13456452jat.64.1616788205884; 
- Fri, 26 Mar 2021 12:50:05 -0700 (PDT)
-Received: from xps15.herring.priv ([64.188.179.253])
- by smtp.googlemail.com with ESMTPSA id h2sm4645441ioj.30.2021.03.26.12.50.04
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=nVKeuOYq4ZRrIsp37jdBb4vtF9hhEECTQSIn1HZx5iA=;
+ b=Fl5eJ+O69jBDttIF8DGEx5aiTy7QmeB9gBWZJEc6yckhJhuvstjoP6zpFhn2BkQYfG
+ VHnPLZz+D5z1Iqpy03pfuGSIoBiIuWS08mfX7Vk52cZYZBcyCCUYNq7MQ3iXiyB8lHaP
+ mGaXohMIppRO8+RgV1x6m5ufMxELgzQGkyXe7LIJD+87D4v3oBANuJoKQo2K8be0IZPa
+ OkGHMrduKc21wZ/Y0+p6+7LoLo7Y40zCyTURJhqw0xzGaiWDuWaukn0pVe3Zoj1id0uG
+ D4uJgvrHvGVnkKA6Id9kYIYD3jq4CG/c8OFbd/odswzF3dac5pc/3fIP5ix328fe4cui
+ BdNg==
+X-Gm-Message-State: AOAM533f5gQ4dJgEeYWPXdoxjBm9b+nfnrdJjhJGDGlN75tXw5bucIug
+ HQa7Fyvqbeter8/Bl5fAQQ==
+X-Google-Smtp-Source: ABdhPJwiyitomT/BLbYWZO7Cv/DV/H/+KIHIojxicIpsVz/SK78peRh9juaS9j1piU83sHJE1203FA==
+X-Received: by 2002:a92:d7cd:: with SMTP id g13mr7749033ilq.190.1616790850569; 
+ Fri, 26 Mar 2021 13:34:10 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id k12sm4906388ios.2.2021.03.26.13.34.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Mar 2021 12:50:05 -0700 (PDT)
+ Fri, 26 Mar 2021 13:34:09 -0700 (PDT)
+Received: (nullmailer pid 3819515 invoked by uid 1000);
+ Fri, 26 Mar 2021 20:34:07 -0000
+Date: Fri, 26 Mar 2021 14:34:07 -0600
 From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2] ASoC: dt-bindings: nvidia,
- tegra210-ahub: Add missing child nodes
-Date: Fri, 26 Mar 2021 13:50:03 -0600
-Message-Id: <20210326195003.3756394-1-robh@kernel.org>
-X-Mailer: git-send-email 2.27.0
+To: jack.yu@realtek.com
+Subject: Re: [PATCH v2] ASoC: rt1019: add rt1019 amplifier driver
+Message-ID: <20210326203407.GA3815424@robh.at.kernel.org>
+References: <20210311025809.31852-1-jack.yu@realtek.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210311025809.31852-1-jack.yu@realtek.com>
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, lgirdwood@gmail.com,
+ broonie@kernel.org, derek.fang@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,57 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The nvidia,tegra210-ahub binding is missing schema for child nodes. This
-results in warnings if 'additionalProperties: false' is set (or when the
-tools implement 'unevaluatedProperties' support). Add the child nodes
-and reference their schema if one exists.
+On Thu, Mar 11, 2021 at 10:58:09AM +0800, jack.yu@realtek.com wrote:
+> From: Jack Yu <jack.yu@realtek.com>
+> 
+> This is initial amplifier driver for rt1019.
+> 
+> Signed-off-by: Jack Yu <jack.yu@realtek.com>
+> ---
+>  .../devicetree/bindings/sound/rt1019.yaml     |  33 +
 
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Sameer Pujar <spujar@nvidia.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linux-tegra@vger.kernel.org
-Signed-off-by: Rob Herring <robh@kernel.org>
----
-v2:
- - Also add 'dspk' child node
+Bindings should be a separate patch. checkpatch.pl will tell you this.
 
-This patch ideally should be applied before this series[1].
+Bindings should also be sent to the DT list. get_maintainer.pl will tell 
+you this.
 
-[1] https://lore.kernel.org/r/20210323163634.877511-1-robh@kernel.org/
----
- .../bindings/sound/nvidia,tegra210-ahub.yaml     | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Now this causes warnings in linux-next:
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-index e568d6c7dddd..1118a9488345 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-@@ -69,6 +69,22 @@ properties:
-         $ref: audio-graph-port.yaml#
-         unevaluatedProperties: false
- 
-+patternProperties:
-+  '^i2s@[0-9a-f]+$':
-+    type: object
-+
-+  '^dmic@[0-9a-f]+$':
-+    type: object
-+    $ref: nvidia,tegra210-dmic.yaml#
-+
-+  '^admaif@[0-9a-f]+$':
-+    type: object
-+    $ref: nvidia,tegra210-admaif.yaml#
-+
-+  '^dspk@[0-9a-f]+$':
-+    type: object
-+    $ref: nvidia,tegra186-dspk.yaml#
-+
- required:
-   - compatible
-   - reg
--- 
-2.27.0
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (pci_device_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/rt1019.example.dts:19.13-24.11: Warning (i2c_bus_bridge): /example-0/i2c: incorrect #address-cells for I2C bus
+Documentation/devicetree/bindings/sound/rt1019.example.dts:19.13-24.11: Warning (i2c_bus_bridge): /example-0/i2c: incorrect #size-cells for I2C bus
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (i2c_bus_reg): Failed prerequisite 'i2c_bus_bridge'
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/rt1019.example.dts:20.30-23.15: Warning (avoid_default_addr_size): /example-0/i2c/codec@28: Relying on default #address-cells value
+Documentation/devicetree/bindings/sound/rt1019.example.dts:20.30-23.15: Warning (avoid_default_addr_size): /example-0/i2c/codec@28: Relying on default #size-cells value
+Documentation/devicetree/bindings/sound/rt1019.example.dt.yaml: Warning (unique_unit_address): Failed prerequisite 'avoid_default_addr_size'
 
+>  sound/soc/codecs/Kconfig                      |   7 +
+>  sound/soc/codecs/Makefile                     |   2 +
+>  sound/soc/codecs/rt1019.c                     | 940 ++++++++++++++++++
+>  sound/soc/codecs/rt1019.h                     | 320 ++++++
+>  5 files changed, 1302 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/rt1019.yaml
+>  create mode 100644 sound/soc/codecs/rt1019.c
+>  create mode 100644 sound/soc/codecs/rt1019.h

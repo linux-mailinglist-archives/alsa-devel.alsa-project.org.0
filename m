@@ -2,88 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3DB434A22B
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 07:46:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2490B34A234
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 07:55:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D39A1683;
-	Fri, 26 Mar 2021 07:46:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D39A1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC2DB166A;
+	Fri, 26 Mar 2021 07:54:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC2DB166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616741212;
-	bh=iCYqzB/l1XSuf0YfN20bJvOYLEthnpRvKmuf7fkQRhw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=o9HrnyVe0eUrdPok4oN7WtO3rzVEFDkTkRML/0T8R/P0nJaRE4zuuQhQk5ES+tQjI
-	 MrIPxqiTzfaEPnG5mg12C+FIo5K6pevpd+EPeooSOYF5SM5Rt+K5lV/cBJAok9Mi7/
-	 Yucev6sfyqqvVjNMguhHuFl7suaj0Hfs2pMluETc=
+	s=default; t=1616741727;
+	bh=PehycJVoQDQv77o1b+R7SM0Cf7uDAL6nv3gBWbK+0Lg=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZFJy+6E1CH+LBssTgyAit9Sj0OMfwE1ayRPqEf8avrWMmLyQSnHe3eNlg0OcIAv1H
+	 X6UMGVW2EvguYKUWnvl5q94COUS6CIleuIoNJ/E9Z03fqve3U+FhMas4SFD0trHhwC
+	 io32Qfpv4rihHv6vdBMjZaTj51kgOoF+c/9Ey8nQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90E78F801EB;
-	Fri, 26 Mar 2021 07:45:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C67DF801D5;
+	Fri, 26 Mar 2021 07:54:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30242F801EB; Fri, 26 Mar 2021 07:45:20 +0100 (CET)
+ id 7CF90F8016B; Fri, 26 Mar 2021 07:53:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8693FF801D5
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 07:45:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8693FF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEC5BF80104
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 07:53:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC5BF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FFkb7IcZ"
-Received: by mail-qv1-xf2f.google.com with SMTP id t16so2423815qvr.12
- for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 23:45:08 -0700 (PDT)
+ header.b="kfbwmYzd"
+Received: by mail-qt1-x82c.google.com with SMTP id f12so3611716qtq.4
+ for <alsa-devel@alsa-project.org>; Thu, 25 Mar 2021 23:53:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7bLoqfBiZVQk0YIeIKhgPKBtJ507LhBAmlJ/A5xeilw=;
- b=FFkb7IcZ05aM6s5rziT8HAuHISXf5fGUGlz5QF5iHFqcrZ2riRz6i1o9Om5SofPLt+
- 5/sM1WNetUR3dozt7vsUwv0cFmAaTGeosZmnESSMMw8ncfwpVh6eOiGIxm0I+x1R+moN
- 6PA3YyOUl5ttzJvKrS8dAjwEogBUgO1hcs+giQZkpIw7UiWVl+VDV+pIzW1l/Zmj1ZpQ
- SOorvKNLa2zICFJ6N1XANaZgxi/lzU3cZfs0rxpmUMpLCJgQdup15tC3k2BnxSNJRfkD
- Paz1//jmolGZxVgXfkK9nPcO8RwBnzAVvJwjCTxA2qodD5pdMu5GPy4XCa3qwDLBUES5
- EWfw==
+ h=date:from:to:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=nUwFCtefq9Akj86fs38lRmS/6+y+x3jxc1EE8QP2oxA=;
+ b=kfbwmYzd9ehL5KdkMxudoTA+LQSmRraO+Uj7iVqtHKa5ojhFA8Jx3Uv61jfMeXO7jo
+ cCjKnAuO1kp2OFq22rGMtTXYPiSBaOmiTLkbx1+WpTY5kRh9w8OW/AmfATptftW2c/y7
+ ESWi5i5qUfK2nTr7P8wA2vcJS7Vssmw8F2Wr+oerpkuMaBJ0P0twmbv/MLHSnpHFssFr
+ lWtcz1T+EQSR/66gASxE9MFyTZAYd0NkS7xb51ibe8clS3vLNCJdXq+lRrxvNkQ/B2bW
+ tmnB7uP+l/LXXWa9FtDalGlgXHQY8mnmT2ecur7qif/Po04i8Hq2+GyjnEEx8q/lcU4v
+ HLHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7bLoqfBiZVQk0YIeIKhgPKBtJ507LhBAmlJ/A5xeilw=;
- b=txfsx0fP/OVQlrqd1DwrYYsADWNM/qCkaf1qr/boP7ci43uxk89h9J27zUkgJJxzgk
- rV4UZHOHk4hjJD1S3cL7TW0OkRyz29H+3iPNP4iq9s4H+ZGS3XZkkGETJMVZ3P/arOJq
- yffuyAEaHO1nowDosORNzhLc1Nw2xDBw98PoJBb0KN2KK7xsNn/AzRQ/j0eMbaYPCnMq
- 7FSbSGNF6trtPfb6dexHwHltYhX6ssLVTE/4mHZDG8obW7TTk/j2N/pSeHSns0eSUH/Z
- 6X6h3iJN6858JVX+i3ULbQSGxcsj9U/2cKfaPUbXvpXGf9MA9IKlg6eAy4TyvTRHErf7
- uK0g==
-X-Gm-Message-State: AOAM533VYlq2wkuLjdAM5s1XQJnERAe12ppuSpcueZj/ZLeZfPEguKfh
- iZ40Xzm2PzrrjVR6t3cqIGU=
-X-Google-Smtp-Source: ABdhPJyEOv5nlQlCy87iUnxGvRQ2JRfM21w3HIYPDsa93cn6J9KXQrXRp5KsUhdMsnByc3LR8XTOFA==
-X-Received: by 2002:ad4:4ab0:: with SMTP id i16mr11854813qvx.1.1616741107529; 
- Thu, 25 Mar 2021 23:45:07 -0700 (PDT)
-Received: from localhost.localdomain ([37.19.198.107])
- by smtp.gmail.com with ESMTPSA id b12sm5316693qti.43.2021.03.25.23.45.02
+ h=x-gm-message-state:date:from:to:subject:message-id:mail-followup-to
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=nUwFCtefq9Akj86fs38lRmS/6+y+x3jxc1EE8QP2oxA=;
+ b=Vc+LHKYVBMoFIm8DXlzJtqTLESuzqr45cS2XBDjaNEJ9zShgoONluF7RLecz69f5lA
+ DI7tMG1nZ9U1TGG7oLpJ7T8sV9amyakBKze6pDjSJ8VH4AULljYZ1dNG2M6HHWocxhaI
+ a0wTvy5Gp5ru2I3xLdJxo5u92MN1tVNA39xET4F2fnoNI9AlFC52eJky46n9JDGZQn9+
+ cl/y66zKLlwNVo7QsqFLY3Uo5ZCK/7Rg+f82tdBF3Alds4voCuU8MXI2xpVGOp04V5g9
+ 0BN52bG84nfOGEkKRRdEcjZADaN2VeoztsTOU4iwJoiPu6W980xIk47a0VY3RH22b2Uq
+ C0vA==
+X-Gm-Message-State: AOAM5328XhePHKRTB6D1bSoGUyFhbYP9VVifv9Wia1b56m+BrVwrYwjs
+ /RDYgDV5JzuOm0wg2eS0sEFJY4xO+S93PQ46
+X-Google-Smtp-Source: ABdhPJydoab5AnAmnyhWxAtyEVod5CSEagF5rFVbo+FZJniNqy0g1jkltYo+65oE2y6iuu9XafXdLQ==
+X-Received: by 2002:ac8:5913:: with SMTP id 19mr11112452qty.391.1616741630780; 
+ Thu, 25 Mar 2021 23:53:50 -0700 (PDT)
+Received: from Gentoo ([37.19.198.107])
+ by smtp.gmail.com with ESMTPSA id r133sm6258784qke.20.2021.03.25.23.53.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Mar 2021 23:45:06 -0700 (PDT)
+ Thu, 25 Mar 2021 23:53:49 -0700 (PDT)
+Date: Fri, 26 Mar 2021 12:23:40 +0530
 From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, unixbhaskar@gmail.com,
- mirq-linux@rere.qmqm.pl, broonie@kernel.org, gustavoars@kernel.org,
- viro@zeniv.linux.org.uk, joe@perches.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH V4] ALSA: pcm:  Fix couple of typos
-Date: Fri, 26 Mar 2021 12:12:11 +0530
-Message-Id: <20210326064211.6509-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.26.2
+To: Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
+ broonie@kernel.org, mirq-linux@rere.qmqm.pl, lars@metafoo.de,
+ gustavoars@kernel.org, huawei@kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org
+Subject: Re: [PATCH V3]  ALSA: pcm: Fix couple of typos
+Message-ID: <YF2E9JEVH4ZzrmIC@Gentoo>
+Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
+ broonie@kernel.org, mirq-linux@rere.qmqm.pl, lars@metafoo.de,
+ gustavoars@kernel.org, huawei@kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org
+References: <20210325090609.10372-1-unixbhaskar@gmail.com>
+ <s5ho8f7mv5k.wl-tiwai@suse.de> <20210325095617.GB32566@debian>
+ <s5hk0pvmrwp.wl-tiwai@suse.de> <20210325120717.GA9273@debian>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: rdunlap@infradead.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="zCuWupg/ChuX+eaT"
+Content-Disposition: inline
+In-Reply-To: <20210325120717.GA9273@debian>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,39 +112,101 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-s/unconditonally/unconditionally/
-s/succesful/successful/
+--zCuWupg/ChuX+eaT
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- Changes from V3:
-  Yet another try to make it work
+On 17:37 Thu 25 Mar 2021, Bhaskar Chowdhury wrote:
+>On 11:47 Thu 25 Mar 2021, Takashi Iwai wrote:
+>>On Thu, 25 Mar 2021 10:56:39 +0100,
+>>Bhaskar Chowdhury wrote:
+>>>
+>>> On 10:37 Thu 25 Mar 2021, Takashi Iwai wrote:
+>>> >On Thu, 25 Mar 2021 10:06:09 +0100,
+>>> >Bhaskar Chowdhury wrote:
+>>> >>
+>>> >> s/unconditonally/unconditionally/
+>>> >> s/succesful/successful/
+>>> >>
+>>> >> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+>>> >> ---
+>>> >>  Changes from V2:
+>>> >>  Takashi pointed out that the patch was not applicable due to some u=
+nwanted
+>>> >>  stuff get into it. Resending it with the new patch creation.
+>>> >
+>>> >Hrm, still not applicable.  Can you apply the patch from your own post
+>>> >via git-am in your side?
+>>> >
+>>> Here is what I do for this specific case :
+>>>
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=94]
+>>> 15:18 $ sed -i 's/unconditonally/unconditionally/' sound/core/pcm_nativ=
+e.c
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=9A 1]
+>>> 15:19 $ sed -i 's/succesful/successful/' sound/core/pcm_native.c
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=9A 1]
+>>> 15:19 $ git add .
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>>> 15:19 $ git ci "Fix some patch error"
+>>> [patch 88d5af187dbb] Fix some patch error
+>>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> 15:21 $ git_fetch_single_file.sh sound/core/pcm_native.c
+>>> Looks alright!=E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>>> 15:21 $ git add .
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=97=8F1]
+>>> 15:21 $ git ci "Bring for patch"
+>>> [patch 352e1ce8dacf] Bring for patch
+>>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>>> =E2=9C=94 ~/git-linux/linux-next [patch L|=E2=9C=94]
+>>> 15:22 $ git apply --verbose 0001-Made-patche-for-this.patch
+>>> Checking patch sound/core/pcm_native.c...
+>>> Applied patch sound/core/pcm_native.c cleanly.
+>>
+>>I meant to try to apply the patch from mail fetched from the ML, not
+>>the patch you made from your git tree.
+>>
+>>
+>
+>Hmmmmmm
+>
+>bhaskar@debian_16:18:41_Thu Mar 25 :~> mutt
+>Applying: ALSA: pcm: Fix couple of typos
+>error: corrupt patch at line 29
+>Patch failed at 0001 ALSA: pcm: Fix couple of typos
+>hint: Use 'git am --show-current-patch' to see the failed patch
+>When you have resolved this problem, run "git am --continue".
+>If you prefer to skip this patch, run "git am --skip" instead.
+>To restore the original branch and stop patching, run "git am --abort".
+>Press any key to continue...
+>
+>
+>Something bugging it ....
+>>Takashi
 
- sound/core/pcm_native.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Okay ,I have sent a V4 now and it seems working ....when I did a "git am fr=
+om
+mutt" and the result is getting reflected on linux-next file.
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 17a85f4815d5..8dbe86cf2e4f 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1425,7 +1425,7 @@ static int snd_pcm_do_stop(struct snd_pcm_substream *substream,
- 		substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_STOP);
- 		substream->runtime->stop_operating = true;
- 	}
--	return 0; /* unconditonally stop all substreams */
-+	return 0; /* unconditionally stop all substreams */
- }
+Takashi, could you please give it another shot....
 
- static void snd_pcm_post_stop(struct snd_pcm_substream *substream,
-@@ -1469,7 +1469,7 @@ EXPORT_SYMBOL(snd_pcm_stop);
-  * After stopping, the state is changed to SETUP.
-  * Unlike snd_pcm_stop(), this affects only the given stream.
-  *
-- * Return: Zero if succesful, or a negative error code.
-+ * Return: Zero if successful, or a negative error code.
-  */
- int snd_pcm_drain_done(struct snd_pcm_substream *substream)
- {
---
-2.26.2
+~Bhaskar
 
+--zCuWupg/ChuX+eaT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAmBdhOoACgkQsjqdtxFL
+KRUj9Af+JK2fMeO4t4hVldwgvY3tOWTqZ3+7723IjuEMz38R9zZoIo9cWV89c24s
+gs/jIWiRdB+HSQCLKoidZg3cZmbmssn6snv9M8J7f3gv4paasdXKNKSLtPmSSeYo
+GSfvR5JjuUzQbZZA42uoIMCZRLB3fBP37kXdvwSgaPqHtgrkliNKQ43HT6xMIB4J
+sR4VBL4rEicFObUOMs70Bzy1KmLsYCdahXoxmSFEHwLyIAQmEQPcTnoK2vFDlT3e
+4rVj2b2LUJ22RaSRT5SaMjprmlNf4QhZGsWlyxhLe9TrgMr9hFPnoHggEyROSutY
+SFmOti8eBtgRwV8dp4Gz6K6aqAOeXQ==
+=HcJT
+-----END PGP SIGNATURE-----
+
+--zCuWupg/ChuX+eaT--

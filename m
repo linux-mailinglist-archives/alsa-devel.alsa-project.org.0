@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0478E34B1E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A5034B1E9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:07:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97C94167B;
-	Fri, 26 Mar 2021 23:06:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97C94167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1269168C;
+	Fri, 26 Mar 2021 23:06:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1269168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616796419;
-	bh=3M6I5GvHiJomyBHDvfRbRiprI4yyHzb07pzIcPF0vJE=;
+	s=default; t=1616796438;
+	bh=dAVFJogPIJXKgJL9SlsRkCGWJnG7A3rYA9ySB8nBLXs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WWAyVpVhJq4KpZafcZWORBT4zTl91oPJf3YOkvIy/kwk5a/+PIdeHvInAGJScpoVX
-	 dONv7THVIXCRYZ/PsHFyz7KOVcdgzWqTrZAZARBUj0h4isG8bT3VC7oi4I4NlrtvAz
-	 DwZ1SxI63HlzdoOmb6M13/9dU48jKHssA1vlPkIA=
+	b=XG+WHOZELwPRqRwRQBiACanJUKyHp22hVaBEczmt2WFMDDZkyQHwHGePrHgbau3I9
+	 DsnZygqxr/5sQImnGiEyESYD345isNFlBclKA9IOb0XisQk94QLNSNf4ydR+Rn0YoM
+	 ur1sejU4rbzzSEQCMkHuIxVuVqpSAwBKLVZ4Dngw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E49DF80516;
-	Fri, 26 Mar 2021 23:00:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58163F80517;
+	Fri, 26 Mar 2021 23:00:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBB3AF804BD; Fri, 26 Mar 2021 23:00:25 +0100 (CET)
+ id D4132F804C1; Fri, 26 Mar 2021 23:00:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,39 +33,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63087F804AA
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63087F804AA
-IronPort-SDR: ROX2pDU7Q2B9SFSrKD5Wra0s0J67tatXfNFlTHKqPO9tQJQP1wrTgpJ7hhg6GQo1aRPhhr2ODE
- iWDaN7RpXj5Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396766"
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396766"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91AB2F80424
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91AB2F80424
+IronPort-SDR: 39nVy8efzfBUblzaO9iu2V1ZsRLQUKxePUSZRDjwhk7AM4dst9FdarvHrYrpAQ17NKmJDG+J2S
+ WccfpfUOo1Gg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396774"
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396774"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:18 -0700
-IronPort-SDR: ASrSkSy8ZzswgpddkfExnkweIrF0cmWYNKVfEIkWOgDZgL5x4QQMuVTx979VYSanpiBWsvpsoE
- oMy7OKeqDUbw==
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706935"
+ 26 Mar 2021 15:00:20 -0700
+IronPort-SDR: nPJ8jPadMkVbnv7xLbDyKf9HG38G13QAZWtGuntDeJsDiX+xso8g0kvCTDrgIjKW4N4XYVcpI6
+ /MGS1CplOobA==
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706959"
 Received: from zcmahone-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.255.231.203])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:17 -0700
+ 26 Mar 2021 15:00:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 15/17] ASoC: ti: omap-mcsp: remove duplicate test
-Date: Fri, 26 Mar 2021 16:59:25 -0500
-Message-Id: <20210326215927.936377-16-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 16/17] ASoC: ux500: mop500: rename shadowing variable
+Date: Fri, 26 Mar 2021 16:59:26 -0500
+Message-Id: <20210326215927.936377-17-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 References: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: "open list:OMAP AUDIO SUPPORT" <linux-omap@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,43 +81,43 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 cppcheck warning:
 
-sound/soc/ti/omap-mcbsp.c:379:11: style: The if condition is the same
-as the previous if condition [duplicateCondition]
+sound/soc/ux500/mop500.c:143:23: style: Local variable 'mop500_card'
+shadows outer variable [shadowVariable]
 
- if (mcbsp->irq) {
-          ^
-sound/soc/ti/omap-mcbsp.c:376:11: note: First condition
- if (mcbsp->irq)
-          ^
-sound/soc/ti/omap-mcbsp.c:379:11: note: Second condition
- if (mcbsp->irq) {
-          ^
-
-Keeping two separate tests was probably intentional for clarity, but
-since this generates warnings we might as well make cppcheck happy so
-that we have fewer warnings.
+ struct snd_soc_card *mop500_card = platform_get_drvdata(pdev);
+                      ^
+sound/soc/ux500/mop500.c:54:28: note: Shadowed declaration
+static struct snd_soc_card mop500_card = {
+                           ^
+sound/soc/ux500/mop500.c:143:23: note: Shadow variable
+ struct snd_soc_card *mop500_card = platform_get_drvdata(pdev);
+                      ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/ti/omap-mcbsp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/ux500/mop500.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-index 6025b30bbe77..db47981768c5 100644
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
-@@ -373,10 +373,9 @@ static void omap_mcbsp_free(struct omap_mcbsp *mcbsp)
- 		MCBSP_WRITE(mcbsp, WAKEUPEN, 0);
+diff --git a/sound/soc/ux500/mop500.c b/sound/soc/ux500/mop500.c
+index cdae1190b930..4f41bb0ab2b0 100644
+--- a/sound/soc/ux500/mop500.c
++++ b/sound/soc/ux500/mop500.c
+@@ -140,12 +140,12 @@ static int mop500_probe(struct platform_device *pdev)
  
- 	/* Disable interrupt requests */
--	if (mcbsp->irq)
-+	if (mcbsp->irq) {
- 		MCBSP_WRITE(mcbsp, IRQEN, 0);
+ static int mop500_remove(struct platform_device *pdev)
+ {
+-	struct snd_soc_card *mop500_card = platform_get_drvdata(pdev);
++	struct snd_soc_card *card = platform_get_drvdata(pdev);
  
--	if (mcbsp->irq) {
- 		free_irq(mcbsp->irq, (void *)mcbsp);
- 	} else {
- 		free_irq(mcbsp->rx_irq, (void *)mcbsp);
+ 	pr_debug("%s: Enter.\n", __func__);
+ 
+-	snd_soc_unregister_card(mop500_card);
+-	mop500_ab8500_remove(mop500_card);
++	snd_soc_unregister_card(card);
++	mop500_ab8500_remove(card);
+ 	mop500_of_node_put();
+ 
+ 	return 0;
 -- 
 2.25.1
 

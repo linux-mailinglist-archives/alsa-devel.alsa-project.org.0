@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479B034B1C6
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:04:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EFB334B1C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Mar 2021 23:04:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9F261694;
-	Fri, 26 Mar 2021 23:03:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9F261694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08AA71686;
+	Fri, 26 Mar 2021 23:03:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08AA71686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616796248;
-	bh=9qDUwHPTBroQ8LNiEQzFb6UW4q04SWcs0SnBKY7uo74=;
+	s=default; t=1616796270;
+	bh=YJOWNXQFye6xx8+LXtMXb1edWo4V1LKAlet3msswDBA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K1bRBX3vSdDrXTwm4WVbpApXrJ51UDt0awxucy4QWoev3YQajs7Oa2Z6ovfmlTtHl
-	 RacoOesm4fGycRKj4VoXCL5qFZGW7A7SOzdvxHXI7inhp6G2AI8rn3IoItRUIo5Nql
-	 nN+OemxiLpEPHXEqEjmgvGKz0gDLTa8sqQ20EGwc=
+	b=pmIMHxU/OBP+9FKJbg/rIYxAg6Rvpju2tj0vsFF7Y8VSJpftL+bnOfDQWjMseqfQ3
+	 XLMwONbymMdCqnZyO6HH7pTUtaH5pF366qhsji692lIY3awcctXoWbD/mnyG0YqyBU
+	 8Qmqfg1OFS62GwSvSOjgfp9LOBGeY3ttpjukOi/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7ACC2F804AA;
-	Fri, 26 Mar 2021 23:00:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CA66F804DF;
+	Fri, 26 Mar 2021 23:00:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2496F802E3; Fri, 26 Mar 2021 23:00:14 +0100 (CET)
+ id 1C1D8F80431; Fri, 26 Mar 2021 23:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,40 +33,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61355F80156
+ by alsa1.perex.cz (Postfix) with ESMTPS id 823A0F8032D
  for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 23:00:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61355F80156
-IronPort-SDR: dcLfLEdyGFbiLF54jsD9CA2cN57Xp/gaKUaNAzFEnDSIiEKnXxdz3QfqDfiKVBQfF+pdhdeSnl
- t7rY4gORptTA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396714"
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396714"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 823A0F8032D
+IronPort-SDR: f7JO11bYM7uy91gJ32etwnWDVCpkiGCiTV8eQktOvmq3o+dQSqdlbznmnZ6Bb0hR6+DxMqrkPk
+ 9bDmb7VjNaDA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9935"; a="211396717"
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="211396717"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:05 -0700
-IronPort-SDR: LPvQQBUTZQoub2tgOnyV3oci46fvQuMKxLtmO0TNsF6EKwhztLoDFYJJu9ibZwwz2dP6h5WHcv
- LChziWVcD0ww==
-X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706775"
+ 26 Mar 2021 15:00:06 -0700
+IronPort-SDR: 7NWZHaaay1C/1PxCKzjdVdf7YwM5gdF5YFKIj46EH6by9m9zByzidJ4/VP14TKr0nh48yjZQF1
+ 4NwB0i7DUqAQ==
+X-IronPort-AV: E=Sophos;i="5.81,281,1610438400"; d="scan'208";a="416706795"
 Received: from zcmahone-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.255.231.203])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 15:00:03 -0700
+ 26 Mar 2021 15:00:05 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/17] ASoC: pxa: remove useless assignment
-Date: Fri, 26 Mar 2021 16:59:17 -0500
-Message-Id: <20210326215927.936377-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 08/17] ASoC: sti: sti_uniperif: add missing error check
+Date: Fri, 26 Mar 2021 16:59:18 -0500
+Message-Id: <20210326215927.936377-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 References: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org,
- "moderated list:PXA2xx/PXA3xx SUPPORT" <linux-arm-kernel@lists.infradead.org>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Daniel Mack <daniel@zonque.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ Takashi Iwai <tiwai@suse.com>, Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +81,39 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 cppcheck warning:
 
-sound/soc/pxa/mmp-pcm.c:207:10: style: Variable 'ret' is assigned a
-value that is never used. [unreadVariable]
- int ret = 0, stream;
-         ^
+sound/soc/sti/sti_uniperif.c:490:6: style: Variable 'ret' is
+reassigned a value before the old one has been
+used. [redundantAssignment]
+ ret = devm_snd_soc_register_component(&pdev->dev,
+     ^
+sound/soc/sti/sti_uniperif.c:486:6: note: ret is assigned
+ ret = sti_uniperiph_cpu_dai_of(node, priv);
+     ^
+sound/soc/sti/sti_uniperif.c:490:6: note: ret is overwritten
+ ret = devm_snd_soc_register_component(&pdev->dev,
+     ^
+
+sti_uniperiph_cpu_dai_of() can return -EINVAL which seems like a
+good-enough reason to bail.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/pxa/mmp-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sti/sti_uniperif.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
-index 53fc49e32fbc..5d520e18e512 100644
---- a/sound/soc/pxa/mmp-pcm.c
-+++ b/sound/soc/pxa/mmp-pcm.c
-@@ -204,7 +204,7 @@ static int mmp_pcm_new(struct snd_soc_component *component,
- {
- 	struct snd_pcm_substream *substream;
- 	struct snd_pcm *pcm = rtd->pcm;
--	int ret = 0, stream;
-+	int ret, stream;
+diff --git a/sound/soc/sti/sti_uniperif.c b/sound/soc/sti/sti_uniperif.c
+index 7b9169f04d6e..67315d9b352d 100644
+--- a/sound/soc/sti/sti_uniperif.c
++++ b/sound/soc/sti/sti_uniperif.c
+@@ -484,6 +484,8 @@ static int sti_uniperiph_probe(struct platform_device *pdev)
+ 	priv->pdev = pdev;
  
- 	for (stream = 0; stream < 2; stream++) {
- 		substream = pcm->streams[stream].substream;
+ 	ret = sti_uniperiph_cpu_dai_of(node, priv);
++	if (ret < 0)
++		return ret;
+ 
+ 	dev_set_drvdata(&pdev->dev, priv);
+ 
 -- 
 2.25.1
 

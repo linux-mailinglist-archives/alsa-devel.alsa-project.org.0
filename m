@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B7C34B367
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 01:47:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 562B534B36E
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 01:56:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C0381679;
-	Sat, 27 Mar 2021 01:46:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C0381679
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8441167A;
+	Sat, 27 Mar 2021 01:55:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8441167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616806042;
-	bh=Fly18xX7OYkzvUIkL5fI92hL+8YwinIdLl6kfSsSo/g=;
+	s=default; t=1616806608;
+	bh=0HSgiwadZ12ib3FSSt+UH7B+D+crpHrdsGtGE0kHaEM=;
 	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JBXXgGWk4znRoTKsEuT+h2OqKNNimlIu8iunA2ALeER4aIgR5CZQZcgZMP4CUBEjh
-	 rEg9OLdCBKK/gpchTztYbmt/rM8cwd1TNgHY4OLca0x6gSPoEl4wcQ5H2phuKGzOqk
-	 xcFOj94I6WV0YTMnLHmtvRRTG6lFk4Stgt4NnQQs=
+	b=n35H+wry0+IxHyfSXDC+g9s69c4aJaL+mzOAiQdp8BaPv83+VZYOz4RniHsBW3Cpg
+	 XsPYVJJ8svqwrpMHmYd9iMb/wIUdXINRGlkVdW3TMt/2a+RN9CtTzB0EymRoDxBkag
+	 7Fjc7lVW17Wj2zDMt4VcmHKsieVIBfZ/+ES7F6DE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D04AF80104;
-	Sat, 27 Mar 2021 01:45:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FC20F801D5;
+	Sat, 27 Mar 2021 01:55:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 277E0F8016B; Sat, 27 Mar 2021 01:45:54 +0100 (CET)
+ id 36CA6F8016B; Sat, 27 Mar 2021 01:55:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [IPv6:2607:f8b0:4864:20::734])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67CA1F80104
- for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 01:45:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67CA1F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id C91FCF80104
+ for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 01:55:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C91FCF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TcW1eMHo"
-Received: by mail-qv1-xf2b.google.com with SMTP id t16so3839912qvr.12
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 17:45:48 -0700 (PDT)
+ header.b="HVPPBTRG"
+Received: by mail-qk1-x734.google.com with SMTP id c4so7150089qkg.3
+ for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 17:55:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=XVVaaxFV+yoVeHRfg0Q0Krf6kvFnB9ffr4xFLM+ihXw=;
- b=TcW1eMHo8hJgDj0711eTpM9eGHz7uY/p+KxgOC7NbShs0gL4+d38LgFs3MEy6aljoQ
- vt5RGSXeZfgA9X6owxYpT9FgitujQap/qs+tQLHmnatwd9fQTmAhDOPKagCQqM7NI23W
- CJ1dFRjJYuVnq4HKEyqYp8za6Gk1VYTmhiynuHZZfKcwaLRLH21zXoPFVGCcWuq0XDfI
- Q1tnx3ZTR3yRNTZKOCafMl2pmd61mcGPQBtQcaQfGMNvhB3NoZprLpghqLGdPHqc95Oa
- n/Wn6ILfZUObbV0tP89cMsG8XXeoQe/E8gownZkK/GsIiO6Dve2E/5CTQaG1JeIicIos
- JqDg==
+ bh=/2Nx/60Qog8NiE8neYsxs06Jr3kpPBJgE040GJFrIo8=;
+ b=HVPPBTRGzmoNLzf0dapFvEkBxlk9NcVuRrX4457+KGmle+SnzycMnFW0gkoBaxS/8W
+ jv37unfYIjS8EPJs4vsApwCQMW4vjDbo7A/aFijMHIFGh5iWh9ULdG7cRJvpEFPztaNz
+ I3Izvgmh09PU653e1oqyTDExu5TBFxhDWZRfDesyV5UHWmwN7On6grcNjM5FUj7DSpuB
+ Q/OB7QvQxfTElLYcsVUL+r2ra9R4AUurkEVvls1ZwBxUidoBfXmoiL4t9cs4sGAlLJWx
+ +yf0rFFhQGjVkS5yyCP6oGPBHNt5GmKn6komdc9XtW/JEfAFE54aLpoCqmX01gD8Qz6a
+ y9Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to;
- bh=XVVaaxFV+yoVeHRfg0Q0Krf6kvFnB9ffr4xFLM+ihXw=;
- b=tqAFrEZ3Mq4s8dNwR4az5Hrg0JkDjuUwKqdaUiPn3vFiaapZlggzZbD39hu9VmRKiD
- 1cRDA3045liIo65DmJdpPIFBDHn3rOvxy2gf2Szcf3fBex8pG2tGNruHN3m7Qu6XjnOQ
- 9dXQ94C5p2ctQ7xjDFdxT0vi1FFbLUDyd1JtJU2x2PChTXgZ4BAGWFmiHoa//Vc3FrT2
- o3YBxwH72mmxYFkgpNBapY+1r8g4+G3w3gOzTi+vvcPJxdmcHpQqUXjwxfzFxssW1Ywj
- RbilQW4ogGHWeC+3zfJCutMGntEISrsws4LG7t6Of3uIVqHg3ooBuyOaD953wQCwW2lx
- yXDQ==
-X-Gm-Message-State: AOAM5311Oj7d6QqvQ+Mhl0muU29A5/feGeAp/+Ttkv9QmVBM8+ujd2q5
- qfNqQfYTUFBpleMSIwKA0YkwJBLk61n6IVL/UUng5YLB82w=
-X-Google-Smtp-Source: ABdhPJzj6rrtLmoR/H0BisH14jGTpjmnHBLyej5vPaYkmPy8oMVq9CH08mAkzhJyckBd1Fbo3GRze1UXAyAwBNwr7KE=
-X-Received: by 2002:a0c:bdaf:: with SMTP id n47mr15696059qvg.48.1616805945590; 
- Fri, 26 Mar 2021 17:45:45 -0700 (PDT)
+ bh=/2Nx/60Qog8NiE8neYsxs06Jr3kpPBJgE040GJFrIo8=;
+ b=DGn2LeZHtJN3k5ypUctS1fvj3MScwxlrrkjivvHqt7GH7lmriQyuUYkLvxV7KJnrkP
+ CeZVOuOR+Cq40xzu/MEfC+oUzcaBFBjOB6ZFZw79v/9HQofumNyFPgQX1cglv/pM2rfk
+ QZFbptqBJwmDgC75O7jy6DQBP2F6Pjw4WrMYWrmmjIAnimZ8aqBoP1wIITAQDKEjpjGA
+ hnPrQQ533Ftouhig5EtDWfnkVAhAAlFvYVs7Fyi0cY8V3ux/9DQPtrhlbWwPHUOPHG6I
+ NbZqS3zOMD2140xwLRpXLSjP4fFDgFbkawsUe//qJ40AEHpOvN7UbfTwSMusFhuAs+f5
+ ivhg==
+X-Gm-Message-State: AOAM5334kHWxPgAL0Puadh6qN3bJL89y+WIKuzGfZC+lFiMjy2q9YHc3
+ JJC2yBwLRFHgAShoj5pKFmg/0szvbDrbo8Ct4iND6MnW
+X-Google-Smtp-Source: ABdhPJx6NL5uyV1IuFhgjdPOktKtmzk3/eY2fTJe2ihlBnL3qHOZoRr5vazq3pv7h0DF8Jm4+G4aTUOrA+nFClR3Buw=
+X-Received: by 2002:a05:620a:10a6:: with SMTP id
+ h6mr15816435qkk.366.1616806513978; 
+ Fri, 26 Mar 2021 17:55:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAEsQvcva7yYk149Xe0twd0ydYTEBxX0duekemiK_NySNRQ0xaA@mail.gmail.com>
-In-Reply-To: <CAEsQvcva7yYk149Xe0twd0ydYTEBxX0duekemiK_NySNRQ0xaA@mail.gmail.com>
+References: <CAEsQvcsXKRzCfDcid7nBnfvg6Vx1xQiBuK-EQmv4iGkDvZ0b3Q@mail.gmail.com>
+ <CAEsQvctoyhh6-iz4SnxtiGuugcZ+9g6g7CQeub6-mxD5Fix9rA@mail.gmail.com>
+In-Reply-To: <CAEsQvctoyhh6-iz4SnxtiGuugcZ+9g6g7CQeub6-mxD5Fix9rA@mail.gmail.com>
 From: Geraldo <geraldogabriel@gmail.com>
-Date: Fri, 26 Mar 2021 21:42:04 -0300
-Message-ID: <CAEsQvctng2uPiS-sHn7suQBVBTr1f+k3HuAim31dQTzhdxBPtQ@mail.gmail.com>
-Subject: Re: [PATCH] Pioneer devices: engage implicit feedback sync for
- playback
+Date: Fri, 26 Mar 2021 21:59:51 -0300
+Message-ID: <CAEsQvcsP1=5NYZqK_12YZ=eMLWeZkc5RbEEW0EdJRMSdM=C9tg@mail.gmail.com>
+Subject: Re: [PATCH] Behringer UFX1604: get rid of pops and clicks while on
+ 96000hz
 To: alsa-devel@alsa-project.org
 Content-Type: text/plain; charset="UTF-8"
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
@@ -94,270 +96,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sorry, I'm reposting because apparently I didn't get diff -up right...
----
-Hello everybody,
+To clarify: I'm not blaming anyone for introducing an implicit feedback
+quirk on a Synchronous endpoint. In fact, I'm almost sure it was somehow
+needed at the time. But it isn't anymore. What is needed is to set the
+CLOCK_SELECTOR to pin 1 right after we set CLOCK_SOURCE to our desired rate.
 
-This is a highly experimental patch on top of 5.12-rc4 that's supposed to
-engage implicit feedback sync on the playback for Pioneer devices. Without
-implicit feedback sync the inputs started glitching due to clock drift in
-about an hour in my Pioneer DJ DDJ-SR2.
+Em Qui, 25 de mar de 2021 19:45, Geraldo <geraldogabriel@gmail.com>
+escreveu:
 
-If you own a Pioneer device please test this patch and verify in the dyndbg
-logs if your capture(input) EP is being opened twice and if implicit_fb = 1
-for the playback EP. I can't ask of you all to test this for hours and
-hours but if you wanted to have an excuse to digitize vinyl or spin up DVS
-this is your perfect one. Help open source!
-
-I'd like to thank Takashi Iwai for his tireless support in the Pioneer
-regression and beyond. Hopefully this highly experimental feature's code
-can be polished and mainlined eventually.
-
---- endpoint.c.git      2021-03-21 22:40:54.800084101 -0300
-+++ endpoint.c  2021-03-25 21:24:45.253396350 -0300
-@@ -688,7 +688,8 @@ snd_usb_endpoint_open(struct snd_usb_aud
-                goto unlock;
-        }
-
--       if (!ep->opened) {
-+       //if (!ep->opened) {
-+       if (ep->opened < 2) {
-                if (is_sync_ep) {
-                        ep->iface = fp->sync_iface;
-                        ep->altsetting = fp->sync_altsetting;
-
---- implicit.c.git      2021-03-21 22:40:48.363417245 -0300
-+++ implicit.c  2021-03-25 20:44:31.826678422 -0300
-@@ -50,7 +50,7 @@ static const struct snd_usb_implicit_fb_
-
-        /* Fixed EP */
-        /* FIXME: check the availability of generic matching */
--       IMPLICIT_FB_FIXED_DEV(0x1397, 0x0001, 0x81, 1), /* Behringer
-UFX1604 */
-+       //IMPLICIT_FB_FIXED_DEV(0x1397, 0x0001, 0x81, 1), /* Behringer
-UFX1604 */
-        IMPLICIT_FB_FIXED_DEV(0x1397, 0x0002, 0x81, 1), /* Behringer
-UFX1204 */
-        IMPLICIT_FB_FIXED_DEV(0x2466, 0x8010, 0x81, 2), /* Fractal Audio
-Axe-Fx III */
-        IMPLICIT_FB_FIXED_DEV(0x31e9, 0x0001, 0x81, 2), /* Solid State
-Logic SSL2 */
-@@ -177,30 +177,31 @@ static int add_roland_implicit_fb(struct
-                                       ifnum, alts);
- }
-
--/* Playback and capture EPs on Pioneer devices share the same iface/altset,
-- * but they don't seem working with the implicit fb mode well, hence we
-- * just return as if the sync were already set up.
-+/* Pioneer devices: playback and capture streams sharing the same
-iface/altset
-  */
--static int skip_pioneer_sync_ep(struct snd_usb_audio *chip,
--                               struct audioformat *fmt,
--                               struct usb_host_interface *alts)
-+static int add_pioneer_implicit_fb(struct snd_usb_audio *chip,
-+                                  struct audioformat *fmt,
-+                                  struct usb_host_interface *alts)
- {
--       struct usb_endpoint_descriptor *epd;
-+       struct usb_endpoint_descriptor *epd;
-
--       if (alts->desc.bNumEndpoints != 2)
--               return 0;
-+       if (alts->desc.bNumEndpoints != 2)
-+               return 0;
-
--       epd = get_endpoint(alts, 1);
--       if (!usb_endpoint_is_isoc_in(epd) ||
--           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
-USB_ENDPOINT_SYNC_ASYNC ||
--           ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
--            USB_ENDPOINT_USAGE_DATA &&
--            (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
--            USB_ENDPOINT_USAGE_IMPLICIT_FB))
--               return 0;
--       return 1; /* don't handle with the implicit fb, just skip sync EP */
-+       epd = get_endpoint(alts, 1);
-+
-+       if (!usb_endpoint_is_isoc_in(epd) ||
-+           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
-USB_ENDPOINT_SYNC_ASYNC ||
-+           ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-+            USB_ENDPOINT_USAGE_DATA &&
-+            (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-+            USB_ENDPOINT_USAGE_IMPLICIT_FB))
-+               return 0;
-+       return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 1,
-+                                      alts->desc.bInterfaceNumber, alts);
- }
-
-+
- static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
-                                     struct audioformat *fmt,
-                                     int iface, int altset)
-@@ -306,7 +307,7 @@ static int audioformat_implicit_fb_quirk
-            alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-            (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
-             USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */)) {
--               if (skip_pioneer_sync_ep(chip, fmt, alts))
-+               if (add_pioneer_implicit_fb(chip, fmt, alts))
-                        return 1;
-        }
-
-@@ -329,6 +330,7 @@ static int audioformat_capture_quirk(str
-        if (p && p->type == IMPLICIT_FB_FIXED)
-                return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
-                                               p->iface, NULL);
-+       //return 0;
-        return 0;
- }
-
-@@ -339,8 +341,20 @@ int snd_usb_parse_implicit_fb_quirk(stru
-                                    struct audioformat *fmt,
-                                    struct usb_host_interface *alts)
- {
--       if (fmt->endpoint & USB_DIR_IN)
--               return audioformat_capture_quirk(chip, fmt, alts);
-+        bool isPioneer;
-+
-+        if (alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-+            (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
-+             USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */))
-+            isPioneer = true;
-+
-+       if (fmt->endpoint & USB_DIR_IN) {
-+                if (isPioneer == true)
-+                    return 1;
-+                else
-+                   return audioformat_capture_quirk(chip, fmt, alts);
-+        }
-+
-        else
-                return audioformat_implicit_fb_quirk(chip, fmt, alts);
- }
-
-On Mon, Mar 22, 2021 at 1:16 AM Geraldo <geraldogabriel@gmail.com> wrote:
-
-> Hello everybody,
+> Oh, forgot to mention. Both IN and OUT audio endpoints on the UFX1604 are
+> Synchronous. Somehow someone thought it was a good idea to add an implicit
+> feedback quirk for it.
 >
-> This is a highly experimental patch on top of 5.12-rc4 that's supposed to
-> engage implicit feedback sync on the playback for Pioneer devices. Without
-> implicit feedback sync the inputs started glitching due to clock drift in
-> about an hour in my Pioneer DJ DDJ-SR2.
+> I consider this unneeded and pointless. In fact I disengaged the implicit
+> feedback quirk on my 5.12-rc4 tree and it runs fine without it.
 >
-> If you own a Pioneer device please test this patch and verify in the
-> dyndbg logs if your capture(input) EP is being opened twice and if
-> implicit_fb = 1 for the playback EP. I can't ask of you all to test this
-> for hours and hours but if you wanted to have an excuse to digitize vinyl
-> or spin up DVS this is your perfect one. Help open source!
+> On Thu, Mar 25, 2021 at 7:39 PM Geraldo <geraldogabriel@gmail.com> wrote:
 >
-> I'd like to thank Takashi Iwai for his tireless support in the Pioneer
-> regression and beyond. Hopefully this highly experimental feature's code
-> can be polished and mainlined eventually.
->
-> --- implicit.c.git      2021-03-21 22:40:48.363417245 -0300
-> +++ implicit.c  2021-03-22 01:03:05.726729481 -0300
-> @@ -177,30 +177,31 @@
->                                        ifnum, alts);
->  }
->
-> -/* Playback and capture EPs on Pioneer devices share the same
-> iface/altset,
-> - * but they don't seem working with the implicit fb mode well, hence we
-> - * just return as if the sync were already set up.
-> +/* Pioneer devices: playback and capture streams sharing the same
-> iface/altset
->   */
-> -static int skip_pioneer_sync_ep(struct snd_usb_audio *chip,
-> -                               struct audioformat *fmt,
-> -                               struct usb_host_interface *alts)
-> -{
-> -       struct usb_endpoint_descriptor *epd;
-> -
-> -       if (alts->desc.bNumEndpoints != 2)
-> -               return 0;
-> -
-> -       epd = get_endpoint(alts, 1);
-> -       if (!usb_endpoint_is_isoc_in(epd) ||
-> -           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
-> USB_ENDPOINT_SYNC_ASYNC ||
-> -           ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-> -            USB_ENDPOINT_USAGE_DATA &&
-> -            (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-> -            USB_ENDPOINT_USAGE_IMPLICIT_FB))
-> -               return 0;
-> -       return 1; /* don't handle with the implicit fb, just skip sync EP
-> */
-> +static int add_pioneer_implicit_fb(struct snd_usb_audio *chip,
-> +                                  struct audioformat *fmt,
-> +                                  struct usb_host_interface *alts)
-> +{
-> +       struct usb_endpoint_descriptor *epd;
-> +
-> +       if (alts->desc.bNumEndpoints != 2)
-> +               return 0;
-> +
-> +       epd = get_endpoint(alts, 1);
-> +
-> +       if (!usb_endpoint_is_isoc_in(epd) ||
-> +           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
-> USB_ENDPOINT_SYNC_ASYNC ||
-> +           ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-> +            USB_ENDPOINT_USAGE_DATA &&
-> +            (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-> +            USB_ENDPOINT_USAGE_IMPLICIT_FB))
-> +               return 0;
-> +       return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 1,
-> +                                      alts->desc.bInterfaceNumber, alts);
->  }
->
-> +
->  static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
->                                      struct audioformat *fmt,
->                                      int iface, int altset)
-> @@ -306,7 +307,7 @@
->             alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
->             (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
->              USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */)) {
-> -               if (skip_pioneer_sync_ep(chip, fmt, alts))
-> +               if (add_pioneer_implicit_fb(chip, fmt, alts))
->                         return 1;
->         }
->
-> @@ -339,8 +340,20 @@
->                                     struct audioformat *fmt,
->                                     struct usb_host_interface *alts)
->  {
-> -       if (fmt->endpoint & USB_DIR_IN)
-> -               return audioformat_capture_quirk(chip, fmt, alts);
-> +        bool isPioneer;
-> +
-> +        if (alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-> +            (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
-> +             USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */))
-> +            isPioneer = true;
-> +
-> +       if (fmt->endpoint & USB_DIR_IN) {
-> +                if (isPioneer == true)
-> +                    return 1;
-> +                else
-> +                   return audioformat_capture_quirk(chip, fmt, alts);
-> +        }
-> +
->         else
->                 return audioformat_implicit_fb_quirk(chip, fmt, alts);
->  }
->
->
-> --- endpoint.c.git      2021-03-21 22:40:54.800084101 -0300
-> +++ endpoint.c  2021-03-21 22:45:41.543425855 -0300
-> @@ -688,7 +688,7 @@
->                 goto unlock;
->         }
->
-> -       if (!ep->opened) {
-> +       if (ep->opened < 2) {
->                 if (is_sync_ep) {
->                         ep->iface = fp->sync_iface;
->                         ep->altsetting = fp->sync_altsetting;
+>> Hello everyone!
+>>
+>> This one has been bugging me for quite a while. I went deep hard in the
+>> guts of ALSA to try to solve it, and it turned out to be a minor thing
+>> apparently. The problem is old, and every UFX1604 Linux user can attest
+>> that it's impossible to use 96000hz in DUPLEX mode without annoying pops
+>> and clicks on the capture stream.
+>>
+>> The fix is simple: after we alter the CLOCK_SOURCE to match our sample
+>> rate, let's tell the CLOCK_SELECTOR we want CLOCK_SOURCE 212 (synced to USB
+>> SOF) on pin 1. Solves the problem for me, no more pops and clicks while on
+>> 96000hz.
+>>
+>> If you own an UFX1604 please give this patch a good testing. Let me know
+>> if it solves the pops and clicks on the input stream for you while on
+>> DUPLEX 96000hz.
+>>
+>> --- clock.c.git 2021-03-22 04:19:55.543485748 -0300
+>> +++ clock.c     2021-03-25 19:23:38.597197159 -0300
+>> @@ -610,6 +610,13 @@ int snd_usb_set_sample_rate_v2v3(struct
+>>         if (err < 0)
+>>                 return err;
+>>
+>> +        if (chip->usb_id == USB_ID(0x1397, 0x0001)) { /* Behringer
+>> UFX1604 */
+>> +                printk(KERN_WARNING "Setting clock selector for
+>> UFX1604");
+>> +                err = uac_clock_selector_set_val(chip, 211, 1);
+>> +                if (err < 0)
+>> +                    return err;
+>> +       }
+>> +
+>>         return get_sample_rate_v2v3(chip, fmt->iface, fmt->altsetting,
+>> clock);
+>>  }
+>>
+>>
 >

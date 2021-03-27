@@ -2,100 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30BA34B413
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 04:41:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA6334B415
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 04:46:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DF26167B;
-	Sat, 27 Mar 2021 04:40:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DF26167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42DDA167B;
+	Sat, 27 Mar 2021 04:45:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42DDA167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616816507;
-	bh=NHzpUFYh5KghkBIhXb9FegG8qjdgtvwCQ2m4N6+UhBE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1616816774;
+	bh=6MansCR4yMmpWvJ1gQdJZAfkDHyMLCcfNI/6f3Afx0o=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YcXydE5jZQ1YdyowRuNLg/mm3oS0oa8I2jENkmff9XN7m7LmxUjjOu7mNSFE5YBU2
-	 aRwQ8x0eKBlZdPrmAX2+7ixq9qHX9y5O1rv4Zz8jOB3SlAYQoYKL8BGIYVkqRe1XFq
-	 xMNB+6hZmiU53WgVrzv5+ZzhFBNAnnQcPQeZOONc=
+	b=pzuyXczpc8TVViQgwzJOHJreuKpReUt9b2yyO7JA9Qt8aAtvwraTZk+dfNThaU1R7
+	 fneXbLitUeo9bIdNWm1luXbMpzkR0mOe4DFiwhGj6O9ruqfSmQ4jm5HgSpVIFgG+R5
+	 8EQH/k5gTgcvLjaAKVUSSZMktxDCYrPc8vuUM/U4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8D63F800B9;
-	Sat, 27 Mar 2021 04:40:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33A5CF80257;
+	Sat, 27 Mar 2021 04:44:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECEE9F8025F; Sat, 27 Mar 2021 04:40:11 +0100 (CET)
+ id 82F1FF8025F; Sat, 27 Mar 2021 04:44:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
- PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72E20F80104
- for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 04:40:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72E20F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2F4FF80104
+ for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 04:44:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2F4FF80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="k+X1v3SK"
-Received: by mail-wr1-x431.google.com with SMTP id c8so7421987wrq.11
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 20:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=hsGTOfKjvkotJaN+ySwfVHBa2ys5SbhPPuKeS61H9+4=;
- b=k+X1v3SKmAvCa7DHv4HIC0ZZToGuzK2Hd5oaw5OyfzQso9wLUEVJQ+eh8CSSfrWwD3
- R1ksKK66AtN01q9zqodDhw9wY2mKFTZfaOKGWkAf/dac3zg9g2BrMAuhBIOhoG7ZHs3X
- 7DvxHwX5d4oCHIa9LORlfrV3XzmXMd2N/FqtrRtFnn05fT+EHWwmfi75SN8S1ANGilPg
- Ln31Bdx+gjm/b9bNOiXf04zH/ypJFQUkQsDL9DHP6umMsIVVsSn0S2tVoALWIA+xXpNu
- g2Ku6Uojw3/CRbta2pIzPbLV6lc9twqtCU5FAiEBWJOD7KxN9Se0WhAx/kTMeTo3ebiJ
- wGcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=hsGTOfKjvkotJaN+ySwfVHBa2ys5SbhPPuKeS61H9+4=;
- b=RjYZ+55dAQzfAz8z0ulcELYZGtdmwv5UKnGvRWqbHafe3bHRDMnW+ZtwkrE8nEY1Xn
- Hr39HjhoWYGccimzHVWE14Oj/cDFhUbNd8oJCIHlvwhOjwvJy7YS+n1YdXb5OpXf2NPt
- 4+IeQFy1kwtABpUrIKVeS0nYQsQUlR1z09AOsCwzbvEE1HSIkp2P7h+PR+OugVUuYWGZ
- uN7tUrdIQQlZrJoqnykL6Z1uTuQHV9qkJcJyxj5sUoi2LBXZ9ucP7CmiD6rL54mB0XOS
- 2dZ4En54srkiWAOeeS9koNRlBQ7YMVTHG+UfVvWd3dgw8HF69XVQal7YBeDH5wzwlg3P
- m9Zw==
-X-Gm-Message-State: AOAM531kkS7aXvx+g4ZIrEYSWT86HcTS0dtt2f+d3zUAz05poucGJtlV
- 0tRhy1lpaNzj0UfVv6NYNkw=
-X-Google-Smtp-Source: ABdhPJweIVK9R7EL369H9ZjbTvSxL/ofs/QnXiYX6Jms+BddKEoLv23wON6DOcFyOM15xggEERniNw==
-X-Received: by 2002:a05:6000:24b:: with SMTP id
- m11mr17441656wrz.393.1616816403031; 
- Fri, 26 Mar 2021 20:40:03 -0700 (PDT)
-Received: from [0.0.0.0] ([2a01:4f8:c17:e10a::1])
- by smtp.gmail.com with ESMTPSA id f126sm13481292wmf.17.2021.03.26.20.39.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Mar 2021 20:40:02 -0700 (PDT)
-Subject: Re: [PATCH v5 1/2] platform/x86: dell-privacy: Add support for Dell
- hardware privacy
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Perry Yuan <Perry.Yuan@dell.com>, pobrn@protonmail.com,
- oder_chiou@realtek.com, perex@perex.cz, tiwai@suse.com, hdegoede@redhat.com,
- mgross@linux.intel.com, Mario.Limonciello@dell.com
-References: <20210322093841.11840-1-Perry_Yuan@Dell.com>
- <a1fae1fc-2d4f-63e8-e0be-0f9c4c91640c@linux.intel.com>
-From: Perry Yuan <perry979106@gmail.com>
-Message-ID: <aabfe258-0043-44b2-9d99-a66b96a77e87@gmail.com>
-Date: Fri, 26 Mar 2021 23:39:55 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="wcLcQGNP"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="sTUnjrbb"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id EC1821BE4;
+ Fri, 26 Mar 2021 23:44:36 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Fri, 26 Mar 2021 23:44:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=d
+ ajl3IddWIwYzXL5YJTwHbVpO3gethM5s8ZnggJzdKQ=; b=wcLcQGNPLd2gi3nRm
+ y2Z/Ic3ZKFKrWQzXI2SKmicl15Kf8Yd+SXloZ2PPV9HNg/so3OJomFAOA5jkiWKR
+ Hr8rP4o09qZ8netc4adMMOMeAQPDbkeE/XLQZcYagQakCQVZobBJpp778J78ca7O
+ RH3eZTKFj3OlyXB0UQAWN9LypLxCEFyn24aKwMO+KX63Va2QU23+AHFyiwt5w2ny
+ 9WIdsaurrutlGxdMloX5zm3JaE8kNc3/VQ1zL9OafsRQ1FLqFz2E3eHioPPKOJUU
+ PuWy5uCv28Jx8ovtxurh1WaKi3/RvkX991ocwPTOoL5Ca/0wqAk3WAHmUj2d8vaw
+ C8GkA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=dajl3IddWIwYzXL5YJTwHbVpO3gethM5s8ZnggJzd
+ KQ=; b=sTUnjrbbwRcSOjHKkNiMbPrkvnmEdkrCg983i2b37Son+J9cEvY9Sfwjq
+ M13QSjb6cFnN0XxLJ9Q8I4IQNy2HrX1ZtuHC92db4d4nWRqLYmIctJWOIvo+MgJr
+ +dvrc4Y8YZfQi5avIbjdh93hGvQnYyQIcN1zAIVDfD1FrXQ3uLNgIucABBjZggYr
+ 7gDWaiQUb09YtSsjgE8S+udByFIZbuITU9NaLqDaPIutzVOUcQL3Qbvk7k7L0DPh
+ BJqZ8YTEY2vUmYM1GimipPUhSM1H1RxTRQt1nwC2phN6kCnKEnoTgMczEL7WsV7+
+ BKOl4TENUQuZ52iOGNBe3T5UfM+3Q==
+X-ME-Sender: <xms:I6peYNrUgP-VfSejinwFLsBM0CSW46C9X-lp4IcMikvHVochSbFZHA>
+ <xme:I6peYPqYBBbDxItxiORURNYrMDbF8DttYc9EFvpFqGXjIxBSHQ0dQKR2cFVxal3bk
+ 5Aa-mvf1diXktk5H9o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudehfedgieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtugfgjgesthekredttddtudenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuggftrfgrthhtvghrnhepfedtkedvhfdtlefgtdffheekjeejtddvteegkeev
+ ffdvhffhudevleetudeiheetnecukfhppedugedrfedrieehrddujeehnecuvehluhhsth
+ gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihes
+ shgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:I6peYKMWPksXJdr8fAB-fY7Udz-L8FykgPAcKJcyK3Jo1liq8NVmiQ>
+ <xmx:I6peYI6B7U4EfLPnSXtJwIyA5xr2zfQmOE9GqDyKJ-i3ifi03grwMg>
+ <xmx:I6peYM6BscxxUOLWlKtAaRdtD2XFgS15Ny9wUYguubADebNf4XAJBA>
+ <xmx:JKpeYKTw8bYdE-PQRo2fzgWrOFxcFQAohNdjXWBC9dZAYQMKokKGEw>
+Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0C19A240057;
+ Fri, 26 Mar 2021 23:44:33 -0400 (EDT)
+Date: Sat, 27 Mar 2021 12:44:31 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: David Henningsson <coding@diwic.se>
+Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
+Message-ID: <20210327034431.GB10225@workstation>
+Mail-Followup-To: David Henningsson <coding@diwic.se>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ perex@perex.cz
+References: <20210324054253.34642-1-coding@diwic.se>
+ <20210324124430.GA3711@workstation>
+ <057ef387-9ee1-2678-29ce-d644f2a3a90a@diwic.se>
+ <20210326044615.GA51246@workstation> <s5hr1k2l56t.wl-tiwai@suse.de>
+ <2ca71809-9872-bfee-c19d-76b6ce143212@diwic.se>
 MIME-Version: 1.0
-In-Reply-To: <a1fae1fc-2d4f-63e8-e0be-0f9c4c91640c@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, platform-driver-x86@vger.kernel.org,
- broonie@kernel.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+In-Reply-To: <2ca71809-9872-bfee-c19d-76b6ce143212@diwic.se>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,266 +121,128 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre
+Hi,
 
-Thanks for your review .
+From Takashi (not maintainer),
 
-I changed the patch and explain the review comments as below
+On Fri, Mar 26, 2021 at 05:29:04PM +0100, David Henningsson wrote:
+> On 2021-03-26 08:55, Takashi Iwai wrote:
+> > On Fri, 26 Mar 2021 05:46:15 +0100, Takashi Sakamoto wrote:
+> > > On Wed, Mar 24, 2021 at 04:57:31PM +0100, David Henningsson wrote:
+> > > > > However, the timing jitter of IRQ handler invocation is issued in this
+> > > > > case, as well as PCM interface, even if the data rate of MIDI physical
+> > > > > layer is quite low nowadays (31.25 Kbit / sec ~= 3906.25 byte / sec).
+> > > > > As long as I experienced, in actual running Linux system, the invocation
+> > > > > of IRQ handler has no guarantee for timing jitter, mainly due to CPU level
+> > > > > IRQ mask (like spin_lock). Therefore the interval of each invocation is not
+> > > > > so precise to decide event timestamp, at least for time slot comes from
+> > > > > MIDI physical layer.
+> > > > > 
+> > > > > Nevertheless, I think your idea is enough interesting, with conditions to
+> > > > > deliver information from driver (or driver developer) to applications
+> > > > > (ALSA Sequencer or userspace applications). Even if we have some
+> > > > > limitation and restriction to precise timestamp, it's worth to work for
+> > > > > it. It seems to be required that improvements at interface level and
+> > > > > documentation about how to use the frame timestamp you implemented.
+> > > > Right, so first, I believe the most common way to transport midi these days
+> > > > is through USB, where the 31.25 Kbit/sec limit does not apply: instead we
+> > > > have a granularity of 1/8 ms but many messages can fit in each one. So that
+> > > > limit is - for many if not most cases - gone.
+> > > > 
+> > > > Second; you're probably right in that there is still some jitter w r t when
+> > > > the IRQ fires. That is regrettable, but the earlier we get that timestamp
+> > > > the better, so a timestamp in IRQ context would at least be better than in a
+> > > > workqueue that fires after the IRQ, or in userspace that possibly has
+> > > > scheduling delays.
+> > > > 
+> > > > Btw, I checked the "struct urb" and there was no timestamp in there, so I
+> > > > don't know how to get a better timestamp than in snd_rawmidi_receive. But
+> > > > maybe other interfaces (PCI, Firewire etc) offers something better.
+> > > Hm. Regardless of type of hardware; e.g. OHCI/EHCI/xHCI, 1394 OHCI, or
+> > > PCI-e extension card, for software to process sampled data, it's always
+> > > issue that the jitter between triggering IRQ (hardware side) and invoking
+> > > IRQ handler (processor side). As an actual example, let me share my
+> > > experience in 1394 OHCI.
+> > > 
+> > > 
+> > > 1394 OHCI controller is governed by 24.576 Mhz clock (or double depending
+> > > on vendors). In IEEE 1394, ishcornous service is 8,000 times per second.
+> > > 1394 OHCI specification allows software to schedule hardware IRQ per
+> > > isochronous cycle.
+> > > 
+> > > Once ALSA firewire stack is programmed to schedule the hardwar IRQ evenry
+> > > 16 isochronous cycle. The corresponding IRQ handler is expected to invoke
+> > > every 2 milli second. As long as I tested in usual desktop environment[2],
+> > > the jitter is between 150 micro second and 4.7 milli second. In the worst
+> > > case, it's 6.0 milli seconds. The above is also the same wnen using
+> > > 'threadirqs'.
+> > > 
+> > > When using 'isolcpus' and arranging 'smp_affinity' to reduce load from one
+> > > of processor core to invoke the IRQ handler, the interval is 2 milli
+> > > second with +- several nano seconds, therefore the 1394 OHCI controller
+> > > can trigger hardware IRQ so precise. The jitter comes from processor side.
+> > > I think many running contexts on the same processor core masks IRQ so
+> > > often and the jitter is not deterministic.
+> > > 
+> > > Here, what I'd like to tell you is that we can not handle the system time
+> > > as is as timestamp of received MIDI messages, as long as relying on IRQ
+> > > context. We need some arrangements to construct better timestamp with some
+> > > compensations. In this point, the 3rd version of patch is not enough[3],
+> > > in my opinion.
+> 
+> Interesting measurements. While several ms of jitter is not ideal, I have a
+> few counter arguments why I still believe we should merge this patch:
+> 
+> �1) I don't think we should let the perfect be the enemy of the good here,
+> just because we cannot eliminate *all* jitter does not mean we should not
+> try to eliminate as much jitter as we can.
+ 
+Exposing something to userspace is easy engineering, but find appropriate
+role to it is not as easy for userspace applications.
 
-(Maybe the mail format has problem, sent from one new system thunderbird :)
+> �2) an unprivileged process (that cannot get RT_PRIO scheduling) might have
+> a wakeup jitter of a lot more than a few ms, so for that type of process it
+> would be a big improvement. And sometimes even RT_PRIO processes have big
+> delays due to preempt_disable etc.
 
-On 3/23/21 2:57 PM, Pierre-Louis Bossart wrote:
-> Minor comments below.
->
-> On 3/22/21 4:38 AM, Perry Yuan wrote:
->> From: Perry Yuan <perry_yuan@dell.com>
->>
->> add support for Dell privacy driver for the Dell units equipped
->> hardware privacy design, which protect users privacy of audio and
->> camera from hardware level. Once the audio or camera privacy mode
->> activated, any applications will not get any audio or video stream
->> when user pressed ctrl+F4 hotkey, audio privacy mode will be
->> enabled, micmute led will be also changed accordingly
->> The micmute led is fully controlled by hardware & EC(embedded 
->> controller)
->> and camera mute hotkey is Ctrl+F9. Currently design only emmits
->
-> typo: emits
-fixed
->
->> SW_CAMERA_LENS_COVER event while the camera lens shutter will be
->> changed by EC & hw(hadware) control
->
-> typo: hardware
-fixed
->>
->> *The flow is like this:
->> 1) User presses key. HW does stuff with this key (timeout timer is 
->> started)
->> 2) WMI event is emitted from BIOS to kernel
->> 3) WMI event is received by dell-privacy
->> 4) KEY_MICMUTE emitted from dell-privacy
->> 5) Userland picks up key and modifies kcontrol for SW mute
->> 6) Codec kernel driver catches and calls ledtrig_audio_set, like this:
->>     ledtrig_audio_set(LED_AUDIO_MICMUTE,
->>         rt715->micmute_led ? LED_ON :LED_OFF);
->> 7) If "LED" is set to on dell-privacy notifies EC,
->>     and timeout is cancelled, HW mic mute activated.
->
-> what happens if there is timeout? You have an explicit description of 
-> the timer handling in the success case, but not what happens on a 
-> timeout...
->
-add more explicit description for timeout triggered case
+I agree with the point. When comparing to current implementation of ALSA
+rawmidi stack, the patch makes it near true time somwhow to estimate read
+MIDI messages since task scheduling includes larger resolution and jitter
+than the ones of invocation of IRQ handler.
 
-7) If "LED" is set to on dell-privacy notifies EC, and timeout is cancelled.
+I reported some issues as a next step. At least, the system time to
+invoke IRQ handler needs to be compensated with supplemental
+information. Current patch forces the task to userspace applications
+silently without any information from kernel space. This results in failure
+to set incentive for userspace developers to use the new functionality, in
+my opinion.
 
-     HW mic mute activated. If EC not notified,HW mic mute will also be
+I guess it better to deliver below information:
 
-     activated when timeout used up, it is just later than active ack
+ * interval of burstness
+  * drivers for packet-based protocol handles several packets at once
+ * minimal timestamp gap between successive frames
+  * however actually fuzzed by the jitter of invocation of IRQ handler
+ * maximum size of frame
+  * the target hardware transfer batch of MIDI messages or single midi
+    byte at once
 
->> diff --git 
->> a/Documentation/ABI/testing/sysfs-platform-dell-privacy-wmi 
->> b/Documentation/ABI/testing/sysfs-platform-dell-privacy-wmi
->> new file mode 100644
->> index 000000000000..20c15a51ec38
->> --- /dev/null
->> +++ b/Documentation/ABI/testing/sysfs-platform-dell-privacy-wmi
->> @@ -0,0 +1,32 @@
->> +What: 
->> /sys/bus/wmi/devices/6932965F-1671-4CEB-B988-D3AB0A901919/devices_supported
->> +Date:        Feb 2021
->> +KernelVersion:    5.12
->
-> 5.13 now?
-changed to 5.13
->
->> +static int dell_privacy_micmute_led_set(struct led_classdev *led_cdev,
->> +        enum led_brightness brightness)
->> +{
->> +    struct privacy_acpi_priv *priv = privacy_acpi;
->> +    acpi_status status;
->> +    acpi_handle handle;
->> +    static char *acpi_method = (char *)"ECAK";
->> +
->> +    handle = ec_get_handle();
->> +    if (!handle)
->> +        return -EIO;
->> +    if (!acpi_has_method(handle, acpi_method))
->> +        return -EIO;
->> +    status = acpi_evaluate_object(handle, acpi_method, NULL, NULL);
->> +    if (ACPI_FAILURE(status)) {
->> +        dev_err(priv->dev, "Error setting privacy EC ack value: %s\n",
->> +                acpi_format_exception(status));
->> +        return -EIO;
->> +    }
->> +    pr_debug("set dell privacy micmute ec ack event done\n");
->
-> can we use dev_dbg() here? Same for all occurrences of pr_debug and 
-> pr_err below, it's cleaner and easier to filter.
->
-I changed some pr_xx to dev_xxx ,  but below code will be more complex 
-to use dev_xxx to print the
+The above items is an idea from my side. I need more time and discussion
+for better set.
 
-log , because it need to get the priv->dev, but it is not registered at 
-this time , I would prefer to keep use the pr_debug here.  and some 
-other cases where  "priv->dev" cannot be used.
+Again, I have no opposition to the idea itself. However in a view of
+application developer, it's not necessarily useful against timeslot of
+3906.25 bytes/sec.
 
-
-  static int __init init_dell_privacy(void)
-
-{
-         int ret;
-
-         ret = wmi_has_guid(DELL_PRIVACY_GUID);
-         if (!ret) {
-                 privacy_valid = -ENODEV;
-                 pr_debug("Unable to detect available Dell privacy 
-devices: %d\n", ret);
-                 return privacy_valid;
-         }
-
->> +    return 0;
->> +}
->> +
->> +static int dell_privacy_acpi_remove(struct platform_device *pdev)
->> +{
->> +    struct privacy_acpi_priv *priv = 
->> dev_get_drvdata(privacy_acpi->dev);
->> +
->> +    led_classdev_unregister(&priv->cdev);
->> +
->> +    return 0;
->> +}
->> +/*
->> + * Pressing the mute key activates a time delayed circuit to 
->> physically cut
->> + * off the mute. The LED is in the same circuit, so it reflects the 
->> true
->> + * state of the HW mute.  The reason for the EC "ack" is so that 
->> software
->> + * can first invoke a SW mute before the HW circuit is cut off.  
->> Without SW
->> + * cutting this off first does not affect the time delayed muting or 
->> status
->> + * of the LED but there is a possibility of a "popping" noise.
->> + *
->> + * If the EC receives the SW ack, the circuit will be activated 
->> before the
->> + * delay completed.
->> + *
->> + * Exposing as an LED device allows the codec drivers notification 
->> path to
->> + * EC ACK to work
->> + */
->> +static int dell_privacy_leds_setup(struct device *dev)
->> +{
->> +    struct privacy_acpi_priv *priv = dev_get_drvdata(dev);
->> +    int ret = 0;
->
-> useless init
-
-Sorry, I do not get this point .
-
-int should be needed to return error code if devm_led_classdev_register 
-failed.
+> �3) The jitter will depend on the hardware, and other hardware might have
+> better (or worse) IRQ jitter.
+> 
+> �4) If this patch gets accepted, it might show other kernel developers that
+> IRQ jitter matters to us, and that in turn might improve the chances of
+> getting IRQ jitter improvement patches in, in case someone else wants to
+> help solving that problem.
 
 
->
->> +
->> +    priv->cdev.name = "dell-privacy::micmute";
->> +    priv->cdev.max_brightness = 1;
->> +    priv->cdev.brightness_set_blocking = dell_privacy_micmute_led_set;
->> +    priv->cdev.default_trigger = "audio-micmute";
->> +    priv->cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
->> +    ret = devm_led_classdev_register(dev, &priv->cdev);
->> +    if (ret)
->> +        return ret;
->> +    return 0;
->> +}
->> +
->> +static int dell_privacy_acpi_probe(struct platform_device *pdev)
->> +{
->> +    int ret;
->> +
->> +    platform_set_drvdata(pdev, privacy_acpi);
->> +    privacy_acpi->dev = &pdev->dev;
->> +    privacy_acpi->platform_device = pdev;
->> +
->> +    ret = dell_privacy_leds_setup(&pdev->dev);
->> +    if (ret)
->> +        return -EIO;
->
-> any reason to hard-code -EIO, woud 'return ret' be enough?
->
->
-fixed to use return ret
->> +
->> +    return 0;
->> +}
->> +
->> +static struct platform_driver dell_privacy_platform_drv = {
->> +    .driver = {
->> +        .name = PRIVACY_PLATFORM_NAME,
->> +    },
->> +    .probe = dell_privacy_acpi_probe,
->> +    .remove = dell_privacy_acpi_remove,
->> +};
->> +
->> +int __init dell_privacy_acpi_init(void)
->
-> is the __init necessary? You call this routine from another which 
-> already has this qualifier.
-Yes, I need to add this when driver loading and kernel will free __init 
-section mem after driver registered.
->
->> +{
->> +    int err;
->> +    struct platform_device *pdev;
->> +
->> +    if (!wmi_has_guid(DELL_PRIVACY_GUID))
->> +        return -ENODEV;
->> +
->> +    privacy_acpi = kzalloc(sizeof(*privacy_acpi), GFP_KERNEL);
->> +    if (!privacy_acpi)
->> +        return -ENOMEM;
->> +
->> +    err = platform_driver_register(&dell_privacy_platform_drv);
->> +    if (err)
->> +        goto pdrv_err;
->> +
->> +    pdev = platform_device_register_simple(
->> +            PRIVACY_PLATFORM_NAME, PLATFORM_DEVID_NONE, NULL, 0);
->> +    if (IS_ERR(pdev)) {
->> +        err = PTR_ERR(pdev);
->> +        goto pdev_err;
->> +    }
->> +
->> +    return 0;
->> +
->> +pdev_err:
->> +    platform_device_unregister(pdev);
->> +pdrv_err:
->> +    kfree(privacy_acpi);
->> +    return err;
->> +}
->> +
->> +void __exit dell_privacy_acpi_exit(void)
->
-> is the __exit required here?
-same reason as __init
->
->> +{
->> +    struct platform_device *pdev = 
->> to_platform_device(privacy_acpi->dev);
->> +
->> +    platform_device_unregister(pdev);
->> +    platform_driver_unregister(&dell_privacy_platform_drv);
->> +    kfree(privacy_acpi);
->> +}
->> +
->> +MODULE_AUTHOR("Perry Yuan <perry_yuan@dell.com>");
->> +MODULE_DESCRIPTION("DELL Privacy ACPI Driver");
->> +MODULE_LICENSE("GPL");
->
->
+Thanks
+
+Takashi Sakamoto

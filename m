@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FA3C34B434
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 05:24:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4A134B56C
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Mar 2021 09:19:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 829D7167C;
-	Sat, 27 Mar 2021 05:23:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 829D7167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE39D1655;
+	Sat, 27 Mar 2021 09:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE39D1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616819078;
-	bh=Fpzkk+VtgC/dy6Zvyea93foPGoH5SzcT9fGrwuOlY6A=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1616833144;
+	bh=AThFpLX4u5sFi6dZpyutuvJKenLCuiD/MMRZ1r/8fZI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kkpn+nvQdnOyDUuFWb9l3B7h3KaAbni25vfBuCz53IuB4Z+WsjF17bJzi1VMlIofp
-	 GdWuJx2hSSUzJ6g+pwErRjG9wH5tt0a0n01DkBxwiH11RurwHnQowkaDF4Hx1Aw8P7
-	 Y9lIIWFcQcrUcb6f6k3JVpPt+XnTZYtQkZBgEK8o=
+	b=K0Aitg9YQkCsLX6wnUeoKHXSGZJExCPJwtSsiw8fatiTucxeSVQw6b0M3lhi8X4d7
+	 laYjx1MYs26wg75IjmjQzlF2wC0884nKF1QdjqquYCbqM5IYLTDgC3Gj9FcE9txBKJ
+	 YTW+/XtXjl5etHne2f117npnbhgT0D3KKMhlvxhE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2C6BF80268;
-	Sat, 27 Mar 2021 05:23:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 433DCF80104;
+	Sat, 27 Mar 2021 09:17:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02037F8025F; Sat, 27 Mar 2021 05:23:09 +0100 (CET)
+ id 0BF57F80104; Sat, 27 Mar 2021 09:17:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FC07F800B9
- for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 05:23:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FC07F800B9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="u5nM7z2p"
-Received: by mail-ed1-x52a.google.com with SMTP id w18so8596470edc.0
- for <alsa-devel@alsa-project.org>; Fri, 26 Mar 2021 21:23:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=f2uEyGsvU/zObCqIFRBKf32zYTspd6LFwyvjKHe5XTE=;
- b=u5nM7z2pmF8QvpSWNH85w6BDy6rYpxP5eaMvxngZ4eCJy42sJz/fyPUO3nf4mizaeg
- wu4V5lGbnP2aNxpKIGzkpyq9jgpxU7fmVZ1T5F95Cf39wdd+RUqsEK8n2G+rKB3OY4mB
- 92Q9+SoPWKWNt9qYs/pz3ViD3/gcPIp5nJNC9gEl5hTI+oUyki6i0MSj2bQONA9EBEei
- 1SEwyUamvylDKE9dmOMjDPRYRcdvpz9vmS/80CaCmQ31loxDGtCNC958NevMK1vTJwOG
- JVqBiwzaKIBwn+/oG1CEYNqmuHEyWaa0M5sGEh58xSMz0HV1hRCNOvn1SheTsHsHDtmV
- qsLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=f2uEyGsvU/zObCqIFRBKf32zYTspd6LFwyvjKHe5XTE=;
- b=EbxysKou6YUzPXyznjmHCLKfaWuwV+BnXNeJtd5xdHdJukkB/6HBZCWeN/E8xfj4Cr
- SUpgR0fHSZ/n23k5CrFsrU2izz2ES2MvMZCf9FEEfBvyY2SjzjPs9Miv7jyOmXsWMtQo
- c9UJewnjpG9Nn4v7q9OXWvr51wSmoVM0JWqckYW6O5zb7bqEAV4vuha25QIwsAt0swpr
- i5sjmVkeDmotH/8i2NdKvsk7l60Gm7QvZFpd/HTgEuOyKnqhAMWfyXNXhTK5oCvwPm73
- ygi0zEPww905ksxoG5zJltZN2Abt5LyvDJFviuBqhbxXGjF4hrZtKoGikHp9+ERZwT0d
- P3ng==
-X-Gm-Message-State: AOAM533yGsN0Tj+G36ttVp5tlUvtUgnA9TAuH/KnsIDCRSmMvc8oVc1c
- ajTa13OhOqaWnDT1igqi4RyujfQYuhTPfBPsTMFhLosj
-X-Google-Smtp-Source: ABdhPJxmKJpoHXmpHa2GIIBy/Q+ojKlEdxbi/zRjEhm5bDg3SARgkSM8huEnzcy63ynl7++J3LewsbJ/ZAH1GUqbVRk=
-X-Received: by 2002:aa7:dc0b:: with SMTP id b11mr18766755edu.124.1616818978923; 
- Fri, 26 Mar 2021 21:22:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAOsVg8oYg_3A70UMudHuysi3b9WYcZF++DK3uAruJSjygvgcUg@mail.gmail.com>
-In-Reply-To: <CAOsVg8oYg_3A70UMudHuysi3b9WYcZF++DK3uAruJSjygvgcUg@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Fri, 26 Mar 2021 23:22:47 -0500
-Message-ID: <CAOsVg8pjPuLzdKUTVn7-33FSGPueTY7FKHpHqW7Of8m60PGQnA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] Adding some Roland devices' USB digital audio
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1DB1F80104
+ for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 09:17:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1DB1F80104
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2D7A8ACB4;
+ Sat, 27 Mar 2021 08:17:27 +0000 (UTC)
+Date: Sat, 27 Mar 2021 09:17:27 +0100
+Message-ID: <s5htuoxj9ig.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: Adding movable PCIe BARs support in snd_hda_intel
+In-Reply-To: <7788be67-e78f-4738-0ffe-27d4717c6f58@amd.com>
+References: <e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com>
+ <fe61113f-5b8e-53a0-23fc-65246eb08ac3@amd.com>
+ <s5hwntyaylg.wl-tiwai@suse.de>
+ <ca35a9c1-82d8-8be6-21e7-b5242a2d884c@amd.com>
+ <s5him5hc443.wl-tiwai@suse.de>
+ <30b36220-ff0f-d04c-1fca-349b3ff3a19b@amd.com>
+ <s5h8s6dbyr1.wl-tiwai@suse.de>
+ <9758cd4c-1246-a4ab-74eb-0e060248a00b@amd.com>
+ <s5h35wlbwye.wl-tiwai@suse.de>
+ <06b2dae2-a5ea-0cc8-891f-2aaff64ae260@amd.com>
+ <s5hv99gan2r.wl-tiwai@suse.de>
+ <d9bc41d7-bbad-24e3-6ad3-90e6dd8466c4@amd.com>
+ <s5heeg4oak7.wl-tiwai@suse.de>
+ <f97a59cb-869e-3e0f-305d-6d4a673f49c3@amd.com>
+ <s5h8s6cnva3.wl-tiwai@suse.de>
+ <65039cab-5561-aa9c-f270-8fa968a78f42@amd.com>
+ <s5h5z1foh2q.wl-tiwai@suse.de>
+ <cc6da2bc-268d-b9e9-a609-cb29276f24a8@amd.com>
+ <s5hwntvkx2c.wl-tiwai@suse.de>
+ <7788be67-e78f-4738-0ffe-27d4717c6f58@amd.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: multipart/mixed; boundary="Multipart_Sat_Mar_27_09:17:27_2021-1"
+Cc: "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
+ alsa-devel@alsa-project.org,
+ Sergei Miroshnichenko <s.miroshnichenko@yadro.com>,
+ "Christian.Koenig@amd.com" <Christian.Koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,12 +90,792 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 26, 2021 at 10:11 PM Lucas <jaffa225man@gmail.com> wrote:
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: text/plain; charset=US-ASCII
 
-> 1. The INTEGRA-7 won't output playback in any mode other than its
-> "96[kHz]" setting, though capture works with all of its Sample Rate choices.
->
+On Fri, 26 Mar 2021 22:27:26 +0100,
+Andrey Grodzovsky wrote:
+> 
+> Attached.
 
-Sorry, I meant to say that it won't output playback in any mode other than
-its "44.1 [kHz]" Sample Rate choice.  I must have been wishfully thinking,
-I suppose. ;)
+Thanks.  I found that there are a few other places that may enter the
+hardware access and might need the power_state blocking similarly.
+
+The patch set below is a refreshed one including those.
+
+
+Takashi
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0001-ALSA-hda-Re-add-dropped-snd_poewr_change_state-calls.patch"
+Content-Transfer-Encoding: 7bit
+
+From c061f5bedc8ae356132ea536c524a5460c2b2dd8 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 24 Mar 2021 08:53:56 +0100
+Subject: [PATCH v3 1/6] ALSA: hda: Re-add dropped snd_poewr_change_state()
+ calls
+
+The card power state change via snd_power_change_state() at the system
+suspend/resume seems dropped mistakenly during the PM code rewrite.
+The card power state doesn't play much role nowadays but it's still
+referred in a few places such as the HDMI codec driver.
+
+This patch restores them, but in a more appropriate place now in the
+prepare and complete callbacks.
+
+Fixes: f5dac54d9d93 ("ALSA: hda: Separate runtime and system suspend")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 5eea130dcf0a..c4146e8617de 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1025,6 +1025,7 @@ static int azx_prepare(struct device *dev)
+ 
+ 	chip = card->private_data;
+ 	chip->pm_prepared = 1;
++	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+ 
+ 	flush_work(&azx_bus(chip)->unsol_work);
+ 
+@@ -1040,6 +1041,7 @@ static void azx_complete(struct device *dev)
+ 	struct azx *chip;
+ 
+ 	chip = card->private_data;
++	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
+ 	chip->pm_prepared = 0;
+ }
+ 
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0002-ALSA-core-Use-READ_ONCE-WRITE_ONCE-for-power-state-c.patch"
+Content-Transfer-Encoding: 7bit
+
+From ac37cc965a5a6ac28a3bd2ace7299ea0425e8465 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 24 Mar 2021 18:01:39 +0100
+Subject: [PATCH v3 2/6] ALSA: core: Use READ_ONCE() / WRITE_ONCE() for power
+ state change
+
+We need proper barriers to handle the power state change of the card.
+In the normal situation in suspend/resume callbacks, the lack of the
+barrier is no big problem, but if it's actually referred outside the
+suspend state, it can be racy.  Fix it with READ_ONCE() and
+WRITE_ONCE() macros.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/sound/core.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/sound/core.h b/include/sound/core.h
+index 2e24f194ef70..b915285a2b4e 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -142,12 +142,12 @@ struct snd_card {
+ #ifdef CONFIG_PM
+ static inline unsigned int snd_power_get_state(struct snd_card *card)
+ {
+-	return card->power_state;
++	return READ_ONCE(card->power_state);
+ }
+ 
+ static inline void snd_power_change_state(struct snd_card *card, unsigned int state)
+ {
+-	card->power_state = state;
++	WRITE_ONCE(card->power_state, state);
+ 	wake_up(&card->power_sleep);
+ }
+ 
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0003-ALSA-core-Use-inline-for-dummy-snd_power_-helpers.patch"
+Content-Transfer-Encoding: 7bit
+
+From 6cc9b0be57276b209069da459e167114c04a4e00 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Thu, 25 Mar 2021 08:31:23 +0100
+Subject: [PATCH v3 3/6] ALSA: core: Use inline for dummy snd_power_*() helpers
+
+Using the do-while(0) isn't really suitable for a macro with an
+argument, as checkpatch recently complained.  Replace with static
+inline functions for safety.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/sound/core.h | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/include/sound/core.h b/include/sound/core.h
+index b915285a2b4e..d82ecca4c99a 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -156,9 +156,19 @@ int snd_power_wait(struct snd_card *card, unsigned int power_state);
+ 
+ #else /* ! CONFIG_PM */
+ 
+-static inline int snd_power_wait(struct snd_card *card, unsigned int state) { return 0; }
+-#define snd_power_get_state(card)	({ (void)(card); SNDRV_CTL_POWER_D0; })
+-#define snd_power_change_state(card, state)	do { (void)(card); } while (0)
++static inline int snd_power_wait(struct snd_card *card, unsigned int state)
++{
++	return 0;
++}
++
++static inline unsigned int snd_power_get_state(struct snd_card *card)
++{
++	return SNDRV_CTL_POWER_D0;
++}
++
++static inline void snd_power_change_state(struct snd_card *card, unsigned int state)
++{
++}
+ 
+ #endif /* CONFIG_PM */
+ 
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0004-ALSA-control-Track-the-floating-control-read-write-t.patch"
+Content-Transfer-Encoding: 7bit
+
+From bc6b7a31914af194586d890c761eced196c25ae3 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 24 Mar 2021 09:02:33 +0100
+Subject: [PATCH v3 4/6] ALSA: control: Track the floating control
+ read/write/tlv accesses
+
+Some control API ioctls may access the hardware and we need to block
+such operations during the card power state off.  Although there have
+been already a few snd_power_wait() checks in some ioctl handlers,
+not only that the snd_power_wait() checks are missing around the
+actually needed places for kctl ops accesses, but also that the
+snd_power_wait() call itself is basically helpless; if a driver sets
+the power state to D3, a pending task that has already entered in the
+ioctl may access the hardware afterwards.
+
+For covering those races, this patch introduces a few new things:
+- A refcount, power_ref, and a wait head, power_ref_sleep, to the card
+  object
+- A new helper, snd_power_wait_and_ref(), and snd_power_unref()
+
+In a few code paths that call kctl read/write/tlv ops, we check the
+power state again with the new snd_power_want_and_ref() helper, which
+also takes the card.power_ref refcount in return.  The refcount is
+then released after the kctl ops finishes.  So the driver can sync via
+wait_event() with power_ref=0 for assuring all in-flight tasks are
+finished.  (Note that the snd_power_wait_and_ref() is written
+carefully not to deadlock the power_ref=0 loop by decrementing the
+refcount before sleeping.)
+
+Also, this patch changes snd_power_wait() to accept only
+SNDRV_CTL_POWER_D0, which is the only value that makes sense.
+In later patch, the snd_power_wait() calls will be simplified.
+
+Reader may wonder why a similar stuff isn't needed for PCM; it's
+because PCM is stateful unlike the control API and each operation
+stage has a proper state check.
+
+Yet another note: the code uses atomic_t because refcount_t doesn't
+allow the increment on zero, and it gives no helper for dec-and-test
+other than comparison with zero, either.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/sound/core.h | 27 +++++++++++++++++++++++++++
+ sound/core/control.c | 29 +++++++++++++++++++++++------
+ sound/core/init.c    | 44 ++++++++++++++++++++++++++++++++++++--------
+ 3 files changed, 86 insertions(+), 14 deletions(-)
+
+diff --git a/include/sound/core.h b/include/sound/core.h
+index d82ecca4c99a..613405b7bf18 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -129,6 +129,8 @@ struct snd_card {
+ #ifdef CONFIG_PM
+ 	unsigned int power_state;	/* power state */
+ 	wait_queue_head_t power_sleep;
++	atomic_t power_ref;
++	wait_queue_head_t power_ref_sleep;
+ #endif
+ 
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+@@ -151,8 +153,20 @@ static inline void snd_power_change_state(struct snd_card *card, unsigned int st
+ 	wake_up(&card->power_sleep);
+ }
+ 
++static inline void snd_power_ref(struct snd_card *card)
++{
++	atomic_inc(&card->power_ref);
++}
++
++static inline void snd_power_unref(struct snd_card *card)
++{
++	if (atomic_dec_and_test(&card->power_ref))
++		wake_up(&card->power_ref_sleep);
++}
++
+ /* init.c */
+ int snd_power_wait(struct snd_card *card, unsigned int power_state);
++int snd_power_wait_and_ref(struct snd_card *card, bool ref);
+ 
+ #else /* ! CONFIG_PM */
+ 
+@@ -170,6 +184,19 @@ static inline void snd_power_change_state(struct snd_card *card, unsigned int st
+ {
+ }
+ 
++static inline int snd_power_wait_and_ref(struct snd_card *card, bool ref)
++{
++	return 0;
++}
++
++static inline void snd_power_ref(struct snd_card *card)
++{
++}
++
++static inline void snd_power_unref(struct snd_card *card)
++{
++}
++
+ #endif /* CONFIG_PM */
+ 
+ struct snd_minor {
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 5165741a8400..f09739609ea3 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -1060,9 +1060,12 @@ static int snd_ctl_elem_read(struct snd_card *card,
+ 
+ 	if (!snd_ctl_skip_validation(&info))
+ 		fill_remaining_elem_value(control, &info, pattern);
++	ret = snd_power_wait_and_ref(card, true);
++	if (ret < 0)
++		goto out;
+ 	ret = kctl->get(kctl, control);
+ 	if (ret < 0)
+-		return ret;
++		goto out;
+ 	if (!snd_ctl_skip_validation(&info) &&
+ 	    sanity_check_elem_value(card, control, &info, pattern) < 0) {
+ 		dev_err(card->dev,
+@@ -1070,8 +1073,12 @@ static int snd_ctl_elem_read(struct snd_card *card,
+ 			control->id.iface, control->id.device,
+ 			control->id.subdevice, control->id.name,
+ 			control->id.index);
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto out;
+ 	}
++
++ out:
++	snd_power_unref(card);
+ 	return ret;
+ }
+ 
+@@ -1122,16 +1129,22 @@ static int snd_ctl_elem_write(struct snd_card *card, struct snd_ctl_file *file,
+ 	}
+ 
+ 	snd_ctl_build_ioff(&control->id, kctl, index_offset);
++
++	result = snd_power_wait_and_ref(card, true);
++	if (result < 0)
++		goto out;
+ 	result = kctl->put(kctl, control);
+ 	if (result < 0)
+-		return result;
++		goto out;
+ 
+ 	if (result > 0) {
+ 		struct snd_ctl_elem_id id = control->id;
+ 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
+ 	}
+ 
+-	return 0;
++ out:
++	snd_power_unref(card);
++	return result < 0 ? result : 0;
+ }
+ 
+ static int snd_ctl_elem_write_user(struct snd_ctl_file *file,
+@@ -1606,7 +1619,7 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
+ 		{SNDRV_CTL_TLV_OP_CMD,   SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND},
+ 	};
+ 	struct snd_kcontrol_volatile *vd = &kctl->vd[snd_ctl_get_ioff(kctl, id)];
+-	int i;
++	int i, ret;
+ 
+ 	/* Check support of the request for this element. */
+ 	for (i = 0; i < ARRAY_SIZE(pairs); ++i) {
+@@ -1624,7 +1637,11 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
+ 	    vd->owner != NULL && vd->owner != file)
+ 		return -EPERM;
+ 
+-	return kctl->tlv.c(kctl, op_flag, size, buf);
++	ret = snd_power_wait_and_ref(file->card, true);
++	if (!ret)
++		ret = kctl->tlv.c(kctl, op_flag, size, buf);
++	snd_power_unref(file->card);
++	return ret;
+ }
+ 
+ static int read_tlv_buf(struct snd_kcontrol *kctl, struct snd_ctl_elem_id *id,
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 45f4b01de23f..479c1a4867d0 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -220,6 +220,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 	mutex_init(&card->memory_mutex);
+ #ifdef CONFIG_PM
+ 	init_waitqueue_head(&card->power_sleep);
++	atomic_set(&card->power_ref, 0);
++	init_waitqueue_head(&card->power_ref_sleep);
+ #endif
+ 	init_waitqueue_head(&card->remove_sleep);
+ 	card->sync_irq = -1;
+@@ -1004,21 +1006,26 @@ EXPORT_SYMBOL(snd_card_file_remove);
+ 
+ #ifdef CONFIG_PM
+ /**
+- *  snd_power_wait - wait until the power-state is changed.
+- *  @card: soundcard structure
+- *  @power_state: expected power state
++ * snd_power_wait_and_ref - wait until the card gets powered up
++ * @card: soundcard structure
++ * @ref: take power_ref refcount if set
+  *
+- *  Waits until the power-state is changed.
++ * Waits until the card gets powered up to SNDRV_CTL_POWER_D0 state.
++ * When @ref is set, power_ref refcount is incremented in return.
++ * The caller needs to pull down the refcount via snd_power_unref() later
++ * appropriately.
+  *
+- *  Return: Zero if successful, or a negative error code.
++ * Return: Zero if successful, or a negative error code.
+  */
+-int snd_power_wait(struct snd_card *card, unsigned int power_state)
++int snd_power_wait_and_ref(struct snd_card *card, bool ref)
+ {
+ 	wait_queue_entry_t wait;
+ 	int result = 0;
+ 
+ 	/* fastpath */
+-	if (snd_power_get_state(card) == power_state)
++	if (ref)
++		snd_power_ref(card);
++	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
+ 		return 0;
+ 	init_waitqueue_entry(&wait, current);
+ 	add_wait_queue(&card->power_sleep, &wait);
+@@ -1027,13 +1034,34 @@ int snd_power_wait(struct snd_card *card, unsigned int power_state)
+ 			result = -ENODEV;
+ 			break;
+ 		}
+-		if (snd_power_get_state(card) == power_state)
++		if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
+ 			break;
++		if (ref)
++			snd_power_unref(card);
+ 		set_current_state(TASK_UNINTERRUPTIBLE);
+ 		schedule_timeout(30 * HZ);
++		if (ref)
++			snd_power_ref(card);
+ 	}
+ 	remove_wait_queue(&card->power_sleep, &wait);
+ 	return result;
+ }
++EXPORT_SYMBOL_GPL(snd_power_wait_and_ref);
++
++/**
++ * snd_power_wait - wait until the card gets powered up (old form)
++ * @card: soundcard structure
++ * @power_state: expected power state
++ *
++ * Same as snd_power_wait_and_ref() with ref=false.
++ * @power_state must be SNDRV_CTL_POWER_D0.
++ *
++ * Return: Zero if successful, or a negative error code.
++ */
++int snd_power_wait(struct snd_card *card, unsigned int power_state)
++{
++	WARN_ON(power_state != SNDRV_CTL_POWER_D0);
++	return snd_power_wait_and_ref(card, false);
++}
+ EXPORT_SYMBOL(snd_power_wait);
+ #endif /* CONFIG_PM */
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0005-ALSA-pcm-Block-the-release-until-the-system-resume-f.patch"
+Content-Transfer-Encoding: 7bit
+
+From 3d711314c8a506121b82be480e896ea042d69a76 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 24 Mar 2021 09:05:25 +0100
+Subject: [PATCH v3 5/6] ALSA: pcm: Block the release until the system resume
+ finishes
+
+The normal PCM operations are already blocked during the card power
+off state in the PCM common ioctl handler, but the release isn't
+covered.  As the PCM stream release may also access the hardware,
+let's block the release until the card power turns on.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/pcm_native.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 17a85f4815d5..664d2975def4 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2799,6 +2799,10 @@ static int snd_pcm_release(struct inode *inode, struct file *file)
+ 	if (snd_BUG_ON(!substream))
+ 		return -ENXIO;
+ 	pcm = substream->pcm;
++
++	/* block until the device gets woken up as it may touch the hardware */
++	snd_power_wait(pcm->card, SNDRV_CTL_POWER_D0);
++
+ 	mutex_lock(&pcm->open_mutex);
+ 	snd_pcm_release_substream(substream);
+ 	kfree(pcm_file);
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0006-ALSA-hda-Add-support-for-BARs-move-on-PCI-rescan.patch"
+Content-Transfer-Encoding: 7bit
+
+From 380cbaebf3bfdf6eaf0b46772411a64ca8bdbaeb Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 16 Mar 2021 23:01:02 -0400
+Subject: [PATCH v3 6/6] ALSA: hda: Add support for BARs move on PCI rescan
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_beep.c       |   2 +
+ sound/pci/hda/hda_controller.c |   9 +++
+ sound/pci/hda/hda_controller.h |   1 +
+ sound/pci/hda/hda_hwdep.c      |   7 +-
+ sound/pci/hda/hda_intel.c      | 115 ++++++++++++++++++++++++++++++---
+ sound/pci/hda/hda_proc.c       |   3 +
+ sound/pci/hda/hda_sysfs.c      |   5 ++
+ 7 files changed, 131 insertions(+), 11 deletions(-)
+
+diff --git a/sound/pci/hda/hda_beep.c b/sound/pci/hda/hda_beep.c
+index 53a2b89f8983..bf2f726e5901 100644
+--- a/sound/pci/hda/hda_beep.c
++++ b/sound/pci/hda/hda_beep.c
+@@ -25,6 +25,7 @@ static void generate_tone(struct hda_beep *beep, int tone)
+ {
+ 	struct hda_codec *codec = beep->codec;
+ 
++	snd_power_wait_and_ref(codec->card, true);
+ 	if (tone && !beep->playing) {
+ 		snd_hda_power_up(codec);
+ 		if (beep->power_hook)
+@@ -39,6 +40,7 @@ static void generate_tone(struct hda_beep *beep, int tone)
+ 			beep->power_hook(beep, false);
+ 		snd_hda_power_down(codec);
+ 	}
++	snd_power_unref(codec->card);
+ }
+ 
+ static void snd_hda_generate_beep(struct work_struct *work)
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index ca2f2ecd1488..5e32aa78aa32 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -1057,6 +1057,15 @@ void azx_stop_chip(struct azx *chip)
+ }
+ EXPORT_SYMBOL_GPL(azx_stop_chip);
+ 
++void azx_suspend_streams(struct azx *chip)
++{
++	struct azx_pcm *apcm;
++
++	list_for_each_entry(apcm, &chip->pcm_list, list)
++		snd_pcm_suspend_all(apcm->pcm);
++}
++EXPORT_SYMBOL_GPL(azx_suspend_streams);
++
+ /*
+  * interrupt handler
+  */
+diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
+index 68f9668788ea..d40a5d87d34e 100644
+--- a/sound/pci/hda/hda_controller.h
++++ b/sound/pci/hda/hda_controller.h
+@@ -212,5 +212,6 @@ int azx_probe_codecs(struct azx *chip, unsigned int max_slots);
+ int azx_codec_configure(struct azx *chip);
+ int azx_init_streams(struct azx *chip);
+ void azx_free_streams(struct azx *chip);
++void azx_suspend_streams(struct azx *chip);
+ 
+ #endif /* __SOUND_HDA_CONTROLLER_H */
+diff --git a/sound/pci/hda/hda_hwdep.c b/sound/pci/hda/hda_hwdep.c
+index 125e97fe0b1c..a86adb0acf80 100644
+--- a/sound/pci/hda/hda_hwdep.c
++++ b/sound/pci/hda/hda_hwdep.c
+@@ -22,14 +22,17 @@ static int verb_write_ioctl(struct hda_codec *codec,
+ 			    struct hda_verb_ioctl __user *arg)
+ {
+ 	u32 verb, res;
++	int err;
+ 
+ 	if (get_user(verb, &arg->verb))
+ 		return -EFAULT;
++	err = snd_power_wait_and_ref(codec->card, true);
+ 	res = snd_hda_codec_read(codec, verb >> 24, 0,
+ 				 (verb >> 8) & 0xffff, verb & 0xff);
+ 	if (put_user(res, &arg->res))
+-		return -EFAULT;
+-	return 0;
++		err = -EFAULT;
++	snd_power_unref(codec->card);
++	return err;
+ }
+ 
+ static int get_wcap_ioctl(struct hda_codec *codec,
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index c4146e8617de..3aa11d6baab4 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1868,6 +1868,26 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
+ 	return 0;
+ }
+ 
++static int azx_request_pci_regions(struct azx *chip)
++{
++	struct hdac_bus *bus = azx_bus(chip);
++	struct pci_dev *pci = chip->pci;
++	int err;
++
++	err = pci_request_regions(pci, "ICH HD audio");
++	if (err < 0)
++		return err;
++	chip->region_requested = 1;
++
++	bus->addr = pci_resource_start(pci, 0);
++	bus->remap_addr = pci_ioremap_bar(pci, 0);
++	if (!bus->remap_addr) {
++		dev_err(&pci->dev, "ioremap error\n");
++		return -ENXIO;
++	}
++	return 0;
++}
++
+ static int azx_first_init(struct azx *chip)
+ {
+ 	int dev = chip->dev_index;
+@@ -1888,17 +1908,9 @@ static int azx_first_init(struct azx *chip)
+ 	}
+ #endif
+ 
+-	err = pci_request_regions(pci, "ICH HD audio");
++	err = azx_request_pci_regions(chip);
+ 	if (err < 0)
+ 		return err;
+-	chip->region_requested = 1;
+-
+-	bus->addr = pci_resource_start(pci, 0);
+-	bus->remap_addr = pci_ioremap_bar(pci, 0);
+-	if (bus->remap_addr == NULL) {
+-		dev_err(card->dev, "ioremap error\n");
+-		return -ENXIO;
+-	}
+ 
+ 	if (chip->driver_type == AZX_DRIVER_SKL)
+ 		snd_hdac_bus_parse_capabilities(bus);
+@@ -2416,6 +2428,86 @@ static void azx_shutdown(struct pci_dev *pci)
+ 		azx_stop_chip(chip);
+ }
+ 
++#ifdef CONFIG_PM
++static bool azx_bar_fixed(struct pci_dev *pdev, int resno)
++{
++	return false;
++}
++
++static void azx_rescan_prepare(struct pci_dev *pdev)
++{
++	struct snd_card *card = pci_get_drvdata(pdev);
++	struct azx *chip = card->private_data;
++	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
++	struct hdac_bus *bus = azx_bus(chip);
++	struct hda_codec *codec;
++
++	// FIXME: need unlock/lock dance as in azx_remove()?
++	flush_work(&hda->probe_work);
++
++	if (hda->freed || hda->init_failed)
++		return;
++
++	if (chip->running) {
++		pm_runtime_get_sync(&pdev->dev);
++		azx_prepare(&pdev->dev);
++		azx_suspend_streams(chip);
++		wait_event(card->power_ref_sleep,
++			   !atomic_read(&card->power_ref));
++		list_for_each_codec(codec, &chip->bus) {
++			pm_runtime_suspend(hda_codec_dev(codec));
++			pm_runtime_disable(hda_codec_dev(codec));
++		}
++		azx_suspend(&pdev->dev);
++	}
++
++	/* Unmap MMIO and release BAR resource */
++	iounmap(bus->remap_addr);
++	if (chip->region_requested) {
++		pci_release_regions(chip->pci);
++		chip->region_requested = 0;
++	}
++}
++
++static void azx_rescan_done(struct pci_dev *pdev)
++{
++	struct snd_card *card = pci_get_drvdata(pdev);
++	struct azx *chip = card->private_data;
++	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
++	struct hdac_bus *bus = azx_bus(chip);
++	struct hdac_stream *azx_dev;
++	struct hda_codec *codec;
++	int err;
++
++	if (hda->freed || hda->init_failed)
++		return;
++
++	/* Reassign BAR and remap */
++	err = azx_request_pci_regions(chip);
++	if (err < 0) {
++		dev_err(card->dev, "Rescan failed: disabling the device\n");
++		card->shutdown = 1;
++		hda->init_failed = true;
++		// FIXME: any better handling?
++		return;
++	}
++
++	// FIXME: should be in hdac_stream.c
++	list_for_each_entry(azx_dev, &bus->stream_list, list)
++		azx_dev->sd_addr = bus->remap_addr + (0x20 * azx_dev->index + 0x80);
++
++	if (chip->running) {
++		azx_resume(&pdev->dev);
++		list_for_each_codec(codec, &chip->bus) {
++			pm_runtime_enable(hda_codec_dev(codec));
++			pm_runtime_resume(hda_codec_dev(codec));
++		}
++		azx_complete(&pdev->dev);
++		pm_runtime_put_sync(&pdev->dev);
++	}
++}
++#endif /* CONFIG_PM */
++
+ /* PCI IDs */
+ static const struct pci_device_id azx_ids[] = {
+ 	/* CPT */
+@@ -2783,6 +2875,11 @@ static struct pci_driver azx_driver = {
+ 	.driver = {
+ 		.pm = AZX_PM_OPS,
+ 	},
++#ifdef CONFIG_PM
++	.rescan_prepare	= azx_rescan_prepare,
++	.rescan_done	= azx_rescan_done,
++	.bar_fixed	= azx_bar_fixed,
++#endif
+ };
+ 
+ module_pci_driver(azx_driver);
+diff --git a/sound/pci/hda/hda_proc.c b/sound/pci/hda/hda_proc.c
+index 00c2eeb2c472..9e753a8ad3c9 100644
+--- a/sound/pci/hda/hda_proc.c
++++ b/sound/pci/hda/hda_proc.c
+@@ -782,6 +782,7 @@ static void print_codec_info(struct snd_info_entry *entry,
+ 	fg = codec->core.afg;
+ 	if (!fg)
+ 		return;
++	snd_power_wait_and_ref(codec->card, true);
+ 	snd_hda_power_up(codec);
+ 	snd_iprintf(buffer, "Default PCM:\n");
+ 	print_pcm_caps(buffer, codec, fg);
+@@ -796,6 +797,7 @@ static void print_codec_info(struct snd_info_entry *entry,
+ 	if (! nid || nodes < 0) {
+ 		snd_iprintf(buffer, "Invalid AFG subtree\n");
+ 		snd_hda_power_down(codec);
++		snd_power_unref(codec->card);
+ 		return;
+ 	}
+ 
+@@ -933,6 +935,7 @@ static void print_codec_info(struct snd_info_entry *entry,
+ 		kfree(conn);
+ 	}
+ 	snd_hda_power_down(codec);
++	snd_power_unref(codec->card);
+ }
+ 
+ /*
+diff --git a/sound/pci/hda/hda_sysfs.c b/sound/pci/hda/hda_sysfs.c
+index d5ffcba794e5..0a213aef4124 100644
+--- a/sound/pci/hda/hda_sysfs.c
++++ b/sound/pci/hda/hda_sysfs.c
+@@ -118,12 +118,15 @@ static int clear_codec(struct hda_codec *codec)
+ {
+ 	int err;
+ 
++	snd_power_wait_and_ref(codec->card, true);
+ 	err = snd_hda_codec_reset(codec);
+ 	if (err < 0) {
+ 		codec_err(codec, "The codec is being used, can't free.\n");
++		snd_power_unref(codec->card);
+ 		return err;
+ 	}
+ 	snd_hda_sysfs_clear(codec);
++	snd_power_unref(codec->card);
+ 	return 0;
+ }
+ 
+@@ -131,6 +134,7 @@ static int reconfig_codec(struct hda_codec *codec)
+ {
+ 	int err;
+ 
++	snd_power_wait_and_ref(codec->card, true);
+ 	snd_hda_power_up(codec);
+ 	codec_info(codec, "hda-codec: reconfiguring\n");
+ 	err = snd_hda_codec_reset(codec);
+@@ -145,6 +149,7 @@ static int reconfig_codec(struct hda_codec *codec)
+ 	err = snd_card_register(codec->card);
+  error:
+ 	snd_hda_power_down(codec);
++	snd_power_unref(codec->card);
+ 	return err;
+ }
+ 
+-- 
+2.26.2
+
+
+--Multipart_Sat_Mar_27_09:17:27_2021-1--

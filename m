@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D47E934BA38
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Mar 2021 01:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BEB34BB6F
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Mar 2021 08:41:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AC73167A;
-	Sun, 28 Mar 2021 00:59:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AC73167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67B7615E2;
+	Sun, 28 Mar 2021 08:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67B7615E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1616889614;
-	bh=1qfph95VqWVmqze1fAFFRZBO6JCCATW2vv6XgtALa4U=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1616913701;
+	bh=CMuJyz7hw8797E957dQlGZrlFtrd1PUWXuTeJEwWIb4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FjDXvpDiJ3PF/v8fOpQ369ay9EfHRlJSNretUDLR31vOXzDAeIxfASuVMrWQXEndF
-	 2q3jv8ayQp8vwGx/39oGIjDnHocxvW+3R3G+pIDq4eVvPdvivbmUS270tcHK6yS9is
-	 SH0LWImZTf0Nsuz0/7auct+IaU+OS2+au+MNZuvQ=
+	b=uTRxCcoh27dcCMvVzgApuYVPXTX64FfcnPU0C7R1iAbeuG+WHg+2bPMH7eP9p8xbC
+	 QkfqzM0cu1dvuYq3YU1zC77OyuBpPVTfaitNhXaqQ43aA+IahpLMjp3t8bzQ/ijvJs
+	 nfoP1LwPDj0TZKCedbNRMBd6hlyP1qHeKhWVjpq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AABF7F80257;
-	Sun, 28 Mar 2021 00:58:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC30DF8026B;
+	Sun, 28 Mar 2021 08:40:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95AB0F8025F; Sun, 28 Mar 2021 00:58:44 +0100 (CET)
+ id 448CFF80240; Sun, 28 Mar 2021 08:40:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODYSUB_17,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E70CF80109
- for <alsa-devel@alsa-project.org>; Sun, 28 Mar 2021 00:58:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E70CF80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id B402FF80141
+ for <alsa-devel@alsa-project.org>; Sun, 28 Mar 2021 08:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B402FF80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MgbrWfaz"
-Received: by mail-ed1-x536.google.com with SMTP id o19so10332535edc.3
- for <alsa-devel@alsa-project.org>; Sat, 27 Mar 2021 16:58:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=G/DFZEaVKxVwRN6uka2/CBVyUd20qkhja5uqcfFEIgc=;
- b=MgbrWfaztMeuJfPkK44xxsKFWrCeXk937DgiNAvb/gWKba6AovK6vhD50o4XAyd9qz
- d9/L1XQWDnok/VYVjYNOAaE3TfWYk2mtXgc6bpyd4OUedwBxdQkAzVw/++s5FpxJZ3r0
- P85E0uTaT/I1afA8n6w+v21ga7h0bXa395XcHPEPGeZYGPq8VaoS9u2diwiCeSqiPbem
- ey0Nqar61qI+24f8nVuWXI4098uVJ7k/QA2vSmVpKQN+ZoZFpKXfBAFB9QBfukps4XYy
- fJOxhB7d2FBjInuvS2oN0dCrifmSiG4o0a0zSlcoCdz50jPVCo/35ZNKyjIIfuoadvwR
- +e4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=G/DFZEaVKxVwRN6uka2/CBVyUd20qkhja5uqcfFEIgc=;
- b=WKr8ZxzjHD4n1L6PtEWpnYamJ41bGouEHU5Gi6DhB1i3gWxUD1a54tqACfLSnqzcgV
- lfTZoZVlBb0OiVyFiA8qowuX5/P6Skfqs+JXu969FwBJ2dwRIun8lhOaU8p3GwgctotG
- rw/CvT+E6cvCjtHzl5TF5U073qM7dP1+4wbePritzqJzFHYbIDCmIQKHmC8wJFzBqBMq
- C6g/8mHivQT3TalDyAwOpHC91JKdwF9CQUAaU5MkJ0ENUHlQrOrR4iEvS0J+qP5gi8/T
- LwQ7UfUtzWycMIBwvTBcTI2ymp93TvZysBjOOzrs16Hx32xE2EkGOFUzJBCnEIhkIYmz
- CBxA==
-X-Gm-Message-State: AOAM533JWKCUPaS6gV+FBlbeMUgPwPsKHvMIya8XUKgPYrxT9tdX5Lj+
- LdJnLbsiEA1oIIMoaW38J5PBgA30tKfqm08wx86uEVTnwSc=
-X-Google-Smtp-Source: ABdhPJzFBcd3oXpkefbK3+Uvy2sf+pjrnuudv/VD2/gbKQczgML7scWJeOUJkfganYFeoVHwoCzP23dQx95+FWhOSWk=
-X-Received: by 2002:aa7:cc98:: with SMTP id p24mr21913490edt.187.1616889511030; 
- Sat, 27 Mar 2021 16:58:31 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="SpFRdleI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
+ Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=hCnckJWDEvRwuwUcyw2eq/CuoVm9+glbvvwisEB04mQ=; b=SpFRdleID641yZ2xEsvoU+4zfQ
+ 5X/pahHIJgBeu2QpPMhjfIBvl27IEeTqwC0M1tPCmcuOFCdwMtDdHQKYBX4Ib2OOoijS8kx2gkqAB
+ c+Y5QZjF7Epk/r6VW9ThNPob6C1JMVUzHO5hANcEaAAzApZrEZHNHFsF7xQxdM7B2SnOZYnUVbGQ1
+ v4iTwa9+Ih8gelelV9haa4fPOKasOqKZWsuArhENrgTOjRsnYtfm1ngeZvJAYeKmn9Zt38cNe3mOr
+ s4/7iVpP+vDhGiwYjLABu7xbkWCORBy0jhQlmX6MfLHCWyZoIVCBVjtUBw2liVlBONIPfF4bhebH7
+ 5RIgKQxQ==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lQP5g-005Xjj-4u; Sun, 28 Mar 2021 08:40:04 +0200
+Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
+To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>
+References: <20210324054253.34642-1-coding@diwic.se>
+ <20210324124430.GA3711@workstation>
+ <057ef387-9ee1-2678-29ce-d644f2a3a90a@diwic.se>
+ <20210326044615.GA51246@workstation> <s5hr1k2l56t.wl-tiwai@suse.de>
+ <2ca71809-9872-bfee-c19d-76b6ce143212@diwic.se>
+ <s5h1rc1lva7.wl-tiwai@suse.de>
+From: David Henningsson <coding@diwic.se>
+Message-ID: <fbd3fc88-7a25-27fb-90ae-b4664f71d952@diwic.se>
+Date: Sun, 28 Mar 2021 08:39:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <CAOsVg8oYg_3A70UMudHuysi3b9WYcZF++DK3uAruJSjygvgcUg@mail.gmail.com>
- <CAOsVg8pjPuLzdKUTVn7-33FSGPueTY7FKHpHqW7Of8m60PGQnA@mail.gmail.com>
-In-Reply-To: <CAOsVg8pjPuLzdKUTVn7-33FSGPueTY7FKHpHqW7Of8m60PGQnA@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Sat, 27 Mar 2021 18:58:19 -0500
-Message-ID: <CAOsVg8oAz1Pn2sEAOgv=VO+CjvQtMEWQDAGFDBRjjLDe47MyYg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] Adding some Roland devices' USB digital audio
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+In-Reply-To: <s5h1rc1lva7.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Id: coding@diwic.se
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,26 +94,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Alright, the R-26 works perfectly with the patch too!  Through its built-in
-controls, first I configured the MENU->AUDIO I/F SETUP->SAMPLE RATE to
-"96.0 kHz."
+Hi Takashi and Takashi,
 
-Then, I connected it through USB and used this to capture & playback:
-arecord -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
-aplay -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
+You both question the usability of the patch, so let's take a step back.
 
-Then, in the "AUDIO I/F" tab on its main screen, I enabled "LOOP BACK" &
-"DIRECT MONITOR" & was able to begin a new composite recording,
-voicing-over what I'd recorded earlier, by playing it back while
-interjecting.
+Suppose you're writing the next JACK, or a DAW, or something like that.
+When writing a DAW, you need to support the users who need ultra-low 
+latency for live playing of an instrument. These users (unfortunately) 
+need to reconfigure their Linux installation, have special kernels, buy 
+expensive sound cards etc, in order to get the best possible latency.
+You also should give the best possible experience for people who don't 
+have the time to do that. Just recording a simple MIDI file should not 
+require any extra kernel options, RT_PRIO privileges or anything like 
+that. (And then there are people in between, who try to get the best 
+possible latency given their limited time, money and skills.)
 
-Fun, fun, fun, and sounding excellent!
+Now you're asking yourself whether to use rawmidi or seq API. It seems 
+silly to have to support both.
+The seq interface is suboptimal for the first use case, due to the 
+latency introduced by the workqueue. But rawmidi is entirely impossible 
+for the second use case, due to the lack of timestamping.
+(From a quick look at Ardour's sources, it does support both rawmidi and 
+seq. The rawmidi code mostly timestamps the message and sends it to 
+another thread. [1] I e, essentially what I believe the kernel should 
+do, because that timestamp is better.)
 
-While I don't want this patch ignored, perhaps wait a bit just for now, as
-tonight I'll be fact-checking it against the USB IDs I've realized can be
-found in a collection of them: http://www.linux-usb.org/usb.ids.  When
-done, I'll submit the finalized patch.
+What you don't need is exact measurements of burst interval or even 
+timestamp accuracy. All you have use for is the best possible timestamp, 
+because that's what's going to be written into the MIDI file. There 
+might be other use cases for burst intervals etc, but I don't see them 
+helping here.
 
-Thanks & Happy Hacking!,
+On 2021-03-26 17:44, Takashi Iwai wrote:
+> On Fri, 26 Mar 2021 17:29:04 +0100,
+> David Henningsson wrote:
+>>> But actually I'd like to see some measurement how much we can improve
+>>> the timestamp accuracy by shifting the post office.  This may show
+>>> interesting numbers.
+>> Sorry, I don't know the idiom "shifting the post office" and neither
+>> does the urban dictionary, so I have no idea what this means. :-)
+> It was just joking; you basically moved the place to stamp the
+> incoming data from one place (at the delivery center of a sequencer
+> event) to another earlier place (at the irq handler).
+>
+> The question is: how much time difference have you measured by this
+> move?
 
-  Lucas
+Ok, thanks for the explanation. I have not done any measurements because 
+it would be quite time consuming to do so, across different hardware, 
+kernel configurations, and so on. I don't have that time right now, 
+sorry. But the claim that workqueues can be delayed up to a second (!) 
+from just adding a few RT_PRIO tasks [2] is enough to scare me from 
+using the seq interface for accurate timestamping.
+
+
+>>> Also, one thing to be more considered is the support for MIDI v2 in
+>>> future.  I haven't seen any development so far (and no device
+>>> available around), so I cannot comment on this much more, but it'd be
+>>> worth to take a quick look before defining the solid API/ABI.
+>> I had a quick look at MIDI 2.0. It offers something called "Jitter
+>> reduction timestamps". After some searching I found that its
+>> resolution is 16 bit, and in units of 1/31250 seconds [1]. So the
+>> suggested timestamp format of secs + nsecs would suit us well for that
+>> case, I believe. When implemented, MIDI 2.0 jitter reduction
+>> timestamps would be another clock ID on top of the existing frame
+>> format (or a new frame format, if we prefer).
+>>
+>> A midi 2.0 UMP (Universal Midi Packet) seems to be 4, 8, 12 or 16
+>> bytes, excluding the timestamp. If we want to fit that format with the
+>> existing patch, we could increase the frame to 32 bytes so we can fit
+>> more data per packet. Do you think we should do that? Otherwise I
+>> think Patch v3 is ready for merging.
+> Let's evaluate a bit what would be the best fit.  I see no big reason
+> to rush the merge right now.
+
+Does this mean "evaluate for a week or two because of kernel cadence, 
+merge windows etc" or does this mean "evaluate for months or years until 
+someone does a full MIDI 2.0 kernel implementation"?
+
+// David
+
+[1] 
+https://github.com/Ardour/ardour/blob/master/libs/backends/alsa/alsa_rawmidi.cc
+[2] http://bootloader.wikidot.com/linux:android:latency

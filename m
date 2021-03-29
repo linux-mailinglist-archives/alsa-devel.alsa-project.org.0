@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8C3134D8BB
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 22:00:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924BC34D8BD
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 22:00:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D6751679;
-	Mon, 29 Mar 2021 21:59:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D6751679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C4371685;
+	Mon, 29 Mar 2021 21:59:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C4371685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617048004;
-	bh=VMff+Qv6NeIX9a1HoADYuLB7R+Md++1sW41s5i4v3l0=;
+	s=default; t=1617048020;
+	bh=33BYQBr/4s8xc5+GccSIv0XFr7Cs0xd2pSG0T9cY22E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kqM5hRpQ0dZp/mPsUYEZ+iD3xsElqfH7OTAgYUuXro+KxRMqTCOfokdomdx2cZSqi
-	 fAPKw2WGTKIiPvAi0YJchiolGkUVhSQezwHI+TP8U+RPSbPFF8tpH4jvJxo9WXWE8J
-	 ZJoUM0UQIavE0h8dcJEufiddAuJZ1jfpyPAMJFDg=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DC6AF801DB;
-	Mon, 29 Mar 2021 21:58:36 +0200 (CEST)
+	b=A9oRIrkp0mV0SSQuL0KbzRS9ulRJrcQQnU9myVicexrHORkCMm46IT6r5I3ahYKXs
+	 4PrmsZiLhlKDvg3m21EdXOEzaYv1aq4tznyEkGKqaYSAat3uMMftqp0L3Ur06pPnIC
+	 0/02P4RyeWqi/n4X32JOtwrHE+vgxMwW+ynBWLcs=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 833BAF80229;
+	Mon, 29 Mar 2021 21:58:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46A20F8016E; Mon, 29 Mar 2021 21:58:34 +0200 (CEST)
+ id 1AED5F80157; Mon, 29 Mar 2021 21:58:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03354F80157
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 21:58:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03354F80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 001E4F80141
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 21:58:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 001E4F80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LO1Okk5E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8D7C361494;
- Mon, 29 Mar 2021 19:58:25 +0000 (UTC)
+ header.b="K5fZj4fa"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5D93B61554;
+ Mon, 29 Mar 2021 19:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617047906;
- bh=VMff+Qv6NeIX9a1HoADYuLB7R+Md++1sW41s5i4v3l0=;
+ s=k20201202; t=1617047908;
+ bh=33BYQBr/4s8xc5+GccSIv0XFr7Cs0xd2pSG0T9cY22E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LO1Okk5EyAoTa+OR2sEzi7g/DU4llvPF4CAXEDM8pXNgXUXlY70DGfmmd23gLflnh
- 0Dx8S9/6YqUmDOLwhjWBd0Gs91cD8N2x1K/jVzeKes8G9lZTURmooMKyBeB3sVMPe1
- dj6nJbUQUzDSpKP9MBaUfCFz/wnU1vEfCUtCIRP/1XGxEyaiymoScdmonhx7zNrujq
- KwYZXhqnIcGsVB90RLb+Q/iIS/7UMQsLFTjZaLzOyHKbLPzGhaoiEQUwvu4Xba67S1
- afamk2iHurB04AXA57AGj8CJ5Iv1dUXvhdynRyOSbZ/vXNO2V9CEfMIy+kr6L3KrQ3
- hiB2p299e14Sg==
+ b=K5fZj4fa3wTwxBVGVv7q1JKBJm1UWhEvTvaF+2bYcnBgMDkShzw2MgG8NsOTrRLuP
+ vQPGU4D+FLGTn9YK4trNp/AD91mkKtF9M8zS4Wc00OkShzwkYi0KjMKAhiz0ePEobD
+ IAzie5hN9XALsPgN+KSuBGzNxsZpxwd/8KZ2/pWdf+NnRWqdRCDA5AZ8HcloD8nm7j
+ ljEB4eKJINcXF7b/jF0VLQbCpGbEH6icy/BBzwtnUt0LL7yolsVx9UUrIps7KUpURM
+ UwDlhs5hpPeSZBXp6e47zMhrZtL/o9XEhpw9FeiMIEc5tHGj8LrJR1ajAmOpL5+4WG
+ N4BhJo1/+Bptw==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, perex@perex.cz, YueHaibing <yuehaibing@huawei.com>,
- lgirdwood@gmail.com
-Subject: Re: [PATCH -next] ASoC: dwc: Fix -Wmissing-prototypes warnings
-Date: Mon, 29 Mar 2021 20:58:07 +0100
-Message-Id: <161704724765.10039.16753813852849832832.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Argus Lin <argus.lin@mediatek.com>
+Subject: Re: [PATCH V2 0/2] Add mediatek MT6359 ASoC accdet jack driver
+Date: Mon, 29 Mar 2021 20:58:08 +0100
+Message-Id: <161704724764.10039.3415916166435567719.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210329150524.18184-1-yuehaibing@huawei.com>
-References: <20210329150524.18184-1-yuehaibing@huawei.com>
+In-Reply-To: <1615383186-18500-1-git-send-email-argus.lin@mediatek.com>
+References: <1615383186-18500-1-git-send-email-argus.lin@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
+ Chipeng Chang <chipeng.chang@mediatek.com>,
+ "Shane.Chien" <shane.chien@mediatek.com>, Jack Yu <jack.yu@realtek.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ wsd_upstream@mediatek.com, linux-kernel@vger.kernel.org,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Shuming Fan <shumingf@realtek.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org, Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,18 +92,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Mar 2021 23:05:24 +0800, YueHaibing wrote:
-> while CONFIG_SND_DESIGNWARE_PCM is not set, building with W=1 shows this:
+On Wed, 10 Mar 2021 21:33:04 +0800, Argus Lin wrote:
+> All of 3-pole and 4-pole jack are supported.
 > 
-> sound/soc/dwc/local.h:127:6: warning: no previous prototype for ‘dw_pcm_push_tx’ [-Wmissing-prototypes]
->  void dw_pcm_push_tx(struct dw_i2s_dev *dev) { }
->       ^~~~~~~~~~~~~~
-> sound/soc/dwc/local.h:128:6: warning: no previous prototype for ‘dw_pcm_pop_rx’ [-Wmissing-prototypes]
->  void dw_pcm_pop_rx(struct dw_i2s_dev *dev) { }
->       ^~~~~~~~~~~~~
-> sound/soc/dwc/local.h:129:5: warning: no previous prototype for ‘dw_pcm_register’ [-Wmissing-prototypes]
->  int dw_pcm_register(struct platform_device *pdev)
->      ^~~~~~~~~~~~~~~
+> change since v2:
+>   - fixs missing blank at Kconfig.
+>   - fixs comment format and spelling mistake.
+>   - changes private structure mt6359_accdet to mt6359-accdet.h and uses this
+>     data as function parameter.
+>   - removes compatible string declaration.
+>   - uses regmap_read_poll_timeout as polling timer.
+>   - simplify jack detection and key detection report function.
+>   - adds mt6359_accdet_enable_jack_detect for sound card jack initialization.
 > 
 > [...]
 
@@ -101,8 +113,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dwc: Fix -Wmissing-prototypes warnings
-      commit: 0803a5cb5b7cf369c3e2af4108ee44d0b6e1c197
+[1/2] dt-bindings: mediatek: mt6359: add ASoC mt6359 ASoC accdet jack document
+      commit: e61c589587c772c5f672b22683c3e0b38be20702
+[2/2] ASoC: mediatek: mt6359: add MT6359 accdet jack driver
+      commit: eef07b9e0925e16457ab9444b56a7f93b541aee3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

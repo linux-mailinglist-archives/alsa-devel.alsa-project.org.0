@@ -2,55 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA78634CF19
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 13:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4FD34D282
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 16:39:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E601167E;
-	Mon, 29 Mar 2021 13:31:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E601167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C38FC84A;
+	Mon, 29 Mar 2021 16:38:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38FC84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617017561;
-	bh=KF0v+I5hJHKVCDX2ARFXTH/9gQTzz2S2WI1A4WnGe7Q=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bH15+X/JA8u4li671566m0C6Hbx2cuOOq2TQGNfpaY6DrA9IqxQTs8mer8Udb4f5h
-	 kb6dpLLFdYCFkRmm+0dj2ljs+OQmCem73+MWUvjTL2/6NgLEusbZLJGpuBtCcRYPrK
-	 JJn/4a32MXuH9d61wfCbi6bfYM8uU1N9mihPH4TA=
+	s=default; t=1617028782;
+	bh=c2Rv9YYXjZ3E3bJfe7H6ejnj6wFyuD4nNkzo4WBbOdk=;
+	h=Subject:From:To:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=aFlHHeV0QI9dIySyu8iXaaK9wvSzia9mp8QFT3siDsvGurh3fgP618a2q+xzVAbTZ
+	 eHLLhELMh0Bsl8I4edGA0I7XZ5aOBtnA3xq+1/xNUmiu8y8VVJM71quk3ZzDx/EfPx
+	 kkdt8dBwgnpACPoA3JLw53kayJOgGX3T2CD8FOtw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F9D1F8016E;
-	Mon, 29 Mar 2021 13:31:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21AF5F801DB;
+	Mon, 29 Mar 2021 16:38:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52CEDF8016E; Mon, 29 Mar 2021 13:31:13 +0200 (CEST)
+ id 41FF5F8016E; Mon, 29 Mar 2021 16:38:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from a27-228.smtp-out.us-west-2.amazonses.com
+ (a27-228.smtp-out.us-west-2.amazonses.com [54.240.27.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEB9CF80157
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 13:31:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEB9CF80157
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2B51EB46C
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 11:31:01 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: hda: Add missing sanity checks in PM
- prepare/complete callbacks
-Date: Mon, 29 Mar 2021 13:30:59 +0200
-Message-Id: <20210329113059.25035-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210329113059.25035-1-tiwai@suse.de>
-References: <20210329113059.25035-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDD65F800DD
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 16:38:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDD65F800DD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nh6z.net header.i=@nh6z.net
+ header.b="RgYHc1QQ"; 
+ dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com
+ header.b="ComI9Gkh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=zzmz6pik4loqlrvo6grmnyszsx3fszus; d=nh6z.net; t=1617028685;
+ h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:Content-Transfer-Encoding:References:Message-Id;
+ bh=c2Rv9YYXjZ3E3bJfe7H6ejnj6wFyuD4nNkzo4WBbOdk=;
+ b=RgYHc1QQZvuh0+RMT93v7IW+z2i4146JfjCzlNSArTxn1vpdN9FXZl2X51Z5urHg
+ Ag1TpPUJdATWq7x8NIyyvTvRTPhDkXOgIAQ5h+4vwifdOlQDphNjjlZQEKckA3v5LpP
+ 0lrBNcE7uzl90mx0/gUm/lc380WLFXg2dtlCFHb4=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1617028685;
+ h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:Content-Transfer-Encoding:References:Message-Id:Feedback-ID;
+ bh=c2Rv9YYXjZ3E3bJfe7H6ejnj6wFyuD4nNkzo4WBbOdk=;
+ b=ComI9Gkhl7LuG7uMMVl+6+P9RUDTcQ2gE1l5MOfUZzsOUWLli2s3CaCHWwQ7g42w
+ k2+T5DSp9IHwNLSYeakRSm7UE/AocR17gfH+zS8iUUp8VejTUWCFFKvck/zHUx60gQ7
+ CVqBVuXepGx9uSStX5sE62t4uGR8b61bWBb9iOBg=
+Subject: [PATCH 0/2] ASoC: tlv320aic32x4: Bugfixes for tlv320aic32x4 driver
+From: =?UTF-8?Q?Annaliese_McDermond?= <nh6z@nh6z.net>
+To: =?UTF-8?Q?alsa-devel=40alsa-project=2Eorg?= <alsa-devel@alsa-project.org>
+Date: Mon, 29 Mar 2021 14:38:05 +0000
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <20210329143756.408604-1-nh6z@nh6z.net>
+X-Mailer: Amazon WorkMail
+Thread-Index: AQHXJKkg/ojtMl+8SNWm7v/u1huSVg==
+Thread-Topic: [PATCH 0/2] ASoC: tlv320aic32x4: Bugfixes for tlv320aic32x4
+ driver
+X-Original-Mailer: git-send-email 2.27.0
+X-Wm-Sent-Timestamp: 1617028684
+Message-ID: <010101787e6b9dea-a1eb99e5-069f-4935-82b4-2edc5f07a5c5-000000@us-west-2.amazonses.com>
+X-SES-Outgoing: 2021.03.29-54.240.27.228
+Feedback-ID: 1.us-west-2.An468LAV0jCjQDrDLvlZjeAthld7qrhZr+vow8irkvU=:AmazonSES
+Cc: =?UTF-8?Q?team=40nwdigitalradio=2Ecom?= <team@nwdigitalradio.com>,
+ =?UTF-8?Q?Annaliese_McDermond?= <nh6z@nh6z.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,44 +90,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recently added PM prepare and complete callbacks don't have the
-sanity check whether the card instance has been properly initialized,
-which may potentially lead to Oops.
+These are a couple of bugfixes for the tlv320aic32x4 driver
+that we discovered after the Raspberry Pi Foundation's move to
+the 5.10 kernel.
 
-This patch adds the azx_is_pm_ready() call in each place
-appropriately like other PM callbacks.
+The first increases the maximum value in the regmap configuration
+so that the powerup command actually works.
 
-Fixes: f5dac54d9d93 ("ALSA: hda: Separate runtime and system suspend")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+The second changes the ordering of the clock registration in the
+module probe function so that the clocks are properly registered
+before the component probe function runs.
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 12e51ac973c4..8a74b5818e91 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1023,6 +1023,9 @@ static int azx_prepare(struct device *dev)
- 	struct snd_card *card = dev_get_drvdata(dev);
- 	struct azx *chip;
- 
-+	if (!azx_is_pm_ready(card))
-+		return 0;
-+
- 	chip = card->private_data;
- 	chip->pm_prepared = 1;
- 	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
-@@ -1038,6 +1041,9 @@ static void azx_complete(struct device *dev)
- 	struct snd_card *card = dev_get_drvdata(dev);
- 	struct azx *chip;
- 
-+	if (!azx_is_pm_ready(card))
-+		return;
-+
- 	chip = card->private_data;
- 	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
- 	chip->pm_prepared = 0;
+Annaliese McDermond (2):
+  ASoC: tlv320aic32x4: Increase maximum register in regmap
+  ASoC: tlv320aic32x4: Register clocks before registering component
+
+ sound/soc/codecs/tlv320aic32x4.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
 -- 
-2.26.2
+2.27.0
 

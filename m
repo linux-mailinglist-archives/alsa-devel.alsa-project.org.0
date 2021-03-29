@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F363534D8C0
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 22:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D72634D8C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 22:01:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C5801688;
-	Mon, 29 Mar 2021 22:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C5801688
+	by alsa0.perex.cz (Postfix) with ESMTPS id B243F1684;
+	Mon, 29 Mar 2021 22:00:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B243F1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617048054;
-	bh=u6ACrZWGumDoalB5NQX3JFz6rDEZMDWEtoyXeuanOmQ=;
+	s=default; t=1617048070;
+	bh=O4yG+QcLTsHGlbXDAjCrViOg6xBSlg1/SH28druab+U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jdCQ7t+E2wqdFugMILHwWqzw2JfnF68uhe5zMg6flC8e4EOJObU4eSfLyrao1wZwc
-	 Oxr+bRIlusgaJMOLdNeAhQdvbTLokc/aO5DICwCeYGx7+sHAAE5Dmvd6vlF+QR10A8
-	 ZQKfO8k9C5iYlk7t6+aSibhU7xWlpQR0DgdYTEHA=
+	b=LLfWxNfVfgO0U0Fw0NIvWTQ9zHuuwjQp+/TeOOdEvooMnh5ZqiALWkN/UDUtFCrIV
+	 YXekbchGxD8UKaaAfDsxNIPe55K4Tep1GfrZwVNqtdZ3IIep4aO347DZyzzrg6WeIS
+	 OvPsgLQmJlMeTR3R04lTkTMEB4DC5AhefnShonRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B63EFF80260;
-	Mon, 29 Mar 2021 21:58:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF808F80430;
+	Mon, 29 Mar 2021 21:58:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83C6AF80229; Mon, 29 Mar 2021 21:58:40 +0200 (CEST)
+ id DF94BF8016E; Mon, 29 Mar 2021 21:58:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5161AF8016E
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 21:58:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5161AF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A7DFF8020C
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 21:58:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A7DFF8020C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dMhvtU4d"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CD2D261981;
- Mon, 29 Mar 2021 19:58:33 +0000 (UTC)
+ header.b="ci58Obfs"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8856E61976;
+ Mon, 29 Mar 2021 19:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617047914;
- bh=u6ACrZWGumDoalB5NQX3JFz6rDEZMDWEtoyXeuanOmQ=;
+ s=k20201202; t=1617047917;
+ bh=O4yG+QcLTsHGlbXDAjCrViOg6xBSlg1/SH28druab+U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dMhvtU4diIdI8b8gBUkD+8PCCTgY6vZ97c3QBXsIEdnnv/A4/uNxAoLd6oOgEX7MV
- j5oqCBD7lkkl2Bj7f4c7PO/MReDZro7S1LsRn2a/9L8aNftkn2L9bJoqK2qPyzYBs4
- z6ZOJdN3cuaRK4QPcsE68s/1Mlwy3x5fL1I1JZTmy31Ac3m2ZKJ/Bxe66RHyenNWQP
- 76tWUplbD8gnBwAf/5tcrBlx9c22D3NECZaJCPEa4DxB3zLeuVw2VBabmEQxR5lqhn
- oMre4fFGPjavQRzMiwgCvaOdY+WUDZ1nr4uGwd4ZcqKC66FkUgKf7UywGipfZkXDI9
- mz5bcvH6bY4FQ==
+ b=ci58Obfs1vK49MmrrP1rL5Z6S5bF8mw2eDAy6QJAAgNPZ3rfGiM4ZXsDiIu5DxzH8
+ btHm9uHgeDDfnPVf/l+2yvXhZDbiSXB469JdFUnjV07UFsToMYo7TmuVz/2CwCSJsR
+ S2l7Eeg7V3e2ZM7pZaNyIzm/kk4KLilGB6jQiGNd3ovdofpmP0eLExBCGj+FUv/3tE
+ oTN7JKo+wv2JRvGaA+qSV3QXhHEIJQB8j8FXtkaGfzh8mr9SiORdtvpb2yUx6eTy4J
+ hVl1MEyxnGZ2Dx6fvKX59vFKP9vf+J44nQ/nqR0zg52fXleAUBYtMRJMStBZSIl2Ui
+ tY3Es/kMZYMQg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linux-kernel@vger.kernel.org, festevam@gmail.com, nicoleotsuka@gmail.com,
- tiwai@suse.com, perex@perex.cz, linuxppc-dev@lists.ozlabs.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com
-Subject: Re: [PATCH] ASoC: fsl_rpmsg: initialise pointers to NULL
-Date: Mon, 29 Mar 2021 20:58:10 +0100
-Message-Id: <161704724765.10039.8726528619377342527.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH RESEND 1/2] ASoC: amd: update spdx license for acp machine
+ driver
+Date: Mon, 29 Mar 2021 20:58:11 +0100
+Message-Id: <161704724764.10039.1962173442335521261.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1616988868-971-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1616988868-971-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1616777074-5151-1-git-send-email-Vijendar.Mukunda@amd.com>
+References: <1616777074-5151-1-git-send-email-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: Sunil-kumar.Dommati@amd.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Chuhong Yuan <hslester96@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,11 +86,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Mar 2021 11:34:28 +0800, Shengjiu Wang wrote:
-> This fixes the following sparse warnings:
-> 
-> sound/soc/fsl/fsl_rpmsg.c:45:45: sparse: sparse: Using plain integer as NULL pointer
-> sound/soc/fsl/fsl_rpmsg.c:45:56: sparse: sparse: Using plain integer as NULL pointer
+On Fri, 26 Mar 2021 22:14:30 +0530, Vijendar Mukunda wrote:
+> update SPDX license for acp machine driver.
 
 Applied to
 
@@ -93,8 +95,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_rpmsg: initialise pointers to NULL
-      commit: 502e5321d89214a34a7b8bda697fc98d14b51cae
+[1/2] ASoC: amd: update spdx license for acp machine driver
+      commit: 23f23db29ac996a824dce2b3a800c7a002f1c480
+[2/2] ASoC: amd: fix acpi dependency kernel warning
+      commit: d463cead11ace05c81de31a0fb9c2507c5c1d0a2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

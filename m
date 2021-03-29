@@ -2,60 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A02C34C783
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 10:16:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 790C434CECC
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 13:24:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9779F1678;
-	Mon, 29 Mar 2021 10:15:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9779F1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDBFD1673;
+	Mon, 29 Mar 2021 13:23:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDBFD1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617005796;
-	bh=XHuLLzgMH2XywHipoowbtEysmNcVa0tRTnbikRAfY5g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WOEkTU7yojnFmMc4iAXBGxyoxvJlpdp7GqgrK4nflxViUBCCZbB0RqAe6WIqeLx5X
-	 dpNn4d9knPgUjb/S5lHLUszykRXxst4iPvgePU+W0pyw4BNlaaZGKUE8vRxk47Gc40
-	 4dCCCXoI52mJXLmAHNvADQlO2T4jE4IkPmvQz57M=
+	s=default; t=1617017084;
+	bh=XHwFkpD/wkvWkGRiS/shd1N3gX+ovdq2uwXpAYGVfbg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sxzo0W5QIeuYB6kVAnOZbiAAiUA6oKlUvldHEknefzmkrMLSbsDvAloXogSjeTfaX
+	 3pIeJIDKAPNeKwBvmGQ+Ocs56UaE/OOd1kzy4eu4A4u2XzsXOcrhfnKcuJRjFzT4ph
+	 Lkrx/ZtFEMY9gCD4gS9dwgIVBovLfU/uCqc3e6Zs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0407DF8015A;
-	Mon, 29 Mar 2021 10:15:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B4AAF800B9;
+	Mon, 29 Mar 2021 13:23:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F80CF8015A; Mon, 29 Mar 2021 10:15:08 +0200 (CEST)
+ id A4ACEF8015A; Mon, 29 Mar 2021 13:23:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45966F80141
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 10:14:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45966F80141
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4F850y21LZz9sGd;
- Mon, 29 Mar 2021 16:12:50 +0800 (CST)
-Received: from thunder-town.china.huawei.com (10.174.179.202) by
- DGGEMS404-HUB.china.huawei.com (10.3.19.204) with Microsoft SMTP Server id
- 14.3.498.0; Mon, 29 Mar 2021 16:14:47 +0800
-From: Zhen Lei <thunder.leizhen@huawei.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Rob Herring" <robh+dt@kernel.org>, alsa-devel <alsa-devel@alsa-project.org>, 
- devicetree <devicetree@vger.kernel.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/1] ASoC: intel, keembay-i2s: Fix a dt_binding_check warning
-Date: Mon, 29 Mar 2021 16:14:35 +0800
-Message-ID: <20210329081435.2200-1-thunder.leizhen@huawei.com>
-X-Mailer: git-send-email 2.26.0.windows.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.202]
-X-CFilter-Loop: Reflected
-Cc: Zhen Lei <thunder.leizhen@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 726ACF80141
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 13:23:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726ACF80141
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C079AB46F;
+ Mon, 29 Mar 2021 11:23:04 +0000 (UTC)
+Date: Mon, 29 Mar 2021 13:23:04 +0200
+Message-ID: <s5hzgymi4pz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ikjoon Jang <ikjn@chromium.org>
+Subject: Re: [PATCH] ALSA: usb-audio: Apply sample rate quirk to Logitech
+ Connect
+In-Reply-To: <CAATdQgAYrq7sHJQN=_5ipH0N_kbixjac=BLFCYv5jTScH_c+Lw@mail.gmail.com>
+References: <20210324105153.2322881-1-ikjn@chromium.org>
+ <c21de867cf4ccbfcc8cf555c78dc70dd3a47dfe8.camel@infinera.com>
+ <CAATdQgDrri-tMtu3AOFRcbGHfL6hONDfdMdZh45BusbdAoWfdw@mail.gmail.com>
+ <s5ho8f8ogx8.wl-tiwai@suse.de>
+ <CAATdQgAYrq7sHJQN=_5ipH0N_kbixjac=BLFCYv5jTScH_c+Lw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Dylan Robinson <dylan_robinson@motu.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Joakim Tjernlund <Joakim.Tjernlund@infinera.com>,
+ Alexander Tsoy <alexander@tsoy.me>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Gregor Pintar <grpintar@gmail.com>, Olivia Mackintosh <livvy@base.nu>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,31 +80,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The property "dmas" contains two items: DMA "TX" and "RX" channel,
-Therefore, its value also needs to be written in two parts.
+On Mon, 29 Mar 2021 08:23:52 +0200,
+Ikjoon Jang wrote:
+> 
+> On Wed, Mar 24, 2021 at 8:49 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Wed, 24 Mar 2021 13:03:14 +0100,
+> > Ikjoon Jang wrote:
+> > >
+> > > On Wed, Mar 24, 2021, 7:16 PM Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
+> > > wrote:
+> > >
+> > >     On Wed, 2021-03-24 at 18:51 +0800, Ikjoon Jang wrote:
+> > >     > Logitech ConferenceCam Connect is a compound USB device with UVC and
+> > >     > UAC. Not 100% reproducible but sometimes it keeps responding STALL to
+> > >     > every control transfer once it receives get_freq request.
+> > >     >
+> > >     > This patch adds 046d:0x084c to a snd_usb_get_sample_rate_quirk list.
+> > >     >
+> > >     > Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=203419
+> > >     > Signed-off-by: Ikjoon Jang <ikjn@chromium.org>
+> > >
+> > >     Most Logitech USB headset I got needs a delay in snd_usb_ctl_msg_quirk()
+> > >     Have you tried to add say 20 ms delay in there?
+> > >
+> > > I didn't try that. But it sounds reasonable to me.
+> > >
+> > > let me try that quirk here. If that is the case, HID might need that delay
+> > > also. Logitech Group webcam had a similar problem on control xfer of
+> > > get_report from an another interface for HID.
+> >
+> > The Logitech devices with 046d:* should be covered generally in
+> > snd_usb_ctl_msg_quirk(), so I guess it's a different problem.
+> > But please check it first.
+> >
+> > > And 20ms can be too long if it's applied to every control transfer. I will
+> > > test the device with shorter delay if you didn't try it before.
+> >
+> > Actually the delay applied to Logitech devices is from 1 to 2ms, not
+> > 20ms.  The 20ms delay is applied for some other devices.  But if
+> > extending the delay fixes the problem, we need to reconsider the delay
+> > length.
+> 
+> I tested this Logitech device with various delays 2..20ms
+> in snd_usb_ctl_msg_quirk() but it didn't help.
+> 
+> Disregarding the delay between control transfers,
+> This device is always stuck at get_cur, responding STALL to all
+> control transfers.
+> 
+> [   24.045618] usb 1-1.2.1.1: 1:1: cannot get freq at ep 0x82
+> [   24.167475] usb 1-1.2.1.1: 2:0: cannot get min/max values for
+> control 2 (id 2)
+> [   24.287393] usb 1-1.2.1.1: 6:0: cannot get min/max values for
+> control 2 (id 6)
+> [   24.289854] usbcore: registered new interface driver snd-usb-audio
+> [   24.877073] usb 1-1.2.1.1: 2:1: usb_set_interface failed (-32)
+> 
+> And I've also found that in some other platforms (with the same kernel),
+> this device fails at get_freq - timeout with NYETs or NAKs (instead of STALL),
+> and succeeded in following set_interface even without any delays
+> I've tried but couldn't find any differences between the two. ;-(
+> 
+> So until now, I think this approach of skipping get_rate is the only
+> one possible
+> workaround for Logitech Connect.
 
-Otherwise, below YAML check warning is reported:
-Documentation/devicetree/bindings/sound/intel,keembay-i2s.example.dt.yaml:\
-i2s@20140000: dmas: [[4294967295, 29, 4294967295, 33]] is too short
+OK, that makes sense, then.  I applied your patch now.
 
-Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
----
- Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-index 6f71294909a5fb4..803627e984f6089 100644
---- a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-@@ -81,6 +81,6 @@ examples:
-          interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
-          clock-names = "osc", "apb_clk";
-          clocks = <&scmi_clk KEEM_BAY_PSS_AUX_I2S3>, <&scmi_clk KEEM_BAY_PSS_I2S3>;
--         dmas = <&axi_dma0 29 &axi_dma0 33>;
-+         dmas = <&axi_dma0 29>, <&axi_dma0 33>;
-          dma-names = "tx", "rx";
-      };
--- 
-1.8.3
+Thanks!
 
 
+Takashi

@@ -2,82 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89FE734C493
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 09:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C0034C4AB
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Mar 2021 09:15:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F18CB1660;
-	Mon, 29 Mar 2021 09:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F18CB1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3191F1614;
+	Mon, 29 Mar 2021 09:14:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3191F1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617001724;
-	bh=iXmjD0NsBavDhs9Gi6tsIP9+4t13N7pWmrDWhiFYDVQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uGHX4hol4lVdM2mHj0u8EffW1aldaA3M8Wndftlhh9f9dFQE0CKA9UvBojRmwQQfF
-	 TF20XVu3hLZA3eTizrarjVbhgDcerc6aoz7u6wcv8Kd65yf9c+YwpVBLWgKkOuFx5J
-	 ExZRgkABiXid9gW2z8tsWsfHRNWpE6vZtgpwBeEs=
+	s=default; t=1617002147;
+	bh=vucYtVVBFOdlaUJDpayw+vyhoSr/ByEee5iGD2n/2Xc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cIGfl3jUeqgTMJlU5btYXQp/VgCNkNk7BhO6O3UlCoDPYXr27MuJR3Z28ZUNcgOKZ
+	 i06TxrX/uO6Dt2meq2naVazVvobvkxQEJBel3DRfkTZSg1E7OvdrtRvZgP1DzmM9XB
+	 JbFsKy/IIoI5wJOPjnlHd4wH/ToHsOeJFG7kdXbI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DEA1F8020C;
-	Mon, 29 Mar 2021 09:07:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8797DF8015A;
+	Mon, 29 Mar 2021 09:14:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 093FAF801DB; Mon, 29 Mar 2021 09:07:15 +0200 (CEST)
+ id E0BD5F8015A; Mon, 29 Mar 2021 09:14:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=MAY_BE_FORGED,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A49C1F800B9
- for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 09:07:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A49C1F800B9
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 12T76tH32013513,
- This message is accepted by code: ctloc85258
-Received: from MailAVG (MailAVG.realtek.com [172.21.6.65] (may be forged))
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with SMTP id 12T76tH32013513;
- Mon, 29 Mar 2021 15:06:55 +0800
-Received: from mail.realtek.com (RTEXMBS01.realtek.com.tw [172.21.6.94])
- by MailAVG with ESMTP ; Mon, 29 Mar 2021 14:54:05 +0800
-Received: from RTEXDAG02.realtek.com.tw (172.21.6.101) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 29 Mar 2021 14:54:05 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG02.realtek.com.tw (172.21.6.101) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 29 Mar 2021 14:54:05 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef]) by
- RTEXMBS01.realtek.com.tw ([fe80::6caa:5fa6:24e2:bbef%7]) with mapi id
- 15.01.2106.013; Mon, 29 Mar 2021 14:54:05 +0800
-Content-Type: multipart/mixed;
- boundary="_000_340ee2df83ce47fcb1b59541b12ba7f4realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Subject: [PATCH v2 3/3] ASoC: rt715: modification for code simplicity
-Thread-Topic: [PATCH v2 3/3] ASoC: rt715: modification for code simplicity
-Thread-Index: AdckaE6g3A8rxOuOSiuBEe1mf7DUGQ==
-Date: Mon, 29 Mar 2021 06:54:05 +0000
-Message-ID: <340ee2df83ce47fcb1b59541b12ba7f4@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <340ee2df83ce47fcb1b59541b12ba7f4@realtek.com>
-x-originating-ip: [172.22.102.167]
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFA20F800B9
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 09:14:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA20F800B9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="O1Lhqri/"
+Received: by mail-ed1-x52e.google.com with SMTP id j3so13000149edp.11
+ for <alsa-devel@alsa-project.org>; Mon, 29 Mar 2021 00:14:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=DNyW7G1yT2hTo5u6qo+I50JVd8C42OgcsWqOflCzXh8=;
+ b=O1Lhqri/67H3A4ntvRGIydscVPwxr/qAV5aGyhnIbjAHlV+nk7mWe6nHtno/pegeZf
+ SM++FZT5GqiihoyqQcOac3ePKzKfmpCeSGM8moJG2g3Mq5AF9yvvt6v9HVLf0O11tUKf
+ biwf750LE+xhmiOFBed+kOsBYKW8Nr0Hv1l/+B9uWaWFc4vu5w4iOg1udlS6rG1dTMQq
+ fiL//aT9e/bxD0IXQoHzmR25OsMyjTFdgAWmrt6jF15IXHmi+kLfV5EH7Y+AFcGJDHnH
+ cgJpOrHj5HjHWNyE+WyWzuhwnbXl3J+qKRhguHEvI5eKtdfvxYnKsdPLaEP13R0hqZr5
+ RR8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=DNyW7G1yT2hTo5u6qo+I50JVd8C42OgcsWqOflCzXh8=;
+ b=HuXcq2UjVAMYdkvqrCBhsnXdVHqr9S4p1tUqvxbuJ1dgNn13MGWFPTYBebkb1CA3kn
+ BzRroG8uqAJyJF11FqreYu3eNYf0IE6iD2FP8Pm8vssEIj2BR/IKr/poBxg1EngQkLNX
+ nohpzwZd7j+olkm1fRNuMUx+wPDSSw/Ji7ukYBIUievJ3xjuQpMuDY4yCRlm3Jo+31g6
+ T8SSXknyNLK/5STsliiemVrlrklw5hgzSCvdul6/dU/RtJWI9gU/PRJer9pFVHE0/yo+
+ 6IwhHCO7ffZkKKVgZ4cjudXVpw7ivvByX5UHLg0o1Je6bTSu9W+6+SL+Xj3Zb/Ob8vle
+ VhNQ==
+X-Gm-Message-State: AOAM530tNYtBUGNhIk58BhBrFtasi4V0ak9wQjHOWUEUAD/XYh1uCW+o
+ oMwwoSzxe8wan6orE2v+eq8=
+X-Google-Smtp-Source: ABdhPJwVwW5cVDZlYzF9U4PsBjpggA44GaTXotCE7zMC/gqmx+8jDQerBxH6zaPOFWzoUAR1vbWcKA==
+X-Received: by 2002:aa7:cb4d:: with SMTP id w13mr27168220edt.249.1617002051233; 
+ Mon, 29 Mar 2021 00:14:11 -0700 (PDT)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id a9sm8475486edt.82.2021.03.29.00.14.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Mar 2021 00:14:09 -0700 (PDT)
+Date: Mon, 29 Mar 2021 09:14:35 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 12/17] ASoC: tegra: tegra20_das: clarify expression
+Message-ID: <YGF+W2Uum+pHkH6F@orome.fritz.box>
+References: <20210326215927.936377-1-pierre-louis.bossart@linux.intel.com>
+ <20210326215927.936377-13-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>,
- "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="u16SdL02k7B5NOWk"
+Content-Disposition: inline
+In-Reply-To: <20210326215927.936377-13-pierre-louis.bossart@linux.intel.com>
+User-Agent: Mutt/2.0.6 (98f8cb83) (2021-03-06)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ tiwai@suse.de, Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ broonie@kernel.org,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,130 +106,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_340ee2df83ce47fcb1b59541b12ba7f4realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
 
-TW9kaWZpY2F0aW9uIGZvciBjb2RlIHNpbXBsaWNpdHkuDQoNClNpZ25lZC1vZmYtYnk6IEphY2sg
-WXUgPGphY2sueXVAcmVhbHRlay5jb20+DQotLS0NCiBzb3VuZC9zb2MvY29kZWNzL3J0NzE1LmMg
-fCA4ICsrKystLS0tDQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
-bnMoLSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MTUuYyBiL3NvdW5kL3Nv
-Yy9jb2RlY3MvcnQ3MTUuYw0KaW5kZXggYjMzZWFiYjlmNzQwLi4xMzUyODY5Y2MwODYgMTAwNjQ0
-DQotLS0gYS9zb3VuZC9zb2MvY29kZWNzL3J0NzE1LmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3Mv
-cnQ3MTUuYw0KQEAgLTU3LDE0ICs1NywxNCBAQCBzdGF0aWMgdm9pZCBydDcxNV9nZXRfZ2Fpbihz
-dHJ1Y3QgcnQ3MTVfcHJpdiAqcnQ3MTUsIHVuc2lnbmVkIGludCBhZGRyX2gsDQogew0KIAlpbnQg
-cmV0Ow0KIAkvKiBSIENoYW5uZWwgKi8NCi0JKnJfdmFsID0gKHZhbF9oIDw8IDgpOw0KKwkqcl92
-YWwgPSB2YWxfaCA8PCA4Ow0KIAlyZXQgPSByZWdtYXBfcmVhZChydDcxNS0+cmVnbWFwLCBhZGRy
-X2wsIHJfdmFsKTsNCiAJaWYgKHJldCA8IDApDQogCQlwcl9lcnIoIkZhaWxlZCB0byBnZXQgUiBj
-aGFubmVsIGdhaW4uXG4iKTsNCiANCiAJLyogTCBDaGFubmVsICovDQogCXZhbF9oIHw9IDB4MjA7
-DQotCSpsX3ZhbCA9ICh2YWxfaCA8PCA4KTsNCisJKmxfdmFsID0gdmFsX2ggPDwgODsNCiAJcmV0
-ID0gcmVnbWFwX3JlYWQocnQ3MTUtPnJlZ21hcCwgYWRkcl9oLCBsX3ZhbCk7DQogCWlmIChyZXQg
-PCAwKQ0KIAkJcHJfZXJyKCJGYWlsZWQgdG8gZ2V0IEwgY2hhbm5lbCBnYWluLlxuIik7DQpAQCAt
-MTgzLDggKzE4Myw4IEBAIHN0YXRpYyBpbnQgcnQ3MTVfc2V0X2FtcF9nYWluX2dldChzdHJ1Y3Qg
-c25kX2tjb250cm9sICprY29udHJvbCwNCiANCiAJaWYgKG1jLT5pbnZlcnQpIHsNCiAJCS8qIGZv
-ciBtdXRlIHN0YXR1cyAqLw0KLQkJcmVhZF9sbCA9ICEoKHJlYWRfbGwgJiAweDgwKSA+PiBSVDcx
-NV9NVVRFX1NGVCk7DQotCQlyZWFkX3JsID0gISgocmVhZF9ybCAmIDB4ODApID4+IFJUNzE1X01V
-VEVfU0ZUKTsNCisJCXJlYWRfbGwgPSAhKHJlYWRfbGwgJiAweDgwKTsNCisJCXJlYWRfcmwgPSAh
-KHJlYWRfcmwgJiAweDgwKTsNCiAJfSBlbHNlIHsNCiAJCS8qIGZvciBnYWluICovDQogCQlyZWFk
-X2xsID0gcmVhZF9sbCAmIDB4N2Y7DQotLSANCjIuMjkuMA0KDQo=
+--u16SdL02k7B5NOWk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---_000_340ee2df83ce47fcb1b59541b12ba7f4realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+On Fri, Mar 26, 2021 at 04:59:22PM -0500, Pierre-Louis Bossart wrote:
+> cppcheck warning:
+>=20
+> sound/soc/tegra/tegra20_das.c:64:60: style: Boolean result is used in
+> bitwise operation. Clarify expression with
+> parentheses. [clarifyCondition]
+>  reg =3D otherdap << TEGRA20_DAS_DAP_CTRL_SEL_DAP_CTRL_SEL_P |
+>                                                            ^
+> sound/soc/tegra/tegra20_das.c:65:61: style: Boolean result is used in
+> bitwise operation. Clarify expression with
+> parentheses. [clarifyCondition]
+>=20
+>   !!sdata2rx << TEGRA20_DAS_DAP_CTRL_SEL_DAP_SDATA2_TX_RX_P |
+>                                                             ^
+> sound/soc/tegra/tegra20_das.c:66:61: style: Boolean result is used in
+> bitwise operation. Clarify expression with
+> parentheses. [clarifyCondition]
+>   !!sdata1rx << TEGRA20_DAS_DAP_CTRL_SEL_DAP_SDATA1_TX_RX_P |
+>                                                             ^
+>=20
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  sound/soc/tegra/tegra20_das.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-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
-AFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAAACgA
-AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoAAQAA
-ABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzABAAAA
-EAAAANAD3Q7beTREh12J5ifGPqADABcAAQAAAEAAOQCA5OtOaCTXAUAACDDdoPVOaCTXAQsAKQAA
-AAAAHwDZPwEAAAAAAgAATQBvAGQAaQBmAGkAYwBhAHQAaQBvAG4AIABmAG8AcgAgAGMAbwBkAGUA
-IABzAGkAbQBwAGwAaQBjAGkAdAB5AC4ADQAKAA0ACgBTAGkAZwBuAGUAZAAtAG8AZgBmAC0AYgB5
-ADoAIABKAGEAYwBrACAAWQB1ACAAPABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMA
-bwBtAD4ADQAKAC0ALQAtAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwBy
-AHQANwAxADUALgBjACAAfAAgADgAIAArACsAKwArAC0ALQAtAC0ADQAKACAAMQAgAGYAaQBsAGUA
-IABjAGgAYQBuAGcAZQBkACwAIAA0ACAAaQBuAHMAZQByAHQAaQBvAG4AcwAoACsAKQAsACAANAAg
-AGQAZQBsAGUAdABpAG8AbgBzACgALQApAA0ACgANAAoAZABpAGYAZgAgAC0ALQBnAGkAdAAgAGEA
-LwBzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMQA1AC4AYwAgAGIALwBz
-AG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMQA1AC4AYwANAAoAaQBuAGQA
-ZQB4ACAAYgAzADMAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIAAAAA
-AMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAaAAAA
-egBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIAAABF
-AHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAAAEgA
-AIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUASQBk
-AAAAAADPZR1VlZaWTG4QCNjyf3F7HwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABpAGUA
-bgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4AZwBl
-AFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAAB6AAAAWwBQAEEA
-VABDAEgAIAB2ADIAIAAzAC8AMwBdACAAQQBTAG8AQwA6ACAAcgB0ADcAMQA1ADoAIABtAG8AZABp
-AGYAaQBjAGEAdABpAG8AbgAgAGYAbwByACAAYwBvAGQAZQAgAHMAaQBtAHAAbABpAGMAaQB0AHkA
-AAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHXJGhOoNwPK8TrjkorgRHt
-Zn+w1BkAAB8AcAABAAAAegAAAFsAUABBAFQAQwBIACAAdgAyACAAMwAvADMAXQAgAEEAUwBvAEMA
-OgAgAHIAdAA3ADEANQA6ACAAbQBvAGQAaQBmAGkAYwBhAHQAaQBvAG4AIABmAG8AcgAgAGMAbwBk
-AGUAIABzAGkAbQBwAGwAaQBjAGkAdAB5AAAAAAAfADUQAQAAAF4AAAA8ADMANAAwAGUAZQAyAGQA
-ZgA4ADMAYwBlADQANwBmAGMAYgAxAGIANQA5ADUANAAxAGIAMQAyAGIAYQA3AGYANABAAHIAZQBh
-AGwAdABlAGsALgBjAG8AbQA+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21pr
-C/8BAAAALgAAAEgAZQBhAGQAZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAA
-AAEAAAAiAAAAAQAKAAAABAAAAAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRB
-pYTu21prC/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0
-gxRBpYTu21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQA
-AAAAAAAAQAAHMBpW6k5oJNcBAgELAAEAAAAQAAAA0APdDtt5NESHXYnmJ8Y+oAMAJgAAAAAACwAG
-DAAAAAACARAwAQAAAEYAAAAAAAAA2+nESiSg50GTGyq7K7NtTAcATLd9DVWheUS+c4U5YtAApQAA
-AGlg9wAAMq84BUqwTkaAx8c4IroPWgAAAdelmAAAAAACARMwAQAAABAAAADcDyvE645KK4ER7WZ/
-sNQZAgEUMAEAAAAMAAAAhAAAAPko/JBNAAAAHwD4PwEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8A
-IkABAAAABgAAAEUAWAAAAAAAHwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBF
-AFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAA
-IAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBF
-AE4AVABTAC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AJEABAAAABgAAAEUA
-WAAAAAAAHwAlQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBH
-AEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkA
-QgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBO
-AD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AMEABAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAAfADFAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA4QAEAAAAQAAAASgBhAGMAawAgAFkAdQAA
-AB8AOUABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAfAApd
-AQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwALXQEAAAAo
-AAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AAIAfpOszqHouQr57
-eeGpjlSzAQAAADgAAABDAG8AbgB2AGUAcgBzAGEAdABpAG8AbgBJAG4AZABlAHgAVAByAGEAYwBr
-AGkAbgBnAEUAeAAAAAEAAAAkAQAASQBJAD0AWwBDAEkARAA9AGMANAAyAGIAMABmAGQAYwAtADgA
-ZQBlAGIALQAyAGIANABhAC0AOAAxADEAMQAtAGUAZAA2ADYANwBmAGIAMABkADQAMQA5ADsASQBE
-AFgASABFAEEARAA9AEQANwAyADQANgA4ADQARQBBADAAOwBJAEQAWABDAE8AVQBOAFQAPQAxAF0A
-OwBQAFMAPQBVAG4AawBuAG8AdwBuADsAVgBlAHIAcwBpAG8AbgA9AFYAZQByAHMAaQBvAG4AIAAx
-ADUALgAxACAAKABCAHUAaQBsAGQAIAAyADEAMAA2AC4AMAApACwAIABTAHQAYQBnAGUAPQBIADQA
-OwBVAFAAPQAxADAAOwBEAFAAPQAxAEMANQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAIKFAAAA
-AAAAAwANNP0/AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAgAAAAeAAtAG0AcwAtAGgAYQBzAC0A
-YQB0AHQAYQBjAGgAAAABAAAAAgAAAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAt
-AG8AcgBpAGcAaQBuAGEAdABpAG4AZwAtAGkAcAAAAAAAAQAAACIAAABbADEANwAyAC4AMgAyAC4A
-MQAwADIALgAxADYANwBdAAAAAABfnQ==
+Acked-by: Thierry Reding <treding@nvidia.com>
 
---_000_340ee2df83ce47fcb1b59541b12ba7f4realtekcom_--
+--u16SdL02k7B5NOWk
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmBhflsACgkQ3SOs138+
+s6GRWw//bi/X8imkX0asE+iIbIjEB/8g0DDtXmC2e58GwHBjtrzNy5YnJGEvD3MX
+KDFYn0bSoGKTy+g4SQe86WyPY4m45WEjWJipDG7Y84HxlQrpZfBfLgTYoT6LxLBc
+vFoNwz7POLiegrL7xrPXyd1ut6JIm294V5rAO10lDX5o/nW7xXfI0ocV5FE/rcJh
+YUSg1l2ITZ7E9pdV3kpaBvfqPUR6jpmHnGWNG7G47tmp0fyjNMIRi6zplq2OGz0j
+rXYVU8w1/BxFM4LtCAmo1Fb0Wv9SwZm6u7t4TH5YWChPrRqe72BsI8JXiBGljCf/
+dKWANs50A1tg/V8A+cQUycQ/UfSnH82GR0NjxoMyvNTLzlRklQHrYu37T9Umhy8h
+ER7k0MT5833AKFCGFn/WN444JgDkop0jl77WICZITHuDXUDf58VY1vi3lBYWRNcO
+XNwx/keXxo9NxR7dogIGSDKXtLhgv0REHKRw0Svfic7aRJGHzETUANbMU3CRfv4y
+KsLm8JFQ5lnLkxPNYIrwrR2cfmKcTGXs+7JWAulUaZpasekEdguPwwTy4gKmmcz6
+VyMv0w/ZcjV7dlnY5EAR/WqRxNBUUiTQ2vvHAfOXa51DuCkdhCqSwiTdKHBaTXZ+
+qo8j1m0qkmaptH2mzNpvSxplcomiqVfVKogkp0d57frRFWsqeFk=
+=sfBK
+-----END PGP SIGNATURE-----
+
+--u16SdL02k7B5NOWk--

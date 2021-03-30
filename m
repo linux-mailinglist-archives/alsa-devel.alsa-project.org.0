@@ -2,63 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81CF234E17D
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 08:48:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F25E34E35B
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 10:42:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 125C2168C;
-	Tue, 30 Mar 2021 08:48:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 125C2168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A18751682;
+	Tue, 30 Mar 2021 10:41:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18751682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617086933;
-	bh=fajhBGBEiKhw8r7qIe14qXh1Z0kmigwQ3ZoVyHtHUfs=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1617093739;
+	bh=5vjWHQpNnWwzD+C6Uz33hAqzurkp949O30Cxa1ACg+s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZE4cOPLpTo9edQIphLIpI+GbsQnUI1mfwJbb+b2MA2UfUol6+2AYeRbvi6fd1sXCH
-	 dp3xxeGpmhGqVH7gT+viVKhEL4DAhcGyso6QCafDZvvpQJ5eYHvssnz3+VQFDgqf7M
-	 pqjdZo3U8/beTnvx+GSzo3pMgtS13mAv8okvDXCY=
+	b=JT0NAL2AclHOURlZvYiR1wgfFHSSynm06gxvTooux6pGF/b2S6hYUGxJC5VhaIJPC
+	 Qe0W2MyOcW3P9eNm6E7Z2S+S75yNs6sp/g1faV2T4o7qWQ/c1AWUZkMVlFB5nNp3mo
+	 IuleQI87aPoH3ioiR3b1M+x7DhyEiDIlWzOSIVo8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAE9EF802C8;
-	Tue, 30 Mar 2021 08:47:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD3F7F8026B;
+	Tue, 30 Mar 2021 10:40:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41012F80240; Tue, 30 Mar 2021 08:47:06 +0200 (CEST)
+ id AB77FF80240; Tue, 30 Mar 2021 10:40:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF28DF8023E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 08:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF28DF8023E
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 33F8B205963;
- Tue, 30 Mar 2021 08:46:55 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DD3D7205912;
- Tue, 30 Mar 2021 08:46:51 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 6F8AF402F0;
- Tue, 30 Mar 2021 08:46:47 +0200 (CEST)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: dt-bindings: ak5558: Add compatible string for
- ak5552
-Date: Tue, 30 Mar 2021 14:32:52 +0800
-Message-Id: <1617085972-6094-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94231F80141
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 10:40:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94231F80141
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="o4xqREtM"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 44B886198F;
+ Tue, 30 Mar 2021 08:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617093640;
+ bh=5vjWHQpNnWwzD+C6Uz33hAqzurkp949O30Cxa1ACg+s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o4xqREtMQ8bpOCp6JwQ/3PzO7VMBuDSe7ZnSjC6GYVtJ6HrzoEKwDVAgVYngc550c
+ yCkq/FDploTzNru+QMIPcLrXIN5xQexxLy/aQW+bas9TDRAkth582KEpNHu4TQ7jxd
+ m/Ja/WBc8YHofa5W1SCk8BYlUgp6ltyaR5f2+d19vgifk7Hztcxi89s+WDEI9/2ajJ
+ nUrRHJqp2WwRIKKgI+VjaMk+8124TloR2JctPrPHh4ZW/KcZUCN34147qu0Ya6uYWJ
+ fLevnAqIpW0TNYczFYW2MOaJE+desJ0bnflqoCtsJNnpN7UDmgKHXKgk6oODRSNYZL
+ td6WS0Mj+hJzA==
+Date: Tue, 30 Mar 2021 14:10:35 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v5 5/9] soundwire: qcom: update register read/write routine
+Message-ID: <YGLkA3p634eg9FDl@vkoul-mobl.Dlink>
+References: <20210326063944.31683-1-srinivas.kandagatla@linaro.org>
+ <20210326063944.31683-6-srinivas.kandagatla@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210326063944.31683-6-srinivas.kandagatla@linaro.org>
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,26 +80,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add compatible string "asahi-kasei,ak5552" for ak5552
+On 26-03-21, 06:39, Srinivas Kandagatla wrote:
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- Documentation/devicetree/bindings/sound/ak5558.txt | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +	swrm->reg_write(swrm, SWRM_CMD_FIFO_WR_CMD, val);
+> +
+> +	/* version 1.3 or less */
+> +	if (swrm->version <= 0x01030000)
+> +		usleep_range(150, 155);
+> +
+> +	if (cmd_id == SWR_BROADCAST_CMD_ID) {
+> +		/*
+> +		 * sleep for 10ms for MSM soundwire variant to allow broadcast
+> +		 * command to complete.
+> +		 */
+> +		ret = wait_for_completion_timeout(&swrm->broadcast,
+> +						  msecs_to_jiffies(TIMEOUT_MS));
+> +		if (!ret)
+> +			ret = SDW_CMD_IGNORED;
+> +		else
+> +			ret = SDW_CMD_OK;
+>  
+> -	if (!ret) {
+> -		ret = SDW_CMD_IGNORED;
+> -		goto err;
+>  	} else {
+>  		ret = SDW_CMD_OK;
+>  	}
 
-diff --git a/Documentation/devicetree/bindings/sound/ak5558.txt b/Documentation/devicetree/bindings/sound/ak5558.txt
-index 36934098170c..e28708db6686 100644
---- a/Documentation/devicetree/bindings/sound/ak5558.txt
-+++ b/Documentation/devicetree/bindings/sound/ak5558.txt
-@@ -4,7 +4,7 @@ This device supports I2C mode only.
- 
- Required properties:
- 
--- compatible : "asahi-kasei,ak5558"
-+- compatible : "asahi-kasei,ak5558" or "asahi-kasei,ak5552".
- - reg : The I2C address of the device.
- 
- Optional properties:
+Maybe add a comment here that we dont get status so write is assumed to
+be OK
+
 -- 
-2.27.0
-
+~Vinod

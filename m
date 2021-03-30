@@ -2,98 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A7234E40E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 11:10:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B50734E3A3
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 10:58:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCE511671;
-	Tue, 30 Mar 2021 11:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCE511671
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFD411681;
+	Tue, 30 Mar 2021 10:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFD411681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617095422;
-	bh=/muBztoqgyj2B/v8tTF7VIZmUUCWIyLb987NotxvEAs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OvqVxIS/HYl7gADT3GpBG43YkMTBLr+I3sWCVEoSGXnILeeZTgHb1aiXw9zf5aZic
-	 8iAwbIQB2B4o+TKYPTTKogD8DVRIdaK7c6RpHbb6Y8KGcUEPiIW9tsEzH9GItDhB8R
-	 68fqQc7a9A6SUwCCsq3PJqtpS18/rFvE697aFpkk=
+	s=default; t=1617094696;
+	bh=MSNYDZkJBDk/gTGlqjfzHksjXyn3RSUTi/Sl/j38yEA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NqvoLqktRnvvIPkdI0zd7ZfvP/zh1enBC8exBwPiufoyZlbTqqFPs4ROFytWt2eZN
+	 ZXcUqBf0eoMIJMQTjQzz/PR/xNZ3TpuCMb0Tjm81Dtw4IH5yJhRSBCxZgIVUdrQt7A
+	 GDUlnC6/CQLAcYCPUtSzXcgUw+SKjK2JlT4aBDIo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D94F7F8027D;
-	Tue, 30 Mar 2021 11:08:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BA6BF800B9;
+	Tue, 30 Mar 2021 10:56:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67A55F8027B; Tue, 30 Mar 2021 11:08:54 +0200 (CEST)
+ id 7D558F80240; Tue, 30 Mar 2021 10:56:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,UPPERCASE_50_75,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A73CBF800B9
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 11:08:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A73CBF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A15DF800B9
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 10:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A15DF800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="wR0tOtbZ"
-Received: by mail-ej1-x631.google.com with SMTP id a7so23709494ejs.3
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 02:08:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=/eqR/g4dGWafdF3bo4TemakWiaBabfCWwqaWK3tpTqo=;
- b=wR0tOtbZAeOW2MSbinTo9CpuzhtzAXmX8ZZBPgjlR91ZplMhIzXsACCNLyxMYieomd
- prJMQNmN1r0Dd+S1o3J9udQW8C7q1ksTs1c8pVtBVnLTSSdTYrLOrP3KEDER8/M6AbwW
- 1iMODhiXBA0GwTF+AoIUsljoCDlFekdZKLNBdhBBTMpaTt/VAuksij/5d8InA88gGoHt
- qzLd5eO6fQ2Dqhxz4qd36ku0diQ3XMK+jImcdW1e12DKCoAA0VUoJY6BDlm9cOItue+N
- dkV1PiOvOlXm83KJACv8ORzrxwqu5MF2PDh3cl7E79GS691haPEIlDgpVyoc2GvbjjSz
- XhDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/eqR/g4dGWafdF3bo4TemakWiaBabfCWwqaWK3tpTqo=;
- b=L8vk0dvs9gtlMjrGPxejVMimSFPCSF/dDYxwfwrdca/NY21nmciDZFS8iqdlGCCADW
- QKeydEJmS6DdLy6WrXnKziNEKovYP9TPh8lC6MDJ0WoqZ0oh3fPpNiM1mu2fbW6G06kZ
- l8j3iPCk51BStypSrJdSWou/TJJ04AJeUldUJcxGUOyLyWovbA/tH2i2wSxt9U05apRg
- NWcPFsM1JS8MnPsHPcU1DNvcKu0Oxl5aNbNnEw4X/iAywa6DSck+kHPqXhT2BHJljf6S
- 3guf/PQ4iVyYyJi+0vlEu+ERVLwpxPIc2JNaVYYUkcmkfODTmxBTpqJ6Wer2H/yCbtdq
- 7eZQ==
-X-Gm-Message-State: AOAM532OXXtbaOrO1RQ/zZVhb2kRqrmrCmdu3oPtzBg2nevhOY2kXVVB
- /QSsVpqTFCw+gOB/mKiChAOcMFe/ehuNKA==
-X-Google-Smtp-Source: ABdhPJz/7asF1GdAVv322WqculaCFkc4tIsDjNj4rHsPiY0qx06pw6nY9zvYgztYrCvtTeVw6SGGOQ==
-X-Received: by 2002:a17:906:f9d8:: with SMTP id
- lj24mr32579966ejb.200.1617095313267; 
- Tue, 30 Mar 2021 02:08:33 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id i10sm9652676ejv.106.2021.03.30.02.08.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Mar 2021 02:08:32 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: q6afe-clocks: fix reprobing of the driver
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20210327092857.3073879-1-dmitry.baryshkov@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <0f41669c-c8e5-a2e2-f6ce-cdff066b26f3@linaro.org>
-Date: Tue, 30 Mar 2021 10:08:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="NMOIfVUf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M2KW0EiYdfAhWOmug6PR+OMLK20KPJbAyPQkm09J8AevWuGU3jJiKnrXS+Kz8vhy2XKkXa6AvcmLE3ZD10BlkgzhofwxAxlKP0ivqlHvhC+aEEqHLxfrsyGu90LzClqCbPUHuhAEYB4VXavcw9cWUBwn8rRc9grbhcgr4GNKk5y3kzcZt4PLml3Sz8niTksXAZEeB0BWJZ7NCSbQBL6Wi3JAqsJb9ZXTlytXzUImqnSvFNpa7bTsFptDrnhpBuH2jfMuh44sSZcXx8VjKvXfzCbARo5hhQx0hvc201kRBA9jZww1MY/nq5wU15k9aIzw5sohGct4JVbuG5UOqLIN0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OcLbZuPrAoF0vz+syYsFzQl/V2SXo31YQyW5HlYrO/A=;
+ b=evRG0CZAcGmG7SSZqsha0CWaqcoLuZ4PJ8Hrw6IMI4krg2lcLuiqgaRJ111drFRhwGobp1dED5++wGSOTxRThsS78Co/C6yra9XKY8h7XcffcG8nCWuDbwc0qMcef3xJ7C43sgJPe0fHsQ5NyQLnb2cYjj2YSr997MIup3p0nE/0V3Jht15IIqbH50XlgilKqpaIuVNvhjODKM1vWxQC7YA+IOxAesFkJy7gd58OwE/V84xa3JPW0O9UGbfzcc6XtIrF+iEPZVBHF0KRlDtEjLreu0cA7VWCBqBvSMcyJSD+tG+1TU/rzW1fcQP0254MKEs8JNXd9UbJj0EIllev3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=amd.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OcLbZuPrAoF0vz+syYsFzQl/V2SXo31YQyW5HlYrO/A=;
+ b=NMOIfVUfDdDyWFRqoD6f4doI9/87quuiyZGmaiIZdxOXVHiybIp3Q28OF+mNdDGbAeXmn9Zt8n+epwfOzUthD9URk8pkz/x1qyyVwcZORmCkSnAfwnhWoM9/lbBu6xXxgJLdUyqLKKHDbbZ+q/nh81HTPFI00jOJLsrZ8V8FATw=
+Received: from BN9PR03CA0545.namprd03.prod.outlook.com (2603:10b6:408:138::10)
+ by BN6PR1201MB0116.namprd12.prod.outlook.com (2603:10b6:405:56::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.30; Tue, 30 Mar
+ 2021 08:56:32 +0000
+Received: from BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:138:cafe::d) by BN9PR03CA0545.outlook.office365.com
+ (2603:10b6:408:138::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25 via Frontend
+ Transport; Tue, 30 Mar 2021 08:56:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT060.mail.protection.outlook.com (10.13.177.211) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3955.18 via Frontend Transport; Tue, 30 Mar 2021 08:56:32 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 30 Mar
+ 2021 03:56:31 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 30 Mar
+ 2021 03:56:30 -0500
+Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
+ Transport; Tue, 30 Mar 2021 03:56:26 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: amd: Add support for ALC1015P codec in acp3x machine
+ driver
+Date: Tue, 30 Mar 2021 14:43:15 +0530
+Message-ID: <1617095628-8324-1-git-send-email-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20210327092857.3073879-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 252a04fb-5613-442c-6645-08d8f359b71a
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0116:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB01169646A18C9FEB801B4B68977D9@BN6PR1201MB0116.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8t6gqmLu9IwB8ptyD2QFOefmVfk3E8vn68HJM+IHdvAi9xxBPuOY65G9KxaMpFm3XwVHa+TK1jeB7O1s5HL0hZf4+EGx6S1/+0r/dUUW7PEySsl2g386Zv+48VcTCfMRSQJwzc0TIb/qst9N2HTrKjDlhtBziOmD4W67wC9HNexvwXrqAkrwbhoLGZUjpfr2DhXZE7PhNMSNgF1lDlFwfg7rbgrxgsn9ClTDBrbeMk2NncF9snQg4K9hdcIcVKGHQUtvRYXNBGqbB1+4yOseh7aoUdkhF1yRGid/ezH4TjpGgOP2dyD6v8slGuDRsUJyijL0ReY4W32EN6G9YXQHkRNbEn7JXhkwAGEQHmbSL+u9nbA9PlNQyW1NQKj6mifpkk8P8qVNEQq5KhGjwV25VBxKYavtRRtgUc9ECy8Gc3LsBFGPlCQuAt9y5FQkrfDWjTUnWeEuYYOaieKlF42Icn7/DNKrrm9FbxZGAs+h06jWyTWUSFw4U/WSpIsLBaErF1m0sEUE/5qa/fZisazzknN7TZu4lxcH51NoXZTvfuW8P7okgKv+QeYug39QVg6KVu3zNBcV2i0SxTyO+Ru1Nm3S2C9N5CHZSQIhiRwtoZr+6UlvvT8EkwxFOhatD2+ExFXo0jpPyss5cUk1gj17FiyiL5zUZ0UbcOzcpZJobcccHBIG6N39gQAGHeQyHdK2IzCAC6pHmPg6q1PGlv8V+Sq+J6e3Icp/NLL6g4VDLkg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(46966006)(36840700001)(478600001)(47076005)(81166007)(70206006)(356005)(7696005)(336012)(26005)(70586007)(36756003)(2906002)(82740400003)(316002)(110136005)(54906003)(4326008)(2616005)(82310400003)(86362001)(83380400001)(8676002)(36860700001)(426003)(6666004)(7416002)(8936002)(186003)(5660300002)(42413003)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2021 08:56:32.2074 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 252a04fb-5613-442c-6645-08d8f359b71a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0116
+Cc: jack.yu@realtek.com, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Sunil-kumar.Dommati@amd.com, kent_chen@realtek.com,
+ Arnd Bergmann <arnd@arndb.de>, Tzung-Bi Shih <tzungbi@google.com>, open
+ list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexander.Deucher@amd.com, Vijendar
+ Mukunda <Vijendar.Mukunda@amd.com>, shumingf@realtek.com,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, flove@realtek.com,
+ Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,327 +144,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Dmitry for looking at this,
+Add ALC1015p codec support for acp3x machine driver.
 
-On 27/03/2021 09:28, Dmitry Baryshkov wrote:
-> Q6afe-clocks driver can get reprobed. For example if the APR services
-> are restarted after the firmware crash. However currently Q6afe-clocks
-> driver will oops because hw.init will get cleared during first _probe
-> call. Rewrite the driver to fill the clock data at runtime rather than
-> using big static array of clocks.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/Kconfig                |  1 +
+ sound/soc/amd/acp3x-rt5682-max9836.c | 46 +++++++++++++++++++++++++++++++++++-
+ 2 files changed, 46 insertions(+), 1 deletion(-)
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index 256c192..ba5a85b 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -35,6 +35,7 @@ config SND_SOC_AMD_RV_RT5682_MACH
+ 	select SND_SOC_CROS_EC_CODEC
+ 	select I2C_CROS_EC_TUNNEL
+ 	select SND_SOC_RT1015
++	select SND_SOC_RT1015P
+ 	depends on SND_SOC_AMD_ACP3x && I2C && CROS_EC
+ 	help
+ 	 This option enables machine driver for RT5682 and MAX9835.
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index cea320a..8e11bb8 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -275,6 +275,8 @@ SND_SOC_DAILINK_DEF(rt5682,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5682:00", "rt5682-aif1")));
+ SND_SOC_DAILINK_DEF(max,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("MX98357A:00", "HiFi")));
++SND_SOC_DAILINK_DEF(rt1015p,
++	DAILINK_COMP_ARRAY(COMP_CODEC("RTL1015:00", "HiFi")));
+ SND_SOC_DAILINK_DEF(rt1015,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1015:00", "rt1015-aif"),
+ 			COMP_CODEC("i2c-10EC1015:01", "rt1015-aif")));
+@@ -419,6 +421,43 @@ static struct snd_soc_card acp3x_1015 = {
+ 	.num_controls = ARRAY_SIZE(acp3x_mc_1015_controls),
+ };
+ 
++static const struct snd_soc_dapm_widget acp3x_1015p_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0,
++			 &acp3x_dmic_mux_control),
++	SND_SOC_DAPM_SPK("Speakers", NULL),
++};
++
++static const struct snd_soc_dapm_route acp3x_1015p_route[] = {
++	{"Headphone Jack", NULL, "HPOL"},
++	{"Headphone Jack", NULL, "HPOR"},
++	{"IN1P", NULL, "Headset Mic"},
++	{"Dmic Mux", "Front Mic", "DMIC"},
++	{"Dmic Mux", "Rear Mic", "DMIC"},
++	/* speaker */
++	{ "Speakers", NULL, "Speaker" },
++};
++
++static const struct snd_kcontrol_new acp3x_mc_1015p_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Speakers"),
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static struct snd_soc_card acp3x_1015p = {
++	.name = "acp3xalc56821015p",
++	.owner = THIS_MODULE,
++	.dai_link = acp3x_dai,
++	.num_links = ARRAY_SIZE(acp3x_dai),
++	.dapm_widgets = acp3x_1015p_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(acp3x_1015p_widgets),
++	.dapm_routes = acp3x_1015p_route,
++	.num_dapm_routes = ARRAY_SIZE(acp3x_1015p_route),
++	.controls = acp3x_mc_1015p_controls,
++	.num_controls = ARRAY_SIZE(acp3x_mc_1015p_controls),
++};
++
+ void *soc_is_rltk_max(struct device *dev)
+ {
+ 	const struct acpi_device_id *match;
+@@ -435,6 +474,9 @@ static void card_spk_dai_link_present(struct snd_soc_dai_link *links,
+ 	if (!strcmp(card_name, "acp3xalc56821015")) {
+ 		links[1].codecs = rt1015;
+ 		links[1].num_codecs = ARRAY_SIZE(rt1015);
++	} else if (!strcmp(card_name, "acp3xalc56821015p")) {
++		links[1].codecs = rt1015p;
++		links[1].num_codecs = ARRAY_SIZE(rt1015p);
+ 	} else {
+ 		links[1].codecs = max;
+ 		links[1].num_codecs = ARRAY_SIZE(max);
+@@ -486,6 +528,7 @@ static int acp3x_probe(struct platform_device *pdev)
+ static const struct acpi_device_id acp3x_audio_acpi_match[] = {
+ 	{ "AMDI5682", (unsigned long)&acp3x_5682},
+ 	{ "AMDI1015", (unsigned long)&acp3x_1015},
++	{ "AMDP1015", (unsigned long)&acp3x_1015p},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, acp3x_audio_acpi_match);
+@@ -503,5 +546,6 @@ module_platform_driver(acp3x_audio);
+ 
+ MODULE_AUTHOR("akshu.agrawal@amd.com");
+ MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+-MODULE_DESCRIPTION("ALC5682 ALC1015 & MAX98357 audio support");
++MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
++MODULE_DESCRIPTION("ALC5682 ALC1015, ALC1015P & MAX98357 audio support");
+ MODULE_LICENSE("GPL v2");
+-- 
+2.7.4
 
-
---srini
-
->   sound/soc/qcom/qdsp6/q6afe-clocks.c | 209 ++++++++++++++--------------
->   sound/soc/qcom/qdsp6/q6afe.c        |   2 +-
->   sound/soc/qcom/qdsp6/q6afe.h        |   2 +-
->   3 files changed, 108 insertions(+), 105 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-> index f0362f061652..9431656283cd 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-> @@ -11,33 +11,29 @@
->   #include <linux/slab.h>
->   #include "q6afe.h"
->   
-> -#define Q6AFE_CLK(id) &(struct q6afe_clk) {		\
-> +#define Q6AFE_CLK(id) {					\
->   		.clk_id	= id,				\
->   		.afe_clk_id	= Q6AFE_##id,		\
->   		.name = #id,				\
-> -		.attributes = LPASS_CLK_ATTRIBUTE_COUPLE_NO, \
->   		.rate = 19200000,			\
-> -		.hw.init = &(struct clk_init_data) {	\
-> -			.ops = &clk_q6afe_ops,		\
-> -			.name = #id,			\
-> -		},					\
->   	}
->   
-> -#define Q6AFE_VOTE_CLK(id, blkid, n) &(struct q6afe_clk) { \
-> +#define Q6AFE_VOTE_CLK(id, blkid, n) {			\
->   		.clk_id	= id,				\
->   		.afe_clk_id = blkid,			\
-> -		.name = #n,				\
-> -		.hw.init = &(struct clk_init_data) {	\
-> -			.ops = &clk_vote_q6afe_ops,	\
-> -			.name = #id,			\
-> -		},					\
-> +		.name = n,				\
->   	}
->   
-> -struct q6afe_clk {
-> -	struct device *dev;
-> +struct q6afe_clk_init {
->   	int clk_id;
->   	int afe_clk_id;
->   	char *name;
-> +	int rate;
-> +};
-> +
-> +struct q6afe_clk {
-> +	struct device *dev;
-> +	int afe_clk_id;
->   	int attributes;
->   	int rate;
->   	uint32_t handle;
-> @@ -48,8 +44,7 @@ struct q6afe_clk {
->   
->   struct q6afe_cc {
->   	struct device *dev;
-> -	struct q6afe_clk **clks;
-> -	int num_clks;
-> +	struct q6afe_clk *clks[Q6AFE_MAX_CLK_ID];
->   };
->   
->   static int clk_q6afe_prepare(struct clk_hw *hw)
-> @@ -105,7 +100,7 @@ static int clk_vote_q6afe_block(struct clk_hw *hw)
->   	struct q6afe_clk *clk = to_q6afe_clk(hw);
->   
->   	return q6afe_vote_lpass_core_hw(clk->dev, clk->afe_clk_id,
-> -					clk->name, &clk->handle);
-> +					clk_hw_get_name(&clk->hw), &clk->handle);
->   }
->   
->   static void clk_unvote_q6afe_block(struct clk_hw *hw)
-> @@ -120,84 +115,76 @@ static const struct clk_ops clk_vote_q6afe_ops = {
->   	.unprepare	= clk_unvote_q6afe_block,
->   };
->   
-> -static struct q6afe_clk *q6afe_clks[Q6AFE_MAX_CLK_ID] = {
-> -	[LPASS_CLK_ID_PRI_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
-> -	[LPASS_CLK_ID_PRI_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
-> -	[LPASS_CLK_ID_SEC_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
-> -	[LPASS_CLK_ID_SEC_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_EBIT),
-> -	[LPASS_CLK_ID_TER_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_IBIT),
-> -	[LPASS_CLK_ID_TER_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_EBIT),
-> -	[LPASS_CLK_ID_QUAD_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_IBIT),
-> -	[LPASS_CLK_ID_QUAD_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_EBIT),
-> -	[LPASS_CLK_ID_SPEAKER_I2S_IBIT] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_IBIT),
-> -	[LPASS_CLK_ID_SPEAKER_I2S_EBIT] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_EBIT),
-> -	[LPASS_CLK_ID_SPEAKER_I2S_OSR] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_OSR),
-> -	[LPASS_CLK_ID_QUI_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_IBIT),
-> -	[LPASS_CLK_ID_QUI_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_EBIT),
-> -	[LPASS_CLK_ID_SEN_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_IBIT),
-> -	[LPASS_CLK_ID_SEN_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_EBIT),
-> -	[LPASS_CLK_ID_INT0_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT0_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT1_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT1_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT2_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT2_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT3_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT3_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT4_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT4_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT5_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT5_MI2S_IBIT),
-> -	[LPASS_CLK_ID_INT6_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT6_MI2S_IBIT),
-> -	[LPASS_CLK_ID_QUI_MI2S_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_OSR),
-> -	[LPASS_CLK_ID_PRI_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_IBIT),
-> -	[LPASS_CLK_ID_PRI_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_EBIT),
-> -	[LPASS_CLK_ID_SEC_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_IBIT),
-> -	[LPASS_CLK_ID_SEC_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_EBIT),
-> -	[LPASS_CLK_ID_TER_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_IBIT),
-> -	[LPASS_CLK_ID_TER_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_EBIT),
-> -	[LPASS_CLK_ID_QUAD_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_IBIT),
-> -	[LPASS_CLK_ID_QUAD_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_EBIT),
-> -	[LPASS_CLK_ID_QUIN_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_IBIT),
-> -	[LPASS_CLK_ID_QUIN_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_EBIT),
-> -	[LPASS_CLK_ID_QUI_PCM_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUI_PCM_OSR),
-> -	[LPASS_CLK_ID_PRI_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_IBIT),
-> -	[LPASS_CLK_ID_PRI_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_EBIT),
-> -	[LPASS_CLK_ID_SEC_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_IBIT),
-> -	[LPASS_CLK_ID_SEC_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_EBIT),
-> -	[LPASS_CLK_ID_TER_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_IBIT),
-> -	[LPASS_CLK_ID_TER_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_EBIT),
-> -	[LPASS_CLK_ID_QUAD_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_IBIT),
-> -	[LPASS_CLK_ID_QUAD_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_EBIT),
-> -	[LPASS_CLK_ID_QUIN_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_IBIT),
-> -	[LPASS_CLK_ID_QUIN_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_EBIT),
-> -	[LPASS_CLK_ID_QUIN_TDM_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_OSR),
-> -	[LPASS_CLK_ID_MCLK_1] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_1),
-> -	[LPASS_CLK_ID_MCLK_2] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_2),
-> -	[LPASS_CLK_ID_MCLK_3] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_3),
-> -	[LPASS_CLK_ID_MCLK_4] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_4),
-> -	[LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE] =
-> -		Q6AFE_CLK(LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE),
-> -	[LPASS_CLK_ID_INT_MCLK_0] = Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_0),
-> -	[LPASS_CLK_ID_INT_MCLK_1] = Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_1),
-> -	[LPASS_CLK_ID_WSA_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_MCLK),
-> -	[LPASS_CLK_ID_WSA_CORE_NPL_MCLK] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_NPL_MCLK),
-> -	[LPASS_CLK_ID_VA_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_MCLK),
-> -	[LPASS_CLK_ID_TX_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_MCLK),
-> -	[LPASS_CLK_ID_TX_CORE_NPL_MCLK] =
-> -			Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_NPL_MCLK),
-> -	[LPASS_CLK_ID_RX_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
-> -	[LPASS_CLK_ID_RX_CORE_NPL_MCLK] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
-> -	[LPASS_CLK_ID_VA_CORE_2X_MCLK] =
-> -				Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
-> -	[LPASS_HW_AVTIMER_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
-> -						 Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
-> -						 "LPASS_AVTIMER_MACRO"),
-> -	[LPASS_HW_MACRO_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
-> -						Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
-> -						"LPASS_HW_MACRO"),
-> -	[LPASS_HW_DCODEC_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
-> -					Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
-> -					"LPASS_HW_DCODEC"),
-> +static const struct q6afe_clk_init q6afe_clks[] = {
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_OSR),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT0_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT1_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT2_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT3_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT4_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT5_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT6_MI2S_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_OSR),
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUI_PCM_OSR),
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_IBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_EBIT),
-> +	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_OSR),
-> +	Q6AFE_CLK(LPASS_CLK_ID_MCLK_1),
-> +	Q6AFE_CLK(LPASS_CLK_ID_MCLK_2),
-> +	Q6AFE_CLK(LPASS_CLK_ID_MCLK_3),
-> +	Q6AFE_CLK(LPASS_CLK_ID_MCLK_4),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_0),
-> +	Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_1),
-> +	Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_NPL_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_NPL_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
-> +	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
-> +	Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
-> +		       Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
-> +		       "LPASS_AVTIMER_MACRO"),
-> +	Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
-> +		       Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
-> +		       "LPASS_HW_MACRO"),
-> +	Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
-> +		       Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
-> +		       "LPASS_HW_DCODEC"),
->   };
->   
->   static struct clk_hw *q6afe_of_clk_hw_get(struct of_phandle_args *clkspec,
-> @@ -207,7 +194,7 @@ static struct clk_hw *q6afe_of_clk_hw_get(struct of_phandle_args *clkspec,
->   	unsigned int idx = clkspec->args[0];
->   	unsigned int attr = clkspec->args[1];
->   
-> -	if (idx >= cc->num_clks || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
-> +	if (idx >= Q6AFE_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
->   		dev_err(cc->dev, "Invalid clk specifier (%d, %d)\n", idx, attr);
->   		return ERR_PTR(-EINVAL);
->   	}
-> @@ -230,20 +217,36 @@ static int q6afe_clock_dev_probe(struct platform_device *pdev)
->   	if (!cc)
->   		return -ENOMEM;
->   
-> -	cc->clks = &q6afe_clks[0];
-> -	cc->num_clks = ARRAY_SIZE(q6afe_clks);
-> +	cc->dev = dev;
->   	for (i = 0; i < ARRAY_SIZE(q6afe_clks); i++) {
-> -		if (!q6afe_clks[i])
-> -			continue;
-> +		unsigned int id = q6afe_clks[i].clk_id;
-> +		struct clk_init_data init = {
-> +			.name =  q6afe_clks[i].name,
-> +		};
-> +		struct q6afe_clk *clk;
-> +
-> +		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-> +		if (!clk)
-> +			return -ENOMEM;
-> +
-> +		clk->dev = dev;
-> +		clk->afe_clk_id = q6afe_clks[i].afe_clk_id;
-> +		clk->rate = q6afe_clks[i].rate;
-> +		clk->hw.init = &init;
-> +
-> +		if (clk->rate)
-> +			init.ops = &clk_q6afe_ops;
-> +		else
-> +			init.ops = &clk_vote_q6afe_ops;
->   
-> -		q6afe_clks[i]->dev = dev;
-> +		cc->clks[id] = clk;
->   
-> -		ret = devm_clk_hw_register(dev, &q6afe_clks[i]->hw);
-> +		ret = devm_clk_hw_register(dev, &clk->hw);
->   		if (ret)
->   			return ret;
->   	}
->   
-> -	ret = of_clk_add_hw_provider(dev->of_node, q6afe_of_clk_hw_get, cc);
-> +	ret = devm_of_clk_add_hw_provider(dev, q6afe_of_clk_hw_get, cc);
->   	if (ret)
->   		return ret;
->   
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-> index cad1cd1bfdf0..4327b72162ec 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe.c
-> @@ -1681,7 +1681,7 @@ int q6afe_unvote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
->   EXPORT_SYMBOL(q6afe_unvote_lpass_core_hw);
->   
->   int q6afe_vote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
-> -			     char *client_name, uint32_t *client_handle)
-> +			     const char *client_name, uint32_t *client_handle)
->   {
->   	struct q6afe *afe = dev_get_drvdata(dev->parent);
->   	struct afe_cmd_remote_lpass_core_hw_vote_request *vote_cfg;
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-> index 22e10269aa10..3845b56c0ed3 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.h
-> +++ b/sound/soc/qcom/qdsp6/q6afe.h
-> @@ -236,7 +236,7 @@ int q6afe_port_set_sysclk(struct q6afe_port *port, int clk_id,
->   int q6afe_set_lpass_clock(struct device *dev, int clk_id, int clk_src,
->   			  int clk_root, unsigned int freq);
->   int q6afe_vote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
-> -			     char *client_name, uint32_t *client_handle);
-> +			     const char *client_name, uint32_t *client_handle);
->   int q6afe_unvote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
->   			       uint32_t client_handle);
->   #endif /* __Q6AFE_H__ */
-> 

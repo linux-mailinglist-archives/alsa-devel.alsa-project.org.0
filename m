@@ -2,89 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727C234F085
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 20:08:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840BA34F191
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 21:28:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1EF11682;
-	Tue, 30 Mar 2021 20:07:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1EF11682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 202171681;
+	Tue, 30 Mar 2021 21:27:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 202171681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617127692;
-	bh=+x5pmPzoPs8tHsp3sxrP6YEbXvMqolyuXAH2U4BJq+A=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eoayFHOAYoWmgEZY6kqaXYX/TsgbC6wJE1uY+SLmDNFkuo0y5PTMXq9EtHZuw5XQk
-	 ke4dObu1nRXUdPMH9FQzcUXQ+8We5edExV9XrCBOGh4mE2YXqATsqPibIDIySH+3tE
-	 f7OIMRoIiMgnJK8EIkf7TWSKZUJBeDL8CLMI2Q50=
+	s=default; t=1617132493;
+	bh=eq+HXrVJrTAVshUi84DQShpc4v7czfwveWqZvpE36HQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WUxqDYCDnfkqop3I0014+yGLKubLrw2h4djQcxIJOrZfbygfhXFemVfYfW+RhQifv
+	 HV3jvySg2p7c3uEh99N0FiN9phAC+z9nh2WC5/SaBLFXZ9u6Sl9DDwHyfto1bS5WDi
+	 3QuHahiVoLRNJr1HCgNnunhdgz/5axYwtfM7tsow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66A77F8026B;
-	Tue, 30 Mar 2021 20:06:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B225F8026B;
+	Tue, 30 Mar 2021 21:26:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79A6EF80240; Tue, 30 Mar 2021 20:06:43 +0200 (CEST)
+ id C5AC4F80240; Tue, 30 Mar 2021 21:26:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50613F8014E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 20:06:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50613F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KILBfA6b"
-Received: by mail-ed1-x52f.google.com with SMTP id x21so19258331eds.4
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 11:06:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0pgwGo5U4+mVpvBAlIW3XDhY6OzMGVQRD+8FoU11geg=;
- b=KILBfA6bAgwhgbaqL+MGXZDaxNFo9Jr5AheRhcv2NtJHd7OqaEXycAb+llcDIJT8Y8
- nNJQQ6wSIieG4jv4njYkeNg95rE5S2gnYCU5I2FU+WLJvNLTHrlC6Jx6CZhC5+0G9nZc
- KZU38T4duNWkfLotY+9ZUoGOojL6pQWNVLQTZdJ9TUkHGeROZhYjptk6zjrNzjyprDDS
- IlDAlQWedrdBDjHXssZGbt0ab2CeMRdKDxzUNPqO32B9EP4B/6iBMb0t8/mMn/kjbUhO
- p2vgVUSj/LlYP0Q6bsCia+bSG82MeSGXyzI+MhdnSrwgGsViSEod9Qq6koWteg5PskON
- PVHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0pgwGo5U4+mVpvBAlIW3XDhY6OzMGVQRD+8FoU11geg=;
- b=fBm/JG33jVGVF2R3W6oX5+VtuszPSv8kG4irZsPcIhodJ55xSYDF0jtxW/00dJx6hC
- 5n7Phm0zh6zQyhafrDUNtDRRhrmSfWU8uSWq3xyRI2Ed1BL777EEyIhthbsAdGq4K2Ra
- qi3pMeifvMyXPB813cp++67A8DSa9o5GPCrq/PLl9+Gg1DO/UD1eoaLh5HJKUf+LM5gj
- 9eITiihqpuCWH6t8aJ5mitWxV8guJW9pkQy+75KnTCg+sG2ar9WZi0Px82gKCD9zswIF
- lvar+Qs7zbUcvRzRgevKUrPDRqLF9WMxg6ku9HP0+4JQOYS1rR25VtQ1nCuFyu3TUabz
- xBmg==
-X-Gm-Message-State: AOAM531W20m+ItBw3kBpmX2CStgr/dONUSCD39U/lEfXEuGcTAg5fpLd
- 9TeU0584I/3z1JkazPFnt2A=
-X-Google-Smtp-Source: ABdhPJxcmA+mJu9zdZY6GgDUziWNePTkeU423wGspKbNdxgH6BOtT/Uk4a7w/ccx0pA9XK354RQ4vg==
-X-Received: by 2002:a50:ed96:: with SMTP id h22mr34653915edr.39.1617127595723; 
- Tue, 30 Mar 2021 11:06:35 -0700 (PDT)
-Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id l12sm11597884edb.39.2021.03.30.11.06.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Mar 2021 11:06:34 -0700 (PDT)
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: tegra: Set driver name explicitly
-Date: Tue, 30 Mar 2021 20:06:57 +0200
-Message-Id: <20210330180657.1867971-1-thierry.reding@gmail.com>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0ADFDF8014E
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 21:26:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ADFDF8014E
+IronPort-SDR: Pgi1Wk0Npuh3V//j+Xs5J/3km4JS7ZspieCziA5y4TPgAtrp3acdh6BYAYUWa4YIb6VYykyID6
+ FBIorSQgsI+A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9939"; a="212062552"
+X-IronPort-AV: E=Sophos;i="5.81,291,1610438400"; d="scan'208";a="212062552"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2021 12:26:35 -0700
+IronPort-SDR: XWc9DDgrfb5nhSAn5ey7ehcucwGl7YLKHydfD62OFhx1+w6ANPiq4Eggou2FZi20jGp4Bnzmrm
+ J47dXXnlk0dw==
+X-IronPort-AV: E=Sophos;i="5.81,291,1610438400"; d="scan'208";a="610213285"
+Received: from magnuson-mobl1.amr.corp.intel.com (HELO [10.254.111.68])
+ ([10.254.111.68])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2021 12:26:34 -0700
+Subject: Re: [PATCH v2 2/3] ASoC: rt715: remove kcontrols which no longer be
+ used
+To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
+ Jack Yu <jack.yu@realtek.com>
+References: <5c314f5512654aca9fff0195f77264de@realtek.com>
+ <20210330170915.GH4976@sirena.org.uk>
+ <cb29ed5c-44b1-c1ce-b704-8b93ac9f7a43@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3102f11c-d2bc-c53e-ac68-60628b990515@linux.intel.com>
+Date: Tue, 30 Mar 2021 14:26:32 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <cb29ed5c-44b1-c1ce-b704-8b93ac9f7a43@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "bard.liao@intel.com" <bard.liao@intel.com>,
+ =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>,
+ "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,32 +91,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Thierry Reding <treding@nvidia.com>
 
-The SoC sound core will generate a driver name by normalizing the card
-name. However, most of the time that name does not tell anything about
-the driver and is therefore useless for this purpose.
 
-Make the driver name more useful by setting it explicitly during card
-initialization.
+>>> Using new kcontrols "Capture Switch" and "Capture Volume" instead,
+>>> remove kcontrols which no longer be used.
+>>
+>> Is this going to disrupt any UCM profiles?
+> 
+> Yes (the rt715 prefix is from the SOF driver):
+> 
+> # RT715 specific volume control settings
+> 
+> BootSequence [
+> 	cset "name='rt715 DMIC3 Boost' 2"
+> 	cset "name='rt715 DMIC4 Boost' 2"
+> 	cset "name='rt715 ADC 24 Mux' 3"
+> 	cset "name='rt715 ADC 25 Mux' 4"
+> 	cset "name='rt715 ADC 27 Capture Switch' 1"
+> 	cset "name='rt715 ADC 07 Capture Switch' 1"
+> 	cset "name='rt715 ADC 07 Capture Volume' 58"
+> ]
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- sound/soc/tegra/tegra_audio_graph_card.c | 1 +
- 1 file changed, 1 insertion(+)
+To be clearer, we wanted to change the UCM files to only try to 
+configure the 'old' controls when they are present. The 'new' controls 
+are aligned between RT715 and RT715-sdca.
 
-diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
-index ddedf18adde1..47b319504c8c 100644
---- a/sound/soc/tegra/tegra_audio_graph_card.c
-+++ b/sound/soc/tegra/tegra_audio_graph_card.c
-@@ -198,6 +198,7 @@ static int tegra_audio_graph_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	card = simple_priv_to_card(&priv->simple);
-+	card->driver_name = "tegra-ape";
- 
- 	card->probe = tegra_audio_graph_card_probe;
- 
--- 
-2.30.2
+There will be a minor inconvenience if an existing platform updates the 
+kernel without updating UCM files, but it's the only solution we found 
+in earlier discussions.
 
+Distributions are typically faster with alsa-ucmconf updates than kernel 
+changes so that inconvenience is likely very limited (we support 4-5 
+Dell CML/TGL platforms w/ SoundWire)

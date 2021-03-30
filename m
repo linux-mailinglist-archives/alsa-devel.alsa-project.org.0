@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F25E34E35B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 10:42:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E874234E36F
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 10:44:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A18751682;
-	Tue, 30 Mar 2021 10:41:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18751682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92A721671;
+	Tue, 30 Mar 2021 10:43:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92A721671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617093739;
-	bh=5vjWHQpNnWwzD+C6Uz33hAqzurkp949O30Cxa1ACg+s=;
+	s=default; t=1617093882;
+	bh=BzVGzxF47npQxoaPhUx9SUpW2ax62qrGKvP/1FIKvQY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JT0NAL2AclHOURlZvYiR1wgfFHSSynm06gxvTooux6pGF/b2S6hYUGxJC5VhaIJPC
-	 Qe0W2MyOcW3P9eNm6E7Z2S+S75yNs6sp/g1faV2T4o7qWQ/c1AWUZkMVlFB5nNp3mo
-	 IuleQI87aPoH3ioiR3b1M+x7DhyEiDIlWzOSIVo8=
+	b=HZR+mQDkWQiGufJopQmkrLnf2u0pUKyok6/KuLDMgPIq0NcwipNrWRz3AXqStQpYY
+	 B6XKWm0V/xR4hzqkNPuvPR6AeFvK7ZZmwsH5IxyP7ff6V4+9ZkqWOfsCiY44IC2Pq8
+	 n/b7ocNLVP7NKnmKNLI+XzsKYdFQ6Q+KU4U1Vj1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD3F7F8026B;
-	Tue, 30 Mar 2021 10:40:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06F84F8026B;
+	Tue, 30 Mar 2021 10:43:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB77FF80240; Tue, 30 Mar 2021 10:40:51 +0200 (CEST)
+ id 306B0F80240; Tue, 30 Mar 2021 10:43:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,35 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94231F80141
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 10:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94231F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id A177EF80141
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 10:43:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A177EF80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="o4xqREtM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 44B886198F;
- Tue, 30 Mar 2021 08:40:38 +0000 (UTC)
+ header.b="VE57U+us"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 291ED61919;
+ Tue, 30 Mar 2021 08:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617093640;
- bh=5vjWHQpNnWwzD+C6Uz33hAqzurkp949O30Cxa1ACg+s=;
+ s=k20201202; t=1617093789;
+ bh=BzVGzxF47npQxoaPhUx9SUpW2ax62qrGKvP/1FIKvQY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=o4xqREtMQ8bpOCp6JwQ/3PzO7VMBuDSe7ZnSjC6GYVtJ6HrzoEKwDVAgVYngc550c
- yCkq/FDploTzNru+QMIPcLrXIN5xQexxLy/aQW+bas9TDRAkth582KEpNHu4TQ7jxd
- m/Ja/WBc8YHofa5W1SCk8BYlUgp6ltyaR5f2+d19vgifk7Hztcxi89s+WDEI9/2ajJ
- nUrRHJqp2WwRIKKgI+VjaMk+8124TloR2JctPrPHh4ZW/KcZUCN34147qu0Ya6uYWJ
- fLevnAqIpW0TNYczFYW2MOaJE+desJ0bnflqoCtsJNnpN7UDmgKHXKgk6oODRSNYZL
- td6WS0Mj+hJzA==
-Date: Tue, 30 Mar 2021 14:10:35 +0530
+ b=VE57U+us+WY2P7L75NyhztMPzKv47qlr7zFsI5g4VEu/PGQgC7xXcGldZ5myuSx97
+ FAFZuCT6YDQC14wM6lTEZ0NZqCkv6qqnY0SiBku0HR2MYI03pj7x2gn5UZDxkiQ9hl
+ PRVayX9J4rxOfKc/3mksaBV8qzQVXmVY2nBu42qNs84OlFOYbJQWz5/mdysb95q1xQ
+ reLoX0cMiTVDPaoo/N/ZU5uqILVqaAdQSYwpceTNJXvv49SqtXxpnPwMNI9dsAQMkm
+ hHymudupflnovj1MSU7neN1lI/RcUocquJ/0RkEvWwuniyvf0n+UX0qnIVwcP+P9Ft
+ NF8Fj6wAsEURw==
+Date: Tue, 30 Mar 2021 14:13:04 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v5 5/9] soundwire: qcom: update register read/write routine
-Message-ID: <YGLkA3p634eg9FDl@vkoul-mobl.Dlink>
+Subject: Re: [PATCH v5 6/9] soundwire: qcom: add support to new interrupts
+Message-ID: <YGLkmM4QCjkpg8/6@vkoul-mobl.Dlink>
 References: <20210326063944.31683-1-srinivas.kandagatla@linaro.org>
- <20210326063944.31683-6-srinivas.kandagatla@linaro.org>
+ <20210326063944.31683-7-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210326063944.31683-6-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210326063944.31683-7-srinivas.kandagatla@linaro.org>
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
  sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
@@ -82,33 +82,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 26-03-21, 06:39, Srinivas Kandagatla wrote:
 
-> +	swrm->reg_write(swrm, SWRM_CMD_FIFO_WR_CMD, val);
+> -	ctrl->reg_write(ctrl, SWRM_INTERRUPT_CLEAR, sts);
+> +	do {
+> +		for (i = 0; i < SWRM_INTERRUPT_MAX; i++) {
+> +			value = intr_sts_masked & (1 << i);
+
+BIT(i) istead of shifiting?
+
+> +			if (!value)
+> +				continue;
 > +
-> +	/* version 1.3 or less */
-> +	if (swrm->version <= 0x01030000)
-> +		usleep_range(150, 155);
-> +
-> +	if (cmd_id == SWR_BROADCAST_CMD_ID) {
-> +		/*
-> +		 * sleep for 10ms for MSM soundwire variant to allow broadcast
-> +		 * command to complete.
-> +		 */
-> +		ret = wait_for_completion_timeout(&swrm->broadcast,
-> +						  msecs_to_jiffies(TIMEOUT_MS));
-> +		if (!ret)
-> +			ret = SDW_CMD_IGNORED;
-> +		else
-> +			ret = SDW_CMD_OK;
+> +			switch (value) {
+> +			case SWRM_INTERRUPT_STATUS_SLAVE_PEND_IRQ:
+> +				devnum = qcom_swrm_get_alert_slave_dev_num(swrm);
+> +				if (devnum < 0) {
+> +					dev_err_ratelimited(swrm->dev,
+> +					    "no slave alert found.spurious interrupt\n");
+> +				} else {
+> +					sdw_handle_slave_status(&swrm->bus, swrm->status);
+> +				}
 >  
-> -	if (!ret) {
-> -		ret = SDW_CMD_IGNORED;
-> -		goto err;
->  	} else {
->  		ret = SDW_CMD_OK;
->  	}
+> -	if (sts & SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED)
+> -		complete(&ctrl->broadcast);
+> +				break;
+> +			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+> +			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+> +				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
+> +					__func__);
 
-Maybe add a comment here that we dont get status so write is assumed to
-be OK
-
+This should be debug
 -- 
 ~Vinod

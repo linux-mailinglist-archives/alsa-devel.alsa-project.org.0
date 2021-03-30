@@ -2,65 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7B734DEFF
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 05:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B71034E0A2
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 07:27:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 912121675;
-	Tue, 30 Mar 2021 05:08:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 912121675
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFDE31683;
+	Tue, 30 Mar 2021 07:26:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFDE31683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617073762;
-	bh=ALa1tJ6P/PU2kDS8odXVSuGQlW8WjGNlYmhkkuQK1mY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=k3Tu1dxv6zF/gpJsYaHS8xeP2hSfG7yXaHXu1J40nGIlSpndaYKH2rJwbdS7uwk0d
-	 7HP7QVMppNI6Z5WzAIwZG+zlQAEEWm8Tm111xsLET/jSEQbRg5zoZSudaKtK6KIhzv
-	 0DRTfvm4+CQqaYzofX1qpoJNnzLhlDcyZ6byTN40=
+	s=default; t=1617082053;
+	bh=fba45OXmX32g0gpi25zjqt7p9ZyiSrcEmTlC054sLtk=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HywRgVmafcPo1p/cv3wFfPL16s68eqd7N8TIqHST1W5q3spSbLz9zJYyZREh3Sqjg
+	 pPfszT1J1hv48h1CIE66/L+iD/Gn8fzX1XlRK0BQitXROAFGqoniRMh6nlMGBUA96l
+	 2obVl/4xaxsnuEeOvVJPA7Rp91sAuvOhgQyVnk7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48A6DF802C8;
-	Tue, 30 Mar 2021 05:07:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21D17F800B9;
+	Tue, 30 Mar 2021 07:26:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49345F80141; Tue, 30 Mar 2021 05:07:01 +0200 (CEST)
+ id BB986F80240; Tue, 30 Mar 2021 07:26:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0E17F8023E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 05:06:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0E17F8023E
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F8Z6z5klQzyNF0;
- Tue, 30 Mar 2021 11:04:43 +0800 (CST)
-Received: from thunder-town.china.huawei.com (10.174.179.202) by
- DGGEMS405-HUB.china.huawei.com (10.3.19.205) with Microsoft SMTP Server id
- 14.3.498.0; Tue, 30 Mar 2021 11:06:41 +0800
-From: Zhen Lei <thunder.leizhen@huawei.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Rob Herring" <robh+dt@kernel.org>, alsa-devel <alsa-devel@alsa-project.org>, 
- devicetree <devicetree@vger.kernel.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: dt-bindings: renesas,
- rsnd: Clear warning 'ports' does not match any of the regexes
-Date: Tue, 30 Mar 2021 11:06:31 +0800
-Message-ID: <20210330030631.2253-3-thunder.leizhen@huawei.com>
-X-Mailer: git-send-email 2.26.0.windows.1
-In-Reply-To: <20210330030631.2253-1-thunder.leizhen@huawei.com>
-References: <20210330030631.2253-1-thunder.leizhen@huawei.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.202]
-X-CFilter-Loop: Reflected
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Zhen Lei <thunder.leizhen@huawei.com>
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2D0B5F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 07:25:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D0B5F8014E
+Date: 30 Mar 2021 14:25:52 +0900
+X-IronPort-AV: E=Sophos;i="5.81,289,1610377200"; d="scan'208";a="76478737"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 30 Mar 2021 14:25:52 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id BEB954006192;
+ Tue, 30 Mar 2021 14:25:52 +0900 (JST)
+Message-ID: <87tuotxlen.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 0/2] ASoC: soc-core: tidyup error handling for rtd
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,32 +64,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently, the property "ports" is always present. So mark it as true, and
-let audio-graph-card.yaml to check it.
 
-Otherwise, warnings similar to the following will be reported:
-arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dt.yaml: \
-sound@ec500000: 'ports' does not match any of the regexes: \
-'^rcar_sound,ctu$', '^rcar_sound,dai$', '^rcar_sound,dvc$', ...
+Hi Mark
 
-Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
----
- Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 1 +
- 1 file changed, 1 insertion(+)
+These are small clanup patches for soc-core.
+[1/2] patch adds missing explanation, and
+[2/2] patch fixup error handling of rtd.
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index 487aeabd1f0e65b..d3c2899843aee58 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -112,6 +112,7 @@ properties:
-         - pattern: '^clk_(a|b|c|i)$'
- 
-   port: true
-+  ports: true
- 
- # use patternProperties to avoid naming "xxx,yyy" issue
- patternProperties:
+Kuninori Morimoto (2):
+  ASoC: soc-core: add comment for rtd freeing
+  ASoC: soc-core: use device_unregister() if rtd allocation failed
+
+ sound/soc/soc-core.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
 -- 
-1.8.3
-
+2.25.1
 

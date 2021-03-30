@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1DB34EB87
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 17:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17C034ECB5
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 17:37:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C2E81686;
-	Tue, 30 Mar 2021 17:06:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C2E81686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E21D167F;
+	Tue, 30 Mar 2021 17:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E21D167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617116833;
-	bh=Ad141g+06Mj6kxA0pZroy2+ah/G8as714CayImOKtTk=;
+	s=default; t=1617118641;
+	bh=nMNslYbP7bsoxUxRERQoAOXe4dowyalkqJZsnQN81Uk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nZrjWrQUftfLCocWdZ0lBvQQSXzUlx0dCBA9S9s+MuSqkpF2tXC5RssBy8O/ZkJJx
-	 RNMLua09GFC4XRXs1pJ5x3a46L+/aQEWNrk5EiwA4z4HWlwg0fQ6rypu9hrvpcdLjJ
-	 CqpSpQojeq2+h3buWdJMbLh7vKQi+CeYKDlnI3nY=
+	b=rou1ZRTibCQXpIRbYGSqFqflktT7/WUfQy1Xh1WunK4XxNhvA8d/kTlzH9z8cxWg3
+	 5rXRefqTRNz2egpYVlHCPMg0t1Q1zh+bMD5tCUvWjshEFuiiUUyI+H7O3GmStsbbgC
+	 6uSgt36HviuVSxCbkg1T4HL/D/Af8/7VCJOM6gLA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FE94F800B9;
-	Tue, 30 Mar 2021 17:05:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B54BF8026B;
+	Tue, 30 Mar 2021 17:35:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7834AF80240; Tue, 30 Mar 2021 17:05:43 +0200 (CEST)
+ id 4386DF800B9; Tue, 30 Mar 2021 17:35:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23D3BF80141
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 17:05:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23D3BF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9ED3DF800B9
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 17:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9ED3DF800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cs7vS3PK"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9076E619C8;
- Tue, 30 Mar 2021 15:05:32 +0000 (UTC)
+ header.b="m+KJceb+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E7738619A7;
+ Tue, 30 Mar 2021 15:35:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617116733;
- bh=Ad141g+06Mj6kxA0pZroy2+ah/G8as714CayImOKtTk=;
+ s=k20201202; t=1617118545;
+ bh=nMNslYbP7bsoxUxRERQoAOXe4dowyalkqJZsnQN81Uk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cs7vS3PK1/F3nSAzLn1MyTZrf6CiZ/ol6wLci6u05BjhP5fULglV2DEHFr5mtcQ7N
- 9p5JpNmRdK+RmeQhdee4oa6MZW42laUwlviiywVlzvqIxYtXl5+NkS/0ddMLSwsvHu
- 09Km333AQDu8pdrNl0ozwcW0YI5yBvblkC3MlJlt+3zDGRBm0aZFu1kvCOx6Q7xu6T
- bLqyVbsXupxbZW7K9flIi7SlcPPJX6pr5dMhQ7+oB1c7SaFsMsMpVI9acjeCbfRZAW
- 3/ST9M76hf37Gp4luwzFb+pOppgbtC5bsHGoP2btgl1UOTlxjokRDE841IN6/MNev6
- rOnsRo00jf+iQ==
-Date: Tue, 30 Mar 2021 16:05:21 +0100
+ b=m+KJceb+4H44bWJcmqmsx8kpjhc0T+EFlJeJuTwyk2s+ML8d8mWeJt+GpP1agJZL+
+ 54k8PHVJlw6HVPBNX61mb+yHGQlQVWwGcdmrWa5iT09GRbvJOc4TRGHRgj1q4kEkQc
+ GvZP7xqE3SULPPZNK+DTG6mb4tjre8Y7H/T9C/4QKoYygZZfnS2aMeBfJYa6pk2g0s
+ xHyfPzWyRgFFRQ1ILIVTVxVy8PXDlBTMECNrKLqtz7s/zSSLxvnJ7pkaDmqmblrGaT
+ 9y2g3BfhOM/vBG3ano+5tVksJ6JOh1uHxJR9G5SpmbA9Mc5bGRBM2PgFQwH6qKDWLr
+ 1bcYGwdtds7zg==
+Date: Tue, 30 Mar 2021 16:35:34 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: ak5558: Add support for ak5552
-Message-ID: <20210330150521.GD4976@sirena.org.uk>
-References: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: Add support for ALC1015P codec in acp3x
+ machine driver
+Message-ID: <20210330153534.GF4976@sirena.org.uk>
+References: <1617095628-8324-1-git-send-email-Vijendar.Mukunda@amd.com>
+ <82817878-a30d-2b0c-07f8-48bcca3ebc80@linux.intel.com>
+ <a55c7a75-22ab-31fc-81b3-ed8fa24027f4@amd.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="a2FkP9tdjPU2nyhF"
+ protocol="application/pgp-signature"; boundary="MZf7D3rAEoQgPanC"
 Content-Disposition: inline
-In-Reply-To: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <a55c7a75-22ab-31fc-81b3-ed8fa24027f4@amd.com>
 X-Cookie: Memory fault - where am I?
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ Sunil-kumar.Dommati@amd.com, kent_chen@realtek.com,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Alexander.Deucher@amd.com,
+ Arnd Bergmann <arnd@arndb.de>, shumingf@realtek.com, flove@realtek.com,
+ Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,33 +93,45 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---a2FkP9tdjPU2nyhF
-Content-Type: text/plain; charset=us-ascii
+--MZf7D3rAEoQgPanC
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 30, 2021 at 02:32:51PM +0800, Shengjiu Wang wrote:
+On Tue, Mar 30, 2021 at 09:12:11PM +0530, Mukunda,Vijendar wrote:
+> On 3/30/21 7:52 PM, Pierre-Louis Bossart wrote:
 
-> +static const struct snd_kcontrol_new ak5552_snd_controls[] = {
-> +	SOC_ENUM("AK5552 Monaural Mode", ak5552_mono_enum[0]),
-> +	SOC_ENUM("AK5552 Digital Filter", ak5558_adcset_enum[0]),
-> +};
+> > > =A0 static const struct acpi_device_id acp3x_audio_acpi_match[] =3D {
+> > > =A0=A0=A0=A0=A0 { "AMDI5682", (unsigned long)&acp3x_5682},
+> > > =A0=A0=A0=A0=A0 { "AMDI1015", (unsigned long)&acp3x_1015},
+> > > +=A0=A0=A0 { "AMDP1015", (unsigned long)&acp3x_1015p},
 
-It's a bit weird to have AK5552 in the control name - any reason for
-that?
+> > This isn't a valid ACPI ID. AMDP does not exist in
 
---a2FkP9tdjPU2nyhF
+=2E..
+
+> > There was a similar issue with Intel platforms using this part, we had
+> > to use a different HID.
+
+> Is it okay if i use "AMDI1016" for ALC1015P?
+
+That's valid, though obviously you might regret that later on if someone
+releases a CODEC with a 1016 name (equally well ACPI being what it is
+there's no good options for naming).
+
+--MZf7D3rAEoQgPanC
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBjPjAACgkQJNaLcl1U
-h9DkEQf+Ol3YVjyLArT+FOt6sN18M3scwhn2xFn1/JazXAfsJTtIAzGG1YTItNdZ
-bivEU66vjQ90ao+FNXapny//1uwlfOPFYVieXVmOlx05Vgl8TsApelVN8lOopNH7
-48vLv4gGmIQILT3vTVbBbSetXJU8zIAQuSVCuZqt53I3KSaDd8KQyCuJmLKSfVfn
-3dNIQoJBHGioNlPqaUgm8f73NC/LRJJ7AtCGD7ylRQ86RYmEwIaTKOCkBRKbns+r
-UoYJ/GJ6vjLcFdjrvuHfc8Him6JpZlr5R6mHNanljL2+0moqW7b9NBeYPGGEK0FR
-VrtzZNwhGtfXJPCazDJOKUIVD8qYpQ==
-=VImg
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBjRUUACgkQJNaLcl1U
+h9BCzQf/StVuObimo3H3q9bs6c5tTcFh1Iy8jt/jk6W6jV3j7f5XUhNvmMHqCFWy
+e7siS5UjGpCDRbZDIC+QnNZvt3t5krLRijboULo8jAreEkMisQLv6X3nNKoXMSmY
+wnSrnJpzwIFKcqUrCeLejk8KAgtvHwxKFQc5u7MEXrDQCCzgIU809WbtgmpPd+VV
+mwpyT59KIHjzrSJPZ+29Oco3XFm7YM22pLs0RBNki3OnG4jWy9wJu6Ppk/47RQIo
+iilrSirO96NhP2w6T/dDxf1x0fo9aa7Exbd7kYvV05PZBPXJq2cVUR+LIqc26o/y
++wCtkJBgWlnyqlLNavuKel4pWEgeZw==
+=LM1I
 -----END PGP SIGNATURE-----
 
---a2FkP9tdjPU2nyhF--
+--MZf7D3rAEoQgPanC--

@@ -2,67 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C7334E11E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 08:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF2934E17C
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 08:48:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAED715E5;
-	Tue, 30 Mar 2021 08:22:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAED715E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DECBD167E;
+	Tue, 30 Mar 2021 08:47:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DECBD167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617085417;
-	bh=0Uf5Ny1+/UHvbSWA/OeaZdM3tN3p/XxKWdhNIIFuu9Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ADVHSu8Vxfv8hCz7o/NAKF3iORvBhkTN0y6pChGo/U0lPWzlD+ARY1fF2ltmEaqZN
-	 kRheE0gsuab8dg8kw/Sh2SurM6PKvjj9X2e0A7KGYWFeekzvQqzTBCKVW1GKqczH9T
-	 ZTxao/pGLGtVdTcES8FoxSW/zItw+6lQZ/fdb/TM=
+	s=default; t=1617086916;
+	bh=cm/a5KyMHJBTz4cJUkWYGo0TH1+y1x1y0VHvEbxgbEQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bu1i/Q6n2BvP+ajlG6TxIInUEM0jKSZ4Gb4fd0FGCYaeDzjT8OHKMl6rrHDGrwvMM
+	 yaxftGE2lewDy72dqNeeBT31jUszJN9fzLhyKJXxz57iWSOfDpcXJY529sHvLXg8CH
+	 T4CwO6bMwAhgEfGq+x2EzF5nZ67j+zRSMSwb6tFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14511F80141;
-	Tue, 30 Mar 2021 08:22:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E07FF8026B;
+	Tue, 30 Mar 2021 08:47:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 848CBF80240; Tue, 30 Mar 2021 08:22:09 +0200 (CEST)
+ id 17952F8026B; Tue, 30 Mar 2021 08:47:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAC11F80141
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 08:22:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAC11F80141
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cOT0ufNH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D49576191D;
- Tue, 30 Mar 2021 06:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617085321;
- bh=0Uf5Ny1+/UHvbSWA/OeaZdM3tN3p/XxKWdhNIIFuu9Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cOT0ufNHXyZnlshkKIgOVdcmmhvey/XBxRbKjE5p0tyriSRpg1GcSfSWEmEB75AMT
- bfXoDdEngqI5vPmfl/keDgHf6DCB+fUm9ZkN/76htWC36DM6ZRitcpNuqh9fGjUSbz
- GMtsF0w7XI5RMA4/nohUqxLWFZ7N57Q1p7jSpSpiFw4JGXqX+dGhg7U/uMzYzT/Dl0
- 38nFHqNbfJ0mZ17jmRVaTVpPb/45u/RYeTzdTX4IYjeRwiRyv6kcvYGqOOaM7o7h/P
- jELCGj43jhf1tAalN3os8BvmicGu9lp/F2F9jAdV7HIGAu+7LtJScNdC7YjDsL/OHe
- mKdEtWAYSo4HQ==
-Date: Tue, 30 Mar 2021 11:51:57 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 00/11] soundwire: some cleanup patches
-Message-ID: <YGLDhXRqsMFAVmmT@vkoul-mobl.Dlink>
-References: <20210302091122.13952-1-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210302091122.13952-1-yung-chuan.liao@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC465F80141
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 08:46:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC465F80141
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 85BB420594F;
+ Tue, 30 Mar 2021 08:46:54 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 104332058F2;
+ Tue, 30 Mar 2021 08:46:51 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 9DE5E402B0;
+ Tue, 30 Mar 2021 08:46:46 +0200 (CEST)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: ak5558: Add support for ak5552
+Date: Tue, 30 Mar 2021 14:32:51 +0800
+Message-Id: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,10 +70,192 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-03-21, 17:11, Bard Liao wrote:
-> To make soundwire driver more decent and less Cppcheck complaint.
+From: Viorel Suman <viorel.suman@nxp.com>
 
-Applied all, thanks
+AK5552 is a 32-bit 2ch ADC and has the same register
+map as AK5558.
 
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/ak5558.c | 93 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 88 insertions(+), 5 deletions(-)
+
+diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
+index 85bdd0534180..af12afa83b4f 100644
+--- a/sound/soc/codecs/ak5558.c
++++ b/sound/soc/codecs/ak5558.c
+@@ -9,6 +9,7 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
++#include <linux/of_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+@@ -23,6 +24,11 @@
+ 
+ #include "ak5558.h"
+ 
++enum ak555x_type {
++	AK5558,
++	AK5552,
++};
++
+ #define AK5558_NUM_SUPPLIES 2
+ static const char *ak5558_supply_names[AK5558_NUM_SUPPLIES] = {
+ 	"DVDD",
+@@ -59,6 +65,15 @@ static const struct soc_enum ak5558_mono_enum[] = {
+ 			ARRAY_SIZE(mono_texts), mono_texts),
+ };
+ 
++static const char * const mono_5552_texts[] = {
++	"2 Slot", "1 Slot (Fixed)", "2 Slot", "1 Slot (Optimal)",
++};
++
++static const struct soc_enum ak5552_mono_enum[] = {
++	SOC_ENUM_SINGLE(AK5558_01_POWER_MANAGEMENT2, 1,
++			ARRAY_SIZE(mono_5552_texts), mono_5552_texts),
++};
++
+ static const char * const digfil_texts[] = {
+ 	"Sharp Roll-Off", "Show Roll-Off",
+ 	"Short Delay Sharp Roll-Off", "Short Delay Show Roll-Off",
+@@ -74,6 +89,11 @@ static const struct snd_kcontrol_new ak5558_snd_controls[] = {
+ 	SOC_ENUM("AK5558 Digital Filter", ak5558_adcset_enum[0]),
+ };
+ 
++static const struct snd_kcontrol_new ak5552_snd_controls[] = {
++	SOC_ENUM("AK5552 Monaural Mode", ak5552_mono_enum[0]),
++	SOC_ENUM("AK5552 Digital Filter", ak5558_adcset_enum[0]),
++};
++
+ static const struct snd_soc_dapm_widget ak5558_dapm_widgets[] = {
+ 	/* Analog Input */
+ 	SND_SOC_DAPM_INPUT("AIN1"),
+@@ -97,6 +117,17 @@ static const struct snd_soc_dapm_widget ak5558_dapm_widgets[] = {
+ 	SND_SOC_DAPM_AIF_OUT("SDTO", "Capture", 0, SND_SOC_NOPM, 0, 0),
+ };
+ 
++static const struct snd_soc_dapm_widget ak5552_dapm_widgets[] = {
++	/* Analog Input */
++	SND_SOC_DAPM_INPUT("AIN1"),
++	SND_SOC_DAPM_INPUT("AIN2"),
++
++	SND_SOC_DAPM_ADC("ADC Ch1", NULL, AK5558_00_POWER_MANAGEMENT1, 0, 0),
++	SND_SOC_DAPM_ADC("ADC Ch2", NULL, AK5558_00_POWER_MANAGEMENT1, 1, 0),
++
++	SND_SOC_DAPM_AIF_OUT("SDTO", "Capture", 0, SND_SOC_NOPM, 0, 0),
++};
++
+ static const struct snd_soc_dapm_route ak5558_intercon[] = {
+ 	{"ADC Ch1", NULL, "AIN1"},
+ 	{"SDTO", NULL, "ADC Ch1"},
+@@ -123,6 +154,14 @@ static const struct snd_soc_dapm_route ak5558_intercon[] = {
+ 	{"SDTO", NULL, "ADC Ch8"},
+ };
+ 
++static const struct snd_soc_dapm_route ak5552_intercon[] = {
++	{"ADC Ch1", NULL, "AIN1"},
++	{"SDTO", NULL, "ADC Ch1"},
++
++	{"ADC Ch2", NULL, "AIN2"},
++	{"SDTO", NULL, "ADC Ch2"},
++};
++
+ static int ak5558_set_mcki(struct snd_soc_component *component)
+ {
+ 	return snd_soc_component_update_bits(component, AK5558_02_CONTROL1, AK5558_CKS,
+@@ -267,6 +306,18 @@ static struct snd_soc_dai_driver ak5558_dai = {
+ 	.ops = &ak5558_dai_ops,
+ };
+ 
++static struct snd_soc_dai_driver ak5552_dai = {
++	.name = "ak5558-aif",
++	.capture = {
++		.stream_name = "Capture",
++		.channels_min = 1,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_KNOT,
++		.formats = AK5558_FORMATS,
++	},
++	.ops = &ak5558_dai_ops,
++};
++
+ static void ak5558_power_off(struct ak5558_priv *ak5558)
+ {
+ 	if (!ak5558->reset_gpiod)
+@@ -354,6 +405,21 @@ static const struct snd_soc_component_driver soc_codec_dev_ak5558 = {
+ 	.non_legacy_dai_naming	= 1,
+ };
+ 
++static const struct snd_soc_component_driver soc_codec_dev_ak5552 = {
++	.probe			= ak5558_probe,
++	.remove			= ak5558_remove,
++	.controls		= ak5552_snd_controls,
++	.num_controls		= ARRAY_SIZE(ak5552_snd_controls),
++	.dapm_widgets		= ak5552_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(ak5552_dapm_widgets),
++	.dapm_routes		= ak5552_intercon,
++	.num_dapm_routes	= ARRAY_SIZE(ak5552_intercon),
++	.idle_bias_on		= 1,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
++
+ static const struct regmap_config ak5558_regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+@@ -368,6 +434,7 @@ static int ak5558_i2c_probe(struct i2c_client *i2c)
+ {
+ 	struct ak5558_priv *ak5558;
+ 	int ret = 0;
++	int dev_id;
+ 	int i;
+ 
+ 	ak5558 = devm_kzalloc(&i2c->dev, sizeof(*ak5558), GFP_KERNEL);
+@@ -396,11 +463,26 @@ static int ak5558_i2c_probe(struct i2c_client *i2c)
+ 		return ret;
+ 	}
+ 
+-	ret = devm_snd_soc_register_component(&i2c->dev,
+-				     &soc_codec_dev_ak5558,
+-				     &ak5558_dai, 1);
+-	if (ret)
++	dev_id = (uintptr_t)of_device_get_match_data(&i2c->dev);
++	switch (dev_id) {
++	case AK5552:
++		ret = devm_snd_soc_register_component(&i2c->dev,
++						      &soc_codec_dev_ak5552,
++						      &ak5552_dai, 1);
++		break;
++	case AK5558:
++		ret = devm_snd_soc_register_component(&i2c->dev,
++						      &soc_codec_dev_ak5558,
++						      &ak5558_dai, 1);
++		break;
++	default:
++		dev_err(&i2c->dev, "unexpected device type\n");
++		return -EINVAL;
++	}
++	if (ret < 0) {
++		dev_err(&i2c->dev, "failed to register component: %d\n", ret);
+ 		return ret;
++	}
+ 
+ 	pm_runtime_enable(&i2c->dev);
+ 	regcache_cache_only(ak5558->regmap, true);
+@@ -416,7 +498,8 @@ static int ak5558_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct of_device_id ak5558_i2c_dt_ids[] __maybe_unused = {
+-	{ .compatible = "asahi-kasei,ak5558"},
++	{ .compatible = "asahi-kasei,ak5558", .data = (void *) AK5558 },
++	{ .compatible = "asahi-kasei,ak5552", .data = (void *) AK5552 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ak5558_i2c_dt_ids);
 -- 
-~Vinod
+2.27.0
+

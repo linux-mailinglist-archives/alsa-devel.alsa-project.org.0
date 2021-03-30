@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F5634EAFD
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 16:49:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 032B334EAFF
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 16:49:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BFC31685;
-	Tue, 30 Mar 2021 16:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BFC31685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89FB91686;
+	Tue, 30 Mar 2021 16:49:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89FB91686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617115766;
-	bh=mIKsPcpbmtZd+fJB4PsZ2Wq3HNhgoZ22DLZAFtfgmGg=;
+	s=default; t=1617115797;
+	bh=Zz3qtpWIMRzFqXrVFETD/LHHOhtg9z6eni+QDHBCrXc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oOY6SUVP4XVEFO9tvZ76eO7jHop6/e5jx3mHEr3XARetn+plunX8AFurL9ZwAD7Dv
-	 K+QF4evIKG/43wEIffu6BPYbBuoYh2V/DOrCd4vUkCRzIoZec+2PkAmbvpJyJmYDfT
-	 KAYQplPz5Rha+50ptZATsfbMAsB8G+c7Gzxbpm0A=
+	b=CWgFJQTvEpNAufTztDfBgu2+Kcj7QAV29PbP9H6pBeo6B+j7B4J3Nn99WfskmRoco
+	 OUUa3jyGY7UzRQ59do1uM9CQsEw2TtpHgkQON4boDe8EyB9N3++rhG1eWSIA+dTqe0
+	 uiNmjoAtGGGvGyqV5408OLJa0n2zGVzwvi9xpfzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64878F80431;
-	Tue, 30 Mar 2021 16:47:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 205F1F8023E;
+	Tue, 30 Mar 2021 16:47:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA08CF8014E; Tue, 30 Mar 2021 16:47:38 +0200 (CEST)
+ id 67204F8032B; Tue, 30 Mar 2021 16:47:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A82B1F8014E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 16:47:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A82B1F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79EDEF80240
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 16:47:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79EDEF80240
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="B+vUmE2a"
-Received: by mail-ej1-x634.google.com with SMTP id hq27so25225236ejc.9
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 07:47:30 -0700 (PDT)
+ header.b="Hty1V+sN"
+Received: by mail-ej1-x636.google.com with SMTP id ap14so12106944ejc.0
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 07:47:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=96IKLbOURC0YjosZF10ff1jryU9fCjeBBqqAs+cW9Zo=;
- b=B+vUmE2atWiIRf7GIibr3udvr0xoOQgMm1tLReuc+eaDWeQuoxFRgDgF5NZp+OUeg/
- zTN0qo2hY9Xapgy7PcQPcU7Paw28NSnYH9yUPEX76DZ0N1YiIqo+n2F3CXdDE84XiOxI
- rSiS9Ig3JGTfhrucrIlMPvAyWb9BOghGud31nBJ9/TMvfuaLQBU00g3OxjfCC513zepJ
- WXeWabkFTQjEur1soBDV3KNhfRUPKc46vTL9MKNUWBDsUCzjguqsJF3ycu24jYWW1kWY
- /a1jRj5qE/VqcD9MfBiJrC9I7h35N8gdBbPT3skv2AzUTfHlK082f/RxkhQTCjMq2SU4
- J/XA==
+ bh=bpOUje0l4Epz+I2306iaU5JnH7E9pQPYrzkoakZIyLE=;
+ b=Hty1V+sNzwkNNSTnJbWF+belUQ/1Ek2tUYKo78YdSHyREY/EHLLLxe7DiLz52L+6ph
+ 2BZH+uENW7iLNQhx8POvH7wQnCjbiI3MP5w4y2hv4pG+/A0cKEtPu766dCCiLzP4nYO6
+ 28Zn6xHTyM+/is6HtHMvnfwg0se7LVOmBYhmbAh2b7e2azq3fUV9jQvPyH4SKwrcoYpG
+ EVA1OeqsKHuTK+JD/rJdcnQ1RThfUEZrrHCF/a6lwnmUQE4CCRQWNZFr087AaL+4JlZk
+ 3DWXsr4aj/320umH+YyaNbU5ijxURqwjF0GnJV9hB9MKcQHmAyUpX8tUCClOKvJha7jy
+ OHlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=96IKLbOURC0YjosZF10ff1jryU9fCjeBBqqAs+cW9Zo=;
- b=p5FwVOIkrS7R3FBbhwweP1LmFM19i+4Jdjkb0WVi1C/7BKHAHvtKUolx5pdsO8Z5W7
- Jhqe4nFqcJI4V8TgcFOndXb9hjrjpt7vx/GLYC/rplv6xgkuuo6OkLITD3v/Ntfei+Rb
- rO18xyOCe/6Oh7soVLJ9eFeWyklStTLyt26a8jRLVxhfboJxycXIj2I/n5xBsSsbbPsb
- LbotiGBavlvXkNCeJXe6Clcd3SLCe4wyeT8JdDBk+1ZKcAEiHx8ZsQFBebf4M2xPbF06
- VO41diDBkHHSKroG59IRc14zZpxv9nqGf4seZOOKYLxbIT0rSMsOVldPFWkyevPu6ygd
- cf2A==
-X-Gm-Message-State: AOAM5309O2qlu7nGuR/KtAzoeZX7ru2WDi7q7YSAkI3YDc6kAH3TxduV
- adBMydqAO6hM27bidkaN6G2NEg==
-X-Google-Smtp-Source: ABdhPJzeVYSMF3HFVyOYMaUU79Txm34KLYEbu6l9R0FmR98SPUhoLGCE86RKhaobZPI3KkPCP0jmUg==
-X-Received: by 2002:a17:907:2642:: with SMTP id
- ar2mr33729453ejc.145.1617115650095; 
- Tue, 30 Mar 2021 07:47:30 -0700 (PDT)
+ bh=bpOUje0l4Epz+I2306iaU5JnH7E9pQPYrzkoakZIyLE=;
+ b=eA/GvnzsiweTJskdKzITmOUF+05fsPxAaEH7ncAZF75IEs3hFEMOew1Xpi1mcO0JEw
+ LZltqTPtD3R5fX8rQWqzx2HeR+OVQMxLR3ZMH3ISJYnnAm4rDiE+ND2I17oktVZeOikX
+ BdaYBy71MfmBdSbEaCo9Ia92h9NOJ4qi41rlPSFDoEd44EOA6w71jv9v1JBOOz+0zrdl
+ nhOy086O1v0Y6Mnjty7FEx0+OIatE9HaW0/HIrbNMAFg1eF9qpE+fKAf8U7dPD41RYoN
+ 3p+8hcX9EuKTZVisD4DAPpJoOWOCvH/Ec5uY0InYCcGoAdFdjiFtljbaVun+Dd6Z6umP
+ 1hOQ==
+X-Gm-Message-State: AOAM532EK3LZXgxniPV84fI1G9ocQRf5W30LcAS59GaBRjdtJsKgIlvm
+ Vk5ltItRawTQ4iDUwJ+nsviHBA==
+X-Google-Smtp-Source: ABdhPJzfCrFDUONUd+yV90lRgfAmhTLn8WXNhXGaHKGh0kb48zWkUGcO+TlF/ITol39JxnDuhqeQHg==
+X-Received: by 2002:a17:906:2dc1:: with SMTP id
+ h1mr34166268eji.460.1617115651171; 
+ Tue, 30 Mar 2021 07:47:31 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id n16sm11520383edr.42.2021.03.30.07.47.28
+ by smtp.gmail.com with ESMTPSA id n16sm11520383edr.42.2021.03.30.07.47.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Mar 2021 07:47:29 -0700 (PDT)
+ Tue, 30 Mar 2021 07:47:30 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Subject: [PATCH v6 1/9] dt-bindings: soundwire: qcom: clarify data port bus
- parameters
-Date: Tue, 30 Mar 2021 15:47:11 +0100
-Message-Id: <20210330144719.13284-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v6 2/9] soundwire: qcom: add support to missing transport
+ params
+Date: Tue, 30 Mar 2021 15:47:12 +0100
+Message-Id: <20210330144719.13284-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210330144719.13284-1-srinivas.kandagatla@linaro.org>
 References: <20210330144719.13284-1-srinivas.kandagatla@linaro.org>
@@ -104,112 +104,203 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some of the parameters for data ports are not applicable or not implemented
-in IP. So mark them as invalid/not applicable in DT so that controller is
-aware of this.
+Some of the transport parameters derived from device tree
+are not fully parsed by the driver.
 
-Add comment to these bindings to provide more clarity on the values!
+This patch adds support to parse those missing parameters.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Acked-by: Rob Herring <robh@kernel.org>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- .../bindings/soundwire/qcom,sdw.txt           | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/soundwire/qcom.c | 106 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 94 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-index b104be131235..b93a2b3e029d 100644
---- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-@@ -54,6 +54,8 @@ board specific bus parameters.
- 	Value type: <prop-encoded-array>
- 	Definition: should specify payload transport window offset1 of each
- 		    data port. Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 277f711e374d..fdcb8ffb4284 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -54,7 +54,13 @@
+ #define SWRM_MCP_SLV_STATUS					0x1090
+ #define SWRM_MCP_SLV_STATUS_MASK				GENMASK(1, 0)
+ #define SWRM_DP_PORT_CTRL_BANK(n, m)	(0x1124 + 0x100 * (n - 1) + 0x40 * m)
++#define SWRM_DP_PORT_CTRL_2_BANK(n, m)	(0x1128 + 0x100 * (n - 1) + 0x40 * m)
++#define SWRM_DP_BLOCK_CTRL_1(n)		(0x112C + 0x100 * (n - 1))
++#define SWRM_DP_BLOCK_CTRL2_BANK(n, m)	(0x1130 + 0x100 * (n - 1) + 0x40 * m)
++#define SWRM_DP_PORT_HCTRL_BANK(n, m)	(0x1134 + 0x100 * (n - 1) + 0x40 * m)
+ #define SWRM_DP_BLOCK_CTRL3_BANK(n, m)	(0x1138 + 0x100 * (n - 1) + 0x40 * m)
++#define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
++
+ #define SWRM_DP_PORT_CTRL_EN_CHAN_SHFT				0x18
+ #define SWRM_DP_PORT_CTRL_OFFSET2_SHFT				0x10
+ #define SWRM_DP_PORT_CTRL_OFFSET1_SHFT				0x08
+@@ -73,12 +79,20 @@
+ #define QCOM_SDW_MAX_PORTS	14
+ #define DEFAULT_CLK_FREQ	9600000
+ #define SWRM_MAX_DAIS		0xF
++#define SWR_INVALID_PARAM 0xFF
++#define SWR_HSTOP_MAX_VAL 0xF
++#define SWR_HSTART_MIN_VAL 0x0
  
- - qcom,ports-offset2:
-@@ -61,6 +63,8 @@ board specific bus parameters.
- 	Value type: <prop-encoded-array>
- 	Definition: should specify payload transport window offset2 of each
- 		    data port. Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ struct qcom_swrm_port_config {
+ 	u8 si;
+ 	u8 off1;
+ 	u8 off2;
+ 	u8 bp_mode;
++	u8 hstart;
++	u8 hstop;
++	u8 word_length;
++	u8 blk_group_count;
++	u8 lane_control;
+ };
  
- - qcom,ports-sinterval-low:
-@@ -69,12 +73,16 @@ board specific bus parameters.
- 	Definition: should be sample interval low of each data port.
- 		    Out ports followed by In ports. Used for Sample Interval
- 		    calculation.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ struct qcom_swrm_ctrl {
+@@ -396,8 +410,11 @@ static int qcom_swrm_port_params(struct sdw_bus *bus,
+ 				 struct sdw_port_params *p_params,
+ 				 unsigned int bank)
+ {
+-	/* TBD */
+-	return 0;
++	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
++
++	return ctrl->reg_write(ctrl, SWRM_DP_BLOCK_CTRL_1(p_params->num),
++			       p_params->bps - 1);
++
+ }
  
- - qcom,ports-word-length:
- 	Usage: optional
- 	Value type: <prop-encoded-array>
- 	Definition: should be size of payload channel sample.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+@@ -405,20 +422,45 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+ 				      enum sdw_reg_bank bank)
+ {
+ 	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
++	struct qcom_swrm_port_config *pcfg;
+ 	u32 value;
+ 	int reg = SWRM_DP_PORT_CTRL_BANK((params->port_num), bank);
+ 	int ret;
  
- - qcom,ports-block-pack-mode:
-@@ -84,6 +92,8 @@ board specific bus parameters.
- 		    0 to indicate Blocks are per Channel
- 		    1 to indicate Blocks are per Port.
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+-	value = params->offset1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
+-	value |= params->offset2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
+-	value |= params->sample_interval - 1;
++	pcfg = &ctrl->pconfig[params->port_num - 1];
++
++	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
++	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
++	value |= pcfg->si;
  
- - qcom,ports-block-group-count:
-@@ -92,6 +102,8 @@ board specific bus parameters.
- 	Definition: should be in range 1 to 4 to indicate how many sample
- 		    intervals are combined into a payload.
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ 	ret = ctrl->reg_write(ctrl, reg, value);
  
- - qcom,ports-lane-control:
-@@ -100,6 +112,8 @@ board specific bus parameters.
- 	Definition: should be in range 0 to 7 to identify which	data lane
- 		    the data port uses.
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+-	if (!ret && params->blk_pkg_mode) {
+-		reg = SWRM_DP_BLOCK_CTRL3_BANK(params->port_num, bank);
++	if (pcfg->lane_control != SWR_INVALID_PARAM) {
++		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
++		value = pcfg->lane_control;
++		ret = ctrl->reg_write(ctrl, reg, value);
++	}
  
- - qcom,ports-hstart:
-@@ -109,6 +123,8 @@ board specific bus parameters.
- 		    SoundWire Frame, i.e. left edge of the Transport sub-frame
- 		    for each port. Values between 0 and 15 are valid.
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+-		ret = ctrl->reg_write(ctrl, reg, 1);
++	if (pcfg->blk_group_count != SWR_INVALID_PARAM) {
++		reg = SWRM_DP_BLOCK_CTRL2_BANK(params->port_num, bank);
++		value = pcfg->blk_group_count;
++		ret = ctrl->reg_write(ctrl, reg, value);
++	}
++
++	if (pcfg->hstart != SWR_INVALID_PARAM
++			&& pcfg->hstop != SWR_INVALID_PARAM) {
++		reg = SWRM_DP_PORT_HCTRL_BANK(params->port_num, bank);
++		value = (pcfg->hstop << 4) | pcfg->hstart;
++		ret = ctrl->reg_write(ctrl, reg, value);
++	} else {
++		reg = SWRM_DP_PORT_HCTRL_BANK(params->port_num, bank);
++		value = (SWR_HSTOP_MAX_VAL << 4) | SWR_HSTART_MIN_VAL;
++		ret = ctrl->reg_write(ctrl, reg, value);
++	}
++
++	if (pcfg->bp_mode != SWR_INVALID_PARAM) {
++		reg = SWRM_DP_BLOCK_CTRL3_BANK(params->port_num, bank);
++		ret = ctrl->reg_write(ctrl, reg, pcfg->bp_mode);
+ 	}
  
- - qcom,ports-hstop:
-@@ -118,6 +134,8 @@ board specific bus parameters.
- 		    SoundWire Frame, i.e. the right edge of the Transport
- 		    sub-frame for each port. Values between 0 and 15 are valid.
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ 	return ret;
+@@ -466,10 +508,13 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus)
+ 		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
+ 			pcfg = &ctrl->pconfig[p_rt->num - 1];
+ 			p_rt->transport_params.port_num = p_rt->num;
+-			p_rt->transport_params.sample_interval = pcfg->si + 1;
+-			p_rt->transport_params.offset1 = pcfg->off1;
+-			p_rt->transport_params.offset2 = pcfg->off2;
+-			p_rt->transport_params.blk_pkg_mode = pcfg->bp_mode;
++			if (pcfg->word_length != SWR_INVALID_PARAM) {
++				sdw_fill_port_params(&p_rt->port_params,
++					     p_rt->num,  pcfg->word_length + 1,
++					     SDW_PORT_FLOW_MODE_ISOCH,
++					     SDW_PORT_DATA_MODE_NORMAL);
++			}
++
+ 		}
  
- - qcom,dports-type:
-@@ -128,6 +146,8 @@ board specific bus parameters.
- 		    1 for simple ports
- 		    2 for full port
- 		    Out ports followed by In ports.
-+		    Value of 0xFF indicates that this option is not implemented
-+		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+ 		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
+@@ -481,6 +526,18 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus)
+ 				p_rt->transport_params.offset1 = pcfg->off1;
+ 				p_rt->transport_params.offset2 = pcfg->off2;
+ 				p_rt->transport_params.blk_pkg_mode = pcfg->bp_mode;
++				p_rt->transport_params.blk_grp_ctrl = pcfg->blk_group_count;
++
++				p_rt->transport_params.hstart = pcfg->hstart;
++				p_rt->transport_params.hstop = pcfg->hstop;
++				p_rt->transport_params.lane_ctrl = pcfg->lane_control;
++				if (pcfg->word_length != SWR_INVALID_PARAM) {
++					sdw_fill_port_params(&p_rt->port_params,
++						     p_rt->num,
++						     pcfg->word_length + 1,
++						     SDW_PORT_FLOW_MODE_ISOCH,
++						     SDW_PORT_DATA_MODE_NORMAL);
++				}
+ 				i++;
+ 			}
+ 		}
+@@ -728,6 +785,11 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	u8 off2[QCOM_SDW_MAX_PORTS];
+ 	u8 si[QCOM_SDW_MAX_PORTS];
+ 	u8 bp_mode[QCOM_SDW_MAX_PORTS] = { 0, };
++	u8 hstart[QCOM_SDW_MAX_PORTS];
++	u8 hstop[QCOM_SDW_MAX_PORTS];
++	u8 word_length[QCOM_SDW_MAX_PORTS];
++	u8 blk_group_count[QCOM_SDW_MAX_PORTS];
++	u8 lane_control[QCOM_SDW_MAX_PORTS];
+ 	int i, ret, nports, val;
  
- Note:
+ 	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
+@@ -775,11 +837,31 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	if (ret)
+ 		return ret;
+ 
++	memset(hstart, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
++	of_property_read_u8_array(np, "qcom,ports-hstart", hstart, nports);
++
++	memset(hstop, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
++	of_property_read_u8_array(np, "qcom,ports-hstop", hstop, nports);
++
++	memset(word_length, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
++	of_property_read_u8_array(np, "qcom,ports-word-length", word_length, nports);
++
++	memset(blk_group_count, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
++	of_property_read_u8_array(np, "qcom,ports-block-group-count", blk_group_count, nports);
++
++	memset(lane_control, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
++	of_property_read_u8_array(np, "qcom,ports-lane-control", lane_control, nports);
++
+ 	for (i = 0; i < nports; i++) {
+ 		ctrl->pconfig[i].si = si[i];
+ 		ctrl->pconfig[i].off1 = off1[i];
+ 		ctrl->pconfig[i].off2 = off2[i];
+ 		ctrl->pconfig[i].bp_mode = bp_mode[i];
++		ctrl->pconfig[i].hstart = hstart[i];
++		ctrl->pconfig[i].hstop = hstop[i];
++		ctrl->pconfig[i].word_length = word_length[i];
++		ctrl->pconfig[i].blk_group_count = blk_group_count[i];
++		ctrl->pconfig[i].lane_control = lane_control[i];
+ 	}
+ 
+ 	return 0;
 -- 
 2.21.0
 

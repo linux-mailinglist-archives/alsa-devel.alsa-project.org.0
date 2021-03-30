@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38DC34ED2F
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 18:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6736534ED2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 18:07:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51D3A168A;
-	Tue, 30 Mar 2021 18:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51D3A168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F12AC1682;
+	Tue, 30 Mar 2021 18:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F12AC1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617120479;
-	bh=MjtFvE1Bg1vsCss/zAR9tf8Nc8HDiGrYU/j+daFbggU=;
+	s=default; t=1617120462;
+	bh=26IHFrffaqAWxvS40u7qOPp8h/qopG6fb7xg9SJkSvo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GEodR7b3RX4JDBUhDUP8STuYeHoB0soPhEgSdUYaaL6WNFCwHsFfOr/eBuf6XYbZD
-	 aV4SJ2hAqlgkL9AuUxOyvXV+BDxhGfPb4wb4j8F0p8+WC3/ZOuE7ZpA3EowO20Q2E6
-	 t6lbJptMJ0M9xuHFa61s3bm5GxPF8dvHbuNVFiNU=
+	b=oQd0K7xkI1wJnlTHWnqMagIFC82Qa6eE2m9RtYlZRKKUZ8WPSQoblk7NrpIJ71pyj
+	 EIxLy4/2zyPJ2EfQWhmn1FQcjB6gVMdI/9lxkaBqJIsdxWrOYLRPKFFIiOdYdW8ikM
+	 XOlajRgHyw6NZdRXx0Z4ObVtr0KXjHELL7hw4ZTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41FAFF8027D;
-	Tue, 30 Mar 2021 18:06:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 608E5F8026F;
+	Tue, 30 Mar 2021 18:06:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8558FF8026B; Tue, 30 Mar 2021 18:06:15 +0200 (CEST)
+ id 397A8F80240; Tue, 30 Mar 2021 18:06:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FD5EF8023E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 18:06:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FD5EF8023E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B497F80141
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 18:06:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B497F80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KS3gLJKa"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D1924619C7;
- Tue, 30 Mar 2021 16:06:04 +0000 (UTC)
+ header.b="f68in51w"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 10B34619CE;
+ Tue, 30 Mar 2021 16:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617120365;
- bh=MjtFvE1Bg1vsCss/zAR9tf8Nc8HDiGrYU/j+daFbggU=;
+ s=k20201202; t=1617120368;
+ bh=26IHFrffaqAWxvS40u7qOPp8h/qopG6fb7xg9SJkSvo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KS3gLJKah3O07Zc+vjhueWrMuXVPdxxJ+X/ahqkiQjDJnL0q7z4WISJvXLxSCJM4p
- D6/fLVOv35YnaPV0XVUtXS870pfqjQTkOQ9gtNdXDoRmC5wxyqtHZxICTNbKDn7JxB
- rlEhESGUASrye5qWH1Ay3ORLD8vFPCD7bj25Ws+KJY8IO2ZF45cz3ICImrevHUkeOt
- E+aqZy/gxNj+9hc4RWdqqsjVRbLzJKx2QRw540bnlmrz3n0oEEJRMDn15evpvYKnks
- 0TyWPDi2rcUmvFL1xEw8PFxUHZERPYuSCcmFUlDH1La9xKYqxzVd4i4Pw6KhEU0poj
- B8i01vGxCAesA==
+ b=f68in51wQUPiZZAP7ZJeCYsRAwxqRIx1oy6ZxJhSIU5xcYXNquCEjUqbkDtSknVwg
+ vFgWJmG4c+udLX45YaKMegwqplT9AJuYqpxO4KcOi65yMm8fYc9ZtU1smvjgfOt87W
+ grVEX54/Lecz2tlJrBXcXHKKDtKvahQithtPxUnGnayTfdGT2wnW/qfRiui0KKUu4R
+ ieoewUrOycnKARQKM5XZkfKmG9FTbyLddK6MUMKCCVYgP5xhB9Lrs7Um1hlTz4G3eg
+ bL/EBjgXCvdNeAka/2NpVHbznbfGiX68VSZZsvj9RtyMKhYGy8W0MC4vt7eFYnVBYF
+ Ax3HGu9eo+icg==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: nvidia,
- tegra210-ahub: Add missing child nodes
-Date: Tue, 30 Mar 2021 17:05:48 +0100
-Message-Id: <161711993559.12915.14933461243345209576.b4-ty@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH] ASoC: q6afe-clocks: fix reprobing of the driver
+Date: Tue, 30 Mar 2021 17:05:49 +0100
+Message-Id: <161711993559.12915.3715212253584619506.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210326195003.3756394-1-robh@kernel.org>
-References: <20210326195003.3756394-1-robh@kernel.org>
+In-Reply-To: <20210327092857.3073879-1-dmitry.baryshkov@linaro.org>
+References: <20210327092857.3073879-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- linux-tegra@vger.kernel.org
+Cc: Andy Gross <agross@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <bjorn.andersson@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,11 +83,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 26 Mar 2021 13:50:03 -0600, Rob Herring wrote:
-> The nvidia,tegra210-ahub binding is missing schema for child nodes. This
-> results in warnings if 'additionalProperties: false' is set (or when the
-> tools implement 'unevaluatedProperties' support). Add the child nodes
-> and reference their schema if one exists.
+On Sat, 27 Mar 2021 12:28:57 +0300, Dmitry Baryshkov wrote:
+> Q6afe-clocks driver can get reprobed. For example if the APR services
+> are restarted after the firmware crash. However currently Q6afe-clocks
+> driver will oops because hw.init will get cleared during first _probe
+> call. Rewrite the driver to fill the clock data at runtime rather than
+> using big static array of clocks.
 
 Applied to
 
@@ -95,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: nvidia, tegra210-ahub: Add missing child nodes
-      commit: 8b01a0d0b5c1327296b37a13c37ca7ab31841577
+[1/1] ASoC: q6afe-clocks: fix reprobing of the driver
+      commit: 96fadf7e8ff49fdb74754801228942b67c3eeebd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

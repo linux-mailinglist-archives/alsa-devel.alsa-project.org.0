@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C976F34E0A4
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 07:27:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6CA34E0A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Mar 2021 07:28:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A0651689;
-	Tue, 30 Mar 2021 07:27:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A0651689
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCD351690;
+	Tue, 30 Mar 2021 07:27:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCD351690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617082070;
-	bh=t8F6EtQjfqpQKgK7paP2FVyQ4UcRINfpShKjYkQppQI=;
+	s=default; t=1617082104;
+	bh=bDjwTgy6ny6ofEdUxZ1hUSA+Qc+29ETdlr4/kRO63r4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dBTGVNSI44VnIiA5gE5GrJNzS18e/LNCJwC3mwgni/5nKTld+Zbycd3CZr4kvIm5d
-	 j4Cfuy4vbguMDv4QxC4IRsE3o9pkxDAgLDWU0B6dnEmoNXMZLJCATJbgnR/LaBDY7z
-	 aT/mVxSNoATSfVJ9H532h0n0/ZdAOur/l0szQUtE=
+	b=YtvW3nqA4DMwW0s418cHOZwOdC/ksQ47/MfEMj9eMPJi026HFQE+GIWC2kvC7k/Py
+	 sloGPPmM/j6jDuRN5NZBhKFpqmiN/0I2dg1CMG2QqoJCVBBdJGDirpOnC9MuEfn/4l
+	 a1N9anbdfHOILlKIEwe8/wug2xK3sWItALS/d5zA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B6D7F8026F;
-	Tue, 30 Mar 2021 07:26:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38D06F8032B;
+	Tue, 30 Mar 2021 07:26:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C5DBF8027B; Tue, 30 Mar 2021 07:26:40 +0200 (CEST)
+ id C5042F802E3; Tue, 30 Mar 2021 07:26:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C12C7F8014E
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 07:26:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C12C7F8014E
-Date: 30 Mar 2021 14:26:28 +0900
-X-IronPort-AV: E=Sophos;i="5.81,289,1610377200"; d="scan'208";a="76478771"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EAACDF8027D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 07:26:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAACDF8027D
+Date: 30 Mar 2021 14:26:38 +0900
+X-IronPort-AV: E=Sophos;i="5.81,289,1610377200"; d="scan'208";a="76704794"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 30 Mar 2021 14:26:28 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 30 Mar 2021 14:26:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 947C84006192;
- Tue, 30 Mar 2021 14:26:28 +0900 (JST)
-Message-ID: <87sg4dxldn.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id A81144006192;
+ Tue, 30 Mar 2021 14:26:38 +0900 (JST)
+Message-ID: <87r1jxxldd.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: soc-core: add comment for rtd freeing
+Subject: [PATCH 2/2] ASoC: soc-core: use device_unregister() if rtd allocation
+ failed
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuotxlen.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,50 +68,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We don't need to mind freeing for rtd,
-because it was created from devm_kzalloc(dev, xxx) which is rtd->dev.
+Because soc_free_pcm_runtime(rtd) checks rtd pointer and freeing
+rtd->xxx, it doesn't work correctly in case of rtd allocation failed.
 
-This means, if rtd->dev was freed, rtd will be also freed
-automatically.
-
-	soc_new_pcm_runtime(...)
-	{
-		...
-		rtd = devm_kzalloc(dev, ...);
-		rtd->dev = dev;
-		...
-	}
-
-This explanation was missing at soc_free_pcm_runtime() comment.
-This patch indicates it.
+We need to use device_unregister(dev) in such case.
+This patch fixup it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/soc-core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 4d7e0d8f7269..e71aa1c92e66 100644
+index e71aa1c92e66..92d1d9240d4d 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -413,6 +413,14 @@ static void soc_free_pcm_runtime(struct snd_soc_pcm_runtime *rtd)
- 	 * it is alloced *before* rtd.
- 	 * see
- 	 *	soc_new_pcm_runtime()
-+	 *
-+	 * We don't need to mind freeing for rtd,
-+	 * because it was created from dev (= rtd->dev)
-+	 * see
-+	 *	soc_new_pcm_runtime()
-+	 *
-+	 *		rtd = devm_kzalloc(dev, ...);
-+	 *		rtd->dev = dev
- 	 */
- 	device_unregister(rtd->dev);
- }
+@@ -470,8 +470,10 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 						 dai_link->num_codecs +
+ 						 dai_link->num_platforms),
+ 			   GFP_KERNEL);
+-	if (!rtd)
+-		goto free_rtd;
++	if (!rtd) {
++		device_unregister(dev);
++		return NULL;
++	}
+ 
+ 	rtd->dev = dev;
+ 	INIT_LIST_HEAD(&rtd->list);
 -- 
 2.25.1
 

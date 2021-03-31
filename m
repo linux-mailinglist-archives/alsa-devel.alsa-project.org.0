@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13C2134FC7D
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 11:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE77E34FC7F
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 11:19:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8077168D;
-	Wed, 31 Mar 2021 11:17:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8077168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49F221691;
+	Wed, 31 Mar 2021 11:18:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49F221691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617182315;
-	bh=ahoM7fz2F2gDgKS0E/c9yGMd+cModh/tc7mPwWZZurI=;
+	s=default; t=1617182350;
+	bh=S3lXHL39RLtQ4u5AtnkXehCAzr+wbPJ9U7B2yc+6Wt4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QNb0lrZxtu5+vYJZVC7cLEQXJWCjjmzeuBvgQda2kzFBjZ65Wr7Z/OgAoBt1TmYyl
-	 chQKkql8M0jj/2iSyotQoIuiCm8TGrj1oujMsXJbSC5h9P4ydVZxy+qqsNwQpFGLbs
-	 2+wXt16dn28ZIpoRTFviXdNE/EEoriHhtkrYTbOU=
+	b=OzdvX9oN87YPn0Gna+8r5e4x9lDq+zKZ9X/xTP0BZrmalerrNcl1O21pCUn+l/dAS
+	 hQbG7kUMOfsenhV6njv99YapbFJ+o/DnWe+jtS5GLiHXerjz0Gnd58a5YUtNd+g0RN
+	 cp7D9hMA14lOWSHZ9RI8cmzBOfeVJT92xAhBMuAw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F74FF8015A;
-	Wed, 31 Mar 2021 11:16:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4FE1F80264;
+	Wed, 31 Mar 2021 11:16:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9326F80264; Wed, 31 Mar 2021 11:16:53 +0200 (CEST)
+ id D5C0CF802E3; Wed, 31 Mar 2021 11:16:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,11 +33,11 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF149F8014E
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 11:16:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF149F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F2C0F80166
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 11:16:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F2C0F80166
 Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F9LHB574HzyNLX;
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F9LHB5cHdzyNLl;
  Wed, 31 Mar 2021 17:14:30 +0800 (CST)
 Received: from thunder-town.china.huawei.com (10.174.179.202) by
  DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
@@ -47,10 +47,10 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  "Rob Herring" <robh+dt@kernel.org>, alsa-devel <alsa-devel@alsa-project.org>, 
  devicetree <devicetree@vger.kernel.org>, linux-kernel
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 1/2] ASoC: dt-bindings: renesas,
- rsnd: Clear warning 'dais' is a required property
-Date: Wed, 31 Mar 2021 17:16:15 +0800
-Message-ID: <20210331091616.2306-2-thunder.leizhen@huawei.com>
+Subject: [PATCH v2 2/2] ASoC: dt-bindings: renesas,
+ rsnd: Clear warning 'ports' does not match any of the regexes
+Date: Wed, 31 Mar 2021 17:16:16 +0800
+Message-ID: <20210331091616.2306-3-thunder.leizhen@huawei.com>
 X-Mailer: git-send-email 2.26.0.windows.1
 In-Reply-To: <20210331091616.2306-1-thunder.leizhen@huawei.com>
 References: <20210331091616.2306-1-thunder.leizhen@huawei.com>
@@ -76,33 +76,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When I do dt_binding_check, below warning is reported:
-Documentation/devicetree/bindings/sound/renesas,rsnd.example.dt.yaml: \
-sound@ec500000: 'dais' is a required property
+Currently, if there are more than two ports, or if there is only one port
+but other properties(such as "#address-cells") is required, these ports
+are placed under the "ports" node. So add the schema of property "ports".
 
-I looked at all the dts files in the "arch/arm64/boot/dts/renesas/"
-directory. However, the dts node of this driver does not reference any
-property in file audio-graph.yaml. This can be proved to be true, because
-after I deleted "$ref: audio-graph.yaml#", the old 'dais' warnings are
-cleared, and no new warning are generated.
+Otherwise, warnings similar to the following will be reported:
+arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dt.yaml: \
+sound@ec500000: 'ports' does not match any of the regexes: \
+'^rcar_sound,ctu$', '^rcar_sound,dai$', '^rcar_sound,dvc$', ...
 
 Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
 ---
- Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index 1e0e14e889133b8..384191ee497f534 100644
+index 384191ee497f534..a42992fa687d3f3 100644
 --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
 +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -258,7 +258,6 @@ required:
-   - "#sound-dai-cells"
+@@ -115,6 +115,11 @@ properties:
+     $ref: audio-graph-port.yaml#
+     unevaluatedProperties: false
  
- allOf:
--  - $ref: audio-graph.yaml#
-   - if:
-       properties:
-         compatible:
++  ports:
++    patternProperties:
++      '^port@[0-9]':
++        $ref: "#/properties/port"
++
+ # use patternProperties to avoid naming "xxx,yyy" issue
+ patternProperties:
+   "^rcar_sound,dvc$":
 -- 
 1.8.3
 

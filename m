@@ -2,73 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E3A350289
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 16:43:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7D83502F1
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 17:08:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A735167E;
-	Wed, 31 Mar 2021 16:42:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A735167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1240C167E;
+	Wed, 31 Mar 2021 17:07:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1240C167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617201790;
-	bh=t9gaxHXzMkc3vmfJuA6SyCsF4VG3xgcsJQyJtsfuvU8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617203296;
+	bh=kgMkIf8lTh9ax8ZsdBACxqXix3KA+LEHPX+FQL8R3C8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fz1fKf5s9Ebm/ugG43YTX5IacCDWOnZUt3TnrfWPay9Uv/TBfHWIKPvfgvs1Y8/e5
-	 +7LB9IBwNFbc+GGkhbkwrpw2RRNCkMuK3yMX00sWN64EnBVzLG+LTRWMkb8kyE+ikS
-	 eS9YOys6ay2xU6iqowng6TNSoI+oH7Dw/eaNW/c0=
+	b=RmSL12zFBIwOCjE9EEdnCGxsef2TnEDYUI8jR+sehVr2+eAQrre7OpIrsyCmwUgQ/
+	 WV8pivLGRVxWHwNk4o2byQ3jRctfP5GI+IGhs++v3K+UMFS0BTvHG/czQZ6OtxVV5D
+	 /Wl+k3pIPVjKdoTVO44I6D4Pf+YJKLKKgJNiPARA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CEBBF8016E;
-	Wed, 31 Mar 2021 16:41:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EF26F8016E;
+	Wed, 31 Mar 2021 17:06:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA3D1F80166; Wed, 31 Mar 2021 16:41:42 +0200 (CEST)
+ id DAAE7F80166; Wed, 31 Mar 2021 17:06:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E33BCF8013F
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 16:41:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E33BCF8013F
-IronPort-SDR: 527X29pfYBgdZbQeYLS0lJTFy6YiLyVnSKnabbpTzMtnI+4cOOX67tvOJJHiKNcF9QQLgNi9dX
- Ml1nvu71GBtA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="179553698"
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="179553698"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2021 07:41:26 -0700
-IronPort-SDR: vkzzsBYmQzWnxqIFwGewwH9SSQ55VgOas4ODz/oxJGoOE9M2SSm5/UdqrUfAr/5aPV/ogqjQBr
- lorrFe695/ig==
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="610536384"
-Received: from erikberx-mobl4.amr.corp.intel.com (HELO [10.212.230.42])
- ([10.212.230.42])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2021 07:41:25 -0700
-Subject: Re: [PATCH] soundwire: qcom: use signed variable for error return
-To: Vinod Koul <vkoul@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20210331072111.2945945-1-vkoul@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9cdef4e9-a38a-6c77-1b23-739f85384b12@linux.intel.com>
-Date: Wed, 31 Mar 2021 09:41:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DCB9F8013F
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 17:06:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DCB9F8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Q+v3bc99"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BD7561008;
+ Wed, 31 Mar 2021 15:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617203195;
+ bh=kgMkIf8lTh9ax8ZsdBACxqXix3KA+LEHPX+FQL8R3C8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Q+v3bc99d3UyDL8jer8px5JHxpHS3NcQqbV8SR+Whrnm0dyyM5WI2m7fxW1jSZqu/
+ sfBHyXIltnDeNxBYSdIQGFJR6RfZc+CyElgFMwaGtkOFRHsGN8g1tXU+sry5XqfufI
+ aoS6fOw17rlrQflC/rVbzJSe25qrPfKtI56TWH0c4uugMPaopfgY4j4dSbAv7cNpeO
+ S/lGShIC8mOSbeRyxm1/E6cBwnU5S9AZet+TMdfy1ySVlkCF3IvWnqNSQgkyoCT2ia
+ FR0byYT57PsFYAUYnyX3kCHTAbqwLTpt5nxesJ3O8efGxyJSIRtORXuBO/BVet6I9t
+ 9KuKKiShF1rDg==
+Date: Wed, 31 Mar 2021 16:06:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: bage@linutronix.de
+Subject: Re: [PATCH] ASoC: sunxi: sun4i-codec: fill ASoC card owner
+Message-ID: <20210331150622.GE4758@sirena.org.uk>
+References: <20210331145915.12545-1-bage@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20210331072111.2945945-1-vkoul@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="T6xhMxlHU34Bk0ad"
+Content-Disposition: inline
+In-Reply-To: <20210331145915.12545-1-bage@linutronix.de>
+X-Cookie: You can't take damsel here now.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Chen-Yu Tsai <wens@csie.org>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, Maxime Ripard <mripard@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +83,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--T6xhMxlHU34Bk0ad
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 3/31/21 2:21 AM, Vinod Koul wrote:
-> We get warning for using a unsigned variable being compared to less than
-> zero. The comparison is correct as it checks for errors from previous
-> call to qcom_swrm_get_alert_slave_dev_num(), so we should use a signed
-> variable instead.
-> 
-> drivers/soundwire/qcom.c: qcom_swrm_irq_handler() warn: impossible
-> condition '(devnum < 0) => (0-255 < 0)'
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> ---
->   drivers/soundwire/qcom.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index b08ecb9b418c..55ed133c6704 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -428,7 +428,7 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->   	struct qcom_swrm_ctrl *swrm = dev_id;
->   	u32 value, intr_sts, intr_sts_masked, slave_status;
->   	u32 i;
-> -	u8 devnum = 0;
-> +	s8 devnum = 0;
+On Wed, Mar 31, 2021 at 04:59:15PM +0200, bage@linutronix.de wrote:
+> From: Bastian Germann <bage@linutronix.de>
+>=20
+> card->owner is a required property and since commit 81033c6b584b ("ALSA:
+> core: Warn on empty module") a warning is issued if it is empty. Add it.
+> This fixes following warning observed on Lamobo R1:
+>=20
+> WARNING: CPU: 1 PID: 190 at sound/core/init.c:207 snd_card_new+0x430/0x48=
+0 [snd]
+> Modules linked in: sun4i_codec(E+) sun4i_backend(E+) snd_soc_core(E) ...
+> CPU: 1 PID: 190 Comm: systemd-udevd Tainted: G         C  E     5.10.0-1-=
+armmp #1 Debian 5.10.4-1
+> Hardware name: Allwinner sun7i (A20) Family
+> [<c0ce8544>] (dump_backtrace) from [<c0ce88f0>] (show_stack+0x20/0x24)
+> [<c0ce88d0>] (show_stack) from [<c0ceda20>] (dump_stack+0xc8/0xdc)
+> [<c0ced958>] (dump_stack) from [<c034d49c>] (__warn+0xfc/0x158)
+> [<c034d3a0>] (__warn) from [<c0ce966c>] (warn_slowpath_fmt+0x70/0xe4)
 
-it's not great to store negative error codes with s8. That works in this 
-specific case because the function only returns -EINVAL.
+Please think hard before including complete backtraces in upstream
+reports, they are very large and contain almost no useful information
+relative to their size so often obscure the relevant content in your
+message. If part of the backtrace is usefully illustrative (it often is
+for search engines if nothing else) then it's usually better to pull out
+the relevant sections.
 
-We actually have zero occurrences of s8 in the drivers/soundwire/ code.
+--T6xhMxlHU34Bk0ad
+Content-Type: application/pgp-signature; name="signature.asc"
 
->   	int ret = IRQ_HANDLED;
->   
->   	swrm->reg_read(swrm, SWRM_INTERRUPT_STATUS, &intr_sts);
-> 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBkj+0ACgkQJNaLcl1U
+h9Bb5Qf+Jb5wWAY65jR2jFy6bDc8yXmtUqqNiKKR02o3uaxzCZWwwbTW5gRMpPZz
+FzvlCzKziDZONVAfSSLqavUzW5A0nkauH6/ZInpfKaT2wOc8fDq+KMSluRuIgKjA
+CMy8A2QVRjWWWHGMMo7I64vg9zwg8yTBwurN4WHLkVZ3x6LQjd1UKgaOLuv+lIkj
+Vltya2tsrddxg9d2WYOfx7PhoshNpeueRkGXZ62Rv8w2m4FxjvGxP2roT01mAGAe
+xCDvRhZIrcyU3nTFHyxYJwO0mXbbXx9gvvAtPTGL+2+z3xQlocQs3IyP13YFCmRJ
+ch0nebsWpbOHKRRVcsR+SeY9TdZl4Q==
+=ywtn
+-----END PGP SIGNATURE-----
+
+--T6xhMxlHU34Bk0ad--

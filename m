@@ -2,88 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB39D34F85F
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 07:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6D634F987
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 09:12:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E4701682;
-	Wed, 31 Mar 2021 07:46:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E4701682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8402A1682;
+	Wed, 31 Mar 2021 09:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8402A1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617169635;
-	bh=VI6Q/Nh1b4DIrvycweRSWf+hhMNs5tXztHYkL03deTg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cYM6qLIsuC06RUWus0xVQvWuvKvhkpgXXhzz7U7FnkkxEkvgncNbVxLjDZhKKRmAJ
-	 PoteaK8xmNxMuuRvjA0F7MpWnRhS9W3MHLLLowd6gIBUfjjP4WhvY7k6d/8GqKfob0
-	 PSockRDNBllrH00d2tdCymEtV2AgUZlBJ6acXfuw=
+	s=default; t=1617174765;
+	bh=QieTUbKCjqtXoQZgvu8uSGq9FqWK13uB2RvihS14WzI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=g04LnmC2iUk/SyD5X43ymdInFNM7TvnK1TvgJtvUfIYDeu3JbKKwBa8MYDkpxUaR9
+	 TehkYUn4dBp52tJ8JuPzoJaurF8L6l2xURJVdlVaYORrepBq2qe5Sd1QLQncO6SHpf
+	 bKiD3/8GqEmPMHthoAtn0CzmQNn2HZaSKItlKcvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83324F8014E;
-	Wed, 31 Mar 2021 07:45:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E16ADF8016E;
+	Wed, 31 Mar 2021 09:11:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 497C0F80166; Wed, 31 Mar 2021 07:45:46 +0200 (CEST)
+ id A98F7F80166; Wed, 31 Mar 2021 09:11:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2A4CF8013C
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 07:45:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2A4CF8013C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="C0pfEXeN"
-Received: by mail-qt1-x829.google.com with SMTP id i19so13690729qtv.7
- for <alsa-devel@alsa-project.org>; Tue, 30 Mar 2021 22:45:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ENJQTuGpOg2PGuhIpBvjiq5shyNy6TTKOL1C0EyRUZE=;
- b=C0pfEXeNRT+k078MHEQsTSqcE/ZuSIlGsqUNBOJ3zZKnmYB7CQdBhzj9Rb2My1vo3Z
- Ib1h60SwM+E42oulLXbGe/Zn9DQM0oDAhECJilU8/FGZZ/giC/gGmw8kWAb3dhCs0Qso
- Wx+YXUWjWH+qGrVV57j/pNYrsFx7Xq+WKKvtiRaRttG9n0DArV5+5Oxive+wgpvRqN24
- 4PAcJvfKm5G8gSE61b8ONE7GZIV2RQGHqesMXHCpojY9hLc3U5DuvsegobJw+P4UW3Fl
- bicJIJZZA9lt5AQmgdv3nuammoSMGHVg5MeUY7jY14fh+F2vq3zRSwKAGNJOvgopMk0X
- iICw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ENJQTuGpOg2PGuhIpBvjiq5shyNy6TTKOL1C0EyRUZE=;
- b=INJSGv12j6pp7/IgWrsMFlCII4urT25lzNUwBCv1k9PnD4kwWvVP/HfQpe9UippgIC
- P6OAbHigKu283fbpmjx1Wej9pTbfgzXqp4S7VjYrxA02LgjLLcWPQPQ7eBYEMqYnWqRd
- NpqwqtHDZkUoBTR6ipA3ABdItjaKt26OVaStkM/ddWQxSXdHAc5rr4b/jBJ/SJYmVQvK
- GKdaUcT3LmbN2FWHTY9b+vhUmcmRFahWpEc+mlGMvgeEkuidWXTFGUAys7O3CkH0ILgf
- PC5w67sOTxm054SdjazW8CHzJ2oyc6ukeqI46p0KXjjk4G5YSF8vgYeIFRYVt0D1qeSj
- r3HA==
-X-Gm-Message-State: AOAM5327kuz3aBrr+P9ik5i8LIGHOahqfYWgaHQwnaa8kVK5KOaws2Q0
- r/yRHzC5x5YjO+gnjSgL2ZW847YkQOb6V4cMYIY=
-X-Google-Smtp-Source: ABdhPJyxE9ZLstaujwX5hCSI7d9qGQogybWrt0htcuF5gPVOhU10hvBHbEuoP3RBuW5fOUJXa1Ogwz+9M3BUJX4SrtQ=
-X-Received: by 2002:a05:622a:34b:: with SMTP id
- r11mr1068920qtw.121.1617169539224; 
- Tue, 30 Mar 2021 22:45:39 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B768F8013C
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 09:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B768F8013C
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 12V7Aqu36002573,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.94])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 12V7Aqu36002573
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 31 Mar 2021 15:10:52 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 31 Mar 2021 15:10:51 +0800
+From: Jack Yu <jack.yu@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>
+Subject: [PATCH] dt-bindings: sound: add address-cells and size-cells
+ information
+Date: Wed, 31 Mar 2021 15:10:46 +0800
+Message-ID: <20210331071046.12526-1-jack.yu@realtek.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-References: <1617085972-6094-1-git-send-email-shengjiu.wang@nxp.com>
- <20210330150521.GD4976@sirena.org.uk>
-In-Reply-To: <20210330150521.GD4976@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 31 Mar 2021 13:45:28 +0800
-Message-ID: <CAA+D8AP-LC=zmd+5uMG_Q371pg3RrQPrJkURCx4=f0juUpHrFA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: ak5558: Add support for ak5552
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMBS01.realtek.com.tw (172.21.6.94) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
+ Jack Yu <jack.yu@realtek.com>, kenny_chen@realtek.com,
+ linux-kernel@vger.kernel.org, derek.fang@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,20 +79,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 30, 2021 at 11:06 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Mar 30, 2021 at 02:32:51PM +0800, Shengjiu Wang wrote:
->
-> > +static const struct snd_kcontrol_new ak5552_snd_controls[] = {
-> > +     SOC_ENUM("AK5552 Monaural Mode", ak5552_mono_enum[0]),
-> > +     SOC_ENUM("AK5552 Digital Filter", ak5558_adcset_enum[0]),
-> > +};
->
-> It's a bit weird to have AK5552 in the control name - any reason for
-> that?
+Add address-cells and size-cells information to fix warnings
+for rt1019.yaml.
 
-Just to distinguish ak5558 and ak5552, but I think it can be removed.
-will update it in v2
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
+---
+ Documentation/devicetree/bindings/sound/rt1019.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Best regards
-wang shengjiu
+diff --git a/Documentation/devicetree/bindings/sound/rt1019.yaml b/Documentation/devicetree/bindings/sound/rt1019.yaml
+index c24c29eafa54..3d5a91a942f4 100644
+--- a/Documentation/devicetree/bindings/sound/rt1019.yaml
++++ b/Documentation/devicetree/bindings/sound/rt1019.yaml
+@@ -26,6 +26,8 @@ additionalProperties: false
+ examples:
+   - |
+     i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
+         rt1019: codec@28 {
+             compatible = "realtek,rt1019";
+             reg = <0x28>;
+-- 
+2.29.0
+

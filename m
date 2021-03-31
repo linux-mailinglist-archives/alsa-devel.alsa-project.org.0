@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F992350600
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 20:08:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC119350601
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 20:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 157CE166C;
-	Wed, 31 Mar 2021 20:08:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 157CE166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77827167E;
+	Wed, 31 Mar 2021 20:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77827167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617214131;
-	bh=3/CE3oRHg72V8b7Fk1805AAHlnolMUCDJnxX0kHho/s=;
+	s=default; t=1617214147;
+	bh=QDHNpeNCdikZ3aR70vvJXIDTtgdbXzHPHMAydXp3jUo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hBiCC37lrQWVgaXIW09lGyfCLIQonPfEVTSDsPKnW2l9h8Z8OwzZWuVCcl0sNcc9f
-	 59iBYIU2dqwXphdUiELl6oZbKYzwwxBhaGvrv3DgU3uhvmsQgRyAqfT88Cke0Edvsm
-	 TwI9HOt6gLObnt+VQ1BBxIQNpGuKQXldHdnMXZF8=
+	b=o13a8d9TgwI81bVlzjMHfIR2DeSvl9JLHi4VNIx3FdGrsN0hp7T17Tg/9tdHZZ+v6
+	 Hmp1ma9zEM6dagN04KNgc1Bnt+YV6s0d3Zc5aUAl3zDhdsHxW5x9H+f25B7vIRYCq5
+	 6c88KHxjQJvl2R9790mDtJFNf3QSLSJixitrSvcc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 557A1F8013C;
-	Wed, 31 Mar 2021 20:07:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1168AF80229;
+	Wed, 31 Mar 2021 20:07:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92908F80166; Wed, 31 Mar 2021 20:07:22 +0200 (CEST)
+ id 30A33F8020C; Wed, 31 Mar 2021 20:07:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B265F8013F
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 20:07:15 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 042CDF8016E
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 20:07:31 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id DFDF9A003F;
- Wed, 31 Mar 2021 20:07:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz DFDF9A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8FB22A0040;
+ Wed, 31 Mar 2021 20:07:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8FB22A0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1617214034; bh=89UAT3H+FudHBByiG5r5QCfyI3+anXMRf4mS7bBqg20=;
+ t=1617214051; bh=duEazCV0Ib10+w/eVt5xAYmeSBDAOY/SAMGLTLLK2uU=;
  h=From:To:Cc:Subject:Date:From;
- b=33+TmjtETzmL/Xj5aH9GDwBhnzPnIPeh+bL3jV/YjCW03W8+7UZCMf5PzsUpYmTr3
- 5H/XDyzJs2tFGiCMzkNNzAC3lQmOYdevtd3djPL6MfpwjqZAf0GwsADffyxcO7Kfux
- yuC9tReDlxmhUyZK1lTwSe7h9YUfqCK04tFnre7Y=
+ b=TKosBR00OYE+ebMIulXUujPLgHpwlxDMSNEbwY0t50ZBbOf3TDiXkRRjPfwX+XCwc
+ b3c8+13dXf7XtC+N3m6l+F4hUQc24R0oQKcAons5ACbkFs4GLAlSvoNVkQiKv/5t2x
+ FiorqbRbz0YB4TM5Rro8btEZWk5Q7Tkhc5IQn86c=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 31 Mar 2021 20:07:11 +0200 (CEST)
+ Wed, 31 Mar 2021 20:07:28 +0200 (CEST)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: control - add the missing prev_lops2 initialization
-Date: Wed, 31 Mar 2021 20:07:02 +0200
-Message-Id: <20210331180702.663489-1-perex@perex.cz>
+Subject: [PATCH] ALSA: control led - improve the set_led_id() parser
+Date: Wed, 31 Mar 2021 20:07:25 +0200
+Message-Id: <20210331180725.663623-1-perex@perex.cz>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -74,37 +74,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As static analysis reported, the prev_lops2 should contain
-the previous lops2 pointer in snd_ctl_disconnect_layer().
+It may be possible that the string pointer does not move
+when parsing. Add a code which detects this state and
+simply break the parser loop in this case.
 
-Link: https://lore.kernel.org/alsa-devel/96e9bd5c-c8db-0db8-b393-fbf4a047dc80@canonical.com/
-Fixes: 3f0638a0333b ("ALSA: control - add layer registration routines")
 Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- sound/core/control.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/core/control_led.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 6825ca75daf5..20d707d4ef40 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -2074,7 +2074,7 @@ void snd_ctl_disconnect_layer(struct snd_ctl_layer_ops *lops)
- 	struct snd_ctl_layer_ops *lops2, *prev_lops2;
- 
- 	down_write(&snd_ctl_layer_rwsem);
--	for (lops2 = snd_ctl_layer, prev_lops2 = NULL; lops2; lops2 = lops2->next)
-+	for (lops2 = snd_ctl_layer, prev_lops2 = NULL; lops2; lops2 = lops2->next) {
- 		if (lops2 == lops) {
- 			if (!prev_lops2)
- 				snd_ctl_layer = lops->next;
-@@ -2082,6 +2082,8 @@ void snd_ctl_disconnect_layer(struct snd_ctl_layer_ops *lops)
- 				prev_lops2->next = lops->next;
- 			break;
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index d4fb8b873f34..788fd9e275e0 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -506,7 +506,7 @@ static char *parse_iface(char *s, unsigned int *val)
+ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, size_t count,
+ 			  bool attach)
+ {
+-	char buf2[256], *s;
++	char buf2[256], *s, *os;
+ 	size_t len = max(sizeof(s) - 1, count);
+ 	struct snd_ctl_elem_id id;
+ 	int err;
+@@ -517,6 +517,7 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
+ 	id.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+ 	s = buf2;
+ 	while (*s) {
++		os = s;
+ 		if (!strncasecmp(s, "numid=", 6)) {
+ 			s = parse_uint(s + 6, &id.numid);
+ 		} else if (!strncasecmp(s, "iface=", 6)) {
+@@ -546,6 +547,8 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
  		}
-+		prev_lops2 = lops2;
-+	}
- 	up_write(&snd_ctl_layer_rwsem);
- }
- EXPORT_SYMBOL_GPL(snd_ctl_disconnect_layer);
+ 		if (*s == ',')
+ 			s++;
++		if (s == os)
++			break;
+ 	}
+ 
+ 	err = snd_ctl_led_set_id(led_card->number, &id, led_card->led->group, attach);
 -- 
 2.30.2

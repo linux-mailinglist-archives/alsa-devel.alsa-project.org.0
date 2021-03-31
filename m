@@ -2,84 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B607E3504F5
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 18:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA752350534
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 19:02:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 342551666;
-	Wed, 31 Mar 2021 18:46:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 342551666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39B04167D;
+	Wed, 31 Mar 2021 19:02:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39B04167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617209242;
-	bh=JQomm5heMSheCAFP6563MM64eZnDE9E418OWbJCI3uc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kbuvpaOYNCNeah5diR7P5K2UzfH/RD96o66KHkR0F6SfMcDA+JOp2RUjMJ4DX8TGu
-	 5AqgE4ngs6EmrYOvsANbnA6tRDPsG+rG9epOR2sRzbXft23jy7lYXeIs1b3CoBM9ey
-	 ZOUrjxxmPnPNzqBik5BeLfvhWlioKbcr6BjWAvog=
+	s=default; t=1617210173;
+	bh=lvt8xA3BI1mHjYajqAWOj2J7+O+WOW1r4evh7BIovYQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jfW24x/LZtoBCUuQ1n7HEAjG4OljMc64/K69qlchqCc/689gMo04GYCWsIsN86XYl
+	 ThnnIg4mdIEbYTrICnF1ijHvwVLAHksmvY/F0EXu21F+8d/4x1Bl3mhwf6smAZke2Y
+	 kr0yCO6hV/LvAGMqOcer2i21VYavPBadvrHx+1jk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0FB1F8014E;
-	Wed, 31 Mar 2021 18:45:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A88B8F8016E;
+	Wed, 31 Mar 2021 19:01:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9641AF8014E; Wed, 31 Mar 2021 18:45:52 +0200 (CEST)
+ id 4217CF80166; Wed, 31 Mar 2021 19:01:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D36B9F8014E
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 18:45:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D36B9F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F210F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 19:01:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F210F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nOj0BgRA"
-Received: by mail-qt1-x82e.google.com with SMTP id 1so14256244qtb.0
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 09:45:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ts6udWRUGmZKxbyqOfxM27bStFcBzDyFCw+s1hc8ObY=;
- b=nOj0BgRAf8TVyxfQtdVKM464KH04pciMaunSj/C6mp9NA2585Y54pcl8Yyazb6lFCO
- nEGi1ULvpJsY7V3FgSn4HEA/0F5Bag9EfDia5quQRWGaMNOxLJ7K8NbjLu3ykQXT1Jcg
- U70nbm8J5ti7JnK5lFRt11JtbpHmGwDsjcDOCLbthL8xeWUfmPpmt6+b5dB7AMLPLC8Z
- huEFOSzzNH2mhIEdKg+PbIaadzT5QFOM02BGy6otyLZUArAcI1JJpvMW2y38Gvrxy2fi
- 9JeLGJIukHqa5aenmoZarJcvMSgMNgRppngAtut5EVGjANW9lWegshh2nevWSCzhl+m6
- kNxg==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="mfCmqZgp"
+Received: by mail-ej1-x632.google.com with SMTP id w3so31158115ejc.4
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 10:01:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KspNwzuOj9aLMXGk2fyODvGz7byP37BIX3QwCShIa1U=;
+ b=mfCmqZgpg+o9P0WseEbaUpCianBH4aueY2MbD8bcRz6g31+B/W8uqpCcIgaz3s+6w9
+ B0DEL4KazRRSF3ycZPlJQacoS5R8vwFLdizPiIHLKr6NRPhtivQPzY+ydqccz6WdECeF
+ O9w8aBRWZXB8CrStVsCGVOg+VVpeXOAUuUBrDsrfoLGjN8uatANCivyzTQta7ROHu8Om
+ 0H+2zkFEz0BU4WV9JH4KXpWpxC/tZFC+aYcgqc6ccm8dJwzce/71lo6OmV9/nkpe8sII
+ VARSSWDSzJMYOlQHWKnHElfGLNq7GnFgsyJkbOZj9zOYYqrGYbr2dMUE8Fx2wy7+8uJ2
+ RNfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ts6udWRUGmZKxbyqOfxM27bStFcBzDyFCw+s1hc8ObY=;
- b=J+CMO9bT7a2FMPbIAPrFOmZsecnefTytJRETD7ufWllXoGRLS8rPrbQIQuRtTYiHfs
- dokuOjaltp32TeQfdlAx7ip9g2Q3HzLqWeDCDJeEvT9m96grl2XHa5YjUndftMHdtv40
- OIAdz62A4GDv2U/r4+hNMH7M9qr7aBzPjcRBnasyyKz9Ay5EwWhOJ42ruX/PSJgKCYRy
- 9ByXMuq+R3eFlbAvOJ4VWDF6IDdzBBBYG4QGEPbDwUqrOKZBeKCPuHKfhuh3pE1WQX8X
- jmovYjeiVANnrFIEaJoSMfGB5envGusOAFJhvu7eH9ruGzNoPBdxq5dsD0W5EZu42qcS
- Xqyg==
-X-Gm-Message-State: AOAM531BMUcgNP3rqUrYI4VraY55Qh9EcDNk+w1fob2A2/5gTzLyLMEl
- 8Ani++aeF64qBoKQfTPolOeQ0AE/ufP88gVWjGM=
-X-Google-Smtp-Source: ABdhPJzvjpEio6F3M7roXybiknZi+CA1Ay04t+dMteFQP57jhNrOyIJVb6OSUzFZZaSXEZo06kL7dkJQJeFo4kOrvY8=
-X-Received: by 2002:a05:622a:1647:: with SMTP id
- y7mr3182978qtj.210.1617209138577; 
- Wed, 31 Mar 2021 09:45:38 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KspNwzuOj9aLMXGk2fyODvGz7byP37BIX3QwCShIa1U=;
+ b=QgZk7DpYok8YqYA5zZq6P585xijL9/s7F1J+eUnrmCDpBo1akgv3u+fasfogYyw/xC
+ 5P7K8niQHphwxWjwwSMF2nycyIQE+nxRsh7tC0j7oPdR94jm6HzWn61sHIVsFwvGz/MR
+ JeLIPIJ61nmImV7UpmlEJnhDI75M0VCdr2wFAF40WSBMuB+r7Si6Uoj89L8mYQfsQgVm
+ 47U1pdtT9sjNkrhhfqoAd9FlbfrhwwL9m4GfetB+9RfS59DRj9je9mtxAUFPGYCmSVfm
+ 2/+0PZTJI1FuXEnKheP0u43/XfMVspSZu8yBwCmvRdjWeVaUItJZYWQgB4zeJtnZ/9E1
+ xURA==
+X-Gm-Message-State: AOAM533cbErRs0pwrCoR9534m52BtyoWjaGJQ7TEc31QX5BgwNwWrXJh
+ xbtm0Y7ZIEan7JSFF3RXibk8vQ==
+X-Google-Smtp-Source: ABdhPJyZ/YGsfKKEJ78XYWOEq3oaf4XoaUn3hoN0mkzXk+2J11yt+vHn3WhwhlT7kxbdZeQ4exjF9A==
+X-Received: by 2002:a17:906:3882:: with SMTP id
+ q2mr4587674ejd.540.1617210076003; 
+ Wed, 31 Mar 2021 10:01:16 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id rs24sm1515247ejb.75.2021.03.31.10.01.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Mar 2021 10:01:15 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org
+Subject: [PATCH] soundwire: qcom: wait for fifo space to be available before
+ read/write
+Date: Wed, 31 Mar 2021 18:00:33 +0100
+Message-Id: <20210331170033.17174-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <CAOsVg8oCOSHrqx_7rU_KAYugOaYxmJ1vLvrS_wAah0VKFVZ05w@mail.gmail.com>
-In-Reply-To: <CAOsVg8oCOSHrqx_7rU_KAYugOaYxmJ1vLvrS_wAah0VKFVZ05w@mail.gmail.com>
-From: Geraldo <geraldogabriel@gmail.com>
-Date: Wed, 31 Mar 2021 13:50:16 -0300
-Message-ID: <CAEsQvcuTb_3meXw-X08v1MduNpCA3xA6SXq-ezuJrcC7tP+faw@mail.gmail.com>
-Subject: Re: [PATCH] Fixing most Roland-related devices' USB audio
-To: Lucas <jaffa225man@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,261 +101,151 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Lucas, you can always email the maintainers if you're 100% sure this patch
-will work for everybody etc., just be sure to read
-/usr/src/linux/MAINTAINERS first.
+If we write registers very fast we can endup in a situation where some
+of the writes will be dropped without any notice.
 
-Em Ter, 30 de mar de 2021 23:21, Lucas <jaffa225man@gmail.com> escreveu:
+So wait for the fifo space to be available before reading/writing the
+soundwire registers.
 
-> At the risk of being redundant, I'm resending this with a simpler "[PATCH]"
-> subject to reach a broader audience, since no comment has been made yet:
->
-> TLDR?  Please just glance at the patch at the end and include it in the
-> kernel. :)
->
-> Some days ago, I found this excellent informational post, and that Mike
-> Oliphant's patch is in mainline now:
->
-> http://blog.nostatic.org/2020/01/getting-boss-gt-1-effects-processor-to.html
->
-> Since I was fairly certain it applies to the Roland devices I own, I added
-> my USB IDs.  Wonderfully, now USB audio capture seems to be working
-> perfectly from the three devices I can test: the Boutique D-05, INTEGRA-7,
-> & R-26! (The previously asserted VG-99 didn't need to be included in the
-> patch for it to work.)
->
-> I've also tested all three for playback capability, since that's implied
-> when a device is using implicit feedback, which I hadn't realized the first
-> time around.  Anyway, they all seem to be working as expected for playback
-> too.  There are two caveats for playback, though:
->
-> 1. The INTEGRA-7 won't output playback in any mode other than its "44.1
-> [kHz]" setting, though capture works with all of its Sample Rate
-> possibilities.  I think this is imposed by the hardware itself, and hence
-> isn't a glitch.
->
-> 2. The D-05's analog outputs aren't as clean as the other two devices, with
-> little quiet occasional clicks sounding something like dust on an LP
-> record's play.  Possibly that can be due to it having only 1/8" mini-jack
-> connections, but I suspect something more driver-related as It's not
-> noticed during use as a synthesizer.  Its firmware version is "1.02(1033),"
-> so not up-to-date which may mean it's just the hardware itself, but I've
-> decided not to risk any changes with it yet.  If I knew I could revert it,
-> that would be another story.  Also its USB captures, play perfectly &
-> cleanly on my usual sound device, the Edirol UA-4FX.
->
-> You may know this, as the detection of these devices shows partial
-> compatibility with the existing kernel, but here are the commands I've had
-> to use for their sample formats:
->
-> Boutique D-05:
->     arecord -D hw:Boutique -f S32_LE -c 2 -r 96000 ./file.wav
->     aplay -D hw:Boutique -f S32_LE -c 2 -r 96000 ./file.wav
-> INTEGRA-7:
->     arecord -D hw:INTEGRA7 -f S32_LE -c 2 -r 96000 ./file.wav
->         (Then change MENU->SYSTEM->SOUND->Sampling Rate to 44.1 [kHz],
-> otherwise its 96[kHz],
->          and  change MENU->SYSTEM->SOUND->Ext Part Source Select to USB
-> AUDIO)
->     arecord -D hw:INTEGRA7 -f S32_LE -c 2 -r 44100 ./file-44100.wav
->     aplay -D hw:INTEGRA7 -f S32_LE -c 2 -r 44100 ./file-44100.wav
-> R-26:
->         (Through its built-in controls, first configure the MENU->AUDIO I/F
-> SETUP->SAMPLE RATE to "96.0 kHz.")
->     arecord -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
->     aplay -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
->         (Then via use of similar commands, & the "AUDIO I/F" tab on its
-> main screen having both "LOOP BACK" & "DIRECT MONITOR" enabled, I was able
-> to begin a new composite recording, voicing-over what I'd recorded earlier,
-> by playing it back while interjecting - very fun!)
->
->
->
-> The behavior on the vanilla kernel (whether or not "pasuspender -- cat" is
-> running concurrently) follows.
-> For each of these commands, dmesg is bombarded with lines like "[
-> 4681.162863] usb 2-1.2: Unable to change format on ep #8e: already in use"
->
-> Boutique D-05:
->     arecord -D hw:Boutique -f S32_LE -r 96000 -c 2 ./file.wav
->     Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000
-> Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     arecord: pcm_read:2153: read error: Input/output error
->
->     aplay -D hw:Boutique -f S32_LE -r 96000 -c 2 ./valid-file.wav
->     Playing WAVE './valid-file.wav' : Signed 32 bit Little Endian, Rate
-> 96000 Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     aplay: pcm_write:2061: write error: Input/output error
->
-> INTEGRA-7:
->     arecord -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
->     Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000
-> Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     arecord: pcm_read:2153: read error: Input/output error
->         (Then change MENU->SYSTEM->SOUND->Sampling Rate to 44.1 [kHz],
-> otherwise its 96[kHz],
->          and  change MENU->SYSTEM->SOUND->Ext Part Source Select to USB
-> AUDIO)
->     arecord -D hw:INTEGRA7 -f S32_LE -r 44100 -c 2 ./file.wav
->     Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 44100
-> Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     arecord: pcm_read:2153: read error: Input/output error
->
->     aplay -D hw:INTEGRA7 -f S32_LE -r 44100 -c 2 ./valid-file.wav
->     Playing WAVE './valid-file.wav' : Signed 32 bit Little Endian, Rate
-> 44100 Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     aplay: pcm_write:2061: write error: Input/output error
->
-> R-26:
->     arecord -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
->     Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000
-> Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     arecord: pcm_read:2153: read error: Input/output error
->
->     aplay -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./valid-file.wav
->     Playing WAVE './valid-file.wav' : Signed 32 bit Little Endian, Rate
-> 96000 Hz, Stereo
->         (After a brief timeout, it says this & ends:)
->     aplay: pcm_write:2061: write error: Input/output error
->
->
->
-> I searched a bit for other Roland-related devices people have had USB
-> digital audio issues with over the years, and took the liberty of adding
-> them to the patch too.  Likely there are still more that people haven't
-> tried or, at least, queried about issues.
->
-> I hope this can be added to the mainline kernel, as this support should
-> help many that have struggled.  I, certainly, have been hoping somebody
-> would figure this out for quite a while, and even bought a USB
-> through/monitoring device to try to develop it myself (sadly, the software
-> supporting that has its own bugs, so I probably should've just used
-> wireshark).  Suffice it to say, I'm quite happy to have this figured out
-> without having had to delve into USB debugging stuff I lack experience
-> with! :)
->
-> Thanks for any comments or looking into adding this,
->
->   Lucas Endres
->
->
->
-> The patch follows (I removed my previous VG-99 additions since it already
-> works):
-> diff -Nurp linux-5.11.9.orig/sound/usb/implicit.c
-> linux-5.11.9.roland/sound/usb/implicit.c
-> --- linux-5.11.9.orig/sound/usb/implicit.c 2021-03-24 05:54:19.000000000
-> -0500
-> +++ linux-5.11.9.roland/sound/usb/implicit.c 2021-03-30 17:49:08.143196280
-> -0500
-> @@ -71,27 +71,87 @@ static const struct snd_usb_implicit_fb_
->    .ep_num = 0x84, .iface = 0 }, /* MOTU MicroBook II */
->
->   /* No quirk for playback but with capture quirk (see below) */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00a6), /* Roland JUNO-G */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00ad), /* Roland SH-201 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c2), /* Roland SonicCell */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c4), /* Edirol M-16DX */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c7), /* Roland V-Synth GT */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00da), /* BOSS GT-10 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00db), /* BOSS GT-10 Guitar Effects
-> Processor */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00dc), /* BOSS GT-10B */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00de), /* Roland Fantom-G */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00f8), /* Roland JUNO Series */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0111), /* Roland GAIA SH-01 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0120), /* Roland OCTA-CAPTURE */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0121), /* Roland OCTA-CAPTURE */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0123), /* Roland JUNO-Gi */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0127), /* Roland GR-55 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x012b), /* Roland DUO-CAPTURE */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x012f), /* Roland QUAD-CAPTURE */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x0130), /* BOSS BR-80 */
-> - IMPLICIT_FB_SKIP_DEV(0x0582, 0x0171),   /* BOSS RC-505 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0132), /* Roland TRI-CAPTURE */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0138), /* BOSS RC-300 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x013e), /* Roland R-26 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x014d), /* BOSS GT-100 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0150), /* Roland TD-15 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0151), /* Roland TD-11 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0158), /* Roland TD-30 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0159), /* Roland DUO-CAPTURE EX */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x015b), /* Roland INTEGRA-7 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x015d), /* Roland R-88 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0171), /* BOSS RC-505 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x017c), /* Roland TR-8 */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x0185), /* BOSS GP-10 */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x0189), /* BOSS GT-100v2 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x01b5), /* Roland Boutique Series
-> Synthesizer */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d6), /* BOSS GT-1 */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d8), /* BOSS Katana */
->   IMPLICIT_FB_SKIP_DEV(0x0582, 0x01e5), /* BOSS GT-001 */
-> - IMPLICIT_FB_SKIP_DEV(0x0582, 0x0203),   /* BOSS AD-10 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x01ff), /* Roland D-05 */
-> + IMPLICIT_FB_SKIP_DEV(0x0582, 0x0203), /* BOSS AD-10 */
->
->   {} /* terminator */
->  };
->
->  /* Implicit feedback quirk table for capture: only FIXED type */
->  static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[]
-> = {
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a6, 0x0d, 0x01), /* Roland JUNO-G */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ad, 0x0d, 0x01), /* Roland SH-201 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c2, 0x0d, 0x01), /* Roland SonicCell */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c4, 0x0d, 0x01), /* Edirol M-16DX */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c7, 0x0d, 0x01), /* Roland V-Synth GT
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00da, 0x0d, 0x01), /* BOSS GT-10 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00db, 0x0d, 0x01), /* BOSS GT-10 Guitar
-> Effects Processor */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00dc, 0x0d, 0x01), /* BOSS GT-10B */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00de, 0x0d, 0x01), /* Roland Fantom-G */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00f8, 0x0d, 0x01), /* Roland JUNO Series
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0111, 0x0d, 0x01), /* Roland GAIA SH-01
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0120, 0x0d, 0x01), /* Roland OCTA-CAPTURE
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0121, 0x0d, 0x01), /* Roland OCTA-CAPTURE
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0123, 0x0d, 0x01), /* Roland JUNO-Gi */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0127, 0x0d, 0x01), /* Roland GR-55 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x012b, 0x0d, 0x01), /* Roland DUO-CAPTURE
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x012f, 0x0d, 0x01), /* Roland QUAD-CAPTURE
-> */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0130, 0x0d, 0x01), /* BOSS BR-80 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0132, 0x0d, 0x01), /* Roland TRI-CAPTURE
-> */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0138, 0x0d, 0x01), /* BOSS RC-300 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x013e, 0x0d, 0x01), /* Roland R-26 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x014d, 0x0d, 0x01), /* BOSS GT-100 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0150, 0x0d, 0x01), /* Roland TD-15 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0151, 0x0d, 0x01), /* Roland TD-11 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0158, 0x0d, 0x01), /* Roland TD-30 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0159, 0x0d, 0x01), /* Roland DUO-CAPTURE
-> EX */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x015b, 0x0d, 0x01), /* Roland INTEGRA-7 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x015d, 0x0d, 0x01), /* Roland R-88 */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0171, 0x0d, 0x01), /* BOSS RC-505 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x017c, 0x0d, 0x01), /* Roland TR-8 */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0185, 0x0d, 0x01), /* BOSS GP-10 */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0189, 0x0d, 0x01), /* BOSS GT-100v2 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x01b5, 0x0d, 0x01), /* Roland Boutique
-> Series Synthesizer */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x01d6, 0x0d, 0x01), /* BOSS GT-1 */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x01d8, 0x0d, 0x01), /* BOSS Katana */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x01e5, 0x0d, 0x01), /* BOSS GT-001 */
-> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x01ff, 0x0d, 0x01), /* Roland D-05 */
->   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
->
->   {} /* terminator */
->
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/soundwire/qcom.c | 74 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 6affa3cd4039..9b45717577f2 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -24,6 +24,8 @@
+ #define SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK			BIT(1)
+ #define SWRM_COMP_CFG_ENABLE_MSK				BIT(0)
+ #define SWRM_COMP_PARAMS					0x100
++#define SWRM_COMP_PARAMS_WR_FIFO_DEPTH				GENMASK(14, 10)
++#define SWRM_COMP_PARAMS_RD_FIFO_DEPTH				GENMASK(19, 15)
+ #define SWRM_COMP_PARAMS_DOUT_PORTS_MASK			GENMASK(4, 0)
+ #define SWRM_COMP_PARAMS_DIN_PORTS_MASK				GENMASK(9, 5)
+ #define SWRM_INTERRUPT_STATUS					0x200
+@@ -51,6 +53,8 @@
+ #define SWRM_CMD_FIFO_CMD					0x308
+ #define SWRM_CMD_FIFO_FLUSH					0x1
+ #define SWRM_CMD_FIFO_STATUS					0x30C
++#define SWRM_RD_CMD_FIFO_CNT_MASK				GENMASK(20, 16)
++#define SWRM_WR_CMD_FIFO_CNT_MASK				GENMASK(12, 8)
+ #define SWRM_CMD_FIFO_CFG_ADDR					0x314
+ #define SWRM_CONTINUE_EXEC_ON_CMD_IGNORE			BIT(31)
+ #define SWRM_RD_WR_CMD_RETRIES					0x7
+@@ -104,6 +108,7 @@
+ #define SWR_BROADCAST_CMD_ID    0x0F
+ #define SWR_MAX_CMD_ID	14
+ #define MAX_FIFO_RD_RETRY 3
++#define SWR_OVERFLOW_RETRY_COUNT 30
+ 
+ struct qcom_swrm_port_config {
+ 	u8 si;
+@@ -147,6 +152,8 @@ struct qcom_swrm_ctrl {
+ 	int (*reg_read)(struct qcom_swrm_ctrl *ctrl, int reg, u32 *val);
+ 	int (*reg_write)(struct qcom_swrm_ctrl *ctrl, int reg, int val);
+ 	u32 slave_status;
++	u32 wr_fifo_depth;
++	u32 rd_fifo_depth;
+ };
+ 
+ struct qcom_swrm_data {
+@@ -238,6 +245,63 @@ static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
+ 	return val;
+ }
+ 
++static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *swrm)
++{
++	u32 fifo_outstanding_cmd, value;
++	u8 fifo_retry_count = SWR_OVERFLOW_RETRY_COUNT;
++
++	/* Check for fifo underflow during read */
++	swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
++	fifo_outstanding_cmd = FIELD_GET(SWRM_RD_CMD_FIFO_CNT_MASK, value);
++
++	 /* Check number of outstanding commands in fifo before read */
++	if (fifo_outstanding_cmd)
++		return 0;
++
++	do {
++		usleep_range(500, 510);
++		swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
++		fifo_outstanding_cmd = FIELD_GET(SWRM_RD_CMD_FIFO_CNT_MASK, value);
++		if (fifo_outstanding_cmd > 0)
++			break;
++	} while (fifo_retry_count--);
++
++	if (fifo_outstanding_cmd == 0) {
++		dev_err_ratelimited(swrm->dev, "%s err read underflow\n", __func__);
++		return -ENOMEM;
++	}
++
++	return 0;
++}
++
++static int swrm_wait_for_wr_fifo_avail(struct qcom_swrm_ctrl *swrm)
++{
++	u32 fifo_outstanding_cmd, value;
++	u8 fifo_retry_count = SWR_OVERFLOW_RETRY_COUNT;
++
++	/* Check for fifo overflow during write */
++	swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
++	fifo_outstanding_cmd = FIELD_GET(SWRM_WR_CMD_FIFO_CNT_MASK, value);
++
++	/* Check number of outstanding commands in fifo before write */
++	if (fifo_outstanding_cmd != swrm->wr_fifo_depth)
++		return 0;
++
++	do {
++		usleep_range(500, 510);
++		swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
++		fifo_outstanding_cmd = FIELD_GET(SWRM_WR_CMD_FIFO_CNT_MASK, value);
++		if (fifo_outstanding_cmd < swrm->wr_fifo_depth)
++			break;
++	} while (fifo_retry_count--);
++
++	if (fifo_outstanding_cmd == swrm->wr_fifo_depth) {
++		dev_err_ratelimited(swrm->dev, "%s err write overflow\n", __func__);
++		return -ENOMEM;
++	}
++
++	return 0;
++}
+ 
+ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+ 				     u8 dev_addr, u16 reg_addr)
+@@ -256,6 +320,9 @@ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+ 					      dev_addr, reg_addr);
+ 	}
+ 
++	if (swrm_wait_for_wr_fifo_avail(swrm))
++		return SDW_CMD_FAIL_OTHER;
++
+ 	/* Its assumed that write is okay as we do not get any status back */
+ 	swrm->reg_write(swrm, SWRM_CMD_FIFO_WR_CMD, val);
+ 
+@@ -295,6 +362,9 @@ static int qcom_swrm_cmd_fifo_rd_cmd(struct qcom_swrm_ctrl *swrm,
+ 	/* wait for FIFO RD CMD complete to avoid overflow */
+ 	usleep_range(250, 255);
+ 
++	if (swrm_wait_for_rd_fifo_avail(swrm))
++		return SDW_CMD_FAIL_OTHER;
++
+ 	do {
+ 		swrm->reg_read(swrm, SWRM_CMD_FIFO_RD_FIFO_ADDR, &cmd_data);
+ 		rval[0] = cmd_data & 0xFF;
+@@ -586,6 +656,10 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+ 				SWRM_INTERRUPT_STATUS_RMSK);
+ 	}
+ 	ctrl->slave_status = 0;
++	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
++	ctrl->rd_fifo_depth = FIELD_GET(SWRM_COMP_PARAMS_RD_FIFO_DEPTH, val);
++	ctrl->wr_fifo_depth = FIELD_GET(SWRM_COMP_PARAMS_WR_FIFO_DEPTH, val);
++
+ 	return 0;
+ }
+ 
+-- 
+2.21.0
+

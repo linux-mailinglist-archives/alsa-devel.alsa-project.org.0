@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580F9350099
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 14:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB133500A3
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Mar 2021 14:48:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7FEB1682;
-	Wed, 31 Mar 2021 14:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7FEB1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C0181682;
+	Wed, 31 Mar 2021 14:47:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C0181682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617194767;
-	bh=zu5+7E3FlVx1B02C+X7ZBz7+D9LN8HEMJnjE1Je3NZo=;
+	s=default; t=1617194899;
+	bh=5dsan0ndrXUIqy53+oo57Q3YAilOJBB0JkfIOMsN35Q=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XMg7lk7mJ9dhEAoDtnTWj1gVoTmMJNsOYnvQrbn0VdN9ZDdbw9mHeewRpmj31YfWn
-	 LSFnVL59RTPk0+MZ9mEkp4u5f9ranUpbKqk/jiXJ9zzWBquek9Oro2gQRPp2402yu1
-	 q9Jio+caADpWyF8v3J9UtN4AXeDDWhHyf+qDt+X0=
+	b=Ry7tnATlxdprwYDbT9KOUftfw2r4eTWG/uml4+/XnikUGfvm3MREzEFe/qSlFUjjN
+	 4m0DnB86H2x4wZAPql6ssrjYahukQTHyctVKr82dy8t7QH86Z0iEeTe9u51rjCmnUo
+	 Eze6m3YqD/koZ06WNVxqvIeVJ7kHQhaZU1s7YUhY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4754BF8013C;
-	Wed, 31 Mar 2021 14:44:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0350FF8014E;
+	Wed, 31 Mar 2021 14:46:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9536F80166; Wed, 31 Mar 2021 14:44:38 +0200 (CEST)
+ id 0C69CF80166; Wed, 31 Mar 2021 14:46:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54475F8014E
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 14:44:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54475F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21F3FF8013C
+ for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 14:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21F3FF8013C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ivif8rLi"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9AEFA61959;
- Wed, 31 Mar 2021 12:44:33 +0000 (UTC)
+ header.b="WvD7Ur3a"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D00861959;
+ Wed, 31 Mar 2021 12:46:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617194674;
- bh=zu5+7E3FlVx1B02C+X7ZBz7+D9LN8HEMJnjE1Je3NZo=;
+ s=k20201202; t=1617194804;
+ bh=5dsan0ndrXUIqy53+oo57Q3YAilOJBB0JkfIOMsN35Q=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ivif8rLiEpy+yTQbX5AQrdpFree1FdwAVyRpOZwQyWuOr7yJ0OvozGPzO6OxzoWh5
- BUsDrcq5ZR8R5euuGOtk0eX7ibhoq50adYQU1A+ZD8U8/6zFGmS3hMt92tsIuiExn5
- 6nE2sIaEgSEZUxkwG3dNjjxByFGbpdqIzwQLMB3dWkh8ZJF1gHN0jCHMR8ALRdAcym
- 4kQZPcpv1ntbTS6iMjGzYGqP72OXRh4/xb6fpgAFEN/Y9z8jrmU/hmBYE3YMfjtyL+
- IyNAuqJh2KhAnOAhZySyVkkBbtltARa/XVIyi13XPbZuOfYZkReX3IW4AfOceCogVe
- yjvgCqPM+nRRA==
-Date: Wed, 31 Mar 2021 13:44:19 +0100
+ b=WvD7Ur3aG34dAIIV3x8Ep36vwkt/PVipw5fzhcrVagpmzfdHtQ5KPdiRpnXTXa5Ee
+ N5HeHEcnaATBhnNfgGxMWUCZ70xxa/KdLbUFjYitonL9zuz/uVGMOSqlelQ9JDjFrC
+ x1p8JELeQoinINo/caQyDTmEwpFu3tV2MfWy4e8U7/CbXFG9vqmfulRtsQo4vAR1Qh
+ 9lh3OdN5jNUTdB9DevHlGLf8pchl9vlJokB5uQRh/YJc7yukmRhRUZeyY1k8g33jmy
+ nmmqwNVchp1S37LWivGJ25psBmGv5mjOCsj0Z7J5jcZ8HQVmhp+8ZiILsJseIqfxHE
+ ocSrHbIR5GNAQ==
+Date: Wed, 31 Mar 2021 13:46:32 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Zheng Yongjun <zhengyongjun3@huawei.com>
-Subject: Re: [PATCH -next] ASoC: cs42l42: Remove unused including
+Subject: Re: [PATCH -next] ASoC: cs35l35: Remove unused including
  <linux/version.h>
-Message-ID: <20210331124419.GA12878@sirena.org.uk>
-References: <20210326061335.3234571-1-zhengyongjun3@huawei.com>
+Message-ID: <20210331124632.GA13402@sirena.org.uk>
+References: <20210326061331.3234485-1-zhengyongjun3@huawei.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="82I3+IH0IqGh5yIs"
+ protocol="application/pgp-signature"; boundary="yrj/dFKFPuw6o+aM"
 Content-Disposition: inline
-In-Reply-To: <20210326061335.3234571-1-zhengyongjun3@huawei.com>
-X-Cookie: I'm rated PG-34!!
+In-Reply-To: <20210326061331.3234485-1-zhengyongjun3@huawei.com>
+X-Cookie: Never trust an operating system.
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  patches@opensource.cirrus.com, kernel-janitors@vger.kernel.org,
@@ -86,36 +86,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---82I3+IH0IqGh5yIs
+--yrj/dFKFPuw6o+aM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Mar 26, 2021 at 02:13:35PM +0800, Zheng Yongjun wrote:
+On Fri, Mar 26, 2021 at 02:13:31PM +0800, Zheng Yongjun wrote:
 > Remove including <linux/version.h> that don't need it.
 
 This doesn't apply against current code, please check and resend:
 
-Applying: ASoC: cs42l42: Remove unused including <linux/version.h>
+Applying: ASoC: cs35l35: Remove unused including <linux/version.h>
 Using index info to reconstruct a base tree...
-error: patch failed: sound/soc/codecs/cs42l42.c:11
-error: sound/soc/codecs/cs42l42.c: patch does not apply
+error: patch failed: sound/soc/codecs/cs35l35.c:9
+error: sound/soc/codecs/cs35l35.c: patch does not apply
 error: Did you hand edit your patch?
 It does not apply to blobs recorded in its index.
-Patch failed at 0006 ASoC: cs42l42: Remove unused including <linux/version.h>
+Patch failed at 0006 ASoC: cs35l35: Remove unused including <linux/version.h>
 
---82I3+IH0IqGh5yIs
+--yrj/dFKFPuw6o+aM
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBkbqIACgkQJNaLcl1U
-h9CoJwf/QAjGb6XA/wFK32XB2wDQQzeicvhjhNfxqPyxmO/wmoYc805JcqgbOLTx
-i+fBFtquaB5YgPCNDF7Qx+tXsVbLcRsE6IB9Wh5A24qOBZySbh9JzwIB74QkJri8
-1Kdd+pblf5HHjreotAi0WRtvFEE0654Q/QK5Llb2sWF/9qTbj8j77AOmT6akewnn
-0qzN2K9+LtTYdIa8muL3cLFGVeN6ab7M05jWqUnlCn4yRww26+y4/zhwmcSbMpLH
-BGmwc4/r8J7aFTWFG0x+/Tg/GnmYUtvA+oBrF2zCa9ps5Uxbt+TNrBAO5yQvmJvw
-Zqy95Udm0SRXT5rOcWzZHQoHrFiFMg==
-=QE6g
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBkbycACgkQJNaLcl1U
+h9BQPAf2LsQP1f+PG5zYRfgPSGavlopGgeKfjprn3O75A5oiJlzvm6qtBoDQfd36
+3Ie6NJeYqSbZxPeoparIMdoehrOPqfLiZloLHr1kubQqxSzIuesasZv5vsoGMh3F
+NQkJ96QANzEC3TxzldAoZ+hjoISN1K9rLjk+Wo/fNIVhV3gHadQ3Sfc/aUO+aFuk
+Yhl4JpCOLjv5C9im4PIsc2LtTZRnMIXxDUb77gldP++BpWbwE2TGP3yApoxEIUnP
+yowqZe/4ISSFsto4+zLw2PudWRRhCNyFb6IbZxi/qYGswR+0XvtuCWAB7WDxd38U
+eo6yb5SZPwIDWiPka5SyHKJGLLcX
+=RbL7
 -----END PGP SIGNATURE-----
 
---82I3+IH0IqGh5yIs--
+--yrj/dFKFPuw6o+aM--

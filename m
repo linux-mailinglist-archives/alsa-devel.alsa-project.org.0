@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459B13516A0
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 18:06:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC50D3516AD
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 18:18:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D833716A6;
-	Thu,  1 Apr 2021 18:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D833716A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71C0B16C8;
+	Thu,  1 Apr 2021 18:17:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71C0B16C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617293186;
-	bh=DSutbyQVSHPRdbg9SPdAQAnK0pzwZ5jNV2+rmi4K0OE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617293912;
+	bh=zp3Tpu+kUph5azbHKo/cVTxK4hhcTlET7aKDSzeCMns=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QKyJH8A/gWV4QLhBH9vXR7cscZ+GuBzEhRQijEDGBxT0H5fGlcfp9yl3zaLma2+H4
-	 b0hZ9DInT6BfNRH9qtLRcfOmpSwLECipO2D8/17OR/ZQIbCdMaEw6sU2zhSL2tNIrv
-	 83ckwvO0aM3vASqVAT10V0XJvuktaOznH+Ihxiw0=
+	b=YcB7mfyOIpsDH9hPGLQfhNfuhx57RLFZUn4T4DKpCaZOZ4pGOjIZEH8V/RcMuWIxW
+	 z0yktIUFnBjWWAM8yEz/+/YKlDeVqaLgmYL6q4SB4uMOwNpci87B0FEPDX6fi2/oCM
+	 I8PcqPeXD2Oj6yICJrGt0Mzf7SLULrHjAQlYyZ+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FC97F80425;
-	Thu,  1 Apr 2021 18:04:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42377F8032C;
+	Thu,  1 Apr 2021 18:16:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 332F3F80424; Thu,  1 Apr 2021 18:04:01 +0200 (CEST)
+ id CB09EF8013F; Thu,  1 Apr 2021 18:16:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E0FDF8013C
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 18:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E0FDF8013C
-IronPort-SDR: z03Ly3kUlkMEZiMbLtWUVhcxZ75YAeJqYIFW+z6LwGOEknZWHtI5thBx/9lGLVLkKJfVm6yItM
- hSNczTHm+uuQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="171692995"
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="171692995"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 09:03:24 -0700
-IronPort-SDR: GbwNOpvEZemzt630fFese/DM+HYvVYBD4Zqs3gESV2CMFD43Q04yPNQtheaAngsSs+vhpFdJKp
- 5lwg04j+pzAQ==
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="439265778"
-Received: from mooreale-mobl.amr.corp.intel.com (HELO [10.255.229.43])
- ([10.255.229.43])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 09:03:24 -0700
-Subject: Re: [PATCH] ASoC: Intel: Boards: cml_da7219_max98390: add capture
- stream for echo reference
-To: mac.chiang@intel.com, alsa-devel@alsa-project.org
-References: <1617285613-29457-1-git-send-email-mac.chiang@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ab85d8b5-036e-ad66-0d03-399a657585c6@linux.intel.com>
-Date: Thu, 1 Apr 2021 09:43:44 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68E1AF8013F
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 18:16:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E1AF8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lNvRf4e1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B32FA61378;
+ Thu,  1 Apr 2021 16:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617293765;
+ bh=zp3Tpu+kUph5azbHKo/cVTxK4hhcTlET7aKDSzeCMns=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=lNvRf4e1Nfc9GKuGcUaN0ir9vETDIpMi2U79MnBc+Q9xG1hMQob7fpW60rM/cjylH
+ szalDlN1ciZWkh+Q0ZIo0gqLQ7OxmpIynxKR16ev4hbo/5inHWcwz8upmKy1HuQwZU
+ HjHqQ9+9qXmHBfCjTTKgqEOn47JAou1pLETdRxbPJNpUdZQZgETOBtAfPdWJWeeOMq
+ kMBrc7EO7Wf/OEiVc/6ekKGT/7wgFOa5N5jAtmF3LXIKrl5NWhnZBNo8nZv6SAU4Vk
+ e249Fxae46RERG1LghVZl5E6vGnxmP7qA6zVMtM7tHaZDORrgl9PGffEuuwEwRwpNv
+ m3Q8Gd1ZH88gA==
+From: Mark Brown <broonie@kernel.org>
+To: devicetree <devicetree@vger.kernel.org>,
+ alsa-devel <alsa-devel@alsa-project.org>,
+ Zhen Lei <thunder.leizhen@huawei.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>
+Subject: Re: [PATCH 1/1] ASoC: intel,
+ keembay-i2s: Fix a dt_binding_check warning
+Date: Thu,  1 Apr 2021 17:15:47 +0100
+Message-Id: <161729333651.31618.6325079972879808660.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210329081435.2200-1-thunder.leizhen@huawei.com>
+References: <20210329081435.2200-1-thunder.leizhen@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <1617285613-29457-1-git-send-email-mac.chiang@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: broonie@kernel.org, yang.jie@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,33 +83,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 4/1/21 9:00 AM, mac.chiang@intel.com wrote:
-> From: Mac Chiang <mac.chiang@intel.com>
+On Mon, 29 Mar 2021 16:14:35 +0800, Zhen Lei wrote:
+> The property "dmas" contains two items: DMA "TX" and "RX" channel,
+> Therefore, its value also needs to be written in two parts.
 > 
-> enable speaker capture dai link for feedback path
-> 
-> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+> Otherwise, below YAML check warning is reported:
+> Documentation/devicetree/bindings/sound/intel,keembay-i2s.example.dt.yaml:\
+> i2s@20140000: dmas: [[4294967295, 29, 4294967295, 33]] is too short
 
-LGTM
+Applied to
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> ---
->   sound/soc/intel/boards/bxt_da7219_max98357a.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-> index 0c0a7178..9ffef39 100644
-> --- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
-> +++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-> @@ -813,6 +813,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
->   				if (ctx->spkamp == SPKAMP_MAX98390) {
->   					broxton_dais[i].codecs = max98390_codec;
->   					broxton_dais[i].num_codecs = ARRAY_SIZE(max98390_codec);
-> +					broxton_dais[i].dpcm_capture = 1;
->   				}
->   			}
->   			/* DIALOG_CODEC is connected to SSP0 */
-> 
+Thanks!
+
+[1/1] ASoC: intel, keembay-i2s: Fix a dt_binding_check warning
+      commit: 52cad756b777e82fabe05c728cc62b63b3c61fd3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

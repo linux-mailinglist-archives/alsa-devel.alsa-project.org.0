@@ -2,84 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB48835208A
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 22:22:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B85EC3520B6
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 22:45:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54E7B16A8;
-	Thu,  1 Apr 2021 22:21:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54E7B16A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45C7416AF;
+	Thu,  1 Apr 2021 22:44:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45C7416AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617308557;
-	bh=2WEVytHBeGnmiWK9b6XY/YcqeVsTiVKjFxAJsfyUDyM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1617309916;
+	bh=CxRiGpAwxxqa0Vu8pQQP6HhO9b4ZMmEy0ohqCZncy1Y=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gTOOCAEcu/xmfpfMAmPFgUaOOtygyjNBguBohFwnwka2x1aoCXV3jaW2KqNtaZQ7T
-	 0Ztjzm51ReNsZd3WzEhJoDn0yYeUoBSDl3jcNBTul7DAyStq4eOCg6fy2AVuXR45CX
-	 vmY5LQtHvzmsiCSh6L2HuIKt5z4ilRfPPJWuTVjU=
+	b=JoLroJ9Nwy3e7eqeVlg4N7UkkCBTSyJhYWVWMaJeRPwTiq+gOm+/PVxp7yNWnLKm5
+	 +2FfynUpZyjulYYdienGCMPbn/Nrv95wwtM6GPXV4X8ryHV58/nKp9JgyUvPKWuObq
+	 EqrA6M81cJ6mLIyAGrvr2pnsC6BBPSgcpNuhLKEA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BED9AF8026F;
-	Thu,  1 Apr 2021 22:21:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1383F8026F;
+	Thu,  1 Apr 2021 22:43:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC8B6F8026B; Thu,  1 Apr 2021 22:21:08 +0200 (CEST)
+ id 93777F8026B; Thu,  1 Apr 2021 22:43:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9B10F8013F
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 22:21:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B10F8013F
-Received: by mail-oi1-f180.google.com with SMTP id k25so2996632oic.4
- for <alsa-devel@alsa-project.org>; Thu, 01 Apr 2021 13:21:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wcspT1L4njOmUk3kNinDGLJJyQmYO9IfUXHMGjOmchc=;
- b=lk8xdKALt15SkAFWdrJORBXgLq7GdEt5IBsua0Nfpsw8UwspUOTHeO02VguziGEl81
- DvddhV9SVwgJcK4iYYIhtdKGS0gLzp1GaQA2SxoE37etHU0THSkVfXgcNQCGG+K9Zw+g
- 8j5MH2BsRqEuHuPVxbtbt0kg7WoHTForGhBa6SkKfGMBDkOKBjzECxd2W+9fIKfmIKv0
- JvDjGwmwRMfpROytcWPkDhTmSS8T6P2HaASZIamuyjR1fVD6T6xUaT6PKB2mUWFginjO
- yUtFKUx4D1ah5nsvsplpBG7hpphIbqY7wY+jwobEUz3v7zHvg65CXr7SxYqEVA3VTEa/
- t+Ww==
-X-Gm-Message-State: AOAM533KB5NqmILbXuvvxXevj82y+DbhVU/bPTuYreGDZSL6n+H3CGxn
- 0xZIogPnvV66vQWaR9B5ig==
-X-Google-Smtp-Source: ABdhPJxSgHbdxE/ixaJPEKHjh0MqUdSxB7PgHMrhXuDd6DeB4sLEIkUcP/euJUM8nA8IUQBBb058zA==
-X-Received: by 2002:a54:4806:: with SMTP id j6mr7649267oij.15.1617308458832;
- Thu, 01 Apr 2021 13:20:58 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id w23sm1306812oow.25.2021.04.01.13.20.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Apr 2021 13:20:58 -0700 (PDT)
-Received: (nullmailer pid 955677 invoked by uid 1000);
- Thu, 01 Apr 2021 20:20:56 -0000
-Date: Thu, 1 Apr 2021 15:20:56 -0500
-From: Rob Herring <robh@kernel.org>
-To: Zhen Lei <thunder.leizhen@huawei.com>
-Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: renesas, rsnd: Clear warning
- 'ports' does not match any of the regexes
-Message-ID: <20210401202056.GA947212@robh.at.kernel.org>
-References: <20210331091616.2306-1-thunder.leizhen@huawei.com>
- <20210331091616.2306-3-thunder.leizhen@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECA7DF8013F
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 22:43:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECA7DF8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="fsc+WA8S"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 59B30610EA;
+ Thu,  1 Apr 2021 20:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617309814;
+ bh=CxRiGpAwxxqa0Vu8pQQP6HhO9b4ZMmEy0ohqCZncy1Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=fsc+WA8STNBqH1vWkidrfVnJLh6rjJ3hSsdZvhm6MQ8gLRpWGtKegoBtnGpOae6cT
+ CFEPe4LRcxV5lLNW38zYKLhV/6iMFKlI49+XXotIXshuaubEYhLjRAzUAJ6Uv58Vtt
+ WIgFmHAZSeBCTSrLyKyg+SM+kwduA0pP5JQlMnS7i3KWAC9XHxrq5zGHP0xG7rVCOV
+ j9yfnyHMwLzG8ucBHAdkQISv70NpNAuNz7+fKj1NiowAGwUdyyV87f56XkaeG/QycW
+ d5wkhBx1GVgBYgwRX2AmY+gUE2etEc3PmUBdbPeyaiH/oAhV+g5i0SYrQvpBs0NDsI
+ rkrjlap8ybMcg==
+From: Mark Brown <broonie@kernel.org>
+To: mac.chiang@intel.com,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: Intel: Boards: cml_da7219_max98390: add capture
+ stream for echo reference
+Date: Thu,  1 Apr 2021 21:43:18 +0100
+Message-Id: <161730965813.25343.18094681542486299831.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <1617285613-29457-1-git-send-email-mac.chiang@intel.com>
+References: <1617285613-29457-1-git-send-email-mac.chiang@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210331091616.2306-3-thunder.leizhen@huawei.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>, yang.jie@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,50 +82,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 31, 2021 at 05:16:16PM +0800, Zhen Lei wrote:
-> Currently, if there are more than two ports, or if there is only one port
-> but other properties(such as "#address-cells") is required, these ports
-> are placed under the "ports" node. So add the schema of property "ports".
+On Thu, 1 Apr 2021 22:00:13 +0800, mac.chiang@intel.com wrote:
+> enable speaker capture dai link for feedback path
 
-A given binding should just use 'ports' or 'port' depending on it's 
-need. Supporting both forms is needless complexity.
+Applied to
 
-> Otherwise, warnings similar to the following will be reported:
-> arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dt.yaml: \
-> sound@ec500000: 'ports' does not match any of the regexes: \
-> '^rcar_sound,ctu$', '^rcar_sound,dai$', '^rcar_sound,dvc$', ...
-> 
-> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
-> ---
->  Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> index 384191ee497f534..a42992fa687d3f3 100644
-> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> @@ -115,6 +115,11 @@ properties:
->      $ref: audio-graph-port.yaml#
->      unevaluatedProperties: false
->  
-> +  ports:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-       $ref: /schemas/graph.yaml#/properties/ports
+Thanks!
 
-> +    patternProperties:
-> +      '^port@[0-9]':
-> +        $ref: "#/properties/port"
+[1/1] ASoC: Intel: Boards: cml_da7219_max98390: add capture stream for echo reference
+      commit: 628166c37c16250612da926c010fe6c84d086ac1
 
-Then this should be: $ref: audio-graph-port.yaml#
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Also, what each port is should be defined, but that's a separate 
-problem.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> +
->  # use patternProperties to avoid naming "xxx,yyy" issue
->  patternProperties:
->    "^rcar_sound,dvc$":
-> -- 
-> 1.8.3
-> 
-> 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,86 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B093350C8D
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 04:21:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B666350D80
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 06:16:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D49B941;
-	Thu,  1 Apr 2021 04:20:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D49B941
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9102169B;
+	Thu,  1 Apr 2021 06:15:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9102169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617243673;
-	bh=eAPZfKt9BEcYexxBFO3pBJrrMJ0c03TuMGjyPYFzh7s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FDoWh4HpmbplVrB5ed9ZsxvCIIFJWp8oCZ6sNrE8SYr4DkGWnRKWgku42sH0yDGJF
-	 hQzYV2w7HBhPRD3FwGcfqPzAI9ZvgbrZP0WF5WqUdV3tY/hykMGj6zoOWViN48XR0a
-	 iyffRdAx7w+xJKqng9HGizw0exP4agImMpKdcFzA=
+	s=default; t=1617250598;
+	bh=NEoLwCJQDsokpyQ1DhS1TuwZPVUTJfnW39pcE6g2IUU=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Sf9SztVNOSSBR3hzUXwM64Gfz4XRUrGKc9D3rnRM4eumxajvzzPEetshl4S+Ebiru
+	 nlmfVl64b+DDnjM39bc3m7OpMTeXCdUR1B6fz5R/oJQ2FyAI3Gz3L6zF2KXFMQOiIp
+	 a9+EKMYSmLeWC0Zwtz8NnVVpFkZe5s80Nrdapd0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23ABBF8026F;
-	Thu,  1 Apr 2021 04:19:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E71CF80117;
+	Thu,  1 Apr 2021 06:15:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E955F80240; Thu,  1 Apr 2021 04:19:44 +0200 (CEST)
+ id 970BCF8026B; Thu,  1 Apr 2021 06:15:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62B50F8013F
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 04:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B50F8013F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HBFB71+q"
-Received: by mail-ed1-x52b.google.com with SMTP id o19so185503edc.3
- for <alsa-devel@alsa-project.org>; Wed, 31 Mar 2021 19:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=v417xFyLo4CDkoNWlJKuZlaEzNutDqjoxgV5bz5MXzE=;
- b=HBFB71+qEo839ympB+itZ5yUBbRo8LFVjOD/dffoQ0cm5ato2mwT+jVo9jmZlo+Ocw
- n963EGKOnAWTf+6+0f0zqsz/DCYZBkmD+K/1bX73LoBJdemGcsxZoDGfC2fFB78c7Yef
- bIzYX8ymwl4dmxq4u+yIikekklwcjCqGybx2S0KE8wPU+xwL2GmTct0IR6vmRK9To15o
- 4ZDDu3guWo3EDNjc45spT2lsR7io1Pp6mJdB2XslMQB6Z5sI9Zzdyz1HV7bJVBhTmpx8
- 2TffzXjI0d8j0aSZD05GvL02xNwJocw9RQu3nl4eiXvEKl/4T3ESISME6XE2ulpMxWv0
- 5xsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=v417xFyLo4CDkoNWlJKuZlaEzNutDqjoxgV5bz5MXzE=;
- b=GKn3YfAbI7J2vmdMo4efQwH77gBlEae339svIkwuetOAe+bYU/WgIW6gvbE75zinWI
- nsYNlTdskhZuoS3z+23U1i4j3FeODZtHs3B+aSOs9QmuAS2grdLc0bbxGgO0TbBVMeMV
- mgEweN2umcHCCxyNbfEOwkHEvmyXRWnPwewlM57w8LezJ49rtXXfqUf+pNgUuK1UKVRn
- JFRWltEUXHvoDBtn7JJ+mHEKIrxZ3NmPRxXJwwCrkyDiUk7vR6CLUGwh/gg6Yh25cZY5
- kNgVXfYvMTPDtcmROgD5EXCiy6FcHknlDSminsqMmIKu1IC7bmhDhBTgoyXCZoKagSmu
- rK6w==
-X-Gm-Message-State: AOAM531+SdgHGHx6cUSjJVD248ApNB3Y1mdeoFaLtdhPTkqQ42YS4gYi
- AHnI5AHAZvyUYSF34FES8H57mkWKtpIhQ3JMKTw=
-X-Google-Smtp-Source: ABdhPJwrw9gKMMOc0fhVMp0v/pHpWH5WttLOJJ+fO1FHe/OvwRDPDul0G+RDfkJ/q/cWAsQMQlZKffhVhjGO/uHzOik=
-X-Received: by 2002:aa7:d416:: with SMTP id z22mr7168620edq.239.1617243575616; 
- Wed, 31 Mar 2021 19:19:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAOsVg8oCOSHrqx_7rU_KAYugOaYxmJ1vLvrS_wAah0VKFVZ05w@mail.gmail.com>
- <CAEsQvcuTb_3meXw-X08v1MduNpCA3xA6SXq-ezuJrcC7tP+faw@mail.gmail.com>
- <CAOsVg8rE8772qnGAHwFuK4+A9QA-AcDqAH4PkLJJf2GH3tmiVQ@mail.gmail.com>
- <CAEsQvcvjf-o7x8t06cCB3hwMNXZYf=xJWsbnGdTmt=CXP2HJQA@mail.gmail.com>
-In-Reply-To: <CAEsQvcvjf-o7x8t06cCB3hwMNXZYf=xJWsbnGdTmt=CXP2HJQA@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Wed, 31 Mar 2021 21:19:23 -0500
-Message-ID: <CAOsVg8qTwqFwnmWZwu02rMqwkpbNZFV4COL8yB-BAJDNuT2gug@mail.gmail.com>
-Subject: Re: [PATCH] Fixing most Roland-related devices' USB audio
-To: Geraldo <geraldogabriel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0E591F80117
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 06:15:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E591F80117
+Date: 01 Apr 2021 13:14:56 +0900
+X-IronPort-AV: E=Sophos;i="5.81,295,1610377200"; d="scan'208";a="76723756"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 01 Apr 2021 13:14:56 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 32AD7401325D;
+ Thu,  1 Apr 2021 13:14:56 +0900 (JST)
+Message-ID: <87wntmod33.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/14] ASoC: simple-card-utils: prepare for multi support
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,25 +64,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the encouragement and wisdom.  I hope your additions, and mine,
-work out in the end.  A real hurdle with tasking everyone with patching for
-their devices, aside from having probably long since given up hope for use
-of the device on GNU/Linux, is the amount of disparate forums they voiced
-their issues on.  There's also the daunting likelihood that select few
-music creators actually would decide to compile their own kernels to see if
-a problem is fixed, let alone feel comfortable enough applying a patch.
 
-I hadn't realized this was a list to drum up testers, or that every change
-needs to be tested fully.  I thought it was a direct path to possible
-acceptance for inclusion in the kernel, if reasonable doubts are considered.
+Hi Mark
 
-I hope they'll let me sidestep that huge, unreasonable, undertaking, as my
-test implicit feedback "fix" for the UA-4FX (which doesn't need it) proved
-it still functions as perfectly as without it.  That should mean that for
-the devices that don't require this patch, but which had been accidentally
-added, no harm is done.  I can't really see myself as owner of all these
-devices someday... ;)
+I want to add new audio-graph-card2 driver which can support
+not only DPCM, but also Multi-CPU/Codec, and Codec2Codec.
+And it is also supporting audio-graph-card2 base custom driver.
 
-Thanks again, Geraldo!,
+But before supporting such driver, we need to cleanup existing
+simple-card / audio-graph, because these and new driver are
+sharing code.
 
-  Lucas Endres
+This patch-set are for Multi-CPU/Codec support,
+and some cleanups.
+
+Kuninori Morimoto (14):
+  ASoC: simple-card-utils: enable flexible CPU/Codec/Platform
+  ASoC: simple-card-utils: share dummy DAI and reduce memory
+  ASoC: simple-card-utils: setup dai_props cpu_dai/codec_dai at initial timing
+  ASoC: simple-card-utils: remove li->dais/li->conf
+  ASoC: simple-card-utils: use for_each_prop_xxx()
+  ASoC: simple-card-utils: remove asoc_simple_parse_xxx()
+  ASoC: simple-card-utils: care multi DAI at asoc_simple_clean_reference()
+  ASoC: simple-card-utils: indicate dai_fmt if exist
+  ASoC: simple-card-utils: indicate missing CPU/Codec numbers for debug
+  ASoC: simple-card-utils: add simple_props_to_xxx() macro
+  ASoC: simple-card-utils: multi support at asoc_simple_canonicalize_cpu/platform()
+  ASoC: simple-card-utils: tidyup debug info for clock
+  ASoC: simple-card-utils: tidyup dev_dbg() to use 1 line
+  ASoC: simple-card-utils: tidyup asoc_simple_parse_convert()
+
+ include/sound/simple_card_utils.h     | 116 +++++++----
+ sound/soc/generic/audio-graph-card.c  |  90 ++++-----
+ sound/soc/generic/simple-card-utils.c | 272 +++++++++++++++++---------
+ sound/soc/generic/simple-card.c       | 104 +++++-----
+ 4 files changed, 352 insertions(+), 230 deletions(-)
+
+-- 
+2.25.1
+

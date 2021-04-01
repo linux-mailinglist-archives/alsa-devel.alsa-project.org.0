@@ -2,78 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2AB351C25
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 20:45:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E045352026
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 21:52:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB327169F;
-	Thu,  1 Apr 2021 20:44:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB327169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E4FB16AE;
+	Thu,  1 Apr 2021 21:51:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E4FB16AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617302732;
-	bh=87PhwuI2U2Hgp0sxc3dSOuuCl0s6Hza5UVFguDYCOPg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617306721;
+	bh=HmkNGRIjZsYBe8dxLKAHBQmly+6fyWanBmO5uZ2lni0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h0qsY/XQOF2TVLH7DQ3BbFtGBWynLpNNo/wF48rkVbXxhK3nCcxQTEYRk+VXws1zp
-	 /JoNIICP1SQGuaYZ7Xp3et27XieKqEaOozOay0ofW+PgdTQ+owNJ3GiYj1vVZzZSLi
-	 LG7rbC1IjGhex02vqCPRUN61N9uEkUPW84MaFLjk=
+	b=QfLtVnEN1NJ5lwhfEW/mzaRzvsM+CkjKXtgv2UD6ZfXSJc4cuYAlj0MF1LGbIpYQl
+	 kyZfft3sqniiPt7jS1h+w/X6ZfAvR/KGIuRM6odwzq4UTUUO4Sd6SgT0mzCZPOR51J
+	 aXM/4BqOA+DJ8pHZ1QrbqlU6qGHC28yr+ajsMR8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15188F80240;
-	Thu,  1 Apr 2021 20:44:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1478DF8013F;
+	Thu,  1 Apr 2021 21:50:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBFDFF8026B; Thu,  1 Apr 2021 20:44:03 +0200 (CEST)
+ id 810D3F8026B; Thu,  1 Apr 2021 21:50:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C55F7F8013C
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 20:43:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C55F7F8013C
-IronPort-SDR: WYLhruU+oCByvCam/LdUoXh7i5pzDFFO6P3edyKww6l5Yv/SMe6o9XWop2BL7bXfcGv1k7TBsW
- Bx/z99vS6GcQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="179441592"
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="179441592"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 11:43:56 -0700
-IronPort-SDR: XJBnaXm9h/BWh45aFK0GTo2R4IxM5/A3Xo6knAgunzHIBxvkdZt8F2zLF4Z/kJc3P5M0pneP18
- dCqZmHCspH7g==
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="439323382"
-Received: from vhsalasl-mobl.amr.corp.intel.com (HELO [10.255.229.235])
- ([10.255.229.235])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 11:43:54 -0700
-Subject: Re: [PATCH 1/2] soundwire: add macro to selectively change error
- levels
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20210331011355.14313-1-yung-chuan.liao@linux.intel.com>
- <20210331011355.14313-2-yung-chuan.liao@linux.intel.com>
- <YGV1HYL+XcVmxfQG@vkoul-mobl.Dlink>
- <0834b9fc-9b3a-1184-fed2-6f9c7e66c6fb@linux.intel.com>
- <YGX5AUQi41z52xk8@kroah.com>
- <81c6b53b-e3fb-32d0-1e99-365d87ab6524@linux.intel.com>
- <YGYQIJh8X2C8sW44@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <28515962-6fb1-511d-fc6b-f1422b11e6ab@linux.intel.com>
-Date: Thu, 1 Apr 2021 13:43:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B81AF8013F
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 21:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B81AF8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="K2FBGeFc"
+Received: by mail-ed1-x52d.google.com with SMTP id w18so3259961edc.0
+ for <alsa-devel@alsa-project.org>; Thu, 01 Apr 2021 12:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TXMNvHbAHbKh/NcmmnfAIy5A5476Yjvsjiuoq3Ul5X4=;
+ b=K2FBGeFcdK5o7IjNXEu+4UNuXSJWVyuhOpgGChAhWVI0h8R3nHyJVR9xsTX6MxdeJU
+ IAxXqg8dt+/iuaoxpeFd2myy0QuDcyQUStLVS4w8E1P7FwvOTRLBX2YkDyRPCntUcScl
+ ouqPqRaZ5uqW1LvD7q+yHTCFiQMkcSOO1744tMJmC5JucTxMMV2dUO7/v5sqVvwNeitn
+ 2xkIYMePmvAvWeDsChVOsiIsILemd3gZkg5dCLL9Bl4jMPCTdfa9IuxUs3gJFoBGe4rZ
+ 83hWHGANNnfUXp2wPSxa9JbYyXbh4jl9xAPF6VQKlSJpFJRFKeP6Lq3xe08Pz1GDpso5
+ OJgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TXMNvHbAHbKh/NcmmnfAIy5A5476Yjvsjiuoq3Ul5X4=;
+ b=lxn0dg3r4SIVsOr+bzQVVC6NyEO2K6IUyGkoGZ82ZsyXbAXf9zb9oBiqRq/VBE4fhT
+ 3RrZv+YNNXiUXTGKX2URdT54queeUCJqd2zMH4SNaOpLPUeLW/mBihAyi+u7//ZUm9D5
+ hBAfwDzlPi5NYr+qAR3LLWZc1jBcQkuY+l7xu1nWZ81wCVIPscOUo/hsAUTwnIvzPk8A
+ 7lMzOW2p02D5QvDvQmfrOtjgFmIrLwbKmuMNdAU3rOXdwxRpYeOZMG4LgdUmtxPzCTIF
+ XIzxtq9cV9KABOm37IWoxSuyA/qHOEtVu+XOn/bZrWA18uYpIjECM8Vx/TlCb96n77ZC
+ A9DA==
+X-Gm-Message-State: AOAM530VB4HogQkmHwHYKzVCQplTxhB8KZRNVM/b1qfJPYA7nRX69xTa
+ hd6g617jjOq4LqpSWlTsP5mAJKUdTy+X0tZR8Xg=
+X-Google-Smtp-Source: ABdhPJwOTPF5dDg2zgFbty0opD2Zo+kQ5g8MrtLx6O+yXXlXMQhXvpvoe/VuY9rCBiQY+Urnl7DPK8NC5mNEaOup94Q=
+X-Received: by 2002:aa7:ce0b:: with SMTP id d11mr2462584edv.209.1617306627164; 
+ Thu, 01 Apr 2021 12:50:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YGYQIJh8X2C8sW44@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- hui.wang@canonical.com, Vinod Koul <vkoul@kernel.org>, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+References: <CAOsVg8oCOSHrqx_7rU_KAYugOaYxmJ1vLvrS_wAah0VKFVZ05w@mail.gmail.com>
+ <CAEsQvcuTb_3meXw-X08v1MduNpCA3xA6SXq-ezuJrcC7tP+faw@mail.gmail.com>
+ <CAOsVg8rE8772qnGAHwFuK4+A9QA-AcDqAH4PkLJJf2GH3tmiVQ@mail.gmail.com>
+ <CAEsQvcvjf-o7x8t06cCB3hwMNXZYf=xJWsbnGdTmt=CXP2HJQA@mail.gmail.com>
+ <CAOsVg8qTwqFwnmWZwu02rMqwkpbNZFV4COL8yB-BAJDNuT2gug@mail.gmail.com>
+ <CAEsQvcs55c9Y-OwoypArz7gNt5AK3fZZtREjedi7TA6zxZXhdw@mail.gmail.com>
+In-Reply-To: <CAEsQvcs55c9Y-OwoypArz7gNt5AK3fZZtREjedi7TA6zxZXhdw@mail.gmail.com>
+From: Lucas <jaffa225man@gmail.com>
+Date: Thu, 1 Apr 2021 14:50:15 -0500
+Message-ID: <CAOsVg8o7=5X4KWOch4Bc1g4+oUKpiYr+S8Bb+oqvTBThj8uBgg@mail.gmail.com>
+Subject: Re: [PATCH] Fixing most Roland-related devices' USB audio
+To: Geraldo <geraldogabriel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,47 +99,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Apr 1, 2021 at 10:55 AM Geraldo <geraldogabriel@gmail.com> wrote:
 
->>> My bigger issue with this is that this macro is crazy.  Why do you need
->>> debugging here at all for this type of thing?  That's what ftrace is
->>> for, do not sprinkle code with "we got this return value from here!" all
->>> over the place like what this does.
+> Em Qua, 31 de mar de 2021 23:19, Lucas <jaffa225man@gmail.com> escreveu:
+>
+>> Thanks for the encouragement and wisdom.  I hope your additions, and
+>> mine, work out in the end.
 >>
->> We are not sprinkling the code all over the place with any new logs, they
->> exist already in the SoundWire code and this patch helps filter them out.
->> See e.g. patch 2/2
+>
+> They will!
+>
+> A real hurdle with tasking everyone with patching for their devices, aside
+>> from having probably long since given up hope for use of the device on
+>> GNU/Linux, is the amount of disparate forums they voiced their issues on.
+>> There's also the daunting likelihood that select few music creators
+>> actually would decide to compile their own kernels to see if a problem is
+>> fixed, let alone feel comfortable enough applying a patch.
 >>
->> -			dev_err(&slave->dev,
->> -				"Clk Stop type =%d failed: %d\n", type, ret);
->> +			sdw_dev_dbg_or_err(&slave->dev, ret != -ENODATA,
->> +					   "Clk Stop mode %d type =%d failed: %d\n",
->> +					   mode, type, ret);
-> 
-> You just added a debug log for no reason.
+>
+> Recompiling kernels with custom patches and workarounds for regular
+> devices is madness. This should be needed only for development purposes.
+>
 
-The number of logs is lower when dynamic debug is not enabled, and equal 
-when it is. there's no addition.
+True, but it's much less of a burden on a source-based distro.  I used to
+use mainly Sourcemage GNU/Linux, which made changes pretty painless.  With
+debian it's still doable, though I think building the packages takes more
+time.  On Sourcemage, updating the whole system after a glibc upgrade takes
+even more patience.
 
-The previous behavior was unconditional dev_err that everyone sees.
 
-Now it's dev_err ONLY when the code is NOT -ENODATA, and dev_dgb 
-otherwise, meaning it will seen ONLY be seen IF dynamic debug is enabled 
-for drivers/soundwire/bus.c
+>
+>> I hadn't realized this was a list to drum up testers, or that every
+>> change needs to be tested fully.  I thought it was a direct path to
+>> possible acceptance for inclusion in the kernel, if reasonable doubts are
+>> considered.
+>>
+>
+> Well the Linux kernel has to be somewhat orderly even if the open source
+> development model is inherently chaotic.
+>
+> This should be a list with lots of testers but I'll bet the volume scares
+> them off.
+>
 
-Allow me to use another example from patch2:
+Yeah, the sheer amount relegated my thread to oblivion pretty fast.
 
--		if (ret == -ENODATA)
--			dev_dbg(bus->dev,
--				"ClockStopNow Broadcast msg ignored %d", ret);
--		else
--			dev_err(bus->dev,
--				"ClockStopNow Broadcast msg failed %d", ret);
-+		sdw_dev_dbg_or_err(bus->dev, ret != -ENODATA,
-+				   "ClockStopNow Broadcast msg failed %d\n", ret);
 
-There's no new log, is there?
+>
+>> I hope they'll let me sidestep that huge, unreasonable, undertaking, as
+>> my test implicit feedback "fix" for the UA-4FX (which doesn't need it)
+>> proved it still functions as perfectly as without it.
+>>
+>
+> I disagree a bit with you. It's not very wise to add unneeded quirks.
+>
 
-If that still gives you a heartburn, I would still like a macro that 
-filters out dev_err so that we don't report an error when it's 
-recoverable or harmless, and don't have spaghetti code as above.
+In this case the quirks to me seem to be Roland/Edirol/Boss devices that
+don't need this method, but yes your point is well taken.
 
+
+> That should mean that for the devices that don't require this patch, but
+>> which had been accidentally added, no harm is done.  I can't really see
+>> myself as owner of all these devices someday... ;)
+>>
+>> Thanks again, Geraldo!,
+>>
+>>   Lucas Endres
+>>
+>
+> Thank you,
+> Geraldo Nascimento
+>
+>>
+Thanks again!

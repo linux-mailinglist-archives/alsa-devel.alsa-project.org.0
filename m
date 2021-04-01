@@ -2,71 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9E73516DA
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 18:48:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1999D3516E0
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 18:51:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C044016BD;
-	Thu,  1 Apr 2021 18:47:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C044016BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A87B216BC;
+	Thu,  1 Apr 2021 18:50:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A87B216BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617295720;
-	bh=f3yZ/9sfR8caygUqeEk+iSpCs9WAqRkd59lqpXyjtlo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1617295881;
+	bh=vxTVJTwXdLfGpOZ/I0OGhb7tzVdQXski1BZ2JRe9dBo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QoSO58hEpKN9qvnOsr3qqjavzEyln2E//DRWV9CglloV6kDei4VBeFwJdR4Jon/gm
-	 9XoiMD68OU+uzwjIyoOL25vbVL4T54jSThfJRZu9pchRO1FhRKR7GKAIQ4cWIO7KvK
-	 c9qp/SXKWuSDoG22k11Uu/idUMIlPKbuQEqRTdL4=
+	b=NGCBgusqx5noP9RnBt2PtI6xgUN2TApR+o8YZrcHkxrLwIrqn5RJb6NtN61RV8mq7
+	 5tf4gR4xqd/pewpIFwHGAGf+cQAk6ZkFyhRSQn0oqILQr+p8NO9/i1SwW5/Mvk0FHe
+	 9G7AGq/SpZQXCo58FIzSWhGQAkP4kZRg6tgNhNfg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12067F8026F;
-	Thu,  1 Apr 2021 18:47:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18304F8026F;
+	Thu,  1 Apr 2021 18:49:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D6A7F8026B; Thu,  1 Apr 2021 18:47:12 +0200 (CEST)
+ id 3CC02F8026B; Thu,  1 Apr 2021 18:49:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B425F8013C
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 18:47:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B425F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0C04F8013C
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 18:49:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0C04F8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="y2qmaWu7"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D3A326138E;
- Thu,  1 Apr 2021 16:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1617295620;
- bh=f3yZ/9sfR8caygUqeEk+iSpCs9WAqRkd59lqpXyjtlo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=y2qmaWu7xE5U8wJYR/J0QQzSKnLxAJNwTm8015Yyk28A+wnnGi7/RAYrFhSADnUID
- EDyTPjkesEekvBMbPtDLYSQFNU3NVzUCLXja5bLtlz3H71Kqd/BfydWKSIHUWQXhSo
- EkQ6CWkVqe9OE05P5LS1DcAtw1P3OAIHCCyg0heY=
-Date: Thu, 1 Apr 2021 18:46:57 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/2] soundwire: add macro to selectively change error
- levels
-Message-ID: <YGX5AUQi41z52xk8@kroah.com>
-References: <20210331011355.14313-1-yung-chuan.liao@linux.intel.com>
- <20210331011355.14313-2-yung-chuan.liao@linux.intel.com>
- <YGV1HYL+XcVmxfQG@vkoul-mobl.Dlink>
- <0834b9fc-9b3a-1184-fed2-6f9c7e66c6fb@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="RBWZRmBR"
+Received: by mail-ej1-x630.google.com with SMTP id hq27so3835847ejc.9
+ for <alsa-devel@alsa-project.org>; Thu, 01 Apr 2021 09:49:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=ZITJn9OwOFdWnyw6/5K8hXI6be2iHs737Z1KKpoKKTI=;
+ b=RBWZRmBRgVRFL5dFTOkdMQ1amg4cZOhsWLoORTkHUV3924VD5q/OAsOJes34QFkgXc
+ pCW2Ckhu1f+1u5WYI86oBJSnZBu6qxA64D4gQ19nMWvjafrJQvgWHB4D5rtdaLoWbRSE
+ 2A6aiCrnSc69/8pwpVGjCRS7YPjkNP65/5VyD88Qh+Jwj1EX4Cp1730m43LughZTty46
+ 1yzzGN0462AQTyj3rxtDzM4/6ZKKdBS2UQUhoPCEHDLwbYNC0q4Eo0JZw+FsqxgHwtNp
+ KFbRo7rRXfHjmRxOYWmj1ybPOPWfRTBrfKjoDOLktq2Tba3yeiQRlFSxvFk/GGsm4ilq
+ 0h3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=ZITJn9OwOFdWnyw6/5K8hXI6be2iHs737Z1KKpoKKTI=;
+ b=aUTfuk0uXH0v9hFWsfGP7/XGC3eZ8QtqKBpfSpwLjpGpTc2tTwgEtwUtyXiyRTTid5
+ TGjf0L0B2hFTnGmiamlb8TmwpcMvhrTpl7YL4Q6eCCGp/dSbtykilEGdGAkVk9XJuhA9
+ H89O80Qs4Tq1mRCLmrIy3g0PNRsE6mRa/PItePptb8zGuVCj1eAWnfyq8TZ2ddn5a3Rw
+ 8MK9WuuYbBF08ofrnj3HD0GOGTrqknA/DD1XS8YyFR3FBECgladvKERYVY6XgVkKjsKb
+ MsIenS93zWPJm/CMYPyXZ9NelsVk3qGS125p6TfrB/hm9/i6FHGS5rYRQjG6XxH+0w+j
+ YC/g==
+X-Gm-Message-State: AOAM531Q4kHpw3bFZDEtoRKcHKEpvpapQiZJlTFCCkdTYVJchuwTE/N1
+ V03hL8pJdX2UV7NWfkfzkgJ/ag==
+X-Google-Smtp-Source: ABdhPJwX4MhXvSaIufRpbKrM41cxH8YiLeSdEhYocoua6E1USCwXSegShln1t3assMXdbLazajeadQ==
+X-Received: by 2002:a17:906:5383:: with SMTP id
+ g3mr10148080ejo.185.1617295787833; 
+ Thu, 01 Apr 2021 09:49:47 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id j25sm3800692edy.9.2021.04.01.09.49.46
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 01 Apr 2021 09:49:47 -0700 (PDT)
+Subject: Re: [PATCH v2] soundwire: qcom: wait for fifo space to be available
+ before read/write
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20210401090058.24041-1-srinivas.kandagatla@linaro.org>
+ <e1bcc85d-b583-2c9a-18e5-634994cc2916@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <41911806-e4ce-44e2-d187-a1a27406ed34@linaro.org>
+Date: Thu, 1 Apr 2021 17:49:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0834b9fc-9b3a-1184-fed2-6f9c7e66c6fb@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- hui.wang@canonical.com, Vinod Koul <vkoul@kernel.org>, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+In-Reply-To: <e1bcc85d-b583-2c9a-18e5-634994cc2916@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,62 +110,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 01, 2021 at 09:30:27AM -0500, Pierre-Louis Bossart wrote:
+
+
+On 01/04/2021 15:36, Pierre-Louis Bossart wrote:
 > 
 > 
-> On 4/1/21 2:24 AM, Vinod Koul wrote:
-> > On 31-03-21, 09:13, Bard Liao wrote:
-> > > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > 
-> > > We sometimes discard -ENODATA when reporting errors and lose all
-> > > traces of issues in the console log, add a macro to add use dev_dbg()
-> > > in such cases.
-> > > 
-> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > Reviewed-by: Rander Wang <rander.wang@intel.com>
-> > > Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> > > Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > > ---
-> > >   drivers/soundwire/bus.h | 8 ++++++++
-> > >   1 file changed, 8 insertions(+)
-> > > 
-> > > diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-> > > index 40354469860a..8370216f95d4 100644
-> > > --- a/drivers/soundwire/bus.h
-> > > +++ b/drivers/soundwire/bus.h
-> > > @@ -227,4 +227,12 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
-> > >   void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
-> > >   int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
-> > > +#define sdw_dev_dbg_or_err(dev, is_err, fmt, ...)			\
-> > > +	do {								\
-> > > +		if (is_err)						\
-> > > +			dev_err(dev, fmt, __VA_ARGS__);			\
-> > > +		else							\
-> > > +			dev_dbg(dev, fmt, __VA_ARGS__);			\
-> > > +	} while (0)
-> > 
-> > I see a variant in sof code and now here, why not add in a
-> > dev_dbg_or_err() and use everywhere?
+> On 4/1/21 4:00 AM, Srinivas Kandagatla wrote:
+>> If we write registers very fast we can endup in a situation where some
+>> of the writes will be dropped without any notice.
+>>
+>> So wait for the fifo space to be available before reading/writing the
+>> soundwire registers.
 > 
-> Good point, I hesitated back and forth on specific v. generic macro.
+> Out of curiosity, do you actually need to do a check in the read case as 
+> well?
+
+Yes, This is just to make sure the read command is finished and fifo is 
+ready with data.
+
+If not we will be reading quickly an empty fifo!
+
 > 
-> The main reason why I added this macro for SoundWire is that quite a few
-> subsystems have their own debug functions (DRM, ACPI, etc), and I wasn't
-> sure if there was any appetite to add more options in
-> include/linux/dev_printk.h. SOF also uses a different format due to history.
+> The commit message talks about writes getting dropped, is the opposite 
+> also a problem?
 
-It is better if those other subsystems move to using the common kernel
-debug functions.  Historically they were all separate, there is no good
-reason for them to be that way today.
+Its highly likely, for safety I have added support for both write and 
+read waits in this patch.
 
-So please do not create custom subsystem debug macros like this just for
-this tiny set of drivers.
 
-My bigger issue with this is that this macro is crazy.  Why do you need
-debugging here at all for this type of thing?  That's what ftrace is
-for, do not sprinkle code with "we got this return value from here!" all
-over the place like what this does.
-
-thanks,
-
-greg k-h
+--srini
+> 

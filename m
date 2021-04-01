@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 030A53511B9
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 11:16:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B25351200
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 11:26:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EEA110E;
-	Thu,  1 Apr 2021 11:16:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EEA110E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F6401682;
+	Thu,  1 Apr 2021 11:25:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F6401682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617268611;
-	bh=8xzGYhCFzDcvbUelWUitDTo/C1YVVkEUNrF0+uZgD6w=;
+	s=default; t=1617269206;
+	bh=6sso+/+DbuVTFZQtsuOuz7PVFdqjbudR+rLsbDAbd6U=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=U6g+SFneeRAkO6943aZ3dre8vh84FgxZu1IqMCs+M1t+DwDwGjdO3qci4N2gI2gSm
-	 bMdQlv5xwgy6HKmrUlGu9UKuiNup8Q28KwlL4ccRVVSWSllkULWOaN+SVCgNI5+omW
-	 hAicf16oEXVtuuVuYmbfMOdvyQuYk0T2TXx3itF0=
+	b=fcamRr5p6XdNmYYEx0CHxAxkTOwIRW1oDC9b1OtdBbo/eRvJZ/TDcL976pVYn9DWH
+	 scd1V6rm8pBkYNmz5MVsZkPBvkGfNyA6IBFHyneOOYIvCos38/7GAsa0gAiAq4vZ1t
+	 ee8rmiVizxbPxEDrxFryhKTNIumfIRUF4KSjtWso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0D8AF8026F;
-	Thu,  1 Apr 2021 11:15:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68D38F8013F;
+	Thu,  1 Apr 2021 11:25:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E065F8026B; Thu,  1 Apr 2021 11:15:23 +0200 (CEST)
+ id 5B83EF8026B; Thu,  1 Apr 2021 11:25:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16FC0F8013F
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 11:15:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16FC0F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AE34F80117
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 11:24:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AE34F80117
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="WlIUaIoc"
-Received: by mail-ed1-x535.google.com with SMTP id l18so1121589edc.9
- for <alsa-devel@alsa-project.org>; Thu, 01 Apr 2021 02:15:05 -0700 (PDT)
+ header.b="Hcyf8uZ1"
+Received: by mail-ej1-x633.google.com with SMTP id w3so1864002ejc.4
+ for <alsa-devel@alsa-project.org>; Thu, 01 Apr 2021 02:24:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=pFG46RZYS5/Er5IhYN0FXoPQG4BJ55RdCsAsKwMxydU=;
- b=WlIUaIocYVvnh0DL8RSf6KBIjvTv7HVcs95o9YIu6r52SNIk/q5QYyzo6GDWE7LpHl
- lR+440cF3MLZmzmFSaH3P9x4WQwFDS6ENhwfuXULlj5hybDGIP+dlB7jQei4ezvaeyd3
- yDhoytWciC4lLk0eIVlHubjybZDxMHTt8JZ2yEM/vp1kfdLTC8yXJ+Oc2m9MYkTXuKTP
- iCMKopCKSg472suxVqhLV27KQrJwZO70iCfBNK0w6fivTHp4O7/7EFKJory3jbuTdADf
- MuETethhOuwgJ/Ks0xr03ATL+oTF3xU+mzUimorr0vLA+vke1rCsqUHZAhKHoySgwSQz
- iKAQ==
+ bh=oOGfrAjnaHDyy1tyd/ITu7l8d1aLT0q9c434VgRCWEU=;
+ b=Hcyf8uZ1S+AbwrUswcBEuo0hbJdidSJ3m55scMsQLn6YgcfRifwgdwX9lFIdR0/EwD
+ sGhFr60G2F8wy8HLT6Fq5DhdGsBHMiuPlmytuu7EgzkSuqlo95gnVhKjzr1ar1reXWRy
+ zFyQ/s7NNZEF2DY6cBUFD4LsxM57FCe1SKmiy823/oelgR+egUmQIK7uO3UEGLNNyiHV
+ y+t6qvzdHTboH9aDRDUNYi0DYZsK6YNoYc5CDjo7AeQwjabpspIEd+IprIQHYt+yPhvS
+ WReETkGNvh5uLj8sisd8E9GbdkynxeV6Sz2jOsz2Nxo0HTjfX8ZYuwb52ygiKLE07zbC
+ Bj/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=pFG46RZYS5/Er5IhYN0FXoPQG4BJ55RdCsAsKwMxydU=;
- b=HH+GNHiVZsLQncsEfdKzp+A3bpf71gj0rjcRslb+gpnCM6Nzdp0eWGl2lT8DhNp7Uu
- HV2Gf4tjZdIJHQ2xM7xaPpElLxoNYhPViOfjNV6ihLPSEufNExPMkgOd9Dx1qpGXgETW
- r7BbY4rFTi+z5WXn2mQUULKg6VdDNRLmCwFNaqMk/+5Bz7INOXcvVSVrf9K6VknE8pD9
- CM+yeTiBEMUNBVcaMdNIzvn+qEcGHcFgTygb79efBpnXDiI8I3es3j5IWbgVpaf7QeFt
- 2Axx/UNF2cA4ewpU/uD11Kik8ZJwe+vukbb96jww0KCxlBLKspE81b/BFVZ+G6tEzpNw
- vXMw==
-X-Gm-Message-State: AOAM531HMCRe1QpQwDUoiGly+iovz7z89ik/U15wbHcSixARqBpAVsFK
- l73L+zBkSmgw/J+z0c020MuqKQ==
-X-Google-Smtp-Source: ABdhPJxq9SvkUxPvdCl1mrkfMUE3n7OpohFqbLJ25k6jtzcdjAn8gW60BZeAuXxTc2WbWKY0s+B/4w==
-X-Received: by 2002:aa7:da14:: with SMTP id r20mr8590863eds.181.1617268505387; 
- Thu, 01 Apr 2021 02:15:05 -0700 (PDT)
+ bh=oOGfrAjnaHDyy1tyd/ITu7l8d1aLT0q9c434VgRCWEU=;
+ b=aN8tjf+BcbXqnCLBWVH3WkH/hb2lxaqfkRY9a6hcv6hNK2FhIfIliuEPzitK7ga0GH
+ uh2a6yitFNN4moXxJGeBg85buUUukPwiX++7Ph2jwvf36arezvYgz+OVrOHhfrlvnhc4
+ WeTjzUYYBu8ycB1D4etWC19N3FiKa8L4tTDRJHYRecpDSXuJjBX0TUPucabbOqRVQr14
+ h6sYaJZSAu5J7YUotOKj/9Gwp8xRIM6S3nHKA/oDAEqBZDDtGYDma/d7Lu4LnWapiVaA
+ 3/BS5rIuDro1xANWBYw6R1BtA9NtrMdoUX0vRu8zfq0exyETKD9u+p1fUa+8wzuTnWkq
+ EJuw==
+X-Gm-Message-State: AOAM5319wKOqKA+KBIZBC6FYKTEUAbYT3l0I66iTYml9h7LStfBEXGxd
+ /XSqIbFHr3bROkWdRktInuVIDA==
+X-Google-Smtp-Source: ABdhPJzc8mO3rKu0OflJbxXCo6lNYZ1oXBNAu5JQfDr5Rx7+ZGLHFGAQPxX9JPUy+kSv8IfVBWKpyg==
+X-Received: by 2002:a17:907:94cc:: with SMTP id
+ dn12mr8188592ejc.177.1617269097400; 
+ Thu, 01 Apr 2021 02:24:57 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id gb4sm2426802ejc.122.2021.04.01.02.15.04
+ by smtp.gmail.com with ESMTPSA id cb17sm3221540edb.10.2021.04.01.02.24.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Apr 2021 02:15:04 -0700 (PDT)
+ Thu, 01 Apr 2021 02:24:56 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Subject: [PATCH] soundwire: qcom: handle return correctly in
- qcom_swrm_transport_params
-Date: Thu,  1 Apr 2021 10:15:02 +0100
-Message-Id: <20210401091502.15825-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH] soundwire: qcom: cleanup internal port config indexing
+Date: Thu,  1 Apr 2021 10:24:54 +0100
+Message-Id: <20210401092454.21299-1-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com,
- coverity-bot <keescook+coverity-bot@chromium.org>,
- linux-kernel@vger.kernel.org, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,61 +100,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Looks like return from reg_write is set but not checked.
-Fix this by adding error return path.
+Internally used portconfig array for storing port bandwidth
+params starts from offset zero. However port zero is not really
+used and we also copy the bus parameters to offset zero.
+So basically we endup with a code which has to subtract 1 from port
+number to get to port parameters.
 
-Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
-Addresses-Coverity-ID: 1503591 ("UNUSED_VALUE")
-Fixes: 128eaf937adb ("soundwire: qcom: add support to missing transport params")
+This is bit confusing to the reader so, make this bit more obvious by only
+copying the parameters to offset 1 instead of zero. This will avoid doing
+-1 every time when we try to get port params.
+
+Similar thing has been recently done with din/dout_port_mask.
+
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/soundwire/qcom.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/soundwire/qcom.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 5fd4a99cc8ac..348d9a46f850 100644
+index 94fd58f9dda3..348d9a46f850 100644
 --- a/drivers/soundwire/qcom.c
 +++ b/drivers/soundwire/qcom.c
-@@ -731,17 +731,23 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
- 	value |= pcfg->si;
+@@ -724,7 +724,7 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+ 	int reg = SWRM_DP_PORT_CTRL_BANK((params->port_num), bank);
+ 	int ret;
  
- 	ret = ctrl->reg_write(ctrl, reg, value);
-+	if (ret)
-+		goto err;
+-	pcfg = &ctrl->pconfig[params->port_num - 1];
++	pcfg = &ctrl->pconfig[params->port_num];
  
- 	if (pcfg->lane_control != SWR_INVALID_PARAM) {
- 		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
- 		value = pcfg->lane_control;
- 		ret = ctrl->reg_write(ctrl, reg, value);
-+		if (ret)
-+			goto err;
+ 	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
+ 	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
+@@ -811,11 +811,11 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus)
+ 	struct qcom_swrm_port_config *pcfg;
+ 	struct sdw_slave *slave;
+ 	unsigned int m_port;
+-	int i = 0;
++	int i = 1;
+ 
+ 	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
+ 		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
+-			pcfg = &ctrl->pconfig[p_rt->num - 1];
++			pcfg = &ctrl->pconfig[p_rt->num];
+ 			p_rt->transport_params.port_num = p_rt->num;
+ 			if (pcfg->word_length != SWR_INVALID_PARAM) {
+ 				sdw_fill_port_params(&p_rt->port_params,
+@@ -832,7 +832,7 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus)
+ 				m_port = slave->m_port_map[p_rt->num];
+ 				/* port config starts at offset 0 so -1 from actual port number */
+ 				if (m_port)
+-					pcfg = &ctrl->pconfig[m_port - 1];
++					pcfg = &ctrl->pconfig[m_port];
+ 				else
+ 					pcfg = &ctrl->pconfig[i];
+ 				p_rt->transport_params.port_num = p_rt->num;
+@@ -1167,15 +1167,16 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	of_property_read_u8_array(np, "qcom,ports-lane-control", lane_control, nports);
+ 
+ 	for (i = 0; i < nports; i++) {
+-		ctrl->pconfig[i].si = si[i];
+-		ctrl->pconfig[i].off1 = off1[i];
+-		ctrl->pconfig[i].off2 = off2[i];
+-		ctrl->pconfig[i].bp_mode = bp_mode[i];
+-		ctrl->pconfig[i].hstart = hstart[i];
+-		ctrl->pconfig[i].hstop = hstop[i];
+-		ctrl->pconfig[i].word_length = word_length[i];
+-		ctrl->pconfig[i].blk_group_count = blk_group_count[i];
+-		ctrl->pconfig[i].lane_control = lane_control[i];
++		/* Valid port number range is from 1-14 */
++		ctrl->pconfig[i + 1].si = si[i];
++		ctrl->pconfig[i + 1].off1 = off1[i];
++		ctrl->pconfig[i + 1].off2 = off2[i];
++		ctrl->pconfig[i + 1].bp_mode = bp_mode[i];
++		ctrl->pconfig[i + 1].hstart = hstart[i];
++		ctrl->pconfig[i + 1].hstop = hstop[i];
++		ctrl->pconfig[i + 1].word_length = word_length[i];
++		ctrl->pconfig[i + 1].blk_group_count = blk_group_count[i];
++		ctrl->pconfig[i + 1].lane_control = lane_control[i];
  	}
  
- 	if (pcfg->blk_group_count != SWR_INVALID_PARAM) {
- 		reg = SWRM_DP_BLOCK_CTRL2_BANK(params->port_num, bank);
- 		value = pcfg->blk_group_count;
- 		ret = ctrl->reg_write(ctrl, reg, value);
-+		if (ret)
-+			goto err;
- 	}
- 
- 	if (pcfg->hstart != SWR_INVALID_PARAM
-@@ -755,11 +761,15 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
- 		ret = ctrl->reg_write(ctrl, reg, value);
- 	}
- 
-+	if (ret)
-+		goto err;
-+
- 	if (pcfg->bp_mode != SWR_INVALID_PARAM) {
- 		reg = SWRM_DP_BLOCK_CTRL3_BANK(params->port_num, bank);
- 		ret = ctrl->reg_write(ctrl, reg, pcfg->bp_mode);
- 	}
- 
-+err:
- 	return ret;
- }
- 
+ 	return 0;
 -- 
 2.21.0
 

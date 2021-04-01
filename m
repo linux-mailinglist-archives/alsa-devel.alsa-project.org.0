@@ -2,72 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ACEE351010
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 09:25:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B73E6351096
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 10:08:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33A6816C1;
-	Thu,  1 Apr 2021 09:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33A6816C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB841692;
+	Thu,  1 Apr 2021 10:07:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB841692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617261916;
-	bh=QTnz+6jGcvYfBHbJRGBNxgg3sk4PrA6WsodxoS43ESU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1617264489;
+	bh=nzocXhncquS9lpXkbGZdKowTEJFQfWPN6/99y2q19WU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N4IXR4r7UdJWIRlS6Ec5gFRxYNNAyyrloUtzwJwxVYSV55sVpS1iJSmavABE+ZDXT
-	 IZQsJbHBL3JybvjY3DQYYDPWMZJOeGFciV5qh3PgSXE0yN6lstBcYp5QLUoveRoAJ2
-	 qo5lRrM2ZuBTobQo9EzZ/O2FKQGtPJiMuc34gQTY=
+	b=hG7RHFrjxzR4FRB2oawUyr1m9nZ83bcL/A5uQ3LAF8nqMJ0NDtCC8KqmdQCO/TRtp
+	 VxyaaWDzsfc1/+G1ZS9O85y0MLBOKO+O7cwJekmKXDZPW8oUUdX1NyB1M+Op2hYH6j
+	 laGeLnbcTJdjhrAIRwtLXGNKi8ZYJ7/hu+hZBZCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB619F8026B;
-	Thu,  1 Apr 2021 09:24:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1E92F80272;
+	Thu,  1 Apr 2021 10:06:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F209BF80272; Thu,  1 Apr 2021 09:24:21 +0200 (CEST)
+ id BE381F8026B; Thu,  1 Apr 2021 10:06:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 728E1F8013C
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 09:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728E1F8013C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iLEIbHNJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B7BB56101E;
- Thu,  1 Apr 2021 07:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617261857;
- bh=QTnz+6jGcvYfBHbJRGBNxgg3sk4PrA6WsodxoS43ESU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iLEIbHNJkGB0NFObdCK7gpCmPVD4KaJpzmuIm/d5lUy5SAcJLDoxf9MbGHC5FmzzD
- lKlelSAxNMmFMs5Qz3e9nIYEvPbPm3Vxo3Swhxa/FgsCxV2UOr7FnO9EYAoSyneHjO
- 6+eUDHE3L07aU6xaWL3uLosHkrY+RyswCd616bSSw1B3nW9/Szeql7N+xR7FJ9z7pm
- xFophTyXhdWtSOfGKp41VSxOe8mSMsk/WTGK7gQz/wRFlQAilRdjHtZL1gbEWzOSFi
- c6jah7hrwaEuKY0Y3Q/MCv0s2NmyJMXyzMsi4Y0NWY72YIvRAEmrTI6NBhVPWozxJe
- 0DlfuhEokyc/w==
-Date: Thu, 1 Apr 2021 12:54:13 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 1/2] soundwire: add macro to selectively change error
- levels
-Message-ID: <YGV1HYL+XcVmxfQG@vkoul-mobl.Dlink>
-References: <20210331011355.14313-1-yung-chuan.liao@linux.intel.com>
- <20210331011355.14313-2-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210331011355.14313-2-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- hui.wang@canonical.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BDA4F8013C
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 10:06:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDA4F8013C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 367E4AF3B;
+ Thu,  1 Apr 2021 08:06:27 +0000 (UTC)
+Date: Thu, 01 Apr 2021 10:06:27 +0200
+Message-ID: <s5hsg4ae8e4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: control - add the missing prev_lops2 initialization
+In-Reply-To: <20210331180702.663489-1-perex@perex.cz>
+References: <20210331180702.663489-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +68,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 31-03-21, 09:13, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Wed, 31 Mar 2021 20:07:02 +0200,
+Jaroslav Kysela wrote:
 > 
-> We sometimes discard -ENODATA when reporting errors and lose all
-> traces of issues in the console log, add a macro to add use dev_dbg()
-> in such cases.
+> As static analysis reported, the prev_lops2 should contain
+> the previous lops2 pointer in snd_ctl_disconnect_layer().
 > 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Rander Wang <rander.wang@intel.com>
-> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
->  drivers/soundwire/bus.h | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-> index 40354469860a..8370216f95d4 100644
-> --- a/drivers/soundwire/bus.h
-> +++ b/drivers/soundwire/bus.h
-> @@ -227,4 +227,12 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
->  void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
->  int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
->  
-> +#define sdw_dev_dbg_or_err(dev, is_err, fmt, ...)			\
-> +	do {								\
-> +		if (is_err)						\
-> +			dev_err(dev, fmt, __VA_ARGS__);			\
-> +		else							\
-> +			dev_dbg(dev, fmt, __VA_ARGS__);			\
-> +	} while (0)
+> Link: https://lore.kernel.org/alsa-devel/96e9bd5c-c8db-0db8-b393-fbf4a047dc80@canonical.com/
+> Fixes: 3f0638a0333b ("ALSA: control - add layer registration routines")
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-I see a variant in sof code and now here, why not add in a
-dev_dbg_or_err() and use everywhere?
+Applied, thanks.
 
-Thanks
--- 
-~Vinod
+
+Takashi

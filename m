@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B73E6351096
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 10:08:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FC3351097
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 10:08:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB841692;
-	Thu,  1 Apr 2021 10:07:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB841692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E76E169F;
+	Thu,  1 Apr 2021 10:07:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E76E169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617264489;
-	bh=nzocXhncquS9lpXkbGZdKowTEJFQfWPN6/99y2q19WU=;
+	s=default; t=1617264505;
+	bh=AjU0z7d3en9u8VUCYO2QRrYsAlNh7WlhEBKo7lqTJAA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hG7RHFrjxzR4FRB2oawUyr1m9nZ83bcL/A5uQ3LAF8nqMJ0NDtCC8KqmdQCO/TRtp
-	 VxyaaWDzsfc1/+G1ZS9O85y0MLBOKO+O7cwJekmKXDZPW8oUUdX1NyB1M+Op2hYH6j
-	 laGeLnbcTJdjhrAIRwtLXGNKi8ZYJ7/hu+hZBZCk=
+	b=Yld+WbrWHT3jRckitPitcxwlACVGSCp3ki0Hsg0HiU04upCUXx5xnKgDDk/G2QdHz
+	 5gzOiebRPPRaIDjMx5ulaDnx9W5UXPfCwV+AEo5vzLIttBbbRvfN/xcA1u6cFM2+dq
+	 gT5+VPQmtv60xvnqkhbRanYEzPsLJzrFLOgxWS1M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1E92F80272;
-	Thu,  1 Apr 2021 10:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F6EBF8027D;
+	Thu,  1 Apr 2021 10:06:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE381F8026B; Thu,  1 Apr 2021 10:06:39 +0200 (CEST)
+ id A582FF8027B; Thu,  1 Apr 2021 10:06:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BDA4F8013C
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 10:06:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDA4F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E356F80117
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 10:06:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E356F80117
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 367E4AF3B;
- Thu,  1 Apr 2021 08:06:27 +0000 (UTC)
-Date: Thu, 01 Apr 2021 10:06:27 +0200
-Message-ID: <s5hsg4ae8e4.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 1A173AF44;
+ Thu,  1 Apr 2021 08:06:39 +0000 (UTC)
+Date: Thu, 01 Apr 2021 10:06:39 +0200
+Message-ID: <s5hr1jue8ds.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: control - add the missing prev_lops2 initialization
-In-Reply-To: <20210331180702.663489-1-perex@perex.cz>
-References: <20210331180702.663489-1-perex@perex.cz>
+Subject: Re: [PATCH] ALSA: control led - improve the set_led_id() parser
+In-Reply-To: <20210331180725.663623-1-perex@perex.cz>
+References: <20210331180725.663623-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,14 +68,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 31 Mar 2021 20:07:02 +0200,
+On Wed, 31 Mar 2021 20:07:25 +0200,
 Jaroslav Kysela wrote:
 > 
-> As static analysis reported, the prev_lops2 should contain
-> the previous lops2 pointer in snd_ctl_disconnect_layer().
+> It may be possible that the string pointer does not move
+> when parsing. Add a code which detects this state and
+> simply break the parser loop in this case.
 > 
-> Link: https://lore.kernel.org/alsa-devel/96e9bd5c-c8db-0db8-b393-fbf4a047dc80@canonical.com/
-> Fixes: 3f0638a0333b ("ALSA: control - add layer registration routines")
 > Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
 Applied, thanks.

@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E30350D8D
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 06:20:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E70D2350D90
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 06:20:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5237D167E;
-	Thu,  1 Apr 2021 06:19:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5237D167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FBCB1692;
+	Thu,  1 Apr 2021 06:19:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FBCB1692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617250821;
-	bh=j9l8VV+lzJVUJQAxCepIAHttpttTu0fKQtMNqHplA1I=;
+	s=default; t=1617250845;
+	bh=mb+d/stVpmOZkzdYBdgSel6k2ibflPdrWROp+Y5ijw4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=te+bWClLF16bmEE+6TrHYZtSrTWSQ0WmuBC4Z8VGrhlwDFaPdo+bPqapL+NW/sUUH
-	 F/o1oSLPlf29gMqG3dvqjtlES4f7Xw+biYnzFtP3G4vtU85nLNuewu41R3W7KzkM0l
-	 f1ICq3FVpW5pLln7cRzrursZiIi6bqHLYdWtvbg0=
+	b=mbzu9JCNhAJKyP0O/niWxV9c8UKHoKdVCyKvSXaArsbdAuzI+lOkiXEMi8RwejjLJ
+	 ZDfxLGAfQw1yAHRse17qorJQTQUJiaY656+fsqP9r9XWFGp5EOce3723K0R4OBem0r
+	 DY8fTTDyLToole7FBZsz1eZpQw049jO0EOZnKP6s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9010F80424;
-	Thu,  1 Apr 2021 06:16:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CB55F804F1;
+	Thu,  1 Apr 2021 06:16:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2DECEF804E4; Thu,  1 Apr 2021 06:16:32 +0200 (CEST)
+ id CC7C8F804EB; Thu,  1 Apr 2021 06:16:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 4DA61F80424
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 06:16:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DA61F80424
-Date: 01 Apr 2021 13:16:28 +0900
-X-IronPort-AV: E=Sophos;i="5.81,295,1610377200"; d="scan'208";a="76950174"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 01 Apr 2021 13:16:28 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 4E8BDF804E6
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 06:16:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E8BDF804E6
+Date: 01 Apr 2021 13:16:33 +0900
+X-IronPort-AV: E=Sophos;i="5.81,295,1610377200"; d="scan'208";a="76950178"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 01 Apr 2021 13:16:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id DCFCE41860A4;
- Thu,  1 Apr 2021 13:16:28 +0900 (JST)
-Message-ID: <87im56od0j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DFBCF401325D;
+ Thu,  1 Apr 2021 13:16:33 +0900 (JST)
+Message-ID: <87h7kqod0e.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 10/14] ASoC: simple-card-utils: add simple_props_to_xxx() macro
+Subject: [PATCH 11/14] ASoC: simple-card-utils: multi support at
+ asoc_simple_canonicalize_cpu/platform()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wntmod33.wl-kuninori.morimoto.gx@renesas.com>
@@ -69,72 +70,138 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We shouldn't use dai_props->cpus/codecs/cpu_dai/codec_dai/codec_conf
-directly, because these are array to supporting multi CPU/Codec/Platform.
-This patch adds asoc_link_to_xxx() macro for it.
+Current asoc_simple_canonicalize_cpu/platform() is assuming single CPU,
+single Platform, but we want to support Multi support.
+This patch is prepare for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/simple_card_utils.h | 27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ include/sound/simple_card_utils.h     |  7 ++++---
+ sound/soc/generic/audio-graph-card.c  |  9 +++++----
+ sound/soc/generic/simple-card-utils.c | 11 ++++++-----
+ sound/soc/generic/simple-card.c       |  9 +++++----
+ 4 files changed, 20 insertions(+), 16 deletions(-)
 
 diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index e366e432c475..78b6cf0194d2 100644
+index 78b6cf0194d2..cccd9987a1b4 100644
 --- a/include/sound/simple_card_utils.h
 +++ b/include/sound/simple_card_utils.h
-@@ -74,32 +74,45 @@ struct asoc_simple_priv {
- #define simple_priv_to_dev(priv)	(simple_priv_to_card(priv)->dev)
- #define simple_priv_to_link(priv, i)	(simple_priv_to_card(priv)->dai_link + (i))
+@@ -151,9 +151,10 @@ int asoc_simple_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 					&(dai)->slots,		\
+ 					&(dai)->slot_width);
  
-+#define simple_props_to_dlc_cpu(props, i)	((props)->cpus + i)
-+#define simple_props_to_dlc_codec(props, i)	((props)->codecs + i)
-+#define simple_props_to_dlc_platform(props, i)	((props)->platforms + i)
-+
-+#define simple_props_to_dai_cpu(props, i)	((props)->cpu_dai + i)
-+#define simple_props_to_dai_codec(props, i)	((props)->codec_dai + i)
-+#define simple_props_to_codec_conf(props, i)	((props)->codec_conf + i)
-+
- #define for_each_prop_dlc_cpus(props, i, cpu)				\
- 	for ((i) = 0;							\
--	     ((i) < (props)->num.cpus) && ((cpu) = &(props)->cpus[i]);	\
-+	     ((i) < (props)->num.cpus) &&				\
-+		     ((cpu) = simple_props_to_dlc_cpu(props, i));	\
- 	     (i)++)
--#define for_each_prop_dlc_codecs(props, i, codec)				\
-+#define for_each_prop_dlc_codecs(props, i, codec)			\
- 	for ((i) = 0;							\
--	     ((i) < (props)->num.codecs) && ((codec) = &(props)->codecs[i]); \
-+	     ((i) < (props)->num.codecs) &&				\
-+		     ((codec) = simple_props_to_dlc_codec(props, i));	\
- 	     (i)++)
- #define for_each_prop_dlc_platforms(props, i, platform)			\
- 	for ((i) = 0;							\
--	     ((i) < (props)->num.platforms) && ((platform) = &(props)->platforms[i]); \
-+	     ((i) < (props)->num.platforms) &&				\
-+		     ((platform) = simple_props_to_dlc_platform(props, i)); \
- 	     (i)++)
- #define for_each_prop_codec_conf(props, i, conf)			\
- 	for ((i) = 0;							\
- 	     ((i) < (props)->num.codecs) &&				\
- 		     (props)->codec_conf &&				\
--		     ((conf) = &(props)->codec_conf[i]);		\
-+		     ((conf) = simple_props_to_codec_conf(props, i));	\
- 	     (i)++)
+-void asoc_simple_canonicalize_platform(struct snd_soc_dai_link *dai_link);
+-void asoc_simple_canonicalize_cpu(struct snd_soc_dai_link *dai_link,
+-				      int is_single_links);
++void asoc_simple_canonicalize_platform(struct snd_soc_dai_link_component *platforms,
++				       struct snd_soc_dai_link_component *cpus);
++void asoc_simple_canonicalize_cpu(struct snd_soc_dai_link_component *cpus,
++				  int is_single_links);
  
- #define for_each_prop_dai_cpu(props, i, cpu)				\
- 	for ((i) = 0;							\
--	     ((i) < (props)->num.cpus) && ((cpu) = &(props)->cpu_dai[i]); \
-+	     ((i) < (props)->num.cpus) &&				\
-+		     ((cpu) = simple_props_to_dai_cpu(props, i));	\
- 	     (i)++)
- #define for_each_prop_dai_codec(props, i, codec)			\
- 	for ((i) = 0;							\
--	     ((i) < (props)->num.codecs) && ((codec) = &(props)->codec_dai[i]); \
-+	     ((i) < (props)->num.codecs) &&				\
-+		     ((codec) = simple_props_to_dai_codec(props, i));	\
- 	     (i)++)
+ int asoc_simple_clean_reference(struct snd_soc_card *card);
  
- struct link_info {
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index 1ad661024912..850e7855105c 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -226,6 +226,7 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 	struct asoc_simple_dai *dai;
+ 	struct snd_soc_dai_link_component *cpus = dai_link->cpus;
+ 	struct snd_soc_dai_link_component *codecs = dai_link->codecs;
++	struct snd_soc_dai_link_component *platforms = dai_link->platforms;
+ 	int ret;
+ 
+ 	port	= of_get_parent(ep);
+@@ -276,8 +277,8 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 			dai_link->no_pcm = 1;
+ 
+ 		/* card->num_links includes Codec */
+-		asoc_simple_canonicalize_cpu(dai_link, is_single_links);
+-		asoc_simple_canonicalize_platform(dai_link);
++		asoc_simple_canonicalize_cpu(cpus, is_single_links);
++		asoc_simple_canonicalize_platform(platforms, cpus);
+ 	} else {
+ 		struct snd_soc_codec_conf *cconf;
+ 
+@@ -405,8 +406,8 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
+ 	dai_link->ops = &graph_ops;
+ 	dai_link->init = asoc_simple_dai_init;
+ 
+-	asoc_simple_canonicalize_cpu(dai_link, single_cpu);
+-	asoc_simple_canonicalize_platform(dai_link);
++	asoc_simple_canonicalize_cpu(dai_link->cpus, single_cpu);
++	asoc_simple_canonicalize_platform(dai_link->platforms, dai_link->cpus);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 6efe3757eff8..a15956c25858 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -423,15 +423,16 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_dai_init);
+ 
+-void asoc_simple_canonicalize_platform(struct snd_soc_dai_link *dai_link)
++void asoc_simple_canonicalize_platform(struct snd_soc_dai_link_component *platforms,
++				       struct snd_soc_dai_link_component *cpus)
+ {
+ 	/* Assumes platform == cpu */
+-	if (!dai_link->platforms->of_node)
+-		dai_link->platforms->of_node = dai_link->cpus->of_node;
++	if (!platforms->of_node)
++		platforms->of_node = cpus->of_node;
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_canonicalize_platform);
+ 
+-void asoc_simple_canonicalize_cpu(struct snd_soc_dai_link *dai_link,
++void asoc_simple_canonicalize_cpu(struct snd_soc_dai_link_component *cpus,
+ 				  int is_single_links)
+ {
+ 	/*
+@@ -444,7 +445,7 @@ void asoc_simple_canonicalize_cpu(struct snd_soc_dai_link *dai_link,
+ 	 *	fmt_multiple_name()
+ 	 */
+ 	if (is_single_links)
+-		dai_link->cpus->dai_name = NULL;
++		cpus->dai_name = NULL;
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_canonicalize_cpu);
+ 
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 80d9a4a7ccad..cce70613428d 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -124,6 +124,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 	struct asoc_simple_dai *dai;
+ 	struct snd_soc_dai_link_component *cpus = dai_link->cpus;
+ 	struct snd_soc_dai_link_component *codecs = dai_link->codecs;
++	struct snd_soc_dai_link_component *platforms = dai_link->platforms;
+ 	struct device_node *top = dev->of_node;
+ 	struct device_node *node = of_get_parent(np);
+ 	char *prefix = "";
+@@ -162,8 +163,8 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		if (ret < 0)
+ 			goto out_put_node;
+ 
+-		asoc_simple_canonicalize_cpu(dai_link, is_single_links);
+-		asoc_simple_canonicalize_platform(dai_link);
++		asoc_simple_canonicalize_cpu(cpus, is_single_links);
++		asoc_simple_canonicalize_platform(platforms, cpus);
+ 	} else {
+ 		struct snd_soc_codec_conf *cconf;
+ 
+@@ -298,8 +299,8 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	dai_link->ops = &simple_ops;
+ 	dai_link->init = asoc_simple_dai_init;
+ 
+-	asoc_simple_canonicalize_cpu(dai_link, single_cpu);
+-	asoc_simple_canonicalize_platform(dai_link);
++	asoc_simple_canonicalize_cpu(dai_link->cpus, single_cpu);
++	asoc_simple_canonicalize_platform(dai_link->platforms, dai_link->cpus);
+ 
+ dai_link_of_err:
+ 	of_node_put(plat);
 -- 
 2.25.1
 

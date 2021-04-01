@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8070350D88
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 06:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C08ED350D89
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Apr 2021 06:18:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8414416A3;
-	Thu,  1 Apr 2021 06:17:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8414416A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5938C16A6;
+	Thu,  1 Apr 2021 06:18:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5938C16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617250711;
-	bh=+vMwx0hZ0GDyfMv26K/z2NKhr06/Kbx6RwVKB5anGB0=;
+	s=default; t=1617250735;
+	bh=ILxWBqA6Hhz+oa9y40pZfE+hpLE/rrQFRV3fj2TDQmk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MHLX7JhRwn1J2KSzVnu3Yqno6JHrxETZy6i/1kZAxfbkI8g2069BMq5QZRbnOjOxY
-	 VspiYECwMP5hGJ6Yf+Eyg3YWGnkc59UYq9eg5RdCpsyZ3M+OnKGYsFmbbk/iZrpUwk
-	 YAV2ZcZQqk+XhtnfP1L0uAK5olfIslyGesE92l/g=
+	b=MnwpG1sFjM7Nw/cSt/hjTAp+QfxOfZeUevd9zid7L4MNfpQGR5EUYbL6A3J+djEBh
+	 B0RrEzbt51rZJgZhQ9cbmvpS9BmVHaAiACWotC02MhhHAviJ9W6mPDklc01VyckLTj
+	 N7SJgeq8OhVYH86YpRKD9A4ZEDK5jjEKhGK45fC0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71CBCF804AE;
-	Thu,  1 Apr 2021 06:16:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFE5CF804AD;
+	Thu,  1 Apr 2021 06:16:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A1F9F804AE; Thu,  1 Apr 2021 06:16:04 +0200 (CEST)
+ id 10708F804C1; Thu,  1 Apr 2021 06:16:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 20C84F804A9
- for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 06:15:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20C84F804A9
-Date: 01 Apr 2021 13:15:59 +0900
-X-IronPort-AV: E=Sophos;i="5.81,295,1610377200"; d="scan'208";a="76950145"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 01 Apr 2021 13:15:59 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 813C8F804AD
+ for <alsa-devel@alsa-project.org>; Thu,  1 Apr 2021 06:16:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 813C8F804AD
+Date: 01 Apr 2021 13:16:06 +0900
+X-IronPort-AV: E=Sophos;i="5.81,295,1610377200"; d="scan'208";a="76950158"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 01 Apr 2021 13:16:06 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B1488401325D;
- Thu,  1 Apr 2021 13:15:59 +0900 (JST)
-Message-ID: <87pmzeod1c.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1D67341860A4;
+ Thu,  1 Apr 2021 13:16:06 +0900 (JST)
+Message-ID: <87o8eyod15.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 05/14] ASoC: simple-card-utils: use for_each_prop_xxx()
+Subject: [PATCH 06/14] ASoC: simple-card-utils: remove asoc_simple_parse_xxx()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wntmod33.wl-kuninori.morimoto.gx@renesas.com>
@@ -73,262 +73,170 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ASoC is now supporting multi DAI, but, current
 simple-card / audio-graph are assuming fixed single DAI.
 
-This patch uses for_each_prop_xxx() to support multi DAI.
+Now, asoc_simple_parse_xxx() macro is assuming single DAI.
+To support multi-CPU/Codec, this patch unpack asoc_simple_parse_xxx()
+macro, and uses "&dai_link->cpus[i]" instead of "dai_link->cpus".
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/simple_card_utils.h     |  43 ++++++++-
- sound/soc/generic/simple-card-utils.c | 126 +++++++++++++++-----------
- 2 files changed, 113 insertions(+), 56 deletions(-)
+ include/sound/simple_card_utils.h    | 11 -----------
+ sound/soc/generic/audio-graph-card.c | 16 ++++++++--------
+ sound/soc/generic/simple-card.c      | 18 +++++++++---------
+ 3 files changed, 17 insertions(+), 28 deletions(-)
 
 diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index da9d7e3665a8..de40f09d226f 100644
+index de40f09d226f..23f17ccc7908 100644
 --- a/include/sound/simple_card_utils.h
 +++ b/include/sound/simple_card_utils.h
-@@ -74,6 +74,34 @@ struct asoc_simple_priv {
- #define simple_priv_to_dev(priv)	(simple_priv_to_card(priv)->dev)
- #define simple_priv_to_link(priv, i)	(simple_priv_to_card(priv)->dai_link + (i))
+@@ -120,10 +120,6 @@ int asoc_simple_set_dailink_name(struct device *dev,
+ int asoc_simple_parse_card_name(struct snd_soc_card *card,
+ 				char *prefix);
  
-+#define for_each_prop_dlc_cpus(props, i, cpu)				\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.cpus) && ((cpu) = &(props)->cpus[i]);	\
-+	     (i)++)
-+#define for_each_prop_dlc_codecs(props, i, codec)				\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.codecs) && ((codec) = &(props)->codecs[i]); \
-+	     (i)++)
-+#define for_each_prop_dlc_platforms(props, i, platform)			\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.platforms) && ((platform) = &(props)->platforms[i]); \
-+	     (i)++)
-+#define for_each_prop_codec_conf(props, i, conf)			\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.codecs) &&				\
-+		     (props)->codec_conf &&				\
-+		     ((conf) = &(props)->codec_conf[i]);		\
-+	     (i)++)
-+
-+#define for_each_prop_dai_cpu(props, i, cpu)				\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.cpus) && ((cpu) = &(props)->cpu_dai[i]); \
-+	     (i)++)
-+#define for_each_prop_dai_codec(props, i, codec)			\
-+	for ((i) = 0;							\
-+	     ((i) < (props)->num.codecs) && ((codec) = &(props)->codec_dai[i]); \
-+	     (i)++)
-+
- struct link_info {
- 	int link; /* number of link */
- 	int cpu;  /* turn for CPU / Codec */
-@@ -192,11 +220,16 @@ static inline void asoc_simple_debug_info(struct asoc_simple_priv *priv)
- 	for (i = 0; i < card->num_links; i++) {
- 		struct simple_dai_props *props = simple_priv_to_props(priv, i);
- 		struct snd_soc_dai_link *link = simple_priv_to_link(priv, i);
-+		struct asoc_simple_dai *dai;
-+		struct snd_soc_codec_conf *cnf;
-+		int j;
+-#define asoc_simple_parse_clk_cpu(dev, node, dai_link, simple_dai)		\
+-	asoc_simple_parse_clk(dev, node, simple_dai, dai_link->cpus)
+-#define asoc_simple_parse_clk_codec(dev, node, dai_link, simple_dai)	\
+-	asoc_simple_parse_clk(dev, node, simple_dai, dai_link->codecs)
+ int asoc_simple_parse_clk(struct device *dev,
+ 			  struct device_node *node,
+ 			  struct asoc_simple_dai *simple_dai,
+@@ -136,13 +132,6 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd);
+ int asoc_simple_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				   struct snd_pcm_hw_params *params);
  
- 		dev_dbg(dev, "DAI%d\n", i);
- 
--		asoc_simple_debug_dai(priv, "cpu", props->cpu_dai);
--		asoc_simple_debug_dai(priv, "codec", props->codec_dai);
-+		for_each_prop_dai_cpu(props, j, dai)
-+			asoc_simple_debug_dai(priv, "cpu", dai);
-+		for_each_prop_dai_codec(props, j, dai)
-+			asoc_simple_debug_dai(priv, "codec", dai);
- 
- 		if (link->name)
- 			dev_dbg(dev, "dai name = %s\n", link->name);
-@@ -209,9 +242,9 @@ static inline void asoc_simple_debug_info(struct asoc_simple_priv *priv)
- 		if (props->adata.convert_channels)
- 			dev_dbg(dev, "convert_channels = %d\n",
- 				props->adata.convert_channels);
--		if (props->codec_conf && props->codec_conf->name_prefix)
--			dev_dbg(dev, "name prefix = %s\n",
--				props->codec_conf->name_prefix);
-+		for_each_prop_codec_conf(props, j, cnf)
-+			if (cnf->name_prefix)
-+				dev_dbg(dev, "name prefix = %s\n", cnf->name_prefix);
- 		if (props->mclk_fs)
- 			dev_dbg(dev, "mclk-fs = %d\n",
- 				props->mclk_fs);
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 59b4fb2bd586..fad9c7f37d2b 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -195,17 +195,37 @@ int asoc_simple_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
--	struct simple_dai_props *dai_props = simple_priv_to_props(priv, rtd->num);
-+	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
-+	struct asoc_simple_dai *dai;
-+	int i1, i2, i;
- 	int ret;
- 
--	ret = asoc_simple_clk_enable(dai_props->cpu_dai);
--	if (ret)
--		return ret;
-+	for_each_prop_dai_cpu(props, i1, dai) {
-+		ret = asoc_simple_clk_enable(dai);
-+		if (ret)
-+			goto cpu_err;
-+	}
-+
-+	for_each_prop_dai_codec(props, i2, dai) {
-+		ret = asoc_simple_clk_enable(dai);
-+		if (ret)
-+			goto codec_err;
-+	}
- 
--	ret = asoc_simple_clk_enable(dai_props->codec_dai);
--	if (ret)
--		asoc_simple_clk_disable(dai_props->cpu_dai);
-+	return 0;
- 
-+codec_err:
-+	for_each_prop_dai_codec(props, i, dai) {
-+		if (i >= i2)
-+			break;
-+		asoc_simple_clk_disable(dai);
-+	}
-+cpu_err:
-+	for_each_prop_dai_cpu(props, i, dai) {
-+		if (i >= i1)
-+			break;
-+		asoc_simple_clk_disable(dai);
-+	}
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(asoc_simple_startup);
-@@ -216,17 +236,19 @@ void asoc_simple_shutdown(struct snd_pcm_substream *substream)
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
--	struct simple_dai_props *dai_props =
--		simple_priv_to_props(priv, rtd->num);
-+	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
-+	struct asoc_simple_dai *dai;
-+	int i;
- 
--	if (dai_props->mclk_fs) {
-+	if (props->mclk_fs) {
- 		snd_soc_dai_set_sysclk(codec_dai, 0, 0, SND_SOC_CLOCK_IN);
- 		snd_soc_dai_set_sysclk(cpu_dai, 0, 0, SND_SOC_CLOCK_OUT);
- 	}
- 
--	asoc_simple_clk_disable(dai_props->cpu_dai);
+-#define asoc_simple_parse_cpu(node, dai_link, is_single_link)	\
+-	asoc_simple_parse_dai(node, dai_link->cpus, is_single_link)
+-#define asoc_simple_parse_codec(node, dai_link)	\
+-	asoc_simple_parse_dai(node, dai_link->codecs, NULL)
+-#define asoc_simple_parse_platform(node, dai_link)	\
+-	asoc_simple_parse_dai(node, dai_link->platforms, NULL)
 -
--	asoc_simple_clk_disable(dai_props->codec_dai);
-+	for_each_prop_dai_cpu(props, i, dai)
-+		asoc_simple_clk_disable(dai);
-+	for_each_prop_dai_codec(props, i, dai)
-+		asoc_simple_clk_disable(dai);
- }
- EXPORT_SYMBOL_GPL(asoc_simple_shutdown);
+ #define asoc_simple_parse_tdm(np, dai)			\
+ 	snd_soc_of_parse_tdm_slot(np,	&(dai)->tx_slot_mask,	\
+ 					&(dai)->rx_slot_mask,	\
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index 45c9656a1336..1ad661024912 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -247,11 +247,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  
-@@ -249,41 +271,41 @@ int asoc_simple_hw_params(struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct asoc_simple_dai *pdai;
-+	struct snd_soc_dai *sdai;
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
--	struct simple_dai_props *dai_props =
--		simple_priv_to_props(priv, rtd->num);
-+	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
- 	unsigned int mclk, mclk_fs = 0;
--	int ret;
-+	int i, ret;
+ 		dai = dai_props->cpu_dai;
  
--	if (dai_props->mclk_fs)
--		mclk_fs = dai_props->mclk_fs;
-+	if (props->mclk_fs)
-+		mclk_fs = props->mclk_fs;
+-		ret = asoc_simple_parse_cpu(ep, dai_link, &is_single_links);
++		ret = asoc_simple_parse_dai(ep, dai_link->cpus, &is_single_links);
+ 		if (ret)
+ 			goto out_put_node;
  
- 	if (mclk_fs) {
- 		mclk = params_rate(params) * mclk_fs;
+-		ret = asoc_simple_parse_clk_cpu(dev, ep, dai_link, dai);
++		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->cpus);
+ 		if (ret < 0)
+ 			goto out_put_node;
  
--		ret = asoc_simple_set_clk_rate(dai_props->codec_dai, mclk);
--		if (ret < 0)
--			return ret;
--
--		ret = asoc_simple_set_clk_rate(dai_props->cpu_dai, mclk);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_dai_set_sysclk(codec_dai, 0, mclk,
--					     SND_SOC_CLOCK_IN);
--		if (ret && ret != -ENOTSUPP)
--			goto err;
--
--		ret = snd_soc_dai_set_sysclk(cpu_dai, 0, mclk,
--					     SND_SOC_CLOCK_OUT);
--		if (ret && ret != -ENOTSUPP)
--			goto err;
-+		for_each_prop_dai_codec(props, i, pdai) {
-+			ret = asoc_simple_set_clk_rate(pdai, mclk);
-+			if (ret < 0)
-+				return ret;
-+		}
-+		for_each_prop_dai_cpu(props, i, pdai) {
-+			ret = asoc_simple_set_clk_rate(pdai, mclk);
-+			if (ret < 0)
-+				return ret;
-+		}
-+		for_each_rtd_codec_dais(rtd, i, sdai) {
-+			ret = snd_soc_dai_set_sysclk(sdai, 0, mclk, SND_SOC_CLOCK_IN);
-+			if (ret && ret != -ENOTSUPP)
-+				return ret;
-+		}
-+		for_each_rtd_cpu_dais(rtd, i, sdai) {
-+			ret = snd_soc_dai_set_sysclk(sdai, 0, mclk, SND_SOC_CLOCK_OUT);
-+			if (ret && ret != -ENOTSUPP)
-+				return ret;
-+		}
- 	}
- 	return 0;
--err:
--	return ret;
- }
- EXPORT_SYMBOL_GPL(asoc_simple_hw_params);
+@@ -290,11 +290,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		dai =   dai_props->codec_dai;
+ 		cconf = dai_props->codec_conf;
  
-@@ -378,20 +400,22 @@ static int asoc_simple_init_dai_link_params(struct snd_soc_pcm_runtime *rtd,
- int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
--	struct simple_dai_props *dai_props = simple_priv_to_props(priv, rtd->num);
--	int ret;
--
--	ret = asoc_simple_init_dai(asoc_rtd_to_codec(rtd, 0),
--				   dai_props->codec_dai);
--	if (ret < 0)
--		return ret;
-+	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
-+	struct asoc_simple_dai *dai;
-+	int i, ret;
+-		ret = asoc_simple_parse_codec(ep, dai_link);
++		ret = asoc_simple_parse_dai(ep, dai_link->codecs, NULL);
+ 		if (ret < 0)
+ 			goto out_put_node;
  
--	ret = asoc_simple_init_dai(asoc_rtd_to_cpu(rtd, 0),
--				   dai_props->cpu_dai);
--	if (ret < 0)
--		return ret;
-+	for_each_prop_dai_codec(props, i, dai) {
-+		ret = asoc_simple_init_dai(asoc_rtd_to_codec(rtd, i), dai);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	for_each_prop_dai_cpu(props, i, dai) {
-+		ret = asoc_simple_init_dai(asoc_rtd_to_cpu(rtd, i), dai);
-+		if (ret < 0)
-+			return ret;
-+	}
+-		ret = asoc_simple_parse_clk_codec(dev, ep, dai_link, dai);
++		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->codecs);
+ 		if (ret < 0)
+ 			goto out_put_node;
  
--	ret = asoc_simple_init_dai_link_params(rtd, dai_props);
-+	ret = asoc_simple_init_dai_link_params(rtd, props);
+@@ -371,11 +371,11 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
  	if (ret < 0)
  		return ret;
+ 
+-	ret = asoc_simple_parse_cpu(cpu_ep, dai_link, &single_cpu);
++	ret = asoc_simple_parse_dai(cpu_ep, dai_link->cpus, &single_cpu);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = asoc_simple_parse_codec(codec_ep, dai_link);
++	ret = asoc_simple_parse_dai(codec_ep, dai_link->codecs, NULL);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -387,11 +387,11 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = asoc_simple_parse_clk_cpu(dev, cpu_ep, dai_link, cpu_dai);
++	ret = asoc_simple_parse_clk(dev, cpu_ep, cpu_dai, dai_link->cpus);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = asoc_simple_parse_clk_codec(dev, codec_ep, dai_link, codec_dai);
++	ret = asoc_simple_parse_clk(dev, codec_ep, codec_dai, dai_link->codecs);
+ 	if (ret < 0)
+ 		return ret;
+ 
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 61f08bb10ffb..80d9a4a7ccad 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -148,11 +148,11 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 
+ 		dai = dai_props->cpu_dai;
+ 
+-		ret = asoc_simple_parse_cpu(np, dai_link, &is_single_links);
++		ret = asoc_simple_parse_dai(np, dai_link->cpus, &is_single_links);
+ 		if (ret)
+ 			goto out_put_node;
+ 
+-		ret = asoc_simple_parse_clk_cpu(dev, np, dai_link, dai);
++		ret = asoc_simple_parse_clk(dev, np, dai, dai_link->cpus);
+ 		if (ret < 0)
+ 			goto out_put_node;
+ 
+@@ -176,11 +176,11 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		dai   = dai_props->codec_dai;
+ 		cconf = dai_props->codec_conf;
+ 
+-		ret = asoc_simple_parse_codec(np, dai_link);
++		ret = asoc_simple_parse_dai(np, dai_link->codecs, NULL);
+ 		if (ret < 0)
+ 			goto out_put_node;
+ 
+-		ret = asoc_simple_parse_clk_codec(dev, np, dai_link, dai);
++		ret = asoc_simple_parse_clk(dev, np, dai, dai_link->codecs);
+ 		if (ret < 0)
+ 			goto out_put_node;
+ 
+@@ -260,15 +260,15 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 
+ 	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
+ 
+-	ret = asoc_simple_parse_cpu(cpu, dai_link, &single_cpu);
++	ret = asoc_simple_parse_dai(cpu, dai_link->cpus, &single_cpu);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
+-	ret = asoc_simple_parse_codec(codec, dai_link);
++	ret = asoc_simple_parse_dai(codec, dai_link->codecs, NULL);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
+-	ret = asoc_simple_parse_platform(plat, dai_link);
++	ret = asoc_simple_parse_dai(plat, dai_link->platforms, NULL);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
+@@ -280,11 +280,11 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
+-	ret = asoc_simple_parse_clk_cpu(dev, cpu, dai_link, cpu_dai);
++	ret = asoc_simple_parse_clk(dev, cpu, cpu_dai, dai_link->cpus);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
+-	ret = asoc_simple_parse_clk_codec(dev, codec, dai_link, codec_dai);
++	ret = asoc_simple_parse_clk(dev, codec, codec_dai, dai_link->codecs);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
  
 -- 
 2.25.1

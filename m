@@ -2,80 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0437F3521F7
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Apr 2021 00:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04CCC3525B9
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Apr 2021 05:41:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8684816A8;
-	Fri,  2 Apr 2021 00:05:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8684816A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D36A16AD;
+	Fri,  2 Apr 2021 05:40:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D36A16AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617314803;
-	bh=ijp/hoIVCiRb4r3GvjQlNcc82q51GpfYSClVX7eUC+8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Dk8ITiB9jukpRAHp+8yEjw25CYwih1h317zrGjVnla2lLm3Kar1g1Rqiji1KK/QmS
-	 5myo36/u+aPkswL+7DM5TeBd60l9oSrSW288mnOh+3znvfXPD4iTX9y6ttgoU/+I+n
-	 hvU0oKHPG+Ef0iAL9l3FsqzJn1CD0B/XOuUUt+9E=
+	s=default; t=1617334891;
+	bh=TIYagRuyFKy0bJ3LuVbr3pyOectwsp8y/AiqL8Ggrxs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UQ+MdZEy1yFofYXqonZWK/kHW1R/d/BJCjHKejXKULgIVFfEf+Up/BCvAJB9B58hi
+	 7RfLEMb2DA2s7X0UA4K/30EqCXYk0WHKe5JY3IKt+KM4v8RgZx7/Fv0cJXlRoJm3qw
+	 9GxgbzkKCA+aV3ZOCs7IKlS3xNRJFtelFnqN3C9c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB1D8F80117;
-	Fri,  2 Apr 2021 00:05:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB741F800F5;
+	Fri,  2 Apr 2021 05:40:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88FFAF80117; Fri,  2 Apr 2021 00:05:14 +0200 (CEST)
+ id 82C86F801DB; Fri,  2 Apr 2021 05:40:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20714.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::714])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A16F7F80117
- for <alsa-devel@alsa-project.org>; Fri,  2 Apr 2021 00:05:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A16F7F80117
-IronPort-SDR: PH6qE6bmYHdrEGE7sDM6fWm4XlYMiCFpqDWNm9piKyz9zRWHbacjwwLvFSNLSjBcnYIJ9zg7Pw
- 99I1ThmKS7qw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="179874689"
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="179874689"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 15:05:03 -0700
-IronPort-SDR: woQjBWDWfplgQxB3qXk7SrzORi4R9iUBUBLYsWqAfe1HPPurufWe5qeXqBto12Z+s9A69g7gjw
- APSsXzA0MO2Q==
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="528362669"
-Received: from wheiser-mobl.amr.corp.intel.com (HELO [10.209.2.25])
- ([10.209.2.25])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 15:05:02 -0700
-Subject: Re: [PATCH 1/2] soundwire: add macro to selectively change error
- levels
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20210331011355.14313-1-yung-chuan.liao@linux.intel.com>
- <20210331011355.14313-2-yung-chuan.liao@linux.intel.com>
- <YGV1HYL+XcVmxfQG@vkoul-mobl.Dlink>
- <0834b9fc-9b3a-1184-fed2-6f9c7e66c6fb@linux.intel.com>
- <YGX5AUQi41z52xk8@kroah.com>
- <81c6b53b-e3fb-32d0-1e99-365d87ab6524@linux.intel.com>
- <YGYQIJh8X2C8sW44@kroah.com>
- <28515962-6fb1-511d-fc6b-f1422b11e6ab@linux.intel.com>
- <YGYzjWOz076M3ZUq@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a52b875b-3aa8-2e63-8a17-679dafc31507@linux.intel.com>
-Date: Thu, 1 Apr 2021 17:05:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E30EF800F5
+ for <alsa-devel@alsa-project.org>; Fri,  2 Apr 2021 05:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E30EF800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
+ header.i=@maximintegrated.onmicrosoft.com header.b="gLqbDIEn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wc1GIk6PeS6C2qfw5caxmUwN/qildp33IKV5lUc8LTPig3QpI+80VTgg5Lzknuz+ifFZngM4s0gIuC+vyYsfu3JPHOzDe7bu1vOL4/nJFd2uMHYuUM12opDNQOiS/XXnUKTohQ1ldcv6CDWHi7PoukktkbXrQuvuo02qB3h2NoT8imm5Ghjrx0J6Cz9a8zWNi575X2pMTPiqIgkvUGvjWb4DBXpw97YNXGCpZiA5kM+drtlqKdEzI2NtgsofR1O+qTc1q50AgSBuiA7ckYWxjPvw/zgmHMH1UFDOPKogJ/zxbeEKuqCDk2qb6Iw862X+pPjKuQ2if7yr6B4e2YSz0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G0dtyvSrR2YsFIgYZFWkvzYvtcp2VPzwQEIisFKEYuw=;
+ b=TLDb8k8KW4V75noRrMOfTqKTJHEhsDdyJYVPTZRTVkH5TG1HOcA6KCv/lGKNv7GgbHL3O6GgYOI2U+cjPUtnmFFfouCoJpgWS1Tq3zes1u9C3+gXeazzLfy2MgRpiyvTr/Rzfd9J+HwpwCPPIX6GiuQoKhoHMGpxQjCC+CCs/TVj0ELzl05JyofWdeBbwPgDmSYRODqhRFG+9RKYPujNgAmMrrZ0iCoLS3lMHUwltvTDv21a6weZwxXBFjU/52cuZ132TTOxl0Q4aDbudT6fhieiScLoynO/qYmDJosXylubmhzetJDh1SZl13i2/7WI0+EkpgxAP6IMk07Dch782Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
+ header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=maximintegrated.onmicrosoft.com;
+ s=selector2-maximintegrated-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G0dtyvSrR2YsFIgYZFWkvzYvtcp2VPzwQEIisFKEYuw=;
+ b=gLqbDIEnbejUKMZ/pWii4xHxT0UImptMVe4xsJVD+onRjKxRB+U7N0cId46dfftSFkZbWsW/jrTeuOqA5NC4uSZZ3tb6o2bTqy3tqKHj8exR3vkPeCE8Fm6SVg9j+wEdCCaWe5X1NWll/NccKoRVElbSxUkl3BYwmF3uBbBuG8Q=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none
+ header.from=maximintegrated.com;
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by CO1PR11MB5060.namprd11.prod.outlook.com (2603:10b6:303:93::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.27; Fri, 2 Apr
+ 2021 03:39:28 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::cc39:7519:2fa6:cc8b]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::cc39:7519:2fa6:cc8b%3]) with mapi id 15.20.3999.028; Fri, 2 Apr 2021
+ 03:39:28 +0000
+From: Steve Lee <steves.lee@maximintegrated.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ ckeepax@opensource.cirrus.com, geert@linux-m68k.org,
+ rf@opensource.wolfsonmicro.com, shumingf@realtek.com,
+ srinivas.kandagatla@linaro.org, krzk@kernel.org, dmurphy@ti.com,
+ jack.yu@realtek.com, nuno.sa@analog.com, steves.lee@maximintegrated.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: max98390: Add controls for tx path
+Date: Fri,  2 Apr 2021 12:36:43 +0900
+Message-Id: <20210402033643.12259-1-steves.lee@maximintegrated.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-Originating-IP: [125.129.66.126]
+X-ClientProxiedBy: SL2P216CA0019.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:100:18::29) To CO1PR11MB5089.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::16)
 MIME-Version: 1.0
-In-Reply-To: <YGYzjWOz076M3ZUq@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- hui.wang@canonical.com, Vinod Koul <vkoul@kernel.org>, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (125.129.66.126) by
+ SL2P216CA0019.KORP216.PROD.OUTLOOK.COM (2603:1096:100:18::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3977.31 via Frontend Transport; Fri, 2 Apr 2021 03:39:24 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f5c06ccd-c84c-418a-3166-08d8f588eaf6
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5060:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO1PR11MB5060596EB45F6EF483ACDF43927A9@CO1PR11MB5060.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:454;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ngv8NvCgG419PVWxobU1k9d2+tOB1l4xMoCxzs4A8aRiVozw8W0CO0DCyyhrYp++9U8iTNScl1wrTmKaP+6JvGAgIQRarmqSUF8Jt6DMGfp5k27Yo8OFVNZtTKvg4aZKgeyRvlDw/N0Abk3ihIYCMcus1XjmVJhL1UkQ6RzcuseJI3Qt9ppQnf1QwesY7/IfDTwQlU6pAiZXvR/pb7GlyVKJO/RHdVrxAIb2JvWKPk5psfA8zSBJlLyfyx/qCzBUF/PV1k8DJFdbb3+R7ItCi5tl1qI3mcBHN+VfGxUS9sjQRiA4mM355r8nZTHmqkMpWA/f2xLDOa1AX8gfx7iulFaRamg6fDUdxRiyIAI52qchyBgti2Qxoq9HmZRSbYPW6t9G8y0eKt3vRoX5NX9YDi6S0J3laqWSbHSSzG24rLm4IU6PeS3X2jKNsltBI7tFwutuY31gKMqsT1YffZLnpdoc8qFlfgkRXLHshnr9OLHkogO89zP5a0Yv1pzbBZ2Mh470Onn+Cn1NWcix+c+qtYb1Z/919Ayof/G8S9fsHMUFVwwNAhkzrDhMiGADmrx+9euCXM+5Dhx27LADVM2mpl8fFwtSnMUPdODl8/cjJm23oiAHzknYb4qNfvGzYFXK6D+uf1fzAA5elrAXMqdkzMmdYPfe0Z3gvd9ESirBTmI6C7F8MOtBTMmh7ZggCOP7RQjJgKvr2RuKia8Nb4Fvwg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(376002)(136003)(39860400002)(396003)(36756003)(66946007)(52116002)(6486002)(66476007)(38100700001)(66556008)(6512007)(83380400001)(7416002)(6506007)(478600001)(86362001)(956004)(8676002)(5660300002)(2616005)(1076003)(8936002)(4744005)(2906002)(4326008)(6666004)(26005)(69590400012)(186003)(921005)(316002)(16526019);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?4B8AwTM01P7cQBfwW4KeOqDr6kArECioRB/TGeCWCoFA8/Ryw938U6BT03l0?=
+ =?us-ascii?Q?JEkg8nE2YSnRRhmXhc0oAHkAk3Af6adjgHdIs/PcLQHREbO7oYfpfINhHoBy?=
+ =?us-ascii?Q?mGqrIgXiES8ZYQxZ8ZCbltQpuHSQ/IG6Ltoh+rM8uib3+B6RQ83mSR9D7QKK?=
+ =?us-ascii?Q?CXahtaMNtZulvIXBa9PKTQzsicF+t9cvMbsdAgp5Q1cDStmCZPXfgY/Xf3wl?=
+ =?us-ascii?Q?zJuiaSkAEpOQ5G8QGl+dzZR13M6F1ElcfV1k4r4LKwjciUFyOPQmLF5SneRc?=
+ =?us-ascii?Q?zFqri6R+ZNc9HXcoSLkV9sHrsO2fMQocGE3Su8IrpMb/rtJMWlr9zUWWiT2I?=
+ =?us-ascii?Q?KLZh1rCHryDsQYQWtLqBoBvY6ej5FpPtCwzQX92a4VLRJqdpI4Zlkxv6ZXgm?=
+ =?us-ascii?Q?VTJ7yrMpw9+pj+2LNBi7y6oiuR3nbl7lgVFsHrD0yriKOurKrDMCv/duZoZo?=
+ =?us-ascii?Q?uAFbP/gnC7kgho8ea/0DK6kFVO8Or7jVKvKNd4IwC9orqUq3iqquxW698lQ0?=
+ =?us-ascii?Q?ZC2M2HWjLqalTFGqh+sK6qAEtc7fWYcG+r8lFbuQ/JKrEl8cgE53ZPKEfhG/?=
+ =?us-ascii?Q?V/By4u6gP5BAVoOe5QeOq2Uw69ZF9uDhAFQNv3H4y5jlA1Z57ix9fiP5hjBi?=
+ =?us-ascii?Q?hCuXGhh9jAtzClEcoYbsornYXXZzQUmdAwCjZfsrk5KXYLZnmsu+9N4zHXps?=
+ =?us-ascii?Q?29c6a5BCQGr1xbqGx3aChIU1IIK2CAzR1VMQoDYEi0j5XZPopg/fjsbdTTdV?=
+ =?us-ascii?Q?OIG64Y742IoQBaNYhHh7dpJ1DU5tM9J8hy1GmO8sMuod562NUSMb9gltKG42?=
+ =?us-ascii?Q?w3lFaTAu7XZd+6yrwjlXfCLpalDio3A39l1y7xqNdh+bwveGl8yESjeUcxfm?=
+ =?us-ascii?Q?aKIvYL7u6Yn3V1Rr2ZnLuVQ+CS2AxwOwz1br2JYOAWKcv5SEcOmrAvxnvox2?=
+ =?us-ascii?Q?irTNF6g9pt1Rcp5MsQkFKdvtBKuqXBivY9LdVcOS655x5TJ2yCBHGtdixTBI?=
+ =?us-ascii?Q?Bjcb+z8P+aKCWfMCgAQa1oQJzjuizzAVqbxX6Sj0HPgZNAqaJaVjRUF/aM0c?=
+ =?us-ascii?Q?p2DSbIP75WfrBit/1oOpzVgwXIPuQ3va8LTgkJkQggkGIDqEL+L6OPm+aHGq?=
+ =?us-ascii?Q?qquagzm9kz8I4fID3wIzIAhp6f0hcwyuOJn1VWUzYNkaJVoW1JJSx+1GcntC?=
+ =?us-ascii?Q?dhapL9E6Vn9VnCbdyqHGfimmTw7jb/sTe3zPTfbP+ezpMv4Nr7AJGcvwH/ad?=
+ =?us-ascii?Q?Jvcpc57CDkzNbyt9Wqw78UJkGfXCQEVpFVKs8fw1A7CHvYoxD/BhDCvNrUvh?=
+ =?us-ascii?Q?4uHvB3i2CUPz5U++Nh6nn+qw?=
+X-OriginatorOrg: maximintegrated.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c06ccd-c84c-418a-3166-08d8f588eaf6
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2021 03:39:28.2431 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd909df-ea69-4788-a554-f24b7854ad03
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ydQYGcVf5tj98E1hDReTRprMYdlGLyQzDiwbbJ2yMsdK1a0cKHmvgqCPF4IRmiu49YkRu/k/DcVFJWmZPVp7fF/Md/ersDa56dOunPW90vs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5060
+Cc: ryan.lee.maxim@gmail.com, steves.lee.maxim@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,80 +154,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+ Add controls for tx source.
 
+Signed-off-by: Steve Lee <steves.lee@maximintegrated.com>
+---
+ sound/soc/codecs/max98390.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-On 4/1/21 3:56 PM, Greg KH wrote:
-> On Thu, Apr 01, 2021 at 01:43:53PM -0500, Pierre-Louis Bossart wrote:
->>
->>>>> My bigger issue with this is that this macro is crazy.  Why do you need
->>>>> debugging here at all for this type of thing?  That's what ftrace is
->>>>> for, do not sprinkle code with "we got this return value from here!" all
->>>>> over the place like what this does.
->>>>
->>>> We are not sprinkling the code all over the place with any new logs, they
->>>> exist already in the SoundWire code and this patch helps filter them out.
->>>> See e.g. patch 2/2
->>>>
->>>> -			dev_err(&slave->dev,
->>>> -				"Clk Stop type =%d failed: %d\n", type, ret);
->>>> +			sdw_dev_dbg_or_err(&slave->dev, ret != -ENODATA,
->>>> +					   "Clk Stop mode %d type =%d failed: %d\n",
->>>> +					   mode, type, ret);
->>>
->>> You just added a debug log for no reason.
->>
->> The number of logs is lower when dynamic debug is not enabled, and equal
->> when it is. there's no addition.
->>
->> The previous behavior was unconditional dev_err that everyone sees.
->>
->> Now it's dev_err ONLY when the code is NOT -ENODATA, and dev_dgb otherwise,
->> meaning it will seen ONLY be seen IF dynamic debug is enabled for
->> drivers/soundwire/bus.c
->>
->> Allow me to use another example from patch2:
->>
->> -		if (ret == -ENODATA)
->> -			dev_dbg(bus->dev,
->> -				"ClockStopNow Broadcast msg ignored %d", ret);
->> -		else
->> -			dev_err(bus->dev,
->> -				"ClockStopNow Broadcast msg failed %d", ret);
->> +		sdw_dev_dbg_or_err(bus->dev, ret != -ENODATA,
->> +				   "ClockStopNow Broadcast msg failed %d\n", ret);
->>
->> There's no new log, is there?
-> 
-> No, but that is not what you showed above which was just an error
-> message being replaced with both a debug and an error message.
-
-either debug or error message, not both.
-
-> Just drop the debug messages, they are pointless, right?
-
-That's the primary debug tool used with our friends at RedHat and 
-Canonical, and that includes remote debug where we don't have access to 
-the plaforms. We also have quite a few Bugzilla or github reports from 
-community users who can provide the logs of alsa-info and dmesg, but 
-that's about it. Those debug messages is what we get as feedback and 
-test reports, so we absolutely need them to be 'to the point'.
-
-Maybe to reassure you on the scope of the changes I am suggesting here, 
-there is a total of *13* occurrences of dev_dbg() in the SoundWire bus 
-code, and they were added in very specific branches where something goes 
-boink to help folks like Bard and I figure out what sequence led to the 
-problem. I think it's the same on Qualcomm platforms.
-
-In these examples related to the clock stop/restart, a message will be 
-generated during pm_runtime suspend/resume sequences and only when 
-unexpected behavior is detected, so the total bandwidth used by these 
-messages is minimal. It has to be that way, we are currently debugging 
-cases where we see those odd behaviors after thousands of suspend/resume 
-cycles, the last thing we want is to be swamped with "pointless" 
-messages. It's not at all like we are reporting "hello, i have this 
-error code", it's rather "this error code should not happen in this 
-sequence". in 99% of the cases, the error code is actually not very 
-useful, it's where the error occurs that is priceless for debug.
-
-
+diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
+index bb736c44e68a..163093959da8 100644
+--- a/sound/soc/codecs/max98390.c
++++ b/sound/soc/codecs/max98390.c
+@@ -656,6 +656,12 @@ static const struct snd_kcontrol_new max98390_snd_controls[] = {
+ 		MAX98390_AMP_DSP_CFG_RMP_DN_SHIFT, 1, 0),
+ 	SOC_SINGLE("Boost Clock Phase", MAX98390_BOOST_CTRL3,
+ 		MAX98390_BOOST_CLK_PHASE_CFG_SHIFT, 3, 0),
++	SOC_SINGLE("Tx Enable Selection", MAX98390_PCM_TX_EN_A,
++		0, 255, 0),
++	SOC_SINGLE("Tx Hiz Selection", MAX98390_PCM_TX_HIZ_CTRL_A,
++		0, 255, 0),
++	SOC_SINGLE("Tx Source Selection", MAX98390_PCM_CH_SRC_2,
++		0, 255, 0),
+ 	SOC_ENUM("Boost Output Voltage", max98390_boost_voltage),
+ 	SOC_ENUM("Current Limit", max98390_current_limit),
+ 	SOC_SINGLE_EXT("DSM Rdc", SND_SOC_NOPM, 0, 0xffffff, 0,
+-- 
+2.17.1
 

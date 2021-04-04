@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F8B353766
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Apr 2021 10:17:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FB8353768
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Apr 2021 10:30:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4403116CD;
-	Sun,  4 Apr 2021 10:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4403116CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DADE16BF;
+	Sun,  4 Apr 2021 10:30:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DADE16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617524263;
-	bh=ptK+O7aZUWQ9CNODSW0KkzMGYT8ME7vYnCsz5KUyzmc=;
+	s=default; t=1617525057;
+	bh=SC9tAIcBa1vquFqizJokdOEFUcMfm3EmyXVMckUm7Bc=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dytyKTjPdIJHrVJz5yJ592LztBltBBRPluR+8W6Gxi8s3hWewNuhKeWNfFQueWz30
-	 uCwZEFabj3PmonZRritc4OrbHbIh6CJdO7PQdVLKpYCXPsx0iroXrjW/TTl5A26NCe
-	 nM7P05FL9aTOT9YTMSyro3suCuNGM5nx3lUqlmes=
+	b=NeCfil5ia9BblMSPmNFe5NRPCW4wn2ZdgzdNMm4z9m41Kh76cfe5NLFNpt91FEe28
+	 vdmaQMdPecZqLxRepZBeemXKyMvduWiQWkVLnQDXZbRgHAUi6k/5XzKPvyKhpZ3dPr
+	 dYBgwIt1rF/cnXbj5D31wbBktLGU0wurfoTK28t0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86A37F80127;
-	Sun,  4 Apr 2021 10:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31BAFF80249;
+	Sun,  4 Apr 2021 10:29:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F863F8020B; Sun,  4 Apr 2021 10:16:14 +0200 (CEST)
+ id 01903F80168; Sun,  4 Apr 2021 10:29:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,37 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AFBDF80127
- for <alsa-devel@alsa-project.org>; Sun,  4 Apr 2021 10:16:07 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F13A2F80127
+ for <alsa-devel@alsa-project.org>; Sun,  4 Apr 2021 10:29:06 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2740EA003F;
- Sun,  4 Apr 2021 10:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2740EA003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 359D3A0040;
+ Sun,  4 Apr 2021 10:29:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 359D3A0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1617524167; bh=QKsWo5B1+eTNDs2yNSwFFc2n1wn2A6/Acc8QQqdkCj8=;
+ t=1617524946; bh=Jy6ZL8vcnLwysh9qCk8l/eV3h3Hxn6GnLUt4s3AbtSU=;
  h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=pm9g5d4KeY9uEAYgRkt9yz0ho1S/R1zWHRV8PB/82DuBiv+IAepKY87GHbu1QKswU
- NXeIxPqgyuqM7NrXLauVt/B0puc+JNkX7sRVERbptW4a4sqePjkQliah67DvjMo9/3
- 0MoPPEXYvHXFnhv/dwapmzgMI5aP98+QmynhSigI=
+ b=SbXLj7ho5qKp4WbE5/AJSe4hVLr0vnx9bs5gFwUAgFRk8p6AAI/pr1hvzkGUrncKc
+ fIcZGRzNAgboO8Zrb1KCw+C8CIkYVP6YRbk44d4PZN/msGGiNUDMGqLmF6SH4uC6W+
+ U2GQ8xVAvEXgvMZyevCfOG9aS2TErVeesNSR+lNU=
 Received: from p1gen2.localdomain (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun,  4 Apr 2021 10:16:03 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: core: control_led: fix memory leak in
- snd_ctl_led_set_state()
+ Sun,  4 Apr 2021 10:29:03 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: control_led: fix stack frame usage over 1024 bytes
+ in snd_ctl_led_get()
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>, tiwai@suse.de
-References: <20210404064031.48711-1-o-takashi@sakamocchi.jp>
+References: <20210404065929.52501-1-o-takashi@sakamocchi.jp>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <f0490845-a455-ceb7-3dae-6dda23cef070@perex.cz>
-Date: Sun, 4 Apr 2021 10:16:03 +0200
+Message-ID: <ed5793ef-65d7-661d-cc93-9e6e584c49cb@perex.cz>
+Date: Sun, 4 Apr 2021 10:29:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210404064031.48711-1-o-takashi@sakamocchi.jp>
+In-Reply-To: <20210404065929.52501-1-o-takashi@sakamocchi.jp>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -81,35 +81,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 04. 04. 21 v 8:40 Takashi Sakamoto napsal(a):
-> When inquired control element is not in led group, snd_ctl_led_set_state()
-> attempts to add the element into the group, according to function
-> arguments. Although an memory object is allocated for led instance, it's
-> left as is without being released.
+Dne 04. 04. 21 v 8:59 Takashi Sakamoto napsal(a):
+> GCC warns that snd_ctl_led_get() uses stack frame over 1024 bytes.
 > 
-> This commit fixes the memory leak.
+> control_led.c: In function ‘snd_ctl_led_get’:
+> control_led.c:128:1: warning: the frame size of 1504 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+> 
+> When taking care of convension in Linux kernel development. it's preferable
+> to suppress too large usage of kernel stack, when the function call is not
+> in critical part.
+> 
+> This commit fixes the bug, including some minor code refactoring relevant
+> to variable names.
 > 
 > Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
 > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 > ---
->  sound/core/control_led.c | 1 +
->  1 file changed, 1 insertion(+)
+>  sound/core/control_led.c | 68 ++++++++++++++++++++++++++--------------
+>  1 file changed, 44 insertions(+), 24 deletions(-)
 > 
 > diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-> index 788fd9e275e0..b97f118cd54e 100644
+> index b97f118cd54e..1be854a861f0 100644
 > --- a/sound/core/control_led.c
 > +++ b/sound/core/control_led.c
-> @@ -161,6 +161,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
->  			list_add(&lctl->list, &led->controls);
->  			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
->  		}
-> +		kfree(lctl);
+> @@ -94,34 +94,35 @@ static struct snd_ctl_led *snd_ctl_led_get_by_access(unsigned int access)
+>  	return &snd_ctl_leds[group];
+>  }
+>  
+> -static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl)
+> +static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl, struct snd_ctl_elem_info *elem_info,
+> +			   struct snd_ctl_elem_value *elem_value)
 
-NAK: The lctl pointer is added to led->controls list to track the related
-kctl. The kfree is called from snd_ctl_led_clean().
+I think info, value should be enough as names for the arguments here. It
+increases readability.
 
-				Jaroslav
-
+					Jaroslav
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

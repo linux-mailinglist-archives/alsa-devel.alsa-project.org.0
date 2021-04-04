@@ -2,87 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15AAE35373A
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Apr 2021 09:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F8B353766
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Apr 2021 10:17:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA8A716C7;
-	Sun,  4 Apr 2021 09:46:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA8A716C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4403116CD;
+	Sun,  4 Apr 2021 10:16:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4403116CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617522440;
-	bh=c1qB11LXGjUdJ5xCi01HePdivR7mymbdYjbPg9VM1bs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1617524263;
+	bh=ptK+O7aZUWQ9CNODSW0KkzMGYT8ME7vYnCsz5KUyzmc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cExwhIR1zt8oJBvJkjGPEWBO4VMI5m8OryWvrgI6JCF51YmAEsMwxnw1yialKvjCc
-	 tvj/OpUgGXuKPHh163/O4Qr2RcyuT3ZBsWQREJpUitbkZKjD1ZLUt26TplP5rtjB5y
-	 MOyJrkJ7kDH/gnfO1f1XgYySuamZsKQdHLXNpf8Q=
+	b=dytyKTjPdIJHrVJz5yJ592LztBltBBRPluR+8W6Gxi8s3hWewNuhKeWNfFQueWz30
+	 uCwZEFabj3PmonZRritc4OrbHbIh6CJdO7PQdVLKpYCXPsx0iroXrjW/TTl5A26NCe
+	 nM7P05FL9aTOT9YTMSyro3suCuNGM5nx3lUqlmes=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C75EF8025D;
-	Sun,  4 Apr 2021 09:45:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86A37F80127;
+	Sun,  4 Apr 2021 10:16:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 494E0F80259; Sun,  4 Apr 2021 09:45:56 +0200 (CEST)
+ id 9F863F8020B; Sun,  4 Apr 2021 10:16:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8E9EF80127
- for <alsa-devel@alsa-project.org>; Sun,  4 Apr 2021 09:45:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8E9EF80127
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="MJhQrPrh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1617522330;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZC6Fx5Jz53f2OGb7vQthBSFKwrkutd3mHWNLPBMw+g0=;
- b=MJhQrPrhWlIO2CfzB4+GzD7FM75Q9fyyieLTjQkdmyjw8bZzgl8I8YX+K6mJtZ6PcNuSiG
- ubpBDULh9NppRSWU4gYLO1QhG7+Y5EYYKv19B8EG08XagSNmorEcxLj+PIp7R/xt4nxAn4
- 8I+2gaLWO/F2LtpgadoKhmFJK2Pfc4w=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-10-Z1lgR6DOO0GXTKOhGhXJ5Q-1; Sun, 04 Apr 2021 03:45:27 -0400
-X-MC-Unique: Z1lgR6DOO0GXTKOhGhXJ5Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0183E10059CB;
- Sun,  4 Apr 2021 07:45:26 +0000 (UTC)
-Received: from x1.localdomain (ovpn-112-48.ams2.redhat.com [10.36.112.48])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E44D559443;
- Sun,  4 Apr 2021 07:45:24 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH alsa-ucm-conf 1/1] cht-bsw-rt5672: Add support for the
- components string
-Date: Sun,  4 Apr 2021 09:45:21 +0200
-Message-Id: <20210404074521.3709-2-hdegoede@redhat.com>
-In-Reply-To: <20210404074521.3709-1-hdegoede@redhat.com>
-References: <20210404074521.3709-1-hdegoede@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AFBDF80127
+ for <alsa-devel@alsa-project.org>; Sun,  4 Apr 2021 10:16:07 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2740EA003F;
+ Sun,  4 Apr 2021 10:16:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2740EA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1617524167; bh=QKsWo5B1+eTNDs2yNSwFFc2n1wn2A6/Acc8QQqdkCj8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=pm9g5d4KeY9uEAYgRkt9yz0ho1S/R1zWHRV8PB/82DuBiv+IAepKY87GHbu1QKswU
+ NXeIxPqgyuqM7NrXLauVt/B0puc+JNkX7sRVERbptW4a4sqePjkQliah67DvjMo9/3
+ 0MoPPEXYvHXFnhv/dwapmzgMI5aP98+QmynhSigI=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Sun,  4 Apr 2021 10:16:03 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: core: control_led: fix memory leak in
+ snd_ctl_led_set_state()
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>, tiwai@suse.de
+References: <20210404064031.48711-1-o-takashi@sakamocchi.jp>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <f0490845-a455-ceb7-3dae-6dda23cef070@perex.cz>
+Date: Sun, 4 Apr 2021 10:16:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Bard Liao <bard.liao@intel.com>
+In-Reply-To: <20210404064031.48711-1-o-takashi@sakamocchi.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,80 +81,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Upcoming kernel versions will report which speaker and dmic config is used
-by the device in a components strings so that we don't need to duplicate
-the DMI quirks in both the kernel and the UCM profile.
+Dne 04. 04. 21 v 8:40 Takashi Sakamoto napsal(a):
+> When inquired control element is not in led group, snd_ctl_led_set_state()
+> attempts to add the element into the group, according to function
+> arguments. Although an memory object is allocated for led instance, it's
+> left as is without being released.
+> 
+> This commit fixes the memory leak.
+> 
+> Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> ---
+>  sound/core/control_led.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+> index 788fd9e275e0..b97f118cd54e 100644
+> --- a/sound/core/control_led.c
+> +++ b/sound/core/control_led.c
+> @@ -161,6 +161,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+>  			list_add(&lctl->list, &led->controls);
+>  			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+>  		}
+> +		kfree(lctl);
 
-Add support for getting the speaker and dmic config from the components string.
+NAK: The lctl pointer is added to led->controls list to track the related
+kctl. The kfree is called from snd_ctl_led_clean().
 
-Note the old DMI matching is kept for support of older kernels, this means
-that on devices where the old DMI matching was used things like:
+				Jaroslav
 
-Define.MonoSpeaker ""
 
-Will now be done twice, this is harmless as long as the kernel and UCM profile
-DMI quirks are in sync, which they are.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- ucm2/cht-bsw-rt5672/HiFi.conf | 37 +++++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
-
-diff --git a/ucm2/cht-bsw-rt5672/HiFi.conf b/ucm2/cht-bsw-rt5672/HiFi.conf
-index 5e5f78f..41828ef 100644
---- a/ucm2/cht-bsw-rt5672/HiFi.conf
-+++ b/ucm2/cht-bsw-rt5672/HiFi.conf
-@@ -7,7 +7,40 @@ Define.DigitalMic1 "yes"
- Define.DigitalMic2 "yes"
- Define.HeadsetMic "yes"
- 
--If.cfg-dmic1 {
-+# Figure out which components are in use on the device, we check both the
-+# components string (present on newer kernels) as well as checking for DMI
-+# strings for compatibility with older kernels. Note DMI matches for new
-+# models should only be added to the kernel, this UCM profile will then
-+# automatically pick up the info from the components string.
-+
-+If.components-stereo-spk {
-+	Condition {
-+		Type String
-+		Haystack "${CardComponents}"
-+		Needle "cfg-spk:2"
-+	}
-+	True.Define.MonoSpeaker ""
-+}
-+
-+If.components-dmic1 {
-+	Condition {
-+		Type String
-+		Haystack "${CardComponents}"
-+		Needle "cfg-mic:dmic1"
-+	}
-+	True.Define.DigitalMic2 ""
-+}
-+
-+If.components-dmic2 {
-+	Condition {
-+		Type String
-+		Haystack "${CardComponents}"
-+		Needle "cfg-mic:dmic2"
-+	}
-+	True.Define.DigitalMic1 ""
-+}
-+
-+If.dmi-dmic1 {
- 	Condition {
- 		Type RegexMatch
- 		String "${CardLongName}"
-@@ -19,7 +52,7 @@ If.cfg-dmic1 {
- 	}
- }
- 
--If.cfg-dmic2 {
-+If.dmi-dmic2 {
- 	Condition {
- 		Type RegexMatch
- 		String "${CardLongName}"
 -- 
-2.30.2
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

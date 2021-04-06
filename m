@@ -2,63 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109163549DB
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Apr 2021 03:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523AE3549F6
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Apr 2021 03:18:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80CF216E8;
-	Tue,  6 Apr 2021 03:02:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80CF216E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D403316E9;
+	Tue,  6 Apr 2021 03:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D403316E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617670978;
-	bh=lZpSAHh1bVUImn7lJp+oYP1ggrY6Uvtl3AyVmTJ/9jk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LDJXHIy8QTlPMWt0Q1YlqSf1xgMkNxg9mTcmheIbJjDjaxNny0alEcci6ke6Al9gr
-	 7o9w0DdyESGvlZLXeXbHvsVEA6o6Axi7e6AZmRWrZ91zh3Qatgrq7M5nXV8mY8eRQJ
-	 tUkWDk/bUfT25luoOcuAfCtMFjFAIuRwflSMB2hI=
+	s=default; t=1617671910;
+	bh=xTaSZak/JLseQDHwGQbsKoQRPq69fZma58tcPsuG/l8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rx/Z/IYrN91FPuWy8ntdSDH9zRQ6W3CYHRmyFYz1kvTfL1a6D4k+quwlJogfoxD3H
+	 Vx0WmnPkgR7T8NqdjYxFXEFiJo4Ir9KUujNnW9kJjE1aK+XyDbt4pFXQYZiOR4jnsd
+	 t6jjZnNKujRcUIcxYWAQds2fdSEfGEg8XkyuoO9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4AD2F8016D;
-	Tue,  6 Apr 2021 03:01:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF635F8003A;
+	Tue,  6 Apr 2021 03:17:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCBFDF8016A; Tue,  6 Apr 2021 03:01:30 +0200 (CEST)
+ id 15EE5F80169; Tue,  6 Apr 2021 03:16:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B2FDF8003A
- for <alsa-devel@alsa-project.org>; Tue,  6 Apr 2021 03:01:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2FDF8003A
-IronPort-SDR: uxU1oAwZ5Ss1MwItn9Nu9Epe1WtDmKWNPrDbgfrcdk1zdVEjNYpvVgEmOSZDrimCpOcctAucum
- dSDVh80iMkkg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9945"; a="256941414"
-X-IronPort-AV: E=Sophos;i="5.81,308,1610438400"; d="scan'208";a="256941414"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2021 18:01:12 -0700
-IronPort-SDR: 6iD/G2z2w+mrZJ8DqCNu+CTlcmqDXXqNx50efMxLLpCFr1ZZhJ8oRC25Ohv9gwO7EUb/bc8nux
- Kkot7cYHSBgA==
-X-IronPort-AV: E=Sophos;i="5.81,308,1610438400"; d="scan'208";a="420964332"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2021 18:01:09 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v2] soundwire: intel_init: test link->cdns
-Date: Tue,  6 Apr 2021 09:01:01 +0800
-Message-Id: <20210406010101.11442-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- hui.wang@canonical.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1E6EF80164
+ for <alsa-devel@alsa-project.org>; Tue,  6 Apr 2021 03:16:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1E6EF80164
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ZM1DQRFb"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="tPXXmHxm"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 3A0941671;
+ Mon,  5 Apr 2021 21:16:40 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 05 Apr 2021 21:16:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=97X2znkot/8ImskeFqXUb6rniKU
+ y/QMYtVxogu2XVaA=; b=ZM1DQRFb2C/94qX/dFA8kl8RY5Dr+lVHB8ZIbAoMGhT
+ OgsjdTJiQoSDQW2SVWhWdaE2PU8shdSq8+dNnF1cFUky7duHtqdc5q31uRrDuoHp
+ mLH/rhdV31rhk6krnXtoa/P39kFkr1HyhNK66jWjTwzzL5ScfBvd4MfwQa3X61F2
+ +pXmOCruVn8sRZ3kpOuS7uN8EF86/8HZjQ7j3bdHvzuhSHJ5Hy3+lrZpSymP7Ucu
+ 92tFwOiGo6U5x/DYzgNuMVxOsuR5vOQbd4SxOAyAtlWzQ4bxcyZriF15VlZNs0hx
+ og4wNOIher2aiobU/N+o5Qvojr5aRsm1DFXrLslAyRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=97X2zn
+ kot/8ImskeFqXUb6rniKUy/QMYtVxogu2XVaA=; b=tPXXmHxmh4a3dOZ6gwQAsb
+ p1WpQCCH82XyZF8i28YFfcg2AgeO7OJE10GWUxXzMRq2SvImpGHebz3xJWfvgHgQ
+ tcDbPYjWgQC+o2aTBF24DSzhCxMWw+IwdD7mZ+8yYT2tR1aKodSDHE3kr2G21aVj
+ S0g9a10wGYziUQA6z3AGaOCWnbhqM492vjO2DlugF2B1GSErIQY1SGjNMXwx7pl8
+ c5GE2oJkG0DZuHiRZaqoZt/GwJZDHXZr9LesQjV5lHKkh5FzjF+d5n2SX/HikU3Y
+ rbh3lrv0eiyn1j7UTUgJnqE/5zHrc1V0REH1ecZj7Nm34gIOAm4UzZfFVgyNvn1Q
+ ==
+X-ME-Sender: <xms:d7ZrYPVTsZL_qy8Z5NaMBEm52c8_P8yeq3euJu2nYoK7JOnFNaJsPg>
+ <xme:d7ZrYHn5wOruzbsKr7b9Un5HPiaS8QznSblZyqRLMdjux_CjzuXj3yf0Z0cHqXPvW
+ aTxgNwlMugCyqTXdaw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudejfedggeegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesthdtre
+ dttddtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnheplefhueegvd
+ ejgfejgfdukeefudetvddtuddtueeivedttdegteejkedvfeegfefhnecukfhppedugedr
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:d7ZrYLZGOTU6T5kJUFGsf1NnhCQ4oQEDVbn7mu8wSz_zEhs-nNPErA>
+ <xmx:d7ZrYKULlmfFSrrwGBIafdszUOU7h1_eprZxWeBTVtDdrd_fxqkdFA>
+ <xmx:d7ZrYJn3uPeU79RTLKtJ3Ow48PIHkfLFvPz-XjOR7E-1-oV4JOlVUQ>
+ <xmx:d7ZrYItE6NnVlf2ImbKcmWjjrJLgEkL3speGTzl1FZPISW6SHLXmUw>
+Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 222811080057;
+ Mon,  5 Apr 2021 21:16:37 -0400 (EDT)
+Date: Tue, 6 Apr 2021 10:16:34 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: core: control_led: fix memory leak in
+ snd_ctl_led_set_state()
+Message-ID: <20210406011634.GA53518@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>, tiwai@suse.de,
+ alsa-devel@alsa-project.org
+References: <20210404064031.48711-1-o-takashi@sakamocchi.jp>
+ <f0490845-a455-ceb7-3dae-6dda23cef070@perex.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f0490845-a455-ceb7-3dae-6dda23cef070@perex.cz>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,42 +116,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-intel_link_probe() could return error and dev_get_drvdata() will return
-null in such case. So we have to test link->cdns after
-link->cdns = dev_get_drvdata(&ldev->auxdev.dev);
-Otherwise, we will meet the "kernel NULL pointer dereference" error.
+On Sun, Apr 04, 2021 at 10:16:03AM +0200, Jaroslav Kysela wrote:
+> Dne 04. 04. 21 v 8:40 Takashi Sakamoto napsal(a):
+> > When inquired control element is not in led group, snd_ctl_led_set_state()
+> > attempts to add the element into the group, according to function
+> > arguments. Although an memory object is allocated for led instance, it's
+> > left as is without being released.
+> > 
+> > This commit fixes the memory leak.
+> > 
+> > Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
+> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > ---
+> >  sound/core/control_led.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+> > index 788fd9e275e0..b97f118cd54e 100644
+> > --- a/sound/core/control_led.c
+> > +++ b/sound/core/control_led.c
+> > @@ -161,6 +161,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+> >  			list_add(&lctl->list, &led->controls);
+> >  			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+> >  		}
+> > +		kfree(lctl);
+> 
+> NAK: The lctl pointer is added to led->controls list to track the related
+> kctl. The kfree is called from snd_ctl_led_clean().
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
-v2:
- - Rebase to latest code base.
----
- drivers/soundwire/intel_init.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Ah. I overlooked it. Please abandon the patch.
 
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index 05b726cdfebc..30ce95ec2d70 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -178,6 +178,15 @@ static struct sdw_intel_ctx
- 		link->pdev = pdev;
- 		link->cdns = platform_get_drvdata(pdev);
- 
-+		if (!link->cdns) {
-+			dev_err(&adev->dev, "failed to get link->cdns\n");
-+			/*
-+			 * 1 will be subtracted from i in the err label, but we need to call
-+			 * intel_link_dev_unregister for this ldev, so plus 1 now
-+			 */
-+			i++;
-+			goto err;
-+		}
- 		list_add_tail(&link->list, &ctx->link_list);
- 		bus = &link->cdns->bus;
- 		/* Calculate number of slaves */
--- 
-2.17.1
 
+Regards
+
+Takashi Sakamoto

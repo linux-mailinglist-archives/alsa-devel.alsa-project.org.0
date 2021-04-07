@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85613575C3
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 22:19:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BBCE3575D1
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 22:21:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EE831671;
-	Wed,  7 Apr 2021 22:18:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EE831671
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7C551666;
+	Wed,  7 Apr 2021 22:20:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C551666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617826753;
-	bh=JuXtV3ZhriEwz3yS1AJZgFmIdcxyJUbqOwUkzSWS9SI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1617826898;
+	bh=klyJhD3vxpMCs0DbUyH+uZxCUxbSV7Z/0oACv3TSW+s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C0kSBnfjwm5jD62MXlBxvgLJX0BQaOe7vSK5nbXWsuolvh3wi6YRigHAozjOBYMrT
-	 5Xp+/u4LfQ3IjLBVyMjzAzjav2FFsjrZ3esdjJ0QR3rGi78ieX3MglBjXgBrWm8+5Z
-	 m5lM7vJmC9BFbmt8Xwzz/nGpbVNJqkIpbAOSnrEQ=
+	b=EOsFxUu5JZZqKgxt5/Dzq3e8ftd8qrQ8u4bgm0pgSMbUWAL8QvJygOiFaQDGS5+lV
+	 Jgq87kYAT81DXXXghQVwZQTrqxCV7bTs5qHBQzyk2J3T+cXjCaP7Foq+nLsdXRRR53
+	 BV54kbKtF0Gej7TXiMB08oKwURCSVN8HGZcrAa+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47111F801F5;
-	Wed,  7 Apr 2021 22:18:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 201A7F80124;
+	Wed,  7 Apr 2021 22:20:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C0E2F8016A; Wed,  7 Apr 2021 22:18:19 +0200 (CEST)
+ id 4283FF8016A; Wed,  7 Apr 2021 22:20:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAB0FF80162
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 22:18:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAB0FF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE39EF80124
+ for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 22:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE39EF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y0EJieNP"
-Received: by mail-ed1-x533.google.com with SMTP id ba6so14874275edb.1
- for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 13:18:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=El8GdD2d96inZ9wo4Q2FU1a1BUNbrhpV5VkOUXIOlp0=;
- b=Y0EJieNPnfNL3RGIfLOvJHVbH/l7+MS95W5Ck1ggWmvcJ7I5JztdDTEW2Or/tlrKng
- YqzeMEEoP9ntOJTjtEfliKTyHWpjoLFsElmnBVVe+7BoFdRcZzvBePKckgacgFhgLvRe
- elcb8ObR2Dp5bhzGZYkWUO0B19D1Cia5PLlOrMb0wlBMtnxtk+K2KZxrfhDVZ8igF2/Q
- b/SORLFfrIDF5jWGRi2POphLSVLo4yxpgrMmw0/XxPsEecr4ll6AhvJL/FKJQMYHDDFZ
- YCIByfPTw3NcZC5/EDWu86p5j4zkzwDAbCIUAQF8sRi0d2gMa6ziKGbrzOJSISFc6XCh
- ghQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=El8GdD2d96inZ9wo4Q2FU1a1BUNbrhpV5VkOUXIOlp0=;
- b=RBAaivu75P1xbW2nRGkCcFzapxktOKKCZaa+v/b/B5nz6NowLmCukX34J2LOCa7zG4
- 2R02dqcGhm6EhMhS4hBJpx9dE5xnDAz6gRIxKkol6knfsttI7rW4QwA85wAZiuL05uGs
- rwErEfIjPX2xySaWS62VZRPzxB0vwejXmzN7yK7rBhDyHgYyXOKgTLp2GjNIzv0IQd0q
- SjM36t9TpR3+5zRnkd+Gi+3bGJqzGOJ3vZP9c3KqLCs6XJfFeMxoQK55SzadHjh85LYh
- AHU/SnOXuXOXiHzD7GBtUyFokB1biZB+cF/DO3vB/Wx9hErDCrT2Ak9sMc2cUyjYt2ck
- YNFQ==
-X-Gm-Message-State: AOAM533SXyMGgrOXYh0i3UgMQVWM99Ws4B/G64/m/uaovUveIu2JEC8M
- ulGKvWxyLEFVQ5VZrmxj/dp+XDiCpPQu+8HDB7EhKHPxk4c=
-X-Google-Smtp-Source: ABdhPJwASSAp/WZqxQyjLMEK/eyUDLBKw+LKeajACb2n4Sgql1p8tBD+33oMFCewS8T9MddQdvdsHpkkW4TMcekVhZ8=
-X-Received: by 2002:aa7:dc0b:: with SMTP id b11mr6771976edu.124.1617826693823; 
- Wed, 07 Apr 2021 13:18:13 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="m8bB7+l8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 99072611C1;
+ Wed,  7 Apr 2021 20:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617826804;
+ bh=klyJhD3vxpMCs0DbUyH+uZxCUxbSV7Z/0oACv3TSW+s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m8bB7+l8A7IogkLqEHfrXc4DastEMXjB39TD253sNIbQh7aaBYQME7ZftC4o1uyxc
+ 2ND731tgF9JldHc5Daz/eYFAtPGKaIfrtN+2tZwP3KK0f9x5eyLK3Ib6+7CR7eir/Q
+ bnPrjgBfkl0diyzkzAqceGw9VBSfx51ruR0YJIwQv4yJ2YXmTAP49VKRJLsgZnrgVR
+ mJAqea3C6HfYSEuqKSGnPP4+1TQvjGkxV4HjpR5w0E1hMKaw+s41OjDYTcORNLXAi5
+ lghm5vNPnJZQljY101UnR6loBF8L2Wakem01VltT92SuMMY9beYfgs7WYvOz4gHyqd
+ yCl0Jbm3+Kk4g==
+Date: Wed, 7 Apr 2021 21:19:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH v5 2/4] ASoC: Add Rockchip rk817 audio CODEC support
+Message-ID: <20210407201946.GH5510@sirena.org.uk>
+References: <20210319191337.9414-1-macromorgan@hotmail.com>
+ <SN6PR06MB534258C507ADE505523E146BA5689@SN6PR06MB5342.namprd06.prod.outlook.com>
+ <20210401183258.GP4758@sirena.org.uk>
+ <SN6PR06MB53426C77C1EB640CDCE478CEA57B9@SN6PR06MB5342.namprd06.prod.outlook.com>
 MIME-Version: 1.0
-References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
- <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
-In-Reply-To: <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Wed, 7 Apr 2021 15:18:02 -0500
-Message-ID: <CAOsVg8p5vefJhR=+8XE+3HoSG0DRp_DF_f9W4zKdzGfJwmGr0w@mail.gmail.com>
-Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Mike Oliphant <oliphant@nostatic.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9jHkwA2TBA/ec6v+"
+Content-Disposition: inline
+In-Reply-To: <SN6PR06MB53426C77C1EB640CDCE478CEA57B9@SN6PR06MB5342.namprd06.prod.outlook.com>
+X-Cookie: Dry clean only.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,12 +84,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I didn't notice anything wrong when I added my Roland device IDs to your
-patch's method.  Its information can be found here, but I really doubt it
-applies to your issue, other than Takashi Iwai's simplified
-capture-quirk-only table patch (which Geraldo already mentioned):
 
-https://bugzilla.kernel.org/show_bug.cgi?id=212519
+--9jHkwA2TBA/ec6v+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Since I built my patch upon your previous patch, is there anything I can do
-to test it on my devices for you?
+On Thu, Apr 01, 2021 at 03:18:51PM -0500, Chris Morgan wrote:
+> On Thu, Apr 01, 2021 at 07:32:58PM +0100, Mark Brown wrote:
+
+> > This should go after the --- as per submitting-patches.rst.
+
+> Thank you... should I resubmit for this?
+
+It's fine from my point of view, don't know if Lee would want a resend
+or not.
+
+--9jHkwA2TBA/ec6v+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBuE+EACgkQJNaLcl1U
+h9CYZQf+MBxtOpMg2oZesQ/5AX6Dis15dfrHcl81iz2GsYP855cmKp6m4Jjl/8M/
+vOQM494SLGFi5zW1C8mIun2MByH2J4f3h5UgpXPXkvT06/DQaBugvZbc+LzRojH2
+1F8u0BaTKcgMjYIWGYOIg2BsyXZAEF63ZX/MSc2gwAfUTLbhdbjRscYtP1VKP2UD
+g7JGMMPGxPimZ4bnbqsY2ImE0SxzNPzjklSad90OelBjlIdEtIH3A3SWcdDggLJG
+E7RqQ6MP/7xAbdByjgKh1tpkWpmO4cq9FRyO/xEnuB1ifZuUre4U/KDt02F6tLrG
+KN1T/eU8iXlfPnLej9Z1zEmHWOiTuA==
+=CDTU
+-----END PGP SIGNATURE-----
+
+--9jHkwA2TBA/ec6v+--

@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0BD93574E2
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 21:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4609D357543
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 21:56:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 768C41669;
-	Wed,  7 Apr 2021 21:22:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 768C41669
+	by alsa0.perex.cz (Postfix) with ESMTPS id C80C2166B;
+	Wed,  7 Apr 2021 21:55:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C80C2166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617823380;
-	bh=p8tacxrHqWVzFqvN3aMHlzKa6duBYOdM1VZTPYCu0Fo=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1617825375;
+	bh=QGlkWCQItyYKrzv4RwKmFSb+ZxjasfXmLSim/ATwRMs=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=haLH8e6RpAr9B6eYyYHwYoIY+GcQKVZ/hdenXxC7eqPPuehFhImRbaCOW7WwbLgAV
-	 FAx59BNZVNRO04KXh3tDCwd39s1xx99wot6ePKeXcB6ANLLJtNolFnLFR4i4FdXO4G
-	 FMGLCo3d72gOtcHCEfEAhra5DrviwDtotwHX2gcA=
+	b=m2Ws+jJTe+jJtki6/PtA9zn4JZe3PT+V63OitIBWTxnSIscNT1VHCFo3euoxVN9AB
+	 AJUvRWanqzvqpohKJXDSzj5sMcS7rlXh8RWDNzhjr+x2+4uLGYIMfhvV82Xqvn9LPt
+	 /hPL+rA70JSTSbvvTCHWRHbTjHA3OjG3TJ6h2ieE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A751FF800BD;
-	Wed,  7 Apr 2021 21:21:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22FCBF800BD;
+	Wed,  7 Apr 2021 21:54:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31081F8016A; Wed,  7 Apr 2021 21:21:31 +0200 (CEST)
+ id C600AF8016A; Wed,  7 Apr 2021 21:54:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 610CEF80162
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 21:21:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 610CEF80162
-Received: from leela.cb.ettle ([87.115.72.109]) by mrelayeu.kundenserver.de
- (mreue011 [212.227.15.163]) with ESMTPSA (Nemesis) id
- 1MbRwP-1m1dol1OPZ-00boUr; Wed, 07 Apr 2021 21:21:26 +0200
-From: James Ettle <james@ettle.org.uk>
-Subject: [pull requests] No SPDIF for Plantronics 3220, Dell AE515
-To: alsa-devel@alsa-project.org
-Message-ID: <5ba6e576-4e1b-a653-7cde-cd3715c722f9@ettle.org.uk>
-Date: Wed, 7 Apr 2021 20:21:25 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AE88F800BD
+ for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 21:54:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE88F800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
+ header.i=@nostatic-org.20150623.gappssmtp.com header.b="WftuNsPF"
+Received: by mail-yb1-xb36.google.com with SMTP id 65so41165ybc.4
+ for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 12:54:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nostatic-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=oo7C24JQ9vKKwiG7UvnAzey+tXRVb0+ESIVxI2SlZMY=;
+ b=WftuNsPFiEiuloFYVYcnhT5prXkWBE/bgb6ZSOIlPQAFCLPT57WX1ytkCm9gaUCXzV
+ N2GHnj002PXlduxy1vR+ylhunDgomPB8ms5FuLP2K84OzQCwcjE9kbvc9XRAWn7WxF6x
+ 3w42LaEuvWNVsA5Zzx1qX4+eJd+Z5ljmH/cGVfQH7jRtB+ihCxALiJXxrNKSeRJJb7ou
+ ybsrSx+RKVRPd2j2mxMcrKDqX6xIG4TR8rOD0j3qdb2Txzqb2b7lHmbOiC5X2Ar0l8QY
+ 7XrKCQYY3VvyC2ufwCyi6VsDgCnh2nFO1+w8nDgC014l+GS78g0dhhQWDFToozUDfyLW
+ 0o5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=oo7C24JQ9vKKwiG7UvnAzey+tXRVb0+ESIVxI2SlZMY=;
+ b=AVAyhR9dReQtUnWm/Yc06NH6w75MGkL2LiIz4gtadQC+7FBfE4NWgzsLAR0dDlCS30
+ FHlguBOroBpNTuL5HJE0AN4zTzLhZl6pLeVuXExn+k0ta3OSsh9CpUD+NuBKezUP4ayg
+ ySB7iqytuIq2Mva6tM1cT7yRwcuNMewDyQh5tm7tgcRbiuAfqJTgSXjnyInc9TB/4pQD
+ lndEcgwVl1TNTe2VDv6ahjF2V9Upfg4A5Kn+i97LBJD38G9N0Z8tIDdWVa6FXWBfSqXt
+ Vq+xVmsOQXCbbu2VS2ZoZB1jBf+CAr3z7mbrOXFb1udy/t7mtLf0wgDNKDItY2ziBpil
+ qxtg==
+X-Gm-Message-State: AOAM533UvalcEtG42yKEslGU5fsGgG9lp1S/GMnDO9vKx+gmNVKyhkzl
+ ElnhOX81R7mHYSctpKcf3SPoHw4nFBRYtBa9ETwEk70t1BGNXA==
+X-Google-Smtp-Source: ABdhPJwO7WYHnqi2Q/pdSbvSHyKo2wbTWlK7odkoJLiXHw9hjCZjiAO/09ou9ByhgEEupv2NPuGFbUyuIEmDGlLdE8U=
+X-Received: by 2002:a25:6d83:: with SMTP id i125mr6496207ybc.417.1617825275648; 
+ Wed, 07 Apr 2021 12:54:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:njS4kRTUAtN6JDBrwS+8SlmWbyWr8oqXtqvkf2KmqN0f9roVvKL
- OmvaHGXSxrBAZ3Nx6cmgtYB7/39urEz0sf/xiU3zQlVAgWCSM6BPmRls2Owc20TFX4n/FF7
- IHOTL/SmTeYml2ov1JLv2+omhWK6zjUDY/0+Ay17/vy0zEnpJoEbXJ8SOdeH1rtaV/HsNO3
- VvMVP5Phn3diK8UQzkzhA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:/ButrzWVjKg=:r3dYybs/daH/FqhgE5oVwe
- 4EcAuCPx046uAuOULHoME/kK/Ay4KnS7IojK4zhDyQJrYPyfnb8g2fqtviPNiGnEX/h8B52g4
- VPuMUdSY54rVwb7x+thf5JnlT/Zbdv0Bi3b3yVdJr7AoyJno4yE3MV68xdrMLxBNUwU7l7lUq
- 4NRVuQD3Z9OxwBRIytt1OaQ+57cPApni2AWGhZLMW6gwGXGpAcnM+aY6qpMdRc0YNsomWCNHa
- vG/tEfO3dRf6nkj8SBrDJH0b6JdMRTZKUgerUxPzmGqknG6YYOHTz91apzk0zyKndCJz2ISO7
- 8dYdiVo3kpU6ohtyI5LD7/k5PVx2LLU5wtMbmwwkCKeG7isHPdAZGcaqX4QxZQZahvA3jOtsf
- a7r8je+KFM7G3kLZrx8CPCeb+aOjNM/pcgMytcVr1GBV+0Ah2jS2vG6H4tIzQbFVsSHjGGoMS
- 5PdmD+mKbyolW8txkqO5ny35qaWOizjBozhqLJhbFzM3JyzV1L1l
-Cc: tiwai@suse.de
+From: Mike Oliphant <oliphant@nostatic.org>
+Date: Wed, 7 Apr 2021 12:54:25 -0700
+Message-ID: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
+Subject: Implicit feedback on BOSS GT-1, the saga continues...
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,24 +90,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+I had thought that the recent implicit feedback changes were fully working
+on the BOSS GT-1, but it turns out that I just hadn't tested well enough.
 
-The Plantronics Blackwire 3220 Series headset and the Dell Professional 
-Sound Bar AE515 are both USB-audio devices that show up with a digital 
-S/PDIF output that physically doesn't exist.
+Audio playback and capture works, but with periodic dropouts. I get the
+exact same behavior as I did with the quirk to completely disable implicit
+feedback. Without the implicit feedback, you get dropouts from clock drift
+- how bad probably varies from card to card. On mine it is every second or
+so.
 
-This can be fixed by adding them to the USB-Audio.pcm.iec958_device list 
-in USB-Audio.conf, with the following names:
+If I switch playback feedback for the GT-1 to generic by doing
+"IMPLICIT_FB_GENERIC_DEV(0x0582, 0x01d6)", I get the previous old behavior,
+which is that playback completely fails to start.
 
-    "DELL PROFESSIONAL SOUND BAR AE5"
-    "Plantronics Blackwire 3220 Seri"
+With generic playback feedback, and using my previous patch to endpoint.c
+to avoid playback waiting on capture mentioned here:
 
-Patches for the respective devices are in the following alsa-lib pull 
-requests:
+https://mailman.alsa-project.org/pipermail/alsa-devel/2020-January/161951.html
 
-   https://github.com/alsa-project/alsa-lib/pull/124
-   https://github.com/alsa-project/alsa-lib/pull/126
-
-Many thanks,
-James.
-
+playback and capture work perfectly for me.

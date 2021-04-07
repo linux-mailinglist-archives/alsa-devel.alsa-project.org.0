@@ -2,73 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BBCE3575D1
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 22:21:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54FC93575EB
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 22:25:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7C551666;
-	Wed,  7 Apr 2021 22:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C551666
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA67F1676;
+	Wed,  7 Apr 2021 22:24:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA67F1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617826898;
-	bh=klyJhD3vxpMCs0DbUyH+uZxCUxbSV7Z/0oACv3TSW+s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1617827135;
+	bh=yIA098nNjApek05XJLiRPIrS/eItw3edWGbed26pu9g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EOsFxUu5JZZqKgxt5/Dzq3e8ftd8qrQ8u4bgm0pgSMbUWAL8QvJygOiFaQDGS5+lV
-	 Jgq87kYAT81DXXXghQVwZQTrqxCV7bTs5qHBQzyk2J3T+cXjCaP7Foq+nLsdXRRR53
-	 BV54kbKtF0Gej7TXiMB08oKwURCSVN8HGZcrAa+0=
+	b=Jnjze9nCcYUncWdrmLt4LP55PAzEZ7eHpxxkQE83YnJD+n634mg7+9nZS9Va6Lmih
+	 qtSO6qlr35V6gd/c62sWk3UNpeC6frDN0ljh+R43Lhesl1eb6L+biwlO4dQsE6lwXd
+	 534OKDeZN51x119kpnw8Fbl34NlnvRQUV+PrKAE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 201A7F80124;
-	Wed,  7 Apr 2021 22:20:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A586F80124;
+	Wed,  7 Apr 2021 22:24:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4283FF8016A; Wed,  7 Apr 2021 22:20:10 +0200 (CEST)
+ id B172AF8016A; Wed,  7 Apr 2021 22:24:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE39EF80124
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 22:20:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE39EF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B01AF80124
+ for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 22:24:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B01AF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m8bB7+l8"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 99072611C1;
- Wed,  7 Apr 2021 20:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617826804;
- bh=klyJhD3vxpMCs0DbUyH+uZxCUxbSV7Z/0oACv3TSW+s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m8bB7+l8A7IogkLqEHfrXc4DastEMXjB39TD253sNIbQh7aaBYQME7ZftC4o1uyxc
- 2ND731tgF9JldHc5Daz/eYFAtPGKaIfrtN+2tZwP3KK0f9x5eyLK3Ib6+7CR7eir/Q
- bnPrjgBfkl0diyzkzAqceGw9VBSfx51ruR0YJIwQv4yJ2YXmTAP49VKRJLsgZnrgVR
- mJAqea3C6HfYSEuqKSGnPP4+1TQvjGkxV4HjpR5w0E1hMKaw+s41OjDYTcORNLXAi5
- lghm5vNPnJZQljY101UnR6loBF8L2Wakem01VltT92SuMMY9beYfgs7WYvOz4gHyqd
- yCl0Jbm3+Kk4g==
-Date: Wed, 7 Apr 2021 21:19:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH v5 2/4] ASoC: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210407201946.GH5510@sirena.org.uk>
-References: <20210319191337.9414-1-macromorgan@hotmail.com>
- <SN6PR06MB534258C507ADE505523E146BA5689@SN6PR06MB5342.namprd06.prod.outlook.com>
- <20210401183258.GP4758@sirena.org.uk>
- <SN6PR06MB53426C77C1EB640CDCE478CEA57B9@SN6PR06MB5342.namprd06.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lEsL4TAu"
+Received: by mail-ej1-x62c.google.com with SMTP id w3so29778740ejc.4
+ for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 13:24:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/opKvEc+81HeUbmM8kNGrnYlVpJQyeD4hP9xIJ04g08=;
+ b=lEsL4TAu468yjsPkm2UPm3oaaw/Z8nZucDmz5NqPLWXhM+te+x3loO2EcFf1vj0VO4
+ u2fw8w/3oS8ZMhgagM0Xx4KOwgVQSve29m0qVq/HabdcoXBtl2x2Z6hPY/OAvcNyini8
+ PGASMJpwLGRaiVXM9OFOmIxyg/saHtrk2NaKUTvjl4wIOlj8pketWNOVVfzoazDnOOs0
+ pufoGGY1kp8BqwivGDVU1BT8J8OPDDTHPyaDFp8BwLuMVO4Z0tTWaOXOdMMQLhmdczhl
+ /chWZL1q0opdcv8ttUPC1rcc3g8VeCPFB2D0hehn1qjglBuJngOhwvr2cOYS+0Rv8D82
+ 1/SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/opKvEc+81HeUbmM8kNGrnYlVpJQyeD4hP9xIJ04g08=;
+ b=URFtodad0ZxUQ4b58YT5LE3ZMdv4qQj9bWIj8hV5Zt+CAjhRjaeUuszOsJ+ksKnZyg
+ rDf37iyvm7cwD75WHx/DeFQA76KEtCUJfuwr355UUP7WdYbuAdW1tncJm4rjj9KPdJC8
+ ZIb2HX7/a2KzmbLynDWSVmQ7QDc7QO3SgfkEpw28zDuuyEFcEIwO2GXvWlPCg8k/mN6r
+ DXftUzCM3ekeQzGZYFyLMWipjfSLaUqavZcNfQuuK7NOxQ6cGXKIkTTTDa7wwlIz+R6z
+ +WF8hMqFcaG7I+BWzgPp0jql9yIoHKVsohedHp3Ri5Dj+b/6X8x/C11g7iVWN/Up9yPa
+ /GcQ==
+X-Gm-Message-State: AOAM531SjAWD/rgk6Bf9KsWPS90vW17GGqgXraumqGYAYs/QBTFi/Tj7
+ yB6uDuXuBCrIfZVqIqi5SI6EofQnJLKPuSbEzQGAQkymzNw=
+X-Google-Smtp-Source: ABdhPJz52d6OAuLpZ0lTlTf4SaHc6kel4GO/sFxgEDBohOZfaPnLcLMa7IQ2r8XWlDx+RjTFD6XLB/q1lHDRn0Z1C1U=
+X-Received: by 2002:a17:906:c206:: with SMTP id
+ d6mr3212888ejz.531.1617827041602; 
+ Wed, 07 Apr 2021 13:24:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9jHkwA2TBA/ec6v+"
-Content-Disposition: inline
-In-Reply-To: <SN6PR06MB53426C77C1EB640CDCE478CEA57B9@SN6PR06MB5342.namprd06.prod.outlook.com>
-X-Cookie: Dry clean only.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
+References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
+ <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
+ <CAOsVg8p5vefJhR=+8XE+3HoSG0DRp_DF_f9W4zKdzGfJwmGr0w@mail.gmail.com>
+In-Reply-To: <CAOsVg8p5vefJhR=+8XE+3HoSG0DRp_DF_f9W4zKdzGfJwmGr0w@mail.gmail.com>
+From: Lucas <jaffa225man@gmail.com>
+Date: Wed, 7 Apr 2021 15:23:50 -0500
+Message-ID: <CAOsVg8oeYBYb-MtzpoagvU-6ysPVAfLxN+0RVbzK1CJa4cj-rA@mail.gmail.com>
+Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Mike Oliphant <oliphant@nostatic.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,34 +97,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---9jHkwA2TBA/ec6v+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Apr 01, 2021 at 03:18:51PM -0500, Chris Morgan wrote:
-> On Thu, Apr 01, 2021 at 07:32:58PM +0100, Mark Brown wrote:
-
-> > This should go after the --- as per submitting-patches.rst.
-
-> Thank you... should I resubmit for this?
-
-It's fine from my point of view, don't know if Lee would want a resend
-or not.
-
---9jHkwA2TBA/ec6v+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBuE+EACgkQJNaLcl1U
-h9CYZQf+MBxtOpMg2oZesQ/5AX6Dis15dfrHcl81iz2GsYP855cmKp6m4Jjl/8M/
-vOQM494SLGFi5zW1C8mIun2MByH2J4f3h5UgpXPXkvT06/DQaBugvZbc+LzRojH2
-1F8u0BaTKcgMjYIWGYOIg2BsyXZAEF63ZX/MSc2gwAfUTLbhdbjRscYtP1VKP2UD
-g7JGMMPGxPimZ4bnbqsY2ImE0SxzNPzjklSad90OelBjlIdEtIH3A3SWcdDggLJG
-E7RqQ6MP/7xAbdByjgKh1tpkWpmO4cq9FRyO/xEnuB1ifZuUre4U/KDt02F6tLrG
-KN1T/eU8iXlfPnLej9Z1zEmHWOiTuA==
-=CDTU
------END PGP SIGNATURE-----
-
---9jHkwA2TBA/ec6v+--
+Of course, I did have some tiny clicks when testing the Roland Boutique
+D-05... Could that be the same thing you're experiencing on the BOSS G-1?
+I describe it there as "little quiet occasional clicks sounding something
+like dust on an LP record's play".

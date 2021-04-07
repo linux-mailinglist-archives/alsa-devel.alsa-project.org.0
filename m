@@ -2,75 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AE5A356CB5
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 14:53:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F15356CB6
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 14:53:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D0611662;
-	Wed,  7 Apr 2021 14:52:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D0611662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 017A8167B;
+	Wed,  7 Apr 2021 14:53:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 017A8167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617800022;
-	bh=cyfjEk9jthcsbMRdXa22ian2dfCApQqG6xTpove5ejg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1617800039;
+	bh=c6MOoIBYaq1FB2jWSG59PiLmzCCOZs346eUtfJNgae4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aXOBmUu5QaTeEHnssxB5Z/WD5EJ291LAaf3COZPRIVkJfcoaKCzWnpqvOILOUfGfp
-	 Qo63zoESmdbkWa8S81UtvaggkbnY00UeGObTAwXZXaaJ7vQMhIwOflsm3pN6P9V1zT
-	 K1+qGm4vuMtbpXZxfDL2JTqaP1A+rGHsrjEw5UE8=
+	b=qofVTk9eT2W7hKS0aALlV/GelD/6vLzZawZWrCWJFPQT7fMQxecMDMO/64lcOL92b
+	 +EhrrAQrYgDFvihF8uxWtrZl4hh65ljFrpdaaW1rw/lQGaJxsNRvoUo12DT95GGrQf
+	 onOJwPtJlYNgx+GZCnt9LnTxxTm9bqznrRSyRJ0o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D843FF8016D;
-	Wed,  7 Apr 2021 14:52:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 968FDF800BD;
+	Wed,  7 Apr 2021 14:52:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E43E6F8016A; Wed,  7 Apr 2021 14:52:13 +0200 (CEST)
+ id CAFF0F80245; Wed,  7 Apr 2021 14:52:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 237ABF80124
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 14:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 237ABF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2A0AF8016A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 14:52:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2A0AF8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RCn0Ot8A"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CCC7D61279;
- Wed,  7 Apr 2021 12:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617799924;
- bh=cyfjEk9jthcsbMRdXa22ian2dfCApQqG6xTpove5ejg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RCn0Ot8ATDqpyS4C66rj2NwsNmng3SdIotwU/xRgyy/tZ2P2byZVLVcD+/+GRWW59
- XX/AWOQW22nip9SoRXn/W+INkjDuNPFotVxX+hZYgC1Vx/Q0XuU0JIzWjlQUdRBohL
- zvReB+RpACqLQuLVS54IPk3fDzDF1GxS00o2RjCZr5Nr6LnCCwhNcvIKDCKXjzamhr
- PShKbXs4RyeuhNS2bIL8IIjniNYZlXZX6SXi4YyLZ6kGEWDALxo374XiikYIbDhW4v
- hmxtBE1ec42rJwgfEF5chbAuEqc4pEm3L+9kdHQ7ZYzPT4BND22OU6Y8gjbJvX4MGp
- i6zVANALjAJOg==
-Date: Wed, 7 Apr 2021 13:51:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>
-Subject: Re: [PATCH] ASoC: codecs: Fix rumtime PM imbalance in tas2552_probe
-Message-ID: <20210407125147.GD5510@sirena.org.uk>
-References: <20210407065402.17729-1-dinghao.liu@zju.edu.cn>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="jO5TJkcV"
+Received: by mail-lj1-x229.google.com with SMTP id 184so20520060ljf.9
+ for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 05:52:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=c6MOoIBYaq1FB2jWSG59PiLmzCCOZs346eUtfJNgae4=;
+ b=jO5TJkcVxVu3tzmZF75IY8ZZut5WsUpOx6Ar889EYfG66YONWiO1Tiv99+vCw2lDTJ
+ rwx67c4UfEo8v/dX6vqo8D5nfdO0cfqCEnTeqLSaAtay+pBpaMAmLCEjo2RsrH2Tons2
+ xKoIACfEiINUHYkrBO3Jhkgt06QXn8IDAT3681aGfb8XAcfttlHjeGObqu6dYPLLUvzL
+ GZoA7dehKZjM6vncDr7/h7MnRq2evMxhDEVO5lBbST1zJ0rr24SAOGn7CjODoY4qQIVN
+ iQn9dULPR8fJ2/T4DGW7gzMRz4haqcWbPJQSY1WxEGiFp2Jc8opyeXOa9A09V76AMCMD
+ BGTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=c6MOoIBYaq1FB2jWSG59PiLmzCCOZs346eUtfJNgae4=;
+ b=MDgxZvIHJq2s7lbQgBkwzWr0PyQp3rejgG8syPX/QldxiKWk3RQ/8kraBn4tz3P5Zu
+ ws0jRHlrZJzdisIpekP4iMsRXF/HiqN93gYGfDSsqD7iWRcIPC+LRNEWg6kquWTTiuT0
+ UMBf6RED7uP+CejgtXsd+6gxuHtj3ljkWccyvnKORK+JVI/f6dLOYSqeAvW8puc8uUKG
+ o13RIYsEBguj7bkx2CUAmFGu1XDDqM1RWQab/oH+w+mRaMnPGRfhk5qkltgXERssTE5Y
+ LDqMIpQo53ncyFtlzNTMcHpY5Skb7gsCn2zGs35RBvSmyE6mIJ3m+gVxvH5o9+TLyEpC
+ +kjg==
+X-Gm-Message-State: AOAM530kTMTwRhbfb35Hxi2Z32O4vVcWx5Jpn0l0P4mFTgmWzM1flmq2
+ laOyIFyaDEwBnrSQ5KgHvAvWIeW/PYA42kRPHGASQw==
+X-Google-Smtp-Source: ABdhPJxV7n/Kf8dNdBmeRaU9S6qNbt86uhvn/5D6xRYMV9bk3xv7vbh2O6AjGS8LhNmz8YBjqoKqs4CoaUamjLKjtqk=
+X-Received: by 2002:a05:651c:103a:: with SMTP id
+ w26mr2032872ljm.273.1617799950344; 
+ Wed, 07 Apr 2021 05:52:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="J5MfuwkIyy7RmF4Q"
-Content-Disposition: inline
-In-Reply-To: <20210407065402.17729-1-dinghao.liu@zju.edu.cn>
-X-Cookie: Dry clean only.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, kjlu@umn.edu, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- "Alexander A. Klimov" <grandmaster@al2klimov.de>
+References: <cover.1617279355.git.mchehab+huawei@kernel.org>
+ <f056e1e16adff1df42416f0033fdb730169edf44.1617279356.git.mchehab+huawei@kernel.org>
+In-Reply-To: <f056e1e16adff1df42416f0033fdb730169edf44.1617279356.git.mchehab+huawei@kernel.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 7 Apr 2021 14:52:19 +0200
+Message-ID: <CACRpkdaw3Eh=gYPAw+zZM3OCteXDyXzgqOkKsT9q_h0cQZ6GAg@mail.gmail.com>
+Subject: Re: [PATCH 32/32] pinctrl: update pin-control.rst references
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Jonathan Corbet <corbet@lwn.net>, Drew Fustini <drew@beagleboard.org>,
+ patches@opensource.cirrus.com,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,52 +103,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Apr 1, 2021 at 2:17 PM Mauro Carvalho Chehab
+<mchehab+huawei@kernel.org> wrote:
 
---J5MfuwkIyy7RmF4Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> Changeset 5513b411ea5b ("Documentation: rename pinctl to pin-control")
+> renamed: Documentation/driver-api/pinctl.rst
+> to: Documentation/driver-api/pin-control.rst.
+>
+> Update the cross-references accordingly.
+>
+> Fixes: 5513b411ea5b ("Documentation: rename pinctl to pin-control")
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-On Wed, Apr 07, 2021 at 02:54:00PM +0800, Dinghao Liu wrote:
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-> -	pm_runtime_set_active(&client->dev);
-> -	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
-> -	pm_runtime_use_autosuspend(&client->dev);
-> -	pm_runtime_enable(&client->dev);
-> -	pm_runtime_mark_last_busy(&client->dev);
-> -	pm_runtime_put_sync_autosuspend(&client->dev);
-> -
->  	dev_set_drvdata(&client->dev, data);
-> =20
->  	ret =3D devm_snd_soc_register_component(&client->dev,
-> @@ -733,6 +726,13 @@ static int tas2552_probe(struct i2c_client *client,
->  	if (ret < 0)
->  		dev_err(&client->dev, "Failed to register component: %d\n", ret);
-> =20
-> +	pm_runtime_set_active(&client->dev);
-> +	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
-> +	pm_runtime_use_autosuspend(&client->dev);
+I assume you will apply this Mauro?
 
-It's not clear to me that just moving the operations after the
-registration is a good fix - once the component is registered we could
-start trying to do runtime PM operations with it which AFAIR won't count
-references and so on properly if runtime PM isn't enabled so if we later
-enable runtime PM we might have the rest of the code in a confused state
-about what's going on.
-
---J5MfuwkIyy7RmF4Q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBtquIACgkQJNaLcl1U
-h9BQtAf+I2hjUyL/9OkE3eGicNAX7nsxLA+2RCglYcJbnP+DPP0fV9PuPWnUP/v+
-AyaTLilVvUCfW/mSQXCrS8s1YZtRjmcWM+C21dyyejn5PTFp2q02jEfVZUsHE1b2
-wbspUe0X+/tNp8AifCdgMfHN0i0MvxsVVwnDTwTy64sF7escwM7LaCsJXOvIo8Q3
-Jfnq/TJFt40FgSRe30GEzoJEVfiWdAGmfOvggULT2iX3tp7F6Dcl1OevhObFFTmX
-SETQzdLXqih7npx1k1RQBBqFPo3mKJ4syuTn3MV4pDWrWqVPFxU1Z2QsNYlslGtk
-V+WLnEHAr27p/pTbLLxjB6XTo549EA==
-=Tb7U
------END PGP SIGNATURE-----
-
---J5MfuwkIyy7RmF4Q--
+Yours,
+Linus Walleij

@@ -2,51 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35547356893
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 11:59:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D46356C0C
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Apr 2021 14:28:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DD771666;
-	Wed,  7 Apr 2021 11:58:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DD771666
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4FDA829;
+	Wed,  7 Apr 2021 14:28:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4FDA829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617789558;
-	bh=Glux1ALxNKD5HzhHYc0vThpV9gWhZoVS+Fvk0k3ZW0g=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=COOz6YdjhCpcgl99QLmyi9Ep+z2JROW5ePdktc8PaXHdQN0PnsEkVum9UaQSgAxoo
-	 1gh/VQzgHgJ/gbdYNVzAjOM+6QI888PrWEvkIrJqVOCsb/PgmqS7LZiRRATYG18F91
-	 xwGT502CmA+9xTPp3tDeRR1CPUrkgZcKeHMUL0nQ=
+	s=default; t=1617798539;
+	bh=ykPC81Br780mz3XS0F650l1GsXGL5kKxY2znHes0yYo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V5v7tKngGr47nbMPag5IB+txdu5Uz4D68paeOgqY+KYdpMDkALJOEKVaHw/d1+sTu
+	 6cMG/kG4vVrNUCwj+1QF+Qo7NSePbXd6ofBX56ltLm72Th5c3dgowMIJoFv1/w7j/d
+	 o2jL0YMder7EeuQX55Eq91Ogs3EbT1BQbujPTB8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E75F5F80162;
-	Wed,  7 Apr 2021 11:57:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A9E3F80124;
+	Wed,  7 Apr 2021 14:27:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDA30F8016A; Wed,  7 Apr 2021 11:57:49 +0200 (CEST)
+ id 9889BF8016A; Wed,  7 Apr 2021 14:27:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFC6EF800BD
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 11:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFC6EF800BD
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 70354B066
- for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 09:57:34 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Fix speaker amp setup on Acer Aspire E1
-Date: Wed,  7 Apr 2021 11:57:30 +0200
-Message-Id: <20210407095730.12560-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C843F80124
+ for <alsa-devel@alsa-project.org>; Wed,  7 Apr 2021 14:27:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C843F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="vLnM6fvB"
+Received: by mail-lf1-x135.google.com with SMTP id d13so28203665lfg.7
+ for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 05:27:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=9SISt/W/3sXxPFaIuYkTClnfPMS3gAsgLovAVBJjy1A=;
+ b=vLnM6fvBwkOrA/hbQKi8h2nM6K3yxm9vBpdAFCnoHu1Huz3r3iRMBTlCw/sZK6YkA3
+ +pNfr5UtR2yFB/QwB16oWJGdIxPpjj1gortYjMAjTp+HmicFZnvOR2isMwWF6thbeLSc
+ 8y7u/Lp3GEy628N2rKlaP+MPuR6DdRaHPNTiJM/RTnFeRRwNaq8weOLmngv4kwQupGRd
+ EY/ybXIf7zx95oIEvwqotzhDR3ICHtZvTQOtcG9gxwaDLJKah8n+hCUlcYvejBojX8py
+ yp2iiW31VxHlGqI5pBhbVmkYCVeVuVnZujl6kbl2ukYsnx285HoxQddzKBdz0Zj2G+XK
+ hRKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9SISt/W/3sXxPFaIuYkTClnfPMS3gAsgLovAVBJjy1A=;
+ b=UiuWLJPm4I3BrWleoJF6ySC9icAPe1qpIuFPc85JJHvVJbUgkAj3fsyZpFXPN9yJNf
+ NmLyySdMXj41usc/TQcSbciMwqvQBdAp/3IZYBEZqr1VlbfaA7Wg2nExqpdStiiKXDsL
+ Dec3uOu8h5Z1ybG8vzfO91yfdlma2JWMt2ZMT7EDnx7MCnlUPx0BcLWpLS5vUO0ZAE6s
+ 34LV0YgxpY7ydfkSLw9ilEzRZ6wjuXF8LIMrs/OahdtlSrGpw63HNaMe1LW4W4JZW8OS
+ b5I6d4VVuRzvQf35PmJ/vUtvJdN2A9+YhtgDVSXeNHyrjpewdhexI3jrNl5cCfiPG2PO
+ bttQ==
+X-Gm-Message-State: AOAM5334tzywCg4rBJ+tdXvtCHWmoKuTytSqI9Xzq2j3yYSoMynq6fOO
+ TkMvamodmZ/k15w5ZuptO7I=
+X-Google-Smtp-Source: ABdhPJz3ObbPabZB5M+IjGaeI1HJZlZnJrtr1XuzUUU/ok7WapSTf++CIKDcz4XodA22UJo5fxHYBg==
+X-Received: by 2002:a05:6512:b81:: with SMTP id
+ b1mr2487833lfv.345.1617798428598; 
+ Wed, 07 Apr 2021 05:27:08 -0700 (PDT)
+Received: from [10.0.0.42] (91-157-86-200.elisa-laajakaista.fi.
+ [91.157.86.200])
+ by smtp.gmail.com with ESMTPSA id l12sm2513451ljg.39.2021.04.07.05.27.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Apr 2021 05:27:08 -0700 (PDT)
+Subject: Re: [PATCH 4/4] ASoC: codecs: tlv320aic3x: add SPI support
+To: =?UTF-8?B?SmnFmcOtIFByY2hhbA==?= <jiri.prchal@aksignal.cz>,
+ Mark Brown <broonie@kernel.org>
+References: <20210406142439.102396-1-jiri.prchal@aksignal.cz>
+ <20210406142439.102396-5-jiri.prchal@aksignal.cz>
+ <20210406165440.GN6443@sirena.org.uk>
+ <afb3d94a-ad3b-369d-e370-1fc82232e11c@aksignal.cz>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Message-ID: <da847bcb-e9e8-4a2f-bdd6-57ebc7e44a2e@gmail.com>
+Date: Wed, 7 Apr 2021 15:28:09 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
+In-Reply-To: <afb3d94a-ad3b-369d-e370-1fc82232e11c@aksignal.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,76 +110,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We've got a report about Acer Aspire E1 (PCI SSID 1025:0840) that
-loses the speaker output after resume.  With the comparison of COEF
-dumps, it was identified that the COEF 0x0d bits 0x6000 corresponds to
-the speaker amp.
+Hi,
 
-This patch adds the specific quirk for the device to restore the COEF
-bits at the codec (re-)initialization.
+On 4/7/21 8:44 AM, Jiří Prchal wrote:
+> 
+> 
+> On 06. 04. 21 18:54, Mark Brown wrote:
+>> On Tue, Apr 06, 2021 at 04:24:39PM +0200, Jiri Prchal wrote:
+>>> Added SPI support.
+>>>
+>>> Signed-off-by: Jiri Prchal <jiri.prchal@aksignal.cz>
+>>> ---
+>>>   sound/soc/codecs/Kconfig           |  7 +++
+>>>   sound/soc/codecs/Makefile          |  2 +
+>>>   sound/soc/codecs/tlv320aic3x-spi.c | 76 ++++++++++++++++++++++++++++++
+>>>   3 files changed, 85 insertions(+)
+>>>   create mode 100644 sound/soc/codecs/tlv320aic3x-spi.c
+>>
+>> This looks good but we should also add an update to the DT binding which
+>> notes that SPI is also supported, right now reg is documented as being
+>> at an I2C address.
+>>
+> Mark, please, will you navigate me where DT binding is.
 
-BugLink: https://bugzilla.suse.com/show_bug.cgi?id=1183869
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Documentation/devicetree/bindings/sound/tlv320aic3x.txt
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 58946d069ee5..a7544b77d3f7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -3927,6 +3927,15 @@ static void alc271_fixup_dmic(struct hda_codec *codec,
- 		snd_hda_sequence_write(codec, verbs);
- }
- 
-+/* Fix the speaker amp after resume, etc */
-+static void alc269vb_fixup_aspire_e1_coef(struct hda_codec *codec,
-+					  const struct hda_fixup *fix,
-+					  int action)
-+{
-+	if (action == HDA_FIXUP_ACT_INIT)
-+		alc_update_coef_idx(codec, 0x0d, 0x6000, 0x6000);
-+}
-+
- static void alc269_fixup_pcm_44k(struct hda_codec *codec,
- 				 const struct hda_fixup *fix, int action)
- {
-@@ -6301,6 +6310,7 @@ enum {
- 	ALC283_FIXUP_HEADSET_MIC,
- 	ALC255_FIXUP_MIC_MUTE_LED,
- 	ALC282_FIXUP_ASPIRE_V5_PINS,
-+	ALC269VB_FIXUP_ASPIRE_E1_COEF,
- 	ALC280_FIXUP_HP_GPIO4,
- 	ALC286_FIXUP_HP_GPIO_LED,
- 	ALC280_FIXUP_HP_GPIO2_MIC_HOTKEY,
-@@ -6979,6 +6989,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ },
- 		},
- 	},
-+	[ALC269VB_FIXUP_ASPIRE_E1_COEF] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc269vb_fixup_aspire_e1_coef,
-+	},
- 	[ALC280_FIXUP_HP_GPIO4] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc280_fixup_hp_gpio4,
-@@ -7901,6 +7915,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x0762, "Acer Aspire E1-472", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
- 	SND_PCI_QUIRK(0x1025, 0x0775, "Acer Aspire E1-572", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
- 	SND_PCI_QUIRK(0x1025, 0x079b, "Acer Aspire V5-573G", ALC282_FIXUP_ASPIRE_V5_PINS),
-+	SND_PCI_QUIRK(0x1025, 0x0840, "Acer Aspire E1", ALC269VB_FIXUP_ASPIRE_E1_COEF),
- 	SND_PCI_QUIRK(0x1025, 0x101c, "Acer Veriton N2510G", ALC269_FIXUP_LIFEBOOK),
- 	SND_PCI_QUIRK(0x1025, 0x102b, "Acer Aspire C24-860", ALC286_FIXUP_ACER_AIO_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x1065, "Acer Aspire C20-820", ALC269VC_FIXUP_ACER_HEADSET_MIC),
-@@ -8395,6 +8410,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC283_FIXUP_HEADSET_MIC, .name = "alc283-headset"},
- 	{.id = ALC255_FIXUP_MIC_MUTE_LED, .name = "alc255-dell-mute"},
- 	{.id = ALC282_FIXUP_ASPIRE_V5_PINS, .name = "aspire-v5"},
-+	{.id = ALC269VB_FIXUP_ASPIRE_E1_COEF, .name = "aspire-e1-coef"},
- 	{.id = ALC280_FIXUP_HP_GPIO4, .name = "hp-gpio4"},
- 	{.id = ALC286_FIXUP_HP_GPIO_LED, .name = "hp-gpio-led"},
- 	{.id = ALC280_FIXUP_HP_GPIO2_MIC_HOTKEY, .name = "hp-gpio2-hotkey"},
+> I just added this to my board dts and that's all:
+>     spi0: spi@f0000000 {
+>     ...
+>         // audio codec
+>         tlv320aic3106: codec@3 {
+>             compatible = "ti,tlv320aic3106";
+>             reg = <3>;
+>             #sound-dai-cells = <0>;
+>             spi-max-frequency = <1000000>;
+>             status = "okay";
+>             DRVDD-supply = <&reg_3v3>;
+>             AVDD-supply = <&reg_3v3>;
+>             IOVDD-supply = <&reg_3v3>;
+>             DVDD-supply = <&reg_1v8>;
+>             ai3x-ocmv = <0>;
+>         };
+
 -- 
-2.26.2
-
+Péter

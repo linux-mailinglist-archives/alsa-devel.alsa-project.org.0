@@ -2,91 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFE07357BE1
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 07:37:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3AF357BF7
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 07:45:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 346DC1681;
-	Thu,  8 Apr 2021 07:37:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 346DC1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86DD0828;
+	Thu,  8 Apr 2021 07:44:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86DD0828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617860279;
-	bh=EcPvaWQQLwehLR0dGRah2wsTShBORLyO1QTRk9LdJco=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1617860746;
+	bh=c6Ii7OpohczAty+IXuRyPeC8Dr2Wa9waFOnnflxFtZM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lCleDg1hlQUwPgAbcTrHLFuKCb9QPkd+FH14mRQabMIagaB6rYCpOR8UhPFzdBvXa
-	 X/Z5HvKPltr4yzbKo0KxNGOJcxHaYCajHHsbilM19p6B5LuCBJJhEgxUN313rKuj28
-	 3tYf5k/WbgC0CzsdD7IUkt2VtVyKvCQbukLk5sAU=
+	b=VsN2i3BjHL90Va1A4id+Q0NliQ1QpJ+663OY4JEceC3Ls/4C6rCidXu7n8HAkTPrl
+	 zSEF7JWCc+CKOEx8R59aC52Mrwh01Up1qCoOCvRHyInzC0eiJbu26ZnWRTVfU47Pi5
+	 VVILNZhY1x9KIh/7xezBo8yXvIvzc3qaKnskjc+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40D69F80169;
-	Thu,  8 Apr 2021 07:36:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E267CF800BD;
+	Thu,  8 Apr 2021 07:44:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 172AFF8020B; Thu,  8 Apr 2021 07:36:29 +0200 (CEST)
+ id 7E4B3F8020B; Thu,  8 Apr 2021 07:44:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59B1FF800BD
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 07:36:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59B1FF800BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Yojn+OlB"
-Received: by mail-ed1-x529.google.com with SMTP id f8so835512edd.11
- for <alsa-devel@alsa-project.org>; Wed, 07 Apr 2021 22:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bUNGd9ipWlbSa7jK/jTIdhWIGg+TMz/spIM3oZE1Ug4=;
- b=Yojn+OlBM3xqkNtFJHjK1Gc7nH4ePS+PlBShESrzujHLFLAG0xUfpBPpbABBwSlZAs
- KKftJ2xFStudkxCqcpaDNNzQvsGKLpHJu15K0tiK2wJZ1b6oqJrmXAhEtXh5/SN8MCNw
- ipoCosD9nqXieH4LJ3NcSmWfiXUASnmUuSiik+NfilmvJ3q9H79fKCsFP1A0Z2Wh2Xuj
- +DOFIXAqlBp75fOc0KOSzjrVALlR6J0mbVct4txr3f9YyJhNnDWLK5FbVyrHHe96tqwF
- tli9kpl+lMEnij4ahrtE7Ql0wlrEexO6R7ANUTwRKOahkfsGmItefM0jhbV5zgJ+rd8b
- og1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bUNGd9ipWlbSa7jK/jTIdhWIGg+TMz/spIM3oZE1Ug4=;
- b=Rk+rtS+u1YoWL4vVuNoe/RYPSOWTkfolIP+9rcUEbaGzcWBH4IjiAEDr6tzgHGq/LJ
- OS810mWaLpv+YCyvoGLSg4u3vpTrQGCEnzqIa/bWAdt5/iylGdF9vhjVPFaNVLVxZ9Xb
- t2nI5dBQI9G9KXKbpe9XH5Hpd8zd0sJzceyUBfh1VImfAm3Shxk3RmyPT3PYicddG3bj
- bryuErSYlo6X0TSYIxqZSTEHN+dRFzV0UwsCXSuDD3Mkojo/kWpfx5kOOXljSHZWJY3y
- ybmb3A07vc3wfU89h2Rs1tOfS7QMxbKXD10deJcjFxXcDMkhHYx7kytexHbbtMOOSuL8
- plPQ==
-X-Gm-Message-State: AOAM531hF7nypCnwTgUY6QQFVFsUkf+jXtRJAlZLjiPzyCn/xKMUJdDG
- tcmcC6zww2ggR8UN/53P6F/n5fykokGlcieUr4I=
-X-Google-Smtp-Source: ABdhPJx31BVwrzNFqXKn/kJiRlEGqV6u9Oio+BBc1KYn0n9/5XfGpgPcgXtA1uLPDVAJEivAp14wXZxVP/llc/mMl4s=
-X-Received: by 2002:aa7:cc98:: with SMTP id p24mr8979526edt.187.1617860183235; 
- Wed, 07 Apr 2021 22:36:23 -0700 (PDT)
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=KHOP_HELO_FCRDNS, PRX_BODY_30, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from zju.edu.cn (spam.zju.edu.cn [61.164.42.155])
+ by alsa1.perex.cz (Postfix) with ESMTP id DEFB1F800BD
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 07:44:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEFB1F800BD
+Received: by ajax-webmail-mail-app4 (Coremail) ; Thu, 8 Apr 2021 13:44:04
+ +0800 (GMT+08:00)
+X-Originating-IP: [222.205.72.8]
+Date: Thu, 8 Apr 2021 13:44:04 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: dinghao.liu@zju.edu.cn
+To: "Mark Brown" <broonie@kernel.org>
+Subject: Re: Re: [PATCH] ASoC: codecs: Fix rumtime PM imbalance in
+ tas2552_probe
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20210104(ab8c30b6)
+ Copyright (c) 2002-2021 www.mailtech.cn zju.edu.cn
+In-Reply-To: <20210407125147.GD5510@sirena.org.uk>
+References: <20210407065402.17729-1-dinghao.liu@zju.edu.cn>
+ <20210407125147.GD5510@sirena.org.uk>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
- <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
- <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
- <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
- <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
- <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
- <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
- <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
- <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
-In-Reply-To: <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Thu, 8 Apr 2021 00:36:11 -0500
-Message-ID: <CAOsVg8raD8enyWELM4w17dZCe=1Vy2s+7RLszVko4aRLmj7jDA@mail.gmail.com>
-Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
+Message-ID: <8ef359a.40bbb.178b0024d3e.Coremail.dinghao.liu@zju.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: cS_KCgCH2Q0kmG5giemaAA--.34955W
+X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgoGBlZdtTQGhAAxsx
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, kjlu@umn.edu, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ "Alexander A. Klimov" <grandmaster@al2klimov.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,14 +80,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Well, I just got back from testing Mike's suggestion of setting the Roland
-Boutique D-05 as a playback quirk, disabling its capture quirk, and setting
-that endpoint test section to always be skipped.  Sure, enough, the D-05's
-playback is now perfectly crystal clear without the crackles associated
-with an LP record.
+PiBPbiBXZWQsIEFwciAwNywgMjAyMSBhdCAwMjo1NDowMFBNICswODAwLCBEaW5naGFvIExpdSB3
+cm90ZToKPiAKPiA+IC0JcG1fcnVudGltZV9zZXRfYWN0aXZlKCZjbGllbnQtPmRldik7Cj4gPiAt
+CXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5KCZjbGllbnQtPmRldiwgMTAwMCk7Cj4g
+PiAtCXBtX3J1bnRpbWVfdXNlX2F1dG9zdXNwZW5kKCZjbGllbnQtPmRldik7Cj4gPiAtCXBtX3J1
+bnRpbWVfZW5hYmxlKCZjbGllbnQtPmRldik7Cj4gPiAtCXBtX3J1bnRpbWVfbWFya19sYXN0X2J1
+c3koJmNsaWVudC0+ZGV2KTsKPiA+IC0JcG1fcnVudGltZV9wdXRfc3luY19hdXRvc3VzcGVuZCgm
+Y2xpZW50LT5kZXYpOwo+ID4gLQo+ID4gIAlkZXZfc2V0X2RydmRhdGEoJmNsaWVudC0+ZGV2LCBk
+YXRhKTsKPiA+ICAKPiA+ICAJcmV0ID0gZGV2bV9zbmRfc29jX3JlZ2lzdGVyX2NvbXBvbmVudCgm
+Y2xpZW50LT5kZXYsCj4gPiBAQCAtNzMzLDYgKzcyNiwxMyBAQCBzdGF0aWMgaW50IHRhczI1NTJf
+cHJvYmUoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwKPiA+ICAJaWYgKHJldCA8IDApCj4gPiAg
+CQlkZXZfZXJyKCZjbGllbnQtPmRldiwgIkZhaWxlZCB0byByZWdpc3RlciBjb21wb25lbnQ6ICVk
+XG4iLCByZXQpOwo+ID4gIAo+ID4gKwlwbV9ydW50aW1lX3NldF9hY3RpdmUoJmNsaWVudC0+ZGV2
+KTsKPiA+ICsJcG1fcnVudGltZV9zZXRfYXV0b3N1c3BlbmRfZGVsYXkoJmNsaWVudC0+ZGV2LCAx
+MDAwKTsKPiA+ICsJcG1fcnVudGltZV91c2VfYXV0b3N1c3BlbmQoJmNsaWVudC0+ZGV2KTsKPiAK
+PiBJdCdzIG5vdCBjbGVhciB0byBtZSB0aGF0IGp1c3QgbW92aW5nIHRoZSBvcGVyYXRpb25zIGFm
+dGVyIHRoZQo+IHJlZ2lzdHJhdGlvbiBpcyBhIGdvb2QgZml4IC0gb25jZSB0aGUgY29tcG9uZW50
+IGlzIHJlZ2lzdGVyZWQgd2UgY291bGQKPiBzdGFydCB0cnlpbmcgdG8gZG8gcnVudGltZSBQTSBv
+cGVyYXRpb25zIHdpdGggaXQgd2hpY2ggQUZBSVIgd29uJ3QgY291bnQKPiByZWZlcmVuY2VzIGFu
+ZCBzbyBvbiBwcm9wZXJseSBpZiBydW50aW1lIFBNIGlzbid0IGVuYWJsZWQgc28gaWYgd2UgbGF0
+ZXIKPiBlbmFibGUgcnVudGltZSBQTSB3ZSBtaWdodCBoYXZlIHRoZSByZXN0IG9mIHRoZSBjb2Rl
+IGluIGEgY29uZnVzZWQgc3RhdGUKPiBhYm91dCB3aGF0J3MgZ29pbmcgb24uCgpUaGFua3MgZm9y
+IHlvdXIgYWR2aWNlLiBJIGNoZWNrZWQgdGhlIHVzZSBvZiBkZXZtX3NuZF9zb2NfcmVnaXN0ZXJf
+Y29tcG9uZW50KCkgCmluIHRoZSBrZXJuZWwgYW5kIGZvdW5kIHNvbWV0aW1lcyBydW50aW1lIFBN
+IGlzIGVuYWJsZWQgYmVmb3JlIHJlZ2lzdHJhdGlvbiAKYW5kIHNvbWV0aW1lcyBhZnRlciByZWdp
+c3RyYXRpb24uIFRvIGJlIG9uIHRoZSBzYWZlIHNpZGUsIEkgd2lsbCBzZW5kIGEgbmV3CnBhdGNo
+IHRvIGZpeCB0aGlzIGluIGVycm9yIGhhbmRsaW5nIHBhdGguCgpSZWdhcmRzLApEaW5naGFvCg==
 
-This is just a guess until I recompile again, but my capture from the D-05
-reports a read error, seemingly just as the vanilla mainline kernel does,
-and I think it's because I disabled its capture quirk line.  So, it seems
-to me that the D-05 needs both quirk table entries, whether or not the GT-1
-does.

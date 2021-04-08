@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C57358A56
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 18:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7492E358A59
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 18:58:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B83FE1662;
-	Thu,  8 Apr 2021 18:56:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B83FE1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE95D167F;
+	Thu,  8 Apr 2021 18:57:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE95D167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617901069;
-	bh=UsVHxXwhtxO6C1oI6waKzeTDm3pWIG9eRG5PEkfaJsg=;
+	s=default; t=1617901084;
+	bh=htlRiJ3+W5yCVRkjQ85b0eszxfKwlo/CNzzLketzYTs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BwkRjDsZf796AVwR9xkDPLRQLnfAOf5zDxzWWqECV9VPROKkenClAyJ8m/xNVRD4j
-	 1Eytfdle35aJO56KCQWX1VTuqirhy0wkGHz88/z9seZT7joS7XLe6Xa424gwaxg+AK
-	 Xlldc2HaxsgoDs8KiM+DnJYY1Y2D9+/9hkNwFBFU=
+	b=sRfr5yHmeRLtN/qfMKSHgODByL2UGWJR0ftU7GPVP1nTcq4az/zfwlEQxs2h0got2
+	 /yBc8jGG6+DpD6mTUkyQK63PNo2bLfX22Zq5zaGMvMUs4ZcnEdswQiKvsVKt5IRzZx
+	 Re09njQLMeb5Mi+q1AoaLLDzTBzNpi94oz87my/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5662FF80482;
-	Thu,  8 Apr 2021 18:55:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96EEFF804AA;
+	Thu,  8 Apr 2021 18:55:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82999F80425; Thu,  8 Apr 2021 18:55:38 +0200 (CEST)
+ id A5107F80482; Thu,  8 Apr 2021 18:55:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FD86F80162
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 18:55:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FD86F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id C98BBF80162
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 18:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98BBF80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t3UZCM7J"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3DB7C61056;
- Thu,  8 Apr 2021 16:55:33 +0000 (UTC)
+ header.b="RmBy6b20"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1870F6113A;
+ Thu,  8 Apr 2021 16:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617900933;
- bh=UsVHxXwhtxO6C1oI6waKzeTDm3pWIG9eRG5PEkfaJsg=;
+ s=k20201202; t=1617900936;
+ bh=htlRiJ3+W5yCVRkjQ85b0eszxfKwlo/CNzzLketzYTs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t3UZCM7JrYN3ubeZfioQX7f2h42ORE7juF8FqgeklugDqA2ixmes5UKy8d/zUQeO8
- b0GEC9VpdDNtPe0FxTtgNgxbH4AUG08AHJ7Z9keciqiu37FZDgelNnAWHJPDRkKDVD
- QBXMdXxArt6HrXStGx2lTYgXWqsiwfVHrTB6NW3hMFBfDeGmIXSIhjKlVdj+yd+hVn
- e4JDq9aRF5SqPxaxEpChryykf6pnuSuYpbU2AqS+1/5inPFgzlZgYuy/BF4e6OgQU6
- wqYKLr3R0aKlr23m1J3Kckjwl2OuM4EUMbHs5P8AQBmSnpX3p7E3RCh9C+uDV+wpyV
- Z4GLCo2SqAdlw==
+ b=RmBy6b20oW2rFEaDuRn0qGKuUvtdaQhBhwTM6wrUFb9JqTVTyqVRfna5v/SQGI6Lq
+ v6Agsvy6ZnKc/k3rf2irLJiEr/sVBhv+LiefbLH9rxOhmkx/RWNFIZ/tw11+ot01A2
+ LJEJYXKZAU1Z9WhG/U59IbQt70pt5gtjmKOHDArwvCk4DhCZArwXftTD3xQhIYzC6E
+ thuMwK5G7Rm3PUnFNnBXvR959caxIGB7oLeF5FRmVffNdjlUlEGRAnGxT0iRwJgVkj
+ rDCd2inJ+M2tvII4ZJZJj9e8ZS2z7v/wUuYDmUttCp2FAmRIeRG3t6Z1mqwgWYi7vY
+ 5vCNjl1dEYK9w==
 From: Mark Brown <broonie@kernel.org>
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>,
-	kjlu@umn.edu
-Subject: Re: [PATCH] [v2] ASoC: codecs: Fix runtime PM imbalance in
- tas2552_probe
-Date: Thu,  8 Apr 2021 17:54:39 +0100
-Message-Id: <161790012550.16915.9175549460514503586.b4-ty@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>, Ye Bin <yebin10@huawei.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH -next] ASoC: tas2764: constify static struct
+ snd_soc_dai_ops
+Date: Thu,  8 Apr 2021 17:54:40 +0100
+Message-Id: <161790012551.16915.4640106834409822350.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210408064036.6691-1-dinghao.liu@zju.edu.cn>
-References: <20210408064036.6691-1-dinghao.liu@zju.edu.cn>
+In-Reply-To: <20210408062643.802908-1-yebin10@huawei.com>
+References: <20210408062643.802908-1-yebin10@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Mark Brown <broonie@kernel.org>,
- "Alexander A. Klimov" <grandmaster@al2klimov.de>
+Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,10 +84,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Apr 2021 14:40:34 +0800, Dinghao Liu wrote:
-> There is a rumtime PM imbalance between the error handling path
-> after devm_snd_soc_register_component() and all other error
-> handling paths. Add a PM runtime increment to balance refcount.
+On Thu, 8 Apr 2021 14:26:43 +0800, Ye Bin wrote:
+> The snd_soc_dai_ops structures is only stored in the ops field of a
+> snd_soc_dai_driver structure, so make the snd_soc_dai_ops structure
+> const to allow the compiler to put it in read-only memory.
 
 Applied to
 
@@ -96,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: Fix runtime PM imbalance in tas2552_probe
-      commit: 7b3f5b207da5116add56c335c5fb92cee140dc63
+[1/1] ASoC: tas2764: constify static struct snd_soc_dai_ops
+      commit: b186e7c17d9f2c2bc9cd0bd362402eddbea7749b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,73 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E42123581B6
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 13:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEE5D358209
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 13:35:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 872EA1666;
-	Thu,  8 Apr 2021 13:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 872EA1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 763DE1666;
+	Thu,  8 Apr 2021 13:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 763DE1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617881222;
-	bh=eGjzl9/cD3BILS6L0jj8pWGBSXEAv/ZgBLv8odMuQS4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617881724;
+	bh=JlyOkOIdpIK4npzifdVXHcBq6SnG1Agmp6Af5JEbTEk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gQghH52NmiBvELmtN5b16Cp9BVJ2eTcK2kdp3DXgaqtJSUyZ4FMHrUsxYU5ola8pE
-	 80z2LjjGv1WO5C5BlYZc2LEbwBIFdLWJeHPpbo7wWnUlJsf6Sg2duSaMeggNhJNmyk
-	 116szByscMN8yMuQGhGRXBx7498ng0VC8nz8bmjE=
+	b=Br+3+MxEj7AIsJwtG1LIjMkwuCBSqnHtse8XOekDtf8pTOUiGFDs3J9UROO8YL1T5
+	 YNIgchzIEflzUEjVVSdMJckwwHyhyYpZVw33P3Xi8N8ahWI3tXaV1RR1CKPggfUZFL
+	 OXxZtb2lGpomOT0g5JL4q3inZ16s7eYrJ3JAprqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF024F8012F;
-	Thu,  8 Apr 2021 13:25:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 010ADF80162;
+	Thu,  8 Apr 2021 13:33:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C56BFF8020B; Thu,  8 Apr 2021 13:25:33 +0200 (CEST)
+ id 90557F8020B; Thu,  8 Apr 2021 13:33:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34EBFF80162
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 13:25:27 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B8190A003F;
- Thu,  8 Apr 2021 13:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B8190A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1617881126; bh=6MTTIh+KX6TUFFdvYZMSS3H7C7faPZ7iwfGprzyi7Qk=;
- h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
- b=H6d2yd+rbjrkwq2FnjFMu2MOMx5xDKNSc70TrZtEP60TBIhqoqbGg4LplWyBkLvV8
- xjYf1jIcHV8M/FcLtBA0Okq4QTKw8OzgFc7Zvew/8xVpb8Qq7WBJ2RovV9DDXcV2dx
- KMbZpiTg/dA9OvyvomZh9QxREgBC9tUHSzbDjQaw=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu,  8 Apr 2021 13:25:21 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: core - add more card sysfs entries
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE47CF8012F
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 13:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE47CF8012F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 199F5AE06;
+ Thu,  8 Apr 2021 11:33:42 +0000 (UTC)
+Date: Thu, 08 Apr 2021 13:33:41 +0200
+Message-ID: <s5h1rbl80yy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20210408094314.1322802-1-perex@perex.cz>
- <20210408103819.GA40407@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <db5bc960-3f8c-8e95-5b62-67ea99947a4a@perex.cz>
-Date: Thu, 8 Apr 2021 13:25:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <20210408103819.GA40407@workstation>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
+ controls
+In-Reply-To: <20210408105025.GB40407@workstation>
+References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
+ <20210408105025.GB40407@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,16 +70,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 08. 04. 21 v 12:38 Takashi Sakamoto napsal(a):
-
->>  static DEVICE_ATTR(number, 0444, card_number_show_attr, NULL);
+On Thu, 08 Apr 2021 12:50:25 +0200,
+Takashi Sakamoto wrote:
 > 
-> Use DEVICE_ATTR_RO() instead.
+> Hi,
+> 
+> Some supplements.
+> 
+> On Thu, Apr 08, 2021 at 07:31:49PM +0900, Takashi Sakamoto wrote:
+> > ALSA control interface allows users to add arbitrary control elements
+> > (called "user controls" or "user elements"), and its resource usage is
+> > limited just by the max number of control sets (currently 32).  This
+> > limit, however, is quite loose: each allocation of control set may
+> > have 1028 elements, and each element may have up to 512 bytes (ILP32) or
+> > 1024 bytes (LP64) of value data. Moreover, each control set may contain
+> > the enum strings and TLV data, which can be up to 64kB and 128kB,
+> > respectively.  Totally, the whole memory consumption may go over 38MB --
+> > it's quite large, and we'd rather like to reduce the size.
+> > 
+> > OTOH, there have been other requests even to increase the max number
+> > of user elements; e.g. ALSA firewire stack require the more user
+> > controls, hence we want to raise the bar, too.
+> > 
+> > For satisfying both requirements, this patch changes the management of
+> > user controls: instead of setting the upper limit of the number of
+> > user controls, we check the actual memory allocation size and set the
+> > upper limit of the total allocation in bytes.  As long as the memory
+> > consumption stays below the limit, more user controls are allowed than
+> > the current limit 32. At the same time, we set the lower limit (8MB)
+> > as default than the current theoretical limit, in order to lower the
+> > risk of DoS.
+> > 
+> > As a compromise for lowering the default limit, now the actual memory
+> > limit is defined as a module option, 'max_user_ctl_alloc_size', so that
+> > user can increase/decrease the limit if really needed, too.
+> > 
+> > Co-developed-by: Takashi Iwai <tiwai@suse.de>
+> > Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > ---
+> > v1->v2: Drop alloc_size field from user_element, calculate at private_free
+> > v2->v3: Rebase. Fix boundary error. Obsolete macro usage relying on modern
+> >         compiler optimization. Change comment style by modern coding
+> >         convention. Rename module parameter so that users get it easily.
+> >         Patch comment improvements.
+> > ---
+> >  include/sound/core.h |  2 +-
+> >  sound/core/control.c | 75 ++++++++++++++++++++++++++++++--------------
+> >  2 files changed, 52 insertions(+), 25 deletions(-)
+> 
+> The original content of patch comes from Iwai-san[1]. I have no clear
+> idea to handle the case so add 'Co-developed-by' tag to the patch. If
+> this is not good, I apologize the lack of my understanding to the
+> development process in Linux kernel.
 
-My proposal is consistent with the existing code. The cleanups should go on top.
+It depends.  In some cases, you just carry the patch with the original
+authorship (From address) and put your sign-off.  In some cases,
+Co-developed-by can be used.  I don't mind much either way, so I took
+your v3 patch now (with the addition of the Link URL to v2 patch).
 
-					Jaroslav
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Thanks!
+
+Takashi

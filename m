@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10529358E22
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 22:11:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABE3D358E80
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 22:33:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FCA81661;
-	Thu,  8 Apr 2021 22:10:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FCA81661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3429E166B;
+	Thu,  8 Apr 2021 22:32:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3429E166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617912682;
-	bh=wjXdofjzSSjfYldrJWCEMmmS5UR0bLv2RWsVdLtSuxA=;
+	s=default; t=1617914004;
+	bh=nO4Zr4ebsilCYe3edO7HZ3kHkPpDZZhK34gkD7myrBc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tpbn5rzr8Tv+K0Lr5ezBkzrjZ2+kCotWdB40kOBT7CzcwBuhYVJw3TK1dJix3l/XI
-	 t6Qoak55iobYUhq1K7kVBJ56nX/E0HxYbTTWS2COc//jq2Ne2neLBlYo2bhd2pXZ4T
-	 4tJsHZIQ9uR0HpRw3x57aWjijYmU9o39uX5FpdTk=
+	b=oCu4LNzNEb8g4kgnlyf0eAXo+zneYWVhSe96vVgNdXDvp0RPXdfqfBLFqIboJiE2W
+	 U/PxRuj4W2lfBp1Ya5hNPisLwsArm935OdkPh5/yr5RGWM1066kkvhUyTB9xCzh2Bj
+	 5gJ2HRlGmAqDgz7v0iLgTBpsL1tx6riWrPVSXn9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B6F5F800BD;
-	Thu,  8 Apr 2021 22:09:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 837F7F8012F;
+	Thu,  8 Apr 2021 22:31:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D92EF8020B; Thu,  8 Apr 2021 22:09:53 +0200 (CEST)
+ id DCB14F8020B; Thu,  8 Apr 2021 22:31:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B446FF800BD
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 22:09:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B446FF800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id E28F0F8012F
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 22:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E28F0F8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="eKnrazsW"
-Received: by mail-qk1-x736.google.com with SMTP id o5so3657733qkb.0
- for <alsa-devel@alsa-project.org>; Thu, 08 Apr 2021 13:09:43 -0700 (PDT)
+ header.b="p9zaWmAY"
+Received: by mail-ed1-x534.google.com with SMTP id h10so3937776edt.13
+ for <alsa-devel@alsa-project.org>; Thu, 08 Apr 2021 13:31:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pg9Z28S492jZJs8fF1OMWMPt1zvtugEUUH2aQ8nHg64=;
- b=eKnrazsWHqNJQFzRVa2tG9pqCE0ausFzboAaGOyQizTmceZu2cxTJcy/Qwm0xeM8Gl
- 7lOpL5dtq1Vgq+5vlpX8JSCRZYwCCueU7kXx1VNnK4itSyyr2BADfHFsjw1uMAZkR9/q
- PxwZ5Zx0h83yyj7onr3wjmPuhAySmgLXX5twGw2UdW3+28rbpce0c//OR+DR03nm5eTw
- 2ktWaSzdmhUzVabUiyP1R6CAi0px+PnOnyHT1HmTxNp0Lh8WTmPJSNV4YGc2t+L8NJWj
- MTYRhO1Nhw05yF7M78MuRWIudLeaCgK/0Gkg4wyzEJriwT0Z6LwByiHNTzdeqhR7BgX7
- Lslw==
+ :cc; bh=rf2oG4d5aNtqL9DK/dWLQ2cStRBpXucMapOAPLClqJ0=;
+ b=p9zaWmAYAPbo5WiFAmwdUDohTzRsD+4vM8kmPWFKjRBXuYAQuzn6Vb9WYlBAMTs9u7
+ XMM1NbHtl0EB6MD671M0yiC0m/ldYCs2oUd4+LSKPLyr028QNGoVjtH1yKHJHMHnhjuW
+ WDthjVV/pjwlPkfBtcEEmbiaKW2xLtc89sHCDD2lLM5NDK4AYE5pmYoJrLkJ6j5fQqaW
+ cHP2ZnHodcnL6Y4gcttV0Bz1sPy46PYekj238Zs0XUwCliERjH+gHBidmLz1RP7uPGzV
+ FYhj10SVsmKEvh9Rhz2aFFuAInBM55tm7Gh7OtSFQ210LdkZs3UXh1JWXl5B6eZZ1WrF
+ vF6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=pg9Z28S492jZJs8fF1OMWMPt1zvtugEUUH2aQ8nHg64=;
- b=TkixSW9lQjeY8l28OO6pwXtB984ojbqkV9GdCvjlCKZiA1O7B90BAL7ZMLaTCaXG76
- UwYIgvvh1jxHY3bJCfKASxkLXq5m55p72A3Fr+YU3H1HFPXr04f7VtHlUoLgFHosiuH+
- 1DBGS2vxas2MIsg/ZTBx/AEkP6IBOUxKq+K8WjRaPwNnNSyesBO3snCU7f7jK0TIGGE2
- uNugUD71OZrR1Qx17Ck5KdE9CPNfER9gUoIokYrkq2oa++JxkCVjid1uFCdSQkPDCsrP
- YVJmlaBV7YldgN65LYpqw4B0+kdrk6/5jfW35FZ/Mjtf+aIFdjaHYkoze2KBKE8BzxEL
- 234Q==
-X-Gm-Message-State: AOAM530ZlFI1h9oCSgLYuBulTtI+VwDxUXQZFJ11wEfVpGUMNo/bYS2S
- 9FP9fHHzuw+b1rPTAukewN3x6VOqpwubQfYzQ9I=
-X-Google-Smtp-Source: ABdhPJwORXMI6oU7XCBp3VNpKeWepjpCDGE4bL6+ItJBdUeHGE+c0OCoA5OcqugnBfwO2zuDX5EFS724lkazPIoGgTU=
-X-Received: by 2002:a05:620a:24a:: with SMTP id
- q10mr3348997qkn.366.1617912580544; 
- Thu, 08 Apr 2021 13:09:40 -0700 (PDT)
+ bh=rf2oG4d5aNtqL9DK/dWLQ2cStRBpXucMapOAPLClqJ0=;
+ b=DTviniA26yjEUuATfjnuNA+6tzOm8Fe5D3YPxBHE0d3aF74zYcqe7Yv3MkX/0RYLF4
+ jDvguMV45biUWUbkC6VcKr8mBWKVXNvuE2TR7pJfg6uiFM00im8y94pvn+eLyLyetZc2
+ MMxbgvK3M9Nq/UV4xIomLiOTKV9FHZzM/KVBm2M2iwDAcUsdEHBlXZ3l8rXNZCyOZFtI
+ GGerEouDlZdTp8v5i1rVtRQ8odwmTbY/M3JxQacokTiG+01ABCYhUTy6MCiE2I1VPxDc
+ HQHRcG+M0kB+3kMMaFTKj7c+pc07XeNLK9dUiN7q2olURQzdeR2fmAJb0l1EouFteGhS
+ viPQ==
+X-Gm-Message-State: AOAM530rzj8LEB5MHn5PKkN1b/K0AZWT2Ie5rYtEv/4aZMXw2h4VB68h
+ lDQ7Rg5bO+J+e62NSbYE6Mu7K1kjq0iLilsUHvY=
+X-Google-Smtp-Source: ABdhPJxfdPo37M4MC0F1OF43gVTPDtmQWNjB3LgeGdA/oCLUypBxU0Rfbzk+jg3ce2wUcpAaza6AzMzo9FlCSYRhWS4=
+X-Received: by 2002:a50:cd0b:: with SMTP id z11mr7236501edi.209.1617913908604; 
+ Thu, 08 Apr 2021 13:31:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
  <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
@@ -81,15 +80,16 @@ References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
  <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
  <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
  <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
-In-Reply-To: <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-Date: Thu, 8 Apr 2021 17:14:20 -0300
-Message-ID: <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
+ <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
+In-Reply-To: <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
+From: Lucas <jaffa225man@gmail.com>
+Date: Thu, 8 Apr 2021 15:31:36 -0500
+Message-ID: <CAOsVg8ooWOafVv-T-hVsekO3tuPPe=AhTHZ1qzjbf1X5astXXA@mail.gmail.com>
 Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-To: Mike Oliphant <oliphant@nostatic.org>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Lucas <jaffa225man@gmail.com>, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,283 +105,218 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Qui, 8 de abr de 2021 16:42, Mike Oliphant <oliphant@nostatic.org>
-escreveu:
+It's easy enough to get the lsusb -v output you wanted, but I plan to build
+one kernel for another topic next.  After that, I'll try re-enabling your
+code plus the capture quirk table entry.
 
-> Hi Geraldo - yes. In fact, that is how I've been operating for the past
-> year or so before the recent implicit feedback changes. I use the GT-1 most
-> every day as a guitar interface and it works perfectly.
->
-
-Thanks Mike, but I'm not sure I understand. You have been operating with
-implicit feedback sync on the playback for the past year? I thought that
-was a new idea?
-
-The key point here is that with a stock kernel you have to comment out the
-IMPLICIT_FB_SKIP_DEV() entry for the GT-1 for the Roland code inside
-audioformat_implicit_fb_quirk properly kick in.
-
-I was suggesting you try your workaround without adding a
-IMPLICIT_FB_GENERIC_DEV() for your device.
-
-
-> The GT-1 (and I suspect many of the other Roland/BOSS devices) doesn't
-> seem to be quirky at all with regard to implicit feedback setup - it works
-> exactly as the endpoint definitions say it should.
->
-> Where the GT-1 *does* seem to be quirky is that is doesn't seem to want to
-> send capture data until it receives some playback data - hence my
-> endpoint.c patch.
->
-
-If that is true then there's definitely a need to rewrite endpoint.c. But
-it could be something else, Mike. One thing is certain: the present kernel
-behaviour is far from the ideal.
-
-I insist: engage implicit feedback sync for the playback, disable it for
-the captures and inspect your dyndbg logs for the failure cases in starting
-JACK that happen when you don't patch endpoint.c.
-
-If you see something related to sync_ep then the problem lies elsewhere,
-specifically inside pcm.c
-
-Although whether this behavior is quirky or typical I don't know. I do know
-> that the GT-1 does not claim to be USB class compliant. It requires custom
-> drivers on Windows and macOS and does not work at all with iOS, so it
-> definitely seems to be somewhat non-standard.
->
-
-Non-standard to say the least. I really hope that's not the case or it'll
-give Takashi Iwai plenty of headache ;-)
-
-
-> Mike
->
-> On Thu, Apr 8, 2021 at 12:13 PM Geraldo Nascimento <
-> geraldogabriel@gmail.com> wrote:
->
->> Hey Mike, got another question for you, sorry about that.
->>
->> If you comment out your GT-1 IMPLICIT_FB_GENERIC_DEV() entry and instead
->> let audioformat_implicit_fb_quirk() call add_roland_implicit_fb() with
->> everything else customized your way, your custom endpoint.c etc., does it
->> still work? And does it work crystal clear?
->>
->> I'm sorry about this test this, test that, provide the dyndbg logs
->> attitude but I'm honestly just trying to help you write the best patch
->> possible.
->>
->> Thank you,
->> Geraldo
->>
->> Em Qui, 8 de abr de 2021 02:05, Geraldo Nascimento <
->> geraldogabriel@gmail.com> escreveu:
->>
->>> Mike, I just realize I missed reply-to-all once again.
->>>
->>> In case you were wondering, I was looking for a sync_ep event right in
->>> the start of the loading of snd-usb-audio. It happens inside pcm.c. If you
->>> see one of those specifically let me know.
->>>
->>> With my Pioneer device, the DDJ-SR2, snd-usb-audio recognized the
->>> device's implicit feedback EP as sync_ep and that prevented JACK from
->>> starting.
->>>
->>> Em Qua, 7 de abr de 2021 23:47, Mike Oliphant <oliphant@nostatic.org>
->>>> escreveu:
->>>>
->>>>> Hi Geraldo - I had the same thought and I have tried enabling playback
->>>>> feedback while turning off capture feedback without my endpoint patch. It
->>>>> doesn't work - at least not on the GT-1. Playback/capture fails to start.
->>>>>
->>>>
->>>> Would you mind sharing the dyndbg logs for the failure case from the
->>>> point you connect the device, and trying to start JACK?
->>>>
->>>> Sometimes failures elucidate more than success cases.
->>>>
->>>>
->>>>> Speaking of testing, if you (or anyone else following this discussion)
->>>>> have one of these Roland/BOSS devices, it would be great if you could try
->>>>> testing with playback feedback enabled and my endpoint.c workaround.
->>>>>
->>>>
->>>> I don't have the hardware, but I'm sure it works. The problem is that
->>>> endpoint.c code really shouldn't be disabled unless all the other options
->>>> fail, and even then, I'm not so sure the maintainers will be so willing to
->>>> disable it. So let's keep some other options on the table by debugging a
->>>> little further.
->>>>
->>>> Thank you,
->>>> Geraldo
->>>>
->>>>
->>>>> Mike
->>>>>
->>>>> On Wed, Apr 7, 2021 at 7:21 PM Geraldo Nascimento <
->>>>> geraldogabriel@gmail.com> wrote:
->>>>>
->>>>>> Thanks, Mike, one thing I can tell you right off the bat is that if
->>>>>> you turn implicit feedback sync on for both endpoints at the same time like
->>>>>> you mentioned, without your workaround inside endpoint.c, they most likely
->>>>>> will stall because they would both be waiting for each other to start.
->>>>>>
->>>>>> Have you tried engaging the generic implicit feedback sync just for
->>>>>> the playback, thereby commenting out the capture implicit feedback entries,
->>>>>> and re-enabling snd_usb_endpoint_implicit_feedback_sink(ep) inside
->>>>>> endpoint.c? Does playback still fail to start?
->>>>>>
->>>>>> If you choose to perform this simple test please share with us the
->>>>>> test's dyndbg logs right from the moment you turn on the device, not just
->>>>>> after you start jackd.
->>>>>>
->>>>>> Sorry for the endless do-this, do-that. Such is the pace of
->>>>>> teledebugging
->>>>>>
->>>>>>
->>>>>> Em Qua, 7 de abr de 2021 21:38, Mike Oliphant <oliphant@nostatic.org>
->>>>>> escreveu:
->>>>>>
->>>>>>> Geraldo - here is the dmesg output when starting up jackd for
->>>>>>> capture/playback:
->>>>>>>
->>>>>>> With my patch:
->>>>>>>
->>>>>>> [  136.734081] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
->>>>>>> [  136.734088] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
->>>>>>> period_bytes=256, periods=2, implicit_fb=0
->>>>>>> [  136.734092] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
->>>>>>> [  136.734233] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
->>>>>>> [  136.734381] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
->>>>>>> [  136.734388] usb 3-1.2: Setting params for data EP 0x8e, pipe
->>>>>>> 0x70480
->>>>>>> [  136.734394] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>> [  136.734466] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
->>>>>>> [  136.734468] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
->>>>>>> period_bytes=256, periods=2, implicit_fb=1
->>>>>>> [  136.734471] usb 3-1.2: Reopened EP 0x8e (count 1)
->>>>>>> [  136.734473] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
->>>>>>> [  136.734605] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
->>>>>>> [  136.734762] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
->>>>>>> [  136.734774] usb 3-1.2: Setting params for data EP 0xd, pipe
->>>>>>> 0x68400
->>>>>>> [  136.734781] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>> [  136.734830] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>> [  136.734873] usb 3-1.2: 12 URBs submitted for EP 0xd
->>>>>>> [  136.734876] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>> [  136.734906] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>> [  136.740627] usb 3-1.2: Starting data EP 0x8e (running 1)
->>>>>>> [  136.740634] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>> [  136.740635] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>>
->>>>>>>
->>>>>>> With the unpatched kernel:
->>>>>>>
->>>>>>> [  344.813203] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
->>>>>>> [  344.813210] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
->>>>>>> period_bytes=256, periods=2, implicit_fb=1
->>>>>>> [  344.813213] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
->>>>>>> [  344.813215] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
->>>>>>> period_bytes=256, periods=2, implicit_fb=0
->>>>>>> [  344.813217] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
->>>>>>> [  344.813367] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
->>>>>>> [  344.813494] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
->>>>>>> [  344.813503] usb 3-1.2: Setting params for data EP 0x8e, pipe
->>>>>>> 0x70580
->>>>>>> [  344.813509] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>> [  344.813513] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
->>>>>>> [  344.813587] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
->>>>>>> [  344.813758] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
->>>>>>> [  344.813765] usb 3-1.2: Setting params for data EP 0xd, pipe
->>>>>>> 0x68500
->>>>>>> [  344.813770] usb 3-1.2: Set up 2 URBS, ret=0
->>>>>>> [  344.813858] usb 3-1.2: Reopened EP 0xd (count 1)
->>>>>>> [  344.813883] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>> [  344.813899] usb 3-1.2: 2 URBs submitted for EP 0xd
->>>>>>> [  344.819499] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>> [  344.819532] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>> [  344.819535] usb 3-1.2: Starting data EP 0xd (running 1)
->>>>>>> [  344.819538] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>> [  344.819540] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>> [  344.820663] usb 3-1.2: Stopping data EP 0xd (running 2)
->>>>>>> [  344.820688] usb 3-1.2: Stopping data EP 0x8e (running 1)
->>>>>>> [  344.820693] usb 3-1.2: 2:1 Stop Capture PCM
->>>>>>> [  344.820695] usb 3-1.2: Stopping data EP 0xd (running 1)
->>>>>>> [  344.820697] usb 3-1.2: 1:1 Stop Playback PCM
->>>>>>> [  344.833799] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>> [  344.833852] usb 3-1.2: 2 URBs submitted for EP 0xd
->>>>>>> [  344.833867] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>> [  344.833888] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>> [  344.833890] usb 3-1.2: Starting data EP 0xd (running 1)
->>>>>>> [  344.833891] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>> [  344.833893] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>>
->>>>>>> On Wed, Apr 7, 2021 at 1:30 PM Geraldo Nascimento <
->>>>>>> geraldogabriel@gmail.com> wrote:
->>>>>>>
->>>>>>>> Em Qua, 7 de abr de 2021 17:16, Mike Oliphant <
->>>>>>>> oliphant@nostatic.org> escreveu:
->>>>>>>>
->>>>>>>>> Hi Geraldo - I don't have that patch applied, but it shouldn't
->>>>>>>>> make any behavioral difference - it just seems to be simplifying the code.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Point taken.
->>>>>>>>
->>>>>>>>
->>>>>>>>> The issue is that the BOSS GT-1 *does* need implicit feedback on
->>>>>>>>> playback to avoid clock timing issues, and the current behavior is
->>>>>>>>> disabling that feedback.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Mike, would you mind posting some dyndbg logs for both the stock
->>>>>>>> behaviour and your endpoint.c/generic quirk modified behaviour?
->>>>>>>>
->>>>>>>> Just add snd_usb_audio.dyndbg=+p to your kernel options and please
->>>>>>>> share the logs.
->>>>>>>>
->>>>>>>>
->>>>>>>>> Mike
->>>>>>>>>
->>>>>>>>> On Wed, Apr 7, 2021 at 1:04 PM Geraldo Nascimento <
->>>>>>>>> geraldogabriel@gmail.com> wrote:
->>>>>>>>>
->>>>>>>>>> Hey Mike, did you catch the latest patch by Takashi Iwai for
->>>>>>>>>> capture quirky devices?
->>>>>>>>>>
->>>>>>>>>> You can find it here:
->>>>>>>>>> https://patchwork.kernel.org/project/alsa-devel/patch/20210406113837.32041-1-tiwai@suse.de/
->>>>>>>>>>
->>>>>>>>>> Em Qua, 7 de abr de 2021 16:55, Mike Oliphant <
->>>>>>>>>> oliphant@nostatic.org> escreveu:
->>>>>>>>>>
->>>>>>>>>>> I had thought that the recent implicit feedback changes were
->>>>>>>>>>> fully working
->>>>>>>>>>> on the BOSS GT-1, but it turns out that I just hadn't tested
->>>>>>>>>>> well enough.
->>>>>>>>>>>
->>>>>>>>>>> Audio playback and capture works, but with periodic dropouts. I
->>>>>>>>>>> get the
->>>>>>>>>>> exact same behavior as I did with the quirk to completely
->>>>>>>>>>> disable implicit
->>>>>>>>>>> feedback. Without the implicit feedback, you get dropouts from
->>>>>>>>>>> clock drift
->>>>>>>>>>> - how bad probably varies from card to card. On mine it is every
->>>>>>>>>>> second or
->>>>>>>>>>> so.
->>>>>>>>>>>
->>>>>>>>>>> If I switch playback feedback for the GT-1 to generic by doing
->>>>>>>>>>> "IMPLICIT_FB_GENERIC_DEV(0x0582, 0x01d6)", I get the previous
->>>>>>>>>>> old behavior,
->>>>>>>>>>> which is that playback completely fails to start.
->>>>>>>>>>>
->>>>>>>>>>> With generic playback feedback, and using my previous patch to
->>>>>>>>>>> endpoint.c
->>>>>>>>>>> to avoid playback waiting on capture mentioned here:
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-January/161951.html
->>>>>>>>>>>
->>>>>>>>>>> playback and capture work perfectly for me.
->>>>>>>>>>>
->>>>>>>>>>
+Here's lsusb -v for the Roland Boutique D-05, but it seems the endpoints
+are the same addresses:
+Bus 002 Device 005: ID 0582:01ff Roland Corp. Boutique
+Couldn't open device, some information will be missing
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass          255 Vendor Specific Class
+  bDeviceSubClass         0
+  bDeviceProtocol       255
+  bMaxPacketSize0        64
+  idVendor           0x0582 Roland Corp.
+  idProduct          0x01ff
+  bcdDevice            1.00
+  iManufacturer           1 Roland
+  iProduct                2 Boutique
+  iSerial                 3 BQ_D382DDA054B5533321C1F1743
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength       0x010e
+    bNumInterfaces          4
+    bConfigurationValue     1
+    iConfiguration          0
+    bmAttributes         0x80
+      (Bus Powered)
+    MaxPower              500mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass    255 Vendor Specific Subclass
+      bInterfaceProtocol      0
+      iInterface              0
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      2
+      iInterface              0
+      ** UNRECOGNIZED:  06 24 f1 01 00 00
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       1
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      2
+      iInterface              0
+      ** UNRECOGNIZED:  07 24 01 01 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 00 77 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x0d  EP 13 OUT
+        bmAttributes            5
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+        INTERFACE CLASS:  06 24 f1 04 12 00
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       2
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      2
+      iInterface              0
+      ** UNRECOGNIZED:  07 24 01 01 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 00 77 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x0d  EP 13 OUT
+        bmAttributes            5
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        2
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      1
+      iInterface              0
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        2
+      bAlternateSetting       1
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      1
+      iInterface              0
+      ** UNRECOGNIZED:  07 24 01 07 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 00 77 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x8e  EP 14 IN
+        bmAttributes           37
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Implicit feedback Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+        INTERFACE CLASS:  06 24 f1 04 12 00
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        2
+      bAlternateSetting       2
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2
+      bInterfaceProtocol      1
+      iInterface              0
+      ** UNRECOGNIZED:  07 24 01 07 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 00 77 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x8e  EP 14 IN
+        bmAttributes           37
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Implicit feedback Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        3
+      bAlternateSetting       0
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3
+      bInterfaceProtocol      0
+      iInterface              0
+      ** UNRECOGNIZED:  06 24 f1 02 01 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               1
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x84  EP 4 IN
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               0
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        3
+      bAlternateSetting       1
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3
+      bInterfaceProtocol      0
+      iInterface              0
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               4
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x85  EP 5 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               4

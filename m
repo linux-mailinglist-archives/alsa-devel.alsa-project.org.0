@@ -2,60 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9D6358578
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 16:00:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 803523585F1
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 16:08:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10D8D1658;
-	Thu,  8 Apr 2021 16:00:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10D8D1658
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB2F91661;
+	Thu,  8 Apr 2021 16:07:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB2F91661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617890457;
-	bh=q3q13qMYSyDKU8VayQbJW5NSLwEAwCiiU4ZiReCLz6o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ki0EdohGM+9eI/sA0CL4H3uEqgWEug9V4x60oDD75SUSp3SGgRXrSa4WX02bF95zT
-	 +4Y8G4Qa2m/GqViqTBXQr2LFEnEhc5Z85Ho3+5oEvbC+yL3pT8B73/r8sEBQiwlq4b
-	 XSbvTZ0YNMNYzBAzvMzDSBFQk5xRivUWV9wmT8zg=
+	s=default; t=1617890892;
+	bh=gL5M1NUKW++lMkd03myDPYCxRlq0ygNvBL6aJ3gYmiU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UpfETlgTxYxhvbiCvsoXIwiCx23FDjyxZq1ym7jYStDvpx/x4MRbBS6LTFR2It69L
+	 gVoA1F9fbh1kWuzgQhuIeK1h0/5ms/6g0yUgnG/q4nayjnh7HW3Hyk/OAymQ9k4g29
+	 nWFv+4plTVIBeVu+m9aNalhuU7VGBCBhRC1zndCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA68CF800BD;
-	Thu,  8 Apr 2021 15:59:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D0CBF80246;
+	Thu,  8 Apr 2021 16:06:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFB48F8020B; Thu,  8 Apr 2021 15:59:28 +0200 (CEST)
+ id 52BF3F8020B; Thu,  8 Apr 2021 16:06:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from router.aksignal.cz (router.aksignal.cz [62.44.4.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8857CF800BD
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 15:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8857CF800BD
-Received: from localhost (localhost [127.0.0.1])
- by router.aksignal.cz (Postfix) with ESMTP id 100D043262;
- Thu,  8 Apr 2021 15:59:16 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at router.aksignal.cz
-Received: from router.aksignal.cz ([127.0.0.1])
- by localhost (router.aksignal.cz [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id XvIQduR5ufg4; Thu,  8 Apr 2021 15:59:14 +0200 (CEST)
-Received: from pc-gameroom.prchals.tk (unknown [83.240.30.185])
- (Authenticated sender: jiri.prchal@aksignal.cz)
- by router.aksignal.cz (Postfix) with ESMTPSA id 9E5B243261;
- Thu,  8 Apr 2021 15:59:14 +0200 (CEST)
-From: Jiri Prchal <jiri.prchal@aksignal.cz>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: codecs: tlv320aic3x: add AIC3106
-Date: Thu,  8 Apr 2021 15:59:08 +0200
-Message-Id: <20210408135908.125667-1-jiri.prchal@aksignal.cz>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9D5EF800BD
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 16:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D5EF800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XvPaUDRX"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9D3536102A;
+ Thu,  8 Apr 2021 14:06:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617890790;
+ bh=gL5M1NUKW++lMkd03myDPYCxRlq0ygNvBL6aJ3gYmiU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XvPaUDRXsh9Kimmi5JbHDrZVpKG8gLliYgjLE2LwK/IhCi6Vz4OxCL9pl6/irLK+X
+ e6QAxXutUwyh079AvnwrjIWbV2tpg8pG/+mA6Y1qaCYvC8AsRt+M5XwZXhNabuZTSU
+ zmsHL7rVAi8l+OS/fAwYJGtOBMUHV8cvrOeeqoyofF6oCQtNP6MCKBoB5BWMR5e6ZI
+ Cw0Mu3ujM/oo5U+pU5eCJRVgzAudnfudeDcfga1YYxidEHNpP1D+Ite7MnG+1t4SeS
+ +dpjF9KBPtL2EKbSO2gGowyhRvLNDzs4kLSuHwWc524J9OXfInswDL4xjUcH4SD3Qx
+ jojVA4astESvQ==
+Date: Thu, 8 Apr 2021 15:06:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiri Prchal <jiri.prchal@aksignal.cz>
+Subject: Re: [PATCH v2] ASoC: codecs: tlv320aic3x: add AIC3106
+Message-ID: <20210408140612.GI4516@sirena.org.uk>
+References: <20210408135908.125667-1-jiri.prchal@aksignal.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Jiri Prchal <jiri.prchal@aksignal.cz>, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="nEsDIrWrg+hrB7l1"
+Content-Disposition: inline
+In-Reply-To: <20210408135908.125667-1-jiri.prchal@aksignal.cz>
+X-Cookie: Editing is a rewording activity.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,99 +81,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In DT binding is mentioned that this driver is compatible with 3106.
-So added compatibility string and model number.
 
--v2: Also added in switches "case AIC3X_MODEL_3106:" to have right widgets etc.
+--nEsDIrWrg+hrB7l1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jiri Prchal <jiri.prchal@aksignal.cz>
----
- sound/soc/codecs/tlv320aic3x-i2c.c | 2 ++
- sound/soc/codecs/tlv320aic3x-spi.c | 2 ++
- sound/soc/codecs/tlv320aic3x.c     | 3 +++
- sound/soc/codecs/tlv320aic3x.h     | 1 +
- 4 files changed, 8 insertions(+)
+On Thu, Apr 08, 2021 at 03:59:08PM +0200, Jiri Prchal wrote:
+> In DT binding is mentioned that this driver is compatible with 3106.
+> So added compatibility string and model number.
+>=20
+> -v2: Also added in switches "case AIC3X_MODEL_3106:" to have right widget=
+s etc.
 
-diff --git a/sound/soc/codecs/tlv320aic3x-i2c.c b/sound/soc/codecs/tlv320aic3x-i2c.c
-index 4535bb8dbadc..cd0558ed4dd4 100644
---- a/sound/soc/codecs/tlv320aic3x-i2c.c
-+++ b/sound/soc/codecs/tlv320aic3x-i2c.c
-@@ -40,6 +40,7 @@ static const struct i2c_device_id aic3x_i2c_id[] = {
- 	{ "tlv320aic33", AIC3X_MODEL_33 },
- 	{ "tlv320aic3007", AIC3X_MODEL_3007 },
- 	{ "tlv320aic3104", AIC3X_MODEL_3104 },
-+	{ "tlv320aic3106", AIC3X_MODEL_3106 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, aic3x_i2c_id);
-@@ -49,6 +50,7 @@ static const struct of_device_id aic3x_of_id[] = {
- 	{ .compatible = "ti,tlv320aic33" },
- 	{ .compatible = "ti,tlv320aic3007" },
- 	{ .compatible = "ti,tlv320aic3104" },
-+	{ .compatible = "ti,tlv320aic3106" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, aic3x_of_id);
-diff --git a/sound/soc/codecs/tlv320aic3x-spi.c b/sound/soc/codecs/tlv320aic3x-spi.c
-index bd78ab0910da..8c7b6bb9223f 100644
---- a/sound/soc/codecs/tlv320aic3x-spi.c
-+++ b/sound/soc/codecs/tlv320aic3x-spi.c
-@@ -45,6 +45,7 @@ static const struct spi_device_id aic3x_spi_id[] = {
- 	{ "tlv320aic33", AIC3X_MODEL_33 },
- 	{ "tlv320aic3007", AIC3X_MODEL_3007 },
- 	{ "tlv320aic3104", AIC3X_MODEL_3104 },
-+	{ "tlv320aic3106", AIC3X_MODEL_3106 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, aic3x_spi_id);
-@@ -54,6 +55,7 @@ static const struct of_device_id aic3x_of_id[] = {
- 	{ .compatible = "ti,tlv320aic33" },
- 	{ .compatible = "ti,tlv320aic3007" },
- 	{ .compatible = "ti,tlv320aic3104" },
-+	{ .compatible = "ti,tlv320aic3106" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, aic3x_of_id);
-diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
-index 2f351747b714..7731593a5509 100644
---- a/sound/soc/codecs/tlv320aic3x.c
-+++ b/sound/soc/codecs/tlv320aic3x.c
-@@ -1003,6 +1003,7 @@ static int aic3x_add_widgets(struct snd_soc_component *component)
- 	switch (aic3x->model) {
- 	case AIC3X_MODEL_3X:
- 	case AIC3X_MODEL_33:
-+	case AIC3X_MODEL_3106:
- 		snd_soc_dapm_new_controls(dapm, aic3x_extra_dapm_widgets,
- 					  ARRAY_SIZE(aic3x_extra_dapm_widgets));
- 		snd_soc_dapm_add_routes(dapm, intercon_extra,
-@@ -1580,6 +1581,7 @@ static int aic3x_init(struct snd_soc_component *component)
- 	switch (aic3x->model) {
- 	case AIC3X_MODEL_3X:
- 	case AIC3X_MODEL_33:
-+	case AIC3X_MODEL_3106:
- 		aic3x_mono_init(component);
- 		break;
- 	case AIC3X_MODEL_3007:
-@@ -1646,6 +1648,7 @@ static int aic3x_component_probe(struct snd_soc_component *component)
- 	switch (aic3x->model) {
- 	case AIC3X_MODEL_3X:
- 	case AIC3X_MODEL_33:
-+	case AIC3X_MODEL_3106:
- 		snd_soc_add_component_controls(component, aic3x_extra_snd_controls,
- 				ARRAY_SIZE(aic3x_extra_snd_controls));
- 		snd_soc_add_component_controls(component, aic3x_mono_controls,
-diff --git a/sound/soc/codecs/tlv320aic3x.h b/sound/soc/codecs/tlv320aic3x.h
-index 00908f1734a7..7e0063913017 100644
---- a/sound/soc/codecs/tlv320aic3x.h
-+++ b/sound/soc/codecs/tlv320aic3x.h
-@@ -20,6 +20,7 @@ int aic3x_remove(struct device *dev);
- #define AIC3X_MODEL_33 1
- #define AIC3X_MODEL_3007 2
- #define AIC3X_MODEL_3104 3
-+#define AIC3X_MODEL_3106 4
- 
- /* AIC3X register space */
- #define AIC3X_CACHEREGNUM		110
--- 
-2.25.1
+As covered in submitting-patches.rst inter version changelogs should
+come after the ---.
 
+--nEsDIrWrg+hrB7l1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmBvDdMACgkQJNaLcl1U
+h9DnvQf9HLUJEC03MBa7Xdoluji0kTtjpPkU3x38ryJK7EXDKktkX9ZaPR/5Un4/
+oKhNO/sxzQ19FzoVVl7sl2fdl7kJNWjuwQm8EfI+F7kddnsPK04QTOR+JoHn6kLW
+nRUAtzqwMQ97wyjngEoDzx+FVvYJ/Gzrr2cMFfktFTJ9uD6z9jWH+f17SYEwQufD
+yobLbE1RRI+Xx1E8WJ+L+57S5T10NQZMwkra7D3fppwQkIn2TIyvXvs5bdDhKURl
+yW2kR5uUeHvzl5Frw4FQQN0RZGZp5pbiOWO5PC4eONnC/6ZN+ZxXtVVtT73NBv6U
+qD5xJHRvTUF15Bz+AR11p8r8WgWBCw==
+=1Io1
+-----END PGP SIGNATURE-----
+
+--nEsDIrWrg+hrB7l1--

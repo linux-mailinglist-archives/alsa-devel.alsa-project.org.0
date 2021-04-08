@@ -2,79 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EACB9358DFF
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 22:03:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10529358E22
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 22:11:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73C511658;
-	Thu,  8 Apr 2021 22:02:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73C511658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FCA81661;
+	Thu,  8 Apr 2021 22:10:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FCA81661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617912217;
-	bh=CXKcg/88jKpurAM9wDqXSIESRtDwINDtsqMBNDkaVRw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617912682;
+	bh=wjXdofjzSSjfYldrJWCEMmmS5UR0bLv2RWsVdLtSuxA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YUQhShPvaxLqTOnynZpkw5evSSvRAnMCMeMRhZQ2rtx3AfMWDwB7bQSWyA+JgJe3L
-	 gPKwONjUXy/uivQVEJwXiPgsDN43usi3+Z0XI2Pe2MV5Q0kHMeT/mzYRTWKlvXJoWO
-	 R+za0lNGqRVUJgqFVl/VCJe3nWweIkpmbKaen4lE=
+	b=Tpbn5rzr8Tv+K0Lr5ezBkzrjZ2+kCotWdB40kOBT7CzcwBuhYVJw3TK1dJix3l/XI
+	 t6Qoak55iobYUhq1K7kVBJ56nX/E0HxYbTTWS2COc//jq2Ne2neLBlYo2bhd2pXZ4T
+	 4tJsHZIQ9uR0HpRw3x57aWjijYmU9o39uX5FpdTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E824CF80246;
-	Thu,  8 Apr 2021 22:02:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B6F5F800BD;
+	Thu,  8 Apr 2021 22:09:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BD7BF8020B; Thu,  8 Apr 2021 22:02:07 +0200 (CEST)
+ id 4D92EF8020B; Thu,  8 Apr 2021 22:09:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11D59F8012F
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 22:01:59 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AAF3BA003F;
- Thu,  8 Apr 2021 22:01:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AAF3BA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1617912118; bh=KuofZbVD7fZmRyCXt9XVlJqrKaKLR/JQWiWz6VHauKI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=qBTHKu5A76tL+aqjEh6+JXFm638VTplbfb5fWE1ffxpanJDcekwarnWLFbaZ//Bny
- 5f50hyrZtb4948om9HP9gxyPdyfVtCFx7DfzEQePdkg5jP/NlNRgu5jFI/YvH6NBG1
- eOVDIyAAvaSQJ7Vj9aUYyqT8v31M7hzhvN64D28c=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu,  8 Apr 2021 22:01:53 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: core - add more card sysfs entries
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
-References: <20210408094314.1322802-1-perex@perex.cz>
- <20210408103819.GA40407@workstation> <s5h35w182a5.wl-tiwai@suse.de>
- <45acc908-3603-3479-9fb2-5206339a9ace@perex.cz>
- <20210408120502.GA4516@sirena.org.uk> <s5hpmz47w3i.wl-tiwai@suse.de>
- <56c874ae-e801-63df-19fa-a1325f6104ca@perex.cz>
- <3107db1d-f97d-539a-05db-6f880b762f00@linux.intel.com>
- <3b33595e-777c-90b2-6d65-346c9bf6e003@perex.cz>
- <b0258a67-79ca-50cd-e6c5-74514ba8a3c5@linux.intel.com>
- <73f65944-604e-1ca0-5ba3-dcbec0d9fcd7@perex.cz>
- <a8fa564f-4ab5-9847-d041-6c851e48acb4@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <58aaed5e-9752-fe2a-f9ab-27842e0ffd5b@perex.cz>
-Date: Thu, 8 Apr 2021 22:01:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B446FF800BD
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 22:09:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B446FF800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eKnrazsW"
+Received: by mail-qk1-x736.google.com with SMTP id o5so3657733qkb.0
+ for <alsa-devel@alsa-project.org>; Thu, 08 Apr 2021 13:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pg9Z28S492jZJs8fF1OMWMPt1zvtugEUUH2aQ8nHg64=;
+ b=eKnrazsWHqNJQFzRVa2tG9pqCE0ausFzboAaGOyQizTmceZu2cxTJcy/Qwm0xeM8Gl
+ 7lOpL5dtq1Vgq+5vlpX8JSCRZYwCCueU7kXx1VNnK4itSyyr2BADfHFsjw1uMAZkR9/q
+ PxwZ5Zx0h83yyj7onr3wjmPuhAySmgLXX5twGw2UdW3+28rbpce0c//OR+DR03nm5eTw
+ 2ktWaSzdmhUzVabUiyP1R6CAi0px+PnOnyHT1HmTxNp0Lh8WTmPJSNV4YGc2t+L8NJWj
+ MTYRhO1Nhw05yF7M78MuRWIudLeaCgK/0Gkg4wyzEJriwT0Z6LwByiHNTzdeqhR7BgX7
+ Lslw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pg9Z28S492jZJs8fF1OMWMPt1zvtugEUUH2aQ8nHg64=;
+ b=TkixSW9lQjeY8l28OO6pwXtB984ojbqkV9GdCvjlCKZiA1O7B90BAL7ZMLaTCaXG76
+ UwYIgvvh1jxHY3bJCfKASxkLXq5m55p72A3Fr+YU3H1HFPXr04f7VtHlUoLgFHosiuH+
+ 1DBGS2vxas2MIsg/ZTBx/AEkP6IBOUxKq+K8WjRaPwNnNSyesBO3snCU7f7jK0TIGGE2
+ uNugUD71OZrR1Qx17Ck5KdE9CPNfER9gUoIokYrkq2oa++JxkCVjid1uFCdSQkPDCsrP
+ YVJmlaBV7YldgN65LYpqw4B0+kdrk6/5jfW35FZ/Mjtf+aIFdjaHYkoze2KBKE8BzxEL
+ 234Q==
+X-Gm-Message-State: AOAM530ZlFI1h9oCSgLYuBulTtI+VwDxUXQZFJ11wEfVpGUMNo/bYS2S
+ 9FP9fHHzuw+b1rPTAukewN3x6VOqpwubQfYzQ9I=
+X-Google-Smtp-Source: ABdhPJwORXMI6oU7XCBp3VNpKeWepjpCDGE4bL6+ItJBdUeHGE+c0OCoA5OcqugnBfwO2zuDX5EFS724lkazPIoGgTU=
+X-Received: by 2002:a05:620a:24a:: with SMTP id
+ q10mr3348997qkn.366.1617912580544; 
+ Thu, 08 Apr 2021 13:09:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a8fa564f-4ab5-9847-d041-6c851e48acb4@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
+ <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
+ <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
+ <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
+ <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
+ <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
+ <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
+ <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
+ <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
+ <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
+ <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
+In-Reply-To: <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Thu, 8 Apr 2021 17:14:20 -0300
+Message-ID: <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
+Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
+To: Mike Oliphant <oliphant@nostatic.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Lucas <jaffa225man@gmail.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,62 +105,283 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 08. 04. 21 v 21:41 Pierre-Louis Bossart napsal(a):
-> 
-> 
-> 
->>>> Yes, I'm talking about rules which depends on the sound driver specific sysfs
->>>> attributes (you can match the modified /sys/module/*/parameters here).
+Em Qui, 8 de abr de 2021 16:42, Mike Oliphant <oliphant@nostatic.org>
+escreveu:
+
+> Hi Geraldo - yes. In fact, that is how I've been operating for the past
+> year or so before the recent implicit feedback changes. I use the GT-1 most
+> every day as a guitar interface and it works perfectly.
+>
+
+Thanks Mike, but I'm not sure I understand. You have been operating with
+implicit feedback sync on the playback for the past year? I thought that
+was a new idea?
+
+The key point here is that with a stock kernel you have to comment out the
+IMPLICIT_FB_SKIP_DEV() entry for the GT-1 for the Roland code inside
+audioformat_implicit_fb_quirk properly kick in.
+
+I was suggesting you try your workaround without adding a
+IMPLICIT_FB_GENERIC_DEV() for your device.
+
+
+> The GT-1 (and I suspect many of the other Roland/BOSS devices) doesn't
+> seem to be quirky at all with regard to implicit feedback setup - it works
+> exactly as the endpoint definitions say it should.
+>
+> Where the GT-1 *does* seem to be quirky is that is doesn't seem to want to
+> send capture data until it receives some playback data - hence my
+> endpoint.c patch.
+>
+
+If that is true then there's definitely a need to rewrite endpoint.c. But
+it could be something else, Mike. One thing is certain: the present kernel
+behaviour is far from the ideal.
+
+I insist: engage implicit feedback sync for the playback, disable it for
+the captures and inspect your dyndbg logs for the failure cases in starting
+JACK that happen when you don't patch endpoint.c.
+
+If you see something related to sync_ep then the problem lies elsewhere,
+specifically inside pcm.c
+
+Although whether this behavior is quirky or typical I don't know. I do know
+> that the GT-1 does not claim to be USB class compliant. It requires custom
+> drivers on Windows and macOS and does not work at all with iOS, so it
+> definitely seems to be somewhat non-standard.
+>
+
+Non-standard to say the least. I really hope that's not the case or it'll
+give Takashi Iwai plenty of headache ;-)
+
+
+> Mike
+>
+> On Thu, Apr 8, 2021 at 12:13 PM Geraldo Nascimento <
+> geraldogabriel@gmail.com> wrote:
+>
+>> Hey Mike, got another question for you, sorry about that.
+>>
+>> If you comment out your GT-1 IMPLICIT_FB_GENERIC_DEV() entry and instead
+>> let audioformat_implicit_fb_quirk() call add_roland_implicit_fb() with
+>> everything else customized your way, your custom endpoint.c etc., does it
+>> still work? And does it work crystal clear?
+>>
+>> I'm sorry about this test this, test that, provide the dyndbg logs
+>> attitude but I'm honestly just trying to help you write the best patch
+>> possible.
+>>
+>> Thank you,
+>> Geraldo
+>>
+>> Em Qui, 8 de abr de 2021 02:05, Geraldo Nascimento <
+>> geraldogabriel@gmail.com> escreveu:
+>>
+>>> Mike, I just realize I missed reply-to-all once again.
 >>>
->>> you lost me with 'match the modified parameters' wording. who matches
->>> and who modifies those parameters?
->>
->> You can probably add something like this to the sound-card.rules:
->>
->> SUBSYSTEMS=="pci",ATTR{device/driver/module}=="snd_soc_sof_sdw",
->>    ATTR{device/driver/module/../snd_sof_pci/parameters/tplg_path}=="intel/sof-tplg/pdm1",
->>    DO_SOMETHING_HERE
->>
->> DO_SOMETHING_HERE may be ATTR{longname}="My Long Name" for example when my change is accepted.
-> 
-> Humm, not sure this can work due to dependencies.
-> 
-> The machine device is neither an ACPI nor PCI one. It's a platform device.
-> 
-> When the PCI device is detected, the PCI core will call the SOF driver 
-> probe, which will first try and boot the firmware, and then create the 
-> platform device. That results in the probe of the machine driver which 
-> creates the card, but that happens *after* booting the firmware.
-> 
-> the DSP firmware is setup starting here:
-> 
-> https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/core.c#L138
-> 
-> and the machine device is created almost last, after registering the 
-> ASoC components.
-> 
-> https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/core.c#L234
-> 
-> when the card is created, it's too late to change the firmware path or 
-> any firmware-related parameters.
-
-I just tried to describe the possible 2nd stage - modify the sysfs attributes
-when the card with the modified firmware is created (all modules are loaded
-and initialized). The 1st stage like from Curtis must be retained. It ensures
-to load the right fw.
-
-SYSTEMS=="pci" checks also parents and card0 links to pci device: card0 ->
-../../devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0 . You can modify
-this matching anyway - the goal is to run commands for the specific driver and
-module parameters when the card is loaded (avoid to change the card attributes
-for other hw).
-
-I'm not an udev expert, so there may be a bug in my suggestion. I also think
-that the filter may be specified more elegantly (probably using the DRIVER
-match or so).
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>>> In case you were wondering, I was looking for a sync_ep event right in
+>>> the start of the loading of snd-usb-audio. It happens inside pcm.c. If you
+>>> see one of those specifically let me know.
+>>>
+>>> With my Pioneer device, the DDJ-SR2, snd-usb-audio recognized the
+>>> device's implicit feedback EP as sync_ep and that prevented JACK from
+>>> starting.
+>>>
+>>> Em Qua, 7 de abr de 2021 23:47, Mike Oliphant <oliphant@nostatic.org>
+>>>> escreveu:
+>>>>
+>>>>> Hi Geraldo - I had the same thought and I have tried enabling playback
+>>>>> feedback while turning off capture feedback without my endpoint patch. It
+>>>>> doesn't work - at least not on the GT-1. Playback/capture fails to start.
+>>>>>
+>>>>
+>>>> Would you mind sharing the dyndbg logs for the failure case from the
+>>>> point you connect the device, and trying to start JACK?
+>>>>
+>>>> Sometimes failures elucidate more than success cases.
+>>>>
+>>>>
+>>>>> Speaking of testing, if you (or anyone else following this discussion)
+>>>>> have one of these Roland/BOSS devices, it would be great if you could try
+>>>>> testing with playback feedback enabled and my endpoint.c workaround.
+>>>>>
+>>>>
+>>>> I don't have the hardware, but I'm sure it works. The problem is that
+>>>> endpoint.c code really shouldn't be disabled unless all the other options
+>>>> fail, and even then, I'm not so sure the maintainers will be so willing to
+>>>> disable it. So let's keep some other options on the table by debugging a
+>>>> little further.
+>>>>
+>>>> Thank you,
+>>>> Geraldo
+>>>>
+>>>>
+>>>>> Mike
+>>>>>
+>>>>> On Wed, Apr 7, 2021 at 7:21 PM Geraldo Nascimento <
+>>>>> geraldogabriel@gmail.com> wrote:
+>>>>>
+>>>>>> Thanks, Mike, one thing I can tell you right off the bat is that if
+>>>>>> you turn implicit feedback sync on for both endpoints at the same time like
+>>>>>> you mentioned, without your workaround inside endpoint.c, they most likely
+>>>>>> will stall because they would both be waiting for each other to start.
+>>>>>>
+>>>>>> Have you tried engaging the generic implicit feedback sync just for
+>>>>>> the playback, thereby commenting out the capture implicit feedback entries,
+>>>>>> and re-enabling snd_usb_endpoint_implicit_feedback_sink(ep) inside
+>>>>>> endpoint.c? Does playback still fail to start?
+>>>>>>
+>>>>>> If you choose to perform this simple test please share with us the
+>>>>>> test's dyndbg logs right from the moment you turn on the device, not just
+>>>>>> after you start jackd.
+>>>>>>
+>>>>>> Sorry for the endless do-this, do-that. Such is the pace of
+>>>>>> teledebugging
+>>>>>>
+>>>>>>
+>>>>>> Em Qua, 7 de abr de 2021 21:38, Mike Oliphant <oliphant@nostatic.org>
+>>>>>> escreveu:
+>>>>>>
+>>>>>>> Geraldo - here is the dmesg output when starting up jackd for
+>>>>>>> capture/playback:
+>>>>>>>
+>>>>>>> With my patch:
+>>>>>>>
+>>>>>>> [  136.734081] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
+>>>>>>> [  136.734088] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
+>>>>>>> period_bytes=256, periods=2, implicit_fb=0
+>>>>>>> [  136.734092] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
+>>>>>>> [  136.734233] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
+>>>>>>> [  136.734381] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
+>>>>>>> [  136.734388] usb 3-1.2: Setting params for data EP 0x8e, pipe
+>>>>>>> 0x70480
+>>>>>>> [  136.734394] usb 3-1.2: Set up 12 URBS, ret=0
+>>>>>>> [  136.734466] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
+>>>>>>> [  136.734468] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
+>>>>>>> period_bytes=256, periods=2, implicit_fb=1
+>>>>>>> [  136.734471] usb 3-1.2: Reopened EP 0x8e (count 1)
+>>>>>>> [  136.734473] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
+>>>>>>> [  136.734605] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
+>>>>>>> [  136.734762] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
+>>>>>>> [  136.734774] usb 3-1.2: Setting params for data EP 0xd, pipe
+>>>>>>> 0x68400
+>>>>>>> [  136.734781] usb 3-1.2: Set up 12 URBS, ret=0
+>>>>>>> [  136.734830] usb 3-1.2: Starting data EP 0xd (running 0)
+>>>>>>> [  136.734873] usb 3-1.2: 12 URBs submitted for EP 0xd
+>>>>>>> [  136.734876] usb 3-1.2: Starting data EP 0x8e (running 0)
+>>>>>>> [  136.734906] usb 3-1.2: 12 URBs submitted for EP 0x8e
+>>>>>>> [  136.740627] usb 3-1.2: Starting data EP 0x8e (running 1)
+>>>>>>> [  136.740634] usb 3-1.2: 2:1 Start Capture PCM
+>>>>>>> [  136.740635] usb 3-1.2: 1:1 Start Playback PCM
+>>>>>>>
+>>>>>>>
+>>>>>>> With the unpatched kernel:
+>>>>>>>
+>>>>>>> [  344.813203] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
+>>>>>>> [  344.813210] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
+>>>>>>> period_bytes=256, periods=2, implicit_fb=1
+>>>>>>> [  344.813213] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
+>>>>>>> [  344.813215] usb 3-1.2:   channels=2, rate=44100, format=S32_LE,
+>>>>>>> period_bytes=256, periods=2, implicit_fb=0
+>>>>>>> [  344.813217] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
+>>>>>>> [  344.813367] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
+>>>>>>> [  344.813494] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
+>>>>>>> [  344.813503] usb 3-1.2: Setting params for data EP 0x8e, pipe
+>>>>>>> 0x70580
+>>>>>>> [  344.813509] usb 3-1.2: Set up 12 URBS, ret=0
+>>>>>>> [  344.813513] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
+>>>>>>> [  344.813587] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
+>>>>>>> [  344.813758] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
+>>>>>>> [  344.813765] usb 3-1.2: Setting params for data EP 0xd, pipe
+>>>>>>> 0x68500
+>>>>>>> [  344.813770] usb 3-1.2: Set up 2 URBS, ret=0
+>>>>>>> [  344.813858] usb 3-1.2: Reopened EP 0xd (count 1)
+>>>>>>> [  344.813883] usb 3-1.2: Starting data EP 0xd (running 0)
+>>>>>>> [  344.813899] usb 3-1.2: 2 URBs submitted for EP 0xd
+>>>>>>> [  344.819499] usb 3-1.2: Starting data EP 0x8e (running 0)
+>>>>>>> [  344.819532] usb 3-1.2: 12 URBs submitted for EP 0x8e
+>>>>>>> [  344.819535] usb 3-1.2: Starting data EP 0xd (running 1)
+>>>>>>> [  344.819538] usb 3-1.2: 2:1 Start Capture PCM
+>>>>>>> [  344.819540] usb 3-1.2: 1:1 Start Playback PCM
+>>>>>>> [  344.820663] usb 3-1.2: Stopping data EP 0xd (running 2)
+>>>>>>> [  344.820688] usb 3-1.2: Stopping data EP 0x8e (running 1)
+>>>>>>> [  344.820693] usb 3-1.2: 2:1 Stop Capture PCM
+>>>>>>> [  344.820695] usb 3-1.2: Stopping data EP 0xd (running 1)
+>>>>>>> [  344.820697] usb 3-1.2: 1:1 Stop Playback PCM
+>>>>>>> [  344.833799] usb 3-1.2: Starting data EP 0xd (running 0)
+>>>>>>> [  344.833852] usb 3-1.2: 2 URBs submitted for EP 0xd
+>>>>>>> [  344.833867] usb 3-1.2: Starting data EP 0x8e (running 0)
+>>>>>>> [  344.833888] usb 3-1.2: 12 URBs submitted for EP 0x8e
+>>>>>>> [  344.833890] usb 3-1.2: Starting data EP 0xd (running 1)
+>>>>>>> [  344.833891] usb 3-1.2: 2:1 Start Capture PCM
+>>>>>>> [  344.833893] usb 3-1.2: 1:1 Start Playback PCM
+>>>>>>>
+>>>>>>> On Wed, Apr 7, 2021 at 1:30 PM Geraldo Nascimento <
+>>>>>>> geraldogabriel@gmail.com> wrote:
+>>>>>>>
+>>>>>>>> Em Qua, 7 de abr de 2021 17:16, Mike Oliphant <
+>>>>>>>> oliphant@nostatic.org> escreveu:
+>>>>>>>>
+>>>>>>>>> Hi Geraldo - I don't have that patch applied, but it shouldn't
+>>>>>>>>> make any behavioral difference - it just seems to be simplifying the code.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> Point taken.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>>> The issue is that the BOSS GT-1 *does* need implicit feedback on
+>>>>>>>>> playback to avoid clock timing issues, and the current behavior is
+>>>>>>>>> disabling that feedback.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> Mike, would you mind posting some dyndbg logs for both the stock
+>>>>>>>> behaviour and your endpoint.c/generic quirk modified behaviour?
+>>>>>>>>
+>>>>>>>> Just add snd_usb_audio.dyndbg=+p to your kernel options and please
+>>>>>>>> share the logs.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>>> Mike
+>>>>>>>>>
+>>>>>>>>> On Wed, Apr 7, 2021 at 1:04 PM Geraldo Nascimento <
+>>>>>>>>> geraldogabriel@gmail.com> wrote:
+>>>>>>>>>
+>>>>>>>>>> Hey Mike, did you catch the latest patch by Takashi Iwai for
+>>>>>>>>>> capture quirky devices?
+>>>>>>>>>>
+>>>>>>>>>> You can find it here:
+>>>>>>>>>> https://patchwork.kernel.org/project/alsa-devel/patch/20210406113837.32041-1-tiwai@suse.de/
+>>>>>>>>>>
+>>>>>>>>>> Em Qua, 7 de abr de 2021 16:55, Mike Oliphant <
+>>>>>>>>>> oliphant@nostatic.org> escreveu:
+>>>>>>>>>>
+>>>>>>>>>>> I had thought that the recent implicit feedback changes were
+>>>>>>>>>>> fully working
+>>>>>>>>>>> on the BOSS GT-1, but it turns out that I just hadn't tested
+>>>>>>>>>>> well enough.
+>>>>>>>>>>>
+>>>>>>>>>>> Audio playback and capture works, but with periodic dropouts. I
+>>>>>>>>>>> get the
+>>>>>>>>>>> exact same behavior as I did with the quirk to completely
+>>>>>>>>>>> disable implicit
+>>>>>>>>>>> feedback. Without the implicit feedback, you get dropouts from
+>>>>>>>>>>> clock drift
+>>>>>>>>>>> - how bad probably varies from card to card. On mine it is every
+>>>>>>>>>>> second or
+>>>>>>>>>>> so.
+>>>>>>>>>>>
+>>>>>>>>>>> If I switch playback feedback for the GT-1 to generic by doing
+>>>>>>>>>>> "IMPLICIT_FB_GENERIC_DEV(0x0582, 0x01d6)", I get the previous
+>>>>>>>>>>> old behavior,
+>>>>>>>>>>> which is that playback completely fails to start.
+>>>>>>>>>>>
+>>>>>>>>>>> With generic playback feedback, and using my previous patch to
+>>>>>>>>>>> endpoint.c
+>>>>>>>>>>> to avoid playback waiting on capture mentioned here:
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-January/161951.html
+>>>>>>>>>>>
+>>>>>>>>>>> playback and capture work perfectly for me.
+>>>>>>>>>>>
+>>>>>>>>>>

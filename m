@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D259B357B59
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 06:30:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 629E4357B5B
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 06:30:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B025E1682;
-	Thu,  8 Apr 2021 06:29:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B025E1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED2EB166F;
+	Thu,  8 Apr 2021 06:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED2EB166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617856200;
-	bh=UjQRLOYET1EkLaUpsbORhce5IIq5ucp/bIeiyks/bDc=;
+	s=default; t=1617856235;
+	bh=Ms0j/X8EFLu0sZZLFzom1c2/faWQVFCUpP3xSe37fCE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rQuv1EHyYakQIr/Zh+lS22g7boTFZ37SozUC2TUZ8GMO5OoUGhTapI0JyL8b0L9Oa
-	 VQnhUFTUoy+otmwwcRnjgLT9EryC/JRMA2iJptPFIpfKoD1Mp2+f1ue9bm9s/hKKdh
-	 g8zeN50PthnP9wAgB+5Dbzkt3TMiFuza+jwchr+M=
+	b=s67fbmFS4nr8+sd6poMSH+TE+CcENEF0QUDfjEnJiJmFAjZyPjADzQPQQVwz4HIR3
+	 uFXUyyeoja0igGGWF55ICluINoWwoYM2HBVYslqyhh4IbGdn+Pcsr1BhuRw4sEOEdF
+	 84BlpckxMggib5k3yL+OQ86a7JppSsL05xm0H9xM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4DDEF80259;
-	Thu,  8 Apr 2021 06:28:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0713F80431;
+	Thu,  8 Apr 2021 06:28:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 425CCF80259; Thu,  8 Apr 2021 06:28:48 +0200 (CEST)
+ id 606B4F80430; Thu,  8 Apr 2021 06:28:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 3D0CDF8020B
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 06:28:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D0CDF8020B
-Date: 08 Apr 2021 13:28:38 +0900
-X-IronPort-AV: E=Sophos;i="5.82,205,1613401200"; d="scan'208";a="77618254"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 08 Apr 2021 13:28:38 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5A6F3F80162
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 06:28:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6F3F80162
+Date: 08 Apr 2021 13:28:47 +0900
+X-IronPort-AV: E=Sophos;i="5.82,205,1613401200"; d="scan'208";a="77392030"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 08 Apr 2021 13:28:47 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 08A6D400F787;
- Thu,  8 Apr 2021 13:28:38 +0900 (JST)
-Message-ID: <875z0x1jt5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8F8B341B3B50;
+ Thu,  8 Apr 2021 13:28:47 +0900 (JST)
+Message-ID: <874kgh1jsw.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/5] ASoC: rsnd: call rsnd_ssi_master_clk_start() from
- rsnd_ssi_init()
+Subject: [PATCH 2/5] ASoC: rsnd: check all BUSIF status when error
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dld1jud.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,109 +67,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current rsnd needs to call .prepare (P) for clock settings,
-.trigger for playback start (S) and stop (E).
-It should be called as below from SSI point of view.
+commit 66c705d07d784 ("SoC: rsnd: add interrupt support for SSI BUSIF
+buffer") adds __rsnd_ssi_interrupt() checks for BUSIF status,
+but is using "break" at for loop.
+This means it is not checking all status. Let's check all BUSIF status.
 
-	P -> S -> E -> P -> S -> E -> ...
-
-But, if you used MIXer, below case might happen
-
-	              (2)
-	1: P -> S ---> E -> ...
-	2:         P ----> S -> ...
-	          (1)     (3)
-
-P(1) setups clock, but E(2) resets it. and starts playback (3).
-In such case, it will reports "SSI parent/child should use same rate".
-
-rsnd_ssi_master_clk_start() which is the main function at (P)
-was called from rsnd_ssi_init() (= S) before,
-but was moved by below patch to rsnd_soc_dai_prepare() (= P) to avoid
-using clk_get_rate() which shouldn't be used under atomic context.
-
-	commit 4d230d1271064 ("ASoC: rsnd: fixup not to call clk_get/set
-				under non-atomic")
-
-Because of above patch, rsnd_ssi_master_clk_start() is now called at (P)
-which is for non atomic context. But (P) is assuming that spin lock is
-*not* used.
-One issue now is rsnd_ssi_master_clk_start() is checking ssi->xxx
-which should be protected by spin lock.
-
-After above patch, adg.c had below patch for other reasons.
-
-	commit 06e8f5c842f2d ("ASoC: rsnd: don't call clk_get_rate()
-				under atomic context")
-
-clk_get_rate() is used at probe() timing by this patch.
-In other words, rsnd_ssi_master_clk_start() is no longer using
-clk_get_rate() any more.
-
-This means we can call it from rsnd_ssi_init() (= S) again which is
-protected by spin lock.
-This patch re-move it to under spin lock, and solves
-1. checking ssi->xxx without spin lock issue.
-2. clk setting / device start / device stop race condition.
-
-Reported-by: Linh Phung T. Y. <linh.phung.jy@renesas.com>
+Fixes: commit 66c705d07d784 ("SoC: rsnd: add interrupt support for SSI BUSIF buffer")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/ssi.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ sound/soc/sh/rcar/ssi.c | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index d071cec25f71..048d53566127 100644
+index 048d53566127..9a3310393989 100644
 --- a/sound/soc/sh/rcar/ssi.c
 +++ b/sound/soc/sh/rcar/ssi.c
-@@ -506,10 +506,15 @@ static int rsnd_ssi_init(struct rsnd_mod *mod,
- 			 struct rsnd_priv *priv)
- {
- 	struct rsnd_ssi *ssi = rsnd_mod_to_ssi(mod);
-+	int ret;
- 
- 	if (!rsnd_ssi_is_run_mods(mod, io))
- 		return 0;
- 
-+	ret = rsnd_ssi_master_clk_start(mod, io);
-+	if (ret < 0)
-+		return ret;
-+
- 	ssi->usrcnt++;
- 
- 	rsnd_mod_power_on(mod);
-@@ -1060,13 +1065,6 @@ static int rsnd_ssi_pio_pointer(struct rsnd_mod *mod,
- 	return 0;
- }
- 
--static int rsnd_ssi_prepare(struct rsnd_mod *mod,
--			    struct rsnd_dai_stream *io,
--			    struct rsnd_priv *priv)
--{
--	return rsnd_ssi_master_clk_start(mod, io);
--}
--
- static struct rsnd_mod_ops rsnd_ssi_pio_ops = {
- 	.name		= SSI_NAME,
- 	.probe		= rsnd_ssi_common_probe,
-@@ -1079,7 +1077,6 @@ static struct rsnd_mod_ops rsnd_ssi_pio_ops = {
- 	.pointer	= rsnd_ssi_pio_pointer,
- 	.pcm_new	= rsnd_ssi_pcm_new,
- 	.hw_params	= rsnd_ssi_hw_params,
--	.prepare	= rsnd_ssi_prepare,
- 	.get_status	= rsnd_ssi_get_status,
- };
- 
-@@ -1166,7 +1163,6 @@ static struct rsnd_mod_ops rsnd_ssi_dma_ops = {
- 	.pcm_new	= rsnd_ssi_pcm_new,
- 	.fallback	= rsnd_ssi_fallback,
- 	.hw_params	= rsnd_ssi_hw_params,
--	.prepare	= rsnd_ssi_prepare,
- 	.get_status	= rsnd_ssi_get_status,
- };
- 
+@@ -797,7 +797,6 @@ static void __rsnd_ssi_interrupt(struct rsnd_mod *mod,
+ 						       SSI_SYS_STATUS(i * 2),
+ 						       0xf << (id * 4));
+ 					stop = true;
+-					break;
+ 				}
+ 			}
+ 			break;
+@@ -815,7 +814,6 @@ static void __rsnd_ssi_interrupt(struct rsnd_mod *mod,
+ 						SSI_SYS_STATUS((i * 2) + 1),
+ 						0xf << 4);
+ 					stop = true;
+-					break;
+ 				}
+ 			}
+ 			break;
 -- 
 2.25.1
 

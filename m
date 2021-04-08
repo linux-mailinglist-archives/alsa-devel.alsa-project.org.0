@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1085358A4B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 18:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79089358A4F
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 18:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A97B5166D;
-	Thu,  8 Apr 2021 18:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97B5166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3ADE167D;
+	Thu,  8 Apr 2021 18:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3ADE167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617900982;
-	bh=ljaoLjpUyxpXyGPLoASETbRS8txgyowKqom0/yFE2Ds=;
+	s=default; t=1617900994;
+	bh=OYF+n9QeLbvblVfOO5fZLqzRX71dR9uywaBI85DqbE0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JD1bBxgi0T5rEQf6jPjrocTBxS40OPJGuyWSFcIavATbqJ9169JWY6aGAEj7Up1Ap
-	 5nv6GjoT5X6ytfWmKVHlucWQ58Sat4LweRaFv8hmLI99tn5qGQSCQLWrdF/NnxMPpY
-	 +nbtpmIcspWNYKlSJf15gxg4iP5qbvOuCG7yxT3E=
+	b=J85KUt7vFXR7Hvg+0APgjWo2TbPinew3A/sOsiwCYHN+wWkjaOlESYE+BL5D3ZyCP
+	 yFG6axEg4VYJDngsScDw8LlUHDu64iGgw/8K0KwMuw/dLmSpi99P4Z5/mmZtRbvZio
+	 T0fk8is5TiB/g14sAl+/TtOCMuf4wYDfaqQoZ9MU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F344BF80249;
-	Thu,  8 Apr 2021 18:55:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F682F80169;
+	Thu,  8 Apr 2021 18:55:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25798F80259; Thu,  8 Apr 2021 18:55:29 +0200 (CEST)
+ id 8FE6FF8032C; Thu,  8 Apr 2021 18:55:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,33 +33,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4494F80169
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 18:55:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4494F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13BAAF8020B
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 18:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13BAAF8020B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ULfOGTmh"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E9B0961056;
- Thu,  8 Apr 2021 16:55:20 +0000 (UTC)
+ header.b="K/7iXPII"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D212E610A7;
+ Thu,  8 Apr 2021 16:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617900921;
- bh=ljaoLjpUyxpXyGPLoASETbRS8txgyowKqom0/yFE2Ds=;
+ s=k20201202; t=1617900924;
+ bh=OYF+n9QeLbvblVfOO5fZLqzRX71dR9uywaBI85DqbE0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ULfOGTmh/WigfVcTncZ6zJkPS5/D79ZnHR24Xe6fQMZC6XGa3Nh9V62tOy04OvHc0
- CKOeBnY74SI+O9SJVHF/vB5YFWuxj6EpB99eyUW2iy5qYtjjxLWtVhUWKXutqrqkZX
- csW5LrZqwsE9C6Pl+It283z7tscaFR9+ux0XqdtWA773M4IWI+J+jnNgceTW3Lz8Hw
- nEa+HAhJqQvINk1OXoQ725q3vtjvxr9aXyhRJdQtzht/cvig+urtXf4+tOc+r3lOcl
- R22Y4z7mhXT/9Q/CtpXTuqvcaAsH6Zbtf/M9ZYGGqCNiqAdN+dax9vZGZD2ksEIcKg
- SgkM1EF8D+CTQ==
+ b=K/7iXPIIcIY/jflQChjNH260+XAb3plGm7AQL7PHJgra7zLAoWsBo+CeW/n2BBO5s
+ wltc72vDmcr7WNKk079KSFJ3m8vBqQjCClkqoQx+7yHFABZ8qQ1srk00ILKM6TQT9b
+ sXUbU1gfF04cob0t9OX49xm+uAr4lS4BU1OtPZLsC9h9Lco4R2sOmedkhbwxIfZYJH
+ YWMQKgHPUkCNnhxMwyvuESV8yPL8oiTy/vL19UMoBOCoOKek7NfBvvqHVWAXD3Hje1
+ qtVpf43SLrA590m5MfxVyd0RFB66A9twHAoaCtF+z6Jozl/tA+I92ClQ26GKM7Z/Pr
+ AiV2DGsHgIX1w==
 From: Mark Brown <broonie@kernel.org>
 To: Jiri Prchal <jiri.prchal@aksignal.cz>,
 	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: codecs: tlv320aic3x: add SPI to the DT binding
-Date: Thu,  8 Apr 2021 17:54:35 +0100
-Message-Id: <161790012550.16915.11806194903790092299.b4-ty@kernel.org>
+Subject: Re: [PATCH v2] ASoC: codecs: tlv320aic3x: add AIC3106
+Date: Thu,  8 Apr 2021 17:54:36 +0100
+Message-Id: <161790012552.16915.743645000066789400.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210408060741.6879-1-jiri.prchal@aksignal.cz>
-References: <20210408060741.6879-1-jiri.prchal@aksignal.cz>
+In-Reply-To: <20210408135908.125667-1-jiri.prchal@aksignal.cz>
+References: <20210408135908.125667-1-jiri.prchal@aksignal.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -80,8 +80,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Apr 2021 08:07:41 +0200, Jiri Prchal wrote:
-> Added note and example of SPI support.
+On Thu, 8 Apr 2021 15:59:08 +0200, Jiri Prchal wrote:
+> In DT binding is mentioned that this driver is compatible with 3106.
+> So added compatibility string and model number.
+> 
+> -v2: Also added in switches "case AIC3X_MODEL_3106:" to have right widgets etc.
 
 Applied to
 
@@ -89,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: tlv320aic3x: add SPI to the DT binding
-      commit: 38ec3006eccb46a6db6f4a36536f78db8e9042ac
+[1/1] ASoC: codecs: tlv320aic3x: add AIC3106
+      commit: a0bc855ffdb55cbb9fbf7fa9611d17f19db889a8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

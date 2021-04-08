@@ -2,51 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B95357DB5
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 09:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E53357E27
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 10:34:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFC981661;
-	Thu,  8 Apr 2021 09:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC981661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55F84167B;
+	Thu,  8 Apr 2021 10:33:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55F84167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617868720;
-	bh=1cZszZXUqLfAjLhlz1wdV+f2SVRfn5QYYlSKpn4xeak=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1617870879;
+	bh=rEK/nqTnJG7bi8k5TfiajQVzJ24+HHsHzbY594I9EO8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=O4qRwbDpDlgu8/17ikACP68SLt+2hgg5OpREXq/rAPbnLku5UkAE3OaUtDoH8WQqJ
-	 hL6yhcWKg5kzrQCcYcjrDddQDwAkyOpWqRyA0RzTmLnGEza7tpgmrWtnf5RO/1VqvT
-	 M1a5Ebt0yAkq8GUiw/y16M9wXgMR1Np7n7HNuMu4=
+	b=qCtHjF9nGsAiLmdIMiemuwPM5NUQEnGZpnISn/Zwy1p5OUM6dkqicog7VFAjmMPZ5
+	 SzuqSe3+fUKdyZwcMqbIzaQA/i+iSIKnVvKrVdttqmtdkm0aM8ju1Jd2P81YD9Z7hA
+	 i0smYB/u/EZcoB4coWcrOpd2mqtHYW2hhLZkVdpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C2AF800BD;
-	Thu,  8 Apr 2021 09:57:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4845F8012F;
+	Thu,  8 Apr 2021 10:33:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ECC8F8020B; Thu,  8 Apr 2021 09:57:12 +0200 (CEST)
+ id 7567FF8020B; Thu,  8 Apr 2021 10:33:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFD99F800BD
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 09:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFD99F800BD
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77BA8AF10
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 07:56:59 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Skip probe of UA-101 devices
-Date: Thu,  8 Apr 2021 09:56:56 +0200
-Message-Id: <20210408075656.30184-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90CBBF800BD
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 10:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90CBBF800BD
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1388Wg4lA003536,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1388Wg4lA003536
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 8 Apr 2021 16:32:42 +0800
+Received: from RTEXMBS02.realtek.com.tw (172.21.6.95) by
+ RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 8 Apr 2021 16:32:42 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 8 Apr 2021 16:32:40 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::f83d:39e1:3ee0:5403]) by
+ RTEXMBS01.realtek.com.tw ([fe80::f83d:39e1:3ee0:5403%13]) with mapi id
+ 15.01.2106.013; Thu, 8 Apr 2021 16:32:40 +0800
+Content-Type: multipart/mixed;
+ boundary="_000_4cbe1cd3b8664140889132464c7dee7brealtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1011: remove pack_id check in rt1011
+Thread-Topic: [PATCH] ASoC: rt1011: remove pack_id check in rt1011
+Thread-Index: AdcsUbxmWKvH/BghQSydUs0NHFILsQ==
+Date: Thu, 8 Apr 2021 08:32:40 +0000
+Message-ID: <4cbe1cd3b8664140889132464c7dee7b@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: <4cbe1cd3b8664140889132464c7dee7b@realtek.com>
+x-originating-ip: [172.22.102.167]
+x-kse-serverinfo: RTEXMBS02.realtek.com.tw, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzQvOCCkV6TIIDA2OjAwOjAw?=
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/08/2021 08:12:16
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 162974 [Apr 07 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
+X-KSE-AntiSpam-Info: {tnef_exp}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 04/08/2021 08:15:00
+X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/08/2021 08:12:16
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 162974 [Apr 07 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
+X-KSE-AntiSpam-Info: {tnef_exp}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 04/08/2021 08:15:00
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
+ =?big5?B?s6/O66fT?= <kenny_chen@realtek.com>,
+ =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
+ =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,79 +142,163 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-UA-101 device and co are supported by another driver, snd-ua101, but
-the USB audio class driver (snd-usb-audio) catches all and this
-resulted in the lack of functionality like missing MIDI devices.
+--_000_4cbe1cd3b8664140889132464c7dee7brealtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-This patch introduces a sort of deny-listing for those devices to just
-return -ENODEV at probe in snd-usb-audio driver, so that it falls back
-to the probe by snd-ua101.
+Rm9yIGxhdGVzdCBkZXNpZ24sIGRpZmZlcmVudCBwYWNrYWdlIGNvdWxkIHVzZSB0aGUgc2FtZSBz
+ZXR0aW5nLA0KdGhlcmVmb3JlIHRoZSBjaGVjayBvZiBwYWNrX2lkIHdpbGwgbm8gbG9uZ2VyIGJl
+IHVzZWQuDQoNClNpZ25lZC1vZmYtYnk6IEphY2sgWXUgPGphY2sueXVAcmVhbHRlay5jb20+DQot
+LS0NCiBzb3VuZC9zb2MvY29kZWNzL3J0MTAxMS5jIHwgMTYgKystLS0tLS0tLS0tLS0tLQ0KIHNv
+dW5kL3NvYy9jb2RlY3MvcnQxMDExLmggfCAgMSAtDQogMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2Vy
+dGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVj
+cy9ydDEwMTEuYyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDExLmMNCmluZGV4IDIzOGNiNjZmNGM2
+YS4uZmFmZjJiNTU4Njg3IDEwMDY0NA0KLS0tIGEvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuYw0K
+KysrIGIvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuYw0KQEAgLTIyMzYsMTggKzIyMzYsOSBAQCBz
+dGF0aWMgaW50IHJ0MTAxMV9jYWxpYnJhdGUoc3RydWN0IHJ0MTAxMV9wcml2ICpydDEwMTEsIHVu
+c2lnbmVkIGNoYXIgY2FsaV9mbGFnKQ0KIAlkY19vZmZzZXQgfD0gKHZhbHVlICYgMHhmZmZmKTsN
+CiAJZGV2X2luZm8oZGV2LCAiR2FpbjEgb2Zmc2V0PTB4JXhcbiIsIGRjX29mZnNldCk7DQogDQot
+CS8qIGNoZWNrIHRoZSBwYWNrYWdlIGluZm8uICovDQotCXJlZ21hcF9yZWFkKHJ0MTAxMS0+cmVn
+bWFwLCBSVDEwMTFfRUZVU0VfTUFUQ0hfRE9ORSwgJnZhbHVlKTsNCi0JaWYgKHZhbHVlICYgMHg0
+KQ0KLQkJcnQxMDExLT5wYWNrX2lkID0gMTsNCi0NCiAJaWYgKGNhbGlfZmxhZykgew0KIA0KLQkJ
+aWYgKHJ0MTAxMS0+cGFja19pZCkNCi0JCQlyZWdtYXBfd3JpdGUocnQxMDExLT5yZWdtYXAsIFJU
+MTAxMV9BRENfU0VUXzEsIDB4MjkyYyk7DQotCQllbHNlDQotCQkJcmVnbWFwX3dyaXRlKHJ0MTAx
+MS0+cmVnbWFwLCBSVDEwMTFfQURDX1NFVF8xLCAweDI5MjUpOw0KLQ0KKwkJcmVnbWFwX3dyaXRl
+KHJ0MTAxMS0+cmVnbWFwLCBSVDEwMTFfQURDX1NFVF8xLCAweDI5MjUpOw0KIAkJLyogQ2xhc3Mg
+RCBvbiAqLw0KIAkJcmVnbWFwX3dyaXRlKHJ0MTAxMS0+cmVnbWFwLCBSVDEwMTFfQ0xBU1NfRF9Q
+T1MsIDB4MDEwZSk7DQogCQlyZWdtYXBfd3JpdGUocnQxMDExLT5yZWdtYXAsDQpAQCAtMjM3Mywx
+MCArMjM2NCw3IEBAIHN0YXRpYyB2b2lkIHJ0MTAxMV9jYWxpYnJhdGlvbl93b3JrKHN0cnVjdCB3
+b3JrX3N0cnVjdCAqd29yaykNCiAJCXJ0MTAxMV9yMF9sb2FkKHJ0MTAxMSk7DQogCX0NCiANCi0J
+aWYgKHJ0MTAxMS0+cGFja19pZCkNCi0JCXNuZF9zb2NfY29tcG9uZW50X3dyaXRlKGNvbXBvbmVu
+dCwgUlQxMDExX0FEQ19TRVRfMSwgMHgyOTJjKTsNCi0JZWxzZQ0KLQkJc25kX3NvY19jb21wb25l
+bnRfd3JpdGUoY29tcG9uZW50LCBSVDEwMTFfQURDX1NFVF8xLCAweDI5MjUpOw0KKwlzbmRfc29j
+X2NvbXBvbmVudF93cml0ZShjb21wb25lbnQsIFJUMTAxMV9BRENfU0VUXzEsIDB4MjkyNSk7DQog
+fQ0KIA0KIHN0YXRpYyBpbnQgcnQxMDExX3BhcnNlX2RwKHN0cnVjdCBydDEwMTFfcHJpdiAqcnQx
+MDExLCBzdHJ1Y3QgZGV2aWNlICpkZXYpDQpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9y
+dDEwMTEuaCBiL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDExLmgNCmluZGV4IGYzYTlhOTY2NDBmMS4u
+NjhmYWRjMTVmYThjIDEwMDY0NA0KLS0tIGEvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuaA0KKysr
+IGIvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuaA0KQEAgLTY5Miw3ICs2OTIsNiBAQCBzdHJ1Y3Qg
+cnQxMDExX3ByaXYgew0KIAl1bnNpZ25lZCBpbnQgcjBfcmVnLCBjYWxpX2RvbmU7DQogCXVuc2ln
+bmVkIGludCByMF9jYWxpYiwgdGVtcGVyYXR1cmVfY2FsaWI7DQogCWludCByZWN2X3Nwa19tb2Rl
+Ow0KLQl1bnNpZ25lZCBpbnQgcGFja19pZDsgLyogMDogV0xDU1A7IDE6IFFGTiAqLw0KIH07DQog
+DQogI2VuZGlmCQkvKiBlbmQgb2YgX1JUMTAxMV9IXyAqLw0KLS0gDQoyLjI5LjANCg0K
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=212477
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/card.c         |  2 ++
- sound/usb/quirks-table.h | 21 +++++++++++++++++++++
- sound/usb/usbaudio.h     |  1 +
- 3 files changed, 24 insertions(+)
+--_000_4cbe1cd3b8664140889132464c7dee7brealtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index b6f4c0848e66..a482287a2d7f 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -715,6 +715,8 @@ static int usb_audio_probe(struct usb_interface *intf,
- 		quirk = get_alias_quirk(dev, id);
- 	if (quirk && quirk->ifnum >= 0 && ifnum != quirk->ifnum)
- 		return -ENXIO;
-+	if (quirk && quirk->ifnum == QUIRK_NODEV_INTERFACE)
-+		return -ENODEV;
- 
- 	err = snd_usb_apply_boot_quirk(dev, intf, quirk, id);
- 	if (err < 0)
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 1165a5ac60f2..1f555d7b7752 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -1674,6 +1674,27 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 		}
- 	}
- },
-+
-+/* UA101 and co are supported by another driver */
-+{
-+	USB_DEVICE(0x0582, 0x0044), /* UA-1000 high speed */
-+	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_NODEV_INTERFACE
-+	},
-+},
-+{
-+	USB_DEVICE(0x0582, 0x007d), /* UA-101 high speed */
-+	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_NODEV_INTERFACE
-+	},
-+},
-+{
-+	USB_DEVICE(0x0582, 0x008d), /* UA-101 full speed */
-+	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_NODEV_INTERFACE
-+	},
-+},
-+
- /* this catches most recent vendor-specific Roland devices */
- {
- 	.match_flags = USB_DEVICE_ID_MATCH_VENDOR |
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 60b9dd7df6bb..7f91ec1c5646 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -75,6 +75,7 @@ struct snd_usb_audio {
-  */
- 
- /* special values for .ifnum */
-+#define QUIRK_NODEV_INTERFACE		-3	/* return -ENODEV */
- #define QUIRK_NO_INTERFACE		-2
- #define QUIRK_ANY_INTERFACE		-1
- 
--- 
-2.26.2
+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
+AGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8A
+bQAAAAAAHwACXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAA
+AB8A5V8BAAAAMAAAAHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8A
+bQAAAB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABqAGEAYwBrAC4AeQB1
+AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQAUAAAAAAAAgEZDAEA
+AABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBUAFAAAABq
+AGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAAACgAAABqAGEA
+YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoAAQAAABIAAABJ
+AFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzABAAAAEAAAAIOV
+5f/Z4ARDvJeweEbUkXsDABcAAQAAAEAAOQAAxKq8USzXAUAACDDrT9m8USzXAQsAKQAAAAAAHwDZ
+PwEAAAAAAgAARgBvAHIAIABsAGEAdABlAHMAdAAgAGQAZQBzAGkAZwBuACwAIABkAGkAZgBmAGUA
+cgBlAG4AdAAgAHAAYQBjAGsAYQBnAGUAIABjAG8AdQBsAGQAIAB1AHMAZQAgAHQAaABlACAAcwBh
+AG0AZQAgAHMAZQB0AHQAaQBuAGcALAANAAoAdABoAGUAcgBlAGYAbwByAGUAIAB0AGgAZQAgAGMA
+aABlAGMAawAgAG8AZgAgAHAAYQBjAGsAXwBpAGQAIAB3AGkAbABsACAAbgBvACAAbABvAG4AZwBl
+AHIAIABiAGUAIAB1AHMAZQBkAC4ADQAKAA0ACgBTAGkAZwBuAGUAZAAtAG8AZgBmAC0AYgB5ADoA
+IABKAGEAYwBrACAAWQB1ACAAPABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBt
+AD4ADQAKAC0ALQAtAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwByAHQA
+MQAwADEAMQAuAGMAIAB8ACAAMQA2ACAAKwArAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAN
+AAoAIABzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADEAMAAxADEALgBoACAA
+fAAgACAAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIAAAAAAMAAAAAA
+AABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAaAAAAegBoAC0A
+VABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIAAABFAHgAYwBo
+AGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAAAEgAAIAIIAYA
+AAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUASQBkAAAAAAAz
+aZcTOdmSTQTgCNj6aN90HwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABpAGUAbgB0AEkA
+bgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4AZwBlAFIAUABD
+AAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAABqAAAAWwBQAEEAVABDAEgA
+XQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQAxADoAIAByAGUAbQBvAHYAZQAgAHAAYQBjAGsAXwBp
+AGQAIABjAGgAZQBjAGsAIABpAG4AIAByAHQAMQAwADEAMQAAAAAAHwA9AAEAAAACAAAAAAAAAAMA
+NgAAAAAAAgFxAAEAAAAWAAAAAdcsUbxmWKvH/BghQSydUs0NHFILsQAAHwBwAAEAAABqAAAAWwBQ
+AEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQAxADoAIAByAGUAbQBvAHYAZQAgAHAA
+YQBjAGsAXwBpAGQAIABjAGgAZQBjAGsAIABpAG4AIAByAHQAMQAwADEAMQAAAAAAHwA1EAEAAABe
+AAAAPAA0AGMAYgBlADEAYwBkADMAYgA4ADYANgA0ADEANAAwADgAOAA5ADEAMwAyADQANgA0AGMA
+NwBkAGUAZQA3AGIAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAA
+AAIBAIATj/JB9IMUQaWE7ttaawv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcA
+bQBlAG4AdABMAGkAcwB0AAAAAAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA////
+/wAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUA
+eAB0AAAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABl
+AHgAdABDAGgAYQBuAGcAZQBkAAAAAAAAAEAABzCgddC8USzXAQIBCwABAAAAEAAAAIOV5f/Z4ARD
+vJeweEbUkXsDACYAAAAAAAsABgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwH
+AEy3fQ1VoXlEvnOFOWLQAKUAAABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXpcUAAAAAAgETMAEA
+AAAQAAAAWKvH/BghQSydUs0NHFILsQIBFDABAAAADAAAAK4AAACJGaxiRgAAAB8A+D8BAAAAEAAA
+AEoAYQBjAGsAIABZAHUAAAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIA
+VABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBU
+AEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8A
+QwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5
+AAAAAAAfACRAAQAAAAYAAABFAFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8A
+TwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBS
+AE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMA
+SQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAA
+ABAAAABKAGEAYwBrACAAWQB1AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAA
+EAAAAEoAYQBjAGsAIABZAHUAAAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAAD
+AFpAAAAAAAMACVkBAAAAHwAKXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsA
+LgBjAG8AbQAAAB8AC10BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
+AG0AAAAfAACAH6TrM6h6LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4A
+SQBuAGQAZQB4AFQAcgBhAGMAawBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQBm
+AGMAYwA3AGEAYgA1ADgALQAyADEAMQA4AC0AMgBjADQAMQAtADkAZAA1ADIALQBjAGQAMABkADEA
+YwA1ADIAMABiAGIAMQA7AEkARABYAEgARQBBAEQAPQBEADcAMgBDADUAMQBCAEMANgA2ADsASQBE
+AFgAQwBPAFUATgBUAD0AMQBdADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4A
+PQBWAGUAcgBzAGkAbwBuACAAMQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgAxADAANgAuADAAKQAs
+ACAAUwB0AGEAZwBlAD0ASAA0ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAA
+AADAAAAAAAAARgAAAACChQAAAAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAA
+AHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAA
+wAAAAAAAAEYBAAAAIgAAAHgALQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAi
+AAAAWwAxADcAMgAuADIAMgAuADEAMAAyAC4AMQA2ADcAXQAAAAAAHwAAgIYDAgAAAAAAwAAAAAAA
+AEYBAAAAIgAAAHgALQBrAHMAZQAtAHMAZQByAHYAZQByAGkAbgBmAG8AAAAAAAEAAAA4AAAAUgBU
+AEUAWABNAEIAUwAwADIALgByAGUAYQBsAHQAZQBrAC4AYwBvAG0ALgB0AHcALAAgADkAAAAfAACA
+hgMCAAAAAADAAAAAAAAARgEAAABCAAAAeAAtAGsAcwBlAC0AYQBuAHQAaQB2AGkAcgB1AHMALQBp
+AG4AdABlAHIAYwBlAHAAdABvAHIALQBpAG4AZgBvAAAAAAABAAAAIAAAAHMAYwBhAG4AIABzAHUA
+YwBjAGUAcwBzAGYAdQBsAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAKgAAAHgALQBrAHMAZQAt
+AGEAbgB0AGkAdgBpAHIAdQBzAC0AaQBuAGYAbwAAAAAAAQAAAEYAAABDAGwAZQBhAG4ALAAgAGIA
+YQBzAGUAcwA6ACAAMgAwADIAMQAvADQALwA4ACAACk5IUyAAMAA2ADoAMAAwADoAMAAwAAAAAAAf
+AACAhgMCAAAAAADAAAAAAAAARgEAAABQAAAAeAAtAGsAcwBlAC0AYQB0AHQAYQBjAGgAbQBlAG4A
+dAAtAGYAaQBsAHQAZQByAC0AdAByAGkAZwBnAGUAcgBlAGQALQByAHUAbABlAHMAAAABAAAADAAA
+AEMAbABlAGEAbgAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAFQAAAB4AC0AawBzAGUALQBhAHQA
+dABhAGMAaABtAGUAbgB0AC0AZgBpAGwAdABlAHIALQB0AHIAaQBnAGcAZQByAGUAZAAtAGYAaQBs
+AHQAZQByAHMAAAABAAAADAAAAEMAbABlAGEAbgAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAFAA
+AAB4AC0AawBzAGUALQBiAHUAbABrAG0AZQBzAHMAYQBnAGUAcwBmAGkAbAB0AGUAcgBpAG4AZwAt
+AHMAYwBhAG4ALQByAGUAcwB1AGwAdAAAAAEAAAAoAAAAcAByAG8AdABlAGMAdABpAG8AbgAgAGQA
+aQBzAGEAYgBsAGUAZAAAAMyb
 
+--_000_4cbe1cd3b8664140889132464c7dee7brealtekcom_--

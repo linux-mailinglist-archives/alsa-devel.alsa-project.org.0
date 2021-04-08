@@ -2,97 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85AE8358F9C
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 00:04:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E420358FBB
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 00:18:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B98B166B;
-	Fri,  9 Apr 2021 00:03:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B98B166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEEA71661;
+	Fri,  9 Apr 2021 00:18:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEEA71661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617919459;
-	bh=bVHWWYnJKBcXOPCcwGtH9Wmch1g8JZbF/Gen9eZewnc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UV5f2LeKRn4oZYrbcOlvCMMRmqqW9PEqGdHTHSXKsvNgcXQ7CL0r4+XYYbgUJiD6v
-	 Jqw7VWmjc8mFY1x3ZF9imq7cRGnT0j4XR1z7V+DFR6zW18BXPlksEbieMUhTnSZKr5
-	 Ofc4beIWuBA6VYUZ0A/XIPhZU2527q8ZKARE4Mi4=
+	s=default; t=1617920335;
+	bh=E3i1GihBIMsBFxEO9LyiNF9OSJf7pkh1dOYNIygYNnc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YG51yYzVKehgh9lWO1yxsFVl6BlN5Pd/i+wuCQNsg1bJd2h4eawz+mpRptmTD+Fb+
+	 SDyub3peLfvIlhq0R91XoHrl/0C7AMzyWnZu7rzufOG1NQQxvz9rsYkuGwaYgm+Eb9
+	 SZIhS/0yPuRxjTo0JvOdPpQcudwPw4KuE525C35s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FC83F80246;
-	Fri,  9 Apr 2021 00:02:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08E6DF80246;
+	Fri,  9 Apr 2021 00:17:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B801F8020B; Fri,  9 Apr 2021 00:02:49 +0200 (CEST)
+ id 4ACFFF8020B; Fri,  9 Apr 2021 00:17:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.archlinux.org (mail.archlinux.org [95.216.189.61])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E5DDF8012F
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 00:02:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E5DDF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30A0AF800BD
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 00:17:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30A0AF800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
- header.i=@nostatic-org.20150623.gappssmtp.com header.b="ozDPd5+1"
-Received: by mail-yb1-xb2e.google.com with SMTP id g38so4354616ybi.12
- for <alsa-devel@alsa-project.org>; Thu, 08 Apr 2021 15:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nostatic-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hO1UNwrHHKy9L7YkCIqJMwwU3tACK4LOfcjNgsLjYUg=;
- b=ozDPd5+1cKKvJer4CdAF3cJDH7U8h2zNOkgnOL8ECeivbPv6bNPPEvxeIWzmB7obBQ
- BFFd0LHg/enTsYweo1fjSaFgEWy1JjSWEETzFDV+aUiJhlhr+NjXnvAD+cHmQrF3XdEb
- kCkpPRCOvyZ/3dOCx7ukolVGM/rvfEcmEqTacbi8D8KEDmKinSiv76e/u2vZizPJTx9Y
- oj7OumZan2anRIVSlm0jYw03iBDdT6db8qWKVHYVLilKVZiIeYzQ7Azvxe1Jg9Oy5Y3p
- 7lA3htO0bvRM1bzlIMizkPgnLaB9qWkNRAbKIgDYprB9QCNzN7d7lepI1LRA/6bAbQ96
- RJMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hO1UNwrHHKy9L7YkCIqJMwwU3tACK4LOfcjNgsLjYUg=;
- b=ivqN5aO5ueisK/1kTpXjYEVZgUZkTZRJO1Qez6CwlTyIjcb1czveSv6mBay8i4i34A
- 1oFmRnBOtaK64Rigl3dDVdb0P/w4sF632ovQvQLLrhVV2MOrYPHYnv/eK/fHr+j5gilk
- +LHZ0JD+fYrhbg1Fl+gwF9TxIKRhkY/IU/b7mTTTuAG7kcxjun5b5jXYtGDZT7Taw2Ls
- aRKnCEs62kixg+6yyjE/f7YAqNu2Pi5YrpiDL2MCUEHenyP98hqXT5G3Kj9eNUNfR56l
- j5ZaK3EFcX/YuNaflTFVvXQu4uwKp7elcsqnkCB3FfiWOYWWwEE9U0RhLYv2/ZxArCH2
- assg==
-X-Gm-Message-State: AOAM5325jgTSbUt8PFeQPLpJROofQdg0C8vURP/K0/YaYWCnWOvsR0VP
- xu8e8lSG/ByjvWLIY8Lu7w+1FWsCn4UiTJzT/4QJ2w==
-X-Google-Smtp-Source: ABdhPJyIyIkLsdYEGkQLrO/u+ELlNESHGSVzbGRrAi2B9pA/NnlFnv+rEp9Gx3yEIycOq+xFBbXZUlvmUjUoIejksns=
-X-Received: by 2002:a25:d716:: with SMTP id o22mr15295998ybg.129.1617919357767; 
- Thu, 08 Apr 2021 15:02:37 -0700 (PDT)
+ dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="GLvUJboJ"; 
+ dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="0pI/lET+"
+From: Jonas Witschel <diabonas@archlinux.org>
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-ed25519; t=1617920234;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gHaWLA0gbX//IUycmmw3IgzpjVp57mKhAogscy1vy+U=;
+ b=GLvUJboJG38xJNSdeNIVgsMhuMAkyvsFQTFzMWyDbGX+RNeIkWrjv/egM2RGQmW+CzEp4G
+ hcGxPcFvrlHDH9Bw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-rsa; t=1617920234;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gHaWLA0gbX//IUycmmw3IgzpjVp57mKhAogscy1vy+U=;
+ b=0pI/lET+t4RecRSRAxt/isUFWdAtEsyWwEYcLKu08p/6yJvuHFQDrDLz2D5SIMHgZTRLXA
+ 1DhTboJsKHSj5Br6XvF/aTaFCaeiLphlqzKa0+K5BQpH2EPhx5+IUK4Q5HBemCgeoSYLOn
+ wNkoek58PUMsU1GPyEMHVwH0NRLzCRq+A4rxS5ilIWwLA8uf5xd6j7Q3Yf7TSNUiFoXXlo
+ /CO6BUW2rVrPuo/n6uvdPPqD+EDkrsSylpvzg+7ZXFNkWgrxM0rOWPDtu7v6iSGFfyYjL+
+ mn+dleky9hzmlvObrdEkDrcuoW1PGBbMqgOjwjOveK7aRqCHYhIrdaRRf/mMU8rq8zPQSe
+ pOb/lk/mDESnruQ8TFj7jHm2+kTHSOw12q9g5eCxN35uo6VgmK9roBEZ7WGMGVvHcsvm51
+ ZufAiJTYmVBkyhYbx2tFgcCWX/hI7hxbFbG1s5lDsy05TuhBAr2ptUumt6k71Wv2zNqIYV
+ UDc+wVzbScFTJyQLlCg4jspMUQgPcYtPpZCpbfPiPR9Ji8/KNRGl66PRrSeYzeQIEOZCT6
+ CJqSVRf1wFHWnnPttCGWsZ7oosNBCr+BJo0I7sMQLxEfAhIEAgiZZtJpjf31Mgo7+qSbTe
+ he7CPl2xAlSlL5QWboMp641XML+gwglm8pEZgpRAZK7h2DiTtbZU4=
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP ProBook 445 G7
+Date: Fri,  9 Apr 2021 00:16:29 +0200
+Message-Id: <20210408221629.22230-1-diabonas@archlinux.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
- <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
- <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
- <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
- <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
- <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
- <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
- <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
- <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
- <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
- <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
- <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
- <CAHXb3bcpUBH9F=K9npwK-xO5sX+H11EV0_Nc7Otw7o93M=DKYQ@mail.gmail.com>
- <CAEsQvcs8HasvcJm0oEr87gNPxB6o2Km_NtAojTq+VkEX9EZd0g@mail.gmail.com>
-In-Reply-To: <CAEsQvcs8HasvcJm0oEr87gNPxB6o2Km_NtAojTq+VkEX9EZd0g@mail.gmail.com>
-From: Mike Oliphant <oliphant@nostatic.org>
-Date: Thu, 8 Apr 2021 15:02:26 -0700
-Message-ID: <CAHXb3bcMRrtMtfoHOCikNAkXxemnScfTPvJ702N_z6o5xj-G5g@mail.gmail.com>
-Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Lucas <jaffa225man@gmail.com>, alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Authentication-Results: mail.archlinux.org;
+ auth=pass smtp.auth=diabonas smtp.mailfrom=diabonas@archlinux.org
+Cc: Jonas Witschel <diabonas@archlinux.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,421 +91,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Geraldo - not sure what your patch was intended to do, but it results in
-the same behavior. With implicit feedback enabled for playback but without
-the endpoint.c patch, playback fails to initialize. I'm including the dmesg
-log below. The key message is the "No URB submission due to implicit fb
-sync" line, which is what the endpoint.c patch avoids.
+The HP ProBook 445 G7 (17T32ES) uses ALC236. Like ALC236_FIXUP_HP_GPIO_LED,
+COEF index 0x34 bit 5 is used to control the playback mute LED, but the
+microphone mute LED is controlled using pin VREF instead of a COEF index.
 
-Mike
+AlsaInfo: https://alsa-project.org/db/?f=0d3f4d1af39cc359f9fea9b550727ee87e5cf45a
+Signed-off-by: Jonas Witschel <diabonas@archlinux.org>
+---
+ sound/pci/hda/patch_realtek.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
--- device plugged in
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 00a15e7cfdb9..c4372d143051 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4445,6 +4445,25 @@ static void alc236_fixup_hp_mute_led(struct hda_codec *codec,
+ 	alc236_fixup_hp_coef_micmute_led(codec, fix, action);
+ }
+ 
++static void alc236_fixup_hp_micmute_led_vref(struct hda_codec *codec,
++				const struct hda_fixup *fix, int action)
++{
++	struct alc_spec *spec = codec->spec;
++
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		spec->cap_mute_led_nid = 0x1a;
++		snd_hda_gen_add_micmute_led_cdev(codec, vref_micmute_led_set);
++		codec->power_filter = led_power_filter;
++	}
++}
++
++static void alc236_fixup_hp_mute_led_micmute_vref(struct hda_codec *codec,
++				const struct hda_fixup *fix, int action)
++{
++	alc236_fixup_hp_mute_led_coefbit(codec, fix, action);
++	alc236_fixup_hp_micmute_led_vref(codec, fix, action);
++}
++
+ #if IS_REACHABLE(CONFIG_INPUT)
+ static void gpio2_mic_hotkey_event(struct hda_codec *codec,
+ 				   struct hda_jack_callback *event)
+@@ -6407,6 +6426,7 @@ enum {
+ 	ALC285_FIXUP_HP_MUTE_LED,
+ 	ALC236_FIXUP_HP_GPIO_LED,
+ 	ALC236_FIXUP_HP_MUTE_LED,
++	ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
+ 	ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
+ 	ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
+ 	ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
+@@ -7653,6 +7673,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc236_fixup_hp_mute_led,
+ 	},
++	[ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc236_fixup_hp_mute_led_micmute_vref,
++	},
+ 	[ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET] = {
+ 		.type = HDA_FIXUP_VERBS,
+ 		.v.verbs = (const struct hda_verb[]) {
+@@ -8070,6 +8094,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8724, "HP EliteBook 850 G7", ALC285_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8729, "HP", ALC285_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8730, "HP ProBook 445 G7", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8736, "HP", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8760, "HP", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x877a, "HP", ALC285_FIXUP_HP_MUTE_LED),
+-- 
+2.31.1
 
-[ 1066.587414] usb 4-1.2: new high-speed USB device number 12 using ehci-pci
-[ 1066.697993] usb 4-1.2: New USB device found, idVendor=0582,
-idProduct=01d6, bcdDevice= 0.00
-[ 1066.698013] usb 4-1.2: New USB device strings: Mfr=1, Product=2,
-SerialNumber=0
-[ 1066.698020] usb 4-1.2: Product: GT-1
-[ 1066.698024] usb 4-1.2: Manufacturer: BOSS
-[ 1066.701638] usb 4-1.2: 1:1: added playback implicit_fb sync_ep 8e, iface
-2:1
-[ 1066.701655] usb 4-1.2: 1:1: add audio endpoint 0xd
-[ 1066.701680] usb 4-1.2: Creating new data endpoint #d
-[ 1066.701682] usb 4-1.2: Creating new data endpoint #8e
-[ 1066.701828] usb 4-1.2: 1:1 Set sample rate 44100, clock 0
-[ 1066.702337] usb 4-1.2: 2:1: add audio endpoint 0x8e
-[ 1066.702522] usb 4-1.2: 2:1 Set sample rate 44100, clock 0
-
--- jackd started for capture/playback
-
-[ 1072.455008] usb 4-1.2: Open EP 0x8e, iface=2:1, idx=0
-[ 1072.455016] usb 4-1.2:   channels=2, rate=44100, format=S32_LE,
-period_bytes=256, periods=2, implicit_fb=0
-[ 1072.455020] usb 4-1.2: Setting usb interface 2:0 for EP 0x8e
-[ 1072.455096] usb 4-1.2: Setting usb interface 2:1 for EP 0x8e
-[ 1072.455286] usb 4-1.2: 2:1 Set sample rate 44100, clock 0
-[ 1072.455296] usb 4-1.2: Setting params for data EP 0x8e, pipe 0x70c80
-[ 1072.455316] usb 4-1.2: Set up 12 URBS, ret=0
-[ 1072.455418] usb 4-1.2: Open EP 0xd, iface=1:1, idx=0
-[ 1072.455421] usb 4-1.2:   channels=2, rate=44100, format=S32_LE,
-period_bytes=256, periods=2, implicit_fb=1
-[ 1072.455425] usb 4-1.2: Reopened EP 0x8e (count 1)
-[ 1072.455442] usb 4-1.2: Setting usb interface 1:0 for EP 0xd
-[ 1072.455633] usb 4-1.2: Setting usb interface 1:1 for EP 0xd
-[ 1072.455741] usb 4-1.2: 1:1 Set sample rate 44100, clock 0
-[ 1072.455747] usb 4-1.2: Setting params for data EP 0xd, pipe 0x68c00
-[ 1072.455754] usb 4-1.2: Set up 12 URBS, ret=0
-[ 1072.455784] usb 4-1.2: Starting data EP 0xd (running 0)
-[ 1072.455788] usb 4-1.2: No URB submission due to implicit fb sync
-[ 1072.455790] usb 4-1.2: Starting data EP 0x8e (running 0)
-[ 1072.455828] usb 4-1.2: 12 URBs submitted for EP 0x8e
-[ 1072.461297] usb 4-1.2: Starting data EP 0x8e (running 1)
-[ 1072.461313] usb 4-1.2: 2:1 Start Capture PCM
-[ 1072.461316] usb 4-1.2: 1:1 Start Playback PCM
-[ 1073.549291] usb 4-1.2: Stopping data EP 0x8e (running 2)
-[ 1073.549297] usb 4-1.2: 2:1 Stop Capture PCM
-[ 1073.549300] usb 4-1.2: Stopping data EP 0x8e (running 1)
-[ 1073.549307] usb 4-1.2: Stopping data EP 0xd (running 1)
-[ 1073.549309] usb 4-1.2: 1:1 Stop Playback PCM
-[ 1073.581795] usb 4-1.2: Closing EP 0x8e (count 2)
-[ 1073.581814] usb 4-1.2: Closing EP 0xd (count 1)
-[ 1073.581816] usb 4-1.2: Setting usb interface 1:0 for EP 0xd
-[ 1073.582098] usb 4-1.2: EP 0xd closed
-[ 1073.582102] usb 4-1.2: Closing EP 0x8e (count 1)
-[ 1073.582104] usb 4-1.2: Setting usb interface 2:0 for EP 0x8e
-[ 1073.582331] usb 4-1.2: EP 0x8e closed
-
--- jackd fails to start
-
-On Thu, Apr 8, 2021 at 2:28 PM Geraldo Nascimento <geraldogabriel@gmail.com>
-wrote:
-
-> Mike, could you test the following patch instead of your own modifications?
->
-> Lucas, you can test it too, just modify it for your devices.
->
-> Since I don't own any Roland devices this is of course completely
-> untested, but it's worth a try.
->
-> --- implicit.c.git      2021-04-04 20:51:57.226754632 -0300
-> +++ implicit.c  2021-04-08 18:15:02.971301050 -0300
-> @@ -75,7 +75,7 @@ static const struct snd_usb_implicit_fb_
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x0171),   /* BOSS RC-505 */
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x0185),   /* BOSS GP-10 */
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x0189),   /* BOSS GT-100v2 */
-> -       IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d6),   /* BOSS GT-1 */
-> +       //IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d6), /* BOSS GT-1 */
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d8),   /* BOSS Katana */
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x01e5),   /* BOSS GT-001 */
->         IMPLICIT_FB_SKIP_DEV(0x0582, 0x0203),   /* BOSS AD-10 */
-> @@ -89,7 +89,7 @@ static const struct snd_usb_implicit_fb_
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x0171, 0x0d, 0x01), /* BOSS RC-505
-> */
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x0185, 0x0d, 0x01), /* BOSS GP-10 */
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x0189, 0x0d, 0x01), /* BOSS
-> GT-100v2 */
-> -       IMPLICIT_FB_FIXED_DEV(0x0582, 0x01d6, 0x0d, 0x01), /* BOSS GT-1 */
-> +       //IMPLICIT_FB_FIXED_DEV(0x0582, 0x01d6, 0x0d, 0x01), /* BOSS GT-1
-> */
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x01d8, 0x0d, 0x01), /* BOSS Katana
-> */
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x01e5, 0x0d, 0x01), /* BOSS GT-001
-> */
->         IMPLICIT_FB_FIXED_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
-> @@ -339,8 +339,19 @@ int snd_usb_parse_implicit_fb_quirk(stru
->                                     struct audioformat *fmt,
->                                     struct usb_host_interface *alts)
->  {
-> -       if (fmt->endpoint & USB_DIR_IN)
-> +        bool isRolandGT1;
-> +
-> +        if (alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-> +            (USB_ID_VENDOR(chip->usb_id) == 0x0582 &&
-> +             USB_ID_PRODUCT(chip->usb_id) == 0x01d6 /* BOSS GT-1 */))
-> +            isRolandGT1 = true;
-> +
-> +       if (fmt->endpoint & USB_DIR_IN) {
-> +                if (isRolandGT1 == true)
-> +                    return 1;
->                 return audioformat_capture_quirk(chip, fmt, alts);
-> +       }
-> +
->         else
->                 return audioformat_implicit_fb_quirk(chip, fmt, alts);
->  }
->
-> On Thu, Apr 8, 2021 at 5:54 PM Mike Oliphant <oliphant@nostatic.org>
-> wrote:
->
->> Geraldo - the implicit feedback stuff is by no means new - it's been
->> there for quite some time. The recent changes just refactored it a bit.
->>
->> Mike
->>
->> On Thu, Apr 8, 2021 at 1:09 PM Geraldo Nascimento <
->> geraldogabriel@gmail.com> wrote:
->>
->>> Em Qui, 8 de abr de 2021 16:42, Mike Oliphant <oliphant@nostatic.org>
->>> escreveu:
->>>
->>>> Hi Geraldo - yes. In fact, that is how I've been operating for the past
->>>> year or so before the recent implicit feedback changes. I use the GT-1 most
->>>> every day as a guitar interface and it works perfectly.
->>>>
->>>
->>> Thanks Mike, but I'm not sure I understand. You have been operating with
->>> implicit feedback sync on the playback for the past year? I thought that
->>> was a new idea?
->>>
->>> The key point here is that with a stock kernel you have to comment out
->>> the IMPLICIT_FB_SKIP_DEV() entry for the GT-1 for the Roland code inside
->>> audioformat_implicit_fb_quirk properly kick in.
->>>
->>> I was suggesting you try your workaround without adding a
->>> IMPLICIT_FB_GENERIC_DEV() for your device.
->>>
->>>
->>>> The GT-1 (and I suspect many of the other Roland/BOSS devices) doesn't
->>>> seem to be quirky at all with regard to implicit feedback setup - it works
->>>> exactly as the endpoint definitions say it should.
->>>>
->>>> Where the GT-1 *does* seem to be quirky is that is doesn't seem to want
->>>> to send capture data until it receives some playback data - hence my
->>>> endpoint.c patch.
->>>>
->>>
->>> If that is true then there's definitely a need to rewrite endpoint.c.
->>> But it could be something else, Mike. One thing is certain: the present
->>> kernel behaviour is far from the ideal.
->>>
->>> I insist: engage implicit feedback sync for the playback, disable it for
->>> the captures and inspect your dyndbg logs for the failure cases in starting
->>> JACK that happen when you don't patch endpoint.c.
->>>
->>> If you see something related to sync_ep then the problem lies elsewhere,
->>> specifically inside pcm.c
->>>
->>> Although whether this behavior is quirky or typical I don't know. I do
->>>> know that the GT-1 does not claim to be USB class compliant. It requires
->>>> custom drivers on Windows and macOS and does not work at all with iOS, so
->>>> it definitely seems to be somewhat non-standard.
->>>>
->>>
->>> Non-standard to say the least. I really hope that's not the case or
->>> it'll give Takashi Iwai plenty of headache ;-)
->>>
->>>
->>>> Mike
->>>>
->>>> On Thu, Apr 8, 2021 at 12:13 PM Geraldo Nascimento <
->>>> geraldogabriel@gmail.com> wrote:
->>>>
->>>>> Hey Mike, got another question for you, sorry about that.
->>>>>
->>>>> If you comment out your GT-1 IMPLICIT_FB_GENERIC_DEV() entry and
->>>>> instead let audioformat_implicit_fb_quirk() call add_roland_implicit_fb()
->>>>> with everything else customized your way, your custom endpoint.c etc., does
->>>>> it still work? And does it work crystal clear?
->>>>>
->>>>> I'm sorry about this test this, test that, provide the dyndbg logs
->>>>> attitude but I'm honestly just trying to help you write the best patch
->>>>> possible.
->>>>>
->>>>> Thank you,
->>>>> Geraldo
->>>>>
->>>>> Em Qui, 8 de abr de 2021 02:05, Geraldo Nascimento <
->>>>> geraldogabriel@gmail.com> escreveu:
->>>>>
->>>>>> Mike, I just realize I missed reply-to-all once again.
->>>>>>
->>>>>> In case you were wondering, I was looking for a sync_ep event right
->>>>>> in the start of the loading of snd-usb-audio. It happens inside pcm.c. If
->>>>>> you see one of those specifically let me know.
->>>>>>
->>>>>> With my Pioneer device, the DDJ-SR2, snd-usb-audio recognized the
->>>>>> device's implicit feedback EP as sync_ep and that prevented JACK from
->>>>>> starting.
->>>>>>
->>>>>> Em Qua, 7 de abr de 2021 23:47, Mike Oliphant <oliphant@nostatic.org>
->>>>>>> escreveu:
->>>>>>>
->>>>>>>> Hi Geraldo - I had the same thought and I have tried enabling
->>>>>>>> playback feedback while turning off capture feedback without my endpoint
->>>>>>>> patch. It doesn't work - at least not on the GT-1. Playback/capture fails
->>>>>>>> to start.
->>>>>>>>
->>>>>>>
->>>>>>> Would you mind sharing the dyndbg logs for the failure case from the
->>>>>>> point you connect the device, and trying to start JACK?
->>>>>>>
->>>>>>> Sometimes failures elucidate more than success cases.
->>>>>>>
->>>>>>>
->>>>>>>> Speaking of testing, if you (or anyone else following this
->>>>>>>> discussion) have one of these Roland/BOSS devices, it would be great if you
->>>>>>>> could try testing with playback feedback enabled and my endpoint.c
->>>>>>>> workaround.
->>>>>>>>
->>>>>>>
->>>>>>> I don't have the hardware, but I'm sure it works. The problem is
->>>>>>> that endpoint.c code really shouldn't be disabled unless all the other
->>>>>>> options fail, and even then, I'm not so sure the maintainers will be so
->>>>>>> willing to disable it. So let's keep some other options on the table by
->>>>>>> debugging a little further.
->>>>>>>
->>>>>>> Thank you,
->>>>>>> Geraldo
->>>>>>>
->>>>>>>
->>>>>>>> Mike
->>>>>>>>
->>>>>>>> On Wed, Apr 7, 2021 at 7:21 PM Geraldo Nascimento <
->>>>>>>> geraldogabriel@gmail.com> wrote:
->>>>>>>>
->>>>>>>>> Thanks, Mike, one thing I can tell you right off the bat is that
->>>>>>>>> if you turn implicit feedback sync on for both endpoints at the same time
->>>>>>>>> like you mentioned, without your workaround inside endpoint.c, they most
->>>>>>>>> likely will stall because they would both be waiting for each other to
->>>>>>>>> start.
->>>>>>>>>
->>>>>>>>> Have you tried engaging the generic implicit feedback sync just
->>>>>>>>> for the playback, thereby commenting out the capture implicit feedback
->>>>>>>>> entries, and re-enabling snd_usb_endpoint_implicit_feedback_sink(ep) inside
->>>>>>>>> endpoint.c? Does playback still fail to start?
->>>>>>>>>
->>>>>>>>> If you choose to perform this simple test please share with us the
->>>>>>>>> test's dyndbg logs right from the moment you turn on the device, not just
->>>>>>>>> after you start jackd.
->>>>>>>>>
->>>>>>>>> Sorry for the endless do-this, do-that. Such is the pace of
->>>>>>>>> teledebugging
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> Em Qua, 7 de abr de 2021 21:38, Mike Oliphant <
->>>>>>>>> oliphant@nostatic.org> escreveu:
->>>>>>>>>
->>>>>>>>>> Geraldo - here is the dmesg output when starting up jackd for
->>>>>>>>>> capture/playback:
->>>>>>>>>>
->>>>>>>>>> With my patch:
->>>>>>>>>>
->>>>>>>>>> [  136.734081] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
->>>>>>>>>> [  136.734088] usb 3-1.2:   channels=2, rate=44100,
->>>>>>>>>> format=S32_LE, period_bytes=256, periods=2, implicit_fb=0
->>>>>>>>>> [  136.734092] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
->>>>>>>>>> [  136.734233] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
->>>>>>>>>> [  136.734381] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
->>>>>>>>>> [  136.734388] usb 3-1.2: Setting params for data EP 0x8e, pipe
->>>>>>>>>> 0x70480
->>>>>>>>>> [  136.734394] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>>>>> [  136.734466] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
->>>>>>>>>> [  136.734468] usb 3-1.2:   channels=2, rate=44100,
->>>>>>>>>> format=S32_LE, period_bytes=256, periods=2, implicit_fb=1
->>>>>>>>>> [  136.734471] usb 3-1.2: Reopened EP 0x8e (count 1)
->>>>>>>>>> [  136.734473] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
->>>>>>>>>> [  136.734605] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
->>>>>>>>>> [  136.734762] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
->>>>>>>>>> [  136.734774] usb 3-1.2: Setting params for data EP 0xd, pipe
->>>>>>>>>> 0x68400
->>>>>>>>>> [  136.734781] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>>>>> [  136.734830] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>>>>> [  136.734873] usb 3-1.2: 12 URBs submitted for EP 0xd
->>>>>>>>>> [  136.734876] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>>>>> [  136.734906] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>>>>> [  136.740627] usb 3-1.2: Starting data EP 0x8e (running 1)
->>>>>>>>>> [  136.740634] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>>>>> [  136.740635] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> With the unpatched kernel:
->>>>>>>>>>
->>>>>>>>>> [  344.813203] usb 3-1.2: Open EP 0x8e, iface=2:1, idx=0
->>>>>>>>>> [  344.813210] usb 3-1.2:   channels=2, rate=44100,
->>>>>>>>>> format=S32_LE, period_bytes=256, periods=2, implicit_fb=1
->>>>>>>>>> [  344.813213] usb 3-1.2: Open EP 0xd, iface=1:1, idx=0
->>>>>>>>>> [  344.813215] usb 3-1.2:   channels=2, rate=44100,
->>>>>>>>>> format=S32_LE, period_bytes=256, periods=2, implicit_fb=0
->>>>>>>>>> [  344.813217] usb 3-1.2: Setting usb interface 2:0 for EP 0x8e
->>>>>>>>>> [  344.813367] usb 3-1.2: Setting usb interface 2:1 for EP 0x8e
->>>>>>>>>> [  344.813494] usb 3-1.2: 2:1 Set sample rate 44100, clock 0
->>>>>>>>>> [  344.813503] usb 3-1.2: Setting params for data EP 0x8e, pipe
->>>>>>>>>> 0x70580
->>>>>>>>>> [  344.813509] usb 3-1.2: Set up 12 URBS, ret=0
->>>>>>>>>> [  344.813513] usb 3-1.2: Setting usb interface 1:0 for EP 0xd
->>>>>>>>>> [  344.813587] usb 3-1.2: Setting usb interface 1:1 for EP 0xd
->>>>>>>>>> [  344.813758] usb 3-1.2: 1:1 Set sample rate 44100, clock 0
->>>>>>>>>> [  344.813765] usb 3-1.2: Setting params for data EP 0xd, pipe
->>>>>>>>>> 0x68500
->>>>>>>>>> [  344.813770] usb 3-1.2: Set up 2 URBS, ret=0
->>>>>>>>>> [  344.813858] usb 3-1.2: Reopened EP 0xd (count 1)
->>>>>>>>>> [  344.813883] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>>>>> [  344.813899] usb 3-1.2: 2 URBs submitted for EP 0xd
->>>>>>>>>> [  344.819499] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>>>>> [  344.819532] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>>>>> [  344.819535] usb 3-1.2: Starting data EP 0xd (running 1)
->>>>>>>>>> [  344.819538] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>>>>> [  344.819540] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>>>>> [  344.820663] usb 3-1.2: Stopping data EP 0xd (running 2)
->>>>>>>>>> [  344.820688] usb 3-1.2: Stopping data EP 0x8e (running 1)
->>>>>>>>>> [  344.820693] usb 3-1.2: 2:1 Stop Capture PCM
->>>>>>>>>> [  344.820695] usb 3-1.2: Stopping data EP 0xd (running 1)
->>>>>>>>>> [  344.820697] usb 3-1.2: 1:1 Stop Playback PCM
->>>>>>>>>> [  344.833799] usb 3-1.2: Starting data EP 0xd (running 0)
->>>>>>>>>> [  344.833852] usb 3-1.2: 2 URBs submitted for EP 0xd
->>>>>>>>>> [  344.833867] usb 3-1.2: Starting data EP 0x8e (running 0)
->>>>>>>>>> [  344.833888] usb 3-1.2: 12 URBs submitted for EP 0x8e
->>>>>>>>>> [  344.833890] usb 3-1.2: Starting data EP 0xd (running 1)
->>>>>>>>>> [  344.833891] usb 3-1.2: 2:1 Start Capture PCM
->>>>>>>>>> [  344.833893] usb 3-1.2: 1:1 Start Playback PCM
->>>>>>>>>>
->>>>>>>>>> On Wed, Apr 7, 2021 at 1:30 PM Geraldo Nascimento <
->>>>>>>>>> geraldogabriel@gmail.com> wrote:
->>>>>>>>>>
->>>>>>>>>>> Em Qua, 7 de abr de 2021 17:16, Mike Oliphant <
->>>>>>>>>>> oliphant@nostatic.org> escreveu:
->>>>>>>>>>>
->>>>>>>>>>>> Hi Geraldo - I don't have that patch applied, but it shouldn't
->>>>>>>>>>>> make any behavioral difference - it just seems to be simplifying the code.
->>>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> Point taken.
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>> The issue is that the BOSS GT-1 *does* need implicit feedback
->>>>>>>>>>>> on playback to avoid clock timing issues, and the current behavior is
->>>>>>>>>>>> disabling that feedback.
->>>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> Mike, would you mind posting some dyndbg logs for both the stock
->>>>>>>>>>> behaviour and your endpoint.c/generic quirk modified behaviour?
->>>>>>>>>>>
->>>>>>>>>>> Just add snd_usb_audio.dyndbg=+p to your kernel options and
->>>>>>>>>>> please share the logs.
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>> Mike
->>>>>>>>>>>>
->>>>>>>>>>>> On Wed, Apr 7, 2021 at 1:04 PM Geraldo Nascimento <
->>>>>>>>>>>> geraldogabriel@gmail.com> wrote:
->>>>>>>>>>>>
->>>>>>>>>>>>> Hey Mike, did you catch the latest patch by Takashi Iwai for
->>>>>>>>>>>>> capture quirky devices?
->>>>>>>>>>>>>
->>>>>>>>>>>>> You can find it here:
->>>>>>>>>>>>> https://patchwork.kernel.org/project/alsa-devel/patch/20210406113837.32041-1-tiwai@suse.de/
->>>>>>>>>>>>>
->>>>>>>>>>>>> Em Qua, 7 de abr de 2021 16:55, Mike Oliphant <
->>>>>>>>>>>>> oliphant@nostatic.org> escreveu:
->>>>>>>>>>>>>
->>>>>>>>>>>>>> I had thought that the recent implicit feedback changes were
->>>>>>>>>>>>>> fully working
->>>>>>>>>>>>>> on the BOSS GT-1, but it turns out that I just hadn't tested
->>>>>>>>>>>>>> well enough.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Audio playback and capture works, but with periodic dropouts.
->>>>>>>>>>>>>> I get the
->>>>>>>>>>>>>> exact same behavior as I did with the quirk to completely
->>>>>>>>>>>>>> disable implicit
->>>>>>>>>>>>>> feedback. Without the implicit feedback, you get dropouts
->>>>>>>>>>>>>> from clock drift
->>>>>>>>>>>>>> - how bad probably varies from card to card. On mine it is
->>>>>>>>>>>>>> every second or
->>>>>>>>>>>>>> so.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> If I switch playback feedback for the GT-1 to generic by doing
->>>>>>>>>>>>>> "IMPLICIT_FB_GENERIC_DEV(0x0582, 0x01d6)", I get the previous
->>>>>>>>>>>>>> old behavior,
->>>>>>>>>>>>>> which is that playback completely fails to start.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> With generic playback feedback, and using my previous patch
->>>>>>>>>>>>>> to endpoint.c
->>>>>>>>>>>>>> to avoid playback waiting on capture mentioned here:
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-January/161951.html
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> playback and capture work perfectly for me.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>

@@ -2,55 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2039357C81
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 08:22:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E758357C82
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Apr 2021 08:22:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 682F91688;
-	Thu,  8 Apr 2021 08:21:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 682F91688
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABE25169F;
+	Thu,  8 Apr 2021 08:21:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABE25169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617862943;
-	bh=2VJloWMPrSOKSQudZ1kfjXSHkmeJXrjpviyls7kF08I=;
+	s=default; t=1617862960;
+	bh=8d98iTxRlj7CWNyP+WJIPpqqzy9rQprGNOANqgp6Ef4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=IxVqV0Vhlypl+nG+pPAPLEjE5aQrx08kUGIcAod65CqS6HDCmtXj5NA6LX/D5cLKu
-	 XXjS/YUImAypWlqj2j/pk+ZGBMCEuGzHwV2xwutAmjCMLc3k1Pl/u73HdZvMlG4CvK
-	 bNMAQczS6IWzZVx7Iu2CJ6KMZo+3mSJ2HhqbMH80=
+	b=UTZmfbqpLN5J2ZmNJoN96CMHoueYRm6AD1o0GM6y0bc3cdD8IsCTGUjWg0I6qMGHx
+	 c8wwvOJNTESxsxv0AAAuQ2yoWXtUB1gfp4T1gRXamknxNebk1ZddXp4yNb8aoWZPB/
+	 fVWL50Jwxio8cw8g+CXcMHiSaajc/GKSUOWIl44s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13C7CF804E0;
-	Thu,  8 Apr 2021 08:18:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7CD1F804E1;
+	Thu,  8 Apr 2021 08:18:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEF9DF80482; Thu,  8 Apr 2021 08:18:44 +0200 (CEST)
+ id E09A2F80169; Thu,  8 Apr 2021 08:18:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E9C0F80249
- for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 08:18:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E9C0F80249
-Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FG9x76b11zPnxZ;
- Thu,  8 Apr 2021 14:15:39 +0800 (CST)
-Received: from huawei.com (10.175.127.227) by DGGEMS407-HUB.china.huawei.com
- (10.3.19.207) with Microsoft SMTP Server id 14.3.498.0; Thu, 8 Apr 2021
- 14:18:19 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDDA7F80246
+ for <alsa-devel@alsa-project.org>; Thu,  8 Apr 2021 08:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDDA7F80246
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FG9xr08jMzyNjj;
+ Thu,  8 Apr 2021 14:16:16 +0800 (CST)
+Received: from huawei.com (10.175.127.227) by DGGEMS413-HUB.china.huawei.com
+ (10.3.19.213) with Microsoft SMTP Server id 14.3.498.0; Thu, 8 Apr 2021
+ 14:18:21 +0800
 From: Ye Bin <yebin10@huawei.com>
-To: <yebin10@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Dan Murphy <dmurphy@ti.com>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Alexander A.
- Klimov" <grandmaster@al2klimov.de>
-Subject: [PATCH -next] ASoC: tas2770: Constify static struct snd_soc_dai_ops
-Date: Thu, 8 Apr 2021 14:26:46 +0800
-Message-ID: <20210408062646.803053-1-yebin10@huawei.com>
+To: <yebin10@huawei.com>, Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH -next] ASoC: rt711-sdca: Constify static struct snd_soc_dai_ops
+Date: Thu, 8 Apr 2021 14:26:47 +0800
+Message-ID: <20210408062647.803141-1-yebin10@huawei.com>
 X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
 Content-Type: text/plain; charset="ISO-8859-1"
@@ -81,20 +78,20 @@ const to allow the compiler to put it in read-only memory.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Ye Bin <yebin10@huawei.com>
 ---
- sound/soc/codecs/tas2770.c | 2 +-
+ sound/soc/codecs/rt711-sdca.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 781bf9cc4faa..172e79cbe0da 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -464,7 +464,7 @@ static int tas2770_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 	return 0;
- }
+diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
+index 381893b640c6..bfb7f1c8ec8f 100644
+--- a/sound/soc/codecs/rt711-sdca.c
++++ b/sound/soc/codecs/rt711-sdca.c
+@@ -1268,7 +1268,7 @@ static int rt711_sdca_pcm_hw_free(struct snd_pcm_substream *substream,
+ #define RT711_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
+ 			SNDRV_PCM_FMTBIT_S24_LE)
  
--static struct snd_soc_dai_ops tas2770_dai_ops = {
-+static const struct snd_soc_dai_ops tas2770_dai_ops = {
- 	.mute_stream = tas2770_mute,
- 	.hw_params  = tas2770_hw_params,
- 	.set_fmt    = tas2770_set_fmt,
+-static struct snd_soc_dai_ops rt711_sdca_ops = {
++static const struct snd_soc_dai_ops rt711_sdca_ops = {
+ 	.hw_params	= rt711_sdca_pcm_hw_params,
+ 	.hw_free	= rt711_sdca_pcm_hw_free,
+ 	.set_sdw_stream	= rt711_sdca_set_sdw_stream,
 

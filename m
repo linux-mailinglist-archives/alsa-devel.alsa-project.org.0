@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A078135A34A
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:28:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C771C35A34C
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:28:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3366D1692;
-	Fri,  9 Apr 2021 18:27:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3366D1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 618A516A4;
+	Fri,  9 Apr 2021 18:27:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618A516A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617985686;
-	bh=hc+nGdCIR0RhdyvtSUaXj933Q2AXVmJxWbXIcJq4laM=;
+	s=default; t=1617985706;
+	bh=v3Zqc/3dsZP8D8F+VP4VtmHrJNK58dXKx2K3a3/TSzM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ji52A3rlfdOjE2VtFkF+T17KE96ZtBzXTj3eB1OuRwGLgstuYTu6OiPwwG4v9AL+7
-	 dcxbZarZy1w0gKpx9YF4ZmDiRfyNt7JMXCtGE6J5xzPCcBhtQv39S82sOxPchG3a8I
-	 bPVSHS1sDpl9wjNhLukcDSujaq3YGeMmrw2Ff1R8=
+	b=H72nqtsztYDAtVr3pldmlu0EIalKcfd/jtFGkQs3J/jHD1p2Z2wTgvPlRa014o0Jj
+	 exWbieAMOD87cnAIZDFelUFYYcOK6siN7oheBetnzrX7XRXfmeQB+S6V4PQdYWVryG
+	 IjIOenvVb6qRr5uhf1E0gdGw5RlII8SH81Gof54o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 266F8F804E3;
-	Fri,  9 Apr 2021 18:24:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BF94F804DF;
+	Fri,  9 Apr 2021 18:24:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 363DFF804B0; Fri,  9 Apr 2021 18:24:10 +0200 (CEST)
+ id C3F43F804E0; Fri,  9 Apr 2021 18:24:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AF53F80431
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:24:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AF53F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21F6EF804B2
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:24:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21F6EF804B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M71tah5e"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 150936115B;
- Fri,  9 Apr 2021 16:24:04 +0000 (UTC)
+ header.b="oYueY1PD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D1F78610A8;
+ Fri,  9 Apr 2021 16:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617985445;
- bh=hc+nGdCIR0RhdyvtSUaXj933Q2AXVmJxWbXIcJq4laM=;
+ s=k20201202; t=1617985448;
+ bh=v3Zqc/3dsZP8D8F+VP4VtmHrJNK58dXKx2K3a3/TSzM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M71tah5epmyf9sWSVrX/f8HpoUhZVgC+V9nOgaIiEJVSfK4xni7nVXRFlBGPhQHw8
- EvnbC8ztMSvl0ygzTwgpL9Eof8alVZzHUGarmdB9jqg1t+vcZJT3h3tUbffqfL2c7Z
- sqZiVVWUT9Pzbt4IZ03MYQNETGMMSp11g1DK2xoW0B4TQNKFOnube2VxaFZmxhh8Tp
- I4O+1jk8m8s7JOYjXCzwUJ+PGnS/ZY54l8CONx/Zz+jZjSKKRZ7dUa+KaxtBVNYatP
- jGUfblYPmujTaefRr8GrEIDTy0idInxtF3FCdHpOLc5AU7z2YkHRZlSry/UJ+6wIR0
- 4NQc5IX9nkq9g==
+ b=oYueY1PD40MhKLT5JZec4XfAUfEgLY5xLGXOKcbIjGVUnxuCaw1vJWIZwiQnXxDS8
+ W4qI9U9lKrnBXgnHLRwfwz8ElzPwmNbF2P/X7GFQsOSQrwi/7m3IQcgud52hyMahpH
+ jhPMgwLVIWa4OePL3raO5EUZwze9ZufeIkyL97RTi2DiDJ4qcG3HtBpb94Uzde2rX8
+ E/aG8s/zbhqqGOIZ4nRnHjwBmxbuTeHsSzNQ0SK9WMlpfLUpksSVOM/Tg9sDvv/A+m
+ REhH9jrfb5mvgfOxwaM8d9QEPznMi8q/UAOszOc6vqW9wi3mq33N/4kbTKRAawgql8
+ c0Gn8JrilnhXw==
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>,
-	lgirdwood@gmail.com
-Subject: Re: [PATCH] ASoC: rt1019: remove registers to sync with rt1019
- datasheet
-Date: Fri,  9 Apr 2021 17:22:56 +0100
-Message-Id: <161798344182.47643.887391618307908705.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Akshu Agrawal <akshu.agrawal@amd.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Ye Bin <yebin10@huawei.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH -next] ASoC: amd: raven: acp3x-i2s: Constify static struct
+ snd_soc_dai_ops
+Date: Fri,  9 Apr 2021 17:22:57 +0100
+Message-Id: <161798344183.47643.9676736315193814010.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <01e6409f0db0451aa1e45ca7d82cca9c@realtek.com>
-References: <01e6409f0db0451aa1e45ca7d82cca9c@realtek.com>
+In-Reply-To: <20210408062651.803413-1-yebin10@huawei.com>
+References: <20210408062651.803413-1-yebin10@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- lars@metafoo.de,
- =?UTF-8?q?kent=5Fchen=20=40=20realtek=20=2E=20com=20=5B=E9=99=B3=E5=BB=BA=E5=AE=8F=5D?=
- <kent_chen@realtek.com>,
- =?UTF-8?q?=E9=99=B3=E6=98=B6=E5=BF=97?= <kenny_chen@realtek.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?q?Derek=20=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>,
- =?UTF-8?q?Shuming=20=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,8 +86,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 9 Apr 2021 08:52:29 +0000, Jack Yu wrote:
-> Remove some registers to synchronize with the latest rt1019 datasheet.
+On Thu, 8 Apr 2021 14:26:51 +0800, Ye Bin wrote:
+> The snd_soc_dai_ops structures is only stored in the ops field of a
+> snd_soc_dai_driver structure, so make the snd_soc_dai_ops structure
+> const to allow the compiler to put it in read-only memory.
 
 Applied to
 
@@ -97,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1019: remove registers to sync with rt1019 datasheet
-      commit: 4f3b0f8e364029f2674875396f0e65a98ef84498
+[1/1] ASoC: amd: raven: acp3x-i2s: Constify static struct snd_soc_dai_ops
+      commit: 3e075e842899779bd321520a3524a278442467d0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

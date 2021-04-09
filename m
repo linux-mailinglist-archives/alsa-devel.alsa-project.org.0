@@ -2,69 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D512935A8A4
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 00:12:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FBFE35A8A5
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 00:14:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6723A16A4;
-	Sat, 10 Apr 2021 00:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6723A16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B32DD1691;
+	Sat, 10 Apr 2021 00:14:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32DD1691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618006350;
-	bh=TSZ9AKtt2rW5jR7NwTFwSkqK1woJZHmEMjIPZ2hrCDA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=t/bYd5vGdgC1ZDQHm89+0H6X7Z1Dwr1wT/7xTmIvl/pmHE7IlJvteYVCcm0JRvswx
-	 f0IX6jqcC/03jJoyzD7nCykkTv4t9ZY+qiG10KrdQaNm4UaCmB8gvAt0A6qDMpszWg
-	 Q0pDhQ72v1+lfjndna5c5qMGpBeqii5eHprl13NY=
+	s=default; t=1618006493;
+	bh=aRDsZUylmtXViXiAkdF5bGS5c0n/29kO1KhfUtVNThY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=F8nwTpR2dbrt0mLjjI7GffzWkInN+oEkQeG1UzKQ/gd+Qd6lJr92nAbh6mU57v5o6
+	 eqt3e6lW7OAvPwqetnbfau9pjHOL99X+IAostZwZRCUIixeKR2QEwYgn+36Yqke4Wh
+	 vJKqv5p7J4VJSh8sWNfWxS+5RoY6xB4x7sEuTETI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B1E1F80431;
-	Sat, 10 Apr 2021 00:10:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7478BF800EE;
+	Sat, 10 Apr 2021 00:13:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A07EBF8032C; Sat, 10 Apr 2021 00:10:16 +0200 (CEST)
+ id CA21FF8016A; Sat, 10 Apr 2021 00:13:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 483FFF80162
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 00:10:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 483FFF80162
-IronPort-SDR: wAHGCxkO6wwxbhnWXivx+V8TXu7wYV+q/E8D78gSIbbL228+iN9yXBZiPz+ohKAUpJ3997r6y/
- KKOSu+F8WLhg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9949"; a="214285714"
-X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="214285714"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C2DAF800EE
+ for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 00:13:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C2DAF800EE
+IronPort-SDR: 9YS5t+tJ5OSCCnAgrY5MckT5mU3zQicGRCidz2p5EUbiZyMRkj+tZ40A8quoknMk64Ai8AG/OA
+ WIMSu3OEwwwA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9949"; a="173932922"
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="173932922"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 15:10:07 -0700
-IronPort-SDR: R7LzTTs0LrwhL4gR1lpqLfsYIS8cnfhzQHEjtoAeo5MxFt1aino0+gwtovNFdRgi96tEOetwWQ
- 9Y0+Wyf+kE8g==
-X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="599292833"
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2021 15:13:13 -0700
+IronPort-SDR: GUxam000rX4VdGEJtV/oBIypmQGpCZzBhTJuvSlgRaej0MhL1Dqbn0aYQRfZ8qj5dhh0OMhRed
+ krdY9p5Vyzdg==
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="599293407"
 Received: from ukorat-mobl2.amr.corp.intel.com (HELO rsridh-mobl1.localdomain)
  ([10.212.104.152])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 15:10:07 -0700
+ 09 Apr 2021 15:13:12 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: SOF: Simplify sof_probe_complete handling for
- acpi/pci/of
-Date: Fri,  9 Apr 2021 15:09:59 -0700
-Message-Id: <20210409220959.1543456-3-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH] ASoC: SOF: Kconfig: fix typo of SND_SOC_SOF_PCI
+Date: Fri,  9 Apr 2021 15:13:08 -0700
+Message-Id: <20210409221308.1544000-1-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210409220959.1543456-1-ranjani.sridharan@linux.intel.com>
-References: <20210409220959.1543456-1-ranjani.sridharan@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+Cc: Libin Yang <libin.yang@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,137 +76,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Libin Yang <libin.yang@intel.com>
 
-Set the sof_data->sof_probe_complete callback unconditionally of
-CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE.
+It should be 'endif ## SND_SOC_SOF_PCI' instead of
+'endif ## SND_SOC_SOF_INTEL_PCI'
 
-The sof_probe_complete will be called when the sof_probe_continue()
-function is successfully executed, called either directly from
-snd_sof_device_probe() or from the scheduled work.
-
-Since all error cases within the call chain of snd_sof_device_probe() have
-error prints, there is no need to print again in the acpi/pci/of level.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Libin Yang <libin.yang@intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/sof-acpi-dev.c | 18 +++---------------
- sound/soc/sof/sof-of-dev.c   | 18 +++---------------
- sound/soc/sof/sof-pci-dev.c  | 20 ++++----------------
- 3 files changed, 10 insertions(+), 46 deletions(-)
+ sound/soc/sof/intel/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
-index 1fec0420f662..7fbf09f9f17e 100644
---- a/sound/soc/sof/sof-acpi-dev.c
-+++ b/sound/soc/sof/sof-acpi-dev.c
-@@ -61,7 +61,6 @@ int sof_acpi_probe(struct platform_device *pdev, const struct sof_dev_desc *desc
- 	struct device *dev = &pdev->dev;
- 	struct snd_sof_pdata *sof_pdata;
- 	const struct snd_sof_dsp_ops *ops;
--	int ret;
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index da1c396f529d..4bce89b5ea40 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -293,6 +293,6 @@ config SND_SOC_SOF_INTEL_SOUNDWIRE
+ 	  Say Y if you want to enable SoundWire links with SOF.
+ 	  If unsure select "N".
  
- 	dev_dbg(dev, "ACPI DSP detected");
+-endif ## SND_SOC_SOF_INTEL_PCI
++endif ## SND_SOC_SOF_PCI
  
-@@ -93,22 +92,11 @@ int sof_acpi_probe(struct platform_device *pdev, const struct sof_dev_desc *desc
- 		sof_pdata->tplg_filename_prefix =
- 			sof_pdata->desc->default_tplg_path;
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	/* set callback to enable runtime_pm */
-+	/* set callback to be called on successful device probe to enable runtime_pm */
- 	sof_pdata->sof_probe_complete = sof_acpi_probe_complete;
--#endif
--	/* call sof helper for DSP hardware probe */
--	ret = snd_sof_device_probe(dev, sof_pdata);
--	if (ret) {
--		dev_err(dev, "error: failed to probe DSP hardware!\n");
--		return ret;
--	}
- 
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	sof_acpi_probe_complete(dev);
--#endif
--
--	return ret;
-+	/* call sof helper for DSP hardware probe */
-+	return snd_sof_device_probe(dev, sof_pdata);
- }
- EXPORT_SYMBOL_NS(sof_acpi_probe, SND_SOC_SOF_ACPI_DEV);
- 
-diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
-index 85ff0db88eb7..c9c70645b377 100644
---- a/sound/soc/sof/sof-of-dev.c
-+++ b/sound/soc/sof/sof-of-dev.c
-@@ -71,7 +71,6 @@ static int sof_of_probe(struct platform_device *pdev)
- 	const struct sof_dev_desc *desc;
- 	struct snd_sof_pdata *sof_pdata;
- 	const struct snd_sof_dsp_ops *ops;
--	int ret;
- 
- 	dev_info(&pdev->dev, "DT DSP detected");
- 
-@@ -98,22 +97,11 @@ static int sof_of_probe(struct platform_device *pdev)
- 	sof_pdata->fw_filename_prefix = sof_pdata->desc->default_fw_path;
- 	sof_pdata->tplg_filename_prefix = sof_pdata->desc->default_tplg_path;
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	/* set callback to enable runtime_pm */
-+	/* set callback to be called on successful device probe to enable runtime_pm */
- 	sof_pdata->sof_probe_complete = sof_of_probe_complete;
--#endif
--	 /* call sof helper for DSP hardware probe */
--	ret = snd_sof_device_probe(dev, sof_pdata);
--	if (ret) {
--		dev_err(dev, "error: failed to probe DSP hardware\n");
--		return ret;
--	}
--
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	sof_of_probe_complete(dev);
--#endif
- 
--	return ret;
-+	/* call sof helper for DSP hardware probe */
-+	return snd_sof_device_probe(dev, sof_pdata);
- }
- 
- static int sof_of_remove(struct platform_device *pdev)
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index b842a414e1df..3489dc1b48f6 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -184,25 +184,13 @@ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
- 	if (sof_override_tplg_name)
- 		sof_pdata->tplg_filename = sof_override_tplg_name;
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	/* set callback to enable runtime_pm */
-+	/* set callback to be called on successful device probe to enable runtime_pm */
- 	sof_pdata->sof_probe_complete = sof_pci_probe_complete;
--#endif
-+
- 	/* call sof helper for DSP hardware probe */
- 	ret = snd_sof_device_probe(dev, sof_pdata);
--	if (ret) {
--		dev_err(dev, "error: failed to probe DSP hardware!\n");
--		goto release_regions;
--	}
--
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)
--	sof_pci_probe_complete(dev);
--#endif
--
--	return ret;
--
--release_regions:
--	pci_release_regions(pci);
-+	if (ret)
-+		pci_release_regions(pci);
- 
- 	return ret;
- }
+ endif ## SND_SOC_SOF_INTEL_TOPLEVEL
 -- 
 2.25.1
 

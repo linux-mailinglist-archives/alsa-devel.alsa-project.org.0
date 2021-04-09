@@ -2,77 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A713C35A7E3
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 22:33:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BEA635A87A
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 23:48:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E7A01687;
-	Fri,  9 Apr 2021 22:32:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E7A01687
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8AAB166C;
+	Fri,  9 Apr 2021 23:47:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8AAB166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618000406;
-	bh=BeiGPQF4r8VyBzIQvZKqSDgXcCORBivkOVQHybx4D08=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=noaS7nXjGQOC1KuLKX5fkCB3kGvx87p66cJb9kQOtySY2CO6Zuq1n1E3HcszFkTFT
-	 XUAYhXVJRRVwBJ+lz5xSpWyjJoURVjqjUyM9mxmr4Rfu62fsBGM7Q8AfpuoK701V8N
-	 QLVn6WNAe+D0p3qvvVnFoNxew8yhxdzQPYjdW3h8=
+	s=default; t=1618004899;
+	bh=RhCrKmOUrCbiW8OPSk9AMAV2tgmgNC1DVJQpPLgZBY8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PIRWd0hO0tKq0rVolYux15B3KAc9rSZk1w0h3RHiHmEL1z5IJMpRurXsG4fofd9zP
+	 RKIqaq3pENiHZUAoZDzBZVcrQKcSdCwNNenfbbFI10xbFkCecbRNF51oiyteXvT107
+	 uyg+xlerrO/n9DpG5UoUvG69vkmynnDBsasnXP5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41CF8F8016D;
-	Fri,  9 Apr 2021 22:31:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 568BCF8016D;
+	Fri,  9 Apr 2021 23:46:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89771F8016A; Fri,  9 Apr 2021 22:31:55 +0200 (CEST)
+ id 07C49F8016A; Fri,  9 Apr 2021 23:46:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54DEEF80113
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 22:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54DEEF80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MbDkesqL"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CF18E61106;
- Fri,  9 Apr 2021 20:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618000305;
- bh=BeiGPQF4r8VyBzIQvZKqSDgXcCORBivkOVQHybx4D08=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MbDkesqLG4c480w9DAzuDLfUZtJHAsUeu8M3gib7hon0C4r2C6bnWymZbAhFaKJ8X
- lU54NOoe64w55zajnjZ58q+7yMdVkT77+ibKHjBmcE0iccy+h9H4WaYL4cxCPYq17A
- vi5VginjD8g7RIDcy1+aJF7YWU3DQjFNA2yveRs8fZmW80xvsJHIYKU1pDT5HPZpUB
- iJcxn8sa7cuIAirRL5zW7l+svlSWWZOvFjsptkzfmlhPS+RcCCe7ojb9uQn06Nm37M
- ycm9nR2qfd9LcvhQEopxkmsBVY8llefLj6Nagd2fYQUb53ujzQd8bRSfNYNAMQRz7o
- r1Nw70wo6qX2g==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [PATCH v2] ASoC: amd: Add support for ALC1015P codec in acp3x
- machine driver
-Date: Fri,  9 Apr 2021 21:31:26 +0100
-Message-Id: <161800014171.27483.4701551511865013936.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1617886984-9500-1-git-send-email-Vijendar.Mukunda@amd.com>
-References: <1617886984-9500-1-git-send-email-Vijendar.Mukunda@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 871B4F80162
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 23:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 871B4F80162
+IronPort-SDR: bOSN5VXJ8F19UZREtaZO+FbbS1m2FSMHNcedWMAwTqPnxFhM5+0kxdoFaaOI+PmsXs2fZh3AOQ
+ ZvYUv+C06APg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9949"; a="214282866"
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="214282866"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2021 14:46:25 -0700
+IronPort-SDR: CBhPTMpUnqqR9m7kMhjsv+++p2eAwUPmGt5eFQfFj6jF4qFn1OQa4pfJjwsENZraHlHqKMVdqB
+ LEOEX6eXYY0A==
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="531138879"
+Received: from drlopezi-mobl2.amr.corp.intel.com (HELO
+ rsridh-mobl1.localdomain) ([10.255.64.121])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2021 14:46:25 -0700
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: HDA: Add access description in __snd_hda_add_vmaster
+Date: Fri,  9 Apr 2021 14:46:16 -0700
+Message-Id: <20210409214616.1539685-1-ranjani.sridharan@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: jack.yu@realtek.com, Sunil-kumar.Dommati@amd.com,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>,
- shumingf@realtek.com,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Mark Brown <broonie@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Alexander.Deucher@amd.com, flove@realtek.com, kent_chen@realtek.com
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,33 +74,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Apr 2021 18:32:36 +0530, Vijendar Mukunda wrote:
-> Add ALC1015p codec support for acp3x machine driver.
+Add description for access parameter in __snd_hda_add_vmaster()
+to prevent the compilation warning:
+warning: Function parameter or member 'access' not described in '__snd_hda_add_vmaster'
 
-Applied to
+Fixes: e65bf99718b5 ("ALSA: HDA - remove the custom implementation for the audio LED trigger")
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+ sound/pci/hda/hda_codec.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index e54e39b35709..a31009afc025 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -1938,6 +1938,7 @@ static int add_follower(struct hda_codec *codec,
+  * @followers: follower control names (optional)
+  * @suffix: suffix string to each follower name (optional)
+  * @init_follower_vol: initialize followers to unmute/0dB
++ * @access: kcontrol access rights
+  * @ctl_ret: store the vmaster kcontrol in return
+  *
+  * Create a virtual master control with the given name.  The TLV data
+-- 
+2.25.1
 
-Thanks!
-
-[1/1] ASoC: amd: Add support for ALC1015P codec in acp3x machine driver
-      commit: 26e33ed9f18475ebdc981d45150ac9a019e69f07
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

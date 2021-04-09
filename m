@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2996D35A88C
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 00:03:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1F6A35A88D
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 00:03:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 786FF1685;
-	Sat, 10 Apr 2021 00:02:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 786FF1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A16E168F;
+	Sat, 10 Apr 2021 00:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A16E168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618005800;
-	bh=XoW9dqcdfjMQfc4S1ogkBKlR2sQK3jnvH05YsG9mnck=;
+	s=default; t=1618005836;
+	bh=KuTupBgI05Ma4/2bnXrtTVfEnWLOYcuRBOggjYi9BQ8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IOthiDoAtgbs+nzcuHjLeUhs8wyfpEyGT+tnjE8bAqtO9pqkXdFOclUHSi5nJWZwl
-	 8EpUixz1ENw9grQM3Xqlbgv5R6ut+nBwI9pcHpKke1FLOyQYoRx0SDu8ROEH2wpDeK
-	 4zlnR0XTwSvly2A1k5rFQVHqKArBSQnbjqPaMihY=
+	b=OuUdZbY8ydj9p7CPp+ixnh2fLwz1ZgBKXZj6m5Fmxwi7wzqY1BwQ7FpYVA43mnNg6
+	 Zk4v5DXQmKNotb8o4ycy8IRB0ymro4CHS4QN1JW0WAeyIX0t/3kWnSbF5fchihaFJN
+	 KQFWN/SxPacess2nSvRxjrvLfl4i52g4OI0BD4eU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F21A7F8032D;
-	Sat, 10 Apr 2021 00:01:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC9CFF80430;
+	Sat, 10 Apr 2021 00:01:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7A0FF8032D; Sat, 10 Apr 2021 00:01:45 +0200 (CEST)
+ id 33979F8032C; Sat, 10 Apr 2021 00:01:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 689BEF8016A
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 00:01:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 689BEF8016A
-IronPort-SDR: z6x5EKPVZbkiFV0RoDvyRNcdy0X+ieuXiDFsBTGBw7HR3Fj1b5QsksjwdHdLHWp5YuzQ1IY/hr
- XF7Dk1o/s9hQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9949"; a="214284727"
-X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="214284727"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 006D6F801F5
+ for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 00:01:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 006D6F801F5
+IronPort-SDR: aUI6I1kIL5pe2aQBH3tm+TyUq+AICbQUffInDzQJ5JhbKweHX+9N75hzbDbjPPrHbCkhe18mwo
+ RRFcEeolFMkA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9949"; a="214284729"
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="214284729"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 15:01:35 -0700
-IronPort-SDR: DxB7GMmNUcx4RftwlK3T7zYdNrxUWCRnsOP3fuUyQU/Mn6kNV2AkcMQMez0tygPVLloJd/smv1
- S1bqYlZMr24g==
-X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="599290604"
+ 09 Apr 2021 15:01:36 -0700
+IronPort-SDR: 4ZuvmOdWxUDnQMLi/oaT2ryt7E2PupBp6zaWCSwcJTo/9drTSr4XR0NNZKOkLyRIX2T013qpko
+ 8m+eJaUVNI7A==
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="599290614"
 Received: from ukorat-mobl2.amr.corp.intel.com (HELO rsridh-mobl1.localdomain)
  ([10.212.104.152])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 15:01:33 -0700
+ 09 Apr 2021 15:01:34 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/6] ASoC: SOF: add Kconfig option for probe workqueues
-Date: Fri,  9 Apr 2021 15:01:16 -0700
-Message-Id: <20210409220121.1542362-2-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 2/6] ASoC: soc-acpi: add new fields for mach_params
+Date: Fri,  9 Apr 2021 15:01:17 -0700
+Message-Id: <20210409220121.1542362-3-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210409220121.1542362-1-ranjani.sridharan@linux.intel.com>
 References: <20210409220121.1542362-1-ranjani.sridharan@linux.intel.com>
@@ -81,42 +81,41 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The probe workqueue is currently used in the HDaudio case, following
-the example of the snd-hda-intel driver.
-
-For development and validation, it's useful to enable the probe
-workqueue even with ACPI devices or NOCODEC mode.
+We currently have an ugly way of handling the SOF nocodec mode, with
+blatant violations between layers. To create the nocodec card, let's
+add two new fields and the existing mach_params structure, that way
+there will be no differences with regular cards.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/Kconfig | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ include/sound/soc-acpi.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index 8dfc165c3690..cd659493b5df 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -68,6 +68,17 @@ config SND_SOC_SOF_DEVELOPER_SUPPORT
+diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
+index c45075024c30..2f3fa385c092 100644
+--- a/include/sound/soc-acpi.h
++++ b/include/sound/soc-acpi.h
+@@ -63,6 +63,8 @@ static inline struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+  * @common_hdmi_codec_drv: use commom HDAudio HDMI codec driver
+  * @link_mask: links enabled on the board
+  * @links: array of link _ADR descriptors, null terminated
++ * @num_dai_drivers: number of elements in @dai_drivers
++ * @dai_drivers: pointer to dai_drivers, used e.g. in nocodec mode
+  */
+ struct snd_soc_acpi_mach_params {
+ 	u32 acpi_ipc_irq_index;
+@@ -72,6 +74,8 @@ struct snd_soc_acpi_mach_params {
+ 	bool common_hdmi_codec_drv;
+ 	u32 link_mask;
+ 	const struct snd_soc_acpi_link_adr *links;
++	u32 num_dai_drivers;
++	struct snd_soc_dai_driver *dai_drivers;
+ };
  
- if SND_SOC_SOF_DEVELOPER_SUPPORT
- 
-+config SND_SOC_SOF_FORCE_PROBE_WORKQUEUE
-+	bool "SOF force probe workqueue"
-+	select SND_SOC_SOF_PROBE_WORK_QUEUE
-+	help
-+	  This option forces the use of a probe workqueue, which is only used
-+	  when HDaudio is enabled due to module dependencies. Forcing this
-+	  option is intended for debug only, but this should not add any
-+	  functional issues in nominal cases.
-+	  Say Y if you are involved in SOF development and need this option.
-+	  If not, select N.
-+
- config SND_SOC_SOF_NOCODEC
- 	tristate
- 
+ /**
 -- 
 2.25.1
 

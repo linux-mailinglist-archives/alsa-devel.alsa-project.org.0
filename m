@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E4535A35A
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A0B35A389
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:39:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8A0116BB;
-	Fri,  9 Apr 2021 18:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8A0116BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 256671689;
+	Fri,  9 Apr 2021 18:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 256671689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617985753;
-	bh=u+yMz9sTai8LTSnsmwKVcgcxO9gvfLc4Y4/q7OTEhCM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1617986379;
+	bh=PXcqjCVjoUVkMd8MILq3hSUqOGXsATs/11Q+LaxZDIQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gla8o05yYnWk9JQzI/uo+OCOs0aHtDmiAavj1LQLlDGxJeE1WXzdbJm8tbZUxAnUD
-	 4ZMtirEz3T/754C1/JQS8wxUCfUIhkawe0S6x5K+NEOlkIzzmnfwLWMKY+TNSg3xpu
-	 HpSegeV+wENVTgmRYHoWietzIjU8CscnE8qfSrTQ=
+	b=jtig94Ek7kQQ39cM7C1r9Dl+Z2IzBr4L7jL1NBZ4KkpDhcnrddDmKyplgEk72zIEz
+	 F7yTJ4m/uDi0LhAVC/jJtPIvNJf46KKv2SIo1lLfPYGb4BOFT0aWX6DQmrqu5JCg9f
+	 pHb83jnv56ejgz8hugz09QA/Oi1lHEX3mgKMX0I4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20827F8050F;
-	Fri,  9 Apr 2021 18:24:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 961D9F80113;
+	Fri,  9 Apr 2021 18:38:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1F8BF804F1; Fri,  9 Apr 2021 18:24:18 +0200 (CEST)
+ id EB1C5F8016A; Fri,  9 Apr 2021 18:38:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E04CCF804DF
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E04CCF804DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dWIQmAab"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9BEDA611AE;
- Fri,  9 Apr 2021 16:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617985454;
- bh=u+yMz9sTai8LTSnsmwKVcgcxO9gvfLc4Y4/q7OTEhCM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dWIQmAabbDh/HcS3qeAwu1qmsH5h200FJgIG7BN1GaQYkZ34d5kdTMmXCHJo0jeC6
- Aq9BcYdYl+4DO/QplmAjHiOpxjDzRHQKT8W2VJfRZw66Mm7ax3GAb42DVnh2App4av
- tLcv9xOD7rWPCfF0GfvKetcqosm/y9bhvSCBCOdPvxtuQ0i9JL8n/z92fYtTJn3hiC
- 1Opab0gfQgW9AaCtU0cI2w+DPMTHZBkXUDXEn2w0azKA1W02E5dr5F5ef/xJKWHP+T
- rhq5L0zYbXlexveaRmkwdBcpkuVXqnyR8Dke49h2KFfDPIzgp3LEXv8sE4pV12Yne0
- pIwxSQ3xUIBiw==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Ye Bin <yebin10@huawei.com>,
- Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH -next] ASoC: rt715-sdca: Constify static struct
- snd_soc_dai_ops
-Date: Fri,  9 Apr 2021 17:22:59 +0100
-Message-Id: <161798344184.47643.14354986986103091724.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210408062654.803538-1-yebin10@huawei.com>
-References: <20210408062654.803538-1-yebin10@huawei.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CD8FF80113
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CD8FF80113
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0EE76B10B;
+ Fri,  9 Apr 2021 16:38:05 +0000 (UTC)
+Date: Fri, 09 Apr 2021 18:38:04 +0200
+Message-ID: <s5ho8en4dn7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: core - add more card sysfs entries
+In-Reply-To: <8f33d7f9-50af-db15-8fb2-01d55bb0b413@linux.intel.com>
+References: <20210408094314.1322802-1-perex@perex.cz>
+ <20210408103819.GA40407@workstation> <s5h35w182a5.wl-tiwai@suse.de>
+ <45acc908-3603-3479-9fb2-5206339a9ace@perex.cz>
+ <20210408120502.GA4516@sirena.org.uk>
+ <s5hpmz47w3i.wl-tiwai@suse.de>
+ <56c874ae-e801-63df-19fa-a1325f6104ca@perex.cz>
+ <3107db1d-f97d-539a-05db-6f880b762f00@linux.intel.com>
+ <3b33595e-777c-90b2-6d65-346c9bf6e003@perex.cz>
+ <b0258a67-79ca-50cd-e6c5-74514ba8a3c5@linux.intel.com>
+ <s5hv98v6h5a.wl-tiwai@suse.de>
+ <9195f83a-28c4-d028-8f1e-c3beaa88d891@perex.cz>
+ <05551192-57dd-2541-94a3-57d40a37e3bf@linux.intel.com>
+ <8f33d7f9-50af-db15-8fb2-01d55bb0b413@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Amadeusz SX2awiX4ski <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,35 +83,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Apr 2021 14:26:54 +0800, Ye Bin wrote:
-> The snd_soc_dai_ops structures is only stored in the ops field of a
-> snd_soc_dai_driver structure, so make the snd_soc_dai_ops structure
-> const to allow the compiler to put it in read-only memory.
+On Fri, 09 Apr 2021 17:55:38 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> >>> Couldn't the driver probe the firmware files with some device-specific
+> >>> string suffix at first?  e.g. the driver can issue request_firmware()
+> >>> with $base_file-$dmi_board at first, then falls back to the generic
+> >>> $base_file.  A similar method was already used in Broadcom WiFi
+> >>> driver.
+> >>>
+> >>> Also, the driver may do request_firmware() with a fixed path for the
+> >>> custom firmware at first (e.g. "intel/sof-tplg-custom"); then a system
+> >>> integrator may set up a specific configuration even that doesn't match
+> >>> with DMI or whatever identifier.
+> >>
+> >> And when we have two firmware files which differs just by functionality
+> >> requested by user? Although your method will work, I won't close the
+> >> possibility to configure everything in udev rather using a hard
+> >> coded fw load
+> >> scheme only.
+> >>
+> >>                         Jaroslav
+> >>
+> >
+> > I've slept on it and now I think I see what you are trying to do.
+> >
+> > 1. Load FW dependent on platform/user settings
+> > 2. Load appropriate topology for FW
+> > 3. Have UCM for the FEs and controls exposed by driver
+> >
+> >
+> > As for 1. I would say that FW should be loaded from one location
+> > if there is some platform that requires special FW just add quirks,
+> > like it is done with every other driver, and if someone wants to
+> > build their own special FW, they just replace it. We can't possibly
+> > support hundreds of possible FW modifications if users want them by
+> > putting them in separate files. Alternatively allow override via
+> > kernel parameters.
+> > Overriding FW files via udev would only make sense to me if it was
+> > possible to upload new FW at runtime.
+> 
+> No, replacing firmware files is not viable.
+> 
+> Let me give you a practical example. In the course of SOF development,
+> we routinely copy new test firmware+topology in the location of
+> distribution-managed files. It's classic that when there is a
+> distribution update in the background to install the latest SOF
+> release, our test files are overwritten and it's not usual for
+> developers to lose time trying to figure out why the functionality
+> changed. We do need to have multiple paths and NEVER override what is
+> provided by the distributions. it's the moral equivalent of /usr/bin
+> v. /usr/local/bin.
 
-Applied to
+Use /lib/firmware/updates/*.  That precedes over the standard path
+/lib/firmware/*.  (Also /lib/firmware/updates/$VERSION has even higher
+priority.)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: rt715-sdca: Constify static struct snd_soc_dai_ops
-      commit: 1f34084cc85d654a542c547df6714dae8a32d3c9
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

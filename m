@@ -2,81 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FA3935A3C6
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:44:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41A2135A3F4
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 18:49:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEA9B1692;
-	Fri,  9 Apr 2021 18:43:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEA9B1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEF531687;
+	Fri,  9 Apr 2021 18:48:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEF531687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617986688;
-	bh=BiOXH+g+20Fe3qNQAXy9jNWfYHV7Z2sps/Kvlg6ZFXk=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617986959;
+	bh=rnzez1ODrswh0RO2qc16RQ/7aeWLA3JZKgoB6cflseY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f0Hvmj0n1NcgAin2pnI51s2JPIbpATs9u14+l2IIK2YNTnzOIyEvPw+cyLvwVbavG
-	 CGTnwPgGDh8Mg29YuuHKYMs+T72DpV/jjdv2GhWQBhH5w0Zln22kYGTzJBZ4Qu9Yzz
-	 fSzz5b8+qkXhvcAPLdgV9/ditgRUCgh2Vf9qmkxo=
+	b=h3rioNKJCMIKtZl4unIW6TXrYSBwaNa6QtA8Xv88ygZAK9ZfXmda9QqcODxy98bOM
+	 0m9mfojPRgReImcz/tluA5/fkcm63J80Ry768VuLjtSM0K/Rdxo7z248I0QPHKmtTA
+	 YNl2p/tRPJ5sUsTCrBV1I5lyqUpsrJOoirX+4c3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ED8AF800EE;
-	Fri,  9 Apr 2021 18:43:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52A41F800EE;
+	Fri,  9 Apr 2021 18:47:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DC31F8016A; Fri,  9 Apr 2021 18:43:18 +0200 (CEST)
+ id 20972F8016A; Fri,  9 Apr 2021 18:47:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03AA3F800EE
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:43:10 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EA0BBA003F;
- Fri,  9 Apr 2021 18:43:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EA0BBA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1617986590; bh=6NTB7IQRuMyk8sMUyGAiLT0U+o9x2tik8NXAYAr+NtE=;
- h=Subject:From:To:Cc:References:Date:In-Reply-To:From;
- b=oTWXlICPeHB3DszVZOFwddgFcd2IxXfutGXAoWWtIRTWANB9hMMeP1OucCCn7B2Kt
- UjHjq26V576KwnnxNC1tuTxviqyHcq1SgwNYiL71lHC00NaIwjYuT3C7acyOFdkV4M
- rvaV0x9CfSrKhhPR+Uwv+uvC+R9CTg3oXuGV3sew=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  9 Apr 2021 18:43:03 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: core - add more card sysfs entries
-From: Jaroslav Kysela <perex@perex.cz>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- Curtis Malainey <cujomalainey@chromium.org>
-References: <20210408094314.1322802-1-perex@perex.cz>
- <20210408103819.GA40407@workstation> <s5h35w182a5.wl-tiwai@suse.de>
- <45acc908-3603-3479-9fb2-5206339a9ace@perex.cz>
- <20210408120502.GA4516@sirena.org.uk> <s5hpmz47w3i.wl-tiwai@suse.de>
- <56c874ae-e801-63df-19fa-a1325f6104ca@perex.cz>
- <3107db1d-f97d-539a-05db-6f880b762f00@linux.intel.com>
- <3b33595e-777c-90b2-6d65-346c9bf6e003@perex.cz>
- <b0258a67-79ca-50cd-e6c5-74514ba8a3c5@linux.intel.com>
- <73f65944-604e-1ca0-5ba3-dcbec0d9fcd7@perex.cz>
- <a8fa564f-4ab5-9847-d041-6c851e48acb4@linux.intel.com>
- <58aaed5e-9752-fe2a-f9ab-27842e0ffd5b@perex.cz>
-Message-ID: <e37e4a43-9dc1-d9c8-f60a-8d8afccbbb3c@perex.cz>
-Date: Fri, 9 Apr 2021 18:43:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1ED1BF80113
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 18:47:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ED1BF80113
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nostatic-org.20150623.gappssmtp.com
+ header.i=@nostatic-org.20150623.gappssmtp.com header.b="frBHsOFJ"
+Received: by mail-yb1-xb30.google.com with SMTP id c195so7257005ybf.9
+ for <alsa-devel@alsa-project.org>; Fri, 09 Apr 2021 09:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nostatic-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fvwGbn1gskPI1Il3c4qJ/NwxvfKaM5EZuMBeAwwegr0=;
+ b=frBHsOFJEEHn6rjR2Ul9Y0MYCSh/Q2cYgpMmYgSkgjxlxDwe/+khckxyFvAjc332jz
+ YoUvFu2Jj/eICMiGd2w4b0I5naGsQepTLkn6ex8tk8kyPmyD4lkKF5qTAVVxrQd4ZY37
+ MaK6TfY2zgXhbxusOTZlgfYmEBozIUy5o9XVFXleKqtLq3EcNflFfvsKyWWjZr9yiPXd
+ u++tN3OFcvuEwZdC6jJT+2T7aNJdqqJvDSEaKuSRdH29eRtbBeDu2ALt0M0AyH2zVrnS
+ 4p1lgsrzw1Hv7SrsbDWkh9D6Rbllj8hBOnjQqQmnd6QlINKzHrOA49+AOYb5FBIWDL/6
+ bdRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fvwGbn1gskPI1Il3c4qJ/NwxvfKaM5EZuMBeAwwegr0=;
+ b=nQkgZmuN38SdZbA45niV3sdg4/Hn3uUAfRcmAtqW4iFt2WoYt3CPuzpRrTn7Ec7+7H
+ AqY0XnvRvJAwqSkt4nfv0lUKM30RAAvgoBHo8He8HnFjmywhqdGf2ELNXqF1XnNteWNX
+ SjeQvTemZvW6EAdnBPQ/Ot5xdtZ2xBQZ1TtBqXF+C2Fmiw46UkgLJNBCYr2EG6lJX/Lk
+ SqcFm4mXvBNfkxT3WabzOkXXE7HxLtd5FYJztmUs3/hsk1aPjwnbjWz2IMn7AntQS36q
+ V5kflsNfycldlvoWykFVEJfPRfseJEgpXXG1H1m9h1edCh9P8moOqQTyTapBooEGYdeG
+ hT/w==
+X-Gm-Message-State: AOAM532TIGFVd6RElKkaYS3suAa/Vc6vkSnN0lC1FxhuSvcOk3wEIwWj
+ Z9wLdhLPT2ydqotBNhNCv6bhS1JqEJ59XYpf0RnNeg==
+X-Google-Smtp-Source: ABdhPJzM91wlrolIheV8RsEUrxOlEyknVFYVNaPkqbGrwJE2AWVc5mARIXr4aMYxjIGRIu9gla+plXAumUtBEWide20=
+X-Received: by 2002:a25:946:: with SMTP id u6mr4930256ybm.144.1617986863686;
+ Fri, 09 Apr 2021 09:47:43 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <58aaed5e-9752-fe2a-f9ab-27842e0ffd5b@perex.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
+ <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
+ <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
+ <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
+ <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
+ <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
+ <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
+ <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
+ <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
+ <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
+ <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
+ <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
+ <CAHXb3bcpUBH9F=K9npwK-xO5sX+H11EV0_Nc7Otw7o93M=DKYQ@mail.gmail.com>
+ <CAEsQvcs8HasvcJm0oEr87gNPxB6o2Km_NtAojTq+VkEX9EZd0g@mail.gmail.com>
+ <CAHXb3bcMRrtMtfoHOCikNAkXxemnScfTPvJ702N_z6o5xj-G5g@mail.gmail.com>
+ <CAEsQvcuo0g9STXn1d-Wux0TOH32mc88=Lw44r0ng+QocztcG3Q@mail.gmail.com>
+ <CAOsVg8qWkYnW4sYP5S5A=BWvQWeBY08DrC7JZ9nNF8_nrsNArg@mail.gmail.com>
+ <CAEsQvcs7y5Gr9X2vNkMHZU9akJAuBw7hE-XKcYKj9CJdO=GM8w@mail.gmail.com>
+ <CAOsVg8rrJMdzADsRpjTOmi7Dk23bfej+KRFQWD77s9pmNW=g5w@mail.gmail.com>
+ <CAEsQvcvUJ0p4bPLJhzppJR-uFjoyOiu2_=QtAvMvNwPh9AfAFA@mail.gmail.com>
+ <CAOsVg8q_5yWBOR6DROJT7=Xv=R2yVNWSEjt4MUAx0QpQ6Af14g@mail.gmail.com>
+In-Reply-To: <CAOsVg8q_5yWBOR6DROJT7=Xv=R2yVNWSEjt4MUAx0QpQ6Af14g@mail.gmail.com>
+From: Mike Oliphant <oliphant@nostatic.org>
+Date: Fri, 9 Apr 2021 09:47:34 -0700
+Message-ID: <CAHXb3beJxepHYraSXGCB4n9RBbBnLo05dcG=7nED1b_ZGRrMaw@mail.gmail.com>
+Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
+To: Lucas <jaffa225man@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Geraldo Nascimento <geraldogabriel@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,76 +114,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 08. 04. 21 v 22:01 Jaroslav Kysela napsal(a):
-> Dne 08. 04. 21 v 21:41 Pierre-Louis Bossart napsal(a):
->>
->>
->>
->>>>> Yes, I'm talking about rules which depends on the sound driver specific sysfs
->>>>> attributes (you can match the modified /sys/module/*/parameters here).
->>>>
->>>> you lost me with 'match the modified parameters' wording. who matches
->>>> and who modifies those parameters?
->>>
->>> You can probably add something like this to the sound-card.rules:
->>>
->>> SUBSYSTEMS=="pci",ATTR{device/driver/module}=="snd_soc_sof_sdw",
->>>    ATTR{device/driver/module/../snd_sof_pci/parameters/tplg_path}=="intel/sof-tplg/pdm1",
->>>    DO_SOMETHING_HERE
->>>
->>> DO_SOMETHING_HERE may be ATTR{longname}="My Long Name" for example when my change is accepted.
->>
->> Humm, not sure this can work due to dependencies.
->>
->> The machine device is neither an ACPI nor PCI one. It's a platform device.
->>
->> When the PCI device is detected, the PCI core will call the SOF driver 
->> probe, which will first try and boot the firmware, and then create the 
->> platform device. That results in the probe of the machine driver which 
->> creates the card, but that happens *after* booting the firmware.
->>
->> the DSP firmware is setup starting here:
->>
->> https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/core.c#L138
->>
->> and the machine device is created almost last, after registering the 
->> ASoC components.
->>
->> https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/core.c#L234
->>
->> when the card is created, it's too late to change the firmware path or 
->> any firmware-related parameters.
-> 
-> I just tried to describe the possible 2nd stage - modify the sysfs attributes
-> when the card with the modified firmware is created (all modules are loaded
-> and initialized). The 1st stage like from Curtis must be retained. It ensures
-> to load the right fw.
-> 
-> SYSTEMS=="pci" checks also parents and card0 links to pci device: card0 ->
-> ../../devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0 . You can modify
-> this matching anyway - the goal is to run commands for the specific driver and
-> module parameters when the card is loaded (avoid to change the card attributes
-> for other hw).
-> 
-> I'm not an udev expert, so there may be a bug in my suggestion. I also think
-> that the filter may be specified more elegantly (probably using the DRIVER
-> match or so).
+Hi Lucas,
 
-Another way to use two rules - use internal udev device environment variable
-(it seems more straight):
+Your observation that the Roland D-05 still needs the capture feedback made
+me try some more testing, and I think the GT-1 actually is the same.
 
-PCI detection level:
+I use my device with jackd running for both capture/playback at the same
+time. This works for me without capture feedback enabled. But, it turns out
+that just doing an "arecord" without playback fails. Enabling the capture
+feedback makes capture also work without playback (and everything else
+still works perfectly).
 
-SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0c8",
-ATTR{class}=="0x040100",ATTRS{[dmi/id]board_name}=="Eldrid",
-ENV{SOUND_SOF_PROFILE}="MyProfile",...module stuff...
+Given this, I agree that it seems likely that most, if not all, of these
+Roland devices work the same way. It would be great to get more devices
+tested, though.
 
-Card instance level (sound-card.rules):
+As to an actual patch, I think it is probably best left to Takashi to
+decide if he is comfortable with making a change to
+snd_usb_endpoint_start() in endpoint.c, and if so, how he wants to make it
+conditional for devices - whether an ID check in endpoint.c, or a flag on
+feedback setup, or some other way.
 
-SUBSYSTEMS=="pci",ENV{SOUND_SOF_PROFILE}=="MyProfile",...attr setup...
+Mike
 
-					Jaroslav
+On Thu, Apr 8, 2021 at 9:55 PM Lucas <jaffa225man@gmail.com> wrote:
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> Geraldo, you've made testing kernel patches for me quite easy, so thanks
+> to you!  And I'm happy to report that your patch, which I manually applied
+> because I forgot to remove the "if (false)" change, is working perfectly!
+> I am now able to use the, minimally mentioned, Takashi UA-101 MIDI patch
+> with the UA-101 set to USB 1.1 mode, on the same kernel that has perfectly
+> clean Boutique D-05 playback.  The Takashi UA-101 patch is here:
+> https://bugzilla.kernel.org/show_bug.cgi?id=212477, just in case there's
+> curiosity.  :)
+>
+> It seems to me, that since the UA-101 in (USB 1.1 mode) isn't compatible
+> with the "if (false)" endpoint.c method, it would have to be matched for
+> exclusion, assuming we would ever be able to more simply match with
+> Roland's/BOSS' Vendor ID of 0x0582.  I still think that would be the
+> ultimate patch because, as far as I'm aware, all new Roland/BOSS devices
+> use minimally-differing forms of this implicit feedback quirk.
+>
+> Thanks. again, for everything Mike, Geraldo, & Takashi!
+>
+>   Lucas
+>

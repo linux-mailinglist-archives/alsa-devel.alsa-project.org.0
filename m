@@ -2,79 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F82A3591DD
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 04:09:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD574359205
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 04:29:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE2EC1616;
-	Fri,  9 Apr 2021 04:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE2EC1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 326761616;
+	Fri,  9 Apr 2021 04:28:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326761616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617934185;
-	bh=RZjD1mKHBKNr1GKpkZqJkwdfEXTu9CrK+9/M6f7bOG0=;
-	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O1YEZn9pZ815X1A4bLwm9g2jKzamI3zf7lXzAvXfpYRAr2CdZjmDiHtvxeD/6gfex
-	 fSWR9B+wb1qXc5reMV5Px0trZ07032RljbvyUdGiTJlKeIB8B7uv+ynjNX5uZeEYJ7
-	 O0HPOs4orSg5vN6Ok8sfX3lKpI1bFqU4IG9N20xM=
+	s=default; t=1617935363;
+	bh=gNYQwQfD7LXbSB2PIj7VTrZ4TFZ7YzFAAnorebYJ100=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BUb/dHJwzuAJvjg0UUt/sgdweKM8ZIV1uPEjQ1mE9/IryQNVQHcjc8w2bgmYb42+m
+	 fvavrMSOMD7W6goqXstbvJGC2H0WgS+GPvVkufeITMjlrx0RgA5sdY57k7/21pSNDR
+	 sOfWQOCYpxfGMHKKe2IsWVwSqsWujcHC1s26rGPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00818F80168;
-	Fri,  9 Apr 2021 04:08:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39002F80162;
+	Fri,  9 Apr 2021 04:27:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6F2AF8016A; Fri,  9 Apr 2021 04:08:15 +0200 (CEST)
+ id 85DF8F8016A; Fri,  9 Apr 2021 04:27:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 063E3F80162
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 04:08:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 063E3F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC7F8F800EE
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 04:27:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC7F8F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=philcalvin.com header.i=phil@philcalvin.com
- header.b="bG1cshJd"
-ARC-Seal: i=1; a=rsa-sha256; t=1617934084; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=FD8oAcDQuSsKwP6yGz9cqqNZQ1dbqM53VQXNXvv7NQsufMSS48Yl1SKCgJPh/nunG0Pgejez7/11uMEKimx5Iz4O8TnB1OUNUlbnikSgywbptIYBcaFaIStd+G4azHlybUC9E/mikYBMzx6Sc42U7IlIKSdnsyMZjbfWsRFYcEk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1617934084;
- h=Content-Type:Content-Transfer-Encoding:Date:From:MIME-Version:Message-ID:Subject:To;
- bh=VOHz1bXrqnZD8iz7sj42tkZfxnwZqzPsifTpP4zbUWM=; 
- b=cCoWnmxNibU9k5r/cxSGXl7eF8zqpXAd5CZJuWfhg681M0tyhOehyPO37OUgj7LDNmmGc0WKF7ly9Ox7YHQ2dYjQcr+iDKq/N/kgVo1jPMySfyVeXMIgD88ycT280ZBdpkKUCA4LXt7HvlCD92nHa/QQX3ymFw+YOsq5kWh4Hz0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=philcalvin.com;
- spf=pass  smtp.mailfrom=phil@philcalvin.com;
- dmarc=pass header.from=<phil@philcalvin.com> header.from=<phil@philcalvin.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1617934084; 
- s=default; d=philcalvin.com; i=phil@philcalvin.com;
- h=From:Subject:To:Message-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding;
- bh=VOHz1bXrqnZD8iz7sj42tkZfxnwZqzPsifTpP4zbUWM=;
- b=bG1cshJdWHgohcfTFN+rfKXxW3wZ1qo1T99/J+MimSrwZbg10xq0pl7khTczulBh
- pxlHGRrZMLSNu7JmAwynk2AgEt2AlT6aWLky1sxs4+y7CHNdRAf0m+ITXiznTlFXFZ2
- Ro7cFUdjjtsmRxAcaugWUXzAkBhtuzGeqCr5YrEc=
-Received: from [192.168.1.11] (pool-100-33-69-201.nycmny.fios.verizon.net
- [100.33.69.201]) by mx.zohomail.com
- with SMTPS id 1617934075446291.0914746576934;
- Thu, 8 Apr 2021 19:07:55 -0700 (PDT)
-From: Phil Calvin <phil@philcalvin.com>
-Subject: [PATCH] ALSA: hda/realtek: fix mic boost on Intel NUC 8
-To: alsa-devel@alsa-project.org
-Message-ID: <4eb65c6c-271c-7660-e7bf-b5608b7d56d7@philcalvin.com>
-Date: Thu, 8 Apr 2021 22:07:52 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="iSsxcto9"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="pB8VQNWy"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 7B4051601;
+ Thu,  8 Apr 2021 22:27:40 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 08 Apr 2021 22:27:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=8vbP9fg45Dikek6xYfJbrwWHoJX
+ A+AFmOtV9eomdihs=; b=iSsxcto91EeURMwfvV0Om79exm/+g2pQwG2D1f3MS6L
+ cQjvb11NzT53Ms0tVTpRve7x36JEVHGu2w+N0aX7NkqADrCtkpdGmNiilDd046hW
+ jxlUTqUDN/d+oePx4qUkgCsfjHzUnxn0uVDmGsJqfzvAD5YuJrP5Xa+OHmUtDNFQ
+ AoYWBRP9pcaInUor5/4lxgYNpuoO8zs0fhWkPDSu1Yfj7PQ3mSHz58rQANv8PdSe
+ ZJ9iIPFniVXK6O6R4wOyXg+Eo4+DPvqaisnaMI88dHsPgYJSOqK6Ko3Z8p+8xQrW
+ fCgbXJOTIc9JtB7Bf2IRkNhVBeXyJcuQOXH+KtVoFoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=8vbP9f
+ g45Dikek6xYfJbrwWHoJXA+AFmOtV9eomdihs=; b=pB8VQNWy6/78/f+d89+Fxo
+ jGr5nei3S0K90qUDMWy2yTbhYKMLlGc4J8jx2occ11pMb2TCTbOdQXWQ+zWtdXKq
+ DTErNgPp/ST+hfGXdECvNfT0kbEAdoG66mKq/tTgyfUsi7xFKsAq8t9x2VpIwPJt
+ o8ZxBo80MvDGIKy/aQtftaNREaIesquPDzC1KcXyqSbfq8bFcNaJLRcBNf8D9XL1
+ 231xFSrztY1050aiAR2iI87vRBtK4OCiZZdV49UjJYhbE6sn3TjgOGkCyrXVifhX
+ VdJQT0slqbBocEHvKtkE23gcenbYbc8J2dpvMEVGJAhKRZATGMdPxPwvqT2JmyHg
+ ==
+X-ME-Sender: <xms:m7tvYBS8sfYHGEL044ooZhYrCnaNSPeTMxs3fXKSqRpouhKbtG9cBQ>
+ <xme:m7tvYKwoDbvZMnvH_T3fBMGold-goqk3Eb11_dfU1qaJs4Qvbu9hsbzekwxQhAeDm
+ lbk5K3JtUVFANkQrYE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudektddgheekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucfkphepudegrdefrdeihedrudejheenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
+ rghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:m7tvYG0xFRX8OTEmVqLIJKCo42eAXfuAEEL0OiraSuBT0TZyzFmzTQ>
+ <xmx:m7tvYJBlzV9ZKZmggenAAx6JCI3IfuGfM9tGZopypiaKcZnac2-DaA>
+ <xmx:m7tvYKhitxDB4NFH3QHeZYNfHcXOswdvBLFoTurUK28rVjnTzD4kew>
+ <xmx:nLtvYAdFlW0PSCeispHt78iL_Nb1_89NgS0TNdsCHjp8-yki6Ff_UA>
+Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 74D10108005C;
+ Thu,  8 Apr 2021 22:27:38 -0400 (EDT)
+Date: Fri, 9 Apr 2021 11:27:35 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
+ controls
+Message-ID: <20210409022735.GA3776@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
+ <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5h1rbl80yy.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,101 +116,165 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Just wanted to say thank you to everybody that helps maintain the
-Intel HDA subsystem. My first Linux sound experience was running
-`modprobe cs46xx` or so on a SuSE installation and hearing a promising
-noise from the speakers, and these days it seems audio works out of
-the box on most hardware.
+Hi,
 
-Thanks also to Takashi Iwai for `hda-emu`, which saved me a lot of
-rebooting while testing.
+On Thu, Apr 08, 2021 at 01:33:41PM +0200, Takashi Iwai wrote:
+> On Thu, 08 Apr 2021 12:50:25 +0200, Takashi Sakamoto wrote:
+> > On Thu, Apr 08, 2021 at 07:31:49PM +0900, Takashi Sakamoto wrote:
+> > > ALSA control interface allows users to add arbitrary control elements
+> > > (called "user controls" or "user elements"), and its resource usage is
+> > > limited just by the max number of control sets (currently 32).  This
+> > > limit, however, is quite loose: each allocation of control set may
+> > > have 1028 elements, and each element may have up to 512 bytes (ILP32) or
+> > > 1024 bytes (LP64) of value data. Moreover, each control set may contain
+> > > the enum strings and TLV data, which can be up to 64kB and 128kB,
+> > > respectively.  Totally, the whole memory consumption may go over 38MB --
+> > > it's quite large, and we'd rather like to reduce the size.
+> > > 
+> > > OTOH, there have been other requests even to increase the max number
+> > > of user elements; e.g. ALSA firewire stack require the more user
+> > > controls, hence we want to raise the bar, too.
+> > > 
+> > > For satisfying both requirements, this patch changes the management of
+> > > user controls: instead of setting the upper limit of the number of
+> > > user controls, we check the actual memory allocation size and set the
+> > > upper limit of the total allocation in bytes.  As long as the memory
+> > > consumption stays below the limit, more user controls are allowed than
+> > > the current limit 32. At the same time, we set the lower limit (8MB)
+> > > as default than the current theoretical limit, in order to lower the
+> > > risk of DoS.
+> > > 
+> > > As a compromise for lowering the default limit, now the actual memory
+> > > limit is defined as a module option, 'max_user_ctl_alloc_size', so that
+> > > user can increase/decrease the limit if really needed, too.
+> > > 
+> > > Co-developed-by: Takashi Iwai <tiwai@suse.de>
+> > > Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > ---
+> > > v1->v2: Drop alloc_size field from user_element, calculate at private_free
+> > > v2->v3: Rebase. Fix boundary error. Obsolete macro usage relying on modern
+> > >         compiler optimization. Change comment style by modern coding
+> > >         convention. Rename module parameter so that users get it easily.
+> > >         Patch comment improvements.
+> > > ---
+> > >  include/sound/core.h |  2 +-
+> > >  sound/core/control.c | 75 ++++++++++++++++++++++++++++++--------------
+> > >  2 files changed, 52 insertions(+), 25 deletions(-)
+> > 
+> > The original content of patch comes from Iwai-san[1]. I have no clear
+> > idea to handle the case so add 'Co-developed-by' tag to the patch. If
+> > this is not good, I apologize the lack of my understanding to the
+> > development process in Linux kernel.
+> 
+> It depends.  In some cases, you just carry the patch with the original
+> authorship (From address) and put your sign-off.  In some cases,
+> Co-developed-by can be used.  I don't mind much either way, so I took
+> your v3 patch now (with the addition of the Link URL to v2 patch).
 
-I have tested the patch on this hardware both by recompiling the
-relevant modules and running them with the 5.10 kernel distributed in
-Debian `testing`, and atop the 5.12-rc6 kernel built with `make
-deb-pkg`.
+Thanks for applying the patch as is. I would post it just with my sign-off
+without no changes to your patch, However in the case I added some changes,
+so I have no conviction to it...
 
-I could not decipher the ordering of the fixup tables, so I am of
-course happy to move these around to fit the organizational scheme as
-needed.
+Well, relevant to the function, I have some ideas to refactor ALSA control
+core. If you have room to discuss about them, I'd like to ask your opinion.
 
-I'm not an EE, but I am inclined to think the upper two boost values
-can probably be made to work by some kind of software workaround,
-given that they do produce analog noise coming from something. If you
-have any hunches about a possible workaround based on experience with
-other similar codecs, please point me to those fixups on- or off-list
-and I can try them out on my hardware.
+At present, I have five ideas:
 
-Phil
+1. Split code relevant to user-defined element set into new module
 
->8------------------------------------------------------8<
+Although the function is itself useful to me, it's useless in the case
+to use driver in which every functions are in kernel land, especially in
+embedded systems. The layering function introduced recently (and ctl ioctl
+registration function) enables to capsulate it into module. This results
+in building the function according to kernel configuration and reduction
+of the size of snd.ko for embedded systems. (But I wish usual desktop
+environment enables it...)
 
-Fix two bugs with the Intel HDA Realtek ALC233 sound codec
-present in Intel NUC NUC8i7BEH and probably a few other similar
-NUC models.
+In my plan, the name of new module is snd_ctl_user_elem_set.ko and the
+configuration is CONFIG_SND_CTL_USER_ELEM_SETS. I've already written
+patchset in my hand and find some negative points:
 
-These codecs advertise a 4-level microphone input boost amplifier on
-pin 0x19, but the highest two boost settings do not work correctly,
-and produce only low analog noise that does not seem to contain any
-discernible signal. There is an existing fixup for this exact problem
-but for a different PCI subsystem ID, so we re-use that logic.
+ * Comparing environments in which the function is enable or disabled,
+   we have difference about the system behaviour against some ioctl
+   requests (ELEM_ADD, ELEM_REPLACE, ELEM_REMOVE). I have no idea to
+   judge whether this is evil or not.
+ * Some internal functions and tables in snd.ko should be expoted to the
+   new module; e.g. 'value_sizes' or 'snd_ctl_new()'. The symbol table
+   is increased.
+ * Some code should be moved from compatibility layer of ALSA control
+   core. This seems to increate the cost of maintenance for the layer.
 
-Changing the boost level also triggers a DC spike in the input signal
-that bleeds off over about a second and overwhelms any input during
-that time. Thankfully, the existing fixup has the side effect of
-making the boost control show up in userspace as a mute/unmute switch,
-and this keeps (e.g.) PulseAudio from fiddling with it during normal
-input volume adjustments.
+2. Introduce control component structure and move codes from card structure
 
-Finally, the NUC hardware has built-in inverted stereo mics. This
-patch also enables the usual fixup for this so the two channels cancel
-noise instead of the actual signal.
+This is just an idea and preparation for following items. Historically,
+ALSA card structure includes some control-related stuffs. The card has
+two Linux device structures for pseudo card (card_dev) and control
+cdev (ctl_dev).  The card also aggregates the list of the other
+components such as pcm, hwdep. In this item, I add a new control
+structure and split control related stuffs from card structure. As a
+result, the control component becomes to be equivalent to the other
+components, in a point of both relationship to pseudo card device and
+relationship to cdev.
 
-Signed-off-by: Phil Calvin <phil@philcalvin.com>
----
-  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
-  1 file changed, 13 insertions(+)
+The change results in the reduction of size of card structure somehow. I
+expect it to be friendly to memory object allocator, and to be clear
+view of code structure.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 58946d069ee5..e1fd4c81965a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6405,6 +6405,8 @@ enum {
-  	ALC269_FIXUP_LEMOTE_A1802,
-  	ALC269_FIXUP_LEMOTE_A190X,
-  	ALC256_FIXUP_INTEL_NUC8_RUGGED,
-+	ALC233_FIXUP_INTEL_NUC8_DMIC,
-+	ALC233_FIXUP_INTEL_NUC8_BOOST,
-  	ALC256_FIXUP_INTEL_NUC10,
-  	ALC255_FIXUP_XIAOMI_HEADSET_MIC,
-  	ALC274_FIXUP_HP_MIC,
-@@ -7122,6 +7124,16 @@ static const struct hda_fixup alc269_fixups[] = {
-  		.type = HDA_FIXUP_FUNC,
-  		.v.func = alc233_fixup_lenovo_line2_mic_hotkey,
-  	},
-+	[ALC233_FIXUP_INTEL_NUC8_DMIC] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_inv_dmic,
-+		.chained = true,
-+		.chain_id = ALC233_FIXUP_INTEL_NUC8_BOOST,
-+	},
-+	[ALC233_FIXUP_INTEL_NUC8_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc269_fixup_limit_int_mic_boost
-+	},
-  	[ALC255_FIXUP_DELL_SPK_NOISE] = {
-  		.type = HDA_FIXUP_FUNC,
-  		.v.func = alc_fixup_disable_aamix,
-@@ -8265,6 +8277,7 @@ static const struct snd_pci_quirk 
-alc269_fixup_tbl[] = {
-  	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
-  	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
-  	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", 
-ALC256_FIXUP_INTEL_NUC8_RUGGED),
-+	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", 
-ALC233_FIXUP_INTEL_NUC8_DMIC),
-  	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
-   #if 0
--- 
-2.30.2
+At present, I don't prepare any patch. But I guess some negative
+points:
+ * I don't get the range of code influenced by the change yet. If it's
+   huge, I would give up the idea itself...
+ * Theoretically, the new control structure is released as the same way
+   as the other components such as PCM. However I'm afraid of
+   fatal regressions comes from structural problems in complicated release
+   process of ALSA core...
+ * Any change of behaviour relevant to kobject in a view of userspace.
 
+3. Add kobject attributes into the control device
+
+At present, card structure has kobject attributes. Some kernel APIs are
+exposed to in-kernel drivers and some drivers already use it; e.g. the
+series of line6 drivers.
+
+In this item, referring to the idea of case for card structure, I add
+kobject attributes into the control device, and add mechanism for
+in-kernel drivers to register own attributes as well as common
+attributes.
+
+As you know, kobject attributes exposed via sysfs node is often abused,
+like recent patch for any name of card structure. It should be done with
+enough care of future change, since it's a part of interface to
+userspace once exposed to userspace,
+
+4. Add `max_user_ctl_alloc_size` kobject attribute to the control device
+
+In the patch, a new module parameter 'max_user_ctl_alloc_size' is added.
+In the item, I use the value of this parameter as initial value per
+control device. The value per control device can be changed via sysfs
+node.
+
+The `max_user_ctl_alloc_size` is really the attribute of control device,
+so I think it acceptable. Additionally, 'curr_user_ctl_alloc_size' is
+also added so that userspace applications get current status.
+
+5. add any mechanism to bind lifetime of user-defined element set to user
+   process
+
+At present, the lifetime of user-defined element set is bound to card
+itself. However, it's convenient to user processes to bind the lifetime
+to process itself. I add any mechanism for it.
+
+For recent years I've made some patches in house but never arrive at the
+best one. In the patches, I utilize access flags but in general the
+maintenance of lifetime is not easy issue. I tackle again in this time.
+
+Anyway, I'm a developer in private time, so it's my convenient to hear
+maintainer's opinion, especially about 'go' or 'no-go', to use my life
+time efficiently. I'm happy to receive any of your opinions.
+
+
+Thanks
+
+Takashi Sakamoto

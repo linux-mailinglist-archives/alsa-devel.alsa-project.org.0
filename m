@@ -2,80 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5D53598E8
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 11:11:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBEFC359C88
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Apr 2021 13:00:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F9863E;
-	Fri,  9 Apr 2021 11:10:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F9863E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FDCA82A;
+	Fri,  9 Apr 2021 13:00:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FDCA82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1617959502;
-	bh=rq97tpzlhKGiWCdCWrlVv9MaLRF2HGKCu8RqYwrabJM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1617966053;
+	bh=94qiJAAt1psNYzsjTw+8CdLBU7zPPzXPs9xLhYl3iPQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uITgGdlQvbqgzHDhVLsOzCRkSD/6Hb0P8nwkdMJiwZW3g911jX/PgJTnA8BctX3Nd
-	 0reHrXTQuJC8UQkEsDhy5xHs1syBLdmZlvxgQex71RS5qkTfoDx1UobWUYOPh7i7fS
-	 ThVrd6dRE2R/69/qSo2ELnWqTeV6GA1ovQJcG0f0=
+	b=N3zYH8nyDqfResI32i93EWODWLI0Dx7UHJHFwaiP6ErLCwMMZTLspKWHrPtx2JPP5
+	 6PHhj61pRG/loujnRn9C5R4yuT+8xQTz/jTioAxj4cu1sO8JSPng62TghAcrZmfRyc
+	 WwZ3g6/mLjsABfUczO/SCZ60R/7iqvoJVz4opx1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F280F8016D;
-	Fri,  9 Apr 2021 11:10:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70E30F80162;
+	Fri,  9 Apr 2021 12:59:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81523F8016A; Fri,  9 Apr 2021 11:10:13 +0200 (CEST)
+ id 37F46F8016A; Fri,  9 Apr 2021 12:59:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF6CCF80162
- for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 11:09:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF6CCF80162
-IronPort-SDR: 7QPqct0Pnyu0tl+PWc4Sh4A2daVza0eeRxUbN0W9M8Ip84GtuzHUD9ek/BbZDzqW1cYVMLs/ao
- BTetXppbeTEQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9948"; a="181258045"
-X-IronPort-AV: E=Sophos;i="5.82,209,1613462400"; d="scan'208";a="181258045"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 02:09:56 -0700
-IronPort-SDR: Lyl7bWjLXcAPLZyHkV6yK3kgNU419el8bGbJvQeTUEeN1qV8qDjs5aap0uISwq2mymKkY6t/kq
- tTYW8TU/MxZw==
-X-IronPort-AV: E=Sophos;i="5.82,209,1613462400"; d="scan'208";a="422650494"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.12.91])
- ([10.237.12.91])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2021 02:09:55 -0700
-Subject: Re: [PATCH] ALSA: core - add more card sysfs entries
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20210408094314.1322802-1-perex@perex.cz>
- <20210408103819.GA40407@workstation> <s5h35w182a5.wl-tiwai@suse.de>
- <45acc908-3603-3479-9fb2-5206339a9ace@perex.cz>
- <20210408120502.GA4516@sirena.org.uk> <s5hpmz47w3i.wl-tiwai@suse.de>
- <56c874ae-e801-63df-19fa-a1325f6104ca@perex.cz>
- <3107db1d-f97d-539a-05db-6f880b762f00@linux.intel.com>
- <3b33595e-777c-90b2-6d65-346c9bf6e003@perex.cz>
- <b0258a67-79ca-50cd-e6c5-74514ba8a3c5@linux.intel.com>
- <s5hv98v6h5a.wl-tiwai@suse.de>
- <9195f83a-28c4-d028-8f1e-c3beaa88d891@perex.cz>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <05551192-57dd-2541-94a3-57d40a37e3bf@linux.intel.com>
-Date: Fri, 9 Apr 2021 11:09:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <9195f83a-28c4-d028-8f1e-c3beaa88d891@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 034B3F80162
+ for <alsa-devel@alsa-project.org>; Fri,  9 Apr 2021 12:59:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 034B3F80162
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 322D5AFAA;
+ Fri,  9 Apr 2021 10:59:10 +0000 (UTC)
+Date: Fri, 09 Apr 2021 12:59:10 +0200
+Message-ID: <s5h5z0v67wh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
+ controls
+In-Reply-To: <20210409022735.GA3776@workstation>
+References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
+ <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
+ <20210409022735.GA3776@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,112 +71,197 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/9/2021 10:34 AM, Jaroslav Kysela wrote:
-> Dne 09. 04. 21 v 9:39 Takashi Iwai napsal(a):
->> On Thu, 08 Apr 2021 20:51:41 +0200,
->> Pierre-Louis Bossart wrote:
->>>
->>>
->>>
->>>>>> When we have a common standard layer for the plug-and-play handling (udev), we
->>>>>> should concentrate to allow changing / refining of this information there.
->>>>>> Those strings are not used for anything else than the user space. So from my
->>>>>> view, there's no reason to create another mechanism to handle the overrides.
->>>>>> It should be a safe, fast, flexible and_optional_  solution. The udev can
->>>>>> alter the sysfs attributes directly without any hassle with the file
->>>>>> modifications or looking for another way to pass / store this information
->>>>>> somewhere.
->>>>>
->>>>> There's one part where I am lost.
->>>>>
->>>>> The initial idea of udev what to modify kernel parameters to pick a
->>>>> different path for firmware/topology before probing the PCI driver. At
->>>>
->>>> This may be a problematic point. The kernel cmdline cannot be modified from
->>>> udev (as far as I know). The module parameters can be set using modprobe's
->>>> config files or when loaded with sysfs attributes (/sys/module/*/parameters).
->>>> Eventually, you can call the modprobe command with custom module parameters
->>>> when the appropriate MODALIAS is probed.
->>>>
->>>> Perhaps, I'm missing something here, too. Some example udev rules may help.
->>>
->>> see the example shared by Curtis
->>>
->>> SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0c8",
->>> ATTR{class}=="0x040100", ATTRS{[dmi/id]board_name}=="Eldrid",
->>> RUN+="/sbin/modprobe snd_sof_pci tplg_path=intel/sof-tplg/pdm1"
->>>
->>> Those 'path' parameters would have to be set prior to creating the
->>> card, making them writable via sysfs would not work, the firmware and
->>> topology are already loaded and changing the paths would have no
->>> effect.
->>
->> Couldn't the driver probe the firmware files with some device-specific
->> string suffix at first?  e.g. the driver can issue request_firmware()
->> with $base_file-$dmi_board at first, then falls back to the generic
->> $base_file.  A similar method was already used in Broadcom WiFi
->> driver.
->>
->> Also, the driver may do request_firmware() with a fixed path for the
->> custom firmware at first (e.g. "intel/sof-tplg-custom"); then a system
->> integrator may set up a specific configuration even that doesn't match
->> with DMI or whatever identifier.
+On Fri, 09 Apr 2021 04:27:35 +0200,
+Takashi Sakamoto wrote:
 > 
-> And when we have two firmware files which differs just by functionality
-> requested by user? Although your method will work, I won't close the
-> possibility to configure everything in udev rather using a hard coded fw load
-> scheme only.
+> Hi,
 > 
-> 						Jaroslav
+> On Thu, Apr 08, 2021 at 01:33:41PM +0200, Takashi Iwai wrote:
+> > On Thu, 08 Apr 2021 12:50:25 +0200, Takashi Sakamoto wrote:
+> > > On Thu, Apr 08, 2021 at 07:31:49PM +0900, Takashi Sakamoto wrote:
+> > > > ALSA control interface allows users to add arbitrary control elements
+> > > > (called "user controls" or "user elements"), and its resource usage is
+> > > > limited just by the max number of control sets (currently 32).  This
+> > > > limit, however, is quite loose: each allocation of control set may
+> > > > have 1028 elements, and each element may have up to 512 bytes (ILP32) or
+> > > > 1024 bytes (LP64) of value data. Moreover, each control set may contain
+> > > > the enum strings and TLV data, which can be up to 64kB and 128kB,
+> > > > respectively.  Totally, the whole memory consumption may go over 38MB --
+> > > > it's quite large, and we'd rather like to reduce the size.
+> > > > 
+> > > > OTOH, there have been other requests even to increase the max number
+> > > > of user elements; e.g. ALSA firewire stack require the more user
+> > > > controls, hence we want to raise the bar, too.
+> > > > 
+> > > > For satisfying both requirements, this patch changes the management of
+> > > > user controls: instead of setting the upper limit of the number of
+> > > > user controls, we check the actual memory allocation size and set the
+> > > > upper limit of the total allocation in bytes.  As long as the memory
+> > > > consumption stays below the limit, more user controls are allowed than
+> > > > the current limit 32. At the same time, we set the lower limit (8MB)
+> > > > as default than the current theoretical limit, in order to lower the
+> > > > risk of DoS.
+> > > > 
+> > > > As a compromise for lowering the default limit, now the actual memory
+> > > > limit is defined as a module option, 'max_user_ctl_alloc_size', so that
+> > > > user can increase/decrease the limit if really needed, too.
+> > > > 
+> > > > Co-developed-by: Takashi Iwai <tiwai@suse.de>
+> > > > Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > > Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > > ---
+> > > > v1->v2: Drop alloc_size field from user_element, calculate at private_free
+> > > > v2->v3: Rebase. Fix boundary error. Obsolete macro usage relying on modern
+> > > >         compiler optimization. Change comment style by modern coding
+> > > >         convention. Rename module parameter so that users get it easily.
+> > > >         Patch comment improvements.
+> > > > ---
+> > > >  include/sound/core.h |  2 +-
+> > > >  sound/core/control.c | 75 ++++++++++++++++++++++++++++++--------------
+> > > >  2 files changed, 52 insertions(+), 25 deletions(-)
+> > > 
+> > > The original content of patch comes from Iwai-san[1]. I have no clear
+> > > idea to handle the case so add 'Co-developed-by' tag to the patch. If
+> > > this is not good, I apologize the lack of my understanding to the
+> > > development process in Linux kernel.
+> > 
+> > It depends.  In some cases, you just carry the patch with the original
+> > authorship (From address) and put your sign-off.  In some cases,
+> > Co-developed-by can be used.  I don't mind much either way, so I took
+> > your v3 patch now (with the addition of the Link URL to v2 patch).
 > 
+> Thanks for applying the patch as is. I would post it just with my sign-off
+> without no changes to your patch, However in the case I added some changes,
+> so I have no conviction to it...
+> 
+> Well, relevant to the function, I have some ideas to refactor ALSA control
+> core. If you have room to discuss about them, I'd like to ask your opinion.
+> 
+> At present, I have five ideas:
+> 
+> 1. Split code relevant to user-defined element set into new module
+> 
+> Although the function is itself useful to me, it's useless in the case
+> to use driver in which every functions are in kernel land, especially in
+> embedded systems. The layering function introduced recently (and ctl ioctl
+> registration function) enables to capsulate it into module. This results
+> in building the function according to kernel configuration and reduction
+> of the size of snd.ko for embedded systems. (But I wish usual desktop
+> environment enables it...)
+> 
+> In my plan, the name of new module is snd_ctl_user_elem_set.ko and the
+> configuration is CONFIG_SND_CTL_USER_ELEM_SETS. I've already written
+> patchset in my hand and find some negative points:
+> 
+>  * Comparing environments in which the function is enable or disabled,
+>    we have difference about the system behaviour against some ioctl
+>    requests (ELEM_ADD, ELEM_REPLACE, ELEM_REMOVE). I have no idea to
+>    judge whether this is evil or not.
+>  * Some internal functions and tables in snd.ko should be expoted to the
+>    new module; e.g. 'value_sizes' or 'snd_ctl_new()'. The symbol table
+>    is increased.
+>  * Some code should be moved from compatibility layer of ALSA control
+>    core. This seems to increate the cost of maintenance for the layer.
 
-I've slept on it and now I think I see what you are trying to do.
+The module would be useful if this can work additionally on top of the
+others.  And, in the case of user-element, it has nothing to do with
+the driver, so if the module is split, user would have to load the
+module manually -- which is inconvenient.
 
-1. Load FW dependent on platform/user settings
-2. Load appropriate topology for FW
-3. Have UCM for the FEs and controls exposed by driver
+If your concern is about the driver size, the needed change isn't
+about splitting to another module but the conditional builds either
+with ifdef or factor out to another file (and conditionally build via
+Makefile).
+
+> 2. Introduce control component structure and move codes from card structure
+> 
+> This is just an idea and preparation for following items. Historically,
+> ALSA card structure includes some control-related stuffs. The card has
+> two Linux device structures for pseudo card (card_dev) and control
+> cdev (ctl_dev).  The card also aggregates the list of the other
+> components such as pcm, hwdep. In this item, I add a new control
+> structure and split control related stuffs from card structure. As a
+> result, the control component becomes to be equivalent to the other
+> components, in a point of both relationship to pseudo card device and
+> relationship to cdev.
+> 
+> The change results in the reduction of size of card structure somehow. I
+> expect it to be friendly to memory object allocator, and to be clear
+> view of code structure.
+
+Well, moving the control-related fields into another allocated object
+wouldn't reduce the size in total, so I don't see any big merit by
+that.  Note that the control API is mandatory for each card, hence it
+can be never optional; that's the difference from other components.
+
+Though, moving control-related fields into another struct and embed it
+in snd_card would be fine if it improves the readability.  It'll be
+essentially just grouping and renaming.
 
 
-As for 1. I would say that FW should be loaded from one location
-if there is some platform that requires special FW just add quirks, like 
-it is done with every other driver, and if someone wants to build their 
-own special FW, they just replace it. We can't possibly support hundreds 
-of possible FW modifications if users want them by putting them in 
-separate files. Alternatively allow override via kernel parameters.
-Overriding FW files via udev would only make sense to me if it was 
-possible to upload new FW at runtime.
+> At present, I don't prepare any patch. But I guess some negative
+> points:
+>  * I don't get the range of code influenced by the change yet. If it's
+>    huge, I would give up the idea itself...
+>  * Theoretically, the new control structure is released as the same way
+>    as the other components such as PCM. However I'm afraid of
+>    fatal regressions comes from structural problems in complicated release
+>    process of ALSA core...
+>  * Any change of behaviour relevant to kobject in a view of userspace.
+> 
+> 3. Add kobject attributes into the control device
+> 
+> At present, card structure has kobject attributes. Some kernel APIs are
+> exposed to in-kernel drivers and some drivers already use it; e.g. the
+> series of line6 drivers.
+> 
+> In this item, referring to the idea of case for card structure, I add
+> kobject attributes into the control device, and add mechanism for
+> in-kernel drivers to register own attributes as well as common
+> attributes.
+> 
+> As you know, kobject attributes exposed via sysfs node is often abused,
+> like recent patch for any name of card structure. It should be done with
+> enough care of future change, since it's a part of interface to
+> userspace once exposed to userspace,
 
-I would say that same applies for 2.
+Do you mean to add some sysfs files under /sys/class/control*/?
+That should be easy, just a few lines of the code.  For creating files
+at the device instantiation, just setting the groups like the card
+object should work.
 
-This leaves number 3. which would require kernel exposing some kind of 
-information about loaded topology, so user space can use proper UCM.
-In topology manifest there are few reserved fields 
-(https://elixir.bootlin.com/linux/latest/source/include/uapi/sound/asoc.h#L382), 
-so we can add some information there which should be unique per topology 
-and then expose it in userspace on topology load, it can be the name of 
-UCM file topology wants to be loaded for example.
 
-For example do something along those lines:
+> 4. Add `max_user_ctl_alloc_size` kobject attribute to the control device
+> 
+> In the patch, a new module parameter 'max_user_ctl_alloc_size' is added.
+> In the item, I use the value of this parameter as initial value per
+> control device. The value per control device can be changed via sysfs
+> node.
+> 
+> The `max_user_ctl_alloc_size` is really the attribute of control device,
+> so I think it acceptable. Additionally, 'curr_user_ctl_alloc_size' is
+> also added so that userspace applications get current status.
 
-struct snd_soc_tplg_manifest {
-	__le32 size;		/* in bytes of this structure */
-	__le32 control_elems;	/* number of control elements */
-	__le32 widget_elems;	/* number of widget elements */
-	__le32 graph_elems;	/* number of graph elements */
-	__le32 pcm_elems;	/* number of PCM elements */
-	__le32 dai_link_elems;	/* number of DAI link elements */
-	__le32 dai_elems;	/* number of physical DAI elements */
-	__le32 ucm_files;	/* UCM files to use with topology */
-	__le32 reserved[19];	/* reserved for new ABI element types */
-	struct snd_soc_tplg_private priv;
-} __attribute__((packed));
+So that's the primary purpose?  Then it makes sense, yeah.
 
-struct snd_soc_tplg_ucm_files {
-	struct snd_soc_tplg_ctl_hdr hdr;
-	__le32 size;	/* size of struct in bytes */
-	__le32 count;	/* UCM entries */
-	char ucms[SNDRV_CTL_ELEM_ID_NAME_MAXLEN][];
-}
 
-And then expose it somewhere under sysfs after parsing topology.
+> 5. add any mechanism to bind lifetime of user-defined element set to user
+>    process
+> 
+> At present, the lifetime of user-defined element set is bound to card
+> itself. However, it's convenient to user processes to bind the lifetime
+> to process itself. I add any mechanism for it.
+> 
+> For recent years I've made some patches in house but never arrive at the
+> best one. In the patches, I utilize access flags but in general the
+> maintenance of lifetime is not easy issue. I tackle again in this time.
 
+It sounds interesting, but I don't know how easily you can manage it.
+The driver doesn't care much about the user process lifetime, but
+mostly concentrate on the file handle...
+
+
+thanks,
+
+Takashi

@@ -2,56 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F7D335AC0D
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 10:58:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F9C035AC16
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 11:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13A78166B;
-	Sat, 10 Apr 2021 10:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13A78166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 081F3166B;
+	Sat, 10 Apr 2021 11:00:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 081F3166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618045095;
-	bh=cWLc9JczdvjQ9n4mIbklc/jSEmkRwX/TuRn4cV5jldU=;
+	s=default; t=1618045269;
+	bh=JCgdI61SiZURjI8Uemw1wU+QOauH4LBiPOSDy96pgPI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UzXaLE9TTQq5tSOQUkhDHQ+QCHD1/+3Rr5mUSFM2kkMp9zMk2byIjebejIGsxLGj/
-	 wtxtJzuMnaAcAtstdf05VFCmYOmzTJroggWhNVakncTWFCGm0Kp5E1mqsMhYBQsQ4l
-	 yWNVRNjczHwJVBJ2qbeiNlrjI+HDKjl3t/c67+ic=
+	b=hhMHAP7DoTjlFsgZHcFTE1vfb9BIj4o5hk5cqt15ipRID7OwgRe7g7QYS7tVQihm+
+	 wAUDf9PBXBf9gMdpI++xD5sy8rCj8bEnhf2545RhxyeKngmGJDzYRqkCJKy1i5nSIH
+	 kMX9/N7Ne8eL9I/3y25zp109bjUz63LZBizzXAHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D726F80246;
-	Sat, 10 Apr 2021 10:56:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E5A3F80246;
+	Sat, 10 Apr 2021 10:59:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8863F8020B; Sat, 10 Apr 2021 10:56:38 +0200 (CEST)
+ id 210C8F8020B; Sat, 10 Apr 2021 10:59:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10DAFF800EE
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 10:56:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10DAFF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FB79F800EE
+ for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 10:59:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FB79F800EE
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 66E6CAF2F;
- Sat, 10 Apr 2021 08:56:35 +0000 (UTC)
-Date: Sat, 10 Apr 2021 10:56:35 +0200
-Message-ID: <s5ha6q64iws.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 689A0ABE2;
+ Sat, 10 Apr 2021 08:59:36 +0000 (UTC)
+Date: Sat, 10 Apr 2021 10:59:36 +0200
+Message-ID: <s5h8s5q4irr.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
- controls
-In-Reply-To: <20210410082218.GB10316@workstation>
-References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
- <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
- <20210409022735.GA3776@workstation> <s5h5z0v67wh.wl-tiwai@suse.de>
- <1c2da980-1f63-c6fe-a4c0-005a1ed5bc19@perex.cz>
- <s5h1rbj5yp3.wl-tiwai@suse.de> <20210410082218.GB10316@workstation>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
+Subject: Re: [PATCH v2] Behringer UFX1604 / UFX1204: get rid of unneeded
+ implicit feedback and pops and clicks while on 96000hz
+In-Reply-To: <CAEsQvcvF7LnO8PxyyCxuRCx=7jNeSCvFAd-+dE0g_rd1rOxxdw@mail.gmail.com>
+References: <CAEsQvcvF7LnO8PxyyCxuRCx=7jNeSCvFAd-+dE0g_rd1rOxxdw@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,48 +69,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 10 Apr 2021 10:22:18 +0200,
-Takashi Sakamoto wrote:
+On Sat, 10 Apr 2021 03:36:14 +0200,
+Geraldo Nascimento wrote:
 > 
-> On Fri, Apr 09, 2021 at 04:18:00PM +0200, Takashi Iwai wrote:
-> > On Fri, 09 Apr 2021 15:34:14 +0200,
-> > Jaroslav Kysela wrote:
-> > > 
-> > > Dne 09. 04. 21 v 12:59 Takashi Iwai napsal(a):
-> > > 
-> > > >> 5. add any mechanism to bind lifetime of user-defined element set to user
-> > > >>    process
-> > > >>
-> > > >> At present, the lifetime of user-defined element set is bound to card
-> > > >> itself. However, it's convenient to user processes to bind the lifetime
-> > > >> to process itself. I add any mechanism for it.
-> > > >>
-> > > >> For recent years I've made some patches in house but never arrive at the
-> > > >> best one. In the patches, I utilize access flags but in general the
-> > > >> maintenance of lifetime is not easy issue. I tackle again in this time.
-> > > > 
-> > > > It sounds interesting, but I don't know how easily you can manage it.
-> > > > The driver doesn't care much about the user process lifetime, but
-> > > > mostly concentrate on the file handle...
-> > > 
-> > > It should be easy to trace which process created the user element and
-> > > automatically remove this element when the process close the file descriptor.
-> > > Something like 'bind lifetime of the control to the active control file
-> > > descriptor'.
-> > 
-> > If it's tied only with the file handle, it's easy.  But I thought this
-> > is about the process?
+> More complete patch disabling unneeded implicit feedback and setting
+> clock selector to default clock on rate change for UFX1604
 > 
-> The 'lifetime' relates any operations from userspace relevant to
-> element. In the point, it's not so easy. It's better to see the list of
-> ioctl request to ALSA control character device, guys.
+> After re-reading https://bugzilla.kernel.org/show_bug.cgi?id=199327 it
+> is even more clear to me that implicit feedback for the
+> UFX1604/UFX1204 needs to be disabled.
+> 
+> This is a more complete patch that disables that and for the UFX1604
+> only sets the clock selector to its pin 1 default clock synced to the
+> USB SOF upon rate change. This is needed because apparently the
+> endpoints are hardwired to the clock selector and after we change the
+> rate on the main USB SOF synced clock the clock selector is left in a
+> halfway state in regards to the sampling rate.
+> 
+> That's why the pops and clicks aren't evident at stock 48000Hz, become
+> slightly audible at 44100Hz and detestable at 96000Hz. Seems the clock
+> selector needs a nudge or it will screw up the sync.
+> 
+> Unfortunately I don't have access to the lsusb -v of the UFX1204 soI'm
+> waiting for someone to share it here in the list or in the bugzilla
+> thread. This patch needs some more love from the community.
+> 
+> ---
+> 
+> This one has been bugging me for quite a while. I went deep hard in
+> the guts of ALSA to try to solve it, and it turned out to be a minor
+> thing apparently. The problem is old, and every UFX1604 Linux user can
+> attest that it's impossible to use 96000hz in DUPLEX mode without
+> annoying pops and clicks on the capture stream.
+> 
+> The fix is simple: after we alter the CLOCK_SOURCE to match our sample
+> rate, let's tell the CLOCK_SELECTOR we want CLOCK_SOURCE 212 (synced
+> to USB SOF) on pin 1. Solves the problem for me, no more pops and
+> clicks while on 96000hz.
+> 
+> ---
+> 
+> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-I'm lost.  What makes so difficult if the element is tied with the
-file descriptor?  You'd nuke the corresponding element at
-snd_ctl_release(), and it should be enough.
+Thanks for the patch.
 
-If it's not tied with the file descriptor, it's indeed difficult, but
-it has nothing to do with the number of ioctl implementations.
+But we'd like to avoid the setup with a magic ID number.
+Judging from what it achieves, does the change like below give the
+similar effect?
+
+We might need to apply it conditionally, so this is just meant for
+testing.
 
 
 Takashi
+
+--- a/sound/usb/clock.c
++++ b/sound/usb/clock.c
+@@ -324,6 +324,8 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 		ret = __uac_clock_find_source(chip, fmt,
+ 					      selector->baCSourceID[ret - 1],
+ 					      visited, validate);
++		if (ret > 0)
++			uac_clock_selector_set_val(chip, entity_id, cur);
+ 		if (!validate || ret > 0 || !chip->autoclock)
+ 			return ret;
+ 

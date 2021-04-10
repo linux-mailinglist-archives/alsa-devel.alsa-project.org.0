@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4095935ACE0
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 13:17:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFE1435AD07
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 13:43:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEA3910E;
-	Sat, 10 Apr 2021 13:16:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEA3910E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F0901658;
+	Sat, 10 Apr 2021 13:42:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F0901658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618053443;
-	bh=dJ4nWjNpIeMJWFWTizvuySO/6A+TwhQGsW7s3Mw1OM4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1618055000;
+	bh=qV9k4hji4k9aLRTIyTnGyGL2AfRtbEHHbXiwHX2tDXk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=baWA/rnJoKHr+9nftYTgwMlA7bGFFZEvT5QlZSE+SBRgMZCvcFah0FTWyKnNfMj9e
-	 xWTPl6qZiK/nlZXE82b0Pe9zkLBRTBDGAl1CSYb6V8gENR0rrsGp9RawZlyqc8fjhZ
-	 bgMiLUCxF5mOza6SRtzZbNiI3x9eUtm63o1XcRgM=
+	b=NkLcZrlHykT5jttjIGLHeHBTOpD33K9/UEfJ7M6C8KahWEo34Y/APrCB9o370u293
+	 5iUPsf9IdNT6XwtBoSDdRevc/R6rCAqyOnhOkhnfzEea4B1LzdgieBFAORitlfVYWK
+	 4UMO05yHdW3WJXGcPFJvHfLBx1VlcNpZSxFW0ZE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BFC2F8049C;
-	Sat, 10 Apr 2021 13:14:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7DE5F8020B;
+	Sat, 10 Apr 2021 13:41:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AE56F8032C; Sat, 10 Apr 2021 13:14:18 +0200 (CEST)
+ id 2D2F7F8020B; Sat, 10 Apr 2021 13:41:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27A38F8020B
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 13:14:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27A38F8020B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7547F800BC
+ for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 13:41:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7547F800BC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="ER/6JODq"
-Received: by mail-wm1-x330.google.com with SMTP id
- o20-20020a05600c4fd4b0290114265518afso4255065wmq.4
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 04:14:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=tP2B7PpyvjqGNjx+bX56P7sB4iUvry5KkFolRNleklk=;
- b=ER/6JODqNnCYiew9ExFspdf9CLFlaQHxcUelbQSKowEOT/MYWOoqxbB0YGIYtZoZaQ
- UfbcRcDxgBE0dgTQqk6kSDpbLBcLMeIHFpbHP1c1twrlpRTH9pGqPg6TyShwyFG9y5St
- 5UMnqoWLEEnp4bTDAiyMKB0/CIWckeYyl1As265mnZObJKKifZTo+FIFuWgNBcvVMHUR
- csmvWilnUGpt/xXOunB0xaW/WkTUyzqzznacYnbFe2n7aY7evhwNw8Hf52WMo21Qhu65
- gvEFSpYfKAOXg7yOle1Di7FsnozxDZvCrYz1vlTLuPm0hCyH3F+8LiDXophjGLIFR+y7
- KUJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=tP2B7PpyvjqGNjx+bX56P7sB4iUvry5KkFolRNleklk=;
- b=KtDszJX9DrqVZ7LFq6qzkxV+LVYfzFkpz9eUnMtdNLWkQjK1GNLShr6vs8QebHUu+J
- lHHo1gNZYeysuewK7qK5FV/rj94F7Eup6ItDRTPJ5wpwihIW2Rk8geRG5b0gxtVZ4+RS
- M4NCg6y3N2pHxx/0Vn6q5ui5jS4dHUONIfTgFp/88wMTmdX+56UOzF7rhSoNV2PjNFKk
- VG3lRBOoxv0OVZPMSCrh0YZOYh33E/7yy9GRDnzqeXXx0AAzQCzQNMGhSoVkLeHsVnZK
- 8lsDAYdY+L24nBORZ+BHbrhhvKF53bARdPaP2u2KWdt3uD6tJiSWCRtWs1DuhIcAnLJY
- PaGg==
-X-Gm-Message-State: AOAM530dTdRcBKGJ8rwk3oIJc+PisRgoIlg1iCH/7maHDnlnjgKLK9pr
- 5fxClmRvI6KyNB0MWWKyEXGFMy5FvAtUCRAM
-X-Google-Smtp-Source: ABdhPJwTzTHbQN8i5k02Db+ienjllS5Z03I5zxFQECMU0GrCRJK2v7QfxBehPGg7/tC1L0hI/k3vTw==
-X-Received: by 2002:a1c:a182:: with SMTP id k124mr6414729wme.132.1618053245421; 
- Sat, 10 Apr 2021 04:14:05 -0700 (PDT)
-Received: from starbuck.lan (82-65-169-74.subs.proxad.net. [82.65.169.74])
- by smtp.googlemail.com with ESMTPSA id s8sm8370117wrn.97.2021.04.10.04.14.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Apr 2021 04:14:05 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 5/5] ASoC: da7219: properly get clk from the provider
-Date: Sat, 10 Apr 2021 13:13:56 +0200
-Message-Id: <20210410111356.467340-6-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210410111356.467340-1-jbrunet@baylibre.com>
-References: <20210410111356.467340-1-jbrunet@baylibre.com>
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="XBDobhPp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
+ Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=MqfHPPlp4LUDAs2eJgmSouwd5eMPkV0TDFvZvALZuBE=; b=XBDobhPpS+WsmyAdJ40SKjt/3F
+ RYnDm2xKhzpneeTiQHpQsGHBHSJzSmun4IXLF0hC8uTcPQvhVBlbZlBfbfmYO9k9n3frCLeRKaAd9
+ JFZZ8MfDGXtzaRDQEz5oWc2OCsgu2nBgEQfLMnrqYyTMLGZdTA4nwYCgS4ca/1OFo1bRBJaAX/0uq
+ UWxEyetUp3v/LGA0v+AtXqy1bDx3gTtg2PuAvaYKEpoXOl9UMnq0KzqwhZS8nFqfqyIEhbO26iA3h
+ vW034A4K1RRUr3bbB+nmC0SpQOMkRBUxWt+5F/5uyy8GRIxxJEM9tUAa1Ls78hrONfKTqhD4xQ2um
+ OggiuWqw==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lVBzn-00Di2f-FN; Sat, 10 Apr 2021 13:41:47 +0200
+Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210324054253.34642-1-coding@diwic.se>
+ <20210324124430.GA3711@workstation>
+ <057ef387-9ee1-2678-29ce-d644f2a3a90a@diwic.se>
+ <20210326044615.GA51246@workstation> <s5hr1k2l56t.wl-tiwai@suse.de>
+ <2ca71809-9872-bfee-c19d-76b6ce143212@diwic.se>
+ <s5h1rc1lva7.wl-tiwai@suse.de>
+ <fbd3fc88-7a25-27fb-90ae-b4664f71d952@diwic.se>
+ <s5hk0prk9p9.wl-tiwai@suse.de>
+ <b2bf72a0-4f6b-7349-0666-c75826457718@diwic.se>
+ <s5hwntng495.wl-tiwai@suse.de>
+ <c70cf21a-ec81-955f-f6da-fe502e9b0715@diwic.se>
+ <s5hr1jnbp0n.wl-tiwai@suse.de>
+From: David Henningsson <coding@diwic.se>
+Message-ID: <da04f321-b904-7be4-e412-c3c65212e01e@diwic.se>
+Date: Sat, 10 Apr 2021 13:41:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Cc: Stephen Boyd <sboyd@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <s5hr1jnbp0n.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Id: coding@diwic.se
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,31 +99,158 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Instead of using the clk embedded in the clk_hw (which is meant to go
-away), a clock provider which need to interact with its own clock should
-request clk reference through the clock provider API.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- sound/soc/codecs/da7219.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On 2021-04-06 14:01, Takashi Iwai wrote:
+> On Mon, 05 Apr 2021 14:13:27 +0200,
+> David Henningsson wrote:
+>>
+>> On 2021-03-31 09:40, Takashi Iwai wrote:
+>>> On Tue, 30 Mar 2021 21:35:11 +0200,
+>>> David Henningsson wrote:
+>>>> Well, I believe that rawmidi provides less jitter than seq is not a
+>>>> theoretical problem but a known fact (see e g [1]), so I haven't tried
+>>>> to "prove" it myself. And I cannot read your mind well enough to know
+>>>> what you would consider a sufficient proof - are you expecting to see
+>>>> differences on a default or RT kernel, on a Threadripper or a
+>>>> Beaglebone, idle system or while running RT torture tests? Etc.
+>>> There is certainly difference, and it might be interesting to see the
+>>> dependency on the hardware or on the configuration.  But, again, my
+>>> primary question is: have you measured how *your patch* really
+>>> provides the improvement?  If yes, please show the numbers in the
+>>> patch description.
+>> As you requested, I have now performed such testing.
+>>
+>> Results:
+>>
+>> Seq - idle: 5.0 ms
+>>
+>> Seq - hackbench: 1.3 s (yes, above one second)
+>>
+>> Raw + framing - idle: 2.8 ms
+>>
+>> Raw + framing - hackbench: 2.8 ms
+>>
+>> Setup / test description:
+>>
+>> I had an external midi sequencer connected through USB. The system
+>> under test was a Celeron N3150 with internal graphics. The sequencer
+>> was set to generate note on/note off commands exactly 10 times per
+>> second.
+>>
+>> For the seq tests I used "arecordmidi" and analyzed the delta values
+>> of resulting midi file. For the raw + framing tests I used a home-made
+>> application to write a midi file. The monotonic clock option was used
+>> to rule out differences between monotonic and monotonic_raw. The
+>> result shown above is the maximum amount of delta value, converted to
+>> milliseconds, minus the expected 100 ms between notes. Each test was
+>> run for a minute or two.
+>>
+>> For the "idle" test, the machine was idle (running a normal desktop),
+>> and for the "hackbench" test, "chrt -r 10 hackbench" was run a few
+>> times in parallel with the midi recording application (which was run
+>> with "chrt -r 15").
+>>
+>> I also tried a few other stress tests but hackbench was the one that
+>> stood out as totally destroying the timestamps of seq midi. (E g,
+>> running "rt-migrate-test" in parallel with "arecordmidi" gave a max
+>> jitter value of 13 ms.)
+>>
+>> Conclusion:
+>>
+>> I still believe the proposed raw + framing mode is a valuable
+>> improvement in the normal/idle case, but even more so because it is
+>> more stable in stressed conditions. Do you agree?
+> Thanks for the tests.  Yes, that's an interesting and convincing
+> result.
+>         
+> Could you do a couple of favors in addition?
 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index 13009d08b09a..bd3c523a8617 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -2181,7 +2181,10 @@ static int da7219_register_dai_clks(struct snd_soc_component *component)
- 				 ret);
- 			goto err;
- 		}
--		da7219->dai_clks[i] = dai_clk_hw->clk;
-+
-+		da7219->dai_clks[i] = devm_clk_hw_get_clk(dev, dai_clk_hw, NULL);
-+		if (IS_ERR(da7219->dai_clks[i]))
-+			return PTR_ERR(da7219->dai_clks[i]);
- 
- 		/* For DT setup onecell data, otherwise create lookup */
- 		if (np) {
--- 
-2.30.2
+Okay, now done. Enjoy :-)
+
+>
+> 1) Check the other workqueue
+>
+> It's interesting to see whether the hiprio system workqueue may give a
+> better latency.  A oneliner patch is like below.
+>
+> -- 8< --
+> --- a/sound/core/rawmidi.c
+> +++ b/sound/core/rawmidi.c
+> @@ -1028,7 +1028,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+>   	}
+>   	if (result > 0) {
+>   		if (runtime->event)
+> -			schedule_work(&runtime->event_work);
+> +			queue_work(system_highpri_wq, &runtime->event_work);
+>   		else if (__snd_rawmidi_ready(runtime))
+>   			wake_up(&runtime->sleep);
+>   	}
+> -- 8< --
+
+Result: idle: 5.0 ms
+
+hackbench > 1 s
+
+I e, same as original.
+
+
+>
+> Also, system_unbound_wq can be another interesting test case instead
+> of system_highpri_wq.
+>
+> 2) Direct sequencer event process
+>
+> If a chance of workqueue doesn't give significant improvement, we
+> might need to check the direct invocation of the sequencer
+> dispatcher.  A totally untested patch is like below.
+>
+> -- 8< --
+> --- a/sound/core/rawmidi.c
+> +++ b/sound/core/rawmidi.c
+> @@ -979,6 +979,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+>   	unsigned long flags;
+>   	int result = 0, count1;
+>   	struct snd_rawmidi_runtime *runtime = substream->runtime;
+> +	bool call_event = false;
+>   
+>   	if (!substream->opened)
+>   		return -EBADFD;
+> @@ -1028,11 +1029,13 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+>   	}
+>   	if (result > 0) {
+>   		if (runtime->event)
+> -			schedule_work(&runtime->event_work);
+> +			call_event = true;
+>   		else if (__snd_rawmidi_ready(runtime))
+>   			wake_up(&runtime->sleep);
+>   	}
+>   	spin_unlock_irqrestore(&runtime->lock, flags);
+> +	if (call_event)
+> +		runtime->event(runtime->substream);
+>   	return result;
+>   }
+>   EXPORT_SYMBOL(snd_rawmidi_receive);
+>
+> -- 8< --
+
+Result:
+
+Idle: 3.0 ms
+
+Hackbench still > 1s.
+
+The reason that this is 3.0 and not 2.8 is probably during to some 
+rounding to whole ms somewhere in either seq or arecordmidi - I'd say 
+this is likely the same 2.8 ms as we see from the rawmidi+framing test.
+
+> In theory, this should bring to the same level of latency as the
+> rawmidi timestamping.  Of course, this doesn't mean we can go straight
+> to this way, but it's some material for consideration.
+
+I don't know why the hackbench test is not improved here. But you seem 
+to have changed seq from tasklet to workqueue in 2011 (commit 
+b3c705aa9e9), presumably for some relevant reason, like a need to sleep 
+in the seq code...?
+
+// David
 

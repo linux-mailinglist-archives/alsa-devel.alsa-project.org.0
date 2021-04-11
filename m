@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 609E935B231
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Apr 2021 09:27:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDC435B23C
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Apr 2021 09:48:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF7501675;
-	Sun, 11 Apr 2021 09:26:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF7501675
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF06F1676;
+	Sun, 11 Apr 2021 09:47:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF06F1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618126037;
-	bh=asmAE+7qjmbshOxyK9n4GGqhkuMZq4emFzkhn7LV1hI=;
+	s=default; t=1618127285;
+	bh=iRkf5nWTC9+SP8bGOd8PHfS712PoSG9kgJZsoQbyTGQ=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vnGNZPIWNotfYLPWKw9hGkqHyi1waCaS9+E0NOj/YRr9Pss6+KNne8q3ThHrzHPgy
-	 HF0j2isVJEDX1uow6/k88g94va6geTQ6ev1E4r7t5bFh473VCQnmiRbgP6p2oyb81e
-	 iWVcT32ycsXRvPirvVLs3nyAN0OJnwb1mz/jVMBU=
+	b=Tpf/dASOjwzupFZu6HE4NCU/71lUelrBpO0rz6ORz11M3KLZpBXZROqh/u4pHEaHc
+	 rWsXsamfBNA8l6890rxNDNV0VffvilDfoFjN0hLYoVfsVxskNQVDOWi7t1ccTJ2zr+
+	 LnnEnjKcAYwfhzysBmNaymAyalO27Iqk7ByEXI6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DC68F8022D;
-	Sun, 11 Apr 2021 09:25:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36FF3F8013D;
+	Sun, 11 Apr 2021 09:46:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0504DF8022B; Sun, 11 Apr 2021 09:25:46 +0200 (CEST)
+ id 28D89F8013D; Sun, 11 Apr 2021 09:46:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BEB8F8013D
- for <alsa-devel@alsa-project.org>; Sun, 11 Apr 2021 09:25:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BEB8F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEE9BF8013D
+ for <alsa-devel@alsa-project.org>; Sun, 11 Apr 2021 09:46:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEE9BF8013D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="clYdlk33"
-Received: by mail-ej1-x633.google.com with SMTP id l4so15055771ejc.10
- for <alsa-devel@alsa-project.org>; Sun, 11 Apr 2021 00:25:39 -0700 (PDT)
+ header.b="eLXjAGMj"
+Received: by mail-ed1-x534.google.com with SMTP id ba6so11308819edb.1
+ for <alsa-devel@alsa-project.org>; Sun, 11 Apr 2021 00:46:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MNQpFr5p/u67wblihMGlygwb0imaXwH+QoLxxbjH5qE=;
- b=clYdlk33VYdqeDeAQuQfPbQBL0v8NAfgT6ESuHm/Fexd2HfsFhUw8WOiBIt82lj1fm
- JcHrh2KkNdB+X9ac3zOZLymJ3uJkMiOw7bf7xRW5XWhjUtKEfCr9s+dKAuFAaY4eK4gE
- C7fvRkVfIXNDP010jS+kra+Txr51tNAu8pbl5VbaRyvevrcw0tr6OtOGoEzYDMYztxrQ
- vGYo09KbsLelTR7cJPYAnj23GCqopM7Gqz46taftYNSgGTpQRPn0C4s7pIIMMsgT8oAU
- fu0KCsFBoyN60b7q9TlFzVXFC/XNZeVTYsW1j5ZW6/WVi95MoAxr42HNq2zeH6XrkZtM
- d+VQ==
+ :cc; bh=sr9zXODFEw61kzfT4WaWeVdpw8mSBCOLqCFd1xw8XiM=;
+ b=eLXjAGMjvGgAar/LwMJA5aAA0VO5i0t4m/6Gu2qxAaCSnSS9eFuQ3aet7dgFWcX8Z3
+ bzhIl9KTSIVfQI1GEn29wU4AOa7eGwB9xkzD0dMyQk1CaOWSl6PhlVyIIsdYBilElulZ
+ Y62DQkSIppAec5wiEhXtmWHquR1LjOsqscWPvldqt/xfqWl+m0JK9C0HpwPT+H8lTBTR
+ b+Ex0ShviirEqUDLfkgRwRbFa7vFIKQrli3cqP5PLWFw1vOJeCLeV3rOZWlI0XvRmMgm
+ PJyZZajofyiHBdnf8VvGnr0QH9cHwM+V+nVyb6ARS+mVk3lalVgTg4pUSZLOm/7yEye+
+ uu+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=MNQpFr5p/u67wblihMGlygwb0imaXwH+QoLxxbjH5qE=;
- b=UlAGYmThHbpZuxMS7n2dNH/OYJHpwTtx5HCqvdDfV7sQvFcQ1F/2Cez0xer22tybh/
- fVzRmwBW/FJi19qQ6DEIOQK8PXVauGvj/yRUAloWS3aqxQj5KplvzP7kKJ2wOh0YlRJt
- TQuUwvVBwyKQhIZCsO+qib7I1o98isjFMlj2oiqFaScLEMm1fjCyw0vtN+5U/rU7ifB+
- 75JnTCt66HGaGLfhQ2GS2iXiCL+hMgD/yiJ1tdOfgIPUhRFKdaJyH0OtDaS6usR8yDZO
- 0RVxJsgbBXoMRuLnD1Q22DtRP28uIjgHXmGhhF16AktwcCqOEeURtOW7imdDrRqdX3s4
- 5wCg==
-X-Gm-Message-State: AOAM530mQiUMIoBOLOGEr/pi1gE2GA8UsMm6+QGnqaxfPg8SI4sQUZb+
- mMikhv3kWvovaous7IdHcZ8Cjh3UUD7SqC+gJ64rzimo
-X-Google-Smtp-Source: ABdhPJxXtLwaRW2KYBTnkqv8Lv0g/swK3QfxM2rh7P73rI8OvlAiOgcwKUUcXVHlK03e8Q3NUErdS2ULN/JJBmQEtms=
-X-Received: by 2002:a17:907:20f0:: with SMTP id
- rh16mr11406629ejb.320.1618125939176; 
- Sun, 11 Apr 2021 00:25:39 -0700 (PDT)
+ bh=sr9zXODFEw61kzfT4WaWeVdpw8mSBCOLqCFd1xw8XiM=;
+ b=nnizXuxc4dkhNB4QJgxhVLI4PWkUBFRGzrEDVtB4KAxNXBWmJSRoVPji63pmRSw4DR
+ LY6LOE16tNnHw6K4uSZmBrEmactAor6N7lLJRXOU1cwKyaligWKDGRE9BmS6zWNK42xG
+ WC9jmX0RZcq/MrUvy67nBjdDZwCItjwrsQy23SsxwGmzupr5G8SiTI+sIXdLZqUKNCUD
+ S9V70OAixOfD7vTw0NKd3InZFeG3vrsyTs0pe9pmIqkBc+MCrs1gSN9FkAFq8tKNXJRQ
+ tfUI+RRCAo/QESM+JU+6xooDqfzT2n72PV9OX61oGPEUnh93hZd0yVcnpX0gVDi8Ade7
+ TKcQ==
+X-Gm-Message-State: AOAM530q6K983D6A0ClIYKyNdfZuvKJdHj+vAqSgEdVH8lJL/DGnlJaF
+ RiuEu7oNm8BgDjalPIR754MNVAhiUEd4joFr7uI=
+X-Google-Smtp-Source: ABdhPJzggRIlAc1kC1fzVsewLdJdR7Z0eoGqHaAe9Klu5xpYFNuOysVAAhkyMbivnE2H2UT+BFxGo472KQzoc6qJD5M=
+X-Received: by 2002:a50:cd0b:: with SMTP id z11mr17814440edi.209.1618127186053; 
+ Sun, 11 Apr 2021 00:46:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
  <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
@@ -93,10 +92,11 @@ References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
  <CAOsVg8q_5yWBOR6DROJT7=Xv=R2yVNWSEjt4MUAx0QpQ6Af14g@mail.gmail.com>
  <CAHXb3beJxepHYraSXGCB4n9RBbBnLo05dcG=7nED1b_ZGRrMaw@mail.gmail.com>
  <CAOsVg8r85TsJypOSm5ZRv49uv+v=MZyNONe32AgGZL0fbYNayw@mail.gmail.com>
-In-Reply-To: <CAOsVg8r85TsJypOSm5ZRv49uv+v=MZyNONe32AgGZL0fbYNayw@mail.gmail.com>
+ <CAOsVg8rD==rjuVU0MR8rkp4VQi_6=UfO16huhsZx4-hM-su1xA@mail.gmail.com>
+In-Reply-To: <CAOsVg8rD==rjuVU0MR8rkp4VQi_6=UfO16huhsZx4-hM-su1xA@mail.gmail.com>
 From: Lucas <jaffa225man@gmail.com>
-Date: Sun, 11 Apr 2021 02:25:26 -0500
-Message-ID: <CAOsVg8rD==rjuVU0MR8rkp4VQi_6=UfO16huhsZx4-hM-su1xA@mail.gmail.com>
+Date: Sun, 11 Apr 2021 02:46:14 -0500
+Message-ID: <CAOsVg8pCYheiPea2NxowwqY74FWGFVc=tgMPnJXzsUEKHTYVAg@mail.gmail.com>
 Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
 To: Mike Oliphant <oliphant@nostatic.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -117,112 +117,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Here's my interesting, slightly-surprising results, but first the test
-criteria:
-
-I enabled the playback quirk table line as "IMPLICIT_FB_GENERIC_DEV" for
-each of these devices being tested, and changed endpoint.c's "if
-(snd_usb_endpoint_implicit_feedback_sink(ep))" to evaluate false for the
-Roland/BOSS vender ID of 0x0582 (with the vender matching method by
-Geraldo).
-
-EDIROL UA-4FX failed to capture, but plays well (only tested 48 kHz):
-arecord -D hw:UA4FX -f S24_3LE -r 48000 -c 2 ./file.wav
-Recording WAVE './test.wav' : Signed 24 bit Little Endian in 3bytes, Rate
-48000 Hz, Stereo
-arecord: xrun:1672: read/write error, state = PREPARED
-
-aplay -D hw:UA4FX -f S24_3LE -r 48000 -c 2 ./other-file.wav
-Playing WAVE './other-file.wav' : Signed 24 bit Little Endian in 3bytes,
-Rate 48000 Hz, Stereo
-
-
-EDIROL UA-101 "full speed" USB 1.1 mode doesn't capture or play (only
-tested 48 kHz):
-arecord -D hw:UA101 -f S32_LE -r 48000 -c 2 ./file.wav
-arecord: main:830: audio open error: Connection timed out
-
-aplay -D plughw:UA101 -f S32_LE -r 48000 -c 2 ./other-file.wav
-aplay: main:830: audio open error: Connection timed out
-
-
-EDIROL UA-101 "high speed" USB 2 mode captures and plays well (only tested
-48 kHz):
-arecord -D plughw:UA101 -f S32_LE -r 48000 -c 2 ./file.wav
-Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 48000 Hz,
-Stereo
-^CAborted by signal Interrupt...
-
-aplay -D plughw:UA101 -f S32_LE -r 48000 -c 2 ./file.wav
-Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 48000 Hz,
-Stereo
-
-
-Roland R-26 captures and plays fine:
-arecord -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
-Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
-Stereo
-^CAborted by signal Interrupt...
-
-aplay -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
-Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
-Stereo
-
-
-Roland INTEGRA-7 captures and plays well (playback at 96 kHz is new!)
-arecord -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
-Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
-Stereo
-^CAborted by signal Interrupt...
-
-aplay -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
-Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
-Stereo
-(Wow, now audible at 96 kHz with this endpoint.c trick!)
-
-arecord -D hw:INTEGRA7 -f S32_LE -r 44100 -c 2 ./file.wav
-Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 44100 Hz,
-Stereo
-^CAborted by signal Interrupt...
-
-aplay -D hw:INTEGRA7 -f S32_LE -r 44100 -c 2 ./file.wav
-Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 44100 Hz,
-Stereo
-
-
-Roland VG-99 doesn't capture, but plays well:
-arecord -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./file.wav
-Recording WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
-44100 Hz, Stereo
-arecord: xrun:1672: read/write error, state = PREPARED
-
-aplay -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./other-file.wav
-Playing WAVE './other-file.wav' : Signed 24 bit Little Endian in 3bytes,
-Rate 44100 Hz, Stereo
-
-
-And, of course, you already know the Roland Boutique D-05 captures and
-finally plays back perfectly with this trick.
-
-
-Next, I'm going to use these findings to tailor the patch to only those
-devices benefiting from it.  I had already suspected the EDIROL UA-*
-devices didn't need this, but I was fairly sure they would still be
-compatible.  They aren't and neither is the VG-99.  Improvements are in the
-INTEGRA-7 (with it's playback mode of 96 kHz working crystal clearly) and
-Boutique D-05, but possibly also the R-26 (which I haven't noticed clock
-skew on either way)
-
-Thanks!
-
-Here's the patch used to test these, to reveal any accidentally left out
-details:
+This is the patch I'm using now, thinking all my devices work best with it,
+but changes are inevitable (for other devices anyway).  It's likely the
+Roland VB-99 is the same as the VG-99, but as having the VG-99 skipped in
+the playback table and fixed in the capture table seems to work for me, I
+left the VB-99 as is.  Although, assuming it is either handled by the VG-99
+code, or its own very similar code, it may not need to be in these quirk
+tables at all:
 diff -Nurp linux-5.11.9.orig/sound/usb/endpoint.c
 linux-5.11.9.roland-geraldo-nascimento/sound/usb/endpoint.c
 --- linux-5.11.9.orig/sound/usb/endpoint.c 2021-03-24 05:54:19.000000000
 -0500
-+++ linux-5.11.9.roland-geraldo-nascimento/sound/usb/endpoint.c 2021-04-10
-00:14:30.836421501 -0500
++++ linux-5.11.9.roland-geraldo-nascimento/sound/usb/endpoint.c 2021-04-11
+02:06:42.487663031 -0500
 @@ -1343,6 +1343,7 @@ int snd_usb_endpoint_start(struct snd_us
  {
   int err;
@@ -231,7 +138,7 @@ linux-5.11.9.roland-geraldo-nascimento/sound/usb/endpoint.c
 
   if (atomic_read(&ep->chip->shutdown))
   return -EBADFD;
-@@ -1375,7 +1376,14 @@ int snd_usb_endpoint_start(struct snd_us
+@@ -1375,7 +1376,16 @@ int snd_usb_endpoint_start(struct snd_us
   if (!ep_state_update(ep, EP_STATE_STOPPED, EP_STATE_RUNNING))
   goto __error;
 
@@ -239,8 +146,13 @@ linux-5.11.9.roland-geraldo-nascimento/sound/usb/endpoint.c
 + //if (snd_usb_endpoint_implicit_feedback_sink(ep)) {
 +        skip_implicit_fb_urb_hold = false;
 +
-+        if (USB_ID_VENDOR(ep->chip->usb_id) == 0x0582) // &&
-+        //   USB_ID_PRODUCT(ep->chip->usb_id) == 0x01ff)
++        if (USB_ID_VENDOR(ep->chip->usb_id) == 0x0582 &&
++           ((USB_ID_PRODUCT(ep->chip->usb_id) == 0x013e) || /* Roland R-26
+*/
++           (USB_ID_PRODUCT(ep->chip->usb_id) == 0x015b) ||  /* Roland
+INTEGRA-7 */
++           (USB_ID_PRODUCT(ep->chip->usb_id) == 0x01ff)))   /* Roland
+Boutique D-05 */
 +               skip_implicit_fb_urb_hold = true;
 +
 +       if (snd_usb_endpoint_implicit_feedback_sink(ep) &&
@@ -252,9 +164,9 @@ diff -Nurp linux-5.11.9.orig/sound/usb/implicit.c
 linux-5.11.9.roland-geraldo-nascimento/sound/usb/implicit.c
 --- linux-5.11.9.orig/sound/usb/implicit.c 2021-04-01 20:55:06.079399075
 -0500
-+++ linux-5.11.9.roland-geraldo-nascimento/sound/usb/implicit.c 2021-04-10
-00:22:41.942550829 -0500
-@@ -71,27 +71,155 @@ static const struct snd_usb_implicit_fb_
++++ linux-5.11.9.roland-geraldo-nascimento/sound/usb/implicit.c 2021-04-11
+02:02:09.388996065 -0500
+@@ -71,27 +71,145 @@ static const struct snd_usb_implicit_fb_
    .ep_num = 0x84, .iface = 0 }, /* MOTU MicroBook II */
 
   /* No quirk for playback but with capture quirk (see below) */
@@ -266,14 +178,9 @@ linux-5.11.9.roland-geraldo-nascimento/sound/usb/implicit.c
 - IMPLICIT_FB_SKIP_DEV(0x0582, 0x01d8), /* BOSS Katana */
 - IMPLICIT_FB_SKIP_DEV(0x0582, 0x01e5), /* BOSS GT-001 */
 - IMPLICIT_FB_SKIP_DEV(0x0582, 0x0203),   /* BOSS AD-10 */
-+ IMPLICIT_FB_GENERIC_DEV(0x0582, 0x007d), /* Edirol UA-101 High Speed */
-+ IMPLICIT_FB_GENERIC_DEV(0x0582, 0x008d), /* Edirol UA-101 Full Speed */
-+ IMPLICIT_FB_GENERIC_DEV(0x0582, 0x00a3), /* Edirol UA-4FX */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00a6), /* Roland JUNO-G */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00a9), /* Roland MC-808 */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00ad), /* Roland SH-201 */
-+ IMPLICIT_FB_GENERIC_DEV(0x0582, 0x00b2), /* Roland VG-99 */
-+ IMPLICIT_FB_GENERIC_DEV(0x0582, 0x00b3), /* Roland VG-99 */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c2), /* Roland SonicCell */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c4), /* Edirol M-16DX */
 + IMPLICIT_FB_SKIP_DEV(0x0582, 0x00c5), /* Roland SP-555 */
@@ -347,16 +254,9 @@ Synthesizer */
  /* Implicit feedback quirk table for capture: only FIXED type */
  static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[]
 = {
-+ IMPLICIT_FB_FIXED_DEV(0x0582, 0x007d, 0x0d, 0x01), /* Edirol UA-101 High
-Speed */
-+ IMPLICIT_FB_FIXED_DEV(0x0582, 0x008d, 0x0d, 0x01), /* Edirol UA-101 Full
-Speed */
-+ IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a3, 0x0d, 0x01), /* Edirol UA-4FX */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a6, 0x0d, 0x01), /* Roland JUNO-G */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a9, 0x0d, 0x01), /* Roland MC-808 */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ad, 0x0d, 0x01), /* Roland SH-201 */
-+ IMPLICIT_FB_FIXED_DEV(0x0582, 0x00b2, 0x0d, 0x01), /* Roland VG-99 */
-+ IMPLICIT_FB_FIXED_DEV(0x0582, 0x00b3, 0x0d, 0x01), /* Roland VG-99 */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c2, 0x0d, 0x01), /* Roland SonicCell */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c4, 0x0d, 0x01), /* Edirol M-16DX */
 + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c5, 0x0d, 0x01), /* Roland SP-555 */
@@ -437,7 +337,7 @@ D-05 */
   IMPLICIT_FB_FIXED_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
 
   {} /* terminator */
-@@ -278,6 +406,11 @@ static int audioformat_implicit_fb_quirk
+@@ -278,6 +396,11 @@ static int audioformat_implicit_fb_quirk
   }
   }
 
@@ -449,20 +349,3 @@ D-05 */
   /* Generic UAC2 implicit feedback */
   if (attr == USB_ENDPOINT_SYNC_ASYNC &&
      alts->desc.bInterfaceClass == USB_CLASS_AUDIO &&
-
-
-On Fri, Apr 9, 2021 at 2:09 PM Lucas <jaffa225man@gmail.com> wrote:
-
-> I wholeheartedly agree with everything you wrote, Mike.  Takashi is the
-> person who knows best how to implement these changes, and is definitely the
-> most capable.  I will get back to you about retesting my other Roland
-> devices with this trick, although I only have a few of the many devices I'd
-> ultimately like this solution implemented for.  Also, I haven't noticed the
-> sync-related clicking with the other devices I own, but I'm confident they
-> won't be hurt by the change.  I'll let you both know, though, when I get
-> around to testing them.
->
-> Thanks as ever,
->
->   Lucas
->

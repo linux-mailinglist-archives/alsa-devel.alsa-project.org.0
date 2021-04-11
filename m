@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B510B35B77E
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 01:54:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C3835B77F
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 01:55:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 524AF825;
-	Mon, 12 Apr 2021 01:53:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 524AF825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 925B615F9;
+	Mon, 12 Apr 2021 01:54:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 925B615F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618185289;
-	bh=2iCQniHtAMeTYWLGvEBsfuNxk/LxYJNkacK4EMrvyu0=;
+	s=default; t=1618185317;
+	bh=XXlKH2nMurDWIbxQ7v+8G5QHu/ndv5OQJCOwL2RksiM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GokWDhqfZ+Gg/o7mXEgFeclGpcUWgqkM9esdefq5gI7vu5aLLck5aTQsQvsniWvYg
-	 QW56L0UihhWPailwH3K6bBBMytlS0qdtKqYmpxGLU1i3NZBV4GMX2UM9JhiX04iMEB
-	 foeJ4E2quD8g30Qp83AAm8CcqsFxexp2mfMaNCrk=
+	b=JWBiMj7DVYVMu5hsWzUkQFPbwtc8W68cEt8FtlMvqVyGCJTB6YpViacg8Xp0vqZIb
+	 AWKTrjEJvJSGo1Rz/2Vnk5qhCYYDGy3wEqzhqbbSsIQK1zW1+qxyaPzVY4DC5vELzf
+	 D/m+wsjwsE12RFPfU/Fdxf2JGANdLfW6FVyroFy8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A580F804AD;
-	Mon, 12 Apr 2021 01:52:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 067AFF804D1;
+	Mon, 12 Apr 2021 01:52:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8F74F804AC; Mon, 12 Apr 2021 01:52:17 +0200 (CEST)
+ id D111CF804CF; Mon, 12 Apr 2021 01:52:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 08925F800EE
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 01:52:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08925F800EE
-Date: 12 Apr 2021 08:52:13 +0900
-X-IronPort-AV: E=Sophos;i="5.82,214,1613401200"; d="scan'208";a="77713100"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 12 Apr 2021 08:52:13 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2584CF804B4
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 01:52:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2584CF804B4
+Date: 12 Apr 2021 08:52:18 +0900
+X-IronPort-AV: E=Sophos;i="5.82,214,1613401200"; d="scan'208";a="77939438"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 12 Apr 2021 08:52:18 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 880244008C46;
- Mon, 12 Apr 2021 08:52:13 +0900 (JST)
-Message-ID: <87pmz0wf9u.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6D18C40E2576;
+ Mon, 12 Apr 2021 08:52:18 +0900 (JST)
+Message-ID: <87o8ekwf9p.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 04/12] ASoC: simple-card-utils: remove
- asoc_simple_parse_xxx()
+Subject: [PATCH v2 05/12] ASoC: simple-card-utils: care multi DAI at
+ asoc_simple_clean_reference()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v98swfar.wl-kuninori.morimoto.gx@renesas.com>
@@ -73,171 +73,37 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ASoC is now supporting multi DAI, but, current
 simple-card / audio-graph are assuming fixed single DAI.
 
-Now, asoc_simple_parse_xxx() macro is assuming single DAI.
-To support multi-CPU/Codec, this patch unpack asoc_simple_parse_xxx()
-macro, and uses "&dai_link->cpus[i]" instead of "dai_link->cpus".
+This patch cares multi DAI at asoc_simple_clean_reference()
+for of_node_put().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/simple_card_utils.h    | 11 -----------
- sound/soc/generic/audio-graph-card.c | 16 ++++++++--------
- sound/soc/generic/simple-card.c      | 18 +++++++++---------
- 3 files changed, 17 insertions(+), 28 deletions(-)
+ sound/soc/generic/simple-card-utils.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index de40f09d226f..23f17ccc7908 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -120,10 +120,6 @@ int asoc_simple_set_dailink_name(struct device *dev,
- int asoc_simple_parse_card_name(struct snd_soc_card *card,
- 				char *prefix);
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index fad9c7f37d2b..6efe3757eff8 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -451,11 +451,15 @@ EXPORT_SYMBOL_GPL(asoc_simple_canonicalize_cpu);
+ int asoc_simple_clean_reference(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_dai_link *dai_link;
+-	int i;
++	struct snd_soc_dai_link_component *cpu;
++	struct snd_soc_dai_link_component *codec;
++	int i, j;
  
--#define asoc_simple_parse_clk_cpu(dev, node, dai_link, simple_dai)		\
--	asoc_simple_parse_clk(dev, node, simple_dai, dai_link->cpus)
--#define asoc_simple_parse_clk_codec(dev, node, dai_link, simple_dai)	\
--	asoc_simple_parse_clk(dev, node, simple_dai, dai_link->codecs)
- int asoc_simple_parse_clk(struct device *dev,
- 			  struct device_node *node,
- 			  struct asoc_simple_dai *simple_dai,
-@@ -136,13 +132,6 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd);
- int asoc_simple_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 				   struct snd_pcm_hw_params *params);
- 
--#define asoc_simple_parse_cpu(node, dai_link, is_single_link)	\
--	asoc_simple_parse_dai(node, dai_link->cpus, is_single_link)
--#define asoc_simple_parse_codec(node, dai_link)	\
--	asoc_simple_parse_dai(node, dai_link->codecs, NULL)
--#define asoc_simple_parse_platform(node, dai_link)	\
--	asoc_simple_parse_dai(node, dai_link->platforms, NULL)
--
- #define asoc_simple_parse_tdm(np, dai)			\
- 	snd_soc_of_parse_tdm_slot(np,	&(dai)->tx_slot_mask,	\
- 					&(dai)->rx_slot_mask,	\
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 3a5bef2a91d3..145f8a19c9e8 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -247,11 +247,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 
- 		dai = dai_props->cpu_dai;
- 
--		ret = asoc_simple_parse_cpu(ep, dai_link, &is_single_links);
-+		ret = asoc_simple_parse_dai(ep, dai_link->cpus, &is_single_links);
- 		if (ret)
- 			goto out_put_node;
- 
--		ret = asoc_simple_parse_clk_cpu(dev, ep, dai_link, dai);
-+		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->cpus);
- 		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -290,11 +290,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai =   dai_props->codec_dai;
- 		cconf = dai_props->codec_conf;
- 
--		ret = asoc_simple_parse_codec(ep, dai_link);
-+		ret = asoc_simple_parse_dai(ep, dai_link->codecs, NULL);
- 		if (ret < 0)
- 			goto out_put_node;
- 
--		ret = asoc_simple_parse_clk_codec(dev, ep, dai_link, dai);
-+		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->codecs);
- 		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -371,11 +371,11 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_cpu(cpu_ep, dai_link, &single_cpu);
-+	ret = asoc_simple_parse_dai(cpu_ep, dai_link->cpus, &single_cpu);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_codec(codec_ep, dai_link);
-+	ret = asoc_simple_parse_dai(codec_ep, dai_link->codecs, NULL);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -387,11 +387,11 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_clk_cpu(dev, cpu_ep, dai_link, cpu_dai);
-+	ret = asoc_simple_parse_clk(dev, cpu_ep, cpu_dai, dai_link->cpus);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_clk_codec(dev, codec_ep, dai_link, codec_dai);
-+	ret = asoc_simple_parse_clk(dev, codec_ep, codec_dai, dai_link->codecs);
- 	if (ret < 0)
- 		return ret;
- 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 7665bbf2a6c0..6a55b8672166 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -148,11 +148,11 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 
- 		dai = dai_props->cpu_dai;
- 
--		ret = asoc_simple_parse_cpu(np, dai_link, &is_single_links);
-+		ret = asoc_simple_parse_dai(np, dai_link->cpus, &is_single_links);
- 		if (ret)
- 			goto out_put_node;
- 
--		ret = asoc_simple_parse_clk_cpu(dev, np, dai_link, dai);
-+		ret = asoc_simple_parse_clk(dev, np, dai, dai_link->cpus);
- 		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -176,11 +176,11 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai   = dai_props->codec_dai;
- 		cconf = dai_props->codec_conf;
- 
--		ret = asoc_simple_parse_codec(np, dai_link);
-+		ret = asoc_simple_parse_dai(np, dai_link->codecs, NULL);
- 		if (ret < 0)
- 			goto out_put_node;
- 
--		ret = asoc_simple_parse_clk_codec(dev, np, dai_link, dai);
-+		ret = asoc_simple_parse_clk(dev, np, dai, dai_link->codecs);
- 		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -260,15 +260,15 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 
- 	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
- 
--	ret = asoc_simple_parse_cpu(cpu, dai_link, &single_cpu);
-+	ret = asoc_simple_parse_dai(cpu, dai_link->cpus, &single_cpu);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = asoc_simple_parse_codec(codec, dai_link);
-+	ret = asoc_simple_parse_dai(codec, dai_link->codecs, NULL);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = asoc_simple_parse_platform(plat, dai_link);
-+	ret = asoc_simple_parse_dai(plat, dai_link->platforms, NULL);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
-@@ -280,11 +280,11 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = asoc_simple_parse_clk_cpu(dev, cpu, dai_link, cpu_dai);
-+	ret = asoc_simple_parse_clk(dev, cpu, cpu_dai, dai_link->cpus);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = asoc_simple_parse_clk_codec(dev, codec, dai_link, codec_dai);
-+	ret = asoc_simple_parse_clk(dev, codec, codec_dai, dai_link->codecs);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
+ 	for_each_card_prelinks(card, i, dai_link) {
+-		of_node_put(dai_link->cpus->of_node);
+-		of_node_put(dai_link->codecs->of_node);
++		for_each_link_cpus(dai_link, j, cpu)
++			of_node_put(cpu->of_node);
++		for_each_link_codecs(dai_link, j, codec)
++			of_node_put(codec->of_node);
+ 	}
+ 	return 0;
+ }
 -- 
 2.25.1
 

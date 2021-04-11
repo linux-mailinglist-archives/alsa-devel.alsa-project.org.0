@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12C3835B77F
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 01:55:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B69C35B780
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 01:55:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 925B615F9;
-	Mon, 12 Apr 2021 01:54:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 925B615F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3A681661;
+	Mon, 12 Apr 2021 01:54:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3A681661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618185317;
-	bh=XXlKH2nMurDWIbxQ7v+8G5QHu/ndv5OQJCOwL2RksiM=;
+	s=default; t=1618185339;
+	bh=UlKfQf7wmGmjjCfWSDIlGPpJHoSh1h6jqQupjZv37nk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JWBiMj7DVYVMu5hsWzUkQFPbwtc8W68cEt8FtlMvqVyGCJTB6YpViacg8Xp0vqZIb
-	 AWKTrjEJvJSGo1Rz/2Vnk5qhCYYDGy3wEqzhqbbSsIQK1zW1+qxyaPzVY4DC5vELzf
-	 D/m+wsjwsE12RFPfU/Fdxf2JGANdLfW6FVyroFy8=
+	b=RggS5ZU00U1+LyLt02y8m69Hl86aL9q5zknor/V6mjXaUAOd9sNXRH7sDqJ4NQ6yZ
+	 XhFRHOiBP3+blL+wP21yDQl6LeOm9tkzEWIYi2xaQ51hnHs92Aacne8xYH8ODsV+4f
+	 3974I8spE93jzEjertUPf302d1+WWNiJcYs+dvSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 067AFF804D1;
-	Mon, 12 Apr 2021 01:52:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DF23F804D8;
+	Mon, 12 Apr 2021 01:52:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D111CF804CF; Mon, 12 Apr 2021 01:52:22 +0200 (CEST)
+ id 2FED5F804DA; Mon, 12 Apr 2021 01:52:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 2584CF804B4
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 01:52:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2584CF804B4
-Date: 12 Apr 2021 08:52:18 +0900
-X-IronPort-AV: E=Sophos;i="5.82,214,1613401200"; d="scan'208";a="77939438"
+ by alsa1.perex.cz (Postfix) with ESMTP id 78A08F804D8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 01:52:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78A08F804D8
+Date: 12 Apr 2021 08:52:23 +0900
+X-IronPort-AV: E=Sophos;i="5.82,214,1613401200"; d="scan'208";a="77939442"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 12 Apr 2021 08:52:18 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 12 Apr 2021 08:52:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6D18C40E2576;
- Mon, 12 Apr 2021 08:52:18 +0900 (JST)
-Message-ID: <87o8ekwf9p.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0A21040E2589;
+ Mon, 12 Apr 2021 08:52:23 +0900 (JST)
+Message-ID: <87mtu4wf9k.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 05/12] ASoC: simple-card-utils: care multi DAI at
- asoc_simple_clean_reference()
+Subject: [PATCH v2 06/12] ASoC: simple-card-utils: indicate dai_fmt if exist
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v98swfar.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,42 +67,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-ASoC is now supporting multi DAI, but, current
-simple-card / audio-graph are assuming fixed single DAI.
-
-This patch cares multi DAI at asoc_simple_clean_reference()
-for of_node_put().
+link->dai_fmt might be 0.
+Don't indicate it in such case when debugging.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card-utils.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ include/sound/simple_card_utils.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index fad9c7f37d2b..6efe3757eff8 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -451,11 +451,15 @@ EXPORT_SYMBOL_GPL(asoc_simple_canonicalize_cpu);
- int asoc_simple_clean_reference(struct snd_soc_card *card)
- {
- 	struct snd_soc_dai_link *dai_link;
--	int i;
-+	struct snd_soc_dai_link_component *cpu;
-+	struct snd_soc_dai_link_component *codec;
-+	int i, j;
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index 23f17ccc7908..080fe7eb560f 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -222,9 +222,8 @@ static inline void asoc_simple_debug_info(struct asoc_simple_priv *priv)
  
- 	for_each_card_prelinks(card, i, dai_link) {
--		of_node_put(dai_link->cpus->of_node);
--		of_node_put(dai_link->codecs->of_node);
-+		for_each_link_cpus(dai_link, j, cpu)
-+			of_node_put(cpu->of_node);
-+		for_each_link_codecs(dai_link, j, codec)
-+			of_node_put(codec->of_node);
- 	}
- 	return 0;
- }
+ 		if (link->name)
+ 			dev_dbg(dev, "dai name = %s\n", link->name);
+-
+-		dev_dbg(dev, "dai format = %04x\n", link->dai_fmt);
+-
++		if (link->dai_fmt)
++			dev_dbg(dev, "dai format = %04x\n", link->dai_fmt);
+ 		if (props->adata.convert_rate)
+ 			dev_dbg(dev, "convert_rate = %d\n",
+ 				props->adata.convert_rate);
 -- 
 2.25.1
 

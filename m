@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EBF335B07F
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Apr 2021 22:49:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2940335B189
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Apr 2021 06:36:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 274A01671;
-	Sat, 10 Apr 2021 22:49:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 274A01671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 933D6167A;
+	Sun, 11 Apr 2021 06:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 933D6167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618087794;
-	bh=4Qw8rfXCZzWn2rTsuw3JBmAn1sKkH0284zKy/0Xnw28=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618115764;
+	bh=63Q0bWmujT4qdXwU6+R+2o2VOh9KC1mC6P9w+tysRb4=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OTKRDy89dIjJdzioePAgocFCExJNAc8DjzvzlIlBfToWDZxAogE7KDgrOXxv8v0Fj
-	 Clkd6s6TIXaJhD9jBIqd2G1byh845JO3CaqJr7BMrbfVuaIrwXoGVLwF+2FayOH70f
-	 wX23pRv8lXyNwZdFv7FwBN4OwhFitXetly5YqZ4g=
+	b=WXFduM/CMZIgIkApTrSIZNcSaEWbzC0pY20TPrtzOeyswhgp/I96axCs+hRm/feR4
+	 2xHYtP7UqRueX5Rq/eKMvwFO7p2mM2xVP5WjDQd2HSMYJZZ0GCRXNjhLpZ/lnbLXis
+	 LTlZp6G796yucjij4sz6VmC6TDY18/dvfelGlToI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 571F6F80246;
-	Sat, 10 Apr 2021 22:48:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1143AF8013D;
+	Sun, 11 Apr 2021 06:34:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B376F8020B; Sat, 10 Apr 2021 22:48:23 +0200 (CEST)
+ id 4CD7AF8022B; Sun, 11 Apr 2021 06:34:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mupuf.org (mupuf.org [167.71.42.210])
- by alsa1.perex.cz (Postfix) with ESMTP id 3E3D7F80113
- for <alsa-devel@alsa-project.org>; Sat, 10 Apr 2021 22:48:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E3D7F80113
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C440CF80164
+ for <alsa-devel@alsa-project.org>; Sun, 11 Apr 2021 06:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C440CF80164
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=spliet.org header.i=@spliet.org
- header.b="rtcv1a0X"
-Received: from [IPv6:2a01:4b00:86b9:100:9ede:1593:85ef:7eda] (unknown
- [IPv6:2a01:4b00:86b9:100:9ede:1593:85ef:7eda])
- by Neelix.spliet.org (Postfix) with ESMTPSA id 03CC4F20011;
- Sat, 10 Apr 2021 21:48:15 +0100 (BST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 Neelix.spliet.org 03CC4F20011
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spliet.org;
- s=default; t=1618087696;
- bh=G/KMHNxJ10tQbDe69nA++juz4fZynQZtQ/TmQnU8gZU=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=rtcv1a0XHMirOX80HxcGaWbLsoJRj6qdJd3vWIhMsW3jREz5OLGRbkylBUe31GukR
- KfHjxMcHhGdDpL4mBMubQ+bys/OMe0DzF4R6g6BgrfpZktq2tA/AFgr1s8EkUvOXgO
- 11vjcgkRFBdspV765d/qjjBXIc5u//qW2yTaT+yI=
-Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
- probe fails
-To: Lukas Wunner <lukas@wunner.de>
-References: <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
- <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
- <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
- <s5h7dpfk06y.wl-tiwai@suse.de>
- <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
- <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
- <CAAd53p4=bSX26QzsPyV1sxADiuVn2sowWyb5JFDoPZQ+ZYoCzA@mail.gmail.com>
- <CACO55tsPx_UC3OPf9Hq9sGdnZg9jH1+B0zOi6EAxTZ13E1tf7A@mail.gmail.com>
- <d01e375f-bf16-a005-ec66-0910956cc616@spliet.org>
- <20210410192314.GB16240@wunner.de>
-From: Roy Spliet <nouveau@spliet.org>
-Message-ID: <bddba2ca-15d5-7fd3-5b64-f4ba7e179ec0@spliet.org>
-Date: Sat, 10 Apr 2021 21:48:15 +0100
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="UjE5s/NJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
+ Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ZBSDlrCkjG4vkDvHMI5cU43kfuwgJ4HH/B5imWZFkjE=; b=UjE5s/NJptD3bZm/PtXkhdG5VG
+ CjI+2/kS9KWzOb6GL7+YanRcMaK3NHfizYujgeyMGW09QXLxlOr/KlGeq3rzehk72g+tTIsSOz6wM
+ 2bkfYBS1WkrVyZueIRv1sC7neJgGaab3XU7E9g42dpPgffGEIUS/hqa38K3CFt7Y253+VbbVy/8ui
+ Mot/Mwpt/umwNZK8Z4m4kym9lc/x5GqXlEX4hcWpGnabuC+iCM3RxgxwrQHyL5HPuupRuFPE5Vs6B
+ 2m9Oh+X8hUny4NXPx7TbzHdNVF6K2mnzHaYEA7Z5EjsDOaPZ7IUKROKuAcWuFh9s90f2KeHE8/Goc
+ 4gaVG6EA==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lVRnc-004irR-1c; Sun, 11 Apr 2021 06:34:16 +0200
+Subject: Re: [PATCH v4] sound: rawmidi: Add framing mode
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ tiwai@suse.de
+References: <20210410120229.1172054-1-coding@diwic.se>
+ <df8cc177-f91d-28b1-c8df-1162dc136657@perex.cz>
+From: David Henningsson <coding@diwic.se>
+Message-ID: <bb91fc79-1b61-b051-1543-b5c8b1633fb3@diwic.se>
+Date: Sun, 11 Apr 2021 06:34:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210410192314.GB16240@wunner.de>
+In-Reply-To: <df8cc177-f91d-28b1-c8df-1162dc136657@perex.cz>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.103.2 at Neelix
-X-Virus-Status: Clean
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>, Karol Herbst <kherbst@redhat.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Aaron Plattner <aplattner@nvidia.com>, Takashi Iwai <tiwai@suse.de>,
- nouveau <nouveau@lists.freedesktop.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
- Bjorn Helgaas <bhelgaas@google.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
+Content-Language: en-US
+X-Authenticated-Id: coding@diwic.se
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,30 +89,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Op 10-04-2021 om 20:23 schreef Lukas Wunner:
-> On Sat, Apr 10, 2021 at 04:51:27PM +0100, Roy Spliet wrote:
->> Can I ask someone with more
->> technical knowledge of snd_hda_intel and vgaswitcheroo to brainstorm about
->> the possible challenges of nouveau taking matters into its own hand rather
->> than keeping this PCI quirk around?
-> 
-> It sounds to me like the HDA is not powered if no cable is plugged in.
-> What is reponsible then for powering it up or down, firmware code on
-> the GPU or in the host's BIOS?
 
-Sometimes the BIOS, but definitely unconditionally the PCI quirk code: 
-https://github.com/torvalds/linux/blob/master/drivers/pci/quirks.c#L5289
+On 2021-04-10 14:23, Jaroslav Kysela wrote:
+> Dne 10. 04. 21 v 14:02 David Henningsson napsal(a):
+>> This commit adds a new framing mode that frames all MIDI data into
+>> 32-byte frames with a timestamp.
+>>
+>> The main benefit is that we can get accurate timestamps even if
+>> userspace wakeup and processing is not immediate.
+>>
+>> Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+>> compared to the in-kernel seq implementation which has a max jitter
+>> of 5 ms during idle and much worse when running scheduler stress tests
+>> in parallel.
+>>
+>> Signed-off-by: David Henningsson <coding@diwic.se>
+>> ---
+>>   include/sound/rawmidi.h     |  2 ++
+>>   include/uapi/sound/asound.h | 26 ++++++++++++++--
+>>   sound/core/rawmidi.c        | 60 +++++++++++++++++++++++++++++++++++--
+>>   3 files changed, 84 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+>> index 334842daa904..b0057a193c31 100644
+>> --- a/include/sound/rawmidi.h
+>> +++ b/include/sound/rawmidi.h
+>> @@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
+>>   	bool opened;			/* open flag */
+>>   	bool append;			/* append flag (merge more streams) */
+>>   	bool active_sensing;		/* send active sensing when close */
+>> +	u8 framing;			/* whether to frame input data */
+>> +	clockid_t clock_type;		/* clock source to use for input framing */
+>>   	int use_count;			/* use counter (for output) */
+>>   	size_t bytes;
+>>   	struct snd_rawmidi *rmidi;
+>> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+>> index 535a7229e1d9..af8e60740218 100644
+>> --- a/include/uapi/sound/asound.h
+>> +++ b/include/uapi/sound/asound.h
+>> @@ -710,7 +710,7 @@ enum {
+>>    *  Raw MIDI section - /dev/snd/midi??
+>>    */
+>>   
+>> -#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
+>> +#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
+>>   
+>>   enum {
+>>   	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
+>> @@ -736,12 +736,34 @@ struct snd_rawmidi_info {
+>>   	unsigned char reserved[64];	/* reserved for future use */
+>>   };
+>>   
+>> +enum {
+>> +	SNDRV_RAWMIDI_FRAMING_NONE = 0,
+>> +	SNDRV_RAWMIDI_FRAMING_TSTAMP,
+>> +	SNDRV_RAWMIDI_FRAMING_LAST = SNDRV_RAWMIDI_FRAMING_TSTAMP,
+>> +};
+>> +
+>> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 16
+>> +
+>> +struct snd_rawmidi_framing_tstamp {
+>> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
+>> +	 * types here. Applications are expected to skip unknown frame types.
+>> +	 */
+>> +	unsigned char frame_type;
+>> +	unsigned char length; /* number of valid bytes in data field */
+>> +	unsigned char reserved[2];
+>> +	unsigned int tv_nsec;		/* nanoseconds */
+>> +	unsigned long long tv_sec;	/* seconds */
+>> +	unsigned char data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
+>> +};
+>> +
+>>   struct snd_rawmidi_params {
+>>   	int stream;
+>>   	size_t buffer_size;		/* queue size in bytes */
+>>   	size_t avail_min;		/* minimum avail bytes for wakeup */
+>>   	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+>> -	unsigned char reserved[16];	/* reserved for future use */
+>> +	unsigned char framing;		/* For input data only, frame incoming data */
+> We can move this flag to above 32-bit word (no_active_sensing). I'm not sure,
+> if we need 8 bits for this. It's first change after 20 years. Another flag may
+> obsolete this one.
 
-(CC Aaron Plattner)
+Not sure what you mean by this, could you show the code? Framing is an 
+enum rather than a flag, in case we find other framing formats with 
+other sizes that would obsolete this one.
 
-> 
-> Ideally, we should try to find out how to control HDA power from the
-> operating system rather than trying to cooperate with whatever firmware
-> is doing.  If we have that capability, the OS should power the HDA up
-> and down as it sees fit.
-> 
-> Thanks,
-> 
-> Lukas
-> 
+>
+>> +	unsigned char clock_type;	/* Type of clock to use for framing, same as clockid_t */
+>> +	unsigned char reserved[14];	/* reserved for future use */
+>>   };
+>>   
+>>   #ifndef __KERNEL__
+>> diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+>> index aca00af93afe..d4b6b9b5c0e4 100644
+>> --- a/sound/core/rawmidi.c
+>> +++ b/sound/core/rawmidi.c
+>> @@ -683,6 +683,8 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
+>>   
+>>   	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
+>>   		return -EINVAL;
+>> +	if (params->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP && params->buffer_size & 0x1f)
+> I would use '(a & b) != 0' here. It's more readable.
+
+Ok; if v4 is not merged I'll change this for v5.
+
+
+>
+>> +		return -EINVAL;
+>>   	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
+>>   		return -EINVAL;
+>>   	if (params->buffer_size != runtime->buffer_size) {
+>> @@ -720,7 +722,16 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
+>>   int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+>>   			     struct snd_rawmidi_params *params)
+>>   {
+>> +	if (params->framing) {
+>> +		if (params->framing > SNDRV_RAWMIDI_FRAMING_LAST)
+>> +			return -EINVAL;
+>> +		/* framing requires a valid clock type */
+>> +		if (params->clock_type != CLOCK_MONOTONIC_RAW && params->clock_type != CLOCK_MONOTONIC)
+>> +			return -EINVAL;
+> The CLOCK_REALTIME may be supported, too. For example, the input subsystem
+> supports those three timestamps and we support this in the PCM interface, too.
+OTOH, the seq subsystem supports only the monotonic clock. And nobody 
+has complained so far. This can be added in a later patch if there is a 
+need for it.
+>
+>> +	}
+>>   	snd_rawmidi_drain_input(substream);
+>> +	substream->framing = params->framing;
+>> +	substream->clock_type = params->clock_type;
+>>   	return resize_runtime_buffer(substream->runtime, params, true);
+>>   }
+>>   EXPORT_SYMBOL(snd_rawmidi_input_params);
+>> @@ -963,6 +974,42 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
+>>   	return -ENOIOCTLCMD;
+>>   }
+>>   
+>> +static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
+>> +			const unsigned char *buffer, int src_count, struct timespec64 *tstamp)
+>> +{
+>> +	struct snd_rawmidi_runtime *runtime = substream->runtime;
+>> +	struct snd_rawmidi_framing_tstamp *dest_ptr;
+>> +	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
+>> +
+>> +	int dest_frames = 0;
+>> +	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
+>> +
+>> +	if (snd_BUG_ON(runtime->hw_ptr & 0x1f || runtime->buffer_size & 0x1f || frame_size != 0x20))
+>> +		return -EINVAL;
+>> +	while (src_count > 0) {
+>> +		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
+>> +			runtime->xruns += src_count;
+>> +			return dest_frames * frame_size;
+>> +		}
+>> +		if (src_count >= SND_RAWMIDI_FRAMING_DATA_LENGTH)
+>> +			frame.length = SND_RAWMIDI_FRAMING_DATA_LENGTH;
+>> +		else {
+>> +			frame.length = src_count;
+>> +			memset(frame.data, 0, SND_RAWMIDI_FRAMING_DATA_LENGTH);
+> We know the length here, so we can skip the zeroing the copied bytes with
+> memcpy().
+
+True, but I believe this would generate slightly faster code because 
+SND_RAWMIDI_FRAMING_DATA_LENGTH is a constant.
+
+// David
 

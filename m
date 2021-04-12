@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BD335C7E2
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 15:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B11E35C7E3
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 15:46:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A189B1614;
-	Mon, 12 Apr 2021 15:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A189B1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09F3F1662;
+	Mon, 12 Apr 2021 15:45:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09F3F1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618235172;
-	bh=siEOLrn9hC/MpfxLgWjVuzV5Fef9OUMGzjU0SsvH0GQ=;
+	s=default; t=1618235187;
+	bh=K1TfiMye+gq8yy9nezl4myzpbjD1KcSGsvFpbbw8jwY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AmqALMRfBOXYd0sQCatVGNuYGzoKGynCOcG+fJAkNaDiWgiD7KuRuG1PGtjV6tEyE
-	 P4W70b/bzNSkjMxdjV6ixxkZ8stxSuqzYg96FVeKvcofe3csaF6E8m/hbW3082eBol
-	 t7/tcCiRGjgM1qInMo93THYbIsXTvI5ZT56ly1iw=
+	b=I8aoIkOikoovcvJ3T5QlS+l3zqE1SOaL+MrZoTAPfYlc2JS3pB+rqvLNClxbzVk3O
+	 LX0mIcL/LrLaqtHK4pC/S4+FU2AC8VhjAk3eRssgKFCKEhFp65CPq0j38ac65IbYGL
+	 CJkXAVXAYq2C7bqp3ftcW75Xp/PDRyCVOWrEwic0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05FA5F80271;
-	Mon, 12 Apr 2021 15:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1112CF8027C;
+	Mon, 12 Apr 2021 15:44:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B4DEF80269; Mon, 12 Apr 2021 15:44:42 +0200 (CEST)
+ id E857CF80277; Mon, 12 Apr 2021 15:44:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id B0C39F800D3
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 15:44:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0C39F800D3
+ by alsa1.perex.cz (Postfix) with ESMTP id 5210FF8013D
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 15:44:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5210FF8013D
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1618235073033514977-webhooks-bot@alsa-project.org>
-References: <1618235073033514977-webhooks-bot@alsa-project.org>
-Subject: wront alsa time
-Message-Id: <20210412134442.1B4DEF80269@alsa1.perex.cz>
-Date: Mon, 12 Apr 2021 15:44:42 +0200 (CEST)
+In-Reply-To: <1618235088118626118-webhooks-bot@alsa-project.org>
+References: <1618235088118626118-webhooks-bot@alsa-project.org>
+Subject: wrong alsa time fix
+Message-Id: <20210412134450.E857CF80277@alsa1.perex.cz>
+Date: Mon, 12 Apr 2021 15:44:50 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #132 was opened from circinusX1:
+alsa-project/alsa-lib issue #132 was edited from circinusX1:
 
 @@ -42,7 +42,7 @@ long long timestamp2ns(snd_htimestamp_t t)
  {

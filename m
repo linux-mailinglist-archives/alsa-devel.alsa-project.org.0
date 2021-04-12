@@ -2,68 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410CC35CAE7
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 18:18:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA83935CB9C
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 18:25:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4C061607;
-	Mon, 12 Apr 2021 18:17:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4C061607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED1C166B;
+	Mon, 12 Apr 2021 18:24:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED1C166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618244281;
-	bh=ekFz9fEyqqYhjAOZlVpJWFrKWd1jI+N1yf0MjhDX4Xs=;
+	s=default; t=1618244714;
+	bh=9HYb50dPi1Ae7Y1/yULlTErcIe6566C6lYN22Ozqe0A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=opozz4so9/ldFdHEzAhlRa7BvJgD7kLk4T5uBPVce284DRtww1Zl/GvssJvv6wa5U
-	 c0R0AWrWhKzQf1f5wo90vn/Znb50kkOGir+PjpG86oPwXTJ4gmUhnmVzQgn+AI4zns
-	 w57SbdGlUK5MJmS6RYMrwXHgzYNWXdTM7diZunxQ=
+	b=ZisO9S1wNaFug1DiRuhp8HXUctl0EBQVIchP4YQxFSGhlGBhT8xtVDIYyj7Jak887
+	 j0nbGNUCNfbhgAFeNcxUXmyjGvpvVGNz6gxi4roUA6cgEvH5GDFB96INAh8CM1CS4S
+	 /YXGnNgOWTdEDO8d45kzZEN/DkuyrL5HknYRjKuc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34179F802D2;
-	Mon, 12 Apr 2021 18:15:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7D55F802D2;
+	Mon, 12 Apr 2021 18:23:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98133F8032C; Mon, 12 Apr 2021 18:15:45 +0200 (CEST)
+ id 95B16F80269; Mon, 12 Apr 2021 18:23:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB7E4F800FF
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 18:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB7E4F800FF
-IronPort-SDR: zBL8UPYjzJWS0HW5eGrHaLGj80Sjj8EY4biIPYiJiYXaXu0A4RwxFjE53G68LvtOt1UrTOAD/o
- 2jZqurBa5qtQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="181355519"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="181355519"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 09:15:31 -0700
-IronPort-SDR: E6GEDMpQKeIoFD1Wyn/m8kTag0J81ejNpkTN9wEq/AQ4EbD7CQIG01o3EMtx9PFRc2ujkipAPf
- er9FIR4UdeCg==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="398428918"
-Received: from pvquach-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.212.124.143])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 09:15:30 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: SOF: Intel: Update ADL P to use its own descriptor
-Date: Mon, 12 Apr 2021 11:15:19 -0500
-Message-Id: <20210412161519.13508-3-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210412161519.13508-1-pierre-louis.bossart@linux.intel.com>
-References: <20210412161519.13508-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71916F8025B
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 18:23:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71916F8025B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EyPosOyL"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A5A7160200;
+ Mon, 12 Apr 2021 16:23:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618244593;
+ bh=9HYb50dPi1Ae7Y1/yULlTErcIe6566C6lYN22Ozqe0A=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=EyPosOyLWYzM5QH/0RID1FW0FkjPOPCftDQsgpoaXR3/91AX31Vkk6Sr/oBaK1WLH
+ PKXpKA1SfP2avStQlqnV6fKFq5rXm0mC5Sqc3BnBQxzU6h0bpmXwJAxoX0N02je9BG
+ J8iC9ZpXNvjpR6brhPVpkLgD+pzs1+wZU5BK/hZF7I+PXSiH8QD6sTvXcJ0FZht2a7
+ EQEPQfCW9IvNIHd3MMgnZHFQVrjjEngokB6rsJfSWStG4W/FpD/66OnfMuc9j7y73F
+ t0L86Ll+GUlrHIEr7KC98VM4sICy9clxuWl5LEtf0ZBl5bySTw0mStiQvyRb/w2Anw
+ 9jdpzHC8n+nPQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.11 13/51] ASoC: max98373: Changed amp shutdown
+ register as volatile
+Date: Mon, 12 Apr 2021 12:22:18 -0400
+Message-Id: <20210412162256.313524-13-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210412162256.313524-1-sashal@kernel.org>
+References: <20210412162256.313524-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Sathya Prakash M R <sathya.prakash.m.r@intel.com>,
- Bard Liao <bard.liao@intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Ryan Lee <ryans.lee@maximintegrated.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,69 +83,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
+From: Ryan Lee <ryans.lee@maximintegrated.com>
 
-ADL P has specific machines and hence having its own
-table will help separate the machines and FW
+[ Upstream commit a23f9099ff1541f15704e96b784d3846d2a4483d ]
 
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+0x20FF(amp global enable) register was defined as non-volatile,
+but it is not. Overheating, overcurrent can cause amp shutdown
+in hardware.
+'regmap_write' compare register readback value before writing
+to avoid same value writing. 'regmap_read' just read cache
+not actual hardware value for the non-volatile register.
+When amp is internally shutdown by some reason, next 'AMP ON'
+command can be ignored because regmap think amp is already ON.
+
+Signed-off-by: Ryan Lee <ryans.lee@maximintegrated.com>
+Link: https://lore.kernel.org/r/20210325033555.29377-1-ryans.lee@maximintegrated.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/pci-tgl.c | 18 +++++++++++++++++-
- sound/soc/sof/intel/tgl.c     |  2 +-
- 2 files changed, 18 insertions(+), 2 deletions(-)
+ sound/soc/codecs/max98373-i2c.c | 1 +
+ sound/soc/codecs/max98373-sdw.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
-index 77cc037655f1..88c3bf404dd7 100644
---- a/sound/soc/sof/intel/pci-tgl.c
-+++ b/sound/soc/sof/intel/pci-tgl.c
-@@ -86,6 +86,22 @@ static const struct sof_dev_desc adls_desc = {
- 	.ops = &sof_tgl_ops,
- };
- 
-+static const struct sof_dev_desc adl_desc = {
-+	.machines               = snd_soc_acpi_intel_adl_machines,
-+	.alt_machines           = snd_soc_acpi_intel_adl_sdw_machines,
-+	.resindex_lpe_base      = 0,
-+	.resindex_pcicfg_base   = -1,
-+	.resindex_imr_base      = -1,
-+	.irqindex_host_ipc      = -1,
-+	.resindex_dma_base      = -1,
-+	.chip_info = &tgl_chip_info,
-+	.default_fw_path = "intel/sof",
-+	.default_tplg_path = "intel/sof-tplg",
-+	.default_fw_filename = "sof-adl.ri",
-+	.nocodec_tplg_filename = "sof-adl-nocodec.tplg",
-+	.ops = &sof_tgl_ops,
-+};
-+
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0xa0c8), /* TGL-LP */
-@@ -99,7 +115,7 @@ static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0x7ad0), /* ADL-S */
- 		.driver_data = (unsigned long)&adls_desc},
- 	{ PCI_DEVICE(0x8086, 0x51c8), /* ADL-P */
--		.driver_data = (unsigned long)&tgl_desc},
-+		.driver_data = (unsigned long)&adl_desc},
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 54ba1b88ba86..2ed788304414 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -125,7 +125,7 @@ const struct snd_sof_dsp_ops sof_tgl_ops = {
- EXPORT_SYMBOL_NS(sof_tgl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc tgl_chip_info = {
--	/* Tigerlake */
-+	/* Tigerlake , Alderlake */
- 	.cores_num = 4,
- 	.init_core_mask = 1,
- 	.host_managed_cores_mask = BIT(0),
+diff --git a/sound/soc/codecs/max98373-i2c.c b/sound/soc/codecs/max98373-i2c.c
+index 85f6865019d4..ddb6436835d7 100644
+--- a/sound/soc/codecs/max98373-i2c.c
++++ b/sound/soc/codecs/max98373-i2c.c
+@@ -446,6 +446,7 @@ static bool max98373_volatile_reg(struct device *dev, unsigned int reg)
+ 	case MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK:
+ 	case MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK:
+ 	case MAX98373_R20B6_BDE_CUR_STATE_READBACK:
++	case MAX98373_R20FF_GLOBAL_SHDN:
+ 	case MAX98373_R21FF_REV_ID:
+ 		return true;
+ 	default:
+diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
+index b8d471d79e93..1a1f97f24601 100644
+--- a/sound/soc/codecs/max98373-sdw.c
++++ b/sound/soc/codecs/max98373-sdw.c
+@@ -220,6 +220,7 @@ static bool max98373_volatile_reg(struct device *dev, unsigned int reg)
+ 	case MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK:
+ 	case MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK:
+ 	case MAX98373_R20B6_BDE_CUR_STATE_READBACK:
++	case MAX98373_R20FF_GLOBAL_SHDN:
+ 	case MAX98373_R21FF_REV_ID:
+ 	/* SoundWire Control Port Registers */
+ 	case MAX98373_R0040_SCP_INIT_STAT_1 ... MAX98373_R0070_SCP_FRAME_CTLR:
 -- 
-2.25.1
+2.30.2
 

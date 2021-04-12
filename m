@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD24035D11D
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 21:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A9A35D12B
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 21:37:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C92115F9;
-	Mon, 12 Apr 2021 21:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C92115F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id F301015F9;
+	Mon, 12 Apr 2021 21:36:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F301015F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618256072;
-	bh=QDhVz9v8TxGJf78jhvkyG4Xxw1ddBbkFeCRG2zd5p7w=;
+	s=default; t=1618256263;
+	bh=BT9D2PQY/A9qzlBn8FOWDIxNGFQd+wO42r+4xFXdvN0=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OodocomClb0a9CaeJKHrgMQooRNQ0RxlHiIsqDPv3s8TXX6nfPwDGwf+cpgM+exPJ
-	 F6DEyXUW8g2K8rPEUXrBHdnG+WjOU4zDdpFkgebR/Wg826ijrnP1zfj+Zp03gdaiS9
-	 ClKK0TDNwoHzYdxzn1JBKPPYyCkK7QCiBoY4F+gs=
+	b=O5v+5/+SgLgy91oU8ol7s3q9kzWRNPGfFCiM67XCUBVGoE0bJhV0AqGpi9H1OxmrU
+	 vLe53Re4SQ2GWIeHQYuvwmkteBYCKtfJNJm/HZjgWKCpfb7SXY5xw+G0Je1LQWrAmd
+	 evhxXW0+PQqJ88jTjP/llnA6j+UDxFAgkBcEby4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82663F800D3;
-	Mon, 12 Apr 2021 21:33:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E3DCF80271;
+	Mon, 12 Apr 2021 21:36:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03DADF80269; Mon, 12 Apr 2021 21:33:01 +0200 (CEST)
+ id 092BEF80269; Mon, 12 Apr 2021 21:36:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8E21F8013D
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 21:32:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E21F8013D
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_29,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mupuf.org (mupuf.org [167.71.42.210])
+ by alsa1.perex.cz (Postfix) with ESMTP id 17D57F800D3
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 21:36:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D57F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="Os3IikV3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
- Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ygX1adLghyhtNSREBhi5HYWIXSM/gHlI6YHSur1jB4U=; b=Os3IikV3QmTE1qKeUWtrms0ouF
- iYWDUcbyz23Gw8m+qoJ1edy0c9ImwOj5uSrtT5025FmiraSkeE9y/DNVQioxKV29SzL1mtdb5STTe
- Pr8pkaFdtuELti2rs7aYLnnGtNQ647HhixY5I+dwXn7oMIrzHwBb7Yzz+aNS2zKaM16vNtOE1eOSG
- c0kt+IdAIzpYKhJRTY8Q+HgoW/H89KEoccniLln2bo17kcu4eN+ANXvrEEvTx114fT16dhKFxp/uU
- VMgB5TA8P3AK/5FWL7NFy0W1Y3d9ENFM/wv9RWboTG0WKuwP3bRv1fBfvc44g5FIQ10VR7TXYyHae
- ODTC49hA==;
-Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
- helo=[192.168.5.7]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
- (envelope-from <coding@diwic.se>)
- id 1lW2Il-0095Mv-BH; Mon, 12 Apr 2021 21:32:51 +0200
-Subject: Re: [PATCH v4] sound: rawmidi: Add framing mode
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210410120229.1172054-1-coding@diwic.se>
- <s5him4r3k1d.wl-tiwai@suse.de>
-From: David Henningsson <coding@diwic.se>
-Message-ID: <e912ae71-5b52-8b1f-b3fa-b9bb6420be29@diwic.se>
-Date: Mon, 12 Apr 2021 21:32:37 +0200
+ dkim=pass (1024-bit key) header.d=spliet.org header.i=@spliet.org
+ header.b="TZg4+Wca"
+Received: from [IPv6:2a01:4b00:86b9:100:9ede:1593:85ef:7eda] (unknown
+ [IPv6:2a01:4b00:86b9:100:9ede:1593:85ef:7eda])
+ by Neelix.spliet.org (Postfix) with ESMTPSA id 3FAA2F20265;
+ Mon, 12 Apr 2021 20:36:07 +0100 (BST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 Neelix.spliet.org 3FAA2F20265
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spliet.org;
+ s=default; t=1618256167;
+ bh=PQMWnLDobyV6PaTCOzKAia2Nc3vey5R4rZ9e3XJYCyE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=TZg4+Wca4JRaQ+cJiq66gGMdOiitY9MgNVJfwVs4a+QYzYWt5GAgWE535lgplSUFM
+ FaANQ74yH2mHoPqwpVFObB9twctFFTtqE4hikQRydSwX1WAJdrRj62EcCRK2qQfFGI
+ /4e//5Udyp3Ag1cWvqXbmaeGSgVfSpb4Nat2E73U=
+Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
+ probe fails
+To: Aaron Plattner <aplattner@nvidia.com>, Lukas Wunner <lukas@wunner.de>
+References: <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
+ <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
+ <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
+ <s5h7dpfk06y.wl-tiwai@suse.de>
+ <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
+ <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
+ <CAAd53p4=bSX26QzsPyV1sxADiuVn2sowWyb5JFDoPZQ+ZYoCzA@mail.gmail.com>
+ <CACO55tsPx_UC3OPf9Hq9sGdnZg9jH1+B0zOi6EAxTZ13E1tf7A@mail.gmail.com>
+ <d01e375f-bf16-a005-ec66-0910956cc616@spliet.org>
+ <20210410192314.GB16240@wunner.de>
+ <bddba2ca-15d5-7fd3-5b64-f4ba7e179ec0@spliet.org>
+ <81b2a8c7-5b0b-b8fa-fbed-f164128de7a3@nvidia.com>
+From: Roy Spliet <nouveau@spliet.org>
+Message-ID: <8d358110-769d-b984-d2ec-825dc2c3d77a@spliet.org>
+Date: Mon, 12 Apr 2021 20:36:06 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <s5him4r3k1d.wl-tiwai@suse.de>
+In-Reply-To: <81b2a8c7-5b0b-b8fa-fbed-f164128de7a3@nvidia.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Authenticated-Id: coding@diwic.se
-Cc: alsa-devel@alsa-project.org
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.103.2 at Neelix
+X-Virus-Status: Clean
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, Karol Herbst <kherbst@redhat.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ nouveau <nouveau@lists.freedesktop.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,119 +101,142 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello Aaron,
 
-On 2021-04-12 11:54, Takashi Iwai wrote:
-> On Sat, 10 Apr 2021 14:02:29 +0200,
-> David Henningsson wrote:
->> +struct snd_rawmidi_framing_tstamp {
->> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
->> +	 * types here. Applications are expected to skip unknown frame types.
->> +	 */
->> +	unsigned char frame_type;
->> +	unsigned char length; /* number of valid bytes in data field */
->> +	unsigned char reserved[2];
->> +	unsigned int tv_nsec;		/* nanoseconds */
->> +	unsigned long long tv_sec;	/* seconds */
-> Please use u32 and u64 here instead of int and long long.
-> We really want to be specific about the field types.
->
->> +static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
->> +			const unsigned char *buffer, int src_count, struct timespec64 *tstamp)
-> Pass const to tstamp.
->
->> +{
->> +	struct snd_rawmidi_runtime *runtime = substream->runtime;
->> +	struct snd_rawmidi_framing_tstamp *dest_ptr;
->> +	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
->> +
->> +	int dest_frames = 0;
->> +	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
->> +
->> +	if (snd_BUG_ON(runtime->hw_ptr & 0x1f || runtime->buffer_size & 0x1f || frame_size != 0x20))
-> The frame_size check should be rather BUILD_BUG_ON() as it's constant.
-> And the buffer_size check is... well, not sure whether we need here.
-> snd_BUG_ON() is performed even if there is no debug option set (but
-> the debug message is suppressed).
->
->> +		return -EINVAL;
->> +	while (src_count > 0) {
->> +		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
->> +			runtime->xruns += src_count;
->> +			return dest_frames * frame_size;
-> Better to break the loop for unifying the exit path.
->
->> @@ -987,8 +1035,15 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
->>   			  "snd_rawmidi_receive: input is not active!!!\n");
->>   		return -EINVAL;
->>   	}
->> -	spin_lock_irqsave(&runtime->lock, flags);
->> -	if (count == 1) {	/* special case, faster code */
->> +	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
->> +		if (substream->clock_type == CLOCK_MONOTONIC_RAW)
->> +			ktime_get_raw_ts64(&ts64);
->> +		else
->> +			ktime_get_ts64(&ts64);
->> +		spin_lock_irqsave(&runtime->lock, flags);
->> +		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
->> +	} else if (count == 1) {	/* special case, faster code */
->> +		spin_lock_irqsave(&runtime->lock, flags);
->>   		substream->bytes++;
->>   		if (runtime->avail < runtime->buffer_size) {
->>   			runtime->buffer[runtime->hw_ptr++] = buffer[0];
->> @@ -999,6 +1054,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
->>   			runtime->xruns++;
->>   		}
->>   	} else {
->> +		spin_lock_irqsave(&runtime->lock, flags);
->>   		substream->bytes += count;
->>   		count1 = runtime->buffer_size - runtime->hw_ptr;
->>   		if (count1 > count)
-> It's error-prone to put the spin_lock_irqsave() in various places.
-> If you want to get the timestamp outside the spinlock inevitably, just
-> do it before the spin_lock_irqsave() line,
->
-> 	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
-> 		if (substream->clock_type == CLOCK_MONOTONIC_RAW)
-> 			ktime_get_raw_ts64(&ts64);
-> 		else
-> 			ktime_get_ts64(&ts64);
-> 	}
+Thanks for your insights. A follow-up query and some observations in-line.
 
-Thanks for the review.
+Op 12-04-2021 om 20:06 schreef Aaron Plattner:
+> On 4/10/21 1:48 PM, Roy Spliet wrote:
+>> Op 10-04-2021 om 20:23 schreef Lukas Wunner:
+>>> On Sat, Apr 10, 2021 at 04:51:27PM +0100, Roy Spliet wrote:
+>>>> Can I ask someone with more
+>>>> technical knowledge of snd_hda_intel and vgaswitcheroo to brainstorm 
+>>>> about
+>>>> the possible challenges of nouveau taking matters into its own hand 
+>>>> rather
+>>>> than keeping this PCI quirk around?
+>>>
+>>> It sounds to me like the HDA is not powered if no cable is plugged in.
+>>> What is reponsible then for powering it up or down, firmware code on
+>>> the GPU or in the host's BIOS?
+>>
+>> Sometimes the BIOS, but definitely unconditionally the PCI quirk code: 
+>> https://github.com/torvalds/linux/blob/master/drivers/pci/quirks.c#L5289
+>>
+>> (CC Aaron Plattner)
+> 
+> My basic understanding is that the audio function stops responding 
+> whenever the graphics function is powered off. So the requirement here 
+> is that the audio driver can't try to talk to the audio function while 
+> the graphics function is asleep, and must trigger a graphics function 
+> wakeup before trying to communicate with the audio function.
 
-I'll refactor this part into a separate function. The rest I'll just fix 
-the way you suggest.
+I believe that vgaswitcheroo takes care of this for us.
 
->
-> 	spin_lock_irqsave(&runtime->lock, flags);
-> 	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
-> 		....
-> 	} else if (count == 1) {	/* special case, faster code */
-> 		....
->
-> And, the patch misses the change in rawmidi_compat.c.  It's also the
-> reason we'd like to avoid the bit fields usage, too.  (Not only that,
-> though.)
->
-> One thing I'm considering is how to inform the current framing and the
-> timestamp mode to user-space.  Currently we have only the ioctl to set
-> the values but not to inquiry.
+> I think 
+> there are also requirements about the audio function needing to be awake 
+> when the graphics driver is updating the ELD, but I'm not sure.
+> 
+> This is harder on Windows because the audio driver lives in its own 
+> little world doing its own thing but on Linux we can do better.
+> 
+>>> Ideally, we should try to find out how to control HDA power from the
+>>> operating system rather than trying to cooperate with whatever firmware
+>>> is doing.  If we have that capability, the OS should power the HDA up
+>>> and down as it sees fit.
+> 
+> After system boot, I don't think there's any firmware involved, but I'm 
+> not super familiar with the low-level details and it's possible the 
+> situation changed since I last looked at it.
+> 
+> I think the problem with having nouveau write this quirk is that the 
+> kernel will need to re-probe the PCI device to notice that it has 
+> suddenly become a multi-function device with an audio function, and 
+> hotplug the audio driver. I originally looked into trying to do that but 
+> it was tricky because the PCI subsystem didn't really have a mechanism 
+> for a single-function device to become a multi-function device on the 
+> fly and it seemed easier to enable it early on during bus enumeration. 
+> That way the kernel sees both functions all the time without anything 
+> else having to be special about this configuration.
 
-Yes, this is the same as we do with PCM. There is no ioctl to get 
-current hw/sw params either.
+Right, so for a little more context: a while ago I noticed that my 
+laptop (lucky me, Asus K501UB) has a 940M with HDA but no codec. Seems 
+legit, given how this GPU has no displays attached; they're all hooked 
+up to the Intel integrated GPU. That threw off the snd_hda_intel 
+mid-probe, and as a result didn't permit runpm, keeping the entire GPU, 
+PCIe bus and thus the CPU package awake. A bit of hackerly later we 
+decided to continue probing without a codec, and now my laptop is happy, 
+but...
+A new problem popped up with several other NVIDIA GPUs that expose their 
+HDA subdevice, but somehow its inaccessible. Relevant lines from a 
+users' log:
 
-> Should we put those new information into the info or the status ioctl?
+[    3.031222] MXM: GUID detected in BIOS
+[    3.031280] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index 
+(0x000000003) is beyond end of object (length 0x0) (20200925/exoparg2-393)
+[    3.031352] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to 
+previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+[    3.031419] ACPI: \_SB_.PCI0.GFX0: failed to evaluate _DSM (0x300b)
+[    3.031424] ACPI Warning: \_SB.PCI0.GFX0._DSM: Argument #4 type 
+mismatch - Found [Buffer], ACPI requires [Package] (20200925/nsarguments-61)
+[    3.031619] pci 0000:00:02.0: optimus capabilities: enabled, status 
+dynamic power,
+[    3.031667] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index 
+(0x000000003) is beyond end of object (length 0x0) (20200925/exoparg2-393)
+[    3.031731] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to 
+previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+[    3.031791] ACPI Error: Aborting method \_SB.PCI0.PEG0.PEGP._DSM due 
+to previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+[    3.031856] ACPI: \_SB_.PCI0.PEG0.PEGP: failed to evaluate _DSM (0x300b)
+[    3.031859] ACPI Warning: \_SB.PCI0.PEG0.PEGP._DSM: Argument #4 type 
+mismatch - Found [Buffer], ACPI requires [Package] (20200925/nsarguments-61)
+[    3.032058] pci 0000:01:00.0: optimus capabilities: enabled, status 
+dynamic power,
+[    3.032061] VGA switcheroo: detected Optimus DSM method 
+\_SB_.PCI0.PEG0.PEGP handle
+[    3.032323] checking generic (d0000000 410000) vs hw (f6000000 1000000)
+[    3.032325] checking generic (d0000000 410000) vs hw (e0000000 10000000)
+[    3.032326] checking generic (d0000000 410000) vs hw (f0000000 2000000)
+[    3.032410] nouveau 0000:01:00.0: NVIDIA GK107 (0e71f0a2)
+[    3.042385] nouveau 0000:01:00.0: bios: version 80.07.a0.00.11
+--- snip ---
+[    8.951478] snd_hda_intel 0000:01:00.1: can't change power state from 
+D3cold to D0 (config space inaccessible)
+[    8.951509] snd_hda_intel 0000:01:00.1: can't change power state from 
+D3hot to D0 (config space inaccessible)
+[    8.951608] snd_hda_intel 0000:01:00.1: Disabling MSI
+[    8.951621] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio 
+client
+[    8.952461] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops 
+i915_audio_component_bind_ops [i915])
+[    8.952642] snd_hda_intel 0000:01:00.1: number of I/O streams is 30, 
+forcing separate stream tags
 
-I would prefer neither, because it is not necessary and creates an 
-inconsistency with PCM.
+Now I don't know what's going on, but the snd_hda_intel messages are 
+ominous. And so are the ACPI warnings. But I don't know how much these 
+two are related.
 
-> If so, it might be also helpful to inform the frame byte size
-> explicitly there, instead of assuming only a constant.
+You say that it is desirable to switch on HDA at boot-time because the 
+PCI subsystem doesn't play nicely with changing a device to 
+multi-function. That rules out the option of only enabling the HDA 
+device once a cable is plugged in. Are there any other trap doors that 
+snd_hda_intel needs to navigate around to make this work fault free on 
+all hardware, such as:
+- Codecs not revealing themselves until a display is plugged in, 
+requiring perhaps a "codec reprobe" and "codec remove" event from 
+nouveau/rm to snd_hda_intel,
+- Borked BIOSes just blindly assigning the MMIO space of the HDA device 
+to another device, or nothing at all,
+- ... other things that might give any of us nightmares and heart burn?
 
-If userspace has verified the kernel protocol version and successfully 
-calledSNDRV_RAWMIDI_IOCTL_PARAMS with the framing byte/bitfield/whatever 
-set, then userspace can be sure that the frames are according to the 
-snd_rawmidi_framing_tstamp struct. Knowing the frame byte size but not 
-knowing the exact format is of no use to userspace anyway, right?
+Thanks!
 
-// David
+Roy
+
+> 
+> -- Aaron
+> 
+>>> Thanks,
+>>>
+>>> Lukas
+

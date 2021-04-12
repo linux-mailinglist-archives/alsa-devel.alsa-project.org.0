@@ -2,75 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C73CA35C3F8
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 12:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A83B35C429
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 12:39:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 471A315E5;
-	Mon, 12 Apr 2021 12:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 471A315E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FC6A15E5;
+	Mon, 12 Apr 2021 12:38:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FC6A15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618223313;
-	bh=s84ZpemkVrv5IGrWc9awIFRLdcPHmIK146XGv87TtJA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618223943;
+	bh=fN7ZSVccSFY1KHDEtejBd4nrRorv3qSRRZUypQgPRbI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KC8s9WHmHNlsoO4xgaBAvYC7Jsz+ipAbF/0G+9Hg0Mk0uoRAe3CnqgLnmUm8a5z8r
-	 /vghoChkTulqDTf+k56chsi/Lz0W5c+SKSzaotMbBnyaMtrZc+OS+r3LQKIHTC21ho
-	 0WP8BJnca+6vHETlmmK8HJcyl38Xs1M6VKGiJ6bo=
+	b=oykYL9ZpxjjGCNAi97cnVSCWTglZUmCvIJaa8F3Dfe8X4KNn3GgV4bKEzQ8H8nazq
+	 YOZsGpMB4y8h6XqqU2J5t9/G0Upkd6qtq3TFE1z0cS+kPyLpGa5IXcG/3++R8E9SE1
+	 7JlqrhUy7HkAHriFUfVV9+iJyWookrkFI0d+cTFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EA12F8013D;
-	Mon, 12 Apr 2021 12:27:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEE3AF8025B;
+	Mon, 12 Apr 2021 12:37:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0925F80269; Mon, 12 Apr 2021 12:27:02 +0200 (CEST)
+ id B8FE3F80269; Mon, 12 Apr 2021 12:37:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10B33F8013D
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 12:26:53 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3D4FDA003F;
- Mon, 12 Apr 2021 12:26:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3D4FDA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1618223213; bh=mP7jD+Wdbl5nyRM3he7m+UhPkVQWKpg3SscUsz2bNas=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=jBB8SbdhByTf+UcGBVfbWPZicwUqOMFBPYb9RoNID8ksi79HUNgOIpQWZ/gfu9G2N
- DAg8BRHKXCEv3UAxyDDqfrX8L/hfWg1DD2C8TxnQ3f8djhD9n8dnx7W750zgV+PhT9
- 6sxipYoiZeSk7X4WBrRPVGk7ABGksaE35mloa5KY=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODYSUB_10,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 12 Apr 2021 12:26:49 +0200 (CEST)
-Subject: Re: [PATCH v4] sound: rawmidi: Add framing mode
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210410120229.1172054-1-coding@diwic.se>
- <df8cc177-f91d-28b1-c8df-1162dc136657@perex.cz>
- <bb91fc79-1b61-b051-1543-b5c8b1633fb3@diwic.se>
- <87f906a5-b77f-d3e8-29d7-7ce6e35c452a@perex.cz>
- <s5hk0p73l36.wl-tiwai@suse.de>
- <822b7ebf-71ac-2f84-731d-65e772eea1ff@perex.cz>
- <s5hfszv3jjq.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <a2d31a49-ec28-8b54-6632-3d24c96b624a@perex.cz>
-Date: Mon, 12 Apr 2021 12:26:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26C46F8013D
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 12:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26C46F8013D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kOgSVrTv"
+Received: by mail-qt1-x82f.google.com with SMTP id y2so9471175qtw.13
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 03:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bo8mvSYgZDjy66LmKu/ZIlVeG65o3LRc4C5lySI31o0=;
+ b=kOgSVrTvPAMg2d+nBvOVExke/Q4dQyKbJEEMstV9qrxCr82oe8H6qI/5SUL2aLnUEI
+ uP+v/rrg0zki7TyewsiUrHHgUnwC7QrFdRfHRGUaxWw9Ty6AaJDS8LO1OzixbrRkLyHn
+ s3jWmpnCYy5kE3jkYK8jVyL6gvHBJB/4/t696VYUSqBurjwEoCdTWZFq8SlVpW9fvszO
+ uAmX8cCq1h8HL7uTxED6lU5mSvHdmnLThCicbR7BRwUsBg6wGb1onjC6kl8tLVWaj7e7
+ SqFgUnzZDMf/E/2vKjtJTjX0F9rulqkCsYAro71xabjOC/RPLE03EU1ED4AFmLANNEb4
+ aeNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bo8mvSYgZDjy66LmKu/ZIlVeG65o3LRc4C5lySI31o0=;
+ b=L1a9M2aIMazNOL1j75L8CVzQDhZ2udVXZ0SVkwmJABZgrub8tafiiQx7UT5SvG+BCI
+ mXdGiU+xk2DrKztv1sZdXhQjHXNGgsLMzHM0swGVFNIB7b5sAfFf4Xd78VrPVICJrzCn
+ VeP+D2GNijs2FILux5X6Jlg1JfuAA2oP9EzOAK4sRVY2rF6yTKSehHGoOZXlLcPxG9I5
+ 0Q1I4BuErZ216ZX2x0psN6OGBavGmyW6WvqaRSWSIE8u//SyCbybUQ8VhzdbQAUGjFHj
+ kDrG21iWPbkXdXmmG0WH4dsdomdeNf3bbuKIAcLH2L/0xKiCn5UJa6VP1jb5vWrS/Z4z
+ uGig==
+X-Gm-Message-State: AOAM533PRkZ6qk17lD5isyCH39sqTSheopI9oinC0FgO1kssrqhKchWT
+ bibTpkzyvCPyPWxh9caqB0wooxjys3wb18XjxGU=
+X-Google-Smtp-Source: ABdhPJy7A/PVwZOhTH2h4yTMjXXVVZoc0+1I5kzqAhnTEuD3iW1ZwNj7CyPG6U5iiLWnKHaJEwHzQY3wG/1jeJg+KCs=
+X-Received: by 2002:ac8:7f93:: with SMTP id z19mr17357374qtj.54.1618223834349; 
+ Mon, 12 Apr 2021 03:37:14 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5hfszv3jjq.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, David Henningsson <coding@diwic.se>
+References: <1616141203-13344-1-git-send-email-shengjiu.wang@nxp.com>
+ <20210411144157.GA80935@roeck-us.net>
+In-Reply-To: <20210411144157.GA80935@roeck-us.net>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 12 Apr 2021 18:37:03 +0800
+Message-ID: <CAA+D8AOKuGivfPxKRL6r6z1=dbLCWDHR0BRAi=T1uOHq6cUd-w@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,68 +99,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 12. 04. 21 v 12:04 Takashi Iwai napsal(a):
-> On Mon, 12 Apr 2021 11:43:02 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 12. 04. 21 v 11:31 Takashi Iwai napsal(a):
->>> On Sun, 11 Apr 2021 19:52:21 +0200,
->>> Jaroslav Kysela wrote:
->>>>>>>   struct snd_rawmidi_params {
->>>>>>>   	int stream;
->>>>>>>   	size_t buffer_size;		/* queue size in bytes */
->>>>>>>   	size_t avail_min;		/* minimum avail bytes for wakeup */
->>>>>>>   	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
->>>>>>> -	unsigned char reserved[16];	/* reserved for future use */
->>>>>>> +	unsigned char framing;		/* For input data only, frame incoming data */
->>>>>> We can move this flag to above 32-bit word (no_active_sensing). I'm not sure,
->>>>>> if we need 8 bits for this. It's first change after 20 years. Another flag may
->>>>>> obsolete this one.
->>>>>
->>>>> Not sure what you mean by this, could you show the code? Framing is an 
->>>>> enum rather than a flag, in case we find other framing formats with 
->>>>> other sizes that would obsolete this one.
->>>>
->>>> unsigned int no_active_sensing: 1;
->>>> unsigned int framing32: 1;
->>>> unsigned int framing64: 1; /* future extension, framing32 == 0 in this case */
->>>>
->>>> or:
->>>>
->>>> unsigned int framing_mode: 3;	/* three bits for future types */
->>>>
->>>> perhaps also:
->>>>
->>>> unsigned int clock_type: 3;	/* three bits for the clock type selection */
->>>
->>> The usage of bit fields in an ioctl struct is a bad idea from the
->>> compat layer POV.  Let's avoid it.
->>
->> What exactly do you mean?
-> 
-> The compat layer has the hard time to deal with the conversion of bit
-> fields to a different struct.  And, it's a nightmare for the emulator
-> like QEMU.  If it has to convert the ioctl struct, it has to consider
-> about the byte order as well (and there is no strict definition how to
-> put the bit fields in C language).
+On Sun, Apr 11, 2021 at 10:43 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> On Fri, Mar 19, 2021 at 04:06:43PM +0800, Shengjiu Wang wrote:
+> > When there is power domain bind with bus clock,
+> >
+> > The call flow:
+> > devm_regmap_init_mmio_clk
+> >    - clk_prepare()
+> >       - clk_pm_runtime_get()
+> >
+> > cause the power domain of clock always be enabled after
+> > regmap_init(). which impact the power consumption.
+> >
+> > So use devm_regmap_init_mmio instead of
+> > devm_regmap_init_mmio_clk, then explicitly enable clock when
+> > using by pm_runtime_get(), if CONFIG_PM=n, then
+> > fsl_sai_runtime_resume will be explicitly called.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+>
+> This patch results in a crash when running mcimx6ul-evk in qemu.
+> Reverting it fixes the problem.
+>
+> Crash and bisect logs attached.
+>
+> Guenter
+>
+> ---
+> [   19.196778] 8<--- cut here ---
+> [   19.197011] Unhandled fault: external abort on non-linefetch (0x808) at 0xd1588000
+> [   19.197135] pgd = (ptrval)
+> [   19.197203] [d1588000] *pgd=824da811, *pte=0202c653, *ppte=0202c453
+> [   19.197764] Internal error: : 808 [#1] SMP ARM
+> [   19.197953] Modules linked in:
+> [   19.198108] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.12.0-rc6-next-20210409 #1
+> [   19.198234] Hardware name: Freescale i.MX6 Ultralite (Device Tree)
+> [   19.198354] PC is at regmap_mmio_write32le+0x24/0x2c
+> [   19.198482] LR is at regmap_mmio_write32le+0x1c/0x2c
+> [   19.198544] pc : [<c0965d6c>]    lr : [<c0965d64>]    psr: 60000093
+> [   19.198611] sp : c20b5cf0  ip : 00000000  fp : c017a344
+> [   19.198669] r10: c217c1b0  r9 : c20b4000  r8 : c26fcc00
+> [   19.198729] r7 : 01000000  r6 : c26ff580  r5 : 00000000  r4 : 01000000
+> [   19.198801] r3 : d1588000  r2 : 01000000  r1 : d1588000  r0 : c26ff580
+> [   19.198896] Flags: nZCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment none
+> [   19.198982] Control: 10c5387d  Table: 826bc06a  DAC: 00000051
+> [   19.199060] Register r0 information: slab kmalloc-64 start c26ff580 pointer offset 0 size 64
+> [   19.199421] Register r1 information: 0-page vmalloc region starting at 0xd1588000 allocated at __devm_ioremap+0x90/0xa4
+> [   19.199587] Register r2 information: non-paged memory
+> [   19.199667] Register r3 information: 0-page vmalloc region starting at 0xd1588000 allocated at __devm_ioremap+0x90/0xa4
+> [   19.199774] Register r4 information: non-paged memory
+> [   19.199832] Register r5 information: NULL pointer
+> [   19.199888] Register r6 information: slab kmalloc-64 start c26ff580 pointer offset 0 size 64
+> [   19.199998] Register r7 information: non-paged memory
+> [   19.200056] Register r8 information: slab kmalloc-1k start c26fcc00 pointer offset 0 size 1024
+> [   19.200167] Register r9 information: non-slab/vmalloc memory
+> [   19.200252] Register r10 information: slab kmalloc-1k start c217c000 pointer offset 432 size 1024
+> [   19.200367] Register r11 information: non-slab/vmalloc memory
+> [   19.200431] Register r12 information: NULL pointer
+> [   19.200495] Process swapper/0 (pid: 1, stack limit = 0x(ptrval))
+> [   19.200596] Stack: (0xc20b5cf0 to 0xc20b6000)
+> [   19.200755] 5ce0:                                     c26ff580 00000000 01000000 c0965f40
+> [   19.200932] 5d00: c26fcc00 00000000 00000000 c095f3cc c20c0000 c26fcc00 00000000 01000000
+> [   19.201096] 5d20: c269b840 00000000 c20b4000 c217c1b0 c017a344 c0961130 00000080 c217c010
+> [   19.201259] 5d40: c26ff5c0 c0d21354 c217c010 c0946e24 00000000 c0946e24 c217c114 c094a894
+> [   19.201420] 5d60: c217c010 c0946e24 c2173810 c217c114 c2173914 c20b4000 c217c1b0 c094a930
+> [   19.201582] 5d80: c217c010 c0946e24 c2173810 c094a468 c20c0000 c20b4000 c094a6a0 60000013
+> [   19.201744] 5da0: 00000002 cbdc8024 c217c114 5bdc6b72 60000013 60000013 c217c114 00000004
+> [   19.201906] 5dc0: 00000002 cbdc8024 c20b4000 c269b880 00000000 c094a6b4 c269b840 c217c010
+> [   19.202067] 5de0: c217c000 c0d2176c 00000000 00000000 00000000 00000000 c2176340 c21d5c00
+> [   19.202228] 5e00: 00000000 6b6c636d 00000033 5bdc6b72 00000000 00000000 c217c010 c18d47fc
+> [   19.202389] 5e20: c1f70c20 00000000 c18d47fc 00000000 00000000 c093f540 c217c010 c1f70c1c
+> [   19.202551] 5e40: 00000000 c1f70c20 00000000 c093cdec c217c010 c18d47fc c18d47fc c20b4000
+> [   19.202712] 5e60: 00000000 c166e854 c20af880 c093d0fc c217c010 00000000 c18d47fc c093d418
+> [   19.202873] 5e80: 00000000 c18d47fc c217c010 c093d484 00000000 c18d47fc c093d420 c093aefc
+> [   19.203035] 5ea0: c26fe980 c20ae2b0 c214be94 5bdc6b72 c20ae2e4 c18d47fc c26fe980 00000000
+> [   19.203196] 5ec0: c187bcf8 c093c0b8 c14db3fc c1661678 c18f4c20 c18d47fc c1661678 c18f4c20
+> [   19.203357] 5ee0: c17093d0 c093e1e4 c20b4000 c1661678 c18f4c20 c01022b0 00000000 00000000
+> [   19.203533] 5f00: c20af8ec 00000000 c17e0b10 c0f39294 c17093d0 ffffffff c14a1cb8 c20b4000
+> [   19.203696] 5f20: c18f4c20 c17093d0 c15644e0 c18ff000 c166e854 000001c6 00000000 c01af994
+> [   19.203858] 5f40: 00000000 5bdc6b72 c168dca8 00000007 c166e874 c15644e0 c18ff000 c166e854
+> [   19.204019] 5f60: c20af880 c16010a0 00000006 00000006 00000000 c16003e8 c0f46080 000001c6
+> [   19.204180] 5f80: c17097d0 00000000 c0f3a784 00000000 00000000 00000000 00000000 00000000
+> [   19.204342] 5fa0: 00000000 c0f3a78c 00000000 c010013c 00000000 00000000 00000000 00000000
+> [   19.204503] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+> [   19.204663] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000 00000000 00000000
+> [   19.204828] [<c0965d6c>] (regmap_mmio_write32le) from [<c0965f40>] (regmap_mmio_write+0x3c/0x54)
+> [   19.204947] [<c0965f40>] (regmap_mmio_write) from [<c095f3cc>] (_regmap_write+0x4c/0x1f4)
+> [   19.205034] [<c095f3cc>] (_regmap_write) from [<c0961130>] (regmap_write+0x3c/0x60)
+> [   19.205114] [<c0961130>] (regmap_write) from [<c0d21354>] (fsl_sai_runtime_resume+0x9c/0x1ec)
+> [   19.205206] [<c0d21354>] (fsl_sai_runtime_resume) from [<c094a894>] (__rpm_callback+0xb4/0x130)
+> [   19.205297] [<c094a894>] (__rpm_callback) from [<c094a930>] (rpm_callback+0x20/0x80)
+> [   19.205379] [<c094a930>] (rpm_callback) from [<c094a468>] (rpm_resume+0x604/0x7ec)
+> [   19.205459] [<c094a468>] (rpm_resume) from [<c094a6b4>] (__pm_runtime_resume+0x64/0xa4)
+> [   19.205543] [<c094a6b4>] (__pm_runtime_resume) from [<c0d2176c>] (fsl_sai_probe+0x2c8/0x674)
+> [   19.205630] [<c0d2176c>] (fsl_sai_probe) from [<c093f540>] (platform_probe+0x58/0xb8)
+> [   19.205694] [<c093f540>] (platform_probe) from [<c093cdec>] (really_probe+0xec/0x398)
+> [   19.205765] [<c093cdec>] (really_probe) from [<c093d0fc>] (driver_probe_device+0x64/0xc0)
+> [   19.205854] [<c093d0fc>] (driver_probe_device) from [<c093d418>] (device_driver_attach+0x58/0x60)
+> [   19.205944] [<c093d418>] (device_driver_attach) from [<c093d484>] (__driver_attach+0x64/0xdc)
+> [   19.206028] [<c093d484>] (__driver_attach) from [<c093aefc>] (bus_for_each_dev+0x78/0xb8)
+> [   19.206113] [<c093aefc>] (bus_for_each_dev) from [<c093c0b8>] (bus_add_driver+0x150/0x1dc)
+> [   19.206200] [<c093c0b8>] (bus_add_driver) from [<c093e1e4>] (driver_register+0x74/0x108)
+> [   19.206285] [<c093e1e4>] (driver_register) from [<c01022b0>] (do_one_initcall+0x80/0x3a8)
+> [   19.206374] [<c01022b0>] (do_one_initcall) from [<c16010a0>] (kernel_init_freeable+0x158/0x1f4)
+> [   19.206466] [<c16010a0>] (kernel_init_freeable) from [<c0f3a78c>] (kernel_init+0x8/0x11c)
+> [   19.206556] [<c0f3a78c>] (kernel_init) from [<c010013c>] (ret_from_fork+0x14/0x38)
+> [   19.206653] Exception stack(0xc20b5fb0 to 0xc20b5ff8)
+> [   19.206749] 5fa0:                                     00000000 00000000 00000000 00000000
+> [   19.206916] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+> [   19.207063] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+> [   19.207290] Code: ee073f9a ebdeca40 e5963000 e0831005 (e5814000)
+> [   19.207813] ---[ end trace 4c72393d5e30d6c1 ]---
+>
+> ---
+> # bad: [e99d8a8495175df8cb8b739f8cf9b0fc9d0cd3b5] Add linux-next specific files for 20210409
+> # good: [e49d033bddf5b565044e2abe4241353959bc9120] Linux 5.12-rc6
+> git bisect start 'HEAD' 'v5.12-rc6'
+> # good: [24c5f79572740c1744a7ec2e9e21b541acab6de3] Merge remote-tracking branch 'crypto/master'
+> git bisect good 24c5f79572740c1744a7ec2e9e21b541acab6de3
+> # bad: [4b90473874c7b6af320b9815f82ac305fd8807f7] Merge remote-tracking branch 'ftrace/for-next'
+> git bisect bad 4b90473874c7b6af320b9815f82ac305fd8807f7
+> # good: [9cf3382276b26848891c7e072db0a774fadd10e4] Merge remote-tracking branch 'sound/for-next'
+> git bisect good 9cf3382276b26848891c7e072db0a774fadd10e4
+> # bad: [f8d16164c586548d7ccedc058ca9ae547e0cebbe] Merge remote-tracking branch 'mmc/next'
+> git bisect bad f8d16164c586548d7ccedc058ca9ae547e0cebbe
+> # bad: [c7c19ec098b862a688291f5a1101f7de6e4b0a6c] ASoC: Intel: kbl: Add MST route change to kbl machine drivers
+> git bisect bad c7c19ec098b862a688291f5a1101f7de6e4b0a6c
+> # good: [1db19c151819dea7a0dc4d888250d25abaf229ca] ASoC: soc-pcm: fixup dpcm_be_dai_startup() user count
+> git bisect good 1db19c151819dea7a0dc4d888250d25abaf229ca
+> # bad: [f89c0a87b4066fbb0dc6f8039b211bd79a9ab663] Merge tag 'ib-mfd-extcon-v5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd into asoc-5.13
+> git bisect bad f89c0a87b4066fbb0dc6f8039b211bd79a9ab663
+> # good: [a2cc1568dc50020a807c94bd14a053dd54e9c35e] ASoC: tscs454: remove useless test on PLL disable
+> git bisect good a2cc1568dc50020a807c94bd14a053dd54e9c35e
+> # good: [cb11f79b4af65005584880eb408f9748c32661d0] ASoC: soc-pcm: indicate error message at soc_pcm_hw_params()
+> git bisect good cb11f79b4af65005584880eb408f9748c32661d0
+> # good: [60adbd8fbf486214f4ae1946e61df69c3867e20b] ASoC: don't indicate error message for snd_soc_[pcm_]component_xxx()
+> git bisect good 60adbd8fbf486214f4ae1946e61df69c3867e20b
+> # bad: [dfb81e3b5f47aa0ea5e4832eeb720bc22f07d0c1] ASoC: SOF: Intel: hda: drop display power on/off in D0i3 flows
+> git bisect bad dfb81e3b5f47aa0ea5e4832eeb720bc22f07d0c1
+> # good: [7e71b48f9e27e437ca523432ea285c2585a539dc] ASoC: amd: Add support for RT5682 codec in machine driver
+> git bisect good 7e71b48f9e27e437ca523432ea285c2585a539dc
+> # bad: [b951b51e2ca4d37dc9781e14d8a49d2f2b7e715b] ASoC: SOF: add a helper to get topology configured mclk
+> git bisect bad b951b51e2ca4d37dc9781e14d8a49d2f2b7e715b
+> # bad: [2277e7e36b4b8c27eb8d2fb33a20440bc800c2d7] ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk
+> git bisect bad 2277e7e36b4b8c27eb8d2fb33a20440bc800c2d7
+> # first bad commit: [2277e7e36b4b8c27eb8d2fb33a20440bc800c2d7] ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk
 
-The endianness of the 32-bit word can be changed quite easily - and the
-situation is similar to bit flags stored in the 32-bit word. Nobody prevents
-QEMU to work with the whole 32-bit word instead bit fields in this case.
+The SAI module is not supported in QEMU, so the access of the register
+failed.
 
-The linux compat layer may copy the whole 32-bit word, too.
+you can add bypass the access in QEMU, for example:
 
-I think that your argument is not so strong here.
+diff --git a/hw/arm/fsl-imx6ul.c b/hw/arm/fsl-imx6ul.c
+index e0128d7316..62f7bd92a4 100644
+--- a/hw/arm/fsl-imx6ul.c
++++ b/hw/arm/fsl-imx6ul.c
+@@ -534,6 +534,10 @@ static void fsl_imx6ul_realize(DeviceState *dev,
+Error **errp)
+      */
+     create_unimplemented_device("sdma", FSL_IMX6UL_SDMA_ADDR, 0x4000);
 
-> That said, a bit field can be useful for the internal object
-> definition (if there is no racy access), but not for an object for the
-> communication that may be interpreted among different architectures.
++    create_unimplemented_device("sai1", 0x02028000, 0x4000);
++    create_unimplemented_device("sai2", 0x0202c000, 0x4000);
++    create_unimplemented_device("sai3", 0x02030000, 0x4000);
 
-In this case, we have 31 free bits and this information can be stored there. I
-would prefer to keep the reserved bytes for some large fields.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+best regards
+wang shengjiu

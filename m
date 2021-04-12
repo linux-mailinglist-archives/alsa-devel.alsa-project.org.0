@@ -2,51 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D06C635C1C8
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 11:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E477835C25C
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 12:00:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C37815F9;
-	Mon, 12 Apr 2021 11:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C37815F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 163DD15F9;
+	Mon, 12 Apr 2021 12:00:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 163DD15F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618221365;
-	bh=XVeqfctrDb/suB88JYJjY9egQRyna6FE4qS5h7s1WVI=;
+	s=default; t=1618221650;
+	bh=PUrcqZiI52dwGu7DcwtsCiBMY1purEgqXWeTxX3dKp8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WPqu0+WT4jjh2c7Ti/Dx2CispJQKs1+vHXL0/kmLHEnTOH6jIxR0jA+CWz9OZ4ztG
-	 zn4RYb4j6NdjT+gmmV2wZcqlPwcpOEdKoxgStmE1sUpyYW6sFROQnRyTA0js2bvv1V
-	 CCdJPt0vorQOhjGJA1VtrU0KQ50/3BrtUyZ2Znh4=
+	b=VWG8l6lr7m9bmIqZaTMh5rhrBrA1KO7WZpnX98qd6m9iwbv4LVsI2BeplNBlkAsOH
+	 tmjW3OK9NjVYySiN63msF+jORo93aV6aylv+SKbT1B8dgfAdOEyz9ed05U1iPxXVzs
+	 i/Hz+cvsKj/9Y3VCRDXV/Cuc2BdvnOBn56JwnMsk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6523DF80271;
-	Mon, 12 Apr 2021 11:54:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FD94F800D3;
+	Mon, 12 Apr 2021 11:59:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16391F80269; Mon, 12 Apr 2021 11:54:35 +0200 (CEST)
+ id D6603F800D3; Mon, 12 Apr 2021 11:59:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A9F5F800D3
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 11:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A9F5F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50F62F800D3
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 11:59:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50F62F800D3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4C947AEFB;
- Mon, 12 Apr 2021 09:54:22 +0000 (UTC)
-Date: Mon, 12 Apr 2021 11:54:22 +0200
-Message-ID: <s5him4r3k1d.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id B03B5AFCF;
+ Mon, 12 Apr 2021 09:59:06 +0000 (UTC)
+Date: Mon, 12 Apr 2021 11:59:06 +0200
+Message-ID: <s5hh7kb3jth.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: David Henningsson <coding@diwic.se>
 Subject: Re: [PATCH v4] sound: rawmidi: Add framing mode
-In-Reply-To: <20210410120229.1172054-1-coding@diwic.se>
+In-Reply-To: <1351b161-f663-b6a8-a7a5-09f44d8ddb30@diwic.se>
 References: <20210410120229.1172054-1-coding@diwic.se>
+ <df8cc177-f91d-28b1-c8df-1162dc136657@perex.cz>
+ <bb91fc79-1b61-b051-1543-b5c8b1633fb3@diwic.se>
+ <87f906a5-b77f-d3e8-29d7-7ce6e35c452a@perex.cz>
+ <1351b161-f663-b6a8-a7a5-09f44d8ddb30@diwic.se>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,107 +72,192 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 10 Apr 2021 14:02:29 +0200,
+On Sun, 11 Apr 2021 21:16:49 +0200,
 David Henningsson wrote:
 > 
-> +struct snd_rawmidi_framing_tstamp {
-> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
-> +	 * types here. Applications are expected to skip unknown frame types.
-> +	 */
-> +	unsigned char frame_type;
-> +	unsigned char length; /* number of valid bytes in data field */
-> +	unsigned char reserved[2];
-> +	unsigned int tv_nsec;		/* nanoseconds */
-> +	unsigned long long tv_sec;	/* seconds */
+> Hi,
+> 
+> as a short reply to all of the review comments below:
+> 
+> I don't care either way. I can change things if it makes you
+> happy. But at this point I have a hard time figuring out what are
+> brainstorming suggestions, and what are things I need to change before
+> the patch is merged.
 
-Please use u32 and u64 here instead of int and long long.
-We really want to be specific about the field types.
+This particular part is non-substantial point, just a micro
+optimization bike shed, so we don't need to stick with it at all.
 
-> +static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
-> +			const unsigned char *buffer, int src_count, struct timespec64 *tstamp)
+> Could both of you give a clear ack (or similar) so I know that I know
+> that once I make a [PATCH v5] it is very likely to be merged? Or are
+> there more discussions / reviews / etc to be had first?
 
-Pass const to tstamp.
+Obviously there are a few issues to be cleared beforehand.
+The biggest open question was about the frame size, and there seems no
+large voice opposing to the current value.  But we want to confirm
+that before the merge.
 
-> +{
-> +	struct snd_rawmidi_runtime *runtime = substream->runtime;
-> +	struct snd_rawmidi_framing_tstamp *dest_ptr;
-> +	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
-> +
-> +	int dest_frames = 0;
-> +	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
-> +
-> +	if (snd_BUG_ON(runtime->hw_ptr & 0x1f || runtime->buffer_size & 0x1f || frame_size != 0x20))
-
-The frame_size check should be rather BUILD_BUG_ON() as it's constant.
-And the buffer_size check is... well, not sure whether we need here.
-snd_BUG_ON() is performed even if there is no debug option set (but
-the debug message is suppressed).
-
-> +		return -EINVAL;
-> +	while (src_count > 0) {
-> +		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
-> +			runtime->xruns += src_count;
-> +			return dest_frames * frame_size;
-
-Better to break the loop for unifying the exit path.
-
-> @@ -987,8 +1035,15 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
->  			  "snd_rawmidi_receive: input is not active!!!\n");
->  		return -EINVAL;
->  	}
-> -	spin_lock_irqsave(&runtime->lock, flags);
-> -	if (count == 1) {	/* special case, faster code */
-> +	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
-> +		if (substream->clock_type == CLOCK_MONOTONIC_RAW)
-> +			ktime_get_raw_ts64(&ts64);
-> +		else
-> +			ktime_get_ts64(&ts64);
-> +		spin_lock_irqsave(&runtime->lock, flags);
-> +		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
-> +	} else if (count == 1) {	/* special case, faster code */
-> +		spin_lock_irqsave(&runtime->lock, flags);
->  		substream->bytes++;
->  		if (runtime->avail < runtime->buffer_size) {
->  			runtime->buffer[runtime->hw_ptr++] = buffer[0];
-> @@ -999,6 +1054,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
->  			runtime->xruns++;
->  		}
->  	} else {
-> +		spin_lock_irqsave(&runtime->lock, flags);
->  		substream->bytes += count;
->  		count1 = runtime->buffer_size - runtime->hw_ptr;
->  		if (count1 > count)
-
-It's error-prone to put the spin_lock_irqsave() in various places.
-If you want to get the timestamp outside the spinlock inevitably, just
-do it before the spin_lock_irqsave() line,
-
-	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
-		if (substream->clock_type == CLOCK_MONOTONIC_RAW)
-			ktime_get_raw_ts64(&ts64);
-		else
-			ktime_get_ts64(&ts64);
-	}
-
-	spin_lock_irqsave(&runtime->lock, flags);
-	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
-		....
-	} else if (count == 1) {	/* special case, faster code */
-		....
-
-And, the patch misses the change in rawmidi_compat.c.  It's also the
-reason we'd like to avoid the bit fields usage, too.  (Not only that,
-though.)
-
-One thing I'm considering is how to inform the current framing and the
-timestamp mode to user-space.  Currently we have only the ioctl to set
-the values but not to inquiry.
-
-Should we put those new information into the info or the status ioctl?
-If so, it might be also helpful to inform the frame byte size
-explicitly there, instead of assuming only a constant.
+The timing is bad for merge into 5.13, too, unfortunately; it's
+already at a very late stage and I'd like to avoid the merge of a late
+change that modifies the ABI.  So, it's likely a 5.14 merge material.
 
 
 thanks,
 
 Takashi
+
+
+> 
+> // David
+> 
+> 
+> On 2021-04-11 19:52, Jaroslav Kysela wrote:
+> > Dne 11. 04. 21 v 6:34 David Henningsson napsal(a):
+> >> On 2021-04-10 14:23, Jaroslav Kysela wrote:
+> >>> Dne 10. 04. 21 v 14:02 David Henningsson napsal(a):
+> >>>> This commit adds a new framing mode that frames all MIDI data into
+> >>>> 32-byte frames with a timestamp.
+> >>>>
+> >>>> The main benefit is that we can get accurate timestamps even if
+> >>>> userspace wakeup and processing is not immediate.
+> >>>>
+> >>>> Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+> >>>> compared to the in-kernel seq implementation which has a max jitter
+> >>>> of 5 ms during idle and much worse when running scheduler stress tests
+> >>>> in parallel.
+> >>>>
+> >>>> Signed-off-by: David Henningsson <coding@diwic.se>
+> >>>> ---
+> >>>>    include/sound/rawmidi.h     |  2 ++
+> >>>>    include/uapi/sound/asound.h | 26 ++++++++++++++--
+> >>>>    sound/core/rawmidi.c        | 60 +++++++++++++++++++++++++++++++++++--
+> >>>>    3 files changed, 84 insertions(+), 4 deletions(-)
+> >>>>
+> >>>> diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+> >>>> index 334842daa904..b0057a193c31 100644
+> >>>> --- a/include/sound/rawmidi.h
+> >>>> +++ b/include/sound/rawmidi.h
+> >>>> @@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
+> >>>>    	bool opened;			/* open flag */
+> >>>>    	bool append;			/* append flag (merge more streams) */
+> >>>>    	bool active_sensing;		/* send active sensing when close */
+> >>>> +	u8 framing;			/* whether to frame input data */
+> >>>> +	clockid_t clock_type;		/* clock source to use for input framing */
+> >>>>    	int use_count;			/* use counter (for output) */
+> >>>>    	size_t bytes;
+> >>>>    	struct snd_rawmidi *rmidi;
+> >>>> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+> >>>> index 535a7229e1d9..af8e60740218 100644
+> >>>> --- a/include/uapi/sound/asound.h
+> >>>> +++ b/include/uapi/sound/asound.h
+> >>>> @@ -710,7 +710,7 @@ enum {
+> >>>>     *  Raw MIDI section - /dev/snd/midi??
+> >>>>     */
+> >>>>    -#define SNDRV_RAWMIDI_VERSION
+> >>>> SNDRV_PROTOCOL_VERSION(2, 0, 1)
+> >>>> +#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
+> >>>>       enum {
+> >>>>    	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
+> >>>> @@ -736,12 +736,34 @@ struct snd_rawmidi_info {
+> >>>>    	unsigned char reserved[64];	/* reserved for future use */
+> >>>>    };
+> >>>>    +enum {
+> >>>> +	SNDRV_RAWMIDI_FRAMING_NONE = 0,
+> >>>> +	SNDRV_RAWMIDI_FRAMING_TSTAMP,
+> >>>> +	SNDRV_RAWMIDI_FRAMING_LAST = SNDRV_RAWMIDI_FRAMING_TSTAMP,
+> >>>> +};
+> >>>> +
+> >>>> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 16
+> >>>> +
+> >>>> +struct snd_rawmidi_framing_tstamp {
+> >>>> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
+> >>>> +	 * types here. Applications are expected to skip unknown frame types.
+> >>>> +	 */
+> >>>> +	unsigned char frame_type;
+> >>>> +	unsigned char length; /* number of valid bytes in data field */
+> >>>> +	unsigned char reserved[2];
+> >>>> +	unsigned int tv_nsec;		/* nanoseconds */
+> >>>> +	unsigned long long tv_sec;	/* seconds */
+> >>>> +	unsigned char data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
+> >>>> +};
+> >>>> +
+> >>>>    struct snd_rawmidi_params {
+> >>>>    	int stream;
+> >>>>    	size_t buffer_size;		/* queue size in bytes */
+> >>>>    	size_t avail_min;		/* minimum avail bytes for wakeup */
+> >>>>    	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+> >>>> -	unsigned char reserved[16];	/* reserved for future use */
+> >>>> +	unsigned char framing;		/* For input data only, frame incoming data */
+> >>> We can move this flag to above 32-bit word (no_active_sensing). I'm not sure,
+> >>> if we need 8 bits for this. It's first change after 20 years. Another flag may
+> >>> obsolete this one.
+> >> Not sure what you mean by this, could you show the code? Framing is an
+> >> enum rather than a flag, in case we find other framing formats with
+> >> other sizes that would obsolete this one.
+> > unsigned int no_active_sensing: 1;
+> > unsigned int framing32: 1;
+> > unsigned int framing64: 1; /* future extension, framing32 == 0 in this case */
+> >
+> > or:
+> >
+> > unsigned int framing_mode: 3;	/* three bits for future types */
+> >
+> > perhaps also:
+> >
+> > unsigned int clock_type: 3;	/* three bits for the clock type selection */
+> >
+> >>>> +		return -EINVAL;
+> >>>>    	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
+> >>>>    		return -EINVAL;
+> >>>>    	if (params->buffer_size != runtime->buffer_size) {
+> >>>> @@ -720,7 +722,16 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
+> >>>>    int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+> >>>>    			     struct snd_rawmidi_params *params)
+> >>>>    {
+> >>>> +	if (params->framing) {
+> >>>> +		if (params->framing > SNDRV_RAWMIDI_FRAMING_LAST)
+> >>>> +			return -EINVAL;
+> >>>> +		/* framing requires a valid clock type */
+> >>>> +		if (params->clock_type != CLOCK_MONOTONIC_RAW && params->clock_type != CLOCK_MONOTONIC)
+> >>>> +			return -EINVAL;
+> >>> The CLOCK_REALTIME may be supported, too. For example, the input subsystem
+> >>> supports those three timestamps and we support this in the PCM interface, too.
+> >> OTOH, the seq subsystem supports only the monotonic clock. And nobody
+> >> has complained so far. This can be added in a later patch if there is a
+> >> need for it.
+> > The monotonic clock source is used only internally for diffs - the seq timer
+> > starts with zero. So the monotonic clock is _NOT_ exported.
+> >
+> > In PCM interface, we have also all three clock sources. We're using own enum
+> > there, too (SNDRV_PCM_TSTAMP_TYPE_...).
+> >
+> >>>> +static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
+> >>>> +			const unsigned char *buffer, int src_count, struct timespec64 *tstamp)
+> >>>> +{
+> >>>> +	struct snd_rawmidi_runtime *runtime = substream->runtime;
+> >>>> +	struct snd_rawmidi_framing_tstamp *dest_ptr;
+> >>>> +	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
+> >>>> +
+> >>>> +	int dest_frames = 0;
+> >>>> +	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
+> >>>> +
+> >>>> +	if (snd_BUG_ON(runtime->hw_ptr & 0x1f || runtime->buffer_size & 0x1f || frame_size != 0x20))
+> >>>> +		return -EINVAL;
+> >>>> +	while (src_count > 0) {
+> >>>> +		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
+> >>>> +			runtime->xruns += src_count;
+> >>>> +			return dest_frames * frame_size;
+> >>>> +		}
+> >>>> +		if (src_count >= SND_RAWMIDI_FRAMING_DATA_LENGTH)
+> >>>> +			frame.length = SND_RAWMIDI_FRAMING_DATA_LENGTH;
+> >>>> +		else {
+> >>>> +			frame.length = src_count;
+> >>>> +			memset(frame.data, 0, SND_RAWMIDI_FRAMING_DATA_LENGTH);
+> >>> We know the length here, so we can skip the zeroing the copied bytes with
+> >>> memcpy().
+> >> True, but I believe this would generate slightly faster code because
+> >> SND_RAWMIDI_FRAMING_DATA_LENGTH is a constant.
+> > It's questionable.
+> >
+> > 					Jaroslav
+> >
+> 

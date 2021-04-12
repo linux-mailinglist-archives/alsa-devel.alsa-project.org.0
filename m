@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ADC435BCD2
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 10:45:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A81735BF74
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 11:06:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DFB41607;
-	Mon, 12 Apr 2021 10:44:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DFB41607
+	by alsa0.perex.cz (Postfix) with ESMTPS id D35F91607;
+	Mon, 12 Apr 2021 11:05:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D35F91607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618217131;
-	bh=9qxFI8kjXQH84R9qlKbUR6XSWDAfymstV46usNN4liY=;
+	s=default; t=1618218393;
+	bh=WkaTW1C20k2shJoRhpuSBF0Gwi2dFK3SAcd21D52GGk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W4FjHp+JSQfmCWq3Xp0XRRp3NPZsWe2DcucneDMHTSJjJRrnyt7PWad6TgI614CcJ
-	 pmjMsMMlRTfRse38nRIBE8XbBUT+SF12mhQcf9B4WYrndDb7MjiOFlOcISe9u1R7fM
-	 NMjFK2E49tsOOCHLhL9/qy+Vw3mGEd+2dDXAiTdU=
+	b=tw/ZGYGPNqzKudpdfQ/Yw16WPD9jD7XqxJ06u+7uTdiuIFrtY3hD+knFkFOxWQfLP
+	 0u6uXeBDrhGRiJDk300MiQ46wI0FPuhYQgD8jauiAqoPl2/jcxl5Gaf7+NxEY6eKPS
+	 zH0Q96o4LFvYoBjFgPq4OzfN+W2VAS7MTz7kLVpE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F35BAF80271;
-	Mon, 12 Apr 2021 10:44:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A198F80269;
+	Mon, 12 Apr 2021 11:05:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D390F80269; Mon, 12 Apr 2021 10:44:01 +0200 (CEST)
+ id 8229AF800FF; Mon, 12 Apr 2021 11:05:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF1A9F8013D
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 10:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF1A9F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3051F800FF
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 11:04:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3051F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="ev7ui100"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 926FA6109E;
- Mon, 12 Apr 2021 08:43:43 +0000 (UTC)
+ header.i=@linuxfoundation.org header.b="aJUe9VXp"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 85A3461387;
+ Mon, 12 Apr 2021 09:04:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1618217024;
- bh=9qxFI8kjXQH84R9qlKbUR6XSWDAfymstV46usNN4liY=;
+ s=korg; t=1618218288;
+ bh=WkaTW1C20k2shJoRhpuSBF0Gwi2dFK3SAcd21D52GGk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ev7ui100O6XSp6gfPA2JBKQYCF43fLVLAwNdivBjRv9ten7GrRmYp/kRP6X5eJ2Cs
- O8adjbeRbehq6utSCIRNMA5VSKXy7hjwyj8SKkIRY85f+SVaFpzFtcxSlbNA2Ze/71
- U92VwBKJ3vicBAs25+MrcnMizJwKGKJBR9Pb0OP0=
+ b=aJUe9VXpaikM8LFSknDI1vH6BgjAeCN1oi5O6UytbrDpEm47L2KCWbbnNKDCboOgV
+ nuNc7+UkoUb0vzlXIYTAnkaG0S/xmN1hpZl+eew48VkQkVLh/CV9+0rL2EQ+un4cxM
+ fX7fXZ4EjWyzlvZTa0R2nDS7a4bxfXNJBuxSd+Nw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 4.19 42/66] ASoC: sunxi: sun4i-codec: fill ASoC card owner
-Date: Mon, 12 Apr 2021 10:40:48 +0200
-Message-Id: <20210412083959.481524124@linuxfoundation.org>
+Subject: [PATCH 5.11 142/210] ASoC: sunxi: sun4i-codec: fill ASoC card owner
+Date: Mon, 12 Apr 2021 10:40:47 +0200
+Message-Id: <20210412084020.733810912@linuxfoundation.org>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210412083958.129944265@linuxfoundation.org>
-References: <20210412083958.129944265@linuxfoundation.org>
+In-Reply-To: <20210412084016.009884719@linuxfoundation.org>
+References: <20210412084016.009884719@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -112,10 +112,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 5 insertions(+)
 
 diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 9a3cb7704810..16e8f74288a5 100644
+index 6c13cc84b3fb..2173991c13db 100644
 --- a/sound/soc/sunxi/sun4i-codec.c
 +++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1235,6 +1235,7 @@ static struct snd_soc_card *sun4i_codec_create_card(struct device *dev)
+@@ -1364,6 +1364,7 @@ static struct snd_soc_card *sun4i_codec_create_card(struct device *dev)
  		return ERR_PTR(-ENOMEM);
  
  	card->dev		= dev;
@@ -123,7 +123,7 @@ index 9a3cb7704810..16e8f74288a5 100644
  	card->name		= "sun4i-codec";
  	card->dapm_widgets	= sun4i_codec_card_dapm_widgets;
  	card->num_dapm_widgets	= ARRAY_SIZE(sun4i_codec_card_dapm_widgets);
-@@ -1267,6 +1268,7 @@ static struct snd_soc_card *sun6i_codec_create_card(struct device *dev)
+@@ -1396,6 +1397,7 @@ static struct snd_soc_card *sun6i_codec_create_card(struct device *dev)
  		return ERR_PTR(-ENOMEM);
  
  	card->dev		= dev;
@@ -131,7 +131,7 @@ index 9a3cb7704810..16e8f74288a5 100644
  	card->name		= "A31 Audio Codec";
  	card->dapm_widgets	= sun6i_codec_card_dapm_widgets;
  	card->num_dapm_widgets	= ARRAY_SIZE(sun6i_codec_card_dapm_widgets);
-@@ -1320,6 +1322,7 @@ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
+@@ -1449,6 +1451,7 @@ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
  		return ERR_PTR(-ENOMEM);
  
  	card->dev		= dev;
@@ -139,7 +139,7 @@ index 9a3cb7704810..16e8f74288a5 100644
  	card->name		= "A23 Audio Codec";
  	card->dapm_widgets	= sun6i_codec_card_dapm_widgets;
  	card->num_dapm_widgets	= ARRAY_SIZE(sun6i_codec_card_dapm_widgets);
-@@ -1358,6 +1361,7 @@ static struct snd_soc_card *sun8i_h3_codec_create_card(struct device *dev)
+@@ -1487,6 +1490,7 @@ static struct snd_soc_card *sun8i_h3_codec_create_card(struct device *dev)
  		return ERR_PTR(-ENOMEM);
  
  	card->dev		= dev;
@@ -147,7 +147,7 @@ index 9a3cb7704810..16e8f74288a5 100644
  	card->name		= "H3 Audio Codec";
  	card->dapm_widgets	= sun6i_codec_card_dapm_widgets;
  	card->num_dapm_widgets	= ARRAY_SIZE(sun6i_codec_card_dapm_widgets);
-@@ -1396,6 +1400,7 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
+@@ -1525,6 +1529,7 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
  		return ERR_PTR(-ENOMEM);
  
  	card->dev		= dev;

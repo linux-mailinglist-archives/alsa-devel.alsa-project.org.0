@@ -2,146 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DAAD35CA80
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 17:54:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B65C335CAB6
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 18:05:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CB231607;
-	Mon, 12 Apr 2021 17:53:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CB231607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27E2E15E5;
+	Mon, 12 Apr 2021 18:04:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27E2E15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618242878;
-	bh=lZBHgLbLiLMfmW8E1QsGCPW/rnW76z226qHcR0crQ3E=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618243500;
+	bh=nebmUtyIMw0L9Z/54Fx6bd77+ALau/65SAupqHppj5M=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bBJl4AA0vYum/TJXiHcC7vpZkdqm1tAPwb6Mff1XoF9KuSs+8cWR5q3l+sGWpPkIG
-	 YSY4rDyicShzYrPEOTZ21tWabUeHgOun089r7yKNLGS3mnuIqtZPtj20lR96Bdtjfb
-	 7TRU1WwRiOxvnI5rpyfGB+olUMBQV3snMf/uVeX4=
+	b=Dn/J+zETHqsydC7hakzZZrKsj4AzRl1ieg++5Wlu6zr0Ekp77HQRuSoEn/7fEkyCY
+	 f3hyEuPrhDSzLoUVZYUMlftNeSqKsZc3C9DyEe7sIGBfb65PDespAQS7o6LqodFMBo
+	 7sJOp3SLkrMPxI2CX9vKYPgJgvqjVUnrpSm0zoxI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBD1FF80271;
-	Mon, 12 Apr 2021 17:53:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B303F800FF;
+	Mon, 12 Apr 2021 18:03:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3689FF80269; Mon, 12 Apr 2021 17:53:08 +0200 (CEST)
+ id EDCACF80269; Mon, 12 Apr 2021 18:03:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,PRX_BODYSUB_10,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94DC4F800D3
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 17:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94DC4F800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Da5wxyjt"
-Received: by mail-oi1-x236.google.com with SMTP id k25so13896217oic.4
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 08:53:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:autocrypt:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=EGgrX92i1CB3OPQao+cuq1musN3IzhJqLg7gLbewWcE=;
- b=Da5wxyjtIT2eqpyD3nJJD9VgkhZv8oJJzx+vhKV6gXH4lv50bb4ibs/61+gyjW3O7C
- zUUpg6pyKEE1QM+EZc7bVY5MCkQ/d7nccSmQ9egsSnWr4d4ULpRZwWqRCahSx5nZuusw
- el91K1lVklsu2/Jbw6aRQzK7XdI+yP+etcvNVeJ90fqEhDdDehppHYjXUNJQ5VG+FSJa
- z98sRt5BxA+kUTZNtM16Evp9WyDXevDgcQyAS5Qr2ECrxG1nlh7nZvwI+Pv8UDwDrR3M
- 0sAl5tMT+SOvEA+jUvMRe1MB3a7jwUjAg57LPcgt26i7kCU55jkT7Ek7/l5thgAZW0wd
- ohTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=EGgrX92i1CB3OPQao+cuq1musN3IzhJqLg7gLbewWcE=;
- b=QDpH7rNkGzvtGXvtxH8NV0dUtkY/VWpsNAUGn1EQ2t7YwhOn40nNo66+aBZHNF7274
- X8dkVL2uzG2x+gq1dptTz8RPYuxbAScwV+5H6nqBkysx55G/+AnsbSYyvoJgbI5GeY57
- UA+7yU4IFF5JXRgrgYU4xXn6UJNSvRifEaW/W3UmoJNRBdPCTtBye9YkTgh6MESG8IWE
- 0nZyFEgfLF+BQ5NcREZUzmaHqglCOChHV4PQb3lM1wynvzneSXoAgBIG7/ASCehNE//D
- FnZsVMKlul+MZ0BD8nMvLrJc/UAepWLuOw+AY+/2z6GngBqP24xqNQmoKLKrw3FUIjOW
- L3hQ==
-X-Gm-Message-State: AOAM532NvK2FdIWJV6aO2cJT1K71rtwMaZxZLk7EohcKW0CBpqx9O77p
- Y0sufDjJVJA2pgJByA6QV+4=
-X-Google-Smtp-Source: ABdhPJzzaa2P9f/w1olkcrEJJkz5Syr+wkQK42HLVbh5QNzj01EPqL4qtMBWXuu7v9cYRwlZPNnjOg==
-X-Received: by 2002:aca:4284:: with SMTP id
- p126mr18911026oia.178.1618242782134; 
- Mon, 12 Apr 2021 08:53:02 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- d2sm2776817otl.48.2021.04.12.08.53.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Apr 2021 08:53:01 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-References: <1616141203-13344-1-git-send-email-shengjiu.wang@nxp.com>
- <20210411144157.GA80935@roeck-us.net>
- <CAA+D8AOKuGivfPxKRL6r6z1=dbLCWDHR0BRAi=T1uOHq6cUd-w@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
-Message-ID: <2d2ce2e8-cfdb-89e7-9c79-60770f2c24f0@roeck-us.net>
-Date: Mon, 12 Apr 2021 08:52:59 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <CAA+D8AOKuGivfPxKRL6r6z1=dbLCWDHR0BRAi=T1uOHq6cUd-w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- linux-kernel <linux-kernel@vger.kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E5AEF800FF
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 18:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E5AEF800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B9E33AF03;
+ Mon, 12 Apr 2021 16:03:19 +0000 (UTC)
+Date: Mon, 12 Apr 2021 18:03:19 +0200
+Message-ID: <s5htuobze0o.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: David Henningsson <coding@diwic.se>
+Subject: Re: [PATCH v2] sound: rawmidi: Add framing mode
+In-Reply-To: <da04f321-b904-7be4-e412-c3c65212e01e@diwic.se>
+References: <20210324054253.34642-1-coding@diwic.se>
+ <20210324124430.GA3711@workstation>
+ <057ef387-9ee1-2678-29ce-d644f2a3a90a@diwic.se>
+ <20210326044615.GA51246@workstation> <s5hr1k2l56t.wl-tiwai@suse.de>
+ <2ca71809-9872-bfee-c19d-76b6ce143212@diwic.se>
+ <s5h1rc1lva7.wl-tiwai@suse.de>
+ <fbd3fc88-7a25-27fb-90ae-b4664f71d952@diwic.se>
+ <s5hk0prk9p9.wl-tiwai@suse.de>
+ <b2bf72a0-4f6b-7349-0666-c75826457718@diwic.se>
+ <s5hwntng495.wl-tiwai@suse.de>
+ <c70cf21a-ec81-955f-f6da-fe502e9b0715@diwic.se>
+ <s5hr1jnbp0n.wl-tiwai@suse.de>
+ <da04f321-b904-7be4-e412-c3c65212e01e@diwic.se>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,28 +80,178 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/12/21 3:37 AM, Shengjiu Wang wrote:
-[ ... ]
-> The SAI module is not supported in QEMU, so the access of the register
-> failed.
+On Sat, 10 Apr 2021 13:41:38 +0200,
+David Henningsson wrote:
 > 
-> you can add bypass the access in QEMU, for example:
 > 
-> diff --git a/hw/arm/fsl-imx6ul.c b/hw/arm/fsl-imx6ul.c
-> index e0128d7316..62f7bd92a4 100644
-> --- a/hw/arm/fsl-imx6ul.c
-> +++ b/hw/arm/fsl-imx6ul.c
-> @@ -534,6 +534,10 @@ static void fsl_imx6ul_realize(DeviceState *dev,
-> Error **errp)
->       */
->      create_unimplemented_device("sdma", FSL_IMX6UL_SDMA_ADDR, 0x4000);
+> On 2021-04-06 14:01, Takashi Iwai wrote:
+> > On Mon, 05 Apr 2021 14:13:27 +0200,
+> > David Henningsson wrote:
+> >>
+> >> On 2021-03-31 09:40, Takashi Iwai wrote:
+> >>> On Tue, 30 Mar 2021 21:35:11 +0200,
+> >>> David Henningsson wrote:
+> >>>> Well, I believe that rawmidi provides less jitter than seq is not a
+> >>>> theoretical problem but a known fact (see e g [1]), so I haven't tried
+> >>>> to "prove" it myself. And I cannot read your mind well enough to know
+> >>>> what you would consider a sufficient proof - are you expecting to see
+> >>>> differences on a default or RT kernel, on a Threadripper or a
+> >>>> Beaglebone, idle system or while running RT torture tests? Etc.
+> >>> There is certainly difference, and it might be interesting to see the
+> >>> dependency on the hardware or on the configuration.  But, again, my
+> >>> primary question is: have you measured how *your patch* really
+> >>> provides the improvement?  If yes, please show the numbers in the
+> >>> patch description.
+> >> As you requested, I have now performed such testing.
+> >>
+> >> Results:
+> >>
+> >> Seq - idle: 5.0 ms
+> >>
+> >> Seq - hackbench: 1.3 s (yes, above one second)
+> >>
+> >> Raw + framing - idle: 2.8 ms
+> >>
+> >> Raw + framing - hackbench: 2.8 ms
+> >>
+> >> Setup / test description:
+> >>
+> >> I had an external midi sequencer connected through USB. The system
+> >> under test was a Celeron N3150 with internal graphics. The sequencer
+> >> was set to generate note on/note off commands exactly 10 times per
+> >> second.
+> >>
+> >> For the seq tests I used "arecordmidi" and analyzed the delta values
+> >> of resulting midi file. For the raw + framing tests I used a home-made
+> >> application to write a midi file. The monotonic clock option was used
+> >> to rule out differences between monotonic and monotonic_raw. The
+> >> result shown above is the maximum amount of delta value, converted to
+> >> milliseconds, minus the expected 100 ms between notes. Each test was
+> >> run for a minute or two.
+> >>
+> >> For the "idle" test, the machine was idle (running a normal desktop),
+> >> and for the "hackbench" test, "chrt -r 10 hackbench" was run a few
+> >> times in parallel with the midi recording application (which was run
+> >> with "chrt -r 15").
+> >>
+> >> I also tried a few other stress tests but hackbench was the one that
+> >> stood out as totally destroying the timestamps of seq midi. (E g,
+> >> running "rt-migrate-test" in parallel with "arecordmidi" gave a max
+> >> jitter value of 13 ms.)
+> >>
+> >> Conclusion:
+> >>
+> >> I still believe the proposed raw + framing mode is a valuable
+> >> improvement in the normal/idle case, but even more so because it is
+> >> more stable in stressed conditions. Do you agree?
+> > Thanks for the tests.  Yes, that's an interesting and convincing
+> > result.
+> >         Could you do a couple of favors in addition?
 > 
-> +    create_unimplemented_device("sai1", 0x02028000, 0x4000);
-> +    create_unimplemented_device("sai2", 0x0202c000, 0x4000);
-> +    create_unimplemented_device("sai3", 0x02030000, 0x4000);
+> Okay, now done. Enjoy :-)
 > 
-Ah, yes, that takes care of the problem.
+> >
+> > 1) Check the other workqueue
+> >
+> > It's interesting to see whether the hiprio system workqueue may give a
+> > better latency.  A oneliner patch is like below.
+> >
+> > -- 8< --
+> > --- a/sound/core/rawmidi.c
+> > +++ b/sound/core/rawmidi.c
+> > @@ -1028,7 +1028,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+> >   	}
+> >   	if (result > 0) {
+> >   		if (runtime->event)
+> > -			schedule_work(&runtime->event_work);
+> > +			queue_work(system_highpri_wq, &runtime->event_work);
+> >   		else if (__snd_rawmidi_ready(runtime))
+> >   			wake_up(&runtime->sleep);
+> >   	}
+> > -- 8< --
+> 
+> Result: idle: 5.0 ms
+> 
+> hackbench > 1 s
+> 
+> I e, same as original.
 
-Thanks, and sorry for the noise.
+Hm, that's disappointing.  I hoped that the influence of the workqueue
+would be visible, but apparently not.
 
-Guenter
+But more concern is about the result with the second patch.
+
+> >
+> > Also, system_unbound_wq can be another interesting test case instead
+> > of system_highpri_wq.
+> >
+> > 2) Direct sequencer event process
+> >
+> > If a chance of workqueue doesn't give significant improvement, we
+> > might need to check the direct invocation of the sequencer
+> > dispatcher.  A totally untested patch is like below.
+> >
+> > -- 8< --
+> > --- a/sound/core/rawmidi.c
+> > +++ b/sound/core/rawmidi.c
+> > @@ -979,6 +979,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+> >   	unsigned long flags;
+> >   	int result = 0, count1;
+> >   	struct snd_rawmidi_runtime *runtime = substream->runtime;
+> > +	bool call_event = false;
+> >     	if (!substream->opened)
+> >   		return -EBADFD;
+> > @@ -1028,11 +1029,13 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+> >   	}
+> >   	if (result > 0) {
+> >   		if (runtime->event)
+> > -			schedule_work(&runtime->event_work);
+> > +			call_event = true;
+> >   		else if (__snd_rawmidi_ready(runtime))
+> >   			wake_up(&runtime->sleep);
+> >   	}
+> >   	spin_unlock_irqrestore(&runtime->lock, flags);
+> > +	if (call_event)
+> > +		runtime->event(runtime->substream);
+> >   	return result;
+> >   }
+> >   EXPORT_SYMBOL(snd_rawmidi_receive);
+> >
+> > -- 8< --
+> 
+> Result:
+> 
+> Idle: 3.0 ms
+> 
+> Hackbench still > 1s.
+> 
+> The reason that this is 3.0 and not 2.8 is probably during to some
+> rounding to whole ms somewhere in either seq or arecordmidi - I'd say
+> this is likely the same 2.8 ms as we see from the rawmidi+framing
+> test.
+> 
+> > In theory, this should bring to the same level of latency as the
+> > rawmidi timestamping.  Of course, this doesn't mean we can go straight
+> > to this way, but it's some material for consideration.
+> 
+> I don't know why the hackbench test is not improved here. But you seem
+> to have changed seq from tasklet to workqueue in 2011 (commit
+> b3c705aa9e9), presumably for some relevant reason, like a need to
+> sleep in the seq code...?
+
+No, the commit you mentioned didn't change the behavior.  It's a
+simple replacement from a tasklet to a work (at least for the input
+direction).  So, the irq handler processes and delivers the event
+directly, and since it's an irq context, there can be no sleep.
+At most, it's a spinlock and preemption, but I don't think this could
+give such a long delay inside the irq handler.
+
+Might it be something else; e.g. the timestamp gets updated later
+again in a different place.  In anyway, this needs more
+investigation, apart from the merge of the rawmidi frame mode
+support.
+
+
+thanks,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07D835CBCC
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 18:27:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8987335CC0B
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 18:28:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7787D168A;
-	Mon, 12 Apr 2021 18:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7787D168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC8D15E0;
+	Mon, 12 Apr 2021 18:27:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC8D15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618244854;
-	bh=M8fbSehNGqt/LQzch9K75dWLf5XKFDbFtPsW/hYP+gg=;
+	s=default; t=1618244883;
+	bh=WIXlCnzhKxXVdFzpZ6w4P7U1gKoinHF2UJbEjqZzq58=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TE8i6IfXbH34w/Ao8FeBe/EgzGCgPdKTC0vQRFcG0gSuY29D+vviUeDd4ShiAxpSu
-	 n9ggxTM8QGBBUKSbaWJHJD4H53MjzPiuvtPoPM6AbbbgwGI7jgURKozer1dz3Ttny0
-	 1jmX224HbT3KoB/ycrFGB7bVogpxtkAf/tmVHN2I=
+	b=eh9g9m8bwKZ/CUMpEfd3syzQuHR5OPaNpx5GgaVU1c5Vp3UVpigbCGFAmMaSWn6XN
+	 gS7a6VgVKGFt0yEXOvLPZoCUc+wKGAOBdbAtWeDRtZXHimX+S4QHVwnOjzurIMRJ/L
+	 +ak8NVAEkomrmVQllW4nEyzggSnlVTqKoDhCBm58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C73CF804AB;
-	Mon, 12 Apr 2021 18:25:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 337AAF8013D;
+	Mon, 12 Apr 2021 18:26:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3328BF804AD; Mon, 12 Apr 2021 18:25:29 +0200 (CEST)
+ id 6DBD5F8032C; Mon, 12 Apr 2021 18:26:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6416DF804AB
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 18:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6416DF804AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8F1EF8025B
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 18:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F1EF8025B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fMa9Ai6V"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6F4AA6128E;
- Mon, 12 Apr 2021 16:25:23 +0000 (UTC)
+ header.b="If4pfQTb"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E5A28613AF;
+ Mon, 12 Apr 2021 16:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618244724;
- bh=M8fbSehNGqt/LQzch9K75dWLf5XKFDbFtPsW/hYP+gg=;
+ s=k20201202; t=1618244767;
+ bh=WIXlCnzhKxXVdFzpZ6w4P7U1gKoinHF2UJbEjqZzq58=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fMa9Ai6VqZKepGuGAP566iDyO+gY+KceqolNGfbLyMYaLdOVEoqQNjkLvqJXTzC9r
- z2iAtI34J8M3H3QSk/TZCrx+cFDC776mowBpm8Ni5K6DpgXyGhmmwJqSb1zxcJ6Bca
- 759VceJpHTRXT3T9sN5tWLqTSC50W2ndskf7LXyQ9ZH8jnlc2QcnnVxJszDW0EHx8T
- sep38UommGOrsNERe963GVGd8XJLCTBEz7VDI2+TzrPkaG6akrrfcQWP/ZR7sQ/b+3
- A+Q/ZAG8dacpg8IsOxV3xdyyjSWefPATy9NElMbkBl2ZhJ6wgOy9A/sOnXI7RfZn7A
- 1dzul92jRBasg==
+ b=If4pfQTbDvbS3MpvSH4aL0xHAM3cOW8q7V3DXKQHTQsC3aSSyaunu8Wdn/q02v2EW
+ /MkpE8EdsyuT5KT2MqNeTxXj3gG0sav94AOhhDzKguIdF9OQgdUnkeWXB5VMwxwIIs
+ leMTDBvtPWYV7oB58dqUn8wgL5Ic/OuNDK0+gGYXuiKGFgqfxG3s21KtiTK99otDec
+ uR8Wubo+PK2wKHs7prqATVwNgKZTfqQpTq+iCm4y0+RWnvqh4JBnK3rGXsE7Ccr+HR
+ jH1iOPtWid3W0fVTqIaMkJvgsijAKDgN/VD7mTuGDGwWeS+jOSXnL7vTwLBW0Vr1X2
+ BSzO2zb/BBUUw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 17/39] ASoC: fsl_esai: Fix TDM slot setup for I2S
+Subject: [PATCH AUTOSEL 4.19 11/28] ASoC: fsl_esai: Fix TDM slot setup for I2S
  mode
-Date: Mon, 12 Apr 2021 12:24:39 -0400
-Message-Id: <20210412162502.314854-17-sashal@kernel.org>
+Date: Mon, 12 Apr 2021 12:25:36 -0400
+Message-Id: <20210412162553.315227-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210412162502.314854-1-sashal@kernel.org>
-References: <20210412162502.314854-1-sashal@kernel.org>
+In-Reply-To: <20210412162553.315227-1-sashal@kernel.org>
+References: <20210412162553.315227-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -104,10 +104,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 84290be778f0..33ade79fa032 100644
+index ff96db91f818..baa76337c33f 100644
 --- a/sound/soc/fsl/fsl_esai.c
 +++ b/sound/soc/fsl/fsl_esai.c
-@@ -494,11 +494,13 @@ static int fsl_esai_startup(struct snd_pcm_substream *substream,
+@@ -497,11 +497,13 @@ static int fsl_esai_startup(struct snd_pcm_substream *substream,
  				   ESAI_SAICR_SYNC, esai_priv->synchronous ?
  				   ESAI_SAICR_SYNC : 0);
  

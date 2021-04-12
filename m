@@ -2,70 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9151135C2FE
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 12:05:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25C8635C2FF
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 12:06:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24B191614;
-	Mon, 12 Apr 2021 12:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24B191614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DE62166B;
+	Mon, 12 Apr 2021 12:05:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DE62166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618221924;
-	bh=kxDF1Hd23hw0YnsEHBl/c2KPlOik8sKp66pMX7bdneA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618221959;
+	bh=BxGRNp0WJ2qTV8kxsssc171kArEuohETDuxiHJdSTgI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kSE9IiP6mOgTdlLbQVKPqrtF1pTUOSze2tzAtfc9loyoEu+jP43gJKqVp353/qaoD
-	 Ai/T7hbMKHbqgnV0NOEcgg4+qpC+LwaZ900llBcQ2L1J/BccAzyj4BxnsyRRseEJqN
-	 rCNfC7YFyzAhITwVit+EIgdNWZyyKRAg6i5o0AyA=
+	b=QGk1U1I1iMXiQNL0MRxpMQ37so4LrLq7kywX7gsfrQds2njeTKTT+vBv3bW3L1wn5
+	 kK3ArM3vfhV+KhAOr3API4XV8YRPCAk/cbMWmeGjcEqkjDakLbhcIq4lRRM0L18M28
+	 H776fiDU2HWzk87L4CI3EJPEDsWiWJ4iZuwQc//A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1D8CF80271;
-	Mon, 12 Apr 2021 12:03:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB3FFF800D3;
+	Mon, 12 Apr 2021 12:05:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67A61F80269; Mon, 12 Apr 2021 12:03:53 +0200 (CEST)
+ id 0B723F80273; Mon, 12 Apr 2021 12:05:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF146F8013D
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 12:03:36 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C5822A003F;
- Mon, 12 Apr 2021 12:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C5822A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1618221814; bh=aGn0phnGZ8gsn7rHRNC9qC4Xyu12zPmv6OCTOj3ryC0=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=xccLWKQAjjwmNLaUABlyoFlx8ItD5Ct4JjpMjiDaHyDRH1zpiHeI7kxtWkc+sU2Bh
- i5WYxTcxQOLz9WadNBY4Je1xsOUKoaIxct8GRXvS5QJncfI3d5/4tjbT8sYEnuOPJ1
- aLMBwDJT9H0g0wCiYe3VORQJzwSfcn/DaooGesE8=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 12 Apr 2021 12:03:30 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B709F8025B
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 12:04:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B709F8025B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F2788AF1A;
+ Mon, 12 Apr 2021 10:04:57 +0000 (UTC)
+Date: Mon, 12 Apr 2021 12:04:57 +0200
+Message-ID: <s5hfszv3jjq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH v4] sound: rawmidi: Add framing mode
-To: Takashi Iwai <tiwai@suse.de>, David Henningsson <coding@diwic.se>
+In-Reply-To: <822b7ebf-71ac-2f84-731d-65e772eea1ff@perex.cz>
 References: <20210410120229.1172054-1-coding@diwic.se>
- <s5him4r3k1d.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <d1ac2bc0-01f2-89c9-395b-407a1831541a@perex.cz>
-Date: Mon, 12 Apr 2021 12:03:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <s5him4r3k1d.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+ <df8cc177-f91d-28b1-c8df-1162dc136657@perex.cz>
+ <bb91fc79-1b61-b051-1543-b5c8b1633fb3@diwic.se>
+ <87f906a5-b77f-d3e8-29d7-7ce6e35c452a@perex.cz>
+ <s5hk0p73l36.wl-tiwai@suse.de>
+ <822b7ebf-71ac-2f84-731d-65e772eea1ff@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,21 +73,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 12. 04. 21 v 11:54 Takashi Iwai napsal(a):
+On Mon, 12 Apr 2021 11:43:02 +0200,
+Jaroslav Kysela wrote:
+> 
+> Dne 12. 04. 21 v 11:31 Takashi Iwai napsal(a):
+> > On Sun, 11 Apr 2021 19:52:21 +0200,
+> > Jaroslav Kysela wrote:
+> >>>>>   struct snd_rawmidi_params {
+> >>>>>   	int stream;
+> >>>>>   	size_t buffer_size;		/* queue size in bytes */
+> >>>>>   	size_t avail_min;		/* minimum avail bytes for wakeup */
+> >>>>>   	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+> >>>>> -	unsigned char reserved[16];	/* reserved for future use */
+> >>>>> +	unsigned char framing;		/* For input data only, frame incoming data */
+> >>>> We can move this flag to above 32-bit word (no_active_sensing). I'm not sure,
+> >>>> if we need 8 bits for this. It's first change after 20 years. Another flag may
+> >>>> obsolete this one.
+> >>>
+> >>> Not sure what you mean by this, could you show the code? Framing is an 
+> >>> enum rather than a flag, in case we find other framing formats with 
+> >>> other sizes that would obsolete this one.
+> >>
+> >> unsigned int no_active_sensing: 1;
+> >> unsigned int framing32: 1;
+> >> unsigned int framing64: 1; /* future extension, framing32 == 0 in this case */
+> >>
+> >> or:
+> >>
+> >> unsigned int framing_mode: 3;	/* three bits for future types */
+> >>
+> >> perhaps also:
+> >>
+> >> unsigned int clock_type: 3;	/* three bits for the clock type selection */
+> > 
+> > The usage of bit fields in an ioctl struct is a bad idea from the
+> > compat layer POV.  Let's avoid it.
+> 
+> What exactly do you mean?
 
-> And, the patch misses the change in rawmidi_compat.c.  It's also the
-> reason we'd like to avoid the bit fields usage, too.  (Not only that,
-> though.)
+The compat layer has the hard time to deal with the conversion of bit
+fields to a different struct.  And, it's a nightmare for the emulator
+like QEMU.  If it has to convert the ioctl struct, it has to consider
+about the byte order as well (and there is no strict definition how to
+put the bit fields in C language).
 
-Looking to snd_rawmidi_ioctl_params_compat(), I don't see a difference for a
-version with and without bit fields. In both cases, the value should be copied
-from one structure to another.
+That said, a bit field can be useful for the internal object
+definition (if there is no racy access), but not for an object for the
+communication that may be interpreted among different architectures.
 
-I see other structs in include/uapi which are using bit fields in public ioctl
-calls.
 
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7EF35D1F6
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 22:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EB3835D1F9
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Apr 2021 22:27:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F77F886;
-	Mon, 12 Apr 2021 22:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F77F886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F0CD1661;
+	Mon, 12 Apr 2021 22:26:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F0CD1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618259250;
-	bh=r9UKdIFOgp7BUaHYAHhj7B4vhiYePgsCQ4+XN5Emsd4=;
+	s=default; t=1618259264;
+	bh=VRTKMojKdtuJHFzFHeTyk5iAs1Q1XW/RoReDqe95/PY=;
 	h=In-Reply-To:References:Subject:From:To:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g2tGUo7mHa6/mvHne2I0Uxq7OvwEzVTz2GXgJODtLpJ/pAy//WjFm2X98kd+majQ8
-	 RdAxaFtQU3Ft8Jx3VaHfcSPWMd5E4XYFZHLHv+O8nVeGBDiqpkWiubj887rJldS/Di
-	 0M3vebGLVfxg5uEBr0CsLyW0Bz8aYqXjq2HzxfKk=
+	b=Zi06r7v/25U087Ge7gW+3AfycK50o6k2+lOU3VwGzvvz335ci/BSfNQ9FauEVK4mX
+	 25DbO83PSA8veTU29PDUAPxyGuxmDoIoZ3F+JOJpaLVHwaV2g12QDFg95/mzO3dfzz
+	 GZKiyP1gkVsblfFXKjN+ilTup1FQHajX2oSK9wjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93408F80271;
-	Mon, 12 Apr 2021 22:26:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7284EF8027C;
+	Mon, 12 Apr 2021 22:26:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DE23F80269; Mon, 12 Apr 2021 22:25:59 +0200 (CEST)
+ id 821D5F80277; Mon, 12 Apr 2021 22:26:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 026A1F800FF
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 22:25:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 026A1F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B719F8025B
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 22:26:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B719F8025B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AYOwAoNu"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E5FC61352;
- Mon, 12 Apr 2021 20:25:47 +0000 (UTC)
+ header.b="a5hbM90j"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5157561287;
+ Mon, 12 Apr 2021 20:26:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618259147;
- bh=r9UKdIFOgp7BUaHYAHhj7B4vhiYePgsCQ4+XN5Emsd4=;
+ s=k20201202; t=1618259190;
+ bh=VRTKMojKdtuJHFzFHeTyk5iAs1Q1XW/RoReDqe95/PY=;
  h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=AYOwAoNutSyEqKl/2oZRcdM3qcas7yBRs2LDYEwXIM1B/XVxzEl710EIpG4BJL07Q
- 1ifr2J6YaQnGYpAXvTakowZHoxrqrGofbVULEDDEA1Zw3JpwTS69a33HxXjrC4JU4x
- jCiFPin/JuJjKnVCLBfaWMI9kcdGVshDDFvc4Q6MDPQNQYjmPskTjauto+klyqj87V
- 9HLCjUvaW3V7CXhRXaggpGYwOzrAFsQcTffpcGt/0jfr9QqgtVb8wR8rZtwg9hvEY9
- rC9mU/TBKWlojN3qhx9uYtXE7U6hJA7xWpXHUW00J5qg2cu04dOI6149IJM/gdkCMM
- Adz/rWlUZEWzA==
+ b=a5hbM90jgeBbZy5DXQZpsyRiT8ZFN1jW7xfWb48fGDSVewu1Nlh7spwJ1qNc09oxa
+ hHX439tatktCkD5U2cftaq7MlNQsjkmlAQUGLSICT8JPsEI8GS9lnSaFOhoYN/uzDv
+ LglgFeGOp75jkVO8WIvHagn2/P89s3J9i4A/K3N1wKDqO6xACbXbgdVDVNmpF+TnoV
+ 9yMjah6daCGeGLZBPxnSzqIqNPkrvzgKcelcF6dRyiZWtiX3b22cf9ueltiHwQrFuV
+ KJ21DEndDqqbkQPfsm3FhdnQW7X6Z16ip8+0UElLY4GTLuZQoyRT8Sn/LBXT/41nN3
+ jv9F/WUoSlPXw==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20210410111356.467340-2-jbrunet@baylibre.com>
+In-Reply-To: <20210410111356.467340-3-jbrunet@baylibre.com>
 References: <20210410111356.467340-1-jbrunet@baylibre.com>
- <20210410111356.467340-2-jbrunet@baylibre.com>
-Subject: Re: [PATCH 1/5] ASoC: stm32: properly get clk from the provider
+ <20210410111356.467340-3-jbrunet@baylibre.com>
+Subject: Re: [PATCH 2/5] ASoC: wcd934x: use the clock provider API
 From: Stephen Boyd <sboyd@kernel.org>
 To: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Date: Mon, 12 Apr 2021 13:25:45 -0700
-Message-ID: <161825914594.3764895.14268186433795123078@swboyd.mtv.corp.google.com>
+Date: Mon, 12 Apr 2021 13:26:28 -0700
+Message-ID: <161825918879.3764895.12600274147776655755@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Jerome Brunet <jbrunet@baylibre.com>
@@ -82,10 +82,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Jerome Brunet (2021-04-10 04:13:52)
-> Instead of using the clk embedded in the clk_hw (which is meant to go
-> away), a clock provider which need to interact with its own clock should
-> request clk reference through the clock provider API.
+Quoting Jerome Brunet (2021-04-10 04:13:53)
+> Clock providers should use the clk_hw API
+
+It sort of already is :)
+
 >=20
 > Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 > ---

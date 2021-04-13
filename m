@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B9035E9A8
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 01:22:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D6E835E9A9
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 01:22:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA0F716AB;
-	Wed, 14 Apr 2021 01:21:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA0F716AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00BB416AF;
+	Wed, 14 Apr 2021 01:22:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00BB416AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618356169;
-	bh=en6ESl5CoV5+CCsvaokJnEbDmzfMvao0gLa0OsB4mFs=;
+	s=default; t=1618356178;
+	bh=0LgLS8TSFc/GOwQzQ1aGDF0fPsyJj7QV8K7TuFwr4K4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SzQmv2z3gXJxrglLczJDK2XKhKqzfJKaljIpWTkhMhByedHNrak0SiK0ZnVlrr+ne
-	 oBCjBnFnZgv3Mm7UynCNskPqQ+iMsD3oLLW3N+jfDDMKLXnYsA7vv3WZhmMQf5vCjg
-	 LMh1JZBJMEnvnfPxnuQX+I7o3o9oI20wUA7X+YX0=
+	b=AzlXPu9P4d5WdVjssOxovI3nAKem7y8bKYX56bReK1/22YDEVwvl/QikaZPr8ZA/j
+	 xPls78AGGIzkZIV86uxe3JAAbAKcrb2uPWDMKF9iySzCrpkGG5sEJ9PLln0aiyByAV
+	 Xnfd9mCdRLFTPFQVBKee7sj8KmbyfdFE4+xi6GBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C734F80425;
-	Wed, 14 Apr 2021 01:20:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1321FF804AD;
+	Wed, 14 Apr 2021 01:20:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5707F804AC; Wed, 14 Apr 2021 01:20:19 +0200 (CEST)
+ id D1FACF804B0; Wed, 14 Apr 2021 01:20:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C6F10F80425
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 01:20:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6F10F80425
-Date: 14 Apr 2021 08:20:15 +0900
-X-IronPort-AV: E=Sophos;i="5.82,220,1613401200"; d="scan'208";a="77981013"
+ by alsa1.perex.cz (Postfix) with ESMTP id 0C683F804AE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 01:20:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C683F804AE
+Date: 14 Apr 2021 08:20:20 +0900
+X-IronPort-AV: E=Sophos;i="5.82,220,1613401200"; d="scan'208";a="77981019"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 14 Apr 2021 08:20:15 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 14 Apr 2021 08:20:20 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 883E04113AC1;
- Wed, 14 Apr 2021 08:20:15 +0900 (JST)
-Message-ID: <87lf9lzs9c.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 94D9A41139AA;
+ Wed, 14 Apr 2021 08:20:20 +0900 (JST)
+Message-ID: <87k0p5zs97.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: audio-graph: use asoc_link_to_xxx() macro
+Subject: [PATCH 5/5] ASoC: audio-graph: use simple_props_to_xxx() macro
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87r1jdzsaj.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,117 +70,50 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We shouldn't use dai_link->cpus/codecs/platforms directly,
+We shouldn't use dai_props->cpus/codecs directly,
 because these are array now to supporting multi CPU/Codec/Platform.
-This patch uses asoc_link_to_xxx() macro for it.
+This patch uses simple_props_to_xxx() macro for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/audio-graph-card.c | 33 +++++++++++++++-------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
+ sound/soc/generic/audio-graph-card.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 0582fe296471..55384f1415b3 100644
+index 55384f1415b3..36b2ad7dd283 100644
 --- a/sound/soc/generic/audio-graph-card.c
 +++ b/sound/soc/generic/audio-graph-card.c
-@@ -224,9 +224,9 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	struct device_node *ports;
- 	struct device_node *node;
- 	struct asoc_simple_dai *dai;
--	struct snd_soc_dai_link_component *cpus = dai_link->cpus;
--	struct snd_soc_dai_link_component *codecs = dai_link->codecs;
--	struct snd_soc_dai_link_component *platforms = dai_link->platforms;
-+	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
-+	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
-+	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
- 	int ret;
+@@ -246,7 +246,7 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		dai_link->dynamic		= 1;
+ 		dai_link->dpcm_merged_format	= 1;
  
- 	port	= of_get_parent(ep);
-@@ -248,11 +248,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+-		dai = dai_props->cpu_dai;
++		dai = simple_props_to_dai_cpu(dai_props, 0);
  
- 		dai = dai_props->cpu_dai;
- 
--		ret = asoc_simple_parse_dai(ep, dai_link->cpus, &is_single_links);
-+		ret = asoc_simple_parse_dai(ep, cpus, &is_single_links);
+ 		ret = asoc_simple_parse_dai(ep, cpus, &is_single_links);
  		if (ret)
- 			goto out_put_node;
+@@ -288,8 +288,8 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		dai_link->no_pcm		= 1;
+ 		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
  
--		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->cpus);
-+		ret = asoc_simple_parse_clk(dev, ep, dai, cpus);
+-		dai =   dai_props->codec_dai;
+-		cconf = dai_props->codec_conf;
++		dai	= simple_props_to_dai_codec(dai_props, 0);
++		cconf	= simple_props_to_codec_conf(dai_props, 0);
+ 
+ 		ret = asoc_simple_parse_dai(ep, codecs, NULL);
  		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -291,11 +291,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai =   dai_props->codec_dai;
- 		cconf = dai_props->codec_conf;
- 
--		ret = asoc_simple_parse_dai(ep, dai_link->codecs, NULL);
-+		ret = asoc_simple_parse_dai(ep, codecs, NULL);
- 		if (ret < 0)
- 			goto out_put_node;
- 
--		ret = asoc_simple_parse_clk(dev, ep, dai, dai_link->codecs);
-+		ret = asoc_simple_parse_clk(dev, ep, dai, codecs);
- 		if (ret < 0)
- 			goto out_put_node;
- 
-@@ -357,6 +357,9 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
+@@ -355,8 +355,8 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
+ 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
+ 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
  	struct device_node *top = dev->of_node;
- 	struct asoc_simple_dai *cpu_dai = dai_props->cpu_dai;
- 	struct asoc_simple_dai *codec_dai = dai_props->codec_dai;
-+	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
-+	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
-+	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
- 	int ret, single_cpu = 0;
- 
- 	dev_dbg(dev, "link_of (%pOF)\n", cpu_ep);
-@@ -372,11 +375,11 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_dai(cpu_ep, dai_link->cpus, &single_cpu);
-+	ret = asoc_simple_parse_dai(cpu_ep, cpus, &single_cpu);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_dai(codec_ep, dai_link->codecs, NULL);
-+	ret = asoc_simple_parse_dai(codec_ep, codecs, NULL);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -388,26 +391,26 @@ static int graph_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_clk(dev, cpu_ep, cpu_dai, dai_link->cpus);
-+	ret = asoc_simple_parse_clk(dev, cpu_ep, cpu_dai, cpus);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = asoc_simple_parse_clk(dev, codec_ep, codec_dai, dai_link->codecs);
-+	ret = asoc_simple_parse_clk(dev, codec_ep, codec_dai, codecs);
- 	if (ret < 0)
- 		return ret;
- 
- 	ret = asoc_simple_set_dailink_name(dev, dai_link,
- 					   "%s-%s",
--					   dai_link->cpus->dai_name,
--					   dai_link->codecs->dai_name);
-+					   cpus->dai_name,
-+					   codecs->dai_name);
- 	if (ret < 0)
- 		return ret;
- 
- 	dai_link->ops = &graph_ops;
- 	dai_link->init = asoc_simple_dai_init;
- 
--	asoc_simple_canonicalize_cpu(dai_link->cpus, single_cpu);
--	asoc_simple_canonicalize_platform(dai_link->platforms, dai_link->cpus);
-+	asoc_simple_canonicalize_cpu(cpus, single_cpu);
-+	asoc_simple_canonicalize_platform(platforms, cpus);
- 
- 	return 0;
- }
+-	struct asoc_simple_dai *cpu_dai = dai_props->cpu_dai;
+-	struct asoc_simple_dai *codec_dai = dai_props->codec_dai;
++	struct asoc_simple_dai *cpu_dai = simple_props_to_dai_cpu(dai_props, 0);
++	struct asoc_simple_dai *codec_dai = simple_props_to_dai_codec(dai_props, 0);
+ 	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
+ 	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
+ 	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
 -- 
 2.25.1
 

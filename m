@@ -2,108 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B82535D3D9
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Apr 2021 01:21:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E9435D45E
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Apr 2021 02:12:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6BEC15F9;
-	Tue, 13 Apr 2021 01:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6BEC15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 964D0166E;
+	Tue, 13 Apr 2021 02:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 964D0166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618269659;
-	bh=hSku3cONblhSoVowrQFiLeeZD8Vc+tN7T6ffue1pFoQ=;
+	s=default; t=1618272735;
+	bh=9n9acChMnY7afRWPqgBYssKXKIXjY2P9gP/JpzMWRX4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=feSThEqDhPCiFOEA0YNmIx4/NNG6o2oQRLHAUqihHZ9vf1ANl77LftBKTRBbd/vSs
-	 FYvPLjSTrNv59pF3IwJjMXRJOFsayFv40/azMYJM8ULJktZI6b5toW0vZuK0F/OEtz
-	 Rt0uJSh7ftbqVjREXmndgmf7iV18vWFxjZUagwCc=
+	b=Y0FVzOcSONY97xMNrqSlFcz8OH0uIcR0bdQ3A0G0BtmDn5UtJG/nKKaVL9i3kF4Gp
+	 RIP/sFSp5o/lfNrksb2UCFmY2+3XO1yjj7IOcPhT+uqaoYw4MpYZZtLeGruwkXvSZb
+	 ugnHILLyaLyiaV2DoWkv+Flv6xf8mfUZIAVVvYbY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19A95F800D3;
-	Tue, 13 Apr 2021 01:19:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35D14F800FF;
+	Tue, 13 Apr 2021 02:10:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F301F80269; Tue, 13 Apr 2021 01:19:28 +0200 (CEST)
+ id 3F3CDF80269; Tue, 13 Apr 2021 02:10:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_29,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15CBEF8013D
- for <alsa-devel@alsa-project.org>; Tue, 13 Apr 2021 01:19:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15CBEF8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A208F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 13 Apr 2021 02:10:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A208F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BAstBvsM"
-Received: by mail-qk1-x729.google.com with SMTP id 130so1928245qkm.4
- for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 16:19:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e2Md7zEvsDYJPxvHgiGkfOkLuXs5x54Yk8Hn6ml8FQQ=;
- b=BAstBvsMA+JyaByjHQAuQKrA5phbs8jykQYTtOEK/VsliAYe7YTPjR+HKSNeHTGGBA
- vfV7g/uvZW9V+72eO91U+G2lOcS6XBzpBCNmbG0jz4hEOR1ZbkLLcebBGdlgmWDOn4Bx
- To7v4UI6Rc2jS66pEEEtBxIBPSZh1Fez5eqnGdIgzwF80Eive4rPxzokgVg/IoDs6FDx
- zbpHJ91gdu6sKx5RG6JG/09tnLv6WsRgMpUBQA+rE4qnIgiZG+Fseb8E+f9L+cYz9Ecj
- 22hd4S0XlE6dXSklF7fH5hFjXojivZGAKwLfbq1fRCSshfEzpwAWvuKf3jPcTHUhETUR
- giRw==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="NJSepX3u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1618272635;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DJy0MYJqYIU6+bGGzxTODxQB8MW4ZSD9Vo5MmEtwm5Q=;
+ b=NJSepX3uAu6YOXFRaRDQUf8eTqVtMSdV4Yju+mb7zUPPKMRIbp9+2v8JOR0doTgIETFg6w
+ uUJrqR7ybCY2mHyvc7upzmmJ/zho1hOdcvXlyf+luhL5fkii/KMep/QQWAnst3z9C6DLac
+ ThsIerV3Py7IRvaUizczgcn78i8aas4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-270-7Gn2WODzMoSLAlKkpH8rkQ-1; Mon, 12 Apr 2021 20:10:31 -0400
+X-MC-Unique: 7Gn2WODzMoSLAlKkpH8rkQ-1
+Received: by mail-wr1-f72.google.com with SMTP id h16so40211wrq.5
+ for <alsa-devel@alsa-project.org>; Mon, 12 Apr 2021 17:10:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=e2Md7zEvsDYJPxvHgiGkfOkLuXs5x54Yk8Hn6ml8FQQ=;
- b=La92PRSHE/4Zablv7BdNwHvoXbB/D+BAhsS1frm9uDllvZAEPhojopW9IUzjHNGZIL
- 8KXtQVNt/RE+rpXGvAlwLH13tFU+czVp2H+11tG1QXHb/X5x/B/ivr9xzBvHrGi2wDsf
- MLbj/PMS3b10tciuFJ3rq3V4T4lcDZUIEomXoQDoUn5tJ+uF4AQ6x2jmZgzyHMy0oMoi
- f0IOBKOSgP+kuBoKwn04kjE0uo4cQb2UcQjbD3p98lDhuwlAoNmsRvTYLeN4IT33YuYd
- knro9fHjJSQPxBOTkQZ0d6oKOYoBuUoSTHRJn42sTx8aYsLrsir+eTAhATwwKukuthkl
- OfNQ==
-X-Gm-Message-State: AOAM530rQ121PB7HnFK4cE59hByZ/qAtZrPmnICrEd7uQ2zMOcWAFpsW
- AKmocupqnoxxFOd/Z5Hd/AftlD/1AxKBmtEeQ1Y=
-X-Google-Smtp-Source: ABdhPJwyxldj4OV5BKrIKd0OIH01sxNrw9n/fvVmy4ntJ1G5IclrtSukHy/Z5xl20ZWPGNFVQmsJfF9obVUVpIZTAHY=
-X-Received: by 2002:ae9:f40b:: with SMTP id y11mr12256810qkl.250.1618269563387; 
- Mon, 12 Apr 2021 16:19:23 -0700 (PDT)
+ bh=DJy0MYJqYIU6+bGGzxTODxQB8MW4ZSD9Vo5MmEtwm5Q=;
+ b=nlD7OtO/3P53PH92XKNgqBVjz1Pyue9kiO4JeLikLEgK16vaL1xo7vGi0owG2kyMYF
+ 61gPTz8Mzs+Ze8mKvpzbjUQAg5fJVpAme51ie556ox3VstFFESeOQdLI8m5SyZbYTxAP
+ a6hQiyiBwqI2soTHyZkng7A5FS/X7xMSEpVOHJmfmhq521KTwi5osyQjri1EK0kFLVG8
+ FBFU2FW4fbLIcGTZaFflVEn2kVO0ntLWYf1EWChSdxpBXCb80Yq7VttoX1YKIUuwXu/i
+ U6ifq7edeLxRk9NeHtfv9N+naumK9CCJZLmqxMLF7peRMQRJxD0DgzaovsEFun23BzhR
+ FcRw==
+X-Gm-Message-State: AOAM5305/qQcmyG8RGCohrA03gna+HCP965CEyqIsfgpRafgjI+ZABeb
+ pelUsVovXatVTnrNHssSCy0fK3ztdg9EfbnTBII4FaFUV9ndK5Qi3yjoGn5s1ch/zZI9DeGhMhV
+ ekomiotZD3PyPalRG4D08U1jghbBK9fiUETYT3Cw=
+X-Received: by 2002:a5d:6983:: with SMTP id g3mr908871wru.415.1618272629800;
+ Mon, 12 Apr 2021 17:10:29 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzITrjeewk8ouER6E5dEaSyz1Kxh4dnJf7Z2leZJet7UdBtAof834wEgH4MM29xjsorRJ7B0TbZUka9iwdmil4=
+X-Received: by 2002:a5d:6983:: with SMTP id g3mr908844wru.415.1618272629539;
+ Mon, 12 Apr 2021 17:10:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
- <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
- <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
- <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
- <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
- <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
- <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
- <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
- <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
- <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
- <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
- <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
- <CAHXb3bcpUBH9F=K9npwK-xO5sX+H11EV0_Nc7Otw7o93M=DKYQ@mail.gmail.com>
- <CAEsQvcs8HasvcJm0oEr87gNPxB6o2Km_NtAojTq+VkEX9EZd0g@mail.gmail.com>
- <CAHXb3bcMRrtMtfoHOCikNAkXxemnScfTPvJ702N_z6o5xj-G5g@mail.gmail.com>
- <CAEsQvcuo0g9STXn1d-Wux0TOH32mc88=Lw44r0ng+QocztcG3Q@mail.gmail.com>
- <CAOsVg8qWkYnW4sYP5S5A=BWvQWeBY08DrC7JZ9nNF8_nrsNArg@mail.gmail.com>
- <CAEsQvcs7y5Gr9X2vNkMHZU9akJAuBw7hE-XKcYKj9CJdO=GM8w@mail.gmail.com>
- <CAOsVg8rrJMdzADsRpjTOmi7Dk23bfej+KRFQWD77s9pmNW=g5w@mail.gmail.com>
- <CAEsQvcvUJ0p4bPLJhzppJR-uFjoyOiu2_=QtAvMvNwPh9AfAFA@mail.gmail.com>
- <CAOsVg8q_5yWBOR6DROJT7=Xv=R2yVNWSEjt4MUAx0QpQ6Af14g@mail.gmail.com>
- <CAHXb3beJxepHYraSXGCB4n9RBbBnLo05dcG=7nED1b_ZGRrMaw@mail.gmail.com>
- <CAOsVg8r85TsJypOSm5ZRv49uv+v=MZyNONe32AgGZL0fbYNayw@mail.gmail.com>
- <CAOsVg8rD==rjuVU0MR8rkp4VQi_6=UfO16huhsZx4-hM-su1xA@mail.gmail.com>
- <CAEsQvcuJF9D8nxbBXWbYKer5oTr7RbMQw9YiXzqb+Hof=gehCg@mail.gmail.com>
- <CAOsVg8oEqEsDVA67s2OoHbvLgTy5wYjwBOTOJeX+uS29nPf+kw@mail.gmail.com>
-In-Reply-To: <CAOsVg8oEqEsDVA67s2OoHbvLgTy5wYjwBOTOJeX+uS29nPf+kw@mail.gmail.com>
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-Date: Mon, 12 Apr 2021 20:24:05 -0300
-Message-ID: <CAEsQvcsUTchyaDqp+1VOnJuREP9L27JkG90pY9aD3TBLWaAdSg@mail.gmail.com>
-Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-To: Lucas <jaffa225man@gmail.com>
+References: <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
+ <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
+ <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
+ <s5h7dpfk06y.wl-tiwai@suse.de>
+ <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
+ <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
+ <CAAd53p4=bSX26QzsPyV1sxADiuVn2sowWyb5JFDoPZQ+ZYoCzA@mail.gmail.com>
+ <CACO55tsPx_UC3OPf9Hq9sGdnZg9jH1+B0zOi6EAxTZ13E1tf7A@mail.gmail.com>
+ <d01e375f-bf16-a005-ec66-0910956cc616@spliet.org>
+ <20210410192314.GB16240@wunner.de>
+ <bddba2ca-15d5-7fd3-5b64-f4ba7e179ec0@spliet.org>
+ <81b2a8c7-5b0b-b8fa-fbed-f164128de7a3@nvidia.com>
+ <8d358110-769d-b984-d2ec-825dc2c3d77a@spliet.org>
+In-Reply-To: <8d358110-769d-b984-d2ec-825dc2c3d77a@spliet.org>
+From: Karol Herbst <kherbst@redhat.com>
+Date: Tue, 13 Apr 2021 02:10:18 +0200
+Message-ID: <CACO55tsBDov88YM7phm_SugdEUqD_1S=DWLFXSWr-4H+9wJyAQ@mail.gmail.com>
+Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
+ probe fails
+To: Roy Spliet <nouveau@spliet.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=kherbst@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Lukas Wunner <lukas@wunner.de>,
+ Takashi Iwai <tiwai@suse.de>, nouveau <nouveau@lists.freedesktop.org>,
+ Aaron Plattner <aplattner@nvidia.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,76 +126,193 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Lucas, I'm happy my suggestions lead to you actually having fun with
-testing. Testing can be boring sometimes, but it seems you had the time of
-your life :-)
+On Mon, Apr 12, 2021 at 9:36 PM Roy Spliet <nouveau@spliet.org> wrote:
+>
+> Hello Aaron,
+>
+> Thanks for your insights. A follow-up query and some observations in-line.
+>
+> Op 12-04-2021 om 20:06 schreef Aaron Plattner:
+> > On 4/10/21 1:48 PM, Roy Spliet wrote:
+> >> Op 10-04-2021 om 20:23 schreef Lukas Wunner:
+> >>> On Sat, Apr 10, 2021 at 04:51:27PM +0100, Roy Spliet wrote:
+> >>>> Can I ask someone with more
+> >>>> technical knowledge of snd_hda_intel and vgaswitcheroo to brainstorm
+> >>>> about
+> >>>> the possible challenges of nouveau taking matters into its own hand
+> >>>> rather
+> >>>> than keeping this PCI quirk around?
+> >>>
+> >>> It sounds to me like the HDA is not powered if no cable is plugged in.
+> >>> What is reponsible then for powering it up or down, firmware code on
+> >>> the GPU or in the host's BIOS?
+> >>
+> >> Sometimes the BIOS, but definitely unconditionally the PCI quirk code:
+> >> https://github.com/torvalds/linux/blob/master/drivers/pci/quirks.c#L5289
+> >>
+> >> (CC Aaron Plattner)
+> >
+> > My basic understanding is that the audio function stops responding
+> > whenever the graphics function is powered off. So the requirement here
+> > is that the audio driver can't try to talk to the audio function while
+> > the graphics function is asleep, and must trigger a graphics function
+> > wakeup before trying to communicate with the audio function.
+>
+> I believe that vgaswitcheroo takes care of this for us.
+>
 
-As always I commend you for your effort in detailing your tests. That's
-definitely important.
+yeah, and also: why would the driver want to do stuff? If the GPU is
+turned off, there is no point in communicating with the audio device
+anyway. The driver should do the initial probe and leave the device be
+unless it's actively used. Also there is no such thing as "use the
+audio function, but not the graphics one"
 
-I hope you, Mike Oliphant and Takashi Iwai manage to write the best
-possible patch. Of course there will be room for improvement as more people
-test their Roland gear on Linux thanks to the three of you, but such is the
-way.
+> > I think
+> > there are also requirements about the audio function needing to be awake
+> > when the graphics driver is updating the ELD, but I'm not sure.
+> >
 
+well, it's one physical device anyway, so technically the audio
+function is powered on.
 
+> > This is harder on Windows because the audio driver lives in its own
+> > little world doing its own thing but on Linux we can do better.
+> >
+> >>> Ideally, we should try to find out how to control HDA power from the
+> >>> operating system rather than trying to cooperate with whatever firmware
+> >>> is doing.  If we have that capability, the OS should power the HDA up
+> >>> and down as it sees fit.
+> >
+> > After system boot, I don't think there's any firmware involved, but I'm
+> > not super familiar with the low-level details and it's possible the
+> > situation changed since I last looked at it.
+> >
+> > I think the problem with having nouveau write this quirk is that the
+> > kernel will need to re-probe the PCI device to notice that it has
+> > suddenly become a multi-function device with an audio function, and
+> > hotplug the audio driver. I originally looked into trying to do that but
+> > it was tricky because the PCI subsystem didn't really have a mechanism
+> > for a single-function device to become a multi-function device on the
+> > fly and it seemed easier to enable it early on during bus enumeration.
+> > That way the kernel sees both functions all the time without anything
+> > else having to be special about this configuration.
 
+Well, we do have this pci/quirk.c thing, no? Nouveau does flip the
+bit, but I am actually not sure if that's even doing something
+anymore. Maybe in the runtime_resume case it's still relevant but not
+sure _when_ DECLARE_PCI_FIXUP_CLASS_RESUME_EARLY is triggered, it does
+seem to be called even in the runtime_resume case though.
 
+>
+> Right, so for a little more context: a while ago I noticed that my
+> laptop (lucky me, Asus K501UB) has a 940M with HDA but no codec. Seems
+> legit, given how this GPU has no displays attached; they're all hooked
+> up to the Intel integrated GPU. That threw off the snd_hda_intel
+> mid-probe, and as a result didn't permit runpm, keeping the entire GPU,
+> PCIe bus and thus the CPU package awake. A bit of hackerly later we
+> decided to continue probing without a codec, and now my laptop is happy,
+> but...
+> A new problem popped up with several other NVIDIA GPUs that expose their
+> HDA subdevice, but somehow its inaccessible. Relevant lines from a
+> users' log:
+>
+> [    3.031222] MXM: GUID detected in BIOS
+> [    3.031280] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index
+> (0x000000003) is beyond end of object (length 0x0) (20200925/exoparg2-393)
+> [    3.031352] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to
+> previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [    3.031419] ACPI: \_SB_.PCI0.GFX0: failed to evaluate _DSM (0x300b)
+> [    3.031424] ACPI Warning: \_SB.PCI0.GFX0._DSM: Argument #4 type
+> mismatch - Found [Buffer], ACPI requires [Package] (20200925/nsarguments-61)
+> [    3.031619] pci 0000:00:02.0: optimus capabilities: enabled, status
+> dynamic power,
+> [    3.031667] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index
+> (0x000000003) is beyond end of object (length 0x0) (20200925/exoparg2-393)
+> [    3.031731] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to
+> previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [    3.031791] ACPI Error: Aborting method \_SB.PCI0.PEG0.PEGP._DSM due
+> to previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [    3.031856] ACPI: \_SB_.PCI0.PEG0.PEGP: failed to evaluate _DSM (0x300b)
+> [    3.031859] ACPI Warning: \_SB.PCI0.PEG0.PEGP._DSM: Argument #4 type
+> mismatch - Found [Buffer], ACPI requires [Package] (20200925/nsarguments-61)
 
-Em Seg, 12 de abr de 2021 02:58, Lucas <jaffa225man@gmail.com> escreveu:
+If I am not wrong we are calling the _DSM method inside nouveau when
+doing runpm on pre _PR3 systems. As this is all very vendor specific,
+we might be doing something incorrectly.
 
-> Thanks a lot for the information about jack's use with alsa_in and
-> alsa_out!  The multiple card use issue is the main reason I don't work with
-> jack often.  Ardour not displaying unless I change my gnome theme to
-> "HighContrast" before opening it is annoying, but I like the command line
-> tool jack_capture as a simple, good alternative anyway.  I've long ago
-> decided pulseaudio to be a downgrade from ALSA, but I find it working okay
-> with my modern debian install.  Because it's functional now, I already had
-> tested each of these devices through gnome's "Settings"->"Sound" controls.
-> It gives an input device level display to prove that's functional, and a UI
-> to speaker-test for output devices.  This all works as expected.
+> [    3.032058] pci 0000:01:00.0: optimus capabilities: enabled, status
+> dynamic power,
+> [    3.032061] VGA switcheroo: detected Optimus DSM method
+> \_SB_.PCI0.PEG0.PEGP handle
+> [    3.032323] checking generic (d0000000 410000) vs hw (f6000000 1000000)
+> [    3.032325] checking generic (d0000000 410000) vs hw (e0000000 10000000)
+> [    3.032326] checking generic (d0000000 410000) vs hw (f0000000 2000000)
+> [    3.032410] nouveau 0000:01:00.0: NVIDIA GK107 (0e71f0a2)
+> [    3.042385] nouveau 0000:01:00.0: bios: version 80.07.a0.00.11
+> --- snip ---
+> [    8.951478] snd_hda_intel 0000:01:00.1: can't change power state from
+> D3cold to D0 (config space inaccessible)
+> [    8.951509] snd_hda_intel 0000:01:00.1: can't change power state from
+> D3hot to D0 (config space inaccessible)
+
+This is actually a little bad, because it means that the device
+doesn't come back up from D3. It's a bit weird it's D3cold and D3hot
+in the messages, but maybe the device just takes quite some time to
+wake up. But it does look like the device gets woken up.
+
+> [    8.951608] snd_hda_intel 0000:01:00.1: Disabling MSI
+> [    8.951621] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio
+> client
+> [    8.952461] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops
+> i915_audio_component_bind_ops [i915])
+> [    8.952642] snd_hda_intel 0000:01:00.1: number of I/O streams is 30,
+> forcing separate stream tags
 >
-> Anyway, I just used alsa_in and alsa_out with jack due to your help, and
-> that is working perfectly too.  It's pretty fun to be able to record my
-> from my R-26 as a microphone voice-over for all my other instrument device
-> tests.  I did need to post process with audacity later to compress the
-> input levels and remove some accidental loud feedback, but it works
-> amazingly.
+> Now I don't know what's going on, but the snd_hda_intel messages are
+> ominous. And so are the ACPI warnings. But I don't know how much these
+> two are related.
 >
-> My UA-4FX usual sound card was the default as "system" to jack, so I
-> really was converting everything to 48 kHz, but that's fine for this test.
-> This is because I started jack with qjackctl using my previous profile for
-> the UA-4FX.  I had to turn the UA-4FX's bottom "INPUT MONITOR" switch to
-> "AUTO" (off) to avoid feedback, since both its input and output is
-> connected in the test.
+
+What is the actual problem though? Seems like everything is fine
+despite those messages.
+
+> You say that it is desirable to switch on HDA at boot-time because the
+> PCI subsystem doesn't play nicely with changing a device to
+> multi-function. That rules out the option of only enabling the HDA
+> device once a cable is plugged in. Are there any other trap doors that
+
+yeah, we can absolutely not do that. We do quirk the device to put the
+GPU into multi function state asap and the intel_hda_snd driver should
+deal with it.
+
+> snd_hda_intel needs to navigate around to make this work fault free on
+> all hardware, such as:
+> - Codecs not revealing themselves until a display is plugged in,
+> requiring perhaps a "codec reprobe" and "codec remove" event from
+> nouveau/rm to snd_hda_intel,
+
+we could trigger the reprobe from within nouveau as we are dealing
+with display hotplug events anyway.
+
+> - Borked BIOSes just blindly assigning the MMIO space of the HDA device
+> to another device, or nothing at all,
+
+that exists? *sigh*
+
+> - ... other things that might give any of us nightmares and heart burn?
 >
-> Then, here are the commands to get them running on jack:
-> alsa_in -j INTEGRA7 -d hw:INTEGRA7 -r 96000 &
-> alsa_out -j INTEGRA7 -d hw:INTEGRA7 -r 96000 &
-> alsa_in -j R26 -d hw:R26AUDIO -r 96000 &
-> alsa_out -j R26 -d hw:R26AUDIO -r 96000 &
-> alsa_in -j VG99 -d hw:VG99 -r 44100 &
-> alsa_out -j VG99 -d hw:VG99 -r 44100 &
-> alsa_in -j D05 -d hw:Boutique -r 96000 &
-> alsa_out -j D05 -d hw:Boutique -r 96000 &
+
+hopefully there are none :p
+
+> Thanks!
 >
-> Here's how I had them all circularly connected (using qjackctl):
-> system out->INTEGRA-7 in->INTEGRA-7 out->R-26 in->R-26 out->VG-99
-> in->VG-99 out->D-05 in->D-05 out->system in.  "System in" also had a
-> physical line input connected from the analog output of my Roland SC-8850,
-> and "system out" was connected to my amplifier and speakers from its line
-> output.
+> Roy
 >
-> I ran a ~15 minute jack_capture recording this way, and verified that all
-> devices are, at once, capable of both capture and playback (duplex).  All
-> except the D-05 have to be configured to loop input back to output, each
-> through slightly different conventions, but they were all figured out
-> eventually.
+> >
+> > -- Aaron
+> >
+> >>> Thanks,
+> >>>
+> >>> Lukas
 >
-> This test has delayed my testing of the UA-25Ex, but I'll get to that
-> next, and this was, very likely, more fun.
->
-> Thanks again Geraldo,
->
->   Lucas
->
+

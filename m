@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B11035F898
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 18:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E6335F8B1
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 18:09:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0ACA4167B;
-	Wed, 14 Apr 2021 18:07:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ACA4167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 804651684;
+	Wed, 14 Apr 2021 18:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 804651684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618416518;
-	bh=BPlhBuiYRkW4vB0YGvE5clIuOpYnoQwsKGoAS9ZehhM=;
+	s=default; t=1618416554;
+	bh=L4F495iiGqUPwVJ4yGcCT0wnok09sJf0k66HFI3lKV0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ac7ER8Bs1lLqBsmz0aaCILpyV7HARTKNFOghq3IDMZujK1rL7OFV4T+zbzX/4u/Mo
-	 fQ5zQ8lNoHBTR+y3Cc0hyyRtu4fWsxMEP8Rn4yWpDwGNlvXd0lJdSc0DrhCy1Vd2Q3
-	 i8STNmeHD+zWMysKgl+0Hv9UesNDt1GgYV8GVQg8=
+	b=Ib2KaJnjZlnU1qKN5Aqf6zVOK2zB1gK5nkqFCaM3q9oYKiHQFV5d2M0gVpdrpcOy9
+	 X5IHHpszhAmpHAiV/loI07GLZWCBkWX1F+1yvtGWP/JXX+r1Qda7GMSwELCPffAfJv
+	 dtfdVMRy0DFeshE3xJ3Dn1c6mG9JcgaqlvfVmhBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9451F80278;
-	Wed, 14 Apr 2021 18:06:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67CC1F8032D;
+	Wed, 14 Apr 2021 18:07:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D595F80271; Wed, 14 Apr 2021 18:06:54 +0200 (CEST)
+ id 48C81F80277; Wed, 14 Apr 2021 18:06:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5212FF800EB
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 18:06:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5212FF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D23EEF800EB
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 18:06:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D23EEF800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CFQt6bK6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C19D061179;
- Wed, 14 Apr 2021 16:06:49 +0000 (UTC)
+ header.b="sMOacyPQ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 92C3B611B0;
+ Wed, 14 Apr 2021 16:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618416410;
- bh=BPlhBuiYRkW4vB0YGvE5clIuOpYnoQwsKGoAS9ZehhM=;
+ s=k20201202; t=1618416413;
+ bh=L4F495iiGqUPwVJ4yGcCT0wnok09sJf0k66HFI3lKV0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CFQt6bK6bi9ufRvVIHDJ1FOwMBnGKV1FbdyJ/T/XiKircSoWb6ODOR7fZNcLIQlPu
- Zhucq1fRYHWUgwCdQRQj35kvk6Ir8RFZghNgmQ5rlY+ID4rJGBBdgDg8jpe8YnuO5X
- 0cdeYtq8BzgNcVxl0kpLbQnN6FBC+rrcxskTNy3uyu5AOyfvQgSlPhGK2DEpBFiX3P
- T3pQ913H7UjG7bVK7XrMpaK7T+MP6WPyCDbcRBi9/MjgyzWCbItIbBCmoSFGg0SKuh
- MaeT5eABQZraoOzLJ9zeqscZg3CB9EGWL9lQ9/rKzQRu9GuFxiz5vZhugLWIcfO/8/
- 1YAmEQpyytcpg==
+ b=sMOacyPQRr8/MPuUavf2Pn/pCNUvsu2u+/soswqXFs7ti8gxsIqCrnnOGoXrr14nv
+ jgVfNHTpijfPBACmIMdeaKYFNwzmmEMo8WCnVCDih1tx22iujjn1kpJwm4I+FksnDO
+ FK5kUm/KWi66DUSdc2O22y1lkNbBZrml/El2kDSsFs7UQ5BW7UOoOPc/KLx+TPl+3g
+ fv0tUZ3EK0aIiy/lXosQR93QlwL+U62AVQqQKxlxtrN5bPEXV/foClBEfSSMWg+0Bb
+ fHXUlhALVM1v/R69olzXhN8jF1pERGrgvtDEmTjkU7wEMfFfJ5lDhCCBELe/gEUdCL
+ rqyH7DfzzBThA==
 From: Mark Brown <broonie@kernel.org>
-To: Yang Li <yang.lee@linux.alibaba.com>,
-	james.schulman@cirrus.com
-Subject: Re: [PATCH] ASoC: cs35l35: remove unused including <linux/version.h>
-Date: Wed, 14 Apr 2021 17:06:21 +0100
-Message-Id: <161841601730.20953.11471604452451396638.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, perex@perex.cz, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2 -next 1/2] ASoC: ak5558: correct reset polarity
+Date: Wed, 14 Apr 2021 17:06:22 +0100
+Message-Id: <161841601730.20953.3339137188444911098.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1618380883-114841-1-git-send-email-yang.lee@linux.alibaba.com>
-References: <1618380883-114841-1-git-send-email-yang.lee@linux.alibaba.com>
+In-Reply-To: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, david.rhodes@cirrus.com,
- linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +80,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Apr 2021 14:14:43 +0800, Yang Li wrote:
-> Fix the following versioncheck warning:
-> ./sound/soc/codecs/cs35l35.c: 12 linux/version.h not needed.
+On Wed, 14 Apr 2021 14:33:43 +0800, Shengjiu Wang wrote:
+> Reset (aka power off) happens when the reset gpio is made active.
+> The reset gpio is GPIO_ACTIVE_LOW
 
 Applied to
 
@@ -91,8 +90,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l35: remove unused including <linux/version.h>
-      commit: e42b6e813f4231d3c38362fd800724bd41040ef9
+[1/2] ASoC: ak5558: correct reset polarity
+      commit: 0b93bbc977af55fd10687f2c96c807cba95cb927
+[2/2] ASoC: ak5558: change function name to ak5558_reset
+      commit: 4d5d75ce2b32577afef26a233119d8ee1b764ea7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

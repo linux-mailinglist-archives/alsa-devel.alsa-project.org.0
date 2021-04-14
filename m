@@ -2,73 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F1FD35EBA6
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 06:09:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C5235ED10
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 08:16:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34D8116C6;
-	Wed, 14 Apr 2021 06:09:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D8116C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAF0516C7;
+	Wed, 14 Apr 2021 08:15:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAF0516C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618373393;
-	bh=Z+UFwSwbY5ODpHNEo1Xqlqvm4gPb50y3Q5DfZe0rBQ4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JGTSr3jBq8u2MRcaxCiqIOiwxvcorfi+g4+6twz1yT2pV3Sswi7XydXCDP7azNP2m
-	 2IhDPsFH0kcqiCt4Rps1u88/2SN+/JyEsXYHhRMtmvF4cCZQng7Kqy1fwc0WFQHw4T
-	 fjcL0ILjl5jb6iicEOWnORE8AqH01PFTBuZpVFQA=
+	s=default; t=1618380983;
+	bh=iDJAhoGcF3lDVqxP+Uzet9MGxbwLrPGBBt/rNFzk0RE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vUSfiaDyxdxQYVUqqEfYNzheKZbb4pVhRA7oEObR7uxljs2rWVv2gtmpG03aGZUTi
+	 7FPCqZG6LBk1X1M0FCWK4UAcs4eznyY+LUXyOdZuDmBMqt+5eozILUB1MUyfPtiCwg
+	 oo5wPS3dmsvHL7FP/WmakUnv867E3YkT2q6dp+ck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7995AF80128;
-	Wed, 14 Apr 2021 06:08:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40455F80128;
+	Wed, 14 Apr 2021 08:14:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BBE8F80269; Wed, 14 Apr 2021 06:08:21 +0200 (CEST)
+ id A4BEDF80269; Wed, 14 Apr 2021 08:14:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA70FF80128
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 06:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA70FF80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bpk/NEet"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BC82F61154;
- Wed, 14 Apr 2021 04:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618373294;
- bh=Z+UFwSwbY5ODpHNEo1Xqlqvm4gPb50y3Q5DfZe0rBQ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bpk/NEetYX72BKqsyciatQVIc+LHjsR3P6Sf/Lpt9FmnBFLMt7miUWdYoOgDIx/k7
- 8dWC5UDHAN4UjaIWPu3VTp8ikH4MkMyp3smEHvkIlLbeL615mvetSMU8Od3imYFdoI
- d5HJUZEi6YNU1h79dBhe/NEuWMZUKdmkniRW+lcdk3owjidbnjlN2cEq29ryz2rVtu
- C8OHLP69qIb7Jy/f3kDXwY56hbzuSDQPQmX9tq2CkZr3hR0I9feZ+igDJquKqkdSMn
- a4s6hTqHYBmb3CpDz0BkIWYjpXQ9m1LhRxj1druJrwTQGBTq1XWadxDUosTAgj5GN3
- hChOcujmL+Uhw==
-Date: Wed, 14 Apr 2021 09:38:10 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [PATCH v2 2/3] soundwire: Intel: introduce DMI quirks for HP
- Spectre x360 Convertible
-Message-ID: <YHZqqjUSJvYxhEw6@vkoul-mobl.Dlink>
-References: <20210302075105.11515-1-yung-chuan.liao@linux.intel.com>
- <20210302075105.11515-3-yung-chuan.liao@linux.intel.com>
- <de65866a-bb8f-f5c6-2829-42b561f282f7@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <de65866a-bb8f-f5c6-2829-42b561f282f7@intel.com>
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, hui.wang@canonical.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AE15F80128
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 08:14:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AE15F80128
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=10; SR=0; TI=SMTPD_---0UVWLJQ4_1618380884; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0UVWLJQ4_1618380884) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 14 Apr 2021 14:14:44 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: james.schulman@cirrus.com
+Subject: [PATCH] ASoC: cs35l35: remove unused including <linux/version.h>
+Date: Wed, 14 Apr 2021 14:14:43 +0800
+Message-Id: <1618380883-114841-1-git-send-email-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ patches@opensource.cirrus.com, tiwai@suse.com, broonie@kernel.org,
+ Yang Li <yang.lee@linux.alibaba.com>, david.rhodes@cirrus.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +68,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12-04-21, 14:37, Dave Hansen wrote:
-> On 3/1/21 11:51 PM, Bard Liao wrote:
-> > +++ b/drivers/soundwire/dmi-quirks.c
-> > @@ -0,0 +1,66 @@
-> > +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-> > +// Copyright(c) 2021 Intel Corporation.
-> 
-> It looks like this is already in intel-next, so this may be moot.  But,
-> is there a specific reason this is dual licensed?  If so, can you please
-> include information about the license choice in the cover letter of any
-> future version?
+Fix the following versioncheck warning:
+./sound/soc/codecs/cs35l35.c: 12 linux/version.h not needed.
 
-The soundwire module from Intel and core soundwire core was always dual
-licensed, so it kind of followed that..
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ sound/soc/codecs/cs35l35.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> If there is no specific reason for this contribution to be dual
-> licensed, please make it GPL-2.0 only.
-
-This module, I would say NO. Unless someone from Intel disagree..
-Pierre/Bard..?
-
-If all agree I dont see a reason why this cant be updated to GPL only.
-
-Thanks
+diff --git a/sound/soc/codecs/cs35l35.c b/sound/soc/codecs/cs35l35.c
+index 55d529a..5d361c7 100644
+--- a/sound/soc/codecs/cs35l35.c
++++ b/sound/soc/codecs/cs35l35.c
+@@ -9,7 +9,6 @@
+ 
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+-#include <linux/version.h>
+ #include <linux/kernel.h>
+ #include <linux/init.h>
+ #include <linux/delay.h>
 -- 
-~Vinod
+1.8.3.1
+

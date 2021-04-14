@@ -2,69 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E6335F8B1
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 18:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C50C35F93D
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 18:51:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 804651684;
-	Wed, 14 Apr 2021 18:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 804651684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E2BC1670;
+	Wed, 14 Apr 2021 18:50:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E2BC1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618416554;
-	bh=L4F495iiGqUPwVJ4yGcCT0wnok09sJf0k66HFI3lKV0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1618419089;
+	bh=cJGOg9AiXCnOVXvpmjbeHJ89RF1tVKcMBuQ5kzZ1Njk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ib2KaJnjZlnU1qKN5Aqf6zVOK2zB1gK5nkqFCaM3q9oYKiHQFV5d2M0gVpdrpcOy9
-	 X5IHHpszhAmpHAiV/loI07GLZWCBkWX1F+1yvtGWP/JXX+r1Qda7GMSwELCPffAfJv
-	 dtfdVMRy0DFeshE3xJ3Dn1c6mG9JcgaqlvfVmhBs=
+	b=Gai7hMtORuP6CFHGwZCgjU5w84fT/V9WY8Gj3GqKIAhvWG2XMPXqGTvOY2W6r7XI9
+	 kEdyoGEgMDA0ABytzvpk6wfw0pkzsAr0c4LcrRJdglzwIBWflKP/3+zi1XN0QS6eEC
+	 hZt1LjKAs0dEnIuD+DbiW14jqMFgm21zQFjEbNSU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67CC1F8032D;
-	Wed, 14 Apr 2021 18:07:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DBDDF800FF;
+	Wed, 14 Apr 2021 18:50:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48C81F80277; Wed, 14 Apr 2021 18:06:57 +0200 (CEST)
+ id 81643F80269; Wed, 14 Apr 2021 18:49:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D23EEF800EB
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 18:06:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D23EEF800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sMOacyPQ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 92C3B611B0;
- Wed, 14 Apr 2021 16:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618416413;
- bh=L4F495iiGqUPwVJ4yGcCT0wnok09sJf0k66HFI3lKV0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sMOacyPQRr8/MPuUavf2Pn/pCNUvsu2u+/soswqXFs7ti8gxsIqCrnnOGoXrr14nv
- jgVfNHTpijfPBACmIMdeaKYFNwzmmEMo8WCnVCDih1tx22iujjn1kpJwm4I+FksnDO
- FK5kUm/KWi66DUSdc2O22y1lkNbBZrml/El2kDSsFs7UQ5BW7UOoOPc/KLx+TPl+3g
- fv0tUZ3EK0aIiy/lXosQR93QlwL+U62AVQqQKxlxtrN5bPEXV/foClBEfSSMWg+0Bb
- fHXUlhALVM1v/R69olzXhN8jF1pERGrgvtDEmTjkU7wEMfFfJ5lDhCCBELe/gEUdCL
- rqyH7DfzzBThA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, perex@perex.cz, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2 -next 1/2] ASoC: ak5558: correct reset polarity
-Date: Wed, 14 Apr 2021 17:06:22 +0100
-Message-Id: <161841601730.20953.3339137188444911098.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14F88F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 18:49:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14F88F800FF
+IronPort-SDR: TSOUm7USTrRGI8QfLgUHEjvK9BtdK8ekzRDkYohKfRoX1Y915/35XMTBNTLNIDIUTxpbcZ7W+2
+ jywDKxkagA3w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9954"; a="279996224"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="279996224"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2021 09:49:49 -0700
+IronPort-SDR: igAmzAAo/FJDmriHHUS8QC7V6dn9mRoV5uvgJTZ4aiORgcqQwoaDwAkig4ElpBe7Yb97aRgibk
+ CRfIMyOJUBSA==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="532839445"
+Received: from abilling-mobl.amr.corp.intel.com (HELO [10.212.79.142])
+ ([10.212.79.142])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2021 09:49:47 -0700
+Subject: Re: [PATCH v2 2/3] soundwire: Intel: introduce DMI quirks for HP
+ Spectre x360 Convertible
+To: Vinod Koul <vkoul@kernel.org>, Dave Hansen <dave.hansen@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20210302075105.11515-1-yung-chuan.liao@linux.intel.com>
+ <20210302075105.11515-3-yung-chuan.liao@linux.intel.com>
+ <de65866a-bb8f-f5c6-2829-42b561f282f7@intel.com>
+ <YHZqqjUSJvYxhEw6@vkoul-mobl.Dlink>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <403e8645-f823-22f6-7003-3b62962dcf01@linux.intel.com>
+Date: Wed, 14 Apr 2021 10:21:48 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+In-Reply-To: <YHZqqjUSJvYxhEw6@vkoul-mobl.Dlink>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, hui.wang@canonical.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,36 +86,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Apr 2021 14:33:43 +0800, Shengjiu Wang wrote:
-> Reset (aka power off) happens when the reset gpio is made active.
-> The reset gpio is GPIO_ACTIVE_LOW
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On 4/13/21 11:08 PM, Vinod Koul wrote:
+> On 12-04-21, 14:37, Dave Hansen wrote:
+>> On 3/1/21 11:51 PM, Bard Liao wrote:
+>>> +++ b/drivers/soundwire/dmi-quirks.c
+>>> @@ -0,0 +1,66 @@
+>>> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+>>> +// Copyright(c) 2021 Intel Corporation.
+>>
+>> It looks like this is already in intel-next, so this may be moot.  But,
+>> is there a specific reason this is dual licensed?  If so, can you please
+>> include information about the license choice in the cover letter of any
+>> future version?
+> 
+> The soundwire module from Intel and core soundwire core was always dual
+> licensed, so it kind of followed that..
+> 
+>> If there is no specific reason for this contribution to be dual
+>> licensed, please make it GPL-2.0 only.
+> 
+> This module, I would say NO. Unless someone from Intel disagree..
+> Pierre/Bard..?
+> 
+> If all agree I dont see a reason why this cant be updated to GPL only.
 
-Thanks!
+The initial version of those quirks was contributed as a change to 
+drivers/soundwire/slave.c, which is dual-licensed. the code was split to 
+a different file and the dual-license followed.
 
-[1/2] ASoC: ak5558: correct reset polarity
-      commit: 0b93bbc977af55fd10687f2c96c807cba95cb927
-[2/2] ASoC: ak5558: change function name to ak5558_reset
-      commit: 4d5d75ce2b32577afef26a233119d8ee1b764ea7
+I am personally favorable to keeping the code as is, the quirks are just 
+referring to low-level hardware descriptors that are not aligned with 
+DevID hardware registers in external SoundWire devices. If enumeration 
+was handled at a lower level, e.g. in DSP firmware the same information 
+would be quite useful.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+That said, it's been agreed with Dave that moving forward all new 
+contributions from Intel with a dual-license would include an explicit 
+statement in the commit message as to why it was selected over plain 
+vanilla GPL-2.0-only.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

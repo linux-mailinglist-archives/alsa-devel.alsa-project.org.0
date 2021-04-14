@@ -2,62 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CF035ED97
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 08:50:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA2E35EE62
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 09:34:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D28A16CD;
-	Wed, 14 Apr 2021 08:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D28A16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 700EA16A2;
+	Wed, 14 Apr 2021 09:33:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 700EA16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618383022;
-	bh=4tD8Z2C1vXCo+vLuwlPOMdGDepRcu9Ittwjb2Vo1iZ8=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1618385660;
+	bh=6A5dB1Enw6kXpc7Kai53zM+Hcud3vsSQ4BNnPz+AHjc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IPlVFgyr/QJSU179YmZk9e/LQRWYC6gUwwDnXORgL26ffLmHHLwbHG9px5QucB5Au
-	 YBr8fpNNPBw2rVjvW2DuSOTR55OgR146AvdE4Osbv0w1U/nAyQYWWVUvB5MsSQRlt+
-	 lyX0i87BPUOWSG5ZjOcVz/4oHYmA0pSSjJbZ4dmU=
+	b=YF4DKOVXFpOhgKJKg0HbkjkGF/K6pxGpq+T3WuD43TWWNYvcwdZWB+GzXzP1pw0D8
+	 Z/PmqgJ59VdA7tL22ZEq+f9bfu+8ptXwxX4kCDRR6UvQT92/CaKDQLq7dgN3M4K6kk
+	 kugtSjoLAzmaHtvi2DeX/F7kAIsKKohjk8NhIcq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C55AAF80271;
-	Wed, 14 Apr 2021 08:48:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E67FDF8025B;
+	Wed, 14 Apr 2021 09:32:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8335F80271; Wed, 14 Apr 2021 08:48:50 +0200 (CEST)
+ id 42B3EF80269; Wed, 14 Apr 2021 09:32:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B3EAF8025B
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 08:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B3EAF8025B
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0E9FB2028ED;
- Wed, 14 Apr 2021 08:48:40 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5751E2028EF;
- Wed, 14 Apr 2021 08:48:37 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id AE7D5402F0;
- Wed, 14 Apr 2021 08:48:33 +0200 (CEST)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 -next 2/2] ASoC: ak5558: change function name to
- ak5558_reset
-Date: Wed, 14 Apr 2021 14:33:44 +0800
-Message-Id: <1618382024-31725-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1618382024-31725-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5116AF800EB
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 09:32:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5116AF800EB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0A7C6AE27;
+ Wed, 14 Apr 2021 07:32:35 +0000 (UTC)
+Date: Wed, 14 Apr 2021 09:32:34 +0200
+Message-ID: <s5him4pwcbx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH] ALSA: control_led: fix stack frame usage over 1024 bytes
+ in snd_ctl_led_get()
+In-Reply-To: <YHYEzjCuA6o0Myyj@archlinux-ax161>
+References: <20210404065929.52501-1-o-takashi@sakamocchi.jp>
+ <YHYEzjCuA6o0Myyj@archlinux-ax161>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,83 +71,141 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change function name to ak5558_reset to match devicetree property
-"reset-gpios".
+On Tue, 13 Apr 2021 22:53:34 +0200,
+Nathan Chancellor wrote:
+> 
+> On Sun, Apr 04, 2021 at 03:59:29PM +0900, Takashi Sakamoto wrote:
+> > GCC warns that snd_ctl_led_get() uses stack frame over 1024 bytes.
+> > 
+> > control_led.c: In function ‘snd_ctl_led_get’:
+> > control_led.c:128:1: warning: the frame size of 1504 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+> > 
+> > When taking care of convension in Linux kernel development. it's preferable
+> > to suppress too large usage of kernel stack, when the function call is not
+> > in critical part.
+> > 
+> > This commit fixes the bug, including some minor code refactoring relevant
+> > to variable names.
+> > 
+> > Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
+> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > ---
+> >  sound/core/control_led.c | 68 ++++++++++++++++++++++++++--------------
+> >  1 file changed, 44 insertions(+), 24 deletions(-)
+> > 
+> > diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+> > index b97f118cd54e..1be854a861f0 100644
+> > --- a/sound/core/control_led.c
+> > +++ b/sound/core/control_led.c
+> > @@ -94,34 +94,35 @@ static struct snd_ctl_led *snd_ctl_led_get_by_access(unsigned int access)
+> >  	return &snd_ctl_leds[group];
+> >  }
+> >  
+> > -static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl)
+> > +static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl, struct snd_ctl_elem_info *elem_info,
+> > +			   struct snd_ctl_elem_value *elem_value)
+> >  {
+> >  	struct snd_kcontrol *kctl = lctl->kctl;
+> > -	struct snd_ctl_elem_info info;
+> > -	struct snd_ctl_elem_value value;
+> >  	unsigned int i;
+> > -	int result;
+> > -
+> > -	memset(&info, 0, sizeof(info));
+> > -	info.id = kctl->id;
+> > -	info.id.index += lctl->index_offset;
+> > -	info.id.numid += lctl->index_offset;
+> > -	result = kctl->info(kctl, &info);
+> > -	if (result < 0)
+> > +	int err;
+> > +
+> > +	memset(elem_info, 0, sizeof(*elem_info));
+> > +	elem_info->id = kctl->id;
+> > +	elem_info->id.index += lctl->index_offset;
+> > +	elem_info->id.numid += lctl->index_offset;
+> > +	err = kctl->info(kctl, elem_info);
+> > +	if (err < 0)
+> >  		return -1;
+> > -	memset(&value, 0, sizeof(value));
+> > -	value.id = info.id;
+> > -	result = kctl->get(kctl, &value);
+> > -	if (result < 0)
+> > +
+> > +	memset(elem_value, 0, sizeof(*elem_value));
+> > +	elem_value->id = elem_info->id;
+> > +	err = kctl->get(kctl, elem_value);
+> > +	if (err < 0)
+> >  		return -1;
+> > -	if (info.type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
+> > -	    info.type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
+> > -		for (i = 0; i < info.count; i++)
+> > -			if (value.value.integer.value[i] != info.value.integer.min)
+> > +
+> > +	if (elem_info->type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
+> > +	    elem_info->type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
+> > +		for (i = 0; i < elem_info->count; i++)
+> > +			if (elem_value->value.integer.value[i] != elem_info->value.integer.min)
+> >  				return 1;
+> > -	} else if (info.type == SNDRV_CTL_ELEM_TYPE_INTEGER64) {
+> > -		for (i = 0; i < info.count; i++)
+> > -			if (value.value.integer64.value[i] != info.value.integer64.min)
+> > +	} else if (elem_info->type == SNDRV_CTL_ELEM_TYPE_INTEGER64) {
+> > +		for (i = 0; i < elem_info->count; i++)
+> > +			if (elem_value->value.integer64.value[i] != elem_info->value.integer64.min)
+> >  				return 1;
+> >  	}
+> >  	return 0;
+> > @@ -132,6 +133,8 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+> >  {
+> >  	struct snd_ctl_led *led;
+> >  	struct snd_ctl_led_ctl *lctl;
+> > +	struct snd_ctl_elem_info *elem_info;
+> > +	struct snd_ctl_elem_value *elem_value;
+> >  	int route;
+> >  	bool found;
+> >  
+> > @@ -146,10 +149,24 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+> >  		mutex_unlock(&snd_ctl_led_mutex);
+> >  		return;
+> >  	}
+> > +
+> > +	elem_info = kmalloc(sizeof(*elem_info), GFP_KERNEL);
+> > +	if (!elem_info) {
+> > +		mutex_unlock(&snd_ctl_led_mutex);
+> > +		return;
+> > +	}
+> > +
+> > +	elem_value = kmalloc(sizeof(*elem_value), GFP_KERNEL);
+> > +	if (!elem_value) {
+> > +		kfree(elem_info);
+> > +		mutex_unlock(&snd_ctl_led_mutex);
+> > +		return;
+> > +	}
+> > +
+> >  	list_for_each_entry(lctl, &led->controls, list) {
+> >  		if (lctl->kctl == kctl && lctl->index_offset == ioff)
+> >  			found = true;
+> > -		UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+> > +		UPDATE_ROUTE(route, snd_ctl_led_get(lctl, elem_info, elem_value));
+> >  	}
+> >  	if (!found && kctl && card) {
+> >  		lctl = kzalloc(sizeof(*lctl), GFP_KERNEL);
+> > @@ -159,10 +176,13 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+> >  			lctl->kctl = kctl;
+> >  			lctl->index_offset = ioff;
+> >  			list_add(&lctl->list, &led->controls);
+> > -			UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+> > +			UPDATE_ROUTE(route, snd_ctl_led_get(lctl, elem_info, elem_value));
+> >  		}
+> >  		kfree(lctl);
+> 
+> This patch is still relevant on latest -next and this hunk prevents the
+> patch from applying cleanly because that patch was NAK'd:
+> 
+> https://lore.kernel.org/alsa-devel/20210404064031.48711-1-o-takashi@sakamocchi.jp/
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-changes in v2:
-- split patches to two patches
+Can anyone re-submit a version that just does fix this issue without
+doing anything else?
 
- sound/soc/codecs/ak5558.c | 23 +++++++----------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
-index f24d91b728dd..34aed80db0eb 100644
---- a/sound/soc/codecs/ak5558.c
-+++ b/sound/soc/codecs/ak5558.c
-@@ -318,21 +318,12 @@ static struct snd_soc_dai_driver ak5552_dai = {
- 	.ops = &ak5558_dai_ops,
- };
- 
--static void ak5558_power_off(struct ak5558_priv *ak5558)
-+static void ak5558_reset(struct ak5558_priv *ak5558, bool active)
- {
- 	if (!ak5558->reset_gpiod)
- 		return;
- 
--	gpiod_set_value_cansleep(ak5558->reset_gpiod, 1);
--	usleep_range(1000, 2000);
--}
--
--static void ak5558_power_on(struct ak5558_priv *ak5558)
--{
--	if (!ak5558->reset_gpiod)
--		return;
--
--	gpiod_set_value_cansleep(ak5558->reset_gpiod, 0);
-+	gpiod_set_value_cansleep(ak5558->reset_gpiod, active);
- 	usleep_range(1000, 2000);
- }
- 
-@@ -340,7 +331,7 @@ static int ak5558_probe(struct snd_soc_component *component)
- {
- 	struct ak5558_priv *ak5558 = snd_soc_component_get_drvdata(component);
- 
--	ak5558_power_on(ak5558);
-+	ak5558_reset(ak5558, false);
- 	return ak5558_set_mcki(component);
- }
- 
-@@ -348,7 +339,7 @@ static void ak5558_remove(struct snd_soc_component *component)
- {
- 	struct ak5558_priv *ak5558 = snd_soc_component_get_drvdata(component);
- 
--	ak5558_power_off(ak5558);
-+	ak5558_reset(ak5558, true);
- }
- 
- static int __maybe_unused ak5558_runtime_suspend(struct device *dev)
-@@ -356,7 +347,7 @@ static int __maybe_unused ak5558_runtime_suspend(struct device *dev)
- 	struct ak5558_priv *ak5558 = dev_get_drvdata(dev);
- 
- 	regcache_cache_only(ak5558->regmap, true);
--	ak5558_power_off(ak5558);
-+	ak5558_reset(ak5558, true);
- 
- 	regulator_bulk_disable(ARRAY_SIZE(ak5558->supplies),
- 			       ak5558->supplies);
-@@ -375,8 +366,8 @@ static int __maybe_unused ak5558_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	ak5558_power_off(ak5558);
--	ak5558_power_on(ak5558);
-+	ak5558_reset(ak5558, true);
-+	ak5558_reset(ak5558, false);
- 
- 	regcache_cache_only(ak5558->regmap, false);
- 	regcache_mark_dirty(ak5558->regmap);
--- 
-2.27.0
-
+Takashi

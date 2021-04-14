@@ -2,60 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7F435EB6E
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 05:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F1FD35EBA6
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 06:09:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B44E16C2;
-	Wed, 14 Apr 2021 05:25:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B44E16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34D8116C6;
+	Wed, 14 Apr 2021 06:09:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D8116C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618370802;
-	bh=BnyBwmoy+O7yKhqt4ZaM9QJPrvvXXwC9eUEcSSeiRKU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PLwJqjGlSiMuSW4DiEfi9ItyC6/7cHcqK/TCy4MTZrkoW5P9Zx6kcR6uIXE1Fwy6+
-	 ggF17uc3beqWFR+W0yY0w/teDxj+lbNs5zbe8xnjBrbWQcMMv4YevWgmBxEd1CVAN6
-	 h53wZlrZquBhdHBlRDzbw3cNqZr8ivyW9QhFrtnE=
+	s=default; t=1618373393;
+	bh=Z+UFwSwbY5ODpHNEo1Xqlqvm4gPb50y3Q5DfZe0rBQ4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JGTSr3jBq8u2MRcaxCiqIOiwxvcorfi+g4+6twz1yT2pV3Sswi7XydXCDP7azNP2m
+	 2IhDPsFH0kcqiCt4Rps1u88/2SN+/JyEsXYHhRMtmvF4cCZQng7Kqy1fwc0WFQHw4T
+	 fjcL0ILjl5jb6iicEOWnORE8AqH01PFTBuZpVFQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 006CCF800FF;
-	Wed, 14 Apr 2021 05:25:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7995AF80128;
+	Wed, 14 Apr 2021 06:08:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CB73F80269; Wed, 14 Apr 2021 05:25:11 +0200 (CEST)
+ id 0BBE8F80269; Wed, 14 Apr 2021 06:08:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
- [47.88.44.36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5837F800FF
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 05:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5837F800FF
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R571e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04420;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0UVVUQd-_1618370679; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0UVVUQd-_1618370679) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 14 Apr 2021 11:24:50 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: paul@crapouillou.net
-Subject: [PATCH] ASoC: codec: remove unused variable
-Date: Wed, 14 Apr 2021 11:24:37 +0800
-Message-Id: <1618370677-4559-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA70FF80128
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 06:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA70FF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bpk/NEet"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BC82F61154;
+ Wed, 14 Apr 2021 04:08:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618373294;
+ bh=Z+UFwSwbY5ODpHNEo1Xqlqvm4gPb50y3Q5DfZe0rBQ4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bpk/NEetYX72BKqsyciatQVIc+LHjsR3P6Sf/Lpt9FmnBFLMt7miUWdYoOgDIx/k7
+ 8dWC5UDHAN4UjaIWPu3VTp8ikH4MkMyp3smEHvkIlLbeL615mvetSMU8Od3imYFdoI
+ d5HJUZEi6YNU1h79dBhe/NEuWMZUKdmkniRW+lcdk3owjidbnjlN2cEq29ryz2rVtu
+ C8OHLP69qIb7Jy/f3kDXwY56hbzuSDQPQmX9tq2CkZr3hR0I9feZ+igDJquKqkdSMn
+ a4s6hTqHYBmb3CpDz0BkIWYjpXQ9m1LhRxj1druJrwTQGBTq1XWadxDUosTAgj5GN3
+ hChOcujmL+Uhw==
+Date: Wed, 14 Apr 2021 09:38:10 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ pierre-louis.bossart@linux.intel.com
+Subject: Re: [PATCH v2 2/3] soundwire: Intel: introduce DMI quirks for HP
+ Spectre x360 Convertible
+Message-ID: <YHZqqjUSJvYxhEw6@vkoul-mobl.Dlink>
+References: <20210302075105.11515-1-yung-chuan.liao@linux.intel.com>
+ <20210302075105.11515-3-yung-chuan.liao@linux.intel.com>
+ <de65866a-bb8f-f5c6-2829-42b561f282f7@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, tiwai@suse.com, broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de65866a-bb8f-f5c6-2829-42b561f282f7@intel.com>
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, hui.wang@canonical.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,38 +84,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the following gcc warning:
+On 12-04-21, 14:37, Dave Hansen wrote:
+> On 3/1/21 11:51 PM, Bard Liao wrote:
+> > +++ b/drivers/soundwire/dmi-quirks.c
+> > @@ -0,0 +1,66 @@
+> > +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+> > +// Copyright(c) 2021 Intel Corporation.
+> 
+> It looks like this is already in intel-next, so this may be moot.  But,
+> is there a specific reason this is dual licensed?  If so, can you please
+> include information about the license choice in the cover letter of any
+> future version?
 
-sound/soc/codecs/jz4760.c:201:6: warning: variable ‘ret’ set but not
-used [-Wunused-but-set-variable].
+The soundwire module from Intel and core soundwire core was always dual
+licensed, so it kind of followed that..
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- sound/soc/codecs/jz4760.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+> If there is no specific reason for this contribution to be dual
+> licensed, please make it GPL-2.0 only.
 
-diff --git a/sound/soc/codecs/jz4760.c b/sound/soc/codecs/jz4760.c
-index e8f28cc..ad5e859 100644
---- a/sound/soc/codecs/jz4760.c
-+++ b/sound/soc/codecs/jz4760.c
-@@ -198,15 +198,13 @@ static int jz4760_codec_startup(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_component *codec = dai->component;
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(codec);
--	int ret;
--
- 	/*
- 	 * SYSCLK output from the codec to the AIC is required to keep the
- 	 * DMA transfer going during playback when all audible outputs have
- 	 * been disabled.
- 	 */
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		ret = snd_soc_dapm_force_enable_pin(dapm, "SYSCLK");
-+		snd_soc_dapm_force_enable_pin(dapm, "SYSCLK");
- 	return 0;
- }
- 
+This module, I would say NO. Unless someone from Intel disagree..
+Pierre/Bard..?
+
+If all agree I dont see a reason why this cant be updated to GPL only.
+
+Thanks
 -- 
-1.8.3.1
-
+~Vinod

@@ -2,78 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3690435EE9D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 09:45:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3D935EEAA
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Apr 2021 09:50:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7C8516D8;
-	Wed, 14 Apr 2021 09:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C8516D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 626AB16DF;
+	Wed, 14 Apr 2021 09:49:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 626AB16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618386303;
-	bh=7/+m7AKIlJNqZsD7S9ja9xyzNOjF7Vf36579Sms4RdI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618386625;
+	bh=aM19r35XL/9Kx7XTPedZbA5Qq7Pwe1S7yiQmxtArev4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QL/utQjkvRwkw0nw+txZc/nr8teEWb5k2jCVOqDJhg47tjcKm+UhHz/zvinjuSywk
-	 3vR9xmIHSx1+O1M9zAPF5k/JztiuVHO/MFRFEKaSrP1PLT/e/gt63LBFFjUIKg/joO
-	 siAa/irgenfiCrT9vb3nkTCcgNA4ahD3kSBfxDBw=
+	b=qTxXo+zQ4y85xIZJHN0V4IjiA3gpwGep0PoZD3DCA7m+aTxD7G6SfSM59zNSkDf1p
+	 aRLw+5ywwMquNZne1D1ls+Qy14PINWXjvI+4/Ofs+LpaftPG2zdFBNYp9GMoX1mixH
+	 r2uAGbARBMVP4/Fh53wVl4/4je0GvXkeOEAHsm3k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FF59F80128;
-	Wed, 14 Apr 2021 09:43:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD9A3F8025B;
+	Wed, 14 Apr 2021 09:48:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39582F80269; Wed, 14 Apr 2021 09:43:33 +0200 (CEST)
+ id 84362F80269; Wed, 14 Apr 2021 09:48:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E141F80128
- for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 09:43:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E141F80128
-IronPort-SDR: 59ODTyaZTlSTmbDu1jghWM+PNP6/JxRhcAZQbnG5BysaETyX7c63Qoz64BPpJvQfKlYQjW+UZ7
- 7leJ1NoGnn3A==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174086167"
-X-IronPort-AV: E=Sophos;i="5.82,221,1613462400"; d="scan'208";a="174086167"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 00:43:22 -0700
-IronPort-SDR: xfNQIv05NcLGdDDYpqk3e4d/rMQF/nPSUyRQ2Wn6XT9bLeMV0fmVcg+z04yuv8i5PxgJj7e5l8
- Z4wDui3SU4Mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,221,1613462400"; d="scan'208";a="521902579"
-Received: from kuha.fi.intel.com ([10.237.72.162])
- by fmsmga001.fm.intel.com with SMTP; 14 Apr 2021 00:43:19 -0700
-Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
- Wed, 14 Apr 2021 10:43:18 +0300
-Date: Wed, 14 Apr 2021 10:43:18 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: Handle device properties with software node
- API
-Message-ID: <YHadFnjWy2zjwxo2@kuha.fi.intel.com>
-References: <20210322110638.2681-1-heikki.krogerus@linux.intel.com>
- <786795eb-6832-fd7d-4674-65be394c083d@linux.intel.com>
- <YFm0u9k/DNy5URsR@kuha.fi.intel.com>
- <39e2ab87-3b70-8659-6282-5b03d30f901b@linux.intel.com>
- <YHWMmR5gBvlpd7rl@kuha.fi.intel.com>
- <YHWlQooPtrTjyq+i@kuha.fi.intel.com>
- <4c7aa8d0-8660-b545-4b40-c6965e667a93@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 356A6F80128
+ for <alsa-devel@alsa-project.org>; Wed, 14 Apr 2021 09:48:38 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A7C01A003F;
+ Wed, 14 Apr 2021 09:48:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A7C01A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1618386517; bh=P9Nd0rEqpNS1T/TZ3X/vBQWYda+UUYjcmNJW+viXk4Q=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=1LJjkMDc2D/1b/2etxmJf2HiasUj4zZ18pXBc2p33SRPItZcnqxVXh1sS+gS6XFiF
+ qFEerQYZXN0cv0xd6QMMYYQALrbjHbU3DR0aj8z5GUWqQDlPCiW55IxwMUrD2cOlET
+ /qXwKPaFd2Qk9wynVLPuNA02NLy5DL9s3XyF2Wm0=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed, 14 Apr 2021 09:48:33 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: control_led: fix stack frame usage over 1024 bytes
+ in snd_ctl_led_get()
+To: Takashi Iwai <tiwai@suse.de>, Nathan Chancellor <nathan@kernel.org>
+References: <20210404065929.52501-1-o-takashi@sakamocchi.jp>
+ <YHYEzjCuA6o0Myyj@archlinux-ax161> <s5him4pwcbx.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <930e0e7f-585a-5e48-d006-8c066132c179@perex.cz>
+Date: Wed, 14 Apr 2021 09:48:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4c7aa8d0-8660-b545-4b40-c6965e667a93@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <s5him4pwcbx.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,70 +82,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 13, 2021 at 10:47:49AM -0500, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 4/13/21 9:05 AM, Heikki Krogerus wrote:
-> > On Tue, Apr 13, 2021 at 03:20:45PM +0300, Heikki Krogerus wrote:
-> > > On Mon, Apr 12, 2021 at 03:36:20PM -0500, Pierre-Louis Bossart wrote:
-> > > > I took the code and split it in two for BYT/CHT (modified to remove devm_)
-> > > > and SoundWire parts (added as is).
-> > > > 
-> > > > https://github.com/thesofproject/linux/pull/2810
-> > > > 
-> > > > Both cases result in a refcount error on device_remove_sof when removing the
-> > > > platform device. I don't understand the code well enough to figure out what
-> > > > happens, but it's likely a case of the software node being removed twice?
-> > > 
-> > > Right. Because you are injecting the node to an already existing
-> > > device, the node does not get linked with the device in sysfs. That
-> > > would increment the reference count in a normal case. It all happens
-> > > in the function software_node_notify(). Driver core calls it when a
-> > > device is added and also when it's removed. In this case it is only
-> > > called when it's removed.
-> > > 
-> > > I think the best way to handle this now is to simply not decrementing
-> > > the ref count when you add the properties, so don't call
-> > > fwnode_handle_put() there (but add a comment explaining why you are
-> > > not calling it).
-> > 
-> > No, sorry... That's just too hacky. Let's not do that after all.
-> > 
-> > We can also fix this in the software node code. I'm attaching a patch
-> > that should make it possible to inject the software nodes also
-> > afterwards safely. This is definitely also not without its problems,
-> > but we can go with that if it works. Let me know.
-> 
-> I tested manually on bytcr w/ RT5640 and used the SOF CI farm to test the
-> SoundWire cases, I don't see any issues with your patch. The refcount issue
-> is gone and the module load/unload cycles don't report any problems.
-> 
-> Would you queue it for 5.13-rc1, or is this too late already?
+Dne 14. 04. 21 v 9:32 Takashi Iwai napsal(a):
 
-I'll send it out now. Let's see what happens.
-
-thanks,
-
-> > > For a better solution you would call device_reprobe() after you have
-> > > injected the software node, but before that you need to modify
-> > > device_reprobe() so it calls device_platform_notify() (which it really
-> > > should call in any case). But this should probable be done later,
-> > > separately.
-> > > 
-> > > thanks,
-> > > 
-> > > P.S.
-> > > 
-> > > Have you guys considered the possibility of describing the connections
-> > > between all these components by using one of the methods that we now
-> > > have for that in kernel, for example device graph? It can now be
-> > > used also with software nodes (OF graph and ACPI device graph are of
-> > > course already fully supported).
+>> This patch is still relevant on latest -next and this hunk prevents the
+>> patch from applying cleanly because that patch was NAK'd:
+>>
+>> https://lore.kernel.org/alsa-devel/20210404064031.48711-1-o-takashi@sakamocchi.jp/
 > 
-> I must admit I've never heard of a 'device graph'. Any pointers or APIs you
-> can think of?
-> It's a good comment since we are planning to rework the SOF clients and
-> machine driver handling.
+> Can anyone re-submit a version that just does fix this issue without
+> doing anything else?
+
+I'll create a proper fix with the cached allocations in struct snd_ctl_led.
+
+				Thanks,
+					Jaroslav
 
 -- 
-heikki
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

@@ -2,76 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4AF360FD1
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:06:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F40A360FD2
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:06:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89AFE9F6;
-	Thu, 15 Apr 2021 18:05:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89AFE9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id E65C8166B;
+	Thu, 15 Apr 2021 18:05:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E65C8166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618502769;
-	bh=VhD6RKqtsu7rzG1GFxVGJoN3lqK7UBy9qUrvzK2nO10=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618502784;
+	bh=fOti0JWVub3MDgJ5kLDJpIT/+/IarsGlfVqhfvXbb6U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z+hejSeM5mdfryu4oonfy4C3vY72BaOpwPd8EZFNFybU2S9rOtNbDmdmGfhVH1wbE
-	 2pEH1HQZH2iL4vWhZ/j7uTUFDSGkxZXrsOjHkq6AjUykfZfCOOuwH/tYOQaNLzx7kP
-	 4QrJxds+Dy8qrgxesUM+1Tr8ZT36Rdl8MI4dad0E=
+	b=rrRsQOtL6OGzgbGrDVGfv8ddqE2BQBDLRpE0E8fRtvfDW6Nt+MwV/SgFjBw6nK5xZ
+	 OfE6raZkztaS/pGi8Fi/NXLyYTl1yVHxWIfQsfICAVcjb9KVKSmakDuZfkDiDSQTlD
+	 TNiELXKkTX4VqVRZ9wDN1RoHBgn0utotHy9oVwuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD2F9F800ED;
-	Thu, 15 Apr 2021 18:04:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71D60F80260;
+	Thu, 15 Apr 2021 18:04:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B553F8022B; Thu, 15 Apr 2021 18:04:38 +0200 (CEST)
+ id 47E66F8025C; Thu, 15 Apr 2021 18:04:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 978FBF80128
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 978FBF80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Yfgvs1iS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AB74161152;
- Thu, 15 Apr 2021 16:04:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618502673;
- bh=VhD6RKqtsu7rzG1GFxVGJoN3lqK7UBy9qUrvzK2nO10=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Yfgvs1iSpGPuFXEGSt2UOVvJObvxY/+g6TkEbBKUcdgcCfuk2Bmb82MG/ofYQ6Man
- MsOxF3a3ci1Yd5hQrmMOqzTMBDUXONX1Ac6pGjNYsavrBoTJzp82sN7mCP2umafjVX
- z8+ikszUDa3cKzml3wp7OchGD9IipoC4S4pOvynmCJJieodU5xhUl05ZbCs4sYqQN2
- b1gF4/mW4N8zO6suLzcufVsIFqV6tA3eM/UPLesZ3kW6m9De21OquoxLwof646ijXz
- gEyiMQHN/H472b9/8+jZdHLaEKxLLIIiWhk3VA9MRCxgHyyt0saasSkx8YLyQd97RI
- V9mbGSsLXSKqA==
-Date: Thu, 15 Apr 2021 17:04:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-Subject: Re: [RFC PATCH 2/2] ASoC: da732x: simplify code
-Message-ID: <20210415160410.GF5514@sirena.org.uk>
-References: <20210326221619.949961-1-pierre-louis.bossart@linux.intel.com>
- <20210326221619.949961-3-pierre-louis.bossart@linux.intel.com>
- <PR3PR10MB4142E8DBB9313E751DA52DD0804D9@PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 190B3F80128
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 190B3F80128
+IronPort-SDR: RmXkXw0KLDgNTdhT5uG+kUI2dLVGxS8qZQdQ9X4qp+64N6WQLzjVS8HPlLNG1Aw5lcLLGZQQ8s
+ 8ij2kvfYrzDA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="182005143"
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="182005143"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2021 09:04:39 -0700
+IronPort-SDR: m2Dl1SuLXmJiuU730Cb0MHegPf8sGJwNsfnIr58ngPf6RGESyw+O/ACrKA7uFpJNr79WIDA6rE
+ TPkc5VgAXePw==
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="615684919"
+Received: from andrelei-mobl.amr.corp.intel.com (HELO [10.209.167.172])
+ ([10.209.167.172])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2021 09:04:38 -0700
+Subject: Re: [PATCH] ASoC: SOF: use current DAI config during resume
+To: Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <20210414165926.1875465-1-ranjani.sridharan@linux.intel.com>
+ <20210415155309.GA48833@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <718ff501-df0d-93ff-5626-a190bf0bb05a@linux.intel.com>
+Date: Thu, 15 Apr 2021 11:04:36 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ULyIDA2m8JTe+TiX"
-Content-Disposition: inline
-In-Reply-To: <PR3PR10MB4142E8DBB9313E751DA52DD0804D9@PR3PR10MB4142.EURPRD10.PROD.OUTLOOK.COM>
-X-Cookie: VMS must die!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Support Opensource <Support.Opensource@diasemi.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210415155309.GA48833@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,35 +83,24 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ULyIDA2m8JTe+TiX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Apr 15, 2021 at 04:00:48PM +0000, Adam Thomson wrote:
-> On 26 March 2021 22:16, Pierre-Louis Bossart wrote:
+On 4/15/21 10:53 AM, Mark Brown wrote:
+> On Wed, Apr 14, 2021 at 09:59:26AM -0700, Ranjani Sridharan wrote:
+>> Recently, the sof_pcm_dai_link_fixup() function was
+>> updated to match SSP config with the PCM hw_params
+>> and set the current_config for the DAI widget.
+>>
+>> But the sof_restore_pipelines() function still chooses the
+>> default config for the DAI widget upon resuming. Fix this
+>> to use the last used config when setting up the DAI widget
+>> during resume.
+>>
+>> Fixes: a1e1f10a6ed6 ("ASoC: SOF: match SSP config with pcm hw params")
+> 
+> I don't seem to have that commit.
 
-> Apologies for the delay in getting to this. The change looks fine to me,
-> although this part was EOL some time back, and I find it hard to believe anyone
-> out there has a board with this on. Wondering if it would make sense to remove
-> the driver permanently?
+I think it should be:
 
-Unless it's actually getting in the way it's generally easier to just
-leave the driver than try to figure out if anyone is updating a system
-that uses it.
+Fixes: c943a586f6e49 ("ASoC: SOF: match SSP config with pcm hw params")
 
---ULyIDA2m8JTe+TiX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB4Y/kACgkQJNaLcl1U
-h9A/eQf/a+AuW/wdA7h1NEPo7bdjlp1RtuPF+QM8UnlWMLsXDYWN8pPMCeDIf5X2
-lQvH9kzTWD2tGg70PPgkQXDY0rljNHYrMZVU2yktmuSlmJHJraw7SuTCWAk28ujx
-QQuKNwIfFu0P95DHCLHODG6sGXuT8asRlB2jS1UJJVgSaWJkSPPeB1jdrA/6F9Fs
-uDF6gVvNYpt91x53I7le86YVD7iZfqqxSSKLdGIUejiV9ozhCUkwt8yXDEKRdlOq
-4O8wOiJ+409SuWfwEZDX8WA+6pMvo+9wvROWvsRn4tumMtMKp0a2x8DDBl/h6Cbi
-+YpcN0/zwJeye7ecVmj1sE26WqcW5g==
-=jQj2
------END PGP SIGNATURE-----
-
---ULyIDA2m8JTe+TiX--
+I can re-send if needed

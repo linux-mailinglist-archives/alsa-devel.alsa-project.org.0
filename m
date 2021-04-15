@@ -2,87 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D77B3603C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 09:58:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5D43603C8
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 09:58:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D67D1675;
-	Thu, 15 Apr 2021 09:57:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D67D1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EF17168D;
+	Thu, 15 Apr 2021 09:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EF17168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618473516;
-	bh=LtuwDyLikjzAN4MFrkjRD6Xt5FNPsX0iVIWLUI0Zzhk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Gwqyo8K1Em4g/7GlRAzqc1+DnS01oEciHBEddCVaU4K9t6FIpTdJx9JB9Uj1pPHgE
-	 a+591NkaDnigy5DyTA9EgDLk0a7XHRBF52+1QwtU/MJKbV/x0CAEaX4wefjUSIC/yz
-	 YWlzm/LqFu6cQfXgojiprLXfaO1e75bnqaXQIYhY=
+	s=default; t=1618473531;
+	bh=/qlSNqQ5b09fpxjKdvLT2EYcIeFq30igc4oFDU+nay0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qLtXQenV4sm2blQvDB4af+EQMimv0FD4UvD6aphPPvo9RUVpTqMjagVIOMQCuUJNX
+	 dIg7C4mEToULYW1bsmFsg+d86itCA5zjp2Puff31sWN76Q5P46RtfZooZr3A53xfSc
+	 zkqfJ8f0+3onbh8lgaK0U0kXnUNExM8kIlbnVg3o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B434F80423;
-	Thu, 15 Apr 2021 09:56:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7453F804A9;
+	Thu, 15 Apr 2021 09:56:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A763EF80128; Thu, 15 Apr 2021 09:38:51 +0200 (CEST)
+ id A3B13F8049C; Thu, 15 Apr 2021 09:56:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9AD6F80128
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 09:38:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9AD6F80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LeHh8dIP"
-Received: by mail-pf1-x442.google.com with SMTP id i190so15485203pfc.12
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 00:38:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=6GHNy9nmTbGMe04/93664ci3I2+TW59tCe+/W5uRP0o=;
- b=LeHh8dIPPEH1uxk+ZfQX0XVqvC0FADJVR3NSCFf6Ay5cTWymnllDYhWv15xkha3PJr
- 9Q2FiQcc2p2FkIFj7gn6vrtAVVCa7oXlwl2aNNGf6QHOxLM0xvn5D6QHsGeUvWZ1lU9E
- Xesan0sauohfnex+AZ3SXFcCfUK/PJwCZHD8Wc/AeyiK/VtSALILF2pay1x1hTXZRVjc
- sohVqKEhmw9KVb0kLcH+umLNZMNbAyYDTrUhLllTGm000/r/TPenLcyeXFxmG1o2nbFE
- vY6i4D2dzqIKi2TDu+G3cpl/IIXC2v8/GZMPmTs7YFjqcdV1tqk1+vwuurfudJ4gi+kZ
- 4szA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=6GHNy9nmTbGMe04/93664ci3I2+TW59tCe+/W5uRP0o=;
- b=IkPooh7DYGxNylGY+g0yoGi+IFThcUY62eoc1nw8hKM4A2VfP27LZLnUFoU+9qctxW
- EOU87Gn2yFXPcR42WppQvPFBbXJOuahbVt92CqlsU+ZzpLOcITQxs68xCurVQqaI/uz0
- h74HsIQKEWMP6NLfQZSI82QMcKr+LZx1gTmF/x+OqJuuEVI/bKqEriJ6/yOPkvI/RRMF
- ersfrxUa7Uj0Ot8BCtSi3yoHP82LnZeAB3lJrs8B3LcHg8ZD1UJALQ5YTuw0zXeqp8/Z
- CC3V174Z/Z6N64SC0/dflIsSS370O3XromCY0/Ugb74Gykr+pO7Jdl4SjUqj2ZIVauH/
- u4BQ==
-X-Gm-Message-State: AOAM531L7fqugCBnAMbB3Jv9JUQOfaO64AG471olIRu904LitIq4S9yB
- Mir4p+Mv6Q2h5yK7v2XnaiE=
-X-Google-Smtp-Source: ABdhPJyPyD+7YswXHYLAmeDKVHdJIuPH5kWEybfUXLVFNMKTQQqXG50b3/COIkx2AjOz5gH4WF34Vg==
-X-Received: by 2002:a63:5508:: with SMTP id j8mr2334912pgb.36.1618472316398;
- Thu, 15 Apr 2021 00:38:36 -0700 (PDT)
-Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.180])
- by smtp.gmail.com with ESMTPSA id 23sm1508138pgo.53.2021.04.15.00.38.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Apr 2021 00:38:36 -0700 (PDT)
-From: zhuguangqing83@gmail.com
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: codecs: wcd934x: Fix missing IRQF_ONESHOT as only
- threaded handler
-Date: Thu, 15 Apr 2021 15:38:29 +0800
-Message-Id: <20210415073829.22750-1-zhuguangqing83@gmail.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Thu, 15 Apr 2021 09:56:15 +0200
-Cc: Guangqing Zhu <zhuguangqing83@gmail.com>, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C781F80430
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 09:56:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C781F80430
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 83BA4B166;
+ Thu, 15 Apr 2021 07:56:40 +0000 (UTC)
+Date: Thu, 15 Apr 2021 09:56:40 +0200
+Message-ID: <s5hr1jct1zb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Hans Hu(SH-RD)" <HansHu@zhaoxin.com>
+Subject: Re: =?UTF-8?B?562U5aSNOg==?= [2/2]ALSA: hda: add Zhaoxin HDAC
+ non-snoop support: patch a design limitation
+In-Reply-To: <1bbe710807f9426a83aeba5be0d85c4a@zhaoxin.com>
+References: <0f1c89c9728f4310b4e84e4c74df02c6@zhaoxin.com>
+ <s5hpmyxukc4.wl-tiwai@suse.de>
+ <1bbe710807f9426a83aeba5be0d85c4a@zhaoxin.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: "'alsa-devel@alsa-project.org'" <alsa-devel@alsa-project.org>,
+ "Zhuangzhuang He\(SH-RD\)" <ZhuangzhuangHe@zhaoxin.com>,
+ "Leo Liu\(XA-RD\)" <LeoLiu@zhaoxin.com>,
+ "Cobe Chen\(BJ-RD\)" <CobeChen@zhaoxin.com>,
+ "Tim Guo\(BJ-RD\)" <TimGuo@zhaoxin.com>,
+ "Tony W. Wang\(XA-RD\)" <TonyWWang@zhaoxin.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,30 +77,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Guangqing Zhu <zhuguangqing83@gmail.com>
+On Thu, 15 Apr 2021 04:26:18 +0200,
+Hans Hu(SH-RD) wrote:
+> 
+> >On Wed, 14 Apr 2021 14:00:23 +0200,
+> >Hans Hu(SH-RD) wrote:
+> >>
+> >> Hi Takashi,
+> >>
+> >> ZHAOXIN HDAC controller has one design limitation when it works in non-snoop mode. This design limitation is: hardware can't guarantee that the write CORB cycle always completes first before the write CORBWP cycle. Here is the error scene:
+> >> int snd_hdac_bus_send_cmd(struct hdac_bus *bus, unsigned int val) {
+> >> ...
+> >>         bus->corb.buf[wp] = cpu_to_le32(val);         // cycle_1:  write value to CORB
+> >>         snd_hdac_chip_writew(bus, CORBWP, wp);     // cycle_2:  write wp to CORBWP
+> >> ...
+> >> }
+> >> Normally, after cycle_2, DMA engine will start working and get data from CORB and sent it out. But if cycle_1 haven’t finished yet at this time(limitation occurs), which means the value haven’t been written into CORB, then DMA engine will get unexpected value, then error occurred. (feels like one kind of CORB underrun).
+> >>
+> >> If we add one read CORB cycle between cycle_1 and cycle_2, cycle_1 and cycle_2 operations will be synchronized, this limitation will be fixed. We have written a draft patch based on this situation and hope to be accepted, the patch example is as follows:
+> >> diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h index
+> >> 22af68b..c338db00 100644
+> >> --- a/include/sound/hdaudio.h
+> >> +++ b/include/sound/hdaudio.h
+> >> @@ -339,6 +339,7 @@ struct hdac_bus {
+> >>         bool sync_write:1;              /* sync after verb write */
+> >>         bool use_posbuf:1;              /* use position buffer */
+> >>         bool snoop:1;                   /* enable snooping */
+> >> +       bool no_snoop_corb_sync:1;
+> >>         bool align_bdle_4k:1;           /* BDLE align 4K boundary */
+> >>         bool reverse_assign:1;          /* assign devices in reverse order */
+> >>         bool corbrp_self_clear:1;       /* CORBRP clears itself after reset */
+> >> diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+> >> index 062da7a..6c90cdd 100644
+> >> --- a/sound/hda/hdac_controller.c
+> >> +++ b/sound/hda/hdac_controller.c
+> >> @@ -167,6 +167,8 @@ int snd_hdac_bus_send_cmd(struct hdac_bus *bus,
+> >> unsigned int val)
+> >>
+> >>         bus->rirb.cmds[addr]++;
+> >>         bus->corb.buf[wp] = cpu_to_le32(val);
+> >> +       if (bus->no_snoop_corb_sync)
+> >> +               val = bus->corb.buf[wp];
+> >>         snd_hdac_chip_writew(bus, CORBWP, wp);
+> >
+> >Just wondering whether using WRITE_ONCE() macro would be enough?
+> >e.g.
+> >WRITE_ONCE(bus->corb.buf[wp], cpu_to_le32(val));
+> >Also, no_snoop_corb_sync is a bit confusing.  What you do is rather sync of the written value, so it can be taken as if other way round.
+> >Maybe no_coherent_corb_write or such would be better understandable.
+> >
+> >
+> >thanks,
+> >
+> >Takashi
+> 
+> Thanks for your suggestion, it's my fault not clearly explain the root case about this limitation, which is, these two kind of instructions have independent physical paths, even C2M instruction(cycle_1) already retired before C2P instruction(cycle_2 with non-snoop) start, hardware still can't guarantee the coherence.
+> But we can use WRITE_ONCE() to enhance the patch and to prevent it from being optimized by the compiler.
 
-Coccinelle noticed:
-  sound/soc/codecs/wcd934x.c:5041:7-32: ERROR: Threaded IRQ with no primary
-handler requested without IRQF_ONESHOT
+Well, I'm not entirely sure whether WRITE_ONCE() would really work in
+this case.  I know some other chips require the explicit read
+(e.g. i915 driver), and this might be the case, too. 
+So it's just a question and something worth to check.
 
-Signed-off-by: Guangqing Zhu <zhuguangqing83@gmail.com>
----
- sound/soc/codecs/wcd934x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  +       if (bus->no_coherent_corb_write)
+>  +               WRITE_ONCE(cpu_to_le32(val), bus->corb.buf[wp]);
+> This limitation only appears in the non-snoop mode, does this need to be reflected in the variable name?
 
-diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 5fe403307b72..cddc49bbb7f6 100644
---- a/sound/soc/codecs/wcd934x.c
-+++ b/sound/soc/codecs/wcd934x.c
-@@ -5040,7 +5040,7 @@ static int wcd934x_codec_probe(struct platform_device *pdev)
- 
- 	ret = devm_request_threaded_irq(dev, irq, NULL,
- 					wcd934x_slim_irq_handler,
--					IRQF_TRIGGER_RISING,
-+					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
- 					"slim", wcd);
- 	if (ret) {
- 		dev_err(dev, "Failed to request slimbus irq\n");
--- 
-2.17.1
+I suggested renaming just because the term "sync" is a bit confusing.
+We have already sync_write flag that is meant for a completely
+different "sync" meaning (to sync with the response for each verb
+write).
 
+
+thanks,
+
+Takashi

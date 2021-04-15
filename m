@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEB8361223
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3BF36122F
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:35:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF031675;
-	Thu, 15 Apr 2021 20:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF031675
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2E1D165D;
+	Thu, 15 Apr 2021 20:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2E1D165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618511594;
-	bh=uoR+Kr+blFzetHXbngHy4mfmiD/fgYrOO+y1Xqt+C/0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618511754;
+	bh=PYa5K/9xtz9ynU04D6uakE9tOPICvr40isBXtdKn6lo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ljTUD5BlUHm7HVQhPUwJ8ZXTJL2GNbI1Aut0nRST3bGqk7QH91NAc1Q8hBboy2cTq
-	 UFnny8pGuYWmyePPFNGomD92b3UBtE4S/AYQK7/3gQrY2/IoX1joSq5Jjkhbd6E6WV
-	 vk18QSUefSEd3JLsHLpE7DPiNt9yZ0XTzQlp4mB4=
+	b=ogitYVzY3XOm+9SX+kpI8+2+bNzk43eBtRPNd3BkDUwZbirlw/ourK4M+5sy8vld8
+	 MD08kq78eaF8IatK00kqHW7zh5mrR1I9nU/28bluq9y1K28JmI6T9SLESgJL2GoN4A
+	 OKsgvOV7lJVLq/fM1DSE+dm2RWKza4/Iqc8QdiFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1CEFF8022D;
-	Thu, 15 Apr 2021 20:31:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CD85F80128;
+	Thu, 15 Apr 2021 20:34:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08073F8022B; Thu, 15 Apr 2021 20:31:43 +0200 (CEST)
+ id 7C3C6F8022B; Thu, 15 Apr 2021 20:34:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F27D5F800FF
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F27D5F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23940F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:34:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23940F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hhKTV7U0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CE3396105A;
- Thu, 15 Apr 2021 18:31:34 +0000 (UTC)
+ header.b="Mz/4KHib"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 793CB6115B;
+ Thu, 15 Apr 2021 18:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618511495;
- bh=uoR+Kr+blFzetHXbngHy4mfmiD/fgYrOO+y1Xqt+C/0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hhKTV7U0LomOG/BNi9C8cyHsqB1Uhayg8oXAXCsm769dhNfWkikq4igKpepvKzqAI
- feajl99wBZc+euoKIQ11dl3RY/9mAbW7nZ5Ykmu6nld3KMhbtLu4m8IAjl/1d4JlEQ
- oBjq8mwxQMNhSZlNl770Uiy055aAPHRfrhnjEWue7tjhv27pAgkdFyCbCBlccdJNN1
- y7XDWg6Lfk288excqaHEHGa2vgCMqYOoO+0k1oXql6aH7OWltiNScRAnkluOeuJztR
- blBog1m3z22qOIcRZTXDGlhrV7CAGnb0VrIdl5Ecg+arlwCCj1Rg8BMnNzMXU/HLcU
- RoavfCIwh8yng==
-Date: Thu, 15 Apr 2021 19:31:12 +0100
+ s=k20201202; t=1618511659;
+ bh=PYa5K/9xtz9ynU04D6uakE9tOPICvr40isBXtdKn6lo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Mz/4KHib0hIiuvesUq+5QUVvCJE3h9PQkAZerKu8SQtJRfx1MdduVLKrjxP6e8VZ0
+ XnLK5I5VH/Yzh+JjAvxgHYg3FNsdn0DursPfO3U5zredzQtodX9jQfG3wppn4zKHsY
+ rOd/sQ6NO0AyBWXJIk4ujjVMdTkCTWTVnp9Ha4f6yhJpN9dM8h94gfW6gPJ6Ng3uEL
+ bMEZ9vhgry+a8DIdREeWdkmTGyupnPdhM5liUofC/9yQPa7mHJkz3XcCCGiQN5fGQw
+ jgBpVP0Rnw34O1VLa+1xl7U0zywSqLoCOBzRpBz0006XDVHxJYyjfpXfhn93J0YzTZ
+ TIQkjC4vPqmHg==
 From: Mark Brown <broonie@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-Subject: Re: [PATCH 01/14] ASoC: simple-card-utils: enable flexible
- CPU/Codec/Platform
-Message-ID: <20210415183112.GK5514@sirena.org.uk>
-References: <87wntmod33.wl-kuninori.morimoto.gx@renesas.com>
- <87v996od2c.wl-kuninori.morimoto.gx@renesas.com>
- <YHh/Y5fXMxm91Ha3@orome.fritz.box>
- <20210415181450.GJ5514@sirena.org.uk>
- <YHiFEUUfsn3ni/Uo@orome.fritz.box>
+To: alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: use current DAI config during resume
+Date: Thu, 15 Apr 2021 19:33:43 +0100
+Message-Id: <161851148784.23061.9866275896209866181.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210414165926.1875465-1-ranjani.sridharan@linux.intel.com>
+References: <20210414165926.1875465-1-ranjani.sridharan@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="q6mBvMCt6oafMx9a"
-Content-Disposition: inline
-In-Reply-To: <YHiFEUUfsn3ni/Uo@orome.fritz.box>
-X-Cookie: VMS must die!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-tegra@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jon Hunter <jonathanh@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +81,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 14 Apr 2021 09:59:26 -0700, Ranjani Sridharan wrote:
+> Recently, the sof_pcm_dai_link_fixup() function was
+> updated to match SSP config with the PCM hw_params
+> and set the current_config for the DAI widget.
+> 
+> But the sof_restore_pipelines() function still chooses the
+> default config for the DAI widget upon resuming. Fix this
+> to use the last used config when setting up the DAI widget
+> during resume.
 
---q6mBvMCt6oafMx9a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Apr 15, 2021 at 08:25:21PM +0200, Thierry Reding wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> In any case, I came up with the attached. I don't know how good it is
-> because now the number of links exceeds SNDRV_MINOR_DEVICES, but perhaps
-> that's just irrelevant and that constant was used merely because it was
-> conveniently there.
+Thanks!
 
-We shouldn't actually end up creating that many devices, a lot of those
-should be DPCM links which are internal only.
+[1/1] ASoC: SOF: use current DAI config during resume
+      commit: eea1d18e9b2d959df908746b193f66dba3078473
 
-> The patch restores display on Jetson TX2. I can look around a bit if I
-> can find where the boundary checks might be missing so that we
-> gracefully fail rather than corrupting everything.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-That'd be good, thanks.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---q6mBvMCt6oafMx9a
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB4hm8ACgkQJNaLcl1U
-h9AqxAf/Rx7T3DVd1aIGp8MQx37ydO3ASpzgL5t616HY7NEnY6zzHfqtQdHCgJUN
-if1vBGRn9v9i22AijDI6M9Y8fOpNbLQSspdcoNiT9WYMaUx0+zwrIGkA7D+FVe1I
-ILiFfFKYRUfm1j2c4a2W74wURGE4JH5mZ6Gu663iaPgyvJOyaEpgrEL6FP52mPMo
-s2gPeg2pePtvZG20wFT1vDoP4Rt6CtPW4UqbUOpV33YLYZZik+pbXKApObi52PYJ
-5KMuBQv+lCBnpl8m50lYPpkx5IIxsSnzbW2wBY602sMQBj4suZkVZOGOhijVifLZ
-crwi0g+jmvW5au6ZICqDhu7CuDQuog==
-=CDdU
------END PGP SIGNATURE-----
-
---q6mBvMCt6oafMx9a--
+Thanks,
+Mark

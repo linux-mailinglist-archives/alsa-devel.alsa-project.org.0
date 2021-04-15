@@ -2,75 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9806360FFE
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:19:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F3836101B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:26:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 685BC167F;
-	Thu, 15 Apr 2021 18:18:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 685BC167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFA3C1675;
+	Thu, 15 Apr 2021 18:25:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFA3C1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618503586;
-	bh=TmC1IQHS1RYCuzCjSF/kPNZCXV/1xAOTKEBh9ar9brU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=P5gCHXUikqFT8bknPcOCOJ8I5JRVwZs2R6xPmaS1JWXcYhSft4hrGqRkLRilawfhD
-	 5zr2r8z6EMHIEsbzLqFo7TBsgKGvdknLsPOgAqAI+Noyctay1eA+fV9TsR9tNfOUY6
-	 Pr821ogMLP7DJaHi73M93MfhvdMjd1VCD0RRiMFQ=
+	s=default; t=1618503996;
+	bh=yrkNooT7AzVbItMzJaJpfr/cT1VwA+WN2WJdcWf35Rk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JdrO1p2Z3yzUtao+PwdosUJOBuJB82ID6mODpCrtFtLdW+k6wJXZm70P3/J82D0l4
+	 SsgUD/ec3QzldR+k5pi251YneNpQ7ngXka3hJYhj7RzeYm/bity3Hsr49eSgKXHP9z
+	 RhyK8TcdrcVQ6FmxrWCu+Zlsq13pWDT17Cq4m980=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3A14F8022D;
-	Thu, 15 Apr 2021 18:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF5FF800ED;
+	Thu, 15 Apr 2021 18:25:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D5A7F80128; Thu, 15 Apr 2021 18:18:15 +0200 (CEST)
+ id AD86DF8022B; Thu, 15 Apr 2021 18:25:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A567FF80128
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A567FF80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ub8vMSiR"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F02446115B;
- Thu, 15 Apr 2021 16:18:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618503486;
- bh=TmC1IQHS1RYCuzCjSF/kPNZCXV/1xAOTKEBh9ar9brU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ub8vMSiRxKNFK170DWbsNpCrmVTcRmruBiWXRaDFcYo9hF7DksN8llVMygQ7d0J4+
- yy91n8KTH6bYkMWu9rZ967MRdMG88tSl5bGLZmFV/hvLowL4TpnAqbqjYroeMUH33q
- oUOHXK+urSUqXPy8ZzQKgDMtTIpLxY/MgJdJi+t3tJSH1DIDUituhwzm01h7qN1n0q
- BX385pRag81rJqjzZ0C9oEqwY8U8Svxo7zN66gJiQUeHhJ1hG8mkKinGLny9jx8LHu
- tlDi5SpfHPfQdEoIFfxUT8iWPKTgUGJaj0uBg6vjksAr+O2Gnq6hvgwEQIsN3mvKCh
- wSIzdFcMYxkKA==
-Date: Thu, 15 Apr 2021 17:17:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Codrin.Ciubotariu@microchip.com
-Subject: Re: [RFC PATCH 0/3] Separate BE DAI HW constraints from FE ones
-Message-ID: <20210415161743.GH5514@sirena.org.uk>
-References: <20210323114327.3969072-1-codrin.ciubotariu@microchip.com>
- <a0c862ec-44ba-52e0-551c-0347166ac4e9@perex.cz>
- <5e1fb981-48c1-7d5a-79a6-ba54bac26165@microchip.com>
- <4f401536-5a66-0d65-30cb-7ecf6b235539@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F83FF800ED
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:24:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F83FF800ED
+IronPort-SDR: LVq5L3/H6Tox7K33C8ToLT/8j4g8jUar14Wn8FhsQ+K8QBX8E86nne5/URzwKMm6nMAMFlJ66s
+ Grbff5vh2Xrg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="194446434"
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="194446434"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2021 09:21:20 -0700
+IronPort-SDR: FIYSlztTCv2lBlOm9Hdw6y+LP8p50l6isMJxUknsFTyt1rmw6ZmZEoRMVeoFqfNe+RO/AfkSLZ
+ TaBVkxC9hktg==
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="418796185"
+Received: from juanrod3-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.126.151])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2021 09:21:19 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ASoC: SOF: use current DAI config during resume
+Date: Thu, 15 Apr 2021 11:21:07 -0500
+Message-Id: <20210415162107.130963-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WRT3RXLOp/bBMgTI"
-Content-Disposition: inline
-In-Reply-To: <4f401536-5a66-0d65-30cb-7ecf6b235539@microchip.com>
-X-Cookie: VMS must die!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, gustavoars@kernel.org,
- mirq-linux@rere.qmqm.pl
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,44 +76,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
---WRT3RXLOp/bBMgTI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Recently, the sof_pcm_dai_link_fixup() function was
+updated to match SSP config with the PCM hw_params
+and set the current_config for the DAI widget.
 
-On Wed, Apr 14, 2021 at 02:58:10PM +0000, Codrin.Ciubotariu@microchip.com w=
-rote:
+But the sof_restore_pipelines() function still chooses the
+default config for the DAI widget upon resuming. Fix this
+to use the last used config when setting up the DAI widget
+during resume.
 
-> How about using a different API for ASoC only, since that's the place of=
-=20
-> DPCM. Only drivers that do not involve DSPs would have to to be changed=
-=20
-> to call the new snd_pcm_hw_rule_add() variant.
-> Another solution would be to have a different snd_soc_pcm_runtime for BE=
-=20
-> interfaces (with a new hw_constraints member of course). What do you thin=
-k?
+Fixes: c943a586f6e49 ("ASoC: SOF: match SSP config with pcm hw params")
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+v2:
+used SHA1 from Mark's tree, not the SOF one.
+Resending on behalf of Ranjani -> added Signed-off-by
 
-I'm really not convinced we want to continue to pile stuff on top of
-DPCM, it is just fundamentally not up to modelling what modern systems
-are able to do - it's already making things more fragile than they
-should be and more special cases seems like it's going to end up making
-that worse.  That said I've not seen the code but...
+ sound/soc/sof/sof-audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---WRT3RXLOp/bBMgTI
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index 0d0d47dc0246..510883cd9107 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -267,7 +267,7 @@ int sof_restore_pipelines(struct device *dev)
+ 	/* restore dai links */
+ 	list_for_each_entry_reverse(dai, &sdev->dai_list, list) {
+ 		struct sof_ipc_reply reply;
+-		struct sof_ipc_dai_config *config = dai->dai_config;
++		struct sof_ipc_dai_config *config = &dai->dai_config[dai->current_config];
+ 
+ 		if (!config) {
+ 			dev_err(dev, "error: no config for DAI %s\n",
+-- 
+2.25.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB4ZyYACgkQJNaLcl1U
-h9AydQf/elP8e5y2Rm/NSzV4RiR3KwwNw77ME5V2y+EN09TS7n5uXp7wYsiMCawT
-55a3w2sy7ptihU413CYFHA1PepvHIAboGCpAqD/bpTTERQ2Cjh3VrpTNZVbOielO
-zZUEO4eUZjU183jsHP+Dn2CpTpt4Hy6ud9icwHqg8qVjHx2TL9yaTzCtD9yi6yND
-jsw5DzA43SNy5EnDGcW4O6eU8Uu33v1bNsxPJteqnuVtJ23eDrZ24lAjNF5fytuz
-EUw6G/EgcW66sNtLwfc00urm11UPOyRa1zssiQuFxNbrkuZEbJ6wbKqNC7xN0/Mu
-lbg0FchJftDPVI1snlP8fvxXuqbGYg==
-=cMvM
------END PGP SIGNATURE-----
-
---WRT3RXLOp/bBMgTI--

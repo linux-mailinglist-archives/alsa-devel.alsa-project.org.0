@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A431F361176
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:53:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3A936117B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:53:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32443165E;
-	Thu, 15 Apr 2021 19:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32443165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A0201681;
+	Thu, 15 Apr 2021 19:52:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A0201681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618509201;
-	bh=8ZLiQ9mvpgyKxl4oVu2akL0oNyOW31Wg1Pkbjk5XWTo=;
+	s=default; t=1618509229;
+	bh=m/Fp6tDvoDqCUa6Grb46hosJEw3HTwLvF4vec1ZBUNg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rxc6NSof+5EFKFOxd3DH4+rZGdP7Cuo4qytnxnce8yANUWNrIf1PeNyAYgw96EExE
-	 YnFoNQSrUjiNTkP6fCJP+5OuycE78MEsm8veBX08q9QoQ+x+u9zvrfBDV0Uv4aBx0F
-	 pQAC7pqdFpMw5atwwDmYqebospAbeC4MW9GJmTs0=
+	b=Aki/UuKpQYLsYAEwNmw/KmEcTg4x3Og9iHUs36//oAaJCeJGEYytf/bLSfLhTdyhq
+	 LQp1jsc4O1MD7KYMdrvhk3E45XJ4Aa6nmPs+Mw54oDSO82U7xSbrOLhBEXFIrzv0p+
+	 2LbZDCluQLQsM+oqJGIXTPMmFtxHjG4zKTFZcRQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52C3EF80431;
-	Thu, 15 Apr 2021 19:50:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01864F804A9;
+	Thu, 15 Apr 2021 19:50:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E107F8023A; Thu, 15 Apr 2021 19:50:51 +0200 (CEST)
+ id 50292F8042F; Thu, 15 Apr 2021 19:50:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90104F8023A
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:50:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90104F8023A
-IronPort-SDR: VhkH0eYWCF5EvVLm5zT1zqw+zIE3o0QJuGVIGYQreosCe3CwhiSURybZD/D4QPO64Xhm7ME+RV
- Eaxe4LWqMfaA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="174400806"
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="174400806"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 225F6F80260
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 225F6F80260
+IronPort-SDR: /eQTZgHb0pnAN/dJCT+KJVViiDPUw6Y4hmLHQ9wVYIGMHY25A/Tjg7HwTbLgKMLH+wd8Wr3wDQ
+ EJa2HRlUDTdQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="174400810"
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="174400810"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:40 -0700
-IronPort-SDR: hbsqhblMzwhKNMqAsOw4eN0XPOLQBADVyzoezSl9JLIq6yL1foNpPWV/F1TeUKvn6cjjcEpJfX
- mYd+GLgkEygg==
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382804676"
+ 15 Apr 2021 10:50:41 -0700
+IronPort-SDR: vUqpxSJhEPVfurnfhNWyNr0ZSaXNuAlaQSkptSGdzsHwqemWW01CLxhwDaInM08EE7ASPPybIm
+ vqXPBoIEur8w==
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382804680"
 Received: from lesterhu-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.33.4])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:38 -0700
+ 15 Apr 2021 10:50:40 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/9] ASoC: Intel: sof_sdw: add quirk for new ADL-P Rvp
-Date: Thu, 15 Apr 2021 12:50:09 -0500
-Message-Id: <20210415175013.192862-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 6/9] ASoC: Intel: boards: add support for adl boards in
+ sof-rt5682
+Date: Thu, 15 Apr 2021 12:50:10 -0500
+Message-Id: <20210415175013.192862-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
 References: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
@@ -81,38 +82,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 
-Add quirks for jack detection, rt711 DAI and DMIC
+ADL customer boards are with below 2 configurations
+
+Board 1: RT5682 on SSP0 and MAX98373 on SSP1
+Board 2: RT5682 on SSP0 and MAX98357A on SSP2
 
 Reviewed-by: Bard Liao <bard.liao@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/intel/boards/sof_rt5682.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 8adce6417b02..ecd3f90f4bbe 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -187,6 +187,17 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 					SOF_RT715_DAI_ID_FIX |
- 					SOF_SDW_FOUR_SPK),
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 5e8f1022a21a..358a19d62458 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1008,6 +1008,23 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT1015P_SPEAKER_AMP_PRESENT |
+ 					SOF_RT5682_SSP_AMP(1)),
  	},
-+	/* AlderLake devices */
 +	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Alder Lake Client Platform"),
-+		},
-+		.driver_data = (void *)(SOF_RT711_JD_SRC_JD1 |
-+					SOF_SDW_TGL_HDMI |
-+					SOF_SDW_PCH_DMIC),
++		.name = "adl_max98373_rt5682",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98373_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(1) |
++					SOF_RT5682_NUM_HDMIDEV(4)),
 +	},
- 	{}
++	{
++		.name = "adl_max98357a_rt5682",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(2) |
++					SOF_RT5682_NUM_HDMIDEV(4)),
++	},
+ 	{ }
  };
  
+@@ -1035,3 +1052,5 @@ MODULE_ALIAS("platform:jsl_rt5682_max98360a");
+ MODULE_ALIAS("platform:cml_rt1015_rt5682");
+ MODULE_ALIAS("platform:tgl_rt1011_rt5682");
+ MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
++MODULE_ALIAS("platform:adl_max98373_rt5682");
++MODULE_ALIAS("platform:adl_max98357a_rt5682");
 -- 
 2.25.1
 

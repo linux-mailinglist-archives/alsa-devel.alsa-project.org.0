@@ -2,69 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55986361183
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F2136119C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4240167D;
-	Thu, 15 Apr 2021 19:54:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4240167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60411165D;
+	Thu, 15 Apr 2021 20:01:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60411165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618509345;
-	bh=mEixypH7onbDDvFaoS2AC0cdQuHlXqj41uSoQvrqF20=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1618509728;
+	bh=Fk5S+mONg1lXLBjxDInyBqI3OdsJS5bQVNKZz3t/0pA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R3vmcOumD7i/Cikvaqbojc7cNTPY4qI5+PJQYTlQybxQj1QzBREbTOuFcbl5i4A+u
-	 P7mHi/5W2a+IbxfkVHZc0nvA+YrmD3o2/k53N0djrROtGQImzQ+EjOoIyVpcJUBZiQ
-	 AzghZMWqV92a+XZX5iT6VCOCTHc4vPGmytgon7ZQ=
+	b=mpT7mipHG6+4DAsJLx8ocJn6VWfGx8R3pwUXcSnRpWtjPuvChC3xLhn+rJqbs6j/x
+	 ROHkkrHBQh/zeuE90cdCLBqMF+Vds5FTJ4AkLQXjkF/fktOVdyaoSe3qMEqBAZ8Ru8
+	 Hg3FVRF9KDefBnH0VNr78O2jWPdInMAYefE7w0/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FD39F804EB;
-	Thu, 15 Apr 2021 19:51:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9E89F800FF;
+	Thu, 15 Apr 2021 20:00:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E30BDF80424; Thu, 15 Apr 2021 19:50:56 +0200 (CEST)
+ id 51CDFF8022B; Thu, 15 Apr 2021 20:00:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BF45F800FF
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:50:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF45F800FF
-IronPort-SDR: vAV6eTWiB8RnK5di+fFt03gE8eC0+AWc3nvVgAoVRd1woyUmmid5DqlsDPk645mqjyjyTG3vEg
- YH9LdES1SeyQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="174400820"
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="174400820"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:44 -0700
-IronPort-SDR: dS8xD3owQKdnzsfLONNfxz1H7b5uO86ZwTzY+2AkIAQYlglzdyW4xptoJooMXFwIJV3hMcYFAD
- Bv9QSWNB5Jiw==
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382804688"
-Received: from lesterhu-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.33.4])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:42 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 9/9] ASoC: Intel: boards: create sof-maxim-common module
-Date: Thu, 15 Apr 2021 12:50:13 -0500
-Message-Id: <20210415175013.192862-10-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
-References: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D90D2F80128
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:00:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D90D2F80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="hXSYHomi"
+Received: by mail-ed1-x534.google.com with SMTP id m3so29151519edv.5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 11:00:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=UTwhTiq7D0EG1VtR8EmuKyo1zpQH4L9rGLfT4UoA/Vs=;
+ b=hXSYHomiRUxQ3S28NgYhbgU8mbXk0YwOXO06AKNBNIGP5fkmx4p7gCqkReqFhas9Ab
+ SoAWEgYGtAK+vlDS6RcMCBe6KuueqePAHSsd1vaJwHyKCM1iFFvP4BFSBLDzYVUoRukV
+ GuCYwqINA2SQHBZlhrINh8WmfgXG1sT61hc2akI67wOXMsplw586jvl2iH1uZ1zmpKbP
+ gYUTa6qdjoRQV8kc+u9cOGbD2uoj5qcZneBOpiVDYBzRQe50UwYFMaCMo4YHvHKIFl9m
+ UNJWUVSW6+bnS3ein6G+qV55S8R0UjoVV0T4L0Y9GzBxiGBFIWVvmFo3K+6JIKraSEQA
+ llUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=UTwhTiq7D0EG1VtR8EmuKyo1zpQH4L9rGLfT4UoA/Vs=;
+ b=nu1/rIr8tabQwA7eARdVK7nzomZYDtegY/eNOzpDx/5S7J947aCX/gLNuvVlhZ6aMD
+ c/j/Oa9PYEWBAcFkgQGpG9rCFJRZfJjthLyWsg3SAqtEDh5fJX9vaQzbflr5I7142W5t
+ aTdSshNxgNSjHJZI08CRlN17jgHeNAJyi/z3Nc85A+r8y6KZs8HrFdArpn5gbFlVS385
+ xL++FLKYdWISyX+xixZWVi2fEZRUPeu38n20IFb9U6eTneLlKDa+Vp0EeyanPmnWmA/l
+ hwSIspZ1Me8MQsH7vc4uIVrO7Fa1Ndtu07i2laos8On9boSx4EDBOFCCBNHSJHPQ3lWI
+ aBWQ==
+X-Gm-Message-State: AOAM533XwynSKUApDeknVgznPJk0xeE/B7VIGI5PUMcadFWKqmqjTHZX
+ xKbI3s0zYsl4+J16BXlF+2o=
+X-Google-Smtp-Source: ABdhPJz673ntS+hSr9aQOFmCMq8/29t/B68TqiW7t2pPJLIct/i8Idj5e/UCzdh0ip0QlAr+PelYNw==
+X-Received: by 2002:a05:6402:518d:: with SMTP id
+ q13mr5702302edd.313.1618509626158; 
+ Thu, 15 Apr 2021 11:00:26 -0700 (PDT)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id v19sm1742352ejy.78.2021.04.15.11.00.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Apr 2021 11:00:24 -0700 (PDT)
+Date: Thu, 15 Apr 2021 20:01:07 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 01/14] ASoC: simple-card-utils: enable flexible
+ CPU/Codec/Platform
+Message-ID: <YHh/Y5fXMxm91Ha3@orome.fritz.box>
+References: <87wntmod33.wl-kuninori.morimoto.gx@renesas.com>
+ <87v996od2c.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="fWIQhJrNn41Dr28Z"
+Content-Disposition: inline
+In-Reply-To: <87v996od2c.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Mutt/2.0.6 (98f8cb83) (2021-03-06)
+Cc: linux-tegra@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,233 +105,140 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sof_maxim_common.o is linked twice, move to a dedicated module.
 
-Also clean-up interfaces to use a consistent 'max_98373' prefix for
-all symbols.
+--fWIQhJrNn41Dr28Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
----
- sound/soc/intel/boards/Kconfig            |  5 +++++
- sound/soc/intel/boards/Makefile           |  6 ++++--
- sound/soc/intel/boards/sof_maxim_common.c | 24 ++++++++++++++++-------
- sound/soc/intel/boards/sof_maxim_common.h |  6 +++---
- sound/soc/intel/boards/sof_rt5682.c       |  5 +++--
- sound/soc/intel/boards/sof_sdw.c          |  1 +
- sound/soc/intel/boards/sof_sdw_max98373.c |  4 ++--
- 7 files changed, 35 insertions(+), 16 deletions(-)
+On Thu, Apr 01, 2021 at 01:15:23PM +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>=20
+> Current simple-card / audio-graph are assuming fixed
+> single-CPU/Codec/Platform.
+> This patch prepares multi-CPU/Codec/Platform support.
+>=20
+> Note is that it is not yet full-multi-support.
+>=20
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  include/sound/simple_card_utils.h     |  8 +++
+>  sound/soc/generic/audio-graph-card.c  | 22 ++++++++
+>  sound/soc/generic/simple-card-utils.c | 72 +++++++++++++++++++--------
+>  sound/soc/generic/simple-card.c       | 30 +++++++++++
+>  4 files changed, 110 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index ec4d754eb348..ceeb618bd950 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -29,6 +29,9 @@ config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
- config SND_SOC_INTEL_HDA_DSP_COMMON
- 	tristate
- 
-+config SND_SOC_INTEL_SOF_MAXIM_COMMON
-+	tristate
-+
- if SND_SOC_INTEL_CATPT
- 
- config SND_SOC_INTEL_HASWELL_MACH
-@@ -469,6 +472,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
- 	select SND_SOC_INTEL_HDA_DSP_COMMON
-+	select SND_SOC_INTEL_SOF_MAXIM_COMMON
- 	help
- 	   This adds support for ASoC machine driver for SOF platforms
- 	   with rt5682 codec.
-@@ -579,6 +583,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
- 	select SND_SOC_RT5682_SDW
- 	select SND_SOC_DMIC
- 	select SND_SOC_INTEL_HDA_DSP_COMMON
-+	select SND_SOC_INTEL_SOF_MAXIM_COMMON
- 	help
- 	  Add support for Intel SoundWire-based platforms connected to
- 	  MAX98373, RT700, RT711, RT1308 and RT715
-diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index a48ee9b74e73..855296e8dfb8 100644
---- a/sound/soc/intel/boards/Makefile
-+++ b/sound/soc/intel/boards/Makefile
-@@ -19,7 +19,7 @@ snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
- snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
- snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
- snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
--snd-soc-sof_rt5682-objs := sof_rt5682.o sof_maxim_common.o sof_realtek_common.o
-+snd-soc-sof_rt5682-objs := sof_rt5682.o sof_realtek_common.o
- snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
- snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
- snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
-@@ -38,7 +38,6 @@ snd-soc-sof-sdw-objs += sof_sdw.o				\
- 			sof_sdw_rt5682.o sof_sdw_rt700.o	\
- 			sof_sdw_rt711.o sof_sdw_rt711_sdca.o 	\
- 			sof_sdw_rt715.o	sof_sdw_rt715_sdca.o 	\
--			sof_maxim_common.o                      \
- 			sof_sdw_dmic.o sof_sdw_hdmi.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_RT5682_MACH) += snd-soc-sof_rt5682.o
- obj-$(CONFIG_SND_SOC_INTEL_HASWELL_MACH) += snd-soc-sst-haswell.o
-@@ -78,3 +77,6 @@ obj-$(CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH) += snd-soc-sof-sdw.o
- # common modules
- snd-soc-intel-hda-dsp-common-objs := hda_dsp_common.o
- obj-$(CONFIG_SND_SOC_INTEL_HDA_DSP_COMMON) += snd-soc-intel-hda-dsp-common.o
-+
-+snd-soc-intel-sof-maxim-common-objs += sof_maxim_common.o
-+obj-$(CONFIG_SND_SOC_INTEL_SOF_MAXIM_COMMON) += snd-soc-intel-sof-maxim-common.o
-diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-index 437d20562753..7c4af6ec58e8 100644
---- a/sound/soc/intel/boards/sof_maxim_common.c
-+++ b/sound/soc/intel/boards/sof_maxim_common.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- //
- // Copyright(c) 2020 Intel Corporation. All rights reserved.
-+#include <linux/module.h>
- #include <linux/string.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
-@@ -16,6 +17,7 @@ const struct snd_soc_dapm_route max_98373_dapm_routes[] = {
- 	{ "Left Spk", NULL, "Left BE_OUT" },
- 	{ "Right Spk", NULL, "Right BE_OUT" },
- };
-+EXPORT_SYMBOL_NS(max_98373_dapm_routes, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
- static struct snd_soc_codec_conf max_98373_codec_conf[] = {
- 	{
-@@ -38,9 +40,10 @@ struct snd_soc_dai_link_component max_98373_components[] = {
- 		.dai_name = MAX_98373_CODEC_DAI,
- 	},
- };
-+EXPORT_SYMBOL_NS(max_98373_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
--static int max98373_hw_params(struct snd_pcm_substream *substream,
--			      struct snd_pcm_hw_params *params)
-+static int max_98373_hw_params(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai;
-@@ -59,7 +62,7 @@ static int max98373_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
-+int max_98373_trigger(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai;
-@@ -102,13 +105,15 @@ int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(max_98373_trigger, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
- struct snd_soc_ops max_98373_ops = {
--	.hw_params = max98373_hw_params,
--	.trigger = max98373_trigger,
-+	.hw_params = max_98373_hw_params,
-+	.trigger = max_98373_trigger,
- };
-+EXPORT_SYMBOL_NS(max_98373_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
--int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
-+int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
- 	int ret;
-@@ -119,9 +124,14 @@ int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
- 		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(max_98373_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
--void sof_max98373_codec_conf(struct snd_soc_card *card)
-+void max_98373_set_codec_conf(struct snd_soc_card *card)
- {
- 	card->codec_conf = max_98373_codec_conf;
- 	card->num_configs = ARRAY_SIZE(max_98373_codec_conf);
- }
-+EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+MODULE_DESCRIPTION("ASoC Intel SOF Maxim helpers");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
-index 5240b1c9d379..566a664d5a63 100644
---- a/sound/soc/intel/boards/sof_maxim_common.h
-+++ b/sound/soc/intel/boards/sof_maxim_common.h
-@@ -20,8 +20,8 @@ extern struct snd_soc_dai_link_component max_98373_components[2];
- extern struct snd_soc_ops max_98373_ops;
- extern const struct snd_soc_dapm_route max_98373_dapm_routes[];
- 
--int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
--void sof_max98373_codec_conf(struct snd_soc_card *card);
--int max98373_trigger(struct snd_pcm_substream *substream, int cmd);
-+int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
-+void max_98373_set_codec_conf(struct snd_soc_card *card);
-+int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
- 
- #endif /* __SOF_MAXIM_COMMON_H */
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 514ee19ab4a2..ee56a95895db 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -756,7 +756,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 				SOF_MAX98373_SPEAKER_AMP_PRESENT) {
- 			links[id].codecs = max_98373_components;
- 			links[id].num_codecs = ARRAY_SIZE(max_98373_components);
--			links[id].init = max98373_spk_codec_init;
-+			links[id].init = max_98373_spk_codec_init;
- 			links[id].ops = &max_98373_ops;
- 			/* feedback stream */
- 			links[id].dpcm_capture = 1;
-@@ -902,7 +902,7 @@ static int sof_audio_probe(struct platform_device *pdev)
- 		sof_audio_card_rt5682.num_links++;
- 
- 	if (sof_rt5682_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT)
--		sof_max98373_codec_conf(&sof_audio_card_rt5682);
-+		max_98373_set_codec_conf(&sof_audio_card_rt5682);
- 	else if (sof_rt5682_quirk & SOF_RT1011_SPEAKER_AMP_PRESENT)
- 		sof_rt1011_codec_conf(&sof_audio_card_rt5682);
- 	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
-@@ -1055,3 +1055,4 @@ MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
- MODULE_ALIAS("platform:adl_max98373_rt5682");
- MODULE_ALIAS("platform:adl_max98357a_rt5682");
- MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 73929f238f7b..d65e29ab70c3 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1318,3 +1318,4 @@ MODULE_AUTHOR("Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:sof_sdw");
- MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
-diff --git a/sound/soc/intel/boards/sof_sdw_max98373.c b/sound/soc/intel/boards/sof_sdw_max98373.c
-index cfdf970c5800..0e7ed906b341 100644
---- a/sound/soc/intel/boards/sof_sdw_max98373.c
-+++ b/sound/soc/intel/boards/sof_sdw_max98373.c
-@@ -64,7 +64,7 @@ static int max98373_sdw_trigger(struct snd_pcm_substream *substream, int cmd)
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		/* enable max98373 first */
--		ret = max98373_trigger(substream, cmd);
-+		ret = max_98373_trigger(substream, cmd);
- 		if (ret < 0)
- 			break;
- 
-@@ -77,7 +77,7 @@ static int max98373_sdw_trigger(struct snd_pcm_substream *substream, int cmd)
- 		if (ret < 0)
- 			break;
- 
--		ret = max98373_trigger(substream, cmd);
-+		ret = max_98373_trigger(substream, cmd);
- 		break;
- 	default:
- 		ret = -EINVAL;
--- 
-2.25.1
+Hi,
 
+This seems to break display support on a Jetson TX2 board for me, though
+I admittedly don't quite understand how it would be related to display
+at all. Reverting basically the whole series (because subsequent patches
+depend on this on) on top of next-20210415, I get working display again.
+
+There's this in the log, which seems to be related:
+
+[   14.671377] tegra-audio-graph-card sound: too many links
+[   14.799645] tegra-audio-graph-card sound: too many links
+[   14.845375] tegra-audio-graph-card sound: too many links
+[   14.853635] tegra-audio-graph-card sound: too many links
+[   14.860934] tegra-audio-graph-card sound: too many links
+[   14.868781] tegra-audio-graph-card sound: too many links
+[   14.875659] tegra-audio-graph-card sound: too many links
+[   14.907874] tegra-audio-graph-card sound: too many links
+[   14.917351] Unable to handle kernel NULL pointer dereference at virtual =
+address 0000000000000010
+[   14.926255] Mem abort info:
+[   14.929096]   ESR =3D 0x96000047
+[   14.932208]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+[   14.937559]   SET =3D 0, FnV =3D 0
+[   14.940642]   EA =3D 0, S1PTW =3D 0
+[   14.943867] Data abort info:
+[   14.946753]   ISV =3D 0, ISS =3D 0x00000047
+[   14.950611]   CM =3D 0, WnR =3D 1
+[   14.953614] user pgtable: 64k pages, 48-bit VAs, pgdp=3D0000000100b94400
+[   14.960185] [0000000000000010] pgd=3D0800000102280003, p4d=3D08000001022=
+80003, pud=3D0800000102280003, pmd=3D0800000101050003, pte=3D00000000000000=
+00
+[   14.972774] Internal error: Oops: 96000047 [#1] PREEMPT SMP
+[   14.978362] Modules linked in: drm_kms_helper snd_soc_tegra210_admaif sn=
+d_soc_tegra_pcm snd_soc_tegra210_dmic snd_soc_tegra210_i2s snd_soc_tegra186=
+_dspk cfbfillrect cfbimgblt cfbcopyarea snd_soc_tegra210_ahub snd_soc_tegra=
+_audio_graph_card snd_soc_audio_graph_card snd_soc_simple_card_utils crct10=
+dif_ce at24 tegra_aconnect tegra_bpmp_thermal host1x drm fuse drm_panel_ori=
+entation_quirks ipv6
+[   15.012917] CPU: 2 PID: 69 Comm: kworker/u12:3 Tainted: G S             =
+   5.12.0-rc7-next-20210415 #108
+[   15.022390] Hardware name: NVIDIA Jetson TX2 Developer Kit (DT)
+[   15.028303] Workqueue: events_unbound deferred_probe_work_func
+[   15.034159] pstate: 40000005 (nZcv daif -PAN -UAO -TCO BTYPE=3D--)
+[   15.040162] pc : snd_soc_get_dai_name+0x124/0x150
+[   15.044883] lr : snd_soc_get_dai_name+0xa4/0x150
+[   15.049521] sp : ffff800011fef780
+[   15.052849] x29: ffff800011fef780 x28: ffff00008bc14980
+[   15.058181] x27: 0000000000000000 x26: ffff000081aafc10
+[   15.063511] x25: ffff0001f7091680 x24: ffff800011538798
+[   15.068841] x23: 0000000000000010 x22: ffff800011538778
+[   15.074169] x21: ffff800011fef808 x20: 00000000fffffdf4
+[   15.079486] x19: ffff0000809c7880 x18: 0000000000000030
+[   15.084813] x17: 0000000000000000 x16: 0000000000000000
+[   15.090142] x15: ffffffffffffffff x14: ffffffff00000000
+[   15.095468] x13: ffffffffffffffff x12: 0000000000000020
+[   15.100804] x11: 0101010101010101 x10: 7f7f7f7f7f7f7f7f
+[   15.106135] x9 : 7f7f7f7f7f7f7f7f x8 : feff303f73716e6f
+[   15.111464] x7 : 00000000ffffffff x6 : 0000314000000000
+[   15.116791] x5 : ffff0001f7091d28 x4 : ffff00008c41a010
+[   15.122109] x3 : 0000000000000000 x2 : 0000000000000010
+[   15.127439] x1 : 0000000000000000 x0 : ffff8000094614d8
+[   15.132756] Call trace:
+[   15.135201]  snd_soc_get_dai_name+0x124/0x150
+[   15.139560]  asoc_simple_parse_dai.part.0+0x70/0xd0 [snd_soc_audio_graph=
+_card]
+[   15.146784]  graph_dai_link_of_dpcm+0x100/0x38c [snd_soc_audio_graph_car=
+d]
+[   15.153672]  __graph_for_each_link+0x1dc/0x204 [snd_soc_audio_graph_card]
+[   15.160471]  audio_graph_parse_of+0x148/0x20c [snd_soc_audio_graph_card]
+[   15.167178]  tegra_audio_graph_probe+0x6c/0x8c [snd_soc_tegra_audio_grap=
+h_card]
+[   15.174499]  platform_probe+0x68/0xe0
+[   15.178164]  really_probe+0xe4/0x50c
+[   15.181754]  driver_probe_device+0x64/0xc4
+[   15.185861]  __device_attach_driver+0xb4/0x110
+[   15.190314]  bus_for_each_drv+0x78/0xd0
+[   15.194149]  __device_attach+0xd8/0x180
+[   15.197985]  device_initial_probe+0x14/0x20
+[   15.202168]  bus_probe_device+0x9c/0xa4
+[   15.206003]  deferred_probe_work_func+0x88/0xc0
+[   15.210532]  process_one_work+0x1cc/0x350
+[   15.214542]  worker_thread+0x68/0x3ac
+[   15.218203]  kthread+0x128/0x134
+[   15.221431]  ret_from_fork+0x10/0x34
+[   15.225045] Code: fa531004 54ffff81 f9400c00 f9400000 (f90002e0)
+[   15.231134] ---[ end trace 671a11645631ca2f ]---
+
+Any ideas what could be wrong?
+
+Adding Jon and linux-tegra for visibility.
+
+Thierry
+
+--fWIQhJrNn41Dr28Z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmB4f2AACgkQ3SOs138+
+s6HNYBAAk1J+rT+ulfVjWUFrq1a3tTy8N09IMXCR5l4OWCJQ+7YccS61eBbkH5FW
+vUQobR88OqqmBkFMyRNF/BgisrCSUf+oJjGSJGuTBGruvrzB9wfYr5Aq8Rh3raRm
+3Ko1UvU+zyDeFD8x8U65J6QAhSWBs62DljSrD0+8xkw+FJOBRRLX3lAydSfik2ns
+S0VvmhIUj0KcbmPHKEGYA85rrThCkjIp4CQepd6QXmA/k3UreIf4pWy3VmbEqQfY
+ypteb++/0qbIrxlF5xEdnsgbSgP7Y8pgJVFeJIlqxSij8xYAVYakDaGIrEhbXrrR
+FLIiUTZOXJHgO+IBSmN5ESvCaRew7FISSKoBUd9sg2eSiE2e8/1jegsxkfj98sxI
+UOLSHR1bSVQheZqqctaxmXliA1p/aEB4/3sfVzl3MwN3G2Nq6z5//k4QRJ+nv73g
+9TeLLjEIYeo0wX1rYzFKOKnaeWMKw4r+KS/OhPs6wcwtPuzh5dybXcyzO+5OCZ61
+qBLrH6ZlQ86wurXBtaTK/yV8HFDBMtfsGLMW/A572zhRsdrJr8OJ2Vrg6BEeIWn1
+d0pTQgDA8lk0vLEZVMPA39sW4dpWj0V4sAs5L4mhFqlNz/Mi1Rm2WqLm7YPndjxo
+zHNJ3ufouyoQg3VioIruqlT5WV/IdV8rosllojECcQ+FvtLKcqI=
+=huCF
+-----END PGP SIGNATURE-----
+
+--fWIQhJrNn41Dr28Z--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F353361238
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:36:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CA3A36123B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:37:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B73921679;
-	Thu, 15 Apr 2021 20:36:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B73921679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C0F7168F;
+	Thu, 15 Apr 2021 20:36:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C0F7168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618511817;
-	bh=DIjc359eJQvUuEAXonYp4ayJobMO/jbmR85gSygggvg=;
+	s=default; t=1618511846;
+	bh=O1+0WiODIpCYZcwGoAl5KYAiusOP8F5ovHKj1xxGNjw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G3AWH7mbBGOsuszhqj+hVU1wEPnxCp0dPp0S0BAq1Pq+C2JstzNm0r7BfIlxsBzBe
-	 18/242ybKVI8Gj2UVuoTbG1nopPPN6kFIyttUf70BnNhPvxi65r4psTarCdQxvXD4Y
-	 fiUqI40zqKaSASJh+CvL8RWjME1CoYS1aNxMTB1Q=
+	b=Ji5spCLiuUld2hvJ5/bNgypTCWyGrctGktuBRK7oS7lhQWevgHNdjcn1cGnGbOobT
+	 5qgRNXmX83d/nPsQjTkl9aUabem5VYxHW+fr/uKxeLDS5HEStoYt+DC11jHqvU2tOL
+	 bmfgBi6RAK17Z7KUnLuMNMKkGWtPsKx1s1xmNxPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3934AF80424;
-	Thu, 15 Apr 2021 20:34:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E328FF80482;
+	Thu, 15 Apr 2021 20:34:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BB9BF80424; Thu, 15 Apr 2021 20:34:32 +0200 (CEST)
+ id A9605F80425; Thu, 15 Apr 2021 20:34:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23975F8021D
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:34:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23975F8021D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29FDBF8021D
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29FDBF8021D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cFf1N+RA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 280D6611CD;
- Thu, 15 Apr 2021 18:34:26 +0000 (UTC)
+ header.b="NUN6sw4N"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D74C86115B;
+ Thu, 15 Apr 2021 18:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618511667;
- bh=DIjc359eJQvUuEAXonYp4ayJobMO/jbmR85gSygggvg=;
+ s=k20201202; t=1618511670;
+ bh=O1+0WiODIpCYZcwGoAl5KYAiusOP8F5ovHKj1xxGNjw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cFf1N+RAHcgMOxD7jOIxal/ixnnS9l8SrlF482aXeUDCq6/ssN2O1HVN9d3H6l77q
- IH3i1gCkMqiix+Bpi/LuoeJ3teu0jkl/GTuDODfgUZCsFtYfRXBZ+uDb8JSDwtD5j3
- WlGqlbjoy9D8EJQcRNHOlyiyI/u5lqt6tL8mTKRQcnguBA88fhaHUOoaoE9ie7xptm
- d8zncHj/UbVZyKSVIxz3jJVUpeZrDh3xY+9ikVWKy5yLh2nbYrYxzkE2LxWtl6uB3Q
- fze2RyRxGVXNOQPexxf30iInvksiop9UOO5kzg4UU8Va9B3h6VI0nybNmCYp0yIMZ7
- kPaxQZW3hjZQg==
+ b=NUN6sw4NLidlAzkW5p2Xw76EA7M+AIDaBWBH4CWFGGdBW3TwF7+7zFf5azMHlJVR4
+ E7zA9BrNP0WhxflYITCB3An6xWqk2nzSHsV1aDJMQ3dTsGw/kgWf0Hc3e7L77wNYC8
+ Z5D8KwJDlAS6fjBIMPPMh4jGWLV+uI/+lfj3/ndiw7OGu10LC4mYic2IuW1vOyb4iC
+ 0vvqHKRyk4s1lMOHRBFbG+CkwRnAQ0zjx3XdsEs13eyRXPvGe+wjb0UgMQttl5Fc19
+ DZ1dfMh+TWNX5AXoNnzTNCsaC+ZS10AFqxPKw931s1jCC1tf8uOs2P6pGRFnPL2zSy
+ 18sW9LB+buBow==
 From: Mark Brown <broonie@kernel.org>
-To: Lukasz Majczak <lma@semihalf.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Harsha Priya <harshapriya.n@intel.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
-Subject: Re: [PATCH v1] ASoC: Intel: kbl_da7219_max98927: Fix
- kabylake_ssp_fixup function
-Date: Thu, 15 Apr 2021 19:33:46 +0100
-Message-Id: <161851148785.23061.12027153189842499464.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: use current DAI config during resume
+Date: Thu, 15 Apr 2021 19:33:47 +0100
+Message-Id: <161851148785.23061.16444638554434646473.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210415124347.475432-1-lma@semihalf.com>
-References: <20210415124347.475432-1-lma@semihalf.com>
+In-Reply-To: <20210415162107.130963-1-pierre-louis.bossart@linux.intel.com>
+References: <20210415162107.130963-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- upstream@semihalf.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,17 +81,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 15 Apr 2021 14:43:47 +0200, Lukasz Majczak wrote:
-> kabylake_ssp_fixup function uses snd_soc_dpcm to identify the
-> codecs DAIs. The HW parameters are changed based on the codec DAI of the
-> stream. The earlier approach to get snd_soc_dpcm was using container_of()
-> macro on snd_pcm_hw_params.
+On Thu, 15 Apr 2021 11:21:07 -0500, Pierre-Louis Bossart wrote:
+> Recently, the sof_pcm_dai_link_fixup() function was
+> updated to match SSP config with the PCM hw_params
+> and set the current_config for the DAI widget.
 > 
-> The structures have been modified over time and snd_soc_dpcm does not have
-> snd_pcm_hw_params as a reference but as a copy. This causes the current
-> driver to crash when used.
-> 
-> [...]
+> But the sof_restore_pipelines() function still chooses the
+> default config for the DAI widget upon resuming. Fix this
+> to use the last used config when setting up the DAI widget
+> during resume.
 
 Applied to
 
@@ -101,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: kbl_da7219_max98927: Fix kabylake_ssp_fixup function
-      commit: a523ef731ac6674dc07574f31bf44cc5bfa14e4d
+[1/1] ASoC: SOF: use current DAI config during resume
+      commit: eea1d18e9b2d959df908746b193f66dba3078473
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

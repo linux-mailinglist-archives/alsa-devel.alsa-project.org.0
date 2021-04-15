@@ -2,81 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFBF361050
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:40:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C53361087
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 18:55:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5248A167B;
-	Thu, 15 Apr 2021 18:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5248A167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9591F1671;
+	Thu, 15 Apr 2021 18:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9591F1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618504852;
-	bh=KQZaEMK069V4HzUzCwPnHrUWAzAwfRy3J1+ep5oa47U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618505705;
+	bh=DXVqFBv00o/MdQTmG2Kb4m1XP8PIBpqeWN5qPeuiB/s=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nmJqclIplFQ9ZroIxhe6bdYdvu40l9u2spqK6femfVZs5z84LnRsR+JSI0DowrYe7
-	 cqgFQJb+1rkLszQ6f/D+HnFK6V3zmksbCL6rZ0qtRDrc6wDcK3Ue4BQMiqur6Jppml
-	 /WXljY1qpRvZY5LA6v0cLj/8MVk2yl4FfCanqL3c=
+	b=VBBKIeYhv4UlNQYjP5P9FqM7qaa491uGr4lt0kOkPc2KQRolXKvfBAtpQeIjVYPKF
+	 GmXEJlxDSx4s5pMA/8+QDoxqGJRzy2HsmkUYvfEW9coOB15Q+rDUwzsIPJgY7QNVJj
+	 IxSZolnxilFGpMyVDZlMsSXhOSL8I+boGrOKdqVU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A096CF8022B;
-	Thu, 15 Apr 2021 18:39:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0978F800ED;
+	Thu, 15 Apr 2021 18:53:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34DD1F8022B; Thu, 15 Apr 2021 18:39:22 +0200 (CEST)
+ id AF1B5F8022B; Thu, 15 Apr 2021 18:53:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC431F80128
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:39:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC431F80128
-Received: by mail-ot1-f47.google.com with SMTP id
- a2-20020a0568300082b029028d8118b91fso4656603oto.2
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 09:39:14 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F45EF800ED
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 18:53:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F45EF800ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="WPBdgOH1"
+Received: by mail-ed1-x52e.google.com with SMTP id h10so28879710edt.13
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 09:53:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=1bUGrlN4ylkHThjUoi+HED6zB9xuS8ilfhf5hNRnO/k=;
+ b=WPBdgOH1gwDi727OGI2cea8FqqZVyRJMj/1D9o/V2Q52xTf51iDODDauPxuE3LHd7c
+ xY9fbLKGUWX3pkw8vgZPfSDh8h7mAP8gT0o6LpbQDez7vh7u1ITHLW7nn8ME51GrGHtP
+ iDD+NH9uxjH9hcBxb3I1jqbr2Xcobwtl0YRTyKLlQxHNE253oy9nhJ3A5xkDwZrWVDRn
+ XOFh0ricvACjdGYDvT7o8Wzz+LQcLzPv3ln4QPAx5/aZeI6vJs99LFgz/2Jfz95qROob
+ WKeJBHNG7vHt/nrBFBkYjA8s/2pLHRPOFrjf+ly3sUbBSKTBUk6WXWdat+J2E5Wa95Db
+ N1/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ZpKNZqJMtuMERJQ2AbPwF8sZgkJqLPk+S+d3HTR1z9Y=;
- b=Nc3riBH7/nPzZGkOdfiyu5aDX0URD6gCa0QDkVQnhbP36RWnhFHO/uO28VEnTMRuRd
- APf1/rEVdHsia5w5EeA0RMbY1I30fAs86mnpDOcCBWsfJG2dzxLzC9CoSctWe/XE9KMs
- Mbh9jrtf0fdMHq2cJOk+5n0KDTVxtTvh/yAJAUXRI9rqgLdZTa8r4sgacgeNqsQzRmvN
- 6kQB59rrhLqkZ7RF7Pa5G+gKe3oAsxH4DgIwvwnFk/w9qDSxwsKJPsyF/s6DpWbtwIG4
- Toqy24/W83EaHfAyQ2ry1oH6yRBRuzPyoWKn5gMdGnCdeVcH7OaMe9AOsWgkSZ7RARnf
- 6ssA==
-X-Gm-Message-State: AOAM53144GgCt3vtvgPt1KPyrEZtvE81elOg3ul2VoFSAiQOI9SL5sud
- vRm/lyb5Pqil7rqn2jzq5g==
-X-Google-Smtp-Source: ABdhPJxfrT1TEsqC3ayPTt5SJKenn6259qEOzXxjhfz6tyEYwEVQfneK+liMC8rKdst2Q11qlP7W+Q==
-X-Received: by 2002:a05:6830:2491:: with SMTP id
- u17mr147988ots.198.1618504753664; 
- Thu, 15 Apr 2021 09:39:13 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id m3sm700725oiw.27.2021.04.15.09.39.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Apr 2021 09:39:13 -0700 (PDT)
-Received: (nullmailer pid 1533253 invoked by uid 1000);
- Thu, 15 Apr 2021 16:39:12 -0000
-Date: Thu, 15 Apr 2021 11:39:12 -0500
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v4 4/9] ASoC: dt-bindings: wcd938x-sdw: add bindings for
- wcd938x-sdw
-Message-ID: <20210415163912.GA1524320@robh.at.kernel.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=1bUGrlN4ylkHThjUoi+HED6zB9xuS8ilfhf5hNRnO/k=;
+ b=UaCGApG7weDc28EgTiN9bhPWTKcEdf3VvPywt+gVgW8GTHTp2ggE6SVD5/Pc7pL/w1
+ cjpmcoOxRJqUnXR9+xfpUlYl4GTrmeeFK0gxKscQfF0bG/GNTk6mHD+e5ufdM/o1fFez
+ ais0i8QpGpX3701kblq3n8rWSfQs0KoJpsn5KTi+AMCktDq+FrAu7CiPIuLZxM8szF+d
+ hsMBpqCwPW3vXWAlk6BFtmfPqFN2OCDDU3ZX8VIKksDriPtWTGqrIdBl7PwFIXJDHQ8C
+ B35mGUeNK5IPp8zK4sYFz9joEF02P0xNtLOH07SVuyIGe68DcDTNL68B/jr7UPEn735R
+ 4LJQ==
+X-Gm-Message-State: AOAM530EGlA+uMfKbvduNGzqCGCqjj5dhgcfn9aK29p/F/FKD9EDU6cC
+ 0oZk4Gs233NQdCUVzuT5nr0H0g==
+X-Google-Smtp-Source: ABdhPJyQXH5rz6htXutrsGmB1wjoMyGaB/A5NUr6BX7JAQ9JCVuLhw9VCD19t/elxAxtEvsGCND5Pg==
+X-Received: by 2002:a05:6402:cb8:: with SMTP id
+ cn24mr5379165edb.105.1618505606039; 
+ Thu, 15 Apr 2021 09:53:26 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id gn6sm874985ejc.83.2021.04.15.09.53.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Apr 2021 09:53:25 -0700 (PDT)
+Subject: Re: [PATCH v4 1/9] ASoC: dt-bindings: wcd938x: add bindings for
+ wcd938x
+To: Rob Herring <robh@kernel.org>
 References: <20210414154845.21964-1-srinivas.kandagatla@linaro.org>
- <20210414154845.21964-5-srinivas.kandagatla@linaro.org>
+ <20210414154845.21964-2-srinivas.kandagatla@linaro.org>
+ <20210415162947.GA1511094@robh.at.kernel.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <96e7c752-a962-cb5b-c936-8151fd4c32ea@linaro.org>
+Date: Thu, 15 Apr 2021 17:53:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210414154845.21964-5-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210415162947.GA1511094@robh.at.kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -94,97 +109,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 14, 2021 at 04:48:40PM +0100, Srinivas Kandagatla wrote:
-> Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC
-> connected over SoundWire. This device has two SoundWire devices RX and
-> TX respectively. This bindings is for those slave devices on WCD9380/WCD9385.
+Thanks Rob for quick review,
+
+On 15/04/2021 17:29, Rob Herring wrote:
+> On Wed, Apr 14, 2021 at 04:48:37PM +0100, Srinivas Kandagatla wrote:
+>> Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC
+>> connected over SoundWire. This device has two SoundWire device RX and
+>> TX respectively, supporting 4 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
+>> 7 x TX diff inputs, 8 DMICs, MBHC.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   .../bindings/sound/qcom,wcd938x.yaml          | 176 ++++++++++++++++++
+>>   1 file changed, 176 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+>> new file mode 100644
+>> index 000000000000..4c8fa8290af0
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+>> @@ -0,0 +1,176 @@
+
+...
+
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    codec {
+>> +        compatible = "qcom,wcd9380-codec";
+>> +        reset-gpios = <&tlmm 32 0>;
+>> +        #sound-dai-cells = <1>;
+>> +        qcom,tx-device = <&wcd938x_tx>;
+>> +        qcom,rx-device = <&wcd938x_rx>;
+>> +        qcom,micbias1-microvolt = <1800000>;
+>> +        qcom,micbias2-microvolt = <1800000>;
+>> +        qcom,micbias3-microvolt = <1800000>;
+>> +        qcom,micbias4-microvolt = <1800000>;
+>> +        qcom,mbhc-hphl-switch;
+>> +        qcom,mbhc-ground-switch;
+>> +        qcom,mbhc-button0-vthreshold-microvolt = <75000>;
+>> +        qcom,mbhc-button1-vthreshold-microvolt = <150000>;
+>> +        qcom,mbhc-button2-vthreshold-microvolt = <237000>;
+>> +        qcom,mbhc-button3-vthreshold-microvolt = <500000>;
+>> +        qcom,mbhc-button5-vthreshold-microvolt = <500000>;
+>> +        qcom,mbhc-button6-vthreshold-microvolt = <500000>;
+>> +        qcom,mbhc-button7-vthreshold-microvolt = <500000>;
+>> +    };
+>> +
+>> +    /* ... */
+>> +
+>> +    soundwire@3230000 {
+>> +        #address-cells = <2>;
+>> +        #size-cells = <0>;
+>> +        reg = <0x03230000 0x2000>;
+>> +        wcd938x_tx: codec@0,3 {
+>> +            compatible = "sdw20217010d00";
+>> +            reg  = <0 3>;
+>> +            qcom,direction = "tx";
+>> +            qcom,port-mapping = <2 3 4 5>;
+>> +        };
+>> +
+>> +        wcd938x_rx: codec@0,4 {
+>> +            compatible = "sdw20217010d00";
+>> +            reg  = <0 4>;
+>> +            qcom,direction = "rx";
+>> +            qcom,port-mapping = <1 2 3 4 5>;
+>> +        };
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../bindings/sound/qcom,wcd938x-sdw.yaml      | 61 +++++++++++++++++++
->  1 file changed, 61 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x-sdw.yaml
+> This is a single device, right? We shouldn't need 3 nodes to describe
+> it. I think this should all be a single node like this:
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd938x-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd938x-sdw.yaml
-> new file mode 100644
-> index 000000000000..fff33c65491b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd938x-sdw.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd938x-sdw.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Bindings for Qualcomm SoundWire Slave devices on WCD9380/WCD9385
-> +
-> +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> +
-> +description: |
-> +  Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC.
-> +  It has RX and TX Soundwire slave devices. This bindings is for the
-> +  slave devices.
-> +
-> +properties:
-> +  compatible:
-> +    const: sdw20217010d00
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  qcom,direction:
-> +    description: direction of the SoundWire device instance
-> +    enum:
-> +      - rx
-> +      - tx
+No, WCD938x is a Audio Codec which has two SoundWire Slave device (TX 
+and RX). WCD938X reset lines and supplies are common for both TX and RX 
+SoundWire devices.
 
-Was thinking these were some established bus properties...
+However TX SoundWire device only has register access to codec 
+CSR(Control Status registers).
 
-This would just be implied by the 'reg' property index. You could define 
-'reg-names' too I guess.
+So there are two SoundWire devices and a WCD938X common parts. Now 
+making the common Codec part as a separate device made more sense here.
+So we ended with total 3 devices.
 
-> +
-> +  qcom,port-mapping:
-> +    description: |
-> +      Specifies static port mapping between slave and master ports.
-> +      In the order of slave port index.
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 4
-> +    maxItems: 5
+1 . WCD938x Codec which deals with all the codec side including Common 
+parts.
+2. TX SoundWire device to configure TX SoundWire ports/interface and 
+provide CSR access.
+3. RX SoundWire device to configure RX Soundwire ports/interface
 
-qcom,rx-port-mapping and qcom,tx-port-mapping?
 
-Or keep a single property and the driver knows how many slave ports for 
-each direction. IOW, an array of 9 with first 4 entries for tx and last 
-5 for rx.
+> codec@0,3 {
+>          reg = <0 3>, <0 4>;
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - qcom,direction
-> +  - qcom,port-mapping
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soundwire@3230000 {
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +        reg = <0x03230000 0x2000>;
-> +
-> +        codec@0,3 {
-> +            compatible = "sdw20217010d00";
-> +            reg  = <0 3>;
-> +            qcom,direction = "tx";
-> +            qcom,port-mapping = <2 3 4 5>;
-> +        };
-> +    };
-> +
-> +...
-> -- 
-> 2.21.0
+We can't have this, as these two SoundWire devices hang on different 
+SoundWire bus instances.
+
+> 	compatible = "sdw20217010d00";
+> 
+>          reset-gpios = <&tlmm 32 0>;
+>          #sound-dai-cells = <1>;
+>          qcom,micbias1-microvolt = <1800000>;
+>          qcom,micbias2-microvolt = <1800000>;
+>          qcom,micbias3-microvolt = <1800000>;
+>          qcom,micbias4-microvolt = <1800000>;
+>          qcom,mbhc-hphl-switch;
+>          qcom,mbhc-ground-switch;
+>          qcom,mbhc-button0-vthreshold-microvolt = <75000>;
+>          qcom,mbhc-button1-vthreshold-microvolt = <150000>;
+>          qcom,mbhc-button2-vthreshold-microvolt = <237000>;
+>          qcom,mbhc-button3-vthreshold-microvolt = <500000>;
+>          qcom,mbhc-button5-vthreshold-microvolt = <500000>;
+>          qcom,mbhc-button6-vthreshold-microvolt = <500000>;
+>          qcom,mbhc-button7-vthreshold-microvolt = <500000>;
+> };
+> 
+> You'll have to figure out the qcom,direction and qcom,port-mapping parts
+> though.
+
+That is the reason why we ended up with 3 devices here.
+
+--srini
+> 
+> Rob
 > 

@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE76A361438
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 23:37:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0ACE36147B
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 00:03:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77AC5166E;
-	Thu, 15 Apr 2021 23:36:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77AC5166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 803E91675;
+	Fri, 16 Apr 2021 00:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 803E91675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618522637;
-	bh=J6ui1SjeVy54ZYRwAHT1gPHECAR734lbGdGfl8iJjHc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bJ6d+2K+frQT1ggZAyNQm71w2CvnXfuVxhmaaRaxsOOkj16kfBY4qJAsda68pchXj
-	 oqhvP0Rhg5YCoLKNzNJY7Pk8ARzCFYdUbj+6ETavjJJBs1BHhVD1ksx//NwK25brBC
-	 Lgn7LBP823zGg1llmTjGwgw9uS/dSaVE0LV4FcLc=
+	s=default; t=1618524191;
+	bh=94eLtrbtDJ2ia0wyZLrf7aZHbGVJj5sRpW54MKuu2Y4=;
+	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MwDgwHXeh1Fs3/jvwDRuk9PgOLKkm5w5ml4Vxb/sb2u7RGp022l3EG9/5ixdmUiY1
+	 0oaDTqVz/PdY4pq9a0alSEwFqfKhHygSetTgVPoPT9Pc6aFfQ/tq8Da00s3N3cl9B8
+	 0YotMVOHn2d+XyuqTSEzjyIbqGwTTaQrY3zL03m0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E318BF80128;
-	Thu, 15 Apr 2021 23:35:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7493F8022D;
+	Fri, 16 Apr 2021 00:01:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FE58F8022B; Thu, 15 Apr 2021 23:35:46 +0200 (CEST)
+ id D6BE0F8022B; Fri, 16 Apr 2021 00:01:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D576F800FF
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 23:35:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D576F800FF
-IronPort-SDR: 3+8JpRXRoJ3dq90p6lM3ZlDwNvlU34Z8w6bFo+kQAYTy1TcJLB5PQNtrOOP2+qAgq4ANn9Lmd4
- 8xglyDjm70Gw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="194974264"
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="194974264"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 14:35:17 -0700
-IronPort-SDR: dDauFJgceeoZbAeYPfiEwlpPDweo3v7ZYfgeWqYqsU7qt8hSZ3F4+kGa2lCtkW7/9qlvlMSwAE
- mjZB3EYdCR6g==
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382863786"
-Received: from krkonda-mobl.amr.corp.intel.com (HELO [10.212.33.22])
- ([10.212.33.22])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 14:35:16 -0700
-Subject: Re: [PATCH v2 2/3] ASoC: rt715: remove kcontrols which no longer be
- used
-To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
- Jack Yu <jack.yu@realtek.com>
-References: <5c314f5512654aca9fff0195f77264de@realtek.com>
- <20210330170915.GH4976@sirena.org.uk>
- <cb29ed5c-44b1-c1ce-b704-8b93ac9f7a43@perex.cz>
- <3102f11c-d2bc-c53e-ac68-60628b990515@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <5292be30-7e2d-c2f2-85ed-a1a609feb6c6@linux.intel.com>
-Date: Thu, 15 Apr 2021 16:35:14 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 810E1F80128
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 00:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810E1F80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=philcalvin.com header.i=phil@philcalvin.com
+ header.b="IlkNil5U"
+ARC-Seal: i=1; a=rsa-sha256; t=1618524090; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=I8l9+qWr4j2XzpPm+UBU80z+DocZ8nSrNPWqCvhPgqhjSMnR6xuNR6NtbG/oPVpIgayIFWaOiwTKprZornsp8BzI8YufAvz0aAGqhVGzMYfkCdXFtlekpuZ5LIqbWS6BSe0rGonPQ8+7ukENZqT2fpy9b4kXgpx5odro3bTGAn0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1618524090;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
+ bh=0fESZPincc5ScimVXH0TaES2C2V7PDr2LOZxpXf868Q=; 
+ b=ON6MsOgTszLuZI6LzTB7g2IwNQ5dQ2KXAkbitNzWUdkwbxqUOLyyHVz8wbQctK4gRylP8GxICNimzhI2EGQTKhoEqH+5NwTBSe5KKKdfsisVvSk7kEq83UoClAJkWXW7dHO66F023YOE7/LYcxQbGFmx3sCReCvhWnOpSkgZuqw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=philcalvin.com;
+ spf=pass  smtp.mailfrom=phil@philcalvin.com;
+ dmarc=pass header.from=<phil@philcalvin.com> header.from=<phil@philcalvin.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1618524090; 
+ s=default; d=philcalvin.com; i=phil@philcalvin.com;
+ h=From:Subject:To:Cc:Message-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding;
+ bh=0fESZPincc5ScimVXH0TaES2C2V7PDr2LOZxpXf868Q=;
+ b=IlkNil5UvbQJA9vZ429Y3jBFYnqaI9Pz2bpPVbTYF0VTMp4sO0Fx2vUQ2+fI7IEw
+ fQRpKA/TUj6uMzVf9cQCEVbBc0GCXt0q5Auxqc/mqquNgS4RJUfvrlUuts1SjHpoYtz
+ 0nMoaadHYG0w/2b7RlBC6GVg6T69/D8lByROIjZA=
+Received: from [192.168.1.11] (pool-100-33-69-201.nycmny.fios.verizon.net
+ [100.33.69.201]) by mx.zohomail.com
+ with SMTPS id 16185240849781015.4744942160735;
+ Thu, 15 Apr 2021 15:01:24 -0700 (PDT)
+From: Phil Calvin <phil@philcalvin.com>
+Subject: [PATCH 0/1] ALSA: hda/realtek: fix mic boost on Intel NUC 8
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Message-ID: <b2dc09b1-7668-138a-abee-738b5346ef2f@philcalvin.com>
+Date: Thu, 15 Apr 2021 18:01:23 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <3102f11c-d2bc-c53e-ac68-60628b990515@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,52 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+I realized that I mistakenly sent this patch only to the listserv,
+and not directly to the relevant maintainers as I should have. I'm
+sorry for my error and the resulting list noise!
 
+A big thank you to everybody that helps maintain the Intel HDA
+subsystem. It is a well-documented and clear codebase to enter as a
+first-time kernel hacker. Thanks also to Dr. Iwai for `hda-emu`, which
+saved me a lot of rebooting while testing.
 
-On 3/30/21 2:26 PM, Pierre-Louis Bossart wrote:
-> 
-> 
->>>> Using new kcontrols "Capture Switch" and "Capture Volume" instead,
->>>> remove kcontrols which no longer be used.
->>>
->>> Is this going to disrupt any UCM profiles?
->>
->> Yes (the rt715 prefix is from the SOF driver):
->>
->> # RT715 specific volume control settings
->>
->> BootSequence [
->>     cset "name='rt715 DMIC3 Boost' 2"
->>     cset "name='rt715 DMIC4 Boost' 2"
->>     cset "name='rt715 ADC 24 Mux' 3"
->>     cset "name='rt715 ADC 25 Mux' 4"
->>     cset "name='rt715 ADC 27 Capture Switch' 1"
->>     cset "name='rt715 ADC 07 Capture Switch' 1"
->>     cset "name='rt715 ADC 07 Capture Volume' 58"
->> ]
-> 
-> To be clearer, we wanted to change the UCM files to only try to 
-> configure the 'old' controls when they are present. The 'new' controls 
-> are aligned between RT715 and RT715-sdca.
-> 
-> There will be a minor inconvenience if an existing platform updates the 
-> kernel without updating UCM files, but it's the only solution we found 
-> in earlier discussions.
-> 
-> Distributions are typically faster with alsa-ucmconf updates than kernel 
-> changes so that inconvenience is likely very limited (we support 4-5 
-> Dell CML/TGL platforms w/ SoundWire)
+I have tested the patch on this hardware both by recompiling the
+relevant modules and running them with the 5.10 kernel distributed in
+Debian `testing`, and atop the 5.12-rc6 kernel built with `make
+deb-pkg`.
 
-Was there any sustained objection to this change? Mark and Jaroslav?
+I could not decipher the ordering of the fixup tables, so I am of
+course happy to move these around to fit the organizational scheme as
+needed.
 
-I would really like to fix the UCM files so that the mute and volume are 
-handled at the codec driver level, and not at the SOF level as it's 
-currently the case.
+I'm not an EE, but I am inclined to think the upper two boost values
+can probably be made to work by some kind of software workaround,
+given that they do produce analog noise coming from something. If you
+have any hunches about a possible workaround based on experience with
+other similar codecs, please point me to those fixups on- or off-list
+and I can try them out on my hardware.
 
-The existing solution really makes no sense, it was 'inspired' (in the 
-copy-paste sense) by the PCH-DMIC handling for HDaudio platforms. In 
-that case, it made sense to use SOF-level mute/volume because such 
-controls don't exist in microphones.
+Phil
 
-With RT715 we need to use the controls in the codec driver, not the 
-firmware.
+Phil Calvin (1):
+   ALSA: hda/realtek: fix mic boost on Intel NUC 8
+
+  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
+  1 file changed, 13 insertions(+)
+
+-- 
+2.30.2
+

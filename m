@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0ACE36147B
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 00:03:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7151836147C
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 00:03:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 803E91675;
-	Fri, 16 Apr 2021 00:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 803E91675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E3051680;
+	Fri, 16 Apr 2021 00:02:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E3051680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618524191;
-	bh=94eLtrbtDJ2ia0wyZLrf7aZHbGVJj5sRpW54MKuu2Y4=;
+	s=default; t=1618524214;
+	bh=1GEBWCKtJnGX84QmN9ThrvruIlENLdaP0nbQSOJzbLE=;
 	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=MwDgwHXeh1Fs3/jvwDRuk9PgOLKkm5w5ml4Vxb/sb2u7RGp022l3EG9/5ixdmUiY1
-	 0oaDTqVz/PdY4pq9a0alSEwFqfKhHygSetTgVPoPT9Pc6aFfQ/tq8Da00s3N3cl9B8
-	 0YotMVOHn2d+XyuqTSEzjyIbqGwTTaQrY3zL03m0=
+	b=DYkUSkGpxFKELYVZoGlVii7Ob7DPKnjRl2ICNyrPDjcAKmtMGTe7DQS2kA4hxQnP/
+	 fJCv7gCh8bTbLyKa8mSIxInqao92RSwpkUUZI1lw3H6ic/l0LGnOEYrF2UCNTo2KCe
+	 MpGw1USHQXNZWQ/bQW+J7HrdGLq7TMmP1UidQUxQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7493F8022D;
-	Fri, 16 Apr 2021 00:01:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4545F8021D;
+	Fri, 16 Apr 2021 00:02:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6BE0F8022B; Fri, 16 Apr 2021 00:01:40 +0200 (CEST)
+ id E5CACF8023A; Fri, 16 Apr 2021 00:02:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 810E1F80128
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 00:01:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810E1F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1488F800FF
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 00:02:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1488F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=philcalvin.com header.i=phil@philcalvin.com
- header.b="IlkNil5U"
-ARC-Seal: i=1; a=rsa-sha256; t=1618524090; cv=none; 
+ header.b="hNXES7PI"
+ARC-Seal: i=1; a=rsa-sha256; t=1618524094; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=I8l9+qWr4j2XzpPm+UBU80z+DocZ8nSrNPWqCvhPgqhjSMnR6xuNR6NtbG/oPVpIgayIFWaOiwTKprZornsp8BzI8YufAvz0aAGqhVGzMYfkCdXFtlekpuZ5LIqbWS6BSe0rGonPQ8+7ukENZqT2fpy9b4kXgpx5odro3bTGAn0=
+ b=QRH6jvQ9zcMqP4YfnkSChT71EdhGGdtfv8/ZohCBC4TDhrNgjMyvK1dD22HggkemwwqI/ucCY3zALgQEbKvngJD/Z4jNfJzB7tqWsT8KGKRm3bznnhYIyaB7GMCn4rpeRcrW1XsoHFYENW2HpUyBiYMVJUsPMFaibupjPyO/C3w=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1618524090;
+ s=zohoarc; t=1618524094;
  h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
- bh=0fESZPincc5ScimVXH0TaES2C2V7PDr2LOZxpXf868Q=; 
- b=ON6MsOgTszLuZI6LzTB7g2IwNQ5dQ2KXAkbitNzWUdkwbxqUOLyyHVz8wbQctK4gRylP8GxICNimzhI2EGQTKhoEqH+5NwTBSe5KKKdfsisVvSk7kEq83UoClAJkWXW7dHO66F023YOE7/LYcxQbGFmx3sCReCvhWnOpSkgZuqw=
+ bh=TGOSFHb+P/Do+Ew/0mR7ONdOpFz+fzua4IoRI3NmKH0=; 
+ b=ZLEkVFqONVPnqWmRKbyexlqKccEt2BuJCTzH0dCshltpKHJVJFeyahYb4eGq5BXbqtUWbYwov5IRs7q5fddVgxilu6F2BmgQ4jbVKV6y4DdhO8WfuGNnvCR+5F7ATrsmNOR29n+fP76QnQP/jDzLd7WmToZjiMBE+LCuD/LwBWo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=philcalvin.com;
  spf=pass  smtp.mailfrom=phil@philcalvin.com;
  dmarc=pass header.from=<phil@philcalvin.com> header.from=<phil@philcalvin.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1618524090; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1618524094; 
  s=default; d=philcalvin.com; i=phil@philcalvin.com;
  h=From:Subject:To:Cc:Message-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding;
- bh=0fESZPincc5ScimVXH0TaES2C2V7PDr2LOZxpXf868Q=;
- b=IlkNil5UvbQJA9vZ429Y3jBFYnqaI9Pz2bpPVbTYF0VTMp4sO0Fx2vUQ2+fI7IEw
- fQRpKA/TUj6uMzVf9cQCEVbBc0GCXt0q5Auxqc/mqquNgS4RJUfvrlUuts1SjHpoYtz
- 0nMoaadHYG0w/2b7RlBC6GVg6T69/D8lByROIjZA=
+ bh=TGOSFHb+P/Do+Ew/0mR7ONdOpFz+fzua4IoRI3NmKH0=;
+ b=hNXES7PI6JdODW/EMwzR1kyqY4DEBULyN1KGbxOLsOAT9LdXE+TuxLehcayCylRc
+ TemUCmqAbMnDrEwx/6z9aNwiYh3PY/ypU0z885RXhN1CoS5vfRDFg59U2H/GFTKbYUJ
+ WPaYkXOGAxfMWVV9v9vXrmfPf2jkfW7MTAz9N5fk=
 Received: from [192.168.1.11] (pool-100-33-69-201.nycmny.fios.verizon.net
  [100.33.69.201]) by mx.zohomail.com
- with SMTPS id 16185240849781015.4744942160735;
- Thu, 15 Apr 2021 15:01:24 -0700 (PDT)
+ with SMTPS id 1618524090022465.222480064106;
+ Thu, 15 Apr 2021 15:01:30 -0700 (PDT)
 From: Phil Calvin <phil@philcalvin.com>
-Subject: [PATCH 0/1] ALSA: hda/realtek: fix mic boost on Intel NUC 8
+Subject: [PATCH 1/1] ALSA: hda/realtek: fix mic boost on Intel NUC 8
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Message-ID: <b2dc09b1-7668-138a-abee-738b5346ef2f@philcalvin.com>
-Date: Thu, 15 Apr 2021 18:01:23 -0400
+Message-ID: <80dc5663-7734-e7e5-25ef-15b5df24511a@philcalvin.com>
+Date: Thu, 15 Apr 2021 18:01:29 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -91,39 +91,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I realized that I mistakenly sent this patch only to the listserv,
-and not directly to the relevant maintainers as I should have. I'm
-sorry for my error and the resulting list noise!
+Fix two bugs with the Intel HDA Realtek ALC233 sound codec
+present in Intel NUC NUC8i7BEH and probably a few other similar
+NUC models.
 
-A big thank you to everybody that helps maintain the Intel HDA
-subsystem. It is a well-documented and clear codebase to enter as a
-first-time kernel hacker. Thanks also to Dr. Iwai for `hda-emu`, which
-saved me a lot of rebooting while testing.
+These codecs advertise a 4-level microphone input boost amplifier on
+pin 0x19, but the highest two boost settings do not work correctly,
+and produce only low analog noise that does not seem to contain any
+discernible signal. There is an existing fixup for this exact problem
+but for a different PCI subsystem ID, so we re-use that logic.
 
-I have tested the patch on this hardware both by recompiling the
-relevant modules and running them with the 5.10 kernel distributed in
-Debian `testing`, and atop the 5.12-rc6 kernel built with `make
-deb-pkg`.
+Changing the boost level also triggers a DC spike in the input signal
+that bleeds off over about a second and overwhelms any input during
+that time. Thankfully, the existing fixup has the side effect of
+making the boost control show up in userspace as a mute/unmute switch,
+and this keeps (e.g.) PulseAudio from fiddling with it during normal
+input volume adjustments.
 
-I could not decipher the ordering of the fixup tables, so I am of
-course happy to move these around to fit the organizational scheme as
-needed.
+Finally, the NUC hardware has built-in inverted stereo mics. This
+patch also enables the usual fixup for this so the two channels cancel
+noise instead of the actual signal.
 
-I'm not an EE, but I am inclined to think the upper two boost values
-can probably be made to work by some kind of software workaround,
-given that they do produce analog noise coming from something. If you
-have any hunches about a possible workaround based on experience with
-other similar codecs, please point me to those fixups on- or off-list
-and I can try them out on my hardware.
-
-Phil
-
-Phil Calvin (1):
-   ALSA: hda/realtek: fix mic boost on Intel NUC 8
-
+Signed-off-by: Phil Calvin <phil@philcalvin.com>
+---
   sound/pci/hda/patch_realtek.c | 13 +++++++++++++
   1 file changed, 13 insertions(+)
 
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 58946d069ee5..e1fd4c81965a 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6405,6 +6405,8 @@ enum {
+  	ALC269_FIXUP_LEMOTE_A1802,
+  	ALC269_FIXUP_LEMOTE_A190X,
+  	ALC256_FIXUP_INTEL_NUC8_RUGGED,
++	ALC233_FIXUP_INTEL_NUC8_DMIC,
++	ALC233_FIXUP_INTEL_NUC8_BOOST,
+  	ALC256_FIXUP_INTEL_NUC10,
+  	ALC255_FIXUP_XIAOMI_HEADSET_MIC,
+  	ALC274_FIXUP_HP_MIC,
+@@ -7122,6 +7124,16 @@ static const struct hda_fixup alc269_fixups[] = {
+  		.type = HDA_FIXUP_FUNC,
+  		.v.func = alc233_fixup_lenovo_line2_mic_hotkey,
+  	},
++	[ALC233_FIXUP_INTEL_NUC8_DMIC] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc_fixup_inv_dmic,
++		.chained = true,
++		.chain_id = ALC233_FIXUP_INTEL_NUC8_BOOST,
++	},
++	[ALC233_FIXUP_INTEL_NUC8_BOOST] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc269_fixup_limit_int_mic_boost
++	},
+  	[ALC255_FIXUP_DELL_SPK_NOISE] = {
+  		.type = HDA_FIXUP_FUNC,
+  		.v.func = alc_fixup_disable_aamix,
+@@ -8265,6 +8277,7 @@ static const struct snd_pci_quirk 
+alc269_fixup_tbl[] = {
+  	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
+  	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
+  	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", 
+ALC256_FIXUP_INTEL_NUC8_RUGGED),
++	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", 
+ALC233_FIXUP_INTEL_NUC8_DMIC),
+  	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
+   #if 0
 -- 
 2.30.2
 

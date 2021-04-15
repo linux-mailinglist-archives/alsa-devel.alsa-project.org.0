@@ -2,97 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D993610C2
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:08:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 591EB36111C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:28:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE5C71671;
-	Thu, 15 Apr 2021 19:07:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE5C71671
+	by alsa0.perex.cz (Postfix) with ESMTPS id D78031671;
+	Thu, 15 Apr 2021 19:27:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D78031671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618506505;
-	bh=iW6Xo6L2a9SPFpsijg/pCSrFlVqUFM1mm+nEQ4XR98s=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618507716;
+	bh=7ft7XWhcl8j51azotCTdt9feNmJzjvydryFigI2I6+E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OsPb4nNYpTVUddCzSS5Vw1kLVAFKL6dH3m/isTTAaPr60LIn6EqhxYD0ifQxPYxYh
-	 npAQ5Q/WP7Yi5dUA5PHpQKKa+BZQer9JWA62i4fGL/AY0q0WLp0DW0E/RYE+7utV1F
-	 DJypXZWYFTWpwXJ2rjkmCg+/yVWd2t3fSUqt4ZOU=
+	b=Fkz1GoQocvyTUxtYe0lGEYDYwVA+f0+YgqRKYP4n8cV1VTzPXTmGTqADmTLeG0XOM
+	 qqYvot5HUfDibXmRy0Zl9X2z1NI/8pxM/183TQ26Q4OuQXfkRuQ+64pHaORwsNMZPs
+	 08aEfX0cepZxsbGdBVhw9meooGaAr3jtWGZVuC+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3423DF800FF;
-	Thu, 15 Apr 2021 19:06:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DDF1F8022D;
+	Thu, 15 Apr 2021 19:27:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4FEEF8022B; Thu, 15 Apr 2021 19:06:55 +0200 (CEST)
+ id D11CAF8022B; Thu, 15 Apr 2021 19:27:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PDS_SHORTFWD_URISHRT_QP,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F0C6F800FF
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:06:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F0C6F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4014F800ED
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:26:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4014F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="SeU4I60J"
-Received: by mail-ed1-x52a.google.com with SMTP id h10so28930294edt.13
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 10:06:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=qiaTdRxVP+PjHJWnCOqI9pORWv0g/7bqvQKS7jz0//U=;
- b=SeU4I60J41yRkWpulsHcyPQ0lGGZjLMdyTuau+HGDQ2VjSz3SciXMHUC3QvsZbqVcZ
- voda+hYW9t0JiCwoD+6pWkUmyxu8t2ZvdA/PN+qMiHpbrhnM+z79QAtyGCb9577D4F/5
- cb8mDEjiHuRcGGOQl8CsUsHU8dKj4L/bTu8JwtubTZWnlJ10yUV9DMW9zk7oyUTfilo1
- PB96VLQ5miWm6uBcSkcY8dsCa9J0GgeCuRyJETl9c6vJAtiTh6alxsYKQ7tEbzHCPbv7
- V8YMGaYrHRewcISh9agCA2zc5m6KwvJEMnVq5HSSWud0g0I+Sf58ew0RLoRfmX/dGO6f
- uHsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=qiaTdRxVP+PjHJWnCOqI9pORWv0g/7bqvQKS7jz0//U=;
- b=WFwtHJHkn5VjPIgvK71X8WjyvZHrZLzDrO+S0pnfav7OGWEvbc5lWeX9huowjIazDv
- bVJ/gy+Cqcj/eHv82XP4b3sEthNyMdzwA1mGfhk7yOPMqJiSJ/h+6VmCl1KDN+wnEtSb
- Aqg3CB3MyHWZvkbeYqnPU8MfcSDgPe12YjAQn6OJeQWRcejRZDNnpd22DPAG7eHzAk6Y
- YSMXeN8kWMT9qV1ZGwULOtRR4MDPPvQQyaC8Bz1S40MtfbJ5e4d5aZq2HXYEjlP7Cf2V
- OG4baWpcMQkxKRwQaU2uy8Pd7q06VbNkjG9GKiZrU1mODXpjktNs4YlXDGnJmfkPVCJj
- nCQQ==
-X-Gm-Message-State: AOAM5320ybjfWVOLh6QpdmGgkV0GfVAyV3VN117baQV/AUXT9c0JEasD
- X0+GfpRhUwt9nYT0ZsCXtMuf5g==
-X-Google-Smtp-Source: ABdhPJxnIwBJcv7n1yI2CZjRa7oKLiVaHxuL6ZCvd/+6CoD3FiDgjO1KW9xeG7XlP6U3ppCryqzvfQ==
-X-Received: by 2002:aa7:c349:: with SMTP id j9mr5643684edr.41.1618506409735;
- Thu, 15 Apr 2021 10:06:49 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id cq26sm3046543edb.60.2021.04.15.10.06.48
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Apr 2021 10:06:49 -0700 (PDT)
-Subject: Re: [PATCH v4 1/9] ASoC: dt-bindings: wcd938x: add bindings for
- wcd938x
-To: Rob Herring <robh@kernel.org>
-References: <20210414154845.21964-1-srinivas.kandagatla@linaro.org>
- <20210414154845.21964-2-srinivas.kandagatla@linaro.org>
- <20210415162947.GA1511094@robh.at.kernel.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <019aa3c0-56ce-de17-4d64-be6dbc0a3a65@linaro.org>
-Date: Thu, 15 Apr 2021 18:06:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pWTvHfzU"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DA067610F7;
+ Thu, 15 Apr 2021 17:26:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618507578;
+ bh=7ft7XWhcl8j51azotCTdt9feNmJzjvydryFigI2I6+E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pWTvHfzUTUJYubbnG/ta4Lbv0YUF5evDnjUD71U7a4kLtl6NXu75oiJNiOMo4ZECJ
+ Mh6O8PycQMLofh4xP6oq9NT0ax2ob/80HMjxtLUAzVvY+oFGYf1yvdxPILW9p3jXoz
+ eNwcnXYlwIWoGTGEDlJRqdMuLdVLawYLH5KxI184fvp4mIJx+gxpOsQZCMUutyYes4
+ rr1GPHRDso2E+KyO9ZZJPcLXxuuAYRpCVhalb8wDcDLnGfTWWNF/wIUqSToA2tNxgY
+ MAUOCvzGnzYmSpgsAWakpEo2pp2mN3TvmneDsmpwDF1gpLXR3IJRznkNTvKisVjRqj
+ x51WVS7eCuIqQ==
+Date: Thu, 15 Apr 2021 18:25:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Codrin.Ciubotariu@microchip.com
+Subject: Re: [RFC PATCH 0/3] Separate BE DAI HW constraints from FE ones
+Message-ID: <20210415172554.GI5514@sirena.org.uk>
+References: <20210323114327.3969072-1-codrin.ciubotariu@microchip.com>
+ <a0c862ec-44ba-52e0-551c-0347166ac4e9@perex.cz>
+ <5e1fb981-48c1-7d5a-79a6-ba54bac26165@microchip.com>
+ <4f401536-5a66-0d65-30cb-7ecf6b235539@microchip.com>
+ <20210415161743.GH5514@sirena.org.uk>
+ <1aff49d4-5691-67cb-3fe7-979d476f1edb@microchip.com>
 MIME-Version: 1.0
-In-Reply-To: <20210415162947.GA1511094@robh.at.kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gJNQRAHI5jiYqw2y"
+Content-Disposition: inline
+In-Reply-To: <1aff49d4-5691-67cb-3fe7-979d476f1edb@microchip.com>
+X-Cookie: VMS must die!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, gustavoars@kernel.org,
+ mirq-linux@rere.qmqm.pl
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,98 +89,51 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--gJNQRAHI5jiYqw2y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 15/04/2021 17:29, Rob Herring wrote:
->> +    codec {
->> +        compatible = "qcom,wcd9380-codec";
->> +        reset-gpios = <&tlmm 32 0>;
->> +        #sound-dai-cells = <1>;
->> +        qcom,tx-device = <&wcd938x_tx>;
->> +        qcom,rx-device = <&wcd938x_rx>;
->> +        qcom,micbias1-microvolt = <1800000>;
->> +        qcom,micbias2-microvolt = <1800000>;
->> +        qcom,micbias3-microvolt = <1800000>;
->> +        qcom,micbias4-microvolt = <1800000>;
->> +        qcom,mbhc-hphl-switch;
->> +        qcom,mbhc-ground-switch;
->> +        qcom,mbhc-button0-vthreshold-microvolt = <75000>;
->> +        qcom,mbhc-button1-vthreshold-microvolt = <150000>;
->> +        qcom,mbhc-button2-vthreshold-microvolt = <237000>;
->> +        qcom,mbhc-button3-vthreshold-microvolt = <500000>;
->> +        qcom,mbhc-button5-vthreshold-microvolt = <500000>;
->> +        qcom,mbhc-button6-vthreshold-microvolt = <500000>;
->> +        qcom,mbhc-button7-vthreshold-microvolt = <500000>;
->> +    };
->> +
->> +    /* ... */
->> +
->> +    soundwire@3230000 {
->> +        #address-cells = <2>;
->> +        #size-cells = <0>;
->> +        reg = <0x03230000 0x2000>;
->> +        wcd938x_tx: codec@0,3 {
->> +            compatible = "sdw20217010d00";
->> +            reg  = <0 3>;
->> +            qcom,direction = "tx";
->> +            qcom,port-mapping = <2 3 4 5>;
->> +        };
->> +
->> +        wcd938x_rx: codec@0,4 {
->> +            compatible = "sdw20217010d00";
->> +            reg  = <0 4>;
->> +            qcom,direction = "rx";
->> +            qcom,port-mapping = <1 2 3 4 5>;
->> +        };
+On Thu, Apr 15, 2021 at 04:56:00PM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
 
-> This is a single device, right? We shouldn't need 3 nodes to describe
+> Are there any plans for refactoring DPCM? any ideas ongoing? I also have=
+=20
+> some changes for PCM dmaengine, in the same 'style', similar to what I=20
+> sent some time ago...
+> I can adjust to different ideas, if there are any, but, for a start, can=
+=20
+> anyone confirm that the problem I am trying to fix is real?
 
-Just realized that the example is bit misleading here.
-It should look like:
+Lars-Peter's presentation from ELC in 2016 (!) is probably the clearest
+summary of the ideas:
 
-  codec {
-         compatible = "qcom,wcd9380-codec";
-         reset-gpios = <&tlmm 32 0>;
-         #sound-dai-cells = <1>;
-         qcom,tx-device = <&wcd938x_tx>;
-         qcom,rx-device = <&wcd938x_rx>;
-         qcom,micbias1-microvolt = <1800000>;
-         qcom,micbias2-microvolt = <1800000>;
-         qcom,micbias3-microvolt = <1800000>;
-         qcom,micbias4-microvolt = <1800000>;
-         qcom,mbhc-hphl-switch;
-         qcom,mbhc-ground-switch;
-         qcom,mbhc-button0-vthreshold-microvolt = <75000>;
-         qcom,mbhc-button1-vthreshold-microvolt = <150000>;
-         qcom,mbhc-button2-vthreshold-microvolt = <237000>;
-         qcom,mbhc-button3-vthreshold-microvolt = <500000>;
-         qcom,mbhc-button5-vthreshold-microvolt = <500000>;
-         qcom,mbhc-button6-vthreshold-microvolt = <500000>;
-         qcom,mbhc-button7-vthreshold-microvolt = <500000>;
-     };
+   https://elinux.org/images/e/e7/Audio_on_Linux.pdf
+   https://youtu.be/6oQF2TzCYtQ
 
+Essentially the idea is to represent everything, including the DSPs, as
+ASoC components and be able to represent the digital links between
+components in the DAPM graph in the same way we currently represent
+analogue links.  This means we need a way to propagate digital
+configuration along the DAPM graph (or a parallel, cross linked digital
+one).  Sadly I'm not really aware of anyone actively working on the
+actual conversion at the minute, Morimoto-san has done a lot of great
+preparatory work to make everything a component which makes the whole
+thing more tractable.
 
-soundwire-controller@3230000 {
-	reg = <0 0x3230000 0 0x2000>;
-	compatible = "qcom,soundwire-v1.5.1";
-	wcd938x_tx: codec@0,3 {
-		compatible = "sdw20217010d00";
-		reg  = <0 3>;
-		qcom,direction = "tx";
-		qcom,port-mapping = <2 3 4 5>;
-	};
-};
+--gJNQRAHI5jiYqw2y
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-soundwire-controller@3210000 {
-	reg = <0 0x3210000 0 0x2000>;
-	compatible = "qcom,soundwire-v1.5.1";
-	 wcd938x_rx: codec@0,4 {
-		compatible = "sdw20217010d00";
-		reg  = <0 4>;
-		qcom,direction = "rx";
-		qcom,port-mapping = <1 2 3 4 5>;
-	};
-};
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB4dyEACgkQJNaLcl1U
+h9DSfQf+JkppA2jscPzzjdd9boS9MvB4K13ujfyH4R0ulhxBTuJgb5iVHE1G0aHM
+NG4GVpP9IexvwP9c0AK8jcMy+4iz/ZphMvC2ha14jHPMrPI3887OBshaI11RXSf+
+7LvmQ3AIubqZhuC2rVjmatelfl3QCkfNFeR7m1SKmvfb8OFMeyksluYPVRUEZnHF
+0IWCeL7GElwgOk+xgDM79QvtCZurdG7GOmzGfqWMbY7nd0tVA4Vv26NGjKsvYlmt
+li6SA9vaXO3Z7D3jKSXTk6m7TY+p6wCTPy2D1J+ICjMFyWuG0eLYwKW2+uH1OTAk
+q+77EZoayqpTnS5rgA01jqbIY+dK9w==
+=0V65
+-----END PGP SIGNATURE-----
 
-
---srini
+--gJNQRAHI5jiYqw2y--

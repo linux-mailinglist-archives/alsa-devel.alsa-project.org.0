@@ -2,70 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CA3A36123B
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 20:37:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57F1736139E
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 22:38:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C0F7168F;
-	Thu, 15 Apr 2021 20:36:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C0F7168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEB0B1676;
+	Thu, 15 Apr 2021 22:37:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB0B1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618511846;
-	bh=O1+0WiODIpCYZcwGoAl5KYAiusOP8F5ovHKj1xxGNjw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1618519082;
+	bh=uixgFwiqZUWfgXWb+trNAhDzhrdY3OGZsWLhnX0zzD0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ji5spCLiuUld2hvJ5/bNgypTCWyGrctGktuBRK7oS7lhQWevgHNdjcn1cGnGbOobT
-	 5qgRNXmX83d/nPsQjTkl9aUabem5VYxHW+fr/uKxeLDS5HEStoYt+DC11jHqvU2tOL
-	 bmfgBi6RAK17Z7KUnLuMNMKkGWtPsKx1s1xmNxPs=
+	b=mUwLGitkNrff+sWPmuedipeGRFrKxiYIXJPaiiDcyKtXPxh5bpgs9sb9ogLlrYJn6
+	 9SQlmczYFg590L5PoBNrBveTfO1rWZdh1sOwBSkK+pTqwbZUEuqh1OSL1b8meC2gk/
+	 ZHoLMy8RU+aJXz8Bano8TxTTiuk74X4idPmysPXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E328FF80482;
-	Thu, 15 Apr 2021 20:34:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11E22F8022D;
+	Thu, 15 Apr 2021 22:36:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9605F80425; Thu, 15 Apr 2021 20:34:34 +0200 (CEST)
+ id EE5FDF8022B; Thu, 15 Apr 2021 22:36:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29FDBF8021D
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 20:34:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29FDBF8021D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NUN6sw4N"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D74C86115B;
- Thu, 15 Apr 2021 18:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618511670;
- bh=O1+0WiODIpCYZcwGoAl5KYAiusOP8F5ovHKj1xxGNjw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NUN6sw4NLidlAzkW5p2Xw76EA7M+AIDaBWBH4CWFGGdBW3TwF7+7zFf5azMHlJVR4
- E7zA9BrNP0WhxflYITCB3An6xWqk2nzSHsV1aDJMQ3dTsGw/kgWf0Hc3e7L77wNYC8
- Z5D8KwJDlAS6fjBIMPPMh4jGWLV+uI/+lfj3/ndiw7OGu10LC4mYic2IuW1vOyb4iC
- 0vvqHKRyk4s1lMOHRBFbG+CkwRnAQ0zjx3XdsEs13eyRXPvGe+wjb0UgMQttl5Fc19
- DZ1dfMh+TWNX5AXoNnzTNCsaC+ZS10AFqxPKw931s1jCC1tf8uOs2P6pGRFnPL2zSy
- 18sW9LB+buBow==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2] ASoC: SOF: use current DAI config during resume
-Date: Thu, 15 Apr 2021 19:33:47 +0100
-Message-Id: <161851148785.23061.16444638554434646473.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210415162107.130963-1-pierre-louis.bossart@linux.intel.com>
-References: <20210415162107.130963-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD339F800ED
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 22:36:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD339F800ED
+Received: by mail-ot1-f44.google.com with SMTP id
+ 101-20020a9d0d6e0000b02902816815ff62so17905109oti.9
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 13:36:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=KBqkXVNW6CoLFV8AmAx2h6U2I9QrN9OCJEmOA2YWE58=;
+ b=t6xBnPWvEjQvYoZXjcm/2/foXFKnPZsplIrhD06V2zTYar9YxexbdQJFqTW8OW38Zx
+ A7r5lzdDygw6evuFUDNntOEOIRSs+baOjWfh2PP9EjDt3QeXxJ+aWZM7pCMjriU5OY5G
+ QkAZwdHXnUqvnepJnbAWLnh8mSAjr1iSvhJLcpBceiEz5BG5cT/ERZbUsi4eORekPJ8e
+ USF6nIGW/ANrXjjB04xBahHqv85C+/ArcxHV4W2Hf6taNhRU99PTZHMHWJIVe708AWHN
+ XtNp6rVTDrIKMRScB1K7fetFqbEXWmmEESdFY6Swn/GufF0RmFH32P22iU7zjqdvkfb5
+ XSNw==
+X-Gm-Message-State: AOAM533/md1WhD0e41ALoA4ubHxSSvlfENhwlIVnyzIWBOtLypc/J0QW
+ Nwjdx+pVCBFfmofSSiPwRw==
+X-Google-Smtp-Source: ABdhPJzGRkx0I4NexqDCsyAQVdMKCnbMFjeh4brrvgu53QoNLi1Wn7PvSBRXYW9pkDQM95za1ZX0Bw==
+X-Received: by 2002:a9d:1b62:: with SMTP id l89mr819824otl.307.1618518977819; 
+ Thu, 15 Apr 2021 13:36:17 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id m133sm853920oia.22.2021.04.15.13.36.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Apr 2021 13:36:16 -0700 (PDT)
+Received: (nullmailer pid 1839871 invoked by uid 1000);
+ Thu, 15 Apr 2021 20:36:15 -0000
+Date: Thu, 15 Apr 2021 15:36:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Zhen Lei <thunder.leizhen@huawei.com>
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: renesas, rsnd: Clear warning
+ 'dais' is a required property
+Message-ID: <20210415203615.GA1839818@robh.at.kernel.org>
+References: <20210412100638.3349-1-thunder.leizhen@huawei.com>
+ <20210412100638.3349-2-thunder.leizhen@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210412100638.3349-2-thunder.leizhen@huawei.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ alsa-devel <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,40 +96,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 15 Apr 2021 11:21:07 -0500, Pierre-Louis Bossart wrote:
-> Recently, the sof_pcm_dai_link_fixup() function was
-> updated to match SSP config with the PCM hw_params
-> and set the current_config for the DAI widget.
+On Mon, 12 Apr 2021 18:06:37 +0800, Zhen Lei wrote:
+> When I do dt_binding_check, below warning is reported:
+> Documentation/devicetree/bindings/sound/renesas,rsnd.example.dt.yaml: \
+> sound@ec500000: 'dais' is a required property
 > 
-> But the sof_restore_pipelines() function still chooses the
-> default config for the DAI widget upon resuming. Fix this
-> to use the last used config when setting up the DAI widget
-> during resume.
+> I looked at all the dts files in the "arch/arm64/boot/dts/renesas/"
+> directory. However, the dts node of this driver does not reference any
+> property in file audio-graph.yaml. This can be proved to be true, because
+> after I deleted "$ref: audio-graph.yaml#", the old 'dais' warnings are
+> cleared, and no new warning are generated.
+> 
+> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+> ---
+>  Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 1 -
+>  1 file changed, 1 deletion(-)
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: SOF: use current DAI config during resume
-      commit: eea1d18e9b2d959df908746b193f66dba3078473
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Rob Herring <robh@kernel.org>

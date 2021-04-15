@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B670361182
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55986361183
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Apr 2021 19:55:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E20771681;
-	Thu, 15 Apr 2021 19:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E20771681
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4240167D;
+	Thu, 15 Apr 2021 19:54:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4240167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618509316;
-	bh=8slR/hMeVew3Sq58diEhHPSIB2r+bV3Ok5qCj/p1QgE=;
+	s=default; t=1618509345;
+	bh=mEixypH7onbDDvFaoS2AC0cdQuHlXqj41uSoQvrqF20=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ptjIwQSLQnQEbFoo7GKoAVVf1n1v0YSs4rh36RgnvpSPV6RTLy30NCOCKD6iAwcf0
-	 9zuOo0vbo4m3zkFCg4xqIfWEwCg6oD3Ky4muov53Z4H1QCMTSkeZyzdZH1D3Z/Estd
-	 h6gMyu6s3JjWsCnuwYVSC0QMc6SDo+YQmfCOpl4Y=
+	b=R3vmcOumD7i/Cikvaqbojc7cNTPY4qI5+PJQYTlQybxQj1QzBREbTOuFcbl5i4A+u
+	 P7mHi/5W2a+IbxfkVHZc0nvA+YrmD3o2/k53N0djrROtGQImzQ+EjOoIyVpcJUBZiQ
+	 AzghZMWqV92a+XZX5iT6VCOCTHc4vPGmytgon7ZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 192D4F80424;
-	Thu, 15 Apr 2021 19:51:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FD39F804EB;
+	Thu, 15 Apr 2021 19:51:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04381F804B4; Thu, 15 Apr 2021 19:50:59 +0200 (CEST)
+ id E30BDF80424; Thu, 15 Apr 2021 19:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 715A0F802E3
- for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:50:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 715A0F802E3
-IronPort-SDR: Y6Tt7VtLhp9sq2oi1gproIuQjqWCfjkQIUr+uD7TUu8u/GMLHkdnur7Y2nEuCRZUEmZTK1eUUu
- VJIXQ6m6+F4g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="174400815"
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="174400815"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BF45F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 15 Apr 2021 19:50:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF45F800FF
+IronPort-SDR: vAV6eTWiB8RnK5di+fFt03gE8eC0+AWc3nvVgAoVRd1woyUmmid5DqlsDPk645mqjyjyTG3vEg
+ YH9LdES1SeyQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="174400820"
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="174400820"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:42 -0700
-IronPort-SDR: /F2xfHrSoz6lAqIvfj12U3dKbkxXA9WFgKjAs1fH8Anr1F6QJmiSQnjnjoJyUt4bSqSNOZC7C4
- DNImMnHqtWog==
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382804686"
+ 15 Apr 2021 10:50:44 -0700
+IronPort-SDR: dS8xD3owQKdnzsfLONNfxz1H7b5uO86ZwTzY+2AkIAQYlglzdyW4xptoJooMXFwIJV3hMcYFAD
+ Bv9QSWNB5Jiw==
+X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="382804688"
 Received: from lesterhu-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.33.4])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 10:50:41 -0700
+ 15 Apr 2021 10:50:42 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 8/9] ASoC: Intel: boards: handle hda-dsp-common as a module
-Date: Thu, 15 Apr 2021 12:50:12 -0500
-Message-Id: <20210415175013.192862-9-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 9/9] ASoC: Intel: boards: create sof-maxim-common module
+Date: Thu, 15 Apr 2021 12:50:13 -0500
+Message-Id: <20210415175013.192862-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
 References: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
@@ -80,296 +80,233 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hda-dsp-common.o is linked multiple times due to copy/paste and
-inertia. Move to a dedicated module with a namespace.
+sof_maxim_common.o is linked twice, move to a dedicated module.
+
+Also clean-up interfaces to use a consistent 'max_98373' prefix for
+all symbols.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- sound/soc/intel/boards/Kconfig                | 13 ++++++++++
- sound/soc/intel/boards/Makefile               | 24 +++++++++++--------
- sound/soc/intel/boards/bxt_da7219_max98357a.c |  1 +
- sound/soc/intel/boards/bxt_rt298.c            |  1 +
- sound/soc/intel/boards/cml_rt1011_rt5682.c    |  1 +
- sound/soc/intel/boards/ehl_rt5660.c           |  1 +
- sound/soc/intel/boards/glk_rt5682_max98357a.c |  1 +
- sound/soc/intel/boards/hda_dsp_common.c       |  5 ++++
- sound/soc/intel/boards/skl_hda_dsp_generic.c  |  1 +
- sound/soc/intel/boards/sof_da7219_max98373.c  |  1 +
- sound/soc/intel/boards/sof_pcm512x.c          |  1 +
- sound/soc/intel/boards/sof_rt5682.c           |  1 +
- sound/soc/intel/boards/sof_sdw.c              |  1 +
- 13 files changed, 42 insertions(+), 10 deletions(-)
+ sound/soc/intel/boards/Kconfig            |  5 +++++
+ sound/soc/intel/boards/Makefile           |  6 ++++--
+ sound/soc/intel/boards/sof_maxim_common.c | 24 ++++++++++++++++-------
+ sound/soc/intel/boards/sof_maxim_common.h |  6 +++---
+ sound/soc/intel/boards/sof_rt5682.c       |  5 +++--
+ sound/soc/intel/boards/sof_sdw.c          |  1 +
+ sound/soc/intel/boards/sof_sdw_max98373.c |  4 ++--
+ 7 files changed, 35 insertions(+), 16 deletions(-)
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 58379393b8e4..ec4d754eb348 100644
+index ec4d754eb348..ceeb618bd950 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -26,6 +26,9 @@ config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
- 	  interface.
- 	  If unsure select N.
+@@ -29,6 +29,9 @@ config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
+ config SND_SOC_INTEL_HDA_DSP_COMMON
+ 	tristate
  
-+config SND_SOC_INTEL_HDA_DSP_COMMON
++config SND_SOC_INTEL_SOF_MAXIM_COMMON
 +	tristate
 +
  if SND_SOC_INTEL_CATPT
  
  config SND_SOC_INTEL_HASWELL_MACH
-@@ -278,6 +281,7 @@ config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
- 	select SND_SOC_MAX98390
+@@ -469,6 +472,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
  	select SND_SOC_DMIC
  	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 
- config SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON
- 	tristate
-@@ -304,6 +308,7 @@ config SND_SOC_INTEL_BXT_RT298_MACH
- 	select SND_SOC_RT298
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	help
- 	   This adds support for ASoC machine driver for Broxton platforms
- 	   with RT286 I2S audio codec.
-@@ -422,6 +427,7 @@ config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	help
- 	   This adds support for ASoC machine driver for Geminilake platforms
- 	   with RT5682 + MAX98357A I2S audio codec.
-@@ -437,6 +443,7 @@ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
- 	depends on SND_HDA_CODEC_HDMI
- 	depends on GPIOLIB
- 	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	select SND_SOC_DMIC
- 	# SND_SOC_HDAC_HDA is already selected
- 	help
-@@ -461,6 +468,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
++	select SND_SOC_INTEL_SOF_MAXIM_COMMON
  	help
  	   This adds support for ASoC machine driver for SOF platforms
  	   with rt5682 codec.
-@@ -473,6 +481,7 @@ config SND_SOC_INTEL_SOF_PCM512x_MACH
- 	depends on (SND_SOC_SOF_HDA_AUDIO_CODEC && (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
- 		   (SND_SOC_SOF_BAYTRAIL && (X86_INTEL_LPSS || COMPILE_TEST))
- 	depends on SND_HDA_CODEC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	select SND_SOC_PCM512x_I2C
- 	help
- 	  This adds support for ASoC machine driver for SOF platforms
-@@ -504,6 +513,7 @@ config SND_SOC_INTEL_SOF_CML_RT1011_RT5682_MACH
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	help
- 	  This adds support for ASoC machine driver for SOF platform with
- 	  RT1011 + RT5682 I2S codec.
-@@ -519,6 +529,7 @@ config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
- 	depends on I2C && ACPI && GPIOLIB
- 	depends on MFD_INTEL_LPSS || COMPILE_TEST
- 	depends on SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	select SND_SOC_DA7219
- 	select SND_SOC_MAX98373_I2C
- 	select SND_SOC_DMIC
-@@ -539,6 +550,7 @@ config SND_SOC_INTEL_EHL_RT5660_MACH
- 	depends on SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC
- 	select SND_SOC_RT5660
- 	select SND_SOC_DMIC
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	help
- 	  This adds support for ASoC machine driver for Elkhart Lake
- 	  platform with RT5660 I2S audio codec.
-@@ -566,6 +578,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
- 	select SND_SOC_RT715_SDCA_SDW
+@@ -579,6 +583,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
  	select SND_SOC_RT5682_SDW
  	select SND_SOC_DMIC
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
++	select SND_SOC_INTEL_SOF_MAXIM_COMMON
  	help
  	  Add support for Intel SoundWire-based platforms connected to
  	  MAX98373, RT700, RT711, RT1308 and RT715
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 616c5fbab7d5..a48ee9b74e73 100644
+index a48ee9b74e73..855296e8dfb8 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -3,11 +3,11 @@ snd-soc-sst-haswell-objs := haswell.o
- snd-soc-sst-bdw-rt5650-mach-objs := bdw-rt5650.o
- snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
- snd-soc-sst-broadwell-objs := broadwell.o
--snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o hda_dsp_common.o
--snd-soc-sst-bxt-rt298-objs := bxt_rt298.o hda_dsp_common.o
--snd-soc-sst-sof-pcm512x-objs := sof_pcm512x.o hda_dsp_common.o
-+snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o
-+snd-soc-sst-bxt-rt298-objs := bxt_rt298.o
-+snd-soc-sst-sof-pcm512x-objs := sof_pcm512x.o
- snd-soc-sst-sof-wm8804-objs := sof_wm8804.o
--snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o hda_dsp_common.o
-+snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o
- snd-soc-sst-bytcr-rt5640-objs := bytcr_rt5640.o
- snd-soc-sst-bytcr-rt5651-objs := bytcr_rt5651.o
- snd-soc-sst-bytcr-wm5102-objs := bytcr_wm5102.o
-@@ -19,19 +19,19 @@ snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
+@@ -19,7 +19,7 @@ snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
  snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
  snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
  snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
--snd-soc-sof_rt5682-objs := sof_rt5682.o hda_dsp_common.o sof_maxim_common.o sof_realtek_common.o
--snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o hda_dsp_common.o
-+snd-soc-sof_rt5682-objs := sof_rt5682.o sof_maxim_common.o sof_realtek_common.o
-+snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
+-snd-soc-sof_rt5682-objs := sof_rt5682.o sof_maxim_common.o sof_realtek_common.o
++snd-soc-sof_rt5682-objs := sof_rt5682.o sof_realtek_common.o
+ snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
  snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
  snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
- snd-soc-kbl_rt5663_max98927-objs := kbl_rt5663_max98927.o
- snd-soc-kbl_rt5663_rt5514_max98927-objs := kbl_rt5663_rt5514_max98927.o
- snd-soc-kbl_rt5660-objs := kbl_rt5660.o
- snd-soc-skl_rt286-objs := skl_rt286.o
--snd-soc-skl_hda_dsp-objs := skl_hda_dsp_generic.o skl_hda_dsp_common.o hda_dsp_common.o
-+snd-soc-skl_hda_dsp-objs := skl_hda_dsp_generic.o skl_hda_dsp_common.o
- snd-skl_nau88l25_max98357a-objs := skl_nau88l25_max98357a.o
- snd-soc-skl_nau88l25_ssm4567-objs := skl_nau88l25_ssm4567.o
--snd-soc-sof_da7219_max98373-objs := sof_da7219_max98373.o hda_dsp_common.o
--snd-soc-ehl-rt5660-objs := ehl_rt5660.o hda_dsp_common.o
-+snd-soc-sof_da7219_max98373-objs := sof_da7219_max98373.o
-+snd-soc-ehl-rt5660-objs := ehl_rt5660.o
- snd-soc-sof-sdw-objs += sof_sdw.o				\
- 			sof_sdw_max98373.o			\
- 			sof_sdw_rt1308.o sof_sdw_rt1316.o	\
-@@ -39,7 +39,7 @@ snd-soc-sof-sdw-objs += sof_sdw.o				\
+@@ -38,7 +38,6 @@ snd-soc-sof-sdw-objs += sof_sdw.o				\
+ 			sof_sdw_rt5682.o sof_sdw_rt700.o	\
  			sof_sdw_rt711.o sof_sdw_rt711_sdca.o 	\
  			sof_sdw_rt715.o	sof_sdw_rt715_sdca.o 	\
- 			sof_maxim_common.o                      \
--			sof_sdw_dmic.o sof_sdw_hdmi.o hda_dsp_common.o
-+			sof_sdw_dmic.o sof_sdw_hdmi.o
+-			sof_maxim_common.o                      \
+ 			sof_sdw_dmic.o sof_sdw_hdmi.o
  obj-$(CONFIG_SND_SOC_INTEL_SOF_RT5682_MACH) += snd-soc-sof_rt5682.o
  obj-$(CONFIG_SND_SOC_INTEL_HASWELL_MACH) += snd-soc-sst-haswell.o
- obj-$(CONFIG_SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON) += snd-soc-sst-bxt-da7219_max98357a.o
-@@ -74,3 +74,7 @@ obj-$(CONFIG_SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH) += snd-soc-skl_hda_dsp.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH) += snd-soc-sof_da7219_max98373.o
- obj-$(CONFIG_SND_SOC_INTEL_EHL_RT5660_MACH) += snd-soc-ehl-rt5660.o
- obj-$(CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH) += snd-soc-sof-sdw.o
+@@ -78,3 +77,6 @@ obj-$(CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH) += snd-soc-sof-sdw.o
+ # common modules
+ snd-soc-intel-hda-dsp-common-objs := hda_dsp_common.o
+ obj-$(CONFIG_SND_SOC_INTEL_HDA_DSP_COMMON) += snd-soc-intel-hda-dsp-common.o
 +
-+# common modules
-+snd-soc-intel-hda-dsp-common-objs := hda_dsp_common.o
-+obj-$(CONFIG_SND_SOC_INTEL_HDA_DSP_COMMON) += snd-soc-intel-hda-dsp-common.o
-diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-index 9ffef396f8f2..07ae950b0127 100644
---- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-@@ -869,3 +869,4 @@ MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:bxt_da7219_max98357a");
- MODULE_ALIAS("platform:glk_da7219_max98357a");
- MODULE_ALIAS("platform:cml_da7219_max98357a");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
-index 0f3157dfa838..32a776fa0b86 100644
---- a/sound/soc/intel/boards/bxt_rt298.c
-+++ b/sound/soc/intel/boards/bxt_rt298.c
-@@ -667,3 +667,4 @@ MODULE_DESCRIPTION("Intel SST Audio for Broxton");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:bxt_alc298s_i2s");
- MODULE_ALIAS("platform:glk_alc298s_i2s");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-index 14813beb33d1..27615acddacd 100644
---- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
-+++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-@@ -594,3 +594,4 @@ MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
- MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:cml_rt1011_rt5682");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/ehl_rt5660.c b/sound/soc/intel/boards/ehl_rt5660.c
-index 7c0d4e915406..b9b72d05b335 100644
---- a/sound/soc/intel/boards/ehl_rt5660.c
-+++ b/sound/soc/intel/boards/ehl_rt5660.c
-@@ -321,3 +321,4 @@ MODULE_DESCRIPTION("ASoC Intel(R) Elkhartlake + rt5660 Machine driver");
- MODULE_AUTHOR("libin.yang@intel.com");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:ehl_rt5660");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
-index 62cca511522e..19e2ff90886a 100644
---- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
-+++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
-@@ -642,3 +642,4 @@ MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
- MODULE_AUTHOR("Harsha Priya <harshapriya.n@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:glk_rt5682_max98357a");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/hda_dsp_common.c b/sound/soc/intel/boards/hda_dsp_common.c
-index 91ad2a0ad1ce..efdc4bc4bb1f 100644
---- a/sound/soc/intel/boards/hda_dsp_common.c
-+++ b/sound/soc/intel/boards/hda_dsp_common.c
-@@ -2,6 +2,7 @@
++snd-soc-intel-sof-maxim-common-objs += sof_maxim_common.o
++obj-$(CONFIG_SND_SOC_INTEL_SOF_MAXIM_COMMON) += snd-soc-intel-sof-maxim-common.o
+diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+index 437d20562753..7c4af6ec58e8 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.c
++++ b/sound/soc/intel/boards/sof_maxim_common.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  //
- // Copyright(c) 2019 Intel Corporation. All rights reserved.
- 
+ // Copyright(c) 2020 Intel Corporation. All rights reserved.
 +#include <linux/module.h>
+ #include <linux/string.h>
  #include <sound/pcm.h>
  #include <sound/soc.h>
- #include <sound/hda_codec.h>
-@@ -82,5 +83,9 @@ int hda_dsp_hdmi_build_controls(struct snd_soc_card *card,
+@@ -16,6 +17,7 @@ const struct snd_soc_dapm_route max_98373_dapm_routes[] = {
+ 	{ "Left Spk", NULL, "Left BE_OUT" },
+ 	{ "Right Spk", NULL, "Right BE_OUT" },
+ };
++EXPORT_SYMBOL_NS(max_98373_dapm_routes, SND_SOC_INTEL_SOF_MAXIM_COMMON);
  
- 	return err;
+ static struct snd_soc_codec_conf max_98373_codec_conf[] = {
+ 	{
+@@ -38,9 +40,10 @@ struct snd_soc_dai_link_component max_98373_components[] = {
+ 		.dai_name = MAX_98373_CODEC_DAI,
+ 	},
+ };
++EXPORT_SYMBOL_NS(max_98373_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+ 
+-static int max98373_hw_params(struct snd_pcm_substream *substream,
+-			      struct snd_pcm_hw_params *params)
++static int max_98373_hw_params(struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+@@ -59,7 +62,7 @@ static int max98373_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
  }
-+EXPORT_SYMBOL_NS(hda_dsp_hdmi_build_controls, SND_SOC_INTEL_HDA_DSP_COMMON);
  
- #endif
+-int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
++int max_98373_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+@@ -102,13 +105,15 @@ int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS(max_98373_trigger, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+ 
+ struct snd_soc_ops max_98373_ops = {
+-	.hw_params = max98373_hw_params,
+-	.trigger = max98373_trigger,
++	.hw_params = max_98373_hw_params,
++	.trigger = max_98373_trigger,
+ };
++EXPORT_SYMBOL_NS(max_98373_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+ 
+-int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
++int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+ 	int ret;
+@@ -119,9 +124,14 @@ int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS(max_98373_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+ 
+-void sof_max98373_codec_conf(struct snd_soc_card *card)
++void max_98373_set_codec_conf(struct snd_soc_card *card)
+ {
+ 	card->codec_conf = max_98373_codec_conf;
+ 	card->num_configs = ARRAY_SIZE(max_98373_codec_conf);
+ }
++EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
 +
-+MODULE_DESCRIPTION("ASoC Intel HDMI helpers");
++MODULE_DESCRIPTION("ASoC Intel SOF Maxim helpers");
 +MODULE_LICENSE("GPL");
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index bc50eda297ab..f4b4eeca3e03 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -258,3 +258,4 @@ MODULE_DESCRIPTION("SKL/KBL/BXT/APL HDA Generic Machine driver");
- MODULE_AUTHOR("Rakesh Ughreja <rakesh.a.ughreja@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:skl_hda_dsp_generic");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
-index f3cb0773e70e..0604d25e745f 100644
---- a/sound/soc/intel/boards/sof_da7219_max98373.c
-+++ b/sound/soc/intel/boards/sof_da7219_max98373.c
-@@ -457,3 +457,4 @@ MODULE_AUTHOR("Yong Zhi <yong.zhi@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:sof_da7219_max98360a");
- MODULE_ALIAS("platform:sof_da7219_max98373");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
-index d2b0456236c7..8620d4f38493 100644
---- a/sound/soc/intel/boards/sof_pcm512x.c
-+++ b/sound/soc/intel/boards/sof_pcm512x.c
-@@ -437,3 +437,4 @@ MODULE_DESCRIPTION("ASoC Intel(R) SOF + PCM512x Machine driver");
- MODULE_AUTHOR("Pierre-Louis Bossart");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:sof_pcm512x");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
+diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
+index 5240b1c9d379..566a664d5a63 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.h
++++ b/sound/soc/intel/boards/sof_maxim_common.h
+@@ -20,8 +20,8 @@ extern struct snd_soc_dai_link_component max_98373_components[2];
+ extern struct snd_soc_ops max_98373_ops;
+ extern const struct snd_soc_dapm_route max_98373_dapm_routes[];
+ 
+-int max98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
+-void sof_max98373_codec_conf(struct snd_soc_card *card);
+-int max98373_trigger(struct snd_pcm_substream *substream, int cmd);
++int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
++void max_98373_set_codec_conf(struct snd_soc_card *card);
++int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
+ 
+ #endif /* __SOF_MAXIM_COMMON_H */
 diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 358a19d62458..514ee19ab4a2 100644
+index 514ee19ab4a2..ee56a95895db 100644
 --- a/sound/soc/intel/boards/sof_rt5682.c
 +++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -1054,3 +1054,4 @@ MODULE_ALIAS("platform:tgl_rt1011_rt5682");
- MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
+@@ -756,7 +756,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 				SOF_MAX98373_SPEAKER_AMP_PRESENT) {
+ 			links[id].codecs = max_98373_components;
+ 			links[id].num_codecs = ARRAY_SIZE(max_98373_components);
+-			links[id].init = max98373_spk_codec_init;
++			links[id].init = max_98373_spk_codec_init;
+ 			links[id].ops = &max_98373_ops;
+ 			/* feedback stream */
+ 			links[id].dpcm_capture = 1;
+@@ -902,7 +902,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 		sof_audio_card_rt5682.num_links++;
+ 
+ 	if (sof_rt5682_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT)
+-		sof_max98373_codec_conf(&sof_audio_card_rt5682);
++		max_98373_set_codec_conf(&sof_audio_card_rt5682);
+ 	else if (sof_rt5682_quirk & SOF_RT1011_SPEAKER_AMP_PRESENT)
+ 		sof_rt1011_codec_conf(&sof_audio_card_rt5682);
+ 	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
+@@ -1055,3 +1055,4 @@ MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
  MODULE_ALIAS("platform:adl_max98373_rt5682");
  MODULE_ALIAS("platform:adl_max98357a_rt5682");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
+ MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
++MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
 diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 85a2797c2550..73929f238f7b 100644
+index 73929f238f7b..d65e29ab70c3 100644
 --- a/sound/soc/intel/boards/sof_sdw.c
 +++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1317,3 +1317,4 @@ MODULE_AUTHOR("Rander Wang <rander.wang@linux.intel.com>");
- MODULE_AUTHOR("Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>");
+@@ -1318,3 +1318,4 @@ MODULE_AUTHOR("Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>");
  MODULE_LICENSE("GPL v2");
  MODULE_ALIAS("platform:sof_sdw");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
+ MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
++MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
+diff --git a/sound/soc/intel/boards/sof_sdw_max98373.c b/sound/soc/intel/boards/sof_sdw_max98373.c
+index cfdf970c5800..0e7ed906b341 100644
+--- a/sound/soc/intel/boards/sof_sdw_max98373.c
++++ b/sound/soc/intel/boards/sof_sdw_max98373.c
+@@ -64,7 +64,7 @@ static int max98373_sdw_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		/* enable max98373 first */
+-		ret = max98373_trigger(substream, cmd);
++		ret = max_98373_trigger(substream, cmd);
+ 		if (ret < 0)
+ 			break;
+ 
+@@ -77,7 +77,7 @@ static int max98373_sdw_trigger(struct snd_pcm_substream *substream, int cmd)
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = max98373_trigger(substream, cmd);
++		ret = max_98373_trigger(substream, cmd);
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 158D53627D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 20:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B0323627D6
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 20:37:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E38016EB;
-	Fri, 16 Apr 2021 20:35:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E38016EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B85F516E2;
+	Fri, 16 Apr 2021 20:36:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B85F516E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618598209;
-	bh=6C5h3ykupL+D+Of/6i1rYRBhVMcJIbSTPovNGU1E/cA=;
+	s=default; t=1618598258;
+	bh=xzFQWr3GHUCkLcTFnvtPe0lXb2d9F9cekwg4SyrI2L4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RbMttcl/DLvYyqpqrEX/BFB3QgyMifxedmtMPJO8a9OThKeC+QQqlVjqLRwZ6HiXf
-	 rrjuGgbcaYMRYr8fXr4yVLJ638ufVI25VraoN7tAA0AJijRatRrYjXY90fOKmO6ONq
-	 /QMyKiGH8Gzx1N/Qt+pmSh0/cJ3cNUa5plrSAlx4=
+	b=YedHvLM4Aac+56kWkZ+4+od+uMOa3Nxvco4+4DFdu0X1wLRusFA8uglqTbGd3vyMt
+	 /NqYIrbbXJA6l5Pyd+bjlvqDg4lkecBaUQyKLtXJaeZlWjTMRchCArgy32AqMR8GiP
+	 cMYAdmbSABH3VFp7SwXVfNwIfVYmxDk6N9EtjbOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EBC6F80128;
-	Fri, 16 Apr 2021 20:35:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 269FDF80423;
+	Fri, 16 Apr 2021 20:35:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF8BEF8025B; Fri, 16 Apr 2021 20:35:04 +0200 (CEST)
+ id D5DD4F8032C; Fri, 16 Apr 2021 20:35:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4126F80254
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 20:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4126F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FCB8F800FF
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 20:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FCB8F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sh0loH/O"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5AD83610FB;
- Fri, 16 Apr 2021 18:34:59 +0000 (UTC)
+ header.b="pm3mB6BJ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3E745610FC;
+ Fri, 16 Apr 2021 18:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618598099;
- bh=6C5h3ykupL+D+Of/6i1rYRBhVMcJIbSTPovNGU1E/cA=;
+ s=k20201202; t=1618598102;
+ bh=xzFQWr3GHUCkLcTFnvtPe0lXb2d9F9cekwg4SyrI2L4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sh0loH/OADYJM36Geaqa38W6xyGMkSOQCgZNTbHFo2bQrisTwo1EauHktmrcKfTe+
- Kp09u9T8pp+5jhyE52I5TPBG0KnYFlKR9IHnmU1vi3QZAieKgsWH4PPpfObexlB8hG
- Rsw+R+onEEbCVULUDX4vuXZvItB+52TEr+ZOZtx/c1uqUNSb58e2Rf6XE0GSO/Z7ts
- E/U8W0PwfPkayP1nH5pCL8mSb25ynBDev4+YaEgUYiWPc1KpcU6WexTCkXqfcaIKxl
- 6kfHeLjGPupkXFwzZmk7NwZ6yT51AFSY5h9+UJBfawwXRp8rUVmIV3CX7ydiDLRgb6
- FiVFpRkqA+PFQ==
+ b=pm3mB6BJZMAxqlpDRw1yIMVssEs6RROrTAQJ2EIH6rYw9QkoAJwpcHzMyeoDqeqUA
+ y4cGL+uYH35Y2dmolvBNqEfq0vC6RFjTMae1fj7+kvDa1dr/G7AURuvjpziNGq5PLJ
+ Qo/D47A+rJm4KouN2yyc9gSpLy+PkaXaA6z5haOrda7K6iJS9oACY4aYRT6/5lMH5J
+ TsuXo2AlpfbBdLchyBy/fdXFrnc7xmjD1OqNZKnr4BYWBafy+Bopyx/ElySNsCQpF2
+ UGe8V+Kejwy/8GfKMVhIK5nwSGSdI8zRDTciSZLIuODwF5J++WOEwaW8R/pKP2KeVJ
+ y+U/pH3VQNjrg==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com,
 	Jack Yu <jack.yu@realtek.com>
-Subject: Re: [PATCH v2 2/3] ASoC: rt715: remove kcontrols which no longer be
- used
-Date: Fri, 16 Apr 2021 19:34:31 +0100
-Message-Id: <161859792865.33058.7125147768271126827.b4-ty@kernel.org>
+Subject: Re: [PATCH v2 1/3] ASoC: rt715: add main capture switch and main
+ capture volume
+Date: Fri, 16 Apr 2021 19:34:32 +0100
+Message-Id: <161859792865.33058.12955492794472446951.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <5c314f5512654aca9fff0195f77264de@realtek.com>
-References: <5c314f5512654aca9fff0195f77264de@realtek.com>
+In-Reply-To: <dfd43a8db04e4d52a889d6f5c1262173@realtek.com>
+References: <dfd43a8db04e4d52a889d6f5c1262173@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -85,9 +85,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Mar 2021 06:54:00 +0000, Jack Yu wrote:
-> Using new kcontrols "Capture Switch" and "Capture Volume" instead,
-> remove kcontrols which no longer be used.
+On Mon, 29 Mar 2021 06:53:54 +0000, Jack Yu wrote:
+> Add main capture switch and main capture volume control.
+> Main capture control has its own channel value respectivelly.
 
 Applied to
 
@@ -95,8 +95,8 @@ Applied to
 
 Thanks!
 
-[2/3] ASoC: rt715: remove kcontrols which no longer be used
-      commit: fa2f98378f941786a93f8e63696f59fb4ac7538b
+[1/3] ASoC: rt715: add main capture switch and main capture volume
+      commit: dcca646c4977d885af3466b454df97b9cb0e0d26
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

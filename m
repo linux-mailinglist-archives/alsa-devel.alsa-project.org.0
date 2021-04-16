@@ -2,87 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DF16361AD9
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 09:52:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37F32361B29
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 10:07:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA8A31686;
-	Fri, 16 Apr 2021 09:51:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA8A31686
+	by alsa0.perex.cz (Postfix) with ESMTPS id C54D51687;
+	Fri, 16 Apr 2021 10:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C54D51687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618559560;
-	bh=N0zkayMhBn15xeY0vlevObIDLY6pxee2glTSsdUtpjw=;
+	s=default; t=1618560442;
+	bh=b3r11gEs93ztMQJ479pEaSfMAsuNYk+Icq9/e06yvGQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KrNOcwgA4Qv09z43wW8flPF/0vgQLaiCBy3BXWWtVyWaYPORgki4KRR5F+HglHfI+
-	 4aKtvuRgoN2qNse4fCWJvBFh07I58ixw3iINp7la1+43xR/vEa+o+Nx+xA4D6wAf4G
-	 C7XwyUnWNl/Tz90AxqdC7xAFJ10d7/xfxt83oSAI=
+	b=W/xnbhRgFwefShzDXbF34lneFVAC4G+SgvEPV/M7nrjc58uQ1J5HpiRseu403B9F0
+	 lR+y1NDd/SzW/qUD/sDRl1V7FAQG/Uc5z/w148nhGPfdG4E52ROPD4tIXXwpkNxL+c
+	 4aTHA9C2ldaBpynjpJNpadSXtH8ZHYmUDhR2BG0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20335F8025B;
-	Fri, 16 Apr 2021 09:51:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14E42F80269;
+	Fri, 16 Apr 2021 10:05:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C15B5F8025B; Fri, 16 Apr 2021 09:48:16 +0200 (CEST)
+ id 2A9DAF8025B; Fri, 16 Apr 2021 10:05:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_93,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B895BF800B9
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 09:48:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B895BF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB32BF800FF
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 10:05:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB32BF800FF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7D963AEC6;
- Fri, 16 Apr 2021 07:48:06 +0000 (UTC)
-Date: Fri, 16 Apr 2021 09:48:06 +0200
-Message-ID: <s5hczuusma1.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 9914FABB1;
+ Fri, 16 Apr 2021 08:05:33 +0000 (UTC)
+Date: Fri, 16 Apr 2021 10:05:33 +0200
+Message-ID: <s5h8s5islgy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Lucas <jaffa225man@gmail.com>
-Subject: Re: Implicit feedback on BOSS GT-1, the saga continues...
-In-Reply-To: <CAOsVg8pEjJvm7cHeOivQursVUiOs+oCz6oWTt+8R6Sx+2TiHJw@mail.gmail.com>
-References: <CAHXb3begced9GYCQ4a6qLOK2PrQR9gHeSvb3HAG29DVpZ+vwiQ@mail.gmail.com>
- <CAEsQvcu5freEXMFwBRH0aQsT9=ngvOY_SkA6dmfs_YVvMYYuJw@mail.gmail.com>
- <CAHXb3bddyVMXrZHxmtz5AM4j7TRwWSbZcLM94JjcbOMfrd4+2g@mail.gmail.com>
- <CAEsQvcs+-O_eGW928eLdbde9EhWiD3qxjCuv2iW477DZDprkBw@mail.gmail.com>
- <CAHXb3beRycUteezmWRqO0u3kZnV8TbCNAqfO3ksjVoJ6WSrdBw@mail.gmail.com>
- <CAEsQvcuBYnY_k1Rd8US5qrDKcJas62Q5kA4P0NSEJODBCcZMuw@mail.gmail.com>
- <CAHXb3bfD_YivP3r4wOeb8bcXmAU+_+eeZwudW6f1pxfYtpnq1g@mail.gmail.com>
- <CAEsQvcsCJUi8eP_t8MGUKf0zSf7Zmqiof8b0fmk-XhZtUScbmg@mail.gmail.com>
- <CAEsQvcspNZFS4gbS=dQ1enkshVnG+-=xvoc8kskmoweTQjQhRw@mail.gmail.com>
- <CAEsQvcurb3s_W47f3N1h1=+oW4rX8tUSfQKv+_zyMMXXqJCBVw@mail.gmail.com>
- <CAHXb3bf4estasrkRhyME9w2hO6UmwUPAY+Vg6e4kvCnZh=R2zA@mail.gmail.com>
- <CAEsQvcs2Ov71mpSCXgefEFV1QQeqND871nu4+BV5KfT3kXtu+Q@mail.gmail.com>
- <CAHXb3bcpUBH9F=K9npwK-xO5sX+H11EV0_Nc7Otw7o93M=DKYQ@mail.gmail.com>
- <CAEsQvcs8HasvcJm0oEr87gNPxB6o2Km_NtAojTq+VkEX9EZd0g@mail.gmail.com>
- <CAHXb3bcMRrtMtfoHOCikNAkXxemnScfTPvJ702N_z6o5xj-G5g@mail.gmail.com>
- <CAEsQvcuo0g9STXn1d-Wux0TOH32mc88=Lw44r0ng+QocztcG3Q@mail.gmail.com>
- <CAOsVg8qWkYnW4sYP5S5A=BWvQWeBY08DrC7JZ9nNF8_nrsNArg@mail.gmail.com>
- <CAEsQvcs7y5Gr9X2vNkMHZU9akJAuBw7hE-XKcYKj9CJdO=GM8w@mail.gmail.com>
- <CAOsVg8rrJMdzADsRpjTOmi7Dk23bfej+KRFQWD77s9pmNW=g5w@mail.gmail.com>
- <CAEsQvcvUJ0p4bPLJhzppJR-uFjoyOiu2_=QtAvMvNwPh9AfAFA@mail.gmail.com>
- <CAOsVg8q_5yWBOR6DROJT7=Xv=R2yVNWSEjt4MUAx0QpQ6Af14g@mail.gmail.com>
- <CAHXb3beJxepHYraSXGCB4n9RBbBnLo05dcG=7nED1b_ZGRrMaw@mail.gmail.com>
- <CAOsVg8r85TsJypOSm5ZRv49uv+v=MZyNONe32AgGZL0fbYNayw@mail.gmail.com>
- <CAOsVg8rD==rjuVU0MR8rkp4VQi_6=UfO16huhsZx4-hM-su1xA@mail.gmail.com>
- <CAEsQvcuJF9D8nxbBXWbYKer5oTr7RbMQw9YiXzqb+Hof=gehCg@mail.gmail.com>
- <CAOsVg8oEqEsDVA67s2OoHbvLgTy5wYjwBOTOJeX+uS29nPf+kw@mail.gmail.com>
- <CAEsQvcsUTchyaDqp+1VOnJuREP9L27JkG90pY9aD3TBLWaAdSg@mail.gmail.com>
- <CAOsVg8qptM0bYLczunL-8fF+CiXHYJxSgJWObvXQXsL5Mux=rw@mail.gmail.com>
- <CAOsVg8pEjJvm7cHeOivQursVUiOs+oCz6oWTt+8R6Sx+2TiHJw@mail.gmail.com>
+To: Phil Calvin <phil@philcalvin.com>
+Subject: Re: [PATCH 1/1] ALSA: hda/realtek: fix mic boost on Intel NUC 8
+In-Reply-To: <80dc5663-7734-e7e5-25ef-15b5df24511a@philcalvin.com>
+References: <80dc5663-7734-e7e5-25ef-15b5df24511a@philcalvin.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Fri, 16 Apr 2021 09:51:09 +0200
-Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>,
- Geraldo Nascimento <geraldogabriel@gmail.com>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,34 +68,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Apr 2021 03:28:40 +0200,
-Lucas wrote:
+On Fri, 16 Apr 2021 00:01:29 +0200,
+Phil Calvin wrote:
 > 
-> Just in case you'd rather an attachment, here it is that way.
+> Fix two bugs with the Intel HDA Realtek ALC233 sound codec
+> present in Intel NUC NUC8i7BEH and probably a few other similar
+> NUC models.
+> 
+> These codecs advertise a 4-level microphone input boost amplifier on
+> pin 0x19, but the highest two boost settings do not work correctly,
+> and produce only low analog noise that does not seem to contain any
+> discernible signal. There is an existing fixup for this exact problem
+> but for a different PCI subsystem ID, so we re-use that logic.
+> 
+> Changing the boost level also triggers a DC spike in the input signal
+> that bleeds off over about a second and overwhelms any input during
+> that time. Thankfully, the existing fixup has the side effect of
+> making the boost control show up in userspace as a mute/unmute switch,
+> and this keeps (e.g.) PulseAudio from fiddling with it during normal
+> input volume adjustments.
+> 
+> Finally, the NUC hardware has built-in inverted stereo mics. This
+> patch also enables the usual fixup for this so the two channels cancel
+> noise instead of the actual signal.
+> 
+> Signed-off-by: Phil Calvin <phil@philcalvin.com>
 
-Thanks.
+Thanks, applied now with a minor fix of the quirk entry position
+(sorted in order).
 
-Could you create a format patch that can be applied to the kernel as
-is?  That is, it's with the following style:
+But the patch text wasn't cleanly applicable and I had to edit it
+manually.  I guess this is due to your MUA setup.  Please check it and
+fix at the next time.
 
-  Subject: [PATCH] ALSA: usb-audio: Add support for blah blah...
-
-  Here comes a description of the patch, explain why the patch is
-  needed and what it does concisely.
-
-  Signed-off-by: Your Name <your@address>
-
-  ---
-  the diff follows here...
-
-
-Also, it'd be better to start from a new mail thread instead of
-hanging on the old one.
-
-For details, please refer to
-Documentation/process/submitting-patches.rst.
-
-
-thanks,
 
 Takashi

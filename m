@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2264361747
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 04:01:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E96361748
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 04:01:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91BCA1696;
-	Fri, 16 Apr 2021 04:00:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91BCA1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id C054A169E;
+	Fri, 16 Apr 2021 04:01:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C054A169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618538504;
-	bh=KZsXSnlVypuXkSy1lFTgdctNC3Y/bme2Y8DNngYFuoA=;
+	s=default; t=1618538518;
+	bh=X0uQdCo1AbIK6A0KK2rDYAt1isCCRdNB6LQQQjL9wpM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GbfozORIg1GlBrlhf+a/4N+Hdq77Ghbk4duKiQcYlEYLxI8W8lM68prpD76RDTwB+
-	 v1wrSMQuN71ME1eJhq9cOhAxU5FiG2b+AdEozNZuZ3TPEUzJn9j60+yTd2eXCUmXJd
-	 4teK2R4st1f+kxOWAsX5NANyJmm7iqLP8cg6c1Kw=
+	b=TS9hHcMCdo9G2pvrQ0zqClkk9zpzQcpaPFaVSSJs1IH/PIoYlRissX4/RRWDnvzOn
+	 Abxh9rAQSfTNNUbfU0P2k8P7HGdDNiZIdL9hZa7C4J6FIlFUcdRb22emLdaHjd+qvX
+	 XQO/BlGCUcYEomsELRoLBlCl3EUGyPUNHXko4Y1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5859F8032C;
-	Fri, 16 Apr 2021 04:00:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAF26F80482;
+	Fri, 16 Apr 2021 04:00:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED430F80273; Fri, 16 Apr 2021 04:00:19 +0200 (CEST)
+ id 92D65F80290; Fri, 16 Apr 2021 04:00:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id E4EA3F80278
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 04:00:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4EA3F80278
-Date: 16 Apr 2021 11:00:11 +0900
-X-IronPort-AV: E=Sophos;i="5.82,226,1613401200"; d="scan'208";a="78459157"
+ by alsa1.perex.cz (Postfix) with ESMTP id 437B0F80431
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 04:00:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437B0F80431
+Date: 16 Apr 2021 11:00:26 +0900
+X-IronPort-AV: E=Sophos;i="5.82,226,1613401200"; d="scan'208";a="78459211"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 16 Apr 2021 11:00:11 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Apr 2021 11:00:26 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id A2284415D3D3;
- Fri, 16 Apr 2021 11:00:11 +0900 (JST)
-Message-ID: <871rbbyono.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0CEDC415C6C8;
+ Fri, 16 Apr 2021 11:00:26 +0900 (JST)
+Message-ID: <87zgxzxa2t.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/4] ASoC: soc-pcm: indicate DAI name if
- soc_pcm_params_symmetry() failed
+Subject: [PATCH 3/4] ASoC: soc-utils: add snd_soc_component_is_dummy()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kg7yopb.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,39 +67,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-It indicates unmatched symmetry value, but not indicates on which DAI.
-This patch indicates it.
+There is snd_soc_dai_is_dummy(), but not for component.
+This patch adds it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/sound/soc-component.h | 1 +
+ sound/soc/soc-core.c          | 2 +-
+ sound/soc/soc-utils.c         | 6 ++++++
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e1bca2165668..09d63cbbc602 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -384,6 +384,7 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *cpu_dai;
- 	unsigned int symmetry, i;
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 722cfab28d29..8c4d6830597f 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -338,6 +338,7 @@ static inline int snd_soc_component_cache_sync(
+ void snd_soc_component_set_aux(struct snd_soc_component *component,
+ 			       struct snd_soc_aux_dev *aux);
+ int snd_soc_component_init(struct snd_soc_component *component);
++int snd_soc_component_is_dummy(struct snd_soc_component *component);
  
-+	d.name = __func__;
- 	soc_pcm_set_dai_params(&d, params);
+ /* component IO */
+ unsigned int snd_soc_component_read(struct snd_soc_component *component,
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 236e075b9e57..762fb5c23f21 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1169,7 +1169,7 @@ static int soc_probe_component(struct snd_soc_card *card,
+ 	int probed = 0;
+ 	int ret;
  
- #define __soc_pcm_params_symmetry(xxx)					\
-@@ -394,8 +395,8 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 	if (symmetry)							\
- 		for_each_rtd_cpu_dais(rtd, i, cpu_dai)			\
- 			if (cpu_dai->xxx && cpu_dai->xxx != d.xxx) {	\
--				dev_err(rtd->dev, "ASoC: unmatched %s symmetry: %d - %d\n", \
--					#xxx, cpu_dai->xxx, d.xxx);	\
-+				dev_err(rtd->dev, "ASoC: unmatched %s symmetry: %s:%d - %s:%d\n", \
-+					#xxx, cpu_dai->name, cpu_dai->xxx, d.name, d.xxx); \
- 				return -EINVAL;				\
- 			}
+-	if (!strcmp(component->name, "snd-soc-dummy"))
++	if (snd_soc_component_is_dummy(component))
+ 		return 0;
  
+ 	if (component->card) {
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index f27f94ca064b..98383fd76224 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -131,6 +131,12 @@ int snd_soc_dai_is_dummy(struct snd_soc_dai *dai)
+ 	return 0;
+ }
+ 
++int snd_soc_component_is_dummy(struct snd_soc_component *component)
++{
++	return ((component->driver == &dummy_platform) ||
++		(component->driver == &dummy_codec));
++}
++
+ static int snd_soc_dummy_probe(struct platform_device *pdev)
+ {
+ 	int ret;
 -- 
 2.25.1
 

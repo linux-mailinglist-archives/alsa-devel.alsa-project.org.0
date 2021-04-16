@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35E96361748
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 04:01:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32AF36174A
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 04:02:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C054A169E;
-	Fri, 16 Apr 2021 04:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C054A169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 408501687;
+	Fri, 16 Apr 2021 04:01:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 408501687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618538518;
-	bh=X0uQdCo1AbIK6A0KK2rDYAt1isCCRdNB6LQQQjL9wpM=;
+	s=default; t=1618538554;
+	bh=CKihNhrTXAq7tf8U4/sXR2fC5SpZngVGRyIEiKhChdI=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TS9hHcMCdo9G2pvrQ0zqClkk9zpzQcpaPFaVSSJs1IH/PIoYlRissX4/RRWDnvzOn
-	 Abxh9rAQSfTNNUbfU0P2k8P7HGdDNiZIdL9hZa7C4J6FIlFUcdRb22emLdaHjd+qvX
-	 XQO/BlGCUcYEomsELRoLBlCl3EUGyPUNHXko4Y1s=
+	b=dkVxc21yX4fvm213HLkVWroEdmrWlbadj61cZjNJurI+lJ96OpRBPOeGzDaxM3lQd
+	 +DvOitrZ0mhvn5sIveWI8t3ayhUkEdfGrLB6ofgxzSq0Q39WvPw4lrlqU30CJ4aSUH
+	 qgha9K+UOu8SGbBCQMQEw3ExSDqmd56w2I9cmtLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAF26F80482;
-	Fri, 16 Apr 2021 04:00:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99F6DF804A9;
+	Fri, 16 Apr 2021 04:00:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92D65F80290; Fri, 16 Apr 2021 04:00:34 +0200 (CEST)
+ id 4F93CF8049C; Fri, 16 Apr 2021 04:00:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 437B0F80431
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 04:00:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437B0F80431
-Date: 16 Apr 2021 11:00:26 +0900
-X-IronPort-AV: E=Sophos;i="5.82,226,1613401200"; d="scan'208";a="78459211"
+ by alsa1.perex.cz (Postfix) with ESMTP id E3251F800B9
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 04:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3251F800B9
+Date: 16 Apr 2021 11:00:32 +0900
+X-IronPort-AV: E=Sophos;i="5.82,226,1613401200"; d="scan'208";a="78459222"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 16 Apr 2021 11:00:26 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Apr 2021 11:00:32 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0CEDC415C6C8;
- Fri, 16 Apr 2021 11:00:26 +0900 (JST)
-Message-ID: <87zgxzxa2t.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6E257415C6C8;
+ Fri, 16 Apr 2021 11:00:32 +0900 (JST)
+Message-ID: <87y2djxa2n.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/4] ASoC: soc-utils: add snd_soc_component_is_dummy()
+Subject: [PATCH 4/4] ASoC: soc-pcm: ignore dummy-DAI at
+ soc_pcm_params_symmetry()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kg7yopb.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,61 +68,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-There is snd_soc_dai_is_dummy(), but not for component.
-This patch adds it.
+soc_pcm_params_symmetry() checks CPU / Codec symmetry.
+Unfortunately there was bug on it (= A) which didn't check Codec.
+But is back by (B).
 
+	A: v5.7:  commit c840f7698d26 ("ASoC: soc-pcm: Merge for_each_rtd_cpu/codec_dais()")
+	B: v5.12: commit 3a9067211122 ("ASoC: soc-pcm: cleanup soc_pcm_params_symmetry()")
+
+In total,
+old - v5.6 (= Generation-1):
+
+	symmetric_rate		: DAI_Link / CPU / Codec
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+v5.7 - v5.11 (= Generation-2): (= because of bug by (A))
+
+	symmetric_rate		: DAI_Link / CPU
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+v5.12 - (= Generation-3): (= back by (B))
+
+	symmetric_rate		: DAI_Link / CPU / Codec
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+OTOH, we can use DPCM which is configured by FE / BE.
+Both FE / BE uses dummy-DAI.
+
+	FE: CPU       <-> dummy-DAI
+	BE: dummy-DAI <-> Codec
+
+One note is that we can use .be_hw_params_fixup in DPCM case.
+This means BE settings might be fixuped/updated by FE.
+This feature is used for example on MIXer case.
+It can be happen not only for rate, but for channels/sample_bits too.
+
+Because of these reasons, below issue happen on
+Generation-1 / Generation-3, if...
+
+	1) Sound Card used DPCM
+	2) It exchanges rate to 48kHz by using .be_hw_params_fixup()
+	3) Codec had symmetric_rate = 1
+
+I didn't confirm, but maybe same things happen
+if it exchanged channels/sample_bits at Generation-1/2/3 too.
+
+	# aplay 44100.wav
+	# aplay 44100.wav
+=>	[kernel] be.ak4613-hifi: ASoC: unmatched rate symmetry: snd-soc-dummy-dai:44100 - soc_pcm_params_symmetry:48000
+	[kernel] be.ak4613-hifi: ASoC: hw_params BE failed -22
+	[kernel] fe.rsnd-dai.0: ASoC: hw_params BE failed -22
+	aplay: set_params:1407: Unable to install hw params:
+	ACCESS:  RW_INTERLEAVED
+	FORMAT:  S16_LE
+	SUBFORMAT:  STD
+	SAMPLE_BITS: 16
+	FRAME_BITS: 32
+	CHANNELS: 2
+	RATE: 44100
+	PERIOD_TIME: (23219 23220)
+	PERIOD_SIZE: 1024
+	PERIOD_BYTES: 4096
+	PERIODS: 4
+	BUFFER_TIME: (92879 92880)
+	BUFFER_SIZE: 4096
+	BUFFER_BYTES: 16384
+	TICK_TIME: 0
+
+soc_pcm_params_symmetry() checks by below
+
+	if (symmetry)
+		for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+			if (cpu_dai->xxx && cpu_dai->xxx != d.xxx) {
+				dev_err(rtd->dev, "...");
+				return -EINVAL;
+			}
+
+Because of above reason 3) (= Codec had symmetric_rate = 1)
+BE can't ignore "if (symmetric)".
+
+At 1st aplay, soc_pcm_params_symmetry() ignores it,
+because dummy-DAI->rate is 0.
+After this check, each DAI sets/keep settings.
+
+In above sample case, BE gets 48000 and FE gets 44100,
+and it happen BE -> FE order.
+Because DPCM is sharing *same* dummy-DAI,
+dummy-DAI sets as 48000 by BE, and is overwrote by 44100 by FE.
+
+This settings never be cleaned (= a) after 1st aplay,
+because dummy-DAI is used from FE/BE, never be last user (b).
+
+	static int soc_pcm_hw_clean(...)
+	{
+		...
+		for_each_rtd_dais(rtd, i, dai) {
+			...
+(b)			if (snd_soc_dai_active(dai) == 1)
+(a)				soc_pcm_set_dai_params(dai, NULL);
+			...
+		}
+		...
+	}
+
+At 2nd aplay, BE gets 48000 but dummy-DAI is keeping 44100,
+soc_pcm_params_symmetry() checks will fail.
+
+To solve this issue, this patch ignores dummy-DAI
+at soc_pcm_params_symmetry()
+
+Link: https://lore.kernel.org/r/87a6q0z4xt.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h | 1 +
- sound/soc/soc-core.c          | 2 +-
- sound/soc/soc-utils.c         | 6 ++++++
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/soc-pcm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 722cfab28d29..8c4d6830597f 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -338,6 +338,7 @@ static inline int snd_soc_component_cache_sync(
- void snd_soc_component_set_aux(struct snd_soc_component *component,
- 			       struct snd_soc_aux_dev *aux);
- int snd_soc_component_init(struct snd_soc_component *component);
-+int snd_soc_component_is_dummy(struct snd_soc_component *component);
- 
- /* component IO */
- unsigned int snd_soc_component_read(struct snd_soc_component *component,
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 236e075b9e57..762fb5c23f21 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1169,7 +1169,7 @@ static int soc_probe_component(struct snd_soc_card *card,
- 	int probed = 0;
- 	int ret;
- 
--	if (!strcmp(component->name, "snd-soc-dummy"))
-+	if (snd_soc_component_is_dummy(component))
- 		return 0;
- 
- 	if (component->card) {
-diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
-index f27f94ca064b..98383fd76224 100644
---- a/sound/soc/soc-utils.c
-+++ b/sound/soc/soc-utils.c
-@@ -131,6 +131,12 @@ int snd_soc_dai_is_dummy(struct snd_soc_dai *dai)
- 	return 0;
- }
- 
-+int snd_soc_component_is_dummy(struct snd_soc_component *component)
-+{
-+	return ((component->driver == &dummy_platform) ||
-+		(component->driver == &dummy_codec));
-+}
-+
- static int snd_soc_dummy_probe(struct platform_device *pdev)
- {
- 	int ret;
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 09d63cbbc602..327bb91ee28e 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -394,7 +394,8 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+ 									\
+ 	if (symmetry)							\
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai)			\
+-			if (cpu_dai->xxx && cpu_dai->xxx != d.xxx) {	\
++			if (!snd_soc_dai_is_dummy(cpu_dai) &&		\
++			    cpu_dai->xxx && cpu_dai->xxx != d.xxx) {	\
+ 				dev_err(rtd->dev, "ASoC: unmatched %s symmetry: %s:%d - %s:%d\n", \
+ 					#xxx, cpu_dai->name, cpu_dai->xxx, d.name, d.xxx); \
+ 				return -EINVAL;				\
 -- 
 2.25.1
 

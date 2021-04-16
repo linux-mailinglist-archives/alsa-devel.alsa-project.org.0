@@ -2,82 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 945F9362417
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 17:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084923624B5
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 17:57:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D32B16AB;
-	Fri, 16 Apr 2021 17:37:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D32B16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8306616AA;
+	Fri, 16 Apr 2021 17:56:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8306616AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618587513;
-	bh=REA6oR45U6vMphi2HMWOwn2Q9+3w7Dj8WaZy2tX6Ez0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618588639;
+	bh=JEJzzQ+tdLRQxK9H7PGh2vMSOhSroN+byz9JFysxcq8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DqX60SjB4BiwgpQeCV5Pg6wwTec6tDhJty2dtIFmwzIiRNSmrpM1Jk38LUMST4M6P
-	 R2YIVjteOiRsQQjvyxls87H30BXoAEDm6JY2oaHEMqPFwx87kLIfWb0RSajCG1hvjx
-	 xIb96t/p7THYZuSOEVXCUZrNCq0UDSYaDVnwlqRE=
+	b=DBS65/VLfNrEFqgLhn76NryUas7YBS1Vri4Jq8HD0W6RzC7r6ouUBmnSOVKk4Vj0n
+	 LxIHAsA32CZ0lY73YUZdO0dtRhkIEenaEPMiPUjyTsItKd3+tMKKnVLMUT5kDXmy9O
+	 MAfk3JERzm6AW6qysgyA/HlN0WWUEQqUhR4eR2EY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52A12F800B9;
-	Fri, 16 Apr 2021 17:37:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBAC6F80269;
+	Fri, 16 Apr 2021 17:55:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1D67F8025B; Fri, 16 Apr 2021 17:37:01 +0200 (CEST)
+ id 7AC23F8025B; Fri, 16 Apr 2021 17:55:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34FF6F800B9
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 17:36:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34FF6F800B9
-IronPort-SDR: HBNG/0Z+d2/nhk9+nmg+h5PExCeYLmLm7FiaYC86JFAp8TkQKiH20w/TQVilgVt/FTKAqVvDpB
- vfRdXVdWh+tA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9956"; a="174549796"
-X-IronPort-AV: E=Sophos;i="5.82,226,1613462400"; d="scan'208";a="174549796"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2021 08:36:46 -0700
-IronPort-SDR: U9GDfsSjg+tKgssUKACUwQMyHzJE5+tKXtqrl9fHUETDxLeEzHEMMLe8xKr4knoaqhm7GOdGEf
- S9e0Tn4XYQOg==
-X-IronPort-AV: E=Sophos;i="5.82,226,1613462400"; d="scan'208";a="615985902"
-Received: from jaolanlo-mobl.amr.corp.intel.com (HELO [10.212.2.231])
- ([10.212.2.231])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2021 08:36:45 -0700
-Subject: Re: [PATCH v2 2/3] ASoC: rt715: remove kcontrols which no longer be
- used
-To: Mark Brown <broonie@kernel.org>
-References: <5c314f5512654aca9fff0195f77264de@realtek.com>
- <20210330170915.GH4976@sirena.org.uk>
- <cb29ed5c-44b1-c1ce-b704-8b93ac9f7a43@perex.cz>
- <3102f11c-d2bc-c53e-ac68-60628b990515@linux.intel.com>
- <5292be30-7e2d-c2f2-85ed-a1a609feb6c6@linux.intel.com>
- <20210416130738.GB5560@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <43219280-2647-184d-eb73-7bc5e561d6a3@linux.intel.com>
-Date: Fri, 16 Apr 2021 10:36:44 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8F9BF80128
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 17:55:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8F9BF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uxWk475Q"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 246AE6113D;
+ Fri, 16 Apr 2021 15:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618588539;
+ bh=JEJzzQ+tdLRQxK9H7PGh2vMSOhSroN+byz9JFysxcq8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uxWk475Q0YILN9uDHYFrNZQ8ukASmPIutEUmTOAFlTe984ffKwEEMIVVCub3ibQu0
+ KBv33XMEEdYyEE8BBnNRgIgnsAQ/7bhuLIRKoY7DC8nsino2sFLfD0tlkVZS6k/Bbp
+ cag8aUF27tY/+zPe4R1crDKp3W5QV/BvhkyhaM/FLShmEi5Xv/gHEGYFTWZBdUDfrI
+ fut3nOygjzko26A7GbnNfADKExCr3HeXcxH27I+4eiQggI5GmedKEj1JC6LLxc8pDJ
+ k2KwJMm4khokBX7Pi7YlxxCaQazItCB7f6gpYDbv+VhfJ7TMRqmHHc/he8sQvssyLm
+ 757hrI1pJqOYQ==
+Date: Fri, 16 Apr 2021 16:55:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH 1/2] ASoC: simple-card-utils: Propagate errors on too
+ many links
+Message-ID: <20210416155515.GG5560@sirena.org.uk>
+References: <20210416071147.2149109-1-thierry.reding@gmail.com>
+ <1303b932-5226-0ee6-8f41-fd896908b045@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20210416130738.GB5560@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>,
- "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="RDS4xtyBfx+7DiaI"
+Content-Disposition: inline
+In-Reply-To: <1303b932-5226-0ee6-8f41-fd896908b045@nvidia.com>
+X-Cookie: Snow Day -- stay home.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,20 +87,50 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--RDS4xtyBfx+7DiaI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 4/16/21 8:07 AM, Mark Brown wrote:
-> On Thu, Apr 15, 2021 at 04:35:14PM -0500, Pierre-Louis Bossart wrote:
-> 
->> Was there any sustained objection to this change? Mark and Jaroslav?
-> 
->> I would really like to fix the UCM files so that the mute and volume are
->> handled at the codec driver level, and not at the SOF level as it's
->> currently the case.
-> 
-> Well, you seemed to be objecting because it broke the UCM files and Jack
-> didn't reply so as far as I understand it it'll break userspace.
+On Fri, Apr 16, 2021 at 03:49:34PM +0100, Jon Hunter wrote:
+>=20
+> On 16/04/2021 08:11, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > The DAI counting code doesn't propagate errors when the number of
+> > maximum links is exceeded, which causes subsequent initialization code
+> > to continue to run and that eventually leads to memory corruption with
+> > the code trying to access memory that is out of bounds.
+> >=20
+> > Fix this by propgating errors when the maximum number of links is
+>=20
+> s/propgating/propagating
+>=20
+> > reached, which ensures that the driver fails to load and prevents the
+> > memory corruption.
+> >=20
+> > Fixes: f2138aed231c ("ASoC: simple-card-utils: enable flexible CPU/Code=
+c/Platform")
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-I guess my wording was unclear.
-No, I was not objecting, just clarifying that there will be a UCM change 
-but that's needed anyways.
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
+--RDS4xtyBfx+7DiaI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB5s2IACgkQJNaLcl1U
+h9AY5Qf/fknqCPfwrUTMIAXJVdVHFkSouCqz2DiWvpg5eePtbojW0X1Ot5RQ0Pwn
+OaDVL5DdzXQ/gVk2EOp2Piv2NNlAnKGNuEApKMhpI64XGRIgXAp32ZoTJwqHCfnV
+GEL7zMXWr0/ddIpDxnB75RRfM85U1so+KFC1zYX0MQJkr6WxQeMn5/vNxUfg8XiP
+EU63NDsfcsaklSP6CoZeFNFfqcyHbueD5ZLUAdx6tQ3g8lklzIPbVQvDMpkUz4OU
+CpC5HQbj0IZlATSPQsk5fkhv8yud+MJXH+k1YmQeRdEU5u8p00odp8FKd6uyS/+D
+bNmX4wcz08PitzQEH8IWBG0nJ6t18w==
+=tM5Y
+-----END PGP SIGNATURE-----
+
+--RDS4xtyBfx+7DiaI--

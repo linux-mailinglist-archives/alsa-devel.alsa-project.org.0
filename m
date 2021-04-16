@@ -2,80 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7151836147C
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 00:03:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F3623616B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 02:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E3051680;
-	Fri, 16 Apr 2021 00:02:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E3051680
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8C151687;
+	Fri, 16 Apr 2021 02:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8C151687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618524214;
-	bh=1GEBWCKtJnGX84QmN9ThrvruIlENLdaP0nbQSOJzbLE=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DYkUSkGpxFKELYVZoGlVii7Ob7DPKnjRl2ICNyrPDjcAKmtMGTe7DQS2kA4hxQnP/
-	 fJCv7gCh8bTbLyKa8mSIxInqao92RSwpkUUZI1lw3H6ic/l0LGnOEYrF2UCNTo2KCe
-	 MpGw1USHQXNZWQ/bQW+J7HrdGLq7TMmP1UidQUxQ=
+	s=default; t=1618532260;
+	bh=aHHNpXKQo6V9cBuhSaHGmdQiekdDiWosgxqfN594ViA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GqgmdLkR3oAqJRmCoDWJW1CSpzoohB/nbGPzpExRN6/8OL6SeRAyquDFWqQ+TgHp+
+	 flKqL0BikF2im4TnIa23296Qua/UWrw6um3fnnWuStOiAlx9H+sEIp2L+SMxlhC0P3
+	 ybO4nqVIFyfgWlQXMtoplw0Pb6i0gK3TS6HEQIp4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4545F8021D;
-	Fri, 16 Apr 2021 00:02:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 180A6F8021D;
+	Fri, 16 Apr 2021 02:16:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5CACF8023A; Fri, 16 Apr 2021 00:02:39 +0200 (CEST)
+ id A685FF8022B; Fri, 16 Apr 2021 02:16:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1488F800FF
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 00:02:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1488F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=philcalvin.com header.i=phil@philcalvin.com
- header.b="hNXES7PI"
-ARC-Seal: i=1; a=rsa-sha256; t=1618524094; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=QRH6jvQ9zcMqP4YfnkSChT71EdhGGdtfv8/ZohCBC4TDhrNgjMyvK1dD22HggkemwwqI/ucCY3zALgQEbKvngJD/Z4jNfJzB7tqWsT8KGKRm3bznnhYIyaB7GMCn4rpeRcrW1XsoHFYENW2HpUyBiYMVJUsPMFaibupjPyO/C3w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1618524094;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
- bh=TGOSFHb+P/Do+Ew/0mR7ONdOpFz+fzua4IoRI3NmKH0=; 
- b=ZLEkVFqONVPnqWmRKbyexlqKccEt2BuJCTzH0dCshltpKHJVJFeyahYb4eGq5BXbqtUWbYwov5IRs7q5fddVgxilu6F2BmgQ4jbVKV6y4DdhO8WfuGNnvCR+5F7ATrsmNOR29n+fP76QnQP/jDzLd7WmToZjiMBE+LCuD/LwBWo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=philcalvin.com;
- spf=pass  smtp.mailfrom=phil@philcalvin.com;
- dmarc=pass header.from=<phil@philcalvin.com> header.from=<phil@philcalvin.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1618524094; 
- s=default; d=philcalvin.com; i=phil@philcalvin.com;
- h=From:Subject:To:Cc:Message-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding;
- bh=TGOSFHb+P/Do+Ew/0mR7ONdOpFz+fzua4IoRI3NmKH0=;
- b=hNXES7PI6JdODW/EMwzR1kyqY4DEBULyN1KGbxOLsOAT9LdXE+TuxLehcayCylRc
- TemUCmqAbMnDrEwx/6z9aNwiYh3PY/ypU0z885RXhN1CoS5vfRDFg59U2H/GFTKbYUJ
- WPaYkXOGAxfMWVV9v9vXrmfPf2jkfW7MTAz9N5fk=
-Received: from [192.168.1.11] (pool-100-33-69-201.nycmny.fios.verizon.net
- [100.33.69.201]) by mx.zohomail.com
- with SMTPS id 1618524090022465.222480064106;
- Thu, 15 Apr 2021 15:01:30 -0700 (PDT)
-From: Phil Calvin <phil@philcalvin.com>
-Subject: [PATCH 1/1] ALSA: hda/realtek: fix mic boost on Intel NUC 8
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Message-ID: <80dc5663-7734-e7e5-25ef-15b5df24511a@philcalvin.com>
-Date: Thu, 15 Apr 2021 18:01:29 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-Cc: alsa-devel@alsa-project.org
+X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 4A2F2F800ED
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 02:16:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2F2F800ED
+Date: 16 Apr 2021 09:15:58 +0900
+X-IronPort-AV: E=Sophos;i="5.82,226,1613401200"; d="scan'208";a="78221306"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 16 Apr 2021 09:15:58 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4F4F440083FB;
+ Fri, 16 Apr 2021 09:15:58 +0900 (JST)
+Message-ID: <875z0nythd.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: soc-pcm: fixup soc_pcm_params_symmetry()
+In-Reply-To: <20210415153728.GE5514@sirena.org.uk>
+References: <87a6q0z4xt.wl-kuninori.morimoto.gx@renesas.com>
+ <878s5kysji.wl-kuninori.morimoto.gx@renesas.com>
+ <20210415153728.GE5514@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,72 +69,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix two bugs with the Intel HDA Realtek ALC233 sound codec
-present in Intel NUC NUC8i7BEH and probably a few other similar
-NUC models.
 
-These codecs advertise a 4-level microphone input boost amplifier on
-pin 0x19, but the highest two boost settings do not work correctly,
-and produce only low analog noise that does not seem to contain any
-discernible signal. There is an existing fixup for this exact problem
-but for a different PCI subsystem ID, so we re-use that logic.
+Hi Mark
 
-Changing the boost level also triggers a DC spike in the input signal
-that bleeds off over about a second and overwhelms any input during
-that time. Thankfully, the existing fixup has the side effect of
-making the boost control show up in userspace as a mute/unmute switch,
-and this keeps (e.g.) PulseAudio from fiddling with it during normal
-input volume adjustments.
+Thank you for your feedback
 
-Finally, the NUC hardware has built-in inverted stereo mics. This
-patch also enables the usual fixup for this so the two channels cancel
-noise instead of the actual signal.
+> > 	symmetric_rate		: DAI_Link / CPU / Codec (B)
+> > 	symmetric_channels	: DAI_Link / CPU / Codec (B)
+> > 	symmetric_sample_bits	: DAI_Link / CPU / Codec (B)
+> 
+> Right, this is what I'd expect.
 
-Signed-off-by: Phil Calvin <phil@philcalvin.com>
+Yes, I agree
+
+> > Does this issue had been happen since older versoin ??
+> > 
+> > 	# aplay 44100.wav
+> > 	# aplay 44100.wav
+> > =>	[kernel] be.ak4613-hifi: ASoC: unmatched rate symmetry: 44100 - 48000
+> > 	[kernel] be.ak4613-hifi: ASoC: hw_params BE failed -22
+
+I confirmed. Unfortunately there was copy miss (= bug) on
+soc_pcm_params_symmetry() (= A) which didn't check Codec.
+But is back by (B).
+
+	A: v5.7:  commit c840f7698d26 ("ASoC: soc-pcm: Merge for_each_rtd_cpu/codec_dais()")
+	B: v5.12: commit 3a9067211122 ("ASoC: soc-pcm: cleanup soc_pcm_params_symmetry()")
+
+In total,
+old - v5.6 (= Generation-1):
+
+	symmetric_rate		: DAI_Link / CPU / Codec
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+v5.7 - v5.11 (= Generation-2): (= because of bug by (A))
+
+	symmetric_rate		: DAI_Link / CPU
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+v5.12 - (= Generation-3): (= back by (B))
+
+	symmetric_rate		: DAI_Link / CPU / Codec
+	symmetric_channels	: DAI_Link / CPU / Codec
+	symmetric_sample_bits	: DAI_Link / CPU / Codec
+
+Because of these, Generation-1 / Generation-3 have DPCM issue
+if it was..
+	1) using .be_hw_params_fixup
+	2) exchanged BE's rate
+
+The issue is below. I didn't confirm but maybe same things happen
+if .be_hw_params_fixup exchanged channels/sample_bits, I guess.
+
+	# aplay 44100.wav
+	# aplay 44100.wav
+=>	[kernel] be.ak4613-hifi: ASoC: unmatched rate symmetry: 44100 - 48000
+	[kernel] be.ak4613-hifi: ASoC: hw_params BE failed -22
+	...
+
+> I think this is something that gets confused by DPCM breaking
+> assumptions :/ .  Not sure if *ignoring* the dummy DAI is the best
+> option though, the general way the dummy works is that it has extremely
+> loose constraints so it ends up not restricting anything else it gets
+> paired with but then the dummy DAI might end up in multiple links.
+
+Ignoring dummy-DAI is not so bad idea,
+and it is possible to lose any constraints, I think.
+soc_probe_component() is also ignoring it.
+
+	static int soc_probe_component(...)
+	{
+		...
+=>		if (!strcmp(component->name, "snd-soc-dummy"))
+			return 0;
+		...
+	}
+
+> Is it a case of needing a fixup function, or special handling if a fixup
+> function is there?
+
+Above issue will gone if soc_pcm_params_symmetry() didn't check
+dummy-DAI's rate/channels/sample_bits.
+I will post the patches.
+
+Thank you for your help !!
+
+Best regards
 ---
-  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
-  1 file changed, 13 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 58946d069ee5..e1fd4c81965a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6405,6 +6405,8 @@ enum {
-  	ALC269_FIXUP_LEMOTE_A1802,
-  	ALC269_FIXUP_LEMOTE_A190X,
-  	ALC256_FIXUP_INTEL_NUC8_RUGGED,
-+	ALC233_FIXUP_INTEL_NUC8_DMIC,
-+	ALC233_FIXUP_INTEL_NUC8_BOOST,
-  	ALC256_FIXUP_INTEL_NUC10,
-  	ALC255_FIXUP_XIAOMI_HEADSET_MIC,
-  	ALC274_FIXUP_HP_MIC,
-@@ -7122,6 +7124,16 @@ static const struct hda_fixup alc269_fixups[] = {
-  		.type = HDA_FIXUP_FUNC,
-  		.v.func = alc233_fixup_lenovo_line2_mic_hotkey,
-  	},
-+	[ALC233_FIXUP_INTEL_NUC8_DMIC] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_inv_dmic,
-+		.chained = true,
-+		.chain_id = ALC233_FIXUP_INTEL_NUC8_BOOST,
-+	},
-+	[ALC233_FIXUP_INTEL_NUC8_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc269_fixup_limit_int_mic_boost
-+	},
-  	[ALC255_FIXUP_DELL_SPK_NOISE] = {
-  		.type = HDA_FIXUP_FUNC,
-  		.v.func = alc_fixup_disable_aamix,
-@@ -8265,6 +8277,7 @@ static const struct snd_pci_quirk 
-alc269_fixup_tbl[] = {
-  	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
-  	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
-  	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", 
-ALC256_FIXUP_INTEL_NUC8_RUGGED),
-+	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", 
-ALC233_FIXUP_INTEL_NUC8_DMIC),
-  	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
-   #if 0
--- 
-2.30.2
-
+Kuninori Morimoto

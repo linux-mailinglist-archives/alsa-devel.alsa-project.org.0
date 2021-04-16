@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFF64361E1B
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 12:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F4C361E29
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 12:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6504B1686;
-	Fri, 16 Apr 2021 12:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6504B1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13F72168E;
+	Fri, 16 Apr 2021 12:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13F72168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618569655;
-	bh=/n7jOlkwiAZmgzzlzSSrFVBdxkXRvD/i1U3zgwKzPsY=;
+	s=default; t=1618569822;
+	bh=6hV2oFjHKpt3q9ZhHr2dzut9PvecyqFDk91aZxfwZRo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VZ1IQnKoloBksv3ZHx8EToVuixlYZSkORAq3nM82RTHzMTtLI/G1k9woeTQ0rV0ve
-	 mXjSPVhGpru7Ms599asTDMhzB1wYsFCD2xBQSy/W3Jh3Z9MHgVN9fNrvdLvVcC7jtV
-	 ZsrSpOgkKr9LNYeFfK1jwIXFaznO8FgH8J1pVpg8=
+	b=EdSi6O+/tiD7jlzyH7jDbGH4vJbdVpRBNuFJ7wZGRtGJFM8dTbFGsgShqgVEy9ECO
+	 vH385wmbNu1HKp1yNqZ7oFrZk5BeZ4Ag1hyRlStgDMa6GGcgMy6tr0n3c1VTTtl3Rs
+	 u3bEze4S7N8mOLL+ag3VbwYm8V4xeQbbgh0yuRak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9CF9F800FF;
-	Fri, 16 Apr 2021 12:39:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F30DF80269;
+	Fri, 16 Apr 2021 12:42:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5CD7F8025B; Fri, 16 Apr 2021 12:39:24 +0200 (CEST)
+ id 60423F80269; Fri, 16 Apr 2021 12:42:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EB5EF80128
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 12:39:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EB5EF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7096BF800FF
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 12:41:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7096BF800FF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 28A35AFC9;
- Fri, 16 Apr 2021 10:39:11 +0000 (UTC)
-Date: Fri, 16 Apr 2021 12:39:11 +0200
-Message-ID: <s5hmttyqzsg.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 59572AFEC;
+ Fri, 16 Apr 2021 10:41:57 +0000 (UTC)
+Date: Fri, 16 Apr 2021 12:41:57 +0200
+Message-ID: <s5hlf9iqznu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Yang Li <yang.lee@linux.alibaba.com>
-Subject: Re: [PATCH] ALSA: isa: Fix inconsistent indenting
-In-Reply-To: <1618567198-5120-1-git-send-email-yang.lee@linux.alibaba.com>
-References: <1618567198-5120-1-git-send-email-yang.lee@linux.alibaba.com>
+Subject: Re: [PATCH] ALSA: seq: oss: Fix inconsistent indenting
+In-Reply-To: <1618567244-5704-1-git-send-email-yang.lee@linux.alibaba.com>
+References: <1618567244-5704-1-git-send-email-yang.lee@linux.alibaba.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,39 +68,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Apr 2021 11:59:58 +0200,
+On Fri, 16 Apr 2021 12:00:44 +0200,
 Yang Li wrote:
 > 
 > Kernel test robot throws below warning ->
 > 
 > smatch warnings:
-> sound/isa/opti9xx/opti92x-ad1848.c:191 snd_opti9xx_init() warn:
+> sound/core/seq/oss/seq_oss_event.c:297 note_on_event() warn:
 > inconsistent indenting
-> sound/isa/opti9xx/opti92x-ad1848.c:488 snd_opti9xx_init() warn:
-> inconsistent indenting
+> 
+> Fixed the inconsistent indenting.
 > 
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 > Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 > ---
->  sound/isa/opti9xx/opti92x-ad1848.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  sound/core/seq/oss/seq_oss_event.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/isa/opti9xx/opti92x-ad1848.c b/sound/isa/opti9xx/opti92x-ad1848.c
-> index 08e61d9..234f023 100644
-> --- a/sound/isa/opti9xx/opti92x-ad1848.c
-> +++ b/sound/isa/opti9xx/opti92x-ad1848.c
-> @@ -188,7 +188,7 @@ static int snd_opti9xx_init(struct snd_opti9xx *chip,
->  		chip->mc_base_size = opti9xx_mc_size[hardware];
->  	}
->  #else
-> -		chip->mc_base_size = opti9xx_mc_size[hardware];
-> +	chip->mc_base_size = opti9xx_mc_size[hardware];
->  #endif
+> diff --git a/sound/core/seq/oss/seq_oss_event.c b/sound/core/seq/oss/seq_oss_event.c
+> index 7b7c925..9a42713 100644
+> --- a/sound/core/seq/oss/seq_oss_event.c
+> +++ b/sound/core/seq/oss/seq_oss_event.c
+> @@ -294,7 +294,7 @@
+>  				/* set volume to zero -- note off */
+>  			//	type = SNDRV_SEQ_EVENT_NOTEOFF;
+>  			//else
+> -				if (info->ch[ch].vel)
+> +			if (info->ch[ch].vel)
+>  				/* sample already started -- volume change */
+>  				type = SNDRV_SEQ_EVENT_KEYPRESS;
 
-No, it's not correct.
-
-The ifdef is a bit tricky here but the line you changed belongs
-to the else section.
+The line was aligned with the commented if block.
+If any, we should rather clean up and re-format the whole block.
+(But, OTOH, you shouldn't remove the stuff without understanding
+the context.)
 
 
 thanks,

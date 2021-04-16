@@ -2,82 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 293B0362090
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 15:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812163620BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 15:18:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEFBB1692;
-	Fri, 16 Apr 2021 15:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFBB1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F7231693;
+	Fri, 16 Apr 2021 15:17:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F7231693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618578584;
-	bh=UTAhMDefpPwTNtTdGhAFmEmBU4bzX4WrC/sk0G+g9/I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iB978gbc6JbxNQm9kYWySUDNef+3wN+TvruaN+cCcgB00hVIliGtFi532PdOTbFu8
-	 jOlvJzDOY2h/NcdBiEodABj75Ev4dLnJlg17+iePlrth9LxvOFmLQmR5DrKLT2lXW/
-	 cB+bDZ9BOBBFTFPtjoryrREiZw/cjL/+TYhwWHhk=
+	s=default; t=1618579098;
+	bh=/qXHzwwFLnxUE2t5VFNrnZAPJRwO6P+HBQTEG4UDp+k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Bg6HmEidGAul2WzfKEBC8lpiEiRdi8TjYy+Zw0Q6ViyQ1qb62B7gEDF759LezGpSm
+	 eZFS9FHdLxw1qNZZRfQv5Fa1fNFQrbI4eixC9j9YrpM/Ij/3XivtPcYCV3Hhz50Pnw
+	 XUy7kLi32nNEy1cpFq9sjr1//r7zt6IaP7uzUNxg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED528F800FF;
-	Fri, 16 Apr 2021 15:08:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66C7AF80269;
+	Fri, 16 Apr 2021 15:16:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2935BF8025B; Fri, 16 Apr 2021 15:08:12 +0200 (CEST)
+ id E27A4F8025B; Fri, 16 Apr 2021 15:16:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07A5DF80128
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 15:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A5DF80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B9YHXZ0I"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6847161107;
- Fri, 16 Apr 2021 13:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618578483;
- bh=UTAhMDefpPwTNtTdGhAFmEmBU4bzX4WrC/sk0G+g9/I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B9YHXZ0IpPuCaFb4kax+qXqdxLlHQQzZ5vCwLWxdUlBAvV0zdPXZWlGqIC1Px1EBo
- 69rZKY3ibk2LP5/yKuPiXWn9SutEpowhsOMiKHD/Dl+YDODLOkZZKr6om4CD7I2/MB
- RglbL6CtxRy0wkJJAjhAAXFovBeqUNOan8JpGFGWWlkSCelSTB91w9YoQevTe3mXaz
- ICp+46n3QhZvfhYZzebUPw16U/u4OBf8aBAhuoV737Y8AjrhiYF8vLEj1coIhrANcg
- +R8dt3NdKM7nOlkUsY+DySy+pnNMzw7v4edQr3Nm5malzACy4eVyc8itsOXRFVCMkD
- 7niYEkRIEm0BQ==
-Date: Fri, 16 Apr 2021 14:07:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] ASoC: rt715: remove kcontrols which no longer be
- used
-Message-ID: <20210416130738.GB5560@sirena.org.uk>
-References: <5c314f5512654aca9fff0195f77264de@realtek.com>
- <20210330170915.GH4976@sirena.org.uk>
- <cb29ed5c-44b1-c1ce-b704-8b93ac9f7a43@perex.cz>
- <3102f11c-d2bc-c53e-ac68-60628b990515@linux.intel.com>
- <5292be30-7e2d-c2f2-85ed-a1a609feb6c6@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C07EF800FF
+ for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 15:16:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C07EF800FF
+IronPort-SDR: Cfj31Zz2CEcYqYAqRk57m76SKYS6wjPBQwf3LAWirSCakMubOf1NGRd1dkk5PWzl8pTBWUVrer
+ puopIRYNYARQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="215572183"
+X-IronPort-AV: E=Sophos;i="5.82,226,1613462400"; d="scan'208";a="215572183"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2021 06:16:34 -0700
+IronPort-SDR: ivFcIRjSGrnfvh3vHa6k8zve9wP0teTpULrMIlpsympue15Cti0L6fyoC8/Xu5dxorEPkt9XkO
+ DLFLWB2rRKqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,226,1613462400"; d="scan'208";a="384319780"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga006.jf.intel.com with ESMTP; 16 Apr 2021 06:16:32 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH v2] ALSA: hda/hdmi: fix race in handling acomp ELD
+ notification at resume
+Date: Fri, 16 Apr 2021 16:11:57 +0300
+Message-Id: <20210416131157.1881366-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="H1spWtNR+x+ondvy"
-Content-Disposition: inline
-In-Reply-To: <5292be30-7e2d-c2f2-85ed-a1a609feb6c6@linux.intel.com>
-X-Cookie: Snow Day -- stay home.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>,
- Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,35 +74,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+When snd-hda-codec-hdmi is used with ASoC HDA controller like SOF (acomp
+used for ELD notifications), display connection change done during suspend,
+can be lost due to following sequence of events:
 
---H1spWtNR+x+ondvy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+  1. system in S3 suspend
+  2. DP/HDMI receiver connected
+  3. system resumed
+  4. HDA controller resumed, but card->deferred_resume_work not complete
+  5. acomp eld_notify callback
+  6. eld_notify ignored as power state is not CTL_POWER_D0
+  7. HDA resume deferred work completed, power state set to CTL_POWER_D0
 
-On Thu, Apr 15, 2021 at 04:35:14PM -0500, Pierre-Louis Bossart wrote:
+This results in losing the notification, and the jack state reported to
+user-space is not correct.
 
-> Was there any sustained objection to this change? Mark and Jaroslav?
+The check on step 6 was added in commit 8ae743e82f0b ("ALSA: hda - Skip
+ELD notification during system suspend"). It would seem with the deferred
+resume logic in ASoC core, this check is not safe.
 
-> I would really like to fix the UCM files so that the mute and volume are
-> handled at the codec driver level, and not at the SOF level as it's
-> currently the case.
+Fix the issue by modifying the check to use "dev.power.power_state.event"
+instead of ALSA specific card power state variable.
 
-Well, you seemed to be objecting because it broke the UCM files and Jack
-didn't reply so as far as I understand it it'll break userspace.
+BugLink: https://github.com/thesofproject/linux/issues/2825
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/pci/hda/patch_hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---H1spWtNR+x+ondvy
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes for V2:
+ - use codec->core.dev.power.power_state.event instead of card state
+ - verified on multiple systems and confirmed that checking for
+   PM_EVENT_ON is not sufficient -- when resuming from S3, 
+   state can be PM_EVENT_RESUME at eld_notify, and if notification is 
+   ignored in this case, the original bugis hit (monitor state upon resume
+   is lost)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 5de3666a7101..4b2cc8cb55c4 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2654,7 +2654,7 @@ static void generic_acomp_pin_eld_notify(void *audio_ptr, int port, int dev_id)
+ 	/* skip notification during system suspend (but not in runtime PM);
+ 	 * the state will be updated at resume
+ 	 */
+-	if (snd_power_get_state(codec->card) != SNDRV_CTL_POWER_D0)
++	if (codec->core.dev.power.power_state.event == PM_EVENT_SUSPEND)
+ 		return;
+ 	/* ditto during suspend/resume process itself */
+ 	if (snd_hdac_is_in_pm(&codec->core))
+@@ -2840,7 +2840,7 @@ static void intel_pin_eld_notify(void *audio_ptr, int port, int pipe)
+ 	/* skip notification during system suspend (but not in runtime PM);
+ 	 * the state will be updated at resume
+ 	 */
+-	if (snd_power_get_state(codec->card) != SNDRV_CTL_POWER_D0)
++	if (codec->core.dev.power.power_state.event == PM_EVENT_SUSPEND)
+ 		return;
+ 	/* ditto during suspend/resume process itself */
+ 	if (snd_hdac_is_in_pm(&codec->core))
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB5jBoACgkQJNaLcl1U
-h9B12Af+KRD0beWTLIp8I6aMPpy8Tze3mB5t3m//adcL1GfnMgDATXn+/wojjuM3
-cWWdNjWkjUqtL0HWwqj5HU14qOT9v6xZ1Ipg1BFmrxS8oFH9Y6SLTVYBOzGga3oX
-fJM2FNdslyYGhWXHHaDBfoIaJrbxIjkJlpsdilej6ZYOcu7iTkMiKqNu7pNWj0WK
-YcJ4/ZRhZ8J9buoU6fKTjk/lJftWvK2d5qx7VVCqz4HRkzhjZPszEnhozc289kRZ
-BuWxG9CWHcSxW4rXozRm+zAsWtKv+l3Vv4kd/m9WpE9+ofq1negUWLzqWrY+HfF3
-y5tVpjRJHunQUoNqL3ygkkwA5WneKg==
-=PF4/
------END PGP SIGNATURE-----
+base-commit: 1867068c322ea7a627fde8d947a9e40db32816a4
+-- 
+2.31.0
 
---H1spWtNR+x+ondvy--

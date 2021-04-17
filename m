@@ -2,80 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E1EB3628D2
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Apr 2021 21:41:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21E02362E79
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Apr 2021 10:11:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0190916F7;
-	Fri, 16 Apr 2021 21:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0190916F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E1081687;
+	Sat, 17 Apr 2021 10:10:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E1081687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618602068;
-	bh=xG3Vw5PJm1M0X9ootQB/NIPL+ZYZPPqD3eUKnIz+/GE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1618647076;
+	bh=Eu1sdl+rBfC1nQrRDnqNyvsiQjvbyrQvBLh7soPINh0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JeMTLp2gPkzl5hXDIFPYzim0VONxSIHsILfSicVF7QecMx552thM+BGaxqiIo7sA2
-	 0osHxMxahfejyNspqWva6pjRaPYWy9OQhXTmmiMPzzxyDKf9YCFI5D0QKmz9sZvkSY
-	 peNCZdbLJP5RWQip1M0XhN+WhHi2/gJRiAuzCNow=
+	b=rbUCjY68EMOMR4xItgLISvJ4bvFlO7pc6AABkU/IIFo3C6O1uIIsX1Wq6jN3O/9BJ
+	 924gs9X7ZOdH/7HaDzE7zpJNbIIBSnea/sTUCXG4TeG7ZvBWYCr8yplSMBpG/FWAs7
+	 GFsczac9ZU5KK6LqBjXVxsH/5J8FGLOiRB+ce7kU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68881F80128;
-	Fri, 16 Apr 2021 21:39:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5194F8022D;
+	Sat, 17 Apr 2021 10:09:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40C3BF8025B; Fri, 16 Apr 2021 21:39:37 +0200 (CEST)
+ id D38C7F8022B; Sat, 17 Apr 2021 10:09:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB516F800B9
- for <alsa-devel@alsa-project.org>; Fri, 16 Apr 2021 21:39:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB516F800B9
-IronPort-SDR: htO3FkUm7QcnuTvgTzzm0sZBS5Pc2R2VDo4oRGarzieuJw4KIhQn1MlI2kElCoNCkmkl58XGxK
- tF7pp1sdv5yA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9956"; a="191906415"
-X-IronPort-AV: E=Sophos;i="5.82,228,1613462400"; d="scan'208";a="191906415"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2021 12:39:27 -0700
-IronPort-SDR: TgYFmc1TUDQHE1/z0EdC61yKFSvMHL4BM/zw1xlFAfqE10/PxRQ7Cr3rgOxqfx8BZJ4e0upa3K
- azOAIRmfVJ2Q==
-X-IronPort-AV: E=Sophos;i="5.82,228,1613462400"; d="scan'208";a="453452132"
-Received: from ganeshsu-mobl.amr.corp.intel.com (HELO [10.254.191.217])
- ([10.254.191.217])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2021 12:39:27 -0700
-Subject: Re: [RFC PATCH 0/3] Separate BE DAI HW constraints from FE ones
-To: Mark Brown <broonie@kernel.org>
-References: <20210323114327.3969072-1-codrin.ciubotariu@microchip.com>
- <a0c862ec-44ba-52e0-551c-0347166ac4e9@perex.cz>
- <5e1fb981-48c1-7d5a-79a6-ba54bac26165@microchip.com>
- <4f401536-5a66-0d65-30cb-7ecf6b235539@microchip.com>
- <20210415161743.GH5514@sirena.org.uk>
- <1aff49d4-5691-67cb-3fe7-979d476f1edb@microchip.com>
- <20210415172554.GI5514@sirena.org.uk>
- <ad5d556b-601f-c6f6-347e-86a235237c02@microchip.com>
- <20210416163131.GI5560@sirena.org.uk>
- <79161044-26b2-729a-b831-b79cc238e239@linux.intel.com>
- <20210416185538.GK5560@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <dfcf8b69-6ede-7344-79c0-cb572e03359c@linux.intel.com>
-Date: Fri, 16 Apr 2021 14:39:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210416185538.GK5560@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, gustavoars@kernel.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, Codrin.Ciubotariu@microchip.com,
- mirq-linux@rere.qmqm.pl
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BCD9F80152
+ for <alsa-devel@alsa-project.org>; Sat, 17 Apr 2021 10:09:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BCD9F80152
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 88381AF2F;
+ Sat, 17 Apr 2021 08:09:40 +0000 (UTC)
+Date: Sat, 17 Apr 2021 10:09:40 +0200
+Message-ID: <s5hy2dhfi2j.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas <jaffa225man@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Add support for many Roland devices'
+ implicit feedback quirks
+In-Reply-To: <CAOsVg8rA61B=005_VyUwpw3piVwA7Bo5fs1GYEB054efyzGjLw@mail.gmail.com>
+References: <CAOsVg8rA61B=005_VyUwpw3piVwA7Bo5fs1GYEB054efyzGjLw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,48 +70,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 4/16/21 1:55 PM, Mark Brown wrote:
-> On Fri, Apr 16, 2021 at 11:47:01AM -0500, Pierre-Louis Bossart wrote:
->> On 4/16/21 11:31 AM, Mark Brown wrote:
+On Fri, 16 Apr 2021 18:50:20 +0200,
+Lucas wrote:
 > 
->>> Not really written down that I can think of.  I think the next steps
->>> that I can think of right now are unfortunately bigger and harder ones,
->>> mainly working out a way to represent digital configuration as a graph
->>> that can be attached to/run in parallel with DAPM other people might
->>> have some better ideas though.  Sorry, I appreciate that this isn't
->>> super helpful :/
+> It makes USB audio capture and playback possible and pristine on my Roland
+> INTEGRA-7, Boutique D-05, and R-26, along with many more I've encountered
+> people having had issues with over the last decade or so.
 > 
->> I see a need for this in our future SoundWire/SDCA work. So far I was
->> planning to model the entities as 'widgets' and lets DAPM propagate
->> activation information for power management, however there are also bits of
->> information in 'Clusters' (number of channels and spatial relationships)
->> that could change dynamically and would be interesting to propagate across
->> entities, so that when we get a stream of data on the bus we know what it
->> is.
+> Signed-off-by: Lucas Endres <jaffa225man@gmail.com>
+
+Thanks, now applied manually as it seems your MUA deformed the patch
+somehow.
+
+Yeah, that's a lengthy list, and let's take it as is for now, just to
+check whether this makes nothing wrong for each item.  Later on, we
+can clean up the quirk entries with a more generic matching.  Judging
+from the number of entries, I guess we can assume all Edirol / BOSS
+devices are always with the capture quirk, for example.
+
+
+Takashi
+
 > 
-> Yes, I was thinking along similar lines last time I looked at it - I was
-> using the term digital domains.  You'd need some impedence matching
-> objects for things like SRCs, and the ability to flag which
-> configuration matters within a domain (eg, a lot of things will covert
-> to the maximum supported bit width for internal operation so bit width
-> only matters on external interfaces) but I think for a first pass we can
-> get away with forcing everything other than what DPCM has as front ends
-> into static configurations.
-
-You lost me on the last sentence. did you mean "forcing everything into 
-static configurations except for what DPCM has as front-ends"?
-
-It may already be too late for static configurations, Intel, NXP and 
-others have started to enable cases where the dailink configuration varies.
-
-FWIW both the USB and SDCA class document are very careful with the 
-notion of constraints and whether an entity is implemented in the analog 
-or digital domains. There are 'clock sources' that may be used in 
-specific terminals but no notion of explicit SRC in the graph to leave 
-implementers a lot of freedom. There is a notion of 'Usage' that 
-describes e.g. FullBand or WideBand without defining what the 
-representation is. The bit width is also not described except where 
-necessary (history buffers and external bus-facing interfaces). Like you 
-said it's mostly the boundaries of the domains that matter.
+> ---
+> diff -Nurp linux-5.11.9.orig-2021-04-13/sound/usb/implicit.c
+> linux-5.11.9.roland1/sound/usb/implicit.c
+> --- linux-5.11.9.orig-2021-04-13/sound/usb/implicit.c 2021-04-13
+> 14:23:34.743782890 -0500
+> +++ linux-5.11.9.roland1/sound/usb/implicit.c 2021-04-15 19:35:20.053444538
+> -0500
+> @@ -79,13 +79,72 @@ static const struct snd_usb_implicit_fb_
+>  
+>  /* Implicit feedback quirk table for capture: only FIXED type */
+>  static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[] =
+> {
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a6, 0x0d, 0x01), /* Roland JUNO-G */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a9, 0x0d, 0x01), /* Roland MC-808 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ad, 0x0d, 0x01), /* Roland SH-201 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00b2, 0x0d, 0x01), /* Roland VG-99 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00b3, 0x0d, 0x01), /* Roland VG-99 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c2, 0x0d, 0x01), /* Roland SonicCell */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c4, 0x0d, 0x01), /* Edirol M-16DX */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c5, 0x0d, 0x01), /* Roland SP-555 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00c7, 0x0d, 0x01), /* Roland V-Synth GT */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00d1, 0x0d, 0x01), /* Roland Music Atelier *
+> /
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00da, 0x0d, 0x01), /* BOSS GT-10 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00db, 0x0d, 0x01), /* BOSS GT-10 Guitar
+> Effects Processor */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00dc, 0x0d, 0x01), /* BOSS GT-10B */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00de, 0x0d, 0x01), /* Roland Fantom-G */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00eb, 0x0d, 0x01), /* Roland VS-100 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00f8, 0x0d, 0x01), /* Roland JUNO Series */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00fc, 0x0d, 0x01), /* Roland VS-700C */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00fd, 0x0d, 0x01), /* Roland VS-700 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00fe, 0x0d, 0x01), /* Roland VS-700 M1 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ff, 0x0d, 0x01), /* Roland VS-700 M2 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0100, 0x0d, 0x01), /* Roland VS-700 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0101, 0x0d, 0x01), /* Roland VS-700 M2 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0102, 0x0d, 0x01), /* Roland VB-99 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x0109, 0x0d, 0x01), /* BOSS eBand JS-8 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x0111, 0x0d, 0x01), /* Roland GAIA SH-01 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0113, 0x0d, 0x01), /* BOSS ME-25 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0114, 0x0d, 0x01), /* Roland SD-50 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0117, 0x0d, 0x01), /* Roland VS-20 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0119, 0x0d, 0x01), /* Roland OCTAPAD SPD-30
+> */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x011c, 0x0d, 0x01), /* Roland Lucina AX-09 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x011e, 0x0d, 0x01), /* BOSS BR-800 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0120, 0x0d, 0x01), /* Roland OCTA-CAPTURE */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0121, 0x0d, 0x01), /* Roland OCTA-CAPTURE */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0123, 0x0d, 0x01), /* Roland JUNO-Gi */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0124, 0x0d, 0x01), /* Roland M-300 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x0127, 0x0d, 0x01), /* Roland GR-55 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x012b, 0x0d, 0x01), /* Roland DUO-CAPTURE */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x012f, 0x0d, 0x01), /* Roland QUAD-CAPTURE */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x0130, 0x0d, 0x01), /* BOSS BR-80 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0132, 0x0d, 0x01), /* Roland TRI-CAPTURE */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0134, 0x0d, 0x01), /* Roland V-Mixer */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0137, 0x0d, 0x01), /* Roland DUO-CAPTURE
+> Advanced Mode*/
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x0138, 0x0d, 0x01), /* BOSS RC-300 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x013a, 0x0d, 0x01), /* Roland JUPITER-80 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x013e, 0x0d, 0x01), /* Roland R-26 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0145, 0x0d, 0x01), /* Roland SPD-SX */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x014b, 0x0d, 0x01), /* BOSS eBand JS-10 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x014d, 0x0d, 0x01), /* BOSS GT-100 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0150, 0x0d, 0x01), /* Roland TD-15 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0151, 0x0d, 0x01), /* Roland TD-11 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0154, 0x0d, 0x01), /* Roland JUPITER-50 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0158, 0x0d, 0x01), /* Roland TD-30 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x0159, 0x0d, 0x01), /* Roland DUO-CAPTURE EX
+> */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x015b, 0x0d, 0x01), /* Roland INTEGRA-7 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x015d, 0x0d, 0x01), /* Roland R-88 */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x0171, 0x0d, 0x01), /* BOSS RC-505 */
+> + IMPLICIT_FB_FIXED_DEV(0x0582, 0x017a, 0x0d, 0x01), /* Roland VT-3 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x017c, 0x0d, 0x01), /* Roland TR-8 */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x0185, 0x0d, 0x01), /* BOSS GP-10 */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x0189, 0x0d, 0x01), /* BOSS GT-100v2 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x01b5, 0x0d, 0x01), /* Roland Boutique JP-08 *
+> /
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x01d6, 0x0d, 0x01), /* BOSS GT-1 */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x01d8, 0x0d, 0x01), /* BOSS Katana */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x01e5, 0x0d, 0x01), /* BOSS GT-001 */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x01fd, 0x0d, 0x01), /* Roland Boutique SH-01A
+> */
+> + IMPLICIT_FB_BOTH_DEV(0x0582, 0x01ff, 0x0d, 0x01), /* Roland Boutique D-05 */
+>   IMPLICIT_FB_BOTH_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
+>  
+>   {} /* terminator */
+> 
+> 

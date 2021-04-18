@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73DB93635B9
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 15:50:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38F0F3635B2
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 15:49:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 012D416A8;
-	Sun, 18 Apr 2021 15:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 012D416A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D454E1689;
+	Sun, 18 Apr 2021 15:48:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D454E1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618753810;
-	bh=1CjRm5ecSlygOf9UWKFV6kZydosGPNtVOybVRYxAbao=;
+	s=default; t=1618753781;
+	bh=ZI5QQ/bbj3QBa/D0oJ4bsx8wq8DGJ1ndYzD2xNPE/WU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XMZhioPTIjfZZqgVpOnk1C1Ppu6AFAPTH1fT3z+OWsLuYl/lMOGUmC+kARV8DPy0c
-	 ulGdv2ujfYdboPwMN7omZm1AzIIqhduTX91bieDand7ENP/jrmAvurb/5/fZUV+nWv
-	 8GfWYGXJawRBOWvu+OmiCH7OLoa7JFqWWplWbiPw=
+	b=B4pLOU+0240KuCVAiJmpQuxLP5VkV6kw926rq5xtL7FG3zl2PCDfzg23COLLgWQ87
+	 GMFy3VZ3HqW5uj8rfl+FofPC0Qeh5apeT9F3Ql6LkXK+wLcBph88OWLQRlZwUjSd/T
+	 cXsKCnqGg+jxVY9Wg6yf3S6OwS1d6dgsrpylRPvQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3773F80482;
-	Sun, 18 Apr 2021 15:47:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F40CAF80253;
+	Sun, 18 Apr 2021 15:47:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E79CF80253; Sun, 18 Apr 2021 15:47:57 +0200 (CEST)
+ id 22312F80430; Sun, 18 Apr 2021 15:47:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
  FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E21FF80253
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 15:47:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E21FF80253
-Received: by mail-qk1-f173.google.com with SMTP id u20so1298930qku.10
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 06:47:04 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA709F80275
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 15:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA709F80275
+Received: by mail-qk1-f172.google.com with SMTP id t17so5012451qkg.4
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 06:47:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=W6Zca4GVJY1fggJs5iafYXFuVE85I8IMOERxrI28jD8=;
- b=G1lJSpWLyenT27qti8nnrYq2MtXLTTz2+C4t4icy4Q/EojfcChvZ5QiLLeXAFHBmvG
- JhuvY0kOCMynGmLD/3FFJTw9ZHwcNOfOKxTLb5N3rRFczx6GYZ8KEFBuMZt/HFWcZmHq
- nZQpucpEV/i4k/+TuymxVro2HxVxz1k1xM46cSTENXJ/L9nXFq4ChgxrgjocMMD1HcuM
- uEXFilW/oO1xztqkUudlbvu343KnEp/VYGWvLSViuyxPTv7pXdraUG9LFzATHMsbiG8t
- SqKbJSVyBtfIJe6ebAL8sXvcKsETe2opK1dcf2XliM3cpvCv/WRYzVZaQuIzu/oFcLR/
- PmKw==
-X-Gm-Message-State: AOAM532gFkVu4h2/7gPMTC+WUpgxLes/SDPqKXG2V0S4gp1Ko+6vmZNV
- yTE1j3s1f8G9sinj6ePplXY=
-X-Google-Smtp-Source: ABdhPJz/cCWYxz+Q7XrC4BWia1woqDR4nMpolxZi0gZGfeldAQFyGM+X6tEWTuUgN1KZRv97N8G3QQ==
-X-Received: by 2002:a37:8a01:: with SMTP id m1mr8036277qkd.85.1618753623229;
- Sun, 18 Apr 2021 06:47:03 -0700 (PDT)
+ bh=lp/9/DD1lUyADLZD2qHRRtq0jLfJJ3OREWhew5pzIJE=;
+ b=pXtD5UAjFEBY4ryK5U58dQ18yoBwtcnptmk2QeCOS0ZrAGXyV2MhJwdJdjf3+UBSaS
+ i3MmkVyhGZXDqiJ8fSGYE5SICvbdrnHvyDMHJiDYMkU8XxUIy/RXIfCLrHWzRQW6ROoR
+ Rwkd7bN54jz6wwjKh62LNupqCEM7j8OTevNWML1mK/6ZxTTlQKrHq70jLcIDWXd1DoVm
+ vO1Xh/4ILIM4/+8FtDgK+uQBY/V6knNuWJUsmwE90ohFTvVNXx+Jd2vy04R9I2k1wCoW
+ EHh6rQ57ss8kjLyzfIaJA4njuJZlm4Jceh0MMO6mgO4HmrRmI8t6nJqjtVBITrPjyzdl
+ j3eg==
+X-Gm-Message-State: AOAM533iuVETI3qn6Mml/UNAh6e6/Jh7XFxqgqtk5bInYAbAggGK8wSm
+ fQFJpZHeVjd/e6/MACWqBlQ=
+X-Google-Smtp-Source: ABdhPJxj39YC97UG4tTrm0WxuPSKMt9mlC1rvrOoafcPbTP7DUt1Y9v7NxedgXOLs5UX+e8I/t20BA==
+X-Received: by 2002:a37:a206:: with SMTP id l6mr7883768qke.5.1618753624457;
+ Sun, 18 Apr 2021 06:47:04 -0700 (PDT)
 Received: from localhost.localdomain ([2601:184:417f:5b5f::f3be:e978])
- by smtp.gmail.com with ESMTPSA id p23sm3927937qtl.8.2021.04.18.06.47.02
+ by smtp.gmail.com with ESMTPSA id p23sm3927937qtl.8.2021.04.18.06.47.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Apr 2021 06:47:03 -0700 (PDT)
+ Sun, 18 Apr 2021 06:47:04 -0700 (PDT)
 From: David Ward <david.ward@gatech.edu>
 To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/5] ASoC: rt286: Make RT286_SET_GPIO_* readable and writable
-Date: Sun, 18 Apr 2021 09:46:57 -0400
-Message-Id: <20210418134658.4333-5-david.ward@gatech.edu>
+Subject: [PATCH 5/5] ASoC: rt286: Generalize support for ALC3263 codec
+Date: Sun, 18 Apr 2021 09:46:58 -0400
+Message-Id: <20210418134658.4333-6-david.ward@gatech.edu>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210418134658.4333-1-david.ward@gatech.edu>
 References: <20210418134658.4333-1-david.ward@gatech.edu>
@@ -90,29 +90,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The GPIO configuration cannot be applied if the registers are inaccessible.
-This prevented the headset mic from working on the Dell XPS 13 9343.
+The ALC3263 codec on the XPS 13 9343 is also found on the Latitude 13 7350
+and Venue 11 Pro 7140. They require the same handling for the combo jack to
+work with a headset: GPIO pin 6 must be set.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=114171
+The HDA driver always sets this pin on the ALC3263, which it distinguishes
+by the codec vendor/device ID 0x10ec0288 and PCI subsystem vendor ID 0x1028
+(Dell). The ASoC driver does not use PCI, so adapt this check to use DMI to
+determine if Dell is the system vendor.
+
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=150601
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=205961
 Signed-off-by: David Ward <david.ward@gatech.edu>
 ---
- sound/soc/codecs/rt286.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/codecs/rt286.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
-index 67a5affdb705..45e4a48ef5bf 100644
+index 45e4a48ef5bf..802f4851c3df 100644
 --- a/sound/soc/codecs/rt286.c
 +++ b/sound/soc/codecs/rt286.c
-@@ -171,6 +171,9 @@ static bool rt286_readable_register(struct device *dev, unsigned int reg)
- 	case RT286_PROC_COEF:
- 	case RT286_SET_AMP_GAIN_ADC_IN1:
- 	case RT286_SET_AMP_GAIN_ADC_IN2:
-+	case RT286_SET_GPIO_MASK:
-+	case RT286_SET_GPIO_DIRECTION:
-+	case RT286_SET_GPIO_DATA:
- 	case RT286_SET_POWER(RT286_DAC_OUT1):
- 	case RT286_SET_POWER(RT286_DAC_OUT2):
- 	case RT286_SET_POWER(RT286_ADC_IN1):
+@@ -1125,12 +1125,11 @@ static const struct dmi_system_id force_combo_jack_table[] = {
+ 	{ }
+ };
+ 
+-static const struct dmi_system_id dmi_dell_dino[] = {
++static const struct dmi_system_id dmi_dell[] = {
+ 	{
+-		.ident = "Dell Dino",
++		.ident = "Dell",
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "XPS 13 9343")
+ 		}
+ 	},
+ 	{ }
+@@ -1141,7 +1140,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ {
+ 	struct rt286_platform_data *pdata = dev_get_platdata(&i2c->dev);
+ 	struct rt286_priv *rt286;
+-	int i, ret, val;
++	int i, ret, vendor_id;
+ 
+ 	rt286 = devm_kzalloc(&i2c->dev,	sizeof(*rt286),
+ 				GFP_KERNEL);
+@@ -1157,14 +1156,15 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	}
+ 
+ 	ret = regmap_read(rt286->regmap,
+-		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &val);
++		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &vendor_id);
+ 	if (ret != 0) {
+ 		dev_err(&i2c->dev, "I2C error %d\n", ret);
+ 		return ret;
+ 	}
+-	if (val != RT286_VENDOR_ID && val != RT288_VENDOR_ID) {
++	if (vendor_id != RT286_VENDOR_ID && vendor_id != RT288_VENDOR_ID) {
+ 		dev_err(&i2c->dev,
+-			"Device with ID register %#x is not rt286\n", val);
++			"Device with ID register %#x is not rt286\n",
++			vendor_id);
+ 		return -ENODEV;
+ 	}
+ 
+@@ -1188,8 +1188,8 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	if (pdata)
+ 		rt286->pdata = *pdata;
+ 
+-	if (dmi_check_system(force_combo_jack_table) ||
+-		dmi_check_system(dmi_dell_dino))
++	if ((vendor_id == RT288_VENDOR_ID && dmi_check_system(dmi_dell)) ||
++		dmi_check_system(force_combo_jack_table))
+ 		rt286->pdata.cbj_en = true;
+ 
+ 	regmap_write(rt286->regmap, RT286_SET_AUDIO_POWER, AC_PWRST_D3);
+@@ -1228,7 +1228,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL3, 0xf777, 0x4737);
+ 	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL4, 0x00ff, 0x003f);
+ 
+-	if (dmi_check_system(dmi_dell_dino)) {
++	if (vendor_id == RT288_VENDOR_ID && dmi_check_system(dmi_dell)) {
+ 		regmap_update_bits(rt286->regmap,
+ 			RT286_SET_GPIO_MASK, 0x40, 0x40);
+ 		regmap_update_bits(rt286->regmap,
 -- 
 2.31.1
 

@@ -2,73 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED04363730
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 20:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3295363842
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 00:48:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37C841678;
-	Sun, 18 Apr 2021 20:43:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C841678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 667231679;
+	Mon, 19 Apr 2021 00:47:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667231679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618771430;
-	bh=3v3WEOQUXZp/g4PreQn2xxbiJy+foPIvXFxwX7DLUE4=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1618786088;
+	bh=pKZLPmDzVuwHCt1KRKk/DIGNQhUwx3U7XbgUn+kca+o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t0hLWzqL6m0hE3ImSpnvtWCnYgOE7tZBnDg+F9WGLyiPcV6jolhQ0in70wens9DN0
-	 s4sGthI7r7u3rT8YV36J2moVfDv0yLy9y7jixkXIEOK7zgO+SkY/CQWdzz61wxDtJh
-	 H4aV/CNiHZA7thOaTpq77PVupFUcNd52qEjrJpG8=
+	b=T439Ehm6hN71G1EtrN24HEOvWntTMR9PdQkUWDmwaYMJ2X0wLHt4vB4k1K542Fa88
+	 SCm8nJlwq+PohSpieAlNHVvKWevWNqjIPRek9HWyX7z0dbjMj6tiChJxOBVyEegiwb
+	 u/lYdl/XUxo0FQhLRkH7aPOq2UDmicXwgMVmAwO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 955F1F800F2;
-	Sun, 18 Apr 2021 20:42:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA6EEF80273;
+	Mon, 19 Apr 2021 00:46:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA934F80253; Sun, 18 Apr 2021 20:42:19 +0200 (CEST)
+ id 2C45CF80253; Mon, 19 Apr 2021 00:46:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 960CAF800F2
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 20:42:07 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2F67BA003F;
- Sun, 18 Apr 2021 20:42:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2F67BA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1618771327; bh=e8kopRtY9IQia49ur8uSvJeLtzri3+7tNax5j6Vl3TU=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=l9HP1v5RHbEr0tV1M5AGErRvZa0/nXN4/lBfj8m6BNBD08ebjxIzKv0Ca/voUsoh5
- ytbepPT1BTa5dx7pVritONzxaRb+DzNMvuaTxG7o3vYaimARrdkUljmtIKEVTiDxYR
- tpIjofSBLRwwHO6hNwaBSfWVY+QkR1KfrIyvUFlQ=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 18 Apr 2021 20:42:03 +0200 (CEST)
-Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
- controls
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
- <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
- <20210409022735.GA3776@workstation> <s5h5z0v67wh.wl-tiwai@suse.de>
- <20210418142732.GB36507@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <d33fa088-c3bf-eadd-07d4-d2c5e3df1b09@perex.cz>
-Date: Sun, 18 Apr 2021 20:42:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <20210418142732.GB36507@workstation>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id BC44AF800F2
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 00:46:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC44AF800F2
+Date: 19 Apr 2021 07:46:27 +0900
+X-IronPort-AV: E=Sophos;i="5.82,232,1613401200"; d="scan'208";a="78452370"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 19 Apr 2021 07:46:27 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EA2BF4107BFC;
+ Mon, 19 Apr 2021 07:46:26 +0900 (JST)
+Message-ID: <877dkz5hz1.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: htl10@users.sourceforge.net
+Subject: Re: ASoc / PCM recording-related regression between v5.4 and v5.5
+In-Reply-To: <148484793.4894421.1618654607945@mail.yahoo.com>
+References: <148484793.4894421.1618654607945.ref@mail.yahoo.com>
+ <148484793.4894421.1618654607945@mail.yahoo.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@google.com>,
+ Curtis Malainey <cujomalainey@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +70,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 18. 04. 21 v 16:27 Takashi Sakamoto napsal(a):
 
-> As you note, control component is not optional for card. However,
-> control component is actually maintained as device component. As current
-> card implementation maintains each component successfully, it's worth to
-> investigate putting control-related members from card to unique
-> structure behind private data of component. Additionally, when integrating
-> control functionality, it's convenient to me that relevant stuffs are
-> capsulated apart from card structure. In short, I'd like 'divide and
-> conquer' method in code refactoring.
+Hi
 
-I guess, you may show us some code for comments (just a prototype - no full
-implementation). As you noted, the separate allocations may save some space
-depending on the slab implementation, but it should not be the main reason for
-such changes.
+> I am trying to find the cause of a rather unusual regression between kernel v5.4 and v5.5,
+> for an out-of-tree driver on the raspberrypi.
 
-The device objects were added to the ALSA control stack later (they simply
-didn't exist when we designed it). Also, the low-level drivers communicate
-with the control layer using the card structure pointer. The additional
-translation is another challenge.
+I think out-of-tree code needs update.
+We merged snd_pcm_ops into component between v5.4 - v5.5
 
-						Jaroslav
+	e2cb4a14541dba3587bb78e0f62da27a0e1ad399
+    	("ASoC: soc-core: merge snd_pcm_ops member to component driver")
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+And all drivers which used it was updated.
+For example,
+
+	1fddf424b3c49a475ca7c23662f515b53f884172
+	("ASoC: mediatek: remove snd_pcm_ops")
+
+And snd_pcm_ops is no longer used on ALSA SoC
+
+	e9067bb502787869dabe385727baff233024097b
+	("ASoC: soc-component: remove snd_pcm_ops from component driver")
+
+If your out-of-tree is using it, and not yet updated,
+some issue can be happen, I think.
+
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

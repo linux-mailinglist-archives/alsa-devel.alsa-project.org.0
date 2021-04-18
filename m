@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85713635BA
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 15:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73DB93635B9
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 15:50:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A9B316AF;
-	Sun, 18 Apr 2021 15:49:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A9B316AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 012D416A8;
+	Sun, 18 Apr 2021 15:49:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 012D416A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618753823;
-	bh=1PgFdV9G2QWDdVY4MaKTvreupi1RSiujyPWDLI79ZAQ=;
+	s=default; t=1618753810;
+	bh=1CjRm5ecSlygOf9UWKFV6kZydosGPNtVOybVRYxAbao=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IpKYIsrg1Yjbg1u+tgrVNaF3vZp1C2SJowf+z5cSM8omt21UKpq9cCE2r+8Z8rgv9
-	 mfTY/kh5NMrYwdZbtniSIi/Cq5S8pDkt4G4+tBRJT9/mQkEAyeKiXPq9s9eO2kiul6
-	 sjDH7UIkyYXWALXhcuz8aiBX/wRLUovIWt+mE4vo=
+	b=XMZhioPTIjfZZqgVpOnk1C1Ppu6AFAPTH1fT3z+OWsLuYl/lMOGUmC+kARV8DPy0c
+	 ulGdv2ujfYdboPwMN7omZm1AzIIqhduTX91bieDand7ENP/jrmAvurb/5/fZUV+nWv
+	 8GfWYGXJawRBOWvu+OmiCH7OLoa7JFqWWplWbiPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C4DEF80168;
-	Sun, 18 Apr 2021 15:48:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3773F80482;
+	Sun, 18 Apr 2021 15:47:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38BFBF80273; Sun, 18 Apr 2021 15:47:57 +0200 (CEST)
+ id 2E79CF80253; Sun, 18 Apr 2021 15:47:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
  FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
+ [209.85.222.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2F2DF80273
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 15:47:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2F2DF80273
-Received: by mail-qv1-f54.google.com with SMTP id dp18so11048969qvb.5
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 06:47:03 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E21FF80253
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 15:47:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E21FF80253
+Received: by mail-qk1-f173.google.com with SMTP id u20so1298930qku.10
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 06:47:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=i2s1yyziAApLNMk5wHeYSLF57BtVllGzKRDg9f231Go=;
- b=iGOXBLoIdnzz9AxW3HEMihKIS2HSfX9imEuV3387pFI5+Xwu9skAMLxDOJ20L8QTMv
- pdK9FeXJB52gkUpYC/TdleeylFsF9mBAuiYP8r4yEtsZJBgIX0DKaEftrFBZjfToWiL8
- 8aANghNYf51u3YUBS9C/FQcgsPX3a3MILMY9Ew1+Yjdyl59fI5Xv3mpb3BPz9AWFIxY1
- rU6XK7WT0e/LCKv9KRIgnQn4mIsfV3Jfxt3IBXfUuZ5ZSoM45likl4B9JyREIE9uo0TW
- asDYaTRuAzN3sWg3UOOgJDiswSaBBFt/ztkNSiyAgH572kZiWo/tQqT3+UQzYZ5IXxvV
- 3E2Q==
-X-Gm-Message-State: AOAM533xL0DTmo2H3r1lM2fgURu2Plq00ph0l1eECyPkv2IjbqNuFmhd
- z4lAX3colwquG4YWuQ+R/jc=
-X-Google-Smtp-Source: ABdhPJyvY/4h1w1CFLpq3liDdP2Gm0Lr8cQNt5IW11+QoBDJ121UBaGRz2k3quHDp/fzjATFWNz0Ow==
-X-Received: by 2002:a0c:f452:: with SMTP id h18mr12447612qvm.27.1618753622528; 
- Sun, 18 Apr 2021 06:47:02 -0700 (PDT)
+ bh=W6Zca4GVJY1fggJs5iafYXFuVE85I8IMOERxrI28jD8=;
+ b=G1lJSpWLyenT27qti8nnrYq2MtXLTTz2+C4t4icy4Q/EojfcChvZ5QiLLeXAFHBmvG
+ JhuvY0kOCMynGmLD/3FFJTw9ZHwcNOfOKxTLb5N3rRFczx6GYZ8KEFBuMZt/HFWcZmHq
+ nZQpucpEV/i4k/+TuymxVro2HxVxz1k1xM46cSTENXJ/L9nXFq4ChgxrgjocMMD1HcuM
+ uEXFilW/oO1xztqkUudlbvu343KnEp/VYGWvLSViuyxPTv7pXdraUG9LFzATHMsbiG8t
+ SqKbJSVyBtfIJe6ebAL8sXvcKsETe2opK1dcf2XliM3cpvCv/WRYzVZaQuIzu/oFcLR/
+ PmKw==
+X-Gm-Message-State: AOAM532gFkVu4h2/7gPMTC+WUpgxLes/SDPqKXG2V0S4gp1Ko+6vmZNV
+ yTE1j3s1f8G9sinj6ePplXY=
+X-Google-Smtp-Source: ABdhPJz/cCWYxz+Q7XrC4BWia1woqDR4nMpolxZi0gZGfeldAQFyGM+X6tEWTuUgN1KZRv97N8G3QQ==
+X-Received: by 2002:a37:8a01:: with SMTP id m1mr8036277qkd.85.1618753623229;
+ Sun, 18 Apr 2021 06:47:03 -0700 (PDT)
 Received: from localhost.localdomain ([2601:184:417f:5b5f::f3be:e978])
- by smtp.gmail.com with ESMTPSA id p23sm3927937qtl.8.2021.04.18.06.47.01
+ by smtp.gmail.com with ESMTPSA id p23sm3927937qtl.8.2021.04.18.06.47.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Apr 2021 06:47:02 -0700 (PDT)
+ Sun, 18 Apr 2021 06:47:03 -0700 (PDT)
 From: David Ward <david.ward@gatech.edu>
 To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/5] ASoC: rt298: Configure combo jack for headphones
-Date: Sun, 18 Apr 2021 09:46:56 -0400
-Message-Id: <20210418134658.4333-4-david.ward@gatech.edu>
+Subject: [PATCH 4/5] ASoC: rt286: Make RT286_SET_GPIO_* readable and writable
+Date: Sun, 18 Apr 2021 09:46:57 -0400
+Message-Id: <20210418134658.4333-5-david.ward@gatech.edu>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210418134658.4333-1-david.ward@gatech.edu>
 References: <20210418134658.4333-1-david.ward@gatech.edu>
@@ -90,39 +90,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-During jack detection, the combo jack is configured for a CTIA headset, and
-then for an OMTP headset, while sensing the mic connection. If a mic is not
-found in either case, the combo jack should be re-configured for headphones
-only. This is consistent with the HDA driver behavior.
+The GPIO configuration cannot be applied if the registers are inaccessible.
+This prevented the headset mic from working on the Dell XPS 13 9343.
 
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=114171
 Signed-off-by: David Ward <david.ward@gatech.edu>
 ---
- sound/soc/codecs/rt298.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt286.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
-index 32cc9b6287d2..c592c40a7ab3 100644
---- a/sound/soc/codecs/rt298.c
-+++ b/sound/soc/codecs/rt298.c
-@@ -267,11 +267,16 @@ static int rt298_jack_detect(struct rt298_priv *rt298, bool *hp, bool *mic)
- 				msleep(300);
- 				regmap_read(rt298->regmap,
- 					RT298_CBJ_CTRL2, &val);
--				if (0x0070 == (val & 0x0070))
-+				if (0x0070 == (val & 0x0070)) {
- 					*mic = true;
--				else
-+				} else {
- 					*mic = false;
-+					regmap_update_bits(rt298->regmap,
-+						RT298_CBJ_CTRL1,
-+						0xfcc0, 0xc400);
-+				}
- 			}
-+
- 			regmap_update_bits(rt298->regmap,
- 				RT298_DC_GAIN, 0x200, 0x0);
- 
+diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+index 67a5affdb705..45e4a48ef5bf 100644
+--- a/sound/soc/codecs/rt286.c
++++ b/sound/soc/codecs/rt286.c
+@@ -171,6 +171,9 @@ static bool rt286_readable_register(struct device *dev, unsigned int reg)
+ 	case RT286_PROC_COEF:
+ 	case RT286_SET_AMP_GAIN_ADC_IN1:
+ 	case RT286_SET_AMP_GAIN_ADC_IN2:
++	case RT286_SET_GPIO_MASK:
++	case RT286_SET_GPIO_DIRECTION:
++	case RT286_SET_GPIO_DATA:
+ 	case RT286_SET_POWER(RT286_DAC_OUT1):
+ 	case RT286_SET_POWER(RT286_DAC_OUT2):
+ 	case RT286_SET_POWER(RT286_ADC_IN1):
 -- 
 2.31.1
 

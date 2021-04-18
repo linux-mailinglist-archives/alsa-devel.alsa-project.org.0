@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFDB2363723
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 20:26:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED04363730
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 20:43:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10EA1167A;
-	Sun, 18 Apr 2021 20:25:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10EA1167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37C841678;
+	Sun, 18 Apr 2021 20:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C841678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618770381;
-	bh=iKHxubHUiUs6V1ap5m7w5EEg1/fhe6c2Z9rrPFlmeTY=;
+	s=default; t=1618771430;
+	bh=3v3WEOQUXZp/g4PreQn2xxbiJy+foPIvXFxwX7DLUE4=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kF/FRqvjrG37losz3sMT4BMWLrOBLSatl/h6Rvgb1hwpAS7Ojx/nq+gnvUdCmt3/C
-	 6Nh2/hLBDP8RDWCw9OGaHdT+nqSBE74hnBRmMWpH1z6QZM/+pLeRLxVue3F4nN5Ogc
-	 HY7u7P13+X9vpoLLZMoNBAYYqrckYUSZACC55Cn0=
+	b=t0hLWzqL6m0hE3ImSpnvtWCnYgOE7tZBnDg+F9WGLyiPcV6jolhQ0in70wens9DN0
+	 s4sGthI7r7u3rT8YV36J2moVfDv0yLy9y7jixkXIEOK7zgO+SkY/CQWdzz61wxDtJh
+	 H4aV/CNiHZA7thOaTpq77PVupFUcNd52qEjrJpG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D926F8013C;
-	Sun, 18 Apr 2021 20:24:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 955F1F800F2;
+	Sun, 18 Apr 2021 20:42:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95441F80253; Sun, 18 Apr 2021 20:24:49 +0200 (CEST)
+ id DA934F80253; Sun, 18 Apr 2021 20:42:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D593EF8013C
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 20:24:42 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 960CAF800F2
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 20:42:07 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C1E7FA003F;
- Sun, 18 Apr 2021 20:24:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C1E7FA003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2F67BA003F;
+ Sun, 18 Apr 2021 20:42:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2F67BA003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1618770281; bh=upg4XkvX+NhGe+WagifZ1Suy8ca33dnP1AmqCp8yjg8=;
+ t=1618771327; bh=e8kopRtY9IQia49ur8uSvJeLtzri3+7tNax5j6Vl3TU=;
  h=Subject:To:References:From:Date:In-Reply-To:From;
- b=qEVlVpqhMJBZNpWSf5jlHbJ1DgaEjFYjliS9bMXeK7A15wtVg7+hMSXL64lytJ1RN
- sxywXXYna5MIGugx7/xtjpG/f7X498oldRySwRK4bHWIPt0MOvL8u/OH3kifxyx23j
- TjxpYqOvpk/bwhrddRi+gKcd5uZLu0w9Ybv+m+ck=
+ b=l9HP1v5RHbEr0tV1M5AGErRvZa0/nXN4/lBfj8m6BNBD08ebjxIzKv0Ca/voUsoh5
+ ytbepPT1BTa5dx7pVritONzxaRb+DzNMvuaTxG7o3vYaimARrdkUljmtIKEVTiDxYR
+ tpIjofSBLRwwHO6hNwaBSfWVY+QkR1KfrIyvUFlQ=
 Received: from p1gen2.localdomain (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 18 Apr 2021 20:24:38 +0200 (CEST)
-Subject: Re: [PATCH v5] sound: rawmidi: Add framing mode
-To: David Henningsson <coding@diwic.se>, alsa-devel@alsa-project.org,
- tiwai@suse.de
-References: <20210418151217.208582-1-coding@diwic.se>
+ Sun, 18 Apr 2021 20:42:03 +0200 (CEST)
+Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
+ controls
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>
+References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
+ <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
+ <20210409022735.GA3776@workstation> <s5h5z0v67wh.wl-tiwai@suse.de>
+ <20210418142732.GB36507@workstation>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <a0928012-ff8d-3253-4cc6-89bf69d4cfdd@perex.cz>
-Date: Sun, 18 Apr 2021 20:24:38 +0200
+Message-ID: <d33fa088-c3bf-eadd-07d4-d2c5e3df1b09@perex.cz>
+Date: Sun, 18 Apr 2021 20:42:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210418151217.208582-1-coding@diwic.se>
+In-Reply-To: <20210418142732.GB36507@workstation>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -80,74 +84,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 18. 04. 21 v 17:12 David Henningsson napsal(a):
+Dne 18. 04. 21 v 16:27 Takashi Sakamoto napsal(a):
 
-> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 16
+> As you note, control component is not optional for card. However,
+> control component is actually maintained as device component. As current
+> card implementation maintains each component successfully, it's worth to
+> investigate putting control-related members from card to unique
+> structure behind private data of component. Additionally, when integrating
+> control functionality, it's convenient to me that relevant stuffs are
+> capsulated apart from card structure. In short, I'd like 'divide and
+> conquer' method in code refactoring.
 
-SNDRV_ prefix should be here.
+I guess, you may show us some code for comments (just a prototype - no full
+implementation). As you noted, the separate allocations may save some space
+depending on the slab implementation, but it should not be the main reason for
+such changes.
 
-> +
-> +struct snd_rawmidi_framing_tstamp {
-> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
-> +	 * types here. Applications are expected to skip unknown frame types.
-> +	 */
-> +	u8 frame_type;
-> +	u8 length; /* number of valid bytes in data field */
-> +	u8 reserved[2];
-> +	u32 tv_nsec;		/* nanoseconds */
-> +	u64 tv_sec;		/* seconds */
-> +	u8 data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
+The device objects were added to the ALSA control stack later (they simply
+didn't exist when we designed it). Also, the low-level drivers communicate
+with the control layer using the card structure pointer. The additional
+translation is another challenge.
 
-What about to move the fields to union (except for frame_type) like we do for
-'struct snd_ctl_event' in case when we need to reorganize the contents for
-future types?
-
-> +};
-> +
->  struct snd_rawmidi_params {
->  	int stream;
->  	size_t buffer_size;		/* queue size in bytes */
->  	size_t avail_min;		/* minimum avail bytes for wakeup */
->  	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
-> -	unsigned char reserved[16];	/* reserved for future use */
-> +	unsigned char framing;		/* For input data only, frame incoming data */
-> +	unsigned char clock_type;	/* Type of clock to use for framing, same as clockid_t */
-> +	unsigned char reserved[14];	/* reserved for future use */
-
-As I noted, I would prefer to add 'unsigned int mode;' and define
-SNDRV_RAWMID_MODE_XXX bit flags and groups with framing and clock_type groups.
-There's no reason to stick with 'clockid_t' (which is integer anyway). We're
-using just a subset.
-
-#define SNDRV_RAWMIDI_MODE_FRAMING_MASK        (7<<0)
-#define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT       0
-#define SNDRV_RAWMIDI_MODE_FRAMING_NONE	       (0<<0)
-#define SNDRV_RAWMIDI_MODE_FRAMING_32BYTES     (1<<0)
-#define SNDRV_RAWMIDI_MODE_CLOCK_MASK          (7<<3)
-#define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT         3
-#define SNDRV_RAWMIDI_MODE_CLOCK_NONE	       (0<<3)
-#define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME      (1<<3)
-#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC     (2<<3)
-#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW (3<<3)
-
-In this case, we can use 26-bits in future for extensions.
-
-> +struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
-> +{
-> +	struct timespec64 ts64 = {0, 0};
-> +
-> +	if (substream->framing != SNDRV_RAWMIDI_FRAMING_TSTAMP)
-> +		return ts64;
-> +	if (substream->clock_type == CLOCK_MONOTONIC_RAW)
-> +		ktime_get_raw_ts64(&ts64);
-> +	else
-> +		ktime_get_ts64(&ts64);
-> +	return ts64;
-> +}
-
-Missing the realtime clock type here.
-
-					Jaroslav
+						Jaroslav
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

@@ -2,106 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C34A13635DE
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 16:29:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A3B363652
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Apr 2021 17:14:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A3801680;
-	Sun, 18 Apr 2021 16:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A3801680
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9D0D167F;
+	Sun, 18 Apr 2021 17:13:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9D0D167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618756160;
-	bh=wvBq/QrZo6Bz6dCaCer/SjcuNnCL6tQvboyBl06vDtU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=beoIUiDPlOSCXTWaG6JCOqGj9kLbEqmn5TKI6O7uxzV/bTi2WoiwUb7lt+udo+FvC
-	 T9Dc1MI1K4sBR49yL0G4g0BAW1OU9i+iMzOaV2MKAg2KPomh4SRlWZ2urID29kNJ74
-	 pIxYtaBvMZUdCbWPuIJqzjQTfjN6Kjyf69mwdVnM=
+	s=default; t=1618758858;
+	bh=YZxBTIIXgqvPCmrtGtO9Wk6WEH8bLYaEhX2Rx5Pq0sM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZwIK6ePSvH0QR3q3ftdGvzg9OKEk4PjmGbomQxRM+opXLlZwk4fDyr03s+XlxtN7n
+	 rzyF3bJ/PVqMDPjooCEtj/7a02B7saFmR2otzOD893XxYDNXLPeNNhKUPdxv58NgAy
+	 l+YNnnvMmtIXOVylB4q8oyqw+qLmhNyLON8nEYdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87A91F8013C;
-	Sun, 18 Apr 2021 16:27:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EC67F8013C;
+	Sun, 18 Apr 2021 17:12:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88128F80253; Sun, 18 Apr 2021 16:27:45 +0200 (CEST)
+ id 35792F80253; Sun, 18 Apr 2021 17:12:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08FD1F80164
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 16:27:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08FD1F80164
+ by alsa1.perex.cz (Postfix) with ESMTPS id B338DF80164
+ for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 17:12:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B338DF80164
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="K+SgYVW4"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="WvbD57rG"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BBD845C0729;
- Sun, 18 Apr 2021 10:27:36 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sun, 18 Apr 2021 10:27:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=jVQlLO3DzEK76JfSMWMbw+MC6VD
- O7y+FijbSruZpdKk=; b=K+SgYVW4B/oSwUn5WOYmkVZ43hzochROku20TXcUu83
- WXROqj+C5clZsWqqG6cryIemJl3ibAiklSWBPZE3lSbAkn376NdaU4vgIeKRBQ/I
- SHjFYQN/1eayJKvzj6xJtpItFpIAHNwH4JIEua62xK2Yz2yavbvt65AMftcDXWEV
- BoO8UUAMQTeF3pHZ42f4iOPoOaypD8xxgbR6QcwNgi+o1PSyFIfhmHjwyZhB/fR3
- 7uSEfYLcNhI2MGWK00cJIBvZTnEBNiEzpqIGq5dl5PgcZA5Xs8mRWjIX48tK0ceq
- hatqNSq9tnRZxTRFSoJwLYdxm2mCayK5cOspZdlnRwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=jVQlLO
- 3DzEK76JfSMWMbw+MC6VDO7y+FijbSruZpdKk=; b=WvbD57rGXguepw/Z2kIQy9
- Wic8GEyugGS9w82GZIWaQUeT1SvlBHwP9f0P9hen2V3EbgQGvMMNIa9/LC5Wl3S7
- cRWyKocxuuAa1Ncjqq3QzqmNKK/RbZ3ycG7DwVJBC5f2IKX1oza6KGtA5psQyrw9
- 1y+8Q3h5wDn7mfJGZbVE+Dhsfi2f9aWP+8fL2T6saXIwMGWg9prb73KT8zJEdNlh
- kbbvR0zph+6zsuji1HLpiJFVKuboERyPTzvu1awPEiZ8SzX++iYt6/0Ti1Auj6Ab
- jvqYMhba3J5jjRoa8rUnT6enE6qGsXL9MGq+MNMI66jFeEQpcoS75lerRWxjU8zw
- ==
-X-ME-Sender: <xms:2EF8YFLx0Jr4KYb0tnlqIJiK1fz2lpUcbl7u7kfzKl32QwThbGQaWg>
- <xme:2EF8YBKIVH9_Cjx_uZz2EQKf3c8F8DFSUk5_5vXnElFXtD89CSClVwtX9FHYxrxTQ
- F37vNHjG7TOFQCGO4g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddttddgtdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
- tddtgeetjeekvdefgeefhfenucfkphepudegrdefrdeihedrudejheenucevlhhushhtvg
- hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
- rghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:2EF8YNtzNi1_XWxhb5e0tmGg5c9LkWhVegkty8BJhM-7-Vmwv6sCMw>
- <xmx:2EF8YGaCDSmRUnm1LvRPvTuMs6zETSmKDb_vi_m1hXMR9MMksz-1GA>
- <xmx:2EF8YMbtM4Rc9t-OvcICdsQZ19kfNuyyf7cB0JzUDXQIHwb4QN-uyg>
- <xmx:2EF8YC3rxjLVILwwFoim6lDo5l9705ehFnxkcRMesbq4VG6fZiy12g>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 771B624005B;
- Sun, 18 Apr 2021 10:27:35 -0400 (EDT)
-Date: Sun, 18 Apr 2021 23:27:32 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v3] ALSA: control: Add memory consumption limit to user
- controls
-Message-ID: <20210418142732.GB36507@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20210408103149.40357-1-o-takashi@sakamocchi.jp>
- <20210408105025.GB40407@workstation> <s5h1rbl80yy.wl-tiwai@suse.de>
- <20210409022735.GA3776@workstation> <s5h5z0v67wh.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="Nd/yrVu5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
+ From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=V7xX8bm4jBy3DuLYSz4xKIJHzR5Tu7Ol7Yh9HiCbO5Q=; b=N
+ d/yrVu550nFWxS8AMAlIHbhsObb7Mdic4ZW7wZ9fxFO2cmyvhcUFEhraSR25qzT7A/IOc5+LziEhD
+ eB9VBYwt8x9FI7MBO2n35szhN9tyRi8EgmyxPC1iH4z7bcOq+DqbqAIZeqOdeSa4X4wDfT07UV9Yz
+ Pm+p0ZPIE4/sX9/YWvTy3UY0XNeg763CkeFldpfZd3/D5foWGXuYtw5LBnHCYM0PSP0/3tM6TsKbD
+ pD0pcpHwGOK2d3DaCR9l2n85hiu9BOP17/zpg4LGf+EY9Aw+v/IAcyiL0hrR1Ve/Dar9b7FQ/BjZ2
+ m2N0dNGYjuZewU36yDpqWx/aWzFwUVU6w==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=localhost.localdomain)
+ by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lY96F-00D9CE-Ew; Sun, 18 Apr 2021 17:12:39 +0200
+From: David Henningsson <coding@diwic.se>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH v5] sound: rawmidi: Add framing mode
+Date: Sun, 18 Apr 2021 17:12:17 +0200
+Message-Id: <20210418151217.208582-1-coding@diwic.se>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5h5z0v67wh.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: coding@diwic.se
+Cc: David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,181 +83,236 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This commit adds a new framing mode that frames all MIDI data into
+32-byte frames with a timestamp.
 
-Sorry to be late for catching up...
+The main benefit is that we can get accurate timestamps even if
+userspace wakeup and processing is not immediate.
 
-On Fri, Apr 09, 2021 at 12:59:10PM +0200, Takashi Iwai wrote:
-> On Fri, 09 Apr 2021 04:27:35 +0200,
-> Takashi Sakamoto wrote:
-> > 
-> > Hi,
-> > 
-> > On Thu, Apr 08, 2021 at 01:33:41PM +0200, Takashi Iwai wrote:
-> > > On Thu, 08 Apr 2021 12:50:25 +0200, Takashi Sakamoto wrote:
-> > > > On Thu, Apr 08, 2021 at 07:31:49PM +0900, Takashi Sakamoto wrote:
-> > > > > ALSA control interface allows users to add arbitrary control elements
-> > > > > (called "user controls" or "user elements"), and its resource usage is
-> > > > > limited just by the max number of control sets (currently 32).  This
-> > > > > limit, however, is quite loose: each allocation of control set may
-> > > > > have 1028 elements, and each element may have up to 512 bytes (ILP32) or
-> > > > > 1024 bytes (LP64) of value data. Moreover, each control set may contain
-> > > > > the enum strings and TLV data, which can be up to 64kB and 128kB,
-> > > > > respectively.  Totally, the whole memory consumption may go over 38MB --
-> > > > > it's quite large, and we'd rather like to reduce the size.
-> > > > > 
-> > > > > OTOH, there have been other requests even to increase the max number
-> > > > > of user elements; e.g. ALSA firewire stack require the more user
-> > > > > controls, hence we want to raise the bar, too.
-> > > > > 
-> > > > > For satisfying both requirements, this patch changes the management of
-> > > > > user controls: instead of setting the upper limit of the number of
-> > > > > user controls, we check the actual memory allocation size and set the
-> > > > > upper limit of the total allocation in bytes.  As long as the memory
-> > > > > consumption stays below the limit, more user controls are allowed than
-> > > > > the current limit 32. At the same time, we set the lower limit (8MB)
-> > > > > as default than the current theoretical limit, in order to lower the
-> > > > > risk of DoS.
-> > > > > 
-> > > > > As a compromise for lowering the default limit, now the actual memory
-> > > > > limit is defined as a module option, 'max_user_ctl_alloc_size', so that
-> > > > > user can increase/decrease the limit if really needed, too.
-> > > > > 
-> > > > > Co-developed-by: Takashi Iwai <tiwai@suse.de>
-> > > > > Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > > > > Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > > > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > > > > ---
-> > > > > v1->v2: Drop alloc_size field from user_element, calculate at private_free
-> > > > > v2->v3: Rebase. Fix boundary error. Obsolete macro usage relying on modern
-> > > > >         compiler optimization. Change comment style by modern coding
-> > > > >         convention. Rename module parameter so that users get it easily.
-> > > > >         Patch comment improvements.
-> > > > > ---
-> > > > >  include/sound/core.h |  2 +-
-> > > > >  sound/core/control.c | 75 ++++++++++++++++++++++++++++++--------------
-> > > > >  2 files changed, 52 insertions(+), 25 deletions(-)
-> > > > 
-> > > > The original content of patch comes from Iwai-san[1]. I have no clear
-> > > > idea to handle the case so add 'Co-developed-by' tag to the patch. If
-> > > > this is not good, I apologize the lack of my understanding to the
-> > > > development process in Linux kernel.
-> > > 
-> > > It depends.  In some cases, you just carry the patch with the original
-> > > authorship (From address) and put your sign-off.  In some cases,
-> > > Co-developed-by can be used.  I don't mind much either way, so I took
-> > > your v3 patch now (with the addition of the Link URL to v2 patch).
-> > 
-> > Thanks for applying the patch as is. I would post it just with my sign-off
-> > without no changes to your patch, However in the case I added some changes,
-> > so I have no conviction to it...
-> > 
-> > Well, relevant to the function, I have some ideas to refactor ALSA control
-> > core. If you have room to discuss about them, I'd like to ask your opinion.
-> > 
-> > At present, I have five ideas:
-> > 
-> > 1. Split code relevant to user-defined element set into new module
-> > 
-> > Although the function is itself useful to me, it's useless in the case
-> > to use driver in which every functions are in kernel land, especially in
-> > embedded systems. The layering function introduced recently (and ctl ioctl
-> > registration function) enables to capsulate it into module. This results
-> > in building the function according to kernel configuration and reduction
-> > of the size of snd.ko for embedded systems. (But I wish usual desktop
-> > environment enables it...)
-> > 
-> > In my plan, the name of new module is snd_ctl_user_elem_set.ko and the
-> > configuration is CONFIG_SND_CTL_USER_ELEM_SETS. I've already written
-> > patchset in my hand and find some negative points:
-> > 
-> >  * Comparing environments in which the function is enable or disabled,
-> >    we have difference about the system behaviour against some ioctl
-> >    requests (ELEM_ADD, ELEM_REPLACE, ELEM_REMOVE). I have no idea to
-> >    judge whether this is evil or not.
-> >  * Some internal functions and tables in snd.ko should be expoted to the
-> >    new module; e.g. 'value_sizes' or 'snd_ctl_new()'. The symbol table
-> >    is increased.
-> >  * Some code should be moved from compatibility layer of ALSA control
-> >    core. This seems to increate the cost of maintenance for the layer.
-> 
-> The module would be useful if this can work additionally on top of the
-> others.  And, in the case of user-element, it has nothing to do with
-> the driver, so if the module is split, user would have to load the
-> module manually -- which is inconvenient.
-> 
-> If your concern is about the driver size, the needed change isn't
-> about splitting to another module but the conditional builds either
-> with ifdef or factor out to another file (and conditionally build via
-> Makefile).
+Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+compared to the in-kernel seq implementation which has a max jitter
+of 5 ms during idle and much worse when running scheduler stress tests
+in parallel.
+
+Signed-off-by: David Henningsson <coding@diwic.se>
+---
+
+This version of the patch has been compile tested only, and
+compared to v4, has only the changes with no controversy.
+
+ include/sound/rawmidi.h     |  2 +
+ include/uapi/sound/asound.h | 26 ++++++++++++-
+ sound/core/rawmidi.c        | 73 ++++++++++++++++++++++++++++++++++++-
+ sound/core/rawmidi_compat.c |  6 ++-
+ 4 files changed, 103 insertions(+), 4 deletions(-)
+
+diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index 334842daa904..b0057a193c31 100644
+--- a/include/sound/rawmidi.h
++++ b/include/sound/rawmidi.h
+@@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
+ 	bool opened;			/* open flag */
+ 	bool append;			/* append flag (merge more streams) */
+ 	bool active_sensing;		/* send active sensing when close */
++	u8 framing;			/* whether to frame input data */
++	clockid_t clock_type;		/* clock source to use for input framing */
+ 	int use_count;			/* use counter (for output) */
+ 	size_t bytes;
+ 	struct snd_rawmidi *rmidi;
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 535a7229e1d9..124ac74a13e9 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -710,7 +710,7 @@ enum {
+  *  Raw MIDI section - /dev/snd/midi??
+  */
  
-In a point of driver side, we have some solution. Usage of
-'request_module()', as control-led layer does. Or exported symbol from
-the module takes userspace kernel module loader to work expectedly
-according to module dependency graph, as long as device driver refers to
-it.
+-#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
++#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
+ 
+ enum {
+ 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
+@@ -736,12 +736,34 @@ struct snd_rawmidi_info {
+ 	unsigned char reserved[64];	/* reserved for future use */
+ };
+ 
++enum {
++	SNDRV_RAWMIDI_FRAMING_NONE = 0,
++	SNDRV_RAWMIDI_FRAMING_TSTAMP,
++	SNDRV_RAWMIDI_FRAMING_LAST = SNDRV_RAWMIDI_FRAMING_TSTAMP,
++};
++
++#define SND_RAWMIDI_FRAMING_DATA_LENGTH 16
++
++struct snd_rawmidi_framing_tstamp {
++	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
++	 * types here. Applications are expected to skip unknown frame types.
++	 */
++	u8 frame_type;
++	u8 length; /* number of valid bytes in data field */
++	u8 reserved[2];
++	u32 tv_nsec;		/* nanoseconds */
++	u64 tv_sec;		/* seconds */
++	u8 data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
++};
++
+ struct snd_rawmidi_params {
+ 	int stream;
+ 	size_t buffer_size;		/* queue size in bytes */
+ 	size_t avail_min;		/* minimum avail bytes for wakeup */
+ 	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+-	unsigned char reserved[16];	/* reserved for future use */
++	unsigned char framing;		/* For input data only, frame incoming data */
++	unsigned char clock_type;	/* Type of clock to use for framing, same as clockid_t */
++	unsigned char reserved[14];	/* reserved for future use */
+ };
+ 
+ #ifndef __KERNEL__
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index aca00af93afe..c3a4940a919d 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -683,6 +683,8 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
+ 
+ 	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
+ 		return -EINVAL;
++	if (params->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP && (params->buffer_size & 0x1f) != 0)
++		return -EINVAL;
+ 	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
+ 		return -EINVAL;
+ 	if (params->buffer_size != runtime->buffer_size) {
+@@ -720,7 +722,16 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
+ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+ 			     struct snd_rawmidi_params *params)
+ {
++	if (params->framing) {
++		if (params->framing > SNDRV_RAWMIDI_FRAMING_LAST)
++			return -EINVAL;
++		/* framing requires a valid clock type */
++		if (params->clock_type != CLOCK_MONOTONIC_RAW && params->clock_type != CLOCK_MONOTONIC)
++			return -EINVAL;
++	}
+ 	snd_rawmidi_drain_input(substream);
++	substream->framing = params->framing;
++	substream->clock_type = params->clock_type;
+ 	return resize_runtime_buffer(substream->runtime, params, true);
+ }
+ EXPORT_SYMBOL(snd_rawmidi_input_params);
+@@ -963,6 +974,56 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
+ 	return -ENOIOCTLCMD;
+ }
+ 
++static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
++			const unsigned char *buffer, int src_count, const struct timespec64 *tstamp)
++{
++	struct snd_rawmidi_runtime *runtime = substream->runtime;
++	struct snd_rawmidi_framing_tstamp *dest_ptr;
++	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
++	int dest_frames = 0;
++	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
++
++	BUILD_BUG_ON(frame_size != 0x20);
++	if (snd_BUG_ON((runtime->hw_ptr & 0x1f) != 0))
++		return -EINVAL;
++
++	while (src_count > 0) {
++		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
++			runtime->xruns += src_count;
++			break;
++		}
++		if (src_count >= SND_RAWMIDI_FRAMING_DATA_LENGTH)
++			frame.length = SND_RAWMIDI_FRAMING_DATA_LENGTH;
++		else {
++			frame.length = src_count;
++			memset(frame.data, 0, SND_RAWMIDI_FRAMING_DATA_LENGTH);
++		}
++		memcpy(frame.data, buffer, frame.length);
++		buffer += frame.length;
++		src_count -= frame.length;
++		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
++		*dest_ptr = frame;
++		runtime->avail += frame_size;
++		runtime->hw_ptr += frame_size;
++		runtime->hw_ptr %= runtime->buffer_size;
++		dest_frames++;
++	}
++	return dest_frames * frame_size;
++}
++
++struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
++{
++	struct timespec64 ts64 = {0, 0};
++
++	if (substream->framing != SNDRV_RAWMIDI_FRAMING_TSTAMP)
++		return ts64;
++	if (substream->clock_type == CLOCK_MONOTONIC_RAW)
++		ktime_get_raw_ts64(&ts64);
++	else
++		ktime_get_ts64(&ts64);
++	return ts64;
++}
++
+ /**
+  * snd_rawmidi_receive - receive the input data from the device
+  * @substream: the rawmidi substream
+@@ -977,6 +1038,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			const unsigned char *buffer, int count)
+ {
+ 	unsigned long flags;
++	struct timespec64 ts64 = get_framing_tstamp(substream);
+ 	int result = 0, count1;
+ 	struct snd_rawmidi_runtime *runtime = substream->runtime;
+ 
+@@ -987,8 +1049,11 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			  "snd_rawmidi_receive: input is not active!!!\n");
+ 		return -EINVAL;
+ 	}
++
+ 	spin_lock_irqsave(&runtime->lock, flags);
+-	if (count == 1) {	/* special case, faster code */
++	if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
++		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
++	} else if (count == 1) {	/* special case, faster code */
+ 		substream->bytes++;
+ 		if (runtime->avail < runtime->buffer_size) {
+ 			runtime->buffer[runtime->hw_ptr++] = buffer[0];
+@@ -1596,6 +1661,12 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 					    "  Avail        : %lu\n"
+ 					    "  Overruns     : %lu\n",
+ 					    buffer_size, avail, xruns);
++				if (substream->framing == SNDRV_RAWMIDI_FRAMING_TSTAMP) {
++					snd_iprintf(buffer,
++					    "  Framing      : tstamp\n"
++					    "  Clock type   : %s\n",
++					    substream->clock_type == CLOCK_MONOTONIC_RAW ? "monotonic raw" : "monotonic");
++				}
+ 			}
+ 		}
+ 	}
+diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
+index 7397130976d0..2603d2dd8abb 100644
+--- a/sound/core/rawmidi_compat.c
++++ b/sound/core/rawmidi_compat.c
+@@ -13,7 +13,9 @@ struct snd_rawmidi_params32 {
+ 	u32 buffer_size;
+ 	u32 avail_min;
+ 	unsigned int no_active_sensing; /* avoid bit-field */
+-	unsigned char reserved[16];
++	unsigned char framing;
++	unsigned char clock_type;
++	unsigned char reserved[14];
+ } __attribute__((packed));
+ 
+ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+@@ -25,6 +27,8 @@ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+ 	if (get_user(params.stream, &src->stream) ||
+ 	    get_user(params.buffer_size, &src->buffer_size) ||
+ 	    get_user(params.avail_min, &src->avail_min) ||
++	    get_user(params.framing, &src->framing) ||
++	    get_user(params.clock_type, &src->clock_type) ||
+ 	    get_user(val, &src->no_active_sensing))
+ 		return -EFAULT;
+ 	params.no_active_sensing = val;
+-- 
+2.25.1
 
-Nevertheless, in a point of userspace application side, we seems to have
-no good way in non-privilege process. In this point, I agree with the
-inconvenience about which you mentioned.
-
-The point is which stuff is dominant to determine usage of the function,
-in my opinion. In the case of ALSA firewire stack (or HDA driver for
-some platforms), it's driver side. In the case of softvol plugin in
-alsa-lib, it's usrspace side. When standing on the former, modular
-function is enough convenient. On the other hand, for the latter,
-it's not necessarily convenient.
-
-> > 2. Introduce control component structure and move codes from card structure
-> > 
-> > This is just an idea and preparation for following items. Historically,
-> > ALSA card structure includes some control-related stuffs. The card has
-> > two Linux device structures for pseudo card (card_dev) and control
-> > cdev (ctl_dev).  The card also aggregates the list of the other
-> > components such as pcm, hwdep. In this item, I add a new control
-> > structure and split control related stuffs from card structure. As a
-> > result, the control component becomes to be equivalent to the other
-> > components, in a point of both relationship to pseudo card device and
-> > relationship to cdev.
-> > 
-> > The change results in the reduction of size of card structure somehow. I
-> > expect it to be friendly to memory object allocator, and to be clear
-> > view of code structure.
-> 
-> Well, moving the control-related fields into another allocated object
-> wouldn't reduce the size in total, so I don't see any big merit by
-> that.  Note that the control API is mandatory for each card, hence it
-> can be never optional; that's the difference from other components.
-> 
-> Though, moving control-related fields into another struct and embed it
-> in snd_card would be fine if it improves the readability.  It'll be
-> essentially just grouping and renaming.
-
-The readability is certainly improved by grouping and renaming. But in a
-point of actual memory consumption in slab allocation, I can find another
-merit in scenario to split structures, since larger structure brings
-larger unused space in object according to cache size of slab
-allocation, in theory.
-
-In system V ABI for LP64, the size of 'struct snd_card' is 2248 bytes as
-maximum, then 4k object is used for it. When splitting into structures,
-we can reduce the unused space. As long as I calculated, the issued
-control structure reduces the size of card structure up to 1400 bytes,
-and its size is 864 bytes (including pointer to card and member for
-devices list), then 2k and 1k objects are used. Rough calculation brings
-1k free memory between these cases (for simplicity I omit administration
-space).
-
-As you note, control component is not optional for card. However,
-control component is actually maintained as device component. As current
-card implementation maintains each component successfully, it's worth to
-investigate putting control-related members from card to unique
-structure behind private data of component. Additionally, when integrating
-control functionality, it's convenient to me that relevant stuffs are
-capsulated apart from card structure. In short, I'd like 'divide and
-conquer' method in code refactoring.
-
-
-Thanks
-
-Takashi Sakamoto

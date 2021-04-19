@@ -2,78 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E8B363B6D
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 08:24:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A14B363B7F
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 08:34:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E641E16AE;
-	Mon, 19 Apr 2021 08:23:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E641E16AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BC0116A8;
+	Mon, 19 Apr 2021 08:33:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BC0116A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618813480;
-	bh=b/IReye49LV3jqHo1KOx4fr2Rezvn0OHKGojH50GcUo=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1618814051;
+	bh=7tTMkGtI9ST6Ivdm8b1itEfXLVl5+9KcdYb/wkUeuQM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U6K727TX193TcBcsIWT2AyjMdSHG3jGHiy0Ryp1vyF58+w5e/TTSLJWghBaOjNfQR
-	 QGx3F17yTcUvW6WwfvzZWxv92E1Readw7is+X6RWS6wJh3DIKR9HtT/gcSFGnLEA4s
-	 XTuXHuRm4mb0ut1VIfOE7xiDvcKv1dFTzjDZsRpk=
+	b=qV0pA3XMotFtjyWiYmQpmmtUvTcBV6XPWv5RmVuLXsHVdtqlklBFEt0DZsIp8FbJj
+	 qeoJ8NXkOjIU02a72nHE0gBbWOn2KC8joDeILHFn13SbmNLBH2mXFke79KnufXFGZp
+	 j9L0yo/9OTfZ4QZYHlIZxYt16TQiJcn4QNyiFIB8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51D4AF80256;
-	Mon, 19 Apr 2021 08:23:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1796F80227;
+	Mon, 19 Apr 2021 08:32:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EE47F80227; Mon, 19 Apr 2021 08:23:08 +0200 (CEST)
+ id 2544FF80227; Mon, 19 Apr 2021 08:32:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 198D1F8014D
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 08:23:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 198D1F8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="QStktnoe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
- Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=mrJEc3GQNlkJdnjSd+Q20OtyX+ITe71PtJOscxUVPlo=; b=QStktnoetQqMtZ/1KULOePaekx
- BxPXrhVSaljrI3BP0HkUNH9z/0C0UjMjsKwPgNqEmbbgjWUcc3z4yqNBjSNz8bdTIMXQSN8lsUdk6
- Jocqz9qUUTWMcGUAzisX4yB/vcxKTEahPs2LqrIoOLTNsHKcu+34oMiSv3BQ7CKrnlKvwj/HIk6tJ
- SzGFeUULnOaduxzl/K0bLnZYOSLePfob4RKV+OoU5JszFpBbWn8oGkH2oZjw83bndGa/fAFpqQ2fG
- AXehz/63a14H7074yTmQiFhZJG316sy0Zw1vC2i+Z9VDhUaud7mGD6+p/zt6yuHD2YwuHs/hwZAqA
- pyhlY0EA==;
-Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
- helo=[192.168.5.6]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
- (envelope-from <coding@diwic.se>)
- id 1lYNJI-001WmI-KI; Mon, 19 Apr 2021 08:23:04 +0200
-Subject: Re: [PATCH v5] sound: rawmidi: Add framing mode
-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
- tiwai@suse.de
-References: <20210418151217.208582-1-coding@diwic.se>
- <a0928012-ff8d-3253-4cc6-89bf69d4cfdd@perex.cz>
-From: David Henningsson <coding@diwic.se>
-Message-ID: <ba6c46da-4778-8bd7-d1ca-6bcc77137645@diwic.se>
-Date: Mon, 19 Apr 2021 08:22:50 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49ACBF80164
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 08:32:25 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 48BCAA0040;
+ Mon, 19 Apr 2021 08:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 48BCAA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1618813945; bh=OzGfGdPOQOdPf5/lCDbnw+JYCfD8Rf8QlRo10ubkPHA=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=v1TO+GrM9BUl8/cEycppjM4DvndUBZsYew+tTo7dVPKVTrCyKdegVzinQZCXxozbU
+ 1qdy7GPbKb2shRlYN8eZC2n+C0j2iZJDJbhWfGVbJWZ8ULRfbiJvNXSzsec6J0mdBy
+ /zkOHVfYlk+ljgr0d8sI6jvhCu65GOBbBi5WT594=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 19 Apr 2021 08:32:14 +0200 (CEST)
+Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch controls
+To: "Yang, Libin" <libin.yang@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "shumingf@realtek.com" <shumingf@realtek.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+References: <20210415091609.13695-1-shumingf@realtek.com>
+ <6c5b52e2-c875-9b30-60dd-d4bec77a9215@linux.intel.com>
+ <BN6PR11MB1652220DB80760FD18B8308290499@BN6PR11MB1652.namprd11.prod.outlook.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <9146794c-d4a1-8dd8-4ab1-7c9c44a7703b@perex.cz>
+Date: Mon, 19 Apr 2021 08:32:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <a0928012-ff8d-3253-4cc6-89bf69d4cfdd@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <BN6PR11MB1652220DB80760FD18B8308290499@BN6PR11MB1652.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-Authenticated-Id: coding@diwic.se
+Content-Transfer-Encoding: 8bit
+Cc: "oder_chiou@realtek.com" <oder_chiou@realtek.com>,
+ "jack.yu@realtek.com" <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "derek.fang@realtek.com" <derek.fang@realtek.com>,
+ "flove@realtek.com" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,113 +91,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 19. 04. 21 v 7:14 Yang, Libin napsal(a):
+> Hi Pierre,
+> 
+> 
+>> -----Original Message-----
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Sent: 2021年4月15日 19:26
+>> To: shumingf@realtek.com; broonie@kernel.org; lgirdwood@gmail.com
+>> Cc: oder_chiou@realtek.com; jack.yu@realtek.com; alsa-devel@alsa-
+>> project.org; lars@metafoo.de; Yang, Libin <libin.yang@intel.com>;
+>> derek.fang@realtek.com; flove@realtek.com
+>> Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch controls
+>>
+>>
+>>
+>> On 4/15/21 4:16 AM, shumingf@realtek.com wrote:
+>>> From: Shuming Fan <shumingf@realtek.com>
+>>>
+>>> The settings of the switch control already set by DAPM event.
+>>> These switch controls might the user confused why it can't disable the
+>> capture.
+>>
+>> Sorry, not following. This control is used in the alsa-ucm-conf that was just
+>> merged
+>>
+>> https://github.com/alsa-project/alsa-ucm-
+>> conf/commit/197025656ec456331d1a34357b113913ec3b187f#diff-
+>> 0e1c627ea89ee148fdb41aa6b3ba7851ba9c20eb43c1b87b9e0ce92164273dc3R
+>> 7
+>>
+>> Is this saying this commit needs to be fixed with a follow-up PR? Libin, are
+>> you working on this?
+> 
+> Yes, I will submit a patch for UCM after this patch is merged.
+> 
+> The background is Jaroslav requires using codec HW kcontrol for capture
+> volume/switch. Shuming and I worked on it. At first we wanted to use
+> FU0F to replace PGA kcontrol. But Shuming found FU0F is used in DAPM.
+> So it is not proper for the capture volume/switch. And Shuming will remove
+> the FU0F kcontrol.
 
-On 2021-04-18 20:24, Jaroslav Kysela wrote:
-> Dne 18. 04. 21 v 17:12 David Henningsson napsal(a):
->
->> +#define SND_RAWMIDI_FRAMING_DATA_LENGTH 16
-> SNDRV_ prefix should be here.
+Is switch control name aligned with the volume control name after this change?
+I mean "A Capture Switch" + "A Capture Volume" not "A Capture Switch" + "B
+Capture Volume".
 
-Ack
+						Jaroslav
 
->
->> +
->> +struct snd_rawmidi_framing_tstamp {
->> +	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
->> +	 * types here. Applications are expected to skip unknown frame types.
->> +	 */
->> +	u8 frame_type;
->> +	u8 length; /* number of valid bytes in data field */
->> +	u8 reserved[2];
->> +	u32 tv_nsec;		/* nanoseconds */
->> +	u64 tv_sec;		/* seconds */
->> +	u8 data[SND_RAWMIDI_FRAMING_DATA_LENGTH];
-> What about to move the fields to union (except for frame_type) like we do for
-> 'struct snd_ctl_event' in case when we need to reorganize the contents for
-> future types?
-
-So the two degrees of freedom would be
-
-1) the SNDRV_RAWMIDI_MODE_FRAMING_32BYTES indicates that the frame size 
-is 32 bytes and the first byte of that frame is frame_type
-
-2) the frame_type of every frame indicates the format of the other 31 
-bytes, and an application is expected to ignore unknown frame_types, so 
-we can add new frame_types in a backwards compatible way.
-
-We'll end up with:
-
-struct snd_rawmidi_framing_32bytes {
-     u8 frame_type;
-     union {
-         struct {
-             u8 length; /* number of valid bytes in data field */
-             u8 reserved[2];
-             u32 tv_nsec;        /* nanoseconds */
-             u64 tv_sec;        /* seconds */
-             u8 data[SNDRV_RAWMIDI_FRAMING_32BYTES_FOO_LENGTH];
-         } foo;
-         u8 reserved[31];
-     } data;
-};
-
-...except I don't know what we should replace foo with. We can't call it 
-"midi1" or "type0" or such because many different frame_types might 
-share the same interior format.
+> 
+> Regards,
+> Libin
+> 
+>>
+>>
+>>>
+>>> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+>>> ---
+>>>   sound/soc/codecs/rt711-sdca.c | 8 --------
+>>>   1 file changed, 8 deletions(-)
+>>>
+>>> diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-
+>> sdca.c
+>>> index bfb7f1c8ec8f..2a09c305f4e4 100644
+>>> --- a/sound/soc/codecs/rt711-sdca.c
+>>> +++ b/sound/soc/codecs/rt711-sdca.c
+>>> @@ -652,14 +652,6 @@ static const struct snd_kcontrol_new
+>> rt711_sdca_snd_controls[] = {
+>>>   		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC,
+>> RT711_SDCA_ENT_USER_FU05, RT711_SDCA_CTL_FU_VOLUME, CH_R),
+>>>   		0x57, 0x57, 0,
+>>>   		rt711_sdca_set_gain_get, rt711_sdca_set_gain_put,
+>> out_vol_tlv),
+>>> -	SOC_DOUBLE_R("FU1E Capture Switch",
+>>> -		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY,
+>> RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_L),
+>>> -		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY,
+>> RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_R),
+>>> -		0, 1, 1),
+>>> -	SOC_DOUBLE_R("FU0F Capture Switch",
+>>> -		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC,
+>> RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_L),
+>>> -		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC,
+>> RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_R),
+>>> -		0, 1, 1),
+>>>   	SOC_DOUBLE_R_EXT_TLV("FU1E Capture Volume",
+>>>   		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY,
+>> RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_L),
+>>>   		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY,
+>> RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_R),
+>>>
 
 
->
->> +};
->> +
->>   struct snd_rawmidi_params {
->>   	int stream;
->>   	size_t buffer_size;		/* queue size in bytes */
->>   	size_t avail_min;		/* minimum avail bytes for wakeup */
->>   	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
->> -	unsigned char reserved[16];	/* reserved for future use */
->> +	unsigned char framing;		/* For input data only, frame incoming data */
->> +	unsigned char clock_type;	/* Type of clock to use for framing, same as clockid_t */
->> +	unsigned char reserved[14];	/* reserved for future use */
-> As I noted, I would prefer to add 'unsigned int mode;' and define
-> SNDRV_RAWMID_MODE_XXX bit flags and groups with framing and clock_type groups.
-> There's no reason to stick with 'clockid_t' (which is integer anyway). We're
-> using just a subset.
->
-> #define SNDRV_RAWMIDI_MODE_FRAMING_MASK        (7<<0)
-> #define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT       0
-> #define SNDRV_RAWMIDI_MODE_FRAMING_NONE	       (0<<0)
-> #define SNDRV_RAWMIDI_MODE_FRAMING_32BYTES     (1<<0)
-> #define SNDRV_RAWMIDI_MODE_CLOCK_MASK          (7<<3)
-> #define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT         3
-> #define SNDRV_RAWMIDI_MODE_CLOCK_NONE	       (0<<3)
-> #define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME      (1<<3)
-> #define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC     (2<<3)
-> #define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW (3<<3)
->
-> In this case, we can use 26-bits in future for extensions.
-
-Well, for me this is mostly bikeshedding. But as long as you and Takashi 
-can't agree on whether bitfields/bimasks/etc are good or bad, I'm just 
-stuck between the two of you and can't actually improve Linux's 
-capability to be a great pro audio OS, and that is utterly frustrating. 
-I don't care if the two of you decides who's going to win this through 
-this list, a conference call, a game of SuperTuxKart or thumb wrestling, 
-just reach consensus somehow. Okay?
-
->
->> +struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
->> +{
->> +	struct timespec64 ts64 = {0, 0};
->> +
->> +	if (substream->framing != SNDRV_RAWMIDI_FRAMING_TSTAMP)
->> +		return ts64;
->> +	if (substream->clock_type == CLOCK_MONOTONIC_RAW)
->> +		ktime_get_raw_ts64(&ts64);
->> +	else
->> +		ktime_get_ts64(&ts64);
->> +	return ts64;
->> +}
-> Missing the realtime clock type here.
->
-> 					Jaroslav
->
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

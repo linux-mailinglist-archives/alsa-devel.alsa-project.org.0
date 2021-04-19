@@ -2,85 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E518363AFD
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 07:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FFB1363AFF
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 07:28:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4576168C;
-	Mon, 19 Apr 2021 07:22:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4576168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 091EA16AA;
+	Mon, 19 Apr 2021 07:28:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091EA16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618809818;
-	bh=0Yhsk/h+8JfchiDnAtYzFtOI6Szmwsyv4Gl14u0XSiw=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1618810139;
+	bh=Q7TJptO0vIwQVFOD2bou9t/a0QOZPy+CmfrHAZjBNYY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=rDcgmFrz+JgVZXVZSbrabCfN0gCIrKATW9cgc/oVmv8t+kFMoHUsRs34uDVodeY7N
-	 s08ss8HuQXZfLgQHHocyTHUqTha+I25WaeKj0ErdjIqc4/oM8QHzG75bKMz+L2L79i
-	 /Dm0F+TUA9IAUcnqJD6E8ZaBO2vC4KnfXt2Ge2ys=
+	b=TKXbOr8jjjoKY/0jplR3hprFCEw7Cx4KRoXivjSAtQdmAgacSnj/5SRl1fAC0qVUl
+	 u/9yoVuh2OOZ4a0//iQlBgjxwx0lhBh/DHgUSsUcMzxaP5Q+tCuRDc2605xIQbft6A
+	 vVfAJmnkb4ck8Ivm9GAs/B4O3gn2DV/2g3dEsjC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B9E5F80256;
-	Mon, 19 Apr 2021 07:22:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A45BCF80227;
+	Mon, 19 Apr 2021 07:27:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CA5BF80227; Mon, 19 Apr 2021 07:22:05 +0200 (CEST)
+ id 51315F800C5; Mon, 19 Apr 2021 07:27:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
- [IPv6:2607:f8b0:4864:20::44a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AF1BF800C5
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 07:22:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AF1BF800C5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Pphg5mXO"
-Received: by mail-pf1-x44a.google.com with SMTP id
- b19-20020a056a000cd3b029024d8d7a88c1so6028862pfv.19
- for <alsa-devel@alsa-project.org>; Sun, 18 Apr 2021 22:22:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=1jlzay7NrHhIzm+rkAGcTage5tjUJRiEa0qA/fxcnjY=;
- b=Pphg5mXOZuX6oJxCRM8EBukui/4NuJxx07jOJDaZz1oq1vh72/E4kIv/Afhn6yyAcR
- EfMdqJvIT67EtmxeEPcppHNgvSaIQPOIWJEKuAvixPXl6NcyUGtSYF2ZOumOjk2NKp7e
- /gPLjB7hfPzcBXywKFCqzY+pgCwsh4yuzTFPt4gBvldEG0jf2Eg5ZjUF4azjaFlsZbtQ
- xqnx/wTz86t8j22AGehRmp06JWUlH0D8OubZVltZ2Jq+ZUyDzdm9SsUffrads5P6bSb7
- zJbv6Ewjm3nbOqwseOVLNuIztevd8+pl8nABP/jwcrxuT2ucfO4javgEgVWTw29tqmMx
- YWzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=1jlzay7NrHhIzm+rkAGcTage5tjUJRiEa0qA/fxcnjY=;
- b=KWoAp1MW9UvX/XFaEqUG6oMnDQshdHR4nekhVqhX328fu/SZOPz11s554Kr6XNpIoy
- r7YCEtqcdmO6xb6rXHJxGmKg9rnGPVoJgUgXxs1CsmuoSiRoMfbpXnl6upoOQiP2s+/v
- faYNVwJ7FjKq0xbcLoCEhFh7VVwZ43Uno4K3Z3i60KxspmBuf+pVGr78FjRDRQcdFP/5
- Gl1jXdwIK6mrRG02n3wtRKKKpdKka/4CRTgwTdoehy7oTFDhyCz6YXMyXGVStUTyLRh/
- InnEkpbFpCzbkRIgnH79MRWT3eMSuAQgNayrK8BwULSJedMjA31mACUym21MSeCXn7dp
- 2ypw==
-X-Gm-Message-State: AOAM530778KqJeEOZux2GYjDc/Sr8hjqBEwf5PnXEWG959kWRpJ/dkEk
- jA+JjWFVtTgjkicxZEwrC9sgNbWbUM/P
-X-Google-Smtp-Source: ABdhPJzi09lEATgb9ztaNjHZI+V7lwptJqTFm+vZoxp1DMfaZ2W5dklVTK8P6wG5Z0mHX0ArfOEsBq9To+nA
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:b01e:e82b:cf1:a8ce])
- (user=tzungbi job=sendgmr) by 2002:a17:90a:e2d7:: with SMTP id
- fr23mr22096275pjb.29.1618809718810; Sun, 18 Apr 2021 22:21:58 -0700 (PDT)
-Date: Mon, 19 Apr 2021 13:21:36 +0800
-Message-Id: <20210419052136.2475373-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.31.1.368.gbe11c130af-goog
-Subject: [RESEND PATCH] pinctrl: mediatek: use spin lock in mtk_rmw
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: sean.wang@kernel.org, linus.walleij@linaro.org, matthias.bgg@gmail.com, 
- zhiyong.tao@mediatek.com, broonie@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: linux-gpio@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- tzungbi@google.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D23EF800C5
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 07:27:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D23EF800C5
+IronPort-SDR: qQxNDj4TAn3f7+emv8/683hx0qGLMq0ENZAA2ql7e2SJr5W08PL/3hI2tBBqe1oDl/oASXVZ42
+ jBRTyy8C7lXg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9958"; a="192081477"
+X-IronPort-AV: E=Sophos;i="5.82,233,1613462400"; d="scan'208";a="192081477"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2021 22:27:17 -0700
+IronPort-SDR: GUo2Fc2DtIux661H0B5bDXL7JJgDuHUt8iwz5tvO0A71MBCMcCvQauoesBxinNHK08ULXlj2n0
+ JzBC6NPMn1yQ==
+X-IronPort-AV: E=Sophos;i="5.82,233,1613462400"; d="scan'208";a="426370589"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2021 22:27:14 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH 0/4] soundwire: only use CLOCK_STOP_MODE0 and handle -ENODATA
+Date: Mon, 19 Apr 2021 13:26:59 +0800
+Message-Id: <20210419052703.2782-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ hui.wang@canonical.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,96 +74,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 42a46434e9b1 ("pinctrl: add lock in mtk_rmw function.") uses
-mutex lock in mtk_rmw.  However the function is possible called from
-atomic context.
+Existing devices and implementations only support the required
+CLOCK_STOP_MODE0. All the code related to CLOCK_STOP_MODE1 has not
+been tested and is highly questionable, with a clear confusion between
+CLOCK_STOP_MODE1 and the simple clock stop state machine.
 
-For example call trace:
-  mutex_lock+0x28/0x64
-  mtk_rmw+0x38/0x80
-  mtk_hw_set_value+0x100/0x138
-  mtk_gpio_set+0x48/0x58
-  gpiod_set_raw_value_commit+0xf4/0x110
-  gpiod_set_value_nocheck+0x4c/0x80
-  gpiod_set_value+0x4c/0x6c
-  max98357a_daiops_trigger+0x8c/0x9c
-  soc_pcm_trigger+0x5c/0x10c
+This patch removes all usages of CLOCK_STOP_MODE1 - which has no
+impact on any solution - and fixes the use of the simple clock stop
+state machine. The resulting code should be a lot more symmetrical and
+easier to maintain.
 
-The max98357a_daiops_trigger() could run in either atomic or non-atomic
-context.  As a result, dmesg shows some similar messages: "BUG: sleeping
-function called from invalid context at kernel/locking/mutex.c:254".
+Note that CLOCK_STOP_MODE1 is not supported in the SoundWire Device
+Class specification so it's rather unlikely that we need to re-add
+this mode later.
 
-Uses spin lock in mtk_rmw instead.
+If a device lost sync and can no longer ACK a command, it may not be
+able to enter a lower-power state but it will still be able to resync
+when the clock restarts. In those cases, we want to continue with the
+clock stop sequence.
 
-Fixes: 42a46434e9b1 ("pinctrl: add lock in mtk_rmw function.")
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- drivers/pinctrl/mediatek/pinctrl-moore.c         | 2 +-
- drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 4 ++--
- drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h | 2 +-
- drivers/pinctrl/mediatek/pinctrl-paris.c         | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+This patch modifies the behavior during clock stop sequences to only
+log errors unrelated to -ENODATA/Command_Ignored. The flow is also
+modified so that loops continue to prepare/deprepare other devices
+even when one seems to have lost sync.
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-moore.c b/drivers/pinctrl/mediatek/pinctrl-moore.c
-index f77921957f15..3a4a23c40a71 100644
---- a/drivers/pinctrl/mediatek/pinctrl-moore.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-moore.c
-@@ -619,7 +619,7 @@ int mtk_moore_pinctrl_probe(struct platform_device *pdev,
- 
- 	hw->nbase = hw->soc->nbase_names;
- 
--	mutex_init(&hw->lock);
-+	spin_lock_init(&hw->lock);
- 
- 	/* Copy from internal struct mtk_pin_desc to register to the core */
- 	pins = devm_kmalloc_array(&pdev->dev, hw->soc->npins, sizeof(*pins),
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-index fcf7c3eeee4a..9ffe01a8ceca 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-@@ -58,14 +58,14 @@ void mtk_rmw(struct mtk_pinctrl *pctl, u8 i, u32 reg, u32 mask, u32 set)
- {
- 	u32 val;
- 
--	mutex_lock(&pctl->lock);
-+	spin_lock(&pctl->lock);
- 
- 	val = mtk_r32(pctl, i, reg);
- 	val &= ~mask;
- 	val |= set;
- 	mtk_w32(pctl, i, reg, val);
- 
--	mutex_unlock(&pctl->lock);
-+	spin_unlock(&pctl->lock);
- }
- 
- static int mtk_hw_pin_field_lookup(struct mtk_pinctrl *hw,
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
-index 65eac708a3b3..13836bb188b7 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
-@@ -252,7 +252,7 @@ struct mtk_pinctrl {
- 	struct mtk_pinctrl_group	*groups;
- 	const char          **grp_names;
- 	/* lock pin's register resource to avoid multiple threads issue*/
--	struct mutex lock;
-+	spinlock_t lock;
- };
- 
- void mtk_rmw(struct mtk_pinctrl *pctl, u8 i, u32 reg, u32 mask, u32 set);
-diff --git a/drivers/pinctrl/mediatek/pinctrl-paris.c b/drivers/pinctrl/mediatek/pinctrl-paris.c
-index 48e823f6d293..85db2e4377f0 100644
---- a/drivers/pinctrl/mediatek/pinctrl-paris.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-paris.c
-@@ -970,7 +970,7 @@ int mtk_paris_pinctrl_probe(struct platform_device *pdev,
- 
- 	hw->nbase = hw->soc->nbase_names;
- 
--	mutex_init(&hw->lock);
-+	spin_lock_init(&hw->lock);
- 
- 	err = mtk_pctrl_build_state(pdev);
- 	if (err) {
+When resuming the clocks, all issues are logged with a dev_warn(),
+previously only some of them were checked. This is the only part that
+now differs between the clock stop entry and clock stop exit
+sequences: while we don't want to stop the suspend flow, we do want
+information on potential issues while resuming, as they may have
+ripple effects.
+
+For consistency the log messages are also modified to be unique and
+self-explanatory. Errors in sdw_slave_clk_stop_callback() were
+removed, they are now handled in the caller.
+
+Pierre-Louis Bossart (4):
+  soundwire: bus: only use CLOCK_STOP_MODE0 and fix confusions
+  soundwire: add missing kernel-doc description
+  soundwire: bus: handle -ENODATA errors in clock stop/start sequences
+  soundwire: bus: add missing \n in dynamic debug
+
+ drivers/soundwire/bus.c       | 155 +++++++++++++++-------------------
+ include/linux/soundwire/sdw.h |   3 +-
+ 2 files changed, 70 insertions(+), 88 deletions(-)
+
 -- 
-2.31.1.368.gbe11c130af-goog
+2.17.1
 

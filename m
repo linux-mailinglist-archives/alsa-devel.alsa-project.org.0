@@ -2,88 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411FF363998
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 05:06:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33BAD3639AB
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 05:18:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C71371690;
-	Mon, 19 Apr 2021 05:05:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C71371690
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0730168A;
+	Mon, 19 Apr 2021 05:17:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0730168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618801590;
-	bh=m3T0hiKwLeCRZrEForeqvQSL34bw4XaMVeLDXtFcYe4=;
+	s=default; t=1618802279;
+	bh=/gPh63zGcenqMzb5vfreUYc3HhRT9pJd8rWQc2VplvY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=F8qriTCYecSuje6Kn68fx0D/rmGQhaQtiiI50mEZqFqIAd5AwYywufrP3iSxD41WG
-	 ppVrSqagEII59uicwDMkBWIG0/YOp6GEAiF7LcVYsT1bwKWiDLk66SmNNgtdINnlnu
-	 qP5TFW5ZX1LzxVGsvaQc8a2qTAaV3ZYK72GUJqnE=
+	b=jCdqVIG+1ZZIauW3CgTW/WqzbqPJ82qozrgnN7rDVQnOXzfMhPR3gfocwxbDm0Ye0
+	 eLORjLIGkWpbSmBT5+YLQ0h5m/GcN+WnCt2f79t9jSoluz3RAZ8NF27X5gzPPcsimK
+	 wg4Yle9YD4yT3vx9ur+UUEYa2M3oMAJI7ufmuo/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4664FF80227;
-	Mon, 19 Apr 2021 05:04:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48241F80256;
+	Mon, 19 Apr 2021 05:16:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C980EF80227; Mon, 19 Apr 2021 05:04:43 +0200 (CEST)
+ id 62836F80227; Mon, 19 Apr 2021 05:16:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50A70F80164
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 05:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A70F80164
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="CAePTiRR"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 403602393;
- Sun, 18 Apr 2021 23:04:30 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 18 Apr 2021 23:04:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=PrOcHHFjzXKX2Ja1y
- caapbHixLxJ7oQd8IfTQ5NlARA=; b=CAePTiRRNxkbokWAAOxtUpQdP5l6h+mav
- Ofx1reP35MXo22Cfw/X0lLEYVh5QdcIyPmvvQkWCj1aTJ+rXkFsOtkiSCfuF4afm
- r1mZsGFN8qCbNqf7gFDhCsip8AyTU/UdFjGDJgyH/0+GCzXohDQBw1sLT4SDgXw7
- iP9uejYCxR2YtaH44iHME20FURg/O5geLFOykb1bvqc+eO7E/uifY8PNS+YCvGKP
- sHTHVwN+oQdrf1pfXGqUtmC7g75gGb0xD4o1wFUy1yrQ3cDAiQxtbmIfrDUm837R
- +On0NOKlHXFS/yEKUZXAWu5cni8mC1s+OoPqSaSdNMdoboaas9/Uw==
-X-ME-Sender: <xms:PPN8YNToraQIyQHnFtTVFAmxC6swwMMdVKTQyeCtUr3B6dyjAuqtvA>
- <xme:PPN8YGy2oCBPoypb1tTY0GoC-X78XLAiUZ2EjrnaFRSX119gsp0SZ0lNaJbHXoQpe
- OXLi7AwR8gMtqL5bso>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddtvddguddtudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefnuhhkvgcuffculfhonhgvshcuoehluhhkvgeslhhjohhnvghs
- rdguvghvqeenucggtffrrghtthgvrhhnpeffgffhheehkefgtddtiefhudegteekudeihf
- dvudejudeigfdtheeijeetvdejvdenucfkphepudduiedrvdehuddrudelfedrudelieen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehluhhkvg
- eslhhjohhnvghsrdguvghv
-X-ME-Proxy: <xmx:PPN8YC0MQxO51LhyO8a7eZKOwDbJCPWU8njfEJMiMmbGb6bnt7lqEA>
- <xmx:PPN8YFAJ3PQhVEFcL6Uo9d0aItoKidj0101AFAZCfZUB38kIhG1lLQ>
- <xmx:PPN8YGibESQL-YQReBlG9Yl5u08u_-hoGA-y8sZluXVJoE46z2uKlw>
- <xmx:PfN8YBUrd9dTG1M1CICPXPn9yZQGOxFY5b7cUQcTbrNLdfD268LFCg>
-Received: from fedora.. (unknown [116.251.193.196])
- by mail.messagingengine.com (Postfix) with ESMTPA id AA9AA1080066;
- Sun, 18 Apr 2021 23:04:24 -0400 (EDT)
-From: Luke D Jones <luke@ljones.dev>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek: GA503 use same quirks as GA401
-Date: Mon, 19 Apr 2021 15:04:11 +1200
-Message-Id: <20210419030411.28304-1-luke@ljones.dev>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
- linux-kernel@vger.kernel.org, Luke D Jones <luke@ljones.dev>,
- chenhuacai@kernel.org, jhp@endlessos.org, hui.wang@canonical.com,
- kai.heng.feng@canonical.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id B123EF80164
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 05:16:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B123EF80164
+IronPort-SDR: HBamsbgXW9+j3o0pN9LVm+mj14gjv2I4QdVu8vfeQY3sH8XAWWXx/fUdWT4U1WEqIu/65pghVg
+ jyEeEdQL3olg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9958"; a="192072592"
+X-IronPort-AV: E=Sophos;i="5.82,233,1613462400"; d="scan'208";a="192072592"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2021 20:16:17 -0700
+IronPort-SDR: n7V6jxXMM8ia+dND8vy4OyFhrlPo4ON6ZkXpkCmaoTtSv9p3mdzvQbNRsA4qAhoKWgT0lffH+5
+ mdjEfmw/8XDQ==
+X-IronPort-AV: E=Sophos;i="5.82,233,1613462400"; d="scan'208";a="426344086"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2021 20:16:14 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: cadence_master: always set CMD_ACCEPT
+Date: Mon, 19 Apr 2021 11:16:06 +0800
+Message-Id: <20210419031606.32715-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ hui.wang@canonical.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,27 +74,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The GA503 has almost exactly the same default setup as the GA401
-model with the same issues. The GA401 quirks solve all the issues
-so we will use the full quirk chain.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Signed-off-by: Luke D Jones <luke@ljones.dev>
+The Cadence IP can be configured in two different ways to deal with
+CMD_IGNORED replies to broadcast commands. The CMD_ACCEPT bitfield
+controls whether the command is discarded or if the IP proceeds with
+the change (typically a bank switch or clock stop command).
+
+The existing code seems to be inconsistent:
+a) For some historical reason, we set this CMD_ACCEPT bitfield during
+the initialization, but we don't during a resume from a clock-stoppped
+state.
+b) In addition, the loop used in the clock-stop sequence is quite
+racy, it's possible that a device has lost sync but it's still tagged
+as ATTACHED.
+c) If somehow a Device loses sync and is unable to ack a broadcast
+command, we do not have an error handling mechanism anyways. The IP
+should go ahead and let the Device regain sync at a later time.
+
+Make sure the CMD_ACCEPT bit is always set.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soundwire/cadence_master.c | 21 ++-------------------
+ 1 file changed, 2 insertions(+), 19 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 290645516313..9a5546df1e6a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8019,6 +8019,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1d4e, "ASUS TM420", ALC256_FIXUP_ASUS_HPE),
- 	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
-+	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index 192dac10f0c2..25950422b085 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -1428,20 +1428,6 @@ int sdw_cdns_clock_stop(struct sdw_cdns *cdns, bool block_wake)
+ 		}
+ 	}
+ 
+-	/*
+-	 * This CMD_ACCEPT should be used when there are no devices
+-	 * attached on the link when entering clock stop mode. If this is
+-	 * not set and there is a broadcast write then the command ignored
+-	 * will be treated as a failure
+-	 */
+-	if (!slave_present)
+-		cdns_updatel(cdns, CDNS_MCP_CONTROL,
+-			     CDNS_MCP_CONTROL_CMD_ACCEPT,
+-			     CDNS_MCP_CONTROL_CMD_ACCEPT);
+-	else
+-		cdns_updatel(cdns, CDNS_MCP_CONTROL,
+-			     CDNS_MCP_CONTROL_CMD_ACCEPT, 0);
+-
+ 	/* commit changes */
+ 	ret = cdns_config_update(cdns);
+ 	if (ret < 0) {
+@@ -1508,11 +1494,8 @@ int sdw_cdns_clock_restart(struct sdw_cdns *cdns, bool bus_reset)
+ 	cdns_updatel(cdns, CDNS_MCP_CONTROL,
+ 		     CDNS_MCP_CONTROL_BLOCK_WAKEUP, 0);
+ 
+-	/*
+-	 * clear CMD_ACCEPT so that the command ignored
+-	 * will be treated as a failure during a broadcast write
+-	 */
+-	cdns_updatel(cdns, CDNS_MCP_CONTROL, CDNS_MCP_CONTROL_CMD_ACCEPT, 0);
++	cdns_updatel(cdns, CDNS_MCP_CONTROL, CDNS_MCP_CONTROL_CMD_ACCEPT,
++		     CDNS_MCP_CONTROL_CMD_ACCEPT);
+ 
+ 	if (!bus_reset) {
+ 
 -- 
-2.31.1
+2.17.1
 

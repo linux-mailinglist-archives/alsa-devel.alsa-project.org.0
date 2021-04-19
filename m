@@ -2,72 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF784364872
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 18:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F33364871
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 18:42:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2346A168A;
-	Mon, 19 Apr 2021 18:41:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2346A168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCEA5167B;
+	Mon, 19 Apr 2021 18:41:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCEA5167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618850548;
-	bh=ht67IqLi06iM5pB+qSCwzqtsWKcE6rVAYaFzO1MQ3wE=;
+	s=default; t=1618850533;
+	bh=NIaMFLmvbmqDcrOJhA/cS7ucnANIs+PS4vVTkpLYCAM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SDNowWXZEmlu8SzTEdfnRifdfm/OXwkqIIU9ytXW4m+6bgBFRytSITIarf3tqAbBL
-	 qTRVESp83ScukIxVafm6QKQ3ZeD/evr60xxXhgaLx3t0bXAHsPkYJbL4JlTGr7aEuU
-	 9SPlg6Uc6pYEjNC/J5plL1iyy0OwyR1lW/51nm2A=
+	b=dGfbx+Spp0UAS3co5Kt3XLI6LnJg2dEViReoceuDWrgNG/mBwbpxfhX5n2elNAfFU
+	 b1aup4ZnIABmfiTZ0PnvQ5y95BKKfY8o2VghDG5QC+kuH0aYTgkpapi+DKj2P7iN7n
+	 jbExxAMgrr3i8opXAt7bS3WUpOJ4YFSNKqTONkuY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEC27F8014D;
-	Mon, 19 Apr 2021 18:40:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DBC3F80256;
+	Mon, 19 Apr 2021 18:40:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A03AF80274; Mon, 19 Apr 2021 18:40:57 +0200 (CEST)
+ id 24656F80227; Mon, 19 Apr 2021 18:40:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E93DF8019B
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 18:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E93DF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CCC7F8019B
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 18:40:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CCC7F8019B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="g15zwCyU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
- From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
- References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
- List-Owner:List-Archive; bh=6oNfgbQzvTfqZkX1R5TZgrC3SP/iajbZ7G7oNqn9koM=; b=g
- 15zwCyU63zF6u59bWSkJPt02KX9gSOm3Bx94G6RnOk8wJI+dVumVCh3UFP1UWNueszfi0nEYr7801
- I5LoEmpSc+PWPJfpFCna0T0KgmxjJZdns0wYCClt7htXCsTwGjiB9lG+WVyTQ36AQk64Iwr3Pj3oY
- snnahI8tVlk5C+AqiOlAaolmdBlh9/12jr3O7yf1+/dy/sjVoDkBgSUfCfPKhcgjL1cA1sXzYIFvM
- OscOmt5tUFtpn4xxZ7vHzHr8KLN7XIkKdk6ngpWr828x2oFiagsFV8XiWkk9K72BiB/gtjKDBdzKj
- dqRCNNw1AGM2u6qPOzV6Uy/0eBz/z6myA==;
-Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
- helo=localhost.localdomain)
- by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
- (envelope-from <coding@diwic.se>)
- id 1lYWx2-005otZ-AL; Mon, 19 Apr 2021 18:40:44 +0200
-From: David Henningsson <coding@diwic.se>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	perex@perex.cz
-Subject: [PATCH v6] sound: rawmidi: Add framing mode
-Date: Mon, 19 Apr 2021 18:40:23 +0200
-Message-Id: <20210419164023.159967-1-coding@diwic.se>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="RjEialUZ"
+Received: by mail-ej1-x635.google.com with SMTP id g5so47230336ejx.0
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 09:40:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tYD7iKUGDbvQ7xhqvcEek4tJrzFRX/ATvZrSVpamY0s=;
+ b=RjEialUZD7kChrGxyPKEsP5Wr+y6NEFyQeHB8YTaoLNZYKDy8PW92VlHFOyn8a6HcQ
+ ZErNSMibeYa3TEC/oKk1qi2tLPPGnX8FMa3NM5y2jslqCQOoJUWI6RWPc6Rnr8J1GHWx
+ hUZxQqI8xy4a2uCC+nqTT+96LmhMZL9ZU6iJXZElrccMkWUCads5Tl+OGcnxax1vvHs/
+ E09OosP8NiQiseq8CLaVUSVchSe0/yhPcBlM4O1v2j3HwQugD7sIaRliHnbVSGFdr17E
+ EZSRDjvyudg7EVztTAnWMobS3Yk5ZZPUuwGxXErc/6JRa54OUgezJwjevjj+Ve/p5KzY
+ C6aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tYD7iKUGDbvQ7xhqvcEek4tJrzFRX/ATvZrSVpamY0s=;
+ b=nuKOKihIyQC9lmmVhEER4Xm/J8ajk2dnlCFBhWU8oVFCpSJTZozOnAAFag5FxiS3d7
+ FC6qyKm6fGF+VqsGp/JiL9GBbUjwZAagu45R+BBedW7Gq9UDUQ6etqQvC58RbM49Zuml
+ MtuM/Vg/sFiTzY3mlP6nPCA+RoK56KbOC+dLBWqsaR42Rgp36WyIN5u0MGdoIlPjy8Hc
+ 18KhVjTh0oicsmhz4LPwMsbwx2RDwwskd7VxiUS5QpmQP/2XvbSFGPrcPUZ2ktmy5WmL
+ j3nAJhsHVTc7Avvm6SQ1+n57wtnAIJH7kdA6vB5qZdWUc9b7uMSRBwU7wzZgv+jp+jqh
+ kkcg==
+X-Gm-Message-State: AOAM533D+d+DJSZ0JOOMiCiXFZQ9U787acVXP6e7/XFSI1xaWu8uN6zX
+ AsfD/zXzauOnUYJKcx/Yh8c=
+X-Google-Smtp-Source: ABdhPJyT0QKTkuCiONsSK1Um/TdKUMfW6JX+g+qt12SXzsljY/kZWhtWBDRG4qIu3OYC/9nFgFtCfQ==
+X-Received: by 2002:a17:906:90b:: with SMTP id
+ i11mr23136383ejd.168.1618850436277; 
+ Mon, 19 Apr 2021 09:40:36 -0700 (PDT)
+Received: from localhost (p2e5be10e.dip0.t-ipconnect.de. [46.91.225.14])
+ by smtp.gmail.com with ESMTPSA id u1sm13253974edv.90.2021.04.19.09.40.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Apr 2021 09:40:35 -0700 (PDT)
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: simple-card-utils: Allocate link info structure on heap
+Date: Mon, 19 Apr 2021 18:41:17 +0200
+Message-Id: <20210419164117.1422242-1-thierry.reding@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: coding@diwic.se
-Cc: David Henningsson <coding@diwic.se>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
+ kernel test robot <lkp@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Jon Hunter <jonathanh@nvidia.com>,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,270 +102,151 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds a new framing mode that frames all MIDI data into
-32-byte frames with a timestamp.
+From: Thierry Reding <treding@nvidia.com>
 
-The main benefit is that we can get accurate timestamps even if
-userspace wakeup and processing is not immediate.
+struct link_info can grow fairly large and may cause the stack frame
+size to be exceeded when allocated on the stack. Some architectures
+such as 32-bit ARM, RISC-V or PowerPC have small stack frames where
+this causes a compiler warning, so allocate these structures on the
+heap instead of the stack.
 
-Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
-compared to the in-kernel seq implementation which has a max jitter
-of 5 ms during idle and much worse when running scheduler stress tests
-in parallel.
-
-Signed-off-by: David Henningsson <coding@diwic.se>
+Fixes: 343e55e71877 ("ASoC: simple-card-utils: Increase maximum number of links to 128")
+Reported-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
+ sound/soc/generic/audio-graph-card.c | 18 +++++++++++-------
+ sound/soc/generic/simple-card.c      | 23 +++++++++++++----------
+ 2 files changed, 24 insertions(+), 17 deletions(-)
 
-Changes since v5: Added realtime clock and changed params struct according to
-Jaroslav's wishes.
-
-This version of the patch has been compile tested only.
-
- include/sound/rawmidi.h     |  2 +
- include/uapi/sound/asound.h | 30 ++++++++++++-
- sound/core/rawmidi.c        | 86 ++++++++++++++++++++++++++++++++++++-
- sound/core/rawmidi_compat.c |  4 +-
- 4 files changed, 118 insertions(+), 4 deletions(-)
-
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index 334842daa904..989e1517332d 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
- 	bool opened;			/* open flag */
- 	bool append;			/* append flag (merge more streams) */
- 	bool active_sensing;		/* send active sensing when close */
-+	unsigned int framing;		/* whether to frame input data */
-+	unsigned int clock_type;	/* clock source to use for input framing */
- 	int use_count;			/* use counter (for output) */
- 	size_t bytes;
- 	struct snd_rawmidi *rmidi;
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 535a7229e1d9..773a00c0a1d8 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -710,7 +710,7 @@ enum {
-  *  Raw MIDI section - /dev/snd/midi??
-  */
- 
--#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
-+#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
- 
- enum {
- 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
-@@ -736,12 +736,38 @@ struct snd_rawmidi_info {
- 	unsigned char reserved[64];	/* reserved for future use */
- };
- 
-+#define SNDRV_RAWMIDI_MODE_FRAMING_MASK		(7<<0)
-+#define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT	0
-+#define SNDRV_RAWMIDI_MODE_FRAMING_NONE		(0<<0)
-+#define SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP	(1<<0)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MASK		(7<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT		3
-+#define SNDRV_RAWMIDI_MODE_CLOCK_NONE		(0<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME	(1<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC	(2<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW	(3<<3)
-+
-+#define SNDRV_RAWMIDI_FRAMING_DATA_LENGTH 16
-+
-+struct snd_rawmidi_framing_tstamp {
-+	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
-+	 * types here. Applications are expected to skip unknown frame types.
-+	 */
-+	u8 frame_type;
-+	u8 length; /* number of valid bytes in data field */
-+	u8 reserved[2];
-+	u32 tv_nsec;		/* nanoseconds */
-+	u64 tv_sec;		/* seconds */
-+	u8 data[SNDRV_RAWMIDI_FRAMING_DATA_LENGTH];
-+} __attribute__((packed));
-+
- struct snd_rawmidi_params {
- 	int stream;
- 	size_t buffer_size;		/* queue size in bytes */
- 	size_t avail_min;		/* minimum avail bytes for wakeup */
- 	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
--	unsigned char reserved[16];	/* reserved for future use */
-+	unsigned int mode;		/* For input data only, frame incoming data */
-+	unsigned char reserved[12];	/* reserved for future use */
- };
- 
- #ifndef __KERNEL__
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index aca00af93afe..5d5f4363e887 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -680,9 +680,12 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
- 				 bool is_input)
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index c7369beee805..e45a560aa9b0 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -548,21 +548,24 @@ static int graph_get_dais_count(struct asoc_simple_priv *priv,
+ int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev)
  {
- 	char *newbuf, *oldbuf;
-+	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
+ 	struct snd_soc_card *card = simple_priv_to_card(priv);
+-	struct link_info li;
++	struct link_info *li;
+ 	int ret;
  
- 	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
- 		return -EINVAL;
-+	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP && (params->buffer_size & 0x1f) != 0)
-+		return -EINVAL;
- 	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
- 		return -EINVAL;
- 	if (params->buffer_size != runtime->buffer_size) {
-@@ -720,7 +723,18 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
- int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
- 			     struct snd_rawmidi_params *params)
- {
-+	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
-+	unsigned int clock_type = params->mode & SNDRV_RAWMIDI_MODE_CLOCK_MASK;
++	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
++	if (!li)
++		return -ENOMEM;
 +
-+	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_NONE && clock_type != SNDRV_RAWMIDI_MODE_CLOCK_NONE)
-+		return -EINVAL;
-+	else if (clock_type > SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW)
-+		return -EINVAL;
-+	if (framing > SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
-+		return -EINVAL;
- 	snd_rawmidi_drain_input(substream);
-+	substream->framing = framing;
-+	substream->clock_type = clock_type;
- 	return resize_runtime_buffer(substream->runtime, params, true);
- }
- EXPORT_SYMBOL(snd_rawmidi_input_params);
-@@ -963,6 +977,61 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
- 	return -ENOIOCTLCMD;
+ 	card->owner = THIS_MODULE;
+ 	card->dev = dev;
+ 
+-	memset(&li, 0, sizeof(li));
+-	ret = graph_get_dais_count(priv, &li);
++	ret = graph_get_dais_count(priv, li);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!li.link)
++	if (!li->link)
+ 		return -EINVAL;
+ 
+-	ret = asoc_simple_init_priv(priv, &li);
++	ret = asoc_simple_init_priv(priv, li);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -581,8 +584,8 @@ int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	memset(&li, 0, sizeof(li));
+-	ret = graph_for_each_link(priv, &li,
++	memset(li, 0, sizeof(*li));
++	ret = graph_for_each_link(priv, li,
+ 				  graph_dai_link_of,
+ 				  graph_dai_link_of_dpcm);
+ 	if (ret < 0)
+@@ -600,6 +603,7 @@ int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev)
+ 	if (ret < 0)
+ 		goto err;
+ 
++	devm_kfree(dev, li);
+ 	return 0;
+ 
+ err:
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 8b9964d25757..ca27cb9ff9e1 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -442,10 +442,9 @@ static int simple_for_each_link(struct asoc_simple_priv *priv,
+ 	return ret;
  }
  
-+static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
-+			const unsigned char *buffer, int src_count, const struct timespec64 *tstamp)
-+{
-+	struct snd_rawmidi_runtime *runtime = substream->runtime;
-+	struct snd_rawmidi_framing_tstamp *dest_ptr;
-+	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
-+	int dest_frames = 0;
-+	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
-+
-+	BUILD_BUG_ON(frame_size != 0x20);
-+	if (snd_BUG_ON((runtime->hw_ptr & 0x1f) != 0))
-+		return -EINVAL;
-+
-+	while (src_count > 0) {
-+		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
-+			runtime->xruns += src_count;
-+			break;
-+		}
-+		if (src_count >= SNDRV_RAWMIDI_FRAMING_DATA_LENGTH)
-+			frame.length = SNDRV_RAWMIDI_FRAMING_DATA_LENGTH;
-+		else {
-+			frame.length = src_count;
-+			memset(frame.data, 0, SNDRV_RAWMIDI_FRAMING_DATA_LENGTH);
-+		}
-+		memcpy(frame.data, buffer, frame.length);
-+		buffer += frame.length;
-+		src_count -= frame.length;
-+		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
-+		*dest_ptr = frame;
-+		runtime->avail += frame_size;
-+		runtime->hw_ptr += frame_size;
-+		runtime->hw_ptr %= runtime->buffer_size;
-+		dest_frames++;
-+	}
-+	return dest_frames * frame_size;
-+}
-+
-+static struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
-+{
-+	struct timespec64 ts64 = {0, 0};
-+
-+	switch (substream->clock_type) {
-+	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW:
-+		ktime_get_raw_ts64(&ts64);
-+		break;
-+	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC:
-+		ktime_get_ts64(&ts64);
-+		break;
-+	case SNDRV_RAWMIDI_MODE_CLOCK_REALTIME:
-+		ktime_get_real_ts64(&ts64);
-+		break;
-+	}
-+	return ts64;
-+}
-+
- /**
-  * snd_rawmidi_receive - receive the input data from the device
-  * @substream: the rawmidi substream
-@@ -977,6 +1046,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 			const unsigned char *buffer, int count)
+-static int simple_parse_of(struct asoc_simple_priv *priv)
++static int simple_parse_of(struct asoc_simple_priv *priv, struct link_info *li)
  {
- 	unsigned long flags;
-+	struct timespec64 ts64 = get_framing_tstamp(substream);
- 	int result = 0, count1;
- 	struct snd_rawmidi_runtime *runtime = substream->runtime;
+ 	struct snd_soc_card *card = simple_priv_to_card(priv);
+-	struct link_info li;
+ 	int ret;
  
-@@ -987,8 +1057,11 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 			  "snd_rawmidi_receive: input is not active!!!\n");
+ 	ret = asoc_simple_parse_widgets(card, PREFIX);
+@@ -461,8 +460,8 @@ static int simple_parse_of(struct asoc_simple_priv *priv)
+ 		return ret;
+ 
+ 	/* Single/Muti DAI link(s) & New style of DT node */
+-	memset(&li, 0, sizeof(li));
+-	ret = simple_for_each_link(priv, &li,
++	memset(li, 0, sizeof(*li));
++	ret = simple_for_each_link(priv, li,
+ 				   simple_dai_link_of,
+ 				   simple_dai_link_of_dpcm);
+ 	if (ret < 0)
+@@ -612,7 +611,7 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np = dev->of_node;
+ 	struct snd_soc_card *card;
+-	struct link_info li;
++	struct link_info *li;
+ 	int ret;
+ 
+ 	/* Allocate the private data and the DAI link array */
+@@ -625,21 +624,24 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	card->dev		= dev;
+ 	card->probe		= simple_soc_probe;
+ 
+-	memset(&li, 0, sizeof(li));
+-	ret = simple_get_dais_count(priv, &li);
++	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
++	if (!li)
++		return -ENOMEM;
++
++	ret = simple_get_dais_count(priv, li);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!li.link)
++	if (!li->link)
  		return -EINVAL;
- 	}
-+
- 	spin_lock_irqsave(&runtime->lock, flags);
--	if (count == 1) {	/* special case, faster code */
-+	if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
-+		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
-+	} else if (count == 1) {	/* special case, faster code */
- 		substream->bytes++;
- 		if (runtime->avail < runtime->buffer_size) {
- 			runtime->buffer[runtime->hw_ptr++] = buffer[0];
-@@ -1534,6 +1607,7 @@ static __poll_t snd_rawmidi_poll(struct file *file, poll_table *wait)
- /*
-  */
  
-+
- static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 				       struct snd_info_buffer *buffer)
- {
-@@ -1541,6 +1615,8 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 	struct snd_rawmidi_substream *substream;
- 	struct snd_rawmidi_runtime *runtime;
- 	unsigned long buffer_size, avail, xruns;
-+	unsigned int clock_type;
-+	static const char *clock_names[4] = { "none", "realtime", "monotonic", "monotonic raw" };
+-	ret = asoc_simple_init_priv(priv, &li);
++	ret = asoc_simple_init_priv(priv, li);
+ 	if (ret < 0)
+ 		return ret;
  
- 	rmidi = entry->private_data;
- 	snd_iprintf(buffer, "%s\n\n", rmidi->name);
-@@ -1596,6 +1672,14 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 					    "  Avail        : %lu\n"
- 					    "  Overruns     : %lu\n",
- 					    buffer_size, avail, xruns);
-+				if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
-+					clock_type = substream->clock_type >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT;
-+					if (!snd_BUG_ON(clock_type >= sizeof(clock_names)))
-+						snd_iprintf(buffer,
-+							    "  Framing      : tstamp\n"
-+							    "  Clock type   : %s\n",
-+							    clock_names[clock_type]);
-+				}
- 			}
- 		}
- 	}
-diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
-index 7397130976d0..68a93443583c 100644
---- a/sound/core/rawmidi_compat.c
-+++ b/sound/core/rawmidi_compat.c
-@@ -13,7 +13,8 @@ struct snd_rawmidi_params32 {
- 	u32 buffer_size;
- 	u32 avail_min;
- 	unsigned int no_active_sensing; /* avoid bit-field */
--	unsigned char reserved[16];
-+	unsigned int mode;
-+	unsigned char reserved[12];
- } __attribute__((packed));
+ 	if (np && of_device_is_available(np)) {
  
- static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
-@@ -25,6 +26,7 @@ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
- 	if (get_user(params.stream, &src->stream) ||
- 	    get_user(params.buffer_size, &src->buffer_size) ||
- 	    get_user(params.avail_min, &src->avail_min) ||
-+	    get_user(params.mode, &src->mode) ||
- 	    get_user(val, &src->no_active_sensing))
- 		return -EFAULT;
- 	params.no_active_sensing = val;
+-		ret = simple_parse_of(priv);
++		ret = simple_parse_of(priv, li);
+ 		if (ret < 0) {
+ 			if (ret != -EPROBE_DEFER)
+ 				dev_err(dev, "parse error %d\n", ret);
+@@ -698,6 +700,7 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto err;
+ 
++	devm_kfree(dev, li);
+ 	return 0;
+ err:
+ 	asoc_simple_clean_reference(card);
 -- 
-2.25.1
+2.30.2
 

@@ -2,138 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFDC36479E
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 18:00:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF784364872
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 18:42:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7096167A;
-	Mon, 19 Apr 2021 17:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7096167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2346A168A;
+	Mon, 19 Apr 2021 18:41:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2346A168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618848016;
-	bh=JvVXypYP0nvfruv6JC37VeCldsJ79N2g+H4r64vve8I=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aLfrkf0n6I+/etWF5J+QaPqnEInMWlffT9OPoiUNGjvB+gV1x/0vGBjGZ+kW8shnj
-	 t2noaLnaAmk6jf59SQ2JOy3ULrKAc+8CQE5d1UbMXA18nQIUEbpyrJjqjIIzLPycSc
-	 fTtsb/P+YU/UaJq3StNXo4EjImGvHO75i7d15QJw=
+	s=default; t=1618850548;
+	bh=ht67IqLi06iM5pB+qSCwzqtsWKcE6rVAYaFzO1MQ3wE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SDNowWXZEmlu8SzTEdfnRifdfm/OXwkqIIU9ytXW4m+6bgBFRytSITIarf3tqAbBL
+	 qTRVESp83ScukIxVafm6QKQ3ZeD/evr60xxXhgaLx3t0bXAHsPkYJbL4JlTGr7aEuU
+	 9SPlg6Uc6pYEjNC/J5plL1iyy0OwyR1lW/51nm2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFA27F80431;
-	Mon, 19 Apr 2021 17:58:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEC27F8014D;
+	Mon, 19 Apr 2021 18:40:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB22DF80430; Mon, 19 Apr 2021 17:58:05 +0200 (CEST)
+ id 3A03AF80274; Mon, 19 Apr 2021 18:40:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11olkn2100.outbound.protection.outlook.com [40.92.19.100])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B337EF8019B
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:57:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B337EF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E93DF8019B
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 18:40:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E93DF8019B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="AzqLR6Ag"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c+tojzO8IInO9/pufpvFFfUjGjx1vMpLIxD+CoUvEVyREuxdY3yIy1Y8gdFH6h8801luQBip6OrmAxRZH/kdpoHK9g0ujn6QOvaOfakpkm1uvGtlX36qOpX9eAE0MvQ6MEeuMFXNqWLqGnrwaZ4Hzut4N01UczGXMdQ2nFqZADP8XqU7kOoRRFMChnosKVt2Aqv/TNFbPy1cBmM196wp1PkYlrPyI1sO0xbb4wRWwjpT1kBknD/DUtFjKJbxqeuRY9U1o1W0FkyFt+QMeAscYyOQ5j0F5WJYq1Krsf3aqfsE+3bRvYJPO9AuJyInQJlcNIoUKketbViqkxnqulYkUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Z6Ic0XQPavYVgbb8NNlcJMP5J84q3VG8D2ZtPGmfvk=;
- b=jf35dg+iMbswzQCFD62kS3RIGkQnPPeZ7mapGsCwYBQZTBrn8P61XkLUgiH+Z2sbd6IxKEU+8dOndF4gX7wvtdBT0wdZ4maHxAMKDZ8GKmcEEHFMstqBKsbqKkwSYHueW7t5Sr2wQsoEDFHN+l5N7NIz6B9rfuF6tuztqYdahVQrQydQ+Dg9T7qtyGN/5c/9tCFSwtbtRzfrzT6ikRATNSumKjIvLvvngQ6YWaXtDeANtSwhSw1LMYZcu9s9Nwzv0BfUBZvBVF7iiDQL39ect/mxnjuCiu+buTuN7lY8waMPwcsXyzVT2fMShlyLgRXfzRC1EMoJQB5iv5s47lzZoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Z6Ic0XQPavYVgbb8NNlcJMP5J84q3VG8D2ZtPGmfvk=;
- b=AzqLR6AgccmyDLBA5nxQTaIznHYMQNcgv5QJxLr30NtJyJ+wEDvdcfzHdG8w6xpPCUxI6vLV56BSJ7E+yU36PdfAGNlas7Bzpn+8QkvSWIVd1eWy/3SR7hDRFNUYe4oBxea7kR6dNRVdA7etQjdd25aC2TieAXvC5opN71XkPV+RS8e7GXlEnRBOm85ISFmsHv3t+VYtyGGfFSN76GHtZQn6navz7tRmiXzezWpR1VQy0heS0yJ12t8S25+S4LflgYs73C7GWTgj78Q1wldqKu4fHIfhRgzasc8qbq5jEHTjv27ao0eJyZzKziyR+kQRtH2wMdLDVbLmApYPuhmDMg==
-Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2a01:111:e400:fc4d::49) by
- DM6NAM11HT024.eop-nam11.prod.protection.outlook.com (2a01:111:e400:fc4d::286)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Mon, 19 Apr
- 2021 15:57:48 +0000
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- (2a01:111:e400:fc4d::40) by DM6NAM11FT058.mail.protection.outlook.com
- (2a01:111:e400:fc4d::216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16 via Frontend
- Transport; Mon, 19 Apr 2021 15:57:48 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:89A387789A3EF26CAC33388B3E4B4362F5453AF5D868475C51528DDE9F0BB452;
- UpperCasedChecksum:E8FAA8C873905145236B43E5EBF7441851AAA4328137702DFDFD9161823E3552;
- SizeAsReceived:7718; Count:47
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e]) by SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e%7]) with mapi id 15.20.4042.024; Mon, 19 Apr 2021
- 15:57:48 +0000
-From: Chris Morgan <macromorgan@hotmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [v6 3/3] dt-bindings: Add Rockchip rk817 audio CODEC support
-Date: Mon, 19 Apr 2021 10:57:18 -0500
-Message-ID: <SN6PR06MB53420A0E831C17342A73188BA5499@SN6PR06MB5342.namprd06.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="g15zwCyU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
+ From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=6oNfgbQzvTfqZkX1R5TZgrC3SP/iajbZ7G7oNqn9koM=; b=g
+ 15zwCyU63zF6u59bWSkJPt02KX9gSOm3Bx94G6RnOk8wJI+dVumVCh3UFP1UWNueszfi0nEYr7801
+ I5LoEmpSc+PWPJfpFCna0T0KgmxjJZdns0wYCClt7htXCsTwGjiB9lG+WVyTQ36AQk64Iwr3Pj3oY
+ snnahI8tVlk5C+AqiOlAaolmdBlh9/12jr3O7yf1+/dy/sjVoDkBgSUfCfPKhcgjL1cA1sXzYIFvM
+ OscOmt5tUFtpn4xxZ7vHzHr8KLN7XIkKdk6ngpWr828x2oFiagsFV8XiWkk9K72BiB/gtjKDBdzKj
+ dqRCNNw1AGM2u6qPOzV6Uy/0eBz/z6myA==;
+Received: from c83-254-143-147.bredband.comhem.se ([83.254.143.147]
+ helo=localhost.localdomain)
+ by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94)
+ (envelope-from <coding@diwic.se>)
+ id 1lYWx2-005otZ-AL; Mon, 19 Apr 2021 18:40:44 +0200
+From: David Henningsson <coding@diwic.se>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	perex@perex.cz
+Subject: [PATCH v6] sound: rawmidi: Add framing mode
+Date: Mon, 19 Apr 2021 18:40:23 +0200
+Message-Id: <20210419164023.159967-1-coding@diwic.se>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210419155718.17348-1-macromorgan@hotmail.com>
-References: <20210419155718.17348-1-macromorgan@hotmail.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [hVt2db7byR3PlMgHF0tfXiMSW/7RaVHT]
-X-ClientProxiedBy: SN6PR2101CA0015.namprd21.prod.outlook.com
- (2603:10b6:805:106::25) To SN6PR06MB5342.namprd06.prod.outlook.com
- (2603:10b6:805:f9::31)
-X-Microsoft-Original-Message-ID: <20210419155718.17348-3-macromorgan@hotmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from wintermute.localdomain (76.183.134.35) by
- SN6PR2101CA0015.namprd21.prod.outlook.com (2603:10b6:805:106::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.3 via Frontend
- Transport; Mon, 19 Apr 2021 15:57:47 +0000
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 47
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-Correlation-Id: ba6de9fa-2e54-4997-fed3-08d9034be096
-X-MS-Exchange-SLBlob-MailProps: =?us-ascii?Q?jGdi06XMWgDV9+cWLlvRA1dJ77iP2R+9OYE7HsfC2Jz5/ClW9XU3KAywnogO?=
- =?us-ascii?Q?qagil7BlnrOnKPzBlFTWQ0mrSgpV4gE8cSp3VtKB7WERtbO2wKmm2fUR+JjF?=
- =?us-ascii?Q?3KHYcnrQp3I50qM6yAcrZVqGFGLEZPNQdCRwXEZhjT34PquKSCenIlMBV/Y3?=
- =?us-ascii?Q?fh0m12uZx9p0OwJnutAikXic0ZtqjCKRy7JFXH670EhTweCB7Uk52t90QBCd?=
- =?us-ascii?Q?3l5IW4kdPpRcvsITobRz2Hb1NHNVXkEkHHNouY2EDEj7s2s73t7650uwKji3?=
- =?us-ascii?Q?dmGoj+S6QsV3MQpcjb69WIYOS8H37MDYD0gzOp6ZXDzUsoN+LOrZWYtDjJgF?=
- =?us-ascii?Q?efuBip1pcMFa6ZjvUmgG9MbIJf6N54o/Pw/hiQvE6hTUL6X4+DW9zjjx3QXG?=
- =?us-ascii?Q?2qo1JW8BAS4KPSoG4bgerHHhfdrtyc4rGxkutusgawz315SbekAA/gyvN7YX?=
- =?us-ascii?Q?REI8yYPLv5f/HUzHjYxCfsC8bUS8nIIdwNQOY/HQwAv13oYgA2gyNqmJoIbH?=
- =?us-ascii?Q?jKjkHjGc9Ccbsj4hPBfkZfwK6vd+V4/1oQCSLCnITRpJGGUFumEebUlQii/3?=
- =?us-ascii?Q?DTZzPJgkTqqOCSsD6qsQR77T+p+BoBDN8fOwF1nmUZ3cRD0I7dyoK9rzxZmz?=
- =?us-ascii?Q?XOG4+jUiHtHtI0eNzCA2kaU9QzaUe0d/5nFXDkOUMFkck3DlxxehxWmgw4QM?=
- =?us-ascii?Q?IzwIBTlFo8d5CQyPlpUrk/JCp3GoBC7QEW5Nas+jKraQ9uOAPpQ9PnzERcW9?=
- =?us-ascii?Q?D9RlIFeaW8IvC6c+vz5QMAkKIl0OUHW0vqJSdB9bN/Om41NclSMgLDYOeT2P?=
- =?us-ascii?Q?UJUzwHIbNCHiSeIEDMlqEzA9W0/E8FoOunnS0ADPwn7YxGidYkDb9PLydqaI?=
- =?us-ascii?Q?EGxU0mYNXm8vEiVVwlSNXvt6Y0gLEW1s1u5uWcgKbUkaOuvr3ZnJxwY8OEcm?=
- =?us-ascii?Q?BYHil1MIwWu3BG1EyeSlbuuS4KuDQw4h?=
-X-MS-TrafficTypeDiagnostic: DM6NAM11HT024:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jwbkp5P/UoQGGQ3yCrxlR8k2qalr9i8CDefSCNxD5HEOVMhdCoTskGL8N2GJOM6ZwkCcuvyEQaHLm3yyffsZof65tdeFAZxuJ8st1B/vSi05Eho8Oe0mpge3Ho83OTn4FyM0U/i5TH8/oibb5KSm3MfMBwnbA55GzMenJ51LAq7lm+Lye27j0uZtl8hlDD3DGQPk9o5TCkh+y8/h7sGF8Xeu3p6XWuLm2dI/u5HuQJMvhspt7uP7+nQi8D/i4opVhmsawcnLTmKT3+bIk2yUGuQGrevbE//2TPuwFo21u9Jhkm2MHsH8CF+WzCKudJ6xkgLYkO+qbUbNcmPYE5Y9hwXGY/PfxMvnd5AHEb7BWO9km2uWTNzBQkEUlYyK64bHBu4uSccjMPiC0rkyjuGGu02TE990iPgAIA37pdjBlnA=
-X-MS-Exchange-AntiSpam-MessageData: g96FJKnrS39MxErSjmZFppEeWMgFflg8dZmbqFQqZPdGJHMdiKRKZCziDaiERKuavveoqcLvZ+0qysbuK5MuiDJ73KxX1Ajs8ela4WN03hOl0mj4p72PAH7SRw7pax+UOiLZOKKuLd9JNvozbNh/Vg==
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba6de9fa-2e54-4997-fed3-08d9034be096
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2021 15:57:47.8686 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM11HT024
-Cc: pierre-louis.bossart@linux.intel.com, heiko@sntech.de,
- devicetree@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
- lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, broonie@kernel.org,
- Chris Morgan <macromorgan@hotmail.com>, lee.jones@linaro.org
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: coding@diwic.se
+Cc: David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,102 +83,270 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Create dt-binding documentation to document rk817 codec.
+This commit adds a new framing mode that frames all MIDI data into
+32-byte frames with a timestamp.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+The main benefit is that we can get accurate timestamps even if
+userspace wakeup and processing is not immediate.
+
+Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+compared to the in-kernel seq implementation which has a max jitter
+of 5 ms during idle and much worse when running scheduler stress tests
+in parallel.
+
+Signed-off-by: David Henningsson <coding@diwic.se>
 ---
-Changes in v6:
- - Included additional project maintainers for correct subsystems.
- - Removed unneeded compatible from DT documentation.
- - Removed binding update for Odroid Go Advance (will do in seperate series).
-Changes in v5:
- - Move register definitions from rk817_codec.h to main rk808.h register
-   definitions.
- - Add volatile register for codec bits.
- - Add default values for codec bits.
- - Removed of_compatible from mtd driver (not necessary).
- - Switched to using parent regmap instead of private regmap for codec.
-Changes in v4:
- - Created set_pll() call.
- - Created user visible gain control in mic.
- - Check for return value of clk_prepare_enable().
- - Removed duplicate clk_prepare_enable().
- - Split DT documentation to separate commit.
-Changes in v3:
- - Use DAPM macros to set audio path.
- - Updated devicetree binding (as every rk817 has this codec chip).
- - Changed documentation to yaml format.
- - Split MFD changes to separate commit.
-Changes in v2:
- - Fixed audio path registers to solve some bugs.
 
- .../bindings/sound/rockchip,rk817-codec.yaml  | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk817-codec.yaml
+Changes since v5: Added realtime clock and changed params struct according to
+Jaroslav's wishes.
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk817-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk817-codec.yaml
-new file mode 100644
-index 000000000000..0059ef54d6b5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,rk817-codec.yaml
-@@ -0,0 +1,57 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip-rk817.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+This version of the patch has been compile tested only.
+
+ include/sound/rawmidi.h     |  2 +
+ include/uapi/sound/asound.h | 30 ++++++++++++-
+ sound/core/rawmidi.c        | 86 ++++++++++++++++++++++++++++++++++++-
+ sound/core/rawmidi_compat.c |  4 +-
+ 4 files changed, 118 insertions(+), 4 deletions(-)
+
+diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index 334842daa904..989e1517332d 100644
+--- a/include/sound/rawmidi.h
++++ b/include/sound/rawmidi.h
+@@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
+ 	bool opened;			/* open flag */
+ 	bool append;			/* append flag (merge more streams) */
+ 	bool active_sensing;		/* send active sensing when close */
++	unsigned int framing;		/* whether to frame input data */
++	unsigned int clock_type;	/* clock source to use for input framing */
+ 	int use_count;			/* use counter (for output) */
+ 	size_t bytes;
+ 	struct snd_rawmidi *rmidi;
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 535a7229e1d9..773a00c0a1d8 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -710,7 +710,7 @@ enum {
+  *  Raw MIDI section - /dev/snd/midi??
+  */
+ 
+-#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
++#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
+ 
+ enum {
+ 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
+@@ -736,12 +736,38 @@ struct snd_rawmidi_info {
+ 	unsigned char reserved[64];	/* reserved for future use */
+ };
+ 
++#define SNDRV_RAWMIDI_MODE_FRAMING_MASK		(7<<0)
++#define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT	0
++#define SNDRV_RAWMIDI_MODE_FRAMING_NONE		(0<<0)
++#define SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP	(1<<0)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MASK		(7<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT		3
++#define SNDRV_RAWMIDI_MODE_CLOCK_NONE		(0<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME	(1<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC	(2<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW	(3<<3)
 +
-+title: Rockchip rk817 audio codec
++#define SNDRV_RAWMIDI_FRAMING_DATA_LENGTH 16
 +
-+description:
-+  The rk817 codec is an I2C codec integrated with every Rockchip
-+  rk817 PMIC MFD.
++struct snd_rawmidi_framing_tstamp {
++	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
++	 * types here. Applications are expected to skip unknown frame types.
++	 */
++	u8 frame_type;
++	u8 length; /* number of valid bytes in data field */
++	u8 reserved[2];
++	u32 tv_nsec;		/* nanoseconds */
++	u64 tv_sec;		/* seconds */
++	u8 data[SNDRV_RAWMIDI_FRAMING_DATA_LENGTH];
++} __attribute__((packed));
 +
-+properties:
+ struct snd_rawmidi_params {
+ 	int stream;
+ 	size_t buffer_size;		/* queue size in bytes */
+ 	size_t avail_min;		/* minimum avail bytes for wakeup */
+ 	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+-	unsigned char reserved[16];	/* reserved for future use */
++	unsigned int mode;		/* For input data only, frame incoming data */
++	unsigned char reserved[12];	/* reserved for future use */
+ };
+ 
+ #ifndef __KERNEL__
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index aca00af93afe..5d5f4363e887 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -680,9 +680,12 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
+ 				 bool is_input)
+ {
+ 	char *newbuf, *oldbuf;
++	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
+ 
+ 	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
+ 		return -EINVAL;
++	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP && (params->buffer_size & 0x1f) != 0)
++		return -EINVAL;
+ 	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
+ 		return -EINVAL;
+ 	if (params->buffer_size != runtime->buffer_size) {
+@@ -720,7 +723,18 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
+ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+ 			     struct snd_rawmidi_params *params)
+ {
++	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
++	unsigned int clock_type = params->mode & SNDRV_RAWMIDI_MODE_CLOCK_MASK;
 +
-+  "#sound-dai-cells":
-+    const: 1
++	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_NONE && clock_type != SNDRV_RAWMIDI_MODE_CLOCK_NONE)
++		return -EINVAL;
++	else if (clock_type > SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW)
++		return -EINVAL;
++	if (framing > SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
++		return -EINVAL;
+ 	snd_rawmidi_drain_input(substream);
++	substream->framing = framing;
++	substream->clock_type = clock_type;
+ 	return resize_runtime_buffer(substream->runtime, params, true);
+ }
+ EXPORT_SYMBOL(snd_rawmidi_input_params);
+@@ -963,6 +977,61 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
+ 	return -ENOIOCTLCMD;
+ }
+ 
++static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
++			const unsigned char *buffer, int src_count, const struct timespec64 *tstamp)
++{
++	struct snd_rawmidi_runtime *runtime = substream->runtime;
++	struct snd_rawmidi_framing_tstamp *dest_ptr;
++	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
++	int dest_frames = 0;
++	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
 +
-+  clocks:
-+    maxItems: 1
++	BUILD_BUG_ON(frame_size != 0x20);
++	if (snd_BUG_ON((runtime->hw_ptr & 0x1f) != 0))
++		return -EINVAL;
 +
-+  clock-names:
-+    const: "mclk"
++	while (src_count > 0) {
++		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
++			runtime->xruns += src_count;
++			break;
++		}
++		if (src_count >= SNDRV_RAWMIDI_FRAMING_DATA_LENGTH)
++			frame.length = SNDRV_RAWMIDI_FRAMING_DATA_LENGTH;
++		else {
++			frame.length = src_count;
++			memset(frame.data, 0, SNDRV_RAWMIDI_FRAMING_DATA_LENGTH);
++		}
++		memcpy(frame.data, buffer, frame.length);
++		buffer += frame.length;
++		src_count -= frame.length;
++		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
++		*dest_ptr = frame;
++		runtime->avail += frame_size;
++		runtime->hw_ptr += frame_size;
++		runtime->hw_ptr %= runtime->buffer_size;
++		dest_frames++;
++	}
++	return dest_frames * frame_size;
++}
 +
-+  mic-in-differential:
-+    description: the microphone is in differential mode.
-+    $ref: /schemas/types.yaml#/definitions/flag
++static struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
++{
++	struct timespec64 ts64 = {0, 0};
 +
-+required:
-+  - compatible
-+  - clocks
-+  - clock-names
++	switch (substream->clock_type) {
++	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW:
++		ktime_get_raw_ts64(&ts64);
++		break;
++	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC:
++		ktime_get_ts64(&ts64);
++		break;
++	case SNDRV_RAWMIDI_MODE_CLOCK_REALTIME:
++		ktime_get_real_ts64(&ts64);
++		break;
++	}
++	return ts64;
++}
 +
-+additionalProperties: false
+ /**
+  * snd_rawmidi_receive - receive the input data from the device
+  * @substream: the rawmidi substream
+@@ -977,6 +1046,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			const unsigned char *buffer, int count)
+ {
+ 	unsigned long flags;
++	struct timespec64 ts64 = get_framing_tstamp(substream);
+ 	int result = 0, count1;
+ 	struct snd_rawmidi_runtime *runtime = substream->runtime;
+ 
+@@ -987,8 +1057,11 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			  "snd_rawmidi_receive: input is not active!!!\n");
+ 		return -EINVAL;
+ 	}
 +
-+examples:
-+  - |
-+rk817: pmic@20 {
-+	compatible = "rockchip,rk817";
-+	reg = <0x20>;
-+	interrupt-parent = <&gpio0>;
-+	interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pmic_int>, <&i2s_8ch_mclk>;
-+	#sound-dai-cells = <0>;
-+	clocks = <&cru SCLK_I2S_8CH_OUT>;
-+	clock-names = "mclk";
+ 	spin_lock_irqsave(&runtime->lock, flags);
+-	if (count == 1) {	/* special case, faster code */
++	if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
++		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
++	} else if (count == 1) {	/* special case, faster code */
+ 		substream->bytes++;
+ 		if (runtime->avail < runtime->buffer_size) {
+ 			runtime->buffer[runtime->hw_ptr++] = buffer[0];
+@@ -1534,6 +1607,7 @@ static __poll_t snd_rawmidi_poll(struct file *file, poll_table *wait)
+ /*
+  */
+ 
 +
-+	........
-+
-+	rk817_codec: codec {
-+			mic-in-differential;
-+			status = "okay";
-+	};
-+
-+	........
-+
-+};
+ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 				       struct snd_info_buffer *buffer)
+ {
+@@ -1541,6 +1615,8 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 	struct snd_rawmidi_substream *substream;
+ 	struct snd_rawmidi_runtime *runtime;
+ 	unsigned long buffer_size, avail, xruns;
++	unsigned int clock_type;
++	static const char *clock_names[4] = { "none", "realtime", "monotonic", "monotonic raw" };
+ 
+ 	rmidi = entry->private_data;
+ 	snd_iprintf(buffer, "%s\n\n", rmidi->name);
+@@ -1596,6 +1672,14 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 					    "  Avail        : %lu\n"
+ 					    "  Overruns     : %lu\n",
+ 					    buffer_size, avail, xruns);
++				if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
++					clock_type = substream->clock_type >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT;
++					if (!snd_BUG_ON(clock_type >= sizeof(clock_names)))
++						snd_iprintf(buffer,
++							    "  Framing      : tstamp\n"
++							    "  Clock type   : %s\n",
++							    clock_names[clock_type]);
++				}
+ 			}
+ 		}
+ 	}
+diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
+index 7397130976d0..68a93443583c 100644
+--- a/sound/core/rawmidi_compat.c
++++ b/sound/core/rawmidi_compat.c
+@@ -13,7 +13,8 @@ struct snd_rawmidi_params32 {
+ 	u32 buffer_size;
+ 	u32 avail_min;
+ 	unsigned int no_active_sensing; /* avoid bit-field */
+-	unsigned char reserved[16];
++	unsigned int mode;
++	unsigned char reserved[12];
+ } __attribute__((packed));
+ 
+ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+@@ -25,6 +26,7 @@ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+ 	if (get_user(params.stream, &src->stream) ||
+ 	    get_user(params.buffer_size, &src->buffer_size) ||
+ 	    get_user(params.avail_min, &src->avail_min) ||
++	    get_user(params.mode, &src->mode) ||
+ 	    get_user(val, &src->no_active_sensing))
+ 		return -EFAULT;
+ 	params.no_active_sensing = val;
 -- 
 2.25.1
 

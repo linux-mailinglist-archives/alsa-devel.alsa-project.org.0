@@ -2,73 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5F0B36491E
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 19:37:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A5E36493A
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 19:52:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D365168F;
-	Mon, 19 Apr 2021 19:36:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D365168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36CF61682;
+	Mon, 19 Apr 2021 19:52:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36CF61682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618853825;
-	bh=6Wfch/JjyRBuNjNSZiqSdBS3Gqg0YG6Wg5de1/OCJLM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1618854778;
+	bh=5heu7mhxUReIvjc0nYoQeOjN8IAxg3hVOoepolHXbRw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bAiBgSYnMl348zfgfhq+YehEIoAFrZelXaqrDwHD6nwwLvNYZngQP2yi97BdSzt8V
-	 3PIZTXGqsAw03vYOXH1B8WOab7t+heSX9FYtmhV6r3FgP48Dvb5b6wRsWzQL/tTTAa
-	 PLFoxJnwZNBgcQco+CJHE5PlbK3HF7cyi01U/p3E=
+	b=i9cOuHkx5/01ypH4DTHftvPknKe4gCRgVEjDg2+d25CIvSRfjmuNfKqDzhU9HfVWo
+	 bIT2MM65Drg8FfyndQXTuWp2c9A5T5b+y2mpaH/IfWI5QQopF+0sZrKAyiCyE4iD67
+	 fXw1BKIpYQ6Baki5wintAU8qT7CN8PJGfHPazrJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92450F8042F;
-	Mon, 19 Apr 2021 19:34:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CC55F80256;
+	Mon, 19 Apr 2021 19:51:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6005FF8032C; Mon, 19 Apr 2021 19:34:36 +0200 (CEST)
+ id 4D1FEF80227; Mon, 19 Apr 2021 19:51:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12olkn2045.outbound.protection.outlook.com [40.92.23.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F1CCF8028B
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 19:34:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F1CCF8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79B3EF8014D
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 19:51:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79B3EF8014D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="b19m3GeK"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0F1E3611F2;
- Mon, 19 Apr 2021 17:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618853672;
- bh=6Wfch/JjyRBuNjNSZiqSdBS3Gqg0YG6Wg5de1/OCJLM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=b19m3GeKFVTlSCC5AiKwGLmeBnMol1rXSOCg5z7YJZi4EKThqadsC+XruwN1BQjyV
- BuCyj2oSXYUwCDjedUk/YRkn0rQdWlaDdyFP9tZMAQEopPCagW3FxOcnEwIjhyO+Wj
- gkV8HuQo4GQlWdmhWrxbcSvNY5uO53pJIiOAmyXUHQKxDv8zvGEYs8Bpp8OwvTrIXG
- R8pn8Gp+sxGSSKPRJJ4USaE2OJp5NEf0er21dM79C23aaMMtJ+mH/jL9bctJaGgB91
- XQwsd72XXb5VaxBglgBewcxHrC5JUbJjxLHJ4M/3NZLdSyvXE7JVglQ3py9Wp6mVQA
- YXV9eiRK4mcTg==
-From: Mark Brown <broonie@kernel.org>
-To: David Ward <david.ward@gatech.edu>, Liam Girdwood <lgirdwood@gmail.com>,
- Oder Chiou <oder_chiou@realtek.com>
-Subject: Re: [PATCH 0/5] ASoC: rt286/rt298: Fixes for DMIC2 config and combo
- jack
-Date: Mon, 19 Apr 2021 18:33:50 +0100
-Message-Id: <161885301897.45150.11168954333556318124.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210418134658.4333-1-david.ward@gatech.edu>
-References: <20210418134658.4333-1-david.ward@gatech.edu>
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="UWnyIZuq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XrkzjKc7veqOVQrlGSi6QYhIVTKKmxmcsmzNI3/fJ/CpKiz4jLZe5ro0VxDiLrtzuGAGXa8zCXDzlTr5SLpALG+Tv8GGX0nNDkMEIYyvKq/OHYNazArX4HY/TgC27EHNYGKfq0hqz5KOm+6K+zp8MtBK4/UOMg3XcfONhchHrTBGcoFP4CRPVgzjvSR1UUfRtUXuamBImFG8hfEQTKRj4+f/Dx6pJgtIhxSA3w5+U9eqBYzbEYViwH7TVarqYR9ntEjLx0esX/z9r1+by+N+f20ZREXtbXZKIzWjFFzelg952PfRH3ULJtBGoSULj/PvY9m/fsNUF0dz2o57BmyJpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BlkeXtSPvowXnIutjh+j8W5/w8bmuoOVQOqq1uDVsKk=;
+ b=JWnZYsXtiaWp+I+x2bGC2Zc2qJepHf05eBBJZBwEf/jN8EAGPTsfqhdIHljkUSim6b0xnreBkHMMoCR6IePOsNvHV2oVvNQCWnnpDO66lKl5jkTdbJFr1BJfWynrDuT1x/Ryzi5UAd+5pEt+wXdYNxlthNxR0Z8glaxgODGhgY3fiXlWSivnSxqFzgTggs0y/d5UBSQDR8SN8gof5sMAZZbNUI66WMvy9LWMAzlg/b3mHgKIn+UKEcHPs38ZXnrh+O1Qzq8gwYmjsDmXlEJ+va7yjIkEu7o/RTQyorXj4FK5WxD9ogEuAhJ+3fHSXncRxVNWEKtQ3XvWNNStpqE/GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BlkeXtSPvowXnIutjh+j8W5/w8bmuoOVQOqq1uDVsKk=;
+ b=UWnyIZuqQyzeqK1ESOCl95BTLBvQ46Tjl2BPbzMhp5KnQtNUXKteiqafpd6R/LLXg+a3dF1Ax0xbPSJm6Old+VkWV3gxci3snqLms40pczNF3H1TQGL7uMWKsorXhB0KOqAAfjziDn9b7N7IfmAZzCs065XD8lhwdNfq1BSDVw2/U8ITDZXxZtb/eJwokSQgM9/HWk+XGodllh3rF9l6R+9LMTufP91D2/IaGye7NcaOWqOZMxAqlkOix6JndRdTeMCFRuZsghMiauwlprH8DJpC6RqnztQ70hLp46XwcTz/3VYBMGHboNnLITocQSvdz3IACXGC17i+Sq2Xv4KYIQ==
+Received: from DM6NAM12FT020.eop-nam12.prod.protection.outlook.com
+ (2a01:111:e400:fc64::43) by
+ DM6NAM12HT003.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::81)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.7; Mon, 19 Apr
+ 2021 17:51:15 +0000
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ (2a01:111:e400:fc64::4f) by DM6NAM12FT020.mail.protection.outlook.com
+ (2a01:111:e400:fc64::477) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.7 via Frontend
+ Transport; Mon, 19 Apr 2021 17:51:15 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:05E40A2F629A017658140987131BC96C834252B9EE480337C8429E96BDD12759;
+ UpperCasedChecksum:1CF589E05C1EB96F4ECD69531523B8736EEF2D97DCDF27518027D624B8A04A86;
+ SizeAsReceived:7687; Count:46
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::fc38:a692:c2c8:f63e]) by SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::fc38:a692:c2c8:f63e%7]) with mapi id 15.20.4042.024; Mon, 19 Apr 2021
+ 17:51:15 +0000
+Date: Mon, 19 Apr 2021 12:51:12 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [v6 1/3] mfd: Add Rockchip rk817 audio CODEC support
+Message-ID: <SN6PR06MB534296C9BA80C56C0AD694FAA5499@SN6PR06MB5342.namprd06.prod.outlook.com>
+References: <SN6PR06MB5342B036562B085C95BDAB42A5499@SN6PR06MB5342.namprd06.prod.outlook.com>
+ <20210419165116.GE5645@sirena.org.uk>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210419165116.GE5645@sirena.org.uk>
+X-TMN: [qJPUzAm7GWazMbLeSGeB+NQaIm6ePloK]
+X-ClientProxiedBy: SN7PR04CA0043.namprd04.prod.outlook.com
+ (2603:10b6:806:120::18) To SN6PR06MB5342.namprd06.prod.outlook.com
+ (2603:10b6:805:f9::31)
+X-Microsoft-Original-Message-ID: <20210419175112.GA26491@wintermute.localdomain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mario Limonciello <mario_limonciello@dell.com>,
- Mark Brown <broonie@kernel.org>, Shuming Fan <shumingf@realtek.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from wintermute.localdomain (76.183.134.35) by
+ SN7PR04CA0043.namprd04.prod.outlook.com (2603:10b6:806:120::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.18 via Frontend
+ Transport; Mon, 19 Apr 2021 17:51:13 +0000
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 46
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: cf218391-f480-4a16-4f03-08d9035bb9c0
+X-MS-TrafficTypeDiagnostic: DM6NAM12HT003:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EZNiFslrXtfU/4CNEOANQVZ2wtx68g2xdmeA5JVZgigDJ0qZgwg6SJnvVpsazADdG4JPNzDQZCanKqW10StxJdi4CogV2YepLAFbYF9W4NukuDifhK8B5xeh8yeDpwU5xLwm3swlRucisZvYrB40D7IECYBpa7PthFYtRVejZeSqH0iYNemnmy8B9D+zO1rTTmzJjMTy/UL6lThh3ltNRVmBLR0CBBZHDpFV+MRiz1kqgHYHYqujWKvr1/ux2khK8/NQnaphR5QD9hdMEKvtChaDiYX0zvktX1ee8/lPOCucvYjz9oMTRI3BMKQ0EUOjat7SWMRoF0ZfWHRxbbwOja/MOgz3Nr85iX8VCcU0DV+I1vRC7MDsimXow6rCCXve
+X-MS-Exchange-AntiSpam-MessageData: veNpCVTKZnxR9DKbNIU7r4IAB2EUmMuI83z6wvDcLB1NoEWiqXfucnCFcxtEcuH8+ciesjo2SuQit+9fQL0fIR4FtgXyf0UNqSiKbOOkoPNGs51PtkvTzXRsmI5xEVCnTvWFtYeagDBuXJ+6/SxW+g==
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf218391-f480-4a16-4f03-08d9035bb9c0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2021 17:51:14.9847 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM12FT020.eop-nam12.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM12HT003
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ heiko@sntech.de, devicetree@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
+ lee.jones@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,49 +132,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 18 Apr 2021 09:46:53 -0400, David Ward wrote:
-> The last two patches in this series fix a longstanding issue that prevented
-> the ALC3263 codec from using a headset mic. This codec can be found on Dell
-> systems including the Latitude 13 7350, Venue 11 Pro 7140, and XPS 13 9343.
-> In fact, there is an ACPI quirk for the XPS 13 9343, which forces it to use
-> legacy HD Audio just to avoid this issue:
+On Mon, Apr 19, 2021 at 05:51:16PM +0100, Mark Brown wrote:
+> On Mon, Apr 19, 2021 at 10:57:16AM -0500, Chris Morgan wrote:
 > 
-> https://lore.kernel.org/alsa-devel/CAPeXnHv07HkvcHrYFmZMr8OTp7U7F=k_k=LPYnUtp89iPn2d2Q@mail.gmail.com/
+> > +#ifdef CONFIG_SND_SOC_RK817
+> > +	case RK817_CODEC_DTOP_LPT_SRST:
+> > +#endif
 > 
-> [...]
+> The register map of the device isn't going to change based on the kernel
+> configuration, I wouldn't expect any ifdefs for it.
 
-Applied to
+You are correct, but I was thinking that I should make the codec bits optional
+in the event someone had a RK817 and didn't want to use the codec. If you think
+this or the rest of the bits should not be optional please let me know. I still
+think it's best that at least the cell be optional so users can build a kernel
+without the audio if they so choose (I tested both building this module and
+audio codec with no devicetree entry - you get a dmesg log error but nothing
+else, and building with the devicetree entry but no driver - nothing happens).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+If we enable the regmap bits unconditionally, is there any potential harm?
 
-Thanks!
-
-[1/5] ASoC: rt286: Fix upper byte in DMIC2 configuration
-      commit: dfa7b01dbdc9723ced606425b47005bb583a8778
-[2/5] ASoC: rt286: Configure combo jack for headphones
-      commit: b15c3ea7e0d2c53b33adc8ca0896de378d6df853
-[3/5] ASoC: rt298: Configure combo jack for headphones
-      commit: f3bd4dde9f048fa711e98626c8c3bc4d1eae3436
-[4/5] ASoC: rt286: Make RT286_SET_GPIO_* readable and writable
-      commit: cd8499d5c03ba260e3191e90236d0e5f6b147563
-[5/5] ASoC: rt286: Generalize support for ALC3263 codec
-      commit: aa2f9c12821e6a4ba1df4fb34a3dbc6a2a1ee7fe
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Thank you.

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6979F36491A
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 19:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0448336491B
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 19:36:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEC6A1676;
-	Mon, 19 Apr 2021 19:35:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC6A1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E12F168E;
+	Mon, 19 Apr 2021 19:35:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E12F168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618853762;
-	bh=sDWUj9habLD/i+iNJ5PqHCdn74WREZM2NfWjpP2MevE=;
+	s=default; t=1618853776;
+	bh=YCfcgeyod+s62omSZg8wbLwKTLkzYlS6VAq3eMipkLw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K1/Q2JcB6+os51HRbBplkiQFxK3FJr5YAnlE86DY0OpuaBTz1dXRBt4JDg4rUaElk
-	 c6Q3p/nfr3fj0i4QLOxOr81EAUDzwBvoqsL69hjQLLpzJI0HTguuy87VlCYYtEYSSO
-	 M/potx1hjl0OFuD1pF/YIziadclQlDMx+GcG5f6E=
+	b=n3wR81x/JKRvOZsto8JM8lRfshqOPVMXmKVFuW+3t9Gw9NiFOp14t+ImiQpL7a+HL
+	 chn3QxFxcL0nuerL5r80W5oDRxuTOv5v7ajS7pl6fqkcS8GcEtOCB/peC/oVqFVxoy
+	 cLU6un+/JzFwXWRZzSM+fbdnaTXIP/wJr45SGTu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64245F80256;
-	Mon, 19 Apr 2021 19:34:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0E0EF80276;
+	Mon, 19 Apr 2021 19:34:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22947F80256; Mon, 19 Apr 2021 19:34:31 +0200 (CEST)
+ id CD209F80227; Mon, 19 Apr 2021 19:34:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13010F800C5
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 19:34:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13010F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8F7BF8014D
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 19:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F7BF8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Zhm4RO4E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C8B6961246;
- Mon, 19 Apr 2021 17:34:23 +0000 (UTC)
+ header.b="GNg2kVB5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 823DB61027;
+ Mon, 19 Apr 2021 17:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618853664;
- bh=sDWUj9habLD/i+iNJ5PqHCdn74WREZM2NfWjpP2MevE=;
+ s=k20201202; t=1618853667;
+ bh=YCfcgeyod+s62omSZg8wbLwKTLkzYlS6VAq3eMipkLw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Zhm4RO4Ezt2EL6WeQXNwUpJFyexXIp81UI2WV/XGjZSSMtRbKXK9Bm5CPy1MywAh7
- grgf44F45dSKHaXO1J+F1W5LGTbnNLstkx53e8XwdM39Y3dSJvAYdFtKPfXboPM67D
- QPUM+dfqQWRKi9w3zvN3KLbiBCDHv2tdo39Z0Y0sbwoV8sGTP0jH6GyqVGD39ihati
- l/bjBzKjQtOjQjB8QEdbpfUQ16OMwhA/XlNuoR5pN77ctf2Zxw/gx/d02lGUTGw6Mt
- cLVx35EE5NN+TzH5kZ/JT+PxvSGql5xFh1H2INqtFJHotm1g5ViICp2X/qk8zrXRGn
- 9LdhBGXarnbdg==
+ b=GNg2kVB5WIN+gLZi5vNQeft3fhkV0o8FE8k2udUtCjcHNhOYdzCyRcBhPrVfvBk1/
+ SUPdh4HMcFrvNA/TU6Y0BKnDqeZ26G9mmqEhrfkSWe4LK2Kzr+OO1rG61VYZCHBnZ1
+ 4MJUwue5Auz5iNy3J3TTpNNuTmRhc2lOiR8vyDWbpH3RnnGVaWJR7BajWnHgsCRUBw
+ JbBeR6AUYxO8+Qwc+EYkZImhxkWSsIHoYP8Gu/tVxdVxJuAPLvxlzrozgQcqRrHuFa
+ W6m08g3tWTZYzQ+xr1iEeNx/OcBI7lKKAmow9dwErwB32RIkTqmKRVvgwdnxRG/ctZ
+ AlckM549ysADA==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, perex@perex.cz
-Subject: Re: [PATCH v2] ASoC: ak4458: check reset control status
-Date: Mon, 19 Apr 2021 18:33:47 +0100
-Message-Id: <161885301896.45150.16197357933362327027.b4-ty@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>, Takashi Iwai <tiwai@suse.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Niklas Carlsson <Niklas.Carlsson@axis.com>,
+ Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ASoC: sigmadsp: Disable cache mechanism for readbacks
+Date: Mon, 19 Apr 2021 18:33:48 +0100
+Message-Id: <161885301897.45150.10509642492570383427.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1618826072-29344-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1618826072-29344-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210419144901.9441-1-Niklas.Carlsson@axis.com>
+References: <20210419144901.9441-1-Niklas.Carlsson@axis.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: Niklas Carlsson <niklasc@axis.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, kernel@axis.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,8 +83,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 19 Apr 2021 17:54:32 +0800, Shengjiu Wang wrote:
-> check the return value of ak4458_rstn_control.
+On Mon, 19 Apr 2021 16:49:01 +0200, Niklas Carlsson wrote:
+> The ALSA control readback functionality only works for non-volatile
+> controls, i.e. control values that does not change on their own without
+> driver interaction.
+> 
+> This doesn't work for readbacks since the DSP firmware updates the
+> control value. Disable the cache mechanism in the driver if the control
+> name matches the prefix used for readbacks to ensure that the control
+> value is valid.
 
 Applied to
 
@@ -89,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ak4458: check reset control status
-      commit: e86a53fb64ed0a4749eeac2eccc7a6412fd3c920
+[1/1] ASoC: sigmadsp: Disable cache mechanism for readbacks
+      commit: 11a9b987611f17e6a95e9bb34c1f5f9aa0b6ae25
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

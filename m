@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED533646C3
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:09:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D21836473A
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:40:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBFAD167F;
-	Mon, 19 Apr 2021 17:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBFAD167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0987E1680;
+	Mon, 19 Apr 2021 17:39:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0987E1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618844981;
-	bh=rEVbeVGAfmFbQe3Md2SQTjJPknC/BhdzjFEQReGzK2s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618846847;
+	bh=1LcBNEIV/TZaRPI5cJq3yRh+XW0dzfpTuIBNrhd7Css=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZWYQX3fESyIc4n4KeFg/MJutIdflAAFwjGNDPr1XKXn3EbhHo7zIHy5t3keFq2uEA
-	 qHqf50bAluGIcHOhTBXLf1t8BSyRqR6oSn0BixYOnd/a2G94w/y7EqeZGIAF4XAvKz
-	 HI8vkw6OZ2WBtWaQYlBzRZQcgHbOEgtfCldAhZK8=
+	b=t13Y02FLhVQaXN3zcyn/Id8ylL7YphHMeVOF7hb5t2VREnnGXdqz3kh5xzzeSJ0z1
+	 hKKELHzo67eZ2h6jCEsFSMu46Vb/kBImO7UDRFkP++ieokXnAPFSyPePEm68Mc8jui
+	 Wzxg6d+gO6QPaDfM24UhTN5zsipX3mcqOqIszoB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 558F4F8014D;
-	Mon, 19 Apr 2021 17:08:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B872F80256;
+	Mon, 19 Apr 2021 17:39:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C2BEF80274; Mon, 19 Apr 2021 17:08:47 +0200 (CEST)
+ id 6A808F80227; Mon, 19 Apr 2021 17:39:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78A43F8014D
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:08:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78A43F8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fi2zvVWD"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B18B61007;
- Mon, 19 Apr 2021 15:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618844917;
- bh=rEVbeVGAfmFbQe3Md2SQTjJPknC/BhdzjFEQReGzK2s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fi2zvVWDb/79l6qru8t9NZc83ksj6rwSxy0TIFOan0z4bP45FPN4wedi/V4XFaVTJ
- Qr0S/o90D8Z4Cn21fZ+SvlVfk7kLNyNGBfANm7buQ/Abt2YnTMzN3f74zZOIb0ajsH
- rUkDLq5hTi2w1/JUrhMncrTLwdoM8iRjAe9fB9c7KbA651gjymvNGzkKglw39+cm2T
- wOL6CRExnTd0/Z45I6MeFfva9LR0U6VIGjY5S0shO4UHUCM87vZyxn6jfeQO9nlT96
- AbjH+2sp6JK3R2/CQy/99t8BcoocCNMJh1oKowCbeI0Md8msERxmvL/G+zUbtV4T7S
- BLrK/EXwL2NtA==
-Date: Mon, 19 Apr 2021 16:08:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: simple-card-utils: Increase maximum number of
- links to 128
-Message-ID: <20210419150811.GC5645@sirena.org.uk>
-References: <20210416071147.2149109-1-thierry.reding@gmail.com>
- <20210416071147.2149109-2-thierry.reding@gmail.com>
- <8735vn59sw.wl-kuninori.morimoto.gx@renesas.com>
- <YH2Y/rd2/q5qHvnz@orome.fritz.box>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B075FF80164
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:39:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B075FF80164
+IronPort-SDR: ZnkE5j+sP+JCFhCHZc6kflWN9gvLjcx6YkLo2KqvqcAGokLeyVFD/3uZ6o/RmCKIcBj1LeIX4V
+ MhhY69VwUzWg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9959"; a="182844305"
+X-IronPort-AV: E=Sophos;i="5.82,234,1613462400"; d="scan'208";a="182844305"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2021 08:39:03 -0700
+IronPort-SDR: CJCwi/X0uSRFcA5nMVqrXZtNtoPYqtkJqADfGbPTOLl3fPFm26uqBxlzSYY/mFPnLF/Z/OFuT6
+ tD9VatOrrT3w==
+X-IronPort-AV: E=Sophos;i="5.82,234,1613462400"; d="scan'208";a="400674108"
+Received: from flpartri-mobl.amr.corp.intel.com (HELO [10.213.175.38])
+ ([10.213.175.38])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2021 08:39:02 -0700
+Subject: Re: [PATCH 0/5] ASoC: rt286/rt298: Fixes for DMIC2 config and combo
+ jack
+To: David Ward <david.ward@gatech.edu>, Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20210418134658.4333-1-david.ward@gatech.edu>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <bbc446c3-5146-f658-38a5-e632f9a2faf1@linux.intel.com>
+Date: Mon, 19 Apr 2021 09:54:17 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8X7/QrJGcKSMr1RN"
-Content-Disposition: inline
-In-Reply-To: <YH2Y/rd2/q5qHvnz@orome.fritz.box>
-X-Cookie: I will never lie to you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
+In-Reply-To: <20210418134658.4333-1-david.ward@gatech.edu>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Shuming Fan <shumingf@realtek.com>, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Mario Limonciello <mario_limonciello@dell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,39 +84,51 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---8X7/QrJGcKSMr1RN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Apr 19, 2021 at 04:51:42PM +0200, Thierry Reding wrote:
+On 4/18/21 8:46 AM, David Ward wrote:
+> The last two patches in this series fix a longstanding issue that prevented
+> the ALC3263 codec from using a headset mic. This codec can be found on Dell
+> systems including the Latitude 13 7350, Venue 11 Pro 7140, and XPS 13 9343.
+> In fact, there is an ACPI quirk for the XPS 13 9343, which forces it to use
+> legacy HD Audio just to avoid this issue:
+> 
+> https://lore.kernel.org/alsa-devel/CAPeXnHv07HkvcHrYFmZMr8OTp7U7F=k_k=LPYnUtp89iPn2d2Q@mail.gmail.com/
+> 
+> This may allow that ACPI quirk to be removed. Either way, the other systems
+> mentioned above do not support this quirk and already use the ASoC driver,
+> so this fix is necessary for headset mic support on those systems.
 
-> Reducing from 128 to, say, 80 should eliminate that warning, but I
-> wonder if perhaps a better solution for the longer term would be to
-> allocate this structure on the heap rather than on the stack? That
-> way we don't risk triggering this warning again in the future.
+You should probably add a Fixes tag for the 5 patches so that the 
+changes make their way into the -stable kernel that most distributions use?
 
-> The data structure seems to be only used during initialization, so
-> something like a kzalloc()/kfree() pair doesn't seem like it would
-> hurt much performance-wise. Add in the devm_ variants and the code
-> complexity should also remain moderately low.
+The patches themselves look ok to me
 
-Yes, that'd be much better - ideally we wouldn't have a fixed limit of
-any kind but that's a more involved change and quite possibly more
-trouble than it's worth.
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
---8X7/QrJGcKSMr1RN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB9nNsACgkQJNaLcl1U
-h9BtqQf+NqO7dwVwfyX4OZoTOCgUuGBeATfGzoTv1JUlFRVOPRtSz/yr8bXBX1pv
-VUJkG7m51kjhOCmwAVTZvsjGZbpIUhvYRZZjOgRoS0RiFt859djYrJn2e3ev/VYu
-BV2d769ppcFKnlQAswG46Lvfq7MRCw3eHlJbdV16XDHL2OmCWAn1QWT302M2MY94
-rBFe/PsZB/AM/uLcEJ3OReNrncPvx+d11sGPps8o5A7sVaY5E5r3JwBPMLkWsjZ8
-nd9D1W/LtB7HSocGybfyRxulixOMagO4EroepEE0ecsTaRU7uHcZzUqiLO8xnC36
-0BV18/QRDXq6BdUgevj+vAxz0sKQMg==
-=G4a1
------END PGP SIGNATURE-----
-
---8X7/QrJGcKSMr1RN--
+> 
+> Note: there is likely other handling for this codec that only exists in the
+> HDA driver, but which also belongs in the ASoC driver. Commit 394c97f824fa
+> ("ALSA: hda/realtek - Change EAPD to verb control") describes an issue that
+> does not seem to be resolved in the ASoC driver, to give an example.
+> 
+> 
+> Other patches in this series are not specific to the ALC3263. These patches
+> set the correct combo jack configuration when headphones are inserted, and
+> fix a misaligned value set in the DMIC2 Configuration Default register.
+> 
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=114171
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=150601
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=205961
+> Signed-off-by: David Ward <david.ward@gatech.edu>
+> 
+> David Ward (5):
+>    ASoC: rt286: Fix upper byte in DMIC2 configuration
+>    ASoC: rt286: Configure combo jack for headphones
+>    ASoC: rt298: Configure combo jack for headphones
+>    ASoC: rt286: Make RT286_SET_GPIO_* readable and writable
+>    ASoC: rt286: Generalize support for ALC3263 codec
+> 
+>   sound/soc/codecs/rt286.c | 34 +++++++++++++++++++++-------------
+>   sound/soc/codecs/rt298.c |  9 +++++++--
+>   2 files changed, 28 insertions(+), 15 deletions(-)
+> 

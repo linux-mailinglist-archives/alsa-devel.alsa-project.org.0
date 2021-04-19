@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9BE3645DB
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 16:19:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F9D3645D9
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 16:18:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81A641682;
-	Mon, 19 Apr 2021 16:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81A641682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43E02167F;
+	Mon, 19 Apr 2021 16:18:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43E02167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618841951;
+	s=default; t=1618841932;
 	bh=ZkIu+IOi+NBZ6WVq+5g/BhBGLQD52u8KDpYdrFV3uZo=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Reply-To:From;
-	b=EiT90X4QQ5M/89ZxHvYvbYF4GyjsbninuMgqPn6el57puRA/KcHXWFp0+LMNHi2Zl
-	 mlmFDI5ZlBE6mNZKR1uKINxaqS34l3CsYjWSbBtp6EW+6///G/IGJe3WMh8Se65PV+
-	 2MlIor+zNr3MPAi/xz1pX6+7HUJ7lHpKGAMq3aOo=
+	b=arXPwD8J+4MGbzbrUXLUCKOF0G4xPdqCKjNhomsJ8L+EgLubtDMj7B8J9JQPWrJc+
+	 sGB+Oj0B6YREspMj7s8tM0UIJEk//uL2OLTD4ECUKAAHLc5/ez3q0x+eZmPVWnFTpi
+	 EMkUiO61vjIQPlgzRdiOGt1DOvoyskji08AkTSxQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1420F80276;
-	Mon, 19 Apr 2021 16:17:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B314BF8019B;
+	Mon, 19 Apr 2021 16:17:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2946F80274; Mon, 19 Apr 2021 16:17:46 +0200 (CEST)
+ id F2E60F80227; Mon, 19 Apr 2021 16:17:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from sonic313-20.consmr.mail.ir2.yahoo.com
- (sonic313-20.consmr.mail.ir2.yahoo.com [77.238.179.187])
+Received: from sonic312-25.consmr.mail.ir2.yahoo.com
+ (sonic312-25.consmr.mail.ir2.yahoo.com [77.238.178.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1041F80256
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 16:17:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1041F80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id 589D8F800C5
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 16:17:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 589D8F800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
- header.b="jdnK1qAy"
+ header.b="NT7RhmXK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1618841850; bh=MmIoaN9PXU0k+mM41k974T3NZJ1ysmEWNnDdZkLIFGk=;
+ t=1618841825; bh=MmIoaN9PXU0k+mM41k974T3NZJ1ysmEWNnDdZkLIFGk=;
  h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To;
- b=jdnK1qAymEZZL0khJ6Gu4uS4SUUNkgOakfvfGFXMnoc9w0D/fFa9vx+K6RpQdtlmv4E4+Fb1D4VHwG+Xcfp1SZnHYZIdOM6J5mTcfaudmy6WBJ2DJwsG48dnVAkhUnOsUOYuTYnvgmxKBd3uznA6ekTo3wpwskwvU39tnbILmQAdZO+7U4/10nDoZ48dHNZSIQRldd49LY6SanX6YVIUr8eEvUiW+W3RQOWGHGCh8VgC7jLQq51I8u30vmUcTUmQEG1/0tbwCJkOHJvm7tViRu6f1f5Zrlh0mkv4SxLWh1R0swus6M5l5ePUxRclhLaPbGWuqJODaI3/46jttilODA==
+ b=NT7RhmXKxuqxYstu3xYOHtPR4dR6IDEERNBR+c60GjAeR9X7aVseLSk4BRimVjzK9wEhjkN0vUJoFEBqF5gF+S4vy3HcidXjqGdBtSwc3wQqIeu++bng+6pinHw9iCHyNueIgGn3fJPCFEmPHbvDY/h8dPrKLiYupoQfI6NjMhaNHytyYWHG7nEqxK80M3x3lAfele+PGF5lWDcq63mmQUWnp2OGLZMsUj6P+wLLA3BiBIfbmSaj5Q/I0CNzcTbdusG5zM9rUHS6OVzX/eiNnRunfjye7GpCVHYHOaRDCI6xV206RgTDv5JqlgetJEgphOJGDkOdGUahm79V5uNF+Q==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1618841850; bh=huCCG3FqJDHUGWXkKD5ta2PZYSKA3Ac6Xh4JDDADRNZ=;
+ t=1618841825; bh=0HdZzQxkknvJzBdw8yHw+a+CIcWhEcj6cgs8wV/73sO=;
  h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
- b=SSMBcCEuO0KGHrn4kYu1GYzbZy0+IDZsJrOZvS/r+Scp2b+lBtpyWS/qKYVaKdkY0OrogABAZ8DVaZAHU0IGy0DF6Kmlc2g8XxCB3vt45oyWIYtoix7xZu6wBWVih8XovPjwJ3KmsdZtPb3rv4mEeU0pL9+lxt7I0jrNz8sP/AK1BO1umhfyXZmCwYw2Ikfj2k+p93rPLU5vc9deF2Ao7M4c4wjF7it7x1Tkv+LbVhALzfdOdumqDm1BZFu4o2esSqdGZLDUh6LmoKo9M+Yh8oj5RyVYX1kRG07/zIg0Etvmfat2MEZbHhEOEK3BWSpHmHF3FTwBI7C4Lui6QbzWeA==
+ b=b7WjWDFBFG09npeSSRvdx2Fc7J4CnrpTBZ3MG2zCGbJqKfWzzRh0TzI95DXxO0WEY/X5uq/j1jjPPzuPoNR8oEpQ1QTDpSrWOEkxahbQzDF4X0OT4W0hWnF0/7dZ93Vqw2S7q+M94hvk4QwSr0xMIqVZe+KIhMi1D6XJ9uMCP8wM0CXtrCU63EK4hTbA/CoRhkFnIWq9RUAmy8TGXDKVis7CyXrfRzH7rOsKTXhEOLcQddzxSMSwSHDg3o9Ba+9kkg+E7aGDX88+44HCIDt6reFDJEPd7p24LNcdiZIIGu0Kym7mTQ28no5bCYrT1lkD6Gqtbiix0Wkgrj15mosWyQ==
 X-YMail-OSG: viytI8EVM1lFv5Ytzmdcn7dA0pitqihd1CXk2QGOr_OTdZ7qgjS_.NYb_W7QTWI
  yWcSUvfl3KmUrI_85uxBByuDNuDwmtNbmVSuw.gv55mODbEH7odRIB3bge_G9XSNH0jxZhn1P2MR
  4pXbUFMfaYHdaGvT0Mp.SwjEqGDydKlgh3H1aVrpSQ0N9rCXpYh6pOEjszPWwex79gQ8gWUZVw6R
@@ -87,7 +87,7 @@ X-YMail-OSG: viytI8EVM1lFv5Ytzmdcn7dA0pitqihd1CXk2QGOr_OTdZ7qgjS_.NYb_W7QTWI
  aFlgLwdzGuo0iEQnwD2warB0M8w--
 X-Sonic-MF: <htl10@users.sourceforge.net>
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.ir2.yahoo.com with HTTP; Mon, 19 Apr 2021 14:17:30 +0000
+ sonic312.consmr.mail.ir2.yahoo.com with HTTP; Mon, 19 Apr 2021 14:17:05 +0000
 Date: Mon, 19 Apr 2021 14:17:04 +0000 (UTC)
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>

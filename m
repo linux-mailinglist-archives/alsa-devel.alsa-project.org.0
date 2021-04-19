@@ -2,72 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D21836473A
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:40:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC6236473B
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:41:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0987E1680;
-	Mon, 19 Apr 2021 17:39:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0987E1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41FD3168A;
+	Mon, 19 Apr 2021 17:40:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41FD3168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618846847;
-	bh=1LcBNEIV/TZaRPI5cJq3yRh+XW0dzfpTuIBNrhd7Css=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=t13Y02FLhVQaXN3zcyn/Id8ylL7YphHMeVOF7hb5t2VREnnGXdqz3kh5xzzeSJ0z1
-	 hKKELHzo67eZ2h6jCEsFSMu46Vb/kBImO7UDRFkP++ieokXnAPFSyPePEm68Mc8jui
-	 Wzxg6d+gO6QPaDfM24UhTN5zsipX3mcqOqIszoB4=
+	s=default; t=1618846861;
+	bh=d+M1D7hsnYgvOBNuOszfp2EwGF2QT94PjNy5Z7rNDME=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rKT7RsCGmZh4bjejZvJ3Uw9N/ZB+/u3TKpeXCP219AfddJLWUmFtVCMF++ZmNpsmZ
+	 u4SAV2C92l1kIX8GeNDtlHjS9mX6vVGPldMbq9LwAL7JpF84dWCj5AAauy40n90Tu5
+	 jXtquGeVf/k1ye4yyejd4uWltkil52UXtc4oNseM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B872F80256;
-	Mon, 19 Apr 2021 17:39:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29256F80227;
+	Mon, 19 Apr 2021 17:39:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A808F80227; Mon, 19 Apr 2021 17:39:16 +0200 (CEST)
+ id A4366F80274; Mon, 19 Apr 2021 17:39:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B075FF80164
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B075FF80164
-IronPort-SDR: ZnkE5j+sP+JCFhCHZc6kflWN9gvLjcx6YkLo2KqvqcAGokLeyVFD/3uZ6o/RmCKIcBj1LeIX4V
- MhhY69VwUzWg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9959"; a="182844305"
-X-IronPort-AV: E=Sophos;i="5.82,234,1613462400"; d="scan'208";a="182844305"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2021 08:39:03 -0700
-IronPort-SDR: CJCwi/X0uSRFcA5nMVqrXZtNtoPYqtkJqADfGbPTOLl3fPFm26uqBxlzSYY/mFPnLF/Z/OFuT6
- tD9VatOrrT3w==
-X-IronPort-AV: E=Sophos;i="5.82,234,1613462400"; d="scan'208";a="400674108"
-Received: from flpartri-mobl.amr.corp.intel.com (HELO [10.213.175.38])
- ([10.213.175.38])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2021 08:39:02 -0700
-Subject: Re: [PATCH 0/5] ASoC: rt286/rt298: Fixes for DMIC2 config and combo
- jack
-To: David Ward <david.ward@gatech.edu>, Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20210418134658.4333-1-david.ward@gatech.edu>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <bbc446c3-5146-f658-38a5-e632f9a2faf1@linux.intel.com>
-Date: Mon, 19 Apr 2021 09:54:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51B35F80227
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51B35F80227
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 74428AF23
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 15:39:23 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: usb-audio: Re-apply implicit feedback mode to
+ Pioneer devices
+Date: Mon, 19 Apr 2021 17:39:18 +0200
+Message-Id: <20210419153918.450-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20210418134658.4333-1-david.ward@gatech.edu>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Shuming Fan <shumingf@realtek.com>, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Mario Limonciello <mario_limonciello@dell.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,52 +63,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Pioneer devices are supposed to be working with the implicit feedback
+mode, but so far the attempt to apply the implicit feedback caused
+issues, hence we explicitly skipped the implicit feedback mode for
+them.  Recently, Geraldo discovered that the device actually works if
+you skip the generic matching of the sync EPs for the capture stream.
+That is, we should apply the implicit feedback setup for the playback
+like other similar devices, while we need to return 1 from
+audioformat_capture_quirk() so that no further matching will be done.
 
+And, later on, Olivia reported later that the fiddling with the
+capture quirk alone doesn't suffice for the test with speaker-test
+program.  This seems to be a similar case like the recently fixed BOSS
+devices.  Indeed, the problem could be addressed by setting
+playback_first flag, which indicates that the playback URBs have to be
+sent out at first even in the implicit feedback mode.
 
-On 4/18/21 8:46 AM, David Ward wrote:
-> The last two patches in this series fix a longstanding issue that prevented
-> the ALC3263 codec from using a headset mic. This codec can be found on Dell
-> systems including the Latitude 13 7350, Venue 11 Pro 7140, and XPS 13 9343.
-> In fact, there is an ACPI quirk for the XPS 13 9343, which forces it to use
-> legacy HD Audio just to avoid this issue:
-> 
-> https://lore.kernel.org/alsa-devel/CAPeXnHv07HkvcHrYFmZMr8OTp7U7F=k_k=LPYnUtp89iPn2d2Q@mail.gmail.com/
-> 
-> This may allow that ACPI quirk to be removed. Either way, the other systems
-> mentioned above do not support this quirk and already use the ASoC driver,
-> so this fix is necessary for headset mic support on those systems.
+This patch implements the application of the implicit feedback to
+Pioneer devices as described in the above.  The former
+skip_pioneer_sync_ep() was dropped, and instead we provide
+is_pioneer_implicit_fb() to check the Pioneer devices that need the
+implicit feedback.  In the audioformat_implicit_fb_quirk(), simply
+apply the implicit fb for playback and set chip->playback_first flag
+if matching, and in audioformat_capture_quirk()(), it returns 1 for
+skipping the generic EP sync handling.
 
-You should probably add a Fixes tag for the 5 patches so that the 
-changes make their way into the -stable kernel that most distributions use?
+Reported-by: Geraldo <geraldogabriel@gmail.com>
+Tested-by: Olivia Mackintosh <livvy@base.nu>
+Link: https://lore.kernel.org/r/s5ha6pygqfz.wl-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/implicit.c | 42 +++++++++++++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
 
-The patches themselves look ok to me
+diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
+index 428e3a449f5d..77ffcea294dd 100644
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -230,18 +230,27 @@ static int add_roland_implicit_fb(struct snd_usb_audio *chip,
+ 				       ifnum, alts);
+ }
+ 
+-/* Playback and capture EPs on Pioneer devices share the same iface/altset,
+- * but they don't seem working with the implicit fb mode well, hence we
+- * just return as if the sync were already set up.
++/* Playback and capture EPs on Pioneer devices share the same iface/altset
++ * for the implicit feedback operation
+  */
+-static int skip_pioneer_sync_ep(struct snd_usb_audio *chip,
+-				struct audioformat *fmt,
+-				struct usb_host_interface *alts)
++static bool is_pioneer_implicit_fb(struct snd_usb_audio *chip,
++				   struct usb_host_interface *alts)
++
+ {
+ 	struct usb_endpoint_descriptor *epd;
+ 
++	if (USB_ID_VENDOR(chip->usb_id) != 0x2b73 &&
++	    USB_ID_VENDOR(chip->usb_id) != 0x08e4)
++		return false;
++	if (alts->desc.bInterfaceClass != USB_CLASS_VENDOR_SPEC)
++		return false;
+ 	if (alts->desc.bNumEndpoints != 2)
+-		return 0;
++		return false;
++
++	epd = get_endpoint(alts, 0);
++	if (!usb_endpoint_is_isoc_out(epd) ||
++	    (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) != USB_ENDPOINT_SYNC_ASYNC)
++		return false;
+ 
+ 	epd = get_endpoint(alts, 1);
+ 	if (!usb_endpoint_is_isoc_in(epd) ||
+@@ -250,8 +259,9 @@ static int skip_pioneer_sync_ep(struct snd_usb_audio *chip,
+ 	     USB_ENDPOINT_USAGE_DATA &&
+ 	     (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
+ 	     USB_ENDPOINT_USAGE_IMPLICIT_FB))
+-		return 0;
+-	return 1; /* don't handle with the implicit fb, just skip sync EP */
++		return false;
++
++	return true;
+ }
+ 
+ static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
+@@ -367,12 +377,12 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
+ 	}
+ 
+ 	/* Pioneer devices with vendor spec class */
+-	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
+-	    alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
+-	    (USB_ID_VENDOR(chip->usb_id) == 0x2b73 || /* Pioneer */
+-	     USB_ID_VENDOR(chip->usb_id) == 0x08e4    /* Pioneer */)) {
+-		if (skip_pioneer_sync_ep(chip, fmt, alts))
+-			return 1;
++	if (is_pioneer_implicit_fb(chip, alts)) {
++		chip->playback_first = 1;
++		return add_implicit_fb_sync_ep(chip, fmt,
++					       get_endpoint(alts, 1)->bEndpointAddress,
++					       1, alts->desc.bInterfaceNumber,
++					       alts);
+ 	}
+ 
+ 	/* Try the generic implicit fb if available */
+@@ -394,6 +404,8 @@ static int audioformat_capture_quirk(struct snd_usb_audio *chip,
+ 	if (p && (p->type == IMPLICIT_FB_FIXED || p->type == IMPLICIT_FB_BOTH))
+ 		return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
+ 					       p->iface, NULL);
++	if (is_pioneer_implicit_fb(chip, alts))
++		return 1; /* skip the quirk, also don't handle generic sync EP */
+ 	return 0;
+ }
+ 
+-- 
+2.26.2
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> 
-> Note: there is likely other handling for this codec that only exists in the
-> HDA driver, but which also belongs in the ASoC driver. Commit 394c97f824fa
-> ("ALSA: hda/realtek - Change EAPD to verb control") describes an issue that
-> does not seem to be resolved in the ASoC driver, to give an example.
-> 
-> 
-> Other patches in this series are not specific to the ALC3263. These patches
-> set the correct combo jack configuration when headphones are inserted, and
-> fix a misaligned value set in the DMIC2 Configuration Default register.
-> 
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=114171
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=150601
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=205961
-> Signed-off-by: David Ward <david.ward@gatech.edu>
-> 
-> David Ward (5):
->    ASoC: rt286: Fix upper byte in DMIC2 configuration
->    ASoC: rt286: Configure combo jack for headphones
->    ASoC: rt298: Configure combo jack for headphones
->    ASoC: rt286: Make RT286_SET_GPIO_* readable and writable
->    ASoC: rt286: Generalize support for ALC3263 codec
-> 
->   sound/soc/codecs/rt286.c | 34 +++++++++++++++++++++-------------
->   sound/soc/codecs/rt298.c |  9 +++++++--
->   2 files changed, 28 insertions(+), 15 deletions(-)
-> 

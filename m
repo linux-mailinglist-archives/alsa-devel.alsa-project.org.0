@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B59363E0A
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 10:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272FC363EAA
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 11:37:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3010B851;
-	Mon, 19 Apr 2021 10:54:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3010B851
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0256167A;
+	Mon, 19 Apr 2021 11:36:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0256167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618822494;
-	bh=amXfTGNZuVah1sWrF1xDSCdGJ7sU+YXohrws/sRIUrc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RVFMcd42SasOB7PhmKg87fmOpuH4dvbBCvXw3Wash3L4wajsdlb8JBWSJnZOcJSjy
-	 AFBQeGEnwNk81gyHAMtjP77dHhfXJ+S2DGikmIJuUtTbyN/wqadFv7+PPpUwWDTRAH
-	 KxmxQXUNUY+gpizq3rIoCmKWzexP5AParBft01c0=
+	s=default; t=1618825027;
+	bh=qbJUsbPvUeIowbOn4zVxIT+HuRx3goLcwFO3/pYPjXQ=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Qx0viaeDGQI1mE9v9Sh4mROhIyTZjsxTFbP1g01h7FfddXjO2Kc+74KHpqQ9N/tJv
+	 c+wXBfONRSJPPdRfRlR36ZYpMz/9gqmLTjEzsxU0DgQl/I5++rAPOcxSTmEaEptr6E
+	 Yd1nus9l1YURMHgHhJJIJsJaqVLDl9MqipsxNPps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E1F2F8019B;
-	Mon, 19 Apr 2021 10:53:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BEEBF8019B;
+	Mon, 19 Apr 2021 11:35:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CB0DF80227; Mon, 19 Apr 2021 10:53:23 +0200 (CEST)
+ id 08E56F80227; Mon, 19 Apr 2021 11:35:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C650FF800C5
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 10:53:16 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id E6B9DA003F;
- Mon, 19 Apr 2021 10:53:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz E6B9DA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1618822395; bh=VCcX0eOhdUiAF3FdImVJr1aLUrp2jAo+B91EHPRx9kY=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=G8vRVjU49wfDis4hQaoa0R5063pw9vddTirXoNYnY3Bt3eP7XnZJx3F+ej2JU4L7r
- qDTsiE9xgY5XmGUmBrc5zrDdOHYqseU3F4fPTBd+NV+hZnB27VywkwVM/COBlna3WN
- 1RHjADK9zCfwa+GSM2Np/nOZWCy8s2+ET7gUGhJQ=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 19 Apr 2021 10:52:54 +0200 (CEST)
-Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch controls
-To: "Yang, Libin" <libin.yang@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "shumingf@realtek.com" <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-References: <20210415091609.13695-1-shumingf@realtek.com>
- <6c5b52e2-c875-9b30-60dd-d4bec77a9215@linux.intel.com>
- <BN6PR11MB1652220DB80760FD18B8308290499@BN6PR11MB1652.namprd11.prod.outlook.com>
- <9146794c-d4a1-8dd8-4ab1-7c9c44a7703b@perex.cz>
- <MWHPR11MB1663671582DCB35BE88C5B5590499@MWHPR11MB1663.namprd11.prod.outlook.com>
- <606f8e2d-40d5-8de0-1a06-9c8da016652d@perex.cz>
- <MWHPR11MB1663B46AB115359FDBDDB29F90499@MWHPR11MB1663.namprd11.prod.outlook.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <d3aa7b7c-4384-9fd8-d814-e2bcbf0da9d2@perex.cz>
-Date: Mon, 19 Apr 2021 10:52:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <MWHPR11MB1663B46AB115359FDBDDB29F90499@MWHPR11MB1663.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: "oder_chiou@realtek.com" <oder_chiou@realtek.com>,
- "jack.yu@realtek.com" <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "derek.fang@realtek.com" <derek.fang@realtek.com>,
- "flove@realtek.com" <flove@realtek.com>
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 540ACF80164
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 11:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 540ACF80164
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="CAEt3s53"
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ o187-20020a2528c40000b02904e567b4bf7eso7124415ybo.10
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 02:35:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=8WNrhjLyGdyDWHM865ZCSJ0+zVt77fNMyFmGjFGrnl4=;
+ b=CAEt3s53rOTQrQyMSGDziVgDrIyTUMOlQuNe0Tk+6QH1Nu046WxDAwSUeb9ImRFQGA
+ gwnNZctQXHXthNf0nIiNzSkO1yyVNd7JyYGFcUiZSM9ode7MlEr2n0iXKxYwbcx+Pzh/
+ XvMNKjhb+Xy5sy5L79ZtyNattUmxFOurOIWY/cOiNtuYyIlCXDo7f04rUtepM47IF0Mw
+ PVSBmF+iSKx5R4XGmgTO3FgwzZkKtfzMhr1ftR4qXtZcwydVWlaKh9BOJWbQz6CuUEKD
+ DfhH7sdV8GxzSOQXKWz58LIze6jme/Qq7B9mGDLtpkm/RKrg9sDrte+mRbFBS6BgT481
+ Jt9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=8WNrhjLyGdyDWHM865ZCSJ0+zVt77fNMyFmGjFGrnl4=;
+ b=sCd5cq61lWWLg78C0P+9AWO4tuigEQSMKSJ3deJMXnCYb1JVqt+pTlCvtiXTC1aKyw
+ GkQLKjQ+iJBapLKrGgBRH9MIRobSl0sq7F1lINfv2gY1cDfzodCg+HdRtf8m4bfOFyM7
+ Ouw+pcvKJHSxO0YDtUMKr4Kvwk4j/LWQDN1WdyK1I4mpoqu1/UFTIthfZ8vVT25yLpyY
+ uxGSEV6/esARR4YSNcczc6yVw5QlC00GxegIpun6jBUmV76NwR3rkVWEZBOjZ88og3OI
+ jRmdv8+a/zt7RNcFZAg/RFcqLiD40gSeyYh+tXfdznHf1qUvkkSuXJSk8c2uqTlSHRUN
+ TWAA==
+X-Gm-Message-State: AOAM533Q+zOcuoQC2XIE1KucZYNywWYT1PAYQX3Ml//xlSAaGGO0mIJL
+ UJP7vMAJPtZMWU699vyKuOaJkFQFCDdV
+X-Google-Smtp-Source: ABdhPJzBRm7VdHEJmg0TVEqWdqGpo383048pfypHGJSkLrWN945dqM4Gi1tsqSwWKdDgxo8u869CRLRnuG9a
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:b:907f:7138:4a1f:7db])
+ (user=tzungbi job=sendgmr) by 2002:a25:c754:: with SMTP id
+ w81mr15258408ybe.492.1618824919014; Mon, 19 Apr 2021 02:35:19 -0700 (PDT)
+Date: Mon, 19 Apr 2021 17:34:49 +0800
+Message-Id: <20210419093449.3125704-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.31.1.368.gbe11c130af-goog
+Subject: [PATCH v2] pinctrl: mediatek: use spin lock in mtk_rmw
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, sean.wang@kernel.org, linus.walleij@linaro.org, 
+ matthias.bgg@gmail.com, zhiyong.tao@mediatek.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org, tzungbi@google.com,
+ andy.shevchenko@gmail.com, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,147 +96,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 19. 04. 21 v 9:17 Yang, Libin napsal(a):
-> Hi Jaroslav,
-> 
->> -----Original Message-----
->> From: Jaroslav Kysela <perex@perex.cz>
->> Sent: 2021年4月19日 14:57
->> To: Yang, Libin <libin.yang@intel.com>; Pierre-Louis Bossart <pierre-
->> louis.bossart@linux.intel.com>; shumingf@realtek.com; broonie@kernel.org;
->> lgirdwood@gmail.com
->> Cc: oder_chiou@realtek.com; jack.yu@realtek.com; alsa-devel@alsa-
->> project.org; lars@metafoo.de; derek.fang@realtek.com; flove@realtek.com
->> Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch controls
->>
->> Dne 19. 04. 21 v 8:50 Yang, Libin napsal(a):
->>> Hi Jaroslav,
->>>
->>>> -----Original Message-----
->>>> From: Jaroslav Kysela <perex@perex.cz>
->>>> Sent: 2021年4月19日 14:32
->>>> To: Yang, Libin <libin.yang@intel.com>; Pierre-Louis Bossart <pierre-
->>>> louis.bossart@linux.intel.com>; shumingf@realtek.com;
->>>> broonie@kernel.org; lgirdwood@gmail.com
->>>> Cc: oder_chiou@realtek.com; jack.yu@realtek.com; alsa-devel@alsa-
->>>> project.org; lars@metafoo.de; derek.fang@realtek.com;
->>>> flove@realtek.com
->>>> Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch controls
->>>>
->>>> Dne 19. 04. 21 v 7:14 Yang, Libin napsal(a):
->>>>> Hi Pierre,
->>>>>
->>>>>
->>>>>> -----Original Message-----
->>>>>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>>>>> Sent: 2021年4月15日 19:26
->>>>>> To: shumingf@realtek.com; broonie@kernel.org;
->> lgirdwood@gmail.com
->>>>>> Cc: oder_chiou@realtek.com; jack.yu@realtek.com; alsa-devel@alsa-
->>>>>> project.org; lars@metafoo.de; Yang, Libin <libin.yang@intel.com>;
->>>>>> derek.fang@realtek.com; flove@realtek.com
->>>>>> Subject: Re: [PATCH] ASoC: rt711-sdca: remove capture switch
->>>>>> controls
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 4/15/21 4:16 AM, shumingf@realtek.com wrote:
->>>>>>> From: Shuming Fan <shumingf@realtek.com>
->>>>>>>
->>>>>>> The settings of the switch control already set by DAPM event.
->>>>>>> These switch controls might the user confused why it can't disable
->>>>>>> the
->>>>>> capture.
->>>>>>
->>>>>> Sorry, not following. This control is used in the alsa-ucm-conf
->>>>>> that was just merged
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-ucm-
->>>>>> conf/commit/197025656ec456331d1a34357b113913ec3b187f#diff-
->>>>>>
->>>>
->> 0e1c627ea89ee148fdb41aa6b3ba7851ba9c20eb43c1b87b9e0ce92164273dc3R
->>>>>> 7
->>>>>>
->>>>>> Is this saying this commit needs to be fixed with a follow-up PR?
->>>>>> Libin, are you working on this?
->>>>>
->>>>> Yes, I will submit a patch for UCM after this patch is merged.
->>>>>
->>>>> The background is Jaroslav requires using codec HW kcontrol for
->>>>> capture volume/switch. Shuming and I worked on it. At first we
->>>>> wanted to use FU0F to replace PGA kcontrol. But Shuming found FU0F
->>>>> is used in
->>>> DAPM.
->>>>> So it is not proper for the capture volume/switch. And Shuming will
->>>>> remove the FU0F kcontrol.
->>>>
->>>> Is switch control name aligned with the volume control name after
->>>> this change?
->>>
->>> This patch is removing "FU0F Capture Switch". Before this patch, there
->>> is "FU0F Capture Switch" and "FU0F Capture Volume". After this patch
->>> is applied, "FU0F Capture Switch" is removed. So the UCM
->>> https://github.com/alsa-project/alsa-ucm-
->> conf/blob/57ead84278f641d411e
->>> 3ccbb5c8a4b64141904ba/ucm2/codecs/rt711-sdca/init.conf#L7
->>> of "FU0F Capture Switch" setting needs to be removed.
->>>
->>>> I mean "A Capture Switch" + "A Capture Volume" not "A Capture Switch"
->>>> + "B Capture Volume".
->>>
->>> We couldn't find a proper codec kcontrol for RT711 capture. So we have
->>> to continue using PGA kcontrol.
->>
->> It's really confusing then. What does "FU0F Capture Volume" ? It's really
->> difficult to judge something when I don't know the codec diagram.
-> 
-> "FU0F Capture Volume" will still control the volume of rt711 capture.
-> But "FU0F Capture Switch" will be removed. Because DAPM is using
-> this the same node. These is a conflict when we do below:
-> 1. mute "FU0F Capture Switch". And the kcontrol will mute the
->     Corresponding node in codec.
-> 2. use arecord to capture from the rt711-sdca headset
-> 3. DAPM will auto unmute the node which "FU0F Capture Switch" has 
->      muted.
-> 4. So we will capture the sound, even "FU0F Capture Switch" shows the 
->     state is "muted" (this is wrong)
-> 
-> So Shuming decided to remove the "FU0F Capture Switch" kcontrol.
+Commit 42a46434e9b1 ("pinctrl: add lock in mtk_rmw function.") uses
+mutex lock in mtk_rmw.  However the function is possible called from
+atomic context.
 
-I see. In this case, the auto-route settings should differ from the mixer
-settings. So the mute flag should be logical _OR_ from both DAPM and the mixer
-settings. And because the codec is able to do the hw mute, why to prevent the
-export of this feature?
+For example call trace:
+  mutex_lock+0x28/0x64
+  mtk_rmw+0x38/0x80
+  [snip]
+  max98357a_daiops_trigger+0x8c/0x9c
+  soc_pcm_trigger+0x5c/0x10c
 
-So I propose do do (pseudo code):
+The max98357a_daiops_trigger() could run in either atomic or non-atomic
+context.  As a result, dmesg shows some similar messages: "BUG: sleeping
+function called from invalid context at kernel/locking/mutex.c:254".
 
-struct rt711_sdca_priv {
-	bool fu0f_dapm_mute;
-	bool fu0f_mixer_mute;
-};
+Uses spin lock in mtk_rmw instead.
 
-/* called from both dapm event and kontrol put callback (on change) */
-/* the dapm event and put callback will modify only rt711_sdca_priv fields */
-static void set_f0f_mute(rt711_priv)
-{
-	int mute = rt711_priv->fu0f_dapm_mute || rt711_priv->fu0f_mixer_mute;
-	set_fu0f_mute_register(mute);
-}
+Fixes: 42a46434e9b1 ("pinctrl: add lock in mtk_rmw function.")
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
 
-With this implementation, all is consistent to the user space.
+Changes from v1[1]:
+- Snip call trace.
+- Use _irqsave and _irqrestore version of spin lock.
 
->> Anyway, the switch and volume for the given I/O should have identical name
->> and they should differ only in the suffix describing the stream and
->> functionality.
-> 
-> We won't touch "CaptureSwitch" and "CaptureVolume" for rt711-sdca.
+[1]: https://patchwork.ozlabs.org/project/linux-gpio/list/?series=239749
 
-Yes, but the hw controls should be used instead DSP controls, if they are
-available.
+ drivers/pinctrl/mediatek/pinctrl-moore.c         | 2 +-
+ drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 5 +++--
+ drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h | 2 +-
+ drivers/pinctrl/mediatek/pinctrl-paris.c         | 2 +-
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-					Jaroslav
-
+diff --git a/drivers/pinctrl/mediatek/pinctrl-moore.c b/drivers/pinctrl/mediatek/pinctrl-moore.c
+index f77921957f15..3a4a23c40a71 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-moore.c
++++ b/drivers/pinctrl/mediatek/pinctrl-moore.c
+@@ -619,7 +619,7 @@ int mtk_moore_pinctrl_probe(struct platform_device *pdev,
+ 
+ 	hw->nbase = hw->soc->nbase_names;
+ 
+-	mutex_init(&hw->lock);
++	spin_lock_init(&hw->lock);
+ 
+ 	/* Copy from internal struct mtk_pin_desc to register to the core */
+ 	pins = devm_kmalloc_array(&pdev->dev, hw->soc->npins, sizeof(*pins),
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
+index fcf7c3eeee4a..fc79b3a7a188 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
++++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
+@@ -57,15 +57,16 @@ static u32 mtk_r32(struct mtk_pinctrl *pctl, u8 i, u32 reg)
+ void mtk_rmw(struct mtk_pinctrl *pctl, u8 i, u32 reg, u32 mask, u32 set)
+ {
+ 	u32 val;
++	unsigned long flags;
+ 
+-	mutex_lock(&pctl->lock);
++	spin_lock_irqsave(&pctl->lock, flags);
+ 
+ 	val = mtk_r32(pctl, i, reg);
+ 	val &= ~mask;
+ 	val |= set;
+ 	mtk_w32(pctl, i, reg, val);
+ 
+-	mutex_unlock(&pctl->lock);
++	spin_unlock_irqrestore(&pctl->lock, flags);
+ }
+ 
+ static int mtk_hw_pin_field_lookup(struct mtk_pinctrl *hw,
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
+index 65eac708a3b3..13836bb188b7 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
++++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.h
+@@ -252,7 +252,7 @@ struct mtk_pinctrl {
+ 	struct mtk_pinctrl_group	*groups;
+ 	const char          **grp_names;
+ 	/* lock pin's register resource to avoid multiple threads issue*/
+-	struct mutex lock;
++	spinlock_t lock;
+ };
+ 
+ void mtk_rmw(struct mtk_pinctrl *pctl, u8 i, u32 reg, u32 mask, u32 set);
+diff --git a/drivers/pinctrl/mediatek/pinctrl-paris.c b/drivers/pinctrl/mediatek/pinctrl-paris.c
+index 48e823f6d293..85db2e4377f0 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-paris.c
++++ b/drivers/pinctrl/mediatek/pinctrl-paris.c
+@@ -970,7 +970,7 @@ int mtk_paris_pinctrl_probe(struct platform_device *pdev,
+ 
+ 	hw->nbase = hw->soc->nbase_names;
+ 
+-	mutex_init(&hw->lock);
++	spin_lock_init(&hw->lock);
+ 
+ 	err = mtk_pctrl_build_state(pdev);
+ 	if (err) {
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.31.1.368.gbe11c130af-goog
+

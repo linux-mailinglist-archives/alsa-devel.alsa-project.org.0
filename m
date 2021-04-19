@@ -2,81 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADC93646BF
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED533646C3
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Apr 2021 17:09:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 315D1167A;
-	Mon, 19 Apr 2021 17:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 315D1167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBFAD167F;
+	Mon, 19 Apr 2021 17:08:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBFAD167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618844949;
-	bh=YUbe1J3aXgVRuK8O1Z/Qzwwks4IuxqFizF46Zio5gZY=;
+	s=default; t=1618844981;
+	bh=rEVbeVGAfmFbQe3Md2SQTjJPknC/BhdzjFEQReGzK2s=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o2Wt7lpyU4lssKTTtBLuAr2S+h/mmfzPSNqiYcHP3QjHyKUh1I64IW0oUm69gV76F
-	 WfKif9YgrxLP6QnYdNXebc/F4ttRl4/nZZo1wyygWmiAefRSeJ3iIzMjAhu5jAvl08
-	 VuYMLWIRc4f2nAMjpSFadlUBOO+V8CiIuzRUEWuY=
+	b=ZWYQX3fESyIc4n4KeFg/MJutIdflAAFwjGNDPr1XKXn3EbhHo7zIHy5t3keFq2uEA
+	 qHqf50bAluGIcHOhTBXLf1t8BSyRqR6oSn0BixYOnd/a2G94w/y7EqeZGIAF4XAvKz
+	 HI8vkw6OZ2WBtWaQYlBzRZQcgHbOEgtfCldAhZK8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B8A1F8019B;
-	Mon, 19 Apr 2021 17:07:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 558F4F8014D;
+	Mon, 19 Apr 2021 17:08:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5524F80227; Mon, 19 Apr 2021 17:07:38 +0200 (CEST)
+ id 3C2BEF80274; Mon, 19 Apr 2021 17:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B1C9F800C5
- for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:07:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B1C9F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78A43F8014D
+ for <alsa-devel@alsa-project.org>; Mon, 19 Apr 2021 17:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78A43F8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NFBHTdtV"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7952861007;
- Mon, 19 Apr 2021 15:07:30 +0000 (UTC)
+ header.b="fi2zvVWD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B18B61007;
+ Mon, 19 Apr 2021 15:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618844851;
- bh=YUbe1J3aXgVRuK8O1Z/Qzwwks4IuxqFizF46Zio5gZY=;
+ s=k20201202; t=1618844917;
+ bh=rEVbeVGAfmFbQe3Md2SQTjJPknC/BhdzjFEQReGzK2s=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NFBHTdtVNwS80fy5MGVLrHzah4IqMBfmX37OOFTAOfX4kTLIuUpzomcDWOiyOmrIE
- q9EfpuezbMFWgOWCmyWS3ITR70b9rp3H1vtWS6KDyenqO6FuDia7napOuh1QJ2n33i
- Ok1zCTl+H6Y9wgsBt1rbXgn/xNaD7OBpr7Pc/BFnZAjJXqfWFHmS+0G5ePvEdbMFZn
- zyWMn23xUdJwjGu9lJrdR8xAld3IUJWYIIxIsCfGyn7T9WmdCoLAEXH0G+MEQSydxK
- JFEyKnktef1O1bsBVjFNnfHVngrKOhoojWGKAKvMyJcAnFNKMqucmehBAidLHGRqSf
- rDWpru33Dtlqg==
-Date: Mon, 19 Apr 2021 16:07:05 +0100
+ b=fi2zvVWDb/79l6qru8t9NZc83ksj6rwSxy0TIFOan0z4bP45FPN4wedi/V4XFaVTJ
+ Qr0S/o90D8Z4Cn21fZ+SvlVfk7kLNyNGBfANm7buQ/Abt2YnTMzN3f74zZOIb0ajsH
+ rUkDLq5hTi2w1/JUrhMncrTLwdoM8iRjAe9fB9c7KbA651gjymvNGzkKglw39+cm2T
+ wOL6CRExnTd0/Z45I6MeFfva9LR0U6VIGjY5S0shO4UHUCM87vZyxn6jfeQO9nlT96
+ AbjH+2sp6JK3R2/CQy/99t8BcoocCNMJh1oKowCbeI0Md8msERxmvL/G+zUbtV4T7S
+ BLrK/EXwL2NtA==
+Date: Mon, 19 Apr 2021 16:08:11 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 0/3] Separate BE DAI HW constraints from FE ones
-Message-ID: <20210419150705.GB5645@sirena.org.uk>
-References: <5e1fb981-48c1-7d5a-79a6-ba54bac26165@microchip.com>
- <4f401536-5a66-0d65-30cb-7ecf6b235539@microchip.com>
- <20210415161743.GH5514@sirena.org.uk>
- <1aff49d4-5691-67cb-3fe7-979d476f1edb@microchip.com>
- <20210415172554.GI5514@sirena.org.uk>
- <ad5d556b-601f-c6f6-347e-86a235237c02@microchip.com>
- <20210416163131.GI5560@sirena.org.uk>
- <79161044-26b2-729a-b831-b79cc238e239@linux.intel.com>
- <20210416185538.GK5560@sirena.org.uk>
- <dfcf8b69-6ede-7344-79c0-cb572e03359c@linux.intel.com>
+To: Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: simple-card-utils: Increase maximum number of
+ links to 128
+Message-ID: <20210419150811.GC5645@sirena.org.uk>
+References: <20210416071147.2149109-1-thierry.reding@gmail.com>
+ <20210416071147.2149109-2-thierry.reding@gmail.com>
+ <8735vn59sw.wl-kuninori.morimoto.gx@renesas.com>
+ <YH2Y/rd2/q5qHvnz@orome.fritz.box>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kXdP64Ggrk/fb43R"
+ protocol="application/pgp-signature"; boundary="8X7/QrJGcKSMr1RN"
 Content-Disposition: inline
-In-Reply-To: <dfcf8b69-6ede-7344-79c0-cb572e03359c@linux.intel.com>
+In-Reply-To: <YH2Y/rd2/q5qHvnz@orome.fritz.box>
 X-Cookie: I will never lie to you.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, gustavoars@kernel.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, Codrin.Ciubotariu@microchip.com,
- mirq-linux@rere.qmqm.pl
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,42 +88,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---kXdP64Ggrk/fb43R
+--8X7/QrJGcKSMr1RN
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Apr 16, 2021 at 02:39:25PM -0500, Pierre-Louis Bossart wrote:
-> On 4/16/21 1:55 PM, Mark Brown wrote:
+On Mon, Apr 19, 2021 at 04:51:42PM +0200, Thierry Reding wrote:
 
-> > to the maximum supported bit width for internal operation so bit width
-> > only matters on external interfaces) but I think for a first pass we can
-> > get away with forcing everything other than what DPCM has as front ends
-> > into static configurations.
+> Reducing from 128 to, say, 80 should eliminate that warning, but I
+> wonder if perhaps a better solution for the longer term would be to
+> allocate this structure on the heap rather than on the stack? That
+> way we don't risk triggering this warning again in the future.
 
-> You lost me on the last sentence. did you mean "forcing everything into
-> static configurations except for what DPCM has as front-ends"?
+> The data structure seems to be only used during initialization, so
+> something like a kzalloc()/kfree() pair doesn't seem like it would
+> hurt much performance-wise. Add in the devm_ variants and the code
+> complexity should also remain moderately low.
 
-Yes...
+Yes, that'd be much better - ideally we wouldn't have a fixed limit of
+any kind but that's a more involved change and quite possibly more
+trouble than it's worth.
 
-> It may already be too late for static configurations, Intel, NXP and others
-> have started to enable cases where the dailink configuration varies.
-
-Well, they won't be able to use any new stuff until someone implements
-support for dynamic configurations in the new stuff.
-
---kXdP64Ggrk/fb43R
+--8X7/QrJGcKSMr1RN
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB9nJkACgkQJNaLcl1U
-h9AjtQf/YjGD5sr+aOXRfydBHJwcAvkfXdxmoMabMzf9FRfzTWoyRi4oYu5l67Ha
-dTKFT/VRaUHA9GZsb543N8j/aXhD+TIHZCZW3uxaLx62GXeGF4YKVrIg/8g0Oiyi
-+jOcUJzH/1x2ZXWL+9KG44xT4GSdoAR1kAsh5izyofvrBkeqmT/WqRJb6JCrN3sb
-2okmBkrNCTYWkvq65nnjyjbdHDkhEeuiA8zayG1IMceTc7NeVgDr4OuY8vmvtMkA
-5BXOU2iWfi41nkBTd7ux+Gv60Fz7JsCFd+KVUOO6dr5FoqAokPrrG03mD0K8sCfq
-OsxqdxDTUzXqYKYY+m95P6u5vRIDGg==
-=3kYe
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB9nNsACgkQJNaLcl1U
+h9BtqQf+NqO7dwVwfyX4OZoTOCgUuGBeATfGzoTv1JUlFRVOPRtSz/yr8bXBX1pv
+VUJkG7m51kjhOCmwAVTZvsjGZbpIUhvYRZZjOgRoS0RiFt859djYrJn2e3ev/VYu
+BV2d769ppcFKnlQAswG46Lvfq7MRCw3eHlJbdV16XDHL2OmCWAn1QWT302M2MY94
+rBFe/PsZB/AM/uLcEJ3OReNrncPvx+d11sGPps8o5A7sVaY5E5r3JwBPMLkWsjZ8
+nd9D1W/LtB7HSocGybfyRxulixOMagO4EroepEE0ecsTaRU7uHcZzUqiLO8xnC36
+0BV18/QRDXq6BdUgevj+vAxz0sKQMg==
+=G4a1
 -----END PGP SIGNATURE-----
 
---kXdP64Ggrk/fb43R--
+--8X7/QrJGcKSMr1RN--

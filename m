@@ -2,135 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47AC365575
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Apr 2021 11:32:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13CE03656FB
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Apr 2021 13:01:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78D1B1685;
-	Tue, 20 Apr 2021 11:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78D1B1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A3E81685;
+	Tue, 20 Apr 2021 13:00:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A3E81685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618911168;
-	bh=w9v8VgV2FDSGFuLyhR+Sq1QOIfK2MzIJULpDPv9jx7M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1618916465;
+	bh=KcXJuVdR9IEHsbdwOhJ71eCazsUqKe9RftrgJVy/JXo=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hDfe6QM7CaAzv4QFslvuwJzYaH50YKecNBSAaeOSMkiiB43fAxiO+EdUx8jw8hwb1
-	 qq1OMtyASm6K74msiSuDQIO0O3fInJZGWQKlmxDtSlrjOhG9NDlmPQuGdkKEpPW2KB
-	 kgmL7wgpJFnHz/YLae4P4KuyFYM5zKUiRi7Pf8f4=
+	b=HT9+4Dnxwu0pO9CIStibOZH1WvXPXU/ZmJz8ChD1oZb5mqexGuzTMOTN28+Dahwiu
+	 YtAEYt7AOBjQDIbyvbqhPpAwSwivF+g/TpLnddMIYvBHsAaf1vqFtXUphKTw8QJNr5
+	 eITrH6mg4ETl9YINVDRm4L/dAGdIijfJq9BgZk/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8CB4F800FE;
-	Tue, 20 Apr 2021 11:31:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6EC7F8014D;
+	Tue, 20 Apr 2021 12:59:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 108E9F80253; Tue, 20 Apr 2021 11:31:17 +0200 (CEST)
+ id 5B9ACF80164; Tue, 20 Apr 2021 12:59:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAE5DF800FE
- for <alsa-devel@alsa-project.org>; Tue, 20 Apr 2021 11:30:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAE5DF800FE
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 13K9UpFK2030554,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 13K9UpFK2030554
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 20 Apr 2021 17:30:51 +0800
-Received: from RTEXMBS03.realtek.com.tw (172.21.6.96) by
- RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 20 Apr 2021 17:30:50 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 20 Apr 2021 17:30:49 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::e1bc:d5c7:d79c:2ab7]) by
- RTEXMBS01.realtek.com.tw ([fe80::e1bc:d5c7:d79c:2ab7%13]) with mapi id
- 15.01.2106.013; Tue, 20 Apr 2021 17:30:49 +0800
-Content-Type: multipart/mixed;
- boundary="_000_377f0ee05d514c66b567eb6385ac7753realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015p: add support on format S32_LE
-Thread-Topic: [PATCH] ASoC: rt1015p: add support on format S32_LE
-Thread-Index: Adc1x9jE9GFg6eoRSvGq4zoWbMJOtA==
-Date: Tue, 20 Apr 2021 09:30:48 +0000
-Message-ID: <377f0ee05d514c66b567eb6385ac7753@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <377f0ee05d514c66b567eb6385ac7753@realtek.com>
-x-originating-ip: [172.22.102.167]
-x-kse-serverinfo: RTEXMBS03.realtek.com.tw, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzQvMjAgpFekyCAwNjowMDowMA==?=
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-MIME-Version: 1.0
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/20/2021 09:18:38
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 163229 [Apr 20 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
-X-KSE-AntiSpam-Info: {tnef_exp}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;
- realtek.com:7.1.1; 127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 04/20/2021 09:21:00
-X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/20/2021 09:18:38
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 163229 [Apr 20 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
-X-KSE-AntiSpam-Info: {tnef_exp}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;
- 127.0.0.199:7.1.2; realtek.com:7.1.1
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 04/20/2021 09:21:00
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
- =?big5?B?s6/O66fT?= <kenny_chen@realtek.com>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71DC8F8014D
+ for <alsa-devel@alsa-project.org>; Tue, 20 Apr 2021 12:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71DC8F8014D
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 774151A157E;
+ Tue, 20 Apr 2021 12:59:21 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CC2091A2FF4;
+ Tue, 20 Apr 2021 12:59:18 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 3AC0B40291;
+ Tue, 20 Apr 2021 12:59:15 +0200 (CEST)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: ak4458: enable daisy chain
+Date: Tue, 20 Apr 2021 18:44:13 +0800
+Message-Id: <1618915453-29445-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,129 +69,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_377f0ee05d514c66b567eb6385ac7753realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+From: Viorel Suman <viorel.suman@nxp.com>
 
-QWRkIHN1cHBvcnQgb24gZm9ybWF0IFMzMl9MRSBmb3IgcnQxMDE1cC4NCg0KU2lnbmVkLW9mZi1i
-eTogSmFjayBZdSA8amFjay55dUByZWFsdGVrLmNvbT4NCi0tLQ0KIHNvdW5kL3NvYy9jb2RlY3Mv
-cnQxMDE1cC5jIHwgMyArKy0NCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0MTAxNXAuYyBiL3Nv
-dW5kL3NvYy9jb2RlY3MvcnQxMDE1cC5jDQppbmRleCAzOWY0YzRlZDJhYjguLjQwZjIwNjNhZWZi
-ZSAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1cC5jDQorKysgYi9zb3VuZC9z
-b2MvY29kZWNzL3J0MTAxNXAuYw0KQEAgLTk2LDcgKzk2LDggQEAgc3RhdGljIHN0cnVjdCBzbmRf
-c29jX2RhaV9kcml2ZXIgcnQxMDE1cF9kYWlfZHJpdmVyID0gew0KIAkubmFtZSA9ICJIaUZpIiwN
-CiAJLnBsYXliYWNrID0gew0KIAkJLnN0cmVhbV9uYW1lCT0gIkhpRmkgUGxheWJhY2siLA0KLQkJ
-LmZvcm1hdHMJPSBTTkRSVl9QQ01fRk1UQklUX1MyNCwNCisJCS5mb3JtYXRzCT0gU05EUlZfUENN
-X0ZNVEJJVF9TMjQgfA0KKwkJCQkJU05EUlZfUENNX0ZNVEJJVF9TMzIsDQogCQkucmF0ZXMJCT0g
-U05EUlZfUENNX1JBVEVfNDgwMDAsDQogCQkuY2hhbm5lbHNfbWluCT0gMSwNCiAJCS5jaGFubmVs
-c19tYXgJPSAyLA0KLS0gDQoyLjI5LjANCg0K
+Enable Daisy Chain if in TDM mode and the number of played
+channels is bigger than the maximum supported number of channels.
 
---_000_377f0ee05d514c66b567eb6385ac7753realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/ak4458.c | 47 ++++++++++++++++++++++++++-------------
+ sound/soc/codecs/ak4458.h |  1 +
+ 2 files changed, 32 insertions(+), 16 deletions(-)
 
-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
-dQBwAHAAbwByAHQAIABvAG4AIABmAG8AcgBtAGEAdAAgAFMAMwAyAF8ATABFACAAZgBvAHIAIABy
-AHQAMQAwADEANQBwAC4ADQAKAA0ACgBTAGkAZwBuAGUAZAAtAG8AZgBmAC0AYgB5ADoAIABKAGEA
-YwBrACAAWQB1ACAAPABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4ADQAK
-AC0ALQAtAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwByAHQAMQAwADEA
-NQBwAC4AYwAgAHwAIAAzACAAKwArAC0ADQAKACAAMQAgAGYAaQBsAGUAIABjAGgAYQBuAGcAZQBk
-ACwAIAAyACAAaQBuAHMAZQByAHQAaQBvAG4AcwAoACsAKQAsACAAMQAgAGQAZQBsAGUAdABpAG8A
-bgAoAC0AKQANAAoADQAKAGQAaQBmAGYAIAAtAC0AZwBpAHQAIABhAC8AcwBvAHUAbgBkAC8AcwBv
-AGMALwBjAG8AZABlAGMAcwAvAHIAdAAxADAAMQA1AHAALgBjACAAYgAvAHMAbwB1AG4AZAAvAHMA
-bwBjAC8AYwBvAGQAZQBjAHMALwByAHQAMQAwADEANQBwAC4AYwANAAoAaQAAAAsAAIAIIAYAAAAA
-AMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUA
-cAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAA
-AAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkA
-YwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAA
-AE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAAAjoJb8QBi9OcD0I2QPe++YfAACA
-E4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABD
-AGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoA
-YQBjAGsAIABZAHUAAAAfADcAAQAAAGgAAABbAFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0
-ADEAMAAxADUAcAA6ACAAYQBkAGQAIABzAHUAcABwAG8AcgB0ACAAbwBuACAAZgBvAHIAbQBhAHQA
-IABTADMAMgBfAEwARQAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHXNcfY
-xPRhYOnqEUrxquM6FmzCTrQAAB8AcAABAAAAaAAAAFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoA
-IAByAHQAMQAwADEANQBwADoAIABhAGQAZAAgAHMAdQBwAHAAbwByAHQAIABvAG4AIABmAG8AcgBt
-AGEAdAAgAFMAMwAyAF8ATABFAAAAHwA1EAEAAABeAAAAPAAzADcANwBmADAAZQBlADAANQBkADUA
-MQA0AGMANgA2AGIANQA2ADcAZQBiADYAMwA4ADUAYQBjADcANwA1ADMAQAByAGUAYQBsAHQAZQBr
-AC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAAAAIBAIATj/JB9IMUQaWE7ttaawv/AQAAAC4A
-AABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcAbQBlAG4AdABMAGkAcwB0AAAAAAABAAAAIgAA
-AAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA/////wAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/
-AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUAeAB0AAAAAAAAAAsAAIATj/JB9IMUQaWE7tta
-awv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABlAHgAdABDAGgAYQBuAGcAZQBkAAAAAAAAAEAA
-BzAdciPZxzXXAQIBCwABAAAAEAAAAO2s5+CEirhMiYZEdQFJQkEDACYAAAAAAAsABgwAAAAAAgEQ
-MAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwHAEy3fQ1VoXlEvnOFOWLQAKUAAABpYPcAADKv
-OAVKsE5GgMfHOCK6D1oAAAHXpfoAAAAAAgETMAEAAAAQAAAA9GFg6eoRSvGq4zoWbMJOtAIBFDAB
-AAAADAAAADcAAACKmhGJQQAAAB8A+D8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfACJAAQAAAAYA
-AABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABB
-AE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkA
-RABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAv
-AEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfACRAAQAAAAYAAABFAFgAAAAAAB8A
-JUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBE
-AE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYA
-MgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBF
-AFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAxQAEA
-AAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADlAAQAA
-ABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAADAFpAAAAAAAMACVkBAAAAHwAKXQEAAAAoAAAA
-agBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AC10BAAAAKAAAAGoAYQBj
-AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAACAH6TrM6h6LkK+e3nhqY5UswEA
-AAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4ASQBuAGQAZQB4AFQAcgBhAGMAawBpAG4AZwBF
-AHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQBlADkANgAwADYAMQBmADQALQAxADEAZQBhAC0A
-ZgAxADQAYQAtAGEAYQBlADMALQAzAGEAMQA2ADYAYwBjADIANABlAGIANAA7AEkARABYAEgARQBB
-AEQAPQBEADcAMwA1AEMANwBEADgAQwA0ADsASQBEAFgAQwBPAFUATgBUAD0AMQBdADsAUABTAD0A
-VQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4APQBWAGUAcgBzAGkAbwBuACAAMQA1AC4AMQAg
-ACgAQgB1AGkAbABkACAAMgAxADAANgAuADAAKQAsACAAUwB0AGEAZwBlAD0ASAA0ADsAVQBQAD0A
-MQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAAAADAAAAAAAAARgAAAACChQAAAAAAAAMADTT9
-PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEA
-YwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIgAAAHgALQBvAHIAaQBn
-AGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAiAAAAWwAxADcAMgAuADIAMgAuADEAMAAyAC4A
-MQA2ADcAXQAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIgAAAHgALQBrAHMAZQAtAHMAZQBy
-AHYAZQByAGkAbgBmAG8AAAAAAAEAAAA4AAAAUgBUAEUAWABNAEIAUwAwADMALgByAGUAYQBsAHQA
-ZQBrAC4AYwBvAG0ALgB0AHcALAAgADkAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAABCAAAAeAAt
-AGsAcwBlAC0AYQBuAHQAaQB2AGkAcgB1AHMALQBpAG4AdABlAHIAYwBlAHAAdABvAHIALQBpAG4A
-ZgBvAAAAAAABAAAAIAAAAHMAYwBhAG4AIABzAHUAYwBjAGUAcwBzAGYAdQBsAAAAHwAAgIYDAgAA
-AAAAwAAAAAAAAEYBAAAAKgAAAHgALQBrAHMAZQAtAGEAbgB0AGkAdgBpAHIAdQBzAC0AaQBuAGYA
-bwAAAAAAAQAAAEgAAABDAGwAZQBhAG4ALAAgAGIAYQBzAGUAcwA6ACAAMgAwADIAMQAvADQALwAy
-ADAAIAAKTkhTIAAwADYAOgAwADAAOgAwADAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAABQAAAA
-eAAtAGsAcwBlAC0AYQB0AHQAYQBjAGgAbQBlAG4AdAAtAGYAaQBsAHQAZQByAC0AdAByAGkAZwBn
-AGUAcgBlAGQALQByAHUAbABlAHMAAAABAAAADAAAAEMAbABlAGEAbgAAAB8AAICGAwIAAAAAAMAA
-AAAAAABGAQAAAFQAAAB4AC0AawBzAGUALQBhAHQAdABhAGMAaABtAGUAbgB0AC0AZgBpAGwAdABl
-AHIALQB0AHIAaQBnAGcAZQByAGUAZAAtAGYAaQBsAHQAZQByAHMAAAABAAAADAAAAEMAbABlAGEA
-bgAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAFAAAAB4AC0AawBzAGUALQBiAHUAbABrAG0AZQBz
-AHMAYQBnAGUAcwBmAGkAbAB0AGUAcgBpAG4AZwAtAHMAYwBhAG4ALQByAGUAcwB1AGwAdAAAAAEA
-AAAoAAAAcAByAG8AdABlAGMAdABpAG8AbgAgAGQAaQBzAGEAYgBsAGUAZAAAAPqw
+diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
+index 3088128816bb..29eb78702bf3 100644
+--- a/sound/soc/codecs/ak4458.c
++++ b/sound/soc/codecs/ak4458.c
+@@ -306,6 +306,20 @@ static const struct snd_soc_dapm_route ak4497_intercon[] = {
+ 
+ };
+ 
++static int ak4458_get_tdm_mode(struct ak4458_priv *ak4458)
++{
++	switch (ak4458->slots * ak4458->slot_width) {
++	case 128:
++		return 1;
++	case 256:
++		return 2;
++	case 512:
++		return 3;
++	default:
++		return 0;
++	}
++}
++
+ static int ak4458_rstn_control(struct snd_soc_component *component, int bit)
+ {
+ 	int ret;
+@@ -333,13 +347,16 @@ static int ak4458_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+ 	int pcm_width = max(params_physical_width(params), ak4458->slot_width);
+-	u8 format, dsdsel0, dsdsel1;
+-	int nfs1, dsd_bclk, ret;
++	u8 format, dsdsel0, dsdsel1, dchn;
++	int nfs1, dsd_bclk, ret, channels, channels_max;
+ 
+ 	nfs1 = params_rate(params);
+ 	ak4458->fs = nfs1;
+ 
+ 	/* calculate bit clock */
++	channels = params_channels(params);
++	channels_max = dai->driver->playback.channels_max;
++
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_DSD_U8:
+ 	case SNDRV_PCM_FORMAT_DSD_U16_LE:
+@@ -419,6 +436,17 @@ static int ak4458_hw_params(struct snd_pcm_substream *substream,
+ 	snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
+ 			    AK4458_DIF_MASK, format);
+ 
++	/*
++	 * Enable/disable Daisy Chain if in TDM mode and the number of played
++	 * channels is bigger than the maximum supported number of channels
++	 */
++	dchn = ak4458_get_tdm_mode(ak4458) &&
++		(ak4458->fmt == SND_SOC_DAIFMT_DSP_B) &&
++		(channels > channels_max) ? AK4458_DCHAIN_MASK : 0;
++
++	snd_soc_component_update_bits(component, AK4458_0B_CONTROL7,
++				      AK4458_DCHAIN_MASK, dchn);
++
+ 	ret = ak4458_rstn_control(component, 0);
+ 	if (ret)
+ 		return ret;
+@@ -519,20 +547,7 @@ static int ak4458_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+ 	ak4458->slots = slots;
+ 	ak4458->slot_width = slot_width;
+ 
+-	switch (slots * slot_width) {
+-	case 128:
+-		mode = AK4458_MODE_TDM128;
+-		break;
+-	case 256:
+-		mode = AK4458_MODE_TDM256;
+-		break;
+-	case 512:
+-		mode = AK4458_MODE_TDM512;
+-		break;
+-	default:
+-		mode = AK4458_MODE_NORMAL;
+-		break;
+-	}
++	mode = ak4458_get_tdm_mode(ak4458) << AK4458_MODE_SHIFT;
+ 
+ 	snd_soc_component_update_bits(component, AK4458_0A_CONTROL6,
+ 			    AK4458_MODE_MASK,
+diff --git a/sound/soc/codecs/ak4458.h b/sound/soc/codecs/ak4458.h
+index 9548c5d78621..9ad869575f8d 100644
+--- a/sound/soc/codecs/ak4458.h
++++ b/sound/soc/codecs/ak4458.h
+@@ -82,6 +82,7 @@
+  * */
+ #define AK4458_ATS_SHIFT	6
+ #define AK4458_ATS_MASK		GENMASK(7, 6)
++#define AK4458_DCHAIN_MASK	(0x1 << 1)
+ 
+ #define AK4458_DSDSEL_MASK		(0x1 << 0)
+ #define AK4458_DP_MASK			(0x1 << 7)
+-- 
+2.27.0
 
---_000_377f0ee05d514c66b567eb6385ac7753realtekcom_--

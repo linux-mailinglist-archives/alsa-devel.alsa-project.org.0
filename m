@@ -2,74 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998FF365D2C
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Apr 2021 18:21:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF60365D81
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Apr 2021 18:38:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC07168E;
-	Tue, 20 Apr 2021 18:20:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC07168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC1F1168F;
+	Tue, 20 Apr 2021 18:37:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC1F1168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1618935676;
-	bh=wo0Ma+Ga1AFTjgDUVkyTQw4kODt/cwUCMSS14hRgUNg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1618936684;
+	bh=HMqngotXI/+OiVgnqrt0VDLjHa31GxGI8izEazlD9vg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cxBPYqeqCgU/pw2dAfuoY9Qh+l6DDPFYOBdp/fXU9bJQSc/JhDo9jTDkLh8hleb7B
-	 YM85j5kHwRyTewuzYMFX0R6tP+Ul1qhEZ/x1rXiyoMRUGlKWWIy4MmrF4JObzd6zlu
-	 utUq+ZSMRq4l/l7/AsAT9SR9bghBrTWS/HVOrJVk=
+	b=nD8vbMAPy4bZfMa6EvjrL5Jxqp729DuPv1OyA2wufp92hw/kVqEFsNUCVc6heSmIu
+	 5QJkLlI1EJzpt2rUk+CGgpItcRm0E4oKHlMFJxwXpio+eEr+b9CGfXethGb3RbXznm
+	 /wFgjAVBb1Fr3yxW/+6vAp+Fppw6WF6M3dlx/slI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6D5AF80273;
-	Tue, 20 Apr 2021 18:19:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16BF2F800FE;
+	Tue, 20 Apr 2021 18:36:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19FF1F80253; Tue, 20 Apr 2021 18:19:46 +0200 (CEST)
+ id 4A8ECF80253; Tue, 20 Apr 2021 18:36:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03E5BF800FE
- for <alsa-devel@alsa-project.org>; Tue, 20 Apr 2021 18:19:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03E5BF800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="us9AuT+e"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E9CCF613CD;
- Tue, 20 Apr 2021 16:19:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618935580;
- bh=wo0Ma+Ga1AFTjgDUVkyTQw4kODt/cwUCMSS14hRgUNg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=us9AuT+exCEr0zbASBxHw2qmmSsVS6/zUm+sHeS71IHEbaYbXR4fDkSmiu/75SZTF
- 6+G6RPoo++S67ORiwwURUJp1//a4XjxY05+h27MdruM4uqj3z724dJM0Q/Buf/zTTq
- unTpAaffQ0S67azl9QCQMqn6OKiYI2x2Dis1VptuWdu7lUDh6uKPcc2IHHXTXecB7q
- u2LNLBzEyg62emP49CkuXf1eaIv6GnhYob09eUIvoiLNtVMfA2c6ddACYxKm9PbB7j
- 7sd1hMU1M2HZTpxYqpUlVGxcv1cH9wdZCG91ghvjlWfmn9tSHNBWsrJXOzoPMeRKpP
- MjOwZ1LAUfg6Q==
-Date: Tue, 20 Apr 2021 17:19:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Subject: Re: [v7 2/4] ASoC: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210420161913.GF6073@sirena.org.uk>
-References: <20210420160747.22942-1-macroalpha82@gmail.com>
- <20210420160747.22942-2-macroalpha82@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="udcq9yAoWb9A4FsZ"
-Content-Disposition: inline
-In-Reply-To: <20210420160747.22942-2-macroalpha82@gmail.com>
-X-Cookie: Falling rock.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- heiko@sntech.de, devicetree@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
- Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
- lee.jones@linaro.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40836F8014D
+ for <alsa-devel@alsa-project.org>; Tue, 20 Apr 2021 18:36:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40836F8014D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A3DBEB305;
+ Tue, 20 Apr 2021 16:36:27 +0000 (UTC)
+Date: Tue, 20 Apr 2021 18:36:27 +0200
+Message-ID: <s5h7dkwdib8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas <jaffa225man@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Apply implicit feedback mode for BOSS
+ devices
+In-Reply-To: <CAOsVg8pY80Vgi1XhzzFmQ4bBxK+1boksw7RM7_avMd4hqE0ERQ@mail.gmail.com>
+References: <20210414083255.9527-1-tiwai@suse.de>
+ <CAHXb3beNczUn-KWfO9P1Pa5+3piR8fDYHvoH5G08GmcvgR4Lxw@mail.gmail.com>
+ <5949663.lOV4Wx5bFT@kam-desktop>
+ <CAOsVg8p=yikaRQ-=RWdO8nWdC70tnw4kQ17KM-smShQvujrRJg@mail.gmail.com>
+ <CAOsVg8pY80Vgi1XhzzFmQ4bBxK+1boksw7RM7_avMd4hqE0ERQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, "Keith A. Milner" <maillist@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +73,128 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 20 Apr 2021 17:42:39 +0200,
+Lucas wrote:
+> 
+> Sorry, in my haste, I mistakenly wrote:
+> 
+> > For me, silence due to the wrong line takes the form of unheard output
+> > playback, while still working for input capture, so I'm not sure this has
+> > any bearing on your issue.
+> >
+> Output playback silence occurred in one device (Roland INTEGRA-7 on higher
+> sample rates) which had the line IMPLICIT_FB_FIXED_DEV and needed
+> IMPLICIT_FB_BOTH_DEV.  So it's the opposite situation.  Capture issues,
+> such as yours, with arecord were exactly what I saw when a device used
+> IMPLICIT_FB_BOTH_DEV while needing IMPLICIT_FB_FIXED_DEV instead.
+> 
+> Here's one of my previous examples of a device not compatible with
+> IMPLICIT_FB_BOTH_DEV:
+> 
+> > Roland VG-99 doesn't capture, but plays well:
+> > arecord -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./file.wav
+> > Recording WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+> > 44100 Hz, Stereo
+> > arecord: xrun:1672: read/write error, state = PREPARED
+> >
+> > aplay -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./other-file.wav
+> > Playing WAVE './other-file.wav' : Signed 24 bit Little Endian in 3bytes,
+> > Rate 44100 Hz, Stereo
+> >
+> 
+> I'm sorry if that caused confusion.  It does seem your issue could be the
+> very same as the VG-99's above.  That is, a device without "Asynchronous"
+> "Synch Type" for either of its "IN" or "OUT" endpoints.  In that case,
+> IMPLICIT_FB_FIXED_DEV should work.
 
---udcq9yAoWb9A4FsZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I checked the patch again, and found possibly incorrect setups in the
+quirk entries.  Namely, the added entries have all EP=0x0d iface=0x01,
+and those don't match with the actual device configurations, judging
+from the lsusb outputs you pasted in
+  https://bugzilla.kernel.org/show_bug.cgi?id=212519
 
-On Tue, Apr 20, 2021 at 11:07:45AM -0500, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
->=20
-> Add support for the Rockchip rk817 audio codec integrated into the
-> rk817 PMIC. This is based on the sources provided by Rockchip from
-> their BSP kernel.
->=20
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> ---
+So, the incorrect hook was applied to the capture stream, I suppose.
 
-If you've not made substantial changes to a patch you should carry
-forwards any tags you've got when resending so reviewers know they don't
-need to do things again.
+Could you try the patch below on top of the latest for-next branch?
+This should apply the implicit feedback mode for the playback if both
+streams are with ASYNC, while it applies the capture quirk as long as
+it matches with the Roland ID and the descriptor pattern (playback,
+then capture interface).
 
---udcq9yAoWb9A4FsZ
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+thanks,
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmB+/wEACgkQJNaLcl1U
-h9D6Iwf+L1DybQOPGsl6KtAAhQp17fNdKFCqL5+Uil1WOS6NbkToX2lb+DZOK09u
-r77tLW80Zlelg1tgjPZNPXWztxH+NMtVq2fyuxvKsHOHkACMLMRYpLgCSgjctYA1
-n1pxh74sIshX+rRt5UO40Erek04i3sTq3Z8fS/r/SN3xaDqowhtXgur3dGsfWwlb
-TJCqKeAYDlkR7KDxJ+vdanOWIQ8kmHSPwrKNLePrjD8YAx0iTRut7oSbG6EoeFWr
-kQ8ZY4dLohmQ8sKjoAlGMqw21MuME4hFmgZuelwpCU0IV2QGqgq2s8wEQQ0SuBZE
-W+01hbiShhGlSmt4IGCfYt+xp+yuAw==
-=a2sH
------END PGP SIGNATURE-----
+Takashi
 
---udcq9yAoWb9A4FsZ--
+---
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -79,6 +79,7 @@ static const struct snd_usb_implicit_fb_match playback_implicit_fb_quirks[] = {
+ 
+ /* Implicit feedback quirk table for capture: only FIXED type */
+ static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[] = {
++#if 0
+ 	IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a6, 0x0d, 0x01), /* Roland JUNO-G */
+ 	IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a9, 0x0d, 0x01), /* Roland MC-808 */
+ 	IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ad, 0x0d, 0x01), /* Roland SH-201 */
+@@ -146,6 +147,7 @@ static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[] = {
+ 	IMPLICIT_FB_BOTH_DEV(0x0582, 0x01fd, 0x0d, 0x01), /* Roland Boutique SH-01A */
+ 	IMPLICIT_FB_BOTH_DEV(0x0582, 0x01ff, 0x0d, 0x01), /* Roland Boutique D-05 */
+ 	IMPLICIT_FB_BOTH_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
++#endif
+ 
+ 	{} /* terminator */
+ };
+@@ -223,8 +225,31 @@ static int add_roland_implicit_fb(struct snd_usb_audio *chip,
+ 		return 0;
+ 	epd = get_endpoint(alts, 0);
+ 	if (!usb_endpoint_is_isoc_in(epd) ||
+-	    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
+-					USB_ENDPOINT_USAGE_IMPLICIT_FB)
++	    (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) != USB_ENDPOINT_SYNC_ASYNC)
++		return 0;
++	chip->playback_first = 1;
++	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 0,
++				       ifnum, alts);
++}
++
++static int add_roland_capture_quirk(struct snd_usb_audio *chip,
++				    struct audioformat *fmt,
++				    unsigned int ifnum,
++				    unsigned int altsetting)
++{
++	struct usb_host_interface *alts;
++	struct usb_endpoint_descriptor *epd;
++
++	alts = snd_usb_get_host_interface(chip, ifnum, altsetting);
++	if (!alts)
++		return 0;
++	if (alts->desc.bInterfaceClass != USB_CLASS_VENDOR_SPEC ||
++	    (alts->desc.bInterfaceSubClass != 2 &&
++	     alts->desc.bInterfaceProtocol != 2) ||
++	    alts->desc.bNumEndpoints < 1)
++		return 0;
++	epd = get_endpoint(alts, 0);
++	if (!usb_endpoint_is_isoc_out(epd))
+ 		return 0;
+ 	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 0,
+ 				       ifnum, alts);
+@@ -404,6 +429,18 @@ static int audioformat_capture_quirk(struct snd_usb_audio *chip,
+ 	if (p && (p->type == IMPLICIT_FB_FIXED || p->type == IMPLICIT_FB_BOTH))
+ 		return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
+ 					       p->iface, NULL);
++
++	/* Roland/BOSS need full-duplex streams */
++	if (alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
++	    alts->desc.bInterfaceProtocol == 2 &&
++	    alts->desc.bNumEndpoints == 1 &&
++	    USB_ID_VENDOR(chip->usb_id) == 0x0582 /* Roland */) {
++		if (add_roland_capture_quirk(chip, fmt,
++					     alts->desc.bInterfaceNumber - 1,
++					     alts->desc.bAlternateSetting))
++			return 1;
++	}
++
+ 	if (is_pioneer_implicit_fb(chip, alts))
+ 		return 1; /* skip the quirk, also don't handle generic sync EP */
+ 	return 0;

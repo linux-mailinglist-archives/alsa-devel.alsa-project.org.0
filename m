@@ -2,121 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F88367131
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 19:21:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDA63671AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 19:45:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1A031614;
-	Wed, 21 Apr 2021 19:20:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1A031614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14E5210E;
+	Wed, 21 Apr 2021 19:44:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E5210E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619025680;
-	bh=OsGeQjQ+dYE3DgN8TJtZ8kFmfCvwk3j21SSwg/yoSXY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1619027114;
+	bh=5opOIA8IF8guCfSmWp6LK9WzVcsPAyECHxIrHOJi00I=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OZG24XCkBlm5wFOYkS5QOO97r1qjvOnQoHuYKGbH6OweEOjsMY//PnmV79QJCeFlv
-	 HcGYqWfMhztpF9Zansw2O2TI7jNzuAxbcGfQUBt/s66Hm2qe/6nacRyiMVWMgafshf
-	 hyzX3evEjU+jjLBvuI7zxT1J2qUs5kAdh3uyhiF4=
+	b=mfKjhnx7HWSpfEvc1oofSGU3X1n47++PD2frZoJh5xXY4UUvRhr8XeTuJKcjUbt+q
+	 XK4jCnsi1gjxZubjNkFZl194430ZSiHagBalzsbCjEBCyQ2dW/gp/fWLWVoXstUz1A
+	 v9ipM8PnhPRSEEKSOdqqLLQ2L27yypDfjEmPGsns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D6DEF80256;
-	Wed, 21 Apr 2021 19:19:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83F2AF800E8;
+	Wed, 21 Apr 2021 19:43:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B438F80227; Wed, 21 Apr 2021 19:19:50 +0200 (CEST)
+ id D6C8AF80227; Wed, 21 Apr 2021 19:43:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11olkn2103.outbound.protection.outlook.com [40.92.19.103])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7052F800FE
- for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 19:19:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7052F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="kT2xVhKx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a9JovvAh7SqxsaYX2CElN2QsmN4CfKh06Wth2FX5X6npu0FkvqDR06yaffhsp3O63pZkaSJjw/spNMPaLE2Nr/tNwrtVbUYlMjC+E+ejKcBY6WNqtIoGDCUnqae+RVe8SKkfn6WG89sDFiMQvf1pQIu+omy+knUE/YJM2Ls//Og8KvG0F+rWfWlyPt63tX4UXSDeA3jIG2vv3qdaOXQw7TuXnptiG5iXXC4cFGS9eLbVoMuIM1FTY7viU2QEb2kZPk0Vocm6bl+v+0HG1+yi7A2HsPNuPScA0YnWMvii5jCVQ4aBjgfUUEHpZZ+Op1HqMZx0IsHSSxIc8ASk48YI3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NB0yfNvWyMp26wFDNA2XtrNmmbRd+2Zm3l0zr1Pm8so=;
- b=XBvM+GmVuq9Q1q6f9/N7a0u+TNAUvMcn800DTkQLVhiix/fmcqnMoA7XbQfU2ZKvdfgYGSS5efyorUXshrTToGwBUW5GuH49XAlDuZnD4yojao4vs8EGC7ifHA2VJxttMwBrzyFHzqlslgW3fRtJLrkvC90TGRbqDngFeyFAaLD6RRYqpmCegl9aUCAW87rSYUZfiaPPK4EPsBCtnl6K8Fd9aVaReaPZGR/srxGfY7Avr18+56ODxfhS95knBH7SxIg5mRaykRJ+i0JKQ2Hxp0fbRrmis0xDRoqzSsFqaiWORN5ZVHDeLK0efrynj/Jq7NHohyRBX41QGzlxlZc3BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NB0yfNvWyMp26wFDNA2XtrNmmbRd+2Zm3l0zr1Pm8so=;
- b=kT2xVhKxbs05lNmPAFNtwplZUcQRLhxL7Cm8r/edltWlhQCwglsTnLYDJtDviQKpED2fVFqgzTRao+A4D3DA7eKf/V1B7Bf8HHvHr5raUhkUtSAPbUspJWumSs0JDZUdXEDUYdnRE7nUDLUXLqKK9shOPTD35z6hCLUGv1ExDKYU5zPvLchcD8SPaF4Ls4maDb+01Ak9peW7dN/AZV5TgBBuMq8X7xA1Ovaa0pkAprNEwksH+GEQo/mouAJBwWS4uWlrea/ryfwylqVKq0bG7d2kV+UFaENJ6gr/D/s90x36X+SUHZKLBQe8TYxj8VDYqrXqq0w92cp8FsLw8wfe+A==
-Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2a01:111:e400:fc4d::40) by
- DM6NAM11HT180.eop-nam11.prod.protection.outlook.com (2a01:111:e400:fc4d::105)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Wed, 21 Apr
- 2021 17:19:34 +0000
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- (2a01:111:e400:fc4d::48) by DM6NAM11FT012.mail.protection.outlook.com
- (2a01:111:e400:fc4d::365) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21 via Frontend
- Transport; Wed, 21 Apr 2021 17:19:34 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:4B758E55213042BA89874B91152A28AFFE9AB132BFA3A83AE098443655A32332;
- UpperCasedChecksum:D0632CD6D7291639C1EA76EE9CB62DF5E1DEC8A94E5098530E1B7ADABF90C90D;
- SizeAsReceived:7812; Count:46
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e]) by SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::fc38:a692:c2c8:f63e%7]) with mapi id 15.20.4042.024; Wed, 21 Apr 2021
- 17:19:34 +0000
-Date: Wed, 21 Apr 2021 12:19:32 -0500
-From: Chris Morgan <macromorgan@hotmail.com>
-To: Johan Jonker <jbx6244@gmail.com>
-Subject: Re: [v7 4/4] arm64: dts: rockchip: add rk817 codec to Odroid Go
-Message-ID: <SN6PR06MB5342DB86A948FAADA4B175C7A5479@SN6PR06MB5342.namprd06.prod.outlook.com>
-References: <20210420160747.22942-1-macroalpha82@gmail.com>
- <20210420160747.22942-4-macroalpha82@gmail.com>
- <c31c3417-0ded-3274-6879-bbd56f26a2aa@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c31c3417-0ded-3274-6879-bbd56f26a2aa@gmail.com>
-X-TMN: [DVhHmNP/xhzOFpjDsclT0nqyWZDEr+nh]
-X-ClientProxiedBy: SN6PR05CA0032.namprd05.prod.outlook.com
- (2603:10b6:805:de::45) To SN6PR06MB5342.namprd06.prod.outlook.com
- (2603:10b6:805:f9::31)
-X-Microsoft-Original-Message-ID: <20210421171932.GB1713@wintermute.localdomain>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19094F800FE
+ for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 19:43:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19094F800FE
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1lZGsj-0003PI-NV; Wed, 21 Apr 2021 19:43:21 +0200
+Message-ID: <18fbdc4bf0574a722134400ad9e4510d3cbcb767.camel@pengutronix.de>
+Subject: Re: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Robin Gong <yibin.gong@nxp.com>, Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 21 Apr 2021 19:43:18 +0200
+In-Reply-To: <VE1PR04MB66887C731E32BDBB340B044C89479@VE1PR04MB6688.eurprd04.prod.outlook.com>
+References: <1589881301-4143-1-git-send-email-shengjiu.wang@nxp.com>
+ <0866cd8cdb0c22f0b2a6814c4dafa29202aad5f3.camel@pengutronix.de>
+ <CAA+D8APhHvA39wmCayeCsAEKmOJ0n7qOQiT1tZmFHr4+yASgTw@mail.gmail.com>
+ <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
+ <VE1PR04MB66387217EDE5133FD2D8F793894E9@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <50ef17a2d57b022c48bbca71fd4e074cc3ca9be5.camel@pengutronix.de>
+ <VE1PR04MB6638EE85485768351755557B89499@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <97262466d537402ad4032098ef277d6d47734f1f.camel@pengutronix.de>
+ <VE1PR04MB6638659EC8557D01861042B189489@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <d8d084aa7ff183e2f78128a46a0ce5241f357c9a.camel@pengutronix.de>
+ <VE1PR04MB66887C731E32BDBB340B044C89479@VE1PR04MB6688.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from wintermute.localdomain (76.183.134.35) by
- SN6PR05CA0032.namprd05.prod.outlook.com (2603:10b6:805:de::45) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4087.16 via Frontend Transport; Wed, 21 Apr 2021 17:19:33 +0000
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 46
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-Correlation-Id: 4f6d8efa-a751-4af3-f8b3-08d904e9a1de
-X-MS-TrafficTypeDiagnostic: DM6NAM11HT180:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6DPAn6mz32mRJI11R08mJp04DtEamkXkS768XT97cpmYzBLhUzMY9PbU+XVtuz5AB7lWt8dPNvMgxrqDrMpmcY0r5dJxgFootxnGLKDos8+rLozj6ShsU9ZeTUUVZFfGxxBiRz9ZGZOPFcGmKy5rHJMdJ9XQSDWY3W3pgz8yudKvgW56u9WNbx6SHO1p1hV5z9TPUqhFlN7ivmCOlZBHGLPtJS3g5a7uTyFhlbl9Eh+BgHvyNwj/6sLUDgdj9ArEz0JfsOeZRAg1iow5/bUX/SGX41qDCpehPf/BSqVNzI/zwxelF5H1ROdYrQBh7axtw+aWILuPVxXcI58q5vl04F6tD7X/azcerq3mpj1YCjZdtH07HDCfev4WSEoUiehp2+7P/tNImVzy+LpoWIPZeA==
-X-MS-Exchange-AntiSpam-MessageData: eehreRASYGtnGzeNH5cILR+YWKGsMfVlUtrOO1J52FGQ1AD4b5ffdf78MhUnse7pCmgTTJHprmvkdTERvawr3YXkfl1uAb/7IpOQfUwcMY8qmIPxSge79um920e+2+bWXDP6oX/tbfWG40Hl88hXag==
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f6d8efa-a751-4af3-f8b3-08d904e9a1de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2021 17:19:34.3219 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM11HT180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com, robh+dt@kernel.org,
- tiwai@suse.com, linux-rockchip@lists.infradead.org, broonie@kernel.org,
- Chris Morgan <macroalpha82@gmail.com>, lee.jones@linaro.org
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ dl-linux-imx <linux-imx@nxp.com>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,161 +101,218 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 20, 2021 at 10:13:38PM +0200, Johan Jonker wrote:
-> On 4/20/21 6:07 PM, Chris Morgan wrote:
-> > From: Chris Morgan <macromorgan@hotmail.com>
+Am Mittwoch, dem 21.04.2021 um 14:54 +0000 schrieb Robin Gong:
+> On 20201/04/20 22:01 Lucas Stach <l.stach@pengutronix.de> wrote:
+> > Am Dienstag, dem 20.04.2021 um 13:47 +0000 schrieb Robin Gong:
+> > > On 2021/04/19 17:46 Lucas Stach <l.stach@pengutronix.de> wrote:
+> > > > Am Montag, dem 19.04.2021 um 07:17 +0000 schrieb Robin Gong:
+> > > > > Hi Lucas,
+> > > > > 
+> > > > > On 2021/04/14 Lucas Stach <l.stach@pengutronix.de> wrote:
+> > > > > > Hi Robin,
+> > > > > > 
+> > > > > > Am Mittwoch, dem 14.04.2021 um 14:33 +0000 schrieb Robin Gong:
+> > > > > > > On 2020/05/20 17:43 Lucas Stach <l.stach@pengutronix.de> wrote:
+> > > > > > > > Am Mittwoch, den 20.05.2020, 16:20 +0800 schrieb Shengjiu
+> > Wang:
+> > > > > > > > > Hi
+> > > > > > > > > 
+> > > > > > > > > On Tue, May 19, 2020 at 6:04 PM Lucas Stach
+> > > > > > > > > <l.stach@pengutronix.de>
+> > > > > > > > wrote:
+> > > > > > > > > > Am Dienstag, den 19.05.2020, 17:41 +0800 schrieb Shengjiu
+> > Wang:
+> > > > > > > > > > > There are two requirements that we need to move the
+> > > > > > > > > > > request of dma channel from probe to open.
+> > > > > > > > > > 
+> > > > > > > > > > How do you handle -EPROBE_DEFER return code from the
+> > > > > > > > > > channel request if you don't do it in probe?
+> > > > > > > > > 
+> > > > > > > > > I use the dma_request_slave_channel or dma_request_channel
+> > > > > > > > > instead of dmaengine_pcm_request_chan_of. so there should
+> > > > > > > > > be not -EPROBE_DEFER return code.
+> > > > > > > > 
+> > > > > > > > This is a pretty weak argument. The dmaengine device might
+> > > > > > > > probe after you try to get the channel. Using a function to
+> > > > > > > > request the channel that doesn't allow you to handle probe
+> > > > > > > > deferral is IMHO a bug and should be fixed, instead of
+> > > > > > > > building even more assumptions on top
+> > > > > > of it.
+> > > > > > > > 
+> > > > > > > > > > > - When dma device binds with power-domains, the power
+> > > > > > > > > > > will be enabled when we request dma channel. If the
+> > > > > > > > > > > request of dma channel happen on probe, then the
+> > > > > > > > > > > power-domains will be always enabled after kernel boot
+> > > > > > > > > > > up,  which is not good for power saving,  so we need
+> > > > > > > > > > > to move the request of dma channel to .open();
+> > > > > > > > > > 
+> > > > > > > > > > This is certainly something which could be fixed in the
+> > > > > > > > > > dmaengine driver.
+> > > > > > > > > 
+> > > > > > > > > Dma driver always call the pm_runtime_get_sync in
+> > > > > > > > > device_alloc_chan_resources, the
+> > > > > > > > > device_alloc_chan_resources is called when channel is
+> > > > > > > > > requested. so power is enabled on channel
+> > > > > > request.
+> > > > > > > > 
+> > > > > > > > So why can't you fix the dmaengine driver to do that RPM
+> > > > > > > > call at a later time when the channel is actually going to
+> > > > > > > > be used? This will allow further power savings with other
+> > > > > > > > slave devices than the audio
+> > > > PCM.
+> > > > > > > Hi Lucas,
+> > > > > > >   Thanks for your suggestion. I have tried to implement
+> > > > > > > runtime autosuspend in fsl-edma driver on i.mx8qm/qxp with
+> > > > > > > delay time (2
+> > > > > > > sec) for this feature as below (or you can refer to
+> > > > > > > drivers/dma/qcom/hidma.c), and pm_runtime_get_sync/
+> > > > > > > pm_runtime_put_autosuspend in all dmaengine driver interface
+> > > > > > > like
+> > > > > > > device_alloc_chan_resources/device_prep_slave_sg/device_prep_d
+> > > > > > > ma_c
+> > > > > > > ycli
+> > > > > > > c/
+> > > > > > > device_tx_status...
+> > > > > > > 
+> > > > > > > 
+> > > > > > >                 pm_runtime_use_autosuspend(fsl_chan->de
+> > v);
+> > > > > > >                 pm_runtime_set_autosuspend_delay(fsl_cha
+> > n->
+> > > > dev,
+> > > > > > 2000);
+> > > > > > > 
+> > > > > > > That could resolve this audio case since the autosuspend could
+> > > > > > > suspend runtime after
+> > > > > > > 2 seconds if there is no further dma transfer but only channel
+> > > > > > request(device_alloc_chan_resources).
+> > > > > > > But unfortunately, it cause another issue. As you know, on our
+> > > > > > > i.mx8qm/qxp, power domain done by scfw
+> > > > > > > (drivers/firmware/imx/scu-pd.c)
+> > > > > > over mailbox:
+> > > > > > >  imx_sc_pd_power()->imx_scu_call_rpc()->
+> > > > > > > imx_scu_ipc_write()->mbox_send_message()
+> > > > > > > which means have to 'waits for completion', meanwhile, some
+> > > > > > > driver like tty will call dmaengine interfaces in non-atomic
+> > > > > > > case as below,
+> > > > > > > 
+> > > > > > > static int uart_write(struct tty_struct *tty, const unsigned
+> > > > > > > char *buf, int count) {
+> > > > > > >    .......
+> > > > > > > 	    port = uart_port_lock(state, flags);
+> > > > > > >    ......
+> > > > > > >         __uart_start(tty);  //call
+> > > > start_tx()->dmaengine_prep_slave_sg...
+> > > > > > >         uart_port_unlock(port, flags);
+> > > > > > >         return ret;
+> > > > > > > }
+> > > > > > > 
+> > > > > > > Thus dma runtime resume may happen in that timing window and
+> > > > > > > cause
+> > > > > > kernel alarm.
+> > > > > > > I'm not sure whether there are similar limitations on other
+> > > > > > > driver subsystem. But for me, It looks like the only way to
+> > > > > > > resolve the contradiction between tty and scu-pd (hardware
+> > > > > > > limitation on
+> > > > > > > i.mx8qm/qxp) is to give up autosuspend and keep
+> > > > > > > pm_runtime_get_sync
+> > > > > > only in device_alloc_chan_resources because request channel is a
+> > > > > > safe non-atomic phase.
+> > > > > > > Do you have any idea? Thanks in advance.
+> > > > > > 
+> > > > > > If you look closely at the driver you used as an example
+> > > > > > (hidma.c) it looks like there is already something in there,
+> > > > > > which looks very much like what you need
+> > > > > > here:
+> > > > > > 
+> > > > > > In hidma_issue_pending() the driver tries to get the device to
+> > > > > > runtime
+> > > > resume.
+> > > > > > If this doesn't work, maybe due to the power domain code not
+> > > > > > being able to be called in atomic context, the actual work of
+> > > > > > waking up the dma hardware and issuing the descriptor is shunted to a
+> > tasklet.
+> > > > > > 
+> > > > > > If I'm reading this right, this is exactly what you need here to
+> > > > > > be able to call the dmaengine code from atomic context: try the
+> > > > > > rpm get and issue immediately when possible, otherwise shunt the
+> > > > > > work to a
+> > > > > > non- atomic context where you can deal with the requirements of
+> > scu-pd.
+> > > > > Yes, I can schedule_work to worker to runtime resume edma channel
+> > > > > by
+> > > > calling scu-pd.
+> > > > > But that means all dmaengine interfaces should be taken care, not
+> > > > > only
+> > > > > issue_pending() but also
+> > > > > dmaengine_terminate_all()/dmaengine_pause()/dmaengine_resume()/
+> > > > > dmaengine_tx_status(). Not sure why hidma only take care
+> > > > > issue_pending. Maybe their user case is just for memcpy/memset so
+> > > > > that no further complicate case as ALSA or TTY.
+> > > > > Besides, for autosuspend in cyclic, we have to add
+> > > > > pm_runtime_get_sync into interrupt handler as qcom/bam_dma.c. but
+> > > > > how could resolve the scu-pd's non-atmoic limitation in interrupt
+> > handler?
+> > > > 
+> > > > Sure, this all needs some careful analysis on how those functions
+> > > > are called and what to do about atomic callers, but it should be
+> > > > doable. I don't see any fundamental issues here.
+> > > > 
+> > > > I don't see why you would ever need to wake the hardware in an
+> > > > interrupt handler. Surely the hardware is already awake, as it
+> > > > wouldn't signal an interrupt otherwise. And for the issue with
+> > > > scu-pd you only care about the state transition of
+> > > > suspended->running. If the hardware is already running/awake, the
+> > > > runtime pm state handling is nothing more than bumping a refcount,
+> > > > which is atomic safe. Putting the HW in suspend is already handled
+> > asynchronously in a worker, so this is also atomic safe.
+> > > But with autosuspend used, in corner case, may runtime suspended
+> > > before falling Into edma interrupt handler if timeout happen with the
+> > > delay value of pm_runtime_set_autosuspend_delay(). Thus, can't touch
+> > > any edma interrupt status register unless runtime resume edma in
+> > > interrupt handler while runtime resume function based on scu-pd's power
+> > domain may block or sleep.
+> > > I have a simple workaround that disable runtime suspend in
+> > > issue_pending worker by calling pm_runtime_forbid() and then enable
+> > > runtime auto suspend in dmaengine_terminate_all so that we could
+> > > easily regard that edma channel is always in runtime resume between
+> > > issue_pending and channel terminated and ignore the above interrupt
+> > handler/scu-pd limitation.
 > > 
-> > Add the new rk817 codec driver to the Odroid Go Advance.
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > ---
-> > Changes in v7:
-> >  - Removed ifdef around register definitions for MFD.
-> >  - Replaced codec documentation with updates to MFD documentation.
-> >  - Reordered elements in example to comply with upstream rules.
-> >  - Added binding update back for Odroid Go Advance as requested.
-> >  - Submitting patches from gmail now.
-> > Changes in v6:
-> >  - Included additional project maintainers for correct subsystems.
-> >  - Removed unneeded compatible from DT documentation.
-> >  - Removed binding update for Odroid Go Advance (will do in seperate series).
-> > Changes in v5:
-> >  - Move register definitions from rk817_codec.h to main rk808.h register
-> >    definitions.
-> >  - Add volatile register for codec bits.
-> >  - Add default values for codec bits.
-> >  - Removed of_compatible from mtd driver (not necessary).
-> >  - Switched to using parent regmap instead of private regmap for codec.
-> > Changes in v4:
-> >  - Created set_pll() call.
-> >  - Created user visible gain control in mic.
-> >  - Check for return value of clk_prepare_enable().
-> >  - Removed duplicate clk_prepare_enable().
-> >  - Split DT documentation to separate commit.
-> > Changes in v3:
-> >  - Use DAPM macros to set audio path.
-> >  - Updated devicetree binding (as every rk817 has this codec chip).
-> >  - Changed documentation to yaml format.
-> >  - Split MFD changes to separate commit.
-> > Changes in v2:
-> >  - Fixed audio path registers to solve some bugs.
-> > 
-> >  .../boot/dts/rockchip/rk3326-odroid-go2.dts   | 36 +++++++++++++++++--
-> >  1 file changed, 34 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-> > index 97fb93e1cc00..5356bcf6d99c 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-> > @@ -161,6 +161,29 @@ blue_led: led-0 {
-> >  		};
-> >  	};
-> >  
-> > +	rk817-sound {
-> > +		compatible = "simple-audio-card";
-> > +		simple-audio-card,format = "i2s";
+> > The IRQ handler is the point where you are informed by the hardware that a
+> > specific operation is complete. I don't see any use-case where it would be valid
+> > to drop the rpm refcount to 0 before the IRQ is handled. Surely the hardware
+> > needs to stay awake until the currently queued operations are complete and if
+> > the IRQ handler is the completion point the IRQ handler is the first point in
+> > time where your autosuspend timer should start to run. There should never be
+> > a situation where the timer expiry can get between IRQ signaling and the
+> > handler code running.
+> But the timer of runtime_auto_suspend decide when enter runtime suspend rather
+> than hardware, while transfer data size and transfer rate on IP bus decide when the
+> dma interrupt happen. 
 > 
-> > +		simple-audio-card,name = "rockchip,rk817-codec";
-> 
-> "simple-audio-card,name" is an exception to the Heiko's sort rules.
-> Move above all other "simple-audio-card" properties.
+But it isn't the hardware that decides to drop the rpm refcount to 0
+and starting the autosuspend timer, it's the driver.
 
-Will do.
+>  Generally, we can call pm_runtime_get_sync(fsl_chan->dev)/
+> pm_runtime_mark_last_busy in interrupt handler to hope the runtime_auto_suspend
+> timer expiry later than interrupt coming, but if the transfer data size is larger in cyclic
+> and transfer rate is very slow like 115200 or lower on uart, the fix autosuspend timer
+> 100ms/200ms maybe not enough, hence, runtime suspend may execute meanwhile
+> the dma interrupt maybe triggered and caught by GIC(but interrupt handler prevent
+> by spin_lock_irqsave in pm_suspend_timer_fn() ), and then interrupt handler start
+> to run after runtime suspend. 
 
-> 
-> ===
-> 
-> "rockchip,rk817-codec" is too long for the "aplay -l" command.
-> Maybe keep it in line with other boards
-> 
-> ?? "Analog" ??
-> 
+If your driver code drops the rpm refcount to 0 and starts the
+autosuspend timer while a cyclic transfer is still in flight this is
+clearly a bug. Autosuspend is not there to paper over driver bugs, but
+to amortize cost of actually suspending and resuming the hardware. Your
+driver code must still work even if the timeout is 0, i.e. the hardware
+is immediately suspended after you drop the rpm refcount to 0.
 
-I can do analog if you want, or maybe just rk817-codec? I notice that several
-boards (such as the pinebook pro) do have longish names (21 characters versus
-20 for this board). Happy to change it though, your call.
+If you still have transfers queued/in-flight the driver code must keep
+a rpm reference.
 
-> 
-> > +		simple-audio-card,mclk-fs = <256>;
-> > +		simple-audio-card,widgets =
-> > +			"Microphone", "Mic Jack",
-> > +			"Headphone", "Headphones",
-> > +			"Speaker", "Speaker";
-> > +		simple-audio-card,routing =
-> > +			"MICL", "Mic Jack",
-> > +			"Headphones", "HPOL",
-> > +			"Headphones", "HPOR",
-> > +			"Speaker", "SPKO";
-> > +		simple-audio-card,hp-det-gpio = <&gpio2 RK_PC6 GPIO_ACTIVE_HIGH>;
-> 
-> Add empty line between nodes.
-> 
-> > +		simple-audio-card,cpu {
-> > +			sound-dai = <&i2s1_2ch>;
-> > +		};
-> 
-> Add empty line between nodes.
-> 
-> > +		simple-audio-card,codec {
-> > +			sound-dai = <&rk817>;
-> > +		};
-> > +	};
-> > +
-> >  	vccsys: vccsys {
-> >  		compatible = "regulator-fixed";
-> >  		regulator-name = "vcc3v8_sys";
-> > @@ -265,11 +288,14 @@ rk817: pmic@20 {
-> >  		reg = <0x20>;
-> >  		interrupt-parent = <&gpio0>;
-> >  		interrupts = <RK_PB2 IRQ_TYPE_LEVEL_LOW>;
-> > +		clock-output-names = "rk808-clkout1", "xin32k";
-> > +		clock-names = "mclk";
-> > +		clocks = <&cru SCLK_I2S1_OUT>;
-> >  		pinctrl-names = "default";
-> > -		pinctrl-0 = <&pmic_int>;
-> > +		pinctrl-0 = <&pmic_int>, <&i2s1_2ch_mclk>;
-> >  		wakeup-source;
-> >  		#clock-cells = <1>;
-> > -		clock-output-names = "rk808-clkout1", "xin32k";
-> > +		#sound-dai-cells = <0>;
-> >  
-> >  		vcc1-supply = <&vccsys>;
-> >  		vcc2-supply = <&vccsys>;
-> > @@ -428,6 +454,10 @@ regulator-state-mem {
-> >  				};
-> >  			};
-> >  		};
-> > +
-> > +		rk817_codec: codec {
-> 
-> > +			mic-in-differential;
-> 
-> This property name might have to change.
-> 
+Regards,
+Lucas
 
-Yep, will do.
-
-> > +		};
-> >  	};
-> >  };
-> >  
-> > @@ -439,6 +469,8 @@ &i2c1 {
-> >  
-> >  /* I2S 1 Channel Used */
-> >  &i2s1_2ch {
-> 
-> > +	resets = <&cru SRST_I2S1>, <&cru SRST_I2S1_H>;
-> > +	reset-names = "reset-m", "reset-h";
-> 
-> Remove.
-> "resets" and "reset-names" have no support in mainline.
-> See rockchip-i2s.yaml
-> 
-
-Did not know that, will remove!
-
-> >  	status = "okay";
-> >  };
-> >  
-> > 
-> 

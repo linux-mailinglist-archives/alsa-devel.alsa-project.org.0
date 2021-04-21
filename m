@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0397C36732B
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 21:06:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD1636732A
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 21:06:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CF9A1689;
-	Wed, 21 Apr 2021 21:05:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CF9A1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD2551678;
+	Wed, 21 Apr 2021 21:05:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD2551678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619031994;
-	bh=mJwW6C9lEThN5XEVxVHuEHYAlKqbu5QrhmeC8iM1ubg=;
+	s=default; t=1619031980;
+	bh=7GJ8cImrhwp/aVc1CvIyt2v/wm9ZxwmqrHc9zmrTxUA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IG/sJZ8Z40N/59t9xucco6wNxDrKeBbXTIG23bEjfAX7FXTSd0s0SY8k0Z+k71vH9
-	 GXhzbSknue6wCbIDkLkI0kc1Du87Pas/XWhRaOitvX6rvAGOmb1g/WdLpYV41kXksY
-	 webneuyfd0nrv0loxS6Wl/Y+THmim+Yqp1KvtsZ0=
+	b=AVc4WbSkRt+dt26jR8T/CcHPC7be+ZUlwyrjK46WNaJMS7hlOMPcKAUqzM1PFi+zk
+	 pK1GdG6hCreL405Y1ARm3zJd5TmEjV+dXk5HQH+frujqDpMUEG6nuHoSnIc/5H3hOj
+	 2ZZMTnzQdLrky5Biq1zcR2hPxRTofns19NtwYi9o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42031F80276;
-	Wed, 21 Apr 2021 21:04:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 235C3F80256;
+	Wed, 21 Apr 2021 21:04:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B953F80256; Wed, 21 Apr 2021 21:04:49 +0200 (CEST)
+ id 4E435F8025A; Wed, 21 Apr 2021 21:04:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,44 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7156AF8019B
- for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 21:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7156AF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 803F1F800AE
+ for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 21:04:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 803F1F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E14WpmCc"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B86A261455;
- Wed, 21 Apr 2021 19:04:36 +0000 (UTC)
+ header.b="m6XEr+EZ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 980D761453;
+ Wed, 21 Apr 2021 19:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619031877;
- bh=mJwW6C9lEThN5XEVxVHuEHYAlKqbu5QrhmeC8iM1ubg=;
+ s=k20201202; t=1619031880;
+ bh=7GJ8cImrhwp/aVc1CvIyt2v/wm9ZxwmqrHc9zmrTxUA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E14WpmCcT1SxOx5cChjTJhtQMhF+QKgXuR7AYeUDhzCei8KokOvOGdSbKwI3lDveV
- Yc/c4V0ullBNsgdDy6IAW5tUVfNHt/q8i70vkoFXa8ho+eT4XVxwHiRKKksKGZyI9O
- lkhOa6/2xu7Xtu4C4i7VJvD39Fyd8JE3mkVLPAsVseCrjajjkHIa3pYAM7nrEI5r5Q
- LokzlKtnlnHF3JMREu6JlIlEulBGZKE7uXIgfWbHSGPHQ2fJqyR6lGSeKNPco4Ilam
- gje80K/g3mCjrqBe/TPvU38Y+3dldlqjPkc+VsUMERWe2B8OsC4HHfOSSfAx09B5a3
- 0zmShK8rvNI4g==
+ b=m6XEr+EZVlhZlmYiaxTNaN8ELdU3q5cKMkqwbQnpmj6OC/+CNJlNObpreszM8bbLV
+ eomV2T9ZZWldmfYF6kGtbgfw2sTiFVmG7vCAZJH9sJ8pvlyTKgjFlRBOy9dysCS6kC
+ 2jExxl7CEELCKaGSt9LbHo6S5gG1+JH1e2OFPazlvJESQcbTfSN4qDIazFMM3Pnst6
+ 7YGnlEjH9erEDBaLJYsMuA0tSEXGVk2Z+TE/KTSjjtNv0E7gfN4Apd4C3lPHpyOnIw
+ hPOkP5cDCKw/DDHot9Ztn+BoTo7eBIPAyecY959EoA4FpdXXoOSzkc1ougYUz29PgA
+ QBcRNShZgABvw==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: amd: drop S24_LE format support
-Date: Wed, 21 Apr 2021 20:03:35 +0100
-Message-Id: <161903027032.13397.4454772541226435361.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Sia Jee Heng <jee.heng.sia@intel.com>
+Subject: Re: [PATCH] ASoC: Intel: KMB: Fix random noise at the HDMI output
+Date: Wed, 21 Apr 2021 20:03:36 +0100
+Message-Id: <161903027032.13397.5757063542180832008.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1618993402-10354-1-git-send-email-Vijendar.Mukunda@amd.com>
-References: <1618993402-10354-1-git-send-email-Vijendar.Mukunda@amd.com>
+In-Reply-To: <20210421005546.7534-1-jee.heng.sia@intel.com>
+References: <20210421005546.7534-1-jee.heng.sia@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Alexander.Deucher@amd.com, Mark Brown <broonie@kernel.org>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Akshu Agrawal <akshu.agrawal@amd.com>, Ye Bin <yebin10@huawei.com>
+Cc: Mark Brown <broonie@kernel.org>, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,10 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 21 Apr 2021 13:53:11 +0530, Vijendar Mukunda wrote:
-> AMD I2S Controller doesn't support S24_LE format.
-> Remove S24_LE format support from ACP DMA driver
-> and CPU DAI Driver.
+On Wed, 21 Apr 2021 08:55:46 +0800, Sia Jee Heng wrote:
+> Random noise could be heard when playing audio to the HDMI output.
+> This is due to the IEC conversion is invoked in the external loop.
+> As a result, this additional loop takes up a lot of the processing
+> cycle.
+> 
+> hdmi_reformat_iec958() process the conversion using an internal loop,
+> it is safe to move it out from the external loop to avoid unnecessary
+> processing cycle been spent. Furthermore, ALSA IEC958 plugin works in
+> 32bit format only.
 
 Applied to
 
@@ -97,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: drop S24_LE format support
-      commit: 1300c7037f0f08692008053e4b12a2fb6fbd185a
+[1/1] ASoC: Intel: KMB: Fix random noise at the HDMI output
+      commit: 62bad12bceebd7d336ced4e44f408b702c151ba0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

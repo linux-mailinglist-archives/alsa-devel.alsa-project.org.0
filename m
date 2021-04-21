@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 352823671CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 19:48:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34C336722D
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Apr 2021 20:01:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C510F1679;
-	Wed, 21 Apr 2021 19:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C510F1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C071167D;
+	Wed, 21 Apr 2021 20:00:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C071167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619027313;
-	bh=a6WRC3swuMxcN5gibDf6fwqEFFmXnQfRYNe6DYYDHGg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OPKYqv7hObv9upZEf4HyQlOAlx1x4zw1ERU4V2QYYwQRFbTy3YbpxRI3YsH72/0w9
-	 bx4Zx7nsmEQApsArQX/LZKDRFGhhgvW59cS8Wy9euPvTH0PL5kB78D1glWYmYCAnjR
-	 n4sZn7XuBgW2PRss/73M3oNvmG2z1Tcj1k6i+92k=
+	s=default; t=1619028060;
+	bh=OrMKs4IajMUYDmpui0N1HoQqGkjruaWwYp5+8Pm3Q7M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NAFeJZBQLe8gfZ6rCGzdSG/zLUrRQTOerpwsl3XpPqHV0Cy2N9YEwjXrPY4VNFY23
+	 0MevfJJJhGm2Mlvii+rzcHDyzLx1xlXpaJPmxHjP53ijV5GwjDTFDloaOsu4kN0H+l
+	 HUoEo7lv46mHQN96ayXcTei3V4Y8FmYxgMrAG8qU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64ED7F800AE;
-	Wed, 21 Apr 2021 19:47:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CC80F80274;
+	Wed, 21 Apr 2021 19:59:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84184F80227; Wed, 21 Apr 2021 19:47:02 +0200 (CEST)
+ id 219FCF8019B; Wed, 21 Apr 2021 19:59:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44C44F800AE
- for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 19:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44C44F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 315D2F800E8
+ for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 19:59:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 315D2F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K+zuczsW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5776C6113B;
- Wed, 21 Apr 2021 17:46:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619027215;
- bh=a6WRC3swuMxcN5gibDf6fwqEFFmXnQfRYNe6DYYDHGg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K+zuczsW81yOc1sT0GCZabu+dTVGED9HH1O1aB3buMu8rY5as57wDTRXsiRonMCCh
- 8F+JJjt4cCF1j1e1YzoASdZcDJsSJMgj7XnpT1D8nMxk3h3zNJce+tetMUaWXgcxjk
- J3T/3koZ+c7vtbf4l2R/j4CevgT3OE1WlI5c7sMgj9s1okKI5W6aZtd10bsRHZydPD
- HAPDpsVceaH0BpI1owE971oufN4iERFqMDQwMG6J/wAhtEakNx6Qu+NF5BPBjcb3D7
- gg7xbksiDqgJKOGPh5yNSr8vz8CGj7mKQQABCntxKprI8QU6BP4mDF6rZ/7T8Q4vIB
- ysmQ0vqikyOKA==
-Date: Wed, 21 Apr 2021 18:46:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
-Message-ID: <20210421174629.GD4617@sirena.org.uk>
-References: <CAA+D8APhHvA39wmCayeCsAEKmOJ0n7qOQiT1tZmFHr4+yASgTw@mail.gmail.com>
- <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
- <VE1PR04MB66387217EDE5133FD2D8F793894E9@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <50ef17a2d57b022c48bbca71fd4e074cc3ca9be5.camel@pengutronix.de>
- <VE1PR04MB6638EE85485768351755557B89499@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <97262466d537402ad4032098ef277d6d47734f1f.camel@pengutronix.de>
- <VE1PR04MB6638659EC8557D01861042B189489@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <d8d084aa7ff183e2f78128a46a0ce5241f357c9a.camel@pengutronix.de>
- <VE1PR04MB66887C731E32BDBB340B044C89479@VE1PR04MB6688.eurprd04.prod.outlook.com>
- <18fbdc4bf0574a722134400ad9e4510d3cbcb767.camel@pengutronix.de>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="aow7NcZ/"
+Received: by mail-oi1-x22a.google.com with SMTP id k18so38303731oik.1
+ for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 10:59:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kZdB3HopA6OoSJ+j0+5pjn+wh5XHHbqxGCRwBrO7f60=;
+ b=aow7NcZ/GyxcSPKZaCRIC4gk0yVfmH53L6INJJ4pikrN4madaQJ1mxLLVsZ1eL+bTM
+ Io4Ohx+JRvSAgthgSaJPRwpY2/WOVAfqGOUYGE1Y/+JY38ur0vw1VraAH9k8aAh3Zogr
+ V06GSMkbtLJqRvPPPf3+uBM9Zxf0/lgbSiZYU6X5/BubT7Vhu0s8kQi2hgxjnmdGPpos
+ eWmVwCGlmuuoYfuxnzG08ntP0EpdSWXYyyhKy47iPXLtEoAVvOT0wne6T0AQ/1lIfnsG
+ fSGySuDmau//wIiS4WEfEE3hOf6k4s7bl8VOxuxyi6YEtjfvb9RYzUOmjNlfn9se5dfG
+ TtpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kZdB3HopA6OoSJ+j0+5pjn+wh5XHHbqxGCRwBrO7f60=;
+ b=tdOrjCBmnnbOvcSIMtWNaK/GTh8J141M68/EU6TUO6uSF7P0jSkCbDyfYntepBLf/v
+ DbEGW5sIv+uJXP1zCztxVbjxIoauamPanp2KLhqQJRd/tL0ot54oOkqJmvH7no4aTkJw
+ br4s6Yn5MbJdxgYxJq4GFFOpw04RDgqmiw8x7MHN8eMs/NOdhmqR93w4TBAQt8ngIEP+
+ 3eN0E7x8tQYRVGq499w9IMuPRA0fL8uiSysotfBB5mqHEsj9eWbLdEzh4WO3PJ/D2vDj
+ Jb15cicGYgFbEJ6BOCXo5P3bi48MLt/OS6iees+knSvi6+RT7ynBhVkfDwUi1iNS0v+W
+ nxfg==
+X-Gm-Message-State: AOAM5310xRz6zMScECEPMlGZ9nNE3RkAS0ids/BjPQ8unVGqYrZqBw7d
+ pfiC6XG2mbdVBiQ2S1+KrLgS/8FvSrI=
+X-Google-Smtp-Source: ABdhPJxh2gXvL1qHZ8uakUo4F29PeYBA8iKNQCSAZJTsaejXR8d+PuUSveOkhRiIKvqNC+QYIhrHsQ==
+X-Received: by 2002:aca:ea06:: with SMTP id i6mr7736852oih.82.1619027961708;
+ Wed, 21 Apr 2021 10:59:21 -0700 (PDT)
+Received: from wintermute.localdomain (cpe-76-183-134-35.tx.res.rr.com.
+ [76.183.134.35])
+ by smtp.gmail.com with ESMTPSA id l62sm13662oih.2.2021.04.21.10.59.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Apr 2021 10:59:20 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [v8 1/4] mfd: Add Rockchip rk817 audio CODEC support
+Date: Wed, 21 Apr 2021 12:59:03 -0500
+Message-Id: <20210421175906.31977-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sgneBHv3152wZ8jf"
-Content-Disposition: inline
-In-Reply-To: <18fbdc4bf0574a722134400ad9e4510d3cbcb767.camel@pengutronix.de>
-X-Cookie: RELATIVES!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Robin Gong <yibin.gong@nxp.com>,
- Fabio Estevam <festevam@gmail.com>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, dl-linux-imx <linux-imx@nxp.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Timur Tabi <timur@kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "S.j. Wang" <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, heiko@sntech.de,
+ devicetree@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
+ lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, broonie@kernel.org,
+ Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
+ lee.jones@linaro.org, maccraft123mc@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,43 +101,256 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Chris Morgan <macromorgan@hotmail.com>
 
---sgneBHv3152wZ8jf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Add rk817 codec support cell to rk808 mfd driver.
 
-On Wed, Apr 21, 2021 at 07:43:18PM +0200, Lucas Stach wrote:
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+---
+Changes in v8:
+ - Added additional documentation for missing properties of #sound-dai-cells,
+   interrupt-parent, and wakeup-source for mfd documentation.
+ - Corrected order of elements descriptions in device tree documentation.
+ - Changed name of "mic-in-differential" to "rockchip,mic-in-differential".
+ - Changed name of sound card from "rockchip,rk817-codec" to "Analog".
+ - Removed unused resets and reset-names from the i2s1_2ch node.
+Changes in v7:
+ - Removed ifdef around register definitions for MFD.
+ - Replaced codec documentation with updates to MFD documentation.
+ - Reordered elements in example to comply with upstream rules.
+ - Added binding update back for Odroid Go Advance as requested.
+ - Submitting patches from gmail now.
+Changes in v6:
+ - Included additional project maintainers for correct subsystems.
+ - Removed unneeded compatible from DT documentation.
+ - Removed binding update for Odroid Go Advance (will do in seperate series).
+Changes in v5:
+ - Move register definitions from rk817_codec.h to main rk808.h register
+   definitions.
+ - Add volatile register for codec bits.
+ - Add default values for codec bits.
+ - Removed of_compatible from mtd driver (not necessary).
+ - Switched to using parent regmap instead of private regmap for codec.
+Changes in v4:
+ - Created set_pll() call.
+ - Created user visible gain control in mic.
+ - Check for return value of clk_prepare_enable().
+ - Removed duplicate clk_prepare_enable().
+ - Split DT documentation to separate commit.
+Changes in v3:
+ - Use DAPM macros to set audio path.
+ - Updated devicetree binding (as every rk817 has this codec chip).
+ - Changed documentation to yaml format.
+ - Split MFD changes to separate commit.
+Changes in v2:
+ - Fixed audio path registers to solve some bugs.
 
-> If your driver code drops the rpm refcount to 0 and starts the
-> autosuspend timer while a cyclic transfer is still in flight this is
-> clearly a bug. Autosuspend is not there to paper over driver bugs, but
-> to amortize cost of actually suspending and resuming the hardware. Your
-> driver code must still work even if the timeout is 0, i.e. the hardware
-> is immediately suspended after you drop the rpm refcount to 0.
+ drivers/mfd/rk808.c       | 85 +++++++++++++++++++++++++++++++++++++++
+ include/linux/mfd/rk808.h | 81 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 166 insertions(+)
 
-> If you still have transfers queued/in-flight the driver code must keep
-> a rpm reference.
+diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
+index ad923dd4e007..9231209184e0 100644
+--- a/drivers/mfd/rk808.c
++++ b/drivers/mfd/rk808.c
+@@ -65,6 +65,7 @@ static bool rk817_is_volatile_reg(struct device *dev, unsigned int reg)
+ 	switch (reg) {
+ 	case RK817_SECONDS_REG ... RK817_WEEKS_REG:
+ 	case RK817_RTC_STATUS_REG:
++	case RK817_CODEC_DTOP_LPT_SRST:
+ 	case RK817_INT_STS_REG0:
+ 	case RK817_INT_STS_REG1:
+ 	case RK817_INT_STS_REG2:
+@@ -163,6 +164,11 @@ static const struct mfd_cell rk817s[] = {
+ 		.num_resources = ARRAY_SIZE(rk817_rtc_resources),
+ 		.resources = &rk817_rtc_resources[0],
+ 	},
++#ifdef CONFIG_SND_SOC_RK817
++	{
++		.name = "rk817-codec",
++	},
++#endif
+ };
+ 
+ static const struct mfd_cell rk818s[] = {
+@@ -201,6 +207,85 @@ static const struct rk808_reg_data rk808_pre_init_reg[] = {
+ 
+ static const struct rk808_reg_data rk817_pre_init_reg[] = {
+ 	{RK817_RTC_CTRL_REG, RTC_STOP, RTC_STOP},
++	/* Codec specific registers */
++	{ RK817_CODEC_DTOP_VUCTL, MASK_ALL, 0x03 },
++	{ RK817_CODEC_DTOP_VUCTIME, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DTOP_LPT_SRST, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DTOP_DIGEN_CLKE, MASK_ALL, 0x00 },
++	/* from vendor driver, CODEC_AREF_RTCFG0 not defined in data sheet */
++	{ RK817_CODEC_AREF_RTCFG0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_AREF_RTCFG1, MASK_ALL, 0x06 },
++	{ RK817_CODEC_AADC_CFG0, MASK_ALL, 0xc8 },
++	/* from vendor driver, CODEC_AADC_CFG1 not defined in data sheet */
++	{ RK817_CODEC_AADC_CFG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_VOLL, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_VOLR, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_SR_ACL0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_ALC1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_ALC2, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_NG, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_HPF, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DADC_RVOLL, MASK_ALL, 0xff },
++	{ RK817_CODEC_DADC_RVOLR, MASK_ALL, 0xff },
++	{ RK817_CODEC_AMIC_CFG0, MASK_ALL, 0x70 },
++	{ RK817_CODEC_AMIC_CFG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_PGA_GAIN, MASK_ALL, 0x66 },
++	{ RK817_CODEC_DMIC_LMT1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_LMT2, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_NG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_NG2, MASK_ALL, 0x00 },
++	/* from vendor driver, CODEC_ADAC_CFG0 not defined in data sheet */
++	{ RK817_CODEC_ADAC_CFG0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_ADAC_CFG1, MASK_ALL, 0x07 },
++	{ RK817_CODEC_DDAC_POPD_DACST, MASK_ALL, 0x82 },
++	{ RK817_CODEC_DDAC_VOLL, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_VOLR, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_SR_LMT0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_LMT1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_LMT2, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_MUTE_MIXCTL, MASK_ALL, 0xa0 },
++	{ RK817_CODEC_DDAC_RVOLL, MASK_ALL, 0xff },
++	{ RK817_CODEC_DADC_RVOLR, MASK_ALL, 0xff },
++	{ RK817_CODEC_AMIC_CFG0, MASK_ALL, 0x70 },
++	{ RK817_CODEC_AMIC_CFG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_PGA_GAIN, MASK_ALL, 0x66 },
++	{ RK817_CODEC_DMIC_LMT1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_LMT2, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_NG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DMIC_NG2, MASK_ALL, 0x00 },
++	/* from vendor driver, CODEC_ADAC_CFG0 not defined in data sheet */
++	{ RK817_CODEC_ADAC_CFG0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_ADAC_CFG1, MASK_ALL, 0x07 },
++	{ RK817_CODEC_DDAC_POPD_DACST, MASK_ALL, 0x82 },
++	{ RK817_CODEC_DDAC_VOLL, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_VOLR, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_SR_LMT0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_LMT1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_LMT2, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DDAC_MUTE_MIXCTL, MASK_ALL, 0xa0 },
++	{ RK817_CODEC_DDAC_RVOLL, MASK_ALL, 0xff },
++	{ RK817_CODEC_DDAC_RVOLR, MASK_ALL, 0xff },
++	{ RK817_CODEC_AHP_ANTI0, MASK_ALL, 0x00 },
++	{ RK817_CODEC_AHP_ANTI1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_AHP_CFG0, MASK_ALL, 0xe0 },
++	{ RK817_CODEC_AHP_CFG1, MASK_ALL, 0x1f },
++	{ RK817_CODEC_AHP_CP, MASK_ALL, 0x09 },
++	{ RK817_CODEC_ACLASSD_CFG1, MASK_ALL, 0x69 },
++	{ RK817_CODEC_ACLASSD_CFG2, MASK_ALL, 0x44 },
++	{ RK817_CODEC_APLL_CFG0, MASK_ALL, 0x04 },
++	{ RK817_CODEC_APLL_CFG1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_APLL_CFG2, MASK_ALL, 0x30 },
++	{ RK817_CODEC_APLL_CFG3, MASK_ALL, 0x19 },
++	{ RK817_CODEC_APLL_CFG4, MASK_ALL, 0x65 },
++	{ RK817_CODEC_APLL_CFG5, MASK_ALL, 0x01 },
++	{ RK817_CODEC_DI2S_CKM, MASK_ALL, 0x01 },
++	{ RK817_CODEC_DI2S_RSD, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DI2S_RXCR1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DI2S_RXCR2, MASK_ALL, 0x17 },
++	{ RK817_CODEC_DI2S_RXCMD_TSD, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DI2S_TXCR1, MASK_ALL, 0x00 },
++	{ RK817_CODEC_DI2S_TXCR2, MASK_ALL, 0x17 },
++	{ RK817_CODEC_DI2S_TXCR3_TXCMD, MASK_ALL, 0x00 },
+ 	{RK817_GPIO_INT_CFG, RK817_INT_POL_MSK, RK817_INT_POL_L},
+ 	{RK817_SYS_CFG(1), RK817_HOTDIE_TEMP_MSK | RK817_TSD_TEMP_MSK,
+ 					   RK817_HOTDIE_105 | RK817_TSD_140},
+diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
+index e07f6e61cd38..a96e6d43ca06 100644
+--- a/include/linux/mfd/rk808.h
++++ b/include/linux/mfd/rk808.h
+@@ -437,6 +437,87 @@ enum rk809_reg_id {
+ #define RK817_RTC_COMP_LSB_REG		0x10
+ #define RK817_RTC_COMP_MSB_REG		0x11
+ 
++/* RK817 Codec Registers */
++#define RK817_CODEC_DTOP_VUCTL		0x12
++#define RK817_CODEC_DTOP_VUCTIME	0x13
++#define RK817_CODEC_DTOP_LPT_SRST	0x14
++#define RK817_CODEC_DTOP_DIGEN_CLKE	0x15
++#define RK817_CODEC_AREF_RTCFG0		0x16
++#define RK817_CODEC_AREF_RTCFG1		0x17
++#define RK817_CODEC_AADC_CFG0		0x18
++#define RK817_CODEC_AADC_CFG1		0x19
++#define RK817_CODEC_DADC_VOLL		0x1a
++#define RK817_CODEC_DADC_VOLR		0x1b
++#define RK817_CODEC_DADC_SR_ACL0	0x1e
++#define RK817_CODEC_DADC_ALC1		0x1f
++#define RK817_CODEC_DADC_ALC2		0x20
++#define RK817_CODEC_DADC_NG		0x21
++#define RK817_CODEC_DADC_HPF		0x22
++#define RK817_CODEC_DADC_RVOLL		0x23
++#define RK817_CODEC_DADC_RVOLR		0x24
++#define RK817_CODEC_AMIC_CFG0		0x27
++#define RK817_CODEC_AMIC_CFG1		0x28
++#define RK817_CODEC_DMIC_PGA_GAIN	0x29
++#define RK817_CODEC_DMIC_LMT1		0x2a
++#define RK817_CODEC_DMIC_LMT2		0x2b
++#define RK817_CODEC_DMIC_NG1		0x2c
++#define RK817_CODEC_DMIC_NG2		0x2d
++#define RK817_CODEC_ADAC_CFG0		0x2e
++#define RK817_CODEC_ADAC_CFG1		0x2f
++#define RK817_CODEC_DDAC_POPD_DACST	0x30
++#define RK817_CODEC_DDAC_VOLL		0x31
++#define RK817_CODEC_DDAC_VOLR		0x32
++#define RK817_CODEC_DDAC_SR_LMT0	0x35
++#define RK817_CODEC_DDAC_LMT1		0x36
++#define RK817_CODEC_DDAC_LMT2		0x37
++#define RK817_CODEC_DDAC_MUTE_MIXCTL	0x38
++#define RK817_CODEC_DDAC_RVOLL		0x39
++#define RK817_CODEC_DDAC_RVOLR		0x3a
++#define RK817_CODEC_AHP_ANTI0		0x3b
++#define RK817_CODEC_AHP_ANTI1		0x3c
++#define RK817_CODEC_AHP_CFG0		0x3d
++#define RK817_CODEC_AHP_CFG1		0x3e
++#define RK817_CODEC_AHP_CP		0x3f
++#define RK817_CODEC_ACLASSD_CFG1	0x40
++#define RK817_CODEC_ACLASSD_CFG2	0x41
++#define RK817_CODEC_APLL_CFG0		0x42
++#define RK817_CODEC_APLL_CFG1		0x43
++#define RK817_CODEC_APLL_CFG2		0x44
++#define RK817_CODEC_APLL_CFG3		0x45
++#define RK817_CODEC_APLL_CFG4		0x46
++#define RK817_CODEC_APLL_CFG5		0x47
++#define RK817_CODEC_DI2S_CKM		0x48
++#define RK817_CODEC_DI2S_RSD		0x49
++#define RK817_CODEC_DI2S_RXCR1		0x4a
++#define RK817_CODEC_DI2S_RXCR2		0x4b
++#define RK817_CODEC_DI2S_RXCMD_TSD	0x4c
++#define RK817_CODEC_DI2S_TXCR1		0x4d
++#define RK817_CODEC_DI2S_TXCR2		0x4e
++#define RK817_CODEC_DI2S_TXCR3_TXCMD	0x4f
++
++/* RK817_CODEC_DI2S_CKM */
++#define RK817_I2S_MODE_MASK		(0x1 << 0)
++#define RK817_I2S_MODE_MST		(0x1 << 0)
++#define RK817_I2S_MODE_SLV		(0x0 << 0)
++
++/* RK817_CODEC_DDAC_MUTE_MIXCTL */
++#define DACMT_MASK			(0x1 << 0)
++#define DACMT_ENABLE			(0x1 << 0)
++#define DACMT_DISABLE			(0x0 << 0)
++
++/* RK817_CODEC_DI2S_RXCR2 */
++#define VDW_RX_24BITS			(0x17)
++#define VDW_RX_16BITS			(0x0f)
++
++/* RK817_CODEC_DI2S_TXCR2 */
++#define VDW_TX_24BITS			(0x17)
++#define VDW_TX_16BITS			(0x0f)
++
++/* RK817_CODEC_AMIC_CFG0 */
++#define MIC_DIFF_MASK			(0x1 << 7)
++#define MIC_DIFF_DIS			(0x0 << 7)
++#define MIC_DIFF_EN			(0x1 << 7)
++
+ #define RK817_POWER_EN_REG(i)		(0xb1 + (i))
+ #define RK817_POWER_SLP_EN_REG(i)	(0xb5 + (i))
+ 
+-- 
+2.25.1
 
-Right, failing to do that is a clear bug.
-
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
-
---sgneBHv3152wZ8jf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCAZPQACgkQJNaLcl1U
-h9CQHwf/aovjO8Ad2u7sCq5MwvRFCIYwJ1CpKRnX4pLM6wYJq/w0MMfWMFZsAxb9
-9S1OpyvCFbGe76zbcqhKj8S21KBhXizZkfD6Vpe7TFugCGPJCjB51bMfLr2pGBBI
-lDbi5cFUapnWSp38AOK4/JEVOP/dQKJgt3ndadidkyLPtTUBqpEYMhiZ8EymPB8z
-YTmINg9bemV7OpbuzDCytmQIGSf/UPGYu09wfS5uLHUS2qdVPdc+uWqUe+RgsZqT
-88ZMLGQBZMRhTcdn4UVONaM3WNTv7hi1Xh/3B+3NlViFFrbhk7RQ9HGjNDrEKQ0C
-P2NTaTgDl0M0cEWTDLH8M/aAJzaCqg==
-=XMAS
------END PGP SIGNATURE-----
-
---sgneBHv3152wZ8jf--

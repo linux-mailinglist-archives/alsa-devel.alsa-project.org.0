@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD6436770D
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 03:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1209A36770E
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 03:56:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 376701661;
-	Thu, 22 Apr 2021 03:54:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 376701661
+	by alsa0.perex.cz (Postfix) with ESMTPS id A00A71689;
+	Thu, 22 Apr 2021 03:55:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A00A71689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619056545;
-	bh=q6WY3i7II0I/R3AAQrBH+yyxGh0gk5y+5kVG46kKHLk=;
+	s=default; t=1619056580;
+	bh=tAEGF9a6Q34WpW2bmHP4ZIFofssTvmfPgRG8AKSGrkY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gzPd0MR0HUNks3W3nqeBTjzkP7cDZPgF2rd+s/VF7WqoxzjJxhc4k2mQ1xV5GqojN
-	 N2idUvWxc/EGeWSGGg1JZVg0PkCsgXvRVEJlqzrSoRmfMSWLegXEyVu/8rHcSqMhjA
-	 NPLLX7yPhfKwak6mJmfl6VoPsHn+kdqLPPKwH74k=
+	b=Haj6XuHuVrz5w6Zdenuge113hjYiXKNnxndObZseXZOPzR+xRLxSp4Hkr9CZYV41V
+	 Tddh3v4TjyZtkPyUmlaHiaDGAyD9TsshupcymkG5aqXMgngHq0PeJ6EwqiMSY3ABYW
+	 BQhtIXUEos2CeqVPp0WZTImZjk8Imeyz8PqdKREs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E9DBF804A9;
-	Thu, 22 Apr 2021 03:54:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88E8DF804AB;
+	Thu, 22 Apr 2021 03:54:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0D1AF8049C; Thu, 22 Apr 2021 03:53:59 +0200 (CEST)
+ id 958B0F80424; Thu, 22 Apr 2021 03:54:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 65260F802CA
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 03:53:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65260F802CA
-Date: 22 Apr 2021 10:53:50 +0900
-X-IronPort-AV: E=Sophos;i="5.82,241,1613401200"; d="scan'208";a="78840221"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 22 Apr 2021 10:53:50 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5174DF80424
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 03:53:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5174DF80424
+Date: 22 Apr 2021 10:53:55 +0900
+X-IronPort-AV: E=Sophos;i="5.82,241,1613401200"; d="scan'208";a="79059713"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 22 Apr 2021 10:53:55 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id A0EDC400619D;
- Thu, 22 Apr 2021 10:53:50 +0900 (JST)
-Message-ID: <87wnsvgk41.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 226C84173399;
+ Thu, 22 Apr 2021 10:53:55 +0900 (JST)
+Message-ID: <87v98fgk3w.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/7] ASoC: ak4613: add .get_fmt support
+Subject: [PATCH 4/7] ASoC: pcm3168a: add .get_fmt support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <871rb3hypy.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,41 +70,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-ak4613 supports .get_fmt by this patch
+pcm3168a supports .get_fmt by this patch
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/ak4613.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/codecs/pcm3168a.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
-index fe208cfdd3ba..c63da8e32945 100644
---- a/sound/soc/codecs/ak4613.c
-+++ b/sound/soc/codecs/ak4613.c
-@@ -322,6 +322,15 @@ static int ak4613_dai_set_sysclk(struct snd_soc_dai *codec_dai,
- 	return 0;
+diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
+index 821e7395f90f..91295b813687 100644
+--- a/sound/soc/codecs/pcm3168a.c
++++ b/sound/soc/codecs/pcm3168a.c
+@@ -353,6 +353,18 @@ static void pcm3168a_update_fixup_pcm_stream(struct snd_soc_dai *dai)
+ 	}
  }
  
-+static u64 ak4613_dai_get_fmt(struct snd_soc_dai *dai)
++static u64 pcm3168a_get_dai_fmt(struct snd_soc_dai *dai)
 +{
-+	return	SND_SOC_POSSIBLE_DAIFMT_I2S	|
-+		SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
-+		SND_SOC_POSSIBLE_DAIFMT_CBP_CFP	|
++	return	SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
++		SND_SOC_POSSIBLE_DAIFMT_I2S	|
++		SND_SOC_POSSIBLE_DAIFMT_RIGHT_J	|
++		SND_SOC_POSSIBLE_DAIFMT_DSP_A	|
++		SND_SOC_POSSIBLE_DAIFMT_DSP_B	|
 +		SND_SOC_POSSIBLE_DAIFMT_CBC_CFC	|
++		SND_SOC_POSSIBLE_DAIFMT_CBP_CFP	|
 +		SND_SOC_POSSIBLE_DAIFMT_NB_NF;
 +}
 +
- static int ak4613_dai_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ static int pcm3168a_set_dai_fmt(struct snd_soc_dai *dai, unsigned int format)
  {
  	struct snd_soc_component *component = dai->component;
-@@ -543,6 +552,7 @@ static const struct snd_soc_dai_ops ak4613_dai_ops = {
- 	.startup	= ak4613_dai_startup,
- 	.shutdown	= ak4613_dai_shutdown,
- 	.set_sysclk	= ak4613_dai_set_sysclk,
-+	.get_fmt	= ak4613_dai_get_fmt,
- 	.set_fmt	= ak4613_dai_set_fmt,
- 	.trigger	= ak4613_dai_trigger,
- 	.hw_params	= ak4613_dai_hw_params,
+@@ -574,6 +586,7 @@ static int pcm3168a_hw_params(struct snd_pcm_substream *substream,
+ }
+ 
+ static const struct snd_soc_dai_ops pcm3168a_dai_ops = {
++	.get_fmt	= pcm3168a_get_dai_fmt,
+ 	.set_fmt	= pcm3168a_set_dai_fmt,
+ 	.set_sysclk	= pcm3168a_set_dai_sysclk,
+ 	.hw_params	= pcm3168a_hw_params,
 -- 
 2.25.1
 

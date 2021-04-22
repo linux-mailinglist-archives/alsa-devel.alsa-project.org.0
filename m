@@ -2,62 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FFF368196
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 15:39:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEE0B368212
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 16:02:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54B0E167F;
-	Thu, 22 Apr 2021 15:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54B0E167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E20585D;
+	Thu, 22 Apr 2021 16:01:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E20585D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619098745;
-	bh=q5rlpVmfF/TXc2r/Qmyk7mcFMFJcIEf5yN0P3nCPGV4=;
+	s=default; t=1619100152;
+	bh=KUh8hXIjYjOj4mgR5P4gI1ccwtROS8BAI0irsnEGaI4=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ep7DXxRePTfE+GEwdZzI6LpC3sEMole4pVIuWJp027hQBO6CTuFRg/HE4XsFMdkoI
-	 WgOEo4waCgt8aFWbQ7QzUC6oCxkU1GWDC5jKc1xBiHFGhQLgZ/RSYlqog4p+mkrZvx
-	 FAzFzteSJDplVSS4BSKtmEHymxlhQi4bapO0B014=
+	b=hYYzLHCc3/nCwUTjJNhuRkBHC1bq+uInl2uTdPf2B6YYYeVNwXcjCyT8xLX8x7nMw
+	 ULYfFaHEpbKLTzFD5zqN79QOhoskqu4EMVQJ3xAGNZ+1voC7/yb9yK6w676YdWQcbI
+	 a43bQGjDn54j4LBKoiCeNw7JWKF1eDnME8WTgszg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E21FCF80168;
-	Thu, 22 Apr 2021 15:37:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B966AF800AE;
+	Thu, 22 Apr 2021 16:01:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFBD3F80253; Thu, 22 Apr 2021 15:37:34 +0200 (CEST)
+ id D0BBDF80168; Thu, 22 Apr 2021 16:01:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85113F80134
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 15:37:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85113F80134
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: gtucker) with ESMTPSA id 582761F4343A
-Subject: Re: broonie-sound/for-next bisection:
- baseline.bootrr.asoc-simple-card-probed on kontron-sl28-var3-ads2
-To: Mark Brown <broonie@kernel.org>, kernelci-results@groups.io,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <6080e82c.1c69fb81.cd60c.2a13@mx.google.com>
-From: Guillaume Tucker <guillaume.tucker@collabora.com>
-Message-ID: <3ca62063-41b4-c25b-a7bc-8a8160e7b684@collabora.com>
-Date: Thu, 22 Apr 2021 14:37:18 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9B75F80134
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 16:00:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B75F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DIu/8G4h"
+Received: by mail-lf1-x12b.google.com with SMTP id d27so15475493lfv.9
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 07:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=XdTPGn7kzAorIr31woOO1tDdE9k/iAgH+AUBZEWaSZc=;
+ b=DIu/8G4heEQpnd2a9G8555GAdp0ibkzerNqC9MB+kxrCMVIg7o3QlMSOxWn2d8SsOP
+ CqkKorof3OhQHPsQ/R5lJFu/hHXNzP5hz79y4axFD2Mo7V4l9xZgVU3iK+GAZl7fS+oG
+ BlsV3vPFKvAxE1ENEqdElp4rEOiLtReErBWCuWD5ztUxJuzA9McS8i2EC9UTl0HhuttK
+ rrmh6h+jG+We/ju6k+TdPMvxrDStsZ0JuDx7G9UFMQAgbCPZER2h36/0qUJJ4Qn+XaYY
+ Qvtnz02659/63cr2W1hjl4hR3LPcp9r8rslcE60vh0ghevXJPoxPRasg6GSUSa24it1L
+ iT/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=XdTPGn7kzAorIr31woOO1tDdE9k/iAgH+AUBZEWaSZc=;
+ b=JRtnu3cEqglRzlVJOBFlVMAI0VLlpUXxD5I4hT79pE01X5e5Y1UjOumMaS+FDjOdzT
+ /OWPMJloZg4owFd+0w3welyDtjPUTJaISfwQYFAjv7cNzHiQmTDsPVzhMJCqmZ+x9oPd
+ oFMaFvQPlX/I7JNpv6jxC3w0gmHM1SJmsKcvPmFmswre3qaxXNw/hTnsdAIJdVVn3mUd
+ s/BJSSkXx+joR4SF1D32mc3Va64/O/oxSz+U9i0CGn5MyZFS6r5feyDayKYXAerXoBNZ
+ oLukI9LjmbCS8Ujbz+UJ1HWYi76p12pCcJs0HKk6Ly3i4ji862k/elWtAFiHJjKxIQ3d
+ BmMg==
+X-Gm-Message-State: AOAM533QY50iRGKcZ9U82vPG05TqypUde83lu5lDfNMUC82TynkM0jsE
+ 1CkmAWGI0fPOcPWUja0gn+k=
+X-Google-Smtp-Source: ABdhPJwl8QialC+zzPTpzKmoo6LEbOcOFAGBvMFA/Qt3hWHr+uxRjVckQr0ki6fcGFGL+Zm9+MNIAQ==
+X-Received: by 2002:a05:6512:3f9d:: with SMTP id
+ x29mr2533777lfa.363.1619100043598; 
+ Thu, 22 Apr 2021 07:00:43 -0700 (PDT)
+Received: from [10.0.0.42] (91-155-111-71.elisa-laajakaista.fi.
+ [91.155.111.71])
+ by smtp.gmail.com with ESMTPSA id a25sm290782ljp.38.2021.04.22.07.00.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Apr 2021 07:00:43 -0700 (PDT)
+Subject: Re: ASoc / PCM recording-related regression between v5.4 and v5.5
+To: htl10@users.sourceforge.net,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+References: <148484793.4894421.1618654607945.ref@mail.yahoo.com>
+ <148484793.4894421.1618654607945@mail.yahoo.com>
+ <877dkz5hz1.wl-kuninori.morimoto.gx@renesas.com>
+ <1772063602.5910217.1618841824599@mail.yahoo.com>
+ <87h7k152du.wl-kuninori.morimoto.gx@renesas.com>
+ <212419469.6653726.1618928398310@mail.yahoo.com>
+ <425493399.6730534.1618934642983@mail.yahoo.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Message-ID: <ec99afd0-fa6b-71a5-653d-f1ef9687d5ed@gmail.com>
+Date: Thu, 22 Apr 2021 17:01:57 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-In-Reply-To: <6080e82c.1c69fb81.cd60c.2a13@mx.google.com>
+In-Reply-To: <425493399.6730534.1618934642983@mail.yahoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Jon Hunter <jonathanh@nvidia.com>, alsa-devel@alsa-project.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Thierry Reding <treding@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,370 +114,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
+Hi,
 
-Please see the bisection report below about the asoc-simple-card
-driver failing to probe on kontron-sl28-var3-ads2 in today's
-broonie-sound tree.  I believe this has not reached linux-next
-yet.
+On 4/20/21 7:04 PM, Hin-Tak Leung wrote:
+>  Hi,
+> 
+> I agree with Peter's change. Raspbian - the raspberry pi distribution - is currently shipping v5.10.x (jumping from v5.4.x in February), which has changed a lot since v5.5.x. Nonetheless, as a proof of concept, I reverted the idea of Peter's change in v.5.10.x, with this:
+> 
+> <diff-start>
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 91bf33958..20077dd8c 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -1042,7 +1042,7 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>  case SNDRV_PCM_TRIGGER_START:
+>  case SNDRV_PCM_TRIGGER_RESUME:
+>  case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> - ret = snd_soc_link_trigger(substream, cmd);
+> + ret = snd_soc_pcm_dai_trigger(substream, cmd);
+>  if (ret < 0)
+>  break;
+>  
+> @@ -1050,8 +1050,9 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>  if (ret < 0)
+>  break;
+>  
+> - ret = snd_soc_pcm_dai_trigger(substream, cmd);
+> + ret = snd_soc_link_trigger(substream, cmd);
+>  break;
+> +
+>  case SNDRV_PCM_TRIGGER_STOP:
+>  case SNDRV_PCM_TRIGGER_SUSPEND:
+>  case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> <diff-end>
+> 
+> and was able to restore the functionality of Seeed Studio's respeaker driver against v5.10.x. That it relies on the previous behavior is a bit broken. I think I'd like some dev_dbg() inside soc-pcm.c, and perhaps some help in modifying the out-of-tree audio device driver to cope?
 
-Reports aren't automatically sent to the public while we're
-trialing new bisection features on kernelci.org but this one
-looks valid.
 
-Here's the full boot log:
+If you start the DAI first and later the DMA then it works again?
+I'm still behind of the patch which introduced different sequences for
+start and stop.
 
-  https://storage.kernelci.org/broonie-sound/for-next/v5.12-rc8-542-g80e0ab4291498/arm64/defconfig/gcc-8/lab-kontron/baseline-kontron-sl28-var3-ads2.html
+From my commit the start sequence is:
+dai_link, DMA, CPU DAI then the codec
 
-More details can be found here:
+Is it make any difference if you try:
+dai_link, DMA, codec then the CPU DAI
 
-  https://linux.kernelci.org/test/case/id/608089974135ccea439b779c/
+But the codec is usually not handled in trigger, it can not be atomic
+most of the time.
 
-Please let us know if you need any help debugging the issue or to
-try a fix.
-
-Best wishes,
-Guillaume
+Can you point me to the out of tree driver and the related dts files?
+Can it be reproduced with rpbi w/o any hat? I have one hifiberry but
+that is playback only and if I'm not mistaken the 3.5 on the board also?
 
 
-On 22/04/2021 04:06, KernelCI bot wrote:
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-> * This automated bisection report was sent to you on the basis  *
-> * that you may be involved with the breaking commit it has      *
-> * found.  No manual investigation has been done to verify it,   *
-> * and the root cause of the problem may be somewhere else.      *
-> *                                                               *
-> * If you do send a fix, please include this trailer:            *
-> *   Reported-by: "kernelci.org bot" <bot@kernelci.org>          *
-> *                                                               *
-> * Hope this helps!                                              *
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 > 
-> broonie-sound/for-next bisection: baseline.bootrr.asoc-simple-card-probed on kontron-sl28-var3-ads2
+> Thanks a lot.
 > 
-> Summary:
->   Start:      80e0ab429149 Merge remote-tracking branch 'asoc/for-5.13' into asoc-next
->   Plain log:  https://storage.kernelci.org/broonie-sound/for-next/v5.12-rc8-542-g80e0ab4291498/arm64/defconfig+CONFIG_RANDOMIZE_BASE=y/gcc-8/lab-kontron/baseline-kontron-sl28-var3-ads2.txt
->   HTML log:   https://storage.kernelci.org/broonie-sound/for-next/v5.12-rc8-542-g80e0ab4291498/arm64/defconfig+CONFIG_RANDOMIZE_BASE=y/gcc-8/lab-kontron/baseline-kontron-sl28-var3-ads2.html
->   Result:     59c35c44a9cf ASoC: simple-card: add simple_parse_node()
+> Regards,
+> Hin-Tak 
 > 
-> Checks:
->   revert:     PASS
->   verify:     PASS
+> On Tuesday, 20 April 2021, 15:19:58 BST, Hin-Tak Leung <htl10@users.sourceforge.net> wrote:
 > 
-> Parameters:
->   Tree:       broonie-sound
->   URL:        https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
->   Branch:     for-next
->   Target:     kontron-sl28-var3-ads2
->   CPU arch:   arm64
->   Lab:        lab-kontron
->   Compiler:   gcc-8
->   Config:     defconfig+CONFIG_RANDOMIZE_BASE=y
->   Test case:  baseline.bootrr.asoc-simple-card-probed
+>> Hi Peter:
 > 
-> Breaking commit found:
+>> I found the commit of a rather unusual regression between kernel v5.4 and v5.5, for an out-of-tree driver on the 
+>> raspberrypi. Everything looks identical between v5.4 and 5.5, within accountable differences, even with debugging in > sound/ +p and the driver side. 5.4 records fine, 5.5 stucks on recording. The commit is one of yours:
 > 
-> -------------------------------------------------------------------------------
-> commit 59c35c44a9cf89a83a92a8d26749e59497d0317d
-> Author: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Date:   Wed Apr 21 14:45:48 2021 +0900
+>> commit 4378f1fbe924054a09ff0d4e39e1a581b9245252
+>> Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
+>> Date: Fri Sep 27 10:16:46 2019 +0300
 > 
->     ASoC: simple-card: add simple_parse_node()
->     
->     Parse dai/tdm/clk are common for both CPU/Codec node.
->     This patch creates simple_parse_node() for it and share the code.
->     
->     Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->     Link: https://lore.kernel.org/r/87czuoi41f.wl-kuninori.morimoto.gx@renesas.com
->     Signed-off-by: Mark Brown <broonie@kernel.org>
+>> ASoC: soc-pcm: Use different sequence for start/stop trigger
 > 
-> diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-> index a1373be4558f..91af4eca9c86 100644
-> --- a/sound/soc/generic/simple-card.c
-> +++ b/sound/soc/generic/simple-card.c
-> @@ -93,12 +93,11 @@ static void simple_parse_convert(struct device *dev,
->  }
->  
->  static void simple_parse_mclk_fs(struct device_node *top,
-> -				 struct device_node *cpu,
-> -				 struct device_node *codec,
-> +				 struct device_node *np,
->  				 struct simple_dai_props *props,
->  				 char *prefix)
->  {
-> -	struct device_node *node = of_get_parent(cpu);
-> +	struct device_node *node = of_get_parent(np);
->  	char prop[128];
->  
->  	snprintf(prop, sizeof(prop), "%smclk-fs", PREFIX);
-> @@ -106,12 +105,57 @@ static void simple_parse_mclk_fs(struct device_node *top,
->  
->  	snprintf(prop, sizeof(prop), "%smclk-fs", prefix);
->  	of_property_read_u32(node,	prop, &props->mclk_fs);
-> -	of_property_read_u32(cpu,	prop, &props->mclk_fs);
-> -	of_property_read_u32(codec,	prop, &props->mclk_fs);
-> +	of_property_read_u32(np,	prop, &props->mclk_fs);
->  
->  	of_node_put(node);
->  }
->  
-> +static int simple_parse_node(struct asoc_simple_priv *priv,
-> +			     struct device_node *np,
-> +			     struct link_info *li,
-> +			     char *prefix,
-> +			     int is_cpu)
-> +{
-> +	struct device *dev = simple_priv_to_dev(priv);
-> +	struct device_node *top = dev->of_node;
-> +	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-> +	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-> +	struct snd_soc_dai_link_component *dlc;
-> +	struct asoc_simple_dai *dai;
-> +	int ret, single = 0;
-> +
-> +	if (is_cpu) {
-> +		dlc = asoc_link_to_cpu(dai_link, 0);
-> +		dai = simple_props_to_dai_cpu(dai_props, 0);
-> +	} else {
-> +		dlc = asoc_link_to_codec(dai_link, 0);
-> +		dai = simple_props_to_dai_codec(dai_props, 0);
-> +	}
-> +
-> +	simple_parse_mclk_fs(top, np, dai_props, prefix);
-> +
-> +	ret = asoc_simple_parse_dai(np, dlc, &single);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = asoc_simple_parse_clk(dev, np, dai, dlc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = asoc_simple_parse_tdm(np, dai);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (is_cpu) {
-> +		struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
-> +
-> +		asoc_simple_canonicalize_cpu(dlc, single);
-> +		asoc_simple_canonicalize_platform(platforms, dlc);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  				   struct device_node *np,
->  				   struct device_node *codec,
-> @@ -121,10 +165,8 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  	struct device *dev = simple_priv_to_dev(priv);
->  	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
->  	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-> -	struct asoc_simple_dai *dai;
->  	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
->  	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
-> -	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
->  	struct device_node *top = dev->of_node;
->  	struct device_node *node = of_get_parent(np);
->  	char *prefix = "";
-> @@ -132,28 +174,18 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  
->  	dev_dbg(dev, "link_of DPCM (%pOF)\n", np);
->  
-> -	li->link++;
-> -
->  	/* For single DAI link & old style of DT node */
->  	if (is_top)
->  		prefix = PREFIX;
->  
->  	if (li->cpu) {
-> -		int is_single_links = 0;
-> -
->  		/* Codec is dummy */
->  
->  		/* FE settings */
->  		dai_link->dynamic		= 1;
->  		dai_link->dpcm_merged_format	= 1;
->  
-> -		dai = simple_props_to_dai_cpu(dai_props, 0);
-> -
-> -		ret = asoc_simple_parse_dai(np, cpus, &is_single_links);
-> -		if (ret)
-> -			goto out_put_node;
-> -
-> -		ret = asoc_simple_parse_clk(dev, np, dai, cpus);
-> +		ret = simple_parse_node(priv, np, li, prefix, 1);
->  		if (ret < 0)
->  			goto out_put_node;
->  
-> @@ -162,9 +194,6 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  						   cpus->dai_name);
->  		if (ret < 0)
->  			goto out_put_node;
-> -
-> -		asoc_simple_canonicalize_cpu(cpus, is_single_links);
-> -		asoc_simple_canonicalize_platform(platforms, cpus);
->  	} else {
->  		struct snd_soc_codec_conf *cconf;
->  
-> @@ -174,14 +203,9 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  		dai_link->no_pcm		= 1;
->  		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
->  
-> -		dai	= simple_props_to_dai_codec(dai_props, 0);
->  		cconf	= simple_props_to_codec_conf(dai_props, 0);
->  
-> -		ret = asoc_simple_parse_dai(np, codecs, NULL);
-> -		if (ret < 0)
-> -			goto out_put_node;
-> -
-> -		ret = asoc_simple_parse_clk(dev, np, dai, codecs);
-> +		ret = simple_parse_node(priv, np, li, prefix, 0);
->  		if (ret < 0)
->  			goto out_put_node;
->  
-> @@ -201,11 +225,6 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  	}
->  
->  	simple_parse_convert(dev, np, &dai_props->adata);
-> -	simple_parse_mclk_fs(top, np, codec, dai_props, prefix);
-> -
-> -	ret = asoc_simple_parse_tdm(np, dai);
-> -	if (ret)
-> -		goto out_put_node;
->  
->  	ret = asoc_simple_parse_daifmt(dev, node, codec,
->  				       prefix, &dai_link->dai_fmt);
-> @@ -218,6 +237,8 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
->  	dai_link->init			= asoc_simple_dai_init;
->  
->  out_put_node:
-> +	li->link++;
-> +
->  	of_node_put(node);
->  	return ret;
->  }
-> @@ -230,23 +251,18 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
->  {
->  	struct device *dev = simple_priv_to_dev(priv);
->  	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-> -	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-> -	struct asoc_simple_dai *cpu_dai	= simple_props_to_dai_cpu(dai_props, 0);
-> -	struct asoc_simple_dai *codec_dai = simple_props_to_dai_codec(dai_props, 0);
->  	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
->  	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
->  	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
-> -	struct device_node *top = dev->of_node;
->  	struct device_node *cpu = NULL;
->  	struct device_node *node = NULL;
->  	struct device_node *plat = NULL;
->  	char prop[128];
->  	char *prefix = "";
-> -	int ret, single_cpu = 0;
-> +	int ret;
->  
->  	cpu  = np;
->  	node = of_get_parent(np);
-> -	li->link++;
->  
->  	dev_dbg(dev, "link_of (%pOF)\n", node);
->  
-> @@ -262,13 +278,11 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
->  	if (ret < 0)
->  		goto dai_link_of_err;
->  
-> -	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
-> -
-> -	ret = asoc_simple_parse_dai(cpu, cpus, &single_cpu);
-> +	ret = simple_parse_node(priv, cpu, li, prefix, 1);
->  	if (ret < 0)
->  		goto dai_link_of_err;
->  
-> -	ret = asoc_simple_parse_dai(codec, codecs, NULL);
-> +	ret = simple_parse_node(priv, codec, li, prefix, 0);
->  	if (ret < 0)
->  		goto dai_link_of_err;
->  
-> @@ -276,22 +290,6 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
->  	if (ret < 0)
->  		goto dai_link_of_err;
->  
-> -	ret = asoc_simple_parse_tdm(cpu, cpu_dai);
-> -	if (ret < 0)
-> -		goto dai_link_of_err;
-> -
-> -	ret = asoc_simple_parse_tdm(codec, codec_dai);
-> -	if (ret < 0)
-> -		goto dai_link_of_err;
-> -
-> -	ret = asoc_simple_parse_clk(dev, cpu, cpu_dai, cpus);
-> -	if (ret < 0)
-> -		goto dai_link_of_err;
-> -
-> -	ret = asoc_simple_parse_clk(dev, codec, codec_dai, codecs);
-> -	if (ret < 0)
-> -		goto dai_link_of_err;
-> -
->  	ret = asoc_simple_set_dailink_name(dev, dai_link,
->  					   "%s-%s",
->  					   cpus->dai_name,
-> @@ -302,13 +300,12 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
->  	dai_link->ops = &simple_ops;
->  	dai_link->init = asoc_simple_dai_init;
->  
-> -	asoc_simple_canonicalize_cpu(cpus, single_cpu);
-> -	asoc_simple_canonicalize_platform(platforms, cpus);
-> -
->  dai_link_of_err:
->  	of_node_put(plat);
->  	of_node_put(node);
->  
-> +	li->link++;
-> +
->  	return ret;
->  }
-> -------------------------------------------------------------------------------
+> ...
 > 
+>> The problem was initially at https://github.com/respeaker/seeed-voicecard/issues/290 
+>> then over to https://github.com/raspberrypi/linux/issues/4279 and finally here. The "seeed-8mic-voicecard-
+>> overlay.dts" is the dts corresponds to the problematic device ; The one with similar hardware but okay is "seeed-
+>> 4mic-voicecard-overlay.dts" .
 > 
-> Git bisection log:
+> ...
+>> The Raspberry Pi distribution raspbian jumped directly from 5.4.x to 5.10.x at the beginning of February. Considering 
+>> the change has been in since the v5.5 merge window, I guess I'd like some help to correct / workaround on the 
+>> out-of-tree driver side? And probably some new dev_err() message in the kernel for problematic driver helping to 
+>> diagnose similar problems in the future would be nice. 
 > 
-> -------------------------------------------------------------------------------
-> git bisect start
-> # good: [bf05bf16c76bb44ab5156223e1e58e26dfe30a88] Linux 5.12-rc8
-> git bisect good bf05bf16c76bb44ab5156223e1e58e26dfe30a88
-> # bad: [80e0ab4291498248157d2801c994dfaa09ef3082] Merge remote-tracking branch 'asoc/for-5.13' into asoc-next
-> git bisect bad 80e0ab4291498248157d2801c994dfaa09ef3082
-> # good: [d479f00b795ac62b24ef90f4ec421e65c3178ca7] ASoC: soc-pcm: indicate error message at dpcm_path_get()
-> git bisect good d479f00b795ac62b24ef90f4ec421e65c3178ca7
-> # good: [a96d2ba2d8248d5e8170f2f44f98d4a33329b08a] ASoC: codecs: tlv320aic3x: move I2C to separated file
-> git bisect good a96d2ba2d8248d5e8170f2f44f98d4a33329b08a
-> # good: [8577bf61a6359bf2387f85a2fda713a4f05185c3] Merge series "ASoC: rsnd: tidyup Renesas sound" from Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>:
-> git bisect good 8577bf61a6359bf2387f85a2fda713a4f05185c3
-> # good: [87143bfdb9f7ddc14b129fda610e114d29077596] Merge series "ASoC: remove more cppcheck warnings" from Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>:
-> git bisect good 87143bfdb9f7ddc14b129fda610e114d29077596
-> # good: [23b16df6c9c91f70df070be43c5b13ef4016c1e7] Merge series "ASoC: audio-graph: cleanups" from Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>:
-> git bisect good 23b16df6c9c91f70df070be43c5b13ef4016c1e7
-> # good: [1fa27f35ee23b52e0bd708d00c272c5df805afc8] Merge series "ASoC: rt286/rt298: Fixes for DMIC2 config and combo jack" from David Ward <david.ward@gatech.edu>:
-> git bisect good 1fa27f35ee23b52e0bd708d00c272c5df805afc8
-> # bad: [434392271afcff350fe11730f12b831fffaf33eb] ASoC: simple-card: add simple_link_init()
-> git bisect bad 434392271afcff350fe11730f12b831fffaf33eb
-> # good: [e51237b8d3052251421770468903fa6e4446d158] ASoC: audio-graph: add graph_link_init()
-> git bisect good e51237b8d3052251421770468903fa6e4446d158
-> # bad: [59c35c44a9cf89a83a92a8d26749e59497d0317d] ASoC: simple-card: add simple_parse_node()
-> git bisect bad 59c35c44a9cf89a83a92a8d26749e59497d0317d
-> # first bad commit: [59c35c44a9cf89a83a92a8d26749e59497d0317d] ASoC: simple-card: add simple_parse_node()
-> -------------------------------------------------------------------------------
-> 
-> 
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Groups.io Links: You receive all messages sent to this group.
-> View/Reply Online (#10236): https://groups.io/g/kernelci-results/message/10236
-> Mute This Topic: https://groups.io/mt/82277947/924702
-> Group Owner: kernelci-results+owner@groups.io
-> Unsubscribe: https://groups.io/g/kernelci-results/unsub [guillaume.tucker@collabora.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
-> 
+>   
 > 
 
+-- 
+Péter

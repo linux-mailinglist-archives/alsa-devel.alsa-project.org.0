@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EE0367D6A
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 11:10:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01ABB367D6D
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 11:11:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3BCC167A;
-	Thu, 22 Apr 2021 11:09:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3BCC167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BADE1695;
+	Thu, 22 Apr 2021 11:10:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BADE1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619082647;
-	bh=+xJPgILM5FSmluRhkAnzRjmZypdL54mZyrJ/msXVw6s=;
+	s=default; t=1619082665;
+	bh=LLo424ftVQJ0KayRf46uU6B4Op18P6RKRnb9lxqyuUA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CxnZoJTvBAhr4u5hJkD36GYV9Mbmh98lDaPfrZfEoAyEq8rkvGORVZF3TBLMD3fzb
-	 6LFzRlIxVkLxGuOTFCBHmcunh8WAGFZa2Qh/Js9t9GOHaiawc0CQOIBwD9aiDDxE8P
-	 xxZwWnPdm19RqIIOEHTA3KUFuzovNN3RO2gaoBfA=
+	b=tEcnAOirYgtJe2U7hpetXZ7MNbYvq0cxYiJcq0drOdd9BIMyoTuHY5VYNqx/YzGzD
+	 2G4bzNFWtNBe7wwg/27g7NKpOclvcxDjQdRFzRQyZMaTHlhbniZlZTai6UtdJv/XD0
+	 6ShzYeABMpgodwOZxReCBTr3I3o9L4jgchmOM1bQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10107F80253;
-	Thu, 22 Apr 2021 11:09:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31095F800AE;
+	Thu, 22 Apr 2021 11:09:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16596F80273; Thu, 22 Apr 2021 11:09:17 +0200 (CEST)
+ id B6113F802C9; Thu, 22 Apr 2021 11:09:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,29 +32,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B914FF80168
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 11:09:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B914FF80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id B442DF80059
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 11:09:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B442DF80059
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 13M98nD82019670,
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 13M98xJX2019691,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 13M98nD82019670
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 13M98xJX2019691
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 22 Apr 2021 17:08:49 +0800
+ Thu, 22 Apr 2021 17:08:59 +0800
 Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
  RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 22 Apr 2021 17:08:49 +0800
+ 15.1.2106.2; Thu, 22 Apr 2021 17:08:58 +0800
 Received: from localhost.localdomain (172.22.102.1) by
  RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 22 Apr 2021 17:08:48 +0800
+ 15.1.2106.2; Thu, 22 Apr 2021 17:08:57 +0800
 From: <shumingf@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH v3] ASoC: rt711-sdca: change capture switch controls
-Date: Thu, 22 Apr 2021 17:08:25 +0800
-Message-ID: <20210422090825.2912-1-shumingf@realtek.com>
+Subject: [PATCH] ASoC: rt711-sdca: add the notification when volume changed
+Date: Thu, 22 Apr 2021 17:08:55 +0800
+Message-ID: <20210422090855.2971-1-shumingf@realtek.com>
 X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -135,286 +135,55 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Shuming Fan <shumingf@realtek.com>
 
-The DAPM event and mixer control could mute/unmute the capture directly.
-That will be confused that capture still works if the user settings is unmute before the capture.
-Therefore, this patch uses the variables to record the capture switch status of DAPM and mixer.
+This patch adds the return value when the volume settings were changed.
+The userspace application might monitor the kcontrols to check which control changed.
 
 Signed-off-by: Shuming Fan <shumingf@realtek.com>
 ---
- sound/soc/codecs/rt711-sdca.c | 208 +++++++++++++++++++++++++++-------
- sound/soc/codecs/rt711-sdca.h |   2 +
- 2 files changed, 167 insertions(+), 43 deletions(-)
+ sound/soc/codecs/rt711-sdca.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
-index bfb7f1c8ec8f..3ab9048b4ea3 100644
+index 3ab9048b4ea3..98b26bd69e19 100644
 --- a/sound/soc/codecs/rt711-sdca.c
 +++ b/sound/soc/codecs/rt711-sdca.c
-@@ -642,6 +642,154 @@ static int rt711_sdca_set_gain_get(struct snd_kcontrol *kcontrol,
- 	return 0;
- }
+@@ -509,12 +509,16 @@ static int rt711_sdca_set_gain_put(struct snd_kcontrol *kcontrol,
+ 		(struct soc_mixer_control *)kcontrol->private_value;
+ 	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
+ 	unsigned int read_l, read_r, gain_l_val, gain_r_val;
+-	unsigned int i, adc_vol_flag = 0;
++	unsigned int i, adc_vol_flag = 0, changed = 0;
++	unsigned int lvalue, rvalue;
  
-+static int rt711_sdca_set_fu0f_capture_ctl(struct rt711_sdca_priv *rt711)
-+{
-+	int err;
+ 	if (strstr(ucontrol->id.name, "FU1E Capture Volume") ||
+ 		strstr(ucontrol->id.name, "FU0F Capture Volume"))
+ 		adc_vol_flag = 1;
+ 
++	regmap_read(rt711->mbq_regmap, mc->reg, &lvalue);
++	regmap_read(rt711->mbq_regmap, mc->rreg, &rvalue);
 +
-+	if (rt711->fu0f_dapm_mute) {
-+		err = regmap_write(rt711->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+			RT711_SDCA_CTL_FU_MUTE, CH_L), 0x01);
-+		if (err < 0)
-+			return err;
-+		err = regmap_write(rt711->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+			RT711_SDCA_CTL_FU_MUTE, CH_R), 0x01);
-+		if (err < 0)
-+			return err;
-+	} else {
-+		if (rt711->fu0f_mixer_l_mute) {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+				RT711_SDCA_CTL_FU_MUTE, CH_L), 0x01);
-+		} else {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+				RT711_SDCA_CTL_FU_MUTE, CH_L), 0x00);
-+		}
-+		if (err < 0)
-+			return err;
-+
-+		if (rt711->fu0f_mixer_r_mute) {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+				RT711_SDCA_CTL_FU_MUTE, CH_R), 0x01);
-+		} else {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
-+				RT711_SDCA_CTL_FU_MUTE, CH_R), 0x00);
-+		}
-+		if (err < 0)
-+			return err;
-+	}
-+	return 0;
-+}
-+
-+static int rt711_sdca_set_fu1e_capture_ctl(struct rt711_sdca_priv *rt711)
-+{
-+	int err;
-+
-+	if (rt711->fu1e_dapm_mute) {
-+		err = regmap_write(rt711->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+			RT711_SDCA_CTL_FU_MUTE, CH_L), 0x01);
-+		if (err < 0)
-+			return err;
-+		err = regmap_write(rt711->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+			RT711_SDCA_CTL_FU_MUTE, CH_R), 0x01);
-+		if (err < 0)
-+			return err;
-+	} else {
-+		if (rt711->fu1e_mixer_l_mute) {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+				RT711_SDCA_CTL_FU_MUTE, CH_L), 0x01);
-+		} else {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+				RT711_SDCA_CTL_FU_MUTE, CH_L), 0x00);
-+		}
-+		if (err < 0)
-+			return err;
-+
-+		if (rt711->fu1e_mixer_r_mute) {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+				RT711_SDCA_CTL_FU_MUTE, CH_R), 0x01);
-+		} else {
-+			err = regmap_write(rt711->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+				RT711_SDCA_CTL_FU_MUTE, CH_R), 0x00);
-+		}
-+		if (err < 0)
-+			return err;
-+	}
-+	return 0;
-+}
-+
-+static int rt711_sdca_fu1e_capture_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = !rt711->fu1e_mixer_l_mute;
-+	ucontrol->value.integer.value[1] = !rt711->fu1e_mixer_r_mute;
-+	return 0;
-+}
-+
-+static int rt711_sdca_fu1e_capture_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	int err, changed = 0;
-+
-+	if (rt711->fu1e_mixer_l_mute != !ucontrol->value.integer.value[0] ||
-+		rt711->fu1e_mixer_r_mute != !ucontrol->value.integer.value[1])
+ 	/* control value to 2's complement value */
+ 	/* L Channel */
+ 	gain_l_val = ucontrol->value.integer.value[0];
+@@ -560,6 +564,9 @@ static int rt711_sdca_set_gain_put(struct snd_kcontrol *kcontrol,
+ 		gain_r_val &= 0xffff;
+ 	}
+ 
++	if (lvalue != gain_l_val || rvalue != gain_r_val)
 +		changed = 1;
 +
-+	rt711->fu1e_mixer_l_mute = !ucontrol->value.integer.value[0];
-+	rt711->fu1e_mixer_r_mute = !ucontrol->value.integer.value[1];
-+	err = rt711_sdca_set_fu1e_capture_ctl(rt711);
-+	if (err < 0)
-+		return err;
-+
-+	return changed;
-+}
-+
-+static int rt711_sdca_fu0f_capture_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = !rt711->fu0f_mixer_l_mute;
-+	ucontrol->value.integer.value[1] = !rt711->fu0f_mixer_r_mute;
-+	return 0;
-+}
-+
-+static int rt711_sdca_fu0f_capture_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	int err, changed = 0;
-+
-+	if (rt711->fu0f_mixer_l_mute != !ucontrol->value.integer.value[0] ||
-+		rt711->fu0f_mixer_r_mute != !ucontrol->value.integer.value[1])
-+		changed = 1;
-+
-+	rt711->fu0f_mixer_l_mute = !ucontrol->value.integer.value[0];
-+	rt711->fu0f_mixer_r_mute = !ucontrol->value.integer.value[1];
-+	err = rt711_sdca_set_fu0f_capture_ctl(rt711);
-+	if (err < 0)
-+		return err;
-+
-+	return changed;
-+}
-+
- static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
- static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
- static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
-@@ -652,14 +800,10 @@ static const struct snd_kcontrol_new rt711_sdca_snd_controls[] = {
- 		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU05, RT711_SDCA_CTL_FU_VOLUME, CH_R),
- 		0x57, 0x57, 0,
- 		rt711_sdca_set_gain_get, rt711_sdca_set_gain_put, out_vol_tlv),
--	SOC_DOUBLE_R("FU1E Capture Switch",
--		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_L),
--		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_R),
--		0, 1, 1),
--	SOC_DOUBLE_R("FU0F Capture Switch",
--		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_L),
--		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_R),
--		0, 1, 1),
-+	SOC_DOUBLE_EXT("FU1E Capture Switch", SND_SOC_NOPM, 0, 1, 1, 0,
-+		rt711_sdca_fu1e_capture_get, rt711_sdca_fu1e_capture_put),
-+	SOC_DOUBLE_EXT("FU0F Capture Switch", SND_SOC_NOPM, 0, 1, 1, 0,
-+		rt711_sdca_fu0f_capture_get, rt711_sdca_fu0f_capture_put),
- 	SOC_DOUBLE_R_EXT_TLV("FU1E Capture Volume",
- 		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_L),
- 		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_R),
-@@ -809,28 +953,15 @@ static int rt711_sdca_fu0f_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
--	unsigned char unmute = 0x0, mute = 0x1;
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
--				RT711_SDCA_CTL_FU_MUTE, CH_L),
--				unmute);
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
--				RT711_SDCA_CTL_FU_MUTE, CH_R),
--				unmute);
-+		rt711->fu0f_dapm_mute = false;
-+		rt711_sdca_set_fu0f_capture_ctl(rt711);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
--				RT711_SDCA_CTL_FU_MUTE, CH_L),
--				mute);
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
--				RT711_SDCA_CTL_FU_MUTE, CH_R),
--				mute);
-+		rt711->fu0f_dapm_mute = true;
-+		rt711_sdca_set_fu0f_capture_ctl(rt711);
- 		break;
+ 	for (i = 0; i < 3; i++) { /* retry 3 times at most */
+ 		/* Lch*/
+ 		regmap_write(rt711->mbq_regmap, mc->reg, gain_l_val);
+@@ -573,7 +580,7 @@ static int rt711_sdca_set_gain_put(struct snd_kcontrol *kcontrol,
+ 			break;
  	}
- 	return 0;
-@@ -842,29 +973,16 @@ static int rt711_sdca_fu1e_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
--	unsigned char unmute = 0x0, mute = 0x1;
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
--				RT711_SDCA_CTL_FU_MUTE, CH_L),
--				unmute);
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
--				RT711_SDCA_CTL_FU_MUTE, CH_R),
--				unmute);
-+		rt711->fu1e_dapm_mute = false;
-+		rt711_sdca_set_fu1e_capture_ctl(rt711);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
--				RT711_SDCA_CTL_FU_MUTE, CH_L),
--				mute);
--		regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
--				RT711_SDCA_CTL_FU_MUTE, CH_R),
--				mute);
--			break;
-+		rt711->fu1e_dapm_mute = true;
-+		rt711_sdca_set_fu1e_capture_ctl(rt711);
-+		break;
- 	}
- 	return 0;
+-	return i == 3 ? -EIO : 0;
++	return i == 3 ? -EIO : changed;
  }
-@@ -1330,6 +1448,10 @@ int rt711_sdca_init(struct device *dev, struct regmap *regmap,
- 	 */
- 	rt711->hw_init = false;
- 	rt711->first_hw_init = false;
-+	rt711->fu0f_dapm_mute = true;
-+	rt711->fu1e_dapm_mute = true;
-+	rt711->fu0f_mixer_l_mute = rt711->fu0f_mixer_r_mute = true;
-+	rt711->fu1e_mixer_l_mute = rt711->fu1e_mixer_r_mute = true;
  
- 	/* JD source uses JD2 in default */
- 	rt711->jd_src = RT711_JD2;
-diff --git a/sound/soc/codecs/rt711-sdca.h b/sound/soc/codecs/rt711-sdca.h
-index 98a022cec0bd..43ae82b7fdb3 100644
---- a/sound/soc/codecs/rt711-sdca.h
-+++ b/sound/soc/codecs/rt711-sdca.h
-@@ -30,6 +30,8 @@ struct  rt711_sdca_priv {
- 	int jack_type, jd_src;
- 	unsigned int scp_sdca_stat1, scp_sdca_stat2;
- 	int hw_ver;
-+	bool fu0f_dapm_mute, fu0f_mixer_l_mute, fu0f_mixer_r_mute;
-+	bool fu1e_dapm_mute, fu1e_mixer_l_mute, fu1e_mixer_r_mute;
- };
- 
- struct sdw_stream_data {
+ static int rt711_sdca_set_gain_get(struct snd_kcontrol *kcontrol,
 -- 
 2.29.0
 

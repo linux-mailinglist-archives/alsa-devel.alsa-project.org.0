@@ -2,94 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B3C367844
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 06:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10DB367B7A
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 09:51:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71072166B;
-	Thu, 22 Apr 2021 06:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71072166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C7CB167A;
+	Thu, 22 Apr 2021 09:50:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C7CB167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619064719;
-	bh=RUqaXRv9AUjHegjpDbtmxaVa/Lt0jqRw+z12dNllfcU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1619077904;
+	bh=DtX+9v7R7+NG1+rhYbsB7BCsrEgqxQntKfjoyG6rnGQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YkCwkPEFg9JLswDBtqJhKAiM2GQGeiNhLfUy80Jp81vqlQwZNsdYDGTRqD6At9Hjb
-	 N8qs7rAhFlKui+7q4NQwG5u8fhrKXJe7bzpiQ982LXVW8t5Ho2yIf6iu3Hj1NqNtIw
-	 HOedMoZ6143lwMd0iwRxl+AeK/4jDzQBSpKf+/wk=
+	b=fi+qwSIR6iQ70Nbvefbn+2c1Tu0t/x8ZZqMBEn1OLBBb49eXxCHKvFjctk675rPty
+	 Rz3yYMxrlJQBZc4DytdW0r9yPiQVYh0v04Yv63mqLiiiAQcPCQ19FkE4x0lffkHVC0
+	 aT7pSbcLiHZ7oZgRNCeqmn22CjcOGEL8APwBAnVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8634F800AE;
-	Thu, 22 Apr 2021 06:10:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 516D9F80168;
+	Thu, 22 Apr 2021 09:50:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DCF5F80168; Thu, 22 Apr 2021 06:10:28 +0200 (CEST)
+ id E3788F80253; Thu, 22 Apr 2021 09:50:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FEFBF80059
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 06:10:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FEFBF80059
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Jayp6m5n"
-Received: by mail-ej1-x62e.google.com with SMTP id mh2so45093407ejb.8
- for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 21:10:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=v2q1sdHWVh4lUHAPbXupBAtzX4TddfycZ+VOLF7cBrY=;
- b=Jayp6m5nCSMvGoHLujanhnnAQrax+x0nOJsdvAkr76mmfpDYr1YAbO0mV6T/6rNaVR
- 9KPHA29JVZVnwEgaKA+xaWLNTy1LYNwRgmHlshab7GP3kc/4fAVAG3/MRLmDpeVr64QA
- hyK38VnHfwdgHp/Vt8JEjbxtezPMXxSdf5EUxrDJ+3PN03EkGc2ePyuXrWawUMmCTiy2
- nLkNPKEbHKFgPmnfYYbs7Yt6OpPhlpSpi1W/NXKnNf8ZwUZWL/lieim4IeshG3XwnbJf
- 21tOSlFfkdRwBTYXyS+skPkTT3/A4tHNZOFsTIgL5kn88n0kJKHgBcsv8JgA0QjjKixp
- aMDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=v2q1sdHWVh4lUHAPbXupBAtzX4TddfycZ+VOLF7cBrY=;
- b=qaNrg8yTyXsAP3DYmz5lugfWIcHXxBifI4hCHq0azAfJspMfdnmOOSfmiCRLxKh0zM
- 24tAqdb/tF+0mSx0HSTywjQtHab/wm1+JXKQ40z2cFYbSa+e4PhKgq2oeb6iMLotoRYu
- buVeArQ4REsNwPxVuFYmUOGbqElvmRlpAsFuFBX8D5ZFWnS5tNxjDoGBi80zRCcdzH2K
- 4POoBXdbaQSp6LefICckADloQX1BKNwzwkLfCbiVq5OwgoK843NoyNjC4HZPiTPfBZYq
- Pz04oQZVjh2Lr0azeWPXHqBuDtWwpGkNFvWP5e6h4vPhQDa3rzhUEBgd7PxM7WVihm5d
- OeEw==
-X-Gm-Message-State: AOAM5307LDnrnAzYbsooZLm2UZYbQ9P2Yzf1G0scknxJa2Q0HdYdZelv
- l65cnt7q7A6PTyOHNZ8+ImKDtliidsucLEqwW+c=
-X-Google-Smtp-Source: ABdhPJylCil3yWKdBmF2QDGmLoJcHiu6Ee1ud8INW4bXfdCvl3PxrO7+pfhnaYRzSnLavlNeSLrGWYDy8xuUjAUZXwc=
-X-Received: by 2002:a17:906:4eda:: with SMTP id
- i26mr1027645ejv.301.1619064621758; 
- Wed, 21 Apr 2021 21:10:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210414083255.9527-1-tiwai@suse.de>
- <CAHXb3beNczUn-KWfO9P1Pa5+3piR8fDYHvoH5G08GmcvgR4Lxw@mail.gmail.com>
- <5949663.lOV4Wx5bFT@kam-desktop>
- <CAOsVg8p=yikaRQ-=RWdO8nWdC70tnw4kQ17KM-smShQvujrRJg@mail.gmail.com>
- <CAOsVg8pY80Vgi1XhzzFmQ4bBxK+1boksw7RM7_avMd4hqE0ERQ@mail.gmail.com>
- <s5h7dkwdib8.wl-tiwai@suse.de>
- <CAOsVg8qs+UZ2+G_0Pq=Vm87E+75jYg4Fg4eAaNTJzs=wFE5WAw@mail.gmail.com>
- <s5hlf9cau80.wl-tiwai@suse.de>
- <CAOsVg8rCkpBAKkuqUGxt55xGo4D=7RZC_A7CAbQgpG1yLWtHVw@mail.gmail.com>
- <CAOsVg8q8KNfaqW0bm90HHUcjqDMCU0etrNY7dhr8TuoMHYZcuA@mail.gmail.com>
-In-Reply-To: <CAOsVg8q8KNfaqW0bm90HHUcjqDMCU0etrNY7dhr8TuoMHYZcuA@mail.gmail.com>
-From: Lucas <jaffa225man@gmail.com>
-Date: Wed, 21 Apr 2021 23:10:10 -0500
-Message-ID: <CAOsVg8qo+wNg9MXVPL8EawHhgNkBKhTg0GSLwo8cmVDd1rxsPw@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Apply implicit feedback mode for BOSS
- devices
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, "Keith A. Milner" <maillist@superlative.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C321DF800AE
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 09:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C321DF800AE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1BC8DB011;
+ Thu, 22 Apr 2021 07:49:59 +0000 (UTC)
+Date: Thu, 22 Apr 2021 09:49:59 +0200
+Message-ID: <s5hv98e92s8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Steven Skeard <stevenskeard@gmail.com>
+Subject: Re: [bug_report] ALSA: snd_hda_intel probe failed with error -16
+In-Reply-To: <CAHVejFw7n1g3Ok4PZ8efb5jAdY1htL_pn+oZb2O-p19kFpMgTQ@mail.gmail.com>
+References: <CAHVejFw7n1g3Ok4PZ8efb5jAdY1htL_pn+oZb2O-p19kFpMgTQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,7 +68,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sorry, for my typo.  Here's the correction:  "Thanks for your grand
-achievement, Takashi Iwai!"  (It ran through my head just after sending it
-as these things often do for me.  Too bad there's no after-sent edit option
-for email.)
+On Wed, 21 Apr 2021 21:59:00 +0200,
+Steven Skeard wrote:
+> 
+> Hi all,
+> 
+> I tried to get some help with this before but I don't think I
+> articulated the problem very well and it seemed to fall between the
+> cracks, so here I am to try again
+> (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-February/181262.html).
+> 
+> With the default ALSA configuration in /etc/modprobe.d/alsa-base.conf,
+> I experience a consistent race condition where if snd-usb-audio loads
+> before snd-hda-intel, then the snd-hda-intel driver will fail to load
+> with the -16 error as seen in the dmsg output at the end of this alsa
+> info dump (http://alsa-project.org/db/?f=a23ccbb818fec6eaf08b032504eac5d5d8a30589).
+> When this error occurs, I get a single dummy output and no working
+> audio. In this state the only way to get working audio is to reboot my
+> computer and hope things load in the correct order.
+> 
+> After much digging I found a couple links on the arch forums where
+> people experienced similar problems
+> (https://bbs.archlinux.org/viewtopic.php?id=264091,
+> https://bbs.archlinux.org/viewtopic.php?id=260373). After reading both
+> of those and looking at my dmsg outputs, I tested the following
+> modifications to my modprobe configuration:
+>     1. Remove the default line for the usb driver: "options
+> snd-usb-audio index=-2"
+>     2. Add a line to specify that the intel driver should be loaded
+> first: "options snd-hda-intel index=0"
+>     3. Add a line to specify that the realtek codec driver should be
+> loaded second: "options snd-hda-codec-realtek index=1"
+>     4. Add a line to specify that the usb driver should be loaded
+> third: "options snd-usb-audio index=2"
+> And this works, and not only works but works every reboot! I have
+> uploaded an additional alsa info with the work around applied
+> (http://alsa-project.org/db/?f=f2d90b82434ba89b834a67eaefe10726d538e829)
+> 
+> So while at the end of the day I have a working audio configuration, I
+> can't help but feel like this is a bug. But the question I have is
+> whether this is a bug with ALSA, or with the kernel driver? And how do
+> I properly report this so it can be fixed?
+
+Overall this is no bug, but rather a configuration failure.
+
+First off, on modern systems with a sound backend like PulseAudio, the
+driver loading order doesn't matter much.  So, at best, drop all the
+relevant module options.
+
+On the system that still needs some level of static device order
+(e.g. the onboard device must appear in the primary card#1), this can
+be rather controlled via "slots" option of snd module.  You can pass
+the driver names to reserve the card slots.  e.g. passing
+  options snd slots=snd_hda_intel,snd_usb_audio
+would assure the first card assigned to HD-audio while the second to
+USB.
+
+Note that you'd still need some tweaks via index option of each driver
+in combination of slots option above, if there are multiple instances
+supported by a single driver (e.g. HD-audio onboard audio and HDMI
+controllers).
+
+
+Takashi

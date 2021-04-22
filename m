@@ -2,169 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686BE3677FF
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 05:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFFED36783A
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 06:07:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5942166B;
-	Thu, 22 Apr 2021 05:34:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5942166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68E121678;
+	Thu, 22 Apr 2021 06:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68E121678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619062522;
-	bh=o03vfC+4NXzUr0PHV++OJDwB3OIuaNMObXIfMV2ySFM=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1619064468;
+	bh=F2yPbvW881Esm/v+JGjz3ZXJspQ/06Cz6uku9Tu16vo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fPtpUff9VS6xU4bZsTcw46XZjb4u8FFHSqKApmOmW7GhibaQHpFnEmcwAUk3CyFii
-	 z7nWGeNNZ+coL2h1RIuvWpFoU/pYQi4vXXjY4K4VDN+4qmSgRYiyjNj06SZCKSkTuM
-	 4zxFw9wjqZu/iFW0JBemdx7WzwKbfWccgJqXpap4=
+	b=KK0Q4EOxOEibu/XKXeulD7p4FXbRvY7U4Yb0FujWVEOgKLe3BTbQEmUBMVxqfCQib
+	 /K4LH8mCQn/RALF70r6hjiC2g3zaGEaf6QXHTYNiHznS+87dqxjeCFKSatZ46Q8UKH
+	 3ScGPfvvHAK0z+07rhGRv9P5jNu4avbcPQAPWsRU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42B5BF80059;
-	Thu, 22 Apr 2021 05:33:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC0BFF80059;
+	Thu, 22 Apr 2021 06:06:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64ECFF80168; Thu, 22 Apr 2021 05:33:51 +0200 (CEST)
+ id AC8FFF80253; Thu, 22 Apr 2021 06:06:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70051.outbound.protection.outlook.com [40.107.7.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BB09F80059
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 05:33:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BB09F80059
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C43EF80059
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 06:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C43EF80059
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="qGlbIL9u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JE6reM9kj7vNjfSfPiuyl5vd+7QCkLR/ADWC2ZmmDb24EJN3WaVNtCk94AqQL535PfLM4CTkRZtQZLUtbzDsVMgqlYGFCTBf7BhnyfxfPVXmY9jtmMPPikkPGsXdmJhYntnJPWXhle2PwlCymybkZxXct9za1mu/e2MY7jrtOHT7cGIU3sQlHyqfnRpiW8HHf5iyTKvORNu/RObzPEA/dRDALBNZnnSOfY4I/11WykFXRgrxDxP7o1AyksOPsZ2qudRQmCzccKw1fUEvUmR2EnKWU2LGg+heYgRrAht0pfZsmjUAkcI0ToBsuevIb+LLDvi1TQzbb4r9LEmewyab4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o03vfC+4NXzUr0PHV++OJDwB3OIuaNMObXIfMV2ySFM=;
- b=UN9IHsywbxfSJg7sX5FidcD2/mwgQ+cDSbI/SOTLYqwXwjJrI0V0CQ2a0RcVmJyA4Df0uHGIfP9uI+2qZXo75/OUcznzQk/FqheukeAeJKd0uXAPm1G48ntDKX5q3y/5KfdDqqHBX7ZMKbOkWOmPe2mYbq3CjmpkN5nqp/K2CUHlJuzredKEyBORYGQGKb9ZbYUY36pDzgTlL5baGFHPLnLBFMYhiWuc6pN7k8sqrwAV0jpjMFSURwlk2ld8MORyCHnQGTwR+cQPTSjQWZyYAYvu3K8aDROTN9lCCSt7pcjlt9081ZpI1HwfL6Ev9Jb+IxxZoKP2IM6OgwXgzfzpwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o03vfC+4NXzUr0PHV++OJDwB3OIuaNMObXIfMV2ySFM=;
- b=qGlbIL9uRBQiHJ5dbu3hIB5LiStDj0ziod7c5N4KdJR5CvXyjSoIBGlU/XzCw1AO4qh0XwFyhQSB/d7+YXyx5by7kAjxqaTPV9zLypNrEpcXB4x0OvLX8d4kZNTD2E4aaNWdJfdheyzpOcs6mVerJNNcHg1NITj4b+ynC9o2Aac=
-Received: from VE1PR04MB6688.eurprd04.prod.outlook.com (20.179.235.153) by
- VI1PR04MB4733.eurprd04.prod.outlook.com (20.177.51.155) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.24; Thu, 22 Apr 2021 03:33:33 +0000
-Received: from VE1PR04MB6688.eurprd04.prod.outlook.com
- ([fe80::de2:8b2:852b:6eca]) by VE1PR04MB6688.eurprd04.prod.outlook.com
- ([fe80::de2:8b2:852b:6eca%7]) with mapi id 15.20.4042.024; Thu, 22 Apr 2021
- 03:33:33 +0000
-From: Robin Gong <yibin.gong@nxp.com>
-To: Lucas Stach <l.stach@pengutronix.de>, Shengjiu Wang
- <shengjiu.wang@gmail.com>
-Subject: RE: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
-Thread-Topic: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in
- probe
-Thread-Index: AQHWLcMcvbp0uyGgYk605EKKtgH/8aivLYuAgAF2HACAABbKAIIDgX+QgAHvdICAAJqQwIAG4DOAgAHNh+CAAAv2AIABkvaQgAA9gACAAIks0A==
-Date: Thu, 22 Apr 2021 03:33:32 +0000
-Message-ID: <VE1PR04MB6688F1C65295C1A0D689C5A289469@VE1PR04MB6688.eurprd04.prod.outlook.com>
-References: <1589881301-4143-1-git-send-email-shengjiu.wang@nxp.com>
- <0866cd8cdb0c22f0b2a6814c4dafa29202aad5f3.camel@pengutronix.de>
- <CAA+D8APhHvA39wmCayeCsAEKmOJ0n7qOQiT1tZmFHr4+yASgTw@mail.gmail.com>
- <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
- <VE1PR04MB66387217EDE5133FD2D8F793894E9@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <50ef17a2d57b022c48bbca71fd4e074cc3ca9be5.camel@pengutronix.de>
- <VE1PR04MB6638EE85485768351755557B89499@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <97262466d537402ad4032098ef277d6d47734f1f.camel@pengutronix.de>
- <VE1PR04MB6638659EC8557D01861042B189489@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <d8d084aa7ff183e2f78128a46a0ce5241f357c9a.camel@pengutronix.de>
- <VE1PR04MB66887C731E32BDBB340B044C89479@VE1PR04MB6688.eurprd04.prod.outlook.com>
- <18fbdc4bf0574a722134400ad9e4510d3cbcb767.camel@pengutronix.de>
-In-Reply-To: <18fbdc4bf0574a722134400ad9e4510d3cbcb767.camel@pengutronix.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: pengutronix.de; dkim=none (message not signed)
- header.d=none;pengutronix.de; dmarc=none action=none header.from=nxp.com;
-x-originating-ip: [119.31.174.67]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d7698a4c-fc54-4ba8-fc53-08d9053f67c6
-x-ms-traffictypediagnostic: VI1PR04MB4733:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR04MB47336C17EFA022581A71AA2089469@VI1PR04MB4733.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8NYef9/JSyHTn5YNuNNNtjVHxwzz1eI/y3DFt9duHjinAATnWug6nGAiNBfOo0gOapOghvi45JxFFH8uruLi7JXwDT1jq+/3/S++id8e+5Wc06zFXE5f0eKT4bgSHXIdMYu67HHOkHo+lQJzUXONYpYdnrUtU8QDMSd8L2d+cyZl1XhGZQDsMhcVHxi3vRdQibS2qhsDQLB9PEPIk2fxJ4cA8VyRbQVKbwWKcFkXa8SOOJJCIVIUNfARbN1GNl0XY2SRnoEjflznt7oSGzXbcg+z/tZtlBVEX/EhyhKH4Z61dL6kQHYP5rzCiGCCA5Nkuf1RWxCwnYktrMz2rkglY/2sPpI0mNugkH3U6ru2RmiVCnJFLIE0MEpv0fb0UDTbCCfN8fSlcAcSN+dC9aXMbquoMpru5ehdIEThepDryZC5L5ZawPlCAuQBYtrMvSPs9myEXQ70SVo+ThEGxSN4/cgkolHztJYnWfHKg0WtiwQpOS16fOJh1XLBiIaMNDCZrQDA8hDfHNL2JL+uRGFYQteYUbwT57Q1p8KYCd7JxiRCCsVfP2gZpPJMP9rLopzAz2fpdBRFCNtRG19pJ8fHxyVT67cf6Wo9lr5dSJ8Ml4E=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VE1PR04MB6688.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(39860400002)(366004)(396003)(478600001)(6506007)(71200400001)(26005)(86362001)(38100700002)(54906003)(8936002)(33656002)(8676002)(83380400001)(186003)(110136005)(5660300002)(122000001)(66476007)(76116006)(66556008)(4326008)(7416002)(66446008)(55016002)(66946007)(64756008)(316002)(9686003)(52536014)(7696005)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?dVYyQlk5WFcvUE5WSkVKemRYam9paFkxbWFGLzhMS01aMFROWURiZDNqMGNi?=
- =?utf-8?B?bWJxbThhSml0ZDhlOTdHUmFSNEsweExFemhQcjh3ODFoRm5INXlnYUh4b1Jr?=
- =?utf-8?B?blAyRC9mbTMwNWZEUGpEVmFQSDJrdFVleWhkQWdYS3hEWFZ2elpCWWhLeE4w?=
- =?utf-8?B?Q21iUU16WVpjTTdkZWJWMTBFVCtteW9xYzduRHlUcXYycEtZNzRLVFZjaTB2?=
- =?utf-8?B?RFdsWnRvZUxEdStBSWNWSEhxRkMwTktDcHdWb3UvNlY0Uk9mL1hVRDkreFFD?=
- =?utf-8?B?dm0vUkRMdklGNWJUVmhva0lzaitRMktPWDJrakpzUXpiWVl2QkNFRXk2MFdx?=
- =?utf-8?B?RzQyQmFZTEhZS2NUUlZiaHl6V1VVWWprSzRDbXd3bWxobVNwcHREbHVycHJY?=
- =?utf-8?B?VGJJWU9wSWlETlVqbW1GSDlseExKMTltYy95WjJaRUROYjdhMHg5eXlBRHNI?=
- =?utf-8?B?bEVrelZQRkdKUXRydEVtNXM4TjU4R1NlMFFjcldBeis2Rm5KamZTY1V5ZkZW?=
- =?utf-8?B?akNsdU4rVEkwanJEbFB6bjNWdmRrN29jTjZNWHl6MEF0YlhUTjNCZXZSSWVn?=
- =?utf-8?B?d2M1Zm1BQ2FqaEVhM2FkWFd3QmF0RldkQTZoanJ1aUMzM1o1ampFTUZpREJr?=
- =?utf-8?B?SmVPaWtEbTgvK2FFdEduNXlBRlhJUmFyelN3RWRWb2IrTUZ5WERDM0VEWk9v?=
- =?utf-8?B?UzZtZHNIT1VQUDdUOUc4YzB1M2g0ODNsbllUbkRpSi9xaHlZSzVNS3hQcXhD?=
- =?utf-8?B?T3JRS1M1UWRSaVlWQzgyc3FRRUR1cWVjM0Q5dkpJc094Q1NvREl5N2tKUmZ0?=
- =?utf-8?B?MEhEd0Y5NU5KcFZ2WVNqMXNuVS9taXVFZ3ltOGNod2pZejZ4U0JnaVM5eXkx?=
- =?utf-8?B?UGVmc1RmM1F1WExrb3Bod3NEdXFuOWNJWHBNOU9PWHk1OFdTU29LdnduS3cz?=
- =?utf-8?B?a0hIdk9Hb0xUdkovNGU5ZmlWdEJZaHZmUzIyS1dxUjEzQmlEa3ZIOXZLNkFN?=
- =?utf-8?B?Q011REhIV204NEUxb3lNNzl4enZQNkVvSWNOMFVOaFNDZHRpQ1l0ZEtoNVZR?=
- =?utf-8?B?QVJ0QlhTWGI4Sm5vUXF1TkFVR3dSay83WWNpSFZpOGhnWmlrWHBYK1ZhUURV?=
- =?utf-8?B?MTY3UW5QS3JRdVNDR1R4bmIySzM1dktmMzlKZkl2TTNtbWRDeTc1aFRxeFhX?=
- =?utf-8?B?d0hUcW0ySk1VWUpVYU55cU5NSkxIUENGZ011ZHRGZURsRGJEOUdjaTJwZmNU?=
- =?utf-8?B?NFcvYm5pRFFvR1N0T1ZKa2oxZlh2OGtSdFRiSktpd0NKcjc3Rk5BMksrM3I4?=
- =?utf-8?B?OGRxLzdVTkhoWDF5TmJMZjRMbm92cCtCMUM3NFRudk1QOGZ0SEtIZmlaWWYw?=
- =?utf-8?B?RDd5WHliS0hSci9FaWpZYThxTlJ6ekV3NkMxVEFwbHp5YVZUVGpSbUF1dnpI?=
- =?utf-8?B?ekw2UVJzUW5wUEMvc0thQ0FhZlRSeUUyMUZ1TVBieGh1dU9XN3Jzb3h6OG5W?=
- =?utf-8?B?SC9Sd0NXN0M1RURZaVJVelpZVisxNmYwZ2wwcHlMOWx6RlQvSWlzY3B5R21i?=
- =?utf-8?B?a0lHOUxwWFFPTy96bkhhQlNQSUtZWHMyRzN3WkROa1hiOE5hc3YvVTlpcjZW?=
- =?utf-8?B?REZQak5uU0s1SS83bnhzbjZuWThPOE9VR0ppOFNqR1oweDVweTBzMTRqQjZW?=
- =?utf-8?B?a1BJd0phVWx3d0w1anNvMmtpZWFYc3pjZGZSVmZuTmpibTFFTUhacUpZUkJq?=
- =?utf-8?Q?H9KEyx0HJWJjx8v2hRq7SPrE+KwOOCC5e/CtzXL?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="VNXhn0VX"
+Received: by mail-ej1-x629.google.com with SMTP id u21so66671500ejo.13
+ for <alsa-devel@alsa-project.org>; Wed, 21 Apr 2021 21:06:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=W/H7a3JyIaESeI7d2BBxaJbZ1Awusg364LQ5hHnfRLs=;
+ b=VNXhn0VXa5oLAVJfXJZJz0UIUUvq04wqJ+wJIV+JCmi+7pOsOtpjOPAp43LIs5Lut2
+ ZXQMtft5lWse0PxPqwUZTsoQqKFCboxU13jOdF18VyomB8eutqQFVgkHVFROLYB/U2TY
+ S00aaD6f7WBfGrCLbBYp8sihI0CqD7K+XROYcKe3HIc8F/jpJp9Ye+vRwwUY00Pptvvs
+ cgEI5FNOiuD1EvWDB1p0GzadY4r06IQ51MkDB20+15DQIHGvy/fYK66fDITxVWk284+E
+ freAC1728EB2azMmOKXCU2GpsJJfzOdOr+jQkoW07JD9+afqhSEiqhayY6yqej3JRsWK
+ q7VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=W/H7a3JyIaESeI7d2BBxaJbZ1Awusg364LQ5hHnfRLs=;
+ b=KzH/yaH3V7MvFL0//LoG+mUQzlvKbT3MYJm8aqSvc2PwC0sqmlTSQUez8PcCs3HSAy
+ vS8QuwaFpMHVwSKljI6ERfxkg5OBoqYmar1KsuKV6RUUqAwfFu0l2lVCEhFhSOmAiULe
+ JG+BS7CijCLq5QoUlUvD6AqZqTLxVHgp+iIwGnyv4jjFMYS3ywD/ecOA5vexzCgp+n6b
+ ++Pjk7jM9zqZZzPOIjdpVAq/8nK9fXn30+fmlmx8TP3GWuo7bEOnQHLtjVP7nLzTBc+v
+ W03Fs5/elttv5rpOwZjWJ1T09ZQE4206iQhSCk4AIbmUE4Me8E6jjaI8jbnFhEysDHZb
+ +OTQ==
+X-Gm-Message-State: AOAM533d5KND5Jw/Gnc5FCXHwUr4Ph4qg+PT2HS2fGdcdzFx1F1Yd9AE
+ uiPiHEx/KWoBJ2Y0wvEHjlq55Ss6cRQzMT7Cqcc=
+X-Google-Smtp-Source: ABdhPJywh+U6EYyF1EzaJhOeOK/+u5JAINrw0sGcJeXa5QHzee4zaFMEasWhJf9gt+OB/pPIV3Kq8ki8ZAnF5jsIjFs=
+X-Received: by 2002:a17:906:81d5:: with SMTP id
+ e21mr1187853ejx.134.1619064367636; 
+ Wed, 21 Apr 2021 21:06:07 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6688.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7698a4c-fc54-4ba8-fc53-08d9053f67c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2021 03:33:33.0369 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BRNocrvJrpVhgdQz0MnWUuHlv0/0Hui0f9cCAp0kWdvMJISOPcOgPDqlmuIc8PAclL56q0X8WqSZuEg45OjmIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4733
-Cc: "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "S.j. Wang" <shengjiu.wang@nxp.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+References: <20210414083255.9527-1-tiwai@suse.de>
+ <CAHXb3beNczUn-KWfO9P1Pa5+3piR8fDYHvoH5G08GmcvgR4Lxw@mail.gmail.com>
+ <5949663.lOV4Wx5bFT@kam-desktop>
+ <CAOsVg8p=yikaRQ-=RWdO8nWdC70tnw4kQ17KM-smShQvujrRJg@mail.gmail.com>
+ <CAOsVg8pY80Vgi1XhzzFmQ4bBxK+1boksw7RM7_avMd4hqE0ERQ@mail.gmail.com>
+ <s5h7dkwdib8.wl-tiwai@suse.de>
+ <CAOsVg8qs+UZ2+G_0Pq=Vm87E+75jYg4Fg4eAaNTJzs=wFE5WAw@mail.gmail.com>
+ <s5hlf9cau80.wl-tiwai@suse.de>
+ <CAOsVg8rCkpBAKkuqUGxt55xGo4D=7RZC_A7CAbQgpG1yLWtHVw@mail.gmail.com>
+In-Reply-To: <CAOsVg8rCkpBAKkuqUGxt55xGo4D=7RZC_A7CAbQgpG1yLWtHVw@mail.gmail.com>
+From: Lucas <jaffa225man@gmail.com>
+Date: Wed, 21 Apr 2021 23:05:53 -0500
+Message-ID: <CAOsVg8q8KNfaqW0bm90HHUcjqDMCU0etrNY7dhr8TuoMHYZcuA@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Apply implicit feedback mode for BOSS
+ devices
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, "Keith A. Milner" <maillist@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,44 +104,249 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjAyMS8wNC8yMiBMdWNhcyBTdGFjaCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4gd3JvdGU6
-DQo+ID4gQnV0IHRoZSB0aW1lciBvZiBydW50aW1lX2F1dG9fc3VzcGVuZCBkZWNpZGUgd2hlbiBl
-bnRlciBydW50aW1lDQo+ID4gc3VzcGVuZCByYXRoZXIgdGhhbiBoYXJkd2FyZSwgd2hpbGUgdHJh
-bnNmZXIgZGF0YSBzaXplIGFuZCB0cmFuc2Zlcg0KPiA+IHJhdGUgb24gSVAgYnVzIGRlY2lkZSB3
-aGVuIHRoZSBkbWEgaW50ZXJydXB0IGhhcHBlbi4NCj4gPg0KPiBCdXQgaXQgaXNuJ3QgdGhlIGhh
-cmR3YXJlIHRoYXQgZGVjaWRlcyB0byBkcm9wIHRoZSBycG0gcmVmY291bnQgdG8gMCBhbmQNCj4g
-c3RhcnRpbmcgdGhlIGF1dG9zdXNwZW5kIHRpbWVyLCBpdCdzIHRoZSBkcml2ZXIuDQpZZXMsIGRy
-aXZlciBzaG91bGQga2VlcCBycG0gcmVmY291bnQgbmV2ZXIgdG8gMCBpbiBzdWNoIGNhc2UuIEJ1
-dCBJIHRoaW5rIHRoYXQgY2FzZQ0KSXMgYSBjb21tb24gY2FzZSBpbiBkbWEgY3ljbGljIHdpdGgg
-cnVudGltZV9hdXRvX3N1c3BlbmQsIHNvIHNvbWUgZG1hIGRyaXZlcg0KYWxzbyBhZGQgcG1fcnVu
-dGltZV9nZXRfc3luYy8gcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQgaW4gaW50ZXJydXB0IGhh
-bmRsZXINCmxpa2UgcWNvbS9iYW1fZG1hLmMgZm9yIHNhZmUgcmF0aGVyIHRoYW4gb25seSBwbV9y
-dW50aW1lX21hcmtfbGFzdF9idXN5KCkuDQoNCj4gDQo+ID4gIEdlbmVyYWxseSwgd2UgY2FuIGNh
-bGwgcG1fcnVudGltZV9nZXRfc3luYyhmc2xfY2hhbi0+ZGV2KS8NCj4gPiBwbV9ydW50aW1lX21h
-cmtfbGFzdF9idXN5IGluIGludGVycnVwdCBoYW5kbGVyIHRvIGhvcGUgdGhlDQo+ID4gcnVudGlt
-ZV9hdXRvX3N1c3BlbmQgdGltZXIgZXhwaXJ5IGxhdGVyIHRoYW4gaW50ZXJydXB0IGNvbWluZywg
-YnV0IGlmDQo+ID4gdGhlIHRyYW5zZmVyIGRhdGEgc2l6ZSBpcyBsYXJnZXIgaW4gY3ljbGljIGFu
-ZCB0cmFuc2ZlciByYXRlIGlzIHZlcnkNCj4gPiBzbG93IGxpa2UgMTE1MjAwIG9yIGxvd2VyIG9u
-IHVhcnQsIHRoZSBmaXggYXV0b3N1c3BlbmQgdGltZXINCj4gPiAxMDBtcy8yMDBtcyBtYXliZSBu
-b3QgZW5vdWdoLCBoZW5jZSwgcnVudGltZSBzdXNwZW5kIG1heSBleGVjdXRlDQo+ID4gbWVhbndo
-aWxlIHRoZSBkbWEgaW50ZXJydXB0IG1heWJlIHRyaWdnZXJlZCBhbmQgY2F1Z2h0IGJ5IEdJQyhi
-dXQNCj4gPiBpbnRlcnJ1cHQgaGFuZGxlciBwcmV2ZW50IGJ5IHNwaW5fbG9ja19pcnFzYXZlIGlu
-IHBtX3N1c3BlbmRfdGltZXJfZm4oKSApLA0KPiBhbmQgdGhlbiBpbnRlcnJ1cHQgaGFuZGxlciBz
-dGFydCB0byBydW4gYWZ0ZXIgcnVudGltZSBzdXNwZW5kLg0KPiANCj4gSWYgeW91ciBkcml2ZXIg
-Y29kZSBkcm9wcyB0aGUgcnBtIHJlZmNvdW50IHRvIDAgYW5kIHN0YXJ0cyB0aGUgYXV0b3N1c3Bl
-bmQNCj4gdGltZXIgd2hpbGUgYSBjeWNsaWMgdHJhbnNmZXIgaXMgc3RpbGwgaW4gZmxpZ2h0IHRo
-aXMgaXMgY2xlYXJseSBhIGJ1Zy4gQXV0b3N1c3BlbmQgaXMNCj4gbm90IHRoZXJlIHRvIHBhcGVy
-IG92ZXIgZHJpdmVyIGJ1Z3MsIGJ1dCB0byBhbW9ydGl6ZSBjb3N0IG9mIGFjdHVhbGx5DQo+IHN1
-c3BlbmRpbmcgYW5kIHJlc3VtaW5nIHRoZSBoYXJkd2FyZS4gWW91ciBkcml2ZXIgY29kZSBtdXN0
-IHN0aWxsIHdvcmsgZXZlbg0KPiBpZiB0aGUgdGltZW91dCBpcyAwLCBpLmUuIHRoZSBoYXJkd2Fy
-ZSBpcyBpbW1lZGlhdGVseSBzdXNwZW5kZWQgYWZ0ZXIgeW91IGRyb3ANCj4gdGhlIHJwbSByZWZj
-b3VudCB0byAwLg0KPiANCj4gSWYgeW91IHN0aWxsIGhhdmUgdHJhbnNmZXJzIHF1ZXVlZC9pbi1m
-bGlnaHQgdGhlIGRyaXZlciBjb2RlIG11c3Qga2VlcCBhIHJwbQ0KPiByZWZlcmVuY2UuDQpZZXMs
-IHRoYXQncyB3aGF0IEkgc2FpZCBmb3IgZml4IGJlZm9yZSBhcyBiZWxvdy4NCidJIGhhdmUgYSBz
-aW1wbGUgd29ya2Fyb3VuZCB0aGF0IGRpc2FibGUgcnVudGltZSBzdXNwZW5kIGluIGlzc3VlX3Bl
-bmRpbmcgd29ya2VyIGJ5DQpjYWxsaW5nIHBtX3J1bnRpbWVfZm9yYmlkKCkgYW5kIHRoZW4gZW5h
-YmxlIHJ1bnRpbWUgYXV0byBzdXNwZW5kIGluIGRtYWVuZ2luZV90ZXJtaW5hdGVfYWxsDQpzbyB0
-aGF0IHdlIGNvdWxkIGVhc2lseSByZWdhcmQgdGhhdCBlZG1hIGNoYW5uZWwgaXMgYWx3YXlzIGlu
-IHJ1bnRpbWUgcmVzdW1lIGJldHdlZW4NCmlzc3VlX3BlbmRpbmcgYW5kIGNoYW5uZWwgdGVybWlu
-YXRlZCBhbmQgaWdub3JlIHRoZSBhYm92ZSBpbnRlcnJ1cHQgaGFuZGxlci9zY3UtcGQgbGltaXRh
-dGlvbicgDQoNCg0KDQoNCg==
+It does work perfectly now, thanks!
+
+First, I just want to remind you that UA-1000/UA-101 seems enabled in
+snd-usb-audio still (or I need to mix that patch with your last), as it
+isn't detected for either capture or playback.
+
+Here are the specifics tested:
+
+Roland VG-99 Perfect!:
+arecord -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+44100 Hz, Stereo
+^CAborted by signal Interrupt...
+
+aplay -D hw:VG99 -f S24_3LE -r 44100 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+44100 Hz, Stereo
+
+
+Roland INTEGRA-7 Perfect! (only 96 kHz mode tested):
+arecord -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+^CAborted by signal Interrupt...
+
+aplay -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+
+
+Roland R-26 Perfect! (only 96 kHz mode tested):
+arecord -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+^CAborted by signal Interrupt...
+
+aplay -D hw:R26AUDIO -f S32_LE -r 96000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+
+
+Roland Boutique D-05 Perfect!:
+arecord -D hw:Boutique -f S32_LE -r 96000 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+^CAborted by signal Interrupt...
+
+aplay -D hw:Boutique -f S32_LE -r 96000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+
+
+EDIROL UA-4FX Perfect! (only tested 48 kHz mode):
+arecord -D hw:UA4FX -f S24_3LE -r 48000 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+48000 Hz, Stereo
+
+aplay -D hw:UA4FX -f S24_3LE -r 48000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+48000 Hz, Stereo
+
+
+EDIROL UA-25EX Perfect! (only tested 48 kHz mode):
+arecord -D hw:UA25EX -f S24_3LE -r 48000 -c 2 ./file.wav
+Recording WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+48000 Hz, Stereo
+
+aplay -D hw:UA25EX -f S24_3LE -r 48000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+48000 Hz, Stereo
+
+
+Unless you decide to simplify it, no improvements seem necessary.
+Thanks for your grand achievement, Takahashi!
+
+I really appreciate it!,
+
+  Lucas
+
+On Wed, Apr 21, 2021 at 3:59 AM Takashi Iwai <tiwai@suse.de> wrote:
+
+> Below is a revised patch.  Let me know if this works better.
+>>
+>>
+>> thanks,
+>>
+>> Takashi
+>>
+>>
+>> --- a/sound/usb/implicit.c
+>> +++ b/sound/usb/implicit.c
+>> @@ -79,6 +79,7 @@ static const struct snd_usb_implicit_fb_match
+>> playback_implicit_fb_quirks[] = {
+>>
+>>  /* Implicit feedback quirk table for capture: only FIXED type */
+>>  static const struct snd_usb_implicit_fb_match
+>> capture_implicit_fb_quirks[] = {
+>> +#if 0
+>>         IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a6, 0x0d, 0x01), /* Roland
+>> JUNO-G */
+>>         IMPLICIT_FB_FIXED_DEV(0x0582, 0x00a9, 0x0d, 0x01), /* Roland
+>> MC-808 */
+>>         IMPLICIT_FB_FIXED_DEV(0x0582, 0x00ad, 0x0d, 0x01), /* Roland
+>> SH-201 */
+>> @@ -146,6 +147,7 @@ static const struct snd_usb_implicit_fb_match
+>> capture_implicit_fb_quirks[] = {
+>>         IMPLICIT_FB_BOTH_DEV(0x0582, 0x01fd, 0x0d, 0x01), /* Roland
+>> Boutique SH-01A */
+>>         IMPLICIT_FB_BOTH_DEV(0x0582, 0x01ff, 0x0d, 0x01), /* Roland
+>> Boutique D-05 */
+>>         IMPLICIT_FB_BOTH_DEV(0x0582, 0x0203, 0x0d, 0x01), /* BOSS AD-10 */
+>> +#endif
+>>
+>>         {} /* terminator */
+>>  };
+>> @@ -204,30 +206,70 @@ static int add_generic_uac2_implicit_fb(struct
+>> snd_usb_audio *chip,
+>>                                        ifnum, alts);
+>>  }
+>>
+>> -/* Like the function above, but specific to Roland with vendor class and
+>> hack */
+>> +static bool roland_sanity_check_iface(struct usb_host_interface *alts)
+>> +{
+>> +       if (alts->desc.bInterfaceClass != USB_CLASS_VENDOR_SPEC ||
+>> +           (alts->desc.bInterfaceSubClass != 2 &&
+>> +            alts->desc.bInterfaceProtocol != 2) ||
+>> +           alts->desc.bNumEndpoints < 1)
+>> +               return false;
+>> +       return true;
+>> +}
+>> +
+>> +/* Like the UAC2 case above, but specific to Roland with vendor class
+>> and hack */
+>>  static int add_roland_implicit_fb(struct snd_usb_audio *chip,
+>>                                   struct audioformat *fmt,
+>> -                                 unsigned int ifnum,
+>> -                                 unsigned int altsetting)
+>> +                                 struct usb_host_interface *alts)
+>>  {
+>> -       struct usb_host_interface *alts;
+>>         struct usb_endpoint_descriptor *epd;
+>>
+>> -       alts = snd_usb_get_host_interface(chip, ifnum, altsetting);
+>> -       if (!alts)
+>> +       if (!roland_sanity_check_iface(alts))
+>>                 return 0;
+>> -       if (alts->desc.bInterfaceClass != USB_CLASS_VENDOR_SPEC ||
+>> -           (alts->desc.bInterfaceSubClass != 2 &&
+>> -            alts->desc.bInterfaceProtocol != 2) ||
+>> -           alts->desc.bNumEndpoints < 1)
+>> +       /* only when both streams are with ASYNC type */
+>> +       epd = get_endpoint(alts, 0);
+>> +       if (!usb_endpoint_is_isoc_out(epd) ||
+>> +           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
+>> USB_ENDPOINT_SYNC_ASYNC)
+>> +               return 0;
+>> +
+>> +       /* check capture EP */
+>> +       alts = snd_usb_get_host_interface(chip,
+>> +                                         alts->desc.bInterfaceNumber + 1,
+>> +                                         alts->desc.bAlternateSetting);
+>> +       if (!alts || !roland_sanity_check_iface(alts))
+>>                 return 0;
+>>         epd = get_endpoint(alts, 0);
+>>         if (!usb_endpoint_is_isoc_in(epd) ||
+>> -           (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
+>> -                                       USB_ENDPOINT_USAGE_IMPLICIT_FB)
+>> +           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
+>> USB_ENDPOINT_SYNC_ASYNC)
+>>                 return 0;
+>> +       chip->playback_first = 1;
+>>         return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress,
+>> 0,
+>> -                                      ifnum, alts);
+>> +                                      alts->desc.bInterfaceNumber, alts);
+>> +}
+>> +
+>> +/* capture quirk for Roland device; always full-duplex */
+>> +static int add_roland_capture_quirk(struct snd_usb_audio *chip,
+>> +                                   struct audioformat *fmt,
+>> +                                   struct usb_host_interface *alts)
+>> +{
+>> +       struct usb_endpoint_descriptor *epd;
+>> +
+>> +       if (!roland_sanity_check_iface(alts))
+>> +               return 0;
+>> +       epd = get_endpoint(alts, 0);
+>> +       if (!usb_endpoint_is_isoc_in(epd) ||
+>> +           (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=
+>> USB_ENDPOINT_SYNC_ASYNC)
+>> +               return 0;
+>> +
+>> +       alts = snd_usb_get_host_interface(chip,
+>> +                                         alts->desc.bInterfaceNumber - 1,
+>> +                                         alts->desc.bAlternateSetting);
+>> +       if (!alts || !roland_sanity_check_iface(alts))
+>> +               return 0;
+>> +       epd = get_endpoint(alts, 0);
+>> +       if (!usb_endpoint_is_isoc_out(epd))
+>> +               return 0;
+>> +       return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress,
+>> 0,
+>> +                                      alts->desc.bInterfaceNumber, alts);
+>>  }
+>>
+>>  /* Playback and capture EPs on Pioneer devices share the same
+>> iface/altset
+>> @@ -365,14 +407,8 @@ static int audioformat_implicit_fb_quirk(struct
+>> snd_usb_audio *chip,
+>>         }
+>>
+>>         /* Roland/BOSS implicit feedback with vendor spec class */
+>> -       if (attr == USB_ENDPOINT_SYNC_ASYNC &&
+>> -           alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
+>> -           alts->desc.bInterfaceProtocol == 2 &&
+>> -           alts->desc.bNumEndpoints == 1 &&
+>> -           USB_ID_VENDOR(chip->usb_id) == 0x0582 /* Roland */) {
+>> -               if (add_roland_implicit_fb(chip, fmt,
+>> -                                          alts->desc.bInterfaceNumber +
+>> 1,
+>> -                                          alts->desc.bAlternateSetting))
+>> +       if (USB_ID_VENDOR(chip->usb_id) == 0x0582) {
+>> +               if (add_roland_implicit_fb(chip, fmt, alts) > 0)
+>>                         return 1;
+>>         }
+>>
+>> @@ -404,6 +440,13 @@ static int audioformat_capture_quirk(struct
+>> snd_usb_audio *chip,
+>>         if (p && (p->type == IMPLICIT_FB_FIXED || p->type ==
+>> IMPLICIT_FB_BOTH))
+>>                 return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
+>>                                                p->iface, NULL);
+>> +
+>> +       /* Roland/BOSS need full-duplex streams */
+>> +       if (USB_ID_VENDOR(chip->usb_id) == 0x0582) {
+>> +               if (add_roland_capture_quirk(chip, fmt, alts) > 0)
+>> +                       return 1;
+>> +       }
+>> +
+>>         if (is_pioneer_implicit_fb(chip, alts))
+>>                 return 1; /* skip the quirk, also don't handle generic
+>> sync EP */
+>>         return 0;
+>>
+>

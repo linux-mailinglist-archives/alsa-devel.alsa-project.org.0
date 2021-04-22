@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92BDD367E2D
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 11:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392ED367EAD
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 12:34:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2854168A;
-	Thu, 22 Apr 2021 11:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2854168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5DA8112;
+	Thu, 22 Apr 2021 12:33:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DA8112
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619085315;
-	bh=mUnAXehkGOF6z3eZMg+l6Ce67tzg6ioe9jlCxZCPoRE=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XtensfedQr3RpTp4uw/FPD7OecQX1fTeK5RjItJNJmYhCJcD8Fad6niYdqIeog357
-	 mTIqOmD4R+2VGrX4nQwsd2ZP5DjihIBvW89kxSz4EVfqiWz8TzHif9mrrfth/Vt3zh
-	 GXhTsOliwMwyCPc0Tr8iTR25II9shounCluCYox4=
+	s=default; t=1619087656;
+	bh=2xRaqd2roJZwLiMhC5j9BksxLuCJJGshM5NNkDnNh5s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dH8Y37OIvVTKjSPkIRTZXAypECnjS6aLrhCosrnGTE/qecu/A/D0A6MohefoySLkB
+	 LerH68qsK3/kWGImP+b/zhXb6PqghhyFLNoly+JnfqRkoTiRor148F1HcPQQ5NpFAh
+	 iJRhmBV8W/PJ6I9xB4H1xyeiQ47y4tCS9+m/R2tY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14610F80278;
-	Thu, 22 Apr 2021 11:53:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F101AF80059;
+	Thu, 22 Apr 2021 12:32:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C095F80134; Thu, 22 Apr 2021 11:53:33 +0200 (CEST)
+ id 5BBA0F80273; Thu, 22 Apr 2021 12:32:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,105 +32,92 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6AB1F80134
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 11:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6AB1F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C367F800AE
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 12:32:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C367F800AE
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 13M9rMkU5003615,
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 13MAWUdsC015074,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 13M9rMkU5003615
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 13MAWUdsC015074
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 22 Apr 2021 17:53:22 +0800
-Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
+ Thu, 22 Apr 2021 18:32:30 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
  RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 22 Apr 2021 17:53:22 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ 15.1.2106.2; Thu, 22 Apr 2021 18:32:29 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 22 Apr 2021 17:53:21 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::e1bc:d5c7:d79c:2ab7]) by
- RTEXMBS01.realtek.com.tw ([fe80::e1bc:d5c7:d79c:2ab7%13]) with mapi id
- 15.01.2106.013; Thu, 22 Apr 2021 17:53:21 +0800
-From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
-To: Jaroslav Kysela <perex@perex.cz>, "broonie@kernel.org"
- <broonie@kernel.org>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-Subject: RE: [PATCH] ASoC: rt711-sdca: add the notification when volume changed
-Thread-Topic: [PATCH] ASoC: rt711-sdca: add the notification when volume
- changed
-Thread-Index: AQHXN1cgNbYV/2X2002yusd+mIEbSqq/w8mAgACHeTA=
-Date: Thu, 22 Apr 2021 09:53:21 +0000
-Message-ID: <9c3c2f3c981649e99e305e024206c7e2@realtek.com>
-References: <20210422090855.2971-1-shumingf@realtek.com>
- <fd140a1d-d1cf-1894-5925-ff63da347d09@perex.cz>
-In-Reply-To: <fd140a1d-d1cf-1894-5925-ff63da347d09@perex.cz>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.209]
-x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzQvMjIg5LiK5Y2IIDA3OjA1OjAw?=
-x-kse-attachment-filter-triggered-rules: Clean
-x-kse-attachment-filter-triggered-filters: Clean
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 15.1.2106.2; Thu, 22 Apr 2021 18:32:28 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH v4] ASoC: rt711-sdca: change capture switch controls
+Date: Thu, 22 Apr 2021 18:32:20 +0800
+Message-ID: <20210422103220.21987-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMBS01.realtek.com.tw (172.21.6.94) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzQvMjIgpFekyCAwNjowMDowMA==?=
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
 X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/22/2021 09:38:29
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/22/2021 10:06:52
 X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
 X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 163279 [Apr 22 2021]
+X-KSE-AntiSpam-Rate: 10
+X-KSE-AntiSpam-Info: Lua profiles 163280 [Apr 22 2021]
 X-KSE-AntiSpam-Info: Version: 5.9.20.0
 X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
 X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
+X-KSE-AntiSpam-Info: {Prob_from_in_msgid}
 X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; realtek.com:7.1.1
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, from}
-X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: realtek.com:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
+X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
+X-KSE-AntiSpam-Info: Rate: 10
 X-KSE-AntiSpam-Info: Status: not_detected
 X-KSE-AntiSpam-Info: Method: none
 X-KSE-AntiSpam-Info: Auth:dkim=none
 X-KSE-Antiphishing-Info: Clean
 X-KSE-Antiphishing-ScanningType: Heuristic
 X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 04/22/2021 09:40:00
+X-KSE-Antiphishing-Bases: 04/22/2021 10:10:00
 X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
 X-KSE-Attachment-Filter-Triggered-Rules: Clean
 X-KSE-Attachment-Filter-Triggered-Filters: Clean
 X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
 X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/22/2021 09:38:29
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 04/22/2021 10:23:00
 X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
 X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 163279 [Apr 22 2021]
+X-KSE-AntiSpam-Rate: 10
+X-KSE-AntiSpam-Info: Lua profiles 163282 [Apr 22 2021]
 X-KSE-AntiSpam-Info: Version: 5.9.20.0
 X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
 X-KSE-AntiSpam-Info: LuaCore: 442 442 b985cb57763b61d2a20abb585d5d4cc10c315b09
+X-KSE-AntiSpam-Info: {Prob_from_in_msgid}
 X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
 X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2;
  d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; realtek.com:7.1.1
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, from}
-X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Rate: 10
 X-KSE-AntiSpam-Info: Status: not_detected
 X-KSE-AntiSpam-Info: Method: none
 X-KSE-AntiSpam-Info: Auth:dkim=none
 X-KSE-Antiphishing-Info: Clean
 X-KSE-Antiphishing-ScanningType: Heuristic
 X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 04/22/2021 09:40:00
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "libin.yang@intel.com" <libin.yang@intel.com>,
- =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+X-KSE-Antiphishing-Bases: 04/22/2021 10:25:00
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, libin.yang@intel.com, derek.fang@realtek.com,
+ Shuming Fan <shumingf@realtek.com>, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,28 +133,248 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgSmFyb3NsYXYsDQoNCj4gPiBAQCAtNTA5LDEyICs1MDksMTYgQEAgc3RhdGljIGludCBydDcx
-MV9zZGNhX3NldF9nYWluX3B1dChzdHJ1Y3QNCj4gc25kX2tjb250cm9sICprY29udHJvbCwNCj4g
-PiAgCQkoc3RydWN0IHNvY19taXhlcl9jb250cm9sICopa2NvbnRyb2wtPnByaXZhdGVfdmFsdWU7
-DQo+ID4gIAlzdHJ1Y3QgcnQ3MTFfc2RjYV9wcml2ICpydDcxMSA9DQo+IHNuZF9zb2NfY29tcG9u
-ZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQo+ID4gIAl1bnNpZ25lZCBpbnQgcmVhZF9sLCBy
-ZWFkX3IsIGdhaW5fbF92YWwsIGdhaW5fcl92YWw7DQo+ID4gLQl1bnNpZ25lZCBpbnQgaSwgYWRj
-X3ZvbF9mbGFnID0gMDsNCj4gPiArCXVuc2lnbmVkIGludCBpLCBhZGNfdm9sX2ZsYWcgPSAwLCBj
-aGFuZ2VkID0gMDsNCj4gPiArCXVuc2lnbmVkIGludCBsdmFsdWUsIHJ2YWx1ZTsNCj4gPg0KPiA+
-ICAJaWYgKHN0cnN0cih1Y29udHJvbC0+aWQubmFtZSwgIkZVMUUgQ2FwdHVyZSBWb2x1bWUiKSB8
-fA0KPiA+ICAJCXN0cnN0cih1Y29udHJvbC0+aWQubmFtZSwgIkZVMEYgQ2FwdHVyZSBWb2x1bWUi
-KSkNCj4gPiAgCQlhZGNfdm9sX2ZsYWcgPSAxOw0KPiA+DQo+ID4gKwlyZWdtYXBfcmVhZChydDcx
-MS0+bWJxX3JlZ21hcCwgbWMtPnJlZywgJmx2YWx1ZSk7DQo+ID4gKwlyZWdtYXBfcmVhZChydDcx
-MS0+bWJxX3JlZ21hcCwgbWMtPnJyZWcsICZydmFsdWUpOw0KPiA+ICsNCj4gPiAgCS8qIGNvbnRy
-b2wgdmFsdWUgdG8gMidzIGNvbXBsZW1lbnQgdmFsdWUgKi8NCj4gPiAgCS8qIEwgQ2hhbm5lbCAq
-Lw0KPiA+ICAJZ2Fpbl9sX3ZhbCA9IHVjb250cm9sLT52YWx1ZS5pbnRlZ2VyLnZhbHVlWzBdOyBA
-QCAtNTYwLDYgKzU2NCw5IEBADQo+ID4gc3RhdGljIGludCBydDcxMV9zZGNhX3NldF9nYWluX3B1
-dChzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gPiAgCQlnYWluX3JfdmFsICY9IDB4
-ZmZmZjsNCj4gPiAgCX0NCj4gPg0KPiA+ICsJaWYgKGx2YWx1ZSAhPSBnYWluX2xfdmFsIHx8IHJ2
-YWx1ZSAhPSBnYWluX3JfdmFsKQ0KPiA+ICsJCWNoYW5nZWQgPSAxOw0KPiANCj4gSSB0aGluayB0
-aGF0IGl0J3Mgc2FmZSB0byByZXR1cm4gZWFybHkgd2l0aCB0aGUgemVybyByZXR1cm4gdmFsdWUg
-aGVyZT8gV2h5IHRvDQo+IHJld3JpdGUgdGhlIGlkZW50aWNhbCB2YWx1ZSBpbiB0aGUgaHcgcmVn
-aXN0ZXJzPw0KDQpPSywgd2lsbCBmaXguIFRoYW5rcy4NCg0KPiANCj4gCQkJCQlKYXJvc2xhdg0K
-PiANCj4gLS0NCj4gSmFyb3NsYXYgS3lzZWxhIDxwZXJleEBwZXJleC5jej4NCj4gTGludXggU291
-bmQgTWFpbnRhaW5lcjsgQUxTQSBQcm9qZWN0OyBSZWQgSGF0LCBJbmMuDQo+IC0tLS0tLVBsZWFz
-ZSBjb25zaWRlciB0aGUgZW52aXJvbm1lbnQgYmVmb3JlIHByaW50aW5nIHRoaXMgZS1tYWlsLg0K
+From: Shuming Fan <shumingf@realtek.com>
+
+The DAPM event and mixer control could mute/unmute the capture directly.
+That will be confused that capture still works if the user settings is unmute before the capture.
+Therefore, this patch uses the variables to record the capture switch status of DAPM and mixer.
+
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt711-sdca.c | 168 +++++++++++++++++++++++++---------
+ sound/soc/codecs/rt711-sdca.h |   2 +
+ 2 files changed, 127 insertions(+), 43 deletions(-)
+
+diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
+index bfb7f1c8ec8f..39848d2641c3 100644
+--- a/sound/soc/codecs/rt711-sdca.c
++++ b/sound/soc/codecs/rt711-sdca.c
+@@ -642,6 +642,114 @@ static int rt711_sdca_set_gain_get(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
++static int rt711_sdca_set_fu0f_capture_ctl(struct rt711_sdca_priv *rt711)
++{
++	int err;
++	unsigned int ch_l, ch_r;
++
++	ch_l = (rt711->fu0f_dapm_mute || rt711->fu0f_mixer_l_mute) ? 0x01 : 0x00;
++	ch_r = (rt711->fu0f_dapm_mute || rt711->fu0f_mixer_r_mute) ? 0x01 : 0x00;
++
++	err = regmap_write(rt711->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
++			RT711_SDCA_CTL_FU_MUTE, CH_L), ch_l);
++	if (err < 0)
++		return err;
++
++	err = regmap_write(rt711->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
++			RT711_SDCA_CTL_FU_MUTE, CH_R), ch_r);
++	if (err < 0)
++		return err;
++
++	return 0;
++}
++
++static int rt711_sdca_set_fu1e_capture_ctl(struct rt711_sdca_priv *rt711)
++{
++	int err;
++	unsigned int ch_l, ch_r;
++
++	ch_l = (rt711->fu1e_dapm_mute || rt711->fu1e_mixer_l_mute) ? 0x01 : 0x00;
++	ch_r = (rt711->fu1e_dapm_mute || rt711->fu1e_mixer_r_mute) ? 0x01 : 0x00;
++
++	err = regmap_write(rt711->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
++			RT711_SDCA_CTL_FU_MUTE, CH_L), ch_l);
++	if (err < 0)
++		return err;
++
++	err = regmap_write(rt711->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
++			RT711_SDCA_CTL_FU_MUTE, CH_R), ch_r);
++	if (err < 0)
++		return err;
++
++	return 0;
++}
++
++static int rt711_sdca_fu1e_capture_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = !rt711->fu1e_mixer_l_mute;
++	ucontrol->value.integer.value[1] = !rt711->fu1e_mixer_r_mute;
++	return 0;
++}
++
++static int rt711_sdca_fu1e_capture_put(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++	int err, changed = 0;
++
++	if (rt711->fu1e_mixer_l_mute != !ucontrol->value.integer.value[0] ||
++		rt711->fu1e_mixer_r_mute != !ucontrol->value.integer.value[1])
++		changed = 1;
++
++	rt711->fu1e_mixer_l_mute = !ucontrol->value.integer.value[0];
++	rt711->fu1e_mixer_r_mute = !ucontrol->value.integer.value[1];
++	err = rt711_sdca_set_fu1e_capture_ctl(rt711);
++	if (err < 0)
++		return err;
++
++	return changed;
++}
++
++static int rt711_sdca_fu0f_capture_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = !rt711->fu0f_mixer_l_mute;
++	ucontrol->value.integer.value[1] = !rt711->fu0f_mixer_r_mute;
++	return 0;
++}
++
++static int rt711_sdca_fu0f_capture_put(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++	int err, changed = 0;
++
++	if (rt711->fu0f_mixer_l_mute != !ucontrol->value.integer.value[0] ||
++		rt711->fu0f_mixer_r_mute != !ucontrol->value.integer.value[1])
++		changed = 1;
++
++	rt711->fu0f_mixer_l_mute = !ucontrol->value.integer.value[0];
++	rt711->fu0f_mixer_r_mute = !ucontrol->value.integer.value[1];
++	err = rt711_sdca_set_fu0f_capture_ctl(rt711);
++	if (err < 0)
++		return err;
++
++	return changed;
++}
++
+ static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
+ static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
+ static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
+@@ -652,14 +760,10 @@ static const struct snd_kcontrol_new rt711_sdca_snd_controls[] = {
+ 		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU05, RT711_SDCA_CTL_FU_VOLUME, CH_R),
+ 		0x57, 0x57, 0,
+ 		rt711_sdca_set_gain_get, rt711_sdca_set_gain_put, out_vol_tlv),
+-	SOC_DOUBLE_R("FU1E Capture Switch",
+-		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_L),
+-		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_MUTE, CH_R),
+-		0, 1, 1),
+-	SOC_DOUBLE_R("FU0F Capture Switch",
+-		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_L),
+-		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F, RT711_SDCA_CTL_FU_MUTE, CH_R),
+-		0, 1, 1),
++	SOC_DOUBLE_EXT("FU1E Capture Switch", SND_SOC_NOPM, 0, 1, 1, 0,
++		rt711_sdca_fu1e_capture_get, rt711_sdca_fu1e_capture_put),
++	SOC_DOUBLE_EXT("FU0F Capture Switch", SND_SOC_NOPM, 0, 1, 1, 0,
++		rt711_sdca_fu0f_capture_get, rt711_sdca_fu0f_capture_put),
+ 	SOC_DOUBLE_R_EXT_TLV("FU1E Capture Volume",
+ 		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_L),
+ 		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E, RT711_SDCA_CTL_FU_VOLUME, CH_R),
+@@ -809,28 +913,15 @@ static int rt711_sdca_fu0f_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component =
+ 		snd_soc_dapm_to_component(w->dapm);
+ 	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
+-	unsigned char unmute = 0x0, mute = 0x1;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
+-				RT711_SDCA_CTL_FU_MUTE, CH_L),
+-				unmute);
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
+-				RT711_SDCA_CTL_FU_MUTE, CH_R),
+-				unmute);
++		rt711->fu0f_dapm_mute = false;
++		rt711_sdca_set_fu0f_capture_ctl(rt711);
+ 		break;
+ 	case SND_SOC_DAPM_PRE_PMD:
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
+-				RT711_SDCA_CTL_FU_MUTE, CH_L),
+-				mute);
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU0F,
+-				RT711_SDCA_CTL_FU_MUTE, CH_R),
+-				mute);
++		rt711->fu0f_dapm_mute = true;
++		rt711_sdca_set_fu0f_capture_ctl(rt711);
+ 		break;
+ 	}
+ 	return 0;
+@@ -842,29 +933,16 @@ static int rt711_sdca_fu1e_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component =
+ 		snd_soc_dapm_to_component(w->dapm);
+ 	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
+-	unsigned char unmute = 0x0, mute = 0x1;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
+-				RT711_SDCA_CTL_FU_MUTE, CH_L),
+-				unmute);
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
+-				RT711_SDCA_CTL_FU_MUTE, CH_R),
+-				unmute);
++		rt711->fu1e_dapm_mute = false;
++		rt711_sdca_set_fu1e_capture_ctl(rt711);
+ 		break;
+ 	case SND_SOC_DAPM_PRE_PMD:
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
+-				RT711_SDCA_CTL_FU_MUTE, CH_L),
+-				mute);
+-		regmap_write(rt711->regmap,
+-			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
+-				RT711_SDCA_CTL_FU_MUTE, CH_R),
+-				mute);
+-			break;
++		rt711->fu1e_dapm_mute = true;
++		rt711_sdca_set_fu1e_capture_ctl(rt711);
++		break;
+ 	}
+ 	return 0;
+ }
+@@ -1330,6 +1408,10 @@ int rt711_sdca_init(struct device *dev, struct regmap *regmap,
+ 	 */
+ 	rt711->hw_init = false;
+ 	rt711->first_hw_init = false;
++	rt711->fu0f_dapm_mute = true;
++	rt711->fu1e_dapm_mute = true;
++	rt711->fu0f_mixer_l_mute = rt711->fu0f_mixer_r_mute = true;
++	rt711->fu1e_mixer_l_mute = rt711->fu1e_mixer_r_mute = true;
+ 
+ 	/* JD source uses JD2 in default */
+ 	rt711->jd_src = RT711_JD2;
+diff --git a/sound/soc/codecs/rt711-sdca.h b/sound/soc/codecs/rt711-sdca.h
+index 98a022cec0bd..43ae82b7fdb3 100644
+--- a/sound/soc/codecs/rt711-sdca.h
++++ b/sound/soc/codecs/rt711-sdca.h
+@@ -30,6 +30,8 @@ struct  rt711_sdca_priv {
+ 	int jack_type, jd_src;
+ 	unsigned int scp_sdca_stat1, scp_sdca_stat2;
+ 	int hw_ver;
++	bool fu0f_dapm_mute, fu0f_mixer_l_mute, fu0f_mixer_r_mute;
++	bool fu1e_dapm_mute, fu1e_mixer_l_mute, fu1e_mixer_r_mute;
+ };
+ 
+ struct sdw_stream_data {
+-- 
+2.29.0
+

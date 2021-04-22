@@ -2,103 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEE0B368212
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 16:02:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0487A3682B2
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 16:50:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E20585D;
-	Thu, 22 Apr 2021 16:01:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E20585D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 796A9167A;
+	Thu, 22 Apr 2021 16:49:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 796A9167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619100152;
-	bh=KUh8hXIjYjOj4mgR5P4gI1ccwtROS8BAI0irsnEGaI4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1619103028;
+	bh=QKXYTqS0srVIGwwfShAJ0YizL2FbVtUxRFNsjnUYMkk=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hYYzLHCc3/nCwUTjJNhuRkBHC1bq+uInl2uTdPf2B6YYYeVNwXcjCyT8xLX8x7nMw
-	 ULYfFaHEpbKLTzFD5zqN79QOhoskqu4EMVQJ3xAGNZ+1voC7/yb9yK6w676YdWQcbI
-	 a43bQGjDn54j4LBKoiCeNw7JWKF1eDnME8WTgszg=
+	b=JZzERSfCJcbd5FJq4OPFJgkMLX1QpfvvkJX+uUADboO9MSktSOxAwwz2BBY/OwyOn
+	 VZYsVezgriB4DCYfJuNPscqpokTYn4wW1Z03P/hYX6SJ/YLi1RMoUPS7fUsW0WZv+4
+	 IUB9L/QPzT+OeMNj8ftbSiFg4dS/XjZNh9wGF/KI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B966AF800AE;
-	Thu, 22 Apr 2021 16:01:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF4ABF80273;
+	Thu, 22 Apr 2021 16:48:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0BBDF80168; Thu, 22 Apr 2021 16:01:01 +0200 (CEST)
+ id 39D5FF80253; Thu, 22 Apr 2021 16:48:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9B75F80134
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 16:00:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B75F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42C0EF80059
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 16:48:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42C0EF80059
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DIu/8G4h"
-Received: by mail-lf1-x12b.google.com with SMTP id d27so15475493lfv.9
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 07:00:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=XdTPGn7kzAorIr31woOO1tDdE9k/iAgH+AUBZEWaSZc=;
- b=DIu/8G4heEQpnd2a9G8555GAdp0ibkzerNqC9MB+kxrCMVIg7o3QlMSOxWn2d8SsOP
- CqkKorof3OhQHPsQ/R5lJFu/hHXNzP5hz79y4axFD2Mo7V4l9xZgVU3iK+GAZl7fS+oG
- BlsV3vPFKvAxE1ENEqdElp4rEOiLtReErBWCuWD5ztUxJuzA9McS8i2EC9UTl0HhuttK
- rrmh6h+jG+We/ju6k+TdPMvxrDStsZ0JuDx7G9UFMQAgbCPZER2h36/0qUJJ4Qn+XaYY
- Qvtnz02659/63cr2W1hjl4hR3LPcp9r8rslcE60vh0ghevXJPoxPRasg6GSUSa24it1L
- iT/w==
+ dkim=pass (2048-bit key) header.d=superlative.org header.i=@superlative.org
+ header.b="dk0A3ZLd"
+Received: by mail-qt1-x832.google.com with SMTP id q4so5625619qtn.5
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 07:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=superlative.org; s=google;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=Bi59W6Osi5P99v5y7XCyOCk6aWdfmkGxn3hgmpm88QI=;
+ b=dk0A3ZLdAL+CT0QBpqRt382CCN2kEqBicJE2VE5Rs0I+wQKjaBrPx4zYOva90VTUrd
+ VJhfDBV5ylLifn/IUxoDGNceUrkC3wjZkxV63vAXwovnWEPxvxtUiOT43nVF6hlq2vVF
+ l4Pllyu/VMpA8mcRrBMQfkdkmdnoJZgAT1pZSJ8fzMBdsBXj8pXzyI4TnipgE4IfMARE
+ T8UD4ExKwnHYx5ma6+AnZ1C8917HWisBUckTdE9k9nk2XXcpQEksYrD3yb+qdvROfKTh
+ 0DhLMXMUeMW/MFWD2IltkRnJLZXHjWGuTH/e3P1nBIzoIrxB4YYmqryScIBcbUN1bI/s
+ qnGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=XdTPGn7kzAorIr31woOO1tDdE9k/iAgH+AUBZEWaSZc=;
- b=JRtnu3cEqglRzlVJOBFlVMAI0VLlpUXxD5I4hT79pE01X5e5Y1UjOumMaS+FDjOdzT
- /OWPMJloZg4owFd+0w3welyDtjPUTJaISfwQYFAjv7cNzHiQmTDsPVzhMJCqmZ+x9oPd
- oFMaFvQPlX/I7JNpv6jxC3w0gmHM1SJmsKcvPmFmswre3qaxXNw/hTnsdAIJdVVn3mUd
- s/BJSSkXx+joR4SF1D32mc3Va64/O/oxSz+U9i0CGn5MyZFS6r5feyDayKYXAerXoBNZ
- oLukI9LjmbCS8Ujbz+UJ1HWYi76p12pCcJs0HKk6Ly3i4ji862k/elWtAFiHJjKxIQ3d
- BmMg==
-X-Gm-Message-State: AOAM533QY50iRGKcZ9U82vPG05TqypUde83lu5lDfNMUC82TynkM0jsE
- 1CkmAWGI0fPOcPWUja0gn+k=
-X-Google-Smtp-Source: ABdhPJwl8QialC+zzPTpzKmoo6LEbOcOFAGBvMFA/Qt3hWHr+uxRjVckQr0ki6fcGFGL+Zm9+MNIAQ==
-X-Received: by 2002:a05:6512:3f9d:: with SMTP id
- x29mr2533777lfa.363.1619100043598; 
- Thu, 22 Apr 2021 07:00:43 -0700 (PDT)
-Received: from [10.0.0.42] (91-155-111-71.elisa-laajakaista.fi.
- [91.155.111.71])
- by smtp.gmail.com with ESMTPSA id a25sm290782ljp.38.2021.04.22.07.00.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Apr 2021 07:00:43 -0700 (PDT)
-Subject: Re: ASoc / PCM recording-related regression between v5.4 and v5.5
-To: htl10@users.sourceforge.net,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-References: <148484793.4894421.1618654607945.ref@mail.yahoo.com>
- <148484793.4894421.1618654607945@mail.yahoo.com>
- <877dkz5hz1.wl-kuninori.morimoto.gx@renesas.com>
- <1772063602.5910217.1618841824599@mail.yahoo.com>
- <87h7k152du.wl-kuninori.morimoto.gx@renesas.com>
- <212419469.6653726.1618928398310@mail.yahoo.com>
- <425493399.6730534.1618934642983@mail.yahoo.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
-Message-ID: <ec99afd0-fa6b-71a5-653d-f1ef9687d5ed@gmail.com>
-Date: Thu, 22 Apr 2021 17:01:57 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Bi59W6Osi5P99v5y7XCyOCk6aWdfmkGxn3hgmpm88QI=;
+ b=DILDcpR3huan4HRKjEuaicAYh3VUm+3Owymr4YmHgIPEMrEYGUUGLgTPbXdTyT6vr2
+ lYRyxfsKCgfG+fXqN6HZ6LvbBiq3gpWVJVEHOQKw0Hrd/yUIvJtnGI94vIiTbleUjH6c
+ 5NhuqDzLgzYJmi7y76IFCRh5F+cSL3SCk4k89UMUOuyD3rFueDUERltJ/oql7WMBbZ7K
+ SBrEPy6DFUmNgV+14j3cS9uoawS9EtPJH52xvOoCYF+nx9GLsALssYEDx7O+HltR46B4
+ +OfABiOBHOcCgmjLiT5kjvJFhWN/9Xs6Rvn2j1f9P6aJC60VrgVzeioKNlmQGTb8G+LL
+ iPFA==
+X-Gm-Message-State: AOAM533o8knVF9cbIAffngl/Dg9vP+QJWvsObU9eCVJc+YHZg3l0u1l8
+ 2qVPb4Spzwr+zyp4JtUT6bRYhuBuzKNUsrMQ
+X-Google-Smtp-Source: ABdhPJzV+d93rUIgbxL69YiMvtxdu98NumEZWTo9SKkHSudQuGe3sDyyUDrSN91Ajk5FccrfOo0lgQ==
+X-Received: by 2002:ac8:6f55:: with SMTP id n21mr3521704qtv.382.1619102927777; 
+ Thu, 22 Apr 2021 07:48:47 -0700 (PDT)
+Received: from localhost (grenville1.superlative.org. [81.187.25.35])
+ by smtp.gmail.com with ESMTPSA id d3sm2335630qtm.56.2021.04.22.07.48.46
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Apr 2021 07:48:47 -0700 (PDT)
+From: "Keith A. Milner" <maillist@superlative.org>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: usb-audio: Apply implicit feedback mode for BOSS
+ devices
+Date: Thu, 22 Apr 2021 15:41:16 +0100
+Message-ID: <12753665.uLZWGnKmhe@kam-desktop>
+In-Reply-To: <CAOsVg8p=yikaRQ-=RWdO8nWdC70tnw4kQ17KM-smShQvujrRJg@mail.gmail.com>
+References: <20210414083255.9527-1-tiwai@suse.de>
+ <5949663.lOV4Wx5bFT@kam-desktop>
+ <CAOsVg8p=yikaRQ-=RWdO8nWdC70tnw4kQ17KM-smShQvujrRJg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <425493399.6730534.1618934642983@mail.yahoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,95 +102,198 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tuesday, 20 April 2021 05:20:57 BST Lucas wrote:
+> Keith, if it's anything like the Roland devices I've tested with this
+> long-awaited patch, could you show the JS-8's "lsusb -v"?
 
-On 4/20/21 7:04 PM, Hin-Tak Leung wrote:
->  Hi,
-> 
-> I agree with Peter's change. Raspbian - the raspberry pi distribution - is currently shipping v5.10.x (jumping from v5.4.x in February), which has changed a lot since v5.5.x. Nonetheless, as a proof of concept, I reverted the idea of Peter's change in v.5.10.x, with this:
-> 
-> <diff-start>
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 91bf33958..20077dd8c 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -1042,7 +1042,7 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
->  case SNDRV_PCM_TRIGGER_START:
->  case SNDRV_PCM_TRIGGER_RESUME:
->  case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> - ret = snd_soc_link_trigger(substream, cmd);
-> + ret = snd_soc_pcm_dai_trigger(substream, cmd);
->  if (ret < 0)
->  break;
->  
-> @@ -1050,8 +1050,9 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
->  if (ret < 0)
->  break;
->  
-> - ret = snd_soc_pcm_dai_trigger(substream, cmd);
-> + ret = snd_soc_link_trigger(substream, cmd);
->  break;
-> +
->  case SNDRV_PCM_TRIGGER_STOP:
->  case SNDRV_PCM_TRIGGER_SUSPEND:
->  case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> <diff-end>
-> 
-> and was able to restore the functionality of Seeed Studio's respeaker driver against v5.10.x. That it relies on the previous behavior is a bit broken. I think I'd like some dev_dbg() inside soc-pcm.c, and perhaps some help in modifying the out-of-tree audio device driver to cope?
-
-
-If you start the DAI first and later the DMA then it works again?
-I'm still behind of the patch which introduced different sequences for
-start and stop.
-
-From my commit the start sequence is:
-dai_link, DMA, CPU DAI then the codec
-
-Is it make any difference if you try:
-dai_link, DMA, codec then the CPU DAI
-
-But the codec is usually not handled in trigger, it can not be atomic
-most of the time.
-
-Can you point me to the out of tree driver and the related dts files?
-Can it be reproduced with rpbi w/o any hat? I have one hifiberry but
-that is playback only and if I'm not mistaken the 3.5 on the board also?
-
+Output pasted further down.
 
 > 
-> Thanks a lot.
-> 
-> Regards,
-> Hin-Tak 
-> 
-> On Tuesday, 20 April 2021, 15:19:58 BST, Hin-Tak Leung <htl10@users.sourceforge.net> wrote:
-> 
->> Hi Peter:
-> 
->> I found the commit of a rather unusual regression between kernel v5.4 and v5.5, for an out-of-tree driver on the 
->> raspberrypi. Everything looks identical between v5.4 and 5.5, within accountable differences, even with debugging in > sound/ +p and the driver side. 5.4 records fine, 5.5 stucks on recording. The commit is one of yours:
-> 
->> commit 4378f1fbe924054a09ff0d4e39e1a581b9245252
->> Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
->> Date: Fri Sep 27 10:16:46 2019 +0300
-> 
->> ASoC: soc-pcm: Use different sequence for start/stop trigger
-> 
-> ...
-> 
->> The problem was initially at https://github.com/respeaker/seeed-voicecard/issues/290 
->> then over to https://github.com/raspberrypi/linux/issues/4279 and finally here. The "seeed-8mic-voicecard-
->> overlay.dts" is the dts corresponds to the problematic device ; The one with similar hardware but okay is "seeed-
->> 4mic-voicecard-overlay.dts" .
-> 
-> ...
->> The Raspberry Pi distribution raspbian jumped directly from 5.4.x to 5.10.x at the beginning of February. Considering 
->> the change has been in since the v5.5 merge window, I guess I'd like some help to correct / workaround on the 
->> out-of-tree driver side? And probably some new dev_err() message in the kernel for problematic driver helping to 
->> diagnose similar problems in the future would be nice. 
-> 
->   
-> 
+> For me, silence due to the wrong line takes the form of unheard output
+> playback, while still working for input capture, so I'm not sure this has
+> any bearing on your issue.
 
--- 
-Péter
+When testing Takashi-san's earlier patches, I had a mixture of experiences 
+including (depending on the patch) some devices recording silence, some 
+playing back silence, and some where the record would lock up until playback 
+was started (or vice versa).
+
+> 
+> Takashi Iwai has indicated a likely connection between needing the
+> IMPLICIT_FB_BOTH_DEVICE line if there's "Asynchronous" "Synch Type" for
+> both input and output endpoints.  Otherwise, possibly, it should be
+> reverted to IMPLICIT_FB_FIXED_DEVICE for the JS-8.
+
+As you can see, this has "Asynchronous" "Synch Type" on EP4 IN and EP 5 OUT, 
+so I don't think it's this.
+
+Bus 001 Device 007: ID 0582:0109 Roland Corp. eBand JS-8
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass          255 Vendor Specific Class
+  bDeviceSubClass         0 
+  bDeviceProtocol       255 
+  bMaxPacketSize0        64
+  idVendor           0x0582 Roland Corp.
+  idProduct          0x0109 eBand JS-8
+  bcdDevice            0.01
+  iManufacturer           1 BOSS
+  iProduct                2 JS-8
+  iSerial                 0 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength       0x00a7
+    bNumInterfaces          3
+    bConfigurationValue     1
+    iConfiguration          0 
+    bmAttributes         0xc0
+      Self Powered
+    MaxPower                0mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2 
+      bInterfaceProtocol      2 
+      iInterface              0 
+      ** UNRECOGNIZED:  06 24 f1 01 00 00
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       1
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2 
+      bInterfaceProtocol      2 
+      iInterface              0 
+      ** UNRECOGNIZED:  07 24 01 01 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 44 ac 00
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x05  EP 5 OUT
+        bmAttributes            5
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2 
+      bInterfaceProtocol      1 
+      iInterface              0 
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       1
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      2 
+      bInterfaceProtocol      1 
+      iInterface              0 
+      ** UNRECOGNIZED:  07 24 01 07 00 01 00
+      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 44 ac 00
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x84  EP 4 IN
+        bmAttributes           37
+          Transfer Type            Isochronous
+          Synch Type               Asynchronous
+          Usage Type               Implicit feedback Data
+        wMaxPacketSize     0x0070  1x 112 bytes
+        bInterval               1
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        2
+      bAlternateSetting       0
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      ** UNRECOGNIZED:  06 24 f1 02 02 02
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               1
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x82  EP 2 IN
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               0
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        2
+      bAlternateSetting       1
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               1
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x81  EP 1 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               1
+Device Qualifier (for other device speed):
+  bLength                10
+  bDescriptorType         6
+  bcdUSB               2.00
+  bDeviceClass            8 Mass Storage
+  bDeviceSubClass         6 SCSI
+  bDeviceProtocol        80 Bulk-Only
+  bMaxPacketSize0        64
+  bNumConfigurations      0
+can't get debug descriptor: Resource temporarily unavailable
+Device Status:     0x0001
+  Self Powered
+
+Regards,
+
+Keith
+
+

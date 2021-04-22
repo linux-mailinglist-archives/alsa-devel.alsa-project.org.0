@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7458A36770C
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 03:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AD6436770D
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Apr 2021 03:55:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4468166B;
-	Thu, 22 Apr 2021 03:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4468166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 376701661;
+	Thu, 22 Apr 2021 03:54:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 376701661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619056530;
-	bh=2TGyefKbTguRNFZ5FLk4bltfQONtZL4ayixAL/Nf7ZQ=;
+	s=default; t=1619056545;
+	bh=q6WY3i7II0I/R3AAQrBH+yyxGh0gk5y+5kVG46kKHLk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kNwIDXTo7WVPJydnHsqUJk7UQZE2OVI/AQ5+3E3iR3NXZzs5xIKp5PqnN+vWA860t
-	 D6cSo/t3QSMgF2VoVVKzk9p/v2k1pIt9EdVC1PguVrbXkpxfDs3c3QnSTwPkfGI42Q
-	 5SvjiPjYTMc5aIhBaOFHy9qEKgXv5Zf5VEjRCnKA=
+	b=gzPd0MR0HUNks3W3nqeBTjzkP7cDZPgF2rd+s/VF7WqoxzjJxhc4k2mQ1xV5GqojN
+	 N2idUvWxc/EGeWSGGg1JZVg0PkCsgXvRVEJlqzrSoRmfMSWLegXEyVu/8rHcSqMhjA
+	 NPLLX7yPhfKwak6mJmfl6VoPsHn+kdqLPPKwH74k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A90D7F80278;
-	Thu, 22 Apr 2021 03:53:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E9DBF804A9;
+	Thu, 22 Apr 2021 03:54:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9FA4F80278; Thu, 22 Apr 2021 03:53:53 +0200 (CEST)
+ id A0D1AF8049C; Thu, 22 Apr 2021 03:53:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 4F71CF80278
- for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 03:53:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F71CF80278
-Date: 22 Apr 2021 10:53:44 +0900
-X-IronPort-AV: E=Sophos;i="5.82,241,1613401200"; d="scan'208";a="79059695"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 22 Apr 2021 10:53:44 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 65260F802CA
+ for <alsa-devel@alsa-project.org>; Thu, 22 Apr 2021 03:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65260F802CA
+Date: 22 Apr 2021 10:53:50 +0900
+X-IronPort-AV: E=Sophos;i="5.82,241,1613401200"; d="scan'208";a="78840221"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 22 Apr 2021 10:53:50 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 48861417339E;
- Thu, 22 Apr 2021 10:53:44 +0900 (JST)
-Message-ID: <87y2dbgk47.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id A0EDC400619D;
+ Thu, 22 Apr 2021 10:53:50 +0900 (JST)
+Message-ID: <87wnsvgk41.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/7] ASoC: soc-core: add snd_soc_runtime_get_dai_fmt()
+Subject: [PATCH 3/7] ASoC: ak4613: add .get_fmt support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <871rb3hypy.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,272 +70,41 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-ASoC is using dai_link which specify DAI format (= dai_link->dai_fmt),
-and it is selected by Sound Card driver in corrent implementation.
-In other words, Sound Card needs to setup it.
-
-But, it should be possible to automatically selected from CPU and Codec
-driver settings.
-
-This patch adds new snd_soc_runtime_get_dai_fmt() and
-.get_dai_fmt callback for it.
-
-We can still select it via Sound Card driver same as before.
-If both CPU / Codec driver had .get_dai_fmt callback,
-dai_fmt will be automatically selected from each driver.
+ak4613 supports .get_fmt by this patch
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-dai.h | 35 ++++++++++++++++++++
- sound/soc/soc-core.c    | 71 +++++++++++++++++++++++++++++++++++++++++
- sound/soc/soc-dai.c     | 19 +++++++++++
- sound/soc/soc-utils.c   | 26 +++++++++++++++
- 4 files changed, 151 insertions(+)
+ sound/soc/codecs/ak4613.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 1358a0ceb4d0..0a4afb84f12e 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -36,6 +36,17 @@ struct snd_compr_stream;
- #define SND_SOC_DAIFMT_MSB		SND_SOC_DAIFMT_LEFT_J
- #define SND_SOC_DAIFMT_LSB		SND_SOC_DAIFMT_RIGHT_J
- 
-+/* Describes the possible PCM format */
-+#define SND_SOC_POSSIBLE_DAIFMT_FORMAT_SHIFT	0
-+#define SND_SOC_POSSIBLE_DAIFMT_FORMAT_MASK	(0xFFFF << SND_SOC_POSSIBLE_DAIFMT_FORMAT_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_I2S		(1 << SND_SOC_DAI_FORMAT_I2S)
-+#define SND_SOC_POSSIBLE_DAIFMT_RIGHT_J		(1 << SND_SOC_DAI_FORMAT_RIGHT_J)
-+#define SND_SOC_POSSIBLE_DAIFMT_LEFT_J		(1 << SND_SOC_DAI_FORMAT_LEFT_J)
-+#define SND_SOC_POSSIBLE_DAIFMT_DSP_A		(1 << SND_SOC_DAI_FORMAT_DSP_A)
-+#define SND_SOC_POSSIBLE_DAIFMT_DSP_B		(1 << SND_SOC_DAI_FORMAT_DSP_B)
-+#define SND_SOC_POSSIBLE_DAIFMT_AC97		(1 << SND_SOC_DAI_FORMAT_AC97)
-+#define SND_SOC_POSSIBLE_DAIFMT_PDM		(1 << SND_SOC_DAI_FORMAT_PDM)
-+
- /*
-  * DAI Clock gating.
-  *
-@@ -45,6 +56,12 @@ struct snd_compr_stream;
- #define SND_SOC_DAIFMT_CONT		(1 << 4) /* continuous clock */
- #define SND_SOC_DAIFMT_GATED		(0 << 4) /* clock is gated */
- 
-+/* Describes the possible PCM format */
-+#define SND_SOC_POSSIBLE_DAIFMT_CLOCK_SHIFT	16
-+#define SND_SOC_POSSIBLE_DAIFMT_CLOCK_MASK	(0xFFFF	<< SND_SOC_POSSIBLE_DAIFMT_CLOCK_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_CONT		(0x1ULL	<< SND_SOC_POSSIBLE_DAIFMT_CLOCK_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_GATED		(0x0ULL	<< SND_SOC_POSSIBLE_DAIFMT_CLOCK_SHIFT)
-+
- /*
-  * DAI hardware signal polarity.
-  *
-@@ -71,6 +88,14 @@ struct snd_compr_stream;
- #define SND_SOC_DAIFMT_IB_NF		(3 << 8) /* invert BCLK + nor FRM */
- #define SND_SOC_DAIFMT_IB_IF		(4 << 8) /* invert BCLK + FRM */
- 
-+/* Describes the possible PCM format */
-+#define SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT	32
-+#define SND_SOC_POSSIBLE_DAIFMT_INV_MASK	(0xFFFFULL << SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_NB_NF		(0x1ULL    << SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_NB_IF		(0x2ULL    << SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_IB_NF		(0x4ULL    << SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_IB_IF		(0x8ULL    << SND_SOC_POSSIBLE_DAIFMT_INV_SHIFT)
-+
- /*
-  * DAI hardware clock providers/consumers
-  *
-@@ -89,6 +114,14 @@ struct snd_compr_stream;
- #define SND_SOC_DAIFMT_CBM_CFS		SND_SOC_DAIFMT_CBP_CFC
- #define SND_SOC_DAIFMT_CBS_CFS		SND_SOC_DAIFMT_CBC_CFC
- 
-+/* Describes the possible PCM format */
-+#define SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT	48
-+#define SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_MASK	(0xFFFFULL << SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_CBP_CFP			(0x1ULL    << SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_CBC_CFP			(0x2ULL    << SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_CBP_CFC			(0x4ULL    << SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT)
-+#define SND_SOC_POSSIBLE_DAIFMT_CBC_CFC			(0x8ULL    << SND_SOC_POSSIBLE_DAIFMT_CLOCK_PROVIDER_SHIFT)
-+
- #define SND_SOC_DAIFMT_FORMAT_MASK		0x000f
- #define SND_SOC_DAIFMT_CLOCK_MASK		0x00f0
- #define SND_SOC_DAIFMT_INV_MASK			0x0f00
-@@ -131,6 +164,7 @@ int snd_soc_dai_set_pll(struct snd_soc_dai *dai,
- int snd_soc_dai_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio);
- 
- /* Digital Audio interface formatting */
-+u64 snd_soc_dai_get_fmt(struct snd_soc_dai *dai);
- int snd_soc_dai_set_fmt(struct snd_soc_dai *dai, unsigned int fmt);
- 
- int snd_soc_dai_set_tdm_slot(struct snd_soc_dai *dai,
-@@ -236,6 +270,7 @@ struct snd_soc_dai_ops {
- 	 * DAI format configuration
- 	 * Called by soc_card drivers, normally in their hw_params.
- 	 */
-+	u64 (*get_fmt)(struct snd_soc_dai *dai);
- 	int (*set_fmt)(struct snd_soc_dai *dai, unsigned int fmt);
- 	int (*xlate_tdm_slot_mask)(unsigned int slots,
- 		unsigned int *tx_mask, unsigned int *rx_mask);
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index e241c35fb63a..621e82adda90 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1054,6 +1054,76 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
+index fe208cfdd3ba..c63da8e32945 100644
+--- a/sound/soc/codecs/ak4613.c
++++ b/sound/soc/codecs/ak4613.c
+@@ -322,6 +322,15 @@ static int ak4613_dai_set_sysclk(struct snd_soc_dai *codec_dai,
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(snd_soc_add_pcm_runtime);
  
-+static void snd_soc_runtime_get_dai_fmt(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_dai *dai;
-+	u64 pos, possible_fmt = ULLONG_MAX;
-+	unsigned int mask = 0, dai_fmt = 0;
-+	int i;
-+
-+	for_each_rtd_dais(rtd, i, dai)
-+		possible_fmt &= snd_soc_dai_get_fmt(dai);
-+
-+	if (!possible_fmt)
-+		return;
-+
-+	/* convert POSSIBLE_DAIFMT to DAIFMT */
-+	for (i = 63; i >= 0; i--) {
-+		pos = 1ULL << i;
-+		switch (possible_fmt & pos) {
-+		case SND_SOC_POSSIBLE_DAIFMT_I2S:
-+		case SND_SOC_POSSIBLE_DAIFMT_RIGHT_J:
-+		case SND_SOC_POSSIBLE_DAIFMT_LEFT_J:
-+		case SND_SOC_POSSIBLE_DAIFMT_DSP_A:
-+		case SND_SOC_POSSIBLE_DAIFMT_DSP_B:
-+		case SND_SOC_POSSIBLE_DAIFMT_AC97:
-+		case SND_SOC_POSSIBLE_DAIFMT_PDM:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_FORMAT_MASK) | i;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_CONT:
-+			dai_fmt |= SND_SOC_DAIFMT_CONT;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_NB_NF:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_INV_MASK) | SND_SOC_DAIFMT_NB_NF;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_NB_IF:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_INV_MASK) | SND_SOC_DAIFMT_NB_IF;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_IB_NF:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_INV_MASK) | SND_SOC_DAIFMT_IB_NF;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_IB_IF:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_INV_MASK) | SND_SOC_DAIFMT_IB_IF;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_CBP_CFP:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) | SND_SOC_DAIFMT_CBP_CFP;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_CBC_CFP:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) | SND_SOC_DAIFMT_CBC_CFP;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_CBP_CFC:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) | SND_SOC_DAIFMT_CBP_CFC;
-+			break;
-+		case SND_SOC_POSSIBLE_DAIFMT_CBC_CFC:
-+			dai_fmt = (dai_fmt & ~SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) | SND_SOC_DAIFMT_CBC_CFC;
-+			break;
-+		}
-+	}
-+
-+	/* use original dai_fmt if sound card specify */
-+	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_FORMAT_MASK))
-+		mask |= SND_SOC_DAIFMT_FORMAT_MASK;
-+	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_CLOCK_MASK))
-+		mask |= SND_SOC_DAIFMT_CLOCK_MASK;
-+	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_INV_MASK))
-+		mask |= SND_SOC_DAIFMT_INV_MASK;
-+	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_MASTER_MASK))
-+		mask |= SND_SOC_DAIFMT_MASTER_MASK;
-+
-+	dai_link->dai_fmt =	dai_link->dai_fmt | (dai_fmt & mask);
-+}
-+
- /**
-  * snd_soc_runtime_set_dai_fmt() - Change DAI link format for a ASoC runtime
-  * @rtd: The runtime for which the DAI link format should be changed
-@@ -1132,6 +1202,7 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
- 	if (ret < 0)
- 		return ret;
- 
-+	snd_soc_runtime_get_dai_fmt(rtd);
- 	if (dai_link->dai_fmt) {
- 		ret = snd_soc_runtime_set_dai_fmt(rtd, dai_link->dai_fmt);
- 		if (ret)
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 080fbe053fc5..109a562ebeb9 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -134,6 +134,25 @@ int snd_soc_dai_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
- }
- EXPORT_SYMBOL_GPL(snd_soc_dai_set_bclk_ratio);
- 
-+/**
-+ * snd_soc_dai_get_fmt - get enable DAI hardware audio format.
-+ * @dai: DAI
-+ * @fmt: SND_SOC_POSSIBLE_DAIFMT_* format value.
-+ *
-+ * Configures the DAI hardware format and clocking.
-+ */
-+u64 snd_soc_dai_get_fmt(struct snd_soc_dai *dai)
-+{
-+	u64 fmt = 0;
-+
-+	if (dai->driver->ops &&
-+	    dai->driver->ops->get_fmt)
-+		fmt = dai->driver->ops->get_fmt(dai);
-+
-+	return fmt;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dai_get_fmt);
-+
- /**
-  * snd_soc_dai_set_fmt - configure DAI hardware audio format.
-  * @dai: DAI
-diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
-index 98383fd76224..b92b1d07ec83 100644
---- a/sound/soc/soc-utils.c
-+++ b/sound/soc/soc-utils.c
-@@ -97,6 +97,31 @@ static const struct snd_soc_component_driver dummy_codec = {
- 			SNDRV_PCM_FMTBIT_S32_LE | \
- 			SNDRV_PCM_FMTBIT_U32_LE | \
- 			SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE)
-+
-+static u64 dummy_dai_get_fmt(struct snd_soc_dai *dai)
++static u64 ak4613_dai_get_fmt(struct snd_soc_dai *dai)
 +{
 +	return	SND_SOC_POSSIBLE_DAIFMT_I2S	|
-+		SND_SOC_POSSIBLE_DAIFMT_RIGHT_J	|
 +		SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
-+		SND_SOC_POSSIBLE_DAIFMT_DSP_A	|
-+		SND_SOC_POSSIBLE_DAIFMT_DSP_B	|
-+		SND_SOC_POSSIBLE_DAIFMT_AC97	|
-+		SND_SOC_POSSIBLE_DAIFMT_PDM	|
-+		SND_SOC_POSSIBLE_DAIFMT_CONT	|
-+		SND_SOC_POSSIBLE_DAIFMT_NB_NF	|
-+		SND_SOC_POSSIBLE_DAIFMT_NB_IF	|
-+		SND_SOC_POSSIBLE_DAIFMT_IB_NF	|
-+		SND_SOC_POSSIBLE_DAIFMT_IB_IF	|
 +		SND_SOC_POSSIBLE_DAIFMT_CBP_CFP	|
-+		SND_SOC_POSSIBLE_DAIFMT_CBC_CFP	|
-+		SND_SOC_POSSIBLE_DAIFMT_CBP_CFC	|
-+		SND_SOC_POSSIBLE_DAIFMT_CBC_CFC;
++		SND_SOC_POSSIBLE_DAIFMT_CBC_CFC	|
++		SND_SOC_POSSIBLE_DAIFMT_NB_NF;
 +}
 +
-+static const struct snd_soc_dai_ops dummy_dai_ops = {
-+	.get_fmt	= dummy_dai_get_fmt,
-+};
-+
- /*
-  * The dummy CODEC is only meant to be used in situations where there is no
-  * actual hardware.
-@@ -122,6 +147,7 @@ static struct snd_soc_dai_driver dummy_dai = {
- 		.rates = STUB_RATES,
- 		.formats = STUB_FORMATS,
- 	 },
-+	.ops = &dummy_dai_ops,
- };
- 
- int snd_soc_dai_is_dummy(struct snd_soc_dai *dai)
+ static int ak4613_dai_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ {
+ 	struct snd_soc_component *component = dai->component;
+@@ -543,6 +552,7 @@ static const struct snd_soc_dai_ops ak4613_dai_ops = {
+ 	.startup	= ak4613_dai_startup,
+ 	.shutdown	= ak4613_dai_shutdown,
+ 	.set_sysclk	= ak4613_dai_set_sysclk,
++	.get_fmt	= ak4613_dai_get_fmt,
+ 	.set_fmt	= ak4613_dai_set_fmt,
+ 	.trigger	= ak4613_dai_trigger,
+ 	.hw_params	= ak4613_dai_hw_params,
 -- 
 2.25.1
 

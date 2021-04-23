@@ -2,77 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 455063698B8
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 19:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9432C3698CE
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:06:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D57CB16EE;
-	Fri, 23 Apr 2021 19:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D57CB16EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 231DD16EF;
+	Fri, 23 Apr 2021 20:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 231DD16EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619200530;
-	bh=bKn8MNRjXHotc1xL4MpIdJFtFVkVlvyWmGxylaAZpv4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=k/FlL9TvUjudUO6Fz4GBA3eP3wDCD9N8hFwfZhduaXrUnFLHo2QNfbGnuntGjAEbz
-	 +OlA9tgBXC2Ldq+2FK8TFy48kGtcGWA7ENFrK0iosb8aULNed6vebm4drsx+v6IsOl
-	 M8H9Rsg1tnIpNKdjaf32ntNTP4v5P1TqIchUkxrc=
+	s=default; t=1619201189;
+	bh=HIuVYF1n6jT6n+KoS/O3AZIhs+4fj1thndIdd+hzB88=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MRw5787785PlMh7yJFVTrp4NOC/aO5TmTf45KLhu+jP3VCdkiID728sGF5So+3K3u
+	 NmcDi32r4BzlMj4HHHCDnm/UFY5tg6DXuvRIqi53LxtdMYZ4Hbew391fo0jtRu8VZl
+	 JQIAFv0rsfAeiLERu6XbS7ATvisb4bYfvPvjF6lU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95C52F80256;
-	Fri, 23 Apr 2021 19:54:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74094F80256;
+	Fri, 23 Apr 2021 20:05:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDA85F80227; Fri, 23 Apr 2021 19:53:58 +0200 (CEST)
+ id 573B2F80227; Fri, 23 Apr 2021 20:04:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7538DF800E3
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 19:53:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7538DF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id C94B6F800AE
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:04:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C94B6F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UiSfPNQn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E792D6144A;
- Fri, 23 Apr 2021 17:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619200430;
- bh=bKn8MNRjXHotc1xL4MpIdJFtFVkVlvyWmGxylaAZpv4=;
- h=From:To:Cc:Subject:Date:From;
- b=UiSfPNQn6zWR6UhAC9KdjgvYlsRC+6OvdarD9NXspggqHwj9G6YAPSfGAhCGN3tlQ
- jZBvt/vCFkGNhGKsFkfHlKFXPBcwoQEWwUD/8NNYMFyJN2ee8FhYVKORvzGwxUYFUw
- iGjl6wRfWktpVZG/bdc50fXvjB6vJ/c9qKlhhNwfbXgYnRpHN10X1DPhmDpImcxYVz
- BZEaBV0mw0Whs8IM/UDMaD/7SnlqoyK2wENopZPCCI0x6MTvgKTp/uPUcGnjuHafps
- dLYyZbmdpOkuEFo2EwgavpjXEuNOvtDCNofhKcJ+W79LzmwwN9hCqG8YA9xoSl06BB
- 6Wgbs0UNhK7AQ==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: simple-card: Fix breakage on kontron-sl28-var3-ads2
-Date: Fri, 23 Apr 2021 18:53:18 +0100
-Message-Id: <20210423175318.13990-1-broonie@kernel.org>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QnOP6F6x"
+Received: by mail-ej1-x62c.google.com with SMTP id r9so75132117ejj.3
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 11:04:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=L9vAFTNt+x+qa+I1D+0esEzjzF132Kml6Vp8LjyHXk8=;
+ b=QnOP6F6x7hXdy3N0cpb+YquA/lOO2HrS9ikiGoVgC9NJCCnq8d8/v5KeDdpoyZLMXg
+ krgz/V/zpzdplU/vVOepYrBY4tNOOFSI5k1CWvlD9U+2FDnq7fMRcn0PVxF0uE9XLqI5
+ nwrbegPnGmtuag9AEJRR27o9oC00kWPI0U35ce1eACSFQur2wRieWjqyJCNaROQ9S6+O
+ E72ulMHaNmL40SWZYyeJYg1IgPe11QckkC8plAu8UtAHqv//bXbYcs8m0wI2sw1SVGm5
+ znrNuuE8PLJ03CmBoj4g5EqfA4Aga4jy/x2EA45Z01l20mfIZsV46YIp6MBlreq2bUfO
+ 7pzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=L9vAFTNt+x+qa+I1D+0esEzjzF132Kml6Vp8LjyHXk8=;
+ b=cwXLSkrg9SwAnkxqzZJ8YNzlc+CEJeP+h3xGawZeb6bHIDyhGDhAuz3pvCR979exfR
+ TD4sAwp0OFG3ZD3+kv3zHiJ3fjjRKWwKY+bRw58RMi60cvKBWfeofPnWHk1AcQ27kruS
+ GxJhoTeI3+VyqBD0ETcA+chDuRQcppP2HziPcljgwo+7MkAfYTmsUpikgzyir7Lm/00p
+ hibBaiKeuxsccteMVgIdBW7pJM8tqY9PSnJzpWvn4KayhAY1Lo6T2mPwiGPHH4oLOOBF
+ 5aDYKemGq+uwKnImg7b9J+3UuIK6yHauOmr+wuRczUJURTowBqhAHnRSiL8KmmW8IBHe
+ Qz9w==
+X-Gm-Message-State: AOAM531WrS23w0qgpRKh60IrgeHavt6GQxYAfuIlRQwVhYr6AVR1dcz/
+ vtVjNpDLsMTdmHJhnHp5UFmCWrt9/DYCNXWEeag=
+X-Google-Smtp-Source: ABdhPJw10MriKsx6zlxv30K7uPVlk1Xq+redy+4HCxayNsw5UlFGJNNcUf4Sw9jSdoQlJQY1KSr/UQ1FaRJ6q9LoY6U=
+X-Received: by 2002:a17:907:9691:: with SMTP id
+ hd17mr5667422ejc.205.1619201090462; 
+ Fri, 23 Apr 2021 11:04:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Patch-Hashes: v=1; h=sha256; i=i3vympdNrC2mMc055UiRRDNJY5IeywiQ8rof9eavY7A=;
- m=s2MylM3+pnmwe1TWaE28qR2H85i2SKkbGi3G41MJknk=;
- p=dFZCYdy7l++0op8Nyb0APjfG5V8stTgtmFGTIZOCJGw=;
- g=c4da63476bf007166f337dfe3bef4cb7ac1b0057
-X-Patch-Sig: m=pgp; i=broonie@kernel.org; s=0xC3F436CA30F5D8EB;
- b=iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCDCIoACgkQJNaLcl1Uh9CQVAf/X5/
- tU4ZHQi3aGn3z0EAipj7v+8I//fhLXV+UrQex5uFPunnxhyThGrf0+uvYU/6mV6UQdvokhetTqhcR
- lJdKw7T+FXvu9U+evxqWy21aTazETp8yTj8IbTkQbDE1jdahIHwS/Jr0RvfJIuKUfWo03kLz+Otus
- otPst7wQuVRzQ22mYJbc2fy0JUqfl3ggKfvtntZZVufKhGiRbtxpot34ndMU3Idz927qor876tRWU
- C+k9kJZqfQcnokE6uSK6DZuGCVzLeXNkYCbumNXnbAOeeo0dsTNpca9430tLJ+A180sn9IqImws9z
- fXw6HBS7vnSGfi2AYR1DelD9PRNl/8w==
-Content-Transfer-Encoding: 8bit
-Cc: Guillaume Tucker <guillaume.tucker@collabora.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, "kernelci.org bot" <bot@kernelci.org>
+References: <20210422120413.457-1-tiwai@suse.de>
+ <20210422120413.457-2-tiwai@suse.de>
+ <CAHXb3bcKvPSceMuvrq-X8dUyxdrH6iAHTHq_RgTXoAAiXygwUQ@mail.gmail.com>
+ <CAOsVg8rAkwLgLP_LSj6CfYG+1R2oB5-sV4KQhLJMqCEqL2wDQA@mail.gmail.com>
+ <s5hlf99788o.wl-tiwai@suse.de>
+In-Reply-To: <s5hlf99788o.wl-tiwai@suse.de>
+From: Lucas <jaffa225man@gmail.com>
+Date: Fri, 23 Apr 2021 13:04:38 -0500
+Message-ID: <CAOsVg8rPfh-scSmmJSVASPTw7o3vw_zZ05YzVZ_JYFJHbcOcyg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ALSA: usb-audio: Generic application of implicit fb
+ to Roland/BOSS devices
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, "Keith A . Milner" <maillist@superlative.org>,
+ Mike Oliphant <oliphant@nostatic.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,427 +101,264 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A KernelCI bisection identified 59c35c44a9cf89 "ASoC: simple-card: add
-simple_parse_node()" as causing simple-card to fail to instantiate on
-kontron-sl28-var3-ads2 systems.  Since the merge window is expected to
-open over the weekend drop that commit and subsequent ones which depend
-on it for now in case other systems are affected too.
+On Fri, Apr 23, 2021 at 2:47 AM Takashi Iwai <tiwai@suse.de> wrote:
 
-The boot log showed the error as:
+> Is this really with snd-usb-audio driver?  Please check the entry in
+> /proc/asound/modules (or traverse via sysfs).
+>
 
-<4>[    9.948821] sysfs: cannot create duplicate filename '/devices/platform/sound/(null)-wm8904-hifi'
+No, I see it's not.  It's using the correct snd_ua101 module
 
-(backtrace)
+This rather sounds like a generic problem of the implicit feedback.
+> Please give the kernel log with snd_usb_audio.dyndbg=+p boot option
+> with some notion which timestamp corresponding to which action
+> (e.g. starting playback, stopping recording, etc).
+>
 
-<3>[   10.191982] kobject_add_internal failed for (null)-wm8904-hifi with -EEXIST, don't try to register things with the same name in the same directory.
+Okay, that's good news!  Thanks, and here's that:
 
-The dropped commits are:
+I turned the INTEGRA-7 on at 11:59:00
+It started fully at 11:59:27, which is probably when the kernel could see
+it:
 
-73371bacf0475a20ab6 "ASoC: audio-graph: tidyup graph_dai_link_of_dpcm()"
-434392271afcff350fe "ASoC: simple-card: add simple_link_init()"
-59c35c44a9cf89a83a9 "ASoC: simple-card: add simple_parse_node()"
+[ 1632.073938] usb 1-1.6: new high-speed USB device number 5 using ehci-pci
+[ 1634.034266] usb 1-1.6: New USB device found, idVendor=0582,
+idProduct=015b, bcdDevice= 1.00
+[ 1634.034274] usb 1-1.6: New USB device strings: Mfr=1, Product=2,
+SerialNumber=0
+[ 1634.034277] usb 1-1.6: Product: INTEGRA-7
+[ 1634.034279] usb 1-1.6: Manufacturer: Roland
+[ 1634.036522] usb 1-1.6: 1:1: added playback implicit_fb sync_ep 8e, iface
+2:1
+[ 1634.036527] usb 1-1.6: 1:1: add audio endpoint 0xd
+[ 1634.036539] usb 1-1.6: Creating new data endpoint #d
+[ 1634.036541] usb 1-1.6: Creating new data endpoint #8e
+[ 1634.036638] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.036891] usb 1-1.6: 2:1: added capture implicit_fb sync_ep d, iface
+1:1
+[ 1634.036894] usb 1-1.6: 2:1: add audio endpoint 0x8e
+[ 1634.036997] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.082834] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1634.082840] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.082843] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1634.082844] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.082847] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.083011] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1634.083143] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.083146] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1634.083160] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.083162] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.083246] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1634.083416] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.083421] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1634.083444] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.085019] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1634.085022] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.085144] usb 1-1.6: EP 0x8e closed
+[ 1634.085146] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1634.085148] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.085273] usb 1-1.6: EP 0xd closed
+[ 1634.085652] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1634.085655] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.085658] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1634.085659] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.085661] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.085826] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1634.085873] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.085879] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1634.085884] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.085886] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.086018] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1634.086139] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.086153] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1634.086158] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.086292] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1634.086294] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.086400] usb 1-1.6: EP 0x8e closed
+[ 1634.086403] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1634.086404] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.086524] usb 1-1.6: EP 0xd closed
+[ 1634.086817] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1634.086820] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.086822] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1634.086824] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.086826] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.086858] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1634.086993] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.086996] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1634.087000] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.087001] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.087106] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1634.087272] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.087279] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1634.087284] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.087295] usb 1-1.6: Starting data EP 0xd (running 0)
+[ 1634.087320] usb 1-1.6: 12 URBs submitted for EP 0xd
+[ 1634.087322] usb 1-1.6: Starting data EP 0x8e (running 0)
+[ 1634.087338] usb 1-1.6: 12 URBs submitted for EP 0x8e
+[ 1634.088270] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1634.088273] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1634.088286] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1634.088288] usb 1-1.6: Closing EP 0xd (count 2)
+[ 1634.088599] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1634.088601] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1634.088612] usb 1-1.6: Stopping data EP 0x8e (running 1)
+[ 1634.088616] usb 1-1.6: Stopping data EP 0xd (running 1)
+[ 1634.101964] usb 1-1.6: Closing EP 0xd (count 2)
+[ 1634.101972] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1634.102043] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1634.102045] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.102129] usb 1-1.6: EP 0x8e closed
+[ 1634.102132] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1634.102134] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.102255] usb 1-1.6: EP 0xd closed
+[ 1634.107863] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1634.107867] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.107869] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1634.107871] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=19184, periods=4, implicit_fb=1
+[ 1634.107873] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.107992] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1634.108137] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.108147] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1634.108161] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.108164] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.108236] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1634.108376] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.108384] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1634.108393] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.108413] usb 1-1.6: Starting data EP 0xd (running 0)
+[ 1634.108452] usb 1-1.6: 12 URBs submitted for EP 0xd
+[ 1634.108454] usb 1-1.6: Starting data EP 0x8e (running 0)
+[ 1634.108470] usb 1-1.6: 12 URBs submitted for EP 0x8e
+[ 1634.108782] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1634.108785] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1634.108796] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1634.108797] usb 1-1.6: Closing EP 0xd (count 2)
+[ 1634.109076] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1634.109078] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1634.109089] usb 1-1.6: Stopping data EP 0x8e (running 1)
+[ 1634.109093] usb 1-1.6: Stopping data EP 0xd (running 1)
+[ 1634.121982] usb 1-1.6: Closing EP 0xd (count 2)
+[ 1634.121987] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1634.122023] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1634.122024] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.122136] usb 1-1.6: EP 0x8e closed
+[ 1634.122139] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1634.122141] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.122250] usb 1-1.6: EP 0xd closed
+[ 1634.136890] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1634.136895] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=524288, periods=2, implicit_fb=1
+[ 1634.136898] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1634.136899] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=524288, periods=2, implicit_fb=1
+[ 1634.136901] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1634.137059] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1634.137214] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1634.137225] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1634.137235] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.137238] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1634.137362] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1634.137500] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1634.137508] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1634.137517] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1634.137608] usb 1-1.6: Starting data EP 0xd (running 0)
+[ 1634.137630] usb 1-1.6: 12 URBs submitted for EP 0xd
+[ 1634.137632] usb 1-1.6: Starting data EP 0x8e (running 0)
+[ 1634.137648] usb 1-1.6: 12 URBs submitted for EP 0x8e
+[ 1634.138532] usb 1-1.6: 1:1 Start Playback PCM
+[ 1634.139021] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1634.139024] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1634.139549] usb 1-1.6: Starting data EP 0x8e (running 1)
+[ 1634.139553] usb 1-1.6: Starting data EP 0xd (running 1)
+[ 1634.139554] usb 1-1.6: 2:1 Start Capture PCM
+[ 1639.143013] usb 1-1.6: Stopping data EP 0xd (running 2)
+[ 1639.143022] usb 1-1.6: Stopping data EP 0x8e (running 2)
+[ 1639.143026] usb 1-1.6: 2:1 Stop Capture PCM
+[ 1639.143083] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1639.143086] usb 1-1.6: Closing EP 0xd (count 2)
+[ 1639.144139] usb 1-1.6: Stopping data EP 0x8e (running 1)
+[ 1639.144147] usb 1-1.6: Stopping data EP 0xd (running 1)
+[ 1639.144150] usb 1-1.6: 1:1 Stop Playback PCM
+[ 1639.157925] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1639.157933] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1639.158186] usb 1-1.6: EP 0xd closed
+[ 1639.158190] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1639.158192] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1639.158431] usb 1-1.6: EP 0x8e closed
 
-Reported-by: Guillaume Tucker <guillaume.tucker@collabora.com>
-Reported-by: "kernelci.org bot" <bot@kernelci.org>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/generic/audio-graph-card.c |  30 ++---
- sound/soc/generic/simple-card.c      | 178 ++++++++++++++-------------
- 2 files changed, 106 insertions(+), 102 deletions(-)
+I began playing the long file.wav at 12:00:00
+aplay -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./file.wav
+Playing WAVE './file.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
 
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 0159a4576e9c..2c8a2fcb7922 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -276,19 +276,24 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 				  struct link_info *li)
- {
- 	struct device *dev = simple_priv_to_dev(priv);
-+	struct snd_soc_card *card = simple_priv_to_card(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
- 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
- 	struct device_node *top = dev->of_node;
- 	struct device_node *ep = li->cpu ? cpu_ep : codec_ep;
-+	struct device_node *port;
-+	struct device_node *ports;
-+	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
-+	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
- 	char dai_name[64];
- 	int ret;
- 
-+	port	= of_get_parent(ep);
-+	ports	= of_get_parent(port);
-+
- 	dev_dbg(dev, "link_of DPCM (%pOF)\n", ep);
- 
- 	if (li->cpu) {
--		struct snd_soc_card *card = simple_priv_to_card(priv);
--		struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
--
- 		/* Codec is dummy */
- 
- 		/* FE settings */
-@@ -297,7 +302,7 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 
- 		ret = graph_parse_node(priv, cpu_ep, li, 1);
- 		if (ret)
--			return ret;
-+			goto out_put_node;
- 
- 		snprintf(dai_name, sizeof(dai_name),
- 			 "fe.%pOFP.%s", cpus->of_node, cpus->dai_name);
-@@ -314,10 +319,7 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		if (card->component_chaining && !soc_component_is_pcm(cpus))
- 			dai_link->no_pcm = 1;
- 	} else {
--		struct snd_soc_codec_conf *cconf = simple_props_to_codec_conf(dai_props, 0);
--		struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
--		struct device_node *port;
--		struct device_node *ports;
-+		struct snd_soc_codec_conf *cconf;
- 
- 		/* CPU is dummy */
- 
-@@ -325,25 +327,22 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai_link->no_pcm		= 1;
- 		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
- 
-+		cconf	= simple_props_to_codec_conf(dai_props, 0);
-+
- 		ret = graph_parse_node(priv, codec_ep, li, 0);
- 		if (ret < 0)
--			return ret;
-+			goto out_put_node;
- 
- 		snprintf(dai_name, sizeof(dai_name),
- 			 "be.%pOFP.%s", codecs->of_node, codecs->dai_name);
- 
- 		/* check "prefix" from top node */
--		port = of_get_parent(ep);
--		ports = of_get_parent(port);
- 		snd_soc_of_parse_node_prefix(top, cconf, codecs->of_node,
- 					      "prefix");
- 		if (of_node_name_eq(ports, "ports"))
- 			snd_soc_of_parse_node_prefix(ports, cconf, codecs->of_node, "prefix");
- 		snd_soc_of_parse_node_prefix(port, cconf, codecs->of_node,
- 					     "prefix");
--
--		of_node_put(ports);
--		of_node_put(port);
- 	}
- 
- 	graph_parse_convert(dev, ep, &dai_props->adata);
-@@ -352,8 +351,11 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 
- 	ret = graph_link_init(priv, cpu_ep, codec_ep, li, dai_name);
- 
-+out_put_node:
- 	li->link++;
- 
-+	of_node_put(ports);
-+	of_node_put(port);
- 	return ret;
- }
- 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 6a04632944b8..a1373be4558f 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -93,11 +93,12 @@ static void simple_parse_convert(struct device *dev,
- }
- 
- static void simple_parse_mclk_fs(struct device_node *top,
--				 struct device_node *np,
-+				 struct device_node *cpu,
-+				 struct device_node *codec,
- 				 struct simple_dai_props *props,
- 				 char *prefix)
- {
--	struct device_node *node = of_get_parent(np);
-+	struct device_node *node = of_get_parent(cpu);
- 	char prop[128];
- 
- 	snprintf(prop, sizeof(prop), "%smclk-fs", PREFIX);
-@@ -105,79 +106,12 @@ static void simple_parse_mclk_fs(struct device_node *top,
- 
- 	snprintf(prop, sizeof(prop), "%smclk-fs", prefix);
- 	of_property_read_u32(node,	prop, &props->mclk_fs);
--	of_property_read_u32(np,	prop, &props->mclk_fs);
-+	of_property_read_u32(cpu,	prop, &props->mclk_fs);
-+	of_property_read_u32(codec,	prop, &props->mclk_fs);
- 
- 	of_node_put(node);
- }
- 
--static int simple_parse_node(struct asoc_simple_priv *priv,
--			     struct device_node *np,
--			     struct link_info *li,
--			     char *prefix,
--			     int is_cpu)
--{
--	struct device *dev = simple_priv_to_dev(priv);
--	struct device_node *top = dev->of_node;
--	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
--	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
--	struct snd_soc_dai_link_component *dlc;
--	struct asoc_simple_dai *dai;
--	int ret, single = 0;
--
--	if (is_cpu) {
--		dlc = asoc_link_to_cpu(dai_link, 0);
--		dai = simple_props_to_dai_cpu(dai_props, 0);
--	} else {
--		dlc = asoc_link_to_codec(dai_link, 0);
--		dai = simple_props_to_dai_codec(dai_props, 0);
--	}
--
--	simple_parse_mclk_fs(top, np, dai_props, prefix);
--
--	ret = asoc_simple_parse_dai(np, dlc, &single);
--	if (ret)
--		return ret;
--
--	ret = asoc_simple_parse_clk(dev, np, dai, dlc);
--	if (ret)
--		return ret;
--
--	ret = asoc_simple_parse_tdm(np, dai);
--	if (ret)
--		return ret;
--
--	if (is_cpu) {
--		struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
--
--		asoc_simple_canonicalize_cpu(dlc, single);
--		asoc_simple_canonicalize_platform(platforms, dlc);
--	}
--
--	return 0;
--}
--
--static int simple_link_init(struct asoc_simple_priv *priv,
--			    struct device_node *node,
--			    struct device_node *codec,
--			    struct link_info *li,
--			    char *prefix,
--			    char *name)
--{
--	struct device *dev = simple_priv_to_dev(priv);
--	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
--	int ret;
--
--	ret = asoc_simple_parse_daifmt(dev, node, codec,
--				       prefix, &dai_link->dai_fmt);
--	if (ret < 0)
--		return 0;
--
--	dai_link->init			= asoc_simple_dai_init;
--	dai_link->ops			= &simple_ops;
--
--	return asoc_simple_set_dailink_name(dev, dai_link, name);
--}
--
- static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 				   struct device_node *np,
- 				   struct device_node *codec,
-@@ -187,32 +121,50 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
- 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	struct asoc_simple_dai *dai;
- 	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
- 	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
-+	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
- 	struct device_node *top = dev->of_node;
- 	struct device_node *node = of_get_parent(np);
- 	char *prefix = "";
--	char dai_name[64];
- 	int ret;
- 
- 	dev_dbg(dev, "link_of DPCM (%pOF)\n", np);
- 
-+	li->link++;
-+
- 	/* For single DAI link & old style of DT node */
- 	if (is_top)
- 		prefix = PREFIX;
- 
- 	if (li->cpu) {
-+		int is_single_links = 0;
-+
- 		/* Codec is dummy */
- 
- 		/* FE settings */
- 		dai_link->dynamic		= 1;
- 		dai_link->dpcm_merged_format	= 1;
- 
--		ret = simple_parse_node(priv, np, li, prefix, 1);
-+		dai = simple_props_to_dai_cpu(dai_props, 0);
-+
-+		ret = asoc_simple_parse_dai(np, cpus, &is_single_links);
-+		if (ret)
-+			goto out_put_node;
-+
-+		ret = asoc_simple_parse_clk(dev, np, dai, cpus);
- 		if (ret < 0)
- 			goto out_put_node;
- 
--		snprintf(dai_name, sizeof(dai_name), "fe.%s", cpus->dai_name);
-+		ret = asoc_simple_set_dailink_name(dev, dai_link,
-+						   "fe.%s",
-+						   cpus->dai_name);
-+		if (ret < 0)
-+			goto out_put_node;
-+
-+		asoc_simple_canonicalize_cpu(cpus, is_single_links);
-+		asoc_simple_canonicalize_platform(platforms, cpus);
- 	} else {
- 		struct snd_soc_codec_conf *cconf;
- 
-@@ -222,13 +174,22 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai_link->no_pcm		= 1;
- 		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
- 
-+		dai	= simple_props_to_dai_codec(dai_props, 0);
- 		cconf	= simple_props_to_codec_conf(dai_props, 0);
- 
--		ret = simple_parse_node(priv, np, li, prefix, 0);
-+		ret = asoc_simple_parse_dai(np, codecs, NULL);
-+		if (ret < 0)
-+			goto out_put_node;
-+
-+		ret = asoc_simple_parse_clk(dev, np, dai, codecs);
- 		if (ret < 0)
- 			goto out_put_node;
- 
--		snprintf(dai_name, sizeof(dai_name), "be.%s", codecs->dai_name);
-+		ret = asoc_simple_set_dailink_name(dev, dai_link,
-+						   "be.%s",
-+						   codecs->dai_name);
-+		if (ret < 0)
-+			goto out_put_node;
- 
- 		/* check "prefix" from top node */
- 		snd_soc_of_parse_node_prefix(top, cconf, codecs->of_node,
-@@ -240,14 +201,23 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	}
- 
- 	simple_parse_convert(dev, np, &dai_props->adata);
-+	simple_parse_mclk_fs(top, np, codec, dai_props, prefix);
-+
-+	ret = asoc_simple_parse_tdm(np, dai);
-+	if (ret)
-+		goto out_put_node;
-+
-+	ret = asoc_simple_parse_daifmt(dev, node, codec,
-+				       prefix, &dai_link->dai_fmt);
-+	if (ret < 0)
-+		goto out_put_node;
- 
- 	snd_soc_dai_link_set_capabilities(dai_link);
- 
--	ret = simple_link_init(priv, node, codec, li, prefix, dai_name);
-+	dai_link->ops			= &simple_ops;
-+	dai_link->init			= asoc_simple_dai_init;
- 
- out_put_node:
--	li->link++;
--
- 	of_node_put(node);
- 	return ret;
- }
-@@ -260,19 +230,23 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- {
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-+	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	struct asoc_simple_dai *cpu_dai	= simple_props_to_dai_cpu(dai_props, 0);
-+	struct asoc_simple_dai *codec_dai = simple_props_to_dai_codec(dai_props, 0);
- 	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
- 	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
- 	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
-+	struct device_node *top = dev->of_node;
- 	struct device_node *cpu = NULL;
- 	struct device_node *node = NULL;
- 	struct device_node *plat = NULL;
--	char dai_name[64];
- 	char prop[128];
- 	char *prefix = "";
--	int ret;
-+	int ret, single_cpu = 0;
- 
- 	cpu  = np;
- 	node = of_get_parent(np);
-+	li->link++;
- 
- 	dev_dbg(dev, "link_of (%pOF)\n", node);
- 
-@@ -283,11 +257,18 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	snprintf(prop, sizeof(prop), "%splat", prefix);
- 	plat = of_get_child_by_name(node, prop);
- 
--	ret = simple_parse_node(priv, cpu, li, prefix, 1);
-+	ret = asoc_simple_parse_daifmt(dev, node, codec,
-+				       prefix, &dai_link->dai_fmt);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = simple_parse_node(priv, codec, li, prefix, 0);
-+	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
-+
-+	ret = asoc_simple_parse_dai(cpu, cpus, &single_cpu);
-+	if (ret < 0)
-+		goto dai_link_of_err;
-+
-+	ret = asoc_simple_parse_dai(codec, codecs, NULL);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
-@@ -295,18 +276,39 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	snprintf(dai_name, sizeof(dai_name),
--		 "%s-%s", cpus->dai_name, codecs->dai_name);
--	ret = simple_link_init(priv, node, codec, li, prefix, dai_name);
-+	ret = asoc_simple_parse_tdm(cpu, cpu_dai);
-+	if (ret < 0)
-+		goto dai_link_of_err;
-+
-+	ret = asoc_simple_parse_tdm(codec, codec_dai);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
-+	ret = asoc_simple_parse_clk(dev, cpu, cpu_dai, cpus);
-+	if (ret < 0)
-+		goto dai_link_of_err;
-+
-+	ret = asoc_simple_parse_clk(dev, codec, codec_dai, codecs);
-+	if (ret < 0)
-+		goto dai_link_of_err;
-+
-+	ret = asoc_simple_set_dailink_name(dev, dai_link,
-+					   "%s-%s",
-+					   cpus->dai_name,
-+					   codecs->dai_name);
-+	if (ret < 0)
-+		goto dai_link_of_err;
-+
-+	dai_link->ops = &simple_ops;
-+	dai_link->init = asoc_simple_dai_init;
-+
-+	asoc_simple_canonicalize_cpu(cpus, single_cpu);
-+	asoc_simple_canonicalize_platform(platforms, cpus);
-+
- dai_link_of_err:
- 	of_node_put(plat);
- 	of_node_put(node);
- 
--	li->link++;
--
- 	return ret;
- }
- 
--- 
-2.20.1
+[ 1682.241471] usb 1-1.6: Open EP 0xd, iface=1:1, idx=0
+[ 1682.241478] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=96000, periods=4, implicit_fb=1
+[ 1682.241482] usb 1-1.6: Open EP 0x8e, iface=2:1, idx=0
+[ 1682.241484] usb 1-1.6:   channels=2, rate=96000, format=S32_LE,
+period_bytes=96000, periods=4, implicit_fb=1
+[ 1682.241487] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1682.241608] usb 1-1.6: Setting usb interface 1:1 for EP 0xd
+[ 1682.241746] usb 1-1.6: 1:1 Set sample rate 96000, clock 0
+[ 1682.241754] usb 1-1.6: Setting params for data EP 0xd, pipe 0x68500
+[ 1682.241761] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1682.241764] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1682.241988] usb 1-1.6: Setting usb interface 2:1 for EP 0x8e
+[ 1682.242126] usb 1-1.6: 2:1 Set sample rate 96000, clock 0
+[ 1682.242136] usb 1-1.6: Setting params for data EP 0x8e, pipe 0x70580
+[ 1682.242144] usb 1-1.6: Set up 12 URBS, ret=0
+[ 1682.242176] usb 1-1.6: Starting data EP 0xd (running 0)
+[ 1682.242202] usb 1-1.6: 12 URBs submitted for EP 0xd
+[ 1682.242204] usb 1-1.6: Starting data EP 0x8e (running 0)
+[ 1682.242223] usb 1-1.6: 12 URBs submitted for EP 0x8e
+[ 1682.242373] usb 1-1.6: 1:1 Start Playback PCM
 
+I began recording soon after:
+arecord -D hw:INTEGRA7 -f S32_LE -r 96000 -c 2 ./duplex.wav
+Recording WAVE './duplex.wav' : Signed 32 bit Little Endian, Rate 96000 Hz,
+Stereo
+
+[ 1742.225424] usb 1-1.6: Reopened EP 0x8e (count 1)
+[ 1742.225431] usb 1-1.6: Reopened EP 0xd (count 1)
+[ 1742.225555] usb 1-1.6: Starting data EP 0x8e (running 1)
+[ 1742.225559] usb 1-1.6: Starting data EP 0xd (running 1)
+[ 1742.225561] usb 1-1.6: 2:1 Start Capture PCM
+
+I ended arecord at 12:02:00 with ctrl-c:
+^CAborted by signal Interrupt...
+And playback became abruptly inaudible at 12:02:00 too.
+
+[ 1798.440257] usb 1-1.6: Stopping data EP 0xd (running 2)
+[ 1798.440266] usb 1-1.6: Stopping data EP 0x8e (running 2)
+[ 1798.440270] usb 1-1.6: 2:1 Stop Capture PCM
+[ 1798.440277] usb 1-1.6: Closing EP 0x8e (count 2)
+[ 1798.440280] usb 1-1.6: Closing EP 0xd (count 2)
+
+By 12:03:00 (appears to be 12:02:30), aplay had timed out with:
+aplay: pcm_write:2061: write error: Input/output error
+
+[ 1828.881035] usb 1-1.6: Stopping data EP 0x8e (running 1)
+[ 1828.881049] usb 1-1.6: Stopping data EP 0xd (running 1)
+[ 1828.881053] usb 1-1.6: 1:1 Stop Playback PCM
+[ 1828.896990] usb 1-1.6: Closing EP 0xd (count 1)
+[ 1828.896998] usb 1-1.6: Setting usb interface 1:0 for EP 0xd
+[ 1828.897139] usb 1-1.6: EP 0xd closed
+[ 1828.897146] usb 1-1.6: Closing EP 0x8e (count 1)
+[ 1828.897149] usb 1-1.6: Setting usb interface 2:0 for EP 0x8e
+[ 1828.897406] usb 1-1.6: EP 0x8e closed
+
+I can confirm everything else is perfect, as my previous test of this patch
+already proved.
+
+Thanks for putting up with my pedantic musings,
+
+  Lucas

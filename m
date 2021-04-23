@@ -2,68 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DBDE3698D6
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:08:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BEC3698D7
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:08:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE0B316F3;
-	Fri, 23 Apr 2021 20:07:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE0B316F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1871F16F9;
+	Fri, 23 Apr 2021 20:07:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1871F16F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619201310;
-	bh=YbpNM4K31aRIxPFNPRngdp3JX6jWNS9uIk3mzuvOktY=;
+	s=default; t=1619201325;
+	bh=dx/7TeAyGLpuMigGjqATz6HBmG/nMvcd5qteR6VlreE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R9JW68o8sFe5qS+CrFUHoY9mN+nnlwdZHCqhYSY5cHG+UGBklCOTZKH36+0/pyzDc
-	 tankdhBTy5QHidOr2pa9rP3zJhDLnkPODFxvKYY9CmNsfteiKSmoiR9SLpspXidN22
-	 XlRTei/Xb6SSrAAkTbCEMlgRfGgCzgzrAHRdjkGc=
+	b=dCkGdQbxqX2UIiJkfVjGSuZO9NlKMyEW5++Ha0MfLDz57jS5QUx1UmdK7tEL6cro+
+	 LcEuIJgpNwuBmrMb2J710lpm+n3qAZrWIt0pRbbayJxALWOgF9Xpr1QXi/bx7lPDeL
+	 FtGapTk9SLCdlPmQbPItniMkyXJo0r7YdmXZWX0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB670F8025A;
-	Fri, 23 Apr 2021 20:07:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2309F8028B;
+	Fri, 23 Apr 2021 20:07:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACC3EF80256; Fri, 23 Apr 2021 20:06:59 +0200 (CEST)
+ id AAC38F802D2; Fri, 23 Apr 2021 20:07:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4F2AF800AE
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:06:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4F2AF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE7E7F8019B
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE7E7F8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S0BZfldW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 146D361207;
- Fri, 23 Apr 2021 18:06:53 +0000 (UTC)
+ header.b="b2TQOJ5P"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E017461209;
+ Fri, 23 Apr 2021 18:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619201214;
- bh=YbpNM4K31aRIxPFNPRngdp3JX6jWNS9uIk3mzuvOktY=;
+ s=k20201202; t=1619201217;
+ bh=dx/7TeAyGLpuMigGjqATz6HBmG/nMvcd5qteR6VlreE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S0BZfldW30deqp3hGXg+7p9+Yh8a6YdO/1DU8oLuxXyWgo+Ow8JjoFJPqrubfoxAc
- NGnk77goO6zxn3GXVep8RsuKtB5X1EdKMz6OvpuB/iCtJZjvz9h5JNpniKLcETtfPu
- p9Gaxj7hs76PgsZ/wDY7AKdTGipH6dInzCAKFS0zLoTfmMSmHAVl9hA4om3SuiEhng
- sZ0o9Fi6GwO1R9k8WG/Uo4B79daggxHsvycOpEDO/CE4tVqdBO/NwbKdsV/Bu6k1OV
- h7o7zeAs6z4jiv5e+OJFyZzWVMjX6lKRNPTRSjRvgVrppjyNLII22iDSYGFxjM9H1t
- OshMkoS6TG8IA==
+ b=b2TQOJ5P0DQ1ZoWf3mzV4yxrnmGkbAy9NxTVAvbCH3pFHZouK/dbjW2T2zoJ0b/a8
+ 3MJup5RFWRbNEYvU7JzrFel+noq3f5QGvUy6j4gxkBgzEbex3Cyo4xhQCU1YpaTbYo
+ z6T26tJQcaH6EUG1QCMSCV8WfB29BeRHl/Yrfbq8WY3Hm5AdNA/EG3qHpwN8YN045J
+ 7XOl8HSZaht7RMO+kCtN/p6B9bpxkzF1M1f3BxfsF/HeG52HkLAGpY3JigJETdezTN
+ C7vjux6s/qZRvd5o1y1leFL2jWNbaOsvOyFoGHDaGej3lu5dbEwlg/gZB7PIpSHS70
+ 0gZrgV+hau9zQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [PATCH v2 0/5] ASoC: clock provider clean-up
-Date: Fri, 23 Apr 2021 19:06:18 +0100
-Message-Id: <161920094855.15254.10977006167383713745.b4-ty@kernel.org>
+To: lgirdwood@gmail.com,
+	shumingf@realtek.com
+Subject: Re: [PATCH v4] ASoC: rt711-sdca: change capture switch controls
+Date: Fri, 23 Apr 2021 19:06:19 +0100
+Message-Id: <161920094856.15254.11979581936772990718.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210421120512.413057-1-jbrunet@baylibre.com>
-References: <20210421120512.413057-1-jbrunet@baylibre.com>
+In-Reply-To: <20210422103220.21987-1-shumingf@realtek.com>
+References: <20210422103220.21987-1-shumingf@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Stephen Boyd <sboyd@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, libin.yang@intel.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, jack.yu@realtek.com, Mark Brown <broonie@kernel.org>,
+ derek.fang@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,19 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 21 Apr 2021 14:05:07 +0200, Jerome Brunet wrote:
-> The purpose of this patchset it remove the use the clk member of
-> 'struct clk_hw' in ASoC. 'struct clk' is a per-user reference to an actual
-> clock. In the future, the clk member in 'struct clk_hw' may go away.
-> 
-> The usage of this member by a clock provider usually falls into either of
-> following categories:
-> * Mis-usage of the clock consumer API by a clock provider.
-> * Clock provider also being a user of its own clocks. In this case the
-> provider should request a 'struct clk' through the appropriate API
-> instead of poking in 'struct clk_hw' internals.
-> 
-> [...]
+On Thu, 22 Apr 2021 18:32:20 +0800, shumingf@realtek.com wrote:
+> The DAPM event and mixer control could mute/unmute the capture directly.
+> That will be confused that capture still works if the user settings is unmute before the capture.
+> Therefore, this patch uses the variables to record the capture switch status of DAPM and mixer.
 
 Applied to
 
@@ -99,16 +93,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: stm32: properly get clk from the provider
-      commit: 65d1cce726d4912793d0a84c55ecdb0ef5832130
-[2/5] ASoC: wcd934x: use the clock provider API
-      commit: 104c3a9ed07411288efcd34f08a577df318aafc0
-[3/5] ASoC: rt5682: clock driver must use the clock provider API
-      commit: 8691743c511d6f92d7647d78ea1e5f5ef69937b1
-[4/5] ASoC: lpass: use the clock provider API
-      commit: 27dc72b44e85997dfd5f3b120e5ec847c43c272a
-[5/5] ASoC: da7219: properly get clk from the provider
-      commit: 12f8127fe9e6154dd4197df97e44f3fd67583071
+[1/1] ASoC: rt711-sdca: change capture switch controls
+      commit: ca5118c0c00f6bc8b7d0c82c95485159db3a5584
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

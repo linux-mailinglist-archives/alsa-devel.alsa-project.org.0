@@ -2,102 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402D13690E7
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 13:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD7A369107
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 13:23:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B713016A8;
-	Fri, 23 Apr 2021 13:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B713016A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA1EA16A9;
+	Fri, 23 Apr 2021 13:23:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA1EA16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619176355;
-	bh=U/qo3DVQYr5hQksQrQMUZV74O4rIzRexI1ijSzkw/xE=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=E0GborWLEr/tSyDIWhUdpHaRnql1Yx+GtyiDEgHYXT26abCWSjn1cmuYqx1LaBveI
-	 e2VOhyR2ApXU7Chz1q11yDzdi89QJJd4UVKvaCCQIYYGjXzZqKetCEX7J4ziMDJNfb
-	 rKD8+Zi6GOUu53kbifdOJI6WEugP74wNY1U+ti2U=
+	s=default; t=1619177035;
+	bh=J/Lx/io48Nfpmauknl6vY2OedoYBC+SR7rAMyGYEBSE=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Reply-To:From;
+	b=JBBGiZM8Tbv2Ig7fnO+64EEjDYX+TNVE5YqM3VFsfm2lTeDrDAEGJw/CUe0aLTz3P
+	 NOqgP+6YQNqY2u48VWhofzTLv4exRYBt3thTLhGwPjvwf4EPSdE/TTp6TU3lRHY3SV
+	 U/XnqeGrDUKl/GAVYYwFYInH/2nULhtmUNZyRl2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B725F80117;
-	Fri, 23 Apr 2021 13:11:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C903F800E3;
+	Fri, 23 Apr 2021 13:22:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5412BF80227; Fri, 23 Apr 2021 13:11:04 +0200 (CEST)
+ id 55EC1F80227; Fri, 23 Apr 2021 13:22:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from sonic311-30.consmr.mail.ir2.yahoo.com
+ (sonic311-30.consmr.mail.ir2.yahoo.com [77.238.176.162])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C1C6F800E3
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 13:10:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C1C6F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2644CF800E3
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 13:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2644CF800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="0j8wyvK8"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="JZrL17UC"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6B7DB5C01CC;
- Fri, 23 Apr 2021 07:10:54 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 23 Apr 2021 07:10:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:mime-version:content-type;
- s=fm1; bh=VXvcT5nGhhIk0aEfKc0pjPd9qEI0j2GMikoG2c8a6E4=; b=0j8wy
- vK8QXj+m25pF7Rhhjpsdaz23RZSrrbhlJ9hDvzBYUWd2JsWhYxn0jRKzuP+OcrcM
- +Ku4NAyqhGvcXueYyaDJsTevclDhnvy4L5Vr300RjX63mudpy1opTnC0LBnRTeSg
- BjVNT+NMhdw74t9G108zrnPHv0frK/VQKtfIYfUGv5950cJvAbTbHfGRhC79aZwa
- KDc9jZq6dcAf8hQAf6uvEETaGXaqmpKqBmntFjXF4cPk1WEX61v2qrw2tWlgECKD
- wmYI2sy1IvVL4sxuUBwBllluw4th0BmbTALnEntT6s11rQUaEvhVhnejtoXwxGp1
- HJSX+n6KAmUuit4Pg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=VXvcT5nGhhIk0aEfKc0pjPd9qEI0j
- 2GMikoG2c8a6E4=; b=JZrL17UCZTUd/BwwntBBSWKMdR3N8B8qVEdwdXfELNKkq
- /kLApjs9dIgN/AB3AQi583nxtoFeGPXr3u8Nfpsw+v/5kKU+hAs9bEy8BdlPuOj+
- HLn2zw1WFdsM2rKzRHvOTDtZJnuckUucednQEmzCnk7A0xTG2AAIB2gOu3xQ9zbQ
- Uqeo1fleTzfkJOwTRwUbLJuhzmX1ek0mhX6fTo31eTIwD0PTihFz7NvenEeHu1kt
- 03gQsBLcGJBSGwj82Cn7UMhBUWJe0mlyfCASnm8y9SLzxngwAzaBn+RDAbAemuL+
- YWGLJLsJNxmM4hDr1o7CdINe5wnkIqJ+1FuYpZRpw==
-X-ME-Sender: <xms:PauCYHm_richnuSCajTL_yA0IozNdCgO2N037Ql4t-mEHWtjtAP3Zg>
- <xme:PauCYK1Y8J5lcWSWhjdzwg4tQaKTauxbBgnw0Xi6-56ymob-z_0G_0cnbwBxM2nvj
- xFCTHxJ2qu8s59wCko>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdduvddgfeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesthdtredttd
- dtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepgfeluddukeehke
- eftdevgeefkeejgeffuefgvddviedtfeehvdejleeigfdtheeinecuffhomhgrihhnpehg
- ihhthhhusgdrtghomhdpfhhfrgguohdrohhrghdpfhhrvggvuggvshhkthhophdrohhrgh
- enucfkphepudegrdefrdeihedrudejheenucevlhhushhtvghrufhiiigvpedtnecurfgr
- rhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hp
-X-ME-Proxy: <xmx:PauCYNqH3VhKXGhBuwxFQTpg_aB9puTvw0Dk4TQFBNho4jPFzPvDLA>
- <xmx:PauCYPkfPGwrc7P8Tgvdr4qnAIPNFaxNnw6gizReXVJfMgW4295YPA>
- <xmx:PauCYF0XI75TazXWcEP7H0K2WKPStcI55KUvIgESNiF7y7e3D17ZJQ>
- <xmx:PquCYG_R76zhtropIf8rRgbCV5_VfRPLDbu30jY28umvQLLsK1TpjQ>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA id 76F731080064;
- Fri, 23 Apr 2021 07:10:52 -0400 (EDT)
-Date: Fri, 23 Apr 2021 20:10:49 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: ffado-devel@lists.sourceforge.net, linux-audio-dev@lists.linuxaudio.org
-Subject: New udev rules for firewire character device are added to systemd
-Message-ID: <20210423111049.GA19333@workstation>
-Mail-Followup-To: ffado-devel@lists.sourceforge.net,
- linux-audio-dev@lists.linuxaudio.org,
- linux1394-devel@lists.sourceforge.net, alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
+ header.b="Ol3QfAqQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1619176934; bh=Iro8ZN1A6S/J9xu8AypXENro6pWx36YeN6B30jgSX4w=;
+ h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To;
+ b=Ol3QfAqQEBBFpl5G4kdJfYJmNzCijTud/TMlhLl8fAFIx3msrgzUVViJAgC7m/xIHoKcxzHPQehTWJ3n7MaCQQSUlMoiNSwE5+oSFDwePEky89qcUSTrrq55cA415RSdNHvN4sNIYt7zKeISDfYtNm76EXz6Pj+N80syeQAx8Q/9OxYhnCUnq70Jbr4e+fMORjZ4nuOHa6KV0TG15QgZHqwCvphvzeq//BpPvl/m5P5sW/K/K6B2XqvHKntjBsZBl6ELqlZXc/iMLcz0rcOEl3/0nWa3HlGJ8RfSngQgfvIkPNXFY1YWkvzRwpE8VvdVJ/vRHVQWEBRamaXsJVIz6w==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1619176934; bh=3w1eNdQaxCD20J0GbBI8yr5RfjCN8LdKFY1dUsUZ2kM=;
+ h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
+ b=VEdfvdPogXka6bCvb7JStXiEhGi/ehb6zbs/Pl9zzldqZ23X7h0g6MekF4dkmw9TiLnLMXmwsBdHCKYoFDEI6zBbd3XH9SexWwsUq8mk/vG0xLukFJz0Ux2eSnZFBoChr8ZtBY1JAn3VazmYg2uaViJfI4SeCLhNYFNVUPlrJ210zAsuMdAnuCeNLimsRwGD7fffGLQ4C3dNaAAwAuBXw5fODzf0AQhuzk3+nVLo6Wl8TCSYXzN6W5sMx6sr45jAjZOqOsCvY/wUChXCCRD3dcIELSjOqddj+ssXNwz35gEoCvo0hazFN+EHEUaZSXlGjAqFvXwJOQxchLPrmmBWLA==
+X-YMail-OSG: h_l.oQ4VM1nXjR.RCXwlz4MTnMBvAJ2b0BnlI9DFBYWBuiacZvNa0AS9Wu1bBYT
+ XFsz0t3nhAjmwiubNgjo5Q.QR5XcHK90WSb2.h0jV68rhtMO7gtqagw603wEtSH9oDtxTGsYqqr1
+ ldA0ncQpolX7r4hoXPHr2Af7MnIs.JDb8hvWnBL.vtNJV6BffXFk49mp8XmNVsfDEQ061Ae0Nz.I
+ C1iJ.3xpWt0Bd4YityQfj24qwHqNrrKmGCsk8wR0.wBh8T1hviBpcj4nJnMlf4XLq0hMRd7YXwLp
+ GhpeurFaMOFcsCNCbwi.aZxiSGl4prba22aNVIgCltwCZa2wus0GKiBPNdyeWBPn0hwJjtz.E53f
+ 4HgaoWNmg8s2QJ2hLkbrXwpCCzniU_CQhGwqkqLFJJdo.jdWrm71F9knkHNEd.Nc_51jGclAI5Kv
+ N224yVLeOo6xTL18JP_LukSF0SePn3NGbSngRZkhgOeZCEJZH50hIrXd7VpufBJzpmP6yuwJZyDQ
+ B6QcKK4TLbaLG9.Q3RC5jUi8UOjQhjUTfE0k.ozXr1SUc4QPBLGNFQtxVP.Pg6KK2OFBT0eWfl.j
+ A169Z59aPGdbLIA98THcO4ZhaI5iNElT7LibHX9eAoEGWeM7LvqKn3_9hKZQJ6ljJAYMrGo3Lcto
+ HHeLS7cRCj9uXy3oYvkExnAV1ozDJL4TUgJPmgXWy61Mw.e6bggeryePzf7g_Ml9YBSs5L_sKSE0
+ 2bIrt9TLIsWDFaAL5RV6mvPCGKP_1q4FF93ce92x6cD9cYi6pQilgeGN4s_JXO2q2bbDTdYNGy5i
+ iX8fB7vWgvvtp.EYfFR4bE1Trx3MPSQClp6PTa27eMzQ6l9.CXcvBD3LU4.DRhEaqF4uxXhEFW_G
+ 73W3.1VSDXvF6NyQkYpNAuzBuCyN1_JYWK1JXHSescg.MugjBPfn2K1oL9Zn.tbrOJPanmbrYVsy
+ OS06hS.ATXGQM_VxuFG8x2eEE6979kJaafxTd24qyo0MWxuEnquVPm5GnCkRXkvZmchJPUWfMq8C
+ hPv1qLEx40YGK630XLbdmeNy8qIy5H2ggoOeX9hu_0vXXE7uj5YTj0Gu1a8K_g5fd1OEQvf023.k
+ n_62MX2YFjv5lUOTad9T8M0DY08B8AblpqGcfo7WFoW5s0htPu7IDrjJcau3S5tBDTg5tGaE4b_k
+ _UtG2wUdHFRdbPiGGJnp.5shF8u_Wxug0QnKeI5MUaT9RKbtmaStTQAQkZONA1djqlWnHRigNy5g
+ _aBmj5t2hkMdz58Vuio_vfdVHqZa13yG8UPTBWF2L9vQj72wuVI8gB1XbLE7n3zJHQI1KQ0CmYlC
+ vTEDfrKp18XIOqxGokyes1msKrTwHeFSgzgcr3fHnymisVXX_an3_jPO2Gq.CWZ8.O0s6WgvAxwj
+ 3kZXh_z59Dpi7mnp3uUzvBcX7YeCSAn9qC2j1uwE1x0cLzO1ioSuJ8n3aXgSqJurfvKrzFOkNYEQ
+ 9EIprFVPaqzuQr3.dYtg4jO8XZIQnr6Nwbkinbz.dOZ_4_GJqnGW3iD0N5q5LHc4rhMGw2qZcHb0
+ BV5ZvEvS40xcIOk1orgfx8Qj5axlgyL0w.y_DnmehPOanYXEwpyOWKNR7ua9oDy9a4cz9sShQXKC
+ nAL86grhuXe5jGqKiqLx003tB0nfjeb4luxYN5WksIhEejG1S3Ua5bgIbmuHgp9UP6IPChKy8UsY
+ 3zVuPXJ13rT9XlhzTdFCsbOh3eGSlGROYYCFAfSXv9qsCQ7dUjdtxNWgd3bSav59j6FX9nlga4m0
+ W2QFiyK9pbXNK_ngvSc0z_PVjLZhHVzFY698oEblXwSO_PzKdiEHb2_2z0q3gYKk4m9xybGC6uX.
+ 54YVvWBkRrujarO0CMkO3t8QcAhcPKOIJ_.FinD46tS5yp_1Lvmvcqsi_EIhL70Vt6fLqmKYDSWS
+ eXBMHJNt6EDXGvQhckycxNJ8UwgVryzC.v70NwRqsOQ5ABwHAfKbFzrNYvm4_A3HKuAqZcH4Enir
+ HSeKJRGdDmxY32LzeHs_W58K1eyvMLOuIuNoZY.ULKInrBRV29syXrhntchpkAH8BFbQCax7i.vA
+ lEc7_6ZtauCN1rX2TDqlti7.D4sk2pQtxfpKsVjxAyGQhO2bKgG6K2ZljI0LToJ40bLjDyVRREIF
+ lQTc10MZcL9kX9vlGTyGa0xvq5513UnZ2mZxE.8J6F_8IsXBIenFF_lQ0GU34kEgVxk8CsABDMmN
+ Rd9yax548BzQ.RIhshhhf.e5jCUSxmWfabCGNMC2KJV7IV91wfSGbNNUO8onq138UT5sijqXMULp
+ ZlnSnOhGhTdWm9Pj3_aWg3ZJ2m0O76MQc7y1lcmKro76QGiXugMg1vnSh0cBzjXyspKeLCQQif2s
+ NZfowTXOgNWpcgaD7VHwng5aDutvwRpqtjuKC8lrH4tENBNeO3vXWHVol7W6V1_LNe6NvKk6uDYc
+ RmHt6NjZfCvF6ir.zCPeETqOlgxmuFtzcHWE2f59uYWxsVPMVvvhTdXFTu4AwDltx3Euz6s5SC_O
+ TCP.Pl63aCizYmxudBfqIc8BcWILHnuv2gcZKZKVpcYFat_DGVIXt0PJm45y6DNcIU847zKcrFID
+ mmOilslan7weM_hAWRyNtmA9GHtge3M0Uc2MC9zS6_ZIhshJVDg6zxzb6GvmUz0YJajZofuoYfCV
+ B1OFJv50EqoVedODZYxJ48LxNrfuaeAcQ5qKvynQV2ev5q9DYPDjKT9WbQjktyj3AN7Dxcz6547O
+ k_fg0eJPR5SDwcmLjbADFQoq9pNbUTY5b1nKUtAx25k4POkE8Hs4Kkq5LQu.t9WvSsGuAFpH4kae
+ g.mxWPgISLR8tmA--
+X-Sonic-MF: <htl10@users.sourceforge.net>
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.ir2.yahoo.com with HTTP; Fri, 23 Apr 2021 11:22:14 +0000
+Date: Fri, 23 Apr 2021 11:22:10 +0000 (UTC)
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Message-ID: <1556414365.8666901.1619176930979@mail.yahoo.com>
+In-Reply-To: <ec99afd0-fa6b-71a5-653d-f1ef9687d5ed@gmail.com>
+References: <148484793.4894421.1618654607945.ref@mail.yahoo.com>
+ <148484793.4894421.1618654607945@mail.yahoo.com>
+ <877dkz5hz1.wl-kuninori.morimoto.gx@renesas.com>
+ <1772063602.5910217.1618841824599@mail.yahoo.com>
+ <87h7k152du.wl-kuninori.morimoto.gx@renesas.com>
+ <212419469.6653726.1618928398310@mail.yahoo.com>
+ <425493399.6730534.1618934642983@mail.yahoo.com>
+ <ec99afd0-fa6b-71a5-653d-f1ef9687d5ed@gmail.com>
+Subject: Re: ASoc / PCM recording-related regression between v5.4 and v5.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net
+X-Mailer: WebService/1.1.18121 YMailNodin Mozilla/5.0 (Macintosh;
+ Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko)
+ Version/14.0 Safari/605.1.15
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,84 +127,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: htl10@users.sourceforge.net
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+ On Thursday, 22 April 2021, 15:01:02 BST, P=C3=A9ter Ujfalusi <peter.ujfal=
+usi@gmail.com> wrote:
 
-Summary of this message:
- * systemd got udev rules with new database for firewire node/unit
- * then fw character device for audio is owned by 'audio' group with ACL
- * the entries are added by my investigation, thus doesn't cover all
- * if you have firewire audio devices not listed in README of below
-   repository, please contact to me with image of configuration ROM:
-    * https://github.com/takaswie/am-config-roms/
+> If you start the DAI first and later the DMA then it works again?
+> I'm still behind of the patch which introduced different sequences for
+> start and stop.
 
-The way to create image file of configuration ROM is typically:
+I am with you on your change too - I think your change makes sense; it is t=
+he vendor's driver that needs correcting.
 
-```
-$ cat /sys/bus/firewire/devices/fw1/config_rom > filename.img
-```
+> From my commit the start sequence is:
+> dai_link, DMA, CPU DAI then the codec
 
-Here, I presuppose that Linux FireWire subsystem detects your device as
-'fw1'.
+> Is it make any difference if you try:
+> dai_link, DMA, codec then the CPU DAI
 
+I'll give this a try soon. I am just the owner of one such device, and did =
+the porting from kernel 4.19 to v.5.4, and now troubleshooting to v5.10. Th=
+e vendor has been quite absent... and I feel I perhaps spend more time on t=
+his venture than I am happy with... Anyway -=20
 
-Well, in the past, access permission of Linux firewire character device
-is decided by udev rules just for video devices[1]. This was
-inconvenient some project such as ALSA and FFADO to produce audio
-application.
+> But the codec is usually not handled in trigger, it can not be atomic
+> most of the time.
 
-The source code of libffado includes own file for udev rules[2] to take
-firewire character device owned by 'audio' group. Additionally the rules
-gives 'ID_FFADO' tag, and systemd includes another udev rule[3] to ACL
-at logging-in time according to it.
+I suspect the vendor did something not quite right in the area to make it w=
+ork under the previous wrong trigger order too. More below about spinlock a=
+nd atomic context.
 
-As a whole, the above is not comprehensive and self-contained. I
-proposed patchset to systemd for better solution and today it was merged.
- * https://github.com/systemd/systemd/pull/19124
+> Can you point me to the out of tree driver and the related dts files?
+> Can it be reproduced with rpbi w/o any hat? I have one hifiberry but
+> that is playback only and if I'm not mistaken the 3.5 on the board also?
 
-In the patchset, I add some udev rules, based on hwdb for new entries of
-node and units in IEEE 1394 bus. You can see the database[4].
+For your purpose you can see my fork (which includes v5.4 -> v5.10 migratio=
+n change, unlike the vendor's), https://github.com/HinTak/seeed-voicecard .=
+=20
 
-The entries of database have below variables when matching to either
-node or unit devices:
- * IEEE1394_UNIT_FUNCTION_MIDI
- * IEEE1394_UNIT_FUNCTION_AUDIO
- * IEEE1394_UNIT_FUNCTION_VIDEO
+The dts concerned is: https://github.com/HinTak/seeed-voicecard/blob/v5.9/s=
+eeed-8mic-voicecard-overlay.dts
 
-The added udev rules interpret the content of variables and decide group
-owner of fw character device(see [1]). Furthermore, the variables are
-used again to decide ACL in logging-in time(see [3], too).
+The card trigger code is in: https://github.com/HinTak/seeed-voicecard/blob=
+/v5.9/seeed-voicecard.c
 
-The entries of database also include below variables:
- * ID_VENDOR_FROM_DATABASE
- * ID_MODEL_FROM_DATABASE
+while the codec trigger code is in
+https://github.com/HinTak/seeed-voicecard/blob/v5.9/ac108.c
+and also https://github.com/HinTak/seeed-voicecard/blob/v5.9/ac101.c !=20
 
-They are expected to use applications such as PipeWire and PulseAudio for
-better names of sound device, which binds to unit instead of node. I
-expect the variables can obsolete my former patch for pulseaudio[5].
+Note that the routine ac101_trigger() is not used, although the ac101 codec=
+ itself is involved.
+There is a spinlock in ac108_trigger(), which I have long suspected to be i=
+ncorrect, and has been known to cause the pi to kernel panic if built with =
+PREEMPT ; Now I think it is there to make it work under the previous wrong =
+sequence.
 
+There is another device of the same family - which records okay regardless =
+of the trigger sequence https://github.com/HinTak/seeed-voicecard/blob/v5.9=
+/seeed-4mic-voicecard-overlay.dts .
 
-I handy write the entries of database from my investigation, thus
-it could includes the lack of your device, or mistakes. I wish you to
-contact to me with image file of configuration ROM when you can not find
-your device in README of my collection repository[6], or when you find
-any mistakes in database file.
+The problematic device has 8 mics, using two ac108 for 2 x 4-ADC and the ac=
+101 for DAC loopback (and as clock master?). The 4-mics record-okay device =
+has just one ac108 (and without a ac101) to record 4-channels.
 
-Thanks for your cooperation in advance.
+As I understand it, to record / playback for 8 channels on the pi, the I2S =
+on the pi transfer data as stereo at 4x the frequency, and the codecs try t=
+o start and stop in such a way to avoid channel shifts during the 8-channel=
+s to 4x stereo change.
 
-[1] 4 rules in 'rules.d/50-udev-default.rules'
-https://github.com/systemd/systemd/blob/main/rules.d/50-udev-default.rules.in#L52
-[2] many rules in 'libffado/60-ffado.rules'
-http://subversion.ffado.org/browser/trunk/libffado/libffado/60-ffado.rules?rev=2794
-[3] 'src/login/70-uaccess.rules.m4'
-https://github.com/systemd/systemd/blob/main/src/login/70-uaccess.rules.m4
-[4] 'hwdb.d/80-ieee1394-unit-function.hwdb'
-https://github.com/systemd/systemd/blob/main/hwdb.d/80-ieee1394-unit-function.hwdb
-[5] udev: use ID_MODEL/ID_VENDOR to give friendly name for FireWire devices 
-https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/commit/3ac73598c67c
-[6] https://github.com/takaswie/am-config-roms/
+I can reboot between 5.4 and 5.10 quite easily (the pi does not have a boot=
+ loader per se - you just overwrite the kernel image in the first fat32 par=
+titition...). At the moment I am thinking of inserting some pr_info() into =
+seeed-voicecard.c:seeed_voice_card_trigger() and ac108.c:ac108_trigger() an=
+d perhaps also in general in ac101.c to see how the driver behaves differen=
+tly under v5.4 and v5.10 . And while doing that, have some thoughts about g=
+etting rid of that problematic spinlock in ac108.c:ac108_trigger() when the=
+ code get re-arranged.
 
+The problem is with trying to record, so I assume you cannot reproduce the =
+problem if you do not have the hardware. However, I could certainly benefit=
+ from some suggestions and guidance on what to change and how to change the=
+ current code.
 
-Takashi Sakamoto
+I am fairly okay with kernel development (in a few other different areas, f=
+ile systems and wireless mostly), but audio is new to me.
+
+Thanks a lot for any ideas / suggestions you might want to give on modfying=
+ the two trigger functions and getting rid of that spinlock!
+
+Regards,
+Hin-Tak =20

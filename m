@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87C75369737
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138B836973D
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:39:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12FB516AF;
-	Fri, 23 Apr 2021 18:38:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12FB516AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A69BE16D5;
+	Fri, 23 Apr 2021 18:38:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A69BE16D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619195937;
-	bh=a1kuP7pJyuVNwKbaVuU2zPH8wdOPw6VRz/YUhwzSLtU=;
+	s=default; t=1619195984;
+	bh=TZbHeTKTHAw2eOpfcbKGae1t73Smf722rDqdKSCIfBk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E+h0uq4BssOLa2qgnDi0iQJOV09qpbgUs2XbC+AzwiRapu1JZFGwk55pplFDn4M3m
-	 in8kBwX+55Qh/9jgbgOG7KffrBaJgOj+QtzMCzx9IEsfCGWugl1eku74JXrWUfMTsc
-	 Ntkbqz0whJRekGLCg9UZCLe4vo/2OQDGE/q/bvlg=
+	b=fG1ImvPQy3ZxfYca5xy/2zN0fp3x79BTtYB/DUiKv++0kMxKIEiAwYtYzPLGb3eBG
+	 Q+8fGTmL8XBGeSNgWLlP+btBlCAlcpU1thD+wK7bC0XjeqxP+nOa9UJTCbAwhUw+33
+	 mnTlF/Ng04Z7MkYWqAZwHwje/BB/hBNucD6G6lzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44C46F804D9;
-	Fri, 23 Apr 2021 18:35:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA0B6F804E2;
+	Fri, 23 Apr 2021 18:35:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 142E3F804AF; Fri, 23 Apr 2021 18:35:06 +0200 (CEST)
+ id 8E38BF804A9; Fri, 23 Apr 2021 18:35:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00403F802D2
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:34:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00403F802D2
-IronPort-SDR: qrD0lNDdZQ8QoJ+vQVljnpxBn6TJSxZXcB03T5FaO95NWZc6QIFqNeYRo5d9HA+TZWWxAT1pJ1
- 930K8i0raVaQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="281424840"
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="281424840"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFC29F8028B
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:34:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC29F8028B
+IronPort-SDR: T0ss/rzstoeWDicjgYAQCNQR9u9z4nszNBx1l/21BCuF9ZP0y1aZULtObeIjZ77NF2sErHYuin
+ oU7Tb9QoIRuw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="196156392"
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="196156392"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Apr 2021 09:34:46 -0700
-IronPort-SDR: 6xA0Mi8CKiWMRG1KFusnYfYvVd0Nn/aRW2ePEoUSML/Gts2GCVKhplyi1dpKECTZOjZ4ksZtLZ
- Mi2OGIt5NjzA==
+IronPort-SDR: tBkOKguHsDaUTsBA2TGqoa6pqVKWWlEcS6tdJGhI6hcLc/EgMhEjfWEc2G0qfd43LnJxBInm7i
+ eZ/YHjFz+LSw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="614764930"
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="525064589"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga006.fm.intel.com with ESMTP; 23 Apr 2021 09:34:42 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 23 Apr 2021 09:34:42 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 30C5B52A; Fri, 23 Apr 2021 19:34:58 +0300 (EEST)
+ id C4B3313C; Fri, 23 Apr 2021 19:34:58 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Mark Brown <broonie@kernel.org>,
  Cezary Rojewski <cezary.rojewski@intel.com>, linux-input@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-spi@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH v1 10/14] spi: pxa2xx: Extract pxa2xx_spi_update() helper
-Date: Fri, 23 Apr 2021 19:34:33 +0300
-Message-Id: <20210423163437.89306-10-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 11/14] spi: pxa2xx: Extract clear_SSCR1_bits() helper
+Date: Fri, 23 Apr 2021 19:34:34 +0300
+Message-Id: <20210423163437.89306-11-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210423163437.89306-1-andriy.shevchenko@linux.intel.com>
 References: <20210423163437.89306-1-andriy.shevchenko@linux.intel.com>
@@ -86,75 +86,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are few places that repeat the logic of "update if changed".
-Extract pxa2xx_spi_update() helper to deduplicate that.
+There are few places that repeat the logic of "clear some bits in SSCR1".
+Extract clear_SSCR1_bits() helper to deduplicate that.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi-pxa2xx.c | 33 ++++++++++++++-------------------
- 1 file changed, 14 insertions(+), 19 deletions(-)
+ drivers/spi/spi-pxa2xx-dma.c | 4 +---
+ drivers/spi/spi-pxa2xx.c     | 7 ++-----
+ drivers/spi/spi-pxa2xx.h     | 5 +++++
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/spi/spi-pxa2xx-dma.c b/drivers/spi/spi-pxa2xx-dma.c
+index 5ca01ad7f460..e581027e99f9 100644
+--- a/drivers/spi/spi-pxa2xx-dma.c
++++ b/drivers/spi/spi-pxa2xx-dma.c
+@@ -41,9 +41,7 @@ static void pxa2xx_spi_dma_transfer_complete(struct driver_data *drv_data,
+ 		}
+ 
+ 		/* Clear status & disable interrupts */
+-		pxa2xx_spi_write(drv_data, SSCR1,
+-				 pxa2xx_spi_read(drv_data, SSCR1)
+-				 & ~drv_data->dma_cr1);
++		clear_SSCR1_bits(drv_data, drv_data->dma_cr1);
+ 		write_SSSR_CS(drv_data, drv_data->clear_sr);
+ 		if (!pxa25x_ssp_comp(drv_data))
+ 			pxa2xx_spi_write(drv_data, SSTO, 0);
 diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
-index f85c7439757c..4b3237f14ead 100644
+index 4b3237f14ead..58178ba704dc 100644
 --- a/drivers/spi/spi-pxa2xx.c
 +++ b/drivers/spi/spi-pxa2xx.c
-@@ -200,6 +200,12 @@ static bool is_mmp2_ssp(const struct driver_data *drv_data)
- 	return drv_data->ssp_type == MMP2_SSP;
+@@ -733,8 +733,7 @@ static irqreturn_t interrupt_transfer(struct driver_data *drv_data)
+ static void handle_bad_msg(struct driver_data *drv_data)
+ {
+ 	pxa2xx_spi_off(drv_data);
+-	pxa2xx_spi_write(drv_data, SSCR1,
+-			 pxa2xx_spi_read(drv_data, SSCR1) & ~drv_data->int_cr1);
++	clear_SSCR1_bits(drv_data, drv_data->int_cr1);
+ 	if (!pxa25x_ssp_comp(drv_data))
+ 		pxa2xx_spi_write(drv_data, SSTO, 0);
+ 	write_SSSR_CS(drv_data, drv_data->clear_sr);
+@@ -1161,9 +1160,7 @@ static void pxa2xx_spi_handle_err(struct spi_controller *controller,
+ 	pxa2xx_spi_off(drv_data);
+ 	/* Clear and disable interrupts and service requests */
+ 	write_SSSR_CS(drv_data, drv_data->clear_sr);
+-	pxa2xx_spi_write(drv_data, SSCR1,
+-			 pxa2xx_spi_read(drv_data, SSCR1)
+-			 & ~(drv_data->int_cr1 | drv_data->dma_cr1));
++	clear_SSCR1_bits(drv_data, drv_data->int_cr1 | drv_data->dma_cr1);
+ 	if (!pxa25x_ssp_comp(drv_data))
+ 		pxa2xx_spi_write(drv_data, SSTO, 0);
+ 
+diff --git a/drivers/spi/spi-pxa2xx.h b/drivers/spi/spi-pxa2xx.h
+index b6dae0981b61..398dbd680208 100644
+--- a/drivers/spi/spi-pxa2xx.h
++++ b/drivers/spi/spi-pxa2xx.h
+@@ -105,6 +105,11 @@ static inline int pxa25x_ssp_comp(struct driver_data *drv_data)
+ 	}
  }
  
-+static void pxa2xx_spi_update(const struct driver_data *drv_data, u32 reg, u32 mask, u32 value)
++static inline void clear_SSCR1_bits(const struct driver_data *drv_data, u32 bits)
 +{
-+	if ((pxa2xx_spi_read(drv_data, reg) & mask) != value)
-+		pxa2xx_spi_write(drv_data, reg, value & mask);
++	pxa2xx_spi_write(drv_data, SSCR1, pxa2xx_spi_read(drv_data, SSCR1) & ~bits);
 +}
 +
- static u32 pxa2xx_spi_get_ssrc1_change_mask(const struct driver_data *drv_data)
+ static inline void write_SSSR_CS(struct driver_data *drv_data, u32 val)
  {
- 	switch (drv_data->ssp_type) {
-@@ -1081,19 +1087,12 @@ static int pxa2xx_spi_transfer_one(struct spi_controller *controller,
- 			dma_mapped ? "DMA" : "PIO");
- 
- 	if (is_lpss_ssp(drv_data)) {
--		if ((pxa2xx_spi_read(drv_data, SSIRF) & 0xff)
--		    != chip->lpss_rx_threshold)
--			pxa2xx_spi_write(drv_data, SSIRF,
--					 chip->lpss_rx_threshold);
--		if ((pxa2xx_spi_read(drv_data, SSITF) & 0xffff)
--		    != chip->lpss_tx_threshold)
--			pxa2xx_spi_write(drv_data, SSITF,
--					 chip->lpss_tx_threshold);
-+		pxa2xx_spi_update(drv_data, SSIRF, GENMASK(7, 0), chip->lpss_rx_threshold);
-+		pxa2xx_spi_update(drv_data, SSITF, GENMASK(15, 0), chip->lpss_tx_threshold);
- 	}
- 
--	if (is_quark_x1000_ssp(drv_data) &&
--	    (pxa2xx_spi_read(drv_data, DDS_RATE) != chip->dds_rate))
--		pxa2xx_spi_write(drv_data, DDS_RATE, chip->dds_rate);
-+	if (is_quark_x1000_ssp(drv_data))
-+		pxa2xx_spi_update(drv_data, DDS_RATE, GENMASK(23, 0), chip->dds_rate);
- 
- 	/* Stop the SSP */
- 	if (!is_mmp2_ssp(drv_data))
-@@ -1102,15 +1101,11 @@ static int pxa2xx_spi_transfer_one(struct spi_controller *controller,
- 	if (!pxa25x_ssp_comp(drv_data))
- 		pxa2xx_spi_write(drv_data, SSTO, chip->timeout);
- 
-+	/* first set CR1 without interrupt and service enables */
-+	pxa2xx_spi_update(drv_data, SSCR1, change_mask, cr1);
-+
- 	/* see if we need to reload the config registers */
--	if ((pxa2xx_spi_read(drv_data, SSCR0) != cr0)
--	    || (pxa2xx_spi_read(drv_data, SSCR1) & change_mask)
--	    != (cr1 & change_mask)) {
--		/* first set CR1 without interrupt and service enables */
--		pxa2xx_spi_write(drv_data, SSCR1, cr1 & change_mask);
--		/* Update the other bits */
--		pxa2xx_spi_write(drv_data, SSCR0, cr0);
--	}
-+	pxa2xx_spi_update(drv_data, SSCR0, GENMASK(31, 0), cr0);
- 
- 	/* Restart the SSP */
- 	pxa_ssp_enable(drv_data->ssp);
+ 	if (drv_data->ssp_type == CE4100_SSP ||
 -- 
 2.30.2
 

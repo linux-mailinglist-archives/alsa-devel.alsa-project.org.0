@@ -2,70 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4094C3699D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:37:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 496D1369AF6
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 21:34:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0BC5171E;
-	Fri, 23 Apr 2021 20:36:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0BC5171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB3041729;
+	Fri, 23 Apr 2021 21:34:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB3041729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619203034;
-	bh=sqqvW/KiY0UjOtZtN03sRH2dM0JO0woe6C8wL34S+Gk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1619206493;
+	bh=Jsxyqdxkhb7V8Yk0xUHEkT/k32LnbeF3ZT5x6bOvWBM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oYZvbQ1ssZ81PxbPkn+Dp/a8uFz3xY3Y+JBjNc+iCfzXXXNhKqkO64juoKB3YNxXR
-	 sbgxizazGS3dvK1rjasJLnjFkxuz1qlU7gkX4mAwBxdb8PaihMn+EMyog9OdDqgORW
-	 psNZUemdXtHiHr9BekDpgQwwkEThDCrDdMv3dOMs=
+	b=SoAFSDabXcKY88X/5iESYADRoCfvmPrAj84X0p9UT4ge40qfnM0OKx5Vzyr72+Oor
+	 L1foWJgL87cagTTvEFJWfX5Bw79BRdQXPdDcQawYANwMfLAN8GqpK6IoJ5KBOTdJ3m
+	 W77lrEepLkJcG2RKLJBSlR75IEhCAY5nNf0TvqGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A4E0F80117;
-	Fri, 23 Apr 2021 20:35:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBE9AF800E3;
+	Fri, 23 Apr 2021 21:33:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B622FF8019B; Fri, 23 Apr 2021 20:35:43 +0200 (CEST)
+ id 58C06F80227; Fri, 23 Apr 2021 21:33:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 828ECF800AE
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:35:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 828ECF800AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IGPefZse"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 021D7613D8;
- Fri, 23 Apr 2021 18:35:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619202936;
- bh=sqqvW/KiY0UjOtZtN03sRH2dM0JO0woe6C8wL34S+Gk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IGPefZsewDiOftVqab41HMHo1nOk4hFpkKSPZE5YpoiRV1/fIMkwDvsroiO6A4kal
- Dw9Ht9eJSZqQ0eHi1Sb0WylnCG9wElbDSN3xSR9h+iNgNN4Lk19q/w8p17fdPLMFGf
- pSqklkg0Q0EjMgx0JijK/RMtMpg7DymZKTQydz3/E1vlONMYkpxXwQgjOj3adso0tZ
- taZPsBYe58KTNUD9/QQAJQpddhbwPpMx9skx2SLtZ+YQ61pxXv1kheDxxrjvnYdrwI
- D89oO8n431/pl+edPTyhKZZhn2hg/HR77z/b7YB6zwP4BFFuxLl4b8VOC7sSqsKrs9
- aIsqnCxFJxpQg==
-Date: Fri, 23 Apr 2021 19:35:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 2/7] ASoC: soc-core: add snd_soc_runtime_get_dai_fmt()
-Message-ID: <20210423183503.GK5507@sirena.org.uk>
-References: <871rb3hypy.wl-kuninori.morimoto.gx@renesas.com>
- <87y2dbgk47.wl-kuninori.morimoto.gx@renesas.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6B498F80117
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 21:33:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B498F80117
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GvuyDaC2GNSBQusT"
-Content-Disposition: inline
-In-Reply-To: <87y2dbgk47.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: This is now.  Later is later.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1619206393614866972-webhooks-bot@alsa-project.org>
+References: <1619206393614866972-webhooks-bot@alsa-project.org>
+Subject: Warnings on startup
+Message-Id: <20210423193323.58C06F80227@alsa1.perex.cz>
+Date: Fri, 23 Apr 2021 21:33:23 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,74 +59,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-plugins issue #20 was opened from bramtayl:
 
---GvuyDaC2GNSBQusT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I've been trying to get Julia's PortAudio to load alsa-plugins (it's been a process). I thought I might as well see if I can cut down on the warnings on start up (`using PortAudio` from Julia) and some of them I've been able to knock out but some of them not so much:
 
-On Thu, Apr 22, 2021 at 10:53:44AM +0900, Kuninori Morimoto wrote:
+These ones 
 
-> +/* Describes the possible PCM format */
-> +#define SND_SOC_POSSIBLE_DAIFMT_FORMAT_SHIFT	0
-> +#define SND_SOC_POSSIBLE_DAIFMT_FORMAT_MASK	(0xFFFF << SND_SOC_POSSIBLE_DAIFMT_FORMAT_SHIFT)
-> +#define SND_SOC_POSSIBLE_DAIFMT_I2S		(1 << SND_SOC_DAI_FORMAT_I2S)
-> +#define SND_SOC_POSSIBLE_DAIFMT_RIGHT_J		(1 << SND_SOC_DAI_FORMAT_RIGHT_J)
-> +#define SND_SOC_POSSIBLE_DAIFMT_LEFT_J		(1 << SND_SOC_DAI_FORMAT_LEFT_J)
-> +#define SND_SOC_POSSIBLE_DAIFMT_DSP_A		(1 << SND_SOC_DAI_FORMAT_DSP_A)
-> +#define SND_SOC_POSSIBLE_DAIFMT_DSP_B		(1 << SND_SOC_DAI_FORMAT_DSP_B)
-> +#define SND_SOC_POSSIBLE_DAIFMT_AC97		(1 << SND_SOC_DAI_FORMAT_AC97)
-> +#define SND_SOC_POSSIBLE_DAIFMT_PDM		(1 << SND_SOC_DAI_FORMAT_PDM)
+```
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
+```
 
-I'm not 100% sure I get why we have the separate _POSSIBLE_ macros here?
-One thing we'll have to take account of is that there's some DAIs that
-have some restrictions on what options they can combine - for example
-only doing I2S with one format of clock but allowing clock inversion in
-DSP mode.  It might be safer (if tedious for driver authors without some
-help...) to just have arrays of fully specified daifmt values.
+I got rid of by commenting out lines in my alsa.conf file:
 
->  /* Digital Audio interface formatting */
-> +u64 snd_soc_dai_get_fmt(struct snd_soc_dai *dai);
+```
+# pcm.rear cards.pcm.rear
+# pcm.center_lfe cards.pcm.center_lfe
+# pcm.side cards.pcm.side
+```
 
-Like I said on the cover letter I think we need to be able to specify at
-least two levels of preference here.  How about
+This one
 
-	int snd_soc_dai_get_fmt(struct snd_soc_dai *dai,
-				u64 *preferred, u64 *supported);
+```
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+```
 
-or something?  Just thinking off the top of my head, that's a bit ugly
-and doesn't scale to multiple levels so I don't know if I'm *super*
-happy with that interface.  But we might be better off using just arrays
-of daifmt values like I say, if we do that perhaps just one array but
-sorting it might do?
+I got rid of by commening out:
 
-> +	/* use original dai_fmt if sound card specify */
-> +	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_FORMAT_MASK))
-> +		mask |= SND_SOC_DAIFMT_FORMAT_MASK;
-> +	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_CLOCK_MASK))
-> +		mask |= SND_SOC_DAIFMT_CLOCK_MASK;
-> +	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_INV_MASK))
-> +		mask |= SND_SOC_DAIFMT_INV_MASK;
-> +	if (!(dai_link->dai_fmt & SND_SOC_DAIFMT_MASTER_MASK))
-> +		mask |= SND_SOC_DAIFMT_MASTER_MASK;
-> +
-> +	dai_link->dai_fmt =	dai_link->dai_fmt | (dai_fmt & mask);
+```
+# pcm.surround21 cards.pcm.surround21
+# pcm.surround40 cards.pcm.surround40
+# pcm.surround41 cards.pcm.surround41
+# pcm.surround50 cards.pcm.surround50
+# pcm.surround51 cards.pcm.surround51
+# pcm.surround71 cards.pcm.surround71
+```
 
-If the sound card specifies something why not just use it verbatim
-instead of trying to merge?
+I'm not sure if these work arounds are the best solutions...shouldn't alsa be able to tell that my laptop doesn't have surround sound?
 
---GvuyDaC2GNSBQusT
-Content-Type: application/pgp-signature; name="signature.asc"
+This one is expected, I haven't yet figured out how to build jack on Julia's BinaryBuilder:
 
------BEGIN PGP SIGNATURE-----
+```
+ALSA lib dlmisc.c:339:(snd_dlobj_cache_get0) Cannot open shared library libasound_module_pcm_jack.so (/home/brandon/.julia/artifacts/d587f48a6815c72dec4b083bf297caec7a8e3f4b/lib/alsa-lib/libasound_module_pcm_jack.so: cannot open shared object file: No such file or directory)
+```
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCDE1YACgkQJNaLcl1U
-h9A57Qf7BfSE8CXstoLh1f/lGpmb3RW8+aZ+bfVDnDDfZlWkKZ+ZV2LhGcsLljUC
-jXBoA2EmSUieYDuOrQD2NUHmlM+rKQDuSiDmHw8wrMe1ys448obO+hkrWS21TChd
-KDBveDad0crQlMJ+pcNIvo2W+7suf/uPH1MnLfCwd0YdoIYyjv5VHmJCjN8pSnj8
-gtmmnKbxHE3frcaW6+Bkomv6uh59y+pfRwaBFwGGpsZgvsyilyug1lqVOFreXIsC
-rhomSLdEfoAOCN3K3iDU7FYCTBrpxciyo9LAi6+kNX9duQurKjWnfyXwq2rRls6V
-FqC8cxCxUJ64I416twQ1qbdWjRSd/Q==
-=xXxb
------END PGP SIGNATURE-----
+These ones are a bit confusing; 
 
---GvuyDaC2GNSBQusT--
+```
+ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
+ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
+```
+
+Is it possible that `oss/50-oss.conf` and `usb_stream/98-usb-stream.conf` need to get updated?
+
+Issue URL     : https://github.com/alsa-project/alsa-plugins/issues/20
+Repository URL: https://github.com/alsa-project/alsa-plugins

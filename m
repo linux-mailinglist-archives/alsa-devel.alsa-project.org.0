@@ -2,135 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A603696A6
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB55736972C
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:36:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 706E316C5;
-	Fri, 23 Apr 2021 18:08:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 706E316C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9124216C6;
+	Fri, 23 Apr 2021 18:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9124216C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619194163;
-	bh=bYJ2qUKzvOqQhml2qemZBw64aSbFMlDHXMgzso1z6og=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aIzJNnXNZdhiEeD4PEe5ugoG4K5aTANEqL3dbaiiXVsa5sSvAnYkB0K/2AHneBAXK
-	 wPufNS4amIxhnMdVjZ1zHPgVuEksyOylCYwJKqEcDVVEtVp0BiftLkw+nwMVVjNker
-	 gomnJJSKD5HvpVFHWFTNsaF2fm2ZPUjdrD5o83zs=
+	s=default; t=1619195797;
+	bh=M9spaWVGZ5pdAW+2XjVGzRjxDWFVmKk8iC7WQ3ZnTSU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=k2Q/tLfbsVEvEeBadjcVajOeo7v1sxfM3ckt29ZvDO95EUGupOq4aLyPTNtorwkBI
+	 D4LJQWSDrqQ8fDo+iLqgIWs800/h9Z6NbCRDtfPtRsNt3RPsy6aeQoINb+O8cVJTiJ
+	 CmVeA11uopQzQugsxVCXcXe5cIYqinJhuktUau8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 481FEF80276;
-	Fri, 23 Apr 2021 18:07:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11B5CF8025A;
+	Fri, 23 Apr 2021 18:34:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAE28F80423; Fri, 23 Apr 2021 18:07:56 +0200 (CEST)
+ id 0A2B9F80430; Fri, 23 Apr 2021 18:34:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EFC8F80276
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EFC8F80276
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="P+Jw1jnT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mk9Yg8BEXCG9WYxs9lye/hXNaWgZxUc0Bve12sM/BKKTC8sbfSOGJ3Lj+2jdH/Ly6mIM7A3N6k+YLu56HRSELD10q16xxxpKx1GT6fIDqM4bas2yWrvNa3WhMFmNv4Lg0IqcezkK+VRRSAe+qqqtnaS6CSuYll/0h2+NMOuDW3orUs1q+WG9mIbkq5gx6p4xmLUpOAjEIEMU43YyryqCdW8j8NAsDIUmXqMv3Ccr+oKzqU5gP+HDP6LA7Zch79gVBnNbFOInlgAnHaYcEroy0ps9Aa7ChRhu0Rpf7BtcRGTke4ouc4zQ4V+Z9qIqQ7w19+jZEgvjndyEKFgyWW3nkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
- b=fLwJytAXpbI/dX1uMz5w3W0BwRo6FkCw0nS7hm86x2I5w0XGrUdr0okyQCcbxXHKSbNRNLA003uzB2WMsEbyGe4GS6+bNFoNHbqY40vruOOb3NN/2hbarCzPYeG7lkaWR8LenU1i7lTjNPEzvxa1c1VuGmFw9f0EAeVU7xyZ0u21BvlZmCEYtkSnJtmMvc/L+IL4Co3Z1/UwB4ENVLGkDDIM4FlfLQwVnBNShJH1xI5RB/aDAa+Y1bFsbXKTuZ86UlVsSItxT6TQ7OLrsIr5YKO15ZTm4t5MR5goZgucBlFz6VE7zAy/zNrUEVMgPFWGJEEoVCj8tY4fqxXJrqaaGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=amd.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
- b=P+Jw1jnTtmkTmGUjtt8ZoPl6iWmSJWkTOBKpSIocEEynwXSUf40mebmEOjmp4Xiut94cH4GxuKVE4bPJ1dMEbeakAQyF7t7ACtilcLypMGdfU7ytnSXWu2UAC2mwrz9RNDTfkKHFSnhu7OveGm5pSqa4j6qfN2uQghmS6C8FV3w=
-Received: from MWHPR22CA0022.namprd22.prod.outlook.com (2603:10b6:300:ef::32)
- by BN6PR12MB1729.namprd12.prod.outlook.com (2603:10b6:404:108::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.22; Fri, 23 Apr
- 2021 16:07:42 +0000
-Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ef:cafe::4f) by MWHPR22CA0022.outlook.office365.com
- (2603:10b6:300:ef::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20 via Frontend
- Transport; Fri, 23 Apr 2021 16:07:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4065.21 via Frontend Transport; Fri, 23 Apr 2021 16:07:41 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
- 2021 11:07:37 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
- 2021 11:07:37 -0500
-Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Fri, 23 Apr 2021 11:07:27 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 2/2] drm/amd/amdgpu: Add dwc quirk for Stoney/CZ platforms
-Date: Fri, 23 Apr 2021 21:54:39 +0530
-Message-ID: <1619195089-29710-2-git-send-email-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
-References: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBFE5F80117
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:34:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBFE5F80117
+IronPort-SDR: pKpuvk9+7CDtPtyb1cTLZMHU90HWlDU+dtdUrePk82iohXhybPTgtEmx8px6hHk8jA8wMXCnyv
+ IRJhSrptIcQQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="193979321"
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="193979321"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2021 09:34:42 -0700
+IronPort-SDR: A/GALelAqh8nmKhWf/4sYqd6s38qWEG8d4+DpCxmpFYcWce04Ax8rQd23x0+KRiW80i0WAjElK
+ gZ4Q8dIDcA3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="535590595"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga004.jf.intel.com with ESMTP; 23 Apr 2021 09:34:34 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id B304611E; Fri, 23 Apr 2021 19:34:51 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-spi@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: [PATCH v1 01/14] spi: pxa2xx: Use one point of return when ->probe()
+ fails
+Date: Fri, 23 Apr 2021 19:34:24 +0300
+Message-Id: <20210423163437.89306-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1729:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1729462A7F3BEDE645D5828297459@BN6PR12MB1729.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5kUol8h4sw6v0WMK+grkP1sA3KAE/PCo6STVy6D6Y4WGQwV+t0ti2OdfRDs2hlFf9FYrLQ1MSeH18J1RPA134xZCFB//xmLfUH4Zx7BcDB7ic+rC220KWR1jepGFPiUHvEQItDuFYQLKy5P82DKY0V7K94DU1SYgQgXGgwgUtVVkLd2Qi3OR8hUwNWgC8ugAZoXAxUPradG1GyEu1PMhGG5Qs87tyoDUPNUtk5sIiXS/m9uxsZCQkA5bQNL4QpOPk6AtuLQUzgGVYfLYjosUCuOvENA2UtjyXUGSQ0IO7eVzUgOvJfYjTIHPNFcCoUSOakOrjpY2IC3MWyqdD0t6SO5m5EopHPcCwdYgdpDY36RBfcKpJjWdl0YyQLswywMLYKM/HPbLLPeXFqaL1N1FkhtLRM9ifIXcI/GSlVerIAvCJoqtICte6Zz0ymbuRx74I13a+LPpsI0z4NmsgtRjirdeIKrd/BI+KrBr+6ki+dbKOON206AplQD/zJ/oP1xNJBQYYHLdxNx7Xmo4ZBSNCju+4wJJtX/7WZUp+A3Cu/2EXNYr3Wo6tCCmlFKnrdXv2dMAfUOXxaVZJo3nZubyOk6s5RuXO3U6wGiYDOmhOdabJK8IYAHB0edGtADd+LLqKvg00BSqf2+ydaWQf46Vc3457acbBKL6bPUj16KC+a5zN3FOh2tIT339dTuzlAeb
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(36840700001)(46966006)(478600001)(70206006)(70586007)(81166007)(83380400001)(36860700001)(82310400003)(47076005)(5660300002)(7416002)(2906002)(316002)(8936002)(426003)(110136005)(54906003)(336012)(6666004)(356005)(86362001)(7696005)(2616005)(26005)(8676002)(82740400003)(186003)(36756003)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 16:07:41.6407 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1729
-Cc: Deepak R Varma <mh12gx2825@gmail.com>, Sunil-kumar.Dommati@amd.com,
- amistry@google.com, David Airlie <airlied@linux.ie>,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Nirmoy Das <nirmoy.das@amd.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Vijendar
- Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- nartemiev@google.com
+Content-Transfer-Encoding: 8bit
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Daniel Mack <daniel@zonque.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,85 +84,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a quirk DW_I2S_QUIRK_STOP_ON_SHUTDOWN for Stoney/CZ
-platforms.
+When we can't allocate SPI controller, jump to the error path rather than
+return locally.
 
-For CZ/StoneyRidge platforms, ACP DMA between ACP SRAM and
-I2S FIFO should be stopped before stopping I2S Controller DMA.
-
-When DMA is progressing and stop request received, while DMA
-transfer ongoing between ACP SRAM and I2S FIFO, Stopping I2S DMA
-prior to ACP DMA stop resulting ACP DMA channel stop failure.
-
-ACP DMA driver can't fix this issue due to design constraint.
-By setting this quirk, I2S DMA gets stopped after ACP DMA stop
-which will fix the ACP DMA stop failure.
-
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 38 +++++++++++----------------------
- 1 file changed, 13 insertions(+), 25 deletions(-)
+ drivers/spi/spi-pxa2xx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index b8655ff..6866b73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -245,42 +245,30 @@ static int acp_hw_init(void *handle)
- 		goto failure;
+diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
+index 0cc767283674..0ef22045b006 100644
+--- a/drivers/spi/spi-pxa2xx.c
++++ b/drivers/spi/spi-pxa2xx.c
+@@ -1701,8 +1701,8 @@ static int pxa2xx_spi_probe(struct platform_device *pdev)
+ 
+ 	if (!controller) {
+ 		dev_err(&pdev->dev, "cannot alloc spi_controller\n");
+-		pxa_ssp_free(ssp);
+-		return -ENOMEM;
++		status = -ENOMEM;
++		goto out_error_controller_alloc;
  	}
- 
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
--		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
--	}
-+	i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
-+		i2s_pdata[0].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
-+
- 	i2s_pdata[0].cap = DWC_I2S_PLAY;
- 	i2s_pdata[0].snd_rates = SNDRV_PCM_RATE_8000_96000;
- 	i2s_pdata[0].i2s_reg_comp1 = ACP_I2S_COMP1_PLAY_REG_OFFSET;
- 	i2s_pdata[0].i2s_reg_comp2 = ACP_I2S_COMP2_PLAY_REG_OFFSET;
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
--		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_COMP_PARAM1 |
--			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_COMP_PARAM1;
--	}
-+	i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_COMP_PARAM1 |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
-+		i2s_pdata[1].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
- 
- 	i2s_pdata[1].cap = DWC_I2S_RECORD;
- 	i2s_pdata[1].snd_rates = SNDRV_PCM_RATE_8000_96000;
- 	i2s_pdata[1].i2s_reg_comp1 = ACP_I2S_COMP1_CAP_REG_OFFSET;
- 	i2s_pdata[1].i2s_reg_comp2 = ACP_I2S_COMP2_CAP_REG_OFFSET;
- 
--	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
-+	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
- 		i2s_pdata[2].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		break;
--	}
- 
- 	i2s_pdata[2].cap = DWC_I2S_PLAY | DWC_I2S_RECORD;
- 	i2s_pdata[2].snd_rates = SNDRV_PCM_RATE_8000_96000;
+ 	drv_data = spi_controller_get_devdata(controller);
+ 	drv_data->controller = controller;
 -- 
-2.7.4
+2.30.2
 

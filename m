@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 212FA369993
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:28:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8AD369989
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 20:26:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A40691704;
-	Fri, 23 Apr 2021 20:27:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A40691704
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27EA3170C;
+	Fri, 23 Apr 2021 20:25:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27EA3170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619202497;
-	bh=QlF65tbkdapZHK1qr25I+mGXhmoeYojY5XioNhEH+u4=;
+	s=default; t=1619202382;
+	bh=kWaViegOSbdU6tow9jt+CJx1mB4VNAM/+Uoopg3Z6lo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tk2W0jsvuMifA8fczGlJbIKqpyN9QCB6mR6wswJ1j59hbaO3+VVpoGJgFHXxzLGh9
-	 ipJYKAAN8tw5s52BG0h+3okAblcGsN+SKvs2k3qv9cAHcEUCwv4UpgsMXmrQa9vX5D
-	 0Pd0dtFsTI7Wqkbx0O3YvR7wlkcDgys89yXCl8Ko=
+	b=bOuaYqVLjVnYM2MBFAyEZ0qg982TEJiX8/atpe1xTZgPN+Hxpfw/0fTf3+BbAy+zR
+	 Wr0Wbs7kyKUxjsX3k0NMw98EwGU7zQCjUgAQGTswJh9b5W4sblXDtf68mO/TNrFQGl
+	 ex2skImpfqzrL8lpqp7nlpDe4eYrXLQ2r4KC6TOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA492F80256;
-	Fri, 23 Apr 2021 20:24:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58BF3F80431;
+	Fri, 23 Apr 2021 20:24:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7A8AF804AD; Fri, 23 Apr 2021 20:24:46 +0200 (CEST)
+ id 9B7ABF80425; Fri, 23 Apr 2021 20:24:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BD1AF80274
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BD1AF80274
-IronPort-SDR: vpMEZvpaul8WjCyaBWSWSlpFkMITmt7DwrTP5nFJA03SApKT9WWU2ETL0qBNKz1b4rUfLSiEnn
- RUL++Eh8Im+w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="281441748"
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="281441748"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2021 11:24:29 -0700
-IronPort-SDR: 1r4hx0fceWsBWHixekScdI8nwQg/+tTFYCPK6BTIhZMugd2qAIp3vMzHq2Etf2mZK9XoOHXMZG
- XUZlX4PpvsbA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 644D5F80117
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 20:24:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 644D5F80117
+IronPort-SDR: uXpJBZZCyX/8s/uvBPx4aEEtnqUcmXyXMKMnn+v8C/Zfo2CtLqsoboVaG5W/Zd5uSa9Yh6zMO8
+ tmLr4lIAiMew==
+X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="196224392"
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="196224392"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2021 11:24:30 -0700
+IronPort-SDR: 9QdYUirh1OsoJt3c8Ea36kVHsETm8MnddfHwLm9mEKpV9vqzeFghnN0PCk5sg2Jnbx1gsYLj6Y
+ hoGPdOj3ZdhQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="428481590"
+X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="525092852"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga008.jf.intel.com with ESMTP; 23 Apr 2021 11:24:26 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 23 Apr 2021 11:24:27 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id E677713C; Fri, 23 Apr 2021 21:24:44 +0300 (EEST)
+ id 06BEA17E; Fri, 23 Apr 2021 21:24:44 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH v2 02/14] spi: pxa2xx: Utilize MMIO and physical base from
- struct ssp_device
-Date: Fri, 23 Apr 2021 21:24:29 +0300
-Message-Id: <20210423182441.50272-3-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 03/14] spi: pxa2xx: Utilize struct device from struct
+ ssp_device
+Date: Fri, 23 Apr 2021 21:24:30 +0300
+Message-Id: <20210423182441.50272-4-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210423182441.50272-1-andriy.shevchenko@linux.intel.com>
 References: <20210423182441.50272-1-andriy.shevchenko@linux.intel.com>
@@ -82,96 +82,160 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We have a duplication of MMIO and physical base addresses in
-the struct driver_data, get rid of it and reuse members from
-struct ssp_device instead.
+We have a duplication of struct device in the struct driver_data,
+get rid of it and reuse member from struct ssp_device instead.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi-pxa2xx-dma.c |  4 ++--
- drivers/spi/spi-pxa2xx.c     |  4 +---
- drivers/spi/spi-pxa2xx.h     | 14 ++++----------
- 3 files changed, 7 insertions(+), 15 deletions(-)
+ drivers/spi/spi-pxa2xx-dma.c | 12 +++++-------
+ drivers/spi/spi-pxa2xx-pci.c |  1 +
+ drivers/spi/spi-pxa2xx.c     | 12 +++++-------
+ drivers/spi/spi-pxa2xx.h     |  4 ----
+ 4 files changed, 11 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/spi/spi-pxa2xx-dma.c b/drivers/spi/spi-pxa2xx-dma.c
-index 37567bc7a523..3b27f356a18f 100644
+index 3b27f356a18f..2e4a49567146 100644
 --- a/drivers/spi/spi-pxa2xx-dma.c
 +++ b/drivers/spi/spi-pxa2xx-dma.c
-@@ -94,14 +94,14 @@ pxa2xx_spi_dma_prepare_one(struct driver_data *drv_data,
- 	cfg.direction = dir;
+@@ -111,7 +111,7 @@ pxa2xx_spi_dma_prepare_one(struct driver_data *drv_data,
  
- 	if (dir == DMA_MEM_TO_DEV) {
--		cfg.dst_addr = drv_data->ssdr_physical;
-+		cfg.dst_addr = drv_data->ssp->phys_base + SSDR;
- 		cfg.dst_addr_width = width;
- 		cfg.dst_maxburst = chip->dma_burst_size;
+ 	ret = dmaengine_slave_config(chan, &cfg);
+ 	if (ret) {
+-		dev_warn(&drv_data->pdev->dev, "DMA slave config failed\n");
++		dev_warn(drv_data->ssp->dev, "DMA slave config failed\n");
+ 		return NULL;
+ 	}
  
- 		sgt = &xfer->tx_sg;
- 		chan = drv_data->controller->dma_tx;
- 	} else {
--		cfg.src_addr = drv_data->ssdr_physical;
-+		cfg.src_addr = drv_data->ssp->phys_base + SSDR;
- 		cfg.src_addr_width = width;
- 		cfg.src_maxburst = chip->dma_burst_size;
+@@ -125,7 +125,7 @@ irqreturn_t pxa2xx_spi_dma_transfer(struct driver_data *drv_data)
  
+ 	status = pxa2xx_spi_read(drv_data, SSSR) & drv_data->mask_sr;
+ 	if (status & SSSR_ROR) {
+-		dev_err(&drv_data->pdev->dev, "FIFO overrun\n");
++		dev_err(drv_data->ssp->dev, "FIFO overrun\n");
+ 
+ 		dmaengine_terminate_async(drv_data->controller->dma_rx);
+ 		dmaengine_terminate_async(drv_data->controller->dma_tx);
+@@ -145,16 +145,14 @@ int pxa2xx_spi_dma_prepare(struct driver_data *drv_data,
+ 
+ 	tx_desc = pxa2xx_spi_dma_prepare_one(drv_data, DMA_MEM_TO_DEV, xfer);
+ 	if (!tx_desc) {
+-		dev_err(&drv_data->pdev->dev,
+-			"failed to get DMA TX descriptor\n");
++		dev_err(drv_data->ssp->dev, "failed to get DMA TX descriptor\n");
+ 		err = -EBUSY;
+ 		goto err_tx;
+ 	}
+ 
+ 	rx_desc = pxa2xx_spi_dma_prepare_one(drv_data, DMA_DEV_TO_MEM, xfer);
+ 	if (!rx_desc) {
+-		dev_err(&drv_data->pdev->dev,
+-			"failed to get DMA RX descriptor\n");
++		dev_err(drv_data->ssp->dev, "failed to get DMA RX descriptor\n");
+ 		err = -EBUSY;
+ 		goto err_rx;
+ 	}
+@@ -191,8 +189,8 @@ void pxa2xx_spi_dma_stop(struct driver_data *drv_data)
+ int pxa2xx_spi_dma_setup(struct driver_data *drv_data)
+ {
+ 	struct pxa2xx_spi_controller *pdata = drv_data->controller_info;
+-	struct device *dev = &drv_data->pdev->dev;
+ 	struct spi_controller *controller = drv_data->controller;
++	struct device *dev = drv_data->ssp->dev;
+ 	dma_cap_mask_t mask;
+ 
+ 	dma_cap_zero(mask);
+diff --git a/drivers/spi/spi-pxa2xx-pci.c b/drivers/spi/spi-pxa2xx-pci.c
+index 14fc41ed2361..f60ed4c62000 100644
+--- a/drivers/spi/spi-pxa2xx-pci.c
++++ b/drivers/spi/spi-pxa2xx-pci.c
+@@ -239,6 +239,7 @@ static int pxa2xx_spi_pci_probe(struct pci_dev *dev,
+ 	spi_pdata.dma_burst_size = c->dma_burst_size ? c->dma_burst_size : 1;
+ 
+ 	ssp = &spi_pdata.ssp;
++	ssp->dev = &dev->dev;
+ 	ssp->phys_base = pci_resource_start(dev, 0);
+ 	ssp->mmio_base = pcim_iomap_table(dev)[0];
+ 	ssp->port_id = (c->port_id >= 0) ? c->port_id : dev->devfn;
 diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
-index 0ef22045b006..82df028c4a71 100644
+index 82df028c4a71..e9dddcbd92f1 100644
 --- a/drivers/spi/spi-pxa2xx.c
 +++ b/drivers/spi/spi-pxa2xx.c
-@@ -325,7 +325,7 @@ static void lpss_ssp_setup(struct driver_data *drv_data)
- 	u32 value;
+@@ -628,7 +628,7 @@ static void int_error_stop(struct driver_data *drv_data, const char* msg)
+ 	pxa2xx_spi_flush(drv_data);
+ 	pxa2xx_spi_off(drv_data);
  
- 	config = lpss_get_config(drv_data);
--	drv_data->lpss_base = drv_data->ioaddr + config->offset;
-+	drv_data->lpss_base = drv_data->ssp->mmio_base + config->offset;
+-	dev_err(&drv_data->pdev->dev, "%s\n", msg);
++	dev_err(drv_data->ssp->dev, "%s\n", msg);
  
- 	/* Enable software chip select control */
- 	value = __lpss_ssp_read_priv(drv_data, config->reg_cs_ctrl);
-@@ -1729,8 +1729,6 @@ static int pxa2xx_spi_probe(struct platform_device *pdev)
+ 	drv_data->controller->cur_msg->status = -EIO;
+ 	spi_finalize_current_transfer(drv_data->controller);
+@@ -731,8 +731,7 @@ static void handle_bad_msg(struct driver_data *drv_data)
+ 		pxa2xx_spi_write(drv_data, SSTO, 0);
+ 	write_SSSR_CS(drv_data, drv_data->clear_sr);
  
- 	drv_data->ssp_type = ssp->type;
+-	dev_err(&drv_data->pdev->dev,
+-		"bad message state in interrupt handler\n");
++	dev_err(drv_data->ssp->dev, "bad message state in interrupt handler\n");
+ }
  
--	drv_data->ioaddr = ssp->mmio_base;
--	drv_data->ssdr_physical = ssp->phys_base + SSDR;
- 	if (pxa25x_ssp_comp(drv_data)) {
+ static irqreturn_t ssp_int(int irq, void *dev_id)
+@@ -748,7 +747,7 @@ static irqreturn_t ssp_int(int irq, void *dev_id)
+ 	 * the IRQ was not for us (we shouldn't be RPM suspended when the
+ 	 * interrupt is enabled).
+ 	 */
+-	if (pm_runtime_suspended(&drv_data->pdev->dev))
++	if (pm_runtime_suspended(drv_data->ssp->dev))
+ 		return IRQ_NONE;
+ 
+ 	/*
+@@ -1158,7 +1157,7 @@ static int pxa2xx_spi_slave_abort(struct spi_controller *controller)
+ 	pxa2xx_spi_flush(drv_data);
+ 	pxa2xx_spi_off(drv_data);
+ 
+-	dev_dbg(&drv_data->pdev->dev, "transfer aborted\n");
++	dev_dbg(drv_data->ssp->dev, "transfer aborted\n");
+ 
+ 	drv_data->controller->cur_msg->status = -EINTR;
+ 	spi_finalize_current_transfer(drv_data->controller);
+@@ -1641,7 +1640,7 @@ static int pxa2xx_spi_fw_translate_cs(struct spi_controller *controller,
+ {
+ 	struct driver_data *drv_data = spi_controller_get_devdata(controller);
+ 
+-	if (has_acpi_companion(&drv_data->pdev->dev)) {
++	if (has_acpi_companion(drv_data->ssp->dev)) {
  		switch (drv_data->ssp_type) {
- 		case QUARK_X1000_SSP:
+ 		/*
+ 		 * For Atoms the ACPI DeviceSelection used by the Windows
+@@ -1707,7 +1706,6 @@ static int pxa2xx_spi_probe(struct platform_device *pdev)
+ 	drv_data = spi_controller_get_devdata(controller);
+ 	drv_data->controller = controller;
+ 	drv_data->controller_info = platform_info;
+-	drv_data->pdev = pdev;
+ 	drv_data->ssp = ssp;
+ 
+ 	controller->dev.of_node = pdev->dev.of_node;
 diff --git a/drivers/spi/spi-pxa2xx.h b/drivers/spi/spi-pxa2xx.h
-index 1400472bc986..ad9980ebefa6 100644
+index ad9980ebefa6..6724d7e056ce 100644
 --- a/drivers/spi/spi-pxa2xx.h
 +++ b/drivers/spi/spi-pxa2xx.h
-@@ -33,10 +33,6 @@ struct driver_data {
- 	/* PXA hookup */
- 	struct pxa2xx_spi_controller *controller_info;
+@@ -12,7 +12,6 @@
+ #include <linux/errno.h>
+ #include <linux/io.h>
+ #include <linux/interrupt.h>
+-#include <linux/platform_device.h>
+ #include <linux/pxa2xx_ssp.h>
+ #include <linux/scatterlist.h>
+ #include <linux/sizes.h>
+@@ -20,9 +19,6 @@
+ #include <linux/spi/pxa2xx_spi.h>
  
--	/* SSP register addresses */
--	void __iomem *ioaddr;
--	phys_addr_t ssdr_physical;
+ struct driver_data {
+-	/* Driver model hookup */
+-	struct platform_device *pdev;
 -
- 	/* SSP masks*/
- 	u32 dma_cr1;
- 	u32 int_cr1;
-@@ -87,16 +83,14 @@ struct chip_data {
- 	void (*cs_control)(u32 command);
- };
+ 	/* SSP Info */
+ 	struct ssp_device *ssp;
  
--static inline u32 pxa2xx_spi_read(const struct driver_data *drv_data,
--				  unsigned reg)
-+static inline u32 pxa2xx_spi_read(const struct driver_data *drv_data, u32 reg)
- {
--	return __raw_readl(drv_data->ioaddr + reg);
-+	return pxa_ssp_read_reg(drv_data->ssp, reg);
- }
- 
--static  inline void pxa2xx_spi_write(const struct driver_data *drv_data,
--				     unsigned reg, u32 val)
-+static inline void pxa2xx_spi_write(const struct driver_data *drv_data, u32 reg, u32 val)
- {
--	__raw_writel(val, drv_data->ioaddr + reg);
-+	pxa_ssp_write_reg(drv_data->ssp, reg, val);
- }
- 
- #define DMA_ALIGNMENT		8
 -- 
 2.30.2
 

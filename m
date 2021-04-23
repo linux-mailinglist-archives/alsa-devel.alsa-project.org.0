@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C467369741
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:40:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAA1369762
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Apr 2021 18:48:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3774A16DF;
-	Fri, 23 Apr 2021 18:39:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3774A16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB0DD16DC;
+	Fri, 23 Apr 2021 18:47:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB0DD16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619196046;
-	bh=qf9KzRaAxWjzgoqkw5qmbjeNNL5t5b6nMeFYOyXgZtc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1619196504;
+	bh=hrqrADAEzMFpkpMJhB8rj4N/o1LglX/44krbouGR8yg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bTbRM0REHwQ5RT4I8Z9d1a8EhnV2MjpMCXMuTVdH699BxcMkdZOowbzKnfOnsuFJZ
-	 05fZIsXVc09AJyVd8w6IXhYB5BoLHd5+HdYV6ebceGyj/PIiiSslsJwHihfiprEMR7
-	 cT7O+sEJfnYgjm8PRw8zzILtwBtU2emaRUK1dcHQ=
+	b=DTsdhYLlHQOppdNVsQzfSJGtL1+mRSGaeF6sEDZAf9xwz5db68IsIOFQ0uVZz5DFv
+	 pQdHr/TE4GcW8von0iTi+U5zRmShpkNu4HpVRB+1XSyR8WVkwcP5AwfW24KP30YRj3
+	 4TXBhv8CLlwkUHEoEUJxtqqk6qSGZlWy0TE3yTyc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72EE3F804FD;
-	Fri, 23 Apr 2021 18:35:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3413AF80256;
+	Fri, 23 Apr 2021 18:46:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40EBCF804C1; Fri, 23 Apr 2021 18:35:13 +0200 (CEST)
+ id DC74BF80227; Fri, 23 Apr 2021 18:46:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4FF8F804AC
- for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4FF8F804AC
-IronPort-SDR: eDrdgG7+W+BnKIj4lSn1ePkxweSALRl3tH2/2epnbMjLu75MJ0w/lA6X5wQS6eY55kpZv6szKK
- OHSgaXPGZJ2A==
-X-IronPort-AV: E=McAfee;i="6200,9189,9963"; a="195652455"
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="195652455"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2021 09:34:48 -0700
-IronPort-SDR: ZfNVxrOLgu95YdAIHQN5YDKnzDgAu+eRebKmZAfdwpq0Q/vM9f60nBp2doWFT8LrSnx1HEGvl0
- z3AAXHeuU0gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,246,1613462400"; d="scan'208";a="424290615"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga007.jf.intel.com with ESMTP; 23 Apr 2021 09:34:44 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 45F3717E; Fri, 23 Apr 2021 19:35:00 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH v1 14/14] spi: pxa2xx: Introduce special type for Merrifield
- SPIs
-Date: Fri, 23 Apr 2021 19:34:37 +0300
-Message-Id: <20210423163437.89306-14-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210423163437.89306-1-andriy.shevchenko@linux.intel.com>
-References: <20210423163437.89306-1-andriy.shevchenko@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6735BF80117
+ for <alsa-devel@alsa-project.org>; Fri, 23 Apr 2021 18:46:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6735BF80117
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="a+sdGTYK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1783960FE6;
+ Fri, 23 Apr 2021 16:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1619196406;
+ bh=hrqrADAEzMFpkpMJhB8rj4N/o1LglX/44krbouGR8yg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=a+sdGTYK4aj9yDFncbICtCZWbqNeYXUw5nC+SdTJCCCyoZqQqXwfDB8l2K7bRr8UY
+ N9rPkMalrUus9Y9lNssS0lW+IZVFqANoT+wr7iCqbGRjpQTsvhjSEfUUYH2T8Dk+q/
+ Vc9DaR4qdj27qevhjdNdeuEUfyut+yz+SvHrfEp2ga+yla2IpizWu1S9lqpABvVYDw
+ rtvS06aBSxaVeqOsQI9W4SvsqhycdtxdsdWs8Jr03n7PAs/kQ5pPfKlS4pmJasKZW/
+ UVeXB9zBT81Rwoy/ANVYkarIIqSRRkjyrsORkgVSXFusR4QUf18npK86dcLJHMs+21
+ UoG0KPu8vhFDA==
+Date: Fri, 23 Apr 2021 17:46:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 1/2] ASoC: dwc: add a quirk DW_I2S_QUIRK_STOP_ON_SHUTDOWN
+ to dwc driver
+Message-ID: <20210423164617.GG5507@sirena.org.uk>
+References: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Daniel Mack <daniel@zonque.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PpAOPzA3dXsRhoo+"
+Content-Disposition: inline
+In-Reply-To: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
+X-Cookie: This is now.  Later is later.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ amistry@google.com, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Alexander.Deucher@amd.com,
+ =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@gmail.com>,
+ nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,130 +89,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Intel Merrifield SPI is actually more closer to PXA3xx. It has extended FIFO
-(32 bytes) and additional registers to get or set FIFO thresholds.
 
-Introduce new type for Intel Merrifield SPI host controllers and handle bigger
-FIFO size.
+--PpAOPzA3dXsRhoo+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/spi/spi-pxa2xx-pci.c   |  2 +-
- drivers/spi/spi-pxa2xx.c       | 32 +++++++++++++++++++++++++++++---
- include/linux/spi/pxa2xx_ssp.h | 16 ++++++++++++++++
- 3 files changed, 46 insertions(+), 4 deletions(-)
+On Fri, Apr 23, 2021 at 09:54:38PM +0530, Vijendar Mukunda wrote:
 
-diff --git a/drivers/spi/spi-pxa2xx-pci.c b/drivers/spi/spi-pxa2xx-pci.c
-index 5af0a3fbc1b0..5df6e11b345d 100644
---- a/drivers/spi/spi-pxa2xx-pci.c
-+++ b/drivers/spi/spi-pxa2xx-pci.c
-@@ -179,7 +179,7 @@ static struct pxa_spi_info spi_info_configs[] = {
- 		.rx_param = &bsw2_rx_param,
- 	},
- 	[PORT_MRFLD] = {
--		.type = PXA27x_SSP,
-+		.type = MRFLD_SSP,
- 		.max_clk_rate = 25000000,
- 		.setup = mrfld_spi_setup,
- 	},
-diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
-index 5a4f808eefde..313095bfa7dd 100644
---- a/drivers/spi/spi-pxa2xx.c
-+++ b/drivers/spi/spi-pxa2xx.c
-@@ -200,6 +200,11 @@ static bool is_mmp2_ssp(const struct driver_data *drv_data)
- 	return drv_data->ssp_type == MMP2_SSP;
- }
- 
-+static bool is_mrfld_ssp(const struct driver_data *drv_data)
-+{
-+	return drv_data->ssp_type == MRFLD_SSP;
-+}
-+
- static void pxa2xx_spi_update(const struct driver_data *drv_data, u32 reg, u32 mask, u32 value)
- {
- 	if ((pxa2xx_spi_read(drv_data, reg) & mask) != value)
-@@ -1087,6 +1092,15 @@ static int pxa2xx_spi_transfer_one(struct spi_controller *controller,
- 		pxa2xx_spi_update(drv_data, SSITF, GENMASK(15, 0), chip->lpss_tx_threshold);
- 	}
- 
-+	if (is_mrfld_ssp(drv_data)) {
-+		u32 thresh = 0;
-+
-+		thresh |= SFIFOTT_RxThresh(chip->lpss_rx_threshold);
-+		thresh |= SFIFOTT_TxThresh(chip->lpss_tx_threshold);
-+
-+		pxa2xx_spi_update(drv_data, SFIFOTT, 0xffffffff, thresh);
-+	}
-+
- 	if (is_quark_x1000_ssp(drv_data))
- 		pxa2xx_spi_update(drv_data, DDS_RATE, GENMASK(23, 0), chip->dds_rate);
- 
-@@ -1253,6 +1267,11 @@ static int setup(struct spi_device *spi)
- 		tx_hi_thres = 0;
- 		rx_thres = RX_THRESH_QUARK_X1000_DFLT;
- 		break;
-+	case MRFLD_SSP:
-+		tx_thres = TX_THRESH_MRFLD_DFLT;
-+		tx_hi_thres = 0;
-+		rx_thres = RX_THRESH_MRFLD_DFLT;
-+		break;
- 	case CE4100_SSP:
- 		tx_thres = TX_THRESH_CE4100_DFLT;
- 		tx_hi_thres = 0;
-@@ -1328,9 +1347,16 @@ static int setup(struct spi_device *spi)
- 		chip->cr1 |= SSCR1_SPH;
- 	}
- 
--	chip->lpss_rx_threshold = SSIRF_RxThresh(rx_thres);
--	chip->lpss_tx_threshold = SSITF_TxLoThresh(tx_thres)
--				| SSITF_TxHiThresh(tx_hi_thres);
-+	if (is_lpss_ssp(drv_data)) {
-+		chip->lpss_rx_threshold = SSIRF_RxThresh(rx_thres);
-+		chip->lpss_tx_threshold = SSITF_TxLoThresh(tx_thres) |
-+					  SSITF_TxHiThresh(tx_hi_thres);
-+	}
-+
-+	if (is_mrfld_ssp(drv_data)) {
-+		chip->lpss_rx_threshold = rx_thres;
-+		chip->lpss_tx_threshold = tx_thres;
-+	}
- 
- 	/* set dma burst and threshold outside of chip_info path so that if
- 	 * chip_info goes away after setting chip->enable_dma, the
-diff --git a/include/linux/spi/pxa2xx_ssp.h b/include/linux/spi/pxa2xx_ssp.h
-index fdfbe17e15f4..2b21bc1f3c73 100644
---- a/include/linux/spi/pxa2xx_ssp.h
-+++ b/include/linux/spi/pxa2xx_ssp.h
-@@ -183,6 +183,21 @@ struct device_node;
- #define SSACD_ACPS(x)		((x) << 4)	/* Audio clock PLL select */
- #define SSACD_SCDX8		BIT(7)		/* SYSCLK division ratio select */
- 
-+/* Intel Merrifield SSP */
-+#define SFIFOL			0x68		/* FIFO level */
-+#define SFIFOTT			0x6c		/* FIFO trigger threshold */
-+
-+#define RX_THRESH_MRFLD_DFLT	16
-+#define TX_THRESH_MRFLD_DFLT	16
-+
-+#define SFIFOL_TFL_MASK		GENMASK(15, 0)	/* Transmit FIFO Level mask */
-+#define SFIFOL_RFL_MASK		GENMASK(31, 16)	/* Receive FIFO Level mask */
-+
-+#define SFIFOTT_TFT		GENMASK(15, 0)	/* Transmit FIFO Threshold (mask) */
-+#define SFIFOTT_TxThresh(x)	(((x) - 1) << 0)	/* TX FIFO trigger threshold / level */
-+#define SFIFOTT_RFT		GENMASK(31, 16)	/* Receive FIFO Threshold (mask) */
-+#define SFIFOTT_RxThresh(x)	(((x) - 1) << 16)	/* RX FIFO trigger threshold / level */
-+
- /* LPSS SSP */
- #define SSITF			0x44		/* TX FIFO trigger level */
- #define SSITF_TxHiThresh(x)	(((x) - 1) << 0)
-@@ -205,6 +220,7 @@ enum pxa_ssp_type {
- 	MMP2_SSP,
- 	PXA910_SSP,
- 	CE4100_SSP,
-+	MRFLD_SSP,
- 	QUARK_X1000_SSP,
- 	LPSS_LPT_SSP, /* Keep LPSS types sorted with lpss_platforms[] */
- 	LPSS_BYT_SSP,
--- 
-2.30.2
+> For CZ/StoneyRidge platforms, ACP DMA between ACP SRAM and
+> I2S FIFO should be stopped before stopping I2S Controller DMA.
 
+> When DMA is progressing and stop request received, while DMA transfer
+> ongoing between ACP SRAM and I2S FIFO, Stopping I2S DMA prior to ACP DMA
+> stop resulting DMA Channel stop failure.
+
+This again...  copying in Peter for the sequencing discussion.  If we
+need to do this I'm not convinced that bodging it in the driver is a
+good idea, and especially not deferring it outside of the trigger
+operation - for example on a suspend or pause we won't actually do a
+shutdown() so the trigger will end up not happening which seems like it
+may cause problems.  We'd probably be better off with the core knowing
+what's going on and being able to reorder the callbacks although
+designing an interface for that seems a bit annoying.
+
+> This issue can't be fixed in ACP DMA driver due to design constraint.
+
+What is the design constraint here - can't we fix the design?  Or is it
+a hardware design constraint (presumably broken signalling between the
+I2S and DMA blocks)?
+
+--PpAOPzA3dXsRhoo+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCC+dkACgkQJNaLcl1U
+h9BDTgf/e98lodiz8JAhBWlgb4e/N5kUc+JkS6Q8iz5kFGIG96PawL0jUcldx5Wx
+dml7h0vBjDgBrkgFQ09HQ3nzoyJdVHRa6zqdvCt3af4u2YcpkUb8u7ljoSJJLdDK
+yXQ4ROt1rC0MKrsVKzHqitiIMo8oSEl2F0Vs4aHLUUof6I3w7qhSSD1VVkGuh36U
+yJ8JTwaCeKtkXDbth333kbaW7a8biVgUFFprtMzrpoeVH9A9p4CCjH0i+uPwB6cl
+BX4HoHkoCdzHaisZsNob8MjjykSvoBGVtuKsquEpT+R5PkPRMuGcOYDW1FMJ5FrQ
+GKwU1bfjUALew8t7yMnnhDZA9SASKg==
+=025N
+-----END PGP SIGNATURE-----
+
+--PpAOPzA3dXsRhoo+--

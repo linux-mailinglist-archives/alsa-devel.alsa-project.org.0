@@ -2,75 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15FAC36A50A
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Apr 2021 08:16:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2749F36A5B0
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Apr 2021 10:20:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9373D1760;
-	Sun, 25 Apr 2021 08:15:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9373D1760
+	by alsa0.perex.cz (Postfix) with ESMTPS id A77FC1750;
+	Sun, 25 Apr 2021 10:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A77FC1750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619331406;
-	bh=auP6JRuummQkkVZR1IcxBPxBUP5jCkGA0V99FK4ibXQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1619338856;
+	bh=V7h/bW/htdps0hpdFVN4m5YiPcXKkPaxB6P4mhb6pbc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LihPmtshs5A767AT9nOYnftNv3P9mrQJp3PMHd4fiReDZ/iVIBccN6/3Hte1JrM+N
-	 tk6TDkY/YfoBtZZJz248bcgP8S6U7osMFYuMprl2HLF+1h9+F4T66SvTVG4nAgpR/0
-	 2nZJOheULjQTr04UEJ9hz3CD51UJP5BLV0ICTWpo=
+	b=Jg234fVDS8YGbCGUkj+tjAV9e+aI8qbT5lJuvcJNDL0k7kpEacRSlaJ6fKu+sBRL/
+	 toqBBpZUexhl88tALVHzSriDSuGGLFxQF1qrnlTMibncKwZ8Bk4Z1YiFCjAaubouMn
+	 fXvcrrfHiDzbmb7f+RgWq2S42GVrPWtmdQaKU8Hg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28CFBF800E3;
-	Sun, 25 Apr 2021 08:15:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23876F80086;
+	Sun, 25 Apr 2021 10:19:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA1E9F801EC; Sun, 25 Apr 2021 08:15:11 +0200 (CEST)
+ id 51950F801EC; Sun, 25 Apr 2021 10:19:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2F35F800E3
- for <alsa-devel@alsa-project.org>; Sun, 25 Apr 2021 08:15:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2F35F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="BSZo7B0z"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 742AD6124B;
- Sun, 25 Apr 2021 06:14:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1619331300;
- bh=auP6JRuummQkkVZR1IcxBPxBUP5jCkGA0V99FK4ibXQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BSZo7B0ztK/ZJ6b9ewVhX1tiYoKt2aVWLM9tzkidgo8bd4NahwbZgSelW2qjvkeVA
- 4Cuf22JgyanY8g/eHylN+oOyZzH/JbOFwp+a8b6jGIdQW2D6lhpPLcxUewADOVt59p
- BfKGkxp270f1RqpnNZxbM7mATC8gj00Vgsj6eMUA=
-Date: Sun, 25 Apr 2021 08:14:53 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Shawn Guo <shawn.guo@linaro.org>
-Subject: Re: [PATCH] firmware: replace HOTPLUG with UEVENT in FW_ACTION defines
-Message-ID: <YIUI3TZf/sZ6Sd3K@kroah.com>
-References: <20210425020024.28057-1-shawn.guo@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210425020024.28057-1-shawn.guo@linaro.org>
-Cc: alsa-devel@alsa-project.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- Lee Jones <lee.jones@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-scsi@vger.kernel.org, James Smart <james.smart@broadcom.com>,
- linux-serial@vger.kernel.org, linux-media@vger.kernel.org,
- Ohad Ben-Cohen <ohad@wizery.com>, Dick Kennedy <dick.kennedy@broadcom.com>,
- Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kalle Valo <kvalo@codeaurora.org>, Timur Tabi <timur@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-wireless@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Stuart Hayes <stuart.w.hayes@gmail.com>, dmaengine@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id D42DEF800E3
+ for <alsa-devel@alsa-project.org>; Sun, 25 Apr 2021 10:19:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D42DEF800E3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 60636B01E;
+ Sun, 25 Apr 2021 08:19:18 +0000 (UTC)
+Date: Sun, 25 Apr 2021 10:19:18 +0200
+Message-ID: <s5hr1iy4vzt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v1 1/2] ALSA: hda/cirrus: Set Initial DMIC volume for
+ Bullseye to 16%
+In-Reply-To: <20210424143244.639125-2-vitalyr@opensource.cirrus.com>
+References: <20210424143244.639125-1-vitalyr@opensource.cirrus.com>
+ <20210424143244.639125-2-vitalyr@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ You-Sheng Yang <vicamo.yang@canonical.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,46 +72,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Apr 25, 2021 at 10:00:24AM +0800, Shawn Guo wrote:
-> With commit 312c004d36ce ("[PATCH] driver core: replace "hotplug" by
-> "uevent"") already in the tree over a decade, update the name of
-> FW_ACTION defines to follow semantics, and reflect what the defines are
-> really meant for, i.e. whether or not generate user space event.
+On Sat, 24 Apr 2021 16:32:43 +0200,
+Vitaly Rodionov wrote:
 > 
-> Signed-off-by: Shawn Guo <shawn.guo@linaro.org>
-> ---
->  drivers/dma/imx-sdma.c                      |  2 +-
->  drivers/media/platform/exynos4-is/fimc-is.c |  2 +-
->  drivers/mfd/iqs62x.c                        |  2 +-
->  drivers/misc/lattice-ecp3-config.c          |  2 +-
->  drivers/net/wireless/ti/wlcore/main.c       |  2 +-
->  drivers/platform/x86/dell/dell_rbu.c        |  2 +-
->  drivers/remoteproc/remoteproc_core.c        |  2 +-
->  drivers/scsi/lpfc/lpfc_init.c               |  2 +-
->  drivers/tty/serial/ucc_uart.c               |  2 +-
->  include/linux/firmware.h                    |  4 ++--
->  lib/test_firmware.c                         | 10 +++++-----
->  sound/soc/codecs/wm8958-dsp2.c              |  6 +++---
->  12 files changed, 19 insertions(+), 19 deletions(-)
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
 > 
-> diff --git a/drivers/dma/imx-sdma.c b/drivers/dma/imx-sdma.c
-> index d5590c08db51..e2b559945c11 100644
-> --- a/drivers/dma/imx-sdma.c
-> +++ b/drivers/dma/imx-sdma.c
-> @@ -1829,7 +1829,7 @@ static int sdma_get_firmware(struct sdma_engine *sdma,
->  	int ret;
->  
->  	ret = request_firmware_nowait(THIS_MODULE,
-> -			FW_ACTION_HOTPLUG, fw_name, sdma->dev,
-> +			FW_ACTION_UEVENT, fw_name, sdma->dev,
+> Tested on DELL Inspiron-3505, DELL Inspiron-3501, DELL Inspiron-3500
 
-Naming is hard :)
+Could you give a bit more descriptions why this patch is needed?
+And what do you mean 16%?  The only meaningful measure is dB in the
+h/w spec.  Last but not least, why this value was chosen?
 
-I can take this after -rc1, but really, is it needed?
-
-What problem does this renaming solve?  Who is the current name
-confusing?
 
 thanks,
 
-greg k-h
+Takashi
+
+> 
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> BugLink: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1923557
+> Reported-and-tested-by: You-Sheng Yang <vicamo.yang@canonical.com>
+> ---
+>  sound/pci/hda/patch_cirrus.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_cirrus.c b/sound/pci/hda/patch_cirrus.c
+> index 5d57096b3a95..d6cf93b7483c 100644
+> --- a/sound/pci/hda/patch_cirrus.c
+> +++ b/sound/pci/hda/patch_cirrus.c
+> @@ -2172,6 +2172,10 @@ static void cs8409_cs42l42_fixups(struct hda_codec *codec,
+>  			(get_wcaps(codec, CS8409_CS42L42_AMIC_PIN_NID) | AC_WCAP_UNSOL_CAP));
+>  		break;
+>  	case HDA_FIXUP_ACT_PROBE:
+> +
+> +		if (codec->fixup_id == CS8409_BULLSEYE)
+> +			snd_hda_codec_amp_init_stereo(codec, CS8409_CS42L42_DMIC_ADC_PIN_NID,
+> +					HDA_INPUT, 0, 0xff, 0x19);
+>  		snd_hda_gen_add_kctl(&spec->gen,
+>  			NULL, &cs8409_cs42l42_hp_volume_mixer);
+>  		snd_hda_gen_add_kctl(&spec->gen,
+> -- 
+> 2.25.1
+> 

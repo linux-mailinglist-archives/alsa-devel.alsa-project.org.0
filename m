@@ -2,63 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D180536C8BD
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Apr 2021 17:35:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A04736C8B1
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Apr 2021 17:33:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6034616EB;
-	Tue, 27 Apr 2021 17:34:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6034616EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15D1516DE;
+	Tue, 27 Apr 2021 17:32:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15D1516DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619537731;
-	bh=HoWeVBXjxeYzFTVOp/Fx2lx1MqSXjVVzODwW0Vwf5nc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O4xp+5cD1KNthYPC6vGzZumtvypY7ISSxVLJiMrddZYaKSDtAZe7mkGaVCwjo0nIx
-	 E9Em1fYkUBuhgO2hGD0HZmMg6kf2vmnwxlqxaaJUTxOCew1pcLedx8gfXXRRJHFMzy
-	 CBeN74TGLtcI6uQUi5D1XYvLIm6XejeUYlporSoM=
+	s=default; t=1619537604;
+	bh=WHwDMyfzVmnvQzR1/tI/7RjBBvNQ6LnB9q7jyFx1J8o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OXQxAMmiSrWC7YSBO3Nyp4U9kjY98sUdrajbypIdBnETUYa4qDh2wPKXRUD70gj/L
+	 iA9Q0dg6raEphan0dS8F2PygUhNf6Nom820XnSy22NIfbkWwDavO84etXPCgNS192y
+	 xaeOjy7qvQwD5lOWVrhi1A3nc2jsaKymfEoKS264=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BD0EF80117;
-	Tue, 27 Apr 2021 17:34:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92878F80117;
+	Tue, 27 Apr 2021 17:31:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE0F2F801EC; Tue, 27 Apr 2021 17:34:00 +0200 (CEST)
+ id 2DCA4F801EC; Tue, 27 Apr 2021 17:31:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D0C2F8012A
- for <alsa-devel@alsa-project.org>; Tue, 27 Apr 2021 17:33:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D0C2F8012A
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id ED6C6C800D3;
- Tue, 27 Apr 2021 17:33:50 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id S_8S2HnoTTiF; Tue, 27 Apr 2021 17:33:46 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (p200300E37f39860059dF2f3DAEe82359.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:8600:59df:2f3d:aee8:2359])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 11B88C800C4;
- Tue, 27 Apr 2021 17:33:46 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: wse@tuxedocomputers.com, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- alsa-devel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Intel Clevo PCx0Dx
-Date: Tue, 27 Apr 2021 17:30:25 +0200
-Message-Id: <20210427153025.451118-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E661EF8012A
+ for <alsa-devel@alsa-project.org>; Tue, 27 Apr 2021 17:31:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E661EF8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
+ header.b="bPMQzAgH"
+Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id 9198422258;
+ Tue, 27 Apr 2021 17:31:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1619537501;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WHwDMyfzVmnvQzR1/tI/7RjBBvNQ6LnB9q7jyFx1J8o=;
+ b=bPMQzAgHV12u+SCs3Mxl8E8oHZI3RoQzl+RRgr2mOo9HKzVavVV4yPN9BYY/eqYSYD4bUD
+ u/RzqvBK7rdh865OI+axJGD6U1Q0iEJXNMO2lPF3ibTLxlIU3LLpr1zweQykHIOFIxzrDn
+ iYpe26l96CrGpZKgZ/VF61Jg2D3AGqw=
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Eckhart Mohr <e.mohr@tuxedocomputers.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 27 Apr 2021 17:31:41 +0200
+From: Michael Walle <michael@walle.cc>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: broonie-sound/for-next bisection:
+ baseline.bootrr.asoc-simple-card-probed on kontron-sl28-var3-ads2
+In-Reply-To: <a1ec388def4febd9af6ef477245ef2d3@walle.cc>
+References: <6080e82c.1c69fb81.cd60c.2a13@mx.google.com>
+ <3ca62063-41b4-c25b-a7bc-8a8160e7b684@collabora.com>
+ <877dkp5141.wl-kuninori.morimoto.gx@renesas.com>
+ <20210426144242.GF4590@sirena.org.uk>
+ <8735vc4r59.wl-kuninori.morimoto.gx@renesas.com>
+ <20210427101926.GA4605@sirena.org.uk>
+ <ea2b6dae-3087-67d3-8473-410255a51e23@collabora.com>
+ <e20b9c8a2715b5d091a8d1f37ba890b4@walle.cc>
+ <20210427135703.GH4605@sirena.org.uk>
+ <cc9a39f977c3765d1060ab1b0038bc79@walle.cc>
+ <a1ec388def4febd9af6ef477245ef2d3@walle.cc>
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <1aa3a8716d2416f0cc127737dcff092a@walle.cc>
+X-Sender: michael@walle.cc
+Cc: Jon Hunter <jonathanh@nvidia.com>, alsa-devel@alsa-project.org,
+ Stephan Gerhold <stephan@gerhold.net>, kernelci-results@groups.io,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Guillaume Tucker <guillaume.tucker@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Heiko Thiery <heiko.thiery@gmail.com>, Thierry Reding <treding@nvidia.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,41 +100,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Eckhart Mohr <e.mohr@tuxedocomputers.com>
+Am 2021-04-27 17:29, schrieb Michael Walle:
 
-This applies a SND_PCI_QUIRK(...) to the Clevo PCx0Dx barebones. This
-fix enables audio output over the headset jack and ensures that a
-microphone connected via the headset combo jack is correctly recognized
-when pluged in.
+> freescale/fsl-ls1028a-kontron-sl28-var3-ads2.dts. The codec name is
+This should read "CPU name" of course.
 
-Signed-off-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
-Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Cc: <stable@vger.kernel.org>
----
-
-From 7dee2aee3ab045c4dafa9793a4016929a559d9cd Mon Sep 17 00:00:00 2001
-From: Werner Sembach <wse@tuxedocomputers.com>
-Date: Tue, 13 Apr 2021 14:02:08 +0200
-Subject: [PATCH] Add SND_PCI_QUIRK for Clevo PCx0Dx
-
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index a7544b77d3f7..dba9fd27adec 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2555,6 +2555,8 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x67d1, "Clevo PB71[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x67e1, "Clevo PB71[DE][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x70d1, "Clevo PC70[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x65e5, "Clevo PC50D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x67e5, "Clevo PC70D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x7714, "Clevo X170", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK_VENDOR(0x1558, "Clevo laptop", ALC882_FIXUP_EAPD),
- 	SND_PCI_QUIRK(0x161f, 0x2054, "Medion laptop", ALC883_FIXUP_EAPD),
--- 
-2.25.1
-
+-michael

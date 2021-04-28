@@ -2,54 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8794D36D688
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 13:33:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 495F736D74D
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 14:28:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3280416F8;
-	Wed, 28 Apr 2021 13:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3280416F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6D0016B6;
+	Wed, 28 Apr 2021 14:27:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6D0016B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619609615;
-	bh=gOBU3cwS94g+i5xDbXUusaD+3dJBbJ6vfZdJg8mP8w0=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aZJhIrZ2H+/nyx48Il9MMlzr8KivZDAbVpjJuOBz5YqevuXCTTbqX0ZPsJ2+MEN6r
-	 q0seEwbqntxGy4xZi2FSkpys8rA/f5Xt8UrcIfUov7H5lB6/nih6Pye35IZhdCu8vY
-	 6xg50q3L++fAbxxLE6SrK3V90xzdx5AWky1CzhPU=
+	s=default; t=1619612900;
+	bh=e0PYPYmVp2sTeVyprug7qWsIRtPg4Na1XzmKvy2NQPk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mz/23KcZy63EXcyTkd1+2vv0FTqkjw8HBE49jTPbTXmnxSq1XcBIBT05ap9pc2llp
+	 PL9MP6kvfzQVPTEPP3NP2ri9qJ/wnhR8kE5zbYNOktxE7gKa6rKdgT3JguYXUSy9Ap
+	 z9EjEkWfpisFhkUmuERDI5PKLUv8mdTTH5eepGB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25B35F80507;
-	Wed, 28 Apr 2021 13:27:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FDF8F8016C;
+	Wed, 28 Apr 2021 14:26:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 335CCF804C1; Wed, 28 Apr 2021 13:27:38 +0200 (CEST)
+ id 69C75F80218; Wed, 28 Apr 2021 14:26:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBBE2F80423
- for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 13:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBBE2F80423
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E55BCB177
- for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 11:27:05 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/13] ALSA: hda/conexant: Re-order CX5066 quirk table entries
-Date: Wed, 28 Apr 2021 13:27:04 +0200
-Message-Id: <20210428112704.23967-14-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210428112704.23967-1-tiwai@suse.de>
-References: <20210428112704.23967-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E72A0F80165
+ for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 14:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E72A0F80165
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="U9f8f1sM"
+Received: by mail-wr1-x42a.google.com with SMTP id l2so10508007wrm.9
+ for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 05:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=L9vJ8MVP6j87QpSAeKDLXQXVxBj32ZGZbJSSBO9KR4k=;
+ b=U9f8f1sMIE1pphhlzVUVKvVnrpByG1WlCslO+nr7TxtyVGECQdHCGsftxi8PJsWqcx
+ u4rHcfo3PlxDAzCb038jecFAXiMEw8AvZv/xigLejkM4ucxeNJkSTbHCELjFm77FLGcS
+ g4VM9U6t24JQyPq2V7kV737Rs8+Mse5R2oUFNfZghUoiQpKq1JZdHCT4Qta5vUgUKIOM
+ PLnJc9RiCXrtHjmr2A8xJtwk4Bk3OkDcrDIyFME0K5QIhpMilUYsTviLuwHB4u71E18x
+ mAopOWsc4OZ7OsC0BZutcg0ctRrSmzuLnWTAdUs7VNU2BmbCEwG19q+NVDnQAekZ8RxY
+ ZJkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=L9vJ8MVP6j87QpSAeKDLXQXVxBj32ZGZbJSSBO9KR4k=;
+ b=UiRId+tvGllpQEoSBiO0QQptNjbaGR9iW0iHJglMWp3OQHM/9w2fLznDimnkdeq9tm
+ qTcUoqNTdYZT44I7ivoTzRWtzlOuMwJvzeatkjJ3/WaLFj4NJiW6+Sp7aZVDyH4V2PI+
+ HDe374wqMre7sMGQw5Hr7t6Dz159/ivZAwHGlZy3RWPFAApoluErm1HURia0vGaPwhmT
+ +H8ZVUHUxzX1GyldelvSuG9mWMcHdULHFaFK2ngaRU0UpTCNt39FqscN2r7vgp1DudVP
+ T1/l6bb2fp60Bah0lGd0i9ESPkTGF4KmeCVxiaUdEHIxv5MtPR+LNT1/npzIOp+TkjBt
+ 6vJQ==
+X-Gm-Message-State: AOAM533q9D9ZMDFdTDhkduE/YpxuOK1XchGHICvVp5iW3QztkyZ9BSyt
+ w2lEF2kqHCoujxySBjduhlFlZQ==
+X-Google-Smtp-Source: ABdhPJyCLWhozrwOIpUv2gOjcCW05z9TPA1l9lMzWJazYXUKxSajxGK6YCT2I749kzuUnsrxcHw4nQ==
+X-Received: by 2002:adf:d1cd:: with SMTP id b13mr35564902wrd.126.1619612801356; 
+ Wed, 28 Apr 2021 05:26:41 -0700 (PDT)
+Received: from localhost.localdomain (82-65-169-74.subs.proxad.net.
+ [82.65.169.74])
+ by smtp.googlemail.com with ESMTPSA id 6sm7872021wmg.9.2021.04.28.05.26.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Apr 2021 05:26:41 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] ASoC: Revert clk_hw_get_clk() cleanup
+Date: Wed, 28 Apr 2021 14:26:30 +0200
+Message-Id: <20210428122632.46244-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
+X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
+Cc: Stephen Boyd <sboyd@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,48 +99,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Just re-order the cx5066_fixups[] entries for HP devices for avoiding
-the oversight of the duplicated or unapplied item in future.
-No functional changes.
+There is problem with clk_hw_get_hw(). Using it pins the clock provider to
+itself, making it impossible to remove the related module.
 
-Also Cc-to-stable for the further patch applications.
+Revert the two commits using this function until this gets sorted out.
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_conexant.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Jerome Brunet (2):
+  ASoC: stm32: do not request a new clock consummer reference
+  ASoC: da7219: do not request a new clock consummer reference
 
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index dfef9c17e140..d111258c6f45 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -930,18 +930,18 @@ static const struct snd_pci_quirk cxt5066_fixups[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8079, "HP EliteBook 840 G3", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x807C, "HP EliteBook 820 G3", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x80FD, "HP ProBook 640 G2", CXT_FIXUP_HP_DOCK),
--	SND_PCI_QUIRK(0x103c, 0x828c, "HP EliteBook 840 G4", CXT_FIXUP_HP_DOCK),
--	SND_PCI_QUIRK(0x103c, 0x83b2, "HP EliteBook 840 G5", CXT_FIXUP_HP_DOCK),
--	SND_PCI_QUIRK(0x103c, 0x83b3, "HP EliteBook 830 G5", CXT_FIXUP_HP_DOCK),
--	SND_PCI_QUIRK(0x103c, 0x83d3, "HP ProBook 640 G4", CXT_FIXUP_HP_DOCK),
--	SND_PCI_QUIRK(0x103c, 0x8174, "HP Spectre x360", CXT_FIXUP_HP_SPECTRE),
- 	SND_PCI_QUIRK(0x103c, 0x8115, "HP Z1 Gen3", CXT_FIXUP_HP_GATE_MIC),
- 	SND_PCI_QUIRK(0x103c, 0x814f, "HP ZBook 15u G3", CXT_FIXUP_MUTE_LED_GPIO),
-+	SND_PCI_QUIRK(0x103c, 0x8174, "HP Spectre x360", CXT_FIXUP_HP_SPECTRE),
- 	SND_PCI_QUIRK(0x103c, 0x822e, "HP ProBook 440 G4", CXT_FIXUP_MUTE_LED_GPIO),
--	SND_PCI_QUIRK(0x103c, 0x836e, "HP ProBook 455 G5", CXT_FIXUP_MUTE_LED_GPIO),
--	SND_PCI_QUIRK(0x103c, 0x837f, "HP ProBook 470 G5", CXT_FIXUP_MUTE_LED_GPIO),
-+	SND_PCI_QUIRK(0x103c, 0x828c, "HP EliteBook 840 G4", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x8299, "HP 800 G3 SFF", CXT_FIXUP_HP_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x829a, "HP 800 G3 DM", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x103c, 0x836e, "HP ProBook 455 G5", CXT_FIXUP_MUTE_LED_GPIO),
-+	SND_PCI_QUIRK(0x103c, 0x837f, "HP ProBook 470 G5", CXT_FIXUP_MUTE_LED_GPIO),
-+	SND_PCI_QUIRK(0x103c, 0x83b2, "HP EliteBook 840 G5", CXT_FIXUP_HP_DOCK),
-+	SND_PCI_QUIRK(0x103c, 0x83b3, "HP EliteBook 830 G5", CXT_FIXUP_HP_DOCK),
-+	SND_PCI_QUIRK(0x103c, 0x83d3, "HP ProBook 640 G4", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x8402, "HP ProBook 645 G4", CXT_FIXUP_MUTE_LED_GPIO),
- 	SND_PCI_QUIRK(0x103c, 0x8427, "HP ZBook Studio G5", CXT_FIXUP_HP_ZBOOK_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x844f, "HP ZBook Studio G5", CXT_FIXUP_HP_ZBOOK_MUTE_LED),
+ sound/soc/codecs/da7219.c     | 5 +----
+ sound/soc/stm/stm32_sai_sub.c | 5 +----
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
 -- 
-2.26.2
+2.31.1
 

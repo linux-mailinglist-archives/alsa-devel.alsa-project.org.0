@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7DC36DD9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 18:56:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081C536DDA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 18:56:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2971916B6;
-	Wed, 28 Apr 2021 18:55:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2971916B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99B0E16D4;
+	Wed, 28 Apr 2021 18:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99B0E16D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619628961;
-	bh=lIC/pqsoxsAM0Fy/QGQnTVj7ZtLt54LhbkZ0xAPSS9E=;
+	s=default; t=1619628976;
+	bh=afX80eTKphvREzmJ06cN4lmgX/5HQyII66qLFz6W0oA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G/6ewcoXE0VB9fOKQdbvPNfT+9MqY8AroHoGB/cBCmJ7dWHLmwJAfw3M8dhb8Ui0s
-	 4Jq4QUWTWY3dlt3Yxa12FMfxeEn4rCJFFYAyuAfD7Hb7ZYPtyXX9A330NOuCDeTb8P
-	 SbcLgdfPfbp+TGsuMK/MMR26/EZQVPWrYxP+GXKY=
+	b=dTddWCMaEevaL6r4XqWlXLaSYDcNt9S/EJZy4gfYu6wB1541fGWvE4TaBcABoNBwL
+	 qN0C/vhGVhlNTCs9de7DV/1Z4PnfbCbTXRcMZNhYDrtkidFtkWj6qykksef2kXcJqy
+	 FBkInvaBmXjpIApguzhVcM6OpmcFeTG6tQk6cUj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D910F80171;
-	Wed, 28 Apr 2021 18:54:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B743F80224;
+	Wed, 28 Apr 2021 18:54:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 816E9F80171; Wed, 28 Apr 2021 18:54:29 +0200 (CEST)
+ id 5A5F8F8016C; Wed, 28 Apr 2021 18:54:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92E12F80130
- for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 18:54:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92E12F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id B30C5F8012A
+ for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 18:54:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B30C5F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c/tlTFLO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2DCEA6143B;
- Wed, 28 Apr 2021 16:54:21 +0000 (UTC)
+ header.b="E3oXKMUw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B2DC6143D;
+ Wed, 28 Apr 2021 16:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619628862;
- bh=lIC/pqsoxsAM0Fy/QGQnTVj7ZtLt54LhbkZ0xAPSS9E=;
+ s=k20201202; t=1619628866;
+ bh=afX80eTKphvREzmJ06cN4lmgX/5HQyII66qLFz6W0oA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c/tlTFLO3kzIvoEubr+aHX0eeke0Gbkrmy9wxc3BXM9RUxd9ab5lWkV7vSMJoCSUX
- YNqY6bsoKJ0x3m9rhacs9HCg4WubaFN8FE3zo6m4w2zeAalaIZ92K+QQ6YmWbHk8bJ
- TK4+1GfcjJNXseB2l3SlFbWjEmpdDFiIG5riZCpb3gU2+4rrMcx+Kq5R7Iqu16Kg41
- C46gn7iEgz2ucClbpQ2mB0iMgVfhxJSnDIWRkbHFqSBS7AoUyDDWt9pW4znSIG2leD
- ZOw5RjzT4CVM6lPClS8kyoSP/q6a0Xqrp8Gu0tvnWZD9neAxfinWdTuwstRx34A6tt
- Pol1Qe6mJaBuw==
+ b=E3oXKMUwn0BOGXkc+2ozbwCm4gi3vyc+KhLLAP31nBUf93FrhqIVvuYih2QLF/HD4
+ ioczWWCOvpvDdbz3kIzhrfXb8eiMFHpmqHAvS8oBpODYHU4IYt4x7WQsB+ImG9//yH
+ mUyje1nBjNpa89A2Xsh1GGhGDwRWWF4dVleLNcWzlyZ0Wg0oU+7UlIxE7M23E16VxH
+ ia8hxwPz8ZY66PflpcL0/RSxTYNzovFPu1RsidmTUsFufyvVfUQPaR5H4EsC0/U52v
+ KgjZC9oMXAQXqXW+I5JehnP7eKK/15lm3BgQqaPHMR/uXcOPSDRjgzZ8ZdqLWoaQxZ
+ NHJyc0d64kiHg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH] ASoC: amd: fix for pcm_read() error
-Date: Wed, 28 Apr 2021 17:53:43 +0100
-Message-Id: <161962856273.49583.9768251008066165285.b4-ty@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH 0/2] ASoC: Revert clk_hw_get_clk() cleanup
+Date: Wed, 28 Apr 2021 17:53:44 +0100
+Message-Id: <161962856274.49583.8078596005578732734.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1619555017-29858-1-git-send-email-Vijendar.Mukunda@amd.com>
-References: <1619555017-29858-1-git-send-email-Vijendar.Mukunda@amd.com>
+In-Reply-To: <20210428122632.46244-1-jbrunet@baylibre.com>
+References: <20210428122632.46244-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Sunil-kumar.Dommati@amd.com,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Alexander.Deucher@amd.com, Prike Liang <Prike.Liang@amd.com>,
- Mark Brown <broonie@kernel.org>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- yuhsuan@google.com, Akshu Agrawal <akshu.agrawal@amd.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,15 +79,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 28 Apr 2021 01:53:31 +0530, Vijendar Mukunda wrote:
-> Below phython script throwing pcm_read() error.
+On Wed, 28 Apr 2021 14:26:30 +0200, Jerome Brunet wrote:
+> There is problem with clk_hw_get_hw(). Using it pins the clock provider to
+> itself, making it impossible to remove the related module.
 > 
-> import subprocess
+> Revert the two commits using this function until this gets sorted out.
 > 
-> p = subprocess.Popen(["aplay -t raw -D plughw:1,0 /dev/zero"], shell=True)
-> subprocess.call(["arecord -Dhw:1,0 --dump-hw-params"], shell=True)
-> subprocess.call(["arecord -Dhw:1,0 -fdat -d1 /dev/null"], shell=True)
-> p.kill()
+> Jerome Brunet (2):
+>   ASoC: stm32: do not request a new clock consummer reference
+>   ASoC: da7219: do not request a new clock consummer reference
 > 
 > [...]
 
@@ -105,8 +97,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: fix for pcm_read() error
-      commit: 6879e8e759bf9e05eaee85e32ca1a936e6b46da1
+[1/2] ASoC: stm32: do not request a new clock consummer reference
+      commit: a0695853e5906a9558eef9f79856e07659b7a1e6
+[2/2] ASoC: da7219: do not request a new clock consummer reference
+      commit: 97c733654ab4a5ac910216b4b74e605acf3e1cce
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

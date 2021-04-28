@@ -2,53 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FEC636D679
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 13:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9115636D67D
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Apr 2021 13:31:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00ABF16C1;
-	Wed, 28 Apr 2021 13:29:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00ABF16C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF6516C2;
+	Wed, 28 Apr 2021 13:30:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF6516C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619609435;
-	bh=mzjaclHV6jFqu++83Tk91673YM0H425/3+IxJCxqBig=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ih9if5CgrBqkcN9Sdyn6yg4Tp8E4U3r8qzV0VGd4ILU4mrsrMZzNwHYo41vIR5kqC
-	 28r9psAJwXmorlrhOiEwBfeRlp5vM/3I5nrR4AOqGK1Z7odWx2So+Cha0BJftKZTEm
-	 mBl+mQPg/HfH9iTvHaLMfj1ewAEwKpN108nPuvBo=
+	s=default; t=1619609465;
+	bh=RqkgiCf8P2hH5lW41ZO6wcqaKLiScWb7MtJn0/aW+BE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Tpn/91iNE6a/xzT67jc8Owf+JyPaIhTfFk54OYT1OhHeaqDb78//d69g6aAEaV5uG
+	 Hdw67oz7Vn5RgdQk1U5dHIEXrhMGdWsvP6H6NabCtEEis1TA/tbhWsvDlcXNum3lUp
+	 M6OScJYckfMDjlQkiyVJ3Y8zkX6YfUq3yO7HeLE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7041F804B0;
-	Wed, 28 Apr 2021 13:27:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCF9DF804D1;
+	Wed, 28 Apr 2021 13:27:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAF1EF804AE; Wed, 28 Apr 2021 13:27:29 +0200 (CEST)
+ id B3455F80218; Wed, 28 Apr 2021 13:27:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UPPERCASE_50_75 autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66A48F8029B
- for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 13:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66A48F8029B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BFFCF80218
+ for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 13:27:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BFFCF80218
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B61A3B166
+ by mx2.suse.de (Postfix) with ESMTP id 8827DB155
  for <alsa-devel@alsa-project.org>; Wed, 28 Apr 2021 11:27:05 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/13] ALSA: hda/realtek: Re-order ALC269 ASUS quirk table
- entries
-Date: Wed, 28 Apr 2021 13:26:58 +0200
-Message-Id: <20210428112704.23967-8-tiwai@suse.de>
+Subject: [PATCH 00/13] ALSA: hda: Re-order quirk table entries
+Date: Wed, 28 Apr 2021 13:26:51 +0200
+Message-Id: <20210428112704.23967-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210428112704.23967-1-tiwai@suse.de>
-References: <20210428112704.23967-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -66,56 +62,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Just re-order the alc269_fixup_tbl[] entries for ASUS devices for
-avoiding the oversight of the duplicated or unapplied item in future.
-No functional changes.
+Hi,
 
-Also Cc-to-stable for the further patch applications.
+this is a series of trivial changes just to re-order the quirk table
+entries for HD-audio codec drivers.  We've tried to keep the entries
+in the PCI SSID order, but occasionally somd disorder came in.  It's
+not only bad for the readability but also leading to the oversight of
+duplicated entries or the unreachable entries unexpectedly.
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Basically this could be done in a shot by a script, but I split to
+parts, so that each piece can be better applied (or fixed) for stable
+kernels.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7e1accdd990f..d99666c706b7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8151,16 +8151,18 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x10d0, "ASUS X540LA/X540LJ", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x115d, "Asus 1015E", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x1043, 0x11c0, "ASUS X556UR", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1043, 0x125e, "ASUS Q524UQK", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1271, "ASUS X430UN", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1290, "ASUS X441SA", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x12a0, "ASUS X441UV", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1043, 0x12f0, "ASUS X541UV", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x12e0, "ASUS X541SA", ALC256_FIXUP_ASUS_MIC),
-+	SND_PCI_QUIRK(0x1043, 0x12f0, "ASUS X541UV", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x13b0, "ASUS Z550SA", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
- 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
-+	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x194e, "ASUS UX563FD", ALC294_FIXUP_ASUS_HPE),
-@@ -8173,13 +8175,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
--	SND_PCI_QUIRK(0x1043, 0x125e, "ASUS Q524UQK", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1d4e, "ASUS TM420", ALC256_FIXUP_ASUS_HPE),
- 	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
- 	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
--	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
- 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
+There is one fix patch in the series that addresses the duplicated
+entries.  Other than that, all about shuffling and no functional
+changes must be introduced by this series.
+
+
+Takashi
+
+===
+
+Takashi Iwai (13):
+  ALSA: hda/realtek: Re-order ALC882 Acer quirk table entries
+  ALSA: hda/realtek: Re-order ALC882 Sony quirk table entries
+  ALSA: hda/realtek: Re-order ALC882 Clevo quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 HP quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 Acer quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 Dell quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 ASUS quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 Sony quirk table entries
+  ALSA: hda/realtek: Re-order ALC269 Lenovo quirk table entries
+  ALSA: hda/realtek: Re-order remaining ALC269 quirk table entries
+  ALSA: hda/realtek: Re-order ALC662 quirk table entries
+  ALSA: hda/realtek: Remove redundant entry for ALC861 Haier/Uniwill
+    devices
+  ALSA: hda/conexant: Re-order CX5066 quirk table entries
+
+ sound/pci/hda/patch_conexant.c |  14 ++--
+ sound/pci/hda/patch_realtek.c  | 113 ++++++++++++++++-----------------
+ 2 files changed, 62 insertions(+), 65 deletions(-)
+
 -- 
 2.26.2
 

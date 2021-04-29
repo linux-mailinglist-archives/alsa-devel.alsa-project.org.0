@@ -2,53 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E067371405
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 May 2021 13:10:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A867F371471
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 May 2021 13:41:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FB511688;
-	Mon,  3 May 2021 13:09:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FB511688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36BFE167C;
+	Mon,  3 May 2021 13:41:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BFE167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620040211;
-	bh=acdj9hfxoOXCMr3UckrXGudOCXg7Vu73LmrgeiqN2VU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1620042116;
+	bh=zTD5XNpQcNgkJT83Q2al0FE7LUgrZGM1S6a2eWeWBEc=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=p7gjCaLPnFwePk3hvq5BJruo5O+KNK1gEG6rN5yZxWI29v8irsZvR6ZxsNsZneaIh
-	 Gh1PEyUWMJdCzauD1PXr+wiCUu2DZGHyXBdErbLzAYOam4GC7HmEEN070Se9tN2taq
-	 6tDXF/Sxn4OyVoD6029PuMdvjv4iGO4wTHS+KBZU=
+	b=B7Z6eX9OtQ07ZFmzSve2Y85Ri2VQRibC+YkxD+skNwE2ILWlKU/BD471YBQAg0Grc
+	 RbIMHF4dZY1OmN28kw1Benw8WubAy+Quiqt4dVApbmvM4OkvvkJtVZw86Z/IdGc40X
+	 o/zpymzFwUYCpVLAxCmx5ITxHbToqwJsim4OmTsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88B9FF80268;
-	Mon,  3 May 2021 13:08:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5405BF80268;
+	Mon,  3 May 2021 13:40:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C5ABF8025F; Mon,  3 May 2021 13:08:38 +0200 (CEST)
+ id F2907F801EC; Thu, 29 Apr 2021 11:25:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD1FBF80111
- for <alsa-devel@alsa-project.org>; Mon,  3 May 2021 13:08:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD1FBF80111
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1841CB16A;
- Mon,  3 May 2021 11:08:26 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add dB range mapping for Sennheiser
- Communications Headset PC 8
-Date: Mon,  3 May 2021 13:08:22 +0200
-Message-Id: <20210503110822.10222-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B602AF800E4
+ for <alsa-devel@alsa-project.org>; Thu, 29 Apr 2021 11:25:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B602AF800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="doJSUANF"
+Received: by mail-pj1-x102b.google.com with SMTP id
+ gc22-20020a17090b3116b02901558435aec1so6911891pjb.4
+ for <alsa-devel@alsa-project.org>; Thu, 29 Apr 2021 02:25:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=Hc7qwEWt0TQypk1NpxmfhrdUGD/9xTC+FVNkE0PCDPk=;
+ b=doJSUANF+Dq7ZsjoPCEistPnbGK/JuTWTDxUpl1X+jLEN/iAxF5HyqYv47fIS8EOS1
+ aWfgcvdUjOOc8RR2wDvrI3QcPgsdvmboE79Z0PA2eD8SkZl71zB0EAAwXwDwtyWQhZw0
+ r+NGGlnKMwxXpqTwDm8mUGnZ+i1wG8cp4D74H5GWBn0EZbLo1mzgMrrRxGa2DoUednKH
+ yx7v8WMtcPTGL50QaTzmqbWMFJ8wmse8Q9Z+59ciTX4R/qvCItQQdENBJFB3Ge35+jc1
+ BPGhK03Xb/kJIyEBxz5ktnfq88PZjZKboFIfAwGVisicojSU6fcr9V25WyassBo1XYk2
+ wR4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=Hc7qwEWt0TQypk1NpxmfhrdUGD/9xTC+FVNkE0PCDPk=;
+ b=n1l4s7Bc9hMz8yUIX384LIPpE1o86pZ4vYw+X/FcAeKxqSB7X+rhQjC52xnFy6VeAr
+ 56788pKp4BoNFhMSy2a4QwrH3qhtOvAL7HOc17Aj6QMV8pXExF2EWIoKzhgxn8SXwC6C
+ k383BNq/Qx4mx1FLX1VnFQFf6mYLDJdPV5tE4FfHOiVnPUBN/MFfRB6GOaDPYEORdnE4
+ DgrcXAj5+cCxIk7l0Z7geWD90t5UJTCwDPxmuLIsQwXZJEzArBa98b4IaKSi0l3586Si
+ yU+irQPErZY8BR0cccGFRZeuI20cXtGF32w1EBFhab9nlmFB6JpRGBVcRov4Yz4hNYCK
+ 63Ag==
+X-Gm-Message-State: AOAM531PtwG97xBxYWwpHCMccIWuFimMi2ThovqTayDovUSw5Th+tSqr
+ /JTGYS6tTM6BFoHuY72Jy2M=
+X-Google-Smtp-Source: ABdhPJwIKMM5WeakUgaxHGL5V94vdsm/Y7DRjAdrvfr1VxbJ6AY43JpMQGSBU46hdFmarfcpO1NiEA==
+X-Received: by 2002:a17:90b:370a:: with SMTP id
+ mg10mr6303916pjb.219.1619688313938; 
+ Thu, 29 Apr 2021 02:25:13 -0700 (PDT)
+Received: from localhost ([157.45.42.16])
+ by smtp.gmail.com with ESMTPSA id j23sm2069548pfh.179.2021.04.29.02.25.12
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 29 Apr 2021 02:25:13 -0700 (PDT)
+Date: Thu, 29 Apr 2021 14:55:05 +0530
+From: Shubhankar Kuranagatti <shubhankarvk@gmail.com>
+To: agross@kernel.org
+Subject: [PATCH] drivers: slimbus: qcom-ngd-ctrl.c: Added space after comma
+Message-ID: <20210429092505.lamh5km4inoynjar@kewl-virtual-machine>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Timo Gurr <timo.gurr@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: NeoMutt/20171215
+X-Mailman-Approved-At: Mon, 03 May 2021 13:40:20 +0200
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
+ sanjanasrinidhi1810@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,53 +101,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Timo Gurr <timo.gurr@gmail.com>
+A space has been give after the ','.
+This is done to maintain code uniformity.
 
-The decibel volume range contains a negative maximum value resulting in
-pipewire complaining about the device and effectivly having no sound
-output. The wrong values also resulted in the headset sounding muted
-already at a mixer level of about ~25%.
-
-PipeWire BugLink: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1049
-
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=212897
-Signed-off-by: Timo Gurr <timo.gurr@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Shubhankar Kuranagatti <shubhankarvk@gmail.com>
 ---
- sound/usb/mixer_maps.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/slimbus/qcom-ngd-ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 646deb6244b1..c5794e83fd80 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -337,6 +337,13 @@ static const struct usbmix_name_map bose_companion5_map[] = {
- 	{ 0 }	/* terminator */
- };
- 
-+/* Sennheiser Communications Headset [PC 8], the dB value is reported as -6 negative maximum  */
-+static const struct usbmix_dB_map sennheiser_pc8_dB = {-9500, 0};
-+static const struct usbmix_name_map sennheiser_pc8_map[] = {
-+	{ 9, NULL, .dB = &sennheiser_pc8_dB },
-+	{ 0 }   /* terminator */
-+};
-+
- /*
-  * Dell usb dock with ALC4020 codec had a firmware problem where it got
-  * screwed up when zero volume is passed; just skip it as a workaround
-@@ -593,6 +600,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.id = USB_ID(0x17aa, 0x1046),
- 		.map = lenovo_p620_rear_map,
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index c054e83ab636..cb9612a5c30c 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1348,7 +1348,7 @@ static const struct of_device_id qcom_slim_ngd_dt_match[] = {
+ 	{
+ 		.compatible = "qcom,slim-ngd-v1.5.0",
+ 		.data = &ngd_v1_5_offset_info,
+-	},{
++	}, {
+ 		.compatible = "qcom,slim-ngd-v2.1.0",
+ 		.data = &ngd_v1_5_offset_info,
  	},
-+	{
-+		/* Sennheiser Communications Headset [PC 8] */
-+		.id = USB_ID(0x1395, 0x0025),
-+		.map = sennheiser_pc8_map,
-+	},
- 	{ 0 } /* terminator */
- };
- 
 -- 
-2.26.2
+2.17.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9738736F4B8
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Apr 2021 06:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13ED236F4BB
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Apr 2021 06:02:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 151071695;
-	Fri, 30 Apr 2021 06:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 151071695
+	by alsa0.perex.cz (Postfix) with ESMTPS id A36E41692;
+	Fri, 30 Apr 2021 06:01:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A36E41692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1619755254;
-	bh=0Lg4ULP/nMjVTZMR/E7a+ihzfnh/vGNCsQz/1RsCPao=;
+	s=default; t=1619755331;
+	bh=xMomNsg+8OAGUeAWTzCkSKx3+2ZwbIRqqq5oxuupSYI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L0JfjBIthtP6O1EfFM5S/ta/FzvWz45TR7elVsw8htOQJTBTO+5nq5Y0LE6Q1HdfZ
-	 c58SwO6yqUiOz8h8fKpWthoLXFm9UYlyyLqtUton1vF1ykm97Gov9XM52ygZcCVdp/
-	 IpnRNMEgzw13w799Gu+yFbN6e/NzZdccJzKH36Cg=
+	b=nrT7HFbWbExK5CJWW3BHbpRtHjBDMQzkrt5TEW/I+IzB2exsy15Iom3tgnp2G0Ycc
+	 35SsOkBlnyBBCuLhf09/b6o+xt2G9IVkE1dz0W7JW98KabeSr2/ECzK9+ZqVkTqafa
+	 XOg07hq3b7riGrKOt5PEqUSkSyDioeKPK8EUumfY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE354F80165;
-	Fri, 30 Apr 2021 05:59:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B093AF8049C;
+	Fri, 30 Apr 2021 05:59:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0379EF80425; Fri, 30 Apr 2021 05:59:11 +0200 (CEST)
+ id 70D1CF80424; Fri, 30 Apr 2021 05:59:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 252D5F800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 312D3F8016C
  for <alsa-devel@alsa-project.org>; Fri, 30 Apr 2021 05:59:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 252D5F800E4
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 312D3F8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="p7X+/8zV"; 
+ header.b="mwhWdCoC"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="AwUnA8+k"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 73E4D58098C;
- Thu, 29 Apr 2021 23:59:03 -0400 (EDT)
+ header.i=@messagingengine.com header.b="aUa78juR"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 2B29C58098D;
+ Thu, 29 Apr 2021 23:59:04 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 29 Apr 2021 23:59:03 -0400
+ by compute4.internal (MEProxy); Thu, 29 Apr 2021 23:59:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=C/zv9YAufZEA1
- vYQZ89gyFjqQ5tKRBiTvd9OZQm7wS4=; b=p7X+/8zVRC7OM40ixXor7PStlAf1B
- d+fNjICLPlm7O2B1ySMbXOrsSQv1RYYl6fIVW2mNAwh1fiSGtJojBTKMW3k+VmHy
- yjoaBRZIchoE7h4troyMEUKU04LB1wBcMKH3+1VhkHzou7A7LlIH/zAGLQtqzxOZ
- tANQwDh0GwQvSu++j7PuawlbM1C9hnmFp7vunN9wGkkG5XLOlYLBQUInSzhXo6fF
- tqGngYhNEOs7TrN2h+UfJDdspYSSqO3MX32KZPy4ZQbFRq8KiBuGcfzCLwAtl6GN
- x8U0DWCg0tvbE6EBoMyo5J9s5a83igXxsGfcmARVSIgWoBw8jWmKyo/pA==
+ :mime-version:content-transfer-encoding; s=fm2; bh=YEbs+BEOpZZ9t
+ yyMXl71FJjFgn9WB+c04wCg6ag0Rvw=; b=mwhWdCoCl3MndYHXi27nvSPk0dLwm
+ MdUmLmtyQbwiOFlcZthor1CEDhVe+DprZVFETGUGYgMQZ9G2MV3lhtM2ALR55q7y
+ Mx/fWiunekWkvrraCHYwq3vmBnVp30TeVncN66auczu1276vaxq3Eyf+YFTb7Sy7
+ 2FkwTXYJyLvXjj7i00Y0OXn913WYmFfRBHmlsvZKPgJIRO606CaXZw2AGBmb3CSi
+ MRhOIhhgrvDSd34PNeyCgMiIFnSrfCDe2dREEOMVv357srd/uhw4EpMD07TgGvuK
+ Uqft9pJd4DmZTRrdJv2IjgS2oTtRBG6b3bSTeiBKPQfidPcX7FtuC/8jg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=C/zv9YAufZEA1vYQZ89gyFjqQ5tKRBiTvd9OZQm7wS4=; b=AwUnA8+k
- otv4GjsfgS/kRNyRZADBOpKQMrJ3616aHugx7CPyZJ65/X0reIOr7KukHTe4WmMQ
- RjlgLFtDpDYNq8ZRb9ddHKmJfE4X6Mz6zTGm639bwuH7uyNZHmWkpaeVJ81sfAKT
- J+XxkDmHco5uq5r3NY27wBGrxozUxM8hRiw9m2ZYJuTDwSv1IFw6X3E5NzVcPtvZ
- 42oB8nd88KvQgNBwfr2CxlQKqR/FBMZ/5ozoYancNLYfgSuNT/E9FgFrA+N/qgMg
- yN8AxmG1Px02qA5Eq2qVfjNx2sekjEzRqyquDNLdroQPRT+6EBkIMYTK+sl8IRW+
- dJ2RBH4shXXu6A==
-X-ME-Sender: <xms:h4CLYHEcWZ5Qd0-n7d4TaD7b8-TE3lWyAUW0GhvCKLeN4GD1_iOSJg>
- <xme:h4CLYEW-oPmd4CtO_h4u6piOvYszuFNmPWzNO6Uxuv-Hp1Pz7YZNPSWGfuy3_R0qD
- fW3dRHzp807TWm6kg>
+ fm2; bh=YEbs+BEOpZZ9tyyMXl71FJjFgn9WB+c04wCg6ag0Rvw=; b=aUa78juR
+ a4PEBRA0HCTJrO3VnQ4hFrPy8kmc1qzWgZvBgSrO5eEKxNchd3q8btzJP8NFqFI7
+ 0Ge3YQ2P6pxt1qabFb+cM/2tbFcyLUgAINKC7strtI6SIFGN2m5e6as/SsQ2AFvZ
+ ammTvqKWSWd268ToStlE9FojagaBwQdeLG7ong5B2g2J48S+JCBFIZ1RB7zeVMBX
+ VtVIF6L8U4GvcZtb4VBrmYi+CcFXFPnUi1V8FXTU6Fn/xXUNdW5IRZbrYVj6K5g7
+ FEWaKnUaTR9aZstlwhm4ixwfAmwtqLsg+b4x8u8MljtNeqeVU/kSCz4DQfwBt5P0
+ 6sXsnL0TdJj53w==
+X-ME-Sender: <xms:iICLYFC4DGRDR4OfYPnNE9eCsm93YVU9WO0lOI8zSAKCOuxCqLvdQQ>
+ <xme:iICLYDh2uJh33Xzj28H106iK9ivFdQcNSA8hGcFlksa8-NlA4wJwOsVfaN59XLW-7
+ EvBC9Kc0sLskq30Dg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddvhedgjeejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -80,23 +80,22 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddvhedgjeejucetufdoteggod
  gfejheeuieenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuih
  iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghn
  ugdrohhrgh
-X-ME-Proxy: <xmx:h4CLYJJZX-kPUviKas-CZ1w3kv6CkPJa6lvnQIx4P-waSTanyJTcgQ>
- <xmx:h4CLYFG7jXs-fj6O-ypKcLAdXk0uHTmrcHlEWkx0Zrzw0uWYsHZLvQ>
- <xmx:h4CLYNVLkxqUY2-bw6t-m9LLFHXo9MmdzfsvPCRFeM7iWAbuqjsdYw>
- <xmx:h4CLYFRSPNiupws35jXNVXHU1xtD7cfrLxWnT4a7RSDPocV-G10FxQ>
+X-ME-Proxy: <xmx:iICLYAn-wEMfa2-65sN4U6Lly0q17Ji9_S5fqyJFkYuROyQK2I9b2w>
+ <xmx:iICLYPyrl4DxNC_9jf73jkoGliK6IRrQGcafdKFzOiK1Su9wStArgw>
+ <xmx:iICLYKRmrFUffT2y3wn6ZMayIJ5tg1OpOAA8kd5vuM9_3YkIiPIP0A>
+ <xmx:iICLYL_DH2GKYt9HLxSavJw9uDA0DtNP5H9hhM6gbxCVSRvEXqkjIQ>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
  by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 29 Apr 2021 23:59:02 -0400 (EDT)
+ Thu, 29 Apr 2021 23:59:03 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jernej Skrabec <jernej.skrabec@siol.net>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v3 1/7] ASoC: dt-bindings: sun8i-codec: Increase
- #sound-dai-cells
-Date: Thu, 29 Apr 2021 22:58:53 -0500
-Message-Id: <20210430035859.3487-2-samuel@sholland.org>
+Subject: [PATCH v3 2/7] ARM: dts: sun8i-a33: Allow using multiple codec DAIs
+Date: Thu, 29 Apr 2021 22:58:54 -0500
+Message-Id: <20210430035859.3487-3-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210430035859.3487-1-samuel@sholland.org>
 References: <20210430035859.3487-1-samuel@sholland.org>
@@ -120,43 +119,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Increase sound-dai-cells to 1 to allow using the DAIs in the codec
-corresponding to AIF2 and AIF3.
-
-The generic ASoC OF code supports a #sound-dai-cells value of 0 or 1
-with no impact to the driver, so this is a backward-compatible change.
+Increase #sound-dai-cells on the digital codec to allow using the other
+DAIs provided by the codec for AIF2 and AIF3.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- .../bindings/sound/allwinner,sun8i-a33-codec.yaml         | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/sun8i-a33.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-index 67405e6d8168..19f111f40225 100644
---- a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-@@ -12,7 +12,11 @@ maintainers:
+diff --git a/arch/arm/boot/dts/sun8i-a33.dtsi b/arch/arm/boot/dts/sun8i-a33.dtsi
+index 7344c37107c6..2beddbb3c518 100644
+--- a/arch/arm/boot/dts/sun8i-a33.dtsi
++++ b/arch/arm/boot/dts/sun8i-a33.dtsi
+@@ -198,7 +198,7 @@ simple-audio-card,cpu {
+ 		};
  
- properties:
-   "#sound-dai-cells":
--    const: 0
-+    minimum: 0
-+    maximum: 1
-+    description:
-+      A value of 0 is deprecated. When used, it only allows access to
-+      the ADC/DAC and AIF1 (the CPU DAI), not the other two AIFs/DAIs.
+ 		link_codec: simple-audio-card,codec {
+-			sound-dai = <&codec>;
++			sound-dai = <&codec 0>;
+ 		};
+ 	};
  
-   compatible:
-     oneOf:
-@@ -50,7 +54,7 @@ additionalProperties: false
- examples:
-   - |
-     audio-codec@1c22e00 {
--      #sound-dai-cells = <0>;
-+      #sound-dai-cells = <1>;
-       compatible = "allwinner,sun8i-a33-codec";
-       reg = <0x01c22e00 0x400>;
-       interrupts = <0 29 4>;
+@@ -238,7 +238,7 @@ dai: dai@1c22c00 {
+ 		};
+ 
+ 		codec: codec@1c22e00 {
+-			#sound-dai-cells = <0>;
++			#sound-dai-cells = <1>;
+ 			compatible = "allwinner,sun8i-a33-codec";
+ 			reg = <0x01c22e00 0x400>;
+ 			interrupts = <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
 -- 
 2.26.3
 

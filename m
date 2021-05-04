@@ -2,123 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52E5372870
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 May 2021 12:06:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE7E3728E5
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 May 2021 12:27:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75E331695;
-	Tue,  4 May 2021 12:05:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75E331695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DE1F168C;
+	Tue,  4 May 2021 12:26:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DE1F168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620122785;
-	bh=r3LlMTItbH+QYbe7UyXozDP8xkzWBV0z3Gbpf1vEKt4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1620124036;
+	bh=27mUOaWgJCRDTkAAE3jn2c+vI6jbtEB/MNdBlgVKQ/4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ezH/rxa7JqAC/VGOB3WCDXHeYx5OCM8F3J9dSv3Kbsu8zbjK9n1+5VH8FDCgMXcOD
-	 0Vs50F+0WN1isTkbndchCgiSYPQL1r3oLgCiONVJk/P2vD4RFhESba96oEuaU2sK/e
-	 E6IMC3cjajzb51my6ewzNl4rjQqhuLEu3SuMeUBg=
+	b=T4/V9BEGjIImd0wsDrzdYmpxS4Em9ThNjU7NNOgZT60fxWIN4/OZO656Z+SXmcAGz
+	 zZFOPoQoTw+4StYyc1e+XAPAnd8ApHYxgaVEiX0CQvglDYeNmzRr0spR8C+8fvfZyG
+	 U3BH1taKapxvokHEWIZjG+cVrWi4W1ekERye+Z2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE4A6F801F7;
-	Tue,  4 May 2021 12:04:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 387DBF80234;
+	Tue,  4 May 2021 12:25:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 578DBF8021C; Tue,  4 May 2021 12:04:56 +0200 (CEST)
+ id 6F628F8021C; Tue,  4 May 2021 12:25:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ABC3F80114
- for <alsa-devel@alsa-project.org>; Tue,  4 May 2021 12:04:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ABC3F80114
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 144A4VOQ0031342,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 144A4VOQ0031342
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 4 May 2021 18:04:31 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 4 May 2021 18:04:30 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 4 May 2021 18:04:29 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt711-sdca: fix the function number of SDCA control for
- feature unit 0x1E
-Date: Tue, 4 May 2021 18:04:24 +0800
-Message-ID: <20210504100424.8760-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.29.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82178F80114
+ for <alsa-devel@alsa-project.org>; Tue,  4 May 2021 12:25:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82178F80114
+IronPort-SDR: 1Lm9Zuy2e8Ie4UV5mkXgfGwvDo3HK+GPx+nxzhsnfQ0oOom4/HkYFm42WEsmeUsp6lAwPjlrDt
+ v1fSerNyiSRQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9973"; a="185082398"
+X-IronPort-AV: E=Sophos;i="5.82,272,1613462400"; d="scan'208";a="185082398"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2021 03:25:33 -0700
+IronPort-SDR: Sp0J4ZKwP9IYSBBlSi6jJnxhOUDCKArl4wkTbsbmxVlXGokv3O05mC1LYZH8rGMhQ91ItNtuqE
+ bXr+jFeHsf3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,272,1613462400"; d="scan'208";a="433219640"
+Received: from kekkonen.fi.intel.com ([10.237.72.68])
+ by orsmga008.jf.intel.com with ESMTP; 04 May 2021 03:25:32 -0700
+From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v3 0/1] Enable using multiple different type kcontrols for
+ widgets
+Date: Tue,  4 May 2021 13:07:12 +0300
+Message-Id: <20210504100713.4160008-1-jaska.uimonen@linux.intel.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMBS02.realtek.com.tw (172.21.6.95) To
- RTEXDAG01.realtek.com.tw (172.21.6.100)
-X-KSE-ServerInfo: RTEXDAG01.realtek.com.tw, 9
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzUvMyCkVaTIIDExOjQxOjAw?=
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 05/04/2021 09:51:00
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 10
-X-KSE-AntiSpam-Info: Lua profiles 163446 [May 04 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 445 445 d5f7ae5578b0f01c45f955a2a751ac25953290c9
-X-KSE-AntiSpam-Info: {Prob_from_in_msgid}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: realtek.com:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
-X-KSE-AntiSpam-Info: Rate: 10
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 05/04/2021 09:54:00
-X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 05/04/2021 09:46:59
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 10
-X-KSE-AntiSpam-Info: Lua profiles 163446 [May 04 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 445 445 d5f7ae5578b0f01c45f955a2a751ac25953290c9
-X-KSE-AntiSpam-Info: {Prob_from_in_msgid}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; realtek.com:7.1.1
-X-KSE-AntiSpam-Info: Rate: 10
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 05/04/2021 09:49:00
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, Shuming Fan <shumingf@realtek.com>,
- flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,35 +72,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Hi,
 
-The function number should be FUNC_NUM_MIC_ARRAY(0x2) for the feature unit 0x1E.
+This is a patch v3 for enabling multiple different types of kcontrols
+for a dapm widget.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt711-sdca.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Currently asoc allows to define and parse multiple same type kcontrols
+for single widget. So you can have for example two volume controls in
+a widget but not one byte and one enum control. Lately we've seen
+couple of cases where different types of controls would be useful and
+alsa topology actually allows you to create these.
 
-diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
-index cc36739f7fcf..24a084e0b48a 100644
---- a/sound/soc/codecs/rt711-sdca.c
-+++ b/sound/soc/codecs/rt711-sdca.c
-@@ -683,13 +683,13 @@ static int rt711_sdca_set_fu1e_capture_ctl(struct rt711_sdca_priv *rt711)
- 	ch_r = (rt711->fu1e_dapm_mute || rt711->fu1e_mixer_r_mute) ? 0x01 : 0x00;
- 
- 	err = regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
- 			RT711_SDCA_CTL_FU_MUTE, CH_L), ch_l);
- 	if (err < 0)
- 		return err;
- 
- 	err = regmap_write(rt711->regmap,
--			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT711_SDCA_ENT_USER_FU1E,
-+			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_USER_FU1E,
- 			RT711_SDCA_CTL_FU_MUTE, CH_R), ch_r);
- 	if (err < 0)
- 		return err;
+This patch refactors the dapm kcontrol parsing by lifting the creation
+loop and memory allocation up one level and making the type variable
+to hold multiple type values. Sof driver is modified to use this type
+information in the same patch as it is quite cumbersome to split the
+changes nicely.
+
+changes since v2:
+- only 1 patch for not breaking bisect
+- sof internal reviews -> minor changes + reviewed by tags
+- no upstream comments after v2 -> assuming I'm on the right track here
+
+Jaska Uimonen (1):
+  ASoC: dapm: Add support for multiple kcontrol types to a widget
+
+ include/sound/soc-topology.h |   2 +-
+ sound/soc/soc-topology.c     | 466 +++++++++++++++++------------------
+ sound/soc/sof/topology.c     |  15 +-
+ 3 files changed, 233 insertions(+), 250 deletions(-)
+
 -- 
-2.29.0
+2.24.1
 

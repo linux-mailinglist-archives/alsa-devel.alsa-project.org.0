@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C131D372DF9
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 May 2021 18:23:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA848372E04
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 May 2021 18:26:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 719AB169B;
-	Tue,  4 May 2021 18:22:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 719AB169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C0D01695;
+	Tue,  4 May 2021 18:25:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C0D01695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620145425;
-	bh=a84OlkVtvvfyp3vb7dQ6iFVft9BiyVaAq+pzoH+Bhcg=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1620145603;
+	bh=d0zOX0pHJzsgjXUlHWQinXCcgbbeYod6xgiZ1/M2PtU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ju3g3cpb9tIQ89gIdG7W5bn3Xjd+ATk+Tw4zXiYNMix74ThN/UQRziULHBeATuerV
-	 47LhcrywrUNB2NsSJwcaRD0S9MwQgFApBIDZfwRVy4FXM7MhIlvwLOaIda2Mym7/zv
-	 ntYiJXzEvMcSIVS+rUtnxEhO9iD0E3g6eWMj18/Q=
+	b=Wut0swPlaK4Uuy9KqTnbDxOnsGzBFlHHYcGql0ONWfc7J6Ds3AuXL3H5T+Kh2+uxX
+	 N37QGKVP1eieeoFWjhyQGATfsumdz7ID4xd63GbTtYMa+6/D8TPu34tAg5agr7Aac9
+	 NuNxP33CZJuhs/UV3CGF9lLRDkDp8hKIwH247fNg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EF43F801F7;
-	Tue,  4 May 2021 18:22:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4051F80234;
+	Tue,  4 May 2021 18:25:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 254C6F8021C; Tue,  4 May 2021 18:22:16 +0200 (CEST)
+ id 0A5CAF8021C; Tue,  4 May 2021 18:25:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFCF5F80114
- for <alsa-devel@alsa-project.org>; Tue,  4 May 2021 18:22:08 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 32BE1A0046;
- Tue,  4 May 2021 18:22:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 32BE1A0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1620145323; bh=cL94rCKoOSC+RHC5Z8Dr88x4Qp+cUy///LiEStiP3Ow=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=FaYpSnA8RjvjNmUOk5WhfkEZxekYOM59AR1QqlXNi5O743UCSTmp/fT+y8jCmUQzB
- q+yQt+Pow1LdJOhHucb58BjOlzRHFJuS85mayD88cB9ZxLU0sK4S+uRJ2GulPJqWeK
- eeYJ+C1utlakVZD72yWD+EsW+JmzSLGBXwkhYz9k=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  4 May 2021 18:22:01 +0200 (CEST)
-Subject: Re: [PATCH alsa-lib] mixer: simple - Fix "Capture Volume" and
- "Capture Switch" being seen as global controls
-To: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
-References: <20210504155830.112653-1-hdegoede@redhat.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <776d9394-5c83-8af7-f7a1-6aa73390b34d@perex.cz>
-Date: Tue, 4 May 2021 18:22:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4201CF80114
+ for <alsa-devel@alsa-project.org>; Tue,  4 May 2021 18:25:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4201CF80114
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TCOuNadz"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 19C2E611AD;
+ Tue,  4 May 2021 16:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620145502;
+ bh=d0zOX0pHJzsgjXUlHWQinXCcgbbeYod6xgiZ1/M2PtU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TCOuNadzyZEII1Ur8bHzXPd0Zwj8cC9gufmZ5bde+f2Nnc1kwzZlnWACrPPCz5Ve3
+ ZkN47CEl8T1tKqRQylmr2Ig8jivUyBroHlipxo8piObWx1jl7mt8PRsBRrpcn8cewB
+ IcF8MSPy++kSTV8CCE0gW0Tdqyv5CGeIrjhEwQFKQuNnXNp6jKNGUVYV4z4VBFOAq7
+ ZuzaKCgrFTn4j7mx6KzHq2Ov0LOwrTqbIiVEsunlIlkrOji6TnivRzO4t3qFo6R31l
+ mj8lKfIBu4s+1wAEcbgvOMxeuW+LjV6/JYl81XUiMsMTzif9r99mGeiHH7wCzWcz6+
+ dIDMKF2fiqD4Q==
+Date: Tue, 4 May 2021 17:24:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/9] ASoC: Intel: add new TGL/ADL configurations
+Message-ID: <20210504162426.GD7094@sirena.org.uk>
+References: <20210415175013.192862-1-pierre-louis.bossart@linux.intel.com>
+ <161858869852.28833.4104992497142755503.b4-ty@kernel.org>
+ <ce1dde92-6d5b-8fa7-8b36-a6efbb39b922@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210504155830.112653-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rz+pwK2yUstbofK6"
+Content-Disposition: inline
+In-Reply-To: <ce1dde92-6d5b-8fa7-8b36-a6efbb39b922@linux.intel.com>
+X-Cookie: MY income is ALL disposable!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, "Lu,
+ Brent" <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,20 +83,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 04. 05. 21 v 17:58 Hans de Goede napsal(a):
-> Fix the "Capture Volume" and "Capture Switch" exceptions no longer
-> working after commit 86b9c67774bc ("mixer: simple - Unify simple_none:
-> base_len() exception handling") because they were moved to after the
-> suffix checking, so they would be treated as CTL_GLOBAL_VOLUME resp.
-> CTL_GLOBAL_SWITCH based on their suffix before the exception check
-> has a chance to check for a match.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-Applied. Thank you.
+--rz+pwK2yUstbofK6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-					Jaroslav
+On Tue, May 04, 2021 at 11:19:09AM -0500, Pierre-Louis Bossart wrote:
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> Mark, I thought the series was applied but only 3 out of 9 patches seemed to
+> have been merged. There wasn't any expectation/pressure that they would land
+> in 5.13 so that's not a problem, but for the 5.14 cycle should I resend the
+> remaining ones, we now have a new machine driver developed by Brent Lu [1]
+> that relies on the sof-maxim-common module in patch 9?
+> Let me know what's easiest for you, thanks!
+
+I don't recall deliberately discarding any of the patches, I can only
+assume that something caused b4 to only see some of them.  Please
+resend.
+
+--rz+pwK2yUstbofK6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCRdToACgkQJNaLcl1U
+h9Bapgf+MmmPbHXsPHPDz+rW7EVAU5VmOw08CI7opKUwj5EFxPSUld0R4I/Zh7Wp
+UWslvAHmjpvo2ZCvhSiAsBZccZkJ7xBpbTHhEWQFQWUFmBtngTw715rzPncoweFu
+YhmAb9Ib6FbTzAaSoyGx85uD7H5vs25t4TXAb65/sn8iqS8Lg3FlhwmRW7WHd8v6
+WMupWTV1c+QxuFQa51ZLR+CBcep+JUBRBtbevxdNQNAvYClvRkIfoIgbsB1iEBdM
+yxMIN7P434h+nrK29FetuKcikcml3f46fbDX1yJ7Kr/1yT7h2FmRS+IQT7UYk7P3
+/SUsTYUuV9RSpHMblxoAXfbzmJBMVw==
+=N6Hc
+-----END PGP SIGNATURE-----
+
+--rz+pwK2yUstbofK6--

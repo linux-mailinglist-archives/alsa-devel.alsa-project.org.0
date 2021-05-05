@@ -2,62 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E09374337
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:00:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2E73374339
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:00:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24BA9174C;
-	Wed,  5 May 2021 18:59:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24BA9174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B01C1782;
+	Wed,  5 May 2021 18:59:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B01C1782
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620234021;
-	bh=k/90kEdCiWPI+kgNODS6pMTMTooSc/4T+UyyVYBtYA8=;
+	s=default; t=1620234039;
+	bh=mBI01HSj9/sLxrNE+2BUmR1I+zuGIOKTuT40t1ZuGuE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bO7JG+WsKYIc1ejgoQ+xY4MYv88q2bJeO6JQHexhYGjqtnp/C+C3VpduQJpfHQ0Fs
-	 XBTR09sRRjgavDAMGePxSGHoPmIfDuvFDVGNfLWcAeXUbRKbj+82q0H3iZh9rfI29/
-	 UHIZHddXHeTPbLENhASd2ygXkUwajm/ByaixE9D0=
+	b=daR63s3/1Bu7hsln8CN0/353kYmuR27/xJzXMv/ncCLD7+ernArpR/Ld/AQZLMVAv
+	 d6MoeyOLPsDvVMG7YPGaizxLmOusXa746j6BA1TofazBvNsdvLZd+7SS0cqxBZf2Ug
+	 pMCxoannPgj4bAlOKkU7AOemtl4oaAS5GjUTfSc0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBD46F80679;
-	Wed,  5 May 2021 18:40:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68CD0F8067A;
+	Wed,  5 May 2021 18:40:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 436ABF80678; Wed,  5 May 2021 18:40:31 +0200 (CEST)
+ id D9EC4F8067A; Wed,  5 May 2021 18:40:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C595FF80520
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:40:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C595FF80520
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A30DF8051F
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:40:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A30DF8051F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QRxmFaWF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 37D40619CD;
- Wed,  5 May 2021 16:40:26 +0000 (UTC)
+ header.b="qOdsUv2S"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AF185619C5;
+ Wed,  5 May 2021 16:40:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232827;
- bh=k/90kEdCiWPI+kgNODS6pMTMTooSc/4T+UyyVYBtYA8=;
+ s=k20201202; t=1620232839;
+ bh=mBI01HSj9/sLxrNE+2BUmR1I+zuGIOKTuT40t1ZuGuE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QRxmFaWFAFfumI4NkxqXLSYeytL67F1wVCy9ui/Mmxq49JVs4nVtv3sfa7+sNbYyw
- IFPFmdSI9Ll6RGBJSNj3SHnFdZRGofgsvAUsbkX0mLHv24DSGhpGdI5fTOY3Fp/frH
- ozD/Er34lu7v1ncellhh+XB2xL4Z5An5BpK/sH1hRN7RVA39bDYDHAtwnds/Os5Xd/
- 0F1+6ppHTdHp+oep2rXzqlhuL0kXp5pYXmaf90ptKQQXRf4UrSncHSBZmSa8WALKFf
- V6NofVDnISNZHaGCkThxh4oqlI2kigZmlcLYR/iUfzMt5OQI7Iyo6EUuvL9enrG/lI
- d2JNU3btb/plA==
+ b=qOdsUv2Szv50AbV6dY955UyPWex4bSOEzwCiWftMpAw2qDSj10DVHSo5exegcwKSZ
+ SB94pKzaF5AIsbuNhdXvmN0vt2h2b2gapZEgz8pgz+FXysU9IGM1SF2Cz7FtlZXj/k
+ Ze4JVdBZJ/cCiP/RLytSOwCGMOKVBTcBPhw7BUDt4voYtKCKvs5lgU13hotv7igO76
+ sswV1S0iIsidsEcG7xsBsHaP0o5SOF0fG5WY1Rd/HfEuvipa4yKsRF/Nn2mdA82T8p
+ LTEa6fM0SAq0byqMl1kXQOWcsoAbyLdNdisTuTStLvTXl357ow8b3n+ZNSqhuIBeR2
+ m5aPqLYU6HExw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 15/32] ASoC: Intel: bytcr_rt5640: Add quirk for
- the Chuwi Hi8 tablet
-Date: Wed,  5 May 2021 12:39:47 -0400
-Message-Id: <20210505164004.3463707-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 24/32] ASoC: rt286: Generalize support for
+ ALC3263 codec
+Date: Wed,  5 May 2021 12:39:56 -0400
+Message-Id: <20210505164004.3463707-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210505164004.3463707-1-sashal@kernel.org>
 References: <20210505164004.3463707-1-sashal@kernel.org>
@@ -65,8 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, David Ward <david.ward@gatech.edu>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,54 +84,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: David Ward <david.ward@gatech.edu>
 
-[ Upstream commit 875c40eadf6ac6644c0f71842a4f30dd9968d281 ]
+[ Upstream commit aa2f9c12821e6a4ba1df4fb34a3dbc6a2a1ee7fe ]
 
-The Chuwi Hi8 tablet is using an analog mic on IN1 and has its
-jack-detect connected to JD2_IN4N, instead of using the default
-IN3 for its internal mic and JD1_IN4P for jack-detect.
+The ALC3263 codec on the XPS 13 9343 is also found on the Latitude 13 7350
+and Venue 11 Pro 7140. They require the same handling for the combo jack to
+work with a headset: GPIO pin 6 must be set.
 
-It also only has 1 speaker.
+The HDA driver always sets this pin on the ALC3263, which it distinguishes
+by the codec vendor/device ID 0x10ec0288 and PCI subsystem vendor ID 0x1028
+(Dell). The ASoC driver does not use PCI, so adapt this check to use DMI to
+determine if Dell is the system vendor.
 
-Add a quirk applying the correct settings for this configuration.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20210325221054.22714-1-hdegoede@redhat.com
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=150601
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=205961
+Signed-off-by: David Ward <david.ward@gatech.edu>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210418134658.4333-6-david.ward@gatech.edu
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ sound/soc/codecs/rt286.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 62b4187e9f44..4ebc023f1507 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -509,6 +509,23 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{
-+		/* Chuwi Hi8 (CWI509) */
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Hampoo"),
-+			DMI_MATCH(DMI_BOARD_NAME, "BYT-PA03C"),
-+			DMI_MATCH(DMI_SYS_VENDOR, "ilife"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "S806"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_2000UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
+diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+index 0b0f748bffbe..7e44ccae3bc8 100644
+--- a/sound/soc/codecs/rt286.c
++++ b/sound/soc/codecs/rt286.c
+@@ -1118,12 +1118,11 @@ static const struct dmi_system_id force_combo_jack_table[] = {
+ 	{ }
+ };
+ 
+-static const struct dmi_system_id dmi_dell_dino[] = {
++static const struct dmi_system_id dmi_dell[] = {
  	{
+-		.ident = "Dell Dino",
++		.ident = "Dell",
  		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Circuitco"),
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "XPS 13 9343")
+ 		}
+ 	},
+ 	{ }
+@@ -1134,7 +1133,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ {
+ 	struct rt286_platform_data *pdata = dev_get_platdata(&i2c->dev);
+ 	struct rt286_priv *rt286;
+-	int i, ret, val;
++	int i, ret, vendor_id;
+ 
+ 	rt286 = devm_kzalloc(&i2c->dev,	sizeof(*rt286),
+ 				GFP_KERNEL);
+@@ -1150,14 +1149,15 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	}
+ 
+ 	ret = regmap_read(rt286->regmap,
+-		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &val);
++		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &vendor_id);
+ 	if (ret != 0) {
+ 		dev_err(&i2c->dev, "I2C error %d\n", ret);
+ 		return ret;
+ 	}
+-	if (val != RT286_VENDOR_ID && val != RT288_VENDOR_ID) {
++	if (vendor_id != RT286_VENDOR_ID && vendor_id != RT288_VENDOR_ID) {
+ 		dev_err(&i2c->dev,
+-			"Device with ID register %#x is not rt286\n", val);
++			"Device with ID register %#x is not rt286\n",
++			vendor_id);
+ 		return -ENODEV;
+ 	}
+ 
+@@ -1181,8 +1181,8 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	if (pdata)
+ 		rt286->pdata = *pdata;
+ 
+-	if (dmi_check_system(force_combo_jack_table) ||
+-		dmi_check_system(dmi_dell_dino))
++	if ((vendor_id == RT288_VENDOR_ID && dmi_check_system(dmi_dell)) ||
++		dmi_check_system(force_combo_jack_table))
+ 		rt286->pdata.cbj_en = true;
+ 
+ 	regmap_write(rt286->regmap, RT286_SET_AUDIO_POWER, AC_PWRST_D3);
+@@ -1221,7 +1221,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c,
+ 	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL3, 0xf777, 0x4737);
+ 	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL4, 0x00ff, 0x003f);
+ 
+-	if (dmi_check_system(dmi_dell_dino)) {
++	if (vendor_id == RT288_VENDOR_ID && dmi_check_system(dmi_dell)) {
+ 		regmap_update_bits(rt286->regmap,
+ 			RT286_SET_GPIO_MASK, 0x40, 0x40);
+ 		regmap_update_bits(rt286->regmap,
 -- 
 2.30.2
 

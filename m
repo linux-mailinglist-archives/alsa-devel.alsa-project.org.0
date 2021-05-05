@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3FA637433F
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:02:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68335374340
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:02:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 536D41779;
-	Wed,  5 May 2021 19:01:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536D41779
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07818176E;
+	Wed,  5 May 2021 19:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07818176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620234154;
-	bh=J6ulVizx/gjYpG7QsvdxK2LWgKeG4k9YwqFoA8mB1OU=;
+	s=default; t=1620234175;
+	bh=CnAM3NRkWzUvItUnPPsoT4vlyuXOa8t9alopysqgcbs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qwrTNkqJUZVh9eQy0jICnrwb6dCbnhO/+8pGPD01m1U9K/9zCUsKBschedAJ43UvN
-	 AeuNILQg5truYXcZXMfJcIKeohBzMtXigPl5yVoMxWLs5/5DVgCRRKgZVOBJqBtBA0
-	 5pQRvdpbarL7v5rVIRozpDL2irKZ45gQMFKWIKsw=
+	b=CmTRVr2Ni2/hDVYOlVT3LVZx9Qn5n4vCWMGAYmVipUpKC/8+iYyHDYMJxQ5fD9LYB
+	 xZRllm0+6ENlRWEkRv42bI0qZDUrYbHpiRYFpCkq8El2lAxQCVLWLCevWJm7kFDMiB
+	 Y2L2KKMaIcM//lFjFsOtGFS05ro+BwW2reJ8KnCE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E89E9F806E5;
-	Wed,  5 May 2021 18:41:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72442F806E7;
+	Wed,  5 May 2021 18:41:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FB15F806E5; Wed,  5 May 2021 18:41:44 +0200 (CEST)
+ id 36AE6F80535; Wed,  5 May 2021 18:41:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E6E7F804E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E547BF804B4
  for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:41:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E6E7F804E1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E547BF804B4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S0fO9pmA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6CB62613C0;
- Wed,  5 May 2021 16:41:35 +0000 (UTC)
+ header.b="Kj91zrpY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A39CC610A1;
+ Wed,  5 May 2021 16:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232896;
- bh=J6ulVizx/gjYpG7QsvdxK2LWgKeG4k9YwqFoA8mB1OU=;
+ s=k20201202; t=1620232897;
+ bh=CnAM3NRkWzUvItUnPPsoT4vlyuXOa8t9alopysqgcbs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S0fO9pmACvXvPbrfoutBb/PpDjlyCbp8fP4wL9y0PoQ1mEMfsIHD3Gay4KcHZh9sR
- 4zoKo6tBvpx1FeMOTdj785DX+Ua/NQ74ghxbY93QtlpoBzhPTkb0s1jY+gqTHOesUo
- ylPAsANNowGHhx9q9b7QhvMRsi05rLKeT/7VH8kU3MT3FEfgUKIq98mkz6PClrobQ1
- 3sVc4WCfcF7I/89QOfEM7i1gxdNSmZO1NEQ23J8dhk8Bv9pSR1USvn1AB4eMZiWI+A
- 1SOycxyzZK7u6JB2QbZ5LKtEfOmW/aOMueTB3CWTK9EdfzNAxFL2A6g35bOF6QMmWV
- QPiawatrA+Vkw==
+ b=Kj91zrpY0lc50yV5rjEdVlhAQI8wjarAwHSr6rEGv7+08mtD2L07E7iIh6Hq1t9m0
+ ewUfNW/YYpmcVx5iE+VDve5Gl3g7S+A4Rjlv1PNAOjidLp9YNuMyTZmYgxKz+YaWJF
+ bvG4CsrZyfmVQ7zaps9DL1HxR8/nbUrUE7yCb5xXhfDNsmc/UCMFy1+lpux3Z5h98T
+ wVshmW4zLuh8SvjZhZ7aAO3MqlwAtRiAVjdRsLZcLEvGYHLk6Ob6C8rHGGTcz4ZbH+
+ aoJuDY+p+35emwg9Lje2APllZ9l4zHf45m0i8dIFEaUQGrZhPmvQlWFXribn1PDamb
+ NNdSiutePYVrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 04/22] ALSA: hdsp: don't disable if not enabled
-Date: Wed,  5 May 2021 12:41:11 -0400
-Message-Id: <20210505164129.3464277-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 05/22] ALSA: hdspm: don't disable if not enabled
+Date: Wed,  5 May 2021 12:41:12 -0400
+Message-Id: <20210505164129.3464277-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210505164129.3464277-1-sashal@kernel.org>
 References: <20210505164129.3464277-1-sashal@kernel.org>
@@ -84,42 +84,42 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Tong Zhang <ztong0001@gmail.com>
 
-[ Upstream commit 507cdb9adba006a7798c358456426e1aea3d9c4f ]
+[ Upstream commit 790f5719b85e12e10c41753b864e74249585ed08 ]
 
-hdsp wants to disable a not enabled pci device, which makes kernel
+hdspm wants to disable a not enabled pci device, which makes kernel
 throw a warning. Make sure the device is enabled before calling disable.
 
-[    1.758292] snd_hdsp 0000:00:03.0: disabling already-disabled device
-[    1.758327] WARNING: CPU: 0 PID: 180 at drivers/pci/pci.c:2146 pci_disable_device+0x91/0xb0
-[    1.766985] Call Trace:
-[    1.767121]  snd_hdsp_card_free+0x94/0xf0 [snd_hdsp]
-[    1.767388]  release_card_device+0x4b/0x80 [snd]
-[    1.767639]  device_release+0x3b/0xa0
-[    1.767838]  kobject_put+0x94/0x1b0
-[    1.768027]  put_device+0x13/0x20
-[    1.768207]  snd_card_free+0x61/0x90 [snd]
-[    1.768430]  snd_hdsp_probe+0x524/0x5e0 [snd_hdsp]
+[    1.786391] snd_hdspm 0000:00:03.0: disabling already-disabled device
+[    1.786400] WARNING: CPU: 0 PID: 182 at drivers/pci/pci.c:2146 pci_disable_device+0x91/0xb0
+[    1.795181] Call Trace:
+[    1.795320]  snd_hdspm_card_free+0x58/0xa0 [snd_hdspm]
+[    1.795595]  release_card_device+0x4b/0x80 [snd]
+[    1.795860]  device_release+0x3b/0xa0
+[    1.796072]  kobject_put+0x94/0x1b0
+[    1.796260]  put_device+0x13/0x20
+[    1.796438]  snd_card_free+0x61/0x90 [snd]
+[    1.796659]  snd_hdspm_probe+0x97b/0x1440 [snd_hdspm]
 
 Suggested-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Tong Zhang <ztong0001@gmail.com>
-Link: https://lore.kernel.org/r/20210321153840.378226-2-ztong0001@gmail.com
+Link: https://lore.kernel.org/r/20210321153840.378226-3-ztong0001@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/rme9652/hdsp.c | 3 ++-
+ sound/pci/rme9652/hdspm.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
-index b044dea3c815..9843954698f4 100644
---- a/sound/pci/rme9652/hdsp.c
-+++ b/sound/pci/rme9652/hdsp.c
-@@ -5314,7 +5314,8 @@ static int snd_hdsp_free(struct hdsp *hdsp)
- 	if (hdsp->port)
- 		pci_release_regions(hdsp->pci);
+diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
+index 9899ef4c7efa..a88a81fc638a 100644
+--- a/sound/pci/rme9652/hdspm.c
++++ b/sound/pci/rme9652/hdspm.c
+@@ -6912,7 +6912,8 @@ static int snd_hdspm_free(struct hdspm * hdspm)
+ 	if (hdspm->port)
+ 		pci_release_regions(hdspm->pci);
  
--	pci_disable_device(hdsp->pci);
-+	if (pci_is_enabled(hdsp->pci))
-+		pci_disable_device(hdsp->pci);
+-	pci_disable_device(hdspm->pci);
++	if (pci_is_enabled(hdspm->pci))
++		pci_disable_device(hdspm->pci);
  	return 0;
  }
  

@@ -2,63 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9938837434A
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:05:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECEB37434B
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:05:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 410E717E8;
-	Wed,  5 May 2021 19:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 410E717E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7FAB17D9;
+	Wed,  5 May 2021 19:05:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7FAB17D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620234330;
-	bh=/8lqr95oi6hiGEjpdXw8iX15Naijl8FLgwO7rmQ9N+E=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rr9dLoVDbyhZjJc0hzDu5YkL8RuMYmtvGGeYNBMjq++VA5lb++Qr6nEee1/IV48Ys
-	 RUXlgO5pUBC2+thbajsziDZ0A6rET0hXvJk1Oo7tvAMDoJrdFm1oyOankTowGSfZml
-	 BH+9UzAt+njn+P9dlplCKk8ceZWyqkaha0JF8mb8=
+	s=default; t=1620234353;
+	bh=oT6GsmCyPRK9wE/HPkEtXKnoOs7fUF9PrgA8R3mJsZ0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f22gLWSoBzt3qyZb9C7shE7PpWwTbFMk7PdCcotUxsCUFYpinkbpcYySKswMind1N
+	 q1ONgDUjfgJWpwxzVgWc6dIZbyPEtX/SW5IX0wY4Tj5WW2gbTXV6AvVp2BRC3GdrYB
+	 A4xPa4aDKVspeh1ieC1Dx/IYl5ux1RgPmHNleTsQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 934B5F80279;
-	Wed,  5 May 2021 19:03:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2B71F8032C;
+	Wed,  5 May 2021 19:03:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3B39F8026A; Wed,  5 May 2021 19:03:09 +0200 (CEST)
+ id 6F310F8032C; Wed,  5 May 2021 19:03:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B1DBF80163
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 19:03:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B1DBF80163
-IronPort-SDR: QcR+ttxpmdZpvbwjx7JGPYdkUyPaDHl3pOtWW+1BpkuLVcLVokoylyVkIQhCmZI+uPduC5LdBC
- Wk6t2LJKjLWw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9975"; a="262200749"
-X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="262200749"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 880EFF80257
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 19:03:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 880EFF80257
+IronPort-SDR: h1iNFiXwG4nJ/pqJsmjRsegu6F9Fz282rSolnVy4PZRcMwNx4ks2sHlrZxZKamy0vQJEostxAs
+ uSkamzRRtLBA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9975"; a="262200752"
+X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="262200752"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2021 10:02:58 -0700
-IronPort-SDR: b1SiYbBG2hMJBxMiAkhiC7jdAVHvRSvKh6pOu6Yy07bBECDBXcpibMH/vU/GY97W//YZmOiN3/
- OZ0NMFC96d3A==
-X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="406619711"
+ 05 May 2021 10:03:00 -0700
+IronPort-SDR: AlhnXs7/t/wmOy8cf12fW/Gs9mXIOboNx3LHeRgFQDM3VkgaLGL8UDDBlJ8125fu7cn1zZn0p1
+ LizHYlPK+4bA==
+X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="406619742"
 Received: from rtsagpan-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.51.38])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2021 10:02:57 -0700
+ 05 May 2021 10:02:58 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/2] ASoC: SOF: Intel: split Baytrail and Merrifield
-Date: Wed,  5 May 2021 12:02:33 -0500
-Message-Id: <20210505170235.306797-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: SOF: Intel: byt: prepare split between Baytrail and
+ Merrifield
+Date: Wed,  5 May 2021 12:02:34 -0500
+Message-Id: <20210505170235.306797-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210505170235.306797-1-pierre-louis.bossart@linux.intel.com>
+References: <20210505170235.306797-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, vkoul@kernel.org, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, arnd@arndb.de
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, arnd@arndb.de, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,29 +80,733 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We've had recurring randconfig issues with the two platforms relying
-on ACPI and PCI. I think it's time to split the two and introduce a
-common 'atom' module, so that dependencies are better handled.
+Atom devices are split in ACPI (Baytrail/Cherrytrail) and
+PCI (Merrifield) cases. In preparation for a split between the two
+parts and the use of a common module, rename functions with the atom_
+prefix when appropriate and remove explicit BYT_ prefix for common
+definitions.
 
-I chose not to add a Fixes tag since the changes are rather invasive,
-and the randconfig issues only happen in non-functional cases.
+This patch should not change any functionality.
 
-There should be no functional changes with this patchset, only code
-moved and renamed.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/soc/sof/intel/byt.c | 291 ++++++++++++++++++++------------------
+ 1 file changed, 155 insertions(+), 136 deletions(-)
 
-Pierre-Louis Bossart (2):
-  ASoC: SOF: Intel: byt: prepare split between Baytrail and Merrifield
-  ASoC: SOF: Intel: move common ATOM stuff to module
-
- sound/soc/sof/intel/Makefile  |   5 +-
- sound/soc/sof/intel/atom.c    | 463 ++++++++++++++++++++
- sound/soc/sof/intel/atom.h    |  74 ++++
- sound/soc/sof/intel/byt.c     | 768 ++++------------------------------
- sound/soc/sof/intel/pci-tng.c | 171 +++++++-
- 5 files changed, 783 insertions(+), 698 deletions(-)
- create mode 100644 sound/soc/sof/intel/atom.c
- create mode 100644 sound/soc/sof/intel/atom.h
-
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index d9803e2ba67f..0b948ef79431 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -50,11 +50,11 @@
+ #define SSP5_OFFSET		0x0a6000
+ #define SSP_SIZE		0x100
+ 
+-#define BYT_STACK_DUMP_SIZE	32
++#define STACK_DUMP_SIZE		32
+ 
+-#define BYT_PCI_BAR_SIZE	0x200000
++#define PCI_BAR_SIZE		0x200000
+ 
+-#define BYT_PANIC_OFFSET(x)	(((x) & GENMASK_ULL(47, 32)) >> 32)
++#define PANIC_OFFSET(x)	(((x) & GENMASK_ULL(47, 32)) >> 32)
+ 
+ /*
+  * Debug
+@@ -63,41 +63,60 @@
+ #define MBOX_DUMP_SIZE	0x30
+ 
+ /* BARs */
+-#define BYT_DSP_BAR		0
+-#define BYT_PCI_BAR		1
+-#define BYT_IMR_BAR		2
++#define DSP_BAR		0
++#define PCI_BAR		1
++#define IMR_BAR		2
+ 
+ static const struct snd_sof_debugfs_map byt_debugfs[] = {
+-	{"dmac0", BYT_DSP_BAR, DMAC0_OFFSET, DMAC_SIZE,
++	{"dmac0", DSP_BAR, DMAC0_OFFSET, DMAC_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"dmac1", BYT_DSP_BAR,  DMAC1_OFFSET, DMAC_SIZE,
++	{"dmac1", DSP_BAR, DMAC1_OFFSET, DMAC_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp0",  BYT_DSP_BAR, SSP0_OFFSET, SSP_SIZE,
++	{"ssp0", DSP_BAR, SSP0_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp1", BYT_DSP_BAR, SSP1_OFFSET, SSP_SIZE,
++	{"ssp1", DSP_BAR, SSP1_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp2", BYT_DSP_BAR, SSP2_OFFSET, SSP_SIZE,
++	{"ssp2", DSP_BAR, SSP2_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"iram", BYT_DSP_BAR, IRAM_OFFSET, IRAM_SIZE,
++	{"iram", DSP_BAR, IRAM_OFFSET, IRAM_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_D0_ONLY},
+-	{"dram", BYT_DSP_BAR, DRAM_OFFSET, DRAM_SIZE,
++	{"dram", DSP_BAR, DRAM_OFFSET, DRAM_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_D0_ONLY},
+-	{"shim", BYT_DSP_BAR, SHIM_OFFSET, SHIM_SIZE_BYT,
++	{"shim", DSP_BAR, SHIM_OFFSET, SHIM_SIZE_BYT,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+ };
+ 
+-static void byt_host_done(struct snd_sof_dev *sdev);
+-static void byt_dsp_done(struct snd_sof_dev *sdev);
+-static void byt_get_reply(struct snd_sof_dev *sdev);
++static const struct snd_sof_debugfs_map tng_debugfs[] = {
++	{"dmac0", DSP_BAR, DMAC0_OFFSET, DMAC_SIZE,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++	{"dmac1", DSP_BAR, DMAC1_OFFSET, DMAC_SIZE,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++	{"ssp0", DSP_BAR, SSP0_OFFSET, SSP_SIZE,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++	{"ssp1", DSP_BAR, SSP1_OFFSET, SSP_SIZE,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++	{"ssp2", DSP_BAR, SSP2_OFFSET, SSP_SIZE,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++	{"iram", DSP_BAR, IRAM_OFFSET, IRAM_SIZE,
++	 SOF_DEBUGFS_ACCESS_D0_ONLY},
++	{"dram", DSP_BAR, DRAM_OFFSET, DRAM_SIZE,
++	 SOF_DEBUGFS_ACCESS_D0_ONLY},
++	{"shim", DSP_BAR, SHIM_OFFSET, SHIM_SIZE_BYT,
++	 SOF_DEBUGFS_ACCESS_ALWAYS},
++};
++
++static void atom_host_done(struct snd_sof_dev *sdev);
++static void atom_dsp_done(struct snd_sof_dev *sdev);
++static void atom_get_reply(struct snd_sof_dev *sdev);
+ 
+ /*
+  * Debug
+  */
+ 
+-static void byt_get_registers(struct snd_sof_dev *sdev,
+-			      struct sof_ipc_dsp_oops_xtensa *xoops,
+-			      struct sof_ipc_panic_info *panic_info,
+-			      u32 *stack, size_t stack_words)
++static void atom_get_registers(struct snd_sof_dev *sdev,
++			       struct sof_ipc_dsp_oops_xtensa *xoops,
++			       struct sof_ipc_panic_info *panic_info,
++			       u32 *stack, size_t stack_words)
+ {
+ 	u32 offset = sdev->dsp_oops_offset;
+ 
+@@ -120,24 +139,24 @@ static void byt_get_registers(struct snd_sof_dev *sdev,
+ 	sof_mailbox_read(sdev, offset, stack, stack_words * sizeof(u32));
+ }
+ 
+-static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
++static void atom_dump(struct snd_sof_dev *sdev, u32 flags)
+ {
+ 	struct sof_ipc_dsp_oops_xtensa xoops;
+ 	struct sof_ipc_panic_info panic_info;
+-	u32 stack[BYT_STACK_DUMP_SIZE];
++	u32 stack[STACK_DUMP_SIZE];
+ 	u64 status, panic, imrd, imrx;
+ 
+ 	/* now try generic SOF status messages */
+-	status = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCD);
+-	panic = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCX);
+-	byt_get_registers(sdev, &xoops, &panic_info, stack,
+-			  BYT_STACK_DUMP_SIZE);
++	status = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCD);
++	panic = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCX);
++	atom_get_registers(sdev, &xoops, &panic_info, stack,
++			   STACK_DUMP_SIZE);
+ 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
+-			   BYT_STACK_DUMP_SIZE);
++			   STACK_DUMP_SIZE);
+ 
+ 	/* provide some context for firmware debug */
+-	imrx = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRX);
+-	imrd = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRD);
++	imrx = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IMRX);
++	imrd = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IMRD);
+ 	dev_err(sdev->dev,
+ 		"error: ipc host -> DSP: pending %s complete %s raw 0x%llx\n",
+ 		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
+@@ -161,19 +180,19 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+  * IPC Doorbell IRQ handler and thread.
+  */
+ 
+-static irqreturn_t byt_irq_handler(int irq, void *context)
++static irqreturn_t atom_irq_handler(int irq, void *context)
+ {
+ 	struct snd_sof_dev *sdev = context;
+ 	u64 ipcx, ipcd;
+ 	int ret = IRQ_NONE;
+ 
+-	ipcx = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCX);
+-	ipcd = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCD);
++	ipcx = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCX);
++	ipcd = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCD);
+ 
+ 	if (ipcx & SHIM_BYT_IPCX_DONE) {
+ 
+ 		/* reply message from DSP, Mask Done interrupt first */
+-		snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR,
++		snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR,
+ 						   SHIM_IMRX,
+ 						   SHIM_IMRX_DONE,
+ 						   SHIM_IMRX_DONE);
+@@ -183,7 +202,7 @@ static irqreturn_t byt_irq_handler(int irq, void *context)
+ 	if (ipcd & SHIM_BYT_IPCD_BUSY) {
+ 
+ 		/* new message from DSP, Mask Busy interrupt first */
+-		snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR,
++		snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR,
+ 						   SHIM_IMRX,
+ 						   SHIM_IMRX_BUSY,
+ 						   SHIM_IMRX_BUSY);
+@@ -193,13 +212,13 @@ static irqreturn_t byt_irq_handler(int irq, void *context)
+ 	return ret;
+ }
+ 
+-static irqreturn_t byt_irq_thread(int irq, void *context)
++static irqreturn_t atom_irq_thread(int irq, void *context)
+ {
+ 	struct snd_sof_dev *sdev = context;
+ 	u64 ipcx, ipcd;
+ 
+-	ipcx = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCX);
+-	ipcd = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCD);
++	ipcx = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCX);
++	ipcd = snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_IPCD);
+ 
+ 	/* reply message from DSP */
+ 	if (ipcx & SHIM_BYT_IPCX_DONE) {
+@@ -213,10 +232,10 @@ static irqreturn_t byt_irq_thread(int irq, void *context)
+ 		 * because the done bit can't be set in cmd_done function
+ 		 * which is triggered by msg
+ 		 */
+-		byt_get_reply(sdev);
++		atom_get_reply(sdev);
+ 		snd_sof_ipc_reply(sdev, ipcx);
+ 
+-		byt_dsp_done(sdev);
++		atom_dsp_done(sdev);
+ 
+ 		spin_unlock_irq(&sdev->ipc_lock);
+ 	}
+@@ -226,33 +245,33 @@ static irqreturn_t byt_irq_thread(int irq, void *context)
+ 
+ 		/* Handle messages from DSP Core */
+ 		if ((ipcd & SOF_IPC_PANIC_MAGIC_MASK) == SOF_IPC_PANIC_MAGIC) {
+-			snd_sof_dsp_panic(sdev, BYT_PANIC_OFFSET(ipcd) +
++			snd_sof_dsp_panic(sdev, PANIC_OFFSET(ipcd) +
+ 					  MBOX_OFFSET);
+ 		} else {
+ 			snd_sof_ipc_msgs_rx(sdev);
+ 		}
+ 
+-		byt_host_done(sdev);
++		atom_host_done(sdev);
+ 	}
+ 
+ 	return IRQ_HANDLED;
+ }
+ 
+-static int byt_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
++static int atom_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
+ {
+ 	/* unmask and prepare to receive Done interrupt */
+-	snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR, SHIM_IMRX,
++	snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR, SHIM_IMRX,
+ 					   SHIM_IMRX_DONE, 0);
+ 
+ 	/* send the message */
+ 	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
+ 			  msg->msg_size);
+-	snd_sof_dsp_write64(sdev, BYT_DSP_BAR, SHIM_IPCX, SHIM_BYT_IPCX_BUSY);
++	snd_sof_dsp_write64(sdev, DSP_BAR, SHIM_IPCX, SHIM_BYT_IPCX_BUSY);
+ 
+ 	return 0;
+ }
+ 
+-static void byt_get_reply(struct snd_sof_dev *sdev)
++static void atom_get_reply(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_ipc_msg *msg = sdev->msg;
+ 	struct sof_ipc_reply reply;
+@@ -291,33 +310,33 @@ static void byt_get_reply(struct snd_sof_dev *sdev)
+ 	msg->reply_error = ret;
+ }
+ 
+-static int byt_get_mailbox_offset(struct snd_sof_dev *sdev)
++static int atom_get_mailbox_offset(struct snd_sof_dev *sdev)
+ {
+ 	return MBOX_OFFSET;
+ }
+ 
+-static int byt_get_window_offset(struct snd_sof_dev *sdev, u32 id)
++static int atom_get_window_offset(struct snd_sof_dev *sdev, u32 id)
+ {
+ 	return MBOX_OFFSET;
+ }
+ 
+-static void byt_host_done(struct snd_sof_dev *sdev)
++static void atom_host_done(struct snd_sof_dev *sdev)
+ {
+ 	/* clear BUSY bit and set DONE bit - accept new messages */
+-	snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR, SHIM_IPCD,
++	snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR, SHIM_IPCD,
+ 					   SHIM_BYT_IPCD_BUSY |
+ 					   SHIM_BYT_IPCD_DONE,
+ 					   SHIM_BYT_IPCD_DONE);
+ 
+ 	/* unmask and prepare to receive next new message */
+-	snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR, SHIM_IMRX,
++	snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR, SHIM_IMRX,
+ 					   SHIM_IMRX_BUSY, 0);
+ }
+ 
+-static void byt_dsp_done(struct snd_sof_dev *sdev)
++static void atom_dsp_done(struct snd_sof_dev *sdev)
+ {
+ 	/* clear DONE bit - tell DSP we have completed */
+-	snd_sof_dsp_update_bits64_unlocked(sdev, BYT_DSP_BAR, SHIM_IPCX,
++	snd_sof_dsp_update_bits64_unlocked(sdev, DSP_BAR, SHIM_IPCX,
+ 					   SHIM_BYT_IPCX_DONE, 0);
+ }
+ 
+@@ -325,22 +344,22 @@ static void byt_dsp_done(struct snd_sof_dev *sdev)
+  * DSP control.
+  */
+ 
+-static int byt_run(struct snd_sof_dev *sdev)
++static int atom_run(struct snd_sof_dev *sdev)
+ {
+ 	int tries = 10;
+ 
+ 	/* release stall and wait to unstall */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_CSR,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_CSR,
+ 				  SHIM_BYT_CSR_STALL, 0x0);
+ 	while (tries--) {
+-		if (!(snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_CSR) &
++		if (!(snd_sof_dsp_read64(sdev, DSP_BAR, SHIM_CSR) &
+ 		      SHIM_BYT_CSR_PWAITMODE))
+ 			break;
+ 		msleep(100);
+ 	}
+ 	if (tries < 0) {
+ 		dev_err(sdev->dev, "error:  unable to run DSP firmware\n");
+-		byt_dump(sdev, SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
++		atom_dump(sdev, SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
+ 		return -ENODEV;
+ 	}
+ 
+@@ -348,10 +367,10 @@ static int byt_run(struct snd_sof_dev *sdev)
+ 	return 1;
+ }
+ 
+-static int byt_reset(struct snd_sof_dev *sdev)
++static int atom_reset(struct snd_sof_dev *sdev)
+ {
+ 	/* put DSP into reset, set reset vector and stall */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_CSR,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_CSR,
+ 				  SHIM_BYT_CSR_RST | SHIM_BYT_CSR_VECTOR_SEL |
+ 				  SHIM_BYT_CSR_STALL,
+ 				  SHIM_BYT_CSR_RST | SHIM_BYT_CSR_VECTOR_SEL |
+@@ -360,7 +379,7 @@ static int byt_reset(struct snd_sof_dev *sdev)
+ 	usleep_range(10, 15);
+ 
+ 	/* take DSP out of reset and keep stalled for FW loading */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_CSR,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_CSR,
+ 				  SHIM_BYT_CSR_RST, 0);
+ 
+ 	return 0;
+@@ -390,7 +409,7 @@ static const char *fixup_tplg_name(struct snd_sof_dev *sdev,
+ 	return tplg_filename;
+ }
+ 
+-static void byt_machine_select(struct snd_sof_dev *sdev)
++static void atom_machine_select(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_pdata *sof_pdata = sdev->pdata;
+ 	const struct sof_dev_desc *desc = sof_pdata->desc;
+@@ -427,8 +446,8 @@ static void byt_machine_select(struct snd_sof_dev *sdev)
+ 	sof_pdata->machine = mach;
+ }
+ 
+-/* Baytrail DAIs */
+-static struct snd_soc_dai_driver byt_dai[] = {
++/* Atom DAIs */
++static struct snd_soc_dai_driver atom_dai[] = {
+ {
+ 	.name = "ssp0-port",
+ 	.playback = {
+@@ -497,8 +516,8 @@ static struct snd_soc_dai_driver byt_dai[] = {
+ },
+ };
+ 
+-static void byt_set_mach_params(const struct snd_soc_acpi_mach *mach,
+-				struct snd_sof_dev *sdev)
++static void atom_set_mach_params(const struct snd_soc_acpi_mach *mach,
++				 struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_pdata *pdata = sdev->pdata;
+ 	const struct sof_dev_desc *desc = pdata->desc;
+@@ -533,16 +552,16 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+ 
+ 	/* LPE base */
+ 	base = pci_resource_start(pci, desc->resindex_lpe_base) - IRAM_OFFSET;
+-	size = BYT_PCI_BAR_SIZE;
++	size = PCI_BAR_SIZE;
+ 
+ 	dev_dbg(sdev->dev, "LPE PHY base at 0x%x size 0x%x", base, size);
+-	sdev->bar[BYT_DSP_BAR] = devm_ioremap(sdev->dev, base, size);
+-	if (!sdev->bar[BYT_DSP_BAR]) {
++	sdev->bar[DSP_BAR] = devm_ioremap(sdev->dev, base, size);
++	if (!sdev->bar[DSP_BAR]) {
+ 		dev_err(sdev->dev, "error: failed to ioremap LPE base 0x%x size 0x%x\n",
+ 			base, size);
+ 		return -ENODEV;
+ 	}
+-	dev_dbg(sdev->dev, "LPE VADDR %p\n", sdev->bar[BYT_DSP_BAR]);
++	dev_dbg(sdev->dev, "LPE VADDR %p\n", sdev->bar[DSP_BAR]);
+ 
+ 	/* IMR base - optional */
+ 	if (desc->resindex_imr_base == -1)
+@@ -558,20 +577,20 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	dev_dbg(sdev->dev, "IMR base at 0x%x size 0x%x", base, size);
+-	sdev->bar[BYT_IMR_BAR] = devm_ioremap(sdev->dev, base, size);
+-	if (!sdev->bar[BYT_IMR_BAR]) {
++	sdev->bar[IMR_BAR] = devm_ioremap(sdev->dev, base, size);
++	if (!sdev->bar[IMR_BAR]) {
+ 		dev_err(sdev->dev, "error: failed to ioremap IMR base 0x%x size 0x%x\n",
+ 			base, size);
+ 		return -ENODEV;
+ 	}
+-	dev_dbg(sdev->dev, "IMR VADDR %p\n", sdev->bar[BYT_IMR_BAR]);
++	dev_dbg(sdev->dev, "IMR VADDR %p\n", sdev->bar[IMR_BAR]);
+ 
+ irq:
+ 	/* register our IRQ */
+ 	sdev->ipc_irq = pci->irq;
+ 	dev_dbg(sdev->dev, "using IRQ %d\n", sdev->ipc_irq);
+ 	ret = devm_request_threaded_irq(sdev->dev, sdev->ipc_irq,
+-					byt_irq_handler, byt_irq_thread,
++					atom_irq_handler, atom_irq_thread,
+ 					0, "AudioDSP", sdev);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: failed to register IRQ %d\n",
+@@ -580,7 +599,7 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	/* enable BUSY and disable DONE Interrupt by default */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_IMRX,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_IMRX,
+ 				  SHIM_IMRX_BUSY | SHIM_IMRX_DONE,
+ 				  SHIM_IMRX_DONE);
+ 
+@@ -595,8 +614,8 @@ const struct snd_sof_dsp_ops sof_tng_ops = {
+ 	.probe		= tangier_pci_probe,
+ 
+ 	/* DSP core boot / reset */
+-	.run		= byt_run,
+-	.reset		= byt_reset,
++	.run		= atom_run,
++	.reset		= atom_reset,
+ 
+ 	/* Register IO */
+ 	.write		= sof_io_write,
+@@ -609,28 +628,28 @@ const struct snd_sof_dsp_ops sof_tng_ops = {
+ 	.block_write	= sof_block_write,
+ 
+ 	/* doorbell */
+-	.irq_handler	= byt_irq_handler,
+-	.irq_thread	= byt_irq_thread,
++	.irq_handler	= atom_irq_handler,
++	.irq_thread	= atom_irq_thread,
+ 
+ 	/* ipc */
+-	.send_msg	= byt_send_msg,
++	.send_msg	= atom_send_msg,
+ 	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = byt_get_mailbox_offset,
+-	.get_window_offset = byt_get_window_offset,
++	.get_mailbox_offset = atom_get_mailbox_offset,
++	.get_window_offset = atom_get_window_offset,
+ 
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
+ 	/* machine driver */
+-	.machine_select = byt_machine_select,
++	.machine_select = atom_machine_select,
+ 	.machine_register = sof_machine_register,
+ 	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = byt_set_mach_params,
++	.set_mach_params = atom_set_mach_params,
+ 
+ 	/* debug */
+-	.debug_map	= byt_debugfs,
+-	.debug_map_count	= ARRAY_SIZE(byt_debugfs),
+-	.dbg_dump	= byt_dump,
++	.debug_map	= tng_debugfs,
++	.debug_map_count	= ARRAY_SIZE(tng_debugfs),
++	.dbg_dump	= atom_dump,
+ 
+ 	/* stream callbacks */
+ 	.pcm_open	= intel_pcm_open,
+@@ -643,7 +662,7 @@ const struct snd_sof_dsp_ops sof_tng_ops = {
+ 	.load_firmware	= snd_sof_load_firmware_memcpy,
+ 
+ 	/* DAI drivers */
+-	.drv = byt_dai,
++	.drv = atom_dai,
+ 	.num_drv = 3, /* we have only 3 SSPs on byt*/
+ 
+ 	/* ALSA HW info flags */
+@@ -670,11 +689,11 @@ EXPORT_SYMBOL_NS(tng_chip_info, SND_SOC_SOF_MERRIFIELD);
+ static void byt_reset_dsp_disable_int(struct snd_sof_dev *sdev)
+ {
+ 	/* Disable Interrupt from both sides */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_IMRX, 0x3, 0x3);
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_IMRD, 0x3, 0x3);
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_IMRX, 0x3, 0x3);
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_IMRD, 0x3, 0x3);
+ 
+ 	/* Put DSP into reset, set reset vector */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_CSR,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_CSR,
+ 				  SHIM_BYT_CSR_RST | SHIM_BYT_CSR_VECTOR_SEL,
+ 				  SHIM_BYT_CSR_RST | SHIM_BYT_CSR_VECTOR_SEL);
+ }
+@@ -689,7 +708,7 @@ static int byt_suspend(struct snd_sof_dev *sdev, u32 target_state)
+ static int byt_resume(struct snd_sof_dev *sdev)
+ {
+ 	/* enable BUSY and disable DONE Interrupt by default */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_IMRX,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_IMRX,
+ 				  SHIM_IMRX_BUSY | SHIM_IMRX_DONE,
+ 				  SHIM_IMRX_DONE);
+ 
+@@ -704,29 +723,29 @@ static int byt_remove(struct snd_sof_dev *sdev)
+ }
+ 
+ static const struct snd_sof_debugfs_map cht_debugfs[] = {
+-	{"dmac0", BYT_DSP_BAR, DMAC0_OFFSET, DMAC_SIZE,
++	{"dmac0", DSP_BAR, DMAC0_OFFSET, DMAC_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"dmac1", BYT_DSP_BAR,  DMAC1_OFFSET, DMAC_SIZE,
++	{"dmac1", DSP_BAR, DMAC1_OFFSET, DMAC_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"dmac2", BYT_DSP_BAR,  DMAC2_OFFSET, DMAC_SIZE,
++	{"dmac2", DSP_BAR, DMAC2_OFFSET, DMAC_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp0",  BYT_DSP_BAR, SSP0_OFFSET, SSP_SIZE,
++	{"ssp0", DSP_BAR, SSP0_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp1", BYT_DSP_BAR, SSP1_OFFSET, SSP_SIZE,
++	{"ssp1", DSP_BAR, SSP1_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp2", BYT_DSP_BAR, SSP2_OFFSET, SSP_SIZE,
++	{"ssp2", DSP_BAR, SSP2_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp3", BYT_DSP_BAR, SSP3_OFFSET, SSP_SIZE,
++	{"ssp3", DSP_BAR, SSP3_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp4", BYT_DSP_BAR, SSP4_OFFSET, SSP_SIZE,
++	{"ssp4", DSP_BAR, SSP4_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"ssp5", BYT_DSP_BAR, SSP5_OFFSET, SSP_SIZE,
++	{"ssp5", DSP_BAR, SSP5_OFFSET, SSP_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+-	{"iram", BYT_DSP_BAR, IRAM_OFFSET, IRAM_SIZE,
++	{"iram", DSP_BAR, IRAM_OFFSET, IRAM_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_D0_ONLY},
+-	{"dram", BYT_DSP_BAR, DRAM_OFFSET, DRAM_SIZE,
++	{"dram", DSP_BAR, DRAM_OFFSET, DRAM_SIZE,
+ 	 SOF_DEBUGFS_ACCESS_D0_ONLY},
+-	{"shim", BYT_DSP_BAR, SHIM_OFFSET, SHIM_SIZE_CHT,
++	{"shim", DSP_BAR, SHIM_OFFSET, SHIM_SIZE_CHT,
+ 	 SOF_DEBUGFS_ACCESS_ALWAYS},
+ };
+ 
+@@ -760,17 +779,17 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	dev_dbg(sdev->dev, "LPE PHY base at 0x%x size 0x%x", base, size);
+-	sdev->bar[BYT_DSP_BAR] = devm_ioremap(sdev->dev, base, size);
+-	if (!sdev->bar[BYT_DSP_BAR]) {
++	sdev->bar[DSP_BAR] = devm_ioremap(sdev->dev, base, size);
++	if (!sdev->bar[DSP_BAR]) {
+ 		dev_err(sdev->dev, "error: failed to ioremap LPE base 0x%x size 0x%x\n",
+ 			base, size);
+ 		return -ENODEV;
+ 	}
+-	dev_dbg(sdev->dev, "LPE VADDR %p\n", sdev->bar[BYT_DSP_BAR]);
++	dev_dbg(sdev->dev, "LPE VADDR %p\n", sdev->bar[DSP_BAR]);
+ 
+ 	/* TODO: add offsets */
+-	sdev->mmio_bar = BYT_DSP_BAR;
+-	sdev->mailbox_bar = BYT_DSP_BAR;
++	sdev->mmio_bar = DSP_BAR;
++	sdev->mailbox_bar = DSP_BAR;
+ 
+ 	/* IMR base - optional */
+ 	if (desc->resindex_imr_base == -1)
+@@ -794,13 +813,13 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	dev_dbg(sdev->dev, "IMR base at 0x%x size 0x%x", base, size);
+-	sdev->bar[BYT_IMR_BAR] = devm_ioremap(sdev->dev, base, size);
+-	if (!sdev->bar[BYT_IMR_BAR]) {
++	sdev->bar[IMR_BAR] = devm_ioremap(sdev->dev, base, size);
++	if (!sdev->bar[IMR_BAR]) {
+ 		dev_err(sdev->dev, "error: failed to ioremap IMR base 0x%x size 0x%x\n",
+ 			base, size);
+ 		return -ENODEV;
+ 	}
+-	dev_dbg(sdev->dev, "IMR VADDR %p\n", sdev->bar[BYT_IMR_BAR]);
++	dev_dbg(sdev->dev, "IMR VADDR %p\n", sdev->bar[IMR_BAR]);
+ 
+ irq:
+ 	/* register our IRQ */
+@@ -810,7 +829,7 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ 
+ 	dev_dbg(sdev->dev, "using IRQ %d\n", sdev->ipc_irq);
+ 	ret = devm_request_threaded_irq(sdev->dev, sdev->ipc_irq,
+-					byt_irq_handler, byt_irq_thread,
++					atom_irq_handler, atom_irq_thread,
+ 					IRQF_SHARED, "AudioDSP", sdev);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: failed to register IRQ %d\n",
+@@ -819,7 +838,7 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	/* enable BUSY and disable DONE Interrupt by default */
+-	snd_sof_dsp_update_bits64(sdev, BYT_DSP_BAR, SHIM_IMRX,
++	snd_sof_dsp_update_bits64(sdev, DSP_BAR, SHIM_IMRX,
+ 				  SHIM_IMRX_BUSY | SHIM_IMRX_DONE,
+ 				  SHIM_IMRX_DONE);
+ 
+@@ -836,8 +855,8 @@ static const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	.remove		= byt_remove,
+ 
+ 	/* DSP core boot / reset */
+-	.run		= byt_run,
+-	.reset		= byt_reset,
++	.run		= atom_run,
++	.reset		= atom_reset,
+ 
+ 	/* Register IO */
+ 	.write		= sof_io_write,
+@@ -850,28 +869,28 @@ static const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	.block_write	= sof_block_write,
+ 
+ 	/* doorbell */
+-	.irq_handler	= byt_irq_handler,
+-	.irq_thread	= byt_irq_thread,
++	.irq_handler	= atom_irq_handler,
++	.irq_thread	= atom_irq_thread,
+ 
+ 	/* ipc */
+-	.send_msg	= byt_send_msg,
++	.send_msg	= atom_send_msg,
+ 	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = byt_get_mailbox_offset,
+-	.get_window_offset = byt_get_window_offset,
++	.get_mailbox_offset = atom_get_mailbox_offset,
++	.get_window_offset = atom_get_window_offset,
+ 
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
+ 	/* machine driver */
+-	.machine_select = byt_machine_select,
++	.machine_select = atom_machine_select,
+ 	.machine_register = sof_machine_register,
+ 	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = byt_set_mach_params,
++	.set_mach_params = atom_set_mach_params,
+ 
+ 	/* debug */
+ 	.debug_map	= byt_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(byt_debugfs),
+-	.dbg_dump	= byt_dump,
++	.dbg_dump	= atom_dump,
+ 
+ 	/* stream callbacks */
+ 	.pcm_open	= intel_pcm_open,
+@@ -888,7 +907,7 @@ static const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	.resume = byt_resume,
+ 
+ 	/* DAI drivers */
+-	.drv = byt_dai,
++	.drv = atom_dai,
+ 	.num_drv = 3, /* we have only 3 SSPs on byt*/
+ 
+ 	/* ALSA HW info flags */
+@@ -913,8 +932,8 @@ static const struct snd_sof_dsp_ops sof_cht_ops = {
+ 	.remove		= byt_remove,
+ 
+ 	/* DSP core boot / reset */
+-	.run		= byt_run,
+-	.reset		= byt_reset,
++	.run		= atom_run,
++	.reset		= atom_reset,
+ 
+ 	/* Register IO */
+ 	.write		= sof_io_write,
+@@ -927,28 +946,28 @@ static const struct snd_sof_dsp_ops sof_cht_ops = {
+ 	.block_write	= sof_block_write,
+ 
+ 	/* doorbell */
+-	.irq_handler	= byt_irq_handler,
+-	.irq_thread	= byt_irq_thread,
++	.irq_handler	= atom_irq_handler,
++	.irq_thread	= atom_irq_thread,
+ 
+ 	/* ipc */
+-	.send_msg	= byt_send_msg,
++	.send_msg	= atom_send_msg,
+ 	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = byt_get_mailbox_offset,
+-	.get_window_offset = byt_get_window_offset,
++	.get_mailbox_offset = atom_get_mailbox_offset,
++	.get_window_offset = atom_get_window_offset,
+ 
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
+ 	/* machine driver */
+-	.machine_select = byt_machine_select,
++	.machine_select = atom_machine_select,
+ 	.machine_register = sof_machine_register,
+ 	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = byt_set_mach_params,
++	.set_mach_params = atom_set_mach_params,
+ 
+ 	/* debug */
+ 	.debug_map	= cht_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(cht_debugfs),
+-	.dbg_dump	= byt_dump,
++	.dbg_dump	= atom_dump,
+ 
+ 	/* stream callbacks */
+ 	.pcm_open	= intel_pcm_open,
+@@ -965,9 +984,9 @@ static const struct snd_sof_dsp_ops sof_cht_ops = {
+ 	.resume = byt_resume,
+ 
+ 	/* DAI drivers */
+-	.drv = byt_dai,
++	.drv = atom_dai,
+ 	/* all 6 SSPs may be available for cherrytrail */
+-	.num_drv = ARRAY_SIZE(byt_dai),
++	.num_drv = 6,
+ 
+ 	/* ALSA HW info flags */
+ 	.hw_info =	SNDRV_PCM_INFO_MMAP |
 -- 
 2.25.1
 

@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5DC3734DF
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 08:13:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A9937354B
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 09:02:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78F7F169A;
-	Wed,  5 May 2021 08:12:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78F7F169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE76116A0;
+	Wed,  5 May 2021 09:01:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE76116A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620195205;
-	bh=Xko3TqloqxS+ixNM80E/cLavMz1qRkg2FwUy7SnprCc=;
+	s=default; t=1620198156;
+	bh=P4WNXfqucp5A1o5OrjeO1zpYcXWdkGojmXm/r//pDgQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CCjhv6NVSjKIRNQz/L1k1shBhBVwcfwmCU7XodEkzeksIA1vlnBi9lW6gIjlrMNz4
-	 bFoG73IkHxTI+WwRUhZxzzt3KVDH/rQ0SiuS/bdx2QH4q5FqamghOdyESZ9mXtgcuJ
-	 zC7LmTFA9hhhY5EZYLE+jP1TeaHIePawNSNa0qag=
+	b=tJ7ezxvDpuLhtoyPNcCKJc9yiJr07rIQqdQbR6uRdyB4Z2GcvbtppylCO6Yb1H6Ny
+	 akCEIzCgfc/52uMxmX0eunlmmctweYcOxTFx8K0hUvabF37RGXJqqtciMbjbTh297K
+	 Ovu+o7bkMe/Q66iZ7WQz2G0GIO4WyMTqA9CegGh8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00B88F80268;
-	Wed,  5 May 2021 08:11:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F3E9F8025F;
+	Wed,  5 May 2021 09:01:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AE6AF8025F; Wed,  5 May 2021 08:11:56 +0200 (CEST)
+ id 37255F8025F; Wed,  5 May 2021 09:01:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 5D1A4F80108
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 08:11:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D1A4F80108
+ by alsa1.perex.cz (Postfix) with ESMTP id 085FEF80108
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 09:00:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 085FEF80108
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1620195107711627960-webhooks-bot@alsa-project.org>
-References: <1620195107711627960-webhooks-bot@alsa-project.org>
-Subject: [a52] Strange behavior with 5.1 surround on ALC1120
-Message-Id: <20210505061156.1AE6AF8025F@alsa1.perex.cz>
-Date: Wed,  5 May 2021 08:11:56 +0200 (CEST)
+In-Reply-To: <1620198054870762110-webhooks-bot@alsa-project.org>
+References: <1620198054870762110-webhooks-bot@alsa-project.org>
+Subject: [a52] Strange behavior with 5.1 surround on ALC1220
+Message-Id: <20210505070107.37255F8025F@alsa1.perex.cz>
+Date: Wed,  5 May 2021 09:01:07 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-plugins issue #21 was opened from davidebeatrici:
+alsa-project/alsa-plugins issue #21 was edited from davidebeatrici:
 
 I originally encountered the issue ~1 year ago, when I started using a motherboard with an ALC1120 on it.
 

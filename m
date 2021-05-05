@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2437374335
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E09374337
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 19:00:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A98D16DB;
-	Wed,  5 May 2021 18:59:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A98D16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24BA9174C;
+	Wed,  5 May 2021 18:59:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24BA9174C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620233997;
-	bh=BKZByb+bMQrTyrLgjdFq3/qR+nFiiFhVqTM4UmzAeCc=;
+	s=default; t=1620234021;
+	bh=k/90kEdCiWPI+kgNODS6pMTMTooSc/4T+UyyVYBtYA8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bobax33Cq82pZ7Jm3ZHQzvsBQCydffReHTC255e8gEY8lFljirRurr+dWozqP33jo
-	 G3Wqyu8ocVY3qEt1Du+PspWf/2LPIuMEqZH4bKjrMWw7R9i+uLHVJs8MA0O8oUiQTm
-	 Xuos828TgJgqPJcCTIngmv8fm8WjOl1nPJ5o4iPA=
+	b=bO7JG+WsKYIc1ejgoQ+xY4MYv88q2bJeO6JQHexhYGjqtnp/C+C3VpduQJpfHQ0Fs
+	 XBTR09sRRjgavDAMGePxSGHoPmIfDuvFDVGNfLWcAeXUbRKbj+82q0H3iZh9rfI29/
+	 UHIZHddXHeTPbLENhASd2ygXkUwajm/ByaixE9D0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C089F8049C;
-	Wed,  5 May 2021 18:40:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBD46F80679;
+	Wed,  5 May 2021 18:40:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72C93F80673; Wed,  5 May 2021 18:40:24 +0200 (CEST)
+ id 436ABF80678; Wed,  5 May 2021 18:40:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25F1DF804AE
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:40:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F1DF804AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id C595FF80520
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:40:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C595FF80520
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MIot8mQ+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 785DC61585;
- Wed,  5 May 2021 16:40:15 +0000 (UTC)
+ header.b="QRxmFaWF"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 37D40619CD;
+ Wed,  5 May 2021 16:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232816;
- bh=BKZByb+bMQrTyrLgjdFq3/qR+nFiiFhVqTM4UmzAeCc=;
+ s=k20201202; t=1620232827;
+ bh=k/90kEdCiWPI+kgNODS6pMTMTooSc/4T+UyyVYBtYA8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MIot8mQ+A33rI2r5qDd9Iaq8et4pPiMrtbRXsVUCHQdlU/j5vIP2xpR/Li3wEf7Wu
- WRoAQ5oZM4F/2+/iLtw1zYAPptJ2dxTE7hlcUqg1ezqsGkH7jx1hsjemlmZRs5ntVd
- oTENWVY0drHaPfF3RgJdXVda1zIUwDztypavw5SINYjXBn91MoNcv3OuLiX6Kooi17
- BM5zyQ57tl0mBuZb+hfRMs6jTEoEVyxhHHjm5cmcdxIBxpRphio9hdTlHLrfys0gJ+
- BQSUoe9JterQtJ+hLcrtxeN8PkhJjPzN/hUD5eIACLAcZNl5ed33LBssIEA5o+5x8c
- QtahPqWeT+rXQ==
+ b=QRxmFaWFAFfumI4NkxqXLSYeytL67F1wVCy9ui/Mmxq49JVs4nVtv3sfa7+sNbYyw
+ IFPFmdSI9Ll6RGBJSNj3SHnFdZRGofgsvAUsbkX0mLHv24DSGhpGdI5fTOY3Fp/frH
+ ozD/Er34lu7v1ncellhh+XB2xL4Z5An5BpK/sH1hRN7RVA39bDYDHAtwnds/Os5Xd/
+ 0F1+6ppHTdHp+oep2rXzqlhuL0kXp5pYXmaf90ptKQQXRf4UrSncHSBZmSa8WALKFf
+ V6NofVDnISNZHaGCkThxh4oqlI2kigZmlcLYR/iUfzMt5OQI7Iyo6EUuvL9enrG/lI
+ d2JNU3btb/plA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 08/32] ALSA: rme9652: don't disable if not enabled
-Date: Wed,  5 May 2021 12:39:40 -0400
-Message-Id: <20210505164004.3463707-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 15/32] ASoC: Intel: bytcr_rt5640: Add quirk for
+ the Chuwi Hi8 tablet
+Date: Wed,  5 May 2021 12:39:47 -0400
+Message-Id: <20210505164004.3463707-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210505164004.3463707-1-sashal@kernel.org>
 References: <20210505164004.3463707-1-sashal@kernel.org>
@@ -65,8 +65,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Tong Zhang <ztong0001@gmail.com>,
- alsa-devel@alsa-project.org, Sasha Levin <sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,47 +82,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Tong Zhang <ztong0001@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit f57a741874bb6995089020e97a1dcdf9b165dcbe ]
+[ Upstream commit 875c40eadf6ac6644c0f71842a4f30dd9968d281 ]
 
-rme9652 wants to disable a not enabled pci device, which makes kernel
-throw a warning. Make sure the device is enabled before calling disable.
+The Chuwi Hi8 tablet is using an analog mic on IN1 and has its
+jack-detect connected to JD2_IN4N, instead of using the default
+IN3 for its internal mic and JD1_IN4P for jack-detect.
 
-[    1.751595] snd_rme9652 0000:00:03.0: disabling already-disabled device
-[    1.751605] WARNING: CPU: 0 PID: 174 at drivers/pci/pci.c:2146 pci_disable_device+0x91/0xb0
-[    1.759968] Call Trace:
-[    1.760145]  snd_rme9652_card_free+0x76/0xa0 [snd_rme9652]
-[    1.760434]  release_card_device+0x4b/0x80 [snd]
-[    1.760679]  device_release+0x3b/0xa0
-[    1.760874]  kobject_put+0x94/0x1b0
-[    1.761059]  put_device+0x13/0x20
-[    1.761235]  snd_card_free+0x61/0x90 [snd]
-[    1.761454]  snd_rme9652_probe+0x3be/0x700 [snd_rme9652]
+It also only has 1 speaker.
 
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Tong Zhang <ztong0001@gmail.com>
-Link: https://lore.kernel.org/r/20210321153840.378226-4-ztong0001@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Add a quirk applying the correct settings for this configuration.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/20210325221054.22714-1-hdegoede@redhat.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/rme9652/rme9652.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index edd765e22377..f82fa5be7d33 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -1761,7 +1761,8 @@ static int snd_rme9652_free(struct snd_rme9652 *rme9652)
- 	if (rme9652->port)
- 		pci_release_regions(rme9652->pci);
- 
--	pci_disable_device(rme9652->pci);
-+	if (pci_is_enabled(rme9652->pci))
-+		pci_disable_device(rme9652->pci);
- 	return 0;
- }
- 
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 62b4187e9f44..4ebc023f1507 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -509,6 +509,23 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{
++		/* Chuwi Hi8 (CWI509) */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "Hampoo"),
++			DMI_MATCH(DMI_BOARD_NAME, "BYT-PA03C"),
++			DMI_MATCH(DMI_SYS_VENDOR, "ilife"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "S806"),
++		},
++		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_2000UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_DIFF_MIC |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Circuitco"),
 -- 
 2.30.2
 

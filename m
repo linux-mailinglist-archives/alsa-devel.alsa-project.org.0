@@ -2,48 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC29373E90
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 17:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47809373FFD
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:33:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 619AE16C8;
-	Wed,  5 May 2021 17:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 619AE16C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 892D1169F;
+	Wed,  5 May 2021 18:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892D1169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620228746;
-	bh=5aC4wYVDJudJLOHdVXacbyXvul1gIrrkT6xMXCQTt0c=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1620232388;
+	bh=ao/O+HGnhxyGgjd2MiUDJb/o4Y21qQRTpFo5rO609IY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bFjqZBAI/bLHMio7633RxPpSwJv/5TbA9fTiB3qfeJ5t+Rq+LHd/3Jrx3ExlQ+uiT
-	 awBEDus+S95yRLy1cJxXQFiqzc4tzAFKW2Ho97rrrl2Rupv+HB6I+ek2UvdQ1rsbiY
-	 B/fXvi5HbKW97SdhyecOSaVWJTXd4uiH5n54+FSk=
+	b=u0INY0jxvh671UQWg1QdXy9SCoswQd1oxhnea8OT/2e6zhVuKt76xRhV9Zqt0BthF
+	 vNRiKLsoeTtcuCx8OnsBKOedMi0o2IxFUnZkkplvc0wJ8lMmwLJgtOgBwwgInjz//7
+	 7xr5P/AeCOzvLS3OUd5Fa/97BvWiEdDzv87jNC/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47916F8026D;
-	Wed,  5 May 2021 17:31:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 155D4F80268;
+	Wed,  5 May 2021 18:31:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F09E9F8026A; Wed,  5 May 2021 17:31:33 +0200 (CEST)
+ id B54CAF8025F; Wed,  5 May 2021 18:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 203F0F80108
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 17:31:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 203F0F80108
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC095F80163
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:31:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC095F80163
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KYz8CIVj"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EFC39613B3;
+ Wed,  5 May 2021 16:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620232288;
+ bh=ao/O+HGnhxyGgjd2MiUDJb/o4Y21qQRTpFo5rO609IY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=KYz8CIVjVeybOBYYzIWD584dh6uteQwD7Tm7Uslt3F1vOOfqAwip4JxGCxAPkE8Vz
+ WqZ4zE1YwJ++EFhdDyJaZ6txwxDb+LcJGA28btWxmIe6w8fkYBEXUqiTTek9PmAC/+
+ riwHa724t3QbOA5Bp0d5RHbFaCxHReTrSzN7m/GDlcsPDxFs0zTzPQunfVgtsI/F0v
+ HyHMH2VhkP3I7Lh2SvxOcoQtsHI5AYtEwbrJe9zdNN7JjHRfzhvBHAnoM2ku5BSY8P
+ Q28zbmaqursJTYNMpQSWs0OLniR4CJLuJh1T6fwqiZenZkgCrib+yexWqZJbpc5+WW
+ TCTJQ63NS/wnw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.12 002/116] ALSA: usb-audio: Add Pioneer DJM-850 to
+ quirks-table
+Date: Wed,  5 May 2021 12:29:30 -0400
+Message-Id: <20210505163125.3460440-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210505163125.3460440-1-sashal@kernel.org>
+References: <20210505163125.3460440-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1620228686927253962-webhooks-bot@alsa-project.org>
-References: <1620228686927253962-webhooks-bot@alsa-project.org>
-Subject: Setting volume of headphones seems to apply to Speakers as well
-Message-Id: <20210505153133.F09E9F8026A@alsa1.perex.cz>
-Date: Wed,  5 May 2021 17:31:33 +0200 (CEST)
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Nicolas MURE <nicolas.mure2019@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,36 +83,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #87 was edited from roboknight:
+From: Nicolas MURE <nicolas.mure2019@gmail.com>
 
-When using amixer in the following way:
+[ Upstream commit a3c30b0cb6d05f5bf66d1a5d42e876f31753a447 ]
 
-amixer -c 1 set Headphone 0% mute
+Declare the Pioneer DJM-850 interfaces for capture and playback.
 
-I receive the following partial output from scontents:
+See https://github.com/nm2107/Pioneer-DJM-850-driver-reverse-engineering/blob/172fb9a61055960c88c67b7c416fe5bf3609807b/doc/usb-device-specifications.md
+for the complete device spec.
 
-Simple mixer control 'Headphone',0
-  Capabilities: pvolume pswitch
-  Playback channels: Front Left - Front Right
-  Limits: Playback 0 - 87
-  Mono:
-  Front Left: Playback 0 [0%] [-65.25dB] [off]
-  Front Right: Playback 0 [0%] [-65.25dB] [off]
-Simple mixer control 'Speaker',0
-  Capabilities: pvolume pswitch
-  Playback channels: Front Left - Front Right
-  Limits: Playback 0 - 87
-  Mono:
-  Front Left: Playback 87 [100%] [0.00dB] [on]
-  Front Right: Playback 87 [100%] [0.00dB] [on]
+Signed-off-by: Nicolas MURE <nicolas.mure2019@gmail.com>
+Link: https://lore.kernel.org/r/20210301152729.18094-2-nicolas.mure2019@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/quirks-table.h | 63 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-which looks good.  However, it appears that the volume is applied across both the Headphone control and Speaker control (or maybe even just the Master volume) as there is no output from the speakers after this even though it would appear they should have full volume and are not muted.
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 1165a5ac60f2..9716a9f7c095 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3817,6 +3817,69 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DJM-850
++	 * 8 channels playback and 8 channels capture @ 44.1/48/96kHz S24LE
++	 * Playback on EP 0x05
++	 * Capture on EP 0x86
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x08e4, 0x0163),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 8,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x05,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC|
++						USB_ENDPOINT_USAGE_DATA,
++					.rates = SNDRV_PCM_RATE_44100|
++						SNDRV_PCM_RATE_48000|
++						SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 8,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x86,
++					.ep_idx = 1,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						USB_ENDPOINT_SYNC_ASYNC|
++						USB_ENDPOINT_USAGE_DATA,
++					.rates = SNDRV_PCM_RATE_44100|
++						SNDRV_PCM_RATE_48000|
++						SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) { 44100, 48000, 96000 }
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ {
+ 	/*
+ 	 * Pioneer DJ DJM-450
+-- 
+2.30.2
 
-I am using the Ubuntu Groovy Gorilla update, so Linux kernel 5.11.  The default installation uses pulseaudio, but I've switched things to pipewire and both cause the same issue presumably because both use ALSA.  I started here because amixer seems to at least allow me to identify the problem.  When I change the Volume for the Headphones to 100% using the following:
-
-amixer -c 1 set Headphone 100% mute
-
-the audio from the speakers is then fine.  amixer appears to be showing the correct information (as per above) according to the audio, but the Headphone volume seems to be applying to the Speakers as well.  Maybe someone can point me in a direction that I can find a solution to this, as it would appear that anytime headphones are plugged in, removing the headphones causes the same situation: no sound.  I suspect amixer is working fine, but wherever the volume from amixer is applied, it does not appear to be set appropriately.
-
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/87
-Repository URL: https://github.com/alsa-project/alsa-utils

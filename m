@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8073740B7
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F423740BE
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:37:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A006316D7;
-	Wed,  5 May 2021 18:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A006316D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3EC716DC;
+	Wed,  5 May 2021 18:36:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3EC716DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620232608;
-	bh=slT+Q2dWhK/Pdvc0JkBxSi4ZYL05dsOo7M1WRdImxtA=;
+	s=default; t=1620232634;
+	bh=crQZifefxFB5zTrNmQ8E/W5S9724KgP2XqK90+Y+VD0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TvAuPfuNuekoPdPk6vmfTm4Mx7Fltvl3nPtqMn23lKDAFlA5z1Y+yuaxTM122/sld
-	 A7oRtplU9RhIDQjqKQyFO5pSWvJdnQreDB6WUKi8Ur6gxIFO1NrUeVdgwKjgPqNdFv
-	 qxdjxuyIUPS2H+lASfs2YaPDM/UZCJzAGghmCj8I=
+	b=l5A9BytSNJlm5P0ECmS+bqzsRIn4Y/kqWGuLpal0Joa/sqkYgfVohef6IMUSERgNf
+	 SkP7U243GwSLhRMUBsF2ohxBwE0NlyYzPpDO4wTVvth0pDcYxUtM3z31HhKLif5ZE1
+	 RQGDJiEtqgM38/BlXe2Jkfb7A/oq0yiOmXd/Nzh8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34A6F804EC;
-	Wed,  5 May 2021 18:32:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5909BF80163;
+	Wed,  5 May 2021 18:33:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A87B7F804EC; Wed,  5 May 2021 18:32:43 +0200 (CEST)
+ id 52A7EF80279; Wed,  5 May 2021 18:33:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F1AFF8026A
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:32:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F1AFF8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0032F80163
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:33:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0032F80163
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YBBtAuDg"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A265561429;
- Wed,  5 May 2021 16:32:34 +0000 (UTC)
+ header.b="NPsHG2o8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66A836142E;
+ Wed,  5 May 2021 16:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232355;
- bh=slT+Q2dWhK/Pdvc0JkBxSi4ZYL05dsOo7M1WRdImxtA=;
+ s=k20201202; t=1620232387;
+ bh=crQZifefxFB5zTrNmQ8E/W5S9724KgP2XqK90+Y+VD0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YBBtAuDgfiJmYtKS2pHaBVYQUWOWiam5JTT1xw3ZxkIksk5tPcWAJhPMOjfzsKE+j
- qfMZfJ4E7nwn4ovOhrdYY4foW0AVqVSeL0jIcAu/hksorDFRm0O164beSQYtZ7IrCP
- irSsbp5AVfjIpKEwZdGD144ukyAY7LWDu7AsFnMW6N5XEMJ2VPJ9l37kxEQ2B471ny
- yRrzMhFwF8gedK4xcj8lisHu6HBzps2lvYQHLW9kjgxNCR+aFSoqVbiDFmSpb7t8G4
- 7/9PkMryQEC4ppYCg45CUFgIWXfgwOOh8iapjm890bsX2VSWcW3n7aLNdxhrWg6VZO
- vhSF8ioeLrovg==
+ b=NPsHG2o8SZ4TEsf+59LimFdmNa0qXq3EKnCAJCk2GY2Ddb1oqK9YpkYxpkQ0LUv+a
+ TFygUiwuV9hyF7zWFmCn5N8ITGOhPipTvNJmxA/sfU24Sh2iyKFxm97xL0kDUPsqzL
+ kGw8uyBYPTr2qn1Yr5/oc1JQBsh5rzLYFsb221bQkd/BHUmK2gN1QDduzrHDhHLwev
+ dhSF17BgER53WEOLerMV12aPqu0cUicNuc7xjyMDX8OUdFPyD6/ybrTrx/qFSYEC/I
+ rxFZjmr+uT42+DEaVWUHfIn8adhQXxrK49tvi5Fimn91d7/k0sNICHTkLujHqgGF7w
+ aUxWbKFO+BQ6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 051/116] ASoC: soc-compress: lock pcm_mutex to
- resolve lockdep error
-Date: Wed,  5 May 2021 12:30:19 -0400
-Message-Id: <20210505163125.3460440-51-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 073/116] ASoC: rsnd: call
+ rsnd_ssi_master_clk_start() from rsnd_ssi_init()
+Date: Wed,  5 May 2021 12:30:41 -0400
+Message-Id: <20210505163125.3460440-73-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210505163125.3460440-1-sashal@kernel.org>
 References: <20210505163125.3460440-1-sashal@kernel.org>
@@ -66,8 +66,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Gyeongtaek Lee <gt82.lee@samsung.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>,
+ "Linh Phung T . Y ." <linh.phung.jy@renesas.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,58 +85,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Gyeongtaek Lee <gt82.lee@samsung.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-[ Upstream commit 45475bf60cc1d42da229a0aa757180c88bab8d22 ]
+[ Upstream commit a122a116fc6d8fcf2f202dcd185173a54268f239 ]
 
-If panic_on_warn=1 is added in bootargs and compress offload playback with
-DPCM is started, kernel panic would be occurred because rtd->card->pcm_mutex
-isn't held in soc_compr_open_fe() and soc_compr_free_fe() and it generates
-lockdep warning in the following code.
+Current rsnd needs to call .prepare (P) for clock settings,
+.trigger for playback start (S) and stop (E).
+It should be called as below from SSI point of view.
 
-void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
-			    int stream, int action)
-{
-	struct snd_soc_dai *dai;
-	int i;
+	P -> S -> E -> P -> S -> E -> ...
 
-	lockdep_assert_held(&rtd->card->pcm_mutex);
+But, if you used MIXer, below case might happen
 
-To prevent lockdep warning but minimize side effect by adding mutex,
-pcm_mutex is held just before snd_soc_runtime_activate() and
-snd_soc_runtime_deactivate() and is released right after them.
+	              (2)
+	1: P -> S ---> E -> ...
+	2:         P ----> S -> ...
+	          (1)     (3)
 
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-Link: https://lore.kernel.org/r/1891546521.01617772502282.JavaMail.epsvc@epcpadp3
+P(1) setups clock, but E(2) resets it. and starts playback (3).
+In such case, it will reports "SSI parent/child should use same rate".
+
+rsnd_ssi_master_clk_start() which is the main function at (P)
+was called from rsnd_ssi_init() (= S) before,
+but was moved by below patch to rsnd_soc_dai_prepare() (= P) to avoid
+using clk_get_rate() which shouldn't be used under atomic context.
+
+	commit 4d230d1271064 ("ASoC: rsnd: fixup not to call clk_get/set
+				under non-atomic")
+
+Because of above patch, rsnd_ssi_master_clk_start() is now called at (P)
+which is for non atomic context. But (P) is assuming that spin lock is
+*not* used.
+One issue now is rsnd_ssi_master_clk_start() is checking ssi->xxx
+which should be protected by spin lock.
+
+After above patch, adg.c had below patch for other reasons.
+
+	commit 06e8f5c842f2d ("ASoC: rsnd: don't call clk_get_rate()
+				under atomic context")
+
+clk_get_rate() is used at probe() timing by this patch.
+In other words, rsnd_ssi_master_clk_start() is no longer using
+clk_get_rate() any more.
+
+This means we can call it from rsnd_ssi_init() (= S) again which is
+protected by spin lock.
+This patch re-move it to under spin lock, and solves
+1. checking ssi->xxx without spin lock issue.
+2. clk setting / device start / device stop race condition.
+
+Reported-by: Linh Phung T. Y. <linh.phung.jy@renesas.com>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/875z0x1jt5.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-compress.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/sh/rcar/ssi.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 246a5e32e22a..b4810266f5e5 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -153,7 +153,9 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
- 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
- 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_NO;
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index d0ded427a836..a2f8138d40c7 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -507,10 +507,15 @@ static int rsnd_ssi_init(struct rsnd_mod *mod,
+ 			 struct rsnd_priv *priv)
+ {
+ 	struct rsnd_ssi *ssi = rsnd_mod_to_ssi(mod);
++	int ret;
  
-+	mutex_lock_nested(&fe->card->pcm_mutex, fe->card->pcm_subclass);
- 	snd_soc_runtime_activate(fe, stream);
-+	mutex_unlock(&fe->card->pcm_mutex);
+ 	if (!rsnd_ssi_is_run_mods(mod, io))
+ 		return 0;
  
- 	mutex_unlock(&fe->card->mutex);
++	ret = rsnd_ssi_master_clk_start(mod, io);
++	if (ret < 0)
++		return ret;
++
+ 	ssi->usrcnt++;
  
-@@ -181,7 +183,9 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 	rsnd_mod_power_on(mod);
+@@ -1060,13 +1065,6 @@ static int rsnd_ssi_pio_pointer(struct rsnd_mod *mod,
+ 	return 0;
+ }
  
- 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+-static int rsnd_ssi_prepare(struct rsnd_mod *mod,
+-			    struct rsnd_dai_stream *io,
+-			    struct rsnd_priv *priv)
+-{
+-	return rsnd_ssi_master_clk_start(mod, io);
+-}
+-
+ static struct rsnd_mod_ops rsnd_ssi_pio_ops = {
+ 	.name		= SSI_NAME,
+ 	.probe		= rsnd_ssi_common_probe,
+@@ -1079,7 +1077,6 @@ static struct rsnd_mod_ops rsnd_ssi_pio_ops = {
+ 	.pointer	= rsnd_ssi_pio_pointer,
+ 	.pcm_new	= rsnd_ssi_pcm_new,
+ 	.hw_params	= rsnd_ssi_hw_params,
+-	.prepare	= rsnd_ssi_prepare,
+ 	.get_status	= rsnd_ssi_get_status,
+ };
  
-+	mutex_lock_nested(&fe->card->pcm_mutex, fe->card->pcm_subclass);
- 	snd_soc_runtime_deactivate(fe, stream);
-+	mutex_unlock(&fe->card->pcm_mutex);
- 
- 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_FE;
+@@ -1166,7 +1163,6 @@ static struct rsnd_mod_ops rsnd_ssi_dma_ops = {
+ 	.pcm_new	= rsnd_ssi_pcm_new,
+ 	.fallback	= rsnd_ssi_fallback,
+ 	.hw_params	= rsnd_ssi_hw_params,
+-	.prepare	= rsnd_ssi_prepare,
+ 	.get_status	= rsnd_ssi_get_status,
+ };
  
 -- 
 2.30.2

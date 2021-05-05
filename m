@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5A59374132
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:45:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392863741CA
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 May 2021 18:46:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 442821733;
-	Wed,  5 May 2021 18:44:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 442821733
+	by alsa0.perex.cz (Postfix) with ESMTPS id C78A81754;
+	Wed,  5 May 2021 18:45:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C78A81754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620233118;
-	bh=BMgVRc07yMdSNpu4EtODLQluJHjs8aTrZ8NbIbKt+d4=;
+	s=default; t=1620233181;
+	bh=1fgGe6EVea6dgSAsAZvzBziRCktDtmZTRV18UlD/8CU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cddDkBErxtQFEX+aszLwScsA+6bTj3jdqkHKvDJ+Jgg3tV/G49gt5F86Cyry/P4To
-	 AF5XL8IS1iSnOXHSUtahekKpqf8IYPCOWtSLR8tLYIPNv3T991WhyV0IkmwMYQu14R
-	 Ggs46qujpzlVquEiylB0Ykfs+cGMVNlEdqWYDOd0=
+	b=CLhDqjQZ7dQ3BYFALpQ7nb6P8GOM8kfZwiQm+4a3vQ380hT+uEx8f1mLDsp3Z9Vy/
+	 GZ0ypviLHiuS7+/ToLBn2OMeMjzYKRAgufg/AF8YM5LYLmwJc1Eg+Z6KdjrWMKcu0a
+	 KO2gG7bCSpJCzuue/8vAydfZnYy9YquKCPA6fHB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FEA7F804F3;
-	Wed,  5 May 2021 18:37:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0F58F80571;
+	Wed,  5 May 2021 18:37:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD639F804ED; Wed,  5 May 2021 18:37:12 +0200 (CEST)
+ id 6FF5AF80567; Wed,  5 May 2021 18:37:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46AE0F80268
- for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:37:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46AE0F80268
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2891EF80279
+ for <alsa-devel@alsa-project.org>; Wed,  5 May 2021 18:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2891EF80279
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fd6IHdvX"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EE1156194F;
- Wed,  5 May 2021 16:37:02 +0000 (UTC)
+ header.b="nGL0Nbup"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C60A6195D;
+ Wed,  5 May 2021 16:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232623;
- bh=BMgVRc07yMdSNpu4EtODLQluJHjs8aTrZ8NbIbKt+d4=;
+ s=k20201202; t=1620232629;
+ bh=1fgGe6EVea6dgSAsAZvzBziRCktDtmZTRV18UlD/8CU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fd6IHdvXkwJU3VAXb4ccjbRPHryReRXes2wZ6TgdBGHSyj48XYyG2DBZe+aQKlIAH
- 3XdIAF2luPUPVZKPyq6SIvsJg/ty14eMaEUw8DbWpaRDA43frt8Vs2+KDzW1m0zERs
- L7/QxjU9+mybbZQfpEeIUu8IxH3UiMxFmr+wmPPqydnXoOUt6N/zARahyK0FFQFy2p
- KrqiQsxDOxZhMnzjrT7dvsqdT//mPlNFKbz0XPSslia4sZ1mAJe4PGx8UVAZKePRxa
- LLtc/P7ltSGIU2Gz23H7C+im1I2zepp2mPHFYt9wKEara7HSWmOLv/4goDCjBAGJw7
- bWnrJcaXDrJ4A==
+ b=nGL0Nbup7v2iBAmJwO1oc75EsWC7SNm3aQge36vrUw6UOYuyWi3gJ33GNZnLKz3EH
+ 4Bq3VambTp9uxKVDhS9P3ySddDmHR2hgop6Gd+Idm8OkErVO+1UlOsjM+mc2H8SpfQ
+ bfCRPqaWrEyj4NDfKMAF8KweX/R2wxygXr0pJRvB1Pgl9tz7oStbIl52yhSUyy9J7K
+ wkXQ3WNtxX0S8fnPFmzEyK/rtHEGHB2GPjoSxDY3AXX2DMwMvB29Dm/zRW9xgZLh3F
+ /s86I9CPpQtpDR/LYjyPMCxn7I5JBImMDjSgf5mZqTK1RAjrUm0lbBHX1LVGLwyhdk
+ BG/Noc/Vqkfzw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 10/85] ASoC: rsnd: core: Check convert rate in
- rsnd_hw_params
-Date: Wed,  5 May 2021 12:35:33 -0400
-Message-Id: <20210505163648.3462507-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 14/85] ALSA: hdsp: don't disable if not enabled
+Date: Wed,  5 May 2021 12:35:37 -0400
+Message-Id: <20210505163648.3462507-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210505163648.3462507-1-sashal@kernel.org>
 References: <20210505163648.3462507-1-sashal@kernel.org>
@@ -66,8 +65,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Mikhail Durnev <mikhail_durnev@mentor.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Tong Zhang <ztong0001@gmail.com>,
+ alsa-devel@alsa-project.org, Sasha Levin <sashal@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,111 +82,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mikhail Durnev <mikhail_durnev@mentor.com>
+From: Tong Zhang <ztong0001@gmail.com>
 
-[ Upstream commit 19c6a63ced5e07e40f3a5255cb1f0fe0d3be7b14 ]
+[ Upstream commit 507cdb9adba006a7798c358456426e1aea3d9c4f ]
 
-snd_pcm_hw_params_set_rate_near can return incorrect sample rate in
-some cases, e.g. when the backend output rate is set to some value higher
-than 48000 Hz and the input rate is 8000 Hz. So passing the value returned
-by snd_pcm_hw_params_set_rate_near to snd_pcm_hw_params will result in
-"FSO/FSI ratio error" and playing no audio at all while the userland
-is not properly notified about the issue.
+hdsp wants to disable a not enabled pci device, which makes kernel
+throw a warning. Make sure the device is enabled before calling disable.
 
-If SRC is unable to convert the requested sample rate to the sample rate
-the backend is using, then the requested sample rate should be adjusted in
-rsnd_hw_params. The userland will be notified about that change in the
-returned hw_params structure.
+[    1.758292] snd_hdsp 0000:00:03.0: disabling already-disabled device
+[    1.758327] WARNING: CPU: 0 PID: 180 at drivers/pci/pci.c:2146 pci_disable_device+0x91/0xb0
+[    1.766985] Call Trace:
+[    1.767121]  snd_hdsp_card_free+0x94/0xf0 [snd_hdsp]
+[    1.767388]  release_card_device+0x4b/0x80 [snd]
+[    1.767639]  device_release+0x3b/0xa0
+[    1.767838]  kobject_put+0x94/0x1b0
+[    1.768027]  put_device+0x13/0x20
+[    1.768207]  snd_card_free+0x61/0x90 [snd]
+[    1.768430]  snd_hdsp_probe+0x524/0x5e0 [snd_hdsp]
 
-Signed-off-by: Mikhail Durnev <mikhail_durnev@mentor.com>
-Link: https://lore.kernel.org/r/1615870055-13954-1-git-send-email-mikhail_durnev@mentor.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Tong Zhang <ztong0001@gmail.com>
+Link: https://lore.kernel.org/r/20210321153840.378226-2-ztong0001@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sh/rcar/core.c | 69 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 68 insertions(+), 1 deletion(-)
+ sound/pci/rme9652/hdsp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index 6e670b3e92a0..289928d4c0c9 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -1428,8 +1428,75 @@ static int rsnd_hw_params(struct snd_soc_component *component,
- 		}
- 		if (io->converted_chan)
- 			dev_dbg(dev, "convert channels = %d\n", io->converted_chan);
--		if (io->converted_rate)
-+		if (io->converted_rate) {
-+			/*
-+			 * SRC supports convert rates from params_rate(hw_params)/k_down
-+			 * to params_rate(hw_params)*k_up, where k_up is always 6, and
-+			 * k_down depends on number of channels and SRC unit.
-+			 * So all SRC units can upsample audio up to 6 times regardless
-+			 * its number of channels. And all SRC units can downsample
-+			 * 2 channel audio up to 6 times too.
-+			 */
-+			int k_up = 6;
-+			int k_down = 6;
-+			int channel;
-+			struct rsnd_mod *src_mod = rsnd_io_to_mod_src(io);
-+
- 			dev_dbg(dev, "convert rate     = %d\n", io->converted_rate);
-+
-+			channel = io->converted_chan ? io->converted_chan :
-+				  params_channels(hw_params);
-+
-+			switch (rsnd_mod_id(src_mod)) {
-+			/*
-+			 * SRC0 can downsample 4, 6 and 8 channel audio up to 4 times.
-+			 * SRC1, SRC3 and SRC4 can downsample 4 channel audio
-+			 * up to 4 times.
-+			 * SRC1, SRC3 and SRC4 can downsample 6 and 8 channel audio
-+			 * no more than twice.
-+			 */
-+			case 1:
-+			case 3:
-+			case 4:
-+				if (channel > 4) {
-+					k_down = 2;
-+					break;
-+				}
-+				fallthrough;
-+			case 0:
-+				if (channel > 2)
-+					k_down = 4;
-+				break;
-+
-+			/* Other SRC units do not support more than 2 channels */
-+			default:
-+				if (channel > 2)
-+					return -EINVAL;
-+			}
-+
-+			if (params_rate(hw_params) > io->converted_rate * k_down) {
-+				hw_param_interval(hw_params, SNDRV_PCM_HW_PARAM_RATE)->min =
-+					io->converted_rate * k_down;
-+				hw_param_interval(hw_params, SNDRV_PCM_HW_PARAM_RATE)->max =
-+					io->converted_rate * k_down;
-+				hw_params->cmask |= SNDRV_PCM_HW_PARAM_RATE;
-+			} else if (params_rate(hw_params) * k_up < io->converted_rate) {
-+				hw_param_interval(hw_params, SNDRV_PCM_HW_PARAM_RATE)->min =
-+					(io->converted_rate + k_up - 1) / k_up;
-+				hw_param_interval(hw_params, SNDRV_PCM_HW_PARAM_RATE)->max =
-+					(io->converted_rate + k_up - 1) / k_up;
-+				hw_params->cmask |= SNDRV_PCM_HW_PARAM_RATE;
-+			}
-+
-+			/*
-+			 * TBD: Max SRC input and output rates also depend on number
-+			 * of channels and SRC unit:
-+			 * SRC1, SRC3 and SRC4 do not support more than 128kHz
-+			 * for 6 channel and 96kHz for 8 channel audio.
-+			 * Perhaps this function should return EINVAL if the input or
-+			 * the output rate exceeds the limitation.
-+			 */
-+		}
- 	}
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index cea53a878c36..4aee30db034d 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -5321,7 +5321,8 @@ static int snd_hdsp_free(struct hdsp *hdsp)
+ 	if (hdsp->port)
+ 		pci_release_regions(hdsp->pci);
  
- 	return rsnd_dai_call(hw_params, io, substream, hw_params);
+-	pci_disable_device(hdsp->pci);
++	if (pci_is_enabled(hdsp->pci))
++		pci_disable_device(hdsp->pci);
+ 	return 0;
+ }
+ 
 -- 
 2.30.2
 

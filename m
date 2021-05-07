@@ -2,112 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA0B37660A
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 15:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6743766BF
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 16:06:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 652523E;
-	Fri,  7 May 2021 15:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652523E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DB31836;
+	Fri,  7 May 2021 16:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DB31836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620393576;
-	bh=RfK0a7jG4+AL5Zi5loizUjTkOoF5Zev7LLXdMZC9xa0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RLpgKI7iMWb/PGSQZXwQm08QYUkIIIS+pXLY1LKTqrwtspxEKAFgqiZFzwm38G4Oo
-	 Pmi53z2kWCg0KqT1PfjnHgb2WQatxn4jn4AmloFmtPG0ecymNk2fhKlkS57zKZ5lbc
-	 Y6+hN49adsFu8huLPt8tmOOaHq3NwC5iEnzrI0JA=
+	s=default; t=1620396381;
+	bh=O4VdvwRDQDVwI2PDKrtvDAdxWx0ftS6VU3I2UpvCfd0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=um6FMv1e0CEfnOAvOe2K3QIFKYw5EEpXBXtmRAAd+x9t9grniof5cUYHBxh/NJObE
+	 k/1LsHz0VopuX/Ui/WXYTdsXwILF0m48gUbDB5pMBfbyjY9EvKqaCenf4xAG/HA6w5
+	 tG6JpHYJ/DPMJDEVErChvX1CkYAfExylIhInj9uw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECD13F80268;
-	Fri,  7 May 2021 15:18:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5AE8F8026A;
+	Fri,  7 May 2021 16:04:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E198F8025F; Fri,  7 May 2021 15:18:06 +0200 (CEST)
+ id 6C2F1F8025F; Fri,  7 May 2021 16:04:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53D18F80105
- for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 15:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D18F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id E85A6F8010B
+ for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 16:04:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E85A6F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="LI+NNj2X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620393482;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bc6gFYtaAautPv5s36zE7t1w1DxKhv3daqqZP7w0uFc=;
- b=LI+NNj2Xq8Zk+UgcArE9o9QfPcLgXvNdi03r/CfnoGs6CjZL+N/byIeRzCtSZaMEQ12RUv
- yPxTGp+c4G9maWE+QpnzxMVCcQ2f7uj6bpPQmJvGhTwpw/tAv5BoCgwohgx/ZHf3jrista
- 4x4/08FYnDovPiQLOinNjsYimbDVC4s=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-341-2cehGlXoN-Wk7zTjKj7jCw-1; Fri, 07 May 2021 09:18:00 -0400
-X-MC-Unique: 2cehGlXoN-Wk7zTjKj7jCw-1
-Received: by mail-ej1-f70.google.com with SMTP id
- zo1-20020a170906ff41b02903973107d7b5so2974517ejb.21
- for <alsa-devel@alsa-project.org>; Fri, 07 May 2021 06:18:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Bc6gFYtaAautPv5s36zE7t1w1DxKhv3daqqZP7w0uFc=;
- b=oVOzcpW6ByY/0WZYPWBaspuCS6Um6RYPCTkRex1x8bfiF+fx0YG2iuxW12l4RL2/P8
- iGQP+wMMZNguBN62WPNhdt2S2P6XO+BTWFH372FjagzTNM42/5MLTKNshU5qkmRk5nYf
- e/VUb3Ino34/R7ruqAwIw5bAEIepTvYLhqy9jQ1Bc4xxAmb/Z/dQCbCpnk3NACLFQN1C
- VHtKcXAcHYWcuFxOxyXVci6OK9p2TPZJgdbaSQM1qtdLLRi2K1VDY6D6plsL85qQoa+I
- dw11UBdKBg8mQyA4YPCwU0v/lvCZtOuuJMD+cjId4Khk7dmLORdKnftRpEjOWaxtJvEA
- OrPA==
-X-Gm-Message-State: AOAM5339a/34aIkJt/zUSBm07+jcSJuc4ySwqAKgugLB7qpQDFp5DC4W
- Xg+4zulqEbqrjdzvUZmBKLuNSfrswGoX4UX22JDzF9RxOAn7nyfn+icRaBxcSh6ffXA8TKqJaC1
- ylxfkXPnvw0mQzYfZEuwsbTQ=
-X-Received: by 2002:a17:906:cf82:: with SMTP id
- um2mr10056073ejb.322.1620393479003; 
- Fri, 07 May 2021 06:17:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx9RMAbnLQQM1GfifQbHqjze/BSzkOG3iRxhRcv6/Dy2qouIy+i/Xzf+Rt2n5APZnk1bnbXJg==
-X-Received: by 2002:a17:906:cf82:: with SMTP id
- um2mr10056039ejb.322.1620393478737; 
- Fri, 07 May 2021 06:17:58 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id q16sm4278106edv.61.2021.05.07.06.17.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 May 2021 06:17:58 -0700 (PDT)
-Subject: Re: [PATCH v8 2/2] ASoC: rt715:add micmute led state control supports
-To: Perry Yuan <Perry.Yuan@dell.com>, pobrn@protonmail.com,
- pierre-louis.bossart@linux.intel.com, oder_chiou@realtek.com,
- perex@perex.cz, tiwai@suse.com, mgross@linux.intel.com
-References: <20210506115626.12480-1-Perry_Yuan@Dell.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <050c2e9d-9510-523b-5504-10397d7ec96f@redhat.com>
-Date: Fri, 7 May 2021 15:17:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="lcuLsf1F"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="NOzm3ELu"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.west.internal (Postfix) with ESMTP id 7A917FD7;
+ Fri,  7 May 2021 10:04:38 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 07 May 2021 10:04:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:content-type:mime-version
+ :content-transfer-encoding; s=fm2; bh=Vtd9BNGxnWTVrdv1sQguNv4d3w
+ rORv5ukuxA87nXxow=; b=lcuLsf1Fk/QbKv7GOAiqnZGzSJS6VzQqtd0tMX9vfl
+ 2cmkq5e8LWKaHxZjaKeaOV8KnOaJOE/W7CazrXkXZdsRuZSxVq4brh4YCuDrXty8
+ wEZ1+1dVTC+J1UP/JLYimwBah7NXBWEAJl86BUenMUAIYWBcKPT77o9U4UK7iURd
+ EiHLqgBQQX+N94OSG/DFdVuxZ7nXzaJOjAUXhnH7HM1CZQPYcaCS74RIaAGvgUy2
+ C24LrF5RrBbHJbfo+1DVHbNjdVXItfsL8feocLev/ei8/eIUPVCdm1khKUOINFpj
+ 1PcLPfpTdMSDyZcyrRZQFotKfNPFS+NVHXuvC8go14JQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Vtd9BN
+ GxnWTVrdv1sQguNv4d3wrORv5ukuxA87nXxow=; b=NOzm3ELuTbOQwprurNuRlp
+ HsFUqA9CGaHZKhxQG6LiJR6cebgZKW+gg1YiiItyfpkUVMJ0K/4HYNVdSIpWrF1Y
+ y3oZReI8y8yhCDMNcGf/GgcpzOgZNWkdwiStAuEOa+U4rNcKpO9XGBTAA9VPNO1f
+ NxYK1No9qQqr18rzjXQqgnICVZm7SQrxWDPFAa0F4YjxAPD5RAnjSw7p7XXB577b
+ ZAlE0VDFs0JP5wjTP1f10uYYP+pRMRi2BvpHCHPTiPFVZnam3IMLbCRXT+OjxaPF
+ bLxSf5gAkDY1qSol0fRcgmkFTBROxfRfsm9hgSUNzXXjLOAKbRYdfAMQlGAV4jrQ
+ ==
+X-ME-Sender: <xms:80iVYKMpfbY09CTVVlgVGNQez9IRi3y0p-3RQE6JTJLyup230Ze7EQ>
+ <xme:80iVYI9I7Spa6OfWxjIZfG5_XS0JTQgpEvLr8YBTVjlb3jxRCI91PhEQuHE5j-D1w
+ YFyUKsNfHnWBMjF8EI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdegvddgjedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffotggggfesthhqredtredtjeenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeetteeltddujefhffdtuefgudffleelleehjeeggeffuddvvdfgvdfhhfelgfet
+ ffenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecukfhppeeltddrkeelrdeikedrje
+ einecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgr
+ gihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:80iVYBS3bFPT9iZqv1Wn2jIAxLoA6Y3F5DXWpKAxl7WS5OlhnafUCw>
+ <xmx:80iVYKtXGZVZY0ijBSeAxJBS9608yg8EevjzyL38tzhUBOOFQSpQRg>
+ <xmx:80iVYCe6dZiHOnqmpKw0q8e4kx7ZQC4_41m2iWE7DDIRwneQvrltoA>
+ <xmx:9kiVYGPRLnKrgzWi5QtLBvQ7_Ra0vCOaF48JtfHBTfdeQZx8pOPZAJ-n3pM>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
+ Fri,  7 May 2021 10:04:35 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
+Subject: [PATCH 00/11] drm/vc4: hdmi: Enable Channel Mapping, IEC958,
+ HBR Passthrough using hdmi-codec
+Date: Fri,  7 May 2021 16:03:23 +0200
+Message-Id: <20210507140334.204865-1-maxime@cerno.tech>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <20210506115626.12480-1-Perry_Yuan@Dell.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, platform-driver-x86@vger.kernel.org, broonie@kernel.org,
- Dell.Client.Kernel@dell.com, mario.limonciello@outlook.com
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Dom Cobley <dom@raspberrypi.com>, Tim Gover <tim.gover@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Eric Anholt <eric@anholt.net>,
+ Rob Herring <robh+dt@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
+ Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+ Daniel Vetter <daniel@ffwll.ch>, Phil Elwell <phil@raspberrypi.com>,
+ linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,259 +123,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Perry,
-
-On 5/6/21 1:56 PM, Perry Yuan wrote:
-> From: Perry Yuan <perry_yuan@dell.com>
-> 
-> Some new Dell system is going to support audio internal micphone
-> privacy setting from hardware level with micmute led state changing
-> When micmute hotkey pressed by user, soft mute will need to be enabled
-> firstly in case of pop noise, and codec driver need to react to mic
-> mute event to EC(embedded controller) notifying that SW mute is completed
-> Then EC will do the hardware mute physically within the timeout reached
-> 
-> This patch allow codec rt715 and rt715 sdca driver to change the local micmute
-> led state. Dell privacy led trigger driver will ack EC when micmute key pressed
-> through this micphone led control interface like hda_generic provided
-> ACPI method defined in dell-privacy micmute led trigger will be called
-> for notifying the EC that software mute has been completed, then hardware
-> audio circuit solution controlled by EC will switch the audio input source off/on
-> 
-> Signed-off-by: Perry Yuan <perry_yuan@dell.com>
-
-NACK, as explained before we want the binding of the control to the
-LED-trigger to be done from the UCM profile.
-
-Support for this has landed kernel-side in Linux tree now (this will
-be part of 5.13-rc1). Together with the latest git alsa-lib and
-alsa-utils code, you can now do what this patch does from an UCM
-profile file and AFAIK that is the preferred way to do this.
-
-See here for an example UCM profile patch implementing this:
-
-https://lore.kernel.org/alsa-devel/20210507131139.10231-3-hdegoede@redhat.com/T/#u
-
-Note that if you test this under Fedora you will hit a selinux denial,
-to workaround that you can put selinux in permissive mode. This selinux
-issue is being tracked here:
-
-https://bugzilla.redhat.com/show_bug.cgi?id=1958210
-
-Regards,
-
-Hans
-
-
-
-
-
-
-> 
-> --------
-> v7 -> v8:
-> * N/A
-> v6 -> v7:
-> * addresed review comments from Jaroslav
-> * use device id in the quirk list
-> v5 -> v6:
-> * add quirks for micmute led control as short term solution to control
->   micmute led state change
-> * add comments for the invert checking
-> v4 -> v5:
-> * rebase to latest 5.12 rc4 upstream kernel
-> v3 -> v4:
-> * remove unused debug log
-> * remove compile flag of DELL privacy
-> * move the micmute_led to local from rt715_priv
-> * when Jaroslav upstream his gerneric LED trigger driver,I will rebase
->   this patch,please consider merge this at first
->   https://lore.kernel.org/alsa-devel/20210211111400.1131020-1-perex@perex.cz/
-> v2 -> v3:
-> * simplify the patch to reuse some val value
-> * add more detail to the commit info
-> v1 -> v2:
-> * fix some format issue
-> --------
-> ---
->  sound/soc/codecs/rt715-sdca.c | 42 +++++++++++++++++++++++++++++++++++
->  sound/soc/codecs/rt715.c      | 42 +++++++++++++++++++++++++++++++++++
->  2 files changed, 84 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/rt715-sdca.c b/sound/soc/codecs/rt715-sdca.c
-> index 936e3061ca1e..de46514e0207 100644
-> --- a/sound/soc/codecs/rt715-sdca.c
-> +++ b/sound/soc/codecs/rt715-sdca.c
-> @@ -11,12 +11,14 @@
->  #include <linux/moduleparam.h>
->  #include <linux/kernel.h>
->  #include <linux/init.h>
-> +#include <linux/leds.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/pm.h>
->  #include <linux/soundwire/sdw.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
->  #include <linux/platform_device.h>
-> +#include <linux/dmi.h>
->  #include <sound/core.h>
->  #include <sound/pcm.h>
->  #include <sound/pcm_params.h>
-> @@ -344,6 +346,32 @@ static int rt715_sdca_get_volsw(struct snd_kcontrol *kcontrol,
->  	return 0;
->  }
->  
-> +static bool micmute_led_set;
-> +static int  dmi_matched(const struct dmi_system_id *dmi)
-> +{
-> +	micmute_led_set = 1;
-> +	return 1;
-> +}
-> +
-> +/* Some systems will need to use this to trigger mic mute LED state changed */
-> +static const struct dmi_system_id micmute_led_dmi_table[] = {
-> +	{
-> +		.callback = dmi_matched,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_SKU, "0A32"),
-> +		},
-> +	},
-> +	{
-> +		.callback = dmi_matched,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_SKU, "0A3E"),
-> +		},
-> +	},
-> +	{},
-> +};
-> +
->  static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
->  	struct snd_ctl_elem_value *ucontrol)
->  {
-> @@ -358,6 +386,7 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
->  	unsigned int mask = (1 << fls(max)) - 1;
->  	unsigned int invert = p->invert;
->  	int err;
-> +	bool micmute_led;
->  
->  	for (i = 0; i < 4; i++) {
->  		if (ucontrol->value.integer.value[i] != rt715->kctl_switch_orig[i]) {
-> @@ -394,6 +423,18 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
->  			return err;
->  	}
->  
-> +	/* Micmute LED state changed by muted/unmute switch
-> +	 * to keep syncing with actual hardware mic mute led state
-> +	 * invert will be checked to change the state switch
-> +	 */
-> +	if (invert && micmute_led_set) {
-> +		if (ucontrol->value.integer.value[0] || ucontrol->value.integer.value[1])
-> +			micmute_led = LED_OFF;
-> +		else
-> +			micmute_led = LED_ON;
-> +		ledtrig_audio_set(LED_AUDIO_MICMUTE, micmute_led);
-> +	}
-> +
->  	return k_changed;
->  }
->  
-> @@ -1069,6 +1110,7 @@ int rt715_sdca_io_init(struct device *dev, struct sdw_slave *slave)
->  
->  	pm_runtime_mark_last_busy(&slave->dev);
->  	pm_runtime_put_autosuspend(&slave->dev);
-> +	dmi_check_system(micmute_led_dmi_table);
->  
->  	return 0;
->  }
-> diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
-> index 1352869cc086..4dbd870009b8 100644
-> --- a/sound/soc/codecs/rt715.c
-> +++ b/sound/soc/codecs/rt715.c
-> @@ -13,6 +13,7 @@
->  #include <linux/init.h>
->  #include <linux/delay.h>
->  #include <linux/i2c.h>
-> +#include <linux/leds.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/pm.h>
->  #include <linux/soundwire/sdw.h>
-> @@ -25,6 +26,7 @@
->  #include <linux/of.h>
->  #include <linux/of_gpio.h>
->  #include <linux/of_device.h>
-> +#include <linux/dmi.h>
->  #include <sound/core.h>
->  #include <sound/pcm.h>
->  #include <sound/pcm_params.h>
-> @@ -70,6 +72,32 @@ static void rt715_get_gain(struct rt715_priv *rt715, unsigned int addr_h,
->  		pr_err("Failed to get L channel gain.\n");
->  }
->  
-> +static bool micmute_led_set;
-> +static int  dmi_matched(const struct dmi_system_id *dmi)
-> +{
-> +	micmute_led_set = 1;
-> +	return 1;
-> +}
-> +
-> +/* Some systems will need to use this to trigger mic mute LED state changed */
-> +static const struct dmi_system_id micmute_led_dmi_table[] = {
-> +	{
-> +		.callback = dmi_matched,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_SKU, "0A32"),
-> +		},
-> +	},
-> +	{
-> +		.callback = dmi_matched,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_SKU, "0A3E"),
-> +		},
-> +	},
-> +	{},
-> +};
-> +
->  /* For Verb-Set Amplifier Gain (Verb ID = 3h) */
->  static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
->  					struct snd_ctl_elem_value *ucontrol)
-> @@ -83,6 +111,7 @@ static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
->  	unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
->  	unsigned int read_ll, read_rl, i;
->  	unsigned int k_vol_changed = 0;
-> +	bool micmute_led;
->  
->  	for (i = 0; i < 2; i++) {
->  		if (ucontrol->value.integer.value[i] != rt715->kctl_2ch_vol_ori[i]) {
-> @@ -155,6 +184,18 @@ static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
->  			break;
->  	}
->  
-> +	/* Micmute LED state changed by muted/unmute switch
-> +	 * to keep syncing with actual hardware mic mute led state
-> +	 * invert will be checked to change the state switch
-> +	 */
-> +	if (micmute_led_set) {
-> +		if (ucontrol->value.integer.value[0] || ucontrol->value.integer.value[1])
-> +			micmute_led = LED_OFF;
-> +		else
-> +			micmute_led = LED_ON;
-> +		ledtrig_audio_set(LED_AUDIO_MICMUTE, micmute_led);
-> +	}
-> +
->  	/* D0:power on state, D3: power saving mode */
->  	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
->  		regmap_write(rt715->regmap,
-> @@ -1088,6 +1129,7 @@ int rt715_io_init(struct device *dev, struct sdw_slave *slave)
->  
->  	pm_runtime_mark_last_busy(&slave->dev);
->  	pm_runtime_put_autosuspend(&slave->dev);
-> +	dmi_check_system(micmute_led_dmi_table);
->  
->  	return 0;
->  }
-> 
-
+Hi,=0D
+=0D
+hdmi-codec allows to have a lot of HDMI-audio related infrastructure in pla=
+ce,=0D
+it's missing a few controls to be able to provide HBR passthrough. This ser=
+ies=0D
+adds more infrastructure for the drivers, and leverages it in the vc4 HDMI=
+=0D
+controller driver.=0D
+=0D
+One thing that felt a bit weird is that even though=0D
+https://www.kernel.org/doc/html/latest/sound/kernel-api/writing-an-alsa-dri=
+ver.html#iec958-s-pdif=0D
+mentions that the iec958 mask control should be a mixer control and the=0D
+default control should be a PCM one, it feels a bit weird to have two diffe=
+rent=0D
+control type for two controls so similar, and other drivers are pretty=0D
+inconsistent with this. Should we update the documentation?=0D
+=0D
+Thanks!=0D
+Maxime=0D
+=0D
+Dom Cobley (5):=0D
+  drm/vc4: hdmi: Set HD_CTL_WHOLSMP and HD_CTL_CHALIGN_SET=0D
+  drm/vc4: hdmi: Set HDMI_MAI_FMT=0D
+  drm/vc4: hdmi: Set VC4_HDMI_MAI_CONFIG_FORMAT_REVERSE=0D
+  drm/vc4: hdmi: Remove firmware logic for MAI threshold setting=0D
+  ARM: dts: bcm2711: Tune DMA parameters for HDMI audio=0D
+=0D
+Maxime Ripard (6):=0D
+  snd: iec958: split status creation and fill=0D
+  ASoC: hdmi-codec: Rework to support more controls=0D
+  ASoC: hdmi-codec: Add iec958 controls=0D
+  ASoC: hdmi-codec: Add a prepare hook=0D
+  drm/vc4: hdmi: Register HDMI codec=0D
+  drm/vc4: hdmi: Remove redundant variables=0D
+=0D
+ arch/arm/boot/dts/bcm2711.dtsi |   4 +-=0D
+ drivers/gpu/drm/vc4/Kconfig    |   1 +=0D
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 322 ++++++++++++++-------------------=0D
+ drivers/gpu/drm/vc4/vc4_hdmi.h |   5 +-=0D
+ drivers/gpu/drm/vc4/vc4_regs.h |  30 +++=0D
+ include/sound/hdmi-codec.h     |  12 +-=0D
+ include/sound/pcm_iec958.h     |   8 +=0D
+ sound/core/pcm_iec958.c        | 131 +++++++++-----=0D
+ sound/soc/codecs/hdmi-codec.c  | 219 +++++++++++++++++-----=0D
+ 9 files changed, 456 insertions(+), 276 deletions(-)=0D
+=0D
+-- =0D
+2.31.1=0D
+=0D

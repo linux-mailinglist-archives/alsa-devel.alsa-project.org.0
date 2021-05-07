@@ -2,55 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82991375EDE
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 04:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766EF375F7F
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 06:36:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 186551686;
-	Fri,  7 May 2021 04:46:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 186551686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB55168C;
+	Fri,  7 May 2021 06:35:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB55168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620355622;
-	bh=+q6U/Anj73vSf2VC3igbgxCg/JYoGu+7lUl9pJgbc3g=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BH9PJ4AlCk6HXYDUT29UbILFkvAaUmoNOwKjE/zbG4svDsPwXwmMRUa79pyAQB1a5
-	 PrhOC9pzX3ERcm0VeN/Agu9JIO8iR14QAwFa2CygxPA8y62zL5tvNOCJK7w9jGrgNw
-	 DrrX+2X1Sy/oFNoYOgwRG+1xhh5osFnWtU+o93ZM=
+	s=default; t=1620362170;
+	bh=Gz1eCuZeIbiOMnhsqzLNyv5LtO7u+tpdQc827GXMbmE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NTSlrc7QwvGc5I7MSM40zEHZYXN4qUkM9iP2DcjNxCYKbMxFKoXxSZVUauuLUm6K1
+	 1JEgWSJ7VgJJjcV+Iz+3EcVNAmzdZbfZrieDaDAQ17KrlyIuXmrEDfDkDEIGSXxWfh
+	 TRzsLAb7ZmeEKhJCe6VjavgwUToBGW2DlTe538LM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1175BF80268;
-	Fri,  7 May 2021 04:45:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADCDCF80108;
+	Fri,  7 May 2021 06:34:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C948F8025F; Fri,  7 May 2021 04:45:30 +0200 (CEST)
+ id 4323BF8025F; Fri,  7 May 2021 06:34:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A6D5F80105
- for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 04:45:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A6D5F80105
-Received: from [123.112.70.57] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <hui.wang@canonical.com>)
- id 1leqUP-00058x-VI; Fri, 07 May 2021 02:45:19 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, kailang@realtek.com,
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5C55F80108
+ for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 06:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C55F80108
+Received: by mail-qk1-f177.google.com with SMTP id i17so7307794qki.3
+ for <alsa-devel@alsa-project.org>; Thu, 06 May 2021 21:34:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=Ny/T7GETCcZsveAc22eept4j8pRJh4Gka9m8hkhoVOo=;
+ b=AnUESYa9Iyydzzustmoj++WbtnYwRQfcZiEiEubwAfDoujVKr7in6XW/Em4v9l4QxJ
+ jp+ZK649T615ScFxf4svq/x5pOb9kBwZ3AJUs2hIi4NsoCyRgr+50YsuUrwlsYmW9N9E
+ IyYQDNu7jYRqqx5lEXlI5jada9YzmzrptDaP/1Of01AZoZvwhX+g61u9qbCICbLts8Nd
+ D4YgXWq29rCv7X6u88uATHFLAxVB6/1IBXlpnFJ0iDVGbbhOGOTtz7LGD+5vygiQUQGm
+ 5Pkdbr3sgvRdwD3+d1KSryl45xit0gdrQb27wCJEo65TbNaRnxs0LnjMTY5UJ0lIhmci
+ b95g==
+X-Gm-Message-State: AOAM532z4+ar4Q96dWCgQnxEyh6+pEEkDHUyiyKSj9TSWKjAY1yB249V
+ i0e8LDSM0lKVjOzOqSzSKO0LWjPLDc0=
+X-Google-Smtp-Source: ABdhPJx3qDTe8f4kbU5lASQAD88Rzzj+FaRBv1rGnD/PgTTLmOeVLCJClkpxFiby7a4ddyQ2xhrGwQ==
+X-Received: by 2002:a37:8744:: with SMTP id j65mr8112694qkd.304.1620362070766; 
+ Thu, 06 May 2021 21:34:30 -0700 (PDT)
+Received: from ?IPv6:2601:184:417f:5b5f::557e:48ed?
+ ([2601:184:417f:5b5f::557e:48ed])
+ by smtp.gmail.com with ESMTPSA id p187sm4149487qkd.92.2021.05.06.21.34.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 May 2021 21:34:30 -0700 (PDT)
+Subject: Re: [PATCH AUTOSEL 5.12 090/116] ASoC: rt286: Generalize support for
+ ALC3263 codec
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: reset eapd coeff to default value for
- alc287
-Date: Fri,  7 May 2021 10:44:52 +0800
-Message-Id: <20210507024452.8300-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+References: <20210505163125.3460440-1-sashal@kernel.org>
+ <20210505163125.3460440-90-sashal@kernel.org>
+From: David Ward <david.ward@gatech.edu>
+Message-ID: <55cb81cd-4eb9-049a-abf6-d4628ac8cb34@gatech.edu>
+Date: Fri, 7 May 2021 00:34:29 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210505163125.3460440-90-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,49 +95,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ubuntu users reported an audio bug on the Lenovo Yoga Slim 7 14IIL05,
-he installed dual OS (Windows + Linux), if he booted to the Linux
-from Windows, the Speaker can't work well, it has crackling noise,
-if he poweroff the machine first after Windows, the Speaker worked
-well.
+On 5/5/21 12:30 PM, Sasha Levin wrote:
+> From: David Ward <david.ward@gatech.edu>
+>
+> [ Upstream commit aa2f9c12821e6a4ba1df4fb34a3dbc6a2a1ee7fe ]
+>
+> The ALC3263 codec on the XPS 13 9343 is also found on the Latitude 13 7=
+350
+> and Venue 11 Pro 7140. They require the same handling for the combo jac=
+k to
+> work with a headset: GPIO pin 6 must be set.
+>
+> The HDA driver always sets this pin on the ALC3263, which it distinguis=
+hes
+> by the codec vendor/device ID 0x10ec0288 and PCI subsystem vendor ID 0x=
+1028
+> (Dell). The ASoC driver does not use PCI, so adapt this check to use DM=
+I to
+> determine if Dell is the system vendor.
 
-Before rebooting or shutdown from Windows, the Windows changes the
-codec eapd coeff value, but the BIOS doesn't re-initialize its value,
-when booting into the Linux from Windows, the eapd coeff value is not
-correct. To fix it, set the codec default value to that coeff register
-in the alsa driver.
+For this patch to be useful, commit cd8499d5c03b ("ASoC: rt286: Make=20
+RT286_SET_GPIO_* readable and writable") from the same series is needed=20
+as well, which fixed the regmap config.
 
-BugLink: http://bugs.launchpad.net/bugs/1925057
-Suggested-by: Kailang Yang <kailang@realtek.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+(The same comment is true for all stable branches.)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 6d58f24c9702..a5f3e78ec04e 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -395,7 +395,6 @@ static void alc_fill_eapd_coef(struct hda_codec *codec)
- 	case 0x10ec0282:
- 	case 0x10ec0283:
- 	case 0x10ec0286:
--	case 0x10ec0287:
- 	case 0x10ec0288:
- 	case 0x10ec0285:
- 	case 0x10ec0298:
-@@ -406,6 +405,10 @@ static void alc_fill_eapd_coef(struct hda_codec *codec)
- 	case 0x10ec0275:
- 		alc_update_coef_idx(codec, 0xe, 0, 1<<0);
- 		break;
-+	case 0x10ec0287:
-+		alc_update_coef_idx(codec, 0x10, 1<<9, 0);
-+		alc_write_coef_idx(codec, 0x8, 0x4ab7);
-+		break;
- 	case 0x10ec0293:
- 		alc_update_coef_idx(codec, 0xa, 1<<13, 0);
- 		break;
--- 
-2.25.1
+Thank you,
+
+David
+
+>
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=3D150601
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=3D205961
+> Signed-off-by: David Ward <david.ward@gatech.edu>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com=
+>
+> Link: https://lore.kernel.org/r/20210418134658.4333-6-david.ward@gatech=
+=2Eedu
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   sound/soc/codecs/rt286.c | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+> index 8abe232ca4a4..2f18f5114f7e 100644
+> --- a/sound/soc/codecs/rt286.c
+> +++ b/sound/soc/codecs/rt286.c
+> @@ -1117,12 +1117,11 @@ static const struct dmi_system_id force_combo_j=
+ack_table[] =3D {
+>   	{ }
+>   };
+>  =20
+> -static const struct dmi_system_id dmi_dell_dino[] =3D {
+> +static const struct dmi_system_id dmi_dell[] =3D {
+>   	{
+> -		.ident =3D "Dell Dino",
+> +		.ident =3D "Dell",
+>   		.matches =3D {
+>   			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -			DMI_MATCH(DMI_PRODUCT_NAME, "XPS 13 9343")
+>   		}
+>   	},
+>   	{ }
+> @@ -1133,7 +1132,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c=
+,
+>   {
+>   	struct rt286_platform_data *pdata =3D dev_get_platdata(&i2c->dev);
+>   	struct rt286_priv *rt286;
+> -	int i, ret, val;
+> +	int i, ret, vendor_id;
+>  =20
+>   	rt286 =3D devm_kzalloc(&i2c->dev,	sizeof(*rt286),
+>   				GFP_KERNEL);
+> @@ -1149,14 +1148,15 @@ static int rt286_i2c_probe(struct i2c_client *i=
+2c,
+>   	}
+>  =20
+>   	ret =3D regmap_read(rt286->regmap,
+> -		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &val);
+> +		RT286_GET_PARAM(AC_NODE_ROOT, AC_PAR_VENDOR_ID), &vendor_id);
+>   	if (ret !=3D 0) {
+>   		dev_err(&i2c->dev, "I2C error %d\n", ret);
+>   		return ret;
+>   	}
+> -	if (val !=3D RT286_VENDOR_ID && val !=3D RT288_VENDOR_ID) {
+> +	if (vendor_id !=3D RT286_VENDOR_ID && vendor_id !=3D RT288_VENDOR_ID)=
+ {
+>   		dev_err(&i2c->dev,
+> -			"Device with ID register %#x is not rt286\n", val);
+> +			"Device with ID register %#x is not rt286\n",
+> +			vendor_id);
+>   		return -ENODEV;
+>   	}
+>  =20
+> @@ -1180,8 +1180,8 @@ static int rt286_i2c_probe(struct i2c_client *i2c=
+,
+>   	if (pdata)
+>   		rt286->pdata =3D *pdata;
+>  =20
+> -	if (dmi_check_system(force_combo_jack_table) ||
+> -		dmi_check_system(dmi_dell_dino))
+> +	if ((vendor_id =3D=3D RT288_VENDOR_ID && dmi_check_system(dmi_dell)) =
+||
+> +		dmi_check_system(force_combo_jack_table))
+>   		rt286->pdata.cbj_en =3D true;
+>  =20
+>   	regmap_write(rt286->regmap, RT286_SET_AUDIO_POWER, AC_PWRST_D3);
+> @@ -1220,7 +1220,7 @@ static int rt286_i2c_probe(struct i2c_client *i2c=
+,
+>   	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL3, 0xf777, 0x4737)=
+;
+>   	regmap_update_bits(rt286->regmap, RT286_DEPOP_CTRL4, 0x00ff, 0x003f)=
+;
+>  =20
+> -	if (dmi_check_system(dmi_dell_dino)) {
+> +	if (vendor_id =3D=3D RT288_VENDOR_ID && dmi_check_system(dmi_dell)) {=
+
+>   		regmap_update_bits(rt286->regmap,
+>   			RT286_SET_GPIO_MASK, 0x40, 0x40);
+>   		regmap_update_bits(rt286->regmap,
 

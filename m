@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA8B3765D1
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 15:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABEF3765D2
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 May 2021 15:13:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF47850;
-	Fri,  7 May 2021 15:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF47850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D7731677;
+	Fri,  7 May 2021 15:12:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D7731677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620393174;
+	s=default; t=1620393190;
 	bh=65F8puvwFX8D9ztG8a5TNnRq/ofEbfF6w5kZNfGyUTA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cZFQLrC1GRz7QIh6VG7kL+jCeWGTFr73/k++W7mQcnHOTnB1hZ2lzE7jYvgudMvZ/
-	 QITloJ+1GIzIkhd7B1Ecyzmk3OrLe5HJafxzbjE7DFkhCv4W5siWnxS/AXS+mtQlxX
-	 s8TkIE7VlqqZiGDvcylFP//D//GBa1BPIXbYin98=
+	b=IQSaIKZrx2OJZSKn7mODA3yOpUSoHhleBjK7pHDccPE5EZenjjc1vcMrfPS3pnHMb
+	 hR7IMDi7gRNhDyTd049yjdMJus/7ZUqbZ833OWatujOThEsPHnMkTQIyNR4JzRwU3A
+	 y2cczWBontlmjmMiphVGJYF7ATGr71bI8JOx/4mM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01206F80108;
-	Fri,  7 May 2021 15:11:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B6FAF80425;
+	Fri,  7 May 2021 15:11:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA888F8025F; Fri,  7 May 2021 15:11:24 +0200 (CEST)
+ id 8E09AF80279; Fri,  7 May 2021 15:11:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1ACFAF80108
- for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 15:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ACFAF80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C0F8F80268
+ for <alsa-devel@alsa-project.org>; Fri,  7 May 2021 15:11:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C0F8F80268
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="QwiSt3ny"
+ header.b="U5Ggfx4c"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620393076;
+ s=mimecast20190719; t=1620393104;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
  bh=C03uMC8a/jUKZ6fldT3S86p12e1l3qpY6Lq27009iYo=;
- b=QwiSt3nyMg6pUsOZ2pzj3lld06JwxQow0ksOTLfWBssdW0Q8YpD6rChL9WuyZfMw0i5X1F
- dMiMY5qyH67s6jtgjcXDrX4WY+du+9qVuyTpKs8Rld96+R5+dl/9ETVRRz8SD+viooys1q
- dQPqNKAQT2K3gM9bYn4e7uQjrgnKj8A=
+ b=U5Ggfx4ccK3Rl5IVgWoFxHnUsbWtlmIazTjcHLhaVZ3oJA321fszu4h2/NEcN+3d206wlv
+ vuJHygr8BAwO7jEQWHsB5mW+w0NKf3anJNOKNDBIy0woxVm4CuS8uNuP5blOnSWoGNvg3N
+ q8m518kL44wIy43hEaYW/azHz/7OKgI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-548-4x6z8DkCM864K9nX0momqg-1; Fri, 07 May 2021 09:11:14 -0400
-X-MC-Unique: 4x6z8DkCM864K9nX0momqg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
+ us-mta-551-sn58bbZjMWWSnGiVrExaFQ-1; Fri, 07 May 2021 09:11:42 -0400
+X-MC-Unique: sn58bbZjMWWSnGiVrExaFQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C747A801AE6;
- Fri,  7 May 2021 13:11:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AFE8C107ACE3;
+ Fri,  7 May 2021 13:11:41 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-113-54.ams2.redhat.com [10.36.113.54])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1DE2F5D9CC;
- Fri,  7 May 2021 13:11:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 971725C255;
+ Fri,  7 May 2021 13:11:40 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Jaroslav Kysela <perex@perex.cz>
 Subject: [PATCH alsa-ucm-conf 0/3] byt/cht: Add support for controlling mute
  LEDs using the new snd_ctl_led kmod
-Date: Fri,  7 May 2021 15:11:04 +0200
-Message-Id: <20210507131109.10146-1-hdegoede@redhat.com>
+Date: Fri,  7 May 2021 15:11:36 +0200
+Message-Id: <20210507131139.10231-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0

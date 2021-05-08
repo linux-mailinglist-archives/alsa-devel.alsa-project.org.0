@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA8CD377082
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 May 2021 09:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F5B377098
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 May 2021 10:08:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 976361694;
-	Sat,  8 May 2021 09:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 976361694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81B1C42;
+	Sat,  8 May 2021 10:05:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81B1C42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620460534;
-	bh=L5ouNKImbRubViMUFjNN3cbungapXsd0pRdZBO03o1s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S74SSxm5HYM/8H4hyCEqp0t1nkvx3k87R7sA5joWf7iOUng8fSlb9LbwBaaYGhtGh
-	 +ieUtYBz71iIvO6bXYuOfl6bFizD89H0qDXwHSrLl4iUNpVCa62P7IhHVKqZzjg0Rn
-	 ttwyJeTvc6mhaPg/VGlHcRaQywf6fh+tF1cw9/p4=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23A1FF8023C;
-	Sat,  8 May 2021 09:52:26 +0200 (CEST)
+	s=default; t=1620461300;
+	bh=CDK816gb+ascPVi9hHY9IuOu9wDolopS0LS4CH3VdZg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Og5C42pGgTnpVHq6om59kX9yhRX+JV0EpIKpXKuQXIzy9S/9p8JTfFCud69K0J1WE
+	 rTcFFOWDSHI4l2QTFjlhhJrcaIxesjg7Zm8wzMR6Qsuu8mjpVnjaZpivMyiycKFuye
+	 7LoNoC3FNwfgqKBMU77vz2F4Rfo3IYBErktGTBN8=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 733D8F80234;
+	Sat,  8 May 2021 09:52:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20501F8021C; Sat,  8 May 2021 09:52:14 +0200 (CEST)
+ id EAA92F80234; Sat,  8 May 2021 09:52:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9320DF8010B
- for <alsa-devel@alsa-project.org>; Sat,  8 May 2021 09:51:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9320DF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 454CEF800E8
+ for <alsa-devel@alsa-project.org>; Sat,  8 May 2021 09:52:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 454CEF800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="XzbrTyXs"
-Received: by mail-pj1-x102c.google.com with SMTP id
- h14-20020a17090aea8eb02901553e1cc649so6707778pjz.0
- for <alsa-devel@alsa-project.org>; Sat, 08 May 2021 00:51:55 -0700 (PDT)
+ header.b="A+qUdMSv"
+Received: by mail-pl1-x635.google.com with SMTP id a11so6397358plh.3
+ for <alsa-devel@alsa-project.org>; Sat, 08 May 2021 00:52:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=7+LUtwfRs66K7/usQVNOuvgUZ6bVUtHjhJJe+YZ0tm4=;
- b=XzbrTyXsIlZx9V9LAzHOxJrO+jh9aLJKwppP2Nt9laYQ+LNhzh6wrB57Cj+dGr7deP
- XHxqWIA8tICdBbMisUzEyQiWjL1X5ClxrOJk49vSLdo3Bbsh10Ly36w56q+cWMdXMWa0
- wM5WTHq1uoDYuKILe1IFvWycmLPNy314FE8QQ=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pxp734UlOkRRxunoHCpwvTPDDo/epCxir06qlJaIU9c=;
+ b=A+qUdMSv0ZBpGuTwDxnlbJCY5Q35JWOwTnBzzuyRxwceC6c7WBDKIpmWtjrKyikp+1
+ Ea/HwhjKjM8Tdlm5XEoQn8i38S6Ow7jM+PmnNK2XvTV81bybiUeXl8HnqIHcghgi6gmk
+ wNPkPDMJFEGkmekhT8+aoQP4ylGIdkZ2ieC0E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7+LUtwfRs66K7/usQVNOuvgUZ6bVUtHjhJJe+YZ0tm4=;
- b=sIRLrOrVK2wyV9Sg3jD/mhrRaxQtFfkeZwntYU5032sP0l177xBMO9+L009hIMbpFU
- 9fIB465UXHpRC1S1L4+hLhbw6UhuNUBLwLImfVvu92b/W1m2fK/R24wIgz913YvSi7Nr
- 5tvBJ4voK9TmMdlbYGzeKmAGAXyzuml+WR/VNOWrIxUy51HifMIIV9RFc3y3JfqD1Aad
- F18ASNFo1lk3Htt+PRYVKPr8pQRYEBl9kjmv6Ae36XVLAM3RGz410EjISm7v5Rlvt8QM
- mdmN5FzlYSIuQNPmix9WJ2rvXqOBX/cMJvrdvXfqL3byf3/+I3bSwVuJ750rbhpsateF
- +Bew==
-X-Gm-Message-State: AOAM5310HoJ/gKUF1Eby39oioWiI/yYJ9o7dOUS1k5lDGLe01H24/VOO
- GexztNLG5rYTKBChF41KkVrq2w==
-X-Google-Smtp-Source: ABdhPJw1M68FCMCBHQWrUE9x47jK+e4cOkD+yJZlFNG2fSj5vu+SjSzR2lLT81gpnUIqLeunnKxQUw==
-X-Received: by 2002:a17:90a:b78d:: with SMTP id
- m13mr29138284pjr.47.1620460314132; 
- Sat, 08 May 2021 00:51:54 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:ab8b:4a3d:46ab:361c])
- by smtp.gmail.com with ESMTPSA id b65sm6345091pga.83.2021.05.08.00.51.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pxp734UlOkRRxunoHCpwvTPDDo/epCxir06qlJaIU9c=;
+ b=g1GkcLag3SgUJVzvmpFC/TYt20w24psa4lqQ0aR7TEYR1nMMHG5jgulcGpFuouzTaV
+ rySwZn7zSkw/df+JhPTN9YBlaX5j5+MBXTL79fSIh1SMxYDh0ig/yO6GRZNxYUkWuJ8B
+ SQve6ZQnudjMno/gTTp4Iz2E7JTyBwnaIHtbT6ONInXtc2+BKC+RatJh9P7bz09B9YlN
+ w1FGo5yMBfNWqmhx42Ng6kJF9Nh/KMWLjaa+69MHbVSJ6OTy0oCKHANRwpofSS7N7a8c
+ b+xoqedkSrLca+nfJzT/LFU+g0vy/+I4mMb96tfWsixb54rGz09mdJYcLqZQ+0LnEFlr
+ mNKA==
+X-Gm-Message-State: AOAM533z+eitYYsgsX7iIPsIpLRgDmvhW5/CtjDcnbAfyfKWsLU5KIJs
+ x+f10qVtA4i1Ym4nkRBEkWsYOA==
+X-Google-Smtp-Source: ABdhPJxaBMAzmyl39VfTVwVMp2YZpbT/F0pm0xyG8G2PQRr5Psju/7ZCbR7aahhd7NmJJu1e4pdzQA==
+X-Received: by 2002:a17:90a:f694:: with SMTP id
+ cl20mr14962788pjb.67.1620460313121; 
  Sat, 08 May 2021 00:51:53 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:201:ab8b:4a3d:46ab:361c])
+ by smtp.gmail.com with ESMTPSA id b65sm6345091pga.83.2021.05.08.00.51.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 May 2021 00:51:52 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Mark Brown <broonie@kernel.org>
-Subject: [RFC/PATCH 2/2] ASoC: rt5682: Implement remove callback
-Date: Sat,  8 May 2021 00:51:51 -0700
-Message-Id: <20210508075151.1626903-2-swboyd@chromium.org>
+Subject: [PATCH 1/2] ASoC: rt5682: Disable irq on shutdown
+Date: Sat,  8 May 2021 00:51:50 -0700
+Message-Id: <20210508075151.1626903-1-swboyd@chromium.org>
 X-Mailer: git-send-email 2.31.1.607.g51e8a6a459-goog
-In-Reply-To: <20210508075151.1626903-1-swboyd@chromium.org>
-References: <20210508075151.1626903-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Jairaj Arava <jairaj.arava@intel.com>,
@@ -103,52 +99,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Let's implement a remove callback for this driver that's similar to the
-shutdown hook, but also disables the regulators before they're put by
-devm code.
+We cancel the work queues, and reset the device on shutdown, but the irq
+isn't disabled so the work queues could be queued again. Let's disable
+the irq during shutdown so that we don't have to worry about this device
+trying to do anything anymore. This fixes a problem seen where the i2c
+bus is shutdown at reboot but this device irq still comes in and tries
+to make another i2c transaction when the bus doesn't work.
 
 Cc: Jairaj Arava <jairaj.arava@intel.com>
 Cc: Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 Cc: Shuming Fan <shumingf@realtek.com>
 Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Fixes: 45a2702ce109 ("ASoC: rt5682: Fix panic in rt5682_jack_detect_handler happening during system shutdown")
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
-
-This is totally untested, but sending it in case anyone is interested.
-
- sound/soc/codecs/rt5682-i2c.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/codecs/rt5682-i2c.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
-index 8265b537ff4f..52a6fc56a232 100644
+index 93c1603b42f1..8265b537ff4f 100644
 --- a/sound/soc/codecs/rt5682-i2c.c
 +++ b/sound/soc/codecs/rt5682-i2c.c
-@@ -280,6 +280,16 @@ static void rt5682_i2c_shutdown(struct i2c_client *client)
- 	rt5682_reset(rt5682);
- }
+@@ -273,6 +273,7 @@ static void rt5682_i2c_shutdown(struct i2c_client *client)
+ {
+ 	struct rt5682_priv *rt5682 = i2c_get_clientdata(client);
  
-+static int rt5682_i2c_remove(struct i2c_client *client)
-+{
-+	struct rt5682_priv *rt5682 = i2c_get_clientdata(client);
-+
-+	rt5682_i2c_shutdown(client);
-+	regulator_bulk_disable(ARRAY_SIZE(rt5682->supplies), rt5682->supplies);
-+
-+	return 0;
-+}
-+
- static const struct of_device_id rt5682_of_match[] = {
- 	{.compatible = "realtek,rt5682i"},
- 	{},
-@@ -306,6 +316,7 @@ static struct i2c_driver rt5682_i2c_driver = {
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 	},
- 	.probe = rt5682_i2c_probe,
-+	.remove = rt5682_i2c_remove,
- 	.shutdown = rt5682_i2c_shutdown,
- 	.id_table = rt5682_i2c_id,
- };
++	disable_irq(client->irq);
+ 	cancel_delayed_work_sync(&rt5682->jack_detect_work);
+ 	cancel_delayed_work_sync(&rt5682->jd_check_work);
+ 
+
+base-commit: 9f4ad9e425a1d3b6a34617b8ea226d56a119a717
 -- 
 https://chromeos.dev
 

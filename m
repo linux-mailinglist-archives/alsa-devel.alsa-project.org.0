@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A683779FB
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 03:53:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AC403779FC
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 03:54:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CE7116A9;
-	Mon, 10 May 2021 03:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CE7116A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A249816AE;
+	Mon, 10 May 2021 03:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A249816AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620611607;
-	bh=JY5ermeKoONnp9YM4LwPxlbikJbsCUyR46lTi94RtO8=;
+	s=default; t=1620611642;
+	bh=17yAvm+1t8W88LRy+h6SevuLKbVKJjd1UQXZeV5HhQ8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Na4udoBF5o45vZSI7mDjIs2Dc5RNGuRCD0J9IxGFk45cSMHmOlDmmJzmkVayoGEsf
-	 X/4qjz2WmXY6nWG0I1cJdha43Sh1wl2SJn1uavtzwyACOIzRK9+AzIEWnGYFeNMSxc
-	 AHJZN87QvXdbBQl9QZ1J+s/xRKctcuGwFXFkI2GE=
+	b=JxwPpapj9oFc8ZmZArtj9TPd9Qnd2UMgdQ8FH+QvPvW2olcodrhYhm3Kc+r1+zLzf
+	 46H+FtAcdIMtN2NtMEXsiEcK6wsHAGfLRRXvTzp9bP/zy5WH0fjlPidcuuMNyajfE9
+	 Q+JHIj1O8qrL0iaRoHojYYmchIHCer7PtqGOhE8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0D3DF8026F;
-	Mon, 10 May 2021 03:52:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BFB7F8027D;
+	Mon, 10 May 2021 03:52:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 214EFF80272; Mon, 10 May 2021 03:52:13 +0200 (CEST)
+ id 92634F8026F; Mon, 10 May 2021 03:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 0F646F8026B
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 03:52:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F646F8026B
-Date: 10 May 2021 10:52:03 +0900
-X-IronPort-AV: E=Sophos;i="5.82,286,1613401200"; d="scan'208";a="80754848"
+ by alsa1.perex.cz (Postfix) with ESMTP id 3BBFDF8026B
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 03:52:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BBFDF8026B
+Date: 10 May 2021 10:52:11 +0900
+X-IronPort-AV: E=Sophos;i="5.82,286,1613401200"; d="scan'208";a="80754874"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 10 May 2021 10:52:03 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 10 May 2021 10:52:11 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 649EE401324E;
- Mon, 10 May 2021 10:52:03 +0900 (JST)
-Message-ID: <87bl9jcq4c.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B88E0401324E;
+ Mon, 10 May 2021 10:52:11 +0900 (JST)
+Message-ID: <87a6p3cq44.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/4] ASoC: simple-card: add simple_parse_node()
+Subject: [PATCH 2/4] ASoC: simple-card: add simple_link_init()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Michael Walle <michael@walle.cc>,
  Guillaume Tucker <guillaume.tucker@collabora.com>
@@ -71,290 +71,141 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Parse dai/tdm/clk are common for both CPU/Codec node.
-This patch creates simple_parse_node() for it and share the code.
+This patch adds simple_link_init() and share dai_link setting code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card.c | 145 ++++++++++++++++----------------
- 1 file changed, 74 insertions(+), 71 deletions(-)
+ sound/soc/generic/simple-card.c | 62 +++++++++++++++++----------------
+ 1 file changed, 32 insertions(+), 30 deletions(-)
 
 diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index a1373be4558f..5288aacfc628 100644
+index 5288aacfc628..c9edde04a4a9 100644
 --- a/sound/soc/generic/simple-card.c
 +++ b/sound/soc/generic/simple-card.c
-@@ -93,12 +93,11 @@ static void simple_parse_convert(struct device *dev,
+@@ -156,6 +156,28 @@ static int simple_parse_node(struct asoc_simple_priv *priv,
+ 	return 0;
  }
  
- static void simple_parse_mclk_fs(struct device_node *top,
--				 struct device_node *cpu,
--				 struct device_node *codec,
-+				 struct device_node *np,
- 				 struct simple_dai_props *props,
- 				 char *prefix)
- {
--	struct device_node *node = of_get_parent(cpu);
-+	struct device_node *node = of_get_parent(np);
- 	char prop[128];
- 
- 	snprintf(prop, sizeof(prop), "%smclk-fs", PREFIX);
-@@ -106,12 +105,57 @@ static void simple_parse_mclk_fs(struct device_node *top,
- 
- 	snprintf(prop, sizeof(prop), "%smclk-fs", prefix);
- 	of_property_read_u32(node,	prop, &props->mclk_fs);
--	of_property_read_u32(cpu,	prop, &props->mclk_fs);
--	of_property_read_u32(codec,	prop, &props->mclk_fs);
-+	of_property_read_u32(np,	prop, &props->mclk_fs);
- 
- 	of_node_put(node);
- }
- 
-+static int simple_parse_node(struct asoc_simple_priv *priv,
-+			     struct device_node *np,
-+			     struct link_info *li,
-+			     char *prefix,
-+			     int is_cpu)
++static int simple_link_init(struct asoc_simple_priv *priv,
++			    struct device_node *node,
++			    struct device_node *codec,
++			    struct link_info *li,
++			    char *prefix,
++			    char *name)
 +{
 +	struct device *dev = simple_priv_to_dev(priv);
-+	struct device_node *top = dev->of_node;
 +	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-+	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	struct snd_soc_dai_link_component *dlc;
-+	struct asoc_simple_dai *dai;
-+	int ret, single = 0;
++	int ret;
 +
-+	if (is_cpu) {
-+		dlc = asoc_link_to_cpu(dai_link, 0);
-+		dai = simple_props_to_dai_cpu(dai_props, 0);
-+	} else {
-+		dlc = asoc_link_to_codec(dai_link, 0);
-+		dai = simple_props_to_dai_codec(dai_props, 0);
-+	}
++	ret = asoc_simple_parse_daifmt(dev, node, codec,
++				       prefix, &dai_link->dai_fmt);
++	if (ret < 0)
++		return 0;
 +
-+	simple_parse_mclk_fs(top, np, dai_props, prefix);
++	dai_link->init			= asoc_simple_dai_init;
++	dai_link->ops			= &simple_ops;
 +
-+	ret = asoc_simple_parse_dai(np, dlc, &single);
-+	if (ret)
-+		return ret;
-+
-+	ret = asoc_simple_parse_clk(dev, np, dai, dlc);
-+	if (ret)
-+		return ret;
-+
-+	ret = asoc_simple_parse_tdm(np, dai);
-+	if (ret)
-+		return ret;
-+
-+	if (is_cpu) {
-+		struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
-+
-+		asoc_simple_canonicalize_cpu(dlc, single);
-+		asoc_simple_canonicalize_platform(platforms, dlc);
-+	}
-+
-+	return 0;
++	return asoc_simple_set_dailink_name(dev, dai_link, name);
 +}
 +
  static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  				   struct device_node *np,
  				   struct device_node *codec,
-@@ -121,10 +165,8 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
- 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
--	struct asoc_simple_dai *dai;
- 	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
- 	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
--	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
+@@ -170,6 +192,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  	struct device_node *top = dev->of_node;
  	struct device_node *node = of_get_parent(np);
  	char *prefix = "";
-@@ -132,39 +174,30 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
++	char dai_name[64];
+ 	int ret;
  
  	dev_dbg(dev, "link_of DPCM (%pOF)\n", np);
+@@ -187,13 +210,9 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  
--	li->link++;
--
- 	/* For single DAI link & old style of DT node */
- 	if (is_top)
- 		prefix = PREFIX;
- 
- 	if (li->cpu) {
--		int is_single_links = 0;
--
- 		/* Codec is dummy */
- 
- 		/* FE settings */
- 		dai_link->dynamic		= 1;
- 		dai_link->dpcm_merged_format	= 1;
- 
--		dai = simple_props_to_dai_cpu(dai_props, 0);
--
--		ret = asoc_simple_parse_dai(np, cpus, &is_single_links);
--		if (ret)
--			goto out_put_node;
--
--		ret = asoc_simple_parse_clk(dev, np, dai, cpus);
+ 		/*
+ 		 * next simple_parse_node() might remove cpus->dai_name.
+-		 * set dailink_name before it.
++		 * get dai_name before it.
+ 		 */
+-		ret = asoc_simple_set_dailink_name(dev, dai_link,
+-						   "fe.%s",
+-						   cpus->dai_name);
 -		if (ret < 0)
 -			goto out_put_node;
--
-+		/*
-+		 * next simple_parse_node() might remove cpus->dai_name.
-+		 * set dailink_name before it.
-+		 */
- 		ret = asoc_simple_set_dailink_name(dev, dai_link,
- 						   "fe.%s",
- 						   cpus->dai_name);
++		snprintf(dai_name, sizeof(dai_name), "fe.%s", cpus->dai_name);
+ 
+ 		ret = simple_parse_node(priv, np, li, prefix, 1);
  		if (ret < 0)
- 			goto out_put_node;
+@@ -209,11 +228,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  
--		asoc_simple_canonicalize_cpu(cpus, is_single_links);
--		asoc_simple_canonicalize_platform(platforms, cpus);
-+		ret = simple_parse_node(priv, np, li, prefix, 1);
-+		if (ret < 0)
-+			goto out_put_node;
- 	} else {
- 		struct snd_soc_codec_conf *cconf;
- 
-@@ -174,23 +207,18 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 		dai_link->no_pcm		= 1;
- 		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
- 
--		dai	= simple_props_to_dai_codec(dai_props, 0);
  		cconf	= simple_props_to_codec_conf(dai_props, 0);
  
--		ret = asoc_simple_parse_dai(np, codecs, NULL);
+-		ret = asoc_simple_set_dailink_name(dev, dai_link,
+-						   "be.%s",
+-						   codecs->dai_name);
 -		if (ret < 0)
 -			goto out_put_node;
--
--		ret = asoc_simple_parse_clk(dev, np, dai, codecs);
--		if (ret < 0)
--			goto out_put_node;
--
- 		ret = asoc_simple_set_dailink_name(dev, dai_link,
- 						   "be.%s",
- 						   codecs->dai_name);
- 		if (ret < 0)
- 			goto out_put_node;
++		snprintf(dai_name, sizeof(dai_name), "be.%s", codecs->dai_name);
  
-+		ret = simple_parse_node(priv, np, li, prefix, 0);
-+		if (ret < 0)
-+			goto out_put_node;
-+
- 		/* check "prefix" from top node */
- 		snd_soc_of_parse_node_prefix(top, cconf, codecs->of_node,
- 					      PREFIX "prefix");
-@@ -201,11 +229,6 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	}
+ 		ret = simple_parse_node(priv, np, li, prefix, 0);
+ 		if (ret < 0)
+@@ -230,15 +245,9 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  
  	simple_parse_convert(dev, np, &dai_props->adata);
--	simple_parse_mclk_fs(top, np, codec, dai_props, prefix);
--
--	ret = asoc_simple_parse_tdm(np, dai);
--	if (ret)
--		goto out_put_node;
  
- 	ret = asoc_simple_parse_daifmt(dev, node, codec,
- 				       prefix, &dai_link->dai_fmt);
-@@ -218,6 +241,8 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 	dai_link->init			= asoc_simple_dai_init;
+-	ret = asoc_simple_parse_daifmt(dev, node, codec,
+-				       prefix, &dai_link->dai_fmt);
+-	if (ret < 0)
+-		goto out_put_node;
+-
+ 	snd_soc_dai_link_set_capabilities(dai_link);
+ 
+-	dai_link->ops			= &simple_ops;
+-	dai_link->init			= asoc_simple_dai_init;
++	ret = simple_link_init(priv, node, codec, li, prefix, dai_name);
  
  out_put_node:
-+	li->link++;
-+
- 	of_node_put(node);
- 	return ret;
- }
-@@ -230,23 +255,18 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- {
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
--	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
--	struct asoc_simple_dai *cpu_dai	= simple_props_to_dai_cpu(dai_props, 0);
--	struct asoc_simple_dai *codec_dai = simple_props_to_dai_codec(dai_props, 0);
- 	struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
- 	struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, 0);
- 	struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, 0);
--	struct device_node *top = dev->of_node;
+ 	li->link++;
+@@ -261,6 +270,7 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
  	struct device_node *cpu = NULL;
  	struct device_node *node = NULL;
  	struct device_node *plat = NULL;
++	char dai_name[64];
  	char prop[128];
  	char *prefix = "";
--	int ret, single_cpu = 0;
-+	int ret;
+ 	int ret;
+@@ -277,19 +287,12 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	snprintf(prop, sizeof(prop), "%splat", prefix);
+ 	plat = of_get_child_by_name(node, prop);
  
- 	cpu  = np;
- 	node = of_get_parent(np);
--	li->link++;
- 
- 	dev_dbg(dev, "link_of (%pOF)\n", node);
- 
-@@ -262,53 +282,36 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
--
--	ret = asoc_simple_parse_dai(cpu, cpus, &single_cpu);
+-	ret = asoc_simple_parse_daifmt(dev, node, codec,
+-				       prefix, &dai_link->dai_fmt);
 -	if (ret < 0)
 -		goto dai_link_of_err;
 -
--	ret = asoc_simple_parse_dai(codec, codecs, NULL);
+ 	/*
+ 	 * next simple_parse_node() might remove cpus->dai_name.
+-	 * set dailink_name before it.
++	 * get dai_name before it.
+ 	 */
+-	ret = asoc_simple_set_dailink_name(dev, dai_link, "%s-%s",
+-					   cpus->dai_name, codecs->dai_name);
 -	if (ret < 0)
 -		goto dai_link_of_err;
--
--	ret = asoc_simple_parse_dai(plat, platforms, NULL);
--	if (ret < 0)
--		goto dai_link_of_err;
--
--	ret = asoc_simple_parse_tdm(cpu, cpu_dai);
--	if (ret < 0)
--		goto dai_link_of_err;
--
--	ret = asoc_simple_parse_tdm(codec, codec_dai);
-+	/*
-+	 * next simple_parse_node() might remove cpus->dai_name.
-+	 * set dailink_name before it.
-+	 */
-+	ret = asoc_simple_set_dailink_name(dev, dai_link, "%s-%s",
-+					   cpus->dai_name, codecs->dai_name);
++	snprintf(dai_name, sizeof(dai_name),
++		 "%s-%s", cpus->dai_name, codecs->dai_name);
+ 
+ 	ret = simple_parse_node(priv, cpu, li, prefix, 1);
+ 	if (ret < 0)
+@@ -303,8 +306,7 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
  	if (ret < 0)
  		goto dai_link_of_err;
  
--	ret = asoc_simple_parse_clk(dev, cpu, cpu_dai, cpus);
-+	ret = simple_parse_node(priv, cpu, li, prefix, 1);
- 	if (ret < 0)
- 		goto dai_link_of_err;
+-	dai_link->ops = &simple_ops;
+-	dai_link->init = asoc_simple_dai_init;
++	ret = simple_link_init(priv, node, codec, li, prefix, dai_name);
  
--	ret = asoc_simple_parse_clk(dev, codec, codec_dai, codecs);
-+	ret = simple_parse_node(priv, codec, li, prefix, 0);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
--	ret = asoc_simple_set_dailink_name(dev, dai_link,
--					   "%s-%s",
--					   cpus->dai_name,
--					   codecs->dai_name);
-+	ret = asoc_simple_parse_dai(plat, platforms, NULL);
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
- 	dai_link->ops = &simple_ops;
- 	dai_link->init = asoc_simple_dai_init;
- 
--	asoc_simple_canonicalize_cpu(cpus, single_cpu);
--	asoc_simple_canonicalize_platform(platforms, cpus);
--
  dai_link_of_err:
  	of_node_put(plat);
- 	of_node_put(node);
- 
-+	li->link++;
-+
- 	return ret;
- }
- 
 -- 
 2.25.1
 

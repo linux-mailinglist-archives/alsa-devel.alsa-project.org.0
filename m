@@ -2,71 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD8B37916C
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 16:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED7B037916D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 16:53:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 798C3178A;
-	Mon, 10 May 2021 16:52:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798C3178A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 757521764;
+	Mon, 10 May 2021 16:52:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 757521764
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620658398;
-	bh=6csNiK+Dh1LnbZhCCvZgMbL8ng55lTCrIpRWSyrHCVM=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KfD85Ju7EN1NLgalCzCgOdq1i6ynIpnH4iY5QWIY369QvMVq4HZTfDZtBh5aQImrQ
-	 8FcZZCgWF4Ws43YE/eV3UyJr9mFnTrxTq7yvpx7frxQ/n/fT1RDrpWpbwvy5zEtrZR
-	 moaaUSdmfSTn5FgDFvjrj8K9LfoaKsuGwUiHl2tA=
+	s=default; t=1620658426;
+	bh=LbmnOxpyt0WXqdMViFTAMoJEaPqlNEegibwGaPEZGG8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZeuE8l3bNjANC4CF57UOYkIfNBVofBlzeA7NxY7oZJJahWhsxWLEtXHh7xzeSv0YR
+	 uDfpMNBI7zgBRKZ/t0+moi5+0h38ijjwS4rn9PjYb6x+ByQGtHadMrkb0YPGT/a9pJ
+	 SyElwdVsjTlpO/B9/HMe41OzzwuuDUUiTwNDEAyg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57B82F804AC;
+	by alsa1.perex.cz (Postfix) with ESMTP id E9F0DF804B2;
 	Mon, 10 May 2021 16:50:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2498BF80240; Mon, 10 May 2021 14:19:26 +0200 (CEST)
+ id A09CCF800E9; Mon, 10 May 2021 14:27:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,PRX_BODY_135,PRX_BODY_29,PRX_BODY_76,PRX_BODY_78,
+ PRX_BODY_79,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95035F800E9
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 14:19:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95035F800E9
-Received: by mail-io1-f72.google.com with SMTP id
- d13-20020a6b7d4d0000b029043969826f55so2280879ioq.0
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 05:19:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=hbAZFBKi/91vle8IM936jH+bKaKyU5eiz4qnNx9xk7g=;
- b=iNsMI4M6cK8QurmGcPwEqblO5UvYOecpBcPzOPt0Nfy93mWgNSW7tASE5I2CeV7Sni
- 40S5wtBoxSFyzqPKgq89XgkkVNEnVVnWsrIcsRfvHpjaisJteByehaHropHpF0N6/QjV
- 07CeeW0CY+LrFmf7J4fm+nwtg983hFtY0cpTg9DHF7NZ43iQN1/Kh5piJoJZHD4sNLvF
- 1qq56yiBcYLkCH0mp+mFnaEm/jZOtVZhYyaHJt/I9La0fcHA+o1Y/DwpadUzX9AHx008
- xsj/VQJ5KEXLppp0eWzc4Kx4YzfBzAE1NpbJ+VmEQXwlEjEMawwZCWrHpUpC99ttv441
- G+ug==
-X-Gm-Message-State: AOAM533X3NhEQWWyFDyiJQgOGEUK6poeM9aCZbiE0fGKdpGYJPhmaBIM
- o4BHuOHGQRYDmiw10yl4+HjsfVR1hwPZmu4Au0s/wlQ6oThe
-X-Google-Smtp-Source: ABdhPJwXpj8S5GjUILMl0R62juQ4GkZOBmbuUP6T2/BxzMk1kLOxXpNZKMaqIMpNpwZqvCNgU8dxvr/feSSFm47SVVLH/8q4tor9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 896ADF800E9
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 14:27:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 896ADF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="MvIyYeVZ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DA7D36101D;
+ Mon, 10 May 2021 12:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620649643;
+ bh=LbmnOxpyt0WXqdMViFTAMoJEaPqlNEegibwGaPEZGG8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MvIyYeVZJjyVYPo6ZRMXjb5Wtr+O8pSeu/Vqj2jEZnOpovUksVrQSoDjNHhf+GLkV
+ 4Xx0fmZ0I8V1A4Kb2+7hdIVjD7dyCDZ4X9WiEgLMaXkHT9nvdsdXD0qTASlyCtYXHQ
+ +sba+YoRuzJSpeKSzMjmk9gfn+Npl0eiyN4rc0rwhqfC0EHszQ12OYVU7kieINgBKf
+ 7gbQpH2YQ/L3zo+vBbuAbSMpy+qiymgJnswcNNZB+ZL9u0csMThXFNu9JeGtygmfK/
+ OJmXKy7SgKeZNkUPykTozc6JFS9iiGjJrQ1MKbH/YSYOaN3FnpGT6AlJS2F55XRmi4
+ 6g1zaYWjm1/jw==
+Date: Mon, 10 May 2021 14:27:12 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
+Message-ID: <20210510142712.02969f6d@coco.lan>
+In-Reply-To: <20210510131950.063f0608@coco.lan>
+References: <cover.1620641727.git.mchehab+huawei@kernel.org>
+ <c4479ced-f4d8-1a1e-ee54-9abc55344187@leemhuis.info>
+ <20210510131950.063f0608@coco.lan>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Received: by 2002:a5d:8c84:: with SMTP id g4mr1713784ion.32.1620649158559;
- Mon, 10 May 2021 05:19:18 -0700 (PDT)
-Date: Mon, 10 May 2021 05:19:18 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000066cad205c1f8c94f@google.com>
-Subject: [syzbot] KASAN: slab-out-of-bounds Read in snd_usbmidi_get_ms_info
-From: syzbot <syzbot+6bb23a5d5548b93c94aa@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, clemens@ladisch.de, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 May 2021 16:50:04 +0200
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
+ linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-rdma@vger.kernel.org, x86@kernel.org, linux-acpi@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
+ linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-sgx@vger.kernel.org, coresight@lists.linaro.org, rcu@vger.kernel.org,
+ mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-integrity@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,145 +97,833 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+Em Mon, 10 May 2021 13:19:50 +0200
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
 
-syzbot found the following issue on:
+> Em Mon, 10 May 2021 12:52:44 +0200
+> Thorsten Leemhuis <linux@leemhuis.info> escreveu:
+>=20
+> > On 10.05.21 12:26, Mauro Carvalho Chehab wrote: =20
+> > >
+> > > As Linux developers are all around the globe, and not everybody has U=
+TF-8
+> > > as their default charset, better to use UTF-8 only on cases where it =
+is really
+> > > needed.
+> > > [=E2=80=A6]
+> > > The remaining patches on series address such cases on *.rst files and=
+=20
+> > > inside the Documentation/ABI, using this perl map table in order to d=
+o the
+> > > charset conversion:
+> > >=20
+> > > my %char_map =3D (
+> > > [=E2=80=A6]
+> > > 	0x2013 =3D> '-',		# EN DASH
+> > > 	0x2014 =3D> '-',		# EM DASH   =20
+>=20
+>=20
+> > I might be performing bike shedding here, but wouldn't it be better to
+> > replace those two with "--", as explained in
+> > https://en.wikipedia.org/wiki/Dash#Approximating_the_em_dash_with_two_o=
+r_three_hyphens
+> >=20
+> > For EM DASH there seems to be even "---", but I'd say that is a bit too
+> > much. =20
+>=20
+> Yeah, we can do, instead:
+>=20
+>  	0x2013 =3D> '--',		# EN DASH
+>  	0x2014 =3D> '---',	# EM DASH =20
+>=20
+> I was actually in doubt about those ;-)
 
-HEAD commit:    31a85035 usb: gadget: fsl_qe_udc: fix implicit-fallthrough..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=109f5a63d00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fbebe41cc7d12c56
-dashboard link: https://syzkaller.appspot.com/bug?extid=6bb23a5d5548b93c94aa
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10693995d00000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10e23c65d00000
+On a quick test, I changed my script to use "--" and "---" for
+EN/EM DASH chars.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6bb23a5d5548b93c94aa@syzkaller.appspotmail.com
+The diff below is against both versions.
 
-usb 1-1: config 199 interface 0 altsetting 0 endpoint 0x5 has an invalid bInterval 0, changing to 7
-usb 1-1: New USB device found, idVendor=7300, idProduct=128c, bcdDevice=ed.06
-usb 1-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-usb 1-1: string descriptor 0 read error: -71
-usb 1-1: MIDIStreaming interface descriptor not found
-==================================================================
-BUG: KASAN: slab-out-of-bounds in snd_usbmidi_get_ms_info+0xeaf/0x10e0 sound/usb/midi.c:1982
-Read of size 1 at addr ffff888119b80722 by task kworker/0:1/7
+There are a couple of places where it got mathematically wrong,=20
+like this one:
 
-CPU: 0 PID: 7 Comm: kworker/0:1 Not tainted 5.12.0-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- __dump_stack lib/dump_stack.c:79 [inline]
- dump_stack+0x143/0x1db lib/dump_stack.c:120
- print_address_description.constprop.0.cold+0x5b/0x2f8 mm/kasan/report.c:233
- __kasan_report mm/kasan/report.c:419 [inline]
- kasan_report.cold+0x7c/0xd8 mm/kasan/report.c:436
- snd_usbmidi_get_ms_info+0xeaf/0x10e0 sound/usb/midi.c:1982
- __snd_usbmidi_create+0x393/0x1ba0 sound/usb/midi.c:2485
- snd_usb_create_quirk+0xa5/0xe0 sound/usb/quirks.c:604
- usb_audio_probe+0xcf0/0x2c90 sound/usb/card.c:796
- usb_probe_interface+0x315/0x7f0 drivers/usb/core/driver.c:396
- really_probe+0x291/0xf60 drivers/base/dd.c:576
- driver_probe_device+0x298/0x410 drivers/base/dd.c:763
- __device_attach_driver+0x203/0x2c0 drivers/base/dd.c:870
- bus_for_each_drv+0x15f/0x1e0 drivers/base/bus.c:431
- __device_attach+0x228/0x4b0 drivers/base/dd.c:938
- bus_probe_device+0x1e4/0x290 drivers/base/bus.c:491
- device_add+0xbe0/0x2100 drivers/base/core.c:3319
- usb_set_configuration+0x113f/0x1910 drivers/usb/core/message.c:2164
- usb_generic_driver_probe+0xba/0x100 drivers/usb/core/generic.c:238
- usb_probe_device+0xd9/0x2c0 drivers/usb/core/driver.c:293
- really_probe+0x291/0xf60 drivers/base/dd.c:576
- driver_probe_device+0x298/0x410 drivers/base/dd.c:763
- __device_attach_driver+0x203/0x2c0 drivers/base/dd.c:870
- bus_for_each_drv+0x15f/0x1e0 drivers/base/bus.c:431
- __device_attach+0x228/0x4b0 drivers/base/dd.c:938
- bus_probe_device+0x1e4/0x290 drivers/base/bus.c:491
- device_add+0xbe0/0x2100 drivers/base/core.c:3319
- usb_new_device.cold+0x721/0x1058 drivers/usb/core/hub.c:2556
- hub_port_connect drivers/usb/core/hub.c:5276 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5416 [inline]
- port_event drivers/usb/core/hub.c:5562 [inline]
- hub_event+0x2357/0x4330 drivers/usb/core/hub.c:5644
- process_one_work+0x98d/0x1580 kernel/workqueue.c:2275
- worker_thread+0x64c/0x1120 kernel/workqueue.c:2421
- kthread+0x38c/0x460 kernel/kthread.c:313
- ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
+	-operation over a temperature range of -40=C2=B0C to +125=C2=B0C.
+	+operation over a temperature range of --40=C2=B0C to +125=C2=B0C.
 
-Allocated by task 7:
- kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
- kasan_set_track mm/kasan/common.c:46 [inline]
- set_alloc_info mm/kasan/common.c:428 [inline]
- ____kasan_kmalloc mm/kasan/common.c:507 [inline]
- __kasan_kmalloc+0x7c/0x90 mm/kasan/common.c:516
- kmalloc include/linux/slab.h:561 [inline]
- usb_get_configuration+0x321/0x3d60 drivers/usb/core/config.c:919
- usb_enumerate_device drivers/usb/core/hub.c:2389 [inline]
- usb_new_device+0x42c/0x7a0 drivers/usb/core/hub.c:2525
- hub_port_connect drivers/usb/core/hub.c:5276 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5416 [inline]
- port_event drivers/usb/core/hub.c:5562 [inline]
- hub_event+0x2357/0x4330 drivers/usb/core/hub.c:5644
- process_one_work+0x98d/0x1580 kernel/workqueue.c:2275
- worker_thread+0x64c/0x1120 kernel/workqueue.c:2421
- kthread+0x38c/0x460 kernel/kthread.c:313
- ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
+On others, it is just a matter of personal taste. My personal opinion
+is that, on most cases, a single "-" would be better.
 
-The buggy address belongs to the object at ffff888119b80700
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 34 bytes inside of
- 64-byte region [ffff888119b80700, ffff888119b80740)
-The buggy address belongs to the page:
-page:ffffea000466e000 refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff888119b80680 pfn:0x119b80
-flags: 0x200000000000200(slab|node=0|zone=2)
-raw: 0200000000000200 ffffea0004206f00 0000000900000009 ffff888100041640
-raw: ffff888119b80680 000000008020001d 00000001ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY), pid 2653, ts 10410979522, free_ts 0
- prep_new_page mm/page_alloc.c:2358 [inline]
- get_page_from_freelist+0xc97/0x26a0 mm/page_alloc.c:3994
- __alloc_pages+0x1b2/0x4f0 mm/page_alloc.c:5200
- alloc_pages+0x18c/0x2a0 mm/mempolicy.c:2272
- alloc_slab_page mm/slub.c:1644 [inline]
- allocate_slab+0x2c5/0x4c0 mm/slub.c:1784
- new_slab mm/slub.c:1847 [inline]
- new_slab_objects mm/slub.c:2593 [inline]
- ___slab_alloc+0x476/0x7b0 mm/slub.c:2756
- __slab_alloc+0x68/0x80 mm/slub.c:2796
- slab_alloc_node mm/slub.c:2878 [inline]
- slab_alloc mm/slub.c:2920 [inline]
- kmem_cache_alloc_trace+0x27e/0x2a0 mm/slub.c:2937
- kmalloc include/linux/slab.h:556 [inline]
- kzalloc include/linux/slab.h:686 [inline]
- allocate_cgrp_cset_links+0x19c/0x240 kernel/cgroup/cgroup.c:1119
- find_css_set+0x6d3/0x1a40 kernel/cgroup/cgroup.c:1197
- cgroup_migrate_prepare_dst+0x105/0x830 kernel/cgroup/cgroup.c:2641
- cgroup_attach_task+0x39f/0x760 kernel/cgroup/cgroup.c:2747
- __cgroup1_procs_write.constprop.0+0x3a9/0x490 kernel/cgroup/cgroup-v1.c:519
- cgroup_file_write+0x1ec/0x780 kernel/cgroup/cgroup.c:3711
- kernfs_fop_write_iter+0x342/0x500 fs/kernfs/file.c:296
- call_write_iter include/linux/fs.h:2114 [inline]
- new_sync_write+0x426/0x650 fs/read_write.c:518
- vfs_write+0x743/0x9e0 fs/read_write.c:605
-page_owner free stack trace missing
+Thanks,
+Mauro
 
-Memory state around the buggy address:
- ffff888119b80600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
- ffff888119b80680: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff888119b80700: 00 00 00 00 02 fc fc fc fc fc fc fc fc fc fc fc
-                               ^
- ffff888119b80780: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
- ffff888119b80800: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-==================================================================
-
-
+diff --git a/Documentation/ABI/testing/sysfs-class-net-cdc_ncm b/Documentat=
+ion/ABI/testing/sysfs-class-net-cdc_ncm
+index 41a1eef0d0e7..469325255887 100644
+--- a/Documentation/ABI/testing/sysfs-class-net-cdc_ncm
++++ b/Documentation/ABI/testing/sysfs-class-net-cdc_ncm
+@@ -93,7 +93,7 @@ Contact:	Bj=C3=B8rn Mork <bjorn@mork.no>
+ Description:
+ 		- Bit 0: 16-bit NTB supported (set to 1)
+ 		- Bit 1: 32-bit NTB supported
+-		- Bits 2 - 15: reserved (reset to zero; must be ignored by host)
++		- Bits 2 -- 15: reserved (reset to zero; must be ignored by host)
+=20
+ What:		/sys/class/net/<iface>/cdc_ncm/dwNtbInMaxSize
+ Date:		May 2014
+diff --git a/Documentation/PCI/acpi-info.rst b/Documentation/PCI/acpi-info.=
+rst
+index 9b4b04039982..7a75f1f6e73c 100644
+--- a/Documentation/PCI/acpi-info.rst
++++ b/Documentation/PCI/acpi-info.rst
+@@ -140,8 +140,8 @@ address always corresponds to bus 0, even if the bus ra=
+nge below the bridge
+     Extended Address Space Descriptor (.4)
+       General Flags: Bit [0] Consumer/Producer:
+=20
+-        * 1 - This device consumes this resource
+-        * 0 - This device produces and consumes this resource
++        * 1 -- This device consumes this resource
++        * 0 -- This device produces and consumes this resource
+=20
+ [5] ACPI 6.2, sec 19.6.43:
+     ResourceUsage specifies whether the Memory range is consumed by
+diff --git a/Documentation/RCU/Design/Memory-Ordering/Tree-RCU-Memory-Order=
+ing.rst b/Documentation/RCU/Design/Memory-Ordering/Tree-RCU-Memory-Ordering=
+.rst
+index d76c6bfdc659..34a12b12df51 100644
+--- a/Documentation/RCU/Design/Memory-Ordering/Tree-RCU-Memory-Ordering.rst
++++ b/Documentation/RCU/Design/Memory-Ordering/Tree-RCU-Memory-Ordering.rst
+@@ -215,7 +215,7 @@ newly arrived RCU callbacks against future grace period=
+s:
+    43 }
+=20
+ But the only part of ``rcu_prepare_for_idle()`` that really matters for
+-this discussion are lines 37-39. We will therefore abbreviate this
++this discussion are lines 37--39. We will therefore abbreviate this
+ function as follows:
+=20
+ .. kernel-figure:: rcu_node-lock.svg
+diff --git a/Documentation/RCU/Design/Requirements/Requirements.rst b/Docum=
+entation/RCU/Design/Requirements/Requirements.rst
+index a3493b34f3dd..a42dc3cf26bd 100644
+--- a/Documentation/RCU/Design/Requirements/Requirements.rst
++++ b/Documentation/RCU/Design/Requirements/Requirements.rst
+@@ -2354,8 +2354,8 @@ which in practice also means that RCU must have an ag=
+gressive
+ stress-test suite. This stress-test suite is called ``rcutorture``.
+=20
+ Although the need for ``rcutorture`` was no surprise, the current
+-immense popularity of the Linux kernel is posing interesting-and perhaps
+-unprecedented-validation challenges. To see this, keep in mind that
++immense popularity of the Linux kernel is posing interesting---and perhaps
++unprecedented---validation challenges. To see this, keep in mind that
+ there are well over one billion instances of the Linux kernel running
+ today, given Android smartphones, Linux-powered televisions, and
+ servers. This number can be expected to increase sharply with the advent
+diff --git a/Documentation/admin-guide/index.rst b/Documentation/admin-guid=
+e/index.rst
+index b1692643718d..1a6dbda71ad6 100644
+--- a/Documentation/admin-guide/index.rst
++++ b/Documentation/admin-guide/index.rst
+@@ -3,7 +3,7 @@ The Linux kernel user's and administrator's guide
+=20
+ The following is a collection of user-oriented documents that have been
+ added to the kernel over time.  There is, as yet, little overall order or
+-organization here - this material was not written to be a single, coherent
++organization here --- this material was not written to be a single, cohere=
+nt
+ document!  With luck things will improve quickly over time.
+=20
+ This initial section contains overall information, including the README
+diff --git a/Documentation/admin-guide/module-signing.rst b/Documentation/a=
+dmin-guide/module-signing.rst
+index bd1d2fef78e8..0d185ba8b8b5 100644
+--- a/Documentation/admin-guide/module-signing.rst
++++ b/Documentation/admin-guide/module-signing.rst
+@@ -100,8 +100,8 @@ This has a number of options available:
+      ``certs/signing_key.pem`` will disable the autogeneration of signing =
+keys
+      and allow the kernel modules to be signed with a key of your choosing.
+      The string provided should identify a file containing both a private =
+key
+-     and its corresponding X.509 certificate in PEM form, or - on systems =
+where
+-     the OpenSSL ENGINE_pkcs11 is functional - a PKCS#11 URI as defined by
++     and its corresponding X.509 certificate in PEM form, or --- on system=
+s where
++     the OpenSSL ENGINE_pkcs11 is functional --- a PKCS#11 URI as defined =
+by
+      RFC7512. In the latter case, the PKCS#11 URI should reference both a
+      certificate and a private key.
+=20
+diff --git a/Documentation/admin-guide/ras.rst b/Documentation/admin-guide/=
+ras.rst
+index 00445adf8708..66c2c62c1cd4 100644
+--- a/Documentation/admin-guide/ras.rst
++++ b/Documentation/admin-guide/ras.rst
+@@ -40,10 +40,10 @@ it causes data loss or system downtime.
+=20
+ Among the monitoring measures, the most usual ones include:
+=20
+-* CPU - detect errors at instruction execution and at L1/L2/L3 caches;
+-* Memory - add error correction logic (ECC) to detect and correct errors;
+-* I/O - add CRC checksums for transferred data;
+-* Storage - RAID, journal file systems, checksums,
++* CPU -- detect errors at instruction execution and at L1/L2/L3 caches;
++* Memory -- add error correction logic (ECC) to detect and correct errors;
++* I/O -- add CRC checksums for transferred data;
++* Storage -- RAID, journal file systems, checksums,
+   Self-Monitoring, Analysis and Reporting Technology (SMART).
+=20
+ By monitoring the number of occurrences of error detections, it is possible
+diff --git a/Documentation/admin-guide/reporting-issues.rst b/Documentation=
+/admin-guide/reporting-issues.rst
+index f691930e13c0..af699015d266 100644
+--- a/Documentation/admin-guide/reporting-issues.rst
++++ b/Documentation/admin-guide/reporting-issues.rst
+@@ -824,7 +824,7 @@ and look a little lower at the table. At its top you'll=
+ see a line starting with
+ mainline, which most of the time will point to a pre-release with a version
+ number like '5.8-rc2'. If that's the case, you'll want to use this mainline
+ kernel for testing, as that where all fixes have to be applied first. Do n=
+ot let
+-that 'rc' scare you, these 'development kernels' are pretty reliable - and=
+ you
++that 'rc' scare you, these 'development kernels' are pretty reliable --- a=
+nd you
+ made a backup, as you were instructed above, didn't you?
+=20
+ In about two out of every nine to ten weeks, mainline might point you to a
+@@ -866,7 +866,7 @@ How to obtain a fresh Linux kernel
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=20
+ **Using a pre-compiled kernel**: This is often the quickest, easiest, and =
+safest
+-way for testing - especially is you are unfamiliar with the Linux kernel. =
+The
++way for testing --- especially is you are unfamiliar with the Linux kernel=
+. The
+ problem: most of those shipped by distributors or add-on repositories are =
+build
+ from modified Linux sources. They are thus not vanilla and therefore often
+ unsuitable for testing and issue reporting: the changes might cause the is=
+sue
+@@ -1345,7 +1345,7 @@ about it to a chatroom or forum you normally hang out.
+=20
+ **Be patient**: If you are really lucky you might get a reply to your repo=
+rt
+ within a few hours. But most of the time it will take longer, as maintaine=
+rs
+-are scattered around the globe and thus might be in a different time zone =
+- one
++are scattered around the globe and thus might be in a different time zone =
+-- one
+ where they already enjoy their night away from keyboard.
+=20
+ In general, kernel developers will take one to five business days to respo=
+nd to
+@@ -1388,7 +1388,7 @@ Here are your duties in case you got replies to your =
+report:
+=20
+ **Check who you deal with**: Most of the time it will be the maintainer or=
+ a
+ developer of the particular code area that will respond to your report. Bu=
+t as
+-issues are normally reported in public it could be anyone that's replying -
++issues are normally reported in public it could be anyone that's replying =
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ including people that want to help, but in the end might guide you totally=
+ off
+ track with their questions or requests. That rarely happens, but it's one =
+of
+ many reasons why it's wise to quickly run an internet search to see who yo=
+u're
+@@ -1716,7 +1716,7 @@ Maybe their test hardware broke, got replaced by some=
+thing more fancy, or is so
+ old that it's something you don't find much outside of computer museums
+ anymore. Sometimes developer stops caring for their code and Linux at all,=
+ as
+ something different in their life became way more important. In some cases
+-nobody is willing to take over the job as maintainer - and nobody can be f=
+orced
++nobody is willing to take over the job as maintainer -- and nobody can be =
+forced
+ to, as contributing to the Linux kernel is done on a voluntary basis. Aban=
+doned
+ drivers nevertheless remain in the kernel: they are still useful for peopl=
+e and
+ removing would be a regression.
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/ad=
+min-guide/sysctl/kernel.rst
+index 743a7c70fd83..639dd58518ca 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -1285,7 +1285,7 @@ The soft lockup detector monitors CPUs for threads th=
+at are hogging the CPUs
+ without rescheduling voluntarily, and thus prevent the 'watchdog/N' threads
+ from running. The mechanism depends on the CPUs ability to respond to timer
+ interrupts which are needed for the 'watchdog/N' threads to be woken up by
+-the watchdog timer function, otherwise the NMI watchdog - if enabled - can
++the watchdog timer function, otherwise the NMI watchdog --- if enabled ---=
+ can
+ detect a hard lockup condition.
+=20
+=20
+diff --git a/Documentation/dev-tools/testing-overview.rst b/Documentation/d=
+ev-tools/testing-overview.rst
+index 8adffc26a2ec..381c571eb52c 100644
+--- a/Documentation/dev-tools/testing-overview.rst
++++ b/Documentation/dev-tools/testing-overview.rst
+@@ -18,8 +18,8 @@ frameworks. These both provide infrastructure to help mak=
+e running tests and
+ groups of tests easier, as well as providing helpers to aid in writing new
+ tests.
+=20
+-If you're looking to verify the behaviour of the Kernel - particularly spe=
+cific
+-parts of the kernel - then you'll want to use KUnit or kselftest.
++If you're looking to verify the behaviour of the Kernel --- particularly s=
+pecific
++parts of the kernel --- then you'll want to use KUnit or kselftest.
+=20
+=20
+ The Difference Between KUnit and kselftest
+diff --git a/Documentation/doc-guide/contributing.rst b/Documentation/doc-g=
+uide/contributing.rst
+index c2d709467c68..ac5c9f1d2311 100644
+--- a/Documentation/doc-guide/contributing.rst
++++ b/Documentation/doc-guide/contributing.rst
+@@ -76,7 +76,7 @@ comments that look like this::
+=20
+ The problem is the missing "*", which confuses the build system's
+ simplistic idea of what C comment blocks look like.  This problem had been
+-present since that comment was added in 2016 - a full four years.  Fixing
++present since that comment was added in 2016 --- a full four years.  Fixing
+ it was a matter of adding the missing asterisks.  A quick look at the
+ history for that file showed what the normal format for subject lines is,
+ and ``scripts/get_maintainer.pl`` told me who should receive it.  The
+diff --git a/Documentation/driver-api/fpga/fpga-bridge.rst b/Documentation/=
+driver-api/fpga/fpga-bridge.rst
+index 8d650b4e2ce6..1d6e910c27df 100644
+--- a/Documentation/driver-api/fpga/fpga-bridge.rst
++++ b/Documentation/driver-api/fpga/fpga-bridge.rst
+@@ -4,11 +4,11 @@ FPGA Bridge
+ API to implement a new FPGA bridge
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=20
+-* struct fpga_bridge - The FPGA Bridge structure
+-* struct fpga_bridge_ops - Low level Bridge driver ops
+-* devm_fpga_bridge_create() - Allocate and init a bridge struct
+-* fpga_bridge_register() - Register a bridge
+-* fpga_bridge_unregister() - Unregister a bridge
++* struct fpga_bridge --- The FPGA Bridge structure
++* struct fpga_bridge_ops --- Low level Bridge driver ops
++* devm_fpga_bridge_create() --- Allocate and init a bridge struct
++* fpga_bridge_register() --- Register a bridge
++* fpga_bridge_unregister() --- Unregister a bridge
+=20
+ .. kernel-doc:: include/linux/fpga/fpga-bridge.h
+    :functions: fpga_bridge
+diff --git a/Documentation/driver-api/fpga/fpga-mgr.rst b/Documentation/dri=
+ver-api/fpga/fpga-mgr.rst
+index 4d926b452cb3..272161361c6a 100644
+--- a/Documentation/driver-api/fpga/fpga-mgr.rst
++++ b/Documentation/driver-api/fpga/fpga-mgr.rst
+@@ -101,12 +101,12 @@ in state.
+ API for implementing a new FPGA Manager driver
+ ----------------------------------------------
+=20
+-* ``fpga_mgr_states`` -  Values for :c:expr:`fpga_manager->state`.
+-* struct fpga_manager -  the FPGA manager struct
+-* struct fpga_manager_ops -  Low level FPGA manager driver ops
+-* devm_fpga_mgr_create() -  Allocate and init a manager struct
+-* fpga_mgr_register() -  Register an FPGA manager
+-* fpga_mgr_unregister() -  Unregister an FPGA manager
++* ``fpga_mgr_states`` ---  Values for :c:expr:`fpga_manager->state`.
++* struct fpga_manager ---  the FPGA manager struct
++* struct fpga_manager_ops ---  Low level FPGA manager driver ops
++* devm_fpga_mgr_create() ---  Allocate and init a manager struct
++* fpga_mgr_register() ---  Register an FPGA manager
++* fpga_mgr_unregister() ---  Unregister an FPGA manager
+=20
+ .. kernel-doc:: include/linux/fpga/fpga-mgr.h
+    :functions: fpga_mgr_states
+diff --git a/Documentation/driver-api/fpga/fpga-programming.rst b/Documenta=
+tion/driver-api/fpga/fpga-programming.rst
+index fb4da4240e96..adc725855bad 100644
+--- a/Documentation/driver-api/fpga/fpga-programming.rst
++++ b/Documentation/driver-api/fpga/fpga-programming.rst
+@@ -84,10 +84,10 @@ will generate that list.  Here's some sample code of wh=
+at to do next::
+ API for programming an FPGA
+ ---------------------------
+=20
+-* fpga_region_program_fpga() -  Program an FPGA
+-* fpga_image_info() -  Specifies what FPGA image to program
+-* fpga_image_info_alloc() -  Allocate an FPGA image info struct
+-* fpga_image_info_free() -  Free an FPGA image info struct
++* fpga_region_program_fpga() ---  Program an FPGA
++* fpga_image_info() ---  Specifies what FPGA image to program
++* fpga_image_info_alloc() ---  Allocate an FPGA image info struct
++* fpga_image_info_free() ---  Free an FPGA image info struct
+=20
+ .. kernel-doc:: drivers/fpga/fpga-region.c
+    :functions: fpga_region_program_fpga
+diff --git a/Documentation/driver-api/fpga/fpga-region.rst b/Documentation/=
+driver-api/fpga/fpga-region.rst
+index 2636a27c11b2..6c0c2541de04 100644
+--- a/Documentation/driver-api/fpga/fpga-region.rst
++++ b/Documentation/driver-api/fpga/fpga-region.rst
+@@ -45,19 +45,19 @@ An example of usage can be seen in the probe function o=
+f [#f2]_.
+ API to add a new FPGA region
+ ----------------------------
+=20
+-* struct fpga_region - The FPGA region struct
+-* devm_fpga_region_create() - Allocate and init a region struct
+-* fpga_region_register() -  Register an FPGA region
+-* fpga_region_unregister() -  Unregister an FPGA region
++* struct fpga_region --- The FPGA region struct
++* devm_fpga_region_create() --- Allocate and init a region struct
++* fpga_region_register() ---  Register an FPGA region
++* fpga_region_unregister() ---  Unregister an FPGA region
+=20
+ The FPGA region's probe function will need to get a reference to the FPGA
+ Manager it will be using to do the programming.  This usually would happen
+ during the region's probe function.
+=20
+-* fpga_mgr_get() - Get a reference to an FPGA manager, raise ref count
+-* of_fpga_mgr_get() -  Get a reference to an FPGA manager, raise ref count,
++* fpga_mgr_get() --- Get a reference to an FPGA manager, raise ref count
++* of_fpga_mgr_get() ---  Get a reference to an FPGA manager, raise ref cou=
+nt,
+   given a device node.
+-* fpga_mgr_put() - Put an FPGA manager
++* fpga_mgr_put() --- Put an FPGA manager
+=20
+ The FPGA region will need to specify which bridges to control while progra=
+mming
+ the FPGA.  The region driver can build a list of bridges during probe time
+@@ -66,11 +66,11 @@ the list of bridges to program just before programming
+ (:c:expr:`fpga_region->get_bridges`).  The FPGA bridge framework supplies =
+the
+ following APIs to handle building or tearing down that list.
+=20
+-* fpga_bridge_get_to_list() - Get a ref of an FPGA bridge, add it to a
++* fpga_bridge_get_to_list() --- Get a ref of an FPGA bridge, add it to a
+   list
+-* of_fpga_bridge_get_to_list() - Get a ref of an FPGA bridge, add it to a
++* of_fpga_bridge_get_to_list() --- Get a ref of an FPGA bridge, add it to a
+   list, given a device node
+-* fpga_bridges_put() - Given a list of bridges, put them
++* fpga_bridges_put() --- Given a list of bridges, put them
+=20
+ .. kernel-doc:: include/linux/fpga/fpga-region.h
+    :functions: fpga_region
+diff --git a/Documentation/driver-api/iio/buffers.rst b/Documentation/drive=
+r-api/iio/buffers.rst
+index 24569ff0cf79..906dfc10b7ef 100644
+--- a/Documentation/driver-api/iio/buffers.rst
++++ b/Documentation/driver-api/iio/buffers.rst
+@@ -2,11 +2,11 @@
+ Buffers
+ =3D=3D=3D=3D=3D=3D=3D
+=20
+-* struct iio_buffer - general buffer structure
+-* :c:func:`iio_validate_scan_mask_onehot` - Validates that exactly one cha=
+nnel
++* struct iio_buffer --- general buffer structure
++* :c:func:`iio_validate_scan_mask_onehot` --- Validates that exactly one c=
+hannel
+   is selected
+-* :c:func:`iio_buffer_get` - Grab a reference to the buffer
+-* :c:func:`iio_buffer_put` - Release the reference to the buffer
++* :c:func:`iio_buffer_get` --- Grab a reference to the buffer
++* :c:func:`iio_buffer_put` --- Release the reference to the buffer
+=20
+ The Industrial I/O core offers a way for continuous data capture based on a
+ trigger source. Multiple data channels can be read at once from
+diff --git a/Documentation/driver-api/iio/hw-consumer.rst b/Documentation/d=
+river-api/iio/hw-consumer.rst
+index 75986358fc02..06969fde2086 100644
+--- a/Documentation/driver-api/iio/hw-consumer.rst
++++ b/Documentation/driver-api/iio/hw-consumer.rst
+@@ -8,11 +8,11 @@ software buffer for data. The implementation can be found=
+ under
+ :file:`drivers/iio/buffer/hw-consumer.c`
+=20
+=20
+-* struct iio_hw_consumer - Hardware consumer structure
+-* :c:func:`iio_hw_consumer_alloc` - Allocate IIO hardware consumer
+-* :c:func:`iio_hw_consumer_free` - Free IIO hardware consumer
+-* :c:func:`iio_hw_consumer_enable` - Enable IIO hardware consumer
+-* :c:func:`iio_hw_consumer_disable` - Disable IIO hardware consumer
++* struct iio_hw_consumer --- Hardware consumer structure
++* :c:func:`iio_hw_consumer_alloc` --- Allocate IIO hardware consumer
++* :c:func:`iio_hw_consumer_free` --- Free IIO hardware consumer
++* :c:func:`iio_hw_consumer_enable` --- Enable IIO hardware consumer
++* :c:func:`iio_hw_consumer_disable` --- Disable IIO hardware consumer
+=20
+=20
+ HW consumer setup
+diff --git a/Documentation/driver-api/iio/triggered-buffers.rst b/Documenta=
+tion/driver-api/iio/triggered-buffers.rst
+index 7c37b2afa1ad..49831ff466c5 100644
+--- a/Documentation/driver-api/iio/triggered-buffers.rst
++++ b/Documentation/driver-api/iio/triggered-buffers.rst
+@@ -7,10 +7,10 @@ Now that we know what buffers and triggers are let's see =
+how they work together.
+ IIO triggered buffer setup
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+=20
+-* :c:func:`iio_triggered_buffer_setup` - Setup triggered buffer and pollfu=
+nc
+-* :c:func:`iio_triggered_buffer_cleanup` - Free resources allocated by
++* :c:func:`iio_triggered_buffer_setup` --- Setup triggered buffer and poll=
+func
++* :c:func:`iio_triggered_buffer_cleanup` --- Free resources allocated by
+   :c:func:`iio_triggered_buffer_setup`
+-* struct iio_buffer_setup_ops - buffer setup related callbacks
++* struct iio_buffer_setup_ops --- buffer setup related callbacks
+=20
+ A typical triggered buffer setup looks like this::
+=20
+diff --git a/Documentation/driver-api/iio/triggers.rst b/Documentation/driv=
+er-api/iio/triggers.rst
+index a5d1fc15747c..5b3d475bc871 100644
+--- a/Documentation/driver-api/iio/triggers.rst
++++ b/Documentation/driver-api/iio/triggers.rst
+@@ -2,11 +2,11 @@
+ Triggers
+ =3D=3D=3D=3D=3D=3D=3D=3D
+=20
+-* struct iio_trigger - industrial I/O trigger device
+-* :c:func:`devm_iio_trigger_alloc` - Resource-managed iio_trigger_alloc
+-* :c:func:`devm_iio_trigger_register` - Resource-managed iio_trigger_regis=
+ter
++* struct iio_trigger --- industrial I/O trigger device
++* :c:func:`devm_iio_trigger_alloc` --- Resource-managed iio_trigger_alloc
++* :c:func:`devm_iio_trigger_register` --- Resource-managed iio_trigger_reg=
+ister
+   iio_trigger_unregister
+-* :c:func:`iio_trigger_validate_own_device` - Check if a trigger and IIO
++* :c:func:`iio_trigger_validate_own_device` --- Check if a trigger and IIO
+   device belong to the same device
+=20
+ In many situations it is useful for a driver to be able to capture data ba=
+sed
+@@ -63,7 +63,7 @@ Let's see a simple example of how to setup a trigger to b=
+e used by a driver::
+ IIO trigger ops
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+-* struct iio_trigger_ops - operations structure for an iio_trigger.
++* struct iio_trigger_ops --- operations structure for an iio_trigger.
+=20
+ Notice that a trigger has a set of operations attached:
+=20
+diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/=
+index.rst
+index 29eb9230b7a9..e07e0d39c7f0 100644
+--- a/Documentation/driver-api/index.rst
++++ b/Documentation/driver-api/index.rst
+@@ -4,7 +4,7 @@ The Linux driver implementer's API guide
+=20
+ The kernel offers a wide variety of interfaces to support the development
+ of device drivers.  This document is an only somewhat organized collection
+-of some of those interfaces - it will hopefully get better over time!  The
++of some of those interfaces --- it will hopefully get better over time!  T=
+he
+ available subsections can be seen below.
+=20
+ .. class:: toc-title
+diff --git a/Documentation/driver-api/media/drivers/vidtv.rst b/Documentati=
+on/driver-api/media/drivers/vidtv.rst
+index abb454302ac5..c3821d82df17 100644
+--- a/Documentation/driver-api/media/drivers/vidtv.rst
++++ b/Documentation/driver-api/media/drivers/vidtv.rst
+@@ -458,8 +458,8 @@ Add a way to test video
+=20
+ Currently, vidtv can only encode PCM audio. It would be great to implement
+ a barebones version of MPEG-2 video encoding so we can also test video. The
+-first place to look into is *ISO 13818-2: Information technology - Generic
+-coding of moving pictures and associated audio information - Part 2: Video=
+*,
++first place to look into is *ISO 13818-2: Information technology --- Gener=
+ic
++coding of moving pictures and associated audio information --- Part 2: Vid=
+eo*,
+ which covers the encoding of compressed video in MPEG Transport Streams.
+=20
+ This might optionally use the Video4Linux2 Test Pattern Generator, v4l2-tp=
+g,
+diff --git a/Documentation/driver-api/nvdimm/btt.rst b/Documentation/driver=
+-api/nvdimm/btt.rst
+index dd91a495e02e..1d2d9cd40def 100644
+--- a/Documentation/driver-api/nvdimm/btt.rst
++++ b/Documentation/driver-api/nvdimm/btt.rst
+@@ -91,7 +91,7 @@ Bit      Description
+ 	   0  0	  Initial state. Reads return zeroes; Premap =3D Postmap
+ 	   0  1	  Zero state: Reads return zeroes
+ 	   1  0	  Error state: Reads fail; Writes clear 'E' bit
+-	   1  1	  Normal Block - has valid postmap
++	   1  1	  Normal Block -- has valid postmap
+ 	   =3D=3D =3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+ 29 - 0	 Mappings to internal 'postmap' blocks
+diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems=
+/f2fs.rst
+index 19d2cf477fc3..9b0e9abf8f88 100644
+--- a/Documentation/filesystems/f2fs.rst
++++ b/Documentation/filesystems/f2fs.rst
+@@ -42,7 +42,7 @@ areas on disk for fast writing, we divide  the log into s=
+egments and use a
+ segment cleaner to compress the live information from heavily fragmented
+ segments." from Rosenblum, M. and Ousterhout, J. K., 1992, "The design and
+ implementation of a log-structured file system", ACM Trans. Computer Syste=
+ms
+-10, 1, 26-52.
++10, 1, 26--52.
+=20
+ Wandering Tree Problem
+ ----------------------
+diff --git a/Documentation/hwmon/tmp103.rst b/Documentation/hwmon/tmp103.rst
+index b3ef81475cf8..051282bd88b7 100644
+--- a/Documentation/hwmon/tmp103.rst
++++ b/Documentation/hwmon/tmp103.rst
+@@ -21,10 +21,10 @@ Description
+ The TMP103 is a digital output temperature sensor in a four-ball
+ wafer chip-scale package (WCSP). The TMP103 is capable of reading
+ temperatures to a resolution of 1=C2=B0C. The TMP103 is specified for
+-operation over a temperature range of -40=C2=B0C to +125=C2=B0C.
++operation over a temperature range of --40=C2=B0C to +125=C2=B0C.
+=20
+ Resolution: 8 Bits
+-Accuracy: =C2=B11=C2=B0C Typ (-10=C2=B0C to +100=C2=B0C)
++Accuracy: =C2=B11=C2=B0C Typ (--10=C2=B0C to +100=C2=B0C)
+=20
+ The driver provides the common sysfs-interface for temperatures (see
+ Documentation/hwmon/sysfs-interface.rst under Temperatures).
+diff --git a/Documentation/index.rst b/Documentation/index.rst
+index 11cd806ea3a4..7ae88aa57d98 100644
+--- a/Documentation/index.rst
++++ b/Documentation/index.rst
+@@ -30,7 +30,7 @@ tree, as well as links to the full license text.
+ User-oriented documentation
+ ---------------------------
+=20
+-The following manuals are written for *users* of the kernel - those who are
++The following manuals are written for *users* of the kernel --- those who =
+are
+ trying to get it to work optimally on a given system.
+=20
+ .. toctree::
+@@ -90,7 +90,7 @@ Kernel API documentation
+ These books get into the details of how specific kernel subsystems work
+ from the point of view of a kernel developer.  Much of the information here
+ is taken directly from the kernel source, with supplemental material added
+-as needed (or at least as we managed to add it - probably *not* all that is
++as needed (or at least as we managed to add it --- probably *not* all that=
+ is
+ needed).
+=20
+ .. toctree::
+diff --git a/Documentation/infiniband/tag_matching.rst b/Documentation/infi=
+niband/tag_matching.rst
+index b89528a31d10..2c26f76e43f9 100644
+--- a/Documentation/infiniband/tag_matching.rst
++++ b/Documentation/infiniband/tag_matching.rst
+@@ -8,8 +8,8 @@ match the following source and destination parameters:
+=20
+ *	Communicator
+ *	User tag - wild card may be specified by the receiver
+-*	Source rank - wild car may be specified by the receiver
+-*	Destination rank - wild
++*	Source rank -- wild car may be specified by the receiver
++*	Destination rank -- wild
+=20
+ The ordering rules require that when more than one pair of send and receive
+ message envelopes may match, the pair that includes the earliest posted-se=
+nd
+diff --git a/Documentation/networking/device_drivers/ethernet/intel/i40e.rs=
+t b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
+index 64024c77c9ca..e3e52b0e6b5e 100644
+--- a/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
++++ b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
+@@ -173,7 +173,7 @@ Director rule is added from ethtool (Sideband filter), =
+ATR is turned off by the
+ driver. To re-enable ATR, the sideband can be disabled with the ethtool -K
+ option. For example::
+=20
+-  ethtool -K [adapter] ntuple [off|on]
++  ethtool --K [adapter] ntuple [off|on]
+=20
+ If sideband is re-enabled after ATR is re-enabled, ATR remains enabled unt=
+il a
+ TCP-IP flow is added. When all TCP-IP sideband rules are deleted, ATR is
+@@ -688,7 +688,7 @@ shaper bw_rlimit: for each tc, sets minimum and maximum=
+ bandwidth rates.
+ Totals must be equal or less than port speed.
+=20
+ For example: min_rate 1Gbit 3Gbit: Verify bandwidth limit using network
+-monitoring tools such as ifstat or sar -n DEV [interval] [number of sample=
+s]
++monitoring tools such as ifstat or sar --n DEV [interval] [number of sampl=
+es]
+=20
+ 2. Enable HW TC offload on interface::
+=20
+diff --git a/Documentation/networking/device_drivers/ethernet/intel/iavf.rs=
+t b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
+index 25e98494b385..44d2f85738b1 100644
+--- a/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
++++ b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
+@@ -179,7 +179,7 @@ shaper bw_rlimit: for each tc, sets minimum and maximum=
+ bandwidth rates.
+ Totals must be equal or less than port speed.
+=20
+ For example: min_rate 1Gbit 3Gbit: Verify bandwidth limit using network
+-monitoring tools such as ifstat or sar -n DEV [interval] [number of sample=
+s]
++monitoring tools such as ifstat or sar --n DEV [interval] [number of sampl=
+es]
+=20
+ NOTE:
+   Setting up channels via ethtool (ethtool -L) is not supported when the
+diff --git a/Documentation/riscv/vm-layout.rst b/Documentation/riscv/vm-lay=
+out.rst
+index 545f8ab51f1a..05615b3021bb 100644
+--- a/Documentation/riscv/vm-layout.rst
++++ b/Documentation/riscv/vm-layout.rst
+@@ -22,7 +22,7 @@ RISC-V Linux Kernel 64bit
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+ The RISC-V privileged architecture document states that the 64bit addresses
+-"must have bits 63-48 all equal to bit 47, or else a page-fault exception =
+will
++"must have bits 63--48 all equal to bit 47, or else a page-fault exception=
+ will
+ occur.": that splits the virtual address space into 2 halves separated by =
+a very
+ big hole, the lower half is where the userspace resides, the upper half is=
+ where
+ the RISC-V Linux Kernel resides.
+diff --git a/Documentation/scheduler/sched-deadline.rst b/Documentation/sch=
+eduler/sched-deadline.rst
+index 0ff353ecf24e..b261ec2ab2ef 100644
+--- a/Documentation/scheduler/sched-deadline.rst
++++ b/Documentation/scheduler/sched-deadline.rst
+@@ -515,7 +515,7 @@ Deadline Task Scheduling
+       pp 760-768, 2005.
+   10 - J. Goossens, S. Funk and S. Baruah, Priority-Driven Scheduling of
+        Periodic Task Systems on Multiprocessors. Real-Time Systems Journal,
+-       vol. 25, no. 2-3, pp. 187-205, 2003.
++       vol. 25, no. 2--3, pp. 187--205, 2003.
+   11 - R. Davis and A. Burns. A Survey of Hard Real-Time Scheduling for
+        Multiprocessor Systems. ACM Computing Surveys, vol. 43, no. 4, 2011.
+        http://www-users.cs.york.ac.uk/~robdavis/papers/MPSurveyv5.0.pdf
+diff --git a/Documentation/userspace-api/media/v4l/biblio.rst b/Documentati=
+on/userspace-api/media/v4l/biblio.rst
+index 6e07b78bd39d..7b8e6738ff9e 100644
+--- a/Documentation/userspace-api/media/v4l/biblio.rst
++++ b/Documentation/userspace-api/media/v4l/biblio.rst
+@@ -51,7 +51,7 @@ ISO 13818-1
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+=20
+-:title:     ITU-T Rec. H.222.0 | ISO/IEC 13818-1 "Information technology -=
+ Generic coding of moving pictures and associated audio information: System=
+s"
++:title:     ITU-T Rec. H.222.0 | ISO/IEC 13818-1 "Information technology -=
+-- Generic coding of moving pictures and associated audio information: Syst=
+ems"
+=20
+ :author:    International Telecommunication Union (http://www.itu.ch), Int=
+ernational Organisation for Standardisation (http://www.iso.ch)
+=20
+@@ -61,7 +61,7 @@ ISO 13818-2
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+=20
+-:title:     ITU-T Rec. H.262 | ISO/IEC 13818-2 "Information technology - G=
+eneric coding of moving pictures and associated audio information: Video"
++:title:     ITU-T Rec. H.262 | ISO/IEC 13818-2 "Information technology ---=
+ Generic coding of moving pictures and associated audio information: Video"
+=20
+ :author:    International Telecommunication Union (http://www.itu.ch), Int=
+ernational Organisation for Standardisation (http://www.iso.ch)
+=20
+@@ -150,7 +150,7 @@ ITU-T.81
+ =3D=3D=3D=3D=3D=3D=3D=3D
+=20
+=20
+-:title:     ITU-T Recommendation T.81 "Information Technology - Digital Co=
+mpression and Coding of Continous-Tone Still Images - Requirements and Guid=
+elines"
++:title:     ITU-T Recommendation T.81 "Information Technology --- Digital =
+Compression and Coding of Continous-Tone Still Images --- Requirements and =
+Guidelines"
+=20
+ :author:    International Telecommunication Union (http://www.itu.int)
+=20
+@@ -310,7 +310,7 @@ ISO 12232:2006
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+=20
+-:title:     Photography - Digital still cameras - Determination of exposur=
+e index, ISO speed ratings, standard output sensitivity, and recommended ex=
+posure index
++:title:     Photography --- Digital still cameras --- Determination of exp=
+osure index, ISO speed ratings, standard output sensitivity, and recommende=
+d exposure index
+=20
+ :author:    International Organization for Standardization (http://www.iso=
+.org)
+=20
+diff --git a/Documentation/virt/kvm/running-nested-guests.rst b/Documentati=
+on/virt/kvm/running-nested-guests.rst
+index e9dff3fea055..8b83b86560da 100644
+--- a/Documentation/virt/kvm/running-nested-guests.rst
++++ b/Documentation/virt/kvm/running-nested-guests.rst
+@@ -26,12 +26,12 @@ this document is built on this example)::
+=20
+ Terminology:
+=20
+-- L0 - level-0; the bare metal host, running KVM
++- L0 -- level-0; the bare metal host, running KVM
+=20
+-- L1 - level-1 guest; a VM running on L0; also called the "guest
++- L1 -- level-1 guest; a VM running on L0; also called the "guest
+   hypervisor", as it itself is capable of running KVM.
+=20
+-- L2 - level-2 guest; a VM running on L1, this is the "nested guest"
++- L2 -- level-2 guest; a VM running on L1, this is the "nested guest"
+=20
+ .. note:: The above diagram is modelled after the x86 architecture;
+           s390x, ppc64 and other architectures are likely to have
+@@ -39,7 +39,7 @@ Terminology:
+=20
+           For example, s390x always has an LPAR (LogicalPARtition)
+           hypervisor running on bare metal, adding another layer and
+-          resulting in at least four levels in a nested setup - L0 (bare
++          resulting in at least four levels in a nested setup --- L0 (bare
+           metal, running the LPAR hypervisor), L1 (host hypervisor), L2
+           (guest hypervisor), L3 (nested guest).
+=20
+@@ -167,11 +167,11 @@ Enabling "nested" (s390x)
+     $ modprobe kvm nested=3D1
+=20
+ .. note:: On s390x, the kernel parameter ``hpage`` is mutually exclusive
+-          with the ``nested`` paramter - i.e. to be able to enable
++          with the ``nested`` paramter --- i.e. to be able to enable
+           ``nested``, the ``hpage`` parameter *must* be disabled.
+=20
+ 2. The guest hypervisor (L1) must be provided with the ``sie`` CPU
+-   feature - with QEMU, this can be done by using "host passthrough"
++   feature --- with QEMU, this can be done by using "host passthrough"
+    (via the command-line ``-cpu host``).
+=20
+ 3. Now the KVM module can be loaded in the L1 (guest hypervisor)::
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-syzbot can test patches for this issue, for details see:
-https://goo.gl/tpsmEJ#testing-patches

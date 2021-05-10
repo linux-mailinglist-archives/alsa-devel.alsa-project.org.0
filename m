@@ -2,114 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3EAE3791A8
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 16:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB91137921C
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 17:08:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 571BD1766;
-	Mon, 10 May 2021 16:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 571BD1766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4434B1771;
+	Mon, 10 May 2021 17:07:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4434B1771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620658572;
-	bh=+/RXNJOXTT/VHXTrd8Yc6ufV6nwAMfyIWlLkudty4w4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O3TdQc2tB84+z8LmUU/Vw4M9NNWi4geYCq7/lOZw6I4vtOYXZ5rQmlRW5RJm/v9Mr
-	 MBNvj7DM1WWbZuWVEqvDJIUjoEgnIt+98WFhva+c+8Ek0H3W6X3I65w9hkBkh+DQfN
-	 cm/x0GbXYZMLWMF+lN3EtSF6DoGoz5k3FIHdC43c=
+	s=default; t=1620659315;
+	bh=i/gTgCQsgSGYpH4xjkMKx1D9iRq/shWZ+RqhKtf5XvM=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=F17yoVni3lvbmPEkvtWm8nkehGEofyDDIk5L6ZYmZ7fApsWRxSvQuFc4L4YkR2EFK
+	 OcYJe9UgwLMcuGmR8xC6FIotHln8H5P8dn3ECHqos1+/dKEw72ER3+Y+zjrybokMXt
+	 0XesNUXBkI35G7GAUkv2131nxprW+vCZ1jxlDnIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81F82F804FE;
-	Mon, 10 May 2021 16:50:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88062F8026B;
+	Mon, 10 May 2021 17:07:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41C29F80240; Mon, 10 May 2021 16:33:54 +0200 (CEST)
+ id 77AFEF80240; Mon, 10 May 2021 17:07:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DC71F800E9
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 16:33:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DC71F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="jIc4OS4U"
-Received: by mail-wr1-x429.google.com with SMTP id l2so16872355wrm.9
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 07:33:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=iXsxoOt9fS3DXvxCyyFOaJfbPkU6WlTqA1MG4BgEpJA=;
- b=jIc4OS4UG1e9Htue39hs2SdJXCmPLn+MTostxG/pw06sXYt4cF0beJY8cOPd4XkNvN
- wMkWqq4rS4nqVWqmlHYwknDCThc4F5oj3a10x6AGXMwZ0Kkxjgx6mU53ky5S6gct5IOF
- gb8YE/CdqFeQhJSfkuXg75IoXDsEW/QKbfnCDm8DSyF/6zHxA2in236S9Jv233h02Cag
- nY/zUkluYzDhxrfM75C6Qnf/beBRBG9DBN2uslTW/jB8AmOrnU4strwuRTlIYCmTiED9
- Adakd2gy/AYmhY6PfiGery2Nb+BVYLJb2xN6RqR96XQSpLkoAkrrTIc1zJH3tzspThUx
- eDlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=iXsxoOt9fS3DXvxCyyFOaJfbPkU6WlTqA1MG4BgEpJA=;
- b=aZqCtlc2eeGfD0RxYiatYIUUFlNrzHwsz+glu0RoEUTZmhdKSF22Tcl0CUItB8/tqR
- k876is5YEh+UwpkxZX1cUyBXRv5ojXD860U0LfKxQYk28TLO8H5NFg7Bo4FjDdGFn9GS
- h2zNGfwnFyq2bdnFwxBWd8RUYuSsv7Wy1sWucSZt0Sz6cLHZxO/Ote3w4zZtAViIpC3/
- iatgQY6iuV7SxwXk5zkqkVnohDJYt8zhR/+wExg5H1CyCXA7nG49TVRyTnKwenW4tXYk
- ZW/OYzmezLCPKUVeHDG/GWFqR9mZl58j7/qrGzqSZ29z2hIMBk0lqQlmxVSkeWJUMegF
- 85OQ==
-X-Gm-Message-State: AOAM532zkNY1etSe/MfR2S39u3wLcZr1D6CA30Ln7LoYXNDlfkwHOXYB
- r3iz0q1Axu63406/NDmKJb8=
-X-Google-Smtp-Source: ABdhPJze1q8t3iuv5DjzOv0RveTjqSpEwnprh+IG3St78u9eWCZrU93KSEZYLbobgkyZLBZ/m0bYBQ==
-X-Received: by 2002:adf:e98c:: with SMTP id h12mr30469476wrm.314.1620657229579; 
- Mon, 10 May 2021 07:33:49 -0700 (PDT)
-Received: from [192.168.1.122]
- (cpc159425-cmbg20-2-0-cust403.5-4.cable.virginm.net. [86.7.189.148])
- by smtp.gmail.com with ESMTPSA id h9sm20117820wmb.35.2021.05.10.07.33.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 May 2021 07:33:48 -0700 (PDT)
-Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
-To: Matthew Wilcox <willy@infradead.org>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
- <20210510135518.305cc03d@coco.lan>
- <df6b4567-030c-a480-c5a6-fe579830e8c0@gmail.com>
- <YJk8LMFViV7Z3Uu7@casper.infradead.org>
-From: Edward Cree <ecree.xilinx@gmail.com>
-Message-ID: <ed65025c-1087-9672-7451-6d28e7ab8f92@gmail.com>
-Date: Mon, 10 May 2021 15:33:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A464F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 17:07:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A464F800E9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D8713B148
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 15:07:01 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Validate MS endpoint descriptors
+Date: Mon, 10 May 2021 17:06:59 +0200
+Message-Id: <20210510150659.17710-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <YJk8LMFViV7Z3Uu7@casper.infradead.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 10 May 2021 16:50:04 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-sgx@vger.kernel.org,
- coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-rdma@vger.kernel.org, linux-integrity@vger.kernel.org,
- David Woodhouse <dwmw2@infradead.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,32 +62,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/05/2021 14:59, Matthew Wilcox wrote:
-> Most of these
-> UTF-8 characters come from latex conversions and really aren't
-> necessary (and are being used incorrectly).
-I fully agree with fixing those.
-The cover-letter, however, gave the impression that that was not the
- main purpose of this series; just, perhaps, a happy side-effect.
+snd_usbmidi_get_ms_info() may access beyond the border when a
+malformed descriptor is passed.  This patch adds the sanity checks of
+the given MS endpoint descriptors, and skips invalid ones.
 
-> You seem quite knowedgeable about the various differences.  Perhaps
-> you'd be willing to write a document for Documentation/doc-guide/
-> that provides guidance for when to use which kinds of horizontal
-> line?I have Opinions about the proper usage of punctuation, but I also know
- that other people have differing opinions.  For instance, I place
- spaces around an em dash, which is nonstandard according to most
- style guides.  Really this is an individual enough thing that I'm not
- sure we could have a "kernel style guide" that would be more useful
- than general-purpose guidance like the page you linked.
-Moreover, such a guide could make non-native speakers needlessly self-
- conscious about their writing and discourage them from contributing
- documentation at all.  I'm not advocating here for trying to push
- kernel developers towards an eats-shoots-and-leaves level of
- linguistic pedantry; rather, I merely think that existing correct
- usages should be left intact (and therefore, excising incorrect usage
- should only be attempted by someone with both the expertise and time
- to check each case).
+Reported-by: syzbot+6bb23a5d5548b93c94aa@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/midi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-But if you really want such a doc I wouldn't mind contributing to it.
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index a10ac75969a8..649eb8d1ab7d 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1956,8 +1956,12 @@ static int snd_usbmidi_get_ms_info(struct snd_usb_midi *umidi,
+ 		ms_ep = find_usb_ms_endpoint_descriptor(hostep);
+ 		if (!ms_ep)
+ 			continue;
++		if (ms_ep->bLength <= sizeof(*ms_ep))
++			continue;
+ 		if (ms_ep->bNumEmbMIDIJack > 0x10)
+ 			continue;
++		if (ms_ep->bLength < sizeof(*ms_ep) + ms_ep->bNumEmbMIDIJack)
++			continue;
+ 		if (usb_endpoint_dir_out(ep)) {
+ 			if (endpoints[epidx].out_ep) {
+ 				if (++epidx >= MIDI_MAX_ENDPOINTS) {
+-- 
+2.26.2
 
--ed

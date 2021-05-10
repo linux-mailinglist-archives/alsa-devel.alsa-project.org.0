@@ -2,84 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B230537916B
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 16:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD8B37916C
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 16:53:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BDAE1773;
-	Mon, 10 May 2021 16:52:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BDAE1773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 798C3178A;
+	Mon, 10 May 2021 16:52:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798C3178A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620658385;
-	bh=dyIPtb49LgFnCoKazyq+bQhPSj3PCobNssG21KHdoK4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ksCc8i1bjhbe5B16BMcABFdc5pm7tekq++9qXJmHGiSlQfec3gmaQUNbjVuGXZAJk
-	 M+UFMF90xUY1JTMoNQnkuPo7LroZ1r7Md9Yx0TBJODJCiho8keS+CWfiENjF29Qkmv
-	 ysbzdSVEGkE2g9yc2tJLIdfoZBMeQfSbT2bZozKw=
+	s=default; t=1620658398;
+	bh=6csNiK+Dh1LnbZhCCvZgMbL8ng55lTCrIpRWSyrHCVM=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KfD85Ju7EN1NLgalCzCgOdq1i6ynIpnH4iY5QWIY369QvMVq4HZTfDZtBh5aQImrQ
+	 8FcZZCgWF4Ws43YE/eV3UyJr9mFnTrxTq7yvpx7frxQ/n/fT1RDrpWpbwvy5zEtrZR
+	 moaaUSdmfSTn5FgDFvjrj8K9LfoaKsuGwUiHl2tA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8DAFF80430;
-	Mon, 10 May 2021 16:50:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57B82F804AC;
+	Mon, 10 May 2021 16:50:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7EB2F80240; Mon, 10 May 2021 13:55:44 +0200 (CEST)
+ id 2498BF80240; Mon, 10 May 2021 14:19:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_25,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE3D5F800E9
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 13:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE3D5F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S4cpkndG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 383C061260;
- Mon, 10 May 2021 11:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620647729;
- bh=dyIPtb49LgFnCoKazyq+bQhPSj3PCobNssG21KHdoK4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=S4cpkndG9UuTYGkhKfO3hJLbYIHDWve5Su3QQFRXInDkMRoAu9bVjsNPKBQQExFiA
- MH/LvEqboPFe5Mg323DsrqgW7WJPZfjJ5OWh3KcGd7Kzb/Ed/OuhsjfzebDsCLf+jo
- Z2y3h21hX1f0r0znndE/gsvI3+7MfvcFNE3R9vJ3F6eSaoK3rYc9HAxpysQKCzq2nw
- XliTZNXkMCNQpYy6ormSrp00pDOW21OImF+xXBpjWC/JIXAZfq/wrXo3rh38peS5/g
- BQeri8Wl+fs0ihvm/Fcaw0vxpMvqk7Fkm7kctYIMuGKithMKv3Kd8J2NMAGsk2M1IJ
- Z8/9XzwZufeKA==
-Date: Mon, 10 May 2021 13:55:18 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
-Message-ID: <20210510135518.305cc03d@coco.lan>
-In-Reply-To: <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95035F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 14:19:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95035F800E9
+Received: by mail-io1-f72.google.com with SMTP id
+ d13-20020a6b7d4d0000b029043969826f55so2280879ioq.0
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 05:19:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=hbAZFBKi/91vle8IM936jH+bKaKyU5eiz4qnNx9xk7g=;
+ b=iNsMI4M6cK8QurmGcPwEqblO5UvYOecpBcPzOPt0Nfy93mWgNSW7tASE5I2CeV7Sni
+ 40S5wtBoxSFyzqPKgq89XgkkVNEnVVnWsrIcsRfvHpjaisJteByehaHropHpF0N6/QjV
+ 07CeeW0CY+LrFmf7J4fm+nwtg983hFtY0cpTg9DHF7NZ43iQN1/Kh5piJoJZHD4sNLvF
+ 1qq56yiBcYLkCH0mp+mFnaEm/jZOtVZhYyaHJt/I9La0fcHA+o1Y/DwpadUzX9AHx008
+ xsj/VQJ5KEXLppp0eWzc4Kx4YzfBzAE1NpbJ+VmEQXwlEjEMawwZCWrHpUpC99ttv441
+ G+ug==
+X-Gm-Message-State: AOAM533X3NhEQWWyFDyiJQgOGEUK6poeM9aCZbiE0fGKdpGYJPhmaBIM
+ o4BHuOHGQRYDmiw10yl4+HjsfVR1hwPZmu4Au0s/wlQ6oThe
+X-Google-Smtp-Source: ABdhPJwXpj8S5GjUILMl0R62juQ4GkZOBmbuUP6T2/BxzMk1kLOxXpNZKMaqIMpNpwZqvCNgU8dxvr/feSSFm47SVVLH/8q4tor9
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a5d:8c84:: with SMTP id g4mr1713784ion.32.1620649158559;
+ Mon, 10 May 2021 05:19:18 -0700 (PDT)
+Date: Mon, 10 May 2021 05:19:18 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000066cad205c1f8c94f@google.com>
+Subject: [syzbot] KASAN: slab-out-of-bounds Read in snd_usbmidi_get_ms_info
+From: syzbot <syzbot+6bb23a5d5548b93c94aa@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, clemens@ladisch.de, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 10 May 2021 16:50:04 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- linux-rdma@vger.kernel.org, x86@kernel.org, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-sgx@vger.kernel.org, coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-integrity@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,127 +82,145 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi David,
+Hello,
 
-Em Mon, 10 May 2021 11:54:02 +0100
-David Woodhouse <dwmw2@infradead.org> escreveu:
+syzbot found the following issue on:
 
-> On Mon, 2021-05-10 at 12:26 +0200, Mauro Carvalho Chehab wrote:
-> > There are several UTF-8 characters at the Kernel's documentation.
-> >=20
-> > Several of them were due to the process of converting files from
-> > DocBook, LaTeX, HTML and Markdown. They were probably introduced
-> > by the conversion tools used on that time.
-> >=20
-> > Other UTF-8 characters were added along the time, but they're easily
-> > replaceable by ASCII chars.
-> >=20
-> > As Linux developers are all around the globe, and not everybody has UTF=
--8
-> > as their default charset, better to use UTF-8 only on cases where it is=
- really
-> > needed. =20
->=20
-> No, that is absolutely the wrong approach.
->=20
-> If someone has a local setup which makes bogus assumptions about text
-> encodings, that is their own mistake.
->=20
-> We don't do them any favours by trying to *hide* it in the common case
-> so that they don't notice it for longer.
->=20
-> There really isn't much excuse for such brokenness, this far into the
-> 21st century.
->=20
-> Even *before* UTF-8 came along in the final decade of the last
-> millennium, it was important to know which character set a given piece
-> of text was encoded in.
->=20
-> In fact it was even *more* important back then, we couldn't just assume
-> UTF-8 everywhere like we can in modern times.
->=20
-> Git can already do things like CRLF conversion on checking files out to
-> match local conventions; if you want to teach it to do character set
-> conversions too then I suppose that might be useful to a few developers
-> who've fallen through a time warp and still need it. But nobody's ever
-> bothered before because it just isn't necessary these days.
->=20
-> Please *don't* attempt to address this anachronistic and esoteric
-> "requirement" by dragging the kernel source back in time by three
-> decades.
+HEAD commit:    31a85035 usb: gadget: fsl_qe_udc: fix implicit-fallthrough..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=109f5a63d00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fbebe41cc7d12c56
+dashboard link: https://syzkaller.appspot.com/bug?extid=6bb23a5d5548b93c94aa
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10693995d00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10e23c65d00000
 
-No. The idea is not to go back three decades ago.=20
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6bb23a5d5548b93c94aa@syzkaller.appspotmail.com
 
-The goal is just to avoid use UTF-8 where it is not needed. See, the vast
-majority of UTF-8 chars are kept:
+usb 1-1: config 199 interface 0 altsetting 0 endpoint 0x5 has an invalid bInterval 0, changing to 7
+usb 1-1: New USB device found, idVendor=7300, idProduct=128c, bcdDevice=ed.06
+usb 1-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+usb 1-1: string descriptor 0 read error: -71
+usb 1-1: MIDIStreaming interface descriptor not found
+==================================================================
+BUG: KASAN: slab-out-of-bounds in snd_usbmidi_get_ms_info+0xeaf/0x10e0 sound/usb/midi.c:1982
+Read of size 1 at addr ffff888119b80722 by task kworker/0:1/7
 
-	- Non-ASCII Latin and Greek chars;
-	- Box drawings;
-	- arrows;
-	- most symbols.
+CPU: 0 PID: 7 Comm: kworker/0:1 Not tainted 5.12.0-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ __dump_stack lib/dump_stack.c:79 [inline]
+ dump_stack+0x143/0x1db lib/dump_stack.c:120
+ print_address_description.constprop.0.cold+0x5b/0x2f8 mm/kasan/report.c:233
+ __kasan_report mm/kasan/report.c:419 [inline]
+ kasan_report.cold+0x7c/0xd8 mm/kasan/report.c:436
+ snd_usbmidi_get_ms_info+0xeaf/0x10e0 sound/usb/midi.c:1982
+ __snd_usbmidi_create+0x393/0x1ba0 sound/usb/midi.c:2485
+ snd_usb_create_quirk+0xa5/0xe0 sound/usb/quirks.c:604
+ usb_audio_probe+0xcf0/0x2c90 sound/usb/card.c:796
+ usb_probe_interface+0x315/0x7f0 drivers/usb/core/driver.c:396
+ really_probe+0x291/0xf60 drivers/base/dd.c:576
+ driver_probe_device+0x298/0x410 drivers/base/dd.c:763
+ __device_attach_driver+0x203/0x2c0 drivers/base/dd.c:870
+ bus_for_each_drv+0x15f/0x1e0 drivers/base/bus.c:431
+ __device_attach+0x228/0x4b0 drivers/base/dd.c:938
+ bus_probe_device+0x1e4/0x290 drivers/base/bus.c:491
+ device_add+0xbe0/0x2100 drivers/base/core.c:3319
+ usb_set_configuration+0x113f/0x1910 drivers/usb/core/message.c:2164
+ usb_generic_driver_probe+0xba/0x100 drivers/usb/core/generic.c:238
+ usb_probe_device+0xd9/0x2c0 drivers/usb/core/driver.c:293
+ really_probe+0x291/0xf60 drivers/base/dd.c:576
+ driver_probe_device+0x298/0x410 drivers/base/dd.c:763
+ __device_attach_driver+0x203/0x2c0 drivers/base/dd.c:870
+ bus_for_each_drv+0x15f/0x1e0 drivers/base/bus.c:431
+ __device_attach+0x228/0x4b0 drivers/base/dd.c:938
+ bus_probe_device+0x1e4/0x290 drivers/base/bus.c:491
+ device_add+0xbe0/0x2100 drivers/base/core.c:3319
+ usb_new_device.cold+0x721/0x1058 drivers/usb/core/hub.c:2556
+ hub_port_connect drivers/usb/core/hub.c:5276 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5416 [inline]
+ port_event drivers/usb/core/hub.c:5562 [inline]
+ hub_event+0x2357/0x4330 drivers/usb/core/hub.c:5644
+ process_one_work+0x98d/0x1580 kernel/workqueue.c:2275
+ worker_thread+0x64c/0x1120 kernel/workqueue.c:2421
+ kthread+0x38c/0x460 kernel/kthread.c:313
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
 
-There, it makes perfect sense to keep using UTF-8.
+Allocated by task 7:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track mm/kasan/common.c:46 [inline]
+ set_alloc_info mm/kasan/common.c:428 [inline]
+ ____kasan_kmalloc mm/kasan/common.c:507 [inline]
+ __kasan_kmalloc+0x7c/0x90 mm/kasan/common.c:516
+ kmalloc include/linux/slab.h:561 [inline]
+ usb_get_configuration+0x321/0x3d60 drivers/usb/core/config.c:919
+ usb_enumerate_device drivers/usb/core/hub.c:2389 [inline]
+ usb_new_device+0x42c/0x7a0 drivers/usb/core/hub.c:2525
+ hub_port_connect drivers/usb/core/hub.c:5276 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5416 [inline]
+ port_event drivers/usb/core/hub.c:5562 [inline]
+ hub_event+0x2357/0x4330 drivers/usb/core/hub.c:5644
+ process_one_work+0x98d/0x1580 kernel/workqueue.c:2275
+ worker_thread+0x64c/0x1120 kernel/workqueue.c:2421
+ kthread+0x38c/0x460 kernel/kthread.c:313
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
 
-We should keep using UTF-8 on Kernel. This is something that it shouldn't
-be changed.
+The buggy address belongs to the object at ffff888119b80700
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 34 bytes inside of
+ 64-byte region [ffff888119b80700, ffff888119b80740)
+The buggy address belongs to the page:
+page:ffffea000466e000 refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff888119b80680 pfn:0x119b80
+flags: 0x200000000000200(slab|node=0|zone=2)
+raw: 0200000000000200 ffffea0004206f00 0000000900000009 ffff888100041640
+raw: ffff888119b80680 000000008020001d 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY), pid 2653, ts 10410979522, free_ts 0
+ prep_new_page mm/page_alloc.c:2358 [inline]
+ get_page_from_freelist+0xc97/0x26a0 mm/page_alloc.c:3994
+ __alloc_pages+0x1b2/0x4f0 mm/page_alloc.c:5200
+ alloc_pages+0x18c/0x2a0 mm/mempolicy.c:2272
+ alloc_slab_page mm/slub.c:1644 [inline]
+ allocate_slab+0x2c5/0x4c0 mm/slub.c:1784
+ new_slab mm/slub.c:1847 [inline]
+ new_slab_objects mm/slub.c:2593 [inline]
+ ___slab_alloc+0x476/0x7b0 mm/slub.c:2756
+ __slab_alloc+0x68/0x80 mm/slub.c:2796
+ slab_alloc_node mm/slub.c:2878 [inline]
+ slab_alloc mm/slub.c:2920 [inline]
+ kmem_cache_alloc_trace+0x27e/0x2a0 mm/slub.c:2937
+ kmalloc include/linux/slab.h:556 [inline]
+ kzalloc include/linux/slab.h:686 [inline]
+ allocate_cgrp_cset_links+0x19c/0x240 kernel/cgroup/cgroup.c:1119
+ find_css_set+0x6d3/0x1a40 kernel/cgroup/cgroup.c:1197
+ cgroup_migrate_prepare_dst+0x105/0x830 kernel/cgroup/cgroup.c:2641
+ cgroup_attach_task+0x39f/0x760 kernel/cgroup/cgroup.c:2747
+ __cgroup1_procs_write.constprop.0+0x3a9/0x490 kernel/cgroup/cgroup-v1.c:519
+ cgroup_file_write+0x1ec/0x780 kernel/cgroup/cgroup.c:3711
+ kernfs_fop_write_iter+0x342/0x500 fs/kernfs/file.c:296
+ call_write_iter include/linux/fs.h:2114 [inline]
+ new_sync_write+0x426/0x650 fs/read_write.c:518
+ vfs_write+0x743/0x9e0 fs/read_write.c:605
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff888119b80600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+ ffff888119b80680: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff888119b80700: 00 00 00 00 02 fc fc fc fc fc fc fc fc fc fc fc
+                               ^
+ ffff888119b80780: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+ ffff888119b80800: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+==================================================================
+
 
 ---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-This patch series is doing conversion only when using ASCII makes
-more sense than using UTF-8.=20
-
-See, a number of converted documents ended with weird characters
-like ZERO WIDTH NO-BREAK SPACE (U+FEFF) character. This specific
-character doesn't do any good.
-
-Others use NO-BREAK SPACE (U+A0) instead of 0x20. Harmless, until
-someone tries to use grep[1].
-
-[1] try to run:
-
-    $ git grep "CPU 0 has been" Documentation/RCU/
-
-    it will return nothing with current upstream.
-
-    But it will work fine after the series is applied:
-
-    $ git grep "CPU 0 has been" Documentation/RCU/
-      Documentation/RCU/Design/Data-Structures/Data-Structures.rst:| #. CPU=
- 0 has been in dyntick-idle mode for quite some time. When it   |
-      Documentation/RCU/Design/Data-Structures/Data-Structures.rst:|    not=
-ices that CPU 0 has been in dyntick idle mode, which qualifies  |
-
-The main point on this series is to replace just the occurrences
-where ASCII represents the symbol equally well, e. g. it is limited
-for those chars:
-
-	- U+2010 ('=E2=80=90'): HYPHEN
-	- U+00ad ('=C2=AD'): SOFT HYPHEN
-	- U+2013 ('=E2=80=93'): EN DASH
-	- U+2014 ('=E2=80=94'): EM DASH
-
-	- U+2018 ('=E2=80=98'): LEFT SINGLE QUOTATION MARK
-	- U+2019 ('=E2=80=99'): RIGHT SINGLE QUOTATION MARK
-	- U+00b4 ('=C2=B4'): ACUTE ACCENT
-
-	- U+201c ('=E2=80=9C'): LEFT DOUBLE QUOTATION MARK
-	- U+201d ('=E2=80=9D'): RIGHT DOUBLE QUOTATION MARK
-
-	- U+00d7 ('=C3=97'): MULTIPLICATION SIGN
-	- U+2212 ('=E2=88=92'): MINUS SIGN
-
-	- U+2217 ('=E2=88=97'): ASTERISK OPERATOR
-	  (this one used as a pointer reference like "*foo" on C code
-	   example inside a document converted from LaTeX)
-
-	- U+00bb ('=C2=BB'): RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-	  (this one also used wrongly on an ABI file, meaning '>')
-
-	- U+00a0 ('=C2=A0'): NO-BREAK SPACE
-	- U+feff ('=EF=BB=BF'): ZERO WIDTH NO-BREAK SPACE
-
-Using the above symbols will just trick tools like grep for no good
-reason.
-
-Thanks,
-Mauro
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this issue, for details see:
+https://goo.gl/tpsmEJ#testing-patches

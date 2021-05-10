@@ -2,79 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2126C37A30A
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 11:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C9937A30F
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 11:10:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ECC81782;
-	Tue, 11 May 2021 11:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ECC81782
+	by alsa0.perex.cz (Postfix) with ESMTPS id F16991786;
+	Tue, 11 May 2021 11:09:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F16991786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620724207;
-	bh=4rRsS5KRH4MOyCTnzUxn/ytiwuxMFCoJ22aKEJrmc/Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=A93aXEQRR8cRjX0V9GeR1yNhDjVePvMqn7d980gHSq9IQFOqRKzkfcchvSrKazFb5
-	 y4mATgMG4IK2Ncjq3xqkKjd9V9FEZvSwTQm8EMUZf32Ody5ip70SHkStLJ2cs4UNpP
-	 WHKxfBQFEflYVnV1uko7tAF/M9TaHte2qGZHRgSs=
+	s=default; t=1620724243;
+	bh=ng0zdv9MtGw4RQmlOInYW8acJHPVCJ1GaSptKfbkA0Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YXn8OjN7xDDyME/uJlyiVqFcWRuiZ+u9jIhcKN8NPrvNSGWc6GCXkctfVmUZimDXF
+	 dlEIdAGq1pgc7y/kWkWnY1l42wfNGGa1KIZOxvEMlaUMjXZe9KtrRCC3rPxH57SiM7
+	 GjO4G+L/vtO1K0g3qLL2G710kCb882CWHG0Z2zOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4953AF801D5;
-	Tue, 11 May 2021 11:08:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58822F8042F;
+	Tue, 11 May 2021 11:08:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FDF7F80240; Mon, 10 May 2021 21:22:12 +0200 (CEST)
+ id 7A56FF80240; Mon, 10 May 2021 22:45:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 618DCF800EA
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 21:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 618DCF800EA
-Received: from cwcc.thunk.org (pool-72-74-133-215.bstnma.fios.verizon.net
- [72.74.133.215]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 14AJM3dI013584
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 May 2021 15:22:05 -0400
-Received: by cwcc.thunk.org (Postfix, from userid 15806)
- id F267215C3CD9; Mon, 10 May 2021 15:22:02 -0400 (EDT)
-Date: Mon, 10 May 2021 15:22:02 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: David Woodhouse <dwmw2@infradead.org>
-Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
-Message-ID: <YJmH2irxoRsyNudb@mit.edu>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
- <20210510135518.305cc03d@coco.lan>
- <de6d1fa5b7934f4afd61370d9c58502bef588466.camel@infradead.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9327FF800EA
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 22:45:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9327FF800EA
+Received: by mail-ot1-f48.google.com with SMTP id
+ d25-20020a0568300459b02902f886f7dd43so2222082otc.6
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 13:45:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iT6yh/cPHLGtBTa1IYIRkFWCRkmzrN2dS0BaWLF63LY=;
+ b=f010aTDbGz8cNWzEGc6Y09AEiCV9LCtg4B4UxcNMQB8p0jKsvXvffwWGVbUaCChTMl
+ P7Mt0Z8QFABXxeLtgzrkdo8wOe3SFz+pyssTgXlLlQVWgbXI5AH5nTKHvcl4xYk4psbU
+ 2YnhIhNMHUXHrLlqJstwbSjrBAMFww/Wykb+neM04gxwLqAGFT0paKCW0kvtoROnPmdU
+ raR48zimvCJ9cycoaNfLW3zKigHv7O+AceNrLS2/sRFcsqXzxi2S+VzgnZ9jYpJpSYJV
+ vOrwZVWqpDw43XTdks4YQ2Nhkj59D/YVOHwk1bINUzR3Zajef0uby5eX4Jx/W/VbBZfN
+ NGQQ==
+X-Gm-Message-State: AOAM533x454jE53XPCkBrpo8dJ7+jH6MjwpGbs6czdcfVd3xI1WZoMX5
+ ggGzfz/LR79kIf+pghAsow==
+X-Google-Smtp-Source: ABdhPJwgrvtWQSp23OuaxQoKqHfbE3fMubvosTqs2k+Gkw6N64h91HjzWMGpRK+NaEo44+Q6KznypA==
+X-Received: by 2002:a05:6830:1556:: with SMTP id
+ l22mr22884062otp.34.1620679527190; 
+ Mon, 10 May 2021 13:45:27 -0700 (PDT)
+Received: from xps15.herring.priv (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.googlemail.com with ESMTPSA id i2sm3307576oto.66.2021.05.10.13.45.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 May 2021 13:45:26 -0700 (PDT)
+From: Rob Herring <robh@kernel.org>
+To: devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: More removals of type references on common
+ properties
+Date: Mon, 10 May 2021 15:45:24 -0500
+Message-Id: <20210510204524.617390-1-robh@kernel.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <de6d1fa5b7934f4afd61370d9c58502bef588466.camel@infradead.org>
 X-Mailman-Approved-At: Tue, 11 May 2021 11:08:22 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-sgx@vger.kernel.org,
- coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-rdma@vger.kernel.org, linux-integrity@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, linux-input@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Odelu Kukatla <okukatla@codeaurora.org>, linux-pm@vger.kernel.org,
+ Luca Ceresoli <luca@lucaceresoli.net>, Mark Brown <broonie@kernel.org>,
+ Orson Zhai <orsonzhai@gmail.com>, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-arm-kernel@lists.infradead.org, Alex Elder <elder@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>,
+ Georgi Djakov <djakov@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,29 +105,145 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 10, 2021 at 02:49:44PM +0100, David Woodhouse wrote:
-> On Mon, 2021-05-10 at 13:55 +0200, Mauro Carvalho Chehab wrote:
-> > This patch series is doing conversion only when using ASCII makes
-> > more sense than using UTF-8. 
-> > 
-> > See, a number of converted documents ended with weird characters
-> > like ZERO WIDTH NO-BREAK SPACE (U+FEFF) character. This specific
-> > character doesn't do any good.
-> > 
-> > Others use NO-BREAK SPACE (U+A0) instead of 0x20. Harmless, until
-> > someone tries to use grep[1].
-> 
-> Replacing those makes sense. But replacing emdashes — which are a
-> distinct character that has no direct replacement in ASCII and which
-> people do *deliberately* use instead of hyphen-minus — does not.
+Users of common properties shouldn't have a type definition as the
+common schemas already have one. A few new ones slipped in and
+*-names was missed in the last clean-up pass. Drop all the unnecessary
+type references in the tree.
 
-I regularly use --- for em-dashes and -- for en-dashes.  Markdown will
-automatically translate 3 ASCII hypens to em-dashes, and 2 ASCII
-hyphens to en-dashes.  It's much, much easier for me to type 2 or 3
-hypens into my text editor of choice than trying to enter the UTF-8
-characters.  If we can make sphinx do this translation, maybe that's
-the best way of dealing with these two characters?
+A meta-schema update to catch these is pending.
 
-Cheers,
+Cc: Luca Ceresoli <luca@lucaceresoli.net>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Georgi Djakov <djakov@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Orson Zhai <orsonzhai@gmail.com>
+Cc: Baolin Wang <baolin.wang7@gmail.com>
+Cc: Chunyan Zhang <zhang.lyra@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+Cc: Odelu Kukatla <okukatla@codeaurora.org>
+Cc: Alex Elder <elder@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: linux-clk@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-iio@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/clock/idt,versaclock5.yaml    | 2 --
+ .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml         | 1 -
+ Documentation/devicetree/bindings/input/input.yaml              | 1 -
+ Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml   | 1 -
+ Documentation/devicetree/bindings/net/qcom,ipa.yaml             | 1 -
+ .../devicetree/bindings/power/supply/sc2731-charger.yaml        | 2 +-
+ Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml          | 2 +-
+ 7 files changed, 2 insertions(+), 8 deletions(-)
 
-					- Ted
+diff --git a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+index c268debe5b8d..28675b0b80f1 100644
+--- a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
++++ b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+@@ -60,7 +60,6 @@ properties:
+     maxItems: 2
+ 
+   idt,xtal-load-femtofarads:
+-    $ref: /schemas/types.yaml#/definitions/uint32
+     minimum: 9000
+     maximum: 22760
+     description: Optional load capacitor for XTAL1 and XTAL2
+@@ -84,7 +83,6 @@ patternProperties:
+         enum: [ 1800000, 2500000, 3300000 ]
+       idt,slew-percent:
+         description: The Slew rate control for CMOS single-ended.
+-        $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [ 80, 85, 90, 100 ]
+ 
+ required:
+diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+index 6f2398cdc82d..1e7894e524f9 100644
+--- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+@@ -102,7 +102,6 @@ patternProperties:
+ 
+       st,adc-channel-names:
+         description: List of single-ended channel names.
+-        $ref: /schemas/types.yaml#/definitions/string-array
+ 
+       st,filter-order:
+         description: |
+diff --git a/Documentation/devicetree/bindings/input/input.yaml b/Documentation/devicetree/bindings/input/input.yaml
+index 74244d21d2b3..d41d8743aad4 100644
+--- a/Documentation/devicetree/bindings/input/input.yaml
++++ b/Documentation/devicetree/bindings/input/input.yaml
+@@ -38,6 +38,5 @@ properties:
+       Duration in seconds which the key should be kept pressed for device to
+       reset automatically. Device with key pressed reset feature can specify
+       this property.
+-    $ref: /schemas/types.yaml#/definitions/uint32
+ 
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
+index cb6498108b78..36c955965d90 100644
+--- a/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
++++ b/Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml
+@@ -92,7 +92,6 @@ properties:
+       this interconnect to send RPMh commands.
+ 
+   qcom,bcm-voter-names:
+-    $ref: /schemas/types.yaml#/definitions/string-array
+     description: |
+       Names for each of the qcom,bcm-voters specified.
+ 
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+index 7443490d4cc6..5fe6d3dceb08 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+@@ -105,7 +105,6 @@ properties:
+       - description: Whether the IPA clock is enabled (if valid)
+ 
+   qcom,smem-state-names:
+-    $ref: /schemas/types.yaml#/definitions/string-array
+     description: The names of the state bits used for SMP2P output
+     items:
+       - const: ipa-clock-enabled-valid
+diff --git a/Documentation/devicetree/bindings/power/supply/sc2731-charger.yaml b/Documentation/devicetree/bindings/power/supply/sc2731-charger.yaml
+index db1aa238cda5..b62c2431f94e 100644
+--- a/Documentation/devicetree/bindings/power/supply/sc2731-charger.yaml
++++ b/Documentation/devicetree/bindings/power/supply/sc2731-charger.yaml
+@@ -20,7 +20,7 @@ properties:
+     maxItems: 1
+ 
+   phys:
+-    $ref: /schemas/types.yaml#/definitions/phandle
++    maxItems: 1
+     description: phandle to the USB phy
+ 
+   monitored-battery:
+diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+index b4c190bddd84..61802a11baf4 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+@@ -49,7 +49,7 @@ properties:
+     maxItems: 1
+ 
+   memory-region:
+-    $ref: /schemas/types.yaml#/definitions/phandle
++    maxItems: 1
+     description:
+       phandle to a node describing reserved memory (System RAM memory)
+       The M core can't access all the DDR memory space on some platform,
+-- 
+2.27.0
+

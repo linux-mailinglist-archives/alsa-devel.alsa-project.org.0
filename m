@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799EA378C6C
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 14:45:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF07378C74
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 14:47:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2CDA16B6;
-	Mon, 10 May 2021 14:44:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2CDA16B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 653B016C7;
+	Mon, 10 May 2021 14:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 653B016C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620650718;
-	bh=3Dn5x6qFhBwPQt/PjR52fl9Z0+OFcwVAroezu4VJSig=;
+	s=default; t=1620650825;
+	bh=uV/OnLN74LZ5R7idsmHoOoMuZGJAA/3/O2wlYnV5ONk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y1r8dmhaOL5QDnKBry07V/4scEm2e8f2dw69xJXNGuqO5ZWRDyqqbAa/tRKaoNzcr
-	 cmO0C1WLwK+h3WA6Ym4WzkH8vySfgHRpJsWVeYEqGre3zUTV5rU7QsrZEYcaxmJJSF
-	 1jNvRTQDnNFIj9cx5naHGyd7jGofZ61AYXCVRHKw=
+	b=ZtB9xtPkq760wh3ZUgp3CezlsLTEUHENksizF66UAO7IIx0eeA/Q+zQsCNC94iHey
+	 sUIzXlMRtpS08ZGLxaPh//ONAy4wXBb3JKD91rbLdDqglIvpy0/Nx5UgarUMueO/PP
+	 b/1yx+CHj26Bbh09wdYj28+FvWwXYvRHIOn1BfoY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30214F804AC;
-	Mon, 10 May 2021 14:41:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2249F80508;
+	Mon, 10 May 2021 14:41:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB744F804AD; Mon, 10 May 2021 14:41:34 +0200 (CEST)
+ id 10C26F804DF; Mon, 10 May 2021 14:41:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E681EF8026F
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 14:41:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E681EF8026F
-IronPort-SDR: W1XeyHnM2fKcxGUAoUFbM1YtTeInzkB4+g3yhiR8MWuj40V86upP2s0cCDMYiwOv2TtlXkF6Bg
- DS4jYqoWVZiA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9979"; a="220130233"
-X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="220130233"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 05:41:23 -0700
-IronPort-SDR: Phfeuo6XYiUizxOp3MkKZ0WCHLSS+7svpwaRHf+CR8L8RfBK8thLQd21dGZqfq3wZXtSODCEsf
- R6Sl/SGsTuYQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C183F800B4
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 14:41:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C183F800B4
+IronPort-SDR: hq3UCEtMdGez3qXn7RZ7incdCys/58ntMqAZFPMLsMaq3nKCt653KOkPWXWq5AsAVm2ccqMCkC
+ aulagl6HXmWw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9979"; a="263114689"
+X-IronPort-AV: E=Sophos;i="5.82,286,1613462400"; d="scan'208";a="263114689"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 05:41:24 -0700
+IronPort-SDR: k96x0w/6iJcHK4jc3IfdWDRaVBSgVDOc2v1wMLmgRwvpleZHRvcxjbK4W0i052cWV7T70MzHuB
+ LaITi/jTN75g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="609085438"
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="624267516"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga005.jf.intel.com with ESMTP; 10 May 2021 05:41:20 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 10 May 2021 05:41:20 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 947FE501; Mon, 10 May 2021 15:41:37 +0300 (EEST)
+ id A05A4543; Mon, 10 May 2021 15:41:37 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH v3 06/14] spi: pxa2xx: Group Intel Quark specific definitions
-Date: Mon, 10 May 2021 15:41:26 +0300
-Message-Id: <20210510124134.24638-7-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v3 07/14] spi: pxa2xx: Introduce int_stop_and_reset() helper
+Date: Mon, 10 May 2021 15:41:27 +0300
+Message-Id: <20210510124134.24638-8-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210510124134.24638-1-andriy.shevchenko@linux.intel.com>
 References: <20210510124134.24638-1-andriy.shevchenko@linux.intel.com>
@@ -81,36 +81,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DDS_RATE is Intel Quark specific definition. Move it to the rest
-Intel Quark related.
+Currently we have three times the same few lines repeated in the code.
+Deduplicate them by newly introduced int_stop_and_reset() helper.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- include/linux/pxa2xx_ssp.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/spi/spi-pxa2xx.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/pxa2xx_ssp.h b/include/linux/pxa2xx_ssp.h
-index 14b049840faf..1b6c1a0922bd 100644
---- a/include/linux/pxa2xx_ssp.h
-+++ b/include/linux/pxa2xx_ssp.h
-@@ -38,7 +38,6 @@ struct device_node;
- #define SSDR		(0x10)  /* SSP Data Write/Data Read Register */
+diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
+index 1d4c7f4217ed..5572eec68381 100644
+--- a/drivers/spi/spi-pxa2xx.c
++++ b/drivers/spi/spi-pxa2xx.c
+@@ -620,13 +620,20 @@ static void reset_sccr1(struct driver_data *drv_data)
+ 	pxa2xx_spi_write(drv_data, SSCR1, sccr1_reg);
+ }
  
- #define SSTO		(0x28)  /* SSP Time Out Register */
--#define DDS_RATE	(0x28)  /* SSP DDS Clock Rate Register (Intel Quark) */
- #define SSPSP		(0x2C)  /* SSP Programmable Serial Protocol */
- #define SSTSA		(0x30)  /* SSP Tx Timeslot Active */
- #define SSRSA		(0x34)  /* SSP Rx Timeslot Active */
-@@ -105,6 +104,9 @@ struct device_node;
- #define CE4100_SSCR1_RFT	GENMASK(11, 10)	/* Receive FIFO Threshold (mask) */
- #define CE4100_SSCR1_RxTresh(x) (((x) - 1) << 10)	/* level [1..4] */
- 
-+/* Intel Quark X1000 */
-+#define DDS_RATE		0x28		 /* SSP DDS Clock Rate Register */
+-static void int_error_stop(struct driver_data *drv_data, const char *msg)
++static void int_stop_and_reset(struct driver_data *drv_data)
+ {
+-	/* Stop and reset SSP */
++	/* Clear and disable interrupts */
+ 	write_SSSR_CS(drv_data, drv_data->clear_sr);
+ 	reset_sccr1(drv_data);
+-	if (!pxa25x_ssp_comp(drv_data))
+-		pxa2xx_spi_write(drv_data, SSTO, 0);
++	if (pxa25x_ssp_comp(drv_data))
++		return;
 +
- /* QUARK_X1000 SSCR0 bit definition */
- #define QUARK_X1000_SSCR0_DSS		GENMASK(4, 0)	/* Data Size Select (mask) */
- #define QUARK_X1000_SSCR0_DataSize(x)	((x) - 1)	/* Data Size Select [4..32] */
++	pxa2xx_spi_write(drv_data, SSTO, 0);
++}
++
++static void int_error_stop(struct driver_data *drv_data, const char *msg)
++{
++	int_stop_and_reset(drv_data);
+ 	pxa2xx_spi_flush(drv_data);
+ 	pxa2xx_spi_off(drv_data);
+ 
+@@ -638,11 +645,7 @@ static void int_error_stop(struct driver_data *drv_data, const char *msg)
+ 
+ static void int_transfer_complete(struct driver_data *drv_data)
+ {
+-	/* Clear and disable interrupts */
+-	write_SSSR_CS(drv_data, drv_data->clear_sr);
+-	reset_sccr1(drv_data);
+-	if (!pxa25x_ssp_comp(drv_data))
+-		pxa2xx_spi_write(drv_data, SSTO, 0);
++	int_stop_and_reset(drv_data);
+ 
+ 	spi_finalize_current_transfer(drv_data->controller);
+ }
+@@ -1151,11 +1154,7 @@ static int pxa2xx_spi_slave_abort(struct spi_controller *controller)
+ {
+ 	struct driver_data *drv_data = spi_controller_get_devdata(controller);
+ 
+-	/* Stop and reset SSP */
+-	write_SSSR_CS(drv_data, drv_data->clear_sr);
+-	reset_sccr1(drv_data);
+-	if (!pxa25x_ssp_comp(drv_data))
+-		pxa2xx_spi_write(drv_data, SSTO, 0);
++	int_stop_and_reset(drv_data);
+ 	pxa2xx_spi_flush(drv_data);
+ 	pxa2xx_spi_off(drv_data);
+ 
 -- 
 2.30.2
 

@@ -2,89 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB3E378102
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 12:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8653781EB
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 May 2021 12:29:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BBDA1694;
-	Mon, 10 May 2021 12:14:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BBDA1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8C1E16B6;
+	Mon, 10 May 2021 12:29:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8C1E16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620641729;
-	bh=UuNjd4Aun0I5ZwLHTfi60btQs4j2cHqaqe4SHIvqrGM=;
+	s=default; t=1620642597;
+	bh=Jr32Em6/L3P6Xd7P62C+N9WlG+AenS41r32uNCvD1N4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y9zQFEHYhmraCi9l7Db3+sfC7FytT9hYgfoWXIl2w0PVY0NRahGqnVRlokRw3/+hf
-	 GTY4MCLpiCsduv9D6Bf3tGvXgqP/AsmquielPWtk2Wx4CiYdDKk+IDiuSk8NjXcEjf
-	 AaU9+CxFI8NJnqIW1NNsQx7XICS6uXUY3acWXgV8=
+	b=jI8a4OQ6TLcK6/XiRb6D/GYH2f2CPIGTC9a3Rrw5zDknewhCsmi8tjO0GK+ES7gYv
+	 M7uKZZqyQwJGs4Va15TNRmbutRjRlYXnczmQrjV7/WqY2ZOKw5yL98Kq596bVidzNT
+	 szJJys3VHfVeyJUrkvIlUNS9SLkXpXX7s6GwhhfI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22657F80272;
-	Mon, 10 May 2021 12:13:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E3C0F8027B;
+	Mon, 10 May 2021 12:28:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25334F804B4; Mon, 10 May 2021 12:13:19 +0200 (CEST)
+ id 1D480F80272; Mon, 10 May 2021 12:28:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C4AEF80272
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 12:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C4AEF80272
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF49FF80240
+ for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 12:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF49FF80240
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Ia2f0k5b"
-Received: by mail-wr1-x42e.google.com with SMTP id s8so15998615wrw.10
- for <alsa-devel@alsa-project.org>; Mon, 10 May 2021 03:12:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1RUP68I3HwNhuXkqx8NfMcQ+Gf4uaCrCeHBt2iSVUE0=;
- b=Ia2f0k5b0Vf6TsMPCzwMZHwwp+JOEI/DGNgUINsuRemHW0a0PU3R4PaTCjICwWAnju
- VJs2s5jBI0XyJrHwF4lho8YSz5CTYRWNGWd5wJHqr+zExfcmUJuhG6/F2fnu5zf2jWQ7
- jLXD1tG6UVVopdAXa325epwi9P5F7ZEp3MpWIxvOEsrWYYRFnZmiCrkUWf9gp9RQNBaV
- MLi9hlvIgh42uZGNXnM414RW+twhQf2bNzsT6dFCcLQN0LoqgG3RcXQUUXIJDHsfGt0H
- X7trKfRGlnF9bRtJIaPlnqrCT1hMUPyF6vhnk2+wjeO50ZF2HhaxtrhRybCxZv4O1bAN
- /QMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1RUP68I3HwNhuXkqx8NfMcQ+Gf4uaCrCeHBt2iSVUE0=;
- b=H9WeEl3tpv8s7AQgOcq26WqAgMHyf3fnytwJcrGd3GuSgZWuwz7MJ4pEL2etOqRn9r
- QM0U8FKX8fRwbtItC18CuaIl2JYxkDSYMmsHtDRY0Zw0rH3BerjydJryO166VUB9BEBN
- 1zXb1xB4FF76leYrVFlnLJ23z7pIKulg/g0kDZIQkX+KJVFvjdbvALjeXIUZV1Y9a8yu
- R+r5M27cRb7/UlrOpC90w4MxFD7SQBlpIvgroX5/qgqtho3rWERaHGKjbdBaXFWQ4cKg
- wS+nPAm6T6JBVe3IJVLJPMxehS9d08AZNT0agMnxhh2exlokFHwB91iYf3te8nk0I9Uc
- ZkXw==
-X-Gm-Message-State: AOAM532IR6WxhmwtAshEz6aspVP8w+3brP2DVFshaDYtZ6j0Jf5Bibdk
- i58e9RtZ9EHKNSldruMx+yDQBQ==
-X-Google-Smtp-Source: ABdhPJy1zZnboxYwU59hy7FUd2GyKCZNULHvX4RQWWp+fstvZEyAyCkHKdPtDLe5i77CJgMopibHDA==
-X-Received: by 2002:adf:d1c6:: with SMTP id b6mr26190938wrd.110.1620641537371; 
- Mon, 10 May 2021 03:12:17 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b7sm22072109wri.83.2021.05.10.03.12.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 May 2021 03:12:16 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH 4/4] ASoC: qcom: sdm845: add jack support for WCD934x
-Date: Mon, 10 May 2021 11:12:01 +0100
-Message-Id: <20210510101201.7281-5-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20210510101201.7281-1-srinivas.kandagatla@linaro.org>
-References: <20210510101201.7281-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ap8OFiDv"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9268F6162C;
+ Mon, 10 May 2021 10:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620642492;
+ bh=Jr32Em6/L3P6Xd7P62C+N9WlG+AenS41r32uNCvD1N4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Ap8OFiDvXZp5SnBRAQIDS2BlWpwo+dVYEi6B8nd7lorjEpjA8iy2DcgXo+7uoKS44
+ qy4PzcOz8rce9XI9qqP7WfM3Lo3i/NVfA1QccJsyZNUoYfyPffxfm4le8He/Te60BK
+ hvTX3n/2a5iqm4d7okebAXvhR3GfSIXWlC191c1YFtQXCSMYE4PrCMqqYpy1tZvHdJ
+ 8U2lkN3mDVNotVqzwZ5pTiJ8eu0EEo/qc8AtoQ2yusz8oh4OZIDDUabS1Intvh+49k
+ Fcko9q2x3/Hdpbi/SD8cQkzu2I9YlCxjBMF+LGwz76KTYLzzgdB4ylpNOxTyb21NpN
+ w/up5r2E9xLWA==
+Received: by mail.kernel.org with local (Exim 4.94.2)
+ (envelope-from <mchehab@kernel.org>)
+ id 1lg38z-000UY3-CT; Mon, 10 May 2021 12:28:09 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Subject: [PATCH 45/53] docs: sound: kernel-api: writing-an-alsa-driver.rst:
+ avoid using UTF-8 chars
+Date: Mon, 10 May 2021 12:26:57 +0200
+Message-Id: <8ac9e0ecd6e3b89c4a213f2d33de6344122401a3.1620641727.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1620641727.git.mchehab+huawei@kernel.org>
+References: <cover.1620641727.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, lee.jones@linaro.org
+Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Julia Lawall <Julia.Lawall@inria.fr>,
+ =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@protonmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,30 +88,227 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/sdm845.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+While UTF-8 characters can be used at the Linux documentation,
+the best is to use them only when ASCII doesn't offer a good replacement.
+So, replace the occurences of the following UTF-8 characters:
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 153e9b2de0b5..0adfc5708949 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -288,6 +288,14 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 			snd_soc_dai_set_sysclk(codec_dai, 0,
- 					       WCD934X_DEFAULT_MCLK_RATE,
- 					       SNDRV_PCM_STREAM_PLAYBACK);
-+
-+			rval = snd_soc_component_set_jack(codec_dai->component,
-+							  &pdata->jack, NULL);
-+			if (rval != 0 && rval != -ENOTSUPP) {
-+				dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+				return rval;
-+			}
-+
- 		}
- 		break;
- 	default:
+	- U+00a0 (' '): NO-BREAK SPACE
+	- U+201c ('“'): LEFT DOUBLE QUOTATION MARK
+	- U+201d ('”'): RIGHT DOUBLE QUOTATION MARK
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+---
+ .../kernel-api/writing-an-alsa-driver.rst     | 68 +++++++++----------
+ 1 file changed, 34 insertions(+), 34 deletions(-)
+
+diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+index e6365836fa8b..201ced3bba6e 100644
+--- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
++++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+@@ -533,7 +533,7 @@ Management of Cards and Components
+ Card Instance
+ -------------
+ 
+-For each soundcard, a “card” record must be allocated.
++For each soundcard, a "card" record must be allocated.
+ 
+ A card record is the headquarters of the soundcard. It manages the whole
+ list of devices (components) on the soundcard, such as PCM, mixers,
+@@ -980,7 +980,7 @@ The role of destructor is simple: disable the hardware (if already
+ activated) and release the resources. So far, we have no hardware part,
+ so the disabling code is not written here.
+ 
+-To release the resources, the “check-and-release” method is a safer way.
++To release the resources, the "check-and-release" method is a safer way.
+ For the interrupt, do like this:
+ 
+ ::
+@@ -1133,7 +1133,7 @@ record:
+ 
+ The ``probe`` and ``remove`` functions have already been defined in
+ the previous sections. The ``name`` field is the name string of this
+-device. Note that you must not use a slash “/” in this string.
++device. Note that you must not use a slash "/" in this string.
+ 
+ And at last, the module entries:
+ 
+@@ -1692,8 +1692,8 @@ Typically, you'll have a hardware descriptor as below:
+ 
+    The other possible flags are ``SNDRV_PCM_INFO_PAUSE`` and
+    ``SNDRV_PCM_INFO_RESUME``. The ``PAUSE`` bit means that the pcm
+-   supports the “pause” operation, while the ``RESUME`` bit means that
+-   the pcm supports the full “suspend/resume” operation. If the
++   supports the "pause" operation, while the ``RESUME`` bit means that
++   the pcm supports the full "suspend/resume" operation. If the
+    ``PAUSE`` flag is set, the ``trigger`` callback below must handle
+    the corresponding (pause push/release) commands. The suspend/resume
+    trigger commands can be defined even without the ``RESUME``
+@@ -1731,7 +1731,7 @@ Typically, you'll have a hardware descriptor as below:
+    ``periods_min`` define the maximum and minimum number of periods in
+    the buffer.
+ 
+-   The “period” is a term that corresponds to a fragment in the OSS
++   The "period" is a term that corresponds to a fragment in the OSS
+    world. The period defines the size at which a PCM interrupt is
+    generated. This size strongly depends on the hardware. Generally,
+    the smaller period size will give you more interrupts, that is,
+@@ -1756,7 +1756,7 @@ application. This field contains the enum value
+ ``SNDRV_PCM_FORMAT_XXX``.
+ 
+ One thing to be noted is that the configured buffer and period sizes
+-are stored in “frames” in the runtime. In the ALSA world, ``1 frame =
++are stored in "frames" in the runtime. In the ALSA world, ``1 frame =
+ channels \* samples-size``. For conversion between frames and bytes,
+ you can use the :c:func:`frames_to_bytes()` and
+ :c:func:`bytes_to_frames()` helper functions.
+@@ -1999,7 +1999,7 @@ prepare callback
+ 
+   static int snd_xxx_prepare(struct snd_pcm_substream *substream);
+ 
+-This callback is called when the pcm is “prepared”. You can set the
++This callback is called when the pcm is "prepared". You can set the
+ format type, sample rate, etc. here. The difference from ``hw_params``
+ is that the ``prepare`` callback will be called each time
+ :c:func:`snd_pcm_prepare()` is called, i.e. when recovering after
+@@ -2436,8 +2436,8 @@ size is aligned with the period size.
+ 
+ The hw constraint is a very much powerful mechanism to define the
+ preferred PCM configuration, and there are relevant helpers.
+-I won't give more details here, rather I would like to say, “Luke, use
+-the source.”
++I won't give more details here, rather I would like to say, "Luke, use
++the source."
+ 
+ Control Interface
+ =================
+@@ -2518,50 +2518,50 @@ Control Names
+ -------------
+ 
+ There are some standards to define the control names. A control is
+-usually defined from the three parts as “SOURCE DIRECTION FUNCTION”.
++usually defined from the three parts as "SOURCE DIRECTION FUNCTION".
+ 
+ The first, ``SOURCE``, specifies the source of the control, and is a
+-string such as “Master”, “PCM”, “CD” and “Line”. There are many
++string such as "Master", "PCM", "CD" and "Line". There are many
+ pre-defined sources.
+ 
+ The second, ``DIRECTION``, is one of the following strings according to
+-the direction of the control: “Playback”, “Capture”, “Bypass Playback”
+-and “Bypass Capture”. Or, it can be omitted, meaning both playback and
++the direction of the control: "Playback", "Capture", "Bypass Playback"
++and "Bypass Capture". Or, it can be omitted, meaning both playback and
+ capture directions.
+ 
+ The third, ``FUNCTION``, is one of the following strings according to
+-the function of the control: “Switch”, “Volume” and “Route”.
++the function of the control: "Switch", "Volume" and "Route".
+ 
+-The example of control names are, thus, “Master Capture Switch” or “PCM
+-Playback Volume”.
++The example of control names are, thus, "Master Capture Switch" or "PCM
++Playback Volume".
+ 
+ There are some exceptions:
+ 
+ Global capture and playback
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+-“Capture Source”, “Capture Switch” and “Capture Volume” are used for the
+-global capture (input) source, switch and volume. Similarly, “Playback
+-Switch” and “Playback Volume” are used for the global output gain switch
++"Capture Source", "Capture Switch" and "Capture Volume" are used for the
++global capture (input) source, switch and volume. Similarly, "Playback
++Switch" and "Playback Volume" are used for the global output gain switch
+ and volume.
+ 
+ Tone-controls
+ ~~~~~~~~~~~~~
+ 
+-tone-control switch and volumes are specified like “Tone Control - XXX”,
+-e.g. “Tone Control - Switch”, “Tone Control - Bass”, “Tone Control -
+-Center”.
++tone-control switch and volumes are specified like "Tone Control - XXX",
++e.g. "Tone Control - Switch", "Tone Control - Bass", "Tone Control -
++Center".
+ 
+ 3D controls
+ ~~~~~~~~~~~
+ 
+-3D-control switches and volumes are specified like “3D Control - XXX”,
+-e.g. “3D Control - Switch”, “3D Control - Center”, “3D Control - Space”.
++3D-control switches and volumes are specified like "3D Control - XXX",
++e.g. "3D Control - Switch", "3D Control - Center", "3D Control - Space".
+ 
+ Mic boost
+ ~~~~~~~~~
+ 
+-Mic-boost switch is set as “Mic Boost” or “Mic Boost (6dB)”.
++Mic-boost switch is set as "Mic Boost" or "Mic Boost (6dB)".
+ 
+ More precise information can be found in
+ ``Documentation/sound/designs/control-names.rst``.
+@@ -3368,7 +3368,7 @@ This ensures that the device can be closed and the driver unloaded
+ without losing data.
+ 
+ This callback is optional. If you do not set ``drain`` in the struct
+-snd_rawmidi_ops structure, ALSA will simply wait for 50 milliseconds
++snd_rawmidi_ops structure, ALSA will simply wait for 50 milliseconds
+ instead.
+ 
+ Miscellaneous Devices
+@@ -3506,20 +3506,20 @@ fixed as 4 bytes array (value.iec958.status[x]). For the ``info``
+ callback, you don't specify the value field for this type (the count
+ field must be set, though).
+ 
+-“IEC958 Playback Con Mask” is used to return the bit-mask for the IEC958
+-status bits of consumer mode. Similarly, “IEC958 Playback Pro Mask”
++"IEC958 Playback Con Mask" is used to return the bit-mask for the IEC958
++status bits of consumer mode. Similarly, "IEC958 Playback Pro Mask"
+ returns the bitmask for professional mode. They are read-only controls,
+ and are defined as MIXER controls (iface =
+ ``SNDRV_CTL_ELEM_IFACE_MIXER``).
+ 
+-Meanwhile, “IEC958 Playback Default” control is defined for getting and
++Meanwhile, "IEC958 Playback Default" control is defined for getting and
+ setting the current default IEC958 bits. Note that this one is usually
+ defined as a PCM control (iface = ``SNDRV_CTL_ELEM_IFACE_PCM``),
+ although in some places it's defined as a MIXER control.
+ 
+ In addition, you can define the control switches to enable/disable or to
+ set the raw bit mode. The implementation will depend on the chip, but
+-the control should be named as “IEC958 xxx”, preferably using the
++the control should be named as "IEC958 xxx", preferably using the
+ :c:func:`SNDRV_CTL_NAME_IEC958()` macro.
+ 
+ You can find several cases, for example, ``pci/emu10k1``,
+@@ -3547,7 +3547,7 @@ function.
+ 
+ Usually, ALSA drivers try to allocate and reserve a large contiguous
+ physical space at the time the module is loaded for the later use. This
+-is called “pre-allocation”. As already written, you can call the
++is called "pre-allocation". As already written, you can call the
+ following function at pcm instance construction time (in the case of PCI
+ bus).
+ 
+@@ -4163,7 +4163,7 @@ The typical coding would be like below:
+ 
+ Also, don't forget to define the module description and the license.
+ Especially, the recent modprobe requires to define the
+-module license as GPL, etc., otherwise the system is shown as “tainted”.
++module license as GPL, etc., otherwise the system is shown as "tainted".
+ 
+ ::
+ 
+@@ -4181,7 +4181,7 @@ So far, you've learned how to write the driver codes. And you might have
+ a question now: how to put my own driver into the ALSA driver tree? Here
+ (finally :) the standard procedure is described briefly.
+ 
+-Suppose that you create a new PCI driver for the card “xyz”. The card
++Suppose that you create a new PCI driver for the card "xyz". The card
+ module name would be snd-xyz. The new driver is usually put into the
+ alsa-driver tree, ``sound/pci`` directory in the case of PCI
+ cards.
 -- 
-2.21.0
+2.30.2
 

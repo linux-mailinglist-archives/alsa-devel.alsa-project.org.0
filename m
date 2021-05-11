@@ -2,92 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60E937A6AA
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 14:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4EB37A725
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 14:53:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64CE717BF;
-	Tue, 11 May 2021 14:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64CE717BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D49717C0;
+	Tue, 11 May 2021 14:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D49717C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620736226;
-	bh=525wLy5Odn97XDza8uJhTTM3V09Tek8QjGN7Fj4w3OY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1620737605;
+	bh=repLIb2OVydqXuT1AwYdJsrB7hRd7eM7lHMZ+tL84zA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R7Cbllw06mQYyVy1aeQbMn13LAZdI82R83+lkXxZ1ezJsM6jIYjjQwsnv2B4Kpuao
-	 JtYfxu5e6C59mumicm7f3LziwsD+lWKJTWSJ6webqbHHoAPW0lBd+fyfQ2kH6kW8WV
-	 gXq56mTi8k6jPZuQD6OikwaJbb1ohnv/xoEZ+rPU=
+	b=MLl48rhAUGKvpOQb4iL6VNOhRxGTgTS2v/Kqs85/bEpUsVqMaIpxbYOLY3McbABAc
+	 9Za9s4NNJVw23biMGkdaRTtBpgIYGTStXc6Bl5Xmlr/mZyM1RMePVZaDwoA2zvh6U4
+	 PlX3KfX0X1e3zxZWR3BXvRezsTR15x5AeRWLWL+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C200AF80129;
-	Tue, 11 May 2021 14:28:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F65F8016B;
+	Tue, 11 May 2021 14:51:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4237BF80163; Tue, 11 May 2021 14:28:46 +0200 (CEST)
+ id 6DBABF80163; Tue, 11 May 2021 14:51:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8727FF800E9
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 14:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8727FF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05D10F80129
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 14:51:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05D10F80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="no6PvmCZ"
-Received: by mail-pj1-x1031.google.com with SMTP id
- gc22-20020a17090b3116b02901558435aec1so1255030pjb.4
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 05:28:39 -0700 (PDT)
+ header.b="TfrLT7I8"
+Received: by mail-ej1-x632.google.com with SMTP id w3so29600635ejc.4
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 05:51:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uKD/eHrXVQc862e3xW+RKYQk7t6rr2oE2k183wwBGWE=;
- b=no6PvmCZNOHK7T8MzNOftaTg3KRqY9xkrlt3cT1/tzJ4GMn5/UPlIfoIvhjAD8g1Q5
- ZCZKIXHFpfMNrWDb+6tpAg9BrxEv/sESyu/pbUKclgXqTCY4DM2y3RDBSEIzZ935oWhB
- 6ASRnQAruT+Kewh8VGXjahPRGMr7L0pKwoTOd9SOSuAoOM5opREM1miUcpU9+iZANPqb
- KxMQalLnboi0MnuQLq25iPdd/Hspi4E+uIeYOfAir+33rIFhl4xB6uSXsfztAP6NZukT
- 3P5sRZUiyUJajqKA4zY9tLsgEQejuDV4O9OaNUOHgYhdECQEkij92VRK17ibR+GuIACe
- UVaw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=5Vz3NVjeSduBFGcr7e4KNuJw+YQxjHIZNkFnnUo3vhA=;
+ b=TfrLT7I8hBPUsbCgT5nmLrSnP1r7AhcYkJEB3XXNnc8qRQW9Q8HnoPYQGyuiQK2TbQ
+ EbaJARNMC1mqSnRB/2XcZ5olBFCG8P97ocjZbFGdBWyqpV0ql08dGRPgcdB31t61zodP
+ +L0p8pjCMHASUzN9j3WA9u3dEiiOc+15mKk4V8EnEV/Nny9eK78nOR9odhelbo2Cnukf
+ 0kKKLqlTKlMG00Azf2556mgpDOnXYS0RH8RYThM6giyQLFwpeFuJeWmV3u5RvksJkKbc
+ G8ruV+xoxRHwSwGUK4yEsoo2+XEKFPsUYoM0se+KJEOFMxf1iG5DFmaU/AJSkRFLnMkC
+ Xi6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=uKD/eHrXVQc862e3xW+RKYQk7t6rr2oE2k183wwBGWE=;
- b=qTJmBkuRWzKGJmXUC7NdGWxVEGxwbSaFQYG5m4Shga9+qzF4Rs4GQyHv5AO8eURYDQ
- HU2nmFetFkjDrYdJWs6ow0FJdX0Hu75F1Vr6pu4/NB4FycDs71/GgVPEip6zNYSmGwFy
- pue0DVECJuVix2hFc30K5aanbqa6Jj8N7pajcPtTMSSoLZsI4V/t7CMASRM1UvQC8ieT
- hM0HTjQrM5rxRCi/nWIURPvWnQ0piY23o8IiQvECevRZXFUTBqJgw2evKXcBFh2QAXJk
- uHnKfid6b6uwUIrq3HQngTYe4Mjku5TvVCnR85dEaIOlqmPc5/WSvFEWnCVkH6PltkGL
- 2L3w==
-X-Gm-Message-State: AOAM533cLya9MvWa7kNCDs7b4J3T2lcHa7t02x0XrquUb4XPDIXdAG1Y
- mwMcazNosLwBaQDG856y4BpdWtn4tNGuBQtxo+E=
-X-Google-Smtp-Source: ABdhPJzGDCPmEuN7Q7ctqKms6Zsa/sPn/lHUOehvHz/mqJ5cO2zN4n12zeOaR0SXr/9znZeBDLDx65xxnk/wTnprqkM=
-X-Received: by 2002:a17:902:264:b029:eb:3d3a:a09c with SMTP id
- 91-20020a1709020264b02900eb3d3aa09cmr29235247plc.0.1620736114987; Tue, 11 May
- 2021 05:28:34 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=5Vz3NVjeSduBFGcr7e4KNuJw+YQxjHIZNkFnnUo3vhA=;
+ b=SWc0zsjDcha1hKJmuPyrMByGFnOC7eI3JO0G2e8CcVdVPV5mki9/4Qzzh9gsexsLjL
+ 6ib11Ob4KNYE3v7glmJkrC4DxEa0uwbSKZokC8qZovY4qAC+afLiLQPSKSV0Id8i29B1
+ xQOH7/uxndY2dQ251uSdo6wbzGGo8gyyc3rwvE9F7lnL6AU5Ch2OM5fMjqI6mpvOv+Al
+ nQl9Emb6MrcYPseJxSZBjXd+3vTP/OM5/7dbZBrusv6cjzL6Im1c1peKwfTYz4Agi6B2
+ /z7zTEy6DRNbEHEzPHe0Nkcz5DHTd6IB684wnOetDo3gh0cO9YIB6Tj2qH1kZ/NCwcIj
+ SALw==
+X-Gm-Message-State: AOAM533v/vXV/xkwIryJXNI1gKKpoamvo117JttPdDJ5f51Yx6RHg0Em
+ PmyBFrQgJJ0l6DqWga+MBTG0QNHT+KApQEoO
+X-Google-Smtp-Source: ABdhPJyXRhNHpJwPFimIfNRvAdJwYclnTh5DYMJmV8PxCXAGY/nYbXtvLNcUy0Zh6uqXOd1GETbfTg==
+X-Received: by 2002:a17:906:f56:: with SMTP id
+ h22mr31470771ejj.366.1620737512992; 
+ Tue, 11 May 2021 05:51:52 -0700 (PDT)
+Received: from spectre.. (host-79-47-116-73.retail.telecomitalia.it.
+ [79.47.116.73])
+ by smtp.gmail.com with ESMTPSA id h4sm13093391edv.97.2021.05.11.05.51.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 May 2021 05:51:52 -0700 (PDT)
+From: Elia Devito <eliadevito@gmail.com>
+To: 
+Subject: [PATCH v2] ALSA: hda/realtek: Add fixup for HP Spectre x360 15-df0xxx
+Date: Tue, 11 May 2021 14:46:49 +0200
+Message-Id: <20210511124651.4802-1-eliadevito@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <s5ho8dhd4b3.wl-tiwai@suse.de>
+References: <s5ho8dhd4b3.wl-tiwai@suse.de>
 MIME-Version: 1.0
-References: <20210423182441.50272-1-andriy.shevchenko@linux.intel.com>
- <162072071980.33404.13031284441613044277.b4-ty@kernel.org>
-In-Reply-To: <162072071980.33404.13031284441613044277.b4-ty@kernel.org>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 11 May 2021 15:28:18 +0300
-Message-ID: <CAHp75Vck5izDB4mTRV5hTaknpx5Bm+OA4rNLVznQxVaEwigBZg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/14] spi: pxa2xx: Set of cleanups
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- linux-spi <linux-spi@vger.kernel.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Daniel Mack <daniel@zonque.org>
+Content-Transfer-Encoding: 8bit
+Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
+ Kailang Yang <kailang@realtek.com>, linux-kernel@vger.kernel.org,
+ Elia Devito <eliadevito@gmail.com>, Jian-Hong Pan <jhp@endlessos.org>,
+ Takashi Iwai <tiwai@suse.com>, Hui Wang <hui.wang@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,51 +105,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 11, 2021 at 11:27 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, 23 Apr 2021 21:24:27 +0300, Andy Shevchenko wrote:
-> > Set of cleanups here and there related to the SPI PXA2xx driver.
-> > On top of them, adding the special type for Intel Merrifield.
+Fixup to enable all 4 speaker on HP Spectre x360 15-df0xxx and probably
+on similar models.
 
+0x14 pin config override is required to enable all speakers and
+alc285-speaker2-to-dac1 fixup to enable volume adjustment.
 
-> [07/14] spi: pxa2xx: Introduce int_stop_and_reset() helper
->         (no commit info)
-> [08/14] spi: pxa2xx: Reuse int_error_stop() in pxa2xx_spi_slave_abort()
->         (no commit info)
-> [09/14] spi: pxa2xx: Use pxa_ssp_enable()/pxa_ssp_disable() in the driver
->         (no commit info)
-> [10/14] spi: pxa2xx: Extract pxa2xx_spi_update() helper
->         (no commit info)
-> [11/14] spi: pxa2xx: Extract clear_SSCR1_bits() helper
->         (no commit info)
-> [12/14] spi: pxa2xx: Extract read_SSSR_bits() helper
->         (no commit info)
-> [13/14] spi: pxa2xx: Constify struct driver_data parameter
->         (no commit info)
-> [14/14] spi: pxa2xx: Introduce special type for Merrifield SPIs
->         (no commit info)
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=189331
+Signed-off-by: Elia Devito <eliadevito@gmail.com>
+---
+v2: Put the quirk entry in the PCI SSID order
 
-The above patches are effectively missed.
-Anything to fix in your scripts / my patches?
+ sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-The below does not shed a light.
-
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
->
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
->
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
->
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index b4b71609dff1..3e269de84079 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6542,6 +6542,7 @@ enum {
+ 	ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST,
+ 	ALC295_FIXUP_ASUS_DACS,
+ 	ALC295_FIXUP_HP_OMEN,
++	ALC285_FIXUP_HP_SPECTRE_X360,
+ };
+ 
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -8099,6 +8100,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_HP_LINE1_MIC1_LED,
+ 	},
++	[ALC285_FIXUP_HP_SPECTRE_X360] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x14, 0x90170110 }, /* enable top speaker */
++			{}
++		},
++		.chained = true,
++		.chain_id = ALC285_FIXUP_SPEAKER2_TO_DAC1,
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -8259,6 +8269,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
+ 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
++	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_HP_SPECTRE_X360),
+ 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
+ 	SND_PCI_QUIRK(0x103c, 0x8724, "HP EliteBook 850 G7", ALC285_FIXUP_HP_GPIO_LED),
+@@ -8665,6 +8676,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC274_FIXUP_HP_MIC, .name = "alc274-hp-mic-detect"},
+ 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
+ 	{.id = ALC295_FIXUP_HP_OMEN, .name = "alc295-hp-omen"},
++	{.id = ALC285_FIXUP_HP_SPECTRE_X360, .name = "alc285-hp-spectre-x360"},
+ 	{}
+ };
+ #define ALC225_STANDARD_PINS \
 -- 
-With Best Regards,
-Andy Shevchenko
+2.31.1
+

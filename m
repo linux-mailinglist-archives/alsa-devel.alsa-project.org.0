@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A447237A242
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:36:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D665337A243
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:36:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2021C17AF;
-	Tue, 11 May 2021 10:35:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2021C17AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 635EF1788;
+	Tue, 11 May 2021 10:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 635EF1788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620722183;
-	bh=eEtBAlCzd+59ejK63RAyKXFMKRoDf6dGtGXy/1g8kRM=;
+	s=default; t=1620722204;
+	bh=RSHOPfuP6d2uabLkKal2d2xhCS9VMtr0Me6iKlfK9QI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nhc8Sfrb0bDo2lwrO7ylVnde/r0fxQVJT7OaxehhXloeCH3BQCJEkflWBrmqHMTgn
-	 NpX7tOOCt40sKlqlkiR02VWSH58t417QVm04tOf0Fdv7KNGA4O+8miknynPXX7Ne19
-	 MXEqbrkT35GTZnC58eEm7x1vc3/RFCyZgO5k4Pr0=
+	b=nxrO52yjDs+0IFRV3gaUdFYYnWM2x3TqSELA+uO/KxHmfoLIv2eZHp/AgRxgm2P/w
+	 gUxjaNkt99bD/vDoyaQXF6xgE1JJ96K/cojJJBv2QnDFI6/7s+3XEBZL/2urWrv1FH
+	 R+XGbiRSU/Dtt5yoxEYYxmFx+oRcFqswlGCeHeys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9984BF8053C;
-	Tue, 11 May 2021 10:28:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63075F80245;
+	Tue, 11 May 2021 10:28:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E149F804E5; Tue, 11 May 2021 10:28:30 +0200 (CEST)
+ id 2C6F3F804EB; Tue, 11 May 2021 10:28:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24056F804DA
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:28:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24056F804DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 497C1F804E2
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:28:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 497C1F804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Jx9WYSj+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 44C106147E;
- Tue, 11 May 2021 08:28:22 +0000 (UTC)
+ header.b="o6lgLnQ7"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 19751613C3;
+ Tue, 11 May 2021 08:28:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620721702;
- bh=eEtBAlCzd+59ejK63RAyKXFMKRoDf6dGtGXy/1g8kRM=;
+ s=k20201202; t=1620721705;
+ bh=RSHOPfuP6d2uabLkKal2d2xhCS9VMtr0Me6iKlfK9QI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jx9WYSj+aqHv7LtdfiOExF0K/TdQ/I+e5BrrKTQbtJZeYpncvauQDkrsf6YfoMxks
- gNin9AYrwHcDgOXkq4q6BcwVF7W4xrlhP6xAVXt2lAab1hru8I70I1bW1LYNo+1nBe
- ZoV7XzgWdKR4Vi+ciafH+07YkcO4muwwqkoAd2k+Z8+NWyIiDLYCSF5qd41t42ubmK
- XInSi8hlyAwIztw14M6E9wdJT7HWww/4tKcYdefTv488eKAgjORdvMhRsyMtw8KADH
- 5pLq93pOn+WiAZggdo3dKl1J/dSSxjpTawK4mebWQSZVUhl0RrGU3BRRJh7zaYLrU2
- M9CnEg48YiISA==
+ b=o6lgLnQ7iUAGp4hTfiKvleNPFOX6SocVgNfLcLUhfnKbdy8bEc1KDawBabJrpzs5F
+ mNONJjUMthoW4CVcg7NAs1Y9slD2NfyjsXeUA6aIfw4cbVBWU3/y7Mdz7MwsFyjXc0
+ 5J1HPLdk9Cl9WugljW6ohDoOlYrTbA//1Gfr+HqGGycKynIqIuWCDzlPcFPbI9ImuZ
+ PAElxqQkfkq+te1/dj2YzlHIpU1jq62etl9FTR9F5NTniGg5MqIu6DDQtD162ONkPs
+ sMLsWTH8dAaCp8AALjCSP1/YDFMly088umRvdAOcUrwaZHIrfFgGl/NwDPFSyZdsXI
+ rG2QAeocThQYQ==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- alsa-devel@alsa-project.org, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Timur Tabi <timur@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, Wan Jiabing <wanjiabing@vivo.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: Remove unneeded semicolon
-Date: Tue, 11 May 2021 09:26:03 +0100
-Message-Id: <162072058169.33157.16301306834523283874.b4-ty@kernel.org>
+To: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ perex@perex.cz, tiwai@suse.com
+Subject: Re: [PATCH] ASoC: ak5558: Correct the dai name for ak5552
+Date: Tue, 11 May 2021 09:26:04 +0100
+Message-Id: <162072058170.33157.387118407952488972.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210506022452.5762-1-wanjiabing@vivo.com>
-References: <20210506022452.5762-1-wanjiabing@vivo.com>
+In-Reply-To: <1620470807-12056-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1620470807-12056-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kael_w@yeah.net, Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,10 +80,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 6 May 2021 10:24:52 +0800, Wan Jiabing wrote:
-> Fix the following coccicheck warning:
-> 
-> ./sound/soc/fsl/fsl_xcvr.c:739:2-3: Unneeded semicolon
+On Sat, 8 May 2021 18:46:47 +0800, Shengjiu Wang wrote:
+> Correct the dai name for ak5552. The name should be "ak5552-aif".
 
 Applied to
 
@@ -94,8 +89,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_xcvr: Remove unneeded semicolon
-      commit: 223875a6fb8e26bbde3de675552d27b62e3ed0de
+[1/1] ASoC: ak5558: Correct the dai name for ak5552
+      commit: b23584d6ce0212b9ad6cb7be19a7123461ed9e09
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,104 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECBF537A12F
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 09:50:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2350F37A130
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 09:51:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D405177B;
-	Tue, 11 May 2021 09:49:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D405177B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BEB7176C;
+	Tue, 11 May 2021 09:50:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BEB7176C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620719424;
-	bh=6CMplWK900VhGvqklzx/M9nPDstvM+vcpayv5MTZPUw=;
+	s=default; t=1620719459;
+	bh=WW+vOGiHiJp8TNMi71xAUM7wW6vd4NxAxvFaWdLOM6o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YdKpYY6LLES65R6MMT4BYR887fSNS4P2IG0S3LiloqnXtJH/kH6/kotqpSIE0r6qG
-	 63jH/f7S53XIv8Lpxo13WCCVOHpPKCvTgaCyYzZzNJRTr2g5kGrzMahyS9IC/+byMN
-	 NNgHeJwTyteeIT17zx03lav+8gYa6TTapCCgGV/I=
+	b=KhFSNNrZCrZcFQj/53JCxXnjsA0J3R2QgyKoaCQCEvX1BwVQf1CVSztPNxhYcsA/9
+	 fR4lsTI+YpamcXvFXVupoKB6P+UeLI+eaYx+ozsXDPrcK9pq7PuWz791fl9a+IQ4Dj
+	 n7Lqu8Qmw7WbelkbsTB8H4Vo3nyFsTgNCEOUzLxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B759F802E0;
-	Tue, 11 May 2021 09:48:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34FA4F80430;
+	Tue, 11 May 2021 09:48:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0922F8028D; Tue, 11 May 2021 09:48:45 +0200 (CEST)
+ id 2FA67F8042F; Tue, 11 May 2021 09:48:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9424FF80156
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 09:48:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9424FF80156
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4D49F80129
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 09:48:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4D49F80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="VC7IKoZR"
-Received: by mail-wr1-x436.google.com with SMTP id v12so19072954wrq.6
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 00:48:37 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="o2+cx3K/"
+Received: by mail-wm1-x334.google.com with SMTP id
+ o6-20020a05600c4fc6b029015ec06d5269so696525wmq.0
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 00:48:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7g8Gfa9xyHh47lvJTBT+tD4A12Y3UkIifRHEqnQaxPA=;
- b=VC7IKoZR1gWLfT/kJ5xgmt4z8ccPwAB5kHfQhD0wGQ1k1aGom8nkvprl2NOlYXY3GG
- oGQv5kpH0gMtMCiDIDJHAeNdwTuKBXVIBMzVZymaCLfniLXgyoEB7MGQ7yfioPpCeGdl
- xyYvRgPLS2Xz0rS8FE1RvU6Q4xfMi3v97TkKwz9n9v0ZE1zs4BKrnCL1xvGwIZXaBLmN
- q+mnWTgGQS1K/WGZM9e6E/1SKZNDJvgch/UT6MiumqY9EtzMwzVzp3bEWbENfBeFSF1P
- w7Mtm5tEe71HV90BrRDuHHxODhq0uP0YnKZwSlCI8d00P8hpjNdxvEepNXGkDJy7/78+
- dVSQ==
+ bh=RL5m146+QHuS6iRVfkXUrgZThwGYmN8qLX2jZ6PtJgs=;
+ b=o2+cx3K/+/HtbZhWSq8RmPZcQUkXHvdgOq2PYkKyYfnHeyABiEIyjIxf6+7xdxrJVO
+ Zh4qJ8ozc3K4qTX2WgoM8srd3oBguFJKKJsYk0RmZQ2ak9mhblGsRruZ4CLcG/VTOCAp
+ gIILHqefPl3urOd5yKCdiyF24HBGMyARpl4oP04w1m+cotRRTAm+/W2WMifA5Gd445kv
+ MMePrVw/vzWD+md4FRqQMyRRG7Y8m89x4uKRLkoA3vxPyfsSklF3mrCl6+hU28F0HZ8J
+ dW2ahvzfr722dE0tj9kM10MOip2yAOHEXMqLxY+AEZHiE41HYEPoNwfcWF/MCqQ82nQL
+ iZjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7g8Gfa9xyHh47lvJTBT+tD4A12Y3UkIifRHEqnQaxPA=;
- b=RSLhsj7dfuFBcK1cE2fp1No8eE9bp2WgFhyXjsH31vxRFe0dCabH4WlSVdBn18hMMH
- 8DreJZFuZ9PDXTuhfBII2RWUf21KnXALngtJ9dwkWs9uDOGm4iM3gjjXxEgy1eXSb1yy
- YRZQmYVdhjYZxm0tN86VcaVyCRvrZM5/lKep9TqMHIU8inG8+AdZpZnyWlvodDdACjbQ
- xIuw+QGC80T3vIvYqEs66jmxMmDrtvP8r+u0/iuUp2IgN0lWAl0ltg4vKndiN9MHHeey
- 6sKuFGZKGDsSXUde+/ghY5qV7dr4JjKLxu93SVN3uz6NltxrHbXrBwsSpglz0ti6KIWD
- Ci6A==
-X-Gm-Message-State: AOAM533S6/B+rNY2dcNktiuXZhE0V6Q5RSL/MIS2OQyXGlH2/92+/ZR6
- il/g5LvRVNO7p5bUf60wobyXYw==
-X-Google-Smtp-Source: ABdhPJzPUGJ4AeCzmiz+5P1JzbY8N3JmNyynEe7cVhmxuvzHeL3pc70uoAtZ9hCGf3jMO5qYHvT2YA==
-X-Received: by 2002:adf:ef4d:: with SMTP id c13mr35410372wrp.277.1620719316780; 
- Tue, 11 May 2021 00:48:36 -0700 (PDT)
+ bh=RL5m146+QHuS6iRVfkXUrgZThwGYmN8qLX2jZ6PtJgs=;
+ b=ZlHplDBH9Mbk1dnkGfjnPkosJfK42Lcom5gNIjPhmki7jVdZROllKJVje8By+E/ctc
+ ogQr8V2Nw6C0ZGsRiFgQXtK3UMh8iwJGUNitVMtbjg8vW/xO0+HR/pmB/AD5/EC53URh
+ 6hO8tAB2tD/m6X4v0slFAun8dC1CSFrPWZI3MZEF3xefrEyjCYQLYkMeehiAA9TRI3/z
+ gB1tRkK6MxVRmcVO58SH8Xo2tUpdKThpoEpnL091q4H1iC5ZkjDjqU9V/772Scs4HMtI
+ j0f1i4KgubfmStyD2N5DqCTfMvjOWzEsX11pYNRqET5wIlqWZuBxr5uSi3aPtOX5CGUK
+ 91VQ==
+X-Gm-Message-State: AOAM531tY1ShmuVgGzcSC6HoruPUOqIDTENwRriNuOFXXZr4Q+PrCXAS
+ BrCR07BTmwuEawNJTFysNDt0pw==
+X-Google-Smtp-Source: ABdhPJxOr7LBMZ49i0bwIQ/5ZIJDPKhHzlVc62DD9UqhFLNaZwqgT4EwFvn5NXTNQVoqpB8eRxcJmA==
+X-Received: by 2002:a05:600c:47d7:: with SMTP id
+ l23mr3760403wmo.95.1620719317929; 
+ Tue, 11 May 2021 00:48:37 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:e0a:90c:e290:ce08:6145:b4e3:5a23])
  by smtp.gmail.com with ESMTPSA id
- f6sm28371111wru.72.2021.05.11.00.48.35
+ f6sm28371111wru.72.2021.05.11.00.48.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 May 2021 00:48:36 -0700 (PDT)
+ Tue, 11 May 2021 00:48:37 -0700 (PDT)
 From: Neil Armstrong <narmstrong@baylibre.com>
 To: jbrunet@baylibre.com,
 	broonie@kernel.org
-Subject: [PATCH v3 1/2] ASoC: meson: g12a-toacodec: use regmap fields to
- prepare SM1 support
-Date: Tue, 11 May 2021 09:48:28 +0200
-Message-Id: <20210511074829.4110036-2-narmstrong@baylibre.com>
+Subject: [PATCH v3 2/2] ASoC: meson: g12a-toacodec: add support for SM1
+ TOACODEC
+Date: Tue, 11 May 2021 09:48:29 +0200
+Message-Id: <20210511074829.4110036-3-narmstrong@baylibre.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210511074829.4110036-1-narmstrong@baylibre.com>
 References: <20210511074829.4110036-1-narmstrong@baylibre.com>
 MIME-Version: 1.0
-X-Patch-Hashes: v=1; h=sha256; i=I7FeB/kn/TULPc5oGg/7hlGuQ11TOAQ3nRx0bxRBfG4=;
- m=tzmDLU+rHQtCMcIMtsgW9A9sxdNpO6W7CGIlLPGL8Z0=;
- p=eOH4X5jCe681BB9Ief0IhfFZZMY4HvzY78LSS74Ozko=;
- g=7f135e020f0ae15fd6641595a0d9a241dd65cfa2
+X-Patch-Hashes: v=1; h=sha256; i=vFgn4HeF6fYyIrfNSO2XBhPEbABG+KXl/lGRiyykmRg=;
+ m=qGwWmF5o4d9qBXb6Klih2uuRcBA5bhVPUwJGlRovDlc=;
+ p=o6hiWh4C4SQvoRuJIWWUTHT1h2owx6EhVDRPkT/w0kU=;
+ g=657f59579537e84fb82ba27b1e356e028d9bf9bd
 X-Patch-Sig: m=pgp; i=narmstrong@baylibre.com; s=0xA4CFF8AE;
- b=iQIzBAABCgAdFiEEPVPGJshWBf4d9CyLd9zb2sjISdEFAmCaNrAACgkQd9zb2sjISdFhgw/+LId
- 9xw2+BgFAu038Ix0alJrhfPLIR6mYvH0z6/0huqIK0FQAijzk+dwOKjGzNoPrArDSk2rBI7SwK3ps
- WIHJlFoJAQIhjMTvPQwTuk/99KStMSiMm33WgbTNO0S0nxMT5mq6kfoPr9eKaDwv+3pxVT46xhZj8
- TRMjdGMHGpsy4aGsNq8jYxq4Cn/SslH4mS8vilB3L7V+fA3W7RBrOOebNxgrcbdEH8HyEBLcdDnW+
- +3m9wljDY3lDyKpPxCWw+mn5pK9pMFYypUFi33IYESwfi2YmOOyNiNK7woKDdXb2j6tVJdINQ+y9N
- i6vLQNvgDnMyORXOLybERiJBteMebmLqbZyjcsWlz9hY1jBXXh9hOga4YVGzF5K+uo3sjNNeJWEFu
- Tt4pXXdgDR9TZPdrlN28WKu75rgZ+VROP/653eeAEJMrU1AlqstnUu1edhIH5aCpgK7Djgy004nB1
- +vc/Fsfq9R8wx5zjs4OMzXowAoFmDzTCc7bDEmmM415RBsMVGO3K6WNBvm9F7KtSK3Ipp0p1XrmZg
- u33fRNu6UsRXvzi7dvfAeWkmRsPJ4Uj2aOkDMY/UlV5fEjIYmTH6uhftA7+YmAyJFoDkxcDvkv8LU
- 5LQNggNO1IVvmbt9rpEEVQXvis0oQdDjy+yU/V3Rr6351P3lmExVA9W8ZVMY7Ql4=
+ b=iQIzBAABCgAdFiEEPVPGJshWBf4d9CyLd9zb2sjISdEFAmCaNrIACgkQd9zb2sjISdGuXhAAzhC
+ 5ygHxZlSszj5dy7wZxzYyX2qY/uVvi4+0ayVrvup5eU7IY6yQVfl3t99dmfvkCPKpUY+bEYecfyhq
+ dgVZe1qORcMpC02prr5TCZo/ILeXBpAu7GX4lNYktIL8b+zd3qcHShM4r/vE97YtYQGGtDBw/Dd9/
+ KS+dXkK0qv4ZNtM1neMgKcCWprpL3O03HHNIKxRCHyF2d+u/LSn0Uu/wjVS4fk87Zl5L+MdaYFBoG
+ Le2Z7qDeFfIY+aANYOrW0IB7V23w6TpurzabwytBJWKB7/N0bn6XnQdtUB0+t1PdFS5CY0Od9O+vi
+ icBP5SfAZMDZxxJhk4IXJDi5Q7rFXVVFU8y309IICdXyXKUlHXEQZ6aGyzysXRwzl7eSgTt/DDFsK
+ ME8UP96SbXDDp5LgvKyac+u94K4tSn4cAJNwS3aYH7Tufxssr4Cz11t2Grg70rcNHUXMcS8uhKrRt
+ dWv1cKqyDfmUXRMD8YZqQBDeTpONjP3CwIGQ2HiA3bToFYebozVW2UNeG7h9FmD4IqIQreAINIlyT
+ pyWA6yh5EOI/lEygqSVWJKCi5tv0jPX2sDWoo0S+t0Ti1CvPjf0eVwmsjKbs5MEnwlA04f5KxXEq1
+ IJYZFkDnnGAYfCm1fljVB8IKlFKqkh3CyUKQIftbIvUcLpXC5J5Di9qr8vWVT604=
 Content-Transfer-Encoding: 8bit
 Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -119,163 +121,168 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Switch usage to regmap field for bits handled by the g12a_toacodec_mux_put_enum()
-function to avoid uselesss code duplication when adding SM1 variant support.
+This adds support for the TOACODEC found in Amlogic SM1 SoCs.
+
+The bits are shifted for more selection of clock sources, so this only
+maps the same support for G12A to the SM1 bits.
 
 Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
 ---
- sound/soc/meson/g12a-toacodec.c | 80 +++++++++++++++++++++++++--------
- 1 file changed, 62 insertions(+), 18 deletions(-)
+ sound/soc/meson/g12a-toacodec.c | 63 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 62 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/meson/g12a-toacodec.c b/sound/soc/meson/g12a-toacodec.c
-index 9339fabccb79..6317bd9c86f4 100644
+index 6317bd9c86f4..1dfee1396843 100644
 --- a/sound/soc/meson/g12a-toacodec.c
 +++ b/sound/soc/meson/g12a-toacodec.c
-@@ -21,17 +21,31 @@
+@@ -21,13 +21,22 @@
  
  #define TOACODEC_CTRL0			0x0
  #define  CTRL0_ENABLE_SHIFT		31
--#define  CTRL0_DAT_SEL_SHIFT		14
--#define  CTRL0_DAT_SEL			(0x3 << CTRL0_DAT_SEL_SHIFT)
-+#define  CTRL0_DAT_SEL_MSB		15
-+#define  CTRL0_DAT_SEL_LSB		14
++#define  CTRL0_DAT_SEL_SM1_MSB		19
++#define  CTRL0_DAT_SEL_SM1_LSB		18
+ #define  CTRL0_DAT_SEL_MSB		15
+ #define  CTRL0_DAT_SEL_LSB		14
++#define  CTRL0_LANE_SEL_SM1		16
  #define  CTRL0_LANE_SEL			12
--#define  CTRL0_LRCLK_SEL		GENMASK(9, 8)
-+#define  CTRL0_LRCLK_SEL_MSB		9
-+#define  CTRL0_LRCLK_SEL_LSB		8
++#define  CTRL0_LRCLK_SEL_SM1_MSB	14
++#define  CTRL0_LRCLK_SEL_SM1_LSB	12
+ #define  CTRL0_LRCLK_SEL_MSB		9
+ #define  CTRL0_LRCLK_SEL_LSB		8
++#define  CTRL0_LRCLK_INV_SM1		BIT(10)
++#define  CTRL0_BLK_CAP_INV_SM1		BIT(9)
  #define  CTRL0_BLK_CAP_INV		BIT(7)
++#define  CTRL0_BCLK_O_INV_SM1		BIT(8)
  #define  CTRL0_BCLK_O_INV		BIT(6)
--#define  CTRL0_BCLK_SEL			GENMASK(5, 4)
-+#define  CTRL0_BCLK_SEL_MSB		5
-+#define  CTRL0_BCLK_SEL_LSB		4
++#define  CTRL0_BCLK_SEL_SM1_MSB		6
+ #define  CTRL0_BCLK_SEL_MSB		5
+ #define  CTRL0_BCLK_SEL_LSB		4
  #define  CTRL0_MCLK_SEL			GENMASK(2, 0)
- 
- #define TOACODEC_OUT_CHMAX		2
- 
-+struct g12a_toacodec {
-+	struct regmap_field *field_dat_sel;
-+	struct regmap_field *field_lrclk_sel;
-+	struct regmap_field *field_bclk_sel;
-+};
-+
-+struct g12a_toacodec_match_data {
-+	struct reg_field field_dat_sel;
-+	struct reg_field field_lrclk_sel;
-+	struct reg_field field_bclk_sel;
-+};
-+
- static const char * const g12a_toacodec_mux_texts[] = {
- 	"I2S A", "I2S B", "I2S C",
+@@ -41,6 +50,7 @@ struct g12a_toacodec {
  };
-@@ -41,29 +55,24 @@ static int g12a_toacodec_mux_put_enum(struct snd_kcontrol *kcontrol,
- {
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct g12a_toacodec *priv = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm =
- 		snd_soc_dapm_kcontrol_dapm(kcontrol);
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
--	unsigned int mux, changed;
-+	unsigned int mux, reg;
  
- 	mux = snd_soc_enum_item_to_val(e, ucontrol->value.enumerated.item[0]);
--	changed = snd_soc_component_test_bits(component, e->reg,
--					      CTRL0_DAT_SEL,
--					      FIELD_PREP(CTRL0_DAT_SEL, mux));
-+	regmap_field_read(priv->field_dat_sel, &reg);
- 
--	if (!changed)
-+	if (mux == reg)
- 		return 0;
- 
- 	/* Force disconnect of the mux while updating */
- 	snd_soc_dapm_mux_update_power(dapm, kcontrol, 0, NULL, NULL);
- 
--	snd_soc_component_update_bits(component, e->reg,
--				      CTRL0_DAT_SEL |
--				      CTRL0_LRCLK_SEL |
--				      CTRL0_BCLK_SEL,
--				      FIELD_PREP(CTRL0_DAT_SEL, mux) |
--				      FIELD_PREP(CTRL0_LRCLK_SEL, mux) |
--				      FIELD_PREP(CTRL0_BCLK_SEL, mux));
-+	regmap_field_write(priv->field_dat_sel, mux);
-+	regmap_field_write(priv->field_lrclk_sel, mux);
-+	regmap_field_write(priv->field_bclk_sel, mux);
- 
- 	/*
- 	 * FIXME:
-@@ -86,7 +95,7 @@ static int g12a_toacodec_mux_put_enum(struct snd_kcontrol *kcontrol,
- }
- 
- static SOC_ENUM_SINGLE_DECL(g12a_toacodec_mux_enum, TOACODEC_CTRL0,
--			    CTRL0_DAT_SEL_SHIFT,
-+			    CTRL0_DAT_SEL_LSB,
+ struct g12a_toacodec_match_data {
++	const struct snd_soc_component_driver *component_drv;
+ 	struct reg_field field_dat_sel;
+ 	struct reg_field field_lrclk_sel;
+ 	struct reg_field field_bclk_sel;
+@@ -98,11 +108,20 @@ static SOC_ENUM_SINGLE_DECL(g12a_toacodec_mux_enum, TOACODEC_CTRL0,
+ 			    CTRL0_DAT_SEL_LSB,
  			    g12a_toacodec_mux_texts);
  
++static SOC_ENUM_SINGLE_DECL(sm1_toacodec_mux_enum, TOACODEC_CTRL0,
++			    CTRL0_DAT_SEL_SM1_LSB,
++			    g12a_toacodec_mux_texts);
++
  static const struct snd_kcontrol_new g12a_toacodec_mux =
-@@ -205,19 +214,42 @@ static const struct regmap_config g12a_toacodec_regmap_cfg = {
- 	.reg_stride	= 4,
+ 	SOC_DAPM_ENUM_EXT("Source", g12a_toacodec_mux_enum,
+ 			  snd_soc_dapm_get_enum_double,
+ 			  g12a_toacodec_mux_put_enum);
+ 
++static const struct snd_kcontrol_new sm1_toacodec_mux =
++	SOC_DAPM_ENUM_EXT("Source", sm1_toacodec_mux_enum,
++			  snd_soc_dapm_get_enum_double,
++			  g12a_toacodec_mux_put_enum);
++
+ static const struct snd_kcontrol_new g12a_toacodec_out_enable =
+ 	SOC_DAPM_SINGLE_AUTODISABLE("Switch", TOACODEC_CTRL0,
+ 				    CTRL0_ENABLE_SHIFT, 1, 0);
+@@ -114,6 +133,13 @@ static const struct snd_soc_dapm_widget g12a_toacodec_widgets[] = {
+ 			    &g12a_toacodec_out_enable),
  };
  
-+static const struct g12a_toacodec_match_data g12a_toacodec_match_data = {
-+	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, 14, 15),
-+	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, 8, 9),
-+	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, 4, 5),
++static const struct snd_soc_dapm_widget sm1_toacodec_widgets[] = {
++	SND_SOC_DAPM_MUX("SRC", SND_SOC_NOPM, 0, 0,
++			 &sm1_toacodec_mux),
++	SND_SOC_DAPM_SWITCH("OUT EN", SND_SOC_NOPM, 0, 0,
++			    &g12a_toacodec_out_enable),
++};
++
+ static int g12a_toacodec_input_hw_params(struct snd_pcm_substream *substream,
+ 					 struct snd_pcm_hw_params *params,
+ 					 struct snd_soc_dai *dai)
+@@ -184,6 +210,13 @@ static int g12a_toacodec_component_probe(struct snd_soc_component *c)
+ 				       CTRL0_BLK_CAP_INV);
+ }
+ 
++static int sm1_toacodec_component_probe(struct snd_soc_component *c)
++{
++	/* Initialize the static clock parameters */
++	return snd_soc_component_write(c, TOACODEC_CTRL0,
++				       CTRL0_BLK_CAP_INV_SM1);
++}
++
+ static const struct snd_soc_dapm_route g12a_toacodec_routes[] = {
+ 	{ "SRC", "I2S A", "IN A Playback" },
+ 	{ "SRC", "I2S B", "IN B Playback" },
+@@ -196,6 +229,10 @@ static const struct snd_kcontrol_new g12a_toacodec_controls[] = {
+ 	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL, 3, 0),
+ };
+ 
++static const struct snd_kcontrol_new sm1_toacodec_controls[] = {
++	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL_SM1, 3, 0),
++};
++
+ static const struct snd_soc_component_driver g12a_toacodec_component_drv = {
+ 	.probe			= g12a_toacodec_component_probe,
+ 	.controls		= g12a_toacodec_controls,
+@@ -208,6 +245,18 @@ static const struct snd_soc_component_driver g12a_toacodec_component_drv = {
+ 	.non_legacy_dai_naming	= 1,
+ };
+ 
++static const struct snd_soc_component_driver sm1_toacodec_component_drv = {
++	.probe			= sm1_toacodec_component_probe,
++	.controls		= sm1_toacodec_controls,
++	.num_controls		= ARRAY_SIZE(sm1_toacodec_controls),
++	.dapm_widgets		= sm1_toacodec_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(sm1_toacodec_widgets),
++	.dapm_routes		= g12a_toacodec_routes,
++	.num_dapm_routes	= ARRAY_SIZE(g12a_toacodec_routes),
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
++
+ static const struct regmap_config g12a_toacodec_regmap_cfg = {
+ 	.reg_bits	= 32,
+ 	.val_bits	= 32,
+@@ -215,16 +264,28 @@ static const struct regmap_config g12a_toacodec_regmap_cfg = {
+ };
+ 
+ static const struct g12a_toacodec_match_data g12a_toacodec_match_data = {
++	.component_drv	= &g12a_toacodec_component_drv,
+ 	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, 14, 15),
+ 	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, 8, 9),
+ 	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, 4, 5),
+ };
+ 
++static const struct g12a_toacodec_match_data sm1_toacodec_match_data = {
++	.component_drv	= &sm1_toacodec_component_drv,
++	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, 18, 19),
++	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, 12, 14),
++	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, 4, 6),
 +};
 +
  static const struct of_device_id g12a_toacodec_of_match[] = {
--	{ .compatible = "amlogic,g12a-toacodec", },
+ 	{
+ 		.compatible = "amlogic,g12a-toacodec",
+ 		.data = &g12a_toacodec_match_data,
+ 	},
 +	{
-+		.compatible = "amlogic,g12a-toacodec",
-+		.data = &g12a_toacodec_match_data,
++		.compatible = "amlogic,sm1-toacodec",
++		.data = &sm1_toacodec_match_data,
 +	},
  	{}
  };
  MODULE_DEVICE_TABLE(of, g12a_toacodec_of_match);
+@@ -278,7 +339,7 @@ static int g12a_toacodec_probe(struct platform_device *pdev)
+ 		return PTR_ERR(priv->field_bclk_sel);
  
- static int g12a_toacodec_probe(struct platform_device *pdev)
- {
-+	const struct g12a_toacodec_match_data *data;
- 	struct device *dev = &pdev->dev;
-+	struct g12a_toacodec *priv;
- 	void __iomem *regs;
- 	struct regmap *map;
- 	int ret;
- 
-+	data = device_get_match_data(dev);
-+	if (!data) {
-+		dev_err(dev, "failed to match device\n");
-+		return -ENODEV;
-+	}
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, priv);
-+
- 	ret = device_reset(dev);
- 	if (ret)
- 		return ret;
-@@ -233,6 +265,18 @@ static int g12a_toacodec_probe(struct platform_device *pdev)
- 		return PTR_ERR(map);
- 	}
- 
-+	priv->field_dat_sel = devm_regmap_field_alloc(dev, map, data->field_dat_sel);
-+	if (IS_ERR(priv->field_dat_sel))
-+		return PTR_ERR(priv->field_dat_sel);
-+
-+	priv->field_lrclk_sel = devm_regmap_field_alloc(dev, map, data->field_lrclk_sel);
-+	if (IS_ERR(priv->field_lrclk_sel))
-+		return PTR_ERR(priv->field_lrclk_sel);
-+
-+	priv->field_bclk_sel = devm_regmap_field_alloc(dev, map, data->field_bclk_sel);
-+	if (IS_ERR(priv->field_bclk_sel))
-+		return PTR_ERR(priv->field_bclk_sel);
-+
  	return devm_snd_soc_register_component(dev,
- 			&g12a_toacodec_component_drv, g12a_toacodec_dai_drv,
+-			&g12a_toacodec_component_drv, g12a_toacodec_dai_drv,
++			data->component_drv, g12a_toacodec_dai_drv,
  			ARRAY_SIZE(g12a_toacodec_dai_drv));
+ }
+ 
 -- 
 2.25.1
 

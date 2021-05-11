@@ -2,89 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD6B37A323
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 11:12:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ADDD37A2E3
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 11:02:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1222B178D;
-	Tue, 11 May 2021 11:11:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1222B178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E5B11694;
+	Tue, 11 May 2021 11:01:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E5B11694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620724362;
-	bh=ETvFtPpZWz6DN3iWb3G2WAPhojmYo6ps7EuchaChQ+E=;
+	s=default; t=1620723763;
+	bh=8MHk4c1POf6mWMb0J1S6+OOhjRz36ZKLW2hZUHja9gw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nY39np8u8UT2/+msZzgBPVpoNYUxbm8w0UUkdDrP2GD+D+pnWT7t55CIn27lKO9eu
-	 mugSjt9sFIAkEMwCSVEEj0cSNUWY7pz1uDJvAvD+xUEORFU8y4P+KpQTDjlGL541ke
-	 nS067n/udrygjpFRQMiW9u7sCL/r9pYIlzLI8dtQ=
+	b=tAJsXF3fv4gF8XS61Lgf5BAVFlhGwR+/+7e+T5n5SvoyNNrySflLNtDV1ijXCS/LW
+	 mYXIDdw6dI3AXesGY2xjH9vvyKSJoAwCUQEX1lRKVt8O7zXaWMELYbUJoNOy5U4u1j
+	 raudNx6G7CDMOV7UsIxDwEFTJSDL6wnki0TbKJ/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1092CF804DA;
-	Tue, 11 May 2021 11:08:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D3DEF8016B;
+	Tue, 11 May 2021 11:01:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C273FF80163; Tue, 11 May 2021 11:00:31 +0200 (CEST)
+ id 94E12F80163; Tue, 11 May 2021 11:01:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from ssl.serverraum.org (ssl.serverraum.org
+ [IPv6:2a01:4f8:151:8464::1:2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89419F80129
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 11:00:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89419F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0798F800E9
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 11:00:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0798F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PLGy/1LS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E709E611F1;
- Tue, 11 May 2021 09:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620723613;
- bh=ETvFtPpZWz6DN3iWb3G2WAPhojmYo6ps7EuchaChQ+E=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=PLGy/1LSbmraLJz9I+ZFpgkDxkCfvpVNiHxpQ06jZIl8i8GhyxDYM7Gy1/DkHiCt5
- klo7h/HCiZCdE58jLyhFWvaAVP5oc9x+G/BoSRcOX7C3Tl/sTRBZmSPn8j1vcyPJNt
- mRJS0yxqm/yCxF+CPVj6SxA/ae6jVWIEkJrXhN8oiyzJkjvRZFRVAZch9kSHP1iP93
- oW7IG29Utyoqz+QwiX4h4Rg5Qegv470eEj7pH0f2MN9paDsUyx4y03dGzSMfb4uf2a
- FDLqKCDGwM78HAqr/sdfeYExPB7ah8JOeYwd9qD22mRbJt8d7NaYnvORLTCVIJ25K4
- 6sDaroZmf8XGQ==
-Date: Tue, 11 May 2021 11:00:02 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Edward Cree <ecree.xilinx@gmail.com>
-Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
-Message-ID: <20210511110002.2f187f01@coco.lan>
-In-Reply-To: <ed65025c-1087-9672-7451-6d28e7ab8f92@gmail.com>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
- <20210510135518.305cc03d@coco.lan>
- <df6b4567-030c-a480-c5a6-fe579830e8c0@gmail.com>
- <YJk8LMFViV7Z3Uu7@casper.infradead.org>
- <ed65025c-1087-9672-7451-6d28e7ab8f92@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
+ header.b="DeDz2zY7"
+Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id DBBD822205;
+ Tue, 11 May 2021 11:00:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1620723652;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8MHk4c1POf6mWMb0J1S6+OOhjRz36ZKLW2hZUHja9gw=;
+ b=DeDz2zY7N/31baCj7EXxsFHs2mLwifW6kwbfrarDeqYxtLW/o94QiFI5P64Wek3BacKNFo
+ f/HjWnTaPtL/AdM9m+/7Nd6sAlvFvQpbjlPQEESm8+zXelFL4ylFSmm9jrA0x0TgAOimsz
+ jVAORYUURny3Np+cLJkrbuNkXYA22SU=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 11 May 2021 11:08:22 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- linux-rdma@vger.kernel.org, x86@kernel.org,
- Matthew Wilcox <willy@infradead.org>, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-sgx@vger.kernel.org, coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-integrity@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 11 May 2021 11:00:51 +0200
+From: Michael Walle <michael@walle.cc>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 0/4] ASoC: simple-card / audio-graph re-cleanup
+In-Reply-To: <87im3qax4j.wl-kuninori.morimoto.gx@renesas.com>
+References: <87im3qax4j.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <4c5b326d59d933ed4112f729139d4d43@walle.cc>
+X-Sender: michael@walle.cc
+Cc: Guillaume Tucker <guillaume.tucker@collabora.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,120 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Mon, 10 May 2021 15:33:47 +0100
-Edward Cree <ecree.xilinx@gmail.com> escreveu:
+Am 2021-05-11 03:15, schrieb Kuninori Morimoto:
+> I'm so sorry that I didn't deep test on v1.
+> I hope v2 patches has no issues on kontron-sl28-var3-ads2.
 
-> On 10/05/2021 14:59, Matthew Wilcox wrote:
-> > Most of these
-> > UTF-8 characters come from latex conversions and really aren't
-> > necessary (and are being used incorrectly). =20
-> I fully agree with fixing those.
-> The cover-letter, however, gave the impression that that was not the
->  main purpose of this series; just, perhaps, a happy side-effect.
+No worries.
 
-Sorry for the mess. The main reason why I wrote this series is because
-there are lots of UTF-8 left-over chars from the ReST conversion.
-See:
-  - https://lore.kernel.org/linux-doc/20210507100435.3095f924@coco.lan/
-
-A large set of the UTF-8 letf-over chars were due to my conversion work,
-so I feel personally responsible to fix those ;-)
-
-Yet, this series has two positive side effects:
-
- - it helps people needing to touch the documents using non-utf8 locales[1];
- - it makes easier to grep for a text;
-
-[1] There are still some widely used distros nowadays (LTS ones?) that
-    don't set UTF-8 as default. Last time I installed a Debian machine
-    I had to explicitly set UTF-8 charset after install as the default
-    were using ASCII encoding (can't remember if it was Debian 10 or an
-    older version).
-
-Unintentionally, I ended by giving emphasis to the non-utf8 instead of
-giving emphasis to the conversion left-overs.
-
-FYI, this patch series originated from a discussion at linux-doc,
-reporting that Sphinx breaks when LANG is not set to utf-8[2]. That's
-why I probably ended giving the wrong emphasis at the cover letter.
-
-[2] See https://lore.kernel.org/linux-doc/20210506103913.GE6564@kitsune.sus=
-e.cz/
-    for the original report. I strongly suspect that the VM set by Michal=20
-    to build the docs was using a distro that doesn't set UTF-8 as default.
-
-    PS.:=20
-      I intend to prepare afterwards a separate fix to avoid Sphinx
-      logger to crash during Kernel doc builds when the locale charset
-      is not UTF-8, but I'm not too fluent in python. So, I need some
-      time to check if are there a way to just avoid python log crashes
-      without touching Sphinx code and without needing to trick it to=20
-      think that the machine's locale is UTF-8.
-
-See: while there was just a single document originally stored at the
-Kernel tree as a LaTeX document during the time we did the conversion
-(cdrom-standard.tex), there are several other documents stored as=20
-text that seemed to be generated by some tool like LaTeX, whose the
-original version were not preserved.=20
-
-Also, there were other documents using different markdown dialects=20
-that were converted via pandoc (and/or other similar tools). That's=20
-not to mention the ones that were converted from DocBook. Such
-tools tend to use some logic to use "neat" versions of some ASCII
-characters, like what this tool does:
-
-	https://daringfireball.net/projects/smartypants/
-
-(Sphinx itself seemed to use this tool on its early versions)
-
-All tool-converted documents can carry UTF-8 on unexpected places. See,
-on this series, a large amount of patches deal with U+A0 (NO-BREAK SPACE)
-chars. I can't see why someone writing a plain text document (or a ReST
-one) would type a NO-BREAK SPACE instead of a normal white space.
-
-The same applies, up to some sort, to curly commas: usually people just=20
-write ASCII "commas" on their documents, and use some tool like LaTeX
-or a text editor like libreoffice in order to convert them into
- =E2=80=9Cutf-8 curly commas=E2=80=9D[3].
-
-[3] Sphinx will do such things at the produced output, doing something=20
-    similar to what smartypants does, nowadays using this:
-
-	https://docutils.sourceforge.io/docs/user/smartquotes.html
-
-    E. g.:
-      - Straight quotes (" and ') turned into "curly" quote characters;
-      - dashes (-- and ---) turned into en- and em-dash entities;
-      - three consecutive dots (... or . . .) turned into an ellipsis char.
-
-> > You seem quite knowedgeable about the various differences.  Perhaps
-> > you'd be willing to write a document for Documentation/doc-guide/
-> > that provides guidance for when to use which kinds of horizontal
-> > line?
-> I have Opinions about the proper usage of punctuation, but I also know =20
->  that other people have differing opinions.  For instance, I place
->  spaces around an em dash, which is nonstandard according to most
->  style guides.  Really this is an individual enough thing that I'm not
->  sure we could have a "kernel style guide" that would be more useful
->  than general-purpose guidance like the page you linked.
-
-> Moreover, such a guide could make non-native speakers needlessly self-
->  conscious about their writing and discourage them from contributing
->  documentation at all.
-
-I don't think so. In a matter of fact, as a non-native speaker, I guess
-this can actually help people willing to write documents.
-
->  I'm not advocating here for trying to push
->  kernel developers towards an eats-shoots-and-leaves level of
->  linguistic pedantry; rather, I merely think that existing correct
->  usages should be left intact (and therefore, excising incorrect usage
->  should only be attempted by someone with both the expertise and time
->  to check each case).
->=20
-> But if you really want such a doc I wouldn't mind contributing to it.
-
-IMO, a document like that can be helpful. I can help reviewing it.
+Tested-by: Michael Walle <michael@walle.cc>
 
 Thanks,
-Mauro
+-michael

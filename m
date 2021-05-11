@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89FF937A596
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 13:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E9637A630
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 14:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1062F17B7;
-	Tue, 11 May 2021 13:19:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1062F17B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E109017BA;
+	Tue, 11 May 2021 13:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E109017BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620732024;
-	bh=3965pDIxL3ePZ2py6vgy+3FF19ziZfQsspyiY3RjjYg=;
+	s=default; t=1620734441;
+	bh=bCfMYBm9bj3DpdDPiHHkxHjc9hQjxEEHrRs4ALJlbKg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iRF2T/J0JxwormQaNck98N1YNo/lWK9sCqdF2vtPP/pHWQmVnjz7zxvWe1xJWyDgQ
-	 YaXnt/6sGF/cCuSnVxMzaEbI2UUk0yaN/V+LSsX0mSXULSfPYvevzZbhc98fYettnS
-	 MHiM5YnfWuS4i8BCNWcOUkZMl3rgIctODN+vCH7c=
+	b=qxqMmu0ax5Fxcm8Zx/RbQRadEz7kbZljwr3cihshXnuToVzrUF43uGk39wADntevD
+	 H0snVYzR8OKUmwMnldJKWXHQIIwzCFlE3WGOZmfhByV/zYVEfC44ewpvbZyp5PKM9r
+	 0V+yRC7jUMNArkVDMeiGrCiEfR0BvqdLfly/1qtU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74E46F8016B;
-	Tue, 11 May 2021 13:18:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4376CF8016B;
+	Tue, 11 May 2021 13:59:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9913F80163; Tue, 11 May 2021 13:18:55 +0200 (CEST)
+ id 3DDF1F800E9; Tue, 11 May 2021 13:59:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5458DF80129
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 13:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5458DF80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id C74D1F800E9
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 13:59:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C74D1F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HEWeDWBk"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 19CD561363;
- Tue, 11 May 2021 11:18:47 +0000 (UTC)
+ header.b="ZskWK1iq"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 15E56613BC;
+ Tue, 11 May 2021 11:58:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620731929;
- bh=3965pDIxL3ePZ2py6vgy+3FF19ziZfQsspyiY3RjjYg=;
+ s=k20201202; t=1620734341;
+ bh=bCfMYBm9bj3DpdDPiHHkxHjc9hQjxEEHrRs4ALJlbKg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HEWeDWBkJCFFXTbE3xs724vpb7eYa3LrCSF3Lw+g8mQbYRHwjddabjl6rV11nKyAe
- 5ZMT4xYx5cZMXxOfzugimPrQu9LsBYDU+sNoqmR7ioRzQkft4tb3zf9La0JY3ZTswg
- 6X0SsIB6Zmn8sLkCCanPzVzlqcUQl658fBP+P4tci3n0ZenMJmtDAuhOKvwG06lCuS
- avfcmU5dxkJo91JTv6x0xxyPswG6zwHqUfEEfUQPsBm+hv0deDT8dtFDf/zEb/HKG+
- 2P6j/loU6mCA+MWk7Q6WJNjSy8UwqWj4g0juHYqcH8iwCgR7VX+e7UXb1fhttdqAe9
- Kl+6KefOpCu1g==
-Date: Tue, 11 May 2021 16:48:45 +0530
+ b=ZskWK1iqCqh5h8yKujom1ymUXz8dJo6WA/XekhZx897r7VzrgMXFRxkKXqesa9Qfu
+ PyHiFFZeShCr/Djy3F4fkOwX41cfwdWYXnZNdJ3aqqoGS6Ig61M4EL1ySOn5JHlEMr
+ f24DpvoM8edviOojmGpf6Gbb+wwbz0Zfz33B2q2fY19/vsFE4KsBk6J9bdDnw3BqB1
+ QzL9znyThLMCLO83W1SD6ESQlsdDLsyM3S6B6oU2gaIEox9yCC2Rr7wBYxp9OO1USd
+ IB1fXLngFMZuWF3YsiVVEHkEFANOH5NfMrzDtCQaXdhVKnPArrfwQIcItesxWy4XE1
+ ztBQeqbXsK33A==
+Date: Tue, 11 May 2021 17:28:56 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] soundwire: qcom: fix handling of
- qcom,ports-block-pack-mode
-Message-ID: <YJpoFQkvbXLOe6ik@vkoul-mobl.Dlink>
-References: <20210504125909.16108-1-srinivas.kandagatla@linaro.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] soundwire/ASoC: add leading zeroes in peripheral device
+ name
+Message-ID: <YJpxgAYQDJLQg+yV@vkoul-mobl.Dlink>
+References: <20210511060137.29856-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210504125909.16108-1-srinivas.kandagatla@linaro.org>
-Cc: amit.pundir@linaro.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- bjorn.andersson@linaro.org, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+In-Reply-To: <20210511060137.29856-1-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ jank@cadence.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,16 +83,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04-05-21, 13:59, Srinivas Kandagatla wrote:
-> Support to "qcom,ports-block-pack-mode" was added at later stages
-> to support a variant of Qualcomm SoundWire controllers available
-> on Apps processor. However the older versions of the SoundWire
-> controller which are embedded in WCD Codecs do not need this property.
+On 11-05-21, 14:01, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> So returning on error for those cases will break boards like DragonBoard
-> DB845c and Lenovo Yoga C630.
+> We recently added leading zeroes in dev_dbg() messages but forgot to
+> do the same for the peripheral device name. Adding leading zeroes
+> makes it easier to read manufacturer ID and part ID, e.g.:
 > 
-> This patch fixes error handling on this property considering older usecases.
+> sdw:0:025d:0700:00
+> sdw:0:025d:0711:00
+> sdw:1:025d:0700:00
+> sdw:1:025d:1308:00
+> sdw:2:025d:0700:00
+> sdw:2:025d:0701:00
+> sdw:3:025d:0700:00
+> sdw:3:025d:0715:00
+> 
+> The use of '01x' for link_id and unique_id is intentional to show the
+> value range in the code, it's understood it does not actually change
+> the format.
+> 
+> To avoid problems with git bisect, the same change needs to be applied
+> to the Intel SoundWire machine driver, otherwise the components can't
+> be found and the card registration fails.
 
 Applied, thanks
 

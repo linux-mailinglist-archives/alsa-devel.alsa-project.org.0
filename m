@@ -2,62 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30CA6379F58
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 07:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B23A379F7D
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 08:03:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC766177B;
-	Tue, 11 May 2021 07:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC766177B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ECA11771;
+	Tue, 11 May 2021 08:02:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ECA11771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620712335;
-	bh=WC+CE2sZjpnX9YSQaGpUf0AKVlLe3q+0qnDQoR2Jc4I=;
+	s=default; t=1620713020;
+	bh=Q80bRCSsAajEE73iMLYB81XRi6bex5IH5i3JMmVwakg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=XKHPZ2U0pzLd1//zf5KB7GEBFmRUbTtffK3WtYJQdO/DsZALdXdZZmioDjf3B5qBE
-	 PreGOf/Ok+Hwf8Kgq6Y6MfXzyPTz5kgD3FYuf0G6hJ3JcDSEy9oHzA6Wy61TdrR2n7
-	 OqBPRURtmWce+ncGFK3qw3bJF+Cg3PHeH5ukTwQA=
+	b=t3Q9uTv+3wP2pD4IQPV35Ee0OHQtLavbxvjQeYjh2Ry2r3hzfBlKu7wEPMSDg672c
+	 459IiSzg+qpDv4Ftu64pd4wRcipJV12JWyatN8e6E/rid5Tpj9A0kjgTxDao7NGozB
+	 gw2yEozsxCQS1w1cT793kG4J1X/gXitITAZLJSao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33EFEF80156;
-	Tue, 11 May 2021 07:50:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 558FBF80129;
+	Tue, 11 May 2021 08:02:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8BD9F80163; Tue, 11 May 2021 07:50:47 +0200 (CEST)
+ id A6BFAF80163; Tue, 11 May 2021 08:02:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18708F80129
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 07:50:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18708F80129
-IronPort-SDR: kpw7RIog8cSxp7CHVJMjWP7LmpAEq/AHP4u7M3aayV8GISwLFmgZl0G1do2c/GY5PWvVOw/+Hf
- FjJ+3oTk/QLw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="284849664"
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="284849664"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 22:50:34 -0700
-IronPort-SDR: JwxCby8GjlLqq08831+dJxFqvOpq93xdcW725vcuaLR5Ksvy/7B7iN6SFcCMpMqd0YfIFpC0Hm
- +ZZ7MRHWE4LA==
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="471020665"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7212F80129
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 08:01:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7212F80129
+IronPort-SDR: HUDe5VTUdbgxz80Rc77q8kRdVibWwCQFeY4PoW6xXDXyG1oju81ICOfLJpciQHwqQFPYPth/kj
+ v2FxxzCZM6Hw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="263295114"
+X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="263295114"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 23:01:56 -0700
+IronPort-SDR: nbPHKOeW38Qyu/1ovsiZtH57Ftv8SGgARty5t7lMCfGB35bhsP9Fcqzijsw0nVDs5mXwbCinrv
+ ZwuopUyszJAw==
+X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="624540173"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 22:49:57 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 23:01:48 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH] soundwire: bandwidth allocation: improve error messages
-Date: Tue, 11 May 2021 13:49:45 +0800
-Message-Id: <20210511054945.29558-1-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH] soundwire/ASoC: add leading zeroes in peripheral device name
+Date: Tue, 11 May 2021 14:01:37 +0800
+Message-Id: <20210511060137.29856-1-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
-Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- hui.wang@canonical.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ jank@cadence.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
  bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,59 +77,75 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-In rare corner cases, we see an error with the log:
+We recently added leading zeroes in dev_dbg() messages but forgot to
+do the same for the peripheral device name. Adding leading zeroes
+makes it easier to read manufacturer ID and part ID, e.g.:
 
-[  838.297840] soundwire sdw-master-1: Compute bus params failed: -22
+sdw:0:025d:0700:00
+sdw:0:025d:0711:00
+sdw:1:025d:0700:00
+sdw:1:025d:1308:00
+sdw:2:025d:0700:00
+sdw:2:025d:0701:00
+sdw:3:025d:0700:00
+sdw:3:025d:0715:00
 
-That's not very useful, there can be two different error conditions
-with the same -EINVAL code provided to the caller.
+The use of '01x' for link_id and unique_id is intentional to show the
+value range in the code, it's understood it does not actually change
+the format.
 
-Let's add better dev_err() messages to figure out what went wrong.
+To avoid problems with git bisect, the same change needs to be applied
+to the Intel SoundWire machine driver, otherwise the components can't
+be found and the card registration fails.
 
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/generic_bandwidth_allocation.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/soundwire/slave.c        | 4 ++--
+ sound/soc/intel/boards/sof_sdw.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index 84d129587084..f7c66083a4dd 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -382,12 +382,18 @@ static int sdw_compute_bus_params(struct sdw_bus *bus)
- 		 */
+diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+index ff01b96c6e56..cc1e0fab5905 100644
+--- a/drivers/soundwire/slave.c
++++ b/drivers/soundwire/slave.c
+@@ -39,12 +39,12 @@ int sdw_slave_add(struct sdw_bus *bus,
+ 
+ 	if (id->unique_id == SDW_IGNORED_UNIQUE_ID) {
+ 		/* name shall be sdw:link:mfg:part:class */
+-		dev_set_name(&slave->dev, "sdw:%x:%x:%x:%x",
++		dev_set_name(&slave->dev, "sdw:%01x:%04x:%04x:%02x",
+ 			     bus->link_id, id->mfg_id, id->part_id,
+ 			     id->class_id);
+ 	} else {
+ 		/* name shall be sdw:link:mfg:part:class:unique */
+-		dev_set_name(&slave->dev, "sdw:%x:%x:%x:%x:%x",
++		dev_set_name(&slave->dev, "sdw:%01x:%04x:%04x:%02x:%01x",
+ 			     bus->link_id, id->mfg_id, id->part_id,
+ 			     id->class_id, id->unique_id);
  	}
- 
--	if (i == clk_values)
-+	if (i == clk_values) {
-+		dev_err(bus->dev, "%s: could not find clock value for bandwidth %d\n",
-+			__func__, bus->params.bandwidth);
- 		return -EINVAL;
-+	}
- 
- 	ret = sdw_select_row_col(bus, curr_dr_freq);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(bus->dev, "%s: could not find frame configuration for bus dr_freq %d\n",
-+			__func__, curr_dr_freq);
- 		return -EINVAL;
-+	}
- 
- 	bus->params.curr_dr_freq = curr_dr_freq;
- 	return 0;
-@@ -404,10 +410,8 @@ int sdw_compute_params(struct sdw_bus *bus)
- 
- 	/* Computes clock frequency, frame shape and frame frequency */
- 	ret = sdw_compute_bus_params(bus);
--	if (ret < 0) {
--		dev_err(bus->dev, "Compute bus params failed: %d\n", ret);
-+	if (ret < 0)
- 		return ret;
--	}
- 
- 	/* Compute transport and port params */
- 	ret = sdw_compute_port_params(bus);
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index ecd3f90f4bbe..8df1e69235cc 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -581,13 +581,13 @@ static int create_codec_dai_name(struct device *dev,
+ 		comp_index = i + offset;
+ 		if (is_unique_device(link, sdw_version, mfg_id, part_id,
+ 				     class_id, i)) {
+-			codec_str = "sdw:%x:%x:%x:%x";
++			codec_str = "sdw:%01x:%04x:%04x:%02x";
+ 			codec[comp_index].name =
+ 				devm_kasprintf(dev, GFP_KERNEL, codec_str,
+ 					       link_id, mfg_id, part_id,
+ 					       class_id);
+ 		} else {
+-			codec_str = "sdw:%x:%x:%x:%x:%x";
++			codec_str = "sdw:%01x:%04x:%04x:%02x:%01x";
+ 			codec[comp_index].name =
+ 				devm_kasprintf(dev, GFP_KERNEL, codec_str,
+ 					       link_id, mfg_id, part_id,
 -- 
 2.17.1
 

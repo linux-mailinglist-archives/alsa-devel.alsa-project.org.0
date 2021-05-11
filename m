@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE6C37A1FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:29:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0C9537A205
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:30:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DEC41778;
-	Tue, 11 May 2021 10:28:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DEC41778
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53AFE1786;
+	Tue, 11 May 2021 10:29:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53AFE1786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620721771;
-	bh=L30a1+4Tbl/TeaJh6vWKaiZWOzmpIRsaaA0ATQLX8Fw=;
+	s=default; t=1620721827;
+	bh=uzIUXmmWVharUwwMxFDeaL2AN14Lz0cJsHF6MbAcCGM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YPpsDPje933Y75GC5iQ0/9hO+ji1CTyPRZd9+TFM6EKq8lZq33GQo6uGSfZn+QNZ8
-	 1DV8aU/MMDyWp86iWNQ2shCAWsnjm51MvbJnJmi67sRfaoI6ZtE9+WCFZmYJ2NPa8T
-	 GrT6wK9yOcXk0gHj9epNjQcrfHExkYXXd6rGMyKU=
+	b=D0CDcfDVk8sJ+fH1rcySv/VS0gHpY5+k9kZI9HMROSBBdqKOLN2oT1xPWPj6Kxb40
+	 LHJVOR9Nt7xP7l3QwztTBZog0dcM4EasNRVMe5/R9pLz3sB47IyoR5srHkJcGoqumE
+	 c37aqq2xwtQ8oOOSSuhNj6C6ELwBe8Xxbs4JY1ro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CED00F80424;
-	Tue, 11 May 2021 10:27:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B925F804AC;
+	Tue, 11 May 2021 10:27:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D9F6F80425; Tue, 11 May 2021 10:27:37 +0200 (CEST)
+ id C281CF804AE; Tue, 11 May 2021 10:27:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8778AF80279
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:27:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8778AF80279
+ by alsa1.perex.cz (Postfix) with ESMTPS id 593B8F80431
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:27:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 593B8F80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hYOqVl3Y"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AD29B61107;
- Tue, 11 May 2021 08:27:31 +0000 (UTC)
+ header.b="R8dzV1Hk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 967FD61432;
+ Tue, 11 May 2021 08:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620721652;
- bh=L30a1+4Tbl/TeaJh6vWKaiZWOzmpIRsaaA0ATQLX8Fw=;
+ s=k20201202; t=1620721655;
+ bh=uzIUXmmWVharUwwMxFDeaL2AN14Lz0cJsHF6MbAcCGM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hYOqVl3Y5hv0W0JZNBCv8IU5kRSZusxLVqsYh6s8j8WVTrIjgplw8db0CMcnga7y1
- JTH63nQA73gD9L9XjuIS2GKSGR2gkOQMnN08f8xvWpFpqj7WZIgpDUL0hJshCR/cDG
- fO8Roq9I7kVz2eMn7s+c/38+05F6heGXyZpDU305krCvZnL3FnH2pIiMC+FANCrlIP
- xPKpSgyc3QRa0wt+LgYESAaXRDwR6YIKPjvcwPQwsEHWqu79QoE7SEMrfUc3URLwl+
- Jr7bNVvQ62af/ziZlQVMZyGXhIH7Vp0z8AYaXk0JqXFZOtd0iXdziPRUM2UTGwA5fR
- ekTUWCmFT7JkA==
+ b=R8dzV1HkYNv/mNUWY1V8C/GJk6Ff4RhJJ09ZbfacGWQEtvO3jsw1GLCV1d8wjP6BS
+ SOjvJF3HimxxJ85iopOFWzLvFOimplB1rSY5qje7QdoQpo7Zc1Ts865C4smxdBct72
+ BSTY56mPFuvpzBu/WaRzwby6YVU91SD8Zib0/QViDhqgeuGdCFcwmvsYgS9ARQg5kM
+ X4UJs9Fo12iUetqtgfF0RPbGFtXca4Bi9mhBqcv7s42XtXaA5MWf1X+SKVhsVIoMl4
+ +UjTkOtPfV1Pg/7nzKQvqRVMKdnuObDRrLYMxyUO2rQVIoZxFupC69kVCljTJjeS8N
+ 9TVMtTKmetd1w==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH 0/4] ASoC: cppcheck fixes of the week
-Date: Tue, 11 May 2021 09:25:46 +0100
-Message-Id: <162072058167.33157.12131676069474491177.b4-ty@kernel.org>
+To: Paul Cercueil <paul@crapouillou.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, "H. Nikolaus Schaller" <hns@goldelico.com>,
+ Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ASoC: jz4740-i2s: fix function name
+Date: Tue, 11 May 2021 09:25:47 +0100
+Message-Id: <162072058168.33157.14483051619888083091.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210426214701.235106-1-pierre-louis.bossart@linux.intel.com>
-References: <20210426214701.235106-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <56f9c8518870263698b00d10de4821d2dc8932be.1619960935.git.hns@goldelico.com>
+References: <56f9c8518870263698b00d10de4821d2dc8932be.1619960935.git.hns@goldelico.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>
+Cc: letux-kernel@openphoenux.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-mips@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,17 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Apr 2021 16:46:57 -0500, Pierre-Louis Bossart wrote:
-> While running some checks on a rebased branch, I realized I missed a
-> couple of trivial cases on newer code.
+On Sun, 2 May 2021 15:08:55 +0200, H. Nikolaus Schaller wrote:
+> This driver is not related to I2C protocol.
 > 
-> Pierre-Louis Bossart (4):
->   ASoC: codecs: mt6359-accdet: remove useless initialization
->   ASoc: codecs: mt6359: remove useless initializations
->   ASoC: codecs: rt1019: clarify expression
->   ASoC: fsl: imx-pcm-rpmsg: remove useless initialization
-> 
-> [...]
+> s/_i2c_/_i2s_/
 
 Applied to
 
@@ -97,14 +93,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: codecs: mt6359-accdet: remove useless initialization
-      commit: b76d1d86a456fa495f8f74c967b5d646f20915c3
-[2/4] ASoc: codecs: mt6359: remove useless initializations
-      commit: d51f6dfb9c9843f82825187baa78f0f4c1ec6ac7
-[3/4] ASoC: codecs: rt1019: clarify expression
-      commit: 16255d4155da9ec8fcafcd7460a334e2e52f934e
-[4/4] ASoC: fsl: imx-pcm-rpmsg: remove useless initialization
-      commit: cccc16dc175eafa2dec98002dde35d19ace0a696
+[1/1] ASoC: jz4740-i2s: fix function name
+      commit: 16f2a3cdaacaa7c077e238df45e4d38d6bc0a6c5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

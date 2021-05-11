@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA08337A208
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9828437A222
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:31:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 385B71777;
-	Tue, 11 May 2021 10:30:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 385B71777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29F4E177C;
+	Tue, 11 May 2021 10:31:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29F4E177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620721890;
-	bh=aIbKrZTp+E6EVIDHCNWvzoJpW7zVJeecbnlZyRKFuck=;
+	s=default; t=1620721915;
+	bh=l8Z/OzCfeWsNmqmpOZGd1liyMDpNo7gr8CIy6SCuWuI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BfXBHpx1Dswy34191xrucNFz0tDPW70CLR3sbcwjMAyDiYuiJJ79LowosBl+ESLRY
-	 vi7GzFOPuDkkWs7OehlehRAbeF6unGuaJSwJZeicTXIMF7qGJJOg7w8+lCuJV26k5B
-	 p3cdUQledzaZsuyBUJBsSviLRiHrtvh55m7Tj5z8=
+	b=O6k97dNedxXM4taZCW0vwZAcS53nG27HRwIm1nfXhDehdmVpn4vlzrkYNTCJMEcgT
+	 SxG0dpYQurFQngDJeJirc9/XQRiFBBqAOEJ8vkx0zRKqvtjGFFCCz43LXhTn4QA5qh
+	 Ze0Np6xFslX/W5n8pptNLYBj5RvleqaLu4ev6zoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F27FF8013A;
-	Tue, 11 May 2021 10:28:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C729F804E0;
+	Tue, 11 May 2021 10:28:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2721BF804AF; Tue, 11 May 2021 10:27:50 +0200 (CEST)
+ id E18A0F804D9; Tue, 11 May 2021 10:27:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86CD5F804AC
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:27:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86CD5F804AC
+ by alsa1.perex.cz (Postfix) with ESMTPS id C65D3F804B1
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:27:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C65D3F804B1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Jk/YdMVZ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 91A6E61107;
- Tue, 11 May 2021 08:27:43 +0000 (UTC)
+ header.b="GggvETJ4"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 31A296147E;
+ Tue, 11 May 2021 08:27:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620721664;
- bh=aIbKrZTp+E6EVIDHCNWvzoJpW7zVJeecbnlZyRKFuck=;
+ s=k20201202; t=1620721667;
+ bh=l8Z/OzCfeWsNmqmpOZGd1liyMDpNo7gr8CIy6SCuWuI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jk/YdMVZ7Q5F4MdPuwZwTMDGhDedzAF3Uo4XIes00YTrJwb0XrjDrHlpKmk84n/aR
- xegkHek9ygsElz5tUP5BuVytq09QhG5kx249XL7QsPoGO6e653eQu/cgyS0jTX/MRh
- /wSPtlVWPG679y8pa8Bv4ES8Suo3UKobYQxGov3Km70EXsQ3rIzshR+IiTQk0g5yjs
- tbQml0CbcfEj7FowDU4KCz2ff31xi+YZAKnXGKWiFmpMTh9Pu0xFrVlGdGj4xktsOV
- wZBim14CTApR5Apquoih+LyUIfTdD8VoFG569CWfG2siHzt40OHYQ+JVxyHsrsHtbE
- ZtrhJNEu0hmvA==
+ b=GggvETJ49ghxR3jGggzJ6p0bycd1w39dMmZ8r0464V/YAjOVjLugxBEg0pbx3NErg
+ xgXpyHzFVlxdtoUmkYJIUt625ivDU8vxPgj49BZJkhxEHgtvTF+AgAqmWi9UOKTb3S
+ SNTXlGD0RK5UeKscWvKKaYLBZZoZQWx6mGp2srF6uqpZdssFeNUN06VfQLHh0g7BKW
+ Er2hyoNNPzF6i6L08ICk8J0Xp07+l2OH5x+Kb/SiHES3bj8aeYZAg1sSC0bayHi7bq
+ kdjnbYpQzAZy1tml+3e2hmcRhEnNEjOfdIo4L7w9RsvLtvOl5C8clIlXCQC6fIj8jo
+ uEPyQwLeLwRLg==
 From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz,
- nicoleotsuka@gmail.com, timur@kernel.org, Xiubo.Lee@gmail.com,
- tiwai@suse.com
-Subject: Re: [PATCH] ASoC: fsl_spdif: add support for enabling raw capture mode
-Date: Tue, 11 May 2021 09:25:50 +0100
-Message-Id: <162072058167.33157.3402941285699720192.b4-ty@kernel.org>
+To: lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, perex@perex.cz,
+ bgoswami@codeaurora.org, trix@redhat.com, tiwai@suse.com
+Subject: Re: [PATCH v2] ASoC: codecs: lpass-wsa-macro: handle unexpected input
+Date: Tue, 11 May 2021 09:25:51 +0100
+Message-Id: <162072058168.33157.3176018576144440940.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1619425444-8666-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1619425444-8666-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210430142117.3272772-1-trix@redhat.com>
+References: <20210430142117.3272772-1-trix@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -82,9 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Apr 2021 16:24:04 +0800, Shengjiu Wang wrote:
-> Since i.MX8MM SPDIF interface is able to capture raw data.
-> Add support in SPDIF driver for this functionality.
+On Fri, 30 Apr 2021 07:21:17 -0700, trix@redhat.com wrote:
+> Static analysis reports this problem
+> 
+> lpass-wsa-macro.c:1732:6: warning: Array subscript is undefined
+>         if (wsa->ec_hq[ec_tx]) {
+>             ^~~~~~~~~~~~~~~~~
+> 
+> The happens because 'ec_tx' is never initialized and there is
+> no default in switch statement that sets ec_tx.  Add a default
+> case that returns an error before the array is accessed.
 
 Applied to
 
@@ -92,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_spdif: add support for enabling raw capture mode
-      commit: 604e5178444ea1d8053cf073e2c68fbc73a4e142
+[1/1] ASoC: codecs: lpass-wsa-macro: handle unexpected input
+      commit: 58f01c7fc81baced84f237554d56847e17b5d730
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

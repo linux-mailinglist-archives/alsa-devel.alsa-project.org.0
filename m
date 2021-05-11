@@ -2,64 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B23A379F7D
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 08:03:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E5A937A12D
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 09:50:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9ECA11771;
-	Tue, 11 May 2021 08:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ECA11771
+	by alsa0.perex.cz (Postfix) with ESMTPS id 149011771;
+	Tue, 11 May 2021 09:49:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 149011771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620713020;
-	bh=Q80bRCSsAajEE73iMLYB81XRi6bex5IH5i3JMmVwakg=;
+	s=default; t=1620719409;
+	bh=7l+wNptxgWvjdaH5yT+O2BvA243cyZFfafhKF3s9hL8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=t3Q9uTv+3wP2pD4IQPV35Ee0OHQtLavbxvjQeYjh2Ry2r3hzfBlKu7wEPMSDg672c
-	 459IiSzg+qpDv4Ftu64pd4wRcipJV12JWyatN8e6E/rid5Tpj9A0kjgTxDao7NGozB
-	 gw2yEozsxCQS1w1cT793kG4J1X/gXitITAZLJSao=
+	b=u/qLpOWd/RB2+kQHxNn0H+Jix7ZTCDafDlh0JiGPO7/q1hbxSpPFpyNQPD1B1Z2mT
+	 PlPet58pGLjuS8alsgYCRA+NyqOOaigfrha563hdcqn4/rV/PtbGuGL7W2bGXNJb2Z
+	 UUgxP3cWAXF74n3PN+8S3lAw6n4Ad1TRnIU6ZoSo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 558FBF80129;
-	Tue, 11 May 2021 08:02:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74039F801D5;
+	Tue, 11 May 2021 09:48:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6BFAF80163; Tue, 11 May 2021 08:02:12 +0200 (CEST)
+ id 4B1EDF8016B; Tue, 11 May 2021 09:48:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7212F80129
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 08:01:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7212F80129
-IronPort-SDR: HUDe5VTUdbgxz80Rc77q8kRdVibWwCQFeY4PoW6xXDXyG1oju81ICOfLJpciQHwqQFPYPth/kj
- v2FxxzCZM6Hw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="263295114"
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="263295114"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 23:01:56 -0700
-IronPort-SDR: nbPHKOeW38Qyu/1ovsiZtH57Ftv8SGgARty5t7lMCfGB35bhsP9Fcqzijsw0nVDs5mXwbCinrv
- ZwuopUyszJAw==
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="624540173"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 23:01:48 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH] soundwire/ASoC: add leading zeroes in peripheral device name
-Date: Tue, 11 May 2021 14:01:37 +0800
-Message-Id: <20210511060137.29856-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- jank@cadence.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 799E0F800E9
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 09:48:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 799E0F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="ppcjXHmV"
+Received: by mail-wr1-x42e.google.com with SMTP id e7so555090wrc.11
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 00:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0aKhMFos6FwrsrnKu5YWX9McpIt7w3RKLcj0tedb3Yw=;
+ b=ppcjXHmVF7ECDjdGn2+rwNT/xNSDY7W2WlUffWO3D1QhXtCgJfi8p6WCcmyp6wX+fZ
+ x1eWBDHrPvKsmZHDZ3k2FYxwxS47MFsxecKlETjqEIYa9Xc6lcmvOC+hhrxxBP5rs9kk
+ 1/SXJmR8QSg61HmKzBkuy63yEV3qyTTi0O3Ky5qnUrMCIvA0ITOJ4BeMF8OxTNaf4R07
+ Oe9kanSZhXh7akRYewxj+tg3ryw2p5AHx9A01WJKJP4wNB6QyyV2LwaXvIHrKYjUo499
+ QBqQBjkytG+nx9Oqyx/EnkM5GtQJAx1hcwnoFUwZkRWFSsHugY5ojoG83/anneDJDHUE
+ zL8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0aKhMFos6FwrsrnKu5YWX9McpIt7w3RKLcj0tedb3Yw=;
+ b=KlO2NLqG90d3c3yDO/w8NwIoYTTuN5ajy1WfJptt9o6oiLPmZN+63ju51aZSmmO4lY
+ YG28vQWJ4OYO1BayHJnIExQf/86/suLGScTfdsZLWh5UBiDRI35nasxdJWlJWubRUseE
+ bNJVIIHN1FtdAN/r8RsBDw4ygqhwAm5wIr48PeE2NJnr0/EBsH9BFvM6RL7UF6VheQIx
+ Dgf8aoEfk8OfUAK8JoHJMfuD3NJhuWRk/YmDJlDz5xcCAUmGAJYoOOwzS+SaIjHMJJYh
+ FnHx7e4oZ9lmDZaqn+XiMyOgpzW00EfR5IHkgJ7HSK5rWgNqarDYoTDZ/X2wB+m6L0Kr
+ TtpA==
+X-Gm-Message-State: AOAM5310HGMKhAbe44BYT6A4RBw5jyO7YOhIUbh+2V37YofDtdsX9zvP
+ OcwOzGHDX86a9m1MEViRPUJjrg==
+X-Google-Smtp-Source: ABdhPJxvk8PMcjaew5j2goslEy2L/b/57GiN7V5OJJTi5n7pDuKRnEMLGQs5PnLQ0zrfKH2aErdXPQ==
+X-Received: by 2002:a5d:6e11:: with SMTP id h17mr35388990wrz.331.1620719315466; 
+ Tue, 11 May 2021 00:48:35 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:90c:e290:ce08:6145:b4e3:5a23])
+ by smtp.gmail.com with ESMTPSA id
+ f6sm28371111wru.72.2021.05.11.00.48.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 May 2021 00:48:34 -0700 (PDT)
+From: Neil Armstrong <narmstrong@baylibre.com>
+To: jbrunet@baylibre.com,
+	broonie@kernel.org
+Subject: [PATCH v3 0/2] ASoC: meson: g12a-toacodec: add support for SM1
+Date: Tue, 11 May 2021 09:48:27 +0200
+Message-Id: <20210511074829.4110036-1-narmstrong@baylibre.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <narmstrong@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,77 +100,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+This patchset adds Amlogic SM1 support on the TOACODEC driver, first by switching
+to regmap fields for some bit fields to avoid code duplication, and then by adding
+the corresponding bits & struct for the SM1 changed bits.
 
-We recently added leading zeroes in dev_dbg() messages but forgot to
-do the same for the peripheral device name. Adding leading zeroes
-makes it easier to read manufacturer ID and part ID, e.g.:
+Changes since v2 at [2]:
+- use raw values instead of defines in REG_FIELD() for g12a_toacodec_match_data
 
-sdw:0:025d:0700:00
-sdw:0:025d:0711:00
-sdw:1:025d:0700:00
-sdw:1:025d:1308:00
-sdw:2:025d:0700:00
-sdw:2:025d:0701:00
-sdw:3:025d:0700:00
-sdw:3:025d:0715:00
+Changes since v1 at [1]:
+- switch to regmap field
 
-The use of '01x' for link_id and unique_id is intentional to show the
-value range in the code, it's understood it does not actually change
-the format.
+[1] https://lore.kernel.org/r/20210429170147.3615883-1-narmstrong@baylibre.com
+[2] https://lore.kernel.org/r/20210505072607.3815442-1-narmstrong@baylibre.com
 
-To avoid problems with git bisect, the same change needs to be applied
-to the Intel SoundWire machine driver, otherwise the components can't
-be found and the card registration fails.
+Neil Armstrong (2):
+  ASoC: meson: g12a-toacodec: use regmap fields to prepare SM1 support
+  ASoC: meson: g12a-toacodec: add support for SM1 TOACODEC
 
-Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/slave.c        | 4 ++--
- sound/soc/intel/boards/sof_sdw.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/meson/g12a-toacodec.c | 143 +++++++++++++++++++++++++++-----
+ 1 file changed, 124 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index ff01b96c6e56..cc1e0fab5905 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -39,12 +39,12 @@ int sdw_slave_add(struct sdw_bus *bus,
- 
- 	if (id->unique_id == SDW_IGNORED_UNIQUE_ID) {
- 		/* name shall be sdw:link:mfg:part:class */
--		dev_set_name(&slave->dev, "sdw:%x:%x:%x:%x",
-+		dev_set_name(&slave->dev, "sdw:%01x:%04x:%04x:%02x",
- 			     bus->link_id, id->mfg_id, id->part_id,
- 			     id->class_id);
- 	} else {
- 		/* name shall be sdw:link:mfg:part:class:unique */
--		dev_set_name(&slave->dev, "sdw:%x:%x:%x:%x:%x",
-+		dev_set_name(&slave->dev, "sdw:%01x:%04x:%04x:%02x:%01x",
- 			     bus->link_id, id->mfg_id, id->part_id,
- 			     id->class_id, id->unique_id);
- 	}
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index ecd3f90f4bbe..8df1e69235cc 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -581,13 +581,13 @@ static int create_codec_dai_name(struct device *dev,
- 		comp_index = i + offset;
- 		if (is_unique_device(link, sdw_version, mfg_id, part_id,
- 				     class_id, i)) {
--			codec_str = "sdw:%x:%x:%x:%x";
-+			codec_str = "sdw:%01x:%04x:%04x:%02x";
- 			codec[comp_index].name =
- 				devm_kasprintf(dev, GFP_KERNEL, codec_str,
- 					       link_id, mfg_id, part_id,
- 					       class_id);
- 		} else {
--			codec_str = "sdw:%x:%x:%x:%x:%x";
-+			codec_str = "sdw:%01x:%04x:%04x:%02x:%01x";
- 			codec[comp_index].name =
- 				devm_kasprintf(dev, GFP_KERNEL, codec_str,
- 					       link_id, mfg_id, part_id,
 -- 
-2.17.1
+2.25.1
 

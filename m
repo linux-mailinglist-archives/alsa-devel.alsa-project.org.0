@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B0737A237
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B28937A238
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 May 2021 10:34:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4177B1791;
-	Tue, 11 May 2021 10:33:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4177B1791
+	by alsa0.perex.cz (Postfix) with ESMTPS id 979BD179F;
+	Tue, 11 May 2021 10:33:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979BD179F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620722061;
-	bh=7C4N6xhr3iLJ06IpEWXsW6Mhbp8fwEkNVFfMBYJL4Hc=;
+	s=default; t=1620722086;
+	bh=Gk+CeoyFxhnPqAe46i/l9FnGdGx8TtOSVBjRZoBk/4I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LExyHkBrmDzQqfWSyrbNfc02AZaSeK9/3vSBj7oeVDikQJSfxzJ6PAEAgv8y8VRH7
-	 J64Jwrunr12vhFqLIfJMPlGZ0xqCRop9mDe4mrfIYNdc598LXuWoXiPvc5+OkG3P1S
-	 retnr0odc6rnkCvrMbJU1mfH3Xzc9NKXsHe4HhWk=
+	b=UygMFyBUvGPBTaKKuTOkJXW5xheSW3hr4KqEs29lf4s34nlzmsaYblYB1nE4cS5ay
+	 zypMFE28Qg1322p5/r5acGBouX2vR/7uFCivRHuXZe7LuJQq0rThzjJzukiBjfGTKy
+	 m3DjASzvWAAskTSYs/Ue15qKjhPQSI0Djef6NlCE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78650F80515;
-	Tue, 11 May 2021 10:28:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34E74F80519;
+	Tue, 11 May 2021 10:28:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA684F804D1; Tue, 11 May 2021 10:28:12 +0200 (CEST)
+ id 2F7B5F804D1; Tue, 11 May 2021 10:28:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 018B4F80163
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:28:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 018B4F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EBE4F80163
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 10:28:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EBE4F80163
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZMLazoSV"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CD14061944;
- Tue, 11 May 2021 08:28:07 +0000 (UTC)
+ header.b="ixOvwSZ3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BD34661946;
+ Tue, 11 May 2021 08:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620721688;
- bh=7C4N6xhr3iLJ06IpEWXsW6Mhbp8fwEkNVFfMBYJL4Hc=;
+ s=k20201202; t=1620721691;
+ bh=Gk+CeoyFxhnPqAe46i/l9FnGdGx8TtOSVBjRZoBk/4I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZMLazoSVLczu9/tZp9358cwQQx7is/gIgfqItfeNED0/l9vyz3WWiixEcRLyRyGF+
- T4dJGl3TC6MYR0nu5j4D/brT9QowFo6as1cswCpldxk3DsNAWPR2VmE05OgVwTKB9p
- X9CZmjiEEJF2GTSwGj5M+oGbi4ZTNc0O3Cri0SKGObbNPelFgH8ed6etG1vDHArN5u
- 6OIwtvBnQl2zTW9b9vUDnRjiD98mTgG7mf/QuDFCqMUhApoRJgY9t5UPL4KCZWQX+V
- KnnIFZuSpqdjLZa0gnX6EVlDWrkE1yUoo+DQ3C2Y0cz7lgwLy2frgqj23OuDiuC8Af
- ozX8P82HpQMJg==
+ b=ixOvwSZ3oJ/owYJUpffCkc6eJNTdy5I9Pd+rYepv+0icFNmQjK9560v0fvwRMORKy
+ PTbvixRF7boG0HmynEMhKGAYYdhoG5A9DiBVCPcH4xzus+VVcrVfh+LvOMkbDVZEPW
+ QeXMnnC2a4FNmSEPuGFazxG3qgsuOeIoJiVyZ8woIto7OXxhpAOKM+aYmGpB0LVmKO
+ 46FeKz7PekHvZ06L8HH2jGpTpurztxLSewBPsJn+ZxiFyFg7W4dlBGsHRe2oeC2vBT
+ l9pWXxon1Az7FNEPrgaLGCjN9T4HFaD+Vk3gWy3zmDx5l1fuxY7fv6nEE+2VBY1npm
+ cxDY2+5yqm1Vg==
 From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz,
- nicoleotsuka@gmail.com, timur@kernel.org, Xiubo.Lee@gmail.com,
- tiwai@suse.com
-Subject: Re: [PATCH] ASoC: imx-pcm-rpmsg: Fix warning of incorrect type in
- assignment
-Date: Tue, 11 May 2021 09:25:58 +0100
-Message-Id: <162072058169.33157.6496454869060714703.b4-ty@kernel.org>
+To: Zhen Lei <thunder.leizhen@huawei.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ linux-mediatek <linux-mediatek@lists.infradead.org>,
+ alsa-devel <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Matthias Brugger <matthias.bgg@gmail.com>
+Subject: Re: [PATCH 1/1] ASoC: mediatek: mt8192: Delete a redundant condition
+ branch
+Date: Tue, 11 May 2021 09:25:59 +0100
+Message-Id: <162072058170.33157.6826486921095760961.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1620268240-1005-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1620268240-1005-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210510083640.3368-1-thunder.leizhen@huawei.com>
+References: <20210510083640.3368-1-thunder.leizhen@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,18 +84,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 6 May 2021 10:30:40 +0800, Shengjiu Wang wrote:
-> The format in rpmsg is defained as unsigned char, there is warning
-> when convert snd_pcm_format_t to it.
+On Mon, 10 May 2021 16:36:40 +0800, Zhen Lei wrote:
+> The statement of the "if (afe_priv->mtkaif_protocol == MTKAIF_PROTOCOL_2)"
+> branch is the same as the "else" branch. Delete it to simplify code.
 > 
-> sound/soc/fsl/imx-pcm-rpmsg.c:164:43: sparse: warning: incorrect type in assignment (different base types)
-> sound/soc/fsl/imx-pcm-rpmsg.c:164:43: sparse:    expected unsigned char format
-> sound/soc/fsl/imx-pcm-rpmsg.c:164:43: sparse:    got restricted snd_pcm_format_t [usertype]
-> sound/soc/fsl/imx-pcm-rpmsg.c:167:43: sparse: warning: incorrect type in assignment (different base types)
-> sound/soc/fsl/imx-pcm-rpmsg.c:167:43: sparse:    expected unsigned char format
-> sound/soc/fsl/imx-pcm-rpmsg.c:167:43: sparse:    got restricted snd_pcm_format_t [usertype]
-> 
-> [...]
+> No functional change.
 
 Applied to
 
@@ -102,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: imx-pcm-rpmsg: Fix warning of incorrect type in assignment
-      commit: a387040ab401cc114d0b1a7a86431c5ae34b163b
+[1/1] ASoC: mediatek: mt8192: Delete a redundant condition branch
+      commit: 85c966dc97d1c46a3079ec4c26714c9f8ec66823
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

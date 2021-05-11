@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD87037C08C
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF1037C091
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:45:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5632D189B;
-	Wed, 12 May 2021 16:44:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5632D189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D1CF186C;
+	Wed, 12 May 2021 16:45:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D1CF186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620830723;
-	bh=6o759ShUxJ4M0iPoewavcBs0joP5lvg0/UyuatoupKw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1620830758;
+	bh=0gtK+SJNoRroYqpZxXO9QMth9hd9b/rKhnd/XoT38YQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PjDAHPP6qq0bYNFrFZOPQ70RYT1sjyL0QDEip1UCtCilt0hcp3RTLr1pYX2YqZh1i
-	 wMrc9sotb4Uivm4lUAiE4l4oZ+m0FJU0Mz369uP/kjB3R/+NHRdubxXO/8bNhXFv0f
-	 uGX1LrkvuYZhisTiAfCaHZ49achQP1B5YRB/qB3U=
+	b=rlEQf8ks25nyLmloCMuOERxRhYxtAR8ckniDhVMeQLBuDBK4mzBHznMMc+5mz2pQL
+	 V/eXUdlmNd0WCGog8bNMc/2tsyQ9OY8ZKQWqIE1UcJ07A0UkAvEShQze3o96yJeI7B
+	 afo8yJeCgUK7/wxYdAp9HSDo3JyZv60gE+X9P5jU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07946F8027D;
+	by alsa1.perex.cz (Postfix) with ESMTP id AE037F8042F;
 	Wed, 12 May 2021 16:43:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 239ACF80163; Tue, 11 May 2021 11:37:38 +0200 (CEST)
+ id 971CCF80163; Tue, 11 May 2021 15:44:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,55 +34,66 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94E14F800E9
- for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 11:37:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94E14F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4255F80129
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 15:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4255F80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VmShZQzr"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A14E161925;
- Tue, 11 May 2021 09:37:20 +0000 (UTC)
+ header.b="XtdoiP0g"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B2AE261931
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 13:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620725848;
- bh=6o759ShUxJ4M0iPoewavcBs0joP5lvg0/UyuatoupKw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VmShZQzrJkNUYpzDiT8lkPsxOAMSd9Mve7i5gQll5qndGWVpx/umg+CXxAKGpoNMA
- r3FMkUmVknRLOM40Or9NWwNOL92NSwkHrq/d0ndNeQRTu32uCCDHx2IbSd5VG2b4ul
- nosZAixjCj57nhk32NpeqSVxAJnPk2eny4EB88KTc/gQGnVuXNqo0yWlzvNXSmu4ZF
- mRycl9aLbRnBPpCgKOBrtmqpOvb6P16yZBfRn67Vau0A0Tq2FleVuS/QpC4INaUcg7
- P/ifJQg2MpIKloJneBuh4wLQ19EHMgDmJrDBTumwAHsRVeIkB/VjkEIaNgqi+q08au
- 3pae3xKzjvu8Q==
-Date: Tue, 11 May 2021 11:37:17 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Subject: Re: [PATCH 00/53] Get rid of UTF-8 chars that can be mapped as ASCII
-Message-ID: <20210511113717.5c8b68f7@coco.lan>
-In-Reply-To: <YJmH2irxoRsyNudb@mit.edu>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
- <20210510135518.305cc03d@coco.lan>
- <de6d1fa5b7934f4afd61370d9c58502bef588466.camel@infradead.org>
- <YJmH2irxoRsyNudb@mit.edu>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ s=k20201202; t=1620740680;
+ bh=0gtK+SJNoRroYqpZxXO9QMth9hd9b/rKhnd/XoT38YQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=XtdoiP0gZ+rKX79UqZPd20HGXRIIbHAbEat0dyEaoYEILdlS7NTlzecb0ZNAtTz+D
+ QTDQkI0+IFO2bK7Gp75kyGNNquowuM0or1pc1U7lsQChETi7OpkSn0jUhptHGIEnuH
+ fSdw21N1Yy6a9RLCO7nrCsICecGVd2N6ChqqFHCqWExI/x6vruXZbT7pkWi7ybGBL/
+ yjkCaW74hzx3vMwWBNPk068VZOFOOY4qtl4Fa1n7tsmN7cSzKlxpF537QtwpZEIN+2
+ HE5PQ+TCm45etli8n07f9d11NoKPQFtNGbsUSyvk63KV+eD5UNOX08H3g78nzwvkz/
+ nmLkXeJudMjqw==
+Received: by mail-ej1-f46.google.com with SMTP id t4so29916858ejo.0
+ for <alsa-devel@alsa-project.org>; Tue, 11 May 2021 06:44:40 -0700 (PDT)
+X-Gm-Message-State: AOAM5317xncWofFoT2L2oUJloPf/AemCcwJssBnxK64T2Bvb+PoWEZ45
+ OYth38PJ188auUv0pwD0biKK5APC1I+Og/kOiQ==
+X-Google-Smtp-Source: ABdhPJyrWgIUlnOMhVp7YSyR/CWZOr54gf3UNB1vwdQnelxzeEkHmRrxQ841ilXDozmbXutGgeZtxVaJ2xxtGRrkxgg=
+X-Received: by 2002:a17:906:dbdc:: with SMTP id
+ yc28mr11876880ejb.130.1620740679070; 
+ Tue, 11 May 2021 06:44:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 12 May 2021 16:43:39 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- linux-rdma@vger.kernel.org, x86@kernel.org, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-sgx@vger.kernel.org, coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-integrity@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>
+References: <20210510204524.617390-1-robh@kernel.org>
+ <d3aae746-284b-b0bc-0d52-a76c361d3592@lucaceresoli.net>
+In-Reply-To: <d3aae746-284b-b0bc-0d52-a76c361d3592@lucaceresoli.net>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 11 May 2021 08:44:25 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLhwifngoNK0ciO=yuVqpEbMGOSWMHyT=5DcYcO9jcuCw@mail.gmail.com>
+Message-ID: <CAL_JsqLhwifngoNK0ciO=yuVqpEbMGOSWMHyT=5DcYcO9jcuCw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: More removals of type references on common
+ properties
+To: Luca Ceresoli <luca@lucaceresoli.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 12 May 2021 16:43:38 +0200
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-clk <linux-clk@vger.kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Linux Input <linux-input@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, devicetree@vger.kernel.org,
+ Odelu Kukatla <okukatla@codeaurora.org>,
+ "open list:THERMAL" <linux-pm@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Alex Elder <elder@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev <netdev@vger.kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>,
+ Georgi Djakov <djakov@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,57 +109,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Mon, 10 May 2021 15:22:02 -0400
-"Theodore Ts'o" <tytso@mit.edu> escreveu:
+On Tue, May 11, 2021 at 2:20 AM Luca Ceresoli <luca@lucaceresoli.net> wrote:
+>
+> Hi,
+>
+> On 10/05/21 22:45, Rob Herring wrote:
+> > Users of common properties shouldn't have a type definition as the
+> > common schemas already have one. A few new ones slipped in and
+> > *-names was missed in the last clean-up pass. Drop all the unnecessary
+> > type references in the tree.
+> >
+> > A meta-schema update to catch these is pending.
+> >
+> > Cc: Luca Ceresoli <luca@lucaceresoli.net>
+> > Cc: Stephen Boyd <sboyd@kernel.org>
+> > Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+> > Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> > Cc: Jonathan Cameron <jic23@kernel.org>
+> > Cc: Lars-Peter Clausen <lars@metafoo.de>
+> > Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > Cc: Georgi Djakov <djakov@kernel.org>
+> > Cc: "David S. Miller" <davem@davemloft.net>
+> > Cc: Jakub Kicinski <kuba@kernel.org>
+> > Cc: Sebastian Reichel <sre@kernel.org>
+> > Cc: Orson Zhai <orsonzhai@gmail.com>
+> > Cc: Baolin Wang <baolin.wang7@gmail.com>
+> > Cc: Chunyan Zhang <zhang.lyra@gmail.com>
+> > Cc: Liam Girdwood <lgirdwood@gmail.com>
+> > Cc: Mark Brown <broonie@kernel.org>
+> > Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > Cc: Odelu Kukatla <okukatla@codeaurora.org>
+> > Cc: Alex Elder <elder@kernel.org>
+> > Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > Cc: linux-clk@vger.kernel.org
+> > Cc: alsa-devel@alsa-project.org
+> > Cc: linux-iio@vger.kernel.org
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-input@vger.kernel.org
+> > Cc: linux-pm@vger.kernel.org
+> > Cc: netdev@vger.kernel.org
+> > Signed-off-by: Rob Herring <robh@kernel.org>
+> > ---
+> >  Documentation/devicetree/bindings/clock/idt,versaclock5.yaml    | 2 --
+> >  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml         | 1 -
+> >  Documentation/devicetree/bindings/input/input.yaml              | 1 -
+> >  Documentation/devicetree/bindings/interconnect/qcom,rpmh.yaml   | 1 -
+> >  Documentation/devicetree/bindings/net/qcom,ipa.yaml             | 1 -
+> >  .../devicetree/bindings/power/supply/sc2731-charger.yaml        | 2 +-
+> >  Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml          | 2 +-
+> >  7 files changed, 2 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > index c268debe5b8d..28675b0b80f1 100644
+> > --- a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > @@ -60,7 +60,6 @@ properties:
+> >      maxItems: 2
+> >
+> >    idt,xtal-load-femtofarads:
+> > -    $ref: /schemas/types.yaml#/definitions/uint32
+> >      minimum: 9000
+> >      maximum: 22760
+> >      description: Optional load capacitor for XTAL1 and XTAL2
+> > @@ -84,7 +83,6 @@ patternProperties:
+> >          enum: [ 1800000, 2500000, 3300000 ]
+> >        idt,slew-percent:
+> >          description: The Slew rate control for CMOS single-ended.
+> > -        $ref: /schemas/types.yaml#/definitions/uint32
+> >          enum: [ 80, 85, 90, 100 ]
+>
+> Ok, but shouldn't "percent" be listed in
+> Documentation/devicetree/bindings/property-units.txt?
 
-> On Mon, May 10, 2021 at 02:49:44PM +0100, David Woodhouse wrote:
-> > On Mon, 2021-05-10 at 13:55 +0200, Mauro Carvalho Chehab wrote: =20
-> > > This patch series is doing conversion only when using ASCII makes
-> > > more sense than using UTF-8.=20
-> > >=20
-> > > See, a number of converted documents ended with weird characters
-> > > like ZERO WIDTH NO-BREAK SPACE (U+FEFF) character. This specific
-> > > character doesn't do any good.
-> > >=20
-> > > Others use NO-BREAK SPACE (U+A0) instead of 0x20. Harmless, until
-> > > someone tries to use grep[1]. =20
-> >=20
-> > Replacing those makes sense. But replacing emdashes =E2=80=94 which are=
- a
-> > distinct character that has no direct replacement in ASCII and which
-> > people do *deliberately* use instead of hyphen-minus =E2=80=94 does not=
-. =20
->=20
-> I regularly use --- for em-dashes and -- for en-dashes.  Markdown will
-> automatically translate 3 ASCII hypens to em-dashes, and 2 ASCII
-> hyphens to en-dashes.  It's much, much easier for me to type 2 or 3
-> hypens into my text editor of choice than trying to enter the UTF-8
-> characters.=20
+It is in the schema already[1].
 
-Yeah, typing those UTF-8 chars are a lot harder than typing -- and ---
-on several text editors ;-)
+> Reviewed-by: Luca Ceresoli <luca@lucaceresoli.net>
 
-Here, I only type UTF-8 chars for accents (my US-layout keyboards are=20
-all set to US international, so typing those are easy).
+Thanks.
 
-> If we can make sphinx do this translation, maybe that's
-> the best way of dealing with these two characters?
+Rob
 
-Sphinx already does that by default[1], using smartquotes:
-
-	https://docutils.sourceforge.io/docs/user/smartquotes.html
-
-Those are the conversions that are done there:
-
-      - Straight quotes (" and ') turned into "curly" quote characters;
-      - dashes (-- and ---) turned into en- and em-dash entities;
-      - three consecutive dots (... or . . .) turned into an ellipsis char.
-
-So, we can simply use single/double commas, hyphens and dots for
-curly commas and ellipses.
-
-[1] There's a way to disable it at conf.py, but at the Kernel this is
-    kept on its default: to automatically do such conversions.=20
-
-Thanks,
-Mauro
+[1] https://github.com/devicetree-org/dt-schema/blob/master/schemas/property-units.yaml

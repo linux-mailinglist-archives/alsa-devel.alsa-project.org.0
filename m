@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57DA837CCF0
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 19:07:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D518637CCFC
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 19:07:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAA81185A;
-	Wed, 12 May 2021 19:06:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAA81185A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57106186C;
+	Wed, 12 May 2021 19:06:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57106186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620839236;
-	bh=uR97iHT9TbuhNgLA0XIv+lafc7LtNZqRCCX/bATyQXI=;
+	s=default; t=1620839252;
+	bh=8N5j+xcwpdd1FAn4F9NFsokj6l+Jn2U46GKPUTsKebI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dd6OUcxYelNTqLZHKBIMxUl1x51N0K+s/Cs8KM9tx7IU93A+Qr8x0EcaEYGe9ozbJ
-	 zMXTtHiChj/9rZv154TAzTstN5M4lbvSYDiEq7nDX0/K1bjV1drNIjiXZGt/eLx93G
-	 8Os8jFnB4jK2Aym8tceu4Hbyw0R5i76X/U5HVrCo=
+	b=ukejdaPDbAS0AL61JkVYmQUc7rmmG7ECLLrERE4tWIebCh5vm1pqjNjPkS0H/gStB
+	 GVa6dIfGcuclqH3OuFqOuc0EvyEAQWn/Xpu0rRRxO4h6pT5675Vo5DaG7pRgMaMOJ4
+	 +EdVMHLKX1IbOzPOE9UuRwaTxVJA0gVpc1NNmQSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56EE9F8026B;
-	Wed, 12 May 2021 19:05:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 818CCF80272;
+	Wed, 12 May 2021 19:05:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0993CF80240; Wed, 12 May 2021 19:05:46 +0200 (CEST)
+ id B92CBF8012E; Wed, 12 May 2021 19:05:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7ADF6F8012E
- for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 19:05:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ADF6F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31EB1F8012E
+ for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 19:05:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31EB1F8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Y8Nf+/tQ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 019B0613C5;
- Wed, 12 May 2021 17:05:40 +0000 (UTC)
+ header.b="NDNFB3Mw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C77D661363;
+ Wed, 12 May 2021 17:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620839141;
- bh=uR97iHT9TbuhNgLA0XIv+lafc7LtNZqRCCX/bATyQXI=;
+ s=k20201202; t=1620839144;
+ bh=8N5j+xcwpdd1FAn4F9NFsokj6l+Jn2U46GKPUTsKebI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y8Nf+/tQc9Nbr79TcfA7g44QxHgGX0xoGTJV96qJY2CiHAC6nIKrY3Yx/KXlIl4N0
- hzFwT0baEKJTlK5J7pecvrl4NPWHlC8+FinZoeNYKinIY2xG4vEvL3zoZ2bEJCB/VL
- kLN30P9Gd6IZlvRO7Vl3cpAHhsquAZj94UbVyZrNXD/eMUign/HSkpLVzXFiWl4xKP
- cd8mKXRysXwUAJiSfOH1/Zfva5UFbkXRDOD0S6h6yvb7alNxZdLhAth4UAcpSrfTPK
- SlP/N6h1FQ0ZlwAJ8wVe2yzgzF+GMBBKkvk9Q3tyO8xrXk0+mQDle8cjkg/erVACYK
- rpVfCn/KHOfLA==
+ b=NDNFB3MwyJPiKxBsJ1tj6cyqc7tgARFhxf6nrJlRJirx7Syo/NsZ5G5nRKJyeqVQf
+ LP25w3m3auluVPTvgTmij4yWKZq8H5NdNeSYxEK/UQa0gYY1WQSe2wyGjqQ5UYVBjY
+ 3b9CBXAVojADLj77sCv0gGS3RcsP6PpBSV64uZ6K/jkGmECxih81LFETgr6AefjZ8n
+ ArW382aoDInDig0mJff8nNPZFIkJf5k7kqXCydadcm1nzI5qypXSi40HvpDFOZIus7
+ TjaRMxkmoBOPKJV1knnJ/Yf2O8NPBrAl0s0FYZqnQcfFB2fyUyllJE2WWdVosRttG3
+ 5qX3W6uIIFQkw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Zou Wei <zou_wei@huawei.com>, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, perex@perex.cz
-Subject: Re: [PATCH -next] ASoC: sti-sas: add missing MODULE_DEVICE_TABLE
-Date: Wed, 12 May 2021 18:04:42 +0100
-Message-Id: <162083892846.44734.8935371254397073723.b4-ty@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: soc-dai.h: Align the word of comment for
+ SND_SOC_DAIFMT_CBC_CFC
+Date: Wed, 12 May 2021 18:04:43 +0100
+Message-Id: <162083892846.44734.2101445931216615242.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1620789145-14936-1-git-send-email-zou_wei@huawei.com>
-References: <1620789145-14936-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <8735usc1gr.wl-kuninori.morimoto.gx@renesas.com>
+References: <8735usc1gr.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,10 +79,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 May 2021 11:12:25 +0800, Zou Wei wrote:
-> This patch adds missing MODULE_DEVICE_TABLE definition which generates
-> correct modalias for automatic loading of this driver when it is built
-> as an external module.
+On 12 May 2021 08:09:08 +0900, Kuninori Morimoto wrote:
+> Let's use "consumer" instead of "follower".
 
 Applied to
 
@@ -91,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: sti-sas: add missing MODULE_DEVICE_TABLE
-      commit: e072b2671606c77538d6a4dd5dda80b508cb4816
+[1/1] ASoC: soc-dai.h: Align the word of comment for SND_SOC_DAIFMT_CBC_CFC
+      commit: 47c1131633ef6210add63b8b5704497023a3462a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

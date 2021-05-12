@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E434637C0F4
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C62737C097
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:47:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82CB6186C;
-	Wed, 12 May 2021 16:53:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82CB6186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE82217E2;
+	Wed, 12 May 2021 16:46:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE82217E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620831267;
-	bh=iqtC6rXZba9iPm73W/s0kRJWYkXso90HKQ4qnz04t5c=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1620830839;
+	bh=hmVgrspGdVcB4aATtTNrqvupU61kPQN61umTT2pz0qE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WdaBkopOjKEI7ERI797O9K2OBl+0VGBd9eWhHrZU9d2W/oRRIO3DpvvDsUjAkTpHp
-	 EP740baamfMiEm8vg1IlfOkHE3KS8vxNT/bs5HNN4H09+kND3VCdbOJnRXzn6O/4os
-	 i56JrExZiytVDGbkhHKsp+kmKb6I3VIXh63cOKZ0=
+	b=bLT8ACK4HeBOK9kSRmx5EOUR5/bjadUEGdl4o6J4YSUPoTRoq5pZuKo8mzXXOl9u1
+	 tyauINu1SxWvugFH5PATf/JRKl3B7BLSs9h01r8plungo8PLZ0rYRSehm5Stf82COY
+	 S0si8HM+pzlSTGaFLMqgTCJ4yz+MRuUrfGFsSZ1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2045F8026B;
-	Wed, 12 May 2021 16:52:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BC20F804B0;
+	Wed, 12 May 2021 16:43:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECCCFF80240; Wed, 12 May 2021 16:52:57 +0200 (CEST)
+ id 67F2EF80240; Wed, 12 May 2021 16:14:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.1 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B565F8012E
- for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 16:52:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B565F8012E
-IronPort-SDR: uG22VTPri/ZRTt0nC4VgjfgAiqVnXo4yqg+3jh1S/mRfLsbPNLFJ3LboNPsFoHxMJn0XUkJ4P+
- gZduKg9RPc0w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9982"; a="186855391"
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="186855391"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2021 07:52:46 -0700
-IronPort-SDR: cA6Zs510rHgQ6GkS8D4I8JMdHFHQypk/xImYgpETYmwZqd5kFXM15Z5wxzVPeZQ9aidlivSjlH
- DTsE4qIgJrvA==
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="437236918"
-Received: from cwitkows-mobl.amr.corp.intel.com (HELO [10.212.100.147])
- ([10.212.100.147])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2021 07:52:44 -0700
-Subject: Re: [PATCH -next] ASoC: intel/boards: add missing MODULE_DEVICE_TABLE
-To: Zou Wei <zou_wei@huawei.com>, cezary.rojewski@intel.com,
- liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- kuninori.morimoto.gx@renesas.com, kai.vehmanen@linux.intel.com,
- brent.lu@intel.com, ranjani.sridharan@linux.intel.com, yong.zhi@intel.com,
- dharageswari.r@intel.com, sathyanarayana.nujella@intel.com,
- fred.oh@linux.intel.com, tzungbi@google.com
-References: <1620791647-16024-1-git-send-email-zou_wei@huawei.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <50fa973b-aa9f-ccb4-8020-9d38a63e2c30@linux.intel.com>
-Date: Wed, 12 May 2021 08:41:43 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E500EF8012E
+ for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 16:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E500EF8012E
+Received: from cwcc.thunk.org (pool-72-74-133-215.bstnma.fios.verizon.net
+ [72.74.133.215]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 14CEEiap031112
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 May 2021 10:14:45 -0400
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id 448C815C39C2; Wed, 12 May 2021 10:14:44 -0400 (EDT)
+Date: Wed, 12 May 2021 10:14:44 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v2 00/40] Use ASCII subset instead of UTF-8 alternate
+ symbols
+Message-ID: <YJvi1L2ss5Tfi+My@mit.edu>
+References: <cover.1620823573.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <1620791647-16024-1-git-send-email-zou_wei@huawei.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1620823573.git.mchehab+huawei@kernel.org>
+X-Mailman-Approved-At: Wed, 12 May 2021 16:43:39 +0200
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ keyrings@vger.kernel.org, linux-sgx@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-rdma@vger.kernel.org,
+ linux-acpi@vger.kernel.org, Mali DP Maintainers <malidp@foss.arm.com>,
+ linux-input@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ coresight@lists.linaro.org, rcu@vger.kernel.org,
+ mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-integrity@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,65 +86,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, May 12, 2021 at 02:50:04PM +0200, Mauro Carvalho Chehab wrote:
+> v2:
+> - removed EM/EN DASH conversion from this patchset;
 
+Are you still thinking about doing the
 
-On 5/11/21 10:54 PM, Zou Wei wrote:
-> This patch adds missing MODULE_DEVICE_TABLE definition which generates
-> correct modalias for automatic loading of this driver when it is built
-> as an external module.
+EN DASH --> "--"
+EM DASH --> "---"
 
-I have a limited understanding of all this, but we already support the 
-machine drivers as modules and things work fine.
+conversion?  That's not going to change what the documentation will
+look like in the HTML and PDF output forms, and I think it would make
+life easier for people are reading and editing the Documentation/*
+files in text form.
 
-I wonder if this MODULE_DEVICE_TABLE generates the alias automatically, 
-which would make the existing ones added manually at the end of the 
-files unnecessary? If that was the case, then we should remove those 
-MODULE_ALIAS as well, no?
-
-MODULE_DESCRIPTION("SOF Audio Machine driver");
-MODULE_AUTHOR("Bard Liao <bard.liao@intel.com>");
-MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
-MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
-MODULE_LICENSE("GPL v2");
-MODULE_ALIAS("platform:sof_rt5682");
-MODULE_ALIAS("platform:tgl_max98357a_rt5682");
-MODULE_ALIAS("platform:jsl_rt5682_rt1015");
-MODULE_ALIAS("platform:tgl_max98373_rt5682");
-MODULE_ALIAS("platform:jsl_rt5682_max98360a");
-MODULE_ALIAS("platform:cml_rt1015_rt5682");
-MODULE_ALIAS("platform:tgl_rt1011_rt5682");
-MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
-
-> 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Zou Wei <zou_wei@huawei.com>
-> ---
->   sound/soc/intel/boards/sof_da7219_max98373.c | 1 +
->   sound/soc/intel/boards/sof_rt5682.c          | 1 +
->   2 files changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
-> index f3cb077..8d1ad89 100644
-> --- a/sound/soc/intel/boards/sof_da7219_max98373.c
-> +++ b/sound/soc/intel/boards/sof_da7219_max98373.c
-> @@ -440,6 +440,7 @@ static const struct platform_device_id board_ids[] = {
->   	},
->   	{ }
->   };
-> +MODULE_DEVICE_TABLE(platform, board_ids);
->   
->   static struct platform_driver audio = {
->   	.probe = audio_probe,
-> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-> index 58548ea..cf1d053 100644
-> --- a/sound/soc/intel/boards/sof_rt5682.c
-> +++ b/sound/soc/intel/boards/sof_rt5682.c
-> @@ -968,6 +968,7 @@ static const struct platform_device_id board_ids[] = {
->   	},
->   	{ }
->   };
-> +MODULE_DEVICE_TABLE(platform, board_ids);
->   
->   static struct platform_driver sof_audio = {
->   	.probe = sof_audio_probe,
-> 
+				- Ted

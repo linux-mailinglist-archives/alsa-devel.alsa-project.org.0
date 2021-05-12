@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8ED537D1BF
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 20:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D606D37D1CC
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 20:05:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C2941865;
-	Wed, 12 May 2021 20:03:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C2941865
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74005181C;
+	Wed, 12 May 2021 20:04:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74005181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620842643;
+	s=default; t=1620842738;
 	bh=9Ra2Pkb/2R8SV4fQGjODW9snAVZNS3gJLqWj2jY/YKQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RPr+WpWwe68Y3SBN0StQy6GE6IlXZKDKQJS+PSPORGp3K2WWVIEGB9zxvUBZFFpbR
-	 kyELYfhxU5twev8D9rx5fbbLp0XlgXxhPPBc3Q0N8VOMPoF22ShRjCzy3Fmz/8OLsw
-	 Yt/Wg4v0dV0Z+IXSfHighbk09RQcxAKe7PU6fAFE=
+	b=U1pZu0Zr7a3wjzEoJ9yWoLFwmyltHQpwEpA3DwdJecCBmGtFmQ5/0N+xgtuj6m6qz
+	 Voy3lVMPC1Gt40Yw338YPvZNMD+LIHtdRXIbn12o7UjxX310gnqhmVlS4RKUHzm/sV
+	 onxju1u3xcAESyyWy78bJi+ejEr2z5WOg4crb8Ek=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 190D8F8027B;
-	Wed, 12 May 2021 20:03:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEE25F80240;
+	Wed, 12 May 2021 20:04:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99583F800E9; Wed, 12 May 2021 20:03:08 +0200 (CEST)
+ id 84203F8012E; Wed, 12 May 2021 20:04:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52381F8013A
- for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 20:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52381F8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1706BF8012E
+ for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 20:04:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1706BF8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KmB2FfGe"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CD2906142D;
- Wed, 12 May 2021 18:02:58 +0000 (UTC)
+ header.b="UI/t7hg5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ED47461454;
+ Wed, 12 May 2021 18:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620842579;
+ s=k20201202; t=1620842640;
  bh=9Ra2Pkb/2R8SV4fQGjODW9snAVZNS3gJLqWj2jY/YKQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KmB2FfGeOEEHVC/WZrtcJVi6sCvKvvp5L5lOax8j7SZdTk07FcybnFqCMkhplhXE+
- 6Ut1GTHwB1EaHJDsgZDBykRHTkTedU0hOovmiF2EIAfpfaMFjscaTbw0vaGBbLCb01
- kt2Iyn5CKw7iZOsPsm5NbhF6pVrDjWioKTRVFqMt6t3twWgiw7PXjN8W84ngmaE5BT
- Lxwl0DAVicTq/LJ0olZzwbciqMNO3vn+AOvDWT22GxdmtWFh+RHYkj5pKFDpgaQgNo
- KZOqFr6yQQOVpX9WBdEhFQgR0unXnmTjVDsglRSAE9FliM/ui1iuP+Gox6AtVx3z50
- 3/7cwmrmSJyaQ==
+ b=UI/t7hg5bpVknbbmdXLfulexMqNESDUue7Dq26GJwHtgyW58RaU5rA1vB4Y2GZHnR
+ bnG2oNacPENf2e16v/VOTX67RLJ9UMSSnZV2RFq6omHnWOY6XHW4+84iQ/V8RUT+b6
+ ryqa2W2AE62/nLLM5D1O/OyrY4Q1w8Mfbt/sWoTsQ/0R27P1b8JYVs4VFpD6iR3Z06
+ Cjv8UssvjHkxM8V1EVeOV4zxYYnfq+yXssyH8Kz4whKrX+ENOpraj1z17994mtiz+f
+ MsiyHckoSdsYIRyunR8noAI6WyN0cUX8lISZ49CF3OpXbouJB7GKG+h8hpSiPT38cm
+ I5twXgSuhhILA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 32/35] ALSA: hda: generic: change the DAC ctl
+Subject: [PATCH AUTOSEL 5.10 31/34] ALSA: hda: generic: change the DAC ctl
  name for LO+SPK or LO+HP
-Date: Wed, 12 May 2021 14:02:02 -0400
-Message-Id: <20210512180206.664536-32-sashal@kernel.org>
+Date: Wed, 12 May 2021 14:03:02 -0400
+Message-Id: <20210512180306.664925-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210512180206.664536-1-sashal@kernel.org>
-References: <20210512180206.664536-1-sashal@kernel.org>
+In-Reply-To: <20210512180306.664925-1-sashal@kernel.org>
+References: <20210512180306.664925-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore

@@ -2,82 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52C9637C096
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:46:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E434637C0F4
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 May 2021 16:54:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E354C18C7;
-	Wed, 12 May 2021 16:46:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E354C18C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82CB6186C;
+	Wed, 12 May 2021 16:53:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82CB6186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620830812;
-	bh=L+E/N8mtA2/+iSqhjhIyKk7M7RrC5qMfkQmRh4SXqOM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Vkim2+osY1l3TQwVTqq5gr5gX3CE2tTqGe31CEh0mmLTwoIkuiEjFZP+jhshG+hTv
-	 62mWunpHdI2SYghVFVhcK3mOQDt+xMNTf5Tmyng9S8xkc5qTLA2ME19pU1fJ7EMrVA
-	 ycFm7NiWG66w60wV98tfYjnKkIxvsvBo2ZypAMQI=
+	s=default; t=1620831267;
+	bh=iqtC6rXZba9iPm73W/s0kRJWYkXso90HKQ4qnz04t5c=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WdaBkopOjKEI7ERI797O9K2OBl+0VGBd9eWhHrZU9d2W/oRRIO3DpvvDsUjAkTpHp
+	 EP740baamfMiEm8vg1IlfOkHE3KS8vxNT/bs5HNN4H09+kND3VCdbOJnRXzn6O/4os
+	 i56JrExZiytVDGbkhHKsp+kmKb6I3VIXh63cOKZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B08CF804AE;
-	Wed, 12 May 2021 16:43:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2045F8026B;
+	Wed, 12 May 2021 16:52:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2731F8026B; Wed, 12 May 2021 14:51:57 +0200 (CEST)
+ id ECCCFF80240; Wed, 12 May 2021 16:52:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODYSUB_1,PRX_BODY_13,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B230EF8012E
- for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 14:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B230EF8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ucNSAhXY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B11D61175;
- Wed, 12 May 2021 12:51:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620823902;
- bh=L+E/N8mtA2/+iSqhjhIyKk7M7RrC5qMfkQmRh4SXqOM=;
- h=From:To:Cc:Subject:Date:From;
- b=ucNSAhXYlF3Szz7W2irBTsvcIq33u1CrsW3ughaZJQqP+LrxpB0KjDChNaWylRCiA
- 8uidMvIFPObFZ6akJiKIQ1n/loNfn6hx8yVucw2xWZ73EfgNRibzOSlugYBt51kwpz
- sdmRPA3LdwD45uYQTpj7XZoENUjgUxwJTlI1qlwGCNWZNWI+BkaJBNQJYsI68pIF0d
- fXOa2Wzs1nudr171bvqR7b67LC1CF/NPtlR0c90fFeyu9TgllD9P44UMzmzYncl5FJ
- KVeCETjMQ0hlqHZjf6TbTaK//D282G036gFoleiqqZjAOauHQnBlpoCUvLp2Ls+ug5
- bNkKFQYHSRskA==
-Received: by mail.kernel.org with local (Exim 4.94.2)
- (envelope-from <mchehab@kernel.org>)
- id 1lgoKy-0018go-1r; Wed, 12 May 2021 14:51:40 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Subject: [PATCH v2 00/40] Use ASCII subset instead of UTF-8 alternate symbols
-Date: Wed, 12 May 2021 14:50:04 +0200
-Message-Id: <cover.1620823573.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B565F8012E
+ for <alsa-devel@alsa-project.org>; Wed, 12 May 2021 16:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B565F8012E
+IronPort-SDR: uG22VTPri/ZRTt0nC4VgjfgAiqVnXo4yqg+3jh1S/mRfLsbPNLFJ3LboNPsFoHxMJn0XUkJ4P+
+ gZduKg9RPc0w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9982"; a="186855391"
+X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="186855391"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2021 07:52:46 -0700
+IronPort-SDR: cA6Zs510rHgQ6GkS8D4I8JMdHFHQypk/xImYgpETYmwZqd5kFXM15Z5wxzVPeZQ9aidlivSjlH
+ DTsE4qIgJrvA==
+X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="437236918"
+Received: from cwitkows-mobl.amr.corp.intel.com (HELO [10.212.100.147])
+ ([10.212.100.147])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2021 07:52:44 -0700
+Subject: Re: [PATCH -next] ASoC: intel/boards: add missing MODULE_DEVICE_TABLE
+To: Zou Wei <zou_wei@huawei.com>, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ kuninori.morimoto.gx@renesas.com, kai.vehmanen@linux.intel.com,
+ brent.lu@intel.com, ranjani.sridharan@linux.intel.com, yong.zhi@intel.com,
+ dharageswari.r@intel.com, sathyanarayana.nujella@intel.com,
+ fred.oh@linux.intel.com, tzungbi@google.com
+References: <1620791647-16024-1-git-send-email-zou_wei@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <50fa973b-aa9f-ccb4-8020-9d38a63e2c30@linux.intel.com>
+Date: Wed, 12 May 2021 08:41:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 12 May 2021 16:43:39 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- keyrings@vger.kernel.org, linux-sgx@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linux-acpi@vger.kernel.org,
- Mali DP Maintainers <malidp@foss.arm.com>, linux-input@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-ext4@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-rdma@vger.kernel.org, linux-integrity@vger.kernel.org
+In-Reply-To: <1620791647-16024-1-git-send-email-zou_wei@huawei.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,219 +85,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series contain basically a cleanup from all those years of converting
-files to ReST.
-
-During the conversion period, several tools like LaTeX, pandoc, DocBook
-and some specially-written scripts were used in order to convert
-existing documents.
-
-Such conversion tools - plus some text editor like LibreOffice  or similar  - have
-a set of rules that turns some typed ASCII characters into UTF-8 alternatives,
-for instance converting commas into curly commas and adding non-breakable
-spaces. All of those are meant to produce better results when the text is
-displayed in HTML or PDF formats.
-
-While it is perfectly fine to use UTF-8 characters in Linux, and specially at
-the documentation,  it is better to  stick to the ASCII subset  on such
-particular case,  due to a couple of reasons:
-
-1. it makes life easier for tools like grep;
-2. they easier to edit with the some commonly used text/source
-   code editors.
-    
-Also, Sphinx already do such conversion automatically outside 
-literal blocks, as described at:
-
-       https://docutils.sourceforge.io/docs/user/smartquotes.html
-
-In this series, the following UTF-8 symbols are replaced:
-
-            - U+00a0 (' '): NO-BREAK SPACE
-            - U+00ad ('­'): SOFT HYPHEN
-            - U+00b4 ('´'): ACUTE ACCENT
-            - U+00d7 ('×'): MULTIPLICATION SIGN
-            - U+2010 ('‐'): HYPHEN
-            - U+2018 ('‘'): LEFT SINGLE QUOTATION MARK
-            - U+2019 ('’'): RIGHT SINGLE QUOTATION MARK
-            - U+201c ('“'): LEFT DOUBLE QUOTATION MARK
-            - U+201d ('”'): RIGHT DOUBLE QUOTATION MARK
-            - U+2212 ('−'): MINUS SIGN
-            - U+2217 ('∗'): ASTERISK OPERATOR
-            - U+feff ('﻿'): ZERO WIDTH NO-BREAK SPACE (BOM)
-
----
-
-v2:
-- removed EM/EN DASH conversion from this patchset;
-- removed a few fixes, as those were addressed on a separate series.
- 
-PS.:
-   The first version of this series was posted with a different name:
-
-	https://lore.kernel.org/lkml/cover.1620641727.git.mchehab+huawei@kernel.org/
-
-   I also changed the patch texts, in order to better describe the patches goals.
-
-Mauro Carvalho Chehab (40):
-  docs: hwmon: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: admin-guide: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: admin-guide: media: ipu3.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: admin-guide: perf: imx-ddr.rst: Use ASCII subset instead of
-    UTF-8 alternate symbols
-  docs: admin-guide: pm: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: trace: coresight: coresight-etm4x-reference.rst: Use ASCII
-    subset instead of UTF-8 alternate symbols
-  docs: driver-api: ioctl.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: driver-api: thermal: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: driver-api: media: drivers: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: driver-api: firmware: other_interfaces.rst: Use ASCII subset
-    instead of UTF-8 alternate symbols
-  docs: fault-injection: nvme-fault-injection.rst: Use ASCII subset
-    instead of UTF-8 alternate symbols
-  docs: usb: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: process: code-of-conduct.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: userspace-api: media: fdl-appendix.rst: Use ASCII subset instead
-    of UTF-8 alternate symbols
-  docs: userspace-api: media: v4l: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: userspace-api: media: dvb: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: vm: zswap.rst: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: filesystems: f2fs.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: filesystems: ext4: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: kernel-hacking: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: hid: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: security: tpm: tpm_event_log.rst: Use ASCII subset instead of
-    UTF-8 alternate symbols
-  docs: security: keys: trusted-encrypted.rst: Use ASCII subset instead
-    of UTF-8 alternate symbols
-  docs: networking: scaling.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: networking: devlink: devlink-dpipe.rst: Use ASCII subset instead
-    of UTF-8 alternate symbols
-  docs: networking: device_drivers: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: x86: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: scheduler: sched-deadline.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: power: powercap: powercap.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: ABI: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: PCI: acpi-info.rst: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: gpu: Use ASCII subset instead of UTF-8 alternate symbols
-  docs: sound: kernel-api: writing-an-alsa-driver.rst: Use ASCII subset
-    instead of UTF-8 alternate symbols
-  docs: arm64: arm-acpi.rst: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: infiniband: tag_matching.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: misc-devices: ibmvmc.rst: Use ASCII subset instead of UTF-8
-    alternate symbols
-  docs: firmware-guide: acpi: lpit.rst: Use ASCII subset instead of
-    UTF-8 alternate symbols
-  docs: firmware-guide: acpi: dsd: graph.rst: Use ASCII subset instead
-    of UTF-8 alternate symbols
-  docs: virt: kvm: api.rst: Use ASCII subset instead of UTF-8 alternate
-    symbols
-  docs: RCU: Use ASCII subset instead of UTF-8 alternate symbols
-
- ...sfs-class-chromeos-driver-cros-ec-lightbar |   2 +-
- .../ABI/testing/sysfs-devices-platform-ipmi   |   2 +-
- .../testing/sysfs-devices-platform-trackpoint |   2 +-
- Documentation/ABI/testing/sysfs-devices-soc   |   4 +-
- Documentation/PCI/acpi-info.rst               |  22 +-
- .../Data-Structures/Data-Structures.rst       |  52 ++--
- .../Expedited-Grace-Periods.rst               |  40 +--
- .../Tree-RCU-Memory-Ordering.rst              |  10 +-
- .../RCU/Design/Requirements/Requirements.rst  | 122 ++++-----
- Documentation/admin-guide/media/ipu3.rst      |   2 +-
- Documentation/admin-guide/perf/imx-ddr.rst    |   2 +-
- Documentation/admin-guide/pm/intel_idle.rst   |   4 +-
- Documentation/admin-guide/pm/intel_pstate.rst |   4 +-
- Documentation/admin-guide/ras.rst             |  86 +++---
- .../admin-guide/reporting-issues.rst          |   2 +-
- Documentation/arm64/arm-acpi.rst              |   8 +-
- .../driver-api/firmware/other_interfaces.rst  |   2 +-
- Documentation/driver-api/ioctl.rst            |   8 +-
- .../media/drivers/sh_mobile_ceu_camera.rst    |   8 +-
- .../driver-api/media/drivers/zoran.rst        |   2 +-
- .../driver-api/thermal/cpu-idle-cooling.rst   |  14 +-
- .../driver-api/thermal/intel_powerclamp.rst   |   6 +-
- .../thermal/x86_pkg_temperature_thermal.rst   |   2 +-
- .../fault-injection/nvme-fault-injection.rst  |   2 +-
- Documentation/filesystems/ext4/attributes.rst |  20 +-
- Documentation/filesystems/ext4/bigalloc.rst   |   6 +-
- Documentation/filesystems/ext4/blockgroup.rst |   8 +-
- Documentation/filesystems/ext4/blocks.rst     |   2 +-
- Documentation/filesystems/ext4/directory.rst  |  16 +-
- Documentation/filesystems/ext4/eainode.rst    |   2 +-
- Documentation/filesystems/ext4/inlinedata.rst |   6 +-
- Documentation/filesystems/ext4/inodes.rst     |   6 +-
- Documentation/filesystems/ext4/journal.rst    |   8 +-
- Documentation/filesystems/ext4/mmp.rst        |   2 +-
- .../filesystems/ext4/special_inodes.rst       |   4 +-
- Documentation/filesystems/ext4/super.rst      |  10 +-
- Documentation/filesystems/f2fs.rst            |   4 +-
- .../firmware-guide/acpi/dsd/graph.rst         |   2 +-
- Documentation/firmware-guide/acpi/lpit.rst    |   2 +-
- Documentation/gpu/i915.rst                    |   2 +-
- Documentation/gpu/komeda-kms.rst              |   2 +-
- Documentation/hid/hid-sensor.rst              |  70 ++---
- Documentation/hid/intel-ish-hid.rst           | 246 +++++++++---------
- Documentation/hwmon/ir36021.rst               |   2 +-
- Documentation/hwmon/ltc2992.rst               |   2 +-
- Documentation/hwmon/pm6764tr.rst              |   2 +-
- Documentation/infiniband/tag_matching.rst     |   4 +-
- Documentation/kernel-hacking/hacking.rst      |   2 +-
- Documentation/kernel-hacking/locking.rst      |   2 +-
- Documentation/misc-devices/ibmvmc.rst         |   8 +-
- .../device_drivers/ethernet/intel/i40e.rst    |   8 +-
- .../device_drivers/ethernet/intel/iavf.rst    |   4 +-
- .../device_drivers/ethernet/netronome/nfp.rst |  12 +-
- .../networking/devlink/devlink-dpipe.rst      |   2 +-
- Documentation/networking/scaling.rst          |  18 +-
- Documentation/power/powercap/powercap.rst     | 210 +++++++--------
- Documentation/process/code-of-conduct.rst     |   2 +-
- Documentation/scheduler/sched-deadline.rst    |   2 +-
- .../security/keys/trusted-encrypted.rst       |   4 +-
- Documentation/security/tpm/tpm_event_log.rst  |   2 +-
- .../kernel-api/writing-an-alsa-driver.rst     |  68 ++---
- .../coresight/coresight-etm4x-reference.rst   |  16 +-
- Documentation/usb/ehci.rst                    |   2 +-
- Documentation/usb/gadget_printer.rst          |   2 +-
- Documentation/usb/mass-storage.rst            |  36 +--
- .../media/dvb/audio-set-bypass-mode.rst       |   2 +-
- .../userspace-api/media/dvb/audio.rst         |   2 +-
- .../userspace-api/media/dvb/dmx-fopen.rst     |   2 +-
- .../userspace-api/media/dvb/dmx-fread.rst     |   2 +-
- .../media/dvb/dmx-set-filter.rst              |   2 +-
- .../userspace-api/media/dvb/intro.rst         |   6 +-
- .../userspace-api/media/dvb/video.rst         |   2 +-
- .../userspace-api/media/fdl-appendix.rst      |  64 ++---
- .../userspace-api/media/v4l/crop.rst          |  16 +-
- .../userspace-api/media/v4l/dev-decoder.rst   |   6 +-
- .../userspace-api/media/v4l/diff-v4l.rst      |   2 +-
- .../userspace-api/media/v4l/open.rst          |   2 +-
- .../media/v4l/vidioc-cropcap.rst              |   4 +-
- Documentation/virt/kvm/api.rst                |  28 +-
- Documentation/vm/zswap.rst                    |   4 +-
- Documentation/x86/resctrl.rst                 |   2 +-
- Documentation/x86/sgx.rst                     |   4 +-
- 82 files changed, 693 insertions(+), 693 deletions(-)
-
--- 
-2.30.2
 
 
+On 5/11/21 10:54 PM, Zou Wei wrote:
+> This patch adds missing MODULE_DEVICE_TABLE definition which generates
+> correct modalias for automatic loading of this driver when it is built
+> as an external module.
+
+I have a limited understanding of all this, but we already support the 
+machine drivers as modules and things work fine.
+
+I wonder if this MODULE_DEVICE_TABLE generates the alias automatically, 
+which would make the existing ones added manually at the end of the 
+files unnecessary? If that was the case, then we should remove those 
+MODULE_ALIAS as well, no?
+
+MODULE_DESCRIPTION("SOF Audio Machine driver");
+MODULE_AUTHOR("Bard Liao <bard.liao@intel.com>");
+MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
+MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
+MODULE_LICENSE("GPL v2");
+MODULE_ALIAS("platform:sof_rt5682");
+MODULE_ALIAS("platform:tgl_max98357a_rt5682");
+MODULE_ALIAS("platform:jsl_rt5682_rt1015");
+MODULE_ALIAS("platform:tgl_max98373_rt5682");
+MODULE_ALIAS("platform:jsl_rt5682_max98360a");
+MODULE_ALIAS("platform:cml_rt1015_rt5682");
+MODULE_ALIAS("platform:tgl_rt1011_rt5682");
+MODULE_ALIAS("platform:jsl_rt5682_rt1015p");
+
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+> ---
+>   sound/soc/intel/boards/sof_da7219_max98373.c | 1 +
+>   sound/soc/intel/boards/sof_rt5682.c          | 1 +
+>   2 files changed, 2 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+> index f3cb077..8d1ad89 100644
+> --- a/sound/soc/intel/boards/sof_da7219_max98373.c
+> +++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+> @@ -440,6 +440,7 @@ static const struct platform_device_id board_ids[] = {
+>   	},
+>   	{ }
+>   };
+> +MODULE_DEVICE_TABLE(platform, board_ids);
+>   
+>   static struct platform_driver audio = {
+>   	.probe = audio_probe,
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index 58548ea..cf1d053 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -968,6 +968,7 @@ static const struct platform_device_id board_ids[] = {
+>   	},
+>   	{ }
+>   };
+> +MODULE_DEVICE_TABLE(platform, board_ids);
+>   
+>   static struct platform_driver sof_audio = {
+>   	.probe = sof_audio_probe,
+> 

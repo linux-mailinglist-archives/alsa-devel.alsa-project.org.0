@@ -2,111 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B4737F8BF
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 May 2021 15:27:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 179E637F8CC
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 May 2021 15:31:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 775BA17CC;
-	Thu, 13 May 2021 15:26:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 775BA17CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9930E17D1;
+	Thu, 13 May 2021 15:30:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9930E17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620912424;
-	bh=+6NtOz42zYwTqAMVC1Wz/4ok7baL7gQA5JGY88vmwm4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1620912696;
+	bh=sVnNtQv2K2Y1f75iKT3x+UM7vLb4r49d2IInCRba9oE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NyFqjBz/dyWvak+5BIfPkvpcbvOMr2rn81PRUX6qS6BsUcLwryzfNmIkWp+YKw9WA
-	 DeWm6QydtAIW/X+rBCF8+9TzIu5Cx+TD/ZDhbDHMjkYL+8vjV2bESXREl5AYoXOdV/
-	 Fg3tzU+oFQMaWKl+DJospNI20+LFJHtsbn8BZmsE=
+	b=VAKPRPlqC8JQvniaBy8BYMZ0pIx6Qii9NTGa57PwXOS7UMaNn1pknVwVcFZXK3nvy
+	 xKoOAcrSuokqw5bBgglAYpm5Ud8lbEu9ZWMV6NUxQzhSaD9TzSaBQTgaBdjf1Zwn75
+	 946CnoAfyM0wn7xF+vI78hKa1GlMmwEM4KM4/47k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB5FEF8016B;
-	Thu, 13 May 2021 15:25:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BA43F8016B;
+	Thu, 13 May 2021 15:30:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45FA0F80163; Thu, 13 May 2021 15:25:34 +0200 (CEST)
+ id D2D8AF8013A; Thu, 13 May 2021 15:29:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 711F5F8012E
- for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 15:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 711F5F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B56F9F8012E
+ for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 15:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B56F9F8012E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="skf1Txhf"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Cc0AHiky"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id DE8975C01A7;
- Thu, 13 May 2021 09:25:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 13 May 2021 09:25:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=c
- JsMHGwueSM+PZt0HtvcauYYCnY7LVtBIZO7XGXxf6c=; b=skf1TxhfTOHZVNJGi
- JDxRn3tiKHX7YeaAYqgeeUNHij7LGF7zdVU+FyFlA1P6OLnviCjS/j4V6zQoMMsc
- 7k1csv9GQ66opllbHzskMHmeNvUMWO9fgcetjJtKFqtk+SvVcsRKHnYPcO2gq9ox
- yz6BgLFYTHkjvyX26or4TJyyj6xP6HONGYCDwPUv9TlZQmkhob4XuiEQSIFHNPEc
- cxvv93xamoBE27eY9HChSAu0HSNq5ypCQN5ZQcwGQDXY84ll3fEX2Cfkx2I/L41X
- NAswi3pmRDRgtpnj/5BlJqJ4+B8QvAon5c/qB9ZIG1G3w15NCaEpM7KtvDVi9+3I
- fbVAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=cJsMHGwueSM+PZt0HtvcauYYCnY7LVtBIZO7XGXxf
- 6c=; b=Cc0AHiky1glS/dwbLCoCJL+zMs5jPt/vu801wPGO7/ZMmSDuTvqFxz6S2
- tNXchgpmbnl/3gAPYrPdMKJjMUxpHycVfJYi7Ie7A7TNBlVxQ3QBbUWVszSn6rgA
- ccuBJ+Dh5Hs/A2LWmKfbpQ0OvwCfkbqYDiLN4MZLH5qgq6c171nSwg2zK63AxCML
- /swl558VHkLCKes8nmAdh4grQNj3P/wJ4v9B5f9Ghdb30TxlsogikPf9la/SOlcE
- iIYmh/NoQtqzD5mCmC2A5pvDxpCgAuOsvXM/mhhUveigN81G25o8g1Ej2DP5S16p
- JBR4fFFsMeEQFeQwHVmdOgEbzsOhw==
-X-ME-Sender: <xms:wyidYFAM7WkwdTE28aJH8XSEW8hMV-sp3S1lZVIeFBXplgkE6gTqpA>
- <xme:wyidYDg6tBT-R9WPJm_68uIGoqybTf5leYpqZ8I-hHLeuMMMHZSMNCWzjKwQo25Bu
- 7O6F-cffVagkUCjvwA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehgedgieehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecuggftrfgrthhtvghrnheptdehieejudelleegtdfhgeevtefhudeuvdekvdet
- gefgtdehteeiheejteevffegnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhith
- hhuhgsrdgtohhmnecukfhppedugedrfedrieehrddujeehnecuvehluhhsthgvrhfuihii
- vgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmh
- hotggthhhirdhjph
-X-ME-Proxy: <xmx:wyidYAlyC_B82Yw9dzZzu77mQUVECKJaAFQmoVxIL9IQu16l6tPtlQ>
- <xmx:wyidYPwPg7ADTEwlNXqJTDeiICPt1mPem-lNlcXB09gJK3zl8tNScw>
- <xmx:wyidYKT6vWgrJq9g_NDxhcJr3cbs6vx07lJcjN1Lye-4T1OzkFoX8g>
- <xmx:xCidYFc4qFHa7tnLLHiVcxAIrAyCkRj8ndfk9pT6dlV4-zdEsxmbaQ>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 13 May 2021 09:25:22 -0400 (EDT)
-Date: Thu, 13 May 2021 22:25:20 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: no_period_wakeup, axfer and --sched-model=timer
-Message-ID: <20210513132520.GA109626@workstation>
-Mail-Followup-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>, 
- Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-References: <687f9871-7484-1370-04d1-9c968e86f72b@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="MH7trWGU"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="I7WGA+48"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 826A1A1A3D402;
+ Thu, 13 May 2021 15:29:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1620912577; bh=sVnNtQv2K2Y1f75iKT3x+UM7vLb4r49d2IInCRba9oE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=MH7trWGU35DrUK5D/o0X91qDuat06/eDRjI9XJDecRki67WSUt6mj12F+r1qtLwv6
+ QAtGIL+6vv3gnGmCmK8iqdyvZp8LMpyvXLbZ+jHdAo03Wpb5gKOcJOrUTbjJchSWST
+ ThiC0SITS9ucPbOH3oGNe5YDOCi8Bh1pzSk3wAGg=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id M92n7BAiYcFH; Thu, 13 May 2021 15:29:31 +0200 (CEST)
+Received: from [192.168.105.22] (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id A2745A1A3D401;
+ Thu, 13 May 2021 15:29:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1620912571; bh=sVnNtQv2K2Y1f75iKT3x+UM7vLb4r49d2IInCRba9oE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=I7WGA+480vxCZlaarLH0UFOSbuPWoXKlfkFt8K9KcYI0LV0tDgNr5ByBNbxnR6cor
+ f3wyoh4cpKzcbfI1WJLBWPqPQI9kQZ3YYtTKfkMREHSFpcJdEFquVnoxlQnktEcdEU
+ km68yDGcZNYG+MYtTRiRIP8xu1toKEXkPMrVX2LQ=
+Subject: Re: X-Fi USB HD - switching from USB1.1 to USB2?
+To: Jaroslav Kysela <perex@perex.cz>
+References: <8db4010d-462b-d044-38d9-3b527d84d70f@ivitera.com>
+ <96d63dcf-9cbf-3f11-37a1-9ac190d283d5@perex.cz>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+Message-ID: <2e199012-96dc-96bb-525f-db51d5359913@ivitera.com>
+Date: Thu, 13 May 2021 15:29:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
+In-Reply-To: <96d63dcf-9cbf-3f11-37a1-9ac190d283d5@perex.cz>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <687f9871-7484-1370-04d1-9c968e86f72b@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,156 +94,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Dne 07. 05. 21 v 10:50 Jaroslav Kysela napsal(a):
+> Dne 07. 05. 21 v 10:37 Pavel Hofman napsal(a):
+>> Hi,
+>>
+>> The X-Fi USB HD device (and likely the similar 5.1 model too) can run at
+>> USB1.1 (with limited samplerates) and USB2 modes (with full specs). In
+>> linux the device stays at USB1.1. If connected to Windows with stock
+>> windows USB driver the same happens. However, when the Creative
+>> proprietary driver is installed, the device switches to USB2 and
+>> supports all features. When rebooting to linux without re-plugging, the
+>> USB2 mode stays and the device offers its USB2 configurations to
+>> snd-usb-audio.
+>>
+>> We captured USB packets in linux and Win7 with wireshark - both dumps
+>> are included. The windows dump shows that in windows as well as in linux
+>> the device starts as device 3.5.0 at USB1.1:
+>>
+>> DEVICE DESCRIPTOR
+>>     bLength: 18
+>>     bDescriptorType: 0x01 (DEVICE)
+>>     bcdUSB: 0x0110
+>>     bDeviceClass: Device (0x00)
+>>     bDeviceSubClass: 0
+>>     bDeviceProtocol: 0 (Use class code info from Interface Descriptors)
+>>     bMaxPacketSize0: 64
+>>     idVendor: Creative Technology, Ltd (0x041e)
+>>     idProduct: Unknown (0x30d7)
+>>     bcdDevice: 0x0100
+>>     iManufacturer: 1
+>>     iProduct: 2
+>>     iSerialNumber: 3
+>>     bNumConfigurations: 1
+>>
+>>
+>> After USB1.1 enumeration, the windows host controlled by the vendor
+>> driver sends a request USR_FUNCTION_ABORT_PIPE to EP IN 6:
+>>
+>>
+>> The EP IN 6  descriptor (from USB1.1 configuration):
+>>
+>> ENDPOINT DESCRIPTOR
+>>     bLength: 7
+>>     bDescriptorType: 0x05 (ENDPOINT)
+>>     bEndpointAddress: 0x86  IN  Endpoint:6
+>>         1... .... = Direction: IN Endpoint
+>>         .... 0110 = Endpoint Number: 0x6
+>>     bmAttributes: 0x03
+>>         .... ..11 = Transfertype: Interrupt-Transfer (0x3)
+>>     wMaxPacketSize: 64
+>>         ...0 0... .... .... = Transactions per microframe: 1 (0)
+>>         .... ..00 0100 0000 = Maximum Packet Size: 64
+>>     bInterval: 1
+>>
+>> The request sent by the host is:
+>> USB URB
+>>     [Source: host]
+>>     [Destination: 3.5.6]
+>>     USBPcap pseudoheader length: 27
+>>     IRP ID: 0xfffffa80073ee120
+>>     IRP USBD_STATUS: USBD_STATUS_SUCCESS (0x00000000)
+>>     URB Function: URB_FUNCTION_ABORT_PIPE (0x0002)
+>>     IRP information: 0x00, Direction: FDO -> PDO
+>>     URB bus id: 3
+>>     Device address: 5
+>>     Endpoint: 0x86, Direction: IN
+>>     URB transfer type: USB IRP Info (0xfe)
+>>     Packet Data Length: 0
+>>
+>>
+>> The device responds with a proprietary response, with a different source
+>> 3.5.127:
+>> USB URB
+>>     [Source: 3.5.127]
+>>     [Destination: host]
+>>     USBPcap pseudoheader length: 27
+>>     IRP ID: 0xfffffa80073ee120
+>>     IRP USBD_STATUS: USBD_STATUS_SUCCESS (0x00000000)
+>>     URB Function: URB_FUNCTION_ABORT_PIPE (0x0002)
+>>     IRP information: 0x01, Direction: PDO -> FDO
+>>         0000 000. = Reserved: 0x00
+>>         .... ...1 = Direction: PDO -> FDO (0x1)
+>>     URB bus id: 3
+>>     Device address: 5
+>>     Endpoint: 0xff, Direction: IN
+>>         1... .... = Direction: IN (1)
+>>         .... 1111 = Endpoint number: 15
+>>     URB transfer type: Unknown (0xff)
+>>         [Expert Info (Error/Malformed): USBPcap did not recognize URB
+>> Function code (report to desowin.org/USBPcap)]
+>>             [USBPcap did not recognize URB Function code (report to
+>> desowin.org/USBPcap)]
+>>             [Severity level: Error]
+>>             [Group: Malformed]
+>>     Packet Data Length: 0
+>>
+>>
+>> Immediately after that the device re-connects as 3.6.0 and reports its
+>> USB2.0 description:
+>>
+>> DEVICE DESCRIPTOR
+>>     bLength: 18
+>>     bDescriptorType: 0x01 (DEVICE)
+>>     bcdUSB: 0x0200
+>>     bDeviceClass: Device (0x00)
+>>     bDeviceSubClass: 0
+>>     bDeviceProtocol: 0 (Use class code info from Interface Descriptors)
+>>     bMaxPacketSize0: 64
+>>     idVendor: Creative Technology, Ltd (0x041e)
+>>     idProduct: Unknown (0x30d7)
+>>     bcdDevice: 0x0100
+>>     iManufacturer: 1
+>>     iProduct: 2
+>>     iSerialNumber: 3
+>>     bNumConfigurations: 1
+>>
+>> This is a regular USB-audio device which works OK in snd-usb-audio, as
+>> tested after rebooting from windows to linux.
+>>
+>> Please is there any similar case handled by the existing alsa usb driver
+>> which we could try to modify and test? My USB skills are not up to
+>> writing the required code myself from scratch, unfortunately.
+> 
+> The switch can be probably implemented in the user space (libusb + udev
+> rules). There is something similar for modems (usb_modeswitch).
+> 
+> 						Jaroslav
 
-On Thu, May 13, 2021 at 01:34:25PM +0200, Amadeusz Sławiński wrote:
-> I was checking some stuff relater to NO_PERIOD_WAKEUP and noticed that axfer
-> has support for using either --sched-model=irq or --sched-model=timer.
-> However from few quick tests it seems like it doesn't work?
-> 
-> $ aplay -l
-> **** List of PLAYBACK Hardware Devices ****
-> card 0: PCH [HDA Intel PCH], device 0: ALC283 Analog [ALC283 Analog]
->   Subdevices: 1/1
->   Subdevice #0: subdevice #0
-> 
-> 
-> When using  --sched-model=irq  it transfers data until I press Ctrl+C
-> 
-> $ axfer transfer playback --sched-model=irq -D hw:0,0 -r 48000 -c2 -f S16_LE
-> /dev/urandom
-> PLAYBACK: Format 'Signed 16 bit Little Endian', Rate 48000 Hz, Channels
-> 'Stereo'
-> ^CPLAYBACK: Expected 4611686018427387903frames, Actual 163960frames
-> Aborted by signal: Interrupt
-> 
-> 
-> However with  --sched-model=timer  it time outs by itself:
-> 
-> $ axfer transfer playback --sched-model=timer -D hw:0,0 -r 48000 -c2 -f
-> S16_LE /dev/urandom
-> PLAYBACK: Format 'Signed 16 bit Little Endian', Rate 48000 Hz, Channels
-> 'Stereo'
-> Fail to process frames: Connection timed out
-> PLAYBACK: Expected 4611686018427387903frames, Actual 16304frames
-> 
-> 
-> How well is NO_PERIOD_WAKEUP tested/supported? Is it a bug in axfer or
-> perhaps some issue in kernel code?
-> 
-> From some debugging I did, I have my suspicions that it gets stuck on poll
-> in:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/core/pcm_native.c?id=c06a2ba62fc401b7aaefd23f5d0bc06d2457ccc1#n3489
-> waiting for runtime->sleep to wake it, but seems like it never happens.
-> 
-> What do you think?
+Thank you for your useful suggestion. I am trying to send the command
+from userspace with pyusb. I can write/read from the given EP, but
+honestly, my knowledge of USB details is very poor. I found a discussion
+about MS Windows URB_FUNCTION_ABORT_PIPE which presumably is not
+available in linux kernel directly, but as usb_clear_halt()
+https://linux-usb-devel.narkive.com/jkl4OpsE/urb-function-abort-pipe .
+But here I am in user space.
 
-It's a regression added by a commit e5e6a7838b06 ("axfer: return ETIMEDOUT
-when no event occurs after waiter expiration"), and the -ETIMEDOUT come
-neither from ALSA PCM core nor alsa-lib. Thanks for your reporting!
+Please what should be the steps in emulating the above captured USB?
+Just some quazi-code would suffice, I will find a way to send it from
+userspace.
 
- * https://github.com/alsa-project/alsa-utils/commit/e5e6a7838b06
+Thank you very much for any help.
 
-As a quick fix, please revert the commit. I'll post better fixes later.
-
-After the revert, it looks work well under my hardware:
-
-```
-$ ./axfer list playback device
-**** List of PLAYBACK Hardware Devices ****
-card 0: Generic [HD-Audio Generic], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: Generic [HD-Audio Generic], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: Generic [HD-Audio Generic], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Generic_1 [HD-Audio Generic], device 0: ALC1220 Analog [ALC1220 Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Generic_1 [HD-Audio Generic], device 1: ALC1220 Digital [ALC1220 Digital]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Generic_1 [HD-Audio Generic], device 4: ALC1220 Analog [ALC1220 Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: FCA610 [FCA610], device 0: BeBoB [FCA610 PCM]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-
-$ ./axfer transfer playback -vv --sched-model=timer -D hw:1,0 -r 48000 -c2 -f S16_LE /dev/urandom  -d1
-Container: parser
-  format: raw
-  sample format: S16_LE
-  bytes/sample: 2
-  samples/frame: 2
-  frames/second: 48000
-  frames: 4611686018427387903
-attributes for mapped page frame:
-  sample number: 0
-    address: 0x7f92086f7000
-    bits for offset: 0
-    bits/frame: 32
-  sample number: 1
-    address: 0x7f92086f7000
-    bits for offset: 16
-    bits/frame: 32
-Hardware PCM card 1 'HD-Audio Generic' device 0 subdevice 0
-Its setup is:
-  stream       : PLAYBACK
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 24064
-  period_size  : 6016
-  period_time  : 125333
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 6016
-  period_event : 1
-  start_threshold  : 1
-  stop_threshold   : 24064
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6773413839565225984
-  appl_ptr     : 0
-  hw_ptr       : 0
-Scheduling model:
-  timer
-Waiter type:
-  default
-Transfer: libasound
-  access: MMAP_INTERLEAVED
-  sample format: S16_LE
-  bytes/sample: 2
-  samples/frame: 2
-  frames/second: 48000
-  frames/buffer: 24064
-Mapper: muxer
-  target: single
-  access: MMAP_INTERLEAVED
-  bytes/sample: 2
-  samples/frame: 2
-  frames/buffer: 24064
-PLAYBACK: Format 'Signed 16 bit Little Endian', Rate 48000 Hz, Channels 'Stereo'
-  handled: 0
-  rewound: 24032/24064
-  handled: 20218
-  handled: 3814
-  handled: 18844
-  handled: 5124
-PLAYBACK: Expected 48000frames, Actual 48000frames
-  Handled bytes: 192000
-```
+Pavel.
 
 
-Thanks
-
-Takashi Sakamoto

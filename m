@@ -2,86 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A296D37F71E
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 May 2021 13:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2474637F84A
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 May 2021 14:58:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21FBB1791;
-	Thu, 13 May 2021 13:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21FBB1791
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96B0317D4;
+	Thu, 13 May 2021 14:57:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96B0317D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620906456;
-	bh=gYazNowh2F4xxqVX5ytPjvUW3I+Tw3BEo5K98kcB71E=;
+	s=default; t=1620910715;
+	bh=IgFfUyNVqj4uN812NY8syRW28caQTc0JADY1uedKyTA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=sKru3YBVr23GZPrZp4gm23eBA+BqYe/uOyzsmqduBcve3K9O6BOeKgtsPLlbTeL2a
-	 85AMfaEsUIIRgnZfBzldWb5sL6gFlaTdDRAjTrYgG5hU3VsaRUBkSsDuIkUq+7oxoU
-	 Btz6DXIaVpL0jXfDHO/0TbaHerg+cSXe64B1DsRk=
+	b=JcMxXG0/ZwL5TgpsQvmH0LnlX+KgYXQs6SOoSeCPFsog3xd7dGw3bhp+LC2vS25z6
+	 2KYfbYUygGBd3IrVZ+cXuS8hGdsy1syI17MoGIuS7mGaNzctA3JuKYAy0b/0rFawmr
+	 ZHgQtWqyelPbY6PQryStb2OP1fa/4/kbfayLGfPQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97440F8016B;
-	Thu, 13 May 2021 13:46:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40DCAF8028D;
+	Thu, 13 May 2021 14:57:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 134E4F80163; Thu, 13 May 2021 13:46:07 +0200 (CEST)
+ id 8526DF80245; Thu, 13 May 2021 14:57:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9920CF8012E
- for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 13:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9920CF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D108F8013A
+ for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 14:56:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D108F8013A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="IbfPabNJ"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1620906361; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=R3PRA2rUnS5fig4+xW1jrQHWFtxLg10TUka5lgODj/c=;
- b=IbfPabNJCwU5fX/0rXqWQo4oO3qxYWummwXHgw8IVOMjBAtVMHqPxKN8wEZvgkMsaPZ1RJl1
- lumHKgzB3KBhmniAswNPg6LvT1RVFOGvS8Y1YTPDOPrhPd3tcm86I7grnfDlSNUoDtYdonEo
- 5+jdA8aLmWk8ndq9y0B5hXsjjTY=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 609d11737bf557a01239caf8 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 13 May 2021 11:45:55
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 64472C43460; Thu, 13 May 2021 11:45:55 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1220EC433F1;
- Thu, 13 May 2021 11:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1220EC433F1
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture
- begin
-Date: Thu, 13 May 2021 17:15:39 +0530
-Message-Id: <20210513114539.4813-1-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.29.0
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="fuFDr2fh"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="PD4zKErK"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 13B505C0134;
+ Thu, 13 May 2021 08:56:58 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 13 May 2021 08:56:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=lY1k+/WVjXrLCOiGX1E/ngkgc5
+ 1it4t9mpbFfNx8J/0=; b=fuFDr2fhQwwLf+Feuxm50+g5g7G3cQAG2yBGDttYtx
+ T7Nymey//JCG1yCJFtNKIxjFW1Cn3lBxQrtNRi3RFuBe+y6qVgK2vxsiA+iuSOrw
+ 2lfuziSexNpDcSl2kU+XDJ7tU3+bYl4xnLCbkXh5nvSXaBPZ/IEQLrv04dnw6Bsb
+ wbJecfgFkCkHAkBwnjVFrInaRe55e2CU1LGi9Q6R+0Eq9vprP3orHZoggww+FZZf
+ 9i8YazIX3+WehcM6sGqvdr8M6y3AypdRLR+y25TzU/5UcbEDBdHdOStEVjdxJ0BJ
+ sb5u4tXYpyWTnSKqJvgXjRP6NAWtY6H5nK/aqH2iatyg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=lY1k+/WVjXrLCOiGX
+ 1E/ngkgc51it4t9mpbFfNx8J/0=; b=PD4zKErKY9ZM0kYOF+xZkX32ow0o5b7vD
+ juusXAbYI7hS5qeGor2Y+R3fxgDym5Vs89C1AYgobdviA8wQYn0tdwcVXI/oz1dd
+ +qCOnDM5ivtQJ/3kp7uVbym/3KmsajTs8GjlDB5QYaYNtxTEUinZW2sO41G6LqwB
+ 1dkyJvS8REJZbWafr7R8LNiAqmTY/eEpGoY6MHcXwkgZK63RM/2CO18tDa50QYt0
+ ZIyc7Bx1X4fg2VFc5B0ybaaTpDXleKZGIpDlndcOhFxeYROQM//20+cBzr4+q+oh
+ YbT3BQ/1xCfhp5t77Cb089QNnYCjWySzTT6R9KjVlh2dKUhe99oXw==
+X-ME-Sender: <xms:GCKdYAy_E1sgQyqnkQYX-dgrgrc0e_yYdTJfQgGvVpNPBo4nZH13Dw>
+ <xme:GCKdYEQ8E1TROClHAo2j8kQDun4FyQ4ZyKYzHsItO1_6qCWwnfTcZmPejFIygPgsZ
+ 9s8S0w6AyVoakvZwm0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehgedgheelucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecukfhppedugedrfedr
+ ieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+ homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:GCKdYCUZZpKQentaC-py_ZGY9SlQJjsP_TLvGYSj5tKcbpn_hjpndw>
+ <xmx:GCKdYOheD5nSgeR4sKosVWgM-41uSSr2UYAwRoUOC7R1Q4or1vcgUQ>
+ <xmx:GCKdYCCd8-RgnOckHrlW_ypoi6gdtb1_QhETNK5pR2Eu7dUaS44fBw>
+ <xmx:GiKdYNpVbQ4rUP3-yhCW5u4bH9nHRvTRRlpgufOwL8fsDw3CdSL_oA>
+Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
+ [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
+ Thu, 13 May 2021 08:56:55 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 0/5] ALSA: firewire: misc fixes
+Date: Thu, 13 May 2021 21:56:47 +0900
+Message-Id: <20210513125652.110249-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,87 +107,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes PoP noise of around 15ms observed during audio capture begin.
-Enables BCLK and LRCLK in snd_soc_dai_ops startup call for introducing some delay
-before capture start and clock enable.
+Hi,
 
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/lpass-cpu.c | 37 +++++++++++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 4 deletions(-)
+This patchset includes misc fixes for bebob, oxfw, dice, and
+firewire-lib modules. The most significant bug to be fixed was
+introduced by my work for AMDTP domain during 2019-2020.
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index c62d2612e8f5..3dcfc2f115a7 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -73,14 +73,28 @@ static int lpass_cpu_daiops_startup(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
--	int ret;
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
-+	int ret = -EINVAL;
- 
- 	ret = clk_prepare_enable(drvdata->mi2s_osr_clk[dai->driver->id]);
- 	if (ret) {
- 		dev_err(dai->dev, "error in enabling mi2s osr clk: %d\n", ret);
- 		return ret;
- 	}
--	ret = clk_prepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		ret = regmap_fields_write(i2sctl->spken, id,
-+						 LPAIF_I2SCTL_SPKEN_ENABLE);
-+	} else  {
-+		ret = regmap_fields_write(i2sctl->micen, id,
-+						 LPAIF_I2SCTL_MICEN_ENABLE);
-+	}
-+	if (ret)
-+		dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
-+			ret);
-+
-+	ret = clk_prepare_enable(drvdata->mi2s_bit_clk[dai->driver->id]);
- 	if (ret) {
- 		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
- 		clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
-@@ -93,9 +107,23 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
-+	int ret = -EINVAL;
- 
- 	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
--	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-+	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		ret = regmap_fields_write(i2sctl->spken, id,
-+					 LPAIF_I2SCTL_SPKEN_DISABLE);
-+	} else  {
-+		ret = regmap_fields_write(i2sctl->micen, id,
-+					 LPAIF_I2SCTL_MICEN_DISABLE);
-+	}
-+	if (ret)
-+		dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
-+				ret);
- }
- 
- static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
-@@ -308,7 +336,8 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 				ret);
- 
- 		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
--
-+		break;
-+	default:
- 		break;
- 	}
- 
+Takashi Sakamoto (5):
+  ALSA: dice: fix stream format at middle sampling rate for Alesis iO 26
+  ALSA: bebob/oxfw: fix Kconfig entry for Mackie d.2 Pro
+  ALSA: firewire-lib: fix check of jumbo payload
+  ALSA: firewire-lib: fix calculation for size of IR context payload
+  ALSA: firewire-lib: fix amdtp_packet tracepoints event in terms of
+    packet_index
+
+ sound/firewire/Kconfig              |  4 +--
+ sound/firewire/amdtp-stream-trace.h |  6 ++---
+ sound/firewire/amdtp-stream.c       | 42 +++++++++++++++++------------
+ sound/firewire/bebob/bebob.c        |  2 +-
+ sound/firewire/dice/dice-alesis.c   |  2 +-
+ sound/firewire/oxfw/oxfw.c          |  1 -
+ 6 files changed, 32 insertions(+), 25 deletions(-)
+
 -- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+2.27.0
 

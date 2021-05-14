@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7E6380D84
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 17:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0590E380D86
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 17:43:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CDE61778;
-	Fri, 14 May 2021 17:42:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CDE61778
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93FC117A6;
+	Fri, 14 May 2021 17:42:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93FC117A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621006970;
-	bh=YtSmk0Ro4yIjMe2M3z2jM/eJzMXejRL2txCGlEKnxVo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q40aMTKuRu7wMbqR91V2L/tY/l2BdPW7GzqXNZ71ysx8dZCayMUt/CxtM+Ks/K39z
-	 cKZZPJ8cf9pFm/J914phVYRB4SwRirOMV7461awNloUjS9jr+Hkug/qERADaoCjxvf
-	 NJ45h7IfAkMzBcQiPrsfsEVo5d82xvV/6xwzpPCE=
+	s=default; t=1621006982;
+	bh=BELivUbmsBKYPsQdosFR8oTVaV7TpXehM6vybVR3NOY=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jUa3qUMSUMCQrAypecBwH6fpN1v7rvUIDrImjKluQ33+8UlphkUxBvhA/XxnN8clQ
+	 lViwPGdp0l3gtKpzLInNT1p1sLyc30AARBOkNW2fRukruxB4wzrYe5w9shRPWeMvs+
+	 2g9pDqJ/SnfRQlGDq4hHXkn21LEoAnn951vNVEZA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AA95F804AA;
+	by alsa1.perex.cz (Postfix) with ESMTP id E0DEBF804AB;
 	Fri, 14 May 2021 17:39:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D5B6F80163; Thu, 13 May 2021 17:34:15 +0200 (CEST)
+ id CC78BF80240; Fri, 14 May 2021 10:17:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17C5AF8012E
- for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 17:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17C5AF8012E
-Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
- with ESMTPSA id 4FF711F42C47
-Received: by earth.universe (Postfix, from userid 1000)
- id D36D73C0C95; Thu, 13 May 2021 17:34:02 +0200 (CEST)
-Date: Thu, 13 May 2021 17:34:02 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: More removals of type references on common
- properties
-Message-ID: <20210513153402.q3w42oayif2l7rf4@earth.universe>
-References: <20210510204524.617390-1-robh@kernel.org>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7930F800BF
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 10:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7930F800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="JlQha2QT"
+Received: by mail-pj1-x1030.google.com with SMTP id g24so15084662pji.4
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 01:17:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=htcmP4VkwLJV0HN1WdMvSIATq97x+ixtyC8RRLqEVEc=;
+ b=JlQha2QTWOUFmvwdxiSh+FxyY2Wums4Skxb7OV3cy0JL2PAXxyv8p0vm6mp7p1Wa9O
+ u2MrYFJVdNeFp/HITh9lrMxAoOzLNpQ8f9gqYQtvcnBlvd26ofcVuy8V7eGSta42pTMD
+ pSoXi29wKCiXa7oimv3sefx93fYpEQQozSDSI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=htcmP4VkwLJV0HN1WdMvSIATq97x+ixtyC8RRLqEVEc=;
+ b=qIIq+2Xy2kUvdGV3bG+qch1UNFh9Ef8/uGxsvfCd74fI9BlyH/GYJPBkGS08oxFM2s
+ zkIGbGIZ+i/mUcllSCK6pdcW33eKninaxHuSIRjrJt5gr8tRUDSa+5zbGVi2PpUz0obb
+ Xx0vBQT9Qzt4bnvaOzVFoA2a6EHt5GZph3fUjupGge+zyLwPVX4wXTXGP/gwKvZH9Sps
+ w7Jte8PKwmerSP358uixI3Le/VqLwZRgppYB29TJVf4OiRhFxW+CT+C7GX/nlq7zMkEo
+ 9dkO4mWgw3KvCwF1dyyTxrur8oIuj6bCi2L5UktD7oCVqjqhYHz3ldgBb98luFzi9dQI
+ GH2Q==
+X-Gm-Message-State: AOAM533+trlQyfIJSsdKMTX5Y8T5s9obMumm6jT7GMrv2Lrv0qblxgsW
+ oxm+XRGO+klQla0VNV9atE91o17WAeiojA==
+X-Google-Smtp-Source: ABdhPJxK7WEf8QsglKFF8u5TgYGjyTlTjx6T4pSKDaUtsacJngUtUq91ViElfsEJz2K1g8hnab3FuQ==
+X-Received: by 2002:a17:902:fe98:b029:ef:7d5b:c93a with SMTP id
+ x24-20020a170902fe98b02900ef7d5bc93amr13396084plm.26.1620980235208; 
+ Fri, 14 May 2021 01:17:15 -0700 (PDT)
+Received: from google.com ([2409:10:2e40:5100:b4a8:8601:829d:26d5])
+ by smtp.gmail.com with ESMTPSA id 80sm3833121pgc.23.2021.05.14.01.17.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 May 2021 01:17:14 -0700 (PDT)
+Date: Fri, 14 May 2021 17:17:10 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: ALSA: intel8x0: div by zero in snd_intel8x0_update()
+Message-ID: <YJ4yBmIV6RJCo42U@google.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6zntmlcncahxaxdz"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210510204524.617390-1-robh@kernel.org>
-X-Mailman-Approved-At: Fri, 14 May 2021 17:39:48 +0200
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>, linux-input@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, devicetree@vger.kernel.org,
- Odelu Kukatla <okukatla@codeaurora.org>, linux-pm@vger.kernel.org,
- Luca Ceresoli <luca@lucaceresoli.net>, Mark Brown <broonie@kernel.org>,
- Orson Zhai <orsonzhai@gmail.com>, Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-arm-kernel@lists.infradead.org, Alex Elder <elder@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Baolin Wang <baolin.wang7@gmail.com>, Georgi Djakov <djakov@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+X-Mailman-Approved-At: Fri, 14 May 2021 17:39:47 +0200
+Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,78 +94,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---6zntmlcncahxaxdz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
 Hi,
 
-On Mon, May 10, 2021 at 03:45:24PM -0500, Rob Herring wrote:
-> Users of common properties shouldn't have a type definition as the
-> common schemas already have one. A few new ones slipped in and
-> *-names was missed in the last clean-up pass. Drop all the unnecessary
-> type references in the tree.
->=20
-> A meta-schema update to catch these is pending.
->=20
-> Cc: Luca Ceresoli <luca@lucaceresoli.net>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Olivier Moysan <olivier.moysan@foss.st.com>
-> Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Lars-Peter Clausen <lars@metafoo.de>
-> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Cc: Georgi Djakov <djakov@kernel.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Sebastian Reichel <sre@kernel.org>
-> Cc: Orson Zhai <orsonzhai@gmail.com>
-> Cc: Baolin Wang <baolin.wang7@gmail.com>
-> Cc: Chunyan Zhang <zhang.lyra@gmail.com>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-> Cc: Odelu Kukatla <okukatla@codeaurora.org>
-> Cc: Alex Elder <elder@kernel.org>
-> Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Cc: linux-clk@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-iio@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-input@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> [...]
->  .../devicetree/bindings/power/supply/sc2731-charger.yaml        | 2 +-
-> [...]
+I'm running (sometimes) into the following problem during resume
 
-Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+ divide error: 0000 [#1] PREEMPT SMP NOPTI
+ RIP: 0010:snd_intel8x0_interrupt+0x121/0x279
+ Code: 42 8b 44 35 34 41 0f af c5 42 03 44 35 38 42 89 44 35 38 48 8b 0c 24 80 b9 60 03 00 00 00 78 0f 49 8d 0c 2e 48 83 c1 38 31 d2 <f7> 71 f4 89 11 42 8b 7c 35 48 44 01 ef 83 e7 1f 42 89 7c 35 48 48
+ RSP: 0000:ffff9a0a80108eb0 EFLAGS: 00010046
+ RAX: 0000000000000000 RBX: 0000000000000019 RCX: ffff90d8c5efc198
+ RDX: 0000000000000000 RSI: ffff9a0a80549016 RDI: ffff9a0a80549024
+ RBP: ffff90d8c5efc060 R08: 000000000000197a R09: 00000f604ed00191
+ R10: 00000000000001e0 R11: ffffffff9468e1d8 R12: 0000000000000020
+ R13: 0000000000000040 R14: 0000000000000100 R15: 0000000000000002
+ FS:  00007a75c397aff8(0000) GS:ffff90d912d80000(0000) knlGS:0000000000000000                                                               
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00007a77945d1000 CR3: 000000015bf46002 CR4: 0000000000360ea0
+ Call Trace:
+  <IRQ>
+  __handle_irq_event_percpu+0xa0/0x1c0
+  handle_irq_event_percpu+0x2d/0x70
+  handle_irq_event+0x2c/0x48
+  handle_fasteoi_irq+0xa1/0x161
+  do_IRQ+0x51/0xd6
+  common_interrupt+0xf/0xf
+  </IRQ>
+ RIP: 0033:0x7a7856462c59
+ Code: 89 ca 48 2b 57 20 48 83 c2 10 31 c0 48 3b 57 28 48 0f 46 c1 c3 cc cc cc cc cc cc cc cc cc cc cc cc 64 48 8b 0c 25 00 00 00 00 <b8> f8 02 00 00 48 03 41 08 c3 cc cc cc cc cc cc cc cc cc cc cc cc
+ RSP: 002b:00007a75c39794e8 EFLAGS: 00000246 ORIG_RAX: ffffffffffffffde
+ RAX: 02fa413b24209c6c RBX: 0000017f19e1cf9e RCX: 00007a75c397aff8
+ RDX: 00007a7855792472 RSI: 00007a7855790aa0 RDI: 0000000000000005
+ RBP: 0000000000000005 R08: 0000000000000012 R09: 000000000000000d
+ R10: 00000000009f86d2 R11: 000000000000197a R12: 0000017f19e40e7d
+ R13: 000005ee937ae557 R14: 00007a7855790aa0 R15: 00007a7855792472
+ Modules linked in:
+ ---[ end trace 2ef6d63d0e3d757c ]---
+ RIP: 0010:snd_intel8x0_interrupt+0x121/0x279
+ Code: 42 8b 44 35 34 41 0f af c5 42 03 44 35 38 42 89 44 35 38 48 8b 0c 24 80 b9 60 03 00 00 00 78 0f 49 8d 0c 2e 48 83 c1 38 31 d2 <f7> 71 f4 89 11 42 8b 7c 35 48 44 01 ef 83 e7 1f 42 89 7c 35 48 48
+ RSP: 0000:ffff9a0a80108eb0 EFLAGS: 00010046
+ RAX: 0000000000000000 RBX: 0000000000000019 RCX: ffff90d8c5efc198
+ RDX: 0000000000000000 RSI: ffff9a0a80549016 RDI: ffff9a0a80549024
+ RBP: ffff90d8c5efc060 R08: 000000000000197a R09: 00000f604ed00191
+ R10: 00000000000001e0 R11: ffffffff9468e1d8 R12: 0000000000000020
+ R13: 0000000000000040 R14: 0000000000000100 R15: 0000000000000002
+ FS:  00007a75c397aff8(0000) GS:ffff90d912d80000(0000) knlGS:0000000000000000                                                               
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00007a77945d1000 CR3: 000000015bf46002 CR4: 0000000000360ea0
 
--- Sebastian
+This corresponds to
 
---6zntmlcncahxaxdz
-Content-Type: application/pgp-signature; name="signature.asc"
+	ichdev->position %= ichdev->size;
 
------BEGIN PGP SIGNATURE-----
+in snd_intel8x0_update().
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmCdRuoACgkQ2O7X88g7
-+pp2eRAAji89IV6U3huPwd3QFqIvXt4J/smg1VWppBF8MRaAl/GQyC0ulamRL7Nw
-JjkjziYNiLcykycKuiWb89OfBsoCPVS5WKRNvI5ckZTu2egIE+lEr7mACjughIpk
-xp0NvbW8iIO3WxjnYh8LkFwJm4GxphCqlUkl32HKbafHkW9UKVEh8Ex6eoqnUk63
-RXluSTs0bDdfkeGzWaR4/2ZBJh+iHoaoVbPiqTr4lLCfIEpg+6tERKBeIHFL82fE
-8bxpm8/YAiG3ymllKDDzQIMTt1NHbBs4WtUcUq4X2gIlRFrLnV8w0DXmVPwDynKW
-tN9mYEhHqR1y8bc0dx5X++M9ZEWX67GbuGa1+Om1rdSnnM2uxEwQEjht7JjpLFg3
-n4urCpUbQjh+uW/hkNZjQlWb43TuUmslUrutHts+vlwf2vD6srxH0uy9I/GwtVGg
-7CtZBtofKACRiYO2Aud7iaMuWYd8wYFx6gfuw7WY9tUJ5vlwQacPeLqedRcYWLPj
-N5y/tY01/DqTBHFJmjUqCsvR2R+W17P9zO0Q4sB+wYLtE82H7O5suUkZFpe79bn5
-rVpnaz3YAWirzucHrMpOsPVP8gs5taBkdSTKClnSQLek1Z/WJKwPAq26gqZ/EPOw
-EJBYc0TMSmzTJIoRSkXxJGAeSwiDp8wCTFJA6r/QyASeQkGfqrM=
-=Tg1h
------END PGP SIGNATURE-----
+A print out of that ichdev looks as follows
 
---6zntmlcncahxaxdz--
+snd_intel8x0 0000:00:18.0: lvi_frag = 0, frags = 0, size = 0, period_size = 0x0, period_size1 = 0x0

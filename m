@@ -2,99 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 349D6381290
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 23:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B77B3812E1
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 23:33:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A32BD1755;
-	Fri, 14 May 2021 23:04:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A32BD1755
+	by alsa0.perex.cz (Postfix) with ESMTPS id C087D1759;
+	Fri, 14 May 2021 23:32:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C087D1759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621026348;
-	bh=azr0uuglU7QwbwIqk9cdJBOwGa7z4toppWA9VvI6ZCA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JDyonV/3hrzThD4kk1L2bl5FqsixqDqwIcY/I0YRah/QH6HriH+SPhtW8pl1/OF51
-	 NNyEd43weVa4ss9xzhNzj8FdV1augxZXauqBEec085IL9oMxP2tvEazpSu6nCx0dOo
-	 VErpt5Ca02DRI1y46JwY2nuc+5oCq2kcmY/1hL9o=
+	s=default; t=1621028029;
+	bh=4L4mcKVn3lkbqXEEkhEsQV92HBC1CPOXzYICTb92p2Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DbJ/qXi0IPoEmyPsqCeuMDQGMbMaO+09YCjRbYJPhtb1nlufytgWKsc1M49mwMcLm
+	 MKHHS8oyBFtI+YcVTlt0fF8kSC5q2U24SI5C+7g+lOpLLu2or6A2hiQcfwLgJ6tppP
+	 XmY/OMffmkbq1L9QDnIP55gRcFXSLl1EMIH1zW+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F3C1F8026B;
-	Fri, 14 May 2021 23:04:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B935F800BF;
+	Fri, 14 May 2021 23:32:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67574F80240; Fri, 14 May 2021 23:04:17 +0200 (CEST)
+ id 9A075F80240; Fri, 14 May 2021 23:32:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [IPv6:2607:f8b0:4864:20::c33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7C03F800BF
- for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 23:04:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7C03F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3260DF800BF
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 23:32:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3260DF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gmg0uTvE"
-Received: by mail-oo1-xc33.google.com with SMTP id
- o66-20020a4a44450000b029020d44dea886so163132ooa.5
- for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 14:04:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=kPsrSGNLOizkCAKBiLnRmnyslOtMn2HPUetpjlj9ass=;
- b=gmg0uTvE+oR8hGseo5ZXul0Xt/uIiy78Qxwtv8aEV3EB41+Qmff2E8JFEaRU9rI8Se
- IfsVub1vxb/n/MBUcO+LpUmSZpdACFIdBeF4FCD0klz8/NEF6HhFmCCYg9dV27wVkXk4
- qYqoG0RcPpDdf/FVb9uYPL/6GeAsO64kz0msN2bG8S4RfwC5gt1nWypSUF0gA04rYnsf
- 5CTmWJwLtAEdjDMLmmcpCW6PufLWt97gqiNHJjpvDjjUN2rYu8zX71cRyHvTcfCoU3MZ
- aup/3LoYV+7gzA8VW1kSKqvLMoEUbKPLnjj6MZNiNJ/tl7SARhjILFjjsnW4OWfsSS7Q
- j0Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=kPsrSGNLOizkCAKBiLnRmnyslOtMn2HPUetpjlj9ass=;
- b=JnF1oMaWBhibkOS1NoA8H7HlgoWiSkUvPUb7er4MBmZzmg9GVCmEiKjAXXsEfzZGR/
- muNDVkc91dv15Q0j5KMZPPucT4Rx4pe7cu60uzbG9eQPHNy8nqcZJpT0KGNk5nPHIKUZ
- SMpSY0LcHyCDEYCtzHUdXeUJXx//qAOSni/v2PzhTJZ/Rx7qdJVCZlVVyjvDC/t86iYd
- lwe8nh7hZXVbksrLHPjWOG4txV+Lv0adMF1Jif9kE6JkErmimAihoB/oxsilhTQIRAyG
- Ws6Add8/fqYJwDsqaW252vdzNn6hdTQdNrcxMsDyVJx+/AREZySohr3THaTxGE9oJlzB
- 6TUg==
-X-Gm-Message-State: AOAM531Z17Z6QuipHXE0R0ew2jle3UZjxfCEuSb4/LEL/CXmgDvOFHh2
- zG4SISC9U5j9qSgxK89Skyk=
-X-Google-Smtp-Source: ABdhPJywA71X32l+efBN953nFSTeFQ8QaU2Msij6JPHZaQjR/Bplli3+ys66OBToEQLSKLHrVZXbNg==
-X-Received: by 2002:a05:6820:611:: with SMTP id
- e17mr11158941oow.0.1621026251826; 
- Fri, 14 May 2021 14:04:11 -0700 (PDT)
-Received: from wintermute.localdomain (cpe-76-183-134-35.tx.res.rr.com.
- [76.183.134.35])
- by smtp.gmail.com with ESMTPSA id c95sm1492964otb.80.2021.05.14.14.04.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 May 2021 14:04:11 -0700 (PDT)
-Date: Fri, 14 May 2021 16:04:09 -0500
-From: Chris Morgan <macroalpha82@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v10 2/4] ASoC: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210514210409.GA4597@wintermute.localdomain>
-References: <20210514171940.20831-1-macroalpha82@gmail.com>
- <20210514171940.20831-3-macroalpha82@gmail.com>
- <20210514174958.GC6516@sirena.org.uk>
- <20210514183324.GA20917@wintermute.localdomain>
- <20210514195835.GD6516@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="JpuFugNG"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 905B66143F;
+ Fri, 14 May 2021 21:32:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621027929;
+ bh=4L4mcKVn3lkbqXEEkhEsQV92HBC1CPOXzYICTb92p2Y=;
+ h=From:To:Cc:Subject:Date:From;
+ b=JpuFugNGtCnfLnbuSbD6CYvS9tqG7bcN2jo/Rzbn/NVrHpOOWL7eV0QAY28Wxe03K
+ 12BtzI6hEX+yVdfs7SDSFprIQ4WsWbty/nHjnLJP5jrSWHWeIux++zfG4EC1yV+XO1
+ q+xp/qqE1d/sp622ccn1qu/941nWsAIaPjp8itRWGUOkr9WAuah0cIRllwQTbQCnZp
+ ozBSoCKp+ZVx6e+ASRN7jsYuZL1I5N18jsrQ4RdzRvfnpJ27qo0639AKPl76HuOT3q
+ ZiA1LF4H3iOkY3dPOCd7TmEXgnMfiyvnXk9a7pBFkUEJxRU34qT05AfFNeDm556Bph
+ kD+ZQlgrBsncQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: fsl: fix SND_SOC_IMX_RPMSG dependency
+Date: Fri, 14 May 2021 23:31:14 +0200
+Message-Id: <20210514213118.630427-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210514195835.GD6516@sirena.org.uk>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- heiko@sntech.de, devicetree@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
- Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
- lee.jones@linaro.org, maccraft123mc@gmail.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Arnd Bergmann <arnd@arndb.de>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,65 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 14, 2021 at 08:58:35PM +0100, Mark Brown wrote:
-> On Fri, May 14, 2021 at 01:33:24PM -0500, Chris Morgan wrote:
-> > On Fri, May 14, 2021 at 06:49:58PM +0100, Mark Brown wrote:
-> 
-> > > > +	if (!node) {
-> > > > +		dev_err(dev, "%s() dev->parent->of_node is NULL\n",
-> > > > +			__func__);
-> 
-> > > There's no need to fail the probe here, you won't be able to read any DT
-> > > properties but that shouldn't stop the driver binding.
-> 
-> > If I'm not mistaken this is actually telling us to fail if the parent
-> > device (the PMIC itself) isn't present. I think I'll remove this as not
-> > necessary since if the parent node isn't present the mfd driver will
-> > never load, meaning this driver will never load either.
-> 
-> So it is - I edited incorrectly when I went to reply.
-> 
-> > Below this line however we're failing if the codec node isn't present.
-> > Are you telling me we want to bind the driver if the node isn't present
-> > (such as in the edge case where the driver is present and the PMIC is a
-> > rk817, but the CODEC is not in use)? I will remove the return code if
-> 
-> Yes.
-> 
-> > you think that is what needs to be done. My concern there though is if
-> > we do that we'll either be in a position to again report a bunch of
-> > errors for the edge case of users who want to use the PMIC but not the
-> > codec (in this case missing clocks and whatnot) if we try to bind the
-> 
-> Why would there be any errors?
+From: Arnd Bergmann <arnd@arndb.de>
 
-There won't be here. I'm thinking of the edge case where a user has
-this driver but doesn't want to use this hardware again, but I'm
-getting scatterbrained and thinking overall and not in the context of
-this one section.
+Kconfig produces a warning with SND_SOC_FSL_RPMSG=y and SND_IMX_SOC=m:
 
-Once I remove these lines the last place for an error to occur is when
-fetching/activating the mclk in the main probe function. A user who is
-trying to use this hardware would want to get an error associated with
-a missing clock or one that couldn't be activated, whereas a user who
-does not want to use this hardware won't care. How do you think I
-should handle that?
+WARNING: unmet direct dependencies detected for SND_SOC_IMX_RPMSG
+  Depends on [m]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_IMX_SOC [=m] && RPMSG [=y]
+  Selected by [y]:
+  - SND_SOC_FSL_RPMSG [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && COMMON_CLK [=y] && RPMSG [=y] && SND_IMX_SOC [=m]!=n
 
-I'm assuming if the clock isn't present or working that's where we'd
-want to stop the driver, since without the clock it's useless. I'm
-thinking if the clock is not present we should simply exit out and drop
-a dev_dbg message to aid in troubleshooting when someone wants to use
-this hardware but forgets to define their clock. However, if either the
-clock is present but fails to activate or the codec fails to register,
-that should probably give an actual error message (and still prevent
-the driver from binding successfully).
+Add a dependency to prevent this configuration.
 
-So I'll clean up the rk817_codec_parse_dt_property to not check for a
-parent node (useless), and remove the return values from it since
-neither of the remaining conditions should cause the driver to fail to
-probe. I'll also remove checking for the device parent in
-rk817_platform_probe, since its' not necessary. If you think it's the
-best solution I'll then change the clock dev_err to a dev_dbg, and
-leave everything else the same.
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/fsl/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thank you.
+diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
+index 0917d65d6921..556c284f49dd 100644
+--- a/sound/soc/fsl/Kconfig
++++ b/sound/soc/fsl/Kconfig
+@@ -119,6 +119,7 @@ config SND_SOC_FSL_RPMSG
+ 	tristate "NXP Audio Base On RPMSG support"
+ 	depends on COMMON_CLK
+ 	depends on RPMSG
++	depends on SND_IMX_SOC || SND_IMX_SOC = n
+ 	select SND_SOC_IMX_RPMSG if SND_IMX_SOC != n
+ 	help
+ 	  Say Y if you want to add rpmsg audio support for the Freescale CPUs.
+-- 
+2.29.2
+

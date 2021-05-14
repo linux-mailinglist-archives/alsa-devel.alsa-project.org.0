@@ -2,97 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7556337FEA7
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 May 2021 22:13:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B180380357
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 07:24:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDF5417C6;
-	Thu, 13 May 2021 22:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDF5417C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB984178D;
+	Fri, 14 May 2021 07:24:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB984178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620936780;
-	bh=A7atH/PMaIY77sSfiUqkXbDo9jPxGl6nwM/jWncx7jo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DaHQJa53czKgbNF49J5clycF2Fnzc7cua4Vj+GaMG/rmkGIIsvbPd2q/U3SAmwwy6
-	 nB5JHauyCquooxn7KUSpBRi1taKIydjAzp7Cu1wd9Zl/7Xe+5TRTPAAMNgCMm6rTv5
-	 GWzP3ERUh+B4IMtSyuoy8epDXBsLk7YPRcq7S1Sw=
+	s=default; t=1620969897;
+	bh=IyX4odDIIUwakGPG1KW63oEWBsaNGzSqCF82RdnrJvg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=s4xk18oAh2ow4atcWIJGUnrvdfp5BXZZG9aO5dJQopzFs4QrHxj1gYwDx7OjTFBbn
+	 OlallhDXkrQ2kXTFxnsi4z1nXudn2ifpJf2Z4wiNSmm/5Gk5E+p1fPdxT4j6LRvMos
+	 VWv9DHY+HJiEeNxcNXRpq1hjDbhqoOqlVKR/PrOU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CE28F800E3;
-	Thu, 13 May 2021 22:11:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34512F8026B;
+	Fri, 14 May 2021 07:23:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21CD0F80163; Thu, 13 May 2021 22:11:29 +0200 (CEST)
+ id DBB14F80240; Fri, 14 May 2021 07:23:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=HTML_MESSAGE,PRX_APP_ATTACH,
+ PRX_BODY_135,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAABFF8012E
- for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 22:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAABFF8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="GIwGyzP5"
-Received: by mail-wr1-x42a.google.com with SMTP id d11so28005941wrw.8
- for <alsa-devel@alsa-project.org>; Thu, 13 May 2021 13:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=w/tzSs3pMNhmQae+nTddF81fyXP89tQ8kavFT4k6oOw=;
- b=GIwGyzP59MWwIr1FkBw+UOSvsPwKQpzftwq0kuw95r6SKAR7s0UtWfKUCYA/RU+Eq3
- izVL+EO/kZ4pv610a4asj1Vfb1jfdrqPL5NNsP0+Vy14W35aoIRleY4dTgRJZb0sSbIg
- slK25fbZNNWrtdP3Wc7bieqWuzC1gGXFgheCqKuYNNIcyaSOC+nf2BqaEOWo+BuQHY2I
- BfwAbqJRwcEPonmZ+FiRsuouoJ3pninGs0mLy6iBXq4VUq7ljrz9+Rf2kggfZ9DYUijb
- 6bfwSvK/eczrmOHVedTaVIz8NauJ+PZnR3eShz96+IeVt38PRaRqu+POZ6VYGsnb6Q9y
- vw1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=w/tzSs3pMNhmQae+nTddF81fyXP89tQ8kavFT4k6oOw=;
- b=Wkp3Bu/hCEDrhkzeg0yUb7AT5xQQemyKfwHxy9KvEW0E3abhfjb4z4siemB4JYIUpt
- LWm/K0n2BP6E+1tZBeQQCu927T1TH5hdJt603jJNBPGdIfDh+AD1lgvNf8PZwfpktiF9
- j+aWGGNIJo8dToK4CCMZXB+7IyXb+WacN1X6BKaR1S8vvZdXEJGECqYEUd5xiaJUNpem
- IJWLsnDfv02S6nwjs3N8ExEC+LfAF3+ilaFmRyAovTBmJYNTTSCn4OUBvPwkDmtalQ/2
- 10aJMjh3yCY8FBqMYSxuiL+eZ34Awf8ZN4C/cKuQUEEDu1qfL+1X3bPTH8/UqQQshlss
- NePA==
-X-Gm-Message-State: AOAM5309VacWOIwMsbcE848KFtwycnBZIx81qB/eKVmxD1FTi/8nlziD
- LcJWNXVVbh+EkXmLXETji39Ing==
-X-Google-Smtp-Source: ABdhPJwNIcd0EDRfG3jhOFUxpQlxO8GboAJpcG/rEHXU0psLBmv6fJiIiBBxr9hEMER99bKq9zCqOg==
-X-Received: by 2002:a5d:4e52:: with SMTP id r18mr52497343wrt.179.1620936676923; 
- Thu, 13 May 2021 13:11:16 -0700 (PDT)
-Received: from dell ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id y12sm3138587wma.47.2021.05.13.13.11.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 May 2021 13:11:16 -0700 (PDT)
-Date: Thu, 13 May 2021 21:11:14 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Subject: Re: [PATCH v9 1/4] mfd: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210513201114.GE805368@dell>
-References: <20210505140854.15929-1-macroalpha82@gmail.com>
- <20210505140854.15929-2-macroalpha82@gmail.com>
- <20210510162329.GD751702@dell>
- <20210513150122.GA8450@wintermute.localdomain>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36B43F8013A
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 07:23:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36B43F8013A
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 14E5NBGn8007722,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 14E5NBGn8007722
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 14 May 2021 13:23:11 +0800
+Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
+ RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Fri, 14 May 2021 13:23:11 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Fri, 14 May 2021 13:23:10 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022]) by
+ RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022%13]) with mapi id
+ 15.01.2106.013; Fri, 14 May 2021 13:23:10 +0800
+From: Pshou <pshou@realtek.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Add some CLOVE SSIDs of ALC293
+Thread-Topic: Add some CLOVE SSIDs of ALC293
+Thread-Index: AddIgIhg2R7xbEAWSeW+zZ996OarMA==
+Date: Fri, 14 May 2021 05:23:10 +0000
+Message-ID: <0071b59925304565915258cb88cf070f@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.210]
+x-kse-serverinfo: RTEXMBS05.realtek.com.tw, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?us-ascii?Q?Clean,_bases:_2021/5/14_=3F=3F_01:35:00?=
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: multipart/mixed;
+ boundary="_004_0071b59925304565915258cb88cf070frealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210513150122.GA8450@wintermute.localdomain>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- heiko@sntech.de, devicetree@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
- broonie@kernel.org, Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
- maccraft123mc@gmail.com
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 05/14/2021 05:06:28
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 163650 [May 14 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: pshou@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 445 445 d5f7ae5578b0f01c45f955a2a751ac25953290c9
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {Tracking_susp_attach_format}
+X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2; realtek.com:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 05/14/2021 05:09:00
+X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 05/14/2021 05:06:28
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 163650 [May 14 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: pshou@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 445 445 d5f7ae5578b0f01c45f955a2a751ac25953290c9
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {Tracking_susp_attach_format}
+X-KSE-AntiSpam-Info: 127.0.0.199:7.1.2;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; realtek.com:7.1.1
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 05/14/2021 05:09:00
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>, Kailang <kailang@realtek.com>,
+ Steve Wang <chirowang@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,111 +138,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 May 2021, Chris Morgan wrote:
+--_004_0071b59925304565915258cb88cf070frealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> On Mon, May 10, 2021 at 05:23:29PM +0100, Lee Jones wrote:
-> > On Wed, 05 May 2021, Chris Morgan wrote:
-> > 
-> > > From: Chris Morgan <macromorgan@hotmail.com>
-> > > 
-> > > Add rk817 codec support cell to rk808 mfd driver.
-> > > 
-> > > Tested-by: Maciej Matuszczyk <maccraft123mc@gmail.com>
-> > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Nit: These should be chronological.
-> 
-> Acknowledged. I will make sure to do this if a v10 is necessary.
-> 
-> > 
-> > > ---
-> > > Changes in v9:
-> > >  - Add cover letter.
-> > >  - Remove documentation for interrupt parent per Rob Herring's request.
-> > >  - Remove unused MODULE_DEVICE_TABLE to fix a bug identified by kernel test
-> > >    robot.
-> > > Changes in v8:
-> > >  - Added additional documentation for missing properties of #sound-dai-cells,
-> > >    interrupt-parent, and wakeup-source for mfd documentation.
-> > >  - Corrected order of elements descriptions in device tree documentation.
-> > >  - Changed name of "mic-in-differential" to "rockchip,mic-in-differential".
-> > >  - Changed name of sound card from "rockchip,rk817-codec" to "Analog".
-> > >  - Removed unused resets and reset-names from the i2s1_2ch node.
-> > > Changes in v7:
-> > >  - Removed ifdef around register definitions for MFD.
-> > >  - Replaced codec documentation with updates to MFD documentation.
-> > >  - Reordered elements in example to comply with upstream rules.
-> > >  - Added binding update back for Odroid Go Advance as requested.
-> > >  - Submitting patches from gmail now.
-> > > Changes in v6:
-> > >  - Included additional project maintainers for correct subsystems.
-> > >  - Removed unneeded compatible from DT documentation.
-> > >  - Removed binding update for Odroid Go Advance (will do in seperate series).
-> > > Changes in v5:
-> > >  - Move register definitions from rk817_codec.h to main rk808.h register
-> > >    definitions.
-> > >  - Add volatile register for codec bits.
-> > >  - Add default values for codec bits.
-> > >  - Removed of_compatible from mtd driver (not necessary).
-> > >  - Switched to using parent regmap instead of private regmap for codec.
-> > > Changes in v4:
-> > >  - Created set_pll() call.
-> > >  - Created user visible gain control in mic.
-> > >  - Check for return value of clk_prepare_enable().
-> > >  - Removed duplicate clk_prepare_enable().
-> > >  - Split DT documentation to separate commit.
-> > > Changes in v3:
-> > >  - Use DAPM macros to set audio path.
-> > >  - Updated devicetree binding (as every rk817 has this codec chip).
-> > >  - Changed documentation to yaml format.
-> > >  - Split MFD changes to separate commit.
-> > > Changes in v2:
-> > >  - Fixed audio path registers to solve some bugs.
-> > > 
-> > >  drivers/mfd/rk808.c       | 85 +++++++++++++++++++++++++++++++++++++++
-> > >  include/linux/mfd/rk808.h | 81 +++++++++++++++++++++++++++++++++++++
-> > >  2 files changed, 166 insertions(+)
-> > > 
-> > > diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
-> > > index ad923dd4e007..9231209184e0 100644
-> > > --- a/drivers/mfd/rk808.c
-> > > +++ b/drivers/mfd/rk808.c
-> > > @@ -65,6 +65,7 @@ static bool rk817_is_volatile_reg(struct device *dev, unsigned int reg)
-> > >  	switch (reg) {
-> > >  	case RK817_SECONDS_REG ... RK817_WEEKS_REG:
-> > >  	case RK817_RTC_STATUS_REG:
-> > > +	case RK817_CODEC_DTOP_LPT_SRST:
-> > >  	case RK817_INT_STS_REG0:
-> > >  	case RK817_INT_STS_REG1:
-> > >  	case RK817_INT_STS_REG2:
-> > > @@ -163,6 +164,11 @@ static const struct mfd_cell rk817s[] = {
-> > >  		.num_resources = ARRAY_SIZE(rk817_rtc_resources),
-> > >  		.resources = &rk817_rtc_resources[0],
-> > >  	},
-> > > +#ifdef CONFIG_SND_SOC_RK817
-> > > +	{
-> > > +		.name = "rk817-codec",
-> > > +	},
-> > > +#endif
-> > 
-> > No #ifery please.
-> > 
-> > Just replace it with a comment.
-> > 
-> > If no associated driver exists, it just won't match/bind.
-> 
-> I did the "if" here because I noticed that if I have a rk817 and do not
-> utilize the codec I receive a dmesg warning. I put the if here to silence
-> it in the event that someone was using this PMIC but didn't want to use
-> the audio codec. I will make the change if you say so though, but I just
-> want to confirm that it's acceptable to have a warning for all rk817s
-> that do not use the codec about a missing codec.  The hardware is always
-> present, I just can't say for certain it will always be used.
+Hi Alsa-devel ML:
 
-What is the dmesg warning you receive?
 
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+
+Can you help me add some source code to patch_realtek.c?
+
+
+
+Add some CLEVO SSID of alc293.
+
+
+
+Best regards
+
+Pshou
+
+
+--_004_0071b59925304565915258cb88cf070frealtekcom_
+Content-Type: application/octet-stream;
+	name="0001-Add-some-Clove-SSIDs-of-ALC293.patch"
+Content-Description: 0001-Add-some-Clove-SSIDs-of-ALC293.patch
+Content-Disposition: attachment;
+	filename="0001-Add-some-Clove-SSIDs-of-ALC293.patch"; size=3810;
+	creation-date="Thu, 13 May 2021 16:46:29 GMT";
+	modification-date="Fri, 14 May 2021 05:13:50 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbTogWW91ciBOYW1lIDx5b3VyQG5hbWUuY29tPg0KU3ViamVjdDogQUxTQTogaGRhL3JlYWx0
+ZWs6IEFkZCBzb21lIENMT1ZFIFNTSURzIG9mIEFMQzI5Mw0KDQpGaXggInVzZSBhcyBoZWFkc2V0
+IG1pYywgd2l0aG91dCBpdHMgb3duIGphY2sgZGV0ZWN0IiBwcm9ibGVuLg0KDQpTaWduZWQtb2Zm
+LWJ5OiBZb3VyIE5hbWUgPHlvdXJAbmFtZS5jb20+DQpTaWduZWQtb2ZmLWJ5OiBQZWlTZW4gSG91
+IDxwc2hvdUByZWFsdGVrLmNvbT4KZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVh
+bHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggM2UyNjlkZS4uNTUy
+ZTJjYiAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291
+bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTgzODUsMTIgKzgzODUsMTkgQEAgc3RhdGlj
+IGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9IHsKIAlTTkRf
+UENJX1FVSVJLKDB4MTU1OCwgMHg1MGI4LCAiQ2xldm8gTks1MFNaIiwgQUxDMjkzX0ZJWFVQX1NZ
+U1RFTTc2X01JQ19OT19QUkVTRU5DRSksCiAJU05EX1BDSV9RVUlSSygweDE1NTgsIDB4NTBkNSwg
+IkNsZXZvIE5QNTBENSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAog
+CVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDUwZjAsICJDbGV2byBOSDUwQVtDREZdIiwgQUxDMjkz
+X0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05EX1BDSV9RVUlSSygweDE1NTgs
+IDB4NTBmMiwgIkNsZXZvIE5INTBFW1BSXSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9f
+UFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDUwZjMsICJDbGV2byBOSDU4RFBR
+IiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05EX1BDSV9RVUlS
+SygweDE1NTgsIDB4NTBmNSwgIkNsZXZvIE5INTVFUFkiLCBBTEMyOTNfRklYVVBfU1lTVEVNNzZf
+TUlDX05PX1BSRVNFTkNFKSwKKwlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg1MGY2LCAiQ2xldm8g
+Tkg1NURQUSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9Q
+Q0lfUVVJUksoMHgxNTU4LCAweDUxMDEsICJDbGV2byBTNTEwV1UiLCBBTEMyOTNfRklYVVBfU1lT
+VEVNNzZfTUlDX05PX1BSRVNFTkNFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg1MTU3LCAi
+Q2xldm8gVzUxN0dVMSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAog
+CVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDUxYTEsICJDbGV2byBOUzUwTVUiLCBBTEMyOTNfRklY
+VVBfU1lTVEVNNzZfTUlDX05PX1BSRVNFTkNFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg3
+MGExLCAiQ2xldm8gTkI3MFRbSEpLXSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJF
+U0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDcwYjMsICJDbGV2byBOSzcwU0IiLCBB
+TEMyOTNfRklYVVBfU1lTVEVNNzZfTUlDX05PX1BSRVNFTkNFKSwKKwlTTkRfUENJX1FVSVJLKDB4
+MTU1OCwgMHg3MGYyLCAiQ2xldm8gTkg3OUVQWSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNf
+Tk9fUFJFU0VOQ0UpLAorCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDcwZjMsICJDbGV2byBOSDc3
+RFBRIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05EX1BDSV9R
+VUlSSygweDE1NTgsIDB4NzBmNCwgIkNsZXZvIE5INzdFUFkiLCBBTEMyOTNfRklYVVBfU1lTVEVN
+NzZfTUlDX05PX1BSRVNFTkNFKSwKKwlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg3MGY2LCAiQ2xl
+dm8gTkg3N0RQUS1ZIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCiAJ
+U05EX1BDSV9RVUlSSygweDE1NTgsIDB4ODIyOCwgIkNsZXZvIE5SNDBCVSIsIEFMQzI5M19GSVhV
+UF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDg1
+MjAsICJDbGV2byBOSDUwRFtDRF0iLCBBTEMyOTNfRklYVVBfU1lTVEVNNzZfTUlDX05PX1BSRVNF
+TkNFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg4NTIxLCAiQ2xldm8gTkg3N0RbQ0RdIiwg
+QUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCkBAIC04NDA4LDkgKzg0MTUs
+MTcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJrIGFsYzI2OV9maXh1cF90Ymxb
+XSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHg4YTUxLCAiQ2xldm8gTkg3MFJDUS1ZIiwg
+QUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCiAJU05EX1BDSV9RVUlSSygw
+eDE1NTgsIDB4OGQ1MCwgIkNsZXZvIE5INTVSQ1EtTSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9N
+SUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDk1MWQsICJDbGV2byBO
+OTUwVFtDREZdIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05E
+X1BDSV9RVUlSSygweDE1NTgsIDB4OTYwMCwgIkNsZXZvIE45NjBLW1BSXSIsIEFMQzI5M19GSVhV
+UF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweDk2
+MWQsICJDbGV2byBOOTYwU1tDREZdIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVT
+RU5DRSksCiAJU05EX1BDSV9RVUlSSygweDE1NTgsIDB4OTcxZCwgIkNsZXZvIE45NzBUW0NERl0i
+LCBBTEMyOTNfRklYVVBfU1lTVEVNNzZfTUlDX05PX1BSRVNFTkNFKSwKIAlTTkRfUENJX1FVSVJL
+KDB4MTU1OCwgMHhhNTAwLCAiQ2xldm8gTkw1M1JVIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01J
+Q19OT19QUkVTRU5DRSksCisJU05EX1BDSV9RVUlSSygweDE1NTgsIDB4YTYwMCwgIkNsZXZvIE5M
+NVhOVSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAorCVNORF9QQ0lf
+UVVJUksoMHgxNTU4LCAweGIwMTgsICJDbGV2byBOUDUwRFtCRV0iLCBBTEMyOTNfRklYVVBfU1lT
+VEVNNzZfTUlDX05PX1BSRVNFTkNFKSwKKwlTTkRfUENJX1FVSVJLKDB4MTU1OCwgMHhiMDE5LCAi
+Q2xldm8gTkg3N0RbQkVdUSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0Up
+LAorCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweGIwMjIsICJDbGV2byBOSDc3RFtEQ11bUVddIiwg
+QUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05EX1BDSV9RVUlSSygw
+eDE1NTgsIDB4YzAxOCwgIkNsZXZvIE5QNTBEW0JFXSIsIEFMQzI5M19GSVhVUF9TWVNURU03Nl9N
+SUNfTk9fUFJFU0VOQ0UpLAorCVNORF9QQ0lfUVVJUksoMHgxNTU4LCAweGMwMTksICJDbGV2byBO
+SDc3RFtCRV1RIiwgQUxDMjkzX0ZJWFVQX1NZU1RFTTc2X01JQ19OT19QUkVTRU5DRSksCisJU05E
+X1BDSV9RVUlSSygweDE1NTgsIDB4YzAyMiwgIkNsZXZvIE5INzdbRENdW1FXXSIsIEFMQzI5M19G
+SVhVUF9TWVNURU03Nl9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAw
+eDEwMzYsICJMZW5vdm8gUDUyMCIsIEFMQzIzM19GSVhVUF9MRU5PVk9fTVVMVElfQ09ERUNTKSwK
+IAlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgxMDQ4LCAiVGhpbmtDZW50cmUgU3RhdGlvbiIsIEFM
+QzI4M19GSVhVUF9IRUFEU0VUX01JQyksCiAJU05EX1BDSV9RVUlSSygweDE3YWEsIDB4MjBmMiwg
+IlRoaW5rcGFkIFNMNDEwLzUxMCIsIEFMQzI2OV9GSVhVUF9TS1VfSUdOT1JFKSwK
+
+--_004_0071b59925304565915258cb88cf070frealtekcom_--

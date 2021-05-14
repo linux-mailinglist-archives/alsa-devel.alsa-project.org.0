@@ -2,57 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855E3380402
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 09:08:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39847380486
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 09:40:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D8251791;
-	Fri, 14 May 2021 09:07:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D8251791
+	by alsa0.perex.cz (Postfix) with ESMTPS id C08D9178D;
+	Fri, 14 May 2021 09:39:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08D9178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1620976083;
-	bh=2IKucrwfIGBwLHppgVMg/P4iZ3pXzxm6fvi1Scps01M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=r+GI++z0V5qljonCE234yhMaMBbYpwOwE5IeHlwyyHRXuaQcQa7f8IGympEHSDSkM
-	 HQEgRIK0gca458aoHijzGLqczqDWNNIEdgqLKkY65gV0mLcorjZZXtnlY6XKhlHbEi
-	 Af+74jPA8FSzjbSujyatzEbiuEmouYQXC+WVilnQ=
+	s=default; t=1620978049;
+	bh=71aCZf8xOP08RpAanlEgKFofCuuyr6z1J7uSxRrnaPU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WQ7HQHUdD4NDINvVji5ZvotmVYsHebiq1iOa0w18kWzZt48Ci9RHqXp8tgVs63MU5
+	 /YXTUv1V+88dtHLYZeD1tb/zqVMp4KQo/afNA6K7T2j3QKJi5Xx8fSH0quWPXR0F2a
+	 yPPw/jAbdr8y5BCyPnCcyjbfBCb2sHycUR1zKXg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 748ACF8013A;
-	Fri, 14 May 2021 09:06:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C678F8026B;
+	Fri, 14 May 2021 09:39:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2272DF80240; Fri, 14 May 2021 09:06:33 +0200 (CEST)
+ id C269FF80240; Fri, 14 May 2021 09:39:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A26C9F8013A
- for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 09:06:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A26C9F8013A
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FhKHs16hRzBvNb;
- Fri, 14 May 2021 15:03:37 +0800 (CST)
-Received: from localhost (10.174.179.215) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.498.0; Fri, 14 May 2021
- 15:06:09 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <gregkh@linuxfoundation.org>
-Subject: [PATCH -next] ALSA: gus: Replace unsafe strcpy() with strscpy()
-Date: Fri, 14 May 2021 15:05:07 +0800
-Message-ID: <20210514070507.16600-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.215]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47D6FF8012A
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 09:39:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47D6FF8012A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 594B4B01E;
+ Fri, 14 May 2021 07:39:12 +0000 (UTC)
+Date: Fri, 14 May 2021 09:39:12 +0200
+Message-ID: <s5h1ra9ahnj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH v2] ALSA: hda: generic: Remove redundant assignment to dac
+In-Reply-To: <1620904271-76027-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+References: <1620904271-76027-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,32 +68,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix smatch warning:
-sound/isa/gus/gus_main.c:396 snd_gus_check_version() error:
- strcpy() 'card->longname' too large for 'card->shortname' (80 vs 32)
+On Thu, 13 May 2021 13:11:11 +0200,
+Jiapeng Chong wrote:
+> 
+> Variable dac is set to zero, but this value is never read as it is
+> overwritten or not used later on, hence it is a redundant assignment
+> and can be removed.
+> 
+> Clean up the following clang-analyzer warning:
+> 
+> sound/pci/hda/hda_generic.c:1436:4: warning: Value stored to 'dac' is
+> never read [clang-analyzer-deadcode.DeadStores].
+> 
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+> Changes in v2:
+>   -For the follow advice: https://lore.kernel.org/patchwork/patch/1423536/
 
-Even if this is not a real bug since the longest length of card->longname
-now is 31, replace strcpy() with strscpy() in order to avoid possible
-future mistake.
+Thanks, applied.
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/isa/gus/gus_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/isa/gus/gus_main.c b/sound/isa/gus/gus_main.c
-index b7518122a10d..7524ce5785de 100644
---- a/sound/isa/gus/gus_main.c
-+++ b/sound/isa/gus/gus_main.c
-@@ -384,7 +384,7 @@ static int snd_gus_check_version(struct snd_gus_card * gus)
- 			}
- 		}
- 	}
--	strcpy(card->shortname, card->longname);
-+	strscpy(card->shortname, card->longname, sizeof(card->shortname));
- 	gus->uart_enable = 1;	/* standard GUSes doesn't have midi uart trouble */
- 	snd_gus_init_control(gus);
- 	return 0;
--- 
-2.17.1
-
+Takashi

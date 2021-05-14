@@ -2,70 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D38D380F4B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 19:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA2A380FD5
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 May 2021 20:35:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01167176D;
-	Fri, 14 May 2021 19:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01167176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64F981764;
+	Fri, 14 May 2021 20:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F981764
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621014736;
-	bh=jYNf28zRzJSBDffE3Tvr9JhYjPINmsR9nJFi2qdxp/Y=;
+	s=default; t=1621017305;
+	bh=ljuL77X5kNFBNbuIvQcKDpyRkKS1vAJ2IPJIXG6trWI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ek7FbKtUJWZE50o4wcmXn90BTtbFGa/MF7E3v9eH51jVjG4oH8BT16RpRyhmnLbJw
-	 EFQ8Y31iQ9GA+FtDYEqHt7fbhJ42x59KmMkxBMysm3X2aDo8fgGEEiBEeFZNV2G45y
-	 WjkVNCjvx+TSeBC7qP17cXayR7NZ4DYadeNGu6SQ=
+	b=ioG73CFVzBzpjHi9x9UflLmLe6Z855dFPehaP53KvBDMzKqZsiXXmrXYgkZtij54M
+	 9XDs6tavCo8UL7rr+LrKv54ksi/EakDjZOyS6UXGONglOE7KXKSXG3Ajk20VdZvMN3
+	 WX2nahl0LbtnCkdPDAS/zhii0Qmdp0tW8GFmRFPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5223DF8026B;
-	Fri, 14 May 2021 19:50:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D00A4F8026B;
+	Fri, 14 May 2021 20:33:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25282F80240; Fri, 14 May 2021 19:50:45 +0200 (CEST)
+ id 77310F80240; Fri, 14 May 2021 20:33:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6C75F800BF
- for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 19:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6C75F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BF7DF800BF
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 20:33:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BF7DF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Lidc+BbS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BD93B6144C;
- Fri, 14 May 2021 17:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621014639;
- bh=jYNf28zRzJSBDffE3Tvr9JhYjPINmsR9nJFi2qdxp/Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Lidc+BbSgQEfs5TVZop8wH4OeU7ku5b/raE7xOJvFdRvX9ftlIBIeT2/cV9mKpjJI
- FwpBK++peuQO31+PYLbutyrXJki+qx0w37Db+HEhNiy9AcR7YE9jL+7l/ni9LeloCx
- Eas2CR0fp/y6Rv6CBY67TtEeir0E1VXG7YSsErrHwmHgEhljgussjCKnb+TP7wR5Cq
- pDnlROJK2qf1JxGLN8BpgSjiDZxH4+i+TQsG+EefJP2xyAx3VkMG5fiVn5qa11gcEd
- RZXNuiIvKWy7QgN1H0j0En0AlX+Mv9L7YP3gfdD6bsmAoq247Vk6ov+Ey/aorxK/Td
- VGm5jLBXWCOrA==
-Date: Fri, 14 May 2021 18:49:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CSruQYkZ"
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 69-20020a9d0a4b0000b02902ed42f141e1so91156otg.2
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 11:33:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=MyepW9OZoA5Tfnsk829LBdO7lppfBfCNDTAkF2rLFjw=;
+ b=CSruQYkZcAvyzO2bwdSLSevjn6wHjzL16r4vHhL3WjVB3Wmud9BONG+RXENhltUe5z
+ QbRig6W7y1v7Hqiv6xbTxAMtt/QzbcbWfbbWvJNLnEEpzWgm3/2GakdSSSHlvXR2/huV
+ 0wYXCs0tFCLIi4zF1EE674UyBsA5BDSDAYcRr1ox9xCLM6L/uQCk4ikuDbAYtOZu6HMB
+ BrfcFLZYIQueonpmtZKGNThbUD2M+8wrfudMTV7Uk4z+tIQA5XC10G6qi8JgGyZ1U/nG
+ IVd3RtCeROniLEIr73zMa2pltdFkKC+Re4rRPXtFcgNEeVttA0bRsE3/1HiiVR275ONS
+ nI2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=MyepW9OZoA5Tfnsk829LBdO7lppfBfCNDTAkF2rLFjw=;
+ b=GTzuUFHCSaLCB6Vsz9x/089kApJoFtUKJbHiAg6n/L6GRvQOZftNW4Bd/vso+khSXc
+ Nw2zNFzFZtd+yGwuXVaOZN3t9DcOYh1bxU3eV4twtePw3IieDIreVEsFowVKwdptOmdT
+ IiVbqwtXXBN6ykrHLThMsUcIq7grOCtUxWCxqsS70qgN9es2z8rsiCvUpEM8tR3ReaJ4
+ Eiz56Fy8vBGLH2zf5bL7tFrGUi31t46/0YeNO5AJCLz1X/w4hC/7FQeyuco6UdVxpEny
+ y1yeaxlrVgiwGpdxhWlmzIxVck0OealHilrDEZ+eDTDC9FcrB1XrM6zu6iwoViNyi2PQ
+ s0Pw==
+X-Gm-Message-State: AOAM5328p3CF9ZqqKfh/dSbDmqfZse1EtpPGxQuqNoC/0ueD+fWKH6iK
+ f4kqYcLofBJS0/eP6LIMrtw=
+X-Google-Smtp-Source: ABdhPJxXAj49fp1LA89JGsmz+P/omVWNY4qgVVhPM43OY3SY7lNrKcSbRajKZ4rZRZprL6MVcO7rRg==
+X-Received: by 2002:a05:6830:1693:: with SMTP id
+ k19mr18376058otr.210.1621017206861; 
+ Fri, 14 May 2021 11:33:26 -0700 (PDT)
+Received: from wintermute.localdomain (cpe-76-183-134-35.tx.res.rr.com.
+ [76.183.134.35])
+ by smtp.gmail.com with ESMTPSA id u201sm1296914oia.10.2021.05.14.11.33.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 May 2021 11:33:26 -0700 (PDT)
+Date: Fri, 14 May 2021 13:33:24 -0500
+From: Chris Morgan <macroalpha82@gmail.com>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH v10 2/4] ASoC: Add Rockchip rk817 audio CODEC support
-Message-ID: <20210514174958.GC6516@sirena.org.uk>
+Message-ID: <20210514183324.GA20917@wintermute.localdomain>
 References: <20210514171940.20831-1-macroalpha82@gmail.com>
  <20210514171940.20831-3-macroalpha82@gmail.com>
+ <20210514174958.GC6516@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="5G06lTa6Jq83wMTw"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210514171940.20831-3-macroalpha82@gmail.com>
-X-Cookie: Necessity is a mother.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210514174958.GC6516@sirena.org.uk>
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  heiko@sntech.de, devicetree@vger.kernel.org, tiwai@suse.com,
  lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
@@ -86,40 +108,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, May 14, 2021 at 06:49:58PM +0100, Mark Brown wrote:
+> On Fri, May 14, 2021 at 12:19:38PM -0500, Chris Morgan wrote:
+> 
+> > +static int rk817_codec_parse_dt_property(struct device *dev,
+> > +					 struct rk817_codec_priv *rk817)
+> > +{
+> > +	struct device_node *node = dev->parent->of_node;
+> > +
+> > +	if (!node) {
+> > +		dev_err(dev, "%s() dev->parent->of_node is NULL\n",
+> > +			__func__);
+> > +		return -ENODEV;
+> > +	}
+> 
+> There's no need to fail the probe here, you won't be able to read any DT
+> properties but that shouldn't stop the driver binding.
 
---5G06lTa6Jq83wMTw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+If I'm not mistaken this is actually telling us to fail if the parent
+device (the PMIC itself) isn't present. I think I'll remove this as not
+necessary since if the parent node isn't present the mfd driver will
+never load, meaning this driver will never load either.
 
-On Fri, May 14, 2021 at 12:19:38PM -0500, Chris Morgan wrote:
+Below this line however we're failing if the codec node isn't present.
+Are you telling me we want to bind the driver if the node isn't present
+(such as in the edge case where the driver is present and the PMIC is a
+rk817, but the CODEC is not in use)? I will remove the return code if
+you think that is what needs to be done. My concern there though is if
+we do that we'll either be in a position to again report a bunch of
+errors for the edge case of users who want to use the PMIC but not the
+codec (in this case missing clocks and whatnot) if we try to bind the
+driver and the user doesn't want it. I can also set those errors to
+debug level, but I think that they might be important enough for users
+who DO want to use the codec to keep them as dev_err.
 
-> +static int rk817_codec_parse_dt_property(struct device *dev,
-> +					 struct rk817_codec_priv *rk817)
-> +{
-> +	struct device_node *node = dev->parent->of_node;
-> +
-> +	if (!node) {
-> +		dev_err(dev, "%s() dev->parent->of_node is NULL\n",
-> +			__func__);
-> +		return -ENODEV;
-> +	}
+Let me know what you think.
 
-There's no need to fail the probe here, you won't be able to read any DT
-properties but that shouldn't stop the driver binding.
-
---5G06lTa6Jq83wMTw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCeuEUACgkQJNaLcl1U
-h9BxKgf/fSl9+6oIVB12S3dB4m1qbEr547nf28A1ciTOQ9Ga8SU6khBFvnTN+LX9
-ibe048u1W0AQ63NahERGqZ/IBJ4a7cTfKnBM+hlDb+Tq5r3OgXbexf7kSQhpN3Gx
-yqrVlrZAqs69XOJGQxcMPXZ2+FkLpjBo3CBaLjvXG4RuGZ4tijA4/aksfX2KVRlQ
-qQVaNQuMJPNtPfZkNwQ+ggAPXrpOvhImxSdSmHwwvaLW3P5zvh5C0YRDNgZ1dNvo
-nce7sZOxCNQlX2YYMc1Vglpx3reY+6tH5N7mAKDtVDt9nvi/jJ/oHShFBerXELwI
-AKEpwYcoz7Ub+Ww9XFdEz4uGP0fF9A==
-=RJAJ
------END PGP SIGNATURE-----
-
---5G06lTa6Jq83wMTw--
+Thank you.

@@ -2,103 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B041A381522
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 04:21:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21FDB381552
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 04:59:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30150172D;
-	Sat, 15 May 2021 04:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30150172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6175172E;
+	Sat, 15 May 2021 04:58:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6175172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621045267;
-	bh=u1JXOyzI83RkW4wh/WVv+mOty9+5FJTKtq/BkzpKw6M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ext+Lt0DXHiXrBmalXs4cO3VCEWH/dLNFKhHaOxVV/vZg0uofnxPDSC3aBIqRoHd8
-	 ErRavVsqSNUpmWbd/OnE95gP581LZBZiNt+bI2w06UXDBXEE6gsGG2kUPVghCxX93B
-	 4XCvcsxNDjocR6isKEGZwTbHOjvT7sAg/nqKUMtc=
+	s=default; t=1621047584;
+	bh=0IOrVZPR9rAQiW7m3R7YiKI3tpebEYSrkKIk3W+II3M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=r2bEZYDrgYoO2H1y5vYc3iOXldXev0R+iQ0s5N3d62UdIC04ut1RMXiPOJEkPR7lC
+	 nfxriYltsRCERwYPTrHuO98gPZsb6xZVPFmMPCrpvI3gDRuwGq4qBrBcfX9nJAGpOZ
+	 tIXvxpqDxnmmJIi0c+m1NjjXOq26hgfTHf4pfyMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6191F8016B;
-	Sat, 15 May 2021 04:19:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23770F800DE;
+	Sat, 15 May 2021 04:58:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BFDDF80163; Sat, 15 May 2021 04:19:36 +0200 (CEST)
+ id 8D0A2F80245; Sat, 15 May 2021 04:58:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15559F8013A
- for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 04:19:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15559F8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C709F80156
+ for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 04:57:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C709F80156
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="pNThhLql"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="czvOhI1t"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 634C81BD3;
- Fri, 14 May 2021 22:19:20 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 14 May 2021 22:19:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=AvBAJFX+d4hfuVND6j2upWr/c+S
- k8F1wBdvfPFlh4UE=; b=pNThhLqlZlQ4ICOgjyd69tHEdOayVdsIxeYIckuu1sC
- /xabq6oo1wwliTxynhS/SQwq5bLeGV8tkyJecfweaXhV4Yn+13Y25lr1YxLdY5Br
- rUOJvtyFmBnT/8uwFJO5jys3ZWaoykt6QVWmuy/8jLwIudiazVpEiMxSSCri4UKk
- 36Ku6ClMkSUb9BpsZyFUgm3dfygTHrd71Bh51kfId4/D/EfnUuX+USTAVokQXtLY
- 0eW/w0npborHWb4kBP5TLp6extF6MAeB83NKZ+OLOk7uL9bzXjEtAfO2A549guVQ
- czxA8kicbY1A2E3F0ONmE/oTsC4C4soLc5Ldqp1UTGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=AvBAJF
- X+d4hfuVND6j2upWr/c+Sk8F1wBdvfPFlh4UE=; b=czvOhI1t27IuchQV13ovc9
- n4ZRFeyB0nP1m6xi+wbNCpwTqdC4yA8nIlo7HbUkkPzitIyOOafPSgl7VOpR9DZO
- bbpjV3OAvLMRB9IgiWav+MllzrIZRX1ttOge2expMPVVbk0Ib52rmkDxwjoUbA37
- ub9fjLvDavgBywNtpg/Wvvjdqq7GsTG1LT4GA5J+Hcpx7CqLk5ow/sirBKzXj2hk
- qpPdcbse4RCEWDbpoM3KnV+nHcFeykY7gJK3jtdxLvxIhQOgik6Q7jh5J9+/zWMY
- ALVCuyHaEzQbyiasquLhPg3qIkDlyEVmtC8EV2fg8Au0FkzTtYLN7hnnG+XO1rdA
- ==
-X-ME-Sender: <xms:py-fYBMFDs9_OVe_i-2tnez4MKlWukwbbFZfb88a7s1BpdNAigSTxg>
- <xme:py-fYD9XATEICgANf99NrTd0_ZBNDFHOhaHk0xyvMyOaTsYbETbXubdmuu_lTKBU8
- Gk9SBxC_-CCxcDPH7g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehkedguddvkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttd
- ertddttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
- rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeelhfeuge
- dvjefgjefgudekfedutedvtddutdeuieevtddtgeetjeekvdefgeefhfenucfkphepudeg
- rdefrdeihedrudejheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
- hlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:py-fYAQYaRkfzOZG3loFDUMDuWKN4IzLBiL3KD9MH09PRbj4N26SwA>
- <xmx:py-fYNs95h2sMV989-ZVG23AarENZOxLAOo8hFvpe8DFICbAtq30Yw>
- <xmx:py-fYJfcwsLkGHqnXJ0sm8-2W2fYHJxbkxuTMByqYr-7sUBxaAwAAg>
- <xmx:qC-fYJmxV6lZJLHPOJcyTDFK7wx6LcZ5dAG-eyX4UN7KGeDJ2wUvtg>
-Received: from workstation (ae065175.dynamic.ppp.asahi-net.or.jp [14.3.65.175])
- by mail.messagingengine.com (Postfix) with ESMTPA;
- Fri, 14 May 2021 22:19:18 -0400 (EDT)
-Date: Sat, 15 May 2021 11:19:15 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: Re: [PATCH 0/7] ALSA: oxfw: code refactoring for quirks specific to
- ASICs
-Message-ID: <20210515021915.GA27439@workstation>
-Mail-Followup-To: tiwai@suse.de, alsa-devel@alsa-project.org,
- clemens@ladisch.de
-References: <20210514085435.92807-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Tg0KsS2x"
+Received: by mail-oi1-x22c.google.com with SMTP id s19so1321303oic.7
+ for <alsa-devel@alsa-project.org>; Fri, 14 May 2021 19:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Zg/5QXj0NQOLjGOpktrlON/n7PasEsK9TVYdrnmnD9Q=;
+ b=Tg0KsS2xPm6IpjBdv4c+49Dbxg4u+hq6+RuCVFvLqdPbB9ixMlNgfhV9rfec3OkBPZ
+ IvTdvbhp3NHPb/aTkZ6qVfnKmnVrioOvM1eY5fJGJZ/5y7ocOCwL0wmy/hphA0DEnme+
+ x+zdV+817e2/RINEYBv0hmRwrzfaQp1NLkFwLBQ6gosxm3hzWszs1DrIg0aRWHCc2/wc
+ PClHridG4s67HGHPKUMO+8KMSKmtaq8zyDCHOTpGsf0yCVOR2QTg8/rkixJRcApJICEt
+ TIRwB0S/yqYMTCipsL5yzXKzvTsOzCpODeYwblLFJFRS63R51qslMgwhtpGGdESrfuIp
+ 9YiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Zg/5QXj0NQOLjGOpktrlON/n7PasEsK9TVYdrnmnD9Q=;
+ b=CobBGfNqxAnZET3qXJSFx1i2O3f15GlbeTYR0tTs5aFJWJcLVSednfxXSZZlTHDgZ6
+ zq8dLmQpbCBrAznoIG1cqRhMyEXrI82cRcljgOm+kSlhxRarIcKTKF72aCzu0/3PEkuv
+ sKi42ZickBWdR5Pif1JEtqN5ZDucfZ5784reTJKqmJeKqI/lQE2IZC2RB7Fvwf6tE38F
+ ipA6N4z6fO3fZ00XAKHphKZ4IHMN5ruWYu29sVJb1L1HxTZtX1OcfZZS/3MSJzMcuMKi
+ yrQBcXnc6g2pv7/xaVsVFEO1lpDDUmLD3qRDtgmEoBDYXDOyK8UmLDT0zYHTPCa8WBpH
+ xmrQ==
+X-Gm-Message-State: AOAM53041zR5c8McfmAj8+OSAE1lqBNDw/nW1SUDGShoppiMBgnUqHdz
+ r6CUmWJvtX7vZ4qCnrdD4Ifuv/bPKTs=
+X-Google-Smtp-Source: ABdhPJyx+Mj2Xnc1VVyohqVzJFvH4+AvlDMy34VVVb44+0ur5ea5Nbj7p61kmpDKkoWUZbqRkkNOFQ==
+X-Received: by 2002:aca:7556:: with SMTP id q83mr36046438oic.161.1621047476637; 
+ Fri, 14 May 2021 19:57:56 -0700 (PDT)
+Received: from wintermute.localdomain (cpe-76-183-134-35.tx.res.rr.com.
+ [76.183.134.35])
+ by smtp.gmail.com with ESMTPSA id j16sm1689444otn.55.2021.05.14.19.57.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 May 2021 19:57:56 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v11 0/4] ASoC: codecs: add rk817 support
+Date: Fri, 14 May 2021 21:57:45 -0500
+Message-Id: <20210515025749.11291-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210514085435.92807-1-o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, heiko@sntech.de,
+ devicetree@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
+ lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, broonie@kernel.org,
+ Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
+ lee.jones@linaro.org, maccraft123mc@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,38 +101,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+From: Chris Morgan <macromorgan@hotmail.com>
 
-On Fri, May 14, 2021 at 05:54:28PM +0900, Takashi Sakamoto wrote:
-> Hi,
-> 
-> This patchset is for code refactoring to ALSA OXFW driver, mainly
-> regarding to ASIC types and quirks.
-> 
-> 
-> Takashi Sakamoto (7):
->   ALSA: oxfw: code refactoring for existent device entry with
->     specifier_id and version
->   ALSA: oxfw: add device entry for Loud Technologies Tapco Link.FireWire
->     4x6
->   ALSA: oxfw: add explicit device entry for Loud Technologies Mackie
->     Onyx Sattelite
->   ALSA: oxfw: add comment for the type of ASICs
->   ALSA: oxfw: code refactoring for jumbo-payload quirk in OXFW970
->   ALSA: firewire-lib: code refactoring for jumbo payload quirk
->   ALSA: oxfw; code refactoring for wrong_dbs quirk
-> 
->  sound/firewire/amdtp-stream.c     |   7 +-
->  sound/firewire/oxfw/oxfw-stream.c |  20 ++---
->  sound/firewire/oxfw/oxfw.c        | 123 +++++++++++++-----------------
->  sound/firewire/oxfw/oxfw.h        |  10 ++-
->  4 files changed, 76 insertions(+), 84 deletions(-)
+This series is to add support for the Rockchip rk817 audio codec which
+is present in all Rockchip rk817 MFD chips.
 
-I readlized that the 2nd and 3rd patch include bug that the target
-device is not identified. I'll post take 2 patchset later and please
-abandon issued patchset.
+Changes in v11:
+ - Stopped checking for presence of parent node in codec driver, as
+   driver should never be called if parent device doesn't exist to call
+   it.
+ - Made codec subnode optional and stopped returning errors if it is
+   missing.
+ - Downgraded missing codec clock message from dev_err to dev_dbg.
+   Users who choose to use the rk817 PMIC but do not choose to use the
+   codec will not get an error message unless they have debugging
+   enabled, whereas users who wish to use the codec but don't have the
+   clock defined will not get an error message unless they have
+   debug messages enabled. This seems like a fair compromise between
+   mututally exclusive users. Note that errors with the clock or codec
+   will still result in a dev_err.
+ - Updated DT documentation to note that codec subnode is optional if
+   no properties are to exist beneath it.
+Changes in v10:
+ - Correct order of test/ack/signed-off to chronological order.
+ - Removed ifdef from mfd driver keep cell from being added when the
+   codec was not to be built.
+ - Changed codec DT parsing messages from error to debug to prevent
+   errors in dmesg log in the rare but valid case a user has the rk817
+   PMIC but does not use the codec.
+Changes in v9:
+ - Add cover letter.
+ - Remove documentation for interrupt parent per Rob Herring's request.
+ - Remove unused MODULE_DEVICE_TABLE to fix a bug identified by kernel test
+   robot.
+Changes in v8:
+ - Added additional documentation for missing properties of
+   #sound-dai-cells, interrupt-parent, and wakeup-source for mfd
+   documentation.
+ - Corrected order of elements descriptions in device tree documentation.
+ - Changed name of "mic-in-differential" to
+   "rockchip,mic-in-differential".
+ - Changed name of sound card from "rockchip,rk817-codec" to "Analog".
+ - Removed unused resets and reset-names from the i2s1_2ch node.
+Changes in v7:
+ - Removed ifdef around register definitions for MFD.
+ - Replaced codec documentation with updates to MFD documentation.
+ - Reordered elements in example to comply with upstream rules.
+ - Added binding update back for Odroid Go Advance as requested.
+ - Submitting patches from gmail now.
+Changes in v6:
+ - Included additional project maintainers for correct subsystems.
+ - Removed unneeded compatible from DT documentation.
+ - Removed binding update for Odroid Go Advance (will do in separate
+   series).
+Changes in v5:
+ - Move register definitions from rk817_codec.h to main rk808.h register
+   definitions.
+ - Add volatile register for codec bits.
+ - Add default values for codec bits.
+ - Removed of_compatible from mtd driver (not necessary).
+ - Switched to using parent regmap instead of private regmap for codec.
+Changes in v4:
+ - Created set_pll() call.
+ - Created user visible gain control in mic.
+ - Check for return value of clk_prepare_enable().
+ - Removed duplicate clk_prepare_enable().
+ - Split DT documentation to separate commit.
+Changes in v3:
+ - Use DAPM macros to set audio path.
+ - Updated devicetree binding (as every rk817 has this codec chip).
+ - Changed documentation to yaml format.
+ - Split MFD changes to separate commit.
+Changes in v2:
+ - Fixed audio path registers to solve some bugs.
 
+Chris Morgan (4):
+  mfd: Add Rockchip rk817 audio CODEC support
+  ASoC: Add Rockchip rk817 audio CODEC support
+  dt-bindings: Add Rockchip rk817 audio CODEC support
+  arm64: dts: rockchip: add rk817 codec to Odroid Go
 
-Regards
+ .../devicetree/bindings/mfd/rk808.txt         | 188 ++++++
+ .../boot/dts/rockchip/rk3326-odroid-go2.dts   |  36 +-
+ drivers/mfd/rk808.c                           |  83 +++
+ include/linux/mfd/rk808.h                     |  81 +++
+ sound/soc/codecs/Kconfig                      |   6 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/rk817_codec.c                | 539 ++++++++++++++++++
+ 7 files changed, 933 insertions(+), 2 deletions(-)
+ create mode 100644 sound/soc/codecs/rk817_codec.c
 
-Takashi Sakamoto
+-- 
+2.25.1
+

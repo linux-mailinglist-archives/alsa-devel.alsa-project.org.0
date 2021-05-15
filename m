@@ -2,102 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8B4E381687
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 09:16:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C2C3381689
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 09:17:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C0B81738;
-	Sat, 15 May 2021 09:15:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C0B81738
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05B8A173E;
+	Sat, 15 May 2021 09:16:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05B8A173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621062994;
-	bh=UtwetzGqAXxFi+BrzKFEFgKLck+pQR+V9DccQPOni3g=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jhjh8giw0iQ9iaYoJMK7OMReGFhN9CxOVFQiWwDonjei2sM+yXnTtNFSK6TBkWqIo
-	 TXiJSdjtLNjUC5IZtV8Seg+i5o4ppRyZSiPDF63a+9YwwaLP4JjBRaw7mnEpsHNRoF
-	 1Sa+QYlVJYVKhSwRwxUyIj1+lTQcx25GvwtIMCdk=
+	s=default; t=1621063029;
+	bh=JQSThRlQSSJ1eryySAhKCQJun5Xux/cz3pmsL7SsHgA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kDSkDu3+kVeRtyyjhD8i/Q2g+Ov5V8ekU5j33r+2iBzldEZNuKh1BUkItGyfykzB/
+	 MgtBdIiOKbOXgXkmoWVUWYNOlFROufC+M+3h0vCvdPRL7Jt+RySHzAEbT3LT89/KFp
+	 Ohs0DvehNLsPIjbQL9ew2sytYLrgeJF3SGyhQZ3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B4EAF804FE;
-	Sat, 15 May 2021 09:11:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A76DBF80156;
+	Sat, 15 May 2021 09:15:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88387F80245; Sat, 15 May 2021 09:11:36 +0200 (CEST)
+ id CAD57F80163; Sat, 15 May 2021 09:15:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B9E7F8049C
- for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 09:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B9E7F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD0ACF8013A
+ for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 09:15:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD0ACF8013A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="tQMK6IjO"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="FLaXTyZf"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 9D8F55C0124;
- Sat, 15 May 2021 03:11:30 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sat, 15 May 2021 03:11:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=XszyOS9GwRUgt
- b7HmYKwuCsoOzRRIt8slN0/HJdPKA0=; b=tQMK6IjOSSt2TXrM+vFWLxujHMjw+
- FAXeD0kaZDcsUKzOlXgwqtodZWudnsNlkaExTuYh01SoepVZzSr+yUPq0Qsvnc+S
- xU6kolAJSAytPCr8wgS9iX4W58uLD2NOt6i067MZOEv1W53pw7D+Oq1XtdEGkyNt
- wB4aQVqDyB92uNbEom+kyWgSYdlMFHm6CH92pkj58cvGExEWtr9hRdHdOza5UqC1
- b4JqG6OncxQ8Twe0fGF7JQ6I4Xs8vr+3+B3ISpy4/Bh8NLJ2WH6NbbxE0a2cbBfv
- GgbN1lqR8xk56u0AE1aGZ0ShnOD5VWAv7nNRUaMt2OCrPn3Oxh4+c70Lw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=XszyOS9GwRUgtb7HmYKwuCsoOzRRIt8slN0/HJdPKA0=; b=FLaXTyZf
- F7rRZBhrFMJa+09tEj3/Cl9QqkhYWxbee+PvxB82AyvwsxXVIYudKdYgGSuRFfOj
- PPG72N5LDwAYY7yA5gE5SzD9GscIVyKNzgSelV/G31lckWKy+Q6neEw2m/zP4CMW
- omAsPI0Uyi+EgXRmBuF5FU2zQQxLd6hO9XCdb2JOdWslazVHYU8atPIB8FDMcIAC
- F8Ufg8RmG73zErYsITy3PLpNG6K6ThDwCc6rFVLDPrE7UPFa2ffdXAt+6oPnnEQ7
- ovToh5DvicQMtwu2+qQ5af3biJpWMgHo9Wp8wr1NxzO88PixqsquiLLMuc3Rvw6I
- Mo2tjKANdh4xOA==
-X-ME-Sender: <xms:InSfYOeVpQhU-ypAqeFIy4ibsfSlFTPgCIsqVly0uxBz0jQKftMo3A>
- <xme:InSfYIN5GD6JT2KHtmLHye5mLQNsKPQ6Kn589fyRRQuxFlwbGJbLXyXq6WByduubY
- xaoIcxh3aKY7Qfoqtk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehledguddtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:InSfYPjGuwOWvb9SzZOHvvzpe8uSrzS9X24bq3ax3CAOiSR3bhMyrA>
- <xmx:InSfYL_zOQ1etvGXH2ZVn9G52tvQDs20WvojveB-YPvTrekuU9Ll3Q>
- <xmx:InSfYKsmAkWoZ43sarFdduBdjEF4KhSCw9FM8ZLs5pPEOotWCH3OYA>
- <xmx:InSfYA3L7Q2-C6UUkK8zXEVhFkSCoITcZGTva-r1Sktudg53luHLMw>
-Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
- [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Sat, 15 May 2021 03:11:29 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH v2 10/10] ALSA: oxfw: add quirk flag for blocking transmission
- method
-Date: Sat, 15 May 2021 16:11:12 +0900
-Message-Id: <20210515071112.101535-11-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210515071112.101535-1-o-takashi@sakamocchi.jp>
-References: <20210515071112.101535-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="Jyd+K/rm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
+ From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=2yYLiWrZgjYXQ4s5OKHyiOKz1f4oex4egM3gMTpb6FY=; b=J
+ yd+K/rmk+pKAmAa2PdoH9SryTREu3ki81+it+adWjIjDitr8/QjdOAAHrwy3xxJZDBESwr7YEaBNx
+ WbzE5eBbDleMB+JmTCUtqxilyQAUS+cVvFavzoA2Ehn9HfNHX7NyElJT3bPd8Dsjza/AlyAdKr8ZZ
+ g0lmwQUofPpMK9/ybZfW7RkUXB6NeemYPEKOQDAslxf0Qq8EPheoEKrT5tJU5L1HAkaB14mcLoIUO
+ HZylgzeUZ/r0/Dpvlej++FkjGAFvdSAxNQFB9MUvqbh45xPRIzr1oc+rnDdlbGxfbfxNi4b+Lw/SB
+ Yh4EiPBzaD9p5NhmNQxWnsZpKBAet+LKQ==;
+Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
+ helo=localhost.localdomain)
+ by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <coding@diwic.se>)
+ id 1lhoWd-001aCt-4X; Sat, 15 May 2021 09:15:51 +0200
+From: David Henningsson <coding@diwic.se>
+To: tiwai@suse.de,
+	alsa-devel@alsa-project.org,
+	perex@perex.cz
+Subject: [PATCH] sound: rawmidi: Add framing mode
+Date: Sat, 15 May 2021 09:15:33 +0200
+Message-Id: <20210515071533.55332-1-coding@diwic.se>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+X-Authenticated-Id: coding@diwic.se
+Cc: David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,97 +84,272 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Stanton SCS.1m and Apogee Duet FireWire use blocking transmission method
-unlike the other models.
+This commit adds a new framing mode that frames all MIDI data into
+32-byte frames with a timestamp.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+The main benefit is that we can get accurate timestamps even if
+userspace wakeup and processing is not immediate.
+
+Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+compared to the in-kernel seq implementation which has a max jitter
+of 5 ms during idle and much worse when running scheduler stress tests
+in parallel.
+
+Signed-off-by: David Henningsson <coding@diwic.se>
 ---
- sound/firewire/oxfw/oxfw-stream.c |  7 ++++++-
- sound/firewire/oxfw/oxfw.c        | 14 +++++++++++---
- sound/firewire/oxfw/oxfw.h        |  2 ++
- 3 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 9edd8515f586..b17ebf09fbf9 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -153,9 +153,14 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	struct cmp_connection *conn;
- 	enum cmp_direction c_dir;
- 	enum amdtp_stream_direction s_dir;
--	enum cip_flags flags = CIP_NONBLOCKING;
-+	enum cip_flags flags;
- 	int err;
+Hi, it's been a while. Both because I've been busy with things that needed
+to take priority, and because I wanted to do a little more than just compile
+testing it before submitting; hopefully this one is mergable.
+
+That testing showed that I needed to change from "u8" to "__u8" in the headers.
+Other than that I think it is just the changes that Takashi Iwai pointed out in v6.
+
+ include/sound/rawmidi.h     |  2 +
+ include/uapi/sound/asound.h | 30 +++++++++++-
+ sound/core/rawmidi.c        | 93 ++++++++++++++++++++++++++++++++++++-
+ sound/core/rawmidi_compat.c |  4 +-
+ 4 files changed, 124 insertions(+), 5 deletions(-)
+
+diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index 334842daa904..989e1517332d 100644
+--- a/include/sound/rawmidi.h
++++ b/include/sound/rawmidi.h
+@@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
+ 	bool opened;			/* open flag */
+ 	bool append;			/* append flag (merge more streams) */
+ 	bool active_sensing;		/* send active sensing when close */
++	unsigned int framing;		/* whether to frame input data */
++	unsigned int clock_type;	/* clock source to use for input framing */
+ 	int use_count;			/* use counter (for output) */
+ 	size_t bytes;
+ 	struct snd_rawmidi *rmidi;
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 535a7229e1d9..d17c061950df 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -710,7 +710,7 @@ enum {
+  *  Raw MIDI section - /dev/snd/midi??
+  */
  
-+	if (!(oxfw->quirks & SND_OXFW_QUIRK_BLOCKING_TRANSMISSION))
-+		flags = CIP_NONBLOCKING;
-+	else
-+		flags = CIP_BLOCKING;
+-#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
++#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
+ 
+ enum {
+ 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
+@@ -736,12 +736,38 @@ struct snd_rawmidi_info {
+ 	unsigned char reserved[64];	/* reserved for future use */
+ };
+ 
++#define SNDRV_RAWMIDI_MODE_FRAMING_MASK		(7<<0)
++#define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT	0
++#define SNDRV_RAWMIDI_MODE_FRAMING_NONE		(0<<0)
++#define SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP	(1<<0)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MASK		(7<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT		3
++#define SNDRV_RAWMIDI_MODE_CLOCK_NONE		(0<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME	(1<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC	(2<<3)
++#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW	(3<<3)
 +
- 	if (stream == &oxfw->tx_stream) {
- 		conn = &oxfw->out_conn;
- 		c_dir = CMP_OUTPUT;
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 966697dace47..59bffa32636c 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -23,6 +23,8 @@
- #define OUI_APOGEE		0x0003db
- 
- #define MODEL_SATELLITE		0x00200f
-+#define MODEL_SCS1M		0x001000
-+#define MODEL_DUET_FW		0x01dddd
- 
- #define SPECIFIER_1394TA	0x00a02d
- #define VERSION_AVC		0x010001
-@@ -144,13 +146,19 @@ static int detect_quirks(struct snd_oxfw *oxfw)
- 	 * messages.
- 	 */
- 	if (oxfw->entry->vendor_id == OUI_STANTON) {
--		/* No physical MIDI ports. */
-+		if (oxfw->entry->model_id == MODEL_SCS1M)
-+			oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
++#define SNDRV_RAWMIDI_FRAMING_DATA_LENGTH 16
 +
-+		// No physical MIDI ports.
- 		oxfw->midi_input_ports = 0;
- 		oxfw->midi_output_ports = 0;
++struct snd_rawmidi_framing_tstamp {
++	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
++	 * types here. Applications are expected to skip unknown frame types.
++	 */
++	__u8 frame_type;
++	__u8 length; /* number of valid bytes in data field */
++	__u8 reserved[2];
++	__u32 tv_nsec;		/* nanoseconds */
++	__u64 tv_sec;		/* seconds */
++	__u8 data[SNDRV_RAWMIDI_FRAMING_DATA_LENGTH];
++} __packed;
++
+ struct snd_rawmidi_params {
+ 	int stream;
+ 	size_t buffer_size;		/* queue size in bytes */
+ 	size_t avail_min;		/* minimum avail bytes for wakeup */
+ 	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
+-	unsigned char reserved[16];	/* reserved for future use */
++	unsigned int mode;		/* For input data only, frame incoming data */
++	unsigned char reserved[12];	/* reserved for future use */
+ };
  
- 		return snd_oxfw_scs1x_add(oxfw);
+ #ifndef __KERNEL__
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index aca00af93afe..4a6534db77d6 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -680,9 +680,12 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
+ 				 bool is_input)
+ {
+ 	char *newbuf, *oldbuf;
++	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
+ 
+ 	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
+ 		return -EINVAL;
++	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP && (params->buffer_size & 0x1f) != 0)
++		return -EINVAL;
+ 	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
+ 		return -EINVAL;
+ 	if (params->buffer_size != runtime->buffer_size) {
+@@ -720,8 +723,24 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
+ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+ 			     struct snd_rawmidi_params *params)
+ {
++	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
++	unsigned int clock_type = params->mode & SNDRV_RAWMIDI_MODE_CLOCK_MASK;
++	int err;
++
++	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_NONE && clock_type != SNDRV_RAWMIDI_MODE_CLOCK_NONE)
++		return -EINVAL;
++	else if (clock_type > SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW)
++		return -EINVAL;
++	if (framing > SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
++		return -EINVAL;
+ 	snd_rawmidi_drain_input(substream);
+-	return resize_runtime_buffer(substream->runtime, params, true);
++	err = resize_runtime_buffer(substream->runtime, params, true);
++	if (err < 0)
++		return err;
++
++	substream->framing = framing;
++	substream->clock_type = clock_type;
++	return 0;
+ }
+ EXPORT_SYMBOL(snd_rawmidi_input_params);
+ 
+@@ -963,6 +982,62 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
+ 	return -ENOIOCTLCMD;
+ }
+ 
++static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
++			const unsigned char *buffer, int src_count, const struct timespec64 *tstamp)
++{
++	struct snd_rawmidi_runtime *runtime = substream->runtime;
++	struct snd_rawmidi_framing_tstamp *dest_ptr;
++	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
++	int dest_frames = 0;
++	int orig_count = src_count;
++	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
++
++	BUILD_BUG_ON(frame_size != 0x20);
++	if (snd_BUG_ON((runtime->hw_ptr & 0x1f) != 0))
++		return -EINVAL;
++
++	while (src_count > 0) {
++		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
++			runtime->xruns += src_count;
++			break;
++		}
++		if (src_count >= SNDRV_RAWMIDI_FRAMING_DATA_LENGTH)
++			frame.length = SNDRV_RAWMIDI_FRAMING_DATA_LENGTH;
++		else {
++			frame.length = src_count;
++			memset(frame.data, 0, SNDRV_RAWMIDI_FRAMING_DATA_LENGTH);
++		}
++		memcpy(frame.data, buffer, frame.length);
++		buffer += frame.length;
++		src_count -= frame.length;
++		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
++		*dest_ptr = frame;
++		runtime->avail += frame_size;
++		runtime->hw_ptr += frame_size;
++		runtime->hw_ptr %= runtime->buffer_size;
++		dest_frames++;
++	}
++	return orig_count - src_count;
++}
++
++static struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
++{
++	struct timespec64 ts64 = {0, 0};
++
++	switch (substream->clock_type) {
++	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW:
++		ktime_get_raw_ts64(&ts64);
++		break;
++	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC:
++		ktime_get_ts64(&ts64);
++		break;
++	case SNDRV_RAWMIDI_MODE_CLOCK_REALTIME:
++		ktime_get_real_ts64(&ts64);
++		break;
++	}
++	return ts64;
++}
++
+ /**
+  * snd_rawmidi_receive - receive the input data from the device
+  * @substream: the rawmidi substream
+@@ -977,6 +1052,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			const unsigned char *buffer, int count)
+ {
+ 	unsigned long flags;
++	struct timespec64 ts64 = get_framing_tstamp(substream);
+ 	int result = 0, count1;
+ 	struct snd_rawmidi_runtime *runtime = substream->runtime;
+ 
+@@ -987,8 +1063,11 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 			  "snd_rawmidi_receive: input is not active!!!\n");
+ 		return -EINVAL;
  	}
- 
-+	if (oxfw->entry->vendor_id == OUI_APOGEE && oxfw->entry->model_id == MODEL_DUET_FW)
-+		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
 +
- 	/*
- 	 * TASCAM FireOne has physical control and requires a pair of additional
- 	 * MIDI ports.
-@@ -377,11 +385,11 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
- 	// TASCAM, FireOne.
- 	OXFW_DEV_ENTRY(VENDOR_TASCAM, 0x800007, NULL),
- 	// Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m).
--	OXFW_DEV_ENTRY(OUI_STANTON, 0x001000, NULL),
-+	OXFW_DEV_ENTRY(OUI_STANTON, MODEL_SCS1M, NULL),
- 	// Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d).
- 	OXFW_DEV_ENTRY(OUI_STANTON, 0x002000, NULL),
- 	// APOGEE, duet FireWire.
--	OXFW_DEV_ENTRY(OUI_APOGEE, 0x01dddd, NULL),
-+	OXFW_DEV_ENTRY(OUI_APOGEE, MODEL_DUET_FW, NULL),
- 	{ }
- };
- MODULE_DEVICE_TABLE(ieee1394, oxfw_id_table);
-diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index 1b0c53802569..6a0fe0fa2f1a 100644
---- a/sound/firewire/oxfw/oxfw.h
-+++ b/sound/firewire/oxfw/oxfw.h
-@@ -38,6 +38,8 @@ enum snd_oxfw_quirk {
- 	SND_OXFW_QUIRK_JUMBO_PAYLOAD = 0x01,
- 	// The dbs field of CIP header in tx packet is wrong.
- 	SND_OXFW_QUIRK_WRONG_DBS = 0x02,
-+	// Blocking transmission mode is used.
-+	SND_OXFW_QUIRK_BLOCKING_TRANSMISSION = 0x04,
- };
+ 	spin_lock_irqsave(&runtime->lock, flags);
+-	if (count == 1) {	/* special case, faster code */
++	if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
++		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
++	} else if (count == 1) {	/* special case, faster code */
+ 		substream->bytes++;
+ 		if (runtime->avail < runtime->buffer_size) {
+ 			runtime->buffer[runtime->hw_ptr++] = buffer[0];
+@@ -1541,6 +1620,8 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 	struct snd_rawmidi_substream *substream;
+ 	struct snd_rawmidi_runtime *runtime;
+ 	unsigned long buffer_size, avail, xruns;
++	unsigned int clock_type;
++	static const char *clock_names[4] = { "none", "realtime", "monotonic", "monotonic raw" };
  
- /* This is an arbitrary number for convinience. */
+ 	rmidi = entry->private_data;
+ 	snd_iprintf(buffer, "%s\n\n", rmidi->name);
+@@ -1596,6 +1677,14 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+ 					    "  Avail        : %lu\n"
+ 					    "  Overruns     : %lu\n",
+ 					    buffer_size, avail, xruns);
++				if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
++					clock_type = substream->clock_type >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT;
++					if (!snd_BUG_ON(clock_type >= sizeof(clock_names)))
++						snd_iprintf(buffer,
++							    "  Framing      : tstamp\n"
++							    "  Clock type   : %s\n",
++							    clock_names[clock_type]);
++				}
+ 			}
+ 		}
+ 	}
+diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
+index 7397130976d0..68a93443583c 100644
+--- a/sound/core/rawmidi_compat.c
++++ b/sound/core/rawmidi_compat.c
+@@ -13,7 +13,8 @@ struct snd_rawmidi_params32 {
+ 	u32 buffer_size;
+ 	u32 avail_min;
+ 	unsigned int no_active_sensing; /* avoid bit-field */
+-	unsigned char reserved[16];
++	unsigned int mode;
++	unsigned char reserved[12];
+ } __attribute__((packed));
+ 
+ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+@@ -25,6 +26,7 @@ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
+ 	if (get_user(params.stream, &src->stream) ||
+ 	    get_user(params.buffer_size, &src->buffer_size) ||
+ 	    get_user(params.avail_min, &src->avail_min) ||
++	    get_user(params.mode, &src->mode) ||
+ 	    get_user(val, &src->no_active_sensing))
+ 		return -EFAULT;
+ 	params.no_active_sensing = val;
 -- 
-2.27.0
+2.25.1
 

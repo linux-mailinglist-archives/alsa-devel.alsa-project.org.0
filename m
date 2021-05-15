@@ -2,73 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2C3381689
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 09:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87EA83816EB
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 May 2021 10:24:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05B8A173E;
-	Sat, 15 May 2021 09:16:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05B8A173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AC241733;
+	Sat, 15 May 2021 10:23:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AC241733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621063029;
-	bh=JQSThRlQSSJ1eryySAhKCQJun5Xux/cz3pmsL7SsHgA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kDSkDu3+kVeRtyyjhD8i/Q2g+Ov5V8ekU5j33r+2iBzldEZNuKh1BUkItGyfykzB/
-	 MgtBdIiOKbOXgXkmoWVUWYNOlFROufC+M+3h0vCvdPRL7Jt+RySHzAEbT3LT89/KFp
-	 Ohs0DvehNLsPIjbQL9ew2sytYLrgeJF3SGyhQZ3Y=
+	s=default; t=1621067073;
+	bh=GZ+Kn4jT0gb7iB9pP/pJk26tOsd2+CGQf4jvs2zdqBw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LyGbVMCwaniYFFclkkSwqrNs1UWpwskviybL+uY9OB9XUbdEuEn4buw99BPULhenX
+	 ktCA68p9dn8+Es1G+2UHCpEGSIcuymS8nxhWT7OxdxvdYhq4NS4IGHHr3Ww/Fvxxek
+	 LxupKTz0GnZut/X6LyAKP3hYy/+PGJzR8wB1Zq+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A76DBF80156;
-	Sat, 15 May 2021 09:15:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72CD6F8016B;
+	Sat, 15 May 2021 10:23:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAD57F80163; Sat, 15 May 2021 09:15:57 +0200 (CEST)
+ id 4EDA6F80163; Sat, 15 May 2021 10:23:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_13, PRX_BODY_135, PRX_BODY_21, PRX_BODY_25,
+ SPF_HELO_NONE, 
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD0ACF8013A
- for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 09:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD0ACF8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABAB7F800DE
+ for <alsa-devel@alsa-project.org>; Sat, 15 May 2021 10:22:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABAB7F800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="Jyd+K/rm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
- From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
- References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
- List-Owner:List-Archive; bh=2yYLiWrZgjYXQ4s5OKHyiOKz1f4oex4egM3gMTpb6FY=; b=J
- yd+K/rmk+pKAmAa2PdoH9SryTREu3ki81+it+adWjIjDitr8/QjdOAAHrwy3xxJZDBESwr7YEaBNx
- WbzE5eBbDleMB+JmTCUtqxilyQAUS+cVvFavzoA2Ehn9HfNHX7NyElJT3bPd8Dsjza/AlyAdKr8ZZ
- g0lmwQUofPpMK9/ybZfW7RkUXB6NeemYPEKOQDAslxf0Qq8EPheoEKrT5tJU5L1HAkaB14mcLoIUO
- HZylgzeUZ/r0/Dpvlej++FkjGAFvdSAxNQFB9MUvqbh45xPRIzr1oc+rnDdlbGxfbfxNi4b+Lw/SB
- Yh4EiPBzaD9p5NhmNQxWnsZpKBAet+LKQ==;
-Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
- helo=localhost.localdomain)
- by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <coding@diwic.se>)
- id 1lhoWd-001aCt-4X; Sat, 15 May 2021 09:15:51 +0200
-From: David Henningsson <coding@diwic.se>
-To: tiwai@suse.de,
-	alsa-devel@alsa-project.org,
-	perex@perex.cz
-Subject: [PATCH] sound: rawmidi: Add framing mode
-Date: Sat, 15 May 2021 09:15:33 +0200
-Message-Id: <20210515071533.55332-1-coding@diwic.se>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="iG7hTAT0"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2C190613B9;
+ Sat, 15 May 2021 08:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621066968;
+ bh=GZ+Kn4jT0gb7iB9pP/pJk26tOsd2+CGQf4jvs2zdqBw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=iG7hTAT03WHgFWqqoj0DV+re/0SLdMb3cUSY+SSuTzLrJYQKUGl36xxPlzpJM+obe
+ aYXsMgr2FnrS3UmbhM6x/v0hyySs4FwS7nZabhVI4uZ7oSvYetpsNsa8YF+pHbxJBR
+ Pvc7xud7ZTl9KAziTz3eT27vowbOqKYiG2XDc1TE977RvXZd58WPI/7xagMPnTojJ/
+ GJWlmOneBx01cy6SZcbDkvz0BdOwIrrlmQD5XJjxn9s8e2uY2fdVvUP3k7z3IeULok
+ mtqmqeDzUbwgUVG+WJhEq15O9UonBwspCZS/Ybte0/0w+ceHppeg8djn6HLQSfz0bi
+ sBmNf+UX/Tqtg==
+Date: Sat, 15 May 2021 10:22:39 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Subject: Re: [PATCH v2 00/40] Use ASCII subset instead of UTF-8 alternate
+ symbols
+Message-ID: <20210515102239.2ffd0451@coco.lan>
+In-Reply-To: <61c286b7afd6c4acf71418feee4eecca2e6c80c8.camel@infradead.org>
+References: <cover.1620823573.git.mchehab+huawei@kernel.org>
+ <d2fed242fbe200706b8d23a53512f0311d900297.camel@infradead.org>
+ <20210514102118.1b71bec3@coco.lan>
+ <61c286b7afd6c4acf71418feee4eecca2e6c80c8.camel@infradead.org>
+Followup-To: dri-devel@lists.freedesktop.org
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: coding@diwic.se
-Cc: David Henningsson <coding@diwic.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, keyrings@vger.kernel.org, linux-sgx@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-rdma@vger.kernel.org,
+ linux-acpi@vger.kernel.org, Mali DP Maintainers <malidp@foss.arm.com>,
+ linux-input@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ coresight@lists.linaro.org, rcu@vger.kernel.org,
+ mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-integrity@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,272 +98,338 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds a new framing mode that frames all MIDI data into
-32-byte frames with a timestamp.
+Em Fri, 14 May 2021 10:06:01 +0100
+David Woodhouse <dwmw2@infradead.org> escreveu:
 
-The main benefit is that we can get accurate timestamps even if
-userspace wakeup and processing is not immediate.
+> On Fri, 2021-05-14 at 10:21 +0200, Mauro Carvalho Chehab wrote:
+> > Em Wed, 12 May 2021 18:07:04 +0100
+> > David Woodhouse <dwmw2@infradead.org> escreveu:
+> >  =20
+> > > On Wed, 2021-05-12 at 14:50 +0200, Mauro Carvalho Chehab wrote: =20
+> > > > Such conversion tools - plus some text editor like LibreOffice  or =
+similar  - have
+> > > > a set of rules that turns some typed ASCII characters into UTF-8 al=
+ternatives,
+> > > > for instance converting commas into curly commas and adding non-bre=
+akable
+> > > > spaces. All of those are meant to produce better results when the t=
+ext is
+> > > > displayed in HTML or PDF formats.   =20
+> > >=20
+> > > And don't we render our documentation into HTML or PDF formats?  =20
+> >=20
+> > Yes.
+> >  =20
+> > > Are
+> > > some of those non-breaking spaces not actually *useful* for their
+> > > intended purpose? =20
+> >=20
+> > No.
+> >=20
+> > The thing is: non-breaking space can cause a lot of problems.
+> >=20
+> > We even had to disable Sphinx usage of non-breaking space for
+> > PDF outputs, as this was causing bad LaTeX/PDF outputs.
+> >=20
+> > See, commit: 3b4c963243b1 ("docs: conf.py: adjust the LaTeX document ou=
+tput")
+> >=20
+> > The afore mentioned patch disables Sphinx default behavior of
+> > using NON-BREAKABLE SPACE on literal blocks and strings, using this
+> > special setting: "parsedliteralwraps=3Dtrue".
+> >=20
+> > When NON-BREAKABLE SPACE were used on PDF outputs, several parts of=20
+> > the media uAPI docs were violating the document margins by far,
+> > causing texts to be truncated.
+> >=20
+> > So, please **don't add NON-BREAKABLE SPACE**, unless you test
+> > (and keep testing it from time to time) if outputs on all
+> > formats are properly supporting it on different Sphinx versions. =20
+>=20
+> And there you have a specific change with a specific fix. Nothing to do
+> with whether NON-BREAKABLE SPACE is =E2=88=89 ASCII, and *certainly* noth=
+ing to
+> do with the fact that, like *every* character in every kernel file
+> except the *binary* files, it's representable in UTF-8.
+>=20
+> By all means fix the specific characters which are typographically
+> wrong or which, like NON-BREAKABLE SPACE, cause problems for rendering
+> the documentation.
+>=20
+>=20
+> > Also, most of those came from conversion tools, together with other
+> > eccentricities, like the usage of U+FEFF (BOM) character at the
+> > start of some documents. The remaining ones seem to came from=20
+> > cut-and-paste. =20
+>=20
+> ... or which are just entirely redundant and gratuitous, like a BOM in
+> an environment where all files are UTF-8 and never 16-bit encodings
+> anyway.
 
-Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
-compared to the in-kernel seq implementation which has a max jitter
-of 5 ms during idle and much worse when running scheduler stress tests
-in parallel.
+Agreed.
 
-Signed-off-by: David Henningsson <coding@diwic.se>
+>=20
+> > > > While it is perfectly fine to use UTF-8 characters in Linux, and sp=
+ecially at
+> > > > the documentation,  it is better to  stick to the ASCII subset  on =
+such
+> > > > particular case,  due to a couple of reasons:
+> > > >=20
+> > > > 1. it makes life easier for tools like grep;   =20
+> > >=20
+> > > Barely, as noted, because of things like line feeds. =20
+> >=20
+> > You can use grep with "-z" to seek for multi-line strings(*), Like:
+> >=20
+> > 	$ grep -Pzl 'grace period started,\s*then' $(find Documentation/ -type=
+ f)
+> > 	Documentation/RCU/Design/Data-Structures/Data-Structures.rst =20
+>=20
+> Yeah, right. That works if you don't just use the text that you'll have
+> seen in the HTML/PDF "grace period started, then", and if you instead
+> craft a *regex* for it, replacing the spaces with '\s*'. Or is that
+> [[:space:]]* if you don't want to use the experimental Perl regex
+> feature?
+>=20
+>  $ grep -zlr 'grace[[:space:]]\+period[[:space:]]\+started,[[:space:]]\+t=
+hen' Documentation/RCU
+> Documentation/RCU/Design/Data-Structures/Data-Structures.rst
+>=20
+> And without '-l' it'll obviously just give you the whole file. No '-A5
+> -B5' to see the surroundings... it's hardly a useful thing, is it?
+>=20
+> > (*) Unfortunately, while "git grep" also has a "-z" flag, it
+> >     seems that this is (currently?) broken with regards of handling mul=
+tilines:
+> >=20
+> > 	$ git grep -Pzl 'grace period started,\s*then'
+> > 	$ =20
+>=20
+> Even better. So no, multiline grep isn't really a commonly usable
+> feature at all.
+>=20
+> This is why we prefer to put user-visible strings on one line in C
+> source code, even if it takes the lines over 80 characters =E2=80=94 to a=
+llow
+> for grep to find them.
+
+Makes sense, but in case of documentation, this is a little more
+complex than that.=20
+
+Btw, the theme used when building html by default[1] has a search
+box (written in Javascript) that could be able to find multi-line
+patterns, working somewhat similar to "git grep foo -a bar".
+
+[1] https://github.com/readthedocs/sphinx_rtd_theme
+
+> > [1] If I have a table with UTF-8 codes handy, I could type the UTF-8=20
+> >     number manually... However, it seems that this is currently broken=
+=20
+> >     at least on Fedora 33 (with Mate Desktop and US intl keyboard with=
+=20
+> >     dead keys).
+> >=20
+> >     Here, <CTRL><SHIFT>U is not working. No idea why. I haven't=20
+> >     test it for *years*, as I din't see any reason why I would
+> >     need to type UTF-8 characters by numbers until we started
+> >     this thread. =20
+>=20
+> Please provide the bug number for this; I'd like to track it.
+
+Just opened a BZ and added you as c/c.
+
+> > Now, I'm not arguing that you can't use whatever UTF-8 symbol you
+> > want on your docs. I'm just saying that, now that the conversion=20
+> > is over and a lot of documents ended getting some UTF-8 characters
+> > by accident, it is time for a cleanup. =20
+>=20
+> All text documents are *full* of UTF-8 characters. If there is a file
+> in the source code which has *any* non-UTF8, we call that a 'binary
+> file'.
+>=20
+> Again, if you want to make specific fixes like removing non-breaking
+> spaces and byte order marks, with specific reasons, then those make
+> sense. But it's got very little to do with UTF-8 and how easy it is to
+> type them. And the excuse you've put in the commit comment for your
+> patches is utterly bogus.
+
+Let's take one step back, in order to return to the intents of this
+UTF-8, as the discussions here are not centered into the patches, but
+instead, on what to do and why.
+
+-
+
+This discussion started originally at linux-doc ML.
+
+While discussing about an issue when machine's locale was not set
+to UTF-8 on a build VM, we discovered that some converted docs ended
+with BOM characters. Those specific changes were introduced by some
+of my convert patches, probably converted via pandoc.
+
+So, I went ahead in order to check what other possible weird things
+were introduced by the conversion, where several scripts and tools
+were used on files that had already a different markup.
+
+I actually checked the current UTF-8 issues, and asked people at
+linux-doc to comment what of those are valid usecases, and what
+should be replaced by plain ASCII.
+
+Basically, this is the current situation (at docs/docs-next), for the
+ReST files under Documentation/, excluding translations is:
+
+1. Spaces and BOM
+
+	- U+00a0 ('=C2=A0'): NO-BREAK SPACE
+	- U+feff ('=EF=BB=BF'): ZERO WIDTH NO-BREAK SPACE (BOM)
+
+Based on the discussions there and on this thread, those should be
+dropped, as BOM is useless and NO-BREAK SPACE can cause problems
+at the html/pdf output;
+
+2. Symbols
+
+	- U+00a9 ('=C2=A9'): COPYRIGHT SIGN
+	- U+00ac ('=C2=AC'): NOT SIGN
+	- U+00ae ('=C2=AE'): REGISTERED SIGN
+	- U+00b0 ('=C2=B0'): DEGREE SIGN
+	- U+00b1 ('=C2=B1'): PLUS-MINUS SIGN
+	- U+00b2 ('=C2=B2'): SUPERSCRIPT TWO
+	- U+00b5 ('=C2=B5'): MICRO SIGN
+	- U+03bc ('=CE=BC'): GREEK SMALL LETTER MU
+	- U+00b7 ('=C2=B7'): MIDDLE DOT
+	- U+00bd ('=C2=BD'): VULGAR FRACTION ONE HALF
+	- U+2122 ('=E2=84=A2'): TRADE MARK SIGN
+	- U+2264 ('=E2=89=A4'): LESS-THAN OR EQUAL TO
+	- U+2265 ('=E2=89=A5'): GREATER-THAN OR EQUAL TO
+	- U+2b0d ('=E2=AC=8D'): UP DOWN BLACK ARROW
+
+Those seem OK on my eyes.
+
+On a side note, both MICRO SIGN and GREEK SMALL LETTER MU are
+used several docs to represent microseconds, micro-volts and
+micro-amp=C3=A8res. If we write an orientation document, it probably
+makes sense to recommend using MICRO SIGN on such cases.
+
+3. Latin
+
+	- U+00c7 ('=C3=87'): LATIN CAPITAL LETTER C WITH CEDILLA
+	- U+00df ('=C3=9F'): LATIN SMALL LETTER SHARP S
+	- U+00e1 ('=C3=A1'): LATIN SMALL LETTER A WITH ACUTE
+	- U+00e4 ('=C3=A4'): LATIN SMALL LETTER A WITH DIAERESIS
+	- U+00e6 ('=C3=A6'): LATIN SMALL LETTER AE
+	- U+00e7 ('=C3=A7'): LATIN SMALL LETTER C WITH CEDILLA
+	- U+00e9 ('=C3=A9'): LATIN SMALL LETTER E WITH ACUTE
+	- U+00ea ('=C3=AA'): LATIN SMALL LETTER E WITH CIRCUMFLEX
+	- U+00eb ('=C3=AB'): LATIN SMALL LETTER E WITH DIAERESIS
+	- U+00f3 ('=C3=B3'): LATIN SMALL LETTER O WITH ACUTE
+	- U+00f4 ('=C3=B4'): LATIN SMALL LETTER O WITH CIRCUMFLEX
+	- U+00f6 ('=C3=B6'): LATIN SMALL LETTER O WITH DIAERESIS
+	- U+00f8 ('=C3=B8'): LATIN SMALL LETTER O WITH STROKE
+	- U+00fa ('=C3=BA'): LATIN SMALL LETTER U WITH ACUTE
+	- U+00fc ('=C3=BC'): LATIN SMALL LETTER U WITH DIAERESIS
+	- U+00fd ('=C3=BD'): LATIN SMALL LETTER Y WITH ACUTE
+	- U+011f ('=C4=9F'): LATIN SMALL LETTER G WITH BREVE
+	- U+0142 ('=C5=82'): LATIN SMALL LETTER L WITH STROKE
+
+Those should be kept as well, as they're used for non-English names.
+
+4. arrows and box drawing symbols:
+	- U+2191 ('=E2=86=91'): UPWARDS ARROW
+	- U+2192 ('=E2=86=92'): RIGHTWARDS ARROW
+	- U+2193 ('=E2=86=93'): DOWNWARDS ARROW
+
+	- U+2500 ('=E2=94=80'): BOX DRAWINGS LIGHT HORIZONTAL
+	- U+2502 ('=E2=94=82'): BOX DRAWINGS LIGHT VERTICAL
+	- U+2514 ('=E2=94=94'): BOX DRAWINGS LIGHT UP AND RIGHT
+	- U+251c ('=E2=94=9C'): BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+
+Also should be kept.
+
+In summary, based on the discussions we have so far, I suspect that
+there's not much to be discussed for the above cases.
+
+So, I'll post a v3 of this series, changing only:
+
+	- U+00a0 ('=C2=A0'): NO-BREAK SPACE
+	- U+feff ('=EF=BB=BF'): ZERO WIDTH NO-BREAK SPACE (BOM)
+
 ---
 
-Hi, it's been a while. Both because I've been busy with things that needed
-to take priority, and because I wanted to do a little more than just compile
-testing it before submitting; hopefully this one is mergable.
+Now, this specific patch series address also this extra case:
 
-That testing showed that I needed to change from "u8" to "__u8" in the headers.
-Other than that I think it is just the changes that Takashi Iwai pointed out in v6.
+5. curly commas:
 
- include/sound/rawmidi.h     |  2 +
- include/uapi/sound/asound.h | 30 +++++++++++-
- sound/core/rawmidi.c        | 93 ++++++++++++++++++++++++++++++++++++-
- sound/core/rawmidi_compat.c |  4 +-
- 4 files changed, 124 insertions(+), 5 deletions(-)
+	- U+2018 ('=E2=80=98'): LEFT SINGLE QUOTATION MARK
+	- U+2019 ('=E2=80=99'): RIGHT SINGLE QUOTATION MARK
+	- U+201c ('=E2=80=9C'): LEFT DOUBLE QUOTATION MARK
+	- U+201d ('=E2=80=9D'): RIGHT DOUBLE QUOTATION MARK
 
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index 334842daa904..989e1517332d 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -81,6 +81,8 @@ struct snd_rawmidi_substream {
- 	bool opened;			/* open flag */
- 	bool append;			/* append flag (merge more streams) */
- 	bool active_sensing;		/* send active sensing when close */
-+	unsigned int framing;		/* whether to frame input data */
-+	unsigned int clock_type;	/* clock source to use for input framing */
- 	int use_count;			/* use counter (for output) */
- 	size_t bytes;
- 	struct snd_rawmidi *rmidi;
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 535a7229e1d9..d17c061950df 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -710,7 +710,7 @@ enum {
-  *  Raw MIDI section - /dev/snd/midi??
-  */
- 
--#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 1)
-+#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
- 
- enum {
- 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
-@@ -736,12 +736,38 @@ struct snd_rawmidi_info {
- 	unsigned char reserved[64];	/* reserved for future use */
- };
- 
-+#define SNDRV_RAWMIDI_MODE_FRAMING_MASK		(7<<0)
-+#define SNDRV_RAWMIDI_MODE_FRAMING_SHIFT	0
-+#define SNDRV_RAWMIDI_MODE_FRAMING_NONE		(0<<0)
-+#define SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP	(1<<0)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MASK		(7<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_SHIFT		3
-+#define SNDRV_RAWMIDI_MODE_CLOCK_NONE		(0<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_REALTIME	(1<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC	(2<<3)
-+#define SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW	(3<<3)
-+
-+#define SNDRV_RAWMIDI_FRAMING_DATA_LENGTH 16
-+
-+struct snd_rawmidi_framing_tstamp {
-+	/* For now, frame_type is always 0. Midi 2.0 is expected to add new
-+	 * types here. Applications are expected to skip unknown frame types.
-+	 */
-+	__u8 frame_type;
-+	__u8 length; /* number of valid bytes in data field */
-+	__u8 reserved[2];
-+	__u32 tv_nsec;		/* nanoseconds */
-+	__u64 tv_sec;		/* seconds */
-+	__u8 data[SNDRV_RAWMIDI_FRAMING_DATA_LENGTH];
-+} __packed;
-+
- struct snd_rawmidi_params {
- 	int stream;
- 	size_t buffer_size;		/* queue size in bytes */
- 	size_t avail_min;		/* minimum avail bytes for wakeup */
- 	unsigned int no_active_sensing: 1; /* do not send active sensing byte in close() */
--	unsigned char reserved[16];	/* reserved for future use */
-+	unsigned int mode;		/* For input data only, frame incoming data */
-+	unsigned char reserved[12];	/* reserved for future use */
- };
- 
- #ifndef __KERNEL__
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index aca00af93afe..4a6534db77d6 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -680,9 +680,12 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
- 				 bool is_input)
- {
- 	char *newbuf, *oldbuf;
-+	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
- 
- 	if (params->buffer_size < 32 || params->buffer_size > 1024L * 1024L)
- 		return -EINVAL;
-+	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP && (params->buffer_size & 0x1f) != 0)
-+		return -EINVAL;
- 	if (params->avail_min < 1 || params->avail_min > params->buffer_size)
- 		return -EINVAL;
- 	if (params->buffer_size != runtime->buffer_size) {
-@@ -720,8 +723,24 @@ EXPORT_SYMBOL(snd_rawmidi_output_params);
- int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
- 			     struct snd_rawmidi_params *params)
- {
-+	unsigned int framing = params->mode & SNDRV_RAWMIDI_MODE_FRAMING_MASK;
-+	unsigned int clock_type = params->mode & SNDRV_RAWMIDI_MODE_CLOCK_MASK;
-+	int err;
-+
-+	if (framing == SNDRV_RAWMIDI_MODE_FRAMING_NONE && clock_type != SNDRV_RAWMIDI_MODE_CLOCK_NONE)
-+		return -EINVAL;
-+	else if (clock_type > SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW)
-+		return -EINVAL;
-+	if (framing > SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP)
-+		return -EINVAL;
- 	snd_rawmidi_drain_input(substream);
--	return resize_runtime_buffer(substream->runtime, params, true);
-+	err = resize_runtime_buffer(substream->runtime, params, true);
-+	if (err < 0)
-+		return err;
-+
-+	substream->framing = framing;
-+	substream->clock_type = clock_type;
-+	return 0;
- }
- EXPORT_SYMBOL(snd_rawmidi_input_params);
- 
-@@ -963,6 +982,62 @@ static int snd_rawmidi_control_ioctl(struct snd_card *card,
- 	return -ENOIOCTLCMD;
- }
- 
-+static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
-+			const unsigned char *buffer, int src_count, const struct timespec64 *tstamp)
-+{
-+	struct snd_rawmidi_runtime *runtime = substream->runtime;
-+	struct snd_rawmidi_framing_tstamp *dest_ptr;
-+	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
-+	int dest_frames = 0;
-+	int orig_count = src_count;
-+	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
-+
-+	BUILD_BUG_ON(frame_size != 0x20);
-+	if (snd_BUG_ON((runtime->hw_ptr & 0x1f) != 0))
-+		return -EINVAL;
-+
-+	while (src_count > 0) {
-+		if ((int)(runtime->buffer_size - runtime->avail) < frame_size) {
-+			runtime->xruns += src_count;
-+			break;
-+		}
-+		if (src_count >= SNDRV_RAWMIDI_FRAMING_DATA_LENGTH)
-+			frame.length = SNDRV_RAWMIDI_FRAMING_DATA_LENGTH;
-+		else {
-+			frame.length = src_count;
-+			memset(frame.data, 0, SNDRV_RAWMIDI_FRAMING_DATA_LENGTH);
-+		}
-+		memcpy(frame.data, buffer, frame.length);
-+		buffer += frame.length;
-+		src_count -= frame.length;
-+		dest_ptr = (struct snd_rawmidi_framing_tstamp *) (runtime->buffer + runtime->hw_ptr);
-+		*dest_ptr = frame;
-+		runtime->avail += frame_size;
-+		runtime->hw_ptr += frame_size;
-+		runtime->hw_ptr %= runtime->buffer_size;
-+		dest_frames++;
-+	}
-+	return orig_count - src_count;
-+}
-+
-+static struct timespec64 get_framing_tstamp(struct snd_rawmidi_substream *substream)
-+{
-+	struct timespec64 ts64 = {0, 0};
-+
-+	switch (substream->clock_type) {
-+	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC_RAW:
-+		ktime_get_raw_ts64(&ts64);
-+		break;
-+	case SNDRV_RAWMIDI_MODE_CLOCK_MONOTONIC:
-+		ktime_get_ts64(&ts64);
-+		break;
-+	case SNDRV_RAWMIDI_MODE_CLOCK_REALTIME:
-+		ktime_get_real_ts64(&ts64);
-+		break;
-+	}
-+	return ts64;
-+}
-+
- /**
-  * snd_rawmidi_receive - receive the input data from the device
-  * @substream: the rawmidi substream
-@@ -977,6 +1052,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 			const unsigned char *buffer, int count)
- {
- 	unsigned long flags;
-+	struct timespec64 ts64 = get_framing_tstamp(substream);
- 	int result = 0, count1;
- 	struct snd_rawmidi_runtime *runtime = substream->runtime;
- 
-@@ -987,8 +1063,11 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 			  "snd_rawmidi_receive: input is not active!!!\n");
- 		return -EINVAL;
- 	}
-+
- 	spin_lock_irqsave(&runtime->lock, flags);
--	if (count == 1) {	/* special case, faster code */
-+	if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
-+		result = receive_with_tstamp_framing(substream, buffer, count, &ts64);
-+	} else if (count == 1) {	/* special case, faster code */
- 		substream->bytes++;
- 		if (runtime->avail < runtime->buffer_size) {
- 			runtime->buffer[runtime->hw_ptr++] = buffer[0];
-@@ -1541,6 +1620,8 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 	struct snd_rawmidi_substream *substream;
- 	struct snd_rawmidi_runtime *runtime;
- 	unsigned long buffer_size, avail, xruns;
-+	unsigned int clock_type;
-+	static const char *clock_names[4] = { "none", "realtime", "monotonic", "monotonic raw" };
- 
- 	rmidi = entry->private_data;
- 	snd_iprintf(buffer, "%s\n\n", rmidi->name);
-@@ -1596,6 +1677,14 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 					    "  Avail        : %lu\n"
- 					    "  Overruns     : %lu\n",
- 					    buffer_size, avail, xruns);
-+				if (substream->framing == SNDRV_RAWMIDI_MODE_FRAMING_TSTAMP) {
-+					clock_type = substream->clock_type >> SNDRV_RAWMIDI_MODE_CLOCK_SHIFT;
-+					if (!snd_BUG_ON(clock_type >= sizeof(clock_names)))
-+						snd_iprintf(buffer,
-+							    "  Framing      : tstamp\n"
-+							    "  Clock type   : %s\n",
-+							    clock_names[clock_type]);
-+				}
- 			}
- 		}
- 	}
-diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
-index 7397130976d0..68a93443583c 100644
---- a/sound/core/rawmidi_compat.c
-+++ b/sound/core/rawmidi_compat.c
-@@ -13,7 +13,8 @@ struct snd_rawmidi_params32 {
- 	u32 buffer_size;
- 	u32 avail_min;
- 	unsigned int no_active_sensing; /* avoid bit-field */
--	unsigned char reserved[16];
-+	unsigned int mode;
-+	unsigned char reserved[12];
- } __attribute__((packed));
- 
- static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
-@@ -25,6 +26,7 @@ static int snd_rawmidi_ioctl_params_compat(struct snd_rawmidi_file *rfile,
- 	if (get_user(params.stream, &src->stream) ||
- 	    get_user(params.buffer_size, &src->buffer_size) ||
- 	    get_user(params.avail_min, &src->avail_min) ||
-+	    get_user(params.mode, &src->mode) ||
- 	    get_user(val, &src->no_active_sensing))
- 		return -EFAULT;
- 	params.no_active_sensing = val;
--- 
-2.25.1
+IMO, those should be replaced by ASCII commas: ' and ".
 
+The rationale is simple:=20
+
+- most were introduced during the conversion from Docbook,
+  markdown and LaTex;
+- they don't add any extra value, as using "foo" of =E2=80=9Cfoo=E2=80=9D m=
+eans
+  the same thing;
+- Sphinx already use "fancy" commas at the output.=20
+
+I guess I will put this on a separate series, as this is not a bug
+fix, but just a cleanup from the conversion work.
+
+I'll re-post those cleanups on a separate series, for patch per patch
+review.
+
+---
+
+The remaining cases are future work, outside the scope of this v2:
+
+6. Hyphen/Dashes and ellipsis
+
+	- U+2212 ('=E2=88=92'): MINUS SIGN
+	- U+00ad ('=C2=AD'): SOFT HYPHEN
+	- U+2010 ('=E2=80=90'): HYPHEN
+
+	    Those three are used on places where a normal ASCII hyphen/minus
+	    should be used instead. There are even a couple of C files which
+	    use them instead of '-' on comments.
+
+	    IMO are fixes/cleanups from conversions and bad cut-and-paste.
+
+	- U+2013 ('=E2=80=93'): EN DASH
+	- U+2014 ('=E2=80=94'): EM DASH
+	- U+2026 ('=E2=80=A6'): HORIZONTAL ELLIPSIS
+
+	    Those are auto-replaced by Sphinx from "--", "---" and "...",
+	    respectively.
+
+	    I guess those are a matter of personal preference about
+	    weather using ASCII or UTF-8.
+
+            My personal preference (and Ted seems to have a similar
+	    opinion) is to let Sphinx do the conversion.
+
+	    For those, I intend to post a separate series, to be
+	    reviewed patch per patch, as this is really a matter
+	    of personal taste. Hardly we'll reach a consensus here.
+
+7. math symbols:
+
+	- U+00d7 ('=C3=97'): MULTIPLICATION SIGN
+
+	   This one is used mostly do describe video resolutions, but this is
+	   on a smaller changeset than the ones that use "x" letter.
+
+	- U+2217 ('=E2=88=97'): ASTERISK OPERATOR
+
+	   This is used only here:
+		Documentation/filesystems/ext4/blockgroup.rst:filesystem size to 2^21 =E2=
+=88=97 2^27 =3D 2^48bytes or 256TiB.
+
+	   Probably added by some conversion tool. IMO, this one should
+	   also be replaced by an ASCII asterisk.
+
+I guess I'll post a patch for the ASTERISK OPERATOR.
+Thanks,
+Mauro

@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 766C4382B19
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 13:32:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80AD382C56
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 14:38:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0140C166F;
-	Mon, 17 May 2021 13:31:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0140C166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60289828;
+	Mon, 17 May 2021 14:38:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60289828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621251157;
-	bh=IqUZ0sNLzRXtoD/YFOpvkpCv7NFriIwqrV0nk+tQFjA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621255137;
+	bh=jJ8OFk2LQnwrSgjoNHq171wQiQ37b4nGcXTeBQ/fq4c=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OH076XwbQ4pRmqQqyvs0j86HU0tFMFOxXeGJXVyn4Nh0nQdbiqjBWR6fjv/K5s7WA
-	 SmTdx185CZ8BqwsMni8lSosAA8cyLT22DyvUmiNt6bxzW5py/f6aojsjiskJ2WbDR+
-	 U/ygK6GJHMHiZQJ4p2yjhKFCPjlrtbEtEx6lw38M=
+	b=Ac5sokubQsmJ90soVFlung+jgSMdiXNf16vNWaaFU5/HFVDvRvN5tcqH0KLb+N/y8
+	 jTTy0l6NBAJ9IbhGSVGQgt1efVe/MQN8a9SD141ppT7/JoigOGdAH/RtF0qM32g+gB
+	 vfdRZrs8y6kkBAF91+khN7AD/aLslp8XEqYDUP50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2F0CF80425;
-	Mon, 17 May 2021 13:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCC21F80082;
+	Mon, 17 May 2021 14:37:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35C01F8020B; Mon, 17 May 2021 13:25:07 +0200 (CEST)
+ id 74FC3F80169; Mon, 17 May 2021 14:37:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C551CF80169
- for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 13:25:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C551CF80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SjZiucxT"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E8DE86100C;
- Mon, 17 May 2021 11:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621250697;
- bh=IqUZ0sNLzRXtoD/YFOpvkpCv7NFriIwqrV0nk+tQFjA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SjZiucxTGgskw3bZqxU8hkRIDqvLkRPDUPXGysGlCLAY4qMHHwLFDNWf7GzwMPeSy
- k6gBtne3rZl4OWw9EJiAKpC90ICt4wmL+dOW1/wtHGSzFBwlIEB7lPhufz0SGrH9U0
- 8BeoyWN0zwaq92smlvSCsJzkysY0ZKum/rQEXJAZuksdPKz9UCm2b6rTTMrYAXAHuw
- m5K5R4IDiLhuXBms1/YwUa6BMqBAHs9uv2Ndu7DwgV1+6w7DgEDLXe2pUPRnLtE+Wd
- GExQHVUHQydYOYDz+zZFmQU4ywGdNTNfxU1WppJsq+V8siRV5m9U5SOv7k7mbiC129
- mEKSngo0SzESg==
-Date: Mon, 17 May 2021 13:24:46 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Subject: Re: [PATCH v3 00/16] Replace some bad characters on documents
-Message-ID: <20210517132446.7edba98f@coco.lan>
-In-Reply-To: <30cd6dd9d1049d56b629c92a5f385b84c026b445.camel@infradead.org>
-References: <cover.1621159997.git.mchehab+huawei@kernel.org>
- <30cd6dd9d1049d56b629c92a5f385b84c026b445.camel@infradead.org>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42168F80169
+ for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 14:37:19 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A2DAEA003F;
+ Mon, 17 May 2021 14:37:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A2DAEA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1621255038; bh=R1bU6Jrq/5ExtiJ+ZqoPvl2rIJ5SXZsHVPE/kICrvGU=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=Hbe7FrAUjKOjlq0QuUBLaza2c5/bIuVEAQO2H1LWkhwnq9hwwsNEMwkT16ApsrNvt
+ 6ik2kEc7FzZLB1KLByBtybu+rY/BhMhFZn3pwQPQQCR4tYM3CrT0jAIwoBLHhIm5rx
+ Y9Lix8LjcCstBAnfmNQOINvKplK77guOAR8XK4U4=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 17 May 2021 14:37:15 +0200 (CEST)
+Subject: Re: [PATCH] sound: rawmidi: Add framing mode
+To: David Henningsson <coding@diwic.se>, tiwai@suse.de,
+ alsa-devel@alsa-project.org
+References: <20210515071533.55332-1-coding@diwic.se>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <a75a9440-beef-06f1-11fb-e7ee4a1c6af0@perex.cz>
+Date: Mon, 17 May 2021 14:37:15 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 17 May 2021 13:30:15 +0200
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-pci@vger.kernel.org,
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Thorsten Leemhuis <linux@leemhuis.info>, netdev@vger.kernel.org,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Joel Fernandes <joel@joelfernandes.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-acpi@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
- Corentin Labbe <clabbe@baylibre.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- Mike Leach <mike.leach@linaro.org>, Jean Delvare <jdelvare@suse.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Steven Rostedt <rostedt@goodmis.org>, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Theodore Ts'o <tytso@mit.edu>, Mathieu Poirier <mathieu.poirier@linaro.org>,
- intel-wired-lan@lists.osuosl.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@linaro.org>,
- linux-media@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+In-Reply-To: <20210515071533.55332-1-coding@diwic.se>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,39 +80,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Mon, 17 May 2021 11:48:04 +0100
-David Woodhouse <dwmw2@infradead.org> escreveu:
+Dne 15. 05. 21 v 9:15 David Henningsson napsal(a):
+> This commit adds a new framing mode that frames all MIDI data into
+> 32-byte frames with a timestamp.
+> 
+> The main benefit is that we can get accurate timestamps even if
+> userspace wakeup and processing is not immediate.
+> 
+> Testing on a Celeron N3150 with this mode has a max jitter of 2.8 ms,
+> compared to the in-kernel seq implementation which has a max jitter
+> of 5 ms during idle and much worse when running scheduler stress tests
+> in parallel.
+> 
+> Signed-off-by: David Henningsson <coding@diwic.se>
 
-> On Sun, 2021-05-16 at 12:18 +0200, Mauro Carvalho Chehab wrote:
-> > The conversion tools used during DocBook/LaTeX/html/Markdown->ReST=20
-> > conversion and some cut-and-pasted text contain some characters that
-> > aren't easily reachable on standard keyboards and/or could cause=20
-> > troubles when parsed by the documentation build system. =20
->=20
-> Better.
->=20
-> But you still don't say *why* it matters whether given characters are
-> trivial to reach with standard keyboard layouts, or specify *what*
-> 'troubles' the offending characters cause.
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-See the patches in the series. The reason for each particular case
-is there on each patch, like on this one:
-
-	[PATCH v3 13/16] docs: sound: kernel-api: writing-an-alsa-driver.rst: repl=
-ace some characters
-
-	The conversion tools used during DocBook/LaTeX/html/Markdown->ReST
-	conversion and some cut-and-pasted text contain some characters that
-	aren't easily reachable on standard keyboards and/or could cause
-	troubles when parsed by the documentation build system.
-	=20
-	Replace the occurences of the following characters:
-=09
-		- U+00a0 ('=C2=A0'): NO-BREAK SPACE
-		  as it can cause lines being truncated on PDF output
-
-	Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-
-
-Thanks,
-Mauro
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

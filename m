@@ -2,53 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F0E3827E5
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 11:12:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8943827E7
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 11:13:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D099D1663;
-	Mon, 17 May 2021 11:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D099D1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CB36166F;
+	Mon, 17 May 2021 11:12:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CB36166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621242777;
-	bh=L7gy6rPi52zdFbtIV7jq8zjC1qLbuAb/j/ZSr6qlYVE=;
+	s=default; t=1621242792;
+	bh=t9rgjcoPm8xjtD+wJ7BR1ns0bTzpMxYTaS0lDdy76aQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IRjQYwi+TTnlNikRFDVQQVVWoSp03JLWU/REy3FUg52bYN6hblT7PDJWIHQiMu9US
-	 1o7+ZeL7wN5PkYOFZ8uHmOzVuLXJcYY6hFHnWtHtPHb96MpA3h1LosTdKy440QXecC
-	 pwe2sABNfPTnyforZ38sVBOhw/h9fNcfKuG97SMc=
+	b=VTkAvRny/QgXASZ9+OxkC3V60mtd00od8X4SeNY5hUpf/lfB86FPKgGYRECTvpc+Z
+	 bJB8Ahc2fEt5ELGbOF+/IEkKcHtLWB0ONlnhk9GG/4Qqef2mKy3LVaWHGfylTuHKXz
+	 jk6daCHxk3SvEsjfmRowNNLlC+lEdr5Z+Vey8Zjk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8A93F80246;
-	Mon, 17 May 2021 11:11:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74E94F80259;
+	Mon, 17 May 2021 11:12:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D02D8F8020B; Mon, 17 May 2021 11:11:23 +0200 (CEST)
+ id A791FF80258; Mon, 17 May 2021 11:11:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D2A5F80169
- for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 11:11:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D2A5F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DEB1F8020B
+ for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 11:11:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DEB1F8020B
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D5EF2AFCF;
- Mon, 17 May 2021 09:11:08 +0000 (UTC)
-Date: Mon, 17 May 2021 11:11:07 +0200
-Message-ID: <s5hsg2l67ys.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 495A2B146;
+ Mon, 17 May 2021 09:11:50 +0000 (UTC)
+Date: Mon, 17 May 2021 11:11:50 +0200
+Message-ID: <s5hr1i567xl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v2 07/10] ALSA: oxfw: code refactoring for jumbo-payload
- quirk in OXFW970
-In-Reply-To: <20210515071112.101535-8-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v2 09/10] ALSA: oxfw; code refactoring for wrong_dbs quirk
+In-Reply-To: <20210515071112.101535-10-o-takashi@sakamocchi.jp>
 References: <20210515071112.101535-1-o-takashi@sakamocchi.jp>
- <20210515071112.101535-8-o-takashi@sakamocchi.jp>
+ <20210515071112.101535-10-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,39 +69,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 15 May 2021 09:11:09 +0200,
+On Sat, 15 May 2021 09:11:11 +0200,
 Takashi Sakamoto wrote:
-> --- a/sound/firewire/oxfw/oxfw.h
-> +++ b/sound/firewire/oxfw/oxfw.h
-> @@ -32,6 +32,12 @@
->  #include "../amdtp-am824.h"
->  #include "../cmp.h"
->  
-> +enum snd_oxfw_quirk {
-> +	// Postpone transferring packets during handling asynchronous transaction. As a result,
-> +	// next isochronous packet includes more events than one packet can include.
-> +	SND_OXFW_QUIRK_JUMBO_PAYLOAD = 0x01,
-> +};
-> +
->  /* This is an arbitrary number for convinience. */
->  #define	SND_OXFW_STREAM_FORMAT_ENTRIES	10
->  struct snd_oxfw {
-> @@ -43,6 +49,7 @@ struct snd_oxfw {
->  	bool registered;
->  	struct delayed_work dwork;
->  
-> +	enum snd_oxfw_quirk quirks;
+> 
+> A new entry is added to the quirk enumeration for wrong_dbs quirk to
+> obsolete structure member.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Declaring the field as this enum type for bit flags isn't really
-right, IMO.  Usually an enum *type* is used for storing only the
-enumerated values as-is, but the actual code (in a later patch) stores
-the combination of the defined values as bits.
-That is, if a field is defined with an enum type, readers and
-compilers may believe that only the defined values are stored there,
-while the code doesn't follow that, which is a confusing situation.
-
-I see that a similar pattern is used already in the firewire code, but
-I don't think this justifies to introduce it to yet another place.
+Just a nitpick: the subject is wrongly with a semicolon instead of a
+colon.
 
 
 thanks,

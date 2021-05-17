@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6402F3822D8
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 04:43:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8B7B3822D9
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 04:43:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D76F81677;
-	Mon, 17 May 2021 04:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D76F81677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 403B81681;
+	Mon, 17 May 2021 04:43:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 403B81681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621219397;
-	bh=Uq4JBc0jJw4ahYJ2L2s29uX0VcTKaS/wAQ7ihW+nlcE=;
+	s=default; t=1621219436;
+	bh=KscDEaFkXdN0+SHVJgpWM/lUWDmcCPo6w65+qWtWq3A=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R479/q/icgGCmCCXaZ+v+do8i3BEp/uXhIlgWRnMp5lMtsfHsqqduFxLthSAvRHBL
-	 ZMSOgLqJdEcdUV01lRVqB1OKheRiIu+/J7TWotLQCpe2ixUQYhA24NCu9sSu9Zh4SM
-	 F3cbB7u0kUBp4vWKtOl6owTkNWfaOFGFjqytLt8U=
+	b=LDXpyepUvt0MjcV/Oga886JXlnj/ptn1hax4f48KZi1/82jzv1WifvivXCAb67dTY
+	 RMeT5LRLQ+sHAv98UASMUls7KCeLvsfgRMCi6NtUN8HOuLpWXxJI9eLdAwdhBqUj+k
+	 eSI9Gak2mR8QRyGNOu3ZCWcg/E4SfzVJ0ksWYSfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A26BF8012C;
-	Mon, 17 May 2021 04:42:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A89FF80246;
+	Mon, 17 May 2021 04:43:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 106F3F8012C; Mon, 17 May 2021 04:42:20 +0200 (CEST)
+ id AABAFF80259; Mon, 17 May 2021 04:43:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id A4643F8012C
- for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 04:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4643F8012C
+ by alsa1.perex.cz (Postfix) with ESMTP id 29713F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 04:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29713F8016E
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1621219337408587933-webhooks-bot@alsa-project.org>
-References: <1621219337408587933-webhooks-bot@alsa-project.org>
+In-Reply-To: <1621219379998601913-webhooks-bot@alsa-project.org>
+References: <1621219379998601913-webhooks-bot@alsa-project.org>
 Subject: [Question] Different routing + sample formats for input and output
-Message-Id: <20210517024220.106F3F8012C@alsa1.perex.cz>
-Date: Mon, 17 May 2021 04:42:20 +0200 (CEST)
+Message-Id: <20210517024302.AABAFF80259@alsa1.perex.cz>
+Date: Mon, 17 May 2021 04:43:02 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,7 +93,7 @@ pcm.!default {
 
 ctl.!default {
   type hw
-  card "UMC1820_8ch"
+  card "UMC1820"
 }
 
 pcm.UMC1820_12ch_play {

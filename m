@@ -2,48 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B7B3822D9
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 04:43:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C9538264B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 May 2021 10:09:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 403B81681;
-	Mon, 17 May 2021 04:43:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 403B81681
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1B941666;
+	Mon, 17 May 2021 10:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1B941666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621219436;
-	bh=KscDEaFkXdN0+SHVJgpWM/lUWDmcCPo6w65+qWtWq3A=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1621238947;
+	bh=Rj0L/FnUEtP1IP5LeiYanzKByRtgvd0iZLL9bhNAOds=;
+	h=To:References:From:Subject:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LDXpyepUvt0MjcV/Oga886JXlnj/ptn1hax4f48KZi1/82jzv1WifvivXCAb67dTY
-	 RMeT5LRLQ+sHAv98UASMUls7KCeLvsfgRMCi6NtUN8HOuLpWXxJI9eLdAwdhBqUj+k
-	 eSI9Gak2mR8QRyGNOu3ZCWcg/E4SfzVJ0ksWYSfA=
+	b=ogDQJTabOgIpp5ZEb5KSyDhsz6J2u7+4liR09f/mt3vXI24FAnYDIAzW0b6eXrLMK
+	 zYbFYAllm+oREZ+VfEeGWpJr99G+rmQunz0j4TFBz+o1VlereI2fbBpdXdyGhgMO1e
+	 xJ77Fob9S1GXPnJxw3vXdk83NRMlyiNy/CQp1F6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A89FF80246;
-	Mon, 17 May 2021 04:43:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 324CEF80246;
+	Mon, 17 May 2021 10:07:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AABAFF80259; Mon, 17 May 2021 04:43:02 +0200 (CEST)
+ id EA580F8020B; Mon, 17 May 2021 10:07:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 29713F8016E
- for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 04:43:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29713F8016E
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79057F80082
+ for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 10:07:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79057F80082
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fk7lEsgV"
+Received: by mail-lf1-x129.google.com with SMTP id q7so6111159lfr.6
+ for <alsa-devel@alsa-project.org>; Mon, 17 May 2021 01:07:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:cc:references:from:subject:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=PsWxchSj6IsfblxIjcdWW7ZX83ze5SRG4vA70cLrM7A=;
+ b=fk7lEsgVhMM8fOmwyUfed66RSTd8ey3C8TrJYxrYuVdaJCaxGJpgFmswJvDOyJ2kA2
+ 2COMzLfb9TrxQc4G2WItTgb/jKu7DfkMaUlHaBEmtlr43KuMCzYJ/5ubVWZW9jjc5h8r
+ RymapGTPQLOeIFURsfPiJ0ji+P6njJCBpMJo79Nvmkcb4L+nb8YmqTsH+0uQj8yA6mrS
+ efsv8tPZNMaF2xIW6pmfY7AzXlulWce2I+CR/F7uNsZvxNKJw7Ldbw4A/LDOE3sUYtlv
+ /w9QnUDplcUQokTFyNHhWWsoju9/RSNh2EKnTnbjJC4weixNYSQn00oDfTejeJ56/g6V
+ 1YEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:references:from:subject:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=PsWxchSj6IsfblxIjcdWW7ZX83ze5SRG4vA70cLrM7A=;
+ b=YvQTVN+r8gcPZXJeP4Llh2wX9CYdm9x+dTKh6Ypgcz7i0bJWd6ygMkB8Q433icYuvj
+ Xk92BeoozhuZQoon0/FV0KQCHSfUX2VM3CIy87tdl0SP7TCddll6HUYCuJMLo+HNqj0G
+ ev9iscgCGa1prg1iEfCmUdVRAbnA2wnecz2Z0gzD5gK+uTC8ETlRFc89LQoRJytnQx1a
+ tMnsUjzah3aRxYJRIMTGJiwyBfJ8qjnSvIvXWSgbl/1TPNAK5Q4eGlycuWp96u8ODF5y
+ Zv9+k5gum1JfA0HdPar4HFax6ho7szMl5gwP33blT0YP8Ruu850APMIAO5mYjd5B18uA
+ CV0A==
+X-Gm-Message-State: AOAM53205lBAs0Kn+ymD0CnaUZN56FRLMZNzGoDtZSk5b/3W/IHEmFGm
+ AQk9bTkYGczk3hVxXlVSokg=
+X-Google-Smtp-Source: ABdhPJw1SjBEjNJNPkIQKq/gztKPKO5hpbNaaCpp2o7nB24mtW8/2D/Ia7pjqpFncXqQH3yiuumtxA==
+X-Received: by 2002:a19:c511:: with SMTP id w17mr10749915lfe.113.1621238831207; 
+ Mon, 17 May 2021 01:07:11 -0700 (PDT)
+Received: from [10.0.0.40] (91-155-111-71.elisa-laajakaista.fi.
+ [91.155.111.71])
+ by smtp.gmail.com with ESMTPSA id z18sm1902645lfd.180.2021.05.17.01.07.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 May 2021 01:07:10 -0700 (PDT)
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
+ Mark Brown <broonie@kernel.org>
+References: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
+ <20210423164617.GG5507@sirena.org.uk>
+ <e1268120-7a91-da49-0bb6-89d5cb4e2cce@gmail.com>
+ <b32fcc42-d67e-bfbd-ed83-7f7274fb2f79@amd.com>
+ <ac5244d1-643d-6577-80cd-bf6867e75ca2@gmail.com>
+ <b86ad586-9513-8fa9-54e3-a0b4a3a7fd92@amd.com>
+ <070b4e5b-b7bd-b8a6-beea-593a94ec3078@gmail.com>
+ <26c79eec-5e74-38bc-465b-0ca2b2d9a6f5@amd.com>
+ <9b689495-e956-6242-0784-af3ccf7c3238@amd.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: dwc: add a quirk DW_I2S_QUIRK_STOP_ON_SHUTDOWN
+ to dwc driver
+Message-ID: <1c875eae-88f2-5bc7-849b-f1c4afb29dbe@gmail.com>
+Date: Mon, 17 May 2021 11:07:09 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1621219379998601913-webhooks-bot@alsa-project.org>
-References: <1621219379998601913-webhooks-bot@alsa-project.org>
-Subject: [Question] Different routing + sample formats for input and output
-Message-Id: <20210517024302.AABAFF80259@alsa1.perex.cz>
-Date: Mon, 17 May 2021 04:43:02 +0200 (CEST)
+In-Reply-To: <9b689495-e956-6242-0784-af3ccf7c3238@amd.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ amistry@google.com, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Alexander.Deucher@amd.com, nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,81 +119,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #135 was edited from flatmax:
+On 10/05/2021 20:27, Mukunda,Vijendar wrote:
+>> Hardware signal broken between ACP and Designware I2S controller with
+>> re-ordering the sequence.
+>>   > It is surely not a designware IP issue, trying to solve it there
+>> is wrong.
+>>>
+>> As it's not a designware IP issue, initially we started idea with
+>> introducing quirk that applies for this ACP version based AMD platforms.
+>>
+> 
+> Hi Peter,
+> 
+> Any suggestion on the work around for this issue?
+> How about declaring a flag in sound card structure and this flag will be
+> set in stoneyridge machine driver.
 
-One soundcard I use has different output and input sample formats. The input format is S32_LE. The output format is S24_3LE.
-There is also a routing change I like to do.
+This can only be solved in the core, that's clear.
+If this issue only affects this version of ACP with dw I2S (the same ACP
+version works fine with other audio IP), then it is more like machine
+driver level of quirk.
+If this ACP have the same issue with other audio IPs as well then it is
+platform quirk.
+If the this ACP is only used in this setup then I would consider machine
+level quirk as it might be simpler to implement.
 
-My current .asoundrc (below) uses the asym plugin to manage input and output difference. The asym plugin creates problems for some unknown reason where I get overruns :
-`ALSA lib pcm.c:8545:(snd_pcm_recover) overrun occurred`
+Other thing to consider is how other setups with similar issues can use
+the new quirk/flag... Some might need to make sure that a component is
+first, not last for example.
 
-If I switch my setup to using the soundcard for output and a second USB microphone for input, then I don't get any overruns. I still use the asym plugin to make it work and it works nicely.
+> Based on flag check trigger stop sequence will be re-ordered.
+> 
+> Thanks,
+> Vijendar
 
-I have also tried simply the plug pluging, however I still get overruns.
-
-Is there any way to setup the one soundcard with routing and format changes without using the asym plugin ? Or is there a better way to setup the one soundcard with the required routing and format changes ?
-
-```
-########## BEGIN ~/.asoundrc ###################
-@hooks [
-	{
-		func load
-		files [
-			"~/.asoundrc"
-		]
-		errors false
-	}
-]
-
-pcm.!default {
-	type asym
-	playback.pcm "UMC1820_12ch_play"
-	capture.pcm "UMC1820_10ch_capt"
-}
-
-ctl.!default {
-  type hw
-  card "UMC1820"
-}
-
-pcm.UMC1820_12ch_play {
-  type route;
-  slave.pcm "hw:UMC1820";
-  slave.format S24_3LE;
-  slave.channels 12;
-  ttable.0.2 1
-  ttable.1.3 1
-  ttable.2.4 1
-  ttable.3.5 1
-  ttable.4.6 1
-  ttable.5.7 1
-  ttable.6.8 1
-  ttable.7.9 1
-  ttable.8.10 1
-  ttable.9.11 1
-  ttable.10.0 1
-  ttable.11.1 1
-}
-
-pcm.UMC1820_10ch_capt {
-  type route;
-  slave.pcm "hw:UMC1820";
-  slave.format S32_LE;
-  slave.channels 10;
-	ttable.0.0 1
-  ttable.1.1 1
-  ttable.2.2 1
-  ttable.3.3 1
-  ttable.4.4 1
-  ttable.5.5 1
-  ttable.6.6 1
-  ttable.7.7 1
-  ttable.8.8 1
-  ttable.9.9 1
-}
-########## END ~/.asoundrc ###################
-
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/135
-Repository URL: https://github.com/alsa-project/alsa-lib
+-- 
+Péter

@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DDB2387453
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 10:48:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2179E38745C
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 10:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEBC516CB;
-	Tue, 18 May 2021 10:47:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEBC516CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DE7416B8;
+	Tue, 18 May 2021 10:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DE7416B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621327720;
-	bh=8ayjLbVWf3C8BGPZC60BiLFPymypO7X5DbaciqOP0y4=;
+	s=default; t=1621327769;
+	bh=KLzOh5mkhUBfN+RzD99d17MfQxGzHdmxNaHuPOR3PzY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qZU5Gh5ecy85UXwIhrcYPDQaF8JSF7lRCeFHnT7FD0AikdpZDxak4G1Qma/cwOaH/
-	 eOM13666ulqj2TMlW0p8XOiAlCk6rTSq765g7p8JFPNFX1koHB0AJU3QKwQrhGC+wI
-	 0f/rvJFLC5Q34LIE3qdZ2j27qq/bNWdqs0VW2olE=
+	b=rFpFG2lDqv8QIMmIBwMeyRDznfFvx83UPxiYWpKR82dqz3rv5n68aAOZwKqbWM+EN
+	 JxMqIC5d9KS0q8VLVoCCPWgmp9DNG3VE1pCXXJJeAhfvHA/VDG2Zz4TGFfGMGTYVeO
+	 BrO03arGjagrX7N2CU0iavChqIVgLXkYvkKXJrfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF37AF80272;
-	Tue, 18 May 2021 10:46:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A417CF804B1;
+	Tue, 18 May 2021 10:46:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C0F6F80272; Tue, 18 May 2021 10:46:13 +0200 (CEST)
+ id 59EB7F802C8; Tue, 18 May 2021 10:46:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71E1AF80272
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 10:46:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71E1AF80272
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE5D3F802C8
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 10:46:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE5D3F802C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="yMvkX64I"; 
+ header.b="TjdVr4bo"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="H45e/KsZ"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id A8F625C00A4;
- Tue, 18 May 2021 04:46:07 -0400 (EDT)
+ header.i=@messagingengine.com header.b="tFXD/U8O"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0547D5C0121;
+ Tue, 18 May 2021 04:46:09 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 18 May 2021 04:46:07 -0400
+ by compute3.internal (MEProxy); Tue, 18 May 2021 04:46:09 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=yy4KErEXtjHja
- I46tRlfO8xAp9Q7omE53IZRt+oG4NI=; b=yMvkX64I/5qqw131lUsutIuYNmb57
- ZHWu6tmq0jfdHHOIc43HkZeBE3qLV9wmUlMThaOwVCcuxsblER/Kg5auyKmZBCvb
- 8cOZi8lq77Re/bITEQe/TpzL0h5T4yYjgy8jKj2Y33IJu5oJWDS5SbeH+HyI9siD
- HVdMBYwTgp+MJzXgyXt4W0UG1uCcbQGrOgwNyhP9JazH74XbMkM1vGH+3NzHbupR
- HFLonQsUAYqcTR1oOJS6moNvDyVo7iTewkhkS2Idqo8qhT56xmhFaWIWG+uhQFSq
- 4wt4PGeqZ540AJsD8IrHoRrY2XdnBSFUXc9xT9sPa+c/p2in5Bsi278ow==
+ :mime-version:content-transfer-encoding; s=fm1; bh=snVjiQ+JiUZKn
+ 0f6kKcYcN35k6cxRPHFAY/KaCgQYsY=; b=TjdVr4boYVKz7NXzzzqCKaMDta8jX
+ 0PxQPfFy1wB+qLufh0wI65t9r6okD++i+L7Msqnf2wqEYDIThYSvHrsoZcJ4UvLc
+ nj8e4dXmSl8FnpUu9NIJFy7AamHEUrukWmT1rrrKJM8uczDM1K0yvWY41wwympm7
+ b3e8PgB0uqJw7dkFBmLAn+m2NOLBv2ahZlsJd0lIVlssIrzTZtzg9xwFoifGGk8Q
+ 5Mr75yN+dP4Z3KpVJpWmoG/VCBPasvm7AwMgwqB0wrmsHZEbYsuBgps+mIJ3FgUl
+ Hp2guE0IXFMK1EzWw75HOqp+mk/EPWeib13AYH5W/iMILLQnvQ6dKLItQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=yy4KErEXtjHjaI46tRlfO8xAp9Q7omE53IZRt+oG4NI=; b=H45e/KsZ
- MW3l57CrSCyDRITbGFZ7YDH8EqjoKWcDQE9DQl6OzuRx0zI9iFRp8HYHL65Q6D66
- NcN3bYMDpvKaNSSArMpujBdrCHmYZ5WMQ5dDbcIX/1a+jWBHWQGKjIYdREoWg8ot
- 4u1FYvboMns5zeIpcIPeWO2zxPJu51CZ5yYTHMBuCdF/Z+bb4b2nEfR3fhIj826h
- snQT2ELhQ2wA0nDFhza34iloHdc9AkWV6MPg4VSeRsDHjmE660PFmL+ti2Mu2OdV
- kp4QBWTmwJ2A0+eHdQaPdHZDU1h5XUY4LqH9SHkQEHEyi0+8fb9hoqqykwXxBhgj
- +JhEs2qk0bZKDg==
-X-ME-Sender: <xms:z36jYFs_5ZKbRtykYthzFncEncrHpISsTU8eAUO_lgDIVMEqVp7ddQ>
- <xme:z36jYOfXYRxl717LYf1KVV3YbC6i_qifa2tHFRxttcpeqQpmLjgsdb8PlKW3138JW
- xrV9i9GOFwrwG7d7cA>
+ fm2; bh=snVjiQ+JiUZKn0f6kKcYcN35k6cxRPHFAY/KaCgQYsY=; b=tFXD/U8O
+ +TK84JmsoBUJ5flhaV4ssavL82XRr781JOIMxd5bX9AZwcG27LTqbVOmDEjPallc
+ 9jiP7i47i7jfhYzvQ7dcpx57XQ5PFUxux4E5UFfWk6Cj3irocQPq8CycbYEHdRFm
+ 3SsScOH4vxyCGhIyric3Yi0AZP11oxvN2V3Dkq0uPgeOlJTNVibHQIZ45GQPC6ma
+ 1nK3g5eMYgfL0qlEd8YXTTAHz4qgt/Wtn+paOs4+d60DWcu2tnLVw03H0nAsZq3V
+ lt/OQN8B4o8Vx3iKCDlqXuGY84Jwf2eC88M+QxMZhu7GEspGklicVZ4Isu2KB7T3
+ ONK+yqiEAwimpA==
+X-ME-Sender: <xms:0H6jYO0BLqL4QGtCGHDzBCyuRkJRjLWkX6C4TXKqKSCF31pUXVGDAg>
+ <xme:0H6jYBHcw_dVTK7dI4e6JKMi8VL-xUlxd8-z8ylmXb5RKih5EFt7i8i-bpU3VpjM6
+ 9bMN6MTmSBaPIOHtvM>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgtdekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -78,18 +79,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgtdekucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:z36jYIzP9k_VvZLwEzegx0LzWsRyIJsX0_W91UPnOX56Tz8bYFuBQA>
- <xmx:z36jYMOSgczhA6Ey8pPz_sdFI8ANw6R5yVUDBa2MENlYyC6Ukq8z9A>
- <xmx:z36jYF9zDh9w_9s5lQJC1at03fCbp-cYNCOJOFW9ygdT0XUPDanktg>
- <xmx:z36jYCHSQbU2QGIug5fY5qXO3AoTC204GRK2LFfZ0kEKbhoHojKFHw>
+X-ME-Proxy: <xmx:0H6jYG5RKAv8yXtvrKKOurIN5GpS_AXjVpzntm0GQ5nB-KAKfjxUqw>
+ <xmx:0H6jYP3rnrNgjOcW4JJvyr9mKyyVFeeFLBh-J-MErKPcdzsQ1nyKRA>
+ <xmx:0H6jYBGNL3IZ7KPvq76CVAluspzv4ZqUG3tPW8Y2ro5K3-AvF_-vog>
+ <xmx:0X6jYEPu-LmiC6TLjaGIs9H5Oj0-fHdR29ahNKjW1Ap4GxuCvpu4ng>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Tue, 18 May 2021 04:46:06 -0400 (EDT)
+ Tue, 18 May 2021 04:46:07 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v4 04/11] ALSA: oxfw: code refactoring to detect mackie models
-Date: Tue, 18 May 2021 17:45:50 +0900
-Message-Id: <20210518084557.102681-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH v4 05/11] ALSA: oxfw: add explicit device entry for Loud
+ Technologies Tapco Link.FireWire 4x6
+Date: Tue, 18 May 2021 17:45:51 +0900
+Message-Id: <20210518084557.102681-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518084557.102681-1-o-takashi@sakamocchi.jp>
 References: <20210518084557.102681-1-o-takashi@sakamocchi.jp>
@@ -111,43 +113,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit changes condition statement to call mackie models detection
-just for the device entry. Additionally, comment is added for Onyx 1640i.
+Loud Technologies Tapco Link.FireWire 4x6 is identified as the model
+with OXFW970 ASIC.
+
+This commit adds explicit entry for the model.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/firewire/oxfw/oxfw.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 7be999c61730..2af72951ebf8 100644
+index 2af72951ebf8..998f0da6fd5b 100644
 --- a/sound/firewire/oxfw/oxfw.c
 +++ b/sound/firewire/oxfw/oxfw.c
-@@ -245,7 +245,7 @@ static int oxfw_probe(struct fw_unit *unit,
- {
- 	struct snd_oxfw *oxfw;
- 
--	if (entry->vendor_id == VENDOR_LOUD && !detect_loud_models(unit))
-+	if (entry->vendor_id == VENDOR_LOUD && entry->model_id == 0 && !detect_loud_models(unit))
- 		return -ENODEV;
- 
- 	/* Allocate this independent of sound card instance. */
-@@ -341,6 +341,7 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
+@@ -47,7 +47,6 @@ static bool detect_loud_models(struct fw_unit *unit)
+ 		"Onyx 1640i",
+ 		"d.Pro",
+ 		"Mackie Onyx Satellite",
+-		"Tapco LINK.firewire 4x6",
+ 		"U.420"};
+ 	char model[32];
+ 	int err;
+@@ -338,12 +337,13 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
+ 	OXFW_DEV_ENTRY(VENDOR_LACIE, 0x00f970, &lacie_speakers),
+ 	// Behringer,F-Control Audio 202.
+ 	OXFW_DEV_ENTRY(VENDOR_BEHRINGER, 0x00fc22, NULL),
++	// Loud Technologies, Tapco Link.FireWire 4x6.
++	OXFW_DEV_ENTRY(VENDOR_LOUD, 0x000460, NULL),
  	/*
  	 * Any Mackie(Loud) models (name string/model id):
  	 *  Onyx-i series (former models):	0x081216
-+	 *  Onyx 1640i:				0x001640
+ 	 *  Onyx 1640i:				0x001640
  	 *  Mackie Onyx Satellite:		0x00200f
- 	 *  Tapco LINK.firewire 4x6:		0x000460
+-	 *  Tapco LINK.firewire 4x6:		0x000460
  	 *  d.2 pro/d.4 pro (built-in card):	Unknown
-@@ -352,6 +353,7 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
- 				  IEEE1394_MATCH_SPECIFIER_ID |
- 				  IEEE1394_MATCH_VERSION,
- 		.vendor_id	= VENDOR_LOUD,
-+		.model_id	= 0,
- 		.specifier_id	= SPECIFIER_1394TA,
- 		.version	= VERSION_AVC,
- 	},
+ 	 *  U.420:				Unknown
+ 	 *  U.420d:				Unknown
 -- 
 2.27.0
 

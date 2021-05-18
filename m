@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6ACB38700B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96211387005
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:48:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09C941690;
-	Tue, 18 May 2021 04:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09C941690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D4ED16B6;
+	Tue, 18 May 2021 04:47:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D4ED16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621306164;
-	bh=/CoxoUZsR5uLKkQvd13H8mfeGMfi5IKzHU7uDT7xLgg=;
+	s=default; t=1621306098;
+	bh=l4dgw+3xRPoFKUMbN+4NiBSr1wVlV4zvBEyxz6HFSgI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YfGuYyZ+U7EElzg13ydwQJoiQNdZNZ84PIuhMtuQhoBSwMcB51gSyQbgEOIYINLAD
-	 1Fi07aS5PmxS9xZwhUNzYMO8QMWoDlwYPbu8M0AqLvlyQz7sFqGd2Kum2q6j1gknaM
-	 /sAoltwJevBLXNp1jTDkjvs2O8NbnDJmBGMxOtKU=
+	b=nhT+p2IFzjp8n463d1tCBGcj0D1qeRt4zMVTQAeK+LS3KJF5EoxdH80WF8/KfPu0V
+	 K5eoDWm/hLsQETibJV1oiIIhtqZZE0nLeFsaYp5eCDbTJIenQKIUjlCTnaQZYL9DFx
+	 lvay1VZ7mr92ZaKmpoMJxYQFUAHOQnh/vrId6DAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D783F804FF;
-	Tue, 18 May 2021 04:44:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7FB6F804E2;
+	Tue, 18 May 2021 04:44:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6B8DF804DA; Tue, 18 May 2021 04:44:02 +0200 (CEST)
+ id 3EA66F804B0; Tue, 18 May 2021 04:43:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,62 +35,63 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F79FF8042F
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F79FF8042F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EA5CF80430
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EA5CF80430
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="0loEqb/2"; 
+ header.b="KvvsTshT"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="YbzKr6Az"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 6BDC55C01A3;
- Mon, 17 May 2021 22:43:45 -0400 (EDT)
+ header.i=@messagingengine.com header.b="GLwcas+k"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AB0175C00A2;
+ Mon, 17 May 2021 22:43:46 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Mon, 17 May 2021 22:43:45 -0400
+ by compute4.internal (MEProxy); Mon, 17 May 2021 22:43:46 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=Z4lmgCuUgwPzP
- 8ylS6vFr2zm/KxvNQxOxXqFDPLlKow=; b=0loEqb/2jwH7Lar/m4FpwjB6lVFSm
- vkiVwSDysILvoBEuuhmRDz4Jc7sm1z7aRO47CmN05LcI9t87RjBYNGDeiSTF1sM4
- Ue7n9CXTCV81toDJY4YzbGShyT801UgbEr29NgD1jCT5F3JEGREt+A7kNdRWyDa7
- q0C5NALD2Qe6agwaGMMQPoBnyh/wRbiCkTePWtlCe5vi9cLIuWb8OD3NAmwvW+jZ
- DJ8nPYqoSOwHXtYPuVZo5jdEMZBvTKRQ7s9+CpYy0692WpmhDqzCdMin9Dc6WQDD
- N3ccq6Xlr3tzdfoMjME5ZYqCOOVw9FX6Dr6DkDWB7zDr1Wk4O9PgsqCcw==
+ :mime-version:content-transfer-encoding; s=fm1; bh=oOGPXe9o5FMVV
+ DJKbTEdxSomdUfzGAM+wDxxz536mUc=; b=KvvsTshTfBZOwaf9IrFPUiE5XbjUf
+ jwqsgdV2FZEKMoVEoFuPVjnrjqpkwpZBbzXPWYJHGYgFeKy6cvf1jea81Wvf1j6G
+ H5s0sRfDtAZumxvPQnPQaUVQrG+nmwWTkcgy/nNbxQyaeJb69DozqZZ/umYErSN0
+ GDXzsMEw6s8Q8D2x/ibtWoMgKVI+Gv/PG6IBxnSVt4gTIBPlFSXKsPFiHhJiQG2O
+ SZRRhcl2HpYWzGJbSvBox+tNyQJRlkvepVmDd6fEoFA9l70ZZqfz3bzWRnQh/mfm
+ t5fi6NP+LjyZ9E8Ui16Ce5q2Wwg9TWmEcCQzH56c/AGQlM5CGvEHfXUSA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=Z4lmgCuUgwPzP8ylS6vFr2zm/KxvNQxOxXqFDPLlKow=; b=YbzKr6Az
- I01wX0gBeT9y8Y+4KEnZGvskj17GfnNzrsC8QSxPFD4de2bjeb2eC7NrzAmfoj2Z
- vml7X8SFH53Y/5oWa5xzYw2mNFKYlICaYK8hJnVqrDM3x/+6MHvzNNpAdqhl76NZ
- oXfw1wp4L3x/S6qXiUBJkj7/462GCtTMjdF4khvqU8E51OU8eXQ8r7mPpom3oVQh
- Y08Nx8HCh2BdM4Cngro0kKEUzEwK4WbHk/l2GU89j7fm6xNaI4Iz455a9VshN+pU
- zkELfAZOrJqYiTdFqHjCB8qrlbiMs7xaPoXFFurdwr8RqqFW/eterKkBlr8c91W8
- uhwoCOi0GYnlFw==
-X-ME-Sender: <xms:4SmjYLQceW-ujgkqbWmcfYQMQt9AeDdQUWFY-rbMT3iO0mbs1TzDeQ>
- <xme:4SmjYMwMQRzedQW5ndj_g28R6dz2q-IqmuFdIynduC8-fqlcUZf-LfG9pmmePGYhs
- XWatyt40SoaNK0JXo8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheekucetufdoteggodetrfdotf
+ fm2; bh=oOGPXe9o5FMVVDJKbTEdxSomdUfzGAM+wDxxz536mUc=; b=GLwcas+k
+ kS4XjnD1uSVqQVO6NqRYZ2vmCtIAh+reWRZRJZWz/yq+T+IMDn57roHujev9veau
+ fV/oqW9Uzv5pcS0JqZUT09+cp5ym3BKbfZ02RhwRbCF/S6gjMzaQvhCGqrykQpu8
+ ApRtJGqOiVpVGpeMsd1cA3A+mR6wQ/5FvNK4e5qzBZZufkc+BBL64yIKTdXWujFG
+ Mr881lPw71xL/Fz+R/0obhRovM8FqioiXCSuiIV7eUDqEmTBXHUiLgU/I+d4vgtJ
+ 1W8z7KfNFpcY5xvF51hYXXvjippeQ/W9EyBIfjIsXdkb0jU9IUSWkummdz1Zp9DB
+ VjSIPValxq+jVw==
+X-ME-Sender: <xms:4imjYDHagIMDQyhq8l_n_ZoHUyJGTFfLdJrH68a9EuuVw75H3fV4Gw>
+ <xme:4imjYAUJB61xavl5eEpAx0YvNH9KNjqnJb5bVM3HG-FaH98osNMj0hMFL1PPoc0iv
+ UTbmDFYrTkrrRLBq9o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:4SmjYA0ToiQ8fmG9_ip9O_s8aXLzPvG4ML9ZOV7frFEIGfdGRRbeVw>
- <xmx:4SmjYLA2_1DPIrma312VJjZ_9h5QI4QAXGR2L3mAqvC3mU-N9B1rMg>
- <xmx:4SmjYEgtUA7Nb5IL-XMPQNuc3SYhpuElYd2WOvGEY236aE9tewk-Lg>
- <xmx:4SmjYMKk5144yilUaEzroQpxzdcd_KggLce0qk6w-iB6UrM2ZwxBtQ>
+X-ME-Proxy: <xmx:4imjYFKtFZw5gDOkDXqvLa6i-td8SrQavLqCgF_VkVjLYwShmaFWJA>
+ <xmx:4imjYBHkbRfYaFesJhd97870kSHWR-sT73NZ7Pvpk1BZE1AYGrQNyA>
+ <xmx:4imjYJUloe4mauFY6N517odCv-8Qc--TFFaVKf3ENDagULVmHZjmiQ>
+ <xmx:4imjYKdimLguKrL7CvaQSGwa0XSup5CsNJkf4mbKCAm5DYeaCvYBww>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon, 17 May 2021 22:43:44 -0400 (EDT)
+ Mon, 17 May 2021 22:43:45 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v3 10/11] ALSA: oxfw: code refactoring for wrong_dbs quirk
-Date: Tue, 18 May 2021 11:43:25 +0900
-Message-Id: <20210518024326.67576-11-o-takashi@sakamocchi.jp>
+Subject: [PATCH v3 11/11] ALSA: oxfw: add quirk flag for blocking transmission
+ method
+Date: Tue, 18 May 2021 11:43:26 +0900
+Message-Id: <20210518024326.67576-12-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
 References: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
@@ -112,63 +113,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A new entry is added to the quirk enumeration for wrong_dbs quirk to
-obsolete structure member.
+Stanton SCS.1m and Apogee Duet FireWire use blocking transmission method
+unlike the other models.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw-stream.c | 2 +-
- sound/firewire/oxfw/oxfw.c        | 2 +-
- sound/firewire/oxfw/oxfw.h        | 3 ++-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ sound/firewire/oxfw/oxfw-stream.c |  7 ++++++-
+ sound/firewire/oxfw/oxfw.c        | 14 +++++++++++---
+ sound/firewire/oxfw/oxfw.h        |  2 ++
+ 3 files changed, 19 insertions(+), 4 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 65b458da2796..de6b40c04810 100644
+index de6b40c04810..1119de12d56a 100644
 --- a/sound/firewire/oxfw/oxfw-stream.c
 +++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -163,7 +163,7 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+@@ -153,9 +153,14 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+ 	struct cmp_connection *conn;
+ 	enum cmp_direction c_dir;
+ 	enum amdtp_stream_direction s_dir;
+-	int flags = CIP_NONBLOCKING;
++	int flags;
+ 	int err;
  
- 		if (oxfw->quirks & SND_OXFW_QUIRK_JUMBO_PAYLOAD)
- 			flags |= CIP_JUMBO_PAYLOAD;
--		if (oxfw->wrong_dbs)
-+		if (oxfw->quirks & SND_OXFW_QUIRK_WRONG_DBS)
- 			flags |= CIP_WRONG_DBS;
- 	} else {
- 		conn = &oxfw->in_conn;
++	if (!(oxfw->quirks & SND_OXFW_QUIRK_BLOCKING_TRANSMISSION))
++		flags = CIP_NONBLOCKING;
++	else
++		flags = CIP_BLOCKING;
++
+ 	if (stream == &oxfw->tx_stream) {
+ 		conn = &oxfw->out_conn;
+ 		c_dir = CMP_OUTPUT;
 diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 90a66e1312fe..966697dace47 100644
+index 966697dace47..59bffa32636c 100644
 --- a/sound/firewire/oxfw/oxfw.c
 +++ b/sound/firewire/oxfw/oxfw.c
-@@ -176,7 +176,7 @@ static int detect_quirks(struct snd_oxfw *oxfw)
- 	 * value in 'dbs' field of CIP header against its format information.
- 	 */
- 	if (vendor == VENDOR_LOUD && model == MODEL_SATELLITE)
--		oxfw->wrong_dbs = true;
-+		oxfw->quirks |= SND_OXFW_QUIRK_WRONG_DBS;
+@@ -23,6 +23,8 @@
+ #define OUI_APOGEE		0x0003db
  
- 	return 0;
- }
+ #define MODEL_SATELLITE		0x00200f
++#define MODEL_SCS1M		0x001000
++#define MODEL_DUET_FW		0x01dddd
+ 
+ #define SPECIFIER_1394TA	0x00a02d
+ #define VERSION_AVC		0x010001
+@@ -144,13 +146,19 @@ static int detect_quirks(struct snd_oxfw *oxfw)
+ 	 * messages.
+ 	 */
+ 	if (oxfw->entry->vendor_id == OUI_STANTON) {
+-		/* No physical MIDI ports. */
++		if (oxfw->entry->model_id == MODEL_SCS1M)
++			oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
++
++		// No physical MIDI ports.
+ 		oxfw->midi_input_ports = 0;
+ 		oxfw->midi_output_ports = 0;
+ 
+ 		return snd_oxfw_scs1x_add(oxfw);
+ 	}
+ 
++	if (oxfw->entry->vendor_id == OUI_APOGEE && oxfw->entry->model_id == MODEL_DUET_FW)
++		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
++
+ 	/*
+ 	 * TASCAM FireOne has physical control and requires a pair of additional
+ 	 * MIDI ports.
+@@ -377,11 +385,11 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
+ 	// TASCAM, FireOne.
+ 	OXFW_DEV_ENTRY(VENDOR_TASCAM, 0x800007, NULL),
+ 	// Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m).
+-	OXFW_DEV_ENTRY(OUI_STANTON, 0x001000, NULL),
++	OXFW_DEV_ENTRY(OUI_STANTON, MODEL_SCS1M, NULL),
+ 	// Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d).
+ 	OXFW_DEV_ENTRY(OUI_STANTON, 0x002000, NULL),
+ 	// APOGEE, duet FireWire.
+-	OXFW_DEV_ENTRY(OUI_APOGEE, 0x01dddd, NULL),
++	OXFW_DEV_ENTRY(OUI_APOGEE, MODEL_DUET_FW, NULL),
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(ieee1394, oxfw_id_table);
 diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index bc6706984fbb..daac38d046db 100644
+index daac38d046db..66e8d58bb81d 100644
 --- a/sound/firewire/oxfw/oxfw.h
 +++ b/sound/firewire/oxfw/oxfw.h
-@@ -36,6 +36,8 @@ enum snd_oxfw_quirk {
- 	// Postpone transferring packets during handling asynchronous transaction. As a result,
- 	// next isochronous packet includes more events than one packet can include.
+@@ -38,6 +38,8 @@ enum snd_oxfw_quirk {
  	SND_OXFW_QUIRK_JUMBO_PAYLOAD = 0x01,
-+	// The dbs field of CIP header in tx packet is wrong.
-+	SND_OXFW_QUIRK_WRONG_DBS = 0x02,
+ 	// The dbs field of CIP header in tx packet is wrong.
+ 	SND_OXFW_QUIRK_WRONG_DBS = 0x02,
++	// Blocking transmission mode is used.
++	SND_OXFW_QUIRK_BLOCKING_TRANSMISSION = 0x04,
  };
  
  /* This is an arbitrary number for convinience. */
-@@ -51,7 +53,6 @@ struct snd_oxfw {
- 
- 	// The combination of snd_oxfw_quirk enumeration-constants.
- 	int quirks;
--	bool wrong_dbs;
- 	bool has_output;
- 	bool has_input;
- 	u8 *tx_stream_formats[SND_OXFW_STREAM_FORMAT_ENTRIES];
 -- 
 2.27.0
 

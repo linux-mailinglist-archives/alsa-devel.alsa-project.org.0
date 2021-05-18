@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E3A386FFF
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0C4387000
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:47:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D818E168D;
-	Tue, 18 May 2021 04:46:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D818E168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5233941;
+	Tue, 18 May 2021 04:46:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5233941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621306016;
-	bh=K2QTJ7PWAmZz2pe8j3TlXJ5eUB6PUhhTPsN4IKE+lro=;
+	s=default; t=1621306028;
+	bh=Ol4TdnbDacFTEm2+KDoCEeuePJiSvYvttTzlYH/Clbw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vPFotT0lhYXgXtB1R4cKzVt2pu7Ef63pSfTOrFAywX9JpJlK5uIlISKvSM/3SC76w
-	 kNGtPO4KDWen62iQ01p7+2FikyEXp0xPI+mAYzAtMZN1A62+K5YJzMGMijK/DAW1IX
-	 /FX6VOtwhfxY8QBV7jxlrHD0pZb0CjhkYtacFJas=
+	b=IAVeKfDYxFzfL+qbxkqDkpfec/pP/+VfFLTCbKSJ9OlaK9CUmBPaPdTBNDJ+ZWZRc
+	 q+JziPf+G8jEqGXxhUfzht/6eu05clJ3Zml6G7yGjlTydoE+gISnF9WCaPi7bS03Ih
+	 gl7XDgl4t7dl+SC6aEdZG+OD83Vrg70JpQCbiFHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34C0DF804B1;
-	Tue, 18 May 2021 04:44:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09538F804C1;
+	Tue, 18 May 2021 04:44:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 702B2F8014C; Tue, 18 May 2021 04:43:53 +0200 (CEST)
+ id 6709CF804AC; Tue, 18 May 2021 04:43:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1EB6F80229
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1EB6F80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EF61F80217
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EF61F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="MW7Q8mEZ"; 
+ header.b="pfcUNiQP"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="cI/6GmI1"
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 0321C5C0136;
- Mon, 17 May 2021 22:43:36 -0400 (EDT)
+ header.i=@messagingengine.com header.b="NEm0Z7GT"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4A5775C00A2;
+ Mon, 17 May 2021 22:43:37 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Mon, 17 May 2021 22:43:36 -0400
+ by compute4.internal (MEProxy); Mon, 17 May 2021 22:43:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=z2h4iAd5kIIH1
- zEvRUhiZCQqxbScmElaaiMxsPYF/Pc=; b=MW7Q8mEZfLCF0pLIZzPBjepKUPr81
- YS3pdav6o7sWb9XhR713aXQW/e1cSXm8GDF0M5m978CDMrKebWTTnZvnX0lfjbIb
- /26soZIsBpXS4ulmCl5JQ+yAj94j2+03AWs3pJdSEiWeo4nq7KcmHmPDHZiWzn+t
- bkqbrUaU9dSUYB4rk5CufKyL9/40rg34jQGaUAN+1p8Z05ygPGVdtTtsrbwnuxcB
- JmYVSJnouKk0Wnojn0schZlvTjsNtRbLNPUzQQJFOCfognLUq2UXhLJK0fP+yF9L
- OQJKzTVKoa8rTsvUdqjnMr7zq9QTNXn+Jj5ikC0zUWnIPrr+wTwhWFnjw==
+ :mime-version:content-transfer-encoding; s=fm1; bh=6cWQDSRIA9Hga
+ GA5A9fsw3EyyTM3D8deK8KTjqJYZC8=; b=pfcUNiQPalZuXYZqz2JmBHE+EXXSy
+ zcYSfvXIM6+hPdJz/vINqUVjKPDNgcwWdViLccp0BjaB3XxfWMTAiXCpA6zCDUcy
+ XjURlE7xjDOHNrZqVhKfjvyK+yhyN/loTSDN9Uk6bVinQ48lhN2FOL52In97DF1V
+ HtgC4yO+CQPnRRIWHr5tFrOnd8xuBuY4jrGwLKm/WryE4B4FN8jFQMoGTryRi4v9
+ G/v06GHihczXS9XAHyqSIhhBJ6jLm/3PFU76lcILkp4qCFzuXAz4S9QlsOncyYT+
+ 3z1W+IEPYOZtbS2fuF48DX0zpeEMPFgKZ1EgPfOqW3Bq5uwoaO7xSJLQw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=z2h4iAd5kIIH1zEvRUhiZCQqxbScmElaaiMxsPYF/Pc=; b=cI/6GmI1
- 4S7X35A6P/mVE/CK4CNM+EjgQq+1SOd0iJrnwJkntCH5PFbTOhuUang1BHZJO8lS
- q2PvArlMqk13ssMSPqXHlYg2n5SR9vxYRa3dK4sDiM5dn4hL8KSPrRtOmMRQOWe1
- rWujVXNXvsRIDSs/XpglVh2XkYSVUNjeBlPJ+iw8z29VSJCONH6XTcQ1UBN/Y1L/
- VFTj31kS238Fjp80+DruEmKjH1OrVmKRA0QdVSXKvh9WWSq8DntquGS9DF2/pWyU
- NYmApJyfmfLGBNB4dsPWwkvOLtUy3CrQhEsWQAU5ZjxLQ9z7pjY+ph1Bqv+dmRKy
- 2z8L7Hi0M0FZFA==
-X-ME-Sender: <xms:1ymjYH4jUdL0xYI64WyqmC-HI-4sp84k4owXXt4GQJOUDShA-JyqgQ>
- <xme:1ymjYM5sjbYIvQ0tlEN6Eq65q8UIs385XgST_I7SYrGRpBS2LFzcuuexXDZ8K06mB
- 8d-yiEtvV7kdrwY5Ro>
+ fm2; bh=6cWQDSRIA9HgaGA5A9fsw3EyyTM3D8deK8KTjqJYZC8=; b=NEm0Z7GT
+ Khi3bRxreiYZTaluvQ9vwqbF9LMOmnyKJWFHVXF+DwJxADNdsao7+6P+V5hSMrf+
+ idQ93pM7imWRPj6XmxJ8wLSzk6zcfQtFSGuP1QzMqM1UNAk86gkwwhWvP6DGmvSJ
+ VNmy9molZ3BMxPfVS1EApkhqq/CIasO1xRwFtQ8aLisECZ4fiP9f8YWk7o/r4Zto
+ kUIqfc3BLyjWsKFGrg+MJ1sEVBIFpKC3R+yxaKj/t/XBlmtGW3Wj3WZGl/OMNuL7
+ qPPi6+3f+E5i2B44e7FWzpqImSp6yNKR5EJbhs9HjfNJm9sGFl2WseMf9faf4N9s
+ OW/z7ocSwAYwvw==
+X-ME-Sender: <xms:2SmjYA6ckgCFHDl43VEKhUuKy0E4CT-LbSrCU6Bvdb5NMosVFXpqxQ>
+ <xme:2SmjYB4ifz9eM3asqZkUOTUhgwTqn5TGhywO09hb_thixScMlLnYouMdYwk6IecRK
+ 3LOmEptY-N34RHlfXI>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -79,19 +79,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheejucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:1ymjYOe_QLMtypDxsIu66a0wyI9z0Ce86nWYTOWrEBN69REd72FXMQ>
- <xmx:1ymjYIKr0v44Et-V5vCR0GjaEh813p0nJ5ZT-m02sGE4udfvh3uxNA>
- <xmx:1ymjYLKW5dmUsm4kgh34C75CuHuQy3u7s71D46A8FfkycsrJ5-70MA>
- <xmx:1ymjYNxSObDQ2jZD9_dtSXCBt0AkpeAukuorLzOpjqpOyp0-xSGvRA>
+X-ME-Proxy: <xmx:2SmjYPfS0LAUf6jAKIbiNzOp7v_JfS-imksIkD1Omh011fkxXIdA7A>
+ <xmx:2SmjYFIpC9m6I6yCSVPzhQHgWZxrJSng1Fnd3VOT2W1gTzuu1TCTPw>
+ <xmx:2SmjYEIIvOAfDnDxtBOKGiAol9yDUdlZPsz7NoetTzIZz4wN9qTkeQ>
+ <xmx:2SmjYOy38ozCn9tlNcMk3adgCk2PdYDQti60P7ZalgeFpfT8RcWApQ>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon, 17 May 2021 22:43:34 -0400 (EDT)
+ Mon, 17 May 2021 22:43:36 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v3 03/11] ALSA: oxfw: code refactoring for existent device
- entry with specifier_id and version
-Date: Tue, 18 May 2021 11:43:18 +0900
-Message-Id: <20210518024326.67576-4-o-takashi@sakamocchi.jp>
+Subject: [PATCH v3 04/11] ALSA: oxfw: code refactoring to detect Mackie models
+Date: Tue, 18 May 2021 11:43:19 +0900
+Message-Id: <20210518024326.67576-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
 References: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
@@ -113,119 +112,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-All of the devices known to be based on OXFW ASICs have the same layout
-of configuration ROM, in which unit directory includes vendor, model,
-specifier_id and version immediate values. Especially, the pair of
-specifier_id and version is fixed to represent AV/C general protocol.
-
-This commit refactors device entries to fulfil with these 4 elements.
+This commit changes condition statement to call Mackie models detection
+just for the device entry. Additionally, comment is added for Onyx 1640i.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw.c | 82 ++++++++++++--------------------------
- 1 file changed, 25 insertions(+), 57 deletions(-)
+ sound/firewire/oxfw/oxfw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 5490637d278a..7be999c61730 100644
+index 7be999c61730..2af72951ebf8 100644
 --- a/sound/firewire/oxfw/oxfw.c
 +++ b/sound/firewire/oxfw/oxfw.c
-@@ -320,36 +320,24 @@ static const struct compat_info lacie_speakers = {
- 	.model_name = "FireWire Speakers",
- };
+@@ -245,7 +245,7 @@ static int oxfw_probe(struct fw_unit *unit,
+ {
+ 	struct snd_oxfw *oxfw;
  
-+#define OXFW_DEV_ENTRY(vendor, model, data) \
-+{ \
-+	.match_flags  = IEEE1394_MATCH_VENDOR_ID | \
-+			IEEE1394_MATCH_MODEL_ID | \
-+			IEEE1394_MATCH_SPECIFIER_ID | \
-+			IEEE1394_MATCH_VERSION, \
-+	.vendor_id    = vendor, \
-+	.model_id     = model, \
-+	.specifier_id = SPECIFIER_1394TA, \
-+	.version      = VERSION_AVC, \
-+	.driver_data  = (kernel_ulong_t)data, \
-+}
-+
- static const struct ieee1394_device_id oxfw_id_table[] = {
--	{
--		.match_flags  = IEEE1394_MATCH_VENDOR_ID |
--				IEEE1394_MATCH_MODEL_ID |
--				IEEE1394_MATCH_SPECIFIER_ID |
--				IEEE1394_MATCH_VERSION,
--		.vendor_id    = VENDOR_GRIFFIN,
--		.model_id     = 0x00f970,
--		.specifier_id = SPECIFIER_1394TA,
--		.version      = VERSION_AVC,
--		.driver_data  = (kernel_ulong_t)&griffin_firewave,
--	},
--	{
--		.match_flags  = IEEE1394_MATCH_VENDOR_ID |
--				IEEE1394_MATCH_MODEL_ID |
--				IEEE1394_MATCH_SPECIFIER_ID |
--				IEEE1394_MATCH_VERSION,
--		.vendor_id    = VENDOR_LACIE,
--		.model_id     = 0x00f970,
--		.specifier_id = SPECIFIER_1394TA,
--		.version      = VERSION_AVC,
--		.driver_data  = (kernel_ulong_t)&lacie_speakers,
--	},
--	/* Behringer,F-Control Audio 202 */
--	{
--		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
--				  IEEE1394_MATCH_MODEL_ID,
--		.vendor_id	= VENDOR_BEHRINGER,
--		.model_id	= 0x00fc22,
--	},
-+	OXFW_DEV_ENTRY(VENDOR_GRIFFIN, 0x00f970, &griffin_firewave),
-+	OXFW_DEV_ENTRY(VENDOR_LACIE, 0x00f970, &lacie_speakers),
-+	// Behringer,F-Control Audio 202.
-+	OXFW_DEV_ENTRY(VENDOR_BEHRINGER, 0x00fc22, NULL),
+-	if (entry->vendor_id == VENDOR_LOUD && !detect_loud_models(unit))
++	if (entry->vendor_id == VENDOR_LOUD && entry->model_id == 0 && !detect_loud_models(unit))
+ 		return -ENODEV;
+ 
+ 	/* Allocate this independent of sound card instance. */
+@@ -341,6 +341,7 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
  	/*
  	 * Any Mackie(Loud) models (name string/model id):
  	 *  Onyx-i series (former models):	0x081216
-@@ -367,34 +355,14 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
++	 *  Onyx 1640i:				0x001640
+ 	 *  Mackie Onyx Satellite:		0x00200f
+ 	 *  Tapco LINK.firewire 4x6:		0x000460
+ 	 *  d.2 pro/d.4 pro (built-in card):	Unknown
+@@ -352,6 +353,7 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
+ 				  IEEE1394_MATCH_SPECIFIER_ID |
+ 				  IEEE1394_MATCH_VERSION,
+ 		.vendor_id	= VENDOR_LOUD,
++		.model_id	= 0,
  		.specifier_id	= SPECIFIER_1394TA,
  		.version	= VERSION_AVC,
  	},
--	/* TASCAM, FireOne */
--	{
--		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
--				  IEEE1394_MATCH_MODEL_ID,
--		.vendor_id	= VENDOR_TASCAM,
--		.model_id	= 0x800007,
--	},
--	/* Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m) */
--	{
--		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
--				  IEEE1394_MATCH_MODEL_ID,
--		.vendor_id	= OUI_STANTON,
--		.model_id	= 0x001000,
--	},
--	/* Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d) */
--	{
--		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
--				  IEEE1394_MATCH_MODEL_ID,
--		.vendor_id	= OUI_STANTON,
--		.model_id	= 0x002000,
--	},
--	// APOGEE, duet FireWire
--	{
--		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
--				  IEEE1394_MATCH_MODEL_ID,
--		.vendor_id	= OUI_APOGEE,
--		.model_id	= 0x01dddd,
--	},
-+	// TASCAM, FireOne.
-+	OXFW_DEV_ENTRY(VENDOR_TASCAM, 0x800007, NULL),
-+	// Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m).
-+	OXFW_DEV_ENTRY(OUI_STANTON, 0x001000, NULL),
-+	// Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d).
-+	OXFW_DEV_ENTRY(OUI_STANTON, 0x002000, NULL),
-+	// APOGEE, duet FireWire.
-+	OXFW_DEV_ENTRY(OUI_APOGEE, 0x01dddd, NULL),
- 	{ }
- };
- MODULE_DEVICE_TABLE(ieee1394, oxfw_id_table);
 -- 
 2.27.0
 

@@ -2,53 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6521B3872CB
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 09:04:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE9643872D0
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 09:05:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4BD2169D;
-	Tue, 18 May 2021 09:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4BD2169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79F6716B5;
+	Tue, 18 May 2021 09:04:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79F6716B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621321475;
-	bh=5JJlccwnz5DCLzxyuTnwa+ut8mQmD2rlkDW72/KCUbg=;
+	s=default; t=1621321505;
+	bh=acc4Zx+caEBzjQzRrLCE5Te+gVaO35TY1d/KFlMAJz8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DHJVd6oJbXoC2SYXhZixU17rSLRkRs2oL0uqkFyX6jtgFZ04RwfQ9aJ4LFq0ZJK+z
-	 YgUmNG0Itw4gbqNVZnWVru3aRHbQtdug71TVyLLTkM95hZWmhbMCVMVdWB12xAGZSJ
-	 PO1kjL3jguRnEQ65t8a5ekoxZOhoO1EdaHpk5Hr8=
+	b=OuP3Q2Jrmm6rOH+xKg8rRli5qUQbaJjU8/DFYbhIYcYs6Fz+j3t2oxcDp2kRKKQCA
+	 KhfH7E9CBDVOZN8MNVxCOQHbnJmytu35rcSpBOd8dd2NmXrL60vwA6EK+MrpY0G6bK
+	 4snsRHgR3sVqRK0Z6jvIebUJPIurUE38qyTrbQ8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 495BEF80229;
-	Tue, 18 May 2021 09:03:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2864FF80139;
+	Tue, 18 May 2021 09:04:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55B89F80217; Tue, 18 May 2021 09:03:04 +0200 (CEST)
+ id 0DC20F80272; Tue, 18 May 2021 09:04:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC987F8014C
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 09:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC987F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAFEEF80139
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 09:04:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAFEEF80139
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F336CAD12;
- Tue, 18 May 2021 07:02:55 +0000 (UTC)
-Date: Tue, 18 May 2021 09:02:54 +0200
-Message-ID: <s5hsg2kmsm9.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A9D2EAF0C;
+ Tue, 18 May 2021 07:04:00 +0000 (UTC)
+Date: Tue, 18 May 2021 09:04:00 +0200
+Message-ID: <s5hr1i4mskf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v3 02/11] ALSA: firewire-lib/motu: use int type for the
- value of bitwise OR with enumerator-constant
-In-Reply-To: <20210518024326.67576-3-o-takashi@sakamocchi.jp>
-References: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
- <20210518024326.67576-3-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: dice: disable double_pcm_frames mode for M-Audio
+ Profire 610, 2626 and Avid M-Box 3 Pro
+In-Reply-To: <20210518012510.37126-1-o-takashi@sakamocchi.jp>
+References: <20210518012510.37126-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,18 +69,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 May 2021 04:43:17 +0200,
+On Tue, 18 May 2021 03:25:10 +0200,
 Takashi Sakamoto wrote:
 > 
-> It brings some inconvenience in practice to use enumerated type for
-> variable to which bitwise OR with enumerator constant is assigned.
+> ALSA dice driver detects jumbo payload at high sampling transfer frequency
+> for below models:
 > 
-> This commit replaces declarations of enumerated type with int type.
+>  * Avid M-Box 3 Pro
+>  * M-Audio Profire 610
+>  * M-Audio Profire 2626
+> 
+> Although many DICE-based devices have a quirk at high sampling transfer
+> frequency to multiplex double number of PCM frames into data block than
+> the number in IEC 61883-1/6, the above devices are just compliant to
+> IEC 61883-1/6.
+> 
+> This commit disables the mode of double_pcm_frames for the models.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Better to use unsigned int for bit flags.  Otherwise the highest bit
-becomes harder to use.
+Thanks, applied.
 
-
-thanks,
 
 Takashi

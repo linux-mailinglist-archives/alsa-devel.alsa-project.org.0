@@ -2,65 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C9B2387E9D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 19:43:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B932B387F31
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 20:02:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E46A8176C;
-	Tue, 18 May 2021 19:42:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E46A8176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C28B1771;
+	Tue, 18 May 2021 20:01:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C28B1771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621359792;
-	bh=/LJMrs4AEcpCtSOM9Raemz/RYh/TtTekUkjRXItzDsM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=grOza0769tXkkX3Eql2G8UOIg9piNCofFiypgfN6YO8YEG6gQSr7y08RlnqDibu9i
-	 7hefVCF9UGgXvsgakJVczCQWYRdM+fpnCttK4lPkYeUQEzaNbX8nozjZsmd35OZgyT
-	 D5S+Cu8VTDEJKtG0m9FEozlftiRRJ9farhPgDbaY=
+	s=default; t=1621360948;
+	bh=yDSRtmmg/LleY/Sq9ohvuojvY0MT1/Bga+uC5PA3XYM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UFZjBcyEWV5qsfVeOyPwm+A8AFV668jMMhu6iUXKlHr0DlLXrG7RfKRXn7Ziaf9EG
+	 rvtyR1jgQxJ7uW5tF2UjwmZmH+/+Oxb/GBDyFh76T/ubiRK+qKiXDnvEsBbDgoguEK
+	 UoHidK8FkEWPWcncJNkecqA/urDIKbusLH5AByPQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 369C6F80139;
-	Tue, 18 May 2021 19:41:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0585F80229;
+	Tue, 18 May 2021 20:00:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABAF4F80217; Tue, 18 May 2021 19:41:41 +0200 (CEST)
+ id EA630F80217; Tue, 18 May 2021 20:00:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA7B0F80139
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 19:41:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA7B0F80139
-IronPort-SDR: JBCCTNp3SETc6eEL/eYCuIcA4S0lnJkD/87orb44G7Lk/PZ6aRiPamMU4yEfQ1A/HOHxdMfAB9
- orUqjvgDBi3Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="221831873"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="221831873"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 10:41:25 -0700
-IronPort-SDR: fSIILffsOZ4rq5ju9yA/tZF5znRwRQgYv+C0aVBWAe/AlUBpHtbqMIpAdfJYDT3bPpJ/oYGdP4
- AR8bmCnzYKLA==
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="394052287"
-Received: from dmallapu-mobl1.amr.corp.intel.com (HELO
- rsridh-mobl1.localdomain) ([10.212.20.100])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 10:41:25 -0700
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: SOF: Intel: hda: don't send DAI_CONFIG IPC for older
- firmware
-Date: Tue, 18 May 2021 10:41:21 -0700
-Message-Id: <20210518174121.151601-1-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1890DF80139
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 20:00:50 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id CE932A003F;
+ Tue, 18 May 2021 20:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz CE932A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1621360849; bh=zZ9DyssB1yau3QpCY8XmWm8WwFs6+y9kB7NXmdVw3Ac=;
+ h=Subject:To:References:From:Cc:Date:In-Reply-To:From;
+ b=ybaE0Io3Wv+0lLstk3LNdxcxNAkUynHUl8/OZyh1qZW2d2D+GAxaACijjEBkLEBYw
+ l7T31sDXJQUNkPso5nOe1nUDqLAHXTxUv5128HeImfeY+xzypPAfDDW0biIfRPi68H
+ jLdd+DOUeZUmauMuQjJJIiWY2PgOHdU4EFV+Vdnc=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 18 May 2021 20:00:46 +0200 (CEST)
+Subject: Re: [PATCH 2/7] ALSA: control: Add power state check commonly for
+ ioctl handlers
+To: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20210518165201.24376-1-tiwai@suse.de>
+ <20210518165201.24376-3-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <b9dcb895-09a2-b9b7-b509-9d6bb0bb8542@perex.cz>
+Date: Tue, 18 May 2021 20:00:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
+In-Reply-To: <20210518165201.24376-3-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,41 +83,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-BE hw_params op was recently added for SSP type DAIs.
-But sending the DAI_CONFIG IPC during hw_params
-is not supported with older firmware. So add an ABI check
-to avoid sending the IPC if the firmware ABI is older than
-3.18.
+Dne 18. 05. 21 v 18:51 Takashi Iwai napsal(a):
+> The card power state check can be better put in the common ioctl
+> handler, as basically we want to prevent ioctls during the power off
+> state.  Although this situation won't happen normally any longer (*),
+> it'll be helpful for catching this for the future implementation like
+> the faked suspend that is needed for PCI rescan.
+> 
+> (*) Long long time ago, before the proper PM framework was introduced,
+> it was still possible to reach SNDRV_CTL_IOCTL_POWER ioctl during the
+> power off state.  This ioctl existed as a main control for the suspend
+> resume state in the past, but the feature was already dropped along
+> with the standard PM framework.
 
-Fixes: e12be9fbfb91 ('ASoC: SOF: Intel: HDA: add hw params callback for SSP DAIs')
-Tested-by: Yong Zhi <yong.zhi@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/hda-dai.c | 5 +++++
- 1 file changed, 5 insertions(+)
+It seems like a function dup for the 5th patch which tracks in flight the
+power state. I think that we should drop this (and reshuffle patches) or
+remove this in or after the 5th patch.
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 8d7bab433fb3..c1f9f0f58464 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -421,11 +421,16 @@ static int ssp_dai_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
- 	struct sof_ipc_dai_config *config;
- 	struct snd_sof_dai *sof_dai;
- 	struct sof_ipc_reply reply;
- 	int ret;
- 
-+	/* DAI_CONFIG IPC during hw_params is not supported in older firmware */
-+	if (v->abi_version < SOF_ABI_VER(3, 18, 0))
-+		return 0;
-+
- 	list_for_each_entry(sof_dai, &sdev->dai_list, list) {
- 		if (!sof_dai->cpu_dai_name || !sof_dai->dai_config)
- 			continue;
+					Jaroslav
+
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/core/control.c        | 3 +++
+>  sound/core/control_compat.c | 3 +++
+>  2 files changed, 6 insertions(+)
+> 
+> diff --git a/sound/core/control.c b/sound/core/control.c
+> index 498e3701514a..c22c3fad0c64 100644
+> --- a/sound/core/control.c
+> +++ b/sound/core/control.c
+> @@ -1772,6 +1772,9 @@ static long snd_ctl_ioctl(struct file *file, unsigned int cmd, unsigned long arg
+>  	card = ctl->card;
+>  	if (snd_BUG_ON(!card))
+>  		return -ENXIO;
+> +	err = snd_power_wait(card, SNDRV_CTL_POWER_D0);
+> +	if (err < 0)
+> +		return err;
+>  	switch (cmd) {
+>  	case SNDRV_CTL_IOCTL_PVERSION:
+>  		return put_user(SNDRV_CTL_VERSION, ip) ? -EFAULT : 0;
+> diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
+> index 1d708aab9c98..d5b562ff237b 100644
+> --- a/sound/core/control_compat.c
+> +++ b/sound/core/control_compat.c
+> @@ -438,6 +438,9 @@ static inline long snd_ctl_ioctl_compat(struct file *file, unsigned int cmd, uns
+>  	if (snd_BUG_ON(!ctl || !ctl->card))
+>  		return -ENXIO;
+>  
+> +	err = snd_power_wait(ctl->card, SNDRV_CTL_POWER_D0);
+> +	if (err < 0)
+> +		return err;
+>  	switch (cmd) {
+>  	case SNDRV_CTL_IOCTL_PVERSION:
+>  	case SNDRV_CTL_IOCTL_CARD_INFO:
+> 
+
+
 -- 
-2.25.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

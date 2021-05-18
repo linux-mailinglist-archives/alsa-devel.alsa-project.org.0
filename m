@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D599387978
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 15:03:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E790738797E
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 15:05:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE5416BB;
-	Tue, 18 May 2021 15:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE5416BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 723E716FD;
+	Tue, 18 May 2021 15:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 723E716FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621343020;
-	bh=EDofhnRvkprAQnFCxk7g6LWPPccnhOt5DFpM3SB42SI=;
+	s=default; t=1621343108;
+	bh=aP6QAdoO9B5f2IVmNueno5MfG30V3TDARb5yXc2Q8Zw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U9SQjTm75xjh9tXLMLsRHlqR6U95RuSZA1w1lueT67GBaGx/BarXxc85wHmrGNXdz
-	 EsGdFbhFbpRV19f3RjdiavDLAHlo2+lvE45Y6ggYznsUlkqV9T4r0aU4HRU/jWz5u+
-	 Bu9sjvElnWKWLir2VLhpASQfKh84aomJvX9Q7MT4=
+	b=DsImt4rLjExsWY/ge7e+r1RNAUuQGK0zIdeB11WHklfnruA1/1ihDMwt/3poOxqUN
+	 rwc4R2EXhoryy5wkNQBCOhreXZWEQCTwDM7hmxzEqOlP7dpkT38kIf9cdnOI40Qu6L
+	 QHNv+lj7KSvVCh3wd0CKlQhIZHWfn897DiwD1SaQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1499CF8042F;
-	Tue, 18 May 2021 15:01:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAFD6F804CF;
+	Tue, 18 May 2021 15:01:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6ACD5F802C8; Tue, 18 May 2021 15:01:10 +0200 (CEST)
+ id C7E72F80475; Tue, 18 May 2021 15:01:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56E89F80257
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 15:01:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56E89F80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9609CF80272
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 15:01:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9609CF80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="vrp52MZK"; 
+ header.b="4A4ZO7NP"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="XjcsG23J"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id B43D65C0218;
- Tue, 18 May 2021 09:00:59 -0400 (EDT)
+ header.i=@messagingengine.com header.b="ejvnBjTh"
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id EB50C5C0219;
+ Tue, 18 May 2021 09:01:01 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Tue, 18 May 2021 09:00:59 -0400
+ by compute7.internal (MEProxy); Tue, 18 May 2021 09:01:01 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=olMw+orqa0zaF
- +zrvN99aV5ejV31uDyid0u4Srw4hts=; b=vrp52MZKQHA0ukDflv5eDgLXza1K9
- bFGIu2CLzKt39+r/78wFU3WGG+tsdA9/TriI+Vw2Og35Pe2pgTdVnvaZcr8Ck+4M
- zh6rzIUDuL4ssh9Btebl/9raYELjq54lR/Zh4TOfVjwAmFShzIhKcbA2wy7fBcYR
- D68bjXy/P7KbvIUQa0d43JqJzACXDsZ3Zaw0pRsJy+4DCkhAWuZOBuLchorljaPK
- b0poNqrPdf0uQ8VJJkjpnwaa6fQP+DoKX2hNYO9frOH8H56L34mtGlFQVBhD+n4u
- XnXzAy9Ugv4hsSOFgLI7RmCMStZ/LPvSpG+lz+ejJGdyxzPVGi02s5gbA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=EO05u6KqPf/q1
+ 3T7LEYaijNw5JMQxVVIZOU0w5sSPf8=; b=4A4ZO7NP4m01gCAuAED7SlpislFBe
+ LMLuT1IloohlkAYdhbTM/Uf9ASC1Ed+rsLff4qC23wlGcsEzuYLs1ZczP/CH9A7X
+ xlhuv1f0qUVkJ0ZL6lf6s4fUffWk/8y/4evL5ccYKtm1yATDD3Ols5S7nMYrkSD8
+ 1d6KOcpKT+hAaEh/UfdlG9P7qyAKuyaVFjYZUS8PHEfyAYAjDTvhOUJ7f8heuoQf
+ etyXNJMEpjI83fM/JBIG0+pPcoPQXiYybQ7eVqsXc1u1zWa48hFp0hFlAHCNeEWu
+ hAkDxf0m2fLL5b8onaTccNNo2CYMf6Zl9FIdy5a+eXUUdQGiMFlL6CM7w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=olMw+orqa0zaF+zrvN99aV5ejV31uDyid0u4Srw4hts=; b=XjcsG23J
- AIOMCrjCXYLwrFZJ0JimmpQOcVuMh1uw6awpp+7RVIQCAFebXMefKQDiLgHnptOK
- gxvwzqKnblrQZk5uDDyCjkni1eT/u/IcyO1y/89s8/yE9qegQ5DVPu3bF5SAsZdi
- BCYTkjK6J+pAt7Qv9TKE7Z4NOnv0EHQR71jsnK7+DoSwcj7q8j3rWLj2+xLNeIq2
- sUOfb736Pr8fStfwoct9M1TN/8xpbe2+DX93crVFkH2liaHuTS918PGfROQ/ft1c
- SdUBJV4iJvkEni/7P3og8xEmlGP9Y2VrcPBZA3NIMdTZjc8CafGgt1nBUaOEQ7wX
- UxGgyRhV3H3I9g==
-X-ME-Sender: <xms:i7qjYJA3iWju3suaCr-IacxB0iKGuOKn8IXmPUQzEW2jhOSlVIcWdA>
- <xme:i7qjYHgkDittxjS2DZfOTy3xia7-kZXE_1fgAgtc_g1snwKqQ6B793-2-WyUIO8aE
- UrXndzrbJP7xs1sJzs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgheekucetufdoteggodetrfdotf
+ fm2; bh=EO05u6KqPf/q13T7LEYaijNw5JMQxVVIZOU0w5sSPf8=; b=ejvnBjTh
+ JcTtbnDgqpURvlaS3IhkKEGDL9o/uJm9RoVX6GZE62xg9UVrmgmkmQOzEQBDmxFF
+ 54RT6u6kRSYxrQsRYO8yGJ6i8MXGEvueC032wv8JlhUuzjppPg3vu+6VzHXjKZk9
+ FnEO//Ubcz1K7g+HBK2bWMc1Ob8F4mbGzc0VhaNOcY3jaD/G5vyW7Qu1pvN83xGt
+ Oc9kb1JxbmTNYsPSI0PXtnJFzOXTo5HpLLOWxoeihUlFRpR/mAmuLYMVe+TpZBdQ
+ 0kqRj9hFh+SaGiJehx9pSRSDYP+RJ3Rk5TQt7fzs0v5kXpkM1AFw3CYra2FcxM38
+ iGOQyylsSCtVHA==
+X-ME-Sender: <xms:jLqjYOzpWHp7Gn1kaFCPgElETIh9Spgo9v8GjNqq72xIFnCclUjd0A>
+ <xme:jLqjYKS9i49HFALtieTJJPHoK5UFiUvVRagGiJyVq9SujSBikXjl5lL7WTJ-TLhlW
+ mAgV-DKjXyH14ggVts>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgheejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
@@ -79,19 +79,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgheekucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:i7qjYEmvya8S2kKHRRydYD4ul6vOQiCQCiW4K97EncpvaZzPgkSppQ>
- <xmx:i7qjYDykijZkAfcTxsVQ5HSswFEHrgn5yc9h8TaxRGmHieVOSDt0yg>
- <xmx:i7qjYOSZKXRHvYNdPb9NviL5bd2NE3rP6at4AOGBiPQDVkGGVYuL5g>
- <xmx:i7qjYH4MuMECqIev6ma_wy-6F7SNvm3Qzo0cg3Oervi-BjyJJSmwGw>
+X-ME-Proxy: <xmx:jLqjYAVvca1krO0M4aoUoJz6I6G1Ifxd7SjqHUTqtlw16Al0gNA1qQ>
+ <xmx:jLqjYEgvirYKYhEUByiVIEVorRqJ0jMnqlUp12VNP7w8FqSfagIykg>
+ <xmx:jLqjYACW9CEyNZM4iruLYRqHqtIqC1TBOYiQXr6F5G6NjoVVkrFT1g>
+ <xmx:jbqjYLqHmR7ejuhxVjkotU8mRm4n-XFa8r8xzenO4PeX3-wVLkPBow>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Tue, 18 May 2021 09:00:58 -0400 (EDT)
+ Tue, 18 May 2021 09:00:59 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 4/8] ALSA: firewire-lib: code refactoring for helper function
- to compute OHCI 1394 cycle
-Date: Tue, 18 May 2021 22:00:43 +0900
-Message-Id: <20210518130048.146596-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 5/8] ALSA: firewire-lib: code refactoring for parser of IR
+ context header
+Date: Tue, 18 May 2021 22:00:44 +0900
+Message-Id: <20210518130048.146596-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518130048.146596-1-o-takashi@sakamocchi.jp>
 References: <20210518130048.146596-1-o-takashi@sakamocchi.jp>
@@ -113,98 +113,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some macros and functions are renamed so that they compute isochronous
-cycle within maximum count of second in isochronous context of 1394
-OHCI.
+This commit refactors regarding to function argument for the length of
+isochronous packet payload.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ sound/firewire/amdtp-stream.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 739e73207fda..ed8aea3cb1a1 100644
+index ed8aea3cb1a1..1c530678e56a 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -20,7 +20,7 @@
- #define CYCLES_PER_SECOND	8000
- #define TICKS_PER_SECOND	(TICKS_PER_CYCLE * CYCLES_PER_SECOND)
+@@ -632,33 +632,33 @@ static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
  
--#define OHCI_MAX_SECOND		8
-+#define OHCI_SECOND_MODULUS		8
- 
- /* Always support Linux tracing subsystem. */
- #define CREATE_TRACE_POINTS
-@@ -688,17 +688,17 @@ static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
- // In CYCLE_TIMER register of IEEE 1394, 7 bits are used to represent second. On
- // the other hand, in DMA descriptors of 1394 OHCI, 3 bits are used to represent
- // it. Thus, via Linux firewire subsystem, we can get the 3 bits for second.
--static inline u32 compute_cycle_count(__be32 ctx_header_tstamp)
-+static inline u32 compute_ohci_cycle_count(__be32 ctx_header_tstamp)
+ static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
+ 			       const __be32 *ctx_header,
+-			       unsigned int *payload_length,
+ 			       unsigned int *data_blocks,
+ 			       unsigned int *data_block_counter,
+ 			       unsigned int *syt, unsigned int packet_index, unsigned int index)
  {
- 	u32 tstamp = be32_to_cpu(ctx_header_tstamp) & HEADER_TSTAMP_MASK;
- 	return (((tstamp >> 13) & 0x07) * 8000) + (tstamp & 0x1fff);
- }
++	unsigned int payload_length;
+ 	const __be32 *cip_header;
+ 	unsigned int cip_header_size;
+ 	int err;
  
--static inline u32 increment_cycle_count(u32 cycle, unsigned int addend)
-+static inline u32 increment_ohci_cycle_count(u32 cycle, unsigned int addend)
- {
- 	cycle += addend;
--	if (cycle >= OHCI_MAX_SECOND * CYCLES_PER_SECOND)
--		cycle -= OHCI_MAX_SECOND * CYCLES_PER_SECOND;
-+	if (cycle >= OHCI_SECOND_MODULUS * CYCLES_PER_SECOND)
-+		cycle -= OHCI_SECOND_MODULUS * CYCLES_PER_SECOND;
- 	return cycle;
- }
+-	*payload_length = be32_to_cpu(ctx_header[0]) >> ISO_DATA_LENGTH_SHIFT;
++	payload_length = be32_to_cpu(ctx_header[0]) >> ISO_DATA_LENGTH_SHIFT;
  
-@@ -706,11 +706,11 @@ static inline u32 increment_cycle_count(u32 cycle, unsigned int addend)
- // This module queued the same number of isochronous cycle as the size of queue
- // to kip isochronous cycle, therefore it's OK to just increment the cycle by
- // the size of queue for scheduled cycle.
--static inline u32 compute_it_cycle(const __be32 ctx_header_tstamp,
--				   unsigned int queue_size)
-+static inline u32 compute_ohci_it_cycle(const __be32 ctx_header_tstamp,
-+					unsigned int queue_size)
- {
--	u32 cycle = compute_cycle_count(ctx_header_tstamp);
--	return increment_cycle_count(cycle, queue_size);
-+	u32 cycle = compute_ohci_cycle_count(ctx_header_tstamp);
-+	return increment_ohci_cycle_count(cycle, queue_size);
- }
+ 	if (!(s->flags & CIP_NO_HEADER))
+ 		cip_header_size = 8;
+ 	else
+ 		cip_header_size = 0;
  
- static int generate_device_pkt_descs(struct amdtp_stream *s,
-@@ -731,7 +731,7 @@ static int generate_device_pkt_descs(struct amdtp_stream *s,
+-	if (*payload_length > cip_header_size + s->ctx_data.tx.max_ctx_payload_length) {
++	if (payload_length > cip_header_size + s->ctx_data.tx.max_ctx_payload_length) {
+ 		dev_err(&s->unit->device,
+ 			"Detect jumbo payload: %04x %04x\n",
+-			*payload_length, cip_header_size + s->ctx_data.tx.max_ctx_payload_length);
++			payload_length, cip_header_size + s->ctx_data.tx.max_ctx_payload_length);
+ 		return -EIO;
+ 	}
+ 
+ 	if (cip_header_size > 0) {
+-		if (*payload_length >= cip_header_size) {
++		if (payload_length >= cip_header_size) {
+ 			cip_header = ctx_header + 2;
+-			err = check_cip_header(s, cip_header, *payload_length, data_blocks,
++			err = check_cip_header(s, cip_header, payload_length, data_blocks,
+ 					       data_block_counter, syt);
+ 			if (err < 0)
+ 				return err;
+@@ -671,15 +671,14 @@ static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
+ 	} else {
+ 		cip_header = NULL;
+ 		err = 0;
+-		*data_blocks = *payload_length / sizeof(__be32) /
+-			       s->data_block_quadlets;
++		*data_blocks = payload_length / sizeof(__be32) / s->data_block_quadlets;
+ 		*syt = 0;
+ 
+ 		if (*data_block_counter == UINT_MAX)
+ 			*data_block_counter = 0;
+ 	}
+ 
+-	trace_amdtp_packet(s, cycle, cip_header, *payload_length, *data_blocks,
++	trace_amdtp_packet(s, cycle, cip_header, payload_length, *data_blocks,
+ 			   *data_block_counter, packet_index, index);
+ 
+ 	return err;
+@@ -727,14 +726,13 @@ static int generate_device_pkt_descs(struct amdtp_stream *s,
+ 	for (i = 0; i < packets; ++i) {
+ 		struct pkt_desc *desc = descs + i;
+ 		unsigned int cycle;
+-		unsigned int payload_length;
  		unsigned int data_blocks;
  		unsigned int syt;
  
--		cycle = compute_cycle_count(ctx_header[1]);
-+		cycle = compute_ohci_cycle_count(ctx_header[1]);
+ 		cycle = compute_ohci_cycle_count(ctx_header[1]);
  
- 		err = parse_ir_ctx_header(s, cycle, ctx_header, &payload_length,
- 					  &data_blocks, &dbc, &syt, packet_index, i);
-@@ -784,7 +784,7 @@ static void generate_pkt_descs(struct amdtp_stream *s, struct pkt_desc *descs,
- 		const struct seq_desc *seq = seq_descs + seq_index;
- 		unsigned int syt;
+-		err = parse_ir_ctx_header(s, cycle, ctx_header, &payload_length,
+-					  &data_blocks, &dbc, &syt, packet_index, i);
++		err = parse_ir_ctx_header(s, cycle, ctx_header, &data_blocks, &dbc, &syt,
++					  packet_index, i);
+ 		if (err < 0)
+ 			return err;
  
--		desc->cycle = compute_it_cycle(*ctx_header, s->queue_size);
-+		desc->cycle = compute_ohci_it_cycle(*ctx_header, s->queue_size);
- 
- 		syt = seq->syt_offset;
- 		if (syt != CIP_SYT_NO_INFO) {
-@@ -1025,11 +1025,11 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	wake_up(&s->callback_wait);
- 
- 	if (s->direction == AMDTP_IN_STREAM) {
--		cycle = compute_cycle_count(ctx_header[1]);
-+		cycle = compute_ohci_cycle_count(ctx_header[1]);
- 
- 		context->callback.sc = in_stream_callback;
- 	} else {
--		cycle = compute_it_cycle(*ctx_header, s->queue_size);
-+		cycle = compute_ohci_it_cycle(*ctx_header, s->queue_size);
- 
- 		if (s == s->domain->irq_target)
- 			context->callback.sc = irq_target_callback;
 -- 
 2.27.0
 

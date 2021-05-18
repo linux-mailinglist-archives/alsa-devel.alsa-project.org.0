@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E89FA387451
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 10:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82C92387460
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 10:50:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 752F216DA;
-	Tue, 18 May 2021 10:47:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 752F216DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02F5C16F1;
+	Tue, 18 May 2021 10:49:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02F5C16F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621327708;
-	bh=99duklAdcsAU/2/owCmFV5SIqcq6KJ9N4EHRbLWJM5Y=;
+	s=default; t=1621327812;
+	bh=K2QTJ7PWAmZz2pe8j3TlXJ5eUB6PUhhTPsN4IKE+lro=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZToytYoAj2Ss8R8YAelQkGY1c/b7M8gMTQepyEnOB8mGYxI4juemyPgrtPN5WZhm2
-	 DKmoPEWkatba06oXrpyXsplR7Vfj5D4SqZBUC8xKOb89YFk86T6qq+0siedNhNS8d4
-	 wiyMuDbBorCe5fdbx4odJOdHV1KcD057LE7/DIho=
+	b=fLgtJPlo2yVXLUPOZfHcNDavDCSB1WBXsMp5upu1thkO/poqU1KMP6tlzNkYWMe5S
+	 HPVUjvC6ZP0y17SitROV8IMW3wojRMkZFR92pKbQKdgdtrj9LGRXQOJV2+T6ZhoPgT
+	 eXCvlOW9PccDzEvuXd7mjWTs3avDTWm7AndJOH34=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B14DEF80482;
-	Tue, 18 May 2021 10:46:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15575F804E0;
+	Tue, 18 May 2021 10:46:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDDA9F802E3; Tue, 18 May 2021 10:46:11 +0200 (CEST)
+ id 565EBF804AA; Tue, 18 May 2021 10:46:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAC60F801DB
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 10:46:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAC60F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29055F80139
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 10:46:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29055F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="0dp1aiYc"; 
+ header.b="fV6Jez7i"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="twOvfSuI"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 0A8955C0131;
- Tue, 18 May 2021 04:46:05 -0400 (EDT)
+ header.i=@messagingengine.com header.b="cFOPuDWz"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5A5C25C0121;
+ Tue, 18 May 2021 04:46:06 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 18 May 2021 04:46:05 -0400
+ by compute3.internal (MEProxy); Tue, 18 May 2021 04:46:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=+YqyiIh+nY8Tf
- tXVmh+T+Vhx4m6t9HLbjBJPP/pdmFQ=; b=0dp1aiYc0intuPnidulUQkLNszkkH
- X4w/2wfkJikz58JLIGgHIVnmsc0SLd0eZeH2T6rgirfEAf5ILinXJ6FMJYPn/JAD
- 22imC0iyve0YQCFFMe3Xqr2B1aYymSY3t07mZi60o2WuqWqvVzh2qnmgpFUtpoiJ
- NfXf79vvv77kLSBzFuXp7uutf7GC4bFXmRzn4k0jP8q1zoBpGB5Sn41nsvBPdszr
- Egv/B6HUOHAS+keoO6tnm0jDcHtSDk8nJl1mOli+beQZ4QQbIlt1nl3Ml/nDY6Iz
- Flhun3k1hg3WPyJLZFXt4ghPnGGAAofghcmBawi4HuXzVz5eQlU0A4qyA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=z2h4iAd5kIIH1
+ zEvRUhiZCQqxbScmElaaiMxsPYF/Pc=; b=fV6Jez7ibV/PGt1KQXi94GJrC/IfM
+ 6xyOi6Y80XBRt4fOOOlLqJqjECYZkvt7RoI6HDoC44ELy434+BL3LN9CrJbV5fsw
+ vppfPmVQqFqzdb4DEBDvNznpHzAho3NMxxPP73gcwlvajs0n3FALcun+6vX/Ij+0
+ pAbCcpLXl4hj9cv4DaJJ9QQWpEpgVYnPq8ISE4lziHq1nuYl5i6QMl5VXUbaXB6i
+ PlVwEcaBFlNjRyglOThR0la2Nrm/JwlTfjoQ5Pt1f8/ZL53f/XS4H508X38eHP3O
+ RzpiO60QWMG+4VxiyduOMXHNiocufQLoU5mXq4Yulr2AIMpZJ7EPgWEXQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=+YqyiIh+nY8TftXVmh+T+Vhx4m6t9HLbjBJPP/pdmFQ=; b=twOvfSuI
- OMDgTzT2QUp0Rc6bUb9cvlwxIG+eNfiGWDKcQ5tZ9k0zfDqoLNmKzhkmUV26U8Y3
- SCskD+Cw5+jPonY8KouVVLF+9l5WOO3+7BMJ8XeZ8VeCrUU7rtTUsP6QwV7JII3g
- CWDpDSDaJJXwfBcKgItPCiB+bIgyDLfk626pKCQscp9fDgdKxj7Ca4DN3ZRfLZus
- cFn6Kc5c/quyzOdcUeUaH5bFxrI3liFy28/eIMDZX64Wo8MCLVvJYKBpeBXz0OW5
- Bj/ywtvU5hMgcUIiH18Rxqb0jzTkgSFOMuGPjg3DjFnMEEAe9vc5hxmylNYPps9T
- 0CSFTQ+Jh00LTA==
-X-ME-Sender: <xms:zH6jYLCYA11WtxwVDJKP6-nBuiRcxBOGT_oeCME23mDj_htMVxs7wQ>
- <xme:zH6jYBg_7H_oBJ2KPbrSxCnuPka6RvVBcgpFpyE3aUCWlGspT5SoH-Fk-RktQQLyf
- SKQNt1sHUV7cpRRCYU>
+ fm2; bh=z2h4iAd5kIIH1zEvRUhiZCQqxbScmElaaiMxsPYF/Pc=; b=cFOPuDWz
+ jxREqgB1toxHcK+3QwdJZ//lbK0Itn2x9Md+qBXbuzQvxSqU0dB67DgSgU36q9g4
+ VdrtBUC50C6ZGPj+JW4d8PhqV9PZorU6HNFiz8TvGNRsU6+25DvzasUynxxzP1ja
+ mEaqfmAB6N9WsuiXRdOXLUPOfsY9zZqU274mIY5ggdXDu+n5be+3VpqUegc5eArt
+ pIjH62YcJhZKi9TLCwLhWvhx5MtKL2s1e9ZoJMEUNRKrp+B5hXruK+XD4jooeLOD
+ nfQyR9c1pwljElsDnEgu44d5mfhugBMPdOdIsHPYSlPl7/ZGDCzPRxlPuyDpILgN
+ JEJDtKRQjBdy1A==
+X-ME-Sender: <xms:zn6jYMkPtFC_YjSuiHb00SlPF1blMm_UvADDW70WeNQPZ1j1ynDszg>
+ <xme:zn6jYL1qG0YNY81Ii5FkwHUFoSDPYwiy5r_OvD3fFc67O-6TeHieVmOcXNG4GjnfF
+ hiMsI0T-ITCcgqA8gw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgtdekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -79,19 +79,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeijedgtdekucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:zH6jYGnFxqnwvpv2gCxiorzcvrSZiG2YtX611JfChVAXGqrp14-C8A>
- <xmx:zH6jYNzPrS7rlUuE0jC9mMSh0_Kg1OBA-gLCojv4TLIqel504komSw>
- <xmx:zH6jYATt1KvzoEypZ-nAhsRwU9EXOtFBVn02jWq64_JCOfy7scpQAg>
- <xmx:zX6jYJ7GtT5RDdO76mcLAMgHVG1ZEaxZm0BwEQzxkX4cRictNX1wnQ>
+X-ME-Proxy: <xmx:zn6jYKqYLr-iChW2Tz9S8OMy8c4yEavL5eXtJDwYJXOtV99VgBy9MA>
+ <xmx:zn6jYIkom7G1fBrAEsrTNbEGzDI3ywCk-yRptNTwJCCYqS_GFAOwvQ>
+ <xmx:zn6jYK0cC26W5yZn91BvSwqgW58PivAqTSDHtBQHG2NftGyYg1HTsg>
+ <xmx:zn6jYP9gsmRYmqRcxNzsCWe019VWfyt-5uHGSktW6j6DKygovH-yqg>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Tue, 18 May 2021 04:46:03 -0400 (EDT)
+ Tue, 18 May 2021 04:46:05 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v4 02/11] ALSA: firewire-lib/motu: use int type for the value
- of bitwise OR with enumerator-constant
-Date: Tue, 18 May 2021 17:45:48 +0900
-Message-Id: <20210518084557.102681-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH v4 03/11] ALSA: oxfw: code refactoring for existent device
+ entry with specifier_id and version
+Date: Tue, 18 May 2021 17:45:49 +0900
+Message-Id: <20210518084557.102681-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518084557.102681-1-o-takashi@sakamocchi.jp>
 References: <20210518084557.102681-1-o-takashi@sakamocchi.jp>
@@ -113,120 +113,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It brings some inconvenience in practice to use enumerated type for
-variable to which bitwise OR with enumerator constant is assigned.
+All of the devices known to be based on OXFW ASICs have the same layout
+of configuration ROM, in which unit directory includes vendor, model,
+specifier_id and version immediate values. Especially, the pair of
+specifier_id and version is fixed to represent AV/C general protocol.
 
-This commit replaces declarations of enumerated type with int type.
+This commit refactors device entries to fulfil with these 4 elements.
 
-Suggested-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-am824.c       | 4 ++--
- sound/firewire/amdtp-am824.h       | 2 +-
- sound/firewire/amdtp-stream.c      | 4 ++--
- sound/firewire/amdtp-stream.h      | 5 +++--
- sound/firewire/digi00x/amdtp-dot.c | 2 +-
- sound/firewire/motu/motu.h         | 3 ++-
- 6 files changed, 11 insertions(+), 9 deletions(-)
+ sound/firewire/oxfw/oxfw.c | 82 ++++++++++++--------------------------
+ 1 file changed, 25 insertions(+), 57 deletions(-)
 
-diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
-index fea92e148790..d9c700f652bb 100644
---- a/sound/firewire/amdtp-am824.c
-+++ b/sound/firewire/amdtp-am824.c
-@@ -410,10 +410,10 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
-  * @s: the AMDTP stream to initialize
-  * @unit: the target of the stream
-  * @dir: the direction of stream
-- * @flags: the packet transmission method to use
-+ * @flags: the details of the streaming protocol consist of cip_flags enumeration-constants.
-  */
- int amdtp_am824_init(struct amdtp_stream *s, struct fw_unit *unit,
--		     enum amdtp_stream_direction dir, enum cip_flags flags)
-+		     enum amdtp_stream_direction dir, unsigned int flags)
- {
- 	amdtp_stream_process_ctx_payloads_t process_ctx_payloads;
- 
-diff --git a/sound/firewire/amdtp-am824.h b/sound/firewire/amdtp-am824.h
-index 06d280783581..2b092b1061ba 100644
---- a/sound/firewire/amdtp-am824.h
-+++ b/sound/firewire/amdtp-am824.h
-@@ -45,5 +45,5 @@ void amdtp_am824_midi_trigger(struct amdtp_stream *s, unsigned int port,
- 			      struct snd_rawmidi_substream *midi);
- 
- int amdtp_am824_init(struct amdtp_stream *s, struct fw_unit *unit,
--		     enum amdtp_stream_direction dir, enum cip_flags flags);
-+		     enum amdtp_stream_direction dir, unsigned int flags);
- #endif
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index e0faa6601966..b14c3922efb2 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -71,13 +71,13 @@ static void pcm_period_work(struct work_struct *work);
-  * @s: the AMDTP stream to initialize
-  * @unit: the target of the stream
-  * @dir: the direction of stream
-- * @flags: the packet transmission method to use
-+ * @flags: the details of the streaming protocol consist of cip_flags enumeration-constants.
-  * @fmt: the value of fmt field in CIP header
-  * @process_ctx_payloads: callback handler to process payloads of isoc context
-  * @protocol_size: the size to allocate newly for protocol
-  */
- int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
--		      enum amdtp_stream_direction dir, enum cip_flags flags,
-+		      enum amdtp_stream_direction dir, unsigned int flags,
- 		      unsigned int fmt,
- 		      amdtp_stream_process_ctx_payloads_t process_ctx_payloads,
- 		      unsigned int protocol_size)
-diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index a3daa1f2c1c4..0628b6e52fc1 100644
---- a/sound/firewire/amdtp-stream.h
-+++ b/sound/firewire/amdtp-stream.h
-@@ -112,7 +112,8 @@ typedef unsigned int (*amdtp_stream_process_ctx_payloads_t)(
- struct amdtp_domain;
- struct amdtp_stream {
- 	struct fw_unit *unit;
--	enum cip_flags flags;
-+	// The combination of cip_flags enumeration-constants.
-+	unsigned int flags;
- 	enum amdtp_stream_direction direction;
- 	struct mutex mutex;
- 
-@@ -184,7 +185,7 @@ struct amdtp_stream {
+diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
+index 5490637d278a..7be999c61730 100644
+--- a/sound/firewire/oxfw/oxfw.c
++++ b/sound/firewire/oxfw/oxfw.c
+@@ -320,36 +320,24 @@ static const struct compat_info lacie_speakers = {
+ 	.model_name = "FireWire Speakers",
  };
  
- int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
--		      enum amdtp_stream_direction dir, enum cip_flags flags,
-+		      enum amdtp_stream_direction dir, unsigned int flags,
- 		      unsigned int fmt,
- 		      amdtp_stream_process_ctx_payloads_t process_ctx_payloads,
- 		      unsigned int protocol_size);
-diff --git a/sound/firewire/digi00x/amdtp-dot.c b/sound/firewire/digi00x/amdtp-dot.c
-index d613642a2ce3..398c57a6fb43 100644
---- a/sound/firewire/digi00x/amdtp-dot.c
-+++ b/sound/firewire/digi00x/amdtp-dot.c
-@@ -396,7 +396,7 @@ int amdtp_dot_init(struct amdtp_stream *s, struct fw_unit *unit,
- 		 enum amdtp_stream_direction dir)
- {
- 	amdtp_stream_process_ctx_payloads_t process_ctx_payloads;
--	enum cip_flags flags;
-+	unsigned int flags;
- 
- 	// Use different mode between incoming/outgoing.
- 	if (dir == AMDTP_IN_STREAM) {
-diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
-index 3d0236ee6716..92effb6e6c96 100644
---- a/sound/firewire/motu/motu.h
-+++ b/sound/firewire/motu/motu.h
-@@ -106,7 +106,8 @@ enum snd_motu_protocol_version {
- struct snd_motu_spec {
- 	const char *const name;
- 	enum snd_motu_protocol_version protocol_version;
--	enum snd_motu_spec_flags flags;
-+	// The combination of snd_motu_spec_flags enumeration-constants.
-+	unsigned int flags;
- 
- 	unsigned char tx_fixed_pcm_chunks[3];
- 	unsigned char rx_fixed_pcm_chunks[3];
++#define OXFW_DEV_ENTRY(vendor, model, data) \
++{ \
++	.match_flags  = IEEE1394_MATCH_VENDOR_ID | \
++			IEEE1394_MATCH_MODEL_ID | \
++			IEEE1394_MATCH_SPECIFIER_ID | \
++			IEEE1394_MATCH_VERSION, \
++	.vendor_id    = vendor, \
++	.model_id     = model, \
++	.specifier_id = SPECIFIER_1394TA, \
++	.version      = VERSION_AVC, \
++	.driver_data  = (kernel_ulong_t)data, \
++}
++
+ static const struct ieee1394_device_id oxfw_id_table[] = {
+-	{
+-		.match_flags  = IEEE1394_MATCH_VENDOR_ID |
+-				IEEE1394_MATCH_MODEL_ID |
+-				IEEE1394_MATCH_SPECIFIER_ID |
+-				IEEE1394_MATCH_VERSION,
+-		.vendor_id    = VENDOR_GRIFFIN,
+-		.model_id     = 0x00f970,
+-		.specifier_id = SPECIFIER_1394TA,
+-		.version      = VERSION_AVC,
+-		.driver_data  = (kernel_ulong_t)&griffin_firewave,
+-	},
+-	{
+-		.match_flags  = IEEE1394_MATCH_VENDOR_ID |
+-				IEEE1394_MATCH_MODEL_ID |
+-				IEEE1394_MATCH_SPECIFIER_ID |
+-				IEEE1394_MATCH_VERSION,
+-		.vendor_id    = VENDOR_LACIE,
+-		.model_id     = 0x00f970,
+-		.specifier_id = SPECIFIER_1394TA,
+-		.version      = VERSION_AVC,
+-		.driver_data  = (kernel_ulong_t)&lacie_speakers,
+-	},
+-	/* Behringer,F-Control Audio 202 */
+-	{
+-		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
+-				  IEEE1394_MATCH_MODEL_ID,
+-		.vendor_id	= VENDOR_BEHRINGER,
+-		.model_id	= 0x00fc22,
+-	},
++	OXFW_DEV_ENTRY(VENDOR_GRIFFIN, 0x00f970, &griffin_firewave),
++	OXFW_DEV_ENTRY(VENDOR_LACIE, 0x00f970, &lacie_speakers),
++	// Behringer,F-Control Audio 202.
++	OXFW_DEV_ENTRY(VENDOR_BEHRINGER, 0x00fc22, NULL),
+ 	/*
+ 	 * Any Mackie(Loud) models (name string/model id):
+ 	 *  Onyx-i series (former models):	0x081216
+@@ -367,34 +355,14 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
+ 		.specifier_id	= SPECIFIER_1394TA,
+ 		.version	= VERSION_AVC,
+ 	},
+-	/* TASCAM, FireOne */
+-	{
+-		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
+-				  IEEE1394_MATCH_MODEL_ID,
+-		.vendor_id	= VENDOR_TASCAM,
+-		.model_id	= 0x800007,
+-	},
+-	/* Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m) */
+-	{
+-		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
+-				  IEEE1394_MATCH_MODEL_ID,
+-		.vendor_id	= OUI_STANTON,
+-		.model_id	= 0x001000,
+-	},
+-	/* Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d) */
+-	{
+-		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
+-				  IEEE1394_MATCH_MODEL_ID,
+-		.vendor_id	= OUI_STANTON,
+-		.model_id	= 0x002000,
+-	},
+-	// APOGEE, duet FireWire
+-	{
+-		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
+-				  IEEE1394_MATCH_MODEL_ID,
+-		.vendor_id	= OUI_APOGEE,
+-		.model_id	= 0x01dddd,
+-	},
++	// TASCAM, FireOne.
++	OXFW_DEV_ENTRY(VENDOR_TASCAM, 0x800007, NULL),
++	// Stanton, Stanton Controllers & Systems 1 Mixer (SCS.1m).
++	OXFW_DEV_ENTRY(OUI_STANTON, 0x001000, NULL),
++	// Stanton, Stanton Controllers & Systems 1 Deck (SCS.1d).
++	OXFW_DEV_ENTRY(OUI_STANTON, 0x002000, NULL),
++	// APOGEE, duet FireWire.
++	OXFW_DEV_ENTRY(OUI_APOGEE, 0x01dddd, NULL),
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(ieee1394, oxfw_id_table);
 -- 
 2.27.0
 

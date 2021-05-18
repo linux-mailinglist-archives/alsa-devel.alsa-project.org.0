@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FD6387009
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:48:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6ACB38700B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 04:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 734B416A8;
-	Tue, 18 May 2021 04:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 734B416A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09C941690;
+	Tue, 18 May 2021 04:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09C941690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621306113;
-	bh=JRc9DCV+kQP/aiXtI8kxufsQcMSHGQ/1I6BvPqvRyZw=;
+	s=default; t=1621306164;
+	bh=/CoxoUZsR5uLKkQvd13H8mfeGMfi5IKzHU7uDT7xLgg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gnropp+xRsfCDdslAwDmbIoHnr4SOAAUg5obgzZF8HRN3PiKAFOjtkPvpoJi8Opmi
-	 jEsSRX6Bp3WnLD90RSuMPNeACofN9lq66MRki0fxthLUnQKvezOLlXYxSAFOV/Zw2z
-	 x5SMmWj1iwpeLIELU0uN1bQWPr0GMRAGXgWLzFI8=
+	b=YfGuYyZ+U7EElzg13ydwQJoiQNdZNZ84PIuhMtuQhoBSwMcB51gSyQbgEOIYINLAD
+	 1Fi07aS5PmxS9xZwhUNzYMO8QMWoDlwYPbu8M0AqLvlyQz7sFqGd2Kum2q6j1gknaM
+	 /sAoltwJevBLXNp1jTDkjvs2O8NbnDJmBGMxOtKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89F5CF804EB;
-	Tue, 18 May 2021 04:44:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D783F804FF;
+	Tue, 18 May 2021 04:44:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8381EF804B1; Tue, 18 May 2021 04:43:59 +0200 (CEST)
+ id E6B8DF804DA; Tue, 18 May 2021 04:44:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,63 +35,62 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7E3CF8012C
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E3CF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F79FF8042F
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 04:43:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F79FF8042F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="ayIWyCz0"; 
+ header.b="0loEqb/2"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="tXQqrDRw"
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 1A6AD5C0196;
- Mon, 17 May 2021 22:43:44 -0400 (EDT)
+ header.i=@messagingengine.com header.b="YbzKr6Az"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6BDC55C01A3;
+ Mon, 17 May 2021 22:43:45 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Mon, 17 May 2021 22:43:44 -0400
+ by compute3.internal (MEProxy); Mon, 17 May 2021 22:43:45 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=/X4Km5+fh5lH7
- 8+KdttWjo7bnQ89V8nq9Swu+W9VfJg=; b=ayIWyCz0QvNrdO6tgm4yA6L5LJwlS
- ggsLcvYGXOoZQLgkAbyZADYeTkOes6ZMhokaX0k4zot2jd2QMN975qPPMe8d3QJA
- LU9CNHe2JzEm6vVV5cnPFxOiTwi09gIQ/DC2sNP87ikQJAHCvhLgRPzAigg2Zg3U
- j09fXmx7ioyXuWOL6s0B08ar+502VcbbdrhyQZy6+gh3rNzzLN5altVRE9gK+62p
- 6lCAkhMztWxwqo3zUXEWoONzelDghnffSl2fSgVFZSZr907PaU7HRnxpDJ7Mc+7O
- Y8Njdl0OgpTfIgamGfmVAp6ElhjLPsUQkdTA80bmyzWO8rU0Nhw4sqb0A==
+ :mime-version:content-transfer-encoding; s=fm1; bh=Z4lmgCuUgwPzP
+ 8ylS6vFr2zm/KxvNQxOxXqFDPLlKow=; b=0loEqb/2jwH7Lar/m4FpwjB6lVFSm
+ vkiVwSDysILvoBEuuhmRDz4Jc7sm1z7aRO47CmN05LcI9t87RjBYNGDeiSTF1sM4
+ Ue7n9CXTCV81toDJY4YzbGShyT801UgbEr29NgD1jCT5F3JEGREt+A7kNdRWyDa7
+ q0C5NALD2Qe6agwaGMMQPoBnyh/wRbiCkTePWtlCe5vi9cLIuWb8OD3NAmwvW+jZ
+ DJ8nPYqoSOwHXtYPuVZo5jdEMZBvTKRQ7s9+CpYy0692WpmhDqzCdMin9Dc6WQDD
+ N3ccq6Xlr3tzdfoMjME5ZYqCOOVw9FX6Dr6DkDWB7zDr1Wk4O9PgsqCcw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=/X4Km5+fh5lH78+KdttWjo7bnQ89V8nq9Swu+W9VfJg=; b=tXQqrDRw
- pWbK0UXafedD4lOKXeHzi85QpC9bqtvk0UaG3YNSo0HKAZxlpJa8DmZOz82XcpVM
- 0JDVUXDUx+F/u0S96b2x1D0OjjdNz45QJUV7VvBe1uX5ZgxWM8Qoy54ROR3IalzD
- J57R0wfDVQ9mHfZqYAz7IGbqVJO344KYlY4rBNvrySr0nd9Xa22hNgJfxdfOsV05
- d3SxhH3QvN69V+EoFhtt8C2ZktGZps9ek+k60Mde/XdbmQMxVQ92gZj2swH3q3sv
- nswD4M44uiZ6C3ykPpCHd4ry6UcbzNV1FsqVgkr0WHmc1ffLv+AeDjAxh9jAF0T3
- xEl2zjoElTMTXQ==
-X-ME-Sender: <xms:3ymjYFaehn7xWiDpVHFMEbIF9gTRzjZw5t1nOtPAKQKyNHaxp_u8Mg>
- <xme:3ymjYMbK0KSWVKIEdCqaG2wsCeSH6NLPxY5DhopguOugynrtndsu2VIRiOeTBRbuQ
- 3eBTkPinsjDH54XTbo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheejucetufdoteggodetrfdotf
+ fm2; bh=Z4lmgCuUgwPzP8ylS6vFr2zm/KxvNQxOxXqFDPLlKow=; b=YbzKr6Az
+ I01wX0gBeT9y8Y+4KEnZGvskj17GfnNzrsC8QSxPFD4de2bjeb2eC7NrzAmfoj2Z
+ vml7X8SFH53Y/5oWa5xzYw2mNFKYlICaYK8hJnVqrDM3x/+6MHvzNNpAdqhl76NZ
+ oXfw1wp4L3x/S6qXiUBJkj7/462GCtTMjdF4khvqU8E51OU8eXQ8r7mPpom3oVQh
+ Y08Nx8HCh2BdM4Cngro0kKEUzEwK4WbHk/l2GU89j7fm6xNaI4Iz455a9VshN+pU
+ zkELfAZOrJqYiTdFqHjCB8qrlbiMs7xaPoXFFurdwr8RqqFW/eterKkBlr8c91W8
+ uhwoCOi0GYnlFw==
+X-ME-Sender: <xms:4SmjYLQceW-ujgkqbWmcfYQMQt9AeDdQUWFY-rbMT3iO0mbs1TzDeQ>
+ <xme:4SmjYMwMQRzedQW5ndj_g28R6dz2q-IqmuFdIynduC8-fqlcUZf-LfG9pmmePGYhs
+ XWatyt40SoaNK0JXo8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdeiiedgheekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepfeenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:4CmjYH-S_FxSKGrvTFr5LjbYS8qtEgs_SUBdYAS1IPH3WlypPERWcA>
- <xmx:4CmjYDrmH_dQydxk5EO-1Zo-qCEst3kUlGlPa8c0pJxfKxexG9PfFw>
- <xmx:4CmjYArnKKdT_h3shYZL8QcF0RrJ5UuBGM0lugLVpW-M7Nb2BxnvhQ>
- <xmx:4CmjYHTgMxFco4bMZGy9V5Qjr8hFVZpbwGyHXItG1XkFtpCh4tevJQ>
+X-ME-Proxy: <xmx:4SmjYA0ToiQ8fmG9_ip9O_s8aXLzPvG4ML9ZOV7frFEIGfdGRRbeVw>
+ <xmx:4SmjYLA2_1DPIrma312VJjZ_9h5QI4QAXGR2L3mAqvC3mU-N9B1rMg>
+ <xmx:4SmjYEgtUA7Nb5IL-XMPQNuc3SYhpuElYd2WOvGEY236aE9tewk-Lg>
+ <xmx:4SmjYMKk5144yilUaEzroQpxzdcd_KggLce0qk6w-iB6UrM2ZwxBtQ>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon, 17 May 2021 22:43:42 -0400 (EDT)
+ Mon, 17 May 2021 22:43:44 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v3 09/11] ALSA: firewire-lib: code refactoring for jumbo
- payload quirk
-Date: Tue, 18 May 2021 11:43:24 +0900
-Message-Id: <20210518024326.67576-10-o-takashi@sakamocchi.jp>
+Subject: [PATCH v3 10/11] ALSA: oxfw: code refactoring for wrong_dbs quirk
+Date: Tue, 18 May 2021 11:43:25 +0900
+Message-Id: <20210518024326.67576-11-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
 References: <20210518024326.67576-1-o-takashi@sakamocchi.jp>
@@ -113,39 +112,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A new macro is added to describe the maximum number of cycles to accept
-cycle skip by jumbo payload quirk.
+A new entry is added to the quirk enumeration for wrong_dbs quirk to
+obsolete structure member.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/firewire/oxfw/oxfw-stream.c | 2 +-
+ sound/firewire/oxfw/oxfw.c        | 2 +-
+ sound/firewire/oxfw/oxfw.h        | 3 ++-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 094c9b2d772f..ba70c8b51907 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -64,6 +64,11 @@
- #define IT_PKT_HEADER_SIZE_CIP		8 // For 2 CIP header.
- #define IT_PKT_HEADER_SIZE_NO_CIP	0 // Nothing.
+diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
+index 65b458da2796..de6b40c04810 100644
+--- a/sound/firewire/oxfw/oxfw-stream.c
++++ b/sound/firewire/oxfw/oxfw-stream.c
+@@ -163,7 +163,7 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
  
-+// The initial firmware of OXFW970 can postpone transmission of packet during finishing
-+// asynchronous transaction. This module accepts 5 cycles to skip as maximum to avoid buffer
-+// overrun. Actual device can skip more, then this module stops the packet streaming.
-+#define IR_JUMBO_PAYLOAD_MAX_SKIP_CYCLES	5
-+
- static void pcm_period_work(struct work_struct *work);
+ 		if (oxfw->quirks & SND_OXFW_QUIRK_JUMBO_PAYLOAD)
+ 			flags |= CIP_JUMBO_PAYLOAD;
+-		if (oxfw->wrong_dbs)
++		if (oxfw->quirks & SND_OXFW_QUIRK_WRONG_DBS)
+ 			flags |= CIP_WRONG_DBS;
+ 	} else {
+ 		conn = &oxfw->in_conn;
+diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
+index 90a66e1312fe..966697dace47 100644
+--- a/sound/firewire/oxfw/oxfw.c
++++ b/sound/firewire/oxfw/oxfw.c
+@@ -176,7 +176,7 @@ static int detect_quirks(struct snd_oxfw *oxfw)
+ 	 * value in 'dbs' field of CIP header against its format information.
+ 	 */
+ 	if (vendor == VENDOR_LOUD && model == MODEL_SATELLITE)
+-		oxfw->wrong_dbs = true;
++		oxfw->quirks |= SND_OXFW_QUIRK_WRONG_DBS;
  
- /**
-@@ -316,7 +321,7 @@ unsigned int amdtp_stream_get_max_payload(struct amdtp_stream *s)
- 	unsigned int cip_header_size = 0;
+ 	return 0;
+ }
+diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
+index bc6706984fbb..daac38d046db 100644
+--- a/sound/firewire/oxfw/oxfw.h
++++ b/sound/firewire/oxfw/oxfw.h
+@@ -36,6 +36,8 @@ enum snd_oxfw_quirk {
+ 	// Postpone transferring packets during handling asynchronous transaction. As a result,
+ 	// next isochronous packet includes more events than one packet can include.
+ 	SND_OXFW_QUIRK_JUMBO_PAYLOAD = 0x01,
++	// The dbs field of CIP header in tx packet is wrong.
++	SND_OXFW_QUIRK_WRONG_DBS = 0x02,
+ };
  
- 	if (s->flags & CIP_JUMBO_PAYLOAD)
--		multiplier = 5;
-+		multiplier = IR_JUMBO_PAYLOAD_MAX_SKIP_CYCLES;
- 	if (!(s->flags & CIP_NO_HEADER))
- 		cip_header_size = sizeof(__be32) * 2;
+ /* This is an arbitrary number for convinience. */
+@@ -51,7 +53,6 @@ struct snd_oxfw {
  
+ 	// The combination of snd_oxfw_quirk enumeration-constants.
+ 	int quirks;
+-	bool wrong_dbs;
+ 	bool has_output;
+ 	bool has_input;
+ 	u8 *tx_stream_formats[SND_OXFW_STREAM_FORMAT_ENTRIES];
 -- 
 2.27.0
 

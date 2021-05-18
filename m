@@ -2,102 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA4D5388139
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 22:18:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54403388268
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 23:49:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E05C16B5;
-	Tue, 18 May 2021 22:17:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E05C16B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id F127F170A;
+	Tue, 18 May 2021 23:48:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F127F170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621369106;
-	bh=LglsXpjPNgY2jOG6iwAi06uTaBn4jEtsHTPIhLmhl54=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621374540;
+	bh=2EBaJaXpcT6LvUNXy7Ct+13z2jrQswSvKWXYB4/n2bk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oaWXV5coFEXsW+CtKW8U00pIAd2yotPT9Qrs76pkY8I9gx6YB9Yy3Rv/Q+CXq0gWi
-	 m/MeLlovkn+flrMaQqyIMn2o293wKZYUBy4hosJQPmkQ18Dlfbv9f+MXpanBkbK+cR
-	 nez6Ec79sEGsms2oxSsn4RSJPpCTPUaVXuU9yuKE=
+	b=B/6c/sHHsRoByeN6tYRf04JBuEiwjOPpp3TZ/N9By3QUJjMel4FHFpCGEZ6faqe41
+	 Pjv14X1ceI03j9MEZVgh/xbDHCZ/WfxiaRWXbVAALf6mlJn1aiaPBOlNvqHDeBY1jc
+	 reVYg12rAqOloZixpCmam2Sxqk09JxTV+oRnqPgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8838F801DB;
-	Tue, 18 May 2021 22:16:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AC41F80217;
+	Tue, 18 May 2021 23:47:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5397EF80217; Tue, 18 May 2021 22:16:56 +0200 (CEST)
+ id 056FAF80257; Tue, 18 May 2021 23:47:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1E15F80139
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 22:16:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E15F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D1D0F80139
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 23:47:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D1D0F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QY8KI5Sk"
-Received: by mail-lf1-x12a.google.com with SMTP id m11so15784395lfg.3
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 13:16:50 -0700 (PDT)
+ header.b="TGdTRojh"
+Received: by mail-qt1-x82e.google.com with SMTP id g8so1193892qtp.4
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 14:47:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ui4HvF4u1ZthW3m3DADtHzNkQGkWW15sCYUwiAwHHtM=;
- b=QY8KI5SkijQDHWUSh6NjCZVWCit3PJKggENgPaultVTQGTHvJFpwd+6MgITaEiH3XV
- Yo65zXFEZ1rIwaYayWBbHc0hY4xYJZZUS+BdjpA6YgfIx6XaKDqJ3APS74Zl4ZwDOWRj
- WUWBx4qR7xH0Ty1UeOmvhNR5IDFEPjz5RIiPyLYiRrO8LNEytcMQsv8QAFfAOJ++lyGb
- Okx13wNQ2O8tP/7zXRJtRKl2g9p9PoPRxQz2VNnXkdBcCE2wNBX2Aqod3Q8nqVZNtb2V
- mt/kUQAuF6ucW3VvCqEu/ZhQV+2CpcCym8Qm5eVAzf7LGI5wzj4fi3sSadLFX81IGbh6
- u6kQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6xLeJk+UVQtV0WtME4/l4uqyc3OFYAUamtiA1yA/ZP4=;
+ b=TGdTRojhF0CckjwjmUew1fGuASEU38gRUJXQw/Wu7CJqoRekkTnB7gTAsLBpp7jVFE
+ WQfAjJrlP1ot3bi+cBlUTwavGQsUvBpPoFe/q0kh62z86JyAivo+NXl80ddnx83YZ5Ze
+ wt6PUx5tO2j/dZikYwQUPJL8CE/6r694gD3OqJUtjmI9vexYouXXiuC8DDCAOv3tRUFH
+ 8ugcgIBx/8Oy3c/ISWHGH8D7lu6nm62bBNKHlJiPcORo7yuvFsWyRGfS9qXuk1THyzok
+ fafa3HJqPHWdNB1kbpbk5YNPRPn4QetAFvHfY64a+Bf2u6pvHSZcR6h4xbpbgGGYPl2G
+ iJCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ui4HvF4u1ZthW3m3DADtHzNkQGkWW15sCYUwiAwHHtM=;
- b=MSveqHr1btZ/ty7/JDBkPgDdUMvSPtz/2sYeGYdCGL1XKYyxtc9oiSp7B1aoqeiGbC
- /TZTHmKPWtRKIanqLSZ7zhWfTkAkc3H8jSpaXfU1IfeP7GQ2kfvLN31kNcbtE/e14Rx3
- Zap/peZ1iNObfUbi3ehyGtDqhQaxuqDeXHCl8GzpHBDdyAft3wWP/VIEwznZaqgEeWDb
- y2h5fGv+kv8cK8fxLxj6Yg3YDtKJnYO2LCrH/M2RBcHA74pj6/nR4AhEY5ivfz6mEn0W
- oheI2we24fDvtIG5oKwstxGy13SkuifibxyFYPf2rIMyJEmAZHNmKzd7rqFwPL/7Hdvn
- TuTQ==
-X-Gm-Message-State: AOAM532gqQsXQFVLvUEqREPLU6guwUX12ItJRR877mo3I0L5imo7RcFd
- /Op7mFrknmjw/H0fIt6yfGE=
-X-Google-Smtp-Source: ABdhPJwumgr0EHheLLwl9qxBxvMiocUPyDDh+EIaQhWDXKIyelERgEZBrtVFTFIX3dxFZ1qMGk2Zhg==
-X-Received: by 2002:a05:6512:acc:: with SMTP id
- n12mr5558086lfu.9.1621369009646; 
- Tue, 18 May 2021 13:16:49 -0700 (PDT)
-Received: from [192.168.2.145] (109-252-193-91.dynamic.spd-mgts.ru.
- [109.252.193.91])
- by smtp.googlemail.com with ESMTPSA id a6sm3434048ljp.76.2021.05.18.13.16.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 May 2021 13:16:49 -0700 (PDT)
-Subject: Re: [PATCH v1 2/2] ASoC: tegra: Unify ASoC machine drivers
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>
-References: <20210518001356.19227-1-digetx@gmail.com>
- <20210518001356.19227-3-digetx@gmail.com>
- <20210518180949.GA949047@robh.at.kernel.org>
- <20210518183455.GE4358@sirena.org.uk>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <b924f76a-56dd-5ca3-229d-293f7ff1e81a@gmail.com>
-Date: Tue, 18 May 2021 23:16:48 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6xLeJk+UVQtV0WtME4/l4uqyc3OFYAUamtiA1yA/ZP4=;
+ b=VJxKrh24goKNrlxDE4ZSBmKWCkgb/GUgwJJ1SawBFreh/wcJrgl9zjTVfs+QLlgQhN
+ jvuJzqi2YtaXoq09A9y6qXeonXxahgazGs6NB9ddTwFNDTyOQyv2mWszya+hp/x5rDQJ
+ +fHcfD9pdnoXJ7RLopsFCTF/yEiH5N33/AzZDjt5AzO5YMvRefnfxl+BTu5A3DA5aOpy
+ 2uoHh0vvBD8XswQc7X/qxylK2nWRpMBMHZPMYovr6TdV3a+xgtqSJ1ZSmGVVVKmCUbun
+ aEU01hzCsL8Lc/M4c3GGuABjPxSWeT+tQGhHWitDF8C81DRenk2TBTy4LPVu78dzi+3t
+ 14Bg==
+X-Gm-Message-State: AOAM531pwaLDJvuxOK12qdpP8nTU6sglP2BwWMBwJuFNTpnE0oWscY+k
+ /UFzZO9YLFcj9fx1+ZneXJnjfwlbKvYYQ0O/ZLVOSd9xPzE=
+X-Google-Smtp-Source: ABdhPJzLo+8NgBh0EvQf/Ags5ccYpzSKitrG3n+VHumI6tF2bJ4tpM0vxrhDF+rjm/JuIT0Q5GzxRSDdF/FcRUJHkDM=
+X-Received: by 2002:ac8:502:: with SMTP id u2mr7191128qtg.218.1621374435943;
+ Tue, 18 May 2021 14:47:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210518183455.GE4358@sirena.org.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Svyatoslav Ryhel <clamor95@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
- linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
- Frank Rowand <frowand.list@gmail.com>
+References: <20210517172553.GA85102@m.b4.vu>
+ <CAEsQvcuMK5n4F++bXCD4ML5FoRQ+KCp5soXAY8mjUpf6yqYXBQ@mail.gmail.com>
+ <20210518183420.GA89090@m.b4.vu>
+In-Reply-To: <20210518183420.GA89090@m.b4.vu>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Tue, 18 May 2021 18:41:45 -0300
+Message-ID: <CAEsQvcs13mJF2+hDdSPhg_-VBpqFCZhjHb6xDScDD7u3LEfmog@mail.gmail.com>
+Subject: Re: [BUG] ALSA: usb-audio: Scarlett 2 mixer driver fails on ehci-pci
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,25 +95,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-18.05.2021 21:34, Mark Brown пишет:
-> On Tue, May 18, 2021 at 01:09:49PM -0500, Rob Herring wrote:
->> On Tue, May 18, 2021 at 03:13:56AM +0300, Dmitry Osipenko wrote:
-> 
->>> Squash all machine drivers into a single-universal one. This reduces
->>> code duplication, eases addition of a new drivers and upgrades older
->>> code to a modern Linux kernel APIs.
-> 
->> Nice, I never understood why each codec needed it's own machine driver 
->> (and typically in turn compatible string).
-> 
-> It's generally the clocking configuration, things with fancy clock trees
-> don't play so nicely with generic systems where we want to configure
-> them at runtime, or things with complex routing in the CPU where we
-> only recently started getting bindings that were functional enough to
-> use.  Tegra is fairly complex internally.
-> 
+On Tue, May 18, 2021 at 3:34 PM Geoffrey D. Bennett <g@b4.vu> wrote:
+>
+> Hi Geraldo,
+>
+> Thanks for your suggestion. I found:
+>
+> echo module ehci_hcd +p > /sys/kernel/debug/dynamic_debug/control
+>
+> which I guess is the same thing.
 
-This is true, but still it's more optimal to use flags in a single
-common driver for the minor differences rather than to duplicate 90% of
-the code. In practice majority of tegra boards are derived from the same
-reference design, thus the h/w configurations are mostly the same.
+Cool, if you always connect the hardware after issuing that sysfs
+change I guess you won't run into any problems with missing debugging
+info.
+
+>
+> I can't see any difference between the sent USB packet working and not
+> working with the additional debug:
+>
+> kernel: ehci-pci 0000:00:1d.0: submit_async 1.2 urb 000000004f9d8dbb ep0out len 24, qtd 0000000055a1f6c8 [qh 00000000312c985a]
+> kernel: ehci-pci 0000:00:1d.0: ehci_urb_done 1.2 urb 000000004f9d8dbb ep0out status -115 len 0/24
+>
+> kernel: ehci-pci 0000:00:1d.0: submit_async 1.2 urb 00000000de165beb ep0out len 24, qtd 0000000056de0c60 [qh 00000000d43a72d3]
+> kernel: ehci-pci 0000:00:1d.0: ehci_urb_done 1.2 urb 00000000de165beb ep0in status 0 len 24/24
+>
+> I agree that the issue seems more related to USB kernel development; I
+> will subscribe to linux-usb and ask there.
+
+Myself I'd hook printk()'s to both ehci_hcd and xhci_hcd to print
+every possible variable involved and see if there's any relevant
+mismatches. Oh and watch with the printk()'s what libusb seems to be
+doing, too.
+
+When you subscribe to linux-usb you *may* want to Cc: Greg
+Kroah-Hartman with your discoveries so far, he's the USB Subsystem
+Maintainer and the best one to help you track this down.
+
+Regards,
+Geraldo Nascimento
+
+>
+> Thanks,
+> Geoffrey.
+>
+> On Mon, May 17, 2021 at 07:13:27PM -0300, Geraldo Nascimento wrote:
+> > Hi, Geoffrey, have you tried adding "ehci_hcd.dyndbg=+p" to your
+> > kernel boot options?
+> >
+> > It will give you additional debugging information, and if you need
+> > more debugging information you can always use printk() and recompile
+> > your modules.
+> >
+> > Note that your issue seems more related to USB kernel development than
+> > ALSA development, still, impossible to say where the fix will land
+> > without tracing the problem first.
+> >
+> > Best of luck,
+> > Geraldo Nascimento
+> >
+> > On Mon, May 17, 2021 at 2:27 PM Geoffrey D. Bennett <g@b4.vu> wrote:
+> > >
+> > > Hi there,
+> > >
+> > > I'm trying to track down an issue with my Scarlett Gen 2 mixer driver
+> > > that has been reported by a few people, and I can now reliably
+> > > reproduce the issue, but I need some help in figuring out where
+> > > exactly the issue is and how to fix it please.
+> > >
+> > > The issue only occurs when attempting to use the interface on a USB
+> > > port using ehci-pci. xhci_hcd USB ports work fine.
+> > >
+> > > The issue occurs when sending the first vendor-specific USB command,
+> > > but only when sending from the kernel driver. Sending the same USB
+> > > packets from user-space works fine(!).
+> > >
+> > > I did initially think that the fault could have been due to earlier
+> > > USB messages putting the device into a state where it would reject the
+> > > vendor-specific USB commands, but I have carefully ruled that out &
+> > > have gotten identical usbmon traces from device power-on up until the
+> > > device responds differently, the only difference beforehand being
+> > > whether the USB packet was sent from the kernel driver or user-space.
+> > >
+> > > The messages look like this in "usbmon -s 10000 -fu" when sent from
+> > > user-space (or when sent from the kernel driver when the interface is
+> > > plugged in to an xhci_hcd port):
+> > >
+> > > ffff888125855200 1006026497 S Ci:2:040:0 s a1 00 0000 0005 0018 24 <
+> > > ffff888125855200 1006026680 C Ci:2:040:0 0 24 = 66191018 73190604 01000000 01000000 00040000 00000000
+> > >
+> > > And like this when sent from the kernel driver when the interface is
+> > > plugged in to an ehci-pci port:
+> > >
+> > > ffff88810487a300 3686673995 S Ci:2:036:0 s a1 00 0000 0005 0018 24 <
+> > > ffff88810487a300 3692178724 C Ci:2:036:0 -2 0
+> > >
+> > > Identical messages sent according to usbmon, but they must be
+> > > different somehow!
+> > >
+> > > The kernel code to send that message looks like this:
+> > >
+> > >   return snd_usb_ctl_msg(
+> > >     dev, usb_sndctrlpipe(dev, 0),
+> > >     usb_req,
+> > >     USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
+> > >     0, interface, buf, size);
+> > >
+> > > and helper.c snd_usb_ctl_msg() then calls usb_control_msg().
+> > >
+> > > For sending arbitrary USB packets from user-space for testing, I'm
+> > > using libusb and:
+> > >
+> > >   int ret = usb_control_msg(
+> > >     devh, reqtype, request, value, index, buf, size, 1000
+> > >   );
+> > >
+> > > So, I presume usbmon isn't giving me the full story? How can I
+> > > determine the difference between the kernel and the user-space
+> > > usb_control_msg() functions? I see that I can #define EHCI_URB_TRACE
+> > > in ehci-hcd.c. Can anyone with more experience than me let me know if
+> > > I'm going in the right direction to track this down?
+> > >
+> > > Thanks,
+> > > Geoffrey.

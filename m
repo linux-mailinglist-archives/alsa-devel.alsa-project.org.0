@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03425387DAA
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 18:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A5D387DAD
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 May 2021 18:34:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A4B3173D;
-	Tue, 18 May 2021 18:33:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A4B3173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D99CF1743;
+	Tue, 18 May 2021 18:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D99CF1743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621355660;
-	bh=wY55NAYe5MkIZJCvMDNA5zES2hne44anMPpiK/g6bWk=;
+	s=default; t=1621355674;
+	bh=sd481hao0IvKarDjopwS5z1QyDhGwAXg6X3FMDmBoVU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kx3DNV6Z4kIvvF5UNv3agQDaJ4BmJqv3/fQA/DqYKaVJVo/npjb1bMolmEcSbMEjz
-	 xEAkun5PFtHbF46Xyk1OId5IdHeu6DFvfKluU48Cfqm5DhK6NyxWoXm5PHEobbUuR3
-	 c+77ASGFtJkMf8H1vKE/U/gXqXX0yuvlkYFtBkhU=
+	b=U9Uy+RnamAKfNYc3WvfGHkBdFt2XujVUcQsfGAdGT+6dmnwwWFDcs4Npmx5CmILPq
+	 zO+Z37f8UoGQxrgnC2F/gOhlBahpErEavhLREpKKaq4znIkZLKBx152HFhXRjawN7D
+	 W05L2RqCEjORbFN/07saVYpHrZF/WkUeQJbKoK4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0497F80272;
-	Tue, 18 May 2021 18:32:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94CAFF80229;
+	Tue, 18 May 2021 18:32:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 076CDF80217; Tue, 18 May 2021 18:32:42 +0200 (CEST)
+ id 70446F80217; Tue, 18 May 2021 18:32:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4720F8014C
- for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 18:32:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4720F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F88CF8014C
+ for <alsa-devel@alsa-project.org>; Tue, 18 May 2021 18:32:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F88CF8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OEiZoQ69"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1DF00611AD;
- Tue, 18 May 2021 16:32:34 +0000 (UTC)
+ header.b="rwK7OTX6"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C8156124C;
+ Tue, 18 May 2021 16:32:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621355555;
- bh=wY55NAYe5MkIZJCvMDNA5zES2hne44anMPpiK/g6bWk=;
+ s=k20201202; t=1621355559;
+ bh=sd481hao0IvKarDjopwS5z1QyDhGwAXg6X3FMDmBoVU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OEiZoQ69e2NBS5/So98B8TA4eKdWZImfLSJ7nCEXYCTmJdy1G9/AN0jWBifCHqEe5
- FI2o+1wRoAL6bM/sUTql50FH9oqOaS7xw4igEUBh2pAm4X/ggemHGH64Onfg61G1FH
- SGRSYvUQErJ0eKLupR6GO/NpnJJ+OGxHmha723i9gIPCUi91MjfeMGgDOsquzD5ahh
- GZLVwlbgC9kXsHhuDe509vYgH5uLCu5oJA/mjLUIAsuIbAMgGQzM36ujw7wugcxIC2
- bZVGc8Vp6vceM4DCoBbSvWB/i+0BmooiSNXqAktBtnUE3VvHjCnQOTT/l4duZZcM5w
- 9kRWbsKcf0/pQ==
+ b=rwK7OTX6zAJxyUItiymRzKwWLo+PKSpUa4x1sC6Kb7eJf1JPssuB1L7lOgGZsil0o
+ N/APL1OzLgOOOcKqOlj5fsioTzuX6lQtF8bYFIEy1VxtcyeE1+ySpgE1XzOlAXRbcV
+ mE+/uTnTFhI4r08QCfmgIkyUZvgmTLThn5L9WNz1zgl3CAlo8lrpyMUbBxchZCFaB4
+ V6GfruVvyMr6TzURrD5tslfDcBnM1vputL4aM131y0JEvtnO6Z5/E7xg65eh3Qovj8
+ TOrxINez0m4CMb62GRSgIIbJs+rTRafwi1wBtc35d8pKoUvF26uo8MJqaVaBU6jhzs
+ VhuexZuMmRjNw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Yang Yingliang <yangyingliang@huawei.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rk3328: fix missing clk_disable_unprepare() on
- error in rk3328_platform_probe()
-Date: Tue, 18 May 2021 17:31:31 +0100
-Message-Id: <162135531446.37831.5863010309474559267.b4-ty@kernel.org>
+To: tiwai@suse.com, YueHaibing <yuehaibing@huawei.com>, perex@perex.cz,
+ lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com
+Subject: Re: [PATCH -next] ASoC: soc-core: use DEVICE_ATTR_RO macro
+Date: Tue, 18 May 2021 17:31:32 +0100
+Message-Id: <162135531445.37831.1353258100383358131.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210518075847.1116983-1-yangyingliang@huawei.com>
-References: <20210518075847.1116983-1-yangyingliang@huawei.com>
+In-Reply-To: <20210514081100.16196-1-yuehaibing@huawei.com>
+References: <20210514081100.16196-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,9 +80,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 May 2021 15:58:47 +0800, Yang Yingliang wrote:
-> Fix the missing clk_disable_unprepare() before return
-> from rk3328_platform_probe() in the error handling case.
+On Fri, 14 May 2021 16:11:00 +0800, YueHaibing wrote:
+> Use DEVICE_ATTR_RO helper instead of plain DEVICE_ATTR,
+> which makes the code a bit shorter and easier to read.
 
 Applied to
 
@@ -90,8 +90,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rk3328: fix missing clk_disable_unprepare() on error in rk3328_platform_probe()
-      commit: d14eece945a8068a017995f7512ea2beac21e34b
+[1/1] ASoC: soc-core: use DEVICE_ATTR_RO macro
+      commit: 5a3f869c5b4d230b60ba0197c10506dd4ae30851
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

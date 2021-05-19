@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4CC389368
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 May 2021 18:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B59E389367
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 May 2021 18:13:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B506169D;
-	Wed, 19 May 2021 18:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B506169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04F881697;
+	Wed, 19 May 2021 18:12:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04F881697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621440837;
-	bh=Pr6JLn/3y1HPQM3VlxColhh6Ox2yJoLwxCL4AlIJjI4=;
+	s=default; t=1621440826;
+	bh=ZL3psb3b/PFz1Seul7gHnQyH1SZ87FzQ+4g1uiKv7xI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jtZFTcdnEkhAXkCaWixkh17AdbC3FHVCYnjw24uwN0morxfqF+cDr8VXTwD3DPF9X
-	 1NChRsp/xIqJ0KEGJXfdOzXXdjOFSsi2zFCBt/CV1D+mh3/ianni2S/2hZq4vK5KOU
-	 2id2oBMhiEu5GXCBXncR+6Yr8ryDQT19XbAJccEg=
+	b=UCfT0eD1PGnwj5EcHo9NaaebjIcdCYzxObBCM7/9SnZVvfqJyViW4iXDoGvLmnIsm
+	 EF5rrkc4OumTRv4+fUqc5Az1ts1R5pUzT7+sQmQnYYh9QCFOHgqtwLP9T9NfIWbet0
+	 z6Z9K8ozeI2gsknS3AxpYDFWKe+P6/Xtb5xa9xdQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4094F8042F;
+	by alsa1.perex.cz (Postfix) with ESMTP id 471C1F80425;
 	Wed, 19 May 2021 18:11:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38DBEF80259; Wed, 19 May 2021 18:11:28 +0200 (CEST)
+ id B7079F8025D; Wed, 19 May 2021 18:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BF26F802A0
- for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 18:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BF26F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 576B8F8014C
+ for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 18:11:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 576B8F8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Whn5QgLD"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 885E1611C2;
- Wed, 19 May 2021 16:11:18 +0000 (UTC)
+ header.b="oYJ2Kb8A"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 208EC61244;
+ Wed, 19 May 2021 16:11:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621440679;
- bh=Pr6JLn/3y1HPQM3VlxColhh6Ox2yJoLwxCL4AlIJjI4=;
+ s=k20201202; t=1621440681;
+ bh=ZL3psb3b/PFz1Seul7gHnQyH1SZ87FzQ+4g1uiKv7xI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Whn5QgLDKn6iNsqW3uUIDwzc4zzHvXNk+2jsOq3ZMckjCl26ZKzfHCXUrVxjckDb3
- cfAXf/dYXXBTToFOUSS6ne+VMAT2mIT4UT98OSA0Pb7epplqu+h9m3ITVUaFdYC2lj
- P4pRswMm2Gmout+C/Pyd5+6YtgGF6WPjZ2hXF+cRnud3znb8hBc0p4NY0jlKtFrbbY
- EjxAC9H/fRoWrC2B9wuU3Q+z1F1GtQTeu2wo8qj900/dLNUZYrai4ds5cz/qRM2w9/
- JhbBZ+jgSL52Kl4BkP/RhaE5m8UZnvKkvZ4JMJ+xUrVPZWcwNIHcR4ZgxOauY4YgWi
- 4Td0HyPtTDyow==
+ b=oYJ2Kb8A5KEl78y977KlTupYWeDNOcVNuHyAC89B/yEt/vCLvaKUiB42OqAEKJiEX
+ wpm2zlEGZttK8mFaDxA5K7X3gArZ0dFM9/v2Pshq2IhFbu4SMHCY0yqtg0Q6s0KKSw
+ MQgPxbPJH2aJHbasFWHdQJHtJH50w+cycBj11lZnLU+DSRzkuE4ls61AWfTEWSh7qI
+ SCTTTYJH2Q6dqHsKQ4hgw73j62cc3VRponStdt+opayu1YOPbnHP/Ku+J0qAT0P6EH
+ DieMU9d7DQV8I0U4qyHDtcINyKeIG4t3/GD28qBzANhQ1gyZuMB7tnGoAO+UFBRwcY
+ BMMxDx7clLNTA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: don't send DAI_CONFIG IPC for
- older firmware
-Date: Wed, 19 May 2021 17:10:16 +0100
-Message-Id: <162144027323.37060.5998146040074058715.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
+Subject: Re: [PATCH] dt-bindings: sound: wm8750: convert to the json-schema
+Date: Wed, 19 May 2021 17:10:17 +0100
+Message-Id: <162144027323.37060.7346923502506402074.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210518174121.151601-1-ranjani.sridharan@linux.intel.com>
-References: <20210518174121.151601-1-ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20210512205926.780-1-zajec5@gmail.com>
+References: <20210512205926.780-1-zajec5@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Mark Brown <broonie@kernel.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+ devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,12 +81,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 May 2021 10:41:21 -0700, Ranjani Sridharan wrote:
-> BE hw_params op was recently added for SSP type DAIs.
-> But sending the DAI_CONFIG IPC during hw_params
-> is not supported with older firmware. So add an ABI check
-> to avoid sending the IPC if the firmware ABI is older than
-> 3.18.
+On Wed, 12 May 2021 22:59:26 +0200, Rafał Miłecki wrote:
+> This helps validating DTS files.
 
 Applied to
 
@@ -94,8 +90,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda: don't send DAI_CONFIG IPC for older firmware
-      commit: 8c08652614cb7468620a6328b37ca2965cd48283
+[1/1] dt-bindings: sound: wm8750: convert to the json-schema
+      commit: 11480dbfe1d59eaa6382864acc476e7621b1da4c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

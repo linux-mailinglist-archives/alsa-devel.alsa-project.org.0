@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B59E389367
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 May 2021 18:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D126D389369
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 May 2021 18:14:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04F881697;
-	Wed, 19 May 2021 18:12:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04F881697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7440F1681;
+	Wed, 19 May 2021 18:13:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7440F1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621440826;
-	bh=ZL3psb3b/PFz1Seul7gHnQyH1SZ87FzQ+4g1uiKv7xI=;
+	s=default; t=1621440866;
+	bh=na6FALQoNuy8u03ZG29zB+aTDGjiYRhmATrXpQWBCAw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UCfT0eD1PGnwj5EcHo9NaaebjIcdCYzxObBCM7/9SnZVvfqJyViW4iXDoGvLmnIsm
-	 EF5rrkc4OumTRv4+fUqc5Az1ts1R5pUzT7+sQmQnYYh9QCFOHgqtwLP9T9NfIWbet0
-	 z6Z9K8ozeI2gsknS3AxpYDFWKe+P6/Xtb5xa9xdQ=
+	b=bndmqFoYWbdZab7aqRmHD6xDd8N34nIuLuUfKp0BwHt7SD8uozf5/3keeORMXlM+n
+	 7pS/skyXDs0nrlCxoNfc7roPILtNDO8eyNDmh5JSVDzr2M+G/m9Mv5Nie6AUyn8O1E
+	 0gGkF6wReZzZbXcKxg5IKr4WjUCYdjDL3YlZzvEI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 471C1F80425;
-	Wed, 19 May 2021 18:11:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ADF4F804AA;
+	Wed, 19 May 2021 18:11:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7079F8025D; Wed, 19 May 2021 18:11:26 +0200 (CEST)
+ id 3FDD8F80127; Wed, 19 May 2021 18:11:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 576B8F8014C
- for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 18:11:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 576B8F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98227F80258
+ for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 18:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98227F80258
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oYJ2Kb8A"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 208EC61244;
- Wed, 19 May 2021 16:11:20 +0000 (UTC)
+ header.b="M8qK9qlv"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B06DB6124C;
+ Wed, 19 May 2021 16:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621440681;
- bh=ZL3psb3b/PFz1Seul7gHnQyH1SZ87FzQ+4g1uiKv7xI=;
+ s=k20201202; t=1621440684;
+ bh=na6FALQoNuy8u03ZG29zB+aTDGjiYRhmATrXpQWBCAw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oYJ2Kb8A5KEl78y977KlTupYWeDNOcVNuHyAC89B/yEt/vCLvaKUiB42OqAEKJiEX
- wpm2zlEGZttK8mFaDxA5K7X3gArZ0dFM9/v2Pshq2IhFbu4SMHCY0yqtg0Q6s0KKSw
- MQgPxbPJH2aJHbasFWHdQJHtJH50w+cycBj11lZnLU+DSRzkuE4ls61AWfTEWSh7qI
- SCTTTYJH2Q6dqHsKQ4hgw73j62cc3VRponStdt+opayu1YOPbnHP/Ku+J0qAT0P6EH
- DieMU9d7DQV8I0U4qyHDtcINyKeIG4t3/GD28qBzANhQ1gyZuMB7tnGoAO+UFBRwcY
- BMMxDx7clLNTA==
+ b=M8qK9qlv1xTdKbAIltgvg+rJeQrfD6rWZ3qGsvDwCpkySLGOY7w0PLI5svRkIbHoh
+ RLhl5ybGt7z1ZSI3GzedvHOtWdotKfkJQV9AmmLoRdX+1Foun3bUCvhBsDCKcqx6L3
+ Z+MpvafZ95wCw35PONHCbVpL2f2+TYLMLlhjVbMRPEL5fuKcNzCOhIhmDpWi++i3vG
+ y+IY7va2TV4EMoRbuTBPDt0Gk/4A70DiSyitS2AAkLjdolxeNiQRKLgqcQIVCuaH6m
+ 9VQIHm10JySYHd/RpBCkdu8ukCjHg1KWBKgW06XPO8lbggU8qLK+2GL5P0rVLStKyc
+ OMF/RJXyoy0Rg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
-Subject: Re: [PATCH] dt-bindings: sound: wm8750: convert to the json-schema
-Date: Wed, 19 May 2021 17:10:17 +0100
-Message-Id: <162144027323.37060.7346923502506402074.b4-ty@kernel.org>
+To: jbrunet@baylibre.com,
+	Neil Armstrong <narmstrong@baylibre.com>
+Subject: Re: [PATCH v3 0/2] ASoC: meson: g12a-toacodec: add support for SM1
+Date: Wed, 19 May 2021 17:10:18 +0100
+Message-Id: <162144027324.37060.1996054206902696511.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210512205926.780-1-zajec5@gmail.com>
-References: <20210512205926.780-1-zajec5@gmail.com>
+In-Reply-To: <20210511074829.4110036-1-narmstrong@baylibre.com>
+References: <20210511074829.4110036-1-narmstrong@baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
- devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,8 +81,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 May 2021 22:59:26 +0200, Rafał Miłecki wrote:
-> This helps validating DTS files.
+On Tue, 11 May 2021 09:48:27 +0200, Neil Armstrong wrote:
+> This patchset adds Amlogic SM1 support on the TOACODEC driver, first by switching
+> to regmap fields for some bit fields to avoid code duplication, and then by adding
+> the corresponding bits & struct for the SM1 changed bits.
+> 
+> Changes since v2 at [2]:
+> - use raw values instead of defines in REG_FIELD() for g12a_toacodec_match_data
+> 
+> [...]
 
 Applied to
 
@@ -90,8 +97,10 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: sound: wm8750: convert to the json-schema
-      commit: 11480dbfe1d59eaa6382864acc476e7621b1da4c
+[1/2] ASoC: meson: g12a-toacodec: use regmap fields to prepare SM1 support
+      commit: 172dd9216d2b8a3fa162039d89c4361ef35c85ae
+[2/2] ASoC: meson: g12a-toacodec: add support for SM1 TOACODEC
+      commit: 7487238c5f530b418745ce134d1b0a7fba3a0d8d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

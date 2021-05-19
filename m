@@ -2,94 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755EC38981B
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 May 2021 22:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBA2389A36
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 01:56:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F08521679;
-	Wed, 19 May 2021 22:39:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F08521679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53D931672;
+	Thu, 20 May 2021 01:56:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53D931672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621456831;
-	bh=MgIMsx29DBnO7IWne7qKD9C8AUHu87MJYtuuLaufqVQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621468613;
+	bh=s84Cw9CfVpMQLPuumZ/zIJX4dDd5yHdrF0wAUc/qJE0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e3Idg3jSvX7FHCwDHpgR3I1TdHxkXRugbA+LKJ7S9obyjBkNl13cG/JaE2oL0yJ5T
-	 hU0eVyys+NOpxYYum7fAzS1ppwvliTh1ufFkGJwPkxwTWiEZOe6v76rmkm/8gAAcFz
-	 0Z5Gihd6X0mR4rMBrIOcz6VJJcP0exLut5YsW2gw=
+	b=qXQw+CbE4um1jI/3CA5W1fpX+S6PnfMa2ZUv1khkS0T/qQ1JNdb7I7QEiPOJQcbR4
+	 /eMjT7ld/2gjENoKl1y0iIgcHPVBLhNZORXax9+qp4nV+o3VccqSSNJsqgWMmiw1t3
+	 20GHALGlqB/E8J3QsN/XppneLKSAQH1K+bbO6VdE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62622F804A9;
-	Wed, 19 May 2021 22:38:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8978F80246;
+	Thu, 20 May 2021 01:55:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 866D2F80425; Wed, 19 May 2021 22:38:15 +0200 (CEST)
+ id DABD2F8016E; Thu, 20 May 2021 01:55:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70322F8025D
- for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 22:38:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70322F8025D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AmHfXcnp"
-Received: by mail-ot1-x32c.google.com with SMTP id
- g7-20020a9d12870000b0290328b1342b73so5093992otg.9
- for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 13:38:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=CtIozg4TyPmaxagSKodE8olnLW3eEIEko3jxzjbTr90=;
- b=AmHfXcnp1nO4RnOBhOGb34amB7BP00FVaE/uDsHk47L24i3u2FAHIBLSX7vthr1R79
- /zAmGb90klzTJeZepfKBjI6nQFMRKMT5xeDZsfKOEKPOmIgBM4Uhnb/2VUyMnrvvNMsu
- vib5P/C8mAZF2JXd/IzRqep+kz7RFICkqMl8PpXmYBowCzaRvoCdGfEHjq5p61eXPPwN
- LwyirQZPt1DBfhCyvvK+FAw55EqIQOj5d/bLMmbasIdhnsUQ2agryjiIoZoDCemTOJiF
- Q/NjEEviStbjT7mI3UtdYHNfZDbFqQEm0Ocj9Vs2x3NTSg7Sn3IGAbLyEXTtSlAJYVsG
- WKnw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4241F80127
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 01:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4241F80127
+Received: by mail-oi1-f175.google.com with SMTP id c196so6561851oib.9
+ for <alsa-devel@alsa-project.org>; Wed, 19 May 2021 16:55:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=CtIozg4TyPmaxagSKodE8olnLW3eEIEko3jxzjbTr90=;
- b=WSR2+mNC/DI1A/wrFsFMBgxf9Z2mVP4Q1kzw06JUgadVp+TXQ/zkp27tpphWHHUWRx
- +NxHmkOyoZzphDkQnmOGzusy0fg5+LyzK41R9vl76FpbkbB+ftVMUGhHStINdAfW7X0z
- JSU2DLqUdYRaiOWGAb4KYiTdJltrx1+GyiQsq5vuTBIb1h6ZLQx4r7lqBlh3XM7gi/Lq
- Svb88KxDWfBT0TUhuh+KIP2VFyl2mQ/0r4dLK7EdSlaefe9D4WqcxRGyI2RnV4N2xbR4
- 4UWGGahrzXkBgz/JZMu05O46mQLhTYj4QVVidSTtjc4sjJL0/05/32XjuRueUJ4+CfU+
- Dpcw==
-X-Gm-Message-State: AOAM533Q2TggY2Nrc+rYtApU+XF6sIjz5GKSCG/E6q1dEwELZ8nrgcIM
- vs4Fi7J47M94NC21SNnf1Gim5GObQOY=
-X-Google-Smtp-Source: ABdhPJyXXVFDbFRtx4H3uxFZNb1bgErAVsSW/mByBfulGM4AyoCMK2WWgSPI48yeZUGI2NU793iawg==
-X-Received: by 2002:a9d:7049:: with SMTP id x9mr1152728otj.20.1621456687933;
- Wed, 19 May 2021 13:38:07 -0700 (PDT)
-Received: from wintermute.localdomain (cpe-76-183-134-35.tx.res.rr.com.
- [76.183.134.35])
- by smtp.gmail.com with ESMTPSA id w6sm189223otj.5.2021.05.19.13.38.06
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=XzJtZgK1H/5xjeQJaiKS1v1HDO3VL37NAXKpynjn5Xg=;
+ b=bPkPCkYo3iYUDnDUyBm9hr3g+f+WUpzGEunr6gIqE8MW6lJFy535eRxlTv1RT52FY/
+ eRKpHCHjcpWYdQ+6UfKvJvTONb2d8ObWwcN7gZCR17VqxBnA24pD8d4Tix5ng3tXqlV2
+ 4rsWIKWikmIgyTZC8X+SIakNXXT7gRNhr/DcnpY3pg/rzaLsBHe3oplIJJAaFygwnxLl
+ dp3G+dw2yy43jf2PwJIg3m/z9hu87LIm1TRIe9ZEMrhL+s99N2UQygYgQj2QFWiNkF0P
+ yMBgNZqw6dKjE0LE5ynGYa6VqLpRWo6IlHeyn8d49YZyIjr/kCxt90ZNFqf6fmr6N31x
+ 3wEg==
+X-Gm-Message-State: AOAM533KsquCaCLyun4/QD3AKEfrpQFvUhreI1xDT7bMrJzPng8fbz5M
+ moLauWhqikGZq8Z6FF+JoA==
+X-Google-Smtp-Source: ABdhPJwfyiI6bLQxODhV52EzLe6i6OomkP63escY33YOfKsdPEuPMlmDEqQElPoFpt0WnHkiY6ywzw==
+X-Received: by 2002:a54:4411:: with SMTP id k17mr1323323oiw.66.1621468514597; 
+ Wed, 19 May 2021 16:55:14 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id y7sm273535oto.60.2021.05.19.16.54.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 13:38:07 -0700 (PDT)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v12 4/4] arm64: dts: rockchip: add rk817 codec to Odroid Go
-Date: Wed, 19 May 2021 15:37:54 -0500
-Message-Id: <20210519203754.27184-5-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210519203754.27184-1-macroalpha82@gmail.com>
-References: <20210519203754.27184-1-macroalpha82@gmail.com>
+ Wed, 19 May 2021 16:55:11 -0700 (PDT)
+Received: (nullmailer pid 3909826 invoked by uid 1000);
+ Wed, 19 May 2021 23:54:54 -0000
+Date: Wed, 19 May 2021 18:54:54 -0500
+From: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v6 1/9] ASoC: dt-bindings: wcd938x: add bindings for
+ wcd938x
+Message-ID: <20210519235454.GA3752127@robh.at.kernel.org>
+References: <20210518143759.16837-1-srinivas.kandagatla@linaro.org>
+ <20210518143759.16837-2-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, heiko@sntech.de,
- devicetree@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
- lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, broonie@kernel.org,
- Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
- lee.jones@linaro.org, maccraft123mc@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210518143759.16837-2-srinivas.kandagatla@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,80 +92,185 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Chris Morgan <macromorgan@hotmail.com>
+On Tue, May 18, 2021 at 03:37:51PM +0100, Srinivas Kandagatla wrote:
+> Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC
+> connected over SoundWire. This device has two SoundWire device RX and
+> TX respectively, supporting 4 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
+> 7 x TX diff inputs, 8 DMICs, MBHC.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../bindings/sound/qcom,wcd938x.yaml          | 148 ++++++++++++++++++
+>  1 file changed, 148 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+> new file mode 100644
+> index 000000000000..b04c5e90e283
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+> @@ -0,0 +1,148 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,wcd938x.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Bindings for Qualcomm WCD9380/WCD9385 Audio Codec
+> +
+> +maintainers:
+> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> +
+> +description: |
+> +  Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC.
+> +  It has RX and TX Soundwire slave devices.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,wcd9380-codec
+> +      - qcom,wcd9385-codec
+> +
+> +  reset-gpios:
+> +    description: GPIO spec for reset line to use
+> +    maxItems: 1
+> +
+> +  vdd-buck-supply:
+> +    description: A reference to the 1.8V buck supply
+> +
+> +  vdd-rxtx-supply:
+> +    description: A reference to the 1.8V rx supply
+> +
+> +  vdd-io-supply:
+> +    description: A reference to the 1.8V I/O supply
+> +
+> +  qcom,tx-device:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
 
-Add the new rk817 codec driver to the Odroid Go Advance.
+Only 1 and no args, so just 'phandle'.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-Tested-by: Maciej Matuszczyk <maccraft123mc@gmail.com>
----
- .../boot/dts/rockchip/rk3326-odroid-go2.dts   | 36 +++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+> +    maxItems: 1
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-index 49c97f76df77..e8c2b5a817a7 100644
---- a/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3326-odroid-go2.dts
-@@ -165,6 +165,31 @@ blue_led: led-0 {
- 		};
- 	};
- 
-+	rk817-sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "Analog";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,widgets =
-+			"Microphone", "Mic Jack",
-+			"Headphone", "Headphones",
-+			"Speaker", "Speaker";
-+		simple-audio-card,routing =
-+			"MICL", "Mic Jack",
-+			"Headphones", "HPOL",
-+			"Headphones", "HPOR",
-+			"Speaker", "SPKO";
-+		simple-audio-card,hp-det-gpio = <&gpio2 RK_PC6 GPIO_ACTIVE_HIGH>;
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s1_2ch>;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&rk817>;
-+		};
-+	};
-+
- 	vccsys: vccsys {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc3v8_sys";
-@@ -269,11 +294,14 @@ rk817: pmic@20 {
- 		reg = <0x20>;
- 		interrupt-parent = <&gpio0>;
- 		interrupts = <RK_PB2 IRQ_TYPE_LEVEL_LOW>;
-+		clock-output-names = "rk808-clkout1", "xin32k";
-+		clock-names = "mclk";
-+		clocks = <&cru SCLK_I2S1_OUT>;
- 		pinctrl-names = "default";
--		pinctrl-0 = <&pmic_int>;
-+		pinctrl-0 = <&pmic_int>, <&i2s1_2ch_mclk>;
- 		wakeup-source;
- 		#clock-cells = <1>;
--		clock-output-names = "rk808-clkout1", "xin32k";
-+		#sound-dai-cells = <0>;
- 
- 		vcc1-supply = <&vccsys>;
- 		vcc2-supply = <&vccsys>;
-@@ -432,6 +460,10 @@ regulator-state-mem {
- 				};
- 			};
- 		};
-+
-+		rk817_codec: codec {
-+			rockchip,mic-in-differential;
-+		};
- 	};
- };
- 
--- 
-2.25.1
+And drop this.
 
+> +    description: A reference to Soundwire tx device phandle
+> +
+> +  qcom,rx-device:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    maxItems: 1
+
+And here.
+
+With that,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+
+> +    description: A reference to Soundwire rx device phandle
+> +
+> +  qcom,micbias1-microvolt:
+> +    description: micbias1 voltage
+> +    minimum: 1800000
+> +    maximum: 2850000
+> +
+> +  qcom,micbias2-microvolt:
+> +    description: micbias2 voltage
+> +    minimum: 1800000
+> +    maximum: 2850000
+> +
+> +  qcom,micbias3-microvolt:
+> +    description: micbias3 voltage
+> +    minimum: 1800000
+> +    maximum: 2850000
+> +
+> +  qcom,micbias4-microvolt:
+> +    description: micbias4 voltage
+> +    minimum: 1800000
+> +    maximum: 2850000
+> +
+> +  qcom,hphl-jack-type-normally-closed:
+> +    description: Indicates that HPHL jack switch type is normally closed
+> +    type: boolean
+> +
+> +  qcom,ground-jack-type-normally-closed:
+> +    description: Indicates that Headset Ground switch type is normally closed
+> +    type: boolean
+> +
+> +  qcom,mbhc-headset-vthreshold-microvolt:
+> +    description: Voltage threshold value for headset detection
+> +    minimum: 0
+> +    maximum: 2850000
+> +
+> +  qcom,mbhc-headphone-vthreshold-microvolt:
+> +    description: Voltage threshold value for headphone detection
+> +    minimum: 0
+> +    maximum: 2850000
+> +
+> +  qcom,mbhc-buttons-vthreshold-microvolt:
+> +    description:
+> +      Array of 8 Voltage threshold values corresponding to headset
+> +      button0 - button7
+> +    minItems: 8
+> +    maxItems: 8
+> +
+> +  '#sound-dai-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reset-gpios
+> +  - qcom,tx-device
+> +  - qcom,rx-device
+> +  - qcom,micbias1-microvolt
+> +  - qcom,micbias2-microvolt
+> +  - qcom,micbias3-microvolt
+> +  - qcom,micbias4-microvolt
+> +  - "#sound-dai-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    codec {
+> +        compatible = "qcom,wcd9380-codec";
+> +        reset-gpios = <&tlmm 32 0>;
+> +        #sound-dai-cells = <1>;
+> +        qcom,tx-device = <&wcd938x_tx>;
+> +        qcom,rx-device = <&wcd938x_rx>;
+> +        qcom,micbias1-microvolt = <1800000>;
+> +        qcom,micbias2-microvolt = <1800000>;
+> +        qcom,micbias3-microvolt = <1800000>;
+> +        qcom,micbias4-microvolt = <1800000>;
+> +        qcom,hphl-jack-type-normally-closed;
+> +        qcom,ground-jack-type-normally-closed;
+> +        qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000 500000 500000 500000 500000>;
+> +        qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+> +    };
+> +
+> +    /* ... */
+> +
+> +    soundwire@3210000 {
+> +        #address-cells = <2>;
+> +        #size-cells = <0>;
+> +        reg = <0x03210000 0x2000>;
+> +        wcd938x_rx: codec@0,4 {
+> +            compatible = "sdw20217010d00";
+> +            reg  = <0 4>;
+> +            qcom,rx-port-mapping = <1 2 3 4 5>;
+> +        };
+> +    };
+> +
+> +    soundwire@3230000 {
+> +        #address-cells = <2>;
+> +        #size-cells = <0>;
+> +        reg = <0x03230000 0x2000>;
+> +        wcd938x_tx: codec@0,3 {
+> +            compatible = "sdw20217010d00";
+> +            reg  = <0 3>;
+> +            qcom,tx-port-mapping = <2 3 4 5>;
+> +        };
+> +    };
+> +
+> +...
+> -- 
+> 2.21.0
+> 

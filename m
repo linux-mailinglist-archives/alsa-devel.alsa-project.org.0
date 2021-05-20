@@ -2,86 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE1738B1AF
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 16:26:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16B6A38B457
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 18:35:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E8AE1694;
-	Thu, 20 May 2021 16:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E8AE1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A2411697;
+	Thu, 20 May 2021 18:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A2411697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621520815;
-	bh=iSAiEWih693UfWqV9vWQyQAprrRDwM2TfYURPY5gSWU=;
+	s=default; t=1621528512;
+	bh=dEcY6VDZkucQeAHG+0z0CqQ11EjNe3NjcbzUyHbyI1w=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PocPjdfHm5TNvL8yBg9H+PTfV+gNpu4Y3Y2NxxDjUvQiJJqhKMruWThxlpXwOZPMQ
-	 71LH0qhHWEfPFBDBLmSRocJ2QJn054PaTVrEoPXFKMZlVHjt2XJCeamum9krklbj2x
-	 96zvoR/2GccxBLqTy26pFLcw+GsTGmFfQXps3eFo=
+	b=elp5WGXufwUvFdsyO4ef2k4ziL6aRG86VR7ySCyAAEquWZZWqHuUxtVocs4VOh42h
+	 og98mqc5pAhYKZ2cHeB051lwuvDf5D2Fski2bEKVFebg/RAcfQqLk8GfefiSgdQLOo
+	 EZS3psmt+ZCaWYjfU/UMgEedZsWCDYACrGM98a+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 723C8F80229;
-	Thu, 20 May 2021 16:25:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F22F8F80229;
+	Thu, 20 May 2021 18:33:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0724F80217; Thu, 20 May 2021 16:25:24 +0200 (CEST)
+ id 2141EF80217; Thu, 20 May 2021 18:33:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 325B3F800C8
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 16:25:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 325B3F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81FB5F80127
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 18:33:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81FB5F80127
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="E6amHKcU"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1621520720; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=zyVvMEbw6fGlwBlGsUwf0H2yuUNMPC9CYtNKkDWlN6k=;
- b=E6amHKcU6aRKx1Te01ikJPXpGSO6a6aK4EiSFcNz5NnydedBD9He76+K1I/KQwZrVnj+Hv7G
- +ydLV2cGNiRi3d+JB1sXSOvsKgmYiXzqXqGwL3afnOx8vfgYVAt21tAn3x3rHdBpExwHjr/a
- ymZm78/82N9NtGyfphNmw187NjY=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 60a6713d7b5af81b5c0ed168 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 20 May 2021 14:25:01
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4F5E9C43146; Thu, 20 May 2021 14:25:01 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 02868C43460;
- Thu, 20 May 2021 14:24:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 02868C43460
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v2] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture
- begin
-Date: Thu, 20 May 2021 19:54:32 +0530
-Message-Id: <20210520142432.29869-1-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.29.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="goTMduqK"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14KGW0ig011261; Thu, 20 May 2021 11:33:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=YHGDnB3/fKKfk2ymDd/HVOs1tLCKFJCMnts8DlcLJw0=;
+ b=goTMduqKB/ozx4yGi6GaEyYu6savPRvRdPSJ2BQqeu//X9HlgIjePmkA8S0HzyT3VPRV
+ egYb7DQWi+g9syhqyc4hJQpLdM2sAZdgrEAqPNN2uetWHgMIrF203IraSJBGuwF5FmzS
+ WL4AQQnvzmZ3WS7y6sxWMJDlz1yrXTljy4UXg+ccnMsurhStvEFot5l5YO8TE6FvRVA2
+ X23PS5x5yYaoOGMOhlU+oBaq2oKfrEUlM+dAAGqj3xtUWx2rOvRu6z2mTtMqGkWkopMv
+ IMySxT4Sxj3bEQb/JM50CMkrtZQlPUa3TidKK1NwhzfanrERI9LhAJysrJPz3AnSFGLH 7w== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 38n43v9qyw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 20 May 2021 11:33:30 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 20 May
+ 2021 17:33:27 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Thu, 20 May 2021 17:33:27 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.101])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 02E0611CD;
+ Thu, 20 May 2021 16:33:26 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
+ <cezary.rojewski@intel.com>, <liam.r.girdwood@linux.intel.com>,
+ <yang.jie@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: boards: Select SND_SOC_HDAC_HDMI for Soundwire
+ machine driver
+Date: Thu, 20 May 2021 17:33:24 +0100
+Message-ID: <20210520163324.19046-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Content-Type: text/plain
+X-Proofpoint-GUID: 7n3ICBrRN2cTxZYdQpGrXFphjaUoB_IP
+X-Proofpoint-ORIG-GUID: 7n3ICBrRN2cTxZYdQpGrXFphjaUoB_IP
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 spamscore=0
+ bulkscore=0 mlxlogscore=999 malwarescore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 phishscore=0 adultscore=0 mlxscore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
+ definitions=main-2105200107
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,115 +104,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes PoP noise of around 15ms observed during audio capture begin.
-Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for introducing some delay
-before capture start and clock enable.
+Add select of SND_SOC_HDAC_HDMI for SND_SOC_INTEL_SOUNDWIRE_SOF_MACH.
+Without this the build results in missing references to
+hdac_hdmi_jack_port_init and hdac_hdmi_jack_init.
 
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
-Changes Since V1:
-	-- Enableed BCLK and LRCLK in dai ops prepare API instead of startup API
-	-- Added comments 
-	
- sound/soc/qcom/lpass-cpu.c | 48 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 46 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index c62d2612e8f5..c5bb3f16d25f 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -93,9 +93,18 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
- 
- 	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
--	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-+	/* To ensure BCLK/LRCLK disabled even in device node validation.
-+	  Will not impact if disabled in trigger suspend */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_DISABLE);
-+	else
-+		regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_DISABLE);
-+
-+	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
- }
- 
- static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
-@@ -275,6 +284,8 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		/* To ensure lpass BCLK/LRCLK is enabled during
-+	   		device resume. Will not impact if enabled in prepare */
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 			ret = regmap_fields_write(i2sctl->spken, id,
- 						 LPAIF_I2SCTL_SPKEN_ENABLE);
-@@ -296,6 +307,8 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		/* To ensure lpass BCLK/LRCLK is disabled during
-+	   		device suspend */
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 			ret = regmap_fields_write(i2sctl->spken, id,
- 						 LPAIF_I2SCTL_SPKEN_DISABLE);
-@@ -308,19 +321,50 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 				ret);
- 
- 		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
--
-+		break;
-+	default:
- 		break;
- 	}
- 
- 	return ret;
- }
- 
-+static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
-+		struct snd_soc_dai *dai)
-+{
-+	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
-+	int ret = -EINVAL;
-+	/* To ensure lpass BCLK/LRCLK is enabled bit before
-+	   playback/capture data flow starts */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		ret = regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_ENABLE);
-+	else
-+		ret = regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_ENABLE);
-+
-+	if (ret)
-+		dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
-+	       ret);
-+
-+	ret = clk_enable(drvdata->mi2s_bit_clk[id]);
-+
-+	if (ret) {
-+		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
-+		clk_disable(drvdata->mi2s_osr_clk[id]);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
-+
- const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
- 	.set_sysclk	= lpass_cpu_daiops_set_sysclk,
- 	.startup	= lpass_cpu_daiops_startup,
- 	.shutdown	= lpass_cpu_daiops_shutdown,
- 	.hw_params	= lpass_cpu_daiops_hw_params,
- 	.trigger	= lpass_cpu_daiops_trigger,
-+	.prepare	= lpass_cpu_daiops_prepare,
- };
- EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops);
- 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index eef5f4ac87c5..6a1639b14b67 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -601,6 +601,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+ 	select SND_SOC_INTEL_SOF_MAXIM_COMMON
++	select SND_SOC_HDAC_HDMI
+ 	help
+ 	  Add support for Intel SoundWire-based platforms connected to
+ 	  MAX98373, RT700, RT711, RT1308 and RT715
 -- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+2.20.1
 

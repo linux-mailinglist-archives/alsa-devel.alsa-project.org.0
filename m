@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BFE538B6AC
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 21:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B234E38B6C4
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 21:09:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5BD716A4;
-	Thu, 20 May 2021 21:03:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5BD716A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49E8D16A8;
+	Thu, 20 May 2021 21:09:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49E8D16A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621537485;
-	bh=IRgzKsFs36CjPlF5SOaXK9Fd9qKA+C+zxYZjB76xC6o=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621537793;
+	bh=z8L4oCBXjvffXYsBtw3x+DRK4fRDIPDgFEx1CMHmpPo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z9aSm8l7cKZNU2OF9Yl7cyOSu/qIhJXuWyTK0rlUaxcU8Qclx7eqIAEJ1YZQJozZf
-	 WNAgIAocpDFlffbjkLPI9usSlrEJ8ppXeC3hcCmICPrhikdSq3+e+CZxBq3JeMJKau
-	 ax5ZnKpjmW6Fxl5rX30jP1xo4ceLoacjganPYYg0=
+	b=azw1fLa0VqZhyW5ytR/iBwsTjwmVRCuxLIMrgNwj20X3hRSLNT5yqXUsL0Tge1OHB
+	 lj8I7GBRdIiYX+nlYDoBm+KuOdfG5+lEwYQ6cBBYdxm/2TjheozXOIXnF9sQaYG5nV
+	 rfakcY+PmU2f9le5ZgCgD/RS+MAhhCpl0QX5mDYE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29556F80229;
-	Thu, 20 May 2021 21:03:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A179EF80229;
+	Thu, 20 May 2021 21:08:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BE2DF80217; Thu, 20 May 2021 21:03:14 +0200 (CEST)
+ id 84A3CF80217; Thu, 20 May 2021 21:08:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46CC7F800C1
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 21:03:06 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C48FCA0040;
- Thu, 20 May 2021 21:03:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C48FCA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1621537380; bh=y+8k9wqsJtPgUJsqRvi4ZT1JcJem6VoeiPwXOKz49+8=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=gEuQOqvhKarNj1FC6LYFw4mBdEcl0qARfAhMs0XQlRPvCew6fRX+0iqvmEF32BU75
- LBn4Ysbu9AF4xWVunARQO7ESvwqP0JF/eetbI1lUY2s3Hzn0OKd/qoS9eEs3HeaOns
- EaxecFzu3DutMFCPBkeCUd+09MSjewOnwnI9Al34=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 20 May 2021 21:02:49 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03496F800C8
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 21:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03496F800C8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bWydcwtw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7F98660FE8;
+ Thu, 20 May 2021 19:08:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621537695;
+ bh=z8L4oCBXjvffXYsBtw3x+DRK4fRDIPDgFEx1CMHmpPo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bWydcwtw1iMbV1+JypJDPdk9CVyD6sIQC76c2/iKwBONip9AfpxVyv2a2jfbvHVEh
+ QGwFuBEvuEZVWOPCZbpIwWACddUQReDqAN4mrJpoWH4hAdkx5FQLASj8Ew5VOdVgpg
+ LpVRu880OHLGkmkpluS8nMpSv0/JZKso3SnO15BcJp3uIur7WoSkl2njWdKHCO0W3h
+ XOG5QUUzsYaV6PdJO1KXuQwHai6Xuaknw+hsmZFKDdck2vt7nJFgLbUjMbIRFuWMcf
+ F4nhPu+0e4FGaUJuoU1iCyJKcHkWU7Hbjts8pFA2XwBaSatl4LyqPwJO/Mi/9ah8q3
+ jTSCn0iOlNZww==
+Date: Thu, 20 May 2021 20:08:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH v2 2/2] ASoC: tegra: Unify ASoC machine drivers
-To: Dmitry Osipenko <digetx@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Ion Agorria <ion@agorria.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
+Message-ID: <20210520190812.GF3962@sirena.org.uk>
 References: <20210520175054.28308-1-digetx@gmail.com>
  <20210520175054.28308-3-digetx@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <8e5d4442-00a4-460b-d37a-8962960dd7ff@perex.cz>
-Date: Thu, 20 May 2021 21:02:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ <8e5d4442-00a4-460b-d37a-8962960dd7ff@perex.cz>
 MIME-Version: 1.0
-In-Reply-To: <20210520175054.28308-3-digetx@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="m1UC1K4AOz1Ywdkx"
+Content-Disposition: inline
+In-Reply-To: <8e5d4442-00a4-460b-d37a-8962960dd7ff@perex.cz>
+X-Cookie: Offer void where prohibited by law.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,31 +87,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 20. 05. 21 v 19:50 Dmitry Osipenko napsal(a):
-> Squash all machine drivers into a single-universal one. This reduces
-> code duplication, eases addition of a new drivers and upgrades older
-> code to a modern Linux kernel APIs.
-> 
 
+--m1UC1K4AOz1Ywdkx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +static struct snd_soc_card snd_soc_tegra_wm9712 = {
-> +	.dai_link = &tegra_wm9712_dai,
-> +	.num_links = 1,
-> +	.fully_routed = true,
-> +};
-Please, could you also initialize snd_soc_card->components? It may be useful
-to pass the codec identification to the user space like:
+On Thu, May 20, 2021 at 09:02:49PM +0200, Jaroslav Kysela wrote:
+> Dne 20. 05. 21 v 19:50 Dmitry Osipenko napsal(a):
+> > Squash all machine drivers into a single-universal one. This reduces
+> > code duplication, eases addition of a new drivers and upgrades older
+> > code to a modern Linux kernel APIs.
 
-.components = "codec:wm9712"
+> > +static struct snd_soc_card snd_soc_tegra_wm9712 = {
+> > +	.dai_link = &tegra_wm9712_dai,
+> > +	.num_links = 1,
+> > +	.fully_routed = true,
+> > +};
 
-The passed information should be consistent. You may look into the Intel ASoC
-drivers for the examples (card->components initialization). There are also
-hints about the number of connected microphones ("cfg-mic:2" - configuration
-with 2 microphones) or the codec purpose ("hs:rt711" - headset codec is RT711)
-etc.
+> Please, could you also initialize snd_soc_card->components? It may be useful
+> to pass the codec identification to the user space like:
 
-					Jaroslav
+> .components = "codec:wm9712"
 
+Hrm, if this is important to userspace shouldn't the core be doing
+something by default given that it already knows all the components
+going into the card?
 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> The passed information should be consistent. You may look into the Intel ASoC
+> drivers for the examples (card->components initialization). There are also
+> hints about the number of connected microphones ("cfg-mic:2" - configuration
+> with 2 microphones) or the codec purpose ("hs:rt711" - headset codec is RT711)
+> etc.
+
+This sort of stuff is more something that the card should layer on top.
+
+--m1UC1K4AOz1Ywdkx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCms5sACgkQJNaLcl1U
+h9ASfgf9HkitwSIVjMI1yhKeZnUTrueUtiYwFvJjlEJJnCnrsS2QMufsf1/0q6Bn
+yfQQaL660jHo+gkzvnHz0+c+Ykd7HdPx7YRiwPQG33Sh2kva1MsGXa9Wvh+p+unZ
+4rtVpcmIB3azj+sat9pKqOcjfLA0KVDA+COLeS+Yg6OVMq0RIAw+jQRQ+f4oYrlG
+vqF2+bJe3GmE+N/SrrTpx1yYwnRMNEQKCA7o6e5FjaFJzASTo2XColBvEX29ttnc
+7+Z7PTYRGnVlYWpH1JWY+LBd6UHc7YGGArlPeaxbHLUg/kICqq+jkQKBareaQysU
+0VAdJa/rHULm49mE8NfMa45wGan8lA==
+=P/CB
+-----END PGP SIGNATURE-----
+
+--m1UC1K4AOz1Ywdkx--

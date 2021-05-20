@@ -2,93 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B6A38B457
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 18:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACA6838B529
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 19:27:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A2411697;
-	Thu, 20 May 2021 18:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A2411697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24331169F;
+	Thu, 20 May 2021 19:26:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24331169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621528512;
-	bh=dEcY6VDZkucQeAHG+0z0CqQ11EjNe3NjcbzUyHbyI1w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=elp5WGXufwUvFdsyO4ef2k4ziL6aRG86VR7ySCyAAEquWZZWqHuUxtVocs4VOh42h
-	 og98mqc5pAhYKZ2cHeB051lwuvDf5D2Fski2bEKVFebg/RAcfQqLk8GfefiSgdQLOo
-	 EZS3psmt+ZCaWYjfU/UMgEedZsWCDYACrGM98a+I=
+	s=default; t=1621531661;
+	bh=mCn4OfnrMkn7g3uHmc7x4WQlNnkh5qdWJtp36DK09YA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JkbAYHtmKvt0h27i03g5Js+8+cJxO0/cvO8U7abXFRvPlQ01rfoppXzFY383Z2t/O
+	 1KkyKDUqd9lO2VReZmIAeHf/zTeMKn3KkYwiFPhi7TFgpfoUe2ly7R1ZFcdmESWv5a
+	 yZl1AJid8kdybOa/MQjrdoq5bNmlW6271mJk/Kh4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F22F8F80229;
-	Thu, 20 May 2021 18:33:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 622FFF80229;
+	Thu, 20 May 2021 19:26:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2141EF80217; Thu, 20 May 2021 18:33:40 +0200 (CEST)
+ id 7DF9FF80217; Thu, 20 May 2021 19:26:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81FB5F80127
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 18:33:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81FB5F80127
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="goTMduqK"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14KGW0ig011261; Thu, 20 May 2021 11:33:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=YHGDnB3/fKKfk2ymDd/HVOs1tLCKFJCMnts8DlcLJw0=;
- b=goTMduqKB/ozx4yGi6GaEyYu6savPRvRdPSJ2BQqeu//X9HlgIjePmkA8S0HzyT3VPRV
- egYb7DQWi+g9syhqyc4hJQpLdM2sAZdgrEAqPNN2uetWHgMIrF203IraSJBGuwF5FmzS
- WL4AQQnvzmZ3WS7y6sxWMJDlz1yrXTljy4UXg+ccnMsurhStvEFot5l5YO8TE6FvRVA2
- X23PS5x5yYaoOGMOhlU+oBaq2oKfrEUlM+dAAGqj3xtUWx2rOvRu6z2mTtMqGkWkopMv
- IMySxT4Sxj3bEQb/JM50CMkrtZQlPUa3TidKK1NwhzfanrERI9LhAJysrJPz3AnSFGLH 7w== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 38n43v9qyw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 20 May 2021 11:33:30 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 20 May
- 2021 17:33:27 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Thu, 20 May 2021 17:33:27 +0100
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.101])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 02E0611CD;
- Thu, 20 May 2021 16:33:26 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
- <cezary.rojewski@intel.com>, <liam.r.girdwood@linux.intel.com>,
- <yang.jie@linux.intel.com>
-Subject: [PATCH] ASoC: Intel: boards: Select SND_SOC_HDAC_HDMI for Soundwire
- machine driver
-Date: Thu, 20 May 2021 17:33:24 +0100
-Message-ID: <20210520163324.19046-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 22045F80127
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 19:26:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22045F80127
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 7n3ICBrRN2cTxZYdQpGrXFphjaUoB_IP
-X-Proofpoint-ORIG-GUID: 7n3ICBrRN2cTxZYdQpGrXFphjaUoB_IP
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 spamscore=0
- bulkscore=0 mlxlogscore=999 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 adultscore=0 mlxscore=0 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2105200107
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1621531556101746082-webhooks-bot@alsa-project.org>
+References: <1621531556101746082-webhooks-bot@alsa-project.org>
+Subject: Add UCMs for Google Asus Nexus 7 and  Acer Iconial A500
+Message-Id: <20210520172608.7DF9FF80217@alsa1.perex.cz>
+Date: Thu, 20 May 2021 19:26:08 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,27 +59,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add select of SND_SOC_HDAC_HDMI for SND_SOC_INTEL_SOUNDWIRE_SOF_MACH.
-Without this the build results in missing references to
-hdac_hdmi_jack_port_init and hdac_hdmi_jack_init.
+alsa-project/alsa-ucm-conf pull request #92 was opened from digetx:
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/intel/boards/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+@perexg As was discussed previouly at https://www.spinics.net/lists/alsa-devel/msg126382.html I'm opening PR with the UCMs for  Nexus 7 and A500. Both these devices are supported by the mainline Linux kernel. 
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index eef5f4ac87c5..6a1639b14b67 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -601,6 +601,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
- 	select SND_SOC_DMIC
- 	select SND_SOC_INTEL_HDA_DSP_COMMON
- 	select SND_SOC_INTEL_SOF_MAXIM_COMMON
-+	select SND_SOC_HDAC_HDMI
- 	help
- 	  Add support for Intel SoundWire-based platforms connected to
- 	  MAX98373, RT700, RT711, RT1308 and RT715
--- 
-2.20.1
+You're right that Tegra ASoC driver doesn't set card's name properly. In particular I found that we need to set the card's `driver_name` to `tegra`, then UCM get a proper lookup path.
 
+I rebased UCMs on top of the recent alsa-ucm-conf master and switched Nexus 7 UCM to use generic RT5640 UCM. Everything works great once the card name of the kernel driver is corrected. I'll send the kernel patches ASAP for review.
+
+Nexus 7 alsa-info: https://alsa-project.org/db/?f=0a29f1dab39ec5b33e01215dee42dbfd1dbbf08e
+A500 alsa-info: https://alsa-project.org/db/?f=bde4f7938a39b1d26904b414969fc811e726242f
+
+The alsa-info is taken using the updated kernel ASoC driver.
+
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/92
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/92.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

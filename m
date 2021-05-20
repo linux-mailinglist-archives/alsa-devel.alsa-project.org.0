@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8DE389C4E
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 06:05:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F28389C50
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 06:06:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67D3D1686;
-	Thu, 20 May 2021 06:04:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D3D1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45F3D1674;
+	Thu, 20 May 2021 06:05:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F3D1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621483537;
-	bh=FJZUC/ZlC0QBhkuVxr0IKrPmpCXHRJMj8V+L0T0I3A8=;
+	s=default; t=1621483560;
+	bh=NmTPowujpDRcmat7b9Rr2SJYGPOGggPZ7163Yh6JubQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y9EaaNhwgbJgEYdxHncO3wRTyQRplfdlcu5rJZbpmyMWjJ+AzBPR/dQN2gZA6DgQG
-	 k/GLjdIENHfqYvjPmMKoaIJOA6Vh52lz+Me6+5+NfsTBvUO7Ebqkeu9sEgT4xjHAwa
-	 Sf/fio2G7r8dQKZCVcChhSniwYXj8L+5nHo3IKtI=
+	b=YZddim3LdUnQc9NDOIpz9oLP3l/cRGNP8xTtLLmGncXUVjP4zsB/fioUxPGLoCpbv
+	 JlcFsVuE9GmTZtITxv2iZI/zUruoeEqS/ZZY2Yiz9fOMdaWaWaYMbwQNn/JPPBbjG7
+	 m2uJ6jq0pSGeAKWuY+hpIKJ+W5SlWp+SW4AMwPYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECE65F804BD;
-	Thu, 20 May 2021 06:02:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12D55F804D8;
+	Thu, 20 May 2021 06:02:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17EE6F804AF; Thu, 20 May 2021 06:02:29 +0200 (CEST)
+ id C01C2F804AE; Thu, 20 May 2021 06:02:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B00CF80257
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 06:02:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B00CF80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7837AF80272
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 06:02:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7837AF80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="jBqgbDcS"; 
+ header.b="poUm0rs2"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="b1kityG4"
+ header.i=@messagingengine.com header.b="AgVajk4R"
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 96E5F5C00DD;
- Thu, 20 May 2021 00:02:04 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id D858B5C00F8;
+ Thu, 20 May 2021 00:02:05 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 20 May 2021 00:02:04 -0400
+ by compute6.internal (MEProxy); Thu, 20 May 2021 00:02:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=8kAtZcgFj9DzF
- q1boG546K9OcB67JxFw3GRErQHlIXw=; b=jBqgbDcSK+tupDmiT91GrYFBvaqSh
- PxpZQKI50MJTuSbS0kx7ZFTygY1YTsbR8skIzVsJSakvhOe4EPHf/QvuPuMpIneg
- HS9KkpcQXglE1O+pKtGRmrdVb5sz8ryUUCNqG+B+3XAFGZ0WFGYfqtjehmJK+234
- C8CWl0pG9971qGuJWk2FpNbtLbQBJxxi4byxqM0Y95z1gkRzFMDHezVb0Z8i38ZI
- K68Rjge979d8Dd/MLlUtbqpzz8MHpgmVTJQpT8WOIxB0xvYQfViOeZ4j75wHp74T
- rAU64HPF2Bo79xH2xtd+hR55zSlv1UHmfcNaX2u8Kj1K8zgmYrj2fu2yA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=sLryzudFZO8jL
+ D2w0dSy6J6g21/XpNI0qiJ7oD3pNwI=; b=poUm0rs2Qoyr2HWV2AgrWD3MLeDm9
+ uxjJlzQRaYAWm3G9omRbCqnriPBG49PFYQXUCEq+iOG7FF0IIWp3oLmec7iCCP3a
+ pUGo0qW/hWg/1s5KRmImxF5VrCwpllmZJ3kC6W+6hP4/aCHfzzussZYhzt1OMLym
+ 0VNSs+vO15XtQnh25OqEVkm5vKXRhrb9AiSUum6/a45VgCLLint5G0Dob1nmsoPO
+ NHUDq1OTxB15p6zTM8XC15FkhtWm3OAUWZZthk/aDaasYtgcDgozQxoHKuJ0U5vm
+ /Ipj10pFFm+lr5MEKivr6ThUMIkIMWUkCgvDLZfhsDJBHD7TQRWNB32NA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=8kAtZcgFj9DzFq1boG546K9OcB67JxFw3GRErQHlIXw=; b=b1kityG4
- zuy3A34aM6VtWtc5Uc3LbnGVzW9KOb5NhvOpMX98V/i1j5KFISaapScpk4umuT/t
- gftQXeCYWYWiiREYkPQ7yhjbxEuexA0pvznJd3aivXW2/jzQ8YhBMDYpJh6C+Vi0
- 1JeRCZzarH+3waJg50bAVNswcHf20W9Tzi1bUDP3KUpB1Wk+ZRVwYY1+VKDrHnxG
- s/TWfPQMwiFNy5UpQyieUNJjz1sHtBhmvMDZrpILWAE0Cy+tyWE/IY2/KiYo2YAA
- klyNleKh75WvuDKg5nGImvaGZTZFVAX0GNfLq6Oopgi9LtqfE0frZcm+/dw3n9Rc
- 9uBh6KTPwg8iyg==
-X-ME-Sender: <xms:PN-lYK5ELmpIsYzvqMrEnC1DHTxySv1QaLpavfoPPUMlQR_n20vV5w>
- <xme:PN-lYD6uxUOCZoCj5qsJolmcfWXsiEx1Fal5f6FgDGlSO_WUCR7On12_aJR_BMKqV
- S1L0jQufbFlgPmOL7U>
+ fm2; bh=sLryzudFZO8jLD2w0dSy6J6g21/XpNI0qiJ7oD3pNwI=; b=AgVajk4R
+ C7X9OMJUsOrjn2yjdWs+MDrqMg5uKj+HezYskSBhmbibzPz1iNKaytSFEU+TDXqu
+ oI1TFT2ZSuFavzhxY4WVrGPgGeUy0TjWIMk4ZEKalFO6f/nvKFUmCfRGrbPjbqqH
+ 6JJ5cyXVQtdBRo8vCdrJ7oBX81sc95RVYFKsrPJ3v6bAoHg4lsdgF6+whnMm07i7
+ E3EwqLkKFtBtCsvO4YCilwUFp6+rb+q1u+eRiJ3IcQb03Pe5HYCGKJ1y8ZHV3s4l
+ tVE12F9DnJQ89AXO2QB//m2YIgqiC3qMjqrmR5rv3PVTzet3rJntNQRozCNpz5L7
+ u8vwUA3g9VYdCA==
+X-ME-Sender: <xms:Pd-lYC3DaLJyaVJkqlqoBRfXimwULuPxKEqE8vmgIDQGEbzC2d1U_g>
+ <xme:Pd-lYFGkZ1Hrg6U9xOkpwkcn9v12Z_ckZO28Nq1Rk1ajkDl0uo-cPeehe99g4IbDt
+ odzbJGFZUIz5qTYYso>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejtddgjeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -79,19 +79,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejtddgjeekucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
  fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:PN-lYJc8P9JjLFpEh1rSXtdz30vVPoxfCumceH8vbN_2q0cLDTmMwA>
- <xmx:PN-lYHLic2ekCNnP3uR2gU0hat2t-jDIQoUAkRUufc0WcFXNNk2enQ>
- <xmx:PN-lYOKaJQOvGjmhRb00_1ZRqjLSvJuMVxiwVxv5E_UPf7SZXZoqgg>
- <xmx:PN-lYIy16BOlKGST2Uynto0ZdTxjCggx-Erpg0UYu9f7JRJtwTfTuA>
+X-ME-Proxy: <xmx:Pd-lYK4UznbiwdwH7R7il_SaFFu4nFKT_DtdCYiMSwF8co1vTjnD5g>
+ <xmx:Pd-lYD2OnvW7zqI1JVprfjoU1Z2UdzW-gPOV5rGGEg56Wg7iVflqIQ>
+ <xmx:Pd-lYFEizUqPR7vkKG87Gp6IhZ-QtgB8LZHVVjnsvb34FDCv_-Q3-A>
+ <xmx:Pd-lYIPZ24aG81CIYymuaaSWpIaE0KeyQzpWyNxazaCHqykgoSmh4w>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 20 May 2021 00:02:03 -0400 (EDT)
+ Thu, 20 May 2021 00:02:04 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 4/8] ALSA: firewire-lib: start processing content of packet at
- the same cycle in several IR contexts
-Date: Thu, 20 May 2021 13:01:50 +0900
-Message-Id: <20210520040154.80450-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 5/8] ALSA: firewire-lib: skip initial packets instead of
+ scheduling IR context
+Date: Thu, 20 May 2021 13:01:51 +0900
+Message-Id: <20210520040154.80450-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210520040154.80450-1-o-takashi@sakamocchi.jp>
 References: <20210520040154.80450-1-o-takashi@sakamocchi.jp>
@@ -113,194 +113,224 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DICE ASICs support several pairs of isochronous packet streaming. It's
-convenient for drivers to process content of the packet in the same cycle
-timing.
+Current implementation of ALSA IEC 61883-1/6 packet streaming engine
+allows drivers to decide isochronous cycle to start IR context. This
+option is mainly used to avoid processing the sequence of packet with
+some quirks; e.g. discontinuity of counter. However, it's inconvenient
+to fail to continue packet processing when the target device doesn't
+start transmission of packet till the decided cycle.
 
-This commit adds structure member to manage the cycle to start
-processing packet in several IR contexts. The cycle is decided in the
-first callback of the IR contexts. The content of packet is dropped
-till the cycle.
+This commit changes the behaviour. As an alternative to the start cycle
+for IR context, the cycle count to drop content of packet in the beginning
+of IR context.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 115 ++++++++++++++++++++++++++++++++--
- sound/firewire/amdtp-stream.h |   4 ++
- 2 files changed, 113 insertions(+), 6 deletions(-)
+ sound/firewire/amdtp-stream.c       | 80 +++++------------------------
+ sound/firewire/amdtp-stream.h       |  3 +-
+ sound/firewire/bebob/bebob_stream.c | 21 +++-----
+ 3 files changed, 23 insertions(+), 81 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 87644cb0d8ab..35925c9666fc 100644
+index 35925c9666fc..48ed9612407f 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -958,9 +958,8 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 	s->ctx_data.rx.event_count = event_count;
+@@ -1199,12 +1199,16 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
+ 		}
+ 
+ 		if (stream_count == callbacked_count) {
++			unsigned int next_cycle;
++
+ 			list_for_each_entry(s, &d->streams, list) {
+ 				if (s->direction != AMDTP_IN_STREAM)
+ 					continue;
+ 
+-				if (compare_ohci_cycle_count(s->next_cycle, cycle) > 0)
+-					cycle = s->next_cycle;
++				next_cycle = increment_ohci_cycle_count(s->next_cycle,
++								d->processing_cycle.tx_init_skip);
++				if (compare_ohci_cycle_count(next_cycle, cycle) > 0)
++					cycle = next_cycle;
+ 
+ 				s->context->callback.sc = process_tx_packets_intermediately;
+ 			}
+@@ -1533,36 +1537,13 @@ int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
  }
+ EXPORT_SYMBOL_GPL(amdtp_domain_add_stream);
  
--static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
--			       size_t header_length, void *header,
--			       void *private_data)
-+static void process_tx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+			       void *header, void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
- 	__be32 *ctx_header = header;
-@@ -996,6 +995,82 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 	}
- }
- 
-+static void drop_tx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+			    void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	const __be32 *ctx_header = header;
-+	unsigned int packets;
-+	unsigned int cycle;
-+	int i;
-+
-+	if (s->packet_index < 0)
-+		return;
-+
-+	packets = header_length / s->ctx_data.tx.ctx_header_size;
-+
-+	ctx_header += (packets - 1) * s->ctx_data.tx.ctx_header_size / sizeof(*ctx_header);
-+	cycle = compute_ohci_cycle_count(ctx_header[1]);
-+	s->next_cycle = increment_ohci_cycle_count(cycle, 1);
-+
-+	for (i = 0; i < packets; ++i) {
-+		struct fw_iso_packet params = {0};
-+
-+		if (queue_in_packet(s, &params) < 0) {
-+			cancel_stream(s);
-+			return;
-+		}
-+	}
-+}
-+
-+static void process_tx_packets_intermediately(struct fw_iso_context *context, u32 tstamp,
-+					size_t header_length, void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	__be32 *ctx_header;
-+	unsigned int packets;
-+	unsigned int offset;
-+
-+	if (s->packet_index < 0)
-+		return;
-+
-+	packets = header_length / s->ctx_data.tx.ctx_header_size;
-+
-+	offset = 0;
-+	ctx_header = header;
-+	while (offset < packets) {
-+		unsigned int cycle = compute_ohci_cycle_count(ctx_header[1]);
-+
-+		if (compare_ohci_cycle_count(cycle, d->processing_cycle.tx_start) >= 0)
-+			break;
-+
-+		ctx_header += s->ctx_data.tx.ctx_header_size / sizeof(__be32);
-+		++offset;
-+	}
-+
-+	ctx_header = header;
-+
-+	if (offset > 0) {
-+		size_t length = s->ctx_data.tx.ctx_header_size * offset;
-+
-+		drop_tx_packets(context, tstamp, length, ctx_header, s);
-+		if (amdtp_streaming_error(s))
-+			return;
-+
-+		ctx_header += length / sizeof(*ctx_header);
-+		header_length -= length;
-+	}
-+
-+	if (offset < packets) {
-+		process_tx_packets(context, tstamp, header_length, ctx_header, s);
-+		if (amdtp_streaming_error(s))
-+			return;
-+
-+		context->callback.sc = process_tx_packets;
-+	}
-+}
-+
- static void pool_ideal_seq_descs(struct amdtp_domain *d, unsigned int packets)
- {
- 	struct amdtp_stream *irq_target = d->irq_target;
-@@ -1082,6 +1157,7 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 					void *header, void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
- 	const __be32 *ctx_header = header;
- 	u32 cycle;
- 
-@@ -1094,13 +1170,12 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 
- 	if (s->direction == AMDTP_IN_STREAM) {
- 		cycle = compute_ohci_cycle_count(ctx_header[1]);
--		s->next_cycle = cycle;
- 
--		context->callback.sc = in_stream_callback;
-+		context->callback.sc = drop_tx_packets;
- 	} else {
- 		cycle = compute_ohci_it_cycle(*ctx_header, s->queue_size);
- 
--		if (s == s->domain->irq_target)
-+		if (s == d->irq_target)
- 			context->callback.sc = irq_target_callback;
- 		else
- 			context->callback.sc = out_stream_callback;
-@@ -1109,6 +1184,34 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	s->start_cycle = cycle;
- 
- 	context->callback.sc(context, tstamp, header_length, header, s);
-+
-+	// Decide the cycle count to begin processing content of packet in IR contexts.
-+	if (s->direction == AMDTP_IN_STREAM) {
-+		unsigned int stream_count = 0;
-+		unsigned int callbacked_count = 0;
-+
-+		list_for_each_entry(s, &d->streams, list) {
-+			if (s->direction == AMDTP_IN_STREAM) {
-+				++stream_count;
-+				if (s->callbacked)
-+					++callbacked_count;
-+			}
-+		}
-+
-+		if (stream_count == callbacked_count) {
-+			list_for_each_entry(s, &d->streams, list) {
-+				if (s->direction != AMDTP_IN_STREAM)
-+					continue;
-+
-+				if (compare_ohci_cycle_count(s->next_cycle, cycle) > 0)
-+					cycle = s->next_cycle;
-+
-+				s->context->callback.sc = process_tx_packets_intermediately;
-+			}
-+
-+			d->processing_cycle.tx_start = cycle;
-+		}
-+	}
- }
- 
+-static int get_current_cycle_time(struct fw_card *fw_card, int *cur_cycle)
+-{
+-	int generation;
+-	int rcode;
+-	__be32 reg;
+-	u32 data;
+-
+-	// This is a request to local 1394 OHCI controller and expected to
+-	// complete without any event waiting.
+-	generation = fw_card->generation;
+-	smp_rmb();	// node_id vs. generation.
+-	rcode = fw_run_transaction(fw_card, TCODE_READ_QUADLET_REQUEST,
+-				   fw_card->node_id, generation, SCODE_100,
+-				   CSR_REGISTER_BASE + CSR_CYCLE_TIME,
+-				   &reg, sizeof(reg));
+-	if (rcode != RCODE_COMPLETE)
+-		return -EIO;
+-
+-	data = be32_to_cpu(reg);
+-	*cur_cycle = data >> 12;
+-
+-	return 0;
+-}
+-
  /**
+  * amdtp_domain_start - start sending packets for isoc context in the domain.
+  * @d: the AMDTP domain.
+- * @ir_delay_cycle: the cycle delay to start all IR contexts.
++ * @tx_init_skip_cycles: the number of cycles to skip processing packets at initial stage of IR
++ *			 contexts.
+  */
+-int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle)
++int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles)
+ {
+ 	static const struct {
+ 		unsigned int data_block;
+@@ -1581,7 +1562,6 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle)
+ 	unsigned int idle_irq_interval;
+ 	unsigned int queue_size;
+ 	struct amdtp_stream *s;
+-	int cycle;
+ 	int err;
+ 
+ 	// Select an IT context as IRQ target.
+@@ -1593,6 +1573,8 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle)
+ 		return -ENXIO;
+ 	d->irq_target = s;
+ 
++	d->processing_cycle.tx_init_skip = tx_init_skip_cycles;
++
+ 	// This is a case that AMDTP streams in domain run just for MIDI
+ 	// substream. Use the number of events equivalent to 10 msec as
+ 	// interval of hardware IRQ.
+@@ -1615,48 +1597,12 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle)
+ 	d->syt_offset_state = entry->syt_offset;
+ 	d->last_syt_offset = TICKS_PER_CYCLE;
+ 
+-	if (ir_delay_cycle > 0) {
+-		struct fw_card *fw_card = fw_parent_device(s->unit)->card;
+-
+-		err = get_current_cycle_time(fw_card, &cycle);
+-		if (err < 0)
+-			goto error;
+-
+-		// No need to care overflow in cycle field because of enough
+-		// width.
+-		cycle += ir_delay_cycle;
+-
+-		// Round up to sec field.
+-		if ((cycle & 0x00001fff) >= CYCLES_PER_SECOND) {
+-			unsigned int sec;
+-
+-			// The sec field can overflow.
+-			sec = (cycle & 0xffffe000) >> 13;
+-			cycle = (++sec << 13) |
+-				((cycle & 0x00001fff) / CYCLES_PER_SECOND);
+-		}
+-
+-		// In OHCI 1394 specification, lower 2 bits are available for
+-		// sec field.
+-		cycle &= 0x00007fff;
+-	} else {
+-		cycle = -1;
+-	}
+-
+ 	list_for_each_entry(s, &d->streams, list) {
+-		int cycle_match;
+-
+-		if (s->direction == AMDTP_IN_STREAM) {
+-			cycle_match = cycle;
+-		} else {
+-			// IT context starts immediately.
+-			cycle_match = -1;
++		if (s->direction == AMDTP_OUT_STREAM)
+ 			s->ctx_data.rx.seq_index = 0;
+-		}
+ 
+ 		if (s != d->irq_target) {
+-			err = amdtp_stream_start(s, s->channel, s->speed,
+-						 cycle_match, queue_size, 0);
++			err = amdtp_stream_start(s, s->channel, s->speed, -1, queue_size, 0);
+ 			if (err < 0)
+ 				goto error;
+ 		}
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index 58769ca184a2..6fad113188fe 100644
+index 6fad113188fe..ebd040560791 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -288,6 +288,10 @@ struct amdtp_domain {
- 
+@@ -289,6 +289,7 @@ struct amdtp_domain {
  	struct amdtp_stream *irq_target;
  
-+	struct {
-+		unsigned int tx_start;
-+	} processing_cycle;
-+
  	struct {
- 		struct seq_desc *descs;
- 		unsigned int size;
++		unsigned int tx_init_skip;
+ 		unsigned int tx_start;
+ 	} processing_cycle;
+ 
+@@ -309,7 +310,7 @@ void amdtp_domain_destroy(struct amdtp_domain *d);
+ int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
+ 			    int channel, int speed);
+ 
+-int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle);
++int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles);
+ void amdtp_domain_stop(struct amdtp_domain *d);
+ 
+ static inline int amdtp_domain_set_events_per_period(struct amdtp_domain *d,
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index b612ee3e33b6..8053d02b68f0 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -626,7 +626,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		enum snd_bebob_clock_type src;
+ 		struct amdtp_stream *master, *slave;
+ 		unsigned int curr_rate;
+-		unsigned int ir_delay_cycle;
++		unsigned int tx_init_skip_cycles;
+ 
+ 		if (bebob->maudio_special_quirk) {
+ 			err = bebob->spec->rate->get(bebob, &curr_rate);
+@@ -654,20 +654,13 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		// The device postpones start of transmission mostly for 1 sec
+-		// after receives packets firstly. For safe, IR context starts
+-		// 0.4 sec (=3200 cycles) later to version 1 or 2 firmware,
+-		// 2.0 sec (=16000 cycles) for version 3 firmware. This is
+-		// within 2.5 sec (=CALLBACK_TIMEOUT).
+-		// Furthermore, some devices transfer isoc packets with
+-		// discontinuous counter in the beginning of packet streaming.
+-		// The delay has an effect to avoid detection of this
+-		// discontinuity.
++		// Some devices transfer isoc packets with discontinuous counter in the beginning
++		// of packet streaming.
+ 		if (bebob->version < 2)
+-			ir_delay_cycle = 3200;
++			tx_init_skip_cycles = 3200;
+ 		else
+-			ir_delay_cycle = 16000;
+-		err = amdtp_domain_start(&bebob->domain, ir_delay_cycle);
++			tx_init_skip_cycles = 16000;
++		err = amdtp_domain_start(&bebob->domain, tx_init_skip_cycles);
+ 		if (err < 0)
+ 			goto error;
+ 
+@@ -684,6 +677,8 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 			}
+ 		}
+ 
++		// Some devices postpone start of transmission mostly for 1 sec after receives
++		// packets firstly.
+ 		if (!amdtp_stream_wait_callback(&bebob->rx_stream,
+ 						CALLBACK_TIMEOUT) ||
+ 		    !amdtp_stream_wait_callback(&bebob->tx_stream,
 -- 
 2.27.0
 

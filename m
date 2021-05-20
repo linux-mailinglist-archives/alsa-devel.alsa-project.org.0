@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5259438B8CC
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 23:10:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 321FD38B8CD
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 23:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDF8F16A4;
-	Thu, 20 May 2021 23:09:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDF8F16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id C336B16BB;
+	Thu, 20 May 2021 23:09:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C336B16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621545004;
-	bh=8ELMlxBpUUAE7ubz9VhApkiJhq+FPqvYh5sDquV8mog=;
+	s=default; t=1621545020;
+	bh=Eyw7AhgeWkNoF/E+yWX1GIGo+7JsMJgP16p5702kNag=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iVyvfMQJDCwSXO3msZ3RXynYmxIZxCjKOl68JJR7T43zlegYJGY5pgaLv1cgt1P5p
-	 ubdAc3nVtQyqW3iDSwg7Gg9sVpgVHNO2j993L+yMXKA2qJyauBV8qRSaXtMyOoBkwu
-	 im+FlaNXy+rjYIVM1yHVhPbhRO0pba8Z38nQ0R50=
+	b=RdMOlwjxXtH+eR/12Wk5I6i2LydZULCMp0W8jZSrIueET2xo1IvduLtT161vUV9e/
+	 rwCi0kBDBsctWXLL1noeQAdnq6Tnidd9wCHQDGrDGrUCCfi/6ezZp1omxMLA/QMvTk
+	 qgW446RmGovY7PrOJQWUrr4sioOXgivXgg8G2N0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 603E9F800C1;
-	Thu, 20 May 2021 23:08:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0ABDF80431;
+	Thu, 20 May 2021 23:08:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF218F80229; Thu, 20 May 2021 23:08:32 +0200 (CEST)
+ id 0E8CCF800C1; Thu, 20 May 2021 23:08:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,36 @@ X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54A38F800C1
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 23:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54A38F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E296F800C8
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 23:08:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E296F800C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="leBo93YJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 956B361355;
- Thu, 20 May 2021 21:08:21 +0000 (UTC)
+ header.b="rPfvq6T9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2A2BB613AA;
+ Thu, 20 May 2021 21:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621544902;
- bh=8ELMlxBpUUAE7ubz9VhApkiJhq+FPqvYh5sDquV8mog=;
+ s=k20201202; t=1621544904;
+ bh=Eyw7AhgeWkNoF/E+yWX1GIGo+7JsMJgP16p5702kNag=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=leBo93YJ55CgttPP6pHoPbXyLt4Ym7IO2Srph5Gz8wPur9dc2dCGiLMWWBi8VsUUM
- ZrXujb8yx0koSMCOjblPCCKm4dmV2i6A9gnOzvJojpKn7NhrJdL+ZrsgCMhqd2EQoc
- aZehVbn81PFcAkbfm71xtz0e5AUAcPFnL5TTftP4Ly+bS7xf55ognPcaRjp146mDQS
- 6f3RvzNNkLIj9JAeKuPL9pHPiHPIVaugOOzHc7X8rkHOxglBOMcVxws+qlYFDprOgK
- g6N570YbnmiTXO2ABx7O9RwzQFocJynnL/dZhX7cmJ3EZ0xV6vT2MK64fe95Q0zAUe
- txwBZu3N+z1dA==
+ b=rPfvq6T9jPHHoLrpAmUCDwr0acOdV+fbT9JwnFC26H23kNSXZVGQCtLF72bnXCKXX
+ Ec2OGa0WgM0SrPHyiU5w0Wga1PQBkFqMJX2QUpJhbqJIKxJOaQUxrCtEfvsHb64aZb
+ R8iiob0qGqSVsldSx2iUBgkBAKrr2EzLw6T8lr7FwNBdCYkHDNvBl2vmbrTdYOn7pb
+ 0yz0D2W/VnKjTv7SUqzK4X1nozBRtdeQM8b8lbkV8400Lefg1b9X/8xotOIkw5Bidc
+ qf4lC0AadGfUglFxR6RdtedfeuolgSWEd2vc33klIHvebxKUw1gJW9LCA4w0rlQg6B
+ Fn3QuC8+u1BwA==
 From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- James Schulman <james.schulman@cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l33: fix an error code in probe()
-Date: Thu, 20 May 2021 22:08:04 +0100
-Message-Id: <162154465460.5161.4887908906712264006.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: topology: Fix using uninitialized pointer
+Date: Thu, 20 May 2021 22:08:05 +0100
+Message-Id: <162154465459.5161.3767874017058642105.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <YKXuyGEzhPT35R3G@mwanda>
-References: <YKXuyGEzhPT35R3G@mwanda>
+In-Reply-To: <20210519100713.879958-1-jaska.uimonen@linux.intel.com>
+References: <20210519100713.879958-1-jaska.uimonen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Paul Handrigan <Paul.Handrigan@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>, Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,8 +79,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 May 2021 08:08:24 +0300, Dan Carpenter wrote:
-> This error path returns zero (success) but it should return -EINVAL.
+On Wed, 19 May 2021 13:07:13 +0300, Jaska Uimonen wrote:
+> The original patch changed kcontrol_type to a pointer. In some goto
+> cases the pointer is assigned into a struct member as uninitialized and
+> this will cause a runtime error with UBSan even if it isn't a real bug.
+> So initialize the pointer to NULL.
 
 Applied to
 
@@ -93,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l33: fix an error code in probe()
-      commit: 833bc4cf9754643acc69b3c6b65988ca78df4460
+[1/1] ASoC: topology: Fix using uninitialized pointer
+      commit: b9c035aa43b8c074b3bcfdaaa8bea2537d85b7c3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

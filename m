@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271CD389C51
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 06:06:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D09389C52
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 May 2021 06:06:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B27BB16A4;
-	Thu, 20 May 2021 06:05:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B27BB16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCAB51686;
+	Thu, 20 May 2021 06:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCAB51686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621483581;
-	bh=P2rzXv/fZm8Ti3/xsKvo5NaUsVQzXFqacb+woY37ucc=;
+	s=default; t=1621483601;
+	bh=kfheQhWWKBaJa+GjHdg4oQxwHM0Sv+j9CE3czu2oPSs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=igG9k8Bo5O2fxb6lHRbsFodeJMJREx4HdyhrnueQTgTsMEwLEojgciu04qOfysxXj
-	 5KvTOgSK4+wEboMR7yBnl+JZDNA5s37UoTqIyfOXVXTxOB7GEWSs8bQRZTujQHdBYK
-	 sY6741FrJGg72+fB49pwKoXM91nsrzm9cM7hgcaU=
+	b=I4VwHZR3n2n/sI8ogIGJV9xqcSKtj6HN2tfw1Rc1JDlkO0F53loSPfAgYpLutP7UG
+	 bTHjQoYP3gvi01rObrNwCjNLpwm0Z4Ll7mHtxFt8zI8BcijiwIoR64+LG7KqiqhDut
+	 sGIW+Ss+6WYMiXNDD3+Q+7/t87TzV51m3zH4DTGE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D71E5F804E0;
-	Thu, 20 May 2021 06:02:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B33DF804E3;
+	Thu, 20 May 2021 06:02:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F1E6F804AD; Thu, 20 May 2021 06:02:30 +0200 (CEST)
+ id 81C34F80272; Thu, 20 May 2021 06:02:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,63 +35,63 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40EE2F80127
- for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 06:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40EE2F80127
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93057F802C8
+ for <alsa-devel@alsa-project.org>; Thu, 20 May 2021 06:02:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93057F802C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="dgxyUHZj"; 
+ header.b="MoqICWdh"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="dgEkq1O3"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 75A735C00DD;
- Thu, 20 May 2021 00:02:08 -0400 (EDT)
+ header.i=@messagingengine.com header.b="RlR707DD"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id BF1D85C00A2;
+ Thu, 20 May 2021 00:02:09 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 20 May 2021 00:02:08 -0400
+ by compute4.internal (MEProxy); Thu, 20 May 2021 00:02:09 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=mP+Q3IZcZrPMa
- Z6h6iaO9BClYEAUyHlcCDDTPY88nCg=; b=dgxyUHZjZtGPIzO0s8dbIboHUqkEF
- 1zX7B4JXbkudRl+IB2ztQDQiT5stQ+RujfNRri+K4P+3TX9QVcX2whz1hGskbwsS
- oFyspGCaqvhhtY7rvPa+8jgnp8fIKyjZpXTQTO90TdtS0cMHMpab4IEREXJLAUeT
- DUPj7bSpJPwLk87VCh9NQvPZ3APJXfSWLExQYCDBw/TZODnm8Z6p3rqBCwiJBxpr
- LcQp4Lz1nbJUhmFItwxPemJ4DBBTQQrDMtdPggaA1rgfd6VLwDx7eZdAotsSLoQS
- +ZSeaEjUS2VNEZIdbqe4bqmHaaH34eGFMNx/eQTotXr6islATJlxGZRLg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=C4rSSz6ZpvGPI
+ s0MmRj27i3xggR0vVj5hmEV2Swbfc4=; b=MoqICWdhll+9H19LqKij7B0IbSwg8
+ JTEDkeFcVgJT2It90KcrIa0FNfapKHIkwUEvSZtD3L7MCLX13DZxeonXCqGJ6yM4
+ r2aiNA8JdCdEHad8m3VcBG91jnRhB5rTUECf8vqd2hLT8QsiwUXxKC9w160qvslU
+ yEYzKZEeQhO4LhkHKyGfiA3pBclhHICYI8ezqKACywPBBr9ISWmpQ2sy2kCocYBO
+ JROd0o0CeOKgHmjEVmKXoQjc6Dsb7nydySU+nL6PC1LS6rhkBavnfOotZW/8abcv
+ aqpBIXvS+Qqx0ONldffd4MD8ZChCOtIfy8or9a6eaxAzByS17XVieUJ5A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=mP+Q3IZcZrPMaZ6h6iaO9BClYEAUyHlcCDDTPY88nCg=; b=dgEkq1O3
- Fy7a7CDw3yyCeSUfOstKzyg5bIr630gf8d09+TGCtb3cGPF48wDjNqnPbitr9+op
- 9ffV9yoLqLIMsLrJjjmVlWT32iTKuscD+OHAohu/Twqp6pg3K8QhmOKD+rVx+9fi
- wL2kS3sQwAltSwI/f4+f8n1naRlDa51bETrcEfiLNTidpO8D6yAj/ETztK+hh5iT
- S+YAccp/zGpCjQZGCkcReqxM8o4nCv8SvLv01oJZtwM80Aou/spfQjdgLG0YJLhc
- HaBbjBBe9FhdoeZjSAu52RojXYmhbAcmzVBq7HpAm7dTehpEMv+AAp8aNufc7usr
- j3fGf6N83VmOIg==
-X-ME-Sender: <xms:QN-lYJ9xzx-3AgZUTn6sWBJQWbE_nBO2XYQdn0eTApnp0e9pyxh-sg>
- <xme:QN-lYNtW8tOj163DE2VRlTYMtRn8-QwyzF77MG9UoKxW6vZe6xCTcQzryevZPuca3
- 2yCcCvFBveejjYV8MA>
+ fm2; bh=C4rSSz6ZpvGPIs0MmRj27i3xggR0vVj5hmEV2Swbfc4=; b=RlR707DD
+ 2lXNFovcBw5iEOSVOWyx0XkxqjRfn2f5s2kEhz+lBTHG+Q+WhqSkA9QrB3mwsJoG
+ 3D2p/MCM8YTGi5pYnYqvXkooN/IlbrXTwZHPtxsJP0uBHmUfPmhGHUnmHT1qi/oB
+ oo4bMMhf1JmAWUesOcYbu81fhrGoCBmZEviBBtApbkp756IoRyJyKUF8NZY7JsQL
+ UpvgvsxXxwW4GoKGTvyQ1BKuuPwZHHQRQHP3s0pcpVFqt92IK6YzALzvDSz2Xikc
+ YtSjQqAX0SLWYXw7vfm3VbSoCtvuhoMKqQj906i2azdy9vC9yhaw9vDJcvdYK/TH
+ Z9t/CtNhwfd8Rg==
+X-ME-Sender: <xms:Qd-lYKlbJs7XP3zMxOLNvb3j1GymoNjS_AQD16ILgkd0xxO8J-1jtg>
+ <xme:Qd-lYB35cJKaOgREH5W5KXOwwLA_JSoGKA2XRZXghdZr_HjcayBdWOobjqfJLb51o
+ IvAZdChBijnJ-7nD44>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejtddgjeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:QN-lYHAVfOuoGu6cyJw5grZ0losr4OgJH6dWOPGh8IFLJAHYT9FKgA>
- <xmx:QN-lYNcsO-e1U4LqibZz4O1uOpvUQS2Q-zvKoCfLIVENjFYChEEFHA>
- <xmx:QN-lYOMF86I9NccGIYW5GZZzwN7fzD3JzHmVDsUeNqiaaCkremdiVA>
- <xmx:QN-lYIVwzD1OjgaboW4mhGmD9ORdlozuLhYMxG0L7OYXchoohZwOsA>
+X-ME-Proxy: <xmx:Qd-lYIp3Bp65QpPoh5EjNuuUXVCYPLIpAdSanBs38SSQ0HUnLnO3wA>
+ <xmx:Qd-lYOlNQjy_XlKVP47NPdVrXVCUGysZRZK_8fOf3-5j8lESOqZw9g>
+ <xmx:Qd-lYI1GSlcA5cG7iy8ewhBxztSmswD0B1UgGZl0yZMLdX0_HRf2cQ>
+ <xmx:Qd-lYN87U4gD54S06TfoGT7Iux4C_r2GcZyVWi6shD2HJXLXDzoPQw>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 20 May 2021 00:02:07 -0400 (EDT)
+ Thu, 20 May 2021 00:02:08 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 7/8] ALSA: firewire-lib: start processing content of packet at
- the same cycle in several IT contexts
-Date: Thu, 20 May 2021 13:01:53 +0900
-Message-Id: <20210520040154.80450-8-o-takashi@sakamocchi.jp>
+Subject: [PATCH 8/8] ALSA: firewire-lib: change waking up timing to process
+ packets
+Date: Thu, 20 May 2021 13:01:54 +0900
+Message-Id: <20210520040154.80450-9-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210520040154.80450-1-o-takashi@sakamocchi.jp>
 References: <20210520040154.80450-1-o-takashi@sakamocchi.jp>
@@ -113,315 +113,374 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DICE ASICs support several pairs of isochronous packet streaming and
-expect software to queue packets with the same timing information into
-the same isochronous cycle.
+When starting AMDTP domain, tasks in process context yields running CPU
+till all of isochronous context get callback, with an assumption that
+it's OK to process content of packet.
 
-This commit adds structure member to manage the cycle to start
-processing packet in several IT contexts. The cycle is decided when
-batch of isochronous cycle is skipped in callback to isochronous context
-for IRQ target.
+However several isochronous cycles are skipped to transfer rx packets, or
+the content of rx packets are dropped, to manage the timing to start
+processing the packets.
+
+This commit changes the timing for tasks in process context to wake up
+when processing content of packet is actually ready.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c    | 177 ++++++++++++++++++++++++++-----
- sound/firewire/amdtp-stream.h    |   2 +-
- sound/firewire/motu/amdtp-motu.c |   9 +-
- 3 files changed, 156 insertions(+), 32 deletions(-)
+ sound/firewire/amdtp-stream.c               | 16 +++++---
+ sound/firewire/amdtp-stream.h               | 44 ++++++++++++---------
+ sound/firewire/bebob/bebob_stream.c         |  8 +---
+ sound/firewire/dice/dice-stream.c           | 15 ++-----
+ sound/firewire/digi00x/digi00x-stream.c     |  7 +---
+ sound/firewire/fireface/ff-stream.c         |  7 +---
+ sound/firewire/fireworks/fireworks_stream.c |  8 +---
+ sound/firewire/motu/motu-stream.c           |  7 +---
+ sound/firewire/oxfw/oxfw-stream.c           | 14 +------
+ sound/firewire/tascam/tascam-stream.c       |  7 +---
+ 10 files changed, 54 insertions(+), 79 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index b244fd863ca9..e9bdb609f2eb 100644
+index e9bdb609f2eb..a6a7a72a2452 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -894,14 +894,13 @@ static void process_ctx_payloads(struct amdtp_stream *s,
- 		update_pcm_pointers(s, pcm, pcm_frames);
- }
+@@ -107,7 +107,7 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
+ 	INIT_WORK(&s->period_work, pcm_period_work);
+ 	s->packet_index = 0;
  
--static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
--				size_t header_length, void *header,
--				void *private_data)
-+static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+			       void *header, void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
- 	const struct amdtp_domain *d = s->domain;
+-	init_waitqueue_head(&s->callback_wait);
++	init_waitqueue_head(&s->ready_wait);
+ 	s->callbacked = false;
+ 
+ 	s->fmt = fmt;
+@@ -1029,6 +1029,9 @@ static void process_rx_packets_intermediately(struct fw_iso_context *context, u3
+ 	}
+ 
+ 	if (offset < packets) {
++		s->ready_processing = true;
++		wake_up(&s->ready_wait);
++
+ 		process_rx_packets(context, tstamp, header_length, ctx_header, private_data);
+ 		if (amdtp_streaming_error(s))
+ 			return;
+@@ -1145,6 +1148,9 @@ static void process_tx_packets_intermediately(struct fw_iso_context *context, u3
+ 	}
+ 
+ 	if (offset < packets) {
++		s->ready_processing = true;
++		wake_up(&s->ready_wait);
++
+ 		process_tx_packets(context, tstamp, header_length, ctx_header, s);
+ 		if (amdtp_streaming_error(s))
+ 			return;
+@@ -1286,12 +1292,9 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
  	const __be32 *ctx_header = header;
--	unsigned int events_per_period = d->events_per_period;
-+	const unsigned int events_per_period = d->events_per_period;
- 	unsigned int event_count = s->ctx_data.rx.event_count;
- 	unsigned int pkt_header_length;
- 	unsigned int packets;
-@@ -958,6 +957,89 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 	s->ctx_data.rx.event_count = event_count;
- }
+ 	u32 cycle;
  
-+static void skip_rx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+			    void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	const __be32 *ctx_header = header;
-+	unsigned int packets;
-+	unsigned int cycle;
-+	int i;
-+
-+	if (s->packet_index < 0)
-+		return;
-+
-+	packets = header_length / sizeof(*ctx_header);
-+
-+	cycle = compute_ohci_it_cycle(ctx_header[packets - 1], s->queue_size);
-+	s->next_cycle = increment_ohci_cycle_count(cycle, 1);
-+
-+	for (i = 0; i < packets; ++i) {
-+		struct fw_iso_packet params = {
-+			.header_length = 0,
-+			.payload_length = 0,
-+		};
-+		bool sched_irq = (s == d->irq_target && i == packets - 1);
-+
-+		if (queue_out_packet(s, &params, sched_irq) < 0) {
-+			cancel_stream(s);
-+			return;
-+		}
-+	}
-+}
-+
-+static void irq_target_callback(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+				void *header, void *private_data);
-+
-+static void process_rx_packets_intermediately(struct fw_iso_context *context, u32 tstamp,
-+					size_t header_length, void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	__be32 *ctx_header = header;
-+	const unsigned int queue_size = s->queue_size;
-+	unsigned int packets;
-+	unsigned int offset;
-+
-+	if (s->packet_index < 0)
-+		return;
-+
-+	packets = header_length / sizeof(*ctx_header);
-+
-+	offset = 0;
-+	while (offset < packets) {
-+		unsigned int cycle = compute_ohci_it_cycle(ctx_header[offset], queue_size);
-+
-+		if (compare_ohci_cycle_count(cycle, d->processing_cycle.rx_start) >= 0)
-+			break;
-+
-+		++offset;
-+	}
-+
-+	if (offset > 0) {
-+		unsigned int length = sizeof(*ctx_header) * offset;
-+
-+		skip_rx_packets(context, tstamp, length, ctx_header, private_data);
-+		if (amdtp_streaming_error(s))
-+			return;
-+
-+		ctx_header += offset;
-+		header_length -= length;
-+	}
-+
-+	if (offset < packets) {
-+		process_rx_packets(context, tstamp, header_length, ctx_header, private_data);
-+		if (amdtp_streaming_error(s))
-+			return;
-+
-+		if (s == d->irq_target)
-+			s->context->callback.sc = irq_target_callback;
-+		else
-+			s->context->callback.sc = process_rx_packets;
-+	}
-+}
-+
- static void process_tx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
- 			       void *header, void *private_data)
- {
-@@ -1116,34 +1198,22 @@ static void pool_ideal_seq_descs(struct amdtp_domain *d, unsigned int packets)
- 	d->seq.tail = seq_tail;
- }
+-	/*
+-	 * For in-stream, first packet has come.
+-	 * For out-stream, prepared to transmit first packet
+-	 */
++	// For in-stream, first packet has come.
++	// For out-stream, prepared to transmit first packet
+ 	s->callbacked = true;
+-	wake_up(&s->callback_wait);
  
--static void irq_target_callback(struct fw_iso_context *context, u32 tstamp,
--				size_t header_length, void *header,
--				void *private_data)
-+static void process_ctxs_in_domain(struct amdtp_domain *d)
- {
--	struct amdtp_stream *irq_target = private_data;
--	struct amdtp_domain *d = irq_target->domain;
--	unsigned int packets = header_length / sizeof(__be32);
- 	struct amdtp_stream *s;
+ 	if (s->direction == AMDTP_IN_STREAM) {
+ 		cycle = compute_ohci_cycle_count(ctx_header[1]);
+@@ -1464,6 +1467,7 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
+ 		tag |= FW_ISO_CONTEXT_MATCH_TAG0;
  
--	// Record enough entries with extra 3 cycles at least.
--	pool_ideal_seq_descs(d, packets + 3);
--
--	out_stream_callback(context, tstamp, header_length, header, irq_target);
--	if (amdtp_streaming_error(irq_target))
--		goto error;
--
- 	list_for_each_entry(s, &d->streams, list) {
--		if (s != irq_target && amdtp_stream_running(s)) {
-+		if (s != d->irq_target && amdtp_stream_running(s))
- 			fw_iso_context_flush_completions(s->context);
--			if (amdtp_streaming_error(s))
--				goto error;
--		}
-+
-+		if (amdtp_streaming_error(s))
-+			goto error;
- 	}
- 
- 	return;
- error:
--	if (amdtp_stream_running(irq_target))
--		cancel_stream(irq_target);
-+	if (amdtp_stream_running(d->irq_target))
-+		cancel_stream(d->irq_target);
- 
- 	list_for_each_entry(s, &d->streams, list) {
- 		if (amdtp_stream_running(s))
-@@ -1151,6 +1221,61 @@ static void irq_target_callback(struct fw_iso_context *context, u32 tstamp,
- 	}
- }
- 
-+static void irq_target_callback(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-+				void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	unsigned int packets = header_length / sizeof(__be32);
-+
-+	pool_ideal_seq_descs(d, packets);
-+
-+	process_rx_packets(context, tstamp, header_length, header, private_data);
-+	process_ctxs_in_domain(d);
-+}
-+
-+static void irq_target_callback_intermediately(struct fw_iso_context *context, u32 tstamp,
-+					size_t header_length, void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	unsigned int packets = header_length / sizeof(__be32);
-+
-+	pool_ideal_seq_descs(d, packets);
-+
-+	process_rx_packets_intermediately(context, tstamp, header_length, header, private_data);
-+	process_ctxs_in_domain(d);
-+}
-+
-+static void irq_target_callback_skip(struct fw_iso_context *context, u32 tstamp,
-+				     size_t header_length, void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	unsigned int cycle;
-+
-+	skip_rx_packets(context, tstamp, header_length, header, private_data);
-+	process_ctxs_in_domain(d);
-+
-+	// Decide the cycle count to begin processing content of packet in IT contexts. All of IT
-+	// contexts are expected to start and get callback when reaching here.
-+	cycle = s->next_cycle;
-+	list_for_each_entry(s, &d->streams, list) {
-+		if (s->direction != AMDTP_OUT_STREAM)
-+			continue;
-+
-+		if (compare_ohci_cycle_count(s->next_cycle, cycle) > 0)
-+			cycle = s->next_cycle;
-+
-+		if (s == d->irq_target)
-+			s->context->callback.sc = irq_target_callback_intermediately;
-+		else
-+			s->context->callback.sc = process_rx_packets_intermediately;
-+	}
-+
-+	d->processing_cycle.rx_start = cycle;
-+}
-+
- // this is executed one time.
- static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 					u32 tstamp, size_t header_length,
-@@ -1176,13 +1301,11 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 		cycle = compute_ohci_it_cycle(*ctx_header, s->queue_size);
- 
- 		if (s == d->irq_target)
--			context->callback.sc = irq_target_callback;
-+			context->callback.sc = irq_target_callback_skip;
- 		else
--			context->callback.sc = out_stream_callback;
-+			context->callback.sc = skip_rx_packets;
- 	}
- 
--	s->start_cycle = cycle;
--
- 	context->callback.sc(context, tstamp, header_length, header, s);
- 
- 	// Decide the cycle count to begin processing content of packet in IR contexts.
+ 	s->callbacked = false;
++	s->ready_processing = false;
+ 	err = fw_iso_context_start(s->context, -1, 0, tag);
+ 	if (err < 0)
+ 		goto err_pkt_descs;
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index ebd040560791..7725d9793458 100644
+index 7725d9793458..b362a6499265 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -170,7 +170,6 @@ struct amdtp_stream {
- 	/* To wait for first packet. */
- 	bool callbacked;
- 	wait_queue_head_t callback_wait;
--	u32 start_cycle;
+@@ -167,9 +167,11 @@ struct amdtp_stream {
+ 	snd_pcm_uframes_t pcm_buffer_pointer;
+ 	unsigned int pcm_period_pointer;
+ 
+-	/* To wait for first packet. */
+-	bool callbacked;
+-	wait_queue_head_t callback_wait;
++	// To start processing content of packets at the same cycle in several contexts for
++	// each direction.
++	bool callbacked:1;
++	bool ready_processing:1;
++	wait_queue_head_t ready_wait;
  	unsigned int next_cycle;
  
  	/* For backends to process data blocks. */
-@@ -291,6 +290,7 @@ struct amdtp_domain {
- 	struct {
- 		unsigned int tx_init_skip;
- 		unsigned int tx_start;
-+		unsigned int rx_start;
- 	} processing_cycle;
- 
- 	struct {
-diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
-index edb31ac26868..9ccde07d6295 100644
---- a/sound/firewire/motu/amdtp-motu.c
-+++ b/sound/firewire/motu/amdtp-motu.c
-@@ -377,8 +377,8 @@ static inline void compute_next_elapse_from_start(struct amdtp_motu *p)
- 		p->next_seconds -= 128;
+@@ -259,21 +261,6 @@ static inline bool cip_sfc_is_base_44100(enum cip_sfc sfc)
+ 	return sfc & 1;
  }
  
--static void write_sph(struct amdtp_stream *s, __be32 *buffer,
--		      unsigned int data_blocks)
-+static void write_sph(struct amdtp_stream *s, __be32 *buffer, unsigned int data_blocks,
-+		      const unsigned int rx_start_cycle)
- {
- 	struct amdtp_motu *p = s->protocol;
- 	unsigned int next_cycles;
-@@ -386,7 +386,7 @@ static void write_sph(struct amdtp_stream *s, __be32 *buffer,
- 	u32 sph;
+-/**
+- * amdtp_stream_wait_callback - sleep till callbacked or timeout
+- * @s: the AMDTP stream
+- * @timeout: msec till timeout
+- *
+- * If this function return false, the AMDTP stream should be stopped.
+- */
+-static inline bool amdtp_stream_wait_callback(struct amdtp_stream *s,
+-					      unsigned int timeout)
+-{
+-	return wait_event_timeout(s->callback_wait,
+-				  s->callbacked,
+-				  msecs_to_jiffies(timeout)) > 0;
+-}
+-
+ struct seq_desc {
+ 	unsigned int syt_offset;
+ 	unsigned int data_blocks;
+@@ -327,4 +314,25 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
+ 					      struct amdtp_stream *s);
+ int amdtp_domain_stream_pcm_ack(struct amdtp_domain *d, struct amdtp_stream *s);
  
- 	for (i = 0; i < data_blocks; i++) {
--		next_cycles = (s->start_cycle + p->next_cycles) % 8000;
-+		next_cycles = (rx_start_cycle + p->next_cycles) % 8000;
- 		sph = ((next_cycles << 12) | p->next_ticks) & 0x01ffffff;
- 		*buffer = cpu_to_be32(sph);
++/**
++ * amdtp_domain_wait_ready - sleep till being ready to process packets or timeout
++ * @d: the AMDTP domain
++ * @timeout_ms: msec till timeout
++ *
++ * If this function return false, the AMDTP domain should be stopped.
++ */
++static inline bool amdtp_domain_wait_ready(struct amdtp_domain *d, unsigned int timeout_ms)
++{
++	struct amdtp_stream *s;
++
++	list_for_each_entry(s, &d->streams, list) {
++		unsigned int j = msecs_to_jiffies(timeout_ms);
++
++		if (wait_event_interruptible_timeout(s->ready_wait, s->ready_processing, j) <= 0)
++			return false;
++	}
++
++	return true;
++}
++
+ #endif
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index 8053d02b68f0..df764171f84b 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -7,8 +7,7 @@
  
-@@ -401,6 +401,7 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
- 					    unsigned int packets,
- 					    struct snd_pcm_substream *pcm)
- {
-+	const unsigned int rx_start_cycle = s->domain->processing_cycle.rx_start;
- 	struct amdtp_motu *p = s->protocol;
- 	unsigned int pcm_frames = 0;
- 	int i;
-@@ -423,7 +424,7 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+ #include "./bebob.h"
  
- 		// TODO: how to interact control messages between userspace?
+-#define CALLBACK_TIMEOUT	2500
+-#define FW_ISO_RESOURCE_DELAY	1000
++#define READY_TIMEOUT_MS	2500
  
--		write_sph(s, buf, data_blocks);
-+		write_sph(s, buf, data_blocks, rx_start_cycle);
+ /*
+  * NOTE;
+@@ -679,10 +678,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 
+ 		// Some devices postpone start of transmission mostly for 1 sec after receives
+ 		// packets firstly.
+-		if (!amdtp_stream_wait_callback(&bebob->rx_stream,
+-						CALLBACK_TIMEOUT) ||
+-		    !amdtp_stream_wait_callback(&bebob->tx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&bebob->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
+diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
+index c4dfe76500c2..a9a0fe9635dd 100644
+--- a/sound/firewire/dice/dice-stream.c
++++ b/sound/firewire/dice/dice-stream.c
+@@ -8,7 +8,7 @@
+ 
+ #include "dice.h"
+ 
+-#define	CALLBACK_TIMEOUT	200
++#define	READY_TIMEOUT_MS	200
+ #define NOTIFICATION_TIMEOUT_MS	(2 * MSEC_PER_SEC)
+ 
+ struct reg_params {
+@@ -463,16 +463,9 @@ int snd_dice_stream_start_duplex(struct snd_dice *dice)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		for (i = 0; i < MAX_STREAMS; i++) {
+-			if ((i < tx_params.count &&
+-			    !amdtp_stream_wait_callback(&dice->tx_stream[i],
+-							CALLBACK_TIMEOUT)) ||
+-			    (i < rx_params.count &&
+-			     !amdtp_stream_wait_callback(&dice->rx_stream[i],
+-							 CALLBACK_TIMEOUT))) {
+-				err = -ETIMEDOUT;
+-				goto error;
+-			}
++		if (!amdtp_domain_wait_ready(&dice->domain, READY_TIMEOUT_MS)) {
++			err = -ETIMEDOUT;
++			goto error;
+ 		}
  	}
  
- 	// For tracepoints.
+diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
+index 405d6903bfbc..f11aaff2e248 100644
+--- a/sound/firewire/digi00x/digi00x-stream.c
++++ b/sound/firewire/digi00x/digi00x-stream.c
+@@ -7,7 +7,7 @@
+ 
+ #include "digi00x.h"
+ 
+-#define CALLBACK_TIMEOUT 500
++#define READY_TIMEOUT_MS	500
+ 
+ const unsigned int snd_dg00x_stream_rates[SND_DG00X_RATE_COUNT] = {
+ 	[SND_DG00X_RATE_44100] = 44100,
+@@ -379,10 +379,7 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		if (!amdtp_stream_wait_callback(&dg00x->rx_stream,
+-						CALLBACK_TIMEOUT) ||
+-		    !amdtp_stream_wait_callback(&dg00x->tx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&dg00x->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
+diff --git a/sound/firewire/fireface/ff-stream.c b/sound/firewire/fireface/ff-stream.c
+index 5452115c0ef9..53a21fb95add 100644
+--- a/sound/firewire/fireface/ff-stream.c
++++ b/sound/firewire/fireface/ff-stream.c
+@@ -7,7 +7,7 @@
+ 
+ #include "ff.h"
+ 
+-#define CALLBACK_TIMEOUT_MS	200
++#define READY_TIMEOUT_MS	200
+ 
+ int snd_ff_stream_get_multiplier_mode(enum cip_sfc sfc,
+ 				      enum snd_ff_stream_mode *mode)
+@@ -203,10 +203,7 @@ int snd_ff_stream_start_duplex(struct snd_ff *ff, unsigned int rate)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		if (!amdtp_stream_wait_callback(&ff->rx_stream,
+-						CALLBACK_TIMEOUT_MS) ||
+-		    !amdtp_stream_wait_callback(&ff->tx_stream,
+-						CALLBACK_TIMEOUT_MS)) {
++		if (!amdtp_domain_wait_ready(&ff->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
+diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
+index 2206af0fef42..858cd6085c1f 100644
+--- a/sound/firewire/fireworks/fireworks_stream.c
++++ b/sound/firewire/fireworks/fireworks_stream.c
+@@ -6,7 +6,7 @@
+  */
+ #include "./fireworks.h"
+ 
+-#define CALLBACK_TIMEOUT	100
++#define READY_TIMEOUT_MS	100
+ 
+ static int init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
+ {
+@@ -276,11 +276,7 @@ int snd_efw_stream_start_duplex(struct snd_efw *efw)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		// Wait first callback.
+-		if (!amdtp_stream_wait_callback(&efw->rx_stream,
+-						CALLBACK_TIMEOUT) ||
+-		    !amdtp_stream_wait_callback(&efw->tx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&efw->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
+diff --git a/sound/firewire/motu/motu-stream.c b/sound/firewire/motu/motu-stream.c
+index 2028c5419f6f..925241ae2551 100644
+--- a/sound/firewire/motu/motu-stream.c
++++ b/sound/firewire/motu/motu-stream.c
+@@ -7,7 +7,7 @@
+ 
+ #include "motu.h"
+ 
+-#define	CALLBACK_TIMEOUT	200
++#define	READY_TIMEOUT_MS	200
+ 
+ #define ISOC_COMM_CONTROL_OFFSET		0x0b00
+ #define  ISOC_COMM_CONTROL_MASK			0xffff0000
+@@ -264,10 +264,7 @@ int snd_motu_stream_start_duplex(struct snd_motu *motu)
+ 		if (err < 0)
+ 			goto stop_streams;
+ 
+-		if (!amdtp_stream_wait_callback(&motu->tx_stream,
+-						CALLBACK_TIMEOUT) ||
+-		    !amdtp_stream_wait_callback(&motu->rx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&motu->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto stop_streams;
+ 		}
+diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
+index e9b6a9f171bf..4121d95e161f 100644
+--- a/sound/firewire/oxfw/oxfw-stream.c
++++ b/sound/firewire/oxfw/oxfw-stream.c
+@@ -9,7 +9,7 @@
+ #include <linux/delay.h>
+ 
+ #define AVC_GENERIC_FRAME_MAXIMUM_BYTES	512
+-#define CALLBACK_TIMEOUT	200
++#define READY_TIMEOUT_MS	200
+ 
+ /*
+  * According to datasheet of Oxford Semiconductor:
+@@ -358,20 +358,10 @@ int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		// Wait first packet.
+-		if (!amdtp_stream_wait_callback(&oxfw->rx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&oxfw->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
+-
+-		if (oxfw->has_output) {
+-			if (!amdtp_stream_wait_callback(&oxfw->tx_stream,
+-							CALLBACK_TIMEOUT)) {
+-				err = -ETIMEDOUT;
+-				goto error;
+-			}
+-		}
+ 	}
+ 
+ 	return 0;
+diff --git a/sound/firewire/tascam/tascam-stream.c b/sound/firewire/tascam/tascam-stream.c
+index eb07e1decf9b..296ecf5f6ddc 100644
+--- a/sound/firewire/tascam/tascam-stream.c
++++ b/sound/firewire/tascam/tascam-stream.c
+@@ -11,7 +11,7 @@
+ #define CLOCK_STATUS_MASK      0xffff0000
+ #define CLOCK_CONFIG_MASK      0x0000ffff
+ 
+-#define CALLBACK_TIMEOUT 500
++#define READY_TIMEOUT_MS	500
+ 
+ static int get_clock(struct snd_tscm *tscm, u32 *data)
+ {
+@@ -477,10 +477,7 @@ int snd_tscm_stream_start_duplex(struct snd_tscm *tscm, unsigned int rate)
+ 		if (err < 0)
+ 			return err;
+ 
+-		if (!amdtp_stream_wait_callback(&tscm->rx_stream,
+-						CALLBACK_TIMEOUT) ||
+-		    !amdtp_stream_wait_callback(&tscm->tx_stream,
+-						CALLBACK_TIMEOUT)) {
++		if (!amdtp_domain_wait_ready(&tscm->domain, READY_TIMEOUT_MS)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+ 		}
 -- 
 2.27.0
 

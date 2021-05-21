@@ -2,86 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C88F538CA59
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 17:44:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A3A38CA8C
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 18:03:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45C6C167F;
-	Fri, 21 May 2021 17:44:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45C6C167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D43E616BD;
+	Fri, 21 May 2021 18:02:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D43E616BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621611891;
-	bh=uO1z4JY0xye+w59/caHQVZuG8JdQR1wj0AUnYTXWJiE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IFLX9J1s/LdeYN1rCWjjwNg9x1lu4RYG/b+26XEFcWdZFqATZqwPRC2h0xkhmQCeq
-	 Tua+YO3HKCNVk08CC+fSoXTbmHsv4J6015R5/pCHFj9TQh2XW6rGOO/n9QkVSFb9L2
-	 rBiybTOa3oWvx+TtVnHEkOZ67d6y/JMoj0E6uiyY=
+	s=default; t=1621613017;
+	bh=HNRRmYnaIxK3RXvhVtRukWmQRs1d3CBVriDT5nwayjk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LRexbF7qupWtzo0uCnuMSTFBbEKpnvWG+mbtHEaexyzq30TF8DdOwdSEwRQcGat/8
+	 VlSZZsTzQWMyScLrICwbbXdRcYhFxndsSTUBa0Fuyb0mKApRtrf7wCcJiPHo1CWB0N
+	 AH7SVc5bWMYkKTFNADo0GTp/rMXlNZKg6hDR9H8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF14CF8016E;
-	Fri, 21 May 2021 17:43:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86A1BF80259;
+	Fri, 21 May 2021 18:02:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41A1BF801DB; Fri, 21 May 2021 17:43:21 +0200 (CEST)
+ id 3E5F3F80258; Fri, 21 May 2021 18:02:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
- [209.85.161.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 383DAF800E5
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 17:43:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 383DAF800E5
-Received: by mail-oo1-f53.google.com with SMTP id
- i8-20020a4aa1080000b0290201edd785e7so4665928ool.1
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 08:43:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=yegbdR8KSApe+4ngi1kXcS7ZM10vxGbU/4zWEQ1128I=;
- b=RerYaEvz3wn1sV2e2Su8Z1X0sv67K6oGO7gdd/zvaR6d3kYIWUShZt8pl8x3DLMQrk
- +gfdKeL2kl+5bRAvwdjKuNcdycleM806o+d/5V9RQeXdyr/zvoHsP05wnDnqkexseZlm
- 7JEPHwJDLy6ibI4A3z5RVFF2eu0vE4Ce47rhjzTKCHRkMTFChjSFMGelJNO3UCthLMB/
- 1cCLWIgA4qVSWbM66FY3g+OsD5SkR8CWuoZk+UMOzO5cxMOTex0xFnyfWjluYn0FUW3t
- Cxf6I5eqgdEGq9FBoGEhrNnM56Iy1CwOsdLjz12MVTqQW/ZWNU5sWUM4VTVe/9XFZztE
- CrEQ==
-X-Gm-Message-State: AOAM531N1dIr3Tp1D/zrBWsdF0RL1Ma58x5j6K3fM3CeZLGE96B6RLao
- lxnVfa9VntF+I7ibPbyfbw==
-X-Google-Smtp-Source: ABdhPJyCmpOnE/ZQpkS6yGfTc1tG2/P8pWGm0a0vKvhQXR6E8uy3tjPzY7AuBhG7J2uRoccf3GXjDQ==
-X-Received: by 2002:a4a:9b0b:: with SMTP id a11mr8799792ook.73.1621611792431; 
- Fri, 21 May 2021 08:43:12 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id t39sm1244580ooi.42.2021.05.21.08.43.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 08:43:11 -0700 (PDT)
-Received: (nullmailer pid 4051106 invoked by uid 1000);
- Fri, 21 May 2021 15:43:10 -0000
-Date: Fri, 21 May 2021 10:43:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Subject: Re: [PATCH v1] ASoC: dt-bindings: Convert imx-audmux binding to json
- schema
-Message-ID: <20210521154310.GA4051048@robh.at.kernel.org>
-References: <20210521122129.1371-1-o.rempel@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB39CF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 18:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB39CF800E5
+IronPort-SDR: 0hp8etg4aTq0sonx8G5ui71K7UaF4k02NWLj7/R721HTjDy5syUqAd4HUNf6fNZ7YxakNaPymd
+ h+NjKbavOzgg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9990"; a="198430680"
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="198430680"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2021 09:01:31 -0700
+IronPort-SDR: 0WdU+Dux96kJoPPoXVYevJObJJLECdhO0hsbfrQHswnokXja/jW5W1ZGW7N8xUiwjcHxdvpRcL
+ oOHEfDg/8EdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="468543223"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 May 2021 09:01:23 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH 1/2] ASoC: Intel: common: Add entries for sdw codecs in ADL
+ match table
+Date: Fri, 21 May 2021 18:56:31 +0300
+Message-Id: <20210521155632.3736393-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210521122129.1371-1-o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- kernel@pengutronix.de, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
+ Jie Yang <yang.jie@linux.intel.com>, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, Bard Liao <bard.liao@intel.com>,
+ yung-chuan.liao@linux.intel.com,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,16 +78,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 May 2021 14:21:29 +0200, Oleksij Rempel wrote:
-> Convert the imx-audmux binding to DT schema format using json-schema
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> ---
->  .../devicetree/bindings/sound/imx-audmux.txt  |  28 -----
->  .../devicetree/bindings/sound/imx-audmux.yaml | 119 ++++++++++++++++++
->  2 files changed, 119 insertions(+), 28 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/imx-audmux.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/imx-audmux.yaml
-> 
+From: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+RT5682 and Max98373 are added with SDW0,SDW2 links respectively.
+
+Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ .../intel/common/soc-acpi-intel-adl-match.c   | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index 39ac6d52106f..22c465f1d5d8 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -223,6 +223,30 @@ static const struct snd_soc_acpi_link_adr adl_sdw_rt1316_link2_rt714_link0[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_adr_device mx8373_2_adr[] = {
++	{
++		.adr = 0x000223019F837300ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "Left"
++	},
++	{
++		.adr = 0x000227019F837300ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "Right"
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt5682_0_adr[] = {
++	{
++		.adr = 0x000021025D568200ull,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt5682"
++	}
++};
++
+ static const struct snd_soc_acpi_link_adr adl_rvp[] = {
+ 	{
+ 		.mask = BIT(0),
+@@ -232,6 +256,20 @@ static const struct snd_soc_acpi_link_adr adl_rvp[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_link_adr adl_chromebook_base[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt5682_0_adr),
++		.adr_d = rt5682_0_adr,
++	},
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(mx8373_2_adr),
++		.adr_d = mx8373_2_adr,
++	},
++	{}
++};
++
+ static const struct snd_soc_acpi_codecs adl_max98373_amp = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98373"}
+@@ -295,6 +333,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
+ 		.drv_name = "sof_sdw",
+ 		.sof_tplg_filename = "sof-adl-rt711.tplg",
+ 	},
++	{
++		.link_mask = 0x5, /* rt5682 on link0 & 2xmax98373 on link 2 */
++		.links = adl_chromebook_base,
++		.drv_name = "sof_sdw",
++		.sof_fw_filename = "sof-adl.ri",
++		.sof_tplg_filename = "sof-adl-sdw-max98373-rt5682.tplg",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_sdw_machines);
+
+base-commit: aa736700f42fa0813e286ca2f9274ffaa25163b9
+-- 
+2.31.0
+

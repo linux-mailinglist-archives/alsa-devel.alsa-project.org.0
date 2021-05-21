@@ -2,69 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A5038C350
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 11:37:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C395638C353
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 11:37:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E77816B6;
-	Fri, 21 May 2021 11:36:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E77816B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F3FB1687;
+	Fri, 21 May 2021 11:37:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F3FB1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621589848;
-	bh=aCGksCZMzrWs8SiWNO8x8q74PYNytQMmT0egNG9SQfg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621589876;
+	bh=7sPZH9iIDM7ToQcO3zweSUhAwPK1KQZ4r4MYbK0BaJo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nYk/1jlmfg265s3275d/BJq29otQ4prxWAIecUZygnAcn7EOjv0WJTV5R3XsWUbAG
-	 ajgbDJsMGHvZ4r/TRRBpsanCpFBVy7KOapuziX3xmVoaXV+1kg4Bqhpcf1CcfIivtt
-	 wL+ASqTYJ7mJ5ecxH7zOPrMb39IkI+atpPT3Uwic=
+	b=uB9wSUX8TT7mrwS3Oa1TjWayDEOmhdzvo9lE79W7cZ+7pYZeeHJ5oxAWpOUTQVKaK
+	 QUWbpmYHEn2Iwxlo7U4ckqwDAvKTCfB5SHJW0wxRwouZnZ6jrGEFKE2JybczwOkOIz
+	 FAgk/adz4phEA5gqNF2eFyEtHEclt3GW/C4n4x1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49FEFF804E0;
-	Fri, 21 May 2021 11:33:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CD57F80246;
+	Fri, 21 May 2021 11:35:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A0D7F804D8; Fri, 21 May 2021 11:33:34 +0200 (CEST)
+ id 59E8DF801DB; Fri, 21 May 2021 11:35:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2872EF80475
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 11:33:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2872EF80475
-IronPort-SDR: 6Iz2lwAelwj9JQBVacVC8WEzEZZX2NcR8ko4MXA/WgGTblP1j3ptEEOAzthNnylhZVCa/blGG5
- JseRx5oXbSsw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9990"; a="262664204"
-X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="262664204"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2021 02:33:26 -0700
-IronPort-SDR: HduTgqXVj7abXYP6uONxio2YsvUx7oSgkfYy9iP7YJsRPDTxidZgTgGTfOLEpj1Jk9buXpTUdc
- 1m4Y60PWO+xw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="475640897"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga002.fm.intel.com with ESMTP; 21 May 2021 02:33:24 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 7/7] ASoC: SOF: Intel: hda: Remove conditions against
- CONFIG_PCI
-Date: Fri, 21 May 2021 12:28:04 +0300
-Message-Id: <20210521092804.3721324-8-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210521092804.3721324-1-kai.vehmanen@linux.intel.com>
-References: <20210521092804.3721324-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25D5EF800C1
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 11:34:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25D5EF800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fztd89Om"
+Received: by mail-wm1-x32c.google.com with SMTP id
+ u5-20020a7bc0450000b02901480e40338bso6470022wmc.1
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 02:34:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=QS9C9TZP/LIhXh/A86+cA4E2zCqL/pkxZ+dcKq3mb/8=;
+ b=fztd89Omuf4opCAx6o67aZ0oeo6vyXKFZdPl6G2tingNdDYrhoEFs3wlaqcHS8uxaO
+ pq2mVArFa4w0Q1oJ1RF/YYasVVX/BCOwi1PVIyxxJgClzxKvLc4WPCNxjrvbHHpNTZk1
+ kg77USyJYEbHd7Pel+V6NFSnjrZKNrqwcYunKzQl4+fkmfKaVROmmJ2LeZ3qel9BVhIN
+ WOQ70lxA1LanxVCRdfj//1bckFAAQelE1Ucj1V2phNeSxFMPGdp0zurtSpaXv/w+lu00
+ BEHhygMVoitmv3BXEvS0E7MbEj706n7zcLl7rnSOBAumCdWEjU/oCh0kGjbRyOlAaqCt
+ KloQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=QS9C9TZP/LIhXh/A86+cA4E2zCqL/pkxZ+dcKq3mb/8=;
+ b=E/WAi2tkyCIiRws6Z1AodNkvD/1VmNveGthkpFehC7vUeRz84iynMiD0FgBaV1kr1M
+ TohKSsrMfE22PYxBHV+2ae8lr/+pV69FOPh1ZCC0QI/ySwBhQ48IxzsSj5dMmED3jZiC
+ QucGgBwe5tqs0uH9L9kLMkG3AYT1Gowctc58Ut+55IwHWvdW9iF+zoehfy3FzUB5QesI
+ j9kZNTKrZJaJGlWby0e0UvrZAXs58RAPYKPytrAUXbx1IDcTigh9kjosWvmQSdY+Vt29
+ 07UCpaHruvuSX13kakr5Im2A4gOzCQRha5q9yTZlt23wTwjmt+paTbLC2jlqlDhjVzMt
+ z8RA==
+X-Gm-Message-State: AOAM530iTBMJW/odN3D6a0PZnFbVhlMAyqPM7NdUqsn8JKklC8aYWT3X
+ Is8rgvkYowZn4+wXnckjUPEq/w==
+X-Google-Smtp-Source: ABdhPJxKLuDkDkJcUdWHYHwuORgC+mlRBwAFwJvqko9NwAyymbpZBtCpoLhIIaAHqoxMYzHgADSoXw==
+X-Received: by 2002:a1c:f012:: with SMTP id a18mr7771186wmb.53.1621589693793; 
+ Fri, 21 May 2021 02:34:53 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id z131sm4993484wmb.30.2021.05.21.02.34.52
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 21 May 2021 02:34:53 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: Use optional clk APIs
+To: Stephen Boyd <swboyd@chromium.org>, Mark Brown <broonie@kernel.org>
+References: <20210520014807.3749797-1-swboyd@chromium.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <96301eb2-ef2d-be7f-2a24-8723c1e39905@linaro.org>
+Date: Fri, 21 May 2021 10:34:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com
+In-Reply-To: <20210520014807.3749797-1-swboyd@chromium.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,60 +106,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Thanks Stephen for patch.
 
-The HDA support can only be compiled when SND_SOC_SOF_PCI is enabled which
-depends on CONFIG_PCI.
+On 20/05/2021 02:48, Stephen Boyd wrote:
+> This driver spits out a warning for me at boot:
+> 
+>   sc7180-lpass-cpu 62f00000.lpass: asoc_qcom_lpass_cpu_platform_probe() error getting optional null: -2
+> 
+> but it looks like it is all an optional clk. Use the optional clk APIs
+> here so that we don't see this message and everything else is the same.
+> 
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: Banajit Goswami <bgoswami@codeaurora.org>
+> Fixes: 3e53ac8230c1 ("ASoC: qcom: make osr clock optional")
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 
-This makes the IS_ENABLED(CONFIG_PCI) checks redundant in the code, they
-will resolve to true all the time.
+Lgtm,
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/intel/hda.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 5658e4b6273d..126232a76a10 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -277,10 +277,12 @@ struct hda_dsp_msg_code {
- 	const char *msg;
- };
- 
--static bool hda_use_msi = IS_ENABLED(CONFIG_PCI);
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
-+static bool hda_use_msi = true;
- module_param_named(use_msi, hda_use_msi, bool, 0444);
- MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
-+#else
-+#define hda_use_msi	(1)
- #endif
- 
- static char *hda_model;
-@@ -485,9 +487,7 @@ static int hda_init(struct snd_sof_dev *sdev)
- 
- 	/* initialise hdac bus */
- 	bus->addr = pci_resource_start(pci, 0);
--#if IS_ENABLED(CONFIG_PCI)
- 	bus->remap_addr = pci_ioremap_bar(pci, 0);
--#endif
- 	if (!bus->remap_addr) {
- 		dev_err(bus->dev, "error: ioremap error\n");
- 		return -ENXIO;
-@@ -799,9 +799,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 		goto hdac_bus_unmap;
- 
- 	/* DSP base */
--#if IS_ENABLED(CONFIG_PCI)
- 	sdev->bar[HDA_DSP_BAR] = pci_ioremap_bar(pci, HDA_DSP_BAR);
--#endif
- 	if (!sdev->bar[HDA_DSP_BAR]) {
- 		dev_err(sdev->dev, "error: ioremap error\n");
- 		ret = -ENXIO;
--- 
-2.31.0
 
+--srini
+
+> ---
+>   sound/soc/qcom/lpass-cpu.c | 12 +-----------
+>   1 file changed, 1 insertion(+), 11 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index c62d2612e8f5..28c7497344e3 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -835,18 +835,8 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+>   		if (dai_id == LPASS_DP_RX)
+>   			continue;
+>   
+> -		drvdata->mi2s_osr_clk[dai_id] = devm_clk_get(dev,
+> +		drvdata->mi2s_osr_clk[dai_id] = devm_clk_get_optional(dev,
+>   					     variant->dai_osr_clk_names[i]);
+> -		if (IS_ERR(drvdata->mi2s_osr_clk[dai_id])) {
+> -			dev_warn(dev,
+> -				"%s() error getting optional %s: %ld\n",
+> -				__func__,
+> -				variant->dai_osr_clk_names[i],
+> -				PTR_ERR(drvdata->mi2s_osr_clk[dai_id]));
+> -
+> -			drvdata->mi2s_osr_clk[dai_id] = NULL;
+> -		}
+> -
+>   		drvdata->mi2s_bit_clk[dai_id] = devm_clk_get(dev,
+>   						variant->dai_bit_clk_names[i]);
+>   		if (IS_ERR(drvdata->mi2s_bit_clk[dai_id])) {
+> 
+> base-commit: 6efb943b8616ec53a5e444193dccf1af9ad627b5
+> 

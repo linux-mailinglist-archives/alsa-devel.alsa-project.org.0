@@ -2,84 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24F6838CDC5
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 20:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DED138CDE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 21:06:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A136B16C5;
-	Fri, 21 May 2021 20:50:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A136B16C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DD6916C7;
+	Fri, 21 May 2021 21:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DD6916C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621623053;
-	bh=99BBQMLQVUwdD/x9aqTN48KjvCHpQ0F3iFkSb1YclUg=;
-	h=Date:From:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hG0KC7qsrpHe5H+ZdYZAoWvg54QkUTq3TIbtQsVRAvgsV72QmTzmldu9tiU1osfI0
-	 UnKxFPusx4aZNawoxJhMVnSgeytK5JPfkZvHnatmlbdx43xEkWVJZLd/I/OyR7JjMm
-	 VbXS+gPYs4zN3UpoBuYjaCz9y6+EscCnGaubFXmA=
+	s=default; t=1621624001;
+	bh=WQx5Qg/Y31mAj/FftWmzRaIwclhb+nhNLLyaUoOmjEE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=S/hG3WPKcQ8uxUaXf1+zIsLjNlE7BWlSM+CxmmQAHcHvjPdunWjPlluw3CBXIdUbX
+	 r9HYVgIg+851INyzWlcvcqYqxTW+99kDgBiqT5oNvFI2+8owPQL6Hk6yZ2swIjGtaw
+	 qwc2vPsOwYkFwlqZIgApmEoS13hUxfphaN0Fi5Iw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04878F80246;
-	Fri, 21 May 2021 20:49:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED176F80246;
+	Fri, 21 May 2021 21:05:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2C59F801DB; Fri, 21 May 2021 20:49:22 +0200 (CEST)
+ id 10F08F801DB; Fri, 21 May 2021 21:05:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3772F80153
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 20:49:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3772F80153
+ by alsa1.perex.cz (Postfix) with ESMTPS id B95ADF80153
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 21:05:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B95ADF80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qlPFXMex"
-Received: by mail-qk1-x735.google.com with SMTP id i67so20782256qkc.4
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 11:49:16 -0700 (PDT)
+ header.b="Iinte1WY"
+Received: by mail-lj1-x233.google.com with SMTP id c15so25150435ljr.7
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 12:05:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:subject:to:message-id:mime-version;
- bh=iOqJxGZpWCOTLotNj0/1EnYMdTFe4+TuMESjaeykAHs=;
- b=qlPFXMexBYlXDkYAVclCFu+sqntjD8Uc+5rPfeelonlp4yyNJs++T5MtGL3DTMHC0f
- TF1gYRWc9TI0aanBYUKLzVEEEZXb4dFkQo4nDxKHOuH15n3/sw841bupFYPQbgcZrItG
- qVnYxV5NZdomCHrKprsZGlLdw7DUId8oyZxkaInV5MSazGTqgou4QpE7RdPcMjV5SdZd
- or0qafuzPRfoU/RRS8TPyhn9oc+J7xVkOKLk6QUWW3QFkC3KczNxoBhoazVF6dM/gpHh
- uR1nP339J1KQ8w862PQu2w+LxlgSDj1aib95n0T+KWYAfy76Lt5Likw5qm1THeQxycwZ
- Ih2w==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=5rXDLmOOY/qSGp+4/BG3/ERcmaSrLXzLVRQbRh1Bof4=;
+ b=Iinte1WYv+mJKOdGjSmu1wAzV/uceOGjBrX4H2sebN3JiARBntSPTMAHVrcDVPpAQp
+ jz9KEcfpxCv18RlXtL2X0lG4j+inS1LhOGWn0Adl5RwVASs0C4zUYbSOlc9UEsPkH6cV
+ MgJG6StwkHZqYZ/y1Pqaeas/wqYIQ6x3Sbiz1wAMW/9p1sGMxD6KFmVLg8auupjChmwO
+ DH2w5bEM2q9Y8toYsG+0RssnIGzBVb0Xup5EjymImjcnuDEvxDzS9uND6JN0DgSfZ+rb
+ 4p3Ptsx3xHgDlTFHcZnM4Bn4CziKtPhaoGj5QHcOeYSQaoX8F2V6ZKQ7e1gHQbiVYdkU
+ 7qnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:subject:to:message-id:mime-version;
- bh=iOqJxGZpWCOTLotNj0/1EnYMdTFe4+TuMESjaeykAHs=;
- b=FVNIK3cFkkpXhJ3p44yYwBQTRRecq2IchBH6VGtG3bxbCK9XzdTgYd3Tq0zMbK0HKT
- 4qrGdEE5Vb1hUtWrpGEZjsa6tnfQ6gFpZWa15MTf3cwQlpqBF9gRXq/LbS3HIHPeM0Li
- Rsz6TGIxL8c0hnTyJ2jVgRWtY+N/6/FiH/+UgrG55eXyPwAXw+ButerpOYiqxxn9Y+yJ
- LsJDc2Hgz4nkiBHeoyNxGG7PYmflYqN7UYNBPmgfC6fpBVrlJm49pjp15P61s2u8PiYp
- koYCuhprWDHcv0nr9ZwfFbDVcA3LilqXTc5bncUBR9EbtrhEBrPywMX9POzH9WzswEoP
- 2aSw==
-X-Gm-Message-State: AOAM531r47myW/q4/guNVCdkoPn3adUOsvrc3P7VBjstwcwvjZp13pZC
- DsC1LgRRjn5PLBVZSxhPYyusqOWtYu8X8A==
-X-Google-Smtp-Source: ABdhPJzfwhYH2JOejMNjNs5/bmexR1NJZcYRKf5f3msY8DpJsy/OWn5qPmIMVoJ9wToDzKg/KD0MlA==
-X-Received: by 2002:a37:aa4c:: with SMTP id t73mr15006358qke.79.1621622954344; 
- Fri, 21 May 2021 11:49:14 -0700 (PDT)
-Received: from ?IPv6:2804:14c:31:2618:a172:6c70:5a97:38d6?
- ([2804:14c:31:2618:a172:6c70:5a97:38d6])
- by smtp.gmail.com with ESMTPSA id m4sm5228764qtg.21.2021.05.21.11.49.12
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 11:49:13 -0700 (PDT)
-Date: Fri, 21 May 2021 15:49:04 -0300
-From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
-Subject: Motu M4 - where to report this issue?
-To: alsa-devel@alsa-project.org
-Message-Id: <S90HTQ.U7YWJKIETGYG2@gmail.com>
-X-Mailer: geary/40.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=5rXDLmOOY/qSGp+4/BG3/ERcmaSrLXzLVRQbRh1Bof4=;
+ b=Mj6gVj0m79Z0ZLLXlYaHWZDGkdwXYlO0Gzd0ISEsMX7zRFoWQejoTJ4d9Ur3deaYu6
+ OCUte2qcRw+qmTZ5HxVRF402+tfwcC9MVkJ8MNJRnZUq7+rFRmCRBKB6+Yepn66L6nrg
+ Nrt3HU5Ygym+MGf7maAH8E88y1ZIfuFLfGuKYP8H5VyRMJhfGrCvNhyawJzgE2I90W8o
+ wwscb2PylvH038CWe5tV8Yw58GaUOGU/PqbI7Nx8Dw6rvHKxj74y2+SJRtiubM9NXQWn
+ +TQX7DbTFMHnkbOyD2OpTcwsPR+z/l8nH7t3RQNYp5bLFaG3BdqVVTzAvio19kWNAwse
+ m4Mw==
+X-Gm-Message-State: AOAM532zEOaS1LqL6JDWIRD9gRZJk39jzr082R0hxyFD2gRa7AmPhQcf
+ Yd+tI52Q3pbsGwDmLZkyeKk=
+X-Google-Smtp-Source: ABdhPJzqBR4tyZBvYMg2y90SGey5VhPlTflMxVegwl/zh4qJJFXi3w3Y06MiWY85A62Z8DGrI10vnA==
+X-Received: by 2002:a2e:bf10:: with SMTP id c16mr8088169ljr.289.1621623901789; 
+ Fri, 21 May 2021 12:05:01 -0700 (PDT)
+Received: from [192.168.2.145] (109-252-193-100.dynamic.spd-mgts.ru.
+ [109.252.193.100])
+ by smtp.googlemail.com with ESMTPSA id f20sm704832lfh.19.2021.05.21.12.05.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 May 2021 12:05:01 -0700 (PDT)
+Subject: Re: [PATCH v2 2/2] ASoC: tegra: Unify ASoC machine drivers
+To: Jon Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Ion Agorria <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+References: <20210520175054.28308-1-digetx@gmail.com>
+ <20210520175054.28308-3-digetx@gmail.com>
+ <32171079-ed4e-1147-2272-5f11bc480c6a@nvidia.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <91e53907-d87d-aeeb-4644-3926d4311daa@gmail.com>
+Date: Fri, 21 May 2021 22:05:00 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+In-Reply-To: <32171079-ed4e-1147-2272-5f11bc480c6a@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,46 +111,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Greetings ALSA community,
+21.05.2021 16:12, Jon Hunter пишет:
+> 
+> On 20/05/2021 18:50, Dmitry Osipenko wrote:
+>> Squash all machine drivers into a single-universal one. This reduces
+>> code duplication, eases addition of a new drivers and upgrades older
+>> code to a modern Linux kernel APIs.
+>>
+>> Suggested-by: Jonathan Hunter <jonathanh@nvidia.com>
+>> Co-developed-by: Ion Agorria <ion@agorria.com>
+>> Signed-off-by: Ion Agorria <ion@agorria.com>
+>> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>> ---
+>>  sound/soc/tegra/Kconfig              |  12 +
+>>  sound/soc/tegra/Makefile             |  18 +-
+>>  sound/soc/tegra/tegra20_ac97.c       |   1 -
+>>  sound/soc/tegra/tegra_alc5632.c      | 260 ----------
+>>  sound/soc/tegra/tegra_asoc_machine.c | 732 +++++++++++++++++++++++++++
+>>  sound/soc/tegra/tegra_asoc_machine.h |  45 ++
+>>  sound/soc/tegra/tegra_max98090.c     | 277 ----------
+>>  sound/soc/tegra/tegra_rt5640.c       | 223 --------
+>>  sound/soc/tegra/tegra_rt5677.c       | 325 ------------
+>>  sound/soc/tegra/tegra_sgtl5000.c     | 212 --------
+>>  sound/soc/tegra/tegra_wm8753.c       | 186 -------
+>>  sound/soc/tegra/tegra_wm8903.c       | 358 +++----------
+>>  sound/soc/tegra/tegra_wm9712.c       | 167 ------
+>>  sound/soc/tegra/trimslice.c          | 173 -------
+>>  14 files changed, 862 insertions(+), 2127 deletions(-)
+>>  delete mode 100644 sound/soc/tegra/tegra_alc5632.c
+>>  create mode 100644 sound/soc/tegra/tegra_asoc_machine.c
+>>  create mode 100644 sound/soc/tegra/tegra_asoc_machine.h
+>>  delete mode 100644 sound/soc/tegra/tegra_max98090.c
+>>  delete mode 100644 sound/soc/tegra/tegra_rt5640.c
+>>  delete mode 100644 sound/soc/tegra/tegra_rt5677.c
+>>  delete mode 100644 sound/soc/tegra/tegra_sgtl5000.c
+>>  delete mode 100644 sound/soc/tegra/tegra_wm8753.c
+>>  delete mode 100644 sound/soc/tegra/tegra_wm9712.c
+>>  delete mode 100644 sound/soc/tegra/trimslice.c
+> 
+> ...
+> 
+>> +static unsigned int tegra_max98090_mclk_rate(unsigned int srate)
+>> +{
+> 
+> Minor comment, but I wonder if there is a better name for the above
+> function? This function is using a fixed rate as opposed to scaling it
+> with sample rate which can be common and not really specific to the
+> max98090 codec.
 
-I recently acquired a Motu M4 interface, and seems to be working
-well so far. Everyday usage is completely functional.
+I'll rename it in v3, thank you for suggestion.
 
-However, I noticed an odd sound artifact that happens from time
-to time when using DAWs like Ardour and Waveform11. It's a windy,
-ghostly sound that happens whenever I open any DAWs (the simple
-act of opening them triggers this). Interestingly, audio apps that
-use PulseAudio do not suffer from this issue. It's hard to describe
-it, so I recorded a video reproducing this problem:
+>> +	unsigned int mclk;
+>> +
+>> +	switch (srate) {
+>> +	case 8000:
+>> +	case 16000:
+>> +	case 24000:
+>> +	case 32000:
+>> +	case 48000:
+>> +	case 64000:
+>> +	case 96000:
+>> +		mclk = 12288000;
+>> +		break;
+>> +	case 11025:
+>> +	case 22050:
+>> +	case 44100:
+>> +	case 88200:
+>> +		mclk = 11289600;
+>> +		break;
+>> +	default:
+>> +		mclk = 12000000;
+>> +		break;
+>> +	}
+>> +
+>> +	return mclk;
+>> +}
+>> +
+>> +unsigned int tegra_asoc_machine_mclk_rate(unsigned int srate)
+>> +{
+>> +	unsigned int mclk;
+>> +
+>> +	switch (srate) {
+>> +	case 64000:
+>> +	case 88200:
+>> +	case 96000:
+>> +		mclk = 128 * srate;
+>> +		break;
+>> +	default:
+>> +		mclk = 256 * srate;
+>> +		break;
+>> +	}
+>> +	/* FIXME: Codec only requires >= 3MHz if OSR==0 */
+>> +	while (mclk < 6000000)
+>> +		mclk *= 2;
+> 
+> So this appears to be specific to the wm8903 codec or at least this is
+> where it came from. And given that the switch statement is not complete
+> in terms of the sample rates (ie. only has a subset), I am wondering if
+> set should keep this specific to the wm8903 codec?
 
-https://youtu.be/bM8x-YuXLVI
+The RT5631 codec of Asus Transformers will re-use this function.
 
-A few things I've discovered while trying to understand what's
-going on:
+IIUC, the default switch-case works properly for all rates below 64KHz,
+at least I haven't had any problems with it. Could you please clarify
+why you are saying that the switch statement appears to be incomplete?
 
-* It only happens with apps that use JACK or ALSA APIs. Using
-  PulseAudio (through PipeWire) does not trigger it.
+>> +
+>> +	return mclk;
+>> +}
+>> +EXPORT_SYMBOL_GPL(tegra_asoc_machine_mclk_rate);> +
+>> +static int tegra_machine_hw_params(struct snd_pcm_substream *substream,
+>> +				   struct snd_pcm_hw_params *params)
+>> +{
+>> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+>> +	struct snd_soc_card *card = rtd->card;
+>> +	struct tegra_machine *machine = snd_soc_card_get_drvdata(card);
+>> +	unsigned int srate = params_rate(params);
+>> +	unsigned int mclk = machine->asoc->mclk_rate(srate);
+>> +	const unsigned int clk_id = 0;
+>> +	int err;
+>> +
+>> +	err = tegra_asoc_utils_set_rate(&machine->util_data, srate, mclk);
+>> +	if (err < 0) {
+>> +		dev_err(card->dev, "Can't configure clocks: %d\n", err);
+>> +		return err;
+>> +	}
+>> +
+>> +	err = snd_soc_dai_set_sysclk(codec_dai, clk_id, mclk, SND_SOC_CLOCK_IN);
+> 
+> Looks like clk_id is always 0. Most likely all the clock ids passed are
+> 0 by default but I wonder if we should not assume this in case something
+> changes in the future?
 
-* Seems like this sound is not an artifact of the interface; it
-  appears that this odd sound is sent to the interface through
-  USB. (You can see this in the video.)
+Initially I had the same thought and even made the clk_id customizable,
+but then decided that for now it will be cleaner to hardcode ID to 0
+since it will be very easy to customize the ID if will become necessary.
 
-* It's triggered per track; in the video, for example, the drums
-  and keyboard tracks are affected independetly.
+None of the currently supported devices use a different ID. I see now
+that the older Galaxy Tab 10 may need to use ID=1, so perhaps indeed it
+won't hurt to make it customizable already. I'll reconsider it for v3.
 
-I was oriented in #alsa at Freenode that the output of 'alsa-info'
-might be helpful, so here it is:
-
-http://alsa-project.org/db/?f=62f686710cc6c9344a8986707bf3d09248c514d1
-
-(I'm running this on top of a 5.12.5 kernel, which should include
-this fix: https://bugzilla.kernel.org/show_bug.cgi?id=207023)
-
-I'd like to know where should I report this bug (kernel bugzilla?),
-and if there's any other information I can provide to help fixing
-it.
-
-With respect,
-Georges
-
-
+Thank you for the review.

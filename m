@@ -2,93 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D9238C9D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 17:10:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C88F538CA59
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 17:44:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90C8516C2;
-	Fri, 21 May 2021 17:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90C8516C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45C6C167F;
+	Fri, 21 May 2021 17:44:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45C6C167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621609845;
-	bh=+qpNKPuf1MWir2tO2va8MczRqlGc+UktUTCjogI5j10=;
+	s=default; t=1621611891;
+	bh=uO1z4JY0xye+w59/caHQVZuG8JdQR1wj0AUnYTXWJiE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oFbi5EbXFidIht7tuyiDK5Jd2W/CSVtJ2FPyzemcSmQ/gNopvPxVrvK50ZpGzHf47
-	 JOoCET0yPgqjfmnohEWx6xmRPwprL70ksCFFdoDThZwgGJ+yYEGldUBwxK9ygtLUdR
-	 oE5utoy3gEjbwI6btM2vdSQI7hP2f+YtwcPbxUtI=
+	b=IFLX9J1s/LdeYN1rCWjjwNg9x1lu4RYG/b+26XEFcWdZFqATZqwPRC2h0xkhmQCeq
+	 Tua+YO3HKCNVk08CC+fSoXTbmHsv4J6015R5/pCHFj9TQh2XW6rGOO/n9QkVSFb9L2
+	 rBiybTOa3oWvx+TtVnHEkOZ67d6y/JMoj0E6uiyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CA4BF801DB;
-	Fri, 21 May 2021 17:09:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF14CF8016E;
+	Fri, 21 May 2021 17:43:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3F4BF80246; Fri, 21 May 2021 17:09:52 +0200 (CEST)
+ id 41A1BF801DB; Fri, 21 May 2021 17:43:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
+ [209.85.161.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3CFDF800E5
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 17:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3CFDF800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="NACigRTX"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14LF6weW004704; Fri, 21 May 2021 10:09:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=vb3caAt/tKr79nkmDUGEd2unVM3Vh/hFlp4bXuoFTXo=;
- b=NACigRTXcoFNMy5gvvel/FK2kHfv2VsCyXohh12TaHxXFtC8z2LLCL4IwIEmlG5dLykv
- +NrwgP6QjmAtPPDlW5is0TIrdj6DcJjZ5eqYxeYiqvaWqYW5x2MFAP466dF71j7T84zC
- UEUonuQdEDxOJGqqCEyxiKzcy+l3eXA36JOYk+zcv761HYam2sfvmixbkYVu0/W3WS5D
- ippFR0SZItfCITc5GeRuSgkKOWI4wKiZQ7J8Bzde0wmykumx7rC9XqdP8IBOS1wjG0lp
- lrZaL03Fsw/srHyMGBcLm3mybiMO+fIAdexA5w2c4Ruy1/gTwVMtuTq7STWAy6JoKBYG BA== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 38p6errkag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 21 May 2021 10:09:37 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 21 May
- 2021 16:09:35 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Fri, 21 May 2021 16:09:35 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9A1BB11D6;
- Fri, 21 May 2021 15:09:35 +0000 (UTC)
-Date: Fri, 21 May 2021 15:09:35 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH] mfd: arizona: Allow building arizona MFD-core as module
-Message-ID: <20210521150935.GL64205@ediswmail.ad.cirrus.com>
-References: <20210521135023.192688-1-hdegoede@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 383DAF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 17:43:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 383DAF800E5
+Received: by mail-oo1-f53.google.com with SMTP id
+ i8-20020a4aa1080000b0290201edd785e7so4665928ool.1
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 08:43:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yegbdR8KSApe+4ngi1kXcS7ZM10vxGbU/4zWEQ1128I=;
+ b=RerYaEvz3wn1sV2e2Su8Z1X0sv67K6oGO7gdd/zvaR6d3kYIWUShZt8pl8x3DLMQrk
+ +gfdKeL2kl+5bRAvwdjKuNcdycleM806o+d/5V9RQeXdyr/zvoHsP05wnDnqkexseZlm
+ 7JEPHwJDLy6ibI4A3z5RVFF2eu0vE4Ce47rhjzTKCHRkMTFChjSFMGelJNO3UCthLMB/
+ 1cCLWIgA4qVSWbM66FY3g+OsD5SkR8CWuoZk+UMOzO5cxMOTex0xFnyfWjluYn0FUW3t
+ Cxf6I5eqgdEGq9FBoGEhrNnM56Iy1CwOsdLjz12MVTqQW/ZWNU5sWUM4VTVe/9XFZztE
+ CrEQ==
+X-Gm-Message-State: AOAM531N1dIr3Tp1D/zrBWsdF0RL1Ma58x5j6K3fM3CeZLGE96B6RLao
+ lxnVfa9VntF+I7ibPbyfbw==
+X-Google-Smtp-Source: ABdhPJyCmpOnE/ZQpkS6yGfTc1tG2/P8pWGm0a0vKvhQXR6E8uy3tjPzY7AuBhG7J2uRoccf3GXjDQ==
+X-Received: by 2002:a4a:9b0b:: with SMTP id a11mr8799792ook.73.1621611792431; 
+ Fri, 21 May 2021 08:43:12 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id t39sm1244580ooi.42.2021.05.21.08.43.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 May 2021 08:43:11 -0700 (PDT)
+Received: (nullmailer pid 4051106 invoked by uid 1000);
+ Fri, 21 May 2021 15:43:10 -0000
+Date: Fri, 21 May 2021 10:43:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: Re: [PATCH v1] ASoC: dt-bindings: Convert imx-audmux binding to json
+ schema
+Message-ID: <20210521154310.GA4051048@robh.at.kernel.org>
+References: <20210521122129.1371-1-o.rempel@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210521135023.192688-1-hdegoede@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: _ZjdkWqRT1n5vZnloVNu9f9e3IUvFRPt
-X-Proofpoint-ORIG-GUID: _ZjdkWqRT1n5vZnloVNu9f9e3IUvFRPt
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- priorityscore=1501
- spamscore=0 mlxscore=0 phishscore=0 mlxlogscore=874 clxscore=1015
- bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2105210083
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+In-Reply-To: <20210521122129.1371-1-o.rempel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
+ Rob Herring <robh+dt@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@pengutronix.de, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,30 +97,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 21, 2021 at 03:50:23PM +0200, Hans de Goede wrote:
-> There is no reason why the arizona core,irq and codec model specific
-> regmap bits cannot be build as a module. All they do is export symbols
-> which are used by the arizona-spi/i2c and arizona-codec modules, which
-> themselves can be built as module.
+On Fri, 21 May 2021 14:21:29 +0200, Oleksij Rempel wrote:
+> Convert the imx-audmux binding to DT schema format using json-schema
 > 
-> Change the Kconfig and Makefile arizona bits so that the arizona MFD-core
-> can be built as a module.
-> 
-> This is especially useful on x86 platforms with a WM5102 codec, this
-> allows the arizona MFD driver necessary for the WM5102 codec to be
-> enabled in generic distro-kernels without growing the base kernel-image
-> size.
-> 
-> Note this also adds an explicit "depends on MFD_ARIZONA" to all the
-> arizona codec Kconfig options. The codec drivers use functions from mfd
-> arizona-core. These new depends are necessary to disallow the codec
-> drivers being builtin when the arizona-core is build as a module,
-> otherwise we end up with missing symbol errors when building vmlinuz.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 > ---
+>  .../devicetree/bindings/sound/imx-audmux.txt  |  28 -----
+>  .../devicetree/bindings/sound/imx-audmux.yaml | 119 ++++++++++++++++++
+>  2 files changed, 119 insertions(+), 28 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/imx-audmux.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/imx-audmux.yaml
+> 
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
+Reviewed-by: Rob Herring <robh@kernel.org>

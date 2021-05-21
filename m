@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A1C38CBD2
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 19:17:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D5938CBD3
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 19:17:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 488C116D0;
-	Fri, 21 May 2021 19:16:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 488C116D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9305416B5;
+	Fri, 21 May 2021 19:17:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9305416B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621617464;
-	bh=9ORgZTMH/+S0155mYHUZ0iKppzwdMgSojLkWPu1sJSI=;
+	s=default; t=1621617478;
+	bh=oo1yYTrhpQ7DPRMRnyLKRk2luWrLnwLM7O4NU9J0t4g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sLvS6XvZXarcPl88E8hhLsM1yMl1rhAwz2pNHBPzuc8sBje6lubK66n8K+UoJWBqj
-	 6Sn5oaJlYUEsRlkb5eooZuN89jFKk2Pxv8Hrbn8KSgdjrgHMj2zXEmkNfue85dhcab
-	 qDvrxduaLtveUdaX+MbPsyDCYxn1tn81npIabE5w=
+	b=L5ic4jd0gOjK0MejkmYyPqktcGAN+aLY6mzWWB2xwQT4odjhpQ4ohrhnJQPA2hExA
+	 F2jYBzcAVratbaCwhirxZlahMxWEFUUJFasgLEEczKBA9MDUIsOXPiBUVLtnSRmGW5
+	 7HKPV2VKLp/ax/7WpZGQyEkJSc/mwAvHP5Q2uE5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8111DF804B0;
-	Fri, 21 May 2021 19:14:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD03FF804AC;
+	Fri, 21 May 2021 19:14:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAED6F80430; Fri, 21 May 2021 19:14:40 +0200 (CEST)
+ id 2CE7DF80431; Fri, 21 May 2021 19:14:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ADB1F80259
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 19:14:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ADB1F80259
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0881F80153
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 19:14:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0881F80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="FiRgaJwl"
+ header.b="hJM7fJdl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1621617274;
+ s=mimecast20190719; t=1621617276;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6fFjcUtzMReY73BfFJI/Z8RNbe9NqtwA0zqMyc2zXSs=;
- b=FiRgaJwl7EXomIbYu45bKEtLVbk0iw3/b1oNQ1VBtM6jI0C5xqGOsnctg2Nk2utZxHx8yI
- QtZRs0vrg/UvtIrC/oaIUvMyAdeWgpgMY0uOEPR2Hc7TtR1xxGwwyNQX/XRUX2bdXNYugp
- ncvV7rlc7hyvx6szqjrQNhHLOIDOy5A=
+ bh=Mkhx/g9o1+KLwCNNf6XwuWbTEXPk9QmgZx7ph3jkix0=;
+ b=hJM7fJdlcbaL7/R6CdOWRY0rmk3YAqr73HeOcUbeQW5CreMrqIE8EffulG5BkNEeKZ7LyL
+ 86UwsVGbw8kBmFMfKphHVyeqDlnfcdFgAC0LCtff7O+XqQX12EqVl0TNitp/upO8c525Dz
+ /dXvaeoG2oXS6EVHwHjBfvTuGCCOcmM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-502-vDq6zOIoN7azK5Y-8uxUSg-1; Fri, 21 May 2021 13:14:32 -0400
-X-MC-Unique: vDq6zOIoN7azK5Y-8uxUSg-1
+ us-mta-197-XA2X_rQzNc6jRQ8vb0lfWw-1; Fri, 21 May 2021 13:14:34 -0400
+X-MC-Unique: XA2X_rQzNc6jRQ8vb0lfWw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA0308042AA;
- Fri, 21 May 2021 17:14:30 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 191828015F5;
+ Fri, 21 May 2021 17:14:33 +0000 (UTC)
 Received: from x1.localdomain (ovpn-114-187.ams2.redhat.com [10.36.114.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 022AE10013D6;
- Fri, 21 May 2021 17:14:27 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3A51F10013D6;
+ Fri, 21 May 2021 17:14:31 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Jonathan Cameron <jic23@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/8] iio: accel: bmc150: Add support for dual-accelerometers
- with a DUAL250E HID
-Date: Fri, 21 May 2021 19:14:14 +0200
-Message-Id: <20210521171418.393871-5-hdegoede@redhat.com>
+Subject: [PATCH 5/8] iio: accel: bmc150: Move struct bmc150_accel_data
+ definition to bmc150-accel.h
+Date: Fri, 21 May 2021 19:14:15 +0200
+Message-Id: <20210521171418.393871-6-hdegoede@redhat.com>
 In-Reply-To: <20210521171418.393871-1-hdegoede@redhat.com>
 References: <20210521171418.393871-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -95,67 +95,154 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Lenovo Yoga 300-11IBR has a ACPI fwnode with a HID of DUAL250E
-which contains I2C and IRQ resources for 2 accelerometers, 1 in the
-display and one in the base of the device. Add support for this.
+Further patches to bmc150-accel-i2c.c need to store some extra info
+(on top of the second_dev pointer) in the bmc150_accel_data struct,
+rather then adding yet more accessor functions for this lets just
+move the struct bmc150_accel_data definition to bmc150-accel.h.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/iio/accel/bmc150-accel-i2c.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/iio/accel/bmc150-accel-core.c | 53 -----------------------
+ drivers/iio/accel/bmc150-accel.h      | 61 +++++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/iio/accel/bmc150-accel-i2c.c b/drivers/iio/accel/bmc150-accel-i2c.c
-index e24ce28a4660..b81e4005788e 100644
---- a/drivers/iio/accel/bmc150-accel-i2c.c
-+++ b/drivers/iio/accel/bmc150-accel-i2c.c
-@@ -24,6 +24,7 @@
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id bmc150_acpi_dual_accel_ids[] = {
- 	{"BOSC0200"},
-+	{"DUAL250E"},
- 	{ },
+diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+index 8ff358c37a81..0d76df9e08eb 100644
+--- a/drivers/iio/accel/bmc150-accel-core.c
++++ b/drivers/iio/accel/bmc150-accel-core.c
+@@ -157,59 +157,6 @@ struct bmc150_accel_chip_info {
+ 	const struct bmc150_scale_info scale_table[4];
  };
  
-@@ -35,21 +36,24 @@ static void bmc150_acpi_dual_accel_probe(struct i2c_client *client)
- {
- 	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
- 	struct i2c_client *second_dev;
-+	char dev_name[16];
- 	struct i2c_board_info board_info = {
- 		.type = "bmc150_accel",
--		/*
--		 * The 2nd accel sits in the base of 2-in-1s. Note this
--		 * name is static, as there should never be more then 1
--		 * BOSC0200 ACPI node with 2 accelerometers in it.
--		 */
--		.dev_name = "BOSC0200:base",
-+		.dev_name = dev_name,
- 		.fwnode = client->dev.fwnode,
--		.irq = -ENOENT,
- 	};
+-struct bmc150_accel_interrupt {
+-	const struct bmc150_accel_interrupt_info *info;
+-	atomic_t users;
+-};
+-
+-struct bmc150_accel_trigger {
+-	struct bmc150_accel_data *data;
+-	struct iio_trigger *indio_trig;
+-	int (*setup)(struct bmc150_accel_trigger *t, bool state);
+-	int intr;
+-	bool enabled;
+-};
+-
+-enum bmc150_accel_interrupt_id {
+-	BMC150_ACCEL_INT_DATA_READY,
+-	BMC150_ACCEL_INT_ANY_MOTION,
+-	BMC150_ACCEL_INT_WATERMARK,
+-	BMC150_ACCEL_INTERRUPTS,
+-};
+-
+-enum bmc150_accel_trigger_id {
+-	BMC150_ACCEL_TRIGGER_DATA_READY,
+-	BMC150_ACCEL_TRIGGER_ANY_MOTION,
+-	BMC150_ACCEL_TRIGGERS,
+-};
+-
+-struct bmc150_accel_data {
+-	struct regmap *regmap;
+-	struct regulator_bulk_data regulators[2];
+-	struct bmc150_accel_interrupt interrupts[BMC150_ACCEL_INTERRUPTS];
+-	struct bmc150_accel_trigger triggers[BMC150_ACCEL_TRIGGERS];
+-	struct mutex mutex;
+-	u8 fifo_mode, watermark;
+-	s16 buffer[8];
+-	/*
+-	 * Ensure there is sufficient space and correct alignment for
+-	 * the timestamp if enabled
+-	 */
+-	struct {
+-		__le16 channels[3];
+-		s64 ts __aligned(8);
+-	} scan;
+-	u8 bw_bits;
+-	u32 slope_dur;
+-	u32 slope_thres;
+-	u32 range;
+-	int ev_enable_state;
+-	int64_t timestamp, old_timestamp; /* Only used in hw fifo mode. */
+-	const struct bmc150_accel_chip_info *chip_info;
+-	struct i2c_client *second_device;
+-	struct iio_mount_matrix orientation;
+-};
+-
+ static const struct {
+ 	int val;
+ 	int val2;
+diff --git a/drivers/iio/accel/bmc150-accel.h b/drivers/iio/accel/bmc150-accel.h
+index e30c1698f6fb..f503c5b5801e 100644
+--- a/drivers/iio/accel/bmc150-accel.h
++++ b/drivers/iio/accel/bmc150-accel.h
+@@ -2,7 +2,68 @@
+ #ifndef _BMC150_ACCEL_H_
+ #define _BMC150_ACCEL_H_
  
- 	if (acpi_match_device_ids(adev, bmc150_acpi_dual_accel_ids))
- 		return;
- 
++#include <linux/atomic.h>
++#include <linux/iio/iio.h>
++#include <linux/mutex.h>
++#include <linux/regulator/consumer.h>
++
+ struct regmap;
++struct i2c_client;
++struct bmc150_accel_chip_info;
++struct bmc150_accel_interrupt_info;
++
++struct bmc150_accel_interrupt {
++	const struct bmc150_accel_interrupt_info *info;
++	atomic_t users;
++};
++
++struct bmc150_accel_trigger {
++	struct bmc150_accel_data *data;
++	struct iio_trigger *indio_trig;
++	int (*setup)(struct bmc150_accel_trigger *t, bool state);
++	int intr;
++	bool enabled;
++};
++
++enum bmc150_accel_interrupt_id {
++	BMC150_ACCEL_INT_DATA_READY,
++	BMC150_ACCEL_INT_ANY_MOTION,
++	BMC150_ACCEL_INT_WATERMARK,
++	BMC150_ACCEL_INTERRUPTS,
++};
++
++enum bmc150_accel_trigger_id {
++	BMC150_ACCEL_TRIGGER_DATA_READY,
++	BMC150_ACCEL_TRIGGER_ANY_MOTION,
++	BMC150_ACCEL_TRIGGERS,
++};
++
++struct bmc150_accel_data {
++	struct regmap *regmap;
++	struct regulator_bulk_data regulators[2];
++	struct bmc150_accel_interrupt interrupts[BMC150_ACCEL_INTERRUPTS];
++	struct bmc150_accel_trigger triggers[BMC150_ACCEL_TRIGGERS];
++	struct mutex mutex;
++	u8 fifo_mode, watermark;
++	s16 buffer[8];
 +	/*
-+	 * The 2nd accel sits in the base of 2-in-1s. The suffix is static, as
-+	 * there should never be more then 1 ACPI node with 2 accelerometers in it.
++	 * Ensure there is sufficient space and correct alignment for
++	 * the timestamp if enabled
 +	 */
-+	snprintf(dev_name, sizeof(dev_name), "%s:base", acpi_device_hid(adev));
-+
-+	board_info.irq = acpi_dev_gpio_irq_get_by(adev, NULL, 1);
-+
- 	second_dev = i2c_acpi_new_device(&client->dev, 1, &board_info);
- 	if (!IS_ERR(second_dev))
- 		bmc150_set_second_device(client, second_dev);
-@@ -114,6 +118,7 @@ static const struct acpi_device_id bmc150_accel_acpi_match[] = {
- 	{"BMA222E",	bma222e},
- 	{"BMA0280",	bma280},
- 	{"BOSC0200"},
-+	{"DUAL250E"},
- 	{ },
- };
- MODULE_DEVICE_TABLE(acpi, bmc150_accel_acpi_match);
++	struct {
++		__le16 channels[3];
++		s64 ts __aligned(8);
++	} scan;
++	u8 bw_bits;
++	u32 slope_dur;
++	u32 slope_thres;
++	u32 range;
++	int ev_enable_state;
++	int64_t timestamp, old_timestamp; /* Only used in hw fifo mode. */
++	const struct bmc150_accel_chip_info *chip_info;
++	struct i2c_client *second_device;
++	struct iio_mount_matrix orientation;
++};
+ 
+ enum {
+ 	bmc150,
 -- 
 2.31.1
 

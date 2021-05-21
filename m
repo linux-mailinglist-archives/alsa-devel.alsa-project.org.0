@@ -2,100 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEA938CDBD
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 20:44:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24F6838CDC5
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 May 2021 20:50:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 910BB16C7;
-	Fri, 21 May 2021 20:44:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 910BB16C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A136B16C5;
+	Fri, 21 May 2021 20:50:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A136B16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621622696;
-	bh=85wW/oHBPELMnVgx3DhsE6yVEI3vGpozw9zIC+jc1ec=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YyIg3HSCNxLvW5p+wkpd7YUOmp0oEvORWKy/5dFfyw+QrBTsg2C7OWJfwPpv6FoOB
-	 vVCFG5NoDluIj+GzprFQoJNSGfUq1NJiM6BlN0pzrQVEvsI/8f0tVAr/trAMdLZdPs
-	 E7YIkg5Pc9Z2whD3HHF+fyX6yQ34XHY8DJAtjjf4=
+	s=default; t=1621623053;
+	bh=99BBQMLQVUwdD/x9aqTN48KjvCHpQ0F3iFkSb1YclUg=;
+	h=Date:From:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hG0KC7qsrpHe5H+ZdYZAoWvg54QkUTq3TIbtQsVRAvgsV72QmTzmldu9tiU1osfI0
+	 UnKxFPusx4aZNawoxJhMVnSgeytK5JPfkZvHnatmlbdx43xEkWVJZLd/I/OyR7JjMm
+	 VbXS+gPYs4zN3UpoBuYjaCz9y6+EscCnGaubFXmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10EA1F800C1;
-	Fri, 21 May 2021 20:43:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04878F80246;
+	Fri, 21 May 2021 20:49:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD287F801DB; Fri, 21 May 2021 20:43:25 +0200 (CEST)
+ id F2C59F801DB; Fri, 21 May 2021 20:49:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7754AF800C1
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 20:43:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7754AF800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3772F80153
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 20:49:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3772F80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DQa6aM0l"
-Received: by mail-lf1-x133.google.com with SMTP id q3so948139lfu.2
- for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 11:43:20 -0700 (PDT)
+ header.b="qlPFXMex"
+Received: by mail-qk1-x735.google.com with SMTP id i67so20782256qkc.4
+ for <alsa-devel@alsa-project.org>; Fri, 21 May 2021 11:49:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=fuy4eXWPqUUba10mtYw0ydLr89ZV2AWylPLaoR+Jdl4=;
- b=DQa6aM0lePceIRpuhRStqIbL+0JixghBlOWL6jmxditypPGSFAVvbu27mIad8oVCF0
- jcEEToZJ1ntmf24pqZaqhwZQdb2qpi6Elm7gp9UBxDOM8MoYJJlXw+ANSRsD2jBKZhtx
- +2iNnQ1+JsxHImxts70WdWW5FAYQF3MK3/jR5wzN96uhnNQoe1ISZ0e3puYKlam2ps3V
- QmeUd0WcY/N8O1bWcoLnhzYNqPlNv4wUoHs406rh+b6ObEOONTwOcq1+b1sjCpoabXYr
- RemqN3HYXDkP+HM5UOzO0z4CqhWSTW7CKKVZYKmqxwHgg4U1nmg7hwQsggEGNN3WiiSJ
- e1WA==
+ h=date:from:subject:to:message-id:mime-version;
+ bh=iOqJxGZpWCOTLotNj0/1EnYMdTFe4+TuMESjaeykAHs=;
+ b=qlPFXMexBYlXDkYAVclCFu+sqntjD8Uc+5rPfeelonlp4yyNJs++T5MtGL3DTMHC0f
+ TF1gYRWc9TI0aanBYUKLzVEEEZXb4dFkQo4nDxKHOuH15n3/sw841bupFYPQbgcZrItG
+ qVnYxV5NZdomCHrKprsZGlLdw7DUId8oyZxkaInV5MSazGTqgou4QpE7RdPcMjV5SdZd
+ or0qafuzPRfoU/RRS8TPyhn9oc+J7xVkOKLk6QUWW3QFkC3KczNxoBhoazVF6dM/gpHh
+ uR1nP339J1KQ8w862PQu2w+LxlgSDj1aib95n0T+KWYAfy76Lt5Likw5qm1THeQxycwZ
+ Ih2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=fuy4eXWPqUUba10mtYw0ydLr89ZV2AWylPLaoR+Jdl4=;
- b=tuFm7sOPfmKIV4QAb3iuu0V9WheDDrr5LcnK+QWYqqH+N7thwVEdSKsIUQYnTdja8H
- GcrX6+yoTLc1FLmN4L0JpX4k8oxQDrCRiipUQRruc+6qsvBkjeih5CY9erxMEkvSZCoB
- ykW1ggYYS96c1NkUizSLBMvn8IAnDV8hVNuc1lLiY+muHXmIjo8okWDaIdeIT7zS8DOS
- zC88rwicntYLw9G/OaqwTUg2AV6C1IJL0vU/YIrdpUX1yB9wHpOmIV39Rr+ZNhEfvR8N
- 8VhZd6Fp/OHaX9HJEhWvC3uHFrZ/yS79loyFPRducx7KTMVuGeAmPQM0C+Lwfh79TYPp
- tNsQ==
-X-Gm-Message-State: AOAM533A2V/OnTqPQKpCeZAYJhexZWiCbDSPtrqQF9Nv3wkt3MWTSmBe
- iPtP5NeswY+uzcxm5WQ1d/s=
-X-Google-Smtp-Source: ABdhPJykY/D5oofYHxfJOnXrtAfrHO/SJq42rpPqSjtNPr7PXXaNRmaOHopXk0tiOH+2TZLNuWwWUw==
-X-Received: by 2002:ac2:539b:: with SMTP id g27mr3123732lfh.534.1621622600111; 
- Fri, 21 May 2021 11:43:20 -0700 (PDT)
-Received: from [192.168.2.145] (109-252-193-100.dynamic.spd-mgts.ru.
- [109.252.193.100])
- by smtp.googlemail.com with ESMTPSA id s17sm767044ljo.117.2021.05.21.11.43.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 May 2021 11:43:19 -0700 (PDT)
-Subject: Re: [PATCH v2 2/2] ASoC: tegra: Unify ASoC machine drivers
-To: Jaroslav Kysela <perex@perex.cz>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Ion Agorria <ion@agorria.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
-References: <20210520175054.28308-1-digetx@gmail.com>
- <20210520175054.28308-3-digetx@gmail.com>
- <8e5d4442-00a4-460b-d37a-8962960dd7ff@perex.cz>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <1752b39e-d693-50c0-55c9-dab18a2fd499@gmail.com>
-Date: Fri, 21 May 2021 21:43:17 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:date:from:subject:to:message-id:mime-version;
+ bh=iOqJxGZpWCOTLotNj0/1EnYMdTFe4+TuMESjaeykAHs=;
+ b=FVNIK3cFkkpXhJ3p44yYwBQTRRecq2IchBH6VGtG3bxbCK9XzdTgYd3Tq0zMbK0HKT
+ 4qrGdEE5Vb1hUtWrpGEZjsa6tnfQ6gFpZWa15MTf3cwQlpqBF9gRXq/LbS3HIHPeM0Li
+ Rsz6TGIxL8c0hnTyJ2jVgRWtY+N/6/FiH/+UgrG55eXyPwAXw+ButerpOYiqxxn9Y+yJ
+ LsJDc2Hgz4nkiBHeoyNxGG7PYmflYqN7UYNBPmgfC6fpBVrlJm49pjp15P61s2u8PiYp
+ koYCuhprWDHcv0nr9ZwfFbDVcA3LilqXTc5bncUBR9EbtrhEBrPywMX9POzH9WzswEoP
+ 2aSw==
+X-Gm-Message-State: AOAM531r47myW/q4/guNVCdkoPn3adUOsvrc3P7VBjstwcwvjZp13pZC
+ DsC1LgRRjn5PLBVZSxhPYyusqOWtYu8X8A==
+X-Google-Smtp-Source: ABdhPJzfwhYH2JOejMNjNs5/bmexR1NJZcYRKf5f3msY8DpJsy/OWn5qPmIMVoJ9wToDzKg/KD0MlA==
+X-Received: by 2002:a37:aa4c:: with SMTP id t73mr15006358qke.79.1621622954344; 
+ Fri, 21 May 2021 11:49:14 -0700 (PDT)
+Received: from ?IPv6:2804:14c:31:2618:a172:6c70:5a97:38d6?
+ ([2804:14c:31:2618:a172:6c70:5a97:38d6])
+ by smtp.gmail.com with ESMTPSA id m4sm5228764qtg.21.2021.05.21.11.49.12
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 May 2021 11:49:13 -0700 (PDT)
+Date: Fri, 21 May 2021 15:49:04 -0300
+From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
+Subject: Motu M4 - where to report this issue?
+To: alsa-devel@alsa-project.org
+Message-Id: <S90HTQ.U7YWJKIETGYG2@gmail.com>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-In-Reply-To: <8e5d4442-00a4-460b-d37a-8962960dd7ff@perex.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii; format=flowed
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,29 +95,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-20.05.2021 22:02, Jaroslav Kysela пишет:
-> Dne 20. 05. 21 v 19:50 Dmitry Osipenko napsal(a):
->> Squash all machine drivers into a single-universal one. This reduces
->> code duplication, eases addition of a new drivers and upgrades older
->> code to a modern Linux kernel APIs.
->>
-> 
-> 
->> +static struct snd_soc_card snd_soc_tegra_wm9712 = {
->> +	.dai_link = &tegra_wm9712_dai,
->> +	.num_links = 1,
->> +	.fully_routed = true,
->> +};
-> Please, could you also initialize snd_soc_card->components? It may be useful
-> to pass the codec identification to the user space like:
-> 
-> .components = "codec:wm9712"
-> 
-> The passed information should be consistent. You may look into the Intel ASoC
-> drivers for the examples (card->components initialization). There are also
-> hints about the number of connected microphones ("cfg-mic:2" - configuration
-> with 2 microphones) or the codec purpose ("hs:rt711" - headset codec is RT711)
-> etc.
+Greetings ALSA community,
 
-Alright, I see why you're wanting this. It may allow us to have more
-generic UCMs and group them together.
+I recently acquired a Motu M4 interface, and seems to be working
+well so far. Everyday usage is completely functional.
+
+However, I noticed an odd sound artifact that happens from time
+to time when using DAWs like Ardour and Waveform11. It's a windy,
+ghostly sound that happens whenever I open any DAWs (the simple
+act of opening them triggers this). Interestingly, audio apps that
+use PulseAudio do not suffer from this issue. It's hard to describe
+it, so I recorded a video reproducing this problem:
+
+https://youtu.be/bM8x-YuXLVI
+
+A few things I've discovered while trying to understand what's
+going on:
+
+* It only happens with apps that use JACK or ALSA APIs. Using
+  PulseAudio (through PipeWire) does not trigger it.
+
+* Seems like this sound is not an artifact of the interface; it
+  appears that this odd sound is sent to the interface through
+  USB. (You can see this in the video.)
+
+* It's triggered per track; in the video, for example, the drums
+  and keyboard tracks are affected independetly.
+
+I was oriented in #alsa at Freenode that the output of 'alsa-info'
+might be helpful, so here it is:
+
+http://alsa-project.org/db/?f=62f686710cc6c9344a8986707bf3d09248c514d1
+
+(I'm running this on top of a 5.12.5 kernel, which should include
+this fix: https://bugzilla.kernel.org/show_bug.cgi?id=207023)
+
+I'd like to know where should I report this bug (kernel bugzilla?),
+and if there's any other information I can provide to help fixing
+it.
+
+With respect,
+Georges
+
+

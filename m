@@ -2,57 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A0D38D6BD
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 19:57:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0B4238D6C2
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 20:01:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F33C1681;
-	Sat, 22 May 2021 19:56:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F33C1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 466321681;
+	Sat, 22 May 2021 20:01:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 466321681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621706220;
-	bh=LJlMfgK6g0yDgiyMb0vLrX8o4uGLhTvFJIAU4uISc5E=;
+	s=default; t=1621706517;
+	bh=IgXjkzKg1UJv8PEjhRlx4K84Iii157Iih9U5u4357gA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fsEzmy3TiEpt4YaJts5cvDN/eyQsBiHxS8/4Lw4b+4VXL/X2AAUK/eXwFh828GTzq
-	 j3gHVgFr0tad8ElQCFalidJrYmeaAgwiTmZtOdKUKG7Bz2N3dui53TXdfygz/EaNRy
-	 eRUSOaNygRqfadmVGpE+H8laBNHD6F6eeN6d+dxY=
+	b=l/1sgkJEL+yMbPm9bjr9VfcxbPc4EP8+tu/gF1c/9s/5T2Fl+YTLtSqVhceVl/jS0
+	 fG2bXS+t9vD9faoGG3NlxoNk/9QrJpldhj3EnsLuCl7NIRU9wupg27MKyU6oAD1K8R
+	 v8rxwejmDJ0SaqhPVcd3hW5PuXO0r+edbCS4CPoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94FC9F80229;
-	Sat, 22 May 2021 19:55:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEB89F800DF;
+	Sat, 22 May 2021 20:00:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C6C6F80217; Sat, 22 May 2021 19:55:28 +0200 (CEST)
+ id EAB91F80217; Sat, 22 May 2021 20:00:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_21,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A74EDF800E5
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 19:55:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A74EDF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43BC9F800E5
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 20:00:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43BC9F800E5
 Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 33CF361073;
- Sat, 22 May 2021 17:55:19 +0000 (UTC)
-Date: Sat, 22 May 2021 18:56:42 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id 9F22161132;
+ Sat, 22 May 2021 18:00:16 +0000 (UTC)
+Date: Sat, 22 May 2021 19:01:38 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH 4/8] iio: accel: bmc150: Add support for
- dual-accelerometers with a DUAL250E HID
-Message-ID: <20210522185642.0b65daed@jic23-huawei>
-In-Reply-To: <3273a327-2b25-8b42-6870-e09982125119@redhat.com>
+Subject: Re: [PATCH 0/8] iio: accel: bmc150: Add support for yoga's with
+ dual accelerometers with an ACPI HID of DUAL250E
+Message-ID: <20210522190138.1715b095@jic23-huawei>
+In-Reply-To: <20210521171418.393871-1-hdegoede@redhat.com>
 References: <20210521171418.393871-1-hdegoede@redhat.com>
- <20210521171418.393871-5-hdegoede@redhat.com>
- <20210522184336.09c219cd@jic23-huawei>
- <3273a327-2b25-8b42-6870-e09982125119@redhat.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -76,100 +73,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 22 May 2021 19:44:55 +0200
+On Fri, 21 May 2021 19:14:10 +0200
 Hans de Goede <hdegoede@redhat.com> wrote:
 
-> Hi,
+> Hi All,
 > 
-> On 5/22/21 7:43 PM, Jonathan Cameron wrote:
-> > On Fri, 21 May 2021 19:14:14 +0200
-> > Hans de Goede <hdegoede@redhat.com> wrote:
-> >   
-> >> The Lenovo Yoga 300-11IBR has a ACPI fwnode with a HID of DUAL250E
-> >> which contains I2C and IRQ resources for 2 accelerometers, 1 in the
-> >> display and one in the base of the device. Add support for this.
-> >>
-> >> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> >> ---
-> >>  drivers/iio/accel/bmc150-accel-i2c.c | 19 ++++++++++++-------
-> >>  1 file changed, 12 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/drivers/iio/accel/bmc150-accel-i2c.c b/drivers/iio/accel/bmc150-accel-i2c.c
-> >> index e24ce28a4660..b81e4005788e 100644
-> >> --- a/drivers/iio/accel/bmc150-accel-i2c.c
-> >> +++ b/drivers/iio/accel/bmc150-accel-i2c.c
-> >> @@ -24,6 +24,7 @@
-> >>  #ifdef CONFIG_ACPI
-> >>  static const struct acpi_device_id bmc150_acpi_dual_accel_ids[] = {
-> >>  	{"BOSC0200"},
-> >> +	{"DUAL250E"},
-> >>  	{ },
-> >>  };
-> >>  
-> >> @@ -35,21 +36,24 @@ static void bmc150_acpi_dual_accel_probe(struct i2c_client *client)
-> >>  {
-> >>  	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
-> >>  	struct i2c_client *second_dev;
-> >> +	char dev_name[16];  
-> > 
-> > I'm a bit in two minds about having a fixed length array for this.
-> > Obviously this is always big enough (I think a bit too big), but it
-> > might be a place where a future bug is introduced.  Perhaps it's worth the dance
-> > of a kasprintf and kfree, to avoid that possibility?  
+> Some 360 degree hinges (yoga) style 2-in-1 devices use 2 bmc150 accels
+> to allow the OS to determine the angle between the display and the base
+> of the device, so that the OS can determine if the 2-in-1 is in laptop
+> or in tablet-mode.
 > 
-> I would prefer to keep this as is, using malloc + free always leads
-> to problems if an error-exit path shows up between the 2.
+> We already support this setup on devices using a single ACPI node
+> with a HID of "BOSC0200" to describe both accelerometers. This patch
+> set extends this support to also support the same setup but then
+> using a HID of "DUAL250E".
 > 
-> But if you've a strong preference for switching to
-> kasprintf + kfree I can do that for v2.
+> While testing this I found some crashes on rmmod, patches 1-2
+> fix those patches, patch 3 does some refactoring and patch 4
+> adds support for the "DUAL250E" HID.
+> 
+> Unfortunately we need some more special handling though, which the
+> rest of the patches are for.
+> 
+> On Windows both accelerometers are read (polled) by a special service
+> and this service calls a DSM (Device Specific Method), which in turn
+> translates the angles to one of laptop/tablet/tent/stand mode and then
+> notifies the EC about the new mode and the EC then enables or disables
+> the builtin keyboard and touchpad based in the mode.
+> 
+> When the 2-in-1 is powered-on or resumed folded in tablet mode the
+> EC senses this independent of the DSM by using a HALL effect sensor
+> which senses that the keyboard has been folded away behind the display.
+> 
+> At power-on or resume the EC disables the keyboard based on this and
+> the only way to get the keyboard to work after this is to call the
+> DSM to re-enable it (similar to how we also need to call a special
+> DSM in the kxcjk-1013.c accel driver to re-enable the keyboard).
+> 
+> Patches 5-7 deal with the DSM mess and patch 8 adds labels to the
+> 2 accelerometers specifying which one is which.
 
-Lets leave it as is and I get to be smug if we ever get a bug as a result
-(given that way the one you suggest can't happen, so I can't be proved wrong :)
+Given only thing I'm planning to do is tweak the line wrapping, I'm
+happy to pick this series up.
 
-J
+The two fixes will slow things down a bit though as we should probably
+get those upstream this cycle.
+
+I'm going to leave this on list for a few days before I take anything
+though, to give others time to take a look.
+
+One side note, cc list includes a few random choices... Seems you've
+accidentally included alsa people as well as IIO ones. 
+
+Thanks
+
+Jonathan
+
 > 
 > Regards,
 > 
 > Hans
 > 
 > 
+> Hans de Goede (8):
+>   iio: accel: bmc150: Fix dereferencing the wrong pointer in
+>     bmc150_get/set_second_device
+>   iio: accel: bmc150: Don't make the remove function of the second
+>     accelerometer unregister itself
+>   iio: accel: bmc150: Move check for second ACPI device into a separate
+>     function
+>   iio: accel: bmc150: Add support for dual-accelerometers with a
+>     DUAL250E HID
+>   iio: accel: bmc150: Move struct bmc150_accel_data definition to
+>     bmc150-accel.h
+>   iio: accel: bmc150: Remove bmc150_set/get_second_device() accessor
+>     functions
+>   iio: accel: bmc150: Add support for DUAL250E ACPI DSM for setting the
+>     hinge angle
+>   iio: accel: bmc150: Set label based on accel-location for ACPI
+>     DUAL250E fwnodes
 > 
-> >   
-> >>  	struct i2c_board_info board_info = {
-> >>  		.type = "bmc150_accel",
-> >> -		/*
-> >> -		 * The 2nd accel sits in the base of 2-in-1s. Note this
-> >> -		 * name is static, as there should never be more then 1
-> >> -		 * BOSC0200 ACPI node with 2 accelerometers in it.
-> >> -		 */
-> >> -		.dev_name = "BOSC0200:base",
-> >> +		.dev_name = dev_name,
-> >>  		.fwnode = client->dev.fwnode,
-> >> -		.irq = -ENOENT,
-> >>  	};
-> >>  
-> >>  	if (acpi_match_device_ids(adev, bmc150_acpi_dual_accel_ids))
-> >>  		return;
-> >>  
-> >> +	/*
-> >> +	 * The 2nd accel sits in the base of 2-in-1s. The suffix is static, as
-> >> +	 * there should never be more then 1 ACPI node with 2 accelerometers in it.
-> >> +	 */
-> >> +	snprintf(dev_name, sizeof(dev_name), "%s:base", acpi_device_hid(adev));
-> >> +
-> >> +	board_info.irq = acpi_dev_gpio_irq_get_by(adev, NULL, 1);
-> >> +
-> >>  	second_dev = i2c_acpi_new_device(&client->dev, 1, &board_info);
-> >>  	if (!IS_ERR(second_dev))
-> >>  		bmc150_set_second_device(client, second_dev);
-> >> @@ -114,6 +118,7 @@ static const struct acpi_device_id bmc150_accel_acpi_match[] = {
-> >>  	{"BMA222E",	bma222e},
-> >>  	{"BMA0280",	bma280},
-> >>  	{"BOSC0200"},
-> >> +	{"DUAL250E"},
-> >>  	{ },
-> >>  };
-> >>  MODULE_DEVICE_TABLE(acpi, bmc150_accel_acpi_match);  
-> >   
+>  drivers/iio/accel/bmc150-accel-core.c |  87 ++----------
+>  drivers/iio/accel/bmc150-accel-i2c.c  | 192 +++++++++++++++++++++-----
+>  drivers/iio/accel/bmc150-accel.h      |  66 ++++++++-
+>  3 files changed, 239 insertions(+), 106 deletions(-)
 > 
 

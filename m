@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C5538D2D1
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 03:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 157EB38D2D3
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 03:37:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21C5C16AA;
-	Sat, 22 May 2021 03:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21C5C16AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4F2516BD;
+	Sat, 22 May 2021 03:36:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F2516BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621647398;
-	bh=4lqtPJKntEEoHiEt0WRGi/Njm/Q4NAk0D9CBxDqpQQ4=;
+	s=default; t=1621647438;
+	bh=H2ZwPCej+fErmRUM5KUY7uww8ZQMbn42untcqDwztUo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FeynDsdzV+9I3q7vpiyZ8f/Xcop44UvH91aSUBwch0znhxHxUBU1ojG/+XVIS2aW+
-	 layByfWwko3taJOxqlYnt/toodrYMKMVVE3ORYbwTVH7IghQmYmrm8XBPQdIEpS7fX
-	 hVnuFnjjHe4msWa0wFOD0QViRWgUUT5K8w++kwks=
+	b=vGa4j3Nq+L31a4kksgja7Bzn2W04LOhhozwuF+63OjFmHx4qA63+1jfRSL7iC4VTN
+	 TuXYGfi5aDVj/n10cMevaA2J7EIS7e1Y7kOZ3gC58dJ1WpcvaBlLtpvIU206Mh9JyQ
+	 qnq6EmJevGFLZyia674HayHUi9DA09W8yU/ME/K0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCE59F804AE;
-	Sat, 22 May 2021 03:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D575F804D8;
+	Sat, 22 May 2021 03:33:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42DD4F80257; Sat, 22 May 2021 03:33:28 +0200 (CEST)
+ id 0E39DF80257; Sat, 22 May 2021 03:33:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F46CF80257
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 03:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F46CF80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id D744CF800DF
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 03:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D744CF800DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="rFPzfe6r"; 
+ header.b="F3ohb6cU"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="WIcKOtQ2"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id C87685C024F;
- Fri, 21 May 2021 21:33:13 -0400 (EDT)
+ header.i=@messagingengine.com header.b="plYguljF"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1B9DC5C011A;
+ Fri, 21 May 2021 21:33:15 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 21 May 2021 21:33:13 -0400
+ by compute5.internal (MEProxy); Fri, 21 May 2021 21:33:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=c5jfPQEYgI17v
- h0PEdvC8vVx6rTAzyhbrZqcibr7AxE=; b=rFPzfe6r+jxSbQXtOdE/JRjopduza
- OLO+4FVwOixb3SHCGGMLtwkDzUmXG//GzN3dBVPlhAG/W3gIXNNBaPVK2Q0UIgya
- 9JToUrYwgQy8LlCdzT7YKT7LLVbW9nBpeqXrz9GuycHjtCmLUXaQCXMl3v/xEpOC
- iJ+NL+3tkMdQuZGfxykiNOW3eWWRfYl6mC3BjO+Fv76LT8otgUWKkLhlF2j+LQmX
- 9IGJCIOYiwd73GqJhpwI1ha6gNxJANrGC2ftzUWPzAVoEhz3MbOvv1ZmWLVLHzOK
- I7FFdMJJ7h648Hg9kaFtg3HSzleGzaMqr5Km0RaVlK3/CgAcPGlREp/PQ==
+ :mime-version:content-transfer-encoding; s=fm1; bh=bZZywP0mtjbMB
+ QmsPlCcjWAkEBdwxMscO6uarEuPA1w=; b=F3ohb6cUGKYr84JfOJMCeYOAD3B+y
+ 9XR5ePSmncegekUE+nnUc2yrlXIWyH8oVps5drVCssMOs5YrSyDZ3J+6koMtsJ+U
+ wEBdd2ak0fJUGxwjM4iiJXD34e2lyk9WKjef+J3uTVV75Qiyvs8k78wQtI7dKUpw
+ FJOyBWGoyRVYJFLP3T4/G5yUb7XpnUoakhkDgjp6NHgB0mu/IjMXgQnTLa1c/KR9
+ Xh6jxfFx/AKGfgaRcKhvJ7Wg72f67qrM/1u1I03dJqUst6peN9eV+jUuJ48ykuBE
+ LqybEDte/YgQsyNwJZr4qPYq6sHM7A6PHfO0IgE54rTibvez8kiN8oicg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=c5jfPQEYgI17vh0PEdvC8vVx6rTAzyhbrZqcibr7AxE=; b=WIcKOtQ2
- Eoke9GmI2NHGqYp3DnNHzKlxP+Tk1lxpM6nZMAuHgIFEYOyJhakCCL4XFnSfVnc2
- yhQt46/Rw2gYRBqM6WJVS7iFW1WvkUPF07l9eD3wibjm1szpBhOatlQHQnW+qkvL
- OJK2BiorC0ySxxCOIFv1Az911EK35/zQ+ZbcgSAggkUHJX1+lyE52wOLD+V2Gzrq
- niciWBd5Dj5EChPgL1Lxbhvep97ij76Ftj1cK9UncaAtcj8rTth6qd4/6sd7XjKI
- k1slg2HBbGTVKEGqhhKCzx8qROqCoJihjhBul1RsuHu9tw8I4uoGlUerAAnU27dy
- lHj7wmR4nFEYfg==
-X-ME-Sender: <xms:WV-oYIULexHI-jPf0NWSegmWEhT5Z3MhnlBXchrxzAATs3Tjcgqqdg>
- <xme:WV-oYMmBTzqZy3PVTe5_OHXShtYgA6JjgLjhHSM_U_wuyhwPb_2WG1LMtNUk1jSrm
- EsRbo_pmDgPXrJvnrk>
+ fm2; bh=bZZywP0mtjbMBQmsPlCcjWAkEBdwxMscO6uarEuPA1w=; b=plYguljF
+ /07zYTWKrfBmZ8GUZ39IKgbAIB/TOoOE8PgaZ29lTbWj+TrzAF/xAOZz15IFHv6k
+ nRI8Bc8PLXTU6wO5sRIEfBpHowIjiXhoe1henFmNOGWKqjuF2V8QOdY1ZkQ+WqoI
+ UB174FzaaBDo4/rQnPcI6/YS1NsuXSv0SeVosRgbNcyn2BxgLUPeS9zSSqXg4s+O
+ 6u+hDorXnn/eRumZC5WWJwXiCOyx6eLQp6gYbCifZ5HOB1gVQtK5WolmLKcmDF44
+ cCT5pktfXB1sHbsHq7WvIQddQrrzBIaTIhwSGHKUXiSh699Efj6Wsqb1NRHhiQU9
+ be5E7XrgibvqCQ==
+X-ME-Sender: <xms:W1-oYC9hwrGh1WcAnFWDE3R_XkdnWPC9gMKdlYVCEu8Dlt8K1gvtrw>
+ <xme:W1-oYCu3XfTxYa92OvPMod0g_7dSCOoBEIl93S0sAby-dM-fYYuTDwUF4tQA2kpVt
+ H8m2FlBDuxS8OMY1-k>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejgedggeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -80,19 +80,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejgedggeekucetufdoteggod
  pehrgidruggrthgrnecukfhppedugedrfedrieehrddujeehnecuvehluhhsthgvrhfuih
  iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgr
  mhhotggthhhirdhjph
-X-ME-Proxy: <xmx:WV-oYMYwIS0zEwzjEJ3aBTjGY2uNnVFsttUR0aVsDpfrIMTeJC64dQ>
- <xmx:WV-oYHUUX_hgApNzWLlhaNvVITLObJO3FQOsA3yEDLKmWp_qgvQfow>
- <xmx:WV-oYCmY_LozFijuqZobDlYqBIQwjzXplOIKH0eRZXSfm1hd0JfWiQ>
- <xmx:WV-oYJtgfZ3Wi6DEC51A-NuoZREAUCcE8eR5I75iJFa-Wm3uQmFSxQ>
+X-ME-Proxy: <xmx:W1-oYID3e1vTBn8-8DcfYMCZWkH3DDnWmvEUC_3yuK0QyWbmIYlGWg>
+ <xmx:W1-oYKfNCMP4gdc9Q5xvCLN6OWY_xXHBtL_6qFFB_akW9SztbSyMYw>
+ <xmx:W1-oYHNeu5cmWByCtUlx73_O1ugIzwH3Ghi-l7KVJGLU0jB5795zgg>
+ <xmx:W1-oYJWEgDdXvKPDCG5vnwIuYRNk1STf5tzZVMwzu8XE5XKxsApMJg>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Fri, 21 May 2021 21:33:12 -0400 (EDT)
+ Fri, 21 May 2021 21:33:14 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 4/6] ALSA: firewire-lib: code refactoring for generation of
- syt sequence
-Date: Sat, 22 May 2021 10:33:01 +0900
-Message-Id: <20210522013303.49596-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 5/6] ALSA: firewire-lib: code refactoring for generation of
+ data block sequence
+Date: Sat, 22 May 2021 10:33:02 +0900
+Message-Id: <20210522013303.49596-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210522013303.49596-1-o-takashi@sakamocchi.jp>
 References: <20210522013303.49596-1-o-takashi@sakamocchi.jp>
@@ -114,63 +114,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit dissolves sequence generator in terms of syt offsets for
-packet.
+This commit dissolves sequence generator in terms of the number of data
+blocks per packet.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ sound/firewire/amdtp-stream.c | 73 +++++++++++++++++++----------------
+ 1 file changed, 40 insertions(+), 33 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 354512a350b7..77ae75e79a43 100644
+index 77ae75e79a43..26209513199a 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -441,8 +441,30 @@ static unsigned int calculate_syt_offset(unsigned int *last_syt_offset,
- 	return syt_offset;
+@@ -357,26 +357,41 @@ void amdtp_stream_pcm_prepare(struct amdtp_stream *s)
  }
+ EXPORT_SYMBOL(amdtp_stream_pcm_prepare);
  
-+static void pool_ideal_syt_offsets(struct amdtp_stream *s, struct seq_desc *descs,
-+				   const unsigned int seq_size, unsigned int seq_tail,
-+				   unsigned int count)
+-static unsigned int calculate_data_blocks(unsigned int *data_block_state,
+-				bool is_blocking, bool is_no_info,
+-				unsigned int syt_interval, enum cip_sfc sfc)
++static void pool_blocking_data_blocks(struct amdtp_stream *s, struct seq_desc *descs,
++				      const unsigned int seq_size, unsigned int seq_tail,
++				      unsigned int count)
+ {
+-	unsigned int data_blocks;
++	const unsigned int syt_interval = s->syt_interval;
++	int i;
++
++	for (i = 0; i < count; ++i) {
++		struct seq_desc *desc = descs + seq_tail;
+ 
+-	/* Blocking mode. */
+-	if (is_blocking) {
+-		/* This module generate empty packet for 'no data'. */
+-		if (is_no_info)
+-			data_blocks = 0;
++		if (desc->syt_offset != CIP_SYT_NO_INFO)
++			desc->data_blocks = syt_interval;
+ 		else
+-			data_blocks = syt_interval;
+-	/* Non-blocking mode. */
+-	} else {
++			desc->data_blocks = 0;
++
++		seq_tail = (seq_tail + 1) % seq_size;
++	}
++}
++
++static void pool_ideal_nonblocking_data_blocks(struct amdtp_stream *s, struct seq_desc *descs,
++					       const unsigned int seq_size, unsigned int seq_tail,
++					       unsigned int count)
 +{
 +	const enum cip_sfc sfc = s->sfc;
-+	unsigned int last = s->ctx_data.rx.last_syt_offset;
-+	unsigned int state = s->ctx_data.rx.syt_offset_state;
++	unsigned int state = s->ctx_data.rx.data_block_state;
 +	int i;
 +
 +	for (i = 0; i < count; ++i) {
 +		struct seq_desc *desc = descs + seq_tail;
 +
-+		desc->syt_offset = calculate_syt_offset(&last, &state, sfc);
+ 		if (!cip_sfc_is_base_44100(sfc)) {
+ 			// Sample_rate / 8000 is an integer, and precomputed.
+-			data_blocks = *data_block_state;
++			desc->data_blocks = state;
+ 		} else {
+-			unsigned int phase = *data_block_state;
++			unsigned int phase = state;
+ 
+ 		/*
+ 		 * This calculates the number of data blocks per packet so that
+@@ -388,18 +403,19 @@ static unsigned int calculate_data_blocks(unsigned int *data_block_state,
+ 		 */
+ 			if (sfc == CIP_SFC_44100)
+ 				/* 6 6 5 6 5 6 5 ... */
+-				data_blocks = 5 + ((phase & 1) ^
+-						   (phase == 0 || phase >= 40));
++				desc->data_blocks = 5 + ((phase & 1) ^ (phase == 0 || phase >= 40));
+ 			else
+ 				/* 12 11 11 11 11 ... or 23 22 22 22 22 ... */
+-				data_blocks = 11 * (sfc >> 1) + (phase == 0);
++				desc->data_blocks = 11 * (sfc >> 1) + (phase == 0);
+ 			if (++phase >= (80 >> (sfc >> 1)))
+ 				phase = 0;
+-			*data_block_state = phase;
++			state = phase;
+ 		}
 +
 +		seq_tail = (seq_tail + 1) % seq_size;
-+	}
-+
-+	s->ctx_data.rx.last_syt_offset = last;
-+	s->ctx_data.rx.syt_offset_state = state;
-+}
-+
- static void pool_ideal_seq_descs(struct amdtp_stream *s, unsigned int count)
- {
-+	struct seq_desc *descs = s->ctx_data.rx.seq.descs;
+ 	}
+ 
+-	return data_blocks;
++	s->ctx_data.rx.data_block_state = state;
+ }
+ 
+ static unsigned int calculate_syt_offset(unsigned int *last_syt_offset,
+@@ -467,24 +483,15 @@ static void pool_ideal_seq_descs(struct amdtp_stream *s, unsigned int count)
+ 	struct seq_desc *descs = s->ctx_data.rx.seq.descs;
  	unsigned int seq_tail = s->ctx_data.rx.seq.tail;
  	const unsigned int seq_size = s->ctx_data.rx.seq.size;
- 	const unsigned int syt_interval = s->syt_interval;
-@@ -450,11 +472,11 @@ static void pool_ideal_seq_descs(struct amdtp_stream *s, unsigned int count)
- 	const bool is_blocking = !!(s->flags & CIP_BLOCKING);
- 	int i;
+-	const unsigned int syt_interval = s->syt_interval;
+-	const enum cip_sfc sfc = s->sfc;
+-	const bool is_blocking = !!(s->flags & CIP_BLOCKING);
+-	int i;
  
-+	pool_ideal_syt_offsets(s, descs, seq_size, seq_tail, count);
-+
- 	for (i = 0; i < count; ++i) {
- 		struct seq_desc *desc = s->ctx_data.rx.seq.descs + seq_tail;
+ 	pool_ideal_syt_offsets(s, descs, seq_size, seq_tail, count);
  
--		desc->syt_offset = calculate_syt_offset(&s->ctx_data.rx.last_syt_offset,
--					&s->ctx_data.rx.syt_offset_state, sfc);
- 		desc->data_blocks = calculate_data_blocks(&s->ctx_data.rx.data_block_state,
- 				is_blocking, desc->syt_offset == CIP_SYT_NO_INFO,
- 				syt_interval, sfc);
+-	for (i = 0; i < count; ++i) {
+-		struct seq_desc *desc = s->ctx_data.rx.seq.descs + seq_tail;
+-
+-		desc->data_blocks = calculate_data_blocks(&s->ctx_data.rx.data_block_state,
+-				is_blocking, desc->syt_offset == CIP_SYT_NO_INFO,
+-				syt_interval, sfc);
+-
+-		seq_tail = (seq_tail + 1) % seq_size;
+-	}
++	if (s->flags & CIP_BLOCKING)
++		pool_blocking_data_blocks(s, descs, seq_size, seq_tail, count);
++	else
++		pool_ideal_nonblocking_data_blocks(s, descs, seq_size, seq_tail, count);
+ 
+-	s->ctx_data.rx.seq.tail = seq_tail;
++	s->ctx_data.rx.seq.tail = (seq_tail + count) % seq_size;
+ }
+ 
+ static void update_pcm_pointers(struct amdtp_stream *s,
 -- 
 2.27.0
 

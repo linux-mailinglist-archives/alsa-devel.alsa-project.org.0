@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF1938D34E
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 05:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C35A138D387
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 06:28:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62C0816A9;
-	Sat, 22 May 2021 05:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62C0816A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48E8E16A9;
+	Sat, 22 May 2021 06:27:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48E8E16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621655379;
-	bh=lVBPv9tOoFkV8NZyoSh+Y0dJ9zX/0+oF3518Ufm4A7k=;
+	s=default; t=1621657716;
+	bh=TCuCXrbV6/kdsJYOCZ+SuaLFPHtyOkOW9AR6cVGkgm4=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CdxNuqGhzPMahSATwtp2u3ibB5IQH5+/IDZhz/eYCTjzatiOe8kvM0t2y9K/kOWxe
-	 kuYKZhJQuYiXorazzTKLiHSMoXcAmGqpkpIsyhzyncw7lCoBndC86msMJNfWc+ExNa
-	 sQO9n8bDH7SJ9qDPJSakQAgI7oiN262N0BNdgeVw=
+	b=vBy8DhJiSRzQ/b85VNe0w70QPp9mgJ42I35CvwVvUwal/9Jsq/AlbksjvPgatuTjL
+	 LpThp+u0Ab70gcsVtnoaKvrdSl4zi1N3MponnK/8bk5J/VldbS0pQnTNJHp9Ubq5hD
+	 F7lplNr31ltzyleZHbHvezYlXBQt8aSpD7cgFTA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9193EF80229;
-	Sat, 22 May 2021 05:48:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89A1BF80229;
+	Sat, 22 May 2021 06:27:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B855F80217; Sat, 22 May 2021 05:48:07 +0200 (CEST)
+ id 7C697F80217; Sat, 22 May 2021 06:27:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,21 @@ Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E806F800E5
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 05:47:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E806F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0B47F80153
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 06:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0B47F80153
 Received: from [123.112.69.138] (helo=localhost.localdomain)
  by youngberry.canonical.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <hui.wang@canonical.com>)
- id 1lkIcF-0003Vp-UV; Sat, 22 May 2021 03:47:57 +0000
+ id 1lkJDv-000654-Qg; Sat, 22 May 2021 04:26:52 +0000
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Headphone volume is controlled by Front
- mixer
-Date: Sat, 22 May 2021 11:47:41 +0800
-Message-Id: <20210522034741.13415-1-hui.wang@canonical.com>
+	tiwai@suse.de
+Subject: [PATCH] ALSA: hda/realtek: the bass speaker can't output sound on
+ Yoga 9i
+Date: Sat, 22 May 2021 12:26:45 +0800
+Message-Id: <20210522042645.14221-1-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -68,66 +67,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On some ASUS and MSI machines, the audio codec is alc1220 and the
-Headphone is connected to audio mixer 0xf and DAC 0x5, in theory
-the Headphone volume is controlled by DAC 0x5 (Heapdhone Playback
-Volume), but somehow it is controlled by DAC 0x2 (Front Playback
-Volume), maybe this is a defect on the codec alc1220.
+The Lenovo Yoga 9i has bass speaker, but the bass speaker can't work,
+that is because there is an i2s amplifier on that speaker, need to
+run ideapad_s740_coef() to initialize the amplifier.
 
-Because of this issue, the PA couldn't switch the headphone and
-Lineout correctly, If we apply the quirk CLEVO_P950 to those machines,
-the Lineout and Headphone will share the audio mixer 0xc and DAC 0x2,
-and generate Headphone+LO mixer, then PA could handle them when
-switching between them.
+And also needs to apply ALC285_FIXUP_THINKPAD_HEADSET_JACK to rename
+the speaker's mixer control name, otherwise the PA can't handle them.
 
-BugLink: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1206
-Cc: <stable@vger.kernel.org>
+BugLink: http://bugs.launchpad.net/bugs/1926165
 Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/pci/hda/patch_realtek.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ sound/pci/hda/patch_realtek.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index c6b5db831ed0..3d40d32ef3ba 100644
+index 4eab336dc739..c6b5db831ed0 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -2603,6 +2603,28 @@ static const struct hda_model_fixup alc882_fixup_models[] = {
- 	{}
+@@ -6552,6 +6552,7 @@ enum {
+ 	ALC295_FIXUP_ASUS_DACS,
+ 	ALC295_FIXUP_HP_OMEN,
+ 	ALC285_FIXUP_HP_SPECTRE_X360,
++	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
  };
  
-+static const struct snd_hda_pin_quirk alc882_pin_fixup_tbl[] = {
-+	SND_HDA_PIN_QUIRK(0x10ec1220, 0x1043, "ASUS", ALC1220_FIXUP_CLEVO_P950,
-+		{0x14, 0x01014010},
-+		{0x15, 0x01011012},
-+		{0x16, 0x01016011},
-+		{0x18, 0x01a19040},
-+		{0x19, 0x02a19050},
-+		{0x1a, 0x0181304f},
-+		{0x1b, 0x0221401f},
-+		{0x1e, 0x01456130}),
-+	SND_HDA_PIN_QUIRK(0x10ec1220, 0x1462, "MS-7C35", ALC1220_FIXUP_CLEVO_P950,
-+		{0x14, 0x01015010},
-+		{0x15, 0x01011012},
-+		{0x16, 0x01011011},
-+		{0x18, 0x01a11040},
-+		{0x19, 0x02a19050},
-+		{0x1a, 0x0181104f},
-+		{0x1b, 0x0221401f},
-+		{0x1e, 0x01451130}),
-+	{}
-+};
-+
- /*
-  * BIOS auto configuration
-  */
-@@ -2644,6 +2666,7 @@ static int patch_alc882(struct hda_codec *codec)
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -8118,6 +8119,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_SPEAKER2_TO_DAC1,
+ 	},
++	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_ideapad_s740_coef,
++		.chained = true,
++		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK,
++	},
+ };
  
- 	snd_hda_pick_fixup(codec, alc882_fixup_models, alc882_fixup_tbl,
- 		       alc882_fixups);
-+	snd_hda_pick_pin_fixup(codec, alc882_pin_fixup_tbl, alc882_fixups, true);
- 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
- 
- 	alc_auto_parse_customize_define(codec);
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -8486,6 +8493,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3178, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3818, "Lenovo C940", ALC298_FIXUP_LENOVO_SPK_VOLUME),
+ 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
++	SND_PCI_QUIRK(0x17aa, 0x3843, "Yoga 9i", ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP),
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+@@ -8701,6 +8709,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
+ 	{.id = ALC295_FIXUP_HP_OMEN, .name = "alc295-hp-omen"},
+ 	{.id = ALC285_FIXUP_HP_SPECTRE_X360, .name = "alc285-hp-spectre-x360"},
++	{.id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP, .name = "alc287-ideapad-bass-spk-amp"},
+ 	{}
+ };
+ #define ALC225_STANDARD_PINS \
 -- 
 2.25.1
 

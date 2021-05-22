@@ -2,109 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC1638D6B4
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 19:46:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B01A838D6BB
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 19:53:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9EAF1612;
-	Sat, 22 May 2021 19:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9EAF1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 268371681;
+	Sat, 22 May 2021 19:53:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268371681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621705599;
-	bh=l+pT1/9VQjTniHM59+oEFkYJuE06EvcjdGpFj1CFCDo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621706030;
+	bh=MpM/12P1x4GI/wXG4q7GH1+gIQonJ0K7KyI25+Uw2Zo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yg/7d7IxDizPjl2O1yeSOztZfcc4rvQyvuBpQlCzCnj8KEjQenzmC+lx7/LkWt2W6
-	 5MMzMppB7kvqsJB2V9LRwxWnx57/NugSIoDqwDUkefOS0hAbGlQqgK5S45fIN09gWL
-	 mk+kYpSVB6+weVEBGFmryU2BQ6pT+5/WozPRUmSc=
+	b=aNM767+YHheBaoQMNNogNkWv0NcdQzZddxls86WR4uJWpnruduQMb4JnxXo6ZdSRQ
+	 /7SJrMeX59ZbuDFlfC9eKY9j1rRMSp4GSrew47/h6+vMZJxO8aTLOuyDELqa/QvipD
+	 ULCHuZngSO5401ulhEFKprIxMfYExJ47O9X8Krss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E60DF800DF;
-	Sat, 22 May 2021 19:45:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9099EF80229;
+	Sat, 22 May 2021 19:52:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BD0CF80217; Sat, 22 May 2021 19:45:08 +0200 (CEST)
+ id E4096F80217; Sat, 22 May 2021 19:52:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=PRX_BODY_21,PRX_BODY_30,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0585F800E5
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 19:52:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0585F800E5
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53F2DF800DF
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 19:45:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53F2DF800DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="QdRgD+qn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1621705501;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jC3jhxNv/qIkNfpBzHT2TvRGq7NRssKdrwCbRNryedI=;
- b=QdRgD+qnXMVWYoaEDXEzuhd48eDgELiGdc5SDo1d+YsRhia+1n7UwLop1GyEUo2f4JraIl
- HADgK3OzZQ5o9HTOv3XUvkrCX1kC3inJ+j86lOfhvDz+ICpMpsEHA7u4QQb9LL/R/jM0yZ
- 58ktXjP9011HZwJfhGari2mOrzZzK0I=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-234-Z_iwWLNgNNGfirf_et56lQ-1; Sat, 22 May 2021 13:44:57 -0400
-X-MC-Unique: Z_iwWLNgNNGfirf_et56lQ-1
-Received: by mail-ed1-f71.google.com with SMTP id
- q18-20020a0564025192b02903888712212fso13121761edd.19
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 10:44:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=jC3jhxNv/qIkNfpBzHT2TvRGq7NRssKdrwCbRNryedI=;
- b=lz2IzN0WLEYXToy1JvxKqSYinCcpw/y9ttIGmcAT9Wu5rxn3k7b45anMeKGA+oOTuj
- AU83ozIMW8c1osn9FWKKD4IiMm/5ClfYmyo959tKJYmEV76g7kvGcjO/G6Zwu8tviiRQ
- TNZiLA10NiZP3UJyNbCpUX1ugcfSduUESzofcrx8sXaaFuy6MXHQJuLEGGFfoRhdmzSu
- KXaDVPZdx6n4V1JbdwR7rBgOxGzQpFP4rUvHNnL+fF86ed4monppuyWqqHm/n5JBjaiE
- VVAsaYU4TNZbEbthn/Lqa9qhbEDNvVIeU6gsYC8i6tclpIO6PukTgDeY0xSlUGETNKuW
- ASCg==
-X-Gm-Message-State: AOAM532ExpKUzwro+EcHmtkJVMQQ5MsaNGnXmSSpc8Y677eGFExhkALI
- tZy2dZHIA8lMi1fInSFxtxU9BZPAhWD+YP9/igzQ+dq+WsABNKku6zazE3Je1HsoStFMlQVtbDy
- wuLXX2PJZnJkcyNgH/bry8pA4XkS5qVuYAagiqSU7xKpmqszUSva5LnwfTT+oSsX06ask5HwUQp
- s=
-X-Received: by 2002:aa7:ce18:: with SMTP id d24mr17403320edv.170.1621705496600; 
- Sat, 22 May 2021 10:44:56 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyywc+DHhVZr1MdvxfMdnZnNBW1sqmSOhcYE0W7ACb44q4wRsF1b7AXLXI8blA6J7srE5DFJg==
-X-Received: by 2002:aa7:ce18:: with SMTP id d24mr17403301edv.170.1621705496362; 
- Sat, 22 May 2021 10:44:56 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id b12sm5591971ejg.89.2021.05.22.10.44.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 May 2021 10:44:55 -0700 (PDT)
-Subject: Re: [PATCH 4/8] iio: accel: bmc150: Add support for
- dual-accelerometers with a DUAL250E HID
-To: Jonathan Cameron <jic23@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id E17B761002;
+ Sat, 22 May 2021 17:52:09 +0000 (UTC)
+Date: Sat, 22 May 2021 18:53:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 7/8] iio: accel: bmc150: Add support for DUAL250E ACPI
+ DSM for setting the hinge angle
+Message-ID: <20210522185332.735d605d@jic23-huawei>
+In-Reply-To: <20210521171418.393871-8-hdegoede@redhat.com>
 References: <20210521171418.393871-1-hdegoede@redhat.com>
- <20210521171418.393871-5-hdegoede@redhat.com>
- <20210522184336.09c219cd@jic23-huawei>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <3273a327-2b25-8b42-6870-e09982125119@redhat.com>
-Date: Sat, 22 May 2021 19:44:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ <20210521171418.393871-8-hdegoede@redhat.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20210522184336.09c219cd@jic23-huawei>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
  Charles Keepax <ckeepax@opensource.cirrus.com>, linux-iio@vger.kernel.org,
  patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
@@ -124,91 +74,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Fri, 21 May 2021 19:14:17 +0200
+Hans de Goede <hdegoede@redhat.com> wrote:
 
-On 5/22/21 7:43 PM, Jonathan Cameron wrote:
-> On Fri, 21 May 2021 19:14:14 +0200
-> Hans de Goede <hdegoede@redhat.com> wrote:
-> 
->> The Lenovo Yoga 300-11IBR has a ACPI fwnode with a HID of DUAL250E
->> which contains I2C and IRQ resources for 2 accelerometers, 1 in the
->> display and one in the base of the device. Add support for this.
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  drivers/iio/accel/bmc150-accel-i2c.c | 19 ++++++++++++-------
->>  1 file changed, 12 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/iio/accel/bmc150-accel-i2c.c b/drivers/iio/accel/bmc150-accel-i2c.c
->> index e24ce28a4660..b81e4005788e 100644
->> --- a/drivers/iio/accel/bmc150-accel-i2c.c
->> +++ b/drivers/iio/accel/bmc150-accel-i2c.c
->> @@ -24,6 +24,7 @@
->>  #ifdef CONFIG_ACPI
->>  static const struct acpi_device_id bmc150_acpi_dual_accel_ids[] = {
->>  	{"BOSC0200"},
->> +	{"DUAL250E"},
->>  	{ },
->>  };
->>  
->> @@ -35,21 +36,24 @@ static void bmc150_acpi_dual_accel_probe(struct i2c_client *client)
->>  {
->>  	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
->>  	struct i2c_client *second_dev;
->> +	char dev_name[16];
-> 
-> I'm a bit in two minds about having a fixed length array for this.
-> Obviously this is always big enough (I think a bit too big), but it
-> might be a place where a future bug is introduced.  Perhaps it's worth the dance
-> of a kasprintf and kfree, to avoid that possibility?
+> Some 360 degree hinges (yoga) style 2-in-1 devices use 2 bmc150 accels
+> to allow the OS to determine the angle between the display and the base
+> of the device, so that the OS can determine if the 2-in-1 is in laptop
+> or in tablet-mode.
+>=20
+> On Windows both accelerometers are read (polled) by a special service
+> and this service calls the DSM (Device Specific Method), which in turn
+> translates the angles to one of laptop/tablet/tent/stand mode and then
+> notifies the EC about the new mode and the EC then enables or disables
+> the builtin keyboard and touchpad based in the mode.
+>=20
+> When the 2-in-1 is powered-on or resumed folded in tablet mode the
+> EC senses this independent of the DSM by using a HALL effect sensor
+> which senses that the keyboard has been folded away behind the display.
+>=20
+> At power-on or resume the EC disables the keyboard based on this and
+> the only way to get the keyboard to work after this is to call the
+> DSM to re-enable it.
+>=20
+> Call the DSM on probe() and resume() to fix the keyboard not working
+> when powered-on / resumed in tablet-mode.
+>=20
+> This patch was developed and tested on a Lenovo Yoga 300-IBR.
+>=20
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-I would prefer to keep this as is, using malloc + free always leads
-to problems if an error-exit path shows up between the 2.
+Putting aside my general grumpiness at this stuff having to pollute
+accelerometer drivers (and the broken DSM implementation on the hardware!)
+this is a fairly clean implementation so I guess we can survive it.
 
-But if you've a strong preference for switching to
-kasprintf + kfree I can do that for v2.
+Jonathan
 
-Regards,
+> ---
+>  drivers/iio/accel/bmc150-accel-core.c |   3 +
+>  drivers/iio/accel/bmc150-accel-i2c.c  | 109 ++++++++++++++++++++++++++
+>  drivers/iio/accel/bmc150-accel.h      |   3 +
+>  3 files changed, 115 insertions(+)
+>=20
+> diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bm=
+c150-accel-core.c
+> index 0291512648b2..932007895f18 100644
+> --- a/drivers/iio/accel/bmc150-accel-core.c
+> +++ b/drivers/iio/accel/bmc150-accel-core.c
+> @@ -1803,6 +1803,9 @@ static int bmc150_accel_resume(struct device *dev)
+>  	bmc150_accel_fifo_set_mode(data);
+>  	mutex_unlock(&data->mutex);
+> =20
+> +	if (data->resume_callback)
+> +		data->resume_callback(dev);
+> +
+>  	return 0;
+>  }
+>  #endif
+> diff --git a/drivers/iio/accel/bmc150-accel-i2c.c b/drivers/iio/accel/bmc=
+150-accel-i2c.c
+> index 1dd7b8a9a382..31256c32a33c 100644
+> --- a/drivers/iio/accel/bmc150-accel-i2c.c
+> +++ b/drivers/iio/accel/bmc150-accel-i2c.c
+> @@ -28,6 +28,107 @@ static const struct acpi_device_id bmc150_acpi_dual_a=
+ccel_ids[] =3D {
+>  	{ },
+>  };
+> =20
+> +/*
+> + * The DUAL250E ACPI device for 360=C2=B0 hinges type 2-in-1s with 1 acc=
+elerometer
+> + * in the display and 1 in the hinge has an ACPI-method (DSM) to tell the
+> + * ACPI code about the angle between the 2 halves. This will make the AC=
+PI
+> + * code enable/disable the keyboard and touchpad. We need to call this t=
+o avoid
+> + * the keyboard being disabled when the 2-in-1 is turned-on or resumed w=
+hile
+> + * fully folded into tablet mode (which gets detected with a HALL-sensor=
+).
+> + * If we don't call this then the keyboard won't work even when the 2-in=
+-1 is
+> + * changed to be used in laptop mode after the power-on / resume.
+> + *
+> + * This DSM takes 2 angles, selected by setting aux0 to 0 or 1, these pr=
+esumably
+> + * define the angle between the gravity vector measured by the accelerom=
+eter in
+> + * the display (aux0=3D0) resp. the base (aux0=3D1) and some reference v=
+ector.
+> + * The 2 angles get subtracted from each other so the reference vector d=
+oes
+> + * not matter and we can simply leave the second angle at 0.
+> + */
+> +
+> +#define BMC150_DSM_GUID				"7681541e-8827-4239-8d9d-36be7fe12542"
+> +#define DUAL250E_SET_ANGLE_FN_INDEX		3
+> +
+> +struct dual250e_set_angle_args {
+> +	u32 aux0;
+> +	u32 ang0;
+> +	u32 rawx;
+> +	u32 rawy;
+> +	u32 rawz;
+> +} __packed;
+> +
+> +static bool bmc150_acpi_set_angle_dsm(struct i2c_client *client, u32 aux=
+0, u32 ang0)
+> +{
+> +	struct acpi_device *adev =3D ACPI_COMPANION(&client->dev);
+> +	struct dual250e_set_angle_args args =3D {
+> +		.aux0 =3D aux0,
+> +		.ang0 =3D ang0,
+> +	};
+> +	union acpi_object args_obj, *obj;
+> +	guid_t guid;
+> +
+> +	if (strcmp(acpi_device_hid(adev), "DUAL250E"))
+> +		return false;
+> +
+> +	guid_parse(BMC150_DSM_GUID, &guid);
+> +
+> +	if (!acpi_check_dsm(adev->handle, &guid, 0, BIT(DUAL250E_SET_ANGLE_FN_I=
+NDEX)))
+> +		return false;
+> +
+> +	/*
+> +	 * Note this triggers the following warning:
+> +	 * "ACPI Warning: \_SB.PCI0.I2C2.ACC1._DSM: Argument #4 type mismatch -
+> +	 *                Found [Buffer], ACPI requires [Package]"
+> +	 * This is unavoidable since the _DSM implementation expects a "naked"
+> +	 * buffer, so wrapping it in a package will _not_ work.
 
-Hans
+ouch.
 
-
-
-> 
->>  	struct i2c_board_info board_info = {
->>  		.type = "bmc150_accel",
->> -		/*
->> -		 * The 2nd accel sits in the base of 2-in-1s. Note this
->> -		 * name is static, as there should never be more then 1
->> -		 * BOSC0200 ACPI node with 2 accelerometers in it.
->> -		 */
->> -		.dev_name = "BOSC0200:base",
->> +		.dev_name = dev_name,
->>  		.fwnode = client->dev.fwnode,
->> -		.irq = -ENOENT,
->>  	};
->>  
->>  	if (acpi_match_device_ids(adev, bmc150_acpi_dual_accel_ids))
->>  		return;
->>  
->> +	/*
->> +	 * The 2nd accel sits in the base of 2-in-1s. The suffix is static, as
->> +	 * there should never be more then 1 ACPI node with 2 accelerometers in it.
->> +	 */
->> +	snprintf(dev_name, sizeof(dev_name), "%s:base", acpi_device_hid(adev));
->> +
->> +	board_info.irq = acpi_dev_gpio_irq_get_by(adev, NULL, 1);
->> +
->>  	second_dev = i2c_acpi_new_device(&client->dev, 1, &board_info);
->>  	if (!IS_ERR(second_dev))
->>  		bmc150_set_second_device(client, second_dev);
->> @@ -114,6 +118,7 @@ static const struct acpi_device_id bmc150_accel_acpi_match[] = {
->>  	{"BMA222E",	bma222e},
->>  	{"BMA0280",	bma280},
->>  	{"BOSC0200"},
->> +	{"DUAL250E"},
->>  	{ },
->>  };
->>  MODULE_DEVICE_TABLE(acpi, bmc150_accel_acpi_match);
-> 
+> +	 */
+> +	args_obj.type =3D ACPI_TYPE_BUFFER;
+> +	args_obj.buffer.length =3D sizeof(args);
+> +	args_obj.buffer.pointer =3D (u8 *)&args;
+> +
+> +	obj =3D acpi_evaluate_dsm(adev->handle, &guid, 0, DUAL250E_SET_ANGLE_FN=
+_INDEX, &args_obj);
+> +	if (!obj) {
+> +		dev_err(&client->dev, "Failed to call DSM to enable keyboard and touch=
+pad\n");
+> +		return false;
+> +	}
+> +
+> +	ACPI_FREE(obj);
+> +	return true;
+> +}
+> +
+> +static bool bmc150_acpi_enable_keyboard(struct i2c_client *client)
+> +{
+> +	/*
+> +	 * The EC must see a change for it to re-enable the kbd, so first set t=
+he
+> +	 * angle to 270=C2=B0 (tent/stand mode) and then change it to 90=C2=B0 =
+(laptop mode).
+> +	 */
+> +	if (!bmc150_acpi_set_angle_dsm(client, 0, 270))
+> +		return false;
+> +
+> +	/* The EC needs some time to notice the angle being changed */
+> +	msleep(100);
+> +
+> +	return bmc150_acpi_set_angle_dsm(client, 0, 90);
+> +}
+> +
+> +static void bmc150_acpi_resume_work(struct work_struct *work)
+> +{
+> +	struct bmc150_accel_data *data =3D
+> +		container_of(work, struct bmc150_accel_data, resume_work.work);
+> +
+> +	bmc150_acpi_enable_keyboard(data->second_device);
+> +}
+> +
+> +static void bmc150_acpi_resume_handler(struct device *dev)
+> +{
+> +	struct bmc150_accel_data *data =3D iio_priv(dev_get_drvdata(dev));
+> +
+> +	/*
+> +	 * Delay the bmc150_acpi_enable_keyboard() call till after the system
+> +	 * resume has completed, otherwise it will not work.
+> +	 */
+> +	schedule_delayed_work(&data->resume_work, msecs_to_jiffies(1000));
+> +}
+> +
+>  /*
+>   * Some acpi_devices describe 2 accelerometers in a single ACPI device, =
+try instantiating
+>   * a second i2c_client for an I2cSerialBusV2 ACPI resource with index 1.
+> @@ -55,12 +156,20 @@ static void bmc150_acpi_dual_accel_probe(struct i2c_=
+client *client)
+>  	board_info.irq =3D acpi_dev_gpio_irq_get_by(adev, NULL, 1);
+> =20
+>  	data->second_device =3D i2c_acpi_new_device(&client->dev, 1, &board_inf=
+o);
+> +
+> +	if (!IS_ERR(data->second_device) && bmc150_acpi_enable_keyboard(data->s=
+econd_device)) {
+> +		INIT_DELAYED_WORK(&data->resume_work, bmc150_acpi_resume_work);
+> +		data->resume_callback =3D bmc150_acpi_resume_handler;
+> +	}
+>  }
+> =20
+>  static void bmc150_acpi_dual_accel_remove(struct i2c_client *client)
+>  {
+>  	struct bmc150_accel_data *data =3D iio_priv(i2c_get_clientdata(client));
+> =20
+> +	if (data->resume_callback)
+> +		cancel_delayed_work_sync(&data->resume_work);
+> +
+>  	i2c_unregister_device(data->second_device);
+>  }
+>  #else
+> diff --git a/drivers/iio/accel/bmc150-accel.h b/drivers/iio/accel/bmc150-=
+accel.h
+> index 5da6fd32bac5..d67d6ed6ae77 100644
+> --- a/drivers/iio/accel/bmc150-accel.h
+> +++ b/drivers/iio/accel/bmc150-accel.h
+> @@ -6,6 +6,7 @@
+>  #include <linux/iio/iio.h>
+>  #include <linux/mutex.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/workqueue.h>
+> =20
+>  struct regmap;
+>  struct i2c_client;
+> @@ -62,6 +63,8 @@ struct bmc150_accel_data {
+>  	int64_t timestamp, old_timestamp; /* Only used in hw fifo mode. */
+>  	const struct bmc150_accel_chip_info *chip_info;
+>  	struct i2c_client *second_device;
+> +	void (*resume_callback)(struct device *dev);
+> +	struct delayed_work resume_work;
+>  	struct iio_mount_matrix orientation;
+>  };
+> =20
 

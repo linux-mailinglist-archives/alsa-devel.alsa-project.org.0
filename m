@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ADA138D404
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 08:47:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D937E38D406
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 08:51:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1D4416CB;
-	Sat, 22 May 2021 08:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1D4416CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6179C16A9;
+	Sat, 22 May 2021 08:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6179C16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621666051;
-	bh=HBirJZlqqMIT62XjWgpODF8RMhg4gZCjp/v6EHZtd6M=;
+	s=default; t=1621666277;
+	bh=Az9LjMcEdQO6Xgj3n1Kri1ikpUAZZu0IQnoLZkti8/4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=frhlKK+DSGqHnscxke/TU8GgZJp7VtK+NzhQLyu7gObn7cBW6yIDnyKYG43lWv91f
-	 VtCR9IxBYLWzwsVbYjaJxez+y21fWAiW+G2b7kGxZQRDYqbEtxEP/zBG+zNKOX+zp+
-	 1GgeaMGh1vjAH5ZrDby23aVEx3OziLMmUiFKIA8M=
+	b=KhGn84H+OSPaykdoY3N4RXogI0Vk8pfPB788YsPrLZFx4ID2E2rDE8kBxnGtqCiIe
+	 QK6e0DcAx90v3eU2DkhNjPhLbM0JwmAluRXtl21CaJ6N26Wfdf6Byn3QKOJSDRDiRp
+	 U0aF+Nw506ca6r5k27TnVv5P4dLyI2mFwf2rLrwU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5A44F80424;
-	Sat, 22 May 2021 08:46:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBED2F80229;
+	Sat, 22 May 2021 08:49:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1F8BF8042F; Sat, 22 May 2021 08:46:13 +0200 (CEST)
+ id 448A5F80217; Sat, 22 May 2021 08:49:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8536DF80424
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 08:46:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8536DF80424
+ by alsa1.perex.cz (Postfix) with ESMTPS id 319E6F80153
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 08:49:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 319E6F80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0cxQXuvg"; 
+ header.b="s3tLIJqx"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pdeqCAi/"
+ header.b="BdVCsG8V"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621665970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621666181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FULl3P8JCyjhywEm+0IlA2mLO7qIH/qoOOWGx3cEAxI=;
- b=0cxQXuvgIphEUCeYdrUSi0+ighlyaQmryPCwseIjl7fEoFHYACODxXUJ45VAqsfjZEM1V6
- Zae9zqxXXiQjbmhAoe/XVM/6tLwjqvHTzrcijkmC0bWyyTuYjUrg3TBESuhvHU39PsQFru
- 9Qr+FC3J9A4tYMy9TXDGt0oZ5pnhscA=
+ bh=1L5NGdgH2UmNlaL1lIAcC57nPs+AXEzuZ33c+nTOIsA=;
+ b=s3tLIJqxft+KWLvZCexUJz3zT5JcrovLqFoQ2LuHoKln6Fa+e5fkxuvbVx1k0/txasiXId
+ SchxFBsGqmmznIuZ7D/rXUQZCPbXenpkoILkGFO7PEzmTSjFMGznxP++juB/Aj4OIOn08Z
+ xnzv05m8zr7pZ8KgX9rK/MZsVAX4/kI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621665970;
+ s=susede2_ed25519; t=1621666181;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FULl3P8JCyjhywEm+0IlA2mLO7qIH/qoOOWGx3cEAxI=;
- b=pdeqCAi/SrJ99WNcb2cDqasmESDhuwX3wIGtsNA+2Dmig2ORlZg5cbTkwCqe0d9FGHDP49
- pjXkaJh+aKz7bbAQ==
+ bh=1L5NGdgH2UmNlaL1lIAcC57nPs+AXEzuZ33c+nTOIsA=;
+ b=BdVCsG8VeNmK65fC5BE1fhfpol58H5dAwNX6r0XJBUUUPpoXzdObzqGZWS/zgpb0MiwaXp
+ YC77h+PbV1RIEsDg==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 75C55AB6D;
- Sat, 22 May 2021 06:46:10 +0000 (UTC)
-Date: Sat, 22 May 2021 08:46:10 +0200
-Message-ID: <s5hh7ivfeq5.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id EC86DAB5F;
+ Sat, 22 May 2021 06:49:40 +0000 (UTC)
+Date: Sat, 22 May 2021 08:49:40 +0200
+Message-ID: <s5hfsyffekb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: trix@redhat.com
-Subject: Re: [PATCH] ALSA: usb-audio: initialize the cur variable
-In-Reply-To: <20210521194603.2077623-1-trix@redhat.com>
-References: <20210521194603.2077623-1-trix@redhat.com>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Headphone volume is controlled by
+ Front mixer
+In-Reply-To: <20210522034741.13415-1-hui.wang@canonical.com>
+References: <20210522034741.13415-1-hui.wang@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- gustavoars@kernel.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,25 +91,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 May 2021 21:46:03 +0200,
-trix@redhat.com wrote:
+On Sat, 22 May 2021 05:47:41 +0200,
+Hui Wang wrote:
 > 
-> From: Tom Rix <trix@redhat.com>
+> On some ASUS and MSI machines, the audio codec is alc1220 and the
+> Headphone is connected to audio mixer 0xf and DAC 0x5, in theory
+> the Headphone volume is controlled by DAC 0x5 (Heapdhone Playback
+> Volume), but somehow it is controlled by DAC 0x2 (Front Playback
+> Volume), maybe this is a defect on the codec alc1220.
 > 
-> Static analysis reports this problem
-> clock.c:338:10: warning: The right operand of '=='
->   is a garbage value
->     if (i == cur)
->           ^  ~~~
+> Because of this issue, the PA couldn't switch the headphone and
+> Lineout correctly, If we apply the quirk CLEVO_P950 to those machines,
+> the Lineout and Headphone will share the audio mixer 0xc and DAC 0x2,
+> and generate Headphone+LO mixer, then PA could handle them when
+> switching between them.
 > 
-> In __uac_clock_find_source() the goto find_others skips over
-> setting of the 'cur' variable.  Since the pin loop variable
-> starts with 1, it is safe to initialize cur to 0.
-> 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> BugLink: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1206
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
 
-Thanks for the patch, but this has been already fixed in for-next
-branch.
+Thanks, applied.
 
 
 Takashi

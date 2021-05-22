@@ -2,84 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338F438D6DB
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 20:11:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2190838D6DD
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 20:12:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E747167B;
-	Sat, 22 May 2021 20:10:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E747167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CF051699;
+	Sat, 22 May 2021 20:11:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CF051699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621707109;
-	bh=cusmRGFIeIToWYccwVlrbIyEf7MPI4ObHJl/jwgiJyc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1621707123;
+	bh=mNeg7+phSbeVYJtOT2UJ9mOO6LRz72nK62zoixosP2g=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lYEtUEnl0qndph8TTkw9pmfRMahXOZtYHsZWToC5TwWHo5OZ/FcJPGhxjFXRc5KiX
-	 eQRTYY6VWjflvvkBNYGZaonlrVhaEA+RbZt2CVeaz12uAKRux2UXHIXL4RznoR1OYL
-	 PfmB0eOgw44J88r7O2uv8oqILUlkSpn0rU2yMHDo=
+	b=Tuu14GSHoNAWvuKN0wjGI+9eOFImzky/oayhF4gc1HfHNSS3Nhq1eIef0wUtR2Ehm
+	 OyKZ1hStmzURPZ9i+oK2LVmtGF0KcMT9Q+aPjyopwwmw/7YHtiNpoA1tGBjWLNXa7q
+	 MOIgCRbTyvHSQXh4lAal6A3RjHBFKZzv6Gim4SoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83961F8049C;
-	Sat, 22 May 2021 20:09:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37C53F804AA;
+	Sat, 22 May 2021 20:10:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6DC5F80482; Sat, 22 May 2021 20:09:42 +0200 (CEST)
+ id 0A984F804AA; Sat, 22 May 2021 20:10:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C6D6F80431
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 20:09:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C6D6F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31091F80431
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 20:10:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31091F80431
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QT4CiTAZ"
-Received: by mail-pg1-x52f.google.com with SMTP id 27so15571935pgy.3
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 11:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qn3/PcKn8NXdi3aHEFVBAqeCO7oFTPdMzEZYpKKC4i8=;
- b=QT4CiTAZ+Y/dFzAyKLxTinNBUxlTgdTPib5bcad1V32wjKjSQNRlRSR2QVDkX/Vzyw
- 3/mIV3SsvaB19zqzbBX/7tgLNLKgtNcfPiHth8X9jQt9U7MD+f3G+K2lsMNK4Kmy1PwJ
- veuhtO/WP7X5rYOnbvGVzS0MuUL4MluzKUTeImQV+vQwIkgY6gj2tk9BCk4eSJT22d1M
- wWy42xAuyIiH10kUINyIiMcfN7NdwoE0R+Vg5tP8PHHpvFLnXco1n+jKatd3uk/FBK35
- 3VvcHDnoBTbfjdHdppgGzGD/LjIU/lCDnflzSrFGg1f/i0UZDpuVfwaFjl2kSZn48F7W
- UKqw==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="CaBmfcfO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1621707016;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4W2QcH7GGhbjcz45YQXs8r26c8aVBBmE8RTGqgNUAzA=;
+ b=CaBmfcfO8QzpQNUiU7b6gfOeK5+9aIxwHttYDVkUNPWqHwCmqFojS2A+DySVgRfVpyGK7X
+ biD63wz++nKL5p2HdOWIU8dcbmpo/dyDmr5rfDKkRyT4f48Pn8Ne2NjmQgf8N2hM9Y9m/V
+ ZB6znillTL6UXRN1agV6cgSBruvplfQ=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-119-dfZdaCK3OEedg6EXCQh2XA-1; Sat, 22 May 2021 14:10:14 -0400
+X-MC-Unique: dfZdaCK3OEedg6EXCQh2XA-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ w1-20020aa7da410000b029038d323eeee3so11159072eds.8
+ for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 11:10:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qn3/PcKn8NXdi3aHEFVBAqeCO7oFTPdMzEZYpKKC4i8=;
- b=WRNQzbS4AzkD/fTW6/t1WmmafbTzj7iUuQrcXTX7uyJ9kj5IVeeakWJhHHWntL4Uzr
- nYYqCfPllhE3R1at+A4zV2GqDg+VTzMR5l4tj/kXZZqXsDz17LSuv8Vu/xKtN6NbUu/2
- gQsDX+qHuNF8hgrdbI6xJ59tjhuoqTFhZqFAtXsyzmd3TdkqBGqsXtVsjqNWufgam5eS
- Zfx693+/bQpFaRFmoX+7OQ905BB6+8OA72fGiy46pH4kF22gqs5BSgrYaqjMiZsIjwt0
- Tc6DlSws/xb7Vkt/XJZj+8LevC/li4dRc4MlRHUfHS92/kiF0oylOHaGVPoA+G+wClGj
- qJzw==
-X-Gm-Message-State: AOAM532r04rP/tA7+NApnylzDk22U12fDKublwG1ZssyyMrHoGj+rzlg
- 9BrRniRXiv93JYGkpyXTtvPoAfzmbNWr/WqGT6k=
-X-Google-Smtp-Source: ABdhPJwmQ3Nnq6VwzozIoJ3lWw1SEcVOjgOghqVqYgc1/h9Zf9GVciy0E3aRI+cSQh4nQqyKMFoUaUu1tyuE9RR1rco=
-X-Received: by 2002:a05:6a00:1591:b029:2d9:369a:b846 with SMTP id
- u17-20020a056a001591b02902d9369ab846mr16410984pfk.40.1621706975983; Sat, 22
- May 2021 11:09:35 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=4W2QcH7GGhbjcz45YQXs8r26c8aVBBmE8RTGqgNUAzA=;
+ b=CaOLogDL/XWuMaYjrsI/ce9etkhjtmXrOOoF53hOCdkA6SXq3YN8cnRKWMmfeUemxS
+ uV1SklAhjKX+6tWuUDvHOfemZbkfWcV51fRwfFHr4RXOIShmdnws+j/4iXM+0tFWsnq2
+ 5DRd99+MX6JgnoN+/qD3eFHUXy0UfR200vZr1Z+OemeOgfXSOkCi0Le5uX0jAdj6gH4n
+ BQe8EwLaOlO22csfo/7WS5+TE02YQ9TF73DE3LrW/gtBTqlx0vrFlIj0+ytOVNL9u66l
+ Epagf7suSBGYKTU+Nq7mci0rsXSyH0HB3HDJ8iBnqIfCHHh2/QHnw4UKn/Dx/9hSFD5E
+ rJ4A==
+X-Gm-Message-State: AOAM532jCZruW/yT+6W0WQZ/ma26zpfQ80N3G6g/dvUfli5CyZ/Mia2w
+ wAXdgbpasMAIUCx11T2cgJ9f6EANroZIeLdXnSQ03Y2kBs8uSgoiWFHmBaeB514xlIPg7XQ07hT
+ GCBzmbeJls1WuFTQoWqD0asdV600L9cN+MWTaQ+2ylkJwMLD99f6A2/MhQtysHvTgBYruqChKJN
+ s=
+X-Received: by 2002:a17:906:e15:: with SMTP id
+ l21mr15377157eji.538.1621707013162; 
+ Sat, 22 May 2021 11:10:13 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyDDRmIS+L1ZyDel3O6pfJ1kfu8hHyQboMTZ25cTa+wEBEqX7ZEtMU1ZbxLOAuGTslV7Zx0hA==
+X-Received: by 2002:a17:906:e15:: with SMTP id
+ l21mr15377135eji.538.1621707012974; 
+ Sat, 22 May 2021 11:10:12 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id s11sm6716936edt.27.2021.05.22.11.10.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 22 May 2021 11:10:12 -0700 (PDT)
+Subject: Re: [PATCH 2/8] iio: accel: bmc150: Don't make the remove function of
+ the second accelerometer unregister itself
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
 References: <20210521171418.393871-1-hdegoede@redhat.com>
- <20210521171418.393871-4-hdegoede@redhat.com>
-In-Reply-To: <20210521171418.393871-4-hdegoede@redhat.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 22 May 2021 21:09:19 +0300
-Message-ID: <CAHp75VfL0U90qcG4D1eOEP0f8sOMiNsrHwXVe4YjR1ypQFBLwQ@mail.gmail.com>
-Subject: Re: [PATCH 3/8] iio: accel: bmc150: Move check for second ACPI device
- into a separate function
-To: Hans de Goede <hdegoede@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+ <20210521171418.393871-3-hdegoede@redhat.com>
+ <CAHp75VchPrngr5h91sfqxEPk81DHG43UkOsjhXpz4iNDagPjaw@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <88627e31-b417-c0b3-2019-84fd9be69a0b@redhat.com>
+Date: Sat, 22 May 2021 20:10:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+MIME-Version: 1.0
+In-Reply-To: <CAHp75VchPrngr5h91sfqxEPk81DHG43UkOsjhXpz4iNDagPjaw@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Lars-Peter Clausen <lars@metafoo.de>,
  Charles Keepax <ckeepax@opensource.cirrus.com>,
@@ -101,34 +128,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 21, 2021 at 11:23 PM Hans de Goede <hdegoede@redhat.com> wrote:
->
-> Move the check for a second ACPI device for BOSC0200 ACPI fwnodes into
-> a new bmc150_acpi_dual_accel_probe() helper function.
->
-> This is a preparation patch for adding support for a new "DUAL250E" ACPI
-> Hardware-ID (HID) used on some devices.
+Hi,
 
-...
+On 5/22/21 8:06 PM, Andy Shevchenko wrote:
+> On Fri, May 21, 2021 at 11:23 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>> On machines with dual accelerometers described in a single ACPI fwnode,
+>> the bmc150_accel_probe() instantiates a second i2c-client for the second
+>> accelerometer.
+>>
+>> A pointer to this manually instantiated second i2c-client is stored
+>> inside the iio_dev's private-data through bmc150_set_second_device(),
+>> so that the i2c-client can be unregistered from bmc150_accel_remove().
+>>
+>> Before this commit bmc150_set_second_device() took only 1 argument so it
+>> would store the pointer in private-data of the iio_dev belonging to the
+>> manually instantiated i2c-client, leading to the bmc150_accel_remove()
+>> call for the second_dev trying to unregister *itself* while it was
+>> being removed, leading to a deadlock and rmmod hanging.
+>>
+>> Change bmc150_set_second_device() to take 2 arguments: 1. The i2c-client
+>> which is instantiating the second i2c-client for the 2nd accelerometer and
+>> 2. The second-device pointer itself (which also is an i2c-client).
+>>
+>> This will store the second_device pointer in the private data of the
+>> iio_dev belonging to the (ACPI instantiated) i2c-client for the first
+>> accelerometer and will make bmc150_accel_remove() unregister the
+>> second_device i2c-client when called for the first client,
+>> avoiding the deadlock.
+> 
+> I would rather call it aux device (at least in the code). The
+> terminology maybe needs more clarification (like the main one in the
+> block with the display panel and aux in the keyboard).
+> 
+> If you disagree, ignore this comment. I have no strong opinion here
+> since I don't know the difference between them (accelerometers).
 
-> +#ifdef CONFIG_ACPI
-> +static const struct acpi_device_id bmc150_acpi_dual_accel_ids[] = {
-> +       {"BOSC0200"},
+Thank you for your input, but both sensors are identical, so calling
+one aux sounds of to me, so lets keep this as is.
 
-> +       { },
+Regards,
 
-I guess it is a good chance to drop a comma.
+Hans
 
-> +};
-
-...
-
-> +       if (!IS_ERR(second_dev))
-> +               bmc150_set_second_device(client, second_dev);
-
-I would comment on the pattern here, but I have noticed that this code
-is changed in the further patches anyway.
-
--- 
-With Best Regards,
-Andy Shevchenko

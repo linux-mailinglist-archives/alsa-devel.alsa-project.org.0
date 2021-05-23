@@ -2,56 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9853E38DA95
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 May 2021 11:05:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC3838DA9D
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 May 2021 11:11:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1917E166E;
-	Sun, 23 May 2021 11:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1917E166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4720316AE;
+	Sun, 23 May 2021 11:11:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4720316AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621760716;
-	bh=j3WPODAFqyi8LrgqZPViTbAy3ezRdqr3hhR6BS2r9Uc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KcE0FtJ+mPA3zY8+TS4gxPrfaCDjnXQ4uBZiXbubdWQcaB/U7fO8GWZuXyG8Lqoie
-	 bVM1Fystw7bU7yBLpTjxnZk4rGBzCFFl5D+E5IoskkzFyQ+Vom8PRiBQasiPYmcpGd
-	 BFcqdHZfWSPxqltT/cbpqt3yhzI7uQ7feaZPCvSE=
+	s=default; t=1621761111;
+	bh=lJZCP9ztGbOTVMnRcoE58Q0ZdOxl6dD9U/mq124LxMw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KvXAIp07EmIAOdh7gbjg82KKTs82ojr7uaXhh7G+AzWjvDpQInsPRnR762s9E6DTd
+	 Ekw+iHuOsc/X2jPbAIGwxBR0MqHToqHuRu5NBROS4o4DTiSKlhymTvLBZxl1crrrtn
+	 LoM81bj2vicvx1t2cuMMjVjuZCaGGihHqQxZ/MO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83EE2F801F5;
-	Sun, 23 May 2021 11:03:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B3F2F8016D;
+	Sun, 23 May 2021 11:09:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9538F801EB; Sun, 23 May 2021 11:03:45 +0200 (CEST)
+ id 62F76F80274; Sun, 23 May 2021 11:09:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB451F8016D
- for <alsa-devel@alsa-project.org>; Sun, 23 May 2021 11:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB451F8016D
-Received: by m.b4.vu (Postfix, from userid 1000)
- id AC316612FB20; Sun, 23 May 2021 18:33:26 +0930 (ACST)
-Date: Sun, 23 May 2021 18:33:26 +0930
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [RFC PATCH sound] ALSA: usb-audio: scarlett2:
- snd_scarlett_gen2_controls_create() can be static
-Message-ID: <20210523090326.GA121080@m.b4.vu>
-References: <202105230212.9rlkrDHb-lkp@intel.com>
- <20210522180900.GA83915@f59a3af2f1d9>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17A0FF801EB
+ for <alsa-devel@alsa-project.org>; Sun, 23 May 2021 11:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17A0FF801EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="V3Dhxdrm"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="xeihv3BG"
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1621760962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=TTORx3imQBPCwUl0IQI/q3pTyzdhT/VrlhX4mdSeJEs=;
+ b=V3DhxdrmHQl6eqLkwHjLHSBI3I3ha1iITqs+zPiHfuvgCzqMoP8suUAalPz2aov+fl8JdV
+ IKPjH+QKBpefE/f49iGRSbfJdxeuAxiNEPcuUQYXJsJFsoMa3iQKertV/aBKqws4nv2twU
+ pjcqUvF0cEmXEoDfeMvVQeRJ1pKrxeg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1621760962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=TTORx3imQBPCwUl0IQI/q3pTyzdhT/VrlhX4mdSeJEs=;
+ b=xeihv3BG33pshQ83WRk3sTTP0wQiJ0SOZ4p5j/pzulDeJnXp3jg2vMjicsGi9pMoaPHZbg
+ SH4XTtMSM/7auXCQ==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D8DB2AAFD;
+ Sun, 23 May 2021 09:09:22 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/6] ALSA: Prep work for PCI rescan support
+Date: Sun, 23 May 2021 11:09:14 +0200
+Message-Id: <20210523090920.15345-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210522180900.GA83915@f59a3af2f1d9>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,43 +83,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+Hi,
 
-This patch seems legitimate to me (although I would adjust whitespace
-so the second line doesn't go over 80 chars). Do you want to just
-apply it as-is, or do you want me to send a second version of my patch
-without this problem or send a new patch similar to this one?
+this is a revised patch set as a prep work for the future-planned PCI
+rescan support(*).  The essential part is the patch to track in-flight
+tasks, and the rest are cleanups and fixes in the core code.  With
+those changes, the driver can perform a sort of software suspend on
+the device without the hardware intervention, which is required during
+the PCI BAR movement, for example.
 
-Also sorry I don't know what the etiquette is in cc's for this message
-:(. The message from kernel test robot was sent to a lot of people who
-I don't think would be interested in this, so I trimmed the cc list
-down.
+v1->v2:
+* Move / drop unnecessary snd_power_wait() calls
+* Rephrase changelogs and comments, reorder patches
 
-Thanks,
-Geoffrey.
 
-On Sun, May 23, 2021 at 02:09:00AM +0800, kernel test robot wrote:
-> sound/usb/mixer_scarlett_gen2.c:2000:5: warning: symbol 'snd_scarlett_gen2_controls_create' was not declared. Should it be static?
-> 
-> Fixes: 265d1a90e4fb ("ALSA: usb-audio: scarlett2: Improve driver startup messages")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: kernel test robot <lkp@intel.com>
-> ---
->  mixer_scarlett_gen2.c |    4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-> index 3ad8f61a2095f..4caf379d5b991 100644
-> --- a/sound/usb/mixer_scarlett_gen2.c
-> +++ b/sound/usb/mixer_scarlett_gen2.c
-> @@ -1997,8 +1997,8 @@ static int scarlett2_mixer_status_create(struct usb_mixer_interface *mixer)
->  	return usb_submit_urb(mixer->urb, GFP_KERNEL);
->  }
->  
-> -int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
-> -				      const struct scarlett2_device_info *info)
-> +static int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
-> +					     const struct scarlett2_device_info *info)
->  {
->  	int err;
->  
+Takashi
+
+(*) https://lore.kernel.org/alsa-devel/e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com/
+
+===
+
+Takashi Iwai (6):
+  ALSA: core: Use READ_ONCE() / WRITE_ONCE() for power state change
+  ALSA: control: Track in-flight control read/write/tlv accesses
+  ALSA: control: Drop superfluous snd_power_wait() calls
+  ALSA: control: Minor optimization for SNDRV_CTL_IOCTL_POWER_STATE
+  ALSA: Drop superfluous argument from snd_power_wait()
+  ALSA: pcm: Block the release until the system resume finishes
+
+ include/sound/core.h        | 50 ++++++++++++++++++++++++++++++++++---
+ sound/core/control.c        | 38 +++++++++++++---------------
+ sound/core/control_compat.c | 14 +++--------
+ sound/core/init.c           | 46 ++++++++++++++++++++++++++++------
+ sound/core/pcm_native.c     |  6 ++++-
+ sound/soc/soc-core.c        |  2 +-
+ sound/usb/usx2y/us122l.c    |  2 +-
+ 7 files changed, 113 insertions(+), 45 deletions(-)
+
+-- 
+2.26.2
+

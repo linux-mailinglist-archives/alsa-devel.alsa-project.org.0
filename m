@@ -2,117 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D7638D71D
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 May 2021 21:06:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BD338D969
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 May 2021 09:13:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA1931679;
-	Sat, 22 May 2021 21:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA1931679
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDE511664;
+	Sun, 23 May 2021 09:12:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDE511664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621710387;
-	bh=yY5/FdSth7s/09mxJoRc1sbpTAFrn/N3OQNvqOAINpM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Uqg5KJ9TfPfmz+BpSKZfSHIT53fZp+3PcJ65Sgw/BPIDgBamq3AtmNA8pQE71o0j+
-	 Z6dt2w/7vBlEoz43OPZhqmxL4AMiJlbA6wmMx1lKVqlUqDFjZMd90F06FIB2WzmvtE
-	 eOqMRefiNftY9ofWMfx/HMF29p6ZxzGqK3x69QiA=
+	s=default; t=1621753986;
+	bh=D7ZO/YzC0oumnqsNljm0ozwO1jCsbYTjd2TtUqOV8t0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ikR3cvTmb3PsGvsalxMBVDUWe6MMPZPGQSHvyX6+bfXssRLTDNd+w/GjzPvSPcPFH
+	 i2veG4devJDe4yu5bFhqlIl2fUco7dAqAqwmxd+yTRXb8XpkEkDeaiuF4REZKVvqzg
+	 Fx7uE1qXTS1eFMtUGMYoUh5xPB7StQPDKuk5fm1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75404F80229;
-	Sat, 22 May 2021 21:04:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36922F8016D;
+	Sun, 23 May 2021 09:11:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0796EF80217; Sat, 22 May 2021 21:04:57 +0200 (CEST)
+ id 7ED6EF801EB; Sun, 23 May 2021 09:11:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D2C7F800DF
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 21:04:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D2C7F800DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="bDJ24nJ3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1621710293;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JTYqpU4ltDUcNSbPoUdnAx3Y5FQHMd2LMPQn4HBUBaw=;
- b=bDJ24nJ30MjCO0nWULCHfJThkpxGBM4PM8n5Y3bEk5W1RRjs7ojZGZWU4g9gKTmhYn7Wsj
- e9sseSl5+/YlRm9cUcFHq1Nztvr5daI3tmM3XuAqRE7S5pGFVO2gNc9qEA6VkJD8AgIz/U
- RPfZlZTD0phyM+jqbX4qEJTO5ruik84=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-465-Hj_vDVnuNWSkEEKlaioi8A-1; Sat, 22 May 2021 15:04:52 -0400
-X-MC-Unique: Hj_vDVnuNWSkEEKlaioi8A-1
-Received: by mail-ed1-f70.google.com with SMTP id
- c15-20020a05640227cfb029038d710bf29cso7177746ede.16
- for <alsa-devel@alsa-project.org>; Sat, 22 May 2021 12:04:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=JTYqpU4ltDUcNSbPoUdnAx3Y5FQHMd2LMPQn4HBUBaw=;
- b=J6r7d7q8qINd08rUSox+BbJ90Y7als0SbqLeAHbejmrmwcJ1kmsxbyDfp93O3lJioe
- gaPCwj4i06lsOUBI9j8NEv8F4+OJ4n+9hiLFVKzW99rUjfWRs0Xt+fjTZoe6HwXh5wWp
- Y1lQqJZ0W7lqSxB/lYTQE/cPFFssy339QkJUuO21XAX8A2xZ3CT0Km/Uy5EonIBzRi2U
- l16ipbEErzXjal1oYhziLPD+MsbjldIQFVp6UNWkoeIjAggA2J6I8jRyk36i/O2p4of6
- ACB/xAS1OOPN5OJqFaLadBLioPrR5BBvnOERah5zdM+jO39iNe+HXtdNl8RTyRTqZQHx
- bCtg==
-X-Gm-Message-State: AOAM530sig4yzdzOMzdB2JBOsF+fo7kHeNtHxDY0DK8uxD1KANRU/67A
- uD7rSswEWc6g/PeQnsoeL0uPREoYCPLWfXgcppnb9RrwjmXmGjzLaoP9sOiEo3cltSCFRlO/MZ4
- 3UvJ7UEduyWm1w8iglhcFvzPvaxsajzBTauKtUGczvk3mpiYyh1o/rRvkfvM3FtisZ1u655UqpB
- 8=
-X-Received: by 2002:a17:907:1b06:: with SMTP id
- mp6mr16119721ejc.292.1621710290815; 
- Sat, 22 May 2021 12:04:50 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw5S9lzwdzwMNz7zIjzaMkasypoc/wWhCqbx5Y97aDyj6iRIBkj7CbgYdIxqOAU0FN4XsRhYw==
-X-Received: by 2002:a17:907:1b06:: with SMTP id
- mp6mr16119700ejc.292.1621710290572; 
- Sat, 22 May 2021 12:04:50 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id p11sm194424edt.22.2021.05.22.12.04.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 May 2021 12:04:50 -0700 (PDT)
-Subject: Re: [PATCH 8/8] iio: accel: bmc150: Set label based on accel-location
- for ACPI DUAL250E fwnodes
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-References: <20210521171418.393871-1-hdegoede@redhat.com>
- <20210521171418.393871-9-hdegoede@redhat.com>
- <CAHp75VeOpT9yJx8FT57NwQQCo0ojs+-sHZn7D3DSA=caH3FZMg@mail.gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <da47ac52-e584-7369-e153-09cb474d9708@redhat.com>
-Date: Sat, 22 May 2021 21:04:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50C00F8016D
+ for <alsa-devel@alsa-project.org>; Sun, 23 May 2021 09:11:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50C00F8016D
+Received: from dggems701-chm.china.huawei.com (unknown [172.30.72.59])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Fns014hV2zmXf4;
+ Sun, 23 May 2021 15:09:05 +0800 (CST)
+Received: from dggema769-chm.china.huawei.com (10.1.198.211) by
+ dggems701-chm.china.huawei.com (10.3.19.178) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Sun, 23 May 2021 15:11:24 +0800
+Received: from localhost (10.174.179.215) by dggema769-chm.china.huawei.com
+ (10.1.198.211) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Sun, 23
+ May 2021 15:11:23 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>
+Subject: [PATCH -next] ALSA: control_led - use DEVICE_ATTR_*() macro
+Date: Sun, 23 May 2021 15:11:09 +0800
+Message-ID: <20210523071109.28940-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <CAHp75VeOpT9yJx8FT57NwQQCo0ojs+-sHZn7D3DSA=caH3FZMg@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- linux-iio <linux-iio@vger.kernel.org>, patches@opensource.cirrus.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jeremy Cline <jeremy@jcline.org>,
- Mark Brown <broonie@kernel.org>, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggema769-chm.china.huawei.com (10.1.198.211)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,57 +76,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Use DEVICE_ATTR_*() helper instead of plain DEVICE_ATTR,
+which makes the code a bit shorter and easier to read.
 
-On 5/22/21 8:34 PM, Andy Shevchenko wrote:
-> On Fri, May 21, 2021 at 11:23 PM Hans de Goede <hdegoede@redhat.com> wrote:
->>
->> Some Yoga laptops with 1 accelerometer in the display and 1 in the base,
->> use an ACPI HID of DUAL250E instead of BOSC0200.
->>
->> Set the iio-device's label for DUAL250E devices to a value indicating which
->> sensor is which, mirroring how we do this for BOSC0200 dual sensor devices.
->>
->> Note the DUAL250E fwnode unfortunately does not include a mount-matrix.
-> 
->> +       /* Special case for devices with a "DUAL250E" HID */
->> +       if (adev && acpi_dev_hid_uid_match(adev, "DUAL250E", NULL)) {
->> +               if (strcmp(dev_name(dev), "i2c-DUAL250E:base") == 0)
->> +                       label = "accel-base";
->> +               else
->> +                       label = "accel-display";
->> +
->> +               indio_dev->label = label;
->> +               return false; /* DUAL250E fwnodes have no mount matrix info */
->> +       }
->> +
->>         if (!adev || !acpi_dev_hid_uid_match(adev, "BOSC0200", NULL))
->>                 return false;
-> 
-> 
-> This sounds to me like
-> 
-> _apply_orientation_generic()
-> ...
-> 
-> _apply_orientation_dual250e()
-> 
-> 
-> _apply_orientation()
-> 
-> if ()
->   return _apply_orientation_generic()
-> 
-> if ()
->  return _apply_orientation_dual250e
-> 
-> return false;
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/core/control_led.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
 
-Good point, I'll give that a try for v2 and see if I like the end result
-of that. If it turns out to be a bit ugly I'll just stick with
-what is in v1.
-
-Regards,
-
-Hans
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 25f57c14f294..a5e751f26d46 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -375,7 +375,7 @@ static void snd_ctl_led_disconnect(struct snd_card *card)
+  * sysfs
+  */
+ 
+-static ssize_t show_mode(struct device *dev,
++static ssize_t mode_show(struct device *dev,
+ 			 struct device_attribute *attr, char *buf)
+ {
+ 	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
+@@ -390,7 +390,8 @@ static ssize_t show_mode(struct device *dev,
+ 	return sprintf(buf, "%s\n", str);
+ }
+ 
+-static ssize_t store_mode(struct device *dev, struct device_attribute *attr,
++static ssize_t mode_store(struct device *dev,
++			  struct device_attribute *attr,
+ 			  const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
+@@ -419,7 +420,7 @@ static ssize_t store_mode(struct device *dev, struct device_attribute *attr,
+ 	return count;
+ }
+ 
+-static ssize_t show_brightness(struct device *dev,
++static ssize_t brightness_show(struct device *dev,
+ 			       struct device_attribute *attr, char *buf)
+ {
+ 	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
+@@ -427,8 +428,8 @@ static ssize_t show_brightness(struct device *dev,
+ 	return sprintf(buf, "%u\n", ledtrig_audio_get(led->trigger_type));
+ }
+ 
+-static DEVICE_ATTR(mode, 0644, show_mode, store_mode);
+-static DEVICE_ATTR(brightness, 0444, show_brightness, NULL);
++static DEVICE_ATTR_RW(mode);
++static DEVICE_ATTR_RO(brightness);
+ 
+ static struct attribute *snd_ctl_led_dev_attrs[] = {
+ 	&dev_attr_mode.attr,
+@@ -562,22 +563,25 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
+ 	return count;
+ }
+ 
+-static ssize_t parse_attach(struct device *dev, struct device_attribute *attr,
++static ssize_t attach_store(struct device *dev,
++			    struct device_attribute *attr,
+ 			    const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+ 	return set_led_id(led_card, buf, count, true);
+ }
+ 
+-static ssize_t parse_detach(struct device *dev, struct device_attribute *attr,
++static ssize_t detach_store(struct device *dev,
++			    struct device_attribute *attr,
+ 			    const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+ 	return set_led_id(led_card, buf, count, false);
+ }
+ 
+-static ssize_t ctl_reset(struct device *dev, struct device_attribute *attr,
+-			 const char *buf, size_t count)
++static ssize_t reset_store(struct device *dev,
++			   struct device_attribute *attr,
++			   const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+ 	int err;
+@@ -590,8 +594,8 @@ static ssize_t ctl_reset(struct device *dev, struct device_attribute *attr,
+ 	return count;
+ }
+ 
+-static ssize_t ctl_list(struct device *dev,
+-			struct device_attribute *attr, char *buf)
++static ssize_t list_show(struct device *dev,
++			 struct device_attribute *attr, char *buf)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+ 	struct snd_card *card;
+@@ -624,10 +628,10 @@ static ssize_t ctl_list(struct device *dev,
+ 	return buf2 - buf;
+ }
+ 
+-static DEVICE_ATTR(attach, 0200, NULL, parse_attach);
+-static DEVICE_ATTR(detach, 0200, NULL, parse_detach);
+-static DEVICE_ATTR(reset, 0200, NULL, ctl_reset);
+-static DEVICE_ATTR(list, 0444, ctl_list, NULL);
++static DEVICE_ATTR_WO(attach);
++static DEVICE_ATTR_WO(detach);
++static DEVICE_ATTR_WO(reset);
++static DEVICE_ATTR_RO(list);
+ 
+ static struct attribute *snd_ctl_led_card_attrs[] = {
+ 	&dev_attr_attach.attr,
+-- 
+2.17.1
 

@@ -2,85 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C544938DA87
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 May 2021 10:34:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9853E38DA95
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 May 2021 11:05:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D1011688;
-	Sun, 23 May 2021 10:33:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D1011688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1917E166E;
+	Sun, 23 May 2021 11:04:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1917E166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621758852;
-	bh=bh6/l/0Mu1qg0nReaUSdCNaagsF9K56R/ONhvLP2h6I=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621760716;
+	bh=j3WPODAFqyi8LrgqZPViTbAy3ezRdqr3hhR6BS2r9Uc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wg/LXaC4hZlbfVCsf9QkWmdDjBIVMjeLcHBWrZOr8A8a4kYIgNo43eJL6cFvVCV0o
-	 QDQwg+jEV5nUZ8O+riexuYsyL6VbHe6l5wDzPSUZlI73dJS1Ah2nUNXGEpp9vGg25R
-	 Qr8sb+dZBcF+H5VEAu+NfuE7PQaN6IoHnGqmfXl8=
+	b=KcE0FtJ+mPA3zY8+TS4gxPrfaCDjnXQ4uBZiXbubdWQcaB/U7fO8GWZuXyG8Lqoie
+	 bVM1Fystw7bU7yBLpTjxnZk4rGBzCFFl5D+E5IoskkzFyQ+Vom8PRiBQasiPYmcpGd
+	 BFcqdHZfWSPxqltT/cbpqt3yhzI7uQ7feaZPCvSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71E0FF801F5;
-	Sun, 23 May 2021 10:32:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83EE2F801F5;
+	Sun, 23 May 2021 11:03:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29998F801EB; Sun, 23 May 2021 10:32:42 +0200 (CEST)
+ id D9538F801EB; Sun, 23 May 2021 11:03:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5AD3F80137
- for <alsa-devel@alsa-project.org>; Sun, 23 May 2021 10:32:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5AD3F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="h51il5Ia"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="8TlffLWw"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621758750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=U59H/l6kOzXNcwBFT4+SCj3zz1deOAwXFfaCSRs3PV8=;
- b=h51il5IaqS612ve+aHInTVXqwdzBSOXrZy5IhOiVjtE+9jhbMkgHeLsUSlPMc5Hwx1/5am
- CSMor9Kq3ZQkFhK/NyxywBa0MZkWJ7tYtpkZEqef4tBRE1MMd0SHZxjPN7SQTO5Tt174PS
- PXbeVoRnz6w68PQ5N2RqOf21DXOZS4M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621758750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=U59H/l6kOzXNcwBFT4+SCj3zz1deOAwXFfaCSRs3PV8=;
- b=8TlffLWw82CiUzFWs8jwldiRyaZIto2Pt5GUpHGuztNWX4+1H5R3zL/NSpUFeKhJhd/GAz
- wKTSd8iJHy8p2OAg==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 375B6AC3A;
- Sun, 23 May 2021 08:32:30 +0000 (UTC)
-Date: Sun, 23 May 2021 10:32:28 +0200
-Message-ID: <s5hzgwletpf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: kernel test robot <lkp@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB451F8016D
+ for <alsa-devel@alsa-project.org>; Sun, 23 May 2021 11:03:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB451F8016D
+Received: by m.b4.vu (Postfix, from userid 1000)
+ id AC316612FB20; Sun, 23 May 2021 18:33:26 +0930 (ACST)
+Date: Sun, 23 May 2021 18:33:26 +0930
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [RFC PATCH sound] ALSA: usb-audio: scarlett2:
  snd_scarlett_gen2_controls_create() can be static
-In-Reply-To: <20210522180900.GA83915@f59a3af2f1d9>
+Message-ID: <20210523090326.GA121080@m.b4.vu>
 References: <202105230212.9rlkrDHb-lkp@intel.com>
  <20210522180900.GA83915@f59a3af2f1d9>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Alexander Tsoy <alexander@tsoy.me>, Joe Perches <joe@perches.com>,
- "Geoffrey D. Bennett" <g@b4.vu>, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210522180900.GA83915@f59a3af2f1d9>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,16 +67,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 22 May 2021 20:09:00 +0200,
-kernel test robot wrote:
-> 
+Hi Takashi,
+
+This patch seems legitimate to me (although I would adjust whitespace
+so the second line doesn't go over 80 chars). Do you want to just
+apply it as-is, or do you want me to send a second version of my patch
+without this problem or send a new patch similar to this one?
+
+Also sorry I don't know what the etiquette is in cc's for this message
+:(. The message from kernel test robot was sent to a lot of people who
+I don't think would be interested in this, so I trimmed the cc list
+down.
+
+Thanks,
+Geoffrey.
+
+On Sun, May 23, 2021 at 02:09:00AM +0800, kernel test robot wrote:
 > sound/usb/mixer_scarlett_gen2.c:2000:5: warning: symbol 'snd_scarlett_gen2_controls_create' was not declared. Should it be static?
 > 
 > Fixes: 265d1a90e4fb ("ALSA: usb-audio: scarlett2: Improve driver startup messages")
 > Reported-by: kernel test robot <lkp@intel.com>
 > Signed-off-by: kernel test robot <lkp@intel.com>
-
-Applied now.  Thanks.
-
-
-Takashi
+> ---
+>  mixer_scarlett_gen2.c |    4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+> index 3ad8f61a2095f..4caf379d5b991 100644
+> --- a/sound/usb/mixer_scarlett_gen2.c
+> +++ b/sound/usb/mixer_scarlett_gen2.c
+> @@ -1997,8 +1997,8 @@ static int scarlett2_mixer_status_create(struct usb_mixer_interface *mixer)
+>  	return usb_submit_urb(mixer->urb, GFP_KERNEL);
+>  }
+>  
+> -int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
+> -				      const struct scarlett2_device_info *info)
+> +static int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
+> +					     const struct scarlett2_device_info *info)
+>  {
+>  	int err;
+>  

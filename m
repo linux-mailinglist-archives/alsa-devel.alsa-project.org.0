@@ -2,90 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6850D38E518
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 13:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5AAA38E57A
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 13:29:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0644844;
-	Mon, 24 May 2021 13:09:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0644844
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8A65166E;
+	Mon, 24 May 2021 13:28:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8A65166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621854628;
-	bh=UuNjd4Aun0I5ZwLHTfi60btQs4j2cHqaqe4SHIvqrGM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=V/9gbZE9gqXPsBrd9gzHcgnz0arVCh8Al5yQr+JCinKLrDV46DHkQDl/iMCmiTXOI
-	 lcjrKQUB7MUp70g4IIK212hXh459Jj/MkV42upA7qo3U3dGWfVO5VpqbBciN0Zf4wG
-	 SgnxfN04JylOcXgxQHJtyrALmuEIfbrIRwAxACm4=
+	s=default; t=1621855785;
+	bh=nrEHvFIiNCHg4cvJK7rfPHW6l8ILWwZGzVJtaELSJps=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Kqe+sjPbFBK7syql3ZcCJpw4U+ssDBNv3R16rVK48yVQ53y/cj9nzKXY6d+ROYZjO
+	 73Q4zrAx54HzW3PXSjXsYIxjy0DExaHXguoSIogaLlz1fKiOm6ZyFsgytTGUT+2wFX
+	 Qc/gfOjUeZ0EG05jud13QRxuk46MIebkeywNsEWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF972F804B0;
-	Mon, 24 May 2021 13:07:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FE02F80137;
+	Mon, 24 May 2021 13:28:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B27EF804A9; Mon, 24 May 2021 13:07:28 +0200 (CEST)
+ id 56C0FF8022B; Mon, 24 May 2021 13:28:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09C94F800B8
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 13:07:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C94F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="e0P9PDID"
-Received: by mail-wr1-x431.google.com with SMTP id z17so28094479wrq.7
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 04:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1RUP68I3HwNhuXkqx8NfMcQ+Gf4uaCrCeHBt2iSVUE0=;
- b=e0P9PDIDn59yFnHeDut/LBVMSKTB+WulaHlndXolRHicxhZ3f9Qk0xoRkiXowaNubX
- 8PP4jIbq2eo4TfxpoK1Ua1Uc1vYNRi6GBhXl8ImK4K8uF4yPn4fCIsZ+I+fURcsFXHfo
- hYqLJip34CignAkIoGkCWMlXrvT7kKVbqfzadC+MBKr7z4fOf90Vxw7P6+SVH/QpjX36
- JYOvW6NpUEo29tYON124o+Az8Mqv1Yr2v1TVWcvfvbqNECAyCnfw1lxUXOPqeDzw5GR6
- MLhdSk0XxwNY8guO8PA+yQTZuiIK8fE9TO6YhN4k/AE6wf/+ci9G1xPbcPfLSU/w12vM
- TJlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1RUP68I3HwNhuXkqx8NfMcQ+Gf4uaCrCeHBt2iSVUE0=;
- b=OtTse6i78addQXb1I2KSj6u5D8ns1lreXK0H+6shhHI04CKRRfYWmvKMl2p+P1Zdgh
- rJd+Q4PAJbjQ28m9jCBjT+nGN5mu1Y4P8AJIO0kDj1teLpAwcDnATlh7i32S5PLZJoTm
- Pd7Y+sMQvcGCdlsH/LWsYu/WXAUdkJcYvu9049lct1xZ2hjVw8toL7DMw/r0NLgCXpNA
- pNX+BTtemg9Dv4lJSRB3+CrEnhNzuhrJ0bP/8L/yQP2TX+FaHmY4sJT/LnAY3P+0LWk3
- AUapWTZT/0Pum4JZZ43dyn513hdQJ/B4RyEq6PdT6eXIGQBR2r5An1ikuMTmwkE+QYTv
- 8MDg==
-X-Gm-Message-State: AOAM532eWGoMI0Dd6ALvzjwe125jQ8XccJVQ50UoVzQJayRVJ4SB8caA
- q/erAK4yGBX0hR4kydxyystkqA==
-X-Google-Smtp-Source: ABdhPJzi9GLp/45oFFd8/DlCNBsAgZZOYebEDhB5FTTfCuIOj2L150Qtq6d1rT7Po8grL9X5EPpd0g==
-X-Received: by 2002:a05:6000:50d:: with SMTP id
- a13mr20798928wrf.130.1621854437515; 
- Mon, 24 May 2021 04:07:17 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id x4sm7590978wmj.17.2021.05.24.04.07.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 04:07:17 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH v2 4/4] ASoC: qcom: sdm845: add jack support for WCD934x
-Date: Mon, 24 May 2021 12:07:00 +0100
-Message-Id: <20210524110700.27077-5-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20210524110700.27077-1-srinivas.kandagatla@linaro.org>
-References: <20210524110700.27077-1-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A89CF80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 13:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A89CF80137
+IronPort-SDR: QrR7xe+laCTL2lVAyqu3SaShrgrgZo1uY2TQkY0UxwdvWlEMCzQCv48J+t7g7QcHA1UNS1Uza1
+ arjcSPZwdj5g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9993"; a="201953059"
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="201953059"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2021 04:27:48 -0700
+IronPort-SDR: mt2kqvJI/s7BZy4c1xRNJDyGZVcQf/mCRmPymK4imtphvn/LY1HUY2iDTBCszFF0/bdEes1c9E
+ 8wFbk4YDSLUQ==
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="475825638"
+Received: from pujfalus-mobl.ger.corp.intel.com (HELO
+ peter-virtualbox.ger.corp.intel.com) ([10.249.39.203])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2021 04:27:47 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: tiwai@suse.de
+Subject: [RFC] ALSA: hda: Add Lenovo ThinkStation P340 to power_save_denylist
+Date: Mon, 24 May 2021 14:27:40 +0300
+Message-Id: <20210524112740.19330-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,30 +73,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/sdm845.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On playback start there is a huge plock/pop noise via the green jack used
+in Line out mode.
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 153e9b2de0b5..0adfc5708949 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -288,6 +288,14 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 			snd_soc_dai_set_sysclk(codec_dai, 0,
- 					       WCD934X_DEFAULT_MCLK_RATE,
- 					       SNDRV_PCM_STREAM_PLAYBACK);
-+
-+			rval = snd_soc_component_set_jack(codec_dai->component,
-+							  &pdata->jack, NULL);
-+			if (rval != 0 && rval != -ENOTSUPP) {
-+				dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+				return rval;
-+			}
-+
- 		}
- 		break;
- 	default:
+The only way I was able to fix it to set the power_save to 0 for the
+snd_hda_intel.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+Hi Takashi,
+
+ever since I have this workstation the plock/pop noise on playback start bugged
+me. So far the only solution I have found is to disable the power_save which
+I find acceptable on a desktop compared to the pops.
+
+The alsa-info.sh output is can be found here:
+http://alsa-project.org/db/?f=414b1b236fc73db386ad4f938bc3b304f6b30b05
+
+The machine have ALC623 codec and the jacks are correctly discovered and they
+do what they supposed to be.
+When I have the headset connected to the front and audio is routed there the
+line out (green jack) from the back still prodices the plock/pop.
+
+Is there a known quirk for similar issue or a better way to handle it?
+
+Thanks you,
+Peter Ujfalusi
+
+ sound/pci/hda/hda_intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 79ade335c8a0..e16d93d8291f 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2213,6 +2213,8 @@ static const struct snd_pci_quirk power_save_denylist[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x36a7, "Lenovo C50 All in one", 0),
+ 	/* https://bugs.launchpad.net/bugs/1821663 */
+ 	SND_PCI_QUIRK(0x1631, 0xe017, "Packard Bell NEC IMEDIA 5204", 0),
++	/* Loud pluck/pop noise via the green jack on playback start */
++	SND_PCI_QUIRK(0x8086, 0x06c8, "Lenovo ThinkStation P340", 0),
+ 	{}
+ };
+ #endif /* CONFIG_PM */
 -- 
-2.21.0
+2.31.1
 

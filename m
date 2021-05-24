@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1E838E61F
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 14:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EC538E618
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 14:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEE8616C6;
-	Mon, 24 May 2021 14:02:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEE8616C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BD6E16AA;
+	Mon, 24 May 2021 14:01:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BD6E16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621857779;
-	bh=I/AnOl07xJ78/MlMBrSL4ZrBn/VkAl/y+yaLeCLFMGQ=;
+	s=default; t=1621857728;
+	bh=aB67jAoUabmrvPvNeu2p/bIDSS6GeTv8dUedzFdTyQE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QNbspvMzMsQkjt1Gr/j2edmVsEiegYKKcMIXcJEv+pdv5GI7kh9EFpZ6rJ80P/hfE
-	 vt7DqwiBKXrESkQLyAYcw4zhipwOZyW6tPq3sP3eFvaI3gVQkRnrnLHFv89yPd10BH
-	 rLdzsGge4QOeyameXzlmHCeyQ3mb36qj++/U17+A=
+	b=JEoBTOm/7qCcxX2UpxRf/9Ex9BoQmzlW/g/H0HixE8ZONqtINCOvBNd3mtweifyC/
+	 D5LstndVdUuGdrM6SabFouojNOrdJ6EUKZAeJM/Gu2gHNmH+HoirndVoixQHApAPZn
+	 mkCdc+NpvkqbaGp0VHa++mjsY9ackxYOEv3Cvzl0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92FAEF80425;
-	Mon, 24 May 2021 14:00:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A186BF8023A;
+	Mon, 24 May 2021 14:00:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E935F80137; Mon, 24 May 2021 14:00:37 +0200 (CEST)
+ id 5EFA4F8023A; Mon, 24 May 2021 14:00:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,39 @@ X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1850F80149
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 14:00:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1850F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id C45D5F80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 14:00:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C45D5F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QvkNw20K"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6B9936128B;
- Mon, 24 May 2021 12:00:29 +0000 (UTC)
+ header.b="gnu8Okow"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 001376128D;
+ Mon, 24 May 2021 12:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621857629;
- bh=I/AnOl07xJ78/MlMBrSL4ZrBn/VkAl/y+yaLeCLFMGQ=;
+ s=k20201202; t=1621857632;
+ bh=aB67jAoUabmrvPvNeu2p/bIDSS6GeTv8dUedzFdTyQE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QvkNw20K223eZiCt9lDwQbruNbPbC126q+a7an9hF/N2qZwgV03A5DoBemDvFntN7
- TdavodDp4gl8ZZeysenWiG/rFwFVvZuiD2ucvjc9s6ghrFT5VKwyov2camHoQSvVBc
- 4qV11Ugwj87M5vlPKiQlzwEMploNia+14zLDjGHTrhTbfGouGcnim4w1pMzSoCWzlw
- hncJuw39vN4rrMHTd1ZGv3jKeBApYZvB/qdMqFWa+RRXUCDxPNADAzjDpep5yww9Tr
- oKg+dQJuMZmp7Pt9kY0la8pOAzWw5eEAzHzBs2hOTUzsgE/KxZSZd+3d7G72eB1JIc
- KDyRHmbC7GRgQ==
+ b=gnu8Okowfm1deDMXO9mUDGl1Pxv2OsnBgPk6dJ4dCeQVojlY0yoj+Rf4ryUdk+PxJ
+ J72crv7UY/xkyQqAVllGhqtowxpgBNxRb3XbrSAraQ2pc7ANUFseM8LGQIfXEKjKRZ
+ 799DpI/UYRByCgyiiaHwLnnMGpJEDdGh/BAdy/832YlzBZGLAiKJsSzLxLwRV3B77w
+ JP4QcTCnDRtvv8JNT7fVf3r3BOnCrWWcnQcRXkl6w31Vp7Oj+sqwuTQNtRD0+3itSQ
+ xByaiY0eDbdmfsqkAptAJEwqTmk6xj8Sf+L2twxqlTDJJGNlIwC7SfrFmKzgiHl6qy
+ hWOAJ6Fo1FDkA==
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-Subject: Re: [PATCH RFC 1/2] ASoC: dt-bindings: codecs: Add bindings for nxp,
- tfa989x
-Date: Mon, 24 May 2021 12:59:56 +0100
-Message-Id: <162185746496.49382.12917440362021007479.b4-ty@kernel.org>
+To: Rob Herring <robh+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH 0/3] ASoC: rsnd: add D3 support
+Date: Mon, 24 May 2021 12:59:57 +0100
+Message-Id: <162185746497.49382.1963607123568169981.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210513104129.36583-1-stephan@gerhold.net>
-References: <20210513104129.36583-1-stephan@gerhold.net>
+In-Reply-To: <87y2c4oe3y.wl-kuninori.morimoto.gx@renesas.com>
+References: <87y2c4oe3y.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Vincent Knecht <vincent.knecht@mailoo.org>
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,13 +82,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 May 2021 12:41:28 +0200, Stephan Gerhold wrote:
-> NXP/Goodix TFA989X (TFA1) amplifiers are controlled via an I2C bus.
-> Add simple device tree bindings that describe how to set them up
-> in the device tree.
+On 24 May 2021 15:11:29 +0900, Kuninori Morimoto wrote:
+> These adds R-Car D3 support for rsnd driver.
+> [1/3] is tidyup patch for dt-bindings (not only for D3).
+> [2/3], [3/3] are for R-Car D3.
 > 
-> Right now only nxp,tfa9895 is supported but this will be extended
-> to at least nxp,tfa9897 in the near future.
+> Kuninori Morimoto (3):
+>   ASoC: dt-bindings: renesas: rsnd: tidyup properties
+>   ASoC: rsnd: tidyup loop on rsnd_adg_clk_query()
+>   ASoC: rsnd: add null CLOCKIN support
+> 
+> [...]
 
 Applied to
 
@@ -98,10 +100,12 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: codecs: Add bindings for nxp, tfa989x
-      commit: 17ba36b704692a433d38cb230e99ec333ecd14a2
-[2/2] ASoC: codecs: Add driver for NXP/Goodix TFA989x (TFA1) amplifiers
-      commit: af00978a0a06bab60bd5adf54a65ea69d19ce35d
+[1/3] ASoC: dt-bindings: renesas: rsnd: tidyup properties
+      commit: 17c2d247ddd231199e682b0a7fda42fe46c2c07b
+[2/3] ASoC: rsnd: tidyup loop on rsnd_adg_clk_query()
+      commit: cf9d5c6619fadfc41cf8f5154cb990cc38e3da85
+[3/3] ASoC: rsnd: add null CLOCKIN support
+      commit: d6956a7dde6fbf843da117f8b69cc512101fdea2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

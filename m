@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE0438E0E8
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 08:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A33B738E0EA
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 08:14:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C585A1696;
-	Mon, 24 May 2021 08:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C585A1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A41A1699;
+	Mon, 24 May 2021 08:13:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A41A1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621836808;
-	bh=jbz/CfGBVjLGBQk4fMyMMz9BWqUuBBX7LDznwD1/Rn0=;
+	s=default; t=1621836845;
+	bh=o/Mim1IKP9S8wPCqE1Mqtco0+auZcYvGQukyiBFFwDA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hmr5zaXzY1wpfC0LjiMHA1dvqlHRcQt4CU82jDISw2j5OvO+i+N8BV1b0FJt0/W7p
-	 9oDeOXeWpQ9cUlvLTM1DYutIGh/MT0Pm3PD/Gh3ZXOLyC5w49VualjUjt4qrWVPA36
-	 AZlVskO1p0LbTGIpMenVYWrwv1gW3XQ/8+YuGcHQ=
+	b=LoMxlS2Q6roFdTcY8j76GVphRlgO2rsCX0+HPtssZMDQaC4M3zt5E5fzxhi4iVz+n
+	 +VWeKyFawheZq+kbnejukOF9iV0zrlthUoUBcLdv65KVV9SR55/+gZxBcw3On+UWbB
+	 q6FxE09rw076s6puN7xXKTgwa1WSRy+fZwQ1hod0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E795F80260;
-	Mon, 24 May 2021 08:12:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E61FF80425;
+	Mon, 24 May 2021 08:12:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1385F8022D; Mon, 24 May 2021 08:12:19 +0200 (CEST)
+ id A7298F800B8; Mon, 24 May 2021 08:12:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E9F5BF8022D
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 08:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9F5BF8022D
-Date: 24 May 2021 15:12:04 +0900
-X-IronPort-AV: E=Sophos;i="5.82,319,1613401200"; d="scan'208";a="82038446"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 24 May 2021 15:12:04 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id A41AEF800B8
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 08:12:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A41AEF800B8
+Date: 24 May 2021 15:12:09 +0900
+X-IronPort-AV: E=Sophos;i="5.82,319,1613401200"; d="scan'208";a="82217454"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 24 May 2021 15:12:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id A63DD400D0C2;
- Mon, 24 May 2021 15:12:04 +0900 (JST)
-Message-ID: <87wnrooe2z.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id ADDE141BEAD2;
+ Mon, 24 May 2021 15:12:09 +0900 (JST)
+Message-ID: <87v978oe2u.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/3] ASoC: dt-bindings: renesas: rsnd: tidyup properties
+Subject: [PATCH 2/3] ASoC: rsnd: tidyup loop on rsnd_adg_clk_query()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>
@@ -71,55 +71,40 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-1) resets/reset-names needs minItems
-2) It can use ports, not only port
-3) It is not using audio-graph properties
+commit 06e8f5c842f2d ("ASoC: rsnd: don't call clk_get_rate() under
+atomic context") used saved clk_rate, thus for_each_rsnd_clk()
+is no longer needed. This patch fixes it.
 
-Without this patch, we will get warnings
-
+Fixes: 06e8f5c842f2d ("ASoC: rsnd: don't call clk_get_rate() under atomic context")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../devicetree/bindings/sound/renesas,rsnd.yaml        | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ sound/soc/sh/rcar/adg.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index 605de3a5847f..ee936d1aa724 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -86,9 +86,11 @@ properties:
-   power-domains: true
+diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
+index f7773c41085b..a0b5bd5a7464 100644
+--- a/sound/soc/sh/rcar/adg.c
++++ b/sound/soc/sh/rcar/adg.c
+@@ -290,7 +290,6 @@ static void rsnd_adg_set_ssi_clk(struct rsnd_mod *ssi_mod, u32 val)
+ int rsnd_adg_clk_query(struct rsnd_priv *priv, unsigned int rate)
+ {
+ 	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
+-	struct clk *clk;
+ 	int i;
+ 	int sel_table[] = {
+ 		[CLKA] = 0x1,
+@@ -303,10 +302,9 @@ int rsnd_adg_clk_query(struct rsnd_priv *priv, unsigned int rate)
+ 	 * find suitable clock from
+ 	 * AUDIO_CLKA/AUDIO_CLKB/AUDIO_CLKC/AUDIO_CLKI.
+ 	 */
+-	for_each_rsnd_clk(clk, adg, i) {
++	for (i = 0; i < CLKMAX; i++)
+ 		if (rate == adg->clk_rate[i])
+ 			return sel_table[i];
+-	}
  
-   resets:
-+    minItems: 1
-     maxItems: 11
- 
-   reset-names:
-+    minItems: 1
-     maxItems: 11
- 
-   clocks:
-@@ -110,6 +112,13 @@ properties:
-         - pattern: '^dvc\.[0-1]$'
-         - pattern: '^clk_(a|b|c|i)$'
- 
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    properties:
-+      port(@[0-9a-f]+)?:
-+        $ref: audio-graph-port.yaml#
-+        unevaluatedProperties: false
-+
-   port:
-     $ref: audio-graph-port.yaml#
-     unevaluatedProperties: false
-@@ -257,7 +266,6 @@ required:
-   - "#sound-dai-cells"
- 
- allOf:
--  - $ref: audio-graph.yaml#
-   - if:
-       properties:
-         compatible:
+ 	/*
+ 	 * find divided clock from BRGA/BRGB
 -- 
 2.25.1
 

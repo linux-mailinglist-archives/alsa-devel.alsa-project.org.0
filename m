@@ -2,111 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF33638E654
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 14:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C8E38E684
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 14:24:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6292616A0;
-	Mon, 24 May 2021 14:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6292616A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84F4F16B8;
+	Mon, 24 May 2021 14:23:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84F4F16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621858229;
-	bh=TrAeQ1+Hu7z8acma0Y+agrS27l4spK/NLy2PnnHDRSc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1621859060;
+	bh=ikd8ZEcnGbvRBTjwIjXSFikn7ajD2+DQpL7uEe9994I=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uq0eKBWxWRnjty9Wwfvq8+wR5acFIyifNEZmQE9mTyJy13q9G7XkeXnPxbF5Q4RHf
-	 Si+0VV+18gICr5/T6zpFGsdshr6RF+coh4W4/oHqsa5Cm+CCwjKKS+qNs3Yynw9YRh
-	 jns3CGYM8/AI6vmLfVpXrVLas2L8GtYj1R/ttqls=
+	b=BkiyFJ3WymghKaS8orYyG6fWBUPH5/Sr5WgVyHtd/jfhtTsecpNjV+mQE11qAi4GN
+	 +ftBUj4sNrsRKyIJZ3cQGQXTfV++vNmNtJZJw3jpCaZ1cU53HYomcANIRejwPfrf6b
+	 vbq54s8i+JbGtElFHHG5X5n922hmgJ4XyiMITPWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9AA7F8022D;
-	Mon, 24 May 2021 14:09:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10763F80149;
+	Mon, 24 May 2021 14:22:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22848F8022B; Mon, 24 May 2021 14:08:59 +0200 (CEST)
+ id 071A9F8022B; Mon, 24 May 2021 14:22:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,FORGED_SPF_HELO,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBEBEF80149
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 14:08:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBEBEF80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47B06F80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 14:22:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47B06F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="VY3TRQAG"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="jEbiZcEM"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id 279FD15FA;
- Mon, 24 May 2021 08:08:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 24 May 2021 08:08:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=KuYrmIVCiLVbSSTdfz4ZTMoPZUe
- vG5TsxBnT23F3ZtI=; b=VY3TRQAGB0UhY9VLyddLVz+IvpoHtPjcngvTgKLIcEi
- uuQGdI+ldIF0njPwa7GstT9j793TjzmhDvFzCzEdx0mXw4E5ONfI3CvQab9MndbJ
- 2j4ZemUAdZBPZ6M4V+Vp2c5fUZZ7ITC3gQalja/LRTi/5QgAdQzos0+er8dL86hx
- IXbTR1i70BBjR3YXzViHjzxFGZQ1/KYn5iGkPoY2ZnvEew7nk1C72YcaOftAzKF5
- 7/nfNeYppr/DxeTWgewHJ5a/ddJNcmAA2/HRblqIOgIzpS99HEK/DLyRhT4W1Rc7
- sKAD9lfoE/xmas58MfK3R+yE63n3X32UIbTjg4O2V2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=KuYrmI
- VCiLVbSSTdfz4ZTMoPZUevG5TsxBnT23F3ZtI=; b=jEbiZcEM/wdt6YhmQUAb5u
- uFGA+dO8AHnmT04TSkF/5BZIS11Tr7cqaSIuorT/9ynk3bMTk8JS+MuXWFs9Itci
- VoFL0Rtl+nrqoY9OaJKqDVWjSnsD81E77HIfZ9H/7gpC6dLNdD+WwG3fKK6pInmW
- EG3yMurED35jNYa6Z/sWAmKJTKnTQP8YixdkQD6xwYN4wc3rgvXOt3kcKMtdUTcU
- aAyVmNKiPpySK+Jx2Mc/e7ZXSjIjmDnPAgqN+IeB1qb/hObGfelwINQ5gzd0gh7A
- xcZrnZPkug6ACe615JzEFo5WyKswwZ1GzQZ7xbWmvKWZu69upPnKZSQ1x7Em/yoQ
- ==
-X-ME-Sender: <xms:S5erYMFXDAp7GelPYNjYPpJ6R9YtvkC_c-gJ9u5MnQOP1UYgYHijQw>
- <xme:S5erYFXf-un_Yv355xrw8xwZKtBCafNs8hGjvtoycWUR2OJh7K1N5tgTuyLXiF9rJ
- UxxMxrqY5Af19vvGZI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejledggeelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:S5erYGLNM5SH-F3h4MFTEctwD0cBHagL0Vvqrsh_TNZJqd21kYAI8w>
- <xmx:S5erYOHqzzv3wGHrWlTQRJRvsZ0uLIypJOXaIGGYqeQa-ks2C_4WTQ>
- <xmx:S5erYCXsPCbR9eFCO6HEDu3BxZuxLthG5XVHv9j9GSvY3KcuXaGxaw>
- <xmx:TJerYOSFqbod4Zu3njaEggk1J3P3aVbmiV6T9k9qqsgDuIQcclvRCmfP7pk>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon, 24 May 2021 08:08:43 -0400 (EDT)
-Date: Mon, 24 May 2021 14:08:41 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH v3 7/7] arm64: dts: allwinner: pinephone: Set audio card
- name
-Message-ID: <20210524120841.bj6fohyxrhpp3i2u@gilmour>
-References: <20210430035859.3487-1-samuel@sholland.org>
- <20210430035859.3487-8-samuel@sholland.org>
- <20210507080942.lxysxdbrviv3ys7m@gilmour>
- <2c8e512c-59f4-8869-be2e-0bf4c3cc2415@sholland.org>
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="R7ixLWwS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c8von+yxhjrhadwkSNExIgPyTDjmgQ+K365KBZy4f+j3okLQBSH+A3DlYfrjAZIE4vnD2bC1bokoXynA7IjzXNVvzlnYM7oX66n/vyY/iMGEnq0/Lz1rKuunNRrHpFF8Vzy4Xrf2gaaGMPfTGcK2pNEhS/KjVh8LWQyk8Os1yC8BPDiZqQGBltpISUfghshF82/7phIFl0rpNhxZrkqNUKB2KMO4y5bFeakc9Z3QunIdSka4zZwoDzGGzyRGSFcxRDSCKQIUwRF2ZsvXqEF4jD9O1D5NA+rG2I0l2ZXbrKEGYmgevzMR54ozK2G/1LsOe3fWt6dHV/YsAhlgLkVgMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1PAiHIdPPL/8LN2pI6m1/GrgY2DzkS2LGV7L49hfHGI=;
+ b=HMIwnmpKNICaSrAN4HrBvT7ZWON4Rd5ZRGjfTmHUuXGK8HfFjWii79DNJ4RW8D6GXz6vVPBtUmYK/73Q7CJrSiRpJM/hQxQ9FgcnTsBbO9KoxNsuxWP2Z8OzLzKiYvNAlHPvxtwFSUkW2Glz/AJiOYhZp4A1R7IpekXQ7clVum//OodgeA4qTCPLtUNK+kNAw+SfmyrktMIyxaRSIleUGdhG/c/MkA+XI9MchM6UxgfqRd+99RGMlbbwUC/k9yCB+wOvQqBCgjiu8q3lJlQvCUg1wtvJhVZiYMScHoT1zkSfmEsucCQ6lEf5h2cH423WEpaYSSr3uXF02i183//edw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.34) smtp.rcpttodomain=suse.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1PAiHIdPPL/8LN2pI6m1/GrgY2DzkS2LGV7L49hfHGI=;
+ b=R7ixLWwSdTk6JydlRDhZoMj6SkFZXXXs8ogP3QXGFx153/rXKDNk2CteqMhZ8dMxBx9NRNfDsSk3IrRd1jNwlKzuBXgbrG+qYoQIILpTN3F16XjtEQYEkqkFZcl+h94l9ukaPEB4YdSAubz9LN4AAluX+g1AqVa2iQRZqnqav+RlJjsnODPLiakXQLYaSCe3W7xKmDgxXtAifFVxCpGldOn5py5xmrgRBXyecohLpbQ9A017wiJEa0UUalin03pRqMTwHGRLVegi8+wxdODTf90GPmxYIWMjaCoitoq2ZDmP8+QI5B6D41MuRzmUP4T5VUZL0CZJNy46XEZC2sCqoQ==
+Received: from MWHPR15CA0041.namprd15.prod.outlook.com (2603:10b6:300:ad::27)
+ by SN1PR12MB2368.namprd12.prod.outlook.com (2603:10b6:802:32::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.26; Mon, 24 May
+ 2021 12:22:33 +0000
+Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ad:cafe::1a) by MWHPR15CA0041.outlook.office365.com
+ (2603:10b6:300:ad::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23 via Frontend
+ Transport; Mon, 24 May 2021 12:22:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
+ smtp.mailfrom=nvidia.com; suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.34; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.34) by
+ CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4129.25 via Frontend Transport; Mon, 24 May 2021 12:22:32 +0000
+Received: from [10.26.49.10] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 24 May
+ 2021 12:22:30 +0000
+Subject: Re: [PATCH v2 2/2] ASoC: tegra: Unify ASoC machine drivers
+To: Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>, Takashi Iwai
+ <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Ion Agorria
+ <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>
+References: <20210520175054.28308-1-digetx@gmail.com>
+ <20210520175054.28308-3-digetx@gmail.com>
+ <32171079-ed4e-1147-2272-5f11bc480c6a@nvidia.com>
+ <91e53907-d87d-aeeb-4644-3926d4311daa@gmail.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <6bc26992-e136-ef6a-a956-382b5cae5db7@nvidia.com>
+Date: Mon, 24 May 2021 13:22:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="vdqks5dqd2amw37s"
-Content-Disposition: inline
-In-Reply-To: <2c8e512c-59f4-8869-be2e-0bf4c3cc2415@sholland.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <91e53907-d87d-aeeb-4644-3926d4311daa@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 04ecb75e-a23b-46a1-d509-08d91eae9b61
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2368:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2368DC782409753F8840899ED9269@SN1PR12MB2368.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: H9KgRPJqNWidnXNCITpc+WcEgUSF74Upwr0Zk4lQ7FSuNBkF4XPRtSkdygkq4qMHAcQQ8LhwHHoTw8DhLnBdLqofkM7kMozHM7HwGIgAiln0qJdNPojC+q8rF2AWkPJs0rYsFBUuY23d0NBs9WqwIe3bos3SS4ui7QhGdoPNsSLv5fTu1L40RyWO92Qj6NefDrTygc5kRqEzlcFKDEcVABa0bxpKJ4U7/SE5Cai4myiSixOn8sY0kM+ggS02e/qZIjZjGeq7s38a/xYGQO0Wgvi/Lu4uOS5S8SvPzHp7Wi/ef4znNe2alABJJ8haD3CSokj6HmHm/7dNKNC58RccQL9o4zvjbtHT8QlmLpR9pAXdPT4R6RTGimTLSmr7PBLEadhoxGktIw9WTjgDSYduxQVowfkyERcCl39avUe9ku9urSndM8HP+z8T/Po8vdA+/bNgcstu3x/kSaORTiOODTnFJ1wBMMYzCEQmiviVP/MdHqrDgbtQ/hvE+5wakxTjqQBjGKKne0wWKIWYnUEACQouQkBn6TAyT3wMKILSl9mNf6nAIV2Io6JHJ7KwzKFhWqOM84ozGHQRriaHixTH+xjdvElzPdU98X2vp4PB/kVG/wm+vgHK3p73BtdJhm+QSpmBtTgqhEZGbJ8awEO6uQUNIEhV/uy1NTXJqy1yuEiPGASzUkrb7nF/GN9JGuNn
+X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(396003)(376002)(36840700001)(46966006)(82310400003)(336012)(70206006)(70586007)(53546011)(426003)(356005)(186003)(36756003)(36860700001)(8676002)(5660300002)(8936002)(2616005)(478600001)(2906002)(316002)(110136005)(16576012)(82740400003)(7416002)(4326008)(7636003)(36906005)(54906003)(26005)(16526019)(31686004)(86362001)(47076005)(31696002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2021 12:22:32.8549 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04ecb75e-a23b-46a1-d509-08d91eae9b61
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2368
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,74 +144,48 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---vdqks5dqd2amw37s
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 09, 2021 at 08:54:36PM -0500, Samuel Holland wrote:
-> On 5/7/21 3:09 AM, Maxime Ripard wrote:
-> > Hi,
-> >=20
-> > On Thu, Apr 29, 2021 at 10:58:59PM -0500, Samuel Holland wrote:
-> >> From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-> >>
-> >> Add the "PinePhone" name to the sound card: this will make
-> >> upstreaming an ALSA UCM config easier as we can use a unique name.
-> >>
-> >> It also avoids an issue where the default card name is truncated.
-> >>
-> >> Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-> >> [Samuel: Split out change, updated commit message]
-> >> Signed-off-by: Samuel Holland <samuel@sholland.org>
-> >> ---
-> >>  arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 1 +
-> >>  1 file changed, 1 insertion(+)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b=
-/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-> >> index 51cbfdc12936..02712f85f6bd 100644
-> >> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-g> >> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-> >> @@ -433,6 +433,7 @@ &reg_rtc_ldo {
-> >> =20
-> >>  &sound {
-> >>  	status =3D "okay";
-> >> +	simple-audio-card,name =3D "PinePhone";
-> >>  	simple-audio-card,aux-devs =3D <&codec_analog>, <&speaker_amp>;
-> >>  	simple-audio-card,widgets =3D "Microphone", "Headset Microphone",
-> >>  				    "Microphone", "Internal Microphone",
-> >=20
-> > Isn't that reported to the userspace? I'm not sure we can just change it
-> > without breaking it.
->=20
-> Yes, this is seen by userspace.
->=20
-> Ideally, we would add this property with a unique value when enabling
-> audio for any board, but as you mention, it would be a breaking change
-> to add those properties now.
->=20
-> In practice, all distributions supporting the PinePhone are already
-> carrying this patch, because the ALSA setup needed for the PinePhone is
-> very different from most other boards. So it would be similarly breaking
-> for them (and their users) to drop this patch.
+On 21/05/2021 20:05, Dmitry Osipenko wrote:
 
-Ack :)
+...
 
-Since no one else complained, I merged this patch too
+>>> +unsigned int tegra_asoc_machine_mclk_rate(unsigned int srate)
+>>> +{
+>>> +	unsigned int mclk;
+>>> +
+>>> +	switch (srate) {
+>>> +	case 64000:
+>>> +	case 88200:
+>>> +	case 96000:
+>>> +		mclk = 128 * srate;
+>>> +		break;
+>>> +	default:
+>>> +		mclk = 256 * srate;
+>>> +		break;
+>>> +	}
+>>> +	/* FIXME: Codec only requires >= 3MHz if OSR==0 */
+>>> +	while (mclk < 6000000)
+>>> +		mclk *= 2;
+>>
+>> So this appears to be specific to the wm8903 codec or at least this is
+>> where it came from. And given that the switch statement is not complete
+>> in terms of the sample rates (ie. only has a subset), I am wondering if
+>> set should keep this specific to the wm8903 codec?
+> 
+> The RT5631 codec of Asus Transformers will re-use this function.
 
-Thanks!
-Maxime
+OK, but does it need this FIXME part? That appears to be codec specific.
 
---vdqks5dqd2amw37s
-Content-Type: application/pgp-signature; name="signature.asc"
+> IIUC, the default switch-case works properly for all rates below 64KHz,
+> at least I haven't had any problems with it. Could you please clarify
+> why you are saying that the switch statement appears to be incomplete?
 
------BEGIN PGP SIGNATURE-----
+It looks a bit weird because less than 64kHz and greater than 96kHz we
+use 256 and for only 64kHz, 88.2kHz and 96kHz we use 128. So it is not
+clear to me which sample rates have actually been tested with this and
+if this is complete or not?
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYKuXSQAKCRDj7w1vZxhR
-xQeqAQDH3EOIl439YaZCsAopMTIIpwmTqAD047YX53owNIwA8gEAr3PT+rxlJ51k
-fqTfXb4QIVbfh/RtIUWCrNx6tU+MGAw=
-=V5lB
------END PGP SIGNATURE-----
+Is it intended that we use 256 for sample rates greater than 96kHz?
 
---vdqks5dqd2amw37s--
+Jon
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A8938E9F4
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:50:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09F7C38E9CF
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:49:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B89451692;
-	Mon, 24 May 2021 16:49:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B89451692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FFB4169B;
+	Mon, 24 May 2021 16:49:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FFB4169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621867841;
-	bh=Myo0OzaoMPDK2v0dbEFHWTxeSMSFdgX4JF++vJTCP0M=;
+	s=default; t=1621867793;
+	bh=w6PHIeP+6wvAl57XhxGtKV/10eR+mrKICHgDdT2CgXc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RxSH9C+ZqEcrXgEtQVKtcfLI5JtXOzvoECGkGBIiJbUNZA/weJlzQdW9Q0d+Y7l3p
-	 t1CP0GB4BENRMkQ6vK0nhAV4Mrpv6Hx07tAlBNPTR0buxXoRksImyhkVN7BUHGTBA7
-	 fwgvvW9EDLmeivyDTftkZg4R/DLPeHwuyJyM4QWI=
+	b=koUVcxBuecIhY8kYQ2Oqof/Wv0ThRpwKp/+BuOY8v/QHxTSvxrlb8b6Lu3igJvoqC
+	 E7LEHgxb2+mv5201IPK2KV1rAxuPbp13QLzgb2cBydutKrnMrY+0zV7n8ewY3GNcsF
+	 1S+mgXYJle9/hIP8ST901JGk6rksGihW6bMROEQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0416F804CF;
-	Mon, 24 May 2021 16:47:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AE8EF804AE;
+	Mon, 24 May 2021 16:47:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 056C0F804AD; Mon, 24 May 2021 16:47:08 +0200 (CEST)
+ id 07C8CF804AB; Mon, 24 May 2021 16:47:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFEDCF80475
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFEDCF80475
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7CD1F8049C
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CD1F8049C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lcBdUsYl"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A1D2613B6;
- Mon, 24 May 2021 14:46:59 +0000 (UTC)
+ header.b="mgQAbjWY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A6525613CC;
+ Mon, 24 May 2021 14:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867620;
- bh=Myo0OzaoMPDK2v0dbEFHWTxeSMSFdgX4JF++vJTCP0M=;
+ s=k20201202; t=1621867621;
+ bh=w6PHIeP+6wvAl57XhxGtKV/10eR+mrKICHgDdT2CgXc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lcBdUsYlpqEP4F1UCP/CJh5u81oHkkzSLJTozXMWJ/pv9gJrE7LKiPl1pwDjK2cDf
- BKyvVmHzz/qZEwKWXopNf3LecnSGxcCzvU+1PPCHlA7Py4cke4ohsWU7FMNKiJ0Dxb
- Dyz2uWL/N3+FWm6OJw9eVLn5hdKgI97puy3nupKHuIElj0cKhNnLGxlozV/R2KcG/2
- wPYx1eswgD3mps+iXdfWrUFVl1xaN9J3YH8vAeY0YGMOgFoNKkMMNsYVHz+PYx3gWE
- DqW9zinIj7OFTrQ1oqMaHD9htthZEQqm0VgVcW+FmZkXC4/Eyr6UbkWw0nU+/Idf+L
- BYqS/fgLPAB9A==
+ b=mgQAbjWYPlL1i1YObImOBY9ERf2wHlhAUhcwHmMWgTa2Gf6KJIxFwbySMYIr5T49o
+ xSN3VAO0IhKBbRVimJum05/AaAKUf6Ptja+PAW9YPJEvGo76ljj2f/q7wTJNQWMtk6
+ Ccgnz0OTvBwGS7Daw1f1D16OMGF1Fv02Pm2Xso6qVPG/qz4WqmasoijlnXB1TxYo2N
+ CkS8mhu7gcicFZkwT/BYQF5+78pcuzc2CiwnmlTeo4XlW7b0BVTUy1FwxUsRxKdVrW
+ 0Jew7Wr4NvTavmCDquQ7fIEwi0f6cLqlbfFPb6P0pKkdjYaTljHTi8Fj+vD1XXFHW0
+ BWHtlnLLtYb3g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 30/63] ASoC: rt5645: add error checking to
- rt5645_probe function
-Date: Mon, 24 May 2021 10:45:47 -0400
-Message-Id: <20210524144620.2497249-30-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 31/63] Revert "ASoC: cs43130: fix a NULL pointer
+ dereference"
+Date: Mon, 24 May 2021 10:45:48 -0400
+Message-Id: <20210524144620.2497249-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210524144620.2497249-1-sashal@kernel.org>
 References: <20210524144620.2497249-1-sashal@kernel.org>
@@ -66,9 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Phillip Potter <phil@philpotter.co.uk>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kangjie Lu <kjlu@umn.edu>,
+ Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,118 +84,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Phillip Potter <phil@philpotter.co.uk>
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-[ Upstream commit 5e70b8e22b64eed13d5bbebcb5911dae65bf8c6b ]
+[ Upstream commit fdda0dd2686ecd1f2e616c9e0366ea71b40c485d ]
 
-Check for return value from various snd_soc_dapm_* calls, as many of
-them can return errors and this should be handled. Also, reintroduce
-the allocation failure check for rt5645->eq_param as well. Make all
-areas where return values are checked lead to the end of the function
-in the case of an error. Finally, introduce a comment explaining how
-resources here are actually eventually cleaned up by the caller.
+This reverts commit a2be42f18d409213bb7e7a736e3ef6ba005115bb.
 
+Because of recent interactions with developers from @umn.edu, all
+commits from them have been recently re-reviewed to ensure if they were
+correct or not.
+
+Upon review, this commit was found to be incorrect for the reasons
+below, so it must be reverted.  It will be fixed up "correctly" in a
+later kernel change.
+
+The original patch here is not correct, sysfs files that were created
+are not unwound.
+
+Cc: Kangjie Lu <kjlu@umn.edu>
 Cc: Mark Brown <broonie@kernel.org>
-Signed-off-by: Phillip Potter <phil@philpotter.co.uk>
-Link: https://lore.kernel.org/r/20210503115736.2104747-56-gregkh@linuxfoundation.org
+Link: https://lore.kernel.org/r/20210503115736.2104747-57-gregkh@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt5645.c | 48 +++++++++++++++++++++++++++++++--------
- 1 file changed, 39 insertions(+), 9 deletions(-)
+ sound/soc/codecs/cs43130.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index ab06133a85da..85ab33bdcdec 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3364,30 +3364,44 @@ static int rt5645_probe(struct snd_soc_component *component)
- {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
- 	struct rt5645_priv *rt5645 = snd_soc_component_get_drvdata(component);
-+	int ret = 0;
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index 80bc7c10ed75..c2b6f0ae6d57 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -2319,8 +2319,6 @@ static int cs43130_probe(struct snd_soc_component *component)
+ 			return ret;
  
- 	rt5645->component = component;
- 
- 	switch (rt5645->codec_type) {
- 	case CODEC_TYPE_RT5645:
--		snd_soc_dapm_new_controls(dapm,
-+		ret = snd_soc_dapm_new_controls(dapm,
- 			rt5645_specific_dapm_widgets,
- 			ARRAY_SIZE(rt5645_specific_dapm_widgets));
--		snd_soc_dapm_add_routes(dapm,
-+		if (ret < 0)
-+			goto exit;
-+
-+		ret = snd_soc_dapm_add_routes(dapm,
- 			rt5645_specific_dapm_routes,
- 			ARRAY_SIZE(rt5645_specific_dapm_routes));
-+		if (ret < 0)
-+			goto exit;
-+
- 		if (rt5645->v_id < 3) {
--			snd_soc_dapm_add_routes(dapm,
-+			ret = snd_soc_dapm_add_routes(dapm,
- 				rt5645_old_dapm_routes,
- 				ARRAY_SIZE(rt5645_old_dapm_routes));
-+			if (ret < 0)
-+				goto exit;
- 		}
- 		break;
- 	case CODEC_TYPE_RT5650:
--		snd_soc_dapm_new_controls(dapm,
-+		ret = snd_soc_dapm_new_controls(dapm,
- 			rt5650_specific_dapm_widgets,
- 			ARRAY_SIZE(rt5650_specific_dapm_widgets));
--		snd_soc_dapm_add_routes(dapm,
-+		if (ret < 0)
-+			goto exit;
-+
-+		ret = snd_soc_dapm_add_routes(dapm,
- 			rt5650_specific_dapm_routes,
- 			ARRAY_SIZE(rt5650_specific_dapm_routes));
-+		if (ret < 0)
-+			goto exit;
- 		break;
+ 		cs43130->wq = create_singlethread_workqueue("cs43130_hp");
+-		if (!cs43130->wq)
+-			return -ENOMEM;
+ 		INIT_WORK(&cs43130->work, cs43130_imp_meas);
  	}
  
-@@ -3395,9 +3409,17 @@ static int rt5645_probe(struct snd_soc_component *component)
- 
- 	/* for JD function */
- 	if (rt5645->pdata.jd_mode) {
--		snd_soc_dapm_force_enable_pin(dapm, "JD Power");
--		snd_soc_dapm_force_enable_pin(dapm, "LDO2");
--		snd_soc_dapm_sync(dapm);
-+		ret = snd_soc_dapm_force_enable_pin(dapm, "JD Power");
-+		if (ret < 0)
-+			goto exit;
-+
-+		ret = snd_soc_dapm_force_enable_pin(dapm, "LDO2");
-+		if (ret < 0)
-+			goto exit;
-+
-+		ret = snd_soc_dapm_sync(dapm);
-+		if (ret < 0)
-+			goto exit;
- 	}
- 
- 	if (rt5645->pdata.long_name)
-@@ -3407,7 +3429,15 @@ static int rt5645_probe(struct snd_soc_component *component)
- 		RT5645_HWEQ_NUM, sizeof(struct rt5645_eq_param_s),
- 		GFP_KERNEL);
- 
--	return 0;
-+	if (!rt5645->eq_param)
-+		ret = -ENOMEM;
-+exit:
-+	/*
-+	 * If there was an error above, everything will be cleaned up by the
-+	 * caller if we return an error here.  This will be done with a later
-+	 * call to rt5645_remove().
-+	 */
-+	return ret;
- }
- 
- static void rt5645_remove(struct snd_soc_component *component)
 -- 
 2.30.2
 

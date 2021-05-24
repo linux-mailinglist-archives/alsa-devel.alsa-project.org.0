@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D66B038E99C
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623E638E9C0
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:49:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B33C167B;
-	Mon, 24 May 2021 16:48:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B33C167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E74B51671;
+	Mon, 24 May 2021 16:48:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E74B51671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621867739;
-	bh=1PkJ+O08YxcPSUCPY0g42W44F5LQ9vUhEeIw/wduPDg=;
+	s=default; t=1621867753;
+	bh=YMUIRBqPsKnP1v3cJ/Dw9pNi02k97cYZ5bin7a9UhRc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FVq7heBpiZLdBY9XPuX4Be9lR0kH7/24STtBkm60fdV1A8QjeJR1U1u//XjdaidB6
-	 N6ZHSlmVq6I2oVKqRhqzYncFDqFe3poM4bQRAFlfhY1lRsU/b+32L9E0qxxeRjHMoQ
-	 yN05cFdasmQZxoUNah6tk1XSRj2qb4meS3XjQ01A=
+	b=aIAlMZ+4Ai4xxRfYf7mAhvRR8/aOgzXkv0Dr0qhpZ6BuMWGcb+6cTZNB8+5W5fqz6
+	 kuOpo8bjRo9oHDFxSK/2wNqzlcEt9Mm4dk5TpB5JF8ldc659mnzqCtW4vUWs+UWQ2a
+	 QuPPvEDdqTO+tS04eQTzwL8py6jw0qLmPhz2YeOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5102F80425;
-	Mon, 24 May 2021 16:46:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E2F6F80430;
+	Mon, 24 May 2021 16:46:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43A5BF80425; Mon, 24 May 2021 16:46:48 +0200 (CEST)
+ id CE2EFF80424; Mon, 24 May 2021 16:46:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C3B6F80149
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:46:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C3B6F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8396F8022B
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:46:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8396F8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ASixqO1q"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 57447613BF;
- Mon, 24 May 2021 14:46:42 +0000 (UTC)
+ header.b="ZImiOv+t"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8F396613D2;
+ Mon, 24 May 2021 14:46:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867603;
- bh=1PkJ+O08YxcPSUCPY0g42W44F5LQ9vUhEeIw/wduPDg=;
+ s=k20201202; t=1621867604;
+ bh=YMUIRBqPsKnP1v3cJ/Dw9pNi02k97cYZ5bin7a9UhRc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ASixqO1qu43O+DP/UGlV+Q32DySa4rFZElnrxCQOfjZvcYtnFkf6f1pO4bDB1aE5g
- /vVfIK9pOCCBsimta38P+r2HnYcVdY6LhVrNxT2TVtkXLkU6oFmFbXRyPS6d9BVlor
- vcp4UWTaEvM450TUks7W6ycqVHjxxkiMiKbeEgHLENC6sSb9ihqApQ6e/keXbpKMBU
- gRUQD9/2vp8tKCSc2L25qk0pLWLJv+JF8+CTxdbWJNEq6SE+JYTaXjXeiORD1qLagT
- UJ4Zk9cSgxDGU9uOrueQmOZTDKpAKEKIyA9qvhzgz+LhmIq/1zpBrfunaIq50uUaT6
- iRevoHj1AWiPw==
+ b=ZImiOv+tFeIadWBbbxQwzqi+GbXJTIS+nHzhXZIxVfWS6XJ7AJgo35EG1g/3cT0As
+ xUnvqL4fevuJFZYa7SZRi9Q0jHhWAZ5DfP1xDCOVY/NmO4HAKbs+jpNNIhh9rwPsnp
+ DbZrq6co2d0GmD4TbjteK74goXnpjPi5G3Y8B3zeeJlOAF7btAy+c+PdVOgXIllSUR
+ aD5qtz9JA4w7bE5Y7wzM/kNJyddEdElzeuZfpyaL6R4WC7iVBbAINDz/15rR4kDx//
+ +/WcfiofpwZ+5MShSke2KhOPP9U/D6u1tkQBRd/b1a9BM4cpppIERYjgfAUMWyi4X6
+ Oo0GH9+XUzGLg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 17/63] ALSA: sb8: Add a comment note regarding an
- unused pointer
-Date: Mon, 24 May 2021 10:45:34 -0400
-Message-Id: <20210524144620.2497249-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 18/63] Revert "ALSA: usx2y: Fix potential NULL
+ pointer dereference"
+Date: Mon, 24 May 2021 10:45:35 -0400
+Message-Id: <20210524144620.2497249-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210524144620.2497249-1-sashal@kernel.org>
 References: <20210524144620.2497249-1-sashal@kernel.org>
@@ -67,9 +67,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Atul Gopinathan <atulgopinathan@gmail.com>, alsa-devel@alsa-project.org,
- Sasha Levin <sashal@kernel.org>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
+ Sasha Levin <sashal@kernel.org>, Aditya Pakki <pakki001@umn.edu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,43 +84,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Atul Gopinathan <atulgopinathan@gmail.com>
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-[ Upstream commit a28591f61b60fac820c6de59826ffa710e5e314e ]
+[ Upstream commit 4667a6fc1777ce071504bab570d3599107f4790f ]
 
-The field "fm_res" of "struct snd_sb8" is never used/dereferenced
-throughout the sb8.c code. Therefore there is no need for any null value
-check after the "request_region()".
+This reverts commit a2c6433ee5a35a8de6d563f6512a26f87835ea0f.
 
-Add a comment note to make developers know about this and prevent any
-"NULL check" patches on this part of code.
+Because of recent interactions with developers from @umn.edu, all
+commits from them have been recently re-reviewed to ensure if they were
+correct or not.
 
-Cc: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Atul Gopinathan <atulgopinathan@gmail.com>
-Link: https://lore.kernel.org/r/20210503115736.2104747-36-gregkh@linuxfoundation.org
+Upon review, this commit was found to be incorrect for the reasons
+below, so it must be reverted.  It will be fixed up "correctly" in a
+later kernel change.
+
+The original patch was incorrect, and would leak memory if the error
+path the patch added was hit.
+
+Cc: Aditya Pakki <pakki001@umn.edu>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20210503115736.2104747-37-gregkh@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/isa/sb/sb8.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/usb/usx2y/usb_stream.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/sound/isa/sb/sb8.c b/sound/isa/sb/sb8.c
-index 6c9d534ce8b6..e17b58437e66 100644
---- a/sound/isa/sb/sb8.c
-+++ b/sound/isa/sb/sb8.c
-@@ -93,7 +93,11 @@ static int snd_sb8_probe(struct device *pdev, unsigned int dev)
- 	acard = card->private_data;
- 	card->private_free = snd_sb8_free;
+diff --git a/sound/usb/usx2y/usb_stream.c b/sound/usb/usx2y/usb_stream.c
+index 091c071b270a..6bba17bf689a 100644
+--- a/sound/usb/usx2y/usb_stream.c
++++ b/sound/usb/usx2y/usb_stream.c
+@@ -91,12 +91,7 @@ static int init_urbs(struct usb_stream_kernel *sk, unsigned use_packsize,
  
--	/* block the 0x388 port to avoid PnP conflicts */
-+	/*
-+	 * Block the 0x388 port to avoid PnP conflicts.
-+	 * No need to check this value after request_region,
-+	 * as we never do anything with it.
-+	 */
- 	acard->fm_res = request_region(0x388, 4, "SoundBlaster FM");
- 	if (!acard->fm_res) {
- 		err = -EBUSY;
+ 	for (u = 0; u < USB_STREAM_NURBS; ++u) {
+ 		sk->inurb[u] = usb_alloc_urb(sk->n_o_ps, GFP_KERNEL);
+-		if (!sk->inurb[u])
+-			return -ENOMEM;
+-
+ 		sk->outurb[u] = usb_alloc_urb(sk->n_o_ps, GFP_KERNEL);
+-		if (!sk->outurb[u])
+-			return -ENOMEM;
+ 	}
+ 
+ 	if (init_pipe_urbs(sk, use_packsize, sk->inurb, indata, dev, in_pipe) ||
 -- 
 2.30.2
 

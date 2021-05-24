@@ -2,90 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F3938E2BF
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 10:52:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B09938E2ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 11:04:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24D471687;
-	Mon, 24 May 2021 10:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24D471687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 905A41675;
+	Mon, 24 May 2021 11:03:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 905A41675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621846335;
-	bh=GFmr3tJ+6oz6uhbGupTuXpbybjjrPz50/b8E2nW9hYg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=McU/0m7egFxrjgFKCHESV4Zbxxobml+VUrElgsPyf9EpHHPjB6X2wBdKaiaZBqHsI
-	 A5aBUEqcy/fxQbaezoNPAved47F+/Sy+9pk43qk9o/lTJuXVUvT+LJLbBhzrPWDKPh
-	 y4Ow2dGlkOPCoFkvgmJYmqthjWVhALf5WX6St1WE=
+	s=default; t=1621847088;
+	bh=YPUZK5qVXvOAVUP0Nuwj04C153UhmaRZ567WIzT74LQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bh6QEdSyUDs/oAHroruP6pEDau6B6gA+D1d42UEVkwQ4/geBLD5dXMkBHKVCTPQ8y
+	 0BP9iOEYiiTRLJsibOOex+dtT+1w6Ad7qM0JJmVQG/UW6SlYDBADcyaWsRNlNpzAgJ
+	 xCehMJ32IisXNM98DAJGh4cIQyn3/jrt2ZDJiEqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46FCEF804E7;
-	Mon, 24 May 2021 10:49:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E38B5F8022D;
+	Mon, 24 May 2021 11:03:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C479F804D8; Mon, 24 May 2021 10:49:00 +0200 (CEST)
+ id 4174BF8022B; Mon, 24 May 2021 11:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E242CF8022D
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 10:48:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E242CF8022D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FF0AF80149
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 11:03:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FF0AF80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rff3oXBQ"
-Received: by mail-wr1-x42c.google.com with SMTP id r12so27659740wrp.1
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 01:48:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=qctUSYHr5HUHKNeM+US54ACn680xy5JVgv6pYiAbRJA=;
- b=rff3oXBQN1KWOufY2wiB5c6bIHYakPPlTw5ELevddWVaHSHZToKwBLoyZjda6vIV/V
- zSz4okq1a5U1vmzByBndO4L5mtS8xTI0+aPSOc6+nzFpq/Ir8tSSAwJnk22QKW7oZrvn
- p6eaJVsFRT+d2fE9cY69UwP788q9M0QfKgJqtN+ruXPsj5lEEFsPK5d5LLDpgMhbshBC
- dGQz+nKmPR5ai02yt2YhO4my5vxuVfym7GeLCD0sWN9sQzHjyWLTXcWDTHPcIQojoWV3
- geXmO8rU+LXKstvtqzn7XlwITOq4B2pMsTpMtLpnolgNlP91gTOHEzOMSDtd3rB9jkgP
- PjNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=qctUSYHr5HUHKNeM+US54ACn680xy5JVgv6pYiAbRJA=;
- b=eR9QOcRZrJyu5WzZ3Zkxj5HewTkPUs6LsZ6ld6gc1K2FmsAfNLf+/3u1DXpzkS56IR
- tgQziCO1PhEf2j25UU6ZjOa7OdB5OREU37uXyHznECzEZArExI3EyRXVn0n7MMxVhSKx
- B2NhOHwkaQencq03NOlaSSwwoRA1k3YYriUsCmytdi8z5dnM8ZcRRo4el2FrDIpzQWRg
- iWTgUxneOQcCR34OGfxtuZZYCZ0ALxxpEMQOEk0I10GcZ5WeOa3Wv30nfncbJz8570s/
- c3db8Sgle5m8eYls51jtf0FY4Fq91aJh7i4+thbvH25xDgOXUcDPCYqO/Fs2feWRWdC0
- LLNw==
-X-Gm-Message-State: AOAM5304kH865QWYHYvWfKnHGBFGiyXeDpxk8NRm7hvYUwUVdIxAj7Bs
- ASdWsLKshOexQzNXba5IYCgg5g==
-X-Google-Smtp-Source: ABdhPJzZgwh6UUN40XEqNV9IWRSczT/atmMtaL1unQspj/ho+ExIole3u1y/SFdBFWqkH20FuCfDyA==
-X-Received: by 2002:a5d:4744:: with SMTP id o4mr20229008wrs.86.1621846131907; 
- Mon, 24 May 2021 01:48:51 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id x206sm4034548wmx.47.2021.05.24.01.48.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 01:48:51 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH v7 9/9] ASoC: codecs: wcd938x: add audio routing
-Date: Mon, 24 May 2021 09:48:28 +0100
-Message-Id: <20210524084828.12787-10-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20210524084828.12787-1-srinivas.kandagatla@linaro.org>
-References: <20210524084828.12787-1-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tMocmP4B"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 61BAA60698;
+ Mon, 24 May 2021 09:03:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621846988;
+ bh=YPUZK5qVXvOAVUP0Nuwj04C153UhmaRZ567WIzT74LQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=tMocmP4Btjao/U3TKu2+3cix2+0I6aNrMPUg5W9l+EbWZFGdEWnglwlrCqofCgKmu
+ 5WO8JhGpWQiWEv3a9lEmGtZ5Nj8myB6ck0XcF55FnV1NFtLMb+YH0vqtiONrX1GId/
+ FJE/KzuqiolZG+PkMQ39yca0R78gjWlIWLCMSGgIiP4JgGyRQZS4tF0NFrlH8MzeDQ
+ U43qLvBNG8oxyRMlz9UZ2PZ4lqpYifZ4wV1UOPe8pl7bqC83ZTsqN0WtPIojRE6xzR
+ ZQ8pNcGS91oQvFvWBNJdfDKZYET4b8VmpNdrGoK6YGYvOFylPMedk8hn3/PhVbkGjc
+ TgNBZm0lsoXJA==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [GIT PULL] ASoC fixes for v5.13-rc3
+Date: Mon, 24 May 2021 10:02:51 +0100
+Message-Id: <20210524090307.61BAA60698@mail.kernel.org>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,125 +73,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds audio routing for both playback and capture.
+The following changes since commit 25c4a9b614f101bb9f3e687960815db7dc439c0f:
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wcd938x.c | 94 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
+  ASoC: simple-card: Fix breakage on kontron-sl28-var3-ads2 (2021-04-23 18:13:32 +0100)
 
-diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index dfd14b223bff..c16ec8c1620d 100644
---- a/sound/soc/codecs/wcd938x.c
-+++ b/sound/soc/codecs/wcd938x.c
-@@ -3133,6 +3133,98 @@ static const struct snd_soc_dapm_widget wcd938x_dapm_widgets[] = {
- 	SND_SOC_DAPM_OUTPUT("AUX"),
- 	SND_SOC_DAPM_OUTPUT("HPHL"),
- 	SND_SOC_DAPM_OUTPUT("HPHR"),
-+
-+};
-+
-+static const struct snd_soc_dapm_route wcd938x_audio_map[] = {
-+	{"ADC1_OUTPUT", NULL, "ADC1_MIXER"},
-+	{"ADC1_MIXER", "Switch", "ADC1 REQ"},
-+	{"ADC1 REQ", NULL, "ADC1"},
-+	{"ADC1", NULL, "AMIC1"},
-+
-+	{"ADC2_OUTPUT", NULL, "ADC2_MIXER"},
-+	{"ADC2_MIXER", "Switch", "ADC2 REQ"},
-+	{"ADC2 REQ", NULL, "ADC2"},
-+	{"ADC2", NULL, "HDR12 MUX"},
-+	{"HDR12 MUX", "NO_HDR12", "ADC2 MUX"},
-+	{"HDR12 MUX", "HDR12", "AMIC1"},
-+	{"ADC2 MUX", "INP3", "AMIC3"},
-+	{"ADC2 MUX", "INP2", "AMIC2"},
-+
-+	{"ADC3_OUTPUT", NULL, "ADC3_MIXER"},
-+	{"ADC3_MIXER", "Switch", "ADC3 REQ"},
-+	{"ADC3 REQ", NULL, "ADC3"},
-+	{"ADC3", NULL, "HDR34 MUX"},
-+	{"HDR34 MUX", "NO_HDR34", "ADC3 MUX"},
-+	{"HDR34 MUX", "HDR34", "AMIC5"},
-+	{"ADC3 MUX", "INP4", "AMIC4"},
-+	{"ADC3 MUX", "INP6", "AMIC6"},
-+
-+	{"ADC4_OUTPUT", NULL, "ADC4_MIXER"},
-+	{"ADC4_MIXER", "Switch", "ADC4 REQ"},
-+	{"ADC4 REQ", NULL, "ADC4"},
-+	{"ADC4", NULL, "ADC4 MUX"},
-+	{"ADC4 MUX", "INP5", "AMIC5"},
-+	{"ADC4 MUX", "INP7", "AMIC7"},
-+
-+	{"DMIC1_OUTPUT", NULL, "DMIC1_MIXER"},
-+	{"DMIC1_MIXER", "Switch", "DMIC1"},
-+
-+	{"DMIC2_OUTPUT", NULL, "DMIC2_MIXER"},
-+	{"DMIC2_MIXER", "Switch", "DMIC2"},
-+
-+	{"DMIC3_OUTPUT", NULL, "DMIC3_MIXER"},
-+	{"DMIC3_MIXER", "Switch", "DMIC3"},
-+
-+	{"DMIC4_OUTPUT", NULL, "DMIC4_MIXER"},
-+	{"DMIC4_MIXER", "Switch", "DMIC4"},
-+
-+	{"DMIC5_OUTPUT", NULL, "DMIC5_MIXER"},
-+	{"DMIC5_MIXER", "Switch", "DMIC5"},
-+
-+	{"DMIC6_OUTPUT", NULL, "DMIC6_MIXER"},
-+	{"DMIC6_MIXER", "Switch", "DMIC6"},
-+
-+	{"DMIC7_OUTPUT", NULL, "DMIC7_MIXER"},
-+	{"DMIC7_MIXER", "Switch", "DMIC7"},
-+
-+	{"DMIC8_OUTPUT", NULL, "DMIC8_MIXER"},
-+	{"DMIC8_MIXER", "Switch", "DMIC8"},
-+
-+	{"IN1_HPHL", NULL, "VDD_BUCK"},
-+	{"IN1_HPHL", NULL, "CLS_H_PORT"},
-+
-+	{"RX1", NULL, "IN1_HPHL"},
-+	{"RX1", NULL, "RXCLK"},
-+	{"RDAC1", NULL, "RX1"},
-+	{"HPHL_RDAC", "Switch", "RDAC1"},
-+	{"HPHL PGA", NULL, "HPHL_RDAC"},
-+	{"HPHL", NULL, "HPHL PGA"},
-+
-+	{"IN2_HPHR", NULL, "VDD_BUCK"},
-+	{"IN2_HPHR", NULL, "CLS_H_PORT"},
-+	{"RX2", NULL, "IN2_HPHR"},
-+	{"RDAC2", NULL, "RX2"},
-+	{"RX2", NULL, "RXCLK"},
-+	{"HPHR_RDAC", "Switch", "RDAC2"},
-+	{"HPHR PGA", NULL, "HPHR_RDAC"},
-+	{"HPHR", NULL, "HPHR PGA"},
-+
-+	{"IN3_AUX", NULL, "VDD_BUCK"},
-+	{"IN3_AUX", NULL, "CLS_H_PORT"},
-+	{"RX3", NULL, "IN3_AUX"},
-+	{"RDAC4", NULL, "RX3"},
-+	{"RX3", NULL, "RXCLK"},
-+	{"AUX_RDAC", "Switch", "RDAC4"},
-+	{"AUX PGA", NULL, "AUX_RDAC"},
-+	{"AUX", NULL, "AUX PGA"},
-+
-+	{"RDAC3_MUX", "RX3", "RX3"},
-+	{"RDAC3_MUX", "RX1", "RX1"},
-+	{"RDAC3", NULL, "RDAC3_MUX"},
-+	{"EAR_RDAC", "Switch", "RDAC3"},
-+	{"EAR PGA", NULL, "EAR_RDAC"},
-+	{"EAR", NULL, "EAR PGA"},
- };
- 
- static int wcd938x_get_micb_vout_ctl_val(u32 micb_mv)
-@@ -3300,6 +3392,8 @@ static const struct snd_soc_component_driver soc_codec_dev_wcd938x = {
- 	.num_controls = ARRAY_SIZE(wcd938x_snd_controls),
- 	.dapm_widgets = wcd938x_dapm_widgets,
- 	.num_dapm_widgets = ARRAY_SIZE(wcd938x_dapm_widgets),
-+	.dapm_routes = wcd938x_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(wcd938x_audio_map),
- };
- 
- static void wcd938x_dt_parse_micbias_info(struct device *dev, struct wcd938x_priv *wcd)
--- 
-2.21.0
+are available in the Git repository at:
 
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.13-rc3
+
+for you to fetch changes up to af2702549d68519ac78228e915d9b2c199056787:
+
+  ASoC: qcom: lpass-cpu: Use optional clk APIs (2021-05-21 13:12:29 +0100)
+
+----------------------------------------------------------------
+ASoC: Fixes for v5.13
+
+A collection of fixes that have come in since the merge window, mainly
+device specific things.  The fixes to the generic cards from
+Morimoto-san are handling regressions that were introduced in the merge
+window on at least the Kontron sl28-var3-ads2.
+
+----------------------------------------------------------------
+Arnd Bergmann (1):
+      ASoC: fsl: fix SND_SOC_IMX_RPMSG dependency
+
+Bixuan Cui (1):
+      ASoC: codecs: lpass-tx-macro: add missing MODULE_DEVICE_TABLE
+
+Charles Keepax (5):
+      ASoC: cs53l30: Add missing regmap use_single config
+      ASoC: cs42l73: Add missing regmap use_single config
+      ASoC: cs35l34: Add missing regmap use_single config
+      ASoC: cs35l32: Add missing regmap use_single config
+      ASoC: cs42l52: Minor tidy up of error paths
+
+Dan Carpenter (1):
+      ASoC: cs35l33: fix an error code in probe()
+
+Hans de Goede (2):
+      ASoC: Intel: bytcr_rt5640: Add quirk for the Glavey TM800A550L tablet
+      ASoC: Intel: bytcr_rt5640: Add quirk for the Lenovo Miix 3-830 tablet
+
+Jerome Brunet (2):
+      ASoC: stm32: do not request a new clock consummer reference
+      ASoC: da7219: do not request a new clock consummer reference
+
+Kuninori Morimoto (5):
+      ASoC: simple-card: add simple_parse_node()
+      ASoC: simple-card: add simple_link_init()
+      ASoC: audio-graph: tidyup graph_dai_link_of_dpcm()
+      ASoC: audio-graph: tidyup graph_parse_node()
+      ASoC: soc-dai.h: Align the word of comment for SND_SOC_DAIFMT_CBC_CFC
+
+Marco Felsch (1):
+      ASoC: max98088: fix ni clock divider calculation
+
+Mark Brown (2):
+      Merge series "ASoC: Revert clk_hw_get_clk() cleanup" from Jerome Brunet <jbrunet@baylibre.com>:
+      Merge series "ASoC: simple-card / audio-graph re-cleanup" from Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>:
+
+Ranjani Sridharan (1):
+      ASoC: SOF: Intel: hda: don't send DAI_CONFIG IPC for older firmware
+
+Richard Fitzgerald (1):
+      ASoC: cs42l42: Regmap must use_single_read/write
+
+Shengjiu Wang (1):
+      ASoC: ak5558: Correct the dai name for ak5552
+
+Shuming Fan (1):
+      ASoC: rt711-sdca: fix the function number of SDCA control for feature unit 0x1E
+
+Srinivas Kandagatla (1):
+      ASoC: codecs: lpass-rx-macro: add missing MODULE_DEVICE_TABLE
+
+Stephen Boyd (1):
+      ASoC: qcom: lpass-cpu: Use optional clk APIs
+
+Vijendar Mukunda (1):
+      ASoC: amd: fix for pcm_read() error
+
+Zou Wei (1):
+      ASoC: sti-sas: add missing MODULE_DEVICE_TABLE
+
+ include/sound/soc-dai.h               |   2 +-
+ sound/soc/amd/raven/acp3x-pcm-dma.c   |  10 --
+ sound/soc/amd/raven/acp3x.h           |   1 +
+ sound/soc/amd/raven/pci-acp3x.c       |  15 +++
+ sound/soc/codecs/ak5558.c             |   2 +-
+ sound/soc/codecs/cs35l32.c            |   3 +
+ sound/soc/codecs/cs35l33.c            |   1 +
+ sound/soc/codecs/cs35l34.c            |   3 +
+ sound/soc/codecs/cs42l42.c            |   3 +
+ sound/soc/codecs/cs42l56.c            |   7 +-
+ sound/soc/codecs/cs42l73.c            |   3 +
+ sound/soc/codecs/cs53l30.c            |   3 +
+ sound/soc/codecs/da7219.c             |   5 +-
+ sound/soc/codecs/lpass-rx-macro.c     |   1 +
+ sound/soc/codecs/lpass-tx-macro.c     |   1 +
+ sound/soc/codecs/max98088.c           |  13 ++-
+ sound/soc/codecs/rt711-sdca.c         |   4 +-
+ sound/soc/codecs/sti-sas.c            |   1 +
+ sound/soc/fsl/Kconfig                 |   1 +
+ sound/soc/generic/audio-graph-card.c  |  57 ++++++------
+ sound/soc/generic/simple-card.c       | 168 +++++++++++++++++-----------------
+ sound/soc/intel/boards/bytcr_rt5640.c |  25 +++++
+ sound/soc/qcom/lpass-cpu.c            |  12 +--
+ sound/soc/sof/intel/hda-dai.c         |   5 +
+ sound/soc/stm/stm32_sai_sub.c         |   5 +-
+ 25 files changed, 202 insertions(+), 149 deletions(-)

@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8E438DFD0
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 05:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC2D38DFD1
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 05:16:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB57D1696;
-	Mon, 24 May 2021 05:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB57D1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5F81699;
+	Mon, 24 May 2021 05:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5F81699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621826146;
-	bh=OL+Nu6wWe1W0tzmT94RzmaskUu1EKvJIprnxU2amXrQ=;
+	s=default; t=1621826183;
+	bh=Ke+2tzFzl9y9p1oDXkdXtn997PaoN3rOSMIHcfZ+oB4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gtlwFogSkFA5ty3byr8xiUKzCkXrHMmmLkPdvjnCB8EVVjALe0ZI7IVDC8SF/G20Q
-	 vo+mzeK9MJoIWtE8vXHgAzlyMZrDzlzeKiKKS30mO1vXRXvVPxJ5QXQiJWz1THsKjE
-	 lOXmTqRdJaGwWClH71bnlGBfowItcTeTnRXzhGik=
+	b=fPsjun+CvrcgwpGnTQEw/Ue1nhcZWUoZwqzCo3ORIgAalBIdnd849uvco6cRJrsYC
+	 zQv4v9at6y39gp2xynBRXLUdZZ1kWDqJ9qPT3yllXFo21HZptrnrDlK4sCtwtzX2MM
+	 Yw/zwrgaIqj/PPIHx27gZxopz39Qvdusz/maG4IE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AA43F80425;
-	Mon, 24 May 2021 05:14:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60B3BF80424;
+	Mon, 24 May 2021 05:14:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C75AF8021D; Mon, 24 May 2021 05:14:02 +0200 (CEST)
+ id 1BA05F8042F; Mon, 24 May 2021 05:14:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A7E6F8021D
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 05:13:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A7E6F8021D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A169CF80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 05:13:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A169CF80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="NTlN3bBF"; 
+ header.b="P+6zasU+"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="PrHClSgI"
+ header.i=@messagingengine.com header.b="orbZHFLq"
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 63D2E5C0118;
- Sun, 23 May 2021 23:13:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id D6DAA5C011B;
+ Sun, 23 May 2021 23:13:54 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 23 May 2021 23:13:53 -0400
+ by compute3.internal (MEProxy); Sun, 23 May 2021 23:13:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=ZD34z3xpdPVs1
- H4y9s7B5OeZw0txBY4ZaoNH067TNeM=; b=NTlN3bBFztM6RCFnBeJLDPIpqhseL
- 0Ucp5rNlb9hSnjnvmi7b99WGFVaboa37pI5aSlVzjX5jjG9Zx0vg982qJrW53x/j
- uDJ2g8voeWuZRIA7CB+EC9sghekdL6MCx5JWCpmEFdCKCP6ql8v+9RflDbnwXI/3
- wAz/Fn4cCXfpRmoOxy6a3Sx5Np5+oamStpgkz0b8LhLPTIx7LNjq1LGAhON76s1f
- CpAGMkozYg0qaf+sbf+eqmTuMOQjdogSPksVqYnYnlgFTOPszU2rVL+J51WYJUKj
- Yj7vHcTZ9CqxdfEENhMENU4EcuPOle8ADE1llBGSEgFY63D+keUBOP08A==
+ :mime-version:content-transfer-encoding; s=fm1; bh=cGf7iftU6iqAz
+ sGi2Vc+kz0f8+HmFkwkviHJ2L41SfQ=; b=P+6zasU+XpbRMtXrNcBBho8Nd2Ah6
+ koczi5RLAWv1tI6eE4//bXcnf5ZRBS8oa8RE00rXXg+RWAjnlx3xXBiwSrL1EdYQ
+ R8voh4vYsbRhSE5p7Q0DBPI+SDbcZNz+rfZzxNeq60htW2tG+h397KN1AeKv0Vht
+ OGAyc8fuP9uoZv8y6NfTReiL2TiWpK3c28owKYmZIlxE1WeyXPGODvgakeDnn71x
+ ZEpzOHA020Mkmf/EuQgjOD6BBKJzInekJmtTPuAc34IS07RLUZSnV0vPMmtJl+gg
+ 22TN6vHQOG22BPXME0AoozrPq0gvehx8Avd50QibTUAoD41hp4/rvRWdg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=ZD34z3xpdPVs1H4y9s7B5OeZw0txBY4ZaoNH067TNeM=; b=PrHClSgI
- P//C5cW0dcF1qTOCKLmrIDRB19u3NHjtIdQ/e7kP90TdrCn4lADJZCHtKpVq0Xpt
- kEK78fjhJwIu7ZNxQ9jfauaH0Gcy/0aiYZ8HcFBF+EVlijL5jf3jLSdkFua/ITEo
- bO2gYj3wvLpAyRkcUh7puZ1wC7VfQLV51w5b1/VvUQUnVeLoTRggxzZV5q5wiJUN
- XlBvHzhMGaRxzYiQLqEyuyAHjXm5594fLrLQkYbcxchj/RJzzxODBDbC9n40OEzE
- T2hM3ijD64VywPD7oOdlUaen+zoCReZTolTirxKmX/jBoLhj4AWY5e/l2ubEYtaA
- gHnhORq9N5NYCw==
-X-ME-Sender: <xms:8RmrYKindx6cb8OVgq92pH_HkQid3CNZbbdnnfBdssMwk0HnCP9hUQ>
- <xme:8RmrYLBuaQBJDpdZV10qg0SSPBuH-NpEtu4DXv6csIOuH2RNOFb6ZP2BWHszgw9Ju
- o48Tn8pTkYWlagAxig>
+ fm2; bh=cGf7iftU6iqAzsGi2Vc+kz0f8+HmFkwkviHJ2L41SfQ=; b=orbZHFLq
+ GLeW3gCDMrJk6UGDDScAE/UCJm51+7MolgiS2qHHmOXYRc7+VZRRPwcDsFp4QyF2
+ 12fNOKXfNdfk3jMJmFZjOxU4dCHvfupPYLR0oPbHT5+oi47/LDSdld31YjF7UrKS
+ qZimm91lw7l8xh5Ddh4iIkxz07uUedu2SQIhht2PYznRL/UkNMqkQz7UX6+xPc1u
+ SQSl2TMdwX50Dxt1fk+OobAu4grlCAbMVNha7mm4ttzh80CRP8e9YMFSZf7L68GU
+ kKSdlQktjclq1joT2sZaNpEStdBU2KHdQGh6x3bvqqgWjLf1i2a4CXvFpsLsaiSU
+ OAsKaZcreFEMsw==
+X-ME-Sender: <xms:8hmrYFmi7-UatUXl3N8U9iDM9vhlJXOBJTFaWSqncCvW5SyjC0X8Kw>
+ <xme:8hmrYA0y5lKOZ1B5YoJwA_XvfMROoy9AIerDsbIG4-bYsjeJL-7pMGRmESK5Mmk6x
+ SATXPoqj-DILMgXPQk>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejkedgfeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:8RmrYCGZ9oeoHnUKpspSVQtnHHzrnwYu6h8UnecpGlyGgBv3geA6PQ>
- <xmx:8RmrYDRF4n6blZeDtgw3Fkh96POwOIARBK8hP9ypgQpajNdbDpQpJQ>
- <xmx:8RmrYHzzt3CfTcrjQHQqWwNyjByU8TWlpYUX-vPiShhaZE1gSSzu4w>
- <xmx:8RmrYFZZ93jacWYPfVR8wROINe05QuMkHxOM11KVocHf7sRHTBlb1A>
+X-ME-Proxy: <xmx:8hmrYLpVV35h-yr9vXlFhNvDMFc-Jv5KHW8LGl1AoZV8oBsjaSqXKg>
+ <xmx:8hmrYFkIkNpIEMuFb6iBGVm9zJh_7bGXqogExXWRyQhSs2cyV19qmA>
+ <xmx:8hmrYD1II5OMpSYweC5j2pRcRGt6wM7SIhoiEeslUcBGHyeRXqLG2A>
+ <xmx:8hmrYA-wr5kdoCM7ijLztEAOVlh1QMxRttYUM_NoMJ9Xs5seiOLgAg>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Sun, 23 May 2021 23:13:52 -0400 (EDT)
+ Sun, 23 May 2021 23:13:53 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v2 1/4] ALSA: firewire-lib: drop initial NODATA or empty packet
-Date: Mon, 24 May 2021 12:13:43 +0900
-Message-Id: <20210524031346.50539-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH v2 2/4] ALSA: firewire-lib: obsolete callbacked member
+Date: Mon, 24 May 2021 12:13:44 +0900
+Message-Id: <20210524031346.50539-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
 References: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
@@ -112,220 +112,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The devices based on BeBoB ASICs or the devices in Tascam FireWire
-series transfer a batch of NODATA packet or empty packet in the beginning
-of packet streaming. To avoid processing them, current implementation uses
-an option to skip processing content of tx packet during some initial
-cycles. However, the hard-coded number is not enough useful.
-
-This commit drops content of packets till the packet includes any event
-firstly. The function of option is to skip processing content of tx packet
-with any event after dropping.
+The member of callbacked in AMDTP stream structure is not used anymore.
+Instead, ready_processing member is used to wake up yielding task of user
+process.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 136 ++++++++++++++++++++++++----------
- sound/firewire/amdtp-stream.h |   3 +
- 2 files changed, 100 insertions(+), 39 deletions(-)
+ sound/firewire/amdtp-stream.c | 9 ++-------
+ sound/firewire/amdtp-stream.h | 3 +--
+ 2 files changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 6dceb8cd6e0c..84608b856322 100644
+index 84608b856322..68ffbc33f692 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -49,8 +49,10 @@
- #define CIP_FMT_MASK		0x3f000000
- #define CIP_FDF_MASK		0x00ff0000
- #define CIP_FDF_SHIFT		16
-+#define CIP_FDF_NO_DATA		0xff
- #define CIP_SYT_MASK		0x0000ffff
- #define CIP_SYT_NO_INFO		0xffff
-+#define CIP_NO_DATA		((CIP_FDF_NO_DATA << CIP_FDF_SHIFT) | CIP_SYT_NO_INFO)
+@@ -110,7 +110,6 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
+ 	s->packet_index = 0;
  
- #define CIP_HEADER_SIZE		(sizeof(__be32) * CIP_HEADER_QUADLETS)
+ 	init_waitqueue_head(&s->ready_wait);
+-	s->callbacked = false;
  
-@@ -1198,6 +1200,99 @@ static void process_tx_packets_intermediately(struct fw_iso_context *context, u3
- 	}
+ 	s->fmt = fmt;
+ 	s->process_ctx_payloads = process_ctx_payloads;
+@@ -1365,7 +1364,8 @@ static void irq_target_callback_skip(struct fw_iso_context *context, u32 tstamp,
+ 	d->processing_cycle.rx_start = cycle;
  }
  
-+static void drop_tx_packets_initially(struct fw_iso_context *context, u32 tstamp,
-+				      size_t header_length, void *header, void *private_data)
-+{
-+	struct amdtp_stream *s = private_data;
-+	struct amdtp_domain *d = s->domain;
-+	__be32 *ctx_header;
-+	unsigned int count;
-+	unsigned int events;
-+	int i;
-+
-+	if (s->packet_index < 0)
-+		return;
-+
-+	count = header_length / s->ctx_data.tx.ctx_header_size;
-+
-+	// Attempt to detect any event in the batch of packets.
-+	events = 0;
-+	ctx_header = header;
-+	for (i = 0; i < count; ++i) {
-+		unsigned int payload_quads =
-+			(be32_to_cpu(*ctx_header) >> ISO_DATA_LENGTH_SHIFT) / sizeof(__be32);
-+		unsigned int data_blocks;
-+
-+		if (s->flags & CIP_NO_HEADER) {
-+			data_blocks = payload_quads / s->data_block_quadlets;
-+		} else {
-+			__be32 *cip_headers = ctx_header + IR_CTX_HEADER_DEFAULT_QUADLETS;
-+
-+			if (payload_quads < CIP_HEADER_QUADLETS) {
-+				data_blocks = 0;
-+			} else {
-+				payload_quads -= CIP_HEADER_QUADLETS;
-+
-+				if (s->flags & CIP_UNAWARE_SYT) {
-+					data_blocks = payload_quads / s->data_block_quadlets;
-+				} else {
-+					u32 cip1 = be32_to_cpu(cip_headers[1]);
-+
-+					// NODATA packet can includes any data blocks but they are
-+					// not available as event.
-+					if ((cip1 & CIP_NO_DATA) == CIP_NO_DATA)
-+						data_blocks = 0;
-+					else
-+						data_blocks = payload_quads / s->data_block_quadlets;
-+				}
-+			}
-+		}
-+
-+		events += data_blocks;
-+
-+		ctx_header += s->ctx_data.tx.ctx_header_size / sizeof(__be32);
-+	}
-+
-+	drop_tx_packets(context, tstamp, header_length, header, s);
-+
-+	if (events > 0)
-+		s->ctx_data.tx.event_starts = true;
-+
-+	// Decide the cycle count to begin processing content of packet in IR contexts.
-+	{
-+		unsigned int stream_count = 0;
-+		unsigned int event_starts_count = 0;
-+		unsigned int cycle = UINT_MAX;
-+
-+		list_for_each_entry(s, &d->streams, list) {
-+			if (s->direction == AMDTP_IN_STREAM) {
-+				++stream_count;
-+				if (s->ctx_data.tx.event_starts)
-+					++event_starts_count;
-+			}
-+		}
-+
-+		if (stream_count == event_starts_count) {
-+			unsigned int next_cycle;
-+
-+			list_for_each_entry(s, &d->streams, list) {
-+				if (s->direction != AMDTP_IN_STREAM)
-+					continue;
-+
-+				next_cycle = increment_ohci_cycle_count(s->next_cycle,
-+								d->processing_cycle.tx_init_skip);
-+				if (cycle == UINT_MAX ||
-+				    compare_ohci_cycle_count(next_cycle, cycle) > 0)
-+					cycle = next_cycle;
-+
-+				s->context->callback.sc = process_tx_packets_intermediately;
-+			}
-+
-+			d->processing_cycle.tx_start = cycle;
-+		}
-+	}
-+}
-+
- static void process_ctxs_in_domain(struct amdtp_domain *d)
- {
- 	struct amdtp_stream *s;
-@@ -1277,20 +1372,14 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- {
+-// this is executed one time.
++// This is executed one time. For in-stream, first packet has come. For out-stream, prepared to
++// transmit first packet.
+ static void amdtp_stream_first_callback(struct fw_iso_context *context,
+ 					u32 tstamp, size_t header_length,
+ 					void *header, void *private_data)
+@@ -1373,10 +1373,6 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
  	struct amdtp_stream *s = private_data;
  	struct amdtp_domain *d = s->domain;
--	const __be32 *ctx_header = header;
--	u32 cycle;
  
- 	// For in-stream, first packet has come.
- 	// For out-stream, prepared to transmit first packet
- 	s->callbacked = true;
- 
+-	// For in-stream, first packet has come.
+-	// For out-stream, prepared to transmit first packet
+-	s->callbacked = true;
+-
  	if (s->direction == AMDTP_IN_STREAM) {
--		cycle = compute_ohci_cycle_count(ctx_header[1]);
--
--		context->callback.sc = drop_tx_packets;
-+		context->callback.sc = drop_tx_packets_initially;
+ 		context->callback.sc = drop_tx_packets_initially;
  	} else {
--		cycle = compute_ohci_it_cycle(*ctx_header, s->queue_size);
--
- 		if (s == d->irq_target)
- 			context->callback.sc = irq_target_callback_skip;
- 		else
-@@ -1298,38 +1387,6 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	}
+@@ -1536,7 +1532,6 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
+ 	if ((s->flags & CIP_EMPTY_WITH_TAG0) || (s->flags & CIP_NO_HEADER))
+ 		tag |= FW_ISO_CONTEXT_MATCH_TAG0;
  
- 	context->callback.sc(context, tstamp, header_length, header, s);
--
--	// Decide the cycle count to begin processing content of packet in IR contexts.
--	if (s->direction == AMDTP_IN_STREAM) {
--		unsigned int stream_count = 0;
--		unsigned int callbacked_count = 0;
--
--		list_for_each_entry(s, &d->streams, list) {
--			if (s->direction == AMDTP_IN_STREAM) {
--				++stream_count;
--				if (s->callbacked)
--					++callbacked_count;
--			}
--		}
--
--		if (stream_count == callbacked_count) {
--			unsigned int next_cycle;
--
--			list_for_each_entry(s, &d->streams, list) {
--				if (s->direction != AMDTP_IN_STREAM)
--					continue;
--
--				next_cycle = increment_ohci_cycle_count(s->next_cycle,
--								d->processing_cycle.tx_init_skip);
--				if (compare_ohci_cycle_count(next_cycle, cycle) > 0)
--					cycle = next_cycle;
--
--				s->context->callback.sc = process_tx_packets_intermediately;
--			}
--
--			d->processing_cycle.tx_start = cycle;
--		}
--	}
- }
- 
- /**
-@@ -1409,6 +1466,7 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	if (s->direction == AMDTP_IN_STREAM) {
- 		s->ctx_data.tx.max_ctx_payload_length = max_ctx_payload_size;
- 		s->ctx_data.tx.ctx_header_size = ctx_header_size;
-+		s->ctx_data.tx.event_starts = false;
- 	} else {
- 		static const struct {
- 			unsigned int data_block;
+-	s->callbacked = false;
+ 	s->ready_processing = false;
+ 	err = fw_iso_context_start(s->context, -1, 0, tag);
+ 	if (err < 0)
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index 467d5021624b..d3ba2e1c1522 100644
+index d3ba2e1c1522..34294776f9e8 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -138,6 +138,9 @@ struct amdtp_stream {
- 			// Fixed interval of dbc between previos/current
- 			// packets.
- 			unsigned int dbc_interval;
-+
-+			// The device starts multiplexing events to the packet.
-+			bool event_starts;
- 		} tx;
- 		struct {
- 			// To generate CIP header.
+@@ -183,8 +183,7 @@ struct amdtp_stream {
+ 
+ 	// To start processing content of packets at the same cycle in several contexts for
+ 	// each direction.
+-	bool callbacked:1;
+-	bool ready_processing:1;
++	bool ready_processing;
+ 	wait_queue_head_t ready_wait;
+ 	unsigned int next_cycle;
+ 
 -- 
 2.27.0
 

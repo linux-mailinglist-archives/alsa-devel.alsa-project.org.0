@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2946638E59E
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 13:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC1538E5A5
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 13:44:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 999491657;
-	Mon, 24 May 2021 13:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 999491657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 676A2168B;
+	Mon, 24 May 2021 13:43:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 676A2168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621856545;
-	bh=Dt0r6MNHL/NjuGXD8UeOdlRZCry+9vCvIWJYTa62/4o=;
+	s=default; t=1621856663;
+	bh=vp3Ge1pEzQbwyMYu9c35QC6rPFRJj2ALBriWt8K/8RE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=dawGR020bbisb0qHuz7qJPATi8RLTO31K0L30Qp0IJ/BnOxO/34fh5ZWpMuYf6PVO
-	 WsyNJASL2QgnITz73BZS9TIBAuSS3B6EYKa8SZaytJ6YtynuM74sXIaUhZe2E3Xngv
-	 JmlfzNC1svOd0zrpTBlb9U4f86wM9jup00QAK1Ss=
+	b=WvvAhpB2n0tOPQ63c0ZuF5P3m27loAY5bygRqW43qnzCwbrAdKcUbwWPzSmVas2x8
+	 FI/RobId081gbGitpfmc0KWe7LwHQhOailVbkivZHyxNx/PVC9M5OfN+5sERrrurdQ
+	 8iHHEyuG2YKNNYgPd6YfafKttyIFMn/uFdBiNKr8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02057F80137;
-	Mon, 24 May 2021 13:40:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEA2FF8022D;
+	Mon, 24 May 2021 13:42:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F619F8022B; Mon, 24 May 2021 13:40:55 +0200 (CEST)
+ id BDC77F800B8; Mon, 24 May 2021 13:42:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,32 +33,32 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D494F80137
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 13:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D494F80137
-Received: from dggems701-chm.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FpZtm1CDYzNydt;
- Mon, 24 May 2021 19:37:04 +0800 (CST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A10C4F800B8
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 13:42:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A10C4F800B8
+Received: from dggems702-chm.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FpZx81gr0zNyZG;
+ Mon, 24 May 2021 19:39:08 +0800 (CST)
 Received: from dggema769-chm.china.huawei.com (10.1.198.211) by
- dggems701-chm.china.huawei.com (10.3.19.178) with Microsoft SMTP Server
+ dggems702-chm.china.huawei.com (10.3.19.179) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Mon, 24 May 2021 19:40:39 +0800
+ 15.1.2176.2; Mon, 24 May 2021 19:42:43 +0800
 Received: from localhost (10.174.179.215) by dggema769-chm.china.huawei.com
  (10.1.198.211) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Mon, 24
- May 2021 19:40:39 +0800
+ May 2021 19:42:43 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <james.schulman@cirrus.com>, <david.rhodes@cirrus.com>,
  <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>
-Subject: [PATCH -next] ASoC: cs43130: Use DEVICE_ATTR_RO macro
-Date: Mon, 24 May 2021 19:40:17 +0800
-Message-ID: <20210524114017.18672-1-yuehaibing@huawei.com>
+Subject: [PATCH -next] ASoC: cs42l52: use DEVICE_ATTR_WO macro
+Date: Mon, 24 May 2021 19:42:39 +0800
+Message-ID: <20210524114239.7960-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  dggema769-chm.china.huawei.com (10.1.198.211)
 X-CFilter-Loop: Reflected
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
@@ -78,68 +78,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use DEVICE_ATTR_RO() helper instead of plain DEVICE_ATTR(),
+Use DEVICE_ATTR_WO() helper instead of plain DEVICE_ATTR(),
 which makes the code a bit shorter and easier to read.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/soc/codecs/cs43130.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ sound/soc/codecs/cs42l52.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index de7fa3e4bfbb..44b20c1ef851 100644
---- a/sound/soc/codecs/cs43130.c
-+++ b/sound/soc/codecs/cs43130.c
-@@ -1672,14 +1672,14 @@ static int cs43130_show_dc(struct device *dev, char *buf, u8 ch)
- 				 cs43130->hpload_dc[ch]);
+diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
+index 88547e2cd53d..80161151b3f2 100644
+--- a/sound/soc/codecs/cs42l52.c
++++ b/sound/soc/codecs/cs42l52.c
+@@ -957,9 +957,8 @@ static int cs42l52_beep_event(struct input_dev *dev, unsigned int type,
+ 	return 0;
  }
  
--static ssize_t cs43130_show_dc_l(struct device *dev,
--				 struct device_attribute *attr, char *buf)
-+static ssize_t hpload_dc_l_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
+-static ssize_t cs42l52_beep_set(struct device *dev,
+-			       struct device_attribute *attr,
+-			       const char *buf, size_t count)
++static ssize_t beep_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
  {
- 	return cs43130_show_dc(dev, buf, HP_LEFT);
+ 	struct cs42l52_private *cs42l52 = dev_get_drvdata(dev);
+ 	long int time;
+@@ -974,7 +973,7 @@ static ssize_t cs42l52_beep_set(struct device *dev,
+ 	return count;
  }
  
--static ssize_t cs43130_show_dc_r(struct device *dev,
--				 struct device_attribute *attr, char *buf)
-+static ssize_t hpload_dc_r_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
+-static DEVICE_ATTR(beep, 0200, NULL, cs42l52_beep_set);
++static DEVICE_ATTR_WO(beep);
+ 
+ static void cs42l52_init_beep(struct snd_soc_component *component)
  {
- 	return cs43130_show_dc(dev, buf, HP_RIGHT);
- }
-@@ -1719,22 +1719,22 @@ static int cs43130_show_ac(struct device *dev, char *buf, u8 ch)
- 	}
- }
- 
--static ssize_t cs43130_show_ac_l(struct device *dev,
--				 struct device_attribute *attr, char *buf)
-+static ssize_t hpload_ac_l_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
- {
- 	return cs43130_show_ac(dev, buf, HP_LEFT);
- }
- 
--static ssize_t cs43130_show_ac_r(struct device *dev,
--				 struct device_attribute *attr, char *buf)
-+static ssize_t hpload_ac_r_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
- {
- 	return cs43130_show_ac(dev, buf, HP_RIGHT);
- }
- 
--static DEVICE_ATTR(hpload_dc_l, 0444, cs43130_show_dc_l, NULL);
--static DEVICE_ATTR(hpload_dc_r, 0444, cs43130_show_dc_r, NULL);
--static DEVICE_ATTR(hpload_ac_l, 0444, cs43130_show_ac_l, NULL);
--static DEVICE_ATTR(hpload_ac_r, 0444, cs43130_show_ac_r, NULL);
-+static DEVICE_ATTR_RO(hpload_dc_l);
-+static DEVICE_ATTR_RO(hpload_dc_r);
-+static DEVICE_ATTR_RO(hpload_ac_l);
-+static DEVICE_ATTR_RO(hpload_ac_r);
- 
- static struct attribute *hpload_attrs[] = {
- 	&dev_attr_hpload_dc_l.attr,
 -- 
 2.17.1
 

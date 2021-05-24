@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EC2D38DFD1
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 05:16:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B761E38DFD2
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 05:16:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5F81699;
-	Mon, 24 May 2021 05:15:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5F81699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AA4C1692;
+	Mon, 24 May 2021 05:15:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AA4C1692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621826183;
-	bh=Ke+2tzFzl9y9p1oDXkdXtn997PaoN3rOSMIHcfZ+oB4=;
+	s=default; t=1621826195;
+	bh=2HKbwmLItnyLHxb6UNvNXTC2QmycER1Xe42JDNCx2w8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fPsjun+CvrcgwpGnTQEw/Ue1nhcZWUoZwqzCo3ORIgAalBIdnd849uvco6cRJrsYC
-	 zQv4v9at6y39gp2xynBRXLUdZZ1kWDqJ9qPT3yllXFo21HZptrnrDlK4sCtwtzX2MM
-	 Yw/zwrgaIqj/PPIHx27gZxopz39Qvdusz/maG4IE=
+	b=dJ5TRaUfn6zzLeg+C/pFzBWLofZeqIKrQgUeQMPAFu4dvzuIC4EW0G6tZuIXtc31C
+	 9sqd1VbCSMxV6/La3vkZ2it0oS5zlp+aBTG+oLl8pAl+qMV7LsB6bQ7HDbkBRc4Tz3
+	 fA3szpBb/zweBWxqTz39cRdcjDbHw14LviChYLvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60B3BF80424;
+	by alsa1.perex.cz (Postfix) with ESMTP id F38D5F80475;
 	Mon, 24 May 2021 05:14:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BA05F8042F; Mon, 24 May 2021 05:14:06 +0200 (CEST)
+ id 72562F8042F; Mon, 24 May 2021 05:14:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A169CF80137
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 05:13:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A169CF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24858F8022B
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 05:13:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24858F8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="P+6zasU+"; 
+ header.b="vIH64yu4"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="orbZHFLq"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id D6DAA5C011B;
- Sun, 23 May 2021 23:13:54 -0400 (EDT)
+ header.i=@messagingengine.com header.b="ECnrdLFr"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5F3725C0114;
+ Sun, 23 May 2021 23:13:57 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 23 May 2021 23:13:54 -0400
+ by compute4.internal (MEProxy); Sun, 23 May 2021 23:13:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=cGf7iftU6iqAz
- sGi2Vc+kz0f8+HmFkwkviHJ2L41SfQ=; b=P+6zasU+XpbRMtXrNcBBho8Nd2Ah6
- koczi5RLAWv1tI6eE4//bXcnf5ZRBS8oa8RE00rXXg+RWAjnlx3xXBiwSrL1EdYQ
- R8voh4vYsbRhSE5p7Q0DBPI+SDbcZNz+rfZzxNeq60htW2tG+h397KN1AeKv0Vht
- OGAyc8fuP9uoZv8y6NfTReiL2TiWpK3c28owKYmZIlxE1WeyXPGODvgakeDnn71x
- ZEpzOHA020Mkmf/EuQgjOD6BBKJzInekJmtTPuAc34IS07RLUZSnV0vPMmtJl+gg
- 22TN6vHQOG22BPXME0AoozrPq0gvehx8Avd50QibTUAoD41hp4/rvRWdg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=EIpaXupRyAsD2
+ 1Jvw+kdoUnr/ocjFTK8yb9n6jnR8QI=; b=vIH64yu433W93fw7TUAuqJviYjzCH
+ 2cXgoMePtQyE8SKnWzc9+JEpk21Ul3w4slPg1kjp7rfd+ZlT2ndpFp9AM4lp82ZC
+ fm8/x8m41WlRDgDzDcD1klFnLpm9hHDZkZZm/nuM9pD6oaJzVDufIzc38kbo3kho
+ 7oti2RsasKfpTtzwq3ogEGPV0kcGbB93sLjzwNodYtXLKZuFKxw6dS6E3cfdUrnH
+ /WU36hNWHbtmd6QtNKySrY5u44H8lQ97dM0bRvQtaqLBwF13FcRyPcBNEo/KSmWB
+ 1sbWXCRW3qk8mke32YVv3ZuOLAmalSPvX0SPYnfB0pzwUKb8ArvKCB1vA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=cGf7iftU6iqAzsGi2Vc+kz0f8+HmFkwkviHJ2L41SfQ=; b=orbZHFLq
- GLeW3gCDMrJk6UGDDScAE/UCJm51+7MolgiS2qHHmOXYRc7+VZRRPwcDsFp4QyF2
- 12fNOKXfNdfk3jMJmFZjOxU4dCHvfupPYLR0oPbHT5+oi47/LDSdld31YjF7UrKS
- qZimm91lw7l8xh5Ddh4iIkxz07uUedu2SQIhht2PYznRL/UkNMqkQz7UX6+xPc1u
- SQSl2TMdwX50Dxt1fk+OobAu4grlCAbMVNha7mm4ttzh80CRP8e9YMFSZf7L68GU
- kKSdlQktjclq1joT2sZaNpEStdBU2KHdQGh6x3bvqqgWjLf1i2a4CXvFpsLsaiSU
- OAsKaZcreFEMsw==
-X-ME-Sender: <xms:8hmrYFmi7-UatUXl3N8U9iDM9vhlJXOBJTFaWSqncCvW5SyjC0X8Kw>
- <xme:8hmrYA0y5lKOZ1B5YoJwA_XvfMROoy9AIerDsbIG4-bYsjeJL-7pMGRmESK5Mmk6x
- SATXPoqj-DILMgXPQk>
+ fm2; bh=EIpaXupRyAsD21Jvw+kdoUnr/ocjFTK8yb9n6jnR8QI=; b=ECnrdLFr
+ YFLjzZ5quwN8ECB7pAc3LwNucVfBA5rDClFTC78TsBN2PYbqLATiTplJ/UyI55lw
+ 6jW/uYkVkzffdwe61HJSbHnCHN87Y2B7P/tNt4VqCv/TjVJql2768hT4OJ5jcrrI
+ 7WnuWy+7sz2O3t2lUaAf+r6WhH4wMZR49lYkl8wVOu1N9F6aY4Z47Zuhh7vE5nz8
+ OYjLrbrz1WlU+Qk0YBl6TpAOU6RGKKbW8Hkj/+emVzeJgJWKqqE1hOy0izHR8cQY
+ IYkOrEclSgJH/THTihBwfjkz5YSMydXeV7bEm5DUF40AM/9Q7THhZb04M/JJ54fY
+ IeRekitGdzPNQA==
+X-ME-Sender: <xms:9BmrYJs-BgKrUTDJ7FZXX2g6gtYakHVvZRWUyq5QG4Aai2v8XjYgGw>
+ <xme:9BmrYCcGwuH09k0DwkR3tjWnscVz-pkAaQENRDI4sFYiCi_AEtKd91iv_D79foQrj
+ vgZYwIILWD_DjQc9vQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejkedgfeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedugedr
- fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilh
+ fedrieehrddujeehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
  hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:8hmrYLpVV35h-yr9vXlFhNvDMFc-Jv5KHW8LGl1AoZV8oBsjaSqXKg>
- <xmx:8hmrYFkIkNpIEMuFb6iBGVm9zJh_7bGXqogExXWRyQhSs2cyV19qmA>
- <xmx:8hmrYD1II5OMpSYweC5j2pRcRGt6wM7SIhoiEeslUcBGHyeRXqLG2A>
- <xmx:8hmrYA-wr5kdoCM7ijLztEAOVlh1QMxRttYUM_NoMJ9Xs5seiOLgAg>
+X-ME-Proxy: <xmx:9BmrYMwAeObRJd6j5kpAS8F8j6clxWePVftAuuWkW_214iRTwnylxw>
+ <xmx:9BmrYAMLw9pe4-JJlYbprL3kIdrP--awndoACifC5f_d0s1mmKCzXQ>
+ <xmx:9BmrYJ8m-F120OyRm54YYBXrXXGRosL0njv_Runp8MLMk1BQ4bhEnw>
+ <xmx:9RmrYGHrvzcgAEfvGhS90dRUTpA-xJaIRJNTFHxhiorA6hx8P8ClMg>
 Received: from workstation.flets-east.jp (ae065175.dynamic.ppp.asahi-net.or.jp
  [14.3.65.175]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Sun, 23 May 2021 23:13:53 -0400 (EDT)
+ Sun, 23 May 2021 23:13:55 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH v2 2/4] ALSA: firewire-lib: obsolete callbacked member
-Date: Mon, 24 May 2021 12:13:44 +0900
-Message-Id: <20210524031346.50539-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH v2 3/4] ALSA: bebob: cancel switching connection order
+Date: Mon, 24 May 2021 12:13:45 +0900
+Message-Id: <20210524031346.50539-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
 References: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
@@ -112,70 +112,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The member of callbacked in AMDTP stream structure is not used anymore.
-Instead, ready_processing member is used to wake up yielding task of user
-process.
+The order to establish connection seems to be meaningless.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 9 ++-------
- sound/firewire/amdtp-stream.h | 3 +--
- 2 files changed, 3 insertions(+), 9 deletions(-)
+ sound/firewire/bebob/bebob_stream.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 84608b856322..68ffbc33f692 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -110,7 +110,6 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
- 	s->packet_index = 0;
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index df764171f84b..975670a29a72 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -623,7 +623,6 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
  
- 	init_waitqueue_head(&s->ready_wait);
--	s->callbacked = false;
+ 	if (!amdtp_stream_running(&bebob->rx_stream)) {
+ 		enum snd_bebob_clock_type src;
+-		struct amdtp_stream *master, *slave;
+ 		unsigned int curr_rate;
+ 		unsigned int tx_init_skip_cycles;
  
- 	s->fmt = fmt;
- 	s->process_ctx_payloads = process_ctx_payloads;
-@@ -1365,7 +1364,8 @@ static void irq_target_callback_skip(struct fw_iso_context *context, u32 tstamp,
- 	d->processing_cycle.rx_start = cycle;
- }
+@@ -637,19 +636,11 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		if (err < 0)
+ 			return err;
  
--// this is executed one time.
-+// This is executed one time. For in-stream, first packet has come. For out-stream, prepared to
-+// transmit first packet.
- static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 					u32 tstamp, size_t header_length,
- 					void *header, void *private_data)
-@@ -1373,10 +1373,6 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	struct amdtp_stream *s = private_data;
- 	struct amdtp_domain *d = s->domain;
- 
--	// For in-stream, first packet has come.
--	// For out-stream, prepared to transmit first packet
--	s->callbacked = true;
+-		if (src != SND_BEBOB_CLOCK_TYPE_SYT) {
+-			master = &bebob->tx_stream;
+-			slave = &bebob->rx_stream;
+-		} else {
+-			master = &bebob->rx_stream;
+-			slave = &bebob->tx_stream;
+-		}
 -
- 	if (s->direction == AMDTP_IN_STREAM) {
- 		context->callback.sc = drop_tx_packets_initially;
- 	} else {
-@@ -1536,7 +1532,6 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	if ((s->flags & CIP_EMPTY_WITH_TAG0) || (s->flags & CIP_NO_HEADER))
- 		tag |= FW_ISO_CONTEXT_MATCH_TAG0;
+-		err = start_stream(bebob, master);
++		err = start_stream(bebob, &bebob->rx_stream);
+ 		if (err < 0)
+ 			goto error;
  
--	s->callbacked = false;
- 	s->ready_processing = false;
- 	err = fw_iso_context_start(s->context, -1, 0, tag);
- 	if (err < 0)
-diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index d3ba2e1c1522..34294776f9e8 100644
---- a/sound/firewire/amdtp-stream.h
-+++ b/sound/firewire/amdtp-stream.h
-@@ -183,8 +183,7 @@ struct amdtp_stream {
- 
- 	// To start processing content of packets at the same cycle in several contexts for
- 	// each direction.
--	bool callbacked:1;
--	bool ready_processing:1;
-+	bool ready_processing;
- 	wait_queue_head_t ready_wait;
- 	unsigned int next_cycle;
+-		err = start_stream(bebob, slave);
++		err = start_stream(bebob, &bebob->tx_stream);
+ 		if (err < 0)
+ 			goto error;
  
 -- 
 2.27.0

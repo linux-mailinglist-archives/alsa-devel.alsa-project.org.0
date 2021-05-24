@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6CED38EA3F
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B58238EA64
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 May 2021 16:54:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59C2F851;
-	Mon, 24 May 2021 16:52:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59C2F851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E27016A5;
+	Mon, 24 May 2021 16:53:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E27016A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621868028;
-	bh=RQhlUaPK0txnvTpB8EbPl0THdMYPjTwx7mfDkn3q924=;
+	s=default; t=1621868047;
+	bh=ZqLak8BtxpSBoSac6F+jFOun1e3iSVOTf+B9UAhpitk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ri0jnbv0Wu7e9T3gobaXPca9sEF4Q1g8oX7l56L0uCsN0dEJdoo4F3ZTFX9JEZwUf
-	 akeKpG85RptazgAgVmwKxMKxt461H5JWaiQyoi1omR7ZxI/Srp2ZJjfh3bBADtYT/o
-	 kgxZ9ng/WyY8kSHyfqwE6Xj/kIbl4m/TuC8uGZ6Y=
+	b=JbPxehVQCwV2kJTFaDhh8EZCd3CY10KTYHUmU6Pd+dsFSgTbXbkLXCZjL7H4uaf59
+	 /lkTYNEnWFG8Cqk26vqpd7KVxpSNwcIPDwRnxtGcCe3v4/agO/KNfmFnJRj9/vL5OW
+	 M/2wOB30T97GjmviQajRyLdumdnGagWLhSYamtzs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CB47F80516;
+	by alsa1.perex.cz (Postfix) with ESMTP id C66CAF80517;
 	Mon, 24 May 2021 16:48:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4BE2F80517; Mon, 24 May 2021 16:48:33 +0200 (CEST)
+ id E8CFCF80516; Mon, 24 May 2021 16:48:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DF8AF802C4
- for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:48:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DF8AF802C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BD83F804FF
+ for <alsa-devel@alsa-project.org>; Mon, 24 May 2021 16:48:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BD83F804FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p8tdFiIW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0425761423;
- Mon, 24 May 2021 14:48:21 +0000 (UTC)
+ header.b="d8540NV+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F28A6142A;
+ Mon, 24 May 2021 14:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867702;
- bh=RQhlUaPK0txnvTpB8EbPl0THdMYPjTwx7mfDkn3q924=;
+ s=k20201202; t=1621867703;
+ bh=ZqLak8BtxpSBoSac6F+jFOun1e3iSVOTf+B9UAhpitk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p8tdFiIWb8BrBN7FGFMI9gYUZopi/RcSMyF0lFti6LkfnndPr+OmojM607avJM/2+
- 4SuPNtxsuzRP58iFGNqR/oZtADfGeVpJXe3U5Bn672sA+68Ey9lgiCZyDBaENQBLo/
- wH4RgSVwG19ya0LMbqGs5riYohtvyQd9QgC5aEsDyIuJAp1db3lWfU/TjQgYXSlYxF
- H6BpJMdlsj+mjY3x1fSsbB7TkMxENy6BGe7ZmJFHDxwidr7HOWTASNp33XbmkubAny
- Tmw0wakVbAWkkPchPV60aeYzfMBcOm1065Y549zT9yxKFz4to8FgzxI08+vKb+/nJh
- 4PhjKwAgKLY/w==
+ b=d8540NV+4lyBm7Z4sf07Mv+WA7x9CAkHGz9tAT+GKk8ifqBd0SKFyp9UzLDQRr+pE
+ XNsIbasn6kzrOJE9L+w63UcfpfnAL2KIKund3x1OZ2LubTH00SArGxOF6GXzXflwM4
+ wFSlQbv7BHc5gyJegXe6ICUKb7MGwb0kzJO4+CB7cJlM2C5tZuB2vRMDswaNb2srjL
+ CLcDtQ8cXa8VcxDjsZUAbsXmYcHvWaisJzLHkWEGw1wAvFtbb8C4y/45m49rgLc9Qa
+ DvafM0qwDjaS8V2+ZYJvTYX4qomjAU19/wyEAkNuK9xVIPjU/AtBPVdrcyRlJ75o45
+ zX5TUGhkAEUHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 31/62] Revert "ASoC: cs43130: fix a NULL pointer
- dereference"
-Date: Mon, 24 May 2021 10:47:12 -0400
-Message-Id: <20210524144744.2497894-31-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 32/62] ASoC: cs43130: handle errors in
+ cs43130_probe() properly
+Date: Mon, 24 May 2021 10:47:13 -0400
+Message-Id: <20210524144744.2497894-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210524144744.2497894-1-sashal@kernel.org>
 References: <20210524144744.2497894-1-sashal@kernel.org>
@@ -66,8 +66,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kangjie Lu <kjlu@umn.edu>,
+Cc: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -86,40 +86,71 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-[ Upstream commit fdda0dd2686ecd1f2e616c9e0366ea71b40c485d ]
+[ Upstream commit 2da441a6491d93eff8ffff523837fd621dc80389 ]
 
-This reverts commit a2be42f18d409213bb7e7a736e3ef6ba005115bb.
+cs43130_probe() does not do any valid error checking of things it
+initializes, OR what it does, it does not unwind properly if there are
+errors.
 
-Because of recent interactions with developers from @umn.edu, all
-commits from them have been recently re-reviewed to ensure if they were
-correct or not.
+Fix this up by moving the sysfs files to an attribute group so the
+driver core will correctly add/remove them all at once and handle errors
+with them, and correctly check for creating a new workqueue and
+unwinding if that fails.
 
-Upon review, this commit was found to be incorrect for the reasons
-below, so it must be reverted.  It will be fixed up "correctly" in a
-later kernel change.
-
-The original patch here is not correct, sysfs files that were created
-are not unwound.
-
-Cc: Kangjie Lu <kjlu@umn.edu>
 Cc: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20210503115736.2104747-57-gregkh@linuxfoundation.org
+Link: https://lore.kernel.org/r/20210503115736.2104747-58-gregkh@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs43130.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/codecs/cs43130.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index 7fb34422a2a4..bb46e993c353 100644
+index bb46e993c353..8f70dee95878 100644
 --- a/sound/soc/codecs/cs43130.c
 +++ b/sound/soc/codecs/cs43130.c
-@@ -2319,8 +2319,6 @@ static int cs43130_probe(struct snd_soc_component *component)
+@@ -1735,6 +1735,14 @@ static DEVICE_ATTR(hpload_dc_r, 0444, cs43130_show_dc_r, NULL);
+ static DEVICE_ATTR(hpload_ac_l, 0444, cs43130_show_ac_l, NULL);
+ static DEVICE_ATTR(hpload_ac_r, 0444, cs43130_show_ac_r, NULL);
+ 
++static struct attribute *hpload_attrs[] = {
++	&dev_attr_hpload_dc_l.attr,
++	&dev_attr_hpload_dc_r.attr,
++	&dev_attr_hpload_ac_l.attr,
++	&dev_attr_hpload_ac_r.attr,
++};
++ATTRIBUTE_GROUPS(hpload);
++
+ static struct reg_sequence hp_en_cal_seq[] = {
+ 	{CS43130_INT_MASK_4, CS43130_INT_MASK_ALL},
+ 	{CS43130_HP_MEAS_LOAD_1, 0},
+@@ -2302,23 +2310,15 @@ static int cs43130_probe(struct snd_soc_component *component)
+ 
+ 	cs43130->hpload_done = false;
+ 	if (cs43130->dc_meas) {
+-		ret = device_create_file(component->dev, &dev_attr_hpload_dc_l);
+-		if (ret < 0)
+-			return ret;
+-
+-		ret = device_create_file(component->dev, &dev_attr_hpload_dc_r);
+-		if (ret < 0)
+-			return ret;
+-
+-		ret = device_create_file(component->dev, &dev_attr_hpload_ac_l);
+-		if (ret < 0)
+-			return ret;
+-
+-		ret = device_create_file(component->dev, &dev_attr_hpload_ac_r);
+-		if (ret < 0)
++		ret = sysfs_create_groups(&component->dev->kobj, hpload_groups);
++		if (ret)
  			return ret;
  
  		cs43130->wq = create_singlethread_workqueue("cs43130_hp");
--		if (!cs43130->wq)
--			return -ENOMEM;
++		if (!cs43130->wq) {
++			sysfs_remove_groups(&component->dev->kobj, hpload_groups);
++			return -ENOMEM;
++		}
  		INIT_WORK(&cs43130->work, cs43130_imp_meas);
  	}
  

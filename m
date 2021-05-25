@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7930839060A
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 17:59:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36FB139060E
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 17:59:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF73F1777;
-	Tue, 25 May 2021 17:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF73F1777
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB3901788;
+	Tue, 25 May 2021 17:58:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB3901788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621958340;
-	bh=dBq+TADYK/pYKNkURlYMQXOUihjYmgrS9qSz0Ps1pEI=;
+	s=default; t=1621958370;
+	bh=P1zUDp47xJSKyL0j5Ud18Gn5571bTnkMVlmm05gGt38=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=INtiKiAbEEKenqk2KD2l3zsJwVjkiZQ4gig8G3AaMbE4Qc8XFF6lm7OL7Ek/7VoYz
-	 qJdCnchcdHOfDgEMRJCejx1WUHwtBpp1lwMVDj/JWNvAKJkrLVodn3FYB+8wDvpCM9
-	 mzfw2WLY5bZb+2d6pciniG3FL/LaQj7Qcwrmz62Q=
+	b=mfnx/6EEoJwrpTK7bCPQEvYsnAg798laoYFPT0P8ndIk1pTolzeqNhGCzA3vxIk2f
+	 kRyI/Za2SCbTeZr9EV1bGe0VgzvrzB/yk1pmddAQYBtEwwFRbjdyUwqd5EHO8WeXWu
+	 PZjMfd/GDqVWSyEIBCxOylEbBODeBYnJRLAeVMu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C775EF800FB;
-	Tue, 25 May 2021 17:57:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86CF5F800FA;
+	Tue, 25 May 2021 17:58:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF6DFF8024D; Tue, 25 May 2021 17:57:17 +0200 (CEST)
+ id 9F19DF800FA; Tue, 25 May 2021 17:58:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,65 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A552CF8024C
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 17:57:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A552CF8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8BFEF800B6
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 17:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8BFEF800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="rzUBRibB"; 
+ header.b="XQr4aTRe"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="8lyZjmub"
+ header.b="Rvk7eQvm"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621958230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621958310; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bDfNfMJ4CgENFpIOzxEX3XQrzfBbIcDhgrnDuGqPjGE=;
- b=rzUBRibBCOXocPYcIva88Xb/IfzesOWBDzFvDblR8hhGN61KCpwLt0NPERMbbHeyxI9Scz
- caoXKuZ7voLy+l9vm8LFdagso9AIYjNlRdU5YQmLlWzmF2KvJX0zrnIsY6ZdyRfw+oeGFU
- uUewUrvzMrn/1N5jgcmDMKjf0uvex8w=
+ bh=9otuVabrfXBAVNjVXfRZ1fRmNMAazHRuzbK2fmvWM3U=;
+ b=XQr4aTRedS/QDUdlUqzwT6BMcSV46qP6QyfpZo7IunRcLwL7kV/Zo5CZ51LgTXQb1uBFmK
+ p2/VFwsAxaLHP2A6Rlm2sJsCoWeE8PfMznbK6Kct7K2rvhdIzlSS9uB7UcbbWOnvNM4V3H
+ GSG4vLE+18pIhdoa44Bv1wEgBcFXtDM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621958230;
+ s=susede2_ed25519; t=1621958310;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bDfNfMJ4CgENFpIOzxEX3XQrzfBbIcDhgrnDuGqPjGE=;
- b=8lyZjmubD4GqXYLb3oMk78Voh4ntB1wCIW9L2E4qZTkQsGY3lOKnRV+g0ehyREj6osL+NH
- xmhSSwHYKaMWHBDw==
+ bh=9otuVabrfXBAVNjVXfRZ1fRmNMAazHRuzbK2fmvWM3U=;
+ b=Rvk7eQvmQiSQ7i/FUG5qH1eVgSbyV1QTWCBCE5w+9tOOf18sNl1CqhffYm0y5TC3YXKwzP
+ VRM8MmDLJ7fzxlCQ==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 69AD3AB71;
- Tue, 25 May 2021 15:57:10 +0000 (UTC)
-Date: Tue, 25 May 2021 17:57:10 +0200
-Message-ID: <s5hsg2abycp.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id DAFECAB71;
+ Tue, 25 May 2021 15:58:29 +0000 (UTC)
+Date: Tue, 25 May 2021 17:58:29 +0200
+Message-ID: <s5ho8cybyai.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v3] ALSA: hda/realtek: Chain in pop reduction fixup for
- ThinkStation P340
-In-Reply-To: <20210524203726.2278-1-peter.ujfalusi@linux.intel.com>
-References: <20210524203726.2278-1-peter.ujfalusi@linux.intel.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Subject: Re: [PATCH v2 01/12] ALSA: doc: Clarify IEC958 controls iface
+In-Reply-To: <20210525132354.297468-2-maxime@cerno.tech>
+References: <20210525132354.297468-1-maxime@cerno.tech>
+ <20210525132354.297468-2-maxime@cerno.tech>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: hui.wang@canonical.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- kai.vehmanen@linux.intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Tim Gover <tim.gover@raspberrypi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
+ Eric Anholt <eric@anholt.net>, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-doc@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
+ Nicolas Saenz Julienne <nsaenzjulienne@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Dom Cobley <dom@raspberrypi.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,20 +108,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 24 May 2021 22:37:26 +0200,
-Peter Ujfalusi wrote:
+On Tue, 25 May 2021 15:23:43 +0200,
+Maxime Ripard wrote:
 > 
-> Lenovo ThinkStation P340 uses ALC623 codec (SSID 17aa:1048) and it produces
-> bug plock/pop noise over line out (green jack on the back) which can be
-> fixed by applying ALC269_FIXUP_NO_SHUTUP tot he machine.
+> The doc currently mentions that the IEC958 Playback Default should be
+> exposed on the PCM iface, and the Playback Mask on the mixer iface.
 > 
-> Convert the existing entry for the same SSID to chain to apply this fixup
-> as well.
+> It's a bit confusing to advise to have two related controls on two
+> separate ifaces, and it looks like the drivers that currently expose
+> those controls use any combination of the mixer and PCM ifaces.
 > 
-> Suggested-by: Takashi Iwai <tiwai@suse.de>
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Let's try to clarify the situation a bit, and encourage to at least have
+> the controls on the same iface.
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
-Thanks, applied now.
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
+
+thanks,
 
 Takashi
+
+
+> ---
+>  .../sound/kernel-api/writing-an-alsa-driver.rst     | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> index e6365836fa8b..01d59b8aea92 100644
+> --- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> +++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> @@ -3508,14 +3508,15 @@ field must be set, though).
+>  
+>  “IEC958 Playback Con Mask” is used to return the bit-mask for the IEC958
+>  status bits of consumer mode. Similarly, “IEC958 Playback Pro Mask”
+> -returns the bitmask for professional mode. They are read-only controls,
+> -and are defined as MIXER controls (iface =
+> -``SNDRV_CTL_ELEM_IFACE_MIXER``).
+> +returns the bitmask for professional mode. They are read-only controls.
+>  
+>  Meanwhile, “IEC958 Playback Default” control is defined for getting and
+> -setting the current default IEC958 bits. Note that this one is usually
+> -defined as a PCM control (iface = ``SNDRV_CTL_ELEM_IFACE_PCM``),
+> -although in some places it's defined as a MIXER control.
+> +setting the current default IEC958 bits.
+> +
+> +Due to historical reasons, both variants of the Playback Mask and the
+> +Playback Default controls can be implemented on either a
+> +``SNDRV_CTL_ELEM_IFACE_PCM`` or a ``SNDRV_CTL_ELEM_IFACE_MIXER`` iface.
+> +Drivers should expose the mask and default on the same iface though.
+>  
+>  In addition, you can define the control switches to enable/disable or to
+>  set the raw bit mode. The implementation will depend on the chip, but
+> -- 
+> 2.31.1
+> 

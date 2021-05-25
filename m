@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35A3738F6C9
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:06:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F43238F6CA
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:06:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C122B166A;
-	Tue, 25 May 2021 02:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C122B166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2232B1690;
+	Tue, 25 May 2021 02:05:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2232B1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621901172;
-	bh=GHW9GT9EcvcuKRr5tWG0So6huzJ/f9ceH8XGqIXivbw=;
+	s=default; t=1621901196;
+	bh=f9UUcuHpveVf/7prU9dmrnma89jy9bsY/UqF8z8jX8I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p5UnVALk2sjFfo7Jj/TKpfcigUDhwha2CyFWzu6C+T4lKGjYmXezcLv0WEPDPw5cn
-	 uXobYRxN5WbsEiYFQI2aJ4W93XZ3ulsYurGyF0Dc0adLV0Y/nc10npja00om3kkuO3
-	 r0m9+a27YQOl43ruAeZqVdmfUpqr5YDahhdI7/Ek=
+	b=RtW4tWN879S1MuofKkeJNoNZai7PueVKF8RTVVZT3cbVnnSgDk0ZQELOeuWcuxCr+
+	 rz7sl+Umu7KgDj/QMV03EATUNu7rq5rdeeM9Lwhe3PUuqvzV3Ru3vDW9AqVG3D6VAi
+	 FIqnDwPNlor+VkD3MgDSm5Rz25eikLSzXijogUz8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9443AF804B0;
-	Tue, 25 May 2021 02:03:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1753F804DA;
+	Tue, 25 May 2021 02:03:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0515F804BD; Tue, 25 May 2021 02:03:25 +0200 (CEST)
+ id 5FD66F804E2; Tue, 25 May 2021 02:03:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 79923F804B2
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79923F804B2
-Date: 25 May 2021 09:03:20 +0900
-X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82109742"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 47113F804DA
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47113F804DA
+Date: 25 May 2021 09:03:27 +0900
+X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82287863"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 25 May 2021 09:03:20 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 25 May 2021 09:03:27 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4B8F2411242B;
- Tue, 25 May 2021 09:03:20 +0900 (JST)
-Message-ID: <87eedvof1z.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id B27674112201;
+ Tue, 25 May 2021 09:03:27 +0900 (JST)
+Message-ID: <87cztfof1s.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 06/10] ASoC: rsnd: add debugfs support
+Subject: [PATCH 07/10] ASoC: rsnd: protect mod->status
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87mtsjof3w.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,607 +70,170 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current rsnd supports #define DEBUG, but it is not helpful
-if issue happen after 4-5 hours.
-This patch adds debugfs support for it.
+Renesas Sound uses many modules (SSI/SSIU/SRC/CTU/MIX/DVC/DMA),
+and supports complex connections/path.
+Thus each modules needs to save its status to correctly control it.
+This status is updated when by .trigger, and .hw_params/.hw_free.
 
+Renesas Sound is protecting modules by using lock when .trigger,
+but it was not enough to protecting each modules "status" if it was
+used from many paths.
+
+1) .hw_params/.hw_free update status
+2) another doesn't update status, but overwrites by same value
+
+This patch do
+1) protects .hw_params/.hw_free by lock
+2) do nothing if no status update
+
+Without this patch, protected mod->status (= .trigger) might be
+overwrote by non protected mod->status (= .hw_params / .hw_free),
+and in such case, CTU/MIX/DVC/SSIU/SSI which are used from
+many paths might get damage.
+
+If above issue happens, Renesas Sound will be hung (= silence)
+and never be recoverd.
+I could reproduce this issue by continue playing very short sound
+with loop very long term (3-4 hours) through 2 inputs (= MIXer).
+
+For updating rsnd_status_update(), this patch removes rsnd_dai_call()
+debug message. Because we already have debugfs support, and is not
+good match to new code.
+
+Reported-by: Linh Phung T. Y <linh.phung.jy@renesas.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/Makefile  |  2 +-
- sound/soc/sh/rcar/adg.c     | 35 ++++++++++----
- sound/soc/sh/rcar/cmd.c     | 14 ++++++
- sound/soc/sh/rcar/core.c    |  1 +
- sound/soc/sh/rcar/ctu.c     | 14 ++++++
- sound/soc/sh/rcar/debugfs.c | 96 +++++++++++++++++++++++++++++++++++++
- sound/soc/sh/rcar/dma.c     | 31 ++++++++++--
- sound/soc/sh/rcar/dvc.c     | 14 ++++++
- sound/soc/sh/rcar/gen.c     |  9 ++++
- sound/soc/sh/rcar/mix.c     | 14 ++++++
- sound/soc/sh/rcar/rsnd.h    | 20 ++++++++
- sound/soc/sh/rcar/src.c     | 20 ++++++++
- sound/soc/sh/rcar/ssi.c     | 27 +++++++++++
- sound/soc/sh/rcar/ssiu.c    | 14 ++++++
- 14 files changed, 296 insertions(+), 15 deletions(-)
- create mode 100644 sound/soc/sh/rcar/debugfs.c
+ sound/soc/sh/rcar/core.c | 50 ++++++++++++++++++++++++----------------
+ sound/soc/sh/rcar/rsnd.h | 12 +++++-----
+ 2 files changed, 36 insertions(+), 26 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/Makefile b/sound/soc/sh/rcar/Makefile
-index 5d1ff8ef26f9..d07eccfa3ac2 100644
---- a/sound/soc/sh/rcar/Makefile
-+++ b/sound/soc/sh/rcar/Makefile
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
--snd-soc-rcar-objs	:= core.o gen.o dma.o adg.o ssi.o ssiu.o src.o ctu.o mix.o dvc.o cmd.o
-+snd-soc-rcar-objs	:= core.o gen.o dma.o adg.o ssi.o ssiu.o src.o ctu.o mix.o dvc.o cmd.o debugfs.o
- obj-$(CONFIG_SND_SOC_RCAR)	+= snd-soc-rcar.o
-diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
-index 134549b16e0a..6d4a2980f6d8 100644
---- a/sound/soc/sh/rcar/adg.c
-+++ b/sound/soc/sh/rcar/adg.c
-@@ -592,32 +592,49 @@ int rsnd_adg_clk_can_be_provider(struct rsnd_priv *priv)
- 		adg->rbgb_rate_for_48khz);
- }
- 
--#ifdef DEBUG
--static void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct rsnd_adg *adg)
-+#if defined(DEBUG) || defined(CONFIG_DEBUG_FS)
-+static void dbg_msg(struct device *dev, struct seq_file *m,
-+				   const char *fmt, ...)
- {
-+	char msg[128];
-+	va_list args;
-+
-+	va_start(args, fmt);
-+	vsnprintf(msg, sizeof(msg), fmt, args);
-+	va_end(args);
-+
-+	if (m)
-+		seq_puts(m, msg);
-+	else
-+		dev_dbg(dev, "%s", msg);
-+}
-+
-+void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m)
-+{
-+	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct clk *clk;
- 	int i;
- 
- 	for_each_rsnd_clk(clk, adg, i)
--		dev_dbg(dev, "%s    : %pa : %ld\n",
-+		dbg_msg(dev, m, "%s    : %pa : %ld\n",
- 			clk_name[i], clk, clk_get_rate(clk));
- 
--	dev_dbg(dev, "BRGCKR = 0x%08x, BRRA/BRRB = 0x%x/0x%x\n",
-+	dbg_msg(dev, m, "BRGCKR = 0x%08x, BRRA/BRRB = 0x%x/0x%x\n",
- 		adg->ckr, adg->rbga, adg->rbgb);
--	dev_dbg(dev, "BRGA (for 44100 base) = %d\n", adg->rbga_rate_for_441khz);
--	dev_dbg(dev, "BRGB (for 48000 base) = %d\n", adg->rbgb_rate_for_48khz);
-+	dbg_msg(dev, m, "BRGA (for 44100 base) = %d\n", adg->rbga_rate_for_441khz);
-+	dbg_msg(dev, m, "BRGB (for 48000 base) = %d\n", adg->rbgb_rate_for_48khz);
- 
- 	/*
- 	 * Actual CLKOUT will be exchanged in rsnd_adg_ssi_clk_try_start()
- 	 * by BRGCKR::BRGCKR_31
- 	 */
- 	for_each_rsnd_clkout(clk, adg, i)
--		dev_dbg(dev, "clkout %d : %pa : %ld\n", i,
-+		dbg_msg(dev, m, "clkout %d : %pa : %ld\n", i,
- 			clk, clk_get_rate(clk));
- }
- #else
--#define rsnd_adg_clk_dbg_info(priv, adg)
-+#define rsnd_adg_clk_dbg_info(priv)
- #endif
- 
- int rsnd_adg_probe(struct rsnd_priv *priv)
-@@ -637,11 +654,11 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
- 
- 	rsnd_adg_get_clkin(priv, adg);
- 	rsnd_adg_get_clkout(priv, adg);
--	rsnd_adg_clk_dbg_info(priv, adg);
- 
- 	priv->adg = adg;
- 
- 	rsnd_adg_clk_enable(priv);
-+	rsnd_adg_clk_dbg_info(priv, NULL);
- 
- 	return 0;
- }
-diff --git a/sound/soc/sh/rcar/cmd.c b/sound/soc/sh/rcar/cmd.c
-index 9fdb37c2cbc2..329e6ab1b222 100644
---- a/sound/soc/sh/rcar/cmd.c
-+++ b/sound/soc/sh/rcar/cmd.c
-@@ -114,12 +114,26 @@ static int rsnd_cmd_stop(struct rsnd_mod *mod,
- 	return 0;
- }
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_cmd_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0x180 + rsnd_mod_id_raw(mod) * 0x20, 0x30);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_cmd_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_cmd_ops = {
- 	.name		= CMD_NAME,
- 	.init		= rsnd_cmd_init,
- 	.start		= rsnd_cmd_start,
- 	.stop		= rsnd_cmd_stop,
- 	.get_status	= rsnd_mod_get_status,
-+	DEBUG_INFO
- };
- 
- static struct rsnd_mod *rsnd_cmd_mod_get(struct rsnd_priv *priv, int id)
 diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index ed507eb6414e..f37952e40879 100644
+index f37952e40879..c5b67008a15f 100644
 --- a/sound/soc/sh/rcar/core.c
 +++ b/sound/soc/sh/rcar/core.c
-@@ -1737,6 +1737,7 @@ int rsnd_kctrl_new(struct rsnd_mod *mod,
+@@ -90,14 +90,6 @@
+  *
   */
- static const struct snd_soc_component_driver rsnd_soc_component = {
- 	.name		= "rsnd",
-+	.probe		= rsnd_debugfs_probe,
- 	.hw_params	= rsnd_hw_params,
- 	.hw_free	= rsnd_hw_free,
- 	.pointer	= rsnd_pointer,
-diff --git a/sound/soc/sh/rcar/ctu.c b/sound/soc/sh/rcar/ctu.c
-index 20eecd088d13..6156445bcb69 100644
---- a/sound/soc/sh/rcar/ctu.c
-+++ b/sound/soc/sh/rcar/ctu.c
-@@ -275,6 +275,19 @@ static int rsnd_ctu_id_sub(struct rsnd_mod *mod)
- 	return mod->id % 4;
- }
  
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_ctu_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0x500 + rsnd_mod_id_raw(mod) * 0x100, 0x100);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_ctu_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_ctu_ops = {
- 	.name		= CTU_NAME,
- 	.probe		= rsnd_ctu_probe_,
-@@ -285,6 +298,7 @@ static struct rsnd_mod_ops rsnd_ctu_ops = {
- 	.id		= rsnd_ctu_id,
- 	.id_sub		= rsnd_ctu_id_sub,
- 	.id_cmd		= rsnd_mod_id_raw,
-+	DEBUG_INFO
+-/*
+- * you can enable below define if you don't need
+- * DAI status debug message when debugging
+- * see rsnd_dbg_dai_call()
+- *
+- * #define RSND_DEBUG_NO_DAI_CALL 1
+- */
+-
+ #include <linux/pm_runtime.h>
+ #include "rsnd.h"
+ 
+@@ -534,14 +526,20 @@ static enum rsnd_mod_type rsnd_mod_sequence[][RSND_MOD_MAX] = {
+ 	},
  };
  
- struct rsnd_mod *rsnd_ctu_mod_get(struct rsnd_priv *priv, int id)
-diff --git a/sound/soc/sh/rcar/debugfs.c b/sound/soc/sh/rcar/debugfs.c
-new file mode 100644
-index 000000000000..26d3b310b9db
---- /dev/null
-+++ b/sound/soc/sh/rcar/debugfs.c
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// // Renesas R-Car debugfs support
-+//
-+// Copyright (c) 2021 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-+//
-+//	> mount -t debugfs none /sys/kernel/debug
-+//	> cd /sys/kernel/debug/asoc/rcar-sound/ec500000.sound/rdai{N}/
-+//	> cat playback/xxx
-+//	> cat capture/xxx
-+//
-+#ifdef CONFIG_DEBUG_FS
-+
-+#include <linux/debugfs.h>
-+#include "rsnd.h"
-+
-+static int rsnd_debugfs_show(struct seq_file *m, void *v)
-+{
-+	struct rsnd_dai_stream *io = m->private;
-+	struct rsnd_mod *mod = rsnd_io_to_mod_ssi(io);
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
-+	int i;
-+
-+	/* adg is out of mods */
-+	rsnd_adg_clk_dbg_info(priv, m);
-+
-+	for_each_rsnd_mod(i, mod, io) {
-+		u32 *status = mod->ops->get_status(mod, io, mod->type);
-+
-+		seq_printf(m, "name: %s\n", rsnd_mod_name(mod));
-+		seq_printf(m, "status: %08x\n", *status);
-+
-+		if (mod->ops->debug_info)
-+			mod->ops->debug_info(m, io, mod);
-+	}
-+
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(rsnd_debugfs);
-+
-+void rsnd_debugfs_reg_show(struct seq_file *m, phys_addr_t _addr,
-+			   void __iomem *base, int offset, int size)
-+{
-+	int i, j;
-+
-+	for (i = 0; i < size; i += 0x10) {
-+		phys_addr_t addr = _addr + offset + i;
-+
-+		seq_printf(m, "%pa:", &addr);
-+		for (j = 0; j < 0x10; j += 0x4)
-+			seq_printf(m, " %08x", __raw_readl(base + offset + i + j));
-+		seq_puts(m, "\n");
-+	}
-+}
-+
-+void rsnd_debugfs_mod_reg_show(struct seq_file *m, struct rsnd_mod *mod,
-+			       int reg_id, int offset, int size)
-+{
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
-+
-+	rsnd_debugfs_reg_show(m,
-+			      rsnd_gen_get_phy_addr(priv, reg_id),
-+			      rsnd_gen_get_base_addr(priv, reg_id),
-+			      offset, size);
-+}
-+
-+int rsnd_debugfs_probe(struct snd_soc_component *component)
-+{
-+	struct rsnd_priv *priv = dev_get_drvdata(component->dev);
-+	struct rsnd_dai *rdai;
-+	struct dentry *dir;
-+	char name[64];
-+	int i;
-+
-+	/* Gen1 is not supported */
-+	if (rsnd_is_gen1(priv))
-+		return 0;
-+
-+	for_each_rsnd_dai(rdai, priv, i) {
-+		/*
-+		 * created debugfs will be automatically
-+		 * removed, nothing to do for _remove.
-+		 * see
-+		 *	soc_cleanup_component_debugfs()
-+		 */
-+		snprintf(name, sizeof(name), "rdai%d", i);
-+		dir = debugfs_create_dir(name, component->debugfs_root);
-+
-+		debugfs_create_file("playback", 0444, dir, &rdai->playback, &rsnd_debugfs_fops);
-+		debugfs_create_file("capture",  0444, dir, &rdai->capture,  &rsnd_debugfs_fops);
-+	}
-+
-+	return 0;
-+}
-+
-+#endif /* CONFIG_DEBUG_FS */
-diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
-index 95aa26d62e4f..44519929a28b 100644
---- a/sound/soc/sh/rcar/dma.c
-+++ b/sound/soc/sh/rcar/dma.c
-@@ -44,7 +44,8 @@ struct rsnd_dma {
- };
- 
- struct rsnd_dma_ctrl {
--	void __iomem *base;
-+	void __iomem *ppbase;
-+	phys_addr_t ppres;
- 	int dmaen_num;
- 	int dmapp_num;
- };
-@@ -415,7 +416,7 @@ static u32 rsnd_dmapp_get_chcr(struct rsnd_dai_stream *io,
- }
- 
- #define rsnd_dmapp_addr(dmac, dma, reg) \
--	(dmac->base + 0x20 + reg + \
-+	(dmac->ppbase + 0x20 + reg + \
- 	 (0x10 * rsnd_dma_to_dmapp(dma)->dmapp_id))
- static void rsnd_dmapp_write(struct rsnd_dma *dma, u32 data, u32 reg)
+-static int rsnd_status_update(u32 *status,
++static int rsnd_status_update(struct rsnd_dai_stream *io,
++			      struct rsnd_mod *mod, enum rsnd_mod_type type,
+ 			      int shift, int add, int timing)
  {
-@@ -504,12 +505,31 @@ static int rsnd_dmapp_attach(struct rsnd_dai_stream *io,
- 	return 0;
- }
++	u32 *status	= mod->ops->get_status(mod, io, type);
+ 	u32 mask	= 0xF << shift;
+ 	u8 val		= (*status >> shift) & 0xF;
+ 	u8 next_val	= (val + add) & 0xF;
+ 	int func_call	= (val == timing);
  
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_dmapp_debug_info(struct seq_file *m,
-+				  struct rsnd_dai_stream *io,
-+				  struct rsnd_mod *mod)
-+{
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
-+	struct rsnd_dma_ctrl *dmac = rsnd_priv_to_dmac(priv);
-+	struct rsnd_dma *dma = rsnd_mod_to_dma(mod);
-+	struct rsnd_dmapp *dmapp = rsnd_dma_to_dmapp(dma);
++	/* no status update */
++	if (add == 0 || shift == 28)
++		return 1;
 +
-+	rsnd_debugfs_reg_show(m, dmac->ppres, dmac->ppbase,
-+			      0x20 + 0x10 * dmapp->dmapp_id, 0x10);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_dmapp_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_dmapp_ops = {
- 	.name		= "audmac-pp",
- 	.start		= rsnd_dmapp_start,
- 	.stop		= rsnd_dmapp_stop,
- 	.quit		= rsnd_dmapp_stop,
- 	.get_status	= rsnd_mod_get_status,
-+	DEBUG_INFO
- };
- 
+ 	if (next_val == 0xF) /* underflow case */
+ 		func_call = -1;
+ 	else
+@@ -559,14 +557,10 @@ static int rsnd_status_update(u32 *status,
+ 	enum rsnd_mod_type *types = rsnd_mod_sequence[is_play];		\
+ 	for_each_rsnd_mod_arrays(i, mod, io, types, RSND_MOD_MAX) {	\
+ 		int tmp = 0;						\
+-		u32 *status = mod->ops->get_status(mod, io, types[i]);	\
+-		int func_call = rsnd_status_update(status,		\
++		int func_call = rsnd_status_update(io, mod, types[i],	\
+ 						__rsnd_mod_shift_##fn,	\
+ 						__rsnd_mod_add_##fn,	\
+ 						__rsnd_mod_call_##fn);	\
+-		rsnd_dbg_dai_call(dev, "%s\t0x%08x %s\n",		\
+-			rsnd_mod_name(mod), *status,	\
+-			(func_call && (mod)->ops->fn) ? #fn : "");	\
+ 		if (func_call > 0 && (mod)->ops->fn)			\
+ 			tmp = (mod)->ops->fn(mod, io, param);		\
+ 		if (unlikely(func_call < 0) ||				\
+@@ -1410,6 +1404,26 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
  /*
-@@ -864,9 +884,10 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
+  *		pcm ops
+  */
++static int rsnd_hw_update(struct snd_pcm_substream *substream,
++			  struct snd_pcm_hw_params *hw_params)
++{
++	struct snd_soc_dai *dai = rsnd_substream_to_dai(substream);
++	struct rsnd_dai *rdai = rsnd_dai_to_rdai(dai);
++	struct rsnd_dai_stream *io = rsnd_rdai_to_io(rdai, substream);
++	struct rsnd_priv *priv = rsnd_io_to_priv(io);
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	if (hw_params)
++		ret = rsnd_dai_call(hw_params, io, substream, hw_params);
++	else
++		ret = rsnd_dai_call(hw_free, io, substream);
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return ret;
++}
++
+ static int rsnd_hw_params(struct snd_soc_component *component,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *hw_params)
+@@ -1517,17 +1531,13 @@ static int rsnd_hw_params(struct snd_soc_component *component,
+ 		}
  	}
  
- 	dmac->dmapp_num = 0;
--	dmac->base = devm_ioremap_resource(dev, res);
--	if (IS_ERR(dmac->base))
--		return PTR_ERR(dmac->base);
-+	dmac->ppres  = res->start;
-+	dmac->ppbase = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(dmac->ppbase))
-+		return PTR_ERR(dmac->ppbase);
- 
- 	priv->dma = dmac;
- 
-diff --git a/sound/soc/sh/rcar/dvc.c b/sound/soc/sh/rcar/dvc.c
-index 8d91c0eb0880..1943ac1ff803 100644
---- a/sound/soc/sh/rcar/dvc.c
-+++ b/sound/soc/sh/rcar/dvc.c
-@@ -285,6 +285,19 @@ static struct dma_chan *rsnd_dvc_dma_req(struct rsnd_dai_stream *io,
- 					mod, "tx");
+-	return rsnd_dai_call(hw_params, io, substream, hw_params);
++	return rsnd_hw_update(substream, hw_params);
  }
  
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_dvc_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0xe00 + rsnd_mod_id(mod) * 0x100, 0x60);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_dvc_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_dvc_ops = {
- 	.name		= DVC_NAME,
- 	.dma_req	= rsnd_dvc_dma_req,
-@@ -293,6 +306,7 @@ static struct rsnd_mod_ops rsnd_dvc_ops = {
- 	.quit		= rsnd_dvc_quit,
- 	.pcm_new	= rsnd_dvc_pcm_new,
- 	.get_status	= rsnd_mod_get_status,
-+	DEBUG_INFO
- };
- 
- struct rsnd_mod *rsnd_dvc_mod_get(struct rsnd_priv *priv, int id)
-diff --git a/sound/soc/sh/rcar/gen.c b/sound/soc/sh/rcar/gen.c
-index 8bd49c8a9517..925565baaa41 100644
---- a/sound/soc/sh/rcar/gen.c
-+++ b/sound/soc/sh/rcar/gen.c
-@@ -141,6 +141,15 @@ phys_addr_t rsnd_gen_get_phy_addr(struct rsnd_priv *priv, int reg_id)
- 	return	gen->res[reg_id];
+ static int rsnd_hw_free(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_dai *dai = rsnd_substream_to_dai(substream);
+-	struct rsnd_dai *rdai = rsnd_dai_to_rdai(dai);
+-	struct rsnd_dai_stream *io = rsnd_rdai_to_io(rdai, substream);
+-
+-	return rsnd_dai_call(hw_free, io, substream);
++	return rsnd_hw_update(substream, NULL);
  }
  
-+#ifdef CONFIG_DEBUG_FS
-+void __iomem *rsnd_gen_get_base_addr(struct rsnd_priv *priv, int reg_id)
-+{
-+	struct rsnd_gen *gen = rsnd_priv_to_gen(priv);
-+
-+	return	gen->base[reg_id];
-+}
-+#endif
-+
- #define rsnd_gen_regmap_init(priv, id_size, reg_id, name, conf)		\
- 	_rsnd_gen_regmap_init(priv, id_size, reg_id, name, conf, ARRAY_SIZE(conf))
- static int _rsnd_gen_regmap_init(struct rsnd_priv *priv,
-diff --git a/sound/soc/sh/rcar/mix.c b/sound/soc/sh/rcar/mix.c
-index a3e0370f5704..3572c2c5686c 100644
---- a/sound/soc/sh/rcar/mix.c
-+++ b/sound/soc/sh/rcar/mix.c
-@@ -250,6 +250,19 @@ static int rsnd_mix_pcm_new(struct rsnd_mod *mod,
- 	return ret;
- }
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_mix_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0xd00 + rsnd_mod_id(mod) * 0x40, 0x30);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_mix_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_mix_ops = {
- 	.name		= MIX_NAME,
- 	.probe		= rsnd_mix_probe_,
-@@ -257,6 +270,7 @@ static struct rsnd_mod_ops rsnd_mix_ops = {
- 	.quit		= rsnd_mix_quit,
- 	.pcm_new	= rsnd_mix_pcm_new,
- 	.get_status	= rsnd_mod_get_status,
-+	DEBUG_INFO
- };
- 
- struct rsnd_mod *rsnd_mix_mod_get(struct rsnd_priv *priv, int id)
+ static snd_pcm_uframes_t rsnd_pointer(struct snd_soc_component *component,
 diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index 4fa17fd15512..4ba76b782d2e 100644
+index 4ba76b782d2e..b76dfa93d362 100644
 --- a/sound/soc/sh/rcar/rsnd.h
 +++ b/sound/soc/sh/rcar/rsnd.h
-@@ -345,6 +345,11 @@ struct rsnd_mod_ops {
- 	int (*id)(struct rsnd_mod *mod);
- 	int (*id_sub)(struct rsnd_mod *mod);
- 	int (*id_cmd)(struct rsnd_mod *mod);
-+
-+#ifdef CONFIG_DEBUG_FS
-+	void (*debug_info)(struct seq_file *m,
-+			   struct rsnd_dai_stream *io, struct rsnd_mod *mod);
-+#endif
- };
- 
- struct rsnd_dai_stream;
-@@ -592,6 +597,9 @@ void __iomem *rsnd_gen_reg_get(struct rsnd_priv *priv,
- 			       struct rsnd_mod *mod,
- 			       enum rsnd_reg reg);
- phys_addr_t rsnd_gen_get_phy_addr(struct rsnd_priv *priv, int reg_id);
-+#ifdef CONFIG_DEBUG_FS
-+void __iomem *rsnd_gen_get_base_addr(struct rsnd_priv *priv, int reg_id);
-+#endif
- 
- /*
-  *	R-Car ADG
-@@ -611,6 +619,7 @@ int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod *cmd_mod,
- #define rsnd_adg_clk_disable(priv)	rsnd_adg_clk_control(priv, 0)
- void rsnd_adg_clk_control(struct rsnd_priv *priv, int enable);
- int rsnd_adg_clk_can_be_provider(struct rsnd_priv *priv);
-+void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m);
- 
- /*
-  *	R-Car sound priv
-@@ -897,3 +906,14 @@ void rsnd_mod_make_sure(struct rsnd_mod *mod, enum rsnd_mod_type type);
- 		dev_dbg(dev, param)
- 
- #endif
-+
-+#ifdef CONFIG_DEBUG_FS
-+int rsnd_debugfs_probe(struct snd_soc_component *component);
-+void rsnd_debugfs_reg_show(struct seq_file *m, phys_addr_t _addr,
-+			   void __iomem *base, int offset, int size);
-+void rsnd_debugfs_mod_reg_show(struct seq_file *m, struct rsnd_mod *mod,
-+			       int reg_id, int offset, int size);
-+
-+#else
-+#define rsnd_debugfs_probe  NULL
-+#endif
-diff --git a/sound/soc/sh/rcar/src.c b/sound/soc/sh/rcar/src.c
-index 7a7d6dc335a4..8f7af3e3a1cd 100644
---- a/sound/soc/sh/rcar/src.c
-+++ b/sound/soc/sh/rcar/src.c
-@@ -597,6 +597,25 @@ static int rsnd_src_pcm_new(struct rsnd_mod *mod,
- 	return ret;
- }
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_src_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  rsnd_mod_id(mod) * 0x20, 0x20);
-+	seq_puts(m, "\n");
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0x1c0, 0x20);
-+	seq_puts(m, "\n");
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+				  0x200 + rsnd_mod_id(mod) * 0x40, 0x40);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_src_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_src_ops = {
- 	.name		= SRC_NAME,
- 	.dma_req	= rsnd_src_dma_req,
-@@ -608,6 +627,7 @@ static struct rsnd_mod_ops rsnd_src_ops = {
- 	.irq		= rsnd_src_irq,
- 	.pcm_new	= rsnd_src_pcm_new,
- 	.get_status	= rsnd_mod_get_status,
-+	DEBUG_INFO
- };
- 
- struct rsnd_mod *rsnd_src_mod_get(struct rsnd_priv *priv, int id)
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index ac920800af37..aa1da2978dc6 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -1118,6 +1118,32 @@ static struct dma_chan *rsnd_ssi_dma_req(struct rsnd_dai_stream *io,
- 					mod, name);
- }
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_ssi_debug_info(struct seq_file *m,
-+				struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	struct rsnd_dai *rdai = rsnd_io_to_rdai(io);
-+	struct rsnd_ssi *ssi = rsnd_mod_to_ssi(mod);
-+
-+	seq_printf(m, "clock:           %s\n",		rsnd_rdai_is_clk_master(rdai) ?
-+								"provider" : "consumer");
-+	seq_printf(m, "pin share:       %d\n",		__rsnd_ssi_is_pin_sharing(mod));
-+	seq_printf(m, "can out clk:     %d\n",		rsnd_ssi_can_output_clk(mod));
-+	seq_printf(m, "multi secondary: %d\n",		rsnd_ssi_is_multi_secondary(mod, io));
-+	seq_printf(m, "tdm:             %d, %d\n",	rsnd_runtime_is_tdm(io),
-+							rsnd_runtime_is_tdm_split(io));
-+	seq_printf(m, "chan:            %d\n",		ssi->chan);
-+	seq_printf(m, "user:            %d\n",		ssi->usrcnt);
-+
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SSI,
-+				  rsnd_mod_id(mod) * 0x40, 0x40);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_ssi_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_ssi_dma_ops = {
- 	.name		= SSI_NAME,
- 	.dma_req	= rsnd_ssi_dma_req,
-@@ -1132,6 +1158,7 @@ static struct rsnd_mod_ops rsnd_ssi_dma_ops = {
- 	.fallback	= rsnd_ssi_fallback,
- 	.hw_params	= rsnd_ssi_hw_params,
- 	.get_status	= rsnd_ssi_get_status,
-+	DEBUG_INFO
- };
- 
- int rsnd_ssi_is_dma_mode(struct rsnd_mod *mod)
-diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index 6896ff0bc89d..cb2071cbe3c6 100644
---- a/sound/soc/sh/rcar/ssiu.c
-+++ b/sound/soc/sh/rcar/ssiu.c
-@@ -314,6 +314,19 @@ static struct dma_chan *rsnd_ssiu_dma_req(struct rsnd_dai_stream *io,
- 					mod, name);
- }
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void rsnd_ssiu_debug_info(struct seq_file *m,
-+				 struct rsnd_dai_stream *io,
-+				struct rsnd_mod *mod)
-+{
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SSIU,
-+				  rsnd_mod_id(mod) * 0x80, 0x80);
-+}
-+#define DEBUG_INFO .debug_info = rsnd_ssiu_debug_info
-+#else
-+#define DEBUG_INFO
-+#endif
-+
- static struct rsnd_mod_ops rsnd_ssiu_ops_gen2 = {
- 	.name		= SSIU_NAME,
- 	.dma_req	= rsnd_ssiu_dma_req,
-@@ -321,6 +334,7 @@ static struct rsnd_mod_ops rsnd_ssiu_ops_gen2 = {
- 	.start		= rsnd_ssiu_start_gen2,
- 	.stop		= rsnd_ssiu_stop_gen2,
- 	.get_status	= rsnd_ssiu_get_status,
-+	DEBUG_INFO
- };
- 
- static struct rsnd_mod *rsnd_ssiu_mod_get(struct rsnd_priv *priv, int id)
+@@ -397,12 +397,12 @@ struct rsnd_mod {
+ #define __rsnd_mod_add_remove		0
+ #define __rsnd_mod_add_prepare		0
+ #define __rsnd_mod_add_cleanup		0
+-#define __rsnd_mod_add_init		 1
+-#define __rsnd_mod_add_quit		-1
+-#define __rsnd_mod_add_start		 1
+-#define __rsnd_mod_add_stop		-1
+-#define __rsnd_mod_add_hw_params	1
+-#define __rsnd_mod_add_hw_free		-1
++#define __rsnd_mod_add_init		 1 /* needs protect */
++#define __rsnd_mod_add_quit		-1 /* needs protect */
++#define __rsnd_mod_add_start		 1 /* needs protect */
++#define __rsnd_mod_add_stop		-1 /* needs protect */
++#define __rsnd_mod_add_hw_params	 1 /* needs protect */
++#define __rsnd_mod_add_hw_free		-1 /* needs protect */
+ #define __rsnd_mod_add_irq		0
+ #define __rsnd_mod_add_pcm_new		0
+ #define __rsnd_mod_add_fallback		0
 -- 
 2.25.1
 

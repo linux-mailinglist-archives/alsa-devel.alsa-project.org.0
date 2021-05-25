@@ -2,102 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3A5390B0F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 23:10:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A29390BD0
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 23:50:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF681777;
-	Tue, 25 May 2021 23:09:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF681777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C66A1775;
+	Tue, 25 May 2021 23:49:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C66A1775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621977043;
-	bh=L0nq71KKQE3H7/B84Rcld+E6zz/GjpXpLGeFD0HQmuw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621979448;
+	bh=H0WLAylnE++sXQ78iy/bAoWvJYiXz6AZuQYgf9v75cE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HbBsdbcgAx8teFVj4MXrnwxhyO+L3qpP1Hv8ndyxUQoDOploNg2v/Gypjf68GSajD
-	 cEkBX59VxaODiRAtC9B3N4yuJAD+V8ooxRhIskVLONrrvpfRuYUSdkcXPRQFZH20Ns
-	 4GbbX52ZtWw8sUnyKwsuF81LITMIwHpeMTKTep/Y=
+	b=igVI8XzTZ84TP++z56X97i8Tey0ihh9/5C3t7lQLf+HsGf+jar41w0IcEZJbrEFDs
+	 dX6Zr6eGze6g5Km9jv6MYdOrs6vgKV6QAZhwQ1aSGWVZq1YXVop30WUu48gC/RWCQd
+	 RKKSeEv3wSiYpSzVBko4SihiWyqCLQe9rmg7bRd0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CDA6F800B6;
-	Tue, 25 May 2021 23:09:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4C78F800F7;
+	Tue, 25 May 2021 23:49:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0785F800CB; Tue, 25 May 2021 23:09:12 +0200 (CEST)
+ id 10C35F800CB; Tue, 25 May 2021 23:49:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35E56F800AC
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 23:09:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35E56F800AC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F2CCF80032
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 23:49:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F2CCF80032
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EDoW110K"
-Received: by mail-lj1-x22a.google.com with SMTP id 131so40011741ljj.3
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 14:09:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ZD+vlbnCmCd0+YdhT3Kf05pgMEL8yn/TGh5XC3e9yC4=;
- b=EDoW110KV9wcfQ30kqQ1ZybqTTE/mSj56bdcleLHZ9K1K65hsPrg9IrsZJ6lqu84SD
- RuaswPbLyuqVCWQ0oyQgm36Uwfqs9e5USUOw4l22hAuVIBSi0CxekIhx1On8J1Hu+9gv
- ZF/G3WukVhsQGoQEbSwWKl3XJU0aQWLmoFLDB9+NMilvdBo/Qey7m+ScBsh60Vs9X/G7
- tfb5FLBY2sQ88qOQom7PT3Kg3cN7B+TXWhT2uw9rcBT1brIlb6UFMfndAakABXqJf3k7
- tLK3gwnMhy1IclNyskN3N65WqXKwIJcrHn7YXSf4BCWEbttcrpt+SDK+SbYFSu7o0Doj
- XGvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ZD+vlbnCmCd0+YdhT3Kf05pgMEL8yn/TGh5XC3e9yC4=;
- b=MTsvQFVwn8FYyEgGLvpI/2yLtaQPva8pfIKG2pmhumKuOmRt8i9kQ9xxKGuYYEeODV
- +14iEGX+Ytqz5AK0xNIMIviNR4O6Tgu5QLGihE3YVSUpmnOAKilWoVF5+h1mvaFj43Ov
- C+gGvOIK5gjM5BaxPu9hMl7tTwuuVv5Ho8WkZSYPcvesrEU0CcdjvV35fmWZ1HBAs4Ut
- a8yVxk8im6WXezdS7mKfeFKmZ+yuAFOMnV/3mIt0OMI9dxYJxhppRhvDGBTzj3qaoOkX
- BEJQJv2D9ZSqyyR0fRZewG9NsJ3XrBLf1+GbrOoPJzfMkVhy53nMaHW8Q14oIfPupyVU
- KfZg==
-X-Gm-Message-State: AOAM531NuBmmusNv5DRxrY2JMqzngKhaBzpx0UgJXx3EggsRP3w6C13x
- 06PQ/sgdUuI5yg6/fdlowJjo7+9qNMQ=
-X-Google-Smtp-Source: ABdhPJw6PtppkMwP73a5yk5EfcfAd6aWAG1Me5VORks/eZaK+4hqHBA3sKD4WyW5pJwPIO0LUKzKEA==
-X-Received: by 2002:a2e:5045:: with SMTP id v5mr22264105ljd.270.1621976948326; 
- Tue, 25 May 2021 14:09:08 -0700 (PDT)
-Received: from [192.168.2.145] (46-138-180-236.dynamic.spd-mgts.ru.
- [46.138.180.236])
- by smtp.googlemail.com with ESMTPSA id w3sm2207406lji.25.2021.05.25.14.09.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 May 2021 14:09:07 -0700 (PDT)
-Subject: Re: [PATCH v3 4/4] ASoC: tegra: Specify components string for Nexus 7
-To: Jaroslav Kysela <perex@perex.cz>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Ion Agorria <ion@agorria.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
-References: <20210523234437.25077-1-digetx@gmail.com>
- <20210523234437.25077-5-digetx@gmail.com>
- <ec2098e0-7918-8488-cf7c-a07e5aa6908c@perex.cz>
- <99ef3d77-c626-c632-bbd2-92eb15acad20@gmail.com>
- <bc99da2b-1eb2-8f73-9e92-184cf172ef6f@perex.cz>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <ea7730f6-9ca0-ae06-b610-703f9715ffa2@gmail.com>
-Date: Wed, 26 May 2021 00:09:07 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="p2D+bXjs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=h1UvXr+IRNohjqK913qBRc1ANsdAb76bs7rLunSi2xs=; b=p2D+bXjs9h/DiPW3j3QeaeX6Fi
+ Eu7RY6n21Sd6xg0F1xMdF0eBRKA4iPAjQ/NqZUix/9unmc/dOQPudpdzLIr2umK8LRxyfmdL5mhdL
+ vWe0o/4zRCtE0jVh5g6WsUCa0dV/rWVl9pSlg0V4TnSR0wSBR2sFBWJlwSAOCS7r2bdk=;
+Received: from 94.196.90.140.threembb.co.uk ([94.196.90.140]
+ helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1llevG-005qQM-UN; Tue, 25 May 2021 21:49:11 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id C0FD7D0DECA; Tue, 25 May 2021 22:49:44 +0100 (BST)
+Date: Tue, 25 May 2021 22:49:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.10 30/62] ASoC: rt5645: add error checking to
+ rt5645_probe function
+Message-ID: <YK1w+H70aqLGDaDl@sirena.org.uk>
+References: <20210524144744.2497894-1-sashal@kernel.org>
+ <20210524144744.2497894-30-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <bc99da2b-1eb2-8f73-9e92-184cf172ef6f@perex.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+9E0EyJd3tE2r8IF"
+Content-Disposition: inline
+In-Reply-To: <20210524144744.2497894-30-sashal@kernel.org>
+X-Cookie: You are always busy.
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Phillip Potter <phil@philpotter.co.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,60 +90,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-25.05.2021 19:24, Jaroslav Kysela пишет:
-> On 24. 05. 21 16:00, Dmitry Osipenko wrote:
->> 24.05.2021 13:54, Jaroslav Kysela пишет:
->>> Dne 24. 05. 21 v 1:44 Dmitry Osipenko napsal(a):
->>>> Specify components string for Nexus 7 using the Intel BayTrail components
->>>> format. This may allow us to create a more generic UCM for RT5640 codec.
->>>>
->>>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
->>>> ---
->>>>  sound/soc/tegra/tegra_asoc_machine.c | 19 +++++++++++++++++++
->>>>  1 file changed, 19 insertions(+)
->>>>
->>>> diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
->>>> index a81f2ebfc00c..87e0a47040a5 100644
->>>> --- a/sound/soc/tegra/tegra_asoc_machine.c
->>>> +++ b/sound/soc/tegra/tegra_asoc_machine.c
->>>> @@ -671,6 +671,24 @@ static const struct tegra_asoc_data tegra_rt5640_data = {
->>>>  	.add_hp_jack = true,
->>>>  };
->>>>  
->>>> +/*
->>>> + * Speaker: Connected to SPO L/R P/N pins, stereo.
->>>> + * Internal Microphone: Digital, connected to DMIC1_DAT IN2P/N pins.
->>>> + * Headphones: Connected to HPOL/R pins.
->>>> + * Headset Microphone: Unconnected.
->>>> + *
->>>> + * IF2_DAC/ADC are unpopulated.
->>>> + */
->>>> +static const struct tegra_asoc_data tegra_rt5640_grouper_data = {
->>>> +	.components = "codec:rt5640 cfg-spk:2 cfg-mic:dmic1 aif:1",
->>>
->>> Perhaps, it may be better to handle this string via the DT config (create new
->>> function like snd_soc_of_parse_card_name()).
->>>
->>> The "codec:rt5640" should be set in the driver (it's fixed), but the
->>> "cfg-spk:2 cfg-mic:dmic1 aif:1" part is suitable for the DT config.
->>
->> Not sure that this is possible. The DT is an ABI, while components
->> string has no specification. Any changes to the components string will
->> require DT update.
->>
->> I think it's much more feasible to have a database of components within
->> kernel driver, like Intel sound driver does it for ACPI devices.
-> 
-> There is no other possibility for ACPI. And while the components string is
-> part of the ALSA ABI, it should not be changed in an incompatible way. Only
-> new information should be added. The DT solution seems more flexible to me.
-> For example the stereo/mono speaker or the AIF number can be set without the
-> driver modification for rt5640.
 
-Everything that goes into device-tree needs a firm specification. We
-can't add it into device-tree since there is no specification for the
-components string other than something that Intel driver made up for its
-own needs. So either we could add the components string to the kernel
-driver right now or not add it.
+--+9E0EyJd3tE2r8IF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I think the best option would be to drop this patch for now.
+On Mon, May 24, 2021 at 10:47:11AM -0400, Sasha Levin wrote:
+> From: Phillip Potter <phil@philpotter.co.uk>
+>=20
+> [ Upstream commit 5e70b8e22b64eed13d5bbebcb5911dae65bf8c6b ]
+>=20
+> Check for return value from various snd_soc_dapm_* calls, as many of
+> them can return errors and this should be handled. Also, reintroduce
+> the allocation failure check for rt5645->eq_param as well. Make all
+
+Now I've looked at the patch I don't think it's appropriate for
+stable, it's essentially equivalent to a patch that adds -Werror
+- the changes in it are upgrading things from error messages that
+would be generated by what are essentially static checks (even
+though we do do them at runtime they're on hard coded strings) to
+probe failures which would be a regression.  Unfortunately people
+do ignore warnings like that in shipping stuff so it's possible
+it's happening, we could do an audit to see if it is but it seems
+like more effort than it's worth.
+
+The only case I can think where it might help is if we're
+managing to OOM during probe() but that feels very unlikely to
+happen, and improved handling unlikely to make substantial
+difference compared to the risk that the routing warnings are
+triggering but being ignored so someone's sound stops working due
+to a stable update.  Otherwise it won't do much so why risk it?
+
+--+9E0EyJd3tE2r8IF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCtcPcACgkQJNaLcl1U
+h9BhPgf/QwPQszIviJZPkEDsCrlmdi0IWBRg2sa+8dwinV4RMlV342IGAtTEZxIY
+hhdgJ0BM+pCEhXHbHn1ZprphK6eEuiescflqk4RywaFM/AakFvuJRMdoazcNXkZI
+zNdS1yuaimfHHJ4/HkD463ikeXEBehoH+Fkrp/6qM+lgo5UZwtZ/bG6EBpUmIClK
+JGI+WZkysyx+qzoVHIF5weXw+oCkvjz/Qby83mWjK7KOM4MnB0x9PtKOyRURXrZJ
+82L7/uM8heK1LujQKxr+FoVVfkdr6ymBvatZpbLYt5JlLQoT3K7PdDaPj1ULNVke
+KLM9pJwHanFu9ia/yC7okZgonz1VBg==
+=ygou
+-----END PGP SIGNATURE-----
+
+--+9E0EyJd3tE2r8IF--

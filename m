@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8B6390282
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 15:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18596390283
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 15:29:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBCB1172A;
-	Tue, 25 May 2021 15:28:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBCB1172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A89A21738;
+	Tue, 25 May 2021 15:28:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89A21738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621949343;
-	bh=ujpR+zcEd+4R70TXQ708v6XHG57J515zpH/MOvlAcy8=;
+	s=default; t=1621949369;
+	bh=y23bZSS7b7+763bFG40vADzO193gAcRbi3Vkwi9nZQM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E1C8MqEVlZu/MpNR7lhepSYkESfyD8Fg+rtqFG9aec8gvyK6XIbB/i946wke82nu+
-	 NrauGGq6UOmSsPnnTfihEgbk7STz4tw96+KqKHcAnHipmlNHtnq75yP6V9o4m+Om9c
-	 r959KgNPLtkUuUVFWdCNnIJ1JVYr904trGWNUIR8=
+	b=LP0RE6aqP4HPHRLWPgDc0CV2NGdPGT4Z2MQqodRYYcD1wdAEaoiPYuaweva5ZJI+1
+	 6i+G0l8fh1hHeEjUv/A9pxsm0nh2csLZvkVPLVsv2bloF81Dp7kWxsbdzr5MyiXnzE
+	 wtKTpw7o3L/VxtHChNyySUg+rHqiOHcBfa6HU9NQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1454AF804FB;
-	Tue, 25 May 2021 15:24:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 285FCF80506;
+	Tue, 25 May 2021 15:24:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4D4BF804F3; Tue, 25 May 2021 15:24:26 +0200 (CEST)
+ id A9548F804FC; Tue, 25 May 2021 15:24:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,57 +35,58 @@ Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57C9CF804E4
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 15:24:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57C9CF804E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87497F804F1
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 15:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87497F804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="FvbLE/mC"; 
+ header.b="pOLEJoNA"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="E5iHDMMQ"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 9531958071B;
- Tue, 25 May 2021 09:24:23 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 25 May 2021 09:24:23 -0400
+ header.i=@messagingengine.com header.b="etuEoffK"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id C4764580717;
+ Tue, 25 May 2021 09:24:25 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 25 May 2021 09:24:25 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=0sY59b1TrDjPi
- ASD9RGCdGoF4tj7/vODVPj+KEb/jBw=; b=FvbLE/mCeXK5Z+D8T6eb+aMBfu1dH
- rYc/P9IaptQhvZcmVQQLYCb5eg03tcgUa4+Ryn0CMNPBjnTY3EDZ/d10TbuCs0qR
- a95KOtPvKaRa4N6n+Q2MD1qrAAneJo08+HpFQXKu4id3zXKs8wfXG7QYHk7cHr1b
- RqswjbWS2KIBQYmMH4A/yotceUjRHuHDlRKQkds0d6/dLjWkwfQhqCeW5ZCi8rbA
- Nvcce3byZwft+jstIvvY7nK8KHrC2xIRvN1/L2YLAAW+b7wfsJsMxjHVc7Pdm400
- YLvCTKirBkehtw+DSa487/V+q+xuefBFLHcE2ppFvoM6pC9D/iineNCPw==
+ :mime-version:content-transfer-encoding; s=fm2; bh=KQ8oqmMDj/rYT
+ Gx0MJGqF2cEzXPIrMlUCFs+Qe65Uak=; b=pOLEJoNAPdTqziXjyA1EvJ/PeN7GY
+ +Ldww9WT4KwutOEnZgKn3wotHt/TcnPZdCIkL804hkm+d/F570AU0BgZ75CeE8P5
+ Xv4kueDIXqRc4euLCVmLs8u6PbYITEiekqDP9yBFS5TAGWknZdiS/Fh/YbuxFtSG
+ WSpIJag/sonjpPCKXemQDcPtnd+DNYsRRWnYsFCAPSkN7p4LOHf/Kj3b3nlFM67g
+ dmwb0hqHmFSGXCe1zUoUktql1fKCaMQvZS+/ps4wp0vDm5kNVu+9Q8Nbb8uPk/+x
+ jZ9HfRt0Bi2LTFzMiQmK7Xk6qIxM4YueJqGut9k5LG/6oN9+TKo2ItgeA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=0sY59b1TrDjPiASD9RGCdGoF4tj7/vODVPj+KEb/jBw=; b=E5iHDMMQ
- s8/Wymo+TMeOKtPcsKpefoYHNZf3Yd11dyjoQdu1QAGeBlzmHR2ngUU0yJIZfVix
- wx7W/rNg90Is/WUoZnl0XU8U5YK05uORKfWjkpqmsqZFXl3r4h/NwS8/svclA5OG
- w/S2XVexpUMjrZH6O1+hLn44GYPOOC7CpvFuxNhIy8w9sLOjsrx1irAT/I/Xz/+D
- /yFGrrHE54JxNfxjtCdZ+sfNYJIXN40NBPIcVVep5JXAXhjaovhPqSZnguo6uHXW
- 5YWyR6ITIjrarbwDQ9zvc1mdxN9adkEo5gnR0wcX4LVz2eMXefLxOhm9SRGrVGF+
- 4Cukrq1jGblpFA==
-X-ME-Sender: <xms:h_qsYNoKOYSCN-ynsi4g6CV4YUIVEmPjUrKGFYNZAYVkn0rj0GzPHw>
- <xme:h_qsYPqW9-AwW5T_WLTu4YukJ2zO3JpEq1YdLgk-xr9JDG4tVxFVqiUrcSaynskWq
- IGSOsrNq0AEW2vIQsM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdekuddgieehucetufdoteggodetrfdotf
+ fm2; bh=KQ8oqmMDj/rYTGx0MJGqF2cEzXPIrMlUCFs+Qe65Uak=; b=etuEoffK
+ GsBbWYCtGzXJcIcWwSC+pPEA61p9nzTs1LsUQ9R9R4xNm0eROz3J5ykRlfxeZ1WL
+ lx7de9aNRYRQGXdBHV70QlQSO9i+1wf4M+cd6DkYo1N7RqdFdE/xmZrO92w8zkPj
+ Haca2DjB9PYkwBu2MgU1UMxHQXdprT14qYSxvqFblLalddw2FVa3XycEOL0Cd9O8
+ kUfN52VRC8SUWMwNTt4eYsJ10ytGKYeNx54Pri5wLRa3zJmrSKH+m/RDF+2E1YdA
+ iz8ZTXqLFBRFfbOFWXEPHIUL1ksXwoTywYdphNk4fy4aqQzLYWjnbWif+/XHRT6e
+ ecgGxMcJIB/NkQ==
+X-ME-Sender: <xms:ifqsYI2utNakTCDv92tY7by6gnf0m3SnFNABcyFZNiPd49fRwJF56A>
+ <xme:ifqsYDEcszdQBg6lxhonAxMBp_lcre7zz_KdYGQ915mSDh3Y3nkwjAhWWWZkP1lwy
+ dxGfJbKz6LxHnskfuc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdekuddgieeiucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  cujfgurhephffvufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhm
  vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepvdekleevfeffkeejhfffueelteelfeduieefheduudfggffhhfffheevveeh
- hedvnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgepvdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:h_qsYKM86CwRDUHpwg1Cppved6egCJB2PtM1rEmjknurtWUSF6CJSg>
- <xmx:h_qsYI6vg0o-laDP0y-YLHLb7hV5gZ1zz8XHBLodhOlFQLWB1p6xOQ>
- <xmx:h_qsYM4X90DCoppFLtS2HbNiB_nsdbVqk-iXCybDKPWE230nxsvXww>
- <xmx:h_qsYIN6hDEaBAWJpDUxuUNZatSx-0aQrO3xinl4CmsipVdT-4aVAg>
+ htvghrnhepieeugeefgfeiieelveekheehhedtueetueehkedtfffgvedtvdeijeduieff
+ veevnecuffhomhgrihhnpegshihtvghsrdgurghtrgenucfkphepledtrdekledrieekrd
+ ejieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehm
+ rgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:ifqsYA5fIxWjarmlwI6oeiJ8Vw3Cz9qCKLZdJrg11be0-iqzM6EXbA>
+ <xmx:ifqsYB15QdGyOrPS6IPAQ3Hi99VkWsWXcIl2RewxQ44-8Yw0fJ02bg>
+ <xmx:ifqsYLFjsPQiVFAmmAENRX-lHavkVvgs2mXj8bsoXYz07ETHCbxlJQ>
+ <xmx:ifqsYIvRrL_Nfak8-V-ymQnlN_bSOnLSwipr2HzXJkWIXYoS3_79dA>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Tue, 25 May 2021 09:24:23 -0400 (EDT)
+ Tue, 25 May 2021 09:24:25 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
 To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
@@ -93,10 +94,9 @@ To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>,
  Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 09/12] drm/vc4: hdmi: Remove firmware logic for MAI
- threshold setting
-Date: Tue, 25 May 2021 15:23:51 +0200
-Message-Id: <20210525132354.297468-10-maxime@cerno.tech>
+Subject: [PATCH v2 10/12] drm/vc4: hdmi: Register HDMI codec
+Date: Tue, 25 May 2021 15:23:52 +0200
+Message-Id: <20210525132354.297468-11-maxime@cerno.tech>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210525132354.297468-1-maxime@cerno.tech>
 References: <20210525132354.297468-1-maxime@cerno.tech>
@@ -109,8 +109,7 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Maxime Ripard <mripard@kernel.org>, Eric Anholt <eric@anholt.net>,
  Rob Herring <robh+dt@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
  linux-arm-kernel@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- Dom Cobley <popcornmix@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Phil Elwell <phil@raspberrypi.com>,
+ Jonathan Corbet <corbet@lwn.net>, Phil Elwell <phil@raspberrypi.com>,
  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
  linux-rpi-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -128,52 +127,418 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dom Cobley <popcornmix@gmail.com>
+The hdmi-codec brings a lot of advanced features, including the HDMI
+channel mapping. Let's use it in our driver instead of our own codec.
 
-This was a workaround for bugs in hardware on earlier Pi models
-and wasn't totally successful.
-
-It makes audio quality worse on a Pi4 at the higher sample rates
-
-Signed-off-by: Dom Cobley <popcornmix@gmail.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/vc4/Kconfig    |   1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 243 +++++++++++----------------------
+ drivers/gpu/drm/vc4/vc4_hdmi.h |   3 +-
+ 3 files changed, 80 insertions(+), 167 deletions(-)
 
+diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/Kconfig
+index 118e8a426b1a..345a5570a3da 100644
+--- a/drivers/gpu/drm/vc4/Kconfig
++++ b/drivers/gpu/drm/vc4/Kconfig
+@@ -12,6 +12,7 @@ config DRM_VC4
+ 	select SND_PCM
+ 	select SND_PCM_ELD
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
++	select SND_SOC_HDMI_CODEC
+ 	select DRM_MIPI_DSI
+ 	help
+ 	  Choose this option if you have a system that has a Broadcom
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 0cf9949a749f..b7e3bd89e237 100644
+index b7e3bd89e237..0ecfcf54b70a 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1269,22 +1269,12 @@ static int vc4_hdmi_audio_hw_params(struct snd_pcm_substream *substream,
- 	audio_packet_config |= VC4_SET_FIELD(channel_mask,
- 					     VC4_HDMI_AUDIO_PACKET_CEA_MASK);
+@@ -45,6 +45,7 @@
+ #include <linux/rational.h>
+ #include <linux/reset.h>
+ #include <sound/dmaengine_pcm.h>
++#include <sound/hdmi-codec.h>
+ #include <sound/pcm_drm_eld.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+@@ -455,15 +456,10 @@ static void vc4_hdmi_set_spd_infoframe(struct drm_encoder *encoder)
+ static void vc4_hdmi_set_audio_infoframe(struct drm_encoder *encoder)
+ {
+ 	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
++	struct hdmi_audio_infoframe *audio = &vc4_hdmi->audio.infoframe;
+ 	union hdmi_infoframe frame;
  
--	/* Set the MAI threshold.  This logic mimics the firmware's. */
--	if (vc4_hdmi->audio.samplerate > 96000) {
--		HDMI_WRITE(HDMI_MAI_THR,
--			   VC4_SET_FIELD(0x12, VC4_HD_MAI_THR_DREQHIGH) |
--			   VC4_SET_FIELD(0x12, VC4_HD_MAI_THR_DREQLOW));
--	} else if (vc4_hdmi->audio.samplerate > 48000) {
--		HDMI_WRITE(HDMI_MAI_THR,
--			   VC4_SET_FIELD(0x14, VC4_HD_MAI_THR_DREQHIGH) |
--			   VC4_SET_FIELD(0x12, VC4_HD_MAI_THR_DREQLOW));
--	} else {
--		HDMI_WRITE(HDMI_MAI_THR,
--			   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_PANICHIGH) |
--			   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_PANICLOW) |
--			   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_DREQHIGH) |
--			   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_DREQLOW));
+-	hdmi_audio_infoframe_init(&frame.audio);
+-
+-	frame.audio.coding_type = HDMI_AUDIO_CODING_TYPE_STREAM;
+-	frame.audio.sample_frequency = HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
+-	frame.audio.sample_size = HDMI_AUDIO_SAMPLE_SIZE_STREAM;
+-	frame.audio.channels = vc4_hdmi->audio.channels;
+-
++	memcpy(&frame.audio, audio, sizeof(*audio));
+ 	vc4_hdmi_write_infoframe(encoder, &frame);
+ }
+ 
+@@ -1119,18 +1115,10 @@ static inline struct vc4_hdmi *dai_to_hdmi(struct snd_soc_dai *dai)
+ 	return snd_soc_card_get_drvdata(card);
+ }
+ 
+-static int vc4_hdmi_audio_startup(struct snd_pcm_substream *substream,
+-				  struct snd_soc_dai *dai)
++static int vc4_hdmi_audio_startup(struct device *dev, void *data)
+ {
+-	struct vc4_hdmi *vc4_hdmi = dai_to_hdmi(dai);
++	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
+ 	struct drm_encoder *encoder = &vc4_hdmi->encoder.base.base;
+-	struct drm_connector *connector = &vc4_hdmi->connector;
+-	int ret;
+-
+-	if (vc4_hdmi->audio.substream && vc4_hdmi->audio.substream != substream)
+-		return -EINVAL;
+-
+-	vc4_hdmi->audio.substream = substream;
+ 
+ 	/*
+ 	 * If the HDMI encoder hasn't probed, or the encoder is
+@@ -1140,15 +1128,18 @@ static int vc4_hdmi_audio_startup(struct snd_pcm_substream *substream,
+ 				VC4_HDMI_RAM_PACKET_ENABLE))
+ 		return -ENODEV;
+ 
+-	ret = snd_pcm_hw_constraint_eld(substream->runtime, connector->eld);
+-	if (ret)
+-		return ret;
++	vc4_hdmi->audio.streaming = true;
+ 
+-	return 0;
+-}
++	HDMI_WRITE(HDMI_MAI_CTL,
++		   VC4_HD_MAI_CTL_RESET |
++		   VC4_HD_MAI_CTL_FLUSH |
++		   VC4_HD_MAI_CTL_DLATE |
++		   VC4_HD_MAI_CTL_ERRORE |
++		   VC4_HD_MAI_CTL_ERRORF);
++
++	if (vc4_hdmi->variant->phy_rng_enable)
++		vc4_hdmi->variant->phy_rng_enable(vc4_hdmi);
+ 
+-static int vc4_hdmi_audio_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+-{
+ 	return 0;
+ }
+ 
+@@ -1168,17 +1159,20 @@ static void vc4_hdmi_audio_reset(struct vc4_hdmi *vc4_hdmi)
+ 	HDMI_WRITE(HDMI_MAI_CTL, VC4_HD_MAI_CTL_FLUSH);
+ }
+ 
+-static void vc4_hdmi_audio_shutdown(struct snd_pcm_substream *substream,
+-				    struct snd_soc_dai *dai)
++static void vc4_hdmi_audio_shutdown(struct device *dev, void *data)
+ {
+-	struct vc4_hdmi *vc4_hdmi = dai_to_hdmi(dai);
++	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
+ 
+-	if (substream != vc4_hdmi->audio.substream)
+-		return;
++	HDMI_WRITE(HDMI_MAI_CTL,
++		   VC4_HD_MAI_CTL_DLATE |
++		   VC4_HD_MAI_CTL_ERRORE |
++		   VC4_HD_MAI_CTL_ERRORF);
+ 
++	if (vc4_hdmi->variant->phy_rng_disable)
++		vc4_hdmi->variant->phy_rng_disable(vc4_hdmi);
++
++	vc4_hdmi->audio.streaming = false;
+ 	vc4_hdmi_audio_reset(vc4_hdmi);
+-
+-	vc4_hdmi->audio.substream = NULL;
+ }
+ 
+ static int sample_rate_to_mai_fmt(int samplerate)
+@@ -1220,39 +1214,38 @@ static int sample_rate_to_mai_fmt(int samplerate)
+ }
+ 
+ /* HDMI audio codec callbacks */
+-static int vc4_hdmi_audio_hw_params(struct snd_pcm_substream *substream,
+-				    struct snd_pcm_hw_params *params,
+-				    struct snd_soc_dai *dai)
++static int vc4_hdmi_audio_prepare(struct device *dev, void *data,
++				  struct hdmi_codec_daifmt *daifmt,
++				  struct hdmi_codec_params *params)
+ {
+-	struct vc4_hdmi *vc4_hdmi = dai_to_hdmi(dai);
++	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
+ 	struct drm_encoder *encoder = &vc4_hdmi->encoder.base.base;
+-	struct device *dev = &vc4_hdmi->pdev->dev;
+ 	u32 audio_packet_config, channel_mask;
+ 	u32 channel_map;
+ 	u32 mai_audio_format;
+ 	u32 mai_sample_rate;
+ 
+-	if (substream != vc4_hdmi->audio.substream)
+-		return -EINVAL;
+-
+ 	dev_dbg(dev, "%s: %u Hz, %d bit, %d channels\n", __func__,
+-		params_rate(params), params_width(params),
+-		params_channels(params));
++		params->sample_rate, params->sample_width,
++		params->channels);
+ 
+-	vc4_hdmi->audio.channels = params_channels(params);
+-	vc4_hdmi->audio.samplerate = params_rate(params);
++	vc4_hdmi->audio.channels = params->channels;
++	vc4_hdmi->audio.samplerate = params->sample_rate;
+ 
+ 	HDMI_WRITE(HDMI_MAI_CTL,
+-		   VC4_HD_MAI_CTL_RESET |
+-		   VC4_HD_MAI_CTL_FLUSH |
+-		   VC4_HD_MAI_CTL_DLATE |
+-		   VC4_HD_MAI_CTL_ERRORE |
+-		   VC4_HD_MAI_CTL_ERRORF);
++		   VC4_SET_FIELD(params->channels, VC4_HD_MAI_CTL_CHNUM) |
++		   VC4_HD_MAI_CTL_WHOLSMP |
++		   VC4_HD_MAI_CTL_CHALIGN |
++		   VC4_HD_MAI_CTL_ENABLE);
+ 
+ 	vc4_hdmi_audio_set_mai_clock(vc4_hdmi);
+ 
+ 	mai_sample_rate = sample_rate_to_mai_fmt(vc4_hdmi->audio.samplerate);
+-	mai_audio_format = VC4_HDMI_MAI_FORMAT_PCM;
++	if (params->iec.status[0] & IEC958_AES0_NONAUDIO &&
++	    params->channels == 8)
++		mai_audio_format = VC4_HDMI_MAI_FORMAT_HBR;
++	else
++		mai_audio_format = VC4_HDMI_MAI_FORMAT_PCM;
+ 	HDMI_WRITE(HDMI_MAI_FMT,
+ 		   VC4_SET_FIELD(mai_sample_rate,
+ 				 VC4_HDMI_MAI_FORMAT_SAMPLE_RATE) |
+@@ -1286,94 +1279,12 @@ static int vc4_hdmi_audio_hw_params(struct snd_pcm_substream *substream,
+ 	HDMI_WRITE(HDMI_AUDIO_PACKET_CONFIG, audio_packet_config);
+ 	vc4_hdmi_set_n_cts(vc4_hdmi);
+ 
++	memcpy(&vc4_hdmi->audio.infoframe, &params->cea, sizeof(params->cea));
+ 	vc4_hdmi_set_audio_infoframe(encoder);
+ 
+ 	return 0;
+ }
+ 
+-static int vc4_hdmi_audio_trigger(struct snd_pcm_substream *substream, int cmd,
+-				  struct snd_soc_dai *dai)
+-{
+-	struct vc4_hdmi *vc4_hdmi = dai_to_hdmi(dai);
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+-		vc4_hdmi->audio.streaming = true;
+-
+-		if (vc4_hdmi->variant->phy_rng_enable)
+-			vc4_hdmi->variant->phy_rng_enable(vc4_hdmi);
+-
+-		HDMI_WRITE(HDMI_MAI_CTL,
+-			   VC4_SET_FIELD(vc4_hdmi->audio.channels,
+-					 VC4_HD_MAI_CTL_CHNUM) |
+-					 VC4_HD_MAI_CTL_WHOLSMP |
+-					 VC4_HD_MAI_CTL_CHALIGN |
+-					 VC4_HD_MAI_CTL_ENABLE);
+-		break;
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		HDMI_WRITE(HDMI_MAI_CTL,
+-			   VC4_HD_MAI_CTL_DLATE |
+-			   VC4_HD_MAI_CTL_ERRORE |
+-			   VC4_HD_MAI_CTL_ERRORF);
+-
+-		if (vc4_hdmi->variant->phy_rng_disable)
+-			vc4_hdmi->variant->phy_rng_disable(vc4_hdmi);
+-
+-		vc4_hdmi->audio.streaming = false;
+-
+-		break;
+-	default:
+-		break;
 -	}
-+	/* Set the MAI threshold */
-+	HDMI_WRITE(HDMI_MAI_THR,
-+		   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_PANICHIGH) |
-+		   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_PANICLOW) |
-+		   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_DREQHIGH) |
-+		   VC4_SET_FIELD(0x10, VC4_HD_MAI_THR_DREQLOW));
+-
+-	return 0;
+-}
+-
+-static inline struct vc4_hdmi *
+-snd_component_to_hdmi(struct snd_soc_component *component)
+-{
+-	struct snd_soc_card *card = snd_soc_component_get_drvdata(component);
+-
+-	return snd_soc_card_get_drvdata(card);
+-}
+-
+-static int vc4_hdmi_audio_eld_ctl_info(struct snd_kcontrol *kcontrol,
+-				       struct snd_ctl_elem_info *uinfo)
+-{
+-	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+-	struct vc4_hdmi *vc4_hdmi = snd_component_to_hdmi(component);
+-	struct drm_connector *connector = &vc4_hdmi->connector;
+-
+-	uinfo->type = SNDRV_CTL_ELEM_TYPE_BYTES;
+-	uinfo->count = sizeof(connector->eld);
+-
+-	return 0;
+-}
+-
+-static int vc4_hdmi_audio_eld_ctl_get(struct snd_kcontrol *kcontrol,
+-				      struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+-	struct vc4_hdmi *vc4_hdmi = snd_component_to_hdmi(component);
+-	struct drm_connector *connector = &vc4_hdmi->connector;
+-
+-	memcpy(ucontrol->value.bytes.data, connector->eld,
+-	       sizeof(connector->eld));
+-
+-	return 0;
+-}
+-
+-static const struct snd_kcontrol_new vc4_hdmi_audio_controls[] = {
+-	{
+-		.access = SNDRV_CTL_ELEM_ACCESS_READ |
+-			  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
+-		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
+-		.name = "ELD",
+-		.info = vc4_hdmi_audio_eld_ctl_info,
+-		.get = vc4_hdmi_audio_eld_ctl_get,
+-	},
+-};
+-
+ static const struct snd_soc_dapm_widget vc4_hdmi_audio_widgets[] = {
+ 	SND_SOC_DAPM_OUTPUT("TX"),
+ };
+@@ -1384,8 +1295,6 @@ static const struct snd_soc_dapm_route vc4_hdmi_audio_routes[] = {
  
- 	HDMI_WRITE(HDMI_MAI_CONFIG,
- 		   VC4_HDMI_MAI_CONFIG_BIT_REVERSE |
+ static const struct snd_soc_component_driver vc4_hdmi_audio_component_drv = {
+ 	.name			= "vc4-hdmi-codec-dai-component",
+-	.controls		= vc4_hdmi_audio_controls,
+-	.num_controls		= ARRAY_SIZE(vc4_hdmi_audio_controls),
+ 	.dapm_widgets		= vc4_hdmi_audio_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(vc4_hdmi_audio_widgets),
+ 	.dapm_routes		= vc4_hdmi_audio_routes,
+@@ -1396,28 +1305,6 @@ static const struct snd_soc_component_driver vc4_hdmi_audio_component_drv = {
+ 	.non_legacy_dai_naming	= 1,
+ };
+ 
+-static const struct snd_soc_dai_ops vc4_hdmi_audio_dai_ops = {
+-	.startup = vc4_hdmi_audio_startup,
+-	.shutdown = vc4_hdmi_audio_shutdown,
+-	.hw_params = vc4_hdmi_audio_hw_params,
+-	.set_fmt = vc4_hdmi_audio_set_fmt,
+-	.trigger = vc4_hdmi_audio_trigger,
+-};
+-
+-static struct snd_soc_dai_driver vc4_hdmi_audio_codec_dai_drv = {
+-	.name = "vc4-hdmi-hifi",
+-	.playback = {
+-		.stream_name = "Playback",
+-		.channels_min = 2,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
+-			 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
+-			 SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
+-			 SNDRV_PCM_RATE_192000,
+-		.formats = SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+-	},
+-};
+-
+ static const struct snd_soc_component_driver vc4_hdmi_audio_cpu_dai_comp = {
+ 	.name = "vc4-hdmi-cpu-dai-component",
+ };
+@@ -1444,7 +1331,6 @@ static struct snd_soc_dai_driver vc4_hdmi_audio_cpu_dai_drv = {
+ 			 SNDRV_PCM_RATE_192000,
+ 		.formats = SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+ 	},
+-	.ops = &vc4_hdmi_audio_dai_ops,
+ };
+ 
+ static const struct snd_dmaengine_pcm_config pcm_conf = {
+@@ -1452,6 +1338,31 @@ static const struct snd_dmaengine_pcm_config pcm_conf = {
+ 	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
+ };
+ 
++
++static int vc4_hdmi_audio_get_eld(struct device *dev, void *data,
++				  uint8_t *buf, size_t len)
++{
++	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
++	struct drm_connector *connector = &vc4_hdmi->connector;
++
++	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
++
++	return 0;
++}
++
++static const struct hdmi_codec_ops vc4_hdmi_codec_ops = {
++	.get_eld = vc4_hdmi_audio_get_eld,
++	.prepare = vc4_hdmi_audio_prepare,
++	.audio_shutdown = vc4_hdmi_audio_shutdown,
++	.audio_startup = vc4_hdmi_audio_startup,
++};
++
++struct hdmi_codec_pdata vc4_hdmi_codec_pdata = {
++	.ops = &vc4_hdmi_codec_ops,
++	.max_i2s_channels = 8,
++	.i2s = 1,
++};
++
+ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ {
+ 	const struct vc4_hdmi_register *mai_data =
+@@ -1459,6 +1370,7 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ 	struct snd_soc_dai_link *dai_link = &vc4_hdmi->audio.link;
+ 	struct snd_soc_card *card = &vc4_hdmi->audio.card;
+ 	struct device *dev = &vc4_hdmi->pdev->dev;
++	struct platform_device *codec_pdev;
+ 	const __be32 *addr;
+ 	int index;
+ 	int ret;
+@@ -1505,12 +1417,13 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ 		return ret;
+ 	}
+ 
+-	/* register component and codec dai */
+-	ret = devm_snd_soc_register_component(dev, &vc4_hdmi_audio_component_drv,
+-				     &vc4_hdmi_audio_codec_dai_drv, 1);
+-	if (ret) {
+-		dev_err(dev, "Could not register component: %d\n", ret);
+-		return ret;
++	codec_pdev = platform_device_register_data(dev, HDMI_CODEC_DRV_NAME,
++						   PLATFORM_DEVID_AUTO,
++						   &vc4_hdmi_codec_pdata,
++						   sizeof(vc4_hdmi_codec_pdata));
++	if (IS_ERR(codec_pdev)) {
++		dev_err(dev, "Couldn't register the HDMI codec: %ld\n", PTR_ERR(codec_pdev));
++		return PTR_ERR(codec_pdev);
+ 	}
+ 
+ 	dai_link->cpus		= &vc4_hdmi->audio.cpu;
+@@ -1523,9 +1436,9 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ 
+ 	dai_link->name = "MAI";
+ 	dai_link->stream_name = "MAI PCM";
+-	dai_link->codecs->dai_name = vc4_hdmi_audio_codec_dai_drv.name;
++	dai_link->codecs->dai_name = "i2s-hifi";
+ 	dai_link->cpus->dai_name = dev_name(dev);
+-	dai_link->codecs->name = dev_name(dev);
++	dai_link->codecs->name = dev_name(&codec_pdev->dev);
+ 	dai_link->platforms->name = dev_name(dev);
+ 
+ 	card->dai_link = dai_link;
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
+index 060bcaefbeb5..055aa64a47a2 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.h
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
+@@ -114,8 +114,7 @@ struct vc4_hdmi_audio {
+ 	int samplerate;
+ 	int channels;
+ 	struct snd_dmaengine_dai_dma_data dma_data;
+-	struct snd_pcm_substream *substream;
+-
++	struct hdmi_audio_infoframe infoframe;
+ 	bool streaming;
+ };
+ 
 -- 
 2.31.1
 

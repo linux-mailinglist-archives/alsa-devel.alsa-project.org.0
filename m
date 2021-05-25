@@ -2,79 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B0738FBEB
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 09:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7DB38FC10
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 10:02:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6941A1655;
-	Tue, 25 May 2021 09:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6941A1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id D783F165D;
+	Tue, 25 May 2021 10:01:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D783F165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621928484;
-	bh=k691lYYj9416XOczvUylmzpBwlTklA0OcKEUiXU6Tbk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621929737;
+	bh=gchEmDe+oRb5ftX56FYGhtL1CvMT7RWbmjwlMqhvjpU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mWtEpkGfJl0cKdsgatMu67J4LmvxIj1ki/2+hK4v5HEEP3kvisGfgZGuatny71zNn
-	 BS5km59EfP6Xdi5r4nr2Fxpy8aGR36yEBDxd8oOLP7jpUyHCXiV5XOVAK/nGFqNo1A
-	 DgCWo8kHsE56KtwPh5i2GpNya+xahm2/ryO290Fo=
+	b=VYE87ca99TN2T/Bym9/sqcDZYu0SObxGBNFMkJOrA8fMrlB5O6cIYaIUiD37bEmyR
+	 cdvLacTSTb+5TDAsXWH9nvTZ7peaFerhWybvdfnMYLenO+fppUIgR1bstqjacIoZ7J
+	 JXq4irfY9Bz16bkCb7f4Q/9MyJqzoWwSCF5wEImg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D1CDF801F5;
-	Tue, 25 May 2021 09:39:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 338C1F801F5;
+	Tue, 25 May 2021 10:00:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F419F801EB; Tue, 25 May 2021 09:39:53 +0200 (CEST)
+ id 20A47F801EB; Tue, 25 May 2021 10:00:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,PRX_BODYSUB_16,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1271F80137
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 09:39:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1271F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D2A4F80137
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 10:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D2A4F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qpOJZY7b"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="J5u6oH4r"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621928390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ctn8QpgZHnB4mUM8w2CHgUf+JhW/0F9bpuHJuxFREW0=;
- b=qpOJZY7byqh4ni+bjgDBW9cuLt5FhdjsvqeCTlKbL+OcMyiKSzE8HuvvNuwrsBTcIWhcLc
- px4cX+aVIZ+CfbtQljHYblblqtHI0ylqE3IZiAqHKpg6JfLrGPf8IRRYyOWv9BQ3wSEHAU
- H1Y0nFwoSDUWjPWgRc6ZWa6K4qOLIyY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621928390;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ctn8QpgZHnB4mUM8w2CHgUf+JhW/0F9bpuHJuxFREW0=;
- b=J5u6oH4rLInFwODOipZnPsrL7ea3JhWfcAKUzrOg4/3lw+HkoowPYUqRsxYqAkgItvRZQ1
- Jal0GqgyrcdpghCw==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11360AE99;
- Tue, 25 May 2021 07:39:50 +0000 (UTC)
-Date: Tue, 25 May 2021 09:39:50 +0200
-Message-ID: <s5ha6ojdzy1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.13-rc3
-In-Reply-To: <20210524090307.61BAA60698@mail.kernel.org>
-References: <20210524090307.61BAA60698@mail.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Bi7XQPY7"
+Received: by mail-pj1-x1033.google.com with SMTP id g24so16331796pji.4
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 01:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=gchEmDe+oRb5ftX56FYGhtL1CvMT7RWbmjwlMqhvjpU=;
+ b=Bi7XQPY7lQeZ1QeotVdNrHHmJLkgHfcPqD9lmKjLdCUm/nxRHTqSWYG3RsDvFHxx0E
+ Lm27iXNs/aKXKr+vV6Qro6rEn8XRMyXirp2LEgmycG8kNfzwLaOHgFyVCmMrnXv9pc5w
+ DdDmIcrm+iByZDuLXIL3hjAiVrAjRrNM9S1gFbzXuW1Dl8PJRvOH29SsQsIZ4MSilB07
+ +Swy/7dXSJbSDqK2Q5WE6tp+mhyeDtdoJkCxBTw8D+KPbLDBzhvXRBjn7SS4QGjrGx3+
+ DZwlPtBCijqVJQukA5nPxjWBj85w50LgtamyBkPtIX+nnAzUyK8lQLPeA3eN/uzO69VC
+ rhTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=gchEmDe+oRb5ftX56FYGhtL1CvMT7RWbmjwlMqhvjpU=;
+ b=JQlz0zwyqknPLFh70TkM5LdfeE40xdIApcmuH4bWPmZOiGNv7Fy8MR69oPftw9K/Ec
+ r62q9ad63b+wa5GgHKBtcdO+0nqCJq+iKk9zDLqut1CkzNT8Pww85L1z4uL74E0tgCO4
+ hmR0PAXg72lwOweVrlziIR94upg6ryXXwx5Gl5ixPVg67bizY+Zmqwr7b6xkfRrYaiXT
+ XDTS8HUkNn25wJQ8crqQ1b8/jSe58GXBlGkBM8qWsOm69Oe0KtjA1hdNJDCfxGwoaB59
+ QScsRkPADGRn50Ank/iVXM2WY9xygPqTEnidQIF9mT1WW6VFjTwxvCH8yNwMKjObpq0X
+ fl2A==
+X-Gm-Message-State: AOAM530Hqzh2O/q0GSXlO/GTJ2rN7/dIEV5nveeSjlGog/k8jufNHvAN
+ pKFntYSjebVpF+a7elXLch4=
+X-Google-Smtp-Source: ABdhPJx73Fq00enLr2aONG1g9uC31io/Xz1z6wNY0U7uPc9dCIWSZYNTtyEJF8LTaSHfc8H32cRQMA==
+X-Received: by 2002:a17:902:7795:b029:f2:63cb:ab16 with SMTP id
+ o21-20020a1709027795b02900f263cbab16mr29180113pll.7.1621929639029; 
+ Tue, 25 May 2021 01:00:39 -0700 (PDT)
+Received: from hyeyoo ([121.135.181.35])
+ by smtp.gmail.com with ESMTPSA id b21sm9699790pfo.47.2021.05.25.01.00.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 May 2021 01:00:38 -0700 (PDT)
+Date: Tue, 25 May 2021 17:00:33 +0900
+From: Hyeonggon Yoo <42.hyeyoo@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: line6: Improve poor error handling in
+ line6_init_cap_control
+Message-ID: <20210525080033.GA13895@hyeyoo>
+References: <20210524173644.GA116662@hyeyoo>
+ <s5hh7ire1jq.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hh7ire1jq.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Oliver Neukum <oneukum@suse.com>, Takashi Iwai <tiwai@suse.com>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,30 +105,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 24 May 2021 11:02:51 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 25c4a9b614f101bb9f3e687960815db7dc439c0f:
-> 
->   ASoC: simple-card: Fix breakage on kontron-sl28-var3-ads2 (2021-04-23 18:13:32 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.13-rc3
-> 
-> for you to fetch changes up to af2702549d68519ac78228e915d9b2c199056787:
-> 
->   ASoC: qcom: lpass-cpu: Use optional clk APIs (2021-05-21 13:12:29 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.13
-> 
-> A collection of fixes that have come in since the merge window, mainly
-> device specific things.  The fixes to the generic cards from
-> Morimoto-san are handling regressions that were introduced in the merge
-> window on at least the Kontron sl28-var3-ads2.
+On Tue, May 25, 2021 at 09:05:13AM +0200, Takashi Iwai wrote:
+> Those resources are freed in the common destructor of the card
+> instance, line6_destruct(),
 
-Thanks, pulled now.
+Oh my god, I missed line6_destruct.
 
+> at disconnect callback, so it's redundant
+> to release them here; even worse, since you haven't re-initialize with
+> NULL, this change would lead to double-free.
 
-Takashi
+Yes then it can cause double-free..
+
+>
+>
+> thanks,
+>
+> Takashi
+
+I made a mistake, I'm so sorry to take your time...
+
+Thanks,
+Hyeonggon

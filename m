@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACAF038F6CE
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:07:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C57B838F6D0
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:07:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 463001698;
-	Tue, 25 May 2021 02:06:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463001698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E52816BD;
+	Tue, 25 May 2021 02:06:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E52816BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621901223;
-	bh=0C+nLgP9BSY63xoUTrv39JUv1pc9zJ2bR/PnRQg8UBg=;
+	s=default; t=1621901238;
+	bh=3St5iMUJrqB0wM0o3O4l//a3+XXu5v/KS2RHnpYP5dM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bnYGOluxfYQ9NXyLzehwvb06UVP/pAxvAc+yGz845J2pOz8o+kyI2btWZwvYfBgEk
-	 q3OAOTgD/ckZW03n31Beh9OWyKhqU4FwxTMI95+c++/hkdgJZbrLD8QueavCDRmpME
-	 izV/5UnRFyG0LRvqeQ/1I3IUQiwbZtJ33z1tF+9k=
+	b=Qt8cd37SriYQ6fq7nrrXYtq83/VJQKdt9ROE/0xS3q1SFHi9TFrhsQzcD6VTVph+o
+	 /2hdRucJXFNL7nWfCZX0FPCfe2SaOCHESn7WgXUfQzn8PSYqHEn/eWm3Xb8BcN3BAp
+	 d9sq7SgWlXAyrqPdGQ7RmyNB9ro14Dgt5umx9Ea0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35C9AF804E6;
-	Tue, 25 May 2021 02:03:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD369F804EB;
+	Tue, 25 May 2021 02:03:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A9E2F804E5; Tue, 25 May 2021 02:03:40 +0200 (CEST)
+ id A46CCF804ED; Tue, 25 May 2021 02:03:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 33E06F804E3
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33E06F804E3
-Date: 25 May 2021 09:03:36 +0900
-X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82109765"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 25 May 2021 09:03:36 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 273D3F804E5
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 273D3F804E5
+Date: 25 May 2021 09:03:40 +0900
+X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82287873"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 25 May 2021 09:03:40 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 18D06400A8BA;
- Tue, 25 May 2021 09:03:36 +0900 (JST)
-Message-ID: <87bl8zof1j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EC7534112445;
+ Tue, 25 May 2021 09:03:40 +0900 (JST)
+Message-ID: <87a6ojof1f.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 08/10] ASoC: rsnd: implement BUSIF related code in ssiu.c
+Subject: [PATCH 09/10] ASoC: rsnd: tidyup rsnd_ssiu_busif_err_status_clear()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87mtsjof3w.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,93 +70,35 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-BUSIF is SSIU feature, but its related code is
-implemented at ssi.c today.
-This patch moves it to ssiu.c
+rsnd_ssiu_busif_err_status_clear() has very similar duplicated code.
+This patch merge and tidyup the code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/rsnd.h |   1 +
- sound/soc/sh/rcar/ssi.c  |  98 +------------------------------
- sound/soc/sh/rcar/ssiu.c | 121 ++++++++++++++++++++++++++++++++++-----
- 3 files changed, 108 insertions(+), 112 deletions(-)
+ sound/soc/sh/rcar/ssiu.c | 45 +++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index b76dfa93d362..75db25b8cd03 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -810,6 +810,7 @@ void rsnd_parse_connect_ssiu(struct rsnd_dai *rdai,
- 			     struct device_node *playback,
- 			     struct device_node *capture);
- #define rsnd_ssiu_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_SSIU)
-+bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod);
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index 3a98ec2066bc..b79628761167 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -88,11 +88,9 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
  
- /*
-  *	R-Car SRC
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index aa1da2978dc6..19fbafcc0d92 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -357,96 +357,6 @@ static void rsnd_ssi_master_clk_stop(struct rsnd_mod *mod,
- 	rsnd_adg_ssi_clk_stop(mod);
- }
- 
--/* enable busif buffer over/under run interrupt. */
--#define rsnd_ssi_busif_err_irq_enable(mod)  rsnd_ssi_busif_err_irq_ctrl(mod, 1)
--#define rsnd_ssi_busif_err_irq_disable(mod) rsnd_ssi_busif_err_irq_ctrl(mod, 0)
--static void rsnd_ssi_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
--{
--	u32 sys_int_enable = 0;
--	int id = rsnd_mod_id(mod);
--	int i;
--
--	switch (id) {
--	case 0:
--	case 1:
--	case 2:
--	case 3:
--	case 4:
--		for (i = 0; i < 4; i++) {
--			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE(i * 2));
--			if (enable)
--				sys_int_enable |= 0xf << (id * 4);
--			else
--				sys_int_enable &= ~(0xf << (id * 4));
--			rsnd_mod_write(mod,
--				       SSI_SYS_INT_ENABLE(i * 2),
--				       sys_int_enable);
--		}
--		break;
--	case 9:
--		for (i = 0; i < 4; i++) {
--			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE((i * 2) + 1));
--			if (enable)
--				sys_int_enable |= 0xf << 4;
--			else
--				sys_int_enable &= ~(0xf << 4);
--			rsnd_mod_write(mod,
--				       SSI_SYS_INT_ENABLE((i * 2) + 1),
--				       sys_int_enable);
--		}
--		break;
--	}
--}
--
--static bool rsnd_ssi_busif_err_status_clear(struct rsnd_mod *mod)
--{
+ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
+ {
 -	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
 -	struct device *dev = rsnd_priv_to_dev(priv);
 -	u32 status;
--	bool stop = false;
--	int id = rsnd_mod_id(mod);
--	int i;
--
--	switch (id) {
--	case 0:
--	case 1:
--	case 2:
--	case 3:
--	case 4:
+ 	bool error = false;
+ 	int id = rsnd_mod_id(mod);
++	int shift, offset;
+ 	int i;
+ 
+ 	switch (id) {
+@@ -101,31 +99,30 @@ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
+ 	case 2:
+ 	case 3:
+ 	case 4:
 -		for (i = 0; i < 4; i++) {
 -			status = rsnd_mod_read(mod, SSI_SYS_STATUS(i * 2));
 -			status &= 0xf << (id * 4);
@@ -164,219 +106,47 @@ index aa1da2978dc6..19fbafcc0d92 100644
 -			if (status) {
 -				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
 -						      rsnd_mod_name(mod), status);
--				rsnd_mod_write(mod,
--					       SSI_SYS_STATUS(i * 2),
--					       0xf << (id * 4));
--				stop = true;
+-				error = true;
 -			}
+-			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
 -		}
--		break;
--	case 9:
++		shift  = id;
++		offset = 0;
+ 		break;
+ 	case 9:
 -		for (i = 0; i < 4; i++) {
 -			status = rsnd_mod_read(mod, SSI_SYS_STATUS((i * 2) + 1));
 -			status &= 0xf << 4;
--
++		shift  = 1;
++		offset = 1;
++		break;
++	}
+ 
 -			if (status) {
 -				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
 -						      rsnd_mod_name(mod), status);
--				rsnd_mod_write(mod,
--					       SSI_SYS_STATUS((i * 2) + 1),
--					       0xf << 4);
--				stop = true;
+-				error = true;
 -			}
--		}
--		break;
--	}
--
--	return stop;
--}
--
- static void rsnd_ssi_config_init(struct rsnd_mod *mod,
- 				struct rsnd_dai_stream *io)
- {
-@@ -534,9 +444,6 @@ static void rsnd_ssi_config_init(struct rsnd_mod *mod,
- 		cr_mode = DIEN;		/* PIO : enable Data interrupt */
- 	}
- 
--	/* enable busif buffer over/under run interrupt. */
--	rsnd_ssi_busif_err_irq_enable(mod);
--
- init_end:
- 	ssi->cr_own	= cr_own;
- 	ssi->cr_mode	= cr_mode;
-@@ -612,9 +519,6 @@ static int rsnd_ssi_quit(struct rsnd_mod *mod,
- 		ssi->wsr	= 0;
- 	}
- 
--	/* disable busif buffer over/under run interrupt. */
--	rsnd_ssi_busif_err_irq_disable(mod);
--
- 	return 0;
- }
- 
-@@ -788,7 +692,7 @@ static void __rsnd_ssi_interrupt(struct rsnd_mod *mod,
- 		stop = true;
- 	}
- 
--	stop |= rsnd_ssi_busif_err_status_clear(mod);
-+	stop |= rsnd_ssiu_busif_err_status_clear(mod);
- 
- 	rsnd_ssi_status_clear(mod);
- rsnd_ssi_interrupt_out:
-diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index cb2071cbe3c6..3a98ec2066bc 100644
---- a/sound/soc/sh/rcar/ssiu.c
-+++ b/sound/soc/sh/rcar/ssiu.c
-@@ -45,6 +45,92 @@ struct rsnd_ssiu {
- static const int gen2_id[] = { 0, 4,  8, 12, 13, 14, 15, 16, 17, 18 };
- static const int gen3_id[] = { 0, 8, 16, 24, 32, 40, 41, 42, 43, 44 };
- 
-+/* enable busif buffer over/under run interrupt. */
-+#define rsnd_ssiu_busif_err_irq_enable(mod)  rsnd_ssiu_busif_err_irq_ctrl(mod, 1)
-+#define rsnd_ssiu_busif_err_irq_disable(mod) rsnd_ssiu_busif_err_irq_ctrl(mod, 0)
-+static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
-+{
-+	u32 sys_int_enable = 0;
-+	int id = rsnd_mod_id(mod);
-+	int i;
-+
-+	switch (id) {
-+	case 0:
-+	case 1:
-+	case 2:
-+	case 3:
-+	case 4:
-+		for (i = 0; i < 4; i++) {
-+			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE(i * 2));
-+			if (enable)
-+				sys_int_enable |= 0xf << (id * 4);
-+			else
-+				sys_int_enable &= ~(0xf << (id * 4));
-+			rsnd_mod_write(mod,
-+				       SSI_SYS_INT_ENABLE(i * 2),
-+				       sys_int_enable);
-+		}
-+		break;
-+	case 9:
-+		for (i = 0; i < 4; i++) {
-+			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE((i * 2) + 1));
-+			if (enable)
-+				sys_int_enable |= 0xf << 4;
-+			else
-+				sys_int_enable &= ~(0xf << 4);
-+			rsnd_mod_write(mod,
-+				       SSI_SYS_INT_ENABLE((i * 2) + 1),
-+				       sys_int_enable);
-+		}
-+		break;
-+	}
-+}
-+
-+bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
-+{
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
-+	struct device *dev = rsnd_priv_to_dev(priv);
-+	u32 status;
-+	bool error = false;
-+	int id = rsnd_mod_id(mod);
-+	int i;
-+
-+	switch (id) {
-+	case 0:
-+	case 1:
-+	case 2:
-+	case 3:
-+	case 4:
-+		for (i = 0; i < 4; i++) {
-+			status = rsnd_mod_read(mod, SSI_SYS_STATUS(i * 2));
-+			status &= 0xf << (id * 4);
-+
-+			if (status) {
-+				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
-+						      rsnd_mod_name(mod), status);
-+				error = true;
-+			}
-+			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
-+		}
-+		break;
-+	case 9:
-+		for (i = 0; i < 4; i++) {
-+			status = rsnd_mod_read(mod, SSI_SYS_STATUS((i * 2) + 1));
-+			status &= 0xf << 4;
-+
-+			if (status) {
-+				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
-+						      rsnd_mod_name(mod), status);
-+				error = true;
-+			}
-+			rsnd_mod_write(mod, SSI_SYS_STATUS((i * 2) + 1), 0xf << 4);
-+		}
-+		break;
-+	}
-+
-+	return error;
-+}
-+
- static u32 *rsnd_ssiu_get_status(struct rsnd_mod *mod,
- 				 struct rsnd_dai_stream *io,
- 				 enum rsnd_mod_type type)
-@@ -65,23 +151,9 @@ static int rsnd_ssiu_init(struct rsnd_mod *mod,
- 	int id = rsnd_mod_id(mod);
- 	int is_clk_master = rsnd_rdai_is_clk_master(rdai);
- 	u32 val1, val2;
--	int i;
- 
- 	/* clear status */
--	switch (id) {
--	case 0:
--	case 1:
--	case 2:
--	case 3:
--	case 4:
--		for (i = 0; i < 4; i++)
--			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
--		break;
--	case 9:
--		for (i = 0; i < 4; i++)
 -			rsnd_mod_write(mod, SSI_SYS_STATUS((i * 2) + 1), 0xf << 4);
++	for (i = 0; i < 4; i++) {
++		u32 reg = SSI_SYS_STATUS(i * 2) + offset;
++		u32 status = rsnd_mod_read(mod, reg);
++		u32 val = 0xf << (shift * 4);
++
++		status &= val;
++		if (status) {
++			struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
++			struct device *dev = rsnd_priv_to_dev(priv);
++
++			rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
++					      rsnd_mod_name(mod), status);
++			error = true;
+ 		}
 -		break;
--	}
-+	rsnd_ssiu_busif_err_status_clear(mod);
++		rsnd_mod_write(mod, reg, val);
+ 	}
  
- 	/*
- 	 * SSI_MODE0
-@@ -137,12 +209,31 @@ static int rsnd_ssiu_init(struct rsnd_mod *mod,
- 	rsnd_mod_bset(mod, SSI_MODE1, 0x0013001f, val1);
- 	rsnd_mod_bset(mod, SSI_MODE2, 0x00000017, val2);
- 
-+	/*
-+	 * Enable busif buffer over/under run interrupt.
-+	 * It will be handled from ssi.c
-+	 * see
-+	 *	__rsnd_ssi_interrupt()
-+	 */
-+	rsnd_ssiu_busif_err_irq_enable(mod);
-+
-+	return 0;
-+}
-+
-+static int rsnd_ssiu_quit(struct rsnd_mod *mod,
-+			  struct rsnd_dai_stream *io,
-+			  struct rsnd_priv *priv)
-+{
-+	/* disable busif buffer over/under run interrupt. */
-+	rsnd_ssiu_busif_err_irq_disable(mod);
-+
- 	return 0;
- }
- 
- static struct rsnd_mod_ops rsnd_ssiu_ops_gen1 = {
- 	.name		= SSIU_NAME,
- 	.init		= rsnd_ssiu_init,
-+	.quit		= rsnd_ssiu_quit,
- 	.get_status	= rsnd_ssiu_get_status,
- };
- 
+ 	return error;
 -- 
 2.25.1
 

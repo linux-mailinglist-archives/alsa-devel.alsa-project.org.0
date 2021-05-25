@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279BB38FB4D
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 08:57:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 677E038FB56
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 09:01:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82DF21690;
-	Tue, 25 May 2021 08:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DF21690
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF8D9166D;
+	Tue, 25 May 2021 09:00:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF8D9166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621925839;
-	bh=yWqlsUV2AelCY2WydzVMxI/Y7GAbwuSSb1wSzIzzftY=;
+	s=default; t=1621926055;
+	bh=tSFEyNZEfLvAaJK8P6LgUvquB+ipp6Wxh1yNTIfLRDY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kn6hYYuzJWEfdqqn3DQjWQ63657CN0HUow9Yu3lCt6JEsy8uHImH/dcnKvLruiodO
-	 ZR8wI0oO3S0VOHCJP1COLsOxP32Ykf2Rjdoo0b0VO8L+HScYY0YVTmIqK6PvpVs9qr
-	 OCEblxowhFxYMXqXsBB/YlJNGpcNrvvxQfl3Q/+I=
+	b=XRmr+Hly4xw0nyQTevXuxPUMGJnNm6ZrQfXAyfK2eMibEQjOABm+aR/uVk5ot4VAs
+	 nu0y4p8PWU7u/qlgzepH8PY0UKzyYAO+8Y/+95yMyL4J7sVdk00AJWel3i+h4H+qmh
+	 OxeGRQUXAYWcvHD7FZHNvoSKKpbUGMDDeVlUQsxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D68AF8026B;
-	Tue, 25 May 2021 08:56:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE7DF80113;
+	Tue, 25 May 2021 08:59:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED174F80113; Tue, 25 May 2021 08:56:25 +0200 (CEST)
+ id 59FB1F801EB; Tue, 25 May 2021 08:59:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D7E2F80113
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:56:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D7E2F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24A7EF80113
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:59:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24A7EF80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="POEi5o4u"; 
+ header.b="hR7cYuZf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jA0CZElS"
+ header.b="8ux3eVOv"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621925783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621925960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tmY2eQwNoPgwPmlKaJY6fQQ7VNuSy9VN5xkXa0NYvHM=;
- b=POEi5o4uXmVTx6aoYKeq/6L2xlndf8nCPVNHYYmgtwh1ySd/JjD8B1ws3bR8uMX9G88bzi
- t1FNsn4VYuxPPwSa8zYEeItyl+RCOyMN+iBBAZqEWYzOSxmkQPF5S5BINt4UgzAYrbTYn5
- aOd17CnPCQFbNrX0hMz5wv5Y1868ni8=
+ bh=fP5c3AfocXokm9urafgJHnDb6Vv+NuQAY4/vjkg30oc=;
+ b=hR7cYuZfK0zaF8Y1qjh+I0lMK9mBeUd+yVAvMaaJo5+vK1kizckH8iYTKA+De340iBuRW0
+ yckoxMglygpPtdJKnG2uC4G40i6sGUVnGJq+SGt4ClWzULA7qGyQo/xAwIDsvVP/I3YN9W
+ Q5YEb9dGIntGymH6clep/SK1LcHi4lo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621925783;
+ s=susede2_ed25519; t=1621925960;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tmY2eQwNoPgwPmlKaJY6fQQ7VNuSy9VN5xkXa0NYvHM=;
- b=jA0CZElSAWBunkORDj6/Fc3lzOxLmQ6/LwzOTHfv2WRv4kBQ8tBoZ0YscV9J/u7DB7oWr1
- krs9C2SF4X/k0ADQ==
+ bh=fP5c3AfocXokm9urafgJHnDb6Vv+NuQAY4/vjkg30oc=;
+ b=8ux3eVOvt/hTEWd8vgq6nCOUmtnjsU3ou31433AjKtRqQOtIxQrRLEWXcpGA5GTBLWcHc7
+ q493wZ5EgRtvi9Ag==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2DB9FAE92;
- Tue, 25 May 2021 06:56:23 +0000 (UTC)
-Date: Tue, 25 May 2021 08:56:23 +0200
-Message-ID: <s5hmtsje1yg.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id BD641AE99;
+ Tue, 25 May 2021 06:59:20 +0000 (UTC)
+Date: Tue, 25 May 2021 08:59:20 +0200
+Message-ID: <s5hk0nne1tj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 0/6] ALSA: Prep work for PCI rescan support
-In-Reply-To: <20210523090920.15345-1-tiwai@suse.de>
-References: <20210523090920.15345-1-tiwai@suse.de>
+To: Yufen Yu <yuyufen@huawei.com>
+Subject: Re: [PATCH] ALSA: ac97: fix PM reference leak in ac97_bus_remove()
+In-Reply-To: <20210524093811.612302-1-yuyufen@huawei.com>
+References: <20210524093811.612302-1-yuyufen@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Mark Brown <broonie@kernel.org>
+Cc: yukuai3@huawei.com, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +90,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 23 May 2021 11:09:14 +0200,
-Takashi Iwai wrote:
+On Mon, 24 May 2021 11:38:11 +0200,
+Yufen Yu wrote:
 > 
-> Hi,
+> pm_runtime_get_sync will increment pm usage counter even it failed.
+> Forgetting to putting operation will result in reference leak here.
+> Fix it by replacing it with pm_runtime_resume_and_get to keep usage
+> counter balanced.
 > 
-> this is a revised patch set as a prep work for the future-planned PCI
-> rescan support(*).  The essential part is the patch to track in-flight
-> tasks, and the rest are cleanups and fixes in the core code.  With
-> those changes, the driver can perform a sort of software suspend on
-> the device without the hardware intervention, which is required during
-> the PCI BAR movement, for example.
-> 
-> v1->v2:
-> * Move / drop unnecessary snd_power_wait() calls
-> * Rephrase changelogs and comments, reorder patches
-> 
-> 
-> Takashi
-> 
-> (*) https://lore.kernel.org/alsa-devel/e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com/
-> 
-> ===
-> 
-> Takashi Iwai (6):
->   ALSA: core: Use READ_ONCE() / WRITE_ONCE() for power state change
->   ALSA: control: Track in-flight control read/write/tlv accesses
->   ALSA: control: Drop superfluous snd_power_wait() calls
->   ALSA: control: Minor optimization for SNDRV_CTL_IOCTL_POWER_STATE
->   ALSA: Drop superfluous argument from snd_power_wait()
->   ALSA: pcm: Block the release until the system resume finishes
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Yufen Yu <yuyufen@huawei.com>
 
-Now all patches merged to topic/pci-rescan-v2 branch, and into
-for-next branch.  The former is a branch freshly based on 5.13-rc1, so
-that other trees may pull cleanly.
+Thanks, applied.
 
 
 Takashi

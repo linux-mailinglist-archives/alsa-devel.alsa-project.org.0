@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3980038FF32
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 12:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAC1638FF3A
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 12:32:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0BDA1734;
-	Tue, 25 May 2021 12:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0BDA1734
+	by alsa0.perex.cz (Postfix) with ESMTPS id 640F5173C;
+	Tue, 25 May 2021 12:31:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 640F5173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621938714;
-	bh=Qg9dczt7puFDHipMcGUOqraklOdTHlE0GOMieHeUDB4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621938742;
+	bh=+AYxHiIJ3dfjlLK1lNBxCeKhNVMhjtTaVMVEfBDhK4c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l2R6jN0NkhusOs8nI9xS2OJEFNNYEHEXcnr05sgVMvTzzBECleEKnjc71B2u75M6d
-	 tKbvSvQwIdFa+nITMWJ3LsUqxvN+cr37XT5aN4NM1Rujv+pbkTC4IcIAn8g19qn8Q7
-	 KwUGIKyy1RCY1xU9nOxTewihhDrDvgrjZ4cmf0CU=
+	b=mSUlUMa1trcmWihZCG8hdbwsEc5xMHbXx2E6YPyBFdJBj1FKRST9mE0eX+jiNdDRE
+	 opMZpskcdPn1+g2hMAJbJvsomfLU3EuiHeDzF4URyyUFBsKWwQJOTVzXofGptQV1Kz
+	 7pKyvw+VTbW03IrYOy5qRJA1IB/2KfoW1wIO4uM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35596F8019D;
-	Tue, 25 May 2021 12:30:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E1A3F8026B;
+	Tue, 25 May 2021 12:31:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B9A0F801EB; Tue, 25 May 2021 12:30:23 +0200 (CEST)
+ id 10724F8026B; Tue, 25 May 2021 12:31:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
+ [209.85.222.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C9C0F80137
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 12:30:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C9C0F80137
-IronPort-SDR: ClthdNk/AJix3ywRRlQYY6yWx8BYyte/rCfHNokl0AQKcWQGDOTWR0Lz28Rceh5aNHJC3XCGo6
- a0McdIqu4siw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="189279539"
-X-IronPort-AV: E=Sophos;i="5.82,328,1613462400"; d="scan'208";a="189279539"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 03:30:07 -0700
-IronPort-SDR: uEVoL0cFaDTDTa2XPmnnBLS3Iwzi8jAtd+Z11EI8HoyKu/BA1be01AV7Ut/nzLpEd7fNLc4Yrk
- 3xvcwOhBHEsQ==
-X-IronPort-AV: E=Sophos;i="5.82,328,1613462400"; d="scan'208";a="476357082"
-Received: from pujfalus-mobl.ger.corp.intel.com (HELO [10.252.39.140])
- ([10.252.39.140])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 03:30:06 -0700
-Subject: Re: [PATCH] ALSA: hda: Add Lenovo ThinkStation P340 to
- power_save_denylist
-To: Takashi Iwai <tiwai@suse.de>, hui.wang@canonical.com
-References: <20210524152533.7479-1-peter.ujfalusi@linux.intel.com>
- <s5hfsybe0vo.wl-tiwai@suse.de>
- <3e7428d2-2cfd-5835-33ef-72f3a2f43324@linux.intel.com>
- <s5h5yz7dxxj.wl-tiwai@suse.de>
- <2a2cc0cc-a7b4-9981-b463-06919ced72a8@linux.intel.com>
- <s5htumrcgsr.wl-tiwai@suse.de>
-From: "Ujfalusi, Peter" <peter.ujfalusi@linux.intel.com>
-Message-ID: <640e0b07-ff89-3a19-bbc8-507391f7b861@linux.intel.com>
-Date: Tue, 25 May 2021 13:30:03 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87CDAF80113
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 12:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87CDAF80113
+Received: by mail-ua1-f48.google.com with SMTP id h26so3130706uab.13
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 03:31:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=caJKpR22UE+yWdNX3qHv38WZNk5LVcxR9KLK7ev4RjQ=;
+ b=Pl3r/z7YfLlaas5PoWQmmIfkpt6Hw/pUk9bW2t+WZWMyE5dS1quVuXuQl5fmbQsJC/
+ OdgJYgMW882ubSblVXPHfUQj/lE7LhatFvrqohULuLBHHAM2CAecIvNGk6WMmzTTUkj8
+ Tnl0ZWAgQ+Q4yWeTBDoPNz5SYuduMBTpq+qdzFuZYStXlrlAUynjHaVRr9hOSwIFbl4o
+ Q1YUVBPhB15duLqPb6QNBds8h4DpyE9emTWDZKVT3seFxBzZkh2QQMV+Vr+eev5FPMOK
+ 1+SUeKoo3hLSiJwngdWIDVqMkNVABkugRMNwxy9sdFmxaH1Jn+cVDRkdwv5Bo2RteHha
+ HtRA==
+X-Gm-Message-State: AOAM533UrnvjA6EBdp6TXxedLJDrqY8Bn3mJbIbDDU6qpLJz7x7yRgB0
+ m856dSIxV+IacuKXOvOsA1b6tq/m17hSuNI/BGA=
+X-Google-Smtp-Source: ABdhPJwblKYwm9RJW3XSVKWE+5kVk7eMvDJLF/P2KKmUb0AT/32MauXQN1zZLxKBYw6+qox7pESabyebTfYSEjgBWcc=
+X-Received: by 2002:ab0:7705:: with SMTP id z5mr25244439uaq.2.1621938679481;
+ Tue, 25 May 2021 03:31:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5htumrcgsr.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, kai.vehmanen@linux.intel.com
+References: <87y2c4oe3y.wl-kuninori.morimoto.gx@renesas.com>
+ <87tumsoe2p.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87tumsoe2p.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 25 May 2021 12:31:08 +0200
+Message-ID: <CAMuHMdXLYvEBE0bVk=8D+GkuaHRUvdTayCQPqTYAkPJEaW8MDQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: rsnd: add null CLOCKIN support
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,49 +86,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Morimoto-san,
 
+On Mon, May 24, 2021 at 8:12 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> Some Renesas SoC doesn't have full CLOCKIN.
+> This patch add null_clk, and accepts it.
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-On 5/25/2021 12:18 PM, Takashi Iwai wrote:
-> On Tue, 25 May 2021 11:04:14 +0200,
-> Ujfalusi, Peter wrote:
->>
->>
->>
->> On 5/25/2021 11:23 AM, Takashi Iwai wrote:
->>>>> Let's check other possibilities
->>>>> at first, e.g. setting auto_mute_via_amp flag.  This can be achieved
->>>>> even via hints in an early patching specified via "patch" option of
->>>>> snd-hda-intel module (see Documentation/sound/hda/notes.rst for some
->>>>> information).
->>>>
->>>> Unfortunately the auto_mute_via_amp has no effect on the pop.
->>>> line_in_auto_switch and pin_amp_workaround have no effect either.
->>>
->>> How about applying alc_fixup_no_shutup() or alc_fixup_disable_aamix()?
->>
->> it looks like
->>
->> SND_PCI_QUIRK(0x17aa, 0x1048, "Lenovo ThinkStation P340",
->> ALC269_FIXUP_NO_SHUTUP),
->>
->> in alc269_fixup_tbl[]
->>
->> alone fixes the pop noise, I'll send a new patch to do this instead.
-> 
-> Good to hear.
-> 
-> But, there is already a quirk entry for this ID, so you'll need to put
-> a chain there instead, I suppose.
+Thanks for your patch, which is now commit d6956a7dde6fbf84 ("ASoC:
+rsnd: add null CLOCKIN support") in asoc/for-next.
 
-Adding Hui Wang who added old fixup fir the mics.
+]> --- a/sound/soc/sh/rcar/adg.c
+> +++ b/sound/soc/sh/rcar/adg.c
+> @@ -389,6 +389,30 @@ void rsnd_adg_clk_control(struct rsnd_priv *priv, int enable)
+>         }
+>  }
+>
+> +#define NULL_CLK "rsnd_adg_null"
+> +static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
+> +{
+> +       static struct clk_hw *hw;
+> +       struct device *dev = rsnd_priv_to_dev(priv);
+> +
+> +       if (!hw) {
+> +               struct clk_hw *_hw;
+> +               int ret;
+> +
+> +               _hw = clk_hw_register_fixed_rate_with_accuracy(dev, NULL_CLK, NULL, 0, 0, 0);
+> +               if (IS_ERR(_hw))
+> +                       return NULL;
+> +
+> +               ret = of_clk_add_hw_provider(dev->of_node, of_clk_hw_simple_get, _hw);
 
-Oh, I see.
-It might be that the "ThinkCentre Station" is actually refers to
-"ThinkStation P340" in that case I wonder if the plock/pop can be
-observed by Hui Wang as well and confirm that it is the same model.
+I'm not such a big fan of creating dummy clocks.
+And what if a future SoC lacks two CLOCKIN pins? Then you'll try to
+register a second dummy clock with the same name, which will fail,
+presumably?
 
-do you have any suggestion on naming the chain for the P340 headset-mic
-and no-plop on lineout fixup enum/text/entry?
+> +               if (ret < 0)
+> +                       clk_hw_unregister_fixed_rate(_hw);
+> +
+> +               hw = _hw;
+> +       }
+> +
+> +       return clk_hw_get_clk(hw, NULL_CLK);
+> +}
+> +
+>  static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
+>                                struct rsnd_adg *adg)
+>  {
+> @@ -398,7 +422,12 @@ static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
+>         for (i = 0; i < CLKMAX; i++) {
+>                 struct clk *clk = devm_clk_get(dev, clk_name[i]);
+>
+> -               adg->clk[i] = IS_ERR(clk) ? NULL : clk;
+> +               if (IS_ERR(clk))
+> +                       clk = rsnd_adg_null_clk_get(priv);
+
+This should only be done when the clock does not exist, not in case
+of other errors (e.g. -EPROBE_DEFER, which isn't handled yet)?
+
+As devm_clk_get_optional() already checks for existence, you could use:
+
+    struct clk *clk = devm_clk_get_optional(dev, clk_name[i]);
+    if (!clk)
+            clk = rsnd_adg_null_clk_get(priv);
+
+But in light of the above (avoiding dummy clocks), it might be more
+robust to make sure all code can handle adg->clk[i] = NULL?
+
+> +               if (IS_ERR(clk))
+> +                       dev_err(dev, "no adg clock (%s)\n", clk_name[i]);
+> +
+> +               adg->clk[i] = clk;
+>         }
+>  }
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Péter
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

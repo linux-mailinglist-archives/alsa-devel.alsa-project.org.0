@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F3938FB4C
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 08:56:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279BB38FB4D
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 08:57:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D0ED166E;
-	Tue, 25 May 2021 08:55:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D0ED166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82DF21690;
+	Tue, 25 May 2021 08:56:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DF21690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621925802;
-	bh=w97lmeMVp1CwZ+CxvAHFbHpeLmZp5SjurEeAZRFdcHE=;
+	s=default; t=1621925839;
+	bh=yWqlsUV2AelCY2WydzVMxI/Y7GAbwuSSb1wSzIzzftY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KtFZPpO1Q1qRHl/yQqrsE2rJpkqmGr0iOo1XlIr3oYLGqr3HUlTUFTpRgHJncHDXc
-	 oRK4Hwgkgz9xWWgEus45QfLao5F/JEjEx2L6f3dbajnvg976zSoCgJkl1VCeXJf7dz
-	 vL58RixUx9CxWMX+VFM6mGZQRFkxJweheUoWTqWE=
+	b=kn6hYYuzJWEfdqqn3DQjWQ63657CN0HUow9Yu3lCt6JEsy8uHImH/dcnKvLruiodO
+	 ZR8wI0oO3S0VOHCJP1COLsOxP32Ykf2Rjdoo0b0VO8L+HScYY0YVTmIqK6PvpVs9qr
+	 OCEblxowhFxYMXqXsBB/YlJNGpcNrvvxQfl3Q/+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAF8CF801F5;
-	Tue, 25 May 2021 08:55:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D68AF8026B;
+	Tue, 25 May 2021 08:56:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 929FCF801EB; Tue, 25 May 2021 08:55:11 +0200 (CEST)
+ id ED174F80113; Tue, 25 May 2021 08:56:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0474F80113
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:55:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0474F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D7E2F80113
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:56:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D7E2F80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="PVrkfxcQ"; 
+ header.b="POEi5o4u"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="s8LkxxA7"
+ header.b="jA0CZElS"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621925707; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621925783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CtNeDohLnM8Owhd2ouMzFMX+TPBvt/U+l1s56FQZg9E=;
- b=PVrkfxcQVKXithVJvtp7XQIygTKY/lPpZKdmTMU1X1ekRj7QR5K4CLgRo+gtLfTW0D5YQI
- G608iUuSJJ5imAE+6pIWWBMkEtfQmDCDTUzdoGooqyBnQIPsaEKsIk3eMk5vUSANWoAKSq
- b4evODlLMgv2JlUtagfIMGx6Z3JA2nc=
+ bh=tmY2eQwNoPgwPmlKaJY6fQQ7VNuSy9VN5xkXa0NYvHM=;
+ b=POEi5o4uXmVTx6aoYKeq/6L2xlndf8nCPVNHYYmgtwh1ySd/JjD8B1ws3bR8uMX9G88bzi
+ t1FNsn4VYuxPPwSa8zYEeItyl+RCOyMN+iBBAZqEWYzOSxmkQPF5S5BINt4UgzAYrbTYn5
+ aOd17CnPCQFbNrX0hMz5wv5Y1868ni8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621925707;
+ s=susede2_ed25519; t=1621925783;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CtNeDohLnM8Owhd2ouMzFMX+TPBvt/U+l1s56FQZg9E=;
- b=s8LkxxA7VvecfQvbIP1erQmx95x9A4M2XyitEK65bGMxw7PHs8GbTHp63lxE0hfWDWlstG
- pT6H4gP0Ej3IG8Aw==
+ bh=tmY2eQwNoPgwPmlKaJY6fQQ7VNuSy9VN5xkXa0NYvHM=;
+ b=jA0CZElSAWBunkORDj6/Fc3lzOxLmQ6/LwzOTHfv2WRv4kBQ8tBoZ0YscV9J/u7DB7oWr1
+ krs9C2SF4X/k0ADQ==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4E284AE92;
- Tue, 25 May 2021 06:55:07 +0000 (UTC)
-Date: Tue, 25 May 2021 08:55:07 +0200
-Message-ID: <s5ho8cze20k.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 2DB9FAE92;
+ Tue, 25 May 2021 06:56:23 +0000 (UTC)
+Date: Tue, 25 May 2021 08:56:23 +0200
+Message-ID: <s5hmtsje1yg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v2 0/4] ALSA: firewire-lib: drop initial NODATA packets or
- empty packets
-In-Reply-To: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
-References: <20210524031346.50539-1-o-takashi@sakamocchi.jp>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/6] ALSA: Prep work for PCI rescan support
+In-Reply-To: <20210523090920.15345-1-tiwai@suse.de>
+References: <20210523090920.15345-1-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,36 +90,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 24 May 2021 05:13:42 +0200,
-Takashi Sakamoto wrote:
+On Sun, 23 May 2021 11:09:14 +0200,
+Takashi Iwai wrote:
 > 
 > Hi,
 > 
-> This patchset is take 2 of my previous one;
->  * https://lore.kernel.org/alsa-devel/20210523124114.272134-1-o-takashi@sakamocchi.jp/
+> this is a revised patch set as a prep work for the future-planned PCI
+> rescan support(*).  The essential part is the patch to track in-flight
+> tasks, and the rest are cleanups and fixes in the core code.  With
+> those changes, the driver can perform a sort of software suspend on
+> the device without the hardware intervention, which is required during
+> the PCI BAR movement, for example.
 > 
-> The devices based on BeBoB ASICs or the devices in Tascam FireWire
-> series transfer a batch of NODATA packet or empty packet in initial step
-> of streaming. To avoid processing them, current implementation uses an
-> option to skip processing content of tx packet during some initial
-> cycles. However, the hard-coded number is not enough useful.
+> v1->v2:
+> * Move / drop unnecessary snd_power_wait() calls
+> * Rephrase changelogs and comments, reorder patches
 > 
-> In 1st patch, ALSA IEC 61883-1/6 packet streaming engine becomes to drop
-> the initial packets. As a result, The tx_init_skip_cycles argument of
-> amdtp_domain_start() function changes its meaning. In the following
-> patches, ALSA bebob driver is refactored.
 > 
-> Changes from v1:
->  * Fix -Wunused-but-set-variable warning reported by 0day-ci
->  * Add 2nd patch to obsolete unused member of structure
+> Takashi
 > 
-> Takashi Sakamoto (4):
->   ALSA: firewire-lib: drop initial NODATA or empty packet
->   ALSA: firewire-lib: obsolete callbacked member
->   ALSA: bebob: cancel switching connection order
->   ALSA: bebob: distinguish M-Audio ProFire Lightbridge quirk
+> (*) https://lore.kernel.org/alsa-devel/e25017c6-e5e4-7a24-e793-14a2e70a434e@amd.com/
+> 
+> ===
+> 
+> Takashi Iwai (6):
+>   ALSA: core: Use READ_ONCE() / WRITE_ONCE() for power state change
+>   ALSA: control: Track in-flight control read/write/tlv accesses
+>   ALSA: control: Drop superfluous snd_power_wait() calls
+>   ALSA: control: Minor optimization for SNDRV_CTL_IOCTL_POWER_STATE
+>   ALSA: Drop superfluous argument from snd_power_wait()
+>   ALSA: pcm: Block the release until the system resume finishes
 
-Applied all four patches now.  Thanks.
+Now all patches merged to topic/pci-rescan-v2 branch, and into
+for-next branch.  The former is a branch freshly based on 5.13-rc1, so
+that other trees may pull cleanly.
 
 
 Takashi

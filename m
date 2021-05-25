@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9523638FCAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 10:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18C0338FCE5
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 10:33:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ADD01655;
-	Tue, 25 May 2021 10:24:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ADD01655
+	by alsa0.perex.cz (Postfix) with ESMTPS id A522B166A;
+	Tue, 25 May 2021 10:33:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A522B166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621931097;
-	bh=Q9UhgSZDbahu/UN4xI8635vcU8iSCrXQe8Th5W4UUxc=;
+	s=default; t=1621931633;
+	bh=kw1bEo/tItxLlxbEJQeRXCY56c6EVp4H0PBpZF36Wwo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H7hSfpxcnCilL77fn8W0NRm3fyAmVFDM75TpI9QFEEsPRfIBvKtbB5OS43Vg+QUq5
-	 q2gTqBuhWIapFU4pwwCJDntYb9uQiZ8DkHjFxqyp1yWdm6jU2JdU8Rjb5GAR7KG8ou
-	 QVKpYeUiVLLOyQjLKf1/MhlfOWwccWI6y5Hu2RUA=
+	b=lw725sTJXYbJR60n5858TWjasZ9jUw6X1m+dDAM4SdSdokDzQ32RkYvDifhvw6SD4
+	 mVyVoBFUDohQgdMCr6HP/VS0YNn5kMmGdBV1xq0dhFuULV39PVMyZtwcMJ40jLmNg/
+	 xLQE3niOPkpaN1+aQDVBzxPFpQpxUn0EpGjMbZ1M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9387F80113;
-	Tue, 25 May 2021 10:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 038E6F801F5;
+	Tue, 25 May 2021 10:32:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 245E3F801EB; Tue, 25 May 2021 10:23:27 +0200 (CEST)
+ id 4EAC8F801EB; Tue, 25 May 2021 10:32:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1007F80113
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 10:23:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1007F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97BD3F80113
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 10:32:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97BD3F80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="I3cXx4hL"; 
+ header.b="ORzyud8b"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7zuLkvXO"
+ header.b="FpG/Wc54"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621931000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621931537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y9esfAvZJnKqadB1tzdssBp+KmEkCx0e67wGLYc1A+c=;
- b=I3cXx4hLErbD/2atELAen3Qv3JWBUWRBgAUVnwWdAAxAT8ImprfHluxP0+7XFxmilRVrdg
- l5cJ7N+uLDaEVGTWGL/xLFxFt7ov2McoN9C9R3VkYHAFlpFzSlibSGrJrhwGFN/jdvPg6x
- 0zs06Br1PG9xUBCJlgZ1JsisrPL5aQc=
+ bh=7TNbkmWFVcom4Q6YhQmqya7/iF7FAwpkDNXj9tZibnc=;
+ b=ORzyud8bH2xbY1gMiSYmu4v1QIi2ksQPnkGRdv7nMqkYkEOaqBL5zuHOpP6xQcScu1DWbo
+ mgABy+QcsYsk+ZJPhcisgQDD/jxcGb+zKshw+Xdhi/jAU+iygqFUeruSU4JwIFzcKzlrtn
+ wmhE5H0OZEOK5zI+FOlD/ptV0xtSRM4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621931000;
+ s=susede2_ed25519; t=1621931537;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y9esfAvZJnKqadB1tzdssBp+KmEkCx0e67wGLYc1A+c=;
- b=7zuLkvXO7TNfh9/6ndaOEPjLmPYkl8AgpzhAb3707JsG7mf0wK4qbtxSuAERdqqp6ir3Hg
- cTROVohVPbVvCxBg==
+ bh=7TNbkmWFVcom4Q6YhQmqya7/iF7FAwpkDNXj9tZibnc=;
+ b=FpG/Wc54vZ56YZ2E1t3JjEW2lIEVWK/JeV6vi2P+0fWdLxNniKGvVT+3P6XJQvUl0PQMnb
+ hLWblbVt/g9pJxDg==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 43FABAEAB;
- Tue, 25 May 2021 08:23:20 +0000 (UTC)
-Date: Tue, 25 May 2021 10:23:20 +0200
-Message-ID: <s5h5yz7dxxj.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 1D9EDAE1F;
+ Tue, 25 May 2021 08:32:17 +0000 (UTC)
+Date: Tue, 25 May 2021 10:32:16 +0200
+Message-ID: <s5h35ubdxin.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Ujfalusi, Peter" <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Add Lenovo ThinkStation P340 to
- power_save_denylist
-In-Reply-To: <3e7428d2-2cfd-5835-33ef-72f3a2f43324@linux.intel.com>
-References: <20210524152533.7479-1-peter.ujfalusi@linux.intel.com>
- <s5hfsybe0vo.wl-tiwai@suse.de>
- <3e7428d2-2cfd-5835-33ef-72f3a2f43324@linux.intel.com>
+To: YueHaibing <yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] ALSA: control_led - use DEVICE_ATTR_*() macro
+In-Reply-To: <20210523071109.28940-1-yuehaibing@huawei.com>
+References: <20210523071109.28940-1-yuehaibing@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, kai.vehmanen@linux.intel.com
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,65 +90,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 May 2021 10:14:26 +0200,
-Ujfalusi, Peter wrote:
+On Sun, 23 May 2021 09:11:09 +0200,
+YueHaibing wrote:
 > 
+> Use DEVICE_ATTR_*() helper instead of plain DEVICE_ATTR,
+> which makes the code a bit shorter and easier to read.
 > 
-> 
-> On 5/25/2021 10:19 AM, Takashi Iwai wrote:
-> > On Mon, 24 May 2021 17:25:33 +0200,
-> > Peter Ujfalusi wrote:
-> >>
-> >> On playback start there is a huge plock/pop noise via the green jack used
-> >> in Line out mode.
-> >>
-> >> The only way I was able to fix it to set the power_save to 0 for the
-> >> snd_hda_intel.
-> >>
-> >> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> >> ---
-> >> Hi Takashi,
-> >>
-> >> Changes since RFC:
-> >> - Fixed up the PCI ID
-> >>
-> >> ever since I have this workstation (three weeks) the plock/pop noise on playback
-> >> start bugged me. So far the only solution I have found is to disable the
-> >> power_save which I find acceptable on a desktop compared to the pops.
-> >>
-> >> The alsa-info.sh output is can be found here:
-> >> http://alsa-project.org/db/?f=414b1b236fc73db386ad4f938bc3b304f6b30b05
-> >>
-> >> Missing details from alsa-info output:
-> >> # lspci -nnk | grep -A2 Audio
-> >> 00:1f.3 Audio device [0403]: Intel Corporation Comet Lake PCH cAVS [8086:06c8]
-> >>         DeviceName: Onboard - Sound
-> >>         Subsystem: Lenovo Device [17aa:1048]
-> >>
-> >> CPU: i9-10900k
-> >>
-> >> The machine have ALC623 codec and the jacks are correctly discovered and they
-> >> do what they supposed to be.
-> >> When I have the headset connected to the front and audio is routed there the
-> >> line out (green jack) from the back still prodices the plock/pop.
-> >>
-> >> Is there a known quirk for similar issue or a better way to handle it?
-> > 
-> > In general, this deny list is the last resort when we couldn't find
-> > any other way to fix the click noise.
-> 
-> Sure, I'm not that familiar yet with the HDA code base.
-> 
-> > Let's check other possibilities
-> > at first, e.g. setting auto_mute_via_amp flag.  This can be achieved
-> > even via hints in an early patching specified via "patch" option of
-> > snd-hda-intel module (see Documentation/sound/hda/notes.rst for some
-> > information).
-> 
-> Unfortunately the auto_mute_via_amp has no effect on the pop.
-> line_in_auto_switch and pin_amp_workaround have no effect either.
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 
-How about applying alc_fixup_no_shutup() or alc_fixup_disable_aamix()?
+Thanks, applied.
 
 
 Takashi

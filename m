@@ -2,100 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC523905C0
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 17:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAF8E3905F0
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 17:55:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D22D172E;
-	Tue, 25 May 2021 17:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D22D172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51C631731;
+	Tue, 25 May 2021 17:54:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51C631731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621957346;
-	bh=tlrVCCHYvRixYV7EhNuSmRbRJimP1H0/VZzXMOUQq2w=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621958149;
+	bh=Ys3eJTRi0mO0rJHtZcZ5qVz1BbeLUtQryqQEa79au4A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PVacsKyWkfu+/cLSDYIQaLHE2A5aVEJRKMDgFif1FL+LjAUov029ku9cyPn54gdms
-	 efL8uEhy4yL4BKHtGwSvLzA+lnSMbJaDJEPqGzfO8l6U8oqw3cTihP0AnkR4EBTTAF
-	 zye6upwIPPBXo/Wz3GKdC11jluwZ2dgPwDozwp30=
+	b=B7o7B1RP4utiUt3H0vTUFRO87NSu70Beclc3nrY6+/15FGNcQqarCJ0ZFk8t7gXps
+	 zew1G4SzxAoEQQwUYDtLTXDJ7LktuDBhlrTQwn8NDOYLoA9pm4hiDa+49l7hwFArR3
+	 s6VmD1wijGpL9J/LimK1za4zTtxjwsz2bV+7a+WM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D24D9F800F7;
-	Tue, 25 May 2021 17:40:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A15EFF800AC;
+	Tue, 25 May 2021 17:54:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 799B1F800CB; Tue, 25 May 2021 17:40:56 +0200 (CEST)
+ id 7B103F800B6; Tue, 25 May 2021 17:54:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1C57F80032
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 17:40:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C57F80032
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13ACBF800B6
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 17:54:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13ACBF800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K2h+JZ6t"
-Received: by mail-lf1-x133.google.com with SMTP id i9so46775435lfe.13
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:40:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=IFrntmU7PddzAkDzge96jDF8ouDIB5cnkfcWeXlAZik=;
- b=K2h+JZ6tueBFtMBPM5XxRFuUDrQNTec6uhRy/PaD/OY3S1U41weJT0i4140LWU4UEn
- VDmaJf+wGs/eEaqkP5IO7WoEJXl4NujIRKImmo9DacvCQwxCYBVMMmH11Ctr1KBjJfpV
- cRdbthGrtTEKt/JDatjDpKFZcTaer2cfixBrpMAexU4h48+DalqGUkR30/fE9HUMz9xF
- LXjh8xzJCtrQx0KPjEd5DqzjQX7E/iSVi3wSxwDDqrUinxLaA9t7LuJ08kCcKLsT71qV
- syODkVSAsyNolmv+uHxOzNhtIsxcd749ddNC2Qdoza1P+qNfwWDmiOOMYPiTgCabQzaB
- nhnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=IFrntmU7PddzAkDzge96jDF8ouDIB5cnkfcWeXlAZik=;
- b=uImSbKBZj7gB9aHgS41XioHaI2xCxssabANwActWTBNX4mxhITVc1B6Di7t1AfAepA
- b9DXDUfTgFt892P5KyGVdPkrwB/D/03laSVmtp1tkF3vly57I2xcWaeYU4vkhOBJ0hf5
- 2zsMYaNPbrV5zYG56c3IXx7HWQ9DXfTOysRMrWkX/iHVJevBeFNfDFWzXOJM+/AHtdhh
- 75rCXF8pS59FzpEVqW5eOHa0lNzF6lZbtYO1LlvBudg1bWXJy3xz97WWkjfJ/XwAy8Kf
- 3OPWHAz01ZAjdcMppoRK+sweQC5w6oMyV/JTpI2cUNjS/YnV4WhkFbP9HDYmxVEBTz1t
- 02tQ==
-X-Gm-Message-State: AOAM533meZF8Ij3GGG4nHTjWJIi6XUnruUUli0pYZ/CxpSt+Egm0MHw8
- kMjmF6ntEQskq+IKPFUggaY6qZsKwBE=
-X-Google-Smtp-Source: ABdhPJycwwa0af6h45l1eZwV4E8v2zg65tkgOnJuFEGrufqa2gh1wXA3dsK+vfv4FkUdj3VPMwyomg==
-X-Received: by 2002:a05:6512:10c4:: with SMTP id
- k4mr13095593lfg.124.1621957250144; 
- Tue, 25 May 2021 08:40:50 -0700 (PDT)
-Received: from [192.168.2.145] (46-138-180-236.dynamic.spd-mgts.ru.
- [46.138.180.236])
- by smtp.googlemail.com with ESMTPSA id p14sm2126434ljc.58.2021.05.25.08.40.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 May 2021 08:40:49 -0700 (PDT)
-Subject: Re: [PATCH v3 4/4] ASoC: tegra: Specify components string for Nexus 7
-To: Jon Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Ion Agorria <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-References: <20210523234437.25077-1-digetx@gmail.com>
- <20210523234437.25077-5-digetx@gmail.com>
- <03775d09-f3ff-ff7a-626a-812163d6871d@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <d8ee8f62-6046-f7d8-5a27-0626f2eaeb80@gmail.com>
-Date: Tue, 25 May 2021 18:40:48 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="UEzbNbCS"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14PFlHo3006099; Tue, 25 May 2021 10:54:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=OSuPUQl6zW9rJXQ5zbuH8naKuH0NgOyvBLvoYkIVhs8=;
+ b=UEzbNbCSrJO6oL8T8FX6reCosFpuhcpC1SaHXW11LPTGicWlDUpeYTOo2bQG+lnqaA4t
+ EyueE/QEkiBS+VH4hzeB++SO/N1Wq2k9jyiD9yAPi44Gg8bk3dfxw8k72ElxSQ+49xFT
+ uibkSNs5r479MvbVaPceiD+VzlOnowOXFoNWDSewfi65z5zRyHcatCBlP0YY5PXLsS5o
+ XC+Y9WehGAecIoiN6Z4h9ytdON1nNeqc+F5PfS/Y5f1E3afPTv4CGbUJz+1MiLD2+bp0
+ VBBw6A3g3+KV9RnWSKIa9mmt+690iuiHScijrYWroXxzx3hhaRGm7fyuOoDLa5pU74Rg gA== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 38r28v24ku-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 25 May 2021 10:54:05 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 25 May
+ 2021 16:54:03 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Tue, 25 May 2021 16:54:03 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7ABA311CD;
+ Tue, 25 May 2021 15:54:03 +0000 (UTC)
+Date: Tue, 25 May 2021 15:54:03 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: YueHaibing <yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] ASoC: cs43130: Use DEVICE_ATTR_RO macro
+Message-ID: <20210525155403.GM64205@ediswmail.ad.cirrus.com>
+References: <20210524114017.18672-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <03775d09-f3ff-ff7a-626a-812163d6871d@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210524114017.18672-1-yuehaibing@huawei.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: jp7jjY9Dj_vKbFpNGvOeeH_MuDlYc8YH
+X-Proofpoint-GUID: jp7jjY9Dj_vKbFpNGvOeeH_MuDlYc8YH
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
+ suspectscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 mlxscore=0
+ lowpriorityscore=0 mlxlogscore=913 bulkscore=0 impostorscore=0
+ adultscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2105250096
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ patches@opensource.cirrus.com, tiwai@suse.com, broonie@kernel.org,
+ james.schulman@cirrus.com, david.rhodes@cirrus.com,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -112,63 +105,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-25.05.2021 11:40, Jon Hunter пишет:
+On Mon, May 24, 2021 at 07:40:17PM +0800, YueHaibing wrote:
+> Use DEVICE_ATTR_RO() helper instead of plain DEVICE_ATTR(),
+> which makes the code a bit shorter and easier to read.
 > 
-> On 24/05/2021 00:44, Dmitry Osipenko wrote:
->> Specify components string for Nexus 7 using the Intel BayTrail components
->> format. This may allow us to create a more generic UCM for RT5640 codec.
->>
->> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
->> ---
->>  sound/soc/tegra/tegra_asoc_machine.c | 19 +++++++++++++++++++
->>  1 file changed, 19 insertions(+)
->>
->> diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
->> index a81f2ebfc00c..87e0a47040a5 100644
->> --- a/sound/soc/tegra/tegra_asoc_machine.c
->> +++ b/sound/soc/tegra/tegra_asoc_machine.c
->> @@ -671,6 +671,24 @@ static const struct tegra_asoc_data tegra_rt5640_data = {
->>  	.add_hp_jack = true,
->>  };
->>  
->> +/*
->> + * Speaker: Connected to SPO L/R P/N pins, stereo.
->> + * Internal Microphone: Digital, connected to DMIC1_DAT IN2P/N pins.
->> + * Headphones: Connected to HPOL/R pins.
->> + * Headset Microphone: Unconnected.
->> + *
->> + * IF2_DAC/ADC are unpopulated.
->> + */
->> +static const struct tegra_asoc_data tegra_rt5640_grouper_data = {
->> +	.components = "codec:rt5640 cfg-spk:2 cfg-mic:dmic1 aif:1",
->> +	.mclk_rate = tegra_machine_mclk_rate_256,
->> +	.card = &snd_soc_tegra_rt5640,
->> +	.add_common_dapm_widgets = true,
->> +	.add_common_controls = true,
->> +	.add_common_snd_ops = true,
->> +	.add_hp_jack = true,
->> +};
->> +
->>  /* RT5632 machine */
->>  
->>  SND_SOC_DAILINK_DEFS(rt5632_hifi,
->> @@ -712,6 +730,7 @@ static const struct of_device_id tegra_machine_of_match[] = {
->>  	{ .compatible = "nvidia,tegra-audio-wm8753", .data = &tegra_wm8753_data },
->>  	{ .compatible = "nvidia,tegra-audio-rt5677", .data = &tegra_rt5677_data },
->>  	{ .compatible = "nvidia,tegra-audio-rt5640", .data = &tegra_rt5640_data },
->> +	{ .compatible = "nvidia,tegra-audio-rt5640-grouper", .data = &tegra_rt5640_grouper_data },
-> 
-> 
-> Is there any harm always populating the components data for rt5640? I
-> did not see any existing UCM support for Tegra+rt5640 platforms in ALSA.
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> ---
 
-The previous patch sets components for each card, including RT5640. This
-patch sets individual components configuration that is unique to the
-Nexus 7, it overrides the default components string of the card that was
-set by the previous patch. Other devices may have a different h/w
-configuration.
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-The universal UCM needs to know the full h/w configuration, otherwise it
-doesn't know how to set up mixers and switches properly. The exact
-bytcr-rt5640 UCM works on Tegra if couple switches that unique to
-BayTrail are made conditional in the UCM.
+Thanks,
+Charles

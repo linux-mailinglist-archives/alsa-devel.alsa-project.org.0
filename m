@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F43238F6CA
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:06:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACAF038F6CE
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 02:07:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2232B1690;
-	Tue, 25 May 2021 02:05:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2232B1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 463001698;
+	Tue, 25 May 2021 02:06:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463001698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621901196;
-	bh=f9UUcuHpveVf/7prU9dmrnma89jy9bsY/UqF8z8jX8I=;
+	s=default; t=1621901223;
+	bh=0C+nLgP9BSY63xoUTrv39JUv1pc9zJ2bR/PnRQg8UBg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RtW4tWN879S1MuofKkeJNoNZai7PueVKF8RTVVZT3cbVnnSgDk0ZQELOeuWcuxCr+
-	 rz7sl+Umu7KgDj/QMV03EATUNu7rq5rdeeM9Lwhe3PUuqvzV3Ru3vDW9AqVG3D6VAi
-	 FIqnDwPNlor+VkD3MgDSm5Rz25eikLSzXijogUz8=
+	b=bnYGOluxfYQ9NXyLzehwvb06UVP/pAxvAc+yGz845J2pOz8o+kyI2btWZwvYfBgEk
+	 q3OAOTgD/ckZW03n31Beh9OWyKhqU4FwxTMI95+c++/hkdgJZbrLD8QueavCDRmpME
+	 izV/5UnRFyG0LRvqeQ/1I3IUQiwbZtJ33z1tF+9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1753F804DA;
-	Tue, 25 May 2021 02:03:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35C9AF804E6;
+	Tue, 25 May 2021 02:03:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FD66F804E2; Tue, 25 May 2021 02:03:32 +0200 (CEST)
+ id 6A9E2F804E5; Tue, 25 May 2021 02:03:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 47113F804DA
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47113F804DA
-Date: 25 May 2021 09:03:27 +0900
-X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82287863"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 25 May 2021 09:03:27 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 33E06F804E3
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 02:03:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33E06F804E3
+Date: 25 May 2021 09:03:36 +0900
+X-IronPort-AV: E=Sophos;i="5.82,327,1613401200"; d="scan'208";a="82109765"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 25 May 2021 09:03:36 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id B27674112201;
- Tue, 25 May 2021 09:03:27 +0900 (JST)
-Message-ID: <87cztfof1s.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 18D06400A8BA;
+ Tue, 25 May 2021 09:03:36 +0900 (JST)
+Message-ID: <87bl8zof1j.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 07/10] ASoC: rsnd: protect mod->status
+Subject: [PATCH 08/10] ASoC: rsnd: implement BUSIF related code in ssiu.c
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87mtsjof3w.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,170 +70,313 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Renesas Sound uses many modules (SSI/SSIU/SRC/CTU/MIX/DVC/DMA),
-and supports complex connections/path.
-Thus each modules needs to save its status to correctly control it.
-This status is updated when by .trigger, and .hw_params/.hw_free.
+BUSIF is SSIU feature, but its related code is
+implemented at ssi.c today.
+This patch moves it to ssiu.c
 
-Renesas Sound is protecting modules by using lock when .trigger,
-but it was not enough to protecting each modules "status" if it was
-used from many paths.
-
-1) .hw_params/.hw_free update status
-2) another doesn't update status, but overwrites by same value
-
-This patch do
-1) protects .hw_params/.hw_free by lock
-2) do nothing if no status update
-
-Without this patch, protected mod->status (= .trigger) might be
-overwrote by non protected mod->status (= .hw_params / .hw_free),
-and in such case, CTU/MIX/DVC/SSIU/SSI which are used from
-many paths might get damage.
-
-If above issue happens, Renesas Sound will be hung (= silence)
-and never be recoverd.
-I could reproduce this issue by continue playing very short sound
-with loop very long term (3-4 hours) through 2 inputs (= MIXer).
-
-For updating rsnd_status_update(), this patch removes rsnd_dai_call()
-debug message. Because we already have debugfs support, and is not
-good match to new code.
-
-Reported-by: Linh Phung T. Y <linh.phung.jy@renesas.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/core.c | 50 ++++++++++++++++++++++++----------------
- sound/soc/sh/rcar/rsnd.h | 12 +++++-----
- 2 files changed, 36 insertions(+), 26 deletions(-)
+ sound/soc/sh/rcar/rsnd.h |   1 +
+ sound/soc/sh/rcar/ssi.c  |  98 +------------------------------
+ sound/soc/sh/rcar/ssiu.c | 121 ++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 108 insertions(+), 112 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index f37952e40879..c5b67008a15f 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -90,14 +90,6 @@
-  *
-  */
- 
--/*
-- * you can enable below define if you don't need
-- * DAI status debug message when debugging
-- * see rsnd_dbg_dai_call()
-- *
-- * #define RSND_DEBUG_NO_DAI_CALL 1
-- */
--
- #include <linux/pm_runtime.h>
- #include "rsnd.h"
- 
-@@ -534,14 +526,20 @@ static enum rsnd_mod_type rsnd_mod_sequence[][RSND_MOD_MAX] = {
- 	},
- };
- 
--static int rsnd_status_update(u32 *status,
-+static int rsnd_status_update(struct rsnd_dai_stream *io,
-+			      struct rsnd_mod *mod, enum rsnd_mod_type type,
- 			      int shift, int add, int timing)
- {
-+	u32 *status	= mod->ops->get_status(mod, io, type);
- 	u32 mask	= 0xF << shift;
- 	u8 val		= (*status >> shift) & 0xF;
- 	u8 next_val	= (val + add) & 0xF;
- 	int func_call	= (val == timing);
- 
-+	/* no status update */
-+	if (add == 0 || shift == 28)
-+		return 1;
-+
- 	if (next_val == 0xF) /* underflow case */
- 		func_call = -1;
- 	else
-@@ -559,14 +557,10 @@ static int rsnd_status_update(u32 *status,
- 	enum rsnd_mod_type *types = rsnd_mod_sequence[is_play];		\
- 	for_each_rsnd_mod_arrays(i, mod, io, types, RSND_MOD_MAX) {	\
- 		int tmp = 0;						\
--		u32 *status = mod->ops->get_status(mod, io, types[i]);	\
--		int func_call = rsnd_status_update(status,		\
-+		int func_call = rsnd_status_update(io, mod, types[i],	\
- 						__rsnd_mod_shift_##fn,	\
- 						__rsnd_mod_add_##fn,	\
- 						__rsnd_mod_call_##fn);	\
--		rsnd_dbg_dai_call(dev, "%s\t0x%08x %s\n",		\
--			rsnd_mod_name(mod), *status,	\
--			(func_call && (mod)->ops->fn) ? #fn : "");	\
- 		if (func_call > 0 && (mod)->ops->fn)			\
- 			tmp = (mod)->ops->fn(mod, io, param);		\
- 		if (unlikely(func_call < 0) ||				\
-@@ -1410,6 +1404,26 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
- /*
-  *		pcm ops
-  */
-+static int rsnd_hw_update(struct snd_pcm_substream *substream,
-+			  struct snd_pcm_hw_params *hw_params)
-+{
-+	struct snd_soc_dai *dai = rsnd_substream_to_dai(substream);
-+	struct rsnd_dai *rdai = rsnd_dai_to_rdai(dai);
-+	struct rsnd_dai_stream *io = rsnd_rdai_to_io(rdai, substream);
-+	struct rsnd_priv *priv = rsnd_io_to_priv(io);
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	if (hw_params)
-+		ret = rsnd_dai_call(hw_params, io, substream, hw_params);
-+	else
-+		ret = rsnd_dai_call(hw_free, io, substream);
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return ret;
-+}
-+
- static int rsnd_hw_params(struct snd_soc_component *component,
- 			  struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *hw_params)
-@@ -1517,17 +1531,13 @@ static int rsnd_hw_params(struct snd_soc_component *component,
- 		}
- 	}
- 
--	return rsnd_dai_call(hw_params, io, substream, hw_params);
-+	return rsnd_hw_update(substream, hw_params);
- }
- 
- static int rsnd_hw_free(struct snd_soc_component *component,
- 			struct snd_pcm_substream *substream)
- {
--	struct snd_soc_dai *dai = rsnd_substream_to_dai(substream);
--	struct rsnd_dai *rdai = rsnd_dai_to_rdai(dai);
--	struct rsnd_dai_stream *io = rsnd_rdai_to_io(rdai, substream);
--
--	return rsnd_dai_call(hw_free, io, substream);
-+	return rsnd_hw_update(substream, NULL);
- }
- 
- static snd_pcm_uframes_t rsnd_pointer(struct snd_soc_component *component,
 diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index 4ba76b782d2e..b76dfa93d362 100644
+index b76dfa93d362..75db25b8cd03 100644
 --- a/sound/soc/sh/rcar/rsnd.h
 +++ b/sound/soc/sh/rcar/rsnd.h
-@@ -397,12 +397,12 @@ struct rsnd_mod {
- #define __rsnd_mod_add_remove		0
- #define __rsnd_mod_add_prepare		0
- #define __rsnd_mod_add_cleanup		0
--#define __rsnd_mod_add_init		 1
--#define __rsnd_mod_add_quit		-1
--#define __rsnd_mod_add_start		 1
--#define __rsnd_mod_add_stop		-1
--#define __rsnd_mod_add_hw_params	1
--#define __rsnd_mod_add_hw_free		-1
-+#define __rsnd_mod_add_init		 1 /* needs protect */
-+#define __rsnd_mod_add_quit		-1 /* needs protect */
-+#define __rsnd_mod_add_start		 1 /* needs protect */
-+#define __rsnd_mod_add_stop		-1 /* needs protect */
-+#define __rsnd_mod_add_hw_params	 1 /* needs protect */
-+#define __rsnd_mod_add_hw_free		-1 /* needs protect */
- #define __rsnd_mod_add_irq		0
- #define __rsnd_mod_add_pcm_new		0
- #define __rsnd_mod_add_fallback		0
+@@ -810,6 +810,7 @@ void rsnd_parse_connect_ssiu(struct rsnd_dai *rdai,
+ 			     struct device_node *playback,
+ 			     struct device_node *capture);
+ #define rsnd_ssiu_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_SSIU)
++bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod);
+ 
+ /*
+  *	R-Car SRC
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index aa1da2978dc6..19fbafcc0d92 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -357,96 +357,6 @@ static void rsnd_ssi_master_clk_stop(struct rsnd_mod *mod,
+ 	rsnd_adg_ssi_clk_stop(mod);
+ }
+ 
+-/* enable busif buffer over/under run interrupt. */
+-#define rsnd_ssi_busif_err_irq_enable(mod)  rsnd_ssi_busif_err_irq_ctrl(mod, 1)
+-#define rsnd_ssi_busif_err_irq_disable(mod) rsnd_ssi_busif_err_irq_ctrl(mod, 0)
+-static void rsnd_ssi_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
+-{
+-	u32 sys_int_enable = 0;
+-	int id = rsnd_mod_id(mod);
+-	int i;
+-
+-	switch (id) {
+-	case 0:
+-	case 1:
+-	case 2:
+-	case 3:
+-	case 4:
+-		for (i = 0; i < 4; i++) {
+-			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE(i * 2));
+-			if (enable)
+-				sys_int_enable |= 0xf << (id * 4);
+-			else
+-				sys_int_enable &= ~(0xf << (id * 4));
+-			rsnd_mod_write(mod,
+-				       SSI_SYS_INT_ENABLE(i * 2),
+-				       sys_int_enable);
+-		}
+-		break;
+-	case 9:
+-		for (i = 0; i < 4; i++) {
+-			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE((i * 2) + 1));
+-			if (enable)
+-				sys_int_enable |= 0xf << 4;
+-			else
+-				sys_int_enable &= ~(0xf << 4);
+-			rsnd_mod_write(mod,
+-				       SSI_SYS_INT_ENABLE((i * 2) + 1),
+-				       sys_int_enable);
+-		}
+-		break;
+-	}
+-}
+-
+-static bool rsnd_ssi_busif_err_status_clear(struct rsnd_mod *mod)
+-{
+-	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
+-	struct device *dev = rsnd_priv_to_dev(priv);
+-	u32 status;
+-	bool stop = false;
+-	int id = rsnd_mod_id(mod);
+-	int i;
+-
+-	switch (id) {
+-	case 0:
+-	case 1:
+-	case 2:
+-	case 3:
+-	case 4:
+-		for (i = 0; i < 4; i++) {
+-			status = rsnd_mod_read(mod, SSI_SYS_STATUS(i * 2));
+-			status &= 0xf << (id * 4);
+-
+-			if (status) {
+-				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
+-						      rsnd_mod_name(mod), status);
+-				rsnd_mod_write(mod,
+-					       SSI_SYS_STATUS(i * 2),
+-					       0xf << (id * 4));
+-				stop = true;
+-			}
+-		}
+-		break;
+-	case 9:
+-		for (i = 0; i < 4; i++) {
+-			status = rsnd_mod_read(mod, SSI_SYS_STATUS((i * 2) + 1));
+-			status &= 0xf << 4;
+-
+-			if (status) {
+-				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
+-						      rsnd_mod_name(mod), status);
+-				rsnd_mod_write(mod,
+-					       SSI_SYS_STATUS((i * 2) + 1),
+-					       0xf << 4);
+-				stop = true;
+-			}
+-		}
+-		break;
+-	}
+-
+-	return stop;
+-}
+-
+ static void rsnd_ssi_config_init(struct rsnd_mod *mod,
+ 				struct rsnd_dai_stream *io)
+ {
+@@ -534,9 +444,6 @@ static void rsnd_ssi_config_init(struct rsnd_mod *mod,
+ 		cr_mode = DIEN;		/* PIO : enable Data interrupt */
+ 	}
+ 
+-	/* enable busif buffer over/under run interrupt. */
+-	rsnd_ssi_busif_err_irq_enable(mod);
+-
+ init_end:
+ 	ssi->cr_own	= cr_own;
+ 	ssi->cr_mode	= cr_mode;
+@@ -612,9 +519,6 @@ static int rsnd_ssi_quit(struct rsnd_mod *mod,
+ 		ssi->wsr	= 0;
+ 	}
+ 
+-	/* disable busif buffer over/under run interrupt. */
+-	rsnd_ssi_busif_err_irq_disable(mod);
+-
+ 	return 0;
+ }
+ 
+@@ -788,7 +692,7 @@ static void __rsnd_ssi_interrupt(struct rsnd_mod *mod,
+ 		stop = true;
+ 	}
+ 
+-	stop |= rsnd_ssi_busif_err_status_clear(mod);
++	stop |= rsnd_ssiu_busif_err_status_clear(mod);
+ 
+ 	rsnd_ssi_status_clear(mod);
+ rsnd_ssi_interrupt_out:
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index cb2071cbe3c6..3a98ec2066bc 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -45,6 +45,92 @@ struct rsnd_ssiu {
+ static const int gen2_id[] = { 0, 4,  8, 12, 13, 14, 15, 16, 17, 18 };
+ static const int gen3_id[] = { 0, 8, 16, 24, 32, 40, 41, 42, 43, 44 };
+ 
++/* enable busif buffer over/under run interrupt. */
++#define rsnd_ssiu_busif_err_irq_enable(mod)  rsnd_ssiu_busif_err_irq_ctrl(mod, 1)
++#define rsnd_ssiu_busif_err_irq_disable(mod) rsnd_ssiu_busif_err_irq_ctrl(mod, 0)
++static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
++{
++	u32 sys_int_enable = 0;
++	int id = rsnd_mod_id(mod);
++	int i;
++
++	switch (id) {
++	case 0:
++	case 1:
++	case 2:
++	case 3:
++	case 4:
++		for (i = 0; i < 4; i++) {
++			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE(i * 2));
++			if (enable)
++				sys_int_enable |= 0xf << (id * 4);
++			else
++				sys_int_enable &= ~(0xf << (id * 4));
++			rsnd_mod_write(mod,
++				       SSI_SYS_INT_ENABLE(i * 2),
++				       sys_int_enable);
++		}
++		break;
++	case 9:
++		for (i = 0; i < 4; i++) {
++			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE((i * 2) + 1));
++			if (enable)
++				sys_int_enable |= 0xf << 4;
++			else
++				sys_int_enable &= ~(0xf << 4);
++			rsnd_mod_write(mod,
++				       SSI_SYS_INT_ENABLE((i * 2) + 1),
++				       sys_int_enable);
++		}
++		break;
++	}
++}
++
++bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
++{
++	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
++	struct device *dev = rsnd_priv_to_dev(priv);
++	u32 status;
++	bool error = false;
++	int id = rsnd_mod_id(mod);
++	int i;
++
++	switch (id) {
++	case 0:
++	case 1:
++	case 2:
++	case 3:
++	case 4:
++		for (i = 0; i < 4; i++) {
++			status = rsnd_mod_read(mod, SSI_SYS_STATUS(i * 2));
++			status &= 0xf << (id * 4);
++
++			if (status) {
++				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
++						      rsnd_mod_name(mod), status);
++				error = true;
++			}
++			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
++		}
++		break;
++	case 9:
++		for (i = 0; i < 4; i++) {
++			status = rsnd_mod_read(mod, SSI_SYS_STATUS((i * 2) + 1));
++			status &= 0xf << 4;
++
++			if (status) {
++				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
++						      rsnd_mod_name(mod), status);
++				error = true;
++			}
++			rsnd_mod_write(mod, SSI_SYS_STATUS((i * 2) + 1), 0xf << 4);
++		}
++		break;
++	}
++
++	return error;
++}
++
+ static u32 *rsnd_ssiu_get_status(struct rsnd_mod *mod,
+ 				 struct rsnd_dai_stream *io,
+ 				 enum rsnd_mod_type type)
+@@ -65,23 +151,9 @@ static int rsnd_ssiu_init(struct rsnd_mod *mod,
+ 	int id = rsnd_mod_id(mod);
+ 	int is_clk_master = rsnd_rdai_is_clk_master(rdai);
+ 	u32 val1, val2;
+-	int i;
+ 
+ 	/* clear status */
+-	switch (id) {
+-	case 0:
+-	case 1:
+-	case 2:
+-	case 3:
+-	case 4:
+-		for (i = 0; i < 4; i++)
+-			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
+-		break;
+-	case 9:
+-		for (i = 0; i < 4; i++)
+-			rsnd_mod_write(mod, SSI_SYS_STATUS((i * 2) + 1), 0xf << 4);
+-		break;
+-	}
++	rsnd_ssiu_busif_err_status_clear(mod);
+ 
+ 	/*
+ 	 * SSI_MODE0
+@@ -137,12 +209,31 @@ static int rsnd_ssiu_init(struct rsnd_mod *mod,
+ 	rsnd_mod_bset(mod, SSI_MODE1, 0x0013001f, val1);
+ 	rsnd_mod_bset(mod, SSI_MODE2, 0x00000017, val2);
+ 
++	/*
++	 * Enable busif buffer over/under run interrupt.
++	 * It will be handled from ssi.c
++	 * see
++	 *	__rsnd_ssi_interrupt()
++	 */
++	rsnd_ssiu_busif_err_irq_enable(mod);
++
++	return 0;
++}
++
++static int rsnd_ssiu_quit(struct rsnd_mod *mod,
++			  struct rsnd_dai_stream *io,
++			  struct rsnd_priv *priv)
++{
++	/* disable busif buffer over/under run interrupt. */
++	rsnd_ssiu_busif_err_irq_disable(mod);
++
+ 	return 0;
+ }
+ 
+ static struct rsnd_mod_ops rsnd_ssiu_ops_gen1 = {
+ 	.name		= SSIU_NAME,
+ 	.init		= rsnd_ssiu_init,
++	.quit		= rsnd_ssiu_quit,
+ 	.get_status	= rsnd_ssiu_get_status,
+ };
+ 
 -- 
 2.25.1
 

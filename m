@@ -2,69 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C5738FAD1
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 08:21:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FE338FB40
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 08:52:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78FA5165D;
-	Tue, 25 May 2021 08:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78FA5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4F5283A;
+	Tue, 25 May 2021 08:51:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4F5283A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621923694;
-	bh=2bGtXOpzSi0KZIl1NI+UE4b8ZJUAlyojhow4cr4ChxM=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1621925562;
+	bh=n6Yu5kGxX4LttREn1o3zOQ2u0KJ8kHdZSngGhW//R4E=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XT3xIbdS499uElCI7emY8iFdcrwaUiKkdQrChKWI426mXaeFnPHaYYdkayiw6sjyS
-	 woHMyd6HaOojsrcBIqELK2Z/1hW46a9dcRLSVr+lyM6+xOSW9RlMCG3EgmjiaBGYOt
-	 FXJn0Yz1M6y4+21uicXKDgX+VCtgI5hUfPix1l4c=
+	b=lC43cbedyLXwljTbgjWCUqclDCePY9dGt/oM/h7rm3dMYfQx5bXr/7Cmax+v3lvEj
+	 l/936efWCcdDVD+CvfkWEElarrrT+wYOpsI6GtGvZiRrXwbeKBjgci9OC3F1enzTa6
+	 N7T4VIPF23v4U+JRj67uK0LT1TjHogdYKbvAct6g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1279BF8019D;
-	Tue, 25 May 2021 08:20:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DFB5F8011B;
+	Tue, 25 May 2021 08:51:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C691CF801EB; Tue, 25 May 2021 08:20:03 +0200 (CEST)
+ id 0B319F801F5; Tue, 25 May 2021 08:51:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C5D0F8011B
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:19:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C5D0F8011B
-IronPort-SDR: tfZM2lp/gh4BWr46vPDNBglRyLXdZTDRX2azlENLmpPC5rxedtznoz/Y8rD+GgTUbSMHOck8of
- qYBjvif0wIAQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="266010388"
-X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="266010388"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 23:19:50 -0700
-IronPort-SDR: 3/D2g46xbq8trLPwMiGEdMfs7O6SHk3Ioz7bz8yNhj3H+w72uBK+JtnxP5YL8Ur0Y4n6R7QOKI
- 21X/byLapLdg==
-X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="476259943"
-Received: from pujfalus-mobl.ger.corp.intel.com (HELO [10.252.39.140])
- ([10.252.39.140])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 23:19:49 -0700
-Subject: Re: [RFC] ALSA: hda: Add Lenovo ThinkStation P340 to
- power_save_denylist
-From: "Ujfalusi, Peter" <peter.ujfalusi@linux.intel.com>
-To: tiwai@suse.de
-References: <20210524112740.19330-1-peter.ujfalusi@linux.intel.com>
-Message-ID: <d71b6669-93d5-292b-a5f6-205b2ac6337d@linux.intel.com>
-Date: Tue, 25 May 2021 09:19:47 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25DB5F8011B
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 08:51:39 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9377EA0040;
+ Tue, 25 May 2021 08:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9377EA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1621925498; bh=pfVbDj5skgzHFAJXA1C+F7utp8Mewi9c8m276MgKsbc=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=yK6Iemf61oYbNlBMdnnslPpjes1nhyOc6llZWKArFVdWAvuA4lHsgkgTe7Ga9i5+q
+ R6HvWRlzhnckcyoELzln2yZPNR/rcOzkx65vkaJtmIaIXfe4apbbbxGS+cApJE+85C
+ 7KRfAMVVPnSdLgpoB0rMWJ79V2ocKbg0297al1mo=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 25 May 2021 08:51:35 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: pcm: Need to check whether runtime is valid or not
+To: ew.kim@samsung.com, Takashi Iwai <tiwai@suse.de>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <s5hsg2hhllm.wl-tiwai@suse.de> <s5h8s4hahxj.wl-tiwai@suse.de>
+ <s5ho8df9inv.wl-tiwai@suse.de> <s5hpmxwbcp0.wl-tiwai@suse.de>
+ <s5htun8bfa5.wl-tiwai@suse.de>
+ <20210512044323.106673-1-chanho61.park@samsung.com>
+ <20210512075834epcms2p182290868ca278decaa7e86c67f740db8@epcms2p1>
+ <929757006.2969317.1620858694065@mail-kr2-3>
+ <1932109751.3301982.1620952404404@mail-kr2-3>
+ <1613950742.4603319.1621466175888@mail-kr2-3>
+ <CGME20210512044441epcas2p4ad7c01a1dc9048bd96a9973760017d8c@epcms2p2>
+ <914629993.5780046.1621896094629@mail-kr2-1>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <249b7eaf-9bf4-99dc-3266-30a463f5a694@perex.cz>
+Date: Tue, 25 May 2021 08:51:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210524112740.19330-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <914629993.5780046.1621896094629@mail-kr2-1>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,65 +89,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On 25. 05. 21 0:41, EUNWOO KIM wrote:
 
-On 5/24/2021 2:27 PM, Peter Ujfalusi wrote:
-> On playback start there is a huge plock/pop noise via the green jack used
-> in Line out mode.
+>    On Thu, 20 May 2021 01:16:15 +0200,
 > 
-> The only way I was able to fix it to set the power_save to 0 for the
-> snd_hda_intel.
+>    EUNWOO KIM wrote:
 > 
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> ---
-> Hi Takashi,
-> 
-> ever since I have this workstation the plock/pop noise on playback start bugged
-> me. So far the only solution I have found is to disable the power_save which
-> I find acceptable on a desktop compared to the pops.
-> 
-> The alsa-info.sh output is can be found here:
-> http://alsa-project.org/db/?f=414b1b236fc73db386ad4f938bc3b304f6b30b05
-> 
-> The machine have ALC623 codec and the jacks are correctly discovered and they
-> do what they supposed to be.
-> When I have the headset connected to the front and audio is routed there the
-> line out (green jack) from the back still prodices the plock/pop.
-> 
-> Is there a known quirk for similar issue or a better way to handle it?
-> 
-> Thanks you,
-> Peter Ujfalusi
-> 
->  sound/pci/hda/hda_intel.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> index 79ade335c8a0..e16d93d8291f 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -2213,6 +2213,8 @@ static const struct snd_pci_quirk power_save_denylist[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x36a7, "Lenovo C50 All in one", 0),
->  	/* https://bugs.launchpad.net/bugs/1821663 */
->  	SND_PCI_QUIRK(0x1631, 0xe017, "Packard Bell NEC IMEDIA 5204", 0),
-> +	/* Loud pluck/pop noise via the green jack on playback start */
-> +	SND_PCI_QUIRK(0x8086, 0x06c8, "Lenovo ThinkStation P340", 0),
 
-The PCI ID might be wrong here:
-# lspci -nnk | grep -A2 Audio
-00:1f.3 Audio device [0403]: Intel Corporation Comet Lake PCH cAVS
-[8086:06c8]
-        DeviceName: Onboard - Sound
-        Subsystem: Lenovo Device [17aa:1048]
+May I kindly ask you to follow the standard netiquette and send properly
+formatted e-mails in the plain text ? Your e-mails are unreadable.
 
-0x17aa:0x1048 is the correct one.
-
-alsa-info failed to pick up the CPU, it is i9-10900k
-
->  	{}
->  };
->  #endif /* CONFIG_PM */
-> 
+				Thank you,
+					Jaroslav
 
 -- 
-Péter
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

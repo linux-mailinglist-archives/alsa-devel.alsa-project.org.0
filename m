@@ -2,94 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801F039061D
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 18:02:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138C3390699
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 May 2021 18:26:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E0741757;
-	Tue, 25 May 2021 18:02:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E0741757
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9549E1767;
+	Tue, 25 May 2021 18:25:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9549E1767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1621958573;
-	bh=LdRhNrjSw1h6JsCBBrVkPe+1fa1r3TDdgH1f6rvVMCc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1621959976;
+	bh=wJ6P14BSf28gEteq3TlqF++vo5VP0fXaRoNEIJlz1xI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tr4al4zUPRZW5DTy3m9BPirZiTMzXe6M+FKClht4q0mNKP0ecvfEHu7kaoWGO1KY6
-	 l3r19pZeXbbXlXGWsC13P1R8Sk+CaOMJm1fqr94q6IwXZxaJ6djnwQoFCkcJsipQUE
-	 hrFOwZoHMqEo046384q/LnStSCFmACi1X/ZNy4Mw=
+	b=KiTUV3Cl7ae2dwH5wQcNC/Ayd3OSZ3WWLKCWaW8f7nNuhQLjO7cL7PFbWfcUioNSf
+	 OZaNExtd3VXxLQg8xd4TDJjhOZ8nSrXzHe8ww2zTT7anNOPT/rrdOAZPUGuGXBB+E9
+	 lNVABwGQ4Ab82TvkD0s5x7Oilw4vbt7gZUJnykbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A8CEF800AC;
-	Tue, 25 May 2021 18:01:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D771F800B6;
+	Tue, 25 May 2021 18:24:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5675FF800CB; Tue, 25 May 2021 18:01:23 +0200 (CEST)
+ id 08C9CF800B6; Tue, 25 May 2021 18:24:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ABACF800AC
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 18:01:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ABACF800AC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZKZRyalG"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="F0HaFIzq"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621958477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NnQk2EnrULXDbLlOknbDCceBI4BQxTF+S6KqI6l9suw=;
- b=ZKZRyalGloOyEqEutXS38VwiM65DSjWuu/yP8sylQ3T4wMy8KTFw21+l40cpDzhX7HU8K3
- b+zQFGPiwNT/e8y2AKdvr3abYEV1xEx1IgjGrMr4jElYd/9ScsWYqn2bLqdgJFnvSPfiFI
- VShWwhBy6yFdKCN4D5l/OIE3bAYrxgw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621958477;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NnQk2EnrULXDbLlOknbDCceBI4BQxTF+S6KqI6l9suw=;
- b=F0HaFIzq5DbMWZQEvbmayEfBjpqkUcyol2Rzlyjy3tWBLiIP6xnVi6o1rUJCW6cd/cGbLo
- vbqz0pqjxZB89WCw==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D7C60AE5C;
- Tue, 25 May 2021 16:01:16 +0000 (UTC)
-Date: Tue, 25 May 2021 18:01:16 +0200
-Message-ID: <s5hmtsiby5v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [PATCH v2 02/12] ALSA: iec958: Split status creation and fill
-In-Reply-To: <20210525132354.297468-3-maxime@cerno.tech>
-References: <20210525132354.297468-1-maxime@cerno.tech>
- <20210525132354.297468-3-maxime@cerno.tech>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Tim Gover <tim.gover@raspberrypi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- Eric Anholt <eric@anholt.net>, Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-doc@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
- Nicolas Saenz Julienne <nsaenzjulienne@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BEB7F800B6
+ for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 18:24:40 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AB630A0042;
+ Tue, 25 May 2021 18:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AB630A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1621959879; bh=5vd1CosdGZ1x0kCQ03wCTU9ikNz4E8e+MwaijpSD2AU=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=U+4Cziiuz2bRm/D2OIanNWyLaonXS/fppqUXq/nDrPNOJy+PZh76rC/R5gxCZ6Qam
+ cgc3U5f8cLGD+9p4nkvPlVp0lOHsA6wkNQDNmv7M2AN21eMz/x449mQOO/rRoPf4mJ
+ ySKj4Db3H8iQM1q8nvXWqvB0czYnpIkrUlIBKI5w=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 25 May 2021 18:24:28 +0200 (CEST)
+Subject: Re: [PATCH v3 4/4] ASoC: tegra: Specify components string for Nexus 7
+To: Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Ion Agorria <ion@agorria.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
+References: <20210523234437.25077-1-digetx@gmail.com>
+ <20210523234437.25077-5-digetx@gmail.com>
+ <ec2098e0-7918-8488-cf7c-a07e5aa6908c@perex.cz>
+ <99ef3d77-c626-c632-bbd2-92eb15acad20@gmail.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <bc99da2b-1eb2-8f73-9e92-184cf172ef6f@perex.cz>
+Date: Tue, 25 May 2021 18:24:28 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+MIME-Version: 1.0
+In-Reply-To: <99ef3d77-c626-c632-bbd2-92eb15acad20@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,272 +88,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 May 2021 15:23:44 +0200,
-Maxime Ripard wrote:
+On 24. 05. 21 16:00, Dmitry Osipenko wrote:
+> 24.05.2021 13:54, Jaroslav Kysela пишет:
+>> Dne 24. 05. 21 v 1:44 Dmitry Osipenko napsal(a):
+>>> Specify components string for Nexus 7 using the Intel BayTrail components
+>>> format. This may allow us to create a more generic UCM for RT5640 codec.
+>>>
+>>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>>> ---
+>>>  sound/soc/tegra/tegra_asoc_machine.c | 19 +++++++++++++++++++
+>>>  1 file changed, 19 insertions(+)
+>>>
+>>> diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+>>> index a81f2ebfc00c..87e0a47040a5 100644
+>>> --- a/sound/soc/tegra/tegra_asoc_machine.c
+>>> +++ b/sound/soc/tegra/tegra_asoc_machine.c
+>>> @@ -671,6 +671,24 @@ static const struct tegra_asoc_data tegra_rt5640_data = {
+>>>  	.add_hp_jack = true,
+>>>  };
+>>>  
+>>> +/*
+>>> + * Speaker: Connected to SPO L/R P/N pins, stereo.
+>>> + * Internal Microphone: Digital, connected to DMIC1_DAT IN2P/N pins.
+>>> + * Headphones: Connected to HPOL/R pins.
+>>> + * Headset Microphone: Unconnected.
+>>> + *
+>>> + * IF2_DAC/ADC are unpopulated.
+>>> + */
+>>> +static const struct tegra_asoc_data tegra_rt5640_grouper_data = {
+>>> +	.components = "codec:rt5640 cfg-spk:2 cfg-mic:dmic1 aif:1",
+>>
+>> Perhaps, it may be better to handle this string via the DT config (create new
+>> function like snd_soc_of_parse_card_name()).
+>>
+>> The "codec:rt5640" should be set in the driver (it's fixed), but the
+>> "cfg-spk:2 cfg-mic:dmic1 aif:1" part is suitable for the DT config.
 > 
-> In some situations, like a codec probe, we need to provide an IEC status
-> default but don't have access to the sampling rate and width yet since
-> no stream has been configured yet.
+> Not sure that this is possible. The DT is an ABI, while components
+> string has no specification. Any changes to the components string will
+> require DT update.
 > 
-> Each and every driver has its own default, whereas the core iec958 code
-> also has some buried in the snd_pcm_create_iec958_consumer functions.
-> 
-> Let's split these functions in two to provide a default that doesn't
-> rely on the sampling rate and width, and another function to fill them
-> when available.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> I think it's much more feasible to have a database of components within
+> kernel driver, like Intel sound driver does it for ACPI devices.
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+There is no other possibility for ACPI. And while the components string is
+part of the ALSA ABI, it should not be changed in an incompatible way. Only
+new information should be added. The DT solution seems more flexible to me.
+For example the stereo/mono speaker or the AIF number can be set without the
+driver modification for rt5640.
+
+					Jaroslav
 
 
-thanks,
-
-Takashi
-
-> ---
->  include/sound/pcm_iec958.h |   8 ++
->  sound/core/pcm_iec958.c    | 176 ++++++++++++++++++++++++++++---------
->  2 files changed, 141 insertions(+), 43 deletions(-)
-> 
-> diff --git a/include/sound/pcm_iec958.h b/include/sound/pcm_iec958.h
-> index 0939aa45e2fe..64e84441cde1 100644
-> --- a/include/sound/pcm_iec958.h
-> +++ b/include/sound/pcm_iec958.h
-> @@ -4,6 +4,14 @@
->  
->  #include <linux/types.h>
->  
-> +int snd_pcm_create_iec958_consumer_default(u8 *cs, size_t len);
-> +
-> +int snd_pcm_fill_iec958_consumer(struct snd_pcm_runtime *runtime, u8 *cs,
-> +				 size_t len);
-> +
-> +int snd_pcm_fill_iec958_consumer_hw_params(struct snd_pcm_hw_params *params,
-> +					   u8 *cs, size_t len);
-> +
->  int snd_pcm_create_iec958_consumer(struct snd_pcm_runtime *runtime, u8 *cs,
->  	size_t len);
->  
-> diff --git a/sound/core/pcm_iec958.c b/sound/core/pcm_iec958.c
-> index f9a211cc1f2c..7a1b816f67cc 100644
-> --- a/sound/core/pcm_iec958.c
-> +++ b/sound/core/pcm_iec958.c
-> @@ -9,41 +9,85 @@
->  #include <sound/pcm_params.h>
->  #include <sound/pcm_iec958.h>
->  
-> -static int create_iec958_consumer(uint rate, uint sample_width,
-> -				  u8 *cs, size_t len)
-> +/**
-> + * snd_pcm_create_iec958_consumer_default - create default consumer format IEC958 channel status
-> + * @cs: channel status buffer, at least four bytes
-> + * @len: length of channel status buffer
-> + *
-> + * Create the consumer format channel status data in @cs of maximum size
-> + * @len. When relevant, the configuration-dependant bits will be set as
-> + * unspecified.
-> + *
-> + * Drivers should then call einter snd_pcm_fill_iec958_consumer() or
-> + * snd_pcm_fill_iec958_consumer_hw_params() to replace these unspecified
-> + * bits by their actual values.
-> + *
-> + * Drivers may wish to tweak the contents of the buffer after creation.
-> + *
-> + * Returns: length of buffer, or negative error code if something failed.
-> + */
-> +int snd_pcm_create_iec958_consumer_default(u8 *cs, size_t len)
->  {
-> -	unsigned int fs, ws;
-> -
->  	if (len < 4)
->  		return -EINVAL;
->  
-> -	switch (rate) {
-> -	case 32000:
-> -		fs = IEC958_AES3_CON_FS_32000;
-> -		break;
-> -	case 44100:
-> -		fs = IEC958_AES3_CON_FS_44100;
-> -		break;
-> -	case 48000:
-> -		fs = IEC958_AES3_CON_FS_48000;
-> -		break;
-> -	case 88200:
-> -		fs = IEC958_AES3_CON_FS_88200;
-> -		break;
-> -	case 96000:
-> -		fs = IEC958_AES3_CON_FS_96000;
-> -		break;
-> -	case 176400:
-> -		fs = IEC958_AES3_CON_FS_176400;
-> -		break;
-> -	case 192000:
-> -		fs = IEC958_AES3_CON_FS_192000;
-> -		break;
-> -	default:
-> +	memset(cs, 0, len);
-> +
-> +	cs[0] = IEC958_AES0_CON_NOT_COPYRIGHT | IEC958_AES0_CON_EMPHASIS_NONE;
-> +	cs[1] = IEC958_AES1_CON_GENERAL;
-> +	cs[2] = IEC958_AES2_CON_SOURCE_UNSPEC | IEC958_AES2_CON_CHANNEL_UNSPEC;
-> +	cs[3] = IEC958_AES3_CON_CLOCK_1000PPM | IEC958_AES3_CON_FS_NOTID;
-> +
-> +	if (len > 4)
-> +		cs[4] = IEC958_AES4_CON_WORDLEN_NOTID;
-> +
-> +	return len;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_pcm_create_iec958_consumer_default);
-> +
-> +static int fill_iec958_consumer(uint rate, uint sample_width,
-> +				u8 *cs, size_t len)
-> +{
-> +	if (len < 4)
->  		return -EINVAL;
-> +
-> +	if ((cs[3] & IEC958_AES3_CON_FS) == IEC958_AES3_CON_FS_NOTID) {
-> +		unsigned int fs;
-> +
-> +		switch (rate) {
-> +			case 32000:
-> +				fs = IEC958_AES3_CON_FS_32000;
-> +				break;
-> +			case 44100:
-> +				fs = IEC958_AES3_CON_FS_44100;
-> +				break;
-> +			case 48000:
-> +				fs = IEC958_AES3_CON_FS_48000;
-> +				break;
-> +			case 88200:
-> +				fs = IEC958_AES3_CON_FS_88200;
-> +				break;
-> +			case 96000:
-> +				fs = IEC958_AES3_CON_FS_96000;
-> +				break;
-> +			case 176400:
-> +				fs = IEC958_AES3_CON_FS_176400;
-> +				break;
-> +			case 192000:
-> +				fs = IEC958_AES3_CON_FS_192000;
-> +				break;
-> +			default:
-> +				return -EINVAL;
-> +		}
-> +
-> +		cs[3] &= ~IEC958_AES3_CON_FS;
-> +		cs[3] |= fs;
->  	}
->  
-> -	if (len > 4) {
-> +	if (len > 4 &&
-> +	    (cs[4] & IEC958_AES4_CON_WORDLEN) == IEC958_AES4_CON_WORDLEN_NOTID) {
-> +		unsigned int ws;
-> +
->  		switch (sample_width) {
->  		case 16:
->  			ws = IEC958_AES4_CON_WORDLEN_20_16;
-> @@ -64,21 +108,58 @@ static int create_iec958_consumer(uint rate, uint sample_width,
->  		default:
->  			return -EINVAL;
->  		}
-> +
-> +		cs[4] &= ~IEC958_AES4_CON_WORDLEN;
-> +		cs[4] |= ws;
->  	}
->  
-> -	memset(cs, 0, len);
-> -
-> -	cs[0] = IEC958_AES0_CON_NOT_COPYRIGHT | IEC958_AES0_CON_EMPHASIS_NONE;
-> -	cs[1] = IEC958_AES1_CON_GENERAL;
-> -	cs[2] = IEC958_AES2_CON_SOURCE_UNSPEC | IEC958_AES2_CON_CHANNEL_UNSPEC;
-> -	cs[3] = IEC958_AES3_CON_CLOCK_1000PPM | fs;
-> -
-> -	if (len > 4)
-> -		cs[4] = ws;
-> -
->  	return len;
->  }
->  
-> +/**
-> + * snd_pcm_fill_iec958_consumer - Fill consumer format IEC958 channel status
-> + * @runtime: pcm runtime structure with ->rate filled in
-> + * @cs: channel status buffer, at least four bytes
-> + * @len: length of channel status buffer
-> + *
-> + * Fill the unspecified bits in an IEC958 status bits array using the
-> + * parameters of the PCM runtime @runtime.
-> + *
-> + * Drivers may wish to tweak the contents of the buffer after its been
-> + * filled.
-> + *
-> + * Returns: length of buffer, or negative error code if something failed.
-> + */
-> +int snd_pcm_fill_iec958_consumer(struct snd_pcm_runtime *runtime,
-> +				 u8 *cs, size_t len)
-> +{
-> +	return fill_iec958_consumer(runtime->rate,
-> +				    snd_pcm_format_width(runtime->format),
-> +				    cs, len);
-> +}
-> +EXPORT_SYMBOL_GPL(snd_pcm_fill_iec958_consumer);
-> +
-> +/**
-> + * snd_pcm_fill_iec958_consumer_hw_params - Fill consumer format IEC958 channel status
-> + * @params: the hw_params instance for extracting rate and sample format
-> + * @cs: channel status buffer, at least four bytes
-> + * @len: length of channel status buffer
-> + *
-> + * Fill the unspecified bits in an IEC958 status bits array using the
-> + * parameters of the PCM hardware parameters @params.
-> + *
-> + * Drivers may wish to tweak the contents of the buffer after its been
-> + * filled..
-> + *
-> + * Returns: length of buffer, or negative error code if something failed.
-> + */
-> +int snd_pcm_fill_iec958_consumer_hw_params(struct snd_pcm_hw_params *params,
-> +					   u8 *cs, size_t len)
-> +{
-> +	return fill_iec958_consumer(params_rate(params), params_width(params), cs, len);
-> +}
-> +EXPORT_SYMBOL_GPL(snd_pcm_fill_iec958_consumer_hw_params);
-> +
->  /**
->   * snd_pcm_create_iec958_consumer - create consumer format IEC958 channel status
->   * @runtime: pcm runtime structure with ->rate filled in
-> @@ -95,9 +176,13 @@ static int create_iec958_consumer(uint rate, uint sample_width,
->  int snd_pcm_create_iec958_consumer(struct snd_pcm_runtime *runtime, u8 *cs,
->  	size_t len)
->  {
-> -	return create_iec958_consumer(runtime->rate,
-> -				      snd_pcm_format_width(runtime->format),
-> -				      cs, len);
-> +	int ret;
-> +
-> +	ret = snd_pcm_create_iec958_consumer_default(cs, len);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return snd_pcm_fill_iec958_consumer(runtime, cs, len);
->  }
->  EXPORT_SYMBOL(snd_pcm_create_iec958_consumer);
->  
-> @@ -117,7 +202,12 @@ EXPORT_SYMBOL(snd_pcm_create_iec958_consumer);
->  int snd_pcm_create_iec958_consumer_hw_params(struct snd_pcm_hw_params *params,
->  					     u8 *cs, size_t len)
->  {
-> -	return create_iec958_consumer(params_rate(params), params_width(params),
-> -				      cs, len);
-> +	int ret;
-> +
-> +	ret = snd_pcm_create_iec958_consumer_default(cs, len);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return fill_iec958_consumer(params_rate(params), params_width(params), cs, len);
->  }
->  EXPORT_SYMBOL(snd_pcm_create_iec958_consumer_hw_params);
-> -- 
-> 2.31.1
-> 
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

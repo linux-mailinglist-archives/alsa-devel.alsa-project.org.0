@@ -2,94 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0DC5391C5B
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 17:48:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3B6D391C6E
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 17:51:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A88616F3;
-	Wed, 26 May 2021 17:48:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A88616F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41012172E;
+	Wed, 26 May 2021 17:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41012172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622044136;
-	bh=Bnk19/aXoEr8etWJI/KPqXrvK2N5PSBpG0dHhaaXb2Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=iwauV3QFuHUM7pEikUy4UMIV0Q5jO+h2aiChExsJrx5sAQdRfjwry80ofPg3Mk9Yu
-	 ceZqvzJk27E5rQJnXoquFM956+Q1S+18DhEDdz3j6cmY5Ogu5PgJKfEplhFKENo8X0
-	 FrFpt/a4Fk75OdDh4YhBMudGuoE022BX/3OxVyxs=
+	s=default; t=1622044277;
+	bh=Qax+SOxpYs8RwJItsYii2EYbytRwdHwy+p/JOgprtC8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aYToewtel/B6Bs9e98NVtBEvv6apS0FFoxlueBGxLFjc2npB0oYo5kBbFMeqnOBbR
+	 pu6Gsk6jme11MNvP8Ki3lvspaJh7rj0DMYXklzDtyNotxxYRGkswPtITPudFYZ71xK
+	 TzaDk/elbrJFRZZBS6NeFjnDtH8al1VxNcFmyCCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF8D3F80260;
-	Wed, 26 May 2021 17:47:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2015F8024D;
+	Wed, 26 May 2021 17:49:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EF46F8025C; Wed, 26 May 2021 17:47:27 +0200 (CEST)
+ id BE3A7F8025C; Wed, 26 May 2021 17:49:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D1B1F8024D
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 17:47:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D1B1F8024D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="YZVXRZQb"
-Received: by mail-pj1-x1034.google.com with SMTP id ot16so1018214pjb.3
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 08:47:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Y5Bgd0Jh4nDL9nxbYQPkXNJczysNVELPbL2b6pe0vik=;
- b=YZVXRZQbI8i/iFl06Wmwupv7VoVvO+LkA88TmHrBpNc5HmcF+NbaKX2TFhOM610pMQ
- pXpgHaJo6u7iq0DmOtJuOAjNRelr9HOVxQhnqZ+SPfkU6JyRr//jVwL1GOProkuEm2vu
- LnRLaWlOMtwbyBSClwdDseICaM6hWrZOwWD68=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57470F8024D
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 17:49:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57470F8024D
+Received: from mail-vs1-f70.google.com ([209.85.217.70])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1llvml-0005fy-Rc
+ for alsa-devel@alsa-project.org; Wed, 26 May 2021 15:49:31 +0000
+Received: by mail-vs1-f70.google.com with SMTP id
+ q16-20020a67d7900000b0290228198e77b6so418931vsj.23
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 08:49:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=Y5Bgd0Jh4nDL9nxbYQPkXNJczysNVELPbL2b6pe0vik=;
- b=CeIheAWb+1G7u3na88CZ0i3s6z8Eq9onqyKI+AyZuaq//sJVBdW4ALinG9O8BI+xTc
- TjhRP8p4NVHM/1PqjtUTX57aVApZufn/08c6fpoT2RfTIKW9Vwv7wIjrrRbmTHnA8IGo
- DRKD+PWbGfy45LvkdY5Zq6uM+6qVzxli8PPZ6UvYZWHBS3mmRIX7imtSJdEKUb04rinB
- EUF/nOBLOO8FERwKO46owqkewkwWlliBR8kOj8MjE/k8vnl7FlYKx9glgbV3vM7uO/jy
- 1Td2xIE+rQcqzYIndKgY8S/HpfR+BivlgkhMqw8qfLk1OTZ5Vbp98hTG8FOf5qBZJlhb
- lwng==
-X-Gm-Message-State: AOAM531y1j4AD9lA234aUkA5hsJ9B4QPVbSI269AG2EKkBrBVjB3u4Eq
- yMJQBI8HKTBUT1uSZ4YLHB/4Eg==
-X-Google-Smtp-Source: ABdhPJwJ7oSD990XEzL/3FSdH74tC6Kpu2hlE7hlvuRBr87zJMb2XZIAZ4P6rxWAAh7RG/1HmDSbnA==
-X-Received: by 2002:a17:902:c213:b029:f0:bbdf:3852 with SMTP id
- 19-20020a170902c213b02900f0bbdf3852mr36626293pll.56.1622044034046; 
- Wed, 26 May 2021 08:47:14 -0700 (PDT)
-Received: from judyhsiao-p920.tpe.corp.google.com
- ([2401:fa00:1:10:ef05:d69e:64e4:1d96])
- by smtp.gmail.com with ESMTPSA id k21sm16830456pgb.56.2021.05.26.08.47.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 May 2021 08:47:13 -0700 (PDT)
-From: Judy Hsiao <judyhsiao@chromium.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: max98357a: set channels_max to 4
-Date: Wed, 26 May 2021 23:47:04 +0800
-Message-Id: <20210526154704.114957-1-judyhsiao@chromium.org>
-X-Mailer: git-send-email 2.31.0
+ bh=VUY/OX0+pta5kTvyLKotdE7y+h+efskwB6GqpwrAtbE=;
+ b=AMzusaUEQ7FnFtL1uob91nV8Bf1SH24anGiEilIpoOCkHlNDOJydHux3c8Ivh/CqEY
+ oIy9Pzh/1vdSFpPOulJeDd2QF1drMA97PxUlRWfkIh9gIHVxKY2WwMejUlN9C0udX1Bt
+ eBsEFvE6uxrm2/G38Q9VSc+Icv+28sdw67heZmWJ0X30VGhffuz1r+IXMrlcbvyzk8MU
+ R1vpjydd/xdu7z6Y70QT/7/V8KRZgYePBQkBEry4wJkdt5TSxuqm4GDQ33ERe5MhQucx
+ 10jrmPsEztFebRGMvetJvlU/pwpDhy1fziYb6+mfrkkL5TA+QKwIiOkJd6KEK7ag2Hc9
+ 2uRQ==
+X-Gm-Message-State: AOAM531OHKVTkicqqILjDiNHR6U+KiMzHz1KqahzGC8M4Ve8ZqOiJVbr
+ MoHIcDuyDlvyOg8ySL/SYZR1EDipq4EbCFM+29olY4tC25VFwszf/uTnTk98rVuFDAPTjtETsvM
+ NkMEw2/1c7xrynewGv4UmfSKBtBDxBQ+u0Iy0S1Rl
+X-Received: by 2002:a05:6102:c2:: with SMTP id
+ u2mr31702927vsp.33.1622044170968; 
+ Wed, 26 May 2021 08:49:30 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyvefn6kxtU4lD+c0/LmjrXRf549ePApFZ2JMocX7btTNnsZ72vHEsRMfGiA3/hAMPICFaOMQ==
+X-Received: by 2002:a05:6102:c2:: with SMTP id
+ u2mr31702889vsp.33.1622044170743; 
+ Wed, 26 May 2021 08:49:30 -0700 (PDT)
+Received: from [192.168.1.4] ([45.237.48.6])
+ by smtp.gmail.com with ESMTPSA id o2sm2258084vsq.30.2021.05.26.08.49.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 May 2021 08:49:29 -0700 (PDT)
+Subject: Re: [PATCH -next] ASoC: samsung: midas_wm1811: Fix build error when
+ CONFIG_GPIOLIB is not set
+To: Wei Yongjun <weiyongjun1@huawei.com>, Simon Shields
+ <simon@lineageos.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20210526144339.2392592-1-weiyongjun1@huawei.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <d1aad7a0-a27e-286f-1bcf-51b035d1d8ae@canonical.com>
+Date: Wed, 26 May 2021 11:49:26 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Andy Gross <agross@kernel.org>, dgreid@chromium.org,
- devicetree@vger.kernel.org, tzungbi@chromium.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- cychiang@google.com, Takashi Iwai <tiwai@suse.com>,
- Judy Hsiao <judyhsiao@chromium.org>
+In-Reply-To: <20210526144339.2392592-1-weiyongjun1@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,26 +107,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sets channels_max to 4 to support QUAD channel.
+On 26/05/2021 10:43, Wei Yongjun wrote:
+> Fix build error when CONFIG_GPIOLIB is not set:
+> 
+> sound/soc/samsung/midas_wm1811.c: In function 'midas_fm_set':
+> sound/soc/samsung/midas_wm1811.c:205:3: error:
+>  implicit declaration of function 'gpiod_set_value_cansleep';
+>  did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
+>   205 |   gpiod_set_value_cansleep(priv->gpio_fm_sel, 1);
+>       |   ^~~~~~~~~~~~~~~~~~~~~~~~
+>       |   gpio_set_value_cansleep
+> sound/soc/samsung/midas_wm1811.c: In function 'midas_probe':
+> sound/soc/samsung/midas_wm1811.c:445:22: error:
+>  implicit declaration of function 'devm_gpiod_get_optional';
+>  did you mean 'devm_clk_get_optional'? [-Werror=implicit-function-declaration]
+>   445 |  priv->gpio_fm_sel = devm_gpiod_get_optional(dev, "fm-sel", GPIOD_OUT_HIGH);
+>       |                      ^~~~~~~~~~~~~~~~~~~~~~~
+>       |                      devm_clk_get_optional
 
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
----
- sound/soc/codecs/max98357a.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The fix does not match the error. The consumer.h has necessary stubs for
+!GPIOLIB case.
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index 918812763884..c3cf1743caad 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -117,7 +117,7 @@ static struct snd_soc_dai_driver max98357a_dai_driver = {
- 		.rate_min	= 8000,
- 		.rate_max	= 96000,
- 		.channels_min	= 1,
--		.channels_max	= 2,
-+		.channels_max	= 4,
- 	},
- 	.ops    = &max98357a_dai_ops,
- };
--- 
-2.31.0
+To fix this error, you do not depend on GPIOLIB, but include proper
+header (consumer.h). The dependency (with compile test) is still nice,
+but for runtime fix, not build time, which is a separate patch.
 
+
+Best regards,
+Krzysztof
+
+> sound/soc/samsung/midas_wm1811.c:445:61:
+>  error: 'GPIOD_OUT_HIGH' undeclared (first use in this function);
+>  did you mean 'GPIOF_INIT_HIGH'?
+>   445 |  priv->gpio_fm_sel = devm_gpiod_get_optional(dev, "fm-sel", GPIOD_OUT_HIGH);
+>       |                                                             ^~~~~~~~~~~~~~
+>       |                                                             GPIOF_INIT_HIGH
+> 
+> Fixes: fd0ea9cd9698 ("ASoC: samsung: Add sound support for Midas boards")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> ---
+>  sound/soc/samsung/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/samsung/Kconfig b/sound/soc/samsung/Kconfig
+> index a2221ebb1b6a..22be597b1dd9 100644
+> --- a/sound/soc/samsung/Kconfig
+> +++ b/sound/soc/samsung/Kconfig
+> @@ -228,6 +228,7 @@ config SND_SOC_SAMSUNG_ARIES_WM8994
+>  config SND_SOC_SAMSUNG_MIDAS_WM1811
+>  	tristate "SoC I2S Audio support for Midas boards"
+>  	depends on SND_SOC_SAMSUNG
+> +	depends on GPIOLIB
+>  	select SND_SAMSUNG_I2S
+>  	select SND_SOC_WM8994
+>  	help
+> 

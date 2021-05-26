@@ -2,95 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE2BB39230F
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 01:12:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F553392312
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 01:12:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E7761724;
-	Thu, 27 May 2021 01:11:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E7761724
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5371172D;
+	Thu, 27 May 2021 01:11:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5371172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622070731;
-	bh=kDaDVc9Xt1O/bRqr3nnD85mzZX1bkKy8Bs6Zh45UR9Y=;
+	s=default; t=1622070767;
+	bh=RK1+6RZCRH5a717yVji/EITwcmJ7fkj129RV8FDrWPU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LD311/4zpdBuHVwYUGcA82sxI+8ZQ5+D6pl7RnbpVARFEdKjci0OShytE0JBvCnK8
-	 Qh4IYkRZtTXhhfqEleyFEzP77REnagVkGDfIQYHjwuM9BA8ZPVi6Tpnn+JvbFnpZ1j
-	 OMtPPzzu9JAwOISvCy4FY6Cv8Lemc5Z9YpduI5TQ=
+	b=PtJuZ2WtFQ5k1Mq8BFS7IGKrV2xubxF/ToDgzXviRDNw82oYHAusaFyMm8NXzFyH+
+	 D668twItaB54HTOK/2qR9F+Jj+Mn+vWz35qMr6opcz0PKaCMQZmnFn5V/qOm4YPOth
+	 iwowXeaSRCDdsx960Hx6VqwnqmdCYsU7yO2bi3w4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70A2DF80300;
-	Thu, 27 May 2021 01:10:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D4CDF80302;
+	Thu, 27 May 2021 01:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14AC3F802E8; Thu, 27 May 2021 01:10:29 +0200 (CEST)
+ id 3DDE0F80274; Thu, 27 May 2021 01:10:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03843F80212
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 01:10:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03843F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20ABEF80264
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 01:10:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20ABEF80264
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NpYz1s8S"
-Received: by mail-lf1-x12b.google.com with SMTP id i9so5019011lfe.13
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 16:10:23 -0700 (PDT)
+ header.b="MIcepU19"
+Received: by mail-lf1-x12d.google.com with SMTP id x38so3023953lfa.10
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 16:10:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0DwJ6464lblgiJlofD5GM02fvqVVflTlv4Zsog+he+Q=;
- b=NpYz1s8S7yxF1eqtPR6VkJLmv68CCWaRwk2PECxnZO+Y3ztcKaXwkGfGYNqIXLCAe6
- 6yANl5CG9Il18wP4WNoNQVEzUFSgDLxavq1D6IxmL+Z6xoXrg2Z0cpXnJwns8J0b4G8y
- 8TUnzI6jTQSmmlWgkEpNB8knZ/JRoxyHS3/QGZYuMErowraWvgmNh4E+PDSc/6YZayzC
- OnviQkz0Pd7xqh64cftvKK9MpwYwG4c/vXhkMJcs6e5fKJBmX0zhRpS8znhKlsehhwza
- 2pLmZL+dMf5PW/nBxnIutbve9bRnxX9WKRDjHCx+jpEjYy2qtkb6Dt/1HCm6sZO6X0WD
- Zz+Q==
+ bh=J91A2ezJDwmmBjDbHzFnYK1SauhUWhSDtbv+ex6BQOE=;
+ b=MIcepU1970vDHoUb96UFwfdYyRxbLToMCwifD7g/JcbLZv+mJFPdH5/BH15slSU09p
+ OUpIpHClX62/SKVvDxMGfInkkAhYT57wIeHj5qgu8Kzf4PafVDYW4VcPDswnu6ZpC3VX
+ nDNZfXNJCTJrsSM/Du2AjquLHl2Tz4oInZmK4VXmh9Kx1rG6Trfgtrzvs03+HHtUO6G5
+ 3Cq+k68/P/+yaxiTL1RS0tBci5pODFWxJzZaD2IegVe9TLbXk9rJi/Al29CsYF/mDCdO
+ rEVYaPA1UwPo2z7OAZvxrIZgzys/RnpNV8C+PGdfG+Io+McJ7QNw92JsnFneNCyZJM1n
+ bEJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0DwJ6464lblgiJlofD5GM02fvqVVflTlv4Zsog+he+Q=;
- b=KlhqJjypSc76jUEXZcXFxkZsdX2yOQF2AOxLk4z922Qc4uqp3Ha/Tpb/oMYCNJ3edH
- nE0I92PkmKhYx9vzylVM7Ewfqabx6CnGP35YK+gBIpsVYrSgT2o9WWUyTHvSmFId1Jdg
- 13OxNfq1qvokfPAknvmRGDILb2nsPOxUXneIJb/QgpE4H1WZ/IA8Bazuc93o0y23c5Pf
- zUySkMGxsI7lqnWKa5/dmlePnd1sYtyd5jguRY8Xf2S+pnuhP1EnUdWbUqv9yZEN73tQ
- 0MyRzOWwFINDnmitr3rekf04iMaIzauqNelxhA8XEqrPHfRGjveax3Kx+icqxY23Q6r8
- KtZg==
-X-Gm-Message-State: AOAM531tDYc8ecSFCE/uDLWdTG0OIsyYd1dsuEV9EYZUlovMt4O9K3/I
- kt9tXA8CqAgdKqkiY50YM6E=
-X-Google-Smtp-Source: ABdhPJx3wJMUqA3I0HnKdDRalpJxqKd7JaTCDIbE0v4w2KBZxtwFsGjC3mcsc82mGmi2onNu031V5Q==
-X-Received: by 2002:a19:dc4e:: with SMTP id f14mr314076lfj.176.1622070623116; 
- Wed, 26 May 2021 16:10:23 -0700 (PDT)
+ bh=J91A2ezJDwmmBjDbHzFnYK1SauhUWhSDtbv+ex6BQOE=;
+ b=B33dAwuH8UGlW0ajNqjKYzO5D4tKL7PCK2zj+OXutb1mh08X5LR7I0se8+zDrGg3O+
+ zlLPTfKZpD0AqsdNDlBI3V7lggWjmuE1bUav4SYKnsowSHTT8IRfvLr43rQ1zVAWSFB3
+ mAWvphJ9waXoFLGKdI1A2gUY0I6Z/x5CBon00jY39dWIPUlvnr5xQoK9xReZyF9tFZPR
+ 1VKbQmAmecxY4MU1Hnnl1fh3LfB+Occ6tbr17OZtaBXtmaSST5tuW4hyLOcmegG4Oej8
+ nUXweBC0XHqSSnqTBQHovJJjq+DfX/W69vR0aCPMz1Cv59Z8JCmkfoOfQ0PYEeoJDwYo
+ MJ+w==
+X-Gm-Message-State: AOAM531YbOGCmtmF6lHOmmqOj7tCuN9ftFjC3YEV3RVveQJFN924lsyV
+ 9pE1kHTwlG9XSA4b2c20PEs=
+X-Google-Smtp-Source: ABdhPJxT4uY6M8RKPTvy2BvhyVq4g0Cd0qirCeVYzU5lkL6YtQEwOkpw5HntEv08KNRZ9HTvwRgSnw==
+X-Received: by 2002:a19:f012:: with SMTP id p18mr293953lfc.493.1622070624086; 
+ Wed, 26 May 2021 16:10:24 -0700 (PDT)
 Received: from localhost.localdomain (h-98-128-228-193.NA.cust.bahnhof.se.
  [98.128.228.193])
- by smtp.gmail.com with ESMTPSA id d5sm35802lfi.144.2021.05.26.16.10.22
+ by smtp.gmail.com with ESMTPSA id d5sm35802lfi.144.2021.05.26.16.10.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 May 2021 16:10:22 -0700 (PDT)
+ Wed, 26 May 2021 16:10:23 -0700 (PDT)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/5] ASoC: cs47125: Constify static struct snd_compress_ops
-Date: Thu, 27 May 2021 01:10:09 +0200
-Message-Id: <20210526231013.46530-2-rikard.falkeborn@gmail.com>
+Subject: [PATCH 2/5] ASoC: wm5102: Constify static struct snd_compress_ops
+Date: Thu, 27 May 2021 01:10:10 +0200
+Message-Id: <20210526231013.46530-3-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210526231013.46530-1-rikard.falkeborn@gmail.com>
 References: <20210526231013.46530-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,20 +109,20 @@ compiler to put it in read-only memory.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- sound/soc/codecs/cs47l24.c | 2 +-
+ sound/soc/codecs/wm5102.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
-index eaabbb56a173..6b6d08816024 100644
---- a/sound/soc/codecs/cs47l24.c
-+++ b/sound/soc/codecs/cs47l24.c
-@@ -1178,7 +1178,7 @@ static unsigned int cs47l24_digital_vu[] = {
- 	ARIZONA_DAC_DIGITAL_VOLUME_4L,
+diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
+index 34b665895bdf..621598608bf0 100644
+--- a/sound/soc/codecs/wm5102.c
++++ b/sound/soc/codecs/wm5102.c
+@@ -1989,7 +1989,7 @@ static unsigned int wm5102_digital_vu[] = {
+ 	ARIZONA_DAC_DIGITAL_VOLUME_5R,
  };
  
--static struct snd_compress_ops cs47l24_compress_ops = {
-+static const struct snd_compress_ops cs47l24_compress_ops = {
- 	.open		= cs47l24_open,
+-static struct snd_compress_ops wm5102_compress_ops = {
++static const struct snd_compress_ops wm5102_compress_ops = {
+ 	.open		= wm5102_open,
  	.free		= wm_adsp_compr_free,
  	.set_params	= wm_adsp_compr_set_params,
 -- 

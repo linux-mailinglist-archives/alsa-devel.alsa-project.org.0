@@ -2,80 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D50391175
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 09:42:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A704C391493
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 12:12:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44F241716;
-	Wed, 26 May 2021 09:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F241716
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1998174A;
+	Wed, 26 May 2021 12:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1998174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622014936;
-	bh=95XV/mJeUTgz1o5r/9Gr5Ag/oQpNonoyscxX6HGyuL8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kiH8J4QQNU7TMJHLfm5Ad7Bmyjy9SaIOaOJoYpk2fm1ds0EGPkdaO1a67ZoE2uuwa
-	 9u7JCcvQopat2g+Eqm95KblT2O3smg52/KMISDq8FO59jSy98vCfaSK5KNyd33OnzQ
-	 mTDr8Rq1Xe5Wvrd1EwY26IpitFU4G5vrWiM1/0sI=
+	s=default; t=1622023948;
+	bh=iUULyxPJARz44KNRoTBufWPvvv/vsrLEukhsb8WvxYs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pOD/84nuEOoqVv7uDm4HXBoqBR2BzcW+mhdY7F78hX9R94kOgxQJkjcihpGIa9v9U
+	 7UOCmzAJmesBd9lZZYUcqTbFx1kcBgJmrN6e2pQAY+2qmmLzPNVHoJkNUK1Lk178kY
+	 KU5/dh4j0o4V6xDl16pKIHfzHlYA2Vs5ATN6fNiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5215F80158;
-	Wed, 26 May 2021 09:40:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB63AF8024E;
+	Wed, 26 May 2021 12:10:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9B29F80157; Wed, 26 May 2021 09:40:45 +0200 (CEST)
+ id 710F8F8025C; Wed, 26 May 2021 12:10:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBE30F8010D
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 09:40:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBE30F8010D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0hD7FouA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4oRkO0z5"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622014841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vTPFRqhh6JSx/ggr3vZMjfP9IEHvHmbXCJMu9eRcsCs=;
- b=0hD7FouA/PITPowff1yOAWp1AJFk+paMrgDb+L9SC7zHhyhk7J7XtOOoK78qwhm6dWAkrG
- ghcbqRIaR6YGDK0VPHF7aFe3HoL+Qbcr9+upRHg8uj3a5QsnlKsWqLZJAwNnGCkcfG1U2i
- xtGeNMqmESw55QMcbBEy1jcpQ87jLNs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622014841;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vTPFRqhh6JSx/ggr3vZMjfP9IEHvHmbXCJMu9eRcsCs=;
- b=4oRkO0z5CfuMkv6/CuQKvd98qMd+rOmJwMc6a4Fp95aSoUhtpMoDKuMUou2dk9VY/B0Cta
- XxF5xObvhg7Y7GDg==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 808E7AE38;
- Wed, 26 May 2021 07:40:41 +0000 (UTC)
-Date: Wed, 26 May 2021 09:40:41 +0200
-Message-ID: <s5ha6oiaqo6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: Sparse errors
-In-Reply-To: <6b86f44e-82e0-3530-b579-1b054f459880@linux.intel.com>
-References: <6b86f44e-82e0-3530-b579-1b054f459880@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Colin Ian King <colin.king@canonical.com>, alsa-devel@alsa-project.org,
- Dan Carpenter <dan.carpenter@oracle.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C4D8F8024D
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 12:10:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C4D8F8024D
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 14QAAH3M0002664,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 14QAAH3M0002664
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 26 May 2021 18:10:17 +0800
+Received: from RTEXMBS03.realtek.com.tw (172.21.6.96) by
+ RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 26 May 2021 18:10:16 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 26 May 2021 18:10:16 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022]) by
+ RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022%13]) with mapi id
+ 15.01.2106.013; Wed, 26 May 2021 18:10:16 +0800
+Content-Type: multipart/mixed;
+ boundary="_000_1438e0d6e7af4593a060808b11c62d67realtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt5659: Fix the lost powers for the HDA header
+Thread-Topic: [PATCH] ASoC: rt5659: Fix the lost powers for the HDA header
+Thread-Index: AddSF1JsujBIHX//Q5ym5bn4Wo/w0w==
+Date: Wed, 26 May 2021 10:10:15 +0000
+Message-ID: <1438e0d6e7af4593a060808b11c62d67@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: <1438e0d6e7af4593a060808b11c62d67@realtek.com>
+x-originating-ip: [172.22.102.167]
+x-kse-serverinfo: RTEXMBS03.realtek.com.tw, 9
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzUvMjYgpFekyCAwNzoxMTowMA==?=
+x-kse-attachment-filter-triggered-rules: Clean
+x-kse-attachment-filter-triggered-filters: Clean
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+MIME-Version: 1.0
+X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 05/26/2021 09:53:39
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 163930 [May 26 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 448 448 71fb1b37213ce9a885768d4012c46ac449c77b17
+X-KSE-AntiSpam-Info: {tnef_exp}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: realtek.com:7.1.1; 127.0.0.199:7.1.2;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 05/26/2021 09:56:00
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
+ =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
+ "mkumard@nvidia.com" <mkumard@nvidia.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,73 +124,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 May 2021 21:32:27 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> Hi Takashi,
-> Sparse reports a lot of new issues in our last checks with more options:
-> 
-> export ARCH=x86_64 CF="-Wsparse-error -Wsparse-all
-> -Wno-bitwise-pointer -Wno-pointer-arith -Wno-typesign -Wnoshadow
-> -Wno-sizeof-bool"
-> make -k sound/ C=2
-> 
-> most are linked to the __user and pcm_format_t restricted types, but I
-> found the simpler ones below which are useless comparisons. I can send
-> a patch for the last but not sure how to address the first two.
-> 
-> Thanks for your feedback
-> -Pierre
-> 
-> sound/core/info.c:95:38: error: self-comparison always evaluates to false
-> 
-> 	if (pos < 0 || (long) pos != pos || (ssize_t) count < 0)
-> 		return false;
-> 
-> not sure what the second comparison is meant to check?
+--_000_1438e0d6e7af4593a060808b11c62d67realtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-As Dan suggested, it's a check only for 32bit architecture for a 64bit
-value.
+VGhlIHBhdGNoIGZpeGVzIHRoZSBsb3N0IHBvd2VycyBmb3IgdGhlIEhEQSBoZWFkZXIuDQoNClNp
+Z25lZC1vZmYtYnk6IE9kZXIgQ2hpb3UgPG9kZXJfY2hpb3VAcmVhbHRlay5jb20+DQpTaWduZWQt
+b2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQogc291bmQvc29jL2Nv
+ZGVjcy9ydDU2NTkuYyB8IDI2ICsrKysrKysrKysrKysrKysrKysrKy0tLS0tDQogMSBmaWxlIGNo
+YW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9z
+b3VuZC9zb2MvY29kZWNzL3J0NTY1OS5jIGIvc291bmQvc29jL2NvZGVjcy9ydDU2NTkuYw0KaW5k
+ZXggODdmNTcwOS4uNGE1MGIxNiAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjU5
+LmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjU5LmMNCkBAIC0yNDMzLDEzICsyNDMzLDE4
+IEBAIHN0YXRpYyBpbnQgc2V0X2RtaWNfcG93ZXIoc3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQg
+KncsDQogCXJldHVybiAwOw0KIH0NCiANCi1zdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfZGFw
+bV93aWRnZXQgcnQ1NjU5X2RhcG1fd2lkZ2V0c1tdID0gew0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
+c25kX3NvY19kYXBtX3dpZGdldCBydDU2NTlfcGFydGljdWxhcl9kYXBtX3dpZGdldHNbXSA9IHsN
+CiAJU05EX1NPQ19EQVBNX1NVUFBMWSgiTERPMiIsIFJUNTY1OV9QV1JfQU5MR18zLCBSVDU2NTlf
+UFdSX0xETzJfQklULCAwLA0KIAkJTlVMTCwgMCksDQotCVNORF9TT0NfREFQTV9TVVBQTFkoIlBM
+TCIsIFJUNTY1OV9QV1JfQU5MR18zLCBSVDU2NTlfUFdSX1BMTF9CSVQsIDAsDQotCQlOVUxMLCAw
+KSwNCisJU05EX1NPQ19EQVBNX1NVUFBMWSgiTUlDQklBUzEiLCBSVDU2NTlfUFdSX0FOTEdfMiwg
+UlQ1NjU5X1BXUl9NQjFfQklULA0KKwkJMCwgTlVMTCwgMCksDQogCVNORF9TT0NfREFQTV9TVVBQ
+TFkoIk1pYyBEZXQgUG93ZXIiLCBSVDU2NTlfUFdSX1ZPTCwNCiAJCVJUNTY1OV9QV1JfTUlDX0RF
+VF9CSVQsIDAsIE5VTEwsIDApLA0KK307DQorDQorc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29j
+X2RhcG1fd2lkZ2V0IHJ0NTY1OV9kYXBtX3dpZGdldHNbXSA9IHsNCisJU05EX1NPQ19EQVBNX1NV
+UFBMWSgiUExMIiwgUlQ1NjU5X1BXUl9BTkxHXzMsIFJUNTY1OV9QV1JfUExMX0JJVCwgMCwNCisJ
+CU5VTEwsIDApLA0KIAlTTkRfU09DX0RBUE1fU1VQUExZKCJNb25vIFZyZWYiLCBSVDU2NTlfUFdS
+X0FOTEdfMSwNCiAJCVJUNTY1OV9QV1JfVlJFRjNfQklULCAwLCBOVUxMLCAwKSwNCiANCkBAIC0y
+NDY0LDggKzI0NjksNiBAQCBzdGF0aWMgaW50IHNldF9kbWljX3Bvd2VyKHN0cnVjdCBzbmRfc29j
+X2RhcG1fd2lkZ2V0ICp3LA0KIAkJUlQ1NjU5X0FEQ19NT05PX1JfQVNSQ19TRlQsIDAsIE5VTEws
+IDApLA0KIA0KIAkvKiBJbnB1dCBTaWRlICovDQotCVNORF9TT0NfREFQTV9TVVBQTFkoIk1JQ0JJ
+QVMxIiwgUlQ1NjU5X1BXUl9BTkxHXzIsIFJUNTY1OV9QV1JfTUIxX0JJVCwNCi0JCTAsIE5VTEws
+IDApLA0KIAlTTkRfU09DX0RBUE1fU1VQUExZKCJNSUNCSUFTMiIsIFJUNTY1OV9QV1JfQU5MR18y
+LCBSVDU2NTlfUFdSX01CMl9CSVQsDQogCQkwLCBOVUxMLCAwKSwNCiAJU05EX1NPQ19EQVBNX1NV
+UFBMWSgiTUlDQklBUzMiLCBSVDU2NTlfUFdSX0FOTEdfMiwgUlQ1NjU5X1BXUl9NQjNfQklULA0K
+QEAgLTM2NjAsMTAgKzM2NjMsMjMgQEAgc3RhdGljIGludCBydDU2NTlfc2V0X2JpYXNfbGV2ZWwo
+c3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQogDQogc3RhdGljIGludCBydDU2
+NTlfcHJvYmUoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpDQogew0KKwlzdHJ1
+Y3Qgc25kX3NvY19kYXBtX2NvbnRleHQgKmRhcG0gPQ0KKwkJc25kX3NvY19jb21wb25lbnRfZ2V0
+X2RhcG0oY29tcG9uZW50KTsNCiAJc3RydWN0IHJ0NTY1OV9wcml2ICpydDU2NTkgPSBzbmRfc29j
+X2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KIA0KIAlydDU2NTktPmNvbXBvbmVu
+dCA9IGNvbXBvbmVudDsNCiANCisJc3dpdGNoIChydDU2NTktPnBkYXRhLmpkX3NyYykgew0KKwlj
+YXNlIFJUNTY1OV9KRF9IREFfSEVBREVSOg0KKwkJYnJlYWs7DQorDQorCWRlZmF1bHQ6DQorCQlz
+bmRfc29jX2RhcG1fbmV3X2NvbnRyb2xzKGRhcG0sDQorCQkJcnQ1NjU5X3BhcnRpY3VsYXJfZGFw
+bV93aWRnZXRzLA0KKwkJCUFSUkFZX1NJWkUocnQ1NjU5X3BhcnRpY3VsYXJfZGFwbV93aWRnZXRz
+KSk7DQorCQlicmVhazsNCisJfQ0KKw0KIAlyZXR1cm4gMDsNCiB9DQogDQotLSANCjEuOS4xDQoN
+Cg==
 
-> sound/drivers/opl3/opl3_midi.c:183:60: error: self-comparison always
-> evaluates to false
-> 
-> This indeed makes no sense. the voice_time and vp->time are not
-> changed in the loop, the test is either redundant or something else is
-> missing.
+--_000_1438e0d6e7af4593a060808b11c62d67realtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-The code doesn't look right, indeed.  It's likely meant to be vp2
-instead of vp.
+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
+AE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAAHwACXQEA
+AAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8A5V8BAAAAMAAA
+AHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AGgwBAAAA
+EAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
+AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQAUAAAAAAAAgEZDAEAAABaAAAAAAAAAIEr
+H6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1
+AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAA
+cgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoAAQAAABIAAABJAFAATQAuAE4AbwB0
+AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzABAAAAEAAAANrJbi72+jVAimykjNXP
+X4MDABcAAQAAAEAAOQCA3VhSF1LXAUAACDBw2uNSF1LXAQsAKQAAAAAAHwDZPwEAAAAAAgAAVABo
+AGUAIABwAGEAdABjAGgAIABmAGkAeABlAHMAIAB0AGgAZQAgAGwAbwBzAHQAIABwAG8AdwBlAHIA
+cwAgAGYAbwByACAAdABoAGUAIABIAEQAQQAgAGgAZQBhAGQAZQByAC4ADQAKAA0ACgBTAGkAZwBu
+AGUAZAAtAG8AZgBmAC0AYgB5ADoAIABPAGQAZQByACAAQwBoAGkAbwB1ACAAPABvAGQAZQByAF8A
+YwBoAGkAbwB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4ADQAKAFMAaQBnAG4AZQBkAC0AbwBm
+AGYALQBiAHkAOgAgAEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQA
+ZQBrAC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABl
+AGMAcwAvAHIAdAA1ADYANQA5AC4AYwAgAHwAIAAyADYAIAArACsAKwArACsAKwArACsAKwArACsA
+KwArACsAKwArACsAKwArACsAKwAtAC0ALQAtAC0ADQAKACAAMQAgAGYAaQBsAGUAIABjAGgAYQBu
+AGcAZQBkACwAIAAyADEAIABpAG4AcwBlAHIAdABpAG8AbgBzACgAKwApACwAIAA1ACAAAAALAACA
+CCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABh
+AGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAaAAAAegBoAC0AVABXACwAIABlAG4A
+LQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIAAABFAHgAYwBoAGEAbgBnAGUAQQBw
+AHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAAAEgAAIAIIAYAAAAAAMAAAAAAAABG
+AQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUASQBkAAAAAADX3CVmfOIRRe25CNkg
+LnVtHwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABpAGUAbgB0AEkAbgBmAG8AAAAAAAEA
+AAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4AZwBlAFIAUABDAAAAAAAfAPo/AQAA
+ABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAAB6AAAAWwBQAEEAVABDAEgAXQAgAEEAUwBvAEMA
+OgAgAHIAdAA1ADYANQA5ADoAIABGAGkAeAAgAHQAaABlACAAbABvAHMAdAAgAHAAbwB3AGUAcgBz
+ACAAZgBvAHIAIAB0AGgAZQAgAEgARABBACAAaABlAGEAZABlAHIAAAAAAB8APQABAAAAAgAAAAAA
+AAADADYAAAAAAAIBcQABAAAAFgAAAAHXUhdSbLowSB1//0OcpuW5+FqP8NMAAB8AcAABAAAAegAA
+AFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoAIAByAHQANQA2ADUAOQA6ACAARgBpAHgAIAB0AGgA
+ZQAgAGwAbwBzAHQAIABwAG8AdwBlAHIAcwAgAGYAbwByACAAdABoAGUAIABIAEQAQQAgAGgAZQBh
+AGQAZQByAAAAAAAfADUQAQAAAF4AAAA8ADEANAAzADgAZQAwAGQANgBlADcAYQBmADQANQA5ADMA
+YQAwADYAMAA4ADAAOABiADEAMQBjADYAMgBkADYANwBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQA+
+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21prC/8BAAAALgAAAEgAZQBhAGQA
+ZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAAAAEAAAAiAAAAAQAKAAAABAAA
+AAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAHAAAAEgA
+YQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAKAAA
+AEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQAAAAAAAAAQAAHMO7D21IXUtcB
+AgELAAEAAAAQAAAA2sluLvb6NUCKbKSM1c9fgwMAJgAAAAAACwAGDAAAAAACARAwAQAAAEYAAAAA
+AAAA2+nESiSg50GTGyq7K7NtTAcATLd9DVWheUS+c4U5YtAApQAAAGlg9wAAMq84BUqwTkaAx8c4
+IroPWgAAAdeobwAAAAACARMwAQAAABAAAAC6MEgdf/9DnKblufhaj/DTAgEUMAEAAAAMAAAAqwAA
+ACYNwGxUAAAAHwD4PwEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AIkABAAAABgAAAEUAWAAAAAAA
+HwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABB
+AEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgA
+RgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBT
+AEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AJEABAAAABgAAAEUAWAAAAAAAHwAlQAEAAAC2AAAA
+LwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBT
+AFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQA
+TABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2
+ADUAMQAwADkAAAAAAB8AMEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADFAAQAAABAAAABKAGEA
+YwBrACAAWQB1AAAAHwA4QAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOUABAAAAEAAAAEoAYQBj
+AGsAIABZAHUAAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAfAApdAQAAACgAAABqAGEAYwBrAC4A
+eQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwALXQEAAAAoAAAAagBhAGMAawAuAHkAdQBA
+AHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AAIAfpOszqHouQr57eeGpjlSzAQAAADgAAABDAG8A
+bgB2AGUAcgBzAGEAdABpAG8AbgBJAG4AZABlAHgAVAByAGEAYwBrAGkAbgBnAEUAeAAAAAEAAAAk
+AQAASQBJAD0AWwBDAEkARAA9ADEAZAA0ADgAMwAwAGIAYQAtAGYAZgA3AGYALQA5AGMANAAzAC0A
+YQA2AGUANQAtAGIAOQBmADgANQBhADgAZgBmADAAZAAzADsASQBEAFgASABFAEEARAA9AEQANwA1
+ADIAMQA3ADUAMgA2AEMAOwBJAEQAWABDAE8AVQBOAFQAPQAxAF0AOwBQAFMAPQBVAG4AawBuAG8A
+dwBuADsAVgBlAHIAcwBpAG8AbgA9AFYAZQByAHMAaQBvAG4AIAAxADUALgAxACAAKABCAHUAaQBs
+AGQAIAAyADEAMAA2AC4AMAApACwAIABTAHQAYQBnAGUAPQBIADQAOwBVAFAAPQAxADAAOwBEAFAA
+PQAxAEMANQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAIKFAAAAAAAAAwANNP0/AAAfAACAhgMC
+AAAAAADAAAAAAAAARgEAAAAgAAAAeAAtAG0AcwAtAGgAYQBzAC0AYQB0AHQAYQBjAGgAAAABAAAA
+AgAAAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAtAG8AcgBpAGcAaQBuAGEAdABp
+AG4AZwAtAGkAcAAAAAAAAQAAACIAAABbADEANwAyAC4AMgAyAC4AMQAwADIALgAxADYANwBdAAAA
+AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAtAGsAcwBlAC0AcwBlAHIAdgBlAHIAaQBu
+AGYAbwAAAAAAAQAAADgAAABSAFQARQBYAE0AQgBTADAAMwAuAHIAZQBhAGwAdABlAGsALgBjAG8A
+bQAuAHQAdwAsACAAOQAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAEIAAAB4AC0AawBzAGUALQBh
+AG4AdABpAHYAaQByAHUAcwAtAGkAbgB0AGUAcgBjAGUAcAB0AG8AcgAtAGkAbgBmAG8AAAAAAAEA
+AAAgAAAAcwBjAGEAbgAgAHMAdQBjAGMAZQBzAHMAZgB1AGwAAAAfAACAhgMCAAAAAADAAAAAAAAA
+RgEAAAAqAAAAeAAtAGsAcwBlAC0AYQBuAHQAaQB2AGkAcgB1AHMALQBpAG4AZgBvAAAAAAABAAAA
+SAAAAEMAbABlAGEAbgAsACAAYgBhAHMAZQBzADoAIAAyADAAMgAxAC8ANQAvADIANgAgAApOSFMg
+ADAANwA6ADEAMQA6ADAAMAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAFAAAAB4AC0AawBzAGUA
+LQBhAHQAdABhAGMAaABtAGUAbgB0AC0AZgBpAGwAdABlAHIALQB0AHIAaQBnAGcAZQByAGUAZAAt
+AHIAdQBsAGUAcwAAAAEAAAAMAAAAQwBsAGUAYQBuAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAA
+VAAAAHgALQBrAHMAZQAtAGEAdAB0AGEAYwBoAG0AZQBuAHQALQBmAGkAbAB0AGUAcgAtAHQAcgBp
+AGcAZwBlAHIAZQBkAC0AZgBpAGwAdABlAHIAcwAAAAEAAAAMAAAAQwBsAGUAYQBuAAAAHwAAgIYD
+AgAAAAAAwAAAAAAAAEYBAAAAUAAAAHgALQBrAHMAZQAtAGIAdQBsAGsAbQBlAHMAcwBhAGcAZQBz
+AGYAaQBsAHQAZQByAGkAbgBnAC0AcwBjAGEAbgAtAHIAZQBzAHUAbAB0AAAAAQAAACgAAABwAHIA
+bwB0AGUAYwB0AGkAbwBuACAAZABpAHMAYQBiAGwAZQBkAAAA6p4=
 
---- a/sound/drivers/opl3/opl3_midi.c
-+++ b/sound/drivers/opl3/opl3_midi.c
-@@ -180,8 +180,7 @@ static int opl3_get_voice(struct snd_opl3 *opl3, int instr_4op,
- 			if (vp2->state == SNDRV_OPL3_ST_ON_2OP) {
- 				/* kill two voices, EXPENSIVE */
- 				bp++;
--				voice_time = (voice_time > vp->time) ?
--					voice_time : vp->time;
-+				voice_time = max(voice_time, vp2->time);
- 			}
- 		} else {
- 			/* allocate 2op voice */
-
-
-> sound/pci/lx6464es/lx_core.c:677:34: error: self-comparison always
-> evaluates to false
-> 
-> That seems like dead code indeed:
-> 
-> 	u32 channels = runtime->channels;
-> 
-> 	if (runtime->channels != channels)
-> 		dev_err(chip->card->dev, "channel count mismatch: %d vs %d",
-> 			   runtime->channels, channels);
-
-Yes, this can be deleted.
-
-
-thanks,
-
-Takashi
-
+--_000_1438e0d6e7af4593a060808b11c62d67realtekcom_--

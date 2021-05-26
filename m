@@ -2,70 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6D92391A55
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 16:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC61E391BA4
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 17:23:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17A7E1744;
-	Wed, 26 May 2021 16:33:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17A7E1744
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E34B172E;
+	Wed, 26 May 2021 17:22:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E34B172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622039676;
-	bh=h2b2O5YS9rXHW8nPneCksqCazi5ASQyPtvRQnplwSa0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PcuZzAWbiCPnEZ9CfVoZIo0QGD4nE6qpYgJebYtBiQa8ADR1DA5KnXTbTcBWmnwDY
-	 ocTbo/4HDXx/oiEzji42Nq/fosU2Aex7Buu/h6Lutw8eGVTEqeNp0cMLdHtyHT7o23
-	 hw4loAyTctDXcd5brs97Yad+QXncXcoQS9iD5+ls=
+	s=default; t=1622042617;
+	bh=mjujcDKapi92/1uko+Zmt45p9R2JcRlM5uRMk5ZXlow=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZeWn7xKX3+0ujIqdN0zccH5EpXdzTzFCN2BvXDOM0uOIyjLxrenv8XZxdm4O5xYh6
+	 aO+OwFB2fl31BG8UjwoR+ZVHYHHnsAL4QKfM/lkeACMhoRvjijVaBiLbtFkbT1vhh6
+	 K+GKn0GRK+WEn7AXjjkquhHuD9LyMJrtk6pAHQ8w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67496F80260;
-	Wed, 26 May 2021 16:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4DFDF8024D;
+	Wed, 26 May 2021 17:22:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53E80F8025C; Wed, 26 May 2021 16:33:04 +0200 (CEST)
+ id F3C9AF8025C; Wed, 26 May 2021 17:22:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2917AF8011B
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 16:32:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2917AF8011B
-Received: from dggems706-chm.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FqtdK0lHNzmV6V;
- Wed, 26 May 2021 22:29:57 +0800 (CST)
-Received: from dggeml759-chm.china.huawei.com (10.1.199.138) by
- dggems706-chm.china.huawei.com (10.3.19.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Wed, 26 May 2021 22:32:48 +0800
-Received: from localhost.localdomain (10.175.102.38) by
- dggeml759-chm.china.huawei.com (10.1.199.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Wed, 26 May 2021 22:32:48 +0800
-From: Wei Yongjun <weiyongjun1@huawei.com>
-To: <weiyongjun1@huawei.com>, Simon Shields <simon@lineageos.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@canonical.com>, Sylwester Nawrocki
- <s.nawrocki@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>
-Subject: [PATCH -next] ASoC: samsung: midas_wm1811: Fix build error when
- CONFIG_GPIOLIB is not set
-Date: Wed, 26 May 2021 14:43:39 +0000
-Message-ID: <20210526144339.2392592-1-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.175.102.38]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggeml759-chm.china.huawei.com (10.1.199.138)
-X-CFilter-Loop: Reflected
-Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91ADAF8011B
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 17:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91ADAF8011B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="h1wALFb5"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="AqJ1u9nl"
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622042517; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qHPI/SBU9egMaXs5Nx6gofmCMs4+Q9WeUYFfTrzVzNA=;
+ b=h1wALFb51lXewXo0fkwAnHxqR4jl4xLOZhm8JFHgpz7pElmdCkjhxU60gYs+0mXjn/MDiB
+ 66/UdG1L7CpcdfrkkVzO7XBKTrWiSFR713qNGkl7evXHWV943h41fxp6JjPCyH9pL/kb36
+ 92ee5726t5HCNS/1EFeSlw6TNpSy1Kk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622042517;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qHPI/SBU9egMaXs5Nx6gofmCMs4+Q9WeUYFfTrzVzNA=;
+ b=AqJ1u9nl7IVqh733Gb3c5iu7FqsjMYE0UI37gfmlXJZS72gMBDAp12hPHIW+6khcsRL+uB
+ +NxxmfYDcloVqmBg==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1A161B273;
+ Wed, 26 May 2021 15:21:57 +0000 (UTC)
+Date: Wed, 26 May 2021 17:21:56 +0200
+Message-ID: <s5h1r9ta5bf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: Sparse errors
+In-Reply-To: <afaf87c4-7ad9-626c-efb0-2b1c254950da@linux.intel.com>
+References: <6b86f44e-82e0-3530-b579-1b054f459880@linux.intel.com>
+ <s5ha6oiaqo6.wl-tiwai@suse.de>
+ <afaf87c4-7ad9-626c-efb0-2b1c254950da@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Colin Ian King <colin.king@canonical.com>, alsa-devel@alsa-project.org,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,46 +93,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix build error when CONFIG_GPIOLIB is not set:
+On Wed, 26 May 2021 16:17:18 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 5/26/21 2:40 AM, Takashi Iwai wrote:
+> > On Tue, 25 May 2021 21:32:27 +0200,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >> Hi Takashi,
+> >> Sparse reports a lot of new issues in our last checks with more options:
+> >>
+> >> export ARCH=x86_64 CF="-Wsparse-error -Wsparse-all
+> >> -Wno-bitwise-pointer -Wno-pointer-arith -Wno-typesign -Wnoshadow
+> >> -Wno-sizeof-bool"
+> >> make -k sound/ C=2
+> >>
+> >> most are linked to the __user and pcm_format_t restricted types, but I
+> >> found the simpler ones below which are useless comparisons. I can send
+> >> a patch for the last but not sure how to address the first two.
+> >>
+> >> Thanks for your feedback
+> >> -Pierre
+> >>
+> >> sound/core/info.c:95:38: error: self-comparison always evaluates to false
+> >>
+> >> 	if (pos < 0 || (long) pos != pos || (ssize_t) count < 0)
+> >> 		return false;
+> >>
+> >> not sure what the second comparison is meant to check?
+> >
+> > As Dan suggested, it's a check only for 32bit architecture for a 64bit
+> > value.
+> 
+> Isn't there a better way to check this?
 
-sound/soc/samsung/midas_wm1811.c: In function 'midas_fm_set':
-sound/soc/samsung/midas_wm1811.c:205:3: error:
- implicit declaration of function 'gpiod_set_value_cansleep';
- did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
-  205 |   gpiod_set_value_cansleep(priv->gpio_fm_sel, 1);
-      |   ^~~~~~~~~~~~~~~~~~~~~~~~
-      |   gpio_set_value_cansleep
-sound/soc/samsung/midas_wm1811.c: In function 'midas_probe':
-sound/soc/samsung/midas_wm1811.c:445:22: error:
- implicit declaration of function 'devm_gpiod_get_optional';
- did you mean 'devm_clk_get_optional'? [-Werror=implicit-function-declaration]
-  445 |  priv->gpio_fm_sel = devm_gpiod_get_optional(dev, "fm-sel", GPIOD_OUT_HIGH);
-      |                      ^~~~~~~~~~~~~~~~~~~~~~~
-      |                      devm_clk_get_optional
-sound/soc/samsung/midas_wm1811.c:445:61:
- error: 'GPIOD_OUT_HIGH' undeclared (first use in this function);
- did you mean 'GPIOF_INIT_HIGH'?
-  445 |  priv->gpio_fm_sel = devm_gpiod_get_optional(dev, "fm-sel", GPIOD_OUT_HIGH);
-      |                                                             ^~~~~~~~~~~~~~
-      |                                                             GPIOF_INIT_HIGH
+Sure, there are hundreds other ways, but they might be longer :)
+If any, a comment would be deserved.
 
-Fixes: fd0ea9cd9698 ("ASoC: samsung: Add sound support for Midas boards")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
----
- sound/soc/samsung/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+> >> sound/drivers/opl3/opl3_midi.c:183:60: error: self-comparison always
+> >> evaluates to false
+> >>
+> >> This indeed makes no sense. the voice_time and vp->time are not
+> >> changed in the loop, the test is either redundant or something else is
+> >> missing.
+> >
+> > The code doesn't look right, indeed.  It's likely meant to be vp2
+> > instead of vp.
+> >
+> > --- a/sound/drivers/opl3/opl3_midi.c
+> > +++ b/sound/drivers/opl3/opl3_midi.c
+> > @@ -180,8 +180,7 @@ static int opl3_get_voice(struct snd_opl3 *opl3, int instr_4op,
+> >   			if (vp2->state == SNDRV_OPL3_ST_ON_2OP) {
+> >   				/* kill two voices, EXPENSIVE */
+> >   				bp++;
+> > -				voice_time = (voice_time > vp->time) ?
+> > -					voice_time : vp->time;
+> > +				voice_time = max(voice_time, vp2->time);
+> >   			}
+> >   		} else {
+> >   			/* allocate 2op voice */
+> 
+> It's really old code, unchanged since the first git commit in
+> 2005... Are you comfortable changing this code? One of those cases
+> where if people didn't notice an issue in 16+ years maybe no one cares
+> or even uses this driver...
 
-diff --git a/sound/soc/samsung/Kconfig b/sound/soc/samsung/Kconfig
-index a2221ebb1b6a..22be597b1dd9 100644
---- a/sound/soc/samsung/Kconfig
-+++ b/sound/soc/samsung/Kconfig
-@@ -228,6 +228,7 @@ config SND_SOC_SAMSUNG_ARIES_WM8994
- config SND_SOC_SAMSUNG_MIDAS_WM1811
- 	tristate "SoC I2S Audio support for Midas boards"
- 	depends on SND_SOC_SAMSUNG
-+	depends on GPIOLIB
- 	select SND_SAMSUNG_I2S
- 	select SND_SOC_WM8994
- 	help
+It'll be a safe change, so I'd apply the fix.
 
+It's about the choice of an OPL3 voice, and the function tries to find
+the best one.  The code seems to want to align with the timestamp of
+the coupled voice, and even if it's not right, the impact is very
+limited.
+
+
+thanks,
+
+Takashi

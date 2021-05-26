@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4866239216F
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 22:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44780392175
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 22:24:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C93ED1713;
-	Wed, 26 May 2021 22:22:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C93ED1713
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9D78171C;
+	Wed, 26 May 2021 22:24:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9D78171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622060606;
-	bh=WXI12XNTHuBRM2fjrdB692zNZy/mjj9CXfE0Y7mSC0g=;
+	s=default; t=1622060697;
+	bh=Rnub20E7d/Q+YresNLWjUPQud71JTZ9FDk3JoWaB4Ac=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OrarshHEMdzFyRKIVOa1ZcfNS2KPX3wLzjHk5jrjDAlBp0NhuWSJBkE3OE5lvTlbj
-	 XFVvfDvnqUBWFEmAoDsOTja3K88J3kaCOgsxYB5ETBemGAcc0oHmiNkbsmB82cX5Sf
-	 bZ1uTNsVG0TEPQ9bTfnClpsYNcQYAJ8acAeFTyGc=
+	b=pbk17xmTKbeSRXMVW337XuJ1vmiW547cCqNCUMgpLAV9jG+g6N4fEbEf68qa4QdxU
+	 odStkivzzlc+yq+chviTiq5WGo0b3gWDNPd2VHIekb3atLxxLhnfGMBK3YPFxUsJ5B
+	 A2O7fAUN92LGWk5/j/a6tgNPDIXgBwYH8ABQEDfU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83610F80260;
-	Wed, 26 May 2021 22:21:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73D6FF804AB;
+	Wed, 26 May 2021 22:22:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3503DF80212; Wed, 26 May 2021 22:21:56 +0200 (CEST)
+ id B2779F80212; Wed, 26 May 2021 22:22:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FC76F80212
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 22:21:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FC76F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61E2BF80264
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 22:21:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61E2BF80264
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="smIneEiv"
+ header.b="TM1mcR3j"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Content-Transfer-Encoding:
  Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
  To:From:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uy1QePjrgCC4wOqAsmEnrUitp3M4B+SpgbQrQac7CNU=; b=smIneEiv8KZsx2ZktnTi9iL43Q
- qzEPEoA3MgeACgnLSPRNsYNZ84ifEpLHhvZhkqkKxHPQtl1I2IZw7Jbg8PcX+Mod/6yD70IvO948F
- 62xlRMrVudsSRotQmdyunka8seHnAiafnwsspQkq4wSvofIQO+iur9yhOR4zelK6+bJE=;
+ bh=FR4Jrc6UzDYcZneMNMkrrs/GKN+Fv8BlCPwuM+IslNs=; b=TM1mcR3jz+pbT0+xUzPbzVI5pz
+ vjlW+weomgBYv5VxfPqNWTRiHlAssqwTe64OIZUbIDXjhVKcH0FflrPsUVm0faDv0kcBPgsyatCC2
+ bdo9UYvixrXrMkhZs1AVGp8p+jF4om7Lpf0tFhE9+gqKIDjoObLihUppyYCt/wAVTCHQ=;
 Received: from 94.196.90.140.threembb.co.uk ([94.196.90.140]
  helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <broonie@sirena.org.uk>)
- id 1lm02H-0067nd-KX; Wed, 26 May 2021 20:21:49 +0000
+ id 1lm02H-0067nf-Pt; Wed, 26 May 2021 20:21:49 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 4064AD0E9E2; Wed, 26 May 2021 21:21:48 +0100 (BST)
+ id 444BBD0E9E3; Wed, 26 May 2021 21:21:48 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- David Rhodes <drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l3x: Use neutral language in amp drivers
-Date: Wed, 26 May 2021 21:21:43 +0100
-Message-Id: <162206049350.1916760.9320739424807049871.b4-ty@kernel.org>
+To: lgirdwood@gmail.com, james.schulman@cirrus.com, perex@perex.cz,
+ david.rhodes@cirrus.com, YueHaibing <yuehaibing@huawei.com>, tiwai@suse.com
+Subject: Re: [PATCH -next] ASoC: cs43130: Use DEVICE_ATTR_RO macro
+Date: Wed, 26 May 2021 21:21:44 +0100
+Message-Id: <162206049349.1916760.15392128119414962686.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210525194439.2232908-1-drhodes@opensource.cirrus.com>
-References: <20210525194439.2232908-1-drhodes@opensource.cirrus.com>
+In-Reply-To: <20210524114017.18672-1-yuehaibing@huawei.com>
+References: <20210524114017.18672-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: broonie@kernel.org, Mark@sirena.org.uk, Brown@sirena.org.uk
+Cc: alsa-devel@alsa-project.org, Brown@sirena.org.uk,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, Mark@sirena.org.uk
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,14 +90,14 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Mark Brown,,, <broonie@kernel.org>
 
-On Tue, 25 May 2021 14:44:39 -0500, David Rhodes wrote:
-> Revise variable names and comments in
-> cs35l35 and cs35l36 amp drivers.
+On Mon, 24 May 2021 19:40:17 +0800, YueHaibing wrote:
+> Use DEVICE_ATTR_RO() helper instead of plain DEVICE_ATTR(),
+> which makes the code a bit shorter and easier to read.
 
 Applied, thanks!
 
-[1/1] ASoC: cs35l3x: Use neutral language in amp drivers
-      commit: 4e7f0ea0e2e73851cd988f7c334c01d131048abf
+[1/1] ASoC: cs43130: Use DEVICE_ATTR_RO macro
+      commit: 6405941e6884dac80f836acfc7ec52089ea6aa99
 
 Best regards,
 -- 

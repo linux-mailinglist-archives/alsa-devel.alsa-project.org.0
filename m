@@ -2,77 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A88C7391120
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 09:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D50391175
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 May 2021 09:42:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C48E174C;
-	Wed, 26 May 2021 08:59:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C48E174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44F241716;
+	Wed, 26 May 2021 09:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F241716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622012444;
-	bh=zA2QvNgjZP15jecdx8Pd4tTv8kapxnzLhNsLgp4t18s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1622014936;
+	bh=95XV/mJeUTgz1o5r/9Gr5Ag/oQpNonoyscxX6HGyuL8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QiD/C2EybPRpsmuk55J+82rN7tSy6dBvenOgDm+Os5SM77hDdbIjthPxq8QtGip72
-	 NUKMgRYXigdnLRfX8Sua/cwrvZzIGY4YSWspVRePXoDHUnh+pWEaY8dDMPcq12NtBZ
-	 v01RONlNl1E+B3zxDPnDf5ISaBGW1GgaTTeJX87o=
+	b=kiH8J4QQNU7TMJHLfm5Ad7Bmyjy9SaIOaOJoYpk2fm1ds0EGPkdaO1a67ZoE2uuwa
+	 9u7JCcvQopat2g+Eqm95KblT2O3smg52/KMISDq8FO59jSy98vCfaSK5KNyd33OnzQ
+	 mTDr8Rq1Xe5Wvrd1EwY26IpitFU4G5vrWiM1/0sI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65DCFF80158;
-	Wed, 26 May 2021 08:59:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5215F80158;
+	Wed, 26 May 2021 09:40:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95231F80157; Wed, 26 May 2021 08:59:13 +0200 (CEST)
+ id B9B29F80157; Wed, 26 May 2021 09:40:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com
- [209.85.222.42])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF09CF8011B
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 08:59:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF09CF8011B
-Received: by mail-ua1-f42.google.com with SMTP id w5so204813uaq.9
- for <alsa-devel@alsa-project.org>; Tue, 25 May 2021 23:59:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rbIgMpemtTHbO3qkKfLpmSkVH9ZxGhJc4CNxNEzF53c=;
- b=SqMfuirUvwdCUqbYXUtDms8P/bZzbTX0+SCcuthUbd4HSS8zGV5dcfsllzbCnLdTwG
- t9NUDndyI2igRnEvJkhwcrq1aqzIeVk/1mY/f3Y9kePksDujbAHrknqbAledtW6ybKaH
- wGeZkjAM526/NnT2UKOt2YC+b+tfrWqxaS6l1ZyeBEdmkz4IGmY9Thn4ieUEeVNPAZhK
- NCh9Q5xwZnk3pR1Ccw3lKzKOfhBzIwxhQz29LoioNqWc+nlXgfVsL3cbEIWnJiy9s1sK
- WAp1eXIr+3LvCt9fvBfMFBl++9mMA7TXUdQeHIAIEQp+CqV7Z/ZR4WQIhYRITEGh3KXL
- Najw==
-X-Gm-Message-State: AOAM533l3MnW+YQGwXedEQSbQlLgEVUy/i0nOqEunn3dhIQF9CIAKMtj
- 1uZDyEVb57y9NsvGH3lECwOZOfVvZUo8Bws5F20=
-X-Google-Smtp-Source: ABdhPJyr2DwGlAerbBy+44CDrneQvQVFvTmw9Cq5QMkNCZYkuk62lkiswIekqmvB9MCX0AIWQ4asPIizvWD4iBpX3nw=
-X-Received: by 2002:ab0:6584:: with SMTP id v4mr3714762uam.100.1622012345211; 
- Tue, 25 May 2021 23:59:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <87y2c4oe3y.wl-kuninori.morimoto.gx@renesas.com>
- <87tumsoe2p.wl-kuninori.morimoto.gx@renesas.com>
- <CAMuHMdXLYvEBE0bVk=8D+GkuaHRUvdTayCQPqTYAkPJEaW8MDQ@mail.gmail.com>
- <87zgwimnuu.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zgwimnuu.wl-kuninori.morimoto.gx@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 26 May 2021 08:58:53 +0200
-Message-ID: <CAMuHMdVhnKeztftOJEZhSg8bXArzUDXAmHSMPVfbMamV3ihw+g@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: rsnd: add null CLOCKIN support
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBE30F8010D
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 09:40:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBE30F8010D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="0hD7FouA"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4oRkO0z5"
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622014841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTPFRqhh6JSx/ggr3vZMjfP9IEHvHmbXCJMu9eRcsCs=;
+ b=0hD7FouA/PITPowff1yOAWp1AJFk+paMrgDb+L9SC7zHhyhk7J7XtOOoK78qwhm6dWAkrG
+ ghcbqRIaR6YGDK0VPHF7aFe3HoL+Qbcr9+upRHg8uj3a5QsnlKsWqLZJAwNnGCkcfG1U2i
+ xtGeNMqmESw55QMcbBEy1jcpQ87jLNs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622014841;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTPFRqhh6JSx/ggr3vZMjfP9IEHvHmbXCJMu9eRcsCs=;
+ b=4oRkO0z5CfuMkv6/CuQKvd98qMd+rOmJwMc6a4Fp95aSoUhtpMoDKuMUou2dk9VY/B0Cta
+ XxF5xObvhg7Y7GDg==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 808E7AE38;
+ Wed, 26 May 2021 07:40:41 +0000 (UTC)
+Date: Wed, 26 May 2021 09:40:41 +0200
+Message-ID: <s5ha6oiaqo6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: Sparse errors
+In-Reply-To: <6b86f44e-82e0-3530-b579-1b054f459880@linux.intel.com>
+References: <6b86f44e-82e0-3530-b579-1b054f459880@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Colin Ian King <colin.king@canonical.com>, alsa-devel@alsa-project.org,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,68 +91,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
+On Tue, 25 May 2021 21:32:27 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> Hi Takashi,
+> Sparse reports a lot of new issues in our last checks with more options:
+> 
+> export ARCH=x86_64 CF="-Wsparse-error -Wsparse-all
+> -Wno-bitwise-pointer -Wno-pointer-arith -Wno-typesign -Wnoshadow
+> -Wno-sizeof-bool"
+> make -k sound/ C=2
+> 
+> most are linked to the __user and pcm_format_t restricted types, but I
+> found the simpler ones below which are useless comparisons. I can send
+> a patch for the last but not sure how to address the first two.
+> 
+> Thanks for your feedback
+> -Pierre
+> 
+> sound/core/info.c:95:38: error: self-comparison always evaluates to false
+> 
+> 	if (pos < 0 || (long) pos != pos || (ssize_t) count < 0)
+> 		return false;
+> 
+> not sure what the second comparison is meant to check?
 
-On Wed, May 26, 2021 at 12:48 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
-> > I'm not such a big fan of creating dummy clocks.
-> > And what if a future SoC lacks two CLOCKIN pins? Then you'll try to
-> > register a second dummy clock with the same name, which will fail,
-> > presumably?
->
-> I think current code will reuse same null_clk for these.
+As Dan suggested, it's a check only for 32bit architecture for a 64bit
+value.
 
-Oh right, I missed the static clk_hw pointer.
-What if you unload the snd-soc-rcar.ko module?
+> sound/drivers/opl3/opl3_midi.c:183:60: error: self-comparison always
+> evaluates to false
+> 
+> This indeed makes no sense. the voice_time and vp->time are not
+> changed in the loop, the test is either redundant or something else is
+> missing.
 
-> > This should only be done when the clock does not exist, not in case
-> > of other errors (e.g. -EPROBE_DEFER, which isn't handled yet)?
-> >
-> > As devm_clk_get_optional() already checks for existence, you could use:
-> >
-> >     struct clk *clk = devm_clk_get_optional(dev, clk_name[i]);
-> >     if (!clk)
-> >             clk = rsnd_adg_null_clk_get(priv);
->
-> Ah, indeed.
-> Thanks. I will fix it.
->
-> > But in light of the above (avoiding dummy clocks), it might be more
-> > robust to make sure all code can handle adg->clk[i] = NULL?
->
-> The reason why I don't use adg->clk[i] = NULL is it is using this macro
->
->         #define for_each_rsnd_clk(pos, adg, i)          \
->                 for (i = 0;                             \
->                      (i < CLKMAX) &&                    \
->                      ((pos) = adg->clk[i]);             \
->                      i++)
->
-> The loop will stop at (A) if it was
->
->         adg->clk[0] = audio_clk_a;
->         adg->clk[1] = audio_clk_b;
-> (A)     adg->clk[2] = NULL
->         adg->clk[3] = audio_clk_i;
+The code doesn't look right, indeed.  It's likely meant to be vp2
+instead of vp.
 
-If you use this macro everywhere, that is easily handled by the
-following variant:
+--- a/sound/drivers/opl3/opl3_midi.c
++++ b/sound/drivers/opl3/opl3_midi.c
+@@ -180,8 +180,7 @@ static int opl3_get_voice(struct snd_opl3 *opl3, int instr_4op,
+ 			if (vp2->state == SNDRV_OPL3_ST_ON_2OP) {
+ 				/* kill two voices, EXPENSIVE */
+ 				bp++;
+-				voice_time = (voice_time > vp->time) ?
+-					voice_time : vp->time;
++				voice_time = max(voice_time, vp2->time);
+ 			}
+ 		} else {
+ 			/* allocate 2op voice */
 
-    #define for_each_rsnd_clk(pos, adg, i)          \
-            for (i = 0; (pos) = adg->clk[i], i < CLKMAX; i++)            \
-                    if (pos) {                      \
-                            continue;               \
-                    } else
 
-There are several existing examples of such a construct.
+> sound/pci/lx6464es/lx_core.c:677:34: error: self-comparison always
+> evaluates to false
+> 
+> That seems like dead code indeed:
+> 
+> 	u32 channels = runtime->channels;
+> 
+> 	if (runtime->channels != channels)
+> 		dev_err(chip->card->dev, "channel count mismatch: %d vs %d",
+> 			   runtime->channels, channels);
 
-Gr{oetje,eeting}s,
+Yes, this can be deleted.
 
-                        Geert
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+thanks,
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Takashi
+

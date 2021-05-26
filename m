@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F553392312
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 01:12:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3953A392313
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 01:13:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5371172D;
-	Thu, 27 May 2021 01:11:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5371172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C36361720;
+	Thu, 27 May 2021 01:12:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36361720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622070767;
-	bh=RK1+6RZCRH5a717yVji/EITwcmJ7fkj129RV8FDrWPU=;
+	s=default; t=1622070779;
+	bh=isoMeugTez54myAgsKJevLLjw6zLhmI6jiunXBsdv14=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PtJuZ2WtFQ5k1Mq8BFS7IGKrV2xubxF/ToDgzXviRDNw82oYHAusaFyMm8NXzFyH+
-	 D668twItaB54HTOK/2qR9F+Jj+Mn+vWz35qMr6opcz0PKaCMQZmnFn5V/qOm4YPOth
-	 iwowXeaSRCDdsx960Hx6VqwnqmdCYsU7yO2bi3w4=
+	b=QSc8V+xtUglmxZUdp0aEWj1V0f1AJlncYtMj72A8TMS5aD4aO8MR0w6WinNdjCQqr
+	 h50BTp0NTTtfabKJKiCsWB01Gvzca/10PacYA50kVtiqrKBPbgyoWF9KmT+12WMejL
+	 spnHe/Thy+hWtY/EZJhiVsM2irXwuHhbDoKDZib8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D4CDF80302;
-	Thu, 27 May 2021 01:10:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64FA7F802CA;
+	Thu, 27 May 2021 01:10:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DDE0F80274; Thu, 27 May 2021 01:10:29 +0200 (CEST)
+ id AE769F802CA; Thu, 27 May 2021 01:10:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20ABEF80264
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 01:10:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20ABEF80264
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFD4CF802BE
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 01:10:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFD4CF802BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MIcepU19"
-Received: by mail-lf1-x12d.google.com with SMTP id x38so3023953lfa.10
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 16:10:24 -0700 (PDT)
+ header.b="YR9BmeUR"
+Received: by mail-lf1-x12f.google.com with SMTP id q7so5060414lfr.6
+ for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 16:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=J91A2ezJDwmmBjDbHzFnYK1SauhUWhSDtbv+ex6BQOE=;
- b=MIcepU1970vDHoUb96UFwfdYyRxbLToMCwifD7g/JcbLZv+mJFPdH5/BH15slSU09p
- OUpIpHClX62/SKVvDxMGfInkkAhYT57wIeHj5qgu8Kzf4PafVDYW4VcPDswnu6ZpC3VX
- nDNZfXNJCTJrsSM/Du2AjquLHl2Tz4oInZmK4VXmh9Kx1rG6Trfgtrzvs03+HHtUO6G5
- 3Cq+k68/P/+yaxiTL1RS0tBci5pODFWxJzZaD2IegVe9TLbXk9rJi/Al29CsYF/mDCdO
- rEVYaPA1UwPo2z7OAZvxrIZgzys/RnpNV8C+PGdfG+Io+McJ7QNw92JsnFneNCyZJM1n
- bEJQ==
+ bh=wxumGjjKmyhy9AtNX/EtM7gYeJBe+fSFWDY+3BCIpJU=;
+ b=YR9BmeUR/SYPMeg44xeLZIrjLsDpNsbNs1BHLe9YOZCku+u9FMj/5Q/EtP+jIcxg61
+ 7UbRVsnNsynH//WdoJ2KPnTSHRBhVZGYltbLHewlvJCP23PfWwY2g/HE56gq5jT3sH/Y
+ mnbCcCokGDs8mLyVgNjkQZHu0fahoJPD+fzGn5YNnz8zM51jusobKXgx+FA0EMhGvbi/
+ jbxYeQKw/eTyDPBRab0KtPq6wuXmO/UnYfYDUWt8APYN0MvCXPj4Qn7V1tcA3KYrZU1I
+ jSjJMMZqZJxJXy2qeeRpbLrSxqXR0RalN4rtyWnjRH6eV235rlSL7toVVLb3pOs7jsMu
+ 9rUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=J91A2ezJDwmmBjDbHzFnYK1SauhUWhSDtbv+ex6BQOE=;
- b=B33dAwuH8UGlW0ajNqjKYzO5D4tKL7PCK2zj+OXutb1mh08X5LR7I0se8+zDrGg3O+
- zlLPTfKZpD0AqsdNDlBI3V7lggWjmuE1bUav4SYKnsowSHTT8IRfvLr43rQ1zVAWSFB3
- mAWvphJ9waXoFLGKdI1A2gUY0I6Z/x5CBon00jY39dWIPUlvnr5xQoK9xReZyF9tFZPR
- 1VKbQmAmecxY4MU1Hnnl1fh3LfB+Occ6tbr17OZtaBXtmaSST5tuW4hyLOcmegG4Oej8
- nUXweBC0XHqSSnqTBQHovJJjq+DfX/W69vR0aCPMz1Cv59Z8JCmkfoOfQ0PYEeoJDwYo
- MJ+w==
-X-Gm-Message-State: AOAM531YbOGCmtmF6lHOmmqOj7tCuN9ftFjC3YEV3RVveQJFN924lsyV
- 9pE1kHTwlG9XSA4b2c20PEs=
-X-Google-Smtp-Source: ABdhPJxT4uY6M8RKPTvy2BvhyVq4g0Cd0qirCeVYzU5lkL6YtQEwOkpw5HntEv08KNRZ9HTvwRgSnw==
-X-Received: by 2002:a19:f012:: with SMTP id p18mr293953lfc.493.1622070624086; 
+ bh=wxumGjjKmyhy9AtNX/EtM7gYeJBe+fSFWDY+3BCIpJU=;
+ b=IfUJ4yYUk2yHpZ+lCUbC+QI/B0gqFigMjiui3rehwzb55PIBUaxsY93jaOkKLYlUNx
+ JRykjo5dNjO+Nz3sy88jAJJ43LFC9nZEkcXG7PSgBVBnQBxNoQL6vfWv9iZc3hTlk8gh
+ 14zoLFxB0YO8JejiEKPmJ0whzKNVHy5cUQzKIEeIlkWAwuZ50EmiqQIGyTTvid/veP3k
+ Tgak8HUkEbcZIy+KpQWVZ9ZtSsfTPVUKn1U+fRg84LzNMFt+8dP4yd6+bTAPOPoQYYDd
+ LcIQ0cxdfJthQRB6pAzbXRhmNEC1kIU33dAvCdAekZ8yvDvh3ZJkhWwP6f8ZfkQDYd1l
+ YMbQ==
+X-Gm-Message-State: AOAM532qCFPOz3f1nYJn1O37Qv08bFrCnM7b5ICfA456RFI+duUBC2is
+ WdRBZugvh+UdIR15SHfu6xQ=
+X-Google-Smtp-Source: ABdhPJzU0//HLO1M/s3OeXk8PSoCR7XVVz3EuRNaT6s/U8dFBo9RZn0KG+0JF/za48r6ATihAp0Dlg==
+X-Received: by 2002:ac2:5304:: with SMTP id c4mr313085lfh.634.1622070624981;
  Wed, 26 May 2021 16:10:24 -0700 (PDT)
 Received: from localhost.localdomain (h-98-128-228-193.NA.cust.bahnhof.se.
  [98.128.228.193])
- by smtp.gmail.com with ESMTPSA id d5sm35802lfi.144.2021.05.26.16.10.23
+ by smtp.gmail.com with ESMTPSA id d5sm35802lfi.144.2021.05.26.16.10.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 May 2021 16:10:23 -0700 (PDT)
+ Wed, 26 May 2021 16:10:24 -0700 (PDT)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 2/5] ASoC: wm5102: Constify static struct snd_compress_ops
-Date: Thu, 27 May 2021 01:10:10 +0200
-Message-Id: <20210526231013.46530-3-rikard.falkeborn@gmail.com>
+Subject: [PATCH 3/5] ASoC: wm5110: Constify static struct snd_compress_ops
+Date: Thu, 27 May 2021 01:10:11 +0200
+Message-Id: <20210526231013.46530-4-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210526231013.46530-1-rikard.falkeborn@gmail.com>
 References: <20210526231013.46530-1-rikard.falkeborn@gmail.com>
@@ -109,20 +109,20 @@ compiler to put it in read-only memory.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- sound/soc/codecs/wm5102.c | 2 +-
+ sound/soc/codecs/wm5110.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
-index 34b665895bdf..621598608bf0 100644
---- a/sound/soc/codecs/wm5102.c
-+++ b/sound/soc/codecs/wm5102.c
-@@ -1989,7 +1989,7 @@ static unsigned int wm5102_digital_vu[] = {
- 	ARIZONA_DAC_DIGITAL_VOLUME_5R,
+diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
+index 76efca0fe515..5c2d45d05c97 100644
+--- a/sound/soc/codecs/wm5110.c
++++ b/sound/soc/codecs/wm5110.c
+@@ -2355,7 +2355,7 @@ static unsigned int wm5110_digital_vu[] = {
+ 	ARIZONA_DAC_DIGITAL_VOLUME_6R,
  };
  
--static struct snd_compress_ops wm5102_compress_ops = {
-+static const struct snd_compress_ops wm5102_compress_ops = {
- 	.open		= wm5102_open,
+-static struct snd_compress_ops wm5110_compress_ops = {
++static const struct snd_compress_ops wm5110_compress_ops = {
+ 	.open		= wm5110_open,
  	.free		= wm_adsp_compr_free,
  	.set_params	= wm_adsp_compr_set_params,
 -- 

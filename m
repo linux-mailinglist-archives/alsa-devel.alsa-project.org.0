@@ -2,84 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE2963924AD
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3BA3924CC
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:26:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 656F1170C;
-	Thu, 27 May 2021 04:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656F1170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E996A16D5;
+	Thu, 27 May 2021 04:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E996A16D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622080971;
-	bh=zZtbcaLYQh3e9AXPt6H86r3iJV5qIHyybnOkJo+pHRo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AKbMW4eABvaEo1elsJTDBahDHKuEAM/h5EZVmJIzV88+1OrPHNcar7RvyEa6yLl49
-	 gPgAfIiNijJ+SiW6hFjXU6Tc46dQgBXTNHIn6Zfu2+B3l1daYdaEMWwaRfuqOqhnTL
-	 lNr4pM3C99ITmOSRccbysa3/Iu8aTabgA3prvIvs=
+	s=default; t=1622082396;
+	bh=H6aZGsrl7ZV1MY4oioovtZKXVBHpx0p0oVO4fk8EYbw=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BM3vih8py6QKppg7Ogg9399M3QOHB9qj1pA9/4gj3FrLiHuYH6t3mQhyiR6Gy5ciz
+	 legB2So0D33wb94nTrDVCHGWWZmD/zptO0a6nnY1iMCRj3GtggVdGqLYq8hV6BHc/F
+	 Y8GIE09khU8SRzo3vbWuY4U1LeeNYxYUV02Y90Xg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA403F80147;
-	Thu, 27 May 2021 04:01:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82288F80116;
+	Thu, 27 May 2021 04:25:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 453C2F8012E; Thu, 27 May 2021 04:01:18 +0200 (CEST)
+ id 7D14FF8012E; Thu, 27 May 2021 04:25:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D688F800EA
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:01:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D688F800EA
-Received: from mail-wr1-f72.google.com ([209.85.221.72])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <jeremy.szu@canonical.com>) id 1lm5KI-00008d-F5
- for alsa-devel@alsa-project.org; Thu, 27 May 2021 02:00:46 +0000
-Received: by mail-wr1-f72.google.com with SMTP id
- c13-20020a5d6ccd0000b029010ec741b84bso1114157wrc.23
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 19:00:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eO/Q7/DwdHgvkIjY5sWiF4+6czPdEPcOWJ8cjVak3Sg=;
- b=DwXayyk7oRMd3tAMDFIM9Y4kJGI2uNoF/zus8OTq5U68LRAyEePxc6kIZH723fVbfi
- 9Yfmo48euPPJ3x2kg7cRWc7PtuyXlYFbbL6MlSMTsxHItfeHG/k3fcF+2OkQHAIva4KJ
- VYjJpzAcctdtQ0ksXGuB+jO0BqbnP65uwbFBGKalI3VdVmEWu/iLXMzpuk4GqXIylYRg
- I9NecxmYq+0mv0f21CoY8hVAXc1QBaN0Khwy1e1XuECSw+NozfttpA9ePq9ZZpQkekbi
- CodNHfjnBzx7Pe4NAexBl72xBuLqTXQr9kc/BnWK/vYAJSudut8ceihbmPwklZz1yark
- ArWA==
-X-Gm-Message-State: AOAM5303M6MeEvvf+XJNrMZqLUTeSv08KfxbZqZIyZL2AAFT0xFvwVl/
- cb0mYsHbTyw2tU2vZxUsa4L8fLI7s5btKkHogESBtZPODloKHFJgGidtMeyb80XNrZz/MfO9gTS
- blf/koFmlE9h2zAYdF4BOCo4fD2RXfcU6/fBFuOps+lDQj4NluLbw+etI
-X-Received: by 2002:a05:600c:35c3:: with SMTP id
- r3mr1054045wmq.23.1622080846092; 
- Wed, 26 May 2021 19:00:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxEvsKjX5vb6v9LJQTnIbKsJVPCMP26VU/hVaoqYsv3G8T765p39uC6V4zYsYwNTnZ7ewtnItkx8x5xAUazLDc=
-X-Received: by 2002:a05:600c:35c3:: with SMTP id
- r3mr1054034wmq.23.1622080845788; 
- Wed, 26 May 2021 19:00:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
-In-Reply-To: <20210519170357.58410-1-jeremy.szu@canonical.com>
-From: Jeremy Szu <jeremy.szu@canonical.com>
-Date: Thu, 27 May 2021 10:00:34 +0800
-Message-ID: <CAKzWQkyzbUU8FekwX+_pkxSVFv0_1xjOQa7ztJRMR02cunP+tQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-To: tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
- Hui Wang <hui.wang@canonical.com>, PeiSen Hou <pshou@realtek.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id E5794F8010C
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:24:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5794F8010C
+Date: 27 May 2021 11:24:55 +0900
+X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82371507"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 27 May 2021 11:24:55 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id A3DD1401474A;
+ Thu, 27 May 2021 11:24:55 +0900 (JST)
+Message-ID: <87k0nkncaw.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v3 0/7] ASoC: adds new .auto_selectable_formats support
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +64,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
-
-Would you please help to review these quirks? Many thanks.
 
 
-On Thu, May 20, 2021 at 1:04 AM Jeremy Szu <jeremy.szu@canonical.com> wrote:
->
-> The HP EliteBook 855 G8 Notebook PC is using ALC285 codec which needs
-> ALC285_FIXUP_HP_MUTE_LED fixup to make it works. After applying the
-> fixup, the mute/micmute LEDs work good.
->
-> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
-> ---
->  sound/pci/hda/patch_realtek.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 552e2cb73291..9d68f591c6bf 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -8291,6 +8291,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->         SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
->         SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
->         SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-> +       SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
->         SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
->         SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
->         SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
-> --
-> 2.31.1
->
+Hi Mark
 
+These are v3 of "ASoC: adds new .get_fmt support",
+but renamed Subject.
+
+This is a little bit challenging patch-set.
+The idea/code is almost same as v1 / v2.
+v3 has "priority" support.
+
+We need to set dai_link->dai_fmt to select CPU/Codec settings,
+and it is selected by Sound Card Driver, today.
+
+Because of it, Sound Card user need to know both CPU / Codec
+available dai_fmt, and needs to select it.
+For example simple-card / audio-graph case, it is selected by
+"format" and "bitclock/frame-master/inversion" on DT.
+
+But, it can be automatically selected if both CPU and Codec drivers
+indicate it to ALSA SoC Framework, somehow.
+
+By this patch, dai_fmt can be automatically selected from each
+driver if both CPU / Codec driver had .auto_selectable_formats.
+Automatically selectable *field* is depends on each drivers.
+
+For example, some driver want to select format "automatically",
+but want to select other fields "manually", because of complex limitation.
+Or other example, in case of both CPU and Codec are possible to be
+clock provider, but the quality was different.
+In these case, user need/want to *manually* select each fields
+from Sound Card driver.
+
+It uses Sound Card specified fields preferentially, and try to select
+non-specific fields from CPU and Codec driver settings if driver had
+.auto_selectable_formats.
+In other words, we can select all dai_fmt via Sound Card driver
+same as before.
+
+Select dai_fmt 100% automatically is very difficult and will be very complex,
+but select automatically some fields only is very easy, I guess.
+This patch-set is based on such assumption.
+
+v1 -> v2
+	- Add more detail explanation on git-log, code, comment.
+	- Possible to be Clock/Frame provider is depends on driver's situation.
+
+v2 -> v3
+	- has priority
+	- tidyup function explanation for snd_soc_dai_get_fmt()
+	- Each driver don't try to have SND_SOC_DAIFMT_CBx_CFx to avoid confusion
+
+Link: https://lore.kernel.org/r/871rb3hypy.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/871racbx0w.wl-kuninori.morimoto.gx@renesas.com
+
+Kuninori Morimoto (7):
+  ASoC: soc-core: move snd_soc_runtime_set_dai_fmt() to upside
+  ASoC: soc-core: add snd_soc_runtime_get_dai_fmt()
+  ASoC: ak4613: add .auto_selectable_formats support
+  ASoC: pcm3168a: add .auto_selectable_formats support
+  ASoC: rsnd: add .auto_selectable_formats support
+  ASoC: fsi: add .auto_selectable_formats support
+  ASoC: hdmi-codec: add .auto_selectable_formats support
+
+ include/sound/soc-dai.h       |  55 +++++++
+ sound/soc/codecs/ak4613.c     |  11 ++
+ sound/soc/codecs/hdmi-codec.c |  21 +++
+ sound/soc/codecs/pcm3168a.c   |  26 +++
+ sound/soc/sh/fsi.c            |  15 ++
+ sound/soc/sh/rcar/core.c      |  31 +++-
+ sound/soc/soc-core.c          | 288 ++++++++++++++++++++++++++--------
+ sound/soc/soc-dai.c           |  63 ++++++++
+ sound/soc/soc-utils.c         |  29 ++++
+ 9 files changed, 475 insertions(+), 64 deletions(-)
 
 -- 
-Sincerely,
-Jeremy Su
+2.25.1
+

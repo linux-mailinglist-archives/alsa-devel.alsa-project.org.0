@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D35C39276D
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:25:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC12B392774
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:25:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27732170C;
-	Thu, 27 May 2021 08:24:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27732170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60F1E1720;
+	Thu, 27 May 2021 08:24:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60F1E1720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622096735;
-	bh=SOur40t9++NjMj6g8WF8WKRCShqPx8gRGPq+odU4I3A=;
+	s=default; t=1622096749;
+	bh=E0+GaOH4CbgCcp90eeX7XucHkKzTV3m54UyJYr87U8s=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CYtdcR1pxJvLGaTAg0vc85p5Bd76nHMETN3TH/ckZbGTH2Qup29+ecRtlW0fD4sJz
-	 3IBREJjsf+8fuGfht/A3cOerrH4y4QMiMpC/lxYoctVKIuzvadGuR9CgWp4fkhglXr
-	 KcZUx2SMhhBnP23fgd9sCPH3gn0xax4TB5d2LKsA=
+	b=jCM2R3bcbk7AJnA5MIMaKP5pfk8cZMgRS3dQiPYeL8Rqed5nesXBwSg/HyH3R4Fxl
+	 grPTvEeCEHUhdQTIRCjSnQ+9Cn8DiXC5/IAoSc54XTYC+ey968x9yzDRm4dwSO4KBa
+	 MRF0VoABobRs3m2RlHdIv0mu/gobr5R/Z25oNu3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A379F80147;
-	Thu, 27 May 2021 08:24:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7104FF800EA;
+	Thu, 27 May 2021 08:24:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CC00F8012E; Thu, 27 May 2021 08:24:04 +0200 (CEST)
+ id 827F9F8014B; Thu, 27 May 2021 08:24:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9743FF8010C
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:24:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9743FF8010C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73135F800EA
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:24:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73135F800EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="KbT1+Uqz"; 
+ header.b="SHEmvyfx"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PqThX7+W"
+ header.b="1F73jrjK"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622096635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622096687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jF3j2eVWOG7Whw2eYsKzxcIa1viiBYRe0Fj8EYqKd+o=;
- b=KbT1+UqziweWK70LCA730v8LwqOPKHXR96H3tj5Fz3BnLwMktrTdapUsTxPirUOf7XJ110
- EvPfXZcpFBH/SdTVcz6HDFkA5dyX2TZxPgv6p8q4N7ZgfguOUl1GJfCN98c1/UfmxbBAn+
- E8Pzc4foJajxHbs1OJcBRgR/GqLwYXs=
+ bh=/Hag+eiNxG+wHXswAIXAdLaiio4cGsuWUJhVb8BY4+4=;
+ b=SHEmvyfx10zb3lcMILinaR1C2yX/Fh6gwP4ugMZJq+oQsfy29Fi4Ibmr/YC5tCFyigmaSj
+ tIHwaqK0BHj+6GjznJKTpF3Cphy9iLN+fd/V0qLh5byNXjT5qAD6qAg7F/6M5NV/jKroVU
+ aEb5lfyEoNMsP2jtPBUI05TyQOy+J2g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622096635;
+ s=susede2_ed25519; t=1622096687;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jF3j2eVWOG7Whw2eYsKzxcIa1viiBYRe0Fj8EYqKd+o=;
- b=PqThX7+WP5vp32vjJkmtoiZaRw+BDxSRMQB6DLI2vf8M9RNqVgJ51jIJa8ZPMGcoZ2HjRd
- ax+kn3M5opm38gCA==
+ bh=/Hag+eiNxG+wHXswAIXAdLaiio4cGsuWUJhVb8BY4+4=;
+ b=1F73jrjK50VQAX3Fb7DNdQAocl6C5ad4fbGTSlH2iqCbzPER2ZbXphCkIk+xBL2xOjqFF8
+ oKhIMMch6pLKzEBw==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1F0E6AAA6;
- Thu, 27 May 2021 06:23:55 +0000 (UTC)
-Date: Thu, 27 May 2021 08:23:55 +0200
-Message-ID: <s5hlf808zk4.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 390B4AC85;
+ Thu, 27 May 2021 06:24:47 +0000 (UTC)
+Date: Thu, 27 May 2021 08:24:46 +0200
+Message-ID: <s5hk0nk8zip.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: Soft jack injection for USB audio?
-In-Reply-To: <CAAd53p70CJWM1DrMumq8tgoE4o5pPBDv=OAdOCOOJd=B98z2Og@mail.gmail.com>
-References: <CAAd53p70CJWM1DrMumq8tgoE4o5pPBDv=OAdOCOOJd=B98z2Og@mail.gmail.com>
+To: zuoqilin1@163.com
+Subject: Re: [PATCH] sound/oss/dmasound: Remove superfluous "break"
+In-Reply-To: <20210527030445.1201-1-zuoqilin1@163.com>
+References: <20210527030445.1201-1-zuoqilin1@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Hui Wang <hui.wang@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ gustavoars@kernel.org, joe@perches.com, zuoqilin <zuoqilin@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,22 +91,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 May 2021 06:17:41 +0200,
-Kai-Heng Feng wrote:
+On Thu, 27 May 2021 05:04:45 +0200,
+zuoqilin1@163.com wrote:
 > 
-> I have the need to use soft jack injection to debug userpsace, but
-> currently USB audio doesn't have that ability.
+> From: zuoqilin <zuoqilin@yulong.com>
 > 
-> The problem I am facing is that the USB audio doesn't use snd_jack_*
-> to control the jack, so we can add the support for USB audio
-> separately.
+> Remove superfluous "break", as there is a "return" before them.
 > 
-> It's not hard to add the support if we open code soft injection in USB
-> audio's build_connector_control(), but would it be possible to use
-> snd_jack_* in USB audio?
+> Signed-off-by: zuoqilin <zuoqilin@yulong.com>
 
-I haven't checked that path yet, but I see no reason why it wouldn't
-work.
+Thanks, applied.
 
 
 Takashi

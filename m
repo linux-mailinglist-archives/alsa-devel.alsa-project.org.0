@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91AF73924FD
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 091BA3924FE
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:45:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 382E6172E;
-	Thu, 27 May 2021 04:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 382E6172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D46F1740;
+	Thu, 27 May 2021 04:44:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D46F1740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622083507;
-	bh=3St5iMUJrqB0wM0o3O4l//a3+XXu5v/KS2RHnpYP5dM=;
+	s=default; t=1622083521;
+	bh=U/7XjrtBJZkuK9vuY629nXvkESvZ33XyiCwDMCVOxrg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QTWqvxZd6fpKDEi214SEU9DQU7CZ8Kly0ZK4SV9KXDaqeVL991Rtqouk1MtAPbDxd
-	 w78SYmqihuKBRJUN/y8x17chQ6lIl8fnUmKAt9pbBl9XTzXM1bV59mHbgxqi5dv0CI
-	 Hdk0fktLov0SYMfaPLpo3mdJ8kOQ73Z9m14F70WM=
+	b=a9CWo6gzbso65/Ym85AV9Kf2pQqOKJf87DPVm4q6lDxjdjIlCcwFxVVnvsgaD0CEY
+	 uh4AD+9aM0QApr4qTvkLf499e9pqiROXzDc/3Qkk99FBdeK1eEEljNBiXnyNSc/HV6
+	 jwpbB47eFrWl1dS0+B+b6LzLl+RJXWA75cXmfkDA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 832EAF804D1;
-	Thu, 27 May 2021 04:42:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 400FBF804D0;
+	Thu, 27 May 2021 04:42:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C19D7F804D0; Thu, 27 May 2021 04:41:59 +0200 (CEST)
+ id DC9C2F804AD; Thu, 27 May 2021 04:42:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id D7251F804CC
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:41:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7251F804CC
-Date: 27 May 2021 11:41:56 +0900
-X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82549142"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 27 May 2021 11:41:56 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 4124CF80300
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:42:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4124CF80300
+Date: 27 May 2021 11:42:03 +0900
+X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82549162"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 27 May 2021 11:42:03 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 699394174051;
- Thu, 27 May 2021 11:41:56 +0900 (JST)
-Message-ID: <87tumolwy3.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B2C36401A479;
+ Thu, 27 May 2021 11:42:03 +0900 (JST)
+Message-ID: <87sg28lwxw.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 10/11] ASoC: rsnd: tidyup rsnd_ssiu_busif_err_status_clear()
+Subject: [PATCH v2 11/11] ASoC: rsnd: tidyup rsnd_ssiu_busif_err_irq_ctrl()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <878s40nbmc.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,83 +70,75 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-rsnd_ssiu_busif_err_status_clear() has very similar duplicated code.
+rsnd_ssiu_busif_err_irq_ctrl() has very similar duplicated code.
 This patch merge and tidyup the code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/ssiu.c | 45 +++++++++++++++++++---------------------
- 1 file changed, 21 insertions(+), 24 deletions(-)
+ sound/soc/sh/rcar/ssiu.c | 38 +++++++++++++++++---------------------
+ 1 file changed, 17 insertions(+), 21 deletions(-)
 
 diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index 3a98ec2066bc..b79628761167 100644
+index b79628761167..4363508e8250 100644
 --- a/sound/soc/sh/rcar/ssiu.c
 +++ b/sound/soc/sh/rcar/ssiu.c
-@@ -88,11 +88,9 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
- 
- bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
+@@ -50,8 +50,8 @@ static const int gen3_id[] = { 0, 8, 16, 24, 32, 40, 41, 42, 43, 44 };
+ #define rsnd_ssiu_busif_err_irq_disable(mod) rsnd_ssiu_busif_err_irq_ctrl(mod, 0)
+ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
  {
--	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
--	struct device *dev = rsnd_priv_to_dev(priv);
--	u32 status;
- 	bool error = false;
+-	u32 sys_int_enable = 0;
  	int id = rsnd_mod_id(mod);
 +	int shift, offset;
  	int i;
  
  	switch (id) {
-@@ -101,31 +99,30 @@ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
+@@ -60,30 +60,26 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
  	case 2:
  	case 3:
  	case 4:
 -		for (i = 0; i < 4; i++) {
--			status = rsnd_mod_read(mod, SSI_SYS_STATUS(i * 2));
--			status &= 0xf << (id * 4);
--
--			if (status) {
--				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
--						      rsnd_mod_name(mod), status);
--				error = true;
--			}
--			rsnd_mod_write(mod, SSI_SYS_STATUS(i * 2), 0xf << (id * 4));
+-			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE(i * 2));
+-			if (enable)
+-				sys_int_enable |= 0xf << (id * 4);
+-			else
+-				sys_int_enable &= ~(0xf << (id * 4));
+-			rsnd_mod_write(mod,
+-				       SSI_SYS_INT_ENABLE(i * 2),
+-				       sys_int_enable);
 -		}
 +		shift  = id;
 +		offset = 0;
  		break;
  	case 9:
 -		for (i = 0; i < 4; i++) {
--			status = rsnd_mod_read(mod, SSI_SYS_STATUS((i * 2) + 1));
--			status &= 0xf << 4;
+-			sys_int_enable = rsnd_mod_read(mod, SSI_SYS_INT_ENABLE((i * 2) + 1));
+-			if (enable)
+-				sys_int_enable |= 0xf << 4;
+-			else
+-				sys_int_enable &= ~(0xf << 4);
+-			rsnd_mod_write(mod,
+-				       SSI_SYS_INT_ENABLE((i * 2) + 1),
+-				       sys_int_enable);
+-		}
 +		shift  = 1;
 +		offset = 1;
-+		break;
-+	}
- 
--			if (status) {
--				rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
--						      rsnd_mod_name(mod), status);
--				error = true;
--			}
--			rsnd_mod_write(mod, SSI_SYS_STATUS((i * 2) + 1), 0xf << 4);
-+	for (i = 0; i < 4; i++) {
-+		u32 reg = SSI_SYS_STATUS(i * 2) + offset;
-+		u32 status = rsnd_mod_read(mod, reg);
-+		u32 val = 0xf << (shift * 4);
-+
-+		status &= val;
-+		if (status) {
-+			struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
-+			struct device *dev = rsnd_priv_to_dev(priv);
-+
-+			rsnd_print_irq_status(dev, "%s err status : 0x%08x\n",
-+					      rsnd_mod_name(mod), status);
-+			error = true;
- 		}
--		break;
-+		rsnd_mod_write(mod, reg, val);
+ 		break;
  	}
++
++	for (i = 0; i < 4; i++) {
++		enum rsnd_reg reg = SSI_SYS_INT_ENABLE((i * 2) + offset);
++		u32 val = 0xf << (shift * 4);
++		u32 sys_int_enable = rsnd_mod_read(mod, reg);
++
++		if (enable)
++			sys_int_enable |= val;
++		else
++			sys_int_enable &= ~val;
++		rsnd_mod_write(mod, reg, sys_int_enable);
++	}
+ }
  
- 	return error;
+ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
 -- 
 2.25.1
 

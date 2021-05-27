@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99E953924E0
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC313924E1
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:29:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D7EC1735;
-	Thu, 27 May 2021 04:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D7EC1735
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23EC01733;
+	Thu, 27 May 2021 04:28:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23EC01733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622082546;
-	bh=1pkaJlCcXxGEwxI88lqXakHSn43ck+eIXo0B5OAHz6I=;
+	s=default; t=1622082570;
+	bh=cIS5MAzx7mLiXIOmqA7E4uFRvpcy4ZUhaLf/Na5gC2I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iZR99BVn/vw2kDZdr0HzUC0YsBeF7+fimWjDGeaEfbjuSOGfX2jVBaOw+mIwnHgXn
-	 +3dEhCFgJoFRZcqEIH1ajwBpU1TOH6zb7fPrY4guE6Xej2YA3Ng6xs5VR3N54aXAXX
-	 npIRlvSiq+u35dTfDOUhPamFFyr5NMbgUN5UdVx4=
+	b=O87wsReN5dY+WGVIV+cQo2QH6r/vUEemQIbkSLsZJdNZb3kG4bwJAeD309dak3tkb
+	 GPTiKWOYoVOoLTxVCEjsswL70soMYskOLJn1nL7kBIqkj6F0BrsMp/LDwtK67CMCMS
+	 gjpnMW83B3+trvWDOqp8bfTBRONsrDLq2lumaJm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AC85F8025C;
-	Thu, 27 May 2021 04:28:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D00E6F80147;
+	Thu, 27 May 2021 04:28:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DABBBF8014B; Thu, 27 May 2021 04:28:06 +0200 (CEST)
+ id BD993F8010C; Thu, 27 May 2021 04:28:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0E5BBF8012E
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:27:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5BBF8012E
-Date: 27 May 2021 11:27:54 +0900
-X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82371879"
+ by alsa1.perex.cz (Postfix) with ESMTP id 7F20DF80149
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:28:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F20DF80149
+Date: 27 May 2021 11:28:09 +0900
+X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82371906"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 27 May 2021 11:27:54 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 27 May 2021 11:28:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 82A5E401A475;
- Thu, 27 May 2021 11:27:54 +0900 (JST)
-Message-ID: <87bl8wnc5x.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 636FF401474A;
+ Thu, 27 May 2021 11:28:09 +0900 (JST)
+Message-ID: <87a6ognc5i.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 6/7] ASoC: fsi: add .auto_selectable_formats support
+Subject: [PATCH v3 7/7] ASoC: hdmi-codec: add .auto_selectable_formats support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87k0nkncaw.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,41 +80,47 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 v2 -> v3
 	- don't try to have SND_SOC_DAIFMT_CBx_CFx
 
- sound/soc/sh/fsi.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ sound/soc/codecs/hdmi-codec.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
-index 3c574792231b..3c934f87c242 100644
---- a/sound/soc/sh/fsi.c
-+++ b/sound/soc/sh/fsi.c
-@@ -1694,12 +1694,27 @@ static int fsi_dai_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index 1567ba196ab9..02d2614f9eee 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -580,12 +580,33 @@ static int hdmi_codec_mute(struct snd_soc_dai *dai, int mute, int direction)
+ 	return -ENOTSUPP;
  }
  
 +/*
-+ * Select below from Sound Card, not auto
-+ *	SND_SOC_DAIFMT_CBC_CFC
-+ *	SND_SOC_DAIFMT_CBP_CFP
++ * This driver can select all SND_SOC_DAIFMT_CBx_CFx,
++ * but need to be selected from Sound Card, not be auto selected.
++ * Because it might be used from other driver.
++ * For example,
++ *	${LINUX}/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
 + */
-+static u64 fsi_dai_formats =
-+	SND_SOC_POSSIBLE_DAIFMT_I2S	|
-+	SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
++static u64 hdmi_codec_formats =
 +	SND_SOC_POSSIBLE_DAIFMT_NB_NF	|
 +	SND_SOC_POSSIBLE_DAIFMT_NB_IF	|
 +	SND_SOC_POSSIBLE_DAIFMT_IB_NF	|
-+	SND_SOC_POSSIBLE_DAIFMT_IB_IF;
++	SND_SOC_POSSIBLE_DAIFMT_IB_IF	|
++	SND_SOC_POSSIBLE_DAIFMT_I2S	|
++	SND_SOC_POSSIBLE_DAIFMT_DSP_A	|
++	SND_SOC_POSSIBLE_DAIFMT_DSP_B	|
++	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J	|
++	SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
++	SND_SOC_POSSIBLE_DAIFMT_AC97;
 +
- static const struct snd_soc_dai_ops fsi_dai_ops = {
- 	.startup	= fsi_dai_startup,
- 	.shutdown	= fsi_dai_shutdown,
- 	.trigger	= fsi_dai_trigger,
- 	.set_fmt	= fsi_dai_set_fmt,
- 	.hw_params	= fsi_dai_hw_params,
-+	.auto_selectable_formats	= &fsi_dai_formats,
+ static const struct snd_soc_dai_ops hdmi_codec_i2s_dai_ops = {
+ 	.startup	= hdmi_codec_startup,
+ 	.shutdown	= hdmi_codec_shutdown,
+ 	.hw_params	= hdmi_codec_hw_params,
+ 	.set_fmt	= hdmi_codec_i2s_set_fmt,
+ 	.mute_stream	= hdmi_codec_mute,
++	.auto_selectable_formats	= &hdmi_codec_formats,
 +	.num_auto_selectable_formats	= 1,
  };
  
- /*
+ static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
 -- 
 2.25.1
 

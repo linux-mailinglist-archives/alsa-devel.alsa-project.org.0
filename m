@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC12B392774
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF28392784
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:26:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60F1E1720;
-	Thu, 27 May 2021 08:24:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60F1E1720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B0DE172D;
+	Thu, 27 May 2021 08:25:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B0DE172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622096749;
-	bh=E0+GaOH4CbgCcp90eeX7XucHkKzTV3m54UyJYr87U8s=;
+	s=default; t=1622096786;
+	bh=/1iDIgHh90C8tqDZhSNy4gPOhhr4RTngDWNA+/KBp10=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jCM2R3bcbk7AJnA5MIMaKP5pfk8cZMgRS3dQiPYeL8Rqed5nesXBwSg/HyH3R4Fxl
-	 grPTvEeCEHUhdQTIRCjSnQ+9Cn8DiXC5/IAoSc54XTYC+ey968x9yzDRm4dwSO4KBa
-	 MRF0VoABobRs3m2RlHdIv0mu/gobr5R/Z25oNu3E=
+	b=X9X93VCN6JEypevz//X02s8eFZHmzJMVUweRHqCMKTgJnW2FTWTsd00JzmcGDzrUa
+	 pfKJ5lcPIm+yv9niGhYDhwSyGHl89iv+oD8M4VUyk72y4jQ5SdSHwP6Ndo9zli9sEo
+	 XGs3d7aXA8vmKgRryJlEAkn+evrD5VEZ2UhCryjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7104FF800EA;
-	Thu, 27 May 2021 08:24:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 272B8F80300;
+	Thu, 27 May 2021 08:25:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 827F9F8014B; Thu, 27 May 2021 08:24:53 +0200 (CEST)
+ id EBDBCF8025C; Thu, 27 May 2021 08:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73135F800EA
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:24:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73135F800EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7A35F80116
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:25:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7A35F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SHEmvyfx"; 
+ header.b="y7nWazcF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1F73jrjK"
+ header.b="JKq6Zxp7"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622096687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622096726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/Hag+eiNxG+wHXswAIXAdLaiio4cGsuWUJhVb8BY4+4=;
- b=SHEmvyfx10zb3lcMILinaR1C2yX/Fh6gwP4ugMZJq+oQsfy29Fi4Ibmr/YC5tCFyigmaSj
- tIHwaqK0BHj+6GjznJKTpF3Cphy9iLN+fd/V0qLh5byNXjT5qAD6qAg7F/6M5NV/jKroVU
- aEb5lfyEoNMsP2jtPBUI05TyQOy+J2g=
+ bh=Hl1/Meu3baUR/pHArvTIths2m6R5HahAF0eEBwSqcfs=;
+ b=y7nWazcFlpxWiR/wRCBjE7RN1Iy8VzR8iZjLDWR+5Mh07LNiLKhDkbDMC47rXVwe+3NZjv
+ foDPCoPGZP+Pc4Z5m3aN7+o1SUTwMfeuVse7GtuPy9bbxoIVTdpIekpK+dKaPccKjBT668
+ BYVFOTPi7/qeAysXNNXs/MI2I0pwCQM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622096687;
+ s=susede2_ed25519; t=1622096726;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/Hag+eiNxG+wHXswAIXAdLaiio4cGsuWUJhVb8BY4+4=;
- b=1F73jrjK50VQAX3Fb7DNdQAocl6C5ad4fbGTSlH2iqCbzPER2ZbXphCkIk+xBL2xOjqFF8
- oKhIMMch6pLKzEBw==
+ bh=Hl1/Meu3baUR/pHArvTIths2m6R5HahAF0eEBwSqcfs=;
+ b=JKq6Zxp75ZwTxtDeIDAQLiLrJOPLfZI4e/sFvFVmj7AGEHp9iPcwC0mcRCAmMlcvDXR3Xf
+ Uf5OSlxOOEjs8tBg==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 390B4AC85;
- Thu, 27 May 2021 06:24:47 +0000 (UTC)
-Date: Thu, 27 May 2021 08:24:46 +0200
-Message-ID: <s5hk0nk8zip.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 8288BAAA6;
+ Thu, 27 May 2021 06:25:26 +0000 (UTC)
+Date: Thu, 27 May 2021 08:25:26 +0200
+Message-ID: <s5him348zhl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: zuoqilin1@163.com
-Subject: Re: [PATCH] sound/oss/dmasound: Remove superfluous "break"
-In-Reply-To: <20210527030445.1201-1-zuoqilin1@163.com>
-References: <20210527030445.1201-1-zuoqilin1@163.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/2] ALSA: drivers: opl3: fix useless self-comparison
+In-Reply-To: <20210526192957.449515-1-pierre-louis.bossart@linux.intel.com>
+References: <20210526192957.449515-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- gustavoars@kernel.org, joe@perches.com, zuoqilin <zuoqilin@yulong.com>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,14 +90,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 May 2021 05:04:45 +0200,
-zuoqilin1@163.com wrote:
+On Wed, 26 May 2021 21:29:56 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> From: zuoqilin <zuoqilin@yulong.com>
+> Sparse throws the following warning:
 > 
-> Remove superfluous "break", as there is a "return" before them.
+> sound/drivers/opl3/opl3_midi.c:183:60: error: self-comparison always
+> evaluates to false
 > 
-> Signed-off-by: zuoqilin <zuoqilin@yulong.com>
+> This is likely a 16+ year old confusion between vp2 and vp.
+> 
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
 Thanks, applied.
 

@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2D53924F1
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:41:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1717F3924F2
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 04:42:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 736B81720;
-	Thu, 27 May 2021 04:40:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736B81720
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFBF5172D;
+	Thu, 27 May 2021 04:41:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFBF5172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622083289;
-	bh=PnYu34QOcW2MvqsDECemPcZe/xfY3To85hl2juoPovg=;
+	s=default; t=1622083325;
+	bh=A0+mD0TaxuKJENgrb4iI5WPGix2E0oTGnACcSsBvjnE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZIdBTX/twXdp7pqhcEWMIoDSkFAQu5GTI5kdYgnhpp/lx9Ecs7LekX/XZEYvB75s+
-	 MzpkQEUsM6DTdVK16wqsjR0SZTYDh7wr17HWFlcRriNTFJax+geNPXmsc+qpgquybM
-	 2ho3Op1jWr1wib17895JGIu2lu9vElHyk0ytURik=
+	b=gMONrPpHQ5zIE0O8GE031BiTIOzp4VDlfyL0h+if1UwAcI6TuJXwqDdP0HxaJemfQ
+	 hX/CTQaIptWRo455ylqEDaPQ7vxeMBkghZnm5Lf3flhjL03GXxkqGbRcxENvDO8kGH
+	 U6tNTcEJQyWSbzw5OHPlDPmJgmOKaBbCjj4fJJIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69C67F80149;
-	Thu, 27 May 2021 04:40:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EEDCF8025C;
+	Thu, 27 May 2021 04:40:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 104CDF8014B; Thu, 27 May 2021 04:40:32 +0200 (CEST)
+ id 2FEAFF80301; Thu, 27 May 2021 04:40:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3D084F80147
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:40:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D084F80147
-Date: 27 May 2021 11:40:22 +0900
-X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82374201"
+ by alsa1.perex.cz (Postfix) with ESMTP id 5D186F8025C
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 04:40:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D186F8025C
+Date: 27 May 2021 11:40:34 +0900
+X-IronPort-AV: E=Sophos;i="5.82,333,1613401200"; d="scan'208";a="82374224"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 27 May 2021 11:40:22 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 27 May 2021 11:40:34 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9B8864173EF1;
- Thu, 27 May 2021 11:40:22 +0900 (JST)
-Message-ID: <877djknbl5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1F69D4173EEC;
+ Thu, 27 May 2021 11:40:34 +0900 (JST)
+Message-ID: <875yz4nbkt.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 01/11] ASoC: rsnd: call unregister for null_hw when removed
+Subject: [PATCH v2 02/11] ASoC: rsnd: ignore runtime NULL case at
+ rsnd_runtime_channel_original_with_params()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <878s40nbmc.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,76 +68,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-commit d6956a7dde6fb ("ASoC: rsnd: add null CLOCKIN support")
-added null_clk, but it is using local static valuable.
-It will be leaked if rsnd driver was removed.
-This patch moves it to priv, and call unregister when removing.
+runtime might be NULL. Let's ignore such case.
 
-Fixes: d6956a7dde6fb ("ASoC: rsnd: add null CLOCKIN support")
-Link: https://lore.kernel.org/r/87tumsoe2p.wl-kuninori.morimoto.gx@renesas.com
-Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
-v1 -> v2
-	- new patch
+ sound/soc/sh/rcar/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- sound/soc/sh/rcar/adg.c  | 9 +++++----
- sound/soc/sh/rcar/rsnd.h | 1 +
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
-index e13eb201d550..774a72a7b6a2 100644
---- a/sound/soc/sh/rcar/adg.c
-+++ b/sound/soc/sh/rcar/adg.c
-@@ -392,10 +392,9 @@ void rsnd_adg_clk_control(struct rsnd_priv *priv, int enable)
- #define NULL_CLK "rsnd_adg_null"
- static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
- {
--	static struct clk_hw *hw;
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 
--	if (!hw) {
-+	if (!priv->null_hw) {
- 		struct clk_hw *_hw;
- 		int ret;
- 
-@@ -407,10 +406,10 @@ static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
- 		if (ret < 0)
- 			clk_hw_unregister_fixed_rate(_hw);
- 
--		hw = _hw;
-+		priv->null_hw = _hw;
- 	}
- 
--	return clk_hw_get_clk(hw, NULL_CLK);
-+	return clk_hw_get_clk(priv->null_hw, NULL_CLK);
+diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+index 83c815008472..0d54c09c3c96 100644
+--- a/sound/soc/sh/rcar/core.c
++++ b/sound/soc/sh/rcar/core.c
+@@ -267,8 +267,9 @@ int rsnd_runtime_channel_original_with_params(struct rsnd_dai_stream *io,
+ 	 */
+ 	if (params)
+ 		return params_channels(params);
+-	else
++	else if (runtime)
+ 		return runtime->channels;
++	return 0;
  }
  
- static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
-@@ -649,6 +648,8 @@ void rsnd_adg_remove(struct rsnd_priv *priv)
- 	for_each_rsnd_clkout(clk, adg, i)
- 		if (adg->clkout[i])
- 			clk_unregister_fixed_rate(adg->clkout[i]);
-+	if (priv->null_hw)
-+		clk_hw_unregister_fixed_rate(priv->null_hw);
- 
- 	of_clk_del_provider(np);
- 
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index 1255a85151db..19e73a1ddb16 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -635,6 +635,7 @@ struct rsnd_priv {
- 	 * below value will be filled on rsnd_adg_probe()
- 	 */
- 	void *adg;
-+	struct clk_hw *null_hw;
- 
- 	/*
- 	 * below value will be filled on rsnd_dma_probe()
+ int rsnd_runtime_channel_after_ctu_with_params(struct rsnd_dai_stream *io,
 -- 
 2.25.1
 

@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11C86392797
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:27:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91452392896
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 09:32:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE7F2170E;
-	Thu, 27 May 2021 08:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE7F2170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11405170D;
+	Thu, 27 May 2021 09:31:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11405170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622096834;
-	bh=hl8TsP2KeTc68gstruu/Al2cRWBHyUXNeo3DqGMrEK8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1622100757;
+	bh=NQTtM3PIw+T/lGctSLInlizRejQb8wWPW31CQ0hoYyU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uv7j5np+Bdz78p1N7zL87J+JJNiP9ZcgJskD7nANn+DLESpI3YgW8Imeklcbud8Ir
-	 1/Qp6AXJWrF8EX0F+9cxn1qMeVxuMPimIw3RcO3HVms2OTobWyJQcvlZ/pONX974Sz
-	 +X3/6/Xnj4qfVt0hpdGbGtKt+jkmn/36JqhEGTrk=
+	b=FeRaCW5bHzwPewa2k9l8tZnOheOPoTCHSH/IhxAxQiN+JDBHNJanuUTT6U1+uk09C
+	 f58bjHQacJ294LAPWD6RDLAQzC/c8IXLK9uQI6vxu5x296t2CN0QQsjoKqdzE0XPxC
+	 b/sB76cAniqM7Q4wmtiJ2wvO1VQsmAbu/v0XB3ys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18483F80302;
-	Thu, 27 May 2021 08:26:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFAD7F80147;
+	Thu, 27 May 2021 09:31:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FE09F8014B; Thu, 27 May 2021 08:26:18 +0200 (CEST)
+ id 0978BF8012E; Thu, 27 May 2021 09:31:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,PRX_BODY_59,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
+ [209.85.222.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62A03F80147
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62A03F80147
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cg8UG8Pt"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Pqq2MrMq"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622096772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EHhBGYAVvr1rmhh8IHHDQcMfJJfDKceXHtgD4YyEFsw=;
- b=cg8UG8PtQRdBxN3WZK3BG9bMokXnE9sJR3XnOnvP9vOlee1t8AdYI85y/xV8iop0tKdeg3
- dZsk+Qlhhc1eGHQl11Ror/RZF6HRxLqK4tSTpxnYMPCey1/aUMIm8ixO6vl826/43hcSwy
- 4AFXpB5rvkLbhVVq3oqhhh7jcGLQ+CE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622096772;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EHhBGYAVvr1rmhh8IHHDQcMfJJfDKceXHtgD4YyEFsw=;
- b=Pqq2MrMqAu8QXsNDhDaSRqtuEymPcw8SfcZkOa6L414QCTjKxphxI7s9zbRow/j78bcYUd
- 4xnwLHnn39yGQUCQ==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 22126AAA6;
- Thu, 27 May 2021 06:26:12 +0000 (UTC)
-Date: Thu, 27 May 2021 08:26:12 +0200
-Message-ID: <s5hfsy88zgb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Colin King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ALSA: hda/ca0132: Make a const array static,
- makes object smaller
-In-Reply-To: <20210526160616.3764119-1-colin.king@canonical.com>
-References: <20210526160616.3764119-1-colin.king@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Connor McAdams <conmanx360@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1451AF8010C
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 09:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1451AF8010C
+Received: by mail-ua1-f50.google.com with SMTP id w5so2272151uaq.9
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 00:30:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EvrU3N0dLKeUqogIkRKclMoApsA1KzYSSz1Wf5vnn0c=;
+ b=rFtIVR7GRrEKO4Pk4Jr4jRoiJD4cLs+3cuEu41OjJo02TBdkMrG6NlHdEU0IVr11Rk
+ vhjgZc8jJLoVpPDzQwSwSyutcrhLWfbVKuPUsYsKWG7zdad+GvpZmBpGtJyZqB4C0RQM
+ pXRmcXBTYsMEngnOD461TvHorI/hac53EXnkbjISXJyiiSCBM8OFotT675uAJPSPt+Ir
+ e1cPUHKhfF9feuzOmI+iOXJUXndAgFRjr6w9zpXji2lslamv6KgzVF9rRXhEpJi5UPLu
+ TH9e9cbM9rx8bwCbzXwvufgOd46bBbsEZpC0dPJJnZ8lSi6EBtNnSHcgxbz9Tj6zuBzV
+ qfYw==
+X-Gm-Message-State: AOAM532BusjzbFwmPbaHT0DZxOVY6M7aIBZXsnZsCKQG4JxqOcJjQd2z
+ 0TO0OChjQ+qIEEZujEdRxJ/mUWfxlNz+eyMyWL8=
+X-Google-Smtp-Source: ABdhPJxpPqoA3XiGadQBpZjcG0ZK1ngJike7pnf69xbSYNyq0SWXZ3O75cFr36NOa5aj/X2H8g9Ai5e/K0dW1/LEDpY=
+X-Received: by 2002:ab0:6584:: with SMTP id v4mr1103280uam.100.1622100650604; 
+ Thu, 27 May 2021 00:30:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <87y2c4oe3y.wl-kuninori.morimoto.gx@renesas.com>
+ <87tumsoe2p.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdXLYvEBE0bVk=8D+GkuaHRUvdTayCQPqTYAkPJEaW8MDQ@mail.gmail.com>
+ <87zgwimnuu.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdVhnKeztftOJEZhSg8bXArzUDXAmHSMPVfbMamV3ihw+g@mail.gmail.com>
+ <87o8cxm9pg.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o8cxm9pg.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 27 May 2021 09:30:38 +0200
+Message-ID: <CAMuHMdUxAOeceORSpmiPAc6Tg=jpm2FTaLjVBVt+oiyWd68wCQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: rsnd: add null CLOCKIN support
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,27 +91,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 26 May 2021 18:06:16 +0200,
-Colin King wrote:
-> 
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> Don't populate the const array dsp_dma_stream_ids the stack but instead
-> make it static. Makes the object code smaller by 21 bytes.
-> 
-> Before:
->    text    data     bss     dec     hex filename
->  189012   70376     192  259580   3f5fc ./sound/pci/hda/patch_ca0132.o
-> 
-> After:
->    text    data     bss     dec     hex filename
->  188927   70440     192  259559   3f5e7 ./sound/pci/hda/patch_ca0132.o
-> 
-> (gcc version 10.3.0)
-> 
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Hi Morimoto-san,
 
-Thanks, applied.
+On Thu, May 27, 2021 at 12:06 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> > Oh right, I missed the static clk_hw pointer.
+> > What if you unload the snd-soc-rcar.ko module?
+>
+> Hmm.. indeed.
+> It needs something..
+> Thank you for poining it.
+>
+> >     #define for_each_rsnd_clk(pos, adg, i)          \
+> >             for (i = 0; (pos) = adg->clk[i], i < CLKMAX; i++)            \
+> >                     if (pos) {                      \
+> >                             continue;               \
+> >                     } else
+>
+> Wow!! I didn't know this technique.
+> Indeed it can use NULL pointer.
+>
+> But, I want to avoid "if (pos) else" code as much as possible,
+> and keep simple code.
+> It can handle all clk case without thinking it if it has null_clk.
+>
+> Why you don't want null_clk ??
 
+It adds a dummy object, which needs to be cleaned up.  Basically you
+are trading a simple NULL pointer check for a zero clock rate check
+deeper inside the driver, with the additional burden of needing to
+take care of the dummy clock's life cycle.
 
-Takashi
+Note that most clk_*() calls happily operate on a NULL pointer, and
+just return success.  This includes clk_get_rate(), which returns
+a zero rate.
+
+Mark might have a different view, though, due to his experience with
+dummy regulators?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

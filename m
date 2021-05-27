@@ -2,75 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47C7392604
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 06:19:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CB6A39273E
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:15:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F8E7170B;
-	Thu, 27 May 2021 06:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F8E7170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7985170D;
+	Thu, 27 May 2021 08:15:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7985170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622089175;
-	bh=ZfaP2A7wx1EOrYLZmIIjhyj9IxSJ1zLSX3guc+Ew6TQ=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DFjUxJSV0BI4maBI3kZPCa6rfzVeKMSDhpCH77yjb/82BwOk9oL9xqZFsQZlFHJ+R
-	 4xapsOhc6ekApW49zr/W0x5LqniOaj4a8zyi7B1P6Zczr5sXPbxAGKwImTcipbhUpN
-	 Sw4+RDB1IPJcqqh5yAODPAI8R2FEY4OV0jDUR41c=
+	s=default; t=1622096151;
+	bh=u4DcIBpwEA4e/AqFM11zUp80Z+oJqBnIu32/raoYQzU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cT7uwewomjYKyRD1FhtuSDyTC+LPg7yAKUQ8C0MFXbt8f5gqqPFf5k372YYDbVdzW
+	 KlfqeolEpg3+wh6QuFe6CI2mO53G5IOF5fP1GyTJAGA7X8813PAUWnTWQsgpPdzsKd
+	 uoZTW6Xvn/2ybrBviJlsiSaMke1ULmAD58X4cewo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4B86F80116;
-	Thu, 27 May 2021 06:18:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51357F80147;
+	Thu, 27 May 2021 08:14:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBD2AF8012E; Thu, 27 May 2021 06:18:04 +0200 (CEST)
+ id DD244F8012E; Thu, 27 May 2021 08:14:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 371E3F8010C
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 06:17:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 371E3F8010C
-Received: from mail-lf1-f70.google.com ([209.85.167.70])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <kai.heng.feng@canonical.com>) id 1lm7Sz-0007sl-U8
- for alsa-devel@alsa-project.org; Thu, 27 May 2021 04:17:53 +0000
-Received: by mail-lf1-f70.google.com with SMTP id
- u23-20020a1979170000b02901d2e8dd801dso1528758lfc.6
- for <alsa-devel@alsa-project.org>; Wed, 26 May 2021 21:17:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=ZfaP2A7wx1EOrYLZmIIjhyj9IxSJ1zLSX3guc+Ew6TQ=;
- b=UYxQ55glRX4++xBjzPxxa8hyqe6V09MAlOQARjeuj7TS2c4djab1jrxYrfMq/v06CZ
- /+u942vdRO+oJjsYg4rethadki05LBWNrFoB+hNjLVWmPdlNzu/myryrVPkl6o1Tn8uf
- ALto/dzcT9BF8hI2Dr6Xf3jfKWO4pTsleJtqZOoA+z/w0j63ECsBnI9ISGFVfD6uNAYr
- BZTNZzD9s7U57rnlkHOiZnSqFckICFHW9cUZAoJzeP/E3LB0MESkf35Crr1+eMOXDNbi
- qn1tto47BsBtEqOC+YH/rOeloGZP6oNyxlD1utPX9E2Evv1+GGCkRMJHWNEXNinSl/2u
- 8E7w==
-X-Gm-Message-State: AOAM530dVlFsEkqmvCYLJ0sE1AarMGqzem46yfJRnttInTEJcAT5Nm5k
- meRhwsJyR9SB4g8l3WS2vRGZCu8q0A5F/49rbhEbMMw5K9LIQJ4UFHTHaPpxPIMa9+4ZCX/K3o+
- otR8q1iExNe7bSWIRoTpqSZHpW/lPW6cKNlmK+yx9Ti/QXlc8RLsu5YvP
-X-Received: by 2002:ac2:5f6f:: with SMTP id c15mr1017125lfc.194.1622089073385; 
- Wed, 26 May 2021 21:17:53 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy2lCtb6HuMNx/AUOTzRsLeUaHnM1DTBpKtL5+qj5czkVdlXXuvi8xi9wpXmxdFJGyxNde/XAFMobwy64KboBY=
-X-Received: by 2002:ac2:5f6f:: with SMTP id c15mr1017110lfc.194.1622089073079; 
- Wed, 26 May 2021 21:17:53 -0700 (PDT)
-MIME-Version: 1.0
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Thu, 27 May 2021 12:17:41 +0800
-Message-ID: <CAAd53p70CJWM1DrMumq8tgoE4o5pPBDv=OAdOCOOJd=B98z2Og@mail.gmail.com>
-Subject: Soft jack injection for USB audio?
-To: "moderated list:SOUND" <alsa-devel@alsa-project.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Takashi Iwai <tiwai@suse.de>, Hui Wang <hui.wang@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1ED0F800EA
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:14:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1ED0F800EA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="msbNX5Ep"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Vq3wzU65"
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622096040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0PohsSrFjqpl0gYvbtoAe9n4JF3cM3zBDn9ikvgJv98=;
+ b=msbNX5EpKsQUDaxRwZMU+71+H9l8Yojm+vfRyvdkYJ6FGQDgrs1FmZlaZVq16zb4y2N5e3
+ +SMNKR8V0VDHr++yD4UwHr2Gonbb5G1uy1Xk2CkSO9wTpFDUI/xNk89WIY9zPJh2Eb4QGB
+ 7K/6zfZhJhmgvvxAfbOVnHUx2JSxIHc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622096040;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0PohsSrFjqpl0gYvbtoAe9n4JF3cM3zBDn9ikvgJv98=;
+ b=Vq3wzU658mu9+GB7ynLVH5yJY7itKb9t+HSkFn7VW6YoSu4M+kwL/XSPTGNFRhwF69MWYm
+ OnQXYh5FdiGU89DQ==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AE3F3AC46;
+ Thu, 27 May 2021 06:14:00 +0000 (UTC)
+Date: Thu, 27 May 2021 08:14:00 +0200
+Message-ID: <s5hpmxc900n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jeremy Szu <jeremy.szu@canonical.com>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+In-Reply-To: <CAKzWQkyzbUU8FekwX+_pkxSVFv0_1xjOQa7ztJRMR02cunP+tQ@mail.gmail.com>
+References: <20210519170357.58410-1-jeremy.szu@canonical.com>
+ <CAKzWQkyzbUU8FekwX+_pkxSVFv0_1xjOQa7ztJRMR02cunP+tQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,15 +95,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I have the need to use soft jack injection to debug userpsace, but
-currently USB audio doesn't have that ability.
+On Thu, 27 May 2021 04:00:34 +0200,
+Jeremy Szu wrote:
+> 
+> Hi Takashi,
+> 
+> Would you please help to review these quirks? Many thanks.
 
-The problem I am facing is that the USB audio doesn't use snd_jack_*
-to control the jack, so we can add the support for USB audio
-separately.
+Sorry, it was overlooked.
 
-It's not hard to add the support if we open code soft injection in USB
-audio's build_connector_control(), but would it be possible to use
-snd_jack_* in USB audio?
+Now applied all four patches.  Thanks.
 
-Kai-Heng
+
+Takashi
+
+> 
+> 
+> On Thu, May 20, 2021 at 1:04 AM Jeremy Szu <jeremy.szu@canonical.com> wrote:
+> >
+> > The HP EliteBook 855 G8 Notebook PC is using ALC285 codec which needs
+> > ALC285_FIXUP_HP_MUTE_LED fixup to make it works. After applying the
+> > fixup, the mute/micmute LEDs work good.
+> >
+> > Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+> > ---
+> >  sound/pci/hda/patch_realtek.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> > index 552e2cb73291..9d68f591c6bf 100644
+> > --- a/sound/pci/hda/patch_realtek.c
+> > +++ b/sound/pci/hda/patch_realtek.c
+> > @@ -8291,6 +8291,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+> >         SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
+> >         SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+> >         SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+> > +       SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
+> >         SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+> >         SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+> >         SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+> > --
+> > 2.31.1
+> >
+> 
+> 
+> -- 
+> Sincerely,
+> Jeremy Su
+> 

@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB6A39273E
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:15:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D35C39276D
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 May 2021 08:25:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7985170D;
-	Thu, 27 May 2021 08:15:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7985170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27732170C;
+	Thu, 27 May 2021 08:24:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27732170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622096151;
-	bh=u4DcIBpwEA4e/AqFM11zUp80Z+oJqBnIu32/raoYQzU=;
+	s=default; t=1622096735;
+	bh=SOur40t9++NjMj6g8WF8WKRCShqPx8gRGPq+odU4I3A=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cT7uwewomjYKyRD1FhtuSDyTC+LPg7yAKUQ8C0MFXbt8f5gqqPFf5k372YYDbVdzW
-	 KlfqeolEpg3+wh6QuFe6CI2mO53G5IOF5fP1GyTJAGA7X8813PAUWnTWQsgpPdzsKd
-	 uoZTW6Xvn/2ybrBviJlsiSaMke1ULmAD58X4cewo=
+	b=CYtdcR1pxJvLGaTAg0vc85p5Bd76nHMETN3TH/ckZbGTH2Qup29+ecRtlW0fD4sJz
+	 3IBREJjsf+8fuGfht/A3cOerrH4y4QMiMpC/lxYoctVKIuzvadGuR9CgWp4fkhglXr
+	 KcZUx2SMhhBnP23fgd9sCPH3gn0xax4TB5d2LKsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51357F80147;
-	Thu, 27 May 2021 08:14:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A379F80147;
+	Thu, 27 May 2021 08:24:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD244F8012E; Thu, 27 May 2021 08:14:18 +0200 (CEST)
+ id 2CC00F8012E; Thu, 27 May 2021 08:24:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1ED0F800EA
- for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:14:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1ED0F800EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9743FF8010C
+ for <alsa-devel@alsa-project.org>; Thu, 27 May 2021 08:24:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9743FF8010C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="msbNX5Ep"; 
+ header.b="KbT1+Uqz"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Vq3wzU65"
+ header.b="PqThX7+W"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622096040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622096635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0PohsSrFjqpl0gYvbtoAe9n4JF3cM3zBDn9ikvgJv98=;
- b=msbNX5EpKsQUDaxRwZMU+71+H9l8Yojm+vfRyvdkYJ6FGQDgrs1FmZlaZVq16zb4y2N5e3
- +SMNKR8V0VDHr++yD4UwHr2Gonbb5G1uy1Xk2CkSO9wTpFDUI/xNk89WIY9zPJh2Eb4QGB
- 7K/6zfZhJhmgvvxAfbOVnHUx2JSxIHc=
+ bh=jF3j2eVWOG7Whw2eYsKzxcIa1viiBYRe0Fj8EYqKd+o=;
+ b=KbT1+UqziweWK70LCA730v8LwqOPKHXR96H3tj5Fz3BnLwMktrTdapUsTxPirUOf7XJ110
+ EvPfXZcpFBH/SdTVcz6HDFkA5dyX2TZxPgv6p8q4N7ZgfguOUl1GJfCN98c1/UfmxbBAn+
+ E8Pzc4foJajxHbs1OJcBRgR/GqLwYXs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622096040;
+ s=susede2_ed25519; t=1622096635;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0PohsSrFjqpl0gYvbtoAe9n4JF3cM3zBDn9ikvgJv98=;
- b=Vq3wzU658mu9+GB7ynLVH5yJY7itKb9t+HSkFn7VW6YoSu4M+kwL/XSPTGNFRhwF69MWYm
- OnQXYh5FdiGU89DQ==
+ bh=jF3j2eVWOG7Whw2eYsKzxcIa1viiBYRe0Fj8EYqKd+o=;
+ b=PqThX7+WP5vp32vjJkmtoiZaRw+BDxSRMQB6DLI2vf8M9RNqVgJ51jIJa8ZPMGcoZ2HjRd
+ ax+kn3M5opm38gCA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AE3F3AC46;
- Thu, 27 May 2021 06:14:00 +0000 (UTC)
-Date: Thu, 27 May 2021 08:14:00 +0200
-Message-ID: <s5hpmxc900n.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 1F0E6AAA6;
+ Thu, 27 May 2021 06:23:55 +0000 (UTC)
+Date: Thu, 27 May 2021 08:23:55 +0200
+Message-ID: <s5hlf808zk4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeremy Szu <jeremy.szu@canonical.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <CAKzWQkyzbUU8FekwX+_pkxSVFv0_1xjOQa7ztJRMR02cunP+tQ@mail.gmail.com>
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <CAKzWQkyzbUU8FekwX+_pkxSVFv0_1xjOQa7ztJRMR02cunP+tQ@mail.gmail.com>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: Soft jack injection for USB audio?
+In-Reply-To: <CAAd53p70CJWM1DrMumq8tgoE4o5pPBDv=OAdOCOOJd=B98z2Og@mail.gmail.com>
+References: <CAAd53p70CJWM1DrMumq8tgoE4o5pPBDv=OAdOCOOJd=B98z2Og@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>
+Cc: Hui Wang <hui.wang@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,51 +91,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 May 2021 04:00:34 +0200,
-Jeremy Szu wrote:
+On Thu, 27 May 2021 06:17:41 +0200,
+Kai-Heng Feng wrote:
 > 
-> Hi Takashi,
+> I have the need to use soft jack injection to debug userpsace, but
+> currently USB audio doesn't have that ability.
 > 
-> Would you please help to review these quirks? Many thanks.
+> The problem I am facing is that the USB audio doesn't use snd_jack_*
+> to control the jack, so we can add the support for USB audio
+> separately.
+> 
+> It's not hard to add the support if we open code soft injection in USB
+> audio's build_connector_control(), but would it be possible to use
+> snd_jack_* in USB audio?
 
-Sorry, it was overlooked.
-
-Now applied all four patches.  Thanks.
+I haven't checked that path yet, but I see no reason why it wouldn't
+work.
 
 
 Takashi
-
-> 
-> 
-> On Thu, May 20, 2021 at 1:04 AM Jeremy Szu <jeremy.szu@canonical.com> wrote:
-> >
-> > The HP EliteBook 855 G8 Notebook PC is using ALC285 codec which needs
-> > ALC285_FIXUP_HP_MUTE_LED fixup to make it works. After applying the
-> > fixup, the mute/micmute LEDs work good.
-> >
-> > Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
-> > ---
-> >  sound/pci/hda/patch_realtek.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> > index 552e2cb73291..9d68f591c6bf 100644
-> > --- a/sound/pci/hda/patch_realtek.c
-> > +++ b/sound/pci/hda/patch_realtek.c
-> > @@ -8291,6 +8291,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-> >         SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
-> >         SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-> >         SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-> > +       SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
-> >         SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
-> >         SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
-> >         SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
-> > --
-> > 2.31.1
-> >
-> 
-> 
-> -- 
-> Sincerely,
-> Jeremy Su
-> 

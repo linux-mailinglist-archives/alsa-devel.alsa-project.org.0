@@ -2,64 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4DA39447B
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 16:50:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C949E3945A3
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 18:06:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 449F416D6;
-	Fri, 28 May 2021 16:49:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 449F416D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7468D16DE;
+	Fri, 28 May 2021 18:05:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7468D16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622213416;
-	bh=MaKmSClpVc19kyZ540PyAhe+bVMzTCR/sPP+MzMeGBA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uZxl4Dmt0KmIZnFTQzRUZdMp8VUBMIihEhmd9H5YgjarZa3KPR/n7/KDtdT/dRxNG
-	 9d8oMkbs86fHl3m2azvC0S0zVS10a+dJiIL+mYNLlhmts4Lgr4YCQyNmoi6ep8xAwJ
-	 3BGxNEWEqu9oqUA/Fhks/Kc/299FEaDKzJbuGHsU=
+	s=default; t=1622217973;
+	bh=b8j22H6agOcXtMfoEnjLawedaqeB8aZSsaJFzSVtfdk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lrCmZfmRBQy5o63WQq/g/smgqjkghK4LVbhvtXBOeuh5UEWT1oGX/hUy2AFHFTPQv
+	 v+TnVCeq4+7Igsg/Rd/n07TtSjDb6nX1Qyc7y1dxNqlNpa06QTYSzVwSjm8d1v0QVf
+	 cmnr0rHH8bsuLxasjFU1MSwz9nNNnZQo+CkxQE0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BECCF802BE;
-	Fri, 28 May 2021 16:48:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E122F804B2;
+	Fri, 28 May 2021 18:04:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7406EF804AC; Fri, 28 May 2021 16:48:45 +0200 (CEST)
+ id C61F7F804AB; Fri, 28 May 2021 18:04:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 133EFF804A9
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 16:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 133EFF804A9
-IronPort-SDR: +ksTakcWsOIlV48xY6TELI6HIWHwiEMyrlwy8E99E61T1swTd7JNGC1vwx5IgQj61IFdzc/5u7
- WKdQJuNQuR2g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9998"; a="266852823"
-X-IronPort-AV: E=Sophos;i="5.83,229,1616482800"; d="scan'208";a="266852823"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2021 07:48:30 -0700
-IronPort-SDR: 7lGGprA4F4EPPv4zpfrB7xj5WgcwZiSf0gqLn/yHkqSiMcdOk3OzNU3jI0lb/pFPsIx4jHXs+g
- OsOOIN1DEvQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,229,1616482800"; d="scan'208";a="548001427"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004.jf.intel.com with ESMTP; 28 May 2021 07:48:27 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: reset enabled_cores state at suspend
-Date: Fri, 28 May 2021 17:43:30 +0300
-Message-Id: <20210528144330.2551-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 682D0F802BE
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 18:04:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682D0F802BE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="ULtD+uzV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
+ To:From:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=nwute3UrzVQqFBNxqrewf6gg7PyJgURJocWfKosgNeY=; b=ULtD+uzVQ4LcEj/Dzs1t6sBm4l
+ uzXv89sxSYartXgjeqZCNnzDeYiXNDe0Gz0yvmHFu0bZ7lAnJDzFDyiqdT/LY0EPe8+FhlNJwTPYM
+ l83zqBt9COdU/BFxbr410i5Dds2ImueWiLWssm4RshIGl27r+e+yRDAHl9Nxx1TdvCK0=;
+Received: from cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
+ ([92.233.91.117] helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1lmeyD-006czX-TC; Fri, 28 May 2021 16:04:21 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 4F7ECD078F8; Fri, 28 May 2021 17:04:21 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 00/11] ASoC: rsnd: tidyup and fixup rare MIXer issue
+Date: Fri, 28 May 2021 17:04:16 +0100
+Message-Id: <162221783191.3504698.9640728463223524915.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <878s40nbmc.wl-kuninori.morimoto.gx@renesas.com>
+References: <878s40nbmc.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Cc: broonie@kernel.org, Mark@sirena.org.uk, Brown@sirena.org.uk,
+ Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,35 +86,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent changes to use common code to power up/down DSP cores also
-removed the reset of the core state at suspend. It turns out this is
-still needed. When the firmware state is reset to
-SOF_FW_BOOT_NOT_STARTED, also enabled_cores should be reset, and
-existing DSP drivers depend on this.
+From: Mark Brown,,, <broonie@kernel.org>
 
-BugLink: https://github.com/thesofproject/linux/issues/2824
-Fixes: 42077f08b3 ("ASoC: SOF: update dsp core power status in common APIs")
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/pm.c | 1 +
- 1 file changed, 1 insertion(+)
+On 27 May 2021 11:39:39 +0900, Kuninori Morimoto wrote:
+> These are v2 of tidyup patch, and rare MIXer issue fixup patch for
+> Renesas Sound driver.
+> 
+> 1 - 6 : tidyup for rsnd driver
+> 7     : add debugfs support
+> 8     : fixup rare MIXer issue
+> 9 - 11: tidyup for rsnd driver
+> 
+> [...]
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index fd265803f7bc..c83fb6255961 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -256,6 +256,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 
- 	/* reset FW state */
- 	sdev->fw_state = SOF_FW_BOOT_NOT_STARTED;
-+	sdev->enabled_cores_mask = 0;
- 
- 	return ret;
- }
+Applied, thanks!
 
-base-commit: 058efb40641845432c52777443b3372dbc97c032
+[01/11] ASoC: rsnd: call unregister for null_hw when removed
+        commit: 965386c97616c401b34cba4e9e3bfc9c6b215359
+[02/11] ASoC: rsnd: ignore runtime NULL case at rsnd_runtime_channel_original_with_params()
+        commit: 6da8f00e7ac277ddfc72e255328dc5ff0378c3ee
+[03/11] ASoC: rsnd: attach SSIU when SSI was DMA mode
+        commit: ab62e8a8bce1cc3b730462a7a462107db634bd5c
+[04/11] ASoC: rsnd: check BUIF error everytime
+        commit: 54e81e9446377c36fdcb952ca7db43e59857e0d7
+[05/11] ASoC: rsnd: indicate unknown error at rsnd_dai_call()
+        commit: 9ff07d19fb28ce8544d3ee4755673020b00487e6
+[06/11] ASoC: rsnd: incidate irq error message
+        commit: 1788a1520185e69f62e56dd23b33a0992e8187aa
+[07/11] ASoC: rsnd: add debugfs support
+        commit: 1f9c82b5ab83ff24f5c2b62bf9a912e4aef8905e
+[08/11] ASoC: rsnd: protect mod->status
+        commit: b43b8ae87c8e0a8b81a26cfc39bd157c5f53ae14
+[09/11] ASoC: rsnd: implement BUSIF related code in ssiu.c
+        commit: 83b220cf8eb2aa9dbe0007bcf43c5e305fe1986d
+[10/11] ASoC: rsnd: tidyup rsnd_ssiu_busif_err_status_clear()
+        commit: cfb7b8bf1e2d660583dd91d870cec2f6728cbdbc
+[11/11] ASoC: rsnd: tidyup rsnd_ssiu_busif_err_irq_ctrl()
+        commit: 0ab000e5e57e6dcb34605fbdee92a1b0947606e0
+
+Best regards,
 -- 
-2.31.1
-
+Mark Brown,,, <broonie@kernel.org>

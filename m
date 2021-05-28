@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF20393F8C
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 11:09:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0450F393F8F
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 11:09:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54B0916F0;
-	Fri, 28 May 2021 11:08:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54B0916F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7323C16FC;
+	Fri, 28 May 2021 11:08:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7323C16FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622192966;
-	bh=5BwycEk8xpoPqdwbsJjP9pnQuS+y71IQbDxqkGf9iRw=;
+	s=default; t=1622192980;
+	bh=WBhipp6Z/nmJo6D8pcaR2QtvpudzYeAqOpCefu2sLK4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o6ubsUi8wHjX+7Spjn8acC7eBbq+pW836lBAMgziSiy1+bpZYCrqUKX496Vg7RS23
-	 yVGuNVfYSpfT3mIjQiTXMQ95t0IWBB9EmH5k6rQ9wC2m/ACov5cEdKNlBHw5awaYWK
-	 qxa5yPalIZS2UA0nijfIfdk4CQfKcwvNv1H7LqCM=
+	b=VSCW6IVpDYP7pn0zg5d58Ew9kFjXo+Dv5XdvLj2yoYmxiPSh/LJBGcwMO9GxWIa4n
+	 cOSCv5x+v+MV69LDDHrH0VYjQ8QIrw0OzGUBUBCZMK0h6u2GfB8anwr9ltjiWKpvji
+	 7IbPRVM8bnIgtN9mrCeYiQvimGnSL/05f+yYY/0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAA63F8026B;
-	Fri, 28 May 2021 11:07:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C56EF8029B;
+	Fri, 28 May 2021 11:08:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CD44F80264; Fri, 28 May 2021 11:07:55 +0200 (CEST)
+ id 52733F80274; Fri, 28 May 2021 11:08:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AF63F800B7
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 11:07:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AF63F800B7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4F55F80264
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 11:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4F55F80264
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Bf4ZMf/d"; 
+ header.b="MEbMSSkK"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="X7aFiKaP"
+ header.b="QmqrcJ8Y"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622192868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622192896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i9Sm3e3UEhnMmdfjdSvOKOhlSKnM8t2zGvdxUXB9kes=;
- b=Bf4ZMf/dd78FbmU8O4WTGauWsysU8z7JwnCw/PymGC9go7oeN+EUdmc+QRH52nxqBwExZH
- nfpTHlWtd/lbKtpazgTux/5tjFtCEjUBB+K+fP0l01llZVziGd5BILwunRlMPm0G18kM0X
- 1KCpcpdsgxODotdRYs9c5PszILWAFyM=
+ bh=V7/T190IoJTockrDdhNsdtofXD3vl3IiZ3V1XzGxAT4=;
+ b=MEbMSSkK6hA51w+dY8q2CAhGffwSXU4g1jKCE33Ij5bOyV/WgmHUtHDigIcUg92bI+egEL
+ 0lvBpLYHOkqVYviWdRBIQpNwTahTq8Cb4TRp51eVpMgHiEr04rDu/Dk4iUlhKXnPOIibcN
+ jgP0BgAakyXxpI+0mCo1YtknIbDWpbc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622192868;
+ s=susede2_ed25519; t=1622192896;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i9Sm3e3UEhnMmdfjdSvOKOhlSKnM8t2zGvdxUXB9kes=;
- b=X7aFiKaPEmM7HFfEwg+i1Z0GtdcuZDQupsIenR0TGgbbL9u+DigAGRUourEKS/J6VNkd9n
- I/5bIIQ2lw+tVrBQ==
+ bh=V7/T190IoJTockrDdhNsdtofXD3vl3IiZ3V1XzGxAT4=;
+ b=QmqrcJ8YA8Tcmv5UAjV3/ldiz6YRpDPrPUb5irKaQpB/g8wg5l6FDLtRrC9x6pKgku6ijf
+ /NsSK2GZ7YWxcVAA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BA9DDB25F;
- Fri, 28 May 2021 09:07:48 +0000 (UTC)
-Date: Fri, 28 May 2021 11:07:48 +0200
-Message-ID: <s5hzgwf4463.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 84783AE86;
+ Fri, 28 May 2021 09:08:16 +0000 (UTC)
+Date: Fri, 28 May 2021 11:08:16 +0200
+Message-ID: <s5hy2bz445b.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-lib: support NO_PERIOD_WAKEUP in ALSA PCM
- runtime
-In-Reply-To: <20210527123253.174315-1-o-takashi@sakamocchi.jp>
-References: <20210527123253.174315-1-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] ALSA: firewire-lib: preparation for media clock
+ recovery
+In-Reply-To: <20210527122611.173711-1-o-takashi@sakamocchi.jp>
+References: <20210527122611.173711-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -91,44 +91,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 May 2021 14:32:53 +0200,
+On Thu, 27 May 2021 14:26:08 +0200,
 Takashi Sakamoto wrote:
 > 
-> Drivers of ALSA firewire stack can process packets for IT/IR context in
-> process context when the process operates ALSA PCM character device by
-> calling ioctl(2) with some requests. The ioctl requests are:
+> Hi,
 > 
->  * SNDRV_PCM_IOCTL_HWSYNC
->  * SNDRV_PCM_IOCTL_SYNC_PTR
->  * SNDRV_PCM_IOCTL_REWIND
->  * SNDRV_PCM_IOCTL_FORWARD
->  * SNDRV_PCM_IOCTL_WRITEI_FRAMES
->  * SNDRV_PCM_IOCTL_READI_FRAMES
->  * SNDRV_PCM_IOCTL_WRITEN_FRAMES
->  * SNDRV_PCM_IOCTL_READN_FRAMES
+> ALSA IEC 61883-1/6 packet streaming engine have been using pre-computed
+> parameters ideal for nominal sampling transfer frequency (STF), to
+> transfer packets to device since it was added 2011. As a result of user
+> experience for a decade, it is clear that the sequence is not suitable
+> to some actual devices.
 > 
-> This means that general application can process PCM frames apart from
-> hardware IRQ invocation, even if they are programmed by either IRQ-based
-> scheduling model or Timer-based scheduling model.
+> In design of audio and music unit in IEEE 1394 bus, feedback of
+> effective sampling transfer frequency is delivered by packets transferred
+> from device. Reuse of the sequence of parameter in the packets results
+> in pseudo media clock recovery to transfer packet.
 > 
-> This commit add support for Timer-based scheduling model by allowing
-> PCM runtime to suppress both process wakeup per period and scheduling
-> hardware IRQ.
+> In this patchset, an option is added to AMDTP domain so that each of
+> AMDTP stream for outgoing packet has association to AMDTP stream for
+> incoming packet, to replay the sequence of parameter. Some devices
+> require receiving packet on-the-fly to transfer packets, so another
+> option is added.
 > 
-> SNDRV_PCM_INFO_BATCH is obsoleted since ALSA IEC 61883-1/6 packet streaming
-> engine can report the number of transferred PCM frames within PCM period
-> boundary. The granularity equals to SYT_INTERVAL in blocking transmission.
-> In non-blocking transmission, it doesn't equal to SYT_INTERVAL but doesn't
-> exceed.
+> These options are just added, not used yet in this time. In future work,
+> they are going to be used by drivers in ALSA firewire stack.
 > 
-> This patch is tested with PulseAudio, and --sched-model option of axfer
-> with fix against the issue reported at:
-> 
->  * https://lore.kernel.org/alsa-devel/687f9871-7484-1370-04d1-9c968e86f72b@linux.intel.com/#r
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Takashi Sakamoto (3):
+>   ALSA: firewire-lib: add replay target to cache sequence of packet
+>   ALSA: firewire-lib: replay sequence of incoming packets for outgoing
+>     packets
+>   ALSA: firewire-lib: transfer rx packets on-the-fly when replaying
 
-Thanks, applied.
+Applied all three patches now.  Thanks.
 
 
 Takashi

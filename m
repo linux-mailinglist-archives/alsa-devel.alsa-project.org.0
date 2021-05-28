@@ -2,69 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0313945AE
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 18:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D545394679
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 19:31:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA0C16E1;
-	Fri, 28 May 2021 18:11:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA0C16E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98C2416D6;
+	Fri, 28 May 2021 19:30:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98C2416D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622218369;
-	bh=MjKN+g8FYz0q0Bj42FuA1DLXHalrifpRBpj6IQaHP4k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Qrxu6MEVk/YbhowxGN4BTX1oJiYXY3869a9jwL38hqGkPytozLUi/oHZOF5y/Z1oF
-	 zcG2ZPxGXu8QRCuRJ3L8/L6Pyx/mseZT657BqODakZ5tII3WS2X9aw8rsKLItTVaKs
-	 Yah5t/pAWc8cVQ6R4YnPAqvFM/QduEwLgzU72DOU=
+	s=default; t=1622223065;
+	bh=4UEQFamfktPFyRHlu9ts6fcZdmHhGBtNANTiNwk5djU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QZIxlcEC24p5JCvIas/9S47KOFy2wLiLA7xtqAFbg4RDkItMMW35qN3AxXdgJvD0k
+	 ENBllNBMs0t4Oc5ixeMZIpUJkTAfoHi7B1ayEJqqkO8Bvl1eKUQA7f/gjKVRs3ZdoJ
+	 hYgTbEdIdHW1J6jGUqq+DILPZdkwYq0QeHYKSUEI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42036F804B1;
-	Fri, 28 May 2021 18:11:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1501FF804AF;
+	Fri, 28 May 2021 19:29:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD4FF802BE; Fri, 28 May 2021 18:11:05 +0200 (CEST)
+ id 525DEF8013A; Fri, 28 May 2021 19:29:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBC34F802BE
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 18:10:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC34F802BE
-IronPort-SDR: vq/ir5DTT5Ju2fRTE/FzKAurjeQrx3L/0q6cx7c5pBytDIECDITfgFC/orIZ0OCy6tQTFFyiTg
- QZ67guM0iMEA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9998"; a="203017010"
-X-IronPort-AV: E=Sophos;i="5.83,229,1616482800"; d="scan'208";a="203017010"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2021 09:10:57 -0700
-IronPort-SDR: Gpjtk6HXFmCMdZ8tjF8a6jChQ3exhkjHtkDaHrWEB11EePKopcsgIE+SpfIWjljcEiNU2B8C+g
- CLZux0RcsUyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,229,1616482800"; d="scan'208";a="444058769"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008.jf.intel.com with ESMTP; 28 May 2021 09:10:55 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 2/2] ASoC: SOF: Intel: hda: don't print ROM status if
- cl_dsp_init() fails
-Date: Fri, 28 May 2021 19:05:51 +0300
-Message-Id: <20210528160551.10145-2-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210528160551.10145-1-kai.vehmanen@linux.intel.com>
-References: <20210528160551.10145-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FE4AF8013A
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 19:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FE4AF8013A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oLuOlBud"
+Received: by mail-lf1-x135.google.com with SMTP id x38so6365037lfa.10
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 10:29:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nQGU6xrvasRzJ9/W6i4GybOWCRndIumcGWBV2DwZRaE=;
+ b=oLuOlBudc2FiZ4E3p8UrouhdUzva8p07ec+k5PXp+TUrp80hZpOAn4KO4GxO5NcOno
+ sq8GpwLc8BzVKI4TxJyoL6MR6rp1FpJTysHAqH/KYG8OsVdZdmiNRpLAbvPpKvpY9YoF
+ 8HvPHwi9VTDBHoxThJWl+sMEMgcDlsCCUdq48c6uxkOCXZ0ypyq0O1nPbDhS2ojdCngu
+ C2NGaF/Fn+/elN+NSdiU5L4TPaPO8Ehz6c317aHP1A89MPUcK69I+pbIHg4+pkk60OtN
+ ouJd3CwAs0aP6wMiIPxrsbek9jWe/GhndC8qjSTTx8j5m2Dmq1nUQyn/aCJGvhrobQfS
+ /QUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nQGU6xrvasRzJ9/W6i4GybOWCRndIumcGWBV2DwZRaE=;
+ b=ldZoiBOjpda9iN/c6efL059OGx//vpYasq/rtxK6e9VY77sa4SiwWR5gHT3g5JZniR
+ Vm9OFE+bJxmdDIfgtEP3PO/T7AbP1tFWPxvUKuBNwbhxnPZxUhgsfTbeY6+ciQZ+Dj1J
+ gff0NCdSGw665XofnoIjyKI17Cmpt07RdrcK+TxADogKIjh91PahzTT8PCWXnxLwWco0
+ UcXfMFDFARbrUxLYhOkoHe2OnPpKWbMeMfRcxOKfVWU5fLi09svRQ8iCq2FNzCJYaE/w
+ AZn0Ng33Rdb29w9H6QuiEkPeWoCb5w+IBfRyYhXyzQ0gudBu4Ur2pTtJLiH94nT4Vxu7
+ vl5w==
+X-Gm-Message-State: AOAM5324C8ZOofBh/wHpNV8xKrETOgsiZBXDg4MSDW5cA+y5qCKJn+80
+ FhRAx/uYxRScOX9v7LXlxuk=
+X-Google-Smtp-Source: ABdhPJzYLXcjkSoV50SJyxTWXbXGdzlaPQ4nCCyFIMp3Wbb81hshFzgZ+uWem4bbOtWwwABvfichZQ==
+X-Received: by 2002:ac2:4281:: with SMTP id m1mr6250316lfh.164.1622222963252; 
+ Fri, 28 May 2021 10:29:23 -0700 (PDT)
+Received: from localhost.localdomain (46-138-12-55.dynamic.spd-mgts.ru.
+ [46.138.12.55])
+ by smtp.gmail.com with ESMTPSA id x207sm518282lff.234.2021.05.28.10.29.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 May 2021 10:29:22 -0700 (PDT)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Ion Agorria <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v5 0/3] Unify NVIDIA Tegra ASoC machine drivers
+Date: Fri, 28 May 2021 20:28:30 +0300
+Message-Id: <20210528172833.21622-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
- Bard Liao <bard.liao@intel.com>
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,39 +102,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+This series squashes all the ASoC machine drivers into a single one,
+this change was suggested by Jon Hunter. It also sets driver_name and
+components string of each card, allowing userspace alsa-lib to find
+UCMs at predictable path.
 
-cl_dsp_init() dumps the ROM status if it fails after max
-attempts before powering off the DSP. Remove the duplicate
-log to print the ROM status and error in
-hda_dsp_cl_boot_firmware(). These values are invalid anyway
-as the DSP is already powered off.
+Changelog:
 
-Co-developed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/intel/hda-loader.c | 5 -----
- 1 file changed, 5 deletions(-)
+v5: - The v4 removed the customization of components string for Nexus 7,
+      but I missed to remove the "components" hook which is unused now,
+      it's removed in v5 for consistency.
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index fc25ee8f68dc..6f4771bf9de3 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -385,11 +385,6 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 	if (i == HDA_FW_BOOT_ATTEMPTS) {
- 		dev_err(sdev->dev, "error: dsp init failed after %d attempts with err: %d\n",
- 			i, ret);
--		dev_err(sdev->dev, "ROM error=0x%x: FW status=0x%x\n",
--			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
--					 HDA_DSP_SRAM_REG_ROM_ERROR),
--			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
--					 HDA_DSP_SRAM_REG_ROM_STATUS));
- 		goto cleanup;
- 	}
- 
+    - Slightly improved naming of the common 12MHz MCLK rate function
+      to make it more consistent with the rest of the driver functions.
+
+v4: - Moved out mclk_rate callback that is currently used only by WM8903
+      machine driver from the common driver. This was suggested by Jon Hunter.
+
+    - Dropped patch which was setting custom components string for Nexus 7.
+      Jaroslav Kysela wants it to be specified in a device-tree, but the
+      components string doesn't have a firm specification for today. It's
+      better to drop this change for now since it's optional anyways.
+
+    - Fixed compilation error that was reported by kernel robot for v3.
+
+    - Jaroslav Kysela merged alsa-ucm-conf PR [1] which added UCMs for
+      Nexus 7 and Acer A500. The UCMs are fully working using a combination
+      of updated kernel + alsa-ucm-conf master + alsa-lib master, meaning
+      that they will work with the next releases of kernel and ALSA userspace
+      upstream packages.
+
+    - Added ack from Jaroslav Kysela to the "Specify components string for
+      each card" patch that he gave to v3.
+
+v3: - Added components string as was suggested by Jaroslav Kysela to v2.
+
+    - Renamed MCLK rate function that is used by max98090 and other codecs
+      to make it look more generic. Added option for specifying CLK ID per
+      device. This all was suggested by Jon Hunter to v2.
+
+v2: - Dropped use of of_device_compatible_match(), like it was suggested
+      by Rob Herring in a review comment to v1.
+
+    - Added patch that sets card's driver_name of as Tegra ASoC drivers.
+      In a comment to v1 Jaroslav Kysela suggested that the Tegra drivers
+      don't set the card name properly and he was right.
+
+      I opened pull request with the new Tegra UCMs and updated lookup paths
+      for older UCMs [1].
+
+      [1] https://github.com/alsa-project/alsa-ucm-conf/pull/92
+
+Dmitry Osipenko (3):
+  ASoC: tegra: Set driver_name=tegra for all machine drivers
+  ASoC: tegra: Unify ASoC machine drivers
+  ASoC: tegra: Specify components string for each card
+
+ sound/soc/tegra/Kconfig              |  12 +
+ sound/soc/tegra/Makefile             |  18 +-
+ sound/soc/tegra/tegra_alc5632.c      | 259 ----------
+ sound/soc/tegra/tegra_asoc_machine.c | 712 +++++++++++++++++++++++++++
+ sound/soc/tegra/tegra_asoc_machine.h |  45 ++
+ sound/soc/tegra/tegra_max98090.c     | 276 -----------
+ sound/soc/tegra/tegra_rt5640.c       | 222 ---------
+ sound/soc/tegra/tegra_rt5677.c       | 324 ------------
+ sound/soc/tegra/tegra_sgtl5000.c     | 211 --------
+ sound/soc/tegra/tegra_wm8753.c       | 185 -------
+ sound/soc/tegra/tegra_wm8903.c       | 351 +++----------
+ sound/soc/tegra/tegra_wm9712.c       | 166 -------
+ sound/soc/tegra/trimslice.c          | 172 -------
+ 13 files changed, 850 insertions(+), 2103 deletions(-)
+ delete mode 100644 sound/soc/tegra/tegra_alc5632.c
+ create mode 100644 sound/soc/tegra/tegra_asoc_machine.c
+ create mode 100644 sound/soc/tegra/tegra_asoc_machine.h
+ delete mode 100644 sound/soc/tegra/tegra_max98090.c
+ delete mode 100644 sound/soc/tegra/tegra_rt5640.c
+ delete mode 100644 sound/soc/tegra/tegra_rt5677.c
+ delete mode 100644 sound/soc/tegra/tegra_sgtl5000.c
+ delete mode 100644 sound/soc/tegra/tegra_wm8753.c
+ delete mode 100644 sound/soc/tegra/tegra_wm9712.c
+ delete mode 100644 sound/soc/tegra/trimslice.c
+
 -- 
-2.31.1
+2.30.2
 

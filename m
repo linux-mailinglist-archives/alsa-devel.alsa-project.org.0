@@ -2,100 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84C86393EFA
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 10:49:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBF20393F8C
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 11:09:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14F7516E6;
-	Fri, 28 May 2021 10:48:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14F7516E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54B0916F0;
+	Fri, 28 May 2021 11:08:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54B0916F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622191782;
-	bh=ukHp60Q5ZW4yaLFYCHm1zpePwIJyk8NPsoY7s+rt8L0=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1622192966;
+	bh=5BwycEk8xpoPqdwbsJjP9pnQuS+y71IQbDxqkGf9iRw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d3iijEBQwW/JhOAGIKy/DTXtiRvWZoVo7ezlNw9wPaL9LhXKJVrWQJ5hiywksJl1I
-	 5eDJQBEvL37zQMrxNT51g9WqfaXdG6l7WrpUQ2o6gI4yzSj/znuEUcNaA7GhBj58VM
-	 5LrSPttpl5odgiHDzSxYY8KbbV5EMYcV+8U2WbPE=
+	b=o6ubsUi8wHjX+7Spjn8acC7eBbq+pW836lBAMgziSiy1+bpZYCrqUKX496Vg7RS23
+	 yVGuNVfYSpfT3mIjQiTXMQ95t0IWBB9EmH5k6rQ9wC2m/ACov5cEdKNlBHw5awaYWK
+	 qxa5yPalIZS2UA0nijfIfdk4CQfKcwvNv1H7LqCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62AC2F80260;
-	Fri, 28 May 2021 10:48:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAA63F8026B;
+	Fri, 28 May 2021 11:07:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E64DF80264; Fri, 28 May 2021 10:48:11 +0200 (CEST)
+ id 6CD44F80264; Fri, 28 May 2021 11:07:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDD2DF8013A
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 10:47:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDD2DF8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AF63F800B7
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 11:07:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AF63F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="m3WX96qI"
-Received: by mail-wm1-x32a.google.com with SMTP id h3so1660665wmq.3
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 01:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=WikFeXUsmrrkxHoqNQkeIN24f6mCbXXF6hqcFhk6uOo=;
- b=m3WX96qICHaTwGdy1NTiEy0Bor5LJzIqd0AP7gvFdxjoHxm2NxhtUULDF+9lQOSw3Y
- wm4U2se5OJH6V8mzypZm1OGQngILCHudP6E82dzKt1S1V5RcsTTE/k4kgMZz4caIIhET
- Ob9PhEEtEAQYiFx7Z/Sq2yj5GedDe7Px/ozVUTDyZkuGMhGy+jxnlhG6ROQMVvdsWSmp
- IT2kPqeKN14BTJdDze23+I0GigtrfJ2WrDQE3A1wtx8tzMIIY0iH+GEgVUTcjr/YQ6X/
- YIRmEy2wgLbQT4CNB9MC6NxyRFy6dATRINmmsosVlGlX6L+7d14bBW4AO7nEJXN3giaj
- RH8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WikFeXUsmrrkxHoqNQkeIN24f6mCbXXF6hqcFhk6uOo=;
- b=cV5y9EKfPACaqy/2EfqaC042IIh0ze+yxXQ5NtGHnI3G9AIg26Ylj5Ze3VDvVapTMK
- co77zD2bUud+nLj5URkJlxhK457qCR4Ios1dJHgiKl/9Raf6ja66m9tLW7aGIFHhN0rW
- rQ8h0kNW6iVvqgy3G1J3FKNp+WqnXcscciE4oWtyR7w3qEzRpVRrdsXFA3fLtCucZ7yJ
- h4uqmBfOtyvIM89O/ywDNj/c6TUfk78NUGjpeO2/uHfdq5t9+QzeNWXbQku7wQk4jxR7
- fAyKPWmSG5nsuHWpwmkTUxKgFMZdB705CR6vTIEJub9oxcWGzPLBoGHqtvCRxxYx+9YO
- LBXQ==
-X-Gm-Message-State: AOAM530V3hMD3P6iG8JJdD4FPfl7NQ8Y5p840fuGGMpuIMZKWCbj1fbE
- EmkqqN0Ali3oSBuU6AynZLwu2Q==
-X-Google-Smtp-Source: ABdhPJy2OXUhLfKhJDP5StESemM6f4/xQULoj6x8UA0x3F5G/hfVlS7HFPZ/uPFHeo3V6lLxbvIwbQ==
-X-Received: by 2002:a05:600c:2219:: with SMTP id
- z25mr7450903wml.78.1622191677970; 
- Fri, 28 May 2021 01:47:57 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id f8sm5547546wmg.43.2021.05.28.01.47.56
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 28 May 2021 01:47:57 -0700 (PDT)
-Subject: Re: [PATCH v3] ASoC: qcom: lpass-cpu: Fix pop noise during audio
- capture begin
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <20210524142114.18676-1-srivasam@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <9a4bbab8-91a2-f195-b77a-5234d46a2c0a@linaro.org>
-Date: Fri, 28 May 2021 09:47:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20210524142114.18676-1-srivasam@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Bf4ZMf/d"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="X7aFiKaP"
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622192868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=i9Sm3e3UEhnMmdfjdSvOKOhlSKnM8t2zGvdxUXB9kes=;
+ b=Bf4ZMf/dd78FbmU8O4WTGauWsysU8z7JwnCw/PymGC9go7oeN+EUdmc+QRH52nxqBwExZH
+ nfpTHlWtd/lbKtpazgTux/5tjFtCEjUBB+K+fP0l01llZVziGd5BILwunRlMPm0G18kM0X
+ 1KCpcpdsgxODotdRYs9c5PszILWAFyM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622192868;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=i9Sm3e3UEhnMmdfjdSvOKOhlSKnM8t2zGvdxUXB9kes=;
+ b=X7aFiKaPEmM7HFfEwg+i1Z0GtdcuZDQupsIenR0TGgbbL9u+DigAGRUourEKS/J6VNkd9n
+ I/5bIIQ2lw+tVrBQ==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BA9DDB25F;
+ Fri, 28 May 2021 09:07:48 +0000 (UTC)
+Date: Fri, 28 May 2021 11:07:48 +0200
+Message-ID: <s5hzgwf4463.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: firewire-lib: support NO_PERIOD_WAKEUP in ALSA PCM
+ runtime
+In-Reply-To: <20210527123253.174315-1-o-takashi@sakamocchi.jp>
+References: <20210527123253.174315-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,139 +91,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 24/05/2021 15:21, Srinivasa Rao Mandadapu wrote:
-> This patch fixes PoP noise of around 15ms observed during audio capture begin.
-> Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for introducing some delay
-> before capture start and clock enable.
+On Thu, 27 May 2021 14:32:53 +0200,
+Takashi Sakamoto wrote:
 > 
-> Co-developed-by: Judy Hsiao <judyhsiao@chromium.org>
-> Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> ---
-> Changes Since V2:
-> 	-- Updated comments as per linux style
-> 	-- Removed unrelated changes.
-> Changes Since V1:
-> 	-- Enableed BCLK and LRCLK in dai ops prepare API instead of startup API
-> 	-- Added comments
+> Drivers of ALSA firewire stack can process packets for IT/IR context in
+> process context when the process operates ALSA PCM character device by
+> calling ioctl(2) with some requests. The ioctl requests are:
 > 
->   sound/soc/qcom/lpass-cpu.c | 54 +++++++++++++++++++++++++++++++++++++-
->   1 file changed, 53 insertions(+), 1 deletion(-)
+>  * SNDRV_PCM_IOCTL_HWSYNC
+>  * SNDRV_PCM_IOCTL_SYNC_PTR
+>  * SNDRV_PCM_IOCTL_REWIND
+>  * SNDRV_PCM_IOCTL_FORWARD
+>  * SNDRV_PCM_IOCTL_WRITEI_FRAMES
+>  * SNDRV_PCM_IOCTL_READI_FRAMES
+>  * SNDRV_PCM_IOCTL_WRITEN_FRAMES
+>  * SNDRV_PCM_IOCTL_READN_FRAMES
 > 
-> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-> index 28c7497344e3..1855eae22aad 100644
-> --- a/sound/soc/qcom/lpass-cpu.c
-> +++ b/sound/soc/qcom/lpass-cpu.c
-> @@ -93,9 +93,21 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
->   		struct snd_soc_dai *dai)
->   {
->   	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-> +	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-> +	unsigned int id = dai->driver->id;
->   
->   	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
-> -	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-> +	/*
-> +	 * To ensure BCLK/LRCLK disabled even in device node validation
-> +	 * Will not impact if disabled in lpass_cpu_daiops_trigger()
-> +	 * suspend.
-> +	 */
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_DISABLE);
-> +	else
-> +		regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_DISABLE);
-> +
-> +	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
->   }
->   
->   static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
-> @@ -275,6 +287,10 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
->   	case SNDRV_PCM_TRIGGER_START:
->   	case SNDRV_PCM_TRIGGER_RESUME:
->   	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +		/*
-> +		 * To ensure lpass BCLK/LRCLK is enabled during
-> +		 * device resume. Will not impact if enabled in lpass_cpu_daiops_prepare().
-> +		 */
-
-prepare should have already ensured that isn't it?
-
-
->   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
->   			ret = regmap_fields_write(i2sctl->spken, id,
->   						 LPAIF_I2SCTL_SPKEN_ENABLE);
-> @@ -296,6 +312,10 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
->   	case SNDRV_PCM_TRIGGER_STOP:
->   	case SNDRV_PCM_TRIGGER_SUSPEND:
->   	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		/*
-> +		 * To ensure lpass BCLK/LRCLK is disabled during
-> +		 * device suspend.
-> +		 */
->   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
->   			ret = regmap_fields_write(i2sctl->spken, id,
->   						 LPAIF_I2SCTL_SPKEN_DISABLE);
-> @@ -315,12 +335,44 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
->   	return ret;
->   }
->   
-
-
-[Snip ...
-> +static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
-> +		struct snd_soc_dai *dai)
-> +{
-> +	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-> +	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-> +	unsigned int id = dai->driver->id;
-> +	int ret;
-> +	/*
-> +	 * To ensure lpass BCLK/LRCLK is enabled bit before
-> +	 * playback/capture data flow starts.
-> +	 */
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		ret = regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_ENABLE);
-> +	else
-> +		ret = regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_ENABLE);
-> +
-> +	if (ret) {
-> +		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_enable(drvdata->mi2s_bit_clk[id]);
-> +
-> +	if (ret) {
-> +		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
-> +		clk_disable(drvdata->mi2s_osr_clk[id]);
-> +		return ret;
-> +	}
-> +	return 0;
-> +}
-> +
-----]
-
-If prepare is enabling the clk and the i2s enable bits, then why do we 
-need to do the same thing in trigger?
-
-Also the clk enable count is going up twice (once in prepare and 
-trigger) and we can never be able to disable the clk as there is is no 
-corresponding disable for this prepare path.
-
-Also note that prepare can be called multiple times.
-
---srini
-
->   const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
->   	.set_sysclk	= lpass_cpu_daiops_set_sysclk,
->   	.startup	= lpass_cpu_daiops_startup,
->   	.shutdown	= lpass_cpu_daiops_shutdown,
->   	.hw_params	= lpass_cpu_daiops_hw_params,
->   	.trigger	= lpass_cpu_daiops_trigger,
-> +	.prepare	= lpass_cpu_daiops_prepare,
->   };
->   EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops);
->   
+> This means that general application can process PCM frames apart from
+> hardware IRQ invocation, even if they are programmed by either IRQ-based
+> scheduling model or Timer-based scheduling model.
 > 
+> This commit add support for Timer-based scheduling model by allowing
+> PCM runtime to suppress both process wakeup per period and scheduling
+> hardware IRQ.
+> 
+> SNDRV_PCM_INFO_BATCH is obsoleted since ALSA IEC 61883-1/6 packet streaming
+> engine can report the number of transferred PCM frames within PCM period
+> boundary. The granularity equals to SYT_INTERVAL in blocking transmission.
+> In non-blocking transmission, it doesn't equal to SYT_INTERVAL but doesn't
+> exceed.
+> 
+> This patch is tested with PulseAudio, and --sched-model option of axfer
+> with fix against the issue reported at:
+> 
+>  * https://lore.kernel.org/alsa-devel/687f9871-7484-1370-04d1-9c968e86f72b@linux.intel.com/#r
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+
+Thanks, applied.
+
+
+Takashi

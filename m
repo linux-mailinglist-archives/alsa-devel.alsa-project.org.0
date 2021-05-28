@@ -2,103 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EAF39423C
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 13:56:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C80839430E
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 May 2021 14:57:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE26916C8;
-	Fri, 28 May 2021 13:55:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE26916C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90C7116D8;
+	Fri, 28 May 2021 14:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90C7116D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622203001;
-	bh=hooYDv4KKmmJIhadd2Vy0BljoZFc8ijow4wajsAzXPY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1622206630;
+	bh=wGJF/2btJJ4l36Oy70ZiWT0lX3fopOARIIgoe4CQJmk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WXuvUl09UXDRm3bCNM7rbc37yI4DvPJ3Rek9f5Wgn1poAJhlSCT+lFvFrD2gq2EZ9
-	 A9LNi165GRep9LNu4+6VeaclLpnSjDFJyuho4HoUvDlm9QRGUcBeWSTcEnYboVicwa
-	 CfxQKcV0KL3IqKbqm3Oi/HwkvjFMHFtu6CNnZHiE=
+	b=atEShMeQWQ1MYj3tadMkoyUcqdMP2gjLwYP+4tXHCPdx08RXzWxqrUrLqXA7JPtLs
+	 ar+PCpzkuLmCndTtob9v1CxJFpTyDEmNRtgKbOiL7wnM7F1R34YNATrtYJm2WZ8+9Z
+	 rU2Ausj8TJyAtLmlb4ttlgClQ/v54P9ZdYEuUtRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B253F804AD;
-	Fri, 28 May 2021 13:55:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFD9DF8013A;
+	Fri, 28 May 2021 14:55:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78606F804AB; Fri, 28 May 2021 13:55:11 +0200 (CEST)
+ id 9398EF804AC; Fri, 28 May 2021 14:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24910F804A9
- for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 13:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24910F804A9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="r7Zylf9U"
-ARC-Seal: i=1; a=rsa-sha256; t=1622202900; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=aQqcZXWT4XqPeHd8/2ibHiQiD1y0VfjXgM93IQawBsWKOFFaYg7Br3XRXwJLYWOed2
- 5i4CPMnLy8DqoaPZ1rYrLQ08+MvyTdHHd6TAmJgjWcohAQXdyK6JpOTF4hbCXR3yD9TH
- 56edytofCabbK6dkc/IvLSEEHenbmQv9YXApUDfcNxdpO8UplJ+zIDbb4bxT+OfHrs7P
- L1R4RSd9u7MJ8JNaVN17I/3RZTakBCX7U65NzmWV1ZTKUt3QsU8Qwf0/BB7zQhb4bFZX
- Nwnxlz4k2HnL3e6kKkIi/mlDHuSJtMjagupA0eYYOBobpKfIgP6/JbJxo7cJ/drKj7Qq
- fv5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622202900;
- s=strato-dkim-0002; d=strato.com;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
- From:Subject:Sender;
- bh=WeqQN4mQvzS29AH4yAdf/GA2SB8Yu/Jx4YSHLw8KKYE=;
- b=bqf4cZk8Qnv8wHwLoJN03UmrYfSpdnKV1xjO0lspSs4rthlzJOqbdJnOw9bVQP4kTr
- U/BH4KXzQhaYPIez72f1hPVRbqTa/35VD5OI6RvcvtmeErJJAlfIghJJDVHYHsw5nNnU
- CH5lxIYHSbKQei7HrijXF6z0r9HpRuBPNgd03CnAZ780w9pG9aZN4ErBl78CrojgC4e7
- AkI9hu0h7N3cXvVgFJcWhUIZz+QKKRx71Ic/L4JR422WL0oKn7cho0laveUYHeotDLkY
- sRAsw7cTg4aERqRwBR1bpJtF7R/stkXVb1ZHNLoT6jsA3R8HHcDwrnPSMVzQQfbHX9Zl
- iwHQ==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622202900;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
- From:Subject:Sender;
- bh=WeqQN4mQvzS29AH4yAdf/GA2SB8Yu/Jx4YSHLw8KKYE=;
- b=r7Zylf9UuQSufvtraDgmWTNFpCe14DxFRNNm7J/TwKvYKTw8j0M1lHsl+TTeoTF8K6
- f2eTgAgDHuPBJIKuec3ey0NYauSLZVgZGxVwXohj1PL0R+iApOUjAGfOBsmQ4nyjGDC4
- sa5jwB1+O8TZOsGXeZh4n8PgOVORTTSlu1JvCGXevsnsaQ86tzlfeFUHj9TuIs3UeXzQ
- XusYsM4XcEaiOhSciF7+xYGVMUHk7KlvGI23QdgMm40KTNdoSnXC8rzP/tS5xOO2oR9u
- 6Eptxcf+NrkFWHu8K386VOg0nPhuxsAtWfFaSch+EB9IeuVgjpObdxuwu98dcaovvVzz
- 28BQ==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j6IczFY4o="
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 47.26.3 DYNA|AUTH)
- with ESMTPSA id U0b2c9x4SBsx662
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 28 May 2021 13:54:59 +0200 (CEST)
-Date: Fri, 28 May 2021 13:54:58 +0200
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Vincent Knecht <vincent.knecht@mailoo.org>
-Subject: Re: [PATCH v1 4/4] ASoC: codecs: tfa989x: Add support for optional
- vddd-supply
-Message-ID: <YLDaEnjGmCHrUMiz@gerhold.net>
-References: <20210528105101.508254-1-vincent.knecht@mailoo.org>
- <20210528105101.508254-4-vincent.knecht@mailoo.org>
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bitmer.com (49-237-179-185.static.tentacle.fi [185.179.237.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BE21F8013A
+ for <alsa-devel@alsa-project.org>; Fri, 28 May 2021 14:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE21F8013A
+Received: from 88-114-184-142.elisa-laajakaista.fi ([88.114.184.142]
+ helo=[192.168.1.42])
+ by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.89) (envelope-from <jarkko.nikula@bitmer.com>)
+ id 1lmc1R-000691-6Y; Fri, 28 May 2021 15:55:29 +0300
+Subject: Re: [PATCH -next] ASoC: ti: omap-mcbsp: use DEVICE_ATTR_RW macro
+To: YueHaibing <yuehaibing@huawei.com>, peter.ujfalusi@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+References: <20210528063033.19904-1-yuehaibing@huawei.com>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Message-ID: <4e8da5c2-9a9e-c0a9-f944-8e0e9f30f47e@bitmer.com>
+Date: Fri, 28 May 2021 15:55:25 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210528105101.508254-4-vincent.knecht@mailoo.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
+In-Reply-To: <20210528063033.19904-1-yuehaibing@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,93 +72,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 28, 2021 at 12:51:01PM +0200, Vincent Knecht wrote:
-> Allow specifying Vddd regulator/supply to be enabled on I2C probing.
+On 5/28/21 9:30 AM, YueHaibing wrote:
+> Use DEVICE_ATTR_RW() helper instead of plain DEVICE_ATTR(),
+> which makes the code a bit shorter and easier to read.
 > 
-> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
-
-Reviewed-by: Stephan Gerhold <stephan@gerhold.net>
-
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 > ---
->  sound/soc/codecs/tfa989x.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
+>  sound/soc/ti/omap-mcbsp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/codecs/tfa989x.c b/sound/soc/codecs/tfa989x.c
-> index 6d94865c534b..643b45188b6f 100644
-> --- a/sound/soc/codecs/tfa989x.c
-> +++ b/sound/soc/codecs/tfa989x.c
-> @@ -10,6 +10,7 @@
->  #include <linux/i2c.h>
->  #include <linux/module.h>
->  #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->  #include <sound/soc.h>
->  
->  #define TFA989X_STATUSREG		0x00
-> @@ -51,6 +52,10 @@ struct tfa989x_rev {
->  	int (*init)(struct regmap *regmap);
->  };
->  
-> +struct tfa989x {
-> +	struct regulator *vddd_supply;
-> +};
-> +
->  static bool tfa989x_writeable_reg(struct device *dev, unsigned int reg)
->  {
->  	return reg > TFA989X_REVISIONNUMBER;
-> @@ -242,10 +247,18 @@ static int tfa989x_dsp_bypass(struct regmap *regmap)
->  				 BIT(TFA989X_SYS_CTRL_AMPC));
->  }
->  
-> +static void tfa989x_regulator_disable(void *data)
-> +{
-> +	struct tfa989x *tfa989x = data;
-> +
-> +	regulator_disable(tfa989x->vddd_supply);
-> +}
-> +
->  static int tfa989x_i2c_probe(struct i2c_client *i2c)
->  {
->  	struct device *dev = &i2c->dev;
->  	const struct tfa989x_rev *rev;
-> +	struct tfa989x *tfa989x;
->  	struct regmap *regmap;
->  	unsigned int val;
->  	int ret;
-> @@ -256,10 +269,31 @@ static int tfa989x_i2c_probe(struct i2c_client *i2c)
->  		return -ENODEV;
->  	}
->  
-> +	tfa989x = devm_kzalloc(dev, sizeof(*tfa989x), GFP_KERNEL);
-> +	if (!tfa989x)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(i2c, tfa989x);
-> +
-> +	tfa989x->vddd_supply = devm_regulator_get(dev, "vddd");
-> +	if (IS_ERR(tfa989x->vddd_supply))
-> +		return dev_err_probe(dev, PTR_ERR(tfa989x->vddd_supply),
-> +				     "Failed to get vddd regulator\n");
-> +
->  	regmap = devm_regmap_init_i2c(i2c, &tfa989x_regmap);
->  	if (IS_ERR(regmap))
->  		return PTR_ERR(regmap);
->  
-> +	ret = regulator_enable(tfa989x->vddd_supply);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable vddd regulator: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, tfa989x_regulator_disable, tfa989x);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* Bypass regcache for reset and init sequence */
->  	regcache_cache_bypass(regmap, true);
->  
-> -- 
-> 2.31.1
-> 
-> 
-> 
+Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>

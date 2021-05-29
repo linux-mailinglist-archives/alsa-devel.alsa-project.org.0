@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C862394D99
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 May 2021 20:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D47394D9A
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 May 2021 20:01:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E192016CF;
-	Sat, 29 May 2021 19:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E192016CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2C0C16A5;
+	Sat, 29 May 2021 20:00:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C0C16A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622311239;
-	bh=A+laY8+5J9JdQr52ytsaaslCMpIG6VYZ97GHEXmyOCk=;
+	s=default; t=1622311275;
+	bh=jPI6eyMA56Y7rcjy+ArehEtt4WPd1TkMQTrDKCX+OfA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vn76XhF/2Fl+IRi6/xiz5oYzM4GxARiTGRM88sGQlz8bhTnFfNOOsinBLTGcT9NV3
-	 1wFPUo+zczL/zBz8SN7VD3qbRSv9hz0mK5fayqgBXMr8EqBjL77s7cN4eDT7gKensP
-	 WwkrUKn5hQbYYTPNXVh1FAO+BGxjHnIxmUbBwJ3Y=
+	b=V3/X+OIh2TUMUf7JUU2Jt46ACMwc8lTMMhI3Dxv9Ke0skz0HXWpZKDqzdIruQfvhL
+	 1YwHbJQjGSWn+WZAKudDv6cNaPmLIB+FAv6FR2ON1IGxg6R0gWt/azv2kOn1FJNZbj
+	 aTRF8qVMn1T40EDAEFqUiK55F+us3oTBQvVmMC1U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E5EBF80301;
-	Sat, 29 May 2021 19:59:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83BCEF8010A;
+	Sat, 29 May 2021 19:59:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAA9EF80300; Sat, 29 May 2021 19:59:19 +0200 (CEST)
+ id C1010F804BD; Sat, 29 May 2021 19:59:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E0F98F8025C
- for <alsa-devel@alsa-project.org>; Sat, 29 May 2021 19:59:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0F98F8025C
+ by alsa1.perex.cz (Postfix) with ESMTP id F1986F804BC
+ for <alsa-devel@alsa-project.org>; Sat, 29 May 2021 19:59:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1986F804BC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1622311156702790976-webhooks-bot@alsa-project.org>
-References: <1622311156702790976-webhooks-bot@alsa-project.org>
+In-Reply-To: <1622311186789011002-webhooks-bot@alsa-project.org>
+References: <1622311186789011002-webhooks-bot@alsa-project.org>
 Subject: snd_pcm_avail() returned a value that is exceptionally large "ALC293"
-Message-Id: <20210529175919.DAA9EF80300@alsa1.perex.cz>
-Date: Sat, 29 May 2021 19:59:19 +0200 (CEST)
+Message-Id: <20210529175949.C1010F804BD@alsa1.perex.cz>
+Date: Sat, 29 May 2021 19:59:49 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +68,7 @@ Realtek ALC293
 
 It is rare that it occurs, it has only happened to me playing, after this the internal keyboard stops responding and I have to put one for USB, and the shutdown of the laptop is impossible without removing power forced 
 
-``
+`
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]: snd_pcm_avail() returned a value that is exceptionally large: 440960 bytes (2499 ms).
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]: Most likely this is a bug in the ALSA driver 'snd_hda_intel'. Please report this issue to the ALSA developers.
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]: snd_pcm_dump():
@@ -179,7 +179,8 @@ may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]:   silence_size 
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]:   boundary     : 4962966789362286592
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]:   appl_ptr     : 47748960
 may 29 18:44:35 jeronimo17-GIGABYTE-AORUS-7-KB pulseaudio[1370]:   hw_ptr       : 47810784
-``
+
+`
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/141
 Repository URL: https://github.com/alsa-project/alsa-lib

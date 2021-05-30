@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90FF2394FFD
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 May 2021 09:33:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48603394FFE
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 May 2021 09:33:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF35616AB;
-	Sun, 30 May 2021 09:32:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF35616AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA50F16BB;
+	Sun, 30 May 2021 09:32:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA50F16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622359982;
-	bh=5QsWf/DAonBvL3JPAVZqs1N3yUw34RMYQvc8LESTawg=;
+	s=default; t=1622360013;
+	bh=Kh+a/HZqA2mPfESdkgNUDOX+ISgLBcLfpDRu6Bdl1lk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g//10L6EUQYm9udAA78T9HJkpYIVQj61E1yHbidzHjQ4TZbXymOFhbijZ9Naa619e
-	 E5iL430fmkGefquPhcDH11ZLmhRLu8x6FTjCfEU5GYS9HF48DQepDw48PutidIVjo9
-	 JJLKiP8Q8981bj0I2g2PYwrrBigkTb8IjNsthAnc=
+	b=Z9DeFbAm/Pdh7VSlnsGU1fTeAJs6uGHK5GXsAcGjfXGJoZK0E6mYz7lJZB6UqJ4UT
+	 byvBEZPEr/USdQ+vBIZDp7Ra6I/uD9GJgcvoFhFbIMV/1LIV/sWjBuGf1tLKL7upxX
+	 +GgWVAQJjRuBG/Tk/HEYTcSpM/omP+1+lLEKGyPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54AE4F80161;
-	Sun, 30 May 2021 09:31:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68C7AF804AF;
+	Sun, 30 May 2021 09:32:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6F11F80254; Sun, 30 May 2021 09:31:29 +0200 (CEST)
+ id 95D86F80269; Sun, 30 May 2021 09:32:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,48 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA0C3F80161
- for <alsa-devel@alsa-project.org>; Sun, 30 May 2021 09:31:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA0C3F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88D88F80109
+ for <alsa-devel@alsa-project.org>; Sun, 30 May 2021 09:32:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D88F80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VmzyVs0w"; 
+ header.b="rnKvKoUS"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3wsPdlwU"
+ header.b="nN3XlOos"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622359881; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622359950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Mdg+J3tTjHYOJO7nGlpkLy1+hYIR0yJKP5CwnYjbTpQ=;
- b=VmzyVs0wmCMq4yWim6a6KmEarYsBhe9kYlRd8dg9o2iCgNDyBnoZ34efkqLLRXAGPyTzGh
- aEQJ329sn/77F4EP1FtZ7aLhjJXYTlvlTb5Tt4zqgNFmj1JLWu3Wyykp+Wy3RqlY6SCxqg
- mqhRyrp7gq3hFJeDl1CdCXy9Z5YLEys=
+ bh=5/2b6fq5fT3YdDXha8+cbdJP5OhWthdgw2+XvU/gq5U=;
+ b=rnKvKoUSGxQVmiGOdDd0IExOcOoRom5ijILFvsyvB2c6X7xmxi5YUu9+LE/76Wu+vVh1JF
+ a/UAYI0dTmqfW+KDYgGDAEiHJFt/S/i7WNZwzHnEL2paRbUWFZfkvSvZ6oi1ecVRHBcJyT
+ hW8ah7gaW+uQL8uqV+rjbRI9mRprtBU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622359881;
+ s=susede2_ed25519; t=1622359950;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Mdg+J3tTjHYOJO7nGlpkLy1+hYIR0yJKP5CwnYjbTpQ=;
- b=3wsPdlwUnhTtm4R0RBhlV6YQhhzhphoiLlyFYsGC3B54/q2xETr2PuIDNoISIkE3oWv+Aj
- GeKoO+AcRwNcvPDg==
+ bh=5/2b6fq5fT3YdDXha8+cbdJP5OhWthdgw2+XvU/gq5U=;
+ b=nN3XlOosHmS8JK+V6xi0gt9WI3GZTjNrkYkxr0XWDoYIcxIMWRZ1SwlcZDpPh8mvwD6Ngn
+ MPGBae0N6MIunHBA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6252BAD05;
- Sun, 30 May 2021 07:31:21 +0000 (UTC)
-Date: Sun, 30 May 2021 09:31:21 +0200
-Message-ID: <s5hh7ik3cfq.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id C61A7ACF6;
+ Sun, 30 May 2021 07:32:30 +0000 (UTC)
+Date: Sun, 30 May 2021 09:32:29 +0200
+Message-ID: <s5heedo3cdu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Shaokun Zhang <zhangshaokun@hisilicon.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Remove the repeated declaration
-In-Reply-To: <1622278926-63857-1-git-send-email-zhangshaokun@hisilicon.com>
-References: <1622278926-63857-1-git-send-email-zhangshaokun@hisilicon.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: pcm: comment about relation between msbits hw
+ parameter and [S|U32] formats
+In-Reply-To: <20210529033353.21641-1-o-takashi@sakamocchi.jp>
+References: <20210529033353.21641-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,15 +91,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 29 May 2021 11:02:06 +0200,
-Shaokun Zhang wrote:
+On Sat, 29 May 2021 05:33:53 +0200,
+Takashi Sakamoto wrote:
 > 
-> Function 'snd_usb_endpoint_suspend' is declared twice, so remove the
-> repeated declaration.
+> Regarding to handling [U|S][32|24] PCM formats, many userspace
+> application developers and driver developers have confusion, since they
+> require them to understand justification or padding. It easily
+> loses consistency and soundness to operate with many type of devices. In
+> this commit, I attempt to solve the situation by adding comment about
+> relation between [S|U]32 formats and 'msbits' hardware parameter.
 > 
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Signed-off-by: Shaokun Zhang <zhangshaokun@hisilicon.com>
+> The formats are used for 'left-justified' sample format, and the available
+> bit count in most significant bit is delivered to userspace in msbits
+> hardware parameter (struct snd_pcm_hw_params.msbits), which is decided by
+> msbits constraint added by pcm drivers (snd_pcm_hw_constraint_msbits()).
+> 
+> In driver side, the msbits constraint includes two elements; the physical
+> width of format and the available width of the format in most significant
+> bit. The former is used to match SAMPLE_BITS of format. (For my
+> convenience, I ignore wildcard in the usage of the constraint.)
+> 
+> As a result of interaction between ALSA pcm core and ALSA pcm application,
+> when the format in which SAMPLE_BITS equals to physical width of the
+> msbits constaint, the msbits parameter is set by referring to the
+> available width of the constraint. When the msbits parameter is not
+> changed in the above process, ALSA pcm core set it alternatively with
+> SAMPLE_BIT of chosen format.
+> 
+> In userspace application side, the msbits is only available after calling
+> ioctl(2) with SNDRV_PCM_IOCTL_HW_PARAMS request. Even if the hardware
+> parameter structure includes somewhat value of SAMPLE_BITS interval
+> parameter as width of format, all of the width is not always available
+> since msbits can be less than the width.
+> 
+> I note that [S|U24] formats are used for 'right-justified' 24 bit sample
+> formats within 32 bit frame. The first byte in most significant bit
+> should be invalidated. Although the msbits exposed to userspace should be
+> zero as invalid value, actually it is 32 from physical width of format.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
 Thanks, applied.
 

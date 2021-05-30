@@ -2,85 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45336394FFF
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 May 2021 09:35:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF3D3952DE
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 May 2021 22:36:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C28E216AC;
-	Sun, 30 May 2021 09:35:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C28E216AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13231826;
+	Sun, 30 May 2021 22:35:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13231826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622360150;
-	bh=fnYSkCp7ei303DcqkkUu7tevC3euXhXomWj8W+5yh3o=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aeOEz2yYSaoCzZr91YCxQGA618biq+8jaXAVvdao0m775L5YBRK7e8oVCVR6eKDW+
-	 2CmNgIUUJgM1Wbsc23hZKCCHrq91yYBlLynRRYGr6YmHcVKPtqRi1GEjSdrU8TEXSF
-	 Dyod+Nzci+BPFIyhQ4/Lecnr32mrRIGGdLsLfFUM=
+	s=default; t=1622407003;
+	bh=SgJJ+lOG4ryBeSujeUFDNg/V0cop9NoG/qr5CK7kHVY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Pyd4UV+Nkk5zYUBhhFvXUtwKLe/B3paa/necsIuscDax9Sd/UGRBoqt0/ioRGEaNx
+	 rr2zPvNaG0hrXnfndJx9drNy/eaqCHwRnKwvEoLEmeoSoFP+7YVV3k5V+tcW4TPZi9
+	 vTcLE0XiEhMrr2da2mD1+C8yXB94xyxfit48Hz94=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31BE5F80109;
-	Sun, 30 May 2021 09:34:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BB7BF8025B;
+	Sun, 30 May 2021 22:35:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8572F80254; Sun, 30 May 2021 09:34:20 +0200 (CEST)
+ id 814AFF80254; Sun, 30 May 2021 22:35:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lilium.sigma-star.at (lilium.sigma-star.at [109.75.188.150])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD92BF80109
- for <alsa-devel@alsa-project.org>; Sun, 30 May 2021 09:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD92BF80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zYIK3IjM"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fhC+pkM8"
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622360054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gUnYW/raVzLF1lpJyiAjnwQgCrb0MWn7M61IZkp6c+I=;
- b=zYIK3IjMfUZBhBRLu6yRyQ9soV8zKgkVs/pu+RGfH4wjbo330UKRvYOfFDy/vmK4Dtm6XM
- 7h0hd9+9q0ESpbwLrWUsD/WFbwd/tZNy4EH8ygPTwthR+7s9MsThe1epidiGDXkhL25q2e
- +l5vtcNkQ9zjRuV47IcEBdxcEZcAV90=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622360054;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gUnYW/raVzLF1lpJyiAjnwQgCrb0MWn7M61IZkp6c+I=;
- b=fhC+pkM8/fYtITjUXjZ0ZDc7/zC1jvruSXq/MzzSsAJN4uewX2nrpBZNkLnf6lhSjauxE4
- HZMpEMNfgbD4TEBQ==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A7614AC47;
- Sun, 30 May 2021 07:34:14 +0000 (UTC)
-Date: Sun, 30 May 2021 09:34:14 +0200
-Message-ID: <s5hczt83cax.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Add AlderLake-M PCI ID
-In-Reply-To: <20210528185123.48332-1-kai.vehmanen@linux.intel.com>
-References: <20210528185123.48332-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 323B0F80161
+ for <alsa-devel@alsa-project.org>; Sun, 30 May 2021 22:35:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 323B0F80161
+Received: from localhost (localhost [127.0.0.1])
+ by lilium.sigma-star.at (Postfix) with ESMTP id B3CFA1817A0CB;
+ Sun, 30 May 2021 22:35:01 +0200 (CEST)
+Received: from lilium.sigma-star.at ([127.0.0.1])
+ by localhost (lilium.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 55jQULQnARog; Sun, 30 May 2021 22:35:01 +0200 (CEST)
+Received: from lilium.sigma-star.at ([127.0.0.1])
+ by localhost (lilium.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id lB1rIV5dxa9A; Sun, 30 May 2021 22:35:01 +0200 (CEST)
+From: Richard Weinberger <richard@nod.at>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: tas2562: Fix TDM_CFG0_SAMPRATE values
+Date: Sun, 30 May 2021 22:34:46 +0200
+Message-Id: <20210530203446.19022-1-richard@nod.at>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Cc: robh@kernel.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, broonie@kernel.org, dmurphy@ti.com, grandmaster@al2klimov.de,
+ Richard Weinberger <richard@nod.at>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,19 +70,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 28 May 2021 20:51:23 +0200,
-Kai Vehmanen wrote:
-> 
-> Add HD Audio PCI ID for Intel AlderLake-M. Add rules to
-> snd_intel_dsp_find_config() to choose SOF driver for ADL-M systems with
-> PCH-DMIC or Soundwire codecs, and legacy driver for the rest.
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+TAS2562_TDM_CFG0_SAMPRATE_MASK starts at bit 1, not 0.
+So all values need to be left shifted by 1.
 
-Thanks, applied.
+Signed-off-by: Richard Weinberger <richard@nod.at>
+---
+ sound/soc/codecs/tas2562.h | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
+diff --git a/sound/soc/codecs/tas2562.h b/sound/soc/codecs/tas2562.h
+index 81866aeb3fbf..55b2a1f52ca3 100644
+--- a/sound/soc/codecs/tas2562.h
++++ b/sound/soc/codecs/tas2562.h
+@@ -57,13 +57,13 @@
+ #define TAS2562_TDM_CFG0_RAMPRATE_MASK		BIT(5)
+ #define TAS2562_TDM_CFG0_RAMPRATE_44_1		BIT(5)
+ #define TAS2562_TDM_CFG0_SAMPRATE_MASK		GENMASK(3, 1)
+-#define TAS2562_TDM_CFG0_SAMPRATE_7305_8KHZ	0x0
+-#define TAS2562_TDM_CFG0_SAMPRATE_14_7_16KHZ	0x1
+-#define TAS2562_TDM_CFG0_SAMPRATE_22_05_24KHZ	0x2
+-#define TAS2562_TDM_CFG0_SAMPRATE_29_4_32KHZ	0x3
+-#define TAS2562_TDM_CFG0_SAMPRATE_44_1_48KHZ	0x4
+-#define TAS2562_TDM_CFG0_SAMPRATE_88_2_96KHZ	0x5
+-#define TAS2562_TDM_CFG0_SAMPRATE_176_4_192KHZ	0x6
++#define TAS2562_TDM_CFG0_SAMPRATE_7305_8KHZ	(0x0 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_14_7_16KHZ	(0x1 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_22_05_24KHZ	(0x2 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_29_4_32KHZ	(0x3 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_44_1_48KHZ	(0x4 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_88_2_96KHZ	(0x5 << 1)
++#define TAS2562_TDM_CFG0_SAMPRATE_176_4_192KHZ	(0x6 << 1)
+=20
+ #define TAS2562_TDM_CFG2_RIGHT_JUSTIFY	BIT(6)
+=20
+--=20
+2.26.2
 
-Takashi

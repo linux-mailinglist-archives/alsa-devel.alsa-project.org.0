@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BA92395467
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 May 2021 06:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366B5395469
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 May 2021 06:21:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9966215F9;
-	Mon, 31 May 2021 06:19:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9966215F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B13EA851;
+	Mon, 31 May 2021 06:20:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B13EA851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622434833;
-	bh=59E7ng48qRfwwa+8iu2yHExjB3pjJOV+0A+E80ZHunE=;
+	s=default; t=1622434869;
+	bh=NA/Noqq0Vw5TfrbTGL37IXGbqPZyWb+gOFAzuWb6KLA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bSw8ulFnouorMjO7kB7W0aTuJfNCzOI5jcZZkbO4oHRuMjljoi+Q7fgP4+nt+ogWf
-	 z2RuXoeMxpszLVTwe+LInwmDaYo7VNRjPUFJz3s7V71gHJ9Tm02it8LIZVkZ4vjt+B
-	 //+qHzQzafwS1OvRuhZOn6uVjGAfpA/0oE03KUwc=
+	b=X4Yf2v61CMvF5FAAgvIOOt21CB940fdFslAD158vUODbHbSkirxGpdFQbLS1HWl2Z
+	 udWPKTeZpAchyh9MS32QnxrL9l88OQ454i3P32KW4hEV9EeMBQl2wyEvnfLGKeR1fn
+	 kV2WBNBxm201Dg3FrBEcDTOEV63cFoSWiNrtLjlw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21328F802C9;
-	Mon, 31 May 2021 06:19:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAADCF80273;
+	Mon, 31 May 2021 06:19:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7998BF80278; Mon, 31 May 2021 06:19:18 +0200 (CEST)
+ id 1043EF804B4; Mon, 31 May 2021 06:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id EAC93F80161
- for <alsa-devel@alsa-project.org>; Mon, 31 May 2021 06:19:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAC93F80161
-Date: 31 May 2021 13:19:09 +0900
-X-IronPort-AV: E=Sophos;i="5.83,236,1616425200"; d="scan'208";a="82938877"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 31 May 2021 13:19:09 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 38A56F80273
+ for <alsa-devel@alsa-project.org>; Mon, 31 May 2021 06:19:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38A56F80273
+Date: 31 May 2021 13:19:13 +0900
+X-IronPort-AV: E=Sophos;i="5.83,236,1616425200"; d="scan'208";a="82938886"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 31 May 2021 13:19:13 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 071534180DEC;
- Mon, 31 May 2021 13:19:09 +0900 (JST)
-Message-ID: <87a6obk01v.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id C495F400755B;
+ Mon, 31 May 2021 13:19:13 +0900 (JST)
+Message-ID: <878s3vk01q.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/4] ASoC: rsnd: tidyup rsnd_parse_connect_common()
+Subject: [PATCH 2/4] ASoC: rsnd: tidyup rsnd_dma_request_channel()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>
@@ -71,78 +71,111 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds "char *name" to rsnd_parse_connect_common().
+This patch adds "char *name" to rsnd_dma_request_channel().
 It is not yet used so far, but is preparation for
 next "ASoC: rsnd: adjust disabled module" patch
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/core.c |  2 +-
- sound/soc/sh/rcar/rsnd.h | 10 +++++-----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/sh/rcar/dma.c  | 6 +++---
+ sound/soc/sh/rcar/dvc.c  | 2 +-
+ sound/soc/sh/rcar/rsnd.h | 4 ++--
+ sound/soc/sh/rcar/src.c  | 2 +-
+ sound/soc/sh/rcar/ssi.c  | 2 +-
+ sound/soc/sh/rcar/ssiu.c | 2 +-
+ 6 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index 2dc8aee4ac12..c85f1310a8fa 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -1125,7 +1125,7 @@ static void rsnd_parse_connect_graph(struct rsnd_priv *priv,
- 	of_node_put(remote_node);
+diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
+index 44519929a28b..d581f1424185 100644
+--- a/sound/soc/sh/rcar/dma.c
++++ b/sound/soc/sh/rcar/dma.c
+@@ -237,8 +237,8 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
+ 	return 0;
  }
  
--void rsnd_parse_connect_common(struct rsnd_dai *rdai,
-+void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
- 		struct rsnd_mod* (*mod_get)(struct rsnd_priv *priv, int id),
- 		struct device_node *node,
- 		struct device_node *playback,
+-struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node,
+-					  struct rsnd_mod *mod, char *name)
++struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node, char *name,
++					  struct rsnd_mod *mod, char *x)
+ {
+ 	struct dma_chan *chan = NULL;
+ 	struct device_node *np;
+@@ -246,7 +246,7 @@ struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node,
+ 
+ 	for_each_child_of_node(of_node, np) {
+ 		if (i == rsnd_mod_id_raw(mod) && (!chan))
+-			chan = of_dma_request_slave_channel(np, name);
++			chan = of_dma_request_slave_channel(np, x);
+ 		i++;
+ 	}
+ 
+diff --git a/sound/soc/sh/rcar/dvc.c b/sound/soc/sh/rcar/dvc.c
+index 1943ac1ff803..5137e03a9d7c 100644
+--- a/sound/soc/sh/rcar/dvc.c
++++ b/sound/soc/sh/rcar/dvc.c
+@@ -282,7 +282,7 @@ static struct dma_chan *rsnd_dvc_dma_req(struct rsnd_dai_stream *io,
+ 	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
+ 
+ 	return rsnd_dma_request_channel(rsnd_dvc_of_node(priv),
+-					mod, "tx");
++					DVC_NAME, mod, "tx");
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
 diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index d712615c9c9f..9269ab83967c 100644
+index 9269ab83967c..256a11b67eed 100644
 --- a/sound/soc/sh/rcar/rsnd.h
 +++ b/sound/soc/sh/rcar/rsnd.h
-@@ -460,7 +460,7 @@ struct rsnd_mod *rsnd_mod_next(int *iterator,
- #define for_each_rsnd_mod_array(iterator, pos, io, array)		\
- 	for_each_rsnd_mod_arrays(iterator, pos, io, array, ARRAY_SIZE(array))
+@@ -269,8 +269,8 @@ u32 rsnd_get_busif_shift(struct rsnd_dai_stream *io, struct rsnd_mod *mod);
+ int rsnd_dma_attach(struct rsnd_dai_stream *io,
+ 		    struct rsnd_mod *mod, struct rsnd_mod **dma_mod);
+ int rsnd_dma_probe(struct rsnd_priv *priv);
+-struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node,
+-					  struct rsnd_mod *mod, char *name);
++struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node, char *name,
++					  struct rsnd_mod *mod, char *x);
  
--void rsnd_parse_connect_common(struct rsnd_dai *rdai,
-+void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
- 		struct rsnd_mod* (*mod_get)(struct rsnd_priv *priv, int id),
- 		struct device_node *node,
- 		struct device_node *playback,
-@@ -827,7 +827,7 @@ unsigned int rsnd_src_get_rate(struct rsnd_priv *priv,
+ /*
+  *	R-Car sound mod
+diff --git a/sound/soc/sh/rcar/src.c b/sound/soc/sh/rcar/src.c
+index 8f7af3e3a1cd..9ccc959c9150 100644
+--- a/sound/soc/sh/rcar/src.c
++++ b/sound/soc/sh/rcar/src.c
+@@ -82,7 +82,7 @@ static struct dma_chan *rsnd_src_dma_req(struct rsnd_dai_stream *io,
+ 	int is_play = rsnd_io_is_play(io);
  
- #define rsnd_src_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_SRC)
- #define rsnd_parse_connect_src(rdai, playback, capture)			\
--	rsnd_parse_connect_common(rdai, rsnd_src_mod_get,		\
-+	rsnd_parse_connect_common(rdai, "src", rsnd_src_mod_get,	\
- 				  rsnd_src_of_node(rsnd_rdai_to_priv(rdai)), \
- 						   playback, capture)
+ 	return rsnd_dma_request_channel(rsnd_src_of_node(priv),
+-					mod,
++					SRC_NAME, mod,
+ 					is_play ? "rx" : "tx");
+ }
  
-@@ -839,7 +839,7 @@ void rsnd_ctu_remove(struct rsnd_priv *priv);
- struct rsnd_mod *rsnd_ctu_mod_get(struct rsnd_priv *priv, int id);
- #define rsnd_ctu_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_CTU)
- #define rsnd_parse_connect_ctu(rdai, playback, capture)			\
--	rsnd_parse_connect_common(rdai, rsnd_ctu_mod_get,		\
-+	rsnd_parse_connect_common(rdai, "ctu", rsnd_ctu_mod_get,	\
- 				  rsnd_ctu_of_node(rsnd_rdai_to_priv(rdai)), \
- 						   playback, capture)
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index facdd8c0d419..c00e0d6bb7f4 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -1019,7 +1019,7 @@ static struct dma_chan *rsnd_ssi_dma_req(struct rsnd_dai_stream *io,
+ 		name = is_play ? "rx" : "tx";
  
-@@ -851,7 +851,7 @@ void rsnd_mix_remove(struct rsnd_priv *priv);
- struct rsnd_mod *rsnd_mix_mod_get(struct rsnd_priv *priv, int id);
- #define rsnd_mix_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_MIX)
- #define rsnd_parse_connect_mix(rdai, playback, capture)			\
--	rsnd_parse_connect_common(rdai, rsnd_mix_mod_get,		\
-+	rsnd_parse_connect_common(rdai, "mix", rsnd_mix_mod_get,	\
- 				  rsnd_mix_of_node(rsnd_rdai_to_priv(rdai)), \
- 						   playback, capture)
+ 	return rsnd_dma_request_channel(rsnd_ssi_of_node(priv),
+-					mod, name);
++					SSI_NAME, mod, name);
+ }
  
-@@ -863,7 +863,7 @@ void rsnd_dvc_remove(struct rsnd_priv *priv);
- struct rsnd_mod *rsnd_dvc_mod_get(struct rsnd_priv *priv, int id);
- #define rsnd_dvc_of_node(priv) rsnd_parse_of_node(priv, RSND_NODE_DVC)
- #define rsnd_parse_connect_dvc(rdai, playback, capture)			\
--	rsnd_parse_connect_common(rdai, rsnd_dvc_mod_get,		\
-+	rsnd_parse_connect_common(rdai, "dvc", rsnd_dvc_mod_get,	\
- 				  rsnd_dvc_of_node(rsnd_rdai_to_priv(rdai)), \
- 						   playback, capture)
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index 4363508e8250..c96995bb17cb 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -395,7 +395,7 @@ static struct dma_chan *rsnd_ssiu_dma_req(struct rsnd_dai_stream *io,
+ 	name = is_play ? "rx" : "tx";
  
+ 	return rsnd_dma_request_channel(rsnd_ssiu_of_node(priv),
+-					mod, name);
++					SSIU_NAME, mod, name);
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
 -- 
 2.25.1
 

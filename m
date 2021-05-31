@@ -2,102 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623E9395413
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 May 2021 04:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7458395420
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 May 2021 05:05:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE56015E0;
-	Mon, 31 May 2021 04:53:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE56015E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65143850;
+	Mon, 31 May 2021 05:04:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65143850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622429637;
-	bh=HqdKuKQ9bJCxCIbGg0IzBaynzCnRLxkWq/ImixgHWMM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1622430341;
+	bh=I+LJWrku53jZ86tJLWIV/2mn+wyqpk+Jlp77ya0fZEg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OZo2EiPSv9acMR8fDP4wDr3P1o6uLqEjX4t5Gz5vG+b8qTGsoquPGyP1uCIxiRw2J
-	 hYINHQ3P7VAIXP/OHV9DkMFPUgBhqArwkYDFasQxjIUmuTO4ZmyHnULLfj25xmYHC+
-	 fsCFS2+3cTARTzyBngGpgPyeqUBgjYFmjQNjrlQA=
+	b=ZM/Gn361BdzOY3R5LCoTlEhgpn034ItB4dpmxlfb0PZrJ4hijkCV/B9drnsZMBQk/
+	 NBY/ItRJfxKyxB/3nDPD0ei2BH3F8l3dAxh7uIFzQBt4Ck2KB6wDWw1amwFbr07AQV
+	 bWrpmlK4tyWUbtJfyTJExxg4yNp707NcXbljdwpw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C960AF804C2;
-	Mon, 31 May 2021 04:51:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9515F80273;
+	Mon, 31 May 2021 05:04:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C63FEF804BC; Mon, 31 May 2021 04:51:25 +0200 (CEST)
+ id CB4D8F80253; Mon, 31 May 2021 05:04:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F63EF80277
- for <alsa-devel@alsa-project.org>; Mon, 31 May 2021 04:51:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F63EF80277
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62842F80088
+ for <alsa-devel@alsa-project.org>; Mon, 31 May 2021 05:04:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62842F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="pfRKEmhF"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="pTvUtFI0"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 471315C00B2;
- Sun, 30 May 2021 22:51:16 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 30 May 2021 22:51:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=/BYYuZgvjT58c
- P5lDLIIyC/6U9/ZgrnTFZk3eIp5oH0=; b=pfRKEmhFkfoY0Au4Is4IGRAImeWSl
- JOEK/Vl9wAH3bhGXAdNOKWGZ4oaluVU8MqqWxuaU98cFmUKcDevPUJNFVoRG+ypC
- +B5cHlLGtqJy4OQXPXoFSJD6isul3Mu+I+wMx4TVFjB+jbkXLYTfxeJNGnh/qCD/
- PMuNur9XvoKPVE2don/xu7jdj2+5JNiREgL2XbLPDminQjq8/zqA9ua5VvW2HdXj
- 4iByclzzdAP9oShh/GKZr3G9pVfZOAA1SazCZMLZBow0UDKOsa5vDjb9aHV5/K2j
- 1segDbqFOUR/vxd8QeOcShuKlk6Tm0zodybiP8G26ohKo6ewoojClz06g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=/BYYuZgvjT58cP5lDLIIyC/6U9/ZgrnTFZk3eIp5oH0=; b=pTvUtFI0
- gM1mqEUbEIWTEpMJQRD4DkpMuV4U5oNKay7E8A59xC5TX1oOOxVQa3OnWAXCR/9N
- WvrJoeWgxTuiuW0sudaeVDodZfIjJ2xDm9JyK+KYpwweYlzbnOAXkocv5v9cdifH
- nJP1/szak8cWlBDQN7AmD4APMCKfOLA7SQAaAT4H7NPZbcfcauQ0EJOQkuTMPa/w
- OQzXaodjj0r4irgENb9ZuQ7evTKWFganHKcfHavhXh3YgdTRLCQbOcIK2SuJidVT
- w1t3wb0gleoAbhkSd6tHrCDVe00WjUW0gmetJ3Zz6MyJjFzqER/7+YdGAD55yOVF
- 3+uGkQLmu+n9vg==
-X-ME-Sender: <xms:JE-0YBDPxeNVjcAMK-h59lCU6FILeWcoPd-FjCiEA_kSa3yCfCyGmQ>
- <xme:JE-0YPil971nJZ4f71jul6KFj0NkdbecPGCxDld9Q3rwG8vrzaSKBYSCDghSXN8Kp
- 9NJzuCfEn8jFgzpC2U>
-X-ME-Received: <xmr:JE-0YMnSjmnTtnw6DElHDw9h-lwtwsp_kQIhPEsIeBuLshemUpPKEy71vwEy3iJerE50Z6Ny9oTFpcOz5oRpasQrv_oiPCOng4e-aJVIPn-FXpfZAFYR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelvddgieefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
- rhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
- grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:JE-0YLzBXyfLMEgtmHnAX7grQPVFhyU0fPqXb8zM3Ny-hedaGGCTKw>
- <xmx:JE-0YGQpaKnvrelBaPiXVsoKU3IuZ_Es6eqWpb6_Co-luDHy4fpDEA>
- <xmx:JE-0YOYToBcsiOQbXasi3WATklw3aFMrWhGZMWeu2wprRjYukGHx4g>
- <xmx:JE-0YJLILmx-2K1VMDD-f4AkXZYBKbfc6d0T8XEGCXXxUwtHzdtcqA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 May 2021 22:51:15 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH 6/6] ALSA: fireface: perform sequence replay for media clock
- recovery
-Date: Mon, 31 May 2021 11:51:03 +0900
-Message-Id: <20210531025103.17880-7-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210531025103.17880-1-o-takashi@sakamocchi.jp>
-References: <20210531025103.17880-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZpqMb5pL"
+Received: by mail-ej1-x629.google.com with SMTP id ss26so14415403ejb.5
+ for <alsa-devel@alsa-project.org>; Sun, 30 May 2021 20:04:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=9zncGjWI/Ti8X4PcYn2LTWv6/sQeOvT3E+T4zzv3al4=;
+ b=ZpqMb5pLMC57T5ge9mI5wiScA0lilfWuOW/WzS/iOL/Pobi10ictGNHq7So1K580xE
+ t6evHt86l5Sp49kkm6XqGBAzK8M8H47X62rQ6zJ1QVuZid/NhxgwKV7hnYtqNHE8SH7n
+ 3dpFSHiJzHhVc1wyl3Vf8unKF1Nc9uWTTDeX6sHDzNqI0Q0r4dvv8BhVZpBUIUP/+7pP
+ LwmVv+cfs0pcO6mG5VPZFkPjGyzhwCtX86UgN2r718AxHZydoQOy8U5NdHrRAf3H7lOP
+ HtDmRlKaY7lD9jlScOo0NWYWo+kcuTeLR0IafCzd59/Y46A+rR6ShPlGHHLcj0mVODKm
+ JphA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=9zncGjWI/Ti8X4PcYn2LTWv6/sQeOvT3E+T4zzv3al4=;
+ b=Tz5wArcD7/ePDzvb3xYxNf0XOzfrAOuBq7QqnQJPrm9O7Ziz2CV9eYGNEsvU+Q8gTE
+ r2qlMtOJydkbkh9pdhsq3MsHkY+4ZGknEbsyBGpwqKd5sOq6rkBHhtH1lLFRWDoG2+m5
+ +i45RjIktLuyd2sEtokcMadj+jyYv8HA+Vv5lw7QJdk1ShY2zIQAyv0DFe8iM08nBD7e
+ 4YFXzTJfitoGVm2kbR10N3jgh3SYkgYCdHMRr470aGunCAp74u6ZDT8EkYKC27eM1QUG
+ 5e7TUG6KTENsi16gvL8GxxkMt3r088F6AshMuiDRqqyVFgP0szV3Jpi28b89iAksft2P
+ pglw==
+X-Gm-Message-State: AOAM532uQUW2iC/WKRLCk2+KSlcUwLhl8QBBIa3OQ2wMk34IrxZUqZnk
+ UP93eAWg/7nrQX2pbbK4f5Vn8JnRUBYe+M0pz1c=
+X-Google-Smtp-Source: ABdhPJxDEPa3T5UAc0cyhX2pJM3u681kMN50f7+D2IiLhhsuHCNZDsnnuQO0O7X+CyydTBL9Se8gyDjJEZsWpjQ1m5o=
+X-Received: by 2002:a17:906:6d17:: with SMTP id
+ m23mr21254158ejr.73.1622430242956; 
+ Sun, 30 May 2021 20:04:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+References: <20210528131757.2269989-1-mudongliangabcd@gmail.com>
+ <20210528133309.GR24442@kadam>
+ <CAD-N9QVWcEJjoziA6HVoQiUueVaKqAJS5Et60zvCvuUE7e6=gg@mail.gmail.com>
+ <20210528140500.GS24442@kadam>
+ <A622EB84-DC4A-47A4-A828-CE6D25DC92EB@gmail.com>
+In-Reply-To: <A622EB84-DC4A-47A4-A828-CE6D25DC92EB@gmail.com>
+From: Dongliang Mu <mudongliangabcd@gmail.com>
+Date: Mon, 31 May 2021 11:03:36 +0800
+Message-ID: <CAD-N9QVjhDDJxRnNrDzwt05BNijr1o11nE8xjvq8GrakEJ8EuQ@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: control led: fix memory leak in snd_ctl_led_register
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com,
+ linux-kernel <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,72 +102,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit takes ALSA fireface driver to perform sequence replay for
-media clock recovery.
+On Sat, May 29, 2021 at 5:35 AM =E6=85=95=E5=86=AC=E4=BA=AE <mudongliangabc=
+d@gmail.com> wrote:
+>
+>
+>
+> > On May 28, 2021, at 10:05 PM, Dan Carpenter <dan.carpenter@oracle.com> =
+wrote:
+> >
+> > On Fri, May 28, 2021 at 09:50:49PM +0800, Dongliang Mu wrote:
+> >>
+> >> Can you please give some advise on how to fix this WARN issue?
+> >
+> > But it feels like it spoils the fun if I write the commit...  Anyway:
+>
+> It=E2=80=99s fine. I am still in the learning process. It=E2=80=99s also =
+good to learn experience by comparing your patch and my patch.
+>
+> >
+> > regards,
+> > dan carpenter
+> >
+> > diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+> > index 25f57c14f294..dd357abc1b58 100644
+> > --- a/sound/core/control_led.c
+> > +++ b/sound/core/control_led.c
+> > @@ -740,6 +740,7 @@ static int __init snd_ctl_led_init(void)
+> >                       for (; group > 0; group--) {
+> >                               led =3D &snd_ctl_leds[group - 1];
+> >                               device_del(&led->dev);
+> > +                             device_put(&led->dev);
+> >                       }
+> >                       device_del(&snd_ctl_led_dev);
+> >                       return -ENOMEM;
+> > @@ -768,6 +769,7 @@ static void __exit snd_ctl_led_exit(void)
+> >       for (group =3D 0; group < MAX_LED; group++) {
+> >               led =3D &snd_ctl_leds[group];
+> >               device_del(&led->dev);
+> > +             device_put(&led->dev);
+> >       }
+> >       device_del(&snd_ctl_led_dev);
+> >       snd_ctl_led_clean(NULL);
 
-The protocol specific to RME Fireface series is not compliant to
-IEC 61883-1/6 since it has no CIP header, therefore presentation time
-is not used for media clock recovery. The sequence of the number of data
-blocks per packet is important.
+Hi Dan,
 
-I note that the device skips an isochronous cycle corresponding to an
-empty packet or a NODATA packet in blocking transmission method of
-IEC 61883-1/6. For sequence replay, the cycle is handled as receiving an
-empty packet. Furthermore, it doesn't start packet transmission till
-receiving any packet.
+I tried this patch, and it still triggers the memleak. My
+understanding is that the device object is already freed in the
+snd_ctl_led_sysfs_remove.
 
-The sequence replay is tested with below models:
-
-* Fireface 400
-* Fireface 800
-* Fireface 802
-
-I note that it is better to initialize Fireface 400 in advance by
-initialization transaction implemented in snd-fireface-ctl-service of
-snd-firewire-ctl-services project. You can see whether initialized or
-not by HOST LED on the device. Unless, the device often stops packet
-transmission even if session starts.
-
-I guess the sequence replay also works well with below models:
-
-* Fireface UFX
-* Fireface UCX
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/fireface/amdtp-ff.c  | 2 +-
- sound/firewire/fireface/ff-stream.c | 6 +++++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/sound/firewire/fireface/amdtp-ff.c b/sound/firewire/fireface/amdtp-ff.c
-index 119c0076b17a..98177b0666d3 100644
---- a/sound/firewire/fireface/amdtp-ff.c
-+++ b/sound/firewire/fireface/amdtp-ff.c
-@@ -168,6 +168,6 @@ int amdtp_ff_init(struct amdtp_stream *s, struct fw_unit *unit,
- 	else
- 		process_ctx_payloads = process_it_ctx_payloads;
- 
--	return amdtp_stream_init(s, unit, dir, CIP_NO_HEADER, 0,
-+	return amdtp_stream_init(s, unit, dir, CIP_BLOCKING | CIP_UNAWARE_SYT | CIP_NO_HEADER, 0,
- 				 process_ctx_payloads, sizeof(struct amdtp_ff));
- }
-diff --git a/sound/firewire/fireface/ff-stream.c b/sound/firewire/fireface/ff-stream.c
-index 97c356f2ac04..95bf405adb3d 100644
---- a/sound/firewire/fireface/ff-stream.c
-+++ b/sound/firewire/fireface/ff-stream.c
-@@ -199,7 +199,11 @@ int snd_ff_stream_start_duplex(struct snd_ff *ff, unsigned int rate)
- 		if (err < 0)
- 			goto error;
- 
--		err = amdtp_domain_start(&ff->domain, 0, false, false);
-+		// NOTE: The device doesn't transfer packets unless receiving any packet. The
-+		// sequence of tx packets includes cycle skip corresponding to empty packet or
-+		// NODATA packet in IEC 61883-1/6. The sequence of the number of data blocks per
-+		// packet is important for media clock recovery.
-+		err = amdtp_domain_start(&ff->domain, 0, true, true);
- 		if (err < 0)
- 			goto error;
- 
--- 
-2.27.0
-
+>
+> Does this patch mean I should add device_put in the init and exit functio=
+n other than snd_ctl_led_sysfs_remove? This will cause device_release bypas=
+s the release method checking?
+>

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCFB397959
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:42:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9410639795F
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:42:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C92E16FA;
-	Tue,  1 Jun 2021 19:41:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C92E16FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DB2E16D1;
+	Tue,  1 Jun 2021 19:41:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DB2E16D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622569331;
-	bh=ZXDp3ucb9BWyakDkZhwIy8R/DACPa/OENIYRq/ircvU=;
+	s=default; t=1622569360;
+	bh=Y09JlCg2MGQstt58qhLtjjam7xzv7mhqTxwW01p4Eyg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oUOq2lXb8xssiulQWfldBCOQfkvcXmloSleX7BjZbrnNzY1siTgUD3JcHshXTLQci
-	 TSkS61/klILxVGCoZ9FDwBhlhQxSP6bR8rRWkVct1CfjfnT5B6AlckiItzS4gObVan
-	 Qd5FKrZRhBJgCB0Aoc/fgfPvCHkjpB4nh2XEGVoc=
+	b=OKZCpeAZ6kU1sVG8O5wqNpSaHTLi7lCyxyJWDjejktDplXI/aBPaDmSetx1Mh9j6M
+	 wubBZ3kv6Z1HIXH/4KchJE4e5XdjhQeYhmPV5uAwazc5AV3cnTpMG/LJWcJpgfwvSZ
+	 32wJN5NZlwU8XDX5/7534pmyyKUWpT3+32VtlWSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A71A1F804D1;
-	Tue,  1 Jun 2021 19:39:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E3E4F804E0;
+	Tue,  1 Jun 2021 19:39:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 444DDF804C2; Tue,  1 Jun 2021 19:39:05 +0200 (CEST)
+ id 4C8D6F804DA; Tue,  1 Jun 2021 19:39:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8F8DF804B0
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8F8DF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68238F804CC
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:39:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68238F804CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EDsRCvbA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B52FE613D2;
- Tue,  1 Jun 2021 17:39:00 +0000 (UTC)
+ header.b="jik9CqIp"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EC3B2613DD;
+ Tue,  1 Jun 2021 17:39:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622569141;
- bh=ZXDp3ucb9BWyakDkZhwIy8R/DACPa/OENIYRq/ircvU=;
+ s=k20201202; t=1622569143;
+ bh=Y09JlCg2MGQstt58qhLtjjam7xzv7mhqTxwW01p4Eyg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EDsRCvbAnoTfHk5aY/xSuvFJoXPJ2k7xMHTI6BR3WWM9uHbRI8OKrxvsCefwjWOZQ
- G3pCzrN8j2QkTbL01MLHVxh/GSHR82ZKpZh/pKaSfbPgS6sIQLEt7rWZwMUNUKrnR/
- wCu7MlP7VH5yll+jVW/jGQDjf4p3lN/M4E5KV3QYV6VImNhL8V3gsC5hEoYryHuh9i
- VqapCia33mH107dUNmcWLSpM0V0pORA7mBnd4s48ZxGLFUCjio8JHf7dLt43J8BYTq
- 6vnnoAkaPurfJvO/laGzTcJbsQRffQRNndQr6jcl2qbjm8l8QSC9zsOJLfztylRsUW
- L4A0T6oINOMfw==
+ b=jik9CqIpYkOPFmt6j54ZsPVwqpboLLXo57xFx5MbXBVwBiQpSM6KK9C2wsFtRhK33
+ ADPsqnCvAEg/YyjwQFpp3ZLVN4vmSFFRZWqhWjc/wcrJY+4TCgUj28Bk9wz0vaYDfY
+ kKawhDaZPC41wgqQ7hK/Xy8lUz20hnjWJXU8fO7abfMwS2PJ4TDJH45lnpXMwm5X/I
+ EzAL3b6k3MSv5c+3VW7PDIqeDn0G4NKKlotspMlpN0zw3KJSxHNjAtOHstRaYROh1s
+ wFYmkk6BCWYfHApY5G9UpwsuSQsBoqSpRYozrQFL89DCeGvZ9xjsRB5QzwpIIjLWhT
+ pmRxxFqSyulTQ==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
 	Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: pci-tgl: add ADL-M support
-Date: Tue,  1 Jun 2021 18:38:13 +0100
-Message-Id: <162256892745.19919.14945523274065182150.b4-ty@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: SOF: Intel: hda: clean up hda_dsp_dump()
+Date: Tue,  1 Jun 2021 18:38:14 +0100
+Message-Id: <162256892744.19919.17769123257057992096.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210528184153.18251-1-kai.vehmanen@linux.intel.com>
-References: <20210528184153.18251-1-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20210528160551.10145-1-kai.vehmanen@linux.intel.com>
+References: <20210528160551.10145-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@intel.com>,
  lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,8 +83,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 28 May 2021 21:41:53 +0300, Kai Vehmanen wrote:
-> Add PCI DID for Intel AlderLake-M.
+On Fri, 28 May 2021 19:05:50 +0300, Kai Vehmanen wrote:
+> Clean up the hda_dsp_dump() function to avoid duplicating
+> the ROM status and error.
 
 Applied to
 
@@ -92,8 +93,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: pci-tgl: add ADL-M support
-      commit: 1f763d0388af6f6cffcdb1080ce112c63d766809
+[1/2] ASoC: SOF: Intel: hda: clean up hda_dsp_dump()
+      commit: 7ff562fed98043b9e9eafa11db6100feb08412aa
+[2/2] ASoC: SOF: Intel: hda: don't print ROM status if cl_dsp_init() fails
+      commit: d95eca7e3b9f7c1361fc1e1329247490abec678c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

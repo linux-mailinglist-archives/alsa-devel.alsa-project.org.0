@@ -2,48 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB634397817
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 18:30:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F342D397836
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 18:39:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A86316C7;
-	Tue,  1 Jun 2021 18:30:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A86316C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A6AD16D3;
+	Tue,  1 Jun 2021 18:38:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A6AD16D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622565051;
-	bh=rWpSO39kyqGkFf1xSyKf7Jf/LI+4GqQBI7c46VHu/ME=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1622565568;
+	bh=KSkGLnxEmHogCHLjYbIxvEXJXEeYJ5Ju9rar8qAlNjI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eldM1A4IXXwrgKIw9CF2iIZOngOdwNK8iI3N9iXnxHb0mPqXJG+gmCrN23jVTMyh7
-	 OWzlfKFbVw/5dVY8Iby1Klykxl+cFfDkCki33/fvnPyyj50vcfUlCtU1Eu/XU0dyka
-	 zGk5wiBZ/h9H9bSOFs+3lybebAi8sScENH1boO6A=
+	b=A0HMvSYYNyjZULOL+2YIkANfUBk1LUx/86VIWAWzG9BGB33PRCtXT+5C/ZmUAQpms
+	 HKM5tta9imYdCHKtFHNZTh46oEKgc7KoxKVzGvULW6hMKmYOFxVK0UtZL4ThIk01TI
+	 kL6pgCjP3VmHrJSx+DTNE06E6E4N8e+pMO9wBwm8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33C42F80253;
-	Tue,  1 Jun 2021 18:29:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B2F3F8025B;
+	Tue,  1 Jun 2021 18:38:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABBF6F800B2; Tue,  1 Jun 2021 18:29:15 +0200 (CEST)
+ id 10CC5F80254; Tue,  1 Jun 2021 18:37:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=3.0 required=5.0 tests=MISSING_DATE,MISSING_MID,
- PRX_BODY_13,SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 4EA2EF800B2
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 18:29:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EA2EF800B2
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1622564952660048008-webhooks-bot@alsa-project.org>
-References: <1622564952660048008-webhooks-bot@alsa-project.org>
-Subject: Incomplete sound device detection in PulseAudio with alsa-lib 1.2.5
-Message-Id: <20210601162916.ABBF6F800B2@alsa1.perex.cz>
-Date: Tue,  1 Jun 2021 18:29:15 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 999F8F801DB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 18:37:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 999F8F801DB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="SqFz7Mg0"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="aRw5Z+yo"
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4EF771FD3F;
+ Tue,  1 Jun 2021 16:37:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622565471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2r8FvRTNN1ZsGD6spbJIwRQz+g9vcQ569zzteKnJFvI=;
+ b=SqFz7Mg06hA/kN72iXGyrTxTAhNpcKrdQICn0U69w+YV47e9CeDD8s3jH0On7bFpFYHEoF
+ 7WR/QcJfQr0A1ke5LKDjXccVxrtxbjcc2OSjjt/CBEQxlHETaHx7NftOKYAGzGGpnNzca9
+ KgqwbM21stq+9sOEpeLRbSUrvfB29jg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622565471;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2r8FvRTNN1ZsGD6spbJIwRQz+g9vcQ569zzteKnJFvI=;
+ b=aRw5Z+yoOweuiuXrHvrLU4TgHWb0p9y7BMOuoGgyAJGyipAv8tOSf5qLlLLvwZju00t2uQ
+ 2PHdwQdDt+HfSXCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 464F4A3B81;
+ Tue,  1 Jun 2021 16:37:50 +0000 (UTC)
+Date: Tue, 01 Jun 2021 18:37:50 +0200
+Message-ID: <s5hmts9y201.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] ALSA: firewire: media clock recovery for syt-aware
+ devices
+In-Reply-To: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
+References: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,42 +92,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #143 was opened from foutrelis:
+On Tue, 01 Jun 2021 10:17:50 +0200,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> In a commit f9e5ecdfc2c2 ("ALSA: firewire-lib: add replay target to cache
+> sequence of packet"), I categorize devices supported by drivers in ALSA
+> firewire stack in terms of the way to deliver effective sampling
+> transfer frequency. This patchset is for the devices in group 2.
+> 
+> The devices are known to have problems when ALSA dice/bebob drivers
+> handle. Many of them sometimes transfer packets with discontinued counter,
+> corrupt at break of CMP connection, generates bus-reset voluntarily.
+> 
+> The devices interpret presentation time to decide playback timing. The
+> drivers process presentation time expressed in syt field of CIP header for
+> outgoing packets. Current implementation of the drivers processes the
+> sequence of outgoing packet by computation according to nominal sampling
+> transfer frequency, assisted by ALSA IEC 61883-1/6 packet streaming engine.
+> However, the ideal sequence is not adequate to the devices, actually.
+> 
+> With this patchset, the drivers are going to replay the sequence of
+> incoming packets for media clock recovery. For the detail of sequence
+> replay, please refer to a commit 39c2649c71d8 ("ALSA: firewire-lib: replay
+> sequence of incoming packets for outgoing packets").
+> 
+> Takashi Sakamoto (3):
+>   ALSA: dice: wait just for NOTIFY_CLOCK_ACCEPTED after
+>     GLOBAL_CLOCK_SELECT operation
+>   ALSA: dice: perform sequence replay for media clock recovery
+>   ALSA: bebob: perform sequence replay for media clock recovery
 
-(Copying my comments over from #142 since it appears to be a different issue to that one. Sorry for the noise there!)
+Applied all three patches now.  Thanks.
 
-After upgrading to alsa-lib 1.2.5 Chromium stopped playing audio until pulseaudio was restarted. Upon closer inspection, `pactl list cards` is now missing the `HDA Intel HDMI` card and only shows the `HDA Intel PCH` one.
 
-Some error messages I've gathered:
-
-- After upgrading to alsa-lib and before restarting pulseaudio, attempting to play a video in Chromium would result in:
-  `pulseaudio[625]: Error opening PCM device front:0: Invalid argument`
-
-- Restarting pulseaudio with alsa-lib 1.2.5 installed logs the following to the journal:
-  ```
-  pulseaudio[66345]: Failed to find a working profile.
-  pulseaudio[66345]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="pci-0000_00_03.0"
-  card_name="alsa_card.pci-0000_00_03.0" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no
-  deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""):
-  initialization failed.
-  ```
-
-Git bisect points to commit 63f7745be504e447923f2cde421177a2fca99340 as the first commit that results in the `Failed to find a working profile` error.
-
-After restarting pulseaudio with alsa-lib 1.2.5 installed, it appears that `pactl list cards` shows one fewer cards on my laptop which has this audio hardware:
-
-```
-$ lspci | grep Audio
-00:03.0 Audio device: Intel Corporation Haswell-ULT HD Audio Controller (rev 0b)
-00:1b.0 Audio device: Intel Corporation 8 Series HD Audio Controller (rev 04)
-```
-
-[alsa-lib-1.2.4-pactl-list-cards.txt](https://github.com/alsa-project/alsa-lib/files/6575475/alsa-lib-1.2.4-pactl-list-cards.txt)
-[alsa-lib-1.2.5-pactl-list-cards.txt](https://github.com/alsa-project/alsa-lib/files/6575476/alsa-lib-1.2.5-pactl-list-cards.txt)
-
-`pulseaudio -v` output:
-
-[pulseaudio-verbose.txt](https://github.com/alsa-project/alsa-lib/files/6577650/pulseaudio-verbose.txt)
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/143
-Repository URL: https://github.com/alsa-project/alsa-lib
+Takashi

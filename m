@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55BB639794F
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:40:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D19397951
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:41:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D799D16E1;
-	Tue,  1 Jun 2021 19:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D799D16E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6424B16ED;
+	Tue,  1 Jun 2021 19:40:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6424B16ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622569227;
-	bh=dAtxZOy1vRvHAbbRbK/qBv+43wjWQ0+17BwlinOpq4s=;
+	s=default; t=1622569278;
+	bh=jGFulKz5aiIUyaEwffq5AU8/gNHWfcxCHNazCV/IHJo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RIIMNGsn6zeoWO4VQdBDdhndG0NeCGegDPRxeBEjQsPiZj30Ex2FHjBOUutAseCWZ
-	 JUW09WEt+U1e3c/K5C27u6DLwUPaUENU8NJKgulOPXMuM3uXsm0iSqYRg7aXpgOPEU
-	 /XSmRhqbeop97yhbEHanahhlz3OBadQsSCgf9E0c=
+	b=BjVx0dh5g8NeVDxC4V0qhf9Ub70gc8DkmRoC6ThxOJNVvqPKRO1svmCcDBcqcQpqh
+	 igfnd9rriPZXWQ7i6IYtfUW7uP1OzWJG1DnsBYjCfZ0Gi/FHj2lgsNGyvv4aMhZEGl
+	 YJ+dMoU1DOCrlaSeyDQd7IGzRvarCG2U9pmK7Ps4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D754F8025B;
-	Tue,  1 Jun 2021 19:38:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E61ADF804BD;
+	Tue,  1 Jun 2021 19:39:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D63B4F80141; Tue,  1 Jun 2021 19:38:56 +0200 (CEST)
+ id A431FF80254; Tue,  1 Jun 2021 19:38:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,39 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E36FDF80141
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:38:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E36FDF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22176F80253
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:38:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22176F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V5K+MU+E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BA8AE613D1;
- Tue,  1 Jun 2021 17:38:51 +0000 (UTC)
+ header.b="psJlrYnK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F2AF361378;
+ Tue,  1 Jun 2021 17:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622569132;
- bh=dAtxZOy1vRvHAbbRbK/qBv+43wjWQ0+17BwlinOpq4s=;
+ s=k20201202; t=1622569134;
+ bh=jGFulKz5aiIUyaEwffq5AU8/gNHWfcxCHNazCV/IHJo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V5K+MU+E8r8RLJtvkb2wbKyLDXWTxj5VGJ+xsGStLbL9GGI3dHtupY3M4JG4d5fVU
- 2sFB/xkNe4jDFCUaRb+Z2mim35bODFuO8XI83N464YGgGWp9oHNfElMGowE4DES5CY
- PgfXWwRczf+1iyznnUz7FMb5eYcvj02lTmqMiYnBaawwkR3Eb3edGGCCNHF/5dnLtU
- YGmG05CK6TWgCjUU4GBrc8FkTgHFx0q8tFXQ4CC1aWYCaMsqgr9zCzllcv/d3s+sFc
- O3oFMhsOgw1dJ9Qds+U+Vuy0S8QG9uiQRd9LhKEW1Z+INiYLoXX4gJ7cu60NhllvfN
- bm/3xkVlpxvVA==
+ b=psJlrYnKpNgKJ8SUR1ZFoFLqC1ZviwVUVQ6LdWWqboHYBzNXoTBEEGdUs7f7xVlcp
+ UYOAewfuzFyylB9bqXtjJtt3TyuSVZ2A0+mcGSJOfhsGkQWn84aaPsP2oz4h/4o9de
+ X9wridsH0+4A4UcvpgLqzBeOMwX4J09RVQJ+Q9dAM0mt6eOHlSTIxDGTCZIl6gfemn
+ b4Q6F2MwjQchf1Ejfx0e196M36JkKEB8dxvZwaqcH+JfZlMhRjs5poIkSEz0JFjTzZ
+ dVEZ5NFX7sJU3lK+MTTbx8Rr09Xa6zYWPukfOVkBqQIdz3FkFEp2DQaE3QTRjn37yV
+ J28oDvKvqYyzA==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, YueHaibing <yuehaibing@huawei.com>, lgirdwood@gmail.com,
- perex@perex.cz, jarkko.nikula@bitmer.com, peter.ujfalusi@gmail.com
-Subject: Re: [PATCH -next] ASoC: ti: omap-mcbsp: use DEVICE_ATTR_RW macro
-Date: Tue,  1 Jun 2021 18:38:09 +0100
-Message-Id: <162256892743.19919.2315027944025849805.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Colin King <colin.king@canonical.com>
+Subject: Re: [PATCH] ASoC: topology: Fix spelling mistake "vesion" -> "version"
+Date: Tue,  1 Jun 2021 18:38:10 +0100
+Message-Id: <162256892745.19919.2249782146567901885.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210528063033.19904-1-yuehaibing@huawei.com>
-References: <20210528063033.19904-1-yuehaibing@huawei.com>
+In-Reply-To: <20210601103506.9477-1-colin.king@canonical.com>
+References: <20210601103506.9477-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +82,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 28 May 2021 14:30:33 +0800, YueHaibing wrote:
-> Use DEVICE_ATTR_RW() helper instead of plain DEVICE_ATTR(),
-> which makes the code a bit shorter and easier to read.
+On Tue, 1 Jun 2021 11:35:06 +0100, Colin King wrote:
+> There are spelling mistakes in comments. Fix them.
 
 Applied to
 
@@ -91,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ti: omap-mcbsp: use DEVICE_ATTR_RW macro
-      commit: b1b384de0a9be2d2913c8a308f381da0b9184e91
+[1/1] ASoC: topology: Fix spelling mistake "vesion" -> "version"
+      commit: ce1f25718b2520d0210c24f1e4145d75c5620c9f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

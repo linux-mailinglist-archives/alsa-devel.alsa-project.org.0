@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817D5397D25
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:45:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF315397D29
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:46:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CF7416DB;
-	Wed,  2 Jun 2021 01:44:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CF7416DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F72216F0;
+	Wed,  2 Jun 2021 01:45:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F72216F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622591147;
-	bh=vlr+gMXMYwYrBG3lE4OP3hih9k4wOXSVrWH0vggT9k8=;
+	s=default; t=1622591175;
+	bh=xc09yV7rcHPOSOuKKGGKU7+L8n4PmfFuDU1p6vRSa7s=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vpy5AIXFsMNhktA00MO4kxMR8xHVYbzXHRGquBP2WmZDs0HHGW28C4ExUfB4UHPX8
-	 vp9ZmhCMd0mc2RQf9h9WK8+73+HBHq5ruwfagrYxGDfJhZRCQ4wjGeYidw6dqS7MyQ
-	 cCoXolXoG1PEd1WDIUCbvYhigV/QOMfnu/kamCOM=
+	b=Ys8WxxkvtZQHtMJVASMpskFAN+xW6RHMNcdYT4xpajyWyfoc9K1qTehM6wcUXksta
+	 b3dpVQPoDT9okoSUg69cPqxPNpYjQL4Vn7EF74m+QiumhWF5Q9dflyew9Bl2nca20N
+	 m/aQnRRoYoK2j7OPzGdhRo2KHCTMjCSU2KFZAlQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D56FEF804C3;
-	Wed,  2 Jun 2021 01:43:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71627F804CA;
+	Wed,  2 Jun 2021 01:44:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17545F804C2; Wed,  2 Jun 2021 01:43:54 +0200 (CEST)
+ id 8FF39F804CA; Wed,  2 Jun 2021 01:44:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 374FEF804B1
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:43:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 374FEF804B1
-Date: 02 Jun 2021 08:43:50 +0900
-X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966484"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:43:50 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 13E55F801DB
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:44:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13E55F801DB
+Date: 02 Jun 2021 08:44:09 +0900
+X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966517"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:44:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0371A4122181;
- Wed,  2 Jun 2021 08:43:50 +0900 (JST)
-Message-ID: <87r1hli215.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id C9D9040134FA;
+ Wed,  2 Jun 2021 08:44:09 +0900 (JST)
+Message-ID: <87pmx5i20m.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/5] ASoC: rsnd: adg: use more simple method for null_clk
+Subject: [PATCH 4/5] ASoC: rsnd: adg: check return value for
+ rsnd_adg_get_clkin/out()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v96xi22i.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,146 +68,180 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-commit 965386c97616c ("ASoC: rsnd: call unregister for null_hw when
-removed") tried unregister null_clk, but it has some issues.
+Current rsnd_adg_get_clkin/out() are void function,
+thus adg->clk/clkout[i] might be NULL.
 
-1st issue is kernel will indicate below message when unregistering,
-because of its timing. unregistering should be happen after clk_disable().
+But, for_each_rsnd_clk/clkout() macros are assuming
+all clks are non NULL.
 
-	clk_unregister: unregistering prepared clock: rsnd_adg_null
+Because of this mismatch, code can be complex and/or buggy.
+These functions return error by this patch,
+and make sure all clks are non NULL.
 
-2nd issue is, it is using priv->null_clk, but it should be adg->null_clk.
-
-3rd issue is it is using very complex clk registering method.
-more simple clk_register/unregister_fixed_rate() should be OK.
-
-This patch fixes these.
-
-Fixes: 965386c97616c ("ASoC: rsnd: call unregister for null_hw when removed")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/adg.c  | 52 +++++++++++++++++++++-------------------
- sound/soc/sh/rcar/rsnd.h |  1 -
- 2 files changed, 27 insertions(+), 26 deletions(-)
+ sound/soc/sh/rcar/adg.c | 84 ++++++++++++++++++++++++++++++-----------
+ 1 file changed, 61 insertions(+), 23 deletions(-)
 
 diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
-index af6132479593..3dfd07c8a7e3 100644
+index 3dfd07c8a7e3..0ebee1ed06a9 100644
 --- a/sound/soc/sh/rcar/adg.c
 +++ b/sound/soc/sh/rcar/adg.c
-@@ -28,6 +28,7 @@ static struct rsnd_mod_ops adg_ops = {
- struct rsnd_adg {
- 	struct clk *clk[CLKMAX];
- 	struct clk *clkout[CLKOUTMAX];
-+	struct clk *null_clk;
- 	struct clk_onecell_data onecell;
- 	struct rsnd_mod mod;
- 	int clk_rate[CLKMAX];
-@@ -363,53 +364,52 @@ int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate)
- void rsnd_adg_clk_control(struct rsnd_priv *priv, int enable)
- {
- 	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
--	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct clk *clk;
- 	int i;
- 
- 	for_each_rsnd_clk(clk, adg, i) {
- 		if (enable) {
--			int ret = clk_prepare_enable(clk);
-+			clk_prepare_enable(clk);
- 
- 			/*
- 			 * We shouldn't use clk_get_rate() under
- 			 * atomic context. Let's keep it when
- 			 * rsnd_adg_clk_enable() was called
- 			 */
--			adg->clk_rate[i] = 0;
--			if (ret < 0)
--				dev_warn(dev, "can't use clk %d\n", i);
--			else
--				adg->clk_rate[i] = clk_get_rate(clk);
-+			adg->clk_rate[i] = clk_get_rate(clk);
- 		} else {
--			if (adg->clk_rate[i])
--				clk_disable_unprepare(clk);
--			adg->clk_rate[i] = 0;
-+			clk_disable_unprepare(clk);
- 		}
- 	}
+@@ -412,25 +412,53 @@ static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
+ 	return adg->null_clk;
  }
  
--#define NULL_CLK "rsnd_adg_null"
--static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
-+static struct clk *rsnd_adg_create_null_clk(struct rsnd_priv *priv,
-+					    const char * const name,
-+					    const char *parent)
- {
- 	struct device *dev = rsnd_priv_to_dev(priv);
-+	struct clk *clk;
-+
-+	clk = clk_register_fixed_rate(dev, name, parent, 0, 0);
-+	if (IS_ERR(clk)) {
-+		dev_err(dev, "create null clk error\n");
-+		return NULL;
-+	}
- 
--	if (!priv->null_hw) {
--		struct clk_hw *_hw;
--		int ret;
-+	return clk;
-+}
- 
--		_hw = clk_hw_register_fixed_rate_with_accuracy(dev, NULL_CLK, NULL, 0, 0, 0);
--		if (IS_ERR(_hw))
--			return NULL;
-+static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
+-static void rsnd_adg_get_clkin(struct rsnd_priv *priv)
++static void rsnd_adg_null_clk_clean(struct rsnd_priv *priv)
 +{
 +	struct rsnd_adg *adg = priv->adg;
++
++	if (adg->null_clk)
++		clk_unregister_fixed_rate(adg->null_clk);
++}
++
++static int rsnd_adg_get_clkin(struct rsnd_priv *priv)
+ {
+ 	struct rsnd_adg *adg = priv->adg;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
++	struct clk *clk;
+ 	int i;
  
--		ret = of_clk_add_hw_provider(dev->of_node, of_clk_hw_simple_get, _hw);
--		if (ret < 0)
--			clk_hw_unregister_fixed_rate(_hw);
-+	if (!adg->null_clk) {
-+		static const char * const name = "rsnd_adg_null";
+ 	for (i = 0; i < CLKMAX; i++) {
+-		struct clk *clk = devm_clk_get(dev, clk_name[i]);
++		clk = devm_clk_get(dev, clk_name[i]);
  
--		priv->null_hw = _hw;
-+		adg->null_clk = rsnd_adg_create_null_clk(priv, name, NULL);
+ 		if (IS_ERR(clk))
+ 			clk = rsnd_adg_null_clk_get(priv);
+ 		if (IS_ERR(clk))
+-			dev_err(dev, "no adg clock (%s)\n", clk_name[i]);
++			goto err;
+ 
+ 		adg->clk[i] = clk;
  	}
- 
--	return clk_hw_get_clk(priv->null_hw, NULL_CLK);
-+	return adg->null_clk;
++
++	return 0;
++
++err:
++	dev_err(dev, "adg clock IN get failed\n");
++
++	rsnd_adg_null_clk_clean(priv);
++
++	return -EIO;
++}
++
++static void rsnd_adg_unregister_clkout(struct rsnd_priv *priv)
++{
++	struct rsnd_adg *adg = priv->adg;
++	struct clk *clk;
++	int i;
++
++	for_each_rsnd_clkout(clk, adg, i)
++		clk_unregister_fixed_rate(clk);
  }
  
- static void rsnd_adg_get_clkin(struct rsnd_priv *priv)
-@@ -666,10 +666,12 @@ void rsnd_adg_remove(struct rsnd_priv *priv)
- 	for_each_rsnd_clkout(clk, adg, i)
- 		if (adg->clkout[i])
- 			clk_unregister_fixed_rate(adg->clkout[i]);
--	if (priv->null_hw)
--		clk_hw_unregister_fixed_rate(priv->null_hw);
+-static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
++static int rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ {
+ 	struct rsnd_adg *adg = priv->adg;
+ 	struct clk *clk;
+@@ -472,9 +500,8 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ 
+ 	req_size = prop->length / sizeof(u32);
+ 	if (req_size > REQ_SIZE) {
+-		dev_err(dev,
+-			"too many clock-frequency, use top %d\n", REQ_SIZE);
+-		req_size = REQ_SIZE;
++		dev_err(dev, "too many clock-frequency\n");
++		return -EINVAL;
+ 	}
+ 
+ 	of_property_read_u32_array(np, "clock-frequency", req_rate, req_size);
+@@ -555,10 +582,11 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ 	if (!count) {
+ 		clk = clk_register_fixed_rate(dev, clkout_name[CLKOUT],
+ 					      parent_clk_name, 0, req_rate[0]);
+-		if (!IS_ERR(clk)) {
+-			adg->clkout[CLKOUT] = clk;
+-			of_clk_add_provider(np, of_clk_src_simple_get, clk);
+-		}
++		if (IS_ERR(clk))
++			goto err;
++
++		adg->clkout[CLKOUT] = clk;
++		of_clk_add_provider(np, of_clk_src_simple_get, clk);
+ 	}
+ 	/*
+ 	 * for clkout0/1/2/3
+@@ -568,8 +596,10 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ 			clk = clk_register_fixed_rate(dev, clkout_name[i],
+ 						      parent_clk_name, 0,
+ 						      req_rate[0]);
+-			if (!IS_ERR(clk))
+-				adg->clkout[i] = clk;
++			if (IS_ERR(clk))
++				goto err;
++
++			adg->clkout[i] = clk;
+ 		}
+ 		adg->onecell.clks	= adg->clkout;
+ 		adg->onecell.clk_num	= CLKOUTMAX;
+@@ -581,6 +611,15 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ 	adg->ckr = ckr;
+ 	adg->rbga = rbga;
+ 	adg->rbgb = rbgb;
++
++	return 0;
++
++err:
++	dev_err(dev, "adg clock OUT get failed\n");
++
++	rsnd_adg_unregister_clkout(priv);
++
++	return -EIO;
+ }
+ 
+ #if defined(DEBUG) || defined(CONFIG_DEBUG_FS)
+@@ -646,8 +685,13 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
+ 
+ 	priv->adg = adg;
+ 
+-	rsnd_adg_get_clkin(priv);
+-	rsnd_adg_get_clkout(priv);
++	ret = rsnd_adg_get_clkin(priv);
++	if (ret)
++		return ret;
++
++	ret = rsnd_adg_get_clkout(priv);
++	if (ret)
++		return ret;
+ 
+ 	rsnd_adg_clk_enable(priv);
+ 	rsnd_adg_clk_dbg_info(priv, NULL);
+@@ -659,19 +703,13 @@ void rsnd_adg_remove(struct rsnd_priv *priv)
+ {
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct device_node *np = dev->of_node;
+-	struct rsnd_adg *adg = priv->adg;
+-	struct clk *clk;
+-	int i;
+ 
+-	for_each_rsnd_clkout(clk, adg, i)
+-		if (adg->clkout[i])
+-			clk_unregister_fixed_rate(adg->clkout[i]);
++	rsnd_adg_unregister_clkout(priv);
  
  	of_clk_del_provider(np);
  
  	rsnd_adg_clk_disable(priv);
-+
-+	/* It should be called after rsnd_adg_clk_disable() */
-+	if (adg->null_clk)
-+		clk_unregister_fixed_rate(adg->null_clk);
- }
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index b2fbe3bbaabd..0182ea5b31d2 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -646,7 +646,6 @@ struct rsnd_priv {
- 	 * below value will be filled on rsnd_adg_probe()
- 	 */
- 	void *adg;
--	struct clk_hw *null_hw;
  
- 	/*
- 	 * below value will be filled on rsnd_dma_probe()
+ 	/* It should be called after rsnd_adg_clk_disable() */
+-	if (adg->null_clk)
+-		clk_unregister_fixed_rate(adg->null_clk);
++	rsnd_adg_null_clk_clean(priv);
+ }
 -- 
 2.25.1
 

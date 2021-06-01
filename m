@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2485B397D21
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:44:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4C397D23
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:45:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B4A016F0;
-	Wed,  2 Jun 2021 01:44:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B4A016F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF6D216F4;
+	Wed,  2 Jun 2021 01:44:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF6D216F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622591098;
-	bh=mHjlaDleesr2ATp6yH2VXjT6g34RJK6P2j5BQF4pdFA=;
+	s=default; t=1622591134;
+	bh=Lc8weky1ozcmBWu0PFTKhHjJ3zbE4UHLlhti5lsXmNI=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q1qoq7+yLa/JL3jbvpriuVHpaNvvjVuNpr7jS4jmpdkQOi1HE7L4g8qONC5wEgPS8
-	 mrUSZUBp7AAaR19HL+hO7KTalkn2Pr00JOXZBymyGD5PduISgnDRuEHFC/ytF7/0mf
-	 x2f1FMOZclvbYTLrBzUqdbrAH0I4HGr46ifBmRQQ=
+	b=Qb6hrAkPqVyHlkAkaQnZmPSu/mWu9+BOszJrx3g7fMTxpErKjl/EL64bAipXRpm1H
+	 JMrQSwDEwl+SXPSp7/BM+YG45fcBXFETsZjOtwuCq3Sv5uXPpGyQ/uz7URau8DJ3jE
+	 dPfZIl0Lo4YMNjtTAv0iT3kwvHTOy/7sI3zReTt8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88203F804B0;
-	Wed,  2 Jun 2021 01:43:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 244EAF804BC;
+	Wed,  2 Jun 2021 01:43:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84F6BF802E7; Wed,  2 Jun 2021 01:43:37 +0200 (CEST)
+ id 0D8BEF804BB; Wed,  2 Jun 2021 01:43:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C60E0F80141
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C60E0F80141
-Date: 02 Jun 2021 08:43:28 +0900
-X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966448"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:43:28 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 569C2F80141
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:43:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 569C2F80141
+Date: 02 Jun 2021 08:43:36 +0900
+X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966458"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:43:36 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 84B6D40134FA;
- Wed,  2 Jun 2021 08:43:28 +0900 (JST)
-Message-ID: <87tumhi21r.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D9FCB4122181;
+ Wed,  2 Jun 2021 08:43:36 +0900 (JST)
+Message-ID: <87sg21i21j.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/5] ASoC: rsnd: adg: supply __printf(x,
- y) formatting for dbg_msg()
+Subject: [PATCH 2/5] ASoC: rsnd: adg: tidyup rsnd_adg_get_clkin/out() parameter
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v96xi22i.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,32 +69,58 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Fixes the following W=1 kernel build warning(s):
+set priv->adg before rsnd_adg_get_clkin/out() to be more simple code.
+Nothing is changed, but is preparation for
+next "ASoC: rsnd: adg: use more simple method for null_clk" patch
 
-sound/soc/sh/rcar/adg.c: In function 'dbg_msg':
-sound/soc/sh/rcar/adg.c:594:2: warning: function 'dbg_msg' might \
- be a candidate for 'gnu_printf' format attribute\
- [-Wsuggest-attribute=format]
-
-Fixes: 1f9c82b5ab83 ("ASoC: rsnd: add debugfs support")
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/adg.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/sh/rcar/adg.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
-index 78916332c22f..390d5e22fbb8 100644
+index 390d5e22fbb8..af6132479593 100644
 --- a/sound/soc/sh/rcar/adg.c
 +++ b/sound/soc/sh/rcar/adg.c
-@@ -584,6 +584,7 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv,
+@@ -412,9 +412,9 @@ static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
+ 	return clk_hw_get_clk(priv->null_hw, NULL_CLK);
  }
  
- #if defined(DEBUG) || defined(CONFIG_DEBUG_FS)
-+__printf(3, 4)
- static void dbg_msg(struct device *dev, struct seq_file *m,
- 				   const char *fmt, ...)
+-static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
+-			       struct rsnd_adg *adg)
++static void rsnd_adg_get_clkin(struct rsnd_priv *priv)
  {
++	struct rsnd_adg *adg = priv->adg;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	int i;
+ 
+@@ -430,9 +430,9 @@ static void rsnd_adg_get_clkin(struct rsnd_priv *priv,
+ 	}
+ }
+ 
+-static void rsnd_adg_get_clkout(struct rsnd_priv *priv,
+-				struct rsnd_adg *adg)
++static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
+ {
++	struct rsnd_adg *adg = priv->adg;
+ 	struct clk *clk;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct device_node *np = dev->of_node;
+@@ -644,11 +644,11 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
+ 	if (ret)
+ 		return ret;
+ 
+-	rsnd_adg_get_clkin(priv, adg);
+-	rsnd_adg_get_clkout(priv, adg);
+-
+ 	priv->adg = adg;
+ 
++	rsnd_adg_get_clkin(priv);
++	rsnd_adg_get_clkout(priv);
++
+ 	rsnd_adg_clk_enable(priv);
+ 	rsnd_adg_clk_dbg_info(priv, NULL);
+ 
 -- 
 2.25.1
 

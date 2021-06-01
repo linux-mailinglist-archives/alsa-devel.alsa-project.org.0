@@ -2,93 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE128396EBA
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 10:19:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9AD396EC0
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 10:19:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47DBD1691;
-	Tue,  1 Jun 2021 10:18:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47DBD1691
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB39F169F;
+	Tue,  1 Jun 2021 10:19:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB39F169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622535580;
-	bh=Tv6YqgrkkCJylglhdVn35QoE9y7svqlcMkXuv23U7RQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ptF3Aw+5twU2FgrIEa3LRHjYzFpCXPMr3XladE3YklopgqRM+wwCPz3TwGTgRAOVP
-	 ES/3zwNIrL+d9C9spQArq04s0jNUwSwmvE97X5rgNDNCKd9YROLr9OBMyhXeuGwqXg
-	 1ulodbgme4aLrOm+bOqsHAqat1qpwyeR2gOZK7+k=
+	s=default; t=1622535595;
+	bh=TJQYc6g5T8oW2i7PmuYRFN60xpk8gy/sD6dfDNSEkeg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cF/m/58UqysU4f+3vFOUKfaWrg6EgMFY1487fnLw+KChxcyxk26kG0KIUNwrV3kVp
+	 6cZtFFjAIhfKxTtLwsolVi/Tk9pkGdluv6YvHheDAiPeXSUgKKERsLPv1VOwnRHQPU
+	 1cBu1VuoIUsh0+T5raq1WAlgrjGrcj+Ekn3KgcPY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5307F802E7;
-	Tue,  1 Jun 2021 10:18:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DAE2F804BB;
+	Tue,  1 Jun 2021 10:18:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 987B6F802E7; Tue,  1 Jun 2021 10:18:09 +0200 (CEST)
+ id E4816F804B1; Tue,  1 Jun 2021 10:18:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94837F80253
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 10:18:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94837F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91A6AF800B2
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 10:18:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91A6AF800B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="1ghKo5DE"; 
+ header.b="2IvVffT0"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="jQywiB4/"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 8D9E010CE;
- Tue,  1 Jun 2021 04:17:59 -0400 (EDT)
+ header.i=@messagingengine.com header.b="qA7wUJy9"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 2575310D3;
+ Tue,  1 Jun 2021 04:18:02 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 01 Jun 2021 04:17:59 -0400
+ by compute3.internal (MEProxy); Tue, 01 Jun 2021 04:18:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=M6qfCBC9dJcZBakMDV2mL8KynN
- EROTMRrUQrr5NCUL0=; b=1ghKo5DEaskikOE4srHDF0Sk0gSIhcViwWNV4cq7rz
- lmZn6CipfWaEEG+sLDeSFZubkALXmv9+Q3aq4oeqrxH15QC1t6fJwNt2cHl6s0u4
- ztHbx7zC+EEDUbl/VOhjogZc/wxb1t6PTR1k5r1ruSZrejMa5EgM1aVuYNqSfuRa
- binfV+Eu9Z8WNK3cElqeRm+EWBbO/vUDFZnRVwILPofdXEZU/nbAEURjX2c+GMX9
- 8hVH0EK2+x+5V++YVWQXg1Si9YwhAA3t6POK6YTMymcFctLxcZBnE12KfjsTmWjg
- epUcynrhTJKAAtkFIXYtNmCr7upIokYuOc3B2OuAgzZA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=wY/w/UIXGVb1y
+ +KyDya97gK1sT1t8Q9iFVV4XOs1wFw=; b=2IvVffT0qQD42lCKkyt88TwUWqYHP
+ wyBO2hPo+Q/j3I8UtRAzAaSibzvj46nB9Q6xoUb/nOHO1rGCOpOUtNJySJAvVT9u
+ 9bu9p3Ja3lGUnD0Vxj+gqPDfcp9dXms95wPXDZ2ID0S6OsSdM4RyWkuH1KWFsHhc
+ z1/IWRk5ErvlOZKCFBoPKQKkCDXbhdVb1osteq2B1g4zzGBplHZVRei+lqQSkwzo
+ uIAwn+xbLxqrf3LcuibTjRMyEEx6APgeELUEioRfqYGRfvP81EBA6ItJ38/SDwac
+ 5CnMTY3yv2+o9gPEqycENh+VEeVE3cJPRKGZqAyXFnAitCFKa7cDCmhDg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=M6qfCBC9dJcZBakMD
- V2mL8KynNEROTMRrUQrr5NCUL0=; b=jQywiB4/zew6cbrhTpCPUjqXJNWBd5bzm
- qFRC6Xwo8UsB0KynxATBwvbF64fEqEUALvViSpjzAYVJPTBcds8cs2vGYeYUjhQj
- qFZN5BuMM/7fDF7jQb/cFUAK6Y9ecJMFcXOJALueLRDUMh7CePwJbGH20rpPtKlI
- Vxn2KNaZRtRS3hp0dTnezrBf8MQfJbnBWbRJff7BpdqmHOklJ4Cq0x2fImCqoqEL
- fkexElBCmM1J/wTGY5UtIexNWlkp7zIbFZXr5I2n1Tui1Z0hdrOSxTjkOIfb8CsD
- l+Z70Yu7T+Zs84V13u0I2n/BF0jDCwTmE96rQUOZvNy+VkOsAGhtg==
-X-ME-Sender: <xms:Ne21YKr0twLyo0gANrVuUDf17hvI0PvF8e5Vy43ALUW7rhXViR-4Mw>
- <xme:Ne21YIoE0q5Orxu31VnLd9ZxcQRoC03YwfcBJP4Lv4AGoz2Tu1LjUiw9jMK7LAzSZ
- uVpOwEjREg03zYbSp4>
-X-ME-Received: <xmr:Ne21YPNCGPJh2RKUmt8WjM6WCpf3hq9g3AJE3JWLoC8J_M_vaPq1MLhmEFxQO77s50ogPA0cnrwPsIHknKp9XYS8EVseMX0aIaXyb8pi3VcDvQsKY9tw>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=wY/w/UIXGVb1y+KyDya97gK1sT1t8Q9iFVV4XOs1wFw=; b=qA7wUJy9
+ yRVthqLYgM0dPDWMyUMsGUaZANow6SBhE2U6HPdo7oaFNCPn1RbqhKb/atz5ufjr
+ qNosGeCtiBOcj+B0/PwfEPy8dpPrW033wmcM/ucBxWs6n+QoSlDiMGO/BA8hVIDP
+ A3nKCL8Tlwxaz6zB+/slCZvo6ICIhahZqaVrPUXREaDdX7OoMyy2ThZ4j9XY1ybc
+ dFGURatdY+VbWgyKsQ3TPUfCrO++GM5C8EawteC1U8SAJRHDv7FzLcswukmnfbeB
+ QfBIt8U1zowq5eE6bCSxYonlbC+ZMIgIhVdPno5vXxULs8FcIOyl6H4XREfOE46n
+ utw7ojdPdHLoig==
+X-ME-Sender: <xms:Oe21YMFuW4k_L3MGov2DsbMWBaRu5dTSuK4VxqTbNicX9b6h0grG4Q>
+ <xme:Oe21YFWqUWGEuK1SekVIBRPJwWlyN8eOxG8-6VWrQZfXOLHEwsCAJRM3G2aU8yDq7
+ NDbrRXrI4O_mLgn-WU>
+X-ME-Received: <xmr:Oe21YGI8ioIlyC71RG_1j2t16sdISUnEJhXezWfHhyyRh5_-7vLIS8fg9dbxYT8j2BxHMF_e9cXpeWceadTvD45eDLvJOgWp2dM6ROt0T44IuaDGqpjv>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelhedgtdduucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Ne21YJ4_Ypd9iW9BNsvLiJQG6_bSE5GHkTQpmhUSn1kZtE_qJoeTjA>
- <xmx:Ne21YJ7O6J81zYMJJHjAgONy-xIsynd-tH2UUGERi4o-JnXDJ8Qg5g>
- <xmx:Ne21YJiJUD785Dxva0pV3_Wf-NesGCZmWSNg8j_7opEczZsDDK7lew>
- <xmx:N-21YLRgWviUY5WhVtwq1R9FfPqiJfzYkCB22nHpy96SxgOEO95cbg>
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
+ etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
+ rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
+ grkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:Oe21YOEtV7LHesim2EasKQgoW_59GfInodM-FhnYGnEmOB0joiGSTw>
+ <xmx:Oe21YCVzBui-1T3aH8ULj-gIYrTM3XyAQSUyBr4I0FTMREDbH2oQPQ>
+ <xmx:Oe21YBPhNFOv2lxBbv8jXDHnmiU-cr86KsskGI0eYnICEw_rG9kcbw>
+ <xmx:Oe21YFe0l56PPjNReph7ysPKO40aFkBjw6D3tsT4s_2n6TQvI6bjwg>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Jun 2021 04:17:56 -0400 (EDT)
+ 1 Jun 2021 04:18:00 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 0/3] ALSA: firewire: media clock recovery for syt-aware devices
-Date: Tue,  1 Jun 2021 17:17:50 +0900
-Message-Id: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH 1/3] ALSA: dice: wait just for NOTIFY_CLOCK_ACCEPTED after
+ GLOBAL_CLOCK_SELECT operation
+Date: Tue,  1 Jun 2021 17:17:51 +0900
+Message-Id: <20210601081753.9191-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
+References: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
@@ -107,40 +113,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+NOTIFY_CLOCK_ACCEPTED notification is always generated as a result of
+GLOBAL_CLOCK_SELECT operation, however NOTIFY_LOCK_CHG notification
+doesn't, as long as the selected clock is already configured. In the case,
+ALSA dice driver waits so long. It's inconvenient for some devices to lock
+to the sequence of value in syt field of CIP header in rx packets.
 
-In a commit f9e5ecdfc2c2 ("ALSA: firewire-lib: add replay target to cache
-sequence of packet"), I categorize devices supported by drivers in ALSA
-firewire stack in terms of the way to deliver effective sampling
-transfer frequency. This patchset is for the devices in group 2.
+This commit wait just for NOTIFY_CLOCK_ACCEPTED notification by reverting
+changes partially done by two commits below:
 
-The devices are known to have problems when ALSA dice/bebob drivers
-handle. Many of them sometimes transfer packets with discontinued counter,
-corrupt at break of CMP connection, generates bus-reset voluntarily.
+ * commit fbeac84dbe9e ("ALSA: dice: old firmware optimization for Dice notification")
+ * commit aec045b80d79 ("ALSA: dice: change notification mask to detect lock status change")
 
-The devices interpret presentation time to decide playback timing. The
-drivers process presentation time expressed in syt field of CIP header for
-outgoing packets. Current implementation of the drivers processes the
-sequence of outgoing packet by computation according to nominal sampling
-transfer frequency, assisted by ALSA IEC 61883-1/6 packet streaming engine.
-However, the ideal sequence is not adequate to the devices, actually.
+I note that the successful lock to the sequence of value in syt field of
+CIP header in rx packets results in NOTIFY_EXT_STATUS notification, then
+EXT_STATUS_ARX1_LOCKED bit stands in GLOBAL_EXTENDED_STATUS register.
+The notification can occur enough after receiving the batch of rx packets.
+When the sequence doesn't include value in syt field of CIP header in rx
+packets adequate to the device, the notification occurs again and the bit
+is off.
 
-With this patchset, the drivers are going to replay the sequence of
-incoming packets for media clock recovery. For the detail of sequence
-replay, please refer to a commit 39c2649c71d8 ("ALSA: firewire-lib: replay
-sequence of incoming packets for outgoing packets").
-
-Takashi Sakamoto (3):
-  ALSA: dice: wait just for NOTIFY_CLOCK_ACCEPTED after
-    GLOBAL_CLOCK_SELECT operation
-  ALSA: dice: perform sequence replay for media clock recovery
-  ALSA: bebob: perform sequence replay for media clock recovery
-
- sound/firewire/bebob/bebob_stream.c    | 13 +++++++---
- sound/firewire/dice/dice-stream.c      | 35 +++++++++-----------------
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/dice/dice-stream.c      | 29 +++++++-------------------
  sound/firewire/dice/dice-transaction.c |  2 +-
- 3 files changed, 22 insertions(+), 28 deletions(-)
+ 2 files changed, 8 insertions(+), 23 deletions(-)
 
+diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
+index 0fb8b4ae6a0a..d7220160c778 100644
+--- a/sound/firewire/dice/dice-stream.c
++++ b/sound/firewire/dice/dice-stream.c
+@@ -9,7 +9,7 @@
+ #include "dice.h"
+ 
+ #define	READY_TIMEOUT_MS	200
+-#define NOTIFICATION_TIMEOUT_MS	(2 * MSEC_PER_SEC)
++#define NOTIFICATION_TIMEOUT_MS	100
+ 
+ struct reg_params {
+ 	unsigned int count;
+@@ -57,13 +57,9 @@ int snd_dice_stream_get_rate_mode(struct snd_dice *dice, unsigned int rate,
+ 	return -EINVAL;
+ }
+ 
+-/*
+- * This operation has an effect to synchronize GLOBAL_STATUS/GLOBAL_SAMPLE_RATE
+- * to GLOBAL_STATUS. Especially, just after powering on, these are different.
+- */
+-static int ensure_phase_lock(struct snd_dice *dice, unsigned int rate)
++static int select_clock(struct snd_dice *dice, unsigned int rate)
+ {
+-	__be32 reg, nominal;
++	__be32 reg;
+ 	u32 data;
+ 	int i;
+ 	int err;
+@@ -94,19 +90,8 @@ static int ensure_phase_lock(struct snd_dice *dice, unsigned int rate)
+ 		return err;
+ 
+ 	if (wait_for_completion_timeout(&dice->clock_accepted,
+-			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0) {
+-		/*
+-		 * Old versions of Dice firmware transfer no notification when
+-		 * the same clock status as current one is set. In this case,
+-		 * just check current clock status.
+-		 */
+-		err = snd_dice_transaction_read_global(dice, GLOBAL_STATUS,
+-						&nominal, sizeof(nominal));
+-		if (err < 0)
+-			return err;
+-		if (!(be32_to_cpu(nominal) & STATUS_SOURCE_LOCKED))
+-			return -ETIMEDOUT;
+-	}
++			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0)
++		return -ETIMEDOUT;
+ 
+ 	return 0;
+ }
+@@ -304,7 +289,7 @@ int snd_dice_stream_reserve_duplex(struct snd_dice *dice, unsigned int rate,
+ 		// Just after owning the unit (GLOBAL_OWNER), the unit can
+ 		// return invalid stream formats. Selecting clock parameters
+ 		// have an effect for the unit to refine it.
+-		err = ensure_phase_lock(dice, rate);
++		err = select_clock(dice, rate);
+ 		if (err < 0)
+ 			return err;
+ 
+@@ -646,7 +631,7 @@ int snd_dice_stream_detect_current_formats(struct snd_dice *dice)
+ 	 * invalid stream formats. Selecting clock parameters have an effect
+ 	 * for the unit to refine it.
+ 	 */
+-	err = ensure_phase_lock(dice, rate);
++	err = select_clock(dice, rate);
+ 	if (err < 0)
+ 		return err;
+ 
+diff --git a/sound/firewire/dice/dice-transaction.c b/sound/firewire/dice/dice-transaction.c
+index 2c0dde29a024..92941ef83cd5 100644
+--- a/sound/firewire/dice/dice-transaction.c
++++ b/sound/firewire/dice/dice-transaction.c
+@@ -155,7 +155,7 @@ static void dice_notification(struct fw_card *card, struct fw_request *request,
+ 
+ 	fw_send_response(card, request, RCODE_COMPLETE);
+ 
+-	if (bits & NOTIFY_LOCK_CHG)
++	if (bits & NOTIFY_CLOCK_ACCEPTED)
+ 		complete(&dice->clock_accepted);
+ 	wake_up(&dice->hwdep_wait);
+ }
 -- 
 2.27.0
 

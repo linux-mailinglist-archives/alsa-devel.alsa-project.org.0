@@ -2,93 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 628D63971D1
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 12:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C529F39727D
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 13:36:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE38D16B9;
-	Tue,  1 Jun 2021 12:50:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE38D16B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EE1016CA;
+	Tue,  1 Jun 2021 13:35:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EE1016CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622544663;
-	bh=cfywSEw5mbyIq27PGiwEKaSWC0yrJQi8AcyhU1H1kw8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=utl8m9wKZzAIYVQK8e5Vchir0O11E+hEk4TZOyFajFba+OK10DfDlXq30I5BGKBNZ
-	 TgyEXhDbVOMC00mwULPQmm5oVEttauYjLLUlK+X/JxNlf/O5uSt7fBgt7C6XHjZ8KZ
-	 AN48z83KcS63EboR0Uddfoh3SI2yK9vNiP69QRWU=
+	s=default; t=1622547379;
+	bh=AMt0xBj1NEYflFlOQ19KF0lXoGyNdCVCdLhs0++e0G0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kH2p7C6fCuseKdcEMj2lEKueSNEpT/+iDDniCmbNj9OyPWJZpmvXFc/JyTvhucIar
+	 J5SHVO2Z7DJp4PpcUPJuR8C+T6ZV/E0ORLPOp5O9u0M5RR7/aLZkBkde9tXaHGI7HQ
+	 E5SSSkeZ+cuvGFjnCsd5YHpm79/+x6r0vZBG02y0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAF46F80269;
-	Tue,  1 Jun 2021 12:50:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE0D1F804BB;
+	Tue,  1 Jun 2021 13:34:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BA94F80269; Tue,  1 Jun 2021 12:50:08 +0200 (CEST)
+ id 5DF04F804B0; Tue,  1 Jun 2021 13:34:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7A2BF80253
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 12:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7A2BF80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 402B3F80141
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 13:34:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 402B3F80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="ZCUGXC1q"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 151AfwZm031077; Tue, 1 Jun 2021 05:50:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=qthOxQHI8yFTzUfX2WvK0D8ggxBm5bZaIsMlzUhbQpI=;
- b=ZCUGXC1q/MYiCWwhvoqCfA6jj3S8Kx5MxZbF51qji6CL/kd53OeoeCvaQcNJmbkquAWH
- /txa/sItOcRUHGZjX6266LPn4hf8/7RwleDynMv853gDVTrUFrpLVtZMu8QmfXAdsSpK
- p07/JI7EYjdlMcXV/x0PRuuz9bmQE3vm/OZQ5KO/GfdP+SLWhuDbXo0HBQ/mTxjBkY1H
- 100btxA5DRbfhd3hCHCxSd5PLVQoV1OSzVOZtrT4Sqwsn3hCS8JgCiInXF+prjEWZeHO
- BGHTHKUmE5bJIPThV4LSI3asGjp/nB7s8LIjycJSM6PZnje/F6r1Bez2GBD3ZMvd0NZC tQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 38vv1ns4qj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 01 Jun 2021 05:50:03 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 1 Jun 2021
- 11:50:02 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Tue, 1 Jun 2021 11:50:01 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E1B342B2;
- Tue,  1 Jun 2021 10:50:01 +0000 (UTC)
-Date: Tue, 1 Jun 2021 10:50:01 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: David Rhodes <drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH 2/2] ASoC: cs35l41: Add bindings for CS35L41
-Message-ID: <20210601105001.GC9223@ediswmail.ad.cirrus.com>
-References: <20210601013731.2744163-1-drhodes@opensource.cirrus.com>
- <20210601013731.2744163-3-drhodes@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="aBxtyGNN"
+Received: by mail-ed1-x533.google.com with SMTP id s6so16834313edu.10
+ for <alsa-devel@alsa-project.org>; Tue, 01 Jun 2021 04:34:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3z4f9OtSIbuNbOfZKzA5/qCGi7jD1UUm7qfZnJAs7+c=;
+ b=aBxtyGNNDN2VF/9oG4s3CHhiR1NgayvyPXk61RGSRhhhcL22f9AchZhQKM7LjfQnpr
+ ud7eaXUeLcfh3Mp8/XzfAboSobak4+iTzl7xSUjoChJopx0hbEtMBwF29H1CiqzqQH2x
+ K+LFcKliXCNxosLn/RKZy9vIh0VzQTZzAhz/mIgPb5WCF7TPg1BIo0ravY9zCKN3I7lp
+ 1hoGXNJzRy7GJFl4rPRd/LXWxwlZK7FenE329G4ZIakdiOoXImygc3VbioeFdegT0i1W
+ KwU1ioC/ldaGl9M0vCwfxdSc+LZIDUCDBlY7f9yOrp9zYMUiGiNYq0yPVnWTrN1eQW8U
+ f3sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3z4f9OtSIbuNbOfZKzA5/qCGi7jD1UUm7qfZnJAs7+c=;
+ b=Gh2OBmPCPGQIGUB50R1coFCQhpU6JAfkrJUlxW/M3s1kao1ogpI30/wOOhOOMJCBtD
+ u8/H9jwuB4A5Ci1+MUdoZZ8PY0Sf7LXUynqnPe3YEc0BvaLder/YV/Oc/gwHZY5N98kc
+ orO0//n/a/zZCdCl4SnHgb/86eL1Nvi6+IxieqBLn7eR3K5t5JJlQFomaqzaFZESySN+
+ f/vDUxmDWpF+Op6H33g8A8hzCNms7wV3S1kKAs5n7/1ep+vpwQKuhDrTcMt36RIYuyEZ
+ k/pJgrY7M5T9cwWTaeKhpPS6RQcBK66lVmrwXTv/AB7lhM2gKMbPO0lbB0+CZ/7RLktA
+ WhiA==
+X-Gm-Message-State: AOAM532HjwXV79nWiaz2grnv1tF0KiSJC2+v6WJqF8yDbgTm2zUr1Q7a
+ GSa1HWSP5mKht1WPmzWFRjn/Rw==
+X-Google-Smtp-Source: ABdhPJzF5pFr9Bwg3mL0v55aEGXnwhGOjgGDv9bgvy6GHV/sknQiN/zVcpPVsS+iskX+kz16xT5RRQ==
+X-Received: by 2002:a05:6402:543:: with SMTP id
+ i3mr15827295edx.173.1622547275613; 
+ Tue, 01 Jun 2021 04:34:35 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id f10sm4729487edx.60.2021.06.01.04.34.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Jun 2021 04:34:35 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v8 0/9] ASoC: codecs: add wcd938x support
+Date: Tue,  1 Jun 2021 12:31:49 +0100
+Message-Id: <20210601113158.16085-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210601013731.2744163-3-drhodes@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: fs-1eb7IyVUic_YKsDg3rqbL0C_VPTb7
-X-Proofpoint-GUID: fs-1eb7IyVUic_YKsDg3rqbL0C_VPTb7
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- mlxscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 mlxlogscore=833 impostorscore=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2106010072
-Cc: patches@opensource.cirrus.com, brian.austin@cirrus.com, broonie@kernel.org,
- alsa-devel@alsa-project.org, david.rhodes@cirrus.com
+Content-Transfer-Encoding: 8bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,17 +98,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 31, 2021 at 08:37:31PM -0500, David Rhodes wrote:
-> Devicetree binding documentation for CS35L41 driver
-> 
-> CS35L41 is a 11-V Boosted Mono Class D Amplifier with
-> DSP Speaker Protection and Equalization
-> 
-> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
-> ---
+This patchset adds support for Qualcomm WCD938X codec.
 
-Should really CC the DT maintainers on this patch too, Rob
-Herring and the DT list.
+Qualcomm WCD9380/WCD9385 Codec is a standalone Hi-Fi audio codec IC
+connected over SoundWire. This device has two SoundWire devices, RX and
+TX respectively supporting 4 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
+7 x TX diff inputs, 8 DMICs and MBHC.
+
+Eventhough this device has two SoundWire devices, only tx device has
+access to main codec Control/Status Registers!
+
+For codec driver to be functional it would need both tx and rx Soundwire devices
+to be up and this is taken care by using device component framework and device-links
+are used to ensure proper pm dependencies. Ex tx does not enter suspend
+before rx or codec is suspended.
+
+This patchset along with other SoundWire patches on the list
+have been tested on SM8250 MTP device.
 
 Thanks,
-Charles
+srini
+
+Changes since v7:
+- Fixed errors reported by kernel test robot by moving SoundWire specific bits to sdw driver.
+
+Srinivas Kandagatla (9):
+  ASoC: dt-bindings: wcd938x: add bindings for wcd938x
+  ASoC: codecs: wcd-clsh: add new version support
+  ASoC: codecs: wcd938x: add basic driver
+  ASoC: dt-bindings: wcd938x-sdw: add bindings for wcd938x-sdw
+  ASoC: codecs: wcd938x-sdw: add SoundWire driver
+  ASoC: codecs: wcd938x: add basic controls
+  ASoC: codecs: wcd938x: add playback dapm widgets
+  ASoC: codecs: wcd938x: add capture dapm widgets
+  ASoC: codecs: wcd938x: add audio routing
+
+ .../bindings/sound/qcom,wcd938x-sdw.yaml      |   70 +
+ .../bindings/sound/qcom,wcd938x.yaml          |  146 +
+ sound/soc/codecs/Kconfig                      |   13 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/wcd-clsh-v2.c                |  348 +-
+ sound/soc/codecs/wcd-clsh-v2.h                |   16 +
+ sound/soc/codecs/wcd938x-sdw.c                |  315 ++
+ sound/soc/codecs/wcd938x.c                    | 3743 +++++++++++++++++
+ sound/soc/codecs/wcd938x.h                    |  720 ++++
+ 9 files changed, 5365 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x-sdw.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+ create mode 100644 sound/soc/codecs/wcd938x-sdw.c
+ create mode 100644 sound/soc/codecs/wcd938x.c
+ create mode 100644 sound/soc/codecs/wcd938x.h
+
+-- 
+2.21.0
+

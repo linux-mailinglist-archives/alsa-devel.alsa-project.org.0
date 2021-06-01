@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09E9396D40
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 08:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 465CA396D4B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 08:23:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6585E169C;
-	Tue,  1 Jun 2021 08:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6585E169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0978169A;
+	Tue,  1 Jun 2021 08:22:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0978169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622528579;
-	bh=mZtqk7h7nKWE6YAhF/ExfSaADe4hW82ENZbOBf78P8c=;
+	s=default; t=1622528615;
+	bh=AxT+GjvH2IzIWlFpSsmbLcA+4g9FxcJA2u9b0LEXNeA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mTLBSaSDarC7ckxfyAH5+zwXoIk47B44Suw0hE4i6XrzPU70noldWAPjuRW+sKuRV
-	 1uxfKOAyB/tNNrOy/bSAjB9Aj1nwDvCpvmwMsV/OPgS+ybI2khMENCPdL6WZuzjbpH
-	 IMGdPsNWv6lpfpmYTQSr/DFMPReamtz+QoKaftDA=
+	b=EPcuL+O37bMB1wlaNjvv1fXW9BBrXIxQteBn8woOGQtxTvEqhGZtGFYlgSKTxqMWf
+	 VRmB0IhWIrQo7bIgw0oXVjT0dc26dP+OoxRR5rnwEDSnCTaALE+8TMdcGl5jHXixF2
+	 H23a7W1m+bSunlMb6WXlTrM9CGXlYZX0/8NA1U/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2490BF80253;
-	Tue,  1 Jun 2021 08:22:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E280DF804B0;
+	Tue,  1 Jun 2021 08:22:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 940A2F80254; Tue,  1 Jun 2021 08:22:00 +0200 (CEST)
+ id 126B4F804AF; Tue,  1 Jun 2021 08:22:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, PRX_BODYSUB_1, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE, SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 566F5F800B2
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 08:21:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 566F5F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 549A4F802E7
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 08:22:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 549A4F802E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lhjYFdO0"; 
+ header.b="J3Nn+NdM"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="olZ6TXOp"
+ header.b="FVtO2e9N"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622528514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622528526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8loJ0gRMMAl9r+rBFc3xEGX/kX0j8MpUL6FIAxuIxzg=;
- b=lhjYFdO0SD1W2Aq105M+wwHx+dhF3cvp+RdSBVeB7pCWLd5KtohYpt1VsS0/ZXHtPO+BP4
- 0yOR+CiwIT7mZo8LiBjOEYr5Zl5UJz/am/KYwlAGoKxGAlHH97peZl4mcz0fTqVJ8U6NE1
- 4QdZJEaHnUg6TmX/Rbw8eSO5fWNkQQc=
+ bh=8LmsBr3UPPphfGN4gytSGeG7GMOrQeGH4ApKkDs3plQ=;
+ b=J3Nn+NdMLYZiq5By1fDZn5A/Pgv7zPvTSppa6SYKCG7+hajdTbVvn2HQ/GFbdHU45QiQGr
+ HwJbMDAosvlqkOjVaSVIcqWki5wkTel7Lio/6fYWuFBTuYNqbhdIM91/8slYONrgAfUPZl
+ 6A/2UDRNzk3L6QWhyJ7MRezTlUZRKqc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622528514;
+ s=susede2_ed25519; t=1622528526;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8loJ0gRMMAl9r+rBFc3xEGX/kX0j8MpUL6FIAxuIxzg=;
- b=olZ6TXOp7V7TN5PuwZwEpyl5w3kwawTavrY5CXbaPW/xMM1fYQZ4+GiLIUiy26SCNEjERL
- wfaqKi5OJxpPwCAw==
+ bh=8LmsBr3UPPphfGN4gytSGeG7GMOrQeGH4ApKkDs3plQ=;
+ b=FVtO2e9NJy/ElIEg+9+ELUqZgbKaX40H8KmhMuX7aBtIwjUxrPMm6yM9CRINr44kx8byg9
+ HRUggI46roBp6yBw==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 24B9FACB1;
- Tue,  1 Jun 2021 06:21:54 +0000 (UTC)
-Date: Tue, 01 Jun 2021 08:21:53 +0200
-Message-ID: <s5hh7iiyuim.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 1717AACB1;
+ Tue,  1 Jun 2021 06:22:06 +0000 (UTC)
+Date: Tue, 01 Jun 2021 08:22:05 +0200
+Message-ID: <s5hfsy2yuia.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 0/6] ALSA: firewire: media clock recovery for syt-unaware
- devices
-In-Reply-To: <20210531025103.17880-1-o-takashi@sakamocchi.jp>
-References: <20210531025103.17880-1-o-takashi@sakamocchi.jp>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v1 1/1] ALSA: hda/cirrus: Set Initial DMIC volume to -26 dB
+In-Reply-To: <20210531163754.136736-1-vitalyr@opensource.cirrus.com>
+References: <20210531163754.136736-1-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +92,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 31 May 2021 04:50:57 +0200,
-Takashi Sakamoto wrote:
+On Mon, 31 May 2021 18:37:54 +0200,
+Vitaly Rodionov wrote:
 > 
-> Hi,
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
 > 
-> In a commit f9e5ecdfc2c2 ("ALSA: firewire-lib: add replay target to cache
-> sequence of packet"), I categorize devices supported by drivers in ALSA
-> firewire stack in terms of the way to deliver effective sampling
-> transfer frequency. This patchset is for the devices in group 1.
+> Previously this fix was applied only to Bullseye variant laptops,
+> and should be applied to Cyborg and Warlock variants.
 > 
-> The devices in the group ignore presentation time to decide playback
-> timing, therefore drivers to handle them can ignore processing
-> presentation time expressed in syt field of CIP header. The sequence of
-> the number of data blocks per packet is important for media clock recovery.
-> With the patchset, the drivers are going to replay the sequence. For the
-> detail of sequence replay, please refer to a commit 39c2649c71d8 ("ALSA:
-> firewire-lib: replay sequence of incoming packets for outgoing packets").
-> 
-> Takashi Sakamoto (6):
->   ALSA: fireworks: delete SYTMATCH clock source
->   ALSA: fireworks: perform sequence replay for media clock recovery
->   ALSA: oxfw: perform sequence replay for media clock recovery
->   ALSA: firewire-digi00x: perform sequence replay for media clock
->     recovery
->   ALSA: firewire-tascam: perform sequence replay for media clock
->     recovery
->   ALSA: fireface: perform sequence replay for media clock recovery
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 
-Applied all six patches now.  Thanks.
+Thanks, applied.
 
 
 Takashi

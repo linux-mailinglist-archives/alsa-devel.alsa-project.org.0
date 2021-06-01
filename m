@@ -2,103 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C21D397663
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 17:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E975C397748
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 17:54:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CDB916E3;
-	Tue,  1 Jun 2021 17:17:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CDB916E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60D8716BE;
+	Tue,  1 Jun 2021 17:53:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60D8716BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622560705;
-	bh=A9iLIuYTsesv4YTqm4oCXXsX07X5VWFJbv5nEdVMXNI=;
+	s=default; t=1622562868;
+	bh=qw8DisRaCMZsrAtvCy6+eu6ybexAQBgI6W70aFYD1r0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BLH7W0sG1krtaKCg2mmm4F5AtMlJWYwh1WDYyL58ajVAjUb9WVasIPWETpaGGJILZ
-	 FmzAQ9AKE4nQG9CZd5yq6EEu6uNZapErwxyLSsbwTGAOJV3gphQenU9pvVgI0I3yfs
-	 AiVNrA+bAzbd6RbgP9Cvx9oWo4T6+LqwMtUtMM2M=
+	b=m7x+WpdbV62LaF4KU+E7cueI6r4nAvooiuCrhFdyL3Mi/vYNbekCg5lPPSn9IzHlm
+	 K6DXd3S4iT87JXa7L7dCKv6gIM5tpKeLhpwRYEACOUwXolj8P2SiKAwlDsLI3w4mZl
+	 pWbmsO/2Sp79d/PjChTG2nLW6QYD49sjp7tn7oss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C180BF802E7;
-	Tue,  1 Jun 2021 17:17:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B081DF8025B;
+	Tue,  1 Jun 2021 17:52:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28ECCF80269; Tue,  1 Jun 2021 17:17:31 +0200 (CEST)
+ id E2A24F80254; Tue,  1 Jun 2021 17:52:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89BA3F80253
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 17:17:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89BA3F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75969F800B2
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 17:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75969F800B2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="FkPjp6Fb"
-Received: by mail-qk1-x72d.google.com with SMTP id k4so14636317qkd.0
- for <alsa-devel@alsa-project.org>; Tue, 01 Jun 2021 08:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="i7ONSsBh"
+Received: by mail-ed1-x532.google.com with SMTP id cb9so6092779edb.1
+ for <alsa-devel@alsa-project.org>; Tue, 01 Jun 2021 08:52:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SHY1Su43K3ELrQR9CrBAbBOQHJtxQOdLocpoZ2X7Ng8=;
- b=FkPjp6FbTjUVq0pXGa6pXaYuNulBbgZ3zjSZhG9UJqpFTSCH8y84SKHJER94xQE4Cn
- cykpvCo8tmeqKzyTSGAEvcES7HBlyJ+TBL+c9dqLUIAeiIt66tj6Feg42qZca/cWLFrP
- 8IXz2k7nKsD/90QvJiwFL8082iMK1XOCW7vdU=
+ :cc; bh=7kZmqa9AQHlhf4LAWbBjUUPJOktIkTk9wm72ZNUa+F8=;
+ b=i7ONSsBhG91eTLfG3wxwX0jkRQ3UBebbuNE7QzMPoyRATsY0UP+K35w8D9oAw4wZC/
+ 3SYUD4tyUk+SXjlXiHR7p1MFa/SuzUO8fgYH3l3ZrdPPpys0p+GZRPSFY5N++gpqhBn9
+ nII0hylqLX/yc5+Zc57NRU/C1ob2woMlHiQP4sFPatVfK72fDj6W6R4abVdXBcRlkl15
+ PcDyrkxFAowuWOfy6OAYhqYP6R5C80JBlsfX9ymFLHsBaw5w0cw0M4+q/Hj7P9NfwsEA
+ ZiYSbl16VF4ORAP3rqI5yT/nkBHK7bIIInq6cqkofbIY1RbXEJ9BklD5AywVYoMaXXbA
+ kg1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=SHY1Su43K3ELrQR9CrBAbBOQHJtxQOdLocpoZ2X7Ng8=;
- b=ikjJcPgMLCC9DV3+Bt7sRT7KMQz2QZ9swIAuVdBQbPWfRfILMutw1fnpYY6TSud/sW
- +wljflOxyZTfuMDz3LfAV+cw+92zPzn6pckw00tb8U4MXcsCM0FmIv4JcowgWYAXgpXt
- bD97iecDCA9QqbEUAIpCGPHDzdMXezJ+aOmOgUrdwrHyCeZ1LbaCQ+H/GO/7hLnFBnd5
- YJmenZCBFoYuenARbj7HoFUYTyPldKnaGUdo1rjz11tCfX1W/TbXcIFwQwU8dHxB6qyr
- oHfdsSPUBk+ffwQFDloMNcvOLMMVuBpFbZ0lp1wkixMJ94BW432khz5ma6lNJ7PX3+oq
- FseA==
-X-Gm-Message-State: AOAM5338Wyd9R8q66SDMBGdJNL+FWhIWhBmtLvSLKfnESvSJjM/OKREO
- 2o7bWMC2PEU7s/q4trUqmMg/5bO8HY/DLg==
-X-Google-Smtp-Source: ABdhPJz0nDP1jXq9gI/zv8u1d7atB4ULRy0XPPApH6AWiLn3K8L4bHWQyhjCy9NS9YCptBmFfGWrlw==
-X-Received: by 2002:a05:620a:753:: with SMTP id
- i19mr23133817qki.320.1622560639187; 
- Tue, 01 Jun 2021 08:17:19 -0700 (PDT)
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
- [209.85.219.175])
- by smtp.gmail.com with ESMTPSA id i10sm11722567qko.68.2021.06.01.08.17.17
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jun 2021 08:17:18 -0700 (PDT)
-Received: by mail-yb1-f175.google.com with SMTP id i4so21699817ybe.2
- for <alsa-devel@alsa-project.org>; Tue, 01 Jun 2021 08:17:17 -0700 (PDT)
-X-Received: by 2002:a25:6088:: with SMTP id
- u130mr40579283ybb.257.1622560637314; 
- Tue, 01 Jun 2021 08:17:17 -0700 (PDT)
+ bh=7kZmqa9AQHlhf4LAWbBjUUPJOktIkTk9wm72ZNUa+F8=;
+ b=sxjlVTypzpsgCddZa1i8tnyGkqV8OlbmnI91I0dSJFEtq5AN905bAGvldt4aF6W7nv
+ y5mx+rpI60B0ubpH5yY1l8zQc4vx7U0rlg5vUH66+qwQE3+CZz+s40AAkNa36IupzKNS
+ RGhy8Yc3ba9bIFVFvgmDloQBKVrGggcX8BSLDN/mm26IyI77BkJpSnAT0Mt1ARTKBbA2
+ nP2nqpWp602+AIlR28TwKac+qCGS87DFyKbX0RTNe7dkBFWBK2Ra5trKwSeh8epC0yLo
+ Wg9AVI1S1hey5a1gNORDw1huHWheo9Pc/txilMwrFF1yBl+PzU4EJjLIVFwPp84JvN1Y
+ forw==
+X-Gm-Message-State: AOAM530NPO4x4RvVhPxWjdEXz0yHxF7VHOvlMs7xRLHVcXiO1j5qLH6G
+ aeLNCpFpbi0oKks2wSwZVjQTwYs5GAfVQMtHJXU=
+X-Google-Smtp-Source: ABdhPJz2rS/h9c2JQZYpWmeKofkQ0Rc5bewQJc3cVTnwYeI7c+z6CgV+sDPxgqYhkO4V3eB5Ju3lGJQiFlKYh4b+Duo=
+X-Received: by 2002:aa7:dd4f:: with SMTP id o15mr27863853edw.174.1622562763405; 
+ Tue, 01 Jun 2021 08:52:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210524142114.18676-1-srivasam@codeaurora.org>
-In-Reply-To: <20210524142114.18676-1-srivasam@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 1 Jun 2021 08:17:06 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X+3qP3uj2AVkejmVBmMYqWAxMCS7HBRSkKcPgwP0XGdQ@mail.gmail.com>
-Message-ID: <CAD=FV=X+3qP3uj2AVkejmVBmMYqWAxMCS7HBRSkKcPgwP0XGdQ@mail.gmail.com>
-Subject: Re: [PATCH v3] ASoC: qcom: lpass-cpu: Fix pop noise during audio
- capture begin
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+References: <20210528131757.2269989-1-mudongliangabcd@gmail.com>
+ <20210531110144.GA24442@kadam>
+ <CAD-N9QW17fVZhaLY=CLPj9EbTLpG9qFNcGYZ0MhGxg_E0df1Uw@mail.gmail.com>
+ <20210601134606.GD24442@kadam>
+ <CAD-N9QWspFya5YmFsR=9tskS_JK+8V1suuPiC=h2XpPt3=KymQ@mail.gmail.com>
+ <20210601143711.GE24442@kadam>
+In-Reply-To: <20210601143711.GE24442@kadam>
+From: Dongliang Mu <mudongliangabcd@gmail.com>
+Date: Tue, 1 Jun 2021 23:52:17 +0800
+Message-ID: <CAD-N9QX3daWfV8VHJsYSkWKGLx1ySrnscykGHGB0RMTw_g3k0w@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: control led: fix memory leak in snd_ctl_led_register
+To: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Judy Hsiao <judyhsiao@chromium.org>, LKML <linux-kernel@vger.kernel.org>
+Cc: syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com,
+ linux-kernel <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,70 +100,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Mon, May 24, 2021 at 7:21 AM Srinivasa Rao Mandadapu
-<srivasam@codeaurora.org> wrote:
+On Tue, Jun 1, 2021 at 10:43 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
 >
-> This patch fixes PoP noise of around 15ms observed during audio capture begin.
-> Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for introducing some delay
-> before capture start and clock enable.
+> On Tue, Jun 01, 2021 at 10:19:22PM +0800, Dongliang Mu wrote:
+> > On Tue, Jun 1, 2021 at 9:46 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> > >
+> > > On Tue, Jun 01, 2021 at 09:17:04PM +0800, Dongliang Mu wrote:
+> > > > On Mon, May 31, 2021 at 7:02 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> > > > > > @@ -701,6 +706,7 @@ static void snd_ctl_led_sysfs_remove(struct snd_card *card)
+> > > > > >               sysfs_remove_link(&card->ctl_dev.kobj, link_name);
+> > > > > >               sysfs_remove_link(&led_card->dev.kobj, "card");
+> > > > > >               device_del(&led_card->dev);
+> > > > > > +             put_device(&led_card->dev);
+> > > > > >               kfree(led_card);
+> > > > > >               led->cards[card->number] = NULL;
+> > > > > >       }
+> > > > >
+> > > > > Btw, I have created a Smatch warning for this type of code where we
+> > > > > have:
+> > > > >
+> > > > >         put_device(&foo->dev);
+> > > > >         kfree(foo);
+> > > >
+> > > > I don't think this should be a bug pattern. put_device will drop the
+> > > > final reference of one object with struct device and invoke
+> > > > device_release to release some resources.
+> > > >
+> > > > The release function should only clean up the internal resources in
+> > > > the device object. It should not touch the led_card which contains the
+> > > > device object.
+> > > >
+> > >
+> > > It's only a use after free if you turn CONFIG_DEBUG_KOBJECT_RELEASE
+> > > debugging on, which you would never do in a production environment.  The
+> > > put_device() function calls kobject_release():
+> >
+> > This is interesting. Let's dig a little deeper.
+> >
+> > >
+> > > lib/kobject.c
+> > >    725  static void kobject_release(struct kref *kref)
+> > >    726  {
+> > >    727          struct kobject *kobj = container_of(kref, struct kobject, kref);
+> > >    728  #ifdef CONFIG_DEBUG_KOBJECT_RELEASE
+> > >    729          unsigned long delay = HZ + HZ * (get_random_int() & 0x3);
+> > >    730          pr_info("kobject: '%s' (%p): %s, parent %p (delayed %ld)\n",
+> > >    731                   kobject_name(kobj), kobj, __func__, kobj->parent, delay);
+> > >    732          INIT_DELAYED_WORK(&kobj->release, kobject_delayed_cleanup);
+> > >                                                   ^^^^^^^^^^^^^^^^^^^^^^^
+> > >
+> > >    733
+> > >    734          schedule_delayed_work(&kobj->release, delay);
+> > >    735  #else
+> > >    736          kobject_cleanup(kobj);
+> > >    737  #endif
+> > >    738  }
+> > >
+> > > This release will be done later and it references led_card->dev which is
+> > > now freed.
+> >
+> > The call chain of kobject_delayed_cleanup is kobject_delayed_cleanup
+> > -> kobject_cleanup. From the comment, kobject_cleanup should only
+> > clean the resources in the kobject, without touching the dev object.
+> > To further confirm, I checked the implementation and found out there
+> > seem no references to the dev object. Would you mind pointing out the
+> > reference to dev object?
 >
-> Co-developed-by: Judy Hsiao <judyhsiao@chromium.org>
-> Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> ---
-> Changes Since V2:
->         -- Updated comments as per linux style
->         -- Removed unrelated changes.
-> Changes Since V1:
->         -- Enableed BCLK and LRCLK in dai ops prepare API instead of startup API
->         -- Added comments
+> The kobj struct is included in the dev struct, it's not a pointer.
 >
->  sound/soc/qcom/lpass-cpu.c | 54 +++++++++++++++++++++++++++++++++++++-
->  1 file changed, 53 insertions(+), 1 deletion(-)
+>         led_card->dev.kobj.name
+>
+> See all the '.' characters and only one "->"?  If you kfree(led_card)
+> then you can't use led_card->dev.kobj any more.
 
-Presumably related with Srinivas Kandagatla's comments: this patch
-causes a bad splat at bootup. Specifically, here's what I saw when
-this patch was in the Chrome OS 5.4 kernel:
+Yeah, you're right. I originally thought the field kobj is a pointer
+and there should no problem. Please leave alone the question below. I
+thought up this question based on the assumption before.
 
-------------[ cut here ]------------
-lpass_audio_core_lpaif_pri_ibit_clk already disabled
-WARNING: CPU: 0 PID: 2066 at drivers/clk/clk.c:958 clk_core_disable+0x4a0/0x670
-CPU: 0 PID: 2066 Comm: cras Not tainted 5.4.122-lockdep #4
-Hardware name: Google Lazor (rev1 - 2) with LTE (DT)
-pstate: 60400089 (nZCv daIf +PAN -UAO)
-pc : clk_core_disable+0x4a0/0x670
-lr : clk_core_disable+0x4a0/0x670
-sp : ffffff81727cf8a0
-x29: ffffff81727cf8a0 x28: 1ffffff033d2b8d5
-x27: dfffffd000000000 x26: ffffff81a3781980
-x25: 1ffffff03493d3b3 x24: ffffff816f433480
-x23: dfffffd000000000 x22: 1ffffff035b66e2f
-x21: 00000000ffffffff x20: ffffff81adb3717c
-x19: ffffff81adb37100 x18: 0000000000000339
-x17: ffffffffffffffff x16: 0000000000000006
-x15: 0000000000000001 x14: 0720072007200720
-x13: 0000000000000000 x12: ffffffd0132c1e00
-x11: 0000000000000001 x10: 0000000000000000
-x9 : cff2cb5e2cb22e00 x8 : cff2cb5e2cb22e00
-x7 : ffffffd010288f74 x6 : 0000000000000000
-x5 : 0000000000000080 x4 : 0000000000000001
-x3 : ffffffd010429d10 x2 : 0000000000000001
-x1 : 0000000000000008 x0 : 0000000000000034
-Call trace:
- clk_core_disable+0x4a0/0x670
- clk_disable+0x50/0x64
- lpass_cpu_daiops_shutdown+0x190/0x204 [snd_soc_lpass_cpu]
- snd_soc_dai_shutdown+0x8c/0x9c
- soc_pcm_close+0x258/0x478
- snd_pcm_release_substream+0xfc/0x1e8
- snd_pcm_release+0x8c/0x124
- __fput+0x1e4/0x4fc
- ____fput+0x1c/0x28
- task_work_run+0x12c/0x164
- do_notify_resume+0x1e04/0x2c48
- work_pending+0x8/0x14
-irq event stamp: 101552
+>
+> > Moreover, if kobject_cleanup touches the
+> > resources out of kobject, shall we directly change this function other
+> > than its callees?
+> >
+>
+> I don't understand your question here.  The rest of the email looks like
+> some copy and pasted code but I don't know what I'm supposed to be
+> looking for.
+>
+> I really feel like I have explained things very as well as I can and I'm
+> not sure what more I can do to help... :/
 
--Doug
+You already helped too much, and I learned a lot from the discussion
+with you. Don't be bothered by my stupid questions. :)
+
+>
+> regards,
+> dan carpenter
+>

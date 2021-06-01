@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF315397D29
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:46:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3082E397D2A
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 01:46:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F72216F0;
-	Wed,  2 Jun 2021 01:45:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F72216F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC8C916FF;
+	Wed,  2 Jun 2021 01:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC8C916FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622591175;
-	bh=xc09yV7rcHPOSOuKKGGKU7+L8n4PmfFuDU1p6vRSa7s=;
+	s=default; t=1622591188;
+	bh=HbkPD7LtSI70W9MxihSlSGxg67auGYkI21BrY8w2Jnc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ys8WxxkvtZQHtMJVASMpskFAN+xW6RHMNcdYT4xpajyWyfoc9K1qTehM6wcUXksta
-	 b3dpVQPoDT9okoSUg69cPqxPNpYjQL4Vn7EF74m+QiumhWF5Q9dflyew9Bl2nca20N
-	 m/aQnRRoYoK2j7OPzGdhRo2KHCTMjCSU2KFZAlQw=
+	b=ThVumN4zwZyUYmklLAvS4JczOgc2J7SmUqoVVfNuNCTW0rHXiENSLWjOQ8K/Zndv9
+	 UlkzAmdCmt0Rl51DKvbuG6YjRWjIELhee4UytgfqbgFtCvvucREkuih76px2YYGvIT
+	 +ZxtwRDkI7TUZUQJinhtrs+nx6gm7hfstcjwdyn8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71627F804CA;
-	Wed,  2 Jun 2021 01:44:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A1A7F804CB;
+	Wed,  2 Jun 2021 01:44:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FF39F804CA; Wed,  2 Jun 2021 01:44:17 +0200 (CEST)
+ id 8DBA5F804C1; Wed,  2 Jun 2021 01:44:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 13E55F801DB
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:44:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13E55F801DB
-Date: 02 Jun 2021 08:44:09 +0900
-X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966517"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:44:09 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 14E24F804C1
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 01:44:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E24F804C1
+Date: 02 Jun 2021 08:44:39 +0900
+X-IronPort-AV: E=Sophos;i="5.83,241,1616425200"; d="scan'208";a="82966554"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2021 08:44:39 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id C9D9040134FA;
- Wed,  2 Jun 2021 08:44:09 +0900 (JST)
-Message-ID: <87pmx5i20m.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 835B54122192;
+ Wed,  2 Jun 2021 08:44:39 +0900 (JST)
+Message-ID: <87o8cpi1zs.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: rsnd: adg: check return value for
- rsnd_adg_get_clkin/out()
+Subject: [PATCH 5/5] ASoC: rsnd: tidyup __rsnd_mod_xxx macro comments
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v96xi22i.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,180 +67,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current rsnd_adg_get_clkin/out() are void function,
-thus adg->clk/clkout[i] might be NULL.
+status and __rsnd_mod_xxx were updated, but some related comments were
+not. And it has verbose comments. This patch cleanup/tidyup these.
 
-But, for_each_rsnd_clk/clkout() macros are assuming
-all clks are non NULL.
-
-Because of this mismatch, code can be complex and/or buggy.
-These functions return error by this patch,
-and make sure all clks are non NULL.
+1) adds missing "D" to status sample
+2) remove verbose list for "H"
+3) add "needs protect" to __rsnd_mod_call_xxx
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/adg.c | 84 ++++++++++++++++++++++++++++++-----------
- 1 file changed, 61 insertions(+), 23 deletions(-)
+ sound/soc/sh/rcar/rsnd.h | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/adg.c b/sound/soc/sh/rcar/adg.c
-index 3dfd07c8a7e3..0ebee1ed06a9 100644
---- a/sound/soc/sh/rcar/adg.c
-+++ b/sound/soc/sh/rcar/adg.c
-@@ -412,25 +412,53 @@ static struct clk *rsnd_adg_null_clk_get(struct rsnd_priv *priv)
- 	return adg->null_clk;
- }
+diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
+index 0182ea5b31d2..6580bab0e229 100644
+--- a/sound/soc/sh/rcar/rsnd.h
++++ b/sound/soc/sh/rcar/rsnd.h
+@@ -364,19 +364,13 @@ struct rsnd_mod {
+ /*
+  * status
+  *
+- * 0xH0000CB0
++ * 0xH000DCB0
+  *
+  * B	0: init		1: quit
+  * C	0: start	1: stop
+  * D	0: hw_params	1: hw_free
+  *
+  * H is always called (see __rsnd_mod_call)
+- * H	0: probe	1: remove
+- * H	0: pcm_new
+- * H	0: fallback
+- * H	0: pointer
+- * H	0: prepare
+- * H	0: cleanup
+  */
+ #define __rsnd_mod_shift_init		4
+ #define __rsnd_mod_shift_quit		4
+@@ -412,16 +406,16 @@ struct rsnd_mod {
+ #define __rsnd_mod_call_remove		0
+ #define __rsnd_mod_call_prepare		0
+ #define __rsnd_mod_call_cleanup		0
+-#define __rsnd_mod_call_init		0
+-#define __rsnd_mod_call_quit		1
+-#define __rsnd_mod_call_start		0
+-#define __rsnd_mod_call_stop		1
++#define __rsnd_mod_call_init		0 /* needs protect */
++#define __rsnd_mod_call_quit		1 /* needs protect */
++#define __rsnd_mod_call_start		0 /* needs protect */
++#define __rsnd_mod_call_stop		1 /* needs protect */
++#define __rsnd_mod_call_hw_params	0 /* needs protect */
++#define __rsnd_mod_call_hw_free		1 /* needs protect */
+ #define __rsnd_mod_call_irq		0
+ #define __rsnd_mod_call_pcm_new		0
+ #define __rsnd_mod_call_fallback	0
+-#define __rsnd_mod_call_hw_params	0
+ #define __rsnd_mod_call_pointer		0
+-#define __rsnd_mod_call_hw_free		1
  
--static void rsnd_adg_get_clkin(struct rsnd_priv *priv)
-+static void rsnd_adg_null_clk_clean(struct rsnd_priv *priv)
-+{
-+	struct rsnd_adg *adg = priv->adg;
-+
-+	if (adg->null_clk)
-+		clk_unregister_fixed_rate(adg->null_clk);
-+}
-+
-+static int rsnd_adg_get_clkin(struct rsnd_priv *priv)
- {
- 	struct rsnd_adg *adg = priv->adg;
- 	struct device *dev = rsnd_priv_to_dev(priv);
-+	struct clk *clk;
- 	int i;
- 
- 	for (i = 0; i < CLKMAX; i++) {
--		struct clk *clk = devm_clk_get(dev, clk_name[i]);
-+		clk = devm_clk_get(dev, clk_name[i]);
- 
- 		if (IS_ERR(clk))
- 			clk = rsnd_adg_null_clk_get(priv);
- 		if (IS_ERR(clk))
--			dev_err(dev, "no adg clock (%s)\n", clk_name[i]);
-+			goto err;
- 
- 		adg->clk[i] = clk;
- 	}
-+
-+	return 0;
-+
-+err:
-+	dev_err(dev, "adg clock IN get failed\n");
-+
-+	rsnd_adg_null_clk_clean(priv);
-+
-+	return -EIO;
-+}
-+
-+static void rsnd_adg_unregister_clkout(struct rsnd_priv *priv)
-+{
-+	struct rsnd_adg *adg = priv->adg;
-+	struct clk *clk;
-+	int i;
-+
-+	for_each_rsnd_clkout(clk, adg, i)
-+		clk_unregister_fixed_rate(clk);
- }
- 
--static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
-+static int rsnd_adg_get_clkout(struct rsnd_priv *priv)
- {
- 	struct rsnd_adg *adg = priv->adg;
- 	struct clk *clk;
-@@ -472,9 +500,8 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
- 
- 	req_size = prop->length / sizeof(u32);
- 	if (req_size > REQ_SIZE) {
--		dev_err(dev,
--			"too many clock-frequency, use top %d\n", REQ_SIZE);
--		req_size = REQ_SIZE;
-+		dev_err(dev, "too many clock-frequency\n");
-+		return -EINVAL;
- 	}
- 
- 	of_property_read_u32_array(np, "clock-frequency", req_rate, req_size);
-@@ -555,10 +582,11 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
- 	if (!count) {
- 		clk = clk_register_fixed_rate(dev, clkout_name[CLKOUT],
- 					      parent_clk_name, 0, req_rate[0]);
--		if (!IS_ERR(clk)) {
--			adg->clkout[CLKOUT] = clk;
--			of_clk_add_provider(np, of_clk_src_simple_get, clk);
--		}
-+		if (IS_ERR(clk))
-+			goto err;
-+
-+		adg->clkout[CLKOUT] = clk;
-+		of_clk_add_provider(np, of_clk_src_simple_get, clk);
- 	}
- 	/*
- 	 * for clkout0/1/2/3
-@@ -568,8 +596,10 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
- 			clk = clk_register_fixed_rate(dev, clkout_name[i],
- 						      parent_clk_name, 0,
- 						      req_rate[0]);
--			if (!IS_ERR(clk))
--				adg->clkout[i] = clk;
-+			if (IS_ERR(clk))
-+				goto err;
-+
-+			adg->clkout[i] = clk;
- 		}
- 		adg->onecell.clks	= adg->clkout;
- 		adg->onecell.clk_num	= CLKOUTMAX;
-@@ -581,6 +611,15 @@ static void rsnd_adg_get_clkout(struct rsnd_priv *priv)
- 	adg->ckr = ckr;
- 	adg->rbga = rbga;
- 	adg->rbgb = rbgb;
-+
-+	return 0;
-+
-+err:
-+	dev_err(dev, "adg clock OUT get failed\n");
-+
-+	rsnd_adg_unregister_clkout(priv);
-+
-+	return -EIO;
- }
- 
- #if defined(DEBUG) || defined(CONFIG_DEBUG_FS)
-@@ -646,8 +685,13 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
- 
- 	priv->adg = adg;
- 
--	rsnd_adg_get_clkin(priv);
--	rsnd_adg_get_clkout(priv);
-+	ret = rsnd_adg_get_clkin(priv);
-+	if (ret)
-+		return ret;
-+
-+	ret = rsnd_adg_get_clkout(priv);
-+	if (ret)
-+		return ret;
- 
- 	rsnd_adg_clk_enable(priv);
- 	rsnd_adg_clk_dbg_info(priv, NULL);
-@@ -659,19 +703,13 @@ void rsnd_adg_remove(struct rsnd_priv *priv)
- {
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct device_node *np = dev->of_node;
--	struct rsnd_adg *adg = priv->adg;
--	struct clk *clk;
--	int i;
- 
--	for_each_rsnd_clkout(clk, adg, i)
--		if (adg->clkout[i])
--			clk_unregister_fixed_rate(adg->clkout[i]);
-+	rsnd_adg_unregister_clkout(priv);
- 
- 	of_clk_del_provider(np);
- 
- 	rsnd_adg_clk_disable(priv);
- 
- 	/* It should be called after rsnd_adg_clk_disable() */
--	if (adg->null_clk)
--		clk_unregister_fixed_rate(adg->null_clk);
-+	rsnd_adg_null_clk_clean(priv);
- }
+ #define rsnd_mod_to_priv(mod)	((mod)->priv)
+ #define rsnd_mod_power_on(mod)	clk_enable((mod)->clk)
 -- 
 2.25.1
 

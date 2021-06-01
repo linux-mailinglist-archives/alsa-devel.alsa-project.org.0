@@ -2,81 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465CA396D4B
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 08:23:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F76396D52
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 08:24:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0978169A;
-	Tue,  1 Jun 2021 08:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0978169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4747416AE;
+	Tue,  1 Jun 2021 08:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4747416AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622528615;
-	bh=AxT+GjvH2IzIWlFpSsmbLcA+4g9FxcJA2u9b0LEXNeA=;
+	s=default; t=1622528648;
+	bh=SqWG3qAXnEFTDODCMFZv7I+r0Bo4Ec+HIrDRLK+OW84=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EPcuL+O37bMB1wlaNjvv1fXW9BBrXIxQteBn8woOGQtxTvEqhGZtGFYlgSKTxqMWf
-	 VRmB0IhWIrQo7bIgw0oXVjT0dc26dP+OoxRR5rnwEDSnCTaALE+8TMdcGl5jHXixF2
-	 H23a7W1m+bSunlMb6WXlTrM9CGXlYZX0/8NA1U/4=
+	b=TPca24zbEPizDcv257kOr11ak4TNkCuxtM5xd4BOwBFl7t62ju4Y8yDZKuG9sV9Qn
+	 9jmAJeUPqc16CEApCpH5lvmx2SDCyiMlerqUWITCP5RW6Jfm9rn97GBeq1QCZ6JTQ9
+	 F/Hg7K9lW+q7ZZ+7x2Qz/M2L065HMUOH6dN8dR2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E280DF804B0;
-	Tue,  1 Jun 2021 08:22:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFBDDF80269;
+	Tue,  1 Jun 2021 08:23:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 126B4F804AF; Tue,  1 Jun 2021 08:22:17 +0200 (CEST)
+ id 1CE11F80269; Tue,  1 Jun 2021 08:23:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 549A4F802E7
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 08:22:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 549A4F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C7F0F801DB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 08:23:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C7F0F801DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="J3Nn+NdM"; 
+ header.b="yywdxP9y"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FVtO2e9N"
+ header.b="62yC6xf9"
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622528526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622528591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8LmsBr3UPPphfGN4gytSGeG7GMOrQeGH4ApKkDs3plQ=;
- b=J3Nn+NdMLYZiq5By1fDZn5A/Pgv7zPvTSppa6SYKCG7+hajdTbVvn2HQ/GFbdHU45QiQGr
- HwJbMDAosvlqkOjVaSVIcqWki5wkTel7Lio/6fYWuFBTuYNqbhdIM91/8slYONrgAfUPZl
- 6A/2UDRNzk3L6QWhyJ7MRezTlUZRKqc=
+ bh=hN4J4ZflNBhy/7KCR5P9d/GPL/3oOtLBLMIQBLcvwMQ=;
+ b=yywdxP9y441plRKkv6JiLmzs1ebYdAc72ofwG4i88Jmeb9zrrmfOXI/NjzCsrk6kphktg1
+ tQA4djbMhucEQ1pbcRbTEnoaTV7jTz7iwd1bftlch87RY8t0thMGW47Q/HGmkmdT4eJbNG
+ tFHS+QpveVq7g0dWiFWMDplXtR20DFU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622528526;
+ s=susede2_ed25519; t=1622528591;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8LmsBr3UPPphfGN4gytSGeG7GMOrQeGH4ApKkDs3plQ=;
- b=FVtO2e9NJy/ElIEg+9+ELUqZgbKaX40H8KmhMuX7aBtIwjUxrPMm6yM9CRINr44kx8byg9
- HRUggI46roBp6yBw==
+ bh=hN4J4ZflNBhy/7KCR5P9d/GPL/3oOtLBLMIQBLcvwMQ=;
+ b=62yC6xf9g3k7UT8sHjX9/0c7nKAfrjQUTOli8ND4naHym6LpxyIpN4CqD6tMO8OzX6dfCN
+ Fb2oaTiRYZdTHwBA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1717AACB1;
- Tue,  1 Jun 2021 06:22:06 +0000 (UTC)
-Date: Tue, 01 Jun 2021 08:22:05 +0200
-Message-ID: <s5hfsy2yuia.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A65D6ACB1;
+ Tue,  1 Jun 2021 06:23:11 +0000 (UTC)
+Date: Tue, 01 Jun 2021 08:23:11 +0200
+Message-ID: <s5heedmyugg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v1 1/1] ALSA: hda/cirrus: Set Initial DMIC volume to -26 dB
-In-Reply-To: <20210531163754.136736-1-vitalyr@opensource.cirrus.com>
-References: <20210531163754.136736-1-vitalyr@opensource.cirrus.com>
+To: Carlos M <carlos.marr.pz@gmail.com>
+Subject: Re: [PATCH] ALSA: hda: Fix for mute key LED for HP Pavilion 15-CK0xx
+In-Reply-To: <20210531202026.35427-1-carlos.marr.pz@gmail.com>
+References: <20210531202026.35427-1-carlos.marr.pz@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,16 +90,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 31 May 2021 18:37:54 +0200,
-Vitaly Rodionov wrote:
+On Mon, 31 May 2021 22:20:26 +0200,
+Carlos M wrote:
 > 
-> From: Stefan Binding <sbinding@opensource.cirrus.com>
+> For the HP Pavilion 15-CK0xx, with audio subsystem ID 0x103c:0x841c,
+> adding a line in patch_realtek.c to apply the ALC269_FIXUP_HP_MUTE_LED_MIC3
+> fix activates the mute key LED.
 > 
-> Previously this fix was applied only to Bullseye variant laptops,
-> and should be applied to Cyborg and Warlock variants.
-> 
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> Signed-off-by: Carlos M <carlos.marr.pz@gmail.com>
 
 Thanks, applied.
 

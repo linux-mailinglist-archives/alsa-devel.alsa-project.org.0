@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987D3397958
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:41:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FCFB397959
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 19:42:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2F8E1670;
-	Tue,  1 Jun 2021 19:41:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2F8E1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C92E16FA;
+	Tue,  1 Jun 2021 19:41:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C92E16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622569319;
-	bh=+nPjaSYf2jAkLUxPL/kyjKJJSVXdCLkfPNaKAIs/mdI=;
+	s=default; t=1622569331;
+	bh=ZXDp3ucb9BWyakDkZhwIy8R/DACPa/OENIYRq/ircvU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BGm3WkToOZ73RjOiQoyy0hbGBIK0jSqr1bpJQ18spwodCPpR5T2dkNCSNdqbiUvRz
-	 IHWhFUV1yiMVpNDS2SI6EPQqLA8QGH/qmvhzro1xxJeMXDWrwUP1HOUMgTD5wcU6Jz
-	 8KO71ZhgDQ14RoVwncBjCzWYBJK6f98O7jKXj5/8=
+	b=oUOq2lXb8xssiulQWfldBCOQfkvcXmloSleX7BjZbrnNzY1siTgUD3JcHshXTLQci
+	 TSkS61/klILxVGCoZ9FDwBhlhQxSP6bR8rRWkVct1CfjfnT5B6AlckiItzS4gObVan
+	 Qd5FKrZRhBJgCB0Aoc/fgfPvCHkjpB4nh2XEGVoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC444F804CB;
-	Tue,  1 Jun 2021 19:39:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A71A1F804D1;
+	Tue,  1 Jun 2021 19:39:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BA29F804C3; Tue,  1 Jun 2021 19:39:04 +0200 (CEST)
+ id 444DDF804C2; Tue,  1 Jun 2021 19:39:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,40 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A416F800B2
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:39:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A416F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8F8DF804B0
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 19:39:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8F8DF804B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JzMx62HN"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 79E7A61042;
- Tue,  1 Jun 2021 17:38:58 +0000 (UTC)
+ header.b="EDsRCvbA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B52FE613D2;
+ Tue,  1 Jun 2021 17:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622569138;
- bh=+nPjaSYf2jAkLUxPL/kyjKJJSVXdCLkfPNaKAIs/mdI=;
+ s=k20201202; t=1622569141;
+ bh=ZXDp3ucb9BWyakDkZhwIy8R/DACPa/OENIYRq/ircvU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JzMx62HNQLZme4iBjeeNaEbpRg12XN8fLoWrjqdL7sc2+ulm0seM749m+u1a9awXx
- 3MwOqYkC5iyAhVIGcN6TQOnNp3iVVQERzYRl7Zy62CuTPc7NHOiGBmQytmTQ2lVxan
- w67MavJV7o3E5vmbWGh9KCvcAUUJudnL/PQnJJax1JMi7Lcmixx/Wgi6D0s+XjHxQd
- /lJX9PmsdKQljvzB/rZb0dCqCt5cdDfMdQhsPuG/h7J95Zl97Qjr++4XWwgwHLE2/Z
- Vp59mHpBQKj3qzqc/KKM4d7mkmEc8kRtlkiUApYWYhJtXovFnGc6udVcG7N1dxWXko
- dAGGdf2OuVqOw==
+ b=EDsRCvbAnoTfHk5aY/xSuvFJoXPJ2k7xMHTI6BR3WWM9uHbRI8OKrxvsCefwjWOZQ
+ G3pCzrN8j2QkTbL01MLHVxh/GSHR82ZKpZh/pKaSfbPgS6sIQLEt7rWZwMUNUKrnR/
+ wCu7MlP7VH5yll+jVW/jGQDjf4p3lN/M4E5KV3QYV6VImNhL8V3gsC5hEoYryHuh9i
+ VqapCia33mH107dUNmcWLSpM0V0pORA7mBnd4s48ZxGLFUCjio8JHf7dLt43J8BYTq
+ 6vnnoAkaPurfJvO/laGzTcJbsQRffQRNndQr6jcl2qbjm8l8QSC9zsOJLfztylRsUW
+ L4A0T6oINOMfw==
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Timur Tabi <timur@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Fabio Estevam <festevam@gmail.com>,
- Nicolas Cavallari <nicolas.cavallari@green-communications.fr>,
- Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Set .owner attribute when
- registering card.
-Date: Tue,  1 Jun 2021 18:38:12 +0100
-Message-Id: <162256892744.19919.16538295874685762857.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: pci-tgl: add ADL-M support
+Date: Tue,  1 Jun 2021 18:38:13 +0100
+Message-Id: <162256892745.19919.14945523274065182150.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210527163409.22049-1-nicolas.cavallari@green-communications.fr>
-References: <20210527163409.22049-1-nicolas.cavallari@green-communications.fr>
+In-Reply-To: <20210528184153.18251-1-kai.vehmanen@linux.intel.com>
+References: <20210528184153.18251-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@intel.com>,
+ lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,24 +83,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 May 2021 18:34:09 +0200, Nicolas Cavallari wrote:
-> Otherwise, when compiled as module, a WARN_ON is triggered:
-> 
-> WARNING: CPU: 0 PID: 5 at sound/core/init.c:208 snd_card_new+0x310/0x39c [snd]
-> [...]
-> CPU: 0 PID: 5 Comm: kworker/0:0 Not tainted 5.10.39 #1
-> Hardware name: Freescale i.MX6 Quad/DualLite (Device Tree)
-> Workqueue: events deferred_probe_work_func
-> [<c0111988>] (unwind_backtrace) from [<c010c8ac>] (show_stack+0x10/0x14)
-> [<c010c8ac>] (show_stack) from [<c092784c>] (dump_stack+0xdc/0x104)
-> [<c092784c>] (dump_stack) from [<c0129710>] (__warn+0xd8/0x114)
-> [<c0129710>] (__warn) from [<c0922a48>] (warn_slowpath_fmt+0x5c/0xc4)
-> [<c0922a48>] (warn_slowpath_fmt) from [<bf0496f8>] (snd_card_new+0x310/0x39c [snd])
-> [<bf0496f8>] (snd_card_new [snd]) from [<bf1d7df8>] (snd_soc_bind_card+0x334/0x9c4 [snd_soc_core])
-> [<bf1d7df8>] (snd_soc_bind_card [snd_soc_core]) from [<bf1e9cd8>] (devm_snd_soc_register_card+0x30/0x6c [snd_soc_core])
-> [<bf1e9cd8>] (devm_snd_soc_register_card [snd_soc_core]) from [<bf22d964>] (fsl_asoc_card_probe+0x550/0xcc8 [snd_soc_fsl_asoc_card])
-> [<bf22d964>] (fsl_asoc_card_probe [snd_soc_fsl_asoc_card]) from [<c060c930>] (platform_drv_probe+0x48/0x98)
-> [...]
+On Fri, 28 May 2021 21:41:53 +0300, Kai Vehmanen wrote:
+> Add PCI DID for Intel AlderLake-M.
 
 Applied to
 
@@ -111,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl-asoc-card: Set .owner attribute when registering card.
-      commit: a8437f05384cb472518ec21bf4fffbe8f0a47378
+[1/1] ASoC: SOF: Intel: pci-tgl: add ADL-M support
+      commit: 1f763d0388af6f6cffcdb1080ce112c63d766809
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

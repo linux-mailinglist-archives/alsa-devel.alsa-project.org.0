@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 535EB396EC2
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 10:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6E8396EC4
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Jun 2021 10:20:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFDE71687;
-	Tue,  1 Jun 2021 10:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFDE71687
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6983169C;
+	Tue,  1 Jun 2021 10:19:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6983169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622535630;
-	bh=9yvMBG5oFKT8YeuOVfokISRRbHro4pltS34PkEYzmMc=;
+	s=default; t=1622535645;
+	bh=H+hriWOjpKMNazqAzNXyTKqcq44zjubwlGetOC98tm0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tKPu773weEN66XqnubzwvxJ/LITLEmEAjYO6PcW3y2ExfJdqZq9TcNlIZ5Ki1bovV
-	 Eht3X9nmWEI6XkmFIlmociIYykTCcO+fvrxqwpWOYozu/8tZ+n2gkWrt34wQL9sGGN
-	 lfTSyyjZJaRwBMQ/vzvSSe9nTs465XxbJmd4EcFI=
+	b=Lc0Hl+QIe8l+Eyhc+mPm4RWWZGAWqauDgeWUeVOz/UHA0V7stY7Tn5DPV6HyE/NvI
+	 wxa9HU9UQUzKbOBNbf1r6zmyXztKI4m/qmRxtOn2Bd4gY5o8QvSshNT5f4cG6vNO5B
+	 T9Vn/EVQ+xTHKoYpFjEvxNW3JSZl8T2e2+CiJXDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 671E2F804CC;
-	Tue,  1 Jun 2021 10:18:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04724F804D1;
+	Tue,  1 Jun 2021 10:18:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6BA4F804BC; Tue,  1 Jun 2021 10:18:14 +0200 (CEST)
+ id 58544F804D0; Tue,  1 Jun 2021 10:18:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5AE5F80254
- for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 10:18:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5AE5F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id C85D6F8025B
+ for <alsa-devel@alsa-project.org>; Tue,  1 Jun 2021 10:18:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C85D6F8025B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="fToYdgO/"; 
+ header.b="zph6L+Yz"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="sESNmrmY"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 26201FB3;
- Tue,  1 Jun 2021 04:18:04 -0400 (EDT)
+ header.i=@messagingengine.com header.b="HrPl0DWq"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 2F9B510D0;
+ Tue,  1 Jun 2021 04:18:06 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 01 Jun 2021 04:18:04 -0400
+ by compute3.internal (MEProxy); Tue, 01 Jun 2021 04:18:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=H5MiTz3LfDSdm
- QBvn+iXd+60xSUYfu5ActVJDrDBqG4=; b=fToYdgO/7qhsjW4B8YYFAVAjjJ1WQ
- Vc7fkScoMPF8rvTqPIVHlsU50/MKS+Isy8KjH0ihXcx7N34bWTkSdDAeoeWBJ6QM
- kpvzMPrAOJCYX6LZwiw/aD7qtOcA9nExlvuE1ZI5xW3U+fhidnllFGeLGLKjTbdn
- Ic+HAHhxiScM448sGSzbBUckeZ05YZL57qNWuMsZXqseQBvWUvtfh8b1R1WEEBH0
- 8lNJl+AeEqn78Jp9TLajTWLLCzS8WSx8EkByStUFIOFv5hSec5Juz0RgxSkgo1ja
- j94x7q5Ub2KtCYxgxNCiCP5IC3YZ2sgpMhq4SIh9JMJdCWEM30P09lbNw==
+ :mime-version:content-transfer-encoding; s=fm1; bh=wAEpGdiN0DkMP
+ 6/aRyf7uFm4jBRaKKhEtqTKDmDeHks=; b=zph6L+Yzo9TzXeQCF7zsYRZPQS4e6
+ MrHEK8teCFIpUadatVLoc6KZrF3kKU+MkZjt5ApyHL3uDOZB97yPo5eXKo0S93Gp
+ eiBCi2EBtRsGFe+5FBOtkQwGgrVgRMYzDpxewibGsQaQKIBA2OfQRDjTFom+KnJQ
+ RMDqsKgaiqKQdW+yvj2A+BHSJaE0Vh2qGYrsRyriU9LsJRczN9wADfFAsTYnxSua
+ yDZxSCDD8xeLc8Kiv+r9xQf0a9sll78/YKmZ06BepMMMySGqgSSp8A87y6UeUmzB
+ KXBeuGOd9mmkzGeXMhoktBGdXRI6mpeQ0JA1qlezYf7gZibvChgzdPe2A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=H5MiTz3LfDSdmQBvn+iXd+60xSUYfu5ActVJDrDBqG4=; b=sESNmrmY
- 60SIT2kcxtapDFbeDpeOMTaueWtyuepomajfVHon1E90teo3PCn4ocEGd0gn2s6h
- xvaQza1BHL665fSPVZcjhUMR2dcihxdG9QZR0vWypSKoMg6oIfT6UamMVExMtMUM
- Mqi/KDruS+XJUv+PIOuikFlzZGBZJi9wwOXRwyvJzonEYo2NK3DtSoV+MSpDoeTq
- +FYsldDgAie9np8/c0wfuOwMt+QS/lK3GzJClFS2xzXZ0oyJ6Ghr3fsgsYP7nAID
- aQ4+oxmPARacA86lByMaRXw6WZpdfvzsp/pmptUt/QZIFCUFSGA6ngDz88sUaLWc
- pbFxtXwoaeGhuA==
-X-ME-Sender: <xms:O-21YLrVcfde7G6WUGrLtdodX4_k1m35DbW4MUSJfOji09tZDCHm8g>
- <xme:O-21YFo46zxIKJ3zEKDEJjq7SbN61ckko9-imZ5OoIaHRxMpMAkyBiIZWMohVlP9y
- dbAse-qJ0tzRuZaqKI>
-X-ME-Received: <xmr:O-21YIMyIDvXeWVr_eh-ZQeefvvNPk_MWFoQ_f11-yMHNq2Pm2TL8RzN8hsw7D6G8FkOzV8KiizQFVX-XhlN-pug2X_WkhosehZiVlYomeYYrOAlfuE_>
+ fm2; bh=wAEpGdiN0DkMP6/aRyf7uFm4jBRaKKhEtqTKDmDeHks=; b=HrPl0DWq
+ 6xm/m8UAnVcDfgSpqYGPxJbNJGGjX5DVSgoMqm2tr1E+4VPYjiETRipHv0T3qacD
+ QMuLPixT5eVx5yRUCpsLXPfMPvOqtjMWBxGmQGF+Ed28Xmp1SqJz++J8SM69EK2w
+ OsxPEhHb3HOhsrbRdbY7Tc4hef5Q0Tt7KB0cjjwtsQEGLiCve3X9pBaIbIMN4iGt
+ fg2ceoNoyg/XmXFl0d4NC//fJ3toCSbYotZfZ5RG7OUG7V0bZW1inN1VdfTVZx+T
+ JBxCo7bnh/gIjz6K70/4akhlVgWLct1HPvQG9czyFm5UXIBjgm7gqpy4uLZDm9h1
+ cmE1YZ9Vaxr0fg==
+X-ME-Sender: <xms:Pe21YBuqbUSkHYyK2QGeHHYQOOjMjUylkbmqqh32QOEkvTJ2HqePlg>
+ <xme:Pe21YKfLXyyVpyaoZ5sjYkP28AnO6jb7MrfCn-ZEnZGR__sVEACpBMgTRrSczbbyn
+ _fjpgd6pM9s4__CAF8>
+X-ME-Received: <xmr:Pe21YEwYFn0zt3kUQc9nIWbkk74YbvvTrpv5GwZVHyUE1E21HMeEQICR_E8Nhg-gC_eFLwZBxUlvM7WZ6x797H0juQ6a2TIc0u6o2Pl25BD-S1hFsuIf>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelhedgtdduucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -80,18 +80,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelhedgtdduucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
  rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:O-21YO6fvokxB_V1L5qXAMA3n6ktUqfWGeGU0bIN69MwyshpfbD3lA>
- <xmx:O-21YK6whfmqRLvenxQU3gocWiHdbZml-aoeKK0pw13EhEYeTN_bkA>
- <xmx:O-21YGgq959Oj-Es3aJlLDY3MEAvkQTDhCP4NkGziK9Ad2WKwn6n3A>
- <xmx:O-21YAR7pDGXNhBwkxyxPTZ-TfYkmY3lsTZgOlzCi3rozUjlRekjTQ>
+X-ME-Proxy: <xmx:Pe21YIMMMK-Ox1hltTA8Q3mqVmLUDgJgkgeLmDumbNd71pITmjOnDA>
+ <xmx:Pe21YB_KuiHQ-anOtJbK9FNUNMRwtB9i79KojnkNpCYraFGtGWSYUg>
+ <xmx:Pe21YIWFmuWnLxcWl35hBY55HdI6sr_umaBP5sErmkEASFm2AE1GTw>
+ <xmx:Pe21YDkFPbSw5MEn0XQ7YIGKfPiw6kor8Q0_CstgSVep8bciSsAgag>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Jun 2021 04:18:02 -0400 (EDT)
+ 1 Jun 2021 04:18:04 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 2/3] ALSA: dice: perform sequence replay for media clock
+Subject: [PATCH 3/3] ALSA: bebob: perform sequence replay for media clock
  recovery
-Date: Tue,  1 Jun 2021 17:17:52 +0900
-Message-Id: <20210601081753.9191-3-o-takashi@sakamocchi.jp>
+Date: Tue,  1 Jun 2021 17:17:53 +0900
+Message-Id: <20210601081753.9191-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
 References: <20210601081753.9191-1-o-takashi@sakamocchi.jp>
@@ -113,95 +113,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit takes ALSA dice driver to perform sequence replay for media
+This commit takes ALSA bebob driver to perform sequence replay for media
 clock recovery.
 
-Unlike the other types of device, DICE-based devices interpret the value
-of syt field of CIP header in rx packets as presentation time for audio
-playback, thus it's required for driver to compute value for outgoing
-packet adequate to the device. It's done by media clock recovery by
-handling tx packets.
+Many users have reported discontinuity of data block counter field of CIP
+header in tx packet from the devices based on BeBoB ASICs. In the worst
+case, the device corrupts not to respond to any transaction, then generate
+bus-reset voluntarily for recovery. The sequence replay for media clock
+recovery is expected to suppress most of the problems.
 
-The device starts packet transmission immediately at operation to
-GLOBAL_ENABLE thus on-the-fly mode is not required.
-
-DICE ASICs supports several pairs of isochronous packet streams.
-Actually, maximum two pairs of streams are supported by devices.
-We have three cases regarding to the number of streams:
-
-1. a pair of streams
-2. two tx packet streams and one rx packet streams
-3. one tx packet streams and two rx packet streams
-4. two pair of streams
-
-The decision of playback timing is slightly different in the four cases.
-
-In the case 1, sequence replay in the pair results in suitable playback
-timing.
-
-In the case 2, sequence replay from the first tx packet stream to rx
-packet stream results in suitable playback timing.
-
-In the case 3, sequence replay from tx packet stream to all of rx packet
-stream results in suitable playback timing. Furthermore, the cycle to
-start receiving packets should be the same between all rx packet streams.
-
-In the case 4, sequence replay in each pair results in suitable playback
-timing. Furthermore, the cycle to start receiving packets should be the
-same between all rx packet streams.
+In the beginning of packet streaming, the device transfers NODATA packets
+for a while, then multiplexes any event and syt information. ALSA
+IEC 61883-1/6 packet streaming engine has implementation for it to drop
+the initial NODATA packets. It starts sequence replay when detecting any
+event multiplexed to tx packets.
 
 The sequence replay is tested with below models:
 
-* For case 1:
-  * TC Electronic Konnekt 24d (DiceII)
-  * TC Electronic Konnekt 8 (DiceII)
-  * TC Electronic Konnekt Live (DiceII)
-  * TC Electronic Impact Twin (DiceII)
-  * TC Electronic Digital Konnekt X32 (DiceII)
-  * TC Electronic Desktop Konnekt 6 (TCD2220)
-  * Solid State Logic Duende Classic (DiceII)
-  * Solid State Logic Duende Mini (DiceII)
-  * PreSonus FireStudio Project (TCD2210)
-  * PreSonus FireStudio Mobile (TCD2210)
-  * Lexicon I-ONIX FW810s (TCD2220)
-  * Avid Mbox 3 Pro (TCD2220)
+ * Focusrite Saffire
+ * Focusrite Saffire LE
+ * Focusrite Saffire Pro 10 I/O
+ * Focusrite Saffire Pro 26 I/O
+ * M-Audio FireWire Solo
+ * M-Audio FireWire Audiophile
+ * M-Audio Ozonic
+ * M-Audio FireWire 410
+ * M-Audio FireWire 1814
+ * Edirol FA-66
+ * ESI Quatafire 610
+ * Apogee Ensemble
+ * Phonic Firefly 202
+ * Behringer F-Control Audio 610
 
-* For case 2 (but case 1 depends on sampling transfer frequency):
-  * Alesis iO 26 (DiceII)
-  * Alesis iO 14 (DiceII)
-  * Alesis MultiMix 12 FireWire (DiceII)
-  * Focusrite Saffire Pro 26 (TCD2220)
+Unfortunately, below models doesn't generate sound. This seems regression
+introduced recent few years:
 
-* For case 3 (but case 1 depends on sampling transfer frequency):
-  * M-Audio Profire 610 (TCD2220)
-  * Loud Technology Mackie Onyx Blackbird (TCD2210)
+ * Stanton Final Scratch ScratchAmp at middle sampling transfer frequency
+ * Yamaha GO44
+ * Yamaha GO46
+ * Terratec Phase x24
 
-* For case 4:
-  * TC Electronic Studio Konnekt 48 (DiceII + TCD2220)
-  * PreSonus FireStudio (DiceII)
-  * M-Audio Profire 2626 (TCD2220)
-  * Focusrite Liquid Saffire 56 (TCD2220)
-  * Focusrite Saffire Pro 40 (TCD2220)
+As I reported, below model has quirk of discontinuity:
+
+ * M-Audio ProFire Lightbridge
+
+DM1000/DM1100 ASICs in BeBoB solution are known to have bugs at switch of
+sampling transfer frequency between low/middle/high rates. The switch
+generates the similar problems about which I mention in the above. Some
+vendors customizes firmware so that the switch of frequency is done in
+vendor-specific registers, then restrict users to switch the frequency.
+
+For example of Focusrite Saffire Pro 10 i/o and 26 i/o, users allows to
+switch the frequency within the three steps; e.g. 44.1/48.0 kHz are
+available at low step. Between the steps, extra operation is required and
+it always generates bus-reset.
+
+Another example of Edirol FA-66, users are prohibited to switch the
+frequency by software. It's done by hardware switch and power-off.
+
+I note that the sequence replay is not a solution for the ASIC bugs. Users
+need to disconnect the device corrupted by the bug, then reconnect it to
+refresh state machine inner the ASIC.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/dice/dice-stream.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/firewire/bebob/bebob_stream.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
-index d7220160c778..f99e00083141 100644
---- a/sound/firewire/dice/dice-stream.c
-+++ b/sound/firewire/dice/dice-stream.c
-@@ -444,7 +444,11 @@ int snd_dice_stream_start_duplex(struct snd_dice *dice)
- 			goto error;
- 		}
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index 47773ca97e46..470c2b70cbfa 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -649,10 +649,15 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		else
+ 			tx_init_skip_cycles = 16000;
  
--		err = amdtp_domain_start(&dice->domain, 0, false, false);
-+		// MEMO: The device immediately starts packet transmission when enabled. Some
-+		// devices are strictly to generate any discontinuity in the sequence of tx packet
-+		// when they receives invalid sequence of presentation time in CIP header. The
-+		// sequence replay for media clock recovery can suppress the behaviour.
-+		err = amdtp_domain_start(&dice->domain, 0, true, false);
+-		// MEMO: In the early stage of packet streaming, the device transfers NODATA packets.
+-		// After several hundred cycles, it begins to multiplex event into the packet with
+-		// syt information.
+-		err = amdtp_domain_start(&bebob->domain, tx_init_skip_cycles, false, false);
++		// MEMO: Some devices start packet transmission long enough after establishment of
++		// CMP connection. In the early stage of packet streaming, any device transfers
++		// NODATA packets. After several hundred cycles, it begins to multiplex event into
++		// the packet with adequate value of syt field in CIP header. Some devices are
++		// strictly to generate any discontinuity in the sequence of tx packet when they
++		// receives inadequate sequence of value in syt field of CIP header. In the case,
++		// the request to break CMP connection is often corrupted, then any transaction
++		// results in unrecoverable error, sometimes generate bus-reset.
++		err = amdtp_domain_start(&bebob->domain, tx_init_skip_cycles, true, false);
  		if (err < 0)
  			goto error;
  

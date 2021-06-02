@@ -2,72 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA2F8398161
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 08:48:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D59339825E
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 09:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4854C16DE;
-	Wed,  2 Jun 2021 08:47:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4854C16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1315216E1;
+	Wed,  2 Jun 2021 08:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1315216E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622616529;
-	bh=V/oNkW3f8YHAz3B4v/uDbJtSRYfEsCW47+erbMG1rts=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1622617241;
+	bh=RBZuoxhxIqwVI8/TevLZUad+iGUkrHxje6tEDsICPFc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b0t9iZ+MmYvDbOe4oW24UzfPKxaUpsDkNzAsuXbaICTtMQ2qxa7Dqw3zvP6ybM2S6
-	 ouNpaOl2YlV0Oyuj1RndkQKBk467DfGSLwP69Q02DVgPCCWRUnY74tLOnVnThfVpfV
-	 LCyWIvLc2c+fgfKLa5jlGz/jszLsIfvPF+Z/tEdo=
+	b=KSCjYPzoe6aEdiC/3mWlC3LyMDi+soLNR7JKduijCn4bp4L9u8uTifNWl9VSNAArD
+	 r36hJXvoIEFGrqRAbcp+w2E50o4ro0AoQT/GlemA86MRWgsWdn9mstGB0WZA6rKfnM
+	 SUALL5kf6lXXqEaljMLmhOSBCuSBE4p5dsKCou8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1770F80141;
-	Wed,  2 Jun 2021 08:47:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A7D4F80425;
+	Wed,  2 Jun 2021 08:59:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0211BF80424; Wed,  2 Jun 2021 08:47:19 +0200 (CEST)
+ id D572CF80424; Wed,  2 Jun 2021 08:59:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B6FAF80141
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 08:47:12 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9B59FA003F;
- Wed,  2 Jun 2021 08:47:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9B59FA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1622616430; bh=9oZydlE7ZvsDH6T9qh0iMZKszEstZjjcoeV/i59z/mE=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=M2C6beweJKaC2OtGnhH8ZlHfEitgurkfioMrWGLO3yHZrVOeHi0nDavbWPLAIzGaF
- kdMhKP9KO5i1XnOua7KzrGJpqA0cS2i5AozuSx59u1uu/+rPfZJWztqlKKzVhouRQT
- vr23yqiL0CihyZawpR6EH90q0w/AAiov7hiBiNsY=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  2 Jun 2021 08:47:04 +0200 (CEST)
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E64B2F80141
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 08:59:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64B2F80141
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ovoOoIHk"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ixB+6fxu"
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2E02B21935;
+ Wed,  2 Jun 2021 06:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622617143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vIrt8EnS10/pgZWAbdX1lqTwmvdy1dlnxZHsnjNKsOs=;
+ b=ovoOoIHkju2CWKL9OqBZl15e4wjGMdCwum1lU4+NbV8EFI1O2WsF9aBVi6N2BYaCroRuz0
+ O7Uvo7dCYFIe3UAKnCD1jj+gXHSiIHimZiLJo7k03ZgXgII1aMrOe+4L/iy9cV+hfGyF/K
+ oZfJ6vyb7YdkHDFE/bKn3YmHZYsDSnw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622617143;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vIrt8EnS10/pgZWAbdX1lqTwmvdy1dlnxZHsnjNKsOs=;
+ b=ixB+6fxum+HeRIbC+nW0TnV4RY1bI+2M1J1tO4McMqyFdi0lU7JNw3JuCEnLKDOVNDbmXS
+ IOBxdPGkASGLdzCw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 17DEFA3B91;
+ Wed,  2 Jun 2021 06:59:03 +0000 (UTC)
+Date: Wed, 02 Jun 2021 08:59:03 +0200
+Message-ID: <s5hh7igycp4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dongliang Mu <mudongliangabcd@gmail.com>
 Subject: Re: [PATCH v2] ALSA: control led: fix memory leak in
  snd_ctl_led_register
-To: Dongliang Mu <mudongliangabcd@gmail.com>, tiwai@suse.com,
- dan.carpenter@oracle.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20210602034136.2762497-1-mudongliangabcd@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <1032c823-90aa-0144-eb7a-ff1a019c3094@perex.cz>
-Date: Wed, 2 Jun 2021 08:47:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
 In-Reply-To: <20210602034136.2762497-1-mudongliangabcd@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com
+References: <20210602034136.2762497-1-mudongliangabcd@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
+ syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com,
+ linux-kernel@vger.kernel.org, dan.carpenter@oracle.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,7 +95,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02. 06. 21 5:41, Dongliang Mu wrote:
+On Wed, 02 Jun 2021 05:41:36 +0200,
+Dongliang Mu wrote:
+> 
 > The snd_ctl_led_sysfs_add and snd_ctl_led_sysfs_remove should contain
 > the refcount operations in pair. However, snd_ctl_led_sysfs_remove fails
 > to decrease the refcount to zero, which causes device_release never to
@@ -102,10 +116,7 @@ On 02. 06. 21 5:41, Dongliang Mu wrote:
 > Fixes: a135dfb5de1 ("ALSA: led control - add sysfs kcontrol LED marking layer")
 > Signed-off-by: Dongliang Mu <mudongliangabcd@gmail.com>
 
-Many thanks to you and Dan to cover this.
+Applied now.  Thanks.
 
-Revieved-by: Jaroslav Kysela <perex@perex.cz>
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F08398E64
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 17:19:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48C7A398E8B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 17:27:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 697E616F3;
-	Wed,  2 Jun 2021 17:18:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 697E616F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACD2816F1;
+	Wed,  2 Jun 2021 17:26:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD2816F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622647180;
-	bh=mfyJLXOGHy5u9WpAO4Lis4MVQAN1zsrZKp0fMJjxZw4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CtOz5IJh7jcPNKVB1MV72ptgOBp9dmR4Fz9PHZgeaAdKuOLlQF5c3EYZyHc0Kmjal
-	 LegSljBq6k2kvon1f7wmN4MsMf+RXSDDlaGno4XgSu7880N2Wk13sDziMyAm2rxR2C
-	 dxnYt8/HpeFhVf0mN/k1U3ybZxrOfilxL0Xa02Tw=
+	s=default; t=1622647620;
+	bh=g25Cj6xQrMkwdV1kTl7mhTk+bwCdADt74DNQjh+YlB8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Lvw2bC+12M7bzFMD6J4yRGN+hRr7JjpNEXdp9tfVlkkRPOqnI3LkqwNuGTNqLj6wj
+	 UphgRmMPSCtNVtkWgctpym2nLaVKzfjpaQx81iepLHIpUVBnmPepqXtwswk5XrATSq
+	 +nziHZhDHms2MuCj1b++WdwEvlLJixu6TZWSCyqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4432F80103;
-	Wed,  2 Jun 2021 17:18:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EECBF80141;
+	Wed,  2 Jun 2021 17:25:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B900F80424; Wed,  2 Jun 2021 17:18:10 +0200 (CEST)
+ id B9514F80424; Wed,  2 Jun 2021 17:25:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02D36F80103
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 17:18:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D36F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3000FF80103
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 17:25:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3000FF80103
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ScDAB+j5"; 
+ header.b="RYI9K0q8"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ppq3yqea"
+ header.b="gIAWBWHL"
 Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 3825F1FDB7;
- Wed,  2 Jun 2021 15:17:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 313131FD30;
+ Wed,  2 Jun 2021 15:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622647076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
- b=ScDAB+j5KGtxz+Y4OULEWrOQiZbu1IuATwmbFMKcYDCWX8DkrAcfBKA26oq6ZaN3hooFSS
- fIHpGohQu+huxv099CMmjtKsWCSzuQ5AO6S2nNFeyWEwQcMn52STEPq5qrGkzQfM8uLwuI
- V+CMBZ73aeH8XQEyrRwLHgj1Nzeiz+M=
+ t=1622647516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIQBFrJ9Jr4y38wXt8sLwXWheMJInUVIw88Crjiuld8=;
+ b=RYI9K0q8JrFIrdsUsk7cAf2G2AUTZBQrQZdTHyJSVqCs8UnOJOS3GLbL/QW3PQ9eyOCOB7
+ Mgjyvs/T1WmYlYv1zTZ+b20yhvqmfe4J6MDcYv2IPgVD/4YT35dVtt5hxy/8dmvQry397b
+ K6tMe3nIK7fOHgOJ1vQ+mtJvUixq2qo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622647076;
+ s=susede2_ed25519; t=1622647516;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
- b=ppq3yqea8Uzp2KZBkNs4c3qJZ+cWHB3zmrs+TVVrIZL+rIe2G0c4iMLwxcDyqK4XxJcTz1
- fzqvHdZ9iMLfm4Bg==
-Received: by relay2.suse.de (Postfix, from userid 51)
- id 35C39A3C87; Wed,  2 Jun 2021 15:23:29 +0000 (UTC)
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 59716A7BB8;
- Wed,  2 Jun 2021 14:25:55 +0000 (UTC)
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIQBFrJ9Jr4y38wXt8sLwXWheMJInUVIw88Crjiuld8=;
+ b=gIAWBWHLF5kNqf32sbPRUa9Cl8L+3t4A20v85orrVaoC8gOGo/8yMZ0jmKr1CvTa+GNbOR
+ FYCDpRVaDENcGeDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 54772A4973;
+ Wed,  2 Jun 2021 15:25:11 +0000 (UTC)
+Date: Wed, 02 Jun 2021 17:25:11 +0200
+Message-ID: <s5hzgw8gug8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH RESEND] ALSA: timer: Fix master timer notification
-Date: Wed,  2 Jun 2021 16:25:54 +0200
-Message-Id: <20210602142554.32499-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Dongliang Mu <mudongliangabcd@gmail.com>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda: update the power_state during the
+ direct-complete
+In-Reply-To: <20210602145424.3132-1-hui.wang@canonical.com>
+References: <20210602145424.3132-1-hui.wang@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kai.heng.feng@canonical.com,
+ kailang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,35 +94,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_timer_notify1() calls the notification to each slave for a master
-event, but it passes a wrong event number.  It should be +10 offset,
-corresponding to SNDRV_TIMER_EVENT_MXXX, but it's incorrectly with
-+100 offset.  Casually this was spotted by UBSAN check via syzkaller.
+On Wed, 02 Jun 2021 16:54:24 +0200,
+Hui Wang wrote:
+> 
+> The patch_realtek.c needs to check if the power_state.event equals
+> PM_EVENT_SUSPEND, after using the direct-complete, the suspend() and
+> resume() will be skipped if the codec is already rt_suspended, in this
+> case, the patch_realtek.c will always get PM_EVENT_ON even the system
+> is really resumed from S3.
+> 
+> We could set power_state to PMSG_SUSPEND in the prepare(), if other
+> PM functions are called before complete(), those functions will
+> override power_state; if no other PM functions are called before
+> complete(), we could know the suspend() and resume() are skipped since
+> only S3 pm functions could be skipped by direct-complete, in this case
+> set power_state to PMSG_RESUME in the complete(). This could guarantee
+> the first time of calling hda_codec_runtime_resume() after complete()
+> has the correct power_state.
+> 
+> Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
 
-Reported-by: syzbot+d102fa5b35335a7e544e@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/000000000000e5560e05c3bd1d63@google.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/timer.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thanks, applied.
 
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index 6898b1ac0d7f..92b7008fcdb8 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -520,9 +520,10 @@ static void snd_timer_notify1(struct snd_timer_instance *ti, int event)
- 		return;
- 	if (timer->hw.flags & SNDRV_TIMER_HW_SLAVE)
- 		return;
-+	event += 10; /* convert to SNDRV_TIMER_EVENT_MXXX */
- 	list_for_each_entry(ts, &ti->slave_active_head, active_list)
- 		if (ts->ccallback)
--			ts->ccallback(ts, event + 100, &tstamp, resolution);
-+			ts->ccallback(ts, event, &tstamp, resolution);
- }
- 
- /* start/continue a master timer */
--- 
-2.26.2
 
+Takashi

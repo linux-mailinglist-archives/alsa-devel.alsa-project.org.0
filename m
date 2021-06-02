@@ -2,53 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3BDA398D7F
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 16:56:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED43398E6F
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 17:20:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80AA216C3;
-	Wed,  2 Jun 2021 16:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80AA216C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E751704;
+	Wed,  2 Jun 2021 17:19:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E751704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622645786;
-	bh=M51G1tQ6cmW/v1KCl2gie+Z71me4DwBKMxhSFmohlGY=;
+	s=default; t=1622647231;
+	bh=mfyJLXOGHy5u9WpAO4Lis4MVQAN1zsrZKp0fMJjxZw4=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=L0n0pXCF5MqxI2SQSmL3pEv1dLX3HiQJqmo9O8joFWO0wnoA1BvinqCPPBuDqckpc
-	 2GnbqDKcrrfndJh3NfcflV4VRg9VoX0GZhmN0wujItLGPlGzK603qyRoiKHdb/tLFQ
-	 3uOpOg9hyTzfQ9tODfx+AC6loFwumkFThuJ1xaTk=
+	b=Ts6iuo1ofmmblog6wxtu1IO/XF4qKClqy3btA3qt8GNjfpmzvrg9Z/HMcKJ/ykl2I
+	 W861pmeMkCHhniheZHext+u0qToszgSgBK+asmnLaV2tGnk3Ch6m8Pf3D81QgqbPtO
+	 fPXNsCGwPbjhXJvXsWz+1YWsceOhbNnH4TYpL9Wc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D358F80425;
-	Wed,  2 Jun 2021 16:54:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1AB6F80431;
+	Wed,  2 Jun 2021 17:18:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CA42F80424; Wed,  2 Jun 2021 16:54:55 +0200 (CEST)
+ id C19C0F804BC; Wed,  2 Jun 2021 17:18:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79E0CF80141
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 16:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E0CF80141
-Received: from [123.112.64.4] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <hui.wang@canonical.com>)
- id 1loSGb-0005h5-P9; Wed, 02 Jun 2021 14:54:46 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, kai.heng.feng@canonical.com,
- kailang@realtek.com
-Subject: [PATCH] ALSA: hda: update the power_state during the direct-complete
-Date: Wed,  2 Jun 2021 22:54:24 +0800
-Message-Id: <20210602145424.3132-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 371EDF80431
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 17:18:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 371EDF80431
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jk6WgQt5"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mh5zPdHK"
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2A53722BFC
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 15:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622647107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
+ b=jk6WgQt59nlWHukME00aS1pXnZiLyoPDhwbDAQpu05S0OlvSBNUGjnX4DBEmPD968XK1ix
+ mCrV4g7cBscjnqDPiNraNA4FiZ5FuyzWsIYSBeTOX4Y+o7535GbAfLaiWYJh6cDZLjeB3G
+ IggYwb5gBw1rnCPb3j47ebJIXG8ej2E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622647107;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
+ b=mh5zPdHKg9a4uB8LW6tc5Vxm1v/XT0rluJWLrHf2IJOhHDeL9miq/3zViJW5OpLxWcsfMm
+ 04fP5drVzTHpWFDQ==
+Received: by relay2.suse.de (Postfix, from userid 51)
+ id 26606A3BD3; Wed,  2 Jun 2021 16:03:45 +0000 (UTC)
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id A59A2A4D7A;
+ Wed,  2 Jun 2021 11:38:24 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: timer: Fix master timer notification
+Date: Wed,  2 Jun 2021 13:38:23 +0200
+Message-Id: <20210602113823.23777-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -66,50 +86,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch_realtek.c needs to check if the power_state.event equals
-PM_EVENT_SUSPEND, after using the direct-complete, the suspend() and
-resume() will be skipped if the codec is already rt_suspended, in this
-case, the patch_realtek.c will always get PM_EVENT_ON even the system
-is really resumed from S3.
+snd_timer_notify1() calls the notification to each slave for a master
+event, but it passes a wrong event number.  It should be +10 offset,
+corresponding to SNDRV_TIMER_EVENT_MXXX, but it's incorrectly with
++100 offset.  Casually this was spotted by UBSAN check via syzkaller.
 
-We could set power_state to PMSG_SUSPEND in the prepare(), if other
-PM functions are called before complete(), those functions will
-override power_state; if no other PM functions are called before
-complete(), we could know the suspend() and resume() are skipped since
-only S3 pm functions could be skipped by direct-complete, in this case
-set power_state to PMSG_RESUME in the complete(). This could guarantee
-the first time of calling hda_codec_runtime_resume() after complete()
-has the correct power_state.
-
-Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
+Reported-by: syzbot+d102fa5b35335a7e544e@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/000000000000e5560e05c3bd1d63@google.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/hda_codec.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/core/timer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index a31009afc025..5462f771c2f9 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -2917,6 +2917,7 @@ static int hda_codec_runtime_resume(struct device *dev)
- #ifdef CONFIG_PM_SLEEP
- static int hda_codec_pm_prepare(struct device *dev)
- {
-+	dev->power.power_state = PMSG_SUSPEND;
- 	return pm_runtime_suspended(dev);
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index 6898b1ac0d7f..92b7008fcdb8 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -520,9 +520,10 @@ static void snd_timer_notify1(struct snd_timer_instance *ti, int event)
+ 		return;
+ 	if (timer->hw.flags & SNDRV_TIMER_HW_SLAVE)
+ 		return;
++	event += 10; /* convert to SNDRV_TIMER_EVENT_MXXX */
+ 	list_for_each_entry(ts, &ti->slave_active_head, active_list)
+ 		if (ts->ccallback)
+-			ts->ccallback(ts, event + 100, &tstamp, resolution);
++			ts->ccallback(ts, event, &tstamp, resolution);
  }
  
-@@ -2924,6 +2925,10 @@ static void hda_codec_pm_complete(struct device *dev)
- {
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
- 
-+	/* If no other pm-functions are called between prepare() and complete() */
-+	if (dev->power.power_state.event == PM_EVENT_SUSPEND)
-+		dev->power.power_state = PMSG_RESUME;
-+
- 	if (pm_runtime_suspended(dev) && (codec->jackpoll_interval ||
- 	    hda_codec_need_resume(codec) || codec->forced_resume))
- 		pm_request_resume(dev);
+ /* start/continue a master timer */
 -- 
-2.25.1
+2.26.2
 

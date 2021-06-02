@@ -2,122 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BE60398C12
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 16:13:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1246398C96
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 16:21:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDE0C16F2;
-	Wed,  2 Jun 2021 16:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDE0C16F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D23616F3;
+	Wed,  2 Jun 2021 16:20:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D23616F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622643203;
-	bh=+LsPoqaBIWId1DNfdEhjmCxWyGNDCogQrFnuIXwcl5o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1622643668;
+	bh=Et8+3SmkB9mo2muFLruoiM69XWsfzWMOXz5Tg+eHKmk=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JMZnQiMGWvDxi6U0cfKc4xQGeP6lGUJaK4XAwMr0+UP54T4xAxK2B2Xt6MuLKFyi+
-	 VsQGcAiZJ3PAofeHjHR4m8jT2wTlloZuEGhYbEnf/Apv6nLZCzM3PIv6h+irqm2J1/
-	 r65LsOe+WhedqH6dqhskNwbflx8tw57uzHmPzUlc=
+	b=XIWWDTkoGA10tqI2+1JsuFOm99bJAxsABjiPPvAQv4ZXB9GVNut2NYLzEb/4nzURa
+	 cDu5cU/GjjrnpXenlDtXdtvMqzNre05/LohsTYrWFRgmE7kEkUb8eYfH5l+fquHMIx
+	 PbLXD1XzzM0DyL7BB6qJWytlqVlpQRcGUiwrH2Fg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C044F80425;
-	Wed,  2 Jun 2021 16:11:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8277DF80425;
+	Wed,  2 Jun 2021 16:19:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98DB1F80424; Wed,  2 Jun 2021 16:11:53 +0200 (CEST)
+ id CDBB6F80424; Wed,  2 Jun 2021 16:19:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10olkn2012.outbound.protection.outlook.com [40.92.41.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ADBDF80273
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 16:11:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ADBDF80273
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="e5l6mNEC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nzyN8yqUKm1+Ybf08a71eSSuqtwHD5Al9SakE2yUKMoQB7jRjTjcMmD88zng9tCVdlZoQac2bkRw8CQsdTwpLar+p1ebC2NrmC+xgJ4Jl4NI5oQwmEZc3h1Xhv55ScXye1IpTEYezQdnDrhB2qWpDXBHDYVlnmVEcdrRyBUknHTqimxFrDNTC/sUKug5qz78uH3NCmcI1iqukOMbO/m57cbL3oASes2EmhXwHR/WRRfILtxpXe5D9dFcdp23WSI0pITYJ1I58fc7Za5dtg1+64pk+DclfBLmXhkr2fjBOe9cZfk4G6VsP71IUpQ5Q3fFGNmBD8uqVxTAmsLjzUu8iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aq0QvJNflos3aJQtE7G/ljc8vHC6i626kF+eSGP0eOs=;
- b=L6emGLKM7CO59WKA9MUb02cUJ7j/vFeGj1buW0Viuc1mby1RIiw/uUwRSE0yGM6BwZtiFDXMDiSHzfXOuPvMISKJpxd4AkRIKxTQXCCbCekA6xEjNpJ6er+zfPV4Glq+vmObP118VrQUtrJm9tScpJHkiYPgwAuQ8X7NwbFNV1XkyMy0jb2FZX6bVozSYiP0UPvv2IGfMlieXgYwwqLp1nbnyvw3eb4M4kVLMMiHsa4GncMli/fmmKPT2zzv1wpduYUYWIQmXDpNpjXYY4TGBSCOyApViSjsoVOswjVA4ghVamdipdvBOQBxMxLx2h/lUi+5Facv3IAdKeJuO2tzAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aq0QvJNflos3aJQtE7G/ljc8vHC6i626kF+eSGP0eOs=;
- b=e5l6mNECMZxNATJZJBTCGwTg50PmFLKZ5u7XqlPokEbbhNdxrzAQDJb5PwECBs6ScVD1rUcf5PYnQBHAhLrK5g9OkmSUNOzoioQDDYxsATxIoOzKztqyWasXbcByj86bN7MQDBC4JDtt4rJCP+3i7z5yBLnhf7B/BLBisJqgoCVnAfrbD9DoFFTAdJCd599YXGS1k67sX6RyLY7UVRkXOwtdSAL1uprBoI6vebe5cjUVBr860Q6UjTGwk8UqCDOD8laogPVidftQOcn+1/FyFTO/qUMLL2gsPnd5OD//Dr+3vQnPY9mwGyRfRhzE2dYGy9DMUjf0fmAaaRur5eGVSg==
-Received: from BN7NAM10FT025.eop-nam10.prod.protection.outlook.com
- (2a01:111:e400:7e8f::47) by
- BN7NAM10HT008.eop-nam10.prod.protection.outlook.com (2a01:111:e400:7e8f::144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.28; Wed, 2 Jun
- 2021 14:11:37 +0000
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- (2a01:111:e400:7e8f::4b) by BN7NAM10FT025.mail.protection.outlook.com
- (2a01:111:e400:7e8f::100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.28 via Frontend
- Transport; Wed, 2 Jun 2021 14:11:37 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:D5D855A4AE7747BAE69538F574C08AB1C4C425CCAA543029541C8F1528E9E7E1;
- UpperCasedChecksum:60D1322ACD4C2F5F71AA603E22614B9A8DE40356F6AE487D6BD1C0AD2EE15E2B;
- SizeAsReceived:7717; Count:46
-Received: from SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::91a7:5b3:8e7c:621d]) by SN6PR06MB5342.namprd06.prod.outlook.com
- ([fe80::91a7:5b3:8e7c:621d%5]) with mapi id 15.20.4195.021; Wed, 2 Jun 2021
- 14:11:37 +0000
-Date: Wed, 2 Jun 2021 09:11:32 -0500
-From: Chris Morgan <macromorgan@hotmail.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH][next] ASoC: rk817: remove redundant assignment to
- pointer node
-Message-ID: <SN6PR06MB53422078933011A94E724EBCA53D9@SN6PR06MB5342.namprd06.prod.outlook.com>
-References: <20210602102746.11793-1-colin.king@canonical.com>
- <20210602112416.GG1955@kadam>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210602112416.GG1955@kadam>
-X-TMN: [5sR+Jl4WGXDpwrHfJhDracmaE4uDZP4j]
-X-ClientProxiedBy: SN4PR0501CA0149.namprd05.prod.outlook.com
- (2603:10b6:803:2c::27) To SN6PR06MB5342.namprd06.prod.outlook.com
- (2603:10b6:805:f9::31)
-X-Microsoft-Original-Message-ID: <20210602141132.GB11588@wintermute.localdomain>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A74A2F80103
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 16:19:24 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C304AA0042;
+ Wed,  2 Jun 2021 16:19:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C304AA0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1622643562; bh=t6iwHzWxaZURGvRkNNG6PD03fsxL4O2Nu2eQKG2T8Tc=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=n1Cn3L0XrZwFTsCJyIEPXafWyWLVRQuFfem59YOdeD51dXu8Z0CY8Vqbuuwvd3YT8
+ pN7SQdm0Mof50fxryJwyRS2xPn0/gxhxCokpw/Q+NQXr1mz7krNXX94cBV6+wAOA3j
+ 2HUO/1g1Wqvem/g9DlafVtAYnHMvqJ1kkzp2kJHk=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  2 Jun 2021 16:19:13 +0200 (CEST)
+Subject: Re: [syzbot] UBSAN: shift-out-of-bounds in snd_timer_user_ccallback
+To: Dongliang Mu <mudongliangabcd@gmail.com>, allen.lkml@gmail.com,
+ alsa-devel@alsa-project.org, Joe Perches <joe@perches.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ pierre-louis.bossart@linux.intel.com, romain.perier@gmail.com,
+ syzkaller-bugs <syzkaller-bugs@googlegroups.com>, tiwai@suse.com
+References: <CAD-N9QUDYbzkZXnDzf2P4b4Qk_kBQ_9ZVL3B4jhe9Xf2rgtpGA@mail.gmail.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <5c3fbdf8-bfa3-a50e-edb9-81fbce84d9cb@perex.cz>
+Date: Wed, 2 Jun 2021 16:19:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from wintermute.localdomain (76.183.134.35) by
- SN4PR0501CA0149.namprd05.prod.outlook.com (2603:10b6:803:2c::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 14:11:36 +0000
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 46
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-Correlation-Id: d4e533a1-6d22-4e52-17ac-08d925d05589
-X-MS-TrafficTypeDiagnostic: BN7NAM10HT008:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: N4hbXRUb0HS/ROh8Jp4Ig14mWSracoKr4Ysbgs0ogvkAiuN4o0R3GlwA1poak7/54yWKaqovYgzCZUI80cdBIMdmrrAC4xtzeHBoZRgIKoSmYXeHe9s6MmzyuD/th+QWN09zbC8h4Y9UhdV9Mibv70jssetW8j1TWTE+ueUj6oAe1NJhevFlV/bWVgbzwJJC7X55WC3d7EgOqNbJOdOB96KI0AueWNFksWuLC8gWlOOXSJX8R90CRFL2s2KywZASCjzU1xPFipFi7qEftYydx1kg9aGQvKa9X05j/I1xqSe5JBP1gNFDJ/tJfHgmg1YgSjxJUTue1nk5vGLqDupMK3C7vxXk8Ptan6w9rjVTl9cSKlDMFcL1OSdf/raKz7p+t6A2VGDINoJDd+oYya0p/w==
-X-MS-Exchange-AntiSpam-MessageData: V5jSxHUpjnaMXZNNCjaIlFZ1du4pjZ8MCpjW5K1ERpK/G0s2kruux7Hu3aCSSQKIXREkHEPlz8jqc1WZy1DVQ4g6gwrLlTcp44qoZKeMq9+NOWkhJsAXqcjZbQThIa+7QCV7BGAZI6fd3iz4vVhZow==
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4e533a1-6d22-4e52-17ac-08d925d05589
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 14:11:37.2226 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-AuthSource: BN7NAM10FT025.eop-nam10.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7NAM10HT008
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Colin King <colin.king@canonical.com>, Lee Jones <lee.jones@linaro.org>
+In-Reply-To: <CAD-N9QUDYbzkZXnDzf2P4b4Qk_kBQ_9ZVL3B4jhe9Xf2rgtpGA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,44 +83,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 02, 2021 at 02:24:16PM +0300, Dan Carpenter wrote:
-> On Wed, Jun 02, 2021 at 11:27:46AM +0100, Colin King wrote:
-> > From: Colin Ian King <colin.king@canonical.com>
-> > 
-> > The pointer node is being initialized with a value that is never read and
-> > it is being updated later with a new value.  The initialization is
-> > redundant and can be removed.
-> > 
-> > Addresses-Coverity: ("Unused value")
-> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> > ---
-> >  sound/soc/codecs/rk817_codec.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/sound/soc/codecs/rk817_codec.c b/sound/soc/codecs/rk817_codec.c
-> > index 17e672b85ee5..0d7cc26ded57 100644
-> > --- a/sound/soc/codecs/rk817_codec.c
-> > +++ b/sound/soc/codecs/rk817_codec.c
-> > @@ -457,7 +457,7 @@ static const struct snd_soc_component_driver soc_codec_dev_rk817 = {
-> >  static void rk817_codec_parse_dt_property(struct device *dev,
-> >  					 struct rk817_codec_priv *rk817)
-> >  {
-> > -	struct device_node *node = dev->parent->of_node;
-> > +	struct device_node *node;
-> >  
-> >  	node = of_get_child_by_name(dev->parent->of_node, "codec");
-> >  	if (!node) {
+On 02. 06. 21 15:18, Dongliang Mu wrote:
+>> Hello,
+>>
+>> syzbot found the following issue on:
+>>
+>> HEAD commit: 5ff2756a Merge tag 'nfs-for-5.13-2' of git://git.linux-nfs..
+>> git tree: upstream
+>> console output: https://syzkaller.appspot.com/x/log.txt?x=17872d5bd00000
+>> kernel config: https://syzkaller.appspot.com/x/.config?x=770708ea7cfd4916
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=d102fa5b35335a7e544e
+>>
+>> Unfortunately, I don't have any reproducer for this issue yet.
+>>
+>> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+>> Reported-by: syzbot+d102fa...@syzkaller.appspotmail.com
+>>
+>> ================================================================================
+>> UBSAN: shift-out-of-bounds in sound/core/timer.c:1376:23
+>> shift exponent 105 is too large for 32-bit type 'int'
+>> CPU: 1 PID: 10368 Comm: syz-executor.1 Not tainted 5.13.0-rc3-syzkaller #0
+>> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+>> Call Trace:
+>> __dump_stack lib/dump_stack.c:79 [inline]
+>> dump_stack+0x141/0x1d7 lib/dump_stack.c:120
+>> ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
+>> __ubsan_handle_shift_out_of_bounds.cold+0xb1/0x181 lib/ubsan.c:327
+>> snd_timer_user_ccallback.cold+0x19/0x1e sound/core/timer.c:1376
+>>
+>> snd_timer_notify1+0x243/0x3b0 sound/core/timer.c:525
 > 
-> This function needs an of_node_put().
+> The root cause of this bug is in the snd_timer_notify1 [1]. At the end
+> of this function, it calls "ts->ccallback(ts, event + 100, &tstamp,
+> resolution)".
+> 
+> Here the variable event is 5. It adds 100 and is passed as 2nd
+> argument of snd_timer_user_ccallback.
+> 
+>>From the variable naming, the 2nd argument should an event, and in the
+> range of event enumeration. In fact, 105 (event + 100) is out of this
+> range. I don't quite understand the meaning of adding 100. Any thought
+> here?
 
-I've tested this with the removal of the redundant pointer
-initialization and addition of of_node_put() in the "if (!node)"
-section and it looks good. Once you make the requested change I
-will provide a tested by tag.
+It seems that the original intent was to move the event to the M... events:
 
-Thank you.
+     SNDRV_TIMER_EVENT_MSTART = SNDRV_TIMER_EVENT_START + 10,
+
+So the added value should be 10 which should not break the shift range (8
+/resume/ + 10 = 18).
+
+					Jaroslav
 
 > 
-> regards,
-> dan carpenter
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/core/timer.c?id=5ff2756afde08b266fbb673849899fec694f39f1#n497
 > 
+> --
+> My best regards to you.
+> 
+>      No System Is Safe!
+>      Dongliang Mu
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

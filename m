@@ -2,98 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96959398A29
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 15:01:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF585398A4C
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 15:20:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C9D316EC;
-	Wed,  2 Jun 2021 15:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C9D316EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E90416F0;
+	Wed,  2 Jun 2021 15:19:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E90416F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622638891;
-	bh=nzgHzwbUpgqPua2cQmb7bmCAvymajUYhH4xtLt2lqnA=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1622640023;
+	bh=Sjzu19d5Z2sPX/qzVsbIek0HLuzFjcK/k82Qyzk4ZG0=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fdhmdpLIITESDnfrE8k90ey87i1XGPBuUi+iE1h7vehnbru5O9wzRtRWriESK53JA
-	 GVToxyNJuvO3PwN9pCpcQhi0Tly25oBo+WJpVWUviYd966BA6DT7veLKPg3Cj/XxRP
-	 HRZFaqaY/p7rt3hWAUzF9kesfw0hYB9FlCEAmTbY=
+	b=O0CjXFyH/mfm6My4qwD9DxhKpU/cJMMuwQSl2PR+jOdSmgYLXqDi1AzzF0TCJ/Bwq
+	 OSQIAktYOx0PSgE06FOWplG7l/NVQs0PAsSxID7PvLUf6JRaFx3YMdxgbxmBxg9tvR
+	 Onk1+k7EO7xhVOCCMunyvnEsVQqvlgPVWrcjc5us=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FD50F80424;
-	Wed,  2 Jun 2021 15:00:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEDF8F80425;
+	Wed,  2 Jun 2021 15:18:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 794A0F80424; Wed,  2 Jun 2021 14:59:59 +0200 (CEST)
+ id 16A71F80424; Wed,  2 Jun 2021 15:18:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0097F80273
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 14:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0097F80273
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFDADF80141
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 15:18:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFDADF80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="JLFH5iDt"
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 152Cxoc9183113;
- Wed, 2 Jun 2021 12:59:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=1R7T0QXg4/jFOmzmpFNfHhozecnbfAJFdgFogQ3bmAs=;
- b=JLFH5iDtHLTG1ABNzcwV68rrdImg3t0M8lObuEISyrV6WRHgwbKLvf2SsG57GlR1hHqx
- /K9LJIi2NYqa+CTadnwILztFq+hcjO7AOCenMEbH18mBnBMdo0WHU0FtORme5Hn/yHMy
- xaZQHbIb54aFAz1SKbgk/d886LiFNFUsnSttsCOiEQh0CS5o/H7WpOwWpTJ2zf/qVKnW
- eFroC4YYRGvdNPUHcNbyzw8rvAm2nOUonxE5grgsS+y/pKb4rGo8Em8qQMPfYmbv2axi
- 1va7Kl9bLX5eHRS7BoIeXQvAArs4wmj8gXh5DM61nepNi8pTLEJCBjb30ikebnSdNarw uQ== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2130.oracle.com with ESMTP id 38ub4crhv9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Jun 2021 12:59:50 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 152Cvm2K125892;
- Wed, 2 Jun 2021 12:59:49 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by aserp3020.oracle.com with ESMTP id 38udebsfng-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Jun 2021 12:59:49 +0000
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 152CxR0i141818;
- Wed, 2 Jun 2021 12:59:49 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 38udebsfmn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Jun 2021 12:59:49 +0000
-Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 152Cxl3K014595;
- Wed, 2 Jun 2021 12:59:48 GMT
-Received: from mwanda (/41.212.42.34) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 02 Jun 2021 12:59:46 +0000
-Date: Wed, 2 Jun 2021 15:59:41 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: shuah@kernel.org
-Subject: [bug report] media: sound/usb: Use Media Controller API to share
- media resources
-Message-ID: <YLeAvT+R22FQ/Eyw@mwanda>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="gPYKNhkE"
+Received: by mail-ed1-x52e.google.com with SMTP id w21so2784415edv.3
+ for <alsa-devel@alsa-project.org>; Wed, 02 Jun 2021 06:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=8sL249iFh5fLrh4+jcadscDil09cRaUNl+czqTJf9vc=;
+ b=gPYKNhkEJakfzzuddkxy7II9Yimt2kWskOlB6F99t+fPqRNgukyZWgW7mbpDGhAhkt
+ /6l37/9eUD3HgRrZkZq/Z+BH049YxHcCQ2XE0s01YqBEkMjsjm+bFSto9edmE6OregwJ
+ +W7fPneQcN51SdI38E9WhLfBdO0NnEql5uuiTbRH6irmQA6INj1o8T5ETwHasEOnED4K
+ ETLqjA1P9KKVZhTsjZNC705Tp/UoqBJ7PhFEXCSR1LvPf94g+BfrGE7ATntmHfNZ+HQl
+ kNDaZ7gG+M0epS9KTYqKSk1qbUby5fV+GRhjN1KQTekgaNJa3z5mQf78uhy3SBz5cUxI
+ qvyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=8sL249iFh5fLrh4+jcadscDil09cRaUNl+czqTJf9vc=;
+ b=hi9fbwPJwyj/EFxsAKXPas8Rg7iG7M8x3/fkKEL483I9aQDaXZC48a6ZoT+7RJy6x3
+ SRZyorWEFZlALfBDosJp0Jt5cPtwDhfXE+AzEfc7Cv7UnVFKs3J5Sc1kbeRI+6ZWNPy+
+ ho8yM9GIFIe4sMWSOMXZFr8hcYqcO5Nwc40+U8pmyNB64asp4EIvsby0mN3hUxVcTAIJ
+ nH1n4W35dP9/0uKzjCladoaVAbgMbW9UwEdoZWiWJdFmd00nbfwTOF/7siOGd1oK2frY
+ EABZKRxK3L7P3RJdBAfJ/v2R5snif5/5+xJLJGPyUJzTYYSMekhxTq62RGgaW3Rjlhv7
+ PX4g==
+X-Gm-Message-State: AOAM530Hl6u6QFkMHbfFT40/MhUGFevxGwl/vZXxVHEUfjsXV1EjTf+e
+ RBuNn7yFZiZPobKPsN/ovbForWWlRUGxxuGkCRc=
+X-Google-Smtp-Source: ABdhPJz47BocwY9xcSwhxCvikVXfyfuBhdVjPKS/2iDg8AbJPZKbNtAG5EX6IPVWRf+i+9GESg6KeCKKuotUTGvK638=
+X-Received: by 2002:a05:6402:4c5:: with SMTP id
+ n5mr37891601edw.322.1622639920272; 
+ Wed, 02 Jun 2021 06:18:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Proofpoint-GUID: OphAyjX_0shjzV_nSqH0q3Q6BEsaZb-s
-X-Proofpoint-ORIG-GUID: OphAyjX_0shjzV_nSqH0q3Q6BEsaZb-s
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10002
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 mlxscore=0
- mlxlogscore=901 malwarescore=0 bulkscore=0 phishscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2106020084
-Cc: alsa-devel@alsa-project.org
+From: Dongliang Mu <mudongliangabcd@gmail.com>
+Date: Wed, 2 Jun 2021 21:18:13 +0800
+Message-ID: <CAD-N9QUDYbzkZXnDzf2P4b4Qk_kBQ_9ZVL3B4jhe9Xf2rgtpGA@mail.gmail.com>
+Subject: [syzbot] UBSAN: shift-out-of-bounds in snd_timer_user_ccallback
+To: allen.lkml@gmail.com, alsa-devel@alsa-project.org, 
+ Joe Perches <joe@perches.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ perex@perex.cz, 
+ pierre-louis.bossart@linux.intel.com, romain.perier@gmail.com, 
+ syzkaller-bugs <syzkaller-bugs@googlegroups.com>, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,62 +93,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Shuah Khan,
+> Hello,
+>
+> syzbot found the following issue on:
+>
+> HEAD commit: 5ff2756a Merge tag 'nfs-for-5.13-2' of git://git.linux-nfs..
+> git tree: upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=17872d5bd00000
+> kernel config: https://syzkaller.appspot.com/x/.config?x=770708ea7cfd4916
+> dashboard link: https://syzkaller.appspot.com/bug?extid=d102fa5b35335a7e544e
+>
+> Unfortunately, I don't have any reproducer for this issue yet.
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+d102fa...@syzkaller.appspotmail.com
+>
+> ================================================================================
+> UBSAN: shift-out-of-bounds in sound/core/timer.c:1376:23
+> shift exponent 105 is too large for 32-bit type 'int'
+> CPU: 1 PID: 10368 Comm: syz-executor.1 Not tainted 5.13.0-rc3-syzkaller #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> Call Trace:
+> __dump_stack lib/dump_stack.c:79 [inline]
+> dump_stack+0x141/0x1d7 lib/dump_stack.c:120
+> ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
+> __ubsan_handle_shift_out_of_bounds.cold+0xb1/0x181 lib/ubsan.c:327
+> snd_timer_user_ccallback.cold+0x19/0x1e sound/core/timer.c:1376
+>
+> snd_timer_notify1+0x243/0x3b0 sound/core/timer.c:525
 
-The patch 66354f18fe5f: "media: sound/usb: Use Media Controller API
-to share media resources" from Apr 1, 2019, leads to the following
-static checker warning:
+The root cause of this bug is in the snd_timer_notify1 [1]. At the end
+of this function, it calls "ts->ccallback(ts, event + 100, &tstamp,
+resolution)".
 
-	sound/usb/media.c:287 snd_media_device_create()
-	warn: 'mdev' can also be NULL
+Here the variable event is 5. It adds 100 and is passed as 2nd
+argument of snd_timer_user_ccallback.
 
-sound/usb/media.c
-   270  
-   271          mdev = media_device_usb_allocate(usbdev, KBUILD_MODNAME, THIS_MODULE);
-                ^^^^
+From the variable naming, the 2nd argument should an event, and in the
+range of event enumeration. In fact, 105 (event + 100) is out of this
+range. I don't quite understand the meaning of adding 100. Any thought
+here?
 
-If CONFIG_MEDIA_CONTROLLER is disabled then "mdev" is NULL.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/core/timer.c?id=5ff2756afde08b266fbb673849899fec694f39f1#n497
 
-   272          if (IS_ERR(mdev))
-   273                  return -ENOMEM;
-   274  
-   275          /* save media device - avoid lookups */
-   276          chip->media_dev = mdev;
-   277  
-   278  snd_mixer_init:
-   279          /* Create media entities for mixer and control dev */
-   280          ret = snd_media_mixer_init(chip);
-   281          /* media_device might be registered, print error and continue */
-   282          if (ret)
-   283                  dev_err(&usbdev->dev,
-   284                          "Couldn't create media mixer entities. Error: %d\n",
-   285                          ret);
-   286  
-   287          if (!media_devnode_is_registered(mdev->devnode)) {
-                                                 ^^^^^^^^^^^^^
-dereferenced without checking here
+--
+My best regards to you.
 
-   288                  /* dont'register if snd_media_mixer_init() failed */
-   289                  if (ret)
-   290                          goto create_fail;
-   291  
-   292                  /* register media_device */
-   293                  ret = media_device_register(mdev);
-   294  create_fail:
-   295                  if (ret) {
-   296                          snd_media_mixer_delete(chip);
-   297                          media_device_delete(mdev, KBUILD_MODNAME, THIS_MODULE);
-   298                          /* clear saved media_dev */
-   299                          chip->media_dev = NULL;
-   300                          dev_err(&usbdev->dev,
-   301                                  "Couldn't register media device. Error: %d\n",
-   302                                  ret);
-   303                          return ret;
-   304                  }
-   305          }
-   306  
-   307          return ret;
-   308  }
-
-regards,
-dan carpenter
+     No System Is Safe!
+     Dongliang Mu

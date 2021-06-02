@@ -2,88 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44AED398E67
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 17:19:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55F08398E64
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 17:19:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2E5D16FE;
-	Wed,  2 Jun 2021 17:19:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2E5D16FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 697E616F3;
+	Wed,  2 Jun 2021 17:18:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 697E616F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622647194;
-	bh=0pTdhZwbu7VEylL7ylpszPaVZbgl4i1E4mqqT4in3Zk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CeXxzruq75+iDhw4j0+/TFyM8mq36YEt0+8zIYeo3E6k/HR7a6x01bdQrt2QSSpWY
-	 CsQQpJDnl8qDlCy3ry6gbq/4bvr393uq7jTtVanbDAJH8o3ljeCZlxhD2gWcauj7iE
-	 LLJhv3UovRBH9Z2m/vANxUBP9ZIyy+kF0ri5oH58=
+	s=default; t=1622647180;
+	bh=mfyJLXOGHy5u9WpAO4Lis4MVQAN1zsrZKp0fMJjxZw4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CtOz5IJh7jcPNKVB1MV72ptgOBp9dmR4Fz9PHZgeaAdKuOLlQF5c3EYZyHc0Kmjal
+	 LegSljBq6k2kvon1f7wmN4MsMf+RXSDDlaGno4XgSu7880N2Wk13sDziMyAm2rxR2C
+	 dxnYt8/HpeFhVf0mN/k1U3ybZxrOfilxL0Xa02Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F904F8049C;
-	Wed,  2 Jun 2021 17:18:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4432F80103;
+	Wed,  2 Jun 2021 17:18:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D7E7F80430; Wed,  2 Jun 2021 17:18:17 +0200 (CEST)
+ id 4B900F80424; Wed,  2 Jun 2021 17:18:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19141F80141
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 17:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19141F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02D36F80103
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 17:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D36F80103
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VnDu0wwe"; 
+ header.b="ScDAB+j5"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Uvq2cbXv"
+ header.b="ppq3yqea"
 Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 91BF222158;
- Wed,  2 Jun 2021 15:18:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3825F1FDB7;
+ Wed,  2 Jun 2021 15:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622647083; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5wuqoEIoWxqpFQz0JrbocfIk8+mWjeTL8hH48BsFrio=;
- b=VnDu0wwelXhxsEbDcNyQ7jNOtAKDLRdCx/mClJOM7xrxWm0iwYSD5e3ftUOWY2bLzMp9xc
- 9K8yG/eCKYN6q9tj8/YhvuxBawcwGiLzcmujIS2djIbFeC1ZzyahluV6Rafu31F6u1jkgz
- D0Gpw4sMHfX3CG1h3UHQTvuy4av5AUg=
+ t=1622647076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
+ b=ScDAB+j5KGtxz+Y4OULEWrOQiZbu1IuATwmbFMKcYDCWX8DkrAcfBKA26oq6ZaN3hooFSS
+ fIHpGohQu+huxv099CMmjtKsWCSzuQ5AO6S2nNFeyWEwQcMn52STEPq5qrGkzQfM8uLwuI
+ V+CMBZ73aeH8XQEyrRwLHgj1Nzeiz+M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622647083;
+ s=susede2_ed25519; t=1622647076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5wuqoEIoWxqpFQz0JrbocfIk8+mWjeTL8hH48BsFrio=;
- b=Uvq2cbXvnOMXfHKFe4Yl8NNHtqkEU+Ipuj00FwaqmMMvS2p9oepnwxl9G1xcTANOASKlY+
- laKy1+BIRFE75XDw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yjVYTZzKH7BJUuIkohINcBaczc5rJq1VVShRZ+Aswps=;
+ b=ppq3yqea8Uzp2KZBkNs4c3qJZ+cWHB3zmrs+TVVrIZL+rIe2G0c4iMLwxcDyqK4XxJcTz1
+ fzqvHdZ9iMLfm4Bg==
 Received: by relay2.suse.de (Postfix, from userid 51)
- id 8DB31A3D7E; Wed,  2 Jun 2021 15:25:10 +0000 (UTC)
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 06E87A7B47;
- Wed,  2 Jun 2021 14:24:13 +0000 (UTC)
-Date: Wed, 02 Jun 2021 16:24:13 +0200
-Message-ID: <s5ha6o8wdiq.wl-tiwai@suse.de>
+ id 35C39A3C87; Wed,  2 Jun 2021 15:23:29 +0000 (UTC)
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 59716A7BB8;
+ Wed,  2 Jun 2021 14:25:55 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [syzbot] UBSAN: shift-out-of-bounds in snd_timer_user_ccallback
-In-Reply-To: <5c3fbdf8-bfa3-a50e-edb9-81fbce84d9cb@perex.cz>
-References: <CAD-N9QUDYbzkZXnDzf2P4b4Qk_kBQ_9ZVL3B4jhe9Xf2rgtpGA@mail.gmail.com>
- <5c3fbdf8-bfa3-a50e-edb9-81fbce84d9cb@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Dongliang Mu <mudongliangabcd@gmail.com>,
- tiwai@suse.com, syzkaller-bugs <syzkaller-bugs@googlegroups.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- pierre-louis.bossart@linux.intel.com, allen.lkml@gmail.com,
- Joe Perches <joe@perches.com>, romain.perier@gmail.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH RESEND] ALSA: timer: Fix master timer notification
+Date: Wed,  2 Jun 2021 16:25:54 +0200
+Message-Id: <20210602142554.32499-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Dongliang Mu <mudongliangabcd@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,60 +87,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Jun 2021 16:19:13 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 02. 06. 21 15:18, Dongliang Mu wrote:
-> >> Hello,
-> >>
-> >> syzbot found the following issue on:
-> >>
-> >> HEAD commit: 5ff2756a Merge tag 'nfs-for-5.13-2' of git://git.linux-nfs..
-> >> git tree: upstream
-> >> console output: https://syzkaller.appspot.com/x/log.txt?x=17872d5bd00000
-> >> kernel config: https://syzkaller.appspot.com/x/.config?x=770708ea7cfd4916
-> >> dashboard link: https://syzkaller.appspot.com/bug?extid=d102fa5b35335a7e544e
-> >>
-> >> Unfortunately, I don't have any reproducer for this issue yet.
-> >>
-> >> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> >> Reported-by: syzbot+d102fa...@syzkaller.appspotmail.com
-> >>
-> >> ================================================================================
-> >> UBSAN: shift-out-of-bounds in sound/core/timer.c:1376:23
-> >> shift exponent 105 is too large for 32-bit type 'int'
-> >> CPU: 1 PID: 10368 Comm: syz-executor.1 Not tainted 5.13.0-rc3-syzkaller #0
-> >> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> >> Call Trace:
-> >> __dump_stack lib/dump_stack.c:79 [inline]
-> >> dump_stack+0x141/0x1d7 lib/dump_stack.c:120
-> >> ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
-> >> __ubsan_handle_shift_out_of_bounds.cold+0xb1/0x181 lib/ubsan.c:327
-> >> snd_timer_user_ccallback.cold+0x19/0x1e sound/core/timer.c:1376
-> >>
-> >> snd_timer_notify1+0x243/0x3b0 sound/core/timer.c:525
-> > 
-> > The root cause of this bug is in the snd_timer_notify1 [1]. At the end
-> > of this function, it calls "ts->ccallback(ts, event + 100, &tstamp,
-> > resolution)".
-> > 
-> > Here the variable event is 5. It adds 100 and is passed as 2nd
-> > argument of snd_timer_user_ccallback.
-> > 
-> >>From the variable naming, the 2nd argument should an event, and in the
-> > range of event enumeration. In fact, 105 (event + 100) is out of this
-> > range. I don't quite understand the meaning of adding 100. Any thought
-> > here?
-> 
-> It seems that the original intent was to move the event to the M... events:
-> 
->      SNDRV_TIMER_EVENT_MSTART = SNDRV_TIMER_EVENT_START + 10,
-> 
-> So the added value should be 10 which should not break the shift range (8
-> /resume/ + 10 = 18).
+snd_timer_notify1() calls the notification to each slave for a master
+event, but it passes a wrong event number.  It should be +10 offset,
+corresponding to SNDRV_TIMER_EVENT_MXXX, but it's incorrectly with
++100 offset.  Casually this was spotted by UBSAN check via syzkaller.
 
-I've already submitted the fix patch, but it doesn't seem reaching
-properly to ML.  Hmm.  Will resend.
+Reported-by: syzbot+d102fa5b35335a7e544e@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/000000000000e5560e05c3bd1d63@google.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/timer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index 6898b1ac0d7f..92b7008fcdb8 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -520,9 +520,10 @@ static void snd_timer_notify1(struct snd_timer_instance *ti, int event)
+ 		return;
+ 	if (timer->hw.flags & SNDRV_TIMER_HW_SLAVE)
+ 		return;
++	event += 10; /* convert to SNDRV_TIMER_EVENT_MXXX */
+ 	list_for_each_entry(ts, &ti->slave_active_head, active_list)
+ 		if (ts->ccallback)
+-			ts->ccallback(ts, event + 100, &tstamp, resolution);
++			ts->ccallback(ts, event, &tstamp, resolution);
+ }
+ 
+ /* start/continue a master timer */
+-- 
+2.26.2
 
-Takashi

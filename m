@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D59339825E
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 09:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB37439826E
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jun 2021 09:02:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1315216E1;
-	Wed,  2 Jun 2021 08:59:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1315216E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D3EE16EC;
+	Wed,  2 Jun 2021 09:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D3EE16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622617241;
-	bh=RBZuoxhxIqwVI8/TevLZUad+iGUkrHxje6tEDsICPFc=;
+	s=default; t=1622617361;
+	bh=UJMldKNc230W+HLay+poekbVQag6lT6jSEU6TxvpebM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KSCjYPzoe6aEdiC/3mWlC3LyMDi+soLNR7JKduijCn4bp4L9u8uTifNWl9VSNAArD
-	 r36hJXvoIEFGrqRAbcp+w2E50o4ro0AoQT/GlemA86MRWgsWdn9mstGB0WZA6rKfnM
-	 SUALL5kf6lXXqEaljMLmhOSBCuSBE4p5dsKCou8E=
+	b=Rq4N4wUTju4KS8ts0wLYte+RRWPF9A24xoThPBgexgCnoNayCEWf3f9VSMPFjHCj0
+	 G3cjxxHMTvu4DqcsG+BSVok78S6PO55NUPeWAG75EPoYv+XLlibmYx1LQLtYMEzo3x
+	 MES0EdBJ1ZSVkmVwhhbkMipMsbiwrG8+ZLlUXoV4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A7D4F80425;
-	Wed,  2 Jun 2021 08:59:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B473BF8049C;
+	Wed,  2 Jun 2021 09:01:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D572CF80424; Wed,  2 Jun 2021 08:59:10 +0200 (CEST)
+ id D06EBF80430; Wed,  2 Jun 2021 09:01:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E64B2F80141
- for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 08:59:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64B2F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A188F80141
+ for <alsa-devel@alsa-project.org>; Wed,  2 Jun 2021 09:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A188F80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ovoOoIHk"; 
+ header.b="U5xqne2N"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ixB+6fxu"
+ header.b="G+yltqnl"
 Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2E02B21935;
- Wed,  2 Jun 2021 06:59:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6D0CB21937;
+ Wed,  2 Jun 2021 07:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622617143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622617218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vIrt8EnS10/pgZWAbdX1lqTwmvdy1dlnxZHsnjNKsOs=;
- b=ovoOoIHkju2CWKL9OqBZl15e4wjGMdCwum1lU4+NbV8EFI1O2WsF9aBVi6N2BYaCroRuz0
- O7Uvo7dCYFIe3UAKnCD1jj+gXHSiIHimZiLJo7k03ZgXgII1aMrOe+4L/iy9cV+hfGyF/K
- oZfJ6vyb7YdkHDFE/bKn3YmHZYsDSnw=
+ bh=ooLeZVh/JmT66zdmoia1ZVVLxBkNHsfzyH+fIpo0bDs=;
+ b=U5xqne2N3y/W0YSkRxIN89fC87mN2JSia0TK2HUfIk0kt1MS6ZpF53LbvDR1v6Il0YlCs1
+ RgvU/Iq/SNQsyx3oMjwWJ0i4t9PR1GKUN7X4eWuFr0rj3Z6GbHvIk3KjKPP/1dHNPs8nfV
+ JnxDE89RHDPtZlqcd6XSH7EeufEGPS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622617143;
+ s=susede2_ed25519; t=1622617218;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vIrt8EnS10/pgZWAbdX1lqTwmvdy1dlnxZHsnjNKsOs=;
- b=ixB+6fxum+HeRIbC+nW0TnV4RY1bI+2M1J1tO4McMqyFdi0lU7JNw3JuCEnLKDOVNDbmXS
- IOBxdPGkASGLdzCw==
+ bh=ooLeZVh/JmT66zdmoia1ZVVLxBkNHsfzyH+fIpo0bDs=;
+ b=G+yltqnl7LCXy7jwP9O9VpfYhnEoX9WY31Ko69C3EVP7YRrHK+JWpEdVP2WX2U2CNwFYjc
+ 9EV50pJYEyq4bkBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 17DEFA3B91;
- Wed,  2 Jun 2021 06:59:03 +0000 (UTC)
-Date: Wed, 02 Jun 2021 08:59:03 +0200
-Message-ID: <s5hh7igycp4.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 63798A3B8F;
+ Wed,  2 Jun 2021 07:00:18 +0000 (UTC)
+Date: Wed, 02 Jun 2021 09:00:18 +0200
+Message-ID: <s5heedkycn1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Dongliang Mu <mudongliangabcd@gmail.com>
-Subject: Re: [PATCH v2] ALSA: control led: fix memory leak in
- snd_ctl_led_register
-In-Reply-To: <20210602034136.2762497-1-mudongliangabcd@gmail.com>
-References: <20210602034136.2762497-1-mudongliangabcd@gmail.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] ALSA: firewire-motu: media clock recovery for
+ sph-aware devices
+In-Reply-To: <20210602013406.26442-1-o-takashi@sakamocchi.jp>
+References: <20210602013406.26442-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
- syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com,
- linux-kernel@vger.kernel.org, dan.carpenter@oracle.com
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,28 +92,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Jun 2021 05:41:36 +0200,
-Dongliang Mu wrote:
+On Wed, 02 Jun 2021 03:34:03 +0200,
+Takashi Sakamoto wrote:
 > 
-> The snd_ctl_led_sysfs_add and snd_ctl_led_sysfs_remove should contain
-> the refcount operations in pair. However, snd_ctl_led_sysfs_remove fails
-> to decrease the refcount to zero, which causes device_release never to
-> be invoked. This leads to memory leak to some resources, like struct
-> device_private. In addition, we also free some other similar memory
-> leaks in snd_ctl_led_init/snd_ctl_led_exit.
+> Hi,
 > 
-> Fix this by replacing device_del to device_unregister
-> in snd_ctl_led_sysfs_remove/snd_ctl_led_init/snd_ctl_led_exit.
+> In a commit f9e5ecdfc2c2 ("ALSA: firewire-lib: add replay target to cache
+> sequence of packet"), I categorize devices supported by drivers in ALSA
+> firewire stack in terms of the way to deliver effective sampling
+> transfer frequency. This patchset is for the devices in group 3.
 > 
-> Note that, when CONFIG_DEBUG_KOBJECT_RELEASE is enabled, put_device will
-> call kobject_release and delay the release of kobject, which will cause
-> use-after-free when the memory backing the kobject is freed at once.
+> The devices are known to have problems when ALSA firewire-motu driver
+> handles. Many of them generate sound with noise. In the worst case, it
+> generates no sound.
 > 
-> Reported-by: syzbot+08a7d8b51ea048a74ffb@syzkaller.appspotmail.com
-> Fixes: a135dfb5de1 ("ALSA: led control - add sysfs kcontrol LED marking layer")
-> Signed-off-by: Dongliang Mu <mudongliangabcd@gmail.com>
+> The devices interpret presentation time to decide playback timing.
+> Unlike the syt-aware devices, the devices interpret the presentation
+> time in source packet header (SPH) per data block, instead of the
+> presentation time in syt field of CIP header.
+> 
+> Current implementation of the driver processes the sequence of outgoing
+> packet by computation according to nominal sampling transfer frequency.
+> However, the ideal sequence is not adequate to the devices, actually.
+> 
+> With this patchset, the drivers are going to replay the sequence of
+> incoming packets for media clock recovery, instead of nominal sampling
+> transfer frequency. For the detail of sequence replay, please refer to a
+> commit 39c2649c71d8 ("ALSA: firewire-lib: replay sequence of incoming
+> packets for outgoing packets"). The sequence replay is done by two levels;
+> the sequence of the number of data blocks per packet, and the sequence of
+> SPH per data blocks in the packet.
+> 
+> Takashi Sakamoto (3):
+>   ALSA: firewire-motu: use macro for magic numbers relevant to IEC
+>     61883-1
+>   ALSA: firewire-motu: cache event ticks in source packet header per
+>     data block
+>   ALSA: firewire-motu: sequence replay for source packet header
 
-Applied now.  Thanks.
+Applied all three patches now.  Thanks.
 
 
 Takashi

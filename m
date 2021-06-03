@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F5339A72B
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:10:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D1CC39A787
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:11:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 273E61700;
-	Thu,  3 Jun 2021 19:09:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 273E61700
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82EDD1725;
+	Thu,  3 Jun 2021 19:10:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82EDD1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622740223;
-	bh=32aGDjf/ggu6KGnPHa/nyJsoyREiVd0JXqFVsWpBbBU=;
+	s=default; t=1622740264;
+	bh=MiBjfcAWbJxl27isL+wjAwH9bksie9F+ytXMyN4S7u4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ejtlz6wQjL/r+06H0G1y+03gNw2e3KyzLLSHHLdTitulGGO4FiXpUM4IZZKr9sD9J
-	 H7lHg2U7xb9sehkWd2DwiBksjIb2UI7+CCjy7R5BDe+SFGRLs4uFD0EZOLTUlk+K5H
-	 1WnOO2N+NAAB0s8YX++H3VAAX4DF2N8PF1655xA4=
+	b=E65ZM/ORYGejoS1sk2kpCssh+zz8OhvtCuk/kpAm/4u4ROA1YTOo2gCP27GTV1DPv
+	 I2CnaHb+PaaIp8vP0nXvyhX2Tnh5Oc1ex5JwgK0UsEmhrz8kUsEbibSFmdCtkg5e0c
+	 nfpxu7SgmcrFrOkKYKu4eUYg4sBW3/AaTwMVHoEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25CE8F800E5;
-	Thu,  3 Jun 2021 19:07:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1421F804D8;
+	Thu,  3 Jun 2021 19:07:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAB21F804BD; Thu,  3 Jun 2021 19:07:53 +0200 (CEST)
+ id D214DF804CB; Thu,  3 Jun 2021 19:07:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75B3CF80254
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:07:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75B3CF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12A54F800E5
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:07:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A54F800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FglUumLo"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E089F613F4;
- Thu,  3 Jun 2021 17:07:42 +0000 (UTC)
+ header.b="Lw5yEWzo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 87D31613F8;
+ Thu,  3 Jun 2021 17:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622740063;
- bh=32aGDjf/ggu6KGnPHa/nyJsoyREiVd0JXqFVsWpBbBU=;
+ s=k20201202; t=1622740067;
+ bh=MiBjfcAWbJxl27isL+wjAwH9bksie9F+ytXMyN4S7u4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FglUumLocQoGZRXANeN7xCXvHKUpJniuK8E7XX3rYLRKW4uGtWetArI9SkFwpvdaq
- wYhO0Z95KnjZg5Th/k/gq7VBcNdyRsI204qQSAS8D1fVOTNmTM+kHDRtM8fcglIcKh
- KMP4tT+xva9JZYC5E6izm+lc/4dgyAw99Nec3suqHa2zN2NGdSROCFtHNfOHyXDPXq
- Pyu89N91vYSHAvXSB6PvzomuiOm6CDKW1yNXYX4pStnNdkg72PLB0WRSth/7XsdAVZ
- uDqNZY+zmlCDzAEwrV8fj4hag6et+7roDs1OJxtYXtk0i7zeSDs4eSf17PpP8PliiX
- rotPori05su4g==
+ b=Lw5yEWzoPjm/Lkh/JzltxgCGEDhIo4DRflYFHgpzvYwoGJIhyFxqww9aJ5m4LZjmJ
+ Eah6sOCDlAKhA65hlGqd/wx7/yUGHGsWCns/sdse+TzdnYtkRZFdMPEAYnvnS20cCE
+ GLH2gys1QtdrdiKKB+uMuijKnrBXJllq75kTTSzV/6l6oZN5CNt3JXy9107C5Z4nGu
+ kvEFJBZG8GLF3iaLnF2bl1RVBbmp/C0oSpnL7cU3SyjGb7CLI+LXyWo9kpw8yukuP/
+ N4qrr0RYoTU0JnIi5o1fkez2dNp6sCMA16hWWM232aze3566nLlvsqbWkxqcLlaXoA
+ AZ8UiLsMt/ddg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 07/43] ASoC: codecs: lpass-tx-macro: add missing
- MODULE_DEVICE_TABLE
-Date: Thu,  3 Jun 2021 13:06:57 -0400
-Message-Id: <20210603170734.3168284-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 10/43] ASoC: Intel: bytcr_rt5640: Add quirk for
+ the Glavey TM800A550L tablet
+Date: Thu,  3 Jun 2021 13:07:00 -0400
+Message-Id: <20210603170734.3168284-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210603170734.3168284-1-sashal@kernel.org>
 References: <20210603170734.3168284-1-sashal@kernel.org>
@@ -66,9 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- Bixuan Cui <cuibixuan@huawei.com>
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +84,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bixuan Cui <cuibixuan@huawei.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 14c0c423746fe7232a093a68809a4bc6233eed60 ]
+[ Upstream commit 28c268d3acdd4cbcd2ac320b85609e77f84e74a7 ]
 
-This patch adds missing MODULE_DEVICE_TABLE definition which generates
-correct modalias for automatic loading of this driver when it is built
-as an external module.
+Add a quirk for the Glavey TM800A550L tablet, this BYTCR tablet has no CHAN
+package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
+is the default for BYTCR devices.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Bixuan Cui <cuibixuan@huawei.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20210508031512.53783-1-cuibixuan@huawei.com
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210508150146.28403-1-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index e8c6c738bbaa..5341ca02951c 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -1846,6 +1846,7 @@ static const struct of_device_id tx_macro_dt_match[] = {
- 	{ .compatible = "qcom,sm8250-lpass-tx-macro" },
- 	{ }
- };
-+MODULE_DEVICE_TABLE(of, tx_macro_dt_match);
- static struct platform_driver tx_macro_driver = {
- 	.driver = {
- 		.name = "tx_macro",
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 22912cab5e63..f18932b3d31b 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -574,6 +574,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{	/* Glavey TM800A550L */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "AMI Corporation"),
++			DMI_MATCH(DMI_BOARD_NAME, "Aptio CRB"),
++			/* Above strings are too generic, also match on BIOS version */
++			DMI_MATCH(DMI_BIOS_VERSION, "ZY-8-BI-PX4S70VTR400-X423B-005-D"),
++		},
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
 -- 
 2.30.2
 

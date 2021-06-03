@@ -2,86 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7516F3999A7
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 07:07:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07C5399A89
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 08:18:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01F0B16FA;
-	Thu,  3 Jun 2021 07:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01F0B16FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 477FE16F3;
+	Thu,  3 Jun 2021 08:17:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 477FE16F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622696845;
-	bh=AdSPYsKmY2dZ6XOCdwkT8C1wuddG8Hvdd5BglUVFQAk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gPT4k8wXGXpdTRrzG/fbrU2krK9C12iy3zvF+DkdOPVpcn+a+BSFEAMsXEgl4lKDZ
-	 W5y/VNz/4nzXrM8yJYpS3J13965Ico6pFGIUpZnlDRQ5s2wFHLB5g4wTpFZYrOT9MO
-	 wK5QdEawaRv5ScR+aG4tPGfZ7BkmHHaVfY9emo1M=
+	s=default; t=1622701123;
+	bh=qg2SWTVhxNrduUv0L9IfbFuQZRcTOXd3U87lWeaUwso=;
+	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hoq+ezrmvZyHtxFVK0GWSmEfw1C6GYHGdrE+hv70DiwKvzvFJYQR5FDVCQNgY+XNX
+	 Bi3Ij0h51W4Ma/Gi4y4cdnU3IfQCIEmY+UFFajrpQKOIpDDy9dauA5CgEiD+ATT+H8
+	 cGCG1UP2k5v3a/IpqDOZ1SXzag3MbwSmrmRdci0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D962F8025B;
-	Thu,  3 Jun 2021 07:05:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7AF7F80253;
+	Thu,  3 Jun 2021 08:17:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47327F80254; Thu,  3 Jun 2021 07:05:55 +0200 (CEST)
+ id E52C6F80254; Thu,  3 Jun 2021 08:17:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD325F80103
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 07:05:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD325F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86191F80100
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 08:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86191F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="K1Hm1epQ"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622696748; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=yjEmiZ7jjHZMO1rvh/z4s+iEoOvJbPXaLOM9FC5ynDg=;
- b=K1Hm1epQ1RU0tm2JcEbEZzDuKcjZXWVoOvdQdpupuQM8bOyQ49dgNm2ppTM0vX4GtB9thOTK
- ugQAhYJ9DkZm5yw6L6GKeRfyHsTpyaRRoZty2VfqznIv7vzwQ7A/ZWIUa52lDp469PPi4LLi
- x/XK/Y556S/ipQacJdp7SyVChOc=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 60b8632aed59bf69ccf4d111 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 05:05:46
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 64708C433D3; Thu,  3 Jun 2021 05:05:46 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 05F97C433F1;
- Thu,  3 Jun 2021 05:05:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 05F97C433F1
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH] ASoC: qcom: Fix for DMA interrupt clear reg overwriting
-Date: Thu,  3 Jun 2021 10:35:30 +0530
-Message-Id: <20210603050530.15898-1-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.29.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="m+a8Q1Up"
+Received: by mail-ot1-x330.google.com with SMTP id
+ i14-20020a9d624e0000b029033683c71999so4773752otk.5
+ for <alsa-devel@alsa-project.org>; Wed, 02 Jun 2021 23:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to; bh=AORJO5loH8P1GCxBtXakps2SGxdj+XmHegIFz60ntSY=;
+ b=m+a8Q1UpsGAwg2QV2ag3baMSuw4sbbIdKA/R3hm/N9Rbev/uihCBU+7ucdJCdo4I1B
+ sN1FtF3Cn2NxdCrssZOG1BR3kj7NBLlERFQXgAB7OGtNUtF3rf9WinaAi86Z9EecPKOl
+ Zp0/gqK7Ib3OXxPjeLHNnEAowBmn5c7TGgWq8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to;
+ bh=AORJO5loH8P1GCxBtXakps2SGxdj+XmHegIFz60ntSY=;
+ b=q9PRxGo6sIVPdrsB8W8rzpyU6XHYljVpxzF4ZgyuaVxi6XfvjIYskM02b+neEAweyL
+ 57+NfYW5oI725i2G1fcb155Ax8ANcgNhYWTNtqZ+dR8nZE8Mf9lnG0YW9FQjFXkEb/Dp
+ 2U0MqtBWyOXiPYMYK8YOwf2/Wc3cYQXq2CW399s5IaDnfEIcsChHOMdmOX3iA5vOse9Y
+ 4dArVCnKkMB6E68+X/RYCjU3CGe5Pzg2pWhZnoim8whwf4OjwfhuLb1EcmTChDThutGd
+ ni8zWYmmimqBOEUnnp8818RN5ROK/z16asUBc3F4prtO0A/oZVDDAKkJ8V+PIR0t60xG
+ xcSQ==
+X-Gm-Message-State: AOAM531C11e84SAVE05/vpBfxMIcOY2/YZI1UsFt6XI8Zeq83GnoCYhk
+ iaMuZAy/V7xkL13902JmSQyFLP4WGerwlQAcFe8AGg==
+X-Google-Smtp-Source: ABdhPJxyYLeIoldjWEenrhIDKjwGFGHgDtAWhmJTqgX+kVi9DQAsE9OwTaUuSW0wIJ7tz1YPkk2udKnCFrsX4wlP32g=
+X-Received: by 2002:a9d:18e:: with SMTP id e14mr9745672ote.34.1622701022184;
+ Wed, 02 Jun 2021 23:17:02 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Jun 2021 23:17:01 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+In-Reply-To: <20210603050530.15898-1-srivasam@codeaurora.org>
+References: <20210603050530.15898-1-srivasam@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 2 Jun 2021 23:17:01 -0700
+Message-ID: <CAE-0n52CyZkRDForR7LumXL7Tcr=48UV7T-wxirMsxk7AJJsmg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: qcom: Fix for DMA interrupt clear reg overwriting
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
+ alsa-devel@alsa-project.org, 
+ bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
+ devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
+ srinivas.kandagatla@linaro.org, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,71 +99,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes the DMA interrupt registers overwriting
-issue in lpass platform interrupt handler.
+Quoting Srinivasa Rao Mandadapu (2021-06-02 22:05:30)
+> This patch fixes the DMA interrupt registers overwriting
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/lpass-platform.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ $ git grep "This patch" -- Documentation/process
 
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index 0df9481ea4c6..e02caa121fa4 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -526,7 +526,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
- 			return -EINVAL;
- 		}
- 
--		ret = regmap_write(map, reg_irqclr, val_irqclr);
-+		ret = regmap_update_bits(map, reg_irqclr, val_irqclr, val_irqclr);
- 		if (ret) {
- 			dev_err(soc_runtime->dev, "error writing to irqclear reg: %d\n", ret);
- 			return ret;
-@@ -650,7 +650,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 	struct lpass_variant *v = drvdata->variant;
- 	irqreturn_t ret = IRQ_NONE;
- 	int rv;
--	unsigned int reg = 0, val = 0;
-+	unsigned int reg = 0, val = 0, val_clr = 0, val_mask = 0;
- 	struct regmap *map;
- 	unsigned int dai_id = cpu_dai->driver->id;
- 
-@@ -676,8 +676,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 	return -EINVAL;
- 	}
- 	if (interrupts & LPAIF_IRQ_PER(chan)) {
--
--		rv = regmap_write(map, reg, LPAIF_IRQ_PER(chan) | val);
-+		val_clr = (LPAIF_IRQ_PER(chan) | val);
-+		val_mask = LPAIF_IRQ_ALL(chan);
-+		rv = regmap_update_bits(map, reg, val_mask, val_clr);
- 		if (rv) {
- 			dev_err(soc_runtime->dev,
- 				"error writing to irqclear reg: %d\n", rv);
-@@ -688,7 +689,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 	}
- 
- 	if (interrupts & LPAIF_IRQ_XRUN(chan)) {
--		rv = regmap_write(map, reg, LPAIF_IRQ_XRUN(chan) | val);
-+		val_clr = (LPAIF_IRQ_XRUN(chan) | val);
-+		val_mask = LPAIF_IRQ_ALL(chan);
-+		rv = regmap_update_bits(map, reg, val_mask, val_clr);
- 		if (rv) {
- 			dev_err(soc_runtime->dev,
- 				"error writing to irqclear reg: %d\n", rv);
-@@ -700,7 +703,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 	}
- 
- 	if (interrupts & LPAIF_IRQ_ERR(chan)) {
--		rv = regmap_write(map, reg, LPAIF_IRQ_ERR(chan) | val);
-+		val_clr = (LPAIF_IRQ_ERR(chan) | val);
-+		val_mask = LPAIF_IRQ_ALL(chan);
-+		rv = regmap_update_bits(map, reg, val_mask, val_clr);
- 		if (rv) {
- 			dev_err(soc_runtime->dev,
- 				"error writing to irqclear reg: %d\n", rv);
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+> issue in lpass platform interrupt handler.
 
+Can you describe the issue more?
+
+>
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> ---
+
+Any Fixes tag?
+
+>  sound/soc/qcom/lpass-platform.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+> index 0df9481ea4c6..e02caa121fa4 100644
+> --- a/sound/soc/qcom/lpass-platform.c
+> +++ b/sound/soc/qcom/lpass-platform.c
+> @@ -650,7 +650,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>         struct lpass_variant *v = drvdata->variant;
+>         irqreturn_t ret = IRQ_NONE;
+>         int rv;
+> -       unsigned int reg = 0, val = 0;
+> +       unsigned int reg = 0, val = 0, val_clr = 0, val_mask = 0;
+
+Why assign to 0 and then overwrite it?
+
+>         struct regmap *map;
+>         unsigned int dai_id = cpu_dai->driver->id;
+>
+> @@ -676,8 +676,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>         return -EINVAL;
+>         }
+>         if (interrupts & LPAIF_IRQ_PER(chan)) {
+> -
+> -               rv = regmap_write(map, reg, LPAIF_IRQ_PER(chan) | val);
+> +               val_clr = (LPAIF_IRQ_PER(chan) | val);
+
+Is the extra parenthesis useful?
+
+> +               val_mask = LPAIF_IRQ_ALL(chan);
+> +               rv = regmap_update_bits(map, reg, val_mask, val_clr);
+>                 if (rv) {
+>                         dev_err(soc_runtime->dev,
+>                                 "error writing to irqclear reg: %d\n", rv);

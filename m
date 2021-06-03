@@ -2,88 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07C5399A89
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 08:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41B9399C6B
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 10:20:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 477FE16F3;
-	Thu,  3 Jun 2021 08:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 477FE16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 542CA16F4;
+	Thu,  3 Jun 2021 10:19:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 542CA16F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622701123;
-	bh=qg2SWTVhxNrduUv0L9IfbFuQZRcTOXd3U87lWeaUwso=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	s=default; t=1622708435;
+	bh=TwuV2ha2tJsTpTc91CLj3/nFVE9pHYO8daaw5cAu/GA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hoq+ezrmvZyHtxFVK0GWSmEfw1C6GYHGdrE+hv70DiwKvzvFJYQR5FDVCQNgY+XNX
-	 Bi3Ij0h51W4Ma/Gi4y4cdnU3IfQCIEmY+UFFajrpQKOIpDDy9dauA5CgEiD+ATT+H8
-	 cGCG1UP2k5v3a/IpqDOZ1SXzag3MbwSmrmRdci0k=
+	b=tSOo2NUc4BW69SlQANN4stq6WICb7YOAMtpe7gO9LQb7LTlcMlJNSk5K6EgJoyleh
+	 W9nP8uwf7OFNe8+7TlMSTUX2AKkwHWHUeUZ/PZO5cHUlzOMn/Y1/7YmxMvcyQw/3DG
+	 23U6f6gqkGsDXXSKSJCnTjhighkW6yQz095NFezU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7AF7F80253;
-	Thu,  3 Jun 2021 08:17:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9489F800E5;
+	Thu,  3 Jun 2021 10:19:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E52C6F80254; Thu,  3 Jun 2021 08:17:12 +0200 (CEST)
+ id C331FF80254; Thu,  3 Jun 2021 10:19:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86191F80100
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 08:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86191F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id E71B3F80103
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 10:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71B3F80103
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="m+a8Q1Up"
-Received: by mail-ot1-x330.google.com with SMTP id
- i14-20020a9d624e0000b029033683c71999so4773752otk.5
- for <alsa-devel@alsa-project.org>; Wed, 02 Jun 2021 23:17:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=AORJO5loH8P1GCxBtXakps2SGxdj+XmHegIFz60ntSY=;
- b=m+a8Q1UpsGAwg2QV2ag3baMSuw4sbbIdKA/R3hm/N9Rbev/uihCBU+7ucdJCdo4I1B
- sN1FtF3Cn2NxdCrssZOG1BR3kj7NBLlERFQXgAB7OGtNUtF3rf9WinaAi86Z9EecPKOl
- Zp0/gqK7Ib3OXxPjeLHNnEAowBmn5c7TGgWq8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=AORJO5loH8P1GCxBtXakps2SGxdj+XmHegIFz60ntSY=;
- b=q9PRxGo6sIVPdrsB8W8rzpyU6XHYljVpxzF4ZgyuaVxi6XfvjIYskM02b+neEAweyL
- 57+NfYW5oI725i2G1fcb155Ax8ANcgNhYWTNtqZ+dR8nZE8Mf9lnG0YW9FQjFXkEb/Dp
- 2U0MqtBWyOXiPYMYK8YOwf2/Wc3cYQXq2CW399s5IaDnfEIcsChHOMdmOX3iA5vOse9Y
- 4dArVCnKkMB6E68+X/RYCjU3CGe5Pzg2pWhZnoim8whwf4OjwfhuLb1EcmTChDThutGd
- ni8zWYmmimqBOEUnnp8818RN5ROK/z16asUBc3F4prtO0A/oZVDDAKkJ8V+PIR0t60xG
- xcSQ==
-X-Gm-Message-State: AOAM531C11e84SAVE05/vpBfxMIcOY2/YZI1UsFt6XI8Zeq83GnoCYhk
- iaMuZAy/V7xkL13902JmSQyFLP4WGerwlQAcFe8AGg==
-X-Google-Smtp-Source: ABdhPJxyYLeIoldjWEenrhIDKjwGFGHgDtAWhmJTqgX+kVi9DQAsE9OwTaUuSW0wIJ7tz1YPkk2udKnCFrsX4wlP32g=
-X-Received: by 2002:a9d:18e:: with SMTP id e14mr9745672ote.34.1622701022184;
- Wed, 02 Jun 2021 23:17:02 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Jun 2021 23:17:01 -0700
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="bmc529wQ"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="cXN7Hape"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 5D547580D7B;
+ Thu,  3 Jun 2021 04:18:48 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 03 Jun 2021 04:18:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=TwuV2ha2tJsTpTc91CLj3/nFVE9
+ pHYO8daaw5cAu/GA=; b=bmc529wQ/ycDZT1mFhRMsS5hx2i+7bVsoVSMBpt1R2E
+ /XTVA58cdE+uhOYWpksVNPd6m2RigwpliF/zpb4KwAVsV/0ewE5nfsDAOp0vu5PP
+ 4agDFkGE/RmBRlz8D7J2lOj1yU5InJLXG/kzts+EJgpsY+UK0+saKXPkWFZwuD0J
+ HaQQIREDCXqP6EG7zFbfFQ2/EAVuXmzz6KfZ/GcGyXSJTo6MQMFDNJiqwPhJwEtT
+ WzeKeGwTmgKiuvt2UV51IgFwlTZxcpHFrGJYXnw2UnHRiskKj8iU+X8unZ1fBQ37
+ t7qSxgVha2kDQc9iPKBEs0zJ96GNo50B9bS9LkvG+7Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=TwuV2h
+ a2tJsTpTc91CLj3/nFVE9pHYO8daaw5cAu/GA=; b=cXN7HapewSBA26vXGphUOj
+ KTO3JU8zvSB+2zoOxEuo8VBWwGQPUOdmbvonVDLpAbwMo9hbFEkyRm5JcH0xT2TT
+ CeOkvNNeg4e0K1WYGbYVBJ+0eeA6rUYGBW7pGIFVgf2T38n+VzdOccwvvfjOTU/m
+ rWe3y47+JtQyQx6V27xYJL+LrPsM4alHivsuLrJoZXnndw33kwiIEZ+6OpFvw9Fm
+ rxtfnApe9yP1jDQbR3l3KdUwMNZu5qFKbKpMwuEmC4CI0PNsBtFSj/pZBYuM9Sr0
+ 23gm05asHBlVddMdtjxj8aA4MrehKYtzJV/aVdSs2zTCbJq/TyQKUe8lYNqgH3zg
+ ==
+X-ME-Sender: <xms:ZpC4YAyP1DoSpNjxBM9snafm74YZe9v1HNc20eO9Lu0ZpChEgaYCJw>
+ <xme:ZpC4YETMC5Tn8Ks6QwW1BQjwdTtMTW8sNG6YCfBHwmvE3nvFMBxvfdtWAfZHmwwhS
+ oes8lrqzOtyJHo897w>
+X-ME-Received: <xmr:ZpC4YCVpm-Dd8yskZiENlD6BG5M3hh7pi8ZqgcyVT8WsvIwi2h7f_N7va8471NLYl_deMvJhSjNb7xouQBBHC0aQwhScHy6fIF5X>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelledgtdduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
+ gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:ZpC4YOhuoovgCtB9ahz98RraRepUfHrwGs1oRpbSzOH5fq3sorGrLQ>
+ <xmx:ZpC4YCBt8Q3HGL-b_3WDuaSh_8z_-KgwfBQSZTqr1hupYrULkTMfIw>
+ <xmx:ZpC4YPLSPLKbhiFwrgrp5aVHUC87bgIZEkvt4MA1oF5WZLU-xEtgHw>
+ <xmx:aJC4YDwuoE0lyEmcAHKW0O8fMxzaGEbBYXAF9H32z6jEnNSWstq_wQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Jun 2021 04:18:46 -0400 (EDT)
+Date: Thu, 3 Jun 2021 10:18:43 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v2 05/12] ASoC: hdmi-codec: Add a prepare hook
+Message-ID: <20210603081843.nwjlcoik7aubct2p@gilmour>
+References: <20210525132354.297468-1-maxime@cerno.tech>
+ <20210525132354.297468-6-maxime@cerno.tech>
+ <YK4lWaB6Lx+SPjpF@sirena.org.uk>
+ <20210531094213.kuuunk7ytu3q6sq6@gilmour>
+ <s5hzgwb17ji.wl-tiwai@suse.de>
+ <20210601123600.GA4089@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20210603050530.15898-1-srivasam@codeaurora.org>
-References: <20210603050530.15898-1-srivasam@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 2 Jun 2021 23:17:01 -0700
-Message-ID: <CAE-0n52CyZkRDForR7LumXL7Tcr=48UV7T-wxirMsxk7AJJsmg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: qcom: Fix for DMA interrupt clear reg overwriting
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="rkj45skaaxwizccg"
+Content-Disposition: inline
+In-Reply-To: <20210601123600.GA4089@sirena.org.uk>
+Cc: alsa-devel@alsa-project.org, Tim Gover <tim.gover@raspberrypi.com>,
+ linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.de>,
+ dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel.vetter@intel.com>,
+ Phil Elwell <phil@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@linux.ie>, bcm-kernel-feedback-list@broadcom.com,
+ devicetree@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Dom Cobley <dom@raspberrypi.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,52 +130,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-06-02 22:05:30)
-> This patch fixes the DMA interrupt registers overwriting
 
- $ git grep "This patch" -- Documentation/process
+--rkj45skaaxwizccg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> issue in lpass platform interrupt handler.
+Hi,
 
-Can you describe the issue more?
+On Tue, Jun 01, 2021 at 01:36:24PM +0100, Mark Brown wrote:
+> On Mon, May 31, 2021 at 01:12:17PM +0200, Takashi Iwai wrote:
+> > Maxime Ripard wrote:
+>=20
+> > > There's a build dependency between the DRM bits and the new hook
+> > > introduced in hdmi-codec, would you be ok with merging it through the
+> > > drm tree?
+>=20
+> > Speaking of ALSA core changes, I'm fine with that.
+>=20
+> Yeah, a pull request for the shared bits would be handy in case there's
+> some collision with other work.
 
->
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> ---
+I guess the easiest then would be for you to merge the patches and send
+a PR? Assuming you don't want to pull half of DRM of course :)
 
-Any Fixes tag?
+Maxime
 
->  sound/soc/qcom/lpass-platform.c | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
->
-> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-> index 0df9481ea4c6..e02caa121fa4 100644
-> --- a/sound/soc/qcom/lpass-platform.c
-> +++ b/sound/soc/qcom/lpass-platform.c
-> @@ -650,7 +650,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
->         struct lpass_variant *v = drvdata->variant;
->         irqreturn_t ret = IRQ_NONE;
->         int rv;
-> -       unsigned int reg = 0, val = 0;
-> +       unsigned int reg = 0, val = 0, val_clr = 0, val_mask = 0;
 
-Why assign to 0 and then overwrite it?
+--rkj45skaaxwizccg
+Content-Type: application/pgp-signature; name="signature.asc"
 
->         struct regmap *map;
->         unsigned int dai_id = cpu_dai->driver->id;
->
-> @@ -676,8 +676,9 @@ static irqreturn_t lpass_dma_interrupt_handler(
->         return -EINVAL;
->         }
->         if (interrupts & LPAIF_IRQ_PER(chan)) {
-> -
-> -               rv = regmap_write(map, reg, LPAIF_IRQ_PER(chan) | val);
-> +               val_clr = (LPAIF_IRQ_PER(chan) | val);
+-----BEGIN PGP SIGNATURE-----
 
-Is the extra parenthesis useful?
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYLiQYwAKCRDj7w1vZxhR
+xY3tAQCNDRo7aulJ5VeVRzqdd+tlvfHDwEv8T2XuJbx+a2+uQwD9GYltrs50+UPd
+23Wv2j7Qynv07biPvFD4miTXZeE54gw=
+=G3gn
+-----END PGP SIGNATURE-----
 
-> +               val_mask = LPAIF_IRQ_ALL(chan);
-> +               rv = regmap_update_bits(map, reg, val_mask, val_clr);
->                 if (rv) {
->                         dev_err(soc_runtime->dev,
->                                 "error writing to irqclear reg: %d\n", rv);
+--rkj45skaaxwizccg--

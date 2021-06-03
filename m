@@ -2,48 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97862399E2B
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 11:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B18FD399E3A
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 11:57:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 179CF16CA;
-	Thu,  3 Jun 2021 11:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 179CF16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2252216F7;
+	Thu,  3 Jun 2021 11:57:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2252216F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622713978;
-	bh=jymY0UU5csv7Cc3Qsm33nZ3EVW4y8i6rASl5KWFr1Bw=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1622714279;
+	bh=4TVdLqCYVtS2itMf7J25AxarDd3UIUhTCdM3TjsKi3s=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WlZ9NkOIokfgb6WR3tPtupg38owU6XOCmhT2EWvIX4IWoHvjS578CHHWwVX73YNyJ
-	 xaiuywR9jaHUXynyvUmb80w5Dx58P/zGz1BZpJo/1Y8QZ2oROd/GgzB3it+PHZFIIe
-	 et9Mqznnz1jvF/rMCMu1dzyWyIkeS6tJ/DEcZXPM=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 706DEF80253;
-	Thu,  3 Jun 2021 11:51:29 +0200 (CEST)
+	b=ex5sKDy3H66qKKAyNMoQLCfsQj3hy7CeA2keNw9umfWOhlEOLfKJK0gnV+QawAJfd
+	 RGAReTIvjcYtXhb7wx029VA9LYpfwdRj1hG1IZ1C4mqd22AvbcKwtGmu/Jp4uwY1b1
+	 Ps9hSHIZbFQW/f7oFC1Qoo9cCQOiQrwm62/NGqpk=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7645BF8025B;
+	Thu,  3 Jun 2021 11:56:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB3DCF80254; Thu,  3 Jun 2021 11:51:22 +0200 (CEST)
+ id 393D6F80254; Thu,  3 Jun 2021 11:56:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9B968F80100
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 11:51:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B968F80100
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 412ECF80100
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 11:56:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 412ECF80100
+Received: from ip5f5aa64a.dynamic.kabel-deutschland.de ([95.90.166.74]
+ helo=phil.lan)
+ by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <heiko@sntech.de>)
+ id 1lok5L-0004PQ-Ne; Thu, 03 Jun 2021 11:56:19 +0200
+From: Heiko Stuebner <heiko@sntech.de>
+To: alsa-devel@alsa-project.org,
+	Chris Morgan <macroalpha82@gmail.com>
+Subject: Re: (subset) [PATCH v12 0/4] ASoC: codecs: add rk817 support
+Date: Thu,  3 Jun 2021 11:56:17 +0200
+Message-Id: <162271417225.3165003.1198477663030831596.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210519203754.27184-1-macroalpha82@gmail.com>
+References: <20210519203754.27184-1-macroalpha82@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1622713875455584049-webhooks-bot@alsa-project.org>
-References: <1622713875455584049-webhooks-bot@alsa-project.org>
-Subject: Speakers + Microphone Volume Reset
-Message-Id: <20210603095122.AB3DCF80254@alsa1.perex.cz>
-Date: Thu,  3 Jun 2021 11:51:22 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
+ lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, linux-rockchip@lists.infradead.org,
+ robh+dt@kernel.org, Chris Morgan <macromorgan@hotmail.com>, jbx6244@gmail.com,
+ lee.jones@linaro.org, maccraft123mc@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,86 +73,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #144 was edited from rosenbergd:
+On Wed, 19 May 2021 15:37:50 -0500, Chris Morgan wrote:
+> This series is to add support for the Rockchip rk817 audio codec which
+> is present in all Rockchip rk817 MFD chips.
+> 
+> Changes in v12:
+>  - Updated codec cell in MFD driver to a single line.
+> Changes in v11:
+>  - Stopped checking for presence of parent node in codec driver, as
+>    driver should never be called if parent device doesn't exist to call
+>    it.
+>  - Made codec subnode optional and stopped returning errors if it is
+>    missing.
+>  - Downgraded missing codec clock message from dev_err to dev_dbg.
+>    Users who choose to use the rk817 PMIC but do not choose to use the
+>    codec will not get an error message unless they have debugging
+>    enabled, whereas users who wish to use the codec but don't have the
+>    clock defined will not get an error message unless they have
+>    debug messages enabled. This seems like a fair compromise between
+>    mututally exclusive users. Note that errors with the clock or codec
+>    will still result in a dev_err.
+>  - Updated DT documentation to note that codec subnode is optional if
+>    no properties are to exist beneath it.
+> Changes in v10:
+>  - Correct order of test/ack/signed-off to chronological order.
+>  - Removed ifdef from mfd driver keep cell from being added when the
+>    codec was not to be built.
+>  - Changed codec DT parsing messages from error to debug to prevent
+>    errors in dmesg log in the rare but valid case a user has the rk817
+>    PMIC but does not use the codec.
+> Changes in v9:
+>  - Add cover letter.
+>  - Remove documentation for interrupt parent per Rob Herring's request.
+>  - Remove unused MODULE_DEVICE_TABLE to fix a bug identified by kernel test
+>    robot.
+> Changes in v8:
+>  - Added additional documentation for missing properties of
+>    #sound-dai-cells, interrupt-parent, and wakeup-source for mfd
+>    documentation.
+>  - Corrected order of elements descriptions in device tree documentation.
+>  - Changed name of "mic-in-differential" to
+>    "rockchip,mic-in-differential".
+>  - Changed name of sound card from "rockchip,rk817-codec" to "Analog".
+>  - Removed unused resets and reset-names from the i2s1_2ch node.
+> Changes in v7:
+>  - Removed ifdef around register definitions for MFD.
+>  - Replaced codec documentation with updates to MFD documentation.
+>  - Reordered elements in example to comply with upstream rules.
+>  - Added binding update back for Odroid Go Advance as requested.
+>  - Submitting patches from gmail now.
+> Changes in v6:
+>  - Included additional project maintainers for correct subsystems.
+>  - Removed unneeded compatible from DT documentation.
+>  - Removed binding update for Odroid Go Advance (will do in separate
+>    series).
+> Changes in v5:
+>  - Move register definitions from rk817_codec.h to main rk808.h register
+>    definitions.
+>  - Add volatile register for codec bits.
+>  - Add default values for codec bits.
+>  - Removed of_compatible from mtd driver (not necessary).
+>  - Switched to using parent regmap instead of private regmap for codec.
+> Changes in v4:
+>  - Created set_pll() call.
+>  - Created user visible gain control in mic.
+>  - Check for return value of clk_prepare_enable().
+>  - Removed duplicate clk_prepare_enable().
+>  - Split DT documentation to separate commit.
+> Changes in v3:
+>  - Use DAPM macros to set audio path.
+>  - Updated devicetree binding (as every rk817 has this codec chip).
+>  - Changed documentation to yaml format.
+>  - Split MFD changes to separate commit.
+> Changes in v2:
+>  - Fixed audio path registers to solve some bugs.
+> 
+> [...]
 
-Every time I start up, connect or disconnect headphones, my volume resets to 74%, I've also noticed the microphone is doing the same thing.
+Applied, thanks!
 
-I'm not sure if this is a pulseaudio bug, but here are the logs from `pulseaudio -vv` which seems to show alsa increasing the volume to 74% after initially setting it to 25% which is the correct volume that it should be at:
-```
-D: [pulseaudio] module-alsa-card.c: Jack 'Headphone Jack' is now plugged in
-D: [pulseaudio] device-port.c: Setting port analog-output-headphones to status yes
-D: [pulseaudio] module-switch-on-port-available.c: Trying to switch to port analog-output-headphones
-I: [pulseaudio] alsa-sink.c: Successfully enabled deferred volume.
-I: [pulseaudio] alsa-sink.c: Hardware volume ranges from -179.00 dB to 0.00 dB.
-I: [pulseaudio] alsa-sink.c: Fixing base volume to 0.00 dB
-I: [pulseaudio] alsa-sink.c: Using hardware volume control. Hardware dB scale supported.
-I: [pulseaudio] alsa-sink.c: Using hardware mute control.
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Activating path analog-output-headphones
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Path analog-output-headphones (Headphones), direction=1, priority=99, probed=yes, supported=yes, has_mute=yes, has_volume=yes, has_dB=yes, min_volume=0, max_volume=64, min_dB=-179, max_dB=0
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Master', direction=1, switch=1, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x7ffffffffffff, n_channels=1, override_map=yes
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Headphone', direction=1, switch=1, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=4, required_absent=0, mask=0x3600000000f66, n_channels=2, override_map=yes
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Speaker', direction=1, switch=2, volume=2, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x6, n_channels=2, override_map=no
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Bass Speaker', direction=1, switch=2, volume=2, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x6, n_channels=2, override_map=no
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'PCM', direction=1, switch=0, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x3600000000f66, n_channels=2, override_map=yes
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'IEC958', direction=1, switch=2, volume=0, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x0, n_channels=0, override_map=no
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Dock Headphone, alsa_name='Dock Headphone Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Dock Headphone Phantom, alsa_name='Dock Headphone Phantom Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone, alsa_name='Front Headphone Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone, alsa_name='Front Headphone Jack', index='1', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Front, alsa_name='Front Headphone Front Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Surround, alsa_name='Front Headphone Surround Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Phantom, alsa_name='Front Headphone Phantom Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone, alsa_name='Headphone Jack', index='0', detection possible
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone Phantom, alsa_name='Headphone Phantom Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone Mic, alsa_name='Headphone Mic Jack', index='0', detection unavailable
-D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone - Output, alsa_name='Headphone - Output Jack', index='0', detection unavailable
-I: [pulseaudio] sink.c: Changed port of sink 0 "alsa_output.pci-0000_00_1f.3.analog-stereo" to analog-output-headphones
-I: [pulseaudio] module-device-restore.c: Restoring volume for sink alsa_output.pci-0000_00_1f.3.analog-stereo.
-D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 1369 /   2% / -100.80 dB,   front-right: 1369 /   2% / -100.80 dB to front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Requested volume: front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Got hardware volume: front-left: 16462 /  25% / -36.00 dB,   front-right: 16462 /  25% / -36.00 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Calculated software volume: front-left: 65210 / 100% / -0.13 dB,   front-right: 65210 / 100% / -0.13 dB (accurate-enough=yes)
-D: [alsa-sink-ALC892 Analog] sink.c: Volume going up to 16380 at 263091695
-D: [alsa-sink-ALC892 Analog] sink.c: Volume change to 16380 at 263091695 was written 5 usec late
-I: [pulseaudio] module-device-restore.c: Restoring mute state for sink alsa_output.pci-0000_00_1f.3.analog-stereo.
-D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from yes to no.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] device-port.c: Setting port analog-output-speaker to status no
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-21 to availability status no
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-21+input:analog-stereo to availability status no
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-40 to availability status no
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-40+input:analog-stereo to availability status no
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB
-D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB to front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB.
-D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from no to yes.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB
-D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB to front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from yes to no.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB to front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB.
-D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
-I: [pulseaudio] module-device-restore.c: Storing volume/mute for device+port sink:alsa_output.pci-0000_00_1f.3.analog-stereo:analog-output-headphones.
-I: [pulseaudio] module-device-restore.c: Synced.
-```
+[4/4] arm64: dts: rockchip: add rk817 codec to Odroid Go
+      commit: 18d5c7bf50c6d820c366c2a23d71d468b14c87d6
 
-I'm using Linux Mint 20.1 Cinnamon v4.8.6
-Kernel `v5.4.0-74` (but this was happening on `-73` as well)
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/144
-Repository URL: https://github.com/alsa-project/alsa-lib
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>

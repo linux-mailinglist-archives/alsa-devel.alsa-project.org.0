@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9582D39AA63
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 20:46:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3CC839AA64
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 20:46:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3B8E173D;
-	Thu,  3 Jun 2021 20:45:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3B8E173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E1151716;
+	Thu,  3 Jun 2021 20:45:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E1151716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622745974;
-	bh=0K8Es+G8lj02pn3FpkK4cLI99DHbFbizWUH7y6bSbgA=;
+	s=default; t=1622746008;
+	bh=0Iofu5y3yhdX3O5oSpp1e5/J4wQqZIC+DnVs7f+HKW8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qdjfrpXlFKM0Yr27jSrK8dKFzqD++LIaAyTKOlXqoat7wCZt//0+5p5GU8EKlMhkx
-	 TCK0ELPt1QJJTJmGanPJAXmVyuYpUe0ewriP3eP5Nrjj4ElUN3jFI1p9tnDn/sj8RP
-	 vkZSO6v1mNv90dX7SyhM7WGejJmmLu2mIY/l0JHo=
+	b=FNzSoWf+mdImCBCavEad6I5/SrfI7Q3WM5CVvJ7MGfdA2/sW2wDGAXr8s+MLCQOzN
+	 N23MgdXQ6SUKvtLoAdW3H6yPvU/RrzBTxPNXbq0SEQ1jUZWZIVVsHWn0mpHf3x4zP8
+	 y8hZtEXzFxBRKPUSK5ysNyfofCq8GEBLzAiweZ24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0AA4F804D8;
-	Thu,  3 Jun 2021 20:43:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEE99F804E6;
+	Thu,  3 Jun 2021 20:43:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48AE1F804CC; Thu,  3 Jun 2021 20:43:08 +0200 (CEST)
+ id 19BF4F804E5; Thu,  3 Jun 2021 20:43:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,38 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87476F804BD
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 20:43:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87476F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98FE0F804E3
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 20:43:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98FE0F804E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Cz+9o/wq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4AF70613F6;
- Thu,  3 Jun 2021 18:43:03 +0000 (UTC)
+ header.b="EfNP2vQe"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6317A613F6;
+ Thu,  3 Jun 2021 18:43:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622745783;
- bh=0K8Es+G8lj02pn3FpkK4cLI99DHbFbizWUH7y6bSbgA=;
+ s=k20201202; t=1622745788;
+ bh=0Iofu5y3yhdX3O5oSpp1e5/J4wQqZIC+DnVs7f+HKW8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Cz+9o/wqkhy+cc4IjLKLx4h4UQ9rZuXRiHIRBphB+YVF3NRua0ISmSmFQSpU1lUIF
- /y9NtHhSWQMVZLg/v7eCfFP00ccmITnSsXChKUhrAZN12ATDKmoFHtZ0Re1Y6RaHM8
- g4QQqgrU/VmnJeh+tZro5ElK5Dy+AYcI2w73N74wxnS2bm85N4H8uu0dc435hxj7p3
- PQItT0r/mktYTRlh/ujxOimbQLXiQFd/bMKbpEhSnsGr9X9Ku/ZgU3vhTXSHeV2uc+
- MGR3p6T5QPtpy/C+HzNrq/+nwdfynBD/ZagLgHAkMHUHzjeZ3CqnUP8ixHfvQYbFyZ
- KRhl2r6OUF0VQ==
+ b=EfNP2vQezPPicA0tJJ31s854sWmHHe1q9gHQXoJlWBs0ZkVyUpSOB1FX7ifyzK0BI
+ AoI0nUshYXTkSR41DhrNTFw0kVQTkP2sZ6yIsml0nh5wC9TMiv3Bk2OWxvPmh6c1gN
+ 6HGkh+lxJsdtpAYv3HrcZsocaydUSe1SXkTYmnP4pxqOB7RPPOAeV1eZr/SAdL6XzZ
+ ht/OAg9BZ/8x9exenFfPNjL1AUAcQnyX69kuwX0ZFQarCZX660pzDMiEKI3yQ0hk7P
+ jEUoGa8sjHc68iIN82Yz+P4pnmv3C6wkvpOxBf+XpQzvzJswKJXkshnQgYXo9HzzTp
+ k+hqIwP93tkDw==
 From: Mark Brown <broonie@kernel.org>
-To: Mark Pearson <markpearson@lenovo.com>
-Subject: Re: [PATCH] ASoC: AMD Renoir: Remove fix for DMI entry on Lenovo 2020
- platforms
-Date: Thu,  3 Jun 2021 19:42:02 +0100
-Message-Id: <162274557551.14795.18378266514386800154.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Yufen Yu <yuyufen@huawei.com>
+Subject: Re: [PATCH] ASoC: img: Fix PM reference leak in img_i2s_in_probe()
+Date: Thu,  3 Jun 2021 19:42:04 +0100
+Message-Id: <162274557552.14795.2836643143905262375.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210602171251.3243-1-markpearson@lenovo.com>
-References: <markpearson@lenovo.com>
- <20210602171251.3243-1-markpearson@lenovo.com>
+In-Reply-To: <20210524093521.612176-1-yuyufen@huawei.com>
+References: <20210524093521.612176-1-yuyufen@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Gabriel Craciunescu <unix.or.die@gmail.com>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
- stable@kernel.org
+Cc: yukuai3@huawei.com, Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,13 +81,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Jun 2021 13:12:51 -0400, Mark Pearson wrote:
-> Unfortunately the previous patch to fix issues using the AMD ACP bridge
-> has the side effect of breaking the dmic in other cases and needs to be
-> reverted.
-> 
-> Removing the changes while we revisit the fix and find something better.
-> Apologies for the churn.
+On Mon, 24 May 2021 05:35:21 -0400, Yufen Yu wrote:
+> pm_runtime_get_sync will increment pm usage counter even it failed.
+> Forgetting to putting operation will result in reference leak here.
+> Fix it by replacing it with pm_runtime_resume_and_get to keep usage
+> counter balanced.
 
 Applied to
 
@@ -97,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: AMD Renoir: Remove fix for DMI entry on Lenovo 2020 platforms
-      commit: 320232caf1d8febea17312dab4b2dfe02e033520
+[1/1] ASoC: img: Fix PM reference leak in img_i2s_in_probe()
+      commit: 81aad47278539f02de808bcc8251fed0ad3d6f55
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

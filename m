@@ -2,119 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41B9399C6B
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 10:20:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF16E399E1D
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 11:51:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 542CA16F4;
-	Thu,  3 Jun 2021 10:19:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 542CA16F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26D7C16F3;
+	Thu,  3 Jun 2021 11:50:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26D7C16F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622708435;
-	bh=TwuV2ha2tJsTpTc91CLj3/nFVE9pHYO8daaw5cAu/GA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1622713862;
+	bh=i38MWEdSonrIsNVLuinOsurUcc4+02iBTM2VFrlVytM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tSOo2NUc4BW69SlQANN4stq6WICb7YOAMtpe7gO9LQb7LTlcMlJNSk5K6EgJoyleh
-	 W9nP8uwf7OFNe8+7TlMSTUX2AKkwHWHUeUZ/PZO5cHUlzOMn/Y1/7YmxMvcyQw/3DG
-	 23U6f6gqkGsDXXSKSJCnTjhighkW6yQz095NFezU=
+	b=ImCIUGu241V2XaBTBpplL7/v/z8S3DSwGsCNlDcMEJzJ1g4MxlRLxXmwLHeAKALQj
+	 HkeAKHm99iUIflAkPchrPebWfmkMpYNwSHCeH1WT071LCQnlO5N6nbM/tPGsbFPQXA
+	 iSL0Zh00kaiF1ZNj7V2vi45KmbyhJRwV+05gIdeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9489F800E5;
-	Thu,  3 Jun 2021 10:19:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88ED9F8025B;
+	Thu,  3 Jun 2021 11:49:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C331FF80254; Thu,  3 Jun 2021 10:19:03 +0200 (CEST)
+ id 3F6F9F80254; Thu,  3 Jun 2021 11:49:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E71B3F80103
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 10:18:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71B3F80103
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="bmc529wQ"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="cXN7Hape"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 5D547580D7B;
- Thu,  3 Jun 2021 04:18:48 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 03 Jun 2021 04:18:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=TwuV2ha2tJsTpTc91CLj3/nFVE9
- pHYO8daaw5cAu/GA=; b=bmc529wQ/ycDZT1mFhRMsS5hx2i+7bVsoVSMBpt1R2E
- /XTVA58cdE+uhOYWpksVNPd6m2RigwpliF/zpb4KwAVsV/0ewE5nfsDAOp0vu5PP
- 4agDFkGE/RmBRlz8D7J2lOj1yU5InJLXG/kzts+EJgpsY+UK0+saKXPkWFZwuD0J
- HaQQIREDCXqP6EG7zFbfFQ2/EAVuXmzz6KfZ/GcGyXSJTo6MQMFDNJiqwPhJwEtT
- WzeKeGwTmgKiuvt2UV51IgFwlTZxcpHFrGJYXnw2UnHRiskKj8iU+X8unZ1fBQ37
- t7qSxgVha2kDQc9iPKBEs0zJ96GNo50B9bS9LkvG+7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=TwuV2h
- a2tJsTpTc91CLj3/nFVE9pHYO8daaw5cAu/GA=; b=cXN7HapewSBA26vXGphUOj
- KTO3JU8zvSB+2zoOxEuo8VBWwGQPUOdmbvonVDLpAbwMo9hbFEkyRm5JcH0xT2TT
- CeOkvNNeg4e0K1WYGbYVBJ+0eeA6rUYGBW7pGIFVgf2T38n+VzdOccwvvfjOTU/m
- rWe3y47+JtQyQx6V27xYJL+LrPsM4alHivsuLrJoZXnndw33kwiIEZ+6OpFvw9Fm
- rxtfnApe9yP1jDQbR3l3KdUwMNZu5qFKbKpMwuEmC4CI0PNsBtFSj/pZBYuM9Sr0
- 23gm05asHBlVddMdtjxj8aA4MrehKYtzJV/aVdSs2zTCbJq/TyQKUe8lYNqgH3zg
- ==
-X-ME-Sender: <xms:ZpC4YAyP1DoSpNjxBM9snafm74YZe9v1HNc20eO9Lu0ZpChEgaYCJw>
- <xme:ZpC4YETMC5Tn8Ks6QwW1BQjwdTtMTW8sNG6YCfBHwmvE3nvFMBxvfdtWAfZHmwwhS
- oes8lrqzOtyJHo897w>
-X-ME-Received: <xmr:ZpC4YCVpm-Dd8yskZiENlD6BG5M3hh7pi8ZqgcyVT8WsvIwi2h7f_N7va8471NLYl_deMvJhSjNb7xouQBBHC0aQwhScHy6fIF5X>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdelledgtdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:ZpC4YOhuoovgCtB9ahz98RraRepUfHrwGs1oRpbSzOH5fq3sorGrLQ>
- <xmx:ZpC4YCBt8Q3HGL-b_3WDuaSh_8z_-KgwfBQSZTqr1hupYrULkTMfIw>
- <xmx:ZpC4YPLSPLKbhiFwrgrp5aVHUC87bgIZEkvt4MA1oF5WZLU-xEtgHw>
- <xmx:aJC4YDwuoE0lyEmcAHKW0O8fMxzaGEbBYXAF9H32z6jEnNSWstq_wQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 3 Jun 2021 04:18:46 -0400 (EDT)
-Date: Thu, 3 Jun 2021 10:18:43 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 05/12] ASoC: hdmi-codec: Add a prepare hook
-Message-ID: <20210603081843.nwjlcoik7aubct2p@gilmour>
-References: <20210525132354.297468-1-maxime@cerno.tech>
- <20210525132354.297468-6-maxime@cerno.tech>
- <YK4lWaB6Lx+SPjpF@sirena.org.uk>
- <20210531094213.kuuunk7ytu3q6sq6@gilmour>
- <s5hzgwb17ji.wl-tiwai@suse.de>
- <20210601123600.GA4089@sirena.org.uk>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 08939F80100
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 11:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08939F80100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="rkj45skaaxwizccg"
-Content-Disposition: inline
-In-Reply-To: <20210601123600.GA4089@sirena.org.uk>
-Cc: alsa-devel@alsa-project.org, Tim Gover <tim.gover@raspberrypi.com>,
- linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.de>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel.vetter@intel.com>,
- Phil Elwell <phil@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@linux.ie>, bcm-kernel-feedback-list@broadcom.com,
- devicetree@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Dom Cobley <dom@raspberrypi.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1622713761312242985-webhooks-bot@alsa-project.org>
+References: <1622713761312242985-webhooks-bot@alsa-project.org>
+Subject: Speakers + Microphone Volume Reset
+Message-Id: <20210603094931.3F6F9F80254@alsa1.perex.cz>
+Date: Thu,  3 Jun 2021 11:49:31 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,42 +59,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-lib issue #144 was opened from rosenbergd:
 
---rkj45skaaxwizccg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Every time I start up, connect or disconnect headphones, my volume resets to 74%, I've also noticed the microphone is doing the same thing.
 
-Hi,
+I'm not sure if this is a pulseaudio bug, but here are the logs from `pulseaudio -vv` which seems to show alsa increasing the volume to 74% after initially setting it to 25% which is the correct volume that it should be at:
+```
+D: [pulseaudio] module-alsa-card.c: Jack 'Headphone Jack' is now plugged in
+D: [pulseaudio] device-port.c: Setting port analog-output-headphones to status yes
+D: [pulseaudio] module-switch-on-port-available.c: Trying to switch to port analog-output-headphones
+I: [pulseaudio] alsa-sink.c: Successfully enabled deferred volume.
+I: [pulseaudio] alsa-sink.c: Hardware volume ranges from -179.00 dB to 0.00 dB.
+I: [pulseaudio] alsa-sink.c: Fixing base volume to 0.00 dB
+I: [pulseaudio] alsa-sink.c: Using hardware volume control. Hardware dB scale supported.
+I: [pulseaudio] alsa-sink.c: Using hardware mute control.
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Activating path analog-output-headphones
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Path analog-output-headphones (Headphones), direction=1, priority=99, probed=yes, supported=yes, has_mute=yes, has_volume=yes, has_dB=yes, min_volume=0, max_volume=64, min_dB=-179, max_dB=0
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Master', direction=1, switch=1, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x7ffffffffffff, n_channels=1, override_map=yes
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Headphone', direction=1, switch=1, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=4, required_absent=0, mask=0x3600000000f66, n_channels=2, override_map=yes
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Speaker', direction=1, switch=2, volume=2, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x6, n_channels=2, override_map=no
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'Bass Speaker', direction=1, switch=2, volume=2, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x6, n_channels=2, override_map=no
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'PCM', direction=1, switch=0, volume=1, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x3600000000f66, n_channels=2, override_map=yes
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Element 'IEC958', direction=1, switch=2, volume=0, volume_limit=-1, enumeration=0, required=0, required_any=0, required_absent=0, mask=0x0, n_channels=0, override_map=no
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Dock Headphone, alsa_name='Dock Headphone Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Dock Headphone Phantom, alsa_name='Dock Headphone Phantom Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone, alsa_name='Front Headphone Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone, alsa_name='Front Headphone Jack', index='1', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Front, alsa_name='Front Headphone Front Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Surround, alsa_name='Front Headphone Surround Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Front Headphone Phantom, alsa_name='Front Headphone Phantom Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone, alsa_name='Headphone Jack', index='0', detection possible
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone Phantom, alsa_name='Headphone Phantom Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone Mic, alsa_name='Headphone Mic Jack', index='0', detection unavailable
+D: [alsa-sink-ALC892 Analog] alsa-mixer.c: Jack Headphone - Output, alsa_name='Headphone - Output Jack', index='0', detection unavailable
+I: [pulseaudio] sink.c: Changed port of sink 0 "alsa_output.pci-0000_00_1f.3.analog-stereo" to analog-output-headphones
+I: [pulseaudio] module-device-restore.c: Restoring volume for sink alsa_output.pci-0000_00_1f.3.analog-stereo.
+D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 1369 /   2% / -100.80 dB,   front-right: 1369 /   2% / -100.80 dB to front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Requested volume: front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Got hardware volume: front-left: 16462 /  25% / -36.00 dB,   front-right: 16462 /  25% / -36.00 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Calculated software volume: front-left: 65210 / 100% / -0.13 dB,   front-right: 65210 / 100% / -0.13 dB (accurate-enough=yes)
+D: [alsa-sink-ALC892 Analog] sink.c: Volume going up to 16380 at 263091695
+D: [alsa-sink-ALC892 Analog] sink.c: Volume change to 16380 at 263091695 was written 5 usec late
+I: [pulseaudio] module-device-restore.c: Restoring mute state for sink alsa_output.pci-0000_00_1f.3.analog-stereo.
+D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from yes to no.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] device-port.c: Setting port analog-output-speaker to status no
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-21 to availability status no
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-21+input:analog-stereo to availability status no
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-40 to availability status no
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] card.c: Setting card alsa_card.pci-0000_00_1f.3 profile output:analog-surround-40+input:analog-stereo to availability status no
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB
+D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 16380 /  25% / -36.13 dB,   front-right: 16380 /  25% / -36.13 dB to front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB.
+D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from no to yes.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB
+D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 5578 /   9% / -64.20 dB,   front-right: 5578 /   9% / -64.20 dB to front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [pulseaudio] sink.c: The mute of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from yes to no.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [pulseaudio] sink.c: The reference volume of sink alsa_output.pci-0000_00_1f.3.analog-stereo changed from front-left: 49714 /  76% / -7.20 dB,   front-right: 49714 /  76% / -7.20 dB to front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB.
+D: [pulseaudio] core-subscribe.c: Dropped redundant event due to change event.
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+D: [alsa-sink-ALC892 Analog] alsa-sink.c: Read hardware volume: front-left: 48583 /  74% / -7.80 dB,   front-right: 48583 /  74% / -7.80 dB
+I: [pulseaudio] module-device-restore.c: Storing volume/mute for device+port sink:alsa_output.pci-0000_00_1f.3.analog-stereo:analog-output-headphones.
+I: [pulseaudio] module-device-restore.c: Synced.
+```
 
-On Tue, Jun 01, 2021 at 01:36:24PM +0100, Mark Brown wrote:
-> On Mon, May 31, 2021 at 01:12:17PM +0200, Takashi Iwai wrote:
-> > Maxime Ripard wrote:
->=20
-> > > There's a build dependency between the DRM bits and the new hook
-> > > introduced in hdmi-codec, would you be ok with merging it through the
-> > > drm tree?
->=20
-> > Speaking of ALSA core changes, I'm fine with that.
->=20
-> Yeah, a pull request for the shared bits would be handy in case there's
-> some collision with other work.
-
-I guess the easiest then would be for you to merge the patches and send
-a PR? Assuming you don't want to pull half of DRM of course :)
-
-Maxime
-
-
---rkj45skaaxwizccg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYLiQYwAKCRDj7w1vZxhR
-xY3tAQCNDRo7aulJ5VeVRzqdd+tlvfHDwEv8T2XuJbx+a2+uQwD9GYltrs50+UPd
-23Wv2j7Qynv07biPvFD4miTXZeE54gw=
-=G3gn
------END PGP SIGNATURE-----
-
---rkj45skaaxwizccg--
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/144
+Repository URL: https://github.com/alsa-project/alsa-lib

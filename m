@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8CEA39A7D4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:11:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDBB39A7F5
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:11:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 432DF1712;
-	Thu,  3 Jun 2021 19:10:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 432DF1712
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19D321715;
+	Thu,  3 Jun 2021 19:11:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19D321715
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622740298;
-	bh=UtaTbqjqvTZDE1FmFEJXLNETUsHxwA5ZfmWH+yUhYX4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ddBQTHELKdjM6K69CNyX7r02zaBpJ65Ngxza3jrwAjLqOO4oqOSccuw/smDo0KtFv
-	 KM/r2VqbLX3jANKY+dz5T8OVM9Gk28fe4h+iuxXzsgvMeLEL6ZVYMQ6uwjglSnwLKY
-	 LJB/iKpqOsIIjArbwoZt/tsp6l4B3FVpic5VO/Eg=
+	s=default; t=1622740315;
+	bh=se+aOlbWApVvK3k0JF45tpjgMrRLW7650QOY6f5iKO4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ChEOJ+Osg2QH/GsWxnK1Yxbbm6wl6aseh7bKQJNTE9QcwOoT9yEJqZOp72lsdKaUo
+	 vULcoW4XHpAteenVqFmMC4VQXLnduQPUs0QnAAIvu/143zELfRVWqJDP8QZ4As3d6e
+	 gvPidZ/uYkJlsMwpAmiLoTIC50r085iShDQLBy5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D421CF804E6;
-	Thu,  3 Jun 2021 19:07:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A61BDF804EC;
+	Thu,  3 Jun 2021 19:08:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AECEF804D9; Thu,  3 Jun 2021 19:07:57 +0200 (CEST)
+ id 800AAF804ED; Thu,  3 Jun 2021 19:08:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +33,38 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02527F804CA
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02527F804CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C8D5F804E7
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:08:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C8D5F804E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="go1GS4Ni"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CE711613F6;
- Thu,  3 Jun 2021 17:07:52 +0000 (UTC)
+ header.b="sQWh2q7t"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C63F613F1;
+ Thu,  3 Jun 2021 17:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622740073;
- bh=UtaTbqjqvTZDE1FmFEJXLNETUsHxwA5ZfmWH+yUhYX4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=go1GS4Ni7z2L8i+XlGkNyir9fopruZEVPoUtkWS1LhQvxVN7p56CweDSU3nPog7z3
- +DkpjjGwjIguhBbkNqeqczdWVAzb7VazYf5gsbPgILKt5hfaS3a6vRApXrNb2wuGOD
- lRNSmi5JWO/0z2ksRDO0IbI412MXsYL9Xitj2TIRCcWf11iDO6D72Hnwbm9aUkadbv
- rzhJVqZ06meJn+skyVaw3EpCCqhNVqyMla5kXkPeldL8w9cTLe4Vxm3KOEE6UK8omI
- 3bJFQleEu3jCKfcdeqsfjs3opx9qXXb4+abejdP3oAY+Ejope6CuzupvB237a9iIQH
- ZVOU7ghzzFlKA==
+ s=k20201202; t=1622740111;
+ bh=se+aOlbWApVvK3k0JF45tpjgMrRLW7650QOY6f5iKO4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=sQWh2q7tL0k0l3qqCDtC9SzXTebDbjRQ1+qJ3TKtOpZQl3+Jl1m7hLwCDGXAxKefY
+ WWSifweRSv3A+PeZ4Q7kP50cSrCwazF6tbb/FdR91PeQ97m0KVoM+OBq3WIUj6Sfbr
+ mzMZOlnuF5NNm+DvUCAFYHZ1hhGT6DFf+Vr7dm+bP1KRqwIb0A+ifbL8Gix8DUcVWk
+ 6h3llG37KCEGpqBiS8z9GKNETiBtkQ0fh9iKoprPuaJ7os+STkGETRel0ftn1UkVZg
+ 6of0WWc7u2yHMJBltIum7RL1NI+K2SNA0yZRF9chfPBnZ7xlE88W7VH/6c4r+sq6Qt
+ vsnDxR0KfWLBQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 15/43] ASoC: sti-sas: add missing
- MODULE_DEVICE_TABLE
-Date: Thu,  3 Jun 2021 13:07:05 -0400
-Message-Id: <20210603170734.3168284-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/39] ASoC: max98088: fix ni clock divider
+ calculation
+Date: Thu,  3 Jun 2021 13:07:51 -0400
+Message-Id: <20210603170829.3168708-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210603170734.3168284-1-sashal@kernel.org>
-References: <20210603170734.3168284-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
- Zou Wei <zou_wei@huawei.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +80,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zou Wei <zou_wei@huawei.com>
+From: Marco Felsch <m.felsch@pengutronix.de>
 
-[ Upstream commit e072b2671606c77538d6a4dd5dda80b508cb4816 ]
+[ Upstream commit 6c9762a78c325107dc37d20ee21002b841679209 ]
 
-This patch adds missing MODULE_DEVICE_TABLE definition which generates
-correct modalias for automatic loading of this driver when it is built
-as an external module.
+The ni1/ni2 ratio formula [1] uses the pclk which is the prescaled mclk.
+The max98088 datasheet [2] has no such formula but table-12 equals so
+we can assume that it is the same for both devices.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Zou Wei <zou_wei@huawei.com>
-Link: https://lore.kernel.org/r/1620789145-14936-1-git-send-email-zou_wei@huawei.com
+While on it make use of DIV_ROUND_CLOSEST_ULL().
+
+[1] https://datasheets.maximintegrated.com/en/ds/MAX98089.pdf; page 86
+[2] https://datasheets.maximintegrated.com/en/ds/MAX98088.pdf; page 82
+
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Link: https://lore.kernel.org/r/20210423135402.32105-1-m.felsch@pengutronix.de
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/sti-sas.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/max98088.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/sti-sas.c b/sound/soc/codecs/sti-sas.c
-index ec9933b054ad..423daac9d5a9 100644
---- a/sound/soc/codecs/sti-sas.c
-+++ b/sound/soc/codecs/sti-sas.c
-@@ -411,6 +411,7 @@ static const struct of_device_id sti_sas_dev_match[] = {
- 	},
- 	{},
- };
-+MODULE_DEVICE_TABLE(of, sti_sas_dev_match);
- 
- static int sti_sas_driver_probe(struct platform_device *pdev)
- {
+diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
+index 4be24e7f51c8..f8e49e45ce33 100644
+--- a/sound/soc/codecs/max98088.c
++++ b/sound/soc/codecs/max98088.c
+@@ -41,6 +41,7 @@ struct max98088_priv {
+ 	enum max98088_type devtype;
+ 	struct max98088_pdata *pdata;
+ 	struct clk *mclk;
++	unsigned char mclk_prescaler;
+ 	unsigned int sysclk;
+ 	struct max98088_cdata dai[2];
+ 	int eq_textcnt;
+@@ -998,13 +999,16 @@ static int max98088_dai1_hw_params(struct snd_pcm_substream *substream,
+        /* Configure NI when operating as master */
+        if (snd_soc_component_read(component, M98088_REG_14_DAI1_FORMAT)
+                & M98088_DAI_MAS) {
++               unsigned long pclk;
++
+                if (max98088->sysclk == 0) {
+                        dev_err(component->dev, "Invalid system clock frequency\n");
+                        return -EINVAL;
+                }
+                ni = 65536ULL * (rate < 50000 ? 96ULL : 48ULL)
+                                * (unsigned long long int)rate;
+-               do_div(ni, (unsigned long long int)max98088->sysclk);
++               pclk = DIV_ROUND_CLOSEST(max98088->sysclk, max98088->mclk_prescaler);
++               ni = DIV_ROUND_CLOSEST_ULL(ni, pclk);
+                snd_soc_component_write(component, M98088_REG_12_DAI1_CLKCFG_HI,
+                        (ni >> 8) & 0x7F);
+                snd_soc_component_write(component, M98088_REG_13_DAI1_CLKCFG_LO,
+@@ -1065,13 +1069,16 @@ static int max98088_dai2_hw_params(struct snd_pcm_substream *substream,
+        /* Configure NI when operating as master */
+        if (snd_soc_component_read(component, M98088_REG_1C_DAI2_FORMAT)
+                & M98088_DAI_MAS) {
++               unsigned long pclk;
++
+                if (max98088->sysclk == 0) {
+                        dev_err(component->dev, "Invalid system clock frequency\n");
+                        return -EINVAL;
+                }
+                ni = 65536ULL * (rate < 50000 ? 96ULL : 48ULL)
+                                * (unsigned long long int)rate;
+-               do_div(ni, (unsigned long long int)max98088->sysclk);
++               pclk = DIV_ROUND_CLOSEST(max98088->sysclk, max98088->mclk_prescaler);
++               ni = DIV_ROUND_CLOSEST_ULL(ni, pclk);
+                snd_soc_component_write(component, M98088_REG_1A_DAI2_CLKCFG_HI,
+                        (ni >> 8) & 0x7F);
+                snd_soc_component_write(component, M98088_REG_1B_DAI2_CLKCFG_LO,
+@@ -1113,8 +1120,10 @@ static int max98088_dai_set_sysclk(struct snd_soc_dai *dai,
+         */
+        if ((freq >= 10000000) && (freq < 20000000)) {
+                snd_soc_component_write(component, M98088_REG_10_SYS_CLK, 0x10);
++               max98088->mclk_prescaler = 1;
+        } else if ((freq >= 20000000) && (freq < 30000000)) {
+                snd_soc_component_write(component, M98088_REG_10_SYS_CLK, 0x20);
++               max98088->mclk_prescaler = 2;
+        } else {
+                dev_err(component->dev, "Invalid master clock frequency\n");
+                return -EINVAL;
 -- 
 2.30.2
 

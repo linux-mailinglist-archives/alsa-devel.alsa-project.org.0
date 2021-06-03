@@ -2,73 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 072F739A819
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5F2239AA56
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 20:44:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8231E176F;
-	Thu,  3 Jun 2021 19:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8231E176F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FF5D171A;
+	Thu,  3 Jun 2021 20:43:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FF5D171A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622740628;
-	bh=lx8jq7mPqQ3kCY7XSW3VJbgNJ/7c/ehoVg1psI985bY=;
+	s=default; t=1622745870;
+	bh=dK344AYhL5UdIXsXyGR81o2iDDv2rRrDw4+wQpxmiIk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SiBdEcV6ROQ6ImHA0wDzjXOSzklu3ppFrrpF/1ktytYPqEIn4rRGsopAItKv/hisN
-	 Bv0dOBo3TQ48XomIz7RnJsnVEGbQhn214tfGo1vQDKCZSiuBSe/Qa1xbYuaI1kFpXm
-	 iy8iAcL+MRwz7717DMYHpV01bPy3BW90aVaShhOo=
+	b=pjXH0iGj4t5EIY+GdDLgU8tiLnME5QBM55cfErTOJBy6TZx871bIWIDnEBr7w/ahX
+	 vncnKNqFC8Ab7kiUzf6OhlQs7hfKp/hEl1BWtVIFLxkyIV2joJGmm8vhkz1xyCdZrs
+	 kaZIAf0aUmW3S+KUIAyUX13aHflDe2c/vVPdQSFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38F67F80529;
-	Thu,  3 Jun 2021 19:11:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9630CF80103;
+	Thu,  3 Jun 2021 20:43:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C7E4F804E3; Thu,  3 Jun 2021 19:11:27 +0200 (CEST)
+ id 9A92AF80254; Thu,  3 Jun 2021 20:42:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D43B6F804CA
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D43B6F804CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B43AF80254
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 20:42:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B43AF80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qkc5eXgx"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 521BC61414;
- Thu,  3 Jun 2021 17:11:17 +0000 (UTC)
+ header.b="PL77kvMf"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BCDDA613BA;
+ Thu,  3 Jun 2021 18:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622740278;
- bh=lx8jq7mPqQ3kCY7XSW3VJbgNJ/7c/ehoVg1psI985bY=;
+ s=k20201202; t=1622745768;
+ bh=dK344AYhL5UdIXsXyGR81o2iDDv2rRrDw4+wQpxmiIk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qkc5eXgxJhy1tQr3mxka9X/GLNxEKVpcusUotk4mZF53foC+3RslRu3w+cPDixXp+
- j5pQBYEcF0XQcSxzO1Qgf3Gv6srwrxQ2cbVUYq2EjZNdWUOe+Kl9lUKkpoYAFuv6MB
- rdfyIPgBgIdBoTF0KFSgjgXob4h0llc7EXLpQIHp+hh9ccYYuqL1l9DZywlH3zUSVd
- hO+KBrWe2EkxIVRRUdstB+LlyqyLG/CcFm+eE0OH0ldQE6RYqBTa5yOx4hqjeLZCIU
- aYTFQdgXMVLVzXYwFOKmF/LNLMZtP7AVifhA2Js3YtvRrWU3bPWqF4Ymfs93tgDQzG
- bfwldV+49fwvA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 02/15] ASoC: sti-sas: add missing
- MODULE_DEVICE_TABLE
-Date: Thu,  3 Jun 2021 13:11:01 -0400
-Message-Id: <20210603171114.3170086-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210603171114.3170086-1-sashal@kernel.org>
-References: <20210603171114.3170086-1-sashal@kernel.org>
+ b=PL77kvMfw2heJBRnYmEaMAxoYAHzBeIjcGX+7kItGMatQDu166HfGF6MQg2Uq4oKv
+ PpVT5HwMtIapfS8YuBPGBc4J+hcDy468InGFKosFzpbV3pfkqMv9NbFE2A5O5HR7J2
+ OXIVDTwpcctYh169WMeMd+ic/OYjiCXBFcCkdAdzc/XW7TqkDJtWTLOYgX1rKapLbu
+ o4/FuWRjmszz6Gw9Fq9/URvYtHsVNLisvf17UI391CrfQlMkH8eg7oZd5KOBvm365l
+ e+ktyTZ6h9nVWx+FZQEmu4RwtwqMWgG104nF8ULiL6HPsF4vkEqjJnlZnyQDIdPmdv
+ /g7oNwI3cDzww==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/5] ASoC: rsnd: tidyup adg and header
+Date: Thu,  3 Jun 2021 19:41:56 +0100
+Message-Id: <162274557551.14795.5426891535492687670.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <87v96xi22i.wl-kuninori.morimoto.gx@renesas.com>
+References: <87v96xi22i.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
- Zou Wei <zou_wei@huawei.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +79,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zou Wei <zou_wei@huawei.com>
+On 02 Jun 2021 08:43:01 +0900, Kuninori Morimoto wrote:
+> I noticed that adg can be more clean code.
+> And rsnd.h header comment was not so good
+> because patch has been randomly added.
+> 
+> This patch tidyup these.
+> 
+> Kuninori Morimoto (5):
+>   ASoC: rsnd: adg: supply __printf(x, y) formatting for dbg_msg()
+>   ASoC: rsnd: adg: tidyup rsnd_adg_get_clkin/out() parameter
+>   ASoC: rsnd: adg: use more simple method for null_clk
+>   ASoC: rsnd: adg: check return value for rsnd_adg_get_clkin/out()
+>   ASoC: rsnd: tidyup __rsnd_mod_xxx macro comments
+> 
+> [...]
 
-[ Upstream commit e072b2671606c77538d6a4dd5dda80b508cb4816 ]
+Applied to
 
-This patch adds missing MODULE_DEVICE_TABLE definition which generates
-correct modalias for automatic loading of this driver when it is built
-as an external module.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Zou Wei <zou_wei@huawei.com>
-Link: https://lore.kernel.org/r/1620789145-14936-1-git-send-email-zou_wei@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/sti-sas.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks!
 
-diff --git a/sound/soc/codecs/sti-sas.c b/sound/soc/codecs/sti-sas.c
-index 160d61a66204..71a1fde5a7ef 100644
---- a/sound/soc/codecs/sti-sas.c
-+++ b/sound/soc/codecs/sti-sas.c
-@@ -542,6 +542,7 @@ static const struct of_device_id sti_sas_dev_match[] = {
- 	},
- 	{},
- };
-+MODULE_DEVICE_TABLE(of, sti_sas_dev_match);
- 
- static int sti_sas_driver_probe(struct platform_device *pdev)
- {
--- 
-2.30.2
+[1/5] ASoC: rsnd: adg: supply __printf(x, y) formatting for dbg_msg()
+      commit: 2cdfe6520c939aff60bf78be2fc682e7635d0618
+[2/5] ASoC: rsnd: adg: tidyup rsnd_adg_get_clkin/out() parameter
+      commit: b48e4aa48931030382d26c624cf4ae1c68d15666
+[3/5] ASoC: rsnd: adg: use more simple method for null_clk
+      commit: cb2f97d89f383dafa822bce66f0c3514dfb135b8
+[4/5] ASoC: rsnd: adg: check return value for rsnd_adg_get_clkin/out()
+      commit: d668a5e2409b2ff9291493b70c961ecbe883bfb2
+[5/5] ASoC: rsnd: tidyup __rsnd_mod_xxx macro comments
+      commit: 3f4593fb4a9ddb53edefcbf7d4c5fd1f04717422
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AED239AA57
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 20:44:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D882B39AA62
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 20:46:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FA10172A;
-	Thu,  3 Jun 2021 20:43:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FA10172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D35C171F;
+	Thu,  3 Jun 2021 20:45:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D35C171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622745884;
-	bh=aKL4P90UklmZRmziqJ/4jcRmInWRC0xeazGe6Lr2jnI=;
+	s=default; t=1622745961;
+	bh=TRbzEjqd6F1rvkQqzUZpCxer4BSH6P4i4D6NOAwFxe8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LdcFYmFwqLiBLQJTYdse+j5SJ9fawgeBQ7Ear4ttoLPyNrVXIN7RzB6apu3K02HJH
-	 dXj/j/lPReiotM9QmhVdkKSP/Dk4nlHrf0Lc+mRzS8sTuQRT8OikQvK/fbynpVbS1K
-	 FpEYoxT5N3gDkjE38J+5vZ926TpifF3gKWIcleLs=
+	b=oRo43VKz4afWRP/OXNtmj7sYeK+yePafBzVdf5aXEXVnX4ZvWyDlDfWMja/Jiiy1G
+	 5+9KKMK7bh/FaUitdUASNfb6+XXGHmFhZr2Xx+d1caN3PbUSYHzCa36tIQJonFzvZM
+	 mItuT2fK6GF0czx7893rKh7E5yEr6g0UHhKicaQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A182F802E7;
-	Thu,  3 Jun 2021 20:43:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9D1EF804BD;
+	Thu,  3 Jun 2021 20:43:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 404D0F804AF; Thu,  3 Jun 2021 20:43:01 +0200 (CEST)
+ id 9C5F4F80254; Thu,  3 Jun 2021 20:43:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,40 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA396F80100
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 20:42:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA396F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 966C6F80254
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 20:43:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 966C6F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gCFuQkJ8"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 80F45613F8;
- Thu,  3 Jun 2021 18:42:55 +0000 (UTC)
+ header.b="SJsMMI4M"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B5094613F4;
+ Thu,  3 Jun 2021 18:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622745776;
- bh=aKL4P90UklmZRmziqJ/4jcRmInWRC0xeazGe6Lr2jnI=;
+ s=k20201202; t=1622745781;
+ bh=TRbzEjqd6F1rvkQqzUZpCxer4BSH6P4i4D6NOAwFxe8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gCFuQkJ81vzUEtnrRDrzXadZrf0q7YjMasCaVD30QD5waYSlkzz7Gp9XqlCf4WW1p
- 53ZYMO5SzDVoqBQy0Pvvi2xBWpSyvfXp75MCEy4MNPCKGdd1qKfTnAwm6m/2PksaA2
- /9OCyjB1D/sHKE/BIPQkFGClsam8tVih6netE2WQ+qNl5QTq8MrYRvOaUsQSuFx1dL
- zOIwKWFDYim+LkEZhWgIgQ4R4vBPbm+Xl69Uu5SA2kdlRKhtboVFS9/aG0qoq4entZ
- lkJ1NhUMy01y5grIdP+xi7O/phdyev9u2lnOmPLaoou1jduKopebM/uQCj/bbbMnn2
- hK8n4N5fTDM9A==
+ b=SJsMMI4MXP6sLkNxkoE83JPmAiojQcAr4jtAejzDvnBuIT2pWpzHkkkUgkThOxfck
+ py8jPSVZDyHZK3W+gkBn3rCOwDn/djkIJYORFRohQAp+bcxdK5OgMUBOSM3a/gPFXZ
+ FpIdKY/pnif7YpRZE+W6TU0eOsdJ2sZzjlkeVZWRZBlNNs8B4FYkadG3/IUnBkv7ps
+ IZxiWpzpfWL/xU6QloCYxvJWbxi0G7GHuwIwWKYB+IjpK9etylm6InWW/IFA2Y1gYt
+ FqHT2/v32s6pLoNnV34YTXerb3Y9DyoI8oh7HUwHDWz3LArL0KYHbhqYS1g8dSQFsm
+ GuaYDuQjW1pug==
 From: Mark Brown <broonie@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert imx-audmux binding to json
- schema
-Date: Thu,  3 Jun 2021 19:41:59 +0100
-Message-Id: <162274557552.14795.1322019660591642626.b4-ty@kernel.org>
+To: Colin King <colin.king@canonical.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH][next][V2] ASoC: rsnd: check for zero node count
+Date: Thu,  3 Jun 2021 19:42:01 +0100
+Message-Id: <162274557552.14795.11440858083758467099.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210531064752.8809-1-o.rempel@pengutronix.de>
-References: <20210531064752.8809-1-o.rempel@pengutronix.de>
+In-Reply-To: <20210603110315.81146-1-colin.king@canonical.com>
+References: <20210603110315.81146-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
- Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,8 +83,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 31 May 2021 08:47:52 +0200, Oleksij Rempel wrote:
-> Convert the imx-audmux binding to DT schema format using json-schema
+On Thu, 3 Jun 2021 12:03:15 +0100, Colin King wrote:
+> Most callers of_get_child_count() check that "nr" is non-zero so it
+> causes a static checker warning when we don't do that here.  This
+> does not cause a problem or a crash, but having zero SSUIes does not
+> make sense either so let's add a check.
 
 Applied to
 
@@ -94,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: Convert imx-audmux binding to json schema
-      commit: 14aa731dbf464f7272bcc2f0c4f32f6de28cbe8c
+[1/1] ASoC: rsnd: check for zero node count
+      commit: d66e033910593d99700cd9e2a75698395fcd676f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

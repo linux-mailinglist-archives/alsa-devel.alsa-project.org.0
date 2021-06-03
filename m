@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC6439A80A
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:13:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DECC39A80D
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Jun 2021 19:14:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 797111739;
-	Thu,  3 Jun 2021 19:12:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 797111739
+	by alsa0.perex.cz (Postfix) with ESMTPS id 284D71743;
+	Thu,  3 Jun 2021 19:13:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 284D71743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622740427;
-	bh=NfkiMjpLjm1upoaebqhjlgKdC7Y0w5nULqzevbB7IeY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qpGZAA1XhsN9ItffRDi4/VbxQI6vxBCkd0wwCmzBy+WhDzhDgo9vdqpdSQs6RPobx
-	 JVAFWKnMTt5IN5BUgGUqHeUqR/svYCTpi/GzTiWGbJXxPZKA5GKQtKcc8WIgY6qjvj
-	 uwxl9+YhGlmFkpMUq1nWlvqtb/AvvWblbfNrPSwA=
+	s=default; t=1622740475;
+	bh=Nd/etA/J5uzn2LutOdimL2vHpcXgKu7gvxBA8qbrke0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FKMjogox5roCsG0J0yIBDUygHMkH4FD7uVn89ZpT7rErWUcJGeeYL9+BshFm1J2wX
+	 MX5HV+aIcSOv3FAsQ7r8Dl+4SNLjuBkDYjEe4uGa0c+/Jc9CFXzAGQAt4HjpE1/rmP
+	 6n9SKrN6cYoqwUy27c4ujOL4xpeKIig4lxGyHq/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20D4AF802E7;
-	Thu,  3 Jun 2021 19:09:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01506F804C1;
+	Thu,  3 Jun 2021 19:09:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BE81F802E7; Thu,  3 Jun 2021 19:09:26 +0200 (CEST)
+ id 88CA7F80520; Thu,  3 Jun 2021 19:09:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,38 +34,41 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50544F802E7
- for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:09:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50544F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 828E0F8051A
+ for <alsa-devel@alsa-project.org>; Thu,  3 Jun 2021 19:09:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 828E0F8051A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lDe3G1v4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 927AB613F4;
- Thu,  3 Jun 2021 17:09:20 +0000 (UTC)
+ header.b="qZKp7ZP9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 543CB613F8;
+ Thu,  3 Jun 2021 17:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622740161;
- bh=NfkiMjpLjm1upoaebqhjlgKdC7Y0w5nULqzevbB7IeY=;
- h=From:To:Cc:Subject:Date:From;
- b=lDe3G1v4G+mcX2w1mM7O3bVIzx5caRPMMysABww3Aa1z9VLttIuDvUH1iF8LUN/Az
- BjVSefOP1i9kxMJEWALBXkZfw95O/shZLgHJi/ozm80IdB3ssVYAfpTm9mIcuZthjF
- HfiRIf5kp55A/hzH8lkWGctquvp3vk4cBwi/G38UdsDutJwUzMcgA60g4DGDI+SfDU
- 6y9bnZVHf2sSPpxo//xlJOeRH8QcDOevHL6P5q3vAf+k04Lu41eviqPhHwlqs1Mvg0
- 29KfgOzzy16m1pxSYcLFjFpC8R+BBF+hUcipDexYB2m7mLJsxk1e5sQC8QWxABiWfm
- d5W7+SSQgUhBA==
+ s=k20201202; t=1622740166;
+ bh=Nd/etA/J5uzn2LutOdimL2vHpcXgKu7gvxBA8qbrke0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qZKp7ZP9bS81G3cEiJxJz3rRnBWV9DI6oJMTib09JyXUiCBVrN+OvTZHhyZGkMTRD
+ RiGod0ZGTlvBObaNVDs/OlwrZDMtUElCKtScE5mfoUOOPAFJVS75k/OUIvJV99uB+Z
+ ynkc8JIvWbNGbXIiQAT2/syS/xKPms96fcrv1y5b41+RDgH/6krCxeQ9ipCcVqBqQq
+ TJTkpelxWTPiChxP1iyczjF+vawtKZLarqiCPbnxR/RDqJeIe+xfbCGYWipbdY1VSq
+ 2Al19jat3x4/zLlzTaW+owkUFdVAbYpIfseFYU9Q2awhs8jQq2TXVGWgmc7IVg2ryR
+ kE/5UhxmMOgTg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 01/31] ASoC: max98088: fix ni clock divider
- calculation
-Date: Thu,  3 Jun 2021 13:08:49 -0400
-Message-Id: <20210603170919.3169112-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 05/31] ASoC: Intel: bytcr_rt5640: Add quirk for
+ the Glavey TM800A550L tablet
+Date: Thu,  3 Jun 2021 13:08:53 -0400
+Message-Id: <20210603170919.3169112-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210603170919.3169112-1-sashal@kernel.org>
+References: <20210603170919.3169112-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,86 +84,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Marco Felsch <m.felsch@pengutronix.de>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 6c9762a78c325107dc37d20ee21002b841679209 ]
+[ Upstream commit 28c268d3acdd4cbcd2ac320b85609e77f84e74a7 ]
 
-The ni1/ni2 ratio formula [1] uses the pclk which is the prescaled mclk.
-The max98088 datasheet [2] has no such formula but table-12 equals so
-we can assume that it is the same for both devices.
+Add a quirk for the Glavey TM800A550L tablet, this BYTCR tablet has no CHAN
+package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
+is the default for BYTCR devices.
 
-While on it make use of DIV_ROUND_CLOSEST_ULL().
-
-[1] https://datasheets.maximintegrated.com/en/ds/MAX98089.pdf; page 86
-[2] https://datasheets.maximintegrated.com/en/ds/MAX98088.pdf; page 82
-
-Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-Link: https://lore.kernel.org/r/20210423135402.32105-1-m.felsch@pengutronix.de
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210508150146.28403-1-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/max98088.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
-index f031d2caa8b7..fa4cdbfd0b80 100644
---- a/sound/soc/codecs/max98088.c
-+++ b/sound/soc/codecs/max98088.c
-@@ -41,6 +41,7 @@ struct max98088_priv {
- 	enum max98088_type devtype;
- 	struct max98088_pdata *pdata;
- 	struct clk *mclk;
-+	unsigned char mclk_prescaler;
- 	unsigned int sysclk;
- 	struct max98088_cdata dai[2];
- 	int eq_textcnt;
-@@ -998,13 +999,16 @@ static int max98088_dai1_hw_params(struct snd_pcm_substream *substream,
-        /* Configure NI when operating as master */
-        if (snd_soc_component_read32(component, M98088_REG_14_DAI1_FORMAT)
-                & M98088_DAI_MAS) {
-+               unsigned long pclk;
-+
-                if (max98088->sysclk == 0) {
-                        dev_err(component->dev, "Invalid system clock frequency\n");
-                        return -EINVAL;
-                }
-                ni = 65536ULL * (rate < 50000 ? 96ULL : 48ULL)
-                                * (unsigned long long int)rate;
--               do_div(ni, (unsigned long long int)max98088->sysclk);
-+               pclk = DIV_ROUND_CLOSEST(max98088->sysclk, max98088->mclk_prescaler);
-+               ni = DIV_ROUND_CLOSEST_ULL(ni, pclk);
-                snd_soc_component_write(component, M98088_REG_12_DAI1_CLKCFG_HI,
-                        (ni >> 8) & 0x7F);
-                snd_soc_component_write(component, M98088_REG_13_DAI1_CLKCFG_LO,
-@@ -1065,13 +1069,16 @@ static int max98088_dai2_hw_params(struct snd_pcm_substream *substream,
-        /* Configure NI when operating as master */
-        if (snd_soc_component_read32(component, M98088_REG_1C_DAI2_FORMAT)
-                & M98088_DAI_MAS) {
-+               unsigned long pclk;
-+
-                if (max98088->sysclk == 0) {
-                        dev_err(component->dev, "Invalid system clock frequency\n");
-                        return -EINVAL;
-                }
-                ni = 65536ULL * (rate < 50000 ? 96ULL : 48ULL)
-                                * (unsigned long long int)rate;
--               do_div(ni, (unsigned long long int)max98088->sysclk);
-+               pclk = DIV_ROUND_CLOSEST(max98088->sysclk, max98088->mclk_prescaler);
-+               ni = DIV_ROUND_CLOSEST_ULL(ni, pclk);
-                snd_soc_component_write(component, M98088_REG_1A_DAI2_CLKCFG_HI,
-                        (ni >> 8) & 0x7F);
-                snd_soc_component_write(component, M98088_REG_1B_DAI2_CLKCFG_LO,
-@@ -1113,8 +1120,10 @@ static int max98088_dai_set_sysclk(struct snd_soc_dai *dai,
-         */
-        if ((freq >= 10000000) && (freq < 20000000)) {
-                snd_soc_component_write(component, M98088_REG_10_SYS_CLK, 0x10);
-+               max98088->mclk_prescaler = 1;
-        } else if ((freq >= 20000000) && (freq < 30000000)) {
-                snd_soc_component_write(component, M98088_REG_10_SYS_CLK, 0x20);
-+               max98088->mclk_prescaler = 2;
-        } else {
-                dev_err(component->dev, "Invalid master clock frequency\n");
-                return -EINVAL;
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 46a81d4f0b2d..1e6c86f2306f 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -568,6 +568,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{	/* Glavey TM800A550L */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "AMI Corporation"),
++			DMI_MATCH(DMI_BOARD_NAME, "Aptio CRB"),
++			/* Above strings are too generic, also match on BIOS version */
++			DMI_MATCH(DMI_BIOS_VERSION, "ZY-8-BI-PX4S70VTR400-X423B-005-D"),
++		},
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
 -- 
 2.30.2
 

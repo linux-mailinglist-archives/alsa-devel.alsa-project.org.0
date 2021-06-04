@@ -2,63 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D5539BA7E
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 16:03:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8AB39BAC8
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 16:16:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E80C5172D;
-	Fri,  4 Jun 2021 16:02:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E80C5172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 789F01730;
+	Fri,  4 Jun 2021 16:16:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 789F01730
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622815430;
-	bh=Y8W3flPOll/lCGC+YOse/K0dxjY4oViivscj5tpaJb0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O0Pjp5pR07O6QC0sPylirVC/HU5LrTwBBI33cv92ATvHxexGoHR9aA/WO/DVunelL
-	 dK/KM07tCmEbi+Iin2GZ9WYfihiD2vLo8iWkHPIlcLdmcJFMucCyCcKnytLHh+kYBD
-	 Lq4VoLmYQjbu4GaRmNfFvoKuFMnjXzfpjt4AesLw=
+	s=default; t=1622816212;
+	bh=ylNEvQFyDztoKmGc67hPDr7QUzaw7rFa1EHmbT9bgW4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZRZi6Ek/jKQskJLDtSzGEXwPtpHOq3NZYR7nP+MdUTcZH8dOiYdDIU33XuR0TSfeE
+	 UEx/hTZQuczarLVczHAECTS3lthr9h8mlGV2FZOBNDYg71xNzFYeEmEehF2gDGhhtO
+	 ISeXrxt2mN2uWE/vbxxEOClGwwMYrZdtUgSCy0zM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B970F80424;
-	Fri,  4 Jun 2021 16:02:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2DCAF80103;
+	Fri,  4 Jun 2021 16:15:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A4B1F802C4; Fri,  4 Jun 2021 16:02:20 +0200 (CEST)
+ id 4E03FF80103; Fri,  4 Jun 2021 16:15:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12olkn2053.outbound.protection.outlook.com [40.92.22.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABF5BF8016D
- for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 16:02:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF5BF8016D
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id A9832C800BF;
- Fri,  4 Jun 2021 16:02:09 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id now7DJH372gl; Fri,  4 Jun 2021 16:02:09 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (p200300E37F2e2A0038b625C68b541A92.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f2e:2a00:38b6:25c6:8b54:1a92])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 5D798C800BE;
- Fri,  4 Jun 2021 16:02:09 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Change device names for quirks to barebone
- names
-Date: Fri,  4 Jun 2021 16:02:07 +0200
-Message-Id: <20210604140207.8023-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B980AF80103
+ for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 16:15:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B980AF80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="b3P1TUCj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S4+dF+ChV4HprEUojtS2ZqI72/geVT8cMU0hIBHV9IdaRvjrMjTr2WfdsK793ksla7gxoUwsKdplRaGGhZze1XI6hhdyeW95Nu4q670Us46iwhzfYsdryBd1cUHRPDUi3I09/67PPV3RLIfZ7XbuZuY4X36Tou5FIDGCZbtDEMCpmERlTRy21HICBUOdvIl5NiqEREfyGbHMTeW6vWr9coR6iKfuo6pMw+iVN75x+WjapDhJPgAEv1RpriN39x4+karLhIPZIjBKCf4XdRSJSlD76Xk4B1r/LeQMdu/YzKtEQzMDZcOrb+dOVEcphkD9fcDhM1l/xn9tMsN9yfofpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dzinrFDnw4mHMRp7/TW7gEnmwMmsqqb7EL0fSWRO0GA=;
+ b=NMHiRISHoMsISIouxwCWQatBIOrliNPwzgOKyIzKMqlC2/VbQwuQntiGDj3dKWaUfFEMj70pzbhsDT5OrVxkauGp/hQJwwORWM5sEk5s+9Kox/q9/Yan7ILKH2YIHBKtKh0x+KZ9RW7z9YTOxhvtYxrTiSGmTGxB5CVap9U+9MXksrf8SM9BBVW9RPnROSOqndydFvrBa7p1fGncR+CipdVDaH+ih7kjD+lXxANGZxLSAPWvnoxdKFNnfplL1ieCcvlGwgVC+dcjunfiZr1ExDWJVZkGbm5qZmEDG65+G6X24IxbNrN6IkHzNsnbUtlki6I9auCwr1OQnooiXxlSjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dzinrFDnw4mHMRp7/TW7gEnmwMmsqqb7EL0fSWRO0GA=;
+ b=b3P1TUCjH8su0gX+9MGSNDutrJBXml5STc0gEDklfN2IlEw7549qO1uDhWpcCQT05LVwkAOR9SZeYYmCI9VqYSIYXVMitoynLSjuR2Vy4r8THAlL7FxNIYpOXiRXH4Y2V1vdjfZYjrLWYjXaVMAAj/i6Q2vdVRX7xOjHL50qEf7nDSH5YQy4ZuTsW/CNcA4CIpVFC2EtkJJGpl9jAOOXVjKnHlNkpLxEuwxiQKfNhcRjyN0OCkehk8UKY5Oh5es+y4VKAdbsLr5xlZFlyZOJ1EOAbTi6y58LcDi4ALP4qGF559qBIKVPwiIaV8AoTwFmgU8297m5JxfVIebZctNqWw==
+Received: from BN8NAM12FT056.eop-nam12.prod.protection.outlook.com
+ (2a01:111:e400:fc66::4e) by
+ BN8NAM12HT177.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc66::67)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9; Fri, 4 Jun
+ 2021 14:15:15 +0000
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ (2a01:111:e400:fc66::4c) by BN8NAM12FT056.mail.protection.outlook.com
+ (2a01:111:e400:fc66::176) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
+ Transport; Fri, 4 Jun 2021 14:15:15 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:1C06A6507DEB0274F6BD000A9C39DADEF8A910D4728F508AACB3198D71B29E98;
+ UpperCasedChecksum:15986BDDEAEF687737211DC94339C5D70071708A80D9415613C0720070969D15;
+ SizeAsReceived:8638; Count:47
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::91a7:5b3:8e7c:621d]) by SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::91a7:5b3:8e7c:621d%5]) with mapi id 15.20.4195.021; Fri, 4 Jun 2021
+ 14:15:15 +0000
+Date: Fri, 4 Jun 2021 09:15:10 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Subject: Re: [PATCH -next] ASoC: rk817: fix compile warning in rk817_probe()
+Message-ID: <SN6PR06MB5342D1B4F0B578F20FAEE8A4A53B9@SN6PR06MB5342.namprd06.prod.outlook.com>
+References: <20210603013605.387582-1-yangyingliang@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <20210603013605.387582-1-yangyingliang@huawei.com>
+X-TMN: [D9HWSZdI59CKru+WD/+Jf1WTTzkUdNcm]
+X-ClientProxiedBy: SA9PR13CA0028.namprd13.prod.outlook.com
+ (2603:10b6:806:21::33) To SN6PR06MB5342.namprd06.prod.outlook.com
+ (2603:10b6:805:f9::31)
+X-Microsoft-Original-Message-ID: <20210604141510.GA27295@wintermute.localdomain>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from wintermute.localdomain (76.183.134.35) by
+ SA9PR13CA0028.namprd13.prod.outlook.com (2603:10b6:806:21::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4219.9 via Frontend Transport; Fri, 4 Jun 2021 14:15:13 +0000
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 47
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: 16490908-8462-45bf-52e9-08d927632be0
+X-MS-TrafficTypeDiagnostic: BN8NAM12HT177:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fvZ12CJEqGPGKbbLcFR5/4kKMCCYGozoWH0vFJxH49uYesAZP2Kr+lcBnPwe6NQ4EHAKbro7owtJ+v6V5y0uTnNJ7Px79cJMUFrUH8bk6DPInjf01+CzHxH3bCTsm27e5MpLTQ6HVU+TgIEjfqcwN9E75mwjqlXshEqoXb+psscMG3MtWHU8ZHISM/LbNRUVeVL+0Orixeb+yf7ZIfgJn56aJDOYygwPgTHAd1DWWecuJJM+IgcaAdA9PPH8H8WX1TSbxaamHBSpgFrMVRsN2u7mZWQ7L4epQy2vAAOM1BqLchq2uQaO+uPKy1wJwXrabAzj3d5FP7wQbP9fkSrMCyVsBEabLTpjATkRiI4CKJOtqGANRUpSZLNtRcIOPj8KERyKippTNhDXuh6RNVf19spmNkrYeXT43esQSOCmTGNKpPHCKMa8i85CHFlti2VW4krqp59TLSSsn3bD8tEUzA==
+X-MS-Exchange-AntiSpam-MessageData: cJxXSGj5hI1L7wtuJRPN8J7xctvHTGW+jMyoDipm+TsxJb2jbbQ/5WyoV5TB6LuhGtxwkbt5zrVRLsV0d0mXRMPk2Ws5xxAy5Db49inRsJFf0gHkrX4uaPA/cr3EfXYl5WQRljWQLfhnXcPEjNBitg==
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16490908-8462-45bf-52e9-08d927632be0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2021 14:15:15.0007 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM12FT056.eop-nam12.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8NAM12HT177
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lee.jones@linaro.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,56 +129,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change the name string of several devices needing quirks to the Clevo-barebone
-ones. Also make the names follow the same pattern for multiple Clevo names
-referring to the same mainboard.
+On Thu, Jun 03, 2021 at 09:36:05AM +0800, Yang Yingliang wrote:
+> Fix the compile warning by return ret:
+> 
+>   sound/soc/codecs/rk817_codec.c:418:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+>     418 |  int ret;
+>         |      ^~~
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> ---
+>  sound/soc/codecs/rk817_codec.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/rk817_codec.c b/sound/soc/codecs/rk817_codec.c
+> index 17e672b85ee5..56de5ec5f03b 100644
+> --- a/sound/soc/codecs/rk817_codec.c
+> +++ b/sound/soc/codecs/rk817_codec.c
+> @@ -430,7 +430,7 @@ static int rk817_probe(struct snd_soc_component *component)
+>  
+>  	snd_soc_component_set_pll(component, 0, 0, 0, 0);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  static void rk817_remove(struct snd_soc_component *component)
+> -- 
+> 2.25.1
+> 
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
- sound/pci/hda/patch_realtek.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+This should be fixed by 
+ef7570b67541 ASoC: rk817: fix a warning in rk817_probe()
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 552e2cb73291..39cf3667118c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8368,7 +8368,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
- 	SND_PCI_QUIRK(0x1558, 0x1323, "Clevo N130ZU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x1325, "System76 Darter Pro (darp5)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x1325, "Clevo N15[01][CW]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1401, "Clevo L140[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1403, "Clevo N140CU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1404, "Clevo N150CU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-@@ -8403,11 +8403,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x8521, "Clevo NH77D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8535, "Clevo NH50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8536, "Clevo NH79D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x8550, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x8551, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x8560, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
--	SND_PCI_QUIRK(0x1558, 0x8561, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
--	SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[5|7][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
-+	SND_PCI_QUIRK(0x1558, 0x8550, "Clevo NH[57][0-9][ER][ACDH]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x8551, "Clevo NH[57][0-9][ER][ACDH]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x8560, "Clevo NH[57][0-9][ER][ACDH]Q", ALC269_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1558, 0x8561, "Clevo NH[57][0-9][ER][ACDH]Q", ALC269_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[57][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
- 	SND_PCI_QUIRK(0x1558, 0x8668, "Clevo NP50B[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8680, "Clevo NJ50LU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-@@ -8418,8 +8418,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x9600, "Clevo N960K[PR]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x961d, "Clevo N960S[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x971d, "Clevo N970T[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0xa500, "Clevo NL53RU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0xa600, "Clevo NL5XNU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0xa500, "Clevo NL5[03]RU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0xa600, "Clevo NL50NU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0xb018, "Clevo NP50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0xb019, "Clevo NH77D[BE]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0xb022, "Clevo NH77D[DC][QW]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--- 
-2.25.1
-
+https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git/commit/?h=tb-mfd-asoc-5.14-1&id=ef7570b67541d8b938df1e45f56e54be70bf1360

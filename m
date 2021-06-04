@@ -2,103 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F9B39B589
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 11:10:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6FF239B577
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 11:03:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A988D1725;
-	Fri,  4 Jun 2021 11:09:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A988D1725
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A49A1716;
+	Fri,  4 Jun 2021 11:03:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A49A1716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622797825;
-	bh=CD6fWYYMLYbluQkt+xCWvvss45ot4i/G6Q9iYgpLtmI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1622797439;
+	bh=1jc38/kMYOUNay+MdgNpZ95kVojaHlQ7YITnlCiwzew=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HFrUXjjKMcBg/7gP8T9xLcXkQSlZnlfN112sTTFC3liNTkCWqJjKgDnevYdUvnDNu
-	 YTU0HiRJNZqqbWwehT1f98+ugs7Sz2OiTJww5T5uxPLc7iMnavGW2DesaV2XGWVZd5
-	 zCnqGEu+p8m2+fF14oR60QZ7lHPOM/+/at41gZOw=
+	b=EqBXo1AvWIWX9unxaSFnGWENNO95u6DQIZDL1bHbLvp3JXEkljpZ866ahxZPtwMmA
+	 pdlIsDMpyrNyKWp+iPM9d5pfzTuwwqHH13nFXVT+b4QsDMCqyMtRBWfFpJlIn299XF
+	 YCG6hsVcquSfTAknvEjWeDDyYkMow9mgkCnRGtFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73DA4F8049C;
-	Fri,  4 Jun 2021 11:08:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9671BF80424;
+	Fri,  4 Jun 2021 11:02:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 659B5F8016D; Fri,  4 Jun 2021 08:44:17 +0200 (CEST)
+ id 90893F802C4; Fri,  4 Jun 2021 11:02:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37E0BF8016D
- for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 08:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37E0BF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC232F80103
+ for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 11:02:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC232F80103
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="WHIr3VY8"
-Received: by mail-ot1-x329.google.com with SMTP id
- 36-20020a9d0ba70000b02902e0a0a8fe36so8170308oth.8
- for <alsa-devel@alsa-project.org>; Thu, 03 Jun 2021 23:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZRiSVppg0ZlBYVhcB4ErKCtM122hAuAKgFRj04v9HVk=;
- b=WHIr3VY8zEefaxZiU1528tpn2CwnkE4ufl9trTxGNRIHCVQe379yppwInMxbZ9Xcn9
- Dhu9jAr3KOnRLtJw8yx4LyxcgOgDcM00fquwCtshh7DU3zQC+72uokbHi8FmaaYl2IDm
- 4g3mrTu/fppEefniTzWChucMnMnlro449O4tX6rwKgGe0MfDKGlAIplaBZeY4kIk01+n
- Fzuz6Lzbnut8bAvNSRK3IUpM0LQ24+CNtf9zobcRF0AfyV0VRb3OxV8fKOt7haaP5dxA
- cRXJkn0VEWYPMzdBjOPpyENdiId23pRjN/AzZC6cY0RVj1eHuEvcRauIfbiAn9HpHge5
- X9Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZRiSVppg0ZlBYVhcB4ErKCtM122hAuAKgFRj04v9HVk=;
- b=LFi48qkvLEJQJPLWk5/rbwUH5UhSM/s05Wfr2ojC8FKXyrWOvtOJoyg0ref2nT41FS
- vqjERA2LwAPTZgzkaGAlN9EkFkyMjhADaNexJZHmUx3ZJ4mZv02lika/rBc4EJ9k2wEI
- 39BMn/TBmN3XVzqqZTGX+QY7SwI+F/bqrmBSRDIXfueqlXXOmf/rIDGD1zq6Ia2mR4us
- a21ujSUSONwzM/4wkEap9aiU4lbAomfEWuVL1aecELf8Io50GfOOIGHykjW+DYAmVOgr
- YDythlgTKSv6uEQm9aE1MyR1O3bBDfqQGdKKlXVM81M0Ios31Eu+vfikK6tHH7q7NAoB
- +Qng==
-X-Gm-Message-State: AOAM5316XfTa7VcOVR1ThLdLljSlYnEAJv49G8+SVuntaCJotFcM50gO
- QQAvIyCm5/eeNBp8TprytIhx4L9npu5JsSS1WfUGRQ==
-X-Google-Smtp-Source: ABdhPJxyX675lxoE/7buRpTzB80RyGpYWHkJc5IANYCHhlHWCZ95hgeATUiEkZ0pMkOLDw3winaJ0plBbSOXp9tPGbE=
-X-Received: by 2002:a05:6830:154b:: with SMTP id
- l11mr2475621otp.322.1622789050492; 
- Thu, 03 Jun 2021 23:44:10 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="D0FMWIwK"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="Lantx2gb"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 805EB5C0099;
+ Fri,  4 Jun 2021 05:02:18 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Fri, 04 Jun 2021 05:02:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=1jc38/kMYOUNay+MdgNpZ95kVoj
+ aHlQ7YITnlCiwzew=; b=D0FMWIwKAeylm7rcRHJo0h3cuGEqbKFymISkCyZfOQE
+ k7UhYcq0Rvgyq7k1nz+2WBUuyTxmqtrUvLrLBWjpIZEidRgQTwsXw8ge47Uv+Pkt
+ j/GCf4/7Uy3kzrDXimcBKeA54jNHMPQFz2GNyCbZVOnQuYcpciQUDZNwFS9TKCrD
+ faj0khlrsYilddvQnv9YfZzHdB+Wt7JrErhVpu6oZ70OlWbYI3pHLrfk7WAiNmrK
+ NrQy142IbdADl4FdMxwGTy8WnAulyB/N+EjGm3umGXexXIYYmI4qfoBIKqSfcASO
+ U+bjvI7udOCVCMSuTdL10ec8t8U6N1t5BKctItAIQlA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=1jc38/
+ kMYOUNay+MdgNpZ95kVojaHlQ7YITnlCiwzew=; b=Lantx2gbJF7PJ8Iog9V/4O
+ 0Mv4JmyHGPlHknfeH4hsCD7a6b1E5McZKlmje+HCh1GIec22VKh9lZAvzfpmDzIm
+ aK75jqvLIdUxNQVek2QI8hl6S1Z+mnL/WLCN19SG1DGZk6l2ZVMFT+OaOMMNrt2R
+ 55X21s6WLQ6JA4sGemt3El+2Dp+pbhAKjaPryhYSgA4dlH4AbIc5+wp9VQKSSlZR
+ 5/nO3hLdTjtgRX5IIo1patgBUvbJ6k+T/3Uz9eZKFL/SODh4hnVWOx+Ef228DEfi
+ Hv/6ObxmX0DZWrQ9ip73Ejp5rQ/rymf/3fCraoQhy4/UINliHeIK+Kerhzdpnbrw
+ ==
+X-ME-Sender: <xms:Gey5YHD6CwLEnqnk2nx5wzXpkIzUBZjcy3QLmH_hBCJFNAutB8SFEQ>
+ <xme:Gey5YNhdUOmUC-ipW9sqdjyGCVpO-5E7oQPEcH8cGe8GOa1B1GW2vuPagS_0jOEhg
+ wl89F8l0QIawPAbEh4>
+X-ME-Received: <xmr:Gey5YCldCFZ1tRrv5n6addj9qTEGJvPInYRUgznE1VfeTXusb4FlpE5MzVrIlcv6RQKNXmHkG44GU5HSK5cHB29HJRl6czeeMgEv>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtuddguddtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepjeekkefftdffhffhvedvudetgfdtleejveffvedvvdetgeeltdfggefhhedv
+ ieffnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:Gey5YJzs8dnLppNnzKTxnpq8iy3DdalWp7YeUev7RACqHVSVFKCtNA>
+ <xmx:Gey5YMSqqcrcpucnhdw5U6bZPiN1SgACK1QHQWej75kC5ILknmv1Mw>
+ <xmx:Gey5YMZpQJ8NbBseRceAqZacZJcM43RzG2NC8o2qdRZaHwjEnMWpag>
+ <xmx:Guy5YHfMDaj-4QgxYCssv7sUgEXx3iOmRGHussqllP33CKHBAXustg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Jun 2021 05:02:17 -0400 (EDT)
+Date: Fri, 4 Jun 2021 11:02:15 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Stefan Wahren <stefan.wahren@i2se.com>
+Subject: Re: vc4: hdmi: audio: ASoC: error at snd_soc_dai_startup on
+ fef00700.hdmi
+Message-ID: <20210604090215.cpvoryvwrfzj5ikx@gilmour>
+References: <612b134c-d356-f027-46d7-322bdaff37a4@i2se.com>
 MIME-Version: 1.0
-References: <20210603150830.229423-1-judyhsiao@chromium.org>
- <CAD=FV=VzBgbhhVQvG+UGD2yaLJkwiq0qQHdFNQ2Ey8RKmV+qTg@mail.gmail.com>
-In-Reply-To: <CAD=FV=VzBgbhhVQvG+UGD2yaLJkwiq0qQHdFNQ2Ey8RKmV+qTg@mail.gmail.com>
-From: Judy Hsiao <judyhsiao@google.com>
-Date: Fri, 4 Jun 2021 14:43:34 +0800
-Message-ID: <CAJaago9842xqpHHfF2=6PJ3SfpzuYoQAicC5BJrTpB44SYBBuQ@mail.gmail.com>
-Subject: Re: [v5] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture
- begin
-To: Doug Anderson <dianders@chromium.org>
-X-Mailman-Approved-At: Fri, 04 Jun 2021 11:08:39 +0200
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Taniya Das <tdas@codeaurora.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Judy Hsiao <judyhsiao@chromium.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="cowixb2ckvc6iema"
+Content-Disposition: inline
+In-Reply-To: <612b134c-d356-f027-46d7-322bdaff37a4@i2se.com>
+Cc: alsa-devel@alsa-project.org,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Emma Anholt <emma@anholt.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,99 +115,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 4, 2021 at 6:41 AM Doug Anderson <dianders@chromium.org> wrote:
 
-> Judy,
->
-> On Thu, Jun 3, 2021 at 8:08 AM Judy Hsiao <judyhsiao@chromium.org> wrote:
-> >
-> > @@ -315,12 +353,54 @@ static int lpass_cpu_daiops_trigger(struct
-> snd_pcm_substream *substream,
-> >         return ret;
-> >  }
-> >
-> > +static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
-> > +               struct snd_soc_dai *dai)
-> > +{
-> > +       struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-> > +       struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-> > +       unsigned int id = dai->driver->id;
-> > +       int ret;
-> > +       /*
-> > +        * Ensure lpass BCLK/LRCLK is enabled bit before playback/capture
-> > +        * data flow starts. This allows other codec to have some delay
-> before
-> > +        * the data flow.
-> > +        * (ex: to drop start up pop noise before capture starts).
-> > +        */
->
-> nit: there's usually a blank line between the variable declarations
-> and the first line of code, even if the first line of code is a
-> comment.
-> Thanks, noted.
->
-> > +       if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> > +               ret = regmap_fields_write(i2sctl->spken, id,
-> LPAIF_I2SCTL_SPKEN_ENABLE);
-> > +       else
-> > +               ret = regmap_fields_write(i2sctl->micen, id,
-> LPAIF_I2SCTL_MICEN_ENABLE);
-> > +
-> > +       if (ret) {
-> > +               dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
-> ret);
-> > +               return ret;
-> > +       }
-> > +
-> > +       /*
-> > +        * Check mi2s_was_prepared before enabling BCLK as
-> lpass_cpu_daiops_prepare can
-> > +        * be called multiple times. It's paired with the clk_disable in
-> > +        * lpass_cpu_daiops_shutdown.
-> > +        */
-> > +       if (!drvdata->mi2s_was_prepared[dai->driver->id]) {
-> > +               drvdata->mi2s_was_prepared[dai->driver->id] = true;
-> > +               ret = clk_enable(drvdata->mi2s_bit_clk[id]);
-> > +               if (ret) {
-> > +                       dev_err(dai->dev, "error in enabling mi2s bit
-> clk: %d\n", ret);
-> > +                       clk_disable(drvdata->mi2s_osr_clk[id]);
->
-> Can you explain why this clk_disable() is here? Your function didn't
-> turn this clock on, so why should it be turning it off in the error
-> case?
->
-The OSR CLK is disabled in the error case, not the BCLK.
+--cowixb2ckvc6iema
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
->
-> > +                       drvdata->mi2s_was_prepared[dai->driver->id] =
-> false;
-> > +                       return ret;
-> > +               }
->
-> Why not put the `drvdata->mi2s_was_prepared[dai->driver->id] = true;`
-> _after_ you check for errors. Then you don't need to undo it in the
-> error case.
+Hi Stefan,
 
-Noted, thanks.
+On Wed, May 26, 2021 at 12:47:29PM +0200, Stefan Wahren wrote:
+> Hi,
+>=20
+> yesterday i was testing with Linux 5.13-rc3 on my Raspberry Pi 4 B
+> (multi_v7_defconfig) and i'm getting the following errors during boot:
+>=20
+> [=A0=A0 25.947494] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 25.947512]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 25.947883] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 25.947891]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 25.948566] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 25.948577]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 26.500049] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 26.500065]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 26.500608] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 26.500617]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 26.502339] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 26.502353]=A0 MAI: soc_pcm_open() failed (-19)
+> [=A0=A0 26.502569] vc4_hdmi fef00700.hdmi: ASoC: error at
+> snd_soc_dai_startup on fef00700.hdmi: -19
+> [=A0=A0 26.502578]=A0 MAI: soc_pcm_open() failed (-19)
+>=20
+> Rootfs: Raspberry Pi OS 32 bit (April 2021)
+>=20
+> But according to aplay -l both hdmi devices have been registered. Does
+> anyone have seen this, too?
 
-> I presume that your prepare() function isn't reentrant and
-> can't be called at the same time as your shutdown (right?).
->
-https://elixir.bootlin.com/linux/latest/source/sound/soc/soc-pcm.c#L658
-https://elixir.bootlin.com/linux/latest/source/sound/soc/soc-pcm.c#L825
-I think yes,
-snd_soc_pcm_dai_prepare and snd_soc_dai_shutdown are both guard by
-mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+I would assume it's due to this:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
+vers/gpu/drm/vc4/vc4_hdmi.c#n1083
 
->
-> Other than that, I don't have any objections to this patch anymore. I
-> probably won't add a formal "Reviewed-by", though, since I _really_
-> don't know anything about the issue at hand or the code. I just
-> stumbled upon this because I was getting the clock splat at bootup. If
-> someone feels like this needs me to spin up enough to understand /
-> really review this patch then please yell.
->
-> -Doug
->
+It pre-dates my time working on the vc4 driver so I'm not really sure
+what this is supposed to prevent, but my guess is that it's there to
+avoid someone using the audio card before we have a display detected and
+connected, and its capabilities known (the first and more obvious one
+being does it support audio in the first place).
+
+It's nothing new though, maybe it's the error printing itself that is?
+
+Maxime
+
+--cowixb2ckvc6iema
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYLnsFgAKCRDj7w1vZxhR
+xYo7AP4gasQXZNwx0uZo+1T1j85hsw4A2gK7D9fEPvnksbfYdwD+O6sJPi2spLyf
+6udavnhBnHFmt2Enn3q5NJD39iNJDQA=
+=Rxgh
+-----END PGP SIGNATURE-----
+
+--cowixb2ckvc6iema--

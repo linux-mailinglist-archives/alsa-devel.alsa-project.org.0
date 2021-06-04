@@ -2,94 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC61739BC33
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 17:47:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C6839BC7D
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Jun 2021 18:03:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6252A1732;
-	Fri,  4 Jun 2021 17:46:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6252A1732
+	by alsa0.perex.cz (Postfix) with ESMTPS id 086D11731;
+	Fri,  4 Jun 2021 18:02:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 086D11731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622821650;
-	bh=1g4+rsWwKXPCMnh6H0UOEAqhvVTIr0NoskWd1wTxgAw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IrwXGL3OdBNl0BsjbLWUVt6eAMyB/WHq/XYpS9QNbiWYftgNmmMdhZLAjKL9qLlM8
-	 GTMzZXMhO523LtjRtoTbPxLYD5xf6AXcon5i+KDrJqByunRbynyezi3JafDIU0w0Fr
-	 hy/Qn+RpWDrq8G+FuU47VlsQObOUf6KO6iYINLFI=
+	s=default; t=1622822606;
+	bh=RqN+tge85ppgwr+JqrLch1FvBesmMj5dlWo4NpFkexo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qBaK288fOLXMcDK5ZSzGvqcu9ifYZCNJGcNllJqs5tF3wcT7AXfm9qd0N9fMwCs3T
+	 VuTd3QFJa5QL4kXvd0vO4baHA3c2PXncXrI2bjkCM7pz/Ch2Hb1MwJgoXRp8Yi/rna
+	 jVtOnxxvm9+L/7lDPTyPvdfK2GSrvKq3BrEbgxDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D943FF800CC;
-	Fri,  4 Jun 2021 17:46:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2525F80424;
+	Fri,  4 Jun 2021 18:01:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F172CF802C4; Fri,  4 Jun 2021 17:45:59 +0200 (CEST)
+ id 13BB5F802C4; Fri,  4 Jun 2021 18:01:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11olkn2034.outbound.protection.outlook.com [40.92.19.34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04743F80103
- for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 17:45:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04743F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 554D1F80103
+ for <alsa-devel@alsa-project.org>; Fri,  4 Jun 2021 18:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 554D1F80103
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="eGT9s1eW"
-Received: by mail-pf1-x42a.google.com with SMTP id d16so7702361pfn.12
- for <alsa-devel@alsa-project.org>; Fri, 04 Jun 2021 08:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=a5EjbHKyRmPqFqJNdWdtRulg9RgvdBFGpjQPIOIUGK0=;
- b=eGT9s1eW6nJHUhaflPkw1/ciH92NJKRDaUmJynYbJHbsFHDiFKv50VNwx3jp3fa5QS
- dbARc7MizK4sck+RoVNvIoQA2rRcAXXO/cehyaypW+U3OYUZhwRhQBwQyJvlvCumQuWZ
- ta7QOGg29iaaF7dIIzUJpCLSHOqjjIX80gLZY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=a5EjbHKyRmPqFqJNdWdtRulg9RgvdBFGpjQPIOIUGK0=;
- b=B890KgqUrP+ReAqeGClz6xXznllp21nfunBIDQvDhcE6NWAANcF9ptDaAjCsKlJxgE
- YcBPFQR3RQ2DHDVjloLGAZtyuZ5niEBRqEKSUASPSiSZw0H75neqUN9V5ZrKB5nFl/rU
- 7uIdkRWJVWzRWNhr/nJheuvlUfKNagpQFlh1BXNoLBNEfrsV3v+kka1lGmO98U8oc7xZ
- l1l6lznUFZALs0K6Cr8S/IxaATXgntqLmx61lDZSvNbgTocszRPmFuiL8g7hWJbC79Of
- Cr0JCD0T6GTW30nCNNPevks3ibYA9qoKfl7I37j+fRy5ZW6Lrd/RIMQ5hq+YfwWKvdwy
- lw6Q==
-X-Gm-Message-State: AOAM530F22XHzIe7jFE9olXELEKwpbmZztfqm80KlSEPbDAAQxMyY/cJ
- Epa/Ea6kxtTIFihvnrVAJk32eQ==
-X-Google-Smtp-Source: ABdhPJyZDUc5tobk1AFXQ8CJuc0fdrT9sQMsn/EKREBxO85vuXkbQo4TnNSSuEmVjq8RwbztUXng7w==
-X-Received: by 2002:a63:7e0a:: with SMTP id z10mr5463508pgc.12.1622821553412; 
- Fri, 04 Jun 2021 08:45:53 -0700 (PDT)
-Received: from judyhsiao-p920.tpe.corp.google.com
- ([2401:fa00:1:10:acd8:2ca0:5ce2:556f])
- by smtp.gmail.com with ESMTPSA id g22sm2025806pfv.123.2021.06.04.08.45.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Jun 2021 08:45:52 -0700 (PDT)
-From: Judy Hsiao <judyhsiao@chromium.org>
-To: broonie@kernel.org
-Subject: [v7] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture begin
-Date: Fri,  4 Jun 2021 23:45:45 +0800
-Message-Id: <20210604154545.1198337-1-judyhsiao@chromium.org>
-X-Mailer: git-send-email 2.32.0.rc1.229.g3e70b5a671-goog
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="P+KMeleq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KFbOfwizYHLFvj0A5d/rKFpsmD4/j3FY7q9tjWLrA5Y7tq3ZbIRsgk1XMvGjlveqSu1w+OZ48dmDAV/IZkHul/BJ5Ule0d5gnFI2S122yi29aPjMJ/WtWg64n65LlHSlmuXyn6ioAtucDKvQlQI/6ewSfQadielno0gnXGVulZ2iNfNdzvEF245JPHiI1iEU4ZynbTVHbHVBWii8STTpHoXpdHbEOWmjj8aO7S+JPCQfvyhGB7slrxXdSbdDP8dwyKvj7jmuiYKEUzkfmH2jPF2xg1XoBfZn9LOahnqwiVyQKPUXB3xVPotlyfjWbG3B+wtSXZCtTokYOR95yY8cMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=whDdlRcVOpE2b1SGNn9khPAtuERI6bttC2No4G8YSs0=;
+ b=cTxabDxiDyNaTKfIAOuBLeezMpmn1MpUKrwN7hOCg+dND6XJHMXKs4Sfs59sMwOPPck013d7eKyseGbydCh/Jzl1RhvX2rPnSB7QfswRpRujq38phm/2CSQ+g6yvjS/7tn1gj/tUCSW3/KQxizI20nJ60QnPRh83YNCOF+2rIzwA6fF8Z1uj0k9UHYPxkYieTZ1Ofat521lyO1OxQ4mVAfKOltx4y/SMH5LrRIMBfKYv95m4WTI9yVvJqxQVU6lEwWfDjU+Nn+HymglqGJbi3PJn58wy7xgxr/eQfq13q5V7WlFNkKRz+ZE2Z+/S7C5tqHIzhf6gT7M1bfADHFnBng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=whDdlRcVOpE2b1SGNn9khPAtuERI6bttC2No4G8YSs0=;
+ b=P+KMeleqCAPxFF7GAVzeT08xDJ3vLDGTDbAFN1CK1fqys1/J5m2aZR4wWpsu7oLLENuvHYDK0/yoUZG0Md9aNqT2pxKKDa7irFrr5VrrQVbQdhxEVdT5haC+vtNrL0wZ07p8sPjv086eqPvXdTCSiA2cuWHPI7OXdXHLQdC0Jy5vPkZ0qsFklosk8fOx8ItU4YWBEM8VG+00bdY9jamciLnZq2tH0ht8le1s6gqoe9NZtATDb8WpecyNUwqle5pt91iprgKDP456Wos5xRekuJ0nGFc6K/CnbMlst7dSdG4LoQXbv+8yAsoTlRXMoXlNgCEjYCGElvfhM3clrgEliA==
+Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2a01:111:e400:fc4b::40) by
+ BN8NAM11HT113.eop-nam11.prod.protection.outlook.com (2a01:111:e400:fc4b::284)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22; Fri, 4 Jun
+ 2021 16:01:44 +0000
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ (2a01:111:e400:fc4b::4e) by BN8NAM11FT032.mail.protection.outlook.com
+ (2a01:111:e400:fc4b::344) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
+ Transport; Fri, 4 Jun 2021 16:01:44 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:6B0D0EE37EBDF773EBD6A323F1A0280E7BA4C4A1043943742B550F4D73D55B22;
+ UpperCasedChecksum:9DB00FC0546B9A4C7EB769B9A2A33CE201B7ADC079650194518816CFB9FAEC78;
+ SizeAsReceived:7686; Count:46
+Received: from SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::91a7:5b3:8e7c:621d]) by SN6PR06MB5342.namprd06.prod.outlook.com
+ ([fe80::91a7:5b3:8e7c:621d%5]) with mapi id 15.20.4195.021; Fri, 4 Jun 2021
+ 16:01:44 +0000
+Date: Fri, 4 Jun 2021 11:01:40 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Colin King <colin.king@canonical.com>
+Subject: Re: [PATCH][V2][next] ASoC: rk817: remove redundant assignment to
+ pointer node, add missing of_node_put
+Message-ID: <SN6PR06MB5342B6B6B21665F2E43CAAA7A53B9@SN6PR06MB5342.namprd06.prod.outlook.com>
+References: <20210603113659.82031-1-colin.king@canonical.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210603113659.82031-1-colin.king@canonical.com>
+X-TMN: [1mTUANKZQBh0S2xaJSdsu8ZvPU9Q22V2]
+X-ClientProxiedBy: SA9P223CA0012.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::17) To SN6PR06MB5342.namprd06.prod.outlook.com
+ (2603:10b6:805:f9::31)
+X-Microsoft-Original-Message-ID: <20210604160140.GA19578@wintermute.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Andy Gross <agross@kernel.org>, dgreid@chromium.org,
- devicetree@vger.kernel.org, judyhsiao@google.com, tzungbi@chromium.org,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- cychiang@google.com, Takashi Iwai <tiwai@suse.com>,
- Judy Hsiao <judyhsiao@chromium.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from wintermute.localdomain (76.183.134.35) by
+ SA9P223CA0012.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4195.23 via Frontend Transport; Fri, 4 Jun 2021 16:01:44 +0000
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 46
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: 6c31f133-920b-4e40-7b46-08d927720cb6
+X-MS-TrafficTypeDiagnostic: BN8NAM11HT113:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n8z9OVk/q17LgYrAcitlPozLEOxq81JOO9m1qaWexIS1XdXRvtArOqSrx7xgWownO3s6qCyrw378bO3dhw/Gr0zR+9KkoEIj533NI/sA7jRXOKhED52XAXNsaPMURvA1HID2gPRqFAMxty7EPsK7TlRt2aoPBCGq902ANO8meA/8oSqOsX7mQp2uTvNhDLckem3ZqKaE4nBdGrSIpToPBVPwpfCR9AYBa9cjZbriuoc6o5V33daD4jA0hwb4F4otE7qN5h5es0f+9IFoCFq1C26qiDFo3PwcblWE4adlZhPbh/hixE/a8SrAjJ9K3v2iPfsUz52X3beh8Y8fOuPouYjZ9ijg1CNaW3Xx4sPcAtAj2uy1mRUaT9BebmiyP/a8T+QggjiHddzaBrYt7z56zA==
+X-MS-Exchange-AntiSpam-MessageData: 6zDjJg6pMNko7Qd4j6+072bmWjLCaSjXcukaki7Slwnil7eMb3XPD98Y0BE66rGvF3zJXPfh0UgB5cS1jzR/s6X/lhf+zqQhNLBMw+k7q1E9bXXmMNOcOuzOYe+eNgE5T15fFMKpKAil3UGv0EkXRQ==
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c31f133-920b-4e40-7b46-08d927720cb6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2021 16:01:44.7583 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8NAM11HT113
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,183 +131,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+On Thu, Jun 03, 2021 at 12:36:59PM +0100, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The pointer node is being initialized with a value that is never read and
+> it is being updated later with a new value.  The initialization is
+> redundant and can be removed.
+> 
+> The function is missing a of_node_put on node, fix this by adding the call
+> before returning.
+> 
+> Addresses-Coverity: ("Unused value")
+> Fixes: 0d6a04da9b25 ("ASoC: Add Rockchip rk817 audio CODEC support")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 
-This patch fixes PoP noise of around 15ms observed during audio
-capture begin.
-Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for
-introducing some delay before capture start.
+Tested-by: Chris Morgan <macromorgan@hotmail.com>
 
-Co-developed-by: Judy Hsiao <judyhsiao@chromium.org>
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-(am from https://patchwork.kernel.org/patch/12276369/)
-(also found at https://lore.kernel.org/r/20210524142114.18676-1-srivasam@codeaurora.org)
+> ---
+> V2: Add missing of_node_put call, kudos to Dan Carpenter for spotting this 
+>     issue.
+> ---
+>  sound/soc/codecs/rk817_codec.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/rk817_codec.c b/sound/soc/codecs/rk817_codec.c
+> index fd3a5ba034a9..a44d3cad1119 100644
+> --- a/sound/soc/codecs/rk817_codec.c
+> +++ b/sound/soc/codecs/rk817_codec.c
+> @@ -456,7 +456,7 @@ static const struct snd_soc_component_driver soc_codec_dev_rk817 = {
+>  static void rk817_codec_parse_dt_property(struct device *dev,
+>  					 struct rk817_codec_priv *rk817)
+>  {
+> -	struct device_node *node = dev->parent->of_node;
+> +	struct device_node *node;
+>  
+>  	node = of_get_child_by_name(dev->parent->of_node, "codec");
+>  	if (!node) {
+> @@ -466,6 +466,8 @@ static void rk817_codec_parse_dt_property(struct device *dev,
+>  
+>  	rk817->mic_in_differential =
+>  			of_property_read_bool(node, "rockchip,mic-in-differential");
+> +
+> +	of_node_put(node);
+>  }
 
----
-Changes Since V6:
-	-- Removed clk_disable OSR clock in lpass_cpu_daiops_prepare error case as failure
-           of prepare will result in calling shutdown which should take care of this.
-Changes Since V5:
-        -- Fixed nit.
-        -- Updated `mi2s_was_prepared[dai->driver->id] = true;` after checking for errors.
-Changes Since V4:
-        -- Replaced the __clk_is_enabled(BCLK) check by the self maintained.
-           mi2s_was_prepared bool state.
-        -- Removed unrelated changes.
-        -- Refined comments.
-Changes Since V3:
-        -- Checked BCLK is off before enabling it in lpass_cpu_daiops_prepare as
-           lpass_cpu_daiops_prepare can be called multiple times
-        -- Checked BCLK is on before disabling it in lpass_cpu_daiops_shutdown to
-           fix the WARN. It is because BCLK may not be enabled if
-           lpass_cpu_daiops_prepare is not called before lpass_cpu_daiops_shutdown
-        -- Added more comments
-Changes Since V2:
-        -- Updated comments as per linux style
-        -- Removed unrelated changes
-Changes Since V1:
-        -- Enabled BCLK and LRCLK in dai ops prepare API instead of startup API
-        -- Added comments
+Tested these changes and they appear to work just fine. Thank you.
 
- sound/soc/qcom/lpass-cpu.c | 79 ++++++++++++++++++++++++++++++++++++++
- sound/soc/qcom/lpass.h     |  4 ++
- 2 files changed, 83 insertions(+)
-
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index af8cb64924a0..647423a6cb57 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -93,8 +93,30 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
- 
- 	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
-+	/*
-+	 * Ensure LRCLK is disabled even in device node validation.
-+	 * Will not impact if disabled in lpass_cpu_daiops_trigger()
-+	 * suspend.
-+	 */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_DISABLE);
-+	else
-+		regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_DISABLE);
-+
-+	/*
-+	 * BCLK may not be enabled if lpass_cpu_daiops_prepare is called before
-+	 * lpass_cpu_daiops_shutdown. It's paired with the clk_enable in
-+	 * lpass_cpu_daiops_prepare.
-+	 */
-+	if (drvdata->mi2s_was_prepared[dai->driver->id]) {
-+		drvdata->mi2s_was_prepared[dai->driver->id] = false;
-+		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
-+	}
-+
- 	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
- }
- 
-@@ -275,6 +297,18 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		/*
-+		 * Ensure lpass BCLK/LRCLK is enabled during
-+		 * device resume as lpass_cpu_daiops_prepare() is not called
-+		 * after the device resumes. We don't check mi2s_was_prepared before
-+		 * enable/disable BCLK in trigger events because:
-+		 *  1. These trigger events are paired, so the BCLK
-+		 *     enable_count is balanced.
-+		 *  2. the BCLK can be shared (ex: headset and headset mic),
-+		 *     we need to increase the enable_count so that we don't
-+		 *     turn off the shared BCLK while other devices are using
-+		 *     it.
-+		 */
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 			ret = regmap_fields_write(i2sctl->spken, id,
- 						 LPAIF_I2SCTL_SPKEN_ENABLE);
-@@ -296,6 +330,10 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		/*
-+		 * To ensure lpass BCLK/LRCLK is disabled during
-+		 * device suspend.
-+		 */
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 			ret = regmap_fields_write(i2sctl->spken, id,
- 						 LPAIF_I2SCTL_SPKEN_DISABLE);
-@@ -315,12 +353,53 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
-+static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
-+		struct snd_soc_dai *dai)
-+{
-+	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
-+	unsigned int id = dai->driver->id;
-+	int ret;
-+
-+	/*
-+	 * Ensure lpass BCLK/LRCLK is enabled bit before playback/capture
-+	 * data flow starts. This allows other codec to have some delay before
-+	 * the data flow.
-+	 * (ex: to drop start up pop noise before capture starts).
-+	 */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		ret = regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_ENABLE);
-+	else
-+		ret = regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_ENABLE);
-+
-+	if (ret) {
-+		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Check mi2s_was_prepared before enabling BCLK as lpass_cpu_daiops_prepare can
-+	 * be called multiple times. It's paired with the clk_disable in
-+	 * lpass_cpu_daiops_shutdown.
-+	 */
-+	if (!drvdata->mi2s_was_prepared[dai->driver->id]) {
-+		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
-+		if (ret) {
-+			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
-+			return ret;
-+		}
-+		drvdata->mi2s_was_prepared[dai->driver->id] = true;
-+	}
-+	return 0;
-+}
-+
- const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
- 	.set_sysclk	= lpass_cpu_daiops_set_sysclk,
- 	.startup	= lpass_cpu_daiops_startup,
- 	.shutdown	= lpass_cpu_daiops_shutdown,
- 	.hw_params	= lpass_cpu_daiops_hw_params,
- 	.trigger	= lpass_cpu_daiops_trigger,
-+	.prepare	= lpass_cpu_daiops_prepare,
- };
- EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops);
- 
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 83b2e08ade06..7f72214404ba 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -67,6 +67,10 @@ struct lpass_data {
- 	/* MI2S SD lines to use for playback/capture */
- 	unsigned int mi2s_playback_sd_mode[LPASS_MAX_MI2S_PORTS];
- 	unsigned int mi2s_capture_sd_mode[LPASS_MAX_MI2S_PORTS];
-+
-+	/* The state of MI2S prepare dai_ops was called */
-+	bool mi2s_was_prepared[LPASS_MAX_MI2S_PORTS];
-+
- 	int hdmi_port_enable;
- 
- 	/* low-power audio interface (LPAIF) registers */
--- 
-2.32.0.rc1.229.g3e70b5a671-goog
-
+>  
+>  static int rk817_platform_probe(struct platform_device *pdev)
+> -- 
+> 2.31.1
+> 

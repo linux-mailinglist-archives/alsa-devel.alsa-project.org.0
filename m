@@ -2,62 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F8B439C6C9
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Jun 2021 10:28:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B3439C6FA
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Jun 2021 11:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6198C170C;
-	Sat,  5 Jun 2021 10:27:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6198C170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95C7416F5;
+	Sat,  5 Jun 2021 11:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95C7416F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622881716;
-	bh=6WnhUmvpOPZ9sw6KcSUogzLzaKLxIAKGy4q06LRHlqI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Dh7l9HXjIMeK0mhVjYj2yW27Oz1V09xM3dvQetISCFDkKlDdEAYR9OSbIckwq5JgC
-	 FJVB/epLjwczqO7VvpbnxQFFIg540GG4QZh58gT/YSx/u/eb2xoynZBPNJdmbPKCMu
-	 yG2iz462m92GLTacwjaPrtEE7fwlqcwabyA6yWLw=
+	s=default; t=1622884365;
+	bh=zbT+Zj3awWBBvHiILqWJZicTOuPEfXoRQOusueKEFHs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vskWLNOSy/sG5M7jzHP8ftqctsSdw+UuWXm8Kx9kstyOIANtQ42mbszus69fU3PNt
+	 e2YUKYBKYGBmnEfkQvi5uSLf7/4+iErmrcRjYoAk5dPe9PkqNX0+k8aCfQezuoBa6D
+	 CiFUb50V59aUO5IyFqWhBntOhlRkQPoUsDLni28k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB29AF80253;
-	Sat,  5 Jun 2021 10:26:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12B1BF800FF;
+	Sat,  5 Jun 2021 11:11:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CD1EF804BC; Sat,  5 Jun 2021 10:26:20 +0200 (CEST)
+ id 07507F80253; Sat,  5 Jun 2021 11:11:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9C04F80253
- for <alsa-devel@alsa-project.org>; Sat,  5 Jun 2021 10:26:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9C04F80253
-Received: from 36-226-165-123.dynamic-ip.hinet.net ([36.226.165.123]
- helo=localhost) by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <jeremy.szu@canonical.com>)
- id 1lpRd4-0001D3-EE; Sat, 05 Jun 2021 08:26:03 +0000
-From: Jeremy Szu <jeremy.szu@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH 3/3] ALSA: hda/realtek: fix mute/micmute LEDs for HP EliteBook
- 840 Aero G8
-Date: Sat,  5 Jun 2021 16:25:38 +0800
-Message-Id: <20210605082539.41797-3-jeremy.szu@canonical.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210605082539.41797-1-jeremy.szu@canonical.com>
-References: <20210605082539.41797-1-jeremy.szu@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95A3FF80103
+ for <alsa-devel@alsa-project.org>; Sat,  5 Jun 2021 11:11:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95A3FF80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="rQwjE36Q"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="U0xCjimJ"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 4C3231637;
+ Sat,  5 Jun 2021 05:11:01 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Sat, 05 Jun 2021 05:11:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=+FG/mfjNYGqXJsfYEvOqtoj5X2
+ IszAKf/IZh5lLmLGo=; b=rQwjE36QY+7onJt+vSIPsx1Gjg3tbHbWDa4uM7ZvNb
+ rhSiR8Nj2OWq0Rcu+Jqb1hwjESwfRt4fiBzXMUYfkjPQXcGJHybMj6dYopmw+AD3
+ S8EbRkrofUfy7F8srjaKwATXdr5gFdBuJmInGoY0HRLuC6bkUj5ce2n/ud0eJsEW
+ c4OEXqqgeKbjNUsdbDuF5OlIft6ARCO/0BX89wzeTFxM5SULxro8yMSmzMRtLoFi
+ wuFp2gqq+/oJ8YeAsj8RrYlUZahmumlByO1pHXnf+T3BJENCrYJ/YxTur4upnkV2
+ T3XjJcmd/tvcCR/Nbo8V+m38LN7EV6wzaRSa6XFWf4vQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=+FG/mfjNYGqXJsfYE
+ vOqtoj5X2IszAKf/IZh5lLmLGo=; b=U0xCjimJ5/V8MHq78dUdDTproPSXEOLKs
+ nXEb0oKzBtPewR79Pey0zB/r+TbA/oCs01Bcv9vbcGAtWPiPZk1KFs7ZOpbm1ew2
+ tedsCdZhs3nJ84YTHF2mT2wtZNzEb9Cyt6GC+f9/V0Xybz+4r7ULB+Aj6SExud4C
+ qcKWpaaU2mc0Z6tJUQeZZsFJZ/us0uxfjNcyHmwAQiGnIWu1Bj/FZHQEVhfvlwWQ
+ vaw09UemWhAFrCjUv0xSB/p51aOn0LCt5UVhFp2cwBAtGVtKhL16U3GDPBL/wjN9
+ XOMqhccvI5+sxh0XzXIVfxZDRaf+mL4KMjrXkmCApPR5gcekpPPyw==
+X-ME-Sender: <xms:oz-7YPH9KKIp18xVZvgEfoYKgq2zPeMd3OMhAz-sVJRavOKiAXIXEQ>
+ <xme:oz-7YMXBvD_EVATh_DHqJp3lx4MFPhl0ScIj5Gfqgpr_Wc1DL5Zf_ypXcJuGTiON_
+ XLbgHzr4Avq9ye8Fpg>
+X-ME-Received: <xmr:oz-7YBLXcSj49XpwztsFucSKwD6gqw7eNSL00eJFhFd1RlG62boPHwr6frLJCzsK_BAFgGUz2migOgk1ZJV8fHfi2Gg7l7mYOkOysx_Kz_tWfWxu7jxw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtfedgudefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:oz-7YNEqLqU-p5JrtFHg6Kcz8455dqNgh5A2cdtLtXakL2VfoqpCig>
+ <xmx:oz-7YFXFD8KgrwEKkl2-UFeyZ0BwUAVNZKusamoDW7Atflz2HzMKSw>
+ <xmx:oz-7YIP_Q-2Kv-MnYU3jS2CoBtfyQD2AJQgOmWWy2ZnMf5HknIq0Sw>
+ <xmx:pD-7YChIrNztOubValKN-G4kvcWl_HrSKS3uQoTITdXyI-0xchJnGg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 5 Jun 2021 05:10:58 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: firewire-lib: fix the context to call
+ snd_pcm_stop_xrun()
+Date: Sat,  5 Jun 2021 18:10:54 +0900
+Message-Id: <20210605091054.68866-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- open list <linux-kernel@vger.kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- Jian-Hong Pan <jhp@endlessos.org>, Hui Wang <hui.wang@canonical.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,28 +109,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The HP EliteBook 840 Aero G8 using ALC285 codec which using 0x04 to
-control mute LED and 0x01 to control micmute LED.
-In the other hand, there is no output from right channel of speaker.
-Therefore, add a quirk to make it works.
+In the workqueue to queue wake-up event, isochronous context is not
+processed, thus it's useless to check context for the workqueue to switch
+status of runtime for PCM substream to XRUN. On the other hand, in
+software IRQ context of 1394 OHCI, it's needed.
 
-Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+This commit fixes the bug introduced when tasklet was replaced with
+workqueue.
+
+Cc: <stable@vger.kernel.org>
+Fixes: 2b3d2987d800 ("ALSA: firewire: Replace tasklet with work")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/firewire/amdtp-stream.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 11324163ebe1..215beb3ac678 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8330,6 +8330,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x87f5, "HP", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
- 	SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x886d, "HP ZBook Fury 17.3 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 945597ffacc2..19c343c53585 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -1032,7 +1032,7 @@ static void generate_pkt_descs(struct amdtp_stream *s, const __be32 *ctx_header,
+ static inline void cancel_stream(struct amdtp_stream *s)
+ {
+ 	s->packet_index = -1;
+-	if (current_work() == &s->period_work)
++	if (in_interrupt())
+ 		amdtp_stream_pcm_abort(s);
+ 	WRITE_ONCE(s->pcm_buffer_pointer, SNDRV_PCM_POS_XRUN);
+ }
 -- 
-2.31.1
+2.27.0
 

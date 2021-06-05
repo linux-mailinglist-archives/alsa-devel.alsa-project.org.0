@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C76FF39C84A
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Jun 2021 14:54:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C1139C84B
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Jun 2021 14:55:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AD501739;
-	Sat,  5 Jun 2021 14:53:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AD501739
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F79D1741;
+	Sat,  5 Jun 2021 14:54:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F79D1741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622897678;
-	bh=L8sszDp2i+moarbahJNf64P3mf2pvweiGcYul7yqu5M=;
+	s=default; t=1622897710;
+	bh=7HbBmDouirfug8FiqvOELhnIfH/cv5IeMnu6emJ30WA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CDmZBXaZ3oIvLzn+JI7TlvhaZYU1PLuDcBHSoL0usvG0ajI2lPdOZtd+2edhu1G8X
-	 hy0XSvqQ3mQwdMDpPcVDor+sPu+EQ8jxjvn9szCQznvSf195ux0GVhhf3tljn8dMmu
-	 9joI4T0XFkESlStU6EfzUEp4IKLgY58sTCDMQDgc=
+	b=KC+oNbF+xpFGueS6EEznBnh8iNLQKZYtfZ/fP0TTwzjG1yhsydjxpQWgZ7iYQvxAz
+	 /aL+hRiFG3gXV0++kLIpaehTS2dRmisaOKkfV36UYFxB9BXF0gw28zQANpJu0Oef63
+	 nHCWZ0qHSCQMYJV5JW6YoHrEsXrw47AqhAjk+FGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8B8EF804C1;
-	Sat,  5 Jun 2021 14:52:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95D64F800FF;
+	Sat,  5 Jun 2021 14:54:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B131F804CB; Sat,  5 Jun 2021 14:52:34 +0200 (CEST)
+ id 8546EF80253; Sat,  5 Jun 2021 14:54:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,55 +34,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4EBEF804C1
- for <alsa-devel@alsa-project.org>; Sat,  5 Jun 2021 14:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4EBEF804C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BC65F80155
+ for <alsa-devel@alsa-project.org>; Sat,  5 Jun 2021 14:54:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BC65F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="IjxxsjK0"; 
+ header.b="I9lmD3mp"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="USfn+kmi"
+ header.b="SjfPj41X"
 Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C80BD21A1B;
- Sat,  5 Jun 2021 12:52:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1313421A17;
+ Sat,  5 Jun 2021 12:54:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622897550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622897646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PiNpktxwaBLpMxp02+QYeNR49gCDKuJMGpSeFzGPk+M=;
- b=IjxxsjK0iWn/sJPt4bwrjONroHweNKcTaGJOLBiH62qJ6yUrr1IiUPl2EK6aEuHNliNKeY
- ffUp3w25sKDYJ6o0ATLIdj67gTEzqqvmOXaIFvHpuVOaT1t9zW8WBw8OpoZ2bhVsh5VV/o
- r9SWi7GWb2cwutXk6sFltVx1iXPw6Ps=
+ bh=PsHbLz/PK98ZInYmthMcELics8BGr09drEgRty8FcZo=;
+ b=I9lmD3mpwU2l8nMFtThPM/wDyvj6aMDvXLF6GSSCjEMoQKdeOoC7GY4BcHm0y5VPDYwktd
+ /OO4DH0oFYM9HU/VR8sFLDCmod7mIihCciZKSxEs0KbCLEuFrBPAr08tN5a6HiH3U8m6/V
+ Xlf3BMajj/Dy8+kTbCzZxIQerG5nW9E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622897550;
+ s=susede2_ed25519; t=1622897646;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PiNpktxwaBLpMxp02+QYeNR49gCDKuJMGpSeFzGPk+M=;
- b=USfn+kmibqGZt4VLlybeZGP8aG5OhoNGhZ2Kd4r+zayBc3Cqy3wNJbSrDoA2XX0r8xU1KX
- 67gN0dATEpR0TzAg==
+ bh=PsHbLz/PK98ZInYmthMcELics8BGr09drEgRty8FcZo=;
+ b=SjfPj41XrWjfu2lKDHWJds7v0MGP8QpRPB/9t2ghNjdCSmaucJPqyHVwyKa4J7PGCcvNYD
+ iZ7zN4oLodxJ8CDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B3317A3B8F;
- Sat,  5 Jun 2021 12:52:30 +0000 (UTC)
-Date: Sat, 05 Jun 2021 14:52:30 +0200
-Message-ID: <s5ho8ckfp81.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id F2E54A3B81;
+ Sat,  5 Jun 2021 12:54:05 +0000 (UTC)
+Date: Sat, 05 Jun 2021 14:54:05 +0200
+Message-ID: <s5hmts4fp5e.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeremy Szu <jeremy.szu@canonical.com>
-Subject: Re: [PATCH 3/3] ALSA: hda/realtek: fix mute/micmute LEDs for HP
- EliteBook 840 Aero G8
-In-Reply-To: <20210605082539.41797-3-jeremy.szu@canonical.com>
-References: <20210605082539.41797-1-jeremy.szu@canonical.com>
- <20210605082539.41797-3-jeremy.szu@canonical.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: firewire-lib: fix the context to call
+ snd_pcm_stop_xrun()
+In-Reply-To: <20210605091054.68866-1-o-takashi@sakamocchi.jp>
+References: <20210605091054.68866-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Chris Chiu <chris.chiu@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,15 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 05 Jun 2021 10:25:38 +0200,
-Jeremy Szu wrote:
+On Sat, 05 Jun 2021 11:10:54 +0200,
+Takashi Sakamoto wrote:
 > 
-> The HP EliteBook 840 Aero G8 using ALC285 codec which using 0x04 to
-> control mute LED and 0x01 to control micmute LED.
-> In the other hand, there is no output from right channel of speaker.
-> Therefore, add a quirk to make it works.
+> In the workqueue to queue wake-up event, isochronous context is not
+> processed, thus it's useless to check context for the workqueue to switch
+> status of runtime for PCM substream to XRUN. On the other hand, in
+> software IRQ context of 1394 OHCI, it's needed.
 > 
-> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+> This commit fixes the bug introduced when tasklet was replaced with
+> workqueue.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 2b3d2987d800 ("ALSA: firewire: Replace tasklet with work")
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
 Applied, thanks.
 

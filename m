@@ -2,76 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E779739CC04
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 03:04:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C242339CC59
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 04:58:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 684041718;
-	Sun,  6 Jun 2021 03:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 684041718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19B6D1736;
+	Sun,  6 Jun 2021 04:57:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B6D1736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622941441;
-	bh=jMe1td193zJuJxaqJE046Mu6hButE2e3+lAL+bNqxmo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PkQIgmQ7jJ2X7KDaOZCs7j1OJIXGRlVmABFn0kz+otMe7VLhxLlSfKLZk3t2Gw6kl
-	 jE5gLvy0HOFXGG+iqIo5C6ukkvRqWoEOPVkHfciL6UTLx+omF5bbzvKrtgkWETgm53
-	 DBYJRLP67ZRa4zTnze3erYpzZm1G8y78RUAKBS1Q=
+	s=default; t=1622948325;
+	bh=J0JVC8IrNFhvCSeNwrD98/SSkhP6t+CoTG4Dp2zAyMk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jmOrv0TeDjKM4f5C002+Q1jfxJXl2IFs5IvLAIlNRHIHPSByT2SIT10trnlP/2WcR
+	 YPErwesBHjkX80ZbkxMnGCCEULvOYrUYe3GlhafhtdKFC+koEismNlgxPFOO7kgyQD
+	 O27YY0LBsKwvKOzB/PVqNb7b5WLuowSbSmpKQqg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EC07F802DB;
-	Sun,  6 Jun 2021 03:01:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C26DF80227;
+	Sun,  6 Jun 2021 04:57:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85349F802DB; Sun,  6 Jun 2021 03:01:45 +0200 (CEST)
+ id DEC78F80218; Sun,  6 Jun 2021 04:57:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53821F802DB
- for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 03:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53821F802DB
-IronPort-SDR: YCRop/dcqQI/bvmpDux98XJLheW0kykZVpjsApFMA3NXD8T49ZHN7xnI3VyVeEVa580fdB1HXd
- qSH1KIHqsNrw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10006"; a="191800264"
-X-IronPort-AV: E=Sophos;i="5.83,252,1616482800"; d="scan'208";a="191800264"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2021 18:01:38 -0700
-IronPort-SDR: N0nuN/A298sqmvJi2BrB0/rNdxzhhGMIMscwyuRGynCC0D9R1JUtqW3nyQDuRrXt1tsEvtysJl
- G14KaxTJPzyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,252,1616482800"; d="scan'208";a="412724682"
-Received: from brentlu-desk0.itwn.intel.com ([10.5.253.32])
- by fmsmga007.fm.intel.com with ESMTP; 05 Jun 2021 18:01:33 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: Intel: sof_rt5682: code refactor for max98360a
-Date: Sun,  6 Jun 2021 08:41:02 +0800
-Message-Id: <20210606004102.26190-5-brent.lu@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210606004102.26190-1-brent.lu@intel.com>
-References: <20210606004102.26190-1-brent.lu@intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Rander Wang <rander.wang@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, Tzung-Bi Shih <tzungbi@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Dharageswari R <dharageswari.r@intel.com>,
- Mark Brown <broonie@kernel.org>,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
- Naveen Manohar <naveen.m@intel.com>, Brent Lu <brent.lu@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CA61F80103
+ for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 04:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CA61F80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="GP93Xprs"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="HyZiwDDP"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 478BA1ADE;
+ Sat,  5 Jun 2021 22:56:57 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Sat, 05 Jun 2021 22:56:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=UhIxHU70sGBKj4UvNzYu+U5RD1
+ I5cMjzJs+YyMzavL0=; b=GP93Xprsk6Zi3X3jdR4vZiF5QKTIuonc4OJf9w8DVC
+ dFPeuzdQ+LSZKpKZA4GTxux95PfdwYN+Xg7su9No9yusEADIlfMC3NVhnN2iH836
+ o6qeuuF36HQLCKL4zvAG57rD+/GS1y3WYVjQfW1MBqa2gr8mPekhfoEq3TLc6F4z
+ no+2yOE8dVOD18maNjS8wIBiFOff7I8kJqDzswQ5D48oLpdZ21IurJSJrR8GHmIW
+ itFUs/GMVXF84SHv1vugLfV7IAG8euSkU1Lh1wl14A/e7cL397PpObkrDjO597oO
+ oqXpFqSnfh7eR66nEGRRkNA654N2QPXwjNgKxYGUlNlg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=UhIxHU70sGBKj4UvN
+ zYu+U5RD1I5cMjzJs+YyMzavL0=; b=HyZiwDDPgD/E3Qjuht+eGeIRgrc7qmdUS
+ QPkMiUoHMJyjYUGuQzS+Bz3Crvtg634U7c7gJFUxvZ5yr9Vzg0tp3wX6kCU+41Yq
+ Y9m8tXYGQ56aoI5ujFyyCMEldXUFtIP7Nm2iOCFaMsAa6v4Kn/nX0YbvV4UFCI9W
+ lhLFcpaWEgzfIK6YCrf21lyhF4AQIQWM+D+vAnY3sJ+J0hwZuHDvw2HwghEkgG4D
+ UvPLQUIbi5isnW890crzZfH3pOIYu+7ZxEY1wXvDDYJKbPNRpnythbZX0ddAhR1s
+ UVrrS60qMbxloxBDKEvSQ4eoApeasDpT0LgvW9jTi1pbAKFKgirYA==
+X-ME-Sender: <xms:dzm8YLar3Pb_GkJeDSH-o7SNDjiwGdTHZng7MIuTE9MswWXRhV0bBQ>
+ <xme:dzm8YKa8-MUrbpQsq8T8-kQqBM6995roA-hUHf5KbLWTfTkKV3hga6ccksFdLqt5q
+ Z0S8NRFnMCDAqZJt9w>
+X-ME-Received: <xmr:dzm8YN_OzZjNy4fhfawdbYBYJAijCQV8P3JSlMNNp_XxewRRYhUlH_rwr2Mob21cwb_QYWnxvjThOSq48S9nXlIG6TuPazaMLnMVe45Iz_KDG5P40EC2>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtgedgieeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:eDm8YBrb9FOxG6xbmsECvH6PRdW8jJciqT4fxYBwInPV-wzTvZGoTQ>
+ <xmx:eDm8YGpqVoD8lwFtMRG27i6mVRb7gTcakoJSGAxNh4T-hWdzdly-DQ>
+ <xmx:eDm8YHQnBc-nUCT6-1eFpog2SA4L-TMwF-uCQ3Huz99vdnhE_sQcKA>
+ <xmx:eDm8YLBvvtJba6YHa-G0wzbfvyXfIfSHjkzF80MwZ5L08si3GGAAXQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 5 Jun 2021 22:56:54 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: firewire-lib: remove useless operations for kernel
+ preemption
+Date: Sun,  6 Jun 2021 11:56:51 +0900
+Message-Id: <20210606025651.29970-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,112 +109,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Refactor the machine driver by using the common code in maxim-common
-module to support max98360a.
+In all of drivers of ALSA firewire stack, the callback of .pointer and
+.ack in snd_pcm_ops structure is done in acquired spin_lock of PCM
+substream, therefore already under disabled kernel preemption.
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 52 +----------------------------
- 1 file changed, 1 insertion(+), 51 deletions(-)
+ sound/firewire/amdtp-stream.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 3e69feaf052b..910c054b0b42 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -456,10 +456,6 @@ static const struct snd_kcontrol_new sof_controls[] = {
- 
- };
- 
--static const struct snd_kcontrol_new speaker_controls[] = {
--	SOC_DAPM_PIN_SWITCH("Spk"),
--};
--
- static const struct snd_soc_dapm_widget sof_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-@@ -467,10 +463,6 @@ static const struct snd_soc_dapm_widget sof_widgets[] = {
- 	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
- 
--static const struct snd_soc_dapm_widget speaker_widgets[] = {
--	SND_SOC_DAPM_SPK("Spk", NULL),
--};
--
- static const struct snd_soc_dapm_widget dmic_widgets[] = {
- 	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
- };
-@@ -484,11 +476,6 @@ static const struct snd_soc_dapm_route sof_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
--static const struct snd_soc_dapm_route speaker_map[] = {
--	/* speaker */
--	{ "Spk", NULL, "Speaker" },
--};
--
- static const struct snd_soc_dapm_route speaker_map_lr[] = {
- 	{ "Left Spk", NULL, "Left SPO" },
- 	{ "Right Spk", NULL, "Right SPO" },
-@@ -505,34 +492,6 @@ static int speaker_codec_init_lr(struct snd_soc_pcm_runtime *rtd)
- 				       ARRAY_SIZE(speaker_map_lr));
- }
- 
--static int speaker_codec_init(struct snd_soc_pcm_runtime *rtd)
--{
--	struct snd_soc_card *card = rtd->card;
--	int ret;
--
--	ret = snd_soc_dapm_new_controls(&card->dapm, speaker_widgets,
--					ARRAY_SIZE(speaker_widgets));
--	if (ret) {
--		dev_err(rtd->dev, "unable to add dapm controls, ret %d\n", ret);
--		/* Don't need to add routes if widget addition failed */
--		return ret;
--	}
--
--	ret = snd_soc_add_card_controls(card, speaker_controls,
--					ARRAY_SIZE(speaker_controls));
--	if (ret) {
--		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
--		return ret;
--	}
--
--	ret = snd_soc_dapm_add_routes(&card->dapm, speaker_map,
--				      ARRAY_SIZE(speaker_map));
--
--	if (ret)
--		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
--	return ret;
--}
--
- static int dmic_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -594,13 +553,6 @@ static struct snd_soc_dai_link_component dmic_component[] = {
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 945597ffacc2..1c566ddf0776 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -1751,13 +1751,8 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
+ 		// Later, the process context will sometimes schedules software
+ 		// IRQ context of the period_work. Then, no need to flush the
+ 		// queue by the same reason as described in the above
+-		if (current_work() != &s->period_work) {
+-			// Queued packet should be processed without any kernel
+-			// preemption to keep latency against bus cycle.
+-			preempt_disable();
++		if (current_work() != &s->period_work)
+ 			fw_iso_context_flush_completions(irq_target->context);
+-			preempt_enable();
+-		}
  	}
- };
  
--static struct snd_soc_dai_link_component max98360a_component[] = {
--	{
--		.name = "MX98360A:00",
--		.dai_name = "HiFi",
+ 	return READ_ONCE(s->pcm_buffer_pointer);
+@@ -1777,13 +1772,8 @@ int amdtp_domain_stream_pcm_ack(struct amdtp_domain *d, struct amdtp_stream *s)
+ 
+ 	// Process isochronous packets for recent isochronous cycle to handle
+ 	// queued PCM frames.
+-	if (irq_target && amdtp_stream_running(irq_target)) {
+-		// Queued packet should be processed without any kernel
+-		// preemption to keep latency against bus cycle.
+-		preempt_disable();
++	if (irq_target && amdtp_stream_running(irq_target))
+ 		fw_iso_context_flush_completions(irq_target->context);
+-		preempt_enable();
 -	}
--};
--
- static struct snd_soc_dai_link_component rt1015_components[] = {
- 	{
- 		.name = "i2c-10EC1015:00",
-@@ -775,9 +727,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			links[id].dpcm_capture = 1;
- 		} else if (sof_rt5682_quirk &
- 				SOF_MAX98360A_SPEAKER_AMP_PRESENT) {
--			links[id].codecs = max98360a_component;
--			links[id].num_codecs = ARRAY_SIZE(max98360a_component);
--			links[id].init = speaker_codec_init;
-+			max_98360a_dai_link(&links[id]);
- 		} else if (sof_rt5682_quirk &
- 				SOF_RT1011_SPEAKER_AMP_PRESENT) {
- 			sof_rt1011_dai_link(&links[id]);
+ 
+ 	return 0;
+ }
 -- 
-2.17.1
+2.27.0
 

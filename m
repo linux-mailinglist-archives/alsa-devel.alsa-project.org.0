@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588F939CDF9
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 10:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21BED39CDFA
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 10:07:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3B3016D6;
-	Sun,  6 Jun 2021 10:05:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3B3016D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35B8616E1;
+	Sun,  6 Jun 2021 10:06:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35B8616E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1622966807;
-	bh=7MykCFOjCPppb6IkPtwaeP2pWW+6OEqmKuK7KOqDZ8Y=;
+	s=default; t=1622966822;
+	bh=0yvoTdYxoSVngwJDY/93thWhJFjte3eRCJtBNw2Oh1Q=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MN8960sHelMuW0YjRSDCuYDlZ5wOEv2XoBO6w6iycNI1zui4mh8MYieOSzqR2eQQT
-	 9FOc84FFc+uP0yG3B2rVowj/qXA5kYhFVr8ghaZ1jjhJpe7Xg63+Ymlei/jLcXd2U/
-	 2XxtsQ/j6H/MZ6JoMvS7MEMCfcx00qTwL9FmVhRI=
+	b=twQb46LTw6sPQhc/dh0qI/DoU0JrzjtvhbDS/zUekpq7EVhlDaOGQupvPYWE6rwuk
+	 F/zQlf5W/Cbpud66vglHXMU23lqjAp5IJS4Y1kPY00eHRLdl31MR/nATAuaaIsks1O
+	 LuyXALVqZPfEa9VHTgyle3ojLT/UVwmBpmubjl3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 148D2F80227;
-	Sun,  6 Jun 2021 10:05:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7C48F804AC;
+	Sun,  6 Jun 2021 10:05:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC852F80218; Sun,  6 Jun 2021 10:05:16 +0200 (CEST)
+ id E7368F804AB; Sun,  6 Jun 2021 10:05:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29076F80103
- for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 10:05:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29076F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0E11F800D0
+ for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 10:05:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0E11F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yeIwkCmq"; 
+ header.b="bR0p67iv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="zeMhKaVT"
+ header.b="hRnTWqkN"
 Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 74DB71FDA5;
- Sun,  6 Jun 2021 08:05:09 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 753AF1FD30;
+ Sun,  6 Jun 2021 08:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1622966709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622966735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HuPWFO+tVpFLKGRhDYByJBx3FJIHpP/sXcCOTw9MB4U=;
- b=yeIwkCmqXv1BSPVBRauhBOllkYMvOot5/g3oCp/2B3ds29vZqzgdQvwx0xLdIDqNubhlNj
- A255G3Y7B86+CjZ5IjJbp5RYtkTvIJwyfceBPeQNXeQG/um3RjgGtD5QBne3WBBvrmokhy
- YuBSR1PnPEVATyCubDhKyOOWycgEW1E=
+ bh=dyMuwF21ERkOuf8cmIyaT0ReIbIt5YS3jn/DSqdEPTk=;
+ b=bR0p67ivQGJHjFoeqmIVc/9kNrIAEsArS8sjAeLILos9O6De2if8pLpXK5Cz2g418QYzk8
+ 2q6vDKXHaR0cK7+LaiqwY5pXFgVUD0RbEtR4ikbpUKJrQq83CsZmcl3FTP+trsFU9coHmR
+ G9HxpAGsXiBac2q8mS9YVOgCBuwnd8w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1622966709;
+ s=susede2_ed25519; t=1622966735;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HuPWFO+tVpFLKGRhDYByJBx3FJIHpP/sXcCOTw9MB4U=;
- b=zeMhKaVTtTDfX78bwZDPbmG6AQNv/7/FSkgWM71SSBfV4TQFNCuR+XgU3/R5n/Pm1Nkoty
- 0cJ1pZMpMN8VUgDw==
+ bh=dyMuwF21ERkOuf8cmIyaT0ReIbIt5YS3jn/DSqdEPTk=;
+ b=hRnTWqkNNQOiNrsqTWCeHSnXUZX4xWrwrzUGPOSTdr948PqVptXGgJ5ONpiKHEOmuxQIt1
+ MONE3SRdmJuBqNAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4033CA3B81;
- Sun,  6 Jun 2021 08:05:09 +0000 (UTC)
-Date: Sun, 06 Jun 2021 10:05:09 +0200
-Message-ID: <s5him2rfmfe.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 663A9A3B81;
+ Sun,  6 Jun 2021 08:05:35 +0000 (UTC)
+Date: Sun, 06 Jun 2021 10:05:35 +0200
+Message-ID: <s5hh7ibfmeo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH] ALSA: firewire-lib: fix error codes for allocation failure
-In-Reply-To: <YLtyL4VoArwVLor1@mwanda>
-References: <YLtyL4VoArwVLor1@mwanda>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: firewire-lib: remove useless operations for kernel
+ preemption
+In-Reply-To: <20210606025651.29970-1-o-takashi@sakamocchi.jp>
+References: <20210606025651.29970-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,14 +93,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 05 Jun 2021 14:46:39 +0200,
-Dan Carpenter wrote:
+On Sun, 06 Jun 2021 04:56:51 +0200,
+Takashi Sakamoto wrote:
 > 
-> Return -ENOMEM if kcalloc() fails.  Currently the code returns success.
+> In all of drivers of ALSA firewire stack, the callback of .pointer and
+> .ack in snd_pcm_ops structure is done in acquired spin_lock of PCM
+> substream, therefore already under disabled kernel preemption.
 > 
-> Fixes: f9e5ecdfc2c2 ("ALSA: firewire-lib: add replay target to cache sequence of packet")
-> Fixes: 6f24bb8a157c ("ALSA: firewire-lib: pool sequence of packet in IT context independently")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
 Thanks, applied.
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EBD339D044
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 19:48:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E3EF39D045
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Jun 2021 19:49:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 207151756;
-	Sun,  6 Jun 2021 19:47:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 207151756
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE9E5174E;
+	Sun,  6 Jun 2021 19:48:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE9E5174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623001727;
-	bh=69wiy1i+pp/18NrJlzJ2QLL+E/PfDCEqe0PWijKrc4I=;
+	s=default; t=1623001758;
+	bh=fi178R9ffMna3eVs1cJODLRngk94dUkVwexDTMjNtu8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G6VPJEXhgKBYEq93dxj4RATCQi5e4cCqaFqgcJqr2FHuJ2VxdxagAO+d+g94SgxF0
-	 p8HaNjmGMGRuNQY5ZF36qmNVCi5TGTK25lQewH6MqlwIBpN20EbU6bbGyLArDq5e86
-	 UoSNn68/Uc9ZbeIgEQIrcHDmdV7+V6cU9KpuPGGU=
+	b=L+uUSYW1fBIjNOcSYoPoPgW/Dcr4f+E7o3A7KCQnt1ieo8Dq87PTM1Ze44yJ28g9d
+	 5iEaO/4kgVDl4sAQb+ppFa+99P30IYHxgydJGaa3Hq8tY/36x3DMnacqSl93bVPV0m
+	 qVXIzNYqk9YNXBTRPmAmalakhh+XZfYUfJFCvq88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 967BBF804C2;
-	Sun,  6 Jun 2021 19:46:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3C5FF804C3;
+	Sun,  6 Jun 2021 19:47:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E5BDF804C2; Sun,  6 Jun 2021 19:46:49 +0200 (CEST)
+ id 2B22FF804C3; Sun,  6 Jun 2021 19:47:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9CDFF804AB
- for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 19:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9CDFF804AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8589EF8019B
+ for <alsa-devel@alsa-project.org>; Sun,  6 Jun 2021 19:47:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8589EF8019B
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 66C91612FB14; Mon,  7 Jun 2021 03:16:44 +0930 (ACST)
-Date: Mon, 7 Jun 2021 03:16:44 +0930
+ id 1618E61956CD; Mon,  7 Jun 2021 03:17:10 +0930 (ACST)
+Date: Mon, 7 Jun 2021 03:17:10 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 7/8] ALSA: usb-audio: scarlett2: Add temp variable for
- consistency
-Message-ID: <198b38f091b40e59d40dfafa3024c97a3ea202f0.1622999147.git.g@b4.vu>
+Subject: [PATCH 8/8] ALSA: usb-audio: scarlett2: Fix data_mutex lock
+Message-ID: <4d7ad2f3eea76a09c400c4f04d02d31da9cd7cea.1622999147.git.g@b4.vu>
 References: <cover.1622999147.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -66,41 +65,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add index temporary variable to scarlett2_mixer_ctl_put() for
-consistency with the other *_ctl_put() functions.
+The private->vol_updated flag was being checked outside of the
+mutex_lock/unlock() of private->data_mutex leading to the volume data
+being fetched twice from the device unnecessarily or old volume data
+being returned.
+
+Update scarlett2_*_ctl_get() and include the private->vol_updated flag
+check inside the critical region.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/usb/mixer_scarlett_gen2.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 81c59463b693..8a4aa16cc364 100644
+index 8a4aa16cc364..9ea6abded26e 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -1622,18 +1622,19 @@ static int scarlett2_mixer_ctl_put(struct snd_kcontrol *kctl,
- 	const struct scarlett2_device_info *info = private->info;
- 	const struct scarlett2_ports *ports = info->ports;
- 	int oval, val, num_mixer_in, mix_num, err = 0;
-+	int index = elem->control;
+@@ -1155,11 +1155,10 @@ static int scarlett2_master_volume_ctl_get(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
  
- 	mutex_lock(&private->data_mutex);
+-	if (private->vol_updated) {
+-		mutex_lock(&private->data_mutex);
++	mutex_lock(&private->data_mutex);
++	if (private->vol_updated)
+ 		scarlett2_update_volumes(mixer);
+-		mutex_unlock(&private->data_mutex);
+-	}
++	mutex_unlock(&private->data_mutex);
  
--	oval = private->mix[elem->control];
-+	oval = private->mix[index];
- 	val = ucontrol->value.integer.value[0];
- 	num_mixer_in = ports[SCARLETT2_PORT_TYPE_MIX].num[SCARLETT2_PORT_OUT];
--	mix_num = elem->control / num_mixer_in;
-+	mix_num = index / num_mixer_in;
+ 	ucontrol->value.integer.value[0] = private->master_vol;
+ 	return 0;
+@@ -1173,11 +1172,10 @@ static int scarlett2_volume_ctl_get(struct snd_kcontrol *kctl,
+ 	struct scarlett2_data *private = mixer->private_data;
+ 	int index = elem->control;
  
- 	if (oval == val)
- 		goto unlock;
+-	if (private->vol_updated) {
+-		mutex_lock(&private->data_mutex);
++	mutex_lock(&private->data_mutex);
++	if (private->vol_updated)
+ 		scarlett2_update_volumes(mixer);
+-		mutex_unlock(&private->data_mutex);
+-	}
++	mutex_unlock(&private->data_mutex);
  
--	private->mix[elem->control] = val;
-+	private->mix[index] = val;
- 	err = scarlett2_usb_set_mix(mixer, mix_num);
- 	if (err == 0)
- 		err = 1;
+ 	ucontrol->value.integer.value[0] = private->vol[index];
+ 	return 0;
+@@ -1441,11 +1439,10 @@ static int scarlett2_button_ctl_get(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
+ 
+-	if (private->vol_updated) {
+-		mutex_lock(&private->data_mutex);
++	mutex_lock(&private->data_mutex);
++	if (private->vol_updated)
+ 		scarlett2_update_volumes(mixer);
+-		mutex_unlock(&private->data_mutex);
+-	}
++	mutex_unlock(&private->data_mutex);
+ 
+ 	ucontrol->value.enumerated.item[0] = private->buttons[elem->control];
+ 	return 0;
 -- 
 2.31.1
 

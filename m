@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054E039E00A
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 17:14:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47EF239E016
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 17:17:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE161674;
-	Mon,  7 Jun 2021 17:13:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE161674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FE7D1676;
+	Mon,  7 Jun 2021 17:16:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FE7D1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623078859;
-	bh=mjW2TAfssW5Enzm0ONrV9vwWI/dQVdw6x/wAKNlUC+o=;
+	s=default; t=1623079039;
+	bh=KJ9F1assNvZ2XjBzP2V75g7/v7KoSQIHwSdh/g/zY1I=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RFaCNNBqmdBN+e7iwwGrCZKl0y9ebu3TMR7QZ0OY811mn6OjBNi2MncGk2tLXDZcy
-	 jnt1vJebQpES7u5ARWtwv5sbkKB2B7TQ/kmEmTKLOZ/uo80BQAs2LGih9MTLaBN1bI
-	 zngnkWPhMsJxOImtmItANYBzkPprx4njQirW3fMs=
+	b=NDubnceH8Whk0kd9jW7kwtvegCJxUPV1WuiJXBr8M1SOAtsj2MB/zEq4QW0Q+h9pA
+	 6aBP31oB/852kYaUIPP56FnqojgYTva3GQNKrfxxJa8ig3vcpZZ4kai/wWHupAIkTo
+	 eQTz2WT6TI968+SKdZW03TMIciRoVwfzfjvrU7sY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEF41F8026C;
-	Mon,  7 Jun 2021 17:12:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 788AAF8026C;
+	Mon,  7 Jun 2021 17:15:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5316F80212; Mon,  7 Jun 2021 17:12:48 +0200 (CEST)
+ id E8C6BF80212; Mon,  7 Jun 2021 17:15:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,57 +33,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D578CF800DF
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 17:12:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D578CF800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5130F800AF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 17:15:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5130F800AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WqPw+/a5"; 
+ header.b="uwbJdofC"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="EfiK1zq0"
+ header.b="PpkYy9MW"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 9D7691FD30;
- Mon,  7 Jun 2021 15:12:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1BE4B1FDA1;
+ Mon,  7 Jun 2021 15:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623078760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623078943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AhMCl9svDYnQQR+w7q3ztYzBa+7kP27nakdsofS4c9M=;
- b=WqPw+/a5sLQL7Rb1rqu1LNvUvCgVPzYPMp3Jd5ays8VmSuYA2Q/PAKwMzAMWvyDtAuWYN7
- GbFNhMPTeJre2+OgeyoNoD6baYGiSCNmmm/gJJRr2b8CwBy8f+ZnG21ProrFb12xcD6uTM
- dU02wZdtN3Gnv6rSs095LaGTXk+GHDU=
+ bh=DeEYoYhev0fmShidTl2qW6H7MG2tlIuQMY3vPWlSDRI=;
+ b=uwbJdofCTSDRMC6QbKJ/wFxNHogdUIpcBlM7/TrOmENYLHOIEAxXnrJpmgoXnVXYXVGbQy
+ 1+nCtfVoLAWvLK9BrIB279FK+fPOe/dJIAEmXr/ipQug8/D866ypRIval9NeLcb1Cchhbk
+ 1wi/2/VljErxp1N0kNg/xVUKNH2g17E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623078760;
+ s=susede2_ed25519; t=1623078943;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AhMCl9svDYnQQR+w7q3ztYzBa+7kP27nakdsofS4c9M=;
- b=EfiK1zq0BNjTFVaB0nSOWiLRMF21s8uJiYIlNi4OKoilI2OVqrXAfPPbAWG12ROZFr9oem
- V4GOG/DRcdsUt1CA==
+ bh=DeEYoYhev0fmShidTl2qW6H7MG2tlIuQMY3vPWlSDRI=;
+ b=PpkYy9MWN9J4uJTq+/bslGXt2qAwbU6KGjUCXSN0RujkJzygzreXBBQJ8w/5AaWp2O/ro+
+ 8ordGeBpoUpp2hCw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C1EE2A3B84;
- Mon,  7 Jun 2021 15:12:38 +0000 (UTC)
-Date: Mon, 07 Jun 2021 17:12:38 +0200
-Message-ID: <s5hfsxtemjd.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 0BC77A3B87;
+ Mon,  7 Jun 2021 15:15:43 +0000 (UTC)
+Date: Mon, 07 Jun 2021 17:15:43 +0200
+Message-ID: <s5heeddeme8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vladimir Sadovnikov <sadko4u@gmail.com>
-Subject: Re: [PATCH 0/2] ALSA: usb-audio: scarlett2: Read all configuration at
- init time
-In-Reply-To: <3c7a458a-a5cd-08e4-a462-293c5bf633ec@gmail.com>
-References: <cover.1622974661.git.g@b4.vu> <s5h1r9ef895.wl-tiwai@suse.de>
- <3c7a458a-a5cd-08e4-a462-293c5bf633ec@gmail.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/9] ALSA: firewire: cease from delayed card registration
+In-Reply-To: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
+References: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Daniel Sales <daniel.sales.z@gmail.com>, alsa-devel@alsa-project.org,
- "Geoffrey D. Bennett" <g@b4.vu>,
- Markus Schroetter <project.m.schroetter@gmail.com>,
- Alex Fellows <alex.fellows@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,82 +91,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 07 Jun 2021 17:00:10 +0200,
-Vladimir Sadovnikov wrote:
+On Mon, 07 Jun 2021 10:12:41 +0200,
+Takashi Sakamoto wrote:
 > 
-> Hello!
+> Hi,
 > 
-> I would like to say some words from my side.
+> Since Linux kernel v4.7, delayed card registration was introduced to all
+> drivers in ALSA firewire stack. Nowadays it brings less benefit than
+> code complication.
 > 
-> The Scarlett device (especially 18i20) is pretty complicated device
-> and holds a lot of settings in it's internal
-> configuration area (hardware and software).
+> This patchset ceases from it.
 > 
-> So this is not the only patch which will configure the driver in proper way.
-> Since the device stores it's internal state (and that's good for power
-> safety and mobility), ideally, we should get
-> the almost fully compatible mixer settings with the original Focusrite
-> Control Software.
-> 
-> The huge amount of job I've already done i my fork of Geoffrey's driver:
-> https://github.com/sadko4u/focusrite-scarlett-backports/blob/master/prod-drv/mixer_scarlett_gen2.c
-> 
-> So we're planning to work on integrating our changes into the common
-> patch sets and will submit changes here.
+> Takashi Sakamoto (9):
+>   ALSA: bebob: cease from delayed card registration
+>   ALSA: fireworks: cease from delayed card registration
+>   ALSA: oxfw: cease from delayed card registration
+>   ALSA: dice: cease from delayed card registration
+>   ALSA: firewire-digi00x: cease from delayed card registration
+>   ALSA: firewire-tascam: cease from delayed card registration
+>   ALSA: firewire-motu: cease from delayed card registration
+>   ALSA: fireface: cease from delayed card registration
+>   ALSA: firewire-lib: delete unused kernel API
 
-Sure, I don't mean against the patches, this looks like an acceptable
-approach.  So don't worry, I'd take the patches once when the fixed
-version is submitted.
-
-However, from the system design POV, all those configurations should
-be a software issue, and ideally we shouldn't  rely on the hardware
-preset state which has been done *somehow* -- it may allow malfunction
-easily.  One thing I've learned over years is that you can never trust
-hardware :)
+Applied all nine patches.  Thanks.
 
 
 Takashi
-
-> 
-> Best,
-> Vladimir
-> 
-> 07.06.2021 10:23, Takashi Iwai пишет:
-> > On Sun, 06 Jun 2021 16:16:44 +0200,
-> > Geoffrey D. Bennett wrote:
-> >> These two patches add support for reading the mixer volumes and mux
-> >> configuration from the hardware when the driver is initialising.
-> >>
-> >> Previously the ALSA volume controls were initialised to zero and the
-> >> mux configuration set to a fixed default instead of being initialised
-> >> to match the hardware state.
-> >>
-> >> The ALSA controls for the Scarlett Gen 2 interfaces should now always
-> >> be in sync with the hardware. Thanks to Vladimir Sadovnikov for
-> >> figuring out how to do this.
-> >>
-> >> Takashi, if these pass your review, I believe that they are
-> >> appropriate for:
-> >> #Cc: stable@vger.kernel.org
-> > Well, in general, having a proper fixed value for the initial mixer
-> > value is the right thing, which is a part of the driver's role.
-> > Though, in snd-usb-audio, we don't set up the initial values just
-> > because of laziness; since the topology in USB audio is variable per
-> > device and often hard to parse correctly, it's difficult to determine
-> > the suitable initial values, hence we leave untouched.  So, in that
-> > sense, setting the zero isn't wrong, rather safer, per se.
-> >
-> > However, Scarlett 2 seems to want to be different; it has already some
-> > initialization code to read the existing configs.  So this change
-> > sounds more or less acceptable.  But it's questionable whether it's
-> > really for stable as a "fix".
-> >
-> > In anyway, please fix the bug ktest bot spotted, the missing endian
-> > conversions and resubmit.
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> 
-> 

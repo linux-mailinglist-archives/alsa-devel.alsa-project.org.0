@@ -2,187 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A6039DECE
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 16:31:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E483839DED9
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 16:34:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16B401676;
-	Mon,  7 Jun 2021 16:30:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16B401676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A7D9166E;
+	Mon,  7 Jun 2021 16:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A7D9166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623076294;
-	bh=RXDd+F0dM1T68WH17k1s5v6dpxTQTLj3aMT7ynj18uM=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1623076445;
+	bh=+VVc72r0EnJKudgBeWhjQFZiio8Ss0zgIbtA2y1ZvKs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NV9M2VKH5KF8FHA+x6BlPBRnIGPSs2JwAP8mmsKr0mJE8fvMxcaI/+j38nVFgx8GA
-	 OEFjWwDyUm5KC4SQ5nO1ZuaSg96xC0sBNtq9AFjEXvkDeUtNA2d2mqykdMqF/2JPcL
-	 v58uQ/HUU7hW5ejK7DYbKaSQDcjFseQaYIuwQF+Y=
+	b=cDcNWGeGDwrGRvwjI8GGyDm5bquho4+wzUiiaLZTcxWPd4saol8ew5M4aKm27Ycld
+	 kSqwa4+K7auOSl/HVDGxS5IDHzP85tFTXLVQgFBOvk8OjoYzLk7gxVU15zcPHvcL/G
+	 QlwwZFfdtaUpuYXFUUWQ8B2LA3cr0CArRw67bQTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C95CF8020D;
-	Mon,  7 Jun 2021 16:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33CA9F8026C;
+	Mon,  7 Jun 2021 16:32:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0131F80212; Mon,  7 Jun 2021 16:29:43 +0200 (CEST)
+ id 6FC53F80212; Mon,  7 Jun 2021 16:32:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 070D5F800AF
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 16:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 070D5F800AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FCD8F800DF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 16:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FCD8F800DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="qHPjFM/D"
-IronPort-SDR: utoplC6b2c7gcrEvVgdJlI+zLsn6qhcOuew4JavTO55d1wS9VDo/CZp0kfNRTzxcIlapR0xvmq
- U61H7/kYkMEA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="225965580"
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="225965580"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 07:29:29 -0700
-IronPort-SDR: 4iJvu9y84FuHTNBQqCaNPbm1rXJ9w/ai+HxnS6UIA0A++8D5hNeRXW1a00MG4yB6L+/JRmWK7Z
- Hg9GYriSo6KA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="484792750"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by fmsmga002.fm.intel.com with ESMTP; 07 Jun 2021 07:29:28 -0700
-Received: from orsmsx604.amr.corp.intel.com (10.22.229.17) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Mon, 7 Jun 2021 07:29:28 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
- via Frontend Transport; Mon, 7 Jun 2021 07:29:28 -0700
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.169)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2242.4; Mon, 7 Jun 2021 07:29:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rt/qmUALe1tavQzMou9mONYs+qBVkjQ1i5qDRszc7ZaGvgx+glW9LGmkw00vQDiIFhKiy3KIXhCuzvGgUlm7IlHiI9MizrOLT636TtZvGXOSpFPtDZleJui/YCrEUpC12GMHaoFM5H/JrKMj4va+vTLzMHkGu17gYCL/nNZKBd/Je4fSzmgiNC5RNy9InJ+IewBR+FZciHksnxiVXm5y7WVjFjHPI0yVU66HU2k7Bes3h/b5N/FfG/7aVHSj01XDAXkAcRdlaEUjCztZ2Blgp7E68p1diYpFhn13CL600Crq9rAQ1yvGW2Ctrq9ODgshJm8xvfG1UOckiCJRk6t3dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RXDd+F0dM1T68WH17k1s5v6dpxTQTLj3aMT7ynj18uM=;
- b=VXWogOICoUFWaUWg1qL2ApqSeqVUo2hePKPCjnZhhQpAkUj0ZKPsFQU+9E/fmW5Afga1rMguQ3gu56eDA6On8NHgkV5mmScLMGVJt5rHALUBM+WS5OpTUL4XzrlVOSgdJnr8+D6OD/bVhvCHLYjLUwRXPnGF38ewmIVfJcvUujlg2ZkNc0u4pNwZaaNQfKrPKCHaDYQ+9jCgkDVRZtrjvhoQfHQ9zrOT0+Gqe94ckFK3K5jPgv6dY6GIkPe/fp5OrFQLLeNCE0qbEBnKVhDdCK18xHpUvgvFYHAnLzjebrtlMq1uU7PoXtoepK4NVDJAcnY0Ow79cxeH/w4Qk28Ltg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RXDd+F0dM1T68WH17k1s5v6dpxTQTLj3aMT7ynj18uM=;
- b=qHPjFM/DXe0qobkIk+htQcbQieOKwlmkihe3u0EcbEQqpSHqu2s3CNeCdgj+3TEUkHVwQi01A383JheC7OkOp1n8bkq+eroigftE1h7C5+FLTGOysQOlgFP0ePtxqv2j+2k07oRqzdtfVlpRi2JQcSX0y17wg1kynVEl8wPtQpE=
-Received: from DM6PR11MB3642.namprd11.prod.outlook.com (2603:10b6:5:138::26)
- by DM5PR11MB1323.namprd11.prod.outlook.com (2603:10b6:3:14::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.22; Mon, 7 Jun 2021 14:29:12 +0000
-Received: from DM6PR11MB3642.namprd11.prod.outlook.com
- ([fe80::f890:381e:1e24:a6d9]) by DM6PR11MB3642.namprd11.prod.outlook.com
- ([fe80::f890:381e:1e24:a6d9%7]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 14:29:12 +0000
-From: "Lu, Brent" <brent.lu@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 3/4] ASoC: intel: sof_cs42l42: add support for
- jsl_cs4242_mx98360a
-Thread-Topic: [PATCH 3/4] ASoC: intel: sof_cs42l42: add support for
- jsl_cs4242_mx98360a
-Thread-Index: AQHXWm+BSRbfqtjemkyMcQgR/Pdi8asIkI4AgAAMh9A=
-Date: Mon, 7 Jun 2021 14:29:11 +0000
-Message-ID: <DM6PR11MB36421AD935E4A2B8EBD0FE6197389@DM6PR11MB3642.namprd11.prod.outlook.com>
-References: <20210606004102.26190-1-brent.lu@intel.com>
- <20210606004102.26190-4-brent.lu@intel.com>
- <505c7e46-316c-9fa1-feaa-115f4561ed19@linux.intel.com>
-In-Reply-To: <505c7e46-316c-9fa1-feaa-115f4561ed19@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [36.230.1.79]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 499e4fa7-32da-4c78-2ba5-08d929c09ea2
-x-ms-traffictypediagnostic: DM5PR11MB1323:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR11MB132384B1A6E6FBFC1BC16BE297389@DM5PR11MB1323.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2MdbghhgmU+RrmgBWVckdwTDfOteXuT2a3PTDqccN1+JopjRLAkK1g5m1WRckaStautJAb9kqOoXuhjDy0eBRwbP25UwuwdXGt21omXgIN/Cy2SvRJGbWuvdIQrfKlL12QVPl/0c7QW9+OKt600R8i4O6vd+Ym/8NVnJhrAevg0RcOgpkbrkRilI+3Jr5otsAXtYY14HQWJWSTtUNLZRTAX72c19IFbmPYQvVdBZ7L/9b4thBfi2tRwZM39pD5nh0LXbgOENpvKGI9+h2V74zW7K6qOVg9/yKaouRTCW9wHPsLW4iwqZWJKsE5vewJeecBrijj+pD1SFxbYp/A22/StX9ucrhKl4z8pj3suq+/WrLNR+m9kn8MIyOVTm8fk7HyQ35NLfbU893HDsuVOq9DLAG2sid4oSboJwBgLJS2EMn1KT/jzVrvgkGREn4hThmlzSv0GE+LY1p9cGkFU0NsPYKk/rAdyE39Ioje2ChUHu415gopgAAd+ljqwlrO4Fvk3ozr+aaLnKMSxNMrtcExWqd+8KUymYQSyBvjOE3RWQ/+h/GNPjN+d9uRPAue0BOqTEzirM5Pb/E+HdA/M6ZtgLY2cIUwp1JHLwhSRRbXs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3642.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(39860400002)(396003)(136003)(376002)(346002)(55016002)(110136005)(86362001)(316002)(54906003)(52536014)(5660300002)(7696005)(53546011)(33656002)(6506007)(4744005)(186003)(38100700002)(8676002)(2906002)(66556008)(66946007)(76116006)(64756008)(66476007)(9686003)(66446008)(8936002)(71200400001)(122000001)(478600001)(4326008)(7416002)(26005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?ejBuRlRiZnByS3dYL1pNdktLQ2JIZDdqTGVBVVl1Z0NmcjVuNTVRZjZnemRr?=
- =?utf-8?B?b1N5L0RyNlVSb0xTczhEYzNvU2tYSmhvcnRNaE9tZmpJbko1ajNUempXM1dW?=
- =?utf-8?B?RHg0Y1VNL3pLSllOUjRlN0l1OHYvRnVPYnllY0tHWnh3Vi9UTkNlVjRxdE5w?=
- =?utf-8?B?S2dLL284MlFFVGMwbWhlRGlpUXdockpzMXUxalFXRS9GVWREVURKVlBpb3B6?=
- =?utf-8?B?NUlaSXdOd3NHYVp3WjZZMFc1RGFtMkVmWXZBNklsaUc1TCtwWEhZSklTZUY2?=
- =?utf-8?B?eUljcUtPUXZleEQxdVMwczF6algrdGVveVZ1VDdMSjUzQm4zSkxzRjRoNU5l?=
- =?utf-8?B?MGRPejFMT2Zuckd2VWxUaTByQTRaclNKK3lPU1ZHbFF5V2xmUkpGTGFIVzJZ?=
- =?utf-8?B?RXlnMmNpRHRPZ2lxSzRFSkhHT21jdTQ4RTAzUllHd093QTZKcVd1VHNRSDR5?=
- =?utf-8?B?SlFBSWJST0RwZENKSGFmVHQzeDJhWHJXMTBVazVGUXZ5YnVTd09Oc3BhU0hW?=
- =?utf-8?B?eWNMblVlMnZJeG1CZnVZSXVDWnlBcEtFNng5VmVBRHpjcWs2R01uSGp1a3lI?=
- =?utf-8?B?N1NjRVEwbjJ4ZEE3bElKZDdGeVJsOWYxM1o2YmRnaTVmdVNzUlRtVmxhVG03?=
- =?utf-8?B?UWs3d0p5bksxdE9va25CdVR3Q2JreUxWWE1COFF0U2hxaWYwYzlBeGRhMTE3?=
- =?utf-8?B?T0RlMkVlcGViMjFHRHZ2SlVVY1M2c0FteStLNlNmQ3YrTEd5T0dWYkxqaUZL?=
- =?utf-8?B?WVYvQXBLanB2aVQ0Z3o1bHlxWlVkVVNVLzhjRi9QcTZRbHNBRTlzUXlJM21T?=
- =?utf-8?B?RGdVVk5oS3Jya1lHcENteFpHK2p2SHVEd29KMjdBWXNMR24vT2dlbVVucmpR?=
- =?utf-8?B?MTRWa1YxTU1HUmRPajYvTUZSTUlSVEc1R1ArbGt0bUNNTUU5TzZyYzQ2aHZW?=
- =?utf-8?B?WUlHMFZOaDBtdGxTRFg0QTBkM3IxUEkzZzZhS1AvQktzSlRrRGtTb1BtTkNT?=
- =?utf-8?B?VGFQYTgrWExnbFA0YVkyR0xUUVc3QkY1c3ZrZlVnVi9BUFYrbmRKZmFEOWIv?=
- =?utf-8?B?Vk5ua0tHVzJyNzRRUlprbUhLcXd6dVhRY0F1Mk5BaVdrWXFKZ2VZSkxTc25V?=
- =?utf-8?B?d2I4QSsrU05kUXl6UWtlV0NaRll6UzN5ZERWeWxaM3hMczlGRGVzWXQ1WDkx?=
- =?utf-8?B?VHNJbU5tMHIxdjNmUUR1dnRYVFY2OFYwVjByQzRkQ2NvNk1wZWhGbldDVlRS?=
- =?utf-8?B?dVA4SElUbTZ3Z2xwQnRqM3RsRzd4YjRpL05uelZXN2E3RHlXNlZGRWlod25P?=
- =?utf-8?B?Wk9NUG01MjNUNUNXQWk4YVFyWFU2UkVhODhSQnNqTkNJK3djMEpSaXg5bmxq?=
- =?utf-8?B?TVJrR1cwZlNQdTMydkhKUlRQdW1yeTgwTVV5MDcvcjNzKzJQZHdsMCtMQTg0?=
- =?utf-8?B?TzFCMXB5ZnFCTEZlUnV1WWJXakY1MWxuR1F0T29jVW5uWkdqbmttVTFESi9Z?=
- =?utf-8?B?ZGNVaXFWT2hxV2xaOTJyNDJjWENVZCtZeDNMVWtvdEp1UkJpYjR3Q0tuMmdl?=
- =?utf-8?B?Rk9qNDRwQTZOS3ZUZUJrRzNpeURTYStoQUZUMFVkRDl1YjJzRkpPT2dwbnBC?=
- =?utf-8?B?bm9IOGhUSTR5NW1TdVIxdmpQdUVDRkJiU3kxNHZjc01RUzQvZm8rcElKMHNa?=
- =?utf-8?B?NjlOa2RmN3VrWnpydXhmK29FWjFSQldVL0JEaG9xUUZHSlhCVlFhWGtCdUF5?=
- =?utf-8?Q?x8qo6knk4RJRZcb8X8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="wuBUUMPo"
+Received: by mail-wm1-x32b.google.com with SMTP id d184so411449wmd.0
+ for <alsa-devel@alsa-project.org>; Mon, 07 Jun 2021 07:32:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nS6m0FoskpK8ycN8QLA4hdqiDT6/K9kbC4GMmw4lEgg=;
+ b=wuBUUMPo7j+sLLFtnqKUaB82pFJHv99qGo7ClXfEqsZSvuaJUB5BF/A35SoVioEQ//
+ XHgydv395SYMXvt+cNyaJQHl+CJ/2O5Dpwb975geOr0WhIe/z0AdvzIg/GVzlngBPhLh
+ iOal7WLi6KppWqsBkqrcMdh56ZhC/7MNI7F8VIdv/czQqpkmRqQwt6pamieTWHJpDCW0
+ NhiSsOnT0BVvweBvIEbrXcCPArp9x/rAEpRsOfSvHOuuZcmBSted+rUGMieDzYzmQwgO
+ Cx53J1e06Edwmn+SniXjCexCf+0r+Pr5IWfHPmPNTuM76ErJiuDtD4Z5Uo2Mi5XjPXQX
+ MhBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nS6m0FoskpK8ycN8QLA4hdqiDT6/K9kbC4GMmw4lEgg=;
+ b=CpAKCRF0RrbX7xMOY4W1f9B2dkRP1EoS8hNzxFznbXoI8qN6mJNAWrNvz+8Mwd/KgY
+ SDSGMKHK5nEgX/b6c/U1htBc1XDiEwX4HIQca8B7RZCy7HIxQRWWI+XKs+I+qz/s3eLv
+ qvBEUmGdPJthU98/qEvicFsCr/3559qfylXCQyHnMjD+4URJ06rwrKLdd3/xU5RApXXM
+ DoVQ/0HUe5VbzfZ5kK74mDnC8zE0JxWZwsi6Z9iYt0FPl1aHBksbZlGKx/lJ0T7S74W+
+ h0wNzLAinKb1XzZ+oFlmicB1wfuHYb9yaih5ejun5feG0DYTI2Wb5TrH0NsdREEYuGUA
+ 7BTA==
+X-Gm-Message-State: AOAM5320T0+7AXYk2zNE67DFOl7CPtoH6lJV5Pdy+mQONZOgYAvKM6YV
+ wTYb/xU/9SPIfjdT+eLgti7TZg==
+X-Google-Smtp-Source: ABdhPJxb4K8fj18KdVF7Jxi2taqHp0HFH+pigd0oQiE21oW8Svcam6ppkiB16UL1xyG+N6jay4+0Zg==
+X-Received: by 2002:a05:600c:19d1:: with SMTP id
+ u17mr2594914wmq.31.1623076344662; 
+ Mon, 07 Jun 2021 07:32:24 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id 125sm18884963wmb.34.2021.06.07.07.32.23
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 07 Jun 2021 07:32:24 -0700 (PDT)
+Subject: Re: [v7] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture
+ begin
+To: Judy Hsiao <judyhsiao@chromium.org>, broonie@kernel.org
+References: <20210604154545.1198337-1-judyhsiao@chromium.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <0085836e-20d5-d74f-5a1e-1a6ea8252d02@linaro.org>
+Date: Mon, 7 Jun 2021 15:32:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3642.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 499e4fa7-32da-4c78-2ba5-08d929c09ea2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2021 14:29:11.6386 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x7ZAwtG1B0yP9QZwRZP1kFJkgYJ/X59lsnh3AhywVHBHwpdej6YcdSfdNM5Bsd0IA48+TGb3xngdDuiWrphUDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR11MB1323
-X-OriginatorOrg: intel.com
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "R,
- Dharageswari" <dharageswari.r@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Tzung-Bi Shih <tzungbi@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, "Zhi, 
- Yong" <yong.zhi@intel.com>, Mark Brown <broonie@kernel.org>, Ranjani
- Sridharan <ranjani.sridharan@linux.intel.com>, "M, Naveen" <naveen.m@intel.com>,
- "Wang, Rander" <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
- "Gopal, Vamshi Krishna" <vamshi.krishna.gopal@intel.com>, "Nujella,
- Sathyanarayana" <sathyanarayana.nujella@intel.com>
+In-Reply-To: <20210604154545.1198337-1-judyhsiao@chromium.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, dgreid@chromium.org,
+ devicetree@vger.kernel.org, judyhsiao@google.com, tzungbi@chromium.org,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
+ cychiang@google.com, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -198,18 +116,188 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiBPbiA2LzUvMjEgNzo0MSBQTSwgQnJlbnQgTHUgd3JvdGU6DQo+ID4gVGhpcyBwYXRjaCBhZGRz
-IGRyaXZlciBkYXRhIGZvciBqc2xfY3M0MjQyX214OTgzNjBhIHdoaWNoIHN1cHBvcnRzIHR3bw0K
-PiA+IG1heDk4MzYwYSBzcGVha2VyIGFtcGxpZmllcnMgb24gU1NQMSBhbmQgY3M0Mmw0MiBoZWFk
-cGhvbmUgY29kZWMgb24NCj4gPiBTU1AwIHJ1bm5pbmcgb24gSlNMIHBsYXRmb3JtLiBEQUkgZm9y
-bWF0IGlzIGxldmVyYWdlZCBmcm9tIHNvZl9ydDU2ODINCj4gPiBtYWNoaW5lIGRyaXZlciB0byBy
-ZXVzZSB0aGUgdG9wb2xvZ3kuDQo+IA0KPiBUaGlzIGFsc28gbG9va3MgbGlrZSB3ZSBoYXZlIHR3
-byB0b3BvbG9naWVzIGNvbmZpZ3VyaW5nIHRoZSBzYW1lIERBSXMNCj4gZGlmZmVyZW50bHkgb24g
-ZGlmZmVyZW50IHBsYXRmb3Jtcy4NCj4gDQo+IFdoeSBjYW4ndCB3ZSBwaWNrIG9uZSBjb25maWd1
-cmF0aW9uIHRoYXQgd291bGQgd29yayBpbiBhbGwgY2FzZXM/DQo+IA0KDQpUaGUgY29tbWVudCBq
-dXN0IHNheSB3ZSBhcmUgcmV1c2luZyBydDU2ODUncyBzb2YtanNsLXJ0NTY4Mi1teDk4MzYwYS50
-cGxnLg0KVGhpcyBwYXRjaCBkb2VzIG5vdCBjYXJlIGFib3V0IHRoZSBkYWkgc2VxdWVuY2UuIE1h
-eWJlIEkgc2hvdWxkIHJld29yZCB0aGUNCmNvbW1pdCBsb2cuDQoNCg0KUmVnYXJkcywNCkJyZW50
-DQoNCj4gPiBBbHNvIHVzZSBtb2R1bGUgZGV2aWNlIHRhYmxlIHRvIHJlcGxhY2UgbW9kdWxlIGFs
-aWFzLg0KPiANCj4gSHVtbSwgdGhpcyBsb29rcyBsaWtlIGEgbWlzc2luZyBkZXBlbmRlbmN5LCBJ
-IG1vZGlmaWVkIHRoaXMgYSB3aGlsZSBhZ28uDQo+IA0KDQoNCg==
+
+
+On 04/06/2021 16:45, Judy Hsiao wrote:
+> From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> 
+> This patch fixes PoP noise of around 15ms observed during audio
+> capture begin.
+> Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for
+> introducing some delay before capture start.
+> 
+> Co-developed-by: Judy Hsiao <judyhsiao@chromium.org>
+> Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> (am from https://patchwork.kernel.org/patch/12276369/)
+> (also found at https://lore.kernel.org/r/20210524142114.18676-1-srivasam@codeaurora.org)
+> 
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+
+> ---
+> Changes Since V6:
+> 	-- Removed clk_disable OSR clock in lpass_cpu_daiops_prepare error case as failure
+>             of prepare will result in calling shutdown which should take care of this.
+> Changes Since V5:
+>          -- Fixed nit.
+>          -- Updated `mi2s_was_prepared[dai->driver->id] = true;` after checking for errors.
+> Changes Since V4:
+>          -- Replaced the __clk_is_enabled(BCLK) check by the self maintained.
+>             mi2s_was_prepared bool state.
+>          -- Removed unrelated changes.
+>          -- Refined comments.
+> Changes Since V3:
+>          -- Checked BCLK is off before enabling it in lpass_cpu_daiops_prepare as
+>             lpass_cpu_daiops_prepare can be called multiple times
+>          -- Checked BCLK is on before disabling it in lpass_cpu_daiops_shutdown to
+>             fix the WARN. It is because BCLK may not be enabled if
+>             lpass_cpu_daiops_prepare is not called before lpass_cpu_daiops_shutdown
+>          -- Added more comments
+> Changes Since V2:
+>          -- Updated comments as per linux style
+>          -- Removed unrelated changes
+> Changes Since V1:
+>          -- Enabled BCLK and LRCLK in dai ops prepare API instead of startup API
+>          -- Added comments
+> 
+>   sound/soc/qcom/lpass-cpu.c | 79 ++++++++++++++++++++++++++++++++++++++
+>   sound/soc/qcom/lpass.h     |  4 ++
+>   2 files changed, 83 insertions(+)
+> 
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index af8cb64924a0..647423a6cb57 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -93,8 +93,30 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
+>   		struct snd_soc_dai *dai)
+>   {
+>   	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+> +	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+> +	unsigned int id = dai->driver->id;
+>   
+>   	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
+> +	/*
+> +	 * Ensure LRCLK is disabled even in device node validation.
+> +	 * Will not impact if disabled in lpass_cpu_daiops_trigger()
+> +	 * suspend.
+> +	 */
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +		regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_DISABLE);
+> +	else
+> +		regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_DISABLE);
+> +
+> +	/*
+> +	 * BCLK may not be enabled if lpass_cpu_daiops_prepare is called before
+> +	 * lpass_cpu_daiops_shutdown. It's paired with the clk_enable in
+> +	 * lpass_cpu_daiops_prepare.
+> +	 */
+> +	if (drvdata->mi2s_was_prepared[dai->driver->id]) {
+> +		drvdata->mi2s_was_prepared[dai->driver->id] = false;
+> +		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
+> +	}
+> +
+>   	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
+>   }
+>   
+> @@ -275,6 +297,18 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+>   	case SNDRV_PCM_TRIGGER_START:
+>   	case SNDRV_PCM_TRIGGER_RESUME:
+>   	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		/*
+> +		 * Ensure lpass BCLK/LRCLK is enabled during
+> +		 * device resume as lpass_cpu_daiops_prepare() is not called
+> +		 * after the device resumes. We don't check mi2s_was_prepared before
+> +		 * enable/disable BCLK in trigger events because:
+> +		 *  1. These trigger events are paired, so the BCLK
+> +		 *     enable_count is balanced.
+> +		 *  2. the BCLK can be shared (ex: headset and headset mic),
+> +		 *     we need to increase the enable_count so that we don't
+> +		 *     turn off the shared BCLK while other devices are using
+> +		 *     it.
+> +		 */
+>   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>   			ret = regmap_fields_write(i2sctl->spken, id,
+>   						 LPAIF_I2SCTL_SPKEN_ENABLE);
+> @@ -296,6 +330,10 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+>   	case SNDRV_PCM_TRIGGER_STOP:
+>   	case SNDRV_PCM_TRIGGER_SUSPEND:
+>   	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		/*
+> +		 * To ensure lpass BCLK/LRCLK is disabled during
+> +		 * device suspend.
+> +		 */
+>   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>   			ret = regmap_fields_write(i2sctl->spken, id,
+>   						 LPAIF_I2SCTL_SPKEN_DISABLE);
+> @@ -315,12 +353,53 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+>   	return ret;
+>   }
+>   
+> +static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+> +		struct snd_soc_dai *dai)
+> +{
+> +	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+> +	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+> +	unsigned int id = dai->driver->id;
+> +	int ret;
+> +
+> +	/*
+> +	 * Ensure lpass BCLK/LRCLK is enabled bit before playback/capture
+> +	 * data flow starts. This allows other codec to have some delay before
+> +	 * the data flow.
+> +	 * (ex: to drop start up pop noise before capture starts).
+> +	 */
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +		ret = regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_ENABLE);
+> +	else
+> +		ret = regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_ENABLE);
+> +
+> +	if (ret) {
+> +		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * Check mi2s_was_prepared before enabling BCLK as lpass_cpu_daiops_prepare can
+> +	 * be called multiple times. It's paired with the clk_disable in
+> +	 * lpass_cpu_daiops_shutdown.
+> +	 */
+> +	if (!drvdata->mi2s_was_prepared[dai->driver->id]) {
+> +		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
+> +		if (ret) {
+> +			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+> +			return ret;
+> +		}
+> +		drvdata->mi2s_was_prepared[dai->driver->id] = true;
+> +	}
+> +	return 0;
+> +}
+> +
+>   const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
+>   	.set_sysclk	= lpass_cpu_daiops_set_sysclk,
+>   	.startup	= lpass_cpu_daiops_startup,
+>   	.shutdown	= lpass_cpu_daiops_shutdown,
+>   	.hw_params	= lpass_cpu_daiops_hw_params,
+>   	.trigger	= lpass_cpu_daiops_trigger,
+> +	.prepare	= lpass_cpu_daiops_prepare,
+>   };
+>   EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops);
+>   
+> diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+> index 83b2e08ade06..7f72214404ba 100644
+> --- a/sound/soc/qcom/lpass.h
+> +++ b/sound/soc/qcom/lpass.h
+> @@ -67,6 +67,10 @@ struct lpass_data {
+>   	/* MI2S SD lines to use for playback/capture */
+>   	unsigned int mi2s_playback_sd_mode[LPASS_MAX_MI2S_PORTS];
+>   	unsigned int mi2s_capture_sd_mode[LPASS_MAX_MI2S_PORTS];
+> +
+> +	/* The state of MI2S prepare dai_ops was called */
+> +	bool mi2s_was_prepared[LPASS_MAX_MI2S_PORTS];
+> +
+>   	int hdmi_port_enable;
+>   
+>   	/* low-power audio interface (LPAIF) registers */
+> 

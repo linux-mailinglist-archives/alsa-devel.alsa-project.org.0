@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2329139E718
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:03:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68C7039E719
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A42481698;
-	Mon,  7 Jun 2021 21:02:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A42481698
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4C15167D;
+	Mon,  7 Jun 2021 21:03:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C15167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623092619;
-	bh=BUGAoI+KqIWeSqshgoFKvoknfcZfg6rrVZ5THdPAqLc=;
+	s=default; t=1623092632;
+	bh=UDTIqn2KhidWbOKg/cr23HiqjigP4ZQDXXl9Gsm9qWo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m4AfjwRKCxFPW0oR84CPp3mpW9f8vY1+67CHcHXZdM33z6r4oHGiNL8XJbpx2ltr6
-	 IZQJ7ry4TRvnnTVHutSXZOs7dbCVpqiXqF2X0yBerk9zp1xILmEBg7N/Vk7C8GOGYB
-	 YizcrBKq9d+2ebuFp8Di3E3/h+8GlUGzunGW+lCQ=
+	b=hcfUWQz8GfWCJkLy+9nhD2cjDBi8s7yT37Y7LhvDSsMVARZ7pmSMBau6Sm8r2cfc2
+	 mDXGJVM1AD8MozKIrFTCVBg5iK9zDY2CeWE+Zf+JpWbvtdDYejPtrLtB3tki1UDDep
+	 564I4yBjYr6koslZPzp/ETkeGIZe9gIAB+tfULuc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F609F804CA;
-	Mon,  7 Jun 2021 21:01:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E726BF804CB;
+	Mon,  7 Jun 2021 21:01:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAE68F802DF; Mon,  7 Jun 2021 21:01:21 +0200 (CEST)
+ id 0D65DF804C3; Mon,  7 Jun 2021 21:01:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,47 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69344F8026C
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:01:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69344F8026C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D371F8027C
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:01:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D371F8027C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BXFoK3hH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B98561164;
- Mon,  7 Jun 2021 19:01:17 +0000 (UTC)
+ header.b="WRp8nhd5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BD52C610A1;
+ Mon,  7 Jun 2021 19:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623092477;
- bh=BUGAoI+KqIWeSqshgoFKvoknfcZfg6rrVZ5THdPAqLc=;
+ s=k20201202; t=1623092480;
+ bh=UDTIqn2KhidWbOKg/cr23HiqjigP4ZQDXXl9Gsm9qWo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BXFoK3hHKx/nBaxEkLMVoPl5nv2z2l1Hmk3O9qgDReAwaJL4v6VMOrrentpY7sz1l
- 3GF6XyEHO03ZhOmRT2Iz4agrQowtYGHXUWYogvCU2BEpgJx9VxDHgm6Ia3Xoi37N+5
- 8aTQywFvW4ls6zLSxxmzpKOaA5mpIIx3dJKoFFPrxw55rfCixkbSA0y239VbxNE27A
- LMuDoi7lgS4/1Q8fqa1L57bZfM6pqhQbiRZuCAa+a1dNSaMR0dpjsjMQEf76wqEb5z
- OTCg3NxsVHWb4QdGuUx+dKxqPlf8bcnHZtJyCWCGQdUYbVTmXX1e4YXBD2Hx4nk5sT
- yTTPnQ3zH+axg==
+ b=WRp8nhd5dBUXut+2oL7HuFUNbcIrA7cnm2NnkD4l9Z4YWNmJE5Ggnsyg/7rgc+Xp1
+ t1O8C1n+YMZeNfyRCJHUlwiVg6xuxkZnsYbonoq2fk+t5J4ykfB7E6fodBv2SSod5d
+ AxH5IoDkSS/HgghvF3sbRCE78E9nEIyRWnQ5X3G2gJQMOrseU9PiRfoNG6z5eVKrJ+
+ RSmLisb0RoMgMjS5kiqzfEvATczFn2pOcJEIEmtjPnSS22aHA0Ol9dn2EPXWAvp8CZ
+ Jp5jleVU6LZf94Kc23fdHz4AyRyGvpog7LnSuoTX54t8GDq30CMp3Zuyz6sc8sz8C2
+ 4VSa1wfe1+pnQ==
 From: Mark Brown <broonie@kernel.org>
-To: Judy Hsiao <judyhsiao@chromium.org>
-Subject: Re: [v7] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture
- begin
-Date: Mon,  7 Jun 2021 20:00:46 +0100
-Message-Id: <162309220525.30523.13322673130433156811.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Colin King <colin.king@canonical.com>, Lee Jones <lee.jones@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH][V2][next] ASoC: rk817: remove redundant assignment to
+ pointer node, add missing of_node_put
+Date: Mon,  7 Jun 2021 20:00:47 +0100
+Message-Id: <162309220525.30523.8337033233150694025.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210604154545.1198337-1-judyhsiao@chromium.org>
-References: <20210604154545.1198337-1-judyhsiao@chromium.org>
+In-Reply-To: <20210603113659.82031-1-colin.king@canonical.com>
+References: <20210603113659.82031-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- dianders@chromium.org, Rohit kumar <rohitkr@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, Andy Gross <agross@kernel.org>,
- dgreid@chromium.org, devicetree@vger.kernel.org, judyhsiao@google.com,
- tzungbi@chromium.org, Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org, cychiang@google.com,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,14 +83,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 4 Jun 2021 23:45:45 +0800, Judy Hsiao wrote:
-> This patch fixes PoP noise of around 15ms observed during audio
-> capture begin.
-> Enables BCLK and LRCLK in snd_soc_dai_ops prepare call for
-> introducing some delay before capture start.
+On Thu, 3 Jun 2021 12:36:59 +0100, Colin King wrote:
+> The pointer node is being initialized with a value that is never read and
+> it is being updated later with a new value.  The initialization is
+> redundant and can be removed.
 > 
-> (am from https://patchwork.kernel.org/patch/12276369/)
-> (also found at https://lore.kernel.org/r/20210524142114.18676-1-srivasam@codeaurora.org)
+> The function is missing a of_node_put on node, fix this by adding the call
+> before returning.
 
 Applied to
 
@@ -104,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: lpass-cpu: Fix pop noise during audio capture begin
-      commit: c8a4556d98510ca05bad8d02265a4918b03a8c0b
+[1/1] ASoC: rk817: remove redundant assignment to pointer node, add missing of_node_put
+      commit: d50b86b3f6abc4ff8a35f706a6b8251a2d4cf58f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

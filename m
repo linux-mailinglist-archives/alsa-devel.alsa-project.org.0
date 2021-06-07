@@ -2,98 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009D939E52B
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 19:19:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD39739E6B8
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 20:34:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 792541671;
-	Mon,  7 Jun 2021 19:18:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 792541671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50AF8167D;
+	Mon,  7 Jun 2021 20:33:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50AF8167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623086388;
-	bh=7nQeOl2+i4kU+J361Cqxflj62OuuJMdKi+6RoNyFUDc=;
+	s=default; t=1623090868;
+	bh=3axUphQzW1BbpGyLNTN/dqKwfgXC2Tu3avdx3vGqxiU=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ENBEfrufZ/tiSyNuMO6y01wU8t2sRswnaebljpIEms5RtFAe1l6HHsm9Cq9VBGzGC
-	 5QxNrNMVI2H5FeLGKPbKGRDBWZ1DRtd0tuFCahqxnBEW5KLSPzzhq197Z25fCksXuL
-	 x8CIdG18Pw/U6o6gxTCi+nGHkmSwbguN+4ubkYFA=
+	b=CuymyisAZ5XbC0Ko15667BdjUhQ7pr6Bzt8bbtkPgRcZHMoNXXsco3D0fT2b7whd+
+	 EeP7MfLCaa3VXdFpg4f/pFS/NON4/HxSXVn7q1KkUcnBVIEnI1ABqGRorBvuh7/xA8
+	 EPaL4Y7GS6+2vjnp/3TCtTP2QrkehsVBkj/eGBIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE759F800DF;
-	Mon,  7 Jun 2021 19:18:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF553F800DF;
+	Mon,  7 Jun 2021 20:32:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17276F80212; Mon,  7 Jun 2021 19:18:16 +0200 (CEST)
+ id 8674CF80212; Mon,  7 Jun 2021 20:32:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E276F800DF
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 19:18:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E276F800DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="pgvxRH0f"
-Received: by mail-wr1-x42a.google.com with SMTP id l2so18529881wrw.6
- for <alsa-devel@alsa-project.org>; Mon, 07 Jun 2021 10:18:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Ja5aOGaJbvE7Mbmm4R1CDyv9TPCoYULj7ZXvfzW3O3w=;
- b=pgvxRH0fHC3KFNZyjQLpxx+o4EIb1KoLzuI+sDSfcE04bSUnLkgoRO6H82/psjTFih
- 6tltKAOi03KBioimEaKs4RYBNMwKq9zKYzoKtUTOshvDAI+pem/mvCrMkY2vy+GPzT16
- KFuNnFubjv2nOpOHIuWTwg3zSH65lBBEatXBXfPnPVrHxP+C6Gc99gxXTAFLNxSYvdoA
- 17xfUYjTd0T7d9dGJdxsvPgELykOLLvYVSS8IUaTQ9L/oX+HciZdT9PoZTYLwYwHVxqv
- a9c4xtW+U1jxdJw85asJhOCKsa5pq9mxNpM1a3WlUYhJwqvQ+VyjiaMunePWPQjNrA+9
- EyGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Ja5aOGaJbvE7Mbmm4R1CDyv9TPCoYULj7ZXvfzW3O3w=;
- b=RFcrm2H4rzBd6LS+nURgGeh222s7CC6BHaaXUuUaSS/g5/8SZ5FybNWBJvWGZhvFaV
- id4j7v50M1+XWFB1DYyA32F9wuJIoyURUZX+cH2cX/cGRkKkwDU5XL7zG2PUWEhIKnhY
- q27LnCk2ffTZlNsCR6IYrKfM3hd0/vRuQI2HXdCsAofTsNF8g75bzAx6IkLr+Kc30oFQ
- /Han76D3hNJyLZVT7u1UBTjMVebRa9QRNRVHuwCSVbz23KmdBpKKgCYgwEBfObEC8zei
- CZJAjXSCSq7WfvZQvWJZcFjv48slRROVGJC2dRmoLmqoubmjU2QcLCyfvG7fmedlF6WQ
- 7bcg==
-X-Gm-Message-State: AOAM531crGMuvmx4tOolS2pL8M/9gv5vkkfaOLGbsxcB4ZBWAk/7vlcO
- ikGP4o1mL6hblaPCOd9yB6w=
-X-Google-Smtp-Source: ABdhPJxPHT2/pxSC00TKR0gA+eP6lreEXAGK1Kao8dPbFz3g+0XpTcgoo/ghZnxITSA4NLmgyKFefw==
-X-Received: by 2002:adf:fe4f:: with SMTP id m15mr18869107wrs.361.1623086292009; 
- Mon, 07 Jun 2021 10:18:12 -0700 (PDT)
-Received: from ?IPv6:2003:e1:271a:5a00:d006:4279:74c1:a93e?
- (p200300e1271a5a00d006427974c1a93e.dip0.t-ipconnect.de.
- [2003:e1:271a:5a00:d006:4279:74c1:a93e])
- by smtp.gmail.com with ESMTPSA id b188sm168071wmh.18.2021.06.07.10.18.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jun 2021 10:18:11 -0700 (PDT)
-Subject: Re: [PATCH 0/2] ALSA: usb-audio: scarlett2: Read all configuration at
- init time
-To: Takashi Iwai <tiwai@suse.de>, Vladimir Sadovnikov <sadko4u@gmail.com>
-References: <cover.1622974661.git.g@b4.vu> <s5h1r9ef895.wl-tiwai@suse.de>
- <3c7a458a-a5cd-08e4-a462-293c5bf633ec@gmail.com>
- <s5hfsxtemjd.wl-tiwai@suse.de>
-From: Markus Schroetter <project.m.schroetter@gmail.com>
-Message-ID: <78b4dc1e-05ca-3ee1-62aa-737a636b63e3@gmail.com>
-Date: Mon, 7 Jun 2021 19:18:10 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60176F800DF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 20:32:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60176F800DF
+IronPort-SDR: tmpqjHQrWwYDogEcpq57XnfQ0JaeeRvu4EWD2SBwuL17EJ39cYbqjfnGVvLZSXMCFmXGPSFux5
+ UYt9L2vI2KRw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="192009337"
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="192009337"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 11:32:48 -0700
+IronPort-SDR: hEZZQyqiJNNcgEl8G32to+qOaYgO6xuSYnKHeqp+pMk/0Q4uq1MkZuWkewh+e6OKbXz4HSPqu8
+ i9roS/djGXHg==
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="447585633"
+Received: from dsanc15x-mobl3.amr.corp.intel.com (HELO [10.251.138.253])
+ ([10.251.138.253])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 11:32:46 -0700
+Subject: Re: [PATCH 3/4] ASoC: intel: sof_cs42l42: add support for
+ jsl_cs4242_mx98360a
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <20210606004102.26190-1-brent.lu@intel.com>
+ <20210606004102.26190-4-brent.lu@intel.com>
+ <505c7e46-316c-9fa1-feaa-115f4561ed19@linux.intel.com>
+ <DM6PR11MB36421AD935E4A2B8EBD0FE6197389@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <cb76f83c-e9d1-9726-ff8d-8d48a4de8e26@linux.intel.com>
+ <DM6PR11MB364231AEC2208EAF5F898B7A97389@DM6PR11MB3642.namprd11.prod.outlook.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f8fa92bf-29eb-5ea4-55cc-4bb99db3b0d7@linux.intel.com>
+Date: Mon, 7 Jun 2021 13:32:44 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <s5hfsxtemjd.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <DM6PR11MB364231AEC2208EAF5F898B7A97389@DM6PR11MB3642.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Cc: Daniel Sales <daniel.sales.z@gmail.com>, alsa-devel@alsa-project.org,
- "Geoffrey D. Bennett" <g@b4.vu>, Alex Fellows <alex.fellows@gmail.com>
+Content-Transfer-Encoding: 7bit
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, "R,
+ Dharageswari" <dharageswari.r@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>, "Nujella,
+ Sathyanarayana" <sathyanarayana.nujella@intel.com>, "M,
+ Naveen" <naveen.m@intel.com>, "Wang, Rander" <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
+ "Gopal, Vamshi Krishna" <vamshi.krishna.gopal@intel.com>, "Zhi,
+ Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,96 +100,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello all,
 
-if I may add to this; I agree with Daniel here. Geoffreys proposed
-changes are already a big improvement to the usability. They avoid a lot
-of confusion, especially for new users, caused by the hardware being out
-of sync with alsamixer; and also helping with identifying the changes
-that Windows did to the configuration from what I can tell.
-Additionally, it makes it easier to just adjust the current
-configuration after a reboot. Rather than having to either start from
-scratch or work from restoring an already stored configuration.
 
-Since I think it'd be an improvement for most users, I'd appreciate it
-if these changes could be integrated until a better solution is available.
-
-Best Regards,
-Markus
-
-On 07.06.21 17:12, Takashi Iwai wrote:
-> On Mon, 07 Jun 2021 17:00:10 +0200,
-> Vladimir Sadovnikov wrote:
->> Hello!
->>
->> I would like to say some words from my side.
->>
->> The Scarlett device (especially 18i20) is pretty complicated device
->> and holds a lot of settings in it's internal
->> configuration area (hardware and software).
->>
->> So this is not the only patch which will configure the driver in proper way.
->> Since the device stores it's internal state (and that's good for power
->> safety and mobility), ideally, we should get
->> the almost fully compatible mixer settings with the original Focusrite
->> Control Software.
->>
->> The huge amount of job I've already done i my fork of Geoffrey's driver:
->> https://github.com/sadko4u/focusrite-scarlett-backports/blob/master/prod-drv/mixer_scarlett_gen2.c
->>
->> So we're planning to work on integrating our changes into the common
->> patch sets and will submit changes here.
-> Sure, I don't mean against the patches, this looks like an acceptable
-> approach.  So don't worry, I'd take the patches once when the fixed
-> version is submitted.
->
-> However, from the system design POV, all those configurations should
-> be a software issue, and ideally we shouldn't  rely on the hardware
-> preset state which has been done *somehow* -- it may allow malfunction
-> easily.  One thing I've learned over years is that you can never trust
-> hardware :)
->
->
-> Takashi
->
->> Best,
->> Vladimir
->>
->> 07.06.2021 10:23, Takashi Iwai пишет:
->>> On Sun, 06 Jun 2021 16:16:44 +0200,
->>> Geoffrey D. Bennett wrote:
->>>> These two patches add support for reading the mixer volumes and mux
->>>> configuration from the hardware when the driver is initialising.
+On 6/7/21 11:28 AM, Lu, Brent wrote:
 >>>>
->>>> Previously the ALSA volume controls were initialised to zero and the
->>>> mux configuration set to a fixed default instead of being initialised
->>>> to match the hardware state.
+>>>> This also looks like we have two topologies configuring the same DAIs
+>>>> differently on different platforms.
 >>>>
->>>> The ALSA controls for the Scarlett Gen 2 interfaces should now always
->>>> be in sync with the hardware. Thanks to Vladimir Sadovnikov for
->>>> figuring out how to do this.
+>>>> Why can't we pick one configuration that would work in all cases?
 >>>>
->>>> Takashi, if these pass your review, I believe that they are
->>>> appropriate for:
->>>> #Cc: stable@vger.kernel.org
->>> Well, in general, having a proper fixed value for the initial mixer
->>> value is the right thing, which is a part of the driver's role.
->>> Though, in snd-usb-audio, we don't set up the initial values just
->>> because of laziness; since the topology in USB audio is variable per
->>> device and often hard to parse correctly, it's difficult to determine
->>> the suitable initial values, hence we leave untouched.  So, in that
->>> sense, setting the zero isn't wrong, rather safer, per se.
 >>>
->>> However, Scarlett 2 seems to want to be different; it has already some
->>> initialization code to read the existing configs.  So this change
->>> sounds more or less acceptable.  But it's questionable whether it's
->>> really for stable as a "fix".
->>>
->>> In anyway, please fix the bug ktest bot spotted, the missing endian
->>> conversions and resubmit.
->>>
->>>
->>> thanks,
->>>
->>> Takashi
+>>> The comment just say we are reusing rt5685's sof-jsl-rt5682-mx98360a.tplg.
+>>> This patch does not care about the dai sequence. Maybe I should reword
+>>> the commit log.
 >>
+>> I was referring to the bclk frequency, one case uses 2.4 and the other
+>> 3.072MHz.
+> 
+> The 2.4MHz setting isn't ready when we enabled this codec so we selected
+> 3.072MHz. Since we are updating topology for PLL issue soon, we can change
+> bclk frequency to 2.4MHz as well. How do you think?
+
+The 3.072MHz clock will require the 24.576MHz PLL to be on on the 
+SOC/PCH. If you can use 2.4 MHz without any loss of quality and the 
+codec can deal with 25 bit slots with 24-bit data it's better power-wise.
+
+We try to use 64.fs only when it's absolutely mandatory, e.g. if the 
+codec or amplifier doesn't support the 25/24 configuration. IIRC this 
+was the case with TI PCM512x and Maxim amps.
+
+We've also used the 3.072 MHz bit clock when there are constraints on 
+the clock sources and selectors. This isn't the case on GLK but the SOF 
+commit 0a97c1a92f2d93bd4d45bc99d61e362cd214748c clarified the clock 
+selection for newer platforms, including JSL. In the end we may be 
+forced to use the 3.072 MHz PLL, you'd need to look at the various 
+topologies used with this machine driver.
+

@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7DB139D58B
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 09:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A3839D5EB
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 09:25:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59225167B;
-	Mon,  7 Jun 2021 09:02:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59225167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE5811677;
+	Mon,  7 Jun 2021 09:24:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE5811677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623049426;
-	bh=GEINSpW5fUx7axb542SfnzOMyEa5vKbHjeKmzPGsVec=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ePEVJiLW8iP+a0JcnQCgp/cGxwaIXHUYlzQvNgYvepBHXwgKtPgn8yYhCkJth9kmm
-	 4srQWOKhYNViAJDDFiGBK5QbSSiujIhBHD2kuxoYO07tYoTFnDggy+Zae1LiSKE/VC
-	 5ZSyZb3y7Vv3xl7OF6PFMLyY/0Ye4WlO2QomEky4=
+	s=default; t=1623050709;
+	bh=XGNI7bBhwnBEHWR+INtluze9hrXar4HDOOqPTRYwwo8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PJBJuoOIMkaNa4vYR547paWBNwwyP55z/0MkgTR2WZj0WE63Z3q72as82MIWDCLxP
+	 jV2Dixt3JSfvNlzjjenAMVQ00kOG0D7AI7RfjVDA42ibkNTh1DZsngzf45UJgMm03i
+	 AMBIFLvgnqavK1CMCGNMLLxE1saA0Q3w0cz2e40A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9891F8026C;
-	Mon,  7 Jun 2021 09:02:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E757F8026C;
+	Mon,  7 Jun 2021 09:23:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E576F80212; Mon,  7 Jun 2021 09:02:15 +0200 (CEST)
+ id 04844F80212; Mon,  7 Jun 2021 09:23:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,MIME_HTML_ONLY,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from prx2.chmail.ir (unknown [80.191.56.172])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BF8BF801EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 09:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF8BF801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FF5AF800AF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 09:23:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FF5AF800AF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=chmail.ir header.i=@chmail.ir
- header.b="L3yKvjxc"
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by prx2.chmail.ir (Postfix) with ESMTP id 0218040DBC24
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 11:31:56 +0430 (+0430)
-Received: from prx2.chmail.ir ([127.0.0.1])
- by localhost (prx2.chmail.ir [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 8_yN7cCgUtzC for <alsa-devel@alsa-project.org>;
- Mon,  7 Jun 2021 11:31:51 +0430 (+0430)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by prx2.chmail.ir (Postfix) with ESMTP id C1FAB40DBC4A
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 11:31:51 +0430 (+0430)
-DKIM-Filter: OpenDKIM Filter v2.10.3 prx2.chmail.ir C1FAB40DBC4A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chmail.ir;
- s=chmailv; t=1623049311;
- bh=Dffm91JOLWjtJ4nnhSPHrzfWbLyfOoIaoe4Io+Sngpc=;
- h=To:From:Message-ID:Date:MIME-Version;
- b=L3yKvjxcx1AHujzURnfzJNRi36cPPo84OTxABTVqml4rOjTxiH/642FJO33FEeH/k
- Rbu1FK+BSm5QT3+C/MVqmaSCxHhb6j/aWv9fk+6XuVJfQapL75uoPJeDTM1mUFwyi6
- qlHntZoCZeGkGPNX6rlE/3yGy6bWVThbOXJSDOiLiuULXCVY7RnOpnxI3FDTvC4UIh
- gD0LwqAeq2EDdupP/41Hu9KJyYzhnXT6tZw431Svq+StsqYIDWTflhv1i5l1qOA7pv
- X3snK3eM7fWn9r1CoRdYfuunqkeX7byLTfsbjVxtSdCT/BDv6EQJPS8k9vUgDwalbA
- 7g3Dv3Y6rldsQ==
-X-Virus-Scanned: amavisd-new at 
-Received: from prx2.chmail.ir ([127.0.0.1])
- by localhost (prx2.chmail.ir [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id LENe1CxyY5pB for <alsa-devel@alsa-project.org>;
- Mon,  7 Jun 2021 11:31:51 +0430 (+0430)
-Received: from [192.168.1.146] (unknown [93.119.214.80])
- by prx2.chmail.ir (Postfix) with ESMTPA id 9442940DBC24
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 11:31:51 +0430 (+0430)
-To: alsa-devel@alsa-project.org
-From: Meghdad Moradi <meghdad.moradi@chmail.ir>
-Subject: Possible ALSA bug: Cannot record via mic while PA is running
-Message-ID: <9424b819-f35e-a857-c2ef-a852d14121a3@chmail.ir>
-Date: Mon, 7 Jun 2021 11:31:42 +0430
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-Content-Language: en-US
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XcxynWvL"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="zf7n9Pmc"
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6F6621FDA5;
+ Mon,  7 Jun 2021 07:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623050615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=I3tqKwJw9j5mEEcQomZFxhw/ckcX77u6XH+FJHJ8fg8=;
+ b=XcxynWvLYokZnok1NaRd89yjszdyGsO9ieK+f5Z0ElKOahA9+4gkim0+/58hayViSxnJEx
+ PXZVXu/kmMfqfqNUh+iuAbHatAwfMEyJjJnA7arFb3e5ynA8M7gzRoXtoUAcoUo0EadzZe
+ Zicl//uRxwrUU8+bSnbUgcKIdFyT4QU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623050615;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=I3tqKwJw9j5mEEcQomZFxhw/ckcX77u6XH+FJHJ8fg8=;
+ b=zf7n9PmcXtRbohrXrzZ5qw5A8nPeFRH440IXKSPhGAHrD8PEmMUhBo5AJAjcTHDqbVDF/h
+ gI9ZzQisW/eLduCQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 5EA9DA3B92;
+ Mon,  7 Jun 2021 07:23:34 +0000 (UTC)
+Date: Mon, 07 Jun 2021 09:23:34 +0200
+Message-ID: <s5h1r9ef895.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: [PATCH 0/2] ALSA: usb-audio: scarlett2: Read all configuration at
+ init time
+In-Reply-To: <cover.1622974661.git.g@b4.vu>
+References: <cover.1622974661.git.g@b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Daniel Sales <daniel.sales.z@gmail.com>, alsa-devel@alsa-project.org,
+ Vladimir Sadovnikov <sadko4u@gmail.com>,
+ Markus Schroetter <project.m.schroetter@gmail.com>,
+ Alex Fellows <alex.fellows@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,24 +95,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-   Hello,
+On Sun, 06 Jun 2021 16:16:44 +0200,
+Geoffrey D. Bennett wrote:
+> 
+> These two patches add support for reading the mixer volumes and mux
+> configuration from the hardware when the driver is initialising.
+> 
+> Previously the ALSA volume controls were initialised to zero and the
+> mux configuration set to a fixed default instead of being initialised
+> to match the hardware state.
+> 
+> The ALSA controls for the Scarlett Gen 2 interfaces should now always
+> be in sync with the hardware. Thanks to Vladimir Sadovnikov for
+> figuring out how to do this.
+> 
+> Takashi, if these pass your review, I believe that they are
+> appropriate for:
+> #Cc: stable@vger.kernel.org
 
-   Please take a look at the following thread that I created some time
-   ago:
+Well, in general, having a proper fixed value for the initial mixer
+value is the right thing, which is a part of the driver's role.
+Though, in snd-usb-audio, we don't set up the initial values just
+because of laziness; since the topology in USB audio is variable per
+device and often hard to parse correctly, it's difficult to determine
+the suitable initial values, hence we leave untouched.  So, in that
+sense, setting the zero isn't wrong, rather safer, per se.
 
-   [1]https://ubuntuforums.org/showthread.php?t=2462882&p=14041574#post140
-   41574
+However, Scarlett 2 seems to want to be different; it has already some
+initialization code to read the existing configs.  So this change
+sounds more or less acceptable.  But it's questionable whether it's
+really for stable as a "fix".
 
-   I have included most relevant and useful info in the first and last
-   post.
+In anyway, please fix the bug ktest bot spotted, the missing endian
+conversions and resubmit.
 
-   pa-info output:
 
-   [2]https://gist.github.com/no149/5c239626048a860a882f8d412013a4e6
+thanks,
 
-   I'd provide further info, if it's needed.
-
-References
-
-   1. https://ubuntuforums.org/showthread.php?t=2462882&p=14041574#post14041574
-   2. https://gist.github.com/no149/5c239626048a860a882f8d412013a4e6
+Takashi

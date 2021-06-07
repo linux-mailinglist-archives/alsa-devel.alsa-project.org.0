@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF99539E987
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 00:25:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F2F039E98F
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 00:25:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DEA41675;
-	Tue,  8 Jun 2021 00:24:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DEA41675
+	by alsa0.perex.cz (Postfix) with ESMTPS id A16E31699;
+	Tue,  8 Jun 2021 00:25:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A16E31699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623104736;
-	bh=Vx2Yg2aTFSqcReHUtaMkQPlfUJeQuIomniTI5eSxlXo=;
+	s=default; t=1623104750;
+	bh=tvMByF5JwofGf1/+C28amSHempwT88sm+yHjLa9JBcQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RnzGPIsRu0grbIyhgIfK8nHxAQuGw0E4hP34HUYkHESL8bwgbJzEEecn+0rOBFLA0
-	 EyINCYkk1Z/TVea+tnFfxdTpZ702+nAyZwNIfKSi9YBoqF/1S965LKzZNNDQSUdgSZ
-	 TgMgDgJgzL825APfPU5v2J1r/DRIG6ICsZkWBhQs=
+	b=sUdw1WIlog8t40/XE1YpLqK0Yw8pKraPLS/DUzPlMVoRUCn4NVHqctjfc76mLv9vf
+	 L5Q2oCnRZwQQXO/gJO9n/yoO5nsUZ9nB9QtCja5x+fdrF9xf2StMhTSjoVI96O8agP
+	 dqTHU29uyy4P2ZXAOEq1X0DBIlOWYCuNTpuTVAjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 507D4F804E1;
-	Tue,  8 Jun 2021 00:23:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94094F804E3;
+	Tue,  8 Jun 2021 00:23:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FC81F804CA; Tue,  8 Jun 2021 00:23:21 +0200 (CEST)
+ id 12283F804CA; Tue,  8 Jun 2021 00:23:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 083CBF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B1A9F8026C
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 00:23:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 083CBF8020D
-IronPort-SDR: BreQESDbz+phqe5R9ff3gHm71vED2tJ4WYcYM83Dgju3YYDl+Bt4A0f1NWvCZT47oMMRHfKAW0
- m2/z/W1Cdv9A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="202867354"
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="202867354"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B1A9F8026C
+IronPort-SDR: Ot0TjovhTFiGjaYL7hehx0XvaIBFQLRgPVPtcLb58IKdIkNHzGuJgW2GvVT0fWlGwdy0zKaLf+
+ FD/SJvUbZjTw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="202867360"
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="202867360"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:23:03 -0700
-IronPort-SDR: 7cBkbwl6W1MEcxD7B3dRH4VNvDapqjZkG2bV9V3ONb1nKsWsXW2eoL/IEmZa3DD5YmeQH+b2zJ
- T9jrvOgnR41w==
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="449270959"
+ 07 Jun 2021 15:23:04 -0700
+IronPort-SDR: 4/W2F3FRy1yov82w2Kc0B0e0jFc77/hnRFl/HjuSF3PnZ5fZVHfzlYST9cAkesHIMdkarhDraV
+ ds2BJKjmjqxQ==
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="449270964"
 Received: from ticela-or-160.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.108.70])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:23:03 -0700
+ 07 Jun 2021 15:23:04 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 02/15] ASoC: max98373-sdw: use first_hw_init flag on resume
-Date: Mon,  7 Jun 2021 17:22:26 -0500
-Message-Id: <20210607222239.582139-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 03/15] ASoC: rt1308-sdw: use first_hw_init flag on resume
+Date: Mon,  7 Jun 2021 17:22:27 -0500
+Message-Id: <20210607222239.582139-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210607222239.582139-1-pierre-louis.bossart@linux.intel.com>
 References: <20210607222239.582139-1-pierre-louis.bossart@linux.intel.com>
@@ -91,87 +91,29 @@ Unfortunately we used 'hw_init' instead of 'first_hw_init'. Due to
 another error, the resume operation never timed out, but the volume
 settings were not properly restored.
 
-This patch renames the status flag to 'first_hw_init' for consistency
-with other drivers.
-
+BugLink: https://github.com/thesofproject/linux/issues/2908
 BugLink: https://github.com/thesofproject/linux/issues/2637
-Fixes: 56a5b7910e96 ('ASoC: codecs: max98373: add SoundWire support')
+Fixes: a87a6653a28c0 ('ASoC: rt1308-sdw: add rt1308 SdW amplifier driver')
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Bard Liao <bard.liao@intel.com>
 ---
- sound/soc/codecs/max98373-sdw.c | 12 ++++++------
- sound/soc/codecs/max98373.h     |  2 +-
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/codecs/rt1308-sdw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
-index c7a3506046db..dc520effc61c 100644
---- a/sound/soc/codecs/max98373-sdw.c
-+++ b/sound/soc/codecs/max98373-sdw.c
-@@ -271,7 +271,7 @@ static __maybe_unused int max98373_resume(struct device *dev)
- 	struct max98373_priv *max98373 = dev_get_drvdata(dev);
+diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
+index 1c226994aebd..f716668de640 100644
+--- a/sound/soc/codecs/rt1308-sdw.c
++++ b/sound/soc/codecs/rt1308-sdw.c
+@@ -709,7 +709,7 @@ static int __maybe_unused rt1308_dev_resume(struct device *dev)
+ 	struct rt1308_sdw_priv *rt1308 = dev_get_drvdata(dev);
  	unsigned long time;
  
--	if (!max98373->hw_init)
-+	if (!max98373->first_hw_init)
+-	if (!rt1308->hw_init)
++	if (!rt1308->first_hw_init)
  		return 0;
  
  	if (!slave->unattach_request)
-@@ -362,7 +362,7 @@ static int max98373_io_init(struct sdw_slave *slave)
- 	struct device *dev = &slave->dev;
- 	struct max98373_priv *max98373 = dev_get_drvdata(dev);
- 
--	if (max98373->pm_init_once) {
-+	if (max98373->first_hw_init) {
- 		regcache_cache_only(max98373->regmap, false);
- 		regcache_cache_bypass(max98373->regmap, true);
- 	}
-@@ -370,7 +370,7 @@ static int max98373_io_init(struct sdw_slave *slave)
- 	/*
- 	 * PM runtime is only enabled when a Slave reports as Attached
- 	 */
--	if (!max98373->pm_init_once) {
-+	if (!max98373->first_hw_init) {
- 		/* set autosuspend parameters */
- 		pm_runtime_set_autosuspend_delay(dev, 3000);
- 		pm_runtime_use_autosuspend(dev);
-@@ -462,12 +462,12 @@ static int max98373_io_init(struct sdw_slave *slave)
- 	regmap_write(max98373->regmap, MAX98373_R20B5_BDE_EN, 1);
- 	regmap_write(max98373->regmap, MAX98373_R20E2_LIMITER_EN, 1);
- 
--	if (max98373->pm_init_once) {
-+	if (max98373->first_hw_init) {
- 		regcache_cache_bypass(max98373->regmap, false);
- 		regcache_mark_dirty(max98373->regmap);
- 	}
- 
--	max98373->pm_init_once = true;
-+	max98373->first_hw_init = true;
- 	max98373->hw_init = true;
- 
- 	pm_runtime_mark_last_busy(dev);
-@@ -797,7 +797,7 @@ static int max98373_init(struct sdw_slave *slave, struct regmap *regmap)
- 	max98373_slot_config(dev, max98373);
- 
- 	max98373->hw_init = false;
--	max98373->pm_init_once = false;
-+	max98373->first_hw_init = false;
- 
- 	/* codec registration  */
- 	ret = devm_snd_soc_register_component(dev, &soc_codec_dev_max98373_sdw,
-diff --git a/sound/soc/codecs/max98373.h b/sound/soc/codecs/max98373.h
-index 73a2cf69d84a..e1810b3b1620 100644
---- a/sound/soc/codecs/max98373.h
-+++ b/sound/soc/codecs/max98373.h
-@@ -226,7 +226,7 @@ struct max98373_priv {
- 	/* variables to support soundwire */
- 	struct sdw_slave *slave;
- 	bool hw_init;
--	bool pm_init_once;
-+	bool first_hw_init;
- 	int slot;
- 	unsigned int rx_mask;
- };
 -- 
 2.25.1
 

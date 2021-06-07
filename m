@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E632639E9C7
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 00:50:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D64B39E9CE
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 00:52:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 720D5167B;
-	Tue,  8 Jun 2021 00:49:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 720D5167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 891BB16AB;
+	Tue,  8 Jun 2021 00:51:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 891BB16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623106243;
-	bh=8EndkjbwCDLvxXdiRQG4UnEVCmfZHBIXkR17hJ7DFvs=;
+	s=default; t=1623106334;
+	bh=kjesBnmvm2tSMNWJO2yj7Hkcp8L53AwZk54cC6sVvNg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NNNSmnLvom16G1yuy0+T0yArOblseaxqSl5G9Rattcbmiciiy0CaGoEamWJ060C+u
-	 4xEFZPjSnFooQl88CQt6Su0o3d/jioRQYmvzNP4oX+EOjw4/DaX9U45ZfowFU1pM1H
-	 LRQSbK3pTOZ9qUmjFI1yctlMJ8AXR8H62yppiS10=
+	b=HrlprZp5OZr+UlkOGcmTjDAq1vvJOo1YXX7bIcBn6O2DZn4f7BXTyVoZ8myUrPC8w
+	 +odeh36omVy0Ac0gCw8dXAcplCG0a37HORRaVXFazbli7RbPasHb6aTANdJqs+l9LT
+	 NnZpQQDQYoTDsmLEUYlgXfxjayOhCbl2FzgldkfU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C62BF804E7;
-	Tue,  8 Jun 2021 00:47:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B41A4F80515;
+	Tue,  8 Jun 2021 00:47:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CE7DF8026C; Tue,  8 Jun 2021 00:47:10 +0200 (CEST)
+ id 2A87BF8032C; Tue,  8 Jun 2021 00:47:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D919F80212
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 00:46:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D919F80212
-IronPort-SDR: U0Yklc7GD441yD2gjdCJwSnaSGmrO6c8QWGo9HO7VZNiBMvaNwL8TtNMpiA78+ydQk6i9NGMl0
- CJUDBU3JISEg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="185102182"
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="185102182"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32764F800DF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 00:47:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32764F800DF
+IronPort-SDR: JVm9yLa/6otfMRioGq5uL1kD3owlqFndsjlKYfPU2GpvR0porIBv/LPrWoY+Y7C1mZckR2tzpz
+ iYsdUHDq7E7g==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="185102183"
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="185102183"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:46:51 -0700
-IronPort-SDR: OPYA0fQxCDXKJi9syyTbPu6AIGXLDm2gj+8kOynGbBiVM/OYJ/S8afQ0w+VYSch2s0pndSYAB3
- 7IPuSOPMtFbg==
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="637437115"
+ 07 Jun 2021 15:46:52 -0700
+IronPort-SDR: v0zLc8xa+6JGbLIWbzBcDxbV7XK2zORx4g+e7nsqQ86wjRL5IPutzJQ5DfJnl+5AIpohBuwRCK
+ FZkVoDkSZtAQ==
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="637437122"
 Received: from marocham-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.108.70])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:46:50 -0700
+ 07 Jun 2021 15:46:51 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 06/10] ASoC: Intel: sof_da7219_max98373: shrink platform_id
- below 20 characters
-Date: Mon,  7 Jun 2021 17:46:34 -0500
-Message-Id: <20210607224638.585486-7-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 07/10] ASoC: Intel: sof_sdw: fix signed/unsigned warning
+Date: Mon,  7 Jun 2021 17:46:35 -0500
+Message-Id: <20210607224638.585486-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210607224638.585486-1-pierre-louis.bossart@linux.intel.com>
 References: <20210607224638.585486-1-pierre-louis.bossart@linux.intel.com>
@@ -82,69 +81,33 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Sparse throws the following warning:
 
-sound/soc/intel/boards/sof_da7219_max98373.c:438:25: error: too long
-initializer-string for array of char(no space for nul char)
+sound/soc/intel/boards/sof_sdw.c:796:31: error: incorrect type in argument 6 (different signedness)
+sound/soc/intel/boards/sof_sdw.c:796:31:    expected int *group_id
+sound/soc/intel/boards/sof_sdw.c:796:31:    got unsigned int *
 
-Fix by using 'mx' acronym for Maxim.
+The group_id cannot be negative, use unsigned int.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- sound/soc/intel/boards/sof_da7219_max98373.c      | 8 ++++----
- sound/soc/intel/common/soc-acpi-intel-jsl-match.c | 4 ++--
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
-index 2116d70d1ea8..d702a8dfa241 100644
---- a/sound/soc/intel/boards/sof_da7219_max98373.c
-+++ b/sound/soc/intel/boards/sof_da7219_max98373.c
-@@ -431,11 +431,11 @@ static int audio_probe(struct platform_device *pdev)
- 
- static const struct platform_device_id board_ids[] = {
- 	{
--		.name = "sof_da7219_max98373",
-+		.name = "sof_da7219_mx98373",
- 		.driver_data = (kernel_ulong_t)&card_da7219_m98373,
- 	},
- 	{
--		.name = "sof_da7219_max98360a",
-+		.name = "sof_da7219_mx98360a",
- 		.driver_data = (kernel_ulong_t)&card_da7219_m98360a,
- 	},
- 	{ }
-@@ -456,6 +456,6 @@ module_platform_driver(audio)
- MODULE_DESCRIPTION("ASoC Intel(R) SOF Machine driver");
- MODULE_AUTHOR("Yong Zhi <yong.zhi@intel.com>");
- MODULE_LICENSE("GPL v2");
--MODULE_ALIAS("platform:sof_da7219_max98360a");
--MODULE_ALIAS("platform:sof_da7219_max98373");
-+MODULE_ALIAS("platform:sof_da7219_mx98360a");
-+MODULE_ALIAS("platform:sof_da7219_mx98373");
- MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index 885f6002fe53..3586ce72c42c 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -37,7 +37,7 @@ static struct snd_soc_acpi_codecs mx98360a_spk = {
- struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "DLGS7219",
--		.drv_name = "sof_da7219_max98373",
-+		.drv_name = "sof_da7219_mx98373",
- 		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-da7219.tplg",
- 		.machine_quirk = snd_soc_acpi_codec_list,
-@@ -45,7 +45,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	},
- 	{
- 		.id = "DLGS7219",
--		.drv_name = "sof_da7219_max98360a",
-+		.drv_name = "sof_da7219_mx98360a",
- 		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
- 	},
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 34f142d7b3f9..e9118234b30e 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -682,7 +682,7 @@ static int set_codec_init_func(const struct snd_soc_acpi_link_adr *link,
+  */
+ static int get_slave_info(const struct snd_soc_acpi_link_adr *adr_link,
+ 			  struct device *dev, int *cpu_dai_id, int *cpu_dai_num,
+-			  int *codec_num, int *group_id,
++			  int *codec_num, unsigned int *group_id,
+ 			  bool *group_generated)
+ {
+ 	const struct snd_soc_acpi_adr_device *adr_d;
 -- 
 2.25.1
 

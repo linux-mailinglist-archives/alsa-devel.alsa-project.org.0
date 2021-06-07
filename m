@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0915D39E085
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 17:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6EC39E06B
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 17:31:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 581A91692;
-	Mon,  7 Jun 2021 17:31:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 581A91692
+	by alsa0.perex.cz (Postfix) with ESMTPS id C43A11677;
+	Mon,  7 Jun 2021 17:30:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C43A11677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623079945;
-	bh=tqlPsUUOIHKEEVPiksirtoodebg2WiTJdExh5gICAU8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=QL61U+kPV2YtLtWGHapcYLem+sTjxIFqs6bA7EGZshXx+dm7I1mdu0ac+PtWv6NU5
-	 K7qD1uW9bLjizrauF33sZTp4VZNP1OkGYkeRJIo8lNRr6kCo8HGIbrQGz83UODWGBp
-	 qXRmKKV46kZ4SX86PPmmI/d8wSpf+oppnisv6bSo=
+	s=default; t=1623079894;
+	bh=fiqr3x3sbQuzQ8Z4mrijPyg0tgafBA8JLWPfhcDO75A=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OPiooM34Ea+EgsXXKB0ASG30L1WkYOiuyvYtWQ/pfXHgwIpQc6TiHJwsy5ziREekF
+	 ayT9NGhgGAYmIuQ2RpQGXcW3QASE2e+uWpJ2pZM5qU9MEEJOWpDb5V/V5UGBE7z1gy
+	 8YeSLIO4HPS0em8jICkeCZsL2tpTZFh+Tkj0qHPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44688F804CA;
-	Mon,  7 Jun 2021 17:30:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7FFDF800DF;
+	Mon,  7 Jun 2021 17:30:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F130FF804CB; Mon,  7 Jun 2021 17:29:20 +0200 (CEST)
+ id DB243F804CF; Mon,  7 Jun 2021 17:29:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE606F800AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1D62F801EC
  for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 17:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE606F800AF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D62F801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="nMKso3FM"
-Received: by mail-wm1-x32b.google.com with SMTP id f17so10322649wmf.2
+ header.b="tJomgDBc"
+Received: by mail-wr1-x42a.google.com with SMTP id y7so13473109wrh.7
  for <alsa-devel@alsa-project.org>; Mon, 07 Jun 2021 08:29:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TBonzj0wK2eMrUMd6BSIQ0dwX/RR5Bz8ilFeFxR/TGA=;
- b=nMKso3FMfmrhSU5hrDKlPqTBzag4qyRAim1CmknzGmK5CZlXJ+8ldGm4nuY0CrK/KK
- bL8JqkIY2YQGFKimMKeKOzdpOhcKrx29sAYIF7W9LnjDkIof9Y/+/U8MkuJPygjnC9a5
- MbjPoB6hGVc5YnZprRBRfT/R8p1YvMzIMUMbG6SlJ8xLFIqlJls7VaEzc4Q1AEcO5q9A
- NaScyNR0yMa7iUnhmilLklRiN75V6zgulkErXd3uHaQqQ/Lcr1eL14UWLn4jlls+Qd++
- I1dgb7vkcyYiLVLtmDzH+x9XCiPPfNDcI/QCNx3OY5zxntGDbtU0i+eV49leyXH3HSPb
- d/rg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=vhIJnb1mQgSu0gmVypIYBdkC4S9c9PzuSNZQUQzKNNY=;
+ b=tJomgDBcK0JlDDBHG5N4A3BmQEbquxf/O+e92BfCz1qRVRtleR1Gts4Bcopx/S8yPc
+ PSeQZgiL1dD1/JGrQ4BFWbn5oTDzImnqmkHsaiklkOHGP+QZt1np1zwzHgj7a8lRGfz7
+ jFh8V2AgiF3Al1+38L+Tuh/iFpimcfMzdLjgyNrL5R3n+lkl3G/c78MzwQxYo5zLWBed
+ Qk/uSVj/DKFcEeqVMw6xM5ffu2RN0ZHw8P1Gr0nrFOk3H6gqFsKnxUK7obO3YHHikvCi
+ munwdxAkLd+ePvmnY3wBDKUs582u9syKeh/2EyzUyt4PMfTxtNl5FzL/hlTNwHDPB/46
+ kM6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TBonzj0wK2eMrUMd6BSIQ0dwX/RR5Bz8ilFeFxR/TGA=;
- b=lu0+KN3VOZ/V1bkXfNJtnZbJ/bz+C8eQ2Jc1lezs7/75F3ssDT3nbRJRQs8sJc39rU
- IWHgtq9J6dVFRprCOv50QuP+XOl234WU1p+nxbMSksGzenT27LEJ81JWi4CnGrAxBkd6
- UF2AH8qSlNiYTW/h/yVCP/dYi2+6duAJ4dbz4d46rb8zJPxas8sDRK37vfb2V7sU2gSv
- efbQVuJ556d4RRnB0SS7kTTtKO98uHCsMp8ajQToA5H7cOiylwy45Ml2HQ+3VsytzNLx
- bDWwEmHDKZ9GlhHv6PrrWC8W3NIIxIpiPMpHaFs7lVyMIGC2eu/ARl38r56yuejt4bU0
- U36w==
-X-Gm-Message-State: AOAM531M9Og5ZBcYzhvKoys2pt0KNmERUyovnia/exeN12Die4AgPWSR
- zjVCUcyPnNvm+lbnjQEML+l/Aw==
-X-Google-Smtp-Source: ABdhPJxelM/QH7inYspnHoMLYLDbqxeuvm6+AOcdZUrk/uvppwrSz4H2RTVphX+KnCvHPmpiUGZ3Aw==
-X-Received: by 2002:a7b:c19a:: with SMTP id y26mr17394049wmi.132.1623079738917; 
- Mon, 07 Jun 2021 08:28:58 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=vhIJnb1mQgSu0gmVypIYBdkC4S9c9PzuSNZQUQzKNNY=;
+ b=gn9qP0PBajNKAe11LMFhTUBsgTcaBvdeQE+17jFZZPZB3XRTYs98Dva1hhaRifALZB
+ XWlCrD9LS1nKYaIaxw5lvo0gUIlEVdR6O6b7oEnfUa2Af+36Fq2bWHy41YPezbz2e2M5
+ arEj78eyIybS2HUxVsETIdQiDTPrK5N5cy92hulaN4QsGGYRS+6CThJ1aiM3eFQTz0sb
+ BgmSLrE+OISnZfF7vXe/A/FX9KQ+NdEQ1GkULSM87D3mdTeUseb2gP/lchJRj5MMqVKT
+ BVi1demmbnJQPIKJC2ZRDFUK9gkkOjW3uteDVj5mA+cI1PuHMtfAXW/jaZUvwkLUXU/z
+ fqrQ==
+X-Gm-Message-State: AOAM530Pgm8kNCuKGrxA/7Rk95kKPJ/A+4pFK5emm+zi7wEWnBTDUkZw
+ 0HktFPFC8lkfhFizWaCtrroBOg==
+X-Google-Smtp-Source: ABdhPJxNjr+z1V7LeyDaphGfhZjV6FSkbENIz0QIxQc48rGOBMJhjuXyt948w4Tu+t6N1YbdGRa2Sg==
+X-Received: by 2002:adf:f98e:: with SMTP id f14mr17786882wrr.408.1623079740401; 
+ Mon, 07 Jun 2021 08:29:00 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id q3sm16370170wrr.43.2021.06.07.08.28.57
+ by smtp.gmail.com with ESMTPSA id q3sm16370170wrr.43.2021.06.07.08.28.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jun 2021 08:28:58 -0700 (PDT)
+ Mon, 07 Jun 2021 08:28:59 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org
-Subject: [RFC PATCH 00/13] ASoC: qcom: Add AudioReach support
-Date: Mon,  7 Jun 2021 16:28:23 +0100
-Message-Id: <20210607152836.17154-1-srinivas.kandagatla@linaro.org>
+Subject: [RFC PATCH 01/13] soc: dt-bindings: qcom: add gpr bindings
+Date: Mon,  7 Jun 2021 16:28:24 +0100
+Message-Id: <20210607152836.17154-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20210607152836.17154-1-srinivas.kandagatla@linaro.org>
+References: <20210607152836.17154-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
@@ -100,169 +103,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset adds ASoC driver support to configure signal processing
-framework ("AudioReach") which is integral part of Qualcomm next
-generation audio SDK and will be deployed on upcoming Qualcomm chipsets.
-It makes use of ASoC Topology to load graphs on to the DSP which is then
-managed by APM (Audio Processing Manager) service to prepare/start/stop.
+Qualcomm Generic Packet router aka GPR is the IPC mechanism found
+in AudioReach next generation signal processing framework to perform
+command and response messages between various processors.
 
-Here is simpified high-level block diagram of AudioReach:
+GPR has concepts of static and dynamic port, all static services like
+APM (Audio Processing Manager), PRM (Proxy resource manager) have
+fixed port numbers where as dynamic services like graphs have dynamic
+port numbers which are allocated at runtime. All GPR packet messages
+will have source and destination domain and port along with opcode
+and payload.
 
- ___________________________________________________________
-|                 CPU (Application Processor)               |
-|  +---------+          +---------+         +---------+     |
-|  |  q6apm  |          |  q6apm  |         | q6afe   |     |
-|  |   dais  | <------> |         | <-----> | bedais  |     |
-|  +---------+          +---------+         +---------+     |
-|                            ^  ^                           |
-|                            |  |           +---------+     |
-|  +---------+               v  +---------->|topology |     |
-|  | q6prm   |          +---------+         |         |     |
-|  |         |<-------->|   GPR   |         +---------+     |
-|  +---------+          +---------+                         |
-|                            ^                              |
-|____________________________|______________________________|
-                             |  
-                             | RPMSG (IPC over GLINK)              
- ____________________________|______________________________
-|                            |                              |
-|    +-----------------------+                              |
-|    |                       |                              |
-|    v                       v              q6 (Audio DSP)  |
-|+-----+    +----------------------------------+            |
-|| PRM |    | APM (Audio Processing Manager)   |            |
-|+-----+    |  . Graph Management              |            |  
-|           |  . Command Handing               |            |  
-|           |  . Event Management              |            |  
-|           |  ...                             |            |  
-|           +----------------------------------+            |  
-|                            ^                              |
-|____________________________|______________________________|
-                             |  
-                             |   LPASS AIF
- ____________________________|______________________________
-|                            |            Audio I/O         |
-|                            v                              |
-|   +--------------------------------------------------+    |
-|    |                Audio devices                     |   |
-|    | CODEC | HDMI-TX | PCM  | SLIMBUS | I2S |MI2S |...|   |
-|    |                                                  |   |
-|    +--------------------------------------------------+   |
-|___________________________________________________________|
-
-AudioReach has constructs of sub-graph, container and modules.
-Each sub-graph can have N containers and each Container can have N Modules
-and connections between them can be linear or non-linear.
-An audio function can be realized with one or many connected
-sub-graphs. There are also control/event paths between modules that can
-be wired up while building graph to achieve various control mechanism
-between modules. These concepts of Sub-Graph, Containers and Modules
-are represented in ASoC topology.
-
-Here is simple I2S graph with a Write Shared Memory and a
-Volume control module within a single Subgraph (1) with one Container (1)
-and 5 modules.
-
-  ____________________________________________________________
- |                        Sub-Graph [1]                       |
- |  _______________________________________________________   |
- | |                       Container [1]                   |  |
- | | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]-> [I2S-EP]|  |
- | |_______________________________________________________|  |
- |____________________________________________________________|
-
-For now this graph is split into two subgraphs to achieve dpcm like below:
- ________________________________________________    _________________
-|                Sub-Graph [1]                   |  |  Sub-Graph [2]  |
-|  ____________________________________________  |  |  _____________  |
-| |              Container [1]                 | |  | |Container [2]| |
-| | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]| |  | |   [I2S-EP]  | |
-| |____________________________________________| |  | |_____________| |
-|________________________________________________|  |_________________|
-
-                                                      _________________
-                                                    |  Sub-Graph [3]  |
-                                                    |  _____________  |
-                                                    | |Container [3]| |
-                                                    | |  [DMA-EP]   | |
-                                                    | |_____________| |
-                                                    |_________________|
-
-
-This patchset adds very minimal support for AudioReach which includes
-supporting sub-graphs containing CODEC DMA ports and simple PCM
-Decoder/Encoder and Logger Modules. Additional capabilities will
-be built over time to expose features offered by AudioReach. 
-
-This patchset is Tested on SM8250 SoC based Qualcomm Robotics Platform RB5
-and SM9250 MTP with WSA881X Smart Speaker Amplifiers, DMICs connected via
-VA Macro and WCD938x Codec connected via TX and RX Macro.
-
-Sample WIP ASoC graphs are available at 
-https://git.linaro.org/people/srinivas.kandagatla/audioreach-topology.git/
-
-Thanks,
-srini
-
-Srinivas Kandagatla (13):
-  soc: dt-bindings: qcom: add gpr bindings
-  soc: qcom: add gpr driver support
-  ASoC: qcom: dt-bindings: add bindings Audio Processing manager
-  ASoC: qcom: audioreach: add basic pkt alloc support
-  ASoC: qcom: audioreach: add q6apm support
-  ASoC: qcom: audioreach: add module configuration command helpers
-  ASoC: qcom: audioreach: add topology support
-  ASoC: qcom: audioreach: add q6apm-dai support
-  ASoC: qcom: audioreach: add bedai support
-  ASoC: qcom: dt-bindings: add bindings for Proxy Resource Manager
-  ASoC: qcom: audioreach: add q6prm support
-  ASoC: qcom: dt-bindings: add audioreach soundcard compatibles
-  ASoC: qcom: sm8250: Add audioreach support
-
- .../bindings/soc/qcom/qcom,gpr.yaml           |   74 ++
- .../devicetree/bindings/sound/qcom,q6apm.yaml |   72 ++
- .../devicetree/bindings/sound/qcom,q6prm.yaml |   43 +
- .../bindings/sound/qcom,sm8250.yaml           |   43 +
- drivers/soc/qcom/Kconfig                      |    9 +
- drivers/soc/qcom/Makefile                     |    1 +
- drivers/soc/qcom/gpr.c                        |  487 ++++++++
- include/dt-bindings/soc/qcom,gpr.h            |   18 +
- include/dt-bindings/sound/qcom,q6apm.h        |  215 ++++
- include/dt-bindings/sound/qcom,q6prm.h        |  205 ++++
- include/linux/soc/qcom/gpr.h                  |  127 ++
- include/uapi/sound/snd_ar_tokens.h            |  200 +++
- sound/soc/qcom/Kconfig                        |   20 +
- sound/soc/qcom/Makefile                       |    1 +
- sound/soc/qcom/audioreach/Makefile            |   12 +
- sound/soc/qcom/audioreach/audioreach.c        | 1082 +++++++++++++++++
- sound/soc/qcom/audioreach/audioreach.h        |  649 ++++++++++
- sound/soc/qcom/audioreach/q6apm-bedai.c       |  377 ++++++
- sound/soc/qcom/audioreach/q6apm-dai.c         |  494 ++++++++
- sound/soc/qcom/audioreach/q6apm.c             |  962 +++++++++++++++
- sound/soc/qcom/audioreach/q6apm.h             |  171 +++
- sound/soc/qcom/audioreach/q6prm.c             |  412 +++++++
- sound/soc/qcom/audioreach/topology.c          |  848 +++++++++++++
- sound/soc/qcom/sm8250.c                       |  144 ++-
- 24 files changed, 6665 insertions(+), 1 deletion(-)
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ .../bindings/soc/qcom/qcom,gpr.yaml           | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,gpr.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6prm.yaml
- create mode 100644 drivers/soc/qcom/gpr.c
- create mode 100644 include/dt-bindings/soc/qcom,gpr.h
- create mode 100644 include/dt-bindings/sound/qcom,q6apm.h
- create mode 100644 include/dt-bindings/sound/qcom,q6prm.h
- create mode 100644 include/linux/soc/qcom/gpr.h
- create mode 100644 include/uapi/sound/snd_ar_tokens.h
- create mode 100644 sound/soc/qcom/audioreach/Makefile
- create mode 100644 sound/soc/qcom/audioreach/audioreach.c
- create mode 100644 sound/soc/qcom/audioreach/audioreach.h
- create mode 100644 sound/soc/qcom/audioreach/q6apm-bedai.c
- create mode 100644 sound/soc/qcom/audioreach/q6apm-dai.c
- create mode 100644 sound/soc/qcom/audioreach/q6apm.c
- create mode 100644 sound/soc/qcom/audioreach/q6apm.h
- create mode 100644 sound/soc/qcom/audioreach/q6prm.c
- create mode 100644 sound/soc/qcom/audioreach/topology.c
 
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,gpr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,gpr.yaml
+new file mode 100644
+index 000000000000..cc08ec51de6a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,gpr.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/soc/qcom/qcom,gpr.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Qualcomm Generic Packet Router binding
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
++
++description: |
++  This binding describes the Qualcomm Generic Packet Router,Shared Memory Manager,
++  used to send and receive packets between Audio DSP and Application processor.
++
++properties:
++  compatible:
++    const: qcom,gpr
++
++  qcom,glink-channels:
++    const: adsp_apps
++    description:
++      glink channel associated with gpr function
++
++  qcom,gpr-domain:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2, 3]
++    description:
++      Selects the processor domain for gpr
++        1 = Modem Domain
++        2 = Audio DSP Domain
++        3 = Application Processor Domain
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++#GPR Services
++patternProperties:
++  'gprservice@[0-9]+$':
++    type: object
++    description:
++      GPR node's client devices use subnodes for desired static port services.
++
++    properties:
++      reg:
++        maxItems: 1
++        description: Service port id
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - qcom,glink-channels
++  - qcom,gpr-domain
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/soc/qcom,gpr.h>
++    gpr {
++        compatible = "qcom,gpr";
++        qcom,glink-channels = "adsp_apps";
++        qcom,gpr-domain = <GPR_DOMAIN_ID_ADSP>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        gprservice@1 {
++          reg = <GPR_APM_MODULE_IID>;
++        };
++    };
 -- 
 2.21.0
 

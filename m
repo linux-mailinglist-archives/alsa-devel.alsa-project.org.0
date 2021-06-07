@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9232E39D6F0
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 10:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F09839D6E4
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 10:16:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FB531691;
-	Mon,  7 Jun 2021 10:17:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FB531691
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F6B61693;
+	Mon,  7 Jun 2021 10:15:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F6B61693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623053872;
-	bh=fg3kwo6hqo9hDYCPl1IEOFa1RBt/PZoB+AakqyKBzxE=;
+	s=default; t=1623053794;
+	bh=bTfyxPCpvrtL7SzVNPnx5JrFqFzyOZ7f6KHBjOJdN80=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TtbVReNg19P22zmDyMbU4xre3bi5SwyQVzQ0J9z4ivaSbPe5tL0Ka5GpUqM/52a6u
-	 3XOJOXIDyncF2FLSu2LUiqXQZoLkhV9FAs7TvRoSvO3nzHdGys+ajfz2esKG2eDwcO
-	 3G3tLzvNBmKjXh2jgYlKLRW8Q60QiZmYb4CP686w=
+	b=VLSdg5zM8409pX0rbK+95TvCmWofxVMwOAR3aKF520E8tr26CaxOGuIzGpJB0JMMu
+	 gtonVc1dwI1soatUi+lrWibbbAWyoKMi0/qIJKZAfLmKaoe/tX3NBdm2TtDAX9ALqy
+	 0jVHixKXGguZt7f2t74Q6aqRhjAryEdXQbT531Hk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 592C2F80507;
-	Mon,  7 Jun 2021 10:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3590F804E1;
+	Mon,  7 Jun 2021 10:13:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACF00F804CC; Mon,  7 Jun 2021 10:13:17 +0200 (CEST)
+ id A5D50F804D0; Mon,  7 Jun 2021 10:13:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FA90F8026C
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 10:13:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FA90F8026C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77182F8027C
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 10:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77182F8027C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="T6LG1HGc"; 
+ header.b="RnFtjur1"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="TSnS5Iv/"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 5492F5C0051;
- Mon,  7 Jun 2021 04:13:01 -0400 (EDT)
+ header.i=@messagingengine.com header.b="vdw+AL3O"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A77FE5C0121;
+ Mon,  7 Jun 2021 04:13:02 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 07 Jun 2021 04:13:01 -0400
+ by compute4.internal (MEProxy); Mon, 07 Jun 2021 04:13:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=r+qHfcEFnnY5a
- 6LgYQwVfIyufVhbTVYUyqgj60vzq08=; b=T6LG1HGcyJidsSdjV1Kn1GRdjSjRU
- AWPgOeYVGZ8k8y94Grt49T0bJj4uK+pkGvqhuY0qUTZF5C17A6+5UJeRaXlgmPII
- lxR3xtpdO7OqFFypcxFkt74yJrANqFJdWGdnWq9d7756uOIa7bVViYulWeevRgUT
- p7BvJnQKt6cJ/YaCJJoUJXJ40YHeVgLPqDo7ZP/69GlPPmeJO2cxtD3sbs452tR4
- 1oGWQH2cBDsK8P0viqwAh/kc0vYZhTTiOGUSqkDmqnVnxJlhCoN2MmVjELnMKZth
- PiDralMCammxrJDbBtsqvzAF0c40C+FmWpCkvtBwCfv1MAw6U3OpHzLvg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=H1JpwNOLrPdvd
+ SnUhjR3Jx2Ui1yXOQclDS0bL7vgzaE=; b=RnFtjur1lERzZ6VArIIparcoEGutW
+ xi0uTgotSWqFdi1ETlBPGwTDht2FFoljUCWBSIXaAScvy15C+pOMswGVHzKxKMRg
+ 8VGK8vixG9h8dzCDDW+AvSgCkHd9SgTbF0PTRd1AVJt7tADJIO3BDfWDdko1C1bD
+ QIdOMmi5nRguSrkr68hhnTFatzDBb0FT+ZMmfw+a9Opofe7cQAOg0omGr9+cXOyB
+ SXP5zIMCotLM3rZNTvKrotAfNx7v/JmlvVHCCW7kOw25Ll4ZLsS7hvpRlyvnwKQN
+ FdLaJ8wtE1WHslHdonImHA1TCfTV8SbjZCWeiv8tGEEpAwRH4X0qO7deA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=r+qHfcEFnnY5a6LgYQwVfIyufVhbTVYUyqgj60vzq08=; b=TSnS5Iv/
- oSO334Y8AXk0MwKVj9x05eloa3doFhW3UjTk5gZrZhIcaze6+NAHFJGNZnBVmDNf
- EKtK9t6Fa90D3dlek6vY/OpIk3cfTTocX+v/nDG07OqwZs3Qe6qNzJSJI2XZeujP
- qaFIXrnniyRhXQbxzAjmUve8OB/2/60mG5UcBWFYyW4wA9rbeSi/B3zst9FugaZG
- GTPInFmEt7ztRisUgcn7ikInD2R8gdC2VwQrb+hkbRTAepH8ROkWH8hdBH/QPjdA
- 4PTvu/WXN6Gt6WTPASyj14bU5FdYoAW/BdWN+WuEet40fdMHaMFEBLLcKRG3BYZE
- xMXv/8C7ZxN1yw==
-X-ME-Sender: <xms:DdW9YMp-b32S2Zvj0G5jFcsqLZa3AlQovrdssF-NTXbEf8LXjq9i0w>
- <xme:DdW9YCqUkOqBIxdj5cD_mlIuFrxrez5F32o6nDLHh5wcjwHZ1VLsbCK7YCIFCGwr-
- gGaf8RnF-J6Dpwm9-I>
-X-ME-Received: <xmr:DdW9YBMqxb5hLNFjDvfIwH8y5hVTcPjBNPi1TmaQ2CV8R0w11w-1x6N9jQwNIIzxXW2j7QKKHNXsZZiqfnQiFsa9ZFo9P--6KErXUFaeE0hKifVxj04X>
+ fm3; bh=H1JpwNOLrPdvdSnUhjR3Jx2Ui1yXOQclDS0bL7vgzaE=; b=vdw+AL3O
+ 8EYomR1/6s9A5uhr90Ms25qpQhMJzpWj6aUyQcSOsIJbAY7q25EUWm4tRqsV9hDM
+ 2LlC/ZN1Y9ZxnIksg0RLS7Lv2BctlzSLx+dHXy538mNJggi+CAnT33gwjDWiZ/0N
+ +qMFJwK1fRZV3QSy9zXnhqnVhrabRI1Kxz5JYtcqBV24NjZulAw/DZEh0mcgEJY+
+ R/ZFLizFa6WNEgm8eICmAbJFIb8DeO/tiCkzlPFw2t9QqQjIBr0tSz7L+ASZ9GZ1
+ 68LM6q322Oq1kifqXvnKcLjO1nc7YiFBjolfLht+AXEIY6hx23rXmjxUFsC5MxZI
+ IaPGbrYK5hT83w==
+X-ME-Sender: <xms:DtW9YNKqeSE19Bmr23upDeci2mXhSAM6NYED7z5_rVhGGT0oKYaIiw>
+ <xme:DtW9YJKD1G0N1DwRAQJR_ZePhmT3dBeGdU2rmQeRbNs5EbVS0oEcCCGo6UsjEzbiK
+ hqqwhSPFZ8JW5LwAsY>
+X-ME-Received: <xmr:DtW9YFuJqY8u3bhmyEsc6vgulQ8oKM2d_NR961NA5Bn-Lo6-8ZLEDMy37mRPhPwmmCrhWPByGQQHT4CYzNrw5p59uP-NftmGVGq2Le24Y0ZAQjYgqAsU>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtjecutefuodetggdotefrodftvfcurf
  hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
  ihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertdertd
@@ -80,17 +80,17 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtjecutefuodetggdotefrod
  egfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushhtvghrufhi
  iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
  hmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:DdW9YD5oJ-bIN_AEBQFnNyULMrYbfvR1vMZxnZxKD1YSxSW2thHpQQ>
- <xmx:DdW9YL7a2n_gwLN7OniCNTWNzqQrRFxOIFnC7fmyiU8YO_wnw-l93Q>
- <xmx:DdW9YDhzxPy4kAmA_wHJU5i-u4x77RlfH5KMlcxPcKtxCqZhvEcu7A>
- <xmx:DdW9YFT9H9PSJbyEVBhr03kWCl3R_b6ws5gcoflHGFihzS8XAJAegw>
+X-ME-Proxy: <xmx:DtW9YOapXkuOhaKHOfIubZGbSo3Y_ESATcpsz15E9ErZpMR71NNnfw>
+ <xmx:DtW9YEa_PnQ6nucJyWn0sILMRZ_yze0evzzV8lZ6_jjHbwXhxF8UXg>
+ <xmx:DtW9YCDx_mcuaKZu_6MLCti_Lao5jGFkAtU48O8YIcIwFNhrbWSIpQ>
+ <xmx:DtW9YPzLTgaCZEKt7fNcpTtPwNoSlmdf-S-5JyV-MQJ0qcY0dj3FQQ>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Jun 2021 04:13:00 -0400 (EDT)
+ 7 Jun 2021 04:13:01 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 3/9] ALSA: oxfw: cease from delayed card registration
-Date: Mon,  7 Jun 2021 17:12:44 +0900
-Message-Id: <20210607081250.13397-4-o-takashi@sakamocchi.jp>
+Subject: [PATCH 4/9] ALSA: dice: cease from delayed card registration
+Date: Mon,  7 Jun 2021 17:12:45 +0900
+Message-Id: <20210607081250.13397-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
 References: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
@@ -117,180 +117,144 @@ complication of kobject management. This commit ceases from it.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw.c | 128 +++++++++++++------------------------
- sound/firewire/oxfw/oxfw.h |   6 +-
- 2 files changed, 48 insertions(+), 86 deletions(-)
+ sound/firewire/dice/dice.c | 138 +++++++++++++------------------------
+ sound/firewire/dice/dice.h |   4 --
+ 2 files changed, 48 insertions(+), 94 deletions(-)
 
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 59bffa32636c..84971d78d152 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -60,7 +60,7 @@ static bool detect_loud_models(struct fw_unit *unit)
- 	return match_string(models, ARRAY_SIZE(models), model) >= 0;
- }
+diff --git a/sound/firewire/dice/dice.c b/sound/firewire/dice/dice.c
+index 239d164b0eea..f75902bc8e74 100644
+--- a/sound/firewire/dice/dice.c
++++ b/sound/firewire/dice/dice.c
+@@ -135,22 +135,51 @@ static void dice_card_free(struct snd_card *card)
  
--static int name_card(struct snd_oxfw *oxfw)
-+static int name_card(struct snd_oxfw *oxfw, const struct ieee1394_device_id *entry)
- {
- 	struct fw_device *fw_dev = fw_parent_device(oxfw->unit);
- 	const struct compat_info *info;
-@@ -92,9 +92,8 @@ static int name_card(struct snd_oxfw *oxfw)
- 		oxfw->quirks |= SND_OXFW_QUIRK_JUMBO_PAYLOAD;
- 
- 	/* to apply card definitions */
--	if (oxfw->entry->vendor_id == VENDOR_GRIFFIN ||
--	    oxfw->entry->vendor_id == VENDOR_LACIE) {
--		info = (const struct compat_info *)oxfw->entry->driver_data;
-+	if (entry->vendor_id == VENDOR_GRIFFIN || entry->vendor_id == VENDOR_LACIE) {
-+		info = (const struct compat_info *)entry->driver_data;
- 		d = info->driver_name;
- 		v = info->vendor_name;
- 		m = info->model_name;
-@@ -123,9 +122,12 @@ static void oxfw_card_free(struct snd_card *card)
- 
- 	if (oxfw->has_output || oxfw->has_input)
- 		snd_oxfw_stream_destroy_duplex(oxfw);
+ 	snd_dice_stream_destroy_duplex(dice);
+ 	snd_dice_transaction_destroy(dice);
 +
-+	mutex_destroy(&oxfw->mutex);
-+	fw_unit_put(oxfw->unit);
- }
- 
--static int detect_quirks(struct snd_oxfw *oxfw)
-+static int detect_quirks(struct snd_oxfw *oxfw, const struct ieee1394_device_id *entry)
- {
- 	struct fw_device *fw_dev = fw_parent_device(oxfw->unit);
- 	struct fw_csr_iterator it;
-@@ -136,17 +138,18 @@ static int detect_quirks(struct snd_oxfw *oxfw)
- 	 * Add ALSA control elements for two models to keep compatibility to
- 	 * old firewire-speaker module.
- 	 */
--	if (oxfw->entry->vendor_id == VENDOR_GRIFFIN)
-+	if (entry->vendor_id == VENDOR_GRIFFIN)
- 		return snd_oxfw_add_spkr(oxfw, false);
--	if (oxfw->entry->vendor_id == VENDOR_LACIE)
-+	if (entry->vendor_id == VENDOR_LACIE)
- 		return snd_oxfw_add_spkr(oxfw, true);
- 
- 	/*
- 	 * Stanton models supports asynchronous transactions for unique MIDI
- 	 * messages.
- 	 */
--	if (oxfw->entry->vendor_id == OUI_STANTON) {
--		if (oxfw->entry->model_id == MODEL_SCS1M)
-+	if (entry->vendor_id == OUI_STANTON) {
-+		oxfw->quirks |= SND_OXFW_QUIRK_SCS_TRANSACTION;
-+		if (entry->model_id == MODEL_SCS1M)
- 			oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
- 
- 		// No physical MIDI ports.
-@@ -156,14 +159,14 @@ static int detect_quirks(struct snd_oxfw *oxfw)
- 		return snd_oxfw_scs1x_add(oxfw);
- 	}
- 
--	if (oxfw->entry->vendor_id == OUI_APOGEE && oxfw->entry->model_id == MODEL_DUET_FW)
-+	if (entry->vendor_id == OUI_APOGEE && entry->model_id == MODEL_DUET_FW)
- 		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
- 
- 	/*
- 	 * TASCAM FireOne has physical control and requires a pair of additional
- 	 * MIDI ports.
- 	 */
--	if (oxfw->entry->vendor_id == VENDOR_TASCAM) {
-+	if (entry->vendor_id == VENDOR_TASCAM) {
- 		oxfw->midi_input_ports++;
- 		oxfw->midi_output_ports++;
- 		return 0;
-@@ -189,22 +192,30 @@ static int detect_quirks(struct snd_oxfw *oxfw)
- 	return 0;
++	mutex_destroy(&dice->mutex);
++	fw_unit_put(dice->unit);
  }
  
 -static void do_registration(struct work_struct *work)
-+static int oxfw_probe(struct fw_unit *unit, const struct ieee1394_device_id *entry)
++static int dice_probe(struct fw_unit *unit, const struct ieee1394_device_id *entry)
  {
--	struct snd_oxfw *oxfw = container_of(work, struct snd_oxfw, dwork.work);
+-	struct snd_dice *dice = container_of(work, struct snd_dice, dwork.work);
 +	struct snd_card *card;
-+	struct snd_oxfw *oxfw;
++	struct snd_dice *dice;
++	snd_dice_detect_formats_t detect_formats;
  	int err;
  
--	if (oxfw->registered)
+-	if (dice->registered)
 -		return;
-+	if (entry->vendor_id == VENDOR_LOUD && entry->model_id == 0 && !detect_loud_models(unit))
-+		return -ENODEV;
++	if (!entry->driver_data && entry->vendor_id != OUI_SSL) {
++		err = check_dice_category(unit);
++		if (err < 0)
++			return -ENODEV;
++	}
  
--	err = snd_card_new(&oxfw->unit->device, -1, NULL, THIS_MODULE, 0,
--			   &oxfw->card);
-+	err = snd_card_new(&unit->device, -1, NULL, THIS_MODULE, sizeof(*oxfw), &card);
+-	err = snd_card_new(&dice->unit->device, -1, NULL, THIS_MODULE, 0,
+-			   &dice->card);
++	err = snd_card_new(&unit->device, -1, NULL, THIS_MODULE, sizeof(*dice), &card);
  	if (err < 0)
 -		return;
--	oxfw->card->private_free = oxfw_card_free;
--	oxfw->card->private_data = oxfw;
+-	dice->card->private_free = dice_card_free;
+-	dice->card->private_data = dice;
 +		return err;
-+	card->private_free = oxfw_card_free;
- 
--	err = name_card(oxfw);
-+	oxfw = card->private_data;
-+	oxfw->unit = fw_unit_get(unit);
-+	dev_set_drvdata(&unit->device, oxfw);
-+	oxfw->card = card;
++	card->private_free = dice_card_free;
 +
-+	mutex_init(&oxfw->mutex);
-+	spin_lock_init(&oxfw->lock);
-+	init_waitqueue_head(&oxfw->hwdep_wait);
++	dice = card->private_data;
++	dice->unit = fw_unit_get(unit);
++	dev_set_drvdata(&unit->device, dice);
++	dice->card = card;
 +
-+	err = name_card(oxfw, entry);
++	if (!entry->driver_data)
++		detect_formats = snd_dice_stream_detect_current_formats;
++	else
++		detect_formats = (snd_dice_detect_formats_t)entry->driver_data;
++
++	// Below models are compliant to IEC 61883-1/6 and have no quirk at high sampling transfer
++	// frequency.
++	// * Avid M-Box 3 Pro
++	// * M-Audio Profire 610
++	// * M-Audio Profire 2626
++	if (entry->vendor_id == OUI_MAUDIO || entry->vendor_id == OUI_AVID)
++		dice->disable_double_pcm_frames = true;
++
++	spin_lock_init(&dice->lock);
++	mutex_init(&dice->mutex);
++	init_completion(&dice->clock_accepted);
++	init_waitqueue_head(&dice->hwdep_wait);
+ 
+ 	err = snd_dice_transaction_init(dice);
+ 	if (err < 0)
+@@ -162,7 +191,7 @@ static void do_registration(struct work_struct *work)
+ 
+ 	dice_card_strings(dice);
+ 
+-	err = dice->detect_formats(dice);
++	err = detect_formats(dice);
  	if (err < 0)
  		goto error;
  
-@@ -212,7 +223,7 @@ static void do_registration(struct work_struct *work)
+@@ -184,105 +213,34 @@ static void do_registration(struct work_struct *work)
  	if (err < 0)
  		goto error;
  
--	err = detect_quirks(oxfw);
-+	err = detect_quirks(oxfw, entry);
- 	if (err < 0)
- 		goto error;
- 
-@@ -236,85 +247,38 @@ static void do_registration(struct work_struct *work)
- 			goto error;
- 	}
- 
--	err = snd_card_register(oxfw->card);
+-	err = snd_card_register(dice->card);
 +	err = snd_card_register(card);
  	if (err < 0)
  		goto error;
  
--	oxfw->registered = true;
+-	dice->registered = true;
 -
 -	return;
 -error:
--	snd_card_free(oxfw->card);
--	dev_info(&oxfw->unit->device,
+-	snd_card_free(dice->card);
+-	dev_info(&dice->unit->device,
 -		 "Sound card registration failed: %d\n", err);
 -}
 -
--static int oxfw_probe(struct fw_unit *unit,
+-static int dice_probe(struct fw_unit *unit,
 -		      const struct ieee1394_device_id *entry)
 -{
--	struct snd_oxfw *oxfw;
+-	struct snd_dice *dice;
+-	int err;
 -
--	if (entry->vendor_id == VENDOR_LOUD && entry->model_id == 0 && !detect_loud_models(unit))
--		return -ENODEV;
+-	if (!entry->driver_data && entry->vendor_id != OUI_SSL) {
+-		err = check_dice_category(unit);
+-		if (err < 0)
+-			return -ENODEV;
+-	}
 -
 -	/* Allocate this independent of sound card instance. */
--	oxfw = devm_kzalloc(&unit->device, sizeof(struct snd_oxfw), GFP_KERNEL);
--	if (!oxfw)
+-	dice = devm_kzalloc(&unit->device, sizeof(struct snd_dice), GFP_KERNEL);
+-	if (!dice)
 -		return -ENOMEM;
--	oxfw->unit = fw_unit_get(unit);
--	dev_set_drvdata(&unit->device, oxfw);
+-	dice->unit = fw_unit_get(unit);
+-	dev_set_drvdata(&unit->device, dice);
 -
--	oxfw->entry = entry;
--	mutex_init(&oxfw->mutex);
--	spin_lock_init(&oxfw->lock);
--	init_waitqueue_head(&oxfw->hwdep_wait);
+-	if (!entry->driver_data) {
+-		dice->detect_formats = snd_dice_stream_detect_current_formats;
+-	} else {
+-		dice->detect_formats =
+-				(snd_dice_detect_formats_t)entry->driver_data;
+-	}
+-
+-	// Below models are compliant to IEC 61883-1/6 and have no quirk at high sampling transfer
+-	// frequency.
+-	// * Avid M-Box 3 Pro
+-	// * M-Audio Profire 610
+-	// * M-Audio Profire 2626
+-	if (entry->vendor_id == OUI_MAUDIO || entry->vendor_id == OUI_AVID)
+-		dice->disable_double_pcm_frames = true;
+-
+-	spin_lock_init(&dice->lock);
+-	mutex_init(&dice->mutex);
+-	init_completion(&dice->clock_accepted);
+-	init_waitqueue_head(&dice->hwdep_wait);
 -
 -	/* Allocate and register this sound card later. */
--	INIT_DEFERRABLE_WORK(&oxfw->dwork, do_registration);
--	snd_fw_schedule_registration(unit, &oxfw->dwork);
+-	INIT_DEFERRABLE_WORK(&dice->dwork, do_registration);
+-	snd_fw_schedule_registration(unit, &dice->dwork);
 -
  	return 0;
 +error:
@@ -298,88 +262,76 @@ index 59bffa32636c..84971d78d152 100644
 +	return err;
  }
  
- static void oxfw_bus_reset(struct fw_unit *unit)
+ static void dice_remove(struct fw_unit *unit)
  {
- 	struct snd_oxfw *oxfw = dev_get_drvdata(&unit->device);
- 
--	if (!oxfw->registered)
--		snd_fw_schedule_registration(unit, &oxfw->dwork);
--
- 	fcp_bus_reset(oxfw->unit);
- 
--	if (oxfw->registered) {
--		if (oxfw->has_output || oxfw->has_input) {
--			mutex_lock(&oxfw->mutex);
--			snd_oxfw_stream_update_duplex(oxfw);
--			mutex_unlock(&oxfw->mutex);
--		}
--
--		if (oxfw->entry->vendor_id == OUI_STANTON)
--			snd_oxfw_scs1x_update(oxfw);
-+	if (oxfw->has_output || oxfw->has_input) {
-+		mutex_lock(&oxfw->mutex);
-+		snd_oxfw_stream_update_duplex(oxfw);
-+		mutex_unlock(&oxfw->mutex);
- 	}
-+
-+	if (oxfw->quirks & SND_OXFW_QUIRK_SCS_TRANSACTION)
-+		snd_oxfw_scs1x_update(oxfw);
- }
- 
- static void oxfw_remove(struct fw_unit *unit)
- {
- 	struct snd_oxfw *oxfw = dev_get_drvdata(&unit->device);
+ 	struct snd_dice *dice = dev_get_drvdata(&unit->device);
  
 -	/*
 -	 * Confirm to stop the work for registration before the sound card is
 -	 * going to be released. The work is not scheduled again because bus
 -	 * reset handler is not called anymore.
 -	 */
--	cancel_delayed_work_sync(&oxfw->dwork);
+-	cancel_delayed_work_sync(&dice->dwork);
 -
--	if (oxfw->registered) {
+-	if (dice->registered) {
 -		// Block till all of ALSA character devices are released.
--		snd_card_free(oxfw->card);
+-		snd_card_free(dice->card);
 -	}
 -
--	mutex_destroy(&oxfw->mutex);
--	fw_unit_put(oxfw->unit);
+-	mutex_destroy(&dice->mutex);
+-	fw_unit_put(dice->unit);
 +	// Block till all of ALSA character devices are released.
-+	snd_card_free(oxfw->card);
++	snd_card_free(dice->card);
  }
  
- static const struct compat_info griffin_firewave = {
-diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index 853135b5002d..ee47abcb0c90 100644
---- a/sound/firewire/oxfw/oxfw.h
-+++ b/sound/firewire/oxfw/oxfw.h
-@@ -40,6 +40,8 @@ enum snd_oxfw_quirk {
- 	SND_OXFW_QUIRK_WRONG_DBS = 0x02,
- 	// Blocking transmission mode is used.
- 	SND_OXFW_QUIRK_BLOCKING_TRANSMISSION = 0x04,
-+	// Stanton SCS1.d and SCS1.m support unique transaction.
-+	SND_OXFW_QUIRK_SCS_TRANSACTION = 0x08,
- };
+ static void dice_bus_reset(struct fw_unit *unit)
+ {
+ 	struct snd_dice *dice = dev_get_drvdata(&unit->device);
  
- /* This is an arbitrary number for convinience. */
-@@ -50,9 +52,6 @@ struct snd_oxfw {
- 	struct mutex mutex;
+-	/* Postpone a workqueue for deferred registration. */
+-	if (!dice->registered)
+-		snd_fw_schedule_registration(unit, &dice->dwork);
+-
+ 	/* The handler address register becomes initialized. */
+ 	snd_dice_transaction_reinit(dice);
+ 
+-	/*
+-	 * After registration, userspace can start packet streaming, then this
+-	 * code block works fine.
+-	 */
+-	if (dice->registered) {
+-		mutex_lock(&dice->mutex);
+-		snd_dice_stream_update_duplex(dice);
+-		mutex_unlock(&dice->mutex);
+-	}
++	mutex_lock(&dice->mutex);
++	snd_dice_stream_update_duplex(dice);
++	mutex_unlock(&dice->mutex);
+ }
+ 
+ #define DICE_INTERFACE	0x000001
+diff --git a/sound/firewire/dice/dice.h b/sound/firewire/dice/dice.h
+index 3c967d1b3605..fd440cc625f9 100644
+--- a/sound/firewire/dice/dice.h
++++ b/sound/firewire/dice/dice.h
+@@ -78,9 +78,6 @@ struct snd_dice {
  	spinlock_t lock;
+ 	struct mutex mutex;
  
 -	bool registered;
 -	struct delayed_work dwork;
 -
- 	// The combination of snd_oxfw_quirk enumeration-constants.
- 	unsigned int quirks;
- 	bool has_output;
-@@ -73,7 +72,6 @@ struct snd_oxfw {
- 	bool dev_lock_changed;
- 	wait_queue_head_t hwdep_wait;
+ 	/* Offsets for sub-addresses */
+ 	unsigned int global_offset;
+ 	unsigned int rx_offset;
+@@ -93,7 +90,6 @@ struct snd_dice {
+ 	unsigned int rx_pcm_chs[MAX_STREAMS][SND_DICE_RATE_MODE_COUNT];
+ 	unsigned int tx_midi_ports[MAX_STREAMS];
+ 	unsigned int rx_midi_ports[MAX_STREAMS];
+-	snd_dice_detect_formats_t detect_formats;
  
--	const struct ieee1394_device_id *entry;
- 	void *spec;
- 
- 	struct amdtp_domain domain;
+ 	struct fw_address_handler notification_handler;
+ 	int owner_generation;
 -- 
 2.27.0
 

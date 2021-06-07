@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7837839D6F4
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 10:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA8239D6E3
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 10:16:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D020167E;
-	Mon,  7 Jun 2021 10:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D020167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F2111677;
+	Mon,  7 Jun 2021 10:15:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F2111677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623053887;
-	bh=FSmv/IaGdedwb3zB6fHJcoqACxfAQKGAKE7wjkfOiYk=;
+	s=default; t=1623053780;
+	bh=DM8bMCqfT9yQTkn1XHVCkTTduYpvUgZxrby5delvPpQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EZd5vsKLelDOpBRZlbCcFGcABkLgtjVqFC7+1QaxjuvIjAckm/HvuZQfqAwCrWaUt
-	 IOJHu9TKF8MTjeRAnUpIsFMzGlnlXOjOzdzxR2WC+QrHQZwgLf9UU9F5tbqJfFbcwz
-	 smIxRDlOSUPIAr9KL2LAg8LDXtttZ+6Bm+oroWUs=
+	b=qMeTip/e6cvCPkMovcDn3eRGACque8APuua3i+7D7ZulBrKGIh66XvUUuKBLU8GaO
+	 qdgcbx61phAaLjB+EwDHDf6PtswFc6sSwgUlNKCexEgHjvyNY1R29ZAriYZDLbc2+F
+	 S/CoOaEvlDJbN3PpcJGwj6/BP7jQnKdzNCg6h840=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE39BF80511;
-	Mon,  7 Jun 2021 10:13:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F357FF804CC;
+	Mon,  7 Jun 2021 10:13:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89FEFF804FF; Mon,  7 Jun 2021 10:13:26 +0200 (CEST)
+ id 48F3EF804D1; Mon,  7 Jun 2021 10:13:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B334F804C2
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 10:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B334F804C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81465F802DF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 10:13:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81465F802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="TiaaCe8R"; 
+ header.b="1sTUJh0c"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="DNiCdSnJ"
+ header.i=@messagingengine.com header.b="spmWeEbO"
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 811525C0166;
- Mon,  7 Jun 2021 04:13:06 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id C19EF5C013A;
+ Mon,  7 Jun 2021 04:13:07 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 07 Jun 2021 04:13:06 -0400
+ by compute3.internal (MEProxy); Mon, 07 Jun 2021 04:13:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=DZ3n0ba2RGFil
- /F3MIplbLvjz3DDmqaD1X4BbdIq/ho=; b=TiaaCe8R2z1M81q5PzGxlyiNV6gVU
- S1Lf9zfBSj09rvYh+Z9NPjCBtqsq4Jch3upDs9VDCaQVKsMXfILcrzdmJPsyJ66W
- yk+DpOa8dJnQxhv+j/seaTq6T/TRyG25SaQQc0Ybl+qkJLA49hkE4rIq+UXbMURa
- mi1Bm4uUUMdzdsgvYQvSEvpYazGIbezB4mcBw3WFubsE34M3YIN89/I5HuSSAg5E
- 1VcwMfSuvj+yhxocrvby/KPJ6tOdXu/iyPM3gqr1n76woJ4A5Pgi8Md18ddvXv6C
- QhHfGo9G+gwuDLi1MSYGYGIANelNg/bz3ox42Mv8iOoovGM+Bmx9pHNlg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=sfWqAck5aMqeu
+ 6QM4bNtm4xlVwYLtkmjGbdbX/T323A=; b=1sTUJh0cJqUKMsk+i2HUGTxjzWbSf
+ vpnYmWxb7/fO8uA714je0/vsesFqFal5tjI7eerrLPGS7cH9tU8pAPoUDp0HDFSv
+ 2UnAZ7wSMrewGvumusXQIOpl/0qNtSwnY3xkjMjKTbwdWju+UvJg6+QZo6vosrcB
+ HNNEgWXO0FW4kODeNAZGVgN5vuHzY70Oo8z/QXEY5e8ZE8oRVn/ndNVUMPAnp9fi
+ fTFJiVHeOK5K5136vZq3kwakI4YM4/tTb+dti+xdoSzd4kQNYsPGhqTUUMPPdFUW
+ 66KMvVDCNb2IjHRtYhuJE1v2XOfHgCTi4STG1kFKG71o786vXOXPwK/Nw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=DZ3n0ba2RGFil/F3MIplbLvjz3DDmqaD1X4BbdIq/ho=; b=DNiCdSnJ
- 6PYEE74ton5CR3tkU9ttjqgpPDiM6FPn3zZmFbra82uwCRaxaPfP+P4G5FTft42s
- aXyWIpaLFPmV4mOL+/bKdt/rxXFDU1PFFS0Ouh/7bTPm1ttqMqD9HeP0a/VphgKn
- o6ykBEWcMelHF2hueeo/YUIIEcKF1XJm/gdiltSWOtV2TVmztay9ZP8Dkd9LDd96
- 7icjFA4tVaQGREa4O+jmOvbdS/sQAl78WjBZLQxHa2KsyTmJXnETJYstMKwVgWQp
- Mg2RBP4uyS0b1NmHQxkfyjU1KaO8x2up0pN5bSLh/NuojIcKRp11CSWqekFtxq0X
- 3uuTC2TMkO5XtA==
-X-ME-Sender: <xms:EtW9YHitYHOgNDUHyw8gxDsD9TCqdbMGubK-EPtMY9INace4wTBwCQ>
- <xme:EtW9YEDImT5PHvWleoIsBT1fZWEAq3QU_g1iM4Dr11y94q4QNXZTBI57dQG7y_RUm
- luwrrrUh2gWRJuvNvM>
-X-ME-Received: <xmr:EtW9YHEbxOOVlCZGBZ3vXDCzzW1L_FRcyw-TbaYVPVRaNC6Pg4AJPlHCHVwTEmCBFmU4wnbCBLcXK492yY8LSmUDQEXSDGLpYsIEtth6cNQghi5HP-TJ>
+ fm3; bh=sfWqAck5aMqeu6QM4bNtm4xlVwYLtkmjGbdbX/T323A=; b=spmWeEbO
+ O64bCbcPyusiphVr9T0PSjI52Wmm1ELq839l+/2tLV/oVp5GO66Zf5o1/F1jCa3x
+ FCivwlRcmL7kle2XkgZOyZV0OYHzhl2aX4IxnHTevXaLJjMW1/3yxY1myCjT5qnW
+ 7ZPFPJjVSKxSrg8P9T3+HAqD856PFcMKkGEPII4jMx7lR+IqoUl0LgRAMJ4Q22su
+ mLgjf1mx1DiiJ04ZIvESxcK1qT+Ot3Sd8yP1nyjmo3OjVG9iLzZkHXAVAxg5rUam
+ lE5lp6FhUqyIT/Ppz4nQYYYh+/sS85jxuo6K3cpleq5Mx+KhX9unb/ZnzJHGuaBm
+ KYbQ1WxweI4ngQ==
+X-ME-Sender: <xms:E9W9YKZmOQ3SbCD5isq2pOpEUS5Q48eEKRaOxS5LZi7AuwOalM2ACA>
+ <xme:E9W9YNb0pxBkkuUvdnWFalBeW_aZMN2TUO0TJJvwuvKl0-k5cpq_ElBKPf1dEKrVj
+ q3WM6tPH99RSOKDpKI>
+X-ME-Received: <xmr:E9W9YE_bIz7K5LJLlvE1eOtCbzj_2ULFChpmikm3oOv8TREdx7R75p6K91DtJSDhgbIbN5X6r0ZgLnz32g2JjhBVxtqniPRzWNj-etIz13w-J9Elr_bS>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtjecutefuodetggdotefrodftvfcurf
  hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
  ihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertdertd
@@ -80,17 +80,17 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtjecutefuodetggdotefrod
  egfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushhtvghrufhi
  iigvpedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
  hmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:EtW9YEShNrohIDbw1Dq_SRkGrHYD1AjuvY0XOQwaI05kYlFGvWvEhQ>
- <xmx:EtW9YEyGGT2njl4CNu4qn5wf8khC1hCqN0x565XZAB6QEL-jv5CyMw>
- <xmx:EtW9YK4SfSm0NgmYCq7iWryOk3lt_BG1WsyUuCx5i1FZCGtozAQPGQ>
- <xmx:EtW9YBoRX5VsT1ic58mGjzTnFWYMSli76H1G99zRyuBU_ErAgCibhA>
+X-ME-Proxy: <xmx:E9W9YMrGBKAdz6HOsiRiwzUnqi7BWC3N_SfxtNUYb9rSZOWJCBKhrQ>
+ <xmx:E9W9YFrkHRfDP90UJuXWW6nkpOjvkoyL4tCmY1DBcMiYq83jy6t25w>
+ <xmx:E9W9YKSywcIk6v2ImLxeKqhaQ1m9iDWdv4emSL_vOtCLcfVQRbwxLA>
+ <xmx:E9W9YGAhnuTz6SJ-BilHCIkQEMLcRB8oKMvjx4Uu04bFW7ThqVur6w>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Jun 2021 04:13:05 -0400 (EDT)
+ 7 Jun 2021 04:13:06 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 7/9] ALSA: firewire-motu: cease from delayed card registration
-Date: Mon,  7 Jun 2021 17:12:48 +0900
-Message-Id: <20210607081250.13397-8-o-takashi@sakamocchi.jp>
+Subject: [PATCH 8/9] ALSA: fireface: cease from delayed card registration
+Date: Mon,  7 Jun 2021 17:12:49 +0900
+Message-Id: <20210607081250.13397-9-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
 References: <20210607081250.13397-1-o-takashi@sakamocchi.jp>
@@ -117,94 +117,97 @@ complication of kobject management. This commit ceases from it.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu.c | 84 ++++++++++++--------------------------
- sound/firewire/motu/motu.h |  3 --
- 2 files changed, 25 insertions(+), 62 deletions(-)
+ sound/firewire/fireface/ff.c | 90 +++++++++++-------------------------
+ sound/firewire/fireface/ff.h |  3 --
+ 2 files changed, 28 insertions(+), 65 deletions(-)
 
-diff --git a/sound/firewire/motu/motu.c b/sound/firewire/motu/motu.c
-index 2a8a6ea2d3f1..531eeb36eb87 100644
---- a/sound/firewire/motu/motu.c
-+++ b/sound/firewire/motu/motu.c
-@@ -57,22 +57,31 @@ static void motu_card_free(struct snd_card *card)
+diff --git a/sound/firewire/fireface/ff.c b/sound/firewire/fireface/ff.c
+index bc39269415d2..7bf51d062021 100644
+--- a/sound/firewire/fireface/ff.c
++++ b/sound/firewire/fireface/ff.c
+@@ -42,22 +42,33 @@ static void ff_card_free(struct snd_card *card)
  
- 	snd_motu_transaction_unregister(motu);
- 	snd_motu_stream_destroy_duplex(motu);
+ 	snd_ff_stream_destroy_duplex(ff);
+ 	snd_ff_transaction_unregister(ff);
 +
-+	mutex_destroy(&motu->mutex);
-+	fw_unit_put(motu->unit);
++	mutex_destroy(&ff->mutex);
++	fw_unit_put(ff->unit);
  }
  
 -static void do_registration(struct work_struct *work)
-+static int motu_probe(struct fw_unit *unit, const struct ieee1394_device_id *entry)
++static int snd_ff_probe(struct fw_unit *unit, const struct ieee1394_device_id *entry)
  {
--	struct snd_motu *motu = container_of(work, struct snd_motu, dwork.work);
+-	struct snd_ff *ff = container_of(work, struct snd_ff, dwork.work);
 +	struct snd_card *card;
-+	struct snd_motu *motu;
++	struct snd_ff *ff;
  	int err;
  
--	if (motu->registered)
+-	if (ff->registered)
 -		return;
 -
--	err = snd_card_new(&motu->unit->device, -1, NULL, THIS_MODULE, 0,
--			   &motu->card);
-+	err = snd_card_new(&unit->device, -1, NULL, THIS_MODULE, sizeof(*motu), &card);
+-	err = snd_card_new(&ff->unit->device, -1, NULL, THIS_MODULE, 0,
+-			   &ff->card);
++	err = snd_card_new(&unit->device, -1, NULL, THIS_MODULE, sizeof(*ff), &card);
  	if (err < 0)
 -		return;
--	motu->card->private_free = motu_card_free;
--	motu->card->private_data = motu;
+-	ff->card->private_free = ff_card_free;
+-	ff->card->private_data = ff;
 +		return err;
-+	card->private_free = motu_card_free;
++	card->private_free = ff_card_free;
 +
-+	motu = card->private_data;
-+	motu->unit = fw_unit_get(unit);
-+	dev_set_drvdata(&unit->device, motu);
-+	motu->card = card;
++	ff = card->private_data;
++	ff->unit = fw_unit_get(unit);
++	dev_set_drvdata(&unit->device, ff);
++	ff->card = card;
 +
-+	motu->spec = (const struct snd_motu_spec *)entry->driver_data;
-+	mutex_init(&motu->mutex);
-+	spin_lock_init(&motu->lock);
-+	init_waitqueue_head(&motu->hwdep_wait);
++	mutex_init(&ff->mutex);
++	spin_lock_init(&ff->lock);
++	init_waitqueue_head(&ff->hwdep_wait);
++
++	ff->unit_version = entry->version;
++	ff->spec = (const struct snd_ff_spec *)entry->driver_data;
  
- 	name_card(motu);
- 
-@@ -103,71 +112,28 @@ static void do_registration(struct work_struct *work)
+ 	err = snd_ff_transaction_register(ff);
+ 	if (err < 0)
+@@ -83,76 +94,31 @@ static void do_registration(struct work_struct *work)
  	if (err < 0)
  		goto error;
  
--	err = snd_card_register(motu->card);
+-	err = snd_card_register(ff->card);
 +	err = snd_card_register(card);
  	if (err < 0)
  		goto error;
  
--	motu->registered = true;
+-	ff->registered = true;
 -
 -	return;
 -error:
--	snd_card_free(motu->card);
--	dev_info(&motu->unit->device,
+-	snd_card_free(ff->card);
+-	dev_info(&ff->unit->device,
 -		 "Sound card registration failed: %d\n", err);
 -}
 -
--static int motu_probe(struct fw_unit *unit,
--		      const struct ieee1394_device_id *entry)
+-static int snd_ff_probe(struct fw_unit *unit,
+-			   const struct ieee1394_device_id *entry)
 -{
--	struct snd_motu *motu;
+-	struct snd_ff *ff;
 -
--	/* Allocate this independently of sound card instance. */
--	motu = devm_kzalloc(&unit->device, sizeof(struct snd_motu), GFP_KERNEL);
--	if (!motu)
+-	ff = devm_kzalloc(&unit->device, sizeof(struct snd_ff), GFP_KERNEL);
+-	if (!ff)
 -		return -ENOMEM;
--	motu->unit = fw_unit_get(unit);
--	dev_set_drvdata(&unit->device, motu);
+-	ff->unit = fw_unit_get(unit);
+-	dev_set_drvdata(&unit->device, ff);
 -
--	motu->spec = (const struct snd_motu_spec *)entry->driver_data;
--	mutex_init(&motu->mutex);
--	spin_lock_init(&motu->lock);
--	init_waitqueue_head(&motu->hwdep_wait);
+-	mutex_init(&ff->mutex);
+-	spin_lock_init(&ff->lock);
+-	init_waitqueue_head(&ff->hwdep_wait);
 -
--	/* Allocate and register this sound card later. */
--	INIT_DEFERRABLE_WORK(&motu->dwork, do_registration);
--	snd_fw_schedule_registration(unit, &motu->dwork);
+-	ff->unit_version = entry->version;
+-	ff->spec = (const struct snd_ff_spec *)entry->driver_data;
+-
+-	/* Register this sound card later. */
+-	INIT_DEFERRABLE_WORK(&ff->dwork, do_registration);
+-	snd_fw_schedule_registration(unit, &ff->dwork);
 -
  	return 0;
 +error:
@@ -212,52 +215,57 @@ index 2a8a6ea2d3f1..531eeb36eb87 100644
 +	return err;
  }
  
- static void motu_remove(struct fw_unit *unit)
+ static void snd_ff_update(struct fw_unit *unit)
  {
- 	struct snd_motu *motu = dev_get_drvdata(&unit->device);
+ 	struct snd_ff *ff = dev_get_drvdata(&unit->device);
+ 
+-	/* Postpone a workqueue for deferred registration. */
+-	if (!ff->registered)
+-		snd_fw_schedule_registration(unit, &ff->dwork);
+-
+ 	snd_ff_transaction_reregister(ff);
+ 
+-	if (ff->registered)
+-		snd_ff_stream_update_duplex(ff);
++	snd_ff_stream_update_duplex(ff);
+ }
+ 
+ static void snd_ff_remove(struct fw_unit *unit)
+ {
+ 	struct snd_ff *ff = dev_get_drvdata(&unit->device);
  
 -	/*
 -	 * Confirm to stop the work for registration before the sound card is
 -	 * going to be released. The work is not scheduled again because bus
 -	 * reset handler is not called anymore.
 -	 */
--	cancel_delayed_work_sync(&motu->dwork);
+-	cancel_work_sync(&ff->dwork.work);
 -
--	if (motu->registered) {
+-	if (ff->registered) {
 -		// Block till all of ALSA character devices are released.
--		snd_card_free(motu->card);
+-		snd_card_free(ff->card);
 -	}
 -
--	mutex_destroy(&motu->mutex);
--	fw_unit_put(motu->unit);
+-	mutex_destroy(&ff->mutex);
+-	fw_unit_put(ff->unit);
 +	// Block till all of ALSA character devices are released.
-+	snd_card_free(motu->card);
++	snd_card_free(ff->card);
  }
  
- static void motu_bus_update(struct fw_unit *unit)
- {
- 	struct snd_motu *motu = dev_get_drvdata(&unit->device);
- 
--	/* Postpone a workqueue for deferred registration. */
--	if (!motu->registered)
--		snd_fw_schedule_registration(unit, &motu->dwork);
--
- 	/* The handler address register becomes initialized. */
- 	snd_motu_transaction_reregister(motu);
- }
-diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
-index 674e3dc4e45d..c5c0e446deb2 100644
---- a/sound/firewire/motu/motu.h
-+++ b/sound/firewire/motu/motu.h
-@@ -54,9 +54,6 @@ struct snd_motu {
+ static const struct snd_ff_spec spec_ff800 = {
+diff --git a/sound/firewire/fireface/ff.h b/sound/firewire/fireface/ff.h
+index 705e7df4f929..0535f0b58b67 100644
+--- a/sound/firewire/fireface/ff.h
++++ b/sound/firewire/fireface/ff.h
+@@ -69,9 +69,6 @@ struct snd_ff {
  	struct mutex mutex;
  	spinlock_t lock;
  
 -	bool registered;
 -	struct delayed_work dwork;
 -
- 	/* Model dependent information. */
- 	const struct snd_motu_spec *spec;
+ 	enum snd_ff_unit_version unit_version;
+ 	const struct snd_ff_spec *spec;
  
 -- 
 2.27.0

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E4D39E74A
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:15:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6064E39E74E
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:15:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD124843;
-	Mon,  7 Jun 2021 21:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD124843
+	by alsa0.perex.cz (Postfix) with ESMTPS id E35801671;
+	Mon,  7 Jun 2021 21:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E35801671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623093315;
-	bh=3HZ0nLslh1OwUhLgjjqklhD99blvjVlQ0P/nPY0yVmU=;
+	s=default; t=1623093352;
+	bh=gaf+cvMlQJCHDT7w5kwjDw4UJyLVaj+YDlLgbXnLPTI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TAjjuwu3qcRZZVua+7tC2ZYXVlVfSpIKTFrs2mZW2by1FSq+DXBMD+SVv+NHudgt0
-	 SCCg90jovH55/fHhmZXFxW2pFT1ePQmJXkdCiddFXXwcvHg8Ni1ANHQr7rlcB4Ln++
-	 eRpSyIdTaxB+Yr6fyOX1f1dMHjcZTeZxbymSBnjs=
+	b=YulIy8NFm0ZuEGFTicVDO7VWF/UajRGwYStQLKZ9seRFGy3RfxtJydFyMi1O2SlEG
+	 7/2nwofsaWnhpPiPf+yx0cUIIUHl1/m9Ln25wIEO4N28dClMbe7NL3dj/zfcu4e102
+	 teM5I9BIBCIYRvKOmMVP9+77Pc7Qm9qLcHpJx1r0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9413F802DF;
-	Mon,  7 Jun 2021 21:13:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE049F804CF;
+	Mon,  7 Jun 2021 21:14:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73C4BF8020D; Mon,  7 Jun 2021 21:13:35 +0200 (CEST)
+ id 47C55F804CC; Mon,  7 Jun 2021 21:14:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F8DBF8020D
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:13:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F8DBF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D20CEF804CA
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:13:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D20CEF804CA
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 2551361956CD; Tue,  8 Jun 2021 04:43:25 +0930 (ACST)
-Date: Tue, 8 Jun 2021 04:43:25 +0930
+ id 60FD961956CD; Tue,  8 Jun 2021 04:43:51 +0930 (ACST)
+Date: Tue, 8 Jun 2021 04:43:51 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH V2 1/2] ALSA: usb-audio: scarlett2: Read mixer volumes at
- init time
-Message-ID: <bb33fa9b79efc6f7a0f0e6fb7018cc8d4d59b3ba.1623091570.git.g@b4.vu>
+Subject: [PATCH V2 2/2] ALSA: usb-audio: scarlett2: Read mux at init time
+Message-ID: <15b17c60a2bca174bcddcec41c9419b746f21c1d.1623091570.git.g@b4.vu>
 References: <cover.1623091570.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -68,10 +67,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for reading the mixer volumes from the hardware when the
-driver is initialising. Previously these ALSA volume controls were
-initialised to zero instead of being initialised to match the hardware
-state.
+Add support for retrieving the mux configuration from the hardware
+when the driver is initialising. Previously the ALSA controls were
+initialised to a default hard-coded state instead of being initialised
+to match the hardware state.
 
 Fixes: 9e4d5c1be21f ("ALSA: usb-audio: Scarlett Gen 2 mixer interface")
 Suggested-by: Vladimir Sadovnikov <sadko4u@gmail.com>
@@ -80,116 +79,253 @@ Tested-by: Alex Fellows <alex.fellows@gmail.com>
 Tested-by: Daniel Sales <daniel.sales.z@gmail.com>
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 57 +++++++++++++++++++++++++++++++--
- 1 file changed, 55 insertions(+), 2 deletions(-)
+ sound/usb/mixer_scarlett_gen2.c | 170 ++++++++++++++++++++------------
+ 1 file changed, 106 insertions(+), 64 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 4caf379d5b99..5969d6bda58d 100644
+index 5969d6bda58d..a461317dc8c6 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -117,11 +117,12 @@
- #define SCARLETT2_MIXER_MAX_DB 6
- #define SCARLETT2_MIXER_MAX_VALUE \
- 	((SCARLETT2_MIXER_MAX_DB - SCARLETT2_MIXER_MIN_DB) * 2)
-+#define SCARLETT2_MIXER_VALUE_COUNT (SCARLETT2_MIXER_MAX_VALUE + 1)
- 
- /* map from (dB + 80) * 2 to mixer value
-  * for dB in 0 .. 172: int(8192 * pow(10, ((dB - 160) / 2 / 20)))
-  */
--static const u16 scarlett2_mixer_values[173] = {
-+static const u16 scarlett2_mixer_values[SCARLETT2_MIXER_VALUE_COUNT] = {
- 	0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
- 	2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8,
- 	9, 9, 10, 10, 11, 12, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-@@ -465,6 +466,7 @@ static int scarlett2_get_port_start_num(const struct scarlett2_ports *ports,
- 
- #define SCARLETT2_USB_INIT_SEQ 0x00000000
+@@ -32,6 +32,10 @@
+  * Scarlett 6i6 support added in June 2019 (thanks to Martin Wittmann
+  * for providing usbmon output and testing).
+  *
++ * Support for loading mixer volume and mux configuration from the
++ * interface during driver initialisation added in May 2021 (thanks to
++ * Vladimir Sadovnikov for figuring out how).
++ *
+  * This ALSA mixer gives access to:
+  *  - input, output, mixer-matrix muxes
+  *  - 18x10 mixer-matrix gain stages
+@@ -228,6 +232,7 @@ struct scarlett2_mixer_data {
+ 	struct delayed_work work;
+ 	const struct scarlett2_device_info *info;
+ 	int num_mux_srcs;
++	int num_mux_dsts;
+ 	u16 scarlett2_seq;
+ 	u8 vol_updated;
+ 	u8 master_vol;
+@@ -468,6 +473,7 @@ static int scarlett2_get_port_start_num(const struct scarlett2_ports *ports,
  #define SCARLETT2_USB_GET_METER_LEVELS 0x00001001
-+#define SCARLETT2_USB_GET_MIX 0x00002001
+ #define SCARLETT2_USB_GET_MIX 0x00002001
  #define SCARLETT2_USB_SET_MIX 0x00002002
++#define SCARLETT2_USB_GET_MUX 0x00003001
  #define SCARLETT2_USB_SET_MUX 0x00003002
  #define SCARLETT2_USB_GET_DATA 0x00800000
-@@ -784,6 +786,49 @@ static int scarlett2_usb_get_volume_status(
- 				 buf, sizeof(*buf));
+ #define SCARLETT2_USB_SET_DATA 0x00800001
+@@ -877,6 +883,94 @@ static u32 scarlett2_mux_src_num_to_id(const struct scarlett2_ports *ports,
+ 	return 0;
  }
  
-+/* Send a USB message to get the volumes for all inputs of one mix
-+ * and put the values into private->mix[]
-+ */
-+static int scarlett2_usb_get_mix(struct usb_mixer_interface *mixer,
-+				 int mix_num)
++/* Convert a hardware ID to a port number index */
++static u32 scarlett2_mux_id_to_num(const struct scarlett2_ports *ports,
++				   int direction,
++				   u32 id)
++{
++	int port_type;
++	int port_num = 0;
++
++	for (port_type = 0;
++	     port_type < SCARLETT2_PORT_TYPE_COUNT;
++	     port_type++) {
++		struct scarlett2_ports port = ports[port_type];
++		int count = port.num[direction];
++
++		if (id >= port.id && id < port.id + count)
++			return port_num + id - port.id;
++		port_num += count;
++	}
++
++	/* Oops */
++	return -1;
++}
++
++/* Convert one mux entry from the interface and load into private->mux[] */
++static void scarlett2_usb_populate_mux(struct scarlett2_mixer_data *private,
++				       u32 mux_entry)
++{
++	const struct scarlett2_device_info *info = private->info;
++	const struct scarlett2_ports *ports = info->ports;
++
++	int dst_idx, src_idx;
++
++	dst_idx = scarlett2_mux_id_to_num(ports, SCARLETT2_PORT_OUT,
++					  mux_entry & 0xFFF);
++	if (dst_idx < 0)
++		return;
++
++	if (dst_idx >= private->num_mux_dsts) {
++		usb_audio_err(private->mixer->chip,
++			"BUG: scarlett2_mux_id_to_num(%06x, OUT): %d >= %d",
++			mux_entry, dst_idx, private->num_mux_dsts);
++		return;
++	}
++
++	src_idx = scarlett2_mux_id_to_num(ports, SCARLETT2_PORT_IN,
++					  mux_entry >> 12);
++	if (src_idx < 0)
++		return;
++
++	if (src_idx >= private->num_mux_srcs) {
++		usb_audio_err(private->mixer->chip,
++			"BUG: scarlett2_mux_id_to_num(%06x, IN): %d >= %d",
++			mux_entry, src_idx, private->num_mux_srcs);
++		return;
++	}
++
++	private->mux[dst_idx] = src_idx;
++}
++
++/* Send USB message to get mux inputs and then populate private->mux[] */
++static int scarlett2_usb_get_mux(struct usb_mixer_interface *mixer)
 +{
 +	struct scarlett2_mixer_data *private = mixer->private_data;
-+	const struct scarlett2_device_info *info = private->info;
-+
-+	int num_mixer_in =
-+		info->ports[SCARLETT2_PORT_TYPE_MIX].num[SCARLETT2_PORT_OUT];
-+	int err, i, j, k;
++	int count = private->num_mux_dsts;
++	int err, i;
 +
 +	struct {
-+		__le16 mix_num;
++		__le16 num;
 +		__le16 count;
 +	} __packed req;
 +
-+	__le16 data[SCARLETT2_INPUT_MIX_MAX];
++	__le32 data[SCARLETT2_MUX_MAX];
 +
-+	req.mix_num = cpu_to_le16(mix_num);
-+	req.count = cpu_to_le16(num_mixer_in);
++	req.num = 0;
++	req.count = cpu_to_le16(count);
 +
-+	err = scarlett2_usb(mixer, SCARLETT2_USB_GET_MIX,
++	err = scarlett2_usb(mixer, SCARLETT2_USB_GET_MUX,
 +			    &req, sizeof(req),
-+			    data, num_mixer_in * sizeof(u16));
++			    data, count * sizeof(u32));
 +	if (err < 0)
 +		return err;
 +
-+	for (i = 0, j = mix_num * num_mixer_in; i < num_mixer_in; i++, j++) {
-+		u16 mixer_value = le16_to_cpu(data[i]);
-+
-+		for (k = 0; k < SCARLETT2_MIXER_VALUE_COUNT; k++)
-+			if (scarlett2_mixer_values[k] >= mixer_value)
-+				break;
-+		if (k == SCARLETT2_MIXER_VALUE_COUNT)
-+			k = SCARLETT2_MIXER_MAX_VALUE;
-+		private->mix[j] = k;
-+	}
++	for (i = 0; i < count; i++)
++		scarlett2_usb_populate_mux(private, le32_to_cpu(data[i]));
 +
 +	return 0;
 +}
 +
- /* Send a USB message to set the volumes for all inputs of one mix
-  * (values obtained from private->mix[])
-  */
-@@ -1831,7 +1876,7 @@ static int scarlett2_init_private(struct usb_mixer_interface *mixer,
+ /* Send USB messages to set mux inputs */
+ static int scarlett2_usb_set_mux(struct usb_mixer_interface *mixer)
+ {
+@@ -1783,72 +1877,23 @@ static void scarlett2_private_suspend(struct usb_mixer_interface *mixer)
+ 
+ /*** Initialisation ***/
+ 
+-static int scarlett2_count_mux_srcs(const struct scarlett2_ports *ports)
++static void scarlett2_count_mux_io(struct scarlett2_mixer_data *private)
+ {
+-	int port_type, count = 0;
++	const struct scarlett2_ports *ports = private->info->ports;
++	int port_type, srcs = 0, dsts = 0;
+ 
+ 	for (port_type = 0;
+ 	     port_type < SCARLETT2_PORT_TYPE_COUNT;
+-	     port_type++)
+-		count += ports[port_type].num[SCARLETT2_PORT_IN];
+-
+-	return count;
+-}
+-
+-/* Default routing connects PCM outputs and inputs to Analogue,
+- * S/PDIF, then ADAT
+- */
+-static void scarlett2_init_routing(u8 *mux,
+-				   const struct scarlett2_ports *ports)
+-{
+-	int i, input_num, input_count, port_type;
+-	int output_num, output_count, port_type_connect_num;
+-
+-	static const int connect_order[] = {
+-		SCARLETT2_PORT_TYPE_ANALOGUE,
+-		SCARLETT2_PORT_TYPE_SPDIF,
+-		SCARLETT2_PORT_TYPE_ADAT,
+-		-1
+-	};
+-
+-	/* Assign PCM inputs (routing outputs) */
+-	output_num = scarlett2_get_port_start_num(ports,
+-						  SCARLETT2_PORT_OUT,
+-						  SCARLETT2_PORT_TYPE_PCM);
+-	output_count = ports[SCARLETT2_PORT_TYPE_PCM].num[SCARLETT2_PORT_OUT];
+-
+-	for (port_type = connect_order[port_type_connect_num = 0];
+-	     port_type >= 0;
+-	     port_type = connect_order[++port_type_connect_num]) {
+-		input_num = scarlett2_get_port_start_num(
+-			ports, SCARLETT2_PORT_IN, port_type);
+-		input_count = ports[port_type].num[SCARLETT2_PORT_IN];
+-		for (i = 0;
+-		     i < input_count && output_count;
+-		     i++, output_count--)
+-			mux[output_num++] = input_num++;
++	     port_type++) {
++		srcs += ports[port_type].num[SCARLETT2_PORT_IN];
++		dsts += ports[port_type].num[SCARLETT2_PORT_OUT_44];
+ 	}
+ 
+-	/* Assign PCM outputs (routing inputs) */
+-	input_num = scarlett2_get_port_start_num(ports,
+-						 SCARLETT2_PORT_IN,
+-						 SCARLETT2_PORT_TYPE_PCM);
+-	input_count = ports[SCARLETT2_PORT_TYPE_PCM].num[SCARLETT2_PORT_IN];
+-
+-	for (port_type = connect_order[port_type_connect_num = 0];
+-	     port_type >= 0;
+-	     port_type = connect_order[++port_type_connect_num]) {
+-		output_num = scarlett2_get_port_start_num(
+-			ports, SCARLETT2_PORT_OUT, port_type);
+-		output_count = ports[port_type].num[SCARLETT2_PORT_OUT];
+-		for (i = 0;
+-		     i < output_count && input_count;
+-		     i++, input_count--)
+-			mux[output_num++] = input_num++;
+-	}
++	private->num_mux_srcs = srcs;
++	private->num_mux_dsts = dsts;
+ }
+ 
+-/* Initialise private data, routing, sequence number */
++/* Initialise private data and sequence number */
+ static int scarlett2_init_private(struct usb_mixer_interface *mixer,
+ 				  const struct scarlett2_device_info *info)
+ {
+@@ -1862,16 +1907,13 @@ static int scarlett2_init_private(struct usb_mixer_interface *mixer,
+ 	mutex_init(&private->data_mutex);
+ 	INIT_DELAYED_WORK(&private->work, scarlett2_config_save_work);
+ 	private->info = info;
+-	private->num_mux_srcs = scarlett2_count_mux_srcs(info->ports);
++	scarlett2_count_mux_io(private);
+ 	private->scarlett2_seq = 0;
+ 	private->mixer = mixer;
+ 	mixer->private_data = private;
+ 	mixer->private_free = scarlett2_private_free;
+ 	mixer->private_suspend = scarlett2_private_suspend;
+ 
+-	/* Setup default routing */
+-	scarlett2_init_routing(private->mux, info->ports);
+-
+ 	/* Initialise the sequence number used for the proprietary commands */
  	return scarlett2_usb(mixer, SCARLETT2_USB_INIT_SEQ, NULL, 0, NULL, 0);
  }
+@@ -1947,7 +1989,7 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
+ 			return err;
+ 	}
  
--/* Read line-in config and line-out volume settings on start */
-+/* Read configuration from the interface on start */
- static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
- {
- 	struct scarlett2_mixer_data *private = mixer->private_data;
-@@ -1839,6 +1884,8 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
- 	const struct scarlett2_ports *ports = info->ports;
- 	int num_line_out =
- 		ports[SCARLETT2_PORT_TYPE_ANALOGUE].num[SCARLETT2_PORT_OUT];
-+	int num_mixer_out =
-+		ports[SCARLETT2_PORT_TYPE_MIX].num[SCARLETT2_PORT_IN];
- 	u8 level_switches[SCARLETT2_LEVEL_SWITCH_MAX];
- 	u8 pad_switches[SCARLETT2_PAD_SWITCH_MAX];
- 	struct scarlett2_usb_volume_status volume_status;
-@@ -1894,6 +1941,12 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
- 	for (i = 0; i < info->button_count; i++)
- 		private->buttons[i] = !!volume_status.buttons[i];
- 
-+	for (i = 0; i < num_mixer_out; i++) {
-+		err = scarlett2_usb_get_mix(mixer, i);
-+		if (err < 0)
-+			return err;
-+	}
-+
- 	return 0;
+-	return 0;
++	return scarlett2_usb_get_mux(mixer);
  }
  
+ /* Notify on volume change */
+@@ -2055,7 +2097,7 @@ static int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
+ {
+ 	int err;
+ 
+-	/* Initialise private data, routing, sequence number */
++	/* Initialise private data and sequence number */
+ 	err = scarlett2_init_private(mixer, info);
+ 	if (err < 0)
+ 		return err;
 -- 
 2.31.1
 

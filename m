@@ -2,72 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C7039E719
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A4F39E748
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Jun 2021 21:15:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4C15167D;
-	Mon,  7 Jun 2021 21:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C15167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 560D9167E;
+	Mon,  7 Jun 2021 21:14:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 560D9167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623092632;
-	bh=UDTIqn2KhidWbOKg/cr23HiqjigP4ZQDXXl9Gsm9qWo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hcfUWQz8GfWCJkLy+9nhD2cjDBi8s7yT37Y7LhvDSsMVARZ7pmSMBau6Sm8r2cfc2
-	 mDXGJVM1AD8MozKIrFTCVBg5iK9zDY2CeWE+Zf+JpWbvtdDYejPtrLtB3tki1UDDep
-	 564I4yBjYr6koslZPzp/ETkeGIZe9gIAB+tfULuc=
+	s=default; t=1623093301;
+	bh=z2DVDAcY4deRDKpZcYMSa9+Zj0QLabPreKkffhyIpSs=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZZgXwINtUP3Cm462Ap5jo22Z5W8EIwELay1ePBx3C4PyJmo/bosSLjCg7Tf/dYhUp
+	 mFrSmBS0oDtyaq/QgqiUK42hr/pIOOg2H5SrO3J3DJJp6BE/xoO+pRCmXoXwL8JV/2
+	 gII11tImITiZ6cwkYrKF7dWZ1thoEj8eVGR1j6ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E726BF804CB;
-	Mon,  7 Jun 2021 21:01:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C974DF80276;
+	Mon,  7 Jun 2021 21:13:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D65DF804C3; Mon,  7 Jun 2021 21:01:25 +0200 (CEST)
+ id DC1DDF8026C; Mon,  7 Jun 2021 21:13:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D371F8027C
- for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:01:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D371F8027C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WRp8nhd5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BD52C610A1;
- Mon,  7 Jun 2021 19:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623092480;
- bh=UDTIqn2KhidWbOKg/cr23HiqjigP4ZQDXXl9Gsm9qWo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WRp8nhd5dBUXut+2oL7HuFUNbcIrA7cnm2NnkD4l9Z4YWNmJE5Ggnsyg/7rgc+Xp1
- t1O8C1n+YMZeNfyRCJHUlwiVg6xuxkZnsYbonoq2fk+t5J4ykfB7E6fodBv2SSod5d
- AxH5IoDkSS/HgghvF3sbRCE78E9nEIyRWnQ5X3G2gJQMOrseU9PiRfoNG6z5eVKrJ+
- RSmLisb0RoMgMjS5kiqzfEvATczFn2pOcJEIEmtjPnSS22aHA0Ol9dn2EPXWAvp8CZ
- Jp5jleVU6LZf94Kc23fdHz4AyRyGvpog7LnSuoTX54t8GDq30CMp3Zuyz6sc8sz8C2
- 4VSa1wfe1+pnQ==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- Colin King <colin.king@canonical.com>, Lee Jones <lee.jones@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH][V2][next] ASoC: rk817: remove redundant assignment to
- pointer node, add missing of_node_put
-Date: Mon,  7 Jun 2021 20:00:47 +0100
-Message-Id: <162309220525.30523.8337033233150694025.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210603113659.82031-1-colin.king@canonical.com>
-References: <20210603113659.82031-1-colin.king@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB59CF800DF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Jun 2021 21:13:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB59CF800DF
+Received: by m.b4.vu (Postfix, from userid 1000)
+ id DBC10612FB14; Tue,  8 Jun 2021 04:43:11 +0930 (ACST)
+Date: Tue, 8 Jun 2021 04:43:11 +0930
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH V2 0/2] Read all configuration at init time
+Message-ID: <cover.1623091570.git.g@b4.vu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Daniel Sales <daniel.sales.z@gmail.com>,
+ Markus Schroetter <project.m.schroetter@gmail.com>,
+ Vladimir Sadovnikov <sadko4u@gmail.com>, Alex Fellows <alex.fellows@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +64,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Jun 2021 12:36:59 +0100, Colin King wrote:
-> The pointer node is being initialized with a value that is never read and
-> it is being updated later with a new value.  The initialization is
-> redundant and can be removed.
-> 
-> The function is missing a of_node_put on node, fix this by adding the call
-> before returning.
+Version two of patches to add support for reading the mixer volumes
+and mux configuration from the hardware when the driver is
+initialising.
 
-Applied to
+Changes since v1:
+- fix missing endian conversion spotted by ktest bot
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Geoffrey D. Bennett (2):
+  ALSA: usb-audio: scarlett2: Read mixer volumes at init time
+  ALSA: usb-audio: scarlett2: Read mux at init time
 
-Thanks!
+ sound/usb/mixer_scarlett_gen2.c | 227 ++++++++++++++++++++++----------
+ 1 file changed, 161 insertions(+), 66 deletions(-)
 
-[1/1] ASoC: rk817: remove redundant assignment to pointer node, add missing of_node_put
-      commit: d50b86b3f6abc4ff8a35f706a6b8251a2d4cf58f
+-- 
+2.31.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

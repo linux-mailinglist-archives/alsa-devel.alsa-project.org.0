@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E74939FA45
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 17:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A53A39FA48
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 17:22:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FA8A176D;
-	Tue,  8 Jun 2021 17:21:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FA8A176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00C0F17C3;
+	Tue,  8 Jun 2021 17:21:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00C0F17C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623165730;
-	bh=Dm4pfdgj4YIx5G69IZShOSG5MgdFU0jHrDbyR1GwNdE=;
+	s=default; t=1623165749;
+	bh=8mnu5Kqia/91Rj46qjzhMH2lfFtaLRNP/T+I75cYFOg=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E/KlSOBVi+4kz97rQvsiwyTIdM/OEZlgb8KCe87cBdV/NAG6eP1iFHwEwKJ04XJ95
-	 Qu+Oq970dlZztSV4xg4NmCkR3JQnF88rRDiHqFlIZtwPvTvWU2zawCPnfBAWe/0Sg7
-	 K0gG8lBi89yPq+0LpYy86f8mi/GuUpETEDDtCSPg=
+	b=S76ljSegsZ9W8UpUgJ1ypnHgfhSiXrXsR6Y2WIK3FxClZgA2IHVcov2QsFpCYWzKt
+	 5OAHzb7NKg4INk/fCFOi/ckudV4mLIQTynv0Nk9FyLD4CPC5ZFC1QkrZqAOuA4n/vi
+	 NgeX81f04hcq8JiioU7P8urcMi2miQrLl3NxBJ70=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7F37F80218;
-	Tue,  8 Jun 2021 17:20:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ED09F804BD;
+	Tue,  8 Jun 2021 17:20:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB04CF80218; Tue,  8 Jun 2021 17:20:39 +0200 (CEST)
+ id 742BAF800FD; Tue,  8 Jun 2021 17:20:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7144CF800FD
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 17:20:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7144CF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9C70F800FD
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 17:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9C70F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="PpTPauAE"
-Received: by mail-wr1-x42f.google.com with SMTP id e11so11814878wrg.3
- for <alsa-devel@alsa-project.org>; Tue, 08 Jun 2021 08:20:28 -0700 (PDT)
+ header.b="rVbGga0Y"
+Received: by mail-wm1-x32c.google.com with SMTP id
+ b145-20020a1c80970000b029019c8c824054so2222907wmd.5
+ for <alsa-devel@alsa-project.org>; Tue, 08 Jun 2021 08:20:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KMZoeM4tw0htYY4QWpAC+ev8zaiQVRwGUrBB7esHPik=;
- b=PpTPauAERRjBh68cUEvmQNnKdOcUUlbri6ZAm2HwfiSjlYibi9w6TZ/rMb91W4oQ66
- sHH9gOxASpdZfk/Y0nFhWUNZdaOuEkG/tPNmim7T89626VfyYp8dT9pf38atshqjtZDo
- 4jOTX8oQizbVYJoZUUBU9RTh5EQgVMoalzO5xWkTYR3Uxm01PO4seuVVfLmoDNuyO3mh
- EHv+aBMKOsW3nGFdohprs4b3Xna1uKJq8oOFyhehTz2ax5proeuN5saE/04Yn0BvaJgY
- MJGNlrw9YdYPctZmFvsYz5eXtE4/O4s/C3sezz9re7qbGTgryrp7oY8lXR80gCOoV+hZ
- A6ug==
+ bh=9hSTH6iFfhk4YNZO/PD9dC5EfuAvuq3JWTMQoezRpa4=;
+ b=rVbGga0YMt9v4RX5dgluDTeRiWVagmxiI0r5XffEEGtnBUTGgfpdr8TilsetE54+aG
+ W+49JL8h9wKLOfe2XEo8MUlmzM5apk577/ud4NiVAdwH7A60G3aHuxZGXSoBUHf2D496
+ glgWg5l6oifVXTG1gPto4Qv820VWcm3Lzpb8VutkEgH3k31hrPNLcFzbkdaYh2JdgPtw
+ 6s41/4/GuEVBDCpHCFDTk7MgZUXOyg1ldFA0euDOCnUtKrdGK/JbAZCssNpZ29sePJzm
+ t2X3aymp+IbTcoOYt7eJV/cXyLo24gbfnedJf01l5+H4fXemCe9VDCIlVEYmF5SmBo4H
+ O3gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=KMZoeM4tw0htYY4QWpAC+ev8zaiQVRwGUrBB7esHPik=;
- b=ZmDNYNlgazGosjrISuQUKne91j7sG3jQWe9UYU0qDKcDSyWvMaigzMYPLUVK8YCJi2
- IKhP4EkiXa784lKwGE7qiZTH2AfKOKsMtejttchpKkU/jEw77w7krsgRKjNUdakTmu2t
- lDUdraBkHaMFLvpfi4p7YE3GkccX0b6U+p5oGtNVLjrYg5jTQYFH8zvyTkuuctTd3S80
- 7N88Qs7+nUj4hqFke77ODZ4VV5s8eqmT2K2C+OpiWkUeVjZjSiNQ/1vUNAZGEb9XFW92
- bpWDqMyzKSbj76taFVsTMP05Z4K3bbjC6hpkXpk/7CaddjeL2Cr17bykVUrau2l4Bx1H
- x1Dg==
-X-Gm-Message-State: AOAM5314UBowE4MngX7Z1WdUe0G4xE33Wtun5JhkoRNr+3OeScAr4vX2
- sUt5dNpefwCxRs+RbBSBIK5wBg==
-X-Google-Smtp-Source: ABdhPJxC82LsQQVwkWI8GVVxhjHkvMS5AzTGBd/sGHtaEic4jOy4D4GSdfgNGucNLArxxfT8qrF8oQ==
-X-Received: by 2002:a5d:6acf:: with SMTP id u15mr23596492wrw.262.1623165627367; 
- Tue, 08 Jun 2021 08:20:27 -0700 (PDT)
+ bh=9hSTH6iFfhk4YNZO/PD9dC5EfuAvuq3JWTMQoezRpa4=;
+ b=tOjRg2GiLIVAXk7kRbD8AF0u0FuOkNyOaULSRU5e3gfX2yPwdMQj0SLTNqTDdov+Wr
+ oFJjhRDrlNhY8CReMYXTimWwh0t98dsxqXXXOPGP9Gy5cFLO7LHInyDH4Ou5oDVqch+t
+ iFe/Xfk/2VRB0uFI3S539XK2fjZOTUuk3r/tzUEQ7md/YQcosxhn/Lk9wn/SdaAuJYp9
+ IDNGphH4XOTUUWJbZayaQ+w3MThtGuJvSZCh+55qj1Nos7649bq+xZEeswQ48qaR15/q
+ kdtBXrtXY+RTq+d5uZyKaKdoyrLA9TrIzRXmz4psptGGnKWZHvolyhpp5g+4shPthF2Q
+ QSmg==
+X-Gm-Message-State: AOAM530dJhVzQmLt38PHQswpCKUkfnJL4zOzW8KtNR+EsZm/C2SYc7TP
+ +qS9P/a+/IbcZRDJRLNegL1LsQ==
+X-Google-Smtp-Source: ABdhPJyxapM48QVF45aLpo2H+FUZRplP63/n5liTflATtO1NCzwg7X8/1DrHPmn3DkqJrHfE7tmETA==
+X-Received: by 2002:a7b:c44f:: with SMTP id l15mr4870340wmi.151.1623165632463; 
+ Tue, 08 Jun 2021 08:20:32 -0700 (PDT)
 Received: from [192.168.86.34]
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id i2sm17456251wmo.40.2021.06.08.08.20.26
+ by smtp.googlemail.com with ESMTPSA id b26sm3123109wmj.25.2021.06.08.08.20.31
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 08 Jun 2021 08:20:26 -0700 (PDT)
-Subject: Re: [PATCH v8 3/9] ASoC: codecs: wcd938x: add basic driver
+ Tue, 08 Jun 2021 08:20:32 -0700 (PDT)
+Subject: Re: [PATCH v8 6/9] ASoC: codecs: wcd938x: add basic controls
 To: Mark Brown <broonie@kernel.org>
 References: <20210601113158.16085-1-srinivas.kandagatla@linaro.org>
- <20210601113158.16085-4-srinivas.kandagatla@linaro.org>
- <20210608141209.GF4200@sirena.org.uk>
+ <20210601113158.16085-7-srinivas.kandagatla@linaro.org>
+ <20210608135933.GE4200@sirena.org.uk>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <a6ce009c-0946-fab5-3452-9ef2e2b6c79d@linaro.org>
-Date: Tue, 8 Jun 2021 16:20:25 +0100
+Message-ID: <e8ca16d9-f179-c6de-d683-21180ea4ed1b@linaro.org>
+Date: Tue, 8 Jun 2021 16:20:31 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210608141209.GF4200@sirena.org.uk>
+In-Reply-To: <20210608135933.GE4200@sirena.org.uk>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -109,20 +110,43 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 08/06/2021 15:12, Mark Brown wrote:
-> On Tue, Jun 01, 2021 at 12:31:52PM +0100, Srinivas Kandagatla wrote:
->> This patch adds basic SoundWire codec driver to support for
->> WCD938X TX and RX devices.
->>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   sound/soc/codecs/Kconfig   |    4 +
->>   sound/soc/codecs/Makefile  |    2 +
+On 08/06/2021 14:59, Mark Brown wrote:
+> On Tue, Jun 01, 2021 at 12:31:55PM +0100, Srinivas Kandagatla wrote:
 > 
-> It would have been nicer to add the Kconfig and Makefile changes last
-> for the benefit of bisection.
+>> +static int wcd938x_rx_hph_mode_put(struct snd_kcontrol *kcontrol,
+>> +				   struct snd_ctl_elem_value *ucontrol)
+>> +{
+>> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+>> +	struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+>> +
+>> +	wcd938x->hph_mode = ucontrol->value.enumerated.item[0];
+>> +
+>> +	return 0;
+>> +}
+> 
+> _put() should return true if it made a change, the same bug is present
+> in a lot of other drivers too.
+> 
+Sure will fix this in next spin
 
-I agree, will do that in next version.
+>> +static const struct snd_kcontrol_new wcd9380_snd_controls[] = {
+>> +	SOC_ENUM_EXT("RX HPH Mode", rx_hph_mode_mux_enum_wcd9380,
+>> +		     wcd938x_rx_hph_mode_get, wcd938x_rx_hph_mode_put),
+>> +	SOC_ENUM_EXT("TX0 MODE", tx_mode_mux_enum_wcd9380[0],
+>> +		     wcd938x_tx_mode_get, wcd938x_tx_mode_put),
+>> +	SOC_ENUM_EXT("TX1 MODE", tx_mode_mux_enum_wcd9380[1],
+>> +		     wcd938x_tx_mode_get, wcd938x_tx_mode_put),
+>> +	SOC_ENUM_EXT("TX2 MODE", tx_mode_mux_enum_wcd9380[2],
+>> +		     wcd938x_tx_mode_get, wcd938x_tx_mode_put),
+>> +	SOC_ENUM_EXT("TX3 MODE", tx_mode_mux_enum_wcd9380[3],
+>> +		     wcd938x_tx_mode_get, wcd938x_tx_mode_put),
+>> +};
+> 
+> Please don't use this pattern of indexing into arrays by absolute
+> number, it's error prone and hard to read.  Just declare static
+> variables for the enums and reference them individually.
+
+I agree, will clean these instances in next version.
 
 --srini
 > 

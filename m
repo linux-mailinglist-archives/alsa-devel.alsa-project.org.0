@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DC939F8EB
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:22:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D00C39F8EA
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:22:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D8A717E3;
-	Tue,  8 Jun 2021 16:21:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D8A717E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC78F17C8;
+	Tue,  8 Jun 2021 16:21:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC78F17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623162143;
-	bh=Eu0i+Wj/Gv0fA6bdIEi4sZ7/XBKt9z/MBDgbHbpznwc=;
+	s=default; t=1623162123;
+	bh=r7pmUJ1Y0FnLmyTwMgS0bZMUxFWehPuJ68xBGwm8ZAw=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CnAH9+CtKFxvljCaubPU2G6wX+mPlDVxyY191nYQlnNnVpopYvoh4EEINTi2KnLuR
-	 ixzHJ6ZQo3v3TmSiHdFWBtt+bO8t7KvDCCo/fx9V6gmuZ3zs/87k7ZgghVNIYGUArQ
-	 NjJXd4oU0oulo+nFGNZ9lwb50k2OesNoBIBedhSo=
+	b=aCehi7QgXum0xo0OqFGCkRESiCUQKcOAYThixJc66g5QnyYX2QptT1t6RYZqwx+5C
+	 8D7TDZ7ABElho39tSPrKfMIZqncZKEOJxvS6j6kRf/5A+ivw5VcPLDIDDKYtGq/Yi+
+	 jWRSG6NUDffHX3TPPvctaf+DYe9h+ihbx3TsaQVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 885A6F8062E;
-	Tue,  8 Jun 2021 16:07:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5859EF80623;
+	Tue,  8 Jun 2021 16:07:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FD19F80605; Tue,  8 Jun 2021 16:06:54 +0200 (CEST)
+ id 17DA6F80604; Tue,  8 Jun 2021 16:06:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3D7FF804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3133F804EB
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D7FF804F1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3133F804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="w8cJQpZx"; 
+ header.b="pI6M5dTz"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="rjpa9xpn"
+ header.b="ngZ8KvxX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 80EB31FDF3
+ by smtp-out2.suse.de (Postfix) with ESMTP id 934501FDF4
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1623161145; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=U9PPHyh9Pnmb9u/bloTfG6MdAafchoG+mTIVdFtEqhA=;
- b=w8cJQpZxkCLnyG3mvzqrtxYCxZ8eZuwj7X+cNlL5V+39frUAQ1IEo74Y++o4vJLvozSgVQ
- UpU0K2i07HeWTddrAOUYaMs6LqObxb6m09Dn3FwNW+jRstLm4OVpYbcg3QcUHnL1X0OM9o
- XgG7IvldDA5yvgQpwftpHQIMViflpwg=
+ bh=a/xD5M9bVFxCi8b9w8koC91B3JsZYyeLE4W/1z6lYz4=;
+ b=pI6M5dTzvKu+Fqn6jBpTzozcBm/FTsF8iQutUk/VrNl0Vk9epbo0dWfxSEF93zv9LRJc3U
+ +sU3lWMdpHQxlsbhE+HobS6IO5JJ0g9lnxAO8wUyDKajt6SSu612zouCBBv1jE/X3gVyir
+ XLt9UwHjyNpFzviJWLZauyVugh4ZPY8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1623161145;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=U9PPHyh9Pnmb9u/bloTfG6MdAafchoG+mTIVdFtEqhA=;
- b=rjpa9xpnFrLdbJU8X87mPChrLF8gKwtq4G8GJORltbw+2ZjKcP+1OJHHso2uOdYW9p5iVO
- Rwn8K3fN1UW+zADA==
+ bh=a/xD5M9bVFxCi8b9w8koC91B3JsZYyeLE4W/1z6lYz4=;
+ b=ngZ8KvxXLPjTTd+C6Tb0aVeP40EINYvbktYytLICLP2r5vBtjHKT86njkfoshpqvdBQmEb
+ FEi3/gM80OldfbDA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6F71AA3B89;
+ by relay2.suse.de (Postfix) with ESMTP id 80501A3B84;
  Tue,  8 Jun 2021 14:05:45 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 55/66] ALSA: oss: Fix assignment in if condition
-Date: Tue,  8 Jun 2021 16:05:29 +0200
-Message-Id: <20210608140540.17885-56-tiwai@suse.de>
+Subject: [PATCH 56/66] ALSA: seq: Fix assignment in if condition
+Date: Tue,  8 Jun 2021 16:05:30 +0200
+Message-Id: <20210608140540.17885-57-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210608140540.17885-1-tiwai@suse.de>
 References: <20210608140540.17885-1-tiwai@suse.de>
@@ -91,448 +91,630 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are a few places doing assignments in if condition in ALSA PCM
-and OSS emulation layers, which is a bad coding style that may confuse
-readers and occasionally lead to bugs.
+There are lots of places doing assignments in if condition in ALSA
+sequencer core, which is a bad coding style that may confuse readers
+and occasionally lead to bugs.
 
 This patch is merely for coding-style fixes, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/oss/mixer_oss.c  | 45 ++++++++++++++++--------
- sound/core/oss/pcm_oss.c    | 70 ++++++++++++++++++++++++-------------
- sound/core/oss/pcm_plugin.c | 26 ++++++++------
- 3 files changed, 91 insertions(+), 50 deletions(-)
+ sound/core/seq/oss/seq_oss.c        | 26 +++++++++------
+ sound/core/seq/oss/seq_oss_init.c   |  9 +++--
+ sound/core/seq/oss/seq_oss_midi.c   | 33 ++++++++++++-------
+ sound/core/seq/oss/seq_oss_rw.c     |  3 +-
+ sound/core/seq/oss/seq_oss_synth.c  |  9 +++--
+ sound/core/seq/oss/seq_oss_writeq.c |  3 +-
+ sound/core/seq/seq_clientmgr.c      | 51 +++++++++++++++++++----------
+ sound/core/seq/seq_dummy.c          |  3 +-
+ sound/core/seq/seq_fifo.c           |  3 +-
+ sound/core/seq/seq_memory.c         |  6 ++--
+ sound/core/seq/seq_midi.c           | 27 ++++++++-------
+ sound/core/seq/seq_queue.c          | 21 ++++++++----
+ sound/core/seq/seq_virmidi.c        |  9 ++---
+ 13 files changed, 131 insertions(+), 72 deletions(-)
 
-diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-index bec928327478..6a5abdd4271b 100644
---- a/sound/core/oss/mixer_oss.c
-+++ b/sound/core/oss/mixer_oss.c
-@@ -185,7 +185,8 @@ static int snd_mixer_oss_get_recsrc(struct snd_mixer_oss_file *fmixer)
- 	if (mixer->put_recsrc && mixer->get_recsrc) {	/* exclusive */
- 		int err;
- 		unsigned int index;
--		if ((err = mixer->get_recsrc(fmixer, &index)) < 0)
-+		err = mixer->get_recsrc(fmixer, &index);
-+		if (err < 0)
- 			return err;
- 		result = 1 << index;
- 	} else {
-@@ -517,7 +518,8 @@ static void snd_mixer_oss_get_volume1_vol(struct snd_mixer_oss_file *fmixer,
- 	if (numid == ID_UNKNOWN)
- 		return;
- 	down_read(&card->controls_rwsem);
--	if ((kctl = snd_ctl_find_numid(card, numid)) == NULL) {
-+	kctl = snd_ctl_find_numid(card, numid);
-+	if (!kctl) {
- 		up_read(&card->controls_rwsem);
- 		return;
+diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
+index 250a92b18726..77c1214acd90 100644
+--- a/sound/core/seq/oss/seq_oss.c
++++ b/sound/core/seq/oss/seq_oss.c
+@@ -67,13 +67,16 @@ static int __init alsa_seq_oss_init(void)
+ {
+ 	int rc;
+ 
+-	if ((rc = register_device()) < 0)
++	rc = register_device();
++	if (rc < 0)
+ 		goto error;
+-	if ((rc = register_proc()) < 0) {
++	rc = register_proc();
++	if (rc < 0) {
+ 		unregister_device();
+ 		goto error;
  	}
-@@ -555,7 +557,8 @@ static void snd_mixer_oss_get_volume1_sw(struct snd_mixer_oss_file *fmixer,
- 	if (numid == ID_UNKNOWN)
- 		return;
- 	down_read(&card->controls_rwsem);
--	if ((kctl = snd_ctl_find_numid(card, numid)) == NULL) {
-+	kctl = snd_ctl_find_numid(card, numid);
-+	if (!kctl) {
- 		up_read(&card->controls_rwsem);
- 		return;
- 	}
-@@ -620,7 +623,8 @@ static void snd_mixer_oss_put_volume1_vol(struct snd_mixer_oss_file *fmixer,
- 	if (numid == ID_UNKNOWN)
- 		return;
- 	down_read(&card->controls_rwsem);
--	if ((kctl = snd_ctl_find_numid(card, numid)) == NULL) {
-+	kctl = snd_ctl_find_numid(card, numid);
-+	if (!kctl) {
- 		up_read(&card->controls_rwsem);
- 		return;
- 	}
-@@ -636,7 +640,8 @@ static void snd_mixer_oss_put_volume1_vol(struct snd_mixer_oss_file *fmixer,
- 	uctl->value.integer.value[0] = snd_mixer_oss_conv2(left, uinfo->value.integer.min, uinfo->value.integer.max);
- 	if (uinfo->count > 1)
- 		uctl->value.integer.value[1] = snd_mixer_oss_conv2(right, uinfo->value.integer.min, uinfo->value.integer.max);
--	if ((res = kctl->put(kctl, uctl)) < 0)
-+	res = kctl->put(kctl, uctl);
-+	if (res < 0)
- 		goto __unalloc;
- 	if (res > 0)
- 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &kctl->id);
-@@ -661,7 +666,8 @@ static void snd_mixer_oss_put_volume1_sw(struct snd_mixer_oss_file *fmixer,
- 	if (numid == ID_UNKNOWN)
- 		return;
- 	down_read(&card->controls_rwsem);
--	if ((kctl = snd_ctl_find_numid(card, numid)) == NULL) {
-+	kctl = snd_ctl_find_numid(card, numid);
-+	if (!kctl) {
- 		up_read(&card->controls_rwsem);
- 		return;
- 	}
-@@ -681,7 +687,8 @@ static void snd_mixer_oss_put_volume1_sw(struct snd_mixer_oss_file *fmixer,
- 	} else {
- 		uctl->value.integer.value[0] = (left > 0 || right > 0) ? 1 : 0;
- 	}
--	if ((res = kctl->put(kctl, uctl)) < 0)
-+	res = kctl->put(kctl, uctl);
-+	if (res < 0)
- 		goto __unalloc;
- 	if (res > 0)
- 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE, &kctl->id);
-@@ -809,9 +816,11 @@ static int snd_mixer_oss_get_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
- 		err = -ENOENT;
- 		goto __unlock;
- 	}
--	if ((err = kctl->info(kctl, uinfo)) < 0)
-+	err = kctl->info(kctl, uinfo);
-+	if (err < 0)
- 		goto __unlock;
--	if ((err = kctl->get(kctl, uctl)) < 0)
-+	err = kctl->get(kctl, uctl);
-+	if (err < 0)
- 		goto __unlock;
- 	for (idx = 0; idx < 32; idx++) {
- 		if (!(mixer->mask_recsrc & (1 << idx)))
-@@ -860,7 +869,8 @@ static int snd_mixer_oss_put_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
- 		err = -ENOENT;
- 		goto __unlock;
- 	}
--	if ((err = kctl->info(kctl, uinfo)) < 0)
-+	err = kctl->info(kctl, uinfo);
-+	if (err < 0)
- 		goto __unlock;
- 	for (idx = 0; idx < 32; idx++) {
- 		if (!(mixer->mask_recsrc & (1 << idx)))
-@@ -915,7 +925,8 @@ static int snd_mixer_oss_build_test(struct snd_mixer_oss *mixer, struct slot *sl
- 		up_read(&card->controls_rwsem);
- 		return -ENOMEM;
- 	}
--	if ((err = kcontrol->info(kcontrol, info)) < 0) {
-+	err = kcontrol->info(kcontrol, info);
-+	if (err < 0) {
- 		up_read(&card->controls_rwsem);
- 		kfree(info);
- 		return err;
-@@ -1036,7 +1047,10 @@ static int snd_mixer_oss_build_input(struct snd_mixer_oss *mixer,
- 	if (snd_mixer_oss_build_test_all(mixer, ptr, &slot))
+-	if ((rc = snd_seq_oss_create_client()) < 0) {
++	rc = snd_seq_oss_create_client();
++	if (rc < 0) {
+ 		unregister_proc();
+ 		unregister_device();
+ 		goto error;
+@@ -133,7 +136,8 @@ odev_release(struct inode *inode, struct file *file)
+ {
+ 	struct seq_oss_devinfo *dp;
+ 
+-	if ((dp = file->private_data) == NULL)
++	dp = file->private_data;
++	if (!dp)
  		return 0;
- 	down_read(&mixer->card->controls_rwsem);
--	if (ptr->index == 0 && (kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0)) != NULL) {
-+	kctl = NULL;
-+	if (!ptr->index)
-+		kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
-+	if (kctl) {
- 		struct snd_ctl_elem_info *uinfo;
  
- 		uinfo = kzalloc(sizeof(*uinfo), GFP_KERNEL);
-@@ -1343,9 +1357,10 @@ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
- 		if (mixer == NULL)
- 			return -ENOMEM;
- 		mutex_init(&mixer->reg_mutex);
--		if ((err = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MIXER,
--						   card, 0,
--						   &snd_mixer_oss_f_ops, card)) < 0) {
-+		err = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MIXER,
-+					      card, 0,
-+					      &snd_mixer_oss_f_ops, card);
-+		if (err < 0) {
- 			dev_err(card->dev,
- 				"unable to register OSS mixer device %i:%i\n",
- 				card->number, 0);
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 86c39ee01aaa..82a818734a5f 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -955,9 +955,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 	if (!direct) {
- 		/* add necessary plugins */
- 		snd_pcm_oss_plugin_clear(substream);
--		if ((err = snd_pcm_plug_format_plugins(substream,
--						       params, 
--						       sparams)) < 0) {
-+		err = snd_pcm_plug_format_plugins(substream, params, sparams);
-+		if (err < 0) {
- 			pcm_dbg(substream->pcm,
- 				"snd_pcm_plug_format_plugins failed: %i\n", err);
- 			snd_pcm_oss_plugin_clear(substream);
-@@ -965,7 +964,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 		}
- 		if (runtime->oss.plugin_first) {
- 			struct snd_pcm_plugin *plugin;
--			if ((err = snd_pcm_plugin_build_io(substream, sparams, &plugin)) < 0) {
-+			err = snd_pcm_plugin_build_io(substream, sparams, &plugin);
-+			if (err < 0) {
- 				pcm_dbg(substream->pcm,
- 					"snd_pcm_plugin_build_io failed: %i\n", err);
- 				snd_pcm_oss_plugin_clear(substream);
-@@ -1011,7 +1011,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 		sw_params->silence_size = frames;
+ 	mutex_lock(&register_mutex);
+@@ -226,16 +230,18 @@ register_device(void)
+ 	int rc;
+ 
+ 	mutex_lock(&register_mutex);
+-	if ((rc = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_SEQUENCER,
+-					  NULL, 0,
+-					  &seq_oss_f_ops, NULL)) < 0) {
++	rc = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_SEQUENCER,
++				     NULL, 0,
++				     &seq_oss_f_ops, NULL);
++	if (rc < 0) {
+ 		pr_err("ALSA: seq_oss: can't register device seq\n");
+ 		mutex_unlock(&register_mutex);
+ 		return rc;
  	}
- 
--	if ((err = snd_pcm_kernel_ioctl(substream, SNDRV_PCM_IOCTL_SW_PARAMS, sw_params)) < 0) {
-+	err = snd_pcm_kernel_ioctl(substream, SNDRV_PCM_IOCTL_SW_PARAMS, sw_params);
-+	if (err < 0) {
- 		pcm_dbg(substream->pcm, "SW_PARAMS failed: %i\n", err);
- 		goto failure;
- 	}
-@@ -1573,7 +1574,8 @@ static int snd_pcm_oss_post(struct snd_pcm_oss_file *pcm_oss_file)
- 
- 	substream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
- 	if (substream != NULL) {
--		if ((err = snd_pcm_oss_make_ready(substream)) < 0)
-+		err = snd_pcm_oss_make_ready(substream);
-+		if (err < 0)
- 			return err;
- 		snd_pcm_kernel_ioctl(substream, SNDRV_PCM_IOCTL_START, NULL);
- 	}
-@@ -1645,7 +1647,8 @@ static int snd_pcm_oss_sync(struct snd_pcm_oss_file *pcm_oss_file)
- 		runtime = substream->runtime;
- 		if (atomic_read(&substream->mmap_count))
- 			goto __direct;
--		if ((err = snd_pcm_oss_make_ready(substream)) < 0)
-+		err = snd_pcm_oss_make_ready(substream);
-+		if (err < 0)
- 			return err;
- 		atomic_inc(&runtime->oss.rw_ref);
- 		if (mutex_lock_interruptible(&runtime->oss.params_lock)) {
-@@ -1711,7 +1714,8 @@ static int snd_pcm_oss_sync(struct snd_pcm_oss_file *pcm_oss_file)
- 
- 	substream = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
- 	if (substream != NULL) {
--		if ((err = snd_pcm_oss_make_ready(substream)) < 0)
-+		err = snd_pcm_oss_make_ready(substream);
-+		if (err < 0)
- 			return err;
- 		runtime = substream->runtime;
- 		err = snd_pcm_kernel_ioctl(substream, SNDRV_PCM_IOCTL_DROP, NULL);
-@@ -1758,7 +1762,8 @@ static int snd_pcm_oss_get_rate(struct snd_pcm_oss_file *pcm_oss_file)
- 	struct snd_pcm_substream *substream;
- 	int err;
+-	if ((rc = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MUSIC,
+-					  NULL, 0,
+-					  &seq_oss_f_ops, NULL)) < 0) {
++	rc = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MUSIC,
++				     NULL, 0,
++				     &seq_oss_f_ops, NULL);
++	if (rc < 0) {
+ 		pr_err("ALSA: seq_oss: can't register device music\n");
+ 		snd_unregister_oss_device(SNDRV_OSS_DEVICE_TYPE_SEQUENCER, NULL, 0);
+ 		mutex_unlock(&register_mutex);
+diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
+index 4534a154b8c8..a53d81a86af2 100644
+--- a/sound/core/seq/oss/seq_oss_init.c
++++ b/sound/core/seq/oss/seq_oss_init.c
+@@ -95,7 +95,8 @@ snd_seq_oss_create_client(void)
+ 	port->kernel = &port_callback;
  	
--	if ((err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream)) < 0)
-+	err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream);
-+	if (err < 0)
- 		return err;
- 	return substream->runtime->oss.rate;
- }
-@@ -1795,7 +1800,8 @@ static int snd_pcm_oss_get_channels(struct snd_pcm_oss_file *pcm_oss_file)
- 	struct snd_pcm_substream *substream;
- 	int err;
- 	
--	if ((err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream)) < 0)
-+	err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream);
-+	if (err < 0)
- 		return err;
- 	return substream->runtime->oss.channels;
- }
-@@ -1805,7 +1811,8 @@ static int snd_pcm_oss_get_block_size(struct snd_pcm_oss_file *pcm_oss_file)
- 	struct snd_pcm_substream *substream;
- 	int err;
- 	
--	if ((err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream)) < 0)
-+	err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream);
-+	if (err < 0)
- 		return err;
- 	return substream->runtime->oss.period_bytes;
- }
-@@ -1820,7 +1827,8 @@ static int snd_pcm_oss_get_formats(struct snd_pcm_oss_file *pcm_oss_file)
- 	const struct snd_mask *format_mask;
- 	int fmt;
+ 	call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port);
+-	if ((system_port = port->addr.port) >= 0) {
++	system_port = port->addr.port;
++	if (system_port >= 0) {
+ 		struct snd_seq_port_subscribe subs;
  
--	if ((err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream)) < 0)
-+	err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream);
-+	if (err < 0)
- 		return err;
- 	if (atomic_read(&substream->mmap_count))
- 		direct = 1;
-@@ -1890,7 +1898,8 @@ static int snd_pcm_oss_get_format(struct snd_pcm_oss_file *pcm_oss_file)
- 	struct snd_pcm_substream *substream;
- 	int err;
- 	
--	if ((err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream)) < 0)
-+	err = snd_pcm_oss_get_active_substream(pcm_oss_file, &substream);
-+	if (err < 0)
- 		return err;
- 	return substream->runtime->oss.format;
- }
-@@ -2050,11 +2059,13 @@ static int snd_pcm_oss_set_trigger(struct snd_pcm_oss_file *pcm_oss_file, int tr
- 	csubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
- 
- 	if (psubstream) {
--		if ((err = snd_pcm_oss_make_ready(psubstream)) < 0)
-+		err = snd_pcm_oss_make_ready(psubstream);
-+		if (err < 0)
- 			return err;
- 	}
- 	if (csubstream) {
--		if ((err = snd_pcm_oss_make_ready(csubstream)) < 0)
-+		err = snd_pcm_oss_make_ready(csubstream);
-+		if (err < 0)
- 			return err;
- 	}
-       	if (psubstream) {
-@@ -2141,7 +2152,8 @@ static int snd_pcm_oss_get_odelay(struct snd_pcm_oss_file *pcm_oss_file)
- 	substream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
- 	if (substream == NULL)
- 		return -EINVAL;
--	if ((err = snd_pcm_oss_make_ready(substream)) < 0)
-+	err = snd_pcm_oss_make_ready(substream);
-+	if (err < 0)
- 		return err;
- 	runtime = substream->runtime;
- 	if (runtime->oss.params || runtime->oss.prepare)
-@@ -2168,7 +2180,8 @@ static int snd_pcm_oss_get_ptr(struct snd_pcm_oss_file *pcm_oss_file, int stream
- 	substream = pcm_oss_file->streams[stream];
- 	if (substream == NULL)
- 		return -EINVAL;
--	if ((err = snd_pcm_oss_make_ready(substream)) < 0)
-+	err = snd_pcm_oss_make_ready(substream);
-+	if (err < 0)
- 		return err;
- 	runtime = substream->runtime;
- 	if (runtime->oss.params || runtime->oss.prepare) {
-@@ -2239,9 +2252,11 @@ static int snd_pcm_oss_get_space(struct snd_pcm_oss_file *pcm_oss_file, int stre
- 		return -EINVAL;
- 	runtime = substream->runtime;
- 
--	if (runtime->oss.params &&
--	    (err = snd_pcm_oss_change_params(substream, false)) < 0)
--		return err;
-+	if (runtime->oss.params) {
-+		err = snd_pcm_oss_change_params(substream, false);
-+		if (err < 0)
-+			return err;
-+	}
- 
- 	info.fragsize = runtime->oss.period_bytes;
- 	info.fragstotal = runtime->periods;
-@@ -2601,7 +2616,8 @@ static long snd_pcm_oss_ioctl(struct file *file, unsigned int cmd, unsigned long
- 	case SNDCTL_DSP_SPEED:
- 		if (get_user(res, p))
- 			return -EFAULT;
--		if ((res = snd_pcm_oss_set_rate(pcm_oss_file, res))<0)
-+		res = snd_pcm_oss_set_rate(pcm_oss_file, res);
-+		if (res < 0)
- 			return res;
- 		return put_user(res, p);
- 	case SOUND_PCM_READ_RATE:
-@@ -2613,7 +2629,8 @@ static long snd_pcm_oss_ioctl(struct file *file, unsigned int cmd, unsigned long
- 		if (get_user(res, p))
- 			return -EFAULT;
- 		res = res > 0 ? 2 : 1;
--		if ((res = snd_pcm_oss_set_channels(pcm_oss_file, res)) < 0)
-+		res = snd_pcm_oss_set_channels(pcm_oss_file, res);
-+		if (res < 0)
- 			return res;
- 		return put_user(--res, p);
- 	case SNDCTL_DSP_GETBLKSIZE:
-@@ -2829,7 +2846,8 @@ static __poll_t snd_pcm_oss_poll(struct file *file, poll_table * wait)
- 		snd_pcm_state_t ostate;
- 		poll_wait(file, &runtime->sleep, wait);
- 		snd_pcm_stream_lock_irq(csubstream);
--		if ((ostate = runtime->status->state) != SNDRV_PCM_STATE_RUNNING ||
-+		ostate = runtime->status->state;
-+		if (ostate != SNDRV_PCM_STATE_RUNNING ||
- 		    snd_pcm_oss_capture_ready(csubstream))
- 			mask |= EPOLLIN | EPOLLRDNORM;
- 		snd_pcm_stream_unlock_irq(csubstream);
-@@ -3043,7 +3061,8 @@ static void snd_pcm_oss_proc_init(struct snd_pcm *pcm)
- 		struct snd_pcm_str *pstr = &pcm->streams[stream];
- 		if (pstr->substream_count == 0)
- 			continue;
--		if ((entry = snd_info_create_card_entry(pcm->card, "oss", pstr->proc_root)) != NULL) {
-+		entry = snd_info_create_card_entry(pcm->card, "oss", pstr->proc_root);
-+		if (entry) {
- 			entry->content = SNDRV_INFO_CONTENT_TEXT;
- 			entry->mode = S_IFREG | 0644;
- 			entry->c.text.read = snd_pcm_oss_proc_read;
-@@ -3191,7 +3210,8 @@ static int __init alsa_pcm_oss_init(void)
- 			adsp_map[i] = 1;
- 		}
- 	}
--	if ((err = snd_pcm_notify(&snd_pcm_oss_notify, 0)) < 0)
-+	err = snd_pcm_notify(&snd_pcm_oss_notify, 0);
-+	if (err < 0)
- 		return err;
+ 		memset(&subs, 0, sizeof(subs));
+@@ -354,7 +355,8 @@ alloc_seq_queue(struct seq_oss_devinfo *dp)
+ 	qinfo.owner = system_client;
+ 	qinfo.locked = 1;
+ 	strcpy(qinfo.name, "OSS Sequencer Emulation");
+-	if ((rc = call_ctl(SNDRV_SEQ_IOCTL_CREATE_QUEUE, &qinfo)) < 0)
++	rc = call_ctl(SNDRV_SEQ_IOCTL_CREATE_QUEUE, &qinfo);
++	if (rc < 0)
+ 		return rc;
+ 	dp->queue = qinfo.queue;
  	return 0;
- }
-diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
-index d5ca161d588c..061ba06bc926 100644
---- a/sound/core/oss/pcm_plugin.c
-+++ b/sound/core/oss/pcm_plugin.c
-@@ -59,7 +59,8 @@ static int snd_pcm_plugin_alloc(struct snd_pcm_plugin *plugin, snd_pcm_uframes_t
- 	} else {
- 		format = &plugin->dst_format;
- 	}
--	if ((width = snd_pcm_format_physical_width(format->format)) < 0)
-+	width = snd_pcm_format_physical_width(format->format);
-+	if (width < 0)
- 		return width;
- 	size = frames * format->channels * width;
- 	if (snd_BUG_ON(size % 8))
-@@ -572,7 +573,8 @@ snd_pcm_sframes_t snd_pcm_plug_client_channels_buf(struct snd_pcm_substream *plu
- 	}
- 	v = plugin->buf_channels;
- 	*channels = v;
--	if ((width = snd_pcm_format_physical_width(format->format)) < 0)
-+	width = snd_pcm_format_physical_width(format->format);
-+	if (width < 0)
- 		return width;
- 	nchannels = format->channels;
- 	if (snd_BUG_ON(plugin->access != SNDRV_PCM_ACCESS_RW_INTERLEAVED &&
-@@ -600,16 +602,17 @@ snd_pcm_sframes_t snd_pcm_plug_write_transfer(struct snd_pcm_substream *plug, st
- 	while (plugin) {
- 		if (frames <= 0)
- 			return frames;
--		if ((next = plugin->next) != NULL) {
-+		next = plugin->next;
-+		if (next) {
- 			snd_pcm_sframes_t frames1 = frames;
- 			if (plugin->dst_frames) {
- 				frames1 = plugin->dst_frames(plugin, frames);
- 				if (frames1 <= 0)
- 					return frames1;
- 			}
--			if ((err = next->client_channels(next, frames1, &dst_channels)) < 0) {
-+			err = next->client_channels(next, frames1, &dst_channels);
-+			if (err < 0)
- 				return err;
--			}
- 			if (err != frames1) {
- 				frames = err;
- 				if (plugin->src_frames) {
-@@ -621,7 +624,8 @@ snd_pcm_sframes_t snd_pcm_plug_write_transfer(struct snd_pcm_substream *plug, st
- 		} else
- 			dst_channels = NULL;
- 		pdprintf("write plugin: %s, %li\n", plugin->name, frames);
--		if ((frames = plugin->transfer(plugin, src_channels, dst_channels, frames)) < 0)
-+		frames = plugin->transfer(plugin, src_channels, dst_channels, frames);
-+		if (frames < 0)
- 			return frames;
- 		src_channels = dst_channels;
- 		plugin = next;
-@@ -643,16 +647,18 @@ snd_pcm_sframes_t snd_pcm_plug_read_transfer(struct snd_pcm_substream *plug, str
- 	src_channels = NULL;
- 	plugin = snd_pcm_plug_first(plug);
- 	while (plugin && frames > 0) {
--		if ((next = plugin->next) != NULL) {
--			if ((err = plugin->client_channels(plugin, frames, &dst_channels)) < 0) {
-+		next = plugin->next;
-+		if (next) {
-+			err = plugin->client_channels(plugin, frames, &dst_channels);
-+			if (err < 0)
- 				return err;
--			}
- 			frames = err;
- 		} else {
- 			dst_channels = dst_channels_final;
+@@ -485,7 +487,8 @@ snd_seq_oss_system_info_read(struct snd_info_buffer *buf)
+ 	snd_iprintf(buf, "\nNumber of applications: %d\n", num_clients);
+ 	for (i = 0; i < num_clients; i++) {
+ 		snd_iprintf(buf, "\nApplication %d: ", i);
+-		if ((dp = client_table[i]) == NULL) {
++		dp = client_table[i];
++		if (!dp) {
+ 			snd_iprintf(buf, "*empty*\n");
+ 			continue;
  		}
- 		pdprintf("read plugin: %s, %li\n", plugin->name, frames);
--		if ((frames = plugin->transfer(plugin, src_channels, dst_channels, frames)) < 0)
-+		frames = plugin->transfer(plugin, src_channels, dst_channels, frames);
-+		if (frames < 0)
- 			return frames;
- 		plugin = next;
- 		src_channels = dst_channels;
+diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
+index 3f82c196de46..1e3bf086f867 100644
+--- a/sound/core/seq/oss/seq_oss_midi.c
++++ b/sound/core/seq/oss/seq_oss_midi.c
+@@ -152,7 +152,8 @@ snd_seq_oss_midi_check_new_port(struct snd_seq_port_info *pinfo)
+ 	/*
+ 	 * look for the identical slot
+ 	 */
+-	if ((mdev = find_slot(pinfo->addr.client, pinfo->addr.port)) != NULL) {
++	mdev = find_slot(pinfo->addr.client, pinfo->addr.port);
++	if (mdev) {
+ 		/* already exists */
+ 		snd_use_lock_free(&mdev->use_lock);
+ 		return 0;
+@@ -218,7 +219,8 @@ snd_seq_oss_midi_check_exit_port(int client, int port)
+ 	unsigned long flags;
+ 	int index;
+ 
+-	if ((mdev = find_slot(client, port)) != NULL) {
++	mdev = find_slot(client, port);
++	if (mdev) {
+ 		spin_lock_irqsave(&register_lock, flags);
+ 		midi_devs[mdev->seq_device] = NULL;
+ 		spin_unlock_irqrestore(&register_lock, flags);
+@@ -250,7 +252,8 @@ snd_seq_oss_midi_clear_all(void)
+ 
+ 	spin_lock_irqsave(&register_lock, flags);
+ 	for (i = 0; i < max_midi_devs; i++) {
+-		if ((mdev = midi_devs[i]) != NULL) {
++		mdev = midi_devs[i];
++		if (mdev) {
+ 			snd_midi_event_free(mdev->coder);
+ 			kfree(mdev);
+ 			midi_devs[i] = NULL;
+@@ -318,7 +321,8 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	struct seq_oss_midi *mdev;
+ 	struct snd_seq_port_subscribe subs;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return -ENODEV;
+ 
+ 	/* already used? */
+@@ -384,7 +388,8 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 	struct seq_oss_midi *mdev;
+ 	struct snd_seq_port_subscribe subs;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return -ENODEV;
+ 	if (! mdev->opened || mdev->devinfo != dp) {
+ 		snd_use_lock_free(&mdev->use_lock);
+@@ -421,7 +426,8 @@ snd_seq_oss_midi_filemode(struct seq_oss_devinfo *dp, int dev)
+ 	struct seq_oss_midi *mdev;
+ 	int mode;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return 0;
+ 
+ 	mode = 0;
+@@ -443,7 +449,8 @@ snd_seq_oss_midi_reset(struct seq_oss_devinfo *dp, int dev)
+ {
+ 	struct seq_oss_midi *mdev;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return;
+ 	if (! mdev->opened) {
+ 		snd_use_lock_free(&mdev->use_lock);
+@@ -491,7 +498,8 @@ snd_seq_oss_midi_get_addr(struct seq_oss_devinfo *dp, int dev, struct snd_seq_ad
+ {
+ 	struct seq_oss_midi *mdev;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return;
+ 	addr->client = mdev->client;
+ 	addr->port = mdev->port;
+@@ -511,7 +519,8 @@ snd_seq_oss_midi_input(struct snd_seq_event *ev, int direct, void *private_data)
+ 
+ 	if (dp->readq == NULL)
+ 		return 0;
+-	if ((mdev = find_slot(ev->source.client, ev->source.port)) == NULL)
++	mdev = find_slot(ev->source.client, ev->source.port);
++	if (!mdev)
+ 		return 0;
+ 	if (! (mdev->opened & PERM_READ)) {
+ 		snd_use_lock_free(&mdev->use_lock);
+@@ -623,7 +632,8 @@ snd_seq_oss_midi_putc(struct seq_oss_devinfo *dp, int dev, unsigned char c, stru
+ {
+ 	struct seq_oss_midi *mdev;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return -ENODEV;
+ 	if (snd_midi_event_encode_byte(mdev->coder, c, ev)) {
+ 		snd_seq_oss_fill_addr(dp, ev, mdev->client, mdev->port);
+@@ -642,7 +652,8 @@ snd_seq_oss_midi_make_info(struct seq_oss_devinfo *dp, int dev, struct midi_info
+ {
+ 	struct seq_oss_midi *mdev;
+ 
+-	if ((mdev = get_mididev(dp, dev)) == NULL)
++	mdev = get_mididev(dp, dev);
++	if (!mdev)
+ 		return -ENXIO;
+ 	inf->device = dev;
+ 	inf->dev_type = 0; /* FIXME: ?? */
+diff --git a/sound/core/seq/oss/seq_oss_rw.c b/sound/core/seq/oss/seq_oss_rw.c
+index 537d5f423e20..8a142fd54a19 100644
+--- a/sound/core/seq/oss/seq_oss_rw.c
++++ b/sound/core/seq/oss/seq_oss_rw.c
+@@ -132,7 +132,8 @@ snd_seq_oss_write(struct seq_oss_devinfo *dp, const char __user *buf, int count,
+ 		}
+ 
+ 		/* insert queue */
+-		if ((err = insert_queue(dp, &rec, opt)) < 0)
++		err = insert_queue(dp, &rec, opt);
++		if (err < 0)
+ 			break;
+ 
+ 		result += ev_size;
+diff --git a/sound/core/seq/oss/seq_oss_synth.c b/sound/core/seq/oss/seq_oss_synth.c
+index 722f5059b300..e3394919daa0 100644
+--- a/sound/core/seq/oss/seq_oss_synth.c
++++ b/sound/core/seq/oss/seq_oss_synth.c
+@@ -451,7 +451,8 @@ snd_seq_oss_synth_load_patch(struct seq_oss_devinfo *dp, int dev, int fmt,
+ 
+ 	if (info->is_midi)
+ 		return 0;
+-	if ((rec = get_synthdev(dp, dev)) == NULL)
++	rec = get_synthdev(dp, dev);
++	if (!rec)
+ 		return -ENXIO;
+ 
+ 	if (rec->oper.load_patch == NULL)
+@@ -569,7 +570,8 @@ snd_seq_oss_synth_ioctl(struct seq_oss_devinfo *dp, int dev, unsigned int cmd, u
+ 	info = get_synthinfo_nospec(dp, dev);
+ 	if (!info || info->is_midi)
+ 		return -ENXIO;
+-	if ((rec = get_synthdev(dp, dev)) == NULL)
++	rec = get_synthdev(dp, dev);
++	if (!rec)
+ 		return -ENXIO;
+ 	if (rec->oper.ioctl == NULL)
+ 		rc = -ENXIO;
+@@ -619,7 +621,8 @@ snd_seq_oss_synth_make_info(struct seq_oss_devinfo *dp, int dev, struct synth_in
+ 		inf->device = dev;
+ 		strscpy(inf->name, minf.name, sizeof(inf->name));
+ 	} else {
+-		if ((rec = get_synthdev(dp, dev)) == NULL)
++		rec = get_synthdev(dp, dev);
++		if (!rec)
+ 			return -ENXIO;
+ 		inf->synth_type = rec->synth_type;
+ 		inf->synth_subtype = rec->synth_subtype;
+diff --git a/sound/core/seq/oss/seq_oss_writeq.c b/sound/core/seq/oss/seq_oss_writeq.c
+index 0a02a59103b4..3e3209ce53b1 100644
+--- a/sound/core/seq/oss/seq_oss_writeq.c
++++ b/sound/core/seq/oss/seq_oss_writeq.c
+@@ -27,7 +27,8 @@ snd_seq_oss_writeq_new(struct seq_oss_devinfo *dp, int maxlen)
+ 	struct seq_oss_writeq *q;
+ 	struct snd_seq_client_pool pool;
+ 
+-	if ((q = kzalloc(sizeof(*q), GFP_KERNEL)) == NULL)
++	q = kzalloc(sizeof(*q), GFP_KERNEL);
++	if (!q)
+ 		return NULL;
+ 	q->dp = dp;
+ 	q->maxlen = maxlen;
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index b6a24fb5e76b..2e9d695d336c 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -416,7 +416,10 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
+ 	if (snd_BUG_ON(!client))
+ 		return -ENXIO;
+ 
+-	if (!client->accept_input || (fifo = client->data.user.fifo) == NULL)
++	if (!client->accept_input)
++		return -ENXIO;
++	fifo = client->data.user.fifo;
++	if (!fifo)
+ 		return -ENXIO;
+ 
+ 	if (atomic_read(&fifo->overflow) > 0) {
+@@ -435,9 +438,9 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
+ 		int nonblock;
+ 
+ 		nonblock = (file->f_flags & O_NONBLOCK) || result > 0;
+-		if ((err = snd_seq_fifo_cell_out(fifo, &cell, nonblock)) < 0) {
++		err = snd_seq_fifo_cell_out(fifo, &cell, nonblock);
++		if (err < 0)
+ 			break;
+-		}
+ 		if (snd_seq_ev_is_variable(&cell->event)) {
+ 			struct snd_seq_event tmpev;
+ 			tmpev = cell->event;
+@@ -970,7 +973,8 @@ static int snd_seq_client_enqueue_event(struct snd_seq_client *client,
+ 		return err;
+ 
+ 	/* we got a cell. enqueue it. */
+-	if ((err = snd_seq_enqueue_event(cell, atomic, hop)) < 0) {
++	err = snd_seq_enqueue_event(cell, atomic, hop);
++	if (err < 0) {
+ 		snd_seq_cell_free(cell);
+ 		return err;
+ 	}
+@@ -1312,7 +1316,8 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client, void *arg)
+ 		return -EINVAL;
+ 	}
+ 	if (client->type == KERNEL_CLIENT) {
+-		if ((callback = info->kernel) != NULL) {
++		callback = info->kernel;
++		if (callback) {
+ 			if (callback->owner)
+ 				port->owner = callback->owner;
+ 			port->private_data = callback->private_data;
+@@ -1466,13 +1471,17 @@ static int snd_seq_ioctl_subscribe_port(struct snd_seq_client *client,
+ 	struct snd_seq_client *receiver = NULL, *sender = NULL;
+ 	struct snd_seq_client_port *sport = NULL, *dport = NULL;
+ 
+-	if ((receiver = snd_seq_client_use_ptr(subs->dest.client)) == NULL)
++	receiver = snd_seq_client_use_ptr(subs->dest.client);
++	if (!receiver)
+ 		goto __end;
+-	if ((sender = snd_seq_client_use_ptr(subs->sender.client)) == NULL)
++	sender = snd_seq_client_use_ptr(subs->sender.client);
++	if (!sender)
+ 		goto __end;
+-	if ((sport = snd_seq_port_use_ptr(sender, subs->sender.port)) == NULL)
++	sport = snd_seq_port_use_ptr(sender, subs->sender.port);
++	if (!sport)
+ 		goto __end;
+-	if ((dport = snd_seq_port_use_ptr(receiver, subs->dest.port)) == NULL)
++	dport = snd_seq_port_use_ptr(receiver, subs->dest.port);
++	if (!dport)
+ 		goto __end;
+ 
+ 	result = check_subscription_permission(client, sport, dport, subs);
+@@ -1508,13 +1517,17 @@ static int snd_seq_ioctl_unsubscribe_port(struct snd_seq_client *client,
+ 	struct snd_seq_client *receiver = NULL, *sender = NULL;
+ 	struct snd_seq_client_port *sport = NULL, *dport = NULL;
+ 
+-	if ((receiver = snd_seq_client_use_ptr(subs->dest.client)) == NULL)
++	receiver = snd_seq_client_use_ptr(subs->dest.client);
++	if (!receiver)
+ 		goto __end;
+-	if ((sender = snd_seq_client_use_ptr(subs->sender.client)) == NULL)
++	sender = snd_seq_client_use_ptr(subs->sender.client);
++	if (!sender)
+ 		goto __end;
+-	if ((sport = snd_seq_port_use_ptr(sender, subs->sender.port)) == NULL)
++	sport = snd_seq_port_use_ptr(sender, subs->sender.port);
++	if (!sport)
+ 		goto __end;
+-	if ((dport = snd_seq_port_use_ptr(receiver, subs->dest.port)) == NULL)
++	dport = snd_seq_port_use_ptr(receiver, subs->dest.port);
++	if (!dport)
+ 		goto __end;
+ 
+ 	result = check_subscription_permission(client, sport, dport, subs);
+@@ -1926,9 +1939,11 @@ static int snd_seq_ioctl_get_subscription(struct snd_seq_client *client,
+ 	struct snd_seq_client_port *sport = NULL;
+ 
+ 	result = -EINVAL;
+-	if ((sender = snd_seq_client_use_ptr(subs->sender.client)) == NULL)
++	sender = snd_seq_client_use_ptr(subs->sender.client);
++	if (!sender)
+ 		goto __end;
+-	if ((sport = snd_seq_port_use_ptr(sender, subs->sender.port)) == NULL)
++	sport = snd_seq_port_use_ptr(sender, subs->sender.port);
++	if (!sport)
+ 		goto __end;
+ 	result = snd_seq_port_get_subscription(&sport->c_src, &subs->dest,
+ 					       subs);
+@@ -1955,9 +1970,11 @@ static int snd_seq_ioctl_query_subs(struct snd_seq_client *client, void *arg)
+ 	struct list_head *p;
+ 	int i;
+ 
+-	if ((cptr = snd_seq_client_use_ptr(subs->root.client)) == NULL)
++	cptr = snd_seq_client_use_ptr(subs->root.client);
++	if (!cptr)
+ 		goto __end;
+-	if ((port = snd_seq_port_use_ptr(cptr, subs->root.port)) == NULL)
++	port = snd_seq_port_use_ptr(cptr, subs->root.port);
++	if (!port)
+ 		goto __end;
+ 
+ 	switch (subs->type) {
+diff --git a/sound/core/seq/seq_dummy.c b/sound/core/seq/seq_dummy.c
+index cd5a4cad8881..ac760b1e3d12 100644
+--- a/sound/core/seq/seq_dummy.c
++++ b/sound/core/seq/seq_dummy.c
+@@ -109,7 +109,8 @@ create_port(int idx, int type)
+ 	struct snd_seq_port_callback pcb;
+ 	struct snd_seq_dummy_port *rec;
+ 
+-	if ((rec = kzalloc(sizeof(*rec), GFP_KERNEL)) == NULL)
++	rec = kzalloc(sizeof(*rec), GFP_KERNEL);
++	if (!rec)
+ 		return NULL;
+ 
+ 	rec->client = my_client;
+diff --git a/sound/core/seq/seq_fifo.c b/sound/core/seq/seq_fifo.c
+index eaaa8b5830bb..f8e02e98709a 100644
+--- a/sound/core/seq/seq_fifo.c
++++ b/sound/core/seq/seq_fifo.c
+@@ -143,7 +143,8 @@ static struct snd_seq_event_cell *fifo_cell_out(struct snd_seq_fifo *f)
+ {
+ 	struct snd_seq_event_cell *cell;
+ 
+-	if ((cell = f->head) != NULL) {
++	cell = f->head;
++	if (cell) {
+ 		f->head = cell->next;
+ 
+ 		/* reset tail if this was the last element */
+diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
+index e245bb6ba533..b7aee23fc387 100644
+--- a/sound/core/seq/seq_memory.c
++++ b/sound/core/seq/seq_memory.c
+@@ -69,7 +69,8 @@ int snd_seq_dump_var_event(const struct snd_seq_event *event,
+ 	int len, err;
+ 	struct snd_seq_event_cell *cell;
+ 
+-	if ((len = get_var_len(event)) <= 0)
++	len = get_var_len(event);
++	if (len <= 0)
+ 		return len;
+ 
+ 	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
+@@ -133,7 +134,8 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+ 	int len, newlen;
+ 	int err;
+ 
+-	if ((len = get_var_len(event)) < 0)
++	len = get_var_len(event);
++	if (len < 0)
+ 		return len;
+ 	newlen = len;
+ 	if (size_aligned > 0)
+diff --git a/sound/core/seq/seq_midi.c b/sound/core/seq/seq_midi.c
+index 6825940ea2cf..4589aac09154 100644
+--- a/sound/core/seq/seq_midi.c
++++ b/sound/core/seq/seq_midi.c
+@@ -101,7 +101,8 @@ static int dump_midi(struct snd_rawmidi_substream *substream, const char *buf, i
+ 	if (snd_BUG_ON(!substream || !buf))
+ 		return -EINVAL;
+ 	runtime = substream->runtime;
+-	if ((tmp = runtime->avail) < count) {
++	tmp = runtime->avail;
++	if (tmp < count) {
+ 		if (printk_ratelimit())
+ 			pr_err("ALSA: seq_midi: MIDI output buffer overrun\n");
+ 		return -ENOMEM;
+@@ -167,10 +168,11 @@ static int midisynth_subscribe(void *private_data, struct snd_seq_port_subscribe
+ 	struct snd_rawmidi_params params;
+ 
+ 	/* open midi port */
+-	if ((err = snd_rawmidi_kernel_open(msynth->card, msynth->device,
+-					   msynth->subdevice,
+-					   SNDRV_RAWMIDI_LFLG_INPUT,
+-					   &msynth->input_rfile)) < 0) {
++	err = snd_rawmidi_kernel_open(msynth->card, msynth->device,
++				      msynth->subdevice,
++				      SNDRV_RAWMIDI_LFLG_INPUT,
++				      &msynth->input_rfile);
++	if (err < 0) {
+ 		pr_debug("ALSA: seq_midi: midi input open failed!!!\n");
+ 		return err;
+ 	}
+@@ -178,7 +180,8 @@ static int midisynth_subscribe(void *private_data, struct snd_seq_port_subscribe
+ 	memset(&params, 0, sizeof(params));
+ 	params.avail_min = 1;
+ 	params.buffer_size = input_buffer_size;
+-	if ((err = snd_rawmidi_input_params(msynth->input_rfile.input, &params)) < 0) {
++	err = snd_rawmidi_input_params(msynth->input_rfile.input, &params);
++	if (err < 0) {
+ 		snd_rawmidi_kernel_release(&msynth->input_rfile);
+ 		return err;
+ 	}
+@@ -209,10 +212,11 @@ static int midisynth_use(void *private_data, struct snd_seq_port_subscribe *info
+ 	struct snd_rawmidi_params params;
+ 
+ 	/* open midi port */
+-	if ((err = snd_rawmidi_kernel_open(msynth->card, msynth->device,
+-					   msynth->subdevice,
+-					   SNDRV_RAWMIDI_LFLG_OUTPUT,
+-					   &msynth->output_rfile)) < 0) {
++	err = snd_rawmidi_kernel_open(msynth->card, msynth->device,
++				      msynth->subdevice,
++				      SNDRV_RAWMIDI_LFLG_OUTPUT,
++				      &msynth->output_rfile);
++	if (err < 0) {
+ 		pr_debug("ALSA: seq_midi: midi output open failed!!!\n");
+ 		return err;
+ 	}
+@@ -220,7 +224,8 @@ static int midisynth_use(void *private_data, struct snd_seq_port_subscribe *info
+ 	params.avail_min = 1;
+ 	params.buffer_size = output_buffer_size;
+ 	params.no_active_sensing = 1;
+-	if ((err = snd_rawmidi_output_params(msynth->output_rfile.output, &params)) < 0) {
++	err = snd_rawmidi_output_params(msynth->output_rfile.output, &params);
++	if (err < 0) {
+ 		snd_rawmidi_kernel_release(&msynth->output_rfile);
+ 		return err;
+ 	}
+diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+index 13cfc2d47fa7..d6c02dea976c 100644
+--- a/sound/core/seq/seq_queue.c
++++ b/sound/core/seq/seq_queue.c
+@@ -222,7 +222,8 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
+ 	struct snd_seq_queue *q;
+ 
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queueptr(i)) != NULL) {
++		q = queueptr(i);
++		if (q) {
+ 			if (strncmp(q->name, name, sizeof(q->name)) == 0)
+ 				return q;
+ 			queuefree(q);
+@@ -432,7 +433,8 @@ int snd_seq_queue_timer_open(int queueid)
+ 	if (queue == NULL)
+ 		return -EINVAL;
+ 	tmr = queue->timer;
+-	if ((result = snd_seq_timer_open(queue)) < 0) {
++	result = snd_seq_timer_open(queue);
++	if (result < 0) {
+ 		snd_seq_timer_defaults(tmr);
+ 		result = snd_seq_timer_open(queue);
+ 	}
+@@ -548,7 +550,8 @@ void snd_seq_queue_client_leave(int client)
+ 
+ 	/* delete own queues from queue list */
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queue_list_remove(i, client)) != NULL)
++		q = queue_list_remove(i, client);
++		if (q)
+ 			queue_delete(q);
+ 	}
+ 
+@@ -556,7 +559,8 @@ void snd_seq_queue_client_leave(int client)
+ 	 * they are not owned by this client
+ 	 */
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queueptr(i)) == NULL)
++		q = queueptr(i);
++		if (!q)
+ 			continue;
+ 		if (test_bit(client, q->clients_bitmap)) {
+ 			snd_seq_prioq_leave(q->tickq, client, 0);
+@@ -578,7 +582,8 @@ void snd_seq_queue_client_leave_cells(int client)
+ 	struct snd_seq_queue *q;
+ 
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queueptr(i)) == NULL)
++		q = queueptr(i);
++		if (!q)
+ 			continue;
+ 		snd_seq_prioq_leave(q->tickq, client, 0);
+ 		snd_seq_prioq_leave(q->timeq, client, 0);
+@@ -593,7 +598,8 @@ void snd_seq_queue_remove_cells(int client, struct snd_seq_remove_events *info)
+ 	struct snd_seq_queue *q;
+ 
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queueptr(i)) == NULL)
++		q = queueptr(i);
++		if (!q)
+ 			continue;
+ 		if (test_bit(client, q->clients_bitmap) &&
+ 		    (! (info->remove_mode & SNDRV_SEQ_REMOVE_DEST) ||
+@@ -724,7 +730,8 @@ void snd_seq_info_queues_read(struct snd_info_entry *entry,
+ 	int owner;
+ 
+ 	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+-		if ((q = queueptr(i)) == NULL)
++		q = queueptr(i);
++		if (!q)
+ 			continue;
+ 
+ 		tmr = q->timer;
+diff --git a/sound/core/seq/seq_virmidi.c b/sound/core/seq/seq_virmidi.c
+index 77d7037d1476..4abc38c70cae 100644
+--- a/sound/core/seq/seq_virmidi.c
++++ b/sound/core/seq/seq_virmidi.c
+@@ -482,10 +482,11 @@ int snd_virmidi_new(struct snd_card *card, int device, struct snd_rawmidi **rrmi
+ 	int err;
+ 	
+ 	*rrmidi = NULL;
+-	if ((err = snd_rawmidi_new(card, "VirMidi", device,
+-				   16,	/* may be configurable */
+-				   16,	/* may be configurable */
+-				   &rmidi)) < 0)
++	err = snd_rawmidi_new(card, "VirMidi", device,
++			      16,	/* may be configurable */
++			      16,	/* may be configurable */
++			      &rmidi);
++	if (err < 0)
+ 		return err;
+ 	strcpy(rmidi->name, rmidi->id);
+ 	rdev = kzalloc(sizeof(*rdev), GFP_KERNEL);
 -- 
 2.26.2
 

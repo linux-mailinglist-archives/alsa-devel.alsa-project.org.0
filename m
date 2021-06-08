@@ -2,68 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF65739E9C8
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 00:51:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBD139EA92
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 02:12:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 308F616BF;
-	Tue,  8 Jun 2021 00:50:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 308F616BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41DD61691;
+	Tue,  8 Jun 2021 02:12:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41DD61691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623106271;
-	bh=44OsWvZdy0J3kbj30Em7hjJLSjPHmSPV3BXSQQZGftQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UeZ0Pfgn1VjzClYjaFdqzUOh6sAsLWWEgOWJBfu7mrWtDxyMzzOo6DMSwpqylbR6o
-	 wteYWZs26zphjyrBrO093EbxBFXodiVrfx+CvZcaWoKovssaXIpmi7jejWk/8eeptT
-	 SOSnliTgBhLcbHQblbsvQBELvmmtC71Hk9YmxaDw=
+	s=default; t=1623111177;
+	bh=+dsh1cZvNZLQQ7G1zszpB7tBpQ6/aBpmlRC79B8RKNE=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Emyp4hikX0fgtEihQ5ukany6EcKJeyULsf4EpFXWyLGT9HCySBBcLUUJW43kqWnGV
+	 pPl0oCuCOf4594KOGtxF2YXntiTX+NO8HM5NWZ7Hw3GwzB9r2XPNYOlyFPZuMsF0uZ
+	 5BUyw/n7uITgpv1XN/1XzTjUlHbJqHiITKP+l+64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A0A8F804FD;
-	Tue,  8 Jun 2021 00:47:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A721EF801EC;
+	Tue,  8 Jun 2021 02:11:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4BD5F804E1; Tue,  8 Jun 2021 00:47:14 +0200 (CEST)
+ id 3141BF80212; Tue,  8 Jun 2021 02:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22F04F8032C
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 00:47:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F04F8032C
-IronPort-SDR: KTleyKGwCiMLUIWKzYD4ROX8aS19eOq0Su01dDDEMpKOZWtPcigcj18zNTxGTVy5c0mrm3GLcW
- IBHQroVU+i6w==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="185102199"
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="185102199"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:46:54 -0700
-IronPort-SDR: UhOoBusMMkPkyiNgipKhss0kBQqAuxcHELh6zycmVdAFl2kOESIIYkClx1PFxQ0FkKTyv/qadK
- CrIHgj4wGrnw==
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="637437131"
-Received: from marocham-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.108.70])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 15:46:53 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/10] ASoC: Intel: skl_hda_dsp_generic: Update Kconfig
- documentation
-Date: Mon,  7 Jun 2021 17:46:38 -0500
-Message-Id: <20210607224638.585486-11-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210607224638.585486-1-pierre-louis.bossart@linux.intel.com>
-References: <20210607224638.585486-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id BC5F7F800DF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 02:11:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC5F7F800DF
+Date: 08 Jun 2021 09:11:17 +0900
+X-IronPort-AV: E=Sophos;i="5.83,256,1616425200"; d="scan'208";a="83526826"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 08 Jun 2021 09:11:17 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5BAA84003EB4;
+ Tue,  8 Jun 2021 09:11:17 +0900 (JST)
+Message-ID: <875yypdxlm.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 0/9] ASoC: tidyup snd_soc_of_parse_daifmt()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,47 +75,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-The Kconfig documentation for SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
-is a bit misleading as it refers to a set of older platforms,
-while in practise this machine driver supports all modern
-Intel systems with Smart Sound Technology based DSP and HDA codecs.
+Hi Mark
 
-Modify the Kconfig text to reflect current state.
+I want to add new audio-graph-card2 sound card driver,
+and this is last part of necessary soc-core cleanup for it.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/Kconfig | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Current some drivers are using DT, and Then,
+snd_soc_of_parse_daifmt() parses daifmt, but bitclock/frame provider
+parsing part is one of headache, because we are assuming below both cases.
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index eef5f4ac87c5..7e29b0d911e2 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -442,7 +442,7 @@ endif ## SND_SOC_SOF_GEMINILAKE
- if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
- 
- config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
--	tristate "SKL/KBL/BXT/APL with HDA Codecs"
-+	tristate "Skylake+ with HDA Codecs"
- 	depends on SND_HDA_CODEC_HDMI
- 	depends on GPIOLIB
- 	select SND_SOC_HDAC_HDMI
-@@ -450,8 +450,9 @@ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
- 	select SND_SOC_DMIC
- 	# SND_SOC_HDAC_HDA is already selected
- 	help
--	  This adds support for ASoC machine driver for Intel platforms
--	  SKL/KBL/BXT/APL with iDisp, HDA audio codecs.
-+	  This adds support for ASoC machine driver for Intel Skylake+
-+	  platforms with display (HDMI/DP) and HDA audio codecs, and
-+	  Smart Sound Technology (SST) integrated audio DSP.
- 	  Say Y or m if you have such a device. This is a recommended option.
- 	  If unsure select "N".
- 
+A)	node {
+		bitclock-master;
+		frame-master;
+		...
+	};
+    
+B)	link {
+		bitclock-master = <&xxx>;
+		frame-master = <&xxx>;
+		...
+	};
+
+The original was style A), and style B) was added later.
+
+snd_soc_of_parse_daifmt() parses A) style as original style,
+and user need to update to B) style for clock_provider part if needed.
+In such case, user need to re-parse it, like below.
+    
+	daifmt = snd_soc_of_parse_daifmt(..., &bitclkmaster, &framemaster);
+	daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
+    
+	if (codec == bitclkmaster)
+		daifmt |= (codec == framemaster) ?
+			SND_SOC_DAIFMT_CBM_CFM : SND_SOC_DAIFMT_CBM_CFS;
+	else
+		daifmt |= (codec == framemaster) ?
+			SND_SOC_DAIFMT_CBS_CFM : SND_SOC_DAIFMT_CBS_CFS;
+
+This patch-set adds new functions, and handle these more simply.
+Unfortunately, there are too many use-case, do it by 1 function was implessible.
+
+style A)
+	bit_frame = snd_soc_daifmt_parse_clock_provider();
+	daifmt = snd_soc_daifmt_parse_format(...) |              /* format part */
+		snd_soc_daifmt_clock_provider_pickup(bit_frame); /* clock  part */
+    
+style B)
+	snd_soc_daifmt_parse_clock_provider(..., &bit, &frame);
+	daifmt = snd_soc_daifmt_parse_format(...) |    /* format part */
+		snd_soc_daifmt_clock_provider_pickup(  /* clock  part */
+			((codec == bit) << 4) + (codec == frame));
+
+
+Kuninori Morimoto (9):
+  ASoC: soc-core: don't use discriminatory terms on snd_soc_runtime_get_dai_fmt()
+  ASoC: soc-core: add snd_soc_daifmt_clock_provider_pickup()
+  ASoC: soc-core: add snd_soc_daifmt_clock_provider_fliped()
+  ASoC: soc-core: add snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: atmel: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: fsl: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: meson: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: simple-card-utils: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: soc-core: remove snd_soc_of_parse_daifmt()
+
+ include/sound/soc.h                   |  13 +++-
+ sound/soc/atmel/mikroe-proto.c        |  18 ++---
+ sound/soc/fsl/fsl-asoc-card.c         |  16 +---
+ sound/soc/generic/simple-card-utils.c |  19 ++---
+ sound/soc/meson/meson-card-utils.c    |  15 ++--
+ sound/soc/soc-core.c                  | 103 ++++++++++++++++----------
+ 6 files changed, 99 insertions(+), 85 deletions(-)
+
 -- 
 2.25.1
 

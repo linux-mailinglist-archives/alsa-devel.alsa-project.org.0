@@ -2,86 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AAA739F713
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 14:47:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8496839F715
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 14:48:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8171416DF;
-	Tue,  8 Jun 2021 14:46:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8171416DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED20316E7;
+	Tue,  8 Jun 2021 14:47:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED20316E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623156467;
-	bh=vpe+yHviUyPixkSlaq6RrXSzYuX5hpM2fYwU2h1Pue4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1623156513;
+	bh=EOoeDJ5mqHpUVWyCp5EbRvfMgq9kPzVQzBEyicIJ/lk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IKN0D9T5WxFabxbXFNaRxl5r4XTbGEwsmqhdlHS3LGAJ0NOJ46gVJi1nJcorT8vJf
-	 7yuySFWo+D9kGYZA8XOCiCXi2CzpbfweoCvf6aj9bS7N0nVlfs2BhLB0p5HpS3rYLr
-	 kl24GJJArsGy1Hs7RG+++sAX0arSsm0G3cIU8v58=
+	b=NJtmWW9fdeZEfZ2zIWOhqtCRPLi/Yo18LEwZJTeNBcydXHwvShjWpEriWbOKjIHHT
+	 O6Kti7oE7cnsrOLCEzV0HqJI7sLj0I8HAGeN8idiPNU0KK5efUgjKsXJ6HZZTLTKbV
+	 3RQzYRtS54QCezC3stVVgcMXT2nBOAWidCgg2Qtw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEB46F80227;
-	Tue,  8 Jun 2021 14:46:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA2FBF80256;
+	Tue,  8 Jun 2021 14:47:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64118F801EC; Tue,  8 Jun 2021 14:46:17 +0200 (CEST)
+ id 22223F801EC; Tue,  8 Jun 2021 14:47:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F13C9F800FD
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:46:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F13C9F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5FBAF800FD
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5FBAF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oGS5p4Ah"
-Received: by mail-lf1-x12f.google.com with SMTP id j20so2555092lfe.8
- for <alsa-devel@alsa-project.org>; Tue, 08 Jun 2021 05:46:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ea4fwkzCscgRVxwz+ttDu0ZWlCRxPg3hpkrwHQuS35Y=;
- b=oGS5p4AhGFi3SZLx3vt78ncDuACNxm8OyLHgrU6DrUOTANdpgtp2hx2Kej0+Sp2kxa
- pM7B7hedjYLvsmJfRiuueK1zu+PpTaKRzw/Gwa4SCHyzgLhFfvm5p/rRSZXvW/MXfI7J
- MaCeHq8n3g4Ur7aFszdvh3ziLwRNlXlCNJsmUbqqSyY4r1amOFH0xuaDC4fnBnytGHTt
- LYMJXxONmTVK/Ko6baeWz2QVkkz8qKU4XDc80t5Bf9+sThlqfu97AR5lW9bnPZDSmar2
- gOEZHg7UA1lisMT16F4DL7uPXqA/0IwNcMGoEQilHKwPuw1dw6oDDsdDRww+8L4KDgI/
- v7fQ==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="M2mDT1L4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1623156454;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9RZHySvU0mp6w1WjU4HPM/uwDdeOMc50hAoF1JziKos=;
+ b=M2mDT1L4OZOuAJ+siAu7ezG2+bZI7QWifu+UsAB1sZ4NL5E0b4RgU5noTx1oYuyegOAMv+
+ zSvSLyOlOX6TC4zU+bKBjiUwz+Zf7qhYRKbQ+gxPAFuzH0wXUCgQ9VMs7xFcmHpu2DwWmg
+ 9KIZRPqEaKScl+r0df55N/nQP5nJFk8=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-586-zMJOVnfnMKG1hguw-txRwg-1; Tue, 08 Jun 2021 08:47:32 -0400
+X-MC-Unique: zMJOVnfnMKG1hguw-txRwg-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ y18-20020a0564022712b029038ffac1995eso10844221edd.12
+ for <alsa-devel@alsa-project.org>; Tue, 08 Jun 2021 05:47:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ea4fwkzCscgRVxwz+ttDu0ZWlCRxPg3hpkrwHQuS35Y=;
- b=b2kgMC7d/reMyu5ov+x1Z1n9a71RYPHpFglKeGLVDHrjW1LSqsvnYsOq2Skod6aNAL
- /BB16pyLNvUi3HQLzAFJNtkRluuQbEwjYefKrseKIVhNnJFeirF2s0aIm4pslzQc67s1
- pJTHauqIY0H6fKgDw6Dyoqlv+f5gZl/T9StRZyfQssr5xds8OYekBHgmJwDdeGnTUKVH
- v6yYhJvPQ2tGPjjh8oRlJAO0TDwQoHiX/31Q4+hRQd1nmY8Jixxu+xSOpO1GSkBjRqZe
- ix2omC2/Z5H8FLq8//FUsJTDg61LpRN2qTYEKzfeU8IPj4tG8C5pw61PlIZUeJX01KY0
- E9xw==
-X-Gm-Message-State: AOAM53265wpgJQVFZNo7L29J7mCzq9VdJp4OQUpRyQOfFUXOxjWLFpiR
- ZvPeCEIwEQrA9Ypx1zr8FlIISHPorkbTiRL80krE6ZC2ds3dCA==
-X-Google-Smtp-Source: ABdhPJwaqX487JFDktM8Tf0hj/g/mTVe1LSbL0yr8Sr00IirfZo569XmptY2K2GsDwJKJxSJxT795XHblpojf+XlkLI=
-X-Received: by 2002:a19:7604:: with SMTP id c4mr10970752lff.398.1623156369353; 
- Tue, 08 Jun 2021 05:46:09 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9RZHySvU0mp6w1WjU4HPM/uwDdeOMc50hAoF1JziKos=;
+ b=j6DSmsR/K4vQMwWSL8EgOD2FcMSGmYVBcmPDhHJUCvCLE+Tz71u30EKXyTjSTEIuIS
+ bvjadCrq7kP3cx1VIam77HwYwqJDRKyu67F+TltQbRMzkOv7/y8XKQ7dF1/ABmtWypC9
+ ccn1ZbPuQ/u+sIxrYNjBMwXk62AJjqvv7saN6ZnblNEJEsrVnISJOI1k49eRHuH88ZhW
+ M1txJqNOGHApZ70UYDi/xkhE0nLmph2MYEIiwRFR7tjeiMCwNIIEKaNB6XRIuH+Nqd5+
+ v8vfeCy1S2uvwSg37EatzSEuXBUcE9AUo9pGu+zehFMyDG6NEmp+I/ynHfyn7PC1Zcnv
+ vsQA==
+X-Gm-Message-State: AOAM530weAQAjYvZRkQk4FbyAZBzGfivFblbohL6BGXVVKRCLOL/PGFV
+ msEndtDFLOmTwOdRVaJzPNiAtrOj114Lxa+bdiXp1JzF/BEWdN/eITx71xZ2qCTHUAnV/2qL+5J
+ sO815MIjYfVi/oCqHQx1A6hQ=
+X-Received: by 2002:a17:906:22c8:: with SMTP id
+ q8mr22566930eja.12.1623156451657; 
+ Tue, 08 Jun 2021 05:47:31 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx13DMR2MOCVpau0FA62HXany9AF0ipDoypUJe4b2WUJULM/GVbJrNqzhjIMcUwbEA7/s4uRA==
+X-Received: by 2002:a17:906:22c8:: with SMTP id
+ q8mr22566918eja.12.1623156451510; 
+ Tue, 08 Jun 2021 05:47:31 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id i25sm3089047ejg.103.2021.06.08.05.47.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jun 2021 05:47:31 -0700 (PDT)
+Subject: Re: [PATCH 2/2] ASoC: Intel: boards: use software node API in Atom
+ boards
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20210607223503.584379-1-pierre-louis.bossart@linux.intel.com>
+ <20210607223503.584379-3-pierre-louis.bossart@linux.intel.com>
+ <0e8e01f6-d249-cc3e-2020-f6e5c81a4732@redhat.com>
+ <a67817d5-5fd2-c5a5-e366-4e6534d2e4c9@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <6a4838c5-4906-f6dc-fa07-09200a682876@redhat.com>
+Date: Tue, 8 Jun 2021 14:47:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-References: <CAHhAz+haTa8FJep+mokae4O7Gy9zzq2dbPk28fuEH5FO24uTzw@mail.gmail.com>
- <YL9RDBUsk23LvHV9@kroah.com>
- <CAHhAz+gkm3EHE71PM4xzekC7Vsv3gksBd-M9_5iFe5AcNZbLOQ@mail.gmail.com>
- <YL9jKqLtWUgJL9ys@kroah.com>
-In-Reply-To: <YL9jKqLtWUgJL9ys@kroah.com>
-From: Muni Sekhar <munisekharrms@gmail.com>
-Date: Tue, 8 Jun 2021 18:15:57 +0530
-Message-ID: <CAHhAz+gPjcnL9-RV7gzTi1iFHK1pj6moySwOHVE3q_wVtmkyFg@mail.gmail.com>
-Subject: Re: USB sound card issues
-To: Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel <alsa-devel@alsa-project.org>, linux-usb@vger.kernel.org,
- linux-sound@vger.kernel.org, kernelnewbies <kernelnewbies@kernelnewbies.org>
+In-Reply-To: <a67817d5-5fd2-c5a5-e366-4e6534d2e4c9@linux.intel.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ broonie@kernel.org, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,87 +125,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 8, 2021 at 6:02 PM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Tue, Jun 08, 2021 at 05:44:42PM +0530, Muni Sekhar wrote:
-> > On Tue, Jun 8, 2021 at 4:44 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > >
-> > > On Tue, Jun 08, 2021 at 04:20:07PM +0530, Muni Sekhar wrote:
-> > > > Hi all,
-> > > >
-> > > > I am using a USB sound card(snd-usb-audio), and it fails while doing
-> > > > the audio recording "arecord: pcm_read:2032: read error: Input/output
-> > > > error".
-> > > >
-> > > > What could be the problem? and is there a workaround for this?
-> > > >
-> > > > $ arecord -l
-> > > > **** List of CAPTURE Hardware Devices ****
-> > > > card 1: BT_AG [BT_002], device 0: USB Audio [USB Audio]
-> > > >   Subdevices: 1/1
-> > > >   Subdevice #0: subdevice #0
-> > > >
-> > > >
-> > > > $ arecord --device hw:1,0 --channels 1 --format S16_LE --rate 32000_Hz
-> > x.wav
-> > > > Recording WAVE 'x.wav' : Signed 16 bit Little Endian, Rate 32000 Hz,
-> > Mono
-> > > > arecord: pcm_read:2032: read error: Input/output error
-> > >
-> > > What kernel version is this, and what other kernel messages are printed
-> > > when you plug your device in?
->
->
-> What kernel version is this?
-4.15.0-54-generic
+Hi,
 
->
-> > [12932.016672] usb 2-1: USB disconnect, device number 5
-> > [12932.016683] usb 2-1.1: USB disconnect, device number 6
-> > [12962.085766] usb 2-1: new full-speed USB device number 7 using xhci_hcd
-> > [12962.275849] usb 2-1: New USB device found, idVendor=0a12, idProduct=4010
-> > [12962.275861] usb 2-1: New USB device strings: Mfr=0, Product=0,
-> > SerialNumber=0
-> > [12962.276538] usb 2-1: ep 0x81 - rounding interval to 1024 microframes, ep
-> > desc says 2040 microframes
-> > [12962.279699] hub 2-1:1.0: USB hub found
-> > [12962.280663] hub 2-1:1.0: 4 ports detected
-> > [12962.875024] usb 2-1.1: new full-speed USB device number 8 using xhci_hcd
-> > [12962.980977] usb 2-1.1: New USB device found, idVendor=0a12,
-> > idProduct=4007
-> > [12962.980991] usb 2-1.1: New USB device strings: Mfr=1, Product=2,
-> > SerialNumber=5
-> > [12962.981000] usb 2-1.1: Product: BT_002
-> > [12962.981008] usb 2-1.1: Manufacturer: Qualcomm
-> > [12962.981015] usb 2-1.1: SerialNumber: ABC4C25B
-> > [12962.992667] input: Qualcomm BT_002 as
-> > /devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1.1/2-1.1:1.0/0003:0A12:4007.0003/input/input6
-> > [12963.048083] hid-generic 0003:0A12:4007.0003: input,hiddev0,hidraw0: USB
-> > HID v1.11 Device [Qualcomm BT_002] on usb-0000:00:14.0-1.1/input0
-> > [12963.066910] hid-generic 0003:0A12:4007.0004: hiddev0,hidraw1: USB HID
-> > v1.11 Device [Qualcomm BT_002] on usb-0000:00:14.0-1.1/input1
-> >
-> > Same error (arecord: pcm_read:2032: read error: Input/output error)
-> > observed on 4.4, 4.15 and 5.4 kernel version.
->
-> What exact versions of these are you using?
-4.4.0-66-generic
-4.15.0-54-generic
-Ubuntu 20.04
+On 6/8/21 1:22 PM, Pierre-Louis Bossart wrote:
+> 
+>>>   static int snd_byt_cht_es8316_mc_remove(struct platform_device *pdev)
+>>> @@ -617,6 +634,8 @@ static int snd_byt_cht_es8316_mc_remove(struct platform_device *pdev)
+>>>       struct byt_cht_es8316_private *priv = snd_soc_card_get_drvdata(card);
+>>>         gpiod_put(priv->speaker_en_gpio);
+>>> +    device_remove_software_node(priv->codec_dev);
+>>
+>> This is a problem, nothing guarantees codec_dev not going away before
+>> snd_byt_cht_es8316_mc_remove() runs. Although the only thing which I can come up
+>> with where this happens is unbinding the i2c-controller driver I still would like
+>> us to take this scenario into account.
+> 
+> Is this possible really? the codec driver will register a component that's used by the ASoC card, I was assuming that there was some sort of reference count already to prevent this unbinding from happening.
 
->
-> And what about the latest 5.12.y release?
-I don't have this test setup.
+There might very well be some reference count elsewhere, but IMHO if the
+machine-driver is going to keep a pointer to the device around it should
+keep its own reference.
 
+>> I think it would be better to use device_create_managed_software_node() to tie
+>> the lifetime of the swnode to the lifetime of the device, this also removes
+>> the need for all the goto err cases (and introducing a remove function in
+>> the bytcr_rt5640.c case).
+>>
+>> This does mean that we could end up calling device_create_managed_software_node()
+>> on the same device twice, when the machine driver gets unbound + rebound, but
+>> that is an already existing issue with our current device_add_properties() usage.
+>>
+>> We could fix this (in a separate commit since it is an already existing issue)
+>> by adding a PROPERTY_ENTRY_BOOL("cht_es8316,swnode-created") property to the
+>> properties and checking for that being set with
+>> device_property_read_bool(codec, "cht_es8316,swnode-created")
+>>
+>> Or we could move the device_put(codec_dev) to snd_byt_cht_es8316_mc_remove().
+> 
+> that sounds like a better plan if you want to manage explicit dependencies - regardless of how which API is used to manage properties.
 
+Ok, so lets go with that then.
 
->
-> thanks,
->
-> greg k-h
+Regards,
 
+Hans
 
-
--- 
-Thanks,
-Sekhar

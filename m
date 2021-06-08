@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FB339F8CC
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBA0C39F8D0
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:18:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6B31179F;
-	Tue,  8 Jun 2021 16:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6B31179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B327B17A4;
+	Tue,  8 Jun 2021 16:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B327B17A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623161887;
-	bh=t525L66iFX5KrTozwEdzAMDpducLtI1AEoqPusfQljw=;
+	s=default; t=1623161910;
+	bh=reNNxptDXDlVW8mU4pNdY0zevzM8YS38sAP2rEQmLZ8=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CvDZP2c0VTlRXV0dYgfdmVsovPDybnqG0ozGJ/d0FF0WWFZRAjJ3Bl/Z10ZRzsgQ+
-	 QwyI4pgeMbOVaNLIdRIiT1KtfIw0DFeiKOS18nm12TJ35IEe/UZucun3aQYPOgWoNA
-	 0uYd96V4VCdVVZgPvSQswxOvk6Ahbs84zsWbfJ9A=
+	b=mEwtqjEdLDGSzdiYf4xI8VezHgnMw7JSF/vpHpuaKTBKQbCUfV2RiDPCwTV6YYwQm
+	 nayBqzkHmN/nsiOfdRcM5Y0qEz4xg8WCOldQiyk6Hz3R9YdSi62ZzhHP6dTW1AC3FT
+	 bq7HZUjH7b0kcwdn4nnZq674kvCGZAsJS5BJDZII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFDA3F804ED;
-	Tue,  8 Jun 2021 16:06:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C06BF80601;
+	Tue,  8 Jun 2021 16:06:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0434F805E3; Tue,  8 Jun 2021 16:06:37 +0200 (CEST)
+ id BC857F805E4; Tue,  8 Jun 2021 16:06:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71097F804E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F075F804E3
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71097F804E4
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F075F804E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="L6appTKM"; 
+ header.b="buXFu3H3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9cvWwGSb"
+ header.b="99ru0a/T"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A26B01FDEB
+ by smtp-out2.suse.de (Postfix) with ESMTP id B33821FDEC
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1623161144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lo4EFOXWEMemGadDUi2/eZbJvCOOt+fp0emFD82IN1M=;
- b=L6appTKMg+8QO4gT24HPdt8QicCyF1W2e5LSo91RdLoyECBvGzLDFSTdz5B/Kgl8lXFPAD
- zSM+4tOcDIAxnASih0Bu3e6Bm5tRc0jqHY2GeRqrG9c/K431Q+dHvHICd53220a07b30jV
- ZM+CmZYAduChs6C6+oNZCQBzW1RPZwE=
+ bh=DNDT0tcbUPSR1W36/Pg8mtVEfsPRem1XIqnhj/LvOIk=;
+ b=buXFu3H3FuBWJzU2ndSKbdVAmDEBkWWMcjiinc4EKZUdkh6TrttSvBMbKkillqTuMb43nn
+ BDslyaFB4tqnO8w0lrwn1MdeQaKeC3mx4SYPpl9kv0c1F9W6red7dDCWTIKT+VjlDq5Wrt
+ /BkPNBEFeSBn/hql8GOrIZL6I8mGCSo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1623161144;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lo4EFOXWEMemGadDUi2/eZbJvCOOt+fp0emFD82IN1M=;
- b=9cvWwGSb/kRidmhXD2/v47pLgJW0un3goiHvJeBAGKrncM8EJW9fbO7Pi29HlIyOfzN7k1
- +SDJjLPn89hm/qCg==
+ bh=DNDT0tcbUPSR1W36/Pg8mtVEfsPRem1XIqnhj/LvOIk=;
+ b=99ru0a/TcRp7f+YPF5rIlC4fFekf9hzaQBaZZiiv/TaRy9IMscJdN/Ipyy0cOooZ/RQ0Nl
+ tWYNqrcBmmLjocCQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 99EF6A3B84;
+ by relay2.suse.de (Postfix) with ESMTP id A1A30A3B88;
  Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 39/66] ALSA: echoaudio: Fix assignment in if condition
-Date: Tue,  8 Jun 2021 16:05:13 +0200
-Message-Id: <20210608140540.17885-40-tiwai@suse.de>
+Subject: [PATCH 40/66] ALSA: emu10k1: Fix assignment in if condition
+Date: Tue,  8 Jun 2021 16:05:14 +0200
+Message-Id: <20210608140540.17885-41-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210608140540.17885-1-tiwai@suse.de>
 References: <20210608140540.17885-1-tiwai@suse.de>
@@ -91,807 +91,571 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PCI echoaudio drivers contain a few assignments in if condition, which
-is a bad coding style that may confuse readers and occasionally lead
-to bugs.
+PCI EMU10k1 driver code contains a few assignments in if condition,
+which is a bad coding style that may confuse readers and occasionally
+lead to bugs.
 
 This patch is merely for coding-style fixes, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/echoaudio/darla20_dsp.c   |   6 +-
- sound/pci/echoaudio/darla24_dsp.c   |   6 +-
- sound/pci/echoaudio/echo3g_dsp.c    |   3 +-
- sound/pci/echoaudio/echoaudio.c     | 220 ++++++++++++++++------------
- sound/pci/echoaudio/echoaudio_dsp.c |  12 +-
- sound/pci/echoaudio/echoaudio_gml.c |   3 +-
- sound/pci/echoaudio/gina20_dsp.c    |   6 +-
- sound/pci/echoaudio/gina24_dsp.c    |   6 +-
- sound/pci/echoaudio/indigo_dsp.c    |   6 +-
- sound/pci/echoaudio/indigodj_dsp.c  |   6 +-
- sound/pci/echoaudio/indigoio_dsp.c  |   6 +-
- sound/pci/echoaudio/layla20_dsp.c   |   6 +-
- sound/pci/echoaudio/layla24_dsp.c   |   9 +-
- sound/pci/echoaudio/mia_dsp.c       |   6 +-
- sound/pci/echoaudio/midi.c          |   4 +-
- sound/pci/echoaudio/mona_dsp.c      |   6 +-
- 16 files changed, 190 insertions(+), 121 deletions(-)
+ sound/pci/emu10k1/emu10k1.c          | 42 +++++++++------
+ sound/pci/emu10k1/emu10k1_callback.c |  3 +-
+ sound/pci/emu10k1/emufx.c            | 13 +++--
+ sound/pci/emu10k1/emumixer.c         | 78 ++++++++++++++++++----------
+ sound/pci/emu10k1/emumpu401.c        | 12 +++--
+ sound/pci/emu10k1/emupcm.c           | 24 ++++++---
+ sound/pci/emu10k1/memory.c           | 21 +++++---
+ sound/pci/emu10k1/p16v.c             | 13 +++--
+ sound/pci/emu10k1/timer.c            |  3 +-
+ 9 files changed, 138 insertions(+), 71 deletions(-)
 
-diff --git a/sound/pci/echoaudio/darla20_dsp.c b/sound/pci/echoaudio/darla20_dsp.c
-index 320837ba7bab..0356efad7528 100644
---- a/sound/pci/echoaudio/darla20_dsp.c
-+++ b/sound/pci/echoaudio/darla20_dsp.c
-@@ -36,7 +36,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != DARLA20))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw: could not initialize DSP comm page\n");
- 		return err;
-@@ -53,7 +54,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->asic_loaded = true;
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
+diff --git a/sound/pci/emu10k1/emu10k1.c b/sound/pci/emu10k1/emu10k1.c
+index 45833bc2a7e7..887bfb3c1e17 100644
+--- a/sound/pci/emu10k1/emu10k1.c
++++ b/sound/pci/emu10k1/emu10k1.c
+@@ -107,18 +107,22 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 		max_buffer_size[dev] = 32;
+ 	else if (max_buffer_size[dev] > 1024)
+ 		max_buffer_size[dev] = 1024;
+-	if ((err = snd_emu10k1_create(card, pci, extin[dev], extout[dev],
+-				      (long)max_buffer_size[dev] * 1024 * 1024,
+-				      enable_ir[dev], subsystem[dev],
+-				      &emu)) < 0)
++	err = snd_emu10k1_create(card, pci, extin[dev], extout[dev],
++				 (long)max_buffer_size[dev] * 1024 * 1024,
++				 enable_ir[dev], subsystem[dev],
++				 &emu);
 +	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/darla24_dsp.c b/sound/pci/echoaudio/darla24_dsp.c
-index 8736b5e81ca3..b96300772aee 100644
---- a/sound/pci/echoaudio/darla24_dsp.c
-+++ b/sound/pci/echoaudio/darla24_dsp.c
-@@ -36,7 +36,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != DARLA24))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw: could not initialize DSP comm page\n");
- 		return err;
-@@ -52,7 +53,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL |
- 		ECHO_CLOCK_BIT_ESYNC;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
+ 		goto error;
+ 	card->private_data = emu;
+ 	emu->delay_pcm_irq = delay_pcm_irq[dev] & 0x1f;
+-	if ((err = snd_emu10k1_pcm(emu, 0)) < 0)
++	err = snd_emu10k1_pcm(emu, 0);
 +	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/echo3g_dsp.c b/sound/pci/echoaudio/echo3g_dsp.c
-index 6deb80c42f11..9e1f2cad0909 100644
---- a/sound/pci/echoaudio/echo3g_dsp.c
-+++ b/sound/pci/echoaudio/echo3g_dsp.c
-@@ -49,7 +49,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != ECHO3G))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index 9bd67ac33657..a62e5581ad14 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -301,38 +301,42 @@ static int pcm_open(struct snd_pcm_substream *substream,
- 	snd_pcm_set_sync(substream);
- 
- 	/* Only mono and any even number of channels are allowed */
--	if ((err = snd_pcm_hw_constraint_list(runtime, 0,
--					      SNDRV_PCM_HW_PARAM_CHANNELS,
--					      &pipe->constr)) < 0)
-+	err = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_CHANNELS,
-+					 &pipe->constr);
+ 		goto error;
+-	if ((err = snd_emu10k1_pcm_mic(emu, 1)) < 0)
++	err = snd_emu10k1_pcm_mic(emu, 1);
 +	if (err < 0)
- 		return err;
- 
- 	/* All periods should have the same size */
--	if ((err = snd_pcm_hw_constraint_integer(runtime,
--						 SNDRV_PCM_HW_PARAM_PERIODS)) < 0)
-+	err = snd_pcm_hw_constraint_integer(runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
+ 		goto error;
+-	if ((err = snd_emu10k1_pcm_efx(emu, 2)) < 0)
++	err = snd_emu10k1_pcm_efx(emu, 2);
 +	if (err < 0)
- 		return err;
- 
- 	/* The hw accesses memory in chunks 32 frames long and they should be
- 	32-bytes-aligned. It's not a requirement, but it seems that IRQs are
- 	generated with a resolution of 32 frames. Thus we need the following */
--	if ((err = snd_pcm_hw_constraint_step(runtime, 0,
--					      SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
--					      32)) < 0)
-+	err = snd_pcm_hw_constraint_step(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_PERIOD_SIZE, 32);
-+	if (err < 0)
- 		return err;
--	if ((err = snd_pcm_hw_constraint_step(runtime, 0,
--					      SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
--					      32)) < 0)
-+	err = snd_pcm_hw_constraint_step(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_BUFFER_SIZE, 32);
-+	if (err < 0)
- 		return err;
- 
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_RATE,
--					hw_rule_sample_rate, chip,
--				       SNDRV_PCM_HW_PARAM_RATE, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_RATE,
-+				  hw_rule_sample_rate, chip,
-+				  SNDRV_PCM_HW_PARAM_RATE, -1);
-+	if (err < 0)
- 		return err;
- 
- 	/* Allocate a page for the scatter-gather list */
--	if ((err = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV,
--				       &chip->pci->dev,
--				       PAGE_SIZE, &pipe->sgpage)) < 0) {
-+	err = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV,
-+				  &chip->pci->dev,
-+				  PAGE_SIZE, &pipe->sgpage);
-+	if (err < 0) {
- 		dev_err(chip->card->dev, "s-g list allocation failed\n");
- 		return err;
+ 		goto error;
+ 	/* This stores the periods table. */
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */	
+@@ -128,26 +132,33 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 			goto error;
  	}
-@@ -358,18 +362,21 @@ static int pcm_analog_in_open(struct snd_pcm_substream *substream)
- 	struct echoaudio *chip = snd_pcm_substream_chip(substream);
+ 
+-	if ((err = snd_emu10k1_mixer(emu, 0, 3)) < 0)
++	err = snd_emu10k1_mixer(emu, 0, 3);
++	if (err < 0)
+ 		goto error;
+ 	
+-	if ((err = snd_emu10k1_timer(emu, 0)) < 0)
++	err = snd_emu10k1_timer(emu, 0);
++	if (err < 0)
+ 		goto error;
+ 
+-	if ((err = snd_emu10k1_pcm_multi(emu, 3)) < 0)
++	err = snd_emu10k1_pcm_multi(emu, 3);
++	if (err < 0)
+ 		goto error;
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */
+-		if ((err = snd_p16v_pcm(emu, 4)) < 0)
++		err = snd_p16v_pcm(emu, 4);
++		if (err < 0)
+ 			goto error;
+ 	}
+ 	if (emu->audigy) {
+-		if ((err = snd_emu10k1_audigy_midi(emu)) < 0)
++		err = snd_emu10k1_audigy_midi(emu);
++		if (err < 0)
+ 			goto error;
+ 	} else {
+-		if ((err = snd_emu10k1_midi(emu)) < 0)
++		err = snd_emu10k1_midi(emu);
++		if (err < 0)
+ 			goto error;
+ 	}
+-	if ((err = snd_emu10k1_fx8010_new(emu, 0)) < 0)
++	err = snd_emu10k1_fx8010_new(emu, 0);
++	if (err < 0)
+ 		goto error;
+ #ifdef ENABLE_SYNTH
+ 	if (snd_seq_device_new(card, 1, SNDRV_SEQ_DEV_ID_EMU10K1_SYNTH,
+@@ -174,7 +185,8 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 		 "%s (rev.%d, serial:0x%x) at 0x%lx, irq %i",
+ 		 card->shortname, emu->revision, emu->serial, emu->port, emu->irq);
+ 
+-	if ((err = snd_card_register(card)) < 0)
++	err = snd_card_register(card);
++	if (err < 0)
+ 		goto error;
+ 
+ 	if (emu->card_capabilities->emu_model)
+diff --git a/sound/pci/emu10k1/emu10k1_callback.c b/sound/pci/emu10k1/emu10k1_callback.c
+index 07471c3dcbed..dba1e9fc2eec 100644
+--- a/sound/pci/emu10k1/emu10k1_callback.c
++++ b/sound/pci/emu10k1/emu10k1_callback.c
+@@ -90,7 +90,8 @@ snd_emu10k1_synth_get_voice(struct snd_emu10k1 *hw)
+ 		if (best[i].voice >= 0) {
+ 			int ch;
+ 			vp = &emu->voices[best[i].voice];
+-			if ((ch = vp->ch) < 0) {
++			ch = vp->ch;
++			if (ch < 0) {
+ 				/*
+ 				dev_warn(emu->card->dev,
+ 				       "synth_get_voice: ch < 0 (%d) ??", i);
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 80ef62a4a7c0..6cf7c8b1de47 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -436,7 +436,8 @@ int snd_emu10k1_fx8010_unregister_irq_handler(struct snd_emu10k1 *emu,
+ 	unsigned long flags;
+ 	
+ 	spin_lock_irqsave(&emu->fx8010.irq_lock, flags);
+-	if ((tmp = emu->fx8010.irq_handlers) == irq) {
++	tmp = emu->fx8010.irq_handlers;
++	if (tmp == irq) {
+ 		emu->fx8010.irq_handlers = tmp->next;
+ 		if (emu->fx8010.irq_handlers == NULL) {
+ 			snd_emu10k1_intr_disable(emu, INTE_FXDSPENABLE);
+@@ -871,7 +872,9 @@ static int snd_emu10k1_add_controls(struct snd_emu10k1 *emu,
+ 			}
+ 			knew.private_value = (unsigned long)ctl;
+ 			*ctl = *nctl;
+-			if ((err = snd_ctl_add(emu->card, kctl = snd_ctl_new1(&knew, emu))) < 0) {
++			kctl = snd_ctl_new1(&knew, emu);
++			err = snd_ctl_add(emu->card, kctl);
++			if (err < 0) {
+ 				kfree(ctl);
+ 				kfree(knew.tlv.p);
+ 				goto __error;
+@@ -2403,7 +2406,8 @@ static int _snd_emu10k1_init_efx(struct snd_emu10k1 *emu)
+ 	while (ptr < 0x200)
+ 		OP(icode, &ptr, iACC3, C_00000000, C_00000000, C_00000000, C_00000000);
+ 
+-	if ((err = snd_emu10k1_fx8010_tram_setup(emu, ipcm->buffer_size)) < 0)
++	err = snd_emu10k1_fx8010_tram_setup(emu, ipcm->buffer_size);
++	if (err < 0)
+ 		goto __err;
+ 	icode->gpr_add_control_count = i;
+ 	icode->gpr_add_controls = controls;
+@@ -2681,7 +2685,8 @@ int snd_emu10k1_fx8010_new(struct snd_emu10k1 *emu, int device)
+ 	struct snd_hwdep *hw;
  	int err;
- 
--	if ((err = pcm_open(substream, num_analog_busses_in(chip) -
--			    substream->number)) < 0)
-+	err = pcm_open(substream,
-+		       num_analog_busses_in(chip) - substream->number);
+ 	
+-	if ((err = snd_hwdep_new(emu->card, "FX8010", device, &hw)) < 0)
++	err = snd_hwdep_new(emu->card, "FX8010", device, &hw);
 +	if (err < 0)
  		return err;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_CHANNELS,
--				       hw_rule_capture_channels_by_format, NULL,
--				       SNDRV_PCM_HW_PARAM_FORMAT, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS,
-+				  hw_rule_capture_channels_by_format, NULL,
-+				  SNDRV_PCM_HW_PARAM_FORMAT, -1);
-+	if (err < 0)
- 		return err;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_FORMAT,
--				       hw_rule_capture_format_by_channels, NULL,
--				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_FORMAT,
-+				  hw_rule_capture_format_by_channels, NULL,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS, -1);
-+	if (err < 0)
- 		return err;
+ 	strcpy(hw->name, "EMU10K1 (FX8010)");
+ 	hw->iface = SNDRV_HWDEP_IFACE_EMU10K1;
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index 8a6cbe67e29d..e9c0fe3b8446 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -1119,7 +1119,8 @@ static int snd_audigy_spdif_output_rate_put(struct snd_kcontrol *kcontrol,
+ 	reg = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, 0);
+ 	tmp = reg & ~A_SPDIF_RATE_MASK;
+ 	tmp |= val;
+-	if ((change = (tmp != reg)))
++	change = (tmp != reg);
++	if (change)
+ 		snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, 0, tmp);
+ 	spin_unlock_irqrestore(&emu->reg_lock, flags);
+ 	return change;
+@@ -1903,7 +1904,8 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 			.read = snd_emu10k1_ac97_read,
+ 		};
  
- 	return 0;
-@@ -387,19 +394,22 @@ static int pcm_analog_out_open(struct snd_pcm_substream *substream)
- #else
- 	max_channels = num_analog_busses_out(chip);
- #endif
--	if ((err = pcm_open(substream, max_channels - substream->number)) < 0)
-+	err = pcm_open(substream, max_channels - substream->number);
-+	if (err < 0)
- 		return err;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_CHANNELS,
--				       hw_rule_playback_channels_by_format,
--				       NULL,
--				       SNDRV_PCM_HW_PARAM_FORMAT, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS,
-+				  hw_rule_playback_channels_by_format,
-+				  NULL,
-+				  SNDRV_PCM_HW_PARAM_FORMAT, -1);
-+	if (err < 0)
- 		return err;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_FORMAT,
--				       hw_rule_playback_format_by_channels,
--				       NULL,
--				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_FORMAT,
-+				  hw_rule_playback_format_by_channels,
-+				  NULL,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS, -1);
-+	if (err < 0)
- 		return err;
- 
- 	return 0;
-@@ -426,15 +436,17 @@ static int pcm_digital_in_open(struct snd_pcm_substream *substream)
- 	if (err < 0)
- 		goto din_exit;
- 
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_CHANNELS,
--				       hw_rule_capture_channels_by_format, NULL,
--				       SNDRV_PCM_HW_PARAM_FORMAT, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS,
-+				  hw_rule_capture_channels_by_format, NULL,
-+				  SNDRV_PCM_HW_PARAM_FORMAT, -1);
-+	if (err < 0)
- 		goto din_exit;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_FORMAT,
--				       hw_rule_capture_format_by_channels, NULL,
--				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_FORMAT,
-+				  hw_rule_capture_format_by_channels, NULL,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS, -1);
-+	if (err < 0)
- 		goto din_exit;
- 
- din_exit:
-@@ -463,17 +475,19 @@ static int pcm_digital_out_open(struct snd_pcm_substream *substream)
- 	if (err < 0)
- 		goto dout_exit;
- 
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_CHANNELS,
--				       hw_rule_playback_channels_by_format,
--				       NULL, SNDRV_PCM_HW_PARAM_FORMAT,
--				       -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_CHANNELS,
-+				  hw_rule_playback_channels_by_format,
-+				  NULL, SNDRV_PCM_HW_PARAM_FORMAT,
-+				  -1);
-+	if (err < 0)
- 		goto dout_exit;
--	if ((err = snd_pcm_hw_rule_add(substream->runtime, 0,
--				       SNDRV_PCM_HW_PARAM_FORMAT,
--				       hw_rule_playback_format_by_channels,
--				       NULL, SNDRV_PCM_HW_PARAM_CHANNELS,
--				       -1)) < 0)
-+	err = snd_pcm_hw_rule_add(substream->runtime, 0,
-+				  SNDRV_PCM_HW_PARAM_FORMAT,
-+				  hw_rule_playback_format_by_channels,
-+				  NULL, SNDRV_PCM_HW_PARAM_CHANNELS,
-+				  -1);
-+	if (err < 0)
- 		goto dout_exit;
- 
- dout_exit:
-@@ -907,8 +921,9 @@ static int snd_echo_new_pcm(struct echoaudio *chip)
- 	separated */
- 
- 	/* PCM#0 Virtual outputs and analog inputs */
--	if ((err = snd_pcm_new(chip->card, "PCM", 0, num_pipes_out(chip),
--				num_analog_busses_in(chip), &pcm)) < 0)
-+	err = snd_pcm_new(chip->card, "PCM", 0, num_pipes_out(chip),
-+			  num_analog_busses_in(chip), &pcm);
-+	if (err < 0)
- 		return err;
- 	pcm->private_data = chip;
- 	chip->analog_pcm = pcm;
-@@ -919,8 +934,9 @@ static int snd_echo_new_pcm(struct echoaudio *chip)
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IO
- 	/* PCM#1 Digital inputs, no outputs */
--	if ((err = snd_pcm_new(chip->card, "Digital PCM", 1, 0,
--			       num_digital_busses_in(chip), &pcm)) < 0)
-+	err = snd_pcm_new(chip->card, "Digital PCM", 1, 0,
-+			  num_digital_busses_in(chip), &pcm);
-+	if (err < 0)
- 		return err;
- 	pcm->private_data = chip;
- 	chip->digital_pcm = pcm;
-@@ -937,9 +953,10 @@ static int snd_echo_new_pcm(struct echoaudio *chip)
- 	register two PCM devices: */
- 
- 	/* PCM#0 Analog i/o */
--	if ((err = snd_pcm_new(chip->card, "Analog PCM", 0,
--			       num_analog_busses_out(chip),
--			       num_analog_busses_in(chip), &pcm)) < 0)
-+	err = snd_pcm_new(chip->card, "Analog PCM", 0,
-+			  num_analog_busses_out(chip),
-+			  num_analog_busses_in(chip), &pcm);
-+	if (err < 0)
- 		return err;
- 	pcm->private_data = chip;
- 	chip->analog_pcm = pcm;
-@@ -950,9 +967,10 @@ static int snd_echo_new_pcm(struct echoaudio *chip)
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IO
- 	/* PCM#1 Digital i/o */
--	if ((err = snd_pcm_new(chip->card, "Digital PCM", 1,
--			       num_digital_busses_out(chip),
--			       num_digital_busses_in(chip), &pcm)) < 0)
-+	err = snd_pcm_new(chip->card, "Digital PCM", 1,
-+			  num_digital_busses_out(chip),
-+			  num_digital_busses_in(chip), &pcm);
-+	if (err < 0)
- 		return err;
- 	pcm->private_data = chip;
- 	chip->digital_pcm = pcm;
-@@ -1567,7 +1585,8 @@ static int snd_echo_clock_source_put(struct snd_kcontrol *kcontrol,
- 	if (chip->input_clock != dclock) {
- 		mutex_lock(&chip->mode_mutex);
- 		spin_lock_irq(&chip->lock);
--		if ((changed = set_input_clock(chip, dclock)) == 0)
-+		changed = set_input_clock(chip, dclock);
-+		if (!changed)
- 			changed = 1;	/* no errors */
- 		spin_unlock_irq(&chip->lock);
- 		mutex_unlock(&chip->mode_mutex);
-@@ -1911,7 +1930,8 @@ static int snd_echo_create(struct snd_card *card,
- 
- 	pci_write_config_byte(pci, PCI_LATENCY_TIMER, 0xC0);
- 
--	if ((err = pci_enable_device(pci)) < 0)
-+	err = pci_enable_device(pci);
-+	if (err < 0)
- 		return err;
- 	pci_set_master(pci);
- 
-@@ -1943,8 +1963,9 @@ static int snd_echo_create(struct snd_card *card,
- 	if (sz > PAGE_SIZE)
- 		sz = PAGE_SIZE;		/* We map only the required part */
- 
--	if ((chip->iores = request_mem_region(chip->dsp_registers_phys, sz,
--					      ECHOCARD_NAME)) == NULL) {
-+	chip->iores = request_mem_region(chip->dsp_registers_phys, sz,
-+					 ECHOCARD_NAME);
-+	if (!chip->iores) {
- 		dev_err(chip->card->dev, "cannot get memory region\n");
- 		snd_echo_free(chip);
- 		return -EBUSY;
-@@ -1988,7 +2009,8 @@ static int snd_echo_create(struct snd_card *card,
- 		return err;
- 	}
- 
--	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops)) < 0) {
-+	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
-+	if (err < 0) {
- 		snd_echo_free(chip);
- 		return err;
- 	}
-@@ -2024,7 +2046,8 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		return err;
- 
- 	chip = NULL;	/* Tells snd_echo_create to allocate chip */
--	if ((err = snd_echo_create(card, pci, &chip)) < 0) {
-+	err = snd_echo_create(card, pci, &chip);
-+	if (err < 0) {
- 		snd_card_free(card);
- 		return err;
- 	}
-@@ -2040,7 +2063,8 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		card->shortname, pci_id->subdevice & 0x000f, dsp,
- 		chip->dsp_registers_phys, chip->irq);
- 
--	if ((err = snd_echo_new_pcm(chip)) < 0) {
-+	err = snd_echo_new_pcm(chip);
-+	if (err < 0) {
- 		dev_err(chip->card->dev, "new pcm error %d\n", err);
- 		snd_card_free(card);
- 		return err;
-@@ -2048,7 +2072,8 @@ static int snd_echo_probe(struct pci_dev *pci,
- 
- #ifdef ECHOCARD_HAS_MIDI
- 	if (chip->has_midi) {	/* Some Mia's do not have midi */
--		if ((err = snd_echo_midi_create(card, chip)) < 0) {
-+		err = snd_echo_midi_create(card, chip);
-+		if (err < 0) {
- 			dev_err(chip->card->dev, "new midi error %d\n", err);
- 			snd_card_free(card);
+-		if ((err = snd_ac97_bus(emu->card, 0, &ops, NULL, &pbus)) < 0)
++		err = snd_ac97_bus(emu->card, 0, &ops, NULL, &pbus);
++		if (err < 0)
  			return err;
-@@ -2058,7 +2083,8 @@ static int snd_echo_probe(struct pci_dev *pci,
- 
- #ifdef ECHOCARD_HAS_VMIXER
- 	snd_echo_vmixer.count = num_pipes_out(chip) * num_busses_out(chip);
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vmixer, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vmixer, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #ifdef ECHOCARD_HAS_LINE_OUT_GAIN
- 	err = snd_ctl_add(chip->card,
-@@ -2074,39 +2100,48 @@ static int snd_echo_probe(struct pci_dev *pci,
- #endif /* ECHOCARD_HAS_VMIXER */
- 
- #ifdef ECHOCARD_HAS_INPUT_GAIN
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_line_input_gain, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_line_input_gain, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif
- 
- #ifdef ECHOCARD_HAS_INPUT_NOMINAL_LEVEL
--	if (!chip->hasnt_input_nominal_level)
--		if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_intput_nominal_level, chip))) < 0)
-+	if (!chip->hasnt_input_nominal_level) {
-+		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_intput_nominal_level, chip));
-+		if (err < 0)
- 			goto ctl_error;
-+	}
- #endif
- 
- #ifdef ECHOCARD_HAS_OUTPUT_NOMINAL_LEVEL
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_output_nominal_level, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_output_nominal_level, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif
- 
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters_switch, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters_switch, chip));
-+	if (err < 0)
- 		goto ctl_error;
- 
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters, chip));
-+	if (err < 0)
- 		goto ctl_error;
- 
- #ifdef ECHOCARD_HAS_MONITOR
- 	snd_echo_monitor_mixer.count = num_busses_in(chip) * num_busses_out(chip);
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_monitor_mixer, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_monitor_mixer, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IN_AUTOMUTE
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_automute_switch, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_automute_switch, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif
- 
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_channels_info, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_channels_info, chip));
-+	if (err < 0)
- 		goto ctl_error;
- 
- #ifdef ECHOCARD_HAS_DIGITAL_MODE_SWITCH
-@@ -2116,7 +2151,8 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		if (chip->digital_modes & (1 << i))
- 			chip->digital_mode_list[chip->num_digital_modes++] = i;
- 
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_digital_mode_switch, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_digital_mode_switch, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif /* ECHOCARD_HAS_DIGITAL_MODE_SWITCH */
- 
-@@ -2129,20 +2165,24 @@ static int snd_echo_probe(struct pci_dev *pci,
- 
- 	if (chip->num_clock_sources > 1) {
- 		chip->clock_src_ctl = snd_ctl_new1(&snd_echo_clock_source_switch, chip);
--		if ((err = snd_ctl_add(chip->card, chip->clock_src_ctl)) < 0)
-+		err = snd_ctl_add(chip->card, chip->clock_src_ctl);
-+		if (err < 0)
- 			goto ctl_error;
+ 		pbus->no_vra = 1; /* we don't need VRA */
+ 		
+@@ -1911,7 +1913,8 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 		ac97.private_data = emu;
+ 		ac97.private_free = snd_emu10k1_mixer_free_ac97;
+ 		ac97.scaps = AC97_SCAP_NO_SPDIF;
+-		if ((err = snd_ac97_mixer(pbus, &ac97, &emu->ac97)) < 0) {
++		err = snd_ac97_mixer(pbus, &ac97, &emu->ac97);
++		if (err < 0) {
+ 			if (emu->card_capabilities->ac97_chip == 1)
+ 				return err;
+ 			dev_info(emu->card->dev,
+@@ -1991,38 +1994,50 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 		rename_ctl(card, "Aux2 Capture Volume", "Line3 Capture Volume");
+ 		rename_ctl(card, "Mic Capture Volume", "Unknown1 Capture Volume");
  	}
- #endif /* ECHOCARD_HAS_EXTERNAL_CLOCK */
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IO
--	if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_spdif_mode_switch, chip))) < 0)
-+	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_spdif_mode_switch, chip));
-+	if (err < 0)
- 		goto ctl_error;
- #endif
- 
- #ifdef ECHOCARD_HAS_PHANTOM_POWER
--	if (chip->has_phantom_power)
--		if ((err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_phantom_power_switch, chip))) < 0)
-+	if (chip->has_phantom_power) {
-+		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_phantom_power_switch, chip));
-+		if (err < 0)
- 			goto ctl_error;
-+	}
- #endif
- 
- 	err = snd_card_register(card);
-diff --git a/sound/pci/echoaudio/echoaudio_dsp.c b/sound/pci/echoaudio/echoaudio_dsp.c
-index d10d0e460f0b..2a40091d472c 100644
---- a/sound/pci/echoaudio/echoaudio_dsp.c
-+++ b/sound/pci/echoaudio/echoaudio_dsp.c
-@@ -349,7 +349,8 @@ static int load_dsp(struct echoaudio *chip, u16 *code)
- 
- 	/* If this board requires a resident loader, install it. */
- #ifdef DSP_56361
--	if ((i = install_resident_loader(chip)) < 0)
-+	i = install_resident_loader(chip);
-+	if (i < 0)
- 		return i;
- #endif
- 
-@@ -495,7 +496,8 @@ static int load_firmware(struct echoaudio *chip)
- 
- 	/* See if the ASIC is present and working - only if the DSP is already loaded */
- 	if (chip->dsp_code) {
--		if ((box_type = check_asic_status(chip)) >= 0)
-+		box_type = check_asic_status(chip);
-+		if (box_type >= 0)
- 			return box_type;
- 		/* ASIC check failed; force the DSP to reload */
- 		chip->dsp_code = NULL;
-@@ -509,7 +511,8 @@ static int load_firmware(struct echoaudio *chip)
- 	if (err < 0)
- 		return err;
- 
--	if ((box_type = load_asic(chip)) < 0)
-+	box_type = load_asic(chip);
-+	if (box_type < 0)
- 		return box_type;	/* error */
- 
- 	return box_type;
-@@ -667,7 +670,8 @@ static int restore_dsp_rettings(struct echoaudio *chip)
- {
- 	int i, o, err;
- 
--	if ((err = check_asic_status(chip)) < 0)
-+	err = check_asic_status(chip);
-+	if (err < 0)
- 		return err;
- 
- 	/* Gina20/Darla20 only. Should be harmless for other cards. */
-diff --git a/sound/pci/echoaudio/echoaudio_gml.c b/sound/pci/echoaudio/echoaudio_gml.c
-index eea6fe530ab4..248983fa2959 100644
---- a/sound/pci/echoaudio/echoaudio_gml.c
-+++ b/sound/pci/echoaudio/echoaudio_gml.c
-@@ -194,7 +194,8 @@ static int set_professional_spdif(struct echoaudio *chip, char prof)
- 		}
- 	}
- 
--	if ((err = write_control_reg(chip, control_reg, false)))
-+	err = write_control_reg(chip, control_reg, false);
+-	if ((kctl = emu->ctl_send_routing = snd_ctl_new1(&snd_emu10k1_send_routing_control, emu)) == NULL)
++	kctl = emu->ctl_send_routing = snd_ctl_new1(&snd_emu10k1_send_routing_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = pcm_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
 +	if (err)
  		return err;
- 	chip->professional_spdif = prof;
- 	dev_dbg(chip->card->dev, "set_professional_spdif to %s\n",
-diff --git a/sound/pci/echoaudio/gina20_dsp.c b/sound/pci/echoaudio/gina20_dsp.c
-index b2377573de09..c93939850357 100644
---- a/sound/pci/echoaudio/gina20_dsp.c
-+++ b/sound/pci/echoaudio/gina20_dsp.c
-@@ -40,7 +40,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != GINA20))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
+-	if ((kctl = emu->ctl_send_volume = snd_ctl_new1(&snd_emu10k1_send_volume_control, emu)) == NULL)
++	kctl = emu->ctl_send_volume = snd_ctl_new1(&snd_emu10k1_send_volume_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = pcm_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
++	if (err)
  		return err;
-@@ -58,7 +59,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL |
- 		ECHO_CLOCK_BIT_SPDIF;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
+-	if ((kctl = emu->ctl_attn = snd_ctl_new1(&snd_emu10k1_attn_control, emu)) == NULL)
++	kctl = emu->ctl_attn = snd_ctl_new1(&snd_emu10k1_attn_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = pcm_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
++	if (err)
  		return err;
- 	chip->bad_board = false;
  
-diff --git a/sound/pci/echoaudio/gina24_dsp.c b/sound/pci/echoaudio/gina24_dsp.c
-index 8eff2b4f5ceb..56e9d1b9b330 100644
---- a/sound/pci/echoaudio/gina24_dsp.c
-+++ b/sound/pci/echoaudio/gina24_dsp.c
-@@ -44,7 +44,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != GINA24))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
+-	if ((kctl = emu->ctl_efx_send_routing = snd_ctl_new1(&snd_emu10k1_efx_send_routing_control, emu)) == NULL)
++	kctl = emu->ctl_efx_send_routing = snd_ctl_new1(&snd_emu10k1_efx_send_routing_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = multi_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
++	if (err)
  		return err;
-@@ -74,7 +75,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 			ECHOCAPS_HAS_DIGITAL_MODE_SPDIF_CDROM;
+ 	
+-	if ((kctl = emu->ctl_efx_send_volume = snd_ctl_new1(&snd_emu10k1_efx_send_volume_control, emu)) == NULL)
++	kctl = emu->ctl_efx_send_volume = snd_ctl_new1(&snd_emu10k1_efx_send_volume_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = multi_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
++	if (err)
+ 		return err;
+ 	
+-	if ((kctl = emu->ctl_efx_attn = snd_ctl_new1(&snd_emu10k1_efx_attn_control, emu)) == NULL)
++	kctl = emu->ctl_efx_attn = snd_ctl_new1(&snd_emu10k1_efx_attn_control, emu);
++	if (!kctl)
+ 		return -ENOMEM;
+ 	kctl->id.device = multi_device;
+-	if ((err = snd_ctl_add(card, kctl)))
++	err = snd_ctl_add(card, kctl);
++	if (err)
+ 		return err;
+ 
+ 	/* initialize the routing and volume table for each pcm playback stream */
+@@ -2069,42 +2084,53 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 	
+ 	if (! emu->card_capabilities->ecard) { /* FIXME: APS has these controls? */
+ 		/* sb live! and audigy */
+-		if ((kctl = snd_ctl_new1(&snd_emu10k1_spdif_mask_control, emu)) == NULL)
++		kctl = snd_ctl_new1(&snd_emu10k1_spdif_mask_control, emu);
++		if (!kctl)
+ 			return -ENOMEM;
+ 		if (!emu->audigy)
+ 			kctl->id.device = emu->pcm_efx->device;
+-		if ((err = snd_ctl_add(card, kctl)))
++		err = snd_ctl_add(card, kctl);
++		if (err)
+ 			return err;
+-		if ((kctl = snd_ctl_new1(&snd_emu10k1_spdif_control, emu)) == NULL)
++		kctl = snd_ctl_new1(&snd_emu10k1_spdif_control, emu);
++		if (!kctl)
+ 			return -ENOMEM;
+ 		if (!emu->audigy)
+ 			kctl->id.device = emu->pcm_efx->device;
+-		if ((err = snd_ctl_add(card, kctl)))
++		err = snd_ctl_add(card, kctl);
++		if (err)
+ 			return err;
  	}
  
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
+ 	if (emu->card_capabilities->emu_model) {
+ 		;  /* Disable the snd_audigy_spdif_shared_spdif */
+ 	} else if (emu->audigy) {
+-		if ((kctl = snd_ctl_new1(&snd_audigy_shared_spdif, emu)) == NULL)
++		kctl = snd_ctl_new1(&snd_audigy_shared_spdif, emu);
++		if (!kctl)
+ 			return -ENOMEM;
+-		if ((err = snd_ctl_add(card, kctl)))
++		err = snd_ctl_add(card, kctl);
++		if (err)
+ 			return err;
+ #if 0
+-		if ((kctl = snd_ctl_new1(&snd_audigy_spdif_output_rate, emu)) == NULL)
++		kctl = snd_ctl_new1(&snd_audigy_spdif_output_rate, emu);
++		if (!kctl)
+ 			return -ENOMEM;
+-		if ((err = snd_ctl_add(card, kctl)))
++		err = snd_ctl_add(card, kctl);
++		if (err)
+ 			return err;
+ #endif
+ 	} else if (! emu->card_capabilities->ecard) {
+ 		/* sb live! */
+-		if ((kctl = snd_ctl_new1(&snd_emu10k1_shared_spdif, emu)) == NULL)
++		kctl = snd_ctl_new1(&snd_emu10k1_shared_spdif, emu);
++		if (!kctl)
+ 			return -ENOMEM;
+-		if ((err = snd_ctl_add(card, kctl)))
++		err = snd_ctl_add(card, kctl);
++		if (err)
+ 			return err;
+ 	}
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */
+-		if ((err = snd_p16v_mixer(emu)))
++		err = snd_p16v_mixer(emu);
++		if (err)
+ 			return err;
+ 	}
  
-diff --git a/sound/pci/echoaudio/indigo_dsp.c b/sound/pci/echoaudio/indigo_dsp.c
-index c97dc83bbbdf..16eb082df56a 100644
---- a/sound/pci/echoaudio/indigo_dsp.c
-+++ b/sound/pci/echoaudio/indigo_dsp.c
-@@ -41,7 +41,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != INDIGO))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -56,7 +57,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->asic_loaded = true;
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/indigodj_dsp.c b/sound/pci/echoaudio/indigodj_dsp.c
-index 2428b35f45d6..17a1d888d0b9 100644
---- a/sound/pci/echoaudio/indigodj_dsp.c
-+++ b/sound/pci/echoaudio/indigodj_dsp.c
-@@ -41,7 +41,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != INDIGO_DJ))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -56,7 +57,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->asic_loaded = true;
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/indigoio_dsp.c b/sound/pci/echoaudio/indigoio_dsp.c
-index 79b68ba70936..791787aa0744 100644
---- a/sound/pci/echoaudio/indigoio_dsp.c
-+++ b/sound/pci/echoaudio/indigoio_dsp.c
-@@ -41,7 +41,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != INDIGO_IO))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -56,7 +57,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->asic_loaded = true;
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/layla20_dsp.c b/sound/pci/echoaudio/layla20_dsp.c
-index 5e5b6e288a2d..5fb5c4a4598b 100644
---- a/sound/pci/echoaudio/layla20_dsp.c
-+++ b/sound/pci/echoaudio/layla20_dsp.c
-@@ -43,7 +43,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != LAYLA20))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -60,7 +61,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->output_clock_types =
- 		ECHO_CLOCK_BIT_WORD | ECHO_CLOCK_BIT_SUPER;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/layla24_dsp.c b/sound/pci/echoaudio/layla24_dsp.c
-index c02bc1dcc170..ef27805d63f6 100644
---- a/sound/pci/echoaudio/layla24_dsp.c
-+++ b/sound/pci/echoaudio/layla24_dsp.c
-@@ -43,7 +43,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != LAYLA24))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -62,11 +63,13 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 		ECHOCAPS_HAS_DIGITAL_MODE_SPDIF_OPTICAL |
- 		ECHOCAPS_HAS_DIGITAL_MODE_ADAT;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
--	if ((err = init_line_levels(chip)) < 0)
-+	err = init_line_levels(chip);
-+	if (err < 0)
- 		return err;
- 
- 	return err;
-diff --git a/sound/pci/echoaudio/mia_dsp.c b/sound/pci/echoaudio/mia_dsp.c
-index 8f612a09c5d0..8a4dffc68889 100644
---- a/sound/pci/echoaudio/mia_dsp.c
-+++ b/sound/pci/echoaudio/mia_dsp.c
-@@ -44,7 +44,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != MIA))
- 		return -ENODEV;
- 
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -62,7 +63,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	chip->input_clock_types = ECHO_CLOCK_BIT_INTERNAL |
- 		ECHO_CLOCK_BIT_SPDIF;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
-+	if (err < 0)
- 		return err;
- 	chip->bad_board = false;
- 
-diff --git a/sound/pci/echoaudio/midi.c b/sound/pci/echoaudio/midi.c
-index 6045a115cffe..cb72d27e809e 100644
---- a/sound/pci/echoaudio/midi.c
-+++ b/sound/pci/echoaudio/midi.c
-@@ -308,8 +308,8 @@ static int snd_echo_midi_create(struct snd_card *card,
- {
+diff --git a/sound/pci/emu10k1/emumpu401.c b/sound/pci/emu10k1/emumpu401.c
+index b62c95150702..3ce9b2129ce6 100644
+--- a/sound/pci/emu10k1/emumpu401.c
++++ b/sound/pci/emu10k1/emumpu401.c
+@@ -319,7 +319,8 @@ static int emu10k1_midi_init(struct snd_emu10k1 *emu, struct snd_emu10k1_midi *m
+ 	struct snd_rawmidi *rmidi;
  	int err;
  
--	if ((err = snd_rawmidi_new(card, card->shortname, 0, 1, 1,
--				   &chip->rmidi)) < 0)
-+	err = snd_rawmidi_new(card, card->shortname, 0, 1, 1, &chip->rmidi);
+-	if ((err = snd_rawmidi_new(emu->card, name, device, 1, 1, &rmidi)) < 0)
++	err = snd_rawmidi_new(emu->card, name, device, 1, 1, &rmidi);
++	if (err < 0)
+ 		return err;
+ 	midi->emu = emu;
+ 	spin_lock_init(&midi->open_lock);
+@@ -342,7 +343,8 @@ int snd_emu10k1_midi(struct snd_emu10k1 *emu)
+ 	struct snd_emu10k1_midi *midi = &emu->midi;
+ 	int err;
+ 
+-	if ((err = emu10k1_midi_init(emu, midi, 0, "EMU10K1 MPU-401 (UART)")) < 0)
++	err = emu10k1_midi_init(emu, midi, 0, "EMU10K1 MPU-401 (UART)");
 +	if (err < 0)
  		return err;
  
- 	strcpy(chip->rmidi->name, card->shortname);
-diff --git a/sound/pci/echoaudio/mona_dsp.c b/sound/pci/echoaudio/mona_dsp.c
-index f77db83dd73d..f8e7bb6ce040 100644
---- a/sound/pci/echoaudio/mona_dsp.c
-+++ b/sound/pci/echoaudio/mona_dsp.c
-@@ -44,7 +44,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	if (snd_BUG_ON((subdevice_id & 0xfff0) != MONA))
- 		return -ENODEV;
+ 	midi->tx_enable = INTE_MIDITXENABLE;
+@@ -360,7 +362,8 @@ int snd_emu10k1_audigy_midi(struct snd_emu10k1 *emu)
+ 	int err;
  
--	if ((err = init_dsp_comm_page(chip))) {
-+	err = init_dsp_comm_page(chip);
-+	if (err) {
- 		dev_err(chip->card->dev,
- 			"init_hw - could not initialize DSP comm page\n");
- 		return err;
-@@ -67,7 +68,8 @@ static int init_hw(struct echoaudio *chip, u16 device_id, u16 subdevice_id)
- 	else
- 		chip->dsp_code_to_load = FW_MONA_301_DSP;
- 
--	if ((err = load_firmware(chip)) < 0)
-+	err = load_firmware(chip);
+ 	midi = &emu->midi;
+-	if ((err = emu10k1_midi_init(emu, midi, 0, "Audigy MPU-401 (UART)")) < 0)
++	err = emu10k1_midi_init(emu, midi, 0, "Audigy MPU-401 (UART)");
 +	if (err < 0)
  		return err;
- 	chip->bad_board = false;
  
+ 	midi->tx_enable = INTE_MIDITXENABLE;
+@@ -371,7 +374,8 @@ int snd_emu10k1_audigy_midi(struct snd_emu10k1 *emu)
+ 	midi->interrupt = snd_emu10k1_midi_interrupt;
+ 
+ 	midi = &emu->midi2;
+-	if ((err = emu10k1_midi_init(emu, midi, 1, "Audigy MPU-401 #2")) < 0)
++	err = emu10k1_midi_init(emu, midi, 1, "Audigy MPU-401 #2");
++	if (err < 0)
+ 		return err;
+ 
+ 	midi->tx_enable = INTE_A_MIDITXENABLE2;
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index b2ddabb99438..b2701a4452d8 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -25,7 +25,8 @@ static void snd_emu10k1_pcm_interrupt(struct snd_emu10k1 *emu,
+ {
+ 	struct snd_emu10k1_pcm *epcm;
+ 
+-	if ((epcm = voice->epcm) == NULL)
++	epcm = voice->epcm;
++	if (!epcm)
+ 		return;
+ 	if (epcm->substream == NULL)
+ 		return;
+@@ -399,7 +400,8 @@ static int snd_emu10k1_playback_hw_params(struct snd_pcm_substream *substream,
+ 	size_t alloc_size;
+ 	int err;
+ 
+-	if ((err = snd_emu10k1_pcm_channel_alloc(epcm, params_channels(hw_params))) < 0)
++	err = snd_emu10k1_pcm_channel_alloc(epcm, params_channels(hw_params));
++	if (err < 0)
+ 		return err;
+ 
+ 	alloc_size = params_buffer_bytes(hw_params);
+@@ -1124,11 +1126,13 @@ static int snd_emu10k1_playback_open(struct snd_pcm_substream *substream)
+ 	runtime->private_data = epcm;
+ 	runtime->private_free = snd_emu10k1_pcm_free_substream;
+ 	runtime->hw = snd_emu10k1_playback;
+-	if ((err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS)) < 0) {
++	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
++	if (err < 0) {
+ 		kfree(epcm);
+ 		return err;
+ 	}
+-	if ((err = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 256, UINT_MAX)) < 0) {
++	err = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 256, UINT_MAX);
++	if (err < 0) {
+ 		kfree(epcm);
+ 		return err;
+ 	}
+@@ -1380,7 +1384,8 @@ int snd_emu10k1_pcm(struct snd_emu10k1 *emu, int device)
+ 	struct snd_pcm_substream *substream;
+ 	int err;
+ 
+-	if ((err = snd_pcm_new(emu->card, "emu10k1", device, 32, 1, &pcm)) < 0)
++	err = snd_pcm_new(emu->card, "emu10k1", device, 32, 1, &pcm);
++	if (err < 0)
+ 		return err;
+ 
+ 	pcm->private_data = emu;
+@@ -1412,7 +1417,8 @@ int snd_emu10k1_pcm_multi(struct snd_emu10k1 *emu, int device)
+ 	struct snd_pcm_substream *substream;
+ 	int err;
+ 
+-	if ((err = snd_pcm_new(emu->card, "emu10k1", device, 1, 0, &pcm)) < 0)
++	err = snd_pcm_new(emu->card, "emu10k1", device, 1, 0, &pcm);
++	if (err < 0)
+ 		return err;
+ 
+ 	pcm->private_data = emu;
+@@ -1446,7 +1452,8 @@ int snd_emu10k1_pcm_mic(struct snd_emu10k1 *emu, int device)
+ 	struct snd_pcm *pcm;
+ 	int err;
+ 
+-	if ((err = snd_pcm_new(emu->card, "emu10k1 mic", device, 0, 1, &pcm)) < 0)
++	err = snd_pcm_new(emu->card, "emu10k1 mic", device, 0, 1, &pcm);
++	if (err < 0)
+ 		return err;
+ 
+ 	pcm->private_data = emu;
+@@ -1774,7 +1781,8 @@ int snd_emu10k1_pcm_efx(struct snd_emu10k1 *emu, int device)
+ 	struct snd_kcontrol *kctl;
+ 	int err;
+ 
+-	if ((err = snd_pcm_new(emu->card, "emu10k1 efx", device, 8, 1, &pcm)) < 0)
++	err = snd_pcm_new(emu->card, "emu10k1 efx", device, 8, 1, &pcm);
++	if (err < 0)
+ 		return err;
+ 
+ 	pcm->private_data = emu;
+diff --git a/sound/pci/emu10k1/memory.c b/sound/pci/emu10k1/memory.c
+index 288e0fd2e47d..9d26535f3fa3 100644
+--- a/sound/pci/emu10k1/memory.c
++++ b/sound/pci/emu10k1/memory.c
+@@ -169,16 +169,20 @@ static int unmap_memblk(struct snd_emu10k1 *emu, struct snd_emu10k1_memblk *blk)
+ 	struct snd_emu10k1_memblk *q;
+ 
+ 	/* calculate the expected size of empty region */
+-	if ((p = blk->mapped_link.prev) != &emu->mapped_link_head) {
++	p = blk->mapped_link.prev;
++	if (p != &emu->mapped_link_head) {
+ 		q = get_emu10k1_memblk(p, mapped_link);
+ 		start_page = q->mapped_page + q->pages;
+-	} else
++	} else {
+ 		start_page = 1;
+-	if ((p = blk->mapped_link.next) != &emu->mapped_link_head) {
++	}
++	p = blk->mapped_link.next;
++	if (p != &emu->mapped_link_head) {
+ 		q = get_emu10k1_memblk(p, mapped_link);
+ 		end_page = q->mapped_page;
+-	} else
++	} else {
+ 		end_page = (emu->address_mode ? MAX_ALIGN_PAGES1 : MAX_ALIGN_PAGES0);
++	}
+ 
+ 	/* remove links */
+ 	list_del(&blk->mapped_link);
+@@ -267,7 +271,8 @@ int snd_emu10k1_memblk_map(struct snd_emu10k1 *emu, struct snd_emu10k1_memblk *b
+ 		spin_unlock_irqrestore(&emu->memblk_lock, flags);
+ 		return 0;
+ 	}
+-	if ((err = map_memblk(emu, blk)) < 0) {
++	err = map_memblk(emu, blk);
++	if (err < 0) {
+ 		/* no enough page - try to unmap some blocks */
+ 		/* starting from the oldest block */
+ 		p = emu->mapped_order_link_head.next;
+@@ -454,13 +459,15 @@ static void get_single_page_range(struct snd_util_memhdr *hdr,
+ 	struct snd_emu10k1_memblk *q;
+ 	int first_page, last_page;
+ 	first_page = blk->first_page;
+-	if ((p = blk->mem.list.prev) != &hdr->block) {
++	p = blk->mem.list.prev;
++	if (p != &hdr->block) {
+ 		q = get_emu10k1_memblk(p, mem.list);
+ 		if (q->last_page == first_page)
+ 			first_page++;  /* first page was already allocated */
+ 	}
+ 	last_page = blk->last_page;
+-	if ((p = blk->mem.list.next) != &hdr->block) {
++	p = blk->mem.list.next;
++	if (p != &hdr->block) {
+ 		q = get_emu10k1_memblk(p, mem.list);
+ 		if (q->first_page == last_page)
+ 			last_page--; /* last page was already allocated */
+diff --git a/sound/pci/emu10k1/p16v.c b/sound/pci/emu10k1/p16v.c
+index 1099f102b365..ff2a3974c824 100644
+--- a/sound/pci/emu10k1/p16v.c
++++ b/sound/pci/emu10k1/p16v.c
+@@ -194,7 +194,8 @@ static int snd_p16v_pcm_open_playback_channel(struct snd_pcm_substream *substrea
+ #endif /* debug */
+ 	/* channel->interrupt = snd_p16v_pcm_channel_interrupt; */
+ 	channel->epcm = epcm;
+-	if ((err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS)) < 0)
++	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
++	if (err < 0)
+                 return err;
+ 
+ 	runtime->sync.id32[0] = substream->pcm->card->number;
+@@ -242,7 +243,8 @@ static int snd_p16v_pcm_open_capture_channel(struct snd_pcm_substream *substream
+ #endif /* debug */
+ 	/* channel->interrupt = snd_p16v_pcm_channel_interrupt; */
+ 	channel->epcm = epcm;
+-	if ((err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS)) < 0)
++	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
++	if (err < 0)
+ 		return err;
+ 
+ 	return 0;
+@@ -589,7 +591,8 @@ int snd_p16v_pcm(struct snd_emu10k1 *emu, int device)
+ 	/* dev_dbg(emu->card->dev, "snd_p16v_pcm called. device=%d\n", device); */
+ 	emu->p16v_device_offset = device;
+ 
+-	if ((err = snd_pcm_new(emu->card, "p16v", device, 1, capture, &pcm)) < 0)
++	err = snd_pcm_new(emu->card, "p16v", device, 1, capture, &pcm);
++	if (err < 0)
+ 		return err;
+   
+ 	pcm->private_data = emu;
+@@ -808,8 +811,8 @@ int snd_p16v_mixer(struct snd_emu10k1 *emu)
+         struct snd_card *card = emu->card;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(p16v_mixer_controls); i++) {
+-		if ((err = snd_ctl_add(card, snd_ctl_new1(&p16v_mixer_controls[i],
+-							  emu))) < 0)
++		err = snd_ctl_add(card, snd_ctl_new1(&p16v_mixer_controls[i], emu));
++		if (err < 0)
+ 			return err;
+ 	}
+         return 0;
+diff --git a/sound/pci/emu10k1/timer.c b/sound/pci/emu10k1/timer.c
+index c2803000aace..2435d3ba68f7 100644
+--- a/sound/pci/emu10k1/timer.c
++++ b/sound/pci/emu10k1/timer.c
+@@ -72,7 +72,8 @@ int snd_emu10k1_timer(struct snd_emu10k1 *emu, int device)
+ 	tid.card = emu->card->number;
+ 	tid.device = device;
+ 	tid.subdevice = 0;
+-	if ((err = snd_timer_new(emu->card, "EMU10K1", &tid, &timer)) >= 0) {
++	err = snd_timer_new(emu->card, "EMU10K1", &tid, &timer);
++	if (err >= 0) {
+ 		strcpy(timer->name, "EMU10K1 timer");
+ 		timer->private_data = emu;
+ 		timer->hw = snd_emu10k1_timer_hw;
 -- 
 2.26.2
 

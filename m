@@ -2,67 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B5E39F6D1
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 14:34:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C68F739F6E4
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 14:36:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3535E16D2;
-	Tue,  8 Jun 2021 14:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3535E16D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1425E16D8;
+	Tue,  8 Jun 2021 14:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1425E16D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623155643;
-	bh=QTsuc9MvTGcOk+b+W86bPjlTAz15gPPAPBL0O6/d68g=;
+	s=default; t=1623155804;
+	bh=ksgCOSj09XyVmszVdhSU7xO+Xrsy8JreHgRZDMEdRBo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RVgH7LNl9zVTw2iVt2bkhreRZiJeXPSIJb5m1QqmLXQPYKqz6v8yBlLKHOtGRyMVm
-	 5JYChIfRQqkaBpIepzmwd0gAflSe03uBVordAYzseRoHdQn0YQ3ZCDQtOLtsQL8Njf
-	 PIkmdAqDDKKsU4fwUysME/Q7//vIZ69ULXL4tQ+U=
+	b=Y08440Rg3LdXVSjRbSEuHUTYOrF4rHnoFfD90GmTq/kEtUJCDOdt/wrTXIxjZt3Am
+	 64+QJSKRd8FAoIXakKohhvbBX/czVMV1ExhBjvaHG677dVFxu1rbqxDrb/R/MxExVm
+	 tQr0sYEk5T5TpgpTvWS3cKiw7jsMcd9seqGJS7m4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E6D5F80227;
-	Tue,  8 Jun 2021 14:32:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D7B9F801EC;
+	Tue,  8 Jun 2021 14:35:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44C21F80218; Tue,  8 Jun 2021 14:32:32 +0200 (CEST)
+ id 8C8D2F80218; Tue,  8 Jun 2021 14:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7C32F8019B
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C32F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id E66C6F8019B
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E66C6F8019B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="TwjBrnDb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A14106128A;
- Tue,  8 Jun 2021 12:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1623155541;
- bh=QTsuc9MvTGcOk+b+W86bPjlTAz15gPPAPBL0O6/d68g=;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KNppJYGl"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EF5BD6135A;
+ Tue,  8 Jun 2021 12:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623155708;
+ bh=ksgCOSj09XyVmszVdhSU7xO+Xrsy8JreHgRZDMEdRBo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TwjBrnDbBVqqpPMt1UwkvaAvGv+VrsYi/uIqxe7/0J0RuTXKhGM3Gh8cT/gARg6CW
- dgf6vQFaLzsNEc7oXqU/R2rc5m66PQ8Sli74lbe2iBAI6wy+jvI2hBxJE4vG13mKUD
- siCqpe1GOkK0BaXCtKa3gvPOalfi3vtQB+9FK08o=
-Date: Tue, 8 Jun 2021 14:31:38 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: USB sound card issues
-Message-ID: <YL9jKqLtWUgJL9ys@kroah.com>
-References: <CAHhAz+haTa8FJep+mokae4O7Gy9zzq2dbPk28fuEH5FO24uTzw@mail.gmail.com>
- <YL9RDBUsk23LvHV9@kroah.com>
- <CAHhAz+gkm3EHE71PM4xzekC7Vsv3gksBd-M9_5iFe5AcNZbLOQ@mail.gmail.com>
+ b=KNppJYGlkWXDdfe66k7Rd90SRB2YRXGKYieIAru7ks+USnxNJqkFB7b0Il9FSZ4xO
+ 9i7kATiATFbaCdQiL3AwaZ2GmU9A/eWSn3bYV8A5SAcySANn80BdPJLzuWA5LGUWfq
+ Kkvv2foQboZY3dG/9cpUd+xSI0rnf7m8Go2YovWX/G7ZnGlImZyMiHUTFX8ddNkolo
+ eOgqG+L5j+AZw7luRIMjjraNGxMRR0q5yOTRFYx82XsNZKmjKOGIzyuKmspG0HBjGs
+ MakojXG/ejiYIRLNhIZmAiebx/DltBlNrAg2dCBc4izxNojx4p6dnvvN/bRvVw2N1r
+ 9lhHSx8iBXaUw==
+Date: Tue, 8 Jun 2021 13:34:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH 6/9] ASoC: fsl: switch to use
+ snd_soc_daifmt_parse_format/clock_provider()
+Message-ID: <20210608123453.GC4200@sirena.org.uk>
+References: <875yypdxlm.wl-kuninori.morimoto.gx@renesas.com>
+ <87wnr5ciyz.wl-kuninori.morimoto.gx@renesas.com>
+ <1jo8cgre03.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4ZLFUWh1odzi/v6L"
 Content-Disposition: inline
-In-Reply-To: <CAHhAz+gkm3EHE71PM4xzekC7Vsv3gksBd-M9_5iFe5AcNZbLOQ@mail.gmail.com>
-Cc: alsa-devel <alsa-devel@alsa-project.org>, linux-usb@vger.kernel.org,
- linux-sound@vger.kernel.org, kernelnewbies <kernelnewbies@kernelnewbies.org>
+In-Reply-To: <1jo8cgre03.fsf@starbuckisacylon.baylibre.com>
+X-Cookie: Auction:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Timur Tabi <timur@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,69 +96,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 08, 2021 at 05:44:42PM +0530, Muni Sekhar wrote:
-> On Tue, Jun 8, 2021 at 4:44 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Tue, Jun 08, 2021 at 04:20:07PM +0530, Muni Sekhar wrote:
-> > > Hi all,
-> > >
-> > > I am using a USB sound card(snd-usb-audio), and it fails while doing
-> > > the audio recording "arecord: pcm_read:2032: read error: Input/output
-> > > error".
-> > >
-> > > What could be the problem? and is there a workaround for this?
-> > >
-> > > $ arecord -l
-> > > **** List of CAPTURE Hardware Devices ****
-> > > card 1: BT_AG [BT_002], device 0: USB Audio [USB Audio]
-> > >   Subdevices: 1/1
-> > >   Subdevice #0: subdevice #0
-> > >
-> > >
-> > > $ arecord --device hw:1,0 --channels 1 --format S16_LE --rate 32000_Hz
-> x.wav
-> > > Recording WAVE 'x.wav' : Signed 16 bit Little Endian, Rate 32000 Hz,
-> Mono
-> > > arecord: pcm_read:2032: read error: Input/output error
-> >
-> > What kernel version is this, and what other kernel messages are printed
-> > when you plug your device in?
 
+--4ZLFUWh1odzi/v6L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What kernel version is this?
+On Tue, Jun 08, 2021 at 09:50:52AM +0200, Jerome Brunet wrote:
 
-> [12932.016672] usb 2-1: USB disconnect, device number 5
-> [12932.016683] usb 2-1.1: USB disconnect, device number 6
-> [12962.085766] usb 2-1: new full-speed USB device number 7 using xhci_hcd
-> [12962.275849] usb 2-1: New USB device found, idVendor=0a12, idProduct=4010
-> [12962.275861] usb 2-1: New USB device strings: Mfr=0, Product=0,
-> SerialNumber=0
-> [12962.276538] usb 2-1: ep 0x81 - rounding interval to 1024 microframes, ep
-> desc says 2040 microframes
-> [12962.279699] hub 2-1:1.0: USB hub found
-> [12962.280663] hub 2-1:1.0: 4 ports detected
-> [12962.875024] usb 2-1.1: new full-speed USB device number 8 using xhci_hcd
-> [12962.980977] usb 2-1.1: New USB device found, idVendor=0a12,
-> idProduct=4007
-> [12962.980991] usb 2-1.1: New USB device strings: Mfr=1, Product=2,
-> SerialNumber=5
-> [12962.981000] usb 2-1.1: Product: BT_002
-> [12962.981008] usb 2-1.1: Manufacturer: Qualcomm
-> [12962.981015] usb 2-1.1: SerialNumber: ABC4C25B
-> [12962.992667] input: Qualcomm BT_002 as
-> /devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1.1/2-1.1:1.0/0003:0A12:4007.0003/input/input6
-> [12963.048083] hid-generic 0003:0A12:4007.0003: input,hiddev0,hidraw0: USB
-> HID v1.11 Device [Qualcomm BT_002] on usb-0000:00:14.0-1.1/input0
-> [12963.066910] hid-generic 0003:0A12:4007.0004: hiddev0,hidraw1: USB HID
-> v1.11 Device [Qualcomm BT_002] on usb-0000:00:14.0-1.1/input1
-> 
-> Same error (arecord: pcm_read:2032: read error: Input/output error)
-> observed on 4.4, 4.15 and 5.4 kernel version.
+> I understand you are trying to fold some code but I'm not sure about this
+> snd_soc_daifmt_clock_provider_pickup().
 
-What exact versions of these are you using?
+> Instead of repeating the if clause around DAIFMT (which is a bit verbose
+> but fairly easy to understand and maintain) there is now the calculation
+> of a made up constant (which is rather opaque as it is), which later
+> translate to the same type of test around DAIFMT.=20
 
-And what about the latest 5.12.y release?
+> I'd be in favor of dropping the snd_soc_daifmt_clock_provider_pickup()
+> part for the sake or readability. This apply to the rest of the series,
+> not just fsl.
 
-thanks,
+Yeah, I'm also just finding the _pickup() name unclear and can't really
+immediately think how to make it clearer - I think the bit being
+factored out needs to be at least as complex/unclear as the interface
+being introduced to do so.
 
-greg k-h
+--4ZLFUWh1odzi/v6L
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmC/Y+0ACgkQJNaLcl1U
+h9CZ2Af/dniFicYKlMwVzTiV1Nih7T1j+RxhLh1Xn46YJYlPgo623fb3uN6b6JZa
+rI8wmwAHK6ieHadimu6BN9xyHoqHLiXWEdSik0mgOApKdHs02iID8B+5RwDjIrW3
+e84hTeuqPQnocgaIs097SRLqZ00hFc69INX4QOZp9X9CudmuoPG/88vyiMKJp97e
+EIt+wNF4W1pxe8OG5Pdr/M1xy7eIWbM6fbkDzt6KR6CCJxJrHvuiDowKmeOnMHyN
+etDqhvEtQRbb3ZKv/113PjTT/MKyJlVPnwZMXHtAm4zLyh9l5XI4mYwdWPRCVokT
+EUnvKTA2wAqyYFWuvf8ZfV/RjKoZZw==
+=3F7H
+-----END PGP SIGNATURE-----
+
+--4ZLFUWh1odzi/v6L--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A01B39F8BA
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:15:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B56F39F8C4
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:16:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F4741745;
-	Tue,  8 Jun 2021 16:14:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F4741745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54F641768;
+	Tue,  8 Jun 2021 16:16:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54F641768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623161701;
-	bh=lqVTr0kMYdoM9HWWlZguyB1AL6lT2cLE/ZntE4QJZeI=;
+	s=default; t=1623161817;
+	bh=kohkaMvKxFCfPN6+6oaZUelEM6P0kOBsmnSrjgndRSM=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kclRZUPFbeju/FhhjMnDj0CqUQm1XGsAIjQq3FkC6lW1Um85Z6AaRanz98Pp1z+yH
-	 iO3/e5x3WLneHTtHWv1oJ7Vuef6DDx1vncQbcjZmWEh9DbMyFpMae0Jhg+cgGGMz1e
-	 Mc9SHa5tx1telP2ZKWIifsGcSureukIq30kZ/T8g=
+	b=songlHXqZatDeGgQQYBDe4RSLrKoZuCEpza4mrpZhQXRJALBtWIRVpvRgQu22lx//
+	 FJKETVGLBj2eTzxm5Hl4E648Mk9iBsnL7bhNUmKcgFoBUG9nxUKxISFvyaxY+0DeaJ
+	 NSNuik1gt05PWUs3x3E6Av+9JrfW14rFRmhZE2FA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE36F804DF;
-	Tue,  8 Jun 2021 16:06:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20082F805F3;
+	Tue,  8 Jun 2021 16:06:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09A9CF805B0; Tue,  8 Jun 2021 16:06:25 +0200 (CEST)
+ id 75233F805C9; Tue,  8 Jun 2021 16:06:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3592CF804D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54353F804E1
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3592CF804D0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54353F804E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0vlB7AJ8"; 
+ header.b="VX86Ju5h"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="OsN92iY0"
+ header.b="vQ8MvBpr"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2FCE51FDE6
+ by smtp-out2.suse.de (Postfix) with ESMTP id 43CE71FDE7
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1623161144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HNiDMcHoMZXzTJB/qlYNdmgfB1huSxhHlYx/hJAGtDY=;
- b=0vlB7AJ8gbZQC/YjFt+mLt6qSWVRG27vjbz29/QGwFJ/fsIrbbiEWiQGXskg0qUD3SM0ZN
- FhNpnJEVS73r+lzOFoKVmdaIXVHjejJ+LJ7PgdFOmdxsu1SndQJSZHmt6cwvZDMqJLJIdm
- nKHGX1Li4hgEVaRrvhLad/onhSejwKc=
+ bh=b4m48LyFI1/8yO7SlVjCdEFdj5aKfo9N0XNR4L3Z8r0=;
+ b=VX86Ju5hCPQ1HCfhWqgSCkzlWrJqzf1tM0qIWQsIQvfyT5RP13Ti3iO69IuKPg0BLt23ax
+ 8waVG/twsdL39dy7KWyHFJs9CAqwoiUS/anVFirC4FQ1yI+KPNP935FNLaQcEG1Ml9YYtV
+ TNF6Sud/hbuNLf2n1Znde+4UPzDuuJU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1623161144;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HNiDMcHoMZXzTJB/qlYNdmgfB1huSxhHlYx/hJAGtDY=;
- b=OsN92iY099aqxoBAac5olEAJNxW54eL/WG3omeqXVMU61ZPXkEO05xCOTY1hkRrUyHWLff
- M/LD4bCADkpLl4Cg==
+ bh=b4m48LyFI1/8yO7SlVjCdEFdj5aKfo9N0XNR4L3Z8r0=;
+ b=vQ8MvBpr9jQlQ+itxAYcv2sPskdF6ualxp64nGkZrbUT+Zbhov/o26YQXbkK0oaGKaDdba
+ usXSgz+f9sOKEXDw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2042FA3B84;
+ by relay2.suse.de (Postfix) with ESMTP id 339F2A3B89;
  Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 30/66] ALSA: rme32: Fix assignment in if condition
-Date: Tue,  8 Jun 2021 16:05:04 +0200
-Message-Id: <20210608140540.17885-31-tiwai@suse.de>
+Subject: [PATCH 32/66] ALSA: sonicvibes: Fix assignment in if condition
+Date: Tue,  8 Jun 2021 16:05:06 +0200
+Message-Id: <20210608140540.17885-33-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210608140540.17885-1-tiwai@suse.de>
 References: <20210608140540.17885-1-tiwai@suse.de>
@@ -91,200 +91,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PCI RME32 driver code contains a few assignments in if condition,
+PCI sonicvibes driver code contains a few assignments in if condition,
 which is a bad coding style that may confuse readers and occasionally
 lead to bugs.
 
-This patch is merely for coding-style fixes (except for a slight
-refactoring about AutoSync rate check, only systematic conversions),
-no functional changes.
+This patch is merely for coding-style fixes, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme32.c | 76 ++++++++++++++++++++++++++++++-----------------
- 1 file changed, 48 insertions(+), 28 deletions(-)
+ sound/pci/sonicvibes.c | 67 ++++++++++++++++++++++++++----------------
+ 1 file changed, 42 insertions(+), 25 deletions(-)
 
-diff --git a/sound/pci/rme32.c b/sound/pci/rme32.c
-index 54f3e39f97f5..b5b357853c94 100644
---- a/sound/pci/rme32.c
-+++ b/sound/pci/rme32.c
-@@ -668,18 +668,24 @@ snd_rme32_playback_hw_params(struct snd_pcm_substream *substream,
- 	}
+diff --git a/sound/pci/sonicvibes.c b/sound/pci/sonicvibes.c
+index 7de10997775f..03a48da897e3 100644
+--- a/sound/pci/sonicvibes.c
++++ b/sound/pci/sonicvibes.c
+@@ -852,7 +852,8 @@ static int snd_sonicvibes_pcm(struct sonicvibes *sonic, int device)
+ 	struct snd_pcm *pcm;
+ 	int err;
  
- 	spin_lock_irq(&rme32->lock);
--	if ((rme32->rcreg & RME32_RCR_KMODE) &&
--	    (rate = snd_rme32_capture_getrate(rme32, &dummy)) > 0) {
-+	rate = 0;
-+	if (rme32->rcreg & RME32_RCR_KMODE)
-+		rate = snd_rme32_capture_getrate(rme32, &dummy);
-+	if (rate > 0) {
- 		/* AutoSync */
- 		if ((int)params_rate(params) != rate) {
- 			spin_unlock_irq(&rme32->lock);
- 			return -EIO;
- 		}
--	} else if ((err = snd_rme32_playback_setrate(rme32, params_rate(params))) < 0) {
--		spin_unlock_irq(&rme32->lock);
--		return err;
-+	} else {
-+		err = snd_rme32_playback_setrate(rme32, params_rate(params));
-+		if (err < 0) {
-+			spin_unlock_irq(&rme32->lock);
-+			return err;
-+		}
- 	}
--	if ((err = snd_rme32_setformat(rme32, params_format(params))) < 0) {
-+	err = snd_rme32_setformat(rme32, params_format(params));
-+	if (err < 0) {
- 		spin_unlock_irq(&rme32->lock);
+-	if ((err = snd_pcm_new(sonic->card, "s3_86c617", device, 1, 1, &pcm)) < 0)
++	err = snd_pcm_new(sonic->card, "s3_86c617", device, 1, 1, &pcm);
++	if (err < 0)
  		return err;
- 	}
-@@ -723,15 +729,18 @@ snd_rme32_capture_hw_params(struct snd_pcm_substream *substream,
- 	rme32->wcreg |= RME32_WCR_AUTOSYNC;
- 	writel(rme32->wcreg, rme32->iobase + RME32_IO_CONTROL_REGISTER);
+ 	if (snd_BUG_ON(!pcm))
+ 		return -EINVAL;
+@@ -1093,7 +1094,9 @@ static int snd_sonicvibes_mixer(struct sonicvibes *sonic)
+ 	strcpy(card->mixername, "S3 SonicVibes");
  
--	if ((err = snd_rme32_setformat(rme32, params_format(params))) < 0) {
-+	err = snd_rme32_setformat(rme32, params_format(params));
-+	if (err < 0) {
- 		spin_unlock_irq(&rme32->lock);
- 		return err;
- 	}
--	if ((err = snd_rme32_playback_setrate(rme32, params_rate(params))) < 0) {
-+	err = snd_rme32_playback_setrate(rme32, params_rate(params));
-+	if (err < 0) {
- 		spin_unlock_irq(&rme32->lock);
- 		return err;
- 	}
--	if ((rate = snd_rme32_capture_getrate(rme32, &isadat)) > 0) {
-+	rate = snd_rme32_capture_getrate(rme32, &isadat);
-+	if (rate > 0) {
-                 if ((int)params_rate(params) != rate) {
- 			spin_unlock_irq(&rme32->lock);
-                         return -EIO;                    
-@@ -854,8 +863,10 @@ static int snd_rme32_playback_spdif_open(struct snd_pcm_substream *substream)
- 		runtime->hw.rates |= SNDRV_PCM_RATE_64000 | SNDRV_PCM_RATE_88200 | SNDRV_PCM_RATE_96000;
- 		runtime->hw.rate_max = 96000;
- 	}
--	if ((rme32->rcreg & RME32_RCR_KMODE) &&
--	    (rate = snd_rme32_capture_getrate(rme32, &dummy)) > 0) {
-+	rate = 0;
-+	if (rme32->rcreg & RME32_RCR_KMODE)
-+		rate = snd_rme32_capture_getrate(rme32, &dummy);
-+	if (rate > 0) {
- 		/* AutoSync */
- 		runtime->hw.rates = snd_pcm_rate_to_rate_bit(rate);
- 		runtime->hw.rate_min = rate;
-@@ -895,7 +906,8 @@ static int snd_rme32_capture_spdif_open(struct snd_pcm_substream *substream)
- 		runtime->hw.rates |= SNDRV_PCM_RATE_88200 | SNDRV_PCM_RATE_96000;
- 		runtime->hw.rate_max = 96000;
- 	}
--	if ((rate = snd_rme32_capture_getrate(rme32, &isadat)) > 0) {
-+	rate = snd_rme32_capture_getrate(rme32, &isadat);
-+	if (rate > 0) {
- 		if (isadat) {
- 			return -EIO;
- 		}
-@@ -932,8 +944,10 @@ snd_rme32_playback_adat_open(struct snd_pcm_substream *substream)
- 		runtime->hw = snd_rme32_adat_fd_info;
- 	else
- 		runtime->hw = snd_rme32_adat_info;
--	if ((rme32->rcreg & RME32_RCR_KMODE) &&
--	    (rate = snd_rme32_capture_getrate(rme32, &dummy)) > 0) {
-+	rate = 0;
-+	if (rme32->rcreg & RME32_RCR_KMODE)
-+		rate = snd_rme32_capture_getrate(rme32, &dummy);
-+	if (rate > 0) {
-                 /* AutoSync */
-                 runtime->hw.rates = snd_pcm_rate_to_rate_bit(rate);
-                 runtime->hw.rate_min = rate;
-@@ -955,7 +969,8 @@ snd_rme32_capture_adat_open(struct snd_pcm_substream *substream)
- 		runtime->hw = snd_rme32_adat_fd_info;
- 	else
- 		runtime->hw = snd_rme32_adat_info;
--	if ((rate = snd_rme32_capture_getrate(rme32, &isadat)) > 0) {
-+	rate = snd_rme32_capture_getrate(rme32, &isadat);
-+	if (rate > 0) {
- 		if (!isadat) {
- 			return -EIO;
- 		}
-@@ -1307,10 +1322,12 @@ static int snd_rme32_create(struct rme32 *rme32)
- 	rme32->irq = -1;
- 	spin_lock_init(&rme32->lock);
+ 	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_controls); idx++) {
+-		if ((err = snd_ctl_add(card, kctl = snd_ctl_new1(&snd_sonicvibes_controls[idx], sonic))) < 0)
++		kctl = snd_ctl_new1(&snd_sonicvibes_controls[idx], sonic);
++		err = snd_ctl_add(card, kctl);
++		if (err < 0)
+ 			return err;
+ 		switch (idx) {
+ 		case 0:
+@@ -1226,7 +1229,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
  
+ 	*rsonic = NULL;
+ 	/* enable PCI device */
 -	if ((err = pci_enable_device(pci)) < 0)
 +	err = pci_enable_device(pci);
 +	if (err < 0)
  		return err;
+ 	/* check, if we can restrict PCI DMA transfers to 24 bits */
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(24))) {
+@@ -1246,7 +1250,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ 	sonic->pci = pci;
+ 	sonic->irq = -1;
  
--	if ((err = pci_request_regions(pci, "RME32")) < 0)
-+	err = pci_request_regions(pci, "RME32");
-+	if (err < 0)
+-	if ((err = pci_request_regions(pci, "S3 SonicVibes")) < 0) {
++	err = pci_request_regions(pci, "S3 SonicVibes");
++	if (err < 0) {
+ 		kfree(sonic);
+ 		pci_disable_device(pci);
  		return err;
- 	rme32->port = pci_resource_start(rme32->pci, 0);
+@@ -1289,14 +1294,16 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ 	pci_write_config_dword(pci, 0x40, dmaa);
+ 	pci_write_config_dword(pci, 0x48, dmac);
  
-@@ -1334,9 +1351,9 @@ static int snd_rme32_create(struct rme32 *rme32)
- 	pci_read_config_byte(pci, 8, &rme32->rev);
- 
- 	/* set up ALSA pcm device for S/PDIF */
--	if ((err = snd_pcm_new(rme32->card, "Digi32 IEC958", 0, 1, 1, &rme32->spdif_pcm)) < 0) {
-+	err = snd_pcm_new(rme32->card, "Digi32 IEC958", 0, 1, 1, &rme32->spdif_pcm);
-+	if (err < 0)
- 		return err;
--	}
- 	rme32->spdif_pcm->private_data = rme32;
- 	rme32->spdif_pcm->private_free = snd_rme32_free_spdif_pcm;
- 	strcpy(rme32->spdif_pcm->name, "Digi32 IEC958");
-@@ -1363,11 +1380,10 @@ static int snd_rme32_create(struct rme32 *rme32)
- 		rme32->adat_pcm = NULL;
+-	if ((sonic->res_dmaa = request_region(dmaa, 0x10, "S3 SonicVibes DDMA-A")) == NULL) {
++	sonic->res_dmaa = request_region(dmaa, 0x10, "S3 SonicVibes DDMA-A");
++	if (!sonic->res_dmaa) {
+ 		snd_sonicvibes_free(sonic);
+ 		dev_err(card->dev,
+ 			"unable to grab DDMA-A port at 0x%x-0x%x\n",
+ 			dmaa, dmaa + 0x10 - 1);
+ 		return -EBUSY;
  	}
- 	else {
--		if ((err = snd_pcm_new(rme32->card, "Digi32 ADAT", 1,
--				       1, 1, &rme32->adat_pcm)) < 0)
--		{
-+		err = snd_pcm_new(rme32->card, "Digi32 ADAT", 1,
-+				  1, 1, &rme32->adat_pcm);
-+		if (err < 0)
- 			return err;
--		}		
- 		rme32->adat_pcm->private_data = rme32;
- 		rme32->adat_pcm->private_free = snd_rme32_free_adat_pcm;
- 		strcpy(rme32->adat_pcm->name, "Digi32 ADAT");
-@@ -1410,9 +1426,9 @@ static int snd_rme32_create(struct rme32 *rme32)
+-	if ((sonic->res_dmac = request_region(dmac, 0x10, "S3 SonicVibes DDMA-C")) == NULL) {
++	sonic->res_dmac = request_region(dmac, 0x10, "S3 SonicVibes DDMA-C");
++	if (!sonic->res_dmac) {
+ 		snd_sonicvibes_free(sonic);
+ 		dev_err(card->dev,
+ 			"unable to grab DDMA-C port at 0x%x-0x%x\n",
+@@ -1358,7 +1365,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ #endif
+ 	sonic->revision = snd_sonicvibes_in(sonic, SV_IREG_REVISION);
  
- 
- 	/* init switch interface */
--	if ((err = snd_rme32_create_switches(rme32->card, rme32)) < 0) {
-+	err = snd_rme32_create_switches(rme32->card, rme32);
-+	if (err < 0)
+-	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sonic, &ops)) < 0) {
++	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sonic, &ops);
++	if (err < 0) {
+ 		snd_sonicvibes_free(sonic);
  		return err;
--	}
- 
- 	/* init proc interface */
- 	snd_rme32_proc_init(rme32);
-@@ -1855,7 +1871,9 @@ static int snd_rme32_create_switches(struct snd_card *card, struct rme32 * rme32
- 	struct snd_kcontrol *kctl;
- 
- 	for (idx = 0; idx < (int)ARRAY_SIZE(snd_rme32_controls); idx++) {
--		if ((err = snd_ctl_add(card, kctl = snd_ctl_new1(&snd_rme32_controls[idx], rme32))) < 0)
-+		kctl = snd_ctl_new1(&snd_rme32_controls[idx], rme32);
-+		err = snd_ctl_add(card, kctl);
+ 	}
+@@ -1405,9 +1413,11 @@ static int snd_sonicvibes_midi(struct sonicvibes *sonic,
+ 	mpu->private_data = sonic;
+ 	mpu->open_input = snd_sonicvibes_midi_input_open;
+ 	mpu->close_input = snd_sonicvibes_midi_input_close;
+-	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_midi_controls); idx++)
+-		if ((err = snd_ctl_add(card, snd_ctl_new1(&snd_sonicvibes_midi_controls[idx], sonic))) < 0)
++	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_midi_controls); idx++) {
++		err = snd_ctl_add(card, snd_ctl_new1(&snd_sonicvibes_midi_controls[idx], sonic));
 +		if (err < 0)
  			return err;
- 		if (idx == 1)	/* IEC958 (S/PDIF) Stream */
- 			rme32->spdif_ctl = kctl;
-@@ -1899,7 +1917,8 @@ snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
- 	rme32->pci = pci;
-         if (fullduplex[dev])
- 		rme32->fullduplex_mode = 1;
--	if ((err = snd_rme32_create(rme32)) < 0) {
-+	err = snd_rme32_create(rme32);
++	}
+ 	return 0;
+ }
+ 
+@@ -1439,10 +1449,11 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 			return -ENODEV;
+ 		}
+ 	}
+-	if ((err = snd_sonicvibes_create(card, pci,
+-					 reverb[dev] ? 1 : 0,
+-					 mge[dev] ? 1 : 0,
+-					 &sonic)) < 0) {
++	err = snd_sonicvibes_create(card, pci,
++				    reverb[dev] ? 1 : 0,
++				    mge[dev] ? 1 : 0,
++				    &sonic);
 +	if (err < 0) {
  		snd_card_free(card);
  		return err;
  	}
-@@ -1919,7 +1938,8 @@ snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
- 	sprintf(card->longname, "%s (Rev. %d) at 0x%lx, irq %d",
- 		card->shortname, rme32->rev, rme32->port, rme32->irq);
+@@ -1455,30 +1466,35 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 		(unsigned long long)pci_resource_start(pci, 1),
+ 		sonic->irq);
+ 
+-	if ((err = snd_sonicvibes_pcm(sonic, 0)) < 0) {
++	err = snd_sonicvibes_pcm(sonic, 0);
++	if (err < 0) {
+ 		snd_card_free(card);
+ 		return err;
+ 	}
+-	if ((err = snd_sonicvibes_mixer(sonic)) < 0) {
++	err = snd_sonicvibes_mixer(sonic);
++	if (err < 0) {
+ 		snd_card_free(card);
+ 		return err;
+ 	}
+-	if ((err = snd_mpu401_uart_new(card, 0, MPU401_HW_SONICVIBES,
+-				       sonic->midi_port,
+-				       MPU401_INFO_INTEGRATED |
+-				       MPU401_INFO_IRQ_HOOK,
+-				       -1, &midi_uart)) < 0) {
++	err = snd_mpu401_uart_new(card, 0, MPU401_HW_SONICVIBES,
++				  sonic->midi_port,
++				  MPU401_INFO_INTEGRATED |
++				  MPU401_INFO_IRQ_HOOK,
++				  -1, &midi_uart);
++	if (err < 0) {
+ 		snd_card_free(card);
+ 		return err;
+ 	}
+ 	snd_sonicvibes_midi(sonic, midi_uart);
+-	if ((err = snd_opl3_create(card, sonic->synth_port,
+-				   sonic->synth_port + 2,
+-				   OPL3_HW_OPL3_SV, 1, &opl3)) < 0) {
++	err = snd_opl3_create(card, sonic->synth_port,
++			      sonic->synth_port + 2,
++			      OPL3_HW_OPL3_SV, 1, &opl3);
++	if (err < 0) {
+ 		snd_card_free(card);
+ 		return err;
+ 	}
+-	if ((err = snd_opl3_hwdep_new(opl3, 0, 1, NULL)) < 0) {
++	err = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
++	if (err < 0) {
+ 		snd_card_free(card);
+ 		return err;
+ 	}
+@@ -1489,7 +1505,8 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 		return err;
+ 	}
  
 -	if ((err = snd_card_register(card)) < 0) {
 +	err = snd_card_register(card);

@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967AE39F929
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E11939F8ED
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:23:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDFE318BB;
-	Tue,  8 Jun 2021 16:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDFE318BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 098F116F2;
+	Tue,  8 Jun 2021 16:22:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 098F116F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623162615;
-	bh=S8PoKqc6i5doQwVBgKCh7FDkcnoZ/SytlO4ouJOOWCQ=;
+	s=default; t=1623162181;
+	bh=plPW61EX4WQErZ4Uezc9zWjeTYN/ZPcJegeQ6nW4FlM=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VQ4k+oqI7CF5AdjIPFmwh5OG5pisjRHAT3lfeKGHafrCq4RF63cz7YHyf/zCGZJuv
-	 KLdaD9/St8pid/ObtqVVi/isvfF1eidcOOM1C+mKhmC32PN0MDPSf9nQnUYRqtvBvE
-	 69hpxMc6JACHQs9tVRzuLqTA+Ua0muZLdGZLcEIc=
+	b=Lokh4QoZCoLYNk7eY7qbwWJ/aMMvmcSI1JNriRS1EIWTtcVb96V26EOe9n7VDz86Y
+	 WWIKydGEOSGlRls6atLHn18xyeQl4srKRIiLGl2HiSPFBd977Qfck63KiOk3bRAyUB
+	 R1b54IEicX5Ez/39WdAnRj7oOyWv4XyMRae9MLG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AA11F80743;
-	Tue,  8 Jun 2021 16:07:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37B69F8063B;
+	Tue,  8 Jun 2021 16:07:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EF65F8067B; Tue,  8 Jun 2021 16:07:27 +0200 (CEST)
+ id 44F40F8060B; Tue,  8 Jun 2021 16:06:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C9B4F80520
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C9B4F80520
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3BB5F804FB
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3BB5F804FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="S3dcDptV"; 
+ header.b="QJZy0vSB"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="lN/ztUmu"
+ header.b="cRSfzGBt"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D6733219FB
+ by smtp-out2.suse.de (Postfix) with ESMTP id DA2721FDF7
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1623161145; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cXUZcujhpWJI3Z/TxgO3dxtyF6B9GN+18/4fZUZMWwY=;
- b=S3dcDptVbUdBzz3AfXx/tvsY9HFSstYvVG/4djXzAzR7ZqY549SY687WGZkOv+V8l7KIXC
- mcgmgmG7+1JamwIImFTcDfpI94CuOpLUuMr1j4DsR/LsIQIFly8lXdXz+kyw4AtSvJWS+4
- vByWz0JokGCt4j1nDa2ghZQsKCsjNc8=
+ bh=dV/5w4qelBBq9aFMldVVeaXHoSh4XlIMLv02AS+0+cg=;
+ b=QJZy0vSBCVIAltAn8oK35f2hDhVS45Rbca+TZ3cGwJRn0Lnfij2NcNcMUla3mT5TkhC9mH
+ 5tdikpj75SPcFp6q6YL6WMXXc29LZGSSJI/ZdNwQyK1IOm9iopAG/rVv91xzRWaOVF8/R2
+ 5yfLqqD/kmWsHszBqqhXwaOtZIcpgug=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1623161145;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cXUZcujhpWJI3Z/TxgO3dxtyF6B9GN+18/4fZUZMWwY=;
- b=lN/ztUmuFyBj21IRQrM+JGBG37AibBaXZirbnddEnMeJ6qLdApCJBgAwdf4F5xQlGuTIVz
- jNVQtjrc/smSKpDA==
+ bh=dV/5w4qelBBq9aFMldVVeaXHoSh4XlIMLv02AS+0+cg=;
+ b=cRSfzGBt9lAxTCQUD/LPs86Or/PMnuf/uMoWEqJFr0UO3d0fP4JITULCQOtpLlyOtcnVlT
+ rXZ/dZ5oCi4JTgDg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C5DCDA3B88;
+ by relay2.suse.de (Postfix) with ESMTP id D4F33A3B84;
  Tue,  8 Jun 2021 14:05:45 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 62/66] ALSA: serial: Fix assignment in if condition
-Date: Tue,  8 Jun 2021 16:05:36 +0200
-Message-Id: <20210608140540.17885-63-tiwai@suse.de>
+Subject: [PATCH 63/66] ALSA: synth: Fix assignment in if condition
+Date: Tue,  8 Jun 2021 16:05:37 +0200
+Message-Id: <20210608140540.17885-64-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210608140540.17885-1-tiwai@suse.de>
 References: <20210608140540.17885-1-tiwai@suse.de>
@@ -91,233 +91,230 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A few ALSA serial drivers contain assignments in if condition, which
-is a bad coding style that may confuse readers and occasionally lead
-to bugs.
+EMUx synth driver code contains lots of assignments in if condition,
+which is a bad coding style that may confuse readers and occasionally
+lead to bugs.
 
 This patch is merely for coding-style fixes, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/drivers/mtpav.c         | 15 +++++++++------
- sound/drivers/mts64.c         | 15 ++++++++++-----
- sound/drivers/portman2x4.c    | 15 ++++++++++-----
- sound/drivers/serial-u16550.c | 27 ++++++++++++++-------------
- 4 files changed, 43 insertions(+), 29 deletions(-)
+ sound/synth/emux/emux.c        |  3 ++-
+ sound/synth/emux/emux_effect.c | 13 ++++++++---
+ sound/synth/emux/emux_hwdep.c  |  6 +++--
+ sound/synth/emux/soundfont.c   | 40 ++++++++++++++++++++++------------
+ 4 files changed, 42 insertions(+), 20 deletions(-)
 
-diff --git a/sound/drivers/mtpav.c b/sound/drivers/mtpav.c
-index df4b7f9cd50f..0e95b08d34d6 100644
---- a/sound/drivers/mtpav.c
-+++ b/sound/drivers/mtpav.c
-@@ -566,7 +566,8 @@ static irqreturn_t snd_mtpav_irqh(int irq, void *dev_id)
-  */
- static int snd_mtpav_get_ISA(struct mtpav *mcard)
- {
--	if ((mcard->res_port = request_region(port, 3, "MotuMTPAV MIDI")) == NULL) {
-+	mcard->res_port = request_region(port, 3, "MotuMTPAV MIDI");
-+	if (!mcard->res_port) {
- 		snd_printk(KERN_ERR "MTVAP port 0x%lx is busy\n", port);
- 		return -EBUSY;
- 	}
-@@ -628,10 +629,11 @@ static int snd_mtpav_get_RAWMIDI(struct mtpav *mcard)
- 		hwports = 8;
- 	mcard->num_ports = hwports;
- 
--	if ((rval = snd_rawmidi_new(mcard->card, "MotuMIDI", 0,
--				    mcard->num_ports * 2 + MTPAV_PIDX_BROADCAST + 1,
--				    mcard->num_ports * 2 + MTPAV_PIDX_BROADCAST + 1,
--				    &mcard->rmidi)) < 0)
-+	rval = snd_rawmidi_new(mcard->card, "MotuMIDI", 0,
-+			       mcard->num_ports * 2 + MTPAV_PIDX_BROADCAST + 1,
-+			       mcard->num_ports * 2 + MTPAV_PIDX_BROADCAST + 1,
-+			       &mcard->rmidi);
-+	if (rval < 0)
- 		return rval;
- 	rawmidi = mcard->rmidi;
- 	rawmidi->private_data = mcard;
-@@ -744,7 +746,8 @@ static int __init alsa_card_mtpav_init(void)
- {
- 	int err;
- 
--	if ((err = platform_driver_register(&snd_mtpav_driver)) < 0)
-+	err = platform_driver_register(&snd_mtpav_driver);
-+	if (err < 0)
- 		return err;
- 
- 	device = platform_device_register_simple(SND_MTPAV_DRIVER, -1, NULL, 0);
-diff --git a/sound/drivers/mts64.c b/sound/drivers/mts64.c
-index 322d530ab07b..d3bc9e8c407d 100644
---- a/sound/drivers/mts64.c
-+++ b/sound/drivers/mts64.c
-@@ -950,7 +950,8 @@ static int snd_mts64_probe(struct platform_device *pdev)
- 		goto free_pardev;
- 	}
- 
--	if ((err = snd_mts64_create(card, pardev, &mts)) < 0) {
-+	err = snd_mts64_create(card, pardev, &mts);
-+	if (err < 0) {
- 		snd_printd("Cannot create main component\n");
- 		goto release_pardev;
- 	}
-@@ -963,19 +964,22 @@ static int snd_mts64_probe(struct platform_device *pdev)
- 		goto __err;
- 	}
- 	
--	if ((err = snd_mts64_rawmidi_create(card)) < 0) {
-+	err = snd_mts64_rawmidi_create(card);
-+	if (err < 0) {
- 		snd_printd("Creating Rawmidi component failed\n");
- 		goto __err;
- 	}
- 
- 	/* init device */
--	if ((err = mts64_device_init(p)) < 0)
-+	err = mts64_device_init(p);
-+	if (err < 0)
- 		goto __err;
- 
- 	platform_set_drvdata(pdev, card);
- 
- 	/* At this point card will be usable */
--	if ((err = snd_card_register(card)) < 0) {
-+	err = snd_card_register(card);
-+	if (err < 0) {
- 		snd_printd("Cannot register card\n");
- 		goto __err;
- 	}
-@@ -1031,7 +1035,8 @@ static int __init snd_mts64_module_init(void)
- {
- 	int err;
- 
--	if ((err = platform_driver_register(&snd_mts64_driver)) < 0)
-+	err = platform_driver_register(&snd_mts64_driver);
-+	if (err < 0)
- 		return err;
- 
- 	if (parport_register_driver(&mts64_parport_driver) != 0) {
-diff --git a/sound/drivers/portman2x4.c b/sound/drivers/portman2x4.c
-index 2f4514ed47c5..52a656735365 100644
---- a/sound/drivers/portman2x4.c
-+++ b/sound/drivers/portman2x4.c
-@@ -749,7 +749,8 @@ static int snd_portman_probe(struct platform_device *pdev)
- 		goto free_pardev;
- 	}
- 
--	if ((err = portman_create(card, pardev, &pm)) < 0) {
-+	err = portman_create(card, pardev, &pm);
-+	if (err < 0) {
- 		snd_printd("Cannot create main component\n");
- 		goto release_pardev;
- 	}
-@@ -762,19 +763,22 @@ static int snd_portman_probe(struct platform_device *pdev)
- 		goto __err;
- 	}
- 	
--	if ((err = snd_portman_rawmidi_create(card)) < 0) {
-+	err = snd_portman_rawmidi_create(card);
-+	if (err < 0) {
- 		snd_printd("Creating Rawmidi component failed\n");
- 		goto __err;
- 	}
- 
- 	/* init device */
--	if ((err = portman_device_init(pm)) < 0)
-+	err = portman_device_init(pm);
-+	if (err < 0)
- 		goto __err;
- 
- 	platform_set_drvdata(pdev, card);
- 
- 	/* At this point card will be usable */
--	if ((err = snd_card_register(card)) < 0) {
-+	err = snd_card_register(card);
-+	if (err < 0) {
- 		snd_printd("Cannot register card\n");
- 		goto __err;
- 	}
-@@ -831,7 +835,8 @@ static int __init snd_portman_module_init(void)
- {
- 	int err;
- 
--	if ((err = platform_driver_register(&snd_portman_driver)) < 0)
-+	err = platform_driver_register(&snd_portman_driver);
-+	if (err < 0)
- 		return err;
- 
- 	if (parport_register_driver(&portman_parport_driver) != 0) {
-diff --git a/sound/drivers/serial-u16550.c b/sound/drivers/serial-u16550.c
-index 6d5d1ca59ecf..da9983cba01c 100644
---- a/sound/drivers/serial-u16550.c
-+++ b/sound/drivers/serial-u16550.c
-@@ -783,7 +783,8 @@ static int snd_uart16550_create(struct snd_card *card,
- 	int err;
- 
- 
--	if ((uart = kzalloc(sizeof(*uart), GFP_KERNEL)) == NULL)
-+	uart = kzalloc(sizeof(*uart), GFP_KERNEL);
-+	if (!uart)
+diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+index f65e6c7b139f..49d1976a132c 100644
+--- a/sound/synth/emux/emux.c
++++ b/sound/synth/emux/emux.c
+@@ -104,7 +104,8 @@ int snd_emux_register(struct snd_emux *emu, struct snd_card *card, int index, ch
+ 	if (emu->sflist == NULL)
  		return -ENOMEM;
- 	uart->adaptor = adaptor;
- 	uart->card = card;
-@@ -792,7 +793,8 @@ static int snd_uart16550_create(struct snd_card *card,
- 	uart->base = iobase;
- 	uart->drop_on_full = droponfull;
  
--	if ((err = snd_uart16550_detect(uart)) <= 0) {
-+	err = snd_uart16550_detect(uart);
-+	if (err <= 0) {
- 		printk(KERN_ERR "no UART detected at 0x%lx\n", iobase);
- 		snd_uart16550_free(uart);
- 		return -ENODEV;
-@@ -818,7 +820,8 @@ static int snd_uart16550_create(struct snd_card *card,
- 	uart->timer_running = 0;
- 
- 	/* Register device */
--	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, uart, &ops)) < 0) {
-+	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, uart, &ops);
-+	if (err < 0) {
- 		snd_uart16550_free(uart);
+-	if ((err = snd_emux_init_hwdep(emu)) < 0)
++	err = snd_emux_init_hwdep(emu);
++	if (err < 0)
  		return err;
- 	}
-@@ -932,14 +935,10 @@ static int snd_serial_probe(struct platform_device *devptr)
- 	strcpy(card->driver, "Serial");
- 	strcpy(card->shortname, "Serial MIDI (UART16550A)");
  
--	if ((err = snd_uart16550_create(card,
--					port[dev],
--					irq[dev],
--					speed[dev],
--					base[dev],
--					adaptor[dev],
--					droponfull[dev],
--					&uart)) < 0)
-+	err = snd_uart16550_create(card, port[dev], irq[dev], speed[dev],
-+				   base[dev], adaptor[dev], droponfull[dev],
-+				   &uart);
+ 	snd_emux_init_voices(emu);
+diff --git a/sound/synth/emux/emux_effect.c b/sound/synth/emux/emux_effect.c
+index afd119b11f39..3c7314f5fb19 100644
+--- a/sound/synth/emux/emux_effect.c
++++ b/sound/synth/emux/emux_effect.c
+@@ -181,7 +181,10 @@ snd_emux_send_effect(struct snd_emux_port *port, struct snd_midi_channel *chan,
+ 	fx->flag[type] = mode;
+ 
+ 	/* do we need to modify the register in realtime ? */
+-	if (! parm_defs[type].update || (offset = parm_defs[type].offset) < 0)
++	if (!parm_defs[type].update)
++		return;
++	offset = parm_defs[type].offset;
++	if (offset < 0)
+ 		return;
+ 
+ #ifdef SNDRV_LITTLE_ENDIAN
+@@ -223,13 +226,17 @@ snd_emux_setup_effect(struct snd_emux_voice *vp)
+ 	unsigned char *srcp;
+ 	int i;
+ 
+-	if (! (fx = chan->private))
++	fx = chan->private;
++	if (!fx)
+ 		return;
+ 
+ 	/* modify the register values via effect table */
+ 	for (i = 0; i < EMUX_FX_END; i++) {
+ 		int offset;
+-		if (! fx->flag[i] || (offset = parm_defs[i].offset) < 0)
++		if (!fx->flag[i])
++			continue;
++		offset = parm_defs[i].offset;
++		if (offset < 0)
+ 			continue;
+ #ifdef SNDRV_LITTLE_ENDIAN
+ 		if (parm_defs[i].type & PARM_IS_ALIGN_HI)
+diff --git a/sound/synth/emux/emux_hwdep.c b/sound/synth/emux/emux_hwdep.c
+index 8a965e2f160a..81719bfb8ed7 100644
+--- a/sound/synth/emux/emux_hwdep.c
++++ b/sound/synth/emux/emux_hwdep.c
+@@ -116,7 +116,8 @@ snd_emux_init_hwdep(struct snd_emux *emu)
+ 	struct snd_hwdep *hw;
+ 	int err;
+ 
+-	if ((err = snd_hwdep_new(emu->card, SNDRV_EMUX_HWDEP_NAME, emu->hwdep_idx, &hw)) < 0)
++	err = snd_hwdep_new(emu->card, SNDRV_EMUX_HWDEP_NAME, emu->hwdep_idx, &hw);
 +	if (err < 0)
- 		goto _err;
- 
- 	err = snd_uart16550_rmidi(uart, 0, outs[dev], ins[dev], &uart->rmidi);
-@@ -952,7 +951,8 @@ static int snd_serial_probe(struct platform_device *devptr)
- 		uart->base,
- 		uart->irq);
- 
--	if ((err = snd_card_register(card)) < 0)
-+	err = snd_card_register(card);
+ 		return err;
+ 	emu->hwdep = hw;
+ 	strcpy(hw->name, SNDRV_EMUX_HWDEP_NAME);
+@@ -127,7 +128,8 @@ snd_emux_init_hwdep(struct snd_emux *emu)
+ 	hw->ops.ioctl_compat = snd_emux_hwdep_ioctl;
+ 	hw->exclusive = 1;
+ 	hw->private_data = emu;
+-	if ((err = snd_card_register(emu->card)) < 0)
++	err = snd_card_register(emu->card);
 +	if (err < 0)
- 		goto _err;
+ 		return err;
  
- 	platform_set_drvdata(devptr, card);
-@@ -992,7 +992,8 @@ static int __init alsa_card_serial_init(void)
+ 	return 0;
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index 9ebc711afa6b..da3cf8912463 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -349,7 +349,8 @@ sf_zone_new(struct snd_sf_list *sflist, struct snd_soundfont *sf)
  {
- 	int i, cards, err;
+ 	struct snd_sf_zone *zp;
  
--	if ((err = platform_driver_register(&snd_serial_driver)) < 0)
-+	err = platform_driver_register(&snd_serial_driver);
-+	if (err < 0)
- 		return err;
+-	if ((zp = kzalloc(sizeof(*zp), GFP_KERNEL)) == NULL)
++	zp = kzalloc(sizeof(*zp), GFP_KERNEL);
++	if (!zp)
+ 		return NULL;
+ 	zp->next = sf->zones;
+ 	sf->zones = zp;
+@@ -381,7 +382,8 @@ sf_sample_new(struct snd_sf_list *sflist, struct snd_soundfont *sf)
+ {
+ 	struct snd_sf_sample *sp;
  
- 	cards = 0;
+-	if ((sp = kzalloc(sizeof(*sp), GFP_KERNEL)) == NULL)
++	sp = kzalloc(sizeof(*sp), GFP_KERNEL);
++	if (!sp)
+ 		return NULL;
+ 
+ 	sp->next = sf->samples;
+@@ -451,7 +453,8 @@ load_map(struct snd_sf_list *sflist, const void __user *data, int count)
+ 	}
+ 
+ 	/* create a new zone */
+-	if ((zp = sf_zone_new(sflist, sf)) == NULL)
++	zp = sf_zone_new(sflist, sf);
++	if (!zp)
+ 		return -ENOMEM;
+ 
+ 	zp->bank = map.map_bank;
+@@ -514,7 +517,8 @@ load_info(struct snd_sf_list *sflist, const void __user *data, long count)
+ 	int i;
+ 
+ 	/* patch must be opened */
+-	if ((sf = sflist->currsf) == NULL)
++	sf = sflist->currsf;
++	if (!sf)
+ 		return -EINVAL;
+ 
+ 	if (is_special_type(sf->type))
+@@ -579,9 +583,9 @@ load_info(struct snd_sf_list *sflist, const void __user *data, long count)
+ 			init_voice_parm(&tmpzone.v.parm);
+ 
+ 		/* create a new zone */
+-		if ((zone = sf_zone_new(sflist, sf)) == NULL) {
++		zone = sf_zone_new(sflist, sf);
++		if (!zone)
+ 			return -ENOMEM;
+-		}
+ 
+ 		/* copy the temporary data */
+ 		zone->bank = tmpzone.bank;
+@@ -700,7 +704,8 @@ load_data(struct snd_sf_list *sflist, const void __user *data, long count)
+ 	long off;
+ 
+ 	/* patch must be opened */
+-	if ((sf = sflist->currsf) == NULL)
++	sf = sflist->currsf;
++	if (!sf)
+ 		return -EINVAL;
+ 
+ 	if (is_special_type(sf->type))
+@@ -723,7 +728,8 @@ load_data(struct snd_sf_list *sflist, const void __user *data, long count)
+ 	}
+ 
+ 	/* Allocate a new sample structure */
+-	if ((sp = sf_sample_new(sflist, sf)) == NULL)
++	sp = sf_sample_new(sflist, sf);
++	if (!sp)
+ 		return -ENOMEM;
+ 
+ 	sp->v = sample_info;
+@@ -958,7 +964,8 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+ 	sf = newsf(sflist, SNDRV_SFNT_PAT_TYPE_GUS|SNDRV_SFNT_PAT_SHARED, NULL);
+ 	if (sf == NULL)
+ 		return -ENOMEM;
+-	if ((smp = sf_sample_new(sflist, sf)) == NULL)
++	smp = sf_sample_new(sflist, sf);
++	if (!smp)
+ 		return -ENOMEM;
+ 	sample_id = sflist->sample_counter;
+ 	smp->v.sample = sample_id;
+@@ -996,7 +1003,8 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+ 	smp->v.sf_id = sf->id;
+ 
+ 	/* set up voice info */
+-	if ((zone = sf_zone_new(sflist, sf)) == NULL) {
++	zone = sf_zone_new(sflist, sf);
++	if (!zone) {
+ 		sf_sample_delete(sflist, sf, smp);
+ 		return -ENOMEM;
+ 	}
+@@ -1181,7 +1189,8 @@ add_preset(struct snd_sf_list *sflist, struct snd_sf_zone *cur)
+ 	}
+ 
+ 	/* prepend this zone */
+-	if ((index = get_index(cur->bank, cur->instr, cur->v.low)) < 0)
++	index = get_index(cur->bank, cur->instr, cur->v.low);
++	if (index < 0)
+ 		return;
+ 	cur->next_zone = zone; /* zone link */
+ 	cur->next_instr = sflist->presets[index]; /* preset table link */
+@@ -1197,7 +1206,8 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
+ 	int index;
+ 	struct snd_sf_zone *p;
+ 
+-	if ((index = get_index(zp->bank, zp->instr, zp->v.low)) < 0)
++	index = get_index(zp->bank, zp->instr, zp->v.low);
++	if (index < 0)
+ 		return;
+ 	for (p = sflist->presets[index]; p; p = p->next_instr) {
+ 		while (p->next_instr == zp) {
+@@ -1257,7 +1267,8 @@ search_first_zone(struct snd_sf_list *sflist, int bank, int preset, int key)
+ 	int index;
+ 	struct snd_sf_zone *zp;
+ 
+-	if ((index = get_index(bank, preset, key)) < 0)
++	index = get_index(bank, preset, key);
++	if (index < 0)
+ 		return NULL;
+ 	for (zp = sflist->presets[index]; zp; zp = zp->next_instr) {
+ 		if (zp->instr == preset && zp->bank == bank)
+@@ -1386,7 +1397,8 @@ snd_sf_new(struct snd_sf_callback *callback, struct snd_util_memhdr *hdr)
+ {
+ 	struct snd_sf_list *sflist;
+ 
+-	if ((sflist = kzalloc(sizeof(*sflist), GFP_KERNEL)) == NULL)
++	sflist = kzalloc(sizeof(*sflist), GFP_KERNEL);
++	if (!sflist)
+ 		return NULL;
+ 
+ 	mutex_init(&sflist->presets_mutex);
 -- 
 2.26.2
 

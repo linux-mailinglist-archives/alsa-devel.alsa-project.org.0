@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B56F39F8C4
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:16:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A12539F8C2
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 16:16:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54F641768;
-	Tue,  8 Jun 2021 16:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54F641768
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB1BB1712;
+	Tue,  8 Jun 2021 16:15:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB1BB1712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623161817;
-	bh=kohkaMvKxFCfPN6+6oaZUelEM6P0kOBsmnSrjgndRSM=;
+	s=default; t=1623161796;
+	bh=UKyriRLQRoXzczcsoL8rAtltcz0aUq2nWrn2q49jL/Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=songlHXqZatDeGgQQYBDe4RSLrKoZuCEpza4mrpZhQXRJALBtWIRVpvRgQu22lx//
-	 FJKETVGLBj2eTzxm5Hl4E648Mk9iBsnL7bhNUmKcgFoBUG9nxUKxISFvyaxY+0DeaJ
-	 NSNuik1gt05PWUs3x3E6Av+9JrfW14rFRmhZE2FA=
+	b=q0gBJX/dpb1xMO9fH4uu1/Ebk+r2IPGsAcO4DqbP2c/z7lXea2gLvDnQFkw/AyNgh
+	 f28YRs7zNj/ZB1451LHDnEMhC5SiPatlrN/6jm/cctTrV5mSXsfnj5cGoCw7wLhyiL
+	 +/dA/7hBlkPDEKrXKwu/cTDlKdRfM7K3TZ18C+JI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20082F805F3;
-	Tue,  8 Jun 2021 16:06:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BC0EF805F0;
+	Tue,  8 Jun 2021 16:06:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75233F805C9; Tue,  8 Jun 2021 16:06:33 +0200 (CEST)
+ id D8985F805B5; Tue,  8 Jun 2021 16:06:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54353F804E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 436DAF804D9
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 16:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54353F804E1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 436DAF804D9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VX86Ju5h"; 
+ header.b="GW0ifhGp"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="vQ8MvBpr"
+ header.b="hp1G6miH"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 43CE71FDE7
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5412A1FDE8
  for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1623161144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=b4m48LyFI1/8yO7SlVjCdEFdj5aKfo9N0XNR4L3Z8r0=;
- b=VX86Ju5hCPQ1HCfhWqgSCkzlWrJqzf1tM0qIWQsIQvfyT5RP13Ti3iO69IuKPg0BLt23ax
- 8waVG/twsdL39dy7KWyHFJs9CAqwoiUS/anVFirC4FQ1yI+KPNP935FNLaQcEG1Ml9YYtV
- TNF6Sud/hbuNLf2n1Znde+4UPzDuuJU=
+ bh=RF3Iz2pRT4QTf36x7UpZxlv/CUB+SbuOxbVWYas+pgA=;
+ b=GW0ifhGpzK8HES93mzPjKuqzJ8bvJ3K8N1Zp91VqQ+/ZqolDBZgp+bAee6SyU+vomaddDP
+ MhYmiZULVWlCFlxyTdInBFG76A7F0cM29GSPq8BeETCmQsvTXhgrlI5zMXuW1pdGLabb0E
+ wU5hMTohWtnXYt8N+K3oBFtiF30JCcc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1623161144;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=b4m48LyFI1/8yO7SlVjCdEFdj5aKfo9N0XNR4L3Z8r0=;
- b=vQ8MvBpr9jQlQ+itxAYcv2sPskdF6ualxp64nGkZrbUT+Zbhov/o26YQXbkK0oaGKaDdba
- usXSgz+f9sOKEXDw==
+ bh=RF3Iz2pRT4QTf36x7UpZxlv/CUB+SbuOxbVWYas+pgA=;
+ b=hp1G6miHgnPeHaRrR76HvP/Ob9+SSxDgUhzTEBkl+YSfqHWESulw+AuysvVv26QylSX98N
+ 57e+eFQbSa1nBUCw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 339F2A3B89;
+ by relay2.suse.de (Postfix) with ESMTP id 42BB3A3B84;
  Tue,  8 Jun 2021 14:05:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 32/66] ALSA: sonicvibes: Fix assignment in if condition
-Date: Tue,  8 Jun 2021 16:05:06 +0200
-Message-Id: <20210608140540.17885-33-tiwai@suse.de>
+Subject: [PATCH 33/66] ALSA: via82xx: Fix assignment in if condition
+Date: Tue,  8 Jun 2021 16:05:07 +0200
+Message-Id: <20210608140540.17885-34-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210608140540.17885-1-tiwai@suse.de>
 References: <20210608140540.17885-1-tiwai@suse.de>
@@ -91,7 +91,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PCI sonicvibes driver code contains a few assignments in if condition,
+PCI VIA82xx driver code contains a few assignments in if condition,
 which is a bad coding style that may confuse readers and occasionally
 lead to bugs.
 
@@ -99,163 +99,368 @@ This patch is merely for coding-style fixes, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/sonicvibes.c | 67 ++++++++++++++++++++++++++----------------
- 1 file changed, 42 insertions(+), 25 deletions(-)
+ sound/pci/via82xx.c       | 78 +++++++++++++++++++++++++--------------
+ sound/pci/via82xx_modem.c | 52 +++++++++++++++++---------
+ 2 files changed, 85 insertions(+), 45 deletions(-)
 
-diff --git a/sound/pci/sonicvibes.c b/sound/pci/sonicvibes.c
-index 7de10997775f..03a48da897e3 100644
---- a/sound/pci/sonicvibes.c
-+++ b/sound/pci/sonicvibes.c
-@@ -852,7 +852,8 @@ static int snd_sonicvibes_pcm(struct sonicvibes *sonic, int device)
- 	struct snd_pcm *pcm;
- 	int err;
+diff --git a/sound/pci/via82xx.c b/sound/pci/via82xx.c
+index fd1f2f9cfbc3..943813a06abc 100644
+--- a/sound/pci/via82xx.c
++++ b/sound/pci/via82xx.c
+@@ -515,7 +515,8 @@ static int snd_via82xx_codec_ready(struct via82xx *chip, int secondary)
+ 	
+ 	while (timeout-- > 0) {
+ 		udelay(1);
+-		if (!((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_BUSY))
++		val = snd_via82xx_codec_xread(chip);
++		if (!(val & VIA_REG_AC97_BUSY))
+ 			return val & 0xffff;
+ 	}
+ 	dev_err(chip->card->dev, "codec_ready: codec %i is not ready [0x%x]\n",
+@@ -1023,7 +1024,8 @@ static int snd_via8233_playback_prepare(struct snd_pcm_substream *substream)
+ 	int rate_changed;
+ 	u32 rbits;
  
--	if ((err = snd_pcm_new(sonic->card, "s3_86c617", device, 1, 1, &pcm)) < 0)
-+	err = snd_pcm_new(sonic->card, "s3_86c617", device, 1, 1, &pcm);
+-	if ((rate_changed = via_lock_rate(&chip->rates[0], ac97_rate)) < 0)
++	rate_changed = via_lock_rate(&chip->rates[0], ac97_rate);
++	if (rate_changed < 0)
+ 		return rate_changed;
+ 	if (rate_changed)
+ 		snd_ac97_set_rate(chip->ac97, AC97_PCM_FRONT_DAC_RATE,
+@@ -1197,7 +1199,8 @@ static int snd_via82xx_pcm_open(struct via82xx *chip, struct viadev *viadev,
+ 
+ 	/* we may remove following constaint when we modify table entries
+ 	   in interrupt */
+-	if ((err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS)) < 0)
++	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
 +	if (err < 0)
  		return err;
- 	if (snd_BUG_ON(!pcm))
- 		return -EINVAL;
-@@ -1093,7 +1094,9 @@ static int snd_sonicvibes_mixer(struct sonicvibes *sonic)
- 	strcpy(card->mixername, "S3 SonicVibes");
  
- 	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_controls); idx++) {
--		if ((err = snd_ctl_add(card, kctl = snd_ctl_new1(&snd_sonicvibes_controls[idx], sonic))) < 0)
-+		kctl = snd_ctl_new1(&snd_sonicvibes_controls[idx], sonic);
-+		err = snd_ctl_add(card, kctl);
-+		if (err < 0)
- 			return err;
- 		switch (idx) {
- 		case 0:
-@@ -1226,7 +1229,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ 	if (use_src) {
+@@ -1222,7 +1225,8 @@ static int snd_via686_playback_open(struct snd_pcm_substream *substream)
+ 	struct viadev *viadev = &chip->devs[chip->playback_devno + substream->number];
+ 	int err;
  
- 	*rsonic = NULL;
- 	/* enable PCI device */
+-	if ((err = snd_via82xx_pcm_open(chip, viadev, substream)) < 0)
++	err = snd_via82xx_pcm_open(chip, viadev, substream);
++	if (err < 0)
+ 		return err;
+ 	return 0;
+ }
+@@ -1238,7 +1242,8 @@ static int snd_via8233_playback_open(struct snd_pcm_substream *substream)
+ 	int err;
+ 
+ 	viadev = &chip->devs[chip->playback_devno + substream->number];
+-	if ((err = snd_via82xx_pcm_open(chip, viadev, substream)) < 0)
++	err = snd_via82xx_pcm_open(chip, viadev, substream);
++	if (err < 0)
+ 		return err;
+ 	stream = viadev->reg_offset / 0x10;
+ 	if (chip->dxs_controls[stream]) {
+@@ -1275,7 +1280,8 @@ static int snd_via8233_multi_open(struct snd_pcm_substream *substream)
+ 		.mask = 0,
+ 	};
+ 
+-	if ((err = snd_via82xx_pcm_open(chip, viadev, substream)) < 0)
++	err = snd_via82xx_pcm_open(chip, viadev, substream);
++	if (err < 0)
+ 		return err;
+ 	substream->runtime->hw.channels_max = 6;
+ 	if (chip->revision == VIA_REV_8233A)
+@@ -1875,7 +1881,8 @@ static int snd_via82xx_mixer_new(struct via82xx *chip, const char *quirk_overrid
+ 		.wait = snd_via82xx_codec_wait,
+ 	};
+ 
+-	if ((err = snd_ac97_bus(chip->card, 0, &ops, chip, &chip->ac97_bus)) < 0)
++	err = snd_ac97_bus(chip->card, 0, &ops, chip, &chip->ac97_bus);
++	if (err < 0)
+ 		return err;
+ 	chip->ac97_bus->private_free = snd_via82xx_mixer_free_ac97_bus;
+ 	chip->ac97_bus->clock = chip->ac97_clock;
+@@ -1885,7 +1892,8 @@ static int snd_via82xx_mixer_new(struct via82xx *chip, const char *quirk_overrid
+ 	ac97.private_free = snd_via82xx_mixer_free_ac97;
+ 	ac97.pci = chip->pci;
+ 	ac97.scaps = AC97_SCAP_SKIP_MODEM | AC97_SCAP_POWER_SAVE;
+-	if ((err = snd_ac97_mixer(chip->ac97_bus, &ac97, &chip->ac97)) < 0)
++	err = snd_ac97_mixer(chip->ac97_bus, &ac97, &chip->ac97);
++	if (err < 0)
+ 		return err;
+ 
+ 	snd_ac97_tune_hardware(chip->ac97, ac97_quirks, quirk_override);
+@@ -2054,9 +2062,9 @@ static int snd_via686_init_misc(struct via82xx *chip)
+ 			break;
+ 		}
+ 	}
+-	if (mpu_port >= 0x200 &&
+-	    (chip->mpu_res = request_region(mpu_port, 2, "VIA82xx MPU401"))
+-	    != NULL) {
++	if (mpu_port >= 0x200)
++		chip->mpu_res = request_region(mpu_port, 2, "VIA82xx MPU401");
++	if (chip->mpu_res) {
+ 		if (rev_h)
+ 			legacy |= VIA_FUNC_MIDI_PNP;	/* enable PCI I/O 2 */
+ 		legacy |= VIA_FUNC_ENABLE_MIDI;
+@@ -2173,7 +2181,8 @@ static int snd_via82xx_chip_init(struct via82xx *chip)
+ 		schedule_timeout_uninterruptible(1);
+ 	} while (time_before(jiffies, end_time));
+ 
+-	if ((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_BUSY)
++	val = snd_via82xx_codec_xread(chip);
++	if (val & VIA_REG_AC97_BUSY)
+ 		dev_err(chip->card->dev,
+ 			"AC'97 codec is not ready [0x%x]\n", val);
+ 
+@@ -2186,7 +2195,8 @@ static int snd_via82xx_chip_init(struct via82xx *chip)
+ 				 VIA_REG_AC97_SECONDARY_VALID |
+ 				 (VIA_REG_AC97_CODEC_ID_SECONDARY << VIA_REG_AC97_CODEC_ID_SHIFT));
+ 	do {
+-		if ((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_SECONDARY_VALID) {
++		val = snd_via82xx_codec_xread(chip);
++		if (val & VIA_REG_AC97_SECONDARY_VALID) {
+ 			chip->ac97_secondary = 1;
+ 			goto __ac97_ok2;
+ 		}
+@@ -2337,10 +2347,12 @@ static int snd_via82xx_create(struct snd_card *card,
+ 		.dev_free =	snd_via82xx_dev_free,
+         };
+ 
 -	if ((err = pci_enable_device(pci)) < 0)
 +	err = pci_enable_device(pci);
 +	if (err < 0)
  		return err;
- 	/* check, if we can restrict PCI DMA transfers to 24 bits */
- 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(24))) {
-@@ -1246,7 +1250,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
- 	sonic->pci = pci;
- 	sonic->irq = -1;
  
--	if ((err = pci_request_regions(pci, "S3 SonicVibes")) < 0) {
-+	err = pci_request_regions(pci, "S3 SonicVibes");
+-	if ((chip = kzalloc(sizeof(*chip), GFP_KERNEL)) == NULL) {
++	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
++	if (!chip) {
+ 		pci_disable_device(pci);
+ 		return -ENOMEM;
+ 	}
+@@ -2360,7 +2372,8 @@ static int snd_via82xx_create(struct snd_card *card,
+ 	pci_write_config_byte(chip->pci, VIA_FUNC_ENABLE,
+ 			      chip->old_legacy & ~(VIA_FUNC_ENABLE_SB|VIA_FUNC_ENABLE_FM));
+ 
+-	if ((err = pci_request_regions(pci, card->driver)) < 0) {
++	err = pci_request_regions(pci, card->driver);
 +	if (err < 0) {
- 		kfree(sonic);
+ 		kfree(chip);
  		pci_disable_device(pci);
  		return err;
-@@ -1289,14 +1294,16 @@ static int snd_sonicvibes_create(struct snd_card *card,
- 	pci_write_config_dword(pci, 0x40, dmaa);
- 	pci_write_config_dword(pci, 0x48, dmac);
+@@ -2380,12 +2393,14 @@ static int snd_via82xx_create(struct snd_card *card,
+ 	if (ac97_clock >= 8000 && ac97_clock <= 48000)
+ 		chip->ac97_clock = ac97_clock;
  
--	if ((sonic->res_dmaa = request_region(dmaa, 0x10, "S3 SonicVibes DDMA-A")) == NULL) {
-+	sonic->res_dmaa = request_region(dmaa, 0x10, "S3 SonicVibes DDMA-A");
-+	if (!sonic->res_dmaa) {
- 		snd_sonicvibes_free(sonic);
- 		dev_err(card->dev,
- 			"unable to grab DDMA-A port at 0x%x-0x%x\n",
- 			dmaa, dmaa + 0x10 - 1);
- 		return -EBUSY;
- 	}
--	if ((sonic->res_dmac = request_region(dmac, 0x10, "S3 SonicVibes DDMA-C")) == NULL) {
-+	sonic->res_dmac = request_region(dmac, 0x10, "S3 SonicVibes DDMA-C");
-+	if (!sonic->res_dmac) {
- 		snd_sonicvibes_free(sonic);
- 		dev_err(card->dev,
- 			"unable to grab DDMA-C port at 0x%x-0x%x\n",
-@@ -1358,7 +1365,8 @@ static int snd_sonicvibes_create(struct snd_card *card,
- #endif
- 	sonic->revision = snd_sonicvibes_in(sonic, SV_IREG_REVISION);
- 
--	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sonic, &ops)) < 0) {
-+	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sonic, &ops);
+-	if ((err = snd_via82xx_chip_init(chip)) < 0) {
++	err = snd_via82xx_chip_init(chip);
 +	if (err < 0) {
- 		snd_sonicvibes_free(sonic);
+ 		snd_via82xx_free(chip);
  		return err;
  	}
-@@ -1405,9 +1413,11 @@ static int snd_sonicvibes_midi(struct sonicvibes *sonic,
- 	mpu->private_data = sonic;
- 	mpu->open_input = snd_sonicvibes_midi_input_open;
- 	mpu->close_input = snd_sonicvibes_midi_input_close;
--	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_midi_controls); idx++)
--		if ((err = snd_ctl_add(card, snd_ctl_new1(&snd_sonicvibes_midi_controls[idx], sonic))) < 0)
-+	for (idx = 0; idx < ARRAY_SIZE(snd_sonicvibes_midi_controls); idx++) {
-+		err = snd_ctl_add(card, snd_ctl_new1(&snd_sonicvibes_midi_controls[idx], sonic));
+ 
+-	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops)) < 0) {
++	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
++	if (err < 0) {
+ 		snd_via82xx_free(chip);
+ 		return err;
+ 	}
+@@ -2541,24 +2556,31 @@ static int snd_via82xx_probe(struct pci_dev *pci,
+ 		goto __error;
+ 	}
+ 		
+-	if ((err = snd_via82xx_create(card, pci, chip_type, pci->revision,
+-				      ac97_clock, &chip)) < 0)
++	err = snd_via82xx_create(card, pci, chip_type, pci->revision,
++				 ac97_clock, &chip);
++	if (err < 0)
+ 		goto __error;
+ 	card->private_data = chip;
+-	if ((err = snd_via82xx_mixer_new(chip, ac97_quirk)) < 0)
++	err = snd_via82xx_mixer_new(chip, ac97_quirk);
++	if (err < 0)
+ 		goto __error;
+ 
+ 	if (chip_type == TYPE_VIA686) {
+-		if ((err = snd_via686_pcm_new(chip)) < 0 ||
+-		    (err = snd_via686_init_misc(chip)) < 0)
++		err = snd_via686_pcm_new(chip);
 +		if (err < 0)
- 			return err;
-+	}
- 	return 0;
- }
- 
-@@ -1439,10 +1449,11 @@ static int snd_sonic_probe(struct pci_dev *pci,
- 			return -ENODEV;
++			goto __error;
++		err = snd_via686_init_misc(chip);
++		if (err < 0)
+ 			goto __error;
+ 	} else {
+ 		if (chip_type == TYPE_VIA8233A) {
+-			if ((err = snd_via8233a_pcm_new(chip)) < 0)
++			err = snd_via8233a_pcm_new(chip);
++			if (err < 0)
+ 				goto __error;
+ 			// chip->dxs_fixed = 1; /* FIXME: use 48k for DXS #3? */
+ 		} else {
+-			if ((err = snd_via8233_pcm_new(chip)) < 0)
++			err = snd_via8233_pcm_new(chip);
++			if (err < 0)
+ 				goto __error;
+ 			if (dxs_support == VIA_DXS_48K)
+ 				chip->dxs_fixed = 1;
+@@ -2569,7 +2591,8 @@ static int snd_via82xx_probe(struct pci_dev *pci,
+ 				chip->dxs_src = 1;
+ 			}
  		}
+-		if ((err = snd_via8233_init_misc(chip)) < 0)
++		err = snd_via8233_init_misc(chip);
++		if (err < 0)
+ 			goto __error;
  	}
--	if ((err = snd_sonicvibes_create(card, pci,
--					 reverb[dev] ? 1 : 0,
--					 mge[dev] ? 1 : 0,
--					 &sonic)) < 0) {
-+	err = snd_sonicvibes_create(card, pci,
-+				    reverb[dev] ? 1 : 0,
-+				    mge[dev] ? 1 : 0,
-+				    &sonic);
-+	if (err < 0) {
- 		snd_card_free(card);
- 		return err;
- 	}
-@@ -1455,30 +1466,35 @@ static int snd_sonic_probe(struct pci_dev *pci,
- 		(unsigned long long)pci_resource_start(pci, 1),
- 		sonic->irq);
  
--	if ((err = snd_sonicvibes_pcm(sonic, 0)) < 0) {
-+	err = snd_sonicvibes_pcm(sonic, 0);
+@@ -2583,7 +2606,8 @@ static int snd_via82xx_probe(struct pci_dev *pci,
+ 
+ 	snd_via82xx_proc_init(chip);
+ 
+-	if ((err = snd_card_register(card)) < 0) {
++	err = snd_card_register(card);
 +	if (err < 0) {
  		snd_card_free(card);
  		return err;
  	}
--	if ((err = snd_sonicvibes_mixer(sonic)) < 0) {
-+	err = snd_sonicvibes_mixer(sonic);
+diff --git a/sound/pci/via82xx_modem.c b/sound/pci/via82xx_modem.c
+index 30253306f67c..07278a3dc8c1 100644
+--- a/sound/pci/via82xx_modem.c
++++ b/sound/pci/via82xx_modem.c
+@@ -369,7 +369,8 @@ static int snd_via82xx_codec_ready(struct via82xx_modem *chip, int secondary)
+ 	
+ 	while (timeout-- > 0) {
+ 		udelay(1);
+-		if (!((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_BUSY))
++		val = snd_via82xx_codec_xread(chip);
++		if (!(val & VIA_REG_AC97_BUSY))
+ 			return val & 0xffff;
+ 	}
+ 	dev_err(chip->card->dev, "codec_ready: codec %i is not ready [0x%x]\n",
+@@ -738,13 +739,15 @@ static int snd_via82xx_modem_pcm_open(struct via82xx_modem *chip, struct viadev
+ 
+ 	runtime->hw = snd_via82xx_hw;
+ 	
+-        if ((err = snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+-					      &hw_constraints_rates)) < 0)
++	err = snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
++					 &hw_constraints_rates);
++	if (err < 0)
+                 return err;
+ 
+ 	/* we may remove following constaint when we modify table entries
+ 	   in interrupt */
+-	if ((err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS)) < 0)
++	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
++	if (err < 0)
+ 		return err;
+ 
+ 	runtime->private_data = viadev;
+@@ -878,7 +881,8 @@ static int snd_via82xx_mixer_new(struct via82xx_modem *chip)
+ 		.wait = snd_via82xx_codec_wait,
+ 	};
+ 
+-	if ((err = snd_ac97_bus(chip->card, 0, &ops, chip, &chip->ac97_bus)) < 0)
++	err = snd_ac97_bus(chip->card, 0, &ops, chip, &chip->ac97_bus);
++	if (err < 0)
+ 		return err;
+ 	chip->ac97_bus->private_free = snd_via82xx_mixer_free_ac97_bus;
+ 	chip->ac97_bus->clock = chip->ac97_clock;
+@@ -890,7 +894,8 @@ static int snd_via82xx_mixer_new(struct via82xx_modem *chip)
+ 	ac97.scaps = AC97_SCAP_SKIP_AUDIO | AC97_SCAP_POWER_SAVE;
+ 	ac97.num = chip->ac97_secondary;
+ 
+-	if ((err = snd_ac97_mixer(chip->ac97_bus, &ac97, &chip->ac97)) < 0)
++	err = snd_ac97_mixer(chip->ac97_bus, &ac97, &chip->ac97);
++	if (err < 0)
+ 		return err;
+ 
+ 	return 0;
+@@ -971,7 +976,8 @@ static int snd_via82xx_chip_init(struct via82xx_modem *chip)
+ 		schedule_timeout_uninterruptible(1);
+ 	} while (time_before(jiffies, end_time));
+ 
+-	if ((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_BUSY)
++	val = snd_via82xx_codec_xread(chip);
++	if (val & VIA_REG_AC97_BUSY)
+ 		dev_err(chip->card->dev,
+ 			"AC'97 codec is not ready [0x%x]\n", val);
+ 
+@@ -983,7 +989,8 @@ static int snd_via82xx_chip_init(struct via82xx_modem *chip)
+ 				 VIA_REG_AC97_SECONDARY_VALID |
+ 				 (VIA_REG_AC97_CODEC_ID_SECONDARY << VIA_REG_AC97_CODEC_ID_SHIFT));
+ 	do {
+-		if ((val = snd_via82xx_codec_xread(chip)) & VIA_REG_AC97_SECONDARY_VALID) {
++		val = snd_via82xx_codec_xread(chip);
++		if (val & VIA_REG_AC97_SECONDARY_VALID) {
+ 			chip->ac97_secondary = 1;
+ 			goto __ac97_ok2;
+ 		}
+@@ -1079,10 +1086,12 @@ static int snd_via82xx_create(struct snd_card *card,
+ 		.dev_free =	snd_via82xx_dev_free,
+         };
+ 
+-	if ((err = pci_enable_device(pci)) < 0)
++	err = pci_enable_device(pci);
++	if (err < 0)
+ 		return err;
+ 
+-	if ((chip = kzalloc(sizeof(*chip), GFP_KERNEL)) == NULL) {
++	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
++	if (!chip) {
+ 		pci_disable_device(pci);
+ 		return -ENOMEM;
+ 	}
+@@ -1092,7 +1101,8 @@ static int snd_via82xx_create(struct snd_card *card,
+ 	chip->pci = pci;
+ 	chip->irq = -1;
+ 
+-	if ((err = pci_request_regions(pci, card->driver)) < 0) {
++	err = pci_request_regions(pci, card->driver);
 +	if (err < 0) {
- 		snd_card_free(card);
+ 		kfree(chip);
+ 		pci_disable_device(pci);
  		return err;
- 	}
--	if ((err = snd_mpu401_uart_new(card, 0, MPU401_HW_SONICVIBES,
--				       sonic->midi_port,
--				       MPU401_INFO_INTEGRATED |
--				       MPU401_INFO_IRQ_HOOK,
--				       -1, &midi_uart)) < 0) {
-+	err = snd_mpu401_uart_new(card, 0, MPU401_HW_SONICVIBES,
-+				  sonic->midi_port,
-+				  MPU401_INFO_INTEGRATED |
-+				  MPU401_INFO_IRQ_HOOK,
-+				  -1, &midi_uart);
+@@ -1109,12 +1119,14 @@ static int snd_via82xx_create(struct snd_card *card,
+ 	if (ac97_clock >= 8000 && ac97_clock <= 48000)
+ 		chip->ac97_clock = ac97_clock;
+ 
+-	if ((err = snd_via82xx_chip_init(chip)) < 0) {
++	err = snd_via82xx_chip_init(chip);
 +	if (err < 0) {
- 		snd_card_free(card);
+ 		snd_via82xx_free(chip);
  		return err;
  	}
- 	snd_sonicvibes_midi(sonic, midi_uart);
--	if ((err = snd_opl3_create(card, sonic->synth_port,
--				   sonic->synth_port + 2,
--				   OPL3_HW_OPL3_SV, 1, &opl3)) < 0) {
-+	err = snd_opl3_create(card, sonic->synth_port,
-+			      sonic->synth_port + 2,
-+			      OPL3_HW_OPL3_SV, 1, &opl3);
+ 
+-	if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops)) < 0) {
++	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
 +	if (err < 0) {
- 		snd_card_free(card);
+ 		snd_via82xx_free(chip);
  		return err;
  	}
--	if ((err = snd_opl3_hwdep_new(opl3, 0, 1, NULL)) < 0) {
-+	err = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
-+	if (err < 0) {
- 		snd_card_free(card);
- 		return err;
+@@ -1154,14 +1166,17 @@ static int snd_via82xx_probe(struct pci_dev *pci,
+ 		goto __error;
  	}
-@@ -1489,7 +1505,8 @@ static int snd_sonic_probe(struct pci_dev *pci,
- 		return err;
- 	}
+ 		
+-	if ((err = snd_via82xx_create(card, pci, chip_type, pci->revision,
+-				      ac97_clock, &chip)) < 0)
++	err = snd_via82xx_create(card, pci, chip_type, pci->revision,
++				 ac97_clock, &chip);
++	if (err < 0)
+ 		goto __error;
+ 	card->private_data = chip;
+-	if ((err = snd_via82xx_mixer_new(chip)) < 0)
++	err = snd_via82xx_mixer_new(chip);
++	if (err < 0)
+ 		goto __error;
+ 
+-	if ((err = snd_via686_pcm_new(chip)) < 0 )
++	err = snd_via686_pcm_new(chip);
++	if (err < 0)
+ 		goto __error;
+ 
+ 	/* disable interrupts */
+@@ -1173,7 +1188,8 @@ static int snd_via82xx_probe(struct pci_dev *pci,
+ 
+ 	snd_via82xx_proc_init(chip);
  
 -	if ((err = snd_card_register(card)) < 0) {
 +	err = snd_card_register(card);

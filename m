@@ -2,58 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B52139F58F
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 13:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0C1639F5F5
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 14:02:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 308E016C3;
-	Tue,  8 Jun 2021 13:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 308E016C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44B0516C8;
+	Tue,  8 Jun 2021 14:01:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44B0516C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623152990;
-	bh=c7G/GYzeqzVZCe/jnAPqdjYXeeH82vlnPz61DiRwdts=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WfyVdppt0yMsbMQZyA1WNSaAoZyJkDdOrMLsN5ti7AgNueZiN0zTgD5upGUs4I5tS
-	 1J99AXzMwkn8x5eJWqagChYCc5P9fYgX1zQAXjfnb8jB6OTN2q5hk5WMFiVUxOkIJA
-	 8Y5eF/5ABQQFC2sISBqm6IKg/RSKqAYS7CSdvwCs=
+	s=default; t=1623153757;
+	bh=t7U4sTnmDi6WBmwUpF+93/uxyQ5M6yrib+aa7Kdmsis=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BH+jd7SzRBWQDgWb2hPAFQpXNnajO+kIxC8fPLfITzkXoqAGroA3/LTVO32GOCQg8
+	 sj4vyoSAn9Vot6dBlIoKZyeaGEbSxITUC4d5dUIHc1Ig4IuwYF/C11VFeXslNbPyI1
+	 DZDiRMPvKLK2iNjkzS9q9Z09GMxvV8FVNFPk7l+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 961DBF80227;
-	Tue,  8 Jun 2021 13:48:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0B7DF80227;
+	Tue,  8 Jun 2021 14:01:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C9B5F80218; Tue,  8 Jun 2021 13:48:20 +0200 (CEST)
+ id C6C52F80218; Tue,  8 Jun 2021 14:01:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06E83F80116
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 13:48:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06E83F80116
-Received: from 36-226-173-212.dynamic-ip.hinet.net ([36.226.173.212]
- helo=localhost) by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <jeremy.szu@canonical.com>)
- id 1lqaD7-00028A-L1; Tue, 08 Jun 2021 11:47:58 +0000
-From: Jeremy Szu <jeremy.szu@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP ZBook Power G8
-Date: Tue,  8 Jun 2021 19:47:48 +0800
-Message-Id: <20210608114750.32009-1-jeremy.szu@canonical.com>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- open list <linux-kernel@vger.kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- Jian-Hong Pan <jhp@endlessos.org>, Hui Wang <hui.wang@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A814F80116
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 14:00:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A814F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="q8h0fat6"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qtRde8s/"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5100C1FD2A;
+ Tue,  8 Jun 2021 12:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623153657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YLLu5WHsAV5JwWptrE7DEG58eBzt2y6pTVCGvyZkfBs=;
+ b=q8h0fat6TnRQy0VKYJCWdqAhy9Gcu+yVltWINdQ1Y+WmSd5eVqGLH8cfhdRJOTZQ8Tim2I
+ lAhSLMJdHxiMc3caUmFhkl8kl7hP13ch1ZgCH7RA2Uxr9500Mx+t7Et7rpbGtC4ec+Dngp
+ A1S/Ff8xZ7zSl/zuX3mP+MKs9ohKrQs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623153657;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YLLu5WHsAV5JwWptrE7DEG58eBzt2y6pTVCGvyZkfBs=;
+ b=qtRde8s/IQzFbOw3ab/bMsnQYtjECRrOo53vsLSfbqGd6ylqkd74ziEkQnM/9UhL8b7DQj
+ B/j+Sabe2TZmvdBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 4B134A3B85;
+ Tue,  8 Jun 2021 12:00:57 +0000 (UTC)
+Date: Tue, 08 Jun 2021 14:00:57 +0200
+Message-ID: <s5hsg1sd0qu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: headphone and mic don't work on an
+ Acer laptop
+In-Reply-To: <20210608024600.6198-1-hui.wang@canonical.com>
+References: <20210608024600.6198-1-hui.wang@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,27 +93,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The HP ZBook Power G8 using ALC236 codec which using 0x02 to
-control mute LED and 0x01 to control micmute LED.
-Therefore, add a quirk to make it works.
+On Tue, 08 Jun 2021 04:46:00 +0200,
+Hui Wang wrote:
+> 
+> There are 2 issues on this machine, the 1st one is mic's plug/unplug
+> can't be detected, that is because the mic is set to manual detecting
+> mode, need to apply ALC255_FIXUP_XIAOMI_HEADSET_MIC to set it to auto
+> detecting mode. The other one is headphone's plug/unplug can't be
+> detected by pulseaudio, that is because the pulseaudio will use
+> ucm2/sof-hda-dsp on this machine, and the ucm2 only handle
+> 'Headphone Jack', but on this machine the headphone's pincfg sets the
+> location to Front, then the alsa mixer name is "Front Headphone Jack"
+> instead of "Headphone Jack", so override the pincfg to change location
+> to Left.
+> 
+> BugLink: http://bugs.launchpad.net/bugs/1930188
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
 
-Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks, applied.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index dcd9bceace68..f2fa6953b8b7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8335,6 +8335,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x886d, "HP ZBook Fury 17.3 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
-+	SND_PCI_QUIRK(0x103c, 0x888d, "HP ZBook Power 15.6 inch G8 Mobile Workstation PC", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
--- 
-2.31.1
 
+Takashi

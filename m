@@ -2,102 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E160839FA87
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 17:25:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FBB739FB14
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 17:43:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8570117D2;
-	Tue,  8 Jun 2021 17:24:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8570117D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 255A0175E;
+	Tue,  8 Jun 2021 17:42:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 255A0175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623165926;
-	bh=GFGUZWZbriaubxkWTVl1AEN5VqIdF7tGORQZqBgXF80=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KSw65sGNria8vb4USr2KST6Cdfzjgwm2gXRQ4YbW04BZOHh0qTPhiZcIh2ngc3wBq
-	 oGmvvOg+S2lsxNgrR9cuw6Pnn8PysSre+oiN1NQHV4iSfvkbidO7RxXG6i9pb2DAUS
-	 MKymRF1ocZZJL7s87MI8wMgA2xtJ6HKsIdHgd/T0=
+	s=default; t=1623167012;
+	bh=WkpB7ZHKCxsxUzQZihV1dDWG2sGHbDp2cvSdzSICQ48=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QrXNxAQJ3z/xfJjMhtR1GNjYe6bnPnFXJBO/Fc/cCYVG+phCpQMXAemyC1pxap7Gf
+	 /aP2DxQNpycJKmxKyCkSz+qviVVyRNPYYCgRP9RxyrgzNp4r+P4FLjiQw77CupmcOe
+	 NmRJ0n+BF7fWpZu0nK4Pry1NtN0gR6omVg+tGgPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 035EAF800FD;
-	Tue,  8 Jun 2021 17:23:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93A06F800FD;
+	Tue,  8 Jun 2021 17:42:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCE20F80218; Tue,  8 Jun 2021 17:23:57 +0200 (CEST)
+ id 17BCCF80218; Tue,  8 Jun 2021 17:42:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
- [64.147.123.18])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB0EAF800FD
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 17:23:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB0EAF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B91EF800FD
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 17:41:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B91EF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="fAtMdnhz"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="HiSKB7Sq"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id 0690A1AE3;
- Tue,  8 Jun 2021 11:23:41 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Tue, 08 Jun 2021 11:23:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:subject:message-id:mime-version:content-type; s=
- fm3; bh=7y+uu7kjB/1PI/97u+3Bl7gH1MSy9rD9XBavvjyKxLY=; b=fAtMdnhz
- IH79WIzcvnXdYUwK56lX0yBX0x1PVBlOI5eaq402NUAbatPBsQNQ12GYr35118nk
- JirqjxKmHSB93e/l/JMYqImlSpXd1okJzd+Zq2CGPElvIUwt9B1K4gqYOtW/mpUs
- N2pHvi5G4MoT/dduYQJxcVlFASkMBdUPYsobzsVfQ9kn2YUezWzMg06kDC8A0a9r
- H2TJcsEs0khPMZjKo/YoMeNWsuIAn0bnYw+o5GAaXLRwj68qjb9pvCecYhKj07aA
- xQQs548fDT3dMKiubaV8pjU/Z8o6ESgz7UsPi+OHDFnDqvE6yOdXXAe1btsEbVIF
- 1OUfMEwrCY11pw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=7y+uu7kjB/1PI/97u+3Bl7gH1MSy9
- rD9XBavvjyKxLY=; b=HiSKB7SqJr7JN9g6FQgeesiy7qdMJQkDFTmUrqSWeIPV6
- tFneGKnf6whSoeH7C7Wc/FVlDdZQKk3DxV3jVbqOZ3R1PNswV1Mv7vE4qmLCN1pY
- QgGF9heok9m5b+qghBTHRDAgmpdVCy0O8Fn6MXItkGVETTzNeopK5f3njBUbhDuo
- D1xF4pGbAO1+cmDKup2utWIPWWa6J0/+JxumILrJ1ew5tC1wl+QA9TAApimtFX9Z
- vyvxDMBf8VMASKFkIewxUkhXNhLRTmL+raTmntdW0BAm4xv1FruuRplR2lX5D+Bm
- KgFtIEJxgdBVu6HwDwONi8X67leyq0UUwz5W+Ly8g==
-X-ME-Sender: <xms:eou_YN6I9-LYANK9Qju6gN6erksi8ZytCyk5pk_Z8LaW3LnmQQD3AQ>
- <xme:eou_YK7W-gC6jaHeFnzCcuy2uTQhw99Kq2FJ-PFH8z8Oo7rgijv1TesSJaek9j59c
- D-kDXXr8sHzM32zHpc>
-X-ME-Received: <xmr:eou_YEcUdotV86-P3tmQ-rvCRkjQMovnR0C6TjjYcsQ4MD7Fg2afxSGwQ_nFfRz4fTtomnpiD9tI3DnZ01iwHT7Dx7cdO6CpYAf8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtledgjedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfggtggusehgtderredttddvnecuhfhrohhmpeforgigihhmvgcu
- tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
- hrnhepgfdvuedtvdevvddvvddtheevvdelgefhgefhleeuvdfhheduhfehffeuhfejffeg
- necuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtne
- curfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:eou_YGLY1f83SCSMoncIj1dUr904TFcz3RPtjUy9A0fkau0fkdTuKA>
- <xmx:eou_YBLyEMEFnykEOArFE01s_eBZi33Iqq7qaZihva4zMJ4Zhp755Q>
- <xmx:eou_YPzZMbNRVw_98DuEbJLSOITBUkfYec1SWIIvpZWg8vm_QClbDw>
- <xmx:fYu_YOAswCdz633QlnOCAuovSDIa5uNZSmrKkpQo6URrSfjpqTEIqJaPeVk>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Jun 2021 11:23:38 -0400 (EDT)
-Date: Tue, 8 Jun 2021 17:23:36 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>,
- Daniel Vetter <daniel.vetter@intel.com>,
- David Airlie <airlied@linux.ie>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, dri-devel@lists.freedesktop.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] HDMI codec improvements
-Message-ID: <20210608152336.3shidfqym2pgmj7p@gilmour>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="fwxzgs5ela337bru"
-Content-Disposition: inline
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ADl5SMl7"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="WAlBVJNn"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 988651FD2A;
+ Tue,  8 Jun 2021 15:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623166917; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=1ScxBM6ZIfJAxjKF+aspo+W2IeMxQzY5sacxEP9kgYI=;
+ b=ADl5SMl7UvBcSwrh0Tjo8Ijg6Jz5mNLnq/xscRgvqcXwuMiEG+7cLcQafVeBjcQ2MN4Jxe
+ waqYwNTllvUEtfDKi2biiG82ic0REYZhr6CHRwdU+WhUufeSBHyhRmOXIUweOigMVaaEAc
+ z/CdTsOndJrapfrEOu22byxD0puDkeQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623166917;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=1ScxBM6ZIfJAxjKF+aspo+W2IeMxQzY5sacxEP9kgYI=;
+ b=WAlBVJNnzt7k0dJW0LEnRiigbun2gVo0yfBLpDIi/BUbJAh9BINWv7ZQnyj/kFpojaHlRy
+ 0EhFImW69+5NbKBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C1EFEA3B83;
+ Tue,  8 Jun 2021 15:41:56 +0000 (UTC)
+Date: Tue, 08 Jun 2021 17:41:56 +0200
+Message-ID: <s5h8s3kcqij.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.13-rc4
+In-Reply-To: <20210608142636.97A1261003@mail.kernel.org>
+References: <20210608142636.97A1261003@mail.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,59 +91,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 08 Jun 2021 16:26:04 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit af2702549d68519ac78228e915d9b2c199056787:
+> 
+>   ASoC: qcom: lpass-cpu: Use optional clk APIs (2021-05-21 13:12:29 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.13-rc4
+> 
+> for you to fetch changes up to c8a4556d98510ca05bad8d02265a4918b03a8c0b:
+> 
+>   ASoC: qcom: lpass-cpu: Fix pop noise during audio capture begin (2021-06-07 15:54:08 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.13
+> 
+> A collection of fixes and device ID updates that have come up in the
+> past few -rcs, none of which stand out particularly.
 
---fwxzgs5ela337bru
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pulled now.  Thanks.
 
-Hi,
 
-Here's a PR for the changes to hdmi-codec that need to be shared between
-drm and ASoC.
-
-Thanks!
-Maxime
-
-The following changes since commit 6efb943b8616ec53a5e444193dccf1af9ad627b5:
-
-  Linux 5.13-rc1 (2021-05-09 14:17:44 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/mripard/linux.git tags/asoc-hdmi-codec-improvements
-
-for you to fetch changes up to aee87e9c8fc0efbe933f0a8371990a0754ac65fd:
-
-  ASoC: hdmi-codec: Add a prepare hook (2021-06-08 17:06:00 +0200)
-
-----------------------------------------------------------------
-Improvements to the hdmi-codec driver and ALSA infrastructure around it
-to support the HDMI Channel Mapping and IEC958 controls
-
-----------------------------------------------------------------
-Maxime Ripard (5):
-      ALSA: doc: Clarify IEC958 controls iface
-      ALSA: iec958: Split status creation and fill
-      ASoC: hdmi-codec: Rework to support more controls
-      ASoC: hdmi-codec: Add iec958 controls
-      ASoC: hdmi-codec: Add a prepare hook
-
- .../sound/kernel-api/writing-an-alsa-driver.rst    |  13 +-
- include/sound/hdmi-codec.h                         |  12 +-
- include/sound/pcm_iec958.h                         |   8 +
- sound/core/pcm_iec958.c                            | 176 +++++++++++++----
- sound/soc/codecs/hdmi-codec.c                      | 219 +++++++++++++++++----
- 5 files changed, 337 insertions(+), 91 deletions(-)
-
---fwxzgs5ela337bru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYL+LeAAKCRDj7w1vZxhR
-xbqGAPsFnhFdpchvC16PX4Op2mccZlmHaLb/MDY8uwfEmI5eEwD+I6yA2y5j/xCD
-j6KX6j/zPQw8pWbM7NQf1k11KS2I4wo=
-=9+IQ
------END PGP SIGNATURE-----
-
---fwxzgs5ela337bru--
+Takashi

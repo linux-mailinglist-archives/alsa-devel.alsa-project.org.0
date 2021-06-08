@@ -2,57 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D607C39FC33
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 18:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DDDB39FE41
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Jun 2021 19:55:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F6F11782;
-	Tue,  8 Jun 2021 18:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F6F11782
+	by alsa0.perex.cz (Postfix) with ESMTPS id D78B1179C;
+	Tue,  8 Jun 2021 19:54:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D78B1179C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623168915;
-	bh=vtBDsdYwIjnuE/Qa12M8yH2abuabIVEFOBn5kcVFfpQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623174931;
+	bh=ITwXB9giPF5jSY2D2zvQCe1SRv87ilaRjhho/ktL6+E=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z53kRBI83MZO4fMg24nU33/Ox+Ru5ZqJacEDTA5BT/WgVjkvuYVKq8xC7OCyD1fSM
-	 yzYNixKs1IffHeeqJsZGk6NZCN30t0iiiFCnrlFy8B6C2bvKNKtW0VnSWetutTHz2M
-	 wf0abc/F0wZP9soIuuOkueIyEGaVw1WQ/Px1Crcs=
+	b=stiMFsMnDREpgcepBJSFmH87bcGj9krdhPVjD1Ybj39DvW2VbmSl/7OlmzjsrjGIY
+	 ojPupmF+w8qv8uJ3VMy1h21QDDszB+aH6v+J0XbOJ6v/k/T1W938btD3eJuhX0sOsn
+	 OAUbBn4EUDEJoPjFR7bRxkyttg0+tvM/thKy9yH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF0BEF80116;
-	Tue,  8 Jun 2021 18:13:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 440B4F801EC;
+	Tue,  8 Jun 2021 19:54:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 846C6F80218; Tue,  8 Jun 2021 18:13:46 +0200 (CEST)
+ id 0062CF80218; Tue,  8 Jun 2021 19:54:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=KHOP_HELO_FCRDNS, RDNS_DYNAMIC,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net
- [99.33.87.210])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90197F8019B
- for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 18:13:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90197F8019B
-Received: from localhost (localhost [127.0.0.1])
- by thursday.test (OpenSMTPD) with ESMTP id ed953c64;
- Tue, 8 Jun 2021 16:13:39 +0000 (UTC)
-Date: Tue, 8 Jun 2021 09:13:38 -0700 (PDT)
-From: Richard Narron <richard@aaazen.com>
-X-X-Sender: richard@thursday.test
-To: Ryan Burns <rtburns@protonmail.com>
-Subject: Re: alsamixer: use background color instead of COLOR_BLACK
-In-Reply-To: <20210206224135.0B465F80171@alsa1.perex.cz>
-Message-ID: <alpine.LNX.2.20.2106080841500.25665@thursday.test>
-References: <1612651281048146009-webhooks-bot@alsa-project.org>
- <20210206224135.0B465F80171@alsa1.perex.cz>
-User-Agent: Alpine 2.20 (LNX 67 2015-01-07)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F428F80116
+ for <alsa-devel@alsa-project.org>; Tue,  8 Jun 2021 19:53:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F428F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="GOpHFHjq"
+Received: by mail-il1-x12a.google.com with SMTP id i13so14572255ilk.3
+ for <alsa-devel@alsa-project.org>; Tue, 08 Jun 2021 10:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=b2ZwLtaT9Q1Li35z2T9QbYenVB5lzMrQ7040SY2fh2I=;
+ b=GOpHFHjq+iHvZnub1fX7MDT5uUpRAF8FXVU8N9EvJTT+oCBBKKiIIzw+/s+uUEuTPT
+ Zwr4SOlT/uuOze2oskkhdK5WhjxM+OEafB+6PWXnoGzPkUibWw4ANLejdSA3Ry26f7Qr
+ gBYUPM+lf1N2umiqQdz0Gvs+v7ICo2esIp2lE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=b2ZwLtaT9Q1Li35z2T9QbYenVB5lzMrQ7040SY2fh2I=;
+ b=Vre+6c48MM0CWKlXTD+adaGsK2mzzJ0vIV40/y0hJLAK9cIafUCDEoG6qQnhyFjKDH
+ nfm6gm5ilBz21Mm6bHBXifvr9E8j+n/Yjs+efcDkqW1z5RfBnMeSNeb4GAS/Lmwddy8y
+ AMQpr2C+RQ2vaRa/UMdYpnml7Fok8X+iAO3FqZ/CzU3/jO8s6R4FhUTHrY7jZgWrfgRY
+ E/egLMEuzWEcULL6234j3EFHMH6Tdo8jhPFAvupA0ueW3EYTFtoMTTEgoLiwNj6XsIeq
+ eQ1qtXSNxb7esc4vhNJOMIULCtM114yPFp4aDCvYAx31I7WBC5mBODgyu3pnKm6PEAFy
+ TPlg==
+X-Gm-Message-State: AOAM533UrEj++vHfH9Z4lWCcExnFtVACquCcObbWs9OYJovyltJcNRpJ
+ MGtJsTpcwY5yZErsD2hWrfusog==
+X-Google-Smtp-Source: ABdhPJzw+QH5RNrgBfY6VDioZfH02jeyPkErnJSVADuI6BpMUANu6uU/3RabvnbRNLeUR6VTGcBzzg==
+X-Received: by 2002:a92:d944:: with SMTP id l4mr21640928ilq.244.1623174833999; 
+ Tue, 08 Jun 2021 10:53:53 -0700 (PDT)
+Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
+ [24.9.64.241])
+ by smtp.gmail.com with ESMTPSA id s23sm180076iol.49.2021.06.08.10.53.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jun 2021 10:53:53 -0700 (PDT)
+Subject: Re: [bug report] media: sound/usb: Use Media Controller API to share
+ media resources
+To: Dan Carpenter <dan.carpenter@oracle.com>, shuah@kernel.org
+References: <YLeAvT+R22FQ/Eyw@mwanda>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <3c0f6858-ca94-3cd9-7398-20073dfff7b0@linuxfoundation.org>
+Date: Tue, 8 Jun 2021 11:53:53 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Alsa-devel <alsa-devel@alsa-project.org>
+In-Reply-To: <YLeAvT+R22FQ/Eyw@mwanda>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,72 +103,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 6 Feb 2021, GitHub pull_request - opened wrote:
+On 6/2/21 6:59 AM, Dan Carpenter wrote:
+> Hello Shuah Khan,
+> 
+> The patch 66354f18fe5f: "media: sound/usb: Use Media Controller API
+> to share media resources" from Apr 1, 2019, leads to the following
+> static checker warning:
+> 
+> 	sound/usb/media.c:287 snd_media_device_create()
+> 	warn: 'mdev' can also be NULL
+> 
+> sound/usb/media.c
+>     270
+>     271          mdev = media_device_usb_allocate(usbdev, KBUILD_MODNAME, THIS_MODULE);
+>                  ^^^^
+> 
+> If CONFIG_MEDIA_CONTROLLER is disabled then "mdev" is NULL.
 
-> alsa-project/alsa-utils pull request #77 was opened from r-burns:
->
-> Hi! I have a cosmetic "improvement" I'd like to share. Scare quotes
-> because this is possibly opinionated, but I'd still like to know what
-> you think.
->
-> I think on typical terminals, COLOR_BLACK is the same or quite similar
-> to the background color, so this does not make much of a difference. But
-> on "solarized" color schemes and similar, the COLOR_BLACK may be quite
-> different from the background color, so in my opinion it looks odd to
-> have the alsamixer panel stand out this way. For example, I'm using the
-> "Nord" color scheme on a pitch black #000000 background, and here's how
-> the mixer looks with/without this patch (blank terminal, htop, and
-> ncmpcpp also provided for comparison):
->
-> ![image](https://user-images.githubusercontent.com/52847440/107131140-dbf46500-6888-11eb-938a-9a3258bf7184.png)
->
-> As you can see, the current alsamixer in the center looks a bit strange
-> and sticks out
->  against my chosen background color and the other TUIs I'm using. Htop
-> and ncmpcpp agree on using the builtin `-1` background color for their
-> own backgrounds, but alsamixer uses COLOR_BLACK which stands out from
-> the actual background. The alsamixer on the bottom right is using this
-> patch, and blends in seamlessly.
->
-> Again, this is just my opinion! Feel free to close if this is wrong or
-> superfluous. Nonetheless, I thought I'd share this patch, in case anyone
-> else feels the same way.
->
-> Request URL : https://github.com/alsa-project/alsa-utils/pull/77 Patch
-> URL : https://github.com/alsa-project/alsa-utils/pull/77.patch
-> Repository URL: https://github.com/alsa-project/alsa-utils
->
+If CONFIG_MEDIA_CONTROLLER is disabled, this file won't be compiled.
+Please see below clause in the Makefile.
 
-This alsamixer patch made it alsa-utils 1.2.5 (and Slackware current) but
-it gives me problems.
+sound/usb/Makefile:
+snd-usb-audio-$(CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER) += media.o
 
-I have a terminal with a white background (XTerm default), so the white
-characters do not appear at all and the yellow characters are extremely
-hard to read.
+Also, this select in sound/usb/Kconfig selects appropriate
+configs.
 
-My simple solution is to revert patch:
-c867aa8a84a7e9fbf7f9547a3462f8521cfc69b0
+select SND_USB_AUDIO_USE_MEDIA_CONTROLLER if MEDIA_CONTROLLER && 
+(MEDIA_SUPPORT=y || MEDIA_SUPPORT=SND_USB_AUDIO)
 
-Perhaps a better solution could be developed to allow the foreground and
-background colors to be changed by the user?
+We are good here with the above in place to make sure media.c
+code isn't in play when CONFIG_MEDIA_CONTROLLER is disabled.
 
-Signed-off-by: Richard Narron <richard@aaazen.com>
-
---- alsa-utils-1.2.5/alsamixer/colors.c	2021-05-27 10:18:36.000000000 -0700
-+++ alsa-utils-1.2.4/alsamixer/colors.c	2020-10-15 04:32:33.000000000 -0700
-@@ -50,11 +50,11 @@
- 		start_color();
- 		use_default_colors();
-
--		get_color_pair(COLOR_CYAN, -1); // COLOR_PAIR(1)
--		get_color_pair(COLOR_YELLOW, -1);
-+		get_color_pair(COLOR_CYAN, COLOR_BLACK); // COLOR_PAIR(1)
-+		get_color_pair(COLOR_YELLOW, COLOR_BLACK);
- 		get_color_pair(COLOR_WHITE, COLOR_GREEN);
--		get_color_pair(COLOR_RED, -1);
--		get_color_pair(COLOR_WHITE, -1);
-+		get_color_pair(COLOR_RED, COLOR_BLACK);
-+		get_color_pair(COLOR_WHITE, COLOR_BLACK);
- 		get_color_pair(COLOR_WHITE, COLOR_BLUE);
- 		get_color_pair(COLOR_RED, COLOR_BLUE);
- 		get_color_pair(COLOR_GREEN, COLOR_GREEN);
+thanks,
+-- Shuah

@@ -2,102 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30C13A1758
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 16:34:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B20A3A17A8
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 16:45:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E01216DF;
-	Wed,  9 Jun 2021 16:33:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E01216DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4BE516C1;
+	Wed,  9 Jun 2021 16:45:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BE516C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623249283;
-	bh=l2Qtut3VbwZ6UM6Ttgeb7QGVD3my6oi3/TX10/O8b6o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623249952;
+	bh=+lv5BJJ/mVKrua+lKKRmM6I+Zo304KzdyRoRuzWW0OI=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rSGQV2dKkHbMTwyDonhRfiGfH/rg5qWAly1CWjziljK50Km2WPEru5sU90uQT0vTZ
-	 MHVLAD8TLeSqCwaXL1XO5MXo9Hjaw3T1ggtJ3RxiZcp3d3mnVByz3xIr+jbmeC6rFy
-	 X7ydy9BQQqgbDc0Ze5wKDqBMHaNFoS8I7A6nZWts=
+	b=BRd5d9gBMrZn86vzPGjaJNGWUUG9RGvtLB4P5MdeJtDFbimdrUPFmxvMqqK5XV+Qr
+	 qT/z9X8gZqPwBUieXod4xlWr/pUdcJhYVeFYBC+MLumh8tVwiu2Zd62W1hVzjjczMe
+	 tN2NcmW+zxKaO7mxbPQ5zSNd3GDEFsuWQkzwLqBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31A4DF804D6;
-	Wed,  9 Jun 2021 16:32:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EBE4F800F4;
+	Wed,  9 Jun 2021 16:44:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52DBDF8032B; Wed,  9 Jun 2021 16:32:12 +0200 (CEST)
+ id D33A3F8026C; Wed,  9 Jun 2021 16:44:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85493F8026C
- for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 16:32:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85493F8026C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="bavGe0AN"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="kJf+KzwN"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 68AC9157A;
- Wed,  9 Jun 2021 10:31:58 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Wed, 09 Jun 2021 10:31:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=oXvWhLbwOh/u0
- n7UxIKnxJd7w7AA/kV4i4aL6hsnj80=; b=bavGe0ANPIMohJflK+QdkEna+SfEc
- UmmgnRVWKrS6VIiGd+DjrqATsBZYF0lZSmeA/ZVotLzZTSQY04RPYgtHgOyd1t63
- 8LiIT4ipXE2rZHe0MxQM9h0nCgWZgT4wlxEry3avAp0EQzoG9vbuqbjmJLmb9JdB
- +tkpQyQTW7k6LMzU+n1ljTEMKYD54DrQmJHw43MF2Td1N6mJor52kNlwUHNxjJDj
- CtHDBdtGU3cPEzvMaGYhhQwg0ssCJKJTwbbULlfhaaw0qsE0NeJxojjYkIc56ayw
- zH3aPdmac6E/J9gp2/e+fdIcfhAAqBk86zQuc52TpbkUf0Pbe+C+SrFuQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=oXvWhLbwOh/u0n7UxIKnxJd7w7AA/kV4i4aL6hsnj80=; b=kJf+KzwN
- WpTl/v6zmteZCv3mzq+PQzLbQt4qLObUpECkSx61xx2bFQsE5TWdU6FZg0BeBkcA
- n6KUSqD7D3I5w9yMApQOYg3uJP+3S9mpu1tfL79EIMf1WU89x+G94Lj9MPqZL8PI
- biSC1+Do71Nm36XrH0YkgWAQyAMmuB2ed1ggOzhYxQQPUxSo1DaIOvfk3zM0rjny
- R4KfbCh8J8NHdSlFEMWEs7pLzQF9aHjdersQsBSDXJorO24/iaWXLuBY9RdLZgzo
- +VBuakrfx2avt5pT8DLa1GlmSB9hNaTBkpqYRA7o5TOhhssqHU2yfwAsvFPFiaet
- 9DSCznk8J6rMTA==
-X-ME-Sender: <xms:3dDAYKSlDljdYjubPaiJfhFvO3EnBORy5YFHxXQMh0WCzSBhTshHrw>
- <xme:3dDAYPz6M9ov3aByjttLE7owzf-Tok7lBx2frUp9MoOCmGiIbp4Lf4abSk2rtn9Z1
- W47DlV9Y3klnTGj_HM>
-X-ME-Received: <xmr:3dDAYH2dUHvykWG9eCcVKiQs5Bp_YFZSh0v5GWaiJZUtL8LJfKidmbGkKyrTm6fq9cei4fbKL99g65clxqHcKA7a_bYqOq6K0makAYf3bgXrjkfVgsNp>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduuddgjeelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
- grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:3dDAYGDI8MiT2-TrRzIs5TuGyC3eMOnK_Q6VIL8yv8Ql8ozpfXxsfQ>
- <xmx:3dDAYDhVTxc8tk7480r2lJayF3b9wqI6bp4rU7rifwxB2bErjUrp1g>
- <xmx:3dDAYCo13tPKidWHnzQ2CZXLQ9qCQqOYiXCPJoofFPhAW2tRKqdOFg>
- <xmx:3tDAYLZ_tCTBT90vj1iPe4EBh-86JKnel1oZsmUTCmbyp-3JnOXQag>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Jun 2021 10:31:56 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH v2 3/3] ALSA: firewire-lib: obsolete workqueue for period
- update
-Date: Wed,  9 Jun 2021 23:31:45 +0900
-Message-Id: <20210609143145.146680-4-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210609143145.146680-1-o-takashi@sakamocchi.jp>
-References: <20210609143145.146680-1-o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54FD2F800F4
+ for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 16:44:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54FD2F800F4
+IronPort-SDR: otWHJjFGAz0f8LRLxJMmXIZ4krkHcfNiST222G31a2u8wcV4ocPEHOn0vqHRDQw5CtIXFxvNvr
+ WK1KQ57X1Fxg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="202061016"
+X-IronPort-AV: E=Sophos;i="5.83,261,1616482800"; d="scan'208";a="202061016"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2021 07:44:11 -0700
+IronPort-SDR: VKhjsp8LxCzZLg2MpzTkmEXbT89DZLSwNBDJcUUxpOilZCuK2/UYwePpGYZEiPozEnP4b9wCka
+ QrR5vT7FEX7g==
+X-IronPort-AV: E=Sophos;i="5.83,261,1616482800"; d="scan'208";a="419300967"
+Received: from pmadadi-mobl.amr.corp.intel.com (HELO [10.254.191.7])
+ ([10.254.191.7])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2021 07:44:09 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v4] soundwire: intel: move to auxiliary bus
+To: Vinod Koul <vkoul@kernel.org>
+References: <20210511052132.28150-1-yung-chuan.liao@linux.intel.com>
+ <21002781-0b78-3b36-952f-683482a925d7@linux.intel.com>
+ <YLS4N2KgzfsMBD1c@vkoul-mobl.Dlink>
+ <b316763b-d219-6ea3-401e-3eb9718aabf3@linux.intel.com>
+ <YMBHj6PBzeHexXJb@vkoul-mobl>
+Message-ID: <07dbe0a2-0abb-810b-ef39-b83511d3f3e0@linux.intel.com>
+Date: Wed, 9 Jun 2021 09:44:08 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+In-Reply-To: <YMBHj6PBzeHexXJb@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, hui.wang@canonical.com,
+ Jason Gunthorpe <jgg@nvidia.com>, Dave Ertman <david.m.ertman@intel.com>,
+ sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,80 +88,286 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The workqueue to notify PCM period elapse is not used anymore.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/amdtp-stream.c | 15 ---------------
- sound/firewire/amdtp-stream.h |  1 -
- 2 files changed, 16 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 426a85b56cf1..1d9bc7b07df1 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -77,8 +77,6 @@
- // overrun. Actual device can skip more, then this module stops the packet streaming.
- #define IR_JUMBO_PAYLOAD_MAX_SKIP_CYCLES	5
- 
--static void pcm_period_work(struct work_struct *work);
--
- /**
-  * amdtp_stream_init - initialize an AMDTP stream structure
-  * @s: the AMDTP stream to initialize
-@@ -107,7 +105,6 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
- 	s->flags = flags;
- 	s->context = ERR_PTR(-1);
- 	mutex_init(&s->mutex);
--	INIT_WORK(&s->period_work, pcm_period_work);
- 	s->packet_index = 0;
- 
- 	init_waitqueue_head(&s->ready_wait);
-@@ -346,7 +343,6 @@ EXPORT_SYMBOL(amdtp_stream_get_max_payload);
-  */
- void amdtp_stream_pcm_prepare(struct amdtp_stream *s)
- {
--	cancel_work_sync(&s->period_work);
- 	s->pcm_buffer_pointer = 0;
- 	s->pcm_period_pointer = 0;
- }
-@@ -626,16 +622,6 @@ static void update_pcm_pointers(struct amdtp_stream *s,
- 	}
- }
- 
--static void pcm_period_work(struct work_struct *work)
--{
--	struct amdtp_stream *s = container_of(work, struct amdtp_stream,
--					      period_work);
--	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
--
--	if (pcm)
--		snd_pcm_period_elapsed(pcm);
--}
--
- static int queue_packet(struct amdtp_stream *s, struct fw_iso_packet *params,
- 			bool sched_irq)
- {
-@@ -1808,7 +1794,6 @@ static void amdtp_stream_stop(struct amdtp_stream *s)
- 		return;
- 	}
- 
--	cancel_work_sync(&s->period_work);
- 	fw_iso_context_stop(s->context);
- 	fw_iso_context_destroy(s->context);
- 	s->context = ERR_PTR(-1);
-diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index b25592d5f6af..1f957c946c95 100644
---- a/sound/firewire/amdtp-stream.h
-+++ b/sound/firewire/amdtp-stream.h
-@@ -186,7 +186,6 @@ struct amdtp_stream {
- 
- 	/* For a PCM substream processing. */
- 	struct snd_pcm_substream *pcm;
--	struct work_struct period_work;
- 	snd_pcm_uframes_t pcm_buffer_pointer;
- 	unsigned int pcm_period_pointer;
- 
--- 
-2.27.0
+On 6/8/21 11:46 PM, Vinod Koul wrote:
+> Hi Pierre,
+> 
+> You might want to check your setting, this and some other mail (not all
+> though) sent by you seem to have landed up in my spam folder, dont know
+> why gmail is doing that...
 
+I haven't changed any of my configurations, not sure what happens?
+
+> On 01-06-21, 08:56, Pierre-Louis Bossart wrote:
+>>
+>>>> b) Vinod commented:
+>>>>
+>>>> "What I would like to see the end result is that sdw driver for Intel
+>>>> controller here is a simple auxdev device and no additional custom setup
+>>>> layer required... which implies that this handling should be moved into
+>>>> auxdev or Intel code setting up auxdev..."
+>>>>
+>>>> I was unable to figure out what this comment hinted at: the auxbus is
+>>>> already handled in the intel_init.c and intel.c files and the auxbus is used
+>>>> to model a set of links/managers below the PCI device, not the controller
+>>>> itself. There is also no such thing as a simple auxdev device used in the
+>>>> kernel today, the base layer is meant to be extended with domain-specific
+>>>> structures. There is really no point in creating a simple auxbus device
+>>>> without extensions.
+>>>
+>>> <back from vacations>
+>>
+>> same here :-)
+>>
+>>> I would like to see that the init_init.c removed completely, that is my
+>>> ask here
+>>>
+>>> This layer was created by me to aid in creating the platform devices.
+>>> Also the mistake was not to use platform resources and instead pass a
+>>> custom structure for resources (device iomem address, irq etc)
+>>
+>> We are 100% aligned on the ask to remove intel_init.c, this layer is
+>> unnecessary and adds more work for developers/maintainers. We will move all
+>> this in the SOF driver.
+>>
+>>> I would like to see is the PCI/SOF parent driver create the sdw aux
+>>> device and that should be all needed to be done. The aux device would be
+>>> probed by sdw driver. No custom resource structs for resources please.
+>> I was following the previous paragraph but got stuck on the last sentence
+>> 'no custom structs for resources', see below.
+>>
+>>> If that is not possible, I would like to understand technical details of
+>>> why that would be that case. If required necessary changes should be
+>>> made to aux bus to handle and not have sequencing issue which you had
+>>> trouble with platform approach.
+>>
+>> I don't know what you are referring to with the 'sequencing issue which you
+>> had trouble with platform approach'. We never had any technical issues with
+>> platform devices, the solution works and has been productized. We are only
+>> doing this iso-functionality transition because GregKH asked us to do only
+>> use platform devices IF there is a real platform device (controlled by
+>> DT/ACPI).
+>>
+>> I think we are also having language/specification issues here. I don't
+>> understand what you describe as a 'resource' - there is no interaction with
+>> firmware - nor how we can avoid being domain-specific for something that is
+>> Intel-specific.
+>>
+>> Let's go back to the code to help the discussion: the auxiliary driver which
+>> manages a SoundWire link needs to be provided with a 'custom' structure that
+>> describes basic information provided by the PCI parent (link masks, quirks,
+>> IO register bases) and contains internal fields needed for the link
+>> management (mutex, ops, list, etc). This is the structure we use:
+>>
+>> struct sdw_intel_link_res {
+>> 	void __iomem *mmio_base; /* not strictly needed, useful for debug */
+>> 	void __iomem *registers;
+>> 	void __iomem *shim;
+>> 	void __iomem *alh;
+> 
+> These are resources and any auxiliary_device should add this. That way
+> while creating you can set up. Hint look at how platform_device sets up
+> resources
+
+If you look at the *existing* code, we don't handle any "resources" with 
+the platform devices, we use the platform_device_info.data to pass the 
+link information. It's a void pointer. We do not touch the resource 
+field in the platform_device_into at all.
+
+https://elixir.bootlin.com/linux/latest/source/drivers/soundwire/intel_init.c#L168
+
+>> 	int irq;
+> 
+> irq is a generic field and should be again moved into auxiliary_device
+
+It's information passed by the parent so that all links use the same 
+irq. We added this maybe 1.5 years ago after spending months chasing 
+race conditions that we could not root cause. there's nothing generic 
+about this field.
+
+>> 	const struct sdw_intel_ops *ops;
+> 
+> This is for callbacks right? Why cant the sdw aux driver call APIs
+> exported by SOF driver?
+
+this is part of the context, this could be moved to a different structure.
+
+>> 	struct device *dev;
+> 
+> Why do you need a dev pointer here? Is this parent or something else?
+
+for convenience for runtime_pm, there are cases where the link can 
+suspend but the parent has to remain active due to power rail 
+dependencies, so we need to handle pm_runtime_get_noresume() and 
+pm_runtime_put_noidle().
+
+https://elixir.bootlin.com/linux/latest/source/drivers/soundwire/intel.h#L25
+
+We already use this field *today*, this isn't new. I guess we could use 
+dev->parent but that'd be a different patch.
+
+>> 	struct mutex *shim_lock; /* protect shared registers */
+> 
+> Okay so you serialize the access to shim across sdw and sof right?
+> export an api from sof driver and get rid of lock here
+
+this is again something we do today. This is not a new field.
+
+see the description here:
+
+https://elixir.bootlin.com/linux/latest/source/drivers/soundwire/intel.h#L25
+
+This is not about serialization between SOF and SDW, only SDW drivers 
+access the shim. It's about serialization between the different SDW 
+driver instances accessing common hardware registers. Nothing new.
+
+>> 	u32 *shim_mask;
+>> 	u32 clock_stop_quirks;
+>> 	u32 link_mask;
+>> 	struct sdw_cdns *cdns;
+>> 	struct list_head list;
+> 
+> 
+> these sound as internal data to sdw instance, move into intel
+> driver instances
+
+what intel driver?
+
+We have a PCI Intel driver for the parent (SOF) and a driver instance 
+for each SoundWire link - probed when the parent creates the different 
+SoundWire devices.
+
+we need to have an Intel link driver which is different from the SOF 
+driver used for the parent. This is information needed at the child level.
+
+>> };
+>>
+>> We could if it was desired for architectural clarity split this structure in
+>> what is provided by the parent and what is used inside of the auxiliary
+>> driver as an internal context that the parent doesn't touch, but these
+>> definitions are again Intel-specific.
+> 
+> So rather than think Intel specfic, I would suggest you think in generic
+> terms. You have a child auxiliary_device (think like PCI etc), add
+> the generic resources like iomem regions, irq etc and call into SOF
+> driver. That would make sdw driver look neat and help you get rid of
+> this bits
+
+Not able to get what this means, sorry. the child device should not 
+'call into the SOF driver', mixing parent and child layers leads to 
+disaster in general.
+
+The model is exactly the same as what we have today with the platform 
+devices. We did not add ANY new fields or information, what is passed in 
+that structure is exactly the same as what we do upstream today with the 
+platform devices.
+
+To make my point, here is the structure in intel.h as of v5.13-rc1
+
+struct sdw_intel_link_res {
+	struct platform_device *pdev;
+	void __iomem *mmio_base; /* not strictly needed, useful for debug */
+	void __iomem *registers;
+	void __iomem *shim;
+	void __iomem *alh;
+	int irq;
+	const struct sdw_intel_ops *ops;
+	struct device *dev;
+	struct mutex *shim_lock; /* protect shared registers */
+	u32 *shim_mask;
+	u32 clock_stop_quirks;
+	u32 link_mask;
+	struct sdw_cdns *cdns;
+	struct list_head list;
+};
+
+and here's what we suggested in this patch:
+
+struct sdw_intel_link_res {
+	void __iomem *mmio_base; /* not strictly needed, useful for debug */
+	void __iomem *registers;
+	void __iomem *shim;
+	void __iomem *alh;
+	int irq;
+	const struct sdw_intel_ops *ops;
+	struct device *dev;
+	struct mutex *shim_lock; /* protect shared registers */
+	u32 *shim_mask;
+	u32 clock_stop_quirks;
+	u32 link_mask;
+	struct sdw_cdns *cdns;
+	struct list_head list;
+};
+
+You will notice that we removed the platform_device *pdev, but embedded 
+this structure into a larger one to make use of container_of()
+
+struct sdw_intel_link_dev {
+	struct auxiliary_device auxdev;
+	struct sdw_intel_link_res link_res;
+};
+
+That's it. We did not change anything else, all the other fields are 
+identical. We are only changing the TYPE of device and the interfaces 
+for probe/remove but using the same information and the same device 
+hierarchy.
+
+>> Then both types of information are included in the 'link_dev' extension of
+>> the auxiliary device.
+>>
+>> struct sdw_intel_link_dev {
+>> 	struct auxiliary_device auxdev;
+>> 	struct sdw_intel_link_res link_res;
+>> };
+>>
+>> That's the basic design of the auxiliary bus, domain-specific data
+>> structures are not added inside of the auxiliary_device but are part of an
+>> extension accessed with container_of(). That's what everyone using the
+>> auxiliary bus is doing.
+> 
+> I would say resources (as illustrated above) are not domain-specific
+> data but a generic stuff which any type of device object should contain
+
+??
+
+>> Vinod, if you can elaborate on what 'resources' refer to in your reply that
+>> would help. We've been using the same approach as others relying on the
+>> auxiliary bus and I am struggling to see what is wrong with the solution we
+>> suggested, or what changes to the auxiliary bus core would be needed. I
+>> don't mind doing something different but I just don't understand what the
+>> suggestion is.
+> 
+> I think auxiliary_device needs to look more like a real device rather
+> than a simple wrapper as it is now and put heavy onus on implementers.
+
+The consensus for the auxiliary_device model was hard to reach, and the 
+agreement was to align on a minimal model. If you disagree with the 
+directions, you will have to convince Nvidia/Mellanox and Intel 
+networking folks who contributed the solution to do something different.
+
+I also don't see what's heavy, we are not adding new complexity compared 
+to the use of the platform devices. It's the same code that implementers 
+need to provide, there is no additional cost.
+
+> Device drivers should be simple and boring. The details should be
+> handled in bus
+
+The auxiliary bus is minimal on purpose and cannot contain details if it 
+used in areas as diverse as networking, SOF clients and SoundWire child 
+devices. The 'details' need to be handled as domain-specific extensions.
+
+This patch only suggests a modification from platform devices to 
+auxiliary devices. That's it. Iso functionality. No new features or 
+concepts. No new fields. No performance/footprint/cost change.
+
+I did not ask to do this work and I don't have have any emotional 
+attachment to this work. I was trying to make GregKH happy after he 
+mentioned more than 2 years ago that plaform devices should not be used 
+when there isn't an ACPI/DT description.
+
+If you don't agree with the directions, we will withdraw this patch and 
+stay with the platform devices. There are no negative impacts from a 
+performance perspective, but it's not what GregKH wanted. I try to make 
+both of you happy, if this doesn't happen then there's no solution, is 
+there?

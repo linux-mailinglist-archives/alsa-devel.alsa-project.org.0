@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7FA03A09E1
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 04:16:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41AA43A09E3
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 04:17:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F326616DE;
-	Wed,  9 Jun 2021 04:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F326616DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1FA916DF;
+	Wed,  9 Jun 2021 04:16:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1FA916DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623205002;
-	bh=IyWPpms7kSwKaTM6CaDyAvOZkwFY1fNKbBD8wQ8rU7U=;
+	s=default; t=1623205025;
+	bh=pRdYtW9bmdCcq5uHxmwfvJIWnjD4AOn+KwXM5BNcp5M=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tkmM/cHx7YCZWGwmohomlqAmmOcwrHbvhOKmREsnxRQ8/JkxawI5gIQgQBPMEYSL/
-	 OMNN9TOHFGTNT6MNJVKf6Dc585Gnj+2AOZuVJZKH1bzGyQkucMi+ytCo/ITbTSgdVu
-	 oHacogx9a4Es8odR237FhfuH/G2CqjiWK1ufawEs=
+	b=IAIyuo2cJ6h97MarzPT6N5OtTG0MHP/HI6HgeXt72kZT54cqk/crn2D326gagypbP
+	 xuHn9di3YaFbwl4Stl329jak/Tz/OZI1LaB5+Gs49aWERmURbiEQk00BTLkR563p0x
+	 QrHySntef57Dh7gcFV1JD/X4c7Yn6D6xOydouSnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82059F80212;
-	Wed,  9 Jun 2021 04:15:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B040F8032C;
+	Wed,  9 Jun 2021 04:16:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FF2DF802A0; Wed,  9 Jun 2021 04:15:48 +0200 (CEST)
+ id DD31AF802DF; Wed,  9 Jun 2021 04:16:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id EA820F80276
- for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 04:15:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA820F80276
-Date: 09 Jun 2021 11:15:44 +0900
-X-IronPort-AV: E=Sophos;i="5.83,259,1616425200"; d="scan'208";a="83815836"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 09 Jun 2021 11:15:44 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 483E2F802A0
+ for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 04:16:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 483E2F802A0
+Date: 09 Jun 2021 11:16:05 +0900
+X-IronPort-AV: E=Sophos;i="5.83,259,1616425200"; d="scan'208";a="83815869"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 09 Jun 2021 11:16:05 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 91A9A40116D1;
- Wed,  9 Jun 2021 11:15:44 +0900 (JST)
-Message-ID: <877dj3dbqn.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0AF954154309;
+ Wed,  9 Jun 2021 11:16:05 +0900 (JST)
+Message-ID: <875yyndbq3.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 4/8] ASoC: atmel: switch to use
+Subject: [PATCH v2 5/8] ASoC: fsl: switch to use
  snd_soc_daifmt_parse_format/clock_provider()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -87,53 +87,48 @@ snd_soc_of_parse_daifmt().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/atmel/mikroe-proto.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ sound/soc/fsl/fsl-asoc-card.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
-index f9a85fd01b79..5bdba38ec408 100644
---- a/sound/soc/atmel/mikroe-proto.c
-+++ b/sound/soc/atmel/mikroe-proto.c
-@@ -69,6 +69,7 @@ static int snd_proto_probe(struct platform_device *pdev)
- 	struct device_node *bitclkmaster = NULL;
- 	struct device_node *framemaster = NULL;
- 	unsigned int dai_fmt;
-+	unsigned int dai_clk;
- 	int ret = 0;
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index c62bfd1c3ac7..d28d9c1ea659 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -540,7 +540,6 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 	struct device *codec_dev = NULL;
+ 	const char *codec_dai_name;
+ 	const char *codec_dev_name;
+-	unsigned int daifmt;
+ 	u32 width;
+ 	int ret;
  
- 	if (!np) {
-@@ -120,22 +121,25 @@ static int snd_proto_probe(struct platform_device *pdev)
- 	dai->cpus->of_node = cpu_np;
- 	dai->platforms->of_node = cpu_np;
+@@ -684,19 +683,20 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 	}
  
--	dai_fmt = snd_soc_of_parse_daifmt(np, NULL,
--					  &bitclkmaster, &framemaster);
-+	dai_fmt = snd_soc_daifmt_parse_format(np, NULL);
-+	snd_soc_daifmt_parse_clock_provider_as_phandle(np, NULL,
-+						       &bitclkmaster, &framemaster);
- 	if (bitclkmaster != framemaster) {
- 		dev_err(&pdev->dev, "Must be the same bitclock and frame master\n");
- 		return -EINVAL;
- 	}
- 	if (bitclkmaster) {
--		dai_fmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
- 		if (codec_np == bitclkmaster)
--			dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
-+			dai_clk = SND_SOC_DAIFMT_CBM_CFM;
- 		else
--			dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
-+			dai_clk = SND_SOC_DAIFMT_CBS_CFS;
-+	} else {
-+		dai_clk = snd_soc_daifmt_parse_clock_provider_as_flag(np, NULL);
- 	}
+ 	/* Format info from DT is optional. */
+-	daifmt = snd_soc_of_parse_daifmt(np, NULL,
+-					 &bitclkmaster, &framemaster);
+-	daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
++	snd_soc_daifmt_parse_clock_provider_as_phandle(np, NULL, &bitclkmaster, &framemaster);
+ 	if (bitclkmaster || framemaster) {
++		unsigned int daifmt = snd_soc_daifmt_parse_format(np, NULL);
++		unsigned int daiclk;
 +
- 	of_node_put(bitclkmaster);
- 	of_node_put(framemaster);
--	dai->dai_fmt = dai_fmt;
-+	dai->dai_fmt = dai_fmt | dai_clk;
+ 		if (codec_np == bitclkmaster)
+-			daifmt |= (codec_np == framemaster) ?
++			daiclk = (codec_np == framemaster) ?
+ 				SND_SOC_DAIFMT_CBM_CFM : SND_SOC_DAIFMT_CBM_CFS;
+ 		else
+-			daifmt |= (codec_np == framemaster) ?
++			daiclk = (codec_np == framemaster) ?
+ 				SND_SOC_DAIFMT_CBS_CFM : SND_SOC_DAIFMT_CBS_CFS;
  
- 	of_node_put(codec_np);
- 	of_node_put(cpu_np);
+ 		/* Override dai_fmt with value from DT */
+-		priv->dai_fmt = daifmt;
++		priv->dai_fmt = daifmt | daiclk;
+ 	}
+ 
+ 	/* Change direction according to format */
 -- 
 2.25.1
 

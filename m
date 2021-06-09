@@ -2,49 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0DC03A1663
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 16:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6023A1757
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 16:34:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FFC416C1;
-	Wed,  9 Jun 2021 16:00:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FFC416C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC7D716C7;
+	Wed,  9 Jun 2021 16:33:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7D716C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623247300;
-	bh=Ixw3e4PTjyYf7RBfGd45vjE3u02Bo05TKOjfbZZf9Rs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B59gHk3poRhKvg6BRkX+kjjfk8sQ3MfsK6BM7f6PBfw3O1GcIvEG66t+J04UAfSQ3
-	 OgiooucFng9EB2aXA7imDsiXzvRbZAvKD00bjo0eugickwx5KQT/oTGS1YhWiRKEjB
-	 9FKQeDnUILkz4zKuOinywIW2QQ2MzVjWe9SIP5yg=
+	s=default; t=1623249267;
+	bh=xbHhpOhlWPxQ7u/YZMYE8cIOO9159MmkjqSIU3CwUBk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ak8MYVsmuamhDulpgzDT8/KgRNl9Dp8lFrSc2O8JE81vsaUAnkQ+qimMb4SybIGiH
+	 NNmRz7vXYwJDjMNr5ThurOwFbWhmNe8Df1g+ldIPIBM44+fKZ4iKtvyngCMdZEaVFM
+	 bwf81I10RGG/6RWn51MEbCq8ZMzHyOGnnHIloyv8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5A12F80276;
-	Wed,  9 Jun 2021 16:00:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C74F804CA;
+	Wed,  9 Jun 2021 16:32:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4E0BF8026C; Wed,  9 Jun 2021 16:00:10 +0200 (CEST)
+ id CEE3BF80276; Wed,  9 Jun 2021 16:32:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6278AF800F4
- for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 16:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6278AF800F4
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A02BF80116
+ for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 16:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A02BF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="V/LtFhiQ"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="aW7REBg2"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 4188194A;
+ Wed,  9 Jun 2021 10:31:51 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Wed, 09 Jun 2021 10:31:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=1NixpsIiDX881NGqytV1jxTJ0K
+ bdB7KUVen2AN7jDmE=; b=V/LtFhiQ6d7cfRDo6LVu31ltSnzmgKQTTlqcmZRKkT
+ et8SivspVjVSFPoSwRt7tRyWCFj8KCypAcsLNbALNcGHbdmuk4tdTrSohsz36spY
+ DG1grLEcg44xesJc1RC+thcYrAGJqoLzX8T7pEGZ5SzPcLCvqXxfJT59QpUKD3p0
+ Fj66OsyNTsL/NfpAwRODUCbvcYBwI/ofOju7S/YiZnLuV8N34CGcTQT0HzI/uCSB
+ ckkxp/NBhUK9e1oyZdIIH7bOUlca3ZZwBbAruvrxLM5PU9CQkYu9Ce7vbecZFH6K
+ SGlTyupfv9JjXlpg3UA/4V8IIOlbyqiz+zgG1GrPJ1YQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=1NixpsIiDX881NGqy
+ tV1jxTJ0KbdB7KUVen2AN7jDmE=; b=aW7REBg2y1fhePYnaAcJJ4vFDHO0zVdV1
+ rh1aePkhAOvWkPWFCUGuT4PslDH1DVcSbYlRww35+MXbfOXWJbzn/y2TsmPrDuRx
+ 3obmEssC0cawqlDbhQQ3lXslxUSKMM4XyCt2zjk10bHi4D4DJJ+KASV0OAjAIa9g
+ MAFSxl6l4wVvtkigSZJWAMrBF+C3iuHICijjfyuF4aJ6tolUiLnGQbevMI81j3+P
+ tCq9DGK3KOiGN+C3hxizWfec2T8klMY1NFlXJTIiiX8qEh/It6v2YQoKB92hUR+o
+ RwY1bR+ObXjnrkIJ17sneBnRFgUfNyMyudqKADpZTrRuIT/uzkgTw==
+X-ME-Sender: <xms:1dDAYMADhy8xnKjRZXVdmkqGs1wFEcApAVJmr1x-RwJhg1-RmLaWxQ>
+ <xme:1dDAYOg00cYG100SvTmyOENXdOJE-WJ31tiUw1PdjGJs7wt0l5hwdFJxMSVbl9NVu
+ FAdXuCjSx1rCPK4p30>
+X-ME-Received: <xmr:1dDAYPlO3Il1vx55UZJnL6ulMHmuqBdz6JF2fN_kowAg_L1bNiABpe0xs7S_USbvZCBl1zf1m-7ejWsTRsoC-SRE6kONHeHkgoyJdmAsdMoK6spg70KA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduuddgjeekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepteeiuefhjeekke
+ efheetieekvdegfefhgffgvdeiheehhfehiedvhffgjeejuddunecuffhomhgrihhnpehk
+ vghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+ hlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:1dDAYCzCMKJ2oYxZDkHykc0CiJRePMF98NX8pSMQ8KeSYLDA-wDxZQ>
+ <xmx:1dDAYBT5CULW13YWIZeaKripuZwvHfq40XJUx9WzoHQ5C7bWt0CP1A>
+ <xmx:1dDAYNahXYuTddVcIFbW3N1Dy-w6BnBUGhngJvoiNmLw4z2yAgDung>
+ <xmx:1tDAYAJnlbARKC3r2iM-ZxdYNsfSxRZKNjutnDW1_swWPlRpsg_gJg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Jun 2021 10:31:48 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH v2 0/3] ALSA: pcm:firewire: allow to operate for period elapse
+ event in process context
+Date: Wed,  9 Jun 2021 23:31:42 +0900
+Message-Id: <20210609143145.146680-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1623247200455168009-webhooks-bot@alsa-project.org>
-References: <1623247200455168009-webhooks-bot@alsa-project.org>
-Subject: opensuse tumbleweed no sound after alsa lib update (tumbleweed
- 2010605)
-Message-Id: <20210609140010.B4E0BF8026C@alsa1.perex.cz>
-Date: Wed,  9 Jun 2021 16:00:10 +0200 (CEST)
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,50 +108,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #149 was opened from pawanyadav:
+Hi,
 
-sound is not working alsa (never installed pipewire and pulseaudio)
+This patchset is revised version of my previous one:
+ * https://lore.kernel.org/alsa-devel/20210609012244.24296-1-o-takashi@sakamocchi.jp/
 
-asound.conf
-defaults.pcm.card 1
-defaults.pcm.device 1
+All of drivers in ALSA firewire stack have two chances to process
+isochronous packets of any isochronous context; in software IRQ context
+for 1394 OHCI, and in process context of ALSA PCM application.
 
+In the process context, callbacks of .pointer and .ack are utilized. The
+callbacks are done by ALSA PCM core under acquiring lock of PCM substream,
 
+In design of ALSA PCM core, call of snd_pcm_period_elapsed() is used for
+drivers to awaken user processes from waiting for available frames. The
+function voluntarily acquires lock of PCM substream, therefore it is not
+called in the process context since it causes dead lock. As a workaround
+to avoid the dead lock, all of drivers in ALSA firewire stack use workqueue
+to delegate the call.
 
-aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: HDMI [HDA ATI HDMI], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Generic [HD-Audio Generic], device 0: ALC887-VD Analog [ALC887-VD Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Generic [HD-Audio Generic], device 1: ALC887-VD Digital [ALC887-VD Digital]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
+This patchset is my attempt for the issue. A variant of 
+'snd_pcm_period_elapsed()' without lock acquisition is going to be added,
+named 'snd_pcm_period_elapsed_under_stream_lock()'. The call is available
+in callbacks of .pointer and .ack of snd_pcm_ops structure.
 
-cat /proc/asound/cards
- 0 [HDMI           ]: HDA-Intel - HDA ATI HDMI
-                      HDA ATI HDMI at 0xfcf40000 irq 67
- 1 [Generic        ]: HDA-Intel - HD-Audio Generic
-                      HD-Audio Generic at 0xfce00000 irq 69
+Changes from v1:
+ * fix context section of kernel API documentation
 
+Takashi Sakamoto (3):
+  ALSA: pcm: add snd_pcm_period_elapsed() variant without acquiring lock
+    of PCM substream
+  ALSA: firewire-lib: operate for period elapse event in process context
+  ALSA: firewire-lib: obsolete workqueue for period update
 
+ include/sound/pcm.h           |  1 +
+ sound/core/pcm_lib.c          | 71 +++++++++++++++++++++++++++--------
+ sound/firewire/amdtp-stream.c | 46 +++++++----------------
+ sound/firewire/amdtp-stream.h |  1 -
+ 4 files changed, 71 insertions(+), 48 deletions(-)
 
-speaker-test 1.2.4
+-- 
+2.27.0
 
-Playback device is default
-Stream parameters are 48000Hz, S16_LE, 1 channels
-Using 16 octaves of pink noise
-ALSA lib confmisc.c:855:(parse_card) cannot find card '1dmix:1'
-ALSA lib conf.c:5091:(_snd_config_evaluate) function snd_func_card_id returned error: No such device
-ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
-ALSA lib conf.c:5091:(_snd_config_evaluate) function snd_func_concat returned error: No such device
-ALSA lib confmisc.c:1334:(snd_func_refer) error evaluating name
-ALSA lib conf.c:5091:(_snd_config_evaluate) function snd_func_refer returned error: No such device
-ALSA lib conf.c:5579:(snd_config_expand) Evaluate error: No such device
-ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM dmix:1dmix:1
-Playback open error: -19,No such device
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/149
-Repository URL: https://github.com/alsa-project/alsa-lib

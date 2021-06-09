@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6DF3A09DC
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 04:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87BC63A09DD
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jun 2021 04:15:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EBA916CC;
-	Wed,  9 Jun 2021 04:14:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EBA916CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1687416DC;
+	Wed,  9 Jun 2021 04:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1687416DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623204924;
-	bh=+ZiF8c4zU6pS4MiA3Z/f5m2BMssRc2VF/3ZN/XanHyY=;
+	s=default; t=1623204940;
+	bh=J/7aGgLansjWS+nprUPaQqsqpDAhoZ8xJCb5z64dp+c=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DrJCZQgg54/MdMtNcxohjEJ7nkqlkEM1whvrzJLH4fMpotatptf3nGT653Ul25R1h
-	 +1SpqOuAeiDulSi6sRTr3VU74i9FH8I72Dubs08bgsefWjGif417JEw14U4j81EYvz
-	 8lu4psBOvJVyGXybbn19fdB2VbV7lGHFbsltTvp0=
+	b=StJG9CIgc03vUaLrDfW6RAXr2EFn/yloVG/yXHjWCRAeQgHIsvRyJf59f5fyA68LV
+	 xRrt9YKhPOETeHuiQJ8C54+Ci5FdtMkQRX7BZx+6fRA+17XZxkUu2EW6IpZq/IdiXp
+	 rdEqKn3hm3fym+aoFsI5byJ44yhOjXIm+HgnBHpw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 326D1F80212;
-	Wed,  9 Jun 2021 04:13:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2654F802DF;
+	Wed,  9 Jun 2021 04:14:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA9D0F8026C; Wed,  9 Jun 2021 04:13:55 +0200 (CEST)
+ id DB0F6F802A0; Wed,  9 Jun 2021 04:14:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 22E3AF80116
- for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 04:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22E3AF80116
-Date: 09 Jun 2021 11:13:46 +0900
-X-IronPort-AV: E=Sophos;i="5.83,259,1616425200"; d="scan'208";a="83815656"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1EACFF80276
+ for <alsa-devel@alsa-project.org>; Wed,  9 Jun 2021 04:14:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EACFF80276
+Date: 09 Jun 2021 11:14:11 +0900
+X-IronPort-AV: E=Sophos;i="5.83,259,1616425200"; d="scan'208";a="83661601"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 09 Jun 2021 11:13:46 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 09 Jun 2021 11:14:11 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id A97F140116CC;
- Wed,  9 Jun 2021 11:13:46 +0900 (JST)
-Message-ID: <87bl8fdbtx.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3AEB040116D0;
+ Wed,  9 Jun 2021 11:14:11 +0900 (JST)
+Message-ID: <87a6nzdbt8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 1/8] ASoC: soc-core: add
- snd_soc_daifmt_clock_provider_from_bitmap()
+Subject: [PATCH v2 2/8] ASoC: soc-core: add
+ snd_soc_daifmt_clock_provider_fliped()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
@@ -82,79 +82,86 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds snd_soc_daifmt_clock_provider_from_bitmap() function
-to judge clock/frame master from its bitmap.
-This is prepare for snd_soc_of_parse_daifmt() cleanup.
+Sometimes we want to get CLOCK_PROVIDER fliped dai_fmt.
+This patch adds new snd_soc_daifmt_clock_provider_fliped() for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h  |  1 +
- sound/soc/soc-core.c | 33 +++++++++++++++++++--------------
- 2 files changed, 20 insertions(+), 14 deletions(-)
+ include/sound/soc.h  |  2 ++
+ sound/soc/soc-core.c | 40 +++++++++++++++++++++++++---------------
+ 2 files changed, 27 insertions(+), 15 deletions(-)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index e746da996351..ea35e431e04e 100644
+index ea35e431e04e..45f3da277c5d 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -1232,6 +1232,7 @@ void snd_soc_of_parse_audio_prefix(struct snd_soc_card *card,
+@@ -1232,6 +1232,8 @@ void snd_soc_of_parse_audio_prefix(struct snd_soc_card *card,
  int snd_soc_of_parse_audio_routing(struct snd_soc_card *card,
  				   const char *propname);
  int snd_soc_of_parse_aux_devs(struct snd_soc_card *card, const char *propname);
-+unsigned int snd_soc_daifmt_clock_provider_from_bitmap(unsigned int bit_frame);
++
++unsigned int snd_soc_daifmt_clock_provider_fliped(unsigned int dai_fmt);
+ unsigned int snd_soc_daifmt_clock_provider_from_bitmap(unsigned int bit_frame);
  unsigned int snd_soc_of_parse_daifmt(struct device_node *np,
  				     const char *prefix,
- 				     struct device_node **bitclkmaster,
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 44e65f984a5c..f271202f4049 100644
+index f271202f4049..0a8143e3fcdb 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3017,6 +3017,24 @@ int snd_soc_of_parse_aux_devs(struct snd_soc_card *card, const char *propname)
+@@ -1249,21 +1249,8 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
+ 	 * Flip the polarity for the "CPU" end of a CODEC<->CODEC link
+ 	 * the component which has non_legacy_dai_naming is Codec
+ 	 */
+-	inv_dai_fmt = dai_fmt & ~SND_SOC_DAIFMT_MASTER_MASK;
+-	switch (dai_fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBM_CFM:
+-		inv_dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
+-		break;
+-	case SND_SOC_DAIFMT_CBM_CFS:
+-		inv_dai_fmt |= SND_SOC_DAIFMT_CBS_CFM;
+-		break;
+-	case SND_SOC_DAIFMT_CBS_CFM:
+-		inv_dai_fmt |= SND_SOC_DAIFMT_CBM_CFS;
+-		break;
+-	case SND_SOC_DAIFMT_CBS_CFS:
+-		inv_dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
+-		break;
+-	}
++	inv_dai_fmt = snd_soc_daifmt_clock_provider_fliped(dai_fmt);
++
+ 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+ 		unsigned int fmt = dai_fmt;
+ 
+@@ -3017,6 +3004,29 @@ int snd_soc_of_parse_aux_devs(struct snd_soc_card *card, const char *propname)
  }
  EXPORT_SYMBOL_GPL(snd_soc_of_parse_aux_devs);
  
-+unsigned int snd_soc_daifmt_clock_provider_from_bitmap(unsigned int bit_frame)
++unsigned int snd_soc_daifmt_clock_provider_fliped(unsigned int dai_fmt)
 +{
-+	/* Codec base */
-+	switch (bit_frame) {
-+	case 0x11:
-+		return SND_SOC_DAIFMT_CBP_CFP;
-+	case 0x10:
-+		return SND_SOC_DAIFMT_CBP_CFC;
-+	case 0x01:
-+		return SND_SOC_DAIFMT_CBC_CFP;
-+	default:
-+		return SND_SOC_DAIFMT_CBC_CFC;
++	unsigned int inv_dai_fmt = dai_fmt & ~SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK;
++
++	switch (dai_fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_CBP_CFP:
++		inv_dai_fmt |= SND_SOC_DAIFMT_CBC_CFC;
++		break;
++	case SND_SOC_DAIFMT_CBP_CFC:
++		inv_dai_fmt |= SND_SOC_DAIFMT_CBC_CFP;
++		break;
++	case SND_SOC_DAIFMT_CBC_CFP:
++		inv_dai_fmt |= SND_SOC_DAIFMT_CBP_CFC;
++		break;
++	case SND_SOC_DAIFMT_CBC_CFC:
++		inv_dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
++		break;
 +	}
 +
-+	return 0;
++	return inv_dai_fmt;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_daifmt_clock_provider_from_bitmap);
++EXPORT_SYMBOL_GPL(snd_soc_daifmt_clock_provider_fliped);
 +
- unsigned int snd_soc_of_parse_daifmt(struct device_node *np,
- 				     const char *prefix,
- 				     struct device_node **bitclkmaster,
-@@ -3115,20 +3133,7 @@ unsigned int snd_soc_of_parse_daifmt(struct device_node *np,
- 	if (frame && framemaster)
- 		*framemaster = of_parse_phandle(np, prop, 0);
- 
--	switch ((bit << 4) + frame) {
--	case 0x11:
--		format |= SND_SOC_DAIFMT_CBM_CFM;
--		break;
--	case 0x10:
--		format |= SND_SOC_DAIFMT_CBM_CFS;
--		break;
--	case 0x01:
--		format |= SND_SOC_DAIFMT_CBS_CFM;
--		break;
--	default:
--		format |= SND_SOC_DAIFMT_CBS_CFS;
--		break;
--	}
-+	format |= snd_soc_daifmt_clock_provider_from_bitmap((bit << 4) + frame);
- 
- 	return format;
- }
+ unsigned int snd_soc_daifmt_clock_provider_from_bitmap(unsigned int bit_frame)
+ {
+ 	/* Codec base */
 -- 
 2.25.1
 

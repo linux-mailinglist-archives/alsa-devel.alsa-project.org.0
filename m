@@ -2,72 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE173A246A
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 08:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27E13A25A5
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 09:41:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C33A172A;
-	Thu, 10 Jun 2021 08:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C33A172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FD1C172C;
+	Thu, 10 Jun 2021 09:40:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FD1C172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623306146;
-	bh=ZCc0McA1OeNylaKYcPQalDnyqRtmeEKzR1Q4SNWsSX0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=REZuVz+RiuY1DbP2rX/s7vd/zsD4jSozHW/dPt4OyzkOJtmpoawrJRJhVZKOrEalq
-	 0YZ8LCjZkxK7jHuk/1eAikbAx2fiYxp98n8W8EDLP5XLYPsAf9fsDIBqgOr50Sw/yg
-	 01HU6Lcf8W2Mz5rUqAw5ixvAFI9514d3FceRIijo=
+	s=default; t=1623310873;
+	bh=KlI1eSH1xuFfsRr6LSsdzB6UETfE5MNDhVaqZBpqjHA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fm02Sh/lqIWm22zq3vAa4Vir7HLa56az/uTk6L0rt6vAKGEcB/51viLrNGt9gjetQ
+	 mnwzNUPJF5RAZsVVVy/SA9AqqfqsMqQKcE4jGcFIH+TKy9P2Ytrc3RtYzezvjDr7Kq
+	 14J30TJScIObyDDHloWDhObpND408Ajfd7Oe3jJo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A01AF80227;
-	Thu, 10 Jun 2021 08:20:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADA67F80149;
+	Thu, 10 Jun 2021 09:39:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E5DCF80218; Thu, 10 Jun 2021 08:20:56 +0200 (CEST)
+ id 33CBEF80218; Thu, 10 Jun 2021 09:39:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.131])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30A0AF80149
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 08:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30A0AF80149
-Received: from localhost (unknown [192.168.167.16])
- by lucky1.263xmail.com (Postfix) with ESMTP id DA17FBA7F6;
- Thu, 10 Jun 2021 14:20:43 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-ANTISPAM-LEVEL: 2
-X-ABS-CHECKED: 0
-Received: from localhost.localdomain (unknown [113.57.152.160])
- by smtp.263.net (postfix) whith ESMTP id
- P32529T140357287958272S1623306042221794_; 
- Thu, 10 Jun 2021 14:20:44 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <0a0ef2f2f4c7605f7bd6b05bff47d8d4>
-X-RL-SENDER: huangjianghui@uniontech.com
-X-SENDER: huangjianghui@uniontech.com
-X-LOGIN-NAME: huangjianghui@uniontech.com
-X-FST-TO: corbet@lwn.net
-X-RCPT-COUNT: 7
-X-SENDER-IP: 113.57.152.160
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: huangjianghui <huangjianghui@uniontech.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH] Docs: hda: Fix spelling mistakes
-Date: Thu, 10 Jun 2021 14:20:36 +0800
-Message-Id: <20210610062036.30300-1-huangjianghui@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- huangjianghui <huangjianghui@uniontech.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 041E9F80149
+ for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 09:39:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 041E9F80149
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="U22LlcXS"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PkgYjKOj"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 90A7C1FD37;
+ Thu, 10 Jun 2021 07:39:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623310778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GaOYtPLptq8vH6Et9fHMP0w9wrwVFXJKpiCsUc4ZTOA=;
+ b=U22LlcXSQ2ZECpwqBesGw9MOF+jUcclbsICyYFxlGcgRKD89ZjKwNzIy93xfZCrUkQoXz7
+ 6oLiNqU3ZL5wT70LFMrzSRSmoNhwdjBE7lsji0hsGlKy+ySaHj0H9xeRBQ/vGsivQiw/r1
+ msLe20XLjmrUyzBhne7hB6OqrrVsjpo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623310778;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GaOYtPLptq8vH6Et9fHMP0w9wrwVFXJKpiCsUc4ZTOA=;
+ b=PkgYjKOjb2fVwtnLvGzi4Q5W8isRaVkiSe7xtnTh3w+Wi+Z2y3cAWO1Am/m4kLZ/GAKSCs
+ F+lKX71JsXyqzQBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 82959A3B84;
+ Thu, 10 Jun 2021 07:39:37 +0000 (UTC)
+Date: Thu, 10 Jun 2021 09:39:37 +0200
+Message-ID: <s5h1r9ab22u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: add snd_pcm_period_elapsed() variant
+ without acquiring lock of PCM substream
+In-Reply-To: <20210609231623.GA3207@workstation>
+References: <20210609143145.146680-1-o-takashi@sakamocchi.jp>
+ <20210609143145.146680-2-o-takashi@sakamocchi.jp>
+ <s5him2nawim.wl-tiwai@suse.de> <20210609231623.GA3207@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,28 +94,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-correct Reatek to Realtek
+On Thu, 10 Jun 2021 01:16:23 +0200,
+Takashi Sakamoto wrote:
+> 
+> On Wed, Jun 09, 2021 at 05:27:29PM +0200, Takashi Iwai wrote:
+> > On Wed, 09 Jun 2021 16:31:43 +0200,
+> > Takashi Sakamoto wrote:
+> > > diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> > > index b7e3d8f44511..3488ec1e3674 100644
+> > > --- a/sound/core/pcm_lib.c
+> > > +++ b/sound/core/pcm_lib.c
+> > > @@ -1778,27 +1778,41 @@ int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
+> > >  EXPORT_SYMBOL(snd_pcm_lib_ioctl);
+> > >  
+> > >  /**
+> > > - * snd_pcm_period_elapsed - update the pcm status for the next period
+> > > - * @substream: the pcm substream instance
+> > > + * snd_pcm_period_elapsed_under_stream_lock() - update the status of runtime for the next period
+> > > + *						under acquired lock of PCM substream.
+> > > + * @substream: the instance of pcm substream.
+> > > + *
+> > > + * This function is called when the batch of audio data frames as the same size as the period of
+> > > + * buffer is already processed in audio data transmission.
+> > > + *
+> > > + * The call of function updates the status of runtime with the latest position of audio data
+> > > + * transmission, checks overrun and underrun over buffer, awaken user processes from waiting for
+> > > + * available audio data frames, sampling audio timestamp, and performs stop or drain the PCM
+> > > + * substream according to configured threshold.
+> > > + *
+> > > + * The function is intended to use for the case that PCM driver operates audio data frames under
+> > > + * acquired lock of PCM substream; e.g. in callback of any operation of &snd_pcm_ops in process
+> > > + * context. In any interrupt context, it's preferrable to use ``snd_pcm_period_elapsed()`` instead
+> > > + * since lock of PCM substream should be acquired in advance.
+> > >   *
+> > > - * This function is called from the interrupt handler when the
+> > > - * PCM has processed the period size.  It will update the current
+> > > - * pointer, wake up sleepers, etc.
+> > > + * Developer should pay enough attention that some callbacks in &snd_pcm_ops are done by the call of
+> > > + * function:
+> > >   *
+> > > - * Even if more than one periods have elapsed since the last call, you
+> > > - * have to call this only once.
+> > > + * - .pointer - to retrieve current position of audio data transmission by frame count or XRUN state.
+> > > + * - .trigger - with SNDRV_PCM_TRIGGER_STOP at XRUN or DRAINING state.
+> > > + * - .get_time_info - to retrieve audio time stamp if needed.
+> > > + *
+> > > + * Even if more than one periods have elapsed since the last call, you have to call this only once.
+> > > + *
+> > > + * Context: Any context in which lock of PCM substream is already acquired. This function may not
+> > > + * sleep.
+> > 
+> > Hm, this text still remains here.  Overlooked?
+> 
+> It's my intension for documentation of
+> snd_pcm_period_elapsed_under_stream_lock() since it's expected to call
+> it under acquired lock. Its implementation doesn't yield processor
+> voluntarily by itself. If it yielded, it would depend on implementation
+> of each driver for struct snd_pcm_ops.{pointer, trigger, get_time_info},
+> but it's not preferable implementation of driver, in my opinion.
 
-Signed-off-by: huangjianghui <huangjianghui@uniontech.com>
----
- Documentation/sound/hd-audio/controls.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/sound/hd-audio/controls.rst b/Documentation/sound/hd-audio/controls.rst
-index f2ebc4f79b44..dbe6483f4ff4 100644
---- a/Documentation/sound/hd-audio/controls.rst
-+++ b/Documentation/sound/hd-audio/controls.rst
-@@ -102,7 +102,7 @@ Conexant codecs
- ---------------
- 
- Auto-Mute Mode
--  See Reatek codecs.
-+  See Realtek codecs.
- 
- 
- Analog codecs
--- 
-2.20.1
+My point is again about the sleep.  This function may sleep in the
+nonatomic mode.  The type of the PCM stream lock depends on it.
 
 
-
+Takashi

@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF333A3539
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 22:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D54F93A3535
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 22:57:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDCF17F6;
-	Thu, 10 Jun 2021 22:57:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDCF17F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B23617DB;
+	Thu, 10 Jun 2021 22:56:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B23617DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623358674;
-	bh=XpUgVnwM3lHg7Nb4lqCqRUbp5LRayUjLBJJGJaVqHRg=;
+	s=default; t=1623358640;
+	bh=RFiaPg2Jkn54kCfz1PAi9QoxJXgKKNrtPH5Pj3t29ps=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oJ9KeDk1lIGyv9N2O8Gjgimpr7hsAQZ+RlZ2cOivbYIqN4HFOw0QXbODdedZ2SFiX
-	 BbgdNmjVXITrjROzLwzZBss2Jb3/qruxBtj68+Y6KtBeFtKRpMu0FKJfNLFWZ1u3oC
-	 RVDHYu2cl1SzZ5wYKID3Heox+qO9vTB2BkHMZhqU=
+	b=h/8l4kZyqrXUgmzaKq4CpEvojUPyERODZSwcJV0YqBeB3vj5C2pctJj1zLF3nZk/5
+	 U3RFzhWEivK0cpAKh4/QltyVBQb/g58T5qu+9zEr8SQg5NLvVflzsxKMNtd4NjXKGD
+	 sMSTQG5+TJgY5IpEzveCj2CRYRnjQRPS/BY+y+Vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B22FF804E4;
-	Thu, 10 Jun 2021 22:54:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1B4AF804E3;
+	Thu, 10 Jun 2021 22:54:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ED5DF804C2; Thu, 10 Jun 2021 22:54:12 +0200 (CEST)
+ id 06648F804CB; Thu, 10 Jun 2021 22:54:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09738F804B3
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 22:54:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09738F804B3
-IronPort-SDR: uNvCNS7BQuYU+jV5FNxM8QgfarRhqzSMVR8CSvzWdNXuRyTToGi4q3E//+DV6zvj8AXCO2po+h
- FGIRUpj6/AoA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="226812423"
-X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="226812423"
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0E8DF804C2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 22:54:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0E8DF804C2
+IronPort-SDR: cKswenGYdKa2aUS+cnWN4Mg8qwKGGonIEeFDssK0oTfvxqmrZNUWMj725QOchJIhkx23aypSeY
+ BIZ1xPjj1AKg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="226812425"
+X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="226812425"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2021 13:53:53 -0700
-IronPort-SDR: 2PLW9ZJ8YOydIH/1KJFXDe3OTcphEMguCu6IC1tsOQ4QfGZoTL2jrMQcXkzgFyUjFdyYrnONwP
- /LnbZlXSFUqw==
-X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="620183641"
+ 10 Jun 2021 13:53:54 -0700
+IronPort-SDR: p2IIfkmCbBXQWZ1yUbeB49ZUtASAVDtO8MkjUNE8ZugPHiWzANnoET9rhyDK5ckxOxkesZFvhF
+ r6vZNb8UKEbQ==
+X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="620183646"
 Received: from umedepal-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.213.170.65])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2021 13:53:52 -0700
+ 10 Jun 2021 13:53:53 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 6/8] ALSA: pcm: conditionally avoid mmap of control data
-Date: Thu, 10 Jun 2021 15:53:24 -0500
-Message-Id: <20210610205326.1176400-7-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 7/8] ASOC: SOF: pcm: add .ack callback support
+Date: Thu, 10 Jun 2021 15:53:25 -0500
+Message-Id: <20210610205326.1176400-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210610205326.1176400-1-pierre-louis.bossart@linux.intel.com>
 References: <20210610205326.1176400-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,87 +79,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In case of mmap, by default alsa-lib mmaps both control and status data.
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-If driver subscribes for application pointer update, driver needs to get
-notification whenever appl ptr changes. With the above case driver won't
-get appl ptr notifications.
+Add the indirections required at the core level for platform-specific
+operations on ack.
 
-This patch check on a hw info flag and returns error when user land asks
-for mmaping control & status data, thus forcing user to issue
-IOCTL_SYNC_PTR.
+Note that on errors in the .ack the ALSA core will restore the
+previous appl_ptr.
 
-This patch was originally submitted in 2017, c.f.
-https://lore.kernel.org/alsa-devel/1494896518-23399-4-git-send-email-subhransu.s.prusty@intel.com/
-
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/uapi/sound/asound.h |  1 +
- sound/core/pcm_native.c     | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ sound/soc/sof/ops.h      | 10 ++++++++++
+ sound/soc/sof/pcm.c      |  9 +++++++++
+ sound/soc/sof/sof-priv.h |  3 +++
+ 3 files changed, 22 insertions(+)
 
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 535a7229e1d9..e7566bfc106c 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -299,6 +299,7 @@ typedef int __bitwise snd_pcm_subformat_t;
- #define SNDRV_PCM_INFO_HAS_LINK_ABSOLUTE_ATIME     0x02000000  /* report absolute hardware link audio time, not reset on startup */
- #define SNDRV_PCM_INFO_HAS_LINK_ESTIMATED_ATIME    0x04000000  /* report estimated link audio time */
- #define SNDRV_PCM_INFO_HAS_LINK_SYNCHRONIZED_ATIME 0x08000000  /* report synchronized audio/system time */
-+#define SNDRV_PCM_INFO_NO_STATUS_MMAP	0x10000000	/* status and control mmap not supported */
+diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
+index 4a5d6e497f05..fc9142fe3421 100644
+--- a/sound/soc/sof/ops.h
++++ b/sound/soc/sof/ops.h
+@@ -428,6 +428,16 @@ snd_sof_pcm_platform_pointer(struct snd_sof_dev *sdev,
+ 	return 0;
+ }
  
- #define SNDRV_PCM_INFO_DRAIN_TRIGGER	0x40000000		/* internal kernel flag - trigger in drain */
- #define SNDRV_PCM_INFO_FIFO_IN_FRAMES	0x80000000	/* internal kernel flag - FIFO size is in frames */
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 8dbe86cf2e4f..01f755ce54a8 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3810,11 +3810,13 @@ static int snd_pcm_mmap(struct file *file, struct vm_area_struct *area)
- 	struct snd_pcm_file * pcm_file;
- 	struct snd_pcm_substream *substream;	
- 	unsigned long offset;
-+	unsigned int info;
- 	
- 	pcm_file = file->private_data;
- 	substream = pcm_file->substream;
- 	if (PCM_RUNTIME_CHECK(substream))
- 		return -ENXIO;
-+	info = substream->runtime->hw.info;
++/* pcm ack */
++static inline int snd_sof_pcm_platform_ack(struct snd_sof_dev *sdev,
++					   struct snd_pcm_substream *substream)
++{
++	if (sof_ops(sdev) && sof_ops(sdev)->pcm_ack)
++		return sof_ops(sdev)->pcm_ack(sdev, substream);
++
++	return 0;
++}
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ static inline int
+ snd_sof_probe_compr_assign(struct snd_sof_dev *sdev,
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index bab837ed8c7f..8c47687d0d3a 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -817,6 +817,14 @@ static void sof_pcm_remove(struct snd_soc_component *component)
+ 	snd_soc_tplg_component_remove(component);
+ }
  
- 	offset = area->vm_pgoff << PAGE_SHIFT;
- 	switch (offset) {
-@@ -3825,6 +3827,13 @@ static int snd_pcm_mmap(struct file *file, struct vm_area_struct *area)
- 	case SNDRV_PCM_MMAP_OFFSET_STATUS_NEW:
- 		if (!pcm_status_mmap_allowed(pcm_file))
- 			return -ENXIO;
-+		/*
-+		 * force fallback to ioctl if driver doesn't support status
-+		 * and control mmap.
-+		 */
-+		if (info & SNDRV_PCM_INFO_NO_STATUS_MMAP)
-+			return -ENXIO;
++static int sof_pcm_ack(struct snd_soc_component *component,
++		       struct snd_pcm_substream *substream)
++{
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
 +
- 		return snd_pcm_mmap_status(substream, file, area);
- 	case SNDRV_PCM_MMAP_OFFSET_CONTROL_OLD:
- 		if (pcm_file->no_compat_mmap || !IS_ENABLED(CONFIG_64BIT))
-@@ -3833,6 +3842,14 @@ static int snd_pcm_mmap(struct file *file, struct vm_area_struct *area)
- 	case SNDRV_PCM_MMAP_OFFSET_CONTROL_NEW:
- 		if (!pcm_control_mmap_allowed(pcm_file))
- 			return -ENXIO;
++	return snd_sof_pcm_platform_ack(sdev, substream);
++}
 +
-+		/*
-+		 * force fallback to ioctl if driver doesn't support status
-+		 * and control mmap.
-+		 */
-+		if (info & SNDRV_PCM_INFO_NO_STATUS_MMAP)
-+			return -ENXIO;
+ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_soc_component_driver *pd = &sdev->plat_drv;
+@@ -835,6 +843,7 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 	pd->hw_free = sof_pcm_hw_free;
+ 	pd->trigger = sof_pcm_trigger;
+ 	pd->pointer = sof_pcm_pointer;
++	pd->ack = sof_pcm_ack;
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMPRESS)
+ 	pd->compress_ops = &sof_compressed_ops;
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index fd8423172d8f..8640ffed6cb5 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -178,6 +178,9 @@ struct snd_sof_dsp_ops {
+ 	snd_pcm_uframes_t (*pcm_pointer)(struct snd_sof_dev *sdev,
+ 					 struct snd_pcm_substream *substream); /* optional */
+ 
++	/* pcm ack */
++	int (*pcm_ack)(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream); /* optional */
 +
- 		return snd_pcm_mmap_control(substream, file, area);
- 	default:
- 		return snd_pcm_mmap_data(substream, file, area);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ 	/* Except for probe_pointer, all probe ops are mandatory */
+ 	int (*probe_assign)(struct snd_sof_dev *sdev,
 -- 
 2.25.1
 

@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31A753A25DB
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 09:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC313A25DC
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 09:53:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A713A172D;
-	Thu, 10 Jun 2021 09:51:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A713A172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 078311747;
+	Thu, 10 Jun 2021 09:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078311747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623311566;
-	bh=cP5YZ9vJsZpxiCNaKfqSvKumkrNPgyjPnPpUQhz1iiU=;
+	s=default; t=1623311582;
+	bh=JCN9ZQu9RwmB1Nfx1QURn6n8/RXRjssFTlkXFzNczO4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jtjKpU1psI8prYqCNCMXm2Js3weiEqcyuVgiR2Mtqn5SUk+H0bYYLBSySvOR0RHiZ
-	 zsTlZEfvJlidHzPJyfyZ/xVo4IQpgNwC9IPiQB/AH9JwH6rzujlDZhhjLeXOH0/Vg5
-	 NAw/K2Toy5CIQ3O4oa2m0dP7u4EShjHnP+5vPlwo=
+	b=cfDnrZe9uuXChfzyrJoKA8MwANp0k5mhVRRc9JubxvpvwUUer+X/6nYuNxly0g/0/
+	 L9Rql8fcjBny5F5N+GtWVuH4VKg3GPmxhzk5NPc72owWY/U2cfBdJBUabv4BAyXlUY
+	 3VSfhv30o8TZhf/ySgYuZwqoXosFzbxLzgWsu8dU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22C54F80227;
-	Thu, 10 Jun 2021 09:51:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0210F804AC;
+	Thu, 10 Jun 2021 09:51:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1052F80218; Thu, 10 Jun 2021 09:51:17 +0200 (CEST)
+ id BA403F804AB; Thu, 10 Jun 2021 09:51:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8092FF800FC
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 09:51:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8092FF800FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id A51FEF80149
+ for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 09:51:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A51FEF80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="FOQ2KUaN"; 
+ header.b="HV72IzNf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3pjdDK1C"
+ header.b="kYn3JgHV"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D978D1FD60;
- Thu, 10 Jun 2021 07:51:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 771A81FD37;
+ Thu, 10 Jun 2021 07:51:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623311467; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623311495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=h8I4u57Xn4KNbgCGp2har6jPaVEh5o0UUS2DgV5h0oI=;
- b=FOQ2KUaNRWoxYnszkkgxWBsY9YRQes86oZDxiQKiqWhGY5jDcl35mYjsiYXHiNIGQHmw7P
- i0B3OUBXA0FVMZJhzYkK7CcOMO5Vze958tEiOHYaKdjXXMJAci434QXGytofT9bhUgSbVI
- RmQ/Mo85PBBlSLQsg0WyXfXs+KZvWxA=
+ bh=2lnP9ZsoZz4dUi3SUYbtL8QLuYMRJEl2CA22wbDnolQ=;
+ b=HV72IzNfehocBNK68i5DC7B6E7kugy8mMg2rb4y+DZ3GjijIeDC2CKkgscDlCKXVU5XMrZ
+ s6xHkfiEZl+iJabztJiErSLAyedMZqFMJcyWVat7nS+LvCcedzOroOR+D3sXmWA7dDkLd/
+ Zl9P90Bgbx04Do4/IlJGGkRi89tRzuU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623311467;
+ s=susede2_ed25519; t=1623311495;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=h8I4u57Xn4KNbgCGp2har6jPaVEh5o0UUS2DgV5h0oI=;
- b=3pjdDK1CM0k1TPuzCTZe5bxM0j5GS9zh9UHJxqtWg0ej24y9t1cT1zQTdNDsS98il8OYrz
- jUqn2qHVCTVBRoAg==
+ bh=2lnP9ZsoZz4dUi3SUYbtL8QLuYMRJEl2CA22wbDnolQ=;
+ b=kYn3JgHVU4SgLioIXzmli7hMhGur2Y2/AUX4zB9gObKu8yVtZ6uEgrbY+33UWQYj0vA44B
+ 5U88nHpGc+3R8VBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D3A61A3B84;
- Thu, 10 Jun 2021 07:51:07 +0000 (UTC)
-Date: Thu, 10 Jun 2021 09:51:07 +0200
-Message-ID: <s5hy2bi9mz8.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 0E36CA3B84;
+ Thu, 10 Jun 2021 07:51:34 +0000 (UTC)
+Date: Thu, 10 Jun 2021 09:51:34 +0200
+Message-ID: <s5hwnr29myh.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v3 0/3] ALSA: pcm: add snd_pcm_period_elapsed() variant
- without acquiring lock of PCM substream 
-In-Reply-To: <20210610031733.56297-1-o-takashi@sakamocchi.jp>
-References: <20210610031733.56297-1-o-takashi@sakamocchi.jp>
+To: zuoqilin1@163.com
+Subject: Re: [PATCH] sound/arm: Remove unnecessary variables
+In-Reply-To: <20210610024053.1217-1-zuoqilin1@163.com>
+References: <20210610024053.1217-1-zuoqilin1@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ haojian.zhuang@gmail.com, daniel@zonque.org, zuoqilin <zuoqilin@yulong.com>,
+ robert.jarzmik@free.fr, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,43 +94,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 05:17:30 +0200,
-Takashi Sakamoto wrote:
+On Thu, 10 Jun 2021 04:40:53 +0200,
+zuoqilin1@163.com wrote:
 > 
-> Hi,
+> From: zuoqilin <zuoqilin@yulong.com>
 > 
-> This patchset is revised version of my previous one:
->  * https://lore.kernel.org/alsa-devel/20210609143145.146680-1-o-takashi@sakamocchi.jp/
+> There is no need to define the variable "ret" to receive.
 > 
-> All of drivers in ALSA firewire stack have two chances to process
-> isochronous packets of any isochronous context; in software IRQ context
-> for 1394 OHCI, and in process context of ALSA PCM application.
-> 
-> In the process context, callbacks of .pointer and .ack are utilized. The
-> callbacks are done by ALSA PCM core under acquiring lock of PCM substream,
-> 
-> In design of ALSA PCM core, call of snd_pcm_period_elapsed() is used for
-> drivers to awaken user processes from waiting for available frames. The
-> function voluntarily acquires lock of PCM substream, therefore it is not
-> called in the process context since it causes dead lock. As a workaround
-> to avoid the dead lock, all of drivers in ALSA firewire stack use workqueue
-> to delegate the call.
-> 
-> This patchset is my attempt for the issue. A variant of 
-> 'snd_pcm_period_elapsed()' without lock acquisition is going to be added,
-> named 'snd_pcm_period_elapsed_under_stream_lock()'. The call is available
-> in callbacks of .pointer and .ack of snd_pcm_ops structure.
-> 
-> Changes from v2:
->  * delete context section from kernel API documentation
-> 
-> Takashi Sakamoto (3):
->   ALSA: pcm: add snd_pcm_period_elapsed() variant without acquiring lock
->     of PCM substream
->   ALSA: firewire-lib: operate for period elapse event in process context
->   ALSA: firewire-lib: obsolete workqueue for period update
+> Signed-off-by: zuoqilin <zuoqilin@yulong.com>
 
-Applied all three patches now.  Thanks.
+Thanks, applied.
 
 
 Takashi

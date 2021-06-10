@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03EFF3A2739
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 10:37:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4618E3A273D
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jun 2021 10:38:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BF6B1761;
-	Thu, 10 Jun 2021 10:37:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BF6B1761
+	by alsa0.perex.cz (Postfix) with ESMTPS id B59B8176D;
+	Thu, 10 Jun 2021 10:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B59B8176D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623314278;
-	bh=g5ou8WAYQczwW9u6PwwtpN4oKBisV7GoYpyYnSmRbAo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623314313;
+	bh=SOKqeNhb72NcARRBAIGGr5qt2qPw6NHrJHPkemL+FWw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WOrCbEJyy6lrSfTzjom6VxjMh2OIKwUqtR6hFhtfjvhqJdJQfdpU1a0hUlPXET7xb
-	 bNXulUwsmWsraT/W03WraXaFW3cGKN91raTNyeCgmVRLwdayOL7dkbPtGw61nXmeNU
-	 FuXEsHtpci/+BCbX1An7tN48ScUirQW2vQyZ5iGc=
+	b=nFO9WjdC9uRdgxCEs1K3gHp1UYWlH4EMmUfI9w5QuiKp1m502prVcKYvh+5x7NwFp
+	 CnqSTuJu/2mig5thdLHAcdtVz1bSyLjEo30zZVMmzW0IVnz4fmiei41AAYLsjGRH+r
+	 4l1KXDpga/tZ9C0Zay7ZHbIF133UfoX6BgXGONiE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17CEEF804AC;
-	Thu, 10 Jun 2021 10:36:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB9F5F801EC;
+	Thu, 10 Jun 2021 10:37:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E574F804AC; Thu, 10 Jun 2021 10:36:16 +0200 (CEST)
+ id 2D1C7F804B3; Thu, 10 Jun 2021 10:37:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7F49F80149
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 10:36:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7F49F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9498FF80218
+ for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 10:37:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9498FF80218
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=zamaudio-com.20150623.gappssmtp.com
- header.i=@zamaudio-com.20150623.gappssmtp.com header.b="RwxkzriQ"
-Received: by mail-pf1-x42f.google.com with SMTP id z26so1007100pfj.5
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 01:36:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=zamaudio-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=41rZJ+AhTp2xiZ6fucMGsT4N4bwy6FKIkQPDtfFr5d4=;
- b=RwxkzriQE3IeXAyVnXULghV87S89l+JHC8cPqngJO4X5bw0eWDmjY302s7FeU7o3Sn
- ll4Oiljh8sWiVU5kGY9C0vFx6NDqObSY/LGPmkJYlQPWbtK+/PZ3txPVnhc4lHu34HgH
- KuZHvFyNW5WFTPw3QdLI+1ZgCl/Um9xNRXd0JbWP9TwXDpIFR6bxn1Xt+V6sTUmusCp2
- qA9sqC+S9Zux4KVIcsOzvnXyNT0KDLkQqg456kEYJzUjZeTpG4eBvCig+KLVoZHy05Q1
- SRgFL+DcKw52dlm61VUcvd4fuHVrq9MiSJE3vdKCeYEwbYLmt0k9sbXv/wxYnlsIz6U2
- yZTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=41rZJ+AhTp2xiZ6fucMGsT4N4bwy6FKIkQPDtfFr5d4=;
- b=YgwfZV3jXBjnve18QvLexveE3we1hCgtWH2FsELnuNl5pglIgFCLBluaGaXy9dWnj9
- 5O/4oLVgmhv4t/6V2qYxG9t62q8atTtgZrWulZxDSz6WJjeZ5feMskQADoa17Ev4gDT2
- KWC6NxXMNGzUtdTFOrhWUMI1QPQ30yymtGlku5CkdtidFGxR0JbT6zGk8GZFghgkanjQ
- e0dAz3783c463yaMk4xzQbjVyQq3GefZLuNl4n1SQxLTbqO49DBZ7HXBny9bWDJvjNuh
- g1kzQmerMlaHUZ3BTkhtWvWRxqGLsOXVkMDwQJyQRWdf4Yjrd0emgJcnmOux6FECC7sj
- AZEw==
-X-Gm-Message-State: AOAM530C6hB1Y8VlHUC4XM2N7cEXbGBYKNMUtPmTnFp8Urwo1qN8Rr5K
- M36G498ru93+ashsgSnJbFfsPKr8rYSwclLL
-X-Google-Smtp-Source: ABdhPJx9UTNmykAmf6XGIWObZ48QJn7ddJYmSK02N9xphzLtZfYZljPHqWL5i5tjdpjkjTzT0irgEQ==
-X-Received: by 2002:a63:f955:: with SMTP id q21mr3953758pgk.448.1623314165232; 
- Thu, 10 Jun 2021 01:36:05 -0700 (PDT)
-Received: from zamx.lan (119-18-22-20.771216.mel.static.aussiebb.net.
- [119.18.22.20])
- by smtp.gmail.com with ESMTPSA id z6sm1856447pfr.99.2021.06.10.01.36.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jun 2021 01:36:04 -0700 (PDT)
-From: Damien Zammit <damien@zamaudio.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/1 v2] usb-audio: Add support for Denon DN-X1600
-Date: Thu, 10 Jun 2021 18:35:28 +1000
-Message-Id: <20210610083528.603942-2-damien@zamaudio.com>
-X-Mailer: git-send-email 2.13.1
-In-Reply-To: <20210610083528.603942-1-damien@zamaudio.com>
-References: <20210610083528.603942-1-damien@zamaudio.com>
-Cc: Damien Zammit <damien@zamaudio.com>, tiwai@suse.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="tHxpaZQ+"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="/y43H0h3"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1BA971FD60;
+ Thu, 10 Jun 2021 08:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623314218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ldjzmlz6cIGfkfNrX2YwmWfxUK2Kb+bppA3zxB3fsc8=;
+ b=tHxpaZQ+q06cp5dfUNISiJmcFnXWJfuW2FIwkAD5h5cNKPOa7AZyD2VIp5XRKGuHYLdIo5
+ FzJDoHPXIGeCx0L/0heSbvTEbEmhThCMsVsBvx1xjjqpQNVuPf9gVtfwDcTVywjHBUcLU8
+ Nbdoh8BhFrxO0MYkQMoqsWU3V25g6ss=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623314218;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ldjzmlz6cIGfkfNrX2YwmWfxUK2Kb+bppA3zxB3fsc8=;
+ b=/y43H0h3aFnFztu89zQaCTBy0JWzt2WMvpKOEVVxb15R5XXbMqvK81UAY2UNpgExH85c8G
+ bT5GLhWmKIBlgzCQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 170D4A3B9A;
+ Thu, 10 Jun 2021 08:36:57 +0000 (UTC)
+Date: Thu, 10 Jun 2021 10:36:57 +0200
+Message-ID: <s5hpmwu9kuu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: add snd_pcm_period_elapsed() variant
+ without acquiring lock of PCM substream
+In-Reply-To: <20210610082622.GA86308@workstation>
+References: <20210609143145.146680-1-o-takashi@sakamocchi.jp>
+ <20210609143145.146680-2-o-takashi@sakamocchi.jp>
+ <s5him2nawim.wl-tiwai@suse.de> <20210609231623.GA3207@workstation>
+ <s5h1r9ab22u.wl-tiwai@suse.de> <20210610080521.GA84899@workstation>
+ <s5hsg1q9m60.wl-tiwai@suse.de> <20210610082622.GA86308@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,122 +96,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This provides support for Denon DN-X1600 hardware mixer.
+On Thu, 10 Jun 2021 10:26:22 +0200,
+Takashi Sakamoto wrote:
+> 
+> On Thu, Jun 10, 2021 at 10:08:39AM +0200, Takashi Iwai wrote:
+> > On Thu, 10 Jun 2021 10:05:21 +0200,
+> > Takashi Sakamoto wrote:
+> > > 
+> > > On Thu, Jun 10, 2021 at 09:39:37AM +0200, Takashi Iwai wrote:
+> > > > On Thu, 10 Jun 2021 01:16:23 +0200,
+> > > > Takashi Sakamoto wrote:
+> > > > > 
+> > > > > On Wed, Jun 09, 2021 at 05:27:29PM +0200, Takashi Iwai wrote:
+> > > > > > On Wed, 09 Jun 2021 16:31:43 +0200,
+> > > > > > Takashi Sakamoto wrote:
+> > > > > > > diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> > > > > > > index b7e3d8f44511..3488ec1e3674 100644
+> > > > > > > --- a/sound/core/pcm_lib.c
+> > > > > > > +++ b/sound/core/pcm_lib.c
+> > > > > > > @@ -1778,27 +1778,41 @@ int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
+> > > > > > >  EXPORT_SYMBOL(snd_pcm_lib_ioctl);
+> > > > > > >  
+> > > > > > >  /**
+> > > > > > > - * snd_pcm_period_elapsed - update the pcm status for the next period
+> > > > > > > - * @substream: the pcm substream instance
+> > > > > > > + * snd_pcm_period_elapsed_under_stream_lock() - update the status of runtime for the next period
+> > > > > > > + *						under acquired lock of PCM substream.
+> > > > > > > + * @substream: the instance of pcm substream.
+> > > > > > > + *
+> > > > > > > + * This function is called when the batch of audio data frames as the same size as the period of
+> > > > > > > + * buffer is already processed in audio data transmission.
+> > > > > > > + *
+> > > > > > > + * The call of function updates the status of runtime with the latest position of audio data
+> > > > > > > + * transmission, checks overrun and underrun over buffer, awaken user processes from waiting for
+> > > > > > > + * available audio data frames, sampling audio timestamp, and performs stop or drain the PCM
+> > > > > > > + * substream according to configured threshold.
+> > > > > > > + *
+> > > > > > > + * The function is intended to use for the case that PCM driver operates audio data frames under
+> > > > > > > + * acquired lock of PCM substream; e.g. in callback of any operation of &snd_pcm_ops in process
+> > > > > > > + * context. In any interrupt context, it's preferrable to use ``snd_pcm_period_elapsed()`` instead
+> > > > > > > + * since lock of PCM substream should be acquired in advance.
+> > > > > > >   *
+> > > > > > > - * This function is called from the interrupt handler when the
+> > > > > > > - * PCM has processed the period size.  It will update the current
+> > > > > > > - * pointer, wake up sleepers, etc.
+> > > > > > > + * Developer should pay enough attention that some callbacks in &snd_pcm_ops are done by the call of
+> > > > > > > + * function:
+> > > > > > >   *
+> > > > > > > - * Even if more than one periods have elapsed since the last call, you
+> > > > > > > - * have to call this only once.
+> > > > > > > + * - .pointer - to retrieve current position of audio data transmission by frame count or XRUN state.
+> > > > > > > + * - .trigger - with SNDRV_PCM_TRIGGER_STOP at XRUN or DRAINING state.
+> > > > > > > + * - .get_time_info - to retrieve audio time stamp if needed.
+> > > > > > > + *
+> > > > > > > + * Even if more than one periods have elapsed since the last call, you have to call this only once.
+> > > > > > > + *
+> > > > > > > + * Context: Any context in which lock of PCM substream is already acquired. This function may not
+> > > > > > > + * sleep.
+> > > > > > 
+> > > > > > Hm, this text still remains here.  Overlooked?
+> > > > > 
+> > > > > It's my intension for documentation of
+> > > > > snd_pcm_period_elapsed_under_stream_lock() since it's expected to call
+> > > > > it under acquired lock. Its implementation doesn't yield processor
+> > > > > voluntarily by itself. If it yielded, it would depend on implementation
+> > > > > of each driver for struct snd_pcm_ops.{pointer, trigger, get_time_info},
+> > > > > but it's not preferable implementation of driver, in my opinion.
+> > > > 
+> > > > My point is again about the sleep.  This function may sleep in the
+> > > > nonatomic mode.  The type of the PCM stream lock depends on it.
+> > > 
+> > > Would I simply request you to show how the added function yields except
+> > > for the driver implementation? The lock of stream is expected to be
+> > > acquired already.
+> > 
+> > In the nonatomic mode, the PCM stream lock is a mutex (no
+> > spin_lock_irqsave), hence it can sleep -- which contradicts with the
+> > added description above.
+> > 
+> > Or do I misunderstand your question...? 
+> 
+> Thanks to clarify the role of PCM stream lock, and I'm ease that we have
+> the same understanding about the lock.
+> 
+> Here, let us see deleted/added line again.
+> 
+> > diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> > index b7e3d8f44511..3488ec1e3674 100644
+> > --- a/sound/core/pcm_lib.c
+> > +++ b/sound/core/pcm_lib.c
+> > @@ -1778,27 +1778,41 @@ int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
+> >  EXPORT_SYMBOL(snd_pcm_lib_ioctl);
+> >  
+> >  /**
+> > - * snd_pcm_period_elapsed - update the pcm status for the next period
+> > - * @substream: the pcm substream instance
+> > + * snd_pcm_period_elapsed_under_stream_lock() - update the status of runtime for the next period
+> > + *						under acquired lock of PCM substream.
+> > + ...
+> > + * Context: Any context in which lock of PCM substream is already acquired. This function may not
+> > + * sleep.
+> 
+> The issued documentation is for the new function. Inner the function, the
+> lock of PCM substream is not acquired again since it causes dead lock
+> (it's not nest-able lock) regardless of usage of mutex or spin_lock.
+> 
+> The well-known function, snd_pcm_period_elapsed(), is rewritten to call
+> the new function between lock/unlock operations:
+> 
+> ->snd_pcm_period_elapsed()
+>   ->snd_pcm_stream_lock_irqsave()
+>   ->snd_pcm_period_elapsed_under_stream_lock()
+>   ->snd_pcm_stream_unlock_irqrestore()
+> 
+> Or the new function can acquire the lock somewhere I overlook? However I
+> think it is unlikely since it necessarily causes dead lock or corruption
+> of irq context...
 
-The device itself supports 44100, 48000 and 96000 (Hz)
-sample rates, but switching rates via software is currently not working.
-Therefore, this patch hardcodes the sample rate to 48000Hz which
-enables all 8 channels to function correctly when the correct
-sample rate is selected on the hardware itself.
+Again, my *only* point is about the sleep.  You addition was:
 
-MIDI also tested and works.
++ * Context: Any context in which lock of PCM substream is already acquired. This function may not
++ * sleep.
 
-Signed-off-by: Damien Zammit <damien@zamaudio.com>
-Tested-by: xalmoxis@gmail.com
----
- sound/usb/clock.c        |  7 +++++
- sound/usb/quirks-table.h | 70 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
+where "This function may not sleep" is stated incorrectly.
 
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index 0afae839d..52de52288 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -534,6 +534,13 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip,
- 		 * rate.
- 		 */
- 		clock = snd_usb_clock_find_source(chip, fmt, false);
-+
-+		/* Denon DN-X1600 hardcoded
-+		 * Sample rate seems to be set on the hardware itself
-+		 */
-+		if (chip->usb_id == USB_ID(0x154e, 0x500e))
-+			return 0;
-+
- 		if (clock < 0)
- 			return clock;
- 	}
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index bdba37d0f..19bb499c1 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3044,6 +3044,76 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 	}
- },
- 
-+/* Denon DN-X1600 */
-+{
-+	USB_AUDIO_DEVICE(0x154e, 0x500e),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.vendor_name = "Denon",
-+		.product_name = "DN-X1600",
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = (const struct snd_usb_audio_quirk[]){
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_IGNORE_INTERFACE,
-+			},
-+			{
-+				.ifnum = 1,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 8,
-+					.iface = 1,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.attributes = 0x0,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						USB_ENDPOINT_SYNC_ADAPTIVE,
-+					.maxpacksize = 0x138,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) {
-+						48000
-+					}
-+				}
-+			},
-+			{
-+				.ifnum = 2,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 8,
-+					.iface = 2,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.attributes = 0x0,
-+					.endpoint = 0x85,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						USB_ENDPOINT_SYNC_ADAPTIVE,
-+					.maxpacksize = 0x138,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) {
-+						48000
-+					}
-+				}
-+			},
-+			{
-+				.ifnum = 4,
-+				.type = QUIRK_MIDI_STANDARD_INTERFACE,
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
-+
- /* Microsoft XboxLive Headset/Xbox Communicator */
- {
- 	USB_DEVICE(0x045e, 0x0283),
--- 
-2.13.1
 
+Takashi

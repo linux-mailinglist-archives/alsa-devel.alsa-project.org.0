@@ -2,65 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B29B3A3A55
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 05:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC673A3A8A
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 05:52:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78B49182B;
-	Fri, 11 Jun 2021 05:38:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78B49182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5DED1872;
+	Fri, 11 Jun 2021 05:51:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5DED1872
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623382750;
-	bh=qdJqRKY5kvybYwVMolTPpuw4QqqwwmE7amoq7uIzIiA=;
+	s=default; t=1623383554;
+	bh=1TiEjcQAS8eMaT9oJZxa03w+JwQF0fpL4G2fQK5M70k=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kwK4JHklbfrIW00JqY7HkdBx+oUHTMVyA13UJxVFxe++WynLnfVA0C6nnKP1ATF1E
-	 yPT5Ey6n4nfbvg+GsQ8V7c3WNabm6nHCgZA2cUvwHYDzVwNEH3eNo6DLEVkJQ5J+He
-	 tQOyxL5uyHoeINT55LcpiI60NqaYV6QrTDnpMSTs=
+	b=vN7at/xxuW4qmd3eRByaOwu3qLjX0otnk37ocnoAQdq+WwDt4sIhPvCZAcI45om6/
+	 +0yUW/CbvNJjiyQqhDYhssLwgAqUjCtw2pp2cdkyhMJCF0SsZjPJopYPfk4xz3HmXW
+	 nTwEOe7zYcVYbOOmNXgBnbZaVdnNG/5+gmjMNYL4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF2A6F80276;
-	Fri, 11 Jun 2021 05:37:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9537CF804CC;
+	Fri, 11 Jun 2021 05:50:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16462F8026C; Fri, 11 Jun 2021 05:37:41 +0200 (CEST)
+ id 68B7AF804C3; Fri, 11 Jun 2021 05:50:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E7A8F80149
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 05:37:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E7A8F80149
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G1RKn0LTnzZcGd;
- Fri, 11 Jun 2021 11:34:37 +0800 (CST)
-Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Fri, 11 Jun 2021 11:37:25 +0800
-Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
- (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Fri, 11 Jun
- 2021 11:37:25 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next] ASoC: atmel-i2s: Use
- devm_platform_get_and_ioremap_resource()
-Date: Fri, 11 Jun 2021 11:41:22 +0800
-Message-ID: <20210611034122.3871022-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4F61F800FB
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 05:50:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4F61F800FB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="W0zk6GWe"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="NSaHPKiC"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id F0EE1189A;
+ Thu, 10 Jun 2021 23:50:08 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 10 Jun 2021 23:50:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=e70dA7f1BpDDSfJwTIrxTwLGpr
+ /hpTNJQNQqz+sT6ak=; b=W0zk6GWepdQ9z5Z7DrwlT+t5jCpSI/9qpoA116bO7Z
+ c6uom42Yp+WcKLnOGqNdVtHaNYX+GnpSoSc/Ecxpof9OAuF779dC45w/VyO+RMJB
+ LO3WdyoNATPabU5Gmpy7HLIpGFKYJgYPUtWQrcsID/CT8sgCteYfQZ1Fo3zdtD4/
+ QCCS8VVoqUDbdc9vH/P7aq8Up+lCoApeaqKg/TWSFVvEyxrcyG2bDQE/GyNB5r2A
+ RQXlOTpolVo+iFTlzMGzc+Joe0Xb811keHh2lDx9+RE9Y55/Pnk2NvZG5KB0H06z
+ OHDZBZGKVCSczTGiASVeYp9sseutsCF0BoRmDSLmvacw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=e70dA7f1BpDDSfJwT
+ IrxTwLGpr/hpTNJQNQqz+sT6ak=; b=NSaHPKiC1StOOQ1SQ7pyzhXO4bDZciDXS
+ LGEviyQgq7togSA7X5nzZszmt8IC0AjpjUjWUdfwwsv9mB77/QrNC3YQEQ4lDQY1
+ 0XnIJtTq4n9tMn7rN+WbrFcD06dNOrT9s6pLZ4lf0qbVIRtsgeT8xtTIBoOc6Sfz
+ r9tvuSwSuclEVcwWqTPxuFMgPUZydQBS7IIN2NybCZfDUOPnccOdpt9pKcAFRua7
+ iv8O8FZimT/YyjmMMlroaVQGs2O+5kw3BSGNcf1pGYhq5wUnuRQWfKM7htuuViM8
+ wcrsgHxCwW+bwfUtrZZ8PUSCg9o3GYn/dymMV+hO+N0njMQItfuXg==
+X-ME-Sender: <xms:b93CYD8GvuD1mRO5xaCnD91z891KJO2Kp-8-lvChD6Oi_vk_PvnorA>
+ <xme:b93CYPtejxap1cZ59DJRQM0hI0oLYGY8jHBvDBqtGVbYxJWWhcpJXGktbZGvLX2yd
+ FWOsMzvYTR9wC68Jnw>
+X-ME-Received: <xmr:b93CYBBLJZvuo86rMkXbdYz4C4COBFiY7SC5RXCzBmsTd3-bl-R24yEcJu0SCtF5TstPx7vcypnvF5slPyPGGZx4mx-xCube1Pa8vZoyoadT-Ygunz3O>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduiedgjeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:b93CYPfB9OcI804UN0nbS4JfU4a-BOLNAB-9Hvcotc-9MqoGunBOzA>
+ <xmx:b93CYINEcufgMk4FrAUB3Vl3J_uINsKr1D1M2LCwuMFS5fMgfn-3ag>
+ <xmx:b93CYBl633hPocddKUaWxFmNdKQFvrdSAuCSq7W8IcaHkbObqDoMDA>
+ <xmx:cN3CYC11D3j_5VBXnu43jHikHuKGCziFwLsb6_BtczJefBnfYSwo2Q>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Jun 2021 23:50:06 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 0/3] ALSA: bebob: remove workarounds for suppressed quirks
+Date: Fri, 11 Jun 2021 12:50:00 +0900
+Message-Id: <20210611035003.26852-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpeml500017.china.huawei.com (7.185.36.243)
-X-CFilter-Loop: Reflected
-Cc: codrin.ciubotariu@microchip.com, broonie@kernel.org, lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,28 +107,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use devm_platform_get_and_ioremap_resource() to simplify
-code.
+Hi,
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/soc/atmel/atmel-i2s.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+As a result to apply the commit 1bd1b3be8655 ("ALSA: bebob: perform
+sequence replay for media clock recovery"), some quirks seem to be
+suppressed.
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index 584656cc7d3c..e8fe1a7a4d83 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -610,8 +610,7 @@ static int atmel_i2s_probe(struct platform_device *pdev)
- 		dev->caps = match->data;
- 
- 	/* Map I/O registers. */
--	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	base = devm_ioremap_resource(&pdev->dev, mem);
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, &mem);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
- 
+This patchset removes workarounds for the suppressed quirks and includes
+code cleanup.
+
+Takashi Sakamoto (3):
+  ALSA: bebob: dismiss sleep after breaking connections
+  ALSA: bebob: delete workaround for protocol version 3
+  ALSA: bebob: code refactoring for model-dependent quirks
+
+ sound/firewire/bebob/bebob.c        | 41 ++++++++++++++++++++---------
+ sound/firewire/bebob/bebob.h        | 10 ++++---
+ sound/firewire/bebob/bebob_stream.c | 32 ++++++----------------
+ 3 files changed, 42 insertions(+), 41 deletions(-)
+
 -- 
-2.25.1
+2.27.0
 

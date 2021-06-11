@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30C773A3F20
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:34:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9737C3A3F1E
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:34:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B225218EF;
-	Fri, 11 Jun 2021 11:33:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B225218EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1070418E5;
+	Fri, 11 Jun 2021 11:33:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1070418E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623404069;
-	bh=mBykPQCGyCRl4TNwzPccC27dhXeZKr/DZiuYUDPVDZI=;
+	s=default; t=1623404049;
+	bh=bj+ZQtcnNnLnswCymwMZg5QdF0CRmJcPJgyfIvGPME8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iTkuuiuC3NzmhR5TM1KcoiLcfYnPfUjIMnE16AfjwUrUTXt0tCrBky9oiJK0v8NV4
-	 FG81UCI+LHHGbgNkv8AqrRrhsE8K6cxB+oSYkmtqqkjHgA/lk9aBXL9In+pM5oQ5dU
-	 xhbXGcGFEJcQHrJM7t4k/jBmAxgXhrW6tvxe7+bE=
+	b=NKRfBFDktjk9s6iMpW4f2DY4xBbIhi+c/0WpPS3uoWTlzqCAlRwgBbCgsYYEx7Xv2
+	 fJB6O6V0nb1lLUR52jQMa5RElUYsDrCv2NHppDCWDmU3aAuxLot/H/N85Q6PwvBy9O
+	 bxsYvusaTZoeOEgwsN0jRf30Vammifj3lyBm/9Vk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 371C3F804C2;
-	Fri, 11 Jun 2021 11:32:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 335ABF804C3;
+	Fri, 11 Jun 2021 11:32:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57080F804CB; Fri, 11 Jun 2021 11:32:42 +0200 (CEST)
+ id 54091F804C2; Fri, 11 Jun 2021 11:32:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,16 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9526BF80212
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:32:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9526BF80212
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G1bCS2b4NzZdBK;
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E673F80149
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:32:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E673F80149
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G1bCS5l7XzZdll;
  Fri, 11 Jun 2021 17:29:40 +0800 (CST)
 Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
- dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Fri, 11 Jun 2021 17:32:31 +0800
+ 15.1.2176.2; Fri, 11 Jun 2021 17:32:32 +0800
 Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
  (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Fri, 11 Jun
@@ -50,10 +50,10 @@ Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
 From: Yang Yingliang <yangyingliang@huawei.com>
 To: <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
  <alsa-devel@alsa-project.org>
-Subject: [PATCH -next 5/9] ASoC: fsl_micfil: Use
+Subject: [PATCH -next 6/9] ASoC: fsl_sai: Use
  devm_platform_get_and_ioremap_resource()
-Date: Fri, 11 Jun 2021 17:36:22 +0800
-Message-ID: <20210611093626.579176-6-yangyingliang@huawei.com>
+Date: Fri, 11 Jun 2021 17:36:23 +0800
+Message-ID: <20210611093626.579176-7-yangyingliang@huawei.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210611093626.579176-1-yangyingliang@huawei.com>
 References: <20210611093626.579176-1-yangyingliang@huawei.com>
@@ -85,22 +85,22 @@ code.
 
 Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 ---
- sound/soc/fsl/fsl_micfil.c | 3 +--
+ sound/soc/fsl/fsl_sai.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 3cf789ed6cbe..8c0c75ce9490 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -669,8 +669,7 @@ static int fsl_micfil_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 407a45e48eee..223fcd15bfcc 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1017,8 +1017,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
  
- 	/* init regmap */
+ 	sai->is_lsb_first = of_property_read_bool(np, "lsb-first");
+ 
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	regs = devm_ioremap_resource(&pdev->dev, res);
-+	regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(regs))
- 		return PTR_ERR(regs);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.25.1

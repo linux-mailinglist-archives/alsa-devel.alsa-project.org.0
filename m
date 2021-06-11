@@ -2,49 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C033A3D3A
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 09:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 125843A3D88
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 09:51:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95C9418BF;
-	Fri, 11 Jun 2021 09:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95C9418BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B4621794;
+	Fri, 11 Jun 2021 09:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B4621794
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623396844;
-	bh=2+ypJyTREljnVjS0Z2b730PP2XEs/ES40JbJetUwtIY=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1623397898;
+	bh=A3T3g0cCL04h7Qku+K/jjVHzr6wmq0MpW9B+8ZhJ6/g=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sBZbXamzNXzhlvUrEygYvIZFCJGOaa88/NqdePUCLUm0O17GzYkXPGs07WeAk8jJV
-	 52dDCFgipqr4MrT+Jrroo825LU8w1XHMYEnfIXDtTpzzVDbcgJpUHCq29ozQnk3uz5
-	 ibdbZ3J+YK0QDy35GojuPWefuiNZj9nVRfqFSH/8=
+	b=pL8xdFYchDBDEATrj0/uKMm41z0J2W4UWL/Hrqp4Ke8NS3DnasPP5LceMyRC13NcL
+	 BKSHNi0n4XYF7lmWV5jFJi8w4fr9CYCIskXYoxXhkzBFCqFhCTCjv8C2ruAC7ot12w
+	 Jfz8ZTYG8tzMMl3W50oeKSuOM0Mhek/qDV8VVRcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F28DEF804C1;
-	Fri, 11 Jun 2021 09:32:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D393F80212;
+	Fri, 11 Jun 2021 09:50:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3BB7F804BD; Fri, 11 Jun 2021 09:32:24 +0200 (CEST)
+ id 1DCF6F8026C; Fri, 11 Jun 2021 09:50:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 7CF08F802DF
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 09:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF08F802DF
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1623396742125567913-webhooks-bot@alsa-project.org>
-References: <1623396742125567913-webhooks-bot@alsa-project.org>
-Subject: ALSA lib pcm_dmix.c:1063:(snd_pcm_dmix_open) unable to create IPC
- semaphore
-Message-Id: <20210611073224.B3BB7F804BD@alsa1.perex.cz>
-Date: Fri, 11 Jun 2021 09:32:24 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C2DDF80149
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 09:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C2DDF80149
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="EN+HUPge"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="M+AaZqP1"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id B15E321A4A;
+ Fri, 11 Jun 2021 07:49:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623397798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xil17hKyfQ38VrWNwr1D88XXgQnfebmvHMvzSZy7isU=;
+ b=EN+HUPgeG3e4jLjePf+9WHQ25kc1Z4veyeHVnFjA9MfegMa3BV7wuscKbpCxVbt7vmjxvv
+ tRRld8d1PSF0fyfpV7BDShCz54r+CpxPbITBU+c8umsKffY9GHj0nQEKH2RqnXt5VLqsBe
+ vJLQ2icF3lMFcJJsl04XSPUY+PI5vF0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623397798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xil17hKyfQ38VrWNwr1D88XXgQnfebmvHMvzSZy7isU=;
+ b=M+AaZqP1AwvvkntGnC9DVr+5ZOuj1c7tJwwAqrH5LPoUfpWHOGyENdRc927WXYAvv91Sp9
+ VxLqqft6v2/YQMDw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 98299A3B89;
+ Fri, 11 Jun 2021 07:49:58 +0000 (UTC)
+Date: Fri, 11 Jun 2021 09:49:58 +0200
+Message-ID: <s5heed896xl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Muni Sekhar <munisekharrms@gmail.com>
+Subject: Re: SNDRV_PCM_IOCTL_READI_FRAMES returns EIO
+In-Reply-To: <CAHhAz+iW30L0xsVaKD5V4P412L-hQ_5zZ-byd7qSW-MpSZB8AA@mail.gmail.com>
+References: <CAHhAz+iW30L0xsVaKD5V4P412L-hQ_5zZ-byd7qSW-MpSZB8AA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,43 +91,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #153 was edited from Cean1024:
+On Fri, 11 Jun 2021 09:02:44 +0200,
+Muni Sekhar wrote:
+> 
+> Hi all,
+> 
+> I am using a USB sound card(snd-usb-audio), and it fails while doing
+> the audio recording "arecord: pcm_read:2032: read error: Input/output
+> error".
+> 
+>  I noticed recording(arecord) audio data on a USB sound card fails at
+> SNDRV_PCM_IOCTL_READI_FRAMES is giving EIO.
+> 
+> Can someone please clarify when the kernel returns EIO for Ioctl
+> SNDRV_PCM_IOCTL_READI_FRAMES? and is there a workaround for this?
 
-alsa info:
-  alsa-config-1.0    
-  alsa-lib-1.1.5
-  alsa-plugins-1.1.5
-  alsa-utils-1.1.5
-
-asound.conf:
-
-```
-pcm.dmixer {
-    type dmix
-    ipc_key 1024
-    slave {
-        pcm "hw:0,0"
-        period_time 0
-        period_size 1024
-        buffer_size 4096
-        rate 48000
-        format "S32_LE"
-        channels 2
-    }
-
-    bindings {
-        0 0
-        1 1
-    }
-}
-```
+It's a problem of either your device (e.g. USB device firmware) or the
+kernel.  Do you get any relevant kernel error messages?
 
 
-test cmd:
-
-```
-arecord -f dat | aplay -f dat -D plug:dmixer
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/153
-Repository URL: https://github.com/alsa-project/alsa-lib
+Takashi

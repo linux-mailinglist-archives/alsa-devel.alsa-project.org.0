@@ -2,48 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8233A3DA9
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 10:00:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB493A3E0D
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 10:32:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BAFE18CE;
-	Fri, 11 Jun 2021 09:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BAFE18CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CED618CA;
+	Fri, 11 Jun 2021 10:31:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CED618CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623398434;
-	bh=ubkSQbsePueuMuAElvTM28q1OAUBybPD4/4sxOaWgAo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1623400369;
+	bh=vfimSc5VGyT9IbnV5oE5sBZznLhSLAzCIGDNIgQLnBA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WfQNYhPqRkMN03Rdlm8NgpdCvKXEjqZjFB8kvdfZV4tSDQrHQgK6gSbLJbFdx5eLj
-	 ogiKLKOKt7dEfeFNUemTsxgsnwVC+3xTjWCpym0pNtUq0ZIe8oKkVzBfuF6Lemb35T
-	 O39xNUewELASedxuvm415oslXnTHg5yluPpCJC+E=
+	b=OpdpRYPw7FZG1ePP4hcEFKs/Wt3K62iMfjbjKuwe3PYa336DQbjbd1aRWbUmOvvhY
+	 r9xweGIVVlVGFXVHqrMlTcxsJGMnBvQpofAgiiNq6JBIcu91CijGSzkMcVyNBnBSE1
+	 gwF+NdWQv4oTwaxhNZJu17HPthkHTHgYxl1HKW08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0578EF80212;
-	Fri, 11 Jun 2021 09:59:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEA26F80276;
+	Fri, 11 Jun 2021 10:31:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C2BBF80212; Fri, 11 Jun 2021 09:59:39 +0200 (CEST)
+ id 14565F8026C; Fri, 11 Jun 2021 10:31:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id BCA71F80212
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 09:59:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCA71F80212
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1623398371258145094-webhooks-bot@alsa-project.org>
-References: <1623398371258145094-webhooks-bot@alsa-project.org>
-Subject: Add support for automatic attributes in Topology2.0
-Message-Id: <20210611075939.2C2BBF80212@alsa1.perex.cz>
-Date: Fri, 11 Jun 2021 09:59:39 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3640FF800FC
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 10:31:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3640FF800FC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="05jBMXul"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="oB/PxdMk"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E9BC01FD3F;
+ Fri, 11 Jun 2021 08:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623400268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIAO1bw+f9Bz4Md9BruKrPBs8nTc23w/RIkjBC6SN5c=;
+ b=05jBMXulszn8gbQzRe+jBE39eJUG0Aq1oNy9ZT8X5EsXoog8bwtcPpeS4R7wv+L9WQsOX+
+ I6SJ8VwWt9u4lr2hyv3D44ZDDl9vWWESlpZE62K6m08Qe+LsVLhwkiuX3AFb0BFwddwuF2
+ UDyKCqtnZ73B/IfTthxuhXyXfi1SK6U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623400268;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIAO1bw+f9Bz4Md9BruKrPBs8nTc23w/RIkjBC6SN5c=;
+ b=oB/PxdMkfrNfc3zL88hAX/N5VSLLEsEymkHVSENP31RRJ8eGhPHU17ddUUsFw6zk+Nr2C2
+ 9Z4c2KAUgfKrxmAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D23D0A3B84;
+ Fri, 11 Jun 2021 08:31:08 +0000 (UTC)
+Date: Fri, 11 Jun 2021 10:31:08 +0200
+Message-ID: <s5h4ke4950z.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] ALSA: bebob: remove workarounds for suppressed quirks
+In-Reply-To: <20210611035003.26852-1-o-takashi@sakamocchi.jp>
+References: <20210611035003.26852-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,11 +91,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils pull request #97 was opened from ranj063:
+On Fri, 11 Jun 2021 05:50:00 +0200,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> As a result to apply the commit 1bd1b3be8655 ("ALSA: bebob: perform
+> sequence replay for media clock recovery"), some quirks seem to be
+> suppressed.
+> 
+> This patchset removes workarounds for the suppressed quirks and includes
+> code cleanup.
+> 
+> Takashi Sakamoto (3):
+>   ALSA: bebob: dismiss sleep after breaking connections
+>   ALSA: bebob: delete workaround for protocol version 3
+>   ALSA: bebob: code refactoring for model-dependent quirks
 
-Add support for automatic attributes in Topology2.0 and also add support for processing objects that are simply used to
-update the parent object's private data.
+Applied all three patches now.  Thanks.
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/97
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/97.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+
+Takashi

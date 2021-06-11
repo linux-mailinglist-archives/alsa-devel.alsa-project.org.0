@@ -2,88 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 504353A39C1
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 04:27:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98C6D3A3A56
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 05:39:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1C8317D6;
-	Fri, 11 Jun 2021 04:26:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C8317D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D54D1843;
+	Fri, 11 Jun 2021 05:38:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D54D1843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623378457;
-	bh=xdDhcXcyITYzCgL30PKqNO2dx+lPbs1pBRJ95LB/rI0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1623382771;
+	bh=XVWr1nNaNuQm5Z5bBWiZTd4iY3wg1NfL9Rr35XpGH2c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dtKA/Z7h5OgzsCGed06FFpJSObqNZ9OWy0BiXdhde4W5Xr6gn+sICBI/s3jVLS4Bo
-	 k+13ZKdpXX5KMTQhHxn8MPJnyrmrAutdL67yltnwM8aPC8O5oex1PP/jlruDleREgR
-	 +B8WgJe5kFqiJr3Goiv9bkDq47L12PPTSmS39wyk=
+	b=M2cbikDcD8SLS9myEJA6l5L9MZrTFLLMx8NDh/L4Sw5lHUdX1FbNJ1eiCoisFN4Qm
+	 n71Epw0PEy2/0zHhV+SOfZPmXad6iZbL+64+AuOgu/IcekG32huwPxfFJ9iNsvEFFh
+	 6frhfwJGx3dHTtBBpMq13p+N+GXygC45jGeRkXe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48E20F80276;
-	Fri, 11 Jun 2021 04:26:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAB2AF802A0;
+	Fri, 11 Jun 2021 05:38:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93486F8026C; Fri, 11 Jun 2021 04:26:08 +0200 (CEST)
+ id 2D60DF8027C; Fri, 11 Jun 2021 05:38:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 143FBF800FB
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 04:26:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 143FBF800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88149F8026C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 05:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88149F8026C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="I2eukyki"
-Received: by mail-qv1-xf2b.google.com with SMTP id im10so14936427qvb.3
- for <alsa-devel@alsa-project.org>; Thu, 10 Jun 2021 19:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7FsXY/TbSGUUDENZzS6CIpHdUvNAOKNKXgpKq5u4rXU=;
- b=I2eukykiphXFQViXcXYmNXYcayHQieCzV49bgZWYLDdkww6G3d2j0qfqzxreHlnYSI
- v/HEDSDf02kjpLsUckDsFqDTQoVG0g4s04oX/4cCJ+iN8hs/Ar1nRZ+2CaodIEbP/CQR
- fBL9nAbihtMYVpgNmymE0y4FaiGGHXBr5JQipolDQ9y1duTTcuOn1biEoOsaWsk4ts0H
- oBQkD6Wvsz/4nkbP9EEfgsDmbAwS0Voq6kY6jTBaCKZBdIGolFuD8IdP0ZJF3nvQq/sa
- zglPT+b/jLnTA8hkzYcjo6OcDop+++rp4rdNR5Tk3ceiqO8ntyN9mf6+Ae87R3jMbJI4
- +t+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7FsXY/TbSGUUDENZzS6CIpHdUvNAOKNKXgpKq5u4rXU=;
- b=C7Bht0XjZGk4MQVubE6BIlwXL/2nsT5AEckXBop9NHeBGW4RGv8ZwRA/wnLolLxsyI
- rWfxoRj4S5FYYyGYKtKR4mswn4rVRHAr50qrPiLHK261nFmo9NhjZSRQogtNPyg+9s17
- tki97NYh7uCM3kF6klRc/40bTbMHfvOCvS/Kl1Kd2Abt68fKCOF43XrjhbGUWFmXU83C
- MuuTN8JdTcG8lFcp2XCDwbZmD5zz4xda3bKudax1FEk+nmqroS857oJnm73P84GIPrdV
- An5pMfmQJFAB/chCtpXpHT/bLF6i2FFCvpoNSH8vAxym+EQV+aErJXKctL93s7wiGT4R
- ejEw==
-X-Gm-Message-State: AOAM533+426QPqafFembxbt1w91gdaghWEhNL0FPbrKrpgzOS2i5YV0s
- c/WOB5UqIbRz+Rhj5y0x2XuTl2YWo8oQq2wkuNw=
-X-Google-Smtp-Source: ABdhPJxT+CsEUPgmUbbvvdovqN50qvrZPZs4VXtBZa26L9aij/35ZW5rkX2cu6uMHZw3aT20weyVwPl2f64lDccacTM=
-X-Received: by 2002:ad4:576c:: with SMTP id r12mr2699884qvx.28.1623378357051; 
- Thu, 10 Jun 2021 19:25:57 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="jWUxjv7+"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="uY6Rc/sx"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 74C971BD8;
+ Thu, 10 Jun 2021 23:38:21 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Thu, 10 Jun 2021 23:38:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=RuqBvhyE8WSoihJKDWCmmn6Ra7O
+ TmipqE2zSj0ZRk8g=; b=jWUxjv7+BqW9Wg+OBUXDADC0tBw+hTAM4wUYusw8U5o
+ ax2WGmJfJanQRNYxgwemtK0g0kPCUtC91o+yeflHB+0R5+gXbAT7hR7JvW2UfZrx
+ yumRCzzCvd0wUKn28o1flKsqTdn8/56eihZaCyo7RhCZbV6Jtoy5R9ooDUzp9/Ni
+ C2K5GXTozzHLgLP3nPSbiX9jLn/uyPLLarclEhuMxkP4jx+Q/p3xh1S+CYnNwZ+v
+ LFRxRs2k4y4cdLJc5twFJfSbEpQJ7ev+4RH1ARxq1q3KTaDd+/qD8e1m2cGsvWB2
+ am2+xyYJUDuz+taqjb9httoZI3GeghOqARopa4UXN8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=RuqBvh
+ yE8WSoihJKDWCmmn6Ra7OTmipqE2zSj0ZRk8g=; b=uY6Rc/sxctcXuFpiYjiW34
+ u6kADk7N//sKNcO+LMx4NtnmjYMM8A5j4AARgcwAVYQoA5/YX94ZB9ur9z38g1lJ
+ nNMA8EPg8Utbj8Wb9hLtTZ3GrktsCFeETyLmWMsEbJEZv99NrJSV3dWQff/XkKG0
+ qfrVPk3k2gDevadt1npIe04tSKf/C4M6vNCH5XlAUfuW2NKM8o6U3iEPEAcHfZSi
+ ce+t7zzHgr9iWQr2ymH+SCmh15CzOIVzC1MEjlS1S803lygEdsn8HM1lx+3nSMXG
+ TMEe30fjfPnTsVzwmivFCGwnHpt+abrntUSMDNq3M5gqXdI7JFIyNAN+R5mZO7mw
+ ==
+X-ME-Sender: <xms:rNrCYDek3MmECxISvXxOKoC_TYlITO5lC4Jq-StUvVotHoNx2wssrA>
+ <xme:rNrCYJNxJYtczhI4AdyOdjz7SX_EYQEFCjFb6ivj7J4eI_IwIcsJvjxRxn8uNaW5Y
+ JIm4KLR4TQP6dKALoQ>
+X-ME-Received: <xmr:rNrCYMjF3wdM5joy9ywT_fkKzyFgH2UD4Pqtm2elFo923MHOHOkQto4O_c2zxFq4ibMhpmRIjqLITkgx_N3qmHfpbWBVS1iDdQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduiedgjeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+ grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:rNrCYE9SPG9AmT9LCpdhlzW0Mn-O_hG1VH6IiJmEtaaSJGGPMYIi-g>
+ <xmx:rNrCYPvJuS0WUfKJhXbaOCfisqDw8RE2VcNf6hY1QEF4ZBBqt2PcMw>
+ <xmx:rNrCYDEe3cEciCeiHrlzi6Tr4pjCia6qVYKZxutNzEfqygyjU0zFfw>
+ <xmx:rdrCYIW4p9_aLaczJGDJkBH7_ZVHK3-x9cYYhUw9OhD2K_FIcVGggA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Jun 2021 23:38:19 -0400 (EDT)
+Date: Fri, 11 Jun 2021 12:38:16 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: add snd_pcm_period_elapsed() variant
+ without acquiring lock of PCM substream
+Message-ID: <20210611033816.GA10978@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org
+References: <20210609143145.146680-2-o-takashi@sakamocchi.jp>
+ <s5him2nawim.wl-tiwai@suse.de> <20210609231623.GA3207@workstation>
+ <s5h1r9ab22u.wl-tiwai@suse.de> <20210610080521.GA84899@workstation>
+ <s5hsg1q9m60.wl-tiwai@suse.de> <20210610082622.GA86308@workstation>
+ <s5hpmwu9kuu.wl-tiwai@suse.de> <20210610101243.GA89949@workstation>
+ <s5hfsxq9e2w.wl-tiwai@suse.de>
 MIME-Version: 1.0
-References: <20210610040037.1064-1-hbut_tan@163.com>
-In-Reply-To: <20210610040037.1064-1-hbut_tan@163.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 11 Jun 2021 10:25:46 +0800
-Message-ID: <CAA+D8AOseYcjf6erSObjkpAhZGJW0VGio-T91kFZ7q0f3PhQPA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC:fsl_spdif:Remove superfluous error message around
- platform_get_irq()
-To: Zhongjun Tan <hbut_tan@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Tan Zhongjun <tanzhongjun@yulong.com>, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hfsxq9e2w.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,37 +120,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 10, 2021 at 12:02 PM Zhongjun Tan <hbut_tan@163.com> wrote:
->
-> From: Tan Zhongjun <tanzhongjun@yulong.com>
->
-> The platform_get_irq() prints error message telling that interrupt is
-> missing, hence there is no need to duplicated that message.
->
-> Signed-off-by: Tan Zhongjun <tanzhongjun@yulong.com>
+Hi,
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+On Thu, Jun 10, 2021 at 01:03:19PM +0200, Takashi Iwai wrote:
+> On Thu, 10 Jun 2021 12:12:43 +0200, Takashi Sakamoto wrote:
+> > 
+> > On Thu, Jun 10, 2021 at 10:36:57AM +0200, Takashi Iwai wrote:
+> > > Again, my *only* point is about the sleep.  You addition was:
+> > > 
+> > > + * Context: Any context in which lock of PCM substream is already acquired. This function may not
+> > > + * sleep.
+> > > 
+> > > where "This function may not sleep" is stated incorrectly.
+> > 
+> > Hm. Would I request you to show the detail case that the call of function
+> > (snd_pcm_period_elapsed_under_stream_lock()) goes sleep except for
+> > driver-side implementation of snd_pcm_ops.{pointer, trigger,
+> > get_time_info}? At least, in callgraph I find no function call to
+> > yield...
+> 
+> True.  But the fact that those callbacks may sleep means that the
+> function would go sleeping after all.
 
-> ---
->  sound/soc/fsl/fsl_spdif.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-> index 2a76714eb8e6..29cefd459241 100644
-> --- a/sound/soc/fsl/fsl_spdif.c
-> +++ b/sound/soc/fsl/fsl_spdif.c
-> @@ -1368,10 +1368,8 @@ static int fsl_spdif_probe(struct platform_device *pdev)
->
->         for (i = 0; i < spdif_priv->soc->interrupts; i++) {
->                 irq = platform_get_irq(pdev, i);
-> -               if (irq < 0) {
-> -                       dev_err(&pdev->dev, "no irq for node %s\n", pdev->name);
-> +               if (irq < 0)
->                         return irq;
-> -               }
->
->                 ret = devm_request_irq(&pdev->dev, irq, spdif_isr, 0,
->                                        dev_name(&pdev->dev), spdif_priv);
-> --
-> 2.17.1
->
+Thanks. After all, our discussion comes from the ambiguity that what
+has responsibility at yielding processor under the lock. I think it helpful
+to describe devide responsibilities about the yielding. I'm glad for you
+to review patch below:
+
+======== 8< --------
+
+From 98e1b8332a95935ae875c637d3ddc27e68689aa0 Mon Sep 17 00:00:00 2001
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Date: Fri, 11 Jun 2021 11:03:46 +0900
+Subject: [PATCH] ALSA: pcm: add context section for documentation about
+ period-elapsed kernel APIs
+
+This commit fulfils documentation of period-elapsed kernel APIs with their
+context section.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/core/pcm_lib.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 7d5883432085..5d28d63a3216 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -1803,6 +1803,10 @@ EXPORT_SYMBOL(snd_pcm_lib_ioctl);
+  * - .get_time_info - to retrieve audio time stamp if needed.
+  *
+  * Even if more than one periods have elapsed since the last call, you have to call this only once.
++ *
++ * Context: Any context in which lock of PCM substream is already acquired. The function may not
++ * sleep by ALSA PCM core. The function may sleep in the above callbacks by driver which should
++ * configures PCM device for it (@snd_pcm.nonatomic).
+  */
+ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substream)
+ {
+@@ -1836,6 +1840,10 @@ EXPORT_SYMBOL(snd_pcm_period_elapsed_under_stream_lock);
+  * It's typically called by any type of IRQ handler when hardware IRQ occurs to notify event that
+  * the batch of audio data frames as the same size as the period of buffer is already processed in
+  * audio data transmission.
++ *
++ * Context: Any context in which lock of PCM substream is not acquired yet. It depends on
++ * configuration of PCM device (@snd_pcm.nonatomic) by driver whether the function may or may not
++ * sleep by operating lock of PCM substream.
+  */
+ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
+ {
+-- 
+2.27.0
+
+======== 8< --------
+
+Thanks
+
+Takashi Sakamoto

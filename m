@@ -2,57 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673493A470F
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 18:54:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B04953A488C
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 20:22:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E52691AA8;
-	Fri, 11 Jun 2021 18:53:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E52691AA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FFC01AA5;
+	Fri, 11 Jun 2021 20:21:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FFC01AA5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623430445;
-	bh=3OpQuP2R1cfZsAAGivO/AiBB5ONUOTN+20FkmEcxELM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vm9DRU6lhAlQW+MFTsfksS/LNIot9eBDYV4d/cqGW8mhCJDY3R2+qtUj4cUrjzOzI
-	 PQjF3cTd5e1QJf/3ef/+XF1YIxW7UVYYB0+uigqqZDfVWw8+PwevsAfOSWP6e4ELzG
-	 RRalR7QNMw3Odd5AaCczgvG5QxzDquxZxvJDlaxE=
+	s=default; t=1623435723;
+	bh=oaaPp4Lp8JS2BY7Jfd1o5Hs44/bMEK1mJ8eygJ+ZlV0=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rVy906a8g3zn+k1GE3k7sPjHM1i/+YPQA+CiLd0eywQR3JFqUICNy8vAJ21Jmfb+I
+	 iAHKn8mtQt/QEcXRkyDUOGOJCEDNmP6aRNYDFluCU/3z5Zb/1+FhJBEzrAUTyfFLj7
+	 xpBEZr7+AYKbLyu52TSXpQfUxcH5fEyfsDH6lG3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 575ACF80276;
-	Fri, 11 Jun 2021 18:52:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC1D7F80276;
+	Fri, 11 Jun 2021 20:20:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01414F8026C; Fri, 11 Jun 2021 18:52:33 +0200 (CEST)
+ id CD6A6F80149; Fri, 11 Jun 2021 20:20:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97054F80149
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 18:52:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97054F80149
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <colin.king@canonical.com>)
- id 1lrkOP-0004zC-1F; Fri, 11 Jun 2021 16:52:25 +0000
-From: Colin King <colin.king@canonical.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH][next] ALSA: i2c: tea6330t: Remove redundant initialization of
- variable err
-Date: Fri, 11 Jun 2021 17:52:23 +0100
-Message-Id: <20210611165223.38983-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.31.1
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 73D0BF80149
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 20:20:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73D0BF80149
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1623435630525024891-webhooks-bot@alsa-project.org>
+References: <1623435630525024891-webhooks-bot@alsa-project.org>
+Subject: Question about upmix plugin
+Message-Id: <20210611182033.CD6A6F80149@alsa1.perex.cz>
+Date: Fri, 11 Jun 2021 20:20:33 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,31 +59,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+alsa-project/alsa-plugins issue #25 was opened from krumpfwylg:
 
-The variable err is being initialized with a value that is never read,
-it is being updated later on. The assignment is redundant and can be
-removed.
+Hi, I've noticed the [latest commits](https://github.com/alsa-project/alsa-plugins/pull/2) done to the upmix plugin, but there's something I don't understand.
+Line 24 of pcm_upmix.c is _#define UPMIX_PCM_FORMAT	SND_PCM_FORMAT_S16_ 
+Does that mean the upmix plugin is still only capable of using S16_LE format ?
+Or does the UPMIX_PCM_FORMAT value can get changed to S32_LE by tweaking it in asoundrc file ?
 
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/i2c/tea6330t.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/i2c/tea6330t.c b/sound/i2c/tea6330t.c
-index 742d0f724375..037d6293f728 100644
---- a/sound/i2c/tea6330t.c
-+++ b/sound/i2c/tea6330t.c
-@@ -284,7 +284,7 @@ int snd_tea6330t_update_mixer(struct snd_card *card,
- 	struct tea6330t *tea;
- 	const struct snd_kcontrol_new *knew;
- 	unsigned int idx;
--	int err = -ENOMEM;
-+	int err;
- 	u8 default_treble, default_bass;
- 	unsigned char bytes[7];
- 
--- 
-2.31.1
-
+Issue URL     : https://github.com/alsa-project/alsa-plugins/issues/25
+Repository URL: https://github.com/alsa-project/alsa-plugins

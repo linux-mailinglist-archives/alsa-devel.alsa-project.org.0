@@ -2,85 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE6D3A403B
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 12:33:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6687F3A4139
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 13:28:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E32D1939;
-	Fri, 11 Jun 2021 12:33:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E32D1939
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA1CC193E;
+	Fri, 11 Jun 2021 13:27:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA1CC193E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623407636;
-	bh=MHJzyj2NsdVTXyKroDbgj2K7Kkt5PvzMIWIX6QRYBwk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623410911;
+	bh=QXbhpoKZRkqCV8d85AMb2D87wCsbusdzmNcunuEV1eo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WJC4IylogPdq9rlF8zHFhiMQt2DLBSrDlA0MmR+5O5Nbh+potPnKG4T0oEWiqJBrt
-	 WL1QhGD6OXW5qzcJeTWUa9i1SYVc1Gsmf376EVJ+gaWJJ2ysbRuljbbIseWk3L1G7v
-	 TmY7biozMoJ0HK4iMd/sDoUmbAPGcc17pRINkcs8=
+	b=XxB9q8Zis29rg0gwfby1aKls9NSSHErBNWVJ7FdIYQXdASr5oQNQ4Ql3zWIYwZ9cI
+	 7d90nyU1gU+lYj/ikVCiw53juugaRJPucY6muIxLDzVQdnjHOWKZWPNnQ7bZ2B5/PC
+	 rGAZGK2hE70xnYNXoxoCnScXUk8CqxGzGOsAyFPA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7636F800FC;
-	Fri, 11 Jun 2021 12:32:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09297F800FC;
+	Fri, 11 Jun 2021 13:27:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5074F8026C; Fri, 11 Jun 2021 12:32:26 +0200 (CEST)
+ id EE1ADF8026C; Fri, 11 Jun 2021 13:27:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 938D3F800FB
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 12:32:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 938D3F800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58512F800FC
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 13:26:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58512F800FC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="IGW0RoWD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="U1PPLKHH"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 352B621999;
- Fri, 11 Jun 2021 10:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623407537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G6LW9BrU0PLwsb/uF5sdNDML46a0VUCmG2BMpae8h4Q=;
- b=IGW0RoWDZyxyYdU9NnXKgxusTrGNrQO2e8NPk5DSgMlJFH0VHIP2+/86Fd21H2+wnV2lgY
- xbfZ4Hk0BRFFTwBgg0wFxBIi++ajzMqRr2PsWMsiHaJ2h95w+IV/paUA9s3CqdTSlNZ3gR
- gHth0j3wpDBptd6+FJS9q+Yhnc9PTW4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623407537;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G6LW9BrU0PLwsb/uF5sdNDML46a0VUCmG2BMpae8h4Q=;
- b=U1PPLKHHHOxRvMNK2ksxvHlLmGOVeIP1dSNI7JaQIJRUC1qMUZ9/szIAvGqRj6MjkrXsUQ
- PBgqiftLVD3ALTAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2FD84A3B85;
- Fri, 11 Jun 2021 10:32:17 +0000 (UTC)
-Date: Fri, 11 Jun 2021 12:32:17 +0200
-Message-ID: <s5hfsxo7kum.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: SNDRV_PCM_IOCTL_READI_FRAMES returns EIO
-In-Reply-To: <CAHhAz+g_46y8r0A_wkJE+nwkU0uNcpS9VXL3h-SZgZ953f0BjQ@mail.gmail.com>
-References: <CAHhAz+iW30L0xsVaKD5V4P412L-hQ_5zZ-byd7qSW-MpSZB8AA@mail.gmail.com>
- <s5heed896xl.wl-tiwai@suse.de>
- <CAHhAz+isS-TSMNhyCH_L3Vvc3ah+5NusFu1pBk0Z=Bepcst0aA@mail.gmail.com>
- <s5hr1h87mk4.wl-tiwai@suse.de>
- <CAHhAz+g_46y8r0A_wkJE+nwkU0uNcpS9VXL3h-SZgZ953f0BjQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel <alsa-devel@alsa-project.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="mHNHZtdk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 272D0610E9;
+ Fri, 11 Jun 2021 11:26:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623410816;
+ bh=QXbhpoKZRkqCV8d85AMb2D87wCsbusdzmNcunuEV1eo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mHNHZtdkpxh+sAIplb3d0tqtmW4gvz992iETR2j7p8QZBoUNBitsS2H7L1nbPOTIH
+ +8CNq1F4ar3EFOsdILg8sQGmuYicMx0LKInecTpzYxnGkdPKMGEALsUWAiled/e5P0
+ xYB4xE28l65g7gBJcouALiu9EJ/tOlnH95uYMzGOr+e5kquZjTuMhqJ4tJb7lqQqpr
+ 4A+LN/NVEFQSrt2zwQDxp2DiFPxozEdq6ZlAiTYe8RR7JYMF0P3t2bsnnGdRaCa6UE
+ PPNqGgUXxC+KHKLIjc7/KR9uOA3rR5poXVAWQvc9oaijApy/1rBzt6c2vCwG6l7MHa
+ TFsQwECdugKIA==
+Date: Fri, 11 Jun 2021 16:56:52 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v4] soundwire: intel: move to auxiliary bus
+Message-ID: <YMNIfHPRcgKLXJ0v@vkoul-mobl>
+References: <20210511052132.28150-1-yung-chuan.liao@linux.intel.com>
+ <21002781-0b78-3b36-952f-683482a925d7@linux.intel.com>
+ <YLS4N2KgzfsMBD1c@vkoul-mobl.Dlink>
+ <b316763b-d219-6ea3-401e-3eb9718aabf3@linux.intel.com>
+ <YMBHj6PBzeHexXJb@vkoul-mobl>
+ <07dbe0a2-0abb-810b-ef39-b83511d3f3e0@linux.intel.com>
+ <20210609151022.GF1002214@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210609151022.GF1002214@nvidia.com>
+Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
+ gregkh@linuxfoundation.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ hui.wang@canonical.com, bard.liao@intel.com,
+ Dave Ertman <david.m.ertman@intel.com>, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,57 +90,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Jun 2021 12:24:40 +0200,
-Muni Sekhar wrote:
+On 09-06-21, 12:10, Jason Gunthorpe wrote:
+> On Wed, Jun 09, 2021 at 09:44:08AM -0500, Pierre-Louis Bossart wrote:
 > 
-> On Fri, Jun 11, 2021 at 3:25 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Fri, 11 Jun 2021 10:43:01 +0200,
-> > Muni Sekhar wrote:
-> > >
-> > > On Fri, Jun 11, 2021 at 1:19 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > >
-> > > > On Fri, 11 Jun 2021 09:02:44 +0200,
-> > > > Muni Sekhar wrote:
-> > > > >
-> > > > > Hi all,
-> > > > >
-> > > > > I am using a USB sound card(snd-usb-audio), and it fails while doing
-> > > > > the audio recording "arecord: pcm_read:2032: read error: Input/output
-> > > > > error".
-> > > > >
-> > > > >  I noticed recording(arecord) audio data on a USB sound card fails at
-> > > > > SNDRV_PCM_IOCTL_READI_FRAMES is giving EIO.
-> > > > >
-> > > > > Can someone please clarify when the kernel returns EIO for Ioctl
-> > > > > SNDRV_PCM_IOCTL_READI_FRAMES? and is there a workaround for this?
-> > > >
-> > > > It's a problem of either your device (e.g. USB device firmware) or the
-> > > > kernel.  Do you get any relevant kernel error messages?
-> > > dmesg log does not indicate any such error messages when arecord fails.
-> >
-> > Then it's likely a debug print in PCM core, which is suppressed as
-> > default.  You can enable it via dyndbg stuff.  It won't help much for
-> > diagnose at this stage, though.
-> Is it snd-pcm.ko ? In my system, this module gets loaded as mentioned below:
-> alsa-base.conf:15:install snd-pcm /sbin/modprobe --ignore-install
-> snd-pcm $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist
-> snd-pcm-oss ; : ; }
+> > The consensus for the auxiliary_device model was hard to reach, and the
+> > agreement was to align on a minimal model. If you disagree with the
+> > directions, you will have to convince Nvidia/Mellanox and Intel networking
+> > folks who contributed the solution to do something different.
+> 
+> The purpose of the aux devices was primarily to bind a *software*
+> interface between two parts of the kernel.
 
-The dynamic debug can be enabled at any time via sysfs.
+Then I dont think this example is valid... This example has a PCI device,
+which represents a DSP, HDA controller, DMICs, Soundwire
+links... So at least here it is hardware.
 
-> > > Is there a way to prove it as a USB device firmware issue or kernel issue?
-> >
-> > You can check strace output, for example.  The PCM core is supposed to
-> > be bug-free regarding this, so it's about USB-audio driver, and the
-> > problem is specific to your device (other USB-audio devices work),
-> > hence it's very likely a firmware problem.
-> Please find the strace output in the attached file "strace_op.txt"
-> file. Does it gives any more information?
+> If there is a strong defined HW boundary and no software interface
+> then the mfd subsytem may be a better choice.
 
-Not really for fixing the problem itself :)
-Again, it's a problem in USB-audio driver, and that's likely a
-firmware problem.  At best, contact with the hardware vendor.
+More I think that might be better choice for this example, but then MFD
+is a 'platform device' and Greg already nacked that
 
+> For a software layer I expect to see some 'handle' and then a set of
+> APIs to work within that. It is OK if that 'handle' refers to some HW
+> resources that the API needs to work, the purpose of this is to
+> control HW after all.
+> 
+> You might help Vinod by explaining what the SW API is here.
+> 
+> Jason
 
-Takashi
+-- 
+~Vinod

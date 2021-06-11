@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4473A3A88
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 05:51:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24193A3A8B
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 05:53:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C6A4185A;
-	Fri, 11 Jun 2021 05:50:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C6A4185A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A173185F;
+	Fri, 11 Jun 2021 05:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A173185F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623383506;
-	bh=qkScbxKvt+M+ESpOsuf3Ww6xk+asGsP/3RbV+0iIbEY=;
+	s=default; t=1623383582;
+	bh=Qf9KsPw5Y8bMNh9OIVuZptwJv8Z3tSkY/P4uHNb/HxE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lmrnRcaXYztOeQYROkf/3NIS48qcC1y+2okw7P07/ByNhiKfxgFLUDkf1/KnCbN9/
-	 C7TMgVkeOBvwCA8azAIcziwu9F4obHGn++QXJev3Y9oxUDL+xlRbnjOZ3PxYXElFMs
-	 84FwcscZP+rCnNOm16JqIibYtIIpDpFveP1kirYk=
+	b=PFNDHOQPGC0moonCBLTjNP3jTxlsjfIP1NfX3uEr+sgUMItuocmPLH4i3QVwBt9Ch
+	 dufvX+h+/DFB6AueoXKT8x6Xl1z9UBu1QPFOMFsoLsWQ/nlgNZXm8mNOv7xFOqEqR/
+	 dQQ6izof4kKucgchyPxgSjw2M4E7k5VAn1eTZnGw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEBB0F804B4;
-	Fri, 11 Jun 2021 05:50:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EC01F804D1;
+	Fri, 11 Jun 2021 05:50:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D4C8F80276; Fri, 11 Jun 2021 05:50:22 +0200 (CEST)
+ id F1C54F804D0; Fri, 11 Jun 2021 05:50:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E16E5F80276
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 05:50:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E16E5F80276
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD4FAF802DF
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 05:50:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD4FAF802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="pflvsn7R"; 
+ header.b="sWjV5In0"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="UoMDAL+o"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id A73741B98;
- Thu, 10 Jun 2021 23:50:13 -0400 (EDT)
+ header.i=@messagingengine.com header.b="swrPaBX8"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id EB7771BA0;
+ Thu, 10 Jun 2021 23:50:15 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 10 Jun 2021 23:50:13 -0400
+ by compute3.internal (MEProxy); Thu, 10 Jun 2021 23:50:16 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=CMi6nwQXnQReD
- 0V1CCZ75333nlU6hpE84b1egm3r2yM=; b=pflvsn7RjmHDOZmSKabXJc2vV7pTg
- SJucmYxBH2Jn36EcdjUOl+ikOe4bShNKXAHku4C3X1sfacHdtN4Q1erKUgT6RDun
- qX49nf7u5+68u6BWPn1IgQXb6GeZIz+TIJB9JhimgZwWqlKzZ5vbHHh5HUP3Gf05
- 0w0PoA0tEzzJ2u9URgoGswaM8ZqPw6vg/iUP3vM7d13EoUDbb5BePnb1DdJbnqEI
- oLOYEuF0LKNfcyO8gRHziMbarDSrZqCgn5a+aYPu+GWjhK8FtYR7ZOnNqvcvECxK
- 4Jw2xo1lYYvV0cotSKNCUWgwuI9FI4KTz3cIjW7DG5mnOdaRKoM7DJUlg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=bfl/ukndIIF39
+ wCaiM/5LDPHoETJgNAUOMCfbxMlT70=; b=sWjV5In0mxOXZxNaLhUX6DJgQRZi2
+ UmQyZSXlshChzUReMMVHWllnFPjfKm9GH/hHK9qqRTEz//9G0x+YQpTwyZg/fGuW
+ OcwTyEp+ZECLScfdzwK8PTqZrfgKdz+m6O1mM7MGaDVZmKDKUtlqc1JIKb2Ol6lr
+ VRxoAesTBToaAgcQI7r9tP1qhiVaELIRlP1VUuKvf7QB72ZYwn20Vt2vMLXfnWDX
+ qoe9usj93LK3vMR0pg/FDUVAsMNzM7rgcjkv4nYHZAPmoeTW/AdW98VIepYJVzim
+ WgWC160ZdCtn8ulaN3uKRHjSpM64pv89dUwkqJvT9+3uUU8W9rmEQdZhw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=CMi6nwQXnQReD0V1CCZ75333nlU6hpE84b1egm3r2yM=; b=UoMDAL+o
- uKq5m+kfRHEYRraw4XIWvNj1S6/acW5AgtZsZU0vbZ1qFGiDoR2THHbPxdcSO5Js
- Gf7c+IBWYkBrPA8GVI6la9t8c0gx0ejlFD+S2CMnzOQLO2+CWT3qwyk2MCwwcgeV
- mLwTm1LE7G5xBxrAgBGsv0TsdfR9JNyJVxl7zV0hgvuux9VJ7c3GvgZci+PsRP82
- XDYX9qdgt1undeo9wysJEuyY15mq7Ij1Bvh0IhD9fEn+z9cqARnobL2c0dU+XxhM
- tksdQ8D4XBLGUDchCBJr+TlIoXNNnC0LJPDUY7Q02Gwm5gembrpmUQ1sVqmwXNwc
- ODmkdKea4VnWSw==
-X-ME-Sender: <xms:dd3CYDKtxcnfch-qPb9EpBBunvxlxItjOBGaYcwq5x12kHkVCiDdNg>
- <xme:dd3CYHLG09D-f4pNMyOsyWblLZYmyv88E3FysrpI6B_sK_g-1Fd1Tr-Tq2mFrCrF3
- yP186XJcRd_T_Sm9jo>
-X-ME-Received: <xmr:dd3CYLtC7vLhnVSmcgebQKqz3no3mU7ejbBa805iM_E2ktesOG08i_zrZ2kn_6nCZ0dCtEjKt9MVbv0uPWH2SioDQocrVGya423wlf-J7VqriXx-Bfel>
+ fm3; bh=bfl/ukndIIF39wCaiM/5LDPHoETJgNAUOMCfbxMlT70=; b=swrPaBX8
+ 4FCrCN67yOt8f1jNAruBVbe8S0k/hCaqIXqO+AuY0w25ArEbT9PAalYu1MA2aSWY
+ iW+wAciZTKWwJ/nSV1br0s9cDYuyQtWk2YXNHj9r0oeNYJT74eJSYAKyzkUV0Uvg
+ 3zYBLMmmw8VqMMVnvn8/HjfoBOAjwKWgjxaB8pPg9uW4i+1e56c/PUTuDsJzraPC
+ UEnxRLs7uI69rU9T2xmKVzp2I8eSNqhew7Xln+kZU3eWzPJ4M5wwWgXiJb60KJZA
+ Cs3gVvYvxveMgivUa5yuaLQG0UF5GdEKG6HekY05PTMQUSWDKMLKg9Yahb2G2+Wb
+ kk+4kqpaT14LAg==
+X-ME-Sender: <xms:d93CYFsXIT55rJ59vZTmAkzzQhvwKpYFzx2gkVeK7_N5FPWbzV2Q8g>
+ <xme:d93CYOfP7OgAvr2LYWBCGPlTsm7K5X5DzZP9qxs3olfUaP2F0sh5rLuVjsDXZL0aO
+ gmnPAvDbW_hPX9D-0A>
+X-ME-Received: <xmr:d93CYIxn8uH_pT5dbF98dBxDCpkhyz29peWhthj9ZNK_C0wTJuYMjG8c_1R5Gpw9Nl-5Xhj0W_WZgLaDe4TDcGiRZkRLcxyv7tjDgZyOdayIKzTfYzOp>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduiedgjeegucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -80,17 +80,17 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeduiedgjeegucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
  rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:dd3CYMbXrXIN_oulaiuCG2lXHegz_3lPH05vv1HvuY8rhCrpPLYGHQ>
- <xmx:dd3CYKaHrN77yIxtnhEoVk44gUwEO5cjHnWp_yZQytS0Sxi6AWdfZg>
- <xmx:dd3CYACCQ1Nl9ueoX845PIr482oyQPRCUs3KIRinpfmn_-Upx_vARA>
- <xmx:dd3CYNzVYQY13H692xO23FasaPbOQQZp91FMoQm4Cv7erGJsNzmJrA>
+X-ME-Proxy: <xmx:d93CYMNKMR8AmgKn09FoIW_qSGJUa9b_LotXT_RP_BK7t9lpCXk-wg>
+ <xmx:d93CYF_LL9Ny7CExa8YvKCWzvcj9WnKfSjS-P-ZkLNUSTgdceU8C5g>
+ <xmx:d93CYMWNizqy4Sr-_JJun4qrkwBwGq4COvMT44EZmoG3Koc6r6lg5Q>
+ <xmx:d93CYHnLT6mQPZ_Lkzb0t3DGCzTqCo3CGgZqqCcON6aVSpDwEChtXg>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Jun 2021 23:50:12 -0400 (EDT)
+ 10 Jun 2021 23:50:14 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 2/3] ALSA: bebob: delete workaround for protocol version 3
-Date: Fri, 11 Jun 2021 12:50:02 +0900
-Message-Id: <20210611035003.26852-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH 3/3] ALSA: bebob: code refactoring for model-dependent quirks
+Date: Fri, 11 Jun 2021 12:50:03 +0900
+Message-Id: <20210611035003.26852-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210611035003.26852-1-o-takashi@sakamocchi.jp>
 References: <20210611035003.26852-1-o-takashi@sakamocchi.jp>
@@ -112,78 +112,160 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In a commit c4d860a0d256 ("ALSA: bebob: loosen up severity of checking
-continuity for BeBoB v3 quirk"), a workaround was added for the quirk in
-BeBoB protocol version 3 against the discontinuity of data block counter.
-As long as seeing with sequence replay for media clock recovery, such
-quirk disappears.
-
-This commit deletes the workaround.
+This commit adds enumeration and structure member as code refactoring
+regarding to model-dependent quirks.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/bebob/bebob.c        | 7 -------
- sound/firewire/bebob/bebob.h        | 2 --
- sound/firewire/bebob/bebob_stream.c | 8 --------
- 3 files changed, 17 deletions(-)
+ sound/firewire/bebob/bebob.c        | 34 ++++++++++++++++++++++++-----
+ sound/firewire/bebob/bebob.h        |  8 +++++--
+ sound/firewire/bebob/bebob_stream.c | 18 +++++++--------
+ 3 files changed, 42 insertions(+), 18 deletions(-)
 
 diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
-index e7dd112c31c5..25222cc27e43 100644
+index 25222cc27e43..452317e53565 100644
 --- a/sound/firewire/bebob/bebob.c
 +++ b/sound/firewire/bebob/bebob.c
-@@ -75,7 +75,6 @@ name_device(struct snd_bebob *bebob)
- 	u32 hw_id;
- 	u32 data[2] = {0};
- 	u32 revision;
--	u32 version;
- 	int err;
+@@ -159,6 +159,30 @@ check_audiophile_booted(struct fw_unit *unit)
+ 	return strncmp(name, "FW Audiophile Bootloader", 24) != 0;
+ }
  
- 	/* get vendor name from root directory */
-@@ -108,12 +107,6 @@ name_device(struct snd_bebob *bebob)
++static int detect_quirks(struct snd_bebob *bebob, const struct ieee1394_device_id *entry)
++{
++	if (entry->vendor_id == VEN_MAUDIO1) {
++		switch (entry->model_id) {
++		case MODEL_MAUDIO_PROFIRELIGHTBRIDGE:
++			// M-Audio ProFire Lightbridge has a quirk to transfer packets with
++			// discontinuous cycle or data block counter in early stage of packet
++			// streaming. The cycle span from the first packet with event is variable.
++			bebob->quirks |= SND_BEBOB_QUIRK_INITIAL_DISCONTINUOUS_DBC;
++			break;
++		case MODEL_MAUDIO_FW1814:
++		case MODEL_MAUDIO_PROJECTMIX:
++			// At high sampling rate, M-Audio special firmware transmits empty packet
++			// with the value of dbc incremented by 8.
++			bebob->quirks |= SND_BEBOB_QUIRK_WRONG_DBC;
++			break;
++		default:
++			break;
++		}
++	}
++
++	return 0;
++}
++
+ static int bebob_probe(struct fw_unit *unit, const struct ieee1394_device_id *entry)
+ {
+ 	unsigned int card_index;
+@@ -219,6 +243,10 @@ static int bebob_probe(struct fw_unit *unit, const struct ieee1394_device_id *en
  	if (err < 0)
- 		goto end;
+ 		goto error;
  
--	err = snd_bebob_read_quad(bebob->unit, INFO_OFFSET_BEBOB_VERSION,
--				  &version);
--	if (err < 0)
--		goto end;
--	bebob->version = version;
++	err = detect_quirks(bebob, entry);
++	if (err < 0)
++		goto error;
++
+ 	if (bebob->spec == &maudio_special_spec) {
+ 		if (entry->model_id == MODEL_MAUDIO_FW1814)
+ 			err = snd_bebob_maudio_special_discover(bebob, true);
+@@ -230,12 +258,6 @@ static int bebob_probe(struct fw_unit *unit, const struct ieee1394_device_id *en
+ 	if (err < 0)
+ 		goto error;
+ 
+-	// M-Audio ProFire Lightbridge has a quirk to transfer packets with discontinuous cycle or
+-	// data block counter in early stage of packet streaming. The cycle span from the first
+-	// packet with event is variable.
+-	if (entry->vendor_id == VEN_MAUDIO1 && entry->model_id == MODEL_MAUDIO_PROFIRELIGHTBRIDGE)
+-		bebob->discontinuity_quirk = true;
 -
- 	strcpy(bebob->card->driver, "BeBoB");
- 	strcpy(bebob->card->shortname, model);
- 	strcpy(bebob->card->mixername, model);
+ 	err = snd_bebob_stream_init_duplex(bebob);
+ 	if (err < 0)
+ 		goto error;
 diff --git a/sound/firewire/bebob/bebob.h b/sound/firewire/bebob/bebob.h
-index edd93699ce1a..fc2b9b36159c 100644
+index fc2b9b36159c..dff8e25c6ca3 100644
 --- a/sound/firewire/bebob/bebob.h
 +++ b/sound/firewire/bebob/bebob.h
-@@ -109,8 +109,6 @@ struct snd_bebob {
+@@ -75,6 +75,11 @@ struct snd_bebob_spec {
+ 	const struct snd_bebob_meter_spec *meter;
+ };
+ 
++enum snd_bebob_quirk {
++	SND_BEBOB_QUIRK_INITIAL_DISCONTINUOUS_DBC,
++	SND_BEBOB_QUIRK_WRONG_DBC,
++};
++
+ struct snd_bebob {
+ 	struct snd_card *card;
+ 	struct fw_unit *unit;
+@@ -84,6 +89,7 @@ struct snd_bebob {
+ 	spinlock_t lock;
+ 
+ 	const struct snd_bebob_spec *spec;
++	unsigned int quirks;	// Combination of snd_bebob_quirk enumerations.
+ 
+ 	unsigned int midi_input_ports;
+ 	unsigned int midi_output_ports;
+@@ -109,8 +115,6 @@ struct snd_bebob {
  	/* for M-Audio special devices */
  	void *maudio_special_quirk;
  
--	/* For BeBoB version quirk. */
--	unsigned int version;
- 	bool discontinuity_quirk;
- 
+-	bool discontinuity_quirk;
+-
  	struct amdtp_domain domain;
+ };
+ 
 diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
-index 6d47c25654e6..02972b32e170 100644
+index 02972b32e170..e3e23e42add3 100644
 --- a/sound/firewire/bebob/bebob_stream.c
 +++ b/sound/firewire/bebob/bebob_stream.c
-@@ -456,14 +456,6 @@ static int init_stream(struct snd_bebob *bebob, struct amdtp_stream *stream)
+@@ -430,6 +430,7 @@ static int start_stream(struct snd_bebob *bebob, struct amdtp_stream *stream)
+ 
+ static int init_stream(struct snd_bebob *bebob, struct amdtp_stream *stream)
+ {
++	unsigned int flags = CIP_BLOCKING;
+ 	enum amdtp_stream_direction dir_stream;
+ 	struct cmp_connection *conn;
+ 	enum cmp_direction dir_conn;
+@@ -445,24 +446,21 @@ static int init_stream(struct snd_bebob *bebob, struct amdtp_stream *stream)
+ 		dir_conn = CMP_INPUT;
  	}
  
- 	if (stream == &bebob->tx_stream) {
--		// BeBoB v3 transfers packets with these qurks:
--		//  - In the beginning of streaming, the value of dbc is
--		//    incremented even if no data blocks are transferred.
--		//  - The value of dbc is reset suddenly.
--		if (bebob->version > 2)
--			bebob->tx_stream.flags |= CIP_EMPTY_HAS_WRONG_DBC |
--						  CIP_SKIP_DBC_ZERO_CHECK;
++	if (stream == &bebob->tx_stream) {
++		if (bebob->quirks & SND_BEBOB_QUIRK_WRONG_DBC)
++			flags |= CIP_EMPTY_HAS_WRONG_DBC;
++	}
++
+ 	err = cmp_connection_init(conn, bebob->unit, dir_conn, 0);
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = amdtp_am824_init(stream, bebob->unit, dir_stream, CIP_BLOCKING);
++	err = amdtp_am824_init(stream, bebob->unit, dir_stream, flags);
+ 	if (err < 0) {
+ 		cmp_connection_destroy(conn);
+ 		return err;
+ 	}
+ 
+-	if (stream == &bebob->tx_stream) {
+-		// At high sampling rate, M-Audio special firmware transmits
+-		// empty packet with the value of dbc incremented by 8 but the
+-		// others are valid to IEC 61883-1.
+-		if (bebob->maudio_special_quirk)
+-			bebob->tx_stream.flags |= CIP_EMPTY_HAS_WRONG_DBC;
+-	}
 -
- 		// At high sampling rate, M-Audio special firmware transmits
- 		// empty packet with the value of dbc incremented by 8 but the
- 		// others are valid to IEC 61883-1.
+ 	return 0;
+ }
+ 
+@@ -630,7 +628,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		if (!bebob->discontinuity_quirk)
++		if (!(bebob->quirks & SND_BEBOB_QUIRK_INITIAL_DISCONTINUOUS_DBC))
+ 			tx_init_skip_cycles = 0;
+ 		else
+ 			tx_init_skip_cycles = 16000;
 -- 
 2.27.0
 

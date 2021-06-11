@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0CD43A3F34
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:39:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799CB3A3F39
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:40:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 139BC1918;
-	Fri, 11 Jun 2021 11:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139BC1918
+	by alsa0.perex.cz (Postfix) with ESMTPS id F4113191F;
+	Fri, 11 Jun 2021 11:39:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F4113191F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623404370;
-	bh=AHWrocUWpbLKW2AzSG6TsnAId+jh+az6VTpssUqJOxE=;
+	s=default; t=1623404419;
+	bh=ngCaAf03qLVch2+Gb0kyjOF9HCr6b/P5r6VjytldCOY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sZK1WPtLR76TlUTJjLFnZx2AnqENRbMrdpd0g5013veIxt7zRzUzoeV2XyoNuddQ5
-	 UoRdX80EyJt23Qm2VBOxnhwa5UWU2oqDsH6Q7MyjdkbGfT6tq0Al1jYV2k6iMETfel
-	 ER9svPU00eJsrq4rHisKIiUaq0GMMSzjZF7Afq7Y=
+	b=Z82xsT3KZZBNydCA0CfPZCheZu3C150astCnG4letkYgf+QS8nTVqIVD49v+eHf9O
+	 EfTR0nyLU9yHtfzqBz8kwuhEeXYS5sXIQ/5Ix7RwTF3QTAJtdw46hFLdA0i2kUBe1H
+	 aXAWvRJxR7QIPTv40dmjImKd5yQbMysUpkmmWNo4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AACCF804C1;
-	Fri, 11 Jun 2021 11:37:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C9EDF804CB;
+	Fri, 11 Jun 2021 11:37:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7ED0F804BD; Fri, 11 Jun 2021 11:37:48 +0200 (CEST)
+ id 7FA48F804C3; Fri, 11 Jun 2021 11:37:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A471F80212
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A471F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80512F80276
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80512F80276
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="qdaPtfX0"; 
+ header.b="HN7RzRBI"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Jrup4YXS"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id C412C1B00;
- Fri, 11 Jun 2021 05:37:39 -0400 (EDT)
+ header.i=@messagingengine.com header.b="ubu5f7ep"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id CBEA01AB0;
+ Fri, 11 Jun 2021 05:37:41 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 11 Jun 2021 05:37:40 -0400
+ by compute5.internal (MEProxy); Fri, 11 Jun 2021 05:37:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=1qxI25uU7EIAp
- GdsMS/7IjnByhQ+OPEqq2kaypsy3Jc=; b=qdaPtfX0+8+dmRFZoCUe+ghFSjFLv
- YxP2jA4l+ENZKvsL8v73jgbbzkJptk0d+w2szAoX//pSs3f3Gi9E7ZZXlRmGdqET
- adW6bxovKBBdvB+5LrpDKwmVVHX612g4Wd+OcEsMOa5qywuBW+dqhIk3SrTw0PCa
- U7c44Ncs3nwikSLWtcYElF/ViflPk+hNvQzwHh/NmkT3u2mSqj07FmIUE1E9xurY
- Oe7fdVX0BGzt6JJmQWE5+tZRxriK5f/clVwVoWxESeS+nLLBU4KkdXjr3wCczSwp
- WlwbTGnDJMEWxb9wbKRjCEDPFje7ufun1HWP6z+bnKXBB4Rog15mflqHg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=fnkOzJ6AnoN5s
+ GF1n5hmP0Pz9GMo/PNILUy+3TR+F1w=; b=HN7RzRBI06hy0mVIhqCvdfnCMpQUt
+ rHfmV8ko4VuBnerbIyaInZ+mnh70Av+Sxnt96AEs+X6LZOVYCXn4IeqX4vb/euNW
+ IXfZbgEu7zJGOC7jqUcvHys0XhtEYTb6NLc58qXa57fUl+JrkFSyU1iZIa1bQLAP
+ xjPNkaKGz9M148Zm2jDCpt9QapYeq+bRpgqzI90GfsVfZGlesrN+gHEhezQxyDWY
+ U6tE3Eg/tLvah8M3xsf97L+J7BFl/inVfH/eAzGG9ntY02QJa4sFw1xydcY6a8bA
+ VSfZLHDEeOJWIjzaEWBFDNI3Ld/iJCHLwicjZtex/+1X0A7Kc1EyDU41g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=1qxI25uU7EIApGdsMS/7IjnByhQ+OPEqq2kaypsy3Jc=; b=Jrup4YXS
- uBOxJNG6/N+xCmCBldVkdZJzaujShsNEzVZAeitaUm1HWEy0EFtTD3Vfv1wWlkkL
- fZVwMAJettqf77oza8viERm8SzSGy2vP5AP65HljyJloZkY4JlJbgB6oJQB2TnfQ
- wMYvm//Fs5a+UKhtICUJicphcwC2S25drnaiJmqgSPVUd65ZYNNeIXsVjt4kVSUb
- UlZOpY6r/MPo9iAFK9IEkb3H3Ddx6XAoXn3l0/DMCPLHUHKOu7QBomVz/DIuJHeA
- rx/nql97VYnPI3lHfDbi9yxAUOYYyUbeomTXf0f1HBmuapaOUFSX4uyinFm+ZNni
- tWMymNcoD3Bd+A==
-X-ME-Sender: <xms:4y7DYECOMxtTcHIi76rnLIwHXy9-2UYLm2Kx_bbs2aw7pioQG7EFjQ>
- <xme:4y7DYGgtt9H_ncuf9NPZJVRNm-caIg_klHYnj9FUqoZDWwk59_EgiK2wMy8hgJNvj
- 8DPv3_wTyEa4wgJl2c>
-X-ME-Received: <xmr:4y7DYHkdCuHR0CAhfs7iy47KLsKe8K2KtRU-YXHLSWT6cQL6mE6VkaUv-1oiaw37RmD-TzEs8aSAm1k4os7B9uHi16zPjkvTgXFbYSEvYnMSWiguwWp4>
+ fm3; bh=fnkOzJ6AnoN5sGF1n5hmP0Pz9GMo/PNILUy+3TR+F1w=; b=ubu5f7ep
+ LfuyZLBIXApHlO6hoD3VnR3IniJBAzIJRZIVlL+pt1kb0daLnoux74/Tu7cNFNzc
+ r1z4CoXNGnanFFdE6YVGpbgkj5E38q/60dix1uEr3rbzkBwYFeGBmHaXd2PLj+iH
+ 6p4BJ05VnJUZihXaK1KeHFSUqcEbCr3zbmD7EfstaisdriAK3uHsB+YLM2VLkxu7
+ eJTiRvmSvtr15tRYMmsxzqVplHmvc6IolhOmxSNVrZM4bBU+Zq7ran4sxALUNMeV
+ w06fjcDwBAh+GM3wY89UKUdZj0mb+YOAueWXWvlUur7ThYCzxNfZ2qT0i9aCV5Ur
+ YVGGfCv7GL1TtA==
+X-ME-Sender: <xms:5S7DYH6rWX57IeR1ilHxJt-_4B_ONRQ51OXHG19TyKtbBK5VDe_w1w>
+ <xme:5S7DYM5UXwAPFa4ZnCTbvJ5K3RmJBOM0H9TLWQkj4p3h61p-3kZsvynqUenBqd3ef
+ sWS77-7V7TWuQQuCOA>
+X-ME-Received: <xmr:5S7DYOeHEJhkZ_KzddwfKz8SljLVS7aVVS1XR5x_K7nKmHBhoxOTk7Y0f7KGzh0ETdsV4UoyiEKtozNVjV7yXUYXB93tnkfllnMJkFY84HQ9Jmnoloz1>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedujedgudejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
- grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:4y7DYKyuOEbEHVnzpN_G0EhJ_GGd77Y3f18MSium_REbuXp0wwormg>
- <xmx:4y7DYJSr5D0kwmmMgcisi2x5z1v6IloaBXev62jI57vxmiprmjGucg>
- <xmx:4y7DYFai2tH1c48FD_7MSVxouky3CvYFvXOnJ19aID4olmgIBNbnbQ>
- <xmx:4y7DYIJj_m_xuxD4TFpDCg4yNE0wsYhHJXCRF62PU5quR0T-fyJFYg>
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffeuveeuue
+ eghfekgeefgfelffejheffhfejtdeileelkeejkeefkeeuvedujeeinecuffhomhgrihhn
+ pehffhgrughordhorhhgpdhkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgt
+ tghhihdrjhhp
+X-ME-Proxy: <xmx:5S7DYILT-ng9ZUxlwf8GiyZaKHrCKOsH0uEvplitygl9DGZrSeA6kw>
+ <xmx:5S7DYLKe7tCkWLI8vNrbSMyTMVErrOu9qc5WQxIG7Y95v3sVoBt5dg>
+ <xmx:5S7DYBwaLIG7Zeg4JafwUOJRLBfY_nt6HPmXpmS4uiFNWDz0S06iMQ>
+ <xmx:5S7DYBgN1Mzp_0xl2JntvMaYF4c_JBjFCMQbsa3EuiMldNVK8tv-aA>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Jun 2021 05:37:38 -0400 (EDT)
+ 11 Jun 2021 05:37:40 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 2/6] ALSA: fireworks: fulfil device entries
-Date: Fri, 11 Jun 2021 18:37:26 +0900
-Message-Id: <20210611093730.78254-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH 3/6] ALSA: bebob: correct device entry for Mackie D.2 FireWire
+ option card
+Date: Fri, 11 Jun 2021 18:37:27 +0900
+Message-Id: <20210611093730.78254-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
 References: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
@@ -112,59 +113,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-All of devices with Echo Audio Fireworks board module has the same
-combination of specifier_id (0x00a02d) and version (0x010000) in
-unit directory.
+For Mackie D.2 FireWire option card, 0x00000f is used for the value of
+immediate entry for vendor in unit directory. The value comes from report
+by FFADO user in below page:
+
+ * http://subversion.ffado.org/wiki/AvcModels/MackieD.2.
+
+However, it seems to be wrong. There are two causes; vendor's mistake to
+decide value for GUID field in configuration ROM against standard, as
+Stefan Richter mentioned in below post:
+
+ * https://lore.kernel.org/alsa-devel/1443917823-13516-1-git-send-email-o-takashi@sakamocchi.jp/#t
+
+Another is implementation of libffado. The library doesn't print out the
+value from immediate entry for vendor in unit directory. It just print out
+the first 6 bytes of GUID as vendor ID.
+
+This commit replaces with correct vendor OUI.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireworks/fireworks.c | 15 +++++++++++++++
- sound/firewire/fireworks/fireworks.h |  8 --------
- 2 files changed, 15 insertions(+), 8 deletions(-)
+ sound/firewire/bebob/bebob.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/sound/firewire/fireworks/fireworks.c b/sound/firewire/fireworks/fireworks.c
-index 865dac3b37e6..ffb6dd796243 100644
---- a/sound/firewire/fireworks/fireworks.c
-+++ b/sound/firewire/fireworks/fireworks.c
-@@ -300,6 +300,21 @@ static void efw_remove(struct fw_unit *unit)
- 	snd_card_free(efw->card);
- }
- 
-+#define SPECIFIER_1394TA	0x00a02d
-+#define VERSION_EFW		0x010000
-+
-+#define SND_EFW_DEV_ENTRY(vendor, model) \
-+{ \
-+	.match_flags	= IEEE1394_MATCH_VENDOR_ID | \
-+			  IEEE1394_MATCH_MODEL_ID | \
-+			  IEEE1394_MATCH_SPECIFIER_ID | \
-+			  IEEE1394_MATCH_VERSION, \
-+	.vendor_id	= vendor,\
-+	.model_id	= model, \
-+	.specifier_id	= SPECIFIER_1394TA, \
-+	.version	= VERSION_EFW, \
-+}
-+
- static const struct ieee1394_device_id efw_id_table[] = {
- 	SND_EFW_DEV_ENTRY(VENDOR_LOUD, MODEL_MACKIE_400F),
- 	SND_EFW_DEV_ENTRY(VENDOR_LOUD, MODEL_MACKIE_1200F),
-diff --git a/sound/firewire/fireworks/fireworks.h b/sound/firewire/fireworks/fireworks.h
-index 2c0c7de8b824..c8d5879efe28 100644
---- a/sound/firewire/fireworks/fireworks.h
-+++ b/sound/firewire/fireworks/fireworks.h
-@@ -224,12 +224,4 @@ int snd_efw_get_multiplier_mode(unsigned int sampling_rate, unsigned int *mode);
- 
- int snd_efw_create_hwdep_device(struct snd_efw *efw);
- 
--#define SND_EFW_DEV_ENTRY(vendor, model) \
--{ \
--	.match_flags	= IEEE1394_MATCH_VENDOR_ID | \
--			  IEEE1394_MATCH_MODEL_ID, \
--	.vendor_id	= vendor,\
--	.model_id	= model \
--}
--
- #endif
+diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
+index 5ce25ddcbf5c..db1c1dfc0484 100644
+--- a/sound/firewire/bebob/bebob.c
++++ b/sound/firewire/bebob/bebob.c
+@@ -40,8 +40,7 @@ static DECLARE_BITMAP(devices_used, SNDRV_CARDS);
+ #define VEN_EDIROL	0x000040ab
+ #define VEN_PRESONUS	0x00000a92
+ #define VEN_BRIDGECO	0x000007f5
+-#define VEN_MACKIE1	0x0000000f
+-#define VEN_MACKIE2	0x00000ff2
++#define VEN_MACKIE	0x00000ff2
+ #define VEN_STANTON	0x00001260
+ #define VEN_TASCAM	0x0000022e
+ #define VEN_BEHRINGER	0x00001564
+@@ -380,9 +379,9 @@ static const struct ieee1394_device_id bebob_id_table[] = {
+ 	/* BridgeCo, Audio5 */
+ 	SND_BEBOB_DEV_ENTRY(VEN_BRIDGECO, 0x00010049, &spec_normal),
+ 	/* Mackie, Onyx 1220/1620/1640 (Firewire I/O Card) */
+-	SND_BEBOB_DEV_ENTRY(VEN_MACKIE2, 0x00010065, &spec_normal),
++	SND_BEBOB_DEV_ENTRY(VEN_MACKIE, 0x00010065, &spec_normal),
+ 	// Mackie, d.2 (optional Firewire card with DM1000).
+-	SND_BEBOB_DEV_ENTRY(VEN_MACKIE1, 0x00010067, &spec_normal),
++	SND_BEBOB_DEV_ENTRY(VEN_MACKIE, 0x00010067, &spec_normal),
+ 	/* Stanton, ScratchAmp */
+ 	SND_BEBOB_DEV_ENTRY(VEN_STANTON, 0x00000001, &spec_normal),
+ 	/* Tascam, IF-FW DM */
 -- 
 2.30.2
 

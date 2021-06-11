@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB5D83A3D2D
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 09:33:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18C033A3D3A
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 09:34:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C60018B5;
-	Fri, 11 Jun 2021 09:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C60018B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95C9418BF;
+	Fri, 11 Jun 2021 09:33:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95C9418BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623396809;
-	bh=qluACuDz7PYLit6jsSkAahyx2ue0G6DphQScMUuyxl0=;
+	s=default; t=1623396844;
+	bh=2+ypJyTREljnVjS0Z2b730PP2XEs/ES40JbJetUwtIY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qCb7J/AuTGgEtkR70SzPE/ARlIhano7CzL6dg848fWp1xiYOo+mAX/EumlGkzeK96
-	 R7hWgNySSCpyBv50GoRmPtYKgwXoFS7Fq0vFbcxKDnbYzavmYx3Cw5FFzwcSsJC+yr
-	 A4Z/6kd7thueACRNUcqhUayELrCtmXTQSCtD039U=
+	b=sBZbXamzNXzhlvUrEygYvIZFCJGOaa88/NqdePUCLUm0O17GzYkXPGs07WeAk8jJV
+	 52dDCFgipqr4MrT+Jrroo825LU8w1XHMYEnfIXDtTpzzVDbcgJpUHCq29ozQnk3uz5
+	 ibdbZ3J+YK0QDy35GojuPWefuiNZj9nVRfqFSH/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B11D8F8026C;
-	Fri, 11 Jun 2021 09:31:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F28DEF804C1;
+	Fri, 11 Jun 2021 09:32:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A3F2F8026C; Fri, 11 Jun 2021 09:31:44 +0200 (CEST)
+ id B3BB7F804BD; Fri, 11 Jun 2021 09:32:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 5118CF80149
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 09:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5118CF80149
+ by alsa1.perex.cz (Postfix) with ESMTP id 7CF08F802DF
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 09:32:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF08F802DF
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1623396696780062914-webhooks-bot@alsa-project.org>
-References: <1623396696780062914-webhooks-bot@alsa-project.org>
+In-Reply-To: <1623396742125567913-webhooks-bot@alsa-project.org>
+References: <1623396742125567913-webhooks-bot@alsa-project.org>
 Subject: ALSA lib pcm_dmix.c:1063:(snd_pcm_dmix_open) unable to create IPC
  semaphore
-Message-Id: <20210611073144.9A3F2F8026C@alsa1.perex.cz>
-Date: Fri, 11 Jun 2021 09:31:44 +0200 (CEST)
+Message-Id: <20210611073224.B3BB7F804BD@alsa1.perex.cz>
+Date: Fri, 11 Jun 2021 09:32:24 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,6 +70,7 @@ alsa info:
 
 asound.conf:
 
+```
 pcm.dmixer {
     type dmix
     ipc_key 1024
@@ -88,11 +89,14 @@ pcm.dmixer {
         1 1
     }
 }
-
+```
 
 
 test cmd:
+
+```
 arecord -f dat | aplay -f dat -D plug:dmixer
+```
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/153
 Repository URL: https://github.com/alsa-project/alsa-lib
